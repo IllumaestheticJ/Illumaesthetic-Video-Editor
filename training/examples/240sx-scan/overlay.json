@@ -2,11 +2,12 @@
   "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 683,
   "accent": "#e8ecf2",
   "items": [
-    {"kind": "brackets", "from": 243, "duration": 76},
-    {"kind": "counter",  "from": 247, "duration": 72, "label": "TRIANGLES CAPTURED", "value": 24991097, "x": 0.08, "y": 0.16},
-    {"kind": "label",    "from": 256, "duration": 63, "title": "NISSAN 240SX", "sub": "S13 HATCH · 3D SCAN", "x": 0.92, "y": 0.80, "align": "right"},
-    {"kind": "label",    "from": 322, "duration": 54, "title": "4,527 MM", "sub": "LENGTH · MEASURED FROM SCAN", "x": 0.08, "y": 0.70},
-    {"kind": "brackets", "from": 452, "duration": 75},
-    {"kind": "label",    "from": 458, "duration": 69, "title": "FRONT BUMPER", "sub": "7,497,192 TRIANGLES", "x": 0.08, "y": 0.16}
+    {"kind": "brackets", "from": 55, "duration": 188},
+    {"kind": "counter",  "from": 58, "duration": 76, "label": "TRIANGLES CAPTURED", "value": 24991097, "x": 0.08, "y": 0.16},
+    {"kind": "label",    "from": 140, "duration": 100, "title": "INSIDE + OUTSIDE", "sub": "REAR BUMPER + CRASH BEAM SCANNED", "x": 0.08, "y": 0.16},
+    {"kind": "brackets", "from": 319, "duration": 152},
+    {"kind": "label",    "from": 325, "duration": 68, "title": "FRONT BUMPER", "sub": "7,497,192 TRIANGLES", "x": 0.08, "y": 0.16},
+    {"kind": "label",    "from": 398, "duration": 72, "title": "INSIDE + OUTSIDE", "sub": "FRONT BUMPER SCANNED", "x": 0.08, "y": 0.16},
+    {"kind": "label",    "from": 552, "duration": 50, "title": "4,527 MM", "sub": "LENGTH · MEASURED FROM SCAN", "x": 0.08, "y": 0.74}
   ]
 }
