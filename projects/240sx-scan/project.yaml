@@ -1,7 +1,7 @@
 # 240SX (S13 hatch) scan reel v3. v1/v2 kept as project_v1.yaml / project_v2.yaml.
 # v3 feedback: no 4,527 mm caption; bumpers spin left/right (Z); 1:1 cut in the front-bumper scene;
-# ending = parts fly back onto the car -> "SCAN DATA NOW AVAILABLE / ILLUMAESTHETIC.COM" ->
-# dissolve into the website (scan-data page) zooming out.
+# ending = parts fly back onto the car -> dissolve into the S13 240SX scan listing on illumaesthetic.com
+# (same angle as its product render) -> zoom out; "SCAN DATA NOW AVAILABLE" + URL on that page.
 project: 240sx-scan
 format: reel-9x16
 output: {path: /home/user/media/work/out/240sx_scan_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -43,13 +43,13 @@ timeline:
     src: /home/user/media/240sx/dropbox/v_1838_14.mov
     in: 0.60
     out: 3.13
-  - id: scan_reassemble   # all parts fly back on, title over the finished car
+  - id: scan_reassemble   # all parts fly back on; orbit ENDS on the listing image's angle (cam_end2_final)
     dur: 5.04
     src: /home/user/media/work/renders/shots_v3/s3_end
     src_fps: 15
     interpolate: true
-  - transition: {type: dissolve, duration: 0.5, note: "scan -> website, not an IRL->scan cut"}
-  - id: website   # illumaesthetic.com/collections/scan-data, zooms out to the page on the logo hit (25.18 s)
+  - transition: {type: dissolve, duration: 0.5, note: "scan render -> same-angle listing render (near-1:1 dissolve)"}
+  - id: website   # S13 240SX scan listing; starts on its product render, zooms out on the hit (25.18 s); title + URL on this page
     dur: 6.31   # +0.5 s: the dissolve overlaps the previous shot
     src: /home/user/media/work/out/webzoom_240sx.mp4
 

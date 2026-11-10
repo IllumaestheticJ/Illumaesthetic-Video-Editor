@@ -3,12 +3,13 @@
  "height": 1920,
  "fps": 30,
  "durationInFrames": 190,
- "src": "web_scan_data.png",
+ "src": "web_240sx_listing.png",
  "imgW": 2880,
  "imgH": 1640,
- "focusX": 1440,
- "focusY": 680,
- "startScale": 1.25,
+ "focusX": 982,
+ "focusY": 840,
+ "startScale": 0.758,
  "zoomFrames": 110,
- "url": "ILLUMAESTHETIC.COM"
+ "url": "ILLUMAESTHETIC.COM",
+ "title": "SCAN DATA NOW AVAILABLE"
 }

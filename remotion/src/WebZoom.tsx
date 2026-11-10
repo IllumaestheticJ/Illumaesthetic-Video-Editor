@@ -19,6 +19,7 @@ export type WebZoomProps = {
   startScale: number; // screenshot px -> video px at frame 0
   zoomFrames: number; // frames to reach the full-width view
   url: string;
+  title?: string; // shown above the page once zoomed out, e.g. "SCAN DATA NOW AVAILABLE"
 };
 
 export const webZoomDefaults: WebZoomProps = {
@@ -56,6 +57,8 @@ export const WebZoom: React.FC<WebZoomProps> = (p) => {
   const top = height / 2 - cy * scale;
   const frameOpacity = interpolate(t, [0.6, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const urlOpacity = interpolate(f, [p.zoomFrames - 10, p.zoomFrames + 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const titleIn = interpolate(f, [p.zoomFrames - 18, p.zoomFrames + 4], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
+  const pageTop = height / 2 - (p.imgH * endScale) / 2;
   return (
     <AbsoluteFill style={{ backgroundColor: "#050506" }}>
       <div
@@ -72,6 +75,27 @@ export const WebZoom: React.FC<WebZoomProps> = (p) => {
       >
         <Img src={staticFile(p.src)} style={{ width: p.imgW * scale, height: p.imgH * scale, display: "block", margin: 2 }} />
       </div>
+      {p.title ? (
+        <div
+          style={{
+            position: "absolute",
+            top: pageTop - 330 + (1 - titleIn) * 24,
+            width: "100%",
+            textAlign: "center",
+            opacity: titleIn,
+            color: "#e8ecf2",
+            fontFamily: "'Inter Display', 'Inter', sans-serif",
+            fontWeight: 700,
+            fontSize: 88,
+            letterSpacing: 10,
+            lineHeight: 1.08,
+            padding: "0 70px",
+            boxSizing: "border-box",
+          }}
+        >
+          {p.title}
+        </div>
+      ) : null}
       <div
         style={{
           position: "absolute",

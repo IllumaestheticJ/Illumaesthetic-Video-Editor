@@ -1,13 +1,55 @@
 {
-  "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 834,
-  "accent": "#e8ecf2",
-  "items": [
-    {"kind": "brackets", "from": 55, "duration": 150},
-    {"kind": "counter",  "from": 58, "duration": 72, "label": "TRIANGLES CAPTURED", "value": 24991097, "x": 0.08, "y": 0.10},
-    {"kind": "label",    "from": 128, "duration": 76, "title": "INSIDE + OUTSIDE", "sub": "REAR BUMPER + CRASH BEAM SCANNED", "x": 0.08, "y": 0.10},
-    {"kind": "brackets", "from": 281, "duration": 151},
-    {"kind": "label",    "from": 287, "duration": 62, "title": "FRONT BUMPER", "sub": "7,497,192 TRIANGLES", "x": 0.08, "y": 0.16},
-    {"kind": "label",    "from": 352, "duration": 78, "title": "INSIDE + OUTSIDE", "sub": "FRONT BUMPER SCANNED", "x": 0.08, "y": 0.16},
-    {"kind": "title",    "from": 585, "duration": 75, "text": "SCAN DATA NOW AVAILABLE", "sub": "ILLUMAESTHETIC.COM", "y": 0.12, "size": 84, "subSize": 44}
-  ]
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 834,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "brackets",
+   "from": 55,
+   "duration": 150
+  },
+  {
+   "kind": "counter",
+   "from": 58,
+   "duration": 72,
+   "label": "TRIANGLES CAPTURED",
+   "value": 24991097,
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 128,
+   "duration": 76,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "REAR BUMPER + CRASH BEAM SCANNED",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 281,
+   "duration": 151
+  },
+  {
+   "kind": "label",
+   "from": 287,
+   "duration": 62,
+   "title": "FRONT BUMPER",
+   "sub": "7,497,192 TRIANGLES",
+   "x": 0.08,
+   "y": 0.16
+  },
+  {
+   "kind": "label",
+   "from": 352,
+   "duration": 78,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "FRONT BUMPER SCANNED",
+   "x": 0.08,
+   "y": 0.16
+  }
+ ]
 }
