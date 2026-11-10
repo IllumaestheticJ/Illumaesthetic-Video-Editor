@@ -27,3 +27,8 @@ lands here automatically. Agents must read this whole file before editing.
   crop bumpers) and keep exploded parts from flying at the lens (move them down/back too).
 - **[technical]** Splice part-state scans into the full car over the *smallest* zone that changed.
   Swapping half the car exposed coverage holes in the partial scan.
+- **[text]** Before putting a claim like "inside + outside scanned" on screen, render the part from
+  the hidden side and look. 240SX: true for front skin, rear skin, rear beam; the front crash beam only
+  exists on the car (chassis scan), so it was not claimed.
+- **[scan-look]** Showing a part's inside: flip it about its long (car-width) axis (`x180` in
+  `--explode`), not a Z spin - a 1.6 m bumper spinning about Z sweeps into the car and the lens.

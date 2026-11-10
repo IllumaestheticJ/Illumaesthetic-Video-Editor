@@ -37,6 +37,12 @@ Find IDs with the Drive API via the service account (see `ive/fetch.py`).
 - Don't run npm installs / Chrome renders concurrently with Blender: 110 s/frame instead of 18.
 - Debug framing at `--res-pct 30 --samples 8` (≈3 s/frame) before queueing finals.
 
+## Exploded views
+`ive render ... --explode "part.blend:dx,dy,dz:start:end[:x180:rstart:rend]"` (repeatable, fractions of
+the shot). Parts move first, then flip about their own centre. Stagger parts (skin, then beam) and
+let each flip land on a beat. Pull the camera back 20–30 % (`--move pull`) only as much as needed
+to keep parts in frame — the match shot must still start on the solved camera.
+
 ## Looks
 `silver` (house), `clay`, `scan` (cyan rim + wire), `wire`, `points`, `xray`, `color`, `sweep`.
 See `knowledge/style-guide.md` for when to use which.

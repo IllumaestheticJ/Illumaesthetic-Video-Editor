@@ -1,6 +1,7 @@
 # 240SX (S13 hatch) scan reel v2 - opens on the 1:1 IRL->scan cut, which continues
 # straight into the rear-bumper teardown. v1 kept in project_v1.yaml.
-# Feedback addressed: open on the 1:1 cut; tighter scan framing; rear bumper removal section.
+# Feedback addressed: open on the 1:1 cut; tighter scan framing; rear bumper removal continues
+# from the match; bumpers explode out and flip to show inside + outside were scanned.
 project: 240sx-scan
 format: reel-9x16
 output: {path: /home/user/media/work/out/240sx_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -11,7 +12,7 @@ music:
   start: 0
   fade_out: 0.6
 
-beats: [1.82, 5.60, 8.10, 10.63, 13.17, 15.70, 20.11, 22.75]   # 1.82 = 3.07 - 2 beats (intro phase)
+beats: [1.82, 8.10, 10.63, 15.70, 18.23, 20.11, 22.75]   # 1.82 = 3.07 - 2 beats (intro phase)
 
 timeline:
   - id: irl_match_A   # pan to the rear bumper, ends EXACTLY on the matched frame (3.800 s)
@@ -21,34 +22,28 @@ timeline:
     out: 3.8334
     note: "last frame == match/points_B.json frame; trim from the head only"
   - transition: {type: cut, note: "1:1 perspective cut IRL -> scan at 1.82 s (the hook)"}
-  - id: scan_match_rear   # same camera (match/cam_B.json): rear skin slides off, then crash beam
-    dur: 3.78
+  - id: scan_match_rear   # cam_B: rear skin explodes out, crash beam out, both flip to show the inside
+    dur: 6.28
     src: /home/user/media/work/renders/shots_v2/s1_match_rear
     src_fps: 15
     interpolate: true
-  - id: irl_scanner   # handheld scanner screen against the powdered flank
-    dur: 2.5
-    src: /home/user/media/240sx/dropbox/v_1838_14.mov
-    in: 0.60
-    out: 3.10
-  - id: scan_side   # tight side track (car slightly cropped - intentional)
-    dur: 2.53
-    src: /home/user/media/work/renders/shots_v2/s2_side
-    src_fps: 15
-    interpolate: true
   - id: irl_bumper_off   # crew pulls the front bumper
-    dur: 2.54
-    src: /home/user/media/240sx/dropbox/v_1954_41.mov
-    in: 3.68
-    out: 6.22
-  - id: scan_front   # front bumper scan slides off the chassis scan
     dur: 2.53
+    src: /home/user/media/240sx/dropbox/v_1954_41.mov
+    in: 3.69
+    out: 6.22
+  - id: scan_front   # front bumper explodes off the chassis scan, then flips to show the inside
+    dur: 5.07
     src: /home/user/media/work/renders/shots_v2/s3_front
     src_fps: 15
     interpolate: true
-    trim_start: 0.30
+  - id: irl_scanner   # handheld scanner screen against the powdered flank
+    dur: 2.53
+    src: /home/user/media/240sx/dropbox/v_1838_14.mov
+    in: 0.60
+    out: 3.13
   - id: scan_hero   # tight 3/4 orbit, 3 mm mesh
-    dur: 4.41
+    dur: 1.88
     src: /home/user/media/work/renders/shots_v2/s4_hero
     src_fps: 15
     interpolate: true
