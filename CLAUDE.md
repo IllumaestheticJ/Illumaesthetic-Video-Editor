@@ -32,5 +32,6 @@ prep, render, lookat, solve, check, hud, assemble, feedback, log, archive. `--he
 
 ## Never
 - Invent numbers in on-screen text (scanner accuracy, specs). Use data from the files.
-- Put text over IRL footage. Use dissolves for the IRL→scan transformation.
+- Put text over IRL footage.
+- Use a dissolve for the IRL→scan transformation (it is always a hard 1:1 cut on a beat).
 - Re-normalise a scan after a camera solve without `--like`.

@@ -22,3 +22,8 @@ lands here automatically. Agents must read this whole file before editing.
   1 frame earlier (8 cuts = 0.27 s off the music). The assembler now adds the frame back; always give
   clips an explicit `dur` from the beat grid.
 - **[technical]** When trimming the clip that ends on the match frame, move `in`, never `out`.
+- **[scan-look]** "Tighter" in 9:16 does not mean "whole car fills the width" - a full side profile at
+  100 % width still reads small. Tighten by cropping into the car (3/4 views, side tracks that
+  crop bumpers) and keep exploded parts from flying at the lens (move them down/back too).
+- **[technical]** Splice part-state scans into the full car over the *smallest* zone that changed.
+  Swapping half the car exposed coverage holes in the partial scan.

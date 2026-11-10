@@ -1,9 +1,9 @@
-# 240SX (S13 hatch) scan reel - IRL -> scan data, Temerario-style scan beats.
-# Media lives outside git (see sources). Paths below are absolute on the work box;
-# `ive fetch` recreates them from Dropbox/Drive (see sources.yaml).
+# 240SX (S13 hatch) scan reel v2 - opens on the 1:1 IRL->scan cut, which continues
+# straight into the rear-bumper teardown. v1 kept in project_v1.yaml.
+# Feedback addressed: open on the 1:1 cut; tighter scan framing; rear bumper removal section.
 project: 240sx-scan
 format: reel-9x16
-output: {path: /home/user/media/work/out/240sx_scan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/240sx_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   # Track from the approved Oct 31 IRL edit; 95.7 BPM, beat = 0.627 s, first downbeat 3.07 s.
@@ -11,56 +11,47 @@ music:
   start: 0
   fade_out: 0.6
 
-beats: [3.07, 5.60, 8.10, 10.63, 12.54, 15.06, 17.58, 20.11, 22.75]   # every cut below lands on one
+beats: [1.82, 5.60, 8.10, 10.63, 13.17, 15.70, 20.11, 22.75]   # 1.82 = 3.07 - 2 beats (intro phase)
 
 timeline:
-  - id: irl_open   # crew walking the car, wide, night
-    dur: 3.07
-    src: /home/user/media/240sx/dropbox/v_2122_00.mov
-    in: 0.00
-    out: 3.07
+  - id: irl_match_A   # pan to the rear bumper, ends EXACTLY on the matched frame (3.800 s)
+    dur: 1.82
+    src: /home/user/media/240sx/dropbox/v_1838_02.mov
+    in: 2.0134
+    out: 3.8334
+    note: "last frame == match/points_B.json frame; trim from the head only"
+  - transition: {type: cut, note: "1:1 perspective cut IRL -> scan at 1.82 s (the hook)"}
+  - id: scan_match_rear   # same camera (match/cam_B.json): rear skin slides off, then crash beam
+    dur: 3.78
+    src: /home/user/media/work/renders/shots_v2/s1_match_rear
+    src_fps: 15
+    interpolate: true
   - id: irl_scanner   # handheld scanner screen against the powdered flank
-    dur: 2.53
+    dur: 2.5
     src: /home/user/media/240sx/dropbox/v_1838_14.mov
     in: 0.60
-    out: 3.13
-  - id: irl_match_A   # walk-around ends EXACTLY on the matched frame (3.800 s)
-    dur: 2.5
-    src: /home/user/media/240sx/dropbox/v_1838_02.mov
-    in: 1.3334
-    out: 3.8334
-    note: "last frame == match/points_B.json frame; do not trim the tail"
-  - transition: {type: cut, note: "1:1 perspective cut IRL -> scan on the beat (8.10 s)"}
-  - id: scan_match_B   # same camera (match/cam_B.json), slow push-in
+    out: 3.10
+  - id: scan_side   # tight side track (car slightly cropped - intentional)
     dur: 2.53
-    src: /home/user/media/work/renders/shots/s1_match
+    src: /home/user/media/work/renders/shots_v2/s2_side
     src_fps: 15
     interpolate: true
-    trim_end: 2.53
-  - id: scan_side
-    dur: 1.91
-    src: /home/user/media/work/renders/shots/s2_side
-    src_fps: 15
-    interpolate: true
-    trim_end: 1.91
   - id: irl_bumper_off   # crew pulls the front bumper
-    dur: 2.52
+    dur: 2.54
     src: /home/user/media/240sx/dropbox/v_1954_41.mov
-    in: 3.70
+    in: 3.68
     out: 6.22
-  - id: scan_explode   # bumper scan slides off the chassis scan (exploded view)
-    dur: 2.52
-    src: /home/user/media/work/renders/shots/s3_explode
+  - id: scan_front   # front bumper scan slides off the chassis scan
+    dur: 2.53
+    src: /home/user/media/work/renders/shots_v2/s3_front
     src_fps: 15
     interpolate: true
     trim_start: 0.30
-    trim_end: 2.82
-  - id: scan_hero
-    dur: 2.53
-    src: /home/user/media/work/renders/shots/s4_hero
+  - id: scan_hero   # tight 3/4 orbit, 3 mm mesh
+    dur: 4.41
+    src: /home/user/media/work/renders/shots_v2/s4_hero
     src_fps: 15
     interpolate: true
-    trim_end: 2.53
   - id: end_card   # house logo card from the approved edit
     dur: 2.64
     src: /home/user/media/240sx/dropbox/edited_oct31_1330_46.mp4
@@ -68,5 +59,5 @@ timeline:
     out: 22.75
 
 overlays:
-  - src: /home/user/media/work/out/hud_240sx.mov   # rendered by `ive hud projects/240sx-scan/overlay.json`
+  - src: /home/user/media/work/out/hud_240sx_v2.mov   # `ive hud projects/240sx-scan/overlay.json ...`
     start: 0

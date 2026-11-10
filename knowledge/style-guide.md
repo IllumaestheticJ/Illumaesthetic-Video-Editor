@@ -24,7 +24,8 @@ an un-tonemapped HLG clip with SDR renders — it looks washed out next to the s
 Rules of thumb:
 - **Cut on the beat.** Run `ive beats <music>`; a shot is usually 4 beats (≈2.5 s at ~96 BPM).
   Detail montages can drop to 1 beat per shot.
-- **Hook in the first 3 s**: either the strongest IRL action or a CG/scan beat with a caption.
+- **Hook in the first 2 s**: open on the transformation. 240SX v1 waited 8 s for the 1:1 cut and
+  the reviewer asked for it up front (v2 cuts at 1.82 s). Default: ~2 beats of IRL, then the cut.
 - **End on the ILLUMAESTHETIC logo card** on the final downbeat (reuse the card from an approved edit).
 
 ## The 1:1 perspective cut (signature transition)
@@ -39,6 +40,8 @@ Optional variants (use sparingly, max once per video): `flash` (2-frame bloom on
 - Lighting is soft studio from above + rim; the background never shows lights or a floor.
 - Scan micro-detail must read: use ≤4 mm decimation for full-car shots, ≤2 mm for close-ups.
 - Moves are slow and continuous: orbit 15–35° or push-in 10–15% over a shot, ease-in-out.
+- Let the matched scan shot *keep going* into the next beat of the story (e.g. the part you were
+  looking at comes off) instead of cutting away — reviewer request on 240SX.
 - Exploded views (parts sliding off along one axis) are the money shot for "what we scan / what we make".
 - No ground: scanned asphalt, paint lines and wheel stops must be cleaned (`ive crop` + `--drop-islands`).
 
