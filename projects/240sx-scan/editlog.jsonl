@@ -3,3 +3,4 @@
 {"ts": "2026-11-10T20:17:32Z", "decision": "Scan beats: match push-in, side orbit, exploded front bumper, hero orbit", "why": "Mirrors Temerario reel structure (turntable -> detail -> exploded view) using the scan states engineering captured"}
 {"ts": "2026-11-10T20:17:32Z", "decision": "IRL bumper-pull clip placed right before the exploded-bumper scan", "why": "Real action -> its scan counterpart is the story; viewer sees why the bumper scan exists"}
 {"ts": "2026-11-10T20:17:32Z", "decision": "HUD only on scan shots with numbers read from files (STL tri counts, 4,527 mm length)", "why": "House rule: true data only; length cross-checked against 240SX spec 4,520 mm"}
+{"ts": "2026-11-10T20:56:09Z", "decision": "Cuts compensated for 1-frame xfade overlap; every clip has an explicit beat-derived dur", "why": "8 cuts drifted 0.27 s off the music in the first assembly"}

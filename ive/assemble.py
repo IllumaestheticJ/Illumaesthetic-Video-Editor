@@ -111,6 +111,8 @@ def _render_clip(clip: dict, root: Path, out: Path, cfg: dict) -> float:
         vf.append(f"lut3d='{(root / cfg['lut']).resolve()}'")
     if clip.get("vf"):
         vf.append(clip["vf"])  # escape hatch for per-clip ffmpeg filters
+    if clip.get("dur"):  # exact beat-locked length: pad (clone last frame) or trim
+        vf.append(f"tpad=stop_mode=clone:stop_duration=2,trim=duration={float(clip['dur']):.4f},setpts=PTS-STARTPTS")
     hs, he = float(clip.get("hold_start", 0)), float(clip.get("hold_end", 0))
     if hs or he:
         vf.append(f"tpad=start_mode=clone:start_duration={hs}:stop_mode=clone:stop_duration={he}")
@@ -140,6 +142,9 @@ def assemble(project_yaml: str, out_override: str | None = None, keep_temp: bool
         c = dict(item)
         if clips:
             trans.append(pending)
+            if pending.get("type", "cut") == "cut":
+                # a cut is a 1-frame xfade; give A one cloned frame so cuts don't drift off the beat
+                clips[-1]["hold_end"] = float(clips[-1].get("hold_end", 0)) + 1.0 / cfg["fps"]
             if pending.get("hold") and pending.get("type", "cut") != "cut":
                 d = float(pending.get("duration", 0.5))
                 clips[-1]["hold_end"] = float(clips[-1].get("hold_end", 0)) + d

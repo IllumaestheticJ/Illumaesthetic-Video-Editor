@@ -18,3 +18,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** House scan look is satin metallic silver on pure black (Temerario), not white clay.
 - **[text]** HUD numbers must come from the data: 24,991,097 triangles (STL header), length
   4,527 mm (scan footprint; spec sheet says 4,520 mm — good sanity check).
+- **[technical]** `type: cut` is a 1-frame xfade; without compensation each cut shifts everything after it
+  1 frame earlier (8 cuts = 0.27 s off the music). The assembler now adds the frame back; always give
+  clips an explicit `dur` from the beat grid.
+- **[technical]** When trimming the clip that ends on the match frame, move `in`, never `out`.
