@@ -58,6 +58,7 @@ def parse():
     ap.add_argument("--explode", action="append", default=[],
                     help="'part.blend:dx,dy,dz[:start:end[:rotZdeg:rstart:rend]]' append a prepared part scan, move it by "
                          "dx,dy,dz (m) between start..end (fractions of the shot), then optionally spin it [x|y|z]deg "
+                         "(prefix start with 'r', e.g. r0.2, to run it backwards: part flies back into place) "
                          "about its own centre (x = flip about the car's width axis, best for bumpers) between rstart..rend - exploded views that show inside + outside")
     ap.add_argument("--look-at", default="", help="x,y,z pivot for orbit moves (default: scan bbox centre)")
     ap.add_argument("--raycast", help="'name:x,y;...' pixel coords in this camera's render")
@@ -452,6 +453,9 @@ def main():
     for spec in args.explode:
         bits = spec.split(":")
         path, off = bits[0], Vector([float(v) for v in bits[1].split(",")])
+        reverse = len(bits) > 2 and bits[2].startswith("r")  # "r0.2": part starts exploded and returns home
+        if reverse:
+            bits[2] = bits[2][1:]
         a0 = float(bits[2]) if len(bits) > 2 else 0.15
         a1 = float(bits[3]) if len(bits) > 3 else 0.85
         rot = None
@@ -467,7 +471,7 @@ def main():
             bpy.context.scene.collection.objects.link(o)
             if o.type == "MESH":
                 o["ive_scan"] = True
-                parts.append((o, off, a0, a1, rot))
+                parts.append((o, off, a0, a1, rot, reverse))
     objs = objs + [p[0] for p in parts]
 
     cam = make_camera(args, lo, hi)
@@ -509,7 +513,7 @@ def main():
         c = Vector([float(v) for v in args.look_at.split(",")])
         lo, hi = c, c
     animate_camera(cam, args, lo, hi, 1, nframes)
-    for o, off, a0, a1, rot in parts:
+    for o, off, a0, a1, rot, reverse in parts:
         # Pivot empty at the part's own centre so spins happen in place, not about the car origin.
         bpy.context.view_layer.update()
         plo, phi = bbox([o])
@@ -525,12 +529,14 @@ def main():
         for f in range(1, nframes + 1):
             t = (f - 1) / max(1, nframes - 1)
             tm = min(1.0, max(0.0, (t - a0) / max(1e-6, a1 - a0)))
-            pivot.location = base + off * ease(tm, "ease_in_out")
+            k = ease(tm, "ease_in_out")
+            pivot.location = base + off * ((1 - k) if reverse else k)
             pivot.keyframe_insert("location", frame=f)
             if rot:
                 tr = min(1.0, max(0.0, (t - rot[1]) / max(1e-6, rot[2] - rot[1])))
                 e = [0.0, 0.0, 0.0]
-                e[rot[3]] = math.radians(rot[0]) * ease(tr, "ease_in_out")
+                kr = ease(tr, "ease_in_out")
+                e[rot[3]] = math.radians(rot[0]) * ((1 - kr) if reverse else kr)
                 pivot.rotation_euler = e
                 pivot.keyframe_insert("rotation_euler", frame=f)
 
