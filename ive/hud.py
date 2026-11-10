@@ -15,12 +15,16 @@ def _browser() -> list[str]:
     return [f"--browser-executable={hs[-1]}"] if hs else []
 
 
-def render_hud(overlay_json: str, out: str) -> str:
+def render_hud(overlay_json: str, out: str, comp: str = "ScanHUD") -> str:
+    """ScanHUD -> transparent ProRes 4444 overlay; any other composition (e.g. WebZoom) -> opaque H.264 clip."""
     if not (REMOTION / "node_modules").exists():
         subprocess.run(["npm", "ci"], cwd=REMOTION, check=True)
     Path(out).parent.mkdir(parents=True, exist_ok=True)
-    cmd = ["npx", "remotion", "render", "ScanHUD", os.path.abspath(out), f"--props={os.path.abspath(overlay_json)}",
-           "--codec=prores", "--prores-profile=4444", "--pixel-format=yuva444p10le", "--image-format=png",
-           "--concurrency=2", *_browser()]
+    if comp == "ScanHUD":
+        fmt = ["--codec=prores", "--prores-profile=4444", "--pixel-format=yuva444p10le", "--image-format=png"]
+    else:
+        fmt = ["--codec=h264", "--crf=12", "--image-format=jpeg", "--jpeg-quality=95"]
+    cmd = ["npx", "remotion", "render", comp, os.path.abspath(out), f"--props={os.path.abspath(overlay_json)}",
+           *fmt, "--concurrency=2", *_browser()]
     subprocess.run(cmd, cwd=REMOTION, check=True)
     return out

@@ -1,5 +1,6 @@
 import { Composition } from "remotion";
 import { calculateScanHudMetadata, ScanHUD, scanHudDefaults } from "./ScanHUD";
+import { calculateWebZoomMetadata, WebZoom, webZoomDefaults } from "./WebZoom";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -13,6 +14,16 @@ export const RemotionRoot: React.FC = () => {
         height={scanHudDefaults.height}
         defaultProps={scanHudDefaults}
         calculateMetadata={calculateScanHudMetadata}
+      />
+      <Composition
+        id="WebZoom"
+        component={WebZoom}
+        durationInFrames={webZoomDefaults.durationInFrames}
+        fps={webZoomDefaults.fps}
+        width={webZoomDefaults.width}
+        height={webZoomDefaults.height}
+        defaultProps={webZoomDefaults}
+        calculateMetadata={calculateWebZoomMetadata}
       />
     </>
   );

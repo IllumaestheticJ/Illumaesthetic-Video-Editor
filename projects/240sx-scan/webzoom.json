@@ -1,0 +1,14 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 190,
+ "src": "web_scan_data.png",
+ "imgW": 2880,
+ "imgH": 1640,
+ "focusX": 1440,
+ "focusY": 680,
+ "startScale": 1.25,
+ "zoomFrames": 110,
+ "url": "ILLUMAESTHETIC.COM"
+}

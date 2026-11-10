@@ -90,9 +90,10 @@ def main(argv=None):
     s.add_argument("render")
     s.add_argument("out")
 
-    s = sub.add_parser("hud", help="render the Remotion HUD layer (transparent ProRes)")
+    s = sub.add_parser("hud", help="render a Remotion composition: ScanHUD overlay (transparent ProRes) or WebZoom end card")
     s.add_argument("overlay_json")
     s.add_argument("out")
+    s.add_argument("--comp", default="ScanHUD", help="ScanHUD | WebZoom")
 
     s = sub.add_parser("assemble", help="build the final video from project.yaml")
     s.add_argument("project_yaml")
@@ -170,7 +171,7 @@ def main(argv=None):
         _p(check(a.frame, a.render, a.out))
     elif a.cmd == "hud":
         from .hud import render_hud
-        print(render_hud(a.overlay_json, a.out))
+        print(render_hud(a.overlay_json, a.out, a.comp))
     elif a.cmd == "assemble":
         from .assemble import assemble
         _p(assemble(a.project_yaml, a.out, a.keep_temp))

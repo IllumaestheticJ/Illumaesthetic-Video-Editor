@@ -52,6 +52,8 @@ export type HudItem =
       text: string;
       sub?: string;
       y: number;
+      size?: number; // title font px (default 92); long titles wrap within 920 px
+      subSize?: number;
     };
 
 export type ScanHUDProps = {
@@ -193,8 +195,8 @@ const Title: React.FC<{ item: Extract<HudItem, { kind: "title" }>; accent: strin
   return (
     <AbsoluteFill style={{ alignItems: "center" }}>
       <div style={{ position: "absolute", top: item.y * height, textAlign: "center", opacity: k, transform: `translateY(${slide}px)`, color: accent }}>
-        <div style={{ fontFamily: SANS, fontWeight: 700, fontSize: 92, letterSpacing: 10 }}>{item.text}</div>
-        {item.sub ? <div style={{ fontFamily: MONO, fontSize: 32, letterSpacing: 6, opacity: 0.7, marginTop: 18 }}>{item.sub}</div> : null}
+        <div style={{ fontFamily: SANS, fontWeight: 700, fontSize: item.size ?? 92, letterSpacing: 10, lineHeight: 1.08, maxWidth: 920 }}>{item.text}</div>
+        {item.sub ? <div style={{ fontFamily: MONO, fontSize: item.subSize ?? 32, letterSpacing: 6, opacity: 0.8, marginTop: 22 }}>{item.sub}</div> : null}
       </div>
     </AbsoluteFill>
   );
