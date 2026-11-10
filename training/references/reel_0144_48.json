@@ -1,0 +1,39 @@
+{
+ "video": "reel_0144_48.mp4",
+ "fps": 24.0,
+ "frames": 186,
+ "duration": 7.75,
+ "shots": 3,
+ "avg_shot_s": 2.58,
+ "median_shot_s": 2.62,
+ "shortest_s": 2.5,
+ "longest_s": 2.625,
+ "cuts_per_10s": 3.87,
+ "mean_brightness": 123.3,
+ "shot_list": [
+  {
+   "start": 0.0,
+   "end": 2.625,
+   "dur": 2.625,
+   "motion": 9.99,
+   "brightness": 116.7,
+   "thumb_frame": 31
+  },
+  {
+   "start": 2.625,
+   "end": 5.25,
+   "dur": 2.625,
+   "motion": 19.37,
+   "brightness": 133.2,
+   "thumb_frame": 94
+  },
+  {
+   "start": 5.25,
+   "end": 7.75,
+   "dur": 2.5,
+   "motion": 9.09,
+   "brightness": 119.7,
+   "thumb_frame": 156
+  }
+ ]
+}

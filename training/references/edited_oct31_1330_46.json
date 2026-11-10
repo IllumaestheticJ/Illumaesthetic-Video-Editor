@@ -1,0 +1,63 @@
+{
+ "video": "edited_oct31_1330_46.mp4",
+ "fps": 30.0,
+ "frames": 683,
+ "duration": 22.77,
+ "shots": 6,
+ "avg_shot_s": 3.79,
+ "median_shot_s": 3.72,
+ "shortest_s": 2.5,
+ "longest_s": 5.2,
+ "cuts_per_10s": 2.64,
+ "mean_brightness": 99.5,
+ "shot_list": [
+  {
+   "start": 0.0,
+   "end": 2.5,
+   "dur": 2.5,
+   "motion": 5.12,
+   "brightness": 70.6,
+   "thumb_frame": 37
+  },
+  {
+   "start": 2.5,
+   "end": 7.333,
+   "dur": 4.833,
+   "motion": 7.11,
+   "brightness": 96.5,
+   "thumb_frame": 147
+  },
+  {
+   "start": 7.333,
+   "end": 9.867,
+   "dur": 2.533,
+   "motion": 37.93,
+   "brightness": 149.3,
+   "thumb_frame": 258
+  },
+  {
+   "start": 9.867,
+   "end": 15.067,
+   "dur": 5.2,
+   "motion": 4.88,
+   "brightness": 129.1,
+   "thumb_frame": 374
+  },
+  {
+   "start": 15.067,
+   "end": 20.167,
+   "dur": 5.1,
+   "motion": 3.27,
+   "brightness": 107.0,
+   "thumb_frame": 528
+  },
+  {
+   "start": 20.167,
+   "end": 22.767,
+   "dur": 2.6,
+   "motion": 0.0,
+   "brightness": 10.6,
+   "thumb_frame": 644
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "video": "v_jul22_1047_58.mov",
+ "fps": 24.0,
+ "frames": 956,
+ "duration": 39.83,
+ "shots": 1,
+ "avg_shot_s": 39.83,
+ "median_shot_s": 39.83,
+ "shortest_s": 39.833,
+ "longest_s": 39.833,
+ "cuts_per_10s": 0.25,
+ "mean_brightness": 29.9,
+ "shot_list": [
+  {
+   "start": 0.0,
+   "end": 39.833,
+   "dur": 39.833,
+   "motion": 3.58,
+   "brightness": 29.9,
+   "thumb_frame": 478
+  }
+ ]
+}

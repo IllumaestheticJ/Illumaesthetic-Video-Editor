@@ -1,0 +1,127 @@
+{
+ "video": "reel_0149_10.mp4",
+ "fps": 30.0,
+ "frames": 409,
+ "duration": 13.63,
+ "shots": 14,
+ "avg_shot_s": 0.97,
+ "median_shot_s": 0.62,
+ "shortest_s": 0.267,
+ "longest_s": 4.467,
+ "cuts_per_10s": 10.27,
+ "mean_brightness": 76.7,
+ "shot_list": [
+  {
+   "start": 0.0,
+   "end": 4.467,
+   "dur": 4.467,
+   "motion": 0.72,
+   "brightness": 29.1,
+   "thumb_frame": 67
+  },
+  {
+   "start": 4.467,
+   "end": 5.5,
+   "dur": 1.033,
+   "motion": 8.41,
+   "brightness": 136.9,
+   "thumb_frame": 149
+  },
+  {
+   "start": 5.5,
+   "end": 6.1,
+   "dur": 0.6,
+   "motion": 3.16,
+   "brightness": 36.8,
+   "thumb_frame": 174
+  },
+  {
+   "start": 6.1,
+   "end": 6.567,
+   "dur": 0.467,
+   "motion": 12.21,
+   "brightness": 140.7,
+   "thumb_frame": 190
+  },
+  {
+   "start": 6.567,
+   "end": 7.2,
+   "dur": 0.633,
+   "motion": 10.74,
+   "brightness": 44.3,
+   "thumb_frame": 206
+  },
+  {
+   "start": 7.2,
+   "end": 7.733,
+   "dur": 0.533,
+   "motion": 7.91,
+   "brightness": 135.6,
+   "thumb_frame": 224
+  },
+  {
+   "start": 7.733,
+   "end": 8.3,
+   "dur": 0.567,
+   "motion": 2.06,
+   "brightness": 27.3,
+   "thumb_frame": 240
+  },
+  {
+   "start": 8.3,
+   "end": 9.0,
+   "dur": 0.7,
+   "motion": 15.65,
+   "brightness": 119.3,
+   "thumb_frame": 259
+  },
+  {
+   "start": 9.0,
+   "end": 9.533,
+   "dur": 0.533,
+   "motion": 5.36,
+   "brightness": 25.0,
+   "thumb_frame": 278
+  },
+  {
+   "start": 9.533,
+   "end": 10.167,
+   "dur": 0.633,
+   "motion": 5.82,
+   "brightness": 139.7,
+   "thumb_frame": 295
+  },
+  {
+   "start": 10.167,
+   "end": 10.433,
+   "dur": 0.267,
+   "motion": 14.91,
+   "brightness": 78.4,
+   "thumb_frame": 309
+  },
+  {
+   "start": 10.433,
+   "end": 11.267,
+   "dur": 0.833,
+   "motion": 11.28,
+   "brightness": 123.6,
+   "thumb_frame": 325
+  },
+  {
+   "start": 11.267,
+   "end": 11.8,
+   "dur": 0.533,
+   "motion": 9.26,
+   "brightness": 33.0,
+   "thumb_frame": 346
+  },
+  {
+   "start": 11.8,
+   "end": 13.633,
+   "dur": 1.833,
+   "motion": 8.61,
+   "brightness": 132.9,
+   "thumb_frame": 381
+  }
+ ]
+}

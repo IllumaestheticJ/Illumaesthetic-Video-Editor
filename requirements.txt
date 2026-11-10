@@ -1,0 +1,5 @@
+numpy
+opencv-python-headless
+pyyaml
+requests
+google-auth

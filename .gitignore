@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+*.blend
+*.blend1
+*.stl
+*.obj
+*.ply
+*.mov
+*.mp4
+*.png
+*.jpg
+!training/**/*.jpg
+remotion/node_modules/
+remotion/out/
+.env
+!projects/**/match/*.jpg

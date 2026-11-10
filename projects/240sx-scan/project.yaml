@@ -1,0 +1,63 @@
+# 240SX (S13 hatch) scan reel - IRL -> scan data, Temerario-style scan beats.
+# Media lives outside git (see sources). Paths below are absolute on the work box;
+# `ive fetch` recreates them from Dropbox/Drive (see sources.yaml).
+project: 240sx-scan
+format: reel-9x16
+output: {path: /home/user/media/work/out/240sx_scan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  # Track from the approved Oct 31 IRL edit; 95.7 BPM, beat = 0.627 s, first downbeat 3.07 s.
+  path: /home/user/media/240sx/dropbox/edited_oct31_1330_46.mp4
+  start: 0
+  fade_out: 0.6
+
+beats: [3.07, 5.60, 8.10, 10.63, 12.54, 15.06, 17.58, 20.11, 22.75]   # every cut below lands on one
+
+timeline:
+  - id: irl_open          # crew walking the car, wide, night
+    src: /home/user/media/240sx/dropbox/v_2122_00.mov
+    in: 0.00
+    out: 3.07
+  - id: irl_scanner       # handheld scanner screen against the powdered flank
+    src: /home/user/media/240sx/dropbox/v_1838_14.mov
+    in: 0.60
+    out: 3.13
+  - id: irl_match_A       # walk-around ends EXACTLY on the matched frame (3.800 s)
+    src: /home/user/media/240sx/dropbox/v_1838_02.mov
+    in: 1.30
+    out: 3.8334
+    note: "last frame == match/points_B.json frame; do not trim the tail"
+  - transition: {type: cut, note: "1:1 perspective cut IRL -> scan on the beat (8.10 s)"}
+  - id: scan_match_B      # same camera (match/cam_B.json), slow push-in
+    src: /home/user/media/work/renders/shots/s1_match
+    src_fps: 15
+    interpolate: true
+    trim_end: 2.53
+  - id: scan_side
+    src: /home/user/media/work/renders/shots/s2_side
+    src_fps: 15
+    interpolate: true
+    trim_end: 1.91
+  - id: irl_bumper_off    # crew pulls the front bumper
+    src: /home/user/media/240sx/dropbox/v_1954_41.mov
+    in: 3.70
+    out: 6.22
+  - id: scan_explode      # bumper scan slides off the chassis scan (exploded view)
+    src: /home/user/media/work/renders/shots/s3_explode
+    src_fps: 15
+    interpolate: true
+    trim_start: 0.30
+    trim_end: 2.82
+  - id: scan_hero
+    src: /home/user/media/work/renders/shots/s4_hero
+    src_fps: 15
+    interpolate: true
+    trim_end: 2.53
+  - id: end_card          # house logo card from the approved edit
+    src: /home/user/media/240sx/dropbox/edited_oct31_1330_46.mp4
+    in: 20.11
+    out: 22.75
+
+overlays:
+  - src: /home/user/media/work/out/hud_240sx.mov   # rendered by `ive hud projects/240sx-scan/overlay.json`
+    start: 0
