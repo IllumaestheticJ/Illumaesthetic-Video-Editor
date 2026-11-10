@@ -100,3 +100,24 @@ def grab_frame_sdr(video: str, t: float, out: str) -> str:
     vf = ["-vf", TONEMAP_HLG_RGB] if info.get("color_transfer") in ("arib-std-b67", "smpte2084") else []
     run(["ffmpeg", "-y", "-v", "error", "-ss", f"{t:.4f}", "-i", video, "-frames:v", "1", *vf, out])
     return out
+
+
+def strip(video: str, times: list[float], out: str, height: int = 480) -> str:
+    """Labelled frame strip at given times (ffmpeg decode - works on any codec). Use it to
+    review every cut: e.g. times = [cut - 1/fps, cut, cut + 1/fps] for each cut."""
+    import cv2
+    import numpy as np
+    import tempfile
+
+    tiles = []
+    with tempfile.TemporaryDirectory() as td:
+        for k, t in enumerate(times):
+            p = f"{td}/{k}.png"
+            run(["ffmpeg", "-y", "-v", "error", "-ss", f"{t:.4f}", "-i", video, "-frames:v", "1", "-vf", f"scale=-2:{height}", p])
+            im = cv2.imread(p)
+            if im is None:
+                continue
+            cv2.putText(im, f"{t:.2f}s", (6, 22), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+            tiles.append(im)
+    cv2.imwrite(out, np.hstack(tiles))
+    return out

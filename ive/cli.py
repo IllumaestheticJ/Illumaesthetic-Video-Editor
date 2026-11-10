@@ -44,6 +44,11 @@ def main(argv=None):
     s.add_argument("t", type=float)
     s.add_argument("out")
 
+    s = sub.add_parser("strip", help="labelled frame strip at given times (review cuts)")
+    s.add_argument("video")
+    s.add_argument("times", help="comma-separated seconds, e.g. 8.067,8.1,8.133")
+    s.add_argument("out")
+
     s = sub.add_parser("analyze", help="shot list / pacing stats / thumbnail board of a reference edit")
     s.add_argument("video")
     s.add_argument("out_dir")
@@ -127,6 +132,9 @@ def main(argv=None):
     elif a.cmd == "frame":
         from .media import grab_frame_sdr
         print(grab_frame_sdr(a.video, a.t, a.out))
+    elif a.cmd == "strip":
+        from .media import strip
+        print(strip(a.video, [float(t) for t in a.times.split(",")], a.out))
     elif a.cmd == "analyze":
         from .analyze import analyze
         r = analyze(a.video, a.out_dir, a.threshold)

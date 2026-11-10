@@ -158,7 +158,9 @@ def assemble(project_yaml: str, out_override: str | None = None, keep_temp: bool
         inputs = []
         for f in files:
             inputs += ["-i", str(f)]
-        fc, last, t_end = [], "[0:v]", durs[0]
+        # xfade silently truncates the output unless every input shares timebase/fps/zero start.
+        norm = f"settb=AVTB,setpts=PTS-STARTPTS,fps={cfg['fps']},"
+        fc, last, t_end = [f"[0:v]{norm}null[n0]"], "[n0]", durs[0]
         for i, t in enumerate(trans, start=1):
             name, expr = _xfade_expr(t)
             d = float(t.get("duration", 0.5)) if name != "cut" else 1.0 / cfg["fps"]
@@ -167,13 +169,13 @@ def assemble(project_yaml: str, out_override: str | None = None, keep_temp: bool
             lbl = f"[x{i}]"
             if name == "cut":
                 # a 1-frame 'fade' is visually a hard cut but keeps the chain uniform
-                fc.append(f"{last}format=gbrp[a{i}];[{i}:v]format=gbrp[b{i}];[a{i}][b{i}]xfade=transition=fade:duration={d:.4f}:offset={off:.4f}{lbl}")
+                fc.append(f"{last}format=gbrp[a{i}];[{i}:v]{norm}format=gbrp[b{i}];[a{i}][b{i}]xfade=transition=fade:duration={d:.4f}:offset={off:.4f}{lbl}")
             elif expr:
-                fc.append(f"{last}format=gbrp[a{i}];[{i}:v]format=gbrp[b{i}];[a{i}][b{i}]xfade=transition=custom:duration={d:.4f}:offset={off:.4f}:expr='{expr}'{lbl}")
+                fc.append(f"{last}format=gbrp[a{i}];[{i}:v]{norm}format=gbrp[b{i}];[a{i}][b{i}]xfade=transition=custom:duration={d:.4f}:offset={off:.4f}:expr='{expr}'{lbl}")
             else:
-                fc.append(f"{last}format=gbrp[a{i}];[{i}:v]format=gbrp[b{i}];[a{i}][b{i}]xfade=transition={name}:duration={d:.4f}:offset={off:.4f}{lbl}")
+                fc.append(f"{last}format=gbrp[a{i}];[{i}:v]{norm}format=gbrp[b{i}];[a{i}][b{i}]xfade=transition={name}:duration={d:.4f}:offset={off:.4f}{lbl}")
             last, t_end = lbl, off + durs[i]
-        vlast = last if fc else "[0:v]"
+        vlast = last
         # Overlays (Remotion HUD .mov with alpha, logos...) at absolute timeline times.
         n_in = len(files)
         for k, ov in enumerate(proj.get("overlays", [])):
