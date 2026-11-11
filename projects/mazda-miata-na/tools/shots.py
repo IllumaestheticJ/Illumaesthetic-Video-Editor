@@ -87,8 +87,9 @@ def shots():
                 {"t": 4.0 * BEAT, "loc": B_OUT, "rot": [0, 0, 0], "ease": "lin"},
                 {"t": 7.0 * BEAT, "loc": B_OUT, "rot": B_ROT, "ease": "inout"}]),
         hood(still()), lid(still())],
-        "cam": [cam(0, (-2.05, -4.7, 0.95), (0, -1.75, 0.75), ease="lin"),
-                cam(d, (-1.95, -4.6, 1.0), (0.15, -2.0, 0.92), ease="out2")]}
+        # v2b: pulled back to ~5 m from the LEFT-front 3/4 so the whole car + raised bumper keep margins (no clipping)
+        "cam": [cam(0, (2.35, -6.11, 1.3), (0.15, -1.4, 0.7), ease="lin"),
+                cam(d, (2.22, -5.84, 1.35), (0.1, -1.6, 0.82), ease="out2")]}
     # 3. FRONT: hood opens on its fitted cowl hinge over the real bumper-off front end (bumper stays parked)
     d = S("s3_hood", 4.43)
     sh["s3_hood"] = {"base": [BASE], "parts": [
@@ -102,9 +103,10 @@ def shots():
     #     Hood still closed (it opens in the next shot). Labels in overlay.json.
     d = S("s3_front_removed", 4.43)
     sh["s3_front_removed"] = {"base": [BASE], "parts": [hood(still()), lid(still())],
-                              "cam": [cam(0, (1.55, -3.75, 1.05), (0.1, -1.95, 0.45), focal=32, ease="lin"),
-                                      cam(5 * BEAT, (0.95, -3.3, 0.7), (-0.05, -1.95, 0.42), focal=30, ease="out2"),
-                                      cam(d, (0.88, -3.22, 0.68), (-0.05, -1.95, 0.42), focal=30, ease="lin")]}
+                              # v2b: low, near head-on from the right; beam centred, full front width inside the frame
+                              "cam": [cam(0, (-0.72, -5.28, 0.9), (0, -1.95, 0.5), focal=30, ease="lin"),
+                                      cam(5 * BEAT, (-0.55, -4.5, 0.74), (0, -1.95, 0.5), focal=30, ease="out2"),
+                                      cam(d, (-0.52, -4.42, 0.72), (0, -1.95, 0.5), focal=30, ease="lin")]}
     # 4b. SIDE (direction.md): low straight dolly along the right side - wheels, Toyo tyres, brakes, mirror, door line
     d = S("s4b_side", 2.2)
     sh["s4b_side"] = {"base": [BASE], "parts": [hood(H_OPEN), lid(still())],
