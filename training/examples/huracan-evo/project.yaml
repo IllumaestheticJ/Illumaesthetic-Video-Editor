@@ -1,17 +1,18 @@
-# Huracan EVO v3 - Hot Pursuit Remastered car select (COUPE, narration) -> Spyder section-by-section teardown.
+# Huracan EVO v4 (v3: project_v3.yaml) - Hot Pursuit Remastered car select (COUPE, narration) -> Spyder section-by-section teardown.
 # Order/sections from direction.md (scene-director) + parent v2 brief + addendum (crop, no repeats, bumper-removed hero + labels).
 # Coupe angles dip to black (0.6 s, incoming clip +0.6 s so it is fully up on its beat); hard cuts from the lift.
 project: huracan-evo
 format: reel-9x16
-output: {path: /home/user/media/work/out/huracan_evo_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/huracan_evo_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/huracan-evo/vo/soundtrack_v3hp.wav   # not committed (tools/mix.py)
+  path: /home/user/media/huracan-evo/vo/soundtrack_v4.wav   # not committed (tools/mix.py)
   start: 0
   fade_out: 0.6
 
-# beats t = 3.0768 + 0.60006*n; dips at n=3,17,32,47,57; lift n=64; sections n=72,80,86,92,98; music stop n=108
-beats: [4.877, 13.278, 22.279, 31.28, 37.28, 41.481, 46.281, 51.082, 54.682, 58.282, 61.883, 67.883]
+# v4: coupe section 24 beats shorter (user: opening pans too long). beats t = 3.0768 + 0.60006*n; dips n=3,11,19,28,34;
+# lift n=40 (27.079 s); sections n=48,56,62,68,74; music stop n=84 (53.48 s)
+beats: [4.877, 9.677, 14.478, 19.878, 23.479, 27.079, 31.88, 36.68, 40.281, 43.881, 47.481, 53.482]
 
 timeline:
   - id: h0_select   # SELECT: whole coupe revealed as the lights come up with the start-up
@@ -27,43 +28,46 @@ timeline:
     section: front
     focus: "coupe nose: Y-intakes and splitter, low 3/4"
     src: /home/user/media/work/renders/huracan/h2_front
-    src_fps: 13.7956
+    src_fps: 18.7500
+    trim_start: 0.66
     interpolate: true
-    dur: 9.0000
+    dur: 5.4000
   - transition: {type: dip, duration: 0.6}
   - id: h4_wheel   # COUPE FRONT WHEEL: real rims, sweeping rearward
     section: wheel
     focus: "front wheel: scanned rim spokes and tyre"
     src: /home/user/media/work/renders/huracan/h4_wheel
-    src_fps: 13.8699
+    src_fps: 18.7500
+    trim_start: 0.90
     interpolate: true
-    dur: 9.6000
+    dur: 5.4000
   - transition: {type: dip, duration: 0.6}
   - id: h5_side   # COUPE SIDE: slide front -> rear
     section: side
     focus: "coupe profile slide, front to rear"
     src: /home/user/media/work/renders/huracan/h5_side
-    src_fps: 13.8699
+    src_fps: 18.7500
+    trim_start: 0.60
     interpolate: true
-    dur: 9.6000
+    dur: 6.0000
   - transition: {type: dip, duration: 0.6}
   - id: h1_tail   # COUPE REAR: tail light + louvres
     section: rear
     focus: "tail light, exhaust and engine-cover louvres"
     src: /home/user/media/work/renders/huracan/h1_tail
-    src_fps: 12.0297
+    src_fps: 18.7500
     interpolate: true
-    dur: 6.6000
+    dur: 4.2000
   - transition: {type: dip, duration: 0.6}
   - id: h7_rear   # COUPE REAR: wide 3/4 pull-back; narration ends, music breathes
     section: whole
     focus: "whole coupe, rear 3/4 pull-back"
     src: /home/user/media/work/renders/huracan/h7_rear
-    src_fps: 12.7703
+    src_fps: 14.5385
     interpolate: true
-    dur: 4.8000
+    dur: 4.2000
   - transition: {type: cut}
-  - id: s5_frontopen   # LIFT 41.48 s: SPYDER FRONT - bumper slides off, fender out, hood up to its captured open pose
+  - id: s5_frontopen   # LIFT 27.08 s: SPYDER FRONT - bumper slides off, fender out, hood up to its captured open pose
     section: front-open
     focus: "Spyder front opens: bumper off, fender out, hood to its captured open pose"
     src: /home/user/media/work/renders/huracan/s5_frontopen
@@ -119,5 +123,5 @@ timeline:
     vf: fade=t=in:st=0:d=0.5
 
 overlays:   # addendum C: labels only over the bumper-removed holds (exact counts from the STL headers)
-  - src: /home/user/media/work/out/hud_huracan_v3.mov
+  - src: /home/user/media/work/out/hud_huracan_v4.mov
     start: 0

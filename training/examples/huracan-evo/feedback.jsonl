@@ -5,3 +5,9 @@
 {"ts": "2026-11-11T08:41:31Z", "project": "huracan-evo", "at": null, "category": "story", "note": "Exploded view like the Temerario: zoom in to specific sections to show scan detail", "by": "user", "promoted": false}
 {"ts": "2026-11-11T08:41:31Z", "project": "huracan-evo", "at": null, "category": "story", "note": "Combine the Spyder and the coupe scans in the reel; the audio/narration is about the coupe", "by": "user", "promoted": false}
 {"ts": "2026-11-11T09:11:43Z", "project": "huracan-evo", "at": null, "category": "story", "note": "Wrong reference used for v3 design: the voice/engine/framing reference is the Hot Pursuit (Remastered) clip, not the NFSU2 one", "by": "user", "promoted": false}
+{"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "0", "category": "pacing", "note": "Opening coupe panning takes too long and drags the video out", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "audio", "note": "Voice should match the example video's narrator", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "41", "category": "text", "note": "If the video shows a variant (Spyder), the narration must talk about that variant too", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "text", "note": "Narration units in imperial (hp, lb-ft, mph, 0-60)", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "audio", "note": "Narrator speaks faster, like the example video", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "text", "note": "Narration should cover quirks and unique facts about the car, not just the spec sheet", "by": "reviewer", "promoted": true}

@@ -102,3 +102,22 @@ Ground = Z 0, nose at -Y, +X = car's left. Camera azimuth in tools/shot.py: 0 = 
 Coupe (2023 scan, `coupe2_npc.blend`, glossy garage floor): h0_select -> h2_front -> h4_wheel -> h5_side -> h1_tail -> h7_rear,
 dips to black on kicks. Spyder (2026 scan, exploded 2 mm parts) from the lift 41.48 s: s5_frontopen -> sp_bumper (label) -> sp_hood
 -> sp_side -> sp_rear (label) -> sp_finale -> logo. Labels from STL headers: front bumper 4,000,015 / rear bumper 7,999,727 triangles.
+
+## v4 audio (`tools/music_v4.py` + `tools/mix.py --v4` -> `vo/soundtrack_v4.wav`, 57.42 s)
+- Music `music/track_a_v4.wav`: 3 s silence + reel_track_a k0-28 | k20-56 | k40-end (splices 60 ms before kicks, 15 ms xfade);
+  grid t = 3.0768 + 0.60006 n holds (only outlier = the track's own dropped kick n39); lift n40 = 27.079 s; stop n84 = 53.48 s.
+- Voice: user asked to sample/match the reference narrator exactly -> NOT cloned (the game's narrator is a real voice actor).
+  Closest preset chosen by measurement (`tools/voicematch.py` vs hp_1138 8-50 s: ref F0 182 Hz, IQR 58, 4.12 onsets/s):
+  Imogen 2.5 dB / Vesper 1.6 dB / Gia 3.0 / Nora 4.7 / Luna 4.3 / Chloe 4.1 dB LTAS distance -> **Vesper** (c3204739-...),
+  speech_rate 45, pitch_rate +2. (Preset preview host is blocked here, so candidates were generated with the script itself.)
+- `vo/narration7_coupe.wav` (3.6 -> 25.9 s): "Lamborghini Huracan EVO. Named after a fighting bull from 1879, famous for its
+  courage. Behind you sits a naturally aspirated V10, six hundred thirty-one horsepower, peaking at eight thousand RPM. Four-wheel
+  drive, rear-wheel steering, and a brain called LDVI that predicts your next move before you make it. The slotted rear spoiler
+  and the underbody make more than five times the downforce of the original Huracan. Zero to sixty-two in two-point-nine seconds.
+  Top speed: two hundred and two miles per hour."
+- `vo/narration7_spyder.wav` (28.6 -> 40.6 s, over the Spyder section): "And this is the Spyder. Same V10, same two hundred and two
+  miles per hour, but the roof folds away in seventeen seconds, even on the move at up to thirty-one miles per hour. Roof up or
+  down, it keeps the coupe's aerodynamics. Zero to sixty-two in three-point-one seconds."
+- Sources: Lamborghini EVO release 7 Jan 2019 (640 CV = 631 hp at 8,000 rpm, 600 Nm = 443 lb-ft, LDVI "anticipates", aero >5x
+  first Huracan incl. slotted spoiler, 0-100 km/h 2.9 s, 325 km/h = 202 mph); EVO Spyder release 26 Feb 2019 (0-100 km/h 3.1 s,
+  325 km/h, roof 17 s up to 50 km/h = 31 mph, aero kept roof up or down); name = Huracan, fighting bull, Alicante 1879.
