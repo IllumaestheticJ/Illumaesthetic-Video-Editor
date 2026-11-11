@@ -7,7 +7,7 @@ from scipy.spatial import cKDTree
 TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 def load(p, n=600000):
     c = np.fromfile(p, dtype=TRI, offset=84)["v"].mean(1).astype(np.float64)
-    c = c[c[:, 2] > 40]
+    c = c[c[:, 2] > -175]
     if len(c) > n: c = c[np.random.default_rng(0).choice(len(c), n, replace=False)]
     return c
 car = load(sys.argv[1], 2_000_000); tree = cKDTree(car)

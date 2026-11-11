@@ -10,7 +10,7 @@ import os
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-M = "/home/user/media/lamborghini-revuelto/blend/"
+M = "/home/user/media/lamborghini-revuelto/blend3/"  # v3 geometry (clean2: real tyre bottoms)
 OUT = "/home/user/media/work/revuelto/shots/"
 RENDERS = "/home/user/media/work/renders/revuelto/"
 HINGE = json.load(open(os.path.join(HERE, "hinge.json")))
