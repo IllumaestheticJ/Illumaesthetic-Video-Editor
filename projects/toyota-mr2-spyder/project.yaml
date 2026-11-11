@@ -46,7 +46,7 @@ timeline:
     dur: 6.4333
   - transition: {type: cut}
   - id: s14_rear   # REAR: tail, rear lid opens ON the 24.583 strong hit, crane over the engine bay (Rear End trunk open)
-    src: /home/user/media/work/renders/mr2/s14_rear
+    src: /home/user/media/work/renders/mr2/s14_rear_z
     src_fps: 15.3061
     interpolate: true
     frames: 192
