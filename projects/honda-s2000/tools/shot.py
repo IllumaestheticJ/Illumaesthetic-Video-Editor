@@ -134,7 +134,7 @@ def main():
             root.matrix_world = mw
         base_loc = pv.location.copy()
         for f in range(1, nframes + 1):
-            t = (f - 1) / fps
+            t = (f - 1) / fps + spec.get("t0", 0.0)  # t0: render a window of a longer part animation (camera keys stay shot-relative)
             pv.location = base_loc + Vector(sample(keys, t, "loc"))
             pv.rotation_euler = Euler([math.radians(v) for v in sample(keys, t, "rot")], "XYZ")
             pv.keyframe_insert("location", frame=f)

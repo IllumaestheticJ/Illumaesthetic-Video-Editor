@@ -125,6 +125,31 @@ def explode_shot(e=EXP):
 SHOTS["s8_explode"] = explode_shot()
 SECS["s8_explode"] = EXP["secs"]
 
+# v4 (reviewer: "last scenes held too long"): the 32-beat explode is cut into 4-8 beat shots. Each sub-shot renders a window
+# of the SAME part animation (t0 = its start within s8) from a new camera; e1 and e6 reuse the s8 render itself.
+XPARTS = explode_shot()["parts"]
+XB = f"{P}/comp_explode.blend"
+SUB = {  # name: (t0 in s8 time, seconds, camera keys relative to the sub-shot)
+    # b52-56 side view, panels floating in layers above the car (reference 25-31 s), slow track toward the nose
+    "e2_side": (4 * B, 1.9, [{"t": 0, "loc": [6.2, 1.2, 4.4], "target": [0, 0.3, 1.25], "focal": 24},
+                             {"t": 1.9, "loc": [6.3, 0.2, 4.2], "target": [0, 0.05, 1.25], "focal": 24, "ease": "inout"}]),
+    # b56-60 low front, looking up at the bumper and hood hanging over the exposed structure
+    "e3_low": (8 * B, 1.9, [{"t": 0, "loc": [-1.6, -5.6, 0.45], "target": [0, -1.2, 1.35], "focal": 24},
+                            {"t": 1.9, "loc": [-0.7, -5.4, 0.4], "target": [0, -1.2, 1.4], "focal": 24, "ease": "inout"}]),
+    # b60-64 close on the floating hood, sliding along it (4 mm hood skin)
+    "e4_hood": (12 * B, 1.9, [{"t": 0, "loc": [2.4, -3.3, 3.2], "target": [0.1, -1.3, 2.15], "focal": 32},
+                              {"t": 1.9, "loc": [2.6, -2.2, 3.4], "target": [0.1, -1.0, 2.15], "focal": 32, "ease": "inout"}]),
+    # b64-68 high rear 3/4: the lid floating over the open trunk, outro begins
+    "e5_rear": (16 * B, 1.9, [{"t": 0, "loc": [-2.7, 5.3, 3.5], "target": [0, 0.8, 1.25], "focal": 26},
+                              {"t": 1.9, "loc": [-3.6, 4.6, 3.3], "target": [0, 0.7, 1.25], "focal": 26, "ease": "inout"}]),
+    # b76-80 after the lock: push in on the assembled car, front 3/4 (fixes v3's small, off-centre end frame)
+    "e8_locked": (28 * B, 1.9, [{"t": 0, "loc": [3.3, -4.9, 1.5], "target": [0, -0.2, 0.55], "focal": 30},
+                                {"t": 1.9, "loc": [2.6, -4.0, 1.3], "target": [0, -0.3, 0.55], "focal": 30, "ease": "out2"}]),
+}
+for _n, (_t0, _s, _cam) in SUB.items():
+    SHOTS[_n] = {"base": [XB], "parts": XPARTS, "cam": _cam, "t0": _t0}
+    SECS[_n] = _s
+
 
 def spec(name, mode):
     s = SHOTS[name]
@@ -136,8 +161,10 @@ def spec(name, mode):
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if mode == "preview":
         sp["frames"] = ["first", "mid", "last"]
-    if name == "s8_explode":
+    if name == "s8_explode" or name in SUB:
         sp["persistent"] = False
+    if "t0" in s:
+        sp["t0"] = s["t0"]
     os.makedirs(SPECS, exist_ok=True)
     p = f"{SPECS}/{name}_{mode}.json"
     json.dump(sp, open(p, "w"), indent=1)
