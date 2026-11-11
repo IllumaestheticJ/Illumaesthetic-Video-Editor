@@ -44,3 +44,10 @@ Drive `IllumaestheticLogoColor-01.png` 1cZJj521P88T_vC2YZDJVVUCctGyNoukR (6447x1
 - Wing configurator: epsilon.plus/pages/wing-configurator (JS 0.9.18) builds wings parametrically and can export .stl/.obj.
   Not used: the #806 wing's configuration is unknown, and the rule is "configurator + exact match or no wing".
 - Extended-canvas renders: `layers/<angle>_{scan,cgi}_canvas.png`, plans in `match/plan_<angle>.json`.
+
+## v3 CGI source (Epsilon lookbook, epsilon.plus homepage)
+- Lookbook frames index `lookbook-frames-927fc403.json` -> `lb-honda-civic-fg2-5ec63ee519.json` (config: kit front_lip + tc_wing_kit,
+  Rallye Red, model `eps-honda-civic-fg2-v10.glb`, sha a7094b28c39703a2).
+- Model URL: `https://cdn.shopify.com/s/files/1/0036/2250/2435/files/eps-honda-civic-fg2-v10.glb` (2.5 MB, 1.0 M faces):
+  body, glass_tint, trim (lights/chrome/badges), 4 wheels, part_front_lip (same CAD as FG2 Race Lip.stl), part_tc_wing_kit.
+- NOT this: the wing configurator's `ewc-honda-civic-fg2.glb` (30k-face decimated scan).

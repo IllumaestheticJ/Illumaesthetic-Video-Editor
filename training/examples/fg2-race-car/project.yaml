@@ -1,12 +1,12 @@
-# FG2 #806 race car - 1:1 photo <-> CGI <-> scan reel (TikTok 9:16). v2: every angle ZOOMS OUT to the whole car
-# (scan/CGI rendered on an extended canvas, photo on a blurred fill), Epsilon+ end card, no added wing. v1 in project_v1.yaml.
-# Every angle = one finished photo; scan + Ecky's CGI rendered from the solved camera of that photo
+# FG2 #806 race car - 1:1 photo <-> CGI <-> scan reel (TikTok 9:16). v3: CGI = Epsilon lookbook game model
+# (eps-honda-civic-fg2-v10.glb, Rallye Red, painted lip, no wing). v2: zoom-out + Epsilon+ card (project_v2.yaml), v1: project_v1.yaml.
+# Every angle = one finished photo; scan + lookbook-model CGI rendered from the solved camera of that photo
 # (match/cam_*.json) and all three layers share one Ken Burns push (tools/kenburns.py), so the car stays
 # pixel-locked across every cut. Music: user-uploaded Macarena (slowed+reverb), only the opening:
 # audio starts at 7.503 s of the track so its drop (13.874 s) lands at 6.371 s in the video.
 project: fg2-race-car
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/out/fg2_race_car_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/fg2_race_car_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/fg2/music/macarena_slowed.mp3   # user upload (not in git)

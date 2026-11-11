@@ -86,3 +86,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** "CGI model" = Ecky's modelled car (smooth panels, glass, light textures; usually a .glb), NOT a .blend that
   paints the scan. FG2 Race Lip.blend / Bodykit for turn10.blend are the LQ scan in red/orange - user rejected that.
   Compare a frame of the team's CGI reference video with your render before using any .blend as "the CGI".
+- **[story]** Epsilon CGI cars come from the epsilon.plus **lookbook** (game models), not the wing configurator (its
+  `ewc-*.glb` are decimated scans). Path: homepage lookbook config -> `lookbook-frames-*.json` -> `lb-<car>-<key>.json`
+  -> `config.model.source` (`eps-<car>-v<N>.glb`) on cdn.shopify.com/s/files/1/0036/2250/2435/files/.
+  Place it in the scan frame with the shared lip/part CAD, then body ICP (fg2-race-car/tools/align_game.py).
