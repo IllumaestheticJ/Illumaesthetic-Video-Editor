@@ -4,15 +4,15 @@ A reel that plays a real game's car-select sequence (cutscene → menu → scrol
 with the game's own UI and sound, but the cars on the showroom floor are Epsilon kit cars rendered
 from the site's GLBs. First project: `projects/nfs-carlot/`.
 
-**Status (2026-11-11): steps 1–3 and the browser game driver are built and proven. Steps 4–9 are
-the plan; they have not been run yet because the first project still has no capture of the car
-lot. Rewrite them from what actually worked once the first reel is delivered, and delete this line.**
+**Status (2026-11-11): every step below was run for `projects/nfs-carlot` v1. The user's review of v1
+is still to come; fold its lessons in here.**
 
 ## 1. Inputs to collect before anything else
 - **The game capture.** The exact UI and SFX only exist in a real capture, so nothing past step 3
   can start without it. Check Dropbox and Drive first; if it is not there, ask the user for it in
   the *first* message, not after an hour of prep. Routes, best first:
-  1. **The user records it** and drops the file in Dropbox. For NFS Underground 2 they can play
+  1. **The user records it** and drops the file in Dropbox (a phone screen recording of a YouTube
+     playthrough at its top quality was good enough for v1). For NFS Underground 2 they can play
      `nfsu2.xyz` (a browser port of the PC game) and screen-record: about five minutes from
      "Start New Career" to the car lot on any computer with a real graphics card. The site ships
      without the licensed songs, so the menu sounds come out clean.
@@ -122,39 +122,80 @@ against the body colour.
   `--exposure` or a `--rig-json` copy.
 - Do not render while the game is running in Chromium: both want all four cores.
 
-## 4. Break down the capture (plan)
-`ive probe`, `ive sheet`, then write `clips.md` with the timecodes of: cutscene, menu settle,
-each car's idle hold, each scroll transition, the confirm. Note the capture's aspect ratio and
-decide the 9:16 layout with the user's first draft (full-height crop on the car vs letterboxed
-menu with the UI intact; the UI must stay readable, so expect a crop that keeps the name plate).
-The game's menus draw their UI in a centred 4:3 box over a widescreen 3D scene.
+## 4. Break down the capture
+The first project's capture was two phone screen recordings of YouTube playthroughs (portrait
+1206x2622 with a 90° rotation flag, variable frame rate ~59 fps; the game picture is a 2144x1206
+strip in the middle). Make one constant-rate working copy and index everything by its frame number:
 
-## 5. Separate UI, car and background (plan)
-While the menu scrolls, the UI and the lot stay still and only the car, its name and its stat
-bars change. A per-pixel temporal variance over the idle holds of all cars gives the mask of
-what changes; everything else is a locked plate. Inside the car region the lot floor is never
-fully visible: cover it with the new car plus a rebuilt floor patch, and check the join.
-(In the browser port the main-menu garage shows an empty turntable when no car is selected: a
-free clean plate for that scene. Look for the same in the car lot.)
+```bash
+ffmpeg -i capture.mp4 -vf "fps=60,crop=2144:1206:239:0" -c:v libx264 -crf 12 -g 1 -an a60.mp4   # all-intra: exact seeks
+ffmpeg -i capture.mp4 -vn -ac 2 -ar 48000 a.wav
+```
+Then tile it: every 1 s for the story, every 0.25 s through the menu, every frame through one
+scroll. That is how the three things that make the rest possible were found:
+- **the clean plate**: the frame where the menu is drawn but the first car has not slid in yet
+  (empty turntable, same grade as every later hold);
+- **how the game changes cars**: the menu and the room stay put; the turntable with the car on
+  it slides out to the left and the next slides in from the right, 14 frames, as if both sat on one
+  conveyor about 2980 px apart (the menu's first appearance does the same at half speed);
+- **the rhythm**: players flick back and forth about once a second, so most holds are too short.
+Write the timecodes in `clips.md`.
 
-## 6. Match the menu camera and light (plan)
-Solve the menu camera once from the game car (wheel hubs, bumper corners, roof corners against
-the real car's published dimensions; `ive solve`), then reuse it for every Epsilon car via
-`kit-render --camera`. Copy the lot's light directions into a `--rig-json`. If the game idles
-with a slow camera move or car spin, measure it and reproduce it (`--spin` / `--orbit`).
-Verify with an onion overlay on the game car, never from the solve score alone.
+## 5. Track the slide (`projects/nfs-carlot/tools/track.py`)
+Template-match the turntable's right and left rim tips (taken from the clean plate) along x in every
+frame. Both at ~0 with score > 0.9 = at rest. The outgoing turntable is followed by its right tip,
+the incoming one by its left tip; the few frames in the middle where neither is reliable are a
+straight line. Holds sit a few pixels apart from each other (−3.5 … +3.5 px here): measure the rest
+offset per hold and apply it, or the repainted turntable tiles will not line up with the real ones.
 
-## 7. Replace what the UI says (plan)
-Car name, maker badge and stat bars are redrawn in the game's own type and colours, sampled from
-the capture. Stat bars are numbers on screen: don't invent performance figures. Either keep the
-bars as a visual gag the user signs off on, or drive them from something real.
+## 6. Match the menu camera and light
+- Outline boxes of the game's cars (difference against the clean plate) plus the turntable's rim
+  ellipse, least-squares against boxes of the cars' published length/width/height
+  (`editlog.jsonl` has the numbers). Focal length is **not observable** from that (same error from
+  1300 to 3400 px); pin it where the fitted heading agrees with how much of the car's front vs side
+  you can see. Confirm with an onion overlay of a kit car on a game car of similar size.
+- Result for the NFSU2 car lot: `projects/nfs-carlot/cam_carlot.json` (reuse it for any capture of
+  that menu at 2144x1206), light rig `projects/nfs-carlot/rig_showroom.json`.
+- `python -m ive lookat` needs `--loc=-4.3,-6.1,1.2` (with `=`) when a coordinate is negative.
+- Render each car once, full frame, transparent, `--ground shadow`. The cars are static in this
+  menu; the slide is 2D.
 
-## 8. Sound (plan)
-Keep the capture's own timeline where possible: the scroll and confirm sounds are already in
-sync with the UI animation, so swapping the car under an untouched menu needs no sound editing.
-Only re-trigger cut-out sounds if the edit reorders or repeats scrolls.
+## 7. Swap the cars (`projects/nfs-carlot/tools/composite.py`)
+Start from the **real capture frame** and change as little as possible:
+1. repaint a soft zone where any game car and its shadow can be (union of the differences, grown)
+   with the clean plate: turntable pixels take the plate shifted by the slide, room pixels take it
+   unshifted;
+2. lay the kit car render on top, shifted by the same amount, cut off at the top of the stat band
+   so the menu stays above it;
+3. paste the name plate; 4. put the mouse cursor back wherever it crossed something repainted
+   (difference against the median of that hold).
+Mistakes made on the way: the car's shadow was darkening the stat labels (clip it at the band);
+shifting the plate under the semi-transparent stat band doubled a label (at rest use the plate
+unshifted there, mid-slide leave the band alone).
 
-## 9. Assemble, review, archive
-`ive assemble`, frames ±2 around every scroll and cut, rubric, `ive feedback`, `ive archive`.
-House rules that do **not** apply to this format: the 1:1 real-to-scan cut and the silver scan
-look. Rules that still apply: no invented numbers in on-screen text, look at your own output.
+## 8. Name plates and stat bars
+The plates are per-car artwork, not a font. Lift real plates from holds of the capture whenever the
+game has a car of the same name (Toyota Corolla, Honda Civic, Mazda Miata were pixel-true). For a
+make the game does not have, the bare plate is a high percentile across many plates (a median left
+ghost lettering), the logo box is another plate's box with its badge inpainted out, and the wordmark
+is drawn in the capture's own greys. Leave the stat bars as the game drew them: they are not data
+about our cars, and redrawing them would mean inventing numbers.
+
+## 9. Timeline and sound
+Build the menu from the longest pauses in the capture, each range starting on the **first frame of
+a scroll** and ending just before the next one. The capture's own audio for exactly those frames
+then puts the game's scroll sound on every car change, and that sound hides the jump in the menu
+music; a 12 ms crossfade against the previous range's continuation removes the click. Do not mix a
+second capture's audio in: its scrolls are at other times. Both captures here had the game's
+licensed menu song under everything.
+
+## 10. Layout, assemble, review (`projects/nfs-carlot/tools/assemble.py`)
+The game draws its menu in a centred 4:3 box on a 16:9 picture. Crop to that box (x 300–1842),
+scale to the reel's full width (1080x846) and set it on a blurred, darkened copy of the frame; a
+full-height crop would cut the name plate and bars. The crop also loses uploader watermarks at the
+edges. Open on something recognisable within a second (here the "Would you like to enter the
+Shop?" prompt), not on the drive. Look at frames around the cut into the menu and through the
+first scroll, then `ive feedback`, `ive archive`.
+House rules that do **not** apply to this format: the 1:1 real-to-scan cut, the silver scan look,
+the logo end card unless the user asks. Rules that still apply: no invented numbers on screen,
+look at your own output.

@@ -1,5 +1,7 @@
 # Starter-car line-up for the "pick your first car" game-menu reel.
-# One entry per menu slot, in scroll order. `hide` comes from `python -m ive kit <id> --glb <file>` (never hand-typed).
+# One entry per car; menu order in v1: Corolla, Civic Si, Integra, NC Miata, EP3 (see tools/composite.py SEGMENTS).
+# Menu renders use cam_carlot.json + rig_showroom.json, not render_defaults (those are the line-up sheet's).
+# `hide` comes from `python -m ive kit <id> --glb <file>` (never hand-typed).
 # GLBs: Drive "Epsilon-final-GLBs-2026-10-15.zip" (file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), unzipped to glb_dir.
 # Paint colours are render choices (not paint codes) - nothing here is shown as on-screen text.
 glb_dir: /home/user/media/nfs-carlot/glbs_final

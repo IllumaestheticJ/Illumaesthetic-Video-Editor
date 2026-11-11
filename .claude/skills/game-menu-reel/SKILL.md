@@ -17,10 +17,16 @@ Worked project: `projects/nfs-carlot/`.
    a render of what exists.
 3. **Line-up sheet.** `python -m ive kit-render -- …` one still per car, tile, look at it, send
    it to the user for kit and colour sign-off.
-4. **Capture breakdown → plate/UI separation → camera + light match → UI text → SFX → assemble.**
-   Follow the knowledge doc; update it with what actually worked.
-5. **Deliver + learn.** Rubric, `ive feedback` (`--rule` for anything general), `ive archive`,
-   commit, push.
+4. **Capture breakdown.** Constant-rate all-intra working copy, tile it, find the clean plate (menu up,
+   no car yet), how the game swaps cars, and the longest pauses. `clips.md`.
+5. **Track + camera.** `projects/nfs-carlot/tools/track.py` for the turntable slide; fit the menu camera
+   to the game cars' outlines (for the NFSU2 car lot reuse `projects/nfs-carlot/cam_carlot.json` and
+   `rig_showroom.json`); render each car once with `ive kit-render --camera … --ground shadow`.
+6. **Swap + assemble.** `tools/composite.py` (real frames, only the car zone repainted) then
+   `tools/assemble.py` (9:16 on a blurred copy, the capture's own audio, cuts on scrolls). Copy both
+   into the new project and change the constants at the top.
+7. **Deliver + learn.** Look at the join frames, send it, `ive feedback` (`--rule` for anything
+   general), `ive archive`, commit, push.
 
 Never invent numbers for on-screen stats, and tell the user once that the game's footage, UI and
 audio are the publisher's.
