@@ -467,3 +467,11 @@ lands here automatically. Agents must read this whole file before editing.
 - **[pacing]** (honda-s2000 v6) A beat grid fitted from 11.6 ms RMS windows sat 5-35 ms early and drifted; the delivered-file
   check (kicks decoded from the mp4) showed 0 % of cuts within half a frame. Detect kick attacks at <=1.5 ms hop and put each
   cut on its measured kick; use the grid only for bars that have no kick. Coarser hops pick later sub-peaks (+20-40 ms).
+
+## From the Toyota Sera v3 delivery (2026-11-11)
+- Cut timing on a track with a sustained bass under the kicks: a broadband half-peak envelope (cutcheck.py) fires on the
+  bass ~110 ms early. Measure the kick's click on a >2 kHz high-band envelope of the decoded file before "fixing" cuts.
+- Typewriter label sub-lines take ~0.9 frames/char after the title animates in: a 32-char sub needs >= 50 frames on
+  screen to be read in full. Check the LAST frames of each label in the delivered file.
+- `ive director` repeat flags compare silhouettes: a front 3/4 opening and a rear 3/4 ending at the same whole-car scale
+  are flagged. Look at the pair before cutting; document reviewed false positives in direction.md.

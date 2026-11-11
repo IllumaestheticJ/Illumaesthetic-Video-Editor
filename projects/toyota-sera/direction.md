@@ -97,3 +97,13 @@ get longer and end close on the bumper-removed structure, and the doors section 
 No section appears twice: the front corner (wheel) sits next to the front section, the side is shown once (doors), the rear
 once, and only the explode and reassembly show the whole car again, as one continuous sequence. No trunk/hatch shot:
 there is no hatch-open scan.
+
+## v3 delivery check (after render)
+- Sections per `ive director` (section: tags in project.yaml): whole 4.8 s -> front 12.0 s (wheel + hood + front bumper
+  hero) -> side 3.6 s -> rear 6.0 s (rear bumper hero) -> explode 4.8 s -> reassembly 4.8 s -> logo. Each once, in order.
+- Director "repeated view" flags, reviewed by eye and kept:
+  - v3_s1_whole ~ v3_g3a_home / v3_g3b_clean: front-right 3/4 vs rear-left 3/4 at the same whole-car scale - the
+    silhouette metric matches them, the views are different faces. Opening on the whole car and ending on the
+    reassembled car is the brief.
+  - v3_g3a_home ~ v3_g3b_clean: one continuous camera move; the cut is the invisible lock swap to the clean scan.
+- Labels lengthened so the sub-line is fully typed for >= 1 s while the bumper's inner face is on screen.

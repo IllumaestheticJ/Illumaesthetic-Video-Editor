@@ -22,6 +22,7 @@ beats: [4.835, 7.235, 16.835, 20.435, 26.435, 31.235, 33.635, 36.035]
 
 timeline:
   - id: v3_s1_whole       # b0-8: whole car, front-right 3/4, pushing in 6.8 -> 5.6 m (car 73-75 % of the width)
+    section: whole
     focus: the whole Sera
     src: /home/user/media/work/sera/renders/final/v3_s1_whole
     src_fps: 15
@@ -29,6 +30,7 @@ timeline:
     dur: 4.8
   - transition: {type: cut, note: "4.835 phrase downbeat"}
   - id: s3_wheel          # b8-12: front-right tyre, rim, centre badge (v2 render reused, 3 mm scan)
+    section: front
     focus: front-right wheel
     src: /home/user/media/work/sera/renders/final/s3_wheel
     src_fps: 15
@@ -36,6 +38,7 @@ timeline:
     dur: 2.4
   - transition: {type: cut, note: "7.235 b12"}
   - id: v3_front          # b12-28 FRONT, one held shot: hood opens b13-16; bumper out b16-18, inner face b18-22 (label),
+    section: front
     # clears frame b22-24; camera in on the structure behind it (front-bumper-removed state) b24-28 (label)
     focus: front - engine bay, front bumper inner face, structure behind the bumper
     src: /home/user/media/work/sera/renders/final/v3_front
@@ -44,6 +47,7 @@ timeline:
     dur: 9.6
   - transition: {type: cut, note: "16.835 b28"}
   - id: v3_s4_doors       # b28-34 SIDE: both butterfly doors open b29-33 (real 'Door Open' interior)
+    section: side
     focus: butterfly doors + cabin
     src: /home/user/media/work/sera/renders/final/v3_s4_doors
     src_fps: 15
@@ -51,6 +55,7 @@ timeline:
     dur: 3.6
   - transition: {type: cut, note: "20.435 b34"}
   - id: v3_rear           # b34-44 REAR: bumper out b35-37, inner face b37-39.5 (label), clears frame; camera in on the
+    section: rear
     # rear structure (rear-bumper-removed state) b40-44 (label)
     focus: rear - bumper inner face, structure behind the bumper
     src: /home/user/media/work/sera/renders/final/v3_rear
@@ -59,6 +64,7 @@ timeline:
     dur: 6.0
   - transition: {type: cut, note: "26.435 b44 (inside the kick break; the kicks return at 28.2)"}
   - id: v3_e1_explode     # b44-52: progressive whole-car explode - front assembly, doors, rear bumper on successive beats
+    section: explode
     focus: every scanned panel, whole car in frame
     src: /home/user/media/work/sera/renders/final/v3_e1_explode
     src_fps: 15
@@ -66,6 +72,7 @@ timeline:
     dur: 4.8
   - transition: {type: cut, note: "31.235 b52"}
   - id: v3_g3a_home       # b52-56: rear bumper, doors, front assembly fly home, LOCK on b56
+    section: reassembly
     focus: reassembly
     src: /home/user/media/work/sera/renders/final/v3_g3a_home
     src_fps: 15
@@ -73,6 +80,7 @@ timeline:
     dur: 2.4
   - transition: {type: cut, note: "33.635 b56 lock - swap to the clean full-car scan, same camera"}
   - id: v3_g3b_clean      # b56-60: clean car; fades to black over b58-60 (tools/fade_frames.py)
+    section: reassembly
     focus: the reassembled car
     src: /home/user/media/work/sera/renders/final/v3_g3b_fade
     src_fps: 15
@@ -80,6 +88,7 @@ timeline:
     dur: 2.4
   - transition: {type: cut, note: "36.035 b60 - small logo from black"}
   - id: logo              # ferrari-296/tools/logo_card.py --secs 3.2667 --width 480 (44 % width), fades with the decay
+    section: logo
     focus: logo
     src: /home/user/media/work/sera/out/logo_card_small.mp4
     dur: 3.2667

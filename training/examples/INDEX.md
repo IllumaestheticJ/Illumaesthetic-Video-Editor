@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-11
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
@@ -12,7 +13,6 @@ Newest first. Read the top two before starting a new edit.
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
-- [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11

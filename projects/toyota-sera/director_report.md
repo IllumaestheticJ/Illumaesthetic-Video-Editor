@@ -1,22 +1,20 @@
 # Director report - projects/toyota-sera/project.yaml
 
-Total 39.27 s. Sections (s): untagged 39.27
+Total 39.27 s. Sections (s): whole 4.8, front 12.0, side 3.6, rear 6.0, explode 4.8, reassembly 4.8, logo 3.27
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_turntable | 0.0 | 4.8 |  |  | 2.24 | 0.0 | 23.6->25.3 | no focus: tag - what should the viewer look at? |
-| s2_rear | 4.8 | 4.8 |  |  | 2.44 | 0.0 | 25.2->27.2 | no focus: tag - what should the viewer look at? |
-| s3_wheel | 9.6 | 2.4 |  |  | 8.02 | 0.0 | 49.1->55.7 | no focus: tag - what should the viewer look at? |
-| s4_nose | 12.0 | 2.4 |  |  | 6.14 | 0.0 | 43.5->50.2 | no focus: tag - what should the viewer look at? |
-| s5_hood | 14.4 | 3.0 |  |  | 3.02 | 0.0 | 23.7->26.2 | no focus: tag - what should the viewer look at? |
-| s6_doors | 17.4 | 4.2 |  |  | 2.47 | 0.0 | 20.5->26.2 | no focus: tag - what should the viewer look at? |
-| s7_top | 21.6 | 2.4 |  |  | 6.7 | 0.0 | 33.2->43.7 | no focus: tag - what should the viewer look at? |
-| s8_explode | 24.0 | 10.8 |  |  | 2.55 | 0.0 | 14.5->15.0 | no focus: tag - what should the viewer look at? |
-| logo | 34.8 | 4.47 |  |  | 0.47 | 3.5 | 1.0->3.5 |  |
+| v3_s1_whole | 0.0 | 4.8 | whole | the whole Sera | 0.38 | 0.0 | 8.9->9.7 |  |
+| s3_wheel | 4.8 | 2.4 | front | front-right wheel | 8.02 | 0.0 | 49.1->55.7 |  |
+| v3_front | 7.2 | 9.6 | front | front - engine bay, front bumper inner face, structure behind the bumper | 6.19 | 0.0 | 16.9->23.0 |  |
+| v3_s4_doors | 16.8 | 3.6 | side | butterfly doors + cabin | 3.43 | 0.0 | 22.9->26.4 |  |
+| v3_rear | 20.4 | 6.0 | rear | rear - bumper inner face, structure behind the bumper | 5.97 | 0.0 | 16.9->21.6 |  |
+| v3_e1_explode | 26.4 | 4.8 | explode | every scanned panel, whole car in frame | 2.0 | 0.0 | 8.8->11.3 |  |
+| v3_g3a_home | 31.2 | 2.4 | reassembly | reassembly | 3.37 | 0.0 | 15.2->14.7 |  |
+| v3_g3b_clean | 33.6 | 2.4 | reassembly | the reassembled car | 1.48 | 0.0 | 11.7->10.8 |  |
+| logo | 36.0 | 3.27 | logo | logo | 0.24 | 2.34 | 0.2->1.7 |  |
 
 ## Repeated views
-- s1_turntable ~ s2_rear (IoU 0.81, corr 0.84): same view shown twice
-- s1_turntable ~ s5_hood (IoU 0.65, corr 0.77): same view shown twice
-- s1_turntable ~ s6_doors (IoU 0.8, corr 0.86): same view shown twice
-- s5_hood ~ s6_doors (IoU 0.72, corr 0.81): same view shown twice
-- s6_doors ~ s7_top (IoU 0.74, corr 0.79): same view shown twice
+- v3_s1_whole ~ v3_g3a_home (IoU 0.66, corr 0.83): same view shown twice
+- v3_s1_whole ~ v3_g3b_clean (IoU 0.7, corr 0.83): same view shown twice
+- v3_g3a_home ~ v3_g3b_clean (IoU 0.93, corr 0.98): same view shown twice in the same section - merge or cut one

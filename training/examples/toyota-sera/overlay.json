@@ -1,0 +1,46 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1179,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 360,
+   "duration": 54,
+   "title": "FRONT BUMPER",
+   "sub": "INNER FACE \u00b7 1,800,000 TRIANGLES",
+   "x": 0.92,
+   "y": 0.7,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 436,
+   "duration": 60,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "1,999,999 TRIANGLES",
+   "x": 0.08,
+   "y": 0.7
+  },
+  {
+   "kind": "label",
+   "from": 668,
+   "duration": 50,
+   "title": "REAR BUMPER",
+   "sub": "INNER FACE \u00b7 4,999,998 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 748,
+   "duration": 40,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "1,500,000 TRIANGLES",
+   "x": 0.08,
+   "y": 0.7
+  }
+ ]
+}
