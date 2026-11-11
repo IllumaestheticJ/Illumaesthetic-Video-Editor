@@ -14,7 +14,10 @@
   "F2_fbumper": 4.4,
   "S1_side": 4.4,
   "R1_rbumper": 3.3,
-  "X_reassemble": 2.4
+  "X_reassemble": 2.4,
+  "S1v3": 5.4,
+  "R1v3": 3.3,
+  "X3": 3.4
  },
  "events": {
   "hood_open0": 0.25,

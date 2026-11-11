@@ -1,4 +1,5 @@
-# Porsche Macan (Electric) - Temerario-style scan reel, v2. v1 (never delivered): project_v1.yaml.
+# Porsche Macan (Electric) - Temerario-style scan reel, v3 (user: rear plate removed, interior + exploded view; plan direction.md v3).
+# v2: v1 (never delivered): project_v1.yaml.
 # v2 = user's rules for all reels (relayed by the parent session): scene order from this car's scan features, one pass
 # front -> side -> rear, one continuous sequence per section, progressive per-section explode with the camera on the
 # part that comes off, bumper-removed state scans as the hero beats (with factual labels), whole car in the opener,
@@ -6,18 +7,18 @@
 # Music: porsche-macan_track.mp3 (deep house generated for this reel, 118.03 BPM, kick grid 16.3099 + 0.50836 n).
 # Intro hits 4.109 / 8.176 / 9.701 / 11.226, hit-less build 11.2-16.3, DROP 16.310, kicks 20.377, 24.440, 25.460,
 # phrase 28.511, groove stops 30.544, pad tail to ~33.6.
-# Cuts on frames round(t*30): 123, 245, 291, 489, 611, 733, 764, 855, 916; end 1008 (33.6 s).
+# v3 cuts on frames: 123, 245, 291, 489, 611, 764, 855, 947; end 1008 (33.6 s).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: porsche-macan
 format: reel-9x16
-output: {path: /home/user/media/work/macan/out/porsche_macan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/macan/out/porsche_macan_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/porsche-macan_track.mp3   # not in git
   start: 0
   fade_out: 0.8
 
-beats: [4.109, 8.176, 9.701, 11.226, 16.310, 20.377, 24.440, 25.460, 28.511, 30.544]
+beats: [4.109, 8.176, 9.701, 11.226, 16.310, 20.377, 21.394, 22.410, 23.427, 24.440, 25.460, 28.511, 29.527, 30.544, 31.56]
 
 timeline:
   - id: O_whole        # whole car, low front-right 3/4, slow drift; fades up with the track
@@ -61,44 +62,35 @@ timeline:
     interpolate: true
     dur: 4.0667
   - transition: {type: cut, note: "20.377 kick"}
-  - id: S1_side        # left side front -> rear: fender (20.377), FL door (21.393), RL door (22.41); cards turn to the lens
+  - id: S1v3           # left side + interior: fender 20.377, FL door 21.394, driver seat 22.41, RL door 23.427, rear bench 24.44
     section: side
-    focus: "fender + left doors, inner faces"
-    src: /home/user/media/work/macan/renders/final/S1_side
+    focus: "left doors off -> driver seat + rear bench out"
+    src: /home/user/media/work/macan/renders/final/S1v3
     src_fps: 15
     interpolate: true
-    dur: 4.0667
-  - transition: {type: cut, note: "24.440 phrase kick"}
-  - id: s4_lightbar    # light bar + PORSCHE + Macan script (v1 render, middle 1.03 s)
-    section: rear
-    focus: "light bar + script"
-    src: /home/user/media/work/macan/renders/final/s4_lightbar
-    src_fps: 15
-    interpolate: true
-    trim_start: 0.95
-    dur: 1.0333
+    dur: 5.1
   - transition: {type: cut, note: "25.460 kick"}
-  - id: R1_rbumper     # hatch opens (Rear Hatch Fully Open), rear bumper out to the side, push in on the tubular crash beam + mount
+  - id: R1v3           # hatch opens (Rear Hatch Fully Open), rear bumper out to the side, push in on the tubular crash beam + mount
     section: rear
     focus: "rear bumper off -> crash beam + mounts"
-    src: /home/user/media/work/macan/renders/final/R1_rbumper
+    src: /home/user/media/work/macan/renders/final/R1v3
     src_fps: 15
     interpolate: true
     dur: 3.0333
   - transition: {type: cut, note: "28.511 phrase"}
-  - id: X_reassemble   # every part flies home, locks on 29.511, fade to black
+  - id: X3             # full exploded view (panels + seats), slow orbit, flies home 29.527, locks 30.544, fade
     section: whole
-    focus: "parts lock home"
-    src: /home/user/media/work/macan/renders/final/X_reassemble
+    focus: "exploded view -> parts lock home"
+    src: /home/user/media/work/macan/renders/final/X3
     src_fps: 15
     interpolate: true
-    dur: 2.0333
-    vf: "fade=t=out:st=1.63:d=0.4"
-  - transition: {type: cut, note: "30.544 the groove stops - small logo over the pad tail"}
-  - id: logo           # tools/logo_card.py --secs 3.0667 --width 360
-    src: /home/user/media/work/macan/out/logo_card_v2.mp4
     dur: 3.0667
+    vf: "fade=t=out:st=2.6:d=0.45"
+  - transition: {type: cut, note: "31.56 small logo over the pad tail"}
+  - id: logo           # tools/logo_card.py --secs 2.0333 --width 320
+    src: /home/user/media/work/macan/out/logo_card_v3.mp4
+    dur: 2.0333
 
 overlays:
-  - src: /home/user/media/work/macan/out/hud_v2.mov   # ive hud projects/porsche-macan/overlay.json (labels over F2 and R1 only)
+  - src: /home/user/media/work/macan/out/hud_v3.mov   # ive hud projects/porsche-macan/overlay.json (labels over F2 and R1 only)
     start: 0

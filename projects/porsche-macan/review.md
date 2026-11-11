@@ -1,3 +1,32 @@
+# Porsche Macan (Electric) - self-review, v3
+
+Output: `/home/user/media/work/macan/out/porsche_macan_v3.mp4` (1080x1920, 30 fps, 33.57 s, h264 yuv420p + AAC).
+User v3 ask: "Hide/Blur/remove the rear plate, show the interior and exploded views". An explicit per-reel request,
+so it overrides the IS300-only plate default.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Hook | 4 | Unchanged from v2: the whole car arcs from frame 1 and fades up with the quiet intro. |
+| 2 | Beat sync | 5 | `tools/cutcheck.py` on the decoded v3 mp4: all 8 cuts land -4.6 to +15.6 ms from their onsets (max under half a frame). |
+| 3 | 1:1 match | n/a | Scan-only reel. |
+| 4 | Scan quality | 4 | Rear plate flattened (`tools/deplate.py`) on the car and the rear bumper scan. The plate travels with the bumper when it comes off (build.py), so nothing floats behind it. Seats and bench are registered from their own scans in the same levelled frame (cabin fills the door openings; doors-closed vs doors-open interior 1.4 mm). The car's own seat skin within 25 mm is cut, and only new cabin geometry is added (`tools/build_int.py`). |
+| 5 | Story | 5 | Front -> side -> rear, now with the interior: on the side shot the left doors come off and park up, then the driver seat and the rear bench slide out to camera, one after its own door. The reel ends on a full exploded view with every panel, door, bumper, seat and bench out, which locks home on the kick before the logo. |
+| 6 | Grade | n/a | No IRL footage. |
+| 7 | Text | 4 | 5 factual labels, no numbers: FRONT BUMPER REMOVED, CRASH BEAM, INTERIOR, REAR BUMPER REMOVED, MOUNTING POINTS. INTERIOR first sat over the seat base at y 0.70; moved to 0.80 after checking frames 735-760. |
+| 8 | Ending | 4 | X3 exploded -> lock on 30.54 -> fade -> small logo over the pad tail. |
+| 9 | Technical | 5 | Per-frame luma on S1v3/R1v3/X3 finals: no dropouts. Frames +-1 at every cut inspected: no black or duplicate frames. |
+
+## Director pass
+Same two repeat flags as v2 (F1/R1v3, F2/S1v3, IoU 0.70-0.77), kept for the same reason: different sections and parts.
+F1's 0.8 s hold is the landing before the drop.
+
+## What I'd do differently
+- Check label positions against the parts' paths before the HUD render: the seats come out low in frame, into the
+  label band used by the bumper shots.
+- regcheck.py against a 3M-point shell without `distance_upper_bound` ran 19+ min; always bound the query.
+
+---
+
 # Porsche Macan (Electric) - self-review, v2
 
 Output: `/home/user/media/work/macan/out/porsche_macan_v2.mp4` (1080x1920, 30 fps, 33.57 s, h264 yuv420p + AAC).
