@@ -53,8 +53,8 @@ def shots():
                                          {"t": BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
                                          {"t": 4 * BEAT, "loc": [0, 0, 0], "rot": [62, 0, 0]}]}
                                for b in (f"{P}/trunk.blend", f"{P}/x_spoiler.blend")],
-                     "cam": [orbit(0, 5.2, 148, 2.9, c=(0, 1.0, 0.85), focal=30, ease="lin"),
-                             orbit(S["s6_trunk"], 4.7, 162, 3.2, c=(0, 1.1, 0.85), focal=30, ease="out2")]},
+                     "cam": [orbit(0, 5.8, 148, 3.0, c=(0, 0.6, 0.85), focal=30, ease="lin"),
+                             orbit(S["s6_trunk"], 5.0, 162, 3.3, c=(0, 0.85, 0.85), focal=30, ease="out2")]},
         # 7. top-down: high front-left 3/4 up and over to straight down (nose at the bottom of frame)
         "s7_top": {"base": [CAR], "cam": [
             {"t": 0, "loc": [2.4, -4.6, 4.0], "target": [0, -0.3, 0.7], "focal": 30},
