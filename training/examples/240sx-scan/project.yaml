@@ -1,58 +1,56 @@
-# 240SX (S13 hatch) scan reel v3. v1/v2 kept as project_v1.yaml / project_v2.yaml.
-# v3 feedback: no 4,527 mm caption; bumpers spin left/right (Z); 1:1 cut in the front-bumper scene;
-# ending = parts fly back onto the car -> dissolve into the S13 240SX scan listing on illumaesthetic.com
-# (same angle as its product render) -> zoom out; "SCAN DATA NOW AVAILABLE" + URL on that page.
+# 240SX (S13 hatch) scan reel v4 - FINAL. Earlier versions: project_v1..v3.yaml.
+# v4 feedback: cuts follow the music (varied holds on the strong accents); the real bumper pull plays
+# out before the 1:1 cut; logo under the domain on the last page; x-ray reassembly, translate only.
 project: 240sx-scan
 format: reel-9x16
-output: {path: /home/user/media/work/out/240sx_scan_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/240sx_scan_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  # Approved Oct 31 edit's track, extended by repeating 8 beats (10.63-15.70 s) at 15.70 s so the
-  # new ending fits; splice is on the beat grid (onsets continue 15.70, 16.32, 16.95 ...). 27.80 s.
-  path: /home/user/media/work/music_extended.wav
+  path: /home/user/media/work/music_extended.wav   # approved track + 8 repeated beats (see v3 log)
   start: 0
   fade_out: 0.8
 
-beats: [1.82, 6.85, 9.38, 14.42, 16.95, 21.99, 27.80]   # measured onsets (ive beats)
+# Strong accents fall every other beat from the drop at 3.07 s (flux analysis in editlog).
+beats: [3.07, 8.12, 11.91, 15.70, 16.96, 22.00, 27.80]
 
 timeline:
-  - id: irl_match_rear   # pan to the rear bumper, ends EXACTLY on the solved frame (3.800 s)
-    dur: 1.82
+  - id: irl_match_rear   # pan to the rear; ends on the solved frame (3.800 s); cut ON THE DROP
+    dur: 3.07
     src: /home/user/media/240sx/dropbox/v_1838_02.mov
-    in: 2.0134
+    in: 0.7634
     out: 3.8334
-  - transition: {type: cut, note: "1:1 IRL -> scan (rear), cam_B"}
+  - transition: {type: cut, note: "1:1 IRL -> scan (rear, cam_B) on the drop"}
   - id: scan_rear   # skin drops below, crash beam rises above, both spin left/right
-    dur: 5.03
+    dur: 5.05
     src: /home/user/media/work/renders/shots_v3/s1_rear
     src_fps: 15
     interpolate: true
-  - id: irl_match_front   # crew at the front bumper; ends on the solved frame (3.500 s, bumper still on)
-    dur: 2.53
+  - id: irl_bumper_pull   # crew pulls the front bumper - plays through the whole pull
+    dur: 3.79
     src: /home/user/media/240sx/dropbox/v_1954_41.mov
-    in: 1.0034
-    out: 3.5334
-  - transition: {type: cut, note: "1:1 IRL -> scan (front), cam_C"}
-  - id: scan_front   # bumper comes off and spins left/right, camera pushes in
-    dur: 5.04
-    src: /home/user/media/work/renders/shots_v3/s2_front
+    in: 2.4434
+    out: 6.2334
+  - transition: {type: cut, note: "1:1 IRL -> scan (front, cam_D2: 6.2 s frame solve, camera height locked 0.75 m) - scan bumper starts where the crew holds the real one"}
+  - id: scan_front   # bumper starts on top of the real one in the crew's hands, glides up, spins; gentle push-in
+    dur: 3.79
+    src: /home/user/media/work/renders/shots_v4/s2_front
     src_fps: 15
     interpolate: true
-  - id: irl_scanner   # handheld scanner screen against the powdered flank
-    dur: 2.53
+  - id: irl_scanner   # quick 2-beat scanner shot
+    dur: 1.26
     src: /home/user/media/240sx/dropbox/v_1838_14.mov
     in: 0.60
-    out: 3.13
-  - id: scan_reassemble   # all parts fly back on; orbit ENDS on the listing image's angle (cam_end2_final)
+    out: 1.86
+  - id: scan_xray   # x-ray: bumper-removed scan on the trimmed full-car scan; parts translate back on; ends on the listing angle
     dur: 5.04
-    src: /home/user/media/work/renders/shots_v3/s3_end
+    src: /home/user/media/work/renders/shots_v4/s3_xray
     src_fps: 15
     interpolate: true
-  - transition: {type: dissolve, duration: 0.5, note: "scan render -> same-angle listing render (near-1:1 dissolve)"}
-  - id: website   # S13 240SX scan listing; starts on its product render, zooms out on the hit (25.18 s); title + URL on this page
-    dur: 6.31   # +0.5 s: the dissolve overlaps the previous shot
-    src: /home/user/media/work/out/webzoom_240sx.mp4
+  - transition: {type: dissolve, duration: 0.5, note: "x-ray scan -> same-angle listing render"}
+  - id: website   # S13 240SX scan listing; zoom-out lands on the 24.53 s accent; title, URL, logo
+    dur: 6.30
+    src: /home/user/media/work/out/webzoom_240sx_v4.mp4
 
 overlays:
-  - src: /home/user/media/work/out/hud_240sx_v3.mov
+  - src: /home/user/media/work/out/hud_240sx_v4.mov
     start: 0
