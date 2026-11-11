@@ -1,0 +1,69 @@
+# Infiniti QX80 - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
+# Satin-silver scan on black; 3/4 turntables -> extreme close-ups (grille, wheel) -> hood opens (fitted hinge) -> top-down
+# -> exploded view (hood, fender vents, RF fender, bumper corner/duct, roof spoiler, exhaust trims) -> logo.
+# Shots: tools/shots.py (specs) + tools/shot.py (Blender). Music: infiniti-qx80_track.mp3, original track generated for this
+# reel by the parent session (ElevenLabs via Higgsfield; grand cinematic strings), 92.3 BPM, beat 0.650 s, phase 0.112 s.
+# music.start 0.66 (first sound 0.685) -> video t = music t - 0.66.
+# Cuts (music t): 5.962 | 9.212 | 11.162 | 13.762 | 18.962 | 21.562 (lift) | 34.562 (logo); explode locks on 31.962;
+# music silent at 39.5 -> end 38.84 s video. Cut frames round((t-0.66)*30): 159 257 315 393 549 627 1017, end 1165.
+# Whole-frame durs; first clip one frame short (assembler adds the cut hold frame).
+project: infiniti-qx80
+format: reel-9x16
+output: {path: /home/user/media/infiniti-qx80/out/infiniti_qx80_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/infiniti-qx80_track.mp3   # not in git
+  start: 0.66
+  fade_out: 0.3
+
+beats: [5.302, 8.552, 10.502, 13.102, 18.302, 20.902, 33.902]
+
+timeline:
+  - id: s1_front34     # low front-right 3/4 turntable, nose swings toward camera
+    src: /home/user/media/infiniti-qx80/renders/final/s1_front34
+    src_fps: 15
+    interpolate: true
+    dur: 5.2667        # 158 f
+  - transition: {type: cut, note: "music 5.962 phrase start"}
+  - id: s2_rear34      # rear-left 3/4 orbit with a slight rise
+    src: /home/user/media/infiniti-qx80/renders/final/s2_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 3.2667        # 98 f
+  - transition: {type: cut, note: "music 9.212"}
+  - id: s3_grille      # extreme close-up: grille fins + badge
+    src: /home/user/media/infiniti-qx80/renders/final/s3_grille
+    src_fps: 15
+    interpolate: true
+    dur: 1.9333        # 58 f
+  - transition: {type: cut, note: "music 11.162 build steps up"}
+  - id: s4_wheel       # extreme close-up: right front wheel, push in
+    src: /home/user/media/infiniti-qx80/renders/final/s4_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.6           # 78 f
+  - transition: {type: cut, note: "music 13.762 low hit"}
+  - id: s5_hood        # hood opens 14.41 -> 16.36 on the fitted hinge, under-hood capture revealed
+    src: /home/user/media/infiniti-qx80/renders/final/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 5.2           # 156 f
+  - transition: {type: cut, note: "music 18.962 low hit"}
+  - id: s6_top         # rise from high rear 3/4 to straight top-down
+    src: /home/user/media/infiniti-qx80/renders/final/s6_top
+    src_fps: 15
+    interpolate: true
+    trim_start: 0.2
+    dur: 2.6           # 78 f
+  - transition: {type: cut, note: "music 21.562 the lift - panels separate"}
+  - id: s7_explode     # separate 21.56-24.16, drift+orbit, fly home 29.36 -> LOCK 31.962, hold 4 beats
+    src: /home/user/media/infiniti-qx80/renders/final/s7_explode
+    src_fps: 15
+    interpolate: true
+    dur: 13.0          # 390 f
+  - transition: {type: cut, note: "music 34.562 - logo over the fade"}
+  - id: logo           # tools/logo_card.py --secs 4.9333 --width 720
+    src: /home/user/media/infiniti-qx80/out/logo_card.mp4
+    dur: 4.9333        # 148 f
+
+overlays: []

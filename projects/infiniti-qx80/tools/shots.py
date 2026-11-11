@@ -70,10 +70,74 @@ XPARTS = [
 SHOTS["s7_explode"] = dict(base=[B + "/x_base_explode.blend"], parts=XPARTS,
     seconds=EXPLODE_T["secs"], camera={"keys": orbit((8.4, 8.8), 35, 68, 2.5, 2.3, (0.0, 0.2, 1.65), (0.0, 0.0, 1.6), 30, 30, EXPLODE_T["secs"])})
 
+# ---------------- v2 (direction.md / director.md): section-focused explode, whole-car opener ----------------
+HP = [0.0609, 1.2197, 1.2671]  # hood hinge pivot (prepped m), open = +37.19 deg about +X
+def track(blend, start, moves, rot_keys=None, pivot=None):
+    """moves: [(t0, t1, (dx,dy,dz)), ...] absolute offsets reached at t1 (ease out on the way out, ease in going home).
+    start: offset at t=0. rot_keys: [(t0, t1, rx0, rx1)] for the hood. Keys are merged by time."""
+    times = {0.0}
+    for t0, t1, _ in moves: times |= {t0, t1}
+    for t0, t1, _, _ in (rot_keys or []): times |= {t0, t1}
+    def loc_at(t):
+        cur = list(start)
+        for t0, t1, off in moves:
+            if t >= t1: cur = list(off)
+        return cur
+    def rot_at(t):
+        r = rot_keys[0][2] if rot_keys else 0.0
+        for t0, t1, a, b in (rot_keys or []):
+            if t >= t1: r = b
+        return [r, 0, 0]
+    keys = []
+    for t in sorted(times):
+        k = {"t": t, "loc": loc_at(t), "rot": rot_at(t), "ease": "inout"}
+        for t0, t1, off in moves:
+            if t == t1: k["ease"] = "out" if any(abs(v) > 1e-9 for v in off) else "in"
+        keys.append(k)
+    d = {"blend": B + "/" + blend, "keys": keys}
+    if pivot: d["pivot"] = pivot
+    return d
+Z = (0, 0, 0)
+OFF = {"duct": (0.25, 0.45, 0.05), "vr": (0.30, 0, 0), "vl": (-0.30, 0, 0), "fender": (0.40, 0.05, 0),
+       "hood": (0, 0.15, 0.90), "wing": (0, -0.30, 0.30), "exh": (0, -0.35, 0)}
+XB = [B + "/x_base_explode.blend"]
+SHOTS["N0_open"] = dict(base=CAR, seconds=5.47, camera={"keys": orbit((7.6, 7.0), 48, 30, 1.05, 1.0, (0, 0.2, 0.9), (0, 0.5, 0.9), 32, 32, 5.47)})
+SHOTS["N1_front"] = dict(base=XB, seconds=8.0, parts=[
+    track("x_front_bumper_duct_3mm.blend", Z, [(0.65, 1.30, OFF["duct"])]),
+    track("x_side_vent_r.blend", Z, [(2.60, 3.25, OFF["vr"])]),
+    track("x_side_vent_l.blend", Z, [(2.60, 3.25, OFF["vl"])]),
+    track("x_fender_inner_3mm.blend", Z, [(4.55, 5.20, OFF["fender"])]),
+    track("hood_part.blend", Z, [(5.20, 6.50, OFF["hood"])], [(0, 0, 37.19, 37.19)], HP),
+    track("x_wing_3mm.blend", Z, []), track("x_exhaust_cover_3mm.blend", Z, [])],
+    camera={"keys": [{"t": 0, "loc": [2.9, 4.2, 1.1], "target": [0.75, 2.2, 0.75], "focal": 35},
+                     {"t": 4.55, "loc": [2.75, 4.0, 1.15], "target": [0.8, 2.1, 0.8], "focal": 35, "ease": "lin"},
+                     {"t": 7.8, "loc": [3.6, 5.2, 2.6], "target": [0.4, 1.8, 1.3], "focal": 30, "ease": "inout"},
+                     {"t": 8.0, "loc": [3.6, 5.2, 2.6], "target": [0.4, 1.8, 1.3], "focal": 30}]})
+FRONT_OUT = [track("x_front_bumper_duct_3mm.blend", OFF["duct"], []), track("x_side_vent_r.blend", OFF["vr"], []),
+             track("x_side_vent_l.blend", OFF["vl"], []), track("x_fender_inner_3mm.blend", OFF["fender"], []),
+             track("hood_part.blend", OFF["hood"], [], [(0, 0, 37.19, 37.19)], HP)]
+SHOTS["N2_rear"] = dict(base=XB, seconds=4.1, parts=FRONT_OUT + [
+    track("x_wing_3mm.blend", Z, [(0.65, 1.30, OFF["wing"])]),
+    track("x_exhaust_cover_3mm.blend", Z, [(1.30, 1.95, OFF["exh"])])],
+    camera={"keys": [{"t": 0, "loc": [-2.9, -5.0, 1.5], "target": [-0.2, -2.2, 1.15], "focal": 30},
+                     {"t": 4.1, "loc": [-2.55, -4.55, 1.45], "target": [-0.1, -2.3, 1.1], "focal": 30, "ease": "inout"}]})
+N3_CAM = {"keys": [{"t": 0, "loc": [-5.2, 5.6, 3.4], "target": [0, 0.3, 1.0], "focal": 32},
+                   {"t": 6.7, "loc": [-6.0, 4.4, 2.2], "target": [0, 0.1, 0.9], "focal": 32, "ease": "inout"}]}
+SHOTS["N3a_reassemble"] = dict(base=XB, seconds=6.7, frames=list(range(1, 60)), out_name="N3_reassemble", parts=[
+    track("x_exhaust_cover_3mm.blend", OFF["exh"], [(0.65, 1.30, Z)]),
+    track("x_wing_3mm.blend", OFF["wing"], [(1.30, 1.95, Z)]),
+    track("x_front_bumper_duct_3mm.blend", OFF["duct"], [(1.95, 2.60, Z)]),
+    track("x_side_vent_r.blend", OFF["vr"], [(1.95, 2.60, Z)]),
+    track("x_side_vent_l.blend", OFF["vl"], [(1.95, 2.60, Z)]),
+    track("x_fender_inner_3mm.blend", OFF["fender"], [(2.60, 3.25, Z)]),
+    track("hood_part.blend", OFF["hood"], [(2.60, 3.25, Z)], [(0, 0, 37.19, 37.19), (3.25, 3.90, 37.19, 0.0)], HP)],
+    camera=N3_CAM)
+SHOTS["N3b_reassemble"] = dict(base=CAR, seconds=6.7, frames=list(range(60, 101)), out_name="N3_reassemble", camera=N3_CAM)
+
 def write(name, check=False, pct=75):
     s = dict(SHOTS[name]); s.setdefault("fps", 15); s.setdefault("res", "1080x1920")
     s["res_pct"] = 30 if check else pct; s["samples"] = 8 if check else 12
-    s["out"] = f"{M}/renders/{'check' if check else 'final'}/{name}"
+    s["out"] = f"{M}/renders/{'check' if check else 'final'}/{s.pop('out_name', name)}"
     if check: s["frames"] = ["first", "mid", "last"]
     os.makedirs(M + "/specs", exist_ok=True); p = f"{M}/specs/{name}{'_check' if check else ''}.json"
     json.dump(s, open(p, "w"), indent=1); return p
