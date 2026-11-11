@@ -24,7 +24,10 @@ lot. Rewrite them from what actually worked once the first reel is delivered, an
      comes from `rrN---sn-….googlevideo.com` and is redirected to a second such host; each needs
      its own approval. Even with the hosts allowed, the partial download failed (ffmpeg could not
      open the stream through the proxy) and direct ranged pulls were refused by the session's
-     safety check. `archive.org` is not reachable either.
+     safety check. The plain downloader (no ffmpeg) then got `HTTP 403` from YouTube's own
+     servers: that is YouTube's bot protection, not our network, and switching player clients to
+     get past it is not allowed here. `archive.org` is not reachable either. Ask the user to
+     download or record the clip on their own machine.
 - **The car list**, in menu order, and for each car which kit parts are on or off.
 - **Rights.** The capture's footage, UI, sound effects and any licensed menu music belong to the
   game's publisher / the labels. Tell the user once; it is their call for a brand account.
