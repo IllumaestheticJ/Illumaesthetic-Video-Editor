@@ -1,0 +1,14 @@
+{
+ "image": "/home/user/media/work/sera/irl/n51_250.png",
+ "image_size": [3840, 2160],
+ "sensor_width_mm": 23.3,
+ "note": "FX30 4351 source frame 250 (10.427 s): stock front bumper just lifted off, hood open. Scan = compA (full car + 'Hood open' state)",
+ "points": [
+  {"name": "fan_hub", "px": [810, 1225], "xyz": [0.6783, 1.6433, 0.4478]},
+  {"name": "cam_hook", "px": [475, 815], "xyz": [0.6933, 1.2924, 0.7456]},
+  {"name": "hl_br", "px": [540, 1240], "xyz": [0.8690, 1.6795, 0.5536]},
+  {"name": "bar_bolt", "px": [575, 955], "xyz": [0.7761, 1.5451, 0.6709]},
+  {"name": "shroud_tab", "px": [590, 1060], "xyz": [0.7741, 1.5653, 0.6068]},
+  {"name": "res_cap", "px": [90, 790], "xyz": [0.8989, 1.1388, 0.7664]}
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "image": "/home/user/media/work/sera/irl/full_2.png",
+ "image_size": [
+  3840,
+  2160
+ ],
+ "sensor_width_mm": 23.3,
+ "note": "FX30 4342 source frame 433 (t=18.060 s), full 4K frame; XML gives lens FE 24-70mm F2.8 GM II (no focal recorded)",
+ "points": [
+  {
+   "name": "plate_tl",
+   "px": [
+    1802,
+    1787
+   ],
+   "xyz": [
+    0.6955,
+    1.7889,
+    0.5049
+   ]
+  },
+  {
+   "name": "plate_tr",
+   "px": [
+    2236,
+    1789
+   ],
+   "xyz": [
+    0.376,
+    1.8799,
+    0.5074
+   ]
+  },
+  {
+   "name": "hlL_in",
+   "px": [
+    1609,
+    1711
+   ],
+   "xyz": [
+    0.8564,
+    1.6762,
+    0.536
+   ]
+  },
+  {
+   "name": "hlR_in",
+   "px": [
+    2474,
+    1721
+   ],
+   "xyz": [
+    0.1898,
+    1.8807,
+    0.5312
+   ]
+  },
+  {
+   "name": "mirL",
+   "px": [
+    1504,
+    989
+   ],
+   "xyz": [
+    1.0221,
+    0.1697,
+    0.9658
+   ]
+  },
+  {
+   "name": "mirR",
+   "px": [
+    3082,
+    906
+   ],
+   "xyz": [
+    -0.7348,
+    0.6786,
+    0.9559
+   ]
+  }
+ ],
+ "focal_mm": 24.0
+}

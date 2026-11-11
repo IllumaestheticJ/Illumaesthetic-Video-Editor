@@ -1,0 +1,15 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 810,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "brackets", "from": 57, "duration": 66},
+  {"kind": "counter", "from": 60, "duration": 62, "label": "TRIANGLES CAPTURED", "value": 14999999, "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 183, "duration": 42, "title": "REAR BUMPER", "sub": "4,999,998 TRIANGLES", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 228, "duration": 39, "title": "INSIDE + OUTSIDE", "sub": "REAR BUMPER SCANNED", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 381, "duration": 42, "title": "FRONT BUMPER", "sub": "1,800,000 TRIANGLES", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 426, "duration": 39, "title": "INSIDE + OUTSIDE", "sub": "FRONT BUMPER SCANNED", "x": 0.08, "y": 0.08}
+ ]
+}
