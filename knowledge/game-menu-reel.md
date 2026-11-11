@@ -67,12 +67,14 @@ What was learned on the first run:
 - The audio tap works: the page has one 44.1 kHz AudioContext and `--init tools/game_audio_tap.js`
   mirrors it into the recorder. The recorder itself (`/rec`) is written but **not yet tested**.
 - The NFSU2 prologue cannot be skipped: the car lot is across the whole city from the airport
-  (about 5 km). `tools/gps_autopilot.py` follows the blue GPS arrow and got the car from the
-  terminal to the first highway junction in 90 s, then sat wedged on a barrier. Open problems,
-  in order: (1) stuck detection, because rain and the day/night cycle keep the frame changing while
-  the car is stopped (read the "0 MPH" on the speedometer instead); (2) the GPS drops to
-  "Searching connection" off the road network and the arrow disappears; (3) stepping the car by
-  hand gains only a few metres per step. Budget an hour or more, or use route 1.
+  (about 5 km), and the page exposes no position, speed or teleport (`session.status` has 60
+  values, none of them the car's). `tools/gps_autopilot.py` follows the blue GPS arrow and frees
+  itself when wedged (it reads "under 10 mph" from the speed readout; frame differencing fails
+  because rain and the day/night cycle keep the picture changing). In about 25 minutes of runs it
+  reached the highway junction outside the terminal several times and then circled the airport
+  loop; the world map showed no progress toward the lot. Unsolved: choosing the right exit at that
+  junction, and the GPS dropping to "Searching connection" off the road network. Stepping the car
+  by hand gains only a few metres per step. Treat this as not working; use route 1.
 - How to read the arrow (it took five tries): it is a flat block arrow above the car, a wide
   triangular head on a short stub. Width on screen gives how far to turn (widest = sideways).
   Sideways, the thicker half is the head. When it is compact, the thin end is the tip, and

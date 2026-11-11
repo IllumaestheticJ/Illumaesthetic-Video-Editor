@@ -16,7 +16,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--seconds", type=float, default=20)
 ap.add_argument("--port", type=int, default=8765)
 ap.add_argument("--cruise", type=float, default=24, help="throttle is held while the frame-to-frame change is below this (24 is about 35 mph at 480x270)")
-ap.add_argument("--stuck", type=float, default=5.0, help="frame-to-frame change below this for 5 ticks counts as stuck (0 = never)")
+ap.add_argument("--stuck", type=float, default=9, help="ticks under 10 mph before backing out (0 = never)")
 ap.add_argument("--reverse", type=float, default=4.0, help="seconds to reverse when stuck")
 ap.add_argument("--debug", default="")
 ap.add_argument("--shot", default="/home/user/media/work/ap_frame.jpg")
@@ -94,9 +94,14 @@ try:
         steer = ar[0] if ar else 0.0
         if ar and ar[1]:
             steer = 1.0                                # destination is behind: turn round to the right
-        # rain and HUD flicker keep "moved" around 3-8 when parked; real motion is 10+
-        still = still + 1 if moved < a.stuck else 0
-        if still >= 5:                                # stuck: back out turning away, then drive toward the arrow
+        # Stopped or crawling = the speed readout has no tens digit (HUD box measured at 480x270: the
+        # units digit sits at x 454-460, y 224-232, the tens digit just left of it). Frame differencing
+        # cannot tell: rain and the day/night cycle keep the picture changing while the car is wedged.
+        hh, ww = im.shape[:2]
+        tens = cv2.cvtColor(im[int(hh * 224 / 270):int(hh * 233 / 270), int(ww * 444 / 480):int(ww * 453 / 480)], cv2.COLOR_BGR2GRAY)
+        slow = int((tens > 140).sum()) < 3
+        still = still + 1 if (slow and a.stuck > 0) else 0
+        if still >= int(a.stuck):                     # stuck: back out turning away, then drive toward the arrow
             hold("ArrowUp", False); hold("ArrowLeft", False); hold("ArrowRight", False)
             want = "ArrowLeft" if steer < 0 else "ArrowRight"
             away = "ArrowRight" if steer < 0 else "ArrowLeft"
@@ -107,13 +112,13 @@ try:
         # The game runs at a few frames a second on software graphics: a key must stay down for a few
         # hundred ms or the game never samples it, so keys are held states, not taps.
         hard = abs(steer) > 0.75
-        hold("ArrowUp", moved < (12 if hard else a.cruise))   # frame-to-frame change stands in for speed
+        hold("ArrowUp", slow or moved < (12 if hard else a.cruise))   # frame-to-frame change stands in for speed above 10 mph
         hold("ArrowLeft", steer < -0.3); hold("ArrowRight", steer > 0.3)
         if 0.3 < abs(steer) <= 0.75:                  # gentle correction: a short pulse, then straighten
             time.sleep(0.45); hold("ArrowLeft", False); hold("ArrowRight", False)
         if a.debug and k % 4 == 0:
             cv2.imwrite(f"{a.debug}/ap_{k:04d}.jpg", cv2.resize(im, (480, 270)))
-        print(f"  t={a.seconds - (t_end - time.time()):5.1f} arrow={'none' if not ar else f'{ar[0]:+.2f} back={int(ar[1])} a={ar[2]}'} steer={steer:+.2f} moved={moved:.1f}")
+        print(f"  t={a.seconds - (t_end - time.time()):5.1f} arrow={'none' if not ar else f'{ar[0]:+.2f} back={int(ar[1])} a={ar[2]}'} steer={steer:+.2f} moved={moved:.1f} slow={int(slow)}")
         k += 1
 finally:
     for key in list(held):

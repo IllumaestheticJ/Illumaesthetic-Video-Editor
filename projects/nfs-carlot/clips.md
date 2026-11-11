@@ -9,8 +9,9 @@ here in headless Chromium through `tools/game_driver.js`: menus and garage at 40
 
 Reached so far (profile EPSILON, new career): boot, main menu, intro movie, the airport start in Rachel's 350Z.
 Not reached: the car lot. It is ~5 km away across the city and the prologue cannot be skipped. `tools/gps_autopilot.py`
-got from the terminal to the first highway junction and then sat wedged on a barrier; stepping by hand gains a few
-metres per step. Details and open problems: `knowledge/game-menu-reel.md` > "Running a browser game here".
+reaches the highway junction outside the terminal and then circles the airport loop (world map checked after ~25 min of
+runs: no progress); stepping by hand gains a few metres per step. Details: `knowledge/game-menu-reel.md` >
+"Running a browser game here". Waiting on the user: a screen recording of the car lot sequence, or a go-ahead to keep trying.
 
 Not recorded yet: the 350Z arriving at the lot, the car-select menu, its sounds. `/rec` in the driver is untested.
 
