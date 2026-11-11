@@ -18,3 +18,4 @@
 {"ts": "2026-11-11T07:39:38Z", "decision": "Hood and hatch openings merged into one shot (s5_open, comp_open base) instead of two", "why": "11.2-16.3 has no hits to cut on; one continuous orbit front-left -> rear-left lets the hood open then the hatch open, Temerario-like"}
 {"ts": "2026-11-11T07:39:38Z", "decision": "Video starts at track 0 and fades up from black over 1.2 s", "why": "Track fades in from silence (-58 dB at 0 s); Temerario reference also fades up from black"}
 {"ts": "2026-11-11T08:04:52Z", "decision": "s1 turntable re-aimed: -42 -> -14 deg (toward the front) instead of -28 -> -58", "why": "Contact sheet of the s1 final: swinging toward side-on pushed the nose out of the 9:16 frame for the second half"}
+{"ts": "2026-11-11T08:09:59Z", "decision": "s2 rear orbit re-aimed: 122 -> 156 deg (toward the rear) instead of 150 -> 122", "why": "s2 final contact sheet: swinging toward side-on cropped the tail and the light bar in 9:16"}
