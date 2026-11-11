@@ -266,7 +266,7 @@ S3_END = dict(S2_OUT, hood=P([0, 0.05, 0.60], deg=HINGE["open_deg"]), tc=P([0, 0
               rc=P([0.22, -0.10, 0.35]))
 S4_END = dict(S3_END, fe=P([-0.95, -0.15, 0.40], -120, (0, 1, 0)), sk=P([-0.55, 0, -0.15], -120, (0, 1, 0)))
 S5_END = dict(S4_END, rb=P([0, 1.00, 0.35], -125))
-S5_OUT = dict(S4_END, rb=P([0, 1.35, -0.45], -125))
+S5_OUT = dict(S4_END, rb=P([0, 1.35, -1.6], -125))   # v3 full render: at z -0.45 it sat in the bottom of the last rear frames
 SP_N = {"sp_bumper": (72, 80), "sp_hood": (80, 86), "sp_side": (86, 92), "sp_rear": (92, 98), "sp_finale": (98, 108)}
 
 
@@ -314,11 +314,11 @@ SP_SHOTS = [
                        dict(t=0.5, az=-135, el=27, dist=3.9, target=[0, 2.75, 0.60], lens=45),
                        dict(t=1, az=-150, el=20, dist=2.4, target=[0, 1.95, 0.55], lens=45)],
            # rear bumper back past the tail, tips its inner face, then drops away; camera moves in on the structure behind
-           moves(S4_END, S5_END, {"rb": (0.0, 0.5)}, {"rb": [dict(t=1, off=[0, 1.35, -0.45], spin=[-125, 1, 0, 0])]})),
+           moves(S4_END, S5_END, {"rb": (0.0, 0.5)}, {"rb": [dict(t=1, off=[0, 1.35, -1.6], spin=[-125, 1, 0, 0])]})),
     # S6 the one full-explode view, then reassembly in reverse travel order, clean car swap on n106 (t=0.8), fade in assembly
     spshot("sp_finale", [dict(t=0, az=-172, el=58, dist=10.5, target=[0, -0.2, 0.70], lens=40),
                          dict(t=0.35, az=-185, el=44, dist=9.0, target=[0, 0.0, 0.65], lens=40, lin=True),
-                         dict(t=1, az=-212, el=14, dist=6.3, target=[0, 0.2, 0.55], lens=40)],   # length runs up the 9:16 frame (A90 lesson)
+                         dict(t=1, az=-212, el=14, dist=8.2, target=[0, 0.2, 0.55], lens=40)],   # d 6.3 clipped the nose (frames 78-89); length runs up the 9:16 frame (A90 lesson)
            moves(S5_OUT, ST0, {"rb": (0.3, 0.5), "sk": (0.4, 0.6), "fe": (0.4, 0.6), "tc": (0.4, 0.6), "lc": (0.4, 0.6),
                                "rc": (0.4, 0.6), "hood": (0.5, 0.7), "fb": (0.5, 0.75)}),
            objects=dict(EXPLODED2, clean=B + "car2.blend"),
