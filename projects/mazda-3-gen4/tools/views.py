@@ -3,7 +3,7 @@
 Renders one 1-frame shot per view (long lens from far away) and tiles them into out_dir/views.jpg."""
 import json, os, subprocess, sys
 from PIL import Image
-SHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "ferrari-296", "tools", "shot.py")
+SHOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "shot.py")
 VIEWS = {"side_l": ([0, 25, 0.7], [0, 0, 0.7]), "side_r": ([0, -25, 0.7], [0, 0, 0.7]),
          "front": ([25, 0, 0.8], [0, 0, 0.7]), "rear": ([-25, 0, 0.8], [0, 0, 0.7]),
          "top": ([0, 0.001, 25], [0, 0, 0]), "q34": ([14, -14, 7], [0, 0, 0.6])}
