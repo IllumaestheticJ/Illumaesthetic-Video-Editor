@@ -29,11 +29,11 @@ def shots():
     S = SECS
     d = {
         # 1. slow low front 3/4 turntable (car's right), moving from frame 1
-        "s1_turntable": {"base": [CAR], "cam": [orbit(0, 6.4, -24, 1.0, focal=30, ease="lin"),
-                                                 orbit(S["s1_turntable"], 6.9, -46, 1.15, focal=30, ease="out2")]},
+        "s1_turntable": {"base": [CAR], "cam": [orbit(0, 8.0, -24, 1.2, focal=30, ease="lin"),
+                                                 orbit(S["s1_turntable"], 8.6, -46, 1.4, focal=30, ease="out2")]},
         # 2. rear 3/4 orbit, car's left, slight rise
-        "s2_rear": {"base": [CAR], "cam": [orbit(0, 6.5, 160, 0.95, focal=30, ease="lin"),
-                                            orbit(S["s2_rear"], 7.0, 136, 1.45, focal=30, ease="out2")]},
+        "s2_rear": {"base": [CAR], "cam": [orbit(0, 8.1, 160, 1.15, focal=30, ease="lin"),
+                                            orbit(S["s2_rear"], 8.7, 136, 1.75, focal=30, ease="out2")]},
         # 3. extreme close-up: front right wheel (mesh rim) slide forward
         "s3_wheel": {"base": [CAR_HI], "cam": [
             {"t": 0, "loc": [-2.15, -0.85, 0.62], "target": [-0.9, -1.42, 0.58], "focal": 40},
@@ -53,8 +53,8 @@ def shots():
                                          {"t": BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
                                          {"t": 4 * BEAT, "loc": [0, 0, 0], "rot": [62, 0, 0]}]}
                                for b in (f"{P}/trunk.blend", f"{P}/x_spoiler.blend")],
-                     "cam": [orbit(0, 3.6, 148, 2.4, c=(0, 1.4, 0.9), focal=30, ease="lin"),
-                             orbit(S["s6_trunk"], 3.3, 162, 2.75, c=(0, 1.5, 0.9), focal=30, ease="out2")]},
+                     "cam": [orbit(0, 5.2, 148, 2.9, c=(0, 1.0, 0.85), focal=30, ease="lin"),
+                             orbit(S["s6_trunk"], 4.7, 162, 3.2, c=(0, 1.1, 0.85), focal=30, ease="out2")]},
         # 7. top-down: high front-left 3/4 up and over to straight down (nose at the bottom of frame)
         "s7_top": {"base": [CAR], "cam": [
             {"t": 0, "loc": [2.4, -4.6, 4.0], "target": [0, -0.3, 0.7], "focal": 30},
