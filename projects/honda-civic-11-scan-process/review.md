@@ -1,30 +1,24 @@
-# Honda Civic EK scan-process reel v1 — agent self-review (training/rubric.md)
+# Honda Civic EK scan-process reel v2 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/civic_ek_scan_process_v1.mp4` — 1080×1920, 30 fps, 29.90 s, H.264 yuv420p + AAC.
-Format follows the final 240SX reel: IRL → 1:1 on the drop → scan → crew scanning → 1:1 → exploded scan → software →
-x-ray reassembly → dissolve into this car's scan-data listing (WebZoom, logo, URL last).
+Output: `/home/user/media/work/out/civic_ek_scan_process_v2.mp4` — 1080×1920, 30 fps, 29.37 s, H.264 yuv420p + AAC. v1 review: `review_v1.md`.
+v2 = reviewer feedback on v1: (1) nothing comes off the car — the bumper was never pulled and there's no separate scan of it,
+so the exploded view and the reassembly are gone; (2) trending music: "Time Back" (Sinny & 7vvch), #4 on TikTok's
+Commercial Music Library US 7-day chart, re-cut to its measured kicks.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 5 | crew powdering the car, 1:1 cut to the scan on the drop at 3.20 s |
-| 2 | Beat sync | 5 | 6 hard cuts measured on the delivered file (tools/cutcheck.py): −7…+17 ms from the kick peaks; holds 0.63–6.60 s on the phrase accents |
-| 3 | 1:1 match | 4 | A (front 3/4, f 18.3 mm, LM + silhouette refine): grille, plate, lamps, roof on the IRL silhouette. B (fender close-up, f 28 mm): marker, seam, arch, rocker, hood edge align; the scan's wipers sit differently from the shoot |
-| 4 | Scan quality | 4 | 3 mm decimation, ground cropped, yaw-aligned; bumper scraps reassigned so nothing floats when parts leave. Parts are cut from one full-car scan, so their backs are open shells (kept rotations to ±38°) |
-| 5 | Story | 5 | real car → scanned (powder, handheld scanner) → scan → parts → software alignment → reassembly → listing |
-| 6 | Grade | 4 | HLG tonemapped (hable) on all iPhone clips; software clip is upscaled 2.2× from a viewport crop (soft but readable) |
-| 7 | Text | 5 | only on scan shots: 24,997,508 triangles (STL header) and "EXTERIOR SCAN / HONDA CIVIC EK HATCHBACK" (listing says Exterior Only; verified parts have no inside) |
-| 8 | Ending | 5 | x-ray orbit ends on the listing's 360 view (silhouette chamfer ~1 px), morphs to the listing greys (car 136 vs 135, bg 26 vs 26), dissolves; title → logo → ILLUMAESTHETIC.COM last; track ends naturally with an 0.8 s fade |
-| 9 | Technical | 5 | 29.90 s video vs 29.94 s of track left; no black/dup frames at cuts other than the assembler's 1-frame hold |
+| 1 | Hook | 5 | powdering shot over the riser → 1.5 s of silence → 1:1 cut to the scan on the drop kick (3.20 s) |
+| 2 | Beat sync | 5 | 6 hard cuts measured on the delivered file: −12…+11 ms from the kick peaks (tools/cutcheck.py); holds 1.1–6.6 s |
+| 3 | 1:1 match | 4 | unchanged from v1 (cam_A 18.3 mm, cam_B 28 mm; scan wipers differ from the shoot) |
+| 4 | Scan quality | 5 | intact full-car scan only — no cut panels, no open shells, no debris |
+| 5 | Story | 5 | powder → scan (drop) → handheld scanner → scan orbit of the whole car → software aligning passes → scan line turns the raw scan into the listing model → listing |
+| 6 | Grade | 4 | HLG tonemapped; software beat is an upscaled viewport crop |
+| 7 | Text | 5 | 24,997,508 triangles (STL header); EXTERIOR SCAN / HONDA CIVIC EK HATCHBACK; nothing claimed about parts |
+| 8 | Ending | 5 | sweep lands on the listing's 360 view, morphs to its greys, dissolves; title → logo → URL last; ends on the kick at 62.27 s with a 1 s fade |
+| 9 | Technical | 5 | 29.37 s; cut holds verified frame-accurately |
 
-## Deviations from the brief (and why)
-- The footage is a **6th-gen EK hatch**, not an 11th gen → Drive `Honda Civic EK` full-car scan (the brief said to use the
-  matching folder if it isn't 11th gen).
-- **No part-state scans** exist for the EK and the footage has no panel removal → the second 1:1 cut goes to the full-car scan
-  and the explode uses panels cut from it. No "inside + outside" claim (it isn't true for this data).
-- Second 1:1 cut was solved on the cut frame itself (the camera never holds still during the scanner pass), so no
-  phaseCorrelate drift absorption was needed.
-- Focal is not the same in both clips: 18.3 mm (opening pull-back) vs 28 mm (scanner pass) — each verified with onions.
-
-## Known issues / v2 ideas
-- The unused rear spray shot (v_1958_06) could replace the 0.63 s scanner beat if the reviewer wants more prep.
-- Software beat could use the final gold mesh orbit (sr_1429_30) instead of the alignment view.
+## Learned this round
+- Don't animate parts off the car without a matching physical removal + part scan (standing rule now).
+- Trending music source that is licensed for brand posts: Higgsfield `tiktok_music_trending` (TikTok Commercial Music Library);
+  the preview_url is the full track (sf16-ies-music-sg.tiktokcdn.com, already allowed).
+- Drop-section kicks can drift off a fitted grid (40 ms rms here): cut on measured kicks.
