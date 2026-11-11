@@ -171,7 +171,7 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = not any(p.get("keys") for p in spec.get("parts", []))
+    sc.render.use_persistent_data = False  # user rule (lessons 2026-11-11): persistent data can drop the lights mid-sequence
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
