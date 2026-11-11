@@ -1,0 +1,76 @@
+# Porsche 911 GT3 RS (992) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
+# Satin-silver scan on black; turntables -> close-ups -> nose aero lifts -> top-down -> aero exploded view -> logo.
+# Shots: tools/shots.py (specs, timing.json) + tools/shot.py (Blender, keyed cameras + moving parts; from ferrari-296).
+# Music: porsche-gt3rs-992_track.mp3 - original track generated for this reel by the coordinating session (aggressive
+# industrial electronic). 128 BPM, beat 0.46888 s, grid b(n) = 0.025 + 0.46888 n, anchored on the big-hit waveform attacks.
+# Big hits b8 3.776, b16 7.527, b24 11.278, b30 14.091 (early), b40 18.780, b48 22.531, drop b56 26.282; weak hits on b4+8k.
+# Music ends 36.1 s (b77), decays to silence ~37.8 s.
+# Cuts on frames round(t*30): 113, 226, 282, 338, 423, 563, 732, 1013 (logo); end 1140 (38.0 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+project: porsche-gt3rs-992
+format: reel-9x16
+output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/porsche-gt3rs-992_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [3.776, 7.527, 9.403, 11.278, 14.091, 18.780, 24.405, 33.784]
+
+timeline:
+  - id: s1_turntable   # low front-left 3/4 turntable, moving from frame 1
+    src: /home/user/media/work/gt3/renders/final/s1_turntable
+    src_fps: 15
+    interpolate: true
+    dur: 3.7333
+  - transition: {type: cut, note: "3.776 big hit (b8)"}
+  - id: s2_rear        # rear-right 3/4 orbit, rising: swan-neck wing + diffuser
+    src: /home/user/media/work/gt3/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    trim_start: 0.07
+    dur: 3.7667
+  - transition: {type: cut, note: "7.527 big hit (b16)"}
+  - id: s3_wheel       # extreme close-up: front-left wheel / brake (2.5 mm scan)
+    src: /home/user/media/work/gt3/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 1.8667
+  - transition: {type: cut, note: "9.403 weak hit (b20)"}
+  - id: s4_vent        # extreme close-up: right front fender louvres
+    src: /home/user/media/work/gt3/renders/final/s4_vent
+    src_fps: 15
+    interpolate: true
+    dur: 1.8667
+  - transition: {type: cut, note: "11.278 big hit (b24)"}
+  - id: s5_wing        # swan-neck wing + mounts from high behind
+    src: /home/user/media/work/gt3/renders/final/s5_wing
+    src_fps: 15
+    interpolate: true
+    trim_start: 0.13
+    dur: 2.8333
+  - transition: {type: cut, note: "14.091 early hit (b30)"}
+  - id: s6_lift        # nose aero lifts off 15.03 -> 16.90 (b32 -> b36), holds open
+    src: /home/user/media/work/gt3/renders/final/s6_lift
+    src_fps: 15
+    interpolate: true
+    dur: 4.6667
+  - transition: {type: cut, note: "18.780 big hit (b40)"}
+  - id: s7_top         # high front 3/4 up and over to top-down
+    src: /home/user/media/work/gt3/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 5.6333
+  - transition: {type: cut, note: "24.405 weak hit (b52)"}
+  - id: s8_explode     # aero pieces separate on the drop 26.28 (b56), drift, lock 31.91 (b68), hold
+    src: /home/user/media/work/gt3/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 9.3667
+  - transition: {type: cut, note: "33.784 (b72) logo"}
+  - id: logo           # ILLUMAESTHETIC logo on black, fades with the music's decay
+    src: /home/user/media/work/gt3/logo.mp4
+    dur: 4.2333
+
+overlays: []
