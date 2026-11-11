@@ -122,6 +122,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** `alimiter` auto-levels by default (`level=disabled` to stop it silently lowering the whole mix).
 - **[audio]** Voice-over requests that name a real narrator ("use the same lady's voice"): don't clone a real person's voice;
   use a preset voice in the same delivery and say so. Spec lines in narration follow the text rule: sourced numbers only.
+
 ## From the A90 Supra Temerario-style scan reel (2026-11-11, built by an agent)
 - **[technical]** Registration check that works for state scans: render the part in red over the silver car (tools/regcheck.sh in
   projects/a90-supra). Red/silver z-fight patches = same surface = registered. Trimmed ICP that doesn't lower the residual means
