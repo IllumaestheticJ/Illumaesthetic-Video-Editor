@@ -67,3 +67,8 @@ lands here automatically. Agents must read this whole file before editing.
   (`solvePnP(..., useExtrinsicGuess=True)`) and always confirm with an onion overlay.
 - **[match-cut]** When real hands are carrying a part at the cut, start the scan part *at that position*
   (`--explode` 8th field = start offset) so the part matches across the cut too, then animate it.
+- **[match-cut]** Camera *height* is unobservable from landmarks on one vertical face (bumper beam, horns):
+  RMSE stays flat from 0.40 to 0.55 m while the free solve wandered to 0.16 m ("too low" - reviewer).
+  Lock height (sweep a few values, render onions, pick by engine-bay depth / fender tops) and solve the rest.
+- **[scan-look]** Part-state composites: use the state scan *as captured* (e.g. "bumper removed") over the
+  full-car scan trimmed back - reviewer preferred that to slicing a thin zone out of the state scan.

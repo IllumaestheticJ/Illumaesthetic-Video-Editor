@@ -30,7 +30,7 @@ timeline:
     src: /home/user/media/240sx/dropbox/v_1954_41.mov
     in: 2.4434
     out: 6.2334
-  - transition: {type: cut, note: "1:1 IRL -> scan (front, cam_D: LM-refined on the 6.2 s frame) - scan bumper starts where the crew holds the real one"}
+  - transition: {type: cut, note: "1:1 IRL -> scan (front, cam_D2: 6.2 s frame solve, camera height locked 0.75 m) - scan bumper starts where the crew holds the real one"}
   - id: scan_front   # bumper starts on top of the real one in the crew's hands, glides up, spins; gentle push-in
     dur: 3.79
     src: /home/user/media/work/renders/shots_v4/s2_front
@@ -41,7 +41,7 @@ timeline:
     src: /home/user/media/240sx/dropbox/v_1838_14.mov
     in: 0.60
     out: 1.86
-  - id: scan_xray   # x-ray: parts translate back on; orbit ends on the listing render's angle
+  - id: scan_xray   # x-ray: bumper-removed scan on the trimmed full-car scan; parts translate back on; ends on the listing angle
     dur: 5.04
     src: /home/user/media/work/renders/shots_v4/s3_xray
     src_fps: 15
