@@ -217,6 +217,54 @@ SHOTS["X_reassemble"] = {"base": [XB], "parts": [
 # after the lock, the clean full-car scan (no composite seams) with the same camera
 SHOTS["X_clean"] = {"base": [CAR], "cam": SHOTS["X_reassemble"]["cam"]}
 
+# ---- v3 (user: "show the interior and exploded views"; plan: direction.md v3) -------------------------------------
+XBI = f"{P}/comp_explode_int.blend"  # comp_explode minus the car's seat surfaces + "Interior No Seats" cabin (build_int.py)
+# doors park up + outboard of their openings (cards to the lens) so the seats' path and the view stay clear
+FL3 = ((0.95, -0.05, 0.95), (0, 0, 180)); RL3 = ((0.95, 0.12, 0.95), (0, 0, 180))
+FR3 = ((-0.95, -0.05, 0.95), (0, 0, 180)); RR3 = ((-0.95, 0.12, 0.95), (0, 0, 180))
+SEAT_D = {"pivot": [0.372, 0.073, 0.934]}; SEAT_P = {"pivot": [-0.385, 0.026, 0.958]}; BENCH = {"pivot": [0.03, 1.0, 0.85]}
+# seats: tilt the back forward + drop 0.3 m to clear the roof rail, slide out through the opening, turn to face out
+DS_END = ((1.55, -0.1, -0.3), (0, 0, 90)); BN_END = ((1.95, 0.0, -0.3), (0, 0, 90)); PS_END = ((-1.55, -0.1, -0.3), (0, 0, -90))
+BENCH_PARTS = ("bench_bottom", "bench_23top", "bench_13top")
+
+
+def seat_keys(t0, end, side=1):
+    return [k(0), k(t0), k(t0 + 0.3, (0.0, 0, -0.1), (22, 0, 0), "out"), k(t0 + 0.75, (end[0][0] * 0.8, end[0][1], end[0][2]), (22, 0, 0)),
+            k(t0 + 1.1, *end)]
+
+
+SHOTS["S1v3"] = {"base": [XBI], "parts": [
+    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 4.5), FB_END[1])]),
+    part("fender", [k(0), k(0.5, FENDER_END[0], ease="out")]),
+    part("door_fl", [k(0), k(1.017), k(1.45, (0.95, -0.05, 0.10), ease="out"), k(1.95, *FL3)]),
+    part("seat_driver", seat_keys(2.033, DS_END), SEAT_D),
+    part("door_rl", [k(0), k(3.05), k(3.45, (0.95, 0.12, 0.10), ease="out"), k(3.95, *RL3)]),
+    *[part(b, seat_keys(4.063, BN_END), BENCH) for b in BENCH_PARTS],
+    part("seat_pass", REST), part("door_fr", REST), part("door_rr", REST), part("hatch", REST, hatch), part("rbumper", REST)],
+    "cam": [cam(0, (4.4, -1.45, 1.4), (1.0, -1.3, 0.8), 28), cam(2.033, (4.25, -0.55, 1.25), (0.8, -0.45, 0.72), 28, "lin"),
+            cam(3.05, (4.1, 0.2, 1.15), (0.6, 0.3, 0.68), 28, "lin"), cam(5.4, (3.85, 0.8, 1.05), (0.4, 0.8, 0.62), 28)]}
+SHOTS["R1v3"] = {"base": [XBI], "parts": [
+    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 6.0), FB_END[1])]), part("fender", [k(0, *FENDER_END)]),
+    part("door_fl", [k(0, *FL3)]), part("door_rl", [k(0, *RL3)]), part("door_fr", REST), part("door_rr", REST),
+    part("seat_driver", [k(0, *DS_END)], SEAT_D), *[part(b, [k(0, *BN_END)], BENCH) for b in BENCH_PARTS], part("seat_pass", REST),
+    part("hatch", [k(0), k(0.5, rot=OPEN_T)], hatch),
+    part("rbumper", [k(0), k(0.51), k(1.53, (0, 0.6, 0.05), ease="out"), k(2.3, *RB_END)])],
+    "cam": SHOTS["R1_rbumper"]["cam"]}
+# exploded view: everything apart from the cut (28.511), slow orbit, fly home 1.017 (29.527) -> lock 2.033 (30.544)
+X3_GO, X3_LOCK = 1.017, 2.033
+def xk(end, piv=None):
+    return [k(0, *end), k(X3_GO, *end, "lin"), k(X3_LOCK, ease="in")]
+SHOTS["X3"] = {"base": [XBI], "parts": [
+    part("hood", xk(((0, -0.15, 1.1), (-10, 0, 0))), hood), part("hatch", xk(((0, 0.35, 0.55), OPEN_T)), hatch),
+    part("fbumper", xk(((0, -0.95, 0.0), (0, 0, 0)))), part("rbumper", xk(((0, 0.95, 0.0), (0, 0, 0)))),
+    part("fender", xk(((0.75, -0.1, 0.25), (0, 0, 0)))),
+    part("door_fl", xk(FL3)), part("door_rl", xk(RL3)), part("door_fr", xk(FR3)), part("door_rr", xk(RR3)),
+    part("seat_driver", xk(DS_END), SEAT_D), part("seat_pass", xk(PS_END), SEAT_P),
+    *[part(b, xk(BN_END), BENCH) for b in BENCH_PARTS]],
+    "cam": [orbit(0, 9.6, 20, 4.2, c=(0, 0.1, 0.7), focal=28, ease="lin"), orbit(X3_GO, 9.4, 26, 4.1, c=(0, 0.1, 0.7), focal=28, ease="lin"),
+            orbit(3.4, 9.0, 36, 3.8, c=(0, 0.1, 0.7), focal=28)]}
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"

@@ -94,6 +94,12 @@ def main():
                          ("fbumper", "fbumper_warped_3mm", 12), ("rbumper", "rbumper_warped_3mm", 12)):
         p = load(f"{L}/{f}.stl"); pc = p["v"].mean(1)
         sel = near(cc, pc, cut)
+        if name == "rbumper":
+            # the plate is mounted on the bumper but the bumper scan has none: carry the car's (blanked) plate with
+            # the bumper, or it floats behind the removed bumper (user v3: hide the rear plate; lesson: plates float)
+            pb = (cc[:, 0] > -140) & (cc[:, 0] < 215) & (cc[:, 1] > 2150) & (cc[:, 1] < 2300) & (cc[:, 2] > 430) & (cc[:, 2] < 620)
+            print("rbumper plate tris", int((pb & ~sel).sum()))
+            p = np.concatenate([p, car[pb & ~sel]]); sel = sel | pb
         panels[name] = (sel, p, zone(pc), {})
         print(name, "car cut", int(sel.sum()))
     if os.path.exists(f"{H}/hatch.json.panel.npy"):

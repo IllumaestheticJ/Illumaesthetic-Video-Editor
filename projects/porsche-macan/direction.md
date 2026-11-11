@@ -171,3 +171,150 @@ Wasted if the queue isn't stopped: s8 (159 frames), s1 at its old framing (73), 
    - Move the labels one kick later: REAR BUMPER REMOVED 26.99-27.9, MOUNTING POINTS 27.99-28.40.
 5. **Seams.** Look at one full-res still of comp_explode with every part at home (F2 frame 1).
    - If a seam shows, build a subset base with `tools/build.py`: hood + front bumper off.
+
+## v3 (scene director, 2026-11-11)
+
+User feedback on v2 (feedback.jsonl): "Hide/Blur/remove the rear plate, show the interior and exploded views".
+- Plate: done (editlog 18:58; deplated meshes, plate carried with the rear bumper part).
+- Interior and exploded view: this section.
+
+Music is fixed (33.6 s, kick grid t = 16.3099 + 0.50836 n). Every cut and part event below sits on that grid or on an intro hit.
+
+Looked at:
+- `chk/fc_{O_whole,N_face,F1_bay,S1_side,R1_rbumper,X_reassemble}.jpg`
+- `reg/interior/sheet.jpg`: no-seats shell plus 5 seat parts and the dash, in colour.
+- `reg/interior_in_car/sheet.jpg`: the shell inside the car.
+
+### Inventory additions (v3)
+
+| Scan | What it shows (looked at) | Registered? | Role |
+|---|---|---|---|
+| Interior No Seats | cabin shell without a roof: floor, door-opening frames, dash/console. It fills the four door openings exactly (interior_in_car frames 1-2). | yes (in car frame) | **cabin base** for S1/R1/X. It replaces the old cabin fill from Doors and Hood Open, which has seats baked in and would give **double seats**. |
+| Interior with Seats | the same shell with the seats in | yes | registration reference only. The "seats in" look = the No Seats shell + seat parts at rest. |
+| Driver Seat (red in reg frame 2) | full seat part. It is the seat nearest the left-side camera, so it sits on the car's left (+X), which is the camera side in S1. | sits correctly | **S1**: out through the FL opening. **X**: apart. |
+| Pass Seat (cyan) | full seat part, car's right (-X, far side) | sits correctly | **X only** (see below) |
+| Rear Bench Bottom / Two Thirds Top / Third Top (green / yellow / magenta) | cushion plus split backrests | each sits correctly | **S1**: out as ONE group through the RL opening. **X**: the three pieces separate. |
+| Dash Separate | dash; registers loosely (9-11 mm); it protrudes in reg frames 1/3 | loose | **not used** (the No Seats shell already carries the dash area) |
+
+Region scores after the interior data:
+- **Side (left)** goes from third to second: 3 exterior parts, plus 2 interior part groups, plus the no-seats state.
+- Front is still the richest, so the drop stays on F2.
+- Interior has no exterior signature, so it rides inside the side section (it is reached through the side openings). That keeps the side to one continuous sequence (rule B).
+
+### Critique of the proposal and the changes made
+
+1. **S1 event order would ping-pong.**
+   - Proposed: fender, FL door, RL door, then driver seat, then bench. The v2 truck reaches the rear door by 22.41, so the camera would have to come back to the front opening for the driver seat at 23.427.
+   - **Changed to strict front -> rear:** fender 20.377, FL door 21.394, **driver seat 22.41**, RL door 23.427, **rear bench 24.44**.
+   - Each opening empties right after its door comes off, and the camera trucks one way only.
+2. **The parked doors block the openings.**
+   - In v2 the doors park 1 m straight out from their openings (x +1.0), right in the seats' exit path and between the lens and the cabin.
+   - **Changed:** each door goes out and **up**, parking above and slightly outboard of its own opening, card turned and tilted to the lens. This is the "stack panels above the car in 9:16" lesson.
+   - The seat then slides out beneath it. The door's top edge must keep a margin inside the frame on the first, middle and last frame.
+3. **No push "into" the cabin.**
+   - The car keeps its roof, so pushing through the opening fills the lens with B-pillar and roof edge (lesson: cabin / over-the-roof views are a trap).
+   - **Changed:** the camera eases from about 3.4 m to about 2.6 m off the side and drops to about 1.1 m over the last 2 s. It ends square to the RL opening, holding the **empty rear floor** through the opening with the bench parked outside it, both fully in frame.
+4. **The bench moves as one group in S1, not three pieces.**
+   - There is one kick left for it, and three pieces through one opening crowd it.
+   - The split into cushion, 2/3 back and 1/3 back is saved for X, so X shows something S1 didn't.
+5. **R1 cannot reuse the old cabin.**
+   - R1's camera sees through the open hatch into the cabin, and the bench is in place in the v2 base. After S1 removed it, that is a continuity error.
+   - R1's camera is rear-left, so the parked left doors, driver seat and bench can enter the frame-left edge.
+   - **R1 must be rendered on the v3 base** (No Seats shell, with driver seat and bench in their S1 end poses), moves unchanged. If the plate-only R1 re-render already ran on the old base, it is superseded.
+   - Also re-check the open hatch clipping the top edge in the push-in (fc_R1 tiles 11-13). It is acceptable only if the frame reads as a beam detail; if not, lower the end target 0.1 m.
+6. **X lock stays at 30.544, as proposed.**
+   - The parts land as the groove stops, so the stop-time works as the punctuation.
+   - Apart and orbiting 28.511-29.527 (2 kicks to read the full exploded view), flying home 29.527-30.544, clean car plus fade 30.544-31.56.
+   - The fallback, if the lock reads late against the music, is to lock on the last kick 30.035 and hold 1.5 s.
+7. **Agreed:**
+   - s4_lightbar dropped. The light bar still shows on R1's opening frames, and s4 was the most "v1" moment.
+   - O/N/s3/F1/F2 unchanged.
+   - A small logo of 2.03 s.
+
+**Passenger seat:** **X only.**
+- In S1 the right doors are shut, and the seat is on the far side behind the body. Sliding it out would mean passing through a closed door (rule D) or across the cabin out the left opening (not how it comes out, and crowded).
+- Leaving it in place in S1 is honest: it stays visible through the FL opening once the driver seat is out.
+- In X the FR/RR doors (scanned parts, FR 2.0 mm) come off to -X and the passenger seat parks between them and the body, so it comes out through its own opening.
+
+**Label on the interior beat:** one label.
+- Title **INTERIOR**, sub `" "` (ScanHUD crashes on an empty sub).
+- In at 24.44 (bench kick), out at 25.36 (0.92 s, the same length as the R1 labels).
+- Place it in the black band below the sill (not the top band, where the parked doors sit). Check 4 samples across the window.
+- Backed by the Interior No Seats / Interior with Seats file names.
+- Not "SEATS REMOVED": the passenger seat is still in during S1.
+- No other names (rails, mounts) unless a still of the No Seats floor shows them.
+- No labels in X.
+
+### v3 scene list (cuts on frames round(t*30))
+
+| # | shot | section | reel time (frames) | dur | events (beat) | camera holds on | render |
+|---|---|---|---|---|---|---|---|
+| 1 | O_whole | whole | 0-4.109 (0-123) | 4.0667 | fade up 1.2 s | the whole closed car, front-right 3/4, linear arc | **reuse** |
+| 2 | N_face | front ext. | 4.109-8.176 (123-245) | 4.0667 | - | lamps, intakes, crest (bumper on) | **reuse** |
+| 3 | s3_wheel | wheels | 8.176-9.701 (245-291) | 1.5333 | - | front-right wheel and brake | **reuse** |
+| 4 | F1_bay | engine bay | 9.701-16.310 (291-489) | 6.6 | hood opens 11.226 (hit) | the open bay | **reuse** |
+| 5 | F2_fbumper | **front bumper removed** | 16.310 DROP-20.377 (489-611) | 4.0667 | bumper clear and flipped 17.327 | crash beam, ducts, harness | **reuse** (labels as v2) |
+| 6 | **S1 v3** | **side (left) + interior** | 20.377-25.460 (611-764) | 5.1 | fender 20.377 (n8); FL door out+up 21.394 (n10); **driver seat** slides out +X through the FL opening 22.41 (n12), yaw about 35-45 deg toward the lens so the cushion and back read (full part, every side scanned); RL door out+up 23.427 (n14); **rear bench (3 pieces, one group)** slides out +X through the RL opening 24.44 (n16), translate only (wide part: a yaw sweeps into the C-pillar), clear by 24.95 | truck front -> rear, easing from 3.4 to about 2.6 m off and down to h about 1.1. Ends square to the RL opening on the empty rear floor plus the bench outside it. Passenger seat visible, still in place, through the FL opening. | **new**: base comp_explode with the cabin box cut and int_noseats in; parts: fender, 4 doors, 5 seat parts, hood (open), fbumper (parked z 4.5), hatch, rbumper |
+| 7 | R1_rbumper | **rear bumper removed** + boot | 25.460-28.511 (764-855) | 3.0333 | hatch open by 25.969 (n19); bumper clear 26.99 (n21) | crash beam and end mounts; cabin through the hatch now without the bench | **re-render**: v2 moves, v3 base, deplated, left-side parts in S1 end poses (in frame fully or out) |
+| 8 | **X v3** | whole (exploded view) | 28.511-31.560 (855-947) | 3.0667 | apart plus slow orbit 28.511-29.527 (n24-n26); fly home 29.527 -> **lock 30.544** (groove stops); hood and hatch close on their hinges; clean car, fade st 2.55 d 0.5 | high, about 55-60 deg down, car length along the frame height, slow orbit of about 10 deg. Layout: hood up and forward, fbumper ahead of the nose, hatch and rbumper behind the tail, inner ring of seats at about +-1.5 m (driver / passenger, bench split in 3 on the left), outer ring of doors and the fender at about +-2.4 m. Every part fully inside the 9:16 margins on the first, middle and last frame. | **new**: frames after the lock render on base car4 with no parts (c5 lesson) |
+| 9 | logo | - | 31.560-33.600 (947-1008) | 2.0333 | - | small logo (about 320 px) over the pad tail | `tools/logo_card.py --secs 2.0333 --width 320` |
+
+**Sections in order:** whole, front exterior, wheels, engine bay, front bumper removed, side + interior, rear bumper removed (incl. boot), whole (exploded / reassembly).
+- Each section appears once.
+- Right-side doors and the passenger seat appear only in X.
+- No shot is reused, and O_whole and X differ in angle and subject (closed car low front 3/4 vs exploded top-down).
+
+**Labels:**
+- v2's four labels, unchanged: F2 17.327-18.800 and 19.360-20.250; R1 26.477-27.430 and 27.494-28.400.
+- New: INTERIOR 24.44-25.36.
+- Re-check R1's labels against the new left-side parked parts.
+
+### Music map v3
+
+| Event | t (s) | frame | grid |
+|---|---|---|---|
+| cut N | 4.109 | 123 | intro hit |
+| cut s3 | 8.176 | 245 | intro hit |
+| cut F1 | 9.701 | 291 | intro hit |
+| hood opens | 11.226 | 337 | intro hit |
+| **cut F2** | **16.310** | **489** | drop, n0 |
+| cut S1 / fender | 20.377 | 611 | n8 |
+| FL door | 21.394 | 642 | n10 |
+| driver seat | 22.410 | 672 | n12 |
+| RL door | 23.427 | 703 | n14 |
+| bench + INTERIOR label | 24.440 | 733 | n16 |
+| cut R1 | 25.460 | 764 | n18 |
+| cut X (exploded) | 28.511 | 855 | n24 phrase |
+| parts start home | 29.527 | 886 | n26 |
+| **lock** | 30.544 | 916 | n28, groove stops |
+| cut logo (out of black) | 31.560 | 947 | n30 (pad tail) |
+| end | 33.600 | 1008 | |
+
+### Diff vs v2
+
+| v2 | v3 | change |
+|---|---|---|
+| O, N, s3, F1, F2 | same slots | **reuse as-is** |
+| S1_side 20.377-24.440 | S1 v3 20.377-25.460 | **new render**: +1.02 s, interior base, seats out, doors park up, event order front -> rear |
+| s4_lightbar 24.440-25.460 | - | **dropped** |
+| R1 25.460-28.511 | same slot | **re-render** on the v3 base (deplated) |
+| X_reassemble 28.511-30.544 (reassembly only, lock 29.51) | X v3 28.511-31.560 | **new render**: a real exploded view held for 2 kicks, incl. right doors, passenger seat and the split bench; lock 30.544 |
+| logo 30.544-33.600 | 31.560-33.600 | logo card re-run at 2.0333 s |
+| 4 labels | 5 labels | + INTERIOR |
+
+Render the 30 % preview of S1, R1 and X (first, middle and last frame) before the finals. Persistent data stays off, and run a per-frame luma scan on every final.
+
+### Open questions for the editor (check; don't guess)
+
+1. **Driver side.**
+   - Confirm with a labelled top-down still that Driver Seat sits at +X (car's left). Reg frame 2 suggests it does.
+   - If it is at -X (RHD), swap: the passenger seat comes out in S1 and the driver seat goes to X only.
+2. **Bench split.** Which backrest (1/3 or 2/3) is on the left? This sets the X layout only.
+3. **Cabin cut.**
+   - Cut the old Doors-and-Hood-Open cabin fill out of comp_explode by the No Seats shell's box (lessons: cut by part box, not proximity), or the seats appear twice.
+   - Look at a still with the seats out.
+4. **Roofless shell edge.** Check that no seam or shell top edge shows through the door openings under the car's roof line in S1's last frame.
+5. **Seat undersides and rails.**
+   - If the seat bottoms are ragged, keep the camera at or above seat-cushion height while they are out.
+   - Name nothing on the floor unless the still shows it.
+6. **R1.** Did the plate-only R1 re-render already run on the old base? If so, it needs this v3 re-render.
