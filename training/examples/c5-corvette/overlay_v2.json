@@ -1,0 +1,63 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1182,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 132,
+   "duration": 54,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 232,
+   "duration": 43,
+   "title": "FRONT BUMPER - INSIDE",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 459,
+   "duration": 47,
+   "title": "HOOD REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 602,
+   "duration": 57,
+   "title": "FENDER REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 717,
+   "duration": 72,
+   "title": "REAR BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 816,
+   "duration": 90,
+   "title": "REAR BUMPER - INSIDE",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  }
+ ]
+}

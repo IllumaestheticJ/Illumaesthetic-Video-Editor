@@ -1,34 +1,42 @@
-# C5 Corvette scan reel v1 (Temerario style): agent self-review (training/rubric.md)
+# C5 Corvette scan reel v2: agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/c5_corvette_v1.mp4`: 1080x1920, 30 fps, yuv420p, AAC, 39.37 s (music fades to silence by 39.5 s).
-Scan only, no text, no IRL (brief). Music: the parent session's generated track only.
+Output: `/home/user/media/work/out/c5_corvette_v2.mp4`: 1080x1920, 30 fps, yuv420p, AAC, 39.37 s (1181 frames).
+Scan only (brief); 6 title-only labels over scan shots. Music: the parent session's generated track only.
+v1 (`c5_corvette_v1.mp4`) review is in git history (commit 7687b36). What changed is in `direction.md` §4 and `editlog.jsonl`.
+
+## What changed from v1 (reviewer: "focus on the removed areas and where the useful data is" + parent V2 brief/addendum)
+- Built around the four registered removed states only: front bumper removed, front bumper + hood removed,
+  fender + bumper removed, rear bumper removed. The targa has no roof-off scan, so it never comes off. There are no trunk/door scans, so nothing else opens.
+- One continuous sequence per section, travelling whole → front (bumper, then hood) → -X side (fender) → rear → whole. v1's
+  turntables, top-down spin and all-parts-at-once explode are gone.
+- Each removal holds on the exposed structure and moves in. A part spins only where its backside was scanned:
+  the front bumper inside, the hood underside and the rear bumper inside. The fender only translates.
+- The labels name the scan states, worded from the file names: FRONT BUMPER REMOVED / FRONT BUMPER - INSIDE / HOOD REMOVED /
+  FENDER REMOVED / REAR BUMPER REMOVED / REAR BUMPER - INSIDE. They sit over black, below the car.
+- Cuts on measured kick onsets, within ½ frame. v1 was 2-4 frames late.
+- Clean car → small logo on the biggest hit, then fade.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 3 | fades up from black (1.2 s) into a slow, low front 3/4 turntable that moves from frame 1, matching the Temerario reference's pace; there is no *transformation* until the hood lifts at ~17.7 s, so it is calm rather than a hook |
-| 2 | Beat sync | 5 | all 9 cuts land on round(beat*30) (frames 121, 282, 415, 465, 515, 665, 799, 915, 1065), confirmed by frame-diff peaks; panel motion is keyed to accents too (explode starts on 26.621, targa locks + clean-car snap on the b61 kick 34.402, logo on the b63 hit 35.513) |
-| 3 | 1:1 match | n/a | scan-only reel by brief (no IRL→scan cut). The Dropbox IRL dump is noted in clips.md for a 1:1 version |
-| 4 | Scan quality | 3 | full car clean apart from small ground scraps under the sills in s1/s2; the exploded shots necessarily show the removed-state composite (exposed structure, ragged trim lines where parts meet), and s9 now swaps to the clean car on the kick once the panels are home; the hood-open engine bay is the raw captured state |
-| 5 | Story | 4 | turntables → wheel + tail-lamp close-ups → hood opens on the fitted hinge → top-down spin → panels separate and stack above the car → return → clean car → logo. It follows the Temerario order; there are fewer separating panels (5) than in the reference because only 5 part scans register |
-| 6 | Grade | 5 | one look throughout (house satin silver, AgX, exposure -0.5, bg RGB ~1); logo card bg (7,7,9) is close to the render black |
-| 7 | Text | 5 | none, by brief (no invented numbers) |
-| 8 | Ending | 5 | logo cut on the biggest hit (35.513), fades out with the music (1.4 s audio fade, video fade 3.0-3.9 s) |
-| 9 | Technical | 5 | 1080x1920 30 fps yuv420p AAC; no black/dup frames at cuts (the only dark frames are the intentional fade-up, the 0.25 s logo fade-in and the end fade) |
+| 1 | Hook | 4 | whole clean car moving from frame 1 (0.4 s fade-up). The front bumper starts sliding off at 1.2 s, so the first transformation comes in the first 2 s (v1: 17.7 s) |
+| 2 | Beat sync | 5 | cuts at frames 123, 279, 508, 664, 909, 1065. Measured on the decoded output: +10, -9, -5, +25 (broadband; low-band kick onset 22.126-22.130 → +3..+7), +5 ms. Logo on 35.496. The clean-car swap blends over 1031-1032, on the 34.402 kick (frame 1032) |
+| 3 | 1:1 match | n/a | scan-only by brief |
+| 4 | Scan quality | 4 | every removed state is a registered capture (2.3-4.1 mm median to the car); the composite still shows ragged trim lines where state scans meet the car (most visible on the fender macro); the opening and the ending swap to the clean car |
+| 5 | Story | 4 | one section at a time, each holding on its removed-state data, with the bumper/hood/rear-bumper backsides turned to camera; no section repeats. The front gets 12.8 s because it has two states (bumper, then hood + bay) |
+| 6 | Grade | 5 | one look (house satin silver, AgX, exposure -0.5); per-frame luma has no dropouts (persistent data off for every moving shot). The steps are all smooth exposure-area changes |
+| 7 | Text | 5 | six labels, each a file-backed scan-state name, over scan shots only, no numbers |
+| 8 | Ending | 5 | clean car, 1.1 s settle + 0.75 s fade, small logo (300 px) on the biggest hit, gone by 38.6 s |
+| 9 | Technical | 5 | 1080x1920 30 fps yuv420p AAC. First/middle/last frame of every shot checked: no accidental clipping. The bumper-inside and fender macros fill the frame on purpose. No plate characters (rear recess is empty) |
 
-## How it was built (for the next agent)
-- Base car = 2023 export (the 2026 export is the same capture, 0.55 mm away, plus scanned ground, so it was used only for levelling).
-- Part registration: same-frame parts checked with tools/regcheck.py (2-5 mm median); own-frame scans used
-  tools/globalreg.py (FPFH+RANSAC+ICP; hood open 2.7 mm) and tools/fitpanel.py (seeded flip/yaw ICP; targa 1.6 mm,
-  since plain FPFH slid the symmetric roof panel down the windscreen). Every part was rendered red over the silver car before use.
-- Hood: hinge fitted to the captured hood-open state (tools/hinge.py, 3.8 mm median, 46 deg). The closed hood = the car's own hood
-  skin + the open-hood scan's underside (tools/hoodcombo.py), because the rotated open-hood scan alone looked patchy.
-- Exploded base = full car trimmed under the parts + "removed" state scans where they add geometry (tools/composite.py).
+## Checks run (for the next agent)
+- `projects/porsche-macan/tools/cutcheck.py` and a 40-150 Hz envelope printout on the decoded output.
+  `tools/kickcut.py` with a wide window (±0.15 s) picked the *second* hit of a double kick at 17.0 and 30.3.
+  Read the envelope around each cut instead of trusting one number.
+- The swap frame was located by matching output frames to render frames f_0060/f_0061 (`speed: 0.960` on i2).
+- `ive director` "repeated views" flags small centred cars on black (silhouette IoU) even front vs rear. Section/focus tags are in project.yaml.
 
-## Known issues / v2 ideas
-- s9 snap: the composite → clean-car swap is a visible change (by design); in the delivered file it lands at 34.33 s (frame 1030, one minterpolate blend frame at 1029), ~2 frames ahead of the 34.402 kick. Set SWAP from the assembled timeline offset, not the shot-local time. A cleaner composite (trim the state
-  scans to the part footprints) would let the panels return onto a near-clean body.
-- Crop the ground scraps under the sills (tighter `--drop-islands`, or a z-crop just above the tyre contact patch except at the wheels).
-- More separating panels would sell the explode better (side skirt, door card, and light scans exist but are in their own frames;
-  register them with tools/fitpanel.py).
-- The hook could open on the hood lift or a part sliding off instead of a plain turntable.
-- 1:1 version: solve a camera on a DJI clip from the C5 dump against car.blend and cut on the 9.393 drop.
+## Known issues / v3 ideas
+- Ragged composite trim lines (fender macro, rear structure): trim each state scan to its part's footprint before compositing.
+- The opening wide is small in the 9:16 frame for its first second (car ~40 % of width) so the whole car reads with motion. A lower,
+  closer start would fill more.
+- 1:1 version: solve a camera on a DJI clip from the C5 dump (clips.md) and cut on the 9.309 drop.

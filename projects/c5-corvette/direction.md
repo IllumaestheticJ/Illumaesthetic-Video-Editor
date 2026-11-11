@@ -96,3 +96,17 @@ other section is repeated.
    with certainty, so "crash beam" is not used.
 5. The hood scene shows the -X fender ON with the hood and bumper off, which is exactly the captured
    `front bumper and hood removed` state. That is why the hood comes before the fender.
+
+## 6. As delivered (v2 final)
+| shot | frames | section | covers |
+|---|---|---|---|
+| v2_a2_open | 0-122 | whole | clean car from 7.2 m, push to the nose; front bumper starts off at 1.2 s |
+| v2_b_fb_inside | 123-278 | front | FRONT BUMPER REMOVED: nose structure; the bumper rises and turns its scanned inside |
+| v2_f2_hood | 279-507 | front | hood opens on the fitted hinge (46 deg), lifts, flips its underside, exits top; HOOD REMOVED bay |
+| v2_c2_fender | 508-663 | side (-X) | FENDER REMOVED: wheelhouse / mounts macro |
+| v2_g2_rear | 664-908 | rear | REAR BUMPER REMOVED: structure hold; bumper turns its scanned inside |
+| v2_i2_home | 909-1064 | whole | everything returns; clean car on 34.402 (frame 1032); fade |
+| logo | 1065-1180 | - | small logo on 35.496 |
+
+Cut retime after the first assembly: 124/511/912 → 123/508/909 (double kick; see lessons.md). `ive director` repeated-view
+pairs are silhouette false positives (every section appears once).

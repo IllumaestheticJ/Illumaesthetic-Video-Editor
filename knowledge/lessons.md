@@ -582,3 +582,13 @@ lands here automatically. Agents must read this whole file before editing.
   (If a plate IS to be flattened: a rear-bumper-removed state's base has no plate - the box there holds the real crash beam.)
 - **[technical]** Lighting-dropout signature (persistent data on): from one frame on, render time halves and luma falls to
   ~6 (black silhouettes). Turning the key light's camera visibility off does not fix it; `use_persistent_data = False` does.
+## c5-corvette v2 (2026-11-11)
+- **Read the kick envelope around every cut; don't trust one onset number.** A ±0.15 s "strongest kick" search (c5 tools/kickcut.py)
+  latched onto the second hit of a double kick and put cuts 2.5-3 frames late. Print the 40-150 Hz 8 ms envelope plus the
+  broadband 1 ms envelope at 1-frame steps around each cut, cut on the first clear rise, then confirm with porsche-macan cutcheck.py.
+- **To land an in-shot event (a swap) on a kick, measure it in the assembled file** by matching output frames to the render frames on
+  either side of the event, then nudge with `speed:` (0.96 = +4 % slower, invisible). Shot-local maths was 2 frames off.
+- **Background waits on `pgrep -f <name>` match their own command line** (`bash -c 'while pgrep -f x.json ...'` contains x.json) and
+  never exit: c5 lost 2 h. Chain jobs in one script (`render_all.sh a b c`) or wait on a PID.
+- **Remotion ScanHUD `label` crashes on an empty `sub`** (interpolate inputRange [6,6]). Use `"sub": " "` for title-only labels.
+- **`ive director` "repeated views" is silhouette overlap**: small centred cars on black flag even front vs rear. Check the pairs by eye.

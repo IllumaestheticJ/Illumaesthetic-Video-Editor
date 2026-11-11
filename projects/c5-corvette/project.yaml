@@ -10,46 +10,59 @@ music:
   fade_out: 1.4
 
 # cuts on measured KICK ONSETS (tools/kickcut.py) - v1 cut on a grid 2-4 frames late; director.md has the plan
-beats: [4.117, 9.309, 17.024, 22.130, 30.385, 35.496]
+beats: [4.100, 9.309, 16.945, 22.130, 30.290, 35.496]   # 4.100/16.945/30.290 re-read on the low-band + broadband envelopes after v2 cutcheck
 
 timeline:
   - id: v2_a2_open   # whole car -> front bumper starts off (clean car swaps to the composite on its first motion)
+    section: whole
+    focus: "whole car, then the front bumper starting off"
     src: /home/user/media/work/renders/c5/v2_a2_open
     src_fps: 15
     interpolate: true
-    dur: 4.1000
+    dur: 4.0667
     vf: fade=t=in:st=0:d=0.4
   - transition: {type: cut}
   - id: v2_b_fb_inside   # FRONT BUMPER REMOVED: push into the nose structure; bumper rises and turns its scanned inside to camera
+    section: front
+    focus: "front bumper removed: nose structure + the bumper's scanned inside"
     src: /home/user/media/work/renders/c5/v2_b_fb_inside
     src_fps: 15
     interpolate: true
-    dur: 5.1667
+    dur: 5.2000
   - transition: {type: cut}
   - id: v2_f2_hood   # ON THE DROP (9.309): hood opens on its fitted hinge (captured 46 deg), lifts, flips its underside; push into the bay
+    section: front
+    focus: "hood on its fitted hinge -> scanned underside -> engine bay (hood removed)"
     src: /home/user/media/work/renders/c5/v2_f2_hood
     src_fps: 15
     interpolate: true
-    dur: 7.7333
+    dur: 7.6333
   - transition: {type: cut}
   - id: v2_c2_fender   # -X side: fender lifts off -> macro on the wheelhouse / mounts
+    section: side
+    focus: "-X fender removed: wheelhouse and mounts"
     src: /home/user/media/work/renders/c5/v2_c2_fender
     src_fps: 15
     interpolate: true
-    dur: 5.1000
+    dur: 5.2000
   - transition: {type: cut}
   - id: v2_g2_rear   # REAR BUMPER REMOVED: off toward camera, hold on the structure, turns its inside on 26.471
+    section: rear
+    focus: "rear bumper removed: rear structure + the bumper's scanned inside"
     src: /home/user/media/work/renders/c5/v2_g2_rear
     src_fps: 15
     interpolate: true
-    dur: 8.2667
+    dur: 8.1667
   - transition: {type: cut}
   - id: v2_i2_home   # reassembly from the rear 3/4; rear bumper locks on 34.402 -> clean car, fade
+    section: whole
+    focus: "parts return, clean car on 34.402; 1.1 s settle into the fade (hold = the ending, no new content)"
     src: /home/user/media/work/renders/c5/v2_i2_home
     src_fps: 15
     interpolate: true
-    dur: 5.1000
-    vf: fade=t=out:st=4.35:d=0.75
+    speed: 0.960   # render swap (f_0061, 4.0 s) -> output frame 1032 so the clean car lands on the 34.402 kick (frame 1032)
+    dur: 5.2000
+    vf: fade=t=out:st=4.45:d=0.75
   - transition: {type: cut}
   - id: logo   # small logo (300 px, ~28 % width) on the biggest hit; gone by 38.6, black under the decay
     src: /home/user/media/c5-corvette/logo/logo_small.png
