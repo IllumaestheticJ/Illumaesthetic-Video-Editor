@@ -68,7 +68,7 @@ def shot(name, b0, b1, objects, camera, anims=None, visible=None, light_ref=None
 
 
 # 1 whole car, front-right 3/4, fully in frame, moving from frame 1 (v1 openers were cropped at 4.4-5 m)
-shot("s1_whole", 0, 8, CAR, [cam(0, -55, 10, 7.3, [0, -0.10, 0.55], 40), cam(1, -35, 7, 6.5, [0, -0.20, 0.52], 40)])
+shot("s1_whole", 0, 8, CAR, [cam(0, -58, 9, 6.1, [0, -0.05, 0.52], 40), cam(1, -34, 7, 5.5, [0, -0.15, 0.50], 40, lin=True)])  # lin: constant orbit, moving from frame 1
 
 # 2 front: right lamp pair -> lamps out toward the lens -> bumper forward/down and tipped (inner face, mounting tabs)
 #   -> camera moves in on the structure behind the bumper and holds (hero beat C)
@@ -120,7 +120,7 @@ shot("x1_layers", 62, 68, EXPLODED,
 _t74 = (ONSET_F[74] - ONSET_F[68]) / (ONSET_F[76] - ONSET_F[68])
 shot("x2_reassemble", 68, 76, dict(EXPLODED, car=CAR["car"]),
      [cam(0, 138, 38, 10.0, [0, 0.10, 1.00], 40), cam(0.45, 128, 26, 8.6, [0, 0.05, 0.75], 40),
-      cam(1, 118, 12, 6.8, [0, 0.15, 0.55], 40)],
+      cam(1, 122, 10, 5.7, [0, 0.10, 0.52], 40)],
      {"hood": [k(0, **LAYERS["hood"]), k(0.20, lin=True, **DRIFT["hood"]), k(0.45, deg=0)],
       "trunk": [k(0, **LAYERS["trunk"]), k(0.20, lin=True, **DRIFT["trunk"]), k(0.25, **DRIFT["trunk"]), k(0.50, deg=0)],
       "fb": [k(0, **LAYERS["fb"]), k(0.20, lin=True, **DRIFT["fb"]), k(0.30, **DRIFT["fb"]), k(0.50, (0, -0.45, 0), spin=0),
