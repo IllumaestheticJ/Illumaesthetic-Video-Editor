@@ -37,3 +37,23 @@ User v2 brief (all V1 videos) + addendum A-D. 38.87 s, 7 scan shots + small logo
 Weak spots for the next agent: s2 / s5 structure holds leave the lower ~35 % of frame black (labels placed there); x2 lids brush the right edge for ~2 frames while closing.
 
 `ive director`: sections whole 3.9 s / front 15.3 / side 1.9 / rear 8.6 / finale 6.7 s, no flags. Its two repeat hits are the x1->x2 continuous finale move (cut on beat 68) and the s1/x2 whole-car bookend (opposite sides) - both intentional, see editlog.
+
+## v3 self-review (reviewer feedback: bigger logo; bumper / trunk cut lines wrong)
+
+Changes: logo card 380 -> 720 px wide; hood, trunk lid and both bumper seams re-cut with
+`tools/panels.py` on the scan's real shut lines (least-cost traces through the panel-gap grooves;
+bumper seams from the bumper-off state scans); the five exploded-view shots re-rendered.
+
+| Criterion | Score | Notes |
+|---|---|---|
+| Hook | 5 | unchanged opener, moving from frame 1 |
+| Beat sync | 5 | all 7 cuts within 11.1 ms of the decoded kicks (cutcheck) |
+| Scan fidelity | 5 | panels now separate on their real seams; lamps stay on the body as in the state scans |
+| Story | 4 | front -> side -> rear -> explode -> reassemble, unchanged |
+| Grade | 5 | luma scan clean, no flicker (max jump inside a shot 9.3, all camera moves) |
+| Text | 4 | 5 labels, all in black space, no numbers |
+| Ending | 5 | logo 720 px, readable on a phone |
+| Technical | 4 | s3/s5/x1 ease to a 1-3 frame rest before their cut (render tail margin); black frames 1084-1086 are the intended fade to logo |
+
+Known limits: hood/trunk swings in the explode are hinge animations of the closed panels (open-state
+scans are used for the hero beats); the pre-cut rest frames would need the keyframes un-rescaled and a re-render.
