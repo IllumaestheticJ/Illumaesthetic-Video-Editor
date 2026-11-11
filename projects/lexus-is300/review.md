@@ -12,7 +12,7 @@ Order (section per shot, see direction.md): whole car orbit (whole) → front-ri
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Whole car in frame from frame 0 with a visible orbit (-26 → -58°, 14-25 % margins). First part movement is still at 10.5 s (front bumper on the drop) — the opening is the reveal. |
+| 1 | Hook | 4 | Whole car in frame from frame 0 with a steady orbit (director flags 1.9 s "dead" because the car is ~6 % of the frame; frame diffs show constant motion) (-26 → -58°, 14-25 % margins). First part movement is still at 10.5 s (front bumper on the drop) — the opening is the reveal. |
 | 2 | Beat sync | 4 | Cut frames measured on the delivered file: 158/197/275/471/588/745 = plan; low-band kick onsets on the decoded audio sit 0.2-0.8 frame before each cut (all within ±1 frame). 941 is the fade-to-black into the logo, not a hard cut. One cloned frame before each cut (assembler cut hold). |
 | 3 | 1:1 match | n/a | No IRL footage. |
 | 4 | Scan quality | 3 | 2022 Artec scan: open glass, wiper/cowl scraps, front bumper part is derived (ragged lower edge visible when it drops). Plates flattened in geometry (front on car/car2/fbumper, rear on lid) per the IS300-only note. |
