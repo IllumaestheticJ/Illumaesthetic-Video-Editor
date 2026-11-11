@@ -22,3 +22,4 @@
 {"ts": "2026-11-11T12:48:00Z", "decision": "rear_off ends tight on the exposed rear structure, car body cropped at both sides", "why": "deliberate detail close-up of the bumper-removed state (addendum C hero), REAR BUMPER REMOVED label sits below the structure at y 0.765"}
 {"ts": "2026-11-11T12:48:00Z", "decision": "side_off ends on a 7 m wide with the lifted flares above the car and the skirt on the floor", "why": "one frame that shows every removed side part with margins, instead of separate orbits per part"}
 {"ts": "2026-11-11T12:48:00Z", "decision": "src_fps per clip = 30N/(slot+4): 14.812, 11.944, 14.878, 14.826, 14.912, 14.769", "why": "avoid minterpolate clone tails before cuts (v1 lesson)"}
+{"ts": "2026-11-11T12:48:51Z", "decision": "cuts at 8.70 and 27.93 moved one frame later (opener +1f, front_off -1f, rear_off +1f, logo -1f)", "why": "cutcheck on the delivered mp4: onsets 8.750 and 27.976 s, cuts were -50 and -43 ms; other cuts within 15 ms and kept"}
