@@ -1,0 +1,40 @@
+# Starter-car line-up for the "pick your first car" game-menu reel.
+# One entry per menu slot, in scroll order. `hide` comes from `python -m ive kit <id> ...` (never hand-typed).
+# Paint colours are render choices (not paint codes) - nothing here is shown as on-screen text.
+site: /home/user/Epsilon-Site
+render_defaults: {az: 38, el: 7, rig: carlot, ground: gloss, samples: 32}
+cars:
+  - id: toyota-corolla-hatch-e210          # Zenki face (2019-2022); Kouki = toyota-corolla-hatch-e210-facelift
+    glb: showroom/models/eps-toyota-corolla-hatch-e210-v3.glb
+    kit: "python -m ive kit toyota-corolla-hatch-e210"
+    fitted: [front_lip, side_skirts, rear_spats, wrc_wing]
+    hide: [part_mid_wing]
+    paint: "#1d4fa3"
+    finish: metallic
+  - id: honda-civic-sedan-fe               # 11th gen sedan, Zenki (2022-2024); Si = factory-duckbill wing fitment
+    glb: showroom/models/eps-honda-civic-sedan-fe-v4.glb
+    kit: "python -m ive kit honda-civic-sedan-fe --prefer sport_wing_duckbill"
+    fitted: [front_lip, side_skirts, rear_lip, sport_wing_duckbill]
+    hide: [part_sport_wing, body_rear_diffuser_stock, trim_rear_diffuser_stock]
+    paint: "#d9531e"
+    finish: pearl
+  - id: acura-integra-de                   # DE4 A-Spec, WITHOUT the widebody (user request)
+    glb: showroom/models/eps-acura-integra-de-v8.glb
+    kit: "python -m ive kit acura-integra-de --without fender_flares"
+    fitted: [front_lip, side_skirts, rear_spats, duckbill, sport_wing]
+    hide: [part_fender_flares]
+    paint: "#848586"                       # manifest showcasePaint (the photographed owner car)
+    finish: metallic
+  - id: mazda-mx5-nc
+    glb: showroom/models/eps-mazda-mx5-nc-v2.glb
+    kit: "python -m ive kit mazda-mx5-nc"
+    fitted: [front_bumper, canards, rear_spats]
+    hide: [body_front_bumper_stock, trim_front_bumper_stock, body_rear_spats_stock]
+    paint: "#b3161b"
+    finish: gloss
+blocked:
+  - id: honda-civic-ep3
+    why: >
+      No showroom kit GLB. The only EP3 on the site is wing-configurator/data/models/honda-civic-ep3-r2.glb:
+      a 30k-triangle untextured body scan, one mesh, no materials, no kit parts (car JSON says kitPending: true).
+      Needs a user decision before it can be a menu slot (see clips.md).

@@ -27,7 +27,7 @@ Agents: start at [`CLAUDE.md`](CLAUDE.md) (or the `scan-video-edit` skill).
 | Path | What |
 |---|---|
 | `ive/` | Python CLI: fetch, probe, analyze, beats, mesh decimate/crop, camera solve, QA check, HUD, assemble, training loop |
-| `blender/` | `scan_prep.py` (import/normalise scans), `scan_render.py` (looks, camera moves, exploded parts, raycast) |
+| `blender/` | `scan_prep.py` (import/normalise scans), `scan_render.py` (looks, camera moves, exploded parts, raycast), `kit_render.py` (Epsilon-Site showroom GLBs with their kit fitted) |
 | `remotion/` | `ScanHUD` composition — transparent data overlays driven by JSON |
 | `knowledge/` | house style, match-cut + scan-pipeline procedures, sources, lessons (standing rules) |
 | `training/` | reference-edit breakdowns, review rubric, archived worked examples |

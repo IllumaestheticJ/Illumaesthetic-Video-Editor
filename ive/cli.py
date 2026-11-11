@@ -73,6 +73,15 @@ def main(argv=None):
     s = sub.add_parser("render", help="Blender: render a look/camera move")
     s.add_argument("rest", nargs=argparse.REMAINDER, help="args for blender/scan_render.py")
 
+    s = sub.add_parser("kit", help="kit state of an Epsilon showroom car GLB: fitted parts + nodes to hide")
+    s.add_argument("car_id", help="showroom car id, e.g. acura-integra-de (see Epsilon-Site showroom/models/manifest*.json)")
+    s.add_argument("--without", default="", help="comma-separated parts to leave off, e.g. fender_flares")
+    s.add_argument("--prefer", default="", help="comma-separated parts that win a shared slot, e.g. mid_wing")
+    s.add_argument("--site", default="/home/user/Epsilon-Site")
+
+    s = sub.add_parser("kit-render", help="Blender: render a showroom car GLB with its kit (transparent, shadow catcher)")
+    s.add_argument("rest", nargs=argparse.REMAINDER, help="args for blender/kit_render.py")
+
     s = sub.add_parser("lookat", help="write a hand-placed camera JSON")
     s.add_argument("out")
     s.add_argument("--loc", required=True)
@@ -154,6 +163,16 @@ def main(argv=None):
         from .media import blender
         rest = [x for x in a.rest if x != "--"]
         out = blender(str(BLENDER_DIR / ("scan_prep.py" if a.cmd == "prep" else "scan_render.py")), rest)
+        for line in out.splitlines():
+            if line.startswith("IVE_"):
+                print(line)
+    elif a.cmd == "kit":
+        from .kit import kit
+        sp = lambda v: [x for x in v.split(",") if x]
+        _p(kit(a.car_id, sp(a.without), sp(a.prefer), a.site))
+    elif a.cmd == "kit-render":
+        from .media import blender
+        out = blender(str(BLENDER_DIR / "kit_render.py"), [x for x in a.rest if x != "--"])
         for line in out.splitlines():
             if line.startswith("IVE_"):
                 print(line)
