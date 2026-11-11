@@ -17,6 +17,9 @@ Shot JSON:
               {"blend": ".../fbumper.blend", "keys": [{"t":0, "loc":[0,0,0], "rot":[0,0,0]}, ...]}],
   "cam": [{"t":0, "az":35, "dist":6.5, "z":1.2, "look":[0,0,0.6]}, ...]   # or "pos":[x,y,z]
 }
+Optional per object (v2 section highlight, default look unchanged when absent):
+  "glow": [{"t":0.30,"v":0},{"t":0.38,"v":1},{"t":0.6,"v":0.25}]  # warm rim emission on the part (0..1)
+  "dim":  [{"t":0.28,"v":0},{"t":0.36,"v":1}]                       # darken the base silver (0..1) to isolate a section
 az = degrees around +Z from +X (car nose is +X), so az 0 = straight at the nose, 90 = left side (+Y).
 """
 import argparse
@@ -44,6 +47,9 @@ def args():
     ap.add_argument("--samples", type=int, default=12)
     ap.add_argument("--still", type=float, default=-1, help="render one frame at this shot fraction (0-1) to --out .png")
     ap.add_argument("--stills", default="", help="comma list of fractions -> <out>_<frac>.png (framing checks)")
+    ap.add_argument("--persistent", choices=["auto", "on", "off"], default="auto",
+                    help="Cycles persistent data; auto = off when any part is keyed (lights dropped mid-shot on v1 s08)")
+    ap.add_argument("--frames", default="", help="render only this frame range a-b (re-render dark frames in a fresh process)")
     return ap.parse_args(a)
 
 
@@ -114,6 +120,42 @@ def cam_at(ks, t):
     return p, look, catmull(ks, t, "lens")[0], catmull(ks, t, "roll")[0], Vector(catmull(ks, t, "up"))
 
 
+SILVER = (0.62, 0.63, 0.66)   # mat_silver base colour
+GLOW_GAIN = 2.2               # emission strength at glow 1.0 (rim only, see highlight_mat)
+DIM_GAIN = 0.55               # base colour x (1 - 0.55) at dim 1.0
+
+
+def highlight_mat():
+    """House silver + a facing-ratio rim emission (warm white) and a keyable base-colour dim.
+    glow 0 / dim 0 renders identically to mat_silver. Used for the v2 'highlight the section' treatment:
+    the separating part gets a soft rim pulse; the rest of the car can be dimmed so the section reads."""
+    m = sr.mat_silver()
+    m.name = "ive_silver_hl"
+    nt = m.node_tree
+    out = next(n for n in nt.nodes if n.type == "OUTPUT_MATERIAL")
+    p = next(n for n in nt.nodes if n.type == "BSDF_PRINCIPLED")
+    mix = next(n for n in nt.nodes if n.type == "MIX")
+    lw = nt.nodes.new("ShaderNodeLayerWeight")
+    lw.inputs["Blend"].default_value = 0.35
+    pw = nt.nodes.new("ShaderNodeMath")
+    pw.operation = "POWER"
+    pw.inputs[1].default_value = 2.0
+    nt.links.new(lw.outputs["Facing"], pw.inputs[0])
+    e = sr.emission(nt, (1.0, 0.97, 0.93, 1), 0.0)
+    # emission colour weighted by the rim mask: colour = rim * warm white
+    cm = nt.nodes.new("ShaderNodeMix")
+    cm.data_type = "RGBA"
+    cm.inputs["A"].default_value = (0, 0, 0, 1)
+    cm.inputs["B"].default_value = (1.0, 0.97, 0.93, 1)
+    nt.links.new(pw.outputs[0], cm.inputs["Factor"])
+    nt.links.new(cm.outputs["Result"], e.inputs["Color"])
+    add = nt.nodes.new("ShaderNodeAddShader")
+    nt.links.new(p.outputs[0], add.inputs[0])
+    nt.links.new(e.outputs[0], add.inputs[1])
+    nt.links.new(add.outputs[0], out.inputs[0])
+    return m, {"emit": e, "cols": [mix.inputs["A"]]}
+
+
 def load_blend(path):
     with bpy.data.libraries.load(os.path.abspath(path), link=False) as (src, dst):
         dst.objects = list(src.objects)
@@ -148,11 +190,15 @@ def main():
     root.location = (lo + hi) / 2
     sr.studio_lights(lo, hi)
     mat = sr.mat_silver()
+    hl_mats = []  # (ob spec, highlight handles) for keyframing below
     for ob, ms in groups:
         mm = mat
         if "color" in ob:  # debug / registration overlays only (house look is silver)
             mm, nt, out = sr.new_mat("dbg")
             nt.links.new(sr.principled(nt, tuple(ob["color"]) + (1,), 0.5).outputs[0], out.inputs[0])
+        elif "glow" in ob or "dim" in ob:  # section highlight (v2): own copy of the house silver
+            mm, h = highlight_mat()
+            hl_mats.append((ob, h))
         for m in ms:
             m.data.materials.clear()
             m.data.materials.append(mm)
@@ -190,6 +236,21 @@ def main():
             piv.keyframe_insert("location", frame=f)
             piv.keyframe_insert("rotation_euler", frame=f)
 
+    # section highlight: per-frame keys of the rim glow strength and the body dim factor
+    for ob, h in hl_mats:
+        gk = [{"t": k["t"], "v": [k["v"]], "ease": k.get("ease", "ease_in_out")} for k in ob.get("glow", [{"t": 0, "v": 0}])]
+        dk = [{"t": k["t"], "v": [k["v"]], "ease": k.get("ease", "ease_in_out")} for k in ob.get("dim", [{"t": 0, "v": 0}])]
+        for f in range(1, nframes + 1):
+            t = (f - 1) / max(1, nframes - 1)
+            g = seg_ease(gk, t, "v")[0]
+            d = seg_ease(dk, t, "v")[0]
+            h["emit"].inputs["Strength"].default_value = GLOW_GAIN * g
+            h["emit"].inputs["Strength"].keyframe_insert("default_value", frame=f)
+            col = tuple(c * (1 - DIM_GAIN * d) for c in SILVER) + (1,)
+            for sock in h["cols"]:
+                sock.default_value = col
+                sock.keyframe_insert("default_value", frame=f)
+
     cd = bpy.data.cameras.new("cam")
     cam = bpy.data.objects.new("cam", cd)
     sc.collection.objects.link(cam)
@@ -223,7 +284,8 @@ def main():
     sc.cycles.samples = a.samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    sc.render.use_persistent_data = True
+    moving = any("keys" in ob or "glow" in ob or "dim" in ob for ob, _ in groups)
+    sc.render.use_persistent_data = a.persistent == "on" or (a.persistent == "auto" and not moving)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
@@ -242,6 +304,9 @@ def main():
         sc.render.filepath = os.path.join(out, "f_")
         sc.render.use_overwrite = False  # resumable: frames already on disk are skipped
         sc.render.use_placeholder = True
+        if a.frames:
+            f0, f1 = (int(v) for v in a.frames.split("-"))
+            sc.frame_start, sc.frame_end = max(1, f0), min(nframes, f1)
         bpy.ops.render.render(animation=True)
     print("IVE_SHOT_DONE", out, nframes)
 
