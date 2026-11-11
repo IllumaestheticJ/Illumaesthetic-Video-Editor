@@ -50,8 +50,8 @@ degrees about the part's own bbox centre (x,y,z). Ease per segment. Releases are
 ### A. Front bumper (v03, 4.0-12.0) - hero 1
 | Part (.blend) | Motion | Parked at (from 9.6 / 10.2 s) |
 |---|---|---|
-| `n_fbump_norad` (Front Bumper Outside+Inside union, radar module carved out; lite `L_fbump_norad` after v03) | 7.0-8.0 slide forward +0.40 (ease_out); 8.0-9.6 rise and tip: loc [1.40,-0.10,1.00], rot [0,115,0] (ease_in_out) - the scanned INNER face turns up toward the camera | [1.40,-0.10,1.00] rot y115: above and in front of the nose |
-| `n_radar_mod` (Radar Cover + Radar Mounting Grille) | 7.0-8.0 rides out with the bumper (+0.40 x); 9.0-10.2 drops out of it and slides to [0.70,+0.95,-0.02] (left-front, clear black) | left of the nose, at intake height |
+| `n_fbump_norad` (Front Bumper Outside+Inside union, radar module carved out; lite `L_fbump_norad` after v03) | 7.0-8.0 slide forward +0.40 (ease_out); 8.0-9.6 rise and tip: loc [1.20,-0.10,1.25], rot [0,115,0] (ease_in_out) - the scanned INNER face turns up toward the camera | [1.20,-0.10,1.25] rot y115: above and in front of the nose (leaves the top of frame during the push-in) |
+| `n_radar_mod` (Radar Cover + Radar Mounting Grille) | 7.0-8.0 rides out with the bumper (+0.40 x); 9.0-10.2 drops out of it and slides to [0.70,+1.25,-0.02] (left-front, clear black; fully out of frame by the end of the push-in) | left of the nose, at intake height |
 Revealed: `base_v2` front = Under Front Bumper state scan (crash beam, radiators/condenser, ducts, mounts) + liners.
 Camera (reel-time keys): 3.7 az-33 d4.6 z0.70 look(1.10,-0.05,0.45) -> 6.6 az-40 d3.0 z1.0 look(1.75,-0.20,0.42) [push
 on the face] -> 8.7 az-38 d4.6 z1.7 look(2.40,-0.15,0.80) [rise with the bumper, whole nose + tipped bumper in frame]
@@ -85,10 +85,10 @@ rearward with the releases. Lens 38. Highlight: pulses 16.5 / 17.5 / 18.5; all f
 ### D. Rear bumper (v06, 20.0-26.0) - hero 2
 | Part | Motion | Parked |
 |---|---|---|
-| `rbump` (Rear Bumper Outside+Inside union; lite `L_rbump` elsewhere) | 21.0-22.0 slide aft -0.40 (ease_out); 22.0-23.6 rise + tip to [-1.40,+0.10,1.00], rot [0,-115,0] - inner face up | above and behind the tail |
+| `rbump` (Rear Bumper Outside+Inside union; lite `L_rbump` elsewhere) | 21.0-22.0 slide aft -0.40 (ease_out); 22.0-23.6 rise + tip to [-1.20,-0.25,1.00], rot [0,-115,0] - inner face up | above and behind the tail |
 Revealed: **Supra Under Rear Bumper** (843 k tris spliced, fills v1's hollow tail: rear crash beam, exhaust, mounts).
-Camera: az-140 d3.0 z1.0 look(-1.75,-0.2,0.42) -> t.40 az-142 d5.0 z1.8 look(-2.4,-0.05,0.8) [rise, bumper + tail in
-frame] -> t.62 az-146 d4.9 z1.7 [hold on the inside] -> t1 az-156 d1.45 z0.62 look(-2.0,-0.15,0.32) [push IN, hold on the
+Camera: az-150 d2.6 z1.05 look(-1.95,-0.10,0.45) [rear end fills the frame] -> t.40 az-150 d4.0 z1.75
+look(-2.50,-0.10,0.80) [rise, bumper + tail in frame with margins] -> t.62 az-152 d3.9 z1.65 [hold on the inside] -> t1 az-156 d1.45 z0.62 look(-2.0,-0.15,0.32) [push IN, hold on the
 under-rear-bumper structure 24.5-26.0]. Lens 35. Highlight: pulse 21.0; front + side parts dimmed.
 
 ### E. Rear corner (v07, 26.0-30.0)
@@ -100,22 +100,29 @@ under-rear-bumper structure 24.5-26.0]. Lens 35. Highlight: pulse 21.0; front + 
 | `p_RR_spring` | 28.0-28.4 drop -0.10, 28.4-29.0 to [0.12,-0.42,-0.10] | |
 | `p_RR_damper` | 28.5-28.9 drop -0.16, 28.9-29.5 to [-0.12,-0.30,-0.16] | |
 | `L_corner_RL` | 26.5-27.7 +0.85 y | |
-Camera: az-125 d2.5 z2.1 look(-1.15,-0.95,0.25) -> t.55 az-112 d2.4 z1.9 -> t1 az-102 d2.0 z1.45 look(-1.25,-1.15,0.22). Lens 32.
+Camera: az-125 d2.5 z2.1 look(-1.20,-0.95,0.25) -> t.55 az-112 d2.5 z1.9 -> t1 az-104 d2.2 z1.5 look(-1.35,-1.15,0.20). Lens 32.
 Highlight: pulses 26.5 / 27.0 / 27.5 / 28.0 / 28.5; everything else dimmed; all dims release 29.4-30.0 for the line-up.
 
 ### F. Line-up (v08, 30.0-34.0)
 Every part parked as above; no motion except the camera: high over the right side, ~64 deg down, up vector = nose
-(car length along the 9:16 height - v1 lesson), az-97 -> -83, d2.3, z4.8 -> 4.7, look(0,-0.1,0.3), lens 28. Reads as the
+(car length along the 9:16 height - v1 lesson), az-97 -> -83, d2.3, z4.8 -> 4.7, look(0,-0.1,0.3), lens 31 (tighter clips the bumpers: the set is tall, not wide). Reads as the
 exploded diagram: front bumper + radar module ahead of the nose, rear bumper behind the tail, wheels/brakes/suspension
 outboard on both sides, side panels in a strip along the right sill. No glow, no dim.
 
 ### G. Reassembly + ending (v09a/b, 34.0-38.0)
 All parts fly home with ease_in, staggered by section (side 34.2, rear corner 34.35, front corner 34.5, bumpers +
-radar 34.65) and **all lock on 36.0** (the `big` hit). Camera rear 3/4 high, car small like the Temerario: az-142 d8.2
-z3.4 -> az-134 d6.9 z2.7, lens 35; v09b continues the same path with the clean `car.blend` + 4 corners (hard cut on
+radar 34.65) and **all lock on 36.0** (the `big` hit). Camera rear 3/4 high: az-140 d7.0 z3.2 look(-0.55,0.10,0.55) (exploded set ~80 % of the width)
+-> az-134 d6.9 z2.7 look(-0.1,0,0.4) (assembled car small, like the Temerario), lens 35; v09b continues the same path with the clean `car.blend` + 4 corners (hard cut on
 36.0, invisible: composite seams disappear). Fade to black 37.0-38.0 (assembler `vf: fade=t=out:st=1.0:d=1.0` on v09b).
 Logo: `remotion/public/illumaesthetic_logo.png` scaled to 270 px wide (25 % of 1080), centred, on black, fade in
 38.2-38.9 s, hold, fade out 40.6-41.5 (reuse tools/logo_card.sh with the smaller scale and fades).
+
+### Edge rule: parked parts hidden per shot
+No half-clipped pieces at frame edges (reviewer: "consistently poorly cropped"). Parked parts of OTHER sections that a
+section camera would cut at an edge are hidden in that shot only (`HIDE` in plan_v2.py; they are still parked, and v08
+shows everything): v04 hides front bumper + radar; v05 hides all front parts; v06 hides front + side parts and the FL
+corner; v07 hides front + side parts, rear bumper and FL corner. The section's own parts are always fully in frame or
+leave it while moving. Section close-ups (v03 end, v04, v05, v06 end, v07) crop INTO the car body on purpose.
 
 ### Interior
 `n_interior6` (Interior_(2.4m), 6 mm) sits in the cabin in EVERY shot as a static fill, so the glassless window openings

@@ -47,10 +47,10 @@ PARTS = {
     # ---- section A: front bumper (radar module = Radar Cover + Radar Mounting Grille scans, carved out of the bumper)
     "fbump": dict(w=W("n_fbump_norad", "L_fbump_norad"), keys=[
         (7.0, H, H, None), (8.0, [0.40, 0, 0], H, "ease_out"),
-        (9.6, [1.40, -0.10, 1.00], [0, 115, 0], "ease_in_out")], glow=pulse(7.0, 12.0)),
+        (9.6, [1.20, -0.10, 1.25], [0, 115, 0], "ease_in_out")], glow=pulse(7.0, 12.0)),
     "radar": dict(w=W("n_radar_mod"), keys=[
         (7.0, H, H, None), (8.0, [0.40, 0, 0], H, "ease_out"),
-        (9.0, [0.40, 0, 0], H, None), (10.2, [0.70, 0.95, -0.02], H, "ease_in_out")], glow=pulse(9.0, 12.0)),
+        (9.0, [0.40, 0, 0], H, None), (10.2, [0.70, 1.25, -0.02], H, "ease_in_out")], glow=pulse(9.0, 12.0)),
     # ---- section B: front corner (fender section, FR wheel/caliper/rotor/coilover, FL corner as one unit)
     "fender": dict(w=W("fender"), keys=[
         (12.5, H, H, None), (13.5, [0.0, -0.80, -0.05], [-35, 0, 0], "ease_in_out")], glow=pulse(12.5, 16.0)),
@@ -76,7 +76,7 @@ PARTS = {
     # ---- section D: rear bumper -> Under Rear Bumper
     "rbump": dict(w=W("rbump", "L_rbump"), keys=[
         (21.0, H, H, None), (22.0, [-0.40, 0, 0], H, "ease_out"),
-        (23.6, [-1.40, 0.10, 1.00], [0, -115, 0], "ease_in_out")], glow=pulse(21.0, 26.0)),
+        (23.6, [-1.20, -0.25, 1.00], [0, -115, 0], "ease_in_out")], glow=pulse(21.0, 26.0)),
     # ---- section E: rear corner (RR wheel/caliper/rotor/spring/damper, RL corner as one unit)
     "rr_wheel": dict(w=W("p_RR_wheel", "L_RR_wheel"), keys=[
         (26.5, H, H, None), (27.5, [-0.25, -0.85, 0], H, "ease_in_out")], glow=pulse(26.5, 30.0)),
@@ -124,20 +124,28 @@ CAMS = {
                                       {"t": 1, "az": -78, "dist": 2.0, "z": 1.45, "look": [1.20, -1.15, 0.22]}]),
     "v05_side": dict(lens=38, cam=[{"t": 0, "az": -90, "dist": 2.5, "z": 2.3, "look": [0.10, -1.10, 0.05]},
                                    {"t": 1, "az": -90, "dist": 2.3, "z": 2.1, "look": [-0.45, -1.10, 0.05]}]),
-    "v06_rbump": dict(lens=35, cam=[{"t": 0, "az": -140, "dist": 3.0, "z": 1.0, "look": [-1.75, -0.2, 0.42]},
-                                    {"t": 0.40, "az": -142, "dist": 5.0, "z": 1.8, "look": [-2.4, -0.05, 0.80]},
-                                    {"t": 0.62, "az": -146, "dist": 4.9, "z": 1.7, "look": [-2.5, -0.05, 0.80]},
+    "v06_rbump": dict(lens=35, cam=[{"t": 0, "az": -150, "dist": 2.6, "z": 1.05, "look": [-1.95, -0.10, 0.45]},
+                                    {"t": 0.40, "az": -150, "dist": 4.0, "z": 1.75, "look": [-2.50, -0.10, 0.80]},
+                                    {"t": 0.62, "az": -152, "dist": 3.9, "z": 1.65, "look": [-2.55, -0.10, 0.80]},
                                     {"t": 1, "az": -156, "dist": 1.45, "z": 0.62, "look": [-2.0, -0.15, 0.32]}]),
-    "v07_rcorner": dict(lens=32, cam=[{"t": 0, "az": -125, "dist": 2.5, "z": 2.1, "look": [-1.15, -0.95, 0.25]},
-                                      {"t": 0.55, "az": -112, "dist": 2.4, "z": 1.9, "look": [-1.15, -1.05, 0.22]},
-                                      {"t": 1, "az": -102, "dist": 2.0, "z": 1.45, "look": [-1.25, -1.15, 0.22]}]),
-    "v08_lineup": dict(lens=28, cam=[{"t": 0, "az": -97, "dist": 2.3, "z": 4.8, "look": [0.0, -0.1, 0.3], "up": [1, 0, 0]},
+    "v07_rcorner": dict(lens=32, cam=[{"t": 0, "az": -125, "dist": 2.5, "z": 2.1, "look": [-1.20, -0.95, 0.25]},
+                                      {"t": 0.55, "az": -112, "dist": 2.5, "z": 1.9, "look": [-1.30, -1.05, 0.22]},
+                                      {"t": 1, "az": -104, "dist": 2.2, "z": 1.5, "look": [-1.35, -1.15, 0.20]}]),
+    "v08_lineup": dict(lens=31, cam=[{"t": 0, "az": -97, "dist": 2.3, "z": 4.8, "look": [0.0, -0.1, 0.3], "up": [1, 0, 0]},
                                      {"t": 1, "az": -83, "dist": 2.3, "z": 4.7, "look": [0.0, -0.1, 0.3], "up": [1, 0, 0]}]),
-    "v09a_reasm": dict(lens=35, cam=[{"t": 0, "az": -142, "dist": 8.2, "z": 3.4, "look": [-0.1, 0, 0.5]},
+    "v09a_reasm": dict(lens=35, cam=[{"t": 0, "az": -140, "dist": 7.0, "z": 3.2, "look": [-0.55, 0.10, 0.55]},
                                      {"t": 1, "az": -134, "dist": 6.9, "z": 2.7, "look": [-0.1, 0, 0.4]}]),
     "v09b_clean": dict(lens=35, cam=[{"t": 0, "az": -134, "dist": 6.9, "z": 2.7, "look": [-0.1, 0, 0.4]},
                                      {"t": 1, "az": -128, "dist": 6.6, "z": 2.4, "look": [-0.1, 0, 0.4]}]),
 }
+# parked parts of OTHER sections that this camera would show half-clipped at a frame edge: hidden in that shot
+# (they are physically still parked - v08 shows everything - but each section shot shows only clean, whole subjects)
+FRONT = {"fbump", "radar", "fender", "fr_wheel", "fr_caliper", "fr_rotor", "fr_coil"}
+SIDE = {"dtrim", "uskirt", "lskirt"}
+HIDE = {"v04_fcorner": {"fbump", "radar"},
+        "v05_side": FRONT,
+        "v06_rbump": FRONT | SIDE | {"fl_corner"},
+        "v07_rcorner": FRONT | SIDE | {"rbump", "fl_corner"}}
 # full-res part meshes only where the part is the close-up subject; lite (3.5-4 mm) everywhere else
 FULL = {"v03_fbump": {"fbump", "radar"}, "v04_fcorner": {"fr_wheel", "fr_caliper", "fr_rotor", "fr_coil", "fender"},
         "v06_rbump": {"rbump"}, "v07_rcorner": {"rr_wheel", "rr_caliper", "rr_rotor", "rr_spring", "rr_damper"}}
@@ -232,6 +240,8 @@ def main():
                         print(f"WARN {sid}: {n} is mid-move at the window edge {edge:.2f}s")
                 full = n in FULL.get(sid, set())
                 o = {"blend": p["w"]["full"] if full else p["w"]["lite"], "keys": shot_keys(p["keys"], T0, T1)}
+                if n in HIDE.get(sid, set()):
+                    o["hide"] = True
                 g = env_keys(p.get("glow"), T0, T1)
                 d = env_keys(p.get("dim"), T0, T1)
                 if g:
