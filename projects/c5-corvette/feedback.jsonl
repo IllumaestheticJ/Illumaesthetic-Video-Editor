@@ -1,1 +1,3 @@
 {"ts": "2026-11-11T09:05:06Z", "project": "c5-corvette", "at": null, "category": "story", "note": "Same issue as the other first drafts. Need to focus more specifically on the removed areas and where the useful data is", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-11T18:43:35Z", "project": "c5-corvette", "at": null, "category": "scan-quality", "note": "c5 planning is good, but there's a lot of artifacts. Delete/hide the artifacts from the full car scan when it cuts in", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-11T18:43:35Z", "project": "c5-corvette", "at": null, "category": "story", "note": "We also have gas cap and Doorsill scans, as well as a trunk scan to show off", "by": "reviewer", "promoted": false}

@@ -223,3 +223,73 @@ v2b("i2_home", 5, cam(5, {"t": 0, "az": -140, "el": 22, "dist": 8.4, "target": [
      "rb": anim(5, [{"t": 1.20, "off": [0, 0.85, 0.45], "spin": SP0}, {"t": 4.017, "off": Z, "spin": SP0}])},
     extra_vis={"car": [SW, 1.01], **{k: [0, SW] for k in V2}}, objs={**V2, **CAR})
 print("v2 final", [n for n in sorted(os.listdir(OUT)) if n.startswith("v2_") and n[3:5] in ("a2", "f2", "c2", "g2", "i2")])
+
+# ======================= v3 (reviewer 2026-11-11: artifacts + gas cap / doorsill / trunk) =======================
+# direction.md "v3". One base per section: clean car (car3 = ground scraps removed, tools/carclean.py) trimmed ONLY under
+# that section's part(s) + ONLY that section's captured state (tools/composite2.py --near 250, island-filtered); the three
+# open states (door, fuel door, trunk) are region swaps (tools/swapstate.py) cut in on a strong kick. Lights pinned to the
+# full car (light_ref "car") so a base swap cannot move the rig.
+V3CUTS = [0, 4.100, 9.310, 14.769, 18.040, 21.312, 24.585, 28.946, 32.221, 35.496]
+def sec3(i): return round(V3CUTS[i + 1] - V3CUTS[i] + SLACK, 3)
+def cam3(i, *keys): S = sec3(i); return [dict(k, t=round(k["t"] / S, 4)) for k in keys]
+def an3(i, keys): S = sec3(i); return [dict(k, t=round(k["t"] / S, 4)) for k in keys]
+CAR3 = B + "car3.blend"
+def v3(name, i, base, cams, anims=None, parts=(), swap=None, swap_out=None):
+    """base visible all shot (swap=None) or from local `swap` s (full car before it); parts listed are visible"""
+    objs = {"car": CAR3, "base": B + base + ".blend", **{k: B + PARTS[k] + ".blend" for k in parts}}
+    if swap_out is not None:   # base + parts first, full clean car from local `swap_out` s
+        f = round(swap_out / sec3(i), 4); vis = {"car": [f, 1.01], "base": [0, f], **{k: [0, f] for k in parts}}
+    elif swap is None:
+        vis = {"car": [0, 0]}
+    else:
+        f = round(swap / sec3(i), 4); vis = {"car": [0, f], "base": [f, 1.01], **{k: [f, 1.01] for k in parts}}
+    shot("v3_" + name, objs, sec3(i), cams, anims=anims or {}, hinges=HINGES, light_ref="car", persistent=False, visible=vis)
+def C(t, az, el, dist, target, lens=30): return {"t": t, "az": az, "el": el, "dist": dist, "target": target, "lens": lens}
+
+# 1 open: whole clean car moving from frame 1; on 1.20 the front-bumper base + bumper cut in (identical outside the bumper)
+v3("open", 0, "base_fb", cam3(0, C(0, -28, 11, 5.8, [0, -0.05, 0.58]), C(sec3(0), -28, 9, 3.7, [0, -2.15, 0.40])),
+   {"fb": an3(0, [{"t": 1.20, "off": Z, "spin": SP0}, {"t": sec3(0), "off": [0, -0.9, 0.05], "spin": SP0}])},
+   parts=("fb",), swap=1.20)
+# 2 front bumper removed: hold on the nose structure; the bumper rises, then turns its scanned inside to camera
+v3("fb", 1, "base_fb", cam3(1, C(0, -6, 7, 3.6, [0, -2.40, 0.80]), C(sec3(1), 0, 7, 2.9, [0, -2.35, 0.72])),
+   {"fb": an3(1, [{"t": 0, "off": [0, -0.9, 0.05], "spin": SP0}, {"t": 0.30, "off": [0, -0.9, 0.05], "spin": SP0},
+                  {"t": 1.90, "off": [0, -1.1, 1.0], "spin": SP0}, {"t": 4.20, "off": [0, -1.1, 1.0], "spin": [180, 0, 0, 1]}])},
+   parts=("fb",))
+# 3 hood (+X front 3/4): 46 deg on 10.400, lift on 11.496, underside to camera on 12.584, then out the top over the bay
+v3("hood", 2, "base_hd", cam3(2, C(0, 22, 24, 3.8, [0, -1.45, 0.70]), C(3.27, 22, 30, 3.6, [0, -1.35, 0.95]),
+                              C(sec3(2), 26, 40, 3.2, [-0.10, -1.25, 0.55])),
+   {"hood": an3(2, [{"t": 0.05, "deg": 0, "off": Z, "spin": [0, 1, 0, 0]}, {"t": 1.09, "deg": OPEN, "off": Z, "spin": [0, 1, 0, 0]},
+                    {"t": 1.60, "deg": OPEN, "off": Z, "spin": [0, 1, 0, 0]},
+                    {"t": 2.19, "deg": OPEN, "off": [0, -0.25, 1.15], "spin": [0, 1, 0, 0]},
+                    {"t": 3.27, "deg": 0, "off": [0, -0.55, 1.30], "spin": [-75, 1, 0, 0]},
+                    {"t": 4.10, "deg": 0, "off": [0, -0.55, 1.30], "spin": [-75, 1, 0, 0]},
+                    {"t": sec3(2), "deg": 0, "off": [0, -0.20, 3.60], "spin": [-75, 1, 0, 0]}])},
+   parts=("hood",))
+# 4 +X door: closed full scan -> LEFT DOORSILL state on 15.856 (local 1.087), push onto the sill
+v3("sill", 3, "base_sill", cam3(3, C(0, 118, 18, 3.0, [0.80, -0.25, 0.50]), C(1.09, 116, 22, 2.5, [0.82, -0.25, 0.42]),
+                               C(sec3(3), 110, 28, 1.8, [0.85, -0.25, 0.32], 35)), swap=1.087)
+# 5 +X rear quarter: fuel door closed -> GAS CAP state on 19.135 (local 1.095), macro on the filler
+v3("gas", 4, "base_gas", cam3(4, C(0, 105, 12, 2.6, [0.85, 0.90, 0.74]), C(1.09, 110, 14, 1.8, [0.87, 0.90, 0.76]),
+                              C(sec3(4), 118, 16, 1.0, [0.90, 0.90, 0.77], 35)), swap=1.095)
+# 6 trunk: hatch closed -> TRUNK OPEN state on 22.404 (local 1.092), looking down into the tub
+v3("trunk", 5, "base_trunk", cam3(5, C(0, 160, 38, 4.0, [0, 1.60, 0.80]), C(1.09, 165, 46, 3.2, [0, 1.72, 0.70]),
+                                  C(sec3(5), 172, 58, 2.4, [0, 1.77, 0.62], 32)), swap=1.092)
+# 7 rear bumper removed: off on the cut, clear on 25.676, inside turns from 26.773
+v3("rear", 6, "base_rb", cam3(6, C(0, 176, 12, 4.6, [0, 1.95, 0.55]), C(1.09, 180, 10, 4.2, [0, 2.25, 0.72]),
+                              C(sec3(6), -172, 9, 3.8, [0, 2.40, 0.85])),
+   {"rb": an3(6, [{"t": 0.05, "off": Z, "spin": SP0}, {"t": 0.75, "off": [0, 0.9, 0.05], "spin": SP0},
+                  {"t": 1.09, "off": [0, 1.3, 0.95], "spin": SP0}, {"t": 2.19, "off": [0, 1.3, 0.95], "spin": SP0},
+                  {"t": 3.00, "off": [0, 1.3, 0.95], "spin": [180, 0, 0, 1]}])},
+   parts=("rb",))
+# 8 -X fender (hood ON = captured state): fender out and up on the cut, macro on the wheelhouse
+v3("fender", 7, "base_fe", cam3(7, C(0, -82, 10, 3.6, [-0.70, -1.40, 0.60]), C(1.09, -76, 12, 2.6, [-0.70, -1.55, 0.58], 32),
+                                C(sec3(7), -70, 14, 1.9, [-0.70, -1.65, 0.55], 35)),
+   {"fe": an3(7, [{"t": 0.05, "off": Z}, {"t": 0.85, "off": [-0.85, -0.05, 0.80]}, {"t": 1.70, "off": [-1.20, 0, 1.70]}])},
+   parts=("fe",))
+# 9 home: parts return (rb 33.314, fe, hood, fb locks on 34.402 = local 2.181) -> clean car
+v3("home", 8, "base_home", cam3(8, C(0, -55, 18, 6.4, [0, -0.30, 0.70], 32), C(sec3(8), -40, 13, 7.0, [0, -0.05, 0.55], 32)),
+   {"rb": an3(8, [{"t": 0, "off": [0, 0.7, 0.35], "spin": SP0}, {"t": 1.09, "off": Z, "spin": SP0}]),
+    "fe": an3(8, [{"t": 0, "off": [-0.6, -0.1, 0.9]}, {"t": 1.30, "off": Z}]),
+    "hood": an3(8, [{"t": 0, "deg": 0, "off": [0, -0.5, 0.9], "spin": [0, 1, 0, 0]}, {"t": 1.60, "deg": 0, "off": Z, "spin": [0, 1, 0, 0]}]),
+    "fb": an3(8, [{"t": 0, "off": [0, -0.8, 0.35], "spin": SP0}, {"t": 2.181, "off": Z, "spin": SP0}])},
+   parts=("rb", "fe", "hood", "fb"), swap_out=2.181)
