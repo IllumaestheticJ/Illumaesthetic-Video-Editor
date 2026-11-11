@@ -98,3 +98,14 @@ Output: `/home/user/media/work/out/nfs-carlot_v8.mp4`, 21.4 s.
 - Picture re-timed to it: NC holds 1.3 s, EP3 1.3 s after their slides. Sync within 0.007 s.
 - Checked: output audio correlates with capture B continuously (1.00 at 6, 9, 12, 13.5 s; 0.99 at 14.8 s).
 - Missed in v5-v7: cut the audio by scroll times only and never looked for speech in it.
+
+## v9 (2026-11-11) - after the user's review of v8
+User: "The music at the end oddly loops before continue to play right after the speech is over."
+
+Output: `/home/user/media/work/out/nfs-carlot_v9.mp4`, 20.9 s.
+- The two audio takes now join 7 bars of the menu song apart, crossfaded just after the song's first hit:
+  the song starts once, right after the voice message, and carries on in time into the last scroll and the
+  purchase. EP3 holds 1.27 s (38 frames) to make the bar count come out.
+- Checked: join = 7.001 bars; hits after the onset on the half-bar grid; no level dip; sync within 0.007 s;
+  voice message still whole (take 1 runs to B 44.93 s, message ends 44.6 s).
+- Missed in v8: moved the jump without checking what the music does across it.

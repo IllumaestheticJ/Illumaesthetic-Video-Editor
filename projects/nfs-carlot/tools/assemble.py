@@ -9,8 +9,14 @@ Sound: the 1440p capture (a.wav) for the arrival. Its garage section is sped up 
 the menu uses the second capture (b.wav), which is real time, in two takes. Take 1 is the menu opening
 through four scrolls in one piece: the voice message that plays in the car lot runs from B 35.1 s to about
 44.6 s ("... use it to set yourself up ..." and on) and must not be cut (user, v7 review: v5-v7 jumped to
-take 2 at 42.0 s, mid-sentence); the menu music starts at 44.8 s, after it. Take 2 is B's last scroll, the
-click on Continue, the purchase prompt and the click on Yes, so the purchase sounds as it does in the game. The EPSILON+ card cuts in on the Yes
+take 2 at 42.0 s, mid-sentence). Take 2 is B's last scroll, the click on Continue, the purchase prompt and
+the click on Yes, so the purchase sounds as it does in the game.
+The join between the takes is a join in the menu song, which starts at B 44.84 s, right after the message
+(user, v8 review: "the music oddly loops"; v8 let the song play 0.7 s and then jumped 7.73 s ahead, off the
+beat). The song's bar is 1.1765 s and its opening matches itself best 6 and 7 bars on (7.059 s, 8.236 s).
+Only 7 bars fits between the scroll sounds, so the 5th car's range is 38 frames, which puts take 2 exactly
+8.237 s ahead of take 1, and the takes are crossfaded at B_JOIN, just after the song's first hit: the song
+starts once and carries on in time. The EPSILON+ card cuts in on the Yes
 click and B's audio plays on under it and fades. The picture is cut to that audio: every car change
 starts on the frame where the car starts to move in capture B (B_SCROLLS, measured from B's picture),
 and the prompt (B_PROMPT) and the click on Yes (B_YES) likewise.
@@ -23,6 +29,8 @@ W = Path("/home/user/media/work/nfs-carlot")
 INTRO = (952, 1291)            # a60.mp4 frames (60 fps): "enter the shop?" (1 s), then the 350Z cutscene (4.65 s)
 B_SCROLLS = [34.93, 37.87, 40.27, 42.00, 43.80, 53.30]   # seconds in capture B where each of our six car changes starts
 TAKE2 = 5                                         # index of the first car change that uses B's second take
+B_JOIN = 44.92                                    # where in take 1 (B seconds) it hands over to take 2
+SONG_BAR = 1.1765                                 # menu song's bar, seconds (envelope autocorrelation of B 45-58 s)
 B_PROMPT, B_YES = 54.10, 55.30                    # B: purchase prompt starts to fade in / Yes is clicked (prompt gone)
 CARD_S = 3.0                                      # EPSILON+ end card, cut in on the Yes click; B's audio plays on under it (silent from 58.2 s)
 LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png")   # official EPSILON+ wordmark (site header artwork)
@@ -59,11 +67,16 @@ def audio():
         src[:len(ramp)] *= ramp; src[-len(ramp):] *= ramp[::-1]
         menu[i0:i0 + len(src)] += src
 
-    # take 1: menu opening through the car changes before TAKE2 (continuous in B), up to the cut to take 2
-    place(0.0, B_SCROLLS[0] - t_scroll[0], B_SCROLLS[TAKE2 - 1] + (t_scroll[TAKE2] - t_scroll[TAKE2 - 1]) - LEAD)
+    # take 1: menu opening through the car changes before TAKE2 (continuous in B), up to the join
+    off1 = B_SCROLLS[0] - t_scroll[0]                             # B time = menu time + off, per take
+    off = B_SCROLLS[TAKE2] - t_scroll[TAKE2]
+    t_join = B_JOIN - off1; half = xf / sr / 2
+    place(0.0, off1, B_JOIN + half)
     # take 2: B's last scroll, Continue, the prompt, Yes, and on under the end card
-    off = B_SCROLLS[TAKE2] - t_scroll[TAKE2]                      # B time = menu time + off for the whole take
-    place(t_scroll[TAKE2] - LEAD, B_SCROLLS[TAKE2] - LEAD, off + t_end + CARD_S)
+    place(t_join - half, t_join - half + off, off + t_end + CARD_S)
+    bars = (off - off1) / SONG_BAR
+    print(f"song join: take 2 is {off - off1:.3f} s = {bars:.3f} bars ahead of take 1 (whole number = in time), at menu {t_join:.2f} s")
+    assert abs(bars - round(bars)) < 0.02, "audio join is off the song's beat: change the length of the range before TAKE2"
     sync = {"scrolls": [round(B_SCROLLS[i] - (t_scroll[i] + (off if i >= TAKE2 else B_SCROLLS[0] - t_scroll[0])), 3) for i in range(len(seg))],
             "prompt": round(B_PROMPT - (t_prompt + off), 3), "yes": round(B_YES - (t_end + off), 3)}
     print("picture minus sound, seconds (0 = in sync):", sync)

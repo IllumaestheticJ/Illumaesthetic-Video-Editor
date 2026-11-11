@@ -234,6 +234,14 @@ message is mono and usually plays without music: print the mid and side levels o
 lot: the message runs from the menu opening for 9.6 s, music starts right after). Put audio jumps
 after it, under a scroll sound. I cannot listen, so this check replaces listening; do it every time.
 
+**Joins in music (user on v8: "the music oddly loops").** An audio jump while a song is playing is a
+cut in the song, and a scroll sound does not hide it. Measure the bar (autocorrelation of the low-band
+envelope), make the jump a whole number of bars (two-bar multiples first; check which lags the passage
+actually matches itself at), and get there by changing the length of the picture range before the jump,
+not by moving the jump off the picture sync. `assemble.py` asserts this. Best of all, join where the
+song has only just started, so it is heard to start once. Then confirm in the output that the hits after
+the join sit on the same grid as before it.
+
 **Buying the car (user request on v4).** End the menu on the purchase, not on a scroll: Continue,
 the game's "Do you want this stock <car>?" prompt, Yes, then the end card. Use one unbroken audio
 take from the last scrolls through the Yes click so the purchase sounds are the game's own, and cut
