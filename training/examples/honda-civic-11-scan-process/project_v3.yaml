@@ -1,0 +1,67 @@
+# Honda Civic EK (6th gen hatch) - scan-process reel in the 240SX format. v3 (v1/v2: project_v1.yaml, project_v2.yaml).
+# v3 feedback: don't reuse music other agents used -> THE DEATH (Sworra), unused by any project; re-cut to its 128 BPM grid.
+# v2 feedback: nothing comes off the car (the bumper was never pulled and there is no separate bumper scan) -> no explode,
+# no reassembly; music changed to a trending TikTok Commercial Music Library track and re-cut to it.
+# Story: crew powders the car -> silence -> 1:1 cut ON THE DROP to the scan -> handheld scanner -> 1:1 cut on the fender ->
+# camera pulls back and orbits the whole scanned car -> scan software aligning passes -> scan-line sweep turns the raw scan
+# into the solid model on the listing's 360 angle -> dissolve into the EK scan-data listing (WebZoom, logo, URL last).
+project: honda-civic-11-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/civic_ek_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  # "THE DEATH" - Sworra, TikTok Commercial Music Library EDM 7-day trending #2 (2026-11-11), song_clip_id 7280976752053504002
+  path: /home/user/media/civic11/music/trend/the_death.m4a
+  start: 41.867   # build -> near-silence 43-44 s -> snare fill -> drop kick 45.067 s = video 3.200 s (frame 96)
+  fade_out: 0.4   # the track itself drops out at 73.0 s; the video ends on beat k60 (73.18 s)
+
+# 128 BPM four-on-the-floor, beat 0.46875 s from the drop (45.067 + 0.46875 k; phrases re-enter at k32 = 60.067, k64 = 75.067
+# after 2-bar breaks). Cuts (k): 0 7 9 16 28 32 | dissolve 44 | end 60 -> frames 96 194 223 321 490 546 | 715 | 940
+beats: [3.200, 6.481, 7.419, 10.700, 16.325, 18.200, 23.825, 31.325]
+
+# Whole-frame durs; first clip one frame short (each cut adds a cloned hold frame to the outgoing clip) - verified with
+# tools/cutcheck.py on the delivered file (ive strip seeks can be off by a frame - don't judge cut timing from it).
+timeline:
+  - id: irl_powder_front   # crew powders the hood; camera pulls back and settles on the front 3/4 (match frame f150 = 5.002 s); riser -> silence
+    src: /home/user/media/civic11/dropbox/v_1957_24.mov
+    in: 1.8686
+    out: 5.0353
+    dur: 3.1667
+  - transition: {type: cut, note: "1:1 IRL -> scan ON THE DROP (cam_A: f 18.3 mm, LM + silhouette refine)"}
+  - id: scan_hero   # full-car scan, silver; 20 deg ease-in-out orbit toward the left side; triangle counter HUD
+    src: /home/user/media/work/civic11/renders/final_s1
+    src_fps: 15
+    interpolate: true
+    dur: 3.2667
+  - id: irl_scanner   # operator holds the handheld scanner in frame while circling the front 3/4 (2 beats)
+    src: /home/user/media/civic11/dropbox/v_2003_40.mov
+    in: 0.60
+    out: 1.60
+    dur: 0.9667
+  - id: irl_scanner_pass   # camera walks the right side to the front fender; ends on f105 (3.501 s)
+    src: /home/user/media/civic11/dropbox/v_2003_29.mov
+    in: 0.2680
+    out: 3.5347
+    dur: 3.2667
+  - transition: {type: cut, note: "1:1 IRL -> scan (cam_B: f 28 mm, side landmarks), scan camera keeps drifting forward"}
+  - id: scan_orbit   # continues the walk, pulls back to the front 3/4, orbits down the right side to the rear 3/4 (whole car, nothing removed)
+    src: /home/user/media/work/civic11/renders/v2/final_s2
+    src_fps: 15
+    interpolate: true
+    dur: 5.6333
+  - id: software_align   # in the music's 2-bar break; scan software aligning two passes (screen rec 2025-10-31 01-59-44, 41.5-50.3 s at 4x)
+    src: /home/user/media/work/civic11/sr/sr_align_v2.mp4
+    dur: 1.8667
+  - id: scan_sweep   # scan line sweeps front->rear turning the raw scan into the solid model; orbit lands on cam_end (listing view), morphs to listing grey
+    src: /home/user/media/work/civic11/renders/v3/final_s3
+    src_fps: 15
+    interpolate: true
+    dur: 6.1333
+  - transition: {type: dissolve, duration: 0.5, note: "solid scan (listing grey) -> EK scan-data listing, same angle"}
+  - id: website   # EK listing; zoom out, title, logo, then ILLUMAESTHETIC.COM fades in last
+    src: /home/user/media/work/civic11/out/webzoom_ek_v3.mp4
+    dur: 7.5000
+
+overlays:
+  - src: /home/user/media/work/civic11/out/hud_ek_v3.mov
+    start: 0
