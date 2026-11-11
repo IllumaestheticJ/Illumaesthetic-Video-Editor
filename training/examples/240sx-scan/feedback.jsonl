@@ -16,3 +16,5 @@
 {"ts": "2026-11-11T01:06:25Z", "project": "240sx-scan", "at": "11.9", "category": "match-cut", "note": "Front bumper-pull cut (IRL 6.2 s -> scan) needs better angle alignment", "by": "user", "promoted": false}
 {"ts": "2026-11-11T01:22:31Z", "project": "240sx-scan", "at": "11.9", "category": "match-cut", "note": "Front cut lined up but the scan camera angle is too low", "by": "user", "promoted": false}
 {"ts": "2026-11-11T01:23:44Z", "project": "240sx-scan", "at": "17", "category": "scan-look", "note": "X-ray reassembly: front end should be the 'bumper removed' scan on top of the full-car scan trimmed", "by": "user", "promoted": false}
+{"ts": "2026-11-11T04:16:24Z", "project": "240sx-scan", "at": "25", "category": "text", "note": "End card: logo, then ILLUMAESTHETIC.COM below it fading in last", "by": "user", "promoted": false}
+{"ts": "2026-11-11T04:16:24Z", "project": "240sx-scan", "at": "21.8", "category": "story", "note": "Match the full-car x-ray to website transition better", "by": "user", "promoted": false}

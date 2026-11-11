@@ -3,7 +3,7 @@
 # out before the 1:1 cut; logo under the domain on the last page; x-ray reassembly, translate only.
 project: 240sx-scan
 format: reel-9x16
-output: {path: /home/user/media/work/out/240sx_scan_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/240sx_scan_final.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music_extended.wav   # approved track + 8 repeated beats (see v3 log)
@@ -41,13 +41,13 @@ timeline:
     src: /home/user/media/240sx/dropbox/v_1838_14.mov
     in: 0.60
     out: 1.86
-  - id: scan_xray   # x-ray: bumper-removed scan on the trimmed full-car scan; parts translate back on; ends on the listing angle
+  - id: scan_xray   # x-ray, bumper-removed base; orbit ends on cam_listing (solved against the listing render), morphs to listing grey
     dur: 5.04
     src: /home/user/media/work/renders/shots_v4/s3_xray
     src_fps: 15
     interpolate: true
   - transition: {type: dissolve, duration: 0.5, note: "x-ray scan -> same-angle listing render"}
-  - id: website   # S13 240SX scan listing; zoom-out lands on the 24.53 s accent; title, URL, logo
+  - id: website   # S13 240SX scan listing; zoom-out lands on the 24.53 s accent; title, logo, then URL fades in last
     dur: 6.30
     src: /home/user/media/work/out/webzoom_240sx_v4.mp4
 

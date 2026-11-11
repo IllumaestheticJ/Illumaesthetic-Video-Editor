@@ -1,6 +1,6 @@
 # 240SX scan reel v4 (FINAL) — agent self-review
 
-Output: `/home/user/media/work/out/240sx_scan_v4.mp4` — 1080×1920, 30 fps, 27.83 s, AAC.
+Output: `/home/user/media/work/out/240sx_scan_final.mp4` (final pass after v4 review) — 1080×1920, 30 fps, 27.83 s, AAC.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -11,5 +11,5 @@ Output: `/home/user/media/work/out/240sx_scan_v4.mp4` — 1080×1920, 30 fps, 27
 | 5 | Story | 5 | real→scan rear teardown → real pull plays out → scan front → scanner → x-ray reassembly → listing |
 | 6 | Grade | 4 | unchanged |
 | 7 | Text | 5 | verified claims only; CTA + URL + logo on the listing page |
-| 8 | Ending | 5 | x-ray lands on listing angle → dissolve → zoom out on the 24.53 s accent |
+| 8 | Ending | 5 | x-ray orbit ends on the solved listing camera, morphs to the listing's grey, dissolves into the listing (car stays put); logo then URL fades in last |
 | 9 | Technical | 5 | 27.83 s vs 27.80 s audio (1 frame) |

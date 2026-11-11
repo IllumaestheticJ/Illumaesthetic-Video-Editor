@@ -3,7 +3,7 @@
 # out before the 1:1 cut; logo under the domain on the last page; x-ray reassembly, translate only.
 project: 240sx-scan
 format: reel-9x16
-output: {path: /home/user/media/work/out/240sx_scan_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/240sx_scan_final.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music_extended.wav   # approved track + 8 repeated beats (see v3 log)
