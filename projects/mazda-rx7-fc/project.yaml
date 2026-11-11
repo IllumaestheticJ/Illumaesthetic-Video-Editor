@@ -69,6 +69,7 @@ timeline:
     src: /home/user/media/work/rx7/renders/s11_fsupport
     src_fps: 15
     interpolate: true
+    vf: "pad=1080:2304:0:384:color=0x040405,crop=1080:1920:0:0"   # subject sat in the top 55 %: shift down 20 %
     dur: 2.8333
   - transition: {type: cut, note: "21.52 breakdown"}
   - id: s3_wheel       # WHEELS: tyre sidewall, rim face, arch (speckled-hub frames skipped)
