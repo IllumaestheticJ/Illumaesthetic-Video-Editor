@@ -8,20 +8,22 @@ narration4.wav (Higgsfield Seed Audio, preset voice 'Imogen' - NOT a clone of th
 import subprocess
 import sys
 
-# v3 (NFSU2 car-lot reference): coupe on the lot turntable with a sharp start-up + casual narrator, the lot swaps to the
-# Spyder ON the music lift with a second start-up. Music = reel_track_a with the groove repeated 7 bars (track_a_ext.wav).
-MUSIC = "/home/user/media/huracan-evo/music/track_a_ext.wav"
-ENGINE = "/home/user/media/huracan-evo/vo/engine_start1.mp3"      # coupe 'selected' at 0 s
-ENGINE2 = "/home/user/media/huracan-evo/vo/engine_start2.mp3"     # Spyder swap: catch lands on the lift
-ENGINE2_AT = 19.279 - 0.25
-VO_RAW = "/home/user/media/huracan-evo/vo/narration5.wav"   # v3 script: casual car-lot read about the coupe only
-VO = "/home/user/media/huracan-evo/vo/narration5_tight.wav"
-VO_AT = 0.9          # s: file has 0.23 s lead-in -> speech from ~1.1 s, right after the start-up bark
-GAP_KEEP = 0.30      # s: sentence pauses trimmed to this
-TEMPO = 1.04         # pitch-preserving; keep the relaxed read (reference is conversational, not an announcer)
+# v3 (user's Hot Pursuit Remastered car-select clip, NOT the NFSU2 one first used): engine start-up on the select, ~3 s
+# hush, then one continuous descriptive narration about the COUPE over the track's pads (extended 8 bars); the Spyder
+# arrives on the music lift with a second start-up. Music = track_a_hp.wav (3 s lead-in + pads +32 beats + groove +16).
+MUSIC = "/home/user/media/huracan-evo/music/track_a_hp.wav"
+ENGINE = "/home/user/media/huracan-evo/vo/engine_start1.mp3"      # coupe selected
+ENGINE_AT = 0.3
+ENGINE2 = "/home/user/media/huracan-evo/vo/engine_start2.mp3"     # Spyder arrives: catch lands on the lift
+ENGINE2_AT = 41.48 - 0.25
+VO_RAW = "/home/user/media/huracan-evo/vo/narration6.wav"   # HP-style descriptive script about the coupe
+VO = "/home/user/media/huracan-evo/vo/narration6_tight.wav"
+VO_AT = 3.9          # file has 0.42 s lead-in -> speech from ~4.3 s, after the start-up settles (ref: 5-8 s hush)
+GAP_KEEP = 0.32      # s: pauses trimmed to this
+TEMPO = 1.04         # ref narrator is quicker (4.1 vs 2.9 voiced onsets/s) but still measured
 DUCK_DB = -9.0       # music under the voice
 RAMP = 0.6
-LIFT = 19.279        # music lift / explode start - voice must be done and music back to full by here
+LIFT = 41.48         # music lift (Spyder arrives) - voice must be done and music back to full by here
 
 
 def tighten(src, dst):
@@ -66,7 +68,8 @@ def main(out):
     fc = (
         f"[0:a]aresample=48000,volume='{env}':eval=frame[m];"
         # engine: full at the 'select', then tucks under the first line
-        f"[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.9,afade=t=out:st=2.4:d=3.0[e1];"
+        f"[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.9,afade=t=out:st=2.4:d=3.0,"
+        f"adelay={int(ENGINE_AT * 1000)}|{int(ENGINE_AT * 1000)}[e1];"
         f"[3:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.75,afade=t=out:st=1.6:d=2.4,"
         f"adelay={int(ENGINE2_AT * 1000)}|{int(ENGINE2_AT * 1000)}[e2];"
         f"[e1][e2]amix=inputs=2:normalize=0:duration=longest[e];"

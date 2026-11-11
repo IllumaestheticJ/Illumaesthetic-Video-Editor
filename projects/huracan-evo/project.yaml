@@ -1,62 +1,87 @@
-# Huracan EVO v3 - NFSU2 car-lot intro (coupe, all the audio) + Spyder teardown with Temerario detail zooms.
-# Coupe = 2023 'Huracan Evo Coupe Scan Data (New)' full car; Spyder = 2026 set (roof step behind the cabin). v2: project_v2.yaml
-# Durations are whole frames on the kick grid; src_fps = 30*N/(D+4) so minterpolate's 2N-3 frames fill each slot.
+# Huracan EVO v3 - Hot Pursuit Remastered-style car select (COUPE, all narration) -> Spyder teardown with Temerario detail zooms.
+# Ref: Dropbox Claude Training 'Video Nov 10 2026, 11 38 44 PM.mp4'. Coupe = 2023 full car, Spyder = 2026 set. Previous: project_v2.yaml
+# Coupe angles join with 0.6 s dips to black; each incoming angle is DIP longer so it is fully up on its beat. Hard cuts from the lift.
 project: huracan-evo
 format: reel-9x16
 output: {path: /home/user/media/work/out/huracan_evo_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/huracan-evo/vo/soundtrack_v3.wav   # tools/mix.py: track_a_ext (groove +7 bars) + 2 start-ups + coupe narrator; not committed
+  path: /home/user/media/huracan-evo/vo/soundtrack_v3hp.wav   # tools/mix.py: track_a_hp (3 s lead, pads +32, groove +16) + 2 start-ups + HP-style narrator; not committed
   start: 0
   fade_out: 0.6
 
-# kick grid t = 0.0768 + 0.60006*n on track_a_ext; cuts at n = 16, 32, 36, 44, 48, 56, 60, 64, 68, 72, 76, 88
-beats: [9.678, 19.279, 21.679, 26.479, 28.88, 33.68, 36.08, 38.481, 40.881, 43.281, 45.681, 52.882]
+# beats t = 3.0768 + 0.60006*n; angle changes at n = 3,12,21,30,39,48,57; lift n=64; zooms n=80..96; music stop n=108
+beats: [4.877, 10.278, 15.678, 21.079, 26.479, 31.88, 37.28, 41.481, 46.281, 51.082, 53.482, 55.882, 58.282, 60.683, 67.883]
 
 timeline:
-  - id: c1_lot   # CAR LOT: 2023 coupe on the turntable, lights come up with the start-up, narrator about the coupe (NFSU2 reference)
-    src: /home/user/media/work/renders/huracan/c1_lot
-    src_fps: 0.1024
+  - id: h0_select   # SELECT: coupe revealed as the lights come up with the start-up (HP ref 0-5 s)
+    src: /home/user/media/work/renders/huracan/h0_select
+    src_fps: 14.6000
     interpolate: true
-    dur: 9.6333
-  - transition: {type: cut}
-  - id: c2_lot   # closer lot angle, coupe keeps turning, narration continues
-    src: /home/user/media/work/renders/huracan/c2_lot
-    src_fps: 14.7945
+    dur: 4.8667
+    vf: fade=t=in:st=0:d=0.3
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h1_tail   # detail: tail light + engine-cover louvres, slow slide
+    src: /home/user/media/work/renders/huracan/h1_tail
+    src_fps: 13.2065
     interpolate: true
-    dur: 9.6000
-  - transition: {type: cut}
-  - id: c3_swap   # the lot swaps to the Spyder ON the music lift (19.28 s), second start-up
-    src: /home/user/media/work/renders/huracan/c3_swap
-    src_fps: 14.2105
+    dur: 6.0000
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h2_front   # detail: low front 3/4, nose and intakes
+    src: /home/user/media/work/renders/huracan/h2_front
+    src_fps: 13.2065
     interpolate: true
-    dur: 2.4000
-  - transition: {type: cut}
-  - id: s5_frontopen   # Spyder: bumper slides off, fender steps out, hood swings up on its fitted hinge
-    src: /home/user/media/work/renders/huracan/s5_frontopen
-    src_fps: 14.5946
+    dur: 6.0000
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h3_hood   # detail: down the hood to the Lamborghini shield
+    src: /home/user/media/work/renders/huracan/h3_hood
+    src_fps: 13.2065
+    interpolate: true
+    dur: 6.0000
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h4_wheel   # detail: front wheel (the 2023 coupe scan captured its rims)
+    src: /home/user/media/work/renders/huracan/h4_wheel
+    src_fps: 13.2065
+    interpolate: true
+    dur: 6.0000
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h5_side   # side profile slide
+    src: /home/user/media/work/renders/huracan/h5_side
+    src_fps: 13.2065
+    interpolate: true
+    dur: 6.0000
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h6_high   # high 3/4 over the roof
+    src: /home/user/media/work/renders/huracan/h6_high
+    src_fps: 13.2065
+    interpolate: true
+    dur: 6.0000
+  - transition: {type: dip, duration: 0.6, note: 'HP-style dip to black between detail angles'}
+  - id: h7_rear   # wide rear 3/4 pull-back; voice ends, music breathes before the lift
+    src: /home/user/media/work/renders/huracan/h7_rear
+    src_fps: 12.7703
     interpolate: true
     dur: 4.8000
   - transition: {type: cut}
-  - id: s6_top   # crane to top-down, spinning
-    src: /home/user/media/work/renders/huracan/s6_top
-    src_fps: 14.2105
+  - id: s5_frontopen   # LIFT 41.48 s: hard cut to the Spyder (second start-up); bumper off, fender out, hood up on its hinge
+    src: /home/user/media/work/renders/huracan/s5_frontopen
+    src_fps: 14.6939
     interpolate: true
-    dur: 2.4000
+    dur: 4.7667
   - transition: {type: cut}
-  - id: s7_explode   # high rear 3/4: every panel separates (staggered on beats)
+  - id: s7_explode   # every panel separates (staggered on beats)
     src: /home/user/media/work/renders/huracan/s7_explode
     src_fps: 14.5946
     interpolate: true
     dur: 4.8000
   - transition: {type: cut}
-  - id: z1_bumper   # detail zoom: front bumper intakes (2 mm part)
+  - id: z1_bumper   # Temerario-style detail zoom: front bumper intakes (2 mm)
     src: /home/user/media/work/renders/huracan/z1_bumper
     src_fps: 14.2105
     interpolate: true
     dur: 2.4000
   - transition: {type: cut}
-  - id: z2_hood   # detail zoom: hood underside + cowls from below
+  - id: z2_hood   # detail zoom: hood underside + cowls
     src: /home/user/media/work/renders/huracan/z2_hood
     src_fps: 14.2105
     interpolate: true
@@ -68,20 +93,13 @@ timeline:
     interpolate: true
     dur: 2.4000
   - transition: {type: cut}
-  - id: z4_rear   # detail zoom: rear bumper diffuser/exhaust from below (plate kept out of frame)
+  - id: z4_rear   # detail zoom: rear diffuser from below
     src: /home/user/media/work/renders/huracan/z4_rear
     src_fps: 14.2105
     interpolate: true
     dur: 2.4000
   - transition: {type: cut}
-  - id: s8_float   # wide side, panels floating (first 2.4 s of the v2 render)
-    src: /home/user/media/work/renders/huracan/s8_float
-    src_fps: 14.2105
-    interpolate: true
-    dur: 2.4000
-    trim_end: 2.5333
-  - transition: {type: cut}
-  - id: s9_reassemble   # panels return home, rear 3/4 hero, fades out (rear bumper with plate removed)
+  - id: s9_reassemble   # panels return home, rear 3/4 hero (plate removed), fades out; music stops at 67.88 s
     src: /home/user/media/work/renders/huracan/s9_reassemble
     src_fps: 14.7273
     interpolate: true

@@ -138,7 +138,7 @@ def KB(n):
 
 V3_CUTS = {"c1_lot": (0, 16), "c2_lot": (16, 32), "c3_swap": (32, 36),
            "z1_bumper": (56, 60), "z2_hood": (60, 64), "z3_side": (64, 68), "z4_rear": (68, 72)}
-COUPE = {"car": B + "coupe2.blend"}          # 2023 'Huracan Evo Coupe Scan Data (New)' full car, 2 mm (own levelling)
+COUPE = {"car": B + "coupe2_np.blend"}       # (plate removed: x -0.17..0.20, z 0.58..0.81 m) 2023 'Huracan Evo Coupe Scan Data (New)' full car, 2 mm (own levelling)
 SPYDER = {"car": B + "car2.blend"}           # 2026 set = Spyder (roof step behind the cabin), 2 mm
 LOT = {"radius": 3.1, "spot": 3800, "spot_deg": 58, "spot_h": 7.0}  # v3 framing test: disc read as a bright mirror; NFSU2 floor is dark
 PARTS2 = {k: B + v + "_2mm.blend" for k, v in PARTS.items()}
@@ -191,5 +191,44 @@ V3_SHOTS = [
 
 if __name__ == "__main__":
     for name, d in V3_SHOTS:
+        json.dump(d, open(OUT + name + ".json", "w"), indent=1)
+        print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
+
+
+# ---------------------------------------------------------------- v3 HP (user's Hot Pursuit Remastered car-select clip)
+# Music track_a_hp.wav: 3 s lead-in, beats t = 3.0768 + 0.60006*n, lift n=64 (41.481), stop n=108 (67.883).
+# Coupe section: slow close detail angles in a dark garage, dip to black between angles (ref: ~6.5 s angles, dips).
+def KH(n):
+    return round(3.0768 + 0.60006 * n, 3)
+
+
+HP_BEATS = [("h0_select", 0, 3), ("h1_tail", 3, 12), ("h2_front", 12, 21), ("h3_hood", 21, 30), ("h4_wheel", 30, 39),
+            ("h5_side", 39, 48), ("h6_high", 48, 57), ("h7_rear", 57, 64)]
+GARAGE = {"radius": 14.0, "spot": 2200, "spot_deg": 60, "spot_h": 7.5, "rough": 0.16, "color": [0.0015, 0.0015, 0.002]}  # dark glossy (HP tunnel floor); framing test read as bright grey at rough 0.3
+
+
+def hpshot(name, a, b, camera, extra=None):
+    t0 = 0 if a == 0 else KH(a)
+    d = dict(objects=COUPE, seconds=round(KH(b) - t0, 3), fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
+             camera=camera, out=RENDERS + name, anims={}, exposure=EXPOSURE, lot=dict(GARAGE))
+    d.update(extra or {})
+    return name, d
+
+
+CAMS = {
+    "h0_select": [dict(t=0, az=35, el=9, dist=7.4, target=[0, 0, 0.55], lens=45), dict(t=1, az=33, el=9, dist=7.0, target=[0, 0, 0.55], lens=45, lin=True)],
+    "h1_tail": [dict(t=0, az=150, el=6, dist=2.0, target=[0.55, 2.1, 0.85], lens=50), dict(t=1, az=164, el=6, dist=1.75, target=[0.5, 2.1, 0.85], lens=50, lin=True)],
+    "h2_front": [dict(t=0, az=-42, el=2, dist=3.7, target=[0, -1.6, 0.45], lens=40), dict(t=1, az=-26, el=3, dist=3.3, target=[0, -1.6, 0.45], lens=40, lin=True)],
+    "h3_hood": [dict(t=0, az=-14, el=37, dist=2.5, target=[0, -1.65, 0.68], lens=60), dict(t=1, az=12, el=35, dist=2.25, target=[0, -1.7, 0.68], lens=60, lin=True)],  # el>=34 keeps the scan-holed windscreen out of the 9:16 frame
+    "h4_wheel": [dict(t=0, az=76, el=4, dist=1.7, target=[0.85, -1.35, 0.35], lens=50), dict(t=1, az=60, el=5, dist=1.4, target=[0.85, -1.35, 0.35], lens=50, lin=True)],
+    "h5_side": [dict(t=0, az=90, el=3, dist=5.0, target=[0, 1.1, 0.5], lens=40), dict(t=1, az=90, el=3, dist=5.0, target=[0, -1.1, 0.5], lens=40, lin=True)],
+    "h6_high": [dict(t=0, az=140, el=40, dist=6.2, target=[0, 0, 0.6], lens=45), dict(t=1, az=124, el=36, dist=6.0, target=[0, 0, 0.6], lens=45, lin=True)],
+    "h7_rear": [dict(t=0, az=-150, el=8, dist=6.3, target=[0, 0.2, 0.55], lens=45), dict(t=1, az=-144, el=8, dist=7.3, target=[0, 0.2, 0.55], lens=45, lin=True)],
+}
+HP_SHOTS = [hpshot(n, a, b, CAMS[n], extra={"lot": dict(GARAGE, lights_up=[0.04, 0.3])} if n == "h0_select" else None)
+            for n, a, b in HP_BEATS]
+
+if __name__ == "__main__":
+    for name, d in HP_SHOTS:
         json.dump(d, open(OUT + name + ".json", "w"), indent=1)
         print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")

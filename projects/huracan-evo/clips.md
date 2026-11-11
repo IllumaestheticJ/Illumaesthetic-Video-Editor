@@ -38,7 +38,17 @@ Centre-line roof height, 250 mm bins nose->tail (mm):
   1153 1172 1173 1169 1148 1103 1066 1027 985 927 955 - smooth glass fastback = coupe. Own levelling (level2023.json),
   2 mm, cropped, prepped standalone -> coupe2.blend. Unlike the 2026 scan its wheels ARE captured (spokes/rims read).
 
-## NFSU2 car-lot reference (v3)
+## Hot Pursuit Remastered car-select reference (v3 - THE reference the user meant)
+Dropbox `/5. Claude Training/Good Reels (Epsilon)/Video Nov 10 2026, 11 38 44 PM.mp4` - 1206x2622 60 fps phone screen
+recording, 55.3 s, NFS Hot Pursuit Remastered 'Super Series' select screen (Lamborghini Gallardo).
+- 0-5 s: select-car screen, engine START (-8 dB, 51 % <200 Hz at 4 s); 5-8 s near-silence; 8-50 s one continuous female
+  narration (median F0 182 Hz, p10-p90 142-242 Hz, ~4.1 voiced onsets/s) over a low bed.
+- Picture: dark tunnel garage, slow CLOSE detail angles (rear lights/badge, front 3/4 headlights on, nose/hood, wheel in
+  near-dark, side profile), each ~6.5 s, separated by dips to black (9.5 15.9 22.4 28.4 35.2 41.9 48.2 s).
+- Narrator = the game's voice actor -> style only, not cloned.
+(`Video Nov 11 2026, 12 25 40 AM.mp4` (+ duplicate) = NFS Underground 1 car select - not used.)
+
+## NFSU2 car-lot reference (wrong reference - first v3 attempt, dropped)
 Dropbox `/5. Claude Training/Good Reels (Epsilon)/NFSU2 car lot - clean audio.mp4` (67 s) and `- 1440p.mp4` (110 s),
 1206x2622 60 fps phone screen recordings of Need for Speed Underground 2.
 - 10-31 s (clean): story cutscene, female narrator (the game's Rachel Teller, voiced by Brooke Burke) over music; voice band
@@ -46,7 +56,7 @@ Dropbox `/5. Claude Training/Good Reels (Epsilon)/NFSU2 car lot - clean audio.mp
 - 34-54 s (clean): car lot - dark garage, car on a lit turntable platform, static elevated front-3/4 camera, car rotates;
   audio: dead air (34.5 s), sharp engine start (35.5 s: crank, bark, rev flare), idle, rev blips on each car swap.
 
-## v3 audio (`tools/mix.py` -> `vo/soundtrack_v3.wav`)
+## v3-lot audio (dropped with the NFSU2 design; `vo/soundtrack_v3.wav`)
 - Music: reel_track_a with the groove (k32-k60) repeated once, spliced 60 ms before the kick peaks, 15 ms xfade ->
   `music/track_a_ext.wav` 56.85 s; kick grid unbroken (88 kicks, resid 5.5 ms median), music stops at 52.88 s.
 - `vo/engine_start1.mp3` (6 s) at 0 s, `vo/engine_start2.mp3` (4 s) at 19.03 s so its catch lands on the 19.28 lift. Generated.
@@ -77,3 +87,13 @@ corrections needed. Overlays: `/home/user/media/huracan-evo/chk/reg_*.png`. The 
 ## Frame conventions (after tools/level.py)
 Ground = Z 0, nose at -Y, +X = car's left. Camera azimuth in tools/shot.py: 0 = in front of the nose, +90 = car's left (+X),
 -90 = car's right (-X, the side the skirt/fender part scans exist for).
+
+## v3 (HP) audio (`tools/mix.py` -> `vo/soundtrack_v3hp.wav`, 71.85 s)
+- Music `music/track_a_hp.wav`: 3 s silence (engine start) + track_a pads k0-28, +k4-28, +k20-56 (break, lift, groove), +k40-end;
+  beats t = 3.0768 + 0.60006 n (108 kicks found, resid 6.2 ms med); lift n=64 = 41.48 s; music stops n=108 = 67.88 s.
+- `vo/engine_start1.mp3` at 0.3 s; `vo/engine_start2.mp3` at 41.23 s (catch on the lift as the Spyder arrives).
+- `vo/narration6.wav` (preset Imogen, speech_rate +10): "Lamborghini Huracan EVO. Built in Sant'Agata Bolognese, the EVO takes
+  the Huracan further. At its heart, a naturally aspirated five-point-two-litre V10, delivering six hundred and forty metric
+  horsepower at eight thousand RPM, and six hundred newton-metres of torque. All-wheel drive and rear-wheel steering work
+  together under a predictive dynamics system that anticipates the driver's next move. Zero to one hundred kilometres per hour
+  in two-point-nine seconds. Top speed: three hundred and twenty-five." Pauses -> 0.32 s, atempo 1.04, at 3.9 s -> speech ~4.3-39.2 s.
