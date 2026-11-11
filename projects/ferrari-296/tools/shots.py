@@ -226,7 +226,62 @@ SHOTS.update({
     "f5_front": {"base": [f"{P}/comp_explode.blend"], "parts": parts_v3("f5_front"), "cam": _cam(F5, T8["f5_front"])},
     "x_side": {"base": [f"{P}/comp_explode.blend"], "parts": parts_v3("x_side"), "cam": _cam(XS, T8["x_side"])},
     "x_lock": {"base": [f"{P}/comp_explode.blend"], "parts": parts_v3("x_lock"),
-               "cam": arc(SECS["x_lock"], 8, 7.6, 6.4, -95, -105, 4.2, 3.4, (0, 0.2, 0.5), (0, 0.1, 0.5), 30, tz=0.4)},
+               # widened start (scene-director 4c / rule A: the 30 % preview clipped the pulled rear parts at frame-left)
+               "cam": arc(SECS["x_lock"], 8, 8.8, 6.4, -95, -105, 4.5, 3.4, (0, 0.45, 0.5), (0, 0.1, 0.5), 30, tz=0.4)},
+})
+
+
+# ---------------------------------------------------------------- v4 = scene-director's order (direction.md) + rules A-D
+# Front -> side -> rear travel; bumper-removed state scans get hero close-ups (rule C). Parts frozen at the pose the
+# previous shot left them in (state_at), so every cut is continuous.
+def _ease(u, kind):
+    u = min(1.0, max(0.0, u))
+    return {"in": u ** 3, "out": 1 - (1 - u) ** 3, "lin": u, "in2": u * u, "out2": 1 - (1 - u) ** 2}.get(kind, u * u * (3 - 2 * u))
+
+
+def state_at(keys, t):
+    """Same interpolation as tools/shot.py sample(): returns (loc, rot) at time t."""
+    if t <= keys[0]["t"]:
+        return keys[0]["loc"], keys[0]["rot"]
+    for a, b in zip(keys, keys[1:]):
+        if t <= b["t"]:
+            k = _ease((t - a["t"]) / max(1e-9, b["t"] - a["t"]), b.get("ease", "inout"))
+            return ([x + (y - x) * k for x, y in zip(a["loc"], b["loc"])], [x + (y - x) * k for x, y in zip(a["rot"], b["rot"])])
+    return keys[-1]["loc"], keys[-1]["rot"]
+
+
+def frozen_parts(v3_time, animate=None):
+    """Every part held at its PARTS_V3 pose at v3_time; `animate` = {name: local key list} overrides."""
+    out = []
+    for name, (pivot, keys) in PARTS_V3.items():
+        if animate and name in animate:
+            ks = animate[name]
+        else:
+            loc, rot = state_at(keys, v3_time)
+            ks = [_k(-100, loc, rot)]
+        p = {"blend": f"{P}/{name}.blend", "keys": ks}
+        if pivot:
+            p["pivot"] = list(pivot)
+        out.append(p)
+    return out
+
+
+SECS.update({"F_hero": 139 / 30, "R_hero": 139 / 30})
+B = BEAT
+SHOTS.update({
+    # FRONT BUMPER REMOVED: f5's end state (hood open - scanned propped open in Front Fully Removed; bumper out + turned);
+    # camera on the right side of the open nose, ~35 deg down, slow push on the exposed structure behind the bumper
+    "F_hero": {"base": [f"{P}/comp_explode.blend"], "parts": frozen_parts(23.067), "cam": _cam([
+        (0.0, (-1.55, -3.20, 1.55), (-0.25, -2.05, 0.80), 30, "inout"),  # aim raised 0.25: structure centred (rule A)
+        (4 * B, (-1.10, -2.95, 1.30), (-0.20, -2.08, 0.77), 33, "inout"),
+        (SECS["F_hero"], (-0.85, -2.80, 1.15), (-0.15, -2.10, 0.75), 36, "inout")], 0.0)},
+    # REAR BUMPER REMOVED -> ENGINE BAY: x_side's end state; louvre lifts straight OFF on the 27.708 accent (local 4 beats)
+    "R_hero": {"base": [f"{P}/comp_explode.blend"],
+               "parts": frozen_parts(30.02, animate={"x_ecover": [_k(-100), _k(4 * B), _k(6 * B, (0, 0.10, 0.80), Z3, "out")]}),
+               "cam": _cam([
+                   (0.0, (-1.20, 4.60, 2.00), (-0.20, 2.15, 0.55), 30, "inout"),
+                   (4 * B, (-0.95, 4.05, 1.85), (-0.15, 2.05, 0.60), 30, "inout"),
+                   (SECS["R_hero"], (-0.70, 3.70, 2.80), (0.00, 1.75, 0.75), 32, "inout")], 0.0)},
 })
 
 
