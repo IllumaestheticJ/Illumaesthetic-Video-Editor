@@ -25,3 +25,5 @@ then the v2-brief section explode on the 2026 SPYDER scan from the music lift, l
 - Check a label's position against an occupancy map of the frames it covers (union of `luma > 45` over the label window). The hero hold fills the frame, so a fixed top-left spot can land on silver.
 - `ive director` flags floor reflections as "cropped". Confirm on the frame itself, but here both whole-car shots really did touch the edges, so they were re-rendered wider.
 - Don't move or delete a render folder while `ive assemble` runs; it reads clips lazily.
+- After the re-render the director still flags h0/h7 as "cropped" and similar (IoU 0.89). Frames checked: the car has clear margins,
+  and the flag comes from the glossy floor's reflection running to the frame edges. Kept.
