@@ -12,14 +12,22 @@ def load(p): return np.fromfile(p, dtype=TRI, offset=84)
 ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--car", default="/home/user/media/nissan-frontier/lev/full_4mm.stl")
 ap.add_argument("--remove", nargs="+", required=True); ap.add_argument("--fill", nargs="*", default=[])
 ap.add_argument("--fills-out", nargs="*", default=[], help="write fill i to this STL instead of merging it (so it can be highlighted on its own)")
+ap.add_argument("--remove-diff", nargs="*", default=[], help="state.stl:zone_from.stl:gap:pad - drop car tris inside zone_from's bbox (+pad mm) that are > gap mm from the state scan (the part is OFF in that state, e.g. the bumper skin still on the full truck)")
 ap.add_argument("--cut", type=float, default=9.0); ap.add_argument("--new", type=float, default=7.0)
 a = ap.parse_args()
 car = load(a.car); cc = car["v"].mean(1); keep = np.ones(len(car), bool)
 for r in a.remove:
     v = load(r)["v"].mean(1)
     d, _ = cKDTree(v).query(cc, distance_upper_bound=a.cut + 1); keep &= ~(d < a.cut)
+for spec in a.remove_diff:
+    st_p, zone_p, gap, pad = spec.split(":"); gap, pad = float(gap), float(pad)
+    zv = load(zone_p)["v"].reshape(-1, 3); zlo, zhi = zv.min(0) - pad, zv.max(0) + pad
+    inz = np.all((cc >= zlo) & (cc <= zhi), axis=1)
+    d, _ = cKDTree(load(st_p)["v"].mean(1)).query(cc[inz], distance_upper_bound=gap + 1)
+    idx = np.where(inz)[0][d > gap]; keep[idx] = False
+    print("remove-diff", st_p.split("/")[-1], "->", len(idx))
 print("car", len(car), "-> trimmed", int((~keep).sum()))
-pieces = [car[keep]]; tc = cKDTree(cc[::2])
+pieces = [car[keep]]; tc = cKDTree(cc[keep][::2])  # v3: new = far from the TRIMMED car, so state geometry fills where panels came off
 for spec in a.fill:
     path, zs = spec.split(":"); m = load(path); c = m["v"].mean(1); inz = np.zeros(len(c), bool)
     for z in zs.split(";"):

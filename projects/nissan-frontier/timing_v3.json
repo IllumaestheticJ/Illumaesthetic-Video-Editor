@@ -1,0 +1,98 @@
+{
+ "note": "v3 (user: bigger logo; clean flares + show their back; no bumper leftovers on the truck; hood opens on its hinge). Same cut frames as v2: 146 290 434 541 614 725 833 1015; end 1151.",
+ "frames": {
+  "v2_s1_wide": 146,
+  "v2_s2_grille": 144,
+  "v3_s3_bumper": 144,
+  "v3_s4_removed": 107,
+  "v3_s5_hood": 73,
+  "v3_s6_struct": 111,
+  "v3_s7_flares": 108,
+  "v3_s8_home": 182,
+  "logo": 136
+ },
+ "labels": {
+  "v2_s2_grille": [
+   {
+    "id": "grille",
+    "title": "GRILLE",
+    "sub": "SCAN SECTION 01 / 06",
+    "t": [
+     2.373,
+     4.45
+    ],
+    "y": 0.06
+   }
+  ],
+  "v3_s3_bumper": [
+   {
+    "id": "bumper",
+    "title": "FRONT BUMPER",
+    "sub": "SCAN SECTION 02 / 06",
+    "t": [
+     1.19,
+     4.45
+    ],
+    "side": "bottom",
+    "y": 0.66
+   }
+  ],
+  "v3_s4_removed": [
+   {
+    "id": "fbrhc",
+    "title": "FRONT BUMPER REMOVED",
+    "sub": "STATE SCAN",
+    "t": [
+     1.19,
+     3.3
+    ]
+   }
+  ],
+  "v3_s5_hood": [
+   {
+    "id": "hood",
+    "title": "HOOD",
+    "sub": "SCAN SECTION 03 / 06",
+    "t": [
+     1.19,
+     2.15
+    ]
+   }
+  ],
+  "v3_s6_struct": [
+   {
+    "id": "struct",
+    "title": "FRONT STRUCTURE",
+    "sub": "SCAN SECTION 04 / 06",
+    "t": [
+     1.21,
+     3.4
+    ],
+    "y": 0.07
+   }
+  ],
+  "v3_s7_flares": [
+   {
+    "id": "flares",
+    "title": "FENDER FLARES",
+    "sub": "SCAN SECTION 05 / 06",
+    "t": [
+     1.18,
+     3.35
+    ],
+    "anchor_pixels": "/home/user/media/work/frontier/renders/final/v3_s7_flares"
+   }
+  ],
+  "v3_s8_home": [
+   {
+    "id": "body",
+    "title": "FULL TRUCK",
+    "sub": "PRO-4X \u00b7 SCAN SECTION 06 / 06",
+    "t": [
+     3.59,
+     5.43
+    ]
+   }
+  ]
+ }
+}

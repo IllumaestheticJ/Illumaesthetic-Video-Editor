@@ -181,6 +181,10 @@ def main():
             root.parent = pv
             root.matrix_world = mw
         base_loc = pv.location.copy()
+        if len(keys) == 1:  # parked part: place it once, no animation data (keeps the scene static for persistent data)
+            pv.location = base_loc + Vector(keys[0]["loc"])
+            pv.rotation_euler = Euler([math.radians(v) for v in keys[0]["rot"]], "XYZ")
+            continue
         for f in range(1, nframes + 1):
             t = (f - 1) / fps
             pv.location = base_loc + Vector(sample(keys, t, "loc"))

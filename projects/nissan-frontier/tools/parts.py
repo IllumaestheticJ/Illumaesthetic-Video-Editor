@@ -48,3 +48,17 @@ fc = fbr["v"].mean(1)
 inb = np.all((fc >= glo) & (fc <= ghi), axis=1)
 gd2, _ = cKDTree(gv).query(fc, distance_upper_bound=45)
 save(f"{X}/bumper.stl", fbr[~(inb & (gd2 < 40))])
+
+# v3 (reviewer: "flare section has a lot of artifacts"): the 10-90 mm diff also caught hood/fender edge strips and bed-side
+# bulges (side view chk/flares_side.png: real flares protrude, |x| > 815; junk hugs the body). Keep only the arch band:
+# annulus r 380-570 mm about each wheel centre (front y -2590 z 470, rear y 625 z 490), z < 1010, |x| > 815.
+# One part per arch so each can turn about its own centre.
+fc = fr["v"].mean(1)
+for name, yc, zc in (("f", -2590.0, 470.0), ("r", 625.0, 490.0)):
+    r = np.hypot(fc[:, 1] - yc, fc[:, 2] - zc)
+    ok = (r > 380) & (r < 570) & (fc[:, 2] < 1010) & (np.abs(fc[:, 0]) > 815)
+    save(f"{X}/flare_r{name}.stl", fr[ok & (fc[:, 0] < 0)]); save(f"{X}/flare_l{name}.stl", fr[ok & (fc[:, 0] >= 0)])
+ok_all = np.zeros(len(fr), bool)
+for yc, zc in ((-2590.0, 470.0), (625.0, 490.0)):
+    r = np.hypot(fc[:, 1] - yc, fc[:, 2] - zc); ok_all |= (r > 380) & (r < 570) & (fc[:, 2] < 1010) & (np.abs(fc[:, 0]) > 815)
+save(f"{X}/flares.stl", fr[ok_all])
