@@ -160,3 +160,16 @@ lands here automatically. Agents must read this whole file before editing.
   jumped to a wrong minimum - only use it with small local steps from a known-good pose.
 - **[text]** Door scans can be inner-face only (render from outside: you see the inner panel mirrored). Claim "inner door panels", not inside+outside.
 - **[technical]** With music starting mid-track the first clip still needs to be one frame short (measured: every cut +1 frame otherwise).
+## From the C5 Corvette scan-process reel (2026-11-11, built by an agent)
+- **[story]** Dropbox dumps can mix cars: 'Corvette Footage' Jul 15-16 clips are a red MR2. Sheet every clip and check the car before planning.
+- **[story]** Footage may post-date every scan (C5: Jul 2025 widebody prototyping vs 2023/2024 stock scans). Use only the frames where the car is in a
+  scanned state (here the Jul 17 outdoor teardown), and say plainly when a requested beat (handheld scanner) does not exist in the dump.
+- **[text]** ScanHUD `counter` eases with Easing.out(exp) and stops at 99.9 % of the value (8,255,611 showed as 8,247,549). Until it is fixed,
+  show exact counts with a `label`, and read the final frame of every HUD number.
+- **[technical]** Part-state scans from a later session can still share the Artec frame (C5 2024 parts vs 2023 car: ICP moves <7 mm). Check
+  before registering; FPFH global registration failed on a hood-open scan with little overlap.
+- **[technical]** State-scan composites: drop state triangles above the full car's top surface (re-fitted panels duplicate as ragged shells),
+  below ~100 mm (ground), and inside a box around any re-steered wheel.
+- **[match-cut]** To end on a listing hero, fit the end pose by silhouette bbox/IoU against the WebZoom frame-0 image (render at 25 %, 4 spp,
+  ~5 tries), then render the last frames in clay with exposure tuned to the hero's grey and crossfade x-ray -> clay before the dissolve.
+- **[pacing]** Tracks with a long kick-less intro: start the music 4 beats before the drop rather than cutting on the empty intro.

@@ -1,0 +1,46 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 885,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "brackets",
+   "from": 68,
+   "duration": 92
+  },
+  {
+   "kind": "label",
+   "from": 72,
+   "duration": 86,
+   "title": "FULL CAR SCAN",
+   "sub": "8,255,611 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 400,
+   "duration": 86
+  },
+  {
+   "kind": "label",
+   "from": 404,
+   "duration": 40,
+   "title": "FENDER",
+   "sub": "6,293,120 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 444,
+   "duration": 42,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "FENDER + FRONT BUMPER SCANNED",
+   "x": 0.08,
+   "y": 0.1
+  }
+ ]
+}
