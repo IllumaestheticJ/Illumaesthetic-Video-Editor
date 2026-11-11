@@ -18,27 +18,27 @@ music:
 beats: [3.511, 6.940, 10.369, 13.798, 18.941, 20.655, 24.084, 27.513, 30.942, 32.656, 34.370]
 
 timeline:
-  - {id: s1_whole, src: /home/user/media/work/grc/renders3/final/s1_whole, src_fps: 15, interpolate: true, dur: 3.4667}    # whole car, front-right 3/4, push
+  - {id: s1_whole, src: /home/user/media/work/grc/renders3/final/s1_whole, src_fps: 15, interpolate: true, dur: 3.4667, section: whole, focus: "whole car, front-right 3/4"}    # whole car, front-right 3/4, push
   - transition: {type: cut, note: "3.511 b8"}
-  - {id: s2_wheel, src: /home/user/media/work/grc/renders3/final/s2_wheel, src_fps: 15, interpolate: true, dur: 3.4333}    # front-right wheel + arch (2 mm)
+  - {id: s2_wheel, src: /home/user/media/work/grc/renders3/final/s2_wheel, src_fps: 15, interpolate: true, dur: 3.4333, section: front, focus: "front-right wheel and arch"}    # front-right wheel + arch (2 mm)
   - transition: {type: cut, note: "6.940 b16"}
-  - {id: s3_hood, src: /home/user/media/work/grc/renders3/final/s3_hood, src_fps: 15, interpolate: true, dur: 3.4333}      # three hood vents, hood shut (no open scan)
+  - {id: s3_hood, src: /home/user/media/work/grc/renders3/final/s3_hood, src_fps: 15, interpolate: true, dur: 3.4333, section: front, focus: "hood vents"}      # three hood vents, hood shut (no open scan)
   - transition: {type: cut, note: "10.369 b24"}
-  - {id: s4_nose, src: /home/user/media/work/grc/renders3/final/s4_nose, src_fps: 15, interpolate: true, dur: 3.4333}      # headlight -> grille -> square on the bumper
+  - {id: s4_nose, src: /home/user/media/work/grc/renders3/final/s4_nose, src_fps: 15, interpolate: true, dur: 3.4333, section: front, focus: "headlight and grille"}      # headlight -> grille -> square on the bumper
   - transition: {type: cut, note: "13.798 DROP"}
-  - {id: s5_fbumper, src: /home/user/media/work/grc/renders3/final/s5_fbumper, src_fps: 15, interpolate: true, dur: 5.1333}  # front bumper off, tipped to show its scanned inner face
+  - {id: s5_fbumper, src: /home/user/media/work/grc/renders3/final/s5_fbumper, src_fps: 15, interpolate: true, dur: 5.1333, section: front, focus: "front bumper inner face + structure behind it"}  # front bumper off, tipped to show its scanned inner face
   - transition: {type: cut, note: "18.941 b44"}
-  - {id: s6_side, src: /home/user/media/work/grc/renders3/final/s6_side, src_fps: 15, interpolate: true, dur: 1.7333}      # left flank, whole car, front bumper off
+  - {id: s6_side, src: /home/user/media/work/grc/renders3/final/s6_side, src_fps: 15, interpolate: true, dur: 1.7333, section: side, focus: "left flank with front bumper off", hold: true}      # left flank, whole car, front bumper off
   - transition: {type: cut, note: "20.655 b48"}
-  - {id: s7_diffuser, src: /home/user/media/work/grc/renders3/final/s7_diffuser, src_fps: 15, interpolate: true, dur: 3.4333}  # diffuser off on 'diffuser removed'
+  - {id: s7_diffuser, src: /home/user/media/work/grc/renders3/final/s7_diffuser, src_fps: 15, interpolate: true, dur: 3.4333, section: rear, focus: "diffuser removed"}  # diffuser off on 'diffuser removed'
   - transition: {type: cut, note: "24.084 b56"}
-  - {id: s8_rbumper, src: /home/user/media/work/grc/renders3/final/s8_rbumper, src_fps: 15, interpolate: true, dur: 3.4}    # rear bumper off + inner face -> crash beam ('rear bumper removed')
+  - {id: s8_rbumper, src: /home/user/media/work/grc/renders3/final/s8_rbumper, src_fps: 15, interpolate: true, dur: 3.4, section: rear, focus: "rear bumper inner face + crash beam"}    # rear bumper off + inner face -> crash beam ('rear bumper removed')
   - transition: {type: cut, note: "27.513 DROP 2 - same camera, state swap"}
-  - {id: s9_mounts, src: /home/user/media/work/grc/renders3/final/s9_mounts, src_fps: 15, interpolate: true, dur: 3.4333}  # 'crash bar removed': mounting points
+  - {id: s9_mounts, src: /home/user/media/work/grc/renders3/final/s9_mounts, src_fps: 15, interpolate: true, dur: 3.4333, section: rear, focus: "mounting points (crash bar removed)"}  # 'crash bar removed': mounting points
   - transition: {type: cut, note: "30.942 b72"}
-  - {id: s10_reassemble, src: /home/user/media/work/grc/renders3/final/s10_reassemble, src_fps: 15, interpolate: true, dur: 1.7333}  # parts home on b74/b75/b76
+  - {id: s10_reassemble, src: /home/user/media/work/grc/renders3/final/s10_reassemble, src_fps: 15, interpolate: true, dur: 1.7333, section: whole, focus: "parts returning home"}  # parts home on b74/b75/b76
   - transition: {type: cut, note: "32.656 b76 lock -> clean car, same camera"}
-  - {id: s11_clean, src: /home/user/media/work/grc/renders3/final/s11_clean, src_fps: 15, interpolate: true, dur: 1.7}
+  - {id: s11_clean, src: /home/user/media/work/grc/renders3/final/s11_clean, src_fps: 15, interpolate: true, dur: 1.7, section: whole, focus: "clean car lock before fade", hold: true}
   - transition: {type: dip, duration: 0.5, note: "34.370 b80 fade to black -> small logo"}
   - {id: logo, src: /home/user/media/work/grc/out/logo_card_small.mp4, dur: 4.3333}   # 540 px logo; +0.5 s for the dip overlap
 

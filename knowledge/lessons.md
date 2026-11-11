@@ -475,3 +475,18 @@ lands here automatically. Agents must read this whole file before editing.
   screen to be read in full. Check the LAST frames of each label in the delivered file.
 - `ive director` repeat flags compare silhouettes: a front 3/4 opening and a rear 3/4 ending at the same whole-car scale
   are flagged. Look at the pair before cutting; document reviewed false positives in direction.md.
+## From the GR Corolla scan reel v2 (2026-11-11, built by an agent)
+- **[technical]** `tools/shot.py` (toyota-gr-corolla): turn Cycles persistent data OFF whenever any part has >1 key - every v2
+  moving shot then rendered luma-clean (no dark tails), at ~10 % render-time cost. Keep it on only for camera-only shots.
+- **[scan-look]** Legible licence plate in a scan: delete the plate-face triangles and drop in a flat GRID panel
+  (60x30, wound to face out) on the fitted plane (tools/deplate.py). A 2-triangle panel is removed by `--drop-islands`,
+  and flattening the original faces leaves z-fighting blobs.
+- **[story]** Rear removal order must follow the state scans that exist: diffuser -> rear bumper -> crash beam. A shot of
+  "bumper off, diffuser on" has no scan behind it - check which combination each removed-state scan actually captures.
+- **[text]** Part labels go in clear black, never on a part that is moving through the same band: re-check every label
+  against the frames of its window (GR Corolla CRASH BEAM sat under the departing bumper at y 220; moved to the low band).
+- **[pacing]** Measure cut sync on the delivered file with a zero-phase kick-band envelope (35-110 Hz, sosfiltfilt) and
+  an onset = last sample < 30 % of the local peak. A causal low-pass or "biggest rise" picker reads 1-2 frames off and
+  locks onto risers/snares in a build.
+- **[pacing]** `ive director` flags same-camera state swaps (A removed -> B removed in one camera) as repeats; they are one
+  continuous sequence - log the reason and keep them. Do fix its "dead frames" on the opening: a 2 % push reads as static.
