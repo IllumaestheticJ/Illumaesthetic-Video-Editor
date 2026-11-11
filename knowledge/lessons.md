@@ -558,3 +558,8 @@ lands here automatically. Agents must read this whole file before editing.
   the largest highlighted blob in the render frame instead (projects/nissan-frontier/tools/labels.py anchor_pixels).
 - **[pacing]** Broadband 1 ms onsets ran ~50 ms ahead of the 93 ms-STFT kick-band grid after this track's drop; measure every
   cut beat's onset (tools/onsets.py) and verify on the delivered file (tools/cutcheck.py) - v1 had cuts 40-60 ms late.
+
+### Suzuki Cappuccino v2 (2026-11-11)
+- Render margin: 15 fps renders that are minterpolated to 30 fps lose ~1.5 output frames at the tail. A margin of +2 source frames left s3/s5 one frame short, so `dur` padded it with a cloned frame right before the cut. Render **+3 source frames** past the cut.
+- 9:16 whole-car shots are width-limited. Frame the car at ~85-90 % of frame width (dist ~5.5-6 m at 40 mm for a 3.3 m kei car at a 3/4 view). At 7 m it read at 70 % with dead black around it, a weak hook. Check the first and last frames: the az changes how long the car reads on screen.
+- `ive director` flags a continuous move split across two clips (x2 starting on x1's end pose) as a repeat. When that is intentional, log why rather than cutting it.

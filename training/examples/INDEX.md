@@ -4,6 +4,7 @@ Newest first. Read the top two before starting a new edit.
 
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
+- [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11 (v4)
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
@@ -15,7 +16,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
-- [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
 - [honda-civic-11](honda-civic-11/) - archived 2026-11-11

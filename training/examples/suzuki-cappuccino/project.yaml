@@ -1,88 +1,76 @@
-# Suzuki Cappuccino scan reel - Temerario style (scan only, no IRL, no text). Shots: shots.py -> tools/shot.py (Blender).
-# Durations are whole frames so each cut lands on round(beat*30); first clip one frame short (FG2 lesson). Grid: cuts.json.
+# Suzuki Cappuccino scan reel v2 (v1 recipe: project_v1.yaml). Plan: direction.md + director.md; shots: shots.py.
+# Cuts on the broadband kick-onset frames (onsets.json): 116 402 573 630 887 973 1087. First clip = cut frame; later clips = gap+1
+# frame because each 1-frame fade transition overlaps the previous clip by one frame (avoids ive's cloned duplicate before 'cut').
 project: suzuki-cappuccino
 format: reel-9x16
-output: {path: /home/user/media/work/out/suzuki_cappuccino_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/suzuki_cappuccino_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/suzuki-cappuccino_track.mp3   # parent session's original track (not committed)
   start: 0
   fade_out: 0.8
 
-# shot starts on even (accented) beats of the 126 BPM grid; 15.272 = the drop; 36.224 = logo
-beats: [3.843, 6.700, 9.557, 11.462, 15.272, 19.081, 21.938, 24.796, 28.605, 31.462, 36.224]
-
 timeline:
-  - id: s01_side   # low side profile tracking to the nose, fades up from black
-    src: /home/user/media/work/renders/cappuccino/s01_side
+  - id: s1_whole   # whole car, front-right 3/4, already moving at frame 1 (v2 brief 4)
+    section: whole
+    focus: whole car silhouette
+    src: /home/user/media/work/renders/cappuccino_v2/s1_whole
     src_fps: 15
     interpolate: true
-    dur: 3.8333
-    vf: fade=t=in:st=0:d=1.0
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s02_front34   # front 3/4 low turntable
-    src: /home/user/media/work/renders/cappuccino/s02_front34
+    dur: 3.8667
+  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - id: s2_frontbumper   # FRONT section: lamps out -> bumper tips to show inner face/mounting tabs -> hold on structure behind (Front Bumper Off scan)
+    section: front
+    focus: bumper inner face + structure behind
+    src: /home/user/media/work/renders/cappuccino_v2/s2_frontbumper
     src_fps: 15
     interpolate: true
-    dur: 2.9000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s03_rear34   # rear 3/4 turntable
-    src: /home/user/media/work/renders/cappuccino/s03_rear34
+    dur: 9.5667
+  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - id: s3_engine   # FRONT section cont.: hood swings on the drop (beat 32) using the captured Hood Open state, push into the bay
+    section: front
+    focus: engine bay under the opened hood
+    src: /home/user/media/work/renders/cappuccino_v2/s3_engine
     src_fps: 15
     interpolate: true
-    dur: 2.9000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s04_wheel   # extreme close-up: front-right wheel
+    dur: 5.7333
+  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - id: s4_wheel   # SIDE: front-right wheel close-up, reused v1 render (not repeated elsewhere)
+    section: side
+    focus: front-right wheel
     src: /home/user/media/work/renders/cappuccino/s04_wheel
     src_fps: 15
     interpolate: true
     dur: 1.9333
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s05_lamp   # extreme close-up: headlamp + bumper lamp; holds through the break
-    src: /home/user/media/work/renders/cappuccino/s05_lamp
+  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - id: s5_rear   # REAR section: bumper tips (inner face) -> hold on Rear End All Removed structure -> trunk lid to captured Trunk Open angle
+    section: rear
+    focus: rear end structure, exhaust, trunk
+    src: /home/user/media/work/renders/cappuccino_v2/s5_rear
     src_fps: 15
     interpolate: true
-    dur: 3.8333
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s06_frontopen   # ON THE DROP: bumper + lamps slide off, hood swings up on its fitted hinge
-    src: /home/user/media/work/renders/cappuccino/s06_frontopen
-    src_fps: 15
-    interpolate: true
-    dur: 3.8333
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s07_trunk   # rear bumper off, trunk lid up on its fitted hinge
-    src: /home/user/media/work/renders/cappuccino/s07_trunk
-    src_fps: 15
-    interpolate: true
-    dur: 2.9000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s08_top   # crane up to top-down, spinning, everything open
-    src: /home/user/media/work/renders/cappuccino/s08_top
+    dur: 8.6000
+  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - id: x1_layers   # FINALE a: progressive explode into layers, rear first then front
+    section: finale
+    focus: parts separating into layers
+    src: /home/user/media/work/renders/cappuccino_v2/x1_layers
     src_fps: 15
     interpolate: true
     dur: 2.9000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s09_explode   # panels lift and stack above the car
-    src: /home/user/media/work/renders/cappuccino/s09_explode
+  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - id: x2_reassemble   # FINALE b: reassembly, clean car swaps in on beat 74, fade out
+    section: finale
+    focus: parts returning, clean car
+    src: /home/user/media/work/renders/cappuccino_v2/x2_reassemble
     src_fps: 15
     interpolate: true
     dur: 3.8333
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s10_float   # side view, panels floating
-    src: /home/user/media/work/renders/cappuccino/s10_float
-    src_fps: 15
-    interpolate: true
-    dur: 2.9000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: s11_reassemble   # panels return, rear 3/4 hero, fades to black
-    src: /home/user/media/work/renders/cappuccino/s11_reassemble
-    src_fps: 15
-    interpolate: true
-    dur: 4.8000
-    vf: fade=t=out:st=4.267:d=0.5
-  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
-  - id: logo   # ILLUMAESTHETIC logo card (website logo) on black, fades with the music's tail
-    src: /home/user/media/work/cappuccino/logo_card.mp4
+    vf: fade=t=out:st=3.30:d=0.5
+  - transition: {type: fade, duration: 0.0333}
+  - id: logo   # small ILLUMAESTHETIC logo (width 380) on black, fades with the music tail
+    src: /home/user/media/work/cappuccino/logo_card_v2.mp4
     dur: 2.6667
 
-overlays: []   # no text in this format (Temerario ref has none)
+overlays:   # factual section labels over scan shots only (addendum C); no numbers
+  - {src: /home/user/media/work/cappuccino/hud_v2.mov, start: 0}
