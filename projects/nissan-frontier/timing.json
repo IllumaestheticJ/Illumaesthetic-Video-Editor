@@ -1,0 +1,6 @@
+{"note": "provisional (no music yet): render lengths in seconds; re-timed to the track's accents once it arrives",
+ "beat": 0.6,
+ "shots": {"s1_front34": {"secs": 5.4}, "s2_rear34": {"secs": 4.6}, "s3_grille": {"secs": 3.2}, "s4_arch": {"secs": 3.2},
+           "s5_open": {"secs": 4.8}, "s6_top": {"secs": 3.8}, "s7_explode": {"secs": 10.5}},
+ "open": {"bumper": [0.6, 2.4], "hood": [1.5, 3.6]},
+ "explode": [0.4, 2.2, 6.4, 8.8]}
