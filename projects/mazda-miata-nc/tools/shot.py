@@ -191,6 +191,8 @@ def main():
     else:
         os.makedirs(out, exist_ok=True)
         sc.render.filepath = os.path.join(out, "f_")
+        sc.render.use_overwrite = False   # resumable after a container restart: existing frames are skipped
+        sc.render.use_placeholder = False
         bpy.ops.render.render(animation=True)
     print("IVE_RENDER_DONE", out)
 
