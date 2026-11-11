@@ -173,3 +173,23 @@ lands here automatically. Agents must read this whole file before editing.
 - **[match-cut]** To end on a listing hero, fit the end pose by silhouette bbox/IoU against the WebZoom frame-0 image (render at 25 %, 4 spp,
   ~5 tries), then render the last frames in clay with exposure tuned to the hero's grey and crossfade x-ray -> clay before the dissolve.
 - **[pacing]** Tracks with a long kick-less intro: start the music 4 beats before the drop rather than cutting on the empty intro.
+## From the Honda S2000 AP1 scan-only reel (2026-11-11, built by an agent)
+- **[technical]** `ive assemble` builds a hard cut as a 1-frame xfade over a cloned hold frame: the frame at every cut
+  repeats clip A's last frame and drops clip B's first (frame diff 0.0 just before each cut). For cut-only reels use
+  `projects/honda-s2000/tools/concat_assemble.py` (exact `frames:` per clip, plain concat, cut k = sum(frames[:k])).
+- **[technical]** Cycles `use_persistent_data` lost all lighting mid-animation on a 4-object exploded shot (frames 17-211
+  rendered as black silhouettes, 4.4 -> 1.7 s/frame); the same frame rendered alone was fine. Check every render dir for
+  dark frames (median-luma test) before assembling; turn persistent data off for long multi-part animations.
+- **[technical]** A `while pgrep -f render_all.sh` waiter matches its own command line and never fires. Chain queued jobs
+  in one script instead.
+- **[pacing]** Breakbeat tracks fool `ive beats`: it reported 92 BPM (0.650 s) for a 138 BPM track (kicks/sixteenths every
+  0.217 s). Fit the grid to kick-band peaks (tools/music_grid.py) and check the period against the onset spacing.
+- **[technical]** State scans in their own Artec frame with scanned floor: remove the floor plane first (tools/deground.py),
+  then FPFH+RANSAC, then ICP restricted to rigid panels that did not move (hood/fender tops) - fitness went 7 % -> p50 1.5 mm.
+  A bumper refitted between sessions sat 25 mm off: never splice the full car's bumper next to state-scan geometry.
+- **[technical]** Cutting panels from a full car: trace the seams on a 2 mm near-ortho top render (focal 200 mm at 25 m) and
+  cut by polygon + topmost-skin; for lids that are open in a state scan, keep only triangles missing from that scan.
+  Diffing against a partial state scan alone grabs neighbouring panels.
+- **[scan-look]** A car scanned without wheels: frame 3/4 at 1.2-1.6 m, not the reference's low side profile - low views make
+  the empty arches the subject. Don't add wheels from single-corner state scans.
+- **[scan-look]** Exploded panels seen from a level camera read as slivers; look down ~30 deg and tilt each panel toward the lens.

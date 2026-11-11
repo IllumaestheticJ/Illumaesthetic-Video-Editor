@@ -10,7 +10,7 @@
 # 1045 (b80); end 1152 (38.4 s). Clip durs are whole frames; the first clip is one frame short (assembler adds the cut frame).
 project: honda-s2000
 format: reel-9x16
-output: {path: /home/user/media/work/s2k/out/honda_s2000_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/s2k/out/honda_s2000_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/honda-s2000_track.mp3   # not in git
