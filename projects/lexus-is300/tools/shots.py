@@ -142,7 +142,7 @@ SHOTS.update({
 def spec(name, mode):
     s = SHOTS[name]
     sp = {"base": s["base"], "parts": s.get("parts", []), "camera": {"sensor": 20.25, "keys": s["cam"]},
-          "seconds": SECS[name] + 4 / 15,  # +3 tail frames: minterpolate drops ~2 (subaru lesson) "fps": 15, "res": "1080x1920",
+          "seconds": SECS[name] + 4 / 15, "fps": 15, "res": "1080x1920",  # +3 tail frames: minterpolate drops ~2 (subaru lesson)
           "res_pct": 75 if mode == "final" else 30, "samples": 12 if mode == "final" else 6,
           "out": f"{OUT}/{mode}/{name}", "exposure": -0.5}
     if mode == "still":

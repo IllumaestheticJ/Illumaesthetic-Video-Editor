@@ -20,20 +20,20 @@ beats: [5.268, 6.572, 9.181, 15.703, 19.616, 24.834, 31.356]
 timeline:
   - id: s1_wide   # WHOLE CAR: front-right 3/4, slow push, fades up from black
     src: /home/user/media/work/is300/renders/final/s1_wide
-    src_fps: 15
+    src_fps: 14.813   # (N-1)/(dur+3/30): no minterpolate tail freeze
     interpolate: true
     dur: 5.2333
     vf: "fade=t=in:st=0:d=0.8"
   - transition: {type: cut, note: "beat 8"}
   - id: s3_wheel   # WHEELS: front-right wheel close (v1 render, no plate in frame)
     src: /home/user/media/work/is300/renders/final/s3_wheel
-    src_fps: 15
+    src_fps: 14.286   # (N-1)/(dur+3/30): no minterpolate tail freeze
     interpolate: true
     dur: 1.3000
   - transition: {type: cut, note: "beat 10"}
   - id: s4_nose   # FRONT exterior: headlight + grille slide (re-rendered, plate flattened)
     src: /home/user/media/work/is300/renders/final/s4_nose
-    src_fps: 15
+    src_fps: 14.444   # (N-1)/(dur+3/30): no minterpolate tail freeze
     interpolate: true
     dur: 2.6000
   - transition: {type: cut, note: "beat 14"}
