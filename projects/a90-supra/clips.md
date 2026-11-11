@@ -31,4 +31,4 @@ Bomex aftermarket CAD deliberately not used (brief).
 
 ## Other
 - Logo: Drive `IllumaestheticLogoColor-01.png` (1cZJj521P88T_vC2YZDJVVUCctGyNoukR) -> `remotion/public/illumaesthetic_logo.png` (gitignored).
-- Music: original, `tools/music.py` (numpy/scipy), no samples.
+- Music: original, rendered by the shared engine `projects/ferrari-296/tools/music.py` from `cues.json` (numpy, no samples, no downloads).

@@ -1,0 +1,33 @@
+{
+  "_note": "A90 score cues for projects/ferrari-296/tools/music.py (shared house score engine). 96 BPM: bar 2.5 s = 75 frames @30. Every cut on a bar line; hits on cuts, riser into the explode (25.0), swell + big on the reassembly landing (30.0), logo chord 32.5.",
+  "bpm": 96,
+  "length": 38.5,
+  "key_root": 50,
+  "chords": [[0, "m"], [-4, ""], [-7, "m"], [-5, ""]],
+  "sections": [
+    {"start": 0.0,  "end": 5.0,  "kick": "none", "hats": 0.0, "pad": 0.85, "sub": 0.7},
+    {"start": 5.0,  "end": 10.0, "kick": "one",  "hats": 0.35, "pad": 0.85, "sub": 0.85},
+    {"start": 10.0, "end": 20.0, "kick": "half", "hats": 0.7, "ticks": true, "pad": 0.75, "sub": 1.0},
+    {"start": 20.0, "end": 25.0, "kick": "one",  "hats": 0.3, "pad": 0.6, "sub": 0.7},
+    {"start": 25.0, "end": 27.5, "kick": "half", "hats": 0.45, "pad": 0.8, "sub": 0.9},
+    {"start": 27.5, "end": 30.0, "kick": "none", "hats": 0.0, "pad": 0.6, "sub": 0.5},
+    {"start": 30.0, "end": 32.5, "kick": "four", "kick_gain": 0.7, "hats": 0.8, "ticks": true, "pad": 0.9, "sub": 1.0},
+    {"start": 32.5, "end": 38.5, "kick": "none", "hats": 0.0, "pad": 0.45, "sub": 0.25}
+  ],
+  "hits": [
+    {"t": 0.0,  "kind": "cut", "gain": 0.8, "_": "first frame: front 3/4 turntable"},
+    {"t": 5.0,  "kind": "cut", "_": "cut: low rear 3/4 orbit"},
+    {"t": 10.0, "kind": "cut", "_": "cut: front wheel arch"},
+    {"t": 12.5, "kind": "cut", "_": "cut: headlight"},
+    {"t": 15.0, "kind": "cut", "_": "cut: tail light"},
+    {"t": 17.5, "kind": "cut", "_": "cut: side glide"},
+    {"t": 20.0, "kind": "cut", "_": "cut: top-down rise"},
+    {"t": 25.0, "kind": "impact", "gain": 1.0, "_": "cut + panels fly off (ease-out from this frame)"},
+    {"t": 26.0, "kind": "whoosh", "dur": 1.6, "gain": 0.6, "_": "bumpers tip to show their insides 26.5 -> 28.1"},
+    {"t": 30.0, "kind": "swell", "dur": 1.6, "gain": 1.0, "_": "panels fly home 28.75 -> 30.0 (ease-in)"},
+    {"t": 30.0, "kind": "big", "gain": 1.0, "_": "reassembly LANDS (t = 2/3 of s08)"},
+    {"t": 32.5, "kind": "chord", "chord": [0, "m"], "dur": 6.0, "gain": 1.0, "_": "logo card + reverb tail"}
+  ],
+  "risers": [{"start": 21.5, "end": 25.0, "gain": 1.0, "_": "into the exploded view"}],
+  "fade_out": [36.7, 38.5]
+}
