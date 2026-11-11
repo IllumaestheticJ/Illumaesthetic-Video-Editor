@@ -7,7 +7,7 @@ then the v2-brief section explode on the 2026 SPYDER scan from the music lift, l
 | # | Criterion | Score | Evidence / gap |
 |---|---|---|---|
 | 1 | Hook | 4 | Engine start-up at 0.3 s while the garage lights come up on the whole coupe (motion from frame 1, slow push). It's a car-select reveal, as in the reference, not a transformation. |
-| 2 | Beat sync | 5 | 6 hard cuts measured on the delivered file vs the fitted kick grid t = 3.0768 + 0.60006 n: CUTS_PLACEHOLDER. Dips are centred on kicks n 3/17/32/47/57. The Spyder arrives on the lift (41.48 s) with the second start-up, and the logo lands on the music stop. |
+| 2 | Beat sync | 5 | 6 hard cuts measured on the delivered file vs the fitted kick grid t = 3.0768 + 0.60006 n: +19 -14 -15 -15 -16 -16 ms (all within ±½ frame). Dips are centred on kicks n 3/17/32/47/57. The Spyder arrives on the lift (41.48 s) with the second start-up, and the logo lands on the music stop. |
 | 3 | 1:1 match | n/a | No IRL in this format. |
 | 4 | Scan quality | 3 | Coupe: real rims captured, licence plate and 47 debris triangles removed. **The windscreen and side glass have scan holes** (dark patches) in h0/h2/h5; I dropped the hood and high angles that showed the most glass. Spyder: wheels not captured (dark), and the composite base edges are ragged under the removed panels. |
 | 5 | Story | 4 | Select -> one continuous narration over the coupe front -> wheel -> side -> rear (one sequence per section, director: no section repeated) -> Spyder lift -> front bumper (hero hold, label) -> hood/cowls -> fender + skirt -> rear bumper (hero hold, label) -> one full explode top-down -> reassembly -> logo. |

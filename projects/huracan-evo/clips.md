@@ -97,3 +97,8 @@ Ground = Z 0, nose at -Y, +X = car's left. Camera azimuth in tools/shot.py: 0 = 
   horsepower at eight thousand RPM, and six hundred newton-metres of torque. All-wheel drive and rear-wheel steering work
   together under a predictive dynamics system that anticipates the driver's next move. Zero to one hundred kilometres per hour
   in two-point-nine seconds. Top speed: three hundred and twenty-five." Pauses -> 0.32 s, atempo 1.04, at 3.9 s -> speech ~4.3-39.2 s.
+
+## v3 delivery (`/home/user/media/work/out/huracan_evo_v3.mp4`, 71.8 s)
+Coupe (2023 scan, `coupe2_npc.blend`, glossy garage floor): h0_select -> h2_front -> h4_wheel -> h5_side -> h1_tail -> h7_rear,
+dips to black on kicks. Spyder (2026 scan, exploded 2 mm parts) from the lift 41.48 s: s5_frontopen -> sp_bumper (label) -> sp_hood
+-> sp_side -> sp_rear (label) -> sp_finale -> logo. Labels from STL headers: front bumper 4,000,015 / rear bumper 7,999,727 triangles.

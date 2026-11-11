@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [c5-corvette](c5-corvette/) - archived 2026-11-11
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-11
@@ -39,7 +40,6 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
-- [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
 - [fg2-race-car](fg2-race-car/) - archived 2026-11-11
 - [240sx-scan](240sx-scan/) - archived 2026-11-11
