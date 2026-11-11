@@ -54,3 +54,7 @@ the scan clip. Cut on a beat.
 ## Never change the scan's normalisation after solving
 `cam.json` is in the coordinates of the prepared `.blend`. Re-running cleanup can move the lowest
 point and shift the whole car. Always re-prep with `--like <first prep>.json` to pin the transform.
+
+## Glasses POV (Ray-Ban Meta) — Lola reel
+Close, steep top-down views from the glasses (e.g. standing over a rear deck/wing) did not
+converge; pick frames where the car fills ≤70 % of the frame with roofline + one wheel visible.

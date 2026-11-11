@@ -23,3 +23,15 @@
 13. **Archive** — `ive archive projects/<project>`; commit + push.
 14. **Close out** — when the user says the video is done, rename the Dropbox dump folder to
     `<name> (completed)` (Dropbox MCP `move`) and update the path in `projects/<project>/clips.md`.
+
+## Notes added from the Lola scan-process reel (2026-11)
+- **HUD counters land 0.1 % low.** ScanHUD's `Counter` eases with `Easing.out(Easing.exp)`, which
+  ends at 1-2^-10, so `value: 21696194` settles on 21,675,006 — an invented number. Until the
+  component is fixed, put `value = true / (1 - 2**-10)` (rounded so the final display is exact)
+  and keep the real count in `true_value`; check the last counter frame of the HUD render.
+- **Ray-Ban Meta glasses footage** (SDR bt709, 3:4 portrait, mixed sizes): solve the focal free;
+  on a 1080-wide 9:16 crop it came out fx ≈ 1094 px (HFOV ≈ 67°), not the iPhone 28 mm value.
+- **Hard 1:1 solves:** if the silhouette refine stalls, mirror the other side's raycast landmarks
+  (x→−x) for a PnP start, then re-pick landmarks on a near render (Lola cut B: 5.2 px RMSE).
+- **End the IRL clip on the solved frame** (move the in-point) instead of correcting drift with
+  phaseCorrelate when the action allows it.
