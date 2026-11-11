@@ -1,68 +1,93 @@
-# Porsche 911 GT3 (992) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296,
-# huracan-evo, a90-supra. Satin-silver scan on black; turntables -> extreme close-ups -> front lid opens ->
-# top-down -> exploded view (separate + reassemble) -> ILLUMAESTHETIC logo.
-# Shots: tools/shots.py (specs, timing from cues.json) + tools/shot.py (Blender, keyed cameras + hinged parts).
-# Music: porsche-gt3-992_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via
-# Higgsfield; "precise German techno"). ~123.6 BPM. Quiet intro 0-15.5 s (accents every 8 beats: 4.151, 8.022, 11.894),
-# drop on the first kick 15.552, flux accents 19.739 / 23.621 / 27.503, last hit 30.906, reverb tail, silent ~32.3.
-# (tools/music_grid.py; see editlog.) Cuts on frames round(t*30): 125, 241, 299, 357, 467, 592, 927; end 990 (33.0 s).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# Porsche 911 GT3 (992) - Temerario-style scan reel. v2 (user rules relayed 2026-11-11: order by scan features,
+# section explodes, whole-car opener, one sequence per section, bumper-removed hero beat with labels, fade + small logo).
+# Order from direction.md (scene-director agent): FRONT (whole car -> lid opens over the real 'Front Hood Open' frunk)
+# -> FR brake (wheel-off state) -> SIDE (skirt off over 'SideSkirt_Removed') -> REAR (wing detail -> wing, bumper,
+# diffuser, lip off on the DROP -> push in on the exhaust behind the bumper -> parts lock home) -> TOP-DOWN -> fade -> logo.
+# v1 timeline: /home/user/media/work/gt3/project_v1.yaml (git history). Music grid: see cues.json / editlog.
+# Cut frames: 241, 299, 357, 415, 592, 709, 825, 927; end 990 (33.0 s). First clip one frame short.
 project: porsche-gt3-992
 format: reel-9x16
-output: {path: /home/user/media/work/gt3/out/porsche_gt3_992_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/gt3/out/porsche_gt3_992_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/porsche-gt3-992_track.mp3   # not in git
   start: 0
   fade_out: 0.4
 
-beats: [4.1667, 8.0333, 9.9667, 11.9, 15.5667, 19.7333, 27.5, 30.9]
+beats: [8.0333, 9.9667, 11.9, 13.8333, 19.7333, 23.6333, 27.5, 30.9]
 
 timeline:
-  - id: s1_front34     # slow front 3/4 turntable from the car's right, low; moving from frame 1
-    src: /home/user/media/work/gt3/renders/final/s1_front34
+  - id: n1_front
+    section: front
+    focus: "whole car -> front lid opens -> frunk"
+    src: /home/user/media/work/gt3/renders/final/n1_front
     src_fps: 15
     interpolate: true
-    dur: 4.1333
-  - transition: {type: cut, note: "4.151 intro accent (8 beats)"}
-  - id: s2_rear34      # rear 3/4 orbit from the car's left, rising: swan-neck wing silhouette
-    src: /home/user/media/work/gt3/renders/final/s2_rear34
+    dur: 8.0000
+  - transition: {type: cut, note: "4.151 accent: lid starts; 8.022 accent"}
+  - id: s3_wheel
+    section: wheel
+    focus: "FR brake disc, caliper, spring"
+    src: /home/user/media/work/gt3/renders/final/s3_wheel
+    src_fps: 14.262
+    interpolate: true
+    dur: 1.9333
+  - transition: {type: cut, note: "9.956 beat"}
+  - id: n2_side
+    section: side
+    focus: "side skirt off the sill"
+    src: /home/user/media/work/gt3/renders/final/n2_side
+    src_fps: 15
+    interpolate: true
+    dur: 1.9333
+  - transition: {type: cut, note: "11.894 accent"}
+  - id: s4_wing
+    section: rear
+    focus: "swan-neck wing mounts + lettering"
+    src: /home/user/media/work/gt3/renders/final/s4_wing
+    src_fps: 14.262
+    interpolate: true
+    dur: 1.9333
+  - transition: {type: cut, note: "13.83 beat: rear explode starts"}
+  - id: n3_rear_off
+    section: rear
+    focus: "wing lifts, bumper/diffuser/lip off ON the drop 15.552"
+    src: /home/user/media/work/gt3/renders/final/n3_rear_off
+    src_fps: 15
+    interpolate: true
+    dur: 5.9000
+  - transition: {type: cut, note: "19.739 accent"}
+  - id: n4_exhaust
+    section: rear
+    focus: "exhaust behind the rear bumper (bumper-off data)"
+    src: /home/user/media/work/gt3/renders/final/n4_exhaust
+    src_fps: 15
+    interpolate: true
+    dur: 3.9000
+  - transition: {type: cut, note: "23.621 accent"}
+  - id: n5_rear_home
+    section: rear
+    focus: "rear parts lock home (26.72 kick), pull back to whole car = s6 frame 1"
+    src: /home/user/media/work/gt3/renders/final/n5_rear_home
     src_fps: 15
     interpolate: true
     dur: 3.8667
-  - transition: {type: cut, note: "8.022 intro accent"}
-  - id: s3_wheel       # extreme close-up: FR brake (cross-drilled disc, caliper, spring) - 'FR wheel well' state scan, 1.5 mm
-    src: /home/user/media/work/gt3/renders/final/s3_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 1.9333
-  - transition: {type: cut, note: "9.956 beat (4 beats)"}
-  - id: s4_wing        # extreme close-up: swan-neck wing mounts + engine-lid duckbill, 2 mm rear crop
-    src: /home/user/media/work/gt3/renders/final/s4_wing
-    src_fps: 15
-    interpolate: true
-    dur: 1.9333
-  - transition: {type: cut, note: "11.894 intro accent"}
-  - id: s5_hood        # front lid opens 12.87 -> 15.2 (2 beats in, done before the drop) over the frunk state scan
-    src: /home/user/media/work/gt3/renders/final/s5_hood
-    src_fps: 15
-    interpolate: true
-    dur: 3.6667
-  - transition: {type: cut, note: "15.552 DROP (first kick)"}
-  - id: s6_top         # high rear 3/4 up and over to straight top-down, nose at the top of the frame
+  - transition: {type: cut, note: "27.503 accent (invisible cut: same camera)"}
+  - id: s6_top
+    section: top
+    focus: "whole car rises to top-down, fades to black"
     src: /home/user/media/work/gt3/renders/final/s6_top
-    src_fps: 15
+    src_fps: 18.0
     interpolate: true
-    dur: 4.1667
-  - transition: {type: cut, note: "19.739 accent - panels separate"}
-  - id: s7_explode     # separate 19.78-21.33, drift + orbit high rear -> rear-right, fly home, LOCK 27.503 accent, hold to the last hit
-    src: /home/user/media/work/gt3/renders/final/s7_explode
-    src_fps: 15
-    interpolate: true
-    dur: 11.1667
-  - transition: {type: cut, note: "30.906 last hit - logo over the reverb tail"}
-  - id: logo           # tools/logo_card.py --secs 2.1 --width 620 (Temerario: logo ~50-60 % width on black)
-    src: /home/user/media/work/gt3/out/logo_card.mp4
+    dur: 3.4000
+    vf: "fade=t=out:st=2.43:d=0.97"   # fade to black 29.94 -> 30.91 (Temerario: fade, then small logo)
+  - transition: {type: cut, note: "30.906 last hit: logo"}
+  - id: logo           # small logo (300 px, ~28 % width) after the fade - tools/logo_card.py --secs 2.1 --width 300
+    section: end
+    focus: "ILLUMAESTHETIC logo"
+    src: /home/user/media/work/gt3/out/logo_card_v2.mp4
     dur: 2.1
 
-overlays: []
+overlays:   # labels (overlay.json -> ive hud): FRUNK, FRONT BRAKE, SIDE SKIRT REMOVED, SWAN-NECK WING, REAR BUMPER REMOVED, EXHAUST
+  - src: /home/user/media/work/gt3/out/hud_gt3_v2.mov
+    start: 0

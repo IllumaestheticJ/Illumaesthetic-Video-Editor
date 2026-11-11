@@ -24,6 +24,10 @@ REAR = f"{P}/rear_2mm.blend"  # 2 mm rear crop: wing close-up
 SECS = {"s1_front34": 5.0, "s2_rear34": 5.0, "s3_wheel": 3.5, "s4_wing": 3.5, "s5_hood": 4.5, "s6_top": 4.0,
         "s7_explode": 11.0}
 EXPLODE = {"sep": 1.0, "out": 2.6, "back": 8.0, "lock": 9.6}  # seconds within s7 (overridden by cues.json)
+# v2 slots (direction.md): cut frames 241, 299, 357, 415, 592, 709, 825, 927; render 3 tail frames past each cut
+CUT = {"n1_front": 241 / 30, "n2_side": 58 / 30, "n3_rear_off": 177 / 30, "n4_exhaust": 117 / 30, "n5_rear_home": 116 / 30}
+V2 = {k: v + 3 / 15 for k, v in CUT.items()}
+SECS.update(V2)
 cues = os.path.join(HERE, "..", "cues.json")
 if os.path.exists(cues):
     C = json.load(open(cues))
@@ -102,6 +106,54 @@ def shots():
             {"blend": f"{X}rlip.blend", "keys": ex((0, 0.95, -0.5), delay=0.14)},
         ],
         "cam": arc(S["s7_explode"], 14, 5.6, 5.4, -174, -128, 5.4, 4.0, c=(0, 0.3, 0.5), focal=26, tz=0.4, ease="inout")}
+    # ---------------- v2 (direction.md): front -> side -> rear, section explodes, one sequence per section --------
+    X = f"{P}/x_"
+    T = V2  # slot lengths (s) + tail frames
+    hood = [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+            {"t": 4.151, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+            {"t": 6.093, "loc": [0, 0, 0], "rot": [-62, 0, 0], "ease": "inout"}]
+    sh["n1_front"] = {"base": [f"{P}/comp_hood.blend"],
+                      "parts": [{"blend": f"{P}/hood_lid1.blend", "pivot": [0, -0.87, 0.86], "keys": hood}],
+                      "cam": [{"t": 0, "loc": [3.7, -5.1, 1.45], "target": [0, 0.25, 0.55], "focal": 30},
+                              {"t": 6.09, "loc": [1.2, -4.2, 2.2], "target": [0, -1.25, 0.6], "focal": 30, "ease": "out"},
+                              {"t": T["n1_front"], "loc": [0.9, -3.7, 2.15], "target": [0, -1.3, 0.55], "focal": 30, "ease": "lin"}]}
+
+    def go(off, t0, t1, drift_to, tend, ease="out"):
+        """rest -> off (t0..t1) -> drift to drift_to x off by tend"""
+        return [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                {"t": t0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                {"t": t1, "loc": list(off), "rot": [0, 0, 0], "ease": ease},
+                {"t": tend, "loc": [o * drift_to for o in off], "rot": [0, 0, 0], "ease": "lin"}]
+
+    sh["n2_side"] = {"base": [f"{P}/comp_side.blend"],
+                     "parts": [{"blend": f"{X}skirt.blend", "keys": go((-0.45, 0, -0.06), 0.10, 0.95, 1.03, T["n2_side"])}],
+                     "cam": [{"t": 0, "loc": [-2.3, -1.7, 0.32], "target": [-0.85, 0.3, 0.55], "focal": 30},
+                             {"t": T["n2_side"], "loc": [-2.45, -1.15, 0.30], "target": [-0.85, 0.6, 0.55], "focal": 30,
+                              "ease": "lin"}]}
+    R = {"wing": ((0, 0.15, 0.90), 0.10, 1.55), "rbumper": ((0, 0.70, 0.75), 1.72, 2.80),
+         "diffuser": ((0, 0.90, -0.35), 1.80, 2.90), "rlip": ((0, 1.15, -0.45), 1.86, 3.00)}
+    n3 = T["n3_rear_off"]
+    sh["n3_rear_off"] = {"base": [f"{P}/comp_rear.blend"],
+                         "parts": [{"blend": f"{X}{k}.blend", "keys": go(o, a, b, 1.03, n3)} for k, (o, a, b) in R.items()],
+                         "cam": [{"t": 0, "loc": [-2.2, 5.6, 1.45], "target": [0, 1.7, 0.75], "focal": 35},
+                                 {"t": n3, "loc": [-2.9, 6.6, 1.25], "target": [-0.1, 2.3, 0.65], "focal": 30, "ease": "inout"}]}
+    n4 = T["n4_exhaust"]
+    sh["n4_exhaust"] = {"base": [f"{P}/comp_rear.blend"],
+                        "parts": [{"blend": f"{X}{k}.blend", "keys": [
+                            {"t": 0, "loc": [v * 1.03 for v in o], "rot": [0, 0, 0]},
+                            {"t": n4, "loc": [v * 1.05 for v in o], "rot": [0, 0, 0], "ease": "lin"}]} for k, (o, a, b) in R.items()],
+                        "cam": [{"t": 0, "loc": [-1.25, 4.0, 0.50], "target": [0.05, 2.05, 0.38], "focal": 40},
+                                {"t": n4, "loc": [-0.8, 3.6, 0.46], "target": [0.05, 2.0, 0.38], "focal": 40, "ease": "lin"}]}
+    home = {"diffuser": (0.23, 1.38), "rlip": (0.23, 1.38), "rbumper": (0.68, 2.13), "wing": (1.68, 3.087)}
+    n5 = T["n5_rear_home"]
+    sh["n5_rear_home"] = {"base": [f"{P}/comp_rear.blend"],
+                          "parts": [{"blend": f"{X}{k}.blend", "keys": [
+                              {"t": 0, "loc": [v * 1.05 for v in R[k][0]], "rot": [0, 0, 0]},
+                              {"t": home[k][0], "loc": [v * 1.05 for v in R[k][0]], "rot": [0, 0, 0]},
+                              {"t": home[k][1], "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]} for k in R],
+                          "cam": [{"t": 0, "loc": [1.4, 4.2, 1.9], "target": [0, 1.9, 0.8], "focal": 30},
+                                  {"t": CUT["n5_rear_home"], "loc": [2.3, 4.4, 3.6], "target": [0, 0.3, 0.5], "focal": 30,
+                                   "ease": "inout"}]}
     return sh
 
 
