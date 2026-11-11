@@ -130,6 +130,61 @@ SHOTS = [
                                   "visible": {**{k: [0, 0.64] for k in ["base", *PARTS]}, "car": [0.64, 1.01]}}),
 ]
 
+# ---- v3 (director.md, 2026-11-11): nose -> roof -> tail, one continuous sequence per section ----
+FB_OUT   = [-0.38, 1.00, -0.08]          # bumper parked in black, ahead of the nose and toward the lens-left
+HOOD_UP  = H_HOOD["open_deg"] * 0.9       # 53.07 deg (same as v2 OPEN)
+LID_UP   = H_LID["open_deg"] * 0.9        # -59.43 deg
+TOP_UP   = [0, -0.10, 3.0]                # out of the top of frame in s13
+TOP_HIGH = [0, 0.0, 7.5]                  # out of frame at s15 dist 8.2 (portrait half-height ~6.6 m)
+FRONT_OPEN = {"fb": {"off": FB_OUT}, "hood": {"off": [0,0,0], "deg": HOOD_UP}}
+R15 = {"persistent": False}  # director planned 12 fps; brief fixes 15 fps
+
+# 3 FRONT HERO (12 beats). Hardtop ON, lid shut.
+SHOTS.append(shot("s12_front", 6.70, EXP, [
+    dict(t=0,    az=-152, el=12, dist=4.8, target=[0, 1.25, 1.0], lens=50),
+    dict(t=0.30, az=-158, el=18, dist=4.2, target=[0, 1.45, 0.90], lens=50),   # bumper clear: look into the opening
+    dict(t=0.50, az=-162, el=26, dist=3.5, target=[0, 1.35, 0.80], lens=50),
+    dict(t=1,    az=-170, el=44, dist=2.7, target=[-0.15, 1.15, 0.60], lens=50)],  # down into the front compartment
+  {"fb":   [dict(t=0, off=[0,0,0]), dict(t=0.04, off=[0,0,0]), dict(t=0.30, off=[-0.30, 0.80, -0.05]),
+            dict(t=0.62, off=FB_OUT, lin=True), dict(t=1, off=FB_OUT)],
+   "hood": [dict(t=0, off=[0,0,0], deg=0), dict(t=0.50, off=[0,0,0], deg=0), dict(t=0.74, off=[0,0,0], deg=HOOD_UP),
+            dict(t=1, off=[0,0,0], deg=HOOD_UP)],
+   "top":  [dict(t=0, off=[0,0,0])], "lid": [dict(t=0, off=[0,0,0], deg=0)]},
+  light_ref="base", extra=R15))
+
+# 4 SIDE + TOP (12 beats). Front stays open.
+SHOTS.append(shot("s13_top", 6.70, EXP, [
+    dict(t=0,    az=-70, el=28, dist=4.4, target=[0, -0.25, 0.72], lens=40),
+    dict(t=0.45, az=-74, el=40, dist=4.0, target=[0, -0.28, 0.60], lens=40),
+    dict(t=1,    az=-82, el=66, dist=3.6, target=[0, -0.30, 0.32], lens=40)],
+  {"top":  [dict(t=0, off=[0,0,0]), dict(t=0.08, off=[0,0,0]), dict(t=0.34, off=TOP_UP), dict(t=1, off=TOP_UP)],
+   "fb":   [dict(t=0, off=FB_OUT)], "hood": [dict(t=0, off=[0,0,0], deg=HOOD_UP)],
+   "lid":  [dict(t=0, off=[0,0,0], deg=0)]},
+  light_ref="base", extra=dict(R15, visible={"top": [0, 0.45]})))
+
+# 5 REAR (12 beats). Lid starts ON the strong hit (t = 4/12).
+SHOTS.append(shot("s14_rear", 6.70, EXP, [
+    dict(t=0,     az=-38, el=16, dist=4.0, target=[0, -1.45, 0.92], lens=40),  # tail lamps + grilles fill the width
+    dict(t=0.333, az=-32, el=20, dist=3.6, target=[0, -1.40, 0.90], lens=40),
+    dict(t=1,     az=-22, el=50, dist=2.9, target=[0, -1.20, 0.90], lens=40)], # down into the engine bay
+  {"lid":  [dict(t=0, off=[0,0,0], deg=0), dict(t=0.333, off=[0,0,0], deg=0), dict(t=0.60, off=[0,0,0], deg=LID_UP),
+            dict(t=1, off=[0,0,0], deg=LID_UP)],
+   "fb":   [dict(t=0, off=FB_OUT)], "hood": [dict(t=0, off=[0,0,0], deg=HOOD_UP)], "top": [dict(t=0, off=TOP_UP)]},
+  light_ref="base", extra=dict(R15, visible={"top": [0, 0]})))
+
+# 6 REASSEMBLY (9 beats) -> clean car, fade in assembly.
+SHOTS.append(shot("s15_reassemble", 5.05, dict(EXP, **CAR), [
+    dict(t=0, az=30, el=26, dist=5.6, target=[0, 0.10, 1.10], lens=40),
+    dict(t=1, az=46, el=12, dist=5.6, target=[0, -0.05, 0.78], lens=40)],
+  {"fb":   [dict(t=0, off=FB_OUT), dict(t=0.02, off=FB_OUT), dict(t=0.30, off=[0,0,0]), dict(t=1, off=[0,0,0])],
+   "hood": [dict(t=0, off=[0,0,0], deg=HOOD_UP), dict(t=0.06, off=[0,0,0], deg=HOOD_UP), dict(t=0.36, off=[0,0,0], deg=0),
+            dict(t=1, off=[0,0,0], deg=0)],
+   "top":  [dict(t=0, off=TOP_HIGH), dict(t=0.18, off=TOP_HIGH), dict(t=0.55, off=[0,0,0]), dict(t=1, off=[0,0,0])],
+   "lid":  [dict(t=0, off=[0,0,0], deg=LID_UP), dict(t=0.34, off=[0,0,0], deg=LID_UP), dict(t=0.62, off=[0,0,0], deg=0),
+            dict(t=1, off=[0,0,0], deg=0)]},
+  light_ref="base", extra=dict(R15, visible={"base": [0, 0.68], "fb": [0, 0.68], "hood": [0, 0.68], "lid": [0, 0.68],
+                                             "top": [0.12, 0.68], "car": [0.68, 1.01]})))
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for name, d in SHOTS:
