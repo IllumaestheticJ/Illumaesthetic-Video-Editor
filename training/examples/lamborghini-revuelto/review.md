@@ -7,7 +7,7 @@ scene order from the scene-director agent (direction.md).
 | # | Criterion | Score | Notes |
 |---|---|---|---|
 | 1 | Hook | 3 | Whole car (front-left 3/4) pushing in from frame 0 under the track's quiet intro; first transformation at 7 s (bumper off). The music has no hit before ~7 s to land an earlier event on. |
-| 2 | Beat sync | 5 | Measured on the delivered file's decoded audio: cuts within -59..+17 ms of onsets (the -59 ms one is in the quiet intro), logo cut 30.400 vs taiko attack 30.398, parts land 27.967 vs climax attack 27.931 (+1 frame). Exact-frame concat: no duplicated or frozen frame at any cut. |
+| 2 | Beat sync | 5 | Measured on the delivered audio (1 ms broadband RMS half-rise): visible cuts -21..+36 ms of onsets; parts lock 27.967 vs climax onset 27.984; logo cut 30.400 vs 30.421 (after a 0.5 s fade-out). Exact-frame concat: no duplicated or frozen frame at any cut. |
 | 3 | 1:1 match | n/a | Scan-only format. |
 | 4 | Scan quality | 4 | Registered parts (1.5-2.6 mm), plate flattened, mirror crop and lid pinholes fixed. The state-scan structure is real but ragged at its edges; sparse white specks under the open lid (scan noise); dark intake trims weren't captured. |
 | 5 | Story | 5 | One continuous sequence per section, travelling front -> left side -> rear (rule B): opener, front opens, move-in on the front structure, side panels, rear (richest: wing, tail lights, rear bumper) with move-in on phrase C, everything slams home on the climax, logo. Only openings with scan data (rule D): mirror never moves, the lid only swings on its fitted hinge. |

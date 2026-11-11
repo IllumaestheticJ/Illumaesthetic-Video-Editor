@@ -13,7 +13,7 @@ music:
   fade_out: 1.0
 
 # cut times (s) on the 102.52 BPM grid; 27.94 = every part lands home on the climax taiko attack (inside v2_reassemble)
-beats: [6.960, 10.471, 15.153, 18.664, 25.687, 27.94, 30.40]
+beats: [6.960, 10.500, 15.200, 18.664, 25.687, 27.94, 30.40]
 
 timeline:
   - id: v2_whole   # whole car, front-left 3/4, slow push toward the nose; fades up with the quiet intro
@@ -27,9 +27,9 @@ timeline:
   - id: s6_frontopen   # FRONT: bumper slides off, headlights out, lid lifts on its fitted hinge on phrase B (v1 render)
     focus: front bumper
     src: /home/user/media/work/renders/revuelto/s6_frontopen
-    src_fps: 14.59   # 53 frames -> 103 after minterpolate; 30*53/(105+4) stretches it to cover 105 (3.5 % slower)
+    src_fps: 14.45   # 53 frames -> 103 after minterpolate; 30*53/(106+4) stretches it to cover 106 (3.7 % slower)
     interpolate: true
-    frames: 105
+    frames: 106   # cut 10.500: one frame after the grid beat = on the measured broadband onset (10.512)
   - transition: {type: cut}
   - id: v2_frontin   # FRONT: bumper + headlights lift away, camera moves in on the structure behind the bumper (labels)
     focus: front structure
@@ -43,7 +43,7 @@ timeline:
     src: /home/user/media/work/renders/revuelto/v2_side
     src_fps: 15
     interpolate: true
-    frames: 105
+    frames: 104   # cut-in 15.200 (onset 15.199), out on 18.667
   - transition: {type: cut}
   - id: v2_rear   # REAR (phrase C): wing, tail lights, rear bumper lift away; push in on the rear structure (labels)
     focus: rear structure
@@ -58,6 +58,7 @@ timeline:
     src_fps: 15
     interpolate: true
     frames: 141
+    vf: fade=t=out:st=4.2:d=0.5   # parent v2 brief: fade out, then the small logo (on the 30.40 hit)
   - transition: {type: cut}
   - id: logo   # small ILLUMAESTHETIC logo (320 px) on the loudest taiko hit, rides the decay to 34.6 s
     src: /home/user/media/work/revuelto/logo/logo_card_v2.mp4
