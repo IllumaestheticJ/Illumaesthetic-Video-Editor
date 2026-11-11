@@ -2,10 +2,12 @@
 # something more mainstream"). 240SX format: real -> 1:1 cut on the drop -> crew scanning -> 1:1 -> shell lifts off
 # the interior scan (no spin) -> scan-software screens -> Lola 2 detail -> logo card (no illumaesthetic.com listing).
 # IRL = Ray-Ban Meta glasses POV, SDR; selects pre-cropped 3:4 -> 9:16 in /home/user/media/work/lola/sel (crops in editlog).
-# v1: project_v1.yaml / overlay_v1.json / review_v1.md.
+# v1/v2: project_v1|v2.yaml, overlay_v1|v2.json, review_v1|v2.md.
+# v3 (user on v2: "remove illumaesthetic.com", "clean up footage at end"): logo-only card; dropped the colour-model
+# screen recording (UI + cursor) and the holey front close-up; new whole-car Lola 2 hero push-in.
 project: lola-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/lola_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/lola_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   # "Take Me (To The Moon)" - Ian Asher & D A N N Y. TikTok Commercial Music Library (licensed for brand posts),
@@ -18,7 +20,7 @@ music:
 # Measured 40-120 Hz kick peaks (video s; tools: scratch onsets.py, kick pairs every ~1.37 s):
 # drop 2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 19.766, breakdown riser hit 23.585 (flux), re-drop 24.374,
 # 26.778. Durs are whole frames so each cut = round(kick*30); first clip one frame short.
-beats: [2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 19.766, 23.585, 24.374, 26.778]
+beats: [2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 24.374, 26.778]
 
 timeline:
   - id: irl_spray      # powder spray sweep over Lola 1; ENDS on the solved frame (spray.mp4 frame 446)
@@ -61,34 +63,23 @@ timeline:
     in: 3.25
     dur: 2.2333
   - transition: {type: cut}
-  - id: screen_color   # finished colour model of Lola 2 in the scan software
-    src: /home/user/media/work/lola/sel/sr_color.mp4
-    in: 1.4
-    dur: 1.3667
-  - transition: {type: cut}
-  - id: scan_hero      # Lola 2 silver, front-3/4 slow camera orbit, held over the track's breakdown
-    src: /home/user/media/work/lola/renders/s3_hero
+  - id: scan_hero      # v3: Lola 2 silver, WHOLE car centred, slow push-in (no orbit), held over the track's breakdown
+    src: /home/user/media/work/lola/renders/s3_hero_v3
     src_fps: 15
     interpolate: true
-    dur: 3.8333
+    dur: 5.9667
   - transition: {type: cut}
-  - id: scan_wing      # Lola 2 wing detail, quick flash on the breakdown riser hit
+  - id: scan_wing      # Lola 2 wing detail on the re-drop (cleanest Lola 2 close-up)
     src: /home/user/media/work/lola/renders/s4_wing
-    src_fps: 15
-    interpolate: true
-    dur: 0.7667
-  - transition: {type: cut}
-  - id: scan_front     # Lola 2 pop-ups / front bumper push-in on the re-drop
-    src: /home/user/media/work/lola/renders/s5_front
     src_fps: 15
     interpolate: true
     dur: 2.4
   - transition: {type: cut}
-  - id: logo           # ILLUMAESTHETIC logo, then ILLUMAESTHETIC.COM fades in last; fade to black with the music
-    src: /home/user/media/work/lola/end_card_v2.mp4
+  - id: logo           # v3: ILLUMAESTHETIC logo only (user: remove illumaesthetic.com); fade to black with the music
+    src: /home/user/media/work/lola/end_card_v3.mp4
     in: 0
     dur: 3.2333
 
 overlays:
-  - src: /home/user/media/work/out/hud_lola_v2.mov   # `ive hud projects/lola-scan-process/overlay.json`
+  - src: /home/user/media/work/out/hud_lola_v3.mov   # `ive hud projects/lola-scan-process/overlay.json`
     start: 0

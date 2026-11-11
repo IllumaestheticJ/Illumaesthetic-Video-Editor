@@ -1,9 +1,10 @@
 """ILLUMAESTHETIC end card (no listing for this car): logo fades in, then ILLUMAESTHETIC.COM under it fades in last.
 1080x1920 @30 on pure black, slow 3 % push, optional fade to black at the end (track tail).
-usage: end_card.py logo.png out.mp4 duration [fade_out_s]"""
+usage: end_card.py logo.png out.mp4 duration [fade_out_s] [--no-url]   (v3: user asked to remove ILLUMAESTHETIC.COM)"""
 import sys, subprocess, numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
+NO_URL = "--no-url" in sys.argv; sys.argv = [a for a in sys.argv if a != "--no-url"]
 logo_p, out, dur = sys.argv[1], sys.argv[2], float(sys.argv[3])
 fade_out = float(sys.argv[4]) if len(sys.argv) > 4 else 0.0
 W, H, FPS = 1080, 1920, 30
@@ -30,8 +31,9 @@ for i in range(n):
     a_logo = ramp(t, 0.0, 0.45); a_txt = ramp(t, 0.75, 1.25)
     L = logo.resize((round(logo.width * s), round(logo.height * s)), Image.LANCZOS)
     L.putalpha(L.getchannel("A").point(lambda v: int(v * a_logo)))
-    cy = H // 2 - 60
+    cy = H // 2 - (0 if NO_URL else 60)
     fr.alpha_composite(L, (W // 2 - L.width // 2, cy - L.height // 2))
+    if NO_URL: a_txt = 0.0
     T = tl.copy(); T.putalpha(T.getchannel("A").point(lambda v: int(v * a_txt)))
     fr.alpha_composite(T, (W // 2 - T.width // 2, cy + L.height // 2 + 70))
     arr = np.asarray(fr.convert("RGB")).astype(np.float32)

@@ -45,13 +45,13 @@
   },
   {
    "kind": "brackets",
-   "from": 596,
-   "duration": 109
+   "from": 555,
+   "duration": 173
   },
   {
    "kind": "counter",
-   "from": 599,
-   "duration": 106,
+   "from": 558,
+   "duration": 120,
    "label": "LOLA 2 \u00b7 TRIANGLES CAPTURED",
    "value": 50045945,
    "x": 0.08,
