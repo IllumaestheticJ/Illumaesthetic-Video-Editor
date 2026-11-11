@@ -83,3 +83,6 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** Trending music: Higgsfield `tiktok_music_trending` lists TikTok's Commercial Music Library with preview files
   (host sf16-ies-music-sg.tiktokcdn.com). Find the drop from low-band RMS, fit the grid on low-band onsets, put the 1:1 cut on it.
 - **[technical]** Dropbox download hosts are per-file and random; every new batch needs the hosts added to the environment.
+- **[story]** Search Dropbox by the car AND the product before settling on footage ("TC wing", "NC", the model name), and list `2. Long Form`
+  as well as `1. Video dumps`. v1 of the NC demo used the Integra tutorial because only "install tutorial" was searched; the NC's shoot
+  was in `/1. Epsilon Plus Videos/2. Long Form/TC Wing Tutorial`. Never substitute another car's footage without asking.

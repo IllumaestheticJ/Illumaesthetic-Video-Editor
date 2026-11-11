@@ -4,7 +4,7 @@
 # #2 trending US 7-day on 2026-11-11), bed starts at 12.405 s of the track so the drop (24.915 s) lands on the 1:1 cut at frame 375.
 project: nc-configurator
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/nc/out/nc_configurator_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/nc/out/nc_configurator_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music: {path: /home/user/media/work/nc/layers/music.wav, start: 0, fade_out: 0.9}
 
@@ -37,32 +37,32 @@ timeline:
     in: 0.0
     dur: 2.8000
   - transition: {type: cut}
-  - id: F1   # install: hatch strut
+  - id: F1   # install: unwrapping the wing
     src: /home/user/media/work/nc/layers/F1.mp4
     in: 0.0
     dur: 0.7000
   - transition: {type: cut}
-  - id: F2   # install: trim panel off
+  - id: F2   # install: measuring the blade
     src: /home/user/media/work/nc/layers/F2.mp4
     in: 0.0
     dur: 0.7000
   - transition: {type: cut}
-  - id: F3   # install: inside the hatch
+  - id: F3   # install: marking the cradle position
     src: /home/user/media/work/nc/layers/F3.mp4
     in: 0.0
     dur: 0.6667
   - transition: {type: cut}
-  - id: F4   # install: ratchet
+  - id: F4   # install: base onto the trunk
     src: /home/user/media/work/nc/layers/F4.mp4
     in: 0.0
     dur: 0.7000
   - transition: {type: cut}
-  - id: F5   # install: tightening
+  - id: F5   # install: ratchet on the base
     src: /home/user/media/work/nc/layers/F5.mp4
     in: 0.0
     dur: 0.7000
   - transition: {type: cut}
-  - id: F6   # install: hatch check
+  - id: F6   # install: bolting the wing to the upright
     src: /home/user/media/work/nc/layers/F6.mp4
     in: 0.0
     dur: 0.7000
@@ -82,22 +82,22 @@ timeline:
     in: 0.0
     dur: 0.3333
   - transition: {type: cut}
-  - id: F10   # install: wing on the hatch
+  - id: F10   # install: tightening at the base
     src: /home/user/media/work/nc/layers/F10.mp4
     in: 0.0
     dur: 0.3667
   - transition: {type: cut}
-  - id: G1   # payoff: finished wing on the Integra (tutorial car)
+  - id: G1   # payoff: finished wing, video pan
     src: /home/user/media/work/nc/layers/G1.mp4
     in: 0.0
     dur: 1.3667
   - transition: {type: cut}
-  - id: G2   # NC listing photo: side quarter
+  - id: G2   # payoff: finished wing, rear pan
     src: /home/user/media/work/nc/layers/G2.mp4
     in: 0.0
     dur: 1.4000
   - transition: {type: cut}
-  - id: G3   # NC listing photo: rear 3/4
+  - id: G3   # payoff: finished wing, endplate pan
     src: /home/user/media/work/nc/layers/G3.mp4
     in: 0.0
     dur: 1.4000

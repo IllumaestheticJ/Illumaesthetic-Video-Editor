@@ -1,6 +1,6 @@
-# NC wing configurator demo v1 - self-review (training/rubric.md)
+# NC wing configurator demo v2 - self-review (training/rubric.md)
 
-Output: `/home/user/media/work/nc/out/nc_configurator_v1.mp4` - 1080x1920, 30 fps, 29.17 s, h264 yuv420p + AAC.
+Output: `/home/user/media/work/nc/out/nc_configurator_v2.mp4` - 1080x1920, 30 fps, 29.17 s, h264 yuv420p + AAC.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -8,11 +8,11 @@ Output: `/home/user/media/work/nc/out/nc_configurator_v1.mp4` - 1080x1920, 30 fp
 | 2 | Beat sync | 5 | 19 cuts measured from frame diffs, all on round(beat*10.428). 1:1 cut on the drop. |
 | 3 | 1:1 match | 4 | Edge overlay of frame 374 on 375: tail light, plate, emblem, bumper, wing blade and upright foot coincide. Real car has a hardtop (model: soft top), real endplates are larger than the configurator's, uprights black vs yellow. |
 | 4 | Scan quality | n/a | Configurator's own low-poly view (grey on light grey), not a house scan render. |
-| 5 | Story | 4 | Site -> listing -> configure -> cart -> 3D -> real -> install -> finished. Install footage is an Integra, not an NC. |
-| 6 | Grade | 3 | Sony clips lifted (contrast 1.2, gamma 1.3) but still darker/greyer than the iPhone photos. |
+| 5 | Story | 4 | Site -> listing -> configure -> cart -> 3D -> real -> install -> finished. v2: install footage is the NC's own tutorial shoot (v1 wrongly used the Integra). |
+| 6 | Grade | 4 | Install clips are iPhone HLG tonemapped (hable), same car and shop as the listing photos. |
 | 7 | Text | 5 | None added; only the site's own UI. |
 | 8 | Ending | 4 | Epsilon+ card on the downbeat (26.43 s), 0.9 s fade. Not the Illumaesthetic card. |
-| 9 | Technical | 4 | Specs met. Tutorial clips are 608 px-wide windows upscaled 1.78x. |
+| 9 | Technical | 4 | Specs met. Install clips are 1216 px windows of 4K (no upscale). |
 
 ## Known gaps
 - Checkout stops at the cart popup (Add to cart -> "Added to your cart" -> tap on Checkout); Shopify's checkout pages were not entered.

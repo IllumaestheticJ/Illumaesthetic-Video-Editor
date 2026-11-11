@@ -20,17 +20,19 @@ def kb(name, photo, n, s0, s1):
     p.stdin.close(); p.wait()
 PH = f'{M}/photos'
 if want('E'): kb('E', f'{PH}/nc-05.jpg', 90, (1300, 1560, 3000), (1480, 1380, 2400))
-if want('G2'): kb('G2', f'{PH}/nc-06.jpg', 50, (1400, 1600, 3200), (1600, 1250, 2300))
-if want('G3'): kb('G3', f'{PH}/nc-01.jpg', 50, (1000, 900, 1800), (860, 720, 1300))
+if want('G2s'): kb('G2s', f'{PH}/nc-06.jpg', 50, (1400, 1600, 3200), (1600, 1250, 2300))
+if want('G3s'): kb('G3s', f'{PH}/nc-01.jpg', 50, (1000, 900, 1800), (860, 720, 1300))
 if want('G4'): kb('G4', f'{PH}/nc-04.jpg', 50, (1200, 1550, 3200), (1200, 1250, 2300))
-# --- install tutorial snippets (Sony 1080p24 flat profile): 9:16 window at cx, mild contrast/saturation lift
-T = f'{M}/tutorial/integra'; GRADE = 'eq=contrast=1.2:saturation=1.35:gamma=1.3'
-CL = {'F1': ('C0198', 0.6, 0.52), 'F2': ('C0202', 2.3, 0.40), 'F3': ('C0203', 3.3, 0.50), 'F4': ('C0194', 2.3, 0.50), 'F5': ('C0234', 3.3, 0.50), 'F6': ('C0217', 4.3, 0.50),
-      'F7': ('C0204', 3.8, 0.45), 'F8': ('C0193', 1.0, 0.50), 'F9': ('C0199', 1.6, 0.50), 'F10': ('C0219', 16.6, 0.62), 'G1': ('C0222', 0.75, 0.50)}
+# --- install snippets: the NC's own shoot, Dropbox '/1. Epsilon Plus Videos/2. Long Form/TC Wing Tutorial' (iPhone 4K HLG, landscape):
+# tonemap to SDR, 9:16 window (1215 px of 3840, no upscale) centred at cx. (v1 used the Integra tutorial by mistake - user feedback.)
+T = f'{M}/tutorial/nc'
+TM = 'zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p'
+CL = {'F1': ('1837', 57.0, 0.50), 'F2': ('1839b', 46.0, 0.55), 'F3': ('1846', 65.0, 0.45), 'F4': ('1923b', 17.0, 0.45), 'F5': ('1924', 14.0, 0.50), 'F6': ('1929', 40.0, 0.60),
+      'F7': ('1844b', 5.5, 0.45), 'F8': ('1848', 12.5, 0.50), 'F9': ('1929', 3.5, 0.50), 'F10': ('1923b', 45.5, 0.60),
+      'G1': ('1932a', 0.8, 0.50), 'G2': ('1933', 7.4, 0.55), 'G3': ('1932b', 2.2, 0.50)}
 for n, (c, t, cx) in CL.items():
     if want(n):
-        g = GRADE if n != 'G1' else 'eq=contrast=1.08:saturation=1.2'
-        run('-ss', t, '-i', f'{T}/{c}.MP4', '-t', 1.75, '-an', '-vf', f'crop=608:1080:{int(1920 * cx - 304)}:0,scale={W}:{H}:flags=lanczos,{g},fps={FPS}', *X264, f'{L}/{n}.mp4')
+        run('-ss', t, '-i', f'{T}/{c}.mov', '-t', 1.75, '-an', '-vf', f'crop=1216:2160:{int(3840 * cx - 608)}:0,{TM},scale={W}:{H}:flags=lanczos,fps={FPS}', *X264, f'{L}/{n}.mp4')
 # --- music bed: 'Take Me (To The Moon)' from 12.405 s so the drop kick (24.915 s) lands on frame 375
 if want('music'):
     run('-ss', 12.405, '-i', f'{M}/music/take_me.mp3', '-t', 30.5, '-af', 'afade=t=in:d=0.04', '-ar', 48000, f'{L}/music.wav')
