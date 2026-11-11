@@ -1,0 +1,94 @@
+{
+ "objects": {
+  "car": "/home/user/media/work/c5/rear_stripped.blend",
+  "rb": "/home/user/media/work/c5/rear_bumper.blend"
+ },
+ "seconds": 7.7,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/AR",
+ "light_ref": "car",
+ "camera": [
+  {
+   "t": 0,
+   "cam": "/home/user/Illumaesthetic-Video-Editor/projects/c5-corvette-scan-process/match/cam_A_free.json",
+   "dist": 2.2
+  },
+  {
+   "t": 0.38,
+   "az": 150,
+   "el": 13,
+   "dist": 5.0,
+   "target": [
+    0,
+    1.2,
+    0.5
+   ],
+   "lens": 27.2,
+   "roll": 0
+  },
+  {
+   "t": 1,
+   "az": 140,
+   "el": 17,
+   "dist": 5.0,
+   "target": [
+    0.05,
+    1.75,
+    0.45
+   ],
+   "lens": 27.2,
+   "roll": 0
+  }
+ ],
+ "anims": {
+  "rb": [
+   {
+    "t": 0.42,
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "t": 0.62,
+    "off": [
+     0.5,
+     0.8,
+     0.0
+    ]
+   },
+   {
+    "t": 0.9,
+    "off": [
+     1.6,
+     1.5,
+     -0.45
+    ]
+   },
+   {
+    "t": 0.6,
+    "spin": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "t": 0.9,
+    "spin": [
+     150,
+     0,
+     0,
+     1
+    ]
+   }
+  ]
+ }
+}

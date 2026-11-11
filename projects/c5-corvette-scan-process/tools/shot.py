@@ -240,7 +240,7 @@ def main():
     sc.cycles.samples = samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = spec.get("persistent", False)  # off: lighting dropout seen in B3 frames 38-84
     sc.render.resolution_x, sc.render.resolution_y = spec.get("res", [1080, 1920])
     sc.render.resolution_percentage = res_pct
     sc.view_settings.view_transform = "AgX"

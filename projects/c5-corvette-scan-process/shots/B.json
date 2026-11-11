@@ -11,12 +11,12 @@
   1920
  ],
  "sensor": 21.2,
- "out": "/home/user/media/work/c5/renders/B3",
+ "out": "/home/user/media/work/c5/renders/B4",
  "light_ref": "car",
  "camera": [
   {
    "t": 0,
-   "cam": "/home/user/Illumaesthetic-Video-Editor/projects/c5-corvette-scan-process/match/cam_B_free.json",
+   "cam": "/home/user/Illumaesthetic-Video-Editor/projects/c5-corvette-scan-process/match/cam_B_wide.json",
    "dist": 2.0
   },
   {

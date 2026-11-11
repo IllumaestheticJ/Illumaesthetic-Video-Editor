@@ -2,31 +2,49 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1035,
+ "durationInFrames": 940,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "brackets",
    "from": 68,
-   "duration": 92
+   "duration": 224
   },
   {
    "kind": "label",
    "from": 72,
-   "duration": 86,
+   "duration": 76,
    "title": "FULL CAR SCAN",
    "sub": "8,255,611 TRIANGLES",
    "x": 0.08,
    "y": 0.1
   },
   {
-   "kind": "brackets",
-   "from": 400,
-   "duration": 86
+   "kind": "label",
+   "from": 176,
+   "duration": 56,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "8,028,053 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
   },
   {
    "kind": "label",
-   "from": 404,
+   "from": 234,
+   "duration": 56,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "REAR BUMPER SCANNED",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 530,
+   "duration": 88
+  },
+  {
+   "kind": "label",
+   "from": 534,
    "duration": 40,
    "title": "FENDER",
    "sub": "6,293,120 TRIANGLES",
@@ -35,33 +53,10 @@
   },
   {
    "kind": "label",
-   "from": 444,
+   "from": 576,
    "duration": 42,
    "title": "INSIDE + OUTSIDE",
    "sub": "FENDER + FRONT BUMPER SCANNED",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
-   "kind": "brackets",
-   "from": 528,
-   "duration": 124
-  },
-  {
-   "kind": "label",
-   "from": 556,
-   "duration": 48,
-   "title": "REAR BUMPER REMOVED",
-   "sub": "8,028,053 TRIANGLES",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
-   "kind": "label",
-   "from": 606,
-   "duration": 46,
-   "title": "INSIDE + OUTSIDE",
-   "sub": "REAR BUMPER SCANNED",
    "x": 0.08,
    "y": 0.1
   }
