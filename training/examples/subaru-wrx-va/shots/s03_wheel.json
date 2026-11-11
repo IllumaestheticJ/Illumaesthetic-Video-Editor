@@ -1,0 +1,34 @@
+{
+ "seconds": 2.5,
+ "lens": 50,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/car_2mm.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": 62,
+   "dist": 2.0,
+   "z": 0.45,
+   "look": [
+    1.32,
+    0.78,
+    0.36
+   ]
+  },
+  {
+   "t": 1,
+   "az": 92,
+   "dist": 1.8,
+   "z": 0.4,
+   "look": [
+    1.32,
+    0.78,
+    0.34
+   ]
+  }
+ ]
+}

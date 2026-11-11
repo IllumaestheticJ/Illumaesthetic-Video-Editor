@@ -1,0 +1,34 @@
+{
+ "seconds": 3.75,
+ "lens": 30,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/hood2_4mm.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": 40,
+   "dist": 2.9,
+   "z": 1.5,
+   "look": [
+    1.4,
+    0,
+    0.8
+   ]
+  },
+  {
+   "t": 1,
+   "az": 18,
+   "dist": 2.6,
+   "z": 2.1,
+   "look": [
+    1.4,
+    0,
+    0.75
+   ]
+  }
+ ]
+}

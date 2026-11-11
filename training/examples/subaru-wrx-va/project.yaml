@@ -1,0 +1,87 @@
+# Subaru WRX VA (Impreza VA) - Temerario-style scan reel v1 (scan only: no IRL footage, no text).
+# Satin-metallic silver scan on pure black (house look via tools/shots.py, a copy of the A90 sibling's renderer).
+# Shots: tools/plan.py -> shots/*.json, rendered by tools/render_all.sh at 75 % res, 12 spp, 15 fps; minterpolate to 30.
+# Music: original track generated for this reel (dark UK garage/bass), 132.4 BPM, kick grid b_k = 0.0567 + 0.4533 k (s).
+# Cuts at round(b_k * 30) frames; whole-frame durs, first clip one frame short (assembler adds 1 frame per cut).
+# Rendered shots play ~1.38x (nominal lengths were planned before the track arrived); the explode was keyed to the track.
+project: subaru-wrx-va
+format: reel-9x16
+output: {path: /home/user/media/subaru-wrx-va/out/subaru_wrx_va_scan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/subaru-wrx-va_track.mp3   # not committed
+  start: 0
+  fade_out: 1.2          # music stops at 29.5 s; the card fades with the tail
+
+# kick beats used as cuts (s): b8 3.683, b16 7.309, b20 9.122, b24 10.935, b28 12.748, b34 15.468, b38 17.281,
+# b46 20.907, b54 24.533 (explode locks), b58 26.346 (logo)
+beats: [0.057, 3.683, 7.309, 9.122, 10.935, 12.748, 15.468, 17.281, 20.907, 24.533, 26.346, 29.066]
+
+timeline:
+  - id: s01_front34      # b0-b8: low front 3/4 turntable, fades up from black
+    src: /home/user/media/subaru-wrx-va/renders/s01_front34
+    src_fps: 15
+    interpolate: true
+    speed: 1.37
+    dur: 3.6333
+    vf: "fade=t=in:st=0:d=0.6"
+  - transition: {type: cut, note: "b8 phrase kick 3.683"}
+  - id: s02_rear34       # b8-b16: rear 3/4 orbit, STI wing
+    src: /home/user/media/subaru-wrx-va/renders/s02_rear34
+    src_fps: 15
+    interpolate: true
+    speed: 1.38
+    dur: 3.6333
+  - transition: {type: cut, note: "b16 kick 7.309"}
+  - id: s03_wheel        # b16-b20: front wheel / brake close-up (2 mm scan)
+    src: /home/user/media/subaru-wrx-va/renders/s03_wheel
+    src_fps: 15
+    interpolate: true
+    speed: 1.37
+    dur: 1.8333
+  - transition: {type: cut, note: "b20 kick 9.122"}
+  - id: s04_front        # b20-b24: grille / headlight / fog bezel
+    src: /home/user/media/subaru-wrx-va/renders/s04_front
+    src_fps: 15
+    interpolate: true
+    speed: 1.39
+    dur: 1.8
+  - transition: {type: cut, note: "b24 kick 10.935"}
+  - id: s05_wing         # b24-b28: wing upright / tail (plate blanked)
+    src: /home/user/media/subaru-wrx-va/renders/s05_wing
+    src_fps: 15
+    interpolate: true
+    speed: 1.39
+    dur: 1.8
+  - transition: {type: cut, note: "b28 kick 12.748"}
+  - id: s06_hood         # b28-b34: hood open (captured state), craning over the engine bay
+    src: /home/user/media/subaru-wrx-va/renders/s06_hood
+    src_fps: 15
+    interpolate: true
+    speed: 1.38
+    dur: 2.7333
+  - transition: {type: cut, note: "b34 15.468 - first half-time kick of the second section"}
+  - id: s07_trunk        # b34-b38: trunk open
+    src: /home/user/media/subaru-wrx-va/renders/s07_trunk
+    src_fps: 15
+    interpolate: true
+    trim_start: 0.6
+    speed: 1.76
+    dur: 1.8
+  - transition: {type: cut, note: "b38 kick 17.281"}
+  - id: s08_topdown      # b38-b46: rise to straight overhead
+    src: /home/user/media/subaru-wrx-va/renders/s08_topdown
+    src_fps: 15
+    interpolate: true
+    speed: 1.38
+    dur: 3.6333
+  - transition: {type: cut, note: "b46 kick 20.907 - panels lift"}
+  - id: s09_explode      # b46-b58: separate, bumper turns, locks home on b54 (24.533), holds
+    src: /home/user/media/subaru-wrx-va/renders/s09_explode
+    src_fps: 15
+    interpolate: true
+    dur: 5.4333
+  - transition: {type: cut, note: "b58 kick 26.346 - logo"}
+  - id: logo             # ILLUMAESTHETIC end card (tools/logo_card.sh), fades with the track's tail
+    src: /home/user/media/subaru-wrx-va/logo_card.mp4
+    dur: 4.4667
