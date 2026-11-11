@@ -17,7 +17,7 @@ SPECS = "/home/user/media/work/sti/specs"
 HERE = os.path.dirname(os.path.abspath(__file__))
 CUES = os.path.join(HERE, "..", "cues.json")
 
-CAR = f"{P}/car4.blend"         # 4 mm full car
+CAR = f"{P}/car4_dp.blend"      # 4 mm full car, rear plate flattened (tools/deplate.py)
 FR2 = f"{P}/fr_2mm.blend"       # 2 mm front half (close-ups)
 RR2 = f"{P}/rr_2mm.blend"       # 2 mm rear half
 OPEN = f"{P}/base_open.blend"   # car minus hood/bumper/wing/left skirt, openings filled with state scans
