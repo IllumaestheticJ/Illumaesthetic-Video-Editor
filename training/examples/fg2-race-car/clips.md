@@ -38,3 +38,9 @@ Audio placed from 7.503 s so the drop hits video 6.371 s.
 
 ## Logo
 Drive `IllumaestheticLogoColor-01.png` 1cZJj521P88T_vC2YZDJVVUCctGyNoukR (6447x1434 RGBA).
+
+## v2 additions
+- End card: Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W), 3083x417 white on transparent.
+- Wing configurator: epsilon.plus/pages/wing-configurator (JS 0.9.18) builds wings parametrically and can export .stl/.obj.
+  Not used: the #806 wing's configuration is unknown, and the rule is "configurator + exact match or no wing".
+- Extended-canvas renders: `layers/<angle>_{scan,cgi}_canvas.png`, plans in `match/plan_<angle>.json`.

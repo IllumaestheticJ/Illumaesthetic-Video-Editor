@@ -2,3 +2,6 @@
 {"ts": "2026-11-10T23:35:07Z", "project": "fg2-race-car", "at": null, "category": "story", "note": "Avoid finished photos where the lip is still black/unpainted; use photos with the painted lip", "by": "user", "promoted": false}
 {"ts": "2026-11-11T00:24:17Z", "project": "fg2-race-car", "at": null, "category": "technical", "note": "Make sure the video is cropped for TikTok format (9:16 1080x1920, full-bleed)", "by": "user", "promoted": false}
 {"ts": "2026-11-11T01:08:35Z", "project": "fg2-race-car", "at": null, "category": "audio", "note": "Music: Macarena (slowed + reverb) upload - use only the beginning, cut on drops", "by": "user", "promoted": false}
+{"ts": "2026-11-11T04:20:09Z", "project": "fg2-race-car", "at": "19.1", "category": "story", "note": "End card should be the Epsilon logo (not Illumaesthetic)", "by": "user", "promoted": false}
+{"ts": "2026-11-11T04:20:09Z", "project": "fg2-race-car", "at": null, "category": "scan-look", "note": "Gradually zoom out (not in) to show more of the full car; fill outside the photo with a blurred extension of the photo", "by": "user", "promoted": false}
+{"ts": "2026-11-11T04:20:09Z", "project": "fg2-race-car", "at": "12.7", "category": "story", "note": "Do not add a wing to the photos/CGI unless it is from the wing configurator and matches exactly", "by": "user", "promoted": true}

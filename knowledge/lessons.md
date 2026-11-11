@@ -77,3 +77,9 @@ lands here automatically. Agents must read this whole file before editing.
   to the image's grey (`--morph-to-clay`, tuned from median luma) before the dissolve starts.
 - **[technical]** Verify alignment numerically (silhouette bounds / phaseCorrelate) - a hand-made side-by-side
   overlay with a different material can look mismatched when the geometry is right.
+
+- **[story]** Do not add a wing to the photos/CGI unless it is from the wing configurator and matches exactly  _(from fg2-race-car @ 12.7s, 2026-11-11, user)_
+- **[scan-look]** Landscape photos in a 9:16 reel: user wanted a gradual zoom OUT to the whole car, not a push-in.
+  Render scan/CGI on an extended canvas (same focal, wider sensor, symmetric about the principal point) and put the photo
+  on a blurred, darkened fill of itself (fg2-race-car/tools/canvas.py + kb_zoomout.py).
+- **[text]** Epsilon product reels end on the Epsilon+ wordmark (Drive `EPSILON+ Logos`), not the Illumaesthetic logo.
