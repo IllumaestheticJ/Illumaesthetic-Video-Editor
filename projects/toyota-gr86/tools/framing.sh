@@ -10,7 +10,7 @@ s = sys.argv[1]; p = json.load(open(f"projects/toyota-gr86/shots/{s}.json"))
 p.update(res_pct=25, samples=6, frames=["first", "mid", "last"], out=f"/home/user/media/work/gr86/frame/{s}")
 json.dump(p, open(f"/home/user/media/work/gr86/frame/{s}.json", "w"))
 PY
-  /usr/local/bin/blender -b -P projects/ferrari-296/tools/shot.py -- $F/$s.json > $F/$s.log 2>&1
+  /usr/local/bin/blender -b -P projects/toyota-gr86/tools/shot.py -- $F/$s.json > $F/$s.log 2>&1
   python -c "
 from PIL import Image; import glob
 fs=sorted(glob.glob('$F/$s/f_*.png')); ims=[Image.open(f) for f in fs]; w,h=ims[0].size
