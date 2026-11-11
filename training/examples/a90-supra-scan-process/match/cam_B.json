@@ -1,0 +1,51 @@
+{
+ "image_size": [
+  1080,
+  1920
+ ],
+ "fx_px": 1493.3333333333333,
+ "focal_mm": 28,
+ "sensor_width_mm": 20.25,
+ "shift_x": 0.0,
+ "shift_y": 0.0,
+ "blender": {
+  "location": [
+   -5.414642446169554,
+   -0.47552644027125457,
+   0.9800080805788871
+  ],
+  "rotation_euler": [
+   1.6174618096140467,
+   0.04216957673327995,
+   -1.4539344946808639
+  ],
+  "rotation_matrix": [
+   [
+    0.11649236832698778,
+    -0.041420380901590836,
+    -0.9923275065055572
+   ],
+   [
+    -0.9922964822849086,
+    -0.04726299852194854,
+    -0.11451593869724197
+   ],
+   [
+    -0.042157079673117936,
+    0.998023326890049,
+    -0.046607076895606336
+   ]
+  ]
+ },
+ "rmse_px": 5.8110819639211755,
+ "per_point_error_px": {
+  "emblem": 2.74,
+  "badge": 9.35,
+  "exL_top": 6.44,
+  "exR_top": 5.59,
+  "lip_c": 5.83,
+  "mirR": 0.95
+ },
+ "quality": "bad - correspondences are wrong or lens is heavily distorted",
+ "method": "LM from projects/a90-supra-scan-process/match/cam_A.json back 1.0 m"
+}

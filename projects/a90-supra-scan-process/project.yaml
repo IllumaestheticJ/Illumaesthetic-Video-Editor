@@ -7,7 +7,7 @@
 # Frames @30: cuts 95 208 245 433 508 | dissolve 688-703 | end 845 (28.18 s bar). Kicks: 0.682 + 0.625k.
 project: a90-supra-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/a90_scan_process_v2.1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/a90_scan_process_v2.2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront)

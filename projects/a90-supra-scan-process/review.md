@@ -6,7 +6,7 @@ Plan: `direction.md` (scene-director). Applies the user's two notes, the all-ree
 | # | Criterion | Score | Notes |
 |---|---|---|---|
 | 1 | Hook | 4 | the real Supra pulls up behind from frame 0; 1:1 transformation at 3.17 s on the bar downbeat |
-| 2 | Beat sync | 5 | 5 cuts measured on the decoded audio of the delivered file: −14 / +2 / +15 / +2 / +2 ms vs kicks; bumper lands 9.43, inside faces lens 10.68, fender off on the 15.68 lift, bumper home 18.18, zoom-out 25.68, end on the 28.18 bar |
+| 2 | Beat sync | 5 | 5 cuts measured on the decoded audio of the delivered file: −14 / +2 / +15 / +2 / 0 ms vs kicks (3.181, 6.931, 8.185, 14.431, 16.933); bumper lands 9.43, inside faces lens 10.68, fender off on the 15.68 lift, bumper home 18.18, zoom-out 25.68, end on the 28.18 bar |
 | 3 | 1:1 match | 5 | wider match (39.2 s, car ~67 % of the width, was ~95 %): cam_B LM-refined from cam_A, onion aligned on exhausts, emblem, recess, lamps, mirror, roofline; s1 frame 1 IoU 0.93 vs the solved render |
 | 4 | Scan quality | 4 | front: Under Front Bumper replaces the full car's loose lip strips; Under Fender + arch Liners fill the corners; no ground; no wheels in any A90 scan |
 | 5 | Story | 4 | rear → right side → front (bumper-removed hero: off toward camera, inside turned, push in on crash beam / radiator / ducts) → fender off (Under Fender) → x-ray whole car → listing. Each section once. Still no scanning/crew footage exists (option b) |

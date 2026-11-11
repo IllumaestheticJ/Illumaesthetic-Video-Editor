@@ -1,12 +1,12 @@
 {
- "_note": "Matched shot: frame 0 = cam_A (1:1 with v_0713_1944_44 @ 40.400 s). Holds 0.4 s, then the camera rises/pulls back to a rear-left 3/4 while the rear bumper (outside+inside scans) slides back and turns 180 deg about Z so its scanned inside faces the lens. 5.0 s = 8 beats (3.182 -> 8.182).",
+ "_note": "Matched shot: frame 0 = cam_A (1:1 with v_0713_1944_44 @ 40.400 s). Holds 0.4 s, then the camera rises/pulls back to a rear-left 3/4 while the rear bumper (outside+inside scans) slides back and turns 180 deg about Z so its scanned inside faces the lens. 5.0 s = 8 beats (3.182 -> 8.182). v2: base_explode2 (arch Liners fill the rear arches when the bumper is off).",
  "seconds": 5.0,
  "lens": 28,
  "sensor": 20.25,
  "ease": "linear",
  "objects": [
   {
-   "blend": "/home/user/media/work/a90sp/blend/base_explode.blend"
+   "blend": "/home/user/media/work/a90sp/blend/base_explode2.blend"
   },
   {
    "blend": "/home/user/media/work/a90sp/blend/fbump.blend"

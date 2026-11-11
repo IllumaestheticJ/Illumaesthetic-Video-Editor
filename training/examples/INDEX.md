@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-11
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
@@ -29,7 +30,6 @@ Newest first. Read the top two before starting a new edit.
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11
-- [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11
