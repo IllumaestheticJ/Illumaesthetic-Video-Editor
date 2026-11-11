@@ -97,11 +97,12 @@ SHOTS["s8_explode"] = {
     "base": [f"{P}/comp_explode.blend"],
     "parts": [
         {"blend": f"{P}/hood.blend", "keys": explode((0, 0.25, 1.25), (-10, 0, 0))},
-        {"blend": f"{P}/fbumper.blend", "keys": explode((0, 0.75, 0.55), (8, 0, 0), delay=0.15)},
-        {"blend": f"{P}/rbumper.blend", "keys": explode((0, -0.75, 0.55), (-8, 0, 0), delay=0.3)},
+        {"blend": f"{P}/fbumper.blend", "keys": explode((0, 0.55, 0.75), (8, 0, 0), delay=0.15)},
+        {"blend": f"{P}/rbumper.blend", "keys": explode((0, -0.55, 0.75), (-8, 0, 0), delay=0.3)},
     ],
-    "cam": [orbit(0, 6.6, 42, 2.4, c=(0, 0.1, 0.75), focal=30, ease="lin"),
-            orbit(EXPL["end"], 6.9, 112, 2.9, c=(0, -0.1, 0.8), focal=30, ease="inout")],
+    # sampled along the arc (keys interpolate loc linearly -> a 2-key 70 deg move cuts the chord and crops the car)
+    "cam": [orbit(EXPL["end"] * u, 7.6 + 0.3 * e, 30 + 34 * e, 2.6 + 0.4 * e, c=(0.15, 0.5 - 0.1 * e, 0.75), focal=30, ease="lin", tz=1.05)
+            for u, e in [(i / 10, (1 - math.cos(math.pi * i / 10)) / 2) for i in range(11)]],
 }
 
 
