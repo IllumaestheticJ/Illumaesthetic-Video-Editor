@@ -1,0 +1,58 @@
+{
+ "_focus": "whole car, wheels + suspension on (side profile, fade up)",
+ "_reel": [
+  0.0,
+  4.0
+ ],
+ "_window": [
+  0.0,
+  4.1
+ ],
+ "seconds": 4.1,
+ "lens": 35,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend/car.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/n_interior6.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_FR.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_FL.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_RR.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_RL.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": -90,
+   "dist": 6.6,
+   "z": 0.75,
+   "look": [
+    0.25,
+    0,
+    0.42
+   ]
+  },
+  {
+   "t": 1,
+   "az": -78,
+   "dist": 6.4,
+   "z": 0.85,
+   "look": [
+    0.05,
+    0,
+    0.42
+   ]
+  }
+ ]
+}

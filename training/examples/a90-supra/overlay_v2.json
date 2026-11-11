@@ -1,0 +1,90 @@
+{
+ "_note": "A90 v2 label track (plan_v2_sections.md section 4). Wording confirmed on full-res final frames (v03 f112/f126 crash beam + radiator stack; v06 f80/f90 crash beam + exhaust tips).",
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1245,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 210,
+   "duration": 75,
+   "title": "FRONT BUMPER",
+   "sub": "INSIDE + OUTSIDE SCANNED",
+   "x": 0.08,
+   "y": 0.76,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 270,
+   "duration": 45,
+   "title": "RADAR COVER",
+   "sub": "+ MOUNTING GRILLE",
+   "x": 0.92,
+   "y": 0.7,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 315,
+   "duration": 36,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "CRASH BEAM \u00b7 RADIATORS",
+   "x": 0.08,
+   "y": 0.78,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 390,
+   "duration": 81,
+   "title": "FRONT SUSPENSION",
+   "sub": "WHEEL \u00b7 BRAKE \u00b7 COILOVER",
+   "x": 0.08,
+   "y": 0.1,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 495,
+   "duration": 96,
+   "title": "SIDE TRIM REMOVED",
+   "sub": "DOOR TRIM \u00b7 UPPER + LOWER SKIRT",
+   "x": 0.08,
+   "y": 0.08,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 630,
+   "duration": 75,
+   "title": "REAR BUMPER",
+   "sub": "INSIDE + OUTSIDE SCANNED",
+   "x": 0.92,
+   "y": 0.76,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 729,
+   "duration": 42,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "CRASH BEAM \u00b7 EXHAUST",
+   "x": 0.08,
+   "y": 0.78,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 795,
+   "duration": 96,
+   "title": "REAR SUSPENSION",
+   "sub": "WHEEL \u00b7 BRAKE \u00b7 SPRING \u00b7 DAMPER",
+   "x": 0.08,
+   "y": 0.1,
+   "align": "left"
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+{
+ "_focus": "clean assembled car (swap to car.blend on the lock), fade to black 37-38",
+ "_reel": [
+  36.0,
+  38.0
+ ],
+ "_window": [
+  36.0,
+  38.1
+ ],
+ "seconds": 2.1,
+ "lens": 35,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend/car.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/n_interior6.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_FR.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_FL.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_RR.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend/L_corner_RL.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": -134,
+   "dist": 6.9,
+   "z": 2.7,
+   "look": [
+    -0.1,
+    0,
+    0.4
+   ]
+  },
+  {
+   "t": 1,
+   "az": -128,
+   "dist": 6.6,
+   "z": 2.4,
+   "look": [
+    -0.1,
+    0,
+    0.4
+   ]
+  }
+ ]
+}

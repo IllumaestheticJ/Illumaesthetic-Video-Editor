@@ -24,3 +24,28 @@ Output: `/home/user/media/work/out/a90_supra_scan_v1.mp4` - 1080x1920, 30 fps, y
 - Headlight close-up uses the car scan's headlight; the separate headlight unit scans would not register.
 - `ive beats` reads the score at 198.8 BPM (octave error from offbeat hats); the onset list confirms the 2.5 s bar hits.
 - `ive strip` shows the frame *after* the requested time at cuts (one-frame seek offset); use `select=eq(n,N)` for exact cut frames.
+
+---
+
+# A90 Supra scan reel v2 - self-review (training/rubric.md)
+
+Output: `/home/user/media/work/out/a90_supra_scan_v2.mp4` - 1080x1920, 30 fps, yuv420p, H.264 + AAC 48 kHz, 41.50 s
+(1,245 frames), faststart, -16.8 LUFS. Temerario structure, section-by-section disassembly (plan_v2_sections.md),
+wheels + suspension corners built from the engineering STEP hardpoints, 8 factual labels (user: "Add the labels").
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Hook | 3 | Whole car with wheels, fade-up 0-1.2 s on the drone, as in the Temerario. Calm by design; first part moves at 7.0 s. Weak for a feed hook. |
+| 2 | Beat sync | 5 | Measured on the decoded audio of the final mp4: every 0.3 s dissolve ends on its bar kick (4/12/16/20/26/30 s: 0 ms); hard cut at 36.0 on the big hit (0 ms); logo at 38.0 (+20 ms). 34.0 onset reads +140 ms (riser, no kick on that bar). |
+| 3 | 1:1 match | n/a | Scan only. The v09a composite -> v09b clean car.blend swap at 36.0 is the same camera path: frames match, the swap is invisible. |
+| 4 | Scan quality | 4 | Real wheels/brakes/coilovers in the arches (STEP hardpoint assembly); bumpers tip to show their scanned inner faces; behind them crash beam + radiators / crash beam + exhaust from the state scans. Minus: left-side corners are mirrored right-side scans; knuckles/arms not placed; v06 mid-rise car at ~45 % width. |
+| 5 | Story | 5 | front -> side -> rear, one section per shot, each held on what is under it; line-up overhead; reassembly locks on the hit; clean car; small logo. |
+| 6 | Grade | 5 | Same AgX silver as v1, consistent; luma scan found no dark frames in any of the 9 shots (615 frames). |
+| 7 | Text | 4 | 8 labels, names only, no numbers, max two on screen, never over the subject, all off >= 0.3 s before a cut. Wording checked on full-res frames. Minus: rubric says <= 2 items - this reel has 8 by design (one per section, user-approved). |
+| 8 | Ending | 5 | Reassembly on 36.0, fade to black 37-38, small logo (270 px) fades 38.2-38.9, out 40.6-41.5 with the chord tail. |
+| 9 | Technical | 5 | Spec above; no frozen frames inside any shot (min frame diff > 0.02 everywhere); one intended 1-frame hold at the 36.0 cut (assembler cut rule). |
+
+## Known gaps / for the reviewer
+- Length 41.5 s vs the 30-40 s brief. Cheapest trims: logo to 2.5 s (40.5 s) or v08 line-up to one bar (39.5 s).
+- No trunk-open beat: no open-trunk scan exists (2024 trunk registers closed only).
+- FL/RL corners are mirrored FR/RR scans (only right-side corners were scanned).

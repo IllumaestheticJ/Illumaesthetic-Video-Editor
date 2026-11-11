@@ -1,0 +1,74 @@
+# Toyota A90 Supra - v2, Temerario structure, section-by-section disassembly (plan: plan_v2_sections.md).
+# Scan only, satin silver on black, labels (overlay_v2.json -> ive hud) on the section beats only.
+# 120 BPM, bar = 2.0 s. Every 0.3 s dissolve ENDS on a bar line: each incoming clip's render window starts 0.3 s early,
+# so frame 1 of a clip = reel time (bar - 0.3). src_fps stays 15 so part motion stays locked to the score's hits.
+project: a90-supra
+format: reel-9x16
+output: {path: /home/user/media/work/out/a90_supra_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+music:
+  path: /home/user/media/work/a90/music/a90_score_v2.wav   # python projects/ferrari-296/tools/music.py projects/a90-supra/cues_v2.json <this>
+  start: 0
+  fade_out: 0.3
+overlays:
+  - {src: /home/user/media/work/a90/labels_v2.mov, start: 0}
+beats: [0, 4, 12, 16, 20, 26, 30, 34, 36, 38]
+timeline:
+  - id: v01_whole   # whole car with wheels + suspension, fades up
+    src: /home/user/media/work/a90/renders_v2/v01_whole
+    src_fps: 15
+    interpolate: true
+    dur: 4.0
+    vf: "fade=t=in:st=0:d=1.2"
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v03_fbump   # front bumper slides, tips inner face up; push in on crash beam + radiators
+    src: /home/user/media/work/a90/renders_v2/v03_fbump
+    src_fps: 15
+    interpolate: true
+    dur: 8.3
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v04_fcorner   # FR corner: fender, wheel, brake, coilover separate
+    src: /home/user/media/work/a90/renders_v2/v04_fcorner
+    src_fps: 15
+    interpolate: true
+    dur: 4.3
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v05_side   # right side: door trim, upper + lower skirt
+    src: /home/user/media/work/a90/renders_v2/v05_side
+    src_fps: 15
+    interpolate: true
+    dur: 4.3
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v06_rbump   # rear bumper aft + tip; push in on crash beam + exhaust
+    src: /home/user/media/work/a90/renders_v2/v06_rbump
+    src_fps: 15
+    interpolate: true
+    dur: 6.3
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v07_rcorner   # RR corner: wheel, brake, spring, damper
+    src: /home/user/media/work/a90/renders_v2/v07_rcorner
+    src_fps: 15
+    interpolate: true
+    dur: 4.3
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v08_lineup   # full exploded line-up, overhead
+    src: /home/user/media/work/a90/renders_v2/v08_lineup
+    src_fps: 15
+    interpolate: true
+    dur: 4.3
+  - transition: {type: dissolve, duration: 0.3}
+  - id: v09a_reasm   # reassembly locks on 36.0
+    src: /home/user/media/work/a90/renders_v2/v09a_reasm
+    src_fps: 15
+    interpolate: true
+    dur: 2.3
+  - transition: {type: cut, note: "36.0 big hit - same camera, composite -> clean car.blend (invisible swap)"}
+  - id: v09b_clean   # clean car small, fade to black 37.0-38.0
+    src: /home/user/media/work/a90/renders_v2/v09b_clean
+    src_fps: 15
+    interpolate: true
+    dur: 2.0
+    vf: "fade=t=out:st=1.0:d=1.0"
+  - transition: {type: cut, note: "38.0 chord - black to black"}
+  - id: logo   # small logo, fade in 38.2-38.9, out 40.6-41.5 (tools/logo_card_v2.sh)
+    src: /home/user/media/work/a90/logo_card_v2.mp4
+    dur: 3.5
