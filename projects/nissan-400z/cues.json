@@ -1,0 +1,15 @@
+{
+ "note": "render lengths (s) with trim headroom; the edit trims to the track's accents (project.yaml durs)",
+ "secs": {
+  "s1_front34": 5.6,
+  "s2_rear34": 5.0,
+  "s4_lamp": 3.0,
+  "s5_tail": 3.0,
+  "s6_hood": 4.6,
+  "s7_top": 4.0,
+  "s8_explode": 10.0,
+  "s3_haunch": 3.0
+ },
+ "hood_start": 0.6,
+ "hood_open": 2.8
+}
