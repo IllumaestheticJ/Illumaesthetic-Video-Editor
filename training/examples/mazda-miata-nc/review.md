@@ -1,3 +1,9 @@
+# Mazda Miata NC scan reel v2.1 — plate restored
+
+Output: `/home/user/media/work/miata/out/mazda_miata_nc_v2_1.mp4`. Same cut as v2, but the scanned licence plate is back: the user decided plate removal applies to the IS300 only ("Only is300", relayed by the parent session). v3_rear and v3_end re-rendered from the original car4/comp_explode blends; v3_endclean test-rendered and was identical (plate out of view), so it was kept. Scores unchanged except 4 (Scan quality): the plate is shown as scanned, which is now the house rule.
+
+---
+
 # Mazda Miata NC scan reel v2 — agent self-review (training/rubric.md)
 
 Output: `/home/user/media/work/miata/out/mazda_miata_nc_v2.mp4` — 1080×1920, 30 fps, yuv420p, AAC, faststart, 37.97 s (1139 frames).
@@ -8,7 +14,7 @@ Rebuilt from user feedback ("rotations wasted; focus on the front bumper, THEN t
 | 1 | Hook | 4 | whole car with margins, push-in moving from frame 1; first transformation (bumper off) at 7.4 s — after the wheel + lamp details |
 | 2 | Beat sync | 5 | 10 cuts measured on decoded audio (kickcheck, 40–120 Hz): 8 within ±0.4 frame; 142 (+0.55) and 840 (−0.52) are kicks falling between two frames. No cuts in the kick-less breakdown; hood lifts off on the drop (18.70 s) |
 | 3 | 1:1 match | n/a | scan-only brief |
-| 4 | Scan quality | 4 | rear plate flattened (deplate) before rear/end renders; wheel close-up still shows scan holes in the spokes; engine bay has scan gaps (true data, not hidden) |
+| 4 | Scan quality | 4 | rear plate flattened (deplate) before rear/end renders [reverted in v2.1: IS300-only rule]; wheel close-up still shows scan holes in the spokes; engine bay has scan gaps (true data, not hidden) |
 | 5 | Story | 4 | whole → wheel → lamp → bumper off → what was under it (hero, labelled) → hood opens → hood off on drop → trunk opens → top view, panels home → clean car fades → logo. Front → rear, no ping-pong, no turntables. Director still flags lamp~b2~b3a as one front view (different scan states, kept deliberately) |
 | 6 | Grade | 5 | house satin silver on black; every frame luma-scanned, no dark frames |
 | 7 | Text | 4 | six labels, factual only (what was scanned / which states exist), no numbers; dark halo added for legibility over silver. Rubric says ≤2 items — the user explicitly asked for scan labels, so six short ones, never two at once |
