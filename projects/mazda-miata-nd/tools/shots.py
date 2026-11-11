@@ -28,7 +28,7 @@ BEAT = T["beat"]
 SECS = T["secs"]
 ACT = T.get("act", {})  # optional per-shot action times (s)
 
-CAR = f"{P}/car4.blend"          # 4 mm: full-car moves
+CAR = f"{P}/car4np.blend"        # 4 mm, licence plate flattened (tools/flatten_plate.py): full-car moves
 CAR_F2 = f"{P}/car2_front.blend"  # 2 mm front half: close-ups
 HOOD_PIVOT = [-0.1237, -0.458, 0.8887]   # tools/hinge.py fit (prepped m), opens -43.67 deg about X
 TRUNK_PIVOT = [-0.1237, 1.3358, 0.9865]  # opens +85.69 deg about X
@@ -69,11 +69,11 @@ SHOTS = {
     # 3. extreme close-up: front right wheel (6-spoke, brake behind), slow slide forward along the tyre
     "s3_wheel": {"base": [CAR_F2], "cam": [
         {"t": 0, "loc": [-1.95, -0.62, 0.40], "target": [-0.86, -1.12, 0.33], "focal": 40},
-        {"t": S["s3_wheel"], "loc": [-1.92, -1.62, 0.42], "target": [-0.86, -1.24, 0.33], "focal": 40, "ease": "inout"}]},
+        {"t": S["s3_wheel"], "loc": [-1.94, -1.12, 0.41], "target": [-0.86, -1.18, 0.33], "focal": 40, "ease": "inout"}]},
     # 4. detail: right headlight + grille, sliding across the nose toward the badge
     "s4_lamp": {"base": [CAR_F2], "cam": [
         {"t": 0, "loc": [-1.55, -2.75, 0.88], "target": [-0.55, -1.72, 0.64], "focal": 38},
-        {"t": S["s4_lamp"], "loc": [-0.55, -3.05, 0.82], "target": [-0.35, -1.85, 0.6], "focal": 38, "ease": "inout"}]},
+        {"t": S["s4_lamp"], "loc": [-1.05, -2.92, 0.85], "target": [-0.45, -1.78, 0.62], "focal": 38, "ease": "inout"}]},
 }
 
 # 5. front opens: bumper slides forward (pull), then the hood swings up on its fitted hinge to the captured pose

@@ -1,22 +1,74 @@
-# Copy to projects/<name>/project.yaml. Times in seconds; every cut should sit on a `beats` entry.
-project: NAME
+# Mazda Miata ND - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
+# Satin-silver scan on black; turntable -> rear orbit -> wheel + headlight close-ups -> front opens (bumper off, hood up on its
+# fitted hinge) -> rear opens (bumper off, trunk up) -> top-down -> exploded view -> logo.
+# Shots: tools/shots.py (specs, timings from timing.json) rendered by projects/ferrari-296/tools/shot.py, one at a time.
+# Music: mazda-miata-nd_track.mp3 - original track generated for this car by the coordinating session (ElevenLabs via Higgsfield).
+#   116.01 BPM, beat 0.51721 s, first kick 8.336 s, last hit 33.162 s, -40 dB at 36.6 s (tools/music_scan.py).
+#   miata_cut.wav = track from 4.1983 s (8 beats before the first kick) with a 0.3 s fade-in.
+# Cuts on video frames 124 248 310 372 497 621 683 869; end 972 (32.4 s). Whole-frame durs, first clip one frame short
+# (the assembler adds a hold frame per cut).
+project: mazda-miata-nd
 format: reel-9x16
-output: {path: /home/user/media/work/out/NAME_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
-music: {path: /path/to/track.wav, start: 0, fade_out: 0.6}
-beats: []            # from `python -m ive beats <track>`
+output: {path: /home/user/media/work/miata/out/miata_nd_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/miata_cut.wav   # not in git
+  start: 0
+  fade_out: 0.4
+
+beats: [4.133, 8.267, 10.333, 12.4, 16.567, 20.7, 22.767, 28.967]
+
 timeline:
-  - id: irl_1
-    src: /home/user/media/NAME/dropbox/clip.mov   # HLG is tonemapped automatically
-    in: 0.0
-    out: 2.5
-  - id: irl_match           # must END on the solved frame (out = t + 1/fps)
-    src: /home/user/media/NAME/dropbox/clip2.mov
-    in: 1.3
-    out: 3.8334
-  - transition: {type: cut}  # the 1:1 perspective cut; also: dissolve, dip, flash, scanline, ghost
-  - id: scan_match
-    src: /home/user/media/work/renders/shots/s1_match   # PNG sequence dir from `ive render`
+  - id: s1_turntable   # front 3/4 turntable over the 8-beat pad intro
+    src: /home/user/media/work/miata/renders/final/s1_turntable
     src_fps: 15
     interpolate: true
-    trim_end: 2.5
-overlays: []          # [{src: hud.mov, start: 0}] from `ive hud`
+    dur: 4.1     # 123 frames (one short)
+  - transition: {type: cut, note: "8.336 first kick"}
+  - id: s2_rear        # rear 3/4 orbit, car's left, rising
+    src: /home/user/media/work/miata/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.1333
+  - transition: {type: cut, note: "12.473 phrase"}
+  - id: s3_wheel       # extreme close-up: front-right wheel + brake (2 mm)
+    src: /home/user/media/work/miata/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.0667
+  - transition: {type: cut, note: "14.542 accent"}
+  - id: s4_lamp        # headlight + grille slide (2 mm)
+    src: /home/user/media/work/miata/renders/final/s4_lamp
+    src_fps: 15
+    interpolate: true
+    dur: 2.0667
+  - transition: {type: cut, note: "16.611 section lift"}
+  - id: s5_front       # bumper off beats 0-2, hood up beats 2-6 to the captured open pose
+    src: /home/user/media/work/miata/renders/final/s5_front
+    src_fps: 15
+    interpolate: true
+    dur: 4.1667
+  - transition: {type: cut, note: "20.749 phrase"}
+  - id: s6_rear_open   # rear bumper off beats 0-2, trunk up beats 2-6
+    src: /home/user/media/work/miata/renders/final/s6_rear_open
+    src_fps: 15
+    interpolate: true
+    dur: 4.1333
+  - transition: {type: cut, note: "24.886 phrase"}
+  - id: s7_top         # up and over to top-down
+    src: /home/user/media/work/miata/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 2.0667
+  - transition: {type: cut, note: "26.955 - panels separate"}
+  - id: s8_explode     # separate, drift + orbit, LOCK on 32.127 kick, hold 2 beats
+    src: /home/user/media/work/miata/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 6.2
+  - transition: {type: cut, note: "33.162 last hit - logo over the decay"}
+  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.4333
+    src: /home/user/media/work/miata/out/logo_card.mp4
+    dur: 3.4333
+
+overlays: []
