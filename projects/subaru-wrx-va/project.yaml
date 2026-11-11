@@ -79,11 +79,11 @@ timeline:
     speed: 1.0
     dur: 3.6333          # 109 frames
   - transition: {type: cut, note: "b42 kick 19.095 (f571)"}
-  - id: s07_trunk        # b42-b46 REAR: captured trunk-open state, src frames 0-27 (straight high rear)
+  - id: n5_trunk         # b42-b46 REAR: captured trunk-open state, push into the open lid (director.md fallback; replaces s07, flagged ~s01)
     section: rear
     focus: open trunk lid and cavity
     beat: 42
-    src: /home/user/media/subaru-wrx-va/renders/s07_trunk
+    src: /home/user/media/subaru-wrx-va/renders/n5_trunk
     src_fps: 15
     interpolate: true
     speed: 1.0
