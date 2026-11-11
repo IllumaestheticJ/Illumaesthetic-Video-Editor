@@ -1,0 +1,88 @@
+# Lola (Drifter movie AE86s) scan-process reel, 240SX format: real -> 1:1 cut on the drop -> crew scanning -> 1:1 ->
+# exploded scan -> scan-software screens -> Lola 2 detail -> logo card (no illumaesthetic.com listing for this car).
+# IRL = Ray-Ban Meta glasses POV, SDR; selects pre-cropped 3:4 -> 9:16 in /home/user/media/work/lola/sel (crops in editlog).
+project: lola-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/lola_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/lola-scan-process_track.mp3   # parent-session original track (not in git)
+  start: 0
+  fade_out: 1.2
+
+# Measured 40-120 Hz kick peaks used as cuts (s): drop 2.426, 5.811, lift 9.346, 15.0, 16.109, 17.258, 19.58, 21.827,
+# 25.345, 26.43, logo 28.735. Durs are whole frames so each cut = round(kick*30); first clip one frame short.
+beats: [2.426, 5.811, 9.346, 15.0, 16.109, 17.258, 19.58, 21.827, 25.345, 26.43, 28.735]
+
+timeline:
+  - id: irl_spray      # powder spray sweep over Lola 1; ENDS on the solved frame (spray.mp4 frame 446)
+    src: /home/user/media/work/lola/sel/spray.mp4
+    in: 12.5
+    out: 14.9
+    dur: 2.4
+  - transition: {type: cut, note: "1:1 IRL -> scan on the drop (cam_A, Lola 1 Exterior)"}
+  - id: scan_A         # Lola 1 exterior, silver, 25 deg orbit from cam_A
+    src: /home/user/media/work/lola/renders/s1_A
+    src_fps: 15
+    interpolate: true
+    dur: 3.3667
+  - transition: {type: cut}
+  - id: irl_scanner    # handheld scanner comes down and frames the rear 3/4; ENDS on the solved frame (scanner.mp4 frame 282)
+    src: /home/user/media/work/lola/sel/scanner.mp4
+    in: 5.9
+    out: 9.4333
+    dur: 3.5333
+  - transition: {type: cut, note: "1:1 IRL -> scan on the lift (cam_B)"}
+  - id: scan_B         # exterior shell lifts off the interior/cage scan and spins; camera pulls back
+    src: /home/user/media/work/lola/renders/s2_B
+    src_fps: 15
+    interpolate: true
+    dur: 5.6667
+  - transition: {type: cut}
+  - id: irl_interior   # scanning the gutted Lola 1 cabin / cage
+    src: /home/user/media/work/lola/sel/interior.mp4
+    in: 1.5
+    dur: 1.1
+  - transition: {type: cut}
+  - id: screen_register   # scan software: interior fragments being aligned (2x)
+    src: /home/user/media/work/lola/sel/sr_register.mp4
+    in: 0.0
+    speed: 2.0
+    dur: 1.1667
+  - transition: {type: cut}
+  - id: irl_lola2      # spraying Lola 2's wing -> rear (scanner on the roof stand)
+    src: /home/user/media/work/lola/sel/lola2_irl.mp4
+    in: 3.25
+    dur: 2.3
+  - transition: {type: cut}
+  - id: screen_color   # finished colour model of Lola 2 in the scan software
+    src: /home/user/media/work/lola/sel/sr_color.mp4
+    in: 1.4
+    dur: 2.2667
+  - transition: {type: cut}
+  - id: scan_hero      # Lola 2 silver, front-3/4 orbit
+    src: /home/user/media/work/lola/renders/s3_hero
+    src_fps: 15
+    interpolate: true
+    dur: 3.5
+  - transition: {type: cut}
+  - id: scan_wing      # Lola 2 wing detail
+    src: /home/user/media/work/lola/renders/s4_wing
+    src_fps: 15
+    interpolate: true
+    dur: 1.1
+  - transition: {type: cut}
+  - id: scan_front     # Lola 2 pop-ups / front bumper push-in
+    src: /home/user/media/work/lola/renders/s5_front
+    src_fps: 15
+    interpolate: true
+    dur: 2.3
+  - transition: {type: cut}
+  - id: logo           # ILLUMAESTHETIC logo, then ILLUMAESTHETIC.COM fades in last (tools/end_card.py)
+    src: /home/user/media/work/lola/end_card.mp4
+    in: 0
+    dur: 3.2667
+
+overlays:
+  - src: /home/user/media/work/out/hud_lola.mov   # `ive hud projects/lola-scan-process/overlay.json`
+    start: 0
