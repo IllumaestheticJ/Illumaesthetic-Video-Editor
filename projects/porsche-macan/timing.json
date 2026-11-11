@@ -1,0 +1,7 @@
+{
+ "_note": "PROVISIONAL (no music yet). secs = rendered shot lengths; events = in-shot times (s). Re-timed from the track's accents once it arrives.",
+ "secs": {"s1_front": 4.4, "s2_rear": 4.0, "s3_wheel": 2.4, "s4_lightbar": 2.4, "s5_hood": 3.4, "s6_hatch": 3.0,
+          "s7_top": 3.4, "s8_explode": 10.0},
+ "events": {"hood_open0": 0.5, "hood_open1": 2.4, "hatch_open0": 0.4, "hatch_open1": 2.2,
+            "doors_out0": 1.6, "doors_out1": 2.3, "sep": 0.6, "hold": 1.8, "back": 6.6, "lock": 8.2}
+}
