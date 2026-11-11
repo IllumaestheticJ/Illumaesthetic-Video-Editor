@@ -35,7 +35,7 @@ shot("v2_s1_rear", 3.182, 3.75,
      [dict(base), {"blend": B + "fbump.blend"}, {"blend": B + "fender.blend"}, {"blend": B + "rbump.blend"}],
      [{"t": 3.182, "pos": pB.tolist(), "look": lookB, "lens": 28 * K, "roll": rollB},
       {"t": 3.582, "pos": pB.tolist(), "look": lookB, "lens": 28 * K, "roll": rollB},
-      {"t": 6.932, "pos": [-3.55, -1.95, 0.85], "look": [-1.75, -0.35, 0.55], "lens": 28 * K, "roll": 0.0}])
+      {"t": 7.132, "pos": [-3.55, -1.95, 0.85], "look": [-1.75, -0.35, 0.55], "lens": 28 * K, "roll": 0.0}])
 # s2 front hero
 P0 = [5.10, -3.10, 1.30]; P1 = [4.875, -2.79, 1.15]
 shot("v2_s2_front", 8.182, 6.25,
@@ -56,7 +56,7 @@ shot("v2_s3_fender", 14.432, 2.5,
       {"blend": B + "fender.blend", "keys": [{"t": 14.432}, {"t": 15.057}, {"t": 15.682, "loc": FE}, {"t": 16.932, "loc": FE}]}],
      [{"t": 14.432, "pos": C0, "look": [0.78, -0.88, 0.45], "lens": 35 * K},
       {"t": 15.682, "pos": C0, "look": [0.78, -0.88, 0.45], "lens": 35 * K},
-      {"t": 16.932, "pos": C1, "look": [0.70, -0.75, 0.60], "lens": 35 * K}])
+      {"t": 17.132, "pos": C1, "look": [0.70, -0.75, 0.60], "lens": 35 * K}])  # lands after the cut: still moving at 16.932
 # s4 x-ray: same pose switch, fender + bumper home, pull back, arc to cam_listing, morph
 A0 = {"az": -73.0, "dist": 6.8, "z": 2.4, "look": [round(v, 5) for v in lookL], "lens": 45.0}
 shot("v2_s4_xray", 16.932, 6.5,

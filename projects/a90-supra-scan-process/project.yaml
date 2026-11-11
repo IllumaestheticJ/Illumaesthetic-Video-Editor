@@ -7,7 +7,7 @@
 # Frames @30: cuts 95 208 245 433 508 | dissolve 688-703 | end 845 (28.18 s bar). Kicks: 0.682 + 0.625k.
 project: a90-supra-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/a90_scan_process_v2.0.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/a90_scan_process_v2.1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront)
@@ -25,25 +25,25 @@ timeline:
   - transition: {type: dissolve, duration: 0.0333, note: "hard 1:1 cut IRL -> scan (cam_B) on the 3.182 s bar; 1-frame fade = cut without the cloned frame"}
   - id: s1_rear         # cam_B hold, push in to the rear-right corner; rear bumper stays ON
     src: /home/user/media/work/a90sp/renders/v2_s1_rear
-    src_fps: 15
+    src_fps: 14.8718   # (59-1)/(3.8+0.1): no minterpolate tail freeze before the cut (lesson)
     interpolate: true
     dur: 3.8
   - transition: {type: dissolve, duration: 0.0333}
   - id: irl_pan         # real car rolling, right side past the rear wheel (rear -> side travel)
     src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1940_51.mov
     in: 10.0
-    out: 11.2667
-    dur: 1.2667
+    out: 11.3
+    dur: 1.3        # +1 frame: cut 3 lands on frame 246 (8.200 s, kick 8.185)
   - transition: {type: dissolve, duration: 0.0333}
   - id: s2_front        # HERO: front bumper off toward camera, inside turned, push in on the Under Front Bumper
     src: /home/user/media/work/a90sp/renders/v2_s2_front
     src_fps: 15
     interpolate: true
-    dur: 6.3
+    dur: 6.2667
   - transition: {type: dissolve, duration: 0.0333}
   - id: s3_fender       # right-front fender section off on the 15.68 lift, push in on Under Fender
     src: /home/user/media/work/a90sp/renders/v2_s3_fender
-    src_fps: 15
+    src_fps: 14.8101   # (40-1)/(2.5333+0.1)
     interpolate: true
     dur: 2.5333
   - transition: {type: dissolve, duration: 0.0333, note: "same-pose look switch silver -> x-ray"}
@@ -55,7 +55,7 @@ timeline:
   - transition: {type: dissolve, duration: 0.5, note: "x-ray grey on the listing angle -> listing screenshot"}
   - id: website         # WebZoom: zoom-out lands 25.68; title, logo, URL last; ends on the 28.18 bar
     src: /home/user/media/work/out/webzoom_a90_v2.mp4
-    dur: 4.9333
+    dur: 4.9667
     hold_start: 0.3
 
 overlays:
