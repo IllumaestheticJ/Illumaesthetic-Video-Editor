@@ -1,0 +1,82 @@
+# Lamborghini Revuelto scan reel - Temerario style (scan only, no IRL, no text). Shots: shots.py -> tools/shot.py.
+# Cuts from cuts.json: 102.52 BPM grid fitted to the track's onsets; whole-frame durs so each cut lands on
+# round(t*30); first clip one frame short. Free shots were rendered with 0.5 s slack (trimmed from the end).
+project: lamborghini-revuelto
+format: reel-9x16
+output: {path: /home/user/media/work/out/lamborghini_revuelto_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/lamborghini-revuelto_track.mp3   # original track generated for this reel (parent session)
+  start: 0
+  fade_out: 1.0
+
+# cut times (s); 27.967 = parts lock home on the climax taiko attack (inside s10)
+beats: [4.619, 6.960, 9.301, 10.471, 11.642, 15.153, 18.664, 23.346, 25.687, 27.967, 30.40]
+
+timeline:
+  - id: s1_side   # low side profile (nose right), slow track toward the nose; fades up from black with the intro
+    src: /home/user/media/work/renders/revuelto/s1_side
+    src_fps: 15
+    interpolate: true
+    dur: 4.6
+    vf: fade=t=in:st=0:d=1.5
+  - transition: {type: cut}
+  - id: s2_front34   # front 3/4 low turntable
+    src: /home/user/media/work/renders/revuelto/s2_front34
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut}
+  - id: s3_rear34   # rear 3/4 turntable, left side
+    src: /home/user/media/work/renders/revuelto/s3_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut}
+  - id: s4_headlight   # extreme close-up, front-left headlight (2 mm part scans) - phrase B starts
+    src: /home/user/media/work/renders/revuelto/s4_headlight
+    src_fps: 15
+    interpolate: true
+    dur: 1.1667
+  - transition: {type: cut}
+  - id: s5_wheel   # extreme close-up, front-left wheel / disc / caliper (2 mm zone)
+    src: /home/user/media/work/renders/revuelto/s5_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 1.1667
+  - transition: {type: cut}
+  - id: s6_frontopen   # front bumper slides off, headlights out, lid lifts on its fitted hinge on the 13.98 bar
+    src: /home/user/media/work/renders/revuelto/s6_frontopen
+    src_fps: 15
+    interpolate: true
+    dur: 3.5333
+  - transition: {type: cut}
+  - id: s7_top   # crane to top-down, spinning, front end open
+    src: /home/user/media/work/renders/revuelto/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 3.5
+  - transition: {type: cut}
+  - id: s8_explode   # phrase C: every panel separates, staggered, into layers above the car
+    src: /home/user/media/work/renders/revuelto/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 4.6667
+  - transition: {type: cut}
+  - id: s9_float   # wide side view, panels floating
+    src: /home/user/media/work/renders/revuelto/s9_float
+    src_fps: 15
+    interpolate: true
+    dur: 2.3667
+  - transition: {type: cut}
+  - id: s10_reassemble   # panels slam home on the climax (27.97), rear 3/4 hero push through the taiko hits
+    src: /home/user/media/work/renders/revuelto/s10_reassemble
+    src_fps: 15
+    interpolate: true
+    dur: 4.7
+  - transition: {type: cut}
+  - id: logo   # ILLUMAESTHETIC logo on black (illumaesthetic.com V2 logo, 760 px), cut in on the loudest taiko hit
+    src: /home/user/media/work/revuelto/logo/logo_card.mp4
+    dur: 4.2
+
+overlays: []   # no text in this format (Temerario ref has none)

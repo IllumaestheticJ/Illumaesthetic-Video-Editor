@@ -1,82 +1,68 @@
-# Lamborghini Revuelto scan reel - Temerario style (scan only, no IRL, no text). Shots: shots.py -> tools/shot.py.
-# Cuts from cuts.json: 102.52 BPM grid fitted to the track's onsets; whole-frame durs so each cut lands on
-# round(t*30); first clip one frame short. Free shots were rendered with 0.5 s slack (trimmed from the end).
+# Lamborghini Revuelto scan reel v2 (v1: project_v1.yaml). Scene order from direction.md (scene director):
+# front -> left side -> rear, each section once; bumper-removed holds with labels (rule C); mirror never moves and the lid
+# only swings on its hinge (rule D); small logo. Assembled with projects/honda-s2000/tools/concat_assemble.py (exact
+# `frames` per clip, plain concat: no duplicated frame at cuts). Cut k lands on sum(frames[:k]) = round(t*30).
+# Renders: round(dur*15)+3 frames each, so minterpolate (2N-3 frames) always covers the slot - no frozen tail.
 project: lamborghini-revuelto
 format: reel-9x16
-output: {path: /home/user/media/work/out/lamborghini_revuelto_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/lamborghini_revuelto_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/lamborghini-revuelto_track.mp3   # original track generated for this reel (parent session)
   start: 0
   fade_out: 1.0
 
-# cut times (s); 27.967 = parts lock home on the climax taiko attack (inside s10)
-beats: [4.619, 6.960, 9.301, 10.471, 11.642, 15.153, 18.664, 23.346, 25.687, 27.967, 30.40]
+# cut times (s) on the 102.52 BPM grid; 27.94 = every part lands home on the climax taiko attack (inside v2_reassemble)
+beats: [6.960, 10.471, 15.153, 18.664, 25.687, 27.94, 30.40]
 
 timeline:
-  - id: s1_side   # low side profile (nose right), slow track toward the nose; fades up from black with the intro
-    src: /home/user/media/work/renders/revuelto/s1_side
+  - id: v2_whole   # whole car, front-left 3/4, slow push toward the nose; fades up with the quiet intro
+    focus: whole car
+    src: /home/user/media/work/renders/revuelto/v2_whole
     src_fps: 15
     interpolate: true
-    dur: 4.6
+    frames: 209
     vf: fade=t=in:st=0:d=1.5
   - transition: {type: cut}
-  - id: s2_front34   # front 3/4 low turntable
-    src: /home/user/media/work/renders/revuelto/s2_front34
-    src_fps: 15
-    interpolate: true
-    dur: 2.3333
-  - transition: {type: cut}
-  - id: s3_rear34   # rear 3/4 turntable, left side
-    src: /home/user/media/work/renders/revuelto/s3_rear34
-    src_fps: 15
-    interpolate: true
-    dur: 2.3333
-  - transition: {type: cut}
-  - id: s4_headlight   # extreme close-up, front-left headlight (2 mm part scans) - phrase B starts
-    src: /home/user/media/work/renders/revuelto/s4_headlight
-    src_fps: 15
-    interpolate: true
-    dur: 1.1667
-  - transition: {type: cut}
-  - id: s5_wheel   # extreme close-up, front-left wheel / disc / caliper (2 mm zone)
-    src: /home/user/media/work/renders/revuelto/s5_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 1.1667
-  - transition: {type: cut}
-  - id: s6_frontopen   # front bumper slides off, headlights out, lid lifts on its fitted hinge on the 13.98 bar
+  - id: s6_frontopen   # FRONT: bumper slides off, headlights out, lid lifts on its fitted hinge on phrase B (v1 render)
+    focus: front bumper
     src: /home/user/media/work/renders/revuelto/s6_frontopen
+    src_fps: 14.59   # 53 frames -> 103 after minterpolate; 30*53/(105+4) stretches it to cover 105 (3.5 % slower)
+    interpolate: true
+    frames: 105
+  - transition: {type: cut}
+  - id: v2_frontin   # FRONT: bumper + headlights lift away, camera moves in on the structure behind the bumper (labels)
+    focus: front structure
+    src: /home/user/media/work/renders/revuelto/v2_frontin
     src_fps: 15
     interpolate: true
-    dur: 3.5333
+    frames: 141
   - transition: {type: cut}
-  - id: s7_top   # crane to top-down, spinning, front end open
-    src: /home/user/media/work/renders/revuelto/s7_top
+  - id: v2_side   # LEFT SIDE: fender lifts, side skirts slide out, side fin lifts
+    focus: left side panels
+    src: /home/user/media/work/renders/revuelto/v2_side
     src_fps: 15
     interpolate: true
-    dur: 3.5
+    frames: 105
   - transition: {type: cut}
-  - id: s8_explode   # phrase C: every panel separates, staggered, into layers above the car
-    src: /home/user/media/work/renders/revuelto/s8_explode
+  - id: v2_rear   # REAR (phrase C): wing, tail lights, rear bumper lift away; push in on the rear structure (labels)
+    focus: rear structure
+    src: /home/user/media/work/renders/revuelto/v2_rear
     src_fps: 15
     interpolate: true
-    dur: 4.6667
+    frames: 211
   - transition: {type: cut}
-  - id: s9_float   # wide side view, panels floating
-    src: /home/user/media/work/renders/revuelto/s9_float
+  - id: v2_reassemble   # WHOLE CAR: every part flies home and slams in on the climax (27.94); lid closes; rear 3/4 hero
+    focus: whole car
+    src: /home/user/media/work/renders/revuelto/v2_reassemble
     src_fps: 15
     interpolate: true
-    dur: 2.3667
+    frames: 141
   - transition: {type: cut}
-  - id: s10_reassemble   # panels slam home on the climax (27.97), rear 3/4 hero push through the taiko hits
-    src: /home/user/media/work/renders/revuelto/s10_reassemble
-    src_fps: 15
-    interpolate: true
-    dur: 4.7
-  - transition: {type: cut}
-  - id: logo   # ILLUMAESTHETIC logo on black (illumaesthetic.com V2 logo, 760 px), cut in on the loudest taiko hit
-    src: /home/user/media/work/revuelto/logo/logo_card.mp4
-    dur: 4.2
+  - id: logo   # small ILLUMAESTHETIC logo (320 px) on the loudest taiko hit, rides the decay to 34.6 s
+    src: /home/user/media/work/revuelto/logo/logo_card_v2.mp4
+    frames: 126
 
-overlays: []   # no text in this format (Temerario ref has none)
+overlays:
+  - src: /home/user/media/work/revuelto/hud_v2.mov   # labels over the two bumper-removed holds only (rule C); overlay.json
+    start: 0

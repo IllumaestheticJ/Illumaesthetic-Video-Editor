@@ -1,0 +1,13 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1038,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "label", "from": 316, "duration": 68, "title": "FRONT BUMPER REMOVED", "sub": "BUMPER SCAN · 14,996,520 TRIANGLES", "x": 0.08, "y": 0.72},
+  {"kind": "label", "from": 386, "duration": 64, "title": "FRONT STRUCTURE", "sub": "FRUNK · MOUNTING POINTS", "x": 0.08, "y": 0.72},
+  {"kind": "label", "from": 648, "duration": 68, "title": "REAR BUMPER REMOVED", "sub": "BUMPER SCAN · 14,993,289 TRIANGLES", "x": 0.08, "y": 0.72},
+  {"kind": "label", "from": 718, "duration": 48, "title": "REAR STRUCTURE", "sub": "EXHAUST · CRASH BEAM · MOUNTS", "x": 0.08, "y": 0.72}
+ ]
+}
