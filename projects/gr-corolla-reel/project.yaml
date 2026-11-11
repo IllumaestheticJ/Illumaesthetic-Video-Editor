@@ -3,11 +3,11 @@
 #   A: https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010054.jpg
 #   B: https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010053.jpg
 #   C: https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010061.jpg
-# CGI: Epsilon lookbook model eps-toyota-gr-corolla-v23.glb (kit: front_lip_v2, canards, rear_spats, side_skirts, wing_strakes, wrc_wing), paint Supersonic Red #b21522.
+# CGI: Epsilon lookbook model eps-toyota-gr-corolla-v23.glb (kit: front_lip_v2, canards, rear_spats_v2, side_skirts_v2, wing_strakes, wrc_wing), paint Supersonic Red #b21522.
 # Scan: engineering full-car scan aligned into the model frame (scan/align.json), Epsilon kit CAD overlaid in silver.
 project: gr-corolla-reel
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/out/gr-corolla_reel_v4_v2lip.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/gr-corolla_reel_v5_v2kit.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/music/tiktok/freaked_out.mp3   # FREAKED OUT - Fat Papi & prodshushy (TikTok CML) (not in git)
