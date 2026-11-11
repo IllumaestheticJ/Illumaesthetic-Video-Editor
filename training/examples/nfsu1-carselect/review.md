@@ -21,3 +21,9 @@ Known weak points (told to the user):
 - Headlight flare is the game Miata's, so it sits at Miata lamp height on the taller Corolla.
 - FR-S is dark (deep green in a dim garage).
 - Capture speed could not be checked against a second source.
+
+## v2 (after user notes)
+- Fixed: entry shake (camera path rebuilt with zero roll and smoothed height/distance; full re-render), wheels straight (steer 0 everywhere), player name "Mohammad" -> "Epsilon".
+- Not done: "Get Low" over the reel — no audio file available here; v2 still carries the capture audio. Elise still missing (no model reachable).
+- Still rough: same garage stretch per car, FR-S reads dark, "Reputation" label fades under bright cars, typeset del Sol / FR-S plates.
+- Lesson: when recovering a game camera from silhouettes, constrain it (no roll, smooth height) before rendering — an unconstrained per-frame fit looks like the car shaking.
