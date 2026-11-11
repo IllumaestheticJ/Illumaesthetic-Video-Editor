@@ -26,8 +26,9 @@ shots are renders (GR Corolla yellow, WRX colour set, GR86 silver), and many sit
 - Mazda Miata NA - GLB v15; Good-Win Ryan/Miata cfd full car.stl; photos: red NA with wing (~10).
 - Mazda Miata NB - GLB v15; NB Miata.stl (1.25 GB, check it's the full car); photos: navy NB with wing (~5).
 - Nissan 350Z - GLB v24; 350Z Full Scan.stl; photos: 3 livery track shots.
-- Honda Civic EP3 / Prelude BF1 - GLB + full scan, but no product photos on the site (check Ecky's 120 - Civic EP3 Si Lip Kit).
-- Mazda RX-8 - GLB + scan, but the site images are all CAD renders (no IRL photos).
+
+## Not ready: products still in development (per owner, 2026-11-11)
+- Honda Civic EP3, Honda Prelude BF1, Mazda RX-8 - parts aren't finished yet; no finished-car photos exist. Skip until launch.
 
 ## Missing a piece
 - Honda Del Sol, Acura Integra DE4 - GLB + photos, no full-car scan found (DE4: tail light only).
