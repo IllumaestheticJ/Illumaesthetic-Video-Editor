@@ -24,7 +24,7 @@ RR = f"{P}/rr_corner.blend"        # 2 mm rear-right corner: close-ups
 
 # shot lengths (s). Provisional until the track arrives; overwritten by timing.json if present.
 TIMING = {"s1_front34": 4.6, "s2_rear34": 4.0, "s3_lamp": 3.0, "s4_tail": 2.6, "s5_hood": 4.4,
-          "s6_top": 3.4, "s7_explode": 9.0,
+          "s6_top": 3.4, "s7_explode": 9.0, "s8_hero": 4.0,
           # explode beats (s from shot start): separate starts, fully out, start return, locked
           "x_sep": 0.4, "x_out": 2.2, "x_back": 6.2, "x_lock": 7.6}
 _tj = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "timing.json")
@@ -81,6 +81,9 @@ SHOTS = {
     "s6_top": {"base": [CAR], "cam": [
         {"t": 0, "loc": [2.0, 4.4, 3.8], "target": [0, 0.3, 0.5], "focal": 30},
         {"t": S["s6_top"], "loc": [0.0, 0.2, 7.4], "target": [0, 0.0, 0.5], "focal": 30, "ease": "inout"}]},
+    # 8. hero closer: low left-side profile, slow track from rear 3/4 toward the side (assembled car after the explode)
+    "s8_hero": {"base": [CAR], "cam": arc(S["s8_hero"], 6.3, 6.0, 112, 86, 0.62, 0.7, (0, 0.3, 0.62), (0, -0.15, 0.6),
+                                          focal=30, ease="out")},
 }
 
 

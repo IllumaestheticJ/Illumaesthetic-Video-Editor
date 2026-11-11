@@ -1,0 +1,74 @@
+# Lexus IS350 (2026 facelift) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296,
+# huracan-evo, a90-supra. Satin-silver scan on black; turntables -> close-ups -> hood opens -> top-down ->
+# exploded front end -> hero -> logo.
+# Shots: tools/shots.py (specs, timing.json) + tools/shot.py (Blender, keyed cameras + hinged/exploded parts).
+# Music: lexus-is350_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via
+# Higgsfield; not in git). Kick grid 120.00 BPM, t0 0.064 s (tools/music_grid.py). Break 15.06-16.06 (kick out),
+# DROP 16.063, last kick 32.063, decays to silence ~34 s (file is 40 s; the rest is silence).
+# Cuts on frames round(t*30): 122, 242, 287, 332, 422, 482, 782, 902; end 1008 (33.6 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+project: lexus-is350
+format: reel-9x16
+output: {path: /home/user/media/lexus-is350/out/lexus_is350_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/lexus-is350_track.mp3   # not in git
+  start: 0
+  fade_out: 1.2
+
+beats: [4.064, 8.064, 9.564, 11.064, 14.063, 16.063, 26.063, 30.063]
+
+timeline:
+  - id: s1_front34     # low front-right 3/4 turntable, moving from frame 1; rendered 4.6 s, sped 13 % to the 4.064 bar
+    src: /home/user/media/lexus-is350/renders/final/s1_front34
+    src_fps: 17
+    interpolate: true
+    dur: 4.0333
+  - transition: {type: cut, note: "4.064 bar"}
+  - id: s2_rear34      # rear-left 3/4 orbit, slight rise
+    src: /home/user/media/lexus-is350/renders/final/s2_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 4.0
+  - transition: {type: cut, note: "8.064 phrase (flux build peaks here)"}
+  - id: s3_lamp        # extreme close-up: right headlamp -> grille mesh (2 mm), 3 beats
+    src: /home/user/media/lexus-is350/renders/final/s3_lamp
+    src_fps: 15
+    interpolate: true
+    dur: 1.5
+  - transition: {type: cut, note: "9.564 kick"}
+  - id: s4_tail        # extreme close-up: right tail lamp + IS350 badge (2 mm), 3 beats
+    src: /home/user/media/lexus-is350/renders/final/s4_tail
+    src_fps: 15
+    interpolate: true
+    dur: 1.5
+  - transition: {type: cut, note: "11.064 kick"}
+  - id: s5_hood        # hood opens 60 deg on the fitted hinge (11.56 -> 13.16), engine bay from the state scan
+    src: /home/user/media/lexus-is350/renders/final/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 3.0
+  - transition: {type: cut, note: "14.063 bar - into the break"}
+  - id: s6_top         # rise to straight top-down through the 2-beat break (kick drops out 15.06-16.06)
+    src: /home/user/media/lexus-is350/renders/final/s6_top
+    src_fps: 15
+    interpolate: true
+    dur: 2.0
+  - transition: {type: cut, note: "16.063 THE DROP - panels burst"}
+  - id: s7_explode     # separate on the drop (ease-out 1.5 s), drift + orbit, fly home, LOCK 24.063, hold 1 bar
+    src: /home/user/media/lexus-is350/renders/final/s7_explode
+    src_fps: 15
+    interpolate: true
+    dur: 10.0
+  - transition: {type: cut, note: "26.063 bar"}
+  - id: s8_hero        # low left-side profile track, bumpers cropped
+    src: /home/user/media/lexus-is350/renders/final/s8_hero
+    src_fps: 15
+    interpolate: true
+    dur: 4.0
+  - transition: {type: cut, note: "30.063 - last 2-bar phrase: logo holds through the final kick (32.063) and decay"}
+  - id: logo           # ferrari-296/tools/logo_card.py --secs 3.5333: logo on render black, fades with the track
+    src: /home/user/media/lexus-is350/out/logo_card.mp4
+    dur: 3.5333
+
+overlays: []
