@@ -1,0 +1,17 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 172,
+ "src": "web_mr2_listing.png",
+ "imgW": 2880,
+ "imgH": 1640,
+ "focusX": 980,
+ "focusY": 820,
+ "startScale": 0.75,
+ "zoomFrames": 80,
+ "url": "ILLUMAESTHETIC.COM",
+ "title": "SCAN DATA NOW AVAILABLE",
+ "logo": "illumaesthetic_logo.png",
+ "logoWidth": 640
+}
