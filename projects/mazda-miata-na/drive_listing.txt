@@ -1,0 +1,364 @@
+/Scan/  [1F8wHiaM7KMNoHXzCpWWJcpS2R3mvvAbK]
+/Scan/NA Miata NA Miata N2 Aero.stl	1250.0MB	1FDdXd0b2Y4m2Es7AzKgPZhIH8NH5V9Dj
+/Scan/NA Trunk Closed'.stl	50.0MB	1JMiJNlSvXHXCprAQM7x4Zb4ypoVwZ9Ch
+/Scan/NA Trunk Half Open.stl	49.7MB	1NStV0xfhUJRnEAHT6XVmemfZkzH8XaVR
+/Scan/NA Trunk Open.stl	49.8MB	11x6AxeVKx8Amw1fQM5Cs0wlBIit1IK8g
+/Scan/NA Finish Panel NA Finish Panel.stl	243.5MB	1hIyyetiMagCVUnKJ4_SZN9LqFTap1hRS
+/Scan/Front Bumper Only.stl	124.6MB	1b75tZhZJlIEym8aJB3TtBm-Pt2U91mVx
+/Scan/Front End Bumper Off.stl	249.7MB	1wLGwL9ysddNW_7LUJQe56dB7qANgsnMm
+/Scan/Front End Hood Open.stl	249.8MB	1fg1ZrjbwBV1HdEy_GZvL_q93JrTC4ujl
+/Scan/NA AK Bumper/  [1NXcrYyYKZic-35YsDdHFglE7T2zsrrER]
+/Scan/NA AK Bumper/NA AK Bumper.stl	150.0MB	1lY_P47Hp4-7ZbGAMWKOBDLV9497_45YC
+/Scan/scandy-pro-2021-07-04-t00-26-38-720-z.ply	79.1MB	15GXpTGCxEk0_wDGmgrS0Q4m2K8g4DZ6U
+/Eboy Project/  [1OmbGIPmtA9XfAS7uMiAmonQNDJPYw4rE]
+/Eboy Project/MIATA EBOY BUMPER.stl	72.5MB	14Z_ga4r0dCLYa-aj766Z24ftZYfttw9I
+/Eboy Project/MIATA Teeth.stl	0.2MB	15DDW6_rlauL5TaU8qtCLw9-aFdnfBamb
+/Eboy Project/Miatascan revision3.blend	111.2MB	1572wGLi84Tb6Y8LQdRyoZfrlR65h4wSF
+/Eboy Project/Miata Render.blend	266.3MB	14zj_ZMsATerx7s8W5nouBfGZz4vHdbAR
+/Eboy Project/Miata Cut 4.stl	8.5MB	1537UZZGAXWTMl5FKYDVIf8IBXRH_-CFb
+/Eboy Project/Miata Cut 3.stl	9.4MB	14v_ynql1LkdxzP0jz1k3a97jQmV94D3h
+/Eboy Project/Miata Cut 2.stl	6.3MB	14yQZurNM5InrUNHyjvA8LrCetyMy7KKx
+/Eboy Project/Miata Cut 1.stl	49.0MB	14iU5Jaeo5X57ehzbxzopbnePBxY-bVLa
+/Eboy Project/MiataScan.blend	335.7MB	15ErA6sgZOIxFw7tIJ3B2tYWj6i3DbZ6e
+/Eboy Project/Miata CFD.blend	19.3MB	14eLGp3CuB_9_jkO_8fqdFzaLUeIk0dZx
+/Eboy Project/Miata CFD.stl	24.2MB	14gGEfPkM6H3dC6hrEQNqGpIaK1m7aUzZ
+/Eboy Project/MiataScan.blend1	225.3MB	15GNOduORIO7C2CSvX59jiXpUU7Y76xWP
+/Eboy Project/Miata Render.blend1	43.8MB	153K2nlUc5vFLwzTMeDevtwVEI06jp_WT
+/Good-Win Ryan/  [1T_MEb5_KYhPYtcpvPNAyj5driqNQlyQd]
+/Good-Win Ryan/NA Miata Ryan Rescan/  [1AzEjJofE7thwAKjNKU_XLjaG6TY4F9w0]
+/Good-Win Ryan/NA Miata Ryan Rescan/Left Rear Trunk Dbill.stl	25.0MB	1B9qwoSy3TZmblkQjlt1nGIiC3RttEDMz
+/Good-Win Ryan/NA Miata Ryan Rescan/Right Rear Trunk Dbill.stl	25.0MB	1AzplOQZMoSTeP47gGs12T07XyLYe5s25
+/Good-Win Ryan/NA Miata Ryan Rescan/ryan passey hood duct interface left.stl	75.0MB	1BhsNFG6GmWTynzyr7RFeH_IVoTas4eM0
+/Good-Win Ryan/NA Miata Ryan Rescan/ryan passey hood duct interface right.stl	100.0MB	1Bf0KrWnQ9nmZXXTkNmgSTObCMvo0NjVI
+/Good-Win Ryan/NA Miata Ryan Rescan/ryan passey hood duct interface opened.stl	175.0MB	1BVy9Z8Idg_qOJLSkd_MJFNa8ukXEvr-T
+/Good-Win Ryan/NA Miata Ryan Rescan/ryan passey hood duct interface closed.stl	75.0MB	1BM5dYQdSTOwv7HN72FUFj1kVjIL2IFvv
+/Good-Win Ryan/Miata CFD Miata cfd hood open.stl	205.0MB	1TnPxMarS63ab8wp0M8oeE07XtBKdY_ND
+/Good-Win Ryan/Miata CFD Miata cfd cockpit.stl	310.0MB	1Tn7NdhlTdvQ4yf97-gwMT3URhd9elpjB
+/Good-Win Ryan/Miata CFD Miata cfd full car.stl	1250.0MB	1TczFggA-bXLauRjKb-6XCpPPeMm9xUUA
+/miata tiktok/  [12m92lKRuc8JDwip_jL9j4GMVEkmplebA]
+/miata tiktok/fullvert.mp4	18.5MB	1KLYktjSce203ell3iO700ZKbDXznjAjH
+/miata tiktok/Photo Export/  [13RJPkktzDLxlBt6xOc-EqV6SgUuEXK-B]
+/miata tiktok/Photo Export/illumaesthetic photos-10.png	1.4MB	1NTwvLrUnsfrcJv4aenqJr4WPNmf9DDN_
+/miata tiktok/Photo Export/illumaesthetic photos-09.png	2.2MB	1NJ2G7IrMAwyfXveb4UkqVrNQn0fW-pV2
+/miata tiktok/Photo Export/illumaesthetic photos-08.png	1.5MB	1NJdxZ4anJY4F4W23fO3s-Vf8RyaOgIbj
+/miata tiktok/Photo Export/illumaesthetic photos-07.png	1.0MB	1N8F7C7uxlCbwmlY9kez1v68IO_ADQKU4
+/miata tiktok/Photo Export/illumaesthetic photos-06.png	2.4MB	1N8DAoRionLvy4B9oFdFcLw-f3oZIzRAS
+/miata tiktok/Photo Export/illumaesthetic photos-03.png	14.8MB	1MlbeoK3jSgnajv2vIL5Lj5ezGlHvVeh-
+/miata tiktok/Photo Export/illumaesthetic photos-05.png	1.1MB	1N5MwYzUx5_swaKy7kqgAltKlFi2nmPRw
+/miata tiktok/Photo Export/illumaesthetic photos-04.png	4.5MB	1N1W9Mt8i95pdKrpF1F5pa_-Rgl-6gqaG
+/miata tiktok/Photo Export/illumaesthetic photos-01.png	17.1MB	1MjQhXKM_CTD5j5xgqIOzPVl6J66nOLtF
+/miata tiktok/Photo Export/illumaesthetic photos-02.png	5.0MB	1N0w2ncS46ZAT1jddX8Ey9mRxxW4jfys7
+/miata tiktok/illumaesthetic photos.ai	100.3MB	1KPTZxAShB9zLFD-Uhhj3gzjGt3nqAT4S
+/miata tiktok/Photo Sep 04, 3 59 33 PM.jpg	6.1MB	1KZ1DmK-RjDzGczAqEWNrBIySfujua1Kp
+/miata tiktok/DSC_3479.jpg	3.0MB	1K1EOf4B7yT1xdf1uw5_oYxk21HpTPC9M
+/miata tiktok/DSC_3473.jpg	2.5MB	1K6yAX5XoH0NevUce_KhOhJagbSTLZi2z
+/miata tiktok/DSC_3480.jpg	2.4MB	1KNy090hpNIzaMLWaaARDlu652x5lNrjl
+/miata tiktok/DSC_3470.jpg	2.8MB	1KA7Xo9Be_TDwNdkn7_msdVeOchfTFFwa
+/miata tiktok/DSC_3467.jpg	2.3MB	1KEXrSt4c66y5twSP2PbrQUloRa9-bqdn
+/miata tiktok/DSC_3465.jpg	2.3MB	1KFTYL4dmYxxgEKmtCsuAX7pUNsD142il
+/miata tiktok/DSC_3461.jpg	2.5MB	1JjJpTPHMzkX5tgZZBcbHlN_yThUo8gnb
+/miata tiktok/DSC_3462.jpg	2.6MB	1KLIcNaCY5nscd_ZAcwEit83agHIVI1r8
+/miata tiktok/DSC_3455.jpg	1.9MB	1Jp5ZdZxKvNo4jwVzfkKKZs2C5GxelAXS
+/miata tiktok/Video Sep 04, 6 42 49 PM.mov	2.4MB	1MiRWff2Vl9mc3kP65TmozMAgDC6-EGSR
+/miata tiktok/Video Sep 04, 6 42 49 PM.mp4	2.4MB	1MkfQ6kYxmrX6GUOKUE8LuRLS-YVwjae8
+/miata tiktok/Video Sep 04, 6 40 32 PM.mov	5.4MB	1MjM1AAHMmUrb14mbfy3N0eZtmX3myhgb
+/miata tiktok/Video Sep 04, 6 40 25 PM.mov	4.6MB	1MS15aoEFm6WF72Gx0WQ1PGe5b_ohkaqr
+/miata tiktok/Video Sep 04, 6 40 19 PM.mov	5.3MB	1MThXV7_U_K91u-owFhrcQ85bNz_2pnlJ
+/miata tiktok/Video Sep 04, 6 39 37 PM.mov	8.5MB	1MLVXoBd6VlIVUyvMTUsfjdLx2DDikNJ-
+/miata tiktok/Video Sep 04, 6 39 30 PM.mov	1.3MB	1MLvCzANZpTt3DpExeN2RH-rr6tPlobi4
+/miata tiktok/Video Sep 04, 6 39 15 PM.mov	4.8MB	1M7XoI5v7ctTJIWVGKVz_iqzQd5awn8UN
+/miata tiktok/Video Sep 04, 6 39 02 PM.mov	1.6MB	1MHKU1gUEi4zpPcwnlV9P6wXQMfGlBVwK
+/miata tiktok/Video Sep 04, 6 38 24 PM.mov	4.3MB	1M76YCQ1YlnPg8vc4O05viKX_XCz9qeP6
+/miata tiktok/Video Sep 04, 6 32 21 PM.mov	5.0MB	1M-ZKRdm0W3VEAK6cNXRCVy02RlOx8flm
+/miata tiktok/Video Sep 04, 6 32 04 PM.mov	5.2MB	1M0QnTjBm-qCIhBel6Ka64NkmExbs_Hv1
+/miata tiktok/Video Sep 04, 6 31 26 PM.mov	6.1MB	1M4GVWCazaaH1j2A2h3cfQ6dx3tmZIRBI
+/miata tiktok/Video Sep 04, 6 30 35 PM.mov	8.4MB	1LFUmjClFQ4rlfSOIwA35d6FQxMX_YdA2
+/miata tiktok/Video Sep 04, 6 28 34 PM.mov	1.1MB	1LLRPPW4SWCNRZ8zXZzRNe-Te65pt16bz
+/miata tiktok/Video Sep 04, 6 28 30 PM.mov	0.9MB	1LR3bTK1Ka1aLc2hIKSu1HfDMYc847W8-
+/miata tiktok/Video Sep 04, 6 28 26 PM.mov	0.9MB	1LTOwo7U1mT6mdLBq8YD4qJN_T-F5ok10
+/miata tiktok/Video Sep 04, 6 28 24 PM.mov	1.5MB	1Lc50PD-F3HAZr4mvqEZEJFpHRV0sNMNe
+/miata tiktok/Video Sep 04, 6 28 08 PM.mov	2.6MB	1LdfuKXikTA1ayMxTtF1ZKQ7h3SEf6TC8
+/miata tiktok/Video Sep 04, 6 28 03 PM.mov	0.8MB	1LhNRSFocEgwdsIhB5CHipf-PcYch6sae
+/miata tiktok/Video Sep 04, 6 27 59 PM.mov	1.4MB	1LkMvcvBqn09_mw4DoZT-snYpyCwebWbn
+/miata tiktok/Video Sep 04, 6 27 54 PM.mov	1.2MB	1LnXu37ha4GfHT2_KU3PH08AR9M_pr6zS
+/miata tiktok/Video Sep 04, 6 27 49 PM.mov	1.7MB	1LtRfgK_bMnwravC85SmQ2809ev_WtlfM
+/miata tiktok/Video Sep 04, 6 27 40 PM.mov	2.7MB	1KprKVPi4L3wre9Za3D09zlG14bbmI5DM
+/miata tiktok/Video Sep 04, 6 27 33 PM.mov	1.9MB	1KykKafc5LE_hjFYysHjhwEk0n4UY_rtF
+/miata tiktok/Video Sep 04, 6 12 23 PM.mov	10.0MB	1L81Fz7A1spH8jekJ4BGEZAD-qITqiU8z
+/miata tiktok/Video Sep 04, 6 09 12 PM.mov	19.2MB	1KnZYPrvVYsfHZ0XKjCcoOXSIb5Bxzo3Y
+/miata tiktok/Video Sep 04, 6 08 42 PM.mov	10.3MB	1KnodzPII8b1cEL-e9WBa64PMBNp1o8Vx
+/miata tiktok/Video Sep 04, 6 07 36 PM.mov	16.9MB	1Kig5-xgasf6RGxptEPufo15-P3nH9QPV
+/miata tiktok/Video Sep 04, 6 01 44 PM.mov	7.2MB	1KfTZTd4-tsYi8QWeUPZG9zRcgKOxv_VV
+/miata tiktok/Video Sep 04, 6 00 06 PM.mov	6.0MB	1KgpVxNiNJnsMLuZjwiZxNA648vwkd3qP
+/miata tiktok/Video Sep 04, 6 00 00 PM.mov	3.9MB	1Ki3FWFDTGoXw2gID0mG--uIMXo5o3aW8
+/miata tiktok/Video Sep 04, 5 59 13 PM.mov	14.8MB	1KXCaNa5og5h7Q0G90qYIJIK_aH8M98bQ
+/miata tiktok/Photo Sep 04, 3 59 32 PM.heic	2.2MB	1KfGdxh5m17Pmyw79dvXKgEqvlDUwXRWY
+/miata tiktok/Photo Sep 04, 3 58 44 PM.heic	1.7MB	1KTp22hcnOkS3PAxaPaKxBd0AjprhBNCs
+/miata tiktok/Photo Sep 04, 3 57 58 PM.jpg	6.8MB	1KUVZelh8UEwzC6-Ah1L2sfMsuwY04yjd
+/miata tiktok/Photo Sep 04, 3 57 48 PM.jpg	6.6MB	1KUWIC5xz-OcUDOc28ticwphMex0mXRnU
+/MAZ_Miata_94/  [12rq_S-an4yXeZRlMPeWztyAvo0mWpjgb]
+/MAZ_Miata_94/Miata Forza4.obj	3.2MB	1J4QQD6ZfMgThPV36PuReFAJ2WAKJGZwF
+/MAZ_Miata_94/Miata Forza4.mtl	0.0MB	1JL1X6STahaO1CVW2NdQRrBBBNHUgnhnz
+/MAZ_Miata_94/liverymasks/  [13eRku3ZZhV17nyicl-nkYwpJaqwzKFbx]
+/MAZ_Miata_94/liverymasks/back.tga	0.1MB	1K0etC5TQf_IhJEOu2gOe8fuOhwykatyv
+/MAZ_Miata_94/liverymasks/right.tga	0.1MB	1Jw2LoBPOoMiQZke-eoULAP1XRNrdx2jh
+/MAZ_Miata_94/liverymasks/top.tga	0.1MB	1Jry4ID7qd45KXCqyFY3R0G_b7aOzJ7av
+/MAZ_Miata_94/liverymasks/left.tga	0.1MB	1JxHeDEKYoMgojtsg0Str9nmSF4Le2ju8
+/MAZ_Miata_94/liverymasks/front.tga	0.1MB	1JxiJOYHfYCUhECWNIcbYe4zNS6JYKpGC
+/MAZ_Miata_94/maz_miata_94_rotorlr_lod0.carbin	0.0MB	1JXJIrlGQ3AXug20odSUOEwO0aG_BOEnz
+/MAZ_Miata_94/nodamage.xds	1.4MB	1IvHy9Eq9tsWHL6xiPZEL6D8lX-JfZuSF
+/MAZ_Miata_94/maz_miata_94_caliperlr_lod0.carbin	0.0MB	1I03XE1I64QFo7yL_SYnTYbJodBD4pEhU
+/MAZ_Miata_94/maz_miata_94_cockpit.carbin	2.4MB	1HsznnqwkPpJU3X4w-Z3I6ffyCG_NI29u
+/MAZ_Miata_94/maz_miata_94_rotorrf_lod0.carbin	0.0MB	1JSdpga0RmdpYNSo8WJdZGMKalTzVfGZl
+/MAZ_Miata_94/lights_lod0.xds	1.4MB	1I3M89_iSbfGMY1Wx-2Pnr5ZMhxo0cpte
+/MAZ_Miata_94/maz_miata_94_rotorrr_lod0.carbin	0.0MB	1JL8ZMVmueEpOscA4vmGSGTA3FX89nrDI
+/MAZ_Miata_94/interior_lod0.xds	0.4MB	1I6xOTcoKeUPP7g_yZ3oFs6FQc8Yi0l2h
+/MAZ_Miata_94/maz_miata_94_lod0.carbin	6.3MB	1JfUnPkKhnFT-Xtp1Pc7Wlv3pKRK_esQB
+/MAZ_Miata_94/maz_miata_94_caliperrf_lod0.carbin	0.0MB	1I-pAuJEEfgFbTRl-zd2Xxdw36CNKlC1k
+/MAZ_Miata_94/maz_miata_94_caliperrr_lod0.carbin	0.0MB	1I-epZk4BI8N7zE3sN3mkbMzjp9lsmizy
+/MAZ_Miata_94/nodamage_lod0.xds	5.6MB	1ItEYoORrPTvCcNTuh8mbbUmR2Onu7Gi4
+/MAZ_Miata_94/lights.xds	0.4MB	1I6Cbrk3doxWkHhRhsWEoMkVTWogQM4oR
+/MAZ_Miata_94/maz_miata_94_caliperlf_lod0.carbin	0.0MB	1I2Vntxhum3hXH9qO2GsuVIXyDGCTBfth
+/MAZ_Miata_94/maz_miata_94.carbin	2.8MB	1I2im7VJg63j4RpNd7nPhXICohtetY6pX
+/MAZ_Miata_94/maz_miata_94_rotorlf_lod0.carbin	0.0MB	1Jf7KIoqbacaMB6SpgjDKkmoLfFn4neym
+/maz_miata_90/  [12zeKotI8OOiPm_lMhM4HBKDMGPbVzkF7]
+/maz_miata_90/Textures/  [13fYTqHmt963je63lllxjh1K9cJh43RJS]
+/maz_miata_90/Textures/wiper/  [15GOAPxxgkFSTI_Sp06rGKwTsWUg-eFXf]
+/maz_miata_90/Textures/wiper/wiper_motion_gradient.swatchbin	1.4MB	1H7tXmW3dQF97M6rcKPdrWwsUKa2Fln1M
+/maz_miata_90/Textures/wiper/swatches/  [174At3EQvGmSyttXN_pAttegMsinAtk9F]
+/maz_miata_90/Textures/wiper/swatches/maz_miata_90_wipermask_normaledgesmear_fc0d91c8-2d70-44f9-a98d-65f80df495df.swatchbin	0.7MB	1IFy9J_ZQ_W7Ujb0yc4x1HvuEimT7a_61
+/maz_miata_90/Textures/wiper/swatches/maz_miata_90_wipermask_maskwiper_8dd07fb8-1f7a-416e-8c51-d9d39854f68d.swatchbin	2.8MB	1If47bU7FUDbc8RM5aaHLSAfoxrWP94Iq
+/maz_miata_90/Textures/wiper/swatches/maz_miata_90_wipermask_masksmear_96a73be5-b86d-489a-9c1d-0792e4038843.swatchbin	0.2MB	1IgiKnNAk-HKGxCtjh8xZhBRImVQ_1UnV
+/maz_miata_90/Textures/wiper/swatches/maz_miata_90_wipermask_maskedgesmear_bd986936-4d8f-4e37-9b91-f7290ea2d266.swatchbin	0.7MB	1H5l1porVUWbC-tfb_kgmI2hqIQWRN3Zu
+/maz_miata_90/Textures/symbols/  [15MqscZqLiroP4FkKjHIu-NEMkHh-bb9I]
+/maz_miata_90/Textures/symbols/swatches/  [178HxKDXRrXux3B_DxRJ9qfwjjGVn1lxa]
+/maz_miata_90/Textures/symbols/swatches/maz_miata_90_symbols_embossed_opac_71be8fff-183e-4bfe-b9e2-dd7bae547eb2.swatchbin	0.2MB	1HDF9yMn5uTZcpbTSPtaDu9n6DSV3m62Z
+/maz_miata_90/Textures/symbols/swatches/maz_miata_90_symbols_embossed_nrml_86fc6407-970f-473c-adda-48cc79e10093.swatchbin	1.4MB	1HJF7V4hMV8wYO2FFiBRIAmT_-XcLqvyL
+/maz_miata_90/Textures/symbols/swatches/maz_miata_90_symbols_embossed_diff_35b917d5-db51-4265-884c-24066bb0e197.swatchbin	0.3MB	1HNu0dhPf87DBjeHI4iNXjIVYJDv5h4T6
+/maz_miata_90/Textures/symbols/swatches/maz_miata_90_symbols_diff_16f806f2-1dea-4a04-bbda-6a86bef2b7d9.swatchbin	0.3MB	1HSgJEUBVF2AqXbZAYHF056hoROufIg-V
+/maz_miata_90/Textures/symbols/swatches/maz_miata_90_doortags_diff_e7646b38-bd15-495f-b9ed-5abb2c7fc0de.swatchbin	0.1MB	1HZRDu_H0JKdjR7bXRXnl1FL6m5_qW2u0
+/maz_miata_90/Textures/proxylod.swatchbin	0.5MB	1F5jUVASBKIxOGPDNu13iZroqH3Tsdw-n
+/maz_miata_90/Textures/lod/  [15UoQMmJ9phciaajZiUY9db_XOskCASN_]
+/maz_miata_90/Textures/lod/swatches/  [17AJ3iFvXVBuCBvS628ZBh3J9znKV4gij]
+/maz_miata_90/Textures/lod/swatches/maz_miata_90_interior_lite_7f381828-9c62-47a9-93db-93c163c04529.swatchbin	0.3MB	1Hc_MqlaWAKlnpEUlRXDHxj56946t5P02
+/maz_miata_90/Textures/lod/swatches/maz_miata_90_interior_diff_45d6d846-0033-4a89-9209-72765ced2b10.swatchbin	1.4MB	1Hdq8pS9HgJLd14sG1NJoNdgZky7oY4Wr
+/maz_miata_90/Textures/gauges/  [15WL8iKnx30hnz_hawC-s5IWX5qK61FgP]
+/maz_miata_90/Textures/gauges/swatches/  [17GcBbIwFVXX8wnInPXnmV-6-epn9O3-e]
+/maz_miata_90/Textures/gauges/swatches/maz_miata_90_gauges_lite_1a7c89b7-32f7-4367-83dc-c927d284d322.swatchbin	0.7MB	1HfwtPJsLXwo_bpQPrQEIZqd3aMLgTdI_
+/maz_miata_90/Textures/gauges/swatches/maz_miata_90_gauges_diff_443f8fe3-8966-48a2-b663-ff20f539442e.swatchbin	0.7MB	1HgjRoJ01j7jjnu1YJ0d0PYC9Nude75MM
+/maz_miata_90/Textures/gauges/radiosityanalog_diffonly.swatchbin	0.1MB	1Hr3bsRRRlBXirUrzkd7QE9xyqMm8KFBM
+/maz_miata_90/Textures/gauges/radiosityanalog.swatchbin	1.4MB	1GCN-T72tVpuXxrvV3teYirNGhU3yS8mn
+/maz_miata_90/Textures/gauges/driverviewprojection_analog.swatchbin	2.4MB	1GGfcl8FwpZrxs-vruR_fu6y5vYSmre16
+/maz_miata_90/Textures/damage/  [15Y3gs1KgKz_o2Iqbj0msYMrWwMGWf2-l]
+/maz_miata_90/Textures/damage/splattermask.swatchbin	5.6MB	1GMhLyu1T-GENKK87dfLcpibzhRwLy9lP
+/maz_miata_90/Textures/ao/  [15YV5fk1OP9hNlYh6kZbCVmMHBaeXn1C3]
+/maz_miata_90/Textures/ao/wing_race_ao.swatchbin	0.0MB	1GSVnj5n_BNam6wpl-Pe6OFYVZBQmWQgD
+/maz_miata_90/Textures/ao/wing_b_ao.swatchbin	0.0MB	1GXH2vf_q2TmER0b90Z21EhdAFqU7uAmp
+/maz_miata_90/Textures/ao/undercarriage_a_ao.swatchbin	0.0MB	1GXSgvRtHoLNWRuOw4FL5BmRnAh3NZrSo
+/maz_miata_90/Textures/ao/trunkbay_a_ao.swatchbin	0.0MB	1G_W-7mJ0K2AIDUhsexuZpw8hEhAegbAX
+/maz_miata_90/Textures/ao/taillightl_a_ao.swatchbin	0.0MB	1GiBBl1KjlT_Bxp4zAjfzG_qW-aaQzTx3
+/maz_miata_90/Textures/ao/taillightc_a_ao.swatchbin	0.0MB	1GliZR75SeMfwBq9Bk8ADtgntG7Q973Br
+/maz_miata_90/Textures/ao/skirtl_c_ao.swatchbin	0.0MB	1GrDINhy3w-_Uu_ecPxymCLIcb-WxMR10
+/maz_miata_90/Textures/ao/skirtl_b_ao.swatchbin	0.0MB	1GvMyWLYG96USwRb_Dc3RknUXNaazR4aE
+/maz_miata_90/Textures/ao/skirtl_a_ao.swatchbin	0.0MB	1H4FMCRUq6SUMkzq1WQ2gYEcazKD2FtCm
+/maz_miata_90/Textures/ao/seatf_a_ao.swatchbin	0.3MB	1F8JQVaBogpIQuL6hb53WoEYUtl3gqNtW
+/maz_miata_90/Textures/ao/rollcage_a_ao.swatchbin	0.2MB	1FH56PabTMEvBTaMYFeKO7IALaMO-R2M8
+/maz_miata_90/Textures/ao/rear_a_ao.swatchbin	5.6MB	1FIdjwZQ9aLYuo4HEJfVefOZsbhLezTc_
+/maz_miata_90/Textures/ao/rearseats_a_ao.swatchbin	0.3MB	1FJCxB-GZjtc5OBbtFyxe0X7aHgHQfiM6
+/maz_miata_90/Textures/ao/pillartrim_a_ao.swatchbin	0.3MB	1FaH5Po_IJJ48xcaZPJ-HQRzqSIt1L_UL
+/maz_miata_90/Textures/ao/maz_miata_90_wheellr_ao.swatchbin	0.3MB	1FdhMaC5_jw4k7XTIsTZd2LcCuYL8yAQ3
+/maz_miata_90/Textures/ao/hood_a_ao.swatchbin	0.2MB	1FhsgQ_93LM8dZjptVdhOfhqr6vrIScMP
+/maz_miata_90/Textures/ao/headlightl_a_ao.swatchbin	0.0MB	1FudKW7QrZuns5AuvFuWmBwoogeWRwSQO
+/maz_miata_90/Textures/ao/ground_ao.swatchbin	0.3MB	1FvpK5bBrMdyAZQSmeIZ151RsbUrYLAC_
+/maz_miata_90/Textures/ao/fenders_a_ao.swatchbin	1.4MB	1Fzyikgg_6ulG5yxcdW7TYJlXOGa9xzva
+/maz_miata_90/Textures/ao/exhaust_a_ao.swatchbin	0.0MB	1G2mWLLhBH7Ql_kXY096A69EC8YCBaoBW
+/maz_miata_90/Textures/ao/enginebay_a_ao.swatchbin	0.3MB	1GBiWscqokbfpV9fTtQW1WhL-7F6VmXvw
+/maz_miata_90/Textures/ao/doorjambs_a_ao.swatchbin	0.3MB	1E_HmLAqusPSZkpDfYhHEbMDUxOQ4lvzW
+/maz_miata_90/Textures/ao/doorcardf_a_ao.swatchbin	0.3MB	1EbOdO9dAL3s5wRRpwvSNHZQAa0Xp3KKj
+/maz_miata_90/Textures/ao/dashpad_a_ao.swatchbin	0.3MB	1Ei-HLQ8SwEMh-2-FnaA71B0tFgE2XPH8
+/maz_miata_90/Textures/ao/bumperr_c_ao.swatchbin	0.2MB	1EltY5Uo2Hs9U_YneOkERsNEHy-LHHnRR
+/maz_miata_90/Textures/ao/bumperr_b_ao.swatchbin	0.3MB	1EmdEFDKRMVqO5La5TB4hM5RlnyyQM_gp
+/maz_miata_90/Textures/ao/bumperr_a_ao.swatchbin	0.2MB	1EnwLHY5L2lAm_xkMZG2SYTglWPkaIKge
+/maz_miata_90/Textures/ao/bumperf_c_ao.swatchbin	0.3MB	1EtyGpSzi5iEl8m1dTw5rzqF0Vtmkg84o
+/maz_miata_90/Textures/ao/bumperf_b_ao.swatchbin	0.3MB	1F-URcGcheTM_yWTEp7R0JoRVv8SoCy01
+/maz_miata_90/Textures/ao/bumperf_a_ao.swatchbin	0.3MB	1F2zWwQ4jZrcQNgJPbfZ7OuKUA9zSxrRV
+/maz_miata_90/StrictBuild.txt	0.0MB	16453LTTOgwU8QX-TPdLgFvAievY6po-o
+/maz_miata_90/scene/  [13lSZO2LA3CgkO0Ck48pZjYOUjoz7inUr]
+/maz_miata_90/scene/_library/  [15ZHENCIRxYVzvc1JhsSaN3nI73YRpB5v]
+/maz_miata_90/scene/_library/Scene/  [17KTRRHeM9awSl6_ok96dnYMRDWpo_xc_]
+/maz_miata_90/scene/_library/Scene/Wheels/  [19SjJkIpXeKg1d0c-TDxRG61uCQ7ztHaK]
+/maz_miata_90/scene/_library/Scene/Wheels/MAZ_Miata_90_wheelLR.modelbin	1.2MB	1F76eADu2e4aoXsZby0kGeiNeNhJZAbd9
+/maz_miata_90/scene/_library/Scene/Undercarriage/  [19X13FBkm0zU-4PD0m5TxhRH4TLW7sMQF]
+/maz_miata_90/scene/_library/Scene/Undercarriage/controlArmRR_a.modelbin	0.0MB	1F7izqPCgbcyKzsNjZV8pYPagWQwkH5Dq
+/maz_miata_90/scene/_library/Scene/Undercarriage/controlArmRF_a.modelbin	0.0MB	1DosrKUgJAsMMuW-mdFjjPMdhDy2oHdCQ
+/maz_miata_90/scene/_library/Scene/Undercarriage/controlArmLR_a.modelbin	0.0MB	1Dq2oSmrpr_qLeTtwpaB_cA8Tf8NY03nZ
+/maz_miata_90/scene/_library/Scene/Undercarriage/controlArmLF_a.modelbin	0.0MB	1Ds2o8AlM5HuVzS3b4bjLWO0VYJi87ppB
+/maz_miata_90/scene/_library/Scene/Brakes/  [19ZwD8TshqEt1II9HP2pnemjWO6RPc1l4]
+/maz_miata_90/scene/_library/Scene/Brakes/Rotors/  [1Arj2X78COdLbDJ7WJ9g8CzBVxdHaPTJj]
+/maz_miata_90/scene/_library/Scene/Brakes/Rotors/MAZ_rotorRR_002.modelbin	0.0MB	1ED05fxolw-W6hJHE7KchwOdPVVS5xoig
+/maz_miata_90/scene/_library/Scene/Brakes/Rotors/MAZ_rotorRF_002.modelbin	0.0MB	1EFVklnIRr8EEyJwq_fYt2tqd-Z9g4zDt
+/maz_miata_90/scene/_library/Scene/Brakes/Rotors/MAZ_rotorLR_002.modelbin	0.0MB	1EKLVEwOEur7Wj5quZdA7WHyo3kg5JP2v
+/maz_miata_90/scene/_library/Scene/Brakes/Rotors/MAZ_rotorLF_002.modelbin	0.0MB	1EL0PYt5Gd4XmVt-MfbTdODbxwRY0JvCp
+/maz_miata_90/scene/_library/Scene/Brakes/Calipers/  [1AvvNpxNURW1iIpY1R6zHqzEuabE-22Zt]
+/maz_miata_90/scene/_library/Scene/Brakes/Calipers/MAZ_caliperRR_002.modelbin	0.1MB	1EMHmQzpd9Khb2Jlu-RywPi2zs0pBh7d0
+/maz_miata_90/scene/_library/Scene/Brakes/Calipers/MAZ_caliperRF_002.modelbin	0.1MB	1EQWcGYZ2qpSSzfFokNM65vPmMtIOrjjs
+/maz_miata_90/scene/_library/Scene/Brakes/Calipers/MAZ_caliperLR_002.modelbin	0.1MB	1EUwRzpwZt0zf-6DZGY8WTcysXx_x6vUy
+/maz_miata_90/scene/_library/Scene/Brakes/Calipers/MAZ_caliperLF_002.modelbin	0.1MB	1EWAL9HMgxSS28SL2YeQncOzrvwBJ_OVA
+/maz_miata_90/scene/ProxyLOD.modelbin	0.1MB	17yJgzIFP2M7LJQr4umIYCiyXc96PVE2g
+/maz_miata_90/scene/MAZ_Miata_90_skeleton.modelbin	0.0MB	185r_Cmcf8AnrLOkUEDLjGDR-9qCoe1N9
+/maz_miata_90/scene/MAZ_Miata_90_skeleton.gr2	0.0MB	18IErGb2kjHESmKczNO4InljsZ2mQqsWW
+/maz_miata_90/scene/interior/  [15ZKv-Y4Ux4gwYu2jRxorObE2knblH6Xw]
+/maz_miata_90/scene/interior/Seats/  [17Na6dtXKmvMK6HDUwE4BILzx8KRKAj8k]
+/maz_miata_90/scene/interior/Seats/seatBeltL_a.modelbin	0.3MB	1EYWorq2JqMVnCp0BORfc7xt6EneUK9Gq
+/maz_miata_90/scene/interior/Seats/parcelShelf_a.modelbin	0.4MB	1Cz-0lrcJ1RnyDan-lYEu2a9esWDG0IYI
+/maz_miata_90/scene/interior/Pillar/  [17Oaw-kuFDQQO83SjzxJUBOyDCYS01xIC]
+/maz_miata_90/scene/interior/Pillar/rearviewMirror_a.modelbin	0.1MB	1D1AAKZHg30oREyJR-2kdMVk_QMTCTqMC
+/maz_miata_90/scene/interior/Pillar/pillarTrim_a.modelbin	0.1MB	1D20g8YwrY0OGfGOOh_k5LrMtdmD2jlSn
+/maz_miata_90/scene/interior/InteriorWindows/  [17WfOaecDQ9eH2yffo2XxxKk586cZpF4F]
+/maz_miata_90/scene/interior/InteriorWindows/glassRFInt_a.modelbin	0.0MB	1D250G6HdqZjGyMj9Q0Fwl5RJEJcuDBNi
+/maz_miata_90/scene/interior/InteriorWindows/glassLFInt_a.modelbin	0.0MB	1D3BVeM__65lhWjrYn-nCSqmDjd44yS0u
+/maz_miata_90/scene/interior/InteriorWindows/glassFInt_a.modelbin	0.0MB	1D5E2MLwvLGzQEOQq5XAjNBQpIbI0ADwX
+/maz_miata_90/scene/interior/InteriorLOD/  [17c9qsxBtPdUdkutCOAVqZnsGIwlRVYyY]
+/maz_miata_90/scene/interior/InteriorLOD/Interior_a.modelbin	0.1MB	1DGeoiMAAujhA33CGUE_1ogiqjVWiqSSW
+/maz_miata_90/scene/interior/Gauges/  [17kfkQniVBuj8NvlmEgwgEXl3MEFMfAIV]
+/maz_miata_90/scene/interior/Gauges/gaugeCluster_a.modelbin	0.0MB	1DZfWORjVGF8kRLIvdIGwZDEoEgdaRONB
+/maz_miata_90/scene/interior/Floor/  [17lqQ_rc-rfUq84_bkMIvHA30ck_iMupi]
+/maz_miata_90/scene/interior/Floor/rollCage_race.modelbin	0.1MB	1DglKvt5S3v6fh0Tbs3ng_eZnZxTQONQp
+/maz_miata_90/scene/interior/Floor/pedals_a.modelbin	0.0MB	1Dh_qOJ7Tmh7MSzdWZuQUx9NS8MVKaBB2
+/maz_miata_90/scene/interior/Floor/floor_a.modelbin	0.0MB	1DnBrVGEbOkNhBMv6qUpTYv6--cQlLkQe
+/maz_miata_90/scene/interior/Doors/  [17rzrMRnNV5O_chMmpU4o3pmK7Bwre4uW]
+/maz_miata_90/scene/interior/Doors/doorCardLF_a.modelbin	0.1MB	1Dob1ax0680ZaBwC7LTQrPu0VKBZvIp2d
+/maz_miata_90/scene/interior/Details/  [17w6r5LDGDC0lXHFiOZmAFztUXh-wHG6E]
+/maz_miata_90/scene/interior/Details/speakerDoorLF_a.modelbin	0.0MB	1C5CBHqcatyccHr93bZnbi5zC3uFyBbcz
+/maz_miata_90/scene/interior/Dash/  [188sZ6DZ5clKMylBqQEisTB2As_rLxmo6]
+/maz_miata_90/scene/interior/Dash/vents_a.modelbin	0.0MB	1C5NP3fiKRLuzN_TWCGUIidBGHBZHdOqO
+/maz_miata_90/scene/interior/Dash/steeringWheel_a.modelbin	0.3MB	1C7Jjw4PenmKZerga-fylAIidWN79qj_n
+/maz_miata_90/scene/interior/Dash/steeringColumn_a.modelbin	0.1MB	1CQm3bP82N7a9QfnPaYaURY7jKJilAYoe
+/maz_miata_90/scene/interior/Dash/gaugePod_a.modelbin	0.1MB	1CR3p77V6TLzADB6Vd-aedO_NugPBi_2H
+/maz_miata_90/scene/interior/Dash/dashStructure_a.modelbin	0.1MB	1CS39NoLZ6rJvksppEnNZq9y4aklTvd6j
+/maz_miata_90/scene/interior/Dash/dashPad_a.modelbin	0.2MB	1CTcu5jT-PDzXOeYrdL5qSgHjtQEeiS4L
+/maz_miata_90/scene/interior/CenterStack/  [167-bfS4abH5b3oJsZuYAlYxB60ppLzGl]
+/maz_miata_90/scene/interior/CenterStack/CenterStackBezels_a.modelbin	0.1MB	1CZpj2hUbZDDuXGJaHFXjakhlDgtwrwsx
+/maz_miata_90/scene/interior/CenterConsole/  [169N18aJF9p5vOggOGTrPZRgwlThour5W]
+/maz_miata_90/scene/interior/CenterConsole/CenterConsoleStructure_a.modelbin	0.2MB	1ChZqQ3hLA7rHfLSx2KLEF14_L3leavNL
+/maz_miata_90/scene/Exterior/  [15lDtsbnAy8t9cTCbfk7xfJ4LHV7wN1Ry]
+/maz_miata_90/scene/Exterior/Windows/  [16CvpqCvKYus06hneOuFL_7m00jTWSMOC]
+/maz_miata_90/scene/Exterior/Windows/glassRF_a.modelbin	0.0MB	1CnJy60DriPll_VFPtK7JRXTTT7ie6q4T
+/maz_miata_90/scene/Exterior/Windows/glassLF_a.modelbin	0.0MB	1CrfF0gDu5D6Keb8bE2cRtfriWFCTNLiI
+/maz_miata_90/scene/Exterior/Windows/glassF_a.modelbin	0.0MB	1Cu9ODVc-FDuFEKmkN-wa1n6kJRXnoooU
+/maz_miata_90/scene/Exterior/Trunk/  [16EXP_D8nSDFm8KBiViZb1RoNMcOk75jG]
+/maz_miata_90/scene/Exterior/Trunk/wing_race.modelbin	0.3MB	1BIWaOzWWtOSSXQiVwDsNP65EZ9BYRMHK
+/maz_miata_90/scene/Exterior/Trunk/wing_b.modelbin	0.2MB	1BLiDJ-LJeVYZ_YVbbEqbkvW9ZwtEoDhz
+/maz_miata_90/scene/Exterior/Trunk/trunk_a.modelbin	0.2MB	1BLuQZWJ5eoh9ygg6gnn_WepvMS857qlZ
+/maz_miata_90/scene/Exterior/Trunk/trunkLiner_a__SLOD.modelbin	0.1MB	1BMwf7o3PQlquHDxcThWopApUP5RmGGa_
+/maz_miata_90/scene/Exterior/Trunk/trunkLiner_a.modelbin	0.0MB	1BQMEeNUnWE0E7verdH2mExxbXS8WhR-I
+/maz_miata_90/scene/Exterior/SideSkirts/  [16HiQTsNOzOVbiQ5f1S-vGPZfD-iYT_je]
+/maz_miata_90/scene/Exterior/SideSkirts/skirtR_c.modelbin	0.2MB	1BVqLyN8l_NVEWAG4Cx73sKwy-nA7qayG
+/maz_miata_90/scene/Exterior/SideSkirts/skirtR_b.modelbin	0.2MB	1BZb674_rLypoz_f83i4mw7lqQYU3KYzj
+/maz_miata_90/scene/Exterior/SideSkirts/skirtL_c.modelbin	0.2MB	1BcjFhZ8etgfdxwfD3uZFOFLuR6G3J5Vo
+/maz_miata_90/scene/Exterior/SideSkirts/skirtL_b.modelbin	0.2MB	1BeHQTM4rLZ72cIhSjnb5vbK3wxTcaMW4
+/maz_miata_90/scene/Exterior/SideSkirts/skirtL_a.modelbin	0.4MB	1BeZ6bfmjv1ivL_fYkP-GC1CJ3ZzK3MSH
+/maz_miata_90/scene/Exterior/SecondaryLights/  [16LZNBJijGRdBK0wPI8T5x6AvYGy6QGLY]
+/maz_miata_90/scene/Exterior/SecondaryLights/taillightR_a.modelbin	0.2MB	1C2m2HpR06szVVIFPgRAvvv2bUrVr3iph
+/maz_miata_90/scene/Exterior/SecondaryLights/taillightRBulbs_a.modelbin	0.0MB	1C3m46pMHJdFJ0Us9L-iuK6sPgY8TAB9-
+/maz_miata_90/scene/Exterior/SecondaryLights/taillightL_a.modelbin	0.2MB	1Aoo_NFZIu3l3V-9x_23EExdNbpYuYdPX
+/maz_miata_90/scene/Exterior/SecondaryLights/taillightLBulbs_a.modelbin	0.0MB	1AucgaymSSezw5YkRjNur8tjJa0iHN-bV
+/maz_miata_90/scene/Exterior/SecondaryLights/tailightCHMSL_a.modelbin	0.0MB	1B2Ur9x5R8jDXRhHfMdzk6OQSzxZ449t8
+/maz_miata_90/scene/Exterior/SecondaryLights/tailightCHMSLBulbs_a.modelbin	0.0MB	1B6hZLeOci8W30sBnLsUS1XmJfB_4mKOV
+/maz_miata_90/scene/Exterior/SecondaryLights/lensRTL_a.modelbin	0.1MB	1B8uTmkUGG5MbhiHM47RB3M6HfSLFqi8a
+/maz_miata_90/scene/Exterior/SecondaryLights/lensLTL_a.modelbin	0.1MB	1BBAQ2YRyiPc5ZhTXRp2WI_EFgmbzPDfO
+/maz_miata_90/scene/Exterior/SecondaryLights/glassRTL_a.modelbin	0.0MB	1BEeaSInHJAV8AIyZikkV_ujYwClKbJj3
+/maz_miata_90/scene/Exterior/SecondaryLights/glassLTL_a.modelbin	0.0MB	1BGbLV9BYSlVHgNFp-v6eq312KkUIQLcd
+/maz_miata_90/scene/Exterior/PrimaryLights/  [16OOa4VSVzpzuZcQvyi7JEY2hLvzfCZYE]
+/maz_miata_90/scene/Exterior/PrimaryLights/headlightR_a.modelbin	0.1MB	1Aaw_HtpuU6t7etQ56V6ZyEgorPDeURrV
+/maz_miata_90/scene/Exterior/PrimaryLights/headlightRBulbs_a.modelbin	0.0MB	1Ab-2CZK0NEvTTVPCK1yJr_6iLXZnKNNB
+/maz_miata_90/scene/Exterior/PrimaryLights/headlightL_a.modelbin	0.1MB	1AbB67zIlag3XwtVutyBEpgc8zp7_R4wU
+/maz_miata_90/scene/Exterior/PrimaryLights/headlightLBulbs_a.modelbin	0.0MB	1AdJw8Q1sQfWZCRD48ljP3JVBYWLilEDB
+/maz_miata_90/scene/Exterior/PrimaryLights/glassRHL_a.modelbin	0.0MB	1AdbX9dPZmGNrnouLIm3_D06ac89VgKcO
+/maz_miata_90/scene/Exterior/PrimaryLights/glassRFL_a.modelbin	0.1MB	1AeAGbmlKuEAWRkxJ_mOBGiVxyfewJdTn
+/maz_miata_90/scene/Exterior/PrimaryLights/glassLHL_a.modelbin	0.0MB	1AhWTi6DTk67jQpr2kvM9icv5xW4ZJ9uC
+/maz_miata_90/scene/Exterior/PrimaryLights/glassLFL_a.modelbin	0.1MB	1Al9eSpSk2STdEtak6-4TLiRGULOXYsNR
+/maz_miata_90/scene/Exterior/PrimaryLights/foglightR_a.modelbin	0.1MB	1ARaFa4iGEX0P6ziKltnghZXDogauSmeI
+/maz_miata_90/scene/Exterior/PrimaryLights/foglightL_a.modelbin	0.1MB	1ATcyiYgl0C8HSMGr3LSr3CbG0SBogV90
+/maz_miata_90/scene/Exterior/Platform/  [16P6EoFwQ8tJVapeuhN9WPuix732ni0AW]
+/maz_miata_90/scene/Exterior/Platform/doorSill_a.modelbin	0.1MB	1AVWmFcNhGQ3KfKQ47kWnQrboDrWBQLLC
+/maz_miata_90/scene/Exterior/Platform/body_a.modelbin	1.2MB	1AXS4X72WcVDQMCDqAIQhZflP9sPfO01i
+/maz_miata_90/scene/Exterior/Platform/bodyAntenna_a.modelbin	0.0MB	1AXvA3riJElffapknBqa9UiBdjIdHK4KU
+/maz_miata_90/scene/Exterior/Hood/  [16UZtuKtq6M7TLDro9uKjlHMNSx3PET2v]
+/maz_miata_90/scene/Exterior/Hood/hood_b.modelbin	0.3MB	1AYZZ5fqtEFXyaQckV0nOr7SFKS1k_hU9
+/maz_miata_90/scene/Exterior/Hood/hood_a.modelbin	0.3MB	1AaLjTzVxM022llJtVBnJJqJwPUXwyhpU
+/maz_miata_90/scene/Exterior/Hood/hoodLiner_b.modelbin	0.0MB	1AaWymFPobMeTA61Ikw7fpRsz8wzy8R4C
+/maz_miata_90/scene/Exterior/Hood/hoodLiner_a__SLOD.modelbin	0.3MB	1A2mjZAGtYrg7JZxOZY4bNKfe3pTp3c5K
+/maz_miata_90/scene/Exterior/Hood/hoodLiner_a.modelbin	0.0MB	1A5JwDrmOzds_pMhRPZG6LdvG7C3OgzAe
+/maz_miata_90/scene/Exterior/Fenders/  [16VzKFH6KebnPLDZJYg0tV3tfAzKR73Vf]
+/maz_miata_90/scene/Exterior/Fenders/fenders_a.modelbin	0.4MB	1A6IvHTMILzY9nz0R9g-kNmkWttapKmtC
+/maz_miata_90/scene/Exterior/Engine/  [16lzxLNWmsevv2Zd_coN_9CmCkr-J0bdb]
+/maz_miata_90/scene/Exterior/Engine/wipers_a__SLOD.modelbin	0.1MB	1AAkfc2650nIGX8oRrZzlz9M1YWKQbtsb
+/maz_miata_90/scene/Exterior/Engine/wipers_a.modelbin	0.2MB	1ACgzrce9tviopI9SzqLU5jnrFgDtcGJV
+/maz_miata_90/scene/Exterior/Engine/engine_a.modelbin	0.7MB	1AHqFYLZnPa7jyFcUodJ-h_Loqrtsa-KP
+/maz_miata_90/scene/Exterior/Engine/engineBay_a__SLOD.modelbin	1.5MB	1AK07yq1Wu-flu0-jU8Y3jC26cB8VaA5N
+/maz_miata_90/scene/Exterior/Engine/engineBay_a.modelbin	0.0MB	1AMLxTwECnBZe_Mi_sQD6jLIueE8Sg6i2
+/maz_miata_90/scene/Exterior/Doors/  [16sInu4zCxuqy972ThqObichqX6ZPMmOK]
+/maz_miata_90/scene/Exterior/Doors/wingMirrorR_a.modelbin	0.1MB	19aUbtSNy13rcWmgqRP1KGMt7qMTvLrzE
+/maz_miata_90/scene/Exterior/Doors/wingMirrorL_a.modelbin	0.1MB	19bIHAZuDyo-JY-qKxJ99AIjRmwiyQk5_
+/maz_miata_90/scene/Exterior/Doors/mirrorBaseR_a.modelbin	0.1MB	19dLFGGoayHa7a2zuVzuspnSFgwppKRl5
+/maz_miata_90/scene/Exterior/Doors/mirrorBaseL_a.modelbin	0.1MB	19dtNUKF7iQSZh9wjsLYPci8NAokIp4uR
+/maz_miata_90/scene/Exterior/Doors/doorRF_a.modelbin	0.3MB	19f_t4WAVc628Kmh-2q6XHgBFFGNZpFX-
+/maz_miata_90/scene/Exterior/Doors/doorLF_a.modelbin	0.3MB	19kcs7Ovytj7TTiFbUMst25OsG0G5ojf8
+/maz_miata_90/scene/Exterior/Doors/doorJambLF_a__SLOD.modelbin	0.2MB	19lu_l-fhpmtjXTdXfOzhYbBt3hEYCS8y
+/maz_miata_90/scene/Exterior/Doors/doorJambLF_a.modelbin	0.1MB	1A1ddB5VvAtbxTX8m6Bbwkn3qX9k5UVL9
+/maz_miata_90/scene/Exterior/Doors/doorHandleLF_a.modelbin	0.2MB	19ANmJHObVqM4ioXOBQ74aHcsPVmRC54h
+/maz_miata_90/scene/Exterior/Chassis/  [16wOLQV1ZvScDOFZVXqyc0fmL_g7FBr16]
+/maz_miata_90/scene/Exterior/Chassis/undercarriage_a.modelbin	0.1MB	19B4wggJ_7qrLeqbgFj39qMyqQ60SRh4Z
+/maz_miata_90/scene/Exterior/Chassis/exhaust_a.modelbin	0.1MB	19BSH1ANZp3OgvtzthlgwWkzMf_ann6n2
+/maz_miata_90/scene/Exterior/BumperR/  [17-MeuiaPMBVhz44OKxuYQVcQ9xnaElJY]
+/maz_miata_90/scene/Exterior/BumperR/trunkBay_a__SLOD.modelbin	0.1MB	19IJK8E8lt0n-EIHN_wStpDqlOqAs03Y6
+/maz_miata_90/scene/Exterior/BumperR/trunkBay_a.modelbin	0.0MB	19M0G4VfezOKZIfrruyq3O_UK_uNohKc_
+/maz_miata_90/scene/Exterior/BumperR/glassBumperRSideMarkers_a.modelbin	0.0MB	19ZUeHHWQdxsR9R0uALjOrymp_wCA4ajg
+/maz_miata_90/scene/Exterior/BumperR/bumperR_c.modelbin	1.5MB	19_CfHr3UBsLHfEARUQYdP5Olx5M5Ftac
+/maz_miata_90/scene/Exterior/BumperR/bumperR_b.modelbin	0.5MB	19_HL1CmJ02-1N6oLYgBUK7kWWxPTzmZV
+/maz_miata_90/scene/Exterior/BumperR/bumperR_a.modelbin	0.4MB	18fFeBLY1i8sTqOdjZlffkZbGAZaXin7H
+/maz_miata_90/scene/Exterior/BumperR/bumperRSideMarkers_a.modelbin	0.0MB	18gHSQ31Zrup5vxLRKgG5nz2AxSAJVAFX
+/maz_miata_90/scene/Exterior/BumperF/  [170dkdw8TsNIMqy7f-h3ZkZgckhaq8vnn]
+/maz_miata_90/scene/Exterior/BumperF/glassBumperFSideMarkers_a.modelbin	0.1MB	18nkRNhHLYg5Y2MDrMsAdY1YoEr9B_KLS
+/maz_miata_90/scene/Exterior/BumperF/bumperF_race.modelbin	0.2MB	18sSinww26tjAt4XAnXIBiIz7HGF7D2Fs
+/maz_miata_90/scene/Exterior/BumperF/bumperF_c.modelbin	0.8MB	18vXeHnaHTto13ZY6_2SGdh_w90gAxvgu
+/maz_miata_90/scene/Exterior/BumperF/bumperF_b.modelbin	0.8MB	18wKJJ5yQB_dqDc9b2UhSTOv_P8peIUAG
+/maz_miata_90/scene/Exterior/BumperF/bumperF_a.modelbin	0.7MB	196USWk_a_gSgNYDlzPP8ngt3MObVPbVD
+/maz_miata_90/scene/Exterior/BumperF/bumperFSideMarkers_a.modelbin	0.0MB	198yLXbsZdKsCHJ-AyM5HjsFekgo9gxSO
+/maz_miata_90/physicsdefinition.bin	0.0MB	15YrVm7FpkSmCXOZ3rBHRwym67Nq1YOQe
+/maz_miata_90/MAZ_Miata_90.carbin_debug	0.0MB	15_p06MZfFCZmHy7oIBVYZ9HzrYd7n7vE
+/maz_miata_90/MAZ_Miata_90.carbin	0.0MB	15jyJKa5AKzkFnLRLNsHJ6bA3yxaymZ0w
+/maz_miata_90/MAZ_Miata_90.avpins	0.1MB	15kgJyxTw34dEir27rr6GVhuDsfEKTbCO
+/maz_miata_90/ManufacturerColors.bin	0.0MB	15mSJKGhJSVvCxTcSJJMmLqfjhOPcGzv6
+/maz_miata_90/Locators.xml	0.0MB	15HohgMOtutTrM54hwG3fdjQEVBq72vhz
+/maz_miata_90/LiveryMasks/  [1403EoLjVhsLtYFNmDwBF10qGrkCxj6k2]
+/maz_miata_90/LiveryMasks/wing.swatchbin	0.5MB	18WnKkDQZIeBsTNJdNSv9dsQMLICohYSN
+/maz_miata_90/LiveryMasks/top.swatchbin	0.5MB	18Wyxlg_5Y2qPlgAdNPHTc7-TU79UH1t8
+/maz_miata_90/LiveryMasks/right.swatchbin	0.5MB	18_xiyN8Nc1lPrUen6TkH5MQJnrR7Bouz
+/maz_miata_90/LiveryMasks/Masks.xml	0.0MB	18e7w5y7Le_BqZkXtA_TqX2SUpU0hYNbU
+/maz_miata_90/LiveryMasks/left.swatchbin	0.5MB	18e_qB_MPR0e4iCqWfnHiXu5_ZXJPj-dO
+/maz_miata_90/LiveryMasks/front.swatchbin	0.5MB	17JvpChiEbaZHgNIHBZClcmav0AGBNBVo
+/maz_miata_90/LiveryMasks/back.swatchbin	0.5MB	17QpldFR9UEU83wWJsoHehwAO6Vx-0yyk
+/maz_miata_90/Lights.bin	0.0MB	15Mz5w5ZCrUYJ_b6LJ4oyE85kUpsVQwds
+/maz_miata_90/IKAnchorBones.xml	0.0MB	15OTurVVyYWqLGLHHGBFup-blrwajVGud
+/maz_miata_90/carscene_MAZ_Miata_90_build_report.html	0.0MB	15UeSFugFa5oYYJtcCJ_lSUOd8N9tgFpx
+/maz_miata_90/BuildNumber.txt	0.0MB	15YQLwYTpD4DBOIJkvsIpREcZqZUNbK2q
+/maz_miata_90/Animations/  [140gfZvyHqbyivgYyPlfWD9mF6DlfZy5O]
+/maz_miata_90/Animations/wiperFront.gr2	0.0MB	17ZxNHkJduVcrl6glC90ER-B64zf1YofV
+/maz_miata_90/Animations/trunk_open.gr2	0.0MB	17j2H7WByMAgZVQSssFek3yv-1df2CFWk
+/maz_miata_90/Animations/trunk_close.gr2	0.0MB	17pIjytyWJnmEHvBWfYun9-NYmVIdeal6
+/maz_miata_90/Animations/tachometer.gr2	0.0MB	172JwAYkARzdVm41w3Biw8LAyo8cjy2mk
+/maz_miata_90/Animations/speedometer.gr2	0.0MB	17CM1xzJYPRyGh6OpE6VKlUEr9cXKO4td
+/maz_miata_90/Animations/MAZ_Miata_90.gsf	0.1MB	17FL2dE_aS7Mh74mQnua7gaDddbX0gDdY
+/maz_miata_90/Animations/hood_open.gr2	0.0MB	17G6F2Sc6MvXOJ4W2YGLtzsBzpr9sd2VO
+/maz_miata_90/Animations/hood_close.gr2	0.0MB	17HSsXPTJ7CtiUHfYw-hy7kKDQlsIKe-H
+/maz_miata_90/Animations/headlightR_open.gr2	0.0MB	168JVQirHUArhIQXUBpl9EiLfWSc7xU-p
+/maz_miata_90/Animations/headlightR_close.gr2	0.0MB	16NqD5cKEGclGNrXbGB5m2XFkCJ4lCny_
+/maz_miata_90/Animations/headlightL_open.gr2	0.0MB	16Sla2Xg3UHQBl19D6zW6banPhWbib8o9
+/maz_miata_90/Animations/headlightL_close.gr2	0.0MB	16Usljgdi6x9XoQ14FvVT6F3NOfZCDukZ
+/maz_miata_90/Animations/fuel.gr2	0.0MB	16tvTlePcl1IPRt4Gmyaxa0_eJK3iMqNt
+/maz_miata_90/Animations/doorRF_open.gr2	0.0MB	15rK8l-ufYLyTKPpmt-8U4JhRiHWjTvbr
+/maz_miata_90/Animations/doorRF_close.gr2	0.0MB	15u_7SMomzWmYDPqdb-Bl57VawkOfgvMF
+/maz_miata_90/Animations/doorLF_open.gr2	0.0MB	15vIp2XbxnVQEb_Qeqw_j0nv6sEh2XRcr
+/maz_miata_90/Animations/doorLF_close.gr2	0.0MB	15xl2Li6PVyPyB74s0r4Us7byWZ181_CL
