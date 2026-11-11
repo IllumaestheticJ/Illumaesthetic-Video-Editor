@@ -17,18 +17,18 @@ music:
 beats: [3.70, 7.43, 8.243, 9.282, 11.128, 11.935, 14.826, 16.666, 19.319, 22.198, 24.044, 26.703, 30.395, 34.087, 36.97]
 
 timeline:
-  - id: N0_open     # whole car, front-right 3/4, fades up (110 f, first clip one frame short)
+  - id: N0_open     # whole car, front-right 3/4, fades up (111 f, first clip one frame short; cut on measured onset 3.721)
     src: /home/user/media/work/z400/renders/final/N0_open
+    src_fps: 15.0
+    interpolate: true
+    dur: 3.7
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955,fade=t=in:st=0:d=1.2"
+  - transition: {type: cut, note: "3.70 intro bar 3"}
+  - id: H_hoodopen     # engine bay from the Hood Open scan, camera pushes in (110 f; cut on onset 7.411)
+    src: /home/user/media/work/z400/renders/final/H_hoodopen
     src_fps: 15.13
     interpolate: true
     dur: 3.6667
-    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955,fade=t=in:st=0:d=1.2"
-  - transition: {type: cut, note: "3.70 intro bar 3"}
-  - id: H_hoodopen     # engine bay from the Hood Open scan, camera pushes in (112 f)
-    src: /home/user/media/work/z400/renders/final/H_hoodopen
-    src_fps: 14.87
-    interpolate: true
-    dur: 3.7333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "7.43 THE DROP"}
   - id: N1a_bumper_off     # HERO: grille out on 8.24, bumper shell off on 9.28 (111 f)
@@ -59,11 +59,12 @@ timeline:
     dur: 2.8667
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "22.198 kick"}
-  - id: N3_wing     # duck-tail wing lifts off on 24.04, camera rises over the Rear Wing Removed deck (135 f)
+  - id: N3_wing     # duck-tail wing lifts off on 24.04, camera rises over the Rear Wing Removed deck (136 f; in on onset 22.180)
     src: /home/user/media/work/z400/renders/final/N3_wing
-    src_fps: 15.0
+    src_fps: 13.6
     interpolate: true
-    dur: 4.5
+    trim_start: 0.4412    # 6 source frames: wing already lifting on the 22.180 cut (s5_tail ends on near-identical badge framing - without motion the cut read as a stutter)
+    dur: 4.5333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "26.703 phrase accent - reassembly from a new angle"}
   - id: s8b_explode     # panels fly home, LOCK on 30.395; scaled 78 % (edges), fade out (198 f)

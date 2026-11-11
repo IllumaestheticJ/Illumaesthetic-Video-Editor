@@ -15,6 +15,7 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
 - [honda-civic-11](honda-civic-11/) - archived 2026-11-11
+- [nissan-400z](nissan-400z/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
