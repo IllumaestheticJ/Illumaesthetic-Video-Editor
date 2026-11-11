@@ -5,8 +5,9 @@ Focal (mm) is unchanged; sensor width shrinks to the window; the window offset b
 import json, sys
 c = json.load(open(sys.argv[1])); x0 = float(sys.argv[2]); out = sys.argv[3]
 W, H = c["image_size"]; ow, oh = 1080, 1920
+win_arg = [float(v.split("=")[1]) for v in sys.argv if v.startswith("--win=")]
 if len(sys.argv) > 5: ow, oh = map(int, sys.argv[5].split("x"))
-win = H * 9 / 16; s = oh / H
+win = win_arg[0] if win_arg else H * 9 / 16; s = ow / win   # px scale landscape -> portrait (width-locked); vertical extent is symmetric about the centre
 sensor = c["sensor_width_mm"] * win / W
 cx_p = (W / 2 - x0) * s
 o = dict(c)
