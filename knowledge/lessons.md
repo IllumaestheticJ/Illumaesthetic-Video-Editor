@@ -137,3 +137,14 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** To nudge a motion hit by a few frames, change the PNG sequence's `src_fps`, not `speed:` - speed resamples
   after minterpolate and duplicates a frame. `ive strip` shows the frame after the requested time at a cut; use
   `ffmpeg -vf select=eq(n\,N)` for exact cut frames.
+
+## From the Ferrari 296 GTB scan-only reel (2026-11-11, built by an agent)
+- **[technical]** Cycles persistent data can silently render BLACK frames in long, heavy animated scenes (296 explode:
+  8M tris + 7 moving parts, from frame 49 on; frames got 2x faster and showed only a dark silhouette). Scan every render
+  for max luma before assembling and re-render in fresh 40-frame processes (`projects/ferrari-296/tools/shot.py` `frame_range`).
+- **[technical]** In custom Blender scripts call `view_layer.update()` after linking objects from a .blend before reading
+  `matrix_world`/bboxes - otherwise pivots land in raw-mm space and any rotation flings the part out of frame.
+- **[scan-look]** Panels-off bodies from Artec state scans: delete car triangles within ~9 mm of each removed panel, then
+  add only state-scan geometry > 7 mm from the car, inside that panel's own bbox, de-duplicated across fills
+  (`tools/composite.py`). Drop z above the car where a state scan caught a propped-open hood.
+- **[scan-look]** Tail-lamp lenses and grilles are often scan holes; check close-ups for dark blotches and pick another detail.
