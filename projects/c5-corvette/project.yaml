@@ -9,69 +9,54 @@ music:
   start: 0
   fade_out: 1.4
 
-# kick grid 107.96 BPM, b = 0.5013 + 0.5557k; cuts on accents (see editlog); 35.513 = logo (b63, biggest hit)
-beats: [4.040, 9.393, 13.839, 15.506, 17.174, 22.175, 26.621, 30.512, 35.513]
+# cuts on measured KICK ONSETS (tools/kickcut.py) - v1 cut on a grid 2-4 frames late; director.md has the plan
+beats: [4.117, 9.309, 17.024, 22.130, 30.385, 35.496]
 
 timeline:
-  - id: v2_a_fb_off   # HOOK framed on the nose: front bumper slides straight out from 0.6 s, fades up
-    src: /home/user/media/work/renders/c5/v2_a_fb_off
+  - id: v2_a2_open   # whole car -> front bumper starts off (clean car swaps to the composite on its first motion)
+    src: /home/user/media/work/renders/c5/v2_a2_open
     src_fps: 15
     interpolate: true
-    dur: 4.0000
-    vf: fade=t=in:st=0:d=1.2
+    dur: 4.1000
+    vf: fade=t=in:st=0:d=0.4
   - transition: {type: cut}
-  - id: v2_b_fb_inside   # low head-on push into the exposed crash structure; bumper rises, turns its scanned inside to camera
+  - id: v2_b_fb_inside   # FRONT BUMPER REMOVED: push into the nose structure; bumper rises and turns its scanned inside to camera
     src: /home/user/media/work/renders/c5/v2_b_fb_inside
     src_fps: 15
     interpolate: true
-    dur: 5.3667
+    dur: 5.1667
   - transition: {type: cut}
-  - id: v2_c_fender   # ON THE DROP (9.393): -X fender lifts off -> inner wheelhouse + mounts
-    src: /home/user/media/work/renders/c5/v2_c_fender
+  - id: v2_f2_hood   # ON THE DROP (9.309): hood opens on its fitted hinge (captured 46 deg), lifts, flips its underside; push into the bay
+    src: /home/user/media/work/renders/c5/v2_f2_hood
     src_fps: 15
     interpolate: true
-    dur: 4.4333
+    dur: 7.7333
   - transition: {type: cut}
-  - id: v2_d_fender_macro   # close-up: exposed fender mounts / headlight bucket
-    src: /home/user/media/work/renders/c5/v2_d_fender_macro
+  - id: v2_c2_fender   # -X side: fender lifts off -> macro on the wheelhouse / mounts
+    src: /home/user/media/work/renders/c5/v2_c2_fender
     src_fps: 15
     interpolate: true
-    dur: 1.6667
+    dur: 5.1000
   - transition: {type: cut}
-  - id: v2_e_nose_macro   # close-up: crash bar / radiator support where the bumper was
-    src: /home/user/media/work/renders/c5/v2_e_nose_macro
+  - id: v2_g2_rear   # REAR BUMPER REMOVED: off toward camera, hold on the structure, turns its inside on 26.471
+    src: /home/user/media/work/renders/c5/v2_g2_rear
     src_fps: 15
     interpolate: true
-    dur: 1.6667
+    dur: 8.2667
   - transition: {type: cut}
-  - id: v2_f_hood   # hood opens on the fitted hinge, lifts off; push into the engine bay
-    src: /home/user/media/work/renders/c5/v2_f_hood
+  - id: v2_i2_home   # reassembly from the rear 3/4; rear bumper locks on 34.402 -> clean car, fade
+    src: /home/user/media/work/renders/c5/v2_i2_home
     src_fps: 15
     interpolate: true
-    dur: 5.0000
+    dur: 5.1000
+    vf: fade=t=out:st=4.35:d=0.75
   - transition: {type: cut}
-  - id: v2_g_rb_off   # THEN the rear (22.175 kick): rear bumper slides off -> rear crash bar
-    src: /home/user/media/work/renders/c5/v2_g_rb_off
-    src_fps: 15
-    interpolate: true
-    dur: 4.4667
-  - transition: {type: cut}
-  - id: v2_h_rb_inside   # rear bumper rises, turns its scanned inside to camera (26.621 accent)
-    src: /home/user/media/work/renders/c5/v2_h_rb_inside
-    src_fps: 15
-    interpolate: true
-    dur: 3.8667
-  - transition: {type: cut}
-  - id: v2_i_home   # everything flies home, front bumper locks + clean car on 34.402
-    src: /home/user/media/work/renders/c5/v2_i_home
-    src_fps: 15
-    interpolate: true
-    dur: 5.0000
-  - transition: {type: cut}
-  - id: logo   # ILLUMAESTHETIC logo on black on the b63 hit; music decays to silence by 39.5 s
-    src: /home/user/media/c5-corvette/logo/end_card.png
+  - id: logo   # small logo (300 px, ~28 % width) on the biggest hit; gone by 38.6, black under the decay
+    src: /home/user/media/c5-corvette/logo/logo_small.png
     duration: 4.0000
     dur: 3.9000
-    vf: fade=t=in:st=0:d=0.25,fade=t=out:st=3.0:d=0.9
+    vf: fade=t=in:st=0:d=0.25,fade=t=out:st=2.5:d=0.6
 
-overlays: []   # no text in this format (Temerario ref has none)
+overlays:   # file-name labels over scan shots only (reviewer: bumper-removed data highlighted + labeled)
+  - src: /home/user/media/work/out/hud_c5_v2.mov
+    start: 0

@@ -206,7 +206,7 @@ def main():
     sc.cycles.samples = samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = bool(spec.get("persistent", True))  # off for moving shots (lights drop out)
     sc.render.resolution_x, sc.render.resolution_y = spec.get("res", [1080, 1920])
     sc.render.resolution_percentage = res_pct
     sc.view_settings.view_transform = "AgX"

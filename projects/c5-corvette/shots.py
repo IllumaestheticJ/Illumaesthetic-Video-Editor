@@ -162,3 +162,62 @@ v2shot("i_home", 8, push(-38, 24, 7.2, 6.0, [0, -0.1, 0.8], [0, -0.05, 0.6], len
 # the clean car is only in the last shot
 json.dump({**json.load(open(OUT + "v2_i_home.json")), "objects": {**V2, **CAR}}, open(OUT + "v2_i_home.json", "w"), indent=1)
 print("v2 shots", [n for n in sorted(os.listdir(OUT)) if n.startswith("v2_")])
+
+# ---------------------------------------------------------------- v2 final plan (projects/c5-corvette/director.md)
+# One continuous sequence per section, front -> hood/bay -> -X fender -> rear -> reassembly. Cuts on measured kick onsets.
+V2CUTS = [0, 4.117, 9.309, 17.024, 22.130, 30.385, 35.496]
+def sec2(i):
+    return round(V2CUTS[i + 1] - V2CUTS[i] + SLACK, 3)
+def cam(i, *keys):
+    S = sec2(i)
+    return [dict(k, t=round(k["t"] / S, 4)) for k in keys]
+def anim(i, keys):
+    S = sec2(i)
+    return [dict(k, t=round(k["t"] / S, 4)) for k in keys]
+def v2b(name, i, cams, anims, hidden=(), extra_vis=None, objs=None):
+    vis = {k: [0, 0] for k in hidden}
+    vis.update(extra_vis or {})
+    shot("v2_" + name, objs or V2, sec2(i), cams, anims=anims, hinges=HINGES, light_ref="base", persistent=False,
+         visible=vis)
+SP0 = [0, 0, 0, 1]
+# 1 whole car -> front bumper starts to come off; ends on the old A end pose so the reused B continues
+S1 = 1.20 / sec2(0)
+v2b("a2_open", 0, cam(0, {"t": 0, "az": -28, "el": 11, "dist": 7.2, "target": [0, -0.35, 0.55], "lens": 30},
+                     {"t": sec2(0), "az": -28, "el": 9, "dist": 3.0, "target": [0, -2.0, 0.42], "lens": 30}),
+    {"fb": anim(0, [{"t": 1.20, "off": Z, "spin": SP0}, {"t": sec2(0), "off": [0, -0.9, 0.05], "spin": SP0}])},
+    extra_vis={"car": [0, S1], **{k: [S1, 1.01] for k in V2}}, objs={**V2, **CAR})
+# 3 hood on its fitted hinge -> lift -> flip the scanned underside to camera -> push into the engine bay (hood-removed state)
+v2b("f2_hood", 2, cam(2, {"t": 0, "az": -22, "el": 24, "dist": 3.8, "target": [0, -1.45, 0.70], "lens": 30},
+                     {"t": 5.70, "az": -22, "el": 30, "dist": 3.6, "target": [0, -1.35, 0.95], "lens": 30},
+                     {"t": sec2(2), "az": -22, "el": 42, "dist": 2.5, "target": [0, -1.10, 0.50], "lens": 30}),
+    {"hood": anim(2, [{"t": 0.05, "deg": 0, "off": Z, "spin": [0, 1, 0, 0]},
+                      {"t": 1.60, "deg": OPEN, "off": Z, "spin": [0, 1, 0, 0]},
+                      {"t": 2.20, "deg": OPEN, "off": Z, "spin": [0, 1, 0, 0]},
+                      {"t": 4.38, "deg": OPEN, "off": [0, -0.25, 1.15], "spin": [0, 1, 0, 0]},
+                      {"t": 5.70, "deg": 0, "off": [0, -0.55, 1.30], "spin": [-75, 1, 0, 0]}])},
+    hidden=("fb",))
+# 4 -X fender (translate only - no scanned inside) -> macro push onto the exposed wheelhouse / mounts
+v2b("c2_fender", 3, cam(3, {"t": 0, "az": -78, "el": 10, "dist": 3.9, "target": [-0.70, -1.40, 0.60], "lens": 30},
+                       {"t": 2.40, "az": -74, "el": 12, "dist": 2.6, "target": [-0.70, -1.55, 0.58], "lens": 32},
+                       {"t": sec2(3), "az": -70, "el": 14, "dist": 1.9, "target": [-0.70, -1.65, 0.55], "lens": 35}),
+    {"fe": anim(3, [{"t": 0.05, "off": Z}, {"t": 1.50, "off": [-0.85, -0.05, 0.80]}, {"t": 3.00, "off": [-1.20, 0, 1.70]}])},
+    hidden=("fb", "hood"))
+# 5 rear bumper: off toward camera, hold on the structure, then turn its scanned inside to camera (old G+H in one shot)
+v2b("g2_rear", 4, cam(4, {"t": 0, "az": -150, "el": 10, "dist": 4.8, "target": [-0.10, 1.95, 0.50], "lens": 30},
+                     {"t": 2.90, "az": -165, "el": 10, "dist": 4.3, "target": [0, 2.30, 0.75], "lens": 30},
+                     {"t": 4.34, "az": -170, "el": 9, "dist": 4.1, "target": [0, 2.35, 0.80], "lens": 30},
+                     {"t": sec2(4), "az": -172, "el": 9, "dist": 3.8, "target": [0, 2.40, 0.85], "lens": 30}),
+    {"rb": anim(4, [{"t": 0.10, "off": Z, "spin": SP0}, {"t": 1.60, "off": [0, 0.9, 0.05], "spin": SP0},
+                    {"t": 2.90, "off": [0, 1.3, 0.95], "spin": SP0}, {"t": 4.34, "off": [0, 1.3, 0.95], "spin": SP0},
+                    {"t": 6.20, "off": [0, 1.3, 0.95], "spin": [180, 0, 0, 1]}])},
+    hidden=("fb", "fe", "hood"))
+# 6 reassembly from the rear 3/4 (slow pull back); rear bumper locks on the 34.402 kick, then the clean car
+SW = 4.02 / sec2(5)
+v2b("i2_home", 5, cam(5, {"t": 0, "az": -140, "el": 22, "dist": 8.4, "target": [-0.2, 0.75, 0.80], "lens": 32},
+                     {"t": sec2(5), "az": -140, "el": 18, "dist": 7.9, "target": [0, 0.15, 0.55], "lens": 32}),
+    {"hood": anim(5, [{"t": 0, "off": [0, -0.6, 1.10], "deg": 0}, {"t": 1.40, "off": Z, "deg": 0}]),
+     "fb": anim(5, [{"t": 0.30, "off": [0, -1.0, 0.50], "spin": SP0}, {"t": 1.80, "off": Z, "spin": SP0}]),
+     "fe": anim(5, [{"t": 0.60, "off": [-0.45, -0.6, 1.00]}, {"t": 2.93, "off": Z}]),
+     "rb": anim(5, [{"t": 1.20, "off": [0, 0.85, 0.45], "spin": SP0}, {"t": 4.017, "off": Z, "spin": SP0}])},
+    extra_vis={"car": [SW, 1.01], **{k: [0, SW] for k in V2}}, objs={**V2, **CAR})
+print("v2 final", [n for n in sorted(os.listdir(OUT)) if n.startswith("v2_") and n[3:5] in ("a2", "f2", "c2", "g2", "i2")])
