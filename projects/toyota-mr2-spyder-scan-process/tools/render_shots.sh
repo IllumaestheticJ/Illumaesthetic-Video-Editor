@@ -7,7 +7,7 @@ COMMON="--res 1080x1920 --res-pct 75 --samples 12 --fps 15"
 r() { name=$1; shift; [ -f $O/$name/done ] && return; rm -rf $O/$name; python -m ive render -- "$@" $COMMON --out $O/$name/ > $O/$name.log 2>&1; touch $O/$name/done; echo "$(date +%T) $name done"; }
 mkdir -p $O
 # A: 1:1 from the front-3/4 scanning frame (DJI_0030 74.0 s); slow push-in
-r sA2 --scene $S/topdown.blend --camera $P/match/camA.json --seconds 3.4 --move pull --move-amount 0.9 --ease ease_in_out
+r sA3 --scene $S/topdown.blend --camera $P/match/camA.json --seconds 3.4 --move pull --move-amount 0.35 --ease ease_out
 # B: 1:1 from the rear scanning frame (DJI_0030 56.0 s); gentle push
 r sB --scene $S/topdown.blend --camera $P/match/camB.json --seconds 2.4 --move push --move-amount 0.06 --ease ease_in_out
 # C: rear-end state scan (lid open) - lid lifts off, spins about Z: underside (ribs) then louvred top

@@ -21,7 +21,7 @@ timeline:
     dur: 3.1667
   - transition: {type: cut, note: "1:1 IRL -> Full Car Top Down scan on the drop (camA, silhouette solve, f 22 mm)"}
   - id: scan_front   # top-down scan from camA, slow push-in; HUD triangle counter
-    src: /home/user/media/work/mr2/renders/sA2
+    src: /home/user/media/work/mr2/renders/sA3
     src_fps: 15
     interpolate: true
     dur: 3.2333
