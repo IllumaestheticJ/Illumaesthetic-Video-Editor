@@ -1,0 +1,64 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1139,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 228,
+   "duration": 69,
+   "title": "FRONT LOWER LIP",
+   "sub": "+ FRONT GRILLE TRIM",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 300,
+   "duration": 33,
+   "title": "HOOD VENT TOP",
+   "sub": "LEFT",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 344,
+   "duration": 74,
+   "title": "FENDER VENT",
+   "sub": "FRONT RIGHT",
+   "x": 0.92,
+   "y": 0.06,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 428,
+   "duration": 74,
+   "title": "REAR WING",
+   "sub": "MOUNTS",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 512,
+   "duration": 48,
+   "title": "REAR DIFFUSER",
+   "sub": "+ UNDERTRAY \u00b7 QUARTER PANEL INTAKES",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 573,
+   "duration": 97,
+   "title": "SIDE SKIRTS",
+   "sub": "UPPER \u00b7 LOWER \u00b7 STRAKE",
+   "x": 0.08,
+   "y": 0.09
+  }
+ ]
+}

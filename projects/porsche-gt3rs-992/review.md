@@ -1,4 +1,11 @@
-# Porsche 911 GT3 RS (992) scan reel v2 - self-review (training/rubric.md)
+# Porsche 911 GT3 RS (992) scan reel v3 - self-review
+
+v3 = v2 + part-name labels (user: "GT3RS include the labels"). File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v3.mp4.
+Labels: FRONT LOWER LIP (+ FRONT GRILLE TRIM), HOOD VENT TOP, FENDER VENT, REAR WING, REAR DIFFUSER (+ UNDERTRAY, QUARTER PANEL
+INTAKES), SIDE SKIRTS (UPPER, LOWER, STRAKE) - names from the scan files, no numbers, top black band, one at a time.
+No FRONT STRAKES label: the strakes stay on (their removal leaves a hollow cut-out). Text score below re-rated for v3.
+
+## v2 review (unchanged except text) (training/rubric.md)
 
 File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v2.mp4 (1080x1920, 30 fps, 37.97 s, h264 yuv420p + AAC).
 Plan: projects/porsche-gt3rs-992/direction.md (scene-director agent; stage-2 shot table). v1 review: review_v1.md.
@@ -22,6 +29,6 @@ What changed from v1 (relayed user notes for all V1 reels + addendum A-D):
 | 4 | Scan quality | 4 | Clean silver on black; known defects: hood nostril holes and the hood blotch (visible at the top of sh4), grille bars partly missing (sh3). Cut-outs only under the 9 moving parts. |
 | 5 | Story | 4 | Sections in one lap, each once; parts off where the camera is. ive director still pairs sh1~sh9 (closed car vs exploded stack from the other side) and sh3~sh6 (front vs rear silhouettes) - kept, different sections/content. |
 | 6 | Grade | 5 | AgX, consistent. |
-| 7 | Text | 5 | None (brief: no text; no bumper-removed data to label). |
+| 7 | Text | 5 | v3: six part-name labels from the scan file names, no numbers, max one on screen, in black off the car, enter after the part moves and leave before the cut. |
 | 8 | Ending | 5 | Lock on 31.905, 0.9 s fade to black, small logo at 33.78 as the music ends, decays to 38.0. |
 | 9 | Technical | 4 | Spec correct; no duplicate frame before cuts; the reused v1 wing close-up keeps the end plates out of frame (mount detail) - judge against rule A. |

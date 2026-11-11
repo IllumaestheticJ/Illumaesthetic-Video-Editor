@@ -1,4 +1,4 @@
-# Porsche 911 GT3 RS (992) - scan reel v2 (direction.md: scene director + director, 2026-11-11 user rules A-D).
+# Porsche 911 GT3 RS (992) - scan reel v3 = v2 + part-name labels (user: "GT3RS include the labels"). v2 notes: (direction.md: scene director + director, 2026-11-11 user rules A-D).
 # One clockwise lap, one section per sequence; aero parts come off section by section and stay off (progressive
 # explode), top overview of everything off, then the layered stack on the drop, reassembly, fade, SMALL logo.
 # Shots: tools/shots_v2.py (new) + v1 renders s3_wheel / s5_wing reused (tools/shots.py). Base = comp_v2 (only the
@@ -9,7 +9,7 @@
 # Transitions are 1-frame fades with one extra real frame on each outgoing clip (no cloned hold frame before cuts).
 project: porsche-gt3rs-992
 format: reel-9x16
-output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/porsche-gt3rs-992_track.mp3   # not in git
@@ -99,4 +99,5 @@ timeline:
     src: /home/user/media/work/gt3/logo_v2.mp4
     dur: 4.2333
 
-overlays: []
+overlays:   # ScanHUD part-name labels from the scan file names (overlay.json); top black band, off the car
+  - {src: /home/user/media/work/gt3/hud_v3.mov, start: 0}
