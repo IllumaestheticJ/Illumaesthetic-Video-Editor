@@ -28,3 +28,8 @@ Same folder, `Video Nov 10 2026, 1 49 10 AM.mp4`. 13.6 s, 14 shots.
   (0.3–0.8 s shots) on the beat → wing hero.
 - Integra training photos (`Integra training/`) show the finished-product angles the team likes:
   low front 3/4, rear 3/4 at wheel height, straight-on rear with wing.
+
+## `FG2 Lip CGI-Real.mp4` — Ecky's CGI→real cut (FG2 #806)
+Drive `74 - Civic FG2 Race Lip` (1itRtubjAyFciRvZC0IKNiRUqHEoOTuET). 1080x1920 60 fps, 52 s, no audio.
+- Red CGI car on a dark ground with black background → same pose, real #806 car; front, lip close-ups, rear wing.
+- CGI look: glossy red paint, black lip/wing, black sky. `projects/fg2-race-car` reuses this look from `FG2 Race Lip.blend`.

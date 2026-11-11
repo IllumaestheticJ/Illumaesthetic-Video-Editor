@@ -46,3 +46,19 @@ lands here automatically. Agents must read this whole file before editing.
 - **[match-cut]** Handheld drift after the solved frame: measure it on static background with
   `cv2.phaseCorrelate` and absorb it as camera lens shift (`shift_x/shift_y` = px / long side) instead
   of re-solving. Lets the real action play out and still cut 1:1 later in the clip.
+
+## From the FG2 #806 photo/CGI/scan reel (2026-11-11, built by an agent)
+- **[story]** "Finished photos" on Drive may be scan-product renders (FG2 F1..R3.jpg were). Look before planning;
+  the real finished-car photos were on the epsilon.plus product pages (`/products/<handle>.js` lists images).
+- **[story]** Product reels: only use photos where the part is in its finished state - user rejected photos with
+  the lip still black/unpainted. Check every candidate photo for the part's finish.
+- **[scan-look]** Put the product (lip/wing CAD or part scan) on the scan in scan shots - user asked for the lip on the scan.
+- **[match-cut]** A modified race car vs a stock-state scan shares few landmarks; landmark solves stalled at 15-50 px.
+  Fix: rough landmark solve -> silhouette refinement against a GrabCut mask (projects/fg2-race-car/tools/refine.py),
+  with ignore boxes on shadows, wings and aftermarket mirrors. Verify with an onion render, not the score.
+- **[match-cut]** For photos (stills) the 1:1 device is: one Blender still per layer from the solved camera, then
+  one shared Ken Burns window applied to photo, CGI and scan (tools/kenburns.py) - the car stays locked while moving.
+- **[technical]** Same car, two scan exports can be in different frames (FG2 LQ vs HQ). Use the one the CGI .blend was built on.
+- **[technical]** Beat-length `dur`s drift (+40..+119 ms over 16 cuts at 75 BPM). Give clips whole-frame durs so each cut
+  lands on round(beat*fps), first clip one frame short; measure cuts from frame diffs.
+- **[format]** "TikTok format" = 1080x1920 full-bleed; keep the hero part above the bottom ~20 % caption zone.

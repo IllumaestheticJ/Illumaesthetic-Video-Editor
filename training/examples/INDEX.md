@@ -2,4 +2,5 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [fg2-race-car](fg2-race-car/) - archived 2026-11-11
 - [240sx-scan](240sx-scan/) - archived 2026-11-11
