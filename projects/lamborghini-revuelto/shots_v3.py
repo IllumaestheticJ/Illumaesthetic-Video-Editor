@@ -70,7 +70,7 @@ n, SHOTS = None, []
 
 # 1 whole car, front-left 3/4, slow push (v2.1 move in 8 beats); round tyres in frame
 n = "v3_whole"
-SHOTS.append(shot(n, S.CAR, [(0, cam(50, 7, 7.1, [0, 0.10, 0.46])), (4.6333, cam(36, 10, 6.5, [0, -0.15, 0.46], lin=True))]))
+SHOTS.append(shot(n, S.CAR, [(0, cam(50, 7, 8.6, [0, -0.15, 0.46])), (4.6333, cam(36, 10, 7.6, [0, -0.2, 0.46], lin=True))]))
 
 # 2 front: bumper slides off the nose then lifts away, headlights out, lid up on its hinge, push in on the structure
 n = "v3_front"

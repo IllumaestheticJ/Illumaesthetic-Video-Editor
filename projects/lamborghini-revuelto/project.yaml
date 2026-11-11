@@ -66,8 +66,8 @@ timeline:
     frames: 141
     vf: fade=t=out:st=4.2:d=0.5
   - transition: {type: cut}
-  - id: logo   # small ILLUMAESTHETIC logo (320 px) on the loudest taiko hit, rides the decay to 34.6 s
-    src: /home/user/media/work/revuelto/logo/logo_card_v2.mp4
+  - id: logo   # ILLUMAESTHETIC logo (720 px, lessons: 380 was too small) on the loudest taiko hit, rides the decay to 34.6 s
+    src: /home/user/media/work/revuelto/logo/logo_card_v3.mp4
     frames: 126
 
 overlays:
