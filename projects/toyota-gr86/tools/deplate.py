@@ -1,4 +1,5 @@
-"""Make the rear licence plate unreadable (lessons.md [text]/[story]: flatten the plate, don't blur the video).
+"""NOT USED for the delivered reel: lessons.md (user) - flatten plates ONLY on the IS300; gr86 keeps its scanned plate.
+Make the rear licence plate unreadable (lessons.md [text]/[story]: flatten the plate, don't blur the video).
 The BRZ scan carries a legible plate in car4 and rear_bumper (NOT comp_explode: its base is the rear-bumper-removed state,
 so the box only holds the crash beam - never run this on it). Box from an orthographic depth map of the tail
 (rear_bumper, Blender frame, 1 mm/px): plate face x -0.055..0.235, z 0.595..0.730, rearmost surface y > 1.9.
