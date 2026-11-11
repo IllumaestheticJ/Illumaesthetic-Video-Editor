@@ -190,6 +190,8 @@ def main():
         bpy.ops.render.render(write_still=True)
     else:
         os.makedirs(out, exist_ok=True)
+        if spec.get("frame_range"):  # re-render a slice (fresh process); see editlog: persistent data broke after 48 frames
+            sc.frame_start, sc.frame_end = spec["frame_range"]
         sc.render.filepath = os.path.join(out, "f_")
         bpy.ops.render.render(animation=True)
     print("IVE_RENDER_DONE", out)
