@@ -1,1 +1,18 @@
-{"fla": {"y0_mm": -2190, "z0_mm": 1195, "theta_deg": 33.5, "median_mm": 7.15, "within15mm": 0.749, "n": 22607}}
+{
+ "fla": {
+  "y0_mm": -2190,
+  "z0_mm": 1195,
+  "theta_deg": 33.5,
+  "median_mm": 7.15,
+  "within15mm": 0.749,
+  "n": 22607
+ },
+ "bhr": {
+  "y0_mm": -2325,
+  "z0_mm": 1315,
+  "theta_deg": 35.5,
+  "median_mm": 5.09,
+  "within15mm": 0.741,
+  "n": 11280
+ }
+}
