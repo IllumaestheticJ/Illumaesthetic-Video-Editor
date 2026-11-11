@@ -54,9 +54,8 @@ timeline:
   - transition: {type: cut, note: "k72 strongest breakdown accent"}
   - id: N4_reassemble  # doors + lid close, shut on the k80 big kick, clean car, fade to black k86-k88 (baked)
     focus: reassembly of the whole car
-    src: /home/user/media/work/civic/renders/final3/N4_fade
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/civic/renders/final3/N4_fade30   # 30 fps: rendered in-betweens while the doors/lid close (minterpolate smeared them)
+    src_fps: 30
     dur: 6.6333      # 199 -> 1113
   - transition: {type: cut, note: "k88 big kick -> logo"}
   - id: logo         # small ILLUMAESTHETIC logo on black, fades with the music's end
