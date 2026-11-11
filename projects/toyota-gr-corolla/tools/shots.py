@@ -89,7 +89,7 @@ SHOTS = {
 
 # 8. exploded view: every panel separates on the sep accent, drifts while the camera orbits front-right -> rear-left
 # over the top, flies home and LOCKs on the lock accent, holds -> logo. Offsets go up/out and down/back, never at the lens.
-SEP, HOLD, BACK, LOCK = T["sep"], T["sep"] + 3 * BEAT, T["lock"] - 3 * BEAT, T["lock"]
+SEP, HOLD, BACK, LOCK = T["sep"], T["sep"] + 2 * BEAT, T["lock"] - 3 * BEAT, T["lock"]
 
 
 def explode(off, rot=(0, 0, 0), delay=0.0):

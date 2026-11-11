@@ -1,22 +1,72 @@
-# Copy to projects/<name>/project.yaml. Times in seconds; every cut should sit on a `beats` entry.
-project: NAME
+# Toyota GR Corolla - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
+# Satin-silver scan on black; turntables -> close-ups -> hood + hatch open -> top-down -> exploded view -> logo.
+# Shots: tools/shots.py (specs, timing from timing.json) + tools/shot.py (Blender renderer copied from ferrari-296).
+# Music: toyota-gr-corolla_track.mp3 - original track generated for this reel by the coordinating session (not in git).
+# 140.0 BPM, beat 0.4286 s; no-kick build to the drop at 13.798, break 26.66-27.08, drop 2 at 27.513, music gone ~38.2.
+# Cuts on frames 208, 311, 363, 414 (DROP), 517, 620, 723, 1031; end 1146 (38.2 s). Durs are whole frames; first clip
+# one frame short (the assembler adds the cut hold frame).
+project: toyota-gr-corolla
 format: reel-9x16
-output: {path: /home/user/media/work/out/NAME_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
-music: {path: /path/to/track.wav, start: 0, fade_out: 0.6}
-beats: []            # from `python -m ive beats <track>`
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/toyota-gr-corolla_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [6.940, 10.369, 12.083, 13.798, 17.226, 20.655, 24.084, 34.370]
+
 timeline:
-  - id: irl_1
-    src: /home/user/media/NAME/dropbox/clip.mov   # HLG is tonemapped automatically
-    in: 0.0
-    out: 2.5
-  - id: irl_match           # must END on the solved frame (out = t + 1/fps)
-    src: /home/user/media/NAME/dropbox/clip2.mov
-    in: 1.3
-    out: 3.8334
-  - transition: {type: cut}  # the 1:1 perspective cut; also: dissolve, dip, flash, scanline, ghost
-  - id: scan_match
-    src: /home/user/media/work/renders/shots/s1_match   # PNG sequence dir from `ive render`
+  - id: s1_front      # slow front-right 3/4 turntable through the build (16 beats)
+    src: /home/user/media/work/grc/renders/final/s1_front
     src_fps: 15
     interpolate: true
-    trim_end: 2.5
-overlays: []          # [{src: hud.mov, start: 0}] from `ive hud`
+    dur: 6.9
+  - transition: {type: cut, note: "6.940 phrase (b16)"}
+  - id: s2_rear       # rear-left 3/4 orbit, slight rise (real rear wheel side)
+    src: /home/user/media/work/grc/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 3.4333
+  - transition: {type: cut, note: "10.369 phrase (b24)"}
+  - id: s3_wheel      # extreme close-up: front-right wheel, 2 mm scan
+    src: /home/user/media/work/grc/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 1.7333
+  - transition: {type: cut, note: "12.083 half phrase (b28)"}
+  - id: s4_nose       # headlight + grille slide into the drop
+    src: /home/user/media/work/grc/renders/final/s4_nose
+    src_fps: 15
+    interpolate: true
+    dur: 1.7
+  - transition: {type: cut, note: "13.798 DROP"}
+  - id: s5_hood       # hood lifts b33-b36 onto the stripped shell's front structure (Chassis Stripped scan)
+    src: /home/user/media/work/grc/renders/final/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 3.4333
+  - transition: {type: cut, note: "17.226 phrase (b40)"}
+  - id: s6_hatch      # hatch lifts b41-b45, cargo area from the trunk-open state scan
+    src: /home/user/media/work/grc/renders/final/s6_hatch
+    src_fps: 15
+    interpolate: true
+    dur: 3.4333
+  - transition: {type: cut, note: "20.655 phrase (b48)"}
+  - id: s7_top        # rise from high front-right 3/4 to straight top-down
+    src: /home/user/media/work/grc/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 3.4333
+  - transition: {type: cut, note: "24.084 phrase (b56)"}
+  - id: s8_explode    # assembled orbit through the break, panels separate ON drop 2 (27.513), drift, lock 32.656, hold 4 beats
+    src: /home/user/media/work/grc/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 10.2667
+  - transition: {type: cut, note: "34.370 phrase (b80) - logo over the last phrase and the tail"}
+  - id: logo          # projects/ferrari-296/tools/logo_card.py --secs 3.8333
+    src: /home/user/media/work/grc/out/logo_card.mp4
+    dur: 3.8333
+
+overlays: []
