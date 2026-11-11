@@ -1,0 +1,44 @@
+{
+ "base": [
+  "/home/user/media/work/gr86/blend/det_front.blend"
+ ],
+ "parts": [],
+ "camera": {
+  "keys": [
+   {
+    "t": 0,
+    "loc": [
+     1.75,
+     -3.25,
+     0.98
+    ],
+    "target": [
+     0.62,
+     -1.88,
+     0.82
+    ],
+    "focal": 42
+   },
+   {
+    "t": 5.0,
+    "loc": [
+     1.05,
+     -3.55,
+     0.92
+    ],
+    "target": [
+     0.52,
+     -1.95,
+     0.78
+    ],
+    "focal": 46
+   }
+  ]
+ },
+ "seconds": 5.0,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 75,
+ "samples": 12,
+ "out": "/home/user/media/work/gr86/shots/s3_wheel"
+}
