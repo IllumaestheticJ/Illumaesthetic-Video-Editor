@@ -220,11 +220,11 @@ SHOTS["X_clean"] = {"base": [CAR], "cam": SHOTS["X_reassemble"]["cam"]}
 # ---- v3 (user: "show the interior and exploded views"; plan: direction.md v3) -------------------------------------
 XBI = f"{P}/comp_explode_int.blend"  # comp_explode minus the car's seat surfaces + "Interior No Seats" cabin (build_int.py)
 # doors park up + outboard of their openings (cards to the lens) so the seats' path and the view stay clear
-FL3 = ((0.95, -0.05, 0.95), (0, 0, 180)); RL3 = ((0.95, 0.12, 0.95), (0, 0, 180))
-FR3 = ((-0.95, -0.05, 0.95), (0, 0, 180)); RR3 = ((-0.95, 0.12, 0.95), (0, 0, 180))
+FL3 = ((0.75, -0.05, 0.8), (0, 0, 180)); RL3 = ((0.75, 0.12, 0.8), (0, 0, 180))
+FR3 = ((-0.75, -0.05, 0.8), (0, 0, 180)); RR3 = ((-0.75, 0.12, 0.8), (0, 0, 180))
 SEAT_D = {"pivot": [0.372, 0.073, 0.934]}; SEAT_P = {"pivot": [-0.385, 0.026, 0.958]}; BENCH = {"pivot": [0.03, 1.0, 0.85]}
 # seats: tilt the back forward + drop 0.3 m to clear the roof rail, slide out through the opening, turn to face out
-DS_END = ((1.55, -0.1, -0.3), (0, 0, 90)); BN_END = ((1.95, 0.0, -0.3), (0, 0, 90)); PS_END = ((-1.55, -0.1, -0.3), (0, 0, -90))
+DS_END = ((1.75, -0.1, -0.35), (0, 0, 90)); BN_END = ((2.0, 0.0, -0.35), (0, 0, 90)); PS_END = ((-1.75, -0.1, -0.35), (0, 0, -90))
 BENCH_PARTS = ("bench_bottom", "bench_23top", "bench_13top")
 
 
@@ -236,13 +236,13 @@ def seat_keys(t0, end, side=1):
 SHOTS["S1v3"] = {"base": [XBI], "parts": [
     part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 4.5), FB_END[1])]),
     part("fender", [k(0), k(0.5, FENDER_END[0], ease="out")]),
-    part("door_fl", [k(0), k(1.017), k(1.45, (0.95, -0.05, 0.10), ease="out"), k(1.95, *FL3)]),
+    part("door_fl", [k(0), k(1.017), k(1.45, (0.75, -0.05, 0.10), ease="out"), k(1.95, *FL3)]),
     part("seat_driver", seat_keys(2.033, DS_END), SEAT_D),
-    part("door_rl", [k(0), k(3.05), k(3.45, (0.95, 0.12, 0.10), ease="out"), k(3.95, *RL3)]),
+    part("door_rl", [k(0), k(3.05), k(3.45, (0.75, 0.12, 0.10), ease="out"), k(3.95, *RL3)]),
     *[part(b, seat_keys(4.063, BN_END), BENCH) for b in BENCH_PARTS],
     part("seat_pass", REST), part("door_fr", REST), part("door_rr", REST), part("hatch", REST, hatch), part("rbumper", REST)],
     "cam": [cam(0, (4.4, -1.45, 1.4), (1.0, -1.3, 0.8), 28), cam(2.033, (4.25, -0.55, 1.25), (0.8, -0.45, 0.72), 28, "lin"),
-            cam(3.05, (4.1, 0.2, 1.15), (0.6, 0.3, 0.68), 28, "lin"), cam(5.4, (3.85, 0.8, 1.05), (0.4, 0.8, 0.62), 28)]}
+            cam(3.05, (4.4, 0.2, 1.2), (0.6, 0.3, 0.66), 28, "lin"), cam(5.4, (4.9, 0.75, 1.3), (0.6, 0.75, 0.6), 28)]}
 SHOTS["R1v3"] = {"base": [XBI], "parts": [
     part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 6.0), FB_END[1])]), part("fender", [k(0, *FENDER_END)]),
     part("door_fl", [k(0, *FL3)]), part("door_rl", [k(0, *RL3)]), part("door_fr", REST), part("door_rr", REST),
@@ -261,8 +261,8 @@ SHOTS["X3"] = {"base": [XBI], "parts": [
     part("door_fl", xk(FL3)), part("door_rl", xk(RL3)), part("door_fr", xk(FR3)), part("door_rr", xk(RR3)),
     part("seat_driver", xk(DS_END), SEAT_D), part("seat_pass", xk(PS_END), SEAT_P),
     *[part(b, xk(BN_END), BENCH) for b in BENCH_PARTS]],
-    "cam": [orbit(0, 9.6, 20, 4.2, c=(0, 0.1, 0.7), focal=28, ease="lin"), orbit(X3_GO, 9.4, 26, 4.1, c=(0, 0.1, 0.7), focal=28, ease="lin"),
-            orbit(3.4, 9.0, 36, 3.8, c=(0, 0.1, 0.7), focal=28)]}
+    "cam": [orbit(0, 8.0, 20, 3.6, c=(0, 0.1, 0.7), focal=28, ease="lin"), orbit(X3_GO, 7.8, 26, 3.5, c=(0, 0.1, 0.7), focal=28, ease="lin"),
+            orbit(3.4, 7.4, 36, 3.2, c=(0, 0.1, 0.7), focal=28)]}
 
 
 def spec(name, mode):
