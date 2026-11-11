@@ -60,8 +60,8 @@ SHOTS = {
     "s1_front34R": {"base": CLIP, "cam": arc(S["s1_front34R"], 3.15, 2.95, -26, -46, 0.6, 0.7,
                                               (-0.05, -1.95, 0.42), (-0.05, -1.85, 0.42), focal=30, ease="out")},
     # 2. front-left 3/4 orbit, higher, swinging toward the nose
-    "s2_front34L": {"base": CLIP, "cam": arc(S["s2_front34L"], 3.3, 3.15, 52, 36, 1.15, 1.0,
-                                              (0.12, -1.75, 0.42), (0.1, -1.8, 0.42), focal=30, ease="out")},
+    "s2_front34L": {"base": CLIP, "cam": arc(S["s2_front34L"], 3.85, 3.65, 52, 36, 1.15, 1.0,
+                                              (0.1, -1.65, 0.42), (0.08, -1.7, 0.42), focal=30, ease="out")},
     # 3. extreme close-up: left grille corner + fog intake (dealer plate frame and the speckled hood top kept out)
     "s3_grille": {"base": CLIP2, "cam": [
         {"t": 0, "loc": [1.45, -3.3, 0.72], "target": [0.58, -2.3, 0.5], "focal": 45},
@@ -118,6 +118,76 @@ SHOTS["s7_explode"] = {
                n=12, ease="inout")}
 
 
+# ---------------- v2 (direction.md, user V2 brief + addendum A-D) ----------------
+HOOD_OPEN = f"{P}/fl_hood_open.blend"         # the facelift hood exactly as captured in 'Hood Open' (open state)
+XBASE = [f"{P}/fl_comp_explode.blend", HOOD_OPEN]  # bumper parts removed + 'Bumper and Hood Removed' structure; hood open
+V2T = {"s8_badge": 2.5, "s5b_bay": 3.5, "X1_bumper_off": 2.0, "X1b_structure": 4.0, "X2_inner": 4.0,
+       "X3_reassembly": 4.0}
+V2T.update({k: v for k, v in TIMING.items() if k in V2T})
+S.update(V2T)
+# start of each explode shot on the master timeline (T = 0 at the 16.063 drop)
+XT0 = {"X1_bumper_off": 0.0, "X1b_structure": 2.0, "X2_inner": 6.0, "X3_reassembly": 10.0}
+GP = (0, -1.35, 1.02)   # bumper group's floated pose (up + forward, clear of the car)
+
+
+def master(own=None, own_t=(6.5, 7.5)):
+    """Master explode keys (absolute T): the whole bumper group pulls off forward, rises into black, drifts;
+    a sub-part optionally moves to `own` during own_t and back during 10-11; group home 11 -> 12.5 (lock 28.563 abs).
+    No rotations (parts only translate)."""
+    k = [{"t": 0.0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+         {"t": 0.8, "loc": [0, -0.60, 0.05], "rot": [0, 0, 0], "ease": "out"},
+         {"t": 2.0, "loc": [0, -1.30, 1.00], "rot": [0, 0, 0], "ease": "inout"},
+         {"t": 6.0, "loc": list(GP), "rot": [0, 0, 0], "ease": "lin"}]
+    if own:
+        k += [{"t": own_t[0], "loc": list(GP), "rot": [0, 0, 0]},
+              {"t": own_t[1], "loc": list(own), "rot": [0, 0, 0], "ease": "out"},
+              {"t": 10.0, "loc": list(own), "rot": [0, 0, 0]},
+              {"t": 11.0, "loc": list(GP), "rot": [0, 0, 0], "ease": "inout"}]
+    else:
+        k += [{"t": 11.0, "loc": list(GP), "rot": [0, 0, 0]}]
+    k += [{"t": 12.5, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
+    return k
+
+
+def shifted(keys, t0):
+    return [dict(x, t=x["t"] - t0) for x in keys]
+
+
+def xparts(t0):
+    G = [("fl_shell", None, None), ("x_fog_L", (0.18, -1.60, 1.02), (6.5, 7.5)), ("x_fog_R", (-0.18, -1.60, 1.02), (6.5, 7.5)),
+         ("x_duct_L", (0.12, -1.00, 1.02), (6.5, 7.5)), ("x_duct_R", (-0.12, -1.00, 1.02), (6.5, 7.5)),
+         ("x_radar", (0, -0.95, 1.02), (8.0, 9.0)), ("x_bracket", (0, -1.35, 1.30), (8.0, 9.0))]
+    return [{"blend": f"{P}/{n}.blend", "keys": shifted(master(own, ot) if own else master(), t0)} for n, own, ot in G]
+
+
+SHOTS.update({
+    # fascia centre: badge bar + centre mesh, nose-on push (plate frame below, hood speckle above the frame)
+    "s8_badge": {"base": CLIP2, "cam": [
+        {"t": 0, "loc": [0.18, -3.25, 0.63], "target": [0, -2.34, 0.735], "focal": 70},
+        {"t": S["s8_badge"], "loc": [0.10, -3.12, 0.62], "target": [0, -2.34, 0.715], "focal": 70, "ease": "out"}]},
+    # engine bay under the open hood: starts on s5's last pose, pushes in (holds through the break)
+    "s5b_bay": {"base": [f"{P}/fl_comp_hood.blend", HOOD_OPEN], "cam": [
+        {"t": 0, "loc": [-0.965, -5.014, 2.15], "target": [0, -1.65, 0.55], "focal": 30},
+        {"t": S["s5b_bay"], "loc": [-0.45, -3.20, 1.75], "target": [0, -1.45, 0.75], "focal": 35, "ease": "inout"}]},
+    # X1: the whole bumper pulls straight off ON THE DROP, rises out of the top of frame
+    "X1_bumper_off": {"base": XBASE, "parts": xparts(XT0["X1_bumper_off"]),
+                      "cam": arc(S["X1_bumper_off"], 2.8, 2.6, 30, 28, 0.6, 0.6, (0, -2.30, 0.45), (0, -2.25, 0.45),
+                                 focal=32, ease="lin")},
+    # X1b: hold + slow push on what was behind the bumper ('Bumper and Hood Removed'): lower structure, mounts
+    "X1b_structure": {"base": XBASE, "parts": xparts(XT0["X1b_structure"]), "cam": [
+        {"t": 0, "loc": [0.90, -3.60, 0.55], "target": [0.05, -2.10, 0.42], "focal": 35},
+        {"t": S["X1b_structure"], "loc": [0.55, -3.15, 0.50], "target": [0.05, -2.10, 0.42], "focal": 35, "ease": "inout"}]},
+    # X2: behind the floated bumper - its scanned inner face; ducts/fogs then radar/bracket come off it
+    "X2_inner": {"base": XBASE, "parts": xparts(XT0["X2_inner"]), "cam": [
+        {"t": 0, "loc": [0.95, -2.15, 1.85], "target": [0.65, -3.30, 1.35], "focal": 40},
+        {"t": S["X2_inner"], "loc": [0.20, -2.20, 1.80], "target": [0.0, -3.30, 1.35], "focal": 40, "ease": "inout"}]},
+    # X3: parts return, bumper drops home and locks at 28.563 (T 12.5); whole clip with open hood, fade at the end
+    "X3_reassembly": {"base": XBASE, "parts": xparts(XT0["X3_reassembly"]),
+                      "cam": arc(S["X3_reassembly"], 3.6, 3.9, 25, 15, 1.7, 1.6, (0, -2.10, 0.60), (0, -2.05, 0.60),
+                                 focal=30, ease="out")},
+})
+
+
 def spec(name, mode, frames=None):
     s = SHOTS[name]
     final = mode == "final"
@@ -138,6 +208,8 @@ if __name__ == "__main__":
     names = sys.argv[2:] or list(SHOTS)
     for n in names:
         fr = ["first", "mid", "last"]
+        if n in ("X1_bumper_off", "X1b_structure", "X2_inner", "X3_reassembly"):
+            fr = ["first", "mid", "last"]
         if n == "s7_explode":
             fr = ["first", int(round(S["x_out"] * 15)) + 1, int(round((S["x_back"] + S["x_lock"]) / 2 * 15)), "last"]
         print(spec(n, mode, fr if mode == "preview" else None))
