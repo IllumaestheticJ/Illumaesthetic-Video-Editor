@@ -1,0 +1,62 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 960,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "brackets",
+   "from": 77,
+   "duration": 93
+  },
+  {
+   "kind": "counter",
+   "from": 80,
+   "duration": 88,
+   "label": "LOLA 1 \u00b7 EXTERIOR TRIANGLES",
+   "value": 21717402,
+   "x": 0.08,
+   "y": 0.1,
+   "true_value": 21696194
+  },
+  {
+   "kind": "brackets",
+   "from": 284,
+   "duration": 162
+  },
+  {
+   "kind": "label",
+   "from": 318,
+   "duration": 62,
+   "title": "INTERIOR",
+   "sub": "25,188,507 TRIANGLES",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "label",
+   "from": 384,
+   "duration": 62,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "LOLA 1 SCANNED",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "brackets",
+   "from": 659,
+   "duration": 97
+  },
+  {
+   "kind": "counter",
+   "from": 662,
+   "duration": 92,
+   "label": "LOLA 2 \u00b7 TRIANGLES CAPTURED",
+   "value": 50045945,
+   "x": 0.08,
+   "y": 0.1,
+   "true_value": 49997072
+  }
+ ]
+}
