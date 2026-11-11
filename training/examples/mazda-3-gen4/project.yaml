@@ -1,73 +1,78 @@
-# Mazda 3 (gen 4) hatchback - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
-# House satin-silver scan on black; turntables -> Kodo close-ups -> rear wing off -> top-down -> exploded view -> logo.
-# Shots: projects/mazda-3-gen4/tools/shots.py (specs) rendered by projects/ferrari-296/tools/shot.py.
-# Music: mazda-3-gen4_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via Higgsfield),
-# minimal Japanese ambient-electronic. Measured with tools/music_grid.py: 110.0 BPM (beat 0.5453 s; `ive beats` says 73.8 = 1.5 beats),
-# ambient intro with plucks every 2 beats, build from ~11.4 s, KICK DROP 19.682 s (b36), last kick 36.587 s, decays by ~38 s, silent 39 s.
-# Cuts on 8-beat phrase lines / beats: frames round(t*30) = 132, 263, 329, 394, 460, 590, 689, 1049; end 1147 (38.22 s, b70).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# Mazda 3 (gen 4) hatchback - scan reel v2 (brief from all v1 reviews + user addendum A-D). Earlier: project_v1.yaml (v1 delivered),
+# project_v2wide.yaml (whole-car-only re-render, superseded before delivery). Plan: direction.md (scenes) + director.md (shots).
+# Travel front -> side -> rear -> REAR WING REMOVED hero (the only registered part/state) -> the wing's underside -> top + reassembly
+# -> fade -> small logo. No turntables, no orbits for their own sake, one sequence per section, wing translates only.
+# Music: mazda-3-gen4_track.mp3 (generated for this reel), 110.0 BPM, beat k = 0.050 + 0.5453 k; kick drop b36 19.682 s;
+# last kick 36.587; music dead ~38.2 s. Cuts on frames round(t*30): 132 (b8), 263 (b16), 460 (b28), 754 (b46 kick),
+# 852 (b52 kick), 1048 (b64 kick); end 1147 (b70). Wing pops off ON the drop b36 (inside m4), locks on b60 32.770 (inside m6).
+# src_fps = (N-1)/(dur + 3/30) per clip (N = rendered frames): minterpolate drops ~2 tail frames, this avoids an end freeze.
 project: mazda-3-gen4
 format: reel-9x16
-output: {path: /home/user/media/work/m3/out/mazda_3_gen4_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/m3/out/mazda_3_gen4_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/mazda-3-gen4_track.mp3   # not in git
   start: 0
   fade_out: 0.6
 
-beats: [4.412, 8.775, 10.956, 13.138, 15.319, 19.682, 22.954, 34.951, 38.223]
+beats: [4.412, 8.775, 15.319, 25.135, 28.407, 34.949, 38.223]
 
 timeline:
-  - id: s1_front34    # front-left 3/4 low turntable, moving from frame 1 (intro plucks)
-    src: /home/user/media/work/m3/renders/final/s1_front34
-    src_fps: 15
+  - id: m1_open          # section: whole car / front. Focus: whole car from the front-left 3/4, straight push-in (no orbit)
+    section: front
+    focus: whole car, front-left 3/4
+    src: /home/user/media/work/m3/renders/final3/m1_open
+    src_fps: 15.2238
     interpolate: true
     dur: 4.3667
-  - transition: {type: cut, note: "b08 4.412 phrase"}
-  - id: s2_rear34     # rear-left 3/4 orbit forward + rise
-    src: /home/user/media/work/m3/renders/final/s2_rear34
-    src_fps: 15
+  - transition: {type: cut, note: "b8 4.412"}
+  - id: m2_flank         # section: side. Truck toward the rear along the left profile (surfacing reflections slide over the doors)
+    section: side
+    focus: left flank surfacing
+    src: /home/user/media/work/m3/renders/final3/m2_flank
+    src_fps: 14.9999
     interpolate: true
     dur: 4.3667
-  - transition: {type: cut, note: "b16 8.775 phrase"}
-  - id: s3_lamp       # headlamp + bumper Kodo surfacing, 70 mm, 2 mm scan
-    src: /home/user/media/work/m3/renders/final/s3_lamp
-    src_fps: 15
+  - transition: {type: cut, note: "b16 8.775"}
+  - id: m3_rear          # section: rear. Whole car from the left-rear quarter -> moves in until tail lamps + hatch fill the frame
+    section: rear
+    focus: tail lamps + hatch
+    src: /home/user/media/work/m3/renders/final3/m3_rear
+    src_fps: 14.9999
     interpolate: true
-    dur: 2.2
-  - transition: {type: cut, note: "b20 10.956 phrase"}
-  - id: s4_flank      # glide along the left flank, reflections over the doors (build starts ~11.4)
-    src: /home/user/media/work/m3/renders/final/s4_flank
-    src_fps: 15
-    interpolate: true
-    dur: 2.1667
-  - transition: {type: cut, note: "b24 13.138"}
-  - id: s5_tail       # left tail lamp + hatch shoulder
-    src: /home/user/media/work/m3/renders/final/s5_tail
-    src_fps: 15
-    interpolate: true
-    dur: 2.2
+    dur: 6.5667
   - transition: {type: cut, note: "b28 15.319 phrase"}
-  - id: s6_wing       # rear wing lifts off the hatch b30 -> b34, mounts from the Wing Removed state scan
-    src: /home/user/media/work/m3/renders/final/s6_wing
-    src_fps: 15
+  - id: m4_wingoff       # HERO: wing seated through the build, pops off ON the drop b36, camera moves in and holds b40-b46 on the mounting points
+    section: rear-hatch-top
+    focus: rear wing -> exposed mounting points (Wing Removed scan)
+    src: /home/user/media/work/m3/renders/final3/m4_wingoff
+    src_fps: 15.0505
     interpolate: true
-    dur: 4.3333
-  - transition: {type: cut, note: "b36 19.682 KICK DROP"}
-  - id: s7_top        # rear-high up and over to top-down on the drop
-    src: /home/user/media/work/m3/renders/final/s7_top
-    src_fps: 15
+    dur: 9.8
+  - transition: {type: cut, note: "b46 25.135 kick"}
+  - id: m5_part          # the wing's scanned underside, translating back into clear black above/behind the car (no spin)
+    section: wing-part
+    focus: wing underside / mounting face
+    src: /home/user/media/work/m3/renders/final3/m5_part
+    src_fps: 15.1484
     interpolate: true
-    dur: 3.3
-  - transition: {type: cut, note: "b42 22.954"}
-  - id: s8_explode    # separate b44 24.045 -> b48, drift + orbit behind the car, return from b56, LOCK b60 32.770, hold
-    src: /home/user/media/work/m3/renders/final/s8_explode
-    src_fps: 15
-    interpolate: true
-    dur: 12.0
-  - transition: {type: cut, note: "b64 34.951 - logo through the last kicks and the decay"}
-  - id: logo          # ferrari-296/tools/logo_card.py --secs 3.3 --width 820 (site logo V2 on render black)
-    src: /home/user/media/work/m3/out/logo_card.mp4
     dur: 3.2667
+  - transition: {type: cut, note: "b52 28.407 kick"}
+  - id: m6_reassemble    # top: high whole car, wing returns and LOCKS on b60, settle, fade to black b62 -> b64
+    section: top
+    focus: wing returning to its mounts, whole car from above
+    src: /home/user/media/work/m3/renders/final3/m6_reassemble
+    src_fps: 15.0755
+    interpolate: true
+    vf: "fade=t=out:st=5.453:d=1.08"
+    dur: 6.5333
+  - transition: {type: cut, note: "b64 34.949 kick - small logo on black"}
+  - id: logo             # ferrari-296/tools/logo_card.py --secs 3.3 --width 320 (small logo, site V2) on render black
+    section: end
+    focus: small logo
+    src: /home/user/media/work/m3/out/logo_card_small.mp4
+    dur: 3.3
 
-overlays: []
+overlays:
+  - src: /home/user/media/work/m3/out/hud_v2.mov   # overlay.json: REAR WING REMOVED / MOUNTING POINTS, b40-b45, black band above the roof
+    start: 0
