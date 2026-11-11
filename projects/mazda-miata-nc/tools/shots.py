@@ -115,6 +115,70 @@ SHOTS["s9_hero"] = {"base": [CAR], "cam": sweep(6, S["s9_hero"], lambda u: orbit
     0, 4.6 - 0.5 * u, 30 + 12 * u, 0.55 + 0.1 * u, c=(0, -0.3, 0.5), focal=32, ease="lin", tz=0.45))}
 
 
+# ---------------------------------------------------------------- v2 (user feedback on v1)
+# "Rotations are wasted" + "front bumper removed: focus on the front bumper, THEN move to the rear".
+# No turntables/orbits: every move is a straight dolly/push or a part moving. Explode split front -> rear -> together.
+SECS.update({"s1p_front": 3.1, "s2p_rear": 2.5, "s7p_top": 3.7, "s8a_front": 7.2, "s8b_rear": 4.8, "s8c_home": 2.5})
+BUMP_OFF, BUMP_ROT = (0, -0.85, -0.02), (0, 0, 0)          # bumper slides straight out of the nose (no flip)
+HOOD_OFF, HOOD_ROT = (0, -0.15, 0.62), (-8, 0, 0)          # hood lifts off, front edge up
+LID_OFF, LID_ROT = (0, 0.08, 0.55), (10, 0, 0)              # trunk lid lifts off, rear edge up
+HOME = {"loc": [0, 0, 0], "rot": [0, 0, 0]}
+
+
+def move(t0, t1, off, rot, back=False, ease="inout"):
+    a, b = ({"loc": list(off), "rot": list(rot)}, HOME) if back else (HOME, {"loc": list(off), "rot": list(rot)})
+    return [dict(a, t=0), dict(a, t=t0), dict(b, t=t1, ease=ease)]
+
+
+def held(off, rot):
+    return [{"t": 0, "loc": list(off), "rot": list(rot)}]
+
+
+def dolly(secs, loc0, loc1, tgt0, tgt1, focal):
+    return [{"t": 0, "loc": loc0, "target": tgt0, "focal": focal},
+            {"t": secs, "loc": loc1, "target": tgt1, "focal": focal, "ease": "inout"}]
+
+
+def push(secs, ang, r0, r1, h0, h1, c, tz, focal):
+    """straight push-in along one bearing (no rotation around the car)"""
+    a = orbit(0, r0, ang, h0, c=c, focal=focal, tz=tz)
+    b = orbit(secs, r1, ang, h1, c=c, focal=focal, tz=tz, ease="inout")
+    return [a, b]
+
+
+HOOD_P = {"blend": f"{P}/hood4.blend", "pivot": HOOD_PIVOT}
+LID_P = {"blend": f"{P}/lid4.blend", "pivot": HINGE_LID["p"] if HINGE_LID else None}
+BUMP_P = {"blend": f"{P}/bumper.blend"}
+DROP_IN_8A = 2 * BEAT * 2   # s8a starts at 16.366 (breakdown); the drop (18.696) is 4 beats in
+
+SHOTS.update({
+    # front-right 3/4, straight push-in (hook: it moves from frame 1)
+    "s1p_front": {"base": [CAR], "cam": push(S["s1p_front"], -32, 5.0, 4.1, 0.75, 0.85, (0, -0.25, 0.5), 0.45, 30)},
+    # rear-left 3/4, straight push-in
+    "s2p_rear": {"base": [CAR], "cam": push(S["s2p_rear"], 146, 4.8, 4.0, 0.85, 0.95, (0, 0.3, 0.5), 0.45, 30)},
+    # straight-down pass, nose at top, camera tracks nose -> tail (no spin)
+    "s7p_top": {"base": [CAR], "cam": dolly(S["s7p_top"], [0, -0.9, 5.6], [0, 0.9, 5.2], [0, -1.05, 0.45],
+                                             [0, 0.75, 0.45], 30)},
+    # FRONT: framed on the nose. Bumper slides out over the breakdown, hood lifts off ON the drop, hold on the bare front end
+    "s8a_front": {"base": [f"{P}/comp_explode.blend"],
+                  "parts": [dict(BUMP_P, keys=move(0.35, 2.1, BUMP_OFF, BUMP_ROT)),
+                            dict(HOOD_P, keys=move(DROP_IN_8A, DROP_IN_8A + 1.3, HOOD_OFF, HOOD_ROT, ease="out")),
+                            dict(LID_P, keys=held((0, 0, 0), (0, 0, 0)))],
+                  "cam": push(S["s8a_front"], -58, 4.1, 3.7, 2.55, 2.4, (0, -2.0, 0.75), 0.6, 30)},
+    # REAR: front parts stay off; trunk lid lifts off; rear-left 3/4
+    "s8b_rear": {"base": [f"{P}/comp_explode.blend"],
+                 "parts": [dict(BUMP_P, keys=held(BUMP_OFF, BUMP_ROT)), dict(HOOD_P, keys=held(HOOD_OFF, HOOD_ROT)),
+                           dict(LID_P, keys=move(0.3, 1.8, LID_OFF, LID_ROT, ease="out"))],
+                 "cam": push(S["s8b_rear"], 145, 5.1, 4.6, 2.2, 2.1, (0, 1.3, 0.8), 0.75, 30)},
+    # TOGETHER: all three panels fly home, locked one beat before the cut to the clean hero car
+    "s8c_home": {"base": [f"{P}/comp_explode.blend"],
+                 "parts": [dict(BUMP_P, keys=move(0.0, 3 * BEAT, BUMP_OFF, BUMP_ROT, back=True, ease="in")),
+                           dict(HOOD_P, keys=move(0.0, 3 * BEAT, HOOD_OFF, HOOD_ROT, back=True, ease="in")),
+                           dict(LID_P, keys=move(0.0, 3 * BEAT, LID_OFF, LID_ROT, back=True, ease="in"))],
+                 "cam": push(S["s8c_home"], 38, 6.6, 6.1, 2.2, 2.0, (0, -0.55, 0.8), 0.8, 28)},
+})
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
@@ -124,7 +188,8 @@ def spec(name, mode):
           "res_pct": 75 if final else 30, "samples": 12 if final else 6,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if mode == "frames":
-        sp["frames"] = ["first", "mid", "last"] if name != "s8_explode" else [1, 22, 40, 60, 80, 100, 130, 150, 178]
+        sp["frames"] = {"s8_explode": [1, 22, 40, 60, 80, 100, 130, 150, 178], "s8a_front": [1, 20, 34, 50, 80, 108],
+                       "s8b_rear": [1, 15, 30, 72], "s8c_home": [1, 14, 27, 38]}.get(name, ["first", "mid", "last"])
         sp["out"] = f"{OUT}/frames/{name}"
         sp["res_pct"], sp["samples"] = 30, 6
     os.makedirs(SPECS, exist_ok=True)

@@ -265,3 +265,6 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** Cars scanned on jacks: the jack is part of the scan and `ive crop` keeps it (inside the footprint). Drop tris below the
   sill height outside the wheel bands (projects/mazda-3-gen4/tools/clean_car.py) and check a low side render.
 - **[technical]** To preview while a final render runs without overlapping heavy jobs: `kill -STOP` the Blender pid, preview, `kill -CONT`.
+- **[pacing]** Rotations are again wasted: the turntables/orbits (s1 front turntable, s2 rear orbit, rotating top-down, the s8 orbit) spend screen time without showing anything new. Don't fill time with camera rotations  _(from mazda-miata-nc, 2026-11-11, user)_
+
+- **[story]** If you do a front bumper removed shot, focus on the front bumper (camera framed on the front while it comes off), THEN move on to the rear. Don't show every part separating at once in one wide orbit  _(from mazda-miata-nc @ 18.7s, 2026-11-11, user)_
