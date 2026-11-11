@@ -1,103 +1,93 @@
-# v3 - DIRECTOR'S PLAN (director.md, written by the director agent from feedback + `ive director` + contact sheets).
-# Reviewer on v2: "focus on specific sections; if you open the hood, hold that shot and also pull the front bumper out
-# and show off the bumper"; "a director agent that minimizes redundant frames". Front is ONE held 8.7 s shot (lamp ->
-# hood opens and stays -> bumper out, turned to show its scanned inner face); s4/s5/s8a merged, s8c (repeat of s1) cut.
-# Every clip carries section + focus. v2: project_v2.yaml, v1: project_v1.yaml.
-# v2 - user feedback on v1: "starts off too cropped", "doesn't focus on the subsystems", "doesn't zoom in on the
-#   bumpers/skirts well enough". v2: wide opening (whole car), and the explode is progressive like the Temerario reference:
-#   front subsystem close (bumper/fender/hood) -> side close (skirt, rear bumper/diffuser) -> wide lock. v1: project_v1.yaml.
-# Ferrari 296 GTB - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of 240sx-scan / fg2-race-car.
-# Satin-silver scan on black; turntables -> close-ups -> hood + engine cover open -> top-down -> exploded view -> logo.
-# Shots: projects/ferrari-296/tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + hinged parts).
-# Music: ferrari296_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs Music via
-# Higgsfield, licensed to the team; elegant Italian GT: staccato strings, arp, sub). 103.4 BPM, beat 0.5803 s.
-# (The procedural score from tools/music.py + cues.json was v0 and is kept as a silent-friendly fallback / for other reels.)
-# Accents (per-beat RMS + flux, see editlog): 5.077, 9.719, 14.361 (8-beat phrases), music drops out at 12.04,
-# 7-beat phrase, then 18.423, 23.066 (lift, loudest), 27.708, 32.350 (heaviest bass); fade 36.75 -> silent ~39.
-# Cuts on frames round(t*30): 152, 292, 361, 431, 553, 622, 692, 1040; end 1170 (39.0 s).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# v4 - all-reels brief + addendum A-D (relayed from the user) on top of v3 (director's held front):
+#   scene order by the scene director (direction.md): travel front -> side -> rear, each section once; bumper-removed state
+#   scans are hero beats with labels (F_hero, R_hero); openings only from data (louvre lifts off); fade, then a SMALL logo.
+#   Cut-only assembly with exact frame counts: projects/ferrari-296/tools/assemble_cuts.py (ive assemble repeats a frame
+#   at every cut). v3: project_v3.yaml, v2: project_v2.yaml, v1: project_v1.yaml.
+# Music: ferrari296_track.mp3 (generated for this reel; 103.4 BPM, beat 0.5803 s, grid 0.435 + k*0.5803).
+# Cut frames: 152, 222, 483, 622, 762, 901, 1005; end 1170 (39.0 s).
 project: ferrari-296
 format: reel-9x16
-output: {path: /home/user/media/work/f296/out/ferrari_296_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/f296/out/ferrari_296_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/ferrari296_track.mp3   # not in git
   start: 0
   fade_out: 0.3
 
-# cut frames 152, 292, 361, 431, 692, 762, 901, 1040 (end 1170)
-beats: [5.067, 9.733, 12.033, 14.367, 23.067, 25.4, 30.033, 34.667]
+beats: [5.067, 7.4, 16.1, 20.733, 25.4, 30.033, 33.5]
 
 timeline:
   - id: s1_wide
     section: whole
-    focus: whole car, front-right 3/4
+    focus: "whole car, front-right 3/4, moving from frame 1"
     src: /home/user/media/work/f296/renders/final/s1_wide
     src_fps: 15
     interpolate: true
-    dur: 5.0333
-  - transition: {type: cut, note: "5.077 phrase accent"}
-  - id: s2_rear
-    section: rear
-    focus: rear haunch + left flank
-    src: /home/user/media/work/f296/renders/final/s2_rear
-    src_fps: 15
-    interpolate: true
-    dur: 4.6667
-  - transition: {type: cut, note: "9.719 phrase accent; top-down continues s2's rear-left side"}
-  - id: s7_top
-    section: top
-    focus: roofline / planform
-    src: /home/user/media/work/f296/renders/final/s7_top
-    src_fps: 15
-    interpolate: true
-    dur: 2.3
-  - transition: {type: cut, note: "12.04 - the music drops out"}
+    frames: 152
+    dur: 5.0667
+  - transition: {type: cut}
   - id: s3_wheel
     section: wheel
-    focus: carbon-ceramic disc through the spokes
+    focus: "carbon-ceramic disc through the front-right spokes"
     src: /home/user/media/work/f296/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
+    frames: 70
     dur: 2.3333
-  - transition: {type: cut, note: "14.361 phrase accent - front section, held"}
-  - id: f5_front       # lamp 14.37 -> hood opens 14.94-16.10 and STAYS -> frunk (1 beat) -> bumper out 16.68-17.84 -> turns 65 deg on the 18.423 accent -> push in on its inner face
+  - transition: {type: cut}
+  - id: f5_front   # lamp 7.40 -> hood 7.97-9.13 -> bumper out 9.71-10.87 -> turn 11.45-13.19 -> push in
     section: front
-    focus: hood/frunk, then the front bumper's inner face
+    focus: "hood opens (scanned open state) -> front bumper out, turned to show its scanned inner face"
     src: /home/user/media/work/f296/renders/final/f5_front
     src_fps: 15
     interpolate: true
-    dur: 8.7
-  - transition: {type: cut, note: "23.066 lift (loudest accent) - jump to the rear lid"}
-  - id: s6_engine
-    section: engine
-    focus: engine-cover louvre lifting off the bay
-    src: /home/user/media/work/f296/renders/final/s6_engine
+    frames: 261
+    dur: 8.7000
+  - transition: {type: cut}
+  - id: F_hero   # label on the 18.423 accent
+    section: front
+    focus: "FRONT BUMPER REMOVED: crash beam + brackets behind the bumper (Front Fully Removed scan)"
+    src: /home/user/media/work/f296/renders/final/F_hero
     src_fps: 15
     interpolate: true
-    dur: 2.3333
-  - transition: {type: cut, note: "25.400 beat - right flank"}
-  - id: x_side         # car as f5/s6 left it (hood + lid open, bumper out); fender up/out 25.40, skirt down 25.98, rear bumper on the 27.708 accent, diffuser 28.29
+    frames: 139
+    dur: 4.6333
+  - transition: {type: cut}
+  - id: x_side   # rear bumper leaves on the 23.066 lift
     section: side
-    focus: front fender, side skirt, rear bumper + diffuser coming off
+    focus: "right flank: fender, side skirt, then rear bumper + diffuser come off"
     src: /home/user/media/work/f296/renders/final/x_side
     src_fps: 15
     interpolate: true
+    frames: 140
+    dur: 4.6667
+  - transition: {type: cut}
+  - id: R_hero   # louvre lifts on the 27.708 accent (no lid-open scan: lifted off, not hinged)
+    section: rear
+    focus: "REAR BUMPER REMOVED: exposed rear structure, then the louvre lifts off -> ENGINE BAY"
+    src: /home/user/media/work/f296/renders/final/R_hero
+    src_fps: 15
+    interpolate: true
+    frames: 139
     dur: 4.6333
-  - transition: {type: cut, note: "30.029 beat - whole exploded car"}
-  - id: x_lock         # high side-on (not s1's low 3/4); drift, fly home 31.19, LOCK 32.350 (heaviest bass), push in
+  - transition: {type: cut}
+  - id: x_lock   # fade to black over the last 0.5 s
     section: explode
-    focus: every part out, then the reassembly lock
-    hold: true
+    focus: "every part out -> fly home -> LOCK on 32.350"
     src: /home/user/media/work/f296/renders/final/x_lock
     src_fps: 15
     interpolate: true
-    dur: 4.6333
-  - transition: {type: cut, note: "34.671 beat - logo"}
-  - id: logo
+    frames: 104
+    dur: 3.4667
+    fade_out: 0.5
+  - transition: {type: cut}
+  - id: logo   # tools/logo_card.py --secs 5.5 --width 380 --lead 0.5667 --fade-out 0.8 --tail 0.4 (small, like the Temerario)
     section: logo
     focus: Illumaesthetic logo
-    src: /home/user/media/work/f296/out/logo_card.mp4
-    dur: 4.3333
+    src: /home/user/media/work/f296/out/logo_small.mp4
+    frames: 165
+    dur: 5.5
 
-overlays: []
+overlays:
+  - src: /home/user/media/work/f296/out/hud_v4.mov   # labels over scan shots only (rule C); overlay.json
+    start: 0

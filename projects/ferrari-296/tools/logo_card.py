@@ -21,6 +21,9 @@ def main():
     ap.add_argument("--fps", type=int, default=30)
     ap.add_argument("--width", type=int, default=860)
     ap.add_argument("--bg", default="7,7,9")
+    ap.add_argument("--lead", type=float, default=0.0, help="seconds of black before the logo fades in (after a fade-out)")
+    ap.add_argument("--fade-out", type=float, default=0.6)
+    ap.add_argument("--tail", type=float, default=0.0, help="seconds of black after the logo has faded out")
     a = ap.parse_args()
     bg = tuple(int(v) for v in a.bg.split(","))
     logo = Image.open(a.logo).convert("RGBA")
@@ -28,11 +31,12 @@ def main():
     n = int(round(a.secs * a.fps))
     with tempfile.TemporaryDirectory() as td:
         for i in range(n):
-            t = i / a.fps
-            fade_in = min(1.0, t / 0.4)
-            fade_out = min(1.0, max(0.0, (a.secs - t) / 0.6))
+            t = i / a.fps - a.lead
+            end = a.secs - a.lead - a.tail
+            fade_in = min(1.0, max(0.0, t / 0.4))
+            fade_out = min(1.0, max(0.0, (end - t) / a.fade_out))
             alpha = (fade_in * fade_out) ** 1.2
-            u = min(1.0, t / a.secs)
+            u = min(1.0, max(0.0, t / max(1e-6, end)))
             s = 1.04 - 0.04 * (1 - (1 - u) ** 3)
             w = int(a.width * s)
             h = int(logo.height * w / logo.width)
