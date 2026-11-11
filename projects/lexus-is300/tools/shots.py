@@ -119,7 +119,7 @@ SHOTS.update({
         {"t": 0, "loc": [0.25, -5.9, 1.15], "target": [0, -2.0, 0.45], "focal": 30},
         {"t": L(17.5, "s5_front"), "loc": [0.15, -5.5, 1.10], "target": [0, -2.0, 0.45], "focal": 30, "ease": "inout"},
         {"t": L(21, "s5_front"), "loc": [0.05, -5.0, 1.0], "target": [0, -2.0, 0.3], "focal": 30, "ease": "inout"},
-        {"t": S("s5_front"), "loc": [-2.3, -6.0, 1.3], "target": [-0.1, -2.1, 0.3], "focal": 30, "ease": "inout"}]},
+        {"t": S("s5_front"), "loc": [-2.3, -6.0, 1.3], "target": [-0.35, -2.1, 0.3], "focal": 30, "ease": "inout"}]},
     # side: dolly rearward along the right sill, skirt slides out into black beside the car
     "s6_side": {"base": [XB], "parts": parts_for("s6_side"), "cam": [
         {"t": 0, "loc": [-3.3, -2.0, 2.0], "target": [-1.0, 0.1, 0.1], "focal": 30},
@@ -132,10 +132,10 @@ SHOTS.update({
     # finale: high behind (nose at top), parts lift on beat 40 (loudest), land on the triple hit 44/45/46, rear-left 3/4
     "s8_finale": {"base": [XB], "parts": parts_for("s8_finale"), "cam": [
         {"t": 0, "loc": [-0.4, 2.0, 7.0], "target": [-0.2, -0.1, 0.4], "focal": 28},
-        {"t": L(42, "s8_finale"), "loc": [0.6, 2.6, 6.2], "target": [0, 0, 0.45], "focal": 28, "ease": "inout"},
-        {"t": L(44, "s8_finale"), "loc": [2.0, 4.4, 6.8], "target": [0, 0.3, 0.5], "focal": 28, "ease": "inout"},
-        {"t": L(46.5, "s8_finale"), "loc": [4.1, 5.4, 3.5], "target": [0, 0.15, 0.55], "focal": 28, "ease": "inout"},
-        {"t": S("s8_finale"), "loc": [4.0, 5.3, 3.45], "target": [0, 0.15, 0.55], "focal": 28, "ease": "lin"}]},
+        {"t": L(42, "s8_finale"), "loc": [0.6, 3.1, 7.3], "target": [0, 0.35, 0.45], "focal": 28, "ease": "inout"},
+        {"t": L(44, "s8_finale"), "loc": [2.3, 5.0, 7.3], "target": [0, 0.5, 0.5], "focal": 28, "ease": "inout"},
+        {"t": L(46.5, "s8_finale"), "loc": [4.4, 6.0, 3.7], "target": [0, 0.3, 0.55], "focal": 28, "ease": "inout"},
+        {"t": S("s8_finale"), "loc": [4.3, 5.9, 3.65], "target": [0, 0.3, 0.55], "focal": 28, "ease": "lin"}]},
 })
 
 
