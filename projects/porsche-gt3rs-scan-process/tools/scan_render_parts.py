@@ -596,7 +596,7 @@ def main():
         sc.render.engine = "CYCLES"
         sc.cycles.samples = args.samples
         sc.cycles.use_denoising = True
-        sc.render.use_persistent_data = True  # keep BVH between frames: 3M-tri scans otherwise re-sync every frame
+        sc.render.use_persistent_data = False  # rule 2026-11-11: persistent data dropped the studio lights mid-animation (WRX VA)
         sc.cycles.use_adaptive_sampling = True
         sc.cycles.device = "CPU"
         try:
