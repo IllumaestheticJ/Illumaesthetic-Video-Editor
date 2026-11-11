@@ -84,7 +84,11 @@ shot("s8_explode", EXPL, secs(7), [{"t": 0, "az": -40, "el": 22, "dist": 7.6, "t
 # s9 side/rear 3/4: panels float, then return home (staggered, reverse order) -> assembled car, fades out
 an9 = stag(EX2, HOME, fr(1.3, 8), fr(3.25, 8), ["rb", "fe", "fb", "hood", "tg"], fr(0.16, 8))  # last panel (targa) locks at 3.89 s = 34.402 (b61 kick)
 for k in an9: an9[k].insert(0, dict(t=0, **EX2[k]))
-shot("s9_reassemble", EXPL, secs(8), [{"t": 0, "az": -112, "el": 18, "dist": 8.6, "target": [0, 0.1, 1.0], "lens": 32},
+# once every panel is home (targa rest 3.89 s) swap the frayed composite for the clean full car - same frame, so the
+# swap reads as the car snapping clean on the kick, and the payoff frame before the logo has no part seams (v1 review: ragged -X fender/quarter edges)
+SWAP = fr(3.90, 8)  # first car frame = 59 (3.916 s = reel 34.43, on the b61 kick 34.402 where the targa locks)
+VIS9 = {"car": [SWAP, 1.01], **{k: [0, SWAP] for k in EXPL}}
+shot("s9_reassemble", {**EXPL, **CAR}, secs(8), [{"t": 0, "az": -112, "el": 18, "dist": 8.6, "target": [0, 0.1, 1.0], "lens": 32},
                                  {"t": 1, "az": -148, "el": 11, "dist": 6.3, "target": [0, 0.25, 0.55], "lens": 36}],
-     anims=an9, hinges=HINGES, light_ref="base")
+     anims=an9, hinges=HINGES, light_ref="base", visible=VIS9)
 print("wrote", sorted(os.listdir(OUT)))

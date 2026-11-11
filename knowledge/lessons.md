@@ -224,3 +224,13 @@ lands here automatically. Agents must read this whole file before editing.
   drop lands just ahead of the first 1:1 cut. Attach the same sound in TikTok when posting (the export carries it as a guide).
 
 - **[scan-look]** Don't spin or flip parts unless the move is there to show the viewer the backside; a spin for its own sake is pointless  _(from c5-corvette-scan-process @ 14.5s, 2026-11-11, reviewer)_
+- **[technical]** (c5-corvette) scipy cKDTree queries for points far from the cloud are very slow (minutes) unless you pass
+  `distance_upper_bound=<mm>`; any registration/segmentation script that queries a whole car against a part should bound it.
+- **[technical]** (c5-corvette) Symmetric panels (removable roof, hoods) defeat FPFH+RANSAC (the targa slid down the
+  windscreen). Seed ICP at the panel's approximate home with 8 yaw/flip variants, coarse->fine, keep the best fitness
+  (`projects/c5-corvette/tools/fitpanel.py`). Check every part in red over the silver car before animating it.
+- **[scan]** (c5-corvette) An "open hood" state scan rotated shut looks patchy; build the closed hood from the full car's own
+  hood skin + the open scan's underside (`tools/hoodcombo.py`), and fit the hinge to the open state (`tools/hinge.py`).
+- **[story]** (c5-corvette) Exploded views from "... removed" state scans leave a frayed composite (trim lines where the parts
+  meet). Once the last panel is home, swap to the clean full car ON a kick (all scans share one frame) so the last frame before
+  the logo is clean.
