@@ -499,3 +499,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** Bumper-off hero beat in 9:16: park the bumper on the camera's sight line below the nose/tail (inner face to the lens,
   fully in frame), then let it sink out of frame while the camera pushes in on the structure; leave parked parts out of later shots
   (steep cameras still see them). Check first/mid/last frames with an edge-touch test (non-black pixels in the outer 3 px).
+
+### From the Infiniti G35 v2 (2026-11-11)
+- To move cuts relative to the music, remember the sign: a LATER `music.start` makes kicks arrive EARLIER in the video. Shift `start` by +(mean cut-minus-kick error) and re-measure with the decoded audio.
+- `ive director` "same view shown twice" uses silhouette IoU; close-ups that fill the frame all score IoU ~0.9 even when the subjects differ. Confirm a repeat on the contact sheet before cutting a shot.
+- Background shell tasks are killed at 2 h. Chain long renders one shot per task, and resume a killed shot with a `frames:` list starting at its last (possibly partial) frame.

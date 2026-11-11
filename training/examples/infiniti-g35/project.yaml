@@ -1,0 +1,92 @@
+# Infiniti G35 coupe - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
+# v2: exterior section tour front -> side -> rear -> top -> fade -> small logo (no trunk-open, no explode: no state scans exist).
+# Shots: projects/infiniti-g35/tools/shots.py (specs, G35_BEAT=0.66667) + tools/shot.py (Blender, copied from ferrari-296).
+# Music: infiniti-g35_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via
+# Higgsfield; moody R&B-electronic). 90 BPM, beat 0.6667 s; bar kicks at 0.03 + k*2.6667 s; climax 26.70-36 (kicks every
+# half bar); fade ~37.0, silent 38.3. v2 (direction.md / director.md): music starts at the 13.363 kick; cuts on video frames 80, 160, 240, 400, 480, 560, 640; end 739 (24.633 s = track 38.0).
+# Assembled with tools/concat_assemble.py (from honda-s2000): exact `frames:` per clip, plain concat, cut k = sum(frames[:k]).
+project: infiniti-g35
+format: reel-9x16
+output: {path: /home/user/media/work/g35/out/infiniti_g35_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/infiniti-g35_track.mp3   # not in git
+  start: 13.375  # 13.363 kick + 12 ms: v2 cuts measured 11.7 ms ahead of the kick half-rise on average (cutaudio.py)
+  fade_out: 0.3
+
+beats: [2.667, 5.333, 8.0, 13.333, 16.0, 18.667, 21.333]   # video time (track - 13.363)
+
+timeline:
+  - id: s1_turntable   # opener: whole car, moving from frame 1 (wide re-render)
+    focus: "whole car, front-right 3/4"
+    section: whole
+    src: /home/user/media/work/g35/renders/final/s1_turntable
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+    frames: 80
+  - transition: {type: cut, note: "16.030 bar kick"}
+  - id: g1_lamp   # front section
+    focus: "right headlamp"
+    section: front
+    src: /home/user/media/work/g35/renders/final/g1_lamp
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+    frames: 80
+  - transition: {type: cut, note: "18.697 bar kick"}
+  - id: g2_wheel   # front section, extreme close-up
+    focus: "front-right mesh-spoke rim"
+    section: front
+    src: /home/user/media/work/g35/renders/final/g2_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+    frames: 80
+  - transition: {type: cut, note: "21.363 bar kick"}
+  - id: g3_side   # side section, tracking rear-ward
+    focus: "right side: mirror -> door line -> fuel door / rear quarter"
+    section: side
+    src: /home/user/media/work/g35/renders/final/g3_side
+    src_fps: 15
+    interpolate: true
+    dur: 5.3333
+    frames: 160
+  - transition: {type: cut, note: "26.697 climax entry"}
+  - id: g4_exhaust   # rear section opens on the climax
+    focus: "right exhaust tip"
+    section: rear
+    src: /home/user/media/work/g35/renders/final/g4_exhaust
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+    frames: 80
+  - transition: {type: cut, note: "29.363 kick"}
+  - id: g5_spoiler   # rear signature; rising move hands off to the top
+    focus: "aftermarket spoiler"
+    section: rear
+    src: /home/user/media/work/g35/renders/final/g5_spoiler
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+    frames: 80
+  - transition: {type: cut, note: "32.030 kick"}
+  - id: s7_top   # top; in 41 (skips grille-hole frames), fades to black over the last 12 frames
+    focus: "fastback planform, ends top-down"
+    section: top
+    src: /home/user/media/work/g35/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    trim_start: 1.3333
+    vf: "fade=t=out:st=2.2667:d=0.4"
+    dur: 2.6667
+    frames: 80
+  - transition: {type: cut, note: "34.697 kick - small logo after the fade"}
+  - id: logo   # tools/logo_card.py --secs 3.3 --width 380
+    focus: "ILLUMAESTHETIC logo, small"
+    section: end
+    src: /home/user/media/work/g35/out/logo_card.mp4
+    dur: 3.3
+    frames: 99
+
+overlays: []

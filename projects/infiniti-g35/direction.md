@@ -122,3 +122,9 @@ Reuse as-is: `renders/final/s1_turntable` (the new wide render) and `renders/fin
 2. The trunk part scan registers at 4.3 mm median / 53 % overlap: is it the same lid (spoiler removed) or a replacement lid? Irrelevant
    for v2 but should be recorded before any future use.
 3. The ortho renders in `reg/` (`ortho_rear.png`) predate deplate and show a legible plate - don't use them in any deliverable.
+
+## Review 2026-11-11 (after v2 renders)
+Looked at first/mid/last sheets of every shot and +-1 frame around every cut. Each scene shows its cast feature;
+no state implied without a scan; travel reads front -> side -> rear -> top. Sections: s1 whole | g1, g2 front | g3 side |
+g4, g5 rear | s7 top | logo end. `ive director` flags g1~g3 and g3~g4 by silhouette IoU only (frame-filling
+close-ups) - different subjects, kept. No re-order requested.

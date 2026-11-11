@@ -17,6 +17,7 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
+- [infiniti-g35](infiniti-g35/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
