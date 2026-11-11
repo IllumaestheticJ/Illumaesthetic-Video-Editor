@@ -41,3 +41,11 @@ Output: `/home/user/media/work/out/nfs-carlot_v3.mp4`, 16.5 s.
 - Wheels: front wheels steered 25 deg, checked against the game's cars.
 - Audio: cutscene tail bridges the silent start of capture B; garage bed +2 dB.
 - NOT done: a proper NFSU2 soundtrack bed. No clean track is available in this environment; waiting on the user.
+
+## v4 (2026-11-11) - after the user's review of v3
+User: "This is great. Fix the Acura Integra type face, let the ending music play out a little longer, then end with the epsilon logo."
+
+Output: `/home/user/media/work/out/nfs-carlot_v4.mp4`, 19.6 s.
+- Plate lettering reset to match the game's plates (Roboto Condensed + stroked Michroma).
+- Last car holds 1.5 s after its slide; cut to the EPSILON+ card on the next scroll sound; music runs 3 s under it and fades.
+- Still open: no separate NFSU2 soundtrack bed (needs a file from the user).

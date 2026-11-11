@@ -211,6 +211,12 @@ ghost lettering), the logo box is another plate's box with its badge inpainted o
 is drawn in the capture's own greys. Leave the stat bars as the game drew them: they are not data
 about our cars, and redrawing them would mean inventing numbers.
 
+Drawn wordmarks (user asked twice for fixes on the Integra plate): look at how the game sets its
+plates before choosing type - maker name small in a condensed grotesque, model name as that car's
+own badge lettering - and render two or three options *under the game's real plates* to pick.
+Fonts: `tools/fetch_fonts.sh` (npm `@fontsource/*`, converted with fontTools; Google Fonts hosts are
+not reachable here).
+
 ## 9. Timeline and sound
 Cut the picture to the sound, not the other way round. Take one continuous real-time stretch of menu
 audio, find where each car starts to move in *that capture's picture* (those are its scroll times),
@@ -220,6 +226,10 @@ with the music unbroken. If the last car needs a longer hold, jump the audio to 
 the jump hides under the scroll sound. Verify in the output: sound level and picture motion around
 every change (`review.md` v2). v1 instead cut the sped-up capture's own audio on its scrolls, which
 synced but was double speed. Both captures here had the game's licensed menu song under everything.
+
+**Ending.** For Epsilon reels end on the EPSILON+ wordmark (white on black,
+`Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png`, 800 px wide): cut to it on a menu
+sound, let the music run about 3 s under it and fade over the last 1.8 s (user request on v3).
 
 ## 10. Layout, assemble, review (`projects/nfs-carlot/tools/assemble.py`)
 The game draws its menu in a centred 4:3 box on a 16:9 picture. Crop to that box (x 300–1842),

@@ -36,7 +36,7 @@ SEGMENTS = [
     (4041, 4112, "civic_fe", "civic"),
     (4631, 4682, "integra", "integra"),
     (4732, 4785, "nc", "miata"),
-    (5089, 5143, "ep3", "civic"),
+    (5089, 5148, "ep3", "civic"),             # 60 frames: to the next scroll in capture B, where the end card cuts in
 ]
 OUT_FPS = 30
 CARS_DIR = "cars3"                       # wheel-fitted camera, game-matched rig, front wheels steered 25 deg
@@ -147,18 +147,26 @@ def integra_plate(plates):
     txt = civ[2 * 132 - y0:2 * 160 - y0, 2 * 560 - x0:2 * 780 - x0].reshape(-1, 3)
     ink = np.percentile(txt, 8, 0)                                         # wordmark grey
     logo = np.percentile(civ[ly0:ly1, lx0:lx1].reshape(-1, 3), 97, 0)      # logo highlight grey
+    # Wordmark, set the way the game sets its plates: maker name in a condensed grotesque (cf. "Honda", "Mazda"),
+    # model name as the car's own badge lettering - the real INTEGRA badge is upright, wide and squared
+    # (Microgramma style). v1-v3 used Inter with a fake italic and the user asked for the typeface to be fixed.
+    # Positions copy the Honda / CIVIC plate: maker cap-top at y 40, model at y 102, both starting near x 612.
     S = 4
     h, w = bg.shape[:2]
+    FONTS = Path("/home/user/media/nfs-carlot/fonts")           # tools/fetch_fonts.sh
     lay = Image.new("L", (w * S, h * S), 0); d = ImageDraw.Draw(lay)
-    # wordmark: small maker name over a wide heavy italic model name, like the Honda / CIVIC plate
-    d.text(((2 * 551 - x0) * S, (2 * 101 - y0) * S), "Acura", font=font("Inter-SemiBold", 46 * S), fill=255)
-    big = Image.new("L", (900 * S, 90 * S), 0)
-    ImageDraw.Draw(big).text((10 * S, 0), "INTEGRA", font=font("Inter-Black", 64 * S), fill=255)
-    big = big.resize((int(big.width * 1.32), big.height))                                   # wide
-    big = big.transform(big.size, Image.AFFINE, (1, 0.22, -0.22 * big.height, 0, 1, 0))     # italic
-    lay.paste(big, ((2 * 540 - x0) * S, (2 * 128 - y0) * S), big)
-    a = np.asarray(lay.resize((w, h), Image.LANCZOS)).astype(np.float32)[..., None] / 255
-    out = bg * (1 - a * 0.92) + ink * a * 0.92
+    fm = ImageFont.truetype(str(FONTS / "roboto-condensed-latin-500-normal.ttf"), 52 * S)
+    l, t, r, b_ = fm.getbbox("Acura")
+    d.text((612 * S - l, 40 * S - t), "Acura", font=fm, fill=255)
+    fb = ImageFont.truetype(str(FONTS / "michroma-latin-400-normal.ttf"), 52 * S)
+    sw = int(3.4 * S)                                           # Michroma is a regular weight; the game's wordmarks are heavy
+    x = 616 * S + sw
+    for ch in "INTEGRA":                                        # letter by letter: the added weight needs air
+        l, t, r, b_ = fb.getbbox(ch)
+        d.text((x - l, 106 * S - fb.getbbox("I")[1]), ch, font=fb, fill=255, stroke_width=sw, stroke_fill=255)
+        x += (r - l) + int(10.5 * S)
+    a = cv2.GaussianBlur(np.asarray(lay.resize((w, h), Image.LANCZOS)).astype(np.float32), (0, 0), 0.8)[..., None] / 255
+    out = bg * (1 - a * 0.95) + ink * 0.88 * a * 0.95
     # badge: the real emblem, lifted front-on from the Integra GLB's own grille (tools/badge_from_glb.py);
     # v1/v2 drew one by hand and the user called it wrong
     bm = cv2.imread(str(W / "match/acura_badge.png"), cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255

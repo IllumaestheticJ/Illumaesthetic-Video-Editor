@@ -7,7 +7,8 @@ box (x 300-1842 of 2144), scaled to the reel's full width, and set on a blurred,
 
 Sound: the 1440p capture (a.wav) for the arrival. Its garage section is sped up 2x (user, v1 review), so
 the menu uses the second capture (b.wav), which is real time: one continuous take from the menu opening
-through three scrolls, then a jump to a later scroll for the last car so it can hold. The picture is cut
+through three scrolls, then a jump to a later scroll for the last car so it can hold; that take then runs on
+under the EPSILON+ end card, which cuts in on B's next scroll sound, and fades out. The picture is cut
 to that audio: every car change starts on the frame where the car starts to move in capture B
 (B_SCROLLS, measured from B's picture), which keeps B's own scroll sound on it.
 """
@@ -18,9 +19,11 @@ import numpy as np
 W = Path("/home/user/media/work/nfs-carlot")
 INTRO = (952, 1291)            # a60.mp4 frames (60 fps): "enter the shop?" (1 s), then the 350Z cutscene (4.65 s)
 B_SCROLLS = [34.93, 37.87, 40.27, 42.00, 50.03]   # seconds in capture B where each of our five car changes starts
-B_END = 51.86                                     # just before B's next scroll sound
+CARD_S = 3.0                                      # EPSILON+ end card, cut in on B's next scroll (52.03 s) so its sound carries the cut
+B_END = 52.03 + CARD_S                            # B's menu music plays on under the card and fades over its last 1.8 s
+LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png")   # official EPSILON+ wordmark (site header artwork)
 LEAD = 0.08                                       # B's scroll sound starts up to this long before the car moves
-OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/nfs-carlot_v3.mp4")
+OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/nfs-carlot_v4.mp4")
 
 
 def load(name):
@@ -36,7 +39,7 @@ def audio():
     a, sr = load("a.wav"); b, _ = load("b.wav")
     meta = json.load(open(W / "menu_segments.json")); fps = meta["fps"]; seg = meta["segments"]
     intro = a[round(INTRO[0] / 60 * sr):round((INTRO[1] + 1) / 60 * sr)].copy()
-    n_menu = round(meta["frames"] / fps * sr)
+    n_menu = round((meta["frames"] / fps + CARD_S) * sr)          # menu + end card
     menu = np.zeros((n_menu, 2), np.float32)
     # menu time of each car change = when that segment's scroll starts
     t_scroll = [(s["out_start"] + s["transition"][0] - s["src"][0]) / fps for s in seg]
@@ -61,7 +64,7 @@ def audio():
     tail *= np.linspace(1, 0, len(tail))[:, None] ** 2
     menu[:len(tail)] += tail
     y = np.concatenate([intro, menu])
-    fo = int(0.4 * sr); y[-fo:] *= np.linspace(1, 0, fo)[:, None]
+    fo = int(1.8 * sr); y[-fo:] *= np.linspace(1, 0, fo)[:, None] ** 1.5
     fi = int(0.05 * sr); y[:fi] *= np.linspace(0, 1, fi)[:, None]
     out = W / "reel_audio.wav"
     ww = wave.open(str(out), "w"); ww.setnchannels(2); ww.setsampwidth(2); ww.setframerate(sr)
@@ -69,19 +72,38 @@ def audio():
     return out, len(y) / sr, [round(len(intro) / sr + t, 2) for t in t_scroll]
 
 
+def card():
+    """Black 1080x1920 card with the white EPSILON+ wordmark, 800 px wide, centred slightly above the middle."""
+    import cv2
+    logo = cv2.imread(str(LOGO), cv2.IMREAD_UNCHANGED).astype(np.float32)
+    wl = 800; hl = round(logo.shape[0] * wl / logo.shape[1])
+    logo = cv2.resize(logo, (wl, hl), interpolation=cv2.INTER_AREA)
+    im = np.zeros((1920, 1080, 3), np.float32)
+    y0, x0 = 920 - hl // 2, (1080 - wl) // 2
+    a = logo[..., 3:] / 255
+    im[y0:y0 + hl, x0:x0 + wl] = logo[..., :3] * a
+    out = W / "end_card.png"
+    cv2.imwrite(str(out), im.astype(np.uint8))
+    return out
+
+
 def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     wav, dur, scrolls = audio()
+    png = card()
     fc = (f"[0:v]trim=start_frame={INTRO[0]}:end_frame={INTRO[1] + 1},setpts=PTS-STARTPTS,fps=30[i];"
           "[1:v]setpts=PTS-STARTPTS,fps=30[m];[i][m]concat=n=2:v=1,split[a][b];"
           "[a]crop=1542:1206:300:0,scale=1080:846:flags=lanczos[fg];"
           "[b]scale=-2:1920,crop=1080:1920,gblur=sigma=28,eq=brightness=-0.22:saturation=0.9[bg];"
-          "[bg][fg]overlay=0:497,format=yuv420p[v];"
+          "[bg][fg]overlay=0:497,format=yuv420p,setsar=1[reel];"
+          f"[3:v]fps=30,format=yuv420p,setsar=1,fade=t=in:st=0:d=0.25[card];"
+          "[reel][card]concat=n=2:v=1[v];"
           "[2:a]loudnorm=I=-15:TP=-1.5:LRA=11[au]")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(W / "a60.mp4"), "-i", str(W / "menu.mp4"), "-i", str(wav),
+                    "-loop", "1", "-t", str(CARD_S), "-i", str(png),
                     "-filter_complex", fc, "-map", "[v]", "-map", "[au]", "-r", "30", "-c:v", "libx264", "-preset", "slow", "-crf", "16",
                     "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-movflags", "+faststart", "-shortest", str(OUT)], check=True)
-    print(OUT, "seconds", round(dur, 2), "car changes at", scrolls)
+    print(OUT, "seconds", round(dur, 2), "car changes at", scrolls, "end card at", round(dur - CARD_S, 2))
 
 
 if __name__ == "__main__":
