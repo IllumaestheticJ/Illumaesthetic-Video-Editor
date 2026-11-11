@@ -1,0 +1,2 @@
+{"ts": "2026-11-11T08:38:12Z", "project": "honda-civic-11-scan-process", "at": "9.8", "category": "story", "note": "Don't show a part coming off (exploded bumper etc.) unless it was physically removed on the car AND we have a separate scan of it in that state - we never pulled the EK bumper", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-11T08:38:12Z", "project": "honda-civic-11-scan-process", "at": null, "category": "audio", "note": "Change the music to a trending track and re-edit to it", "by": "reviewer", "promoted": false}

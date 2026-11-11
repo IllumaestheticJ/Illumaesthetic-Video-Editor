@@ -1,25 +1,27 @@
-# Honda Civic EK (6th gen hatch) - scan-process reel in the 240SX format. v1.
-# Footage shows a 1996-98 EK hatch (not the 11th gen named in the brief), so the scan is the Drive "Honda Civic EK" full car.
-# Story: crew powders the car -> 1:1 cut ON THE DROP to the scan -> handheld scanner pass -> 1:1 cut -> exploded view
-# (bumpers + wheels cut from the one full-car scan, turn left/right) -> scan software aligning the passes ->
-# x-ray reassembly that lands on the listing's 360 view -> dissolve into the EK scan-data listing (WebZoom).
+# Honda Civic EK (6th gen hatch) - scan-process reel in the 240SX format. v2 (v1: project_v1.yaml).
+# v2 feedback: nothing comes off the car (the bumper was never pulled and there is no separate bumper scan) -> no explode,
+# no reassembly; music changed to a trending TikTok Commercial Music Library track and re-cut to it.
+# Story: crew powders the car -> silence -> 1:1 cut ON THE DROP to the scan -> handheld scanner -> 1:1 cut on the fender ->
+# camera pulls back and orbits the whole scanned car -> scan software aligning passes -> scan-line sweep turns the raw scan
+# into the solid model on the listing's 360 angle -> dissolve into the EK scan-data listing (WebZoom, logo, URL last).
 project: honda-civic-11-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/civic_ek_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/civic_ek_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/civic11/music/civic_track.mp3   # the original Civic track (cloudfront hf_20261111_060731_...mp3)
-  start: 10.105   # drop = first kick peak at 13.305 s in the track -> video 3.200 s (frame 96)
-  fade_out: 0.8
+  # "Time Back" - Sinny & 7vvch, #4 on TikTok's Commercial Music Library US 7-day trending (2026-11-11), song_clip_id 7080646813753083905
+  path: /home/user/media/civic11/music/trend/time_back.mp3
+  start: 32.861   # riser + 1.5 s of silence, drop = kick peak 36.061 s -> video 3.200 s (frame 96)
+  fade_out: 1.0
 
-# Kick-peak grid (40-120 Hz): 2-bar phrase every 3.310 s from 13.305 s (beat 0.4138 s, ~145 BPM half-time trap),
-# accents at beats 0, 1.5, 3, 5 of each phrase. Video times (track - 10.105), rounded to frames:
-beats: [3.200, 6.500, 7.133, 9.833, 13.133, 16.433, 18.500, 23.067, 26.367]
+# Measured kick peaks (40-120 Hz) in the track, minus 32.861 (the grid drifts after 53 s, so cuts use the measured kicks):
+# 36.061 39.338 40.420 42.603 49.148 51.331 55.719 62.267 -> frames 96 194 227 292 489 554 686 882
+beats: [3.200, 6.467, 7.567, 9.733, 16.300, 18.467, 22.867, 29.400]
 
-# Whole-frame durs; first clip one frame short (each cut adds a cloned hold frame to the outgoing clip) - FG2 lesson, verified
-# with tools/cutcheck.py on the delivered file (ive strip seeks can be off by a frame - don't judge cut timing from it).
+# Whole-frame durs; first clip one frame short (each cut adds a cloned hold frame to the outgoing clip) - verified with
+# tools/cutcheck.py on the delivered file (ive strip seeks can be off by a frame - don't judge cut timing from it).
 timeline:
-  - id: irl_powder_front   # crew powders the hood; camera pulls back and settles on the front 3/4 (match frame f150 = 5.002 s)
+  - id: irl_powder_front   # crew powders the hood; camera pulls back and settles on the front 3/4 (match frame f150 = 5.002 s); riser -> silence
     src: /home/user/media/civic11/dropbox/v_1957_24.mov
     in: 1.8686
     out: 5.0353
@@ -29,36 +31,36 @@ timeline:
     src: /home/user/media/work/civic11/renders/final_s1
     src_fps: 15
     interpolate: true
-    dur: 3.3000
-  - id: irl_scanner   # handheld scanner in frame, camera circling the car (1.5 beats)
+    dur: 3.2667
+  - id: irl_scanner   # operator holds the handheld scanner in frame while circling the front 3/4 (2 beats)
     src: /home/user/media/civic11/dropbox/v_2003_40.mov
-    in: 0.85
-    out: 1.55
-    dur: 0.6333
-  - id: irl_scanner_pass   # scanner on the door, camera walks the right side to the front fender; ends on f105 (3.501 s)
+    in: 0.60
+    out: 1.75
+    dur: 1.1000
+  - id: irl_scanner_pass   # camera walks the right side to the front fender; ends on f105 (3.501 s)
     src: /home/user/media/civic11/dropbox/v_2003_29.mov
-    in: 0.8347
+    in: 1.3680
     out: 3.5347
-    dur: 2.7000
+    dur: 2.1667
   - transition: {type: cut, note: "1:1 IRL -> scan (cam_B: f 28 mm, side landmarks), scan camera keeps drifting forward"}
-  - id: scan_explode   # continues the walk, pulls back/up; bumpers fwd/back + turn left/right, wheels out + roll
-    src: /home/user/media/work/civic11/renders/final_s2
+  - id: scan_orbit   # continues the walk, pulls back to the front 3/4, orbits down the right side to the rear 3/4 (whole car, nothing removed)
+    src: /home/user/media/work/civic11/renders/v2/final_s2
     src_fps: 15
     interpolate: true
-    dur: 6.6000
-  - id: software_align   # Artec-style alignment of two scan passes (screen recording 2025-10-31 01-59-44, 41.5-49.9 s at 4x, viewport crop)
-    src: /home/user/media/work/civic11/sr/sr_align.mp4
-    dur: 2.0667
-  - id: scan_xray   # x-ray reassembly (translate only), orbit lands on cam_end = listing hero view, morphs to listing grey
-    src: /home/user/media/work/civic11/renders/final_s3
+    dur: 6.5667
+  - id: software_align   # scan software aligning two passes (screen recording 2025-10-31 01-59-44, 41.5-50.3 s at 4x, viewport crop)
+    src: /home/user/media/work/civic11/sr/sr_align_v2.mp4
+    dur: 2.1667
+  - id: scan_sweep   # scan line sweeps front->rear turning the raw scan into the solid model; orbit lands on cam_end (listing view), morphs to listing grey
+    src: /home/user/media/work/civic11/renders/v2/final_s3
     src_fps: 15
     interpolate: true
-    dur: 5.0667
-  - transition: {type: dissolve, duration: 0.5, note: "x-ray (listing grey) -> EK scan-data listing, same angle"}
+    dur: 4.9000
+  - transition: {type: dissolve, duration: 0.5, note: "solid scan (listing grey) -> EK scan-data listing, same angle"}
   - id: website   # EK listing; zoom out, title, logo, then ILLUMAESTHETIC.COM fades in last
-    src: /home/user/media/work/civic11/out/webzoom_ek.mp4
-    dur: 6.8667
+    src: /home/user/media/work/civic11/out/webzoom_ek_v2.mp4
+    dur: 6.5333
 
 overlays:
-  - src: /home/user/media/work/civic11/out/hud_ek.mov
+  - src: /home/user/media/work/civic11/out/hud_ek_v2.mov
     start: 0

@@ -206,3 +206,4 @@ lands here automatically. Agents must read this whole file before editing.
   components) for every shot after the cut, and bring them back as parts in the reassembly if the end card shows them.
 - **[technical]** Shell args like `--look-at -0.4,...` are parsed as flags by argparse: use `--look-at=-0.4,...`.
 - **[pacing]** Measured: first clip one frame short (dur - 1/30) makes every cut land on round(t*30) exactly; without it all cuts were 1 frame late.
+- **[story]** Don't show a part coming off (exploded bumper etc.) unless it was physically removed on the car AND we have a separate scan of it in that state - we never pulled the EK bumper  _(from honda-civic-11-scan-process @ 9.8s, 2026-11-11, reviewer)_
