@@ -1,0 +1,16 @@
+{
+ "_note": "ScanHUD, scan shots only (s1 frames 95-245, s2 320-470). Numbers = STL header triangle counts of the Drive files: Chassis_(8.4m).stl 8,400,496; Supra Front Bumper Outside 1,989,952 + Inside 1,991,743 = 3,981,695. Inside+outside claims verified on the renders (bumper turned 180 deg, ribs/tabs visible).",
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 930,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "brackets", "from": 100, "duration": 140},
+  {"kind": "counter", "from": 104, "duration": 66, "label": "TRIANGLES CAPTURED", "value": 8400496, "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 178, "duration": 64, "title": "INSIDE + OUTSIDE", "sub": "REAR BUMPER SCANNED", "x": 0.08, "y": 0.1},
+  {"kind": "brackets", "from": 324, "duration": 142},
+  {"kind": "label", "from": 328, "duration": 70, "title": "FRONT BUMPER", "sub": "2 SCANS · 3,981,695 TRIANGLES", "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 400, "duration": 66, "title": "INSIDE + OUTSIDE", "sub": "FRONT BUMPER SCANNED", "x": 0.08, "y": 0.1}
+ ]
+}

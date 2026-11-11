@@ -1,0 +1,63 @@
+# Toyota A90 Supra - scan-process reel in the 240SX format (option b: no scanning footage exists for this car,
+# see clips.md). Real car pulls up -> 1:1 cut on the bar-2 downbeat -> rear bumper explodes/turns (inside+outside)
+# -> real bumper-off shop shot -> rolling pan -> front bumper explodes/turns -> blinker -> x-ray reassembly ending
+# on the listing's camera -> dissolve into the illumaesthetic.com A90 scan listing (WebZoom, logo, URL last).
+# Beat grid: kicks 0.682 + 0.625k s (96 BPM), bars every 2.5 s. Cuts land on frames 95 245 283 320 470 489
+# (v1 measured +1 frame -> first clip 94 frames) | dissolve 699-714 | end 930. Every clip has a whole-frame dur (assembler adds the 1-frame xfade back per cut).
+project: a90-supra-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/a90_scan_process_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront), ends hard ~29.75 s
+  start: 0
+  fade_out: 0.6
+
+beats: [3.182, 8.182, 9.432, 10.682, 15.682, 16.307, 18.182, 19.432, 20.682, 23.307, 25.682]
+
+timeline:
+  - id: irl_open        # car-to-car: the Supra pulls up behind; ends on the solved frame 40.400 s
+    src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1944_44.mov
+    in: 37.2833
+    out: 40.4167
+    dur: 3.1333   # one frame short: the assembler's per-cut hold otherwise lands every cut 1 frame (19 ms) late
+  - transition: {type: cut, note: "1:1 IRL -> scan (cam_A, fixed 28 mm, RMSE 4.2 px) on the 3.182 s bar downbeat"}
+  - id: s1_rear         # starts on cam_A; rear bumper (outside+inside) slides back and turns to show its inside
+    src: /home/user/media/work/a90sp/renders/s1_rear
+    src_fps: 15
+    interpolate: true
+    dur: 5.0333   # cut lands on frame 246 = 8.200 s, nearest the 8.185 s kick
+  - id: irl_shop        # the real car in the shop, rear bumper off, heart tail light flashing
+    src: /home/user/media/a90-supra-scan-process/dropbox/v_0707_1613_13.mov
+    in: 2.05
+    out: 3.2833
+    dur: 1.2333
+  - id: irl_pan         # rolling rear 3/4 pan past the wheel
+    src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1940_51.mov
+    in: 10.0
+    out: 11.2333
+    dur: 1.2333
+  - id: s2_front        # front bumper (outside+inside) slides forward/down and turns; under-bumper structure revealed
+    src: /home/user/media/work/a90sp/renders/s2_front
+    src_fps: 15
+    interpolate: true
+    dur: 5.0
+  - id: irl_blink       # 1-beat insert: sequential amber
+    src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1941_33.mov
+    in: 18.6
+    out: 19.2333
+    dur: 0.6333
+  - id: s3_xray         # x-ray reassembly, translate only; ends on cam_listing, morphs to the listing grey
+    src: /home/user/media/work/a90sp/renders/s3_xray
+    src_fps: 15
+    interpolate: true
+    dur: 7.5
+  - transition: {type: dissolve, duration: 0.5, note: "x-ray scan (listing angle, listing grey) -> listing screenshot"}
+  - id: website         # WebZoom: listing -> zoom-out lands 25.68 s; title, logo, URL fades in last
+    src: /home/user/media/work/out/webzoom_a90.mp4
+    dur: 7.4333
+    hold_start: 0.3
+
+overlays:
+  - src: /home/user/media/work/out/hud_a90_scan_process.mov
+    start: 0

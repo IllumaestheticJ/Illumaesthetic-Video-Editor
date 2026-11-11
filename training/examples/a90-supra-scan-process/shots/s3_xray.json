@@ -1,0 +1,137 @@
+{
+ "_note": "X-ray reassembly, translate only (no un-rotating): front bumper lands 18.182 s, fender 19.432, rear bumper 20.682 (bar line). Camera orbits round the right side to cam_listing (solved against the listing hero, f 55.7/36) and arrives on the last frame; look morphs to listing grey (clay + bg sampled from the screenshot) 0.80-0.93, then the 0.5 s dissolve. 7.5 s = 12 beats (16.307 -> 23.807).",
+ "seconds": 7.5,
+ "sensor": 36,
+ "ease": "ease_in_out",
+ "look": "xray",
+ "accent": "0.8,0.82,0.86",
+ "morph": [
+  0.8,
+  0.93
+ ],
+ "clay_color": "0.073,0.075,0.073",
+ "morph_bg": "0.0098,0.0118,0.0094",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90sp/blend/base_explode.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/fbump.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.62,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.05,
+     "loc": [
+      0.62,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.25,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "ease": "ease_in_out"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/fender.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      -0.5,
+      0.2
+     ]
+    },
+    {
+     "t": 0.22,
+     "loc": [
+      0,
+      -0.5,
+      0.2
+     ]
+    },
+    {
+     "t": 0.4167,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "ease": "ease_in_out"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/rbump.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.62,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.36,
+     "loc": [
+      -0.62,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.5833,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "ease": "ease_in_out"
+    }
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "az": -78.0,
+   "dist": 7.7,
+   "z": 2.05,
+   "look": [
+    -0.18845,
+    0.07182,
+    0.38831
+   ],
+   "lens": 49.0,
+   "roll": 0.0
+  },
+  {
+   "t": 1.0,
+   "az": -120.995,
+   "dist": 7.35664,
+   "z": 2.72541,
+   "look": [
+    -0.18845,
+    0.07182,
+    0.38831
+   ],
+   "lens": 55.70966,
+   "roll": -1.4439
+  }
+ ]
+}
