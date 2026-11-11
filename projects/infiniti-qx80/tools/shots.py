@@ -23,9 +23,9 @@ def orbit(r, az0, az1, z0, z1, tgt0, tgt1, f0, f1, secs, n=6, ease_last="inout")
 
 SHOTS = {}
 # s1: low front-right 3/4 turntable - the hero, nose sweeps toward camera
-SHOTS["s1_front34"] = dict(base=CAR, seconds=5.6, camera={"keys": orbit((5.4, 5.2), 52, 30, 0.85, 0.95, (0.0, 0.5, 0.92), (0.0, 0.8, 0.95), 30, 30, 5.6)})
+SHOTS["s1_front34"] = dict(base=CAR, seconds=5.6, camera={"keys": orbit((6.6, 6.2), 50, 28, 0.85, 0.95, (0.0, 0.9, 0.92), (0.0, 1.1, 0.95), 30, 30, 5.6)})
 # s2: rear-left 3/4 orbit, slight rise
-SHOTS["s2_rear34"] = dict(base=CAR, seconds=3.6, camera={"keys": orbit(5.6, 216, 236, 1.0, 1.35, (0.0, -0.3, 0.95), (0.0, -0.3, 0.9), 30, 30, 3.6)})
+SHOTS["s2_rear34"] = dict(base=CAR, seconds=3.6, camera={"keys": orbit(6.2, 214, 234, 1.0, 1.35, (0.0, -1.0, 0.95), (0.0, -1.1, 0.9), 30, 30, 3.6)})
 # s3: extreme close-up: grille + badge, sliding across the nose
 SHOTS["s3_grille"] = dict(base=CAR, seconds=2.2, camera={"keys": [
     {"t": 0, "loc": [0.95, 4.0, 1.05], "target": [0.05, 2.6, 0.88], "focal": 50},

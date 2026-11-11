@@ -358,3 +358,14 @@ lands here automatically. Agents must read this whole file before editing.
 - **[text]** ScanHUD's `counter` eases with Easing.out(exp) and stops at 99.9 % of `value` (24,999,992 displayed as 24,975,578;
   the 240SX reel showed 24,966,688 for 24,991,097). Until the component is fixed, pass value/(1-2^-10) and check the final frame.
 - **[technical]** A render queue that waits with `pgrep -f <shot name>` also matches your own watcher loops; wait on the PID.
+## From the Infiniti QX80 scan reel (2026-11-11, built by an agent)
+- **[technical]** Hood from a "hood open" state scan: fit the hinge (projects/infiniti-qx80/tools/hinge.py), then make the hinged
+  part = state-scan panel rotated closed + the full car's own hood skin (tools/hood.py). The closed pose is then identical to
+  the full car and opening reveals the state scan's real under-hood capture.
+- **[technical]** Drive part names lie: QX80 "Fender Inner" is the clean full fender panel, "Front Bumper Duct" is a bumper corner.
+  Render every part alone before choosing explode panels. A part with a small median distance but ~1 % overlap
+  ("Rear Bumper Inner", floating mid-car) is NOT registered - check overlap %, not just the median.
+- **[technical]** Render-queue waiters: `while pgrep -f render_queue.sh` also matches other waiters whose command line contains
+  that string - two waiters deadlocked. Wait on a PID (`while kill -0 $pid`) or a log line instead.
+- **[scan-look]** Large SUV in 9:16: a 3/4 turntable at 5.4 m / 30 mm cropped the grille; 6.2-6.6 m with the target moved
+  ~1 m toward the end you want to show (nose for front 3/4, tail for rear 3/4) keeps the face in and crops the other end.
