@@ -172,7 +172,7 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = False  # True lost all lights mid-animation in s8 (unlit frames 110-178)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
