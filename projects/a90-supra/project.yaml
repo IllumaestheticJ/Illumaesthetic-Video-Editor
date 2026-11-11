@@ -63,8 +63,8 @@ timeline:
   - transition: {type: cut, note: "bar 11 - riser resolves into the hit, panels fly off"}
   - id: s08_explode      # bars 11-13: explode (bumpers tip to show inside, fender turns), land on bar 13 impact (30.0 s)
     src: /home/user/media/work/a90/renders/s08_explode
-    src_fps: 15
-    interpolate: true
+    src_fps: 14.7        # 2 % slow: measured landing at 29.90 s (t=2/3 over 112 frames) -> lands on 30.0; slowing the source
+    interpolate: true    # (not speed:) keeps minterpolate making every in-between frame, no duplicate frame
     dur: 7.5
   - transition: {type: cut, note: "bar 14 - logo hit"}
   - id: logo             # ILLUMAESTHETIC end card under the reverb tail (tools/logo_card.sh)

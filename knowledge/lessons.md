@@ -122,3 +122,17 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** `alimiter` auto-levels by default (`level=disabled` to stop it silently lowering the whole mix).
 - **[audio]** Voice-over requests that name a real narrator ("use the same lady's voice"): don't clone a real person's voice;
   use a preset voice in the same delivery and say so. Spec lines in narration follow the text rule: sourced numbers only.
+## From the A90 Supra Temerario-style scan reel (2026-11-11, built by an agent)
+- **[technical]** Registration check that works for state scans: render the part in red over the silver car (tools/regcheck.sh in
+  projects/a90-supra). Red/silver z-fight patches = same surface = registered. Trimmed ICP that doesn't lower the residual means
+  the part is already in frame (its "shift" is sliding along the skin) - don't apply it.
+- **[technical]** Scans from other sessions/years are often in their own frame: FPFH+RANSAC+point-to-plane ICP (open3d,
+  a90-supra/tools/globalreg.py) - trust it only when several tries return the same pose (2024 A90 trunk: 4/4, rmse 4.4 mm);
+  fitness < 0.1 or a different pose per try = not usable (2021 A90 corner fragments, headlight units).
+- **[scan-look]** Exploded view in 9:16: put the car's length along the frame height (high side camera ~60 deg down, up vector
+  = nose) and *tip* bumpers 90 deg about the width axis so the scanned inside faces the lens. Z-spins of 1.8 m bumpers hit the car.
+- **[technical]** Cycles can return a run of completely unlit frames mid-animation (A90 s08 frames 56-70, luma 5 vs 48); a
+  stride contact sheet can miss it. Scan every frame's mean luma before assembling; re-rendering those frames fixed it.
+- **[technical]** To nudge a motion hit by a few frames, change the PNG sequence's `src_fps`, not `speed:` - speed resamples
+  after minterpolate and duplicates a frame. `ive strip` shows the frame after the requested time at a cut; use
+  `ffmpeg -vf select=eq(n\,N)` for exact cut frames.
