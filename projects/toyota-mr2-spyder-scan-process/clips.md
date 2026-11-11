@@ -23,5 +23,8 @@ Scans (engineering Drive "Toyota MR2 Spyder" -> "MR2 Spyder Scan Data"):
 - Full Car.stl (19,540,297), Hardtop Mounting/Hardtop Mounting Full Car.stl (18,547,676) - same Artec frame as Top Down.
 - MR2 Spyder Rear End trunk open.stl (7,000,064) - other frame; FPFH+ICP registered (3.2 mm rms) -> lid-open state + lid part.
 - Kouki and Undertray.stl (scooped hood), Rear Interior Trim Removed, Trunk Open Cover On, Rear QuarterPanel, Hood Duct Data - fetched/checked, not used.
+- Front Bumper Data/front fully removed.stl (999,993) and hood open no bumper.stl (1,000,000), 2024: do NOT register to this car -
+  FPFH+ICP fitness 0.11 @ 6 mm, fender-only sweep 0.05 @ 5 mm (match/reg_ffr.json, reg2_ffr.json); nose/fenders 50-70 mm off. Not used.
+  FrontEnd.stl is ASCII (not inspected).
 
 Music: original MR2 Spyder track (city-pop, 112.1 BPM), cloudfront link in the brief; /home/user/media/mr2/music/mr2_track.mp3.

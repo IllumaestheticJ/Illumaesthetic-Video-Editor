@@ -12,7 +12,7 @@ output: {path: /home/user/media/work/out/mr2_scan_process_v2.mp4, width: 1080, h
 
 music:
   path: /home/user/media/mr2/music/mr2_track.mp3   # https://d8j0ntlcm91z4.cloudfront.net/... (original MR2 track, not in git)
-  start: 12.8276
+  start: 12.8943   # v2: +67 ms (2 frames) - measured cuts ran ~70 ms ahead of the decoded kicks
   fade_out: 0.8
 
 beats: [3.2121, 6.4242, 9.6363, 11.7777, 13.9191, 18.2019, 21.4140]
@@ -52,7 +52,7 @@ timeline:
   - transition: {type: dissolve, duration: 0.5, note: "x-ray -> same-angle listing hero (scan -> web, not IRL -> scan)"}
   - id: website   # section: end | MR2 Spyder 3D-scan listing on illumaesthetic.com; zoom-out lands on the n=63 hit; title, logo, URL last
     src: /home/user/media/work/out/webzoom_mr2_v2.mp4
-    dur: 2.6667   # ends n67 with the music decay (v1 held 0.93 s past it)
+    dur: 3.1667   # zoom 32 fr, URL fully in by card 2.53 s + 0.6 s hold; ends as the decay tail goes silent (~track 37 s)
 
 overlays:
   - src: /home/user/media/work/out/hud_mr2_v2.mov
