@@ -11,8 +11,8 @@ How it works (all coordinates are in the cropped 2144x1206 capture, `a60.mp4`):
     car render (same slide offset) on top. Everything else - menu, stat bars, cursor, room - is the capture.
   * The name plate is repainted with a plate lifted from the capture (Toyota Corolla, Honda Civic, Mazda
     Miata) or, for the car the game never had (Acura Integra), one drawn in the same greys.
-  * The timeline is built from the five longest pauses in the capture; each cut sits on a scroll, so the
-    capture's own scroll sound lands on every car change.
+  * The timeline is five scrolls of the capture, each range starting on the first frame of a scroll; how long
+    each runs is set by the real-time capture's audio so its scroll sounds land on the car changes.
 """
 import json, subprocess, sys
 from pathlib import Path
@@ -28,13 +28,18 @@ BAR_ROWS = (1026, 1054)                 # the stat bars themselves: never repain
 ZONE_Y = (480, 1076)
 
 # segment = (first source frame, last source frame, car shown after the scroll, plate)
+# The capture's garage section plays at DOUBLE speed (a scroll takes 14 frames at 60 fps here, 0.47 s in a
+# second, real-time capture), so the menu is written at 30 fps with every source frame: that is real time.
+# Segment lengths are the gaps between scrolls in the real-time capture's audio (b.wav), see assemble.py.
 SEGMENTS = [
-    (3818, 4040, "corolla", "corolla"),      # menu opens: empty turntable slides out, car 1 slides in
-    (4041, 4126, "civic_fe", "civic"),
-    (4631, 4731, "integra", "integra"),
-    (4732, 4871, "nc", "miata"),
-    (5089, 5208, "ep3", "civic"),
+    (3829, 3919, "corolla", "corolla"),      # menu opens: empty turntable slides out, car 1 slides in
+    (4041, 4112, "civic_fe", "civic"),
+    (4631, 4682, "integra", "integra"),
+    (4732, 4785, "nc", "miata"),
+    (5089, 5143, "ep3", "civic"),
 ]
+OUT_FPS = 30
+CARS_DIR = "cars2"                       # renders with the wheel-fitted camera and the game-matched rig
 PLATE_SRC = {"corolla": 4280, "civic": 4610, "miata": 4430}     # rest frames showing each real plate
 BOX_SRC = 3996
 
@@ -192,7 +197,7 @@ def main():
     box_ref = frame(BOX_SRC)[by0:by1, bx0:bx1].copy()
     cars = {}
     for name in {s[2] for s in SEGMENTS}:
-        im = cv2.imread(str(W / f"cars/{name}.png"), cv2.IMREAD_UNCHANGED).astype(np.float32)
+        im = cv2.imread(str(W / CARS_DIR / f"{name}.png"), cv2.IMREAD_UNCHANGED).astype(np.float32)
         if im.shape[:2] != (H, Wd):
             im = cv2.resize(im, (Wd, H), interpolation=cv2.INTER_LINEAR)
         cars[name] = im
@@ -224,7 +229,7 @@ def main():
             out = out * (1 - a) + c[..., :3] * a
         return out
 
-    ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{Wd}x{H}", "-r", "60", "-i", "-",
+    ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{Wd}x{H}", "-r", str(OUT_FPS), "-i", "-",
                            "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-g", "1", "-pix_fmt", "yuv420p", str(W / "menu.mp4")], stdin=subprocess.PIPE)
     meta, n_out, prev_car = [], 0, None
     for si, (f0, f1, car, plate) in enumerate(SEGMENTS):
@@ -266,8 +271,8 @@ def main():
         prev_car = car
         print(f"segment {si + 1}: {car:9s} src f{f0}-{f1} scroll f{ta}-{tb} rest offsets {ob:+.1f}/{oa:+.1f}", flush=True)
     ff.stdin.close(); ff.wait()
-    json.dump({"fps": 60, "segments": meta, "frames": n_out}, open(W / "menu_segments.json", "w"), indent=1)
-    print("frames", n_out, "seconds", round(n_out / 60, 2))
+    json.dump({"fps": OUT_FPS, "segments": meta, "frames": n_out}, open(W / "menu_segments.json", "w"), indent=1)
+    print("frames", n_out, "seconds", round(n_out / OUT_FPS, 2))
 
 
 if __name__ == "__main__":

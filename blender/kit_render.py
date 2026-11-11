@@ -57,7 +57,7 @@ def parse():
     ap.add_argument("--orbit", type=float, default=0, help="camera orbit, degrees over the shot")
     ap.add_argument("--ease", default="linear", choices=["linear", "ease_in_out"])
     ap.add_argument("--rig", default="carlot", choices=["carlot", "studio"])
-    ap.add_argument("--rig-json", help="override light rig: {world:[r,g,b,strength], lights:[{type,loc,rot,size,energy,color}]}")
+    ap.add_argument("--rig-json", help="override light rig: {world:[r,g,b,strength], lights:[{loc,rot,size,energy,color,glossy_only,only_nodes}], materials:{name:{principled inputs}}}")
     ap.add_argument("--exposure", type=float, default=0.0)
     ap.add_argument("--view", default="Standard", help="view transform: Standard (game-like) | AgX | Filmic")
     ap.add_argument("--ground", default="shadow", choices=["shadow", "gloss", "none"])
@@ -180,7 +180,7 @@ def bbox(objs):
     return lo, hi
 
 
-def area(name, loc, rot_deg, size, energy, color=(1, 1, 1)):
+def area(name, loc, rot_deg, size, energy, color=(1, 1, 1), glossy_only=False):
     d = bpy.data.lights.new(name, "AREA")
     d.shape = "RECTANGLE"
     d.size, d.size_y = size
@@ -190,6 +190,9 @@ def area(name, loc, rot_deg, size, energy, color=(1, 1, 1)):
     o.location = loc
     o.rotation_euler = [math.radians(v) for v in rot_deg]
     bpy.context.scene.collection.objects.link(o)
+    if glossy_only:            # a panel that only shows up in reflections (a game-style environment map)
+        o.visible_diffuse = False
+        o.visible_volume_scatter = False
     return o
 
 
@@ -226,7 +229,21 @@ def build_rig(a):
     bg.inputs[1].default_value = rig["world"][3]
     bpy.context.scene.world = w
     for i, l in enumerate(rig["lights"]):
-        area(f"L{i}", l["loc"], l["rot"], l["size"], l["energy"], l.get("color", (1, 1, 1)))
+        lo = area(f"L{i}", l["loc"], l["rot"], l["size"], l["energy"], l.get("color", (1, 1, 1)), l.get("glossy_only", False))
+        if l.get("only_nodes"):          # light linking: this light reaches only the named GLB nodes (e.g. ["glass"])
+            coll = bpy.data.collections.new(f"recv_L{i}")
+            for n in l["only_nodes"]:
+                o = bpy.data.objects.get(n)
+                for x in ([o] + list(o.children_recursive)) if o else []:
+                    coll.objects.link(x)
+            lo.light_linking.receiver_collection = coll
+    # a rig can also restyle materials to sit in a plate, e.g. {"materials": {"glass_tint": {"metallic": 0.8}}}
+    for name, kw in rig.get("materials", {}).items():
+        for m in bpy.data.materials:
+            if m.name == name or m.name.startswith(name + "."):
+                b = bsdf(m)
+                if b:
+                    setp(b, **kw)
 
 
 def build_ground(a, lo, hi):

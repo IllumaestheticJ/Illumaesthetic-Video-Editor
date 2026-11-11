@@ -20,3 +20,15 @@ Known weak points to raise with the user:
 - Ends on the last car; the game's confirm dialog names a 240SX and was left out.
 - Holds are 3.0, 1.2, 1.4, 2.1, 1.8 s: the second and third cars go by fast.
 - Windscreens catch a broad white reflection of the ceiling light.
+
+## v2 (2026-11-11) - after the user's review of v1
+User: "Works, but match the lighting and use the fixed audio when in the garage - it's sped up way too fast.
+The car also needs to be angled to match the game."
+
+Output: `/home/user/media/work/out/nfs-carlot_v2.mp4`, 1080x1920, 30 fps, 16.5 s.
+- Angle: camera refit from wheel centres; the NC now overlays the game's Miata outline-for-outline.
+- Lighting: rig matched to the game's Miata (numbers in the edit log); colours deeper, windows reflect white.
+- Garage: real-time (half speed of the capture) with the second capture's audio; scroll sounds verified on
+  all five car changes. Holds now 2.0, 1.9, 1.2, 1.3, 1.3 s after each 0.5 s slide.
+Still open: 0.3 s of silence where the cutscene audio ends and the second capture's menu audio starts;
+frame fills the middle 44 % of the screen; two "Honda Civic" plates; game's own stat bars; no confirm dialog.

@@ -141,6 +141,12 @@ scroll. That is how the three things that make the rest possible were found:
 - **the rhythm**: players flick back and forth about once a second, so most holds are too short.
 Write the timecodes in `clips.md`.
 
+**Check the capture's speed before anything else.** The first project's 1440p capture was a YouTube
+playthrough whose garage section the uploader had sped up 2x (v1 went out with it; the user caught it).
+Measure one scroll in every capture you have (`tools/track.py` on the picture): the real game takes
+0.47 s. If a section is sped up, write it out at the fraction that makes it real time (2x at 60 fps
+becomes every frame at 30 fps) and take the sound from a real-time capture.
+
 ## 5. Track the slide (`projects/nfs-carlot/tools/track.py`)
 Template-match the turntable's right and left rim tips (taken from the clean plate) along x in every
 frame. Both at ~0 with score > 0.9 = at rest. The outgoing turntable is followed by its right tip,
@@ -159,6 +165,22 @@ offset per hold and apply it, or the repainted turntable tiles will not line up 
 - `python -m ive lookat` needs `--loc=-4.3,-6.1,1.2` (with `=`) when a coordinate is negative.
 - Render each car once, full frame, transparent, `--ground shadow`. The cars are static in this
   menu; the slide is 2D.
+
+What went wrong in v1 and how v2 fixed it (user: "the car needs to be angled to match the game",
+"match the lighting"):
+- **Fit on wheels, not outlines.** Outline boxes gave a heading 7° too frontal and a camera too
+  high. The near-side wheel centres of five game cars (read off gridded crops), with their
+  wheelbases and tracks, pin heading and height; `tools/camfit.py` writes the camera.
+- **Choose the focal length by overlaying a kit car on a game car of the same size** at three
+  focal lengths (NC Miata on the game's NB Miata): only one matches how the far end of the car
+  shrinks. The NFSU2 car lot on a widescreen-patched PC build is very wide: 1300 px on 2144.
+- **One camera per car**: the game parks every car by its wheelbase midpoint (0.28 m behind the
+  turntable centre here), so shift the camera by each GLB's own wheelbase midpoint.
+- **Light it like the game, not like a studio.** Compare luminance percentiles inside the car
+  silhouette with a game car of the same colour. The game's cars are dark (median 50/255) with a
+  soft highlight on top and windows that reflect white. `rig_showroom.json` gets there with a dim
+  ceiling key, near-black ambient and two reflection-only panels (`glossy_only`), one of them
+  linked to the glass node only (`only_nodes`) so it does not wash out the paint.
 
 ## 7. Swap the cars (`projects/nfs-carlot/tools/composite.py`)
 Start from the **real capture frame** and change as little as possible:
@@ -182,12 +204,14 @@ is drawn in the capture's own greys. Leave the stat bars as the game drew them: 
 about our cars, and redrawing them would mean inventing numbers.
 
 ## 9. Timeline and sound
-Build the menu from the longest pauses in the capture, each range starting on the **first frame of
-a scroll** and ending just before the next one. The capture's own audio for exactly those frames
-then puts the game's scroll sound on every car change, and that sound hides the jump in the menu
-music; a 12 ms crossfade against the previous range's continuation removes the click. Do not mix a
-second capture's audio in: its scrolls are at other times. Both captures here had the game's
-licensed menu song under everything.
+Cut the picture to the sound, not the other way round. Take one continuous real-time stretch of menu
+audio, find where each car starts to move in *that capture's picture* (those are its scroll times),
+and make each picture range (starting on the first frame of a scroll in the picture capture) exactly
+as long as the gap to the next scroll in the audio. The scroll sound then sits on every car change
+with the music unbroken. If the last car needs a longer hold, jump the audio to a later scroll there:
+the jump hides under the scroll sound. Verify in the output: sound level and picture motion around
+every change (`review.md` v2). v1 instead cut the sped-up capture's own audio on its scrolls, which
+synced but was double speed. Both captures here had the game's licensed menu song under everything.
 
 ## 10. Layout, assemble, review (`projects/nfs-carlot/tools/assemble.py`)
 The game draws its menu in a centred 4:3 box on a 16:9 picture. Crop to that box (x 300–1842),

@@ -1,9 +1,145 @@
 {
-  "world": [0.055, 0.05, 0.045, 1.0],
-  "lights": [
-    {"loc": [0.0, 0.0, 4.5],   "rot": [0, 0, 0],          "size": [3.5, 5.0], "energy": 900, "color": [1.0, 0.98, 0.92]},
-    {"loc": [-2.5, -2.5, 4.2], "rot": [0, 0, 0],          "size": [2.0, 3.0], "energy": 380, "color": [1.0, 0.98, 0.92]},
-    {"loc": [-6.0, 4.5, 2.5],  "rot": [71.6, 0, -126.9],  "size": [5.0, 2.5], "energy": 480, "color": [0.6, 0.75, 1.0]},
-    {"loc": [-4.0, -6.0, 1.0], "rot": [86.0, 0, -33.7],   "size": [4.0, 1.5], "energy": 160, "color": [1.0, 0.9, 0.6]}
-  ]
+ "world": [
+  0.008,
+  0.008,
+  0.01,
+  1.0
+ ],
+ "lights": [
+  {
+   "loc": [
+    -0.8,
+    -1.2,
+    4.2
+   ],
+   "rot": [
+    0,
+    0,
+    0
+   ],
+   "size": [
+    1.6,
+    2.4
+   ],
+   "energy": 230,
+   "color": [
+    1.0,
+    0.99,
+    0.95
+   ]
+  },
+  {
+   "loc": [
+    3.4,
+    0.7,
+    4.6
+   ],
+   "rot": [
+    44.8,
+    0,
+    101.6
+   ],
+   "size": [
+    5.0,
+    5.0
+   ],
+   "energy": 1500,
+   "color": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "glossy_only": true,
+   "only_nodes": [
+    "glass"
+   ]
+  },
+  {
+   "loc": [
+    -6.0,
+    4.5,
+    2.5
+   ],
+   "rot": [
+    71.6,
+    0,
+    -126.9
+   ],
+   "size": [
+    5.0,
+    2.5
+   ],
+   "energy": 30,
+   "color": [
+    0.6,
+    0.75,
+    1.0
+   ]
+  },
+  {
+   "loc": [
+    -4.0,
+    -6.0,
+    0.9
+   ],
+   "rot": [
+    86.0,
+    0,
+    -33.7
+   ],
+   "size": [
+    4.0,
+    1.2
+   ],
+   "energy": 22,
+   "color": [
+    1.0,
+    0.88,
+    0.55
+   ]
+  },
+  {
+   "loc": [
+    4.1,
+    2.9,
+    2.5
+   ],
+   "rot": [
+    70.8,
+    0,
+    125.3
+   ],
+   "size": [
+    2.5,
+    1.5
+   ],
+   "energy": 650,
+   "color": [
+    1.0,
+    0.98,
+    0.94
+   ],
+   "glossy_only": true
+  }
+ ],
+ "materials": {
+  "paint": {
+   "roughness": 0.3,
+   "coat_weight": 1.0,
+   "coat_roughness": 0.12
+  },
+  "glass": {
+   "metallic": 0.85,
+   "roughness": 0.03
+  },
+  "glass_tint": {
+   "metallic": 0.85,
+   "roughness": 0.03
+  }
+ },
+ "_about": [
+  "Showroom rig fitted by eye and by luminance percentiles against the game's Miata (frame 4430 of a60.mp4).",
+  "L0 ceiling key; L1 big reflection-only panel linked to the glass node (the game's windows reflect white); L2 cool window fill; L3 warm floor fill;",
+  "L4 reflection-only panel placed where the hood mirrors it toward the camera (the game's soft hood highlight)."
+ ]
 }
