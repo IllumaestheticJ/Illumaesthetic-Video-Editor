@@ -13,7 +13,7 @@ Reference: `training/references/README.md` → `v_jul22_1047_58` (Temerario).
 | Front End Scans/s2k bumper Bumper Only.stl | 1C_h5t-qTXwxTP7mgItJ52mScY4NUBQRe | 4.0M | **exploded/bumper part** | 1.6 mm from Front End (same frame) |
 | Front End Scans/s2k bumper Bumper Removed.stl | 1CbshrHf-u4SjpQg1sK3Hq41tqZjAv-Vi | 4.0M | **front structure** | crash beam / radiator support; its one scanned front wheel is boxed out |
 | Front End Scans/s2k bumper Hood Open.stl | 1CHTyEdP0iyENC71d2p2OUZW2tyxHls_k | 4.0M | radiator support / bay | only the front ~1 m; the raised hood was not captured; bay behind the radiator support unscanned |
-| S2000 trunk.stl | 1dAu7IH14x7NNK-zO_P8EBANQe7cBc_Pm | 3.5M | **trunk interior + lid hinge** | lid captured propped open; own frame |
+| S2000 trunk.stl | 1dAu7IH14x7NNK-zO_P8EBANQe7cBc_Pm | 3.5M | **NOT USED (v5)** | v1-v4 treated it as a trunk-open capture (interior fill + fitted lid hinge); reviewer: "rear trunk data is made-up" - no real open-trunk scan of this car exists, so no trunk opening and no lid in the explode |
 | Honda S2000 AP1 Scans_2.stl | 10RsWP99vLvkTspSfw-j6kEk9RX1fPq0a | 2.0M | no | loose bumper (inner+outer), does not register to the car or Bumper Only |
 | Honda S2000 AP1 Scans_3.stl | 10SPxSk4wYL-x1ztTHOIuOqa_dlF2_rCN | 1.0M | no | thin lip strip, not a stock part (possible aftermarket) |
 | S2000 Shop Scene.blend | 1VqfOC557mccq6E6AZPOT6xZaeMsr5V5_ | — | no | not needed |
@@ -29,11 +29,11 @@ Reference: `training/references/README.md` → `v_jul22_1047_58` (Temerario).
 
 ## Prepared blends (`prep/`)
 car4 (4 mm full car), front2/rear2 (2 mm crops for close-ups), comp_fronthood (bumper+hood off, structure + bay),
-comp_trunk (lid off, trunk interior), comp_explode (all three off), parts bonly / hood / lid.
+comp_fronthood is also the exploded-view base from v5; parts bonly / hood. (comp_trunk, comp_explode, lid: v1-v4 only, withdrawn.)
 
 ## Logo
 `IllumaestheticLogo_V2COMPLETE_1.png` from illumaesthetic.com/cdn/shop/files (6135×1059 RGBA) →
 `remotion/public/illumaesthetic_logo.png` (gitignored).
 
 ## Shots (tools/shots.py → tools/shot.py, renders in `/home/user/media/work/s2k/renders/final/`)
-s1_front, s2_rear, s3_lamp, s4_tail, s5_front_open, s6_trunk, s7_top, s8_explode, logo card.
+v5: s1_front, s2_rear, s3_lamp, s4_tail, s4b_flank, s5_front_open, s6_structure, s7_top, explode e1 (s8) / e2_side / e3_low / e4_hood / e5_fronthigh / e6 (s8) / e8_locked, logo card.

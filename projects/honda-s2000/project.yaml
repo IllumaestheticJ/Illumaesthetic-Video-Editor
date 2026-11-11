@@ -1,6 +1,5 @@
 # Honda S2000 AP1 - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo.
-# Satin-silver scan on black; turntable/orbit -> extreme close-ups -> front opens (bumper off, hood up) -> trunk opens
-# -> top-down -> exploded view -> ILLUMAESTHETIC logo.
+# Satin-silver scan on black; turntable/orbit -> extreme close-ups -> front opens (bumper off, hood up) # -> top-down -> exploded view -> ILLUMAESTHETIC logo.
 # Shots: tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + moving parts), see clips.md for the scan data.
 # Music: honda-s2000_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via
 # Higgsfield; fast breakbeat + acid line). 138.05 BPM, beat 0.43463 s, first kick 0.0565 s (tools/music_grid.py).
@@ -11,7 +10,7 @@
 # Clip lengths are exact frame counts; assembled with tools/concat_assemble.py (plain concat, no duplicated cut frame).
 project: honda-s2000
 format: reel-9x16
-output: {path: /home/user/media/work/s2k/out/honda_s2000_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/s2k/out/honda_s2000_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/honda-s2000_track.mp3   # not in git
@@ -58,8 +57,8 @@ timeline:
     interpolate: true
     frames: 104
   - transition: {type: cut, note: "b36 15.703"}
-  - id: s6_trunk       # trunk lid opens b37 -> b40 on the hinge fitted to the open-lid capture
-    src: /home/user/media/work/s2k/renders/final/s6_trunk
+  - id: s6_structure   # v5: high close look into the exposed front structure (Bumper Removed + Hood Open scans); replaces the trunk shot (no real open-trunk scan)
+    src: /home/user/media/work/s2k/renders/final/s6_structure
     src_fps: 15
     interpolate: true
     frames: 78
@@ -94,8 +93,8 @@ timeline:
     interpolate: true
     frames: 52
   - transition: {type: cut, note: "b64 27.873 - outro starts"}
-  - id: e5_rear   # high rear 3/4: lid floating over the open trunk
-    src: /home/user/media/work/s2k/renders/final/e5_rear
+  - id: e5_fronthigh   # high front-right 3/4 down on the floating bumper + hood
+    src: /home/user/media/work/s2k/renders/final/e5_fronthigh
     src_fps: 15
     interpolate: true
     frames: 52

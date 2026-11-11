@@ -24,10 +24,10 @@ C0 = (0.0, 0.17, 0.55)        # orbit centre
 B = 0.43463
 SECS = {"s1_front": 5.6,  # rendered before the track arrived; the timeline uses its first 3.53 s
         "s2_rear": 3.6, "s3_lamp": 1.9, "s4_tail": 1.9, "s4b_flank": 1.9, "s5_front_open": 3.6,
-        "s6_trunk": 2.75, "s7_top": 2.75}
+        "s6_structure": 2.75, "s7_top": 2.75}
 M2 = f"{P}/mid2.blend"
 
-LID_HINGE = [0.0, 1.529, 0.874]   # match/lid_hinge.json (fitted to the open lid in the trunk scan)
+LID_HINGE = [0.0, 1.529, 0.874]   # v1-v4 only; trunk scan rejected by the reviewer (not a real open-trunk scan)
 LID_OPEN = 77.0
 HOOD_HINGE = [0.0, -0.31, 0.83]   # rear edge of the hood (no open-hood capture exists)
 
@@ -81,13 +81,15 @@ SHOTS = {
                                     {"t": 6.5 * B, "loc": [0, 0, 0], "rot": [-38, 0, 0], "ease": "out"},
                                     {"t": SECS["s5_front_open"], "loc": [0, 0, 0], "rot": [-40, 0, 0], "ease": "lin"}]}],
                       "cam": arc(0, SECS["s5_front_open"], 4.2, 4.5, -30, -14, 1.3, 1.75, c=(0, -1.45, 0.45), focal=30, n=6)},
-    # 6. trunk lid opens on its fitted hinge, high rear 3/4
-    "s6_trunk": {"base": [f"{P}/comp_trunk.blend"],
-                 "parts": [{"blend": f"{P}/lid.blend", "pivot": LID_HINGE,
-                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                     {"t": 1 * B, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                     {"t": 4 * B, "loc": [0, 0, 0], "rot": [LID_OPEN, 0, 0], "ease": "inout"}]}],
-                 "cam": arc(0, SECS["s6_trunk"], 3.6, 3.3, 146, 164, 2.2, 2.5, c=(0, 1.8, 0.6), focal=30, n=6)},
+    # 6. (v5) look into the exposed front structure: Bumper Removed + Hood Open state scans, hood up, bumper parked forward
+    # (same state as the end of s5). Replaces the v1-v4 trunk-opening shot: there is no real open-trunk scan of this car
+    # (reviewer: "rear trunk data is made-up") - 'S2000 trunk.stl' is not used anywhere any more.
+    "s6_structure": {"base": [f"{P}/comp_fronthood.blend"],
+                     "parts": [{"blend": f"{P}/bonly.blend", "keys": [{"t": 0, "loc": [0, -1.2, -0.14], "rot": [0, 0, 0]}]},
+                               {"blend": f"{P}/hood.blend", "pivot": HOOD_HINGE,
+                                "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [-40, 0, 0]}]}],
+                     "cam": [{"t": 0, "loc": [-2.1, -2.7, 2.0], "target": [0, -1.55, 0.45], "focal": 30},
+                             {"t": SECS["s6_structure"], "loc": [-1.5, -3.1, 1.75], "target": [0.1, -1.6, 0.45], "focal": 30, "ease": "inout"}]},
     # 7. top-down: from high front 3/4 up and over to straight down (tail at the top of the frame; starting from the
     # front keeps the camera's up vector continuous - from behind it would flip 180 deg at the top)
     "s7_top": {"base": [CAR], "cam": [
@@ -111,11 +113,11 @@ def explode(off, rot=(0, 0, 0), delay=0.0, e=EXP, drift=(6, 0, 4)):
 
 
 def explode_shot(e=EXP):
-    return {"base": [f"{P}/comp_explode.blend"],
+    # v5: base = car with bumper + hood off (front state scans only); the trunk lid no longer comes off
+    return {"base": [f"{P}/comp_fronthood.blend"],
             "parts": [
                 {"blend": f"{P}/bonly.blend", "keys": explode((0.05, -0.5, 0.8), (-18, 0, 0), 0.0, e)},
-                {"blend": f"{P}/hood.blend", "keys": explode((0.1, -0.2, 1.45), (12, 0, -6), 0.08, e)},
-                {"blend": f"{P}/lid.blend", "keys": explode((0.1, 0.3, 1.25), (38, 0, 0), 0.16, e)}],
+                {"blend": f"{P}/hood.blend", "keys": explode((0.1, -0.2, 1.45), (12, 0, -6), 0.08, e)}],
             # high front-left 3/4 looking down ~30 deg, slow orbit toward the side; panels float in layers above the car
             "cam": [orbit(e["secs"] * k / 12, 6.4 + 0.9 * (k / 12), 28 + 50 * (k / 12), 4.4 - 0.5 * (k / 12),
                           c=(0.3, -0.15 - 0.45 * (k / 12), 0.9), focal=28, ease="lin", tz=0.9)
@@ -128,7 +130,7 @@ SECS["s8_explode"] = EXP["secs"]
 # v4 (reviewer: "last scenes held too long"): the 32-beat explode is cut into 4-8 beat shots. Each sub-shot renders a window
 # of the SAME part animation (t0 = its start within s8) from a new camera; e1 and e6 reuse the s8 render itself.
 XPARTS = explode_shot()["parts"]
-XB = f"{P}/comp_explode.blend"
+XB = f"{P}/comp_fronthood.blend"
 SUB = {  # name: (t0 in s8 time, seconds, camera keys relative to the sub-shot)
     # b52-56 side view, panels floating in layers above the car (reference 25-31 s), slow track toward the nose
     "e2_side": (4 * B, 1.9, [{"t": 0, "loc": [6.2, 1.2, 4.4], "target": [0, 0.3, 1.25], "focal": 24},
@@ -139,9 +141,9 @@ SUB = {  # name: (t0 in s8 time, seconds, camera keys relative to the sub-shot)
     # b60-64 close on the floating hood, sliding along it (4 mm hood skin)
     "e4_hood": (12 * B, 1.9, [{"t": 0, "loc": [2.4, -3.3, 3.2], "target": [0.1, -1.3, 2.15], "focal": 32},
                               {"t": 1.9, "loc": [2.6, -2.2, 3.4], "target": [0.1, -1.0, 2.15], "focal": 32, "ease": "inout"}]),
-    # b64-68 high rear 3/4: the lid floating over the open trunk, outro begins
-    "e5_rear": (16 * B, 1.9, [{"t": 0, "loc": [-2.7, 5.3, 3.5], "target": [0, 0.8, 1.25], "focal": 26},
-                              {"t": 1.9, "loc": [-3.6, 4.6, 3.3], "target": [0, 0.7, 1.25], "focal": 26, "ease": "inout"}]),
+    # b64-68 high front-right 3/4 looking down on the floating bumper + hood over the structure, outro begins
+    "e5_fronthigh": (16 * B, 1.9, [{"t": 0, "loc": [-4.0, -4.9, 4.3], "target": [0, -0.9, 1.15], "focal": 26},
+                                   {"t": 1.9, "loc": [-4.8, -3.9, 4.1], "target": [0, -0.8, 1.15], "focal": 26, "ease": "inout"}]),
     # b76-80 after the lock: push in on the assembled car, front 3/4 (fixes v3's small, off-centre end frame)
     "e8_locked": (28 * B, 1.9, [{"t": 0, "loc": [3.3, -4.9, 1.5], "target": [0, -0.2, 0.55], "focal": 30},
                                 {"t": 1.9, "loc": [2.6, -4.0, 1.3], "target": [0, -0.3, 0.55], "focal": 30, "ease": "out2"}]),

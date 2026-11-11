@@ -372,3 +372,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** Lookbook models carry several versions of a part (GR Corolla: front_lip / front_lip_v2 / front_lip_2025,
   side_skirts / side_skirts_v2...). The lookbook's default kit is not necessarily what the photo car runs - match each
   part version to the photos (GR Corolla photo car = Front Lip V2) and confirm with the user when unsure.
+
+- **[scan-look]** Rear trunk data is made-up. If there's no actual trunk open scan, don't cut it incorrectly  _(from honda-s2000 @ 15.7s, 2026-11-11, user)_
+- **[story]** (honda-s2000) A file named like a state ("S2000 trunk.stl") is not proof of an open-state capture. v1-v4 opened
+  the trunk and floated the lid from it; the reviewer called it made-up. Only animate a panel open/off when a scan of that
+  exact state of THIS car exists and you have confirmed what it shows (ask if unsure); otherwise keep the panel shut.
