@@ -563,3 +563,11 @@ lands here automatically. Agents must read this whole file before editing.
 - Render margin: 15 fps renders that are minterpolated to 30 fps lose ~1.5 output frames at the tail. A margin of +2 source frames left s3/s5 one frame short, so `dur` padded it with a cloned frame right before the cut. Render **+3 source frames** past the cut.
 - 9:16 whole-car shots are width-limited. Frame the car at ~85-90 % of frame width (dist ~5.5-6 m at 40 mm for a 3.3 m kei car at a 3/4 view). At 7 m it read at 70 % with dead black around it, a weak hook. Check the first and last frames: the az changes how long the car reads on screen.
 - `ive director` flags a continuous move split across two clips (x2 starting on x1's end pose) as a repeat. When that is intentional, log why rather than cutting it.
+## From the Subaru STI blobeye v2 (2026-11-11, built by an agent)
+- **[pacing]** A fitted beat grid can be the wrong tempo: the STI track's grid fit (152 BPM, from onsets with only 20/49 kicks
+  on-grid, 32 ms residual) was really 150 BPM (kick every 0.400 s); by 22 s the grid was 125 ms off the kick. A low on-grid
+  ratio / high residual means the tempo is wrong - fit the period on the kick attacks themselves (40-120 Hz rise through 50 %
+  of the peak, hop 32) and snap every cut to the nearest measured attack on the decoded delivered audio.
+- **[framing]** Exploded state in 9:16: parts parked 2 m above the car read tiny from r 9 m; r 8.5 m with the orbit centre
+  pulled ~0.4 m toward the part cluster keeps all parts in with margins. Check first/mid/last at preview res (15 s) before any final.
+- **[text]** ScanHUD `label` crashes on an empty `sub` (typewriter interpolate range [6,6]); always give a short factual sub.
