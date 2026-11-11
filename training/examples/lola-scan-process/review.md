@@ -1,10 +1,14 @@
-# Lola (Drifter movie) scan-process reel v4 — agent self-review (training/rubric.md)
+# Lola (Drifter movie) scan-process reel v5 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/lola_scan_process_v4.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 27.57 s (827 frames). Earlier: `review_v1.md`, `review_v2.md`, `review_v3.md`. Plan: `direction.md`.
+Output: `/home/user/media/work/out/lola_scan_process_v5.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 29.97 s (899 frames). Earlier: `review_v1.md`–`review_v4.md`. Plan: `direction.md`.
 
 > ✅ **Posting permission confirmed:** these cars (Lola 1 and Lola 2) were scanned for a film production
 > (Drifter). The user confirmed on 2026-11-11 that the production is fine with the reel being posted
 > ("Lola production is fine with it", relayed by the parent session).
+
+v5 change (user on v4: "end the last part of the video with Lola 2 rotating around in frame"):
+- The Lola 2 push-in is replaced by a linear 360° camera turntable around the whole car (5.63 s, 21.14→26.78 s). The car stays in frame at every angle; I checked all 86 frames for edge contact and luma. The triangle counter plays over it, and the logo moves to the 26.78 s kick. The reel is now 30.0 s.
+- This is an explicit user request, so it overrides the all-reels "no wasted orbits" rule for this shot.
 
 v4 change (user on v3: the Artec Studio clip "just looks like colored blobs"):
 - The 1.37 s screen clip at 14.8 s is now the cut-open Lola body mesh (door opening, cage, seat, wheel) with its colour texture switching on. It reads as a car and shows a processing step. Everything else is unchanged from v3.

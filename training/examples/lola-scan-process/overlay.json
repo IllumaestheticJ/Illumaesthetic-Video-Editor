@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 828,
+ "durationInFrames": 900,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -46,12 +46,12 @@
   {
    "kind": "brackets",
    "from": 637,
-   "duration": 91
+   "duration": 163
   },
   {
    "kind": "counter",
    "from": 640,
-   "duration": 88,
+   "duration": 100,
    "label": "LOLA 2 \u00b7 TRIANGLES CAPTURED",
    "value": 50045945,
    "x": 0.08,
