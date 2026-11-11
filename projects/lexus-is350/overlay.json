@@ -5,10 +5,50 @@
  "durationInFrames": 1008,
  "accent": "#e8ecf2",
  "items": [
-  {"kind": "label", "from": 377, "duration": 45, "title": "ENGINE BAY", "x": 0.08, "y": 0.88},
-  {"kind": "label", "from": 557, "duration": 90, "title": "FRONT BUMPER REMOVED", "x": 0.08, "y": 0.80},
-  {"kind": "label", "from": 587, "duration": 60, "title": "CRASH BEAM", "x": 0.08, "y": 0.87},
-  {"kind": "label", "from": 677, "duration": 90, "title": "MOUNTING POINTS", "x": 0.08, "y": 0.84},
-  {"kind": "label", "from": 722, "duration": 45, "title": "RADAR UNIT", "x": 0.08, "y": 0.905}
+  {
+   "kind": "label",
+   "from": 376,
+   "duration": 45,
+   "title": "ENGINE BAY",
+   "x": 0.08,
+   "y": 0.88,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 556,
+   "duration": 90,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.8,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 586,
+   "duration": 60,
+   "title": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.87,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 676,
+   "duration": 90,
+   "title": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.84,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 721,
+   "duration": 45,
+   "title": "RADAR UNIT",
+   "x": 0.08,
+   "y": 0.905,
+   "sub": " "
+  }
  ]
 }

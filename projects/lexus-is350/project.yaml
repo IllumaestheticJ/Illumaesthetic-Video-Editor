@@ -8,7 +8,7 @@
 # DROP 16.063, last kick 32.063, decays to silence ~34 s (file is 40 s; the rest is silence).
 # V2 (user V2 brief + addendum A-D, direction.md): fascia L->R, hood + bay, then the bumper teardown as the hero section
 # on the drop (progressive: off -> structure behind it -> its inner face -> reassembly), fade, small logo; labels on scan shots.
-# Cuts on frames round(t*30): 122, 167, 242, 287, 377, 482, 542, 662, 782, 902; end 1008 (33.6 s).
+# Cuts on frames 121, 165, 241, 286, 376, 481, 541, 661, 781, 901 = round(true kick onset*30); end 1007 (33.57 s).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: lexus-is350
 format: reel-9x16
@@ -19,72 +19,85 @@ music:
   start: 0
   fade_out: 1.2
 
-beats: [4.064, 5.564, 8.064, 9.564, 12.564, 16.063, 18.063, 22.063, 26.063, 30.063]
+beats: [4.033, 5.500, 8.033, 9.533, 16.033, 18.033, 22.033, 26.033, 30.033]   # true kick onsets (broadband attack), see editlog
 
 timeline:
   - id: s2_front34L    # OPENER: whole facelift front clip in frame, front-left 3/4 orbit swinging toward the nose
+    section: whole
+    focus: "whole facelift front clip"
     src: /home/user/media/lexus-is350/renders/final/s2_front34L
     src_fps: 15
     interpolate: true
-    dur: 4.0333
+    dur: 4.0000
   - transition: {type: cut, note: "4.064 bar - fascia sequence L -> R"}
   - id: s3_grille      # left grille corner + fog intake (2 mm)
+    section: front
+    focus: "left grille corner + fog intake"
     src: /home/user/media/lexus-is350/renders/final/s3_grille
     src_fps: 15
     interpolate: true
-    dur: 1.5
+    dur: 1.4667
   - transition: {type: cut, note: "5.564 kick"}
   - id: s8_badge       # fascia centre: facelift badge bar + mesh, nose-on push (plate frame below frame)
+    section: front
+    focus: "facelift badge bar"
     src: /home/user/media/lexus-is350/renders/final/s8_badge
     src_fps: 15
     interpolate: true
-    dur: 2.5
+    dur: 2.5333
   - transition: {type: cut, note: "8.064 phrase (flux peak)"}
   - id: s4_lamp        # right headlamp + corner intake (2 mm) - ends the fascia sweep
+    section: front
+    focus: "right headlamp + corner intake"
     src: /home/user/media/lexus-is350/renders/final/s4_lamp
     src_fps: 15
     interpolate: true
-    dur: 1.5
+    dur: 1.5000
   - transition: {type: cut, note: "9.564 kick - hood"}
-  - id: s5_hood        # hood opens to the captured 'Hood Open' pose; frames 7-46 (first 6 repeat the opener), 0.89x
-    src: /home/user/media/lexus-is350/renders/final/s5_hood
-    src_fps: 13.3333
-    trim_start: 0.45
+  - id: s5_hood_bay    # ONE continuous engine sequence: s5_hood frames 22-46 (hood ~70 % open) + s5b_bay frames 2-57
+    #                    (push into the bay from s5's last pose, holds through the 2-beat break); 81 frames over 6.5 s
+    #                    ive director flagged s5 vs s5b as the same view (seamless join) and s5's closed-hood frames vs s2
+    section: engine
+    focus: "hood opening to the captured Hood Open pose, then the engine bay"
+    src: /home/user/media/lexus-is350/renders/final/s5_hood_bay
+    src_fps: 12.4615
     interpolate: true
-    dur: 3.0
-  - transition: {type: cut, note: "12.564 kick"}
-  - id: s5b_bay        # push into the engine bay under the open hood, holds through the 2-beat break
-    src: /home/user/media/lexus-is350/renders/final/s5b_bay
-    src_fps: 15
-    interpolate: true
-    dur: 3.5
+    dur: 6.5000
   - transition: {type: cut, note: "16.063 THE DROP - bumper comes off"}
   - id: X1_bumper_off  # whole bumper pulls straight off on the drop and rises out of frame
+    section: bumper
+    focus: "front bumper coming off"
     src: /home/user/media/lexus-is350/renders/final/X1_bumper_off
     src_fps: 15
     interpolate: true
     vf: "crop=iw:ih-290:0:0,pad=iw:ih+290:0:290:color=0x070709"   # recentre: subject sat in the top 60 %, bottom was dead black
-    dur: 2.0
+    dur: 2.0000
   - transition: {type: cut, note: "18.063 bar"}
   - id: X1b_structure  # HERO hold: what was behind the bumper ('Bumper and Hood Removed'): crash beam, mounts
+    section: bumper
+    focus: "crash beam + mounts behind the bumper"
     src: /home/user/media/lexus-is350/renders/final/X1b_structure
     src_fps: 15
     interpolate: true
-    dur: 4.0
+    dur: 4.0000
   - transition: {type: cut, note: "22.063 bar"}
   - id: X2_inner       # behind the floated bumper: scanned inner face; ducts/fogs, then radar + top bracket come off it
+    section: bumper
+    focus: "bumper inner face, mounting points, radar unit"
     src: /home/user/media/lexus-is350/renders/final/X2_inner
     src_fps: 15
     interpolate: true
     vf: "crop=iw:ih-200:0:0,pad=iw:ih+200:0:200:color=0x070709"   # recentre: bumper inner face sat in the top 55 %
-    dur: 4.0
+    dur: 4.0000
   - transition: {type: cut, note: "26.063 bar"}
   - id: X3_reassembly  # parts return, bumper locks home at 28.563, fade to black over the last 0.5 s
+    section: bumper
+    focus: "bumper reassembly"
     src: /home/user/media/lexus-is350/renders/final/X3_reassembly
     src_fps: 15
     interpolate: true
     vf: "crop=iw:ih-240:0:0,pad=iw:ih+240:0:240:color=0x070709,fade=t=out:st=3.5:d=0.5"   # recentre + fade out
-    dur: 4.0
+    dur: 4.0000
   - transition: {type: cut, note: "30.063 last phrase - small logo fades in from black"}
   - id: logo           # ferrari-296/tools/logo_card.py --secs 3.5333 --width 380 (small, ~35 % width)
     src: /home/user/media/lexus-is350/out/logo_card_small.mp4

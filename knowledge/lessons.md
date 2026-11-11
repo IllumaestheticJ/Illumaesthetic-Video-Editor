@@ -518,3 +518,11 @@ lands here automatically. Agents must read this whole file before editing.
 - A side-skirt part-off only reads from a low grazing camera along the sill; side-on it vanishes against the door.
 - Bumper-off composites of a 992 rear are fragmented above the exhaust: frame tight and low on tailpipes/silencers.
 - Cut timing: a cut 0.4 ms outside ±½ frame of the decoded onset is still a fail; move it one frame and re-measure.
+## From the Lexus IS350 2026 facelift reel (2026-11-11, built by an agent)
+- **[technical]** One Drive folder can hold two different cars that register to each other: the "Lexus 4is" root Full Car
+  (older IS350) and the "2026 Facelift" scans were aligned in Artec on the unchanged panels (headlamps/fenders 0.8 mm) but the
+  grille mesh sat 8-12 mm off and the wheels 13-32 mm. Low overall regcheck medians are not proof of one car - compare
+  per-region (grille, wheels, plate) and look at the plates/badges side by side before compositing states onto a base.
+- **[pacing]** Measuring kick onsets on generated tracks: take the half-rise of the 1 ms RMS envelope within ~60 ms *before
+  the envelope peak*. A wider pre-window catches the sustained pad before each kick and reads 100-145 ms early; the 40-120 Hz
+  peak grid read 38 ms late. projects/lexus-is350/tools/cutcheck.py.
