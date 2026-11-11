@@ -104,7 +104,7 @@ def main():
 
     sr.studio_world(sr.rgb(spec.get("bg", "0.004,0.004,0.005")), False)
     sr.studio_lights(lo, hi)
-    for o in sc.objects:  # a high orbit can pass behind the big key area light; never let it occlude the camera
+    for o in sc.objects:  # lights never show in frame
         if o.type == "LIGHT":
             o.visible_camera = False
     silver = sr.mat_silver()
@@ -173,7 +173,7 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = False  # lessons.md: persistent data dropped the lights mid-animation (s7 frame 88+)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
