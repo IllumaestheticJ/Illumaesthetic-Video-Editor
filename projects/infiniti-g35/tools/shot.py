@@ -169,7 +169,7 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = spec.get("persistent", True)  # Blender 5.3 dropped all lights mid-sequence on s8 (frame 53+); set false to re-render
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"

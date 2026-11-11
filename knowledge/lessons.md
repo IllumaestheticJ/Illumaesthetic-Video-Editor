@@ -308,3 +308,10 @@ lands here automatically. Agents must read this whole file before editing.
   ghosts ~70 px whatever the camera). Score candidates by gradient NCC inside the car, not silhouette IoU (IoU was flat
   0.84-0.87 across very different cameras).
 - **[scan-look]** Same issue as other first drafts: too much of the car is cropped. This is just a standard full car scan - show the whole car  _(from mazda-3-gen4, 2026-11-11, reviewer)_
+## From the Infiniti G35 scan reel (2026-11-11, built by an agent)
+- **[technical]** Blender 5.3 Cycles + `use_persistent_data` can silently drop every light partway through a long animation
+  (G35 s8: frames 53-122 rendered as a black silhouette, frame time fell 10 s -> 6 s). Always scan each finished shot's
+  per-frame mean luma for a step jump before assembling; re-render the bad range in a fresh process with persistent data off.
+- **[pacing]** `ive beats` can report half tempo (G35 track: 60 BPM reported, 90 BPM real). Confirm from 40-120 Hz kick peaks.
+- **[scan-look]** No part/"removed" state scans for the body? Cut panels from the full-car scan along the visible seams
+  (near-orthographic renders at a known mm/px give the seam coordinates) and keep every piece in one `--like` frame.
