@@ -61,9 +61,9 @@ SHOTS = {
                 cam(1, (0.85, 3.70, 2.30), (0.05, 1.80, 1.05), 32)]},
     # left side: skirt slides out toward the camera and down out of frame, camera tracks forward along the bare sill
     "S3_skirt": {"parts": parts(seated=("hood", "bump"), parked=("wing",), moving={"skirt": [
-        pk(0), pk(0.125), pk(0.25, (0.30, 0, 0.0), "in2"), pk(0.55, (0.60, 0, -0.95), "out")]}),   # drops out of the bottom of frame
+        pk(0), pk(0.125), pk(0.25, (0.30, 0, 0.0), "in2"), pk(0.55, (0.60, 0, -1.60), "out")]}),   # drops out of the bottom of frame
         # higher, steeper: door bottom + bare sill fill the frame (v2 final #1 left the lower half black)
-        "cam": [cam(0, (2.55, 1.15, 1.05), (0.85, 0.30, 0.32), 30), cam(1, (2.40, 0.30, 1.00), (0.85, -0.30, 0.32), 30)]},
+        "cam": [cam(0, (2.55, 1.15, 1.45), (0.85, 0.30, 0.80), 30), cam(1, (2.40, 0.30, 1.40), (0.85, -0.30, 0.80), 30)]},
     # front-left wheel: spokes, caliper, disc; slow arc from the front-left
     "S4_wheel": {"parts": parts(seated=("hood", "bump"), parked=("wing", "skirt")),
                  "cam": [cam(0, (1.60, -2.60, 0.45), (0.85, -1.25, 0.36), 40), cam(1, (2.00, -1.95, 0.40), (0.82, -1.25, 0.36), 40)]},
@@ -82,7 +82,7 @@ SHOTS = {
                 cam(0.8, (-0.20, -3.15, 0.50), (-0.30, -1.98, 0.38), 38), cam(1, (-0.60, -3.05, 0.42), (-0.62, -1.95, 0.30), 38)]},
     # whole exploded car, new angle (high left), slow common drift so nothing is dead
     "S7a_explode": {"parts": [{"blend": BLEND[n], "keys": [pk(0, PARK[n]), pk(1, addz(PARK[n], 0.04), "lin")]} for n in PARK],
-                    "cam": [orbit(0, 9.0, 118, 3.60, (0.10, -0.30, 1.55)), orbit(1, 8.8, 95, 3.40, (0.10, -0.40, 1.55))]},
+                    "cam": [orbit(0, 8.7, 118, 3.30, (0.10, -0.20, 1.40)), orbit(1, 8.5, 95, 3.15, (0.10, -0.25, 1.40))]},
     # reassembly in reverse order, 2.5-beat flights staggered half a beat; last lock (wing) on bar 21 (u .5); fade in post
     "S7b_reassemble": {"parts": [
         {"blend": HOOD, "keys": [pk(0, PARK["hood"]), pk(0.313, (0, 0, 0), "in")]},
@@ -90,7 +90,7 @@ SHOTS = {
                                  pk(0.27, (0, -0.32, 0.03), "lin"), pk(0.375, (0, 0, 0), "in")]},
         {"blend": SKIRT, "keys": [pk(0, PARK["skirt"]), pk(0.125, PARK["skirt"]), pk(0.36, (0.30, 0, 0.0), "inout"), pk(0.438, (0, 0, 0), "in")]},
         {"blend": WING, "keys": [pk(0, PARK["wing"]), pk(0.188, PARK["wing"]), pk(0.5, (0, 0, 0), "in")]}],
-        "cam": [orbit(0, 8.6, 42, 2.30, (0.10, -0.45, 1.55)), orbit(1, 6.2, 28, 1.40, (0, -0.25, 0.65))]},
+        "cam": [orbit(0, 7.8, 42, 2.25, (0.10, -0.40, 1.35)), orbit(1, 6.2, 28, 1.40, (0, -0.25, 0.65))]},
 }
 
 
