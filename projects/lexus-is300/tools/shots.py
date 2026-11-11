@@ -50,65 +50,76 @@ def S(name):
     return SECS[name]
 
 
+T0 = CUES["t0"]                 # shot start in video seconds
+P0 = CUES["phase"]
+
+
+def bt(n):
+    """video seconds of beat n (kick grid)"""
+    return P0 + n * BEAT
+
+
+# v1 shots (s3_wheel, s4_nose renders are reused unchanged in v2)
 SHOTS = {
-    # 1. slow front 3/4 turntable, low; moving from frame 1 (hook)
-    "s1_front34": {"base": [CAR], "cam": arc(S("s1_front34"), 8, 4.0, 3.8, -34, -56, 0.85, 1.0, c0=(0, -0.45, 0.55))},
-    # 2. rear 3/4 orbit on the other side, slight rise
-    "s2_rear34": {"base": [CAR], "cam": arc(S("s2_rear34"), 8, 4.0, 3.8, 152, 132, 0.8, 1.2, c0=(0, 0.45, 0.6))},
-    # 3. extreme close-up: front-right wheel (multi-spoke wheel + brake), slow slide
     "s3_wheel": {"base": [CAR2], "cam": [
         {"t": 0, "loc": [-1.95, -0.85, 0.42], "target": [-0.85, -1.38, 0.34], "focal": 38},
         {"t": S("s3_wheel"), "loc": [-1.95, -1.95, 0.40], "target": [-0.85, -1.45, 0.34], "focal": 38, "ease": "inout"}]},
-    # 4. detail: headlight + grille, slide across the nose
     "s4_nose": {"base": [CAR2], "cam": [
         {"t": 0, "loc": [-1.55, -3.35, 0.95], "target": [-0.55, -2.05, 0.72], "focal": 36},
         {"t": S("s4_nose"), "loc": [-0.25, -3.6, 0.85], "target": [-0.3, -2.1, 0.66], "focal": 36, "ease": "inout"}]},
-    # 5. front bumper comes off forward/down -> FMIC, radiator, crash structure from the 'bumper removed' scan
-    "s5_front_off": {"base": [f"{B}/comp_front.blend"],
-                     "parts": [{"blend": f"{B}/fbumper.blend", "keys": [
-                         {"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                         {"t": BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                         {"t": 3 * BEAT, "loc": [0, -0.55, 0.45], "rot": [0, 0, 0], "ease": "inout"},
-                         {"t": 99, "loc": [0, -0.62, 0.50], "rot": [0, 0, 0], "ease": "lin"}]}],
-                     "cam": arc(S("s5_front_off"), 6, 3.9, 3.5, -24, -10, 1.5, 1.4, c0=(0, -1.8, 0.6), c1=(0, -2.0, 0.6))},
-    # 6. trunk opens on its hinge -> trunk interior from the 'Rear Trunk Open' scan
-    "s6_trunk": {"base": [f"{B}/comp_trunk.blend"],
-                 "parts": [{"blend": f"{B}/lid.blend", "pivot": HINGE, "keys": [
-                     {"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                     {"t": BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                     {"t": 4 * BEAT, "loc": [0, 0, 0], "rot": [62, 0, 0], "ease": "inout"}]}],
-                 "cam": [{"t": 0, "loc": [1.35, 4.15, 2.35], "target": [0, 1.75, 0.8], "focal": 30},
-                         {"t": S("s6_trunk"), "loc": [0.65, 3.85, 2.6], "target": [0, 1.8, 0.75], "focal": 30, "ease": "out2"}]},
-    # 7. top-down: high front-left 3/4 up and over to straight down, nose at the BOTTOM (explode then opens nose-up)
-    "s7_top": {"base": [CAR], "cam": [
-        {"t": 0, "loc": [2.0, -4.2, 4.0], "target": [0, -0.3, 0.5], "focal": 30},
-        {"t": S("s7_top"), "loc": [0.0, -0.2, 6.6], "target": [0, 0.0, 0.5], "focal": 30, "ease": "inout"}]},
 }
 
+# v2 opening (user: "car is clipped at beginning"): whole car in frame (~65 % width, Temerario), slow push, little rotation
+SHOTS["s1_wide"] = {"base": [CAR], "cam": arc(S("s1_wide"), 6, 8.2, 7.6, -42, -50, 1.2, 1.3, c0=(0, -0.4, 0.6), focal=30)}
+SHOTS["s2_rear"] = {"base": [CAR], "cam": arc(S("s2_rear"), 6, 8.0, 7.5, 142, 132, 1.25, 1.5, c0=(0, 0.4, 0.6), focal=30)}
 
-def explode(off, rot=(0, 0, 0), delay=0.0):
-    sep, hold, back, lock = CUES["x_sep"], CUES["x_hold"], CUES["x_back"], CUES["x_lock"]
-    return [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-            {"t": sep + delay, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-            {"t": hold + delay, "loc": list(off), "rot": list(rot), "ease": "out"},
-            {"t": back, "loc": [o * 1.06 for o in off], "rot": list(rot), "ease": "lin"},
-            {"t": lock, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
+# v2 explode (user: "focus on specific sections"): ONE global part timeline in video seconds, seen section by
+# section - front bumper (s5/s6), rear bumper + trunk lid (s7), side skirt (s8), all out -> home -> LOCK (s9).
+# Parts move along clean axes into clear black (never across the body or at the lens), no spins.
+G_BACK, G_LOCK = bt(42.5), bt(46)
+PARTS = [  # blend, offset (m), rot (deg), pivot, separate start, end (video s)
+    ("fbumper", (0, -0.8, 0.05), (0, 0, 0), None, bt(21), bt(23)),
+    ("rearbumper", (0, 0.8, 0.05), (0, 0, 0), None, bt(30.5), bt(32.5)),
+    ("lid", (0, 0.2, 0.75), (12, 0, 0), [0, 1.95, 0.95], bt(31), bt(33)),
+    ("sideskirt", (-0.55, 0, 0.05), (0, 0, 0), None, bt(34.5), bt(36)),
+]
 
 
-# 8. exploded view (right side): panels lift/slide off, drift while the camera orbits front-right -> rear-right,
-# fly home and lock. Stacked up/out (Temerario 25-31 s: panels float in layers above the car), never at the lens.
-SHOTS["s8_explode"] = {
-    "base": [f"{B}/comp_explode.blend"],
-    "parts": [
-        {"blend": f"{B}/sideskirt.blend", "keys": explode((-0.6, 0, 0.35))},
-        {"blend": f"{B}/fbumper.blend", "keys": explode((0, -0.85, 0.35), delay=0.08)},
-        {"blend": f"{B}/rearbumper.blend", "keys": explode((0, 0.75, 0.45), delay=0.12)},
-        {"blend": f"{B}/lid.blend", "keys": explode((0, 0.15, 0.9), (15, 0, 0), 0.16)},
-    ],
-    # steep high rear-right 3/4 (~50 deg down), nose at the top of the 9:16 frame so the car's length + the
-    # front/rear bumper gaps run along the frame height; slow 25 deg orbit for parallax
-    "cam": arc(S("s8_explode"), 12, 3.3, 3.6, -174, -148, 5.6, 5.3, c0=(0, -0.25, 0.4), focal=26),
-}
+def parts_for(shot):
+    t0, out = T0[shot], []
+    for name, off, rot, piv, a, b in PARTS:
+        p = {"blend": f"{B}/{name}.blend", "keys": [
+            {"t": min(0.0, a - t0) - 1, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+            {"t": a - t0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+            {"t": b - t0, "loc": list(off), "rot": list(rot), "ease": "out"},
+            {"t": G_BACK - t0, "loc": [o * 1.05 for o in off], "rot": list(rot), "ease": "lin"},
+            {"t": G_LOCK - t0, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]}
+        if piv:
+            p["pivot"] = piv
+        out.append(p)
+    return out
+
+
+XB = f"{B}/comp_explode.blend"
+SHOTS.update({
+    # front corner, framed on the nose: bumper slides straight forward off the FMIC/radiator/crash structure
+    "s5_front": {"base": [XB], "parts": parts_for("s5_front"),
+                 "cam": arc(S("s5_front"), 6, 3.9, 3.4, -42, -30, 1.25, 1.45, c0=(0, -1.95, 0.5), focal=28)},
+    # high over the open front end, looking down into the intercooler/radiator, bumper floating ahead
+    "s6_core": {"base": [XB], "parts": parts_for("s6_core"), "cam": [
+        {"t": 0, "loc": [0.85, -4.75, 2.45], "target": [0.05, -2.3, 0.35], "focal": 28},
+        {"t": S("s6_core"), "loc": [0.4, -4.5, 2.35], "target": [0.0, -2.3, 0.33], "focal": 28, "ease": "inout"}]},
+    # rear-left high 3/4, framed on the tail: bumper slides back, trunk lid lifts off its opening
+    "s7_rear": {"base": [XB], "parts": parts_for("s7_rear"),
+                "cam": arc(S("s7_rear"), 6, 4.2, 3.9, 142, 154, 2.0, 2.2, c0=(0, 1.9, 0.55), focal=28)},
+    # low along the right sill: skirt slides straight out
+    "s8_side": {"base": [XB], "parts": parts_for("s8_side"), "cam": [
+        {"t": 0, "loc": [-2.9, -1.6, 1.55], "target": [-1.0, 0.1, 0.2], "focal": 28},
+        {"t": S("s8_side"), "loc": [-2.9, -0.7, 1.5], "target": [-1.0, 0.7, 0.2], "focal": 28, "ease": "inout"}]},
+    # high rear-right diagonal: everything out, flies home, LOCKS on beat 46 (last hit), fade to black in the edit
+    "s9_wide": {"base": [XB], "parts": parts_for("s9_wide"),
+                "cam": arc(S("s9_wide"), 10, 6.6, 7.0, -142, -124, 5.6, 5.0, c0=(0, 0, 0.4), focal=28)},
+})
 
 
 def spec(name, mode):

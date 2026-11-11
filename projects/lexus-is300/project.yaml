@@ -1,72 +1,82 @@
-# Lexus IS300 (first gen) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
-# Satin-silver scan on black; turntables -> close-ups -> bumper off + trunk open -> top-down -> exploded view -> logo.
-# Shots: projects/lexus-is300/tools/shots.py (specs, timing from cues.json) + projects/ferrari-296/tools/shot.py (shared renderer).
-# Music: lexus-is300_track.mp3 - original late-90s boom-bap generated for this reel by the coordinating session (ElevenLabs via Higgsfield).
-# 92.0 BPM, beat 0.6522 s, kick grid phase 0.050 s. Drop 10.485 s (beat 16); last hit 30.05 s (beat 46); tail to silence ~37.5 s.
-# Cut frames (round(t*30)): 158, 275, 315, 393, 510, 628, 706, 941; end 1122 (37.4 s).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# v2 - user on v1: "same first draft issues as the others" (opening too cropped, explode too wide / not zoomed into the
+#   part assemblies), "need to focus on specific sections better", "car is clipped at beginning". v1: project_v1.yaml.
+#   v2: whole car in frame (68-78 % width) for the opening, then section close-ups on ONE global part timeline:
+#   wheel -> headlight -> front bumper off -> into the front end -> rear bumper + trunk lid -> side skirt -> wide, lock,
+#   fade to black, small logo (Temerario).
+# Lexus IS300 (first gen) - Temerario-style scan reel (scan only: no IRL footage, no text). Shots: tools/shots.py + tools/shot.py.
+# Music: lexus-is300_track.mp3 (generated for this reel by the coordinating session). 92.0 BPM, beat 0.6522 s, kick grid phase
+# 0.050 s; drop beat 16 (10.485 s), last hit beat 46 (30.05 s), tail to ~37.5 s.
+# Cut frames (round(t*30)): 158, 275, 315, 393, 510, 588, 667, 745; logo 941; end 1122. First clip one frame short.
 project: lexus-is300
 format: reel-9x16
-output: {path: /home/user/media/work/is300/out/lexus_is300_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/is300/out/lexus_is300_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/lexus-is300_track.mp3   # not in git
   start: 0
   fade_out: 0.3
 
-beats: [5.268, 9.181, 10.485, 13.094, 17.007, 20.92, 23.529, 31.356]
+beats: [5.268, 9.181, 10.485, 13.094, 17.007, 19.616, 22.225, 24.834, 31.356]
 
 timeline:
-  - id: s1_front34   # slow front 3/4 turntable, low, crops into the car (moving from frame 1)
-    src: /home/user/media/work/is300/renders/final/s1_front34
+  - id: s1_wide   # whole car, low front 3/4, slow push; fades up from black
+    src: /home/user/media/work/is300/renders/final/s1_wide
     src_fps: 15
     interpolate: true
     dur: 5.2333
-  - transition: {type: cut, note: "beat 8 (5.268 s)"}
-  - id: s2_rear34   # rear 3/4 orbit, other side, slight rise
-    src: /home/user/media/work/is300/renders/final/s2_rear34
+    vf: "fade=t=in:st=0:d=0.8"
+  - transition: {type: cut, note: "beat 8"}
+  - id: s2_rear   # whole car, rear 3/4 other side, slow push
+    src: /home/user/media/work/is300/renders/final/s2_rear
     src_fps: 15
     interpolate: true
     dur: 3.9000
-  - transition: {type: cut, note: "beat 14 (9.181 s)"}
-  - id: s3_wheel   # extreme close-up: front-right multi-spoke wheel, 2 mm scan
+  - transition: {type: cut, note: "beat 14"}
+  - id: s3_wheel   # v1 render: extreme close-up, front-right wheel (2 mm scan)
     src: /home/user/media/work/is300/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
     dur: 1.3333
-  - transition: {type: cut, note: "beat 16 (10.485 s)"}
-  - id: s4_nose   # headlight + grille slide (on the drop)
+  - transition: {type: cut, note: "beat 16 (drop)"}
+  - id: s4_nose   # v1 render: headlight + grille slide (on the drop)
     src: /home/user/media/work/is300/renders/final/s4_nose
     src_fps: 15
     interpolate: true
     dur: 2.6000
-  - transition: {type: cut, note: "beat 20 (13.094 s)"}
-  - id: s5_front_off   # front bumper lifts off -> FMIC, radiator, crash structure (front end bumper removed state scan)
-    src: /home/user/media/work/is300/renders/final/s5_front_off
+  - transition: {type: cut, note: "beat 20"}
+  - id: s5_front   # front corner: bumper slides straight forward (beat 21-23) off the FMIC/radiator/crash structure
+    src: /home/user/media/work/is300/renders/final/s5_front
     src_fps: 15
     interpolate: true
     dur: 3.9000
-  - transition: {type: cut, note: "beat 26 (17.007 s)"}
-  - id: s6_trunk   # trunk lid opens on its hinge -> trunk floor/interior (Rear Trunk Open state scan)
-    src: /home/user/media/work/is300/renders/final/s6_trunk
-    src_fps: 15
-    interpolate: true
-    dur: 3.9333
-  - transition: {type: cut, note: "beat 32 (20.920 s)"}
-  - id: s7_top   # high front-left 3/4 up and over to straight top-down, nose at the bottom
-    src: /home/user/media/work/is300/renders/final/s7_top
+  - transition: {type: cut, note: "beat 26"}
+  - id: s6_core   # high over the open front end, bumper floating ahead
+    src: /home/user/media/work/is300/renders/final/s6_core
     src_fps: 15
     interpolate: true
     dur: 2.6000
-  - transition: {type: cut, note: "beat 36 (23.529 s)"}
-  - id: s8_explode   # exploded view: bumpers, right skirt, lid separate on beat 36, drift, fly home, LOCK on beat 46 (30.05 s, last hit), hold 2 beats
-    src: /home/user/media/work/is300/renders/final/s8_explode
+  - transition: {type: cut, note: "beat 30"}
+  - id: s7_rear   # rear-left 3/4: rear bumper slides back (30.5), trunk lid lifts (31)
+    src: /home/user/media/work/is300/renders/final/s7_rear
     src_fps: 15
     interpolate: true
-    dur: 7.8333
-  - transition: {type: cut, note: "beat 48 (31.356 s)"}
-  - id: logo   # tools/logo_card.py (ferrari-296) --secs 6.0333: logo on render black over the track's tail, fades out by 37.4 s
-    src: /home/user/media/work/is300/out/logo_card.mp4
+    dur: 2.6333
+  - transition: {type: cut, note: "beat 34"}
+  - id: s8_side   # right sill from above: side skirt slides out (34.5)
+    src: /home/user/media/work/is300/renders/final/s8_side
+    src_fps: 15
+    interpolate: true
+    dur: 2.6000
+  - transition: {type: cut, note: "beat 38"}
+  - id: s9_wide   # high diagonal: all four parts out, home from beat 42.5, LOCK on 46 (last hit), fade to black
+    src: /home/user/media/work/is300/renders/final/s9_wide
+    src_fps: 15
+    interpolate: true
+    dur: 6.5333
+    vf: "fade=t=out:st=6.0:d=0.5"
+  - transition: {type: cut, note: "beat 48 - logo on the tail"}
+  - id: logo   # small logo (380 px, ~35 % width) fades in on black, fades out with the track
+    src: /home/user/media/work/is300/out/logo_card_v2.mp4
     dur: 6.0333
 
 overlays: []
