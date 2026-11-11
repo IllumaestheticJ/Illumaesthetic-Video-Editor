@@ -104,6 +104,9 @@ def main():
 
     sr.studio_world(sr.rgb(spec.get("bg", "0.004,0.004,0.005")), False)
     sr.studio_lights(lo, hi)
+    for o in sc.objects:  # a high orbit can pass behind the big key area light; never let it occlude the camera
+        if o.type == "LIGHT":
+            o.visible_camera = False
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     for o in base:
