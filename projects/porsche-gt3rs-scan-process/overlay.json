@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1122,
+ "durationInFrames": 1110,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -11,11 +11,11 @@
    "duration": 105
   },
   {
-   "kind": "counter",
+   "kind": "label",
    "from": 121,
    "duration": 98,
-   "label": "TRIANGLES CAPTURED",
-   "value": 24999999,
+   "title": "FULL CAR SCAN",
+   "sub": "24,999,999 TRIANGLES",
    "x": 0.08,
    "y": 0.12
   },
@@ -23,8 +23,8 @@
    "kind": "label",
    "from": 240,
    "duration": 92,
-   "title": "FRONT AERO",
-   "sub": "LIP \u00b7 GRILLE TRIM \u00b7 STRAKES \u00b7 HOOD VENTS",
+   "title": "FRONT LIP + STRAKES",
+   "sub": "100,000 + 399,999 TRIANGLES",
    "x": 0.08,
    "y": 0.12
   },
@@ -32,10 +32,10 @@
    "kind": "label",
    "from": 460,
    "duration": 98,
-   "title": "FENDER VENT + INTAKE",
-   "sub": "400,000 + 450,000 TRIANGLES",
+   "title": "FENDER VENT",
+   "sub": "400,000 TRIANGLES",
    "x": 0.08,
-   "y": 0.72
+   "y": 0.78
   },
   {
    "kind": "label",

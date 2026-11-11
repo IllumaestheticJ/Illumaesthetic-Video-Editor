@@ -26,8 +26,8 @@ timeline:
     src: /home/user/media/work/gt3rs/renders/s1
     src_fps: 15
     interpolate: true
-  - id: xray_front        # same view, x-ray: lip / grille trim / strakes drop, hood fins + fender vent lift, spin L/R
-    focus: front aero parts
+  - id: xray_front        # v2: same view in x-ray pushes in on the bumper aero; lip + strakes drop forward into clear space
+    focus: front lip + strakes
     dur: 3.7333
     src: /home/user/media/work/gt3rs/renders/x1a
     src_fps: 15
@@ -45,8 +45,8 @@ timeline:
     src: /home/user/media/work/gt3rs/renders/s2
     src_fps: 15
     interpolate: true
-  - id: xray_side         # same camera, x-ray: rear-quarter intake + fender vent pop out, pull back
-    focus: fender vent + quarter intake
+  - id: xray_side         # v2: pushes in on the front fender; the vent comes off toward the lens and spins (mounting back)
+    focus: fender vent
     dur: 3.7333
     src: /home/user/media/work/gt3rs/renders/xs2
     src_fps: 15
@@ -57,14 +57,14 @@ timeline:
     src: /home/user/media/gt3rs/scanfoot/v_0130_125732.mov
     in: 0.2
     out: 3.9667
-  - id: xray_rear         # rear-left: diffuser, trim, rear strake, skirt, skirt strake, intake explode + spin
-    focus: rear aero parts
+  - id: xray_rear         # v2: rear section close-up - diffuser + trim drop, rear strake out + spin (x2r)
+    focus: rear diffuser assembly
     dur: 3.7333
-    src: /home/user/media/work/gt3rs/renders/x2b
+    src: /home/user/media/work/gt3rs/renders/x2r
     src_fps: 15
     interpolate: true
   - id: xray_reassembly   # everything (incl. front wheels) translates home on the dense kicks; ends on the listing angle in listing grey
-    focus: all parts home
+    focus: removed parts + wheels return
     dur: 6.1333   # 169 frames to the 31.905 dissolve + 0.5 s overlap; part landings hit 27.217 27.569 28.156 29.094 29.448 30.033
     src: /home/user/media/work/gt3rs/renders/x3
     src_fps: 15
@@ -73,8 +73,8 @@ timeline:
   - transition: {type: dissolve, duration: 0.5, note: "reassembled scan -> same-angle GT3 RS listing"}
   - id: website           # listing zooms out; title, logo, then ILLUMAESTHETIC.COM fades in last
     focus: listing
-    dur: 5.97
-    src: /home/user/media/work/out/webzoom_gt3rs_v1.mp4
+    dur: 5.1   # v2 brief: don't hold the ending too long
+    src: /home/user/media/work/out/webzoom_gt3rs_v2.mp4
 
 overlays:
   - src: /home/user/media/work/out/hud_gt3rs_v2.mov
