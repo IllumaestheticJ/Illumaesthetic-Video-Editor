@@ -1,34 +1,41 @@
-# Subaru WRX VB scan reel v1: self-review (training/rubric.md)
+# Subaru WRX VB scan reel v2: self-review (training/rubric.md)
 
-Output: `/home/user/media/work/wrx/out/subaru_wrx_vb_v1.mp4`. Specs: 1080x1920, 30 fps, h264 yuv420p + AAC, faststart, 35.47 s (1064 frames).
+Output: `/home/user/media/work/wrx/out/subaru_wrx_vb_v2.mp4`. Specs: 1080x1920, 30 fps, h264 yuv420p + AAC, 35.4 s (1062 frames). v1 review: `review_v1.md`; v1 timeline: `project_v1.yaml`.
+
+v2 follows the V2 brief and addendum A-D. The order comes from this car's scan features (`direction.md`, `director.md`) and travels front → side → rear with no ping-pong:
+1. Whole car, moving from frame 1.
+2. Hood scoop.
+3. FRONT BUMPER REMOVED: the bumper and plate flip to show their scanned inner face, the garnish follows, and the camera ends low on the scanned structure.
+4. Right-side cladding comes off one part per bar (front flare, door flare, rear flare, skirt), ending on a wide that shows every removed part.
+5. REAR BUMPER REMOVED with the same grammar.
+6. Reassembly rear → side → front, locking on the beat.
+7. Fade, then a small logo.
 
 What was checked:
-- A contact sheet of every final shot (`chk/final_q1.jpg`, `final_s5.jpg`, `final_s7.jpg`), plus full-size frames for s3/s4/s5/s7.
-- A per-frame max-luma scan of every render: minimum 255 in all seven shots, so no black frames.
-- Frames −2..+1 around all 7 cuts (`chk/cuts.jpg`).
-- Cut positions measured from frame differences.
-- A static-frame scan for interpolation clones.
+- Per-frame mean-luma scan of every v2 render. The largest frame-to-frame step is 0.10 (side_off, a flare leaving the frame) and 0.235 in front_off (the bumper leaving). No dropouts.
+- Contact sheets of the first/mid/last frames (`chk/v2_finals.jpg`, `chk/v2_ends.jpg`).
+- Frames around every cut plus both label frames (`chk/v2_cuts.jpg`).
+- `tools/cutcheck.py` against the decoded audio of the delivered mp4.
+- `ive director` repeat check.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | The 3/4 turntable moves from frame 1. The track opens on an ambient intro: the first hit is 5.22 s and the drop is 11.25 s, so the visual hook carries the first 5 s alone. Scan-only brief, so there is no IRL→scan transformation. |
-| 2 | Beat sync | 5 | The measured cuts are at frames 157, 261, 338, 421, 547, 631, 966. Against the kick grid (5.224, 8.707, 11.252, 14.044, 18.232, 21.024, 32.191 s) the errors are +9, −7, +15, −11, +1, +9, +9 ms, all within ½ frame. The explode separates on the 22.42 s downbeat inside s7 and locks on 30.80 s. |
-| 3 | 1:1 match | n/a | Scan-only reel (Temerario style), no IRL footage. |
-| 4 | Scan quality | 3 | Silver on black (car luma median 165, background 7), with no ground or debris. Both licence plates were flattened (privacy). Weak spots, all real scan gaps: ragged black holes along the wiper cowl (s4, s6) and inside the hood-scoop mouth (s4). The far front wheel shows under the car in the s3 close-up. The bumper's inner edges are ragged in flight in s5. |
-| 5 | Story | 4 | Order: front 3/4 turntable, rear 3/4 orbit, wheel close-up, hood scoop, front end comes off (bumper with blank plate and garnish slide clear and show the scanned crash structure), top-down, exploded view (bumpers, garnish, flares and skirt lift into layers above the car while the camera orbits, then lock home), logo. The trunk-open beat was dropped: the No-Trunk / VB Trunk states only reached a 10.8 mm median hinge fit and an incomplete lid mask (editlog). |
-| 6 | Grade | 5 | One AgX house look throughout; the logo card is on the same black. |
-| 7 | Text | 5 | No text (per the brief); logo only. |
-| 8 | Ending | 4 | The logo cuts in on the 32.19 s downbeat, the music fades from about 33 s, and the reel ends at 35.47 s with a 0.8 s fade. The last second peaks at −16.8 dB. |
-| 9 | Technical | 4 | 1080x1920, 30 fps, yuv420p, AAC, faststart, no black frames. Interpolation clone tails were removed with per-clip `src_fps = 30N/(slot+4)`. One held frame remains before each cut; this is the assembler's cut frame and is also present before s1's cut, which has surplus frames. |
+| 1 | Hook | 4 | The whole car in a moving front-right 3/4 from frame 1, cut on the first hit (5.27 s). The ambient intro still carries the first 5 s. |
+| 2 | Beat sync | 5 | Cut minus onset (decoded delivered audio): +4.7, −16.7, −5.3, +14.7, −9.3 ms, all within ½ frame. Two cuts were moved one frame after the first measurement (−50 / −43 ms). The logo cut at 32.13 s is under the fade. |
+| 3 | 1:1 match | n/a | Scan-only reel. |
+| 4 | Scan quality | 4 | Silver on black. The bumper-removed states show real scanned structure (front crash structure; rear beam, exhaust and hangers). Persistent data is off for every keyed shot. Real scan gaps remain at the cowl and inside the scoop. |
+| 5 | Story | 4 | Each section appears in one continuous sequence (addendum B), the bumper-removed states are the hero beats (C), and nothing opens without a state scan: no trunk, hood or door (D). The director flags front_off/side_off as a similar view: the front shot ends low on the right of the front end and the side shot starts at the front-right wheel. This is the intended front→side travel, with different parts removed. |
+| 6 | Grade | 5 | One AgX house look; the logo is on the same black. |
+| 7 | Text | 5 | Two factual labels over scan shots only: "FRONT BUMPER REMOVED" and "REAR BUMPER REMOVED", each with "SCANNED STRUCTURE BEHIND IT". No numbers. |
+| 8 | Ending | 4 | The reassembly locks, then a 0.7 s fade; the small logo arrives on the 32.13 s downbeat. Total 35.4 s. |
+| 9 | Technical | 4 | Spec-correct, no black frames, per-clip `src_fps = 30N/(slot+4)`. The rear close-up end frame is cropped on both sides on purpose (detail of the exposed structure). One assembler hold frame remains before each cut. |
 
 ## Things the reviewer may push on
-- There is no trunk-open shot. "Front end off" stands in for the "hood, trunk or panels open" beat.
-- The explode only has part scans for bumpers, garnish, flares and skirt. There is no hood, door or fender part, so the body shell stays put.
-- The ambient 5 s before the first hit is long for a reel opening.
-- Music: the generated track sent by the coordinating session, starting at 0.
+- The rear close-up is tight: the body is cut at both frame edges to show the structure large.
+- The removed flares float above the car in the side wide; they are not laid out on the floor.
+- The hood-scoop clip is reused from v1 (it appears once in this reel).
 
 ## For the next agent
-- Turn Cycles persistent data off for any shot with keyed parts (`tools/shot.py` here does this automatically). Still scan max luma per frame.
-- With 15 fps renders plus minterpolate, set `src_fps = 30*N/(slot_frames+4)` per clip. Otherwise each shot ends on 1–2 cloned frames, which show as a stall right before the cut.
-- Licence plates in Artec scans keep embossed characters. Flatten them by plane projection in a box (`tools/flatten_plates.py`) and check with a close-up render.
-- `tools/sheet.py` now samples N frames per directory. The old version tried to tile every frame of a final render and overflowed PIL's maximum image size.
+- Do not load already-removed parts into later section shots, not even parked far away: low cameras still see them at the top of the frame. Leave them out and bring them back only for the reassembly.
+- Run `tools/cutcheck.py` on the delivered file, not just the grid. In this track the grid was off by 30-50 ms at two drops, and one-frame duration shifts fixed it.
+- Frame-diff "cuts" inside a shot (parts leaving the frame) also show up in cutcheck; match them against the timeline before acting.

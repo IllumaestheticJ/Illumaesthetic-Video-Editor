@@ -1,68 +1,71 @@
-# Subaru WRX VB (2022+) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296,
-# huracan-evo, a90-supra. Satin-silver scan on pure black; turntables -> close-ups -> front end off -> top-down ->
-# exploded view -> ILLUMAESTHETIC logo.
-# Shots: projects/subaru-wrx-vb/tools/shots.py (specs, timing.json) rendered with projects/ferrari-296/tools/shot.py.
-# Music: subaru-wrx-vb_track.mp3 - original rally drum-and-bass generated for this reel by the coordinating session
-# (ElevenLabs via Higgsfield; not in git). Kick downbeats 11.2522 + 1.39591 n (171.9 BPM); ambient intro with hits at
-# 5.224 / 8.707; drop 11.252; full groove to ~33 s, fade 33-34, near-silent ~36.
-# Cuts on frames round(t*30): 157, 261, 338, 421, 547, 631, 966; end 1065 (35.5 s).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# Subaru WRX VB (2022+) scan reel v2. Scan only, silver on black. Scene order from this car's scan features (direction.md,
+# director.md; user rules 2026-11-11): whole car -> hood scoop -> FRONT BUMPER OFF (hero, on the drop, labelled) ->
+# right-side cladding off -> REAR BUMPER OFF (labelled) -> reassembly -> fade -> small logo. v1 timeline: project_v1.yaml.
+# Shots: tools/shots_v2.py rendered with tools/shot.py (persistent data off for keyed parts); s4 reused from v1 (tools/shots.py).
+# Music: subaru-wrx-vb_track.mp3 (generated for this reel by the coordinating session; not in git).
+# Broadband kick grid (1 ms RMS half-rise; the v1 40-120 Hz grid read ~58 ms late): downbeats 11.1910 + 1.39609 n.
+# Cut frames: 157, 261, 503, 671, 838, 964; end 1063 (35.43 s). First clip one frame short (assembler cut frame).
+# src_fps per clip = 30*N/(slot+4) (no cloned tails, lessons.md).
 project: subaru-wrx-vb
 format: reel-9x16
-output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/subaru-wrx-vb_track.mp3   # not in git
   start: 0
   fade_out: 0.8
 
-beats: [5.224, 8.707, 11.252, 14.044, 18.232, 21.024, 32.191]
+beats: [5.224, 8.707, 16.775, 22.360, 27.944, 32.132]
 
 timeline:
-  - id: s1_front34     # slow low front 3/4 turntable over the ambient intro (rendered 6.0 s, first 5.2 s used)
-    src: /home/user/media/work/wrx/renders/final/s1_front34
-    src_fps: 15
+  - id: v2_opener      # whole car, elevated front-right 3/4, moving from frame 1 (ambient intro)
+    focus: whole car
+    src: /home/user/media/work/wrx/renders/final/v2_opener
+    src_fps: 14.72
     interpolate: true
-    dur: 5.2
-  - transition: {type: cut, note: "5.224 intro hit"}
-  - id: s2_rear34      # rear 3/4 orbit, car's right, slight rise
-    src: /home/user/media/work/wrx/renders/final/s2_rear34
-    src_fps: 14.7222  # 30*N/(slot+4), N=53: no cloned tail (lessons)
+    dur: 5.2333
+  - transition: {type: cut, note: "5.224 swell"}
+  - id: s4_scoop       # v1 render reused at 0.80x: hood scoop, the front's signature detail
+    focus: hood scoop
+    src: /home/user/media/work/wrx/renders/final/s4_scoop
+    src_fps: 11.944
     interpolate: true
     dur: 3.4667
-  - transition: {type: cut, note: "8.707 intro hit"}
-  - id: s3_wheel       # extreme close-up: front-right wheel, brake through the spokes (2 mm) over the build
-    src: /home/user/media/work/wrx/renders/final/s3_wheel
-    src_fps: 14.8148  # 30*N/(slot+4), N=40: no cloned tail (lessons)
+  - transition: {type: cut, note: "8.707 swell"}
+  - id: v2_front_off   # bumper leaves on the 11.191 drop, flips (scanned inside), garnish follows; hold on the structure
+    focus: front bumper / structure behind it
+    src: /home/user/media/work/wrx/renders/final/v2_front_off
+    src_fps: 14.939
     interpolate: true
-    dur: 2.5667
-  - transition: {type: cut, note: "11.252 THE DROP"}
-  - id: s4_scoop       # hood scoop + headlights, slide across the nose (2 bars)
-    src: /home/user/media/work/wrx/renders/final/s4_scoop
-    src_fps: 14.8276  # 30*N/(slot+4), N=43: no cloned tail (lessons)
+    dur: 8.0333
+  - transition: {type: cut, note: "16.775 downbeat"}
+  - id: v2_side_off    # front wheel, then front flare / door flare / rear flare / skirt, one per bar
+    focus: right-side cladding
+    src: /home/user/media/work/wrx/renders/final/v2_side_off
+    src_fps: 14.826
     interpolate: true
-    dur: 2.7667
-  - transition: {type: cut, note: "14.044 downbeat"}
-  - id: s5_front       # bumper+grille slides off 14.39 -> 16.84 (downbeat), garnish half a beat later; crash beam exposed
-    src: /home/user/media/work/wrx/renders/final/s5_front
-    src_fps: 14.7692  # 30*N/(slot+4), N=64: no cloned tail (lessons)
+    dur: 5.6
+  - transition: {type: cut, note: "22.360 downbeat"}
+  - id: v2_rear_off    # rear bumper back toward the lens, flips (inner ribs), hold on the rear structure
+    focus: rear bumper / structure behind it
+    src: /home/user/media/work/wrx/renders/final/v2_rear_off
+    src_fps: 14.826
+    interpolate: true
+    dur: 5.6
+  - transition: {type: cut, note: "27.944 downbeat"}
+  - id: v2_reassemble  # rear -> side -> front home, front locks on 30.736; clean car from the lock; fade from 31.434
+    focus: whole car (reassembly)
+    src: /home/user/media/work/wrx/renders/final/v2_reassemble
+    src_fps: 14.769
     interpolate: true
     dur: 4.2
-  - transition: {type: cut, note: "18.232 downbeat"}
-  - id: s6_top         # high front 3/4 up and over to straight top-down (2 bars)
-    src: /home/user/media/work/wrx/renders/final/s6_top
-    src_fps: 14.6591  # 30*N/(slot+4), N=43: no cloned tail (lessons)
-    interpolate: true
-    dur: 2.8
-  - transition: {type: cut, note: "21.024 downbeat"}
-  - id: s7_explode     # panels separate on 22.419, drift in layers above the car, fly home and LOCK on 30.795, hold 1 bar
-    src: /home/user/media/work/wrx/renders/final/s7_explode
-    src_fps: 14.9558  # 30*N/(slot+4), N=169: no cloned tail (lessons)
-    interpolate: true
-    dur: 11.1667
-  - transition: {type: cut, note: "32.191 downbeat - logo through the fade"}
-  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3
-    src: /home/user/media/work/wrx/out/logo_card.mp4
-    dur: 3.3
+    vf: "fade=t=out:st=3.5:d=0.7"
+  - transition: {type: cut, note: "32.132 downbeat - small logo through the music fade"}
+  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3 --width 380 --fade-out 0.8
+    focus: logo
+    src: /home/user/media/work/wrx/out/logo_small.mp4
+    dur: 3.2667
 
-overlays: []
+overlays:
+  - src: /home/user/media/work/wrx/out/hud_wrx_v2.mov   # ive hud projects/subaru-wrx-vb/overlay.json ...
+    start: 0

@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
@@ -23,7 +24,6 @@ Newest first. Read the top two before starting a new edit.
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
-- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11

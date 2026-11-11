@@ -1,0 +1,13 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1063,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "label", "from": 441, "duration": 56, "title": "FRONT BUMPER REMOVED", "sub": "SCANNED STRUCTURE BEHIND IT",
+   "x": 0.08, "y": 0.765},
+  {"kind": "label", "from": 776, "duration": 56, "title": "REAR BUMPER REMOVED", "sub": "SCANNED STRUCTURE BEHIND IT",
+   "x": 0.92, "y": 0.765, "align": "right"}
+ ]
+}
