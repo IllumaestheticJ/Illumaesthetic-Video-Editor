@@ -1,0 +1,57 @@
+# Toyota MR2 Spyder (ZZW30, hardtop project) - scan-process reel, 240SX format (IRL -> 1:1 scan cuts, exploded part,
+# x-ray reassembly, website end card). 1080x1920, 30 fps.
+# Music: original MR2 track (112.1 BPM). Grid from broadband onsets: t = 0.5145 + 0.53535 n (track s).
+# Track starts at beat n=23 (12.8276 s) so the B-section hit at n=29 (16.04 s) = video 3.212 s = cut A.
+# Cut frames (round(t*30)): 96, 193, 289, 353, 418, 546, 642 -> clip durs are whole frames; first clip 1 frame short
+# (assembler adds a 1-frame hold per cut). Accents used: n=29 drop, 35, 41, 45, 49, 57, 63 (strongest kick, web lands).
+project: toyota-mr2-spyder-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/mr2_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/mr2/music/mr2_track.mp3   # https://d8j0ntlcm91z4.cloudfront.net/... (original MR2 track, not in git)
+  start: 12.8276
+  fade_out: 0.8
+
+beats: [3.2121, 6.4242, 9.6363, 11.7777, 13.9191, 18.2019, 21.4140]
+
+timeline:
+  - id: irl_scan_front   # DJI_0030 (Osmo Pocket 3) frames 1700-1775: crew scanning, camera settles on the front 3/4; ends ON the solved frame
+    src: /home/user/media/work/mr2/irl/irlA_0030_1700-1775.mp4
+    dur: 3.1667
+  - transition: {type: cut, note: "1:1 IRL -> Full Car Top Down scan on the drop (camA, silhouette solve, f 22 mm)"}
+  - id: scan_front   # top-down scan from camA, slow push-in; HUD triangle counter
+    src: /home/user/media/work/mr2/renders/sA
+    src_fps: 15
+    interpolate: true
+    dur: 3.2333
+  - id: irl_hardtop   # FX30636 (FX3A S-Log3, graded with grade/fx3a_slog3cine_to_709.cube), crew lifting the hardtop off - plays out
+    src: /home/user/media/work/mr2/irl/irlH_FX30636_18.6.mp4
+    dur: 3.2000
+  - id: irl_scan_rear   # DJI_0030 frames 1293-1343: scanner sweeps the rear deck, camera pulls back to the full rear; ends ON the solved frame
+    src: /home/user/media/work/mr2/irl/irlB_0030_1293-1343.mp4
+    dur: 2.1333
+  - transition: {type: cut, note: "1:1 IRL -> scan (rear, camB: outline silhouette + plate landmarks, f 22 mm)"}
+  - id: scan_rear   # top-down scan from camB, gentle push
+    src: /home/user/media/work/mr2/renders/sB
+    src_fps: 15
+    interpolate: true
+    dur: 2.1667
+  - id: scan_lid   # rear-end state scan (lid open): lid lifts off and spins about Z - underside ribs, then louvred top
+    src: /home/user/media/work/mr2/renders/sC
+    src_fps: 15
+    interpolate: true
+    dur: 4.2667
+  - id: scan_xray   # x-ray reassembly: lid translates back into place, orbit ends on the listing hero pose, morphs to listing grey
+    src: /home/user/media/work/mr2/renders/sX
+    src_fps: 15
+    interpolate: true
+    dur: 3.2000   # orbit ends at 2.75 s, holds, then the 0.5 s dissolve runs 627 -> 642 (n=63 hit)
+  - transition: {type: dissolve, duration: 0.5, note: "x-ray -> same-angle listing hero (scan -> web, not IRL -> scan)"}
+  - id: website   # MR2 Spyder 3D-scan listing on illumaesthetic.com; zoom-out lands on the n=63 hit; title, logo, URL last
+    src: /home/user/media/work/out/webzoom_mr2_v1.mp4
+    dur: 3.6000
+
+overlays:
+  - src: /home/user/media/work/out/hud_mr2_v1.mov
+    start: 0
