@@ -1,0 +1,41 @@
+{
+ "beat": 0.5555,
+ "t0": 0.6068,
+ "cut_frames": {
+  "s1_turntable": 0,
+  "s2_rear": 152,
+  "s3_wheel": 285,
+  "s4_lamp": 318,
+  "s5_hood": 352,
+  "s6_trunk": 418,
+  "s7_top": 485,
+  "s8_explode": 551,
+  "logo": 951,
+  "end": 1085
+ },
+ "dur_frames": {
+  "s1_turntable": 151,
+  "s2_rear": 133,
+  "s3_wheel": 33,
+  "s4_lamp": 34,
+  "s5_hood": 66,
+  "s6_trunk": 67,
+  "s7_top": 66,
+  "s8_explode": 400,
+  "logo": 134
+ },
+ "secs": {
+  "s1_turntable": 5.066666666666666,
+  "s2_rear": 4.433333333333334,
+  "s3_wheel": 1.1,
+  "s4_lamp": 1.1333333333333333,
+  "s5_hood": 2.2,
+  "s6_trunk": 2.2333333333333334,
+  "s7_top": 2.2,
+  "s8_explode": 13.333333333333334,
+  "logo": 4.466666666666667
+ },
+ "x_sep": 0.0,
+ "x_back": 8.888,
+ "x_lock": 11.11
+}

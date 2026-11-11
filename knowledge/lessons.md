@@ -275,3 +275,15 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[story]** Same issues as the other first revisions - learn from them and make the same updates (sibling v1 notes: opening too cropped; exploded view too wide, doesn't zoom in on the part assemblies; last scenes held too long; follow the Temerario: progressive explode over several angles, fade, small logo)  _(from toyota-mr2-spyder, 2026-11-11, reviewer)_
 - **[story]** Same issue as the other first drafts. Need to focus more specifically on the removed areas and where the useful data is  _(from c5-corvette, 2026-11-11, reviewer)_
+
+## From the Mazda Miata NA scan reel (2026-11-11, built by an agent)
+- **[technical]** A long single-process Cycles render with animated parts can go black mid-shot and stay black
+  (Miata s8: luma 32 -> 6 from frame 57 on, persistent data). Check per-frame mean luma after every final render;
+  re-render bad ranges in fresh processes (projects/mazda-miata-na/tools/rerender.sh, 25-frame chunks) and re-check.
+- **[technical]** Fitting a lid hinge to a *partial* open capture: measure open -> rotated-closed distance (every captured
+  point must lie on the lid) and keep the axis along X; a free axis with closed -> open cost tilted 19 deg. Verify by
+  rendering the rotated lid over the open-state scan (tools/hinge.py, tools/lidfull.py).
+- **[scan-look]** Scans can carry a real, legible licence plate - look at the tail close-up and flatten the characters
+  onto the plate plane (tools/deplate.py) before rendering anything near it.
+- **[pacing]** A kick pick can lock onto an off-beat bass phase. Fold the band energies (sub / snare / hats) over one beat
+  period and anchor the grid where they coincide; verify cut-to-kick error on the delivered file.
