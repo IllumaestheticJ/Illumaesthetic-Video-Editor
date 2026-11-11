@@ -5,7 +5,10 @@
 
 Prepped frame (m): ground z=0, long axis Y, NOSE AT +Y (y=+1.94), rear at -Y. Car's right = -X? (nose +Y, so +X is the
 car's left... see clips.md). shot.py camera az: 0 = behind the car (-Y), 180 = in front of the nose, +90 = camera on +X.
-Shots are rendered a little longer than their slot (SECS) so assembly can trim to the music's accents.
+Shots are rendered ~0.25 s longer than their slot so assembly can trim to the music's accents.
+Track grid (tools/music_grid.py, kick-anchored): beat n at -0.0591 + 0.53570 n s (112.0 BPM); slots in beats:
+  s1 0-5 | s2 5-13 | s3 13-17 (big hit 13) | s4 17-21 | s5 21-25 | s6 25-33 | s7 33-41 | s8 41-45 | s9 45-53 (big hit 45)
+  | s10 53-57 | s11 57-62 | logo 62 (final hit 33.69 s) -> ring-out ends ~38.8 s
 """
 import json
 import os
@@ -60,42 +63,42 @@ SHOTS = [
     shot("s1_side", 3.6, CAR, [dict(t=0, az=-95, el=3, dist=5.6, target=[0, -0.8, 0.5], lens=40),
                                dict(t=1, az=-84, el=4, dist=5.4, target=[0, 0.6, 0.5], lens=40, lin=True)]),
     # 2 front 3/4 low, slow turntable (ref 4-7 s)
-    shot("s2_front34", 4.2, CAR, [dict(t=0, az=-140, el=5, dist=6.6, target=T, lens=50),
+    shot("s2_front34", 4.5, CAR, [dict(t=0, az=-140, el=5, dist=6.6, target=T, lens=50),
                                   dict(t=1, az=-168, el=8, dist=6.3, target=T, lens=50)]),
     # 3 rear 3/4 turntable (ref 8-11 s)
-    shot("s3_rear34", 3.6, CAR, [dict(t=0, az=35, el=8, dist=6.5, target=[0, -0.2, 0.55], lens=50),
+    shot("s3_rear34", 2.4, CAR, [dict(t=0, az=35, el=8, dist=6.5, target=[0, -0.2, 0.55], lens=50),
                                  dict(t=1, az=58, el=11, dist=6.2, target=[0, -0.2, 0.55], lens=50)]),
     # 4 extreme close-up: front wheel + headlight corner (2 mm; wheels were captured on this car)
-    shot("s4_wheel", 2.6, CAR, [dict(t=0, az=-122, el=4, dist=2.3, target=[-0.72, 1.32, 0.36], lens=50),
+    shot("s4_wheel", 2.4, CAR, [dict(t=0, az=-122, el=4, dist=2.3, target=[-0.72, 1.32, 0.36], lens=50),
                                 dict(t=1, az=-100, el=7, dist=1.9, target=[-0.72, 1.30, 0.38], lens=50)]),
     # 5 extreme close-up: rear lamp / side intake, slow slide
-    shot("s5_tail", 2.6, CAR, [dict(t=0, az=-28, el=10, dist=2.4, target=[-0.55, -1.72, 0.72], lens=50),
+    shot("s5_tail", 2.4, CAR, [dict(t=0, az=-28, el=10, dist=2.4, target=[-0.55, -1.72, 0.72], lens=50),
                                dict(t=1, az=-48, el=12, dist=2.2, target=[-0.62, -1.55, 0.74], lens=50)]),
     # 6 the hardtop lifts off -> roof-down Spyder (high side 3/4)
-    shot("s6_hardtop", 4.2, EXP, [dict(t=0, az=-120, el=16, dist=7.0, target=[0, 0, 0.75], lens=40),
+    shot("s6_hardtop", 4.5, EXP, [dict(t=0, az=-120, el=16, dist=7.0, target=[0, 0, 0.75], lens=40),
                                   dict(t=1, az=-100, el=22, dist=6.6, target=[0, 0, 0.7], lens=40)],
          tween(HOME, GONE, {"top": (0.12, 0.85)}), light_ref="base"),
     # 7 front opens (bumper slides off, hood swings up on its fitted hinge), rear lid opens; front 3/4 high
-    shot("s7_open", 4.2, EXP, [dict(t=0, az=-150, el=16, dist=6.8, target=[0, 0.45, 0.5], lens=40),
+    shot("s7_open", 4.5, EXP, [dict(t=0, az=-150, el=16, dist=6.8, target=[0, 0.45, 0.5], lens=40),
                                dict(t=1, az=-130, el=20, dist=7.4, target=[0, 0.35, 0.55], lens=40)],
          tween(GONE, OPEN, {"top": (0, 0.01), "fb": (0.05, 0.45), "hood": (0.3, 0.75), "lid": (0.45, 0.92)}),
          light_ref="base", extra={"visible": {"top": [0, 0]}}),
     # 8 top-down: crane up and over, spinning (ref 16-20 s)
-    shot("s8_top", 3.6, EXP, [dict(t=0, az=-130, el=60, dist=9.6, target=[0, 0.1, 0.4], lens=40),
+    shot("s8_top", 2.4, EXP, [dict(t=0, az=-130, el=60, dist=9.6, target=[0, 0.1, 0.4], lens=40),
                               dict(t=0.55, az=-90, el=89.9, dist=9.2, target=[0, 0.1, 0.4], lens=40),
                               dict(t=1, az=-55, el=89.9, dist=8.9, target=[0, 0.1, 0.4], lens=40)],
          hold(OPEN), light_ref="base", extra={"visible": {"top": [0, 0]}}),
     # 9 exploded view builds: hood/lid close back to flat and every panel rises into a stack above the car (high rear 3/4)
-    shot("s9_explode", 4.2, EXP, [dict(t=0, az=40, el=24, dist=7.0, target=[0, 0, 0.8], lens=40),
+    shot("s9_explode", 4.5, EXP, [dict(t=0, az=40, el=24, dist=7.0, target=[0, 0, 0.8], lens=40),
                                   dict(t=1, az=60, el=20, dist=7.6, target=[0, 0, 1.15], lens=40)],
          tween(dict(OPEN, top={"off": [0, -0.15, 3.4]}), EXPL, {"fb": (0.05, 0.5), "hood": (0.12, 0.6), "lid": (0.2, 0.68), "top": (0.3, 0.85)}),
          light_ref="base"),
     # 10 wide side view, panels floating (ref 25-31 s)
-    shot("s10_float", 3.6, EXP, [dict(t=0, az=-70, el=13, dist=8.6, target=[0, 0, 1.2], lens=40),
+    shot("s10_float", 2.4, EXP, [dict(t=0, az=-70, el=13, dist=8.6, target=[0, 0, 1.2], lens=40),
                                  dict(t=1, az=-100, el=11, dist=8.3, target=[0, 0, 1.2], lens=40, lin=True)],
          {k: [dict(t=0, **EXPL[k]), dict(t=1, lin=True, **EXPL_DRIFT[k])] for k in PARTS}, light_ref="base"),
     # 11 reassembly into the finished hardtop car, front 3/4 hero, fades to black (ref 32-36 s)
-    shot("s11_reassemble", 4.6, EXP, [dict(t=0, az=-130, el=14, dist=8.8, target=[0, 0, 1.05], lens=40),
+    shot("s11_reassemble", 2.9, EXP, [dict(t=0, az=-130, el=14, dist=8.8, target=[0, 0, 1.05], lens=40),
                                       dict(t=1, az=-150, el=7, dist=7.0, target=[0, 0.1, 0.55], lens=40)],
          tween(EXPL_DRIFT, HOME, {"top": (0.0, 0.42), "hood": (0.08, 0.5), "lid": (0.12, 0.55), "fb": (0.2, 0.62)}),
          light_ref="base"),

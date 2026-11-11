@@ -1,22 +1,88 @@
-# Copy to projects/<name>/project.yaml. Times in seconds; every cut should sit on a `beats` entry.
-project: NAME
+# Toyota MR2 Spyder scan reel v1 - Temerario style (scan only, no IRL, no text).
+# Shots: shots.py -> projects/huracan-evo/tools/shot.py (Blender). Durations are whole frames so each cut lands on
+# round(beat*30); first clip one frame short (FG2 lesson). Grid: tools/music_grid.py (kick-anchored, 112.0 BPM).
+project: toyota-mr2-spyder
 format: reel-9x16
-output: {path: /home/user/media/work/out/NAME_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
-music: {path: /path/to/track.wav, start: 0, fade_out: 0.6}
-beats: []            # from `python -m ive beats <track>`
+output: {path: /home/user/media/work/mr2/out/mr2_spyder_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/toyota-mr2-spyder_track.mp3   # parent-session ElevenLabs track (not in git)
+  start: 0
+  fade_out: 0.8
+
+# bar downbeats used as cuts (beat n = 0.4766 + 0.5357 n); 7.441 / 24.583 = big hits, 33.690 = final hit (logo); music rings out to ~38.8 s
+beats: [3.155, 7.441, 9.583, 11.726, 13.869, 18.155, 22.440, 24.583, 28.869, 31.011, 33.690]
+
 timeline:
-  - id: irl_1
-    src: /home/user/media/NAME/dropbox/clip.mov   # HLG is tonemapped automatically
-    in: 0.0
-    out: 2.5
-  - id: irl_match           # must END on the solved frame (out = t + 1/fps)
-    src: /home/user/media/NAME/dropbox/clip2.mov
-    in: 1.3
-    out: 3.8334
-  - transition: {type: cut}  # the 1:1 perspective cut; also: dissolve, dip, flash, scanline, ghost
-  - id: scan_match
-    src: /home/user/media/work/renders/shots/s1_match   # PNG sequence dir from `ive render`
+  - id: s1_side   # low side track toward the nose; fades up from black
+    src: /home/user/media/work/renders/mr2/s1_side
     src_fps: 15
     interpolate: true
-    trim_end: 2.5
-overlays: []          # [{src: hud.mov, start: 0}] from `ive hud`
+    dur: 3.1333
+    vf: fade=t=in:st=0:d=1.0
+  - transition: {type: cut}
+  - id: s2_front34   # front 3/4 low turntable
+    src: /home/user/media/work/renders/mr2/s2_front34
+    src_fps: 15
+    interpolate: true
+    dur: 4.2667
+  - transition: {type: cut}
+  - id: s3_rear34   # rear 3/4 turntable - cut ON the big hit (7.44 s)
+    src: /home/user/media/work/renders/mr2/s3_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 2.1667
+  - transition: {type: cut}
+  - id: s4_wheel   # extreme close-up: front wheel + arch (2 mm)
+    src: /home/user/media/work/renders/mr2/s4_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: s5_tail   # extreme close-up: rear lamp / grille
+    src: /home/user/media/work/renders/mr2/s5_tail
+    src_fps: 15
+    interpolate: true
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: s6_hardtop   # hardtop lifts off -> roof-down Spyder
+    src: /home/user/media/work/renders/mr2/s6_hardtop
+    src_fps: 15
+    interpolate: true
+    dur: 4.3000
+  - transition: {type: cut}
+  - id: s7_open   # bumper slides off, hood + rear lid swing open on fitted hinges
+    src: /home/user/media/work/renders/mr2/s7_open
+    src_fps: 15
+    interpolate: true
+    dur: 4.2667
+  - transition: {type: cut}
+  - id: s8_top   # top-down crane + spin, front/rear open
+    src: /home/user/media/work/renders/mr2/s8_top
+    src_fps: 15
+    interpolate: true
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: s9_explode   # exploded view - panels separate ON the second big hit (24.58 s), stack above the car
+    src: /home/user/media/work/renders/mr2/s9_explode
+    src_fps: 15
+    interpolate: true
+    dur: 4.3000
+  - transition: {type: cut}
+  - id: s10_float   # panels floating, 3/4 side
+    src: /home/user/media/work/renders/mr2/s10_float
+    src_fps: 15
+    interpolate: true
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: s11_reassemble   # panels return home -> hardtop car; locks on the final hit
+    src: /home/user/media/work/renders/mr2/s11_reassemble
+    src_fps: 15
+    interpolate: true
+    dur: 2.7000
+  - transition: {type: cut}
+  - id: logo   # ILLUMAESTHETIC logo card on black, hard cut on the final hit; holds through the ring-out
+    src: /home/user/media/work/mr2/out/logo_card.mp4
+    dur: 5.1000
+
+overlays: []   # no text (Temerario ref has none)
