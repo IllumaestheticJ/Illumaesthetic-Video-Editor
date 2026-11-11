@@ -1,0 +1,54 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1122,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 344,
+   "duration": 59,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "FRONT END SCANNED WITH THE BUMPER OFF",
+   "x": 0.07,
+   "y": 0.055
+  },
+  {
+   "kind": "label",
+   "from": 412,
+   "duration": 49,
+   "title": "FRONT-MOUNT INTERCOOLER",
+   "sub": "BEHIND THE BUMPER",
+   "x": 0.07,
+   "y": 0.055
+  },
+  {
+   "kind": "label",
+   "from": 530,
+   "duration": 49,
+   "title": "SIDE SKIRT REMOVED",
+   "sub": "SILL SCANNED WITH THE SKIRT OFF",
+   "x": 0.07,
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 628,
+   "duration": 49,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "INSIDE FACE SCANNED",
+   "x": 0.07,
+   "y": 0.045
+  },
+  {
+   "kind": "label",
+   "from": 686,
+   "duration": 49,
+   "title": "TRUNK OPEN",
+   "sub": "SCANNED WITH THE TRUNK OPEN",
+   "x": 0.07,
+   "y": 0.045
+  }
+ ]
+}
