@@ -37,76 +37,94 @@ def S(n, default):
     return SECS.get(n, default)
 
 
+# ---- v2 (reviewer: same first-revision fixes as the siblings) -------------------------------------------------
+# Order by area, no rotating camera moves: whole car (not cropped) -> FRONT: bumper comes off (only part that was
+# physically removed and scanned on its own), turns once to show its scanned inside -> hood opens on its hinge over the
+# real bumper-off front end -> close slide across that exposed front data -> REAR on the drop: trunk closed -> half ->
+# open -> into the trunk well -> top-down: everything returns home -> dip to black -> small logo.
+# Every camera move is a straight push / dolly / crane; parts translate (bumper turns once: its inside is scanned).
+BASE = f"{P}/comp_explode.blend"   # car - bumper - hood - lid + 'Front End Bumper Off' + 'NA Trunk Open'
+B_OUT = [0, -0.55, 0.75]           # bumper parked up and forward, in clear background above the nose line
+B_ROT = [135, 0, 0]                # inside (mounting side) turned toward a front camera
+
+
+def cam(t, loc, tgt, focal=30, ease="inout"):
+    return {"t": t, "loc": list(loc), "target": list(tgt), "focal": focal, "ease": ease}
+
+
+def still(loc=(0, 0, 0), rot=(0, 0, 0)):
+    return [{"t": 0, "loc": list(loc), "rot": list(rot)}]
+
+
+def bumper(state):
+    return {"blend": f"{P}/fbumper_c.blend", "keys": state}
+
+
+def hood(state):
+    return {"blend": f"{P}/hood_full.blend", "pivot": HH["p"], "keys": state}
+
+
+def lid(state):
+    return {"blend": f"{P}/trunk_full.blend", "pivot": HT["p"], "keys": state}
+
+
+B_AWAY = [0, -1.45, 0.0]           # s3-s6: bumper set aside (not loaded; it was shown in s2); s7 slides it home from here
+H_OPEN = still(rot=(HH["open_deg"], 0, 0))
+L_OPEN = still(rot=(HT["open_deg"], 0, 0))
+
+
 def shots():
     sh = {}
-    d = S("s1_turntable", 5.0)
-    sh["s1_turntable"] = {"base": [CAR], "cam": [orbit(0, 4.8, -28, 0.85, c=(0, -0.25, 0.5), focal=30, ease="lin", tz=0.45),
-                                                orbit(d, 4.5, -55, 0.95, c=(0, -0.25, 0.5), focal=30, ease="out2", tz=0.45)]}
-    d = S("s2_rear", 4.6)
-    sh["s2_rear"] = {"base": [CAR], "cam": [orbit(0, 4.7, 152, 0.75, c=(0, 0.3, 0.5), focal=30, ease="lin", tz=0.5),
-                                           orbit(d, 4.4, 128, 1.25, c=(0, 0.3, 0.5), focal=30, ease="out2", tz=0.5)]}
-    d = S("s3_wheel", 2.4)
-    sh["s3_wheel"] = {"base": [FR2], "cam": [
-        {"t": 0, "loc": [-1.95, -0.75, 0.38], "target": [-0.75, -1.25, 0.30], "focal": 40},
-        {"t": d, "loc": [-1.93, -1.05, 0.37], "target": [-0.75, -1.30, 0.30], "focal": 40, "ease": "out2"}]}
-    d = S("s4_lamp", 2.4)
-    sh["s4_lamp"] = {"base": [REAR2], "cam": [
-        {"t": 0, "loc": [-1.55, 2.95, 0.85], "target": [-0.45, 1.85, 0.62], "focal": 40},
-        {"t": d, "loc": [-1.15, 3.1, 0.83], "target": [-0.38, 1.87, 0.61], "focal": 40, "ease": "out2"}]}
-    d = S("s7_top", 2.4)
-    sh["s7_top"] = {"base": [CAR], "cam": [
-        {"t": 0, "loc": [1.9, 3.9, 3.5], "target": [0, 0.3, 0.45], "focal": 30},
-        {"t": d, "loc": [0.0, 0.2, 6.2], "target": [0, 0.0, 0.45], "focal": 30, "ease": "inout"}]}
-    # 5. hood opens on its fitted cowl hinge to the captured angle; engine bay from 'Front End Hood Open'.
-    # Camera on the car's right: the captured hood underside (ribs) covers the right 2/3 of the lid.
-    d = S("s5_hood", 3.6)
-    sh["s5_hood"] = {"base": [f"{P}/comp_hood.blend"],
-                     "parts": [{"blend": f"{P}/hood_full.blend", "pivot": HH["p"],
-                                "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                         {"t": 0.5 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                         {"t": min(d - 0.3, 3.5 * BEAT), "loc": [0, 0, 0], "rot": [HH["open_deg"], 0, 0], "ease": "inout"}]}],
-                     "cam": [orbit(0, 4.0, -38, 2.0, c=(0, -0.9, 0.5), focal=30, ease="lin", tz=0.55),
-                             orbit(d, 3.5, -22, 2.3, c=(0, -1.0, 0.5), focal=30, ease="out2", tz=0.55)]}
-    # 6. trunk: closed -> half open (37.5 deg, the 'NA Trunk Half Open' capture) -> pause -> open (55.6 deg, 'NA Trunk Open')
-    d = S("s6_trunk", 3.6)
-    sh["s6_trunk"] = {"base": [f"{P}/comp_trunk.blend"],
-                      "parts": [{"blend": f"{P}/trunk_full.blend", "pivot": HT["p"],
-                                 "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                          {"t": 0.5 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                          {"t": 1.5 * BEAT, "loc": [0, 0, 0], "rot": [HT["half_deg"], 0, 0], "ease": "inout"},
-                                          {"t": 2.5 * BEAT, "loc": [0, 0, 0], "rot": [HT["half_deg"], 0, 0], "ease": "lin"},
-                                          {"t": min(d - 0.3, 3.5 * BEAT), "loc": [0, 0, 0], "rot": [HT["open_deg"], 0, 0], "ease": "inout"}]}],
-                      "cam": [orbit(0, 4.0, 145, 2.1, c=(0, 0.9, 0.5), focal=30, ease="lin", tz=0.6),
-                              orbit(d, 3.7, 160, 2.3, c=(0, 1.0, 0.5), focal=30, ease="out2", tz=0.6)]}
-    sh["s8_explode"] = explode_shot()
+    # 1. whole car, front-right 3/4, fully in frame with margin (v1 was cropped); straight push toward the front end
+    d = S("s1_reveal", 5.07)
+    sh["s1_reveal"] = {"base": [CAR], "cam": [cam(0, (-3.9, -5.9, 1.35), (0, -0.35, 0.5), ease="lin"),
+                                               cam(d, (-2.9, -4.9, 1.15), (0, -0.9, 0.5), ease="out2")]}
+    # 2. FRONT: bumper slides up/forward out of the car into clear background, then turns once to show its scanned inside
+    d = S("s2_bumper", 4.43)
+    sh["s2_bumper"] = {"base": [BASE], "parts": [
+        bumper([{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                {"t": 3.5 * BEAT, "loc": B_OUT, "rot": [0, 0, 0], "ease": "inout"},
+                {"t": 4.0 * BEAT, "loc": B_OUT, "rot": [0, 0, 0], "ease": "lin"},
+                {"t": 7.0 * BEAT, "loc": B_OUT, "rot": B_ROT, "ease": "inout"}]),
+        hood(still()), lid(still())],
+        "cam": [cam(0, (-2.05, -4.7, 0.95), (0, -1.75, 0.75), ease="lin"),
+                cam(d, (-1.95, -4.6, 1.0), (0.15, -2.0, 0.92), ease="out2")]}
+    # 3. FRONT: hood opens on its fitted cowl hinge over the real bumper-off front end (bumper stays parked)
+    d = S("s3_hood", 4.43)
+    sh["s3_hood"] = {"base": [BASE], "parts": [
+        lid(still()),
+        hood([{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 0.5 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+              {"t": 3.5 * BEAT, "loc": [0, 0, 0], "rot": [HH["open_deg"], 0, 0], "ease": "inout"}])],
+        "cam": [cam(0, (-2.6, -3.9, 2.3), (0, -1.45, 0.6), ease="lin"),
+                cam(d, (-2.2, -3.4, 2.15), (0, -1.5, 0.55), ease="out2")]}
+    # 4. FRONT detail: slow dolly along the car's right side, close, over the exposed front structure + engine bay
+    d = S("s4_front_detail", 4.43)
+    sh["s4_front_detail"] = {"base": [BASE], "parts": [hood(H_OPEN), lid(still())],
+                             "cam": [cam(0, (-1.75, -1.0, 1.45), (-0.2, -1.55, 0.55), focal=32, ease="lin"),
+                                     cam(d, (-1.55, -2.35, 1.3), (-0.1, -1.75, 0.5), focal=32, ease="out2")]}
+    # 5. REAR, on the drop: trunk closed -> half open (37.5 deg capture) -> pause -> open (55.6 deg capture)
+    d = S("s5_trunk", 4.47)
+    sh["s5_trunk"] = {"base": [BASE], "parts": [
+        hood(H_OPEN),
+        lid([{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 0.5 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+             {"t": 2.0 * BEAT, "loc": [0, 0, 0], "rot": [HT["half_deg"], 0, 0], "ease": "inout"},
+             {"t": 3.5 * BEAT, "loc": [0, 0, 0], "rot": [HT["half_deg"], 0, 0], "ease": "lin"},
+             {"t": 5.0 * BEAT, "loc": [0, 0, 0], "rot": [HT["open_deg"], 0, 0], "ease": "inout"}])],
+        "cam": [cam(0, (2.3, 4.6, 1.55), (0, 1.35, 0.65), ease="lin"),
+                cam(d, (1.95, 4.0, 1.6), (0, 1.3, 0.65), ease="out2")]}
+    # 6. REAR detail: crane up behind the open trunk and look down into the scanned trunk well + lid underside
+    d = S("s6_trunk_well", 4.43)
+    sh["s6_trunk_well"] = {"base": [BASE], "parts": [hood(H_OPEN), lid(L_OPEN)],
+                           "cam": [cam(0, (0.55, 3.1, 1.5), (0, 1.3, 0.6), focal=30, ease="lin"),
+                                   cam(d, (0.25, 2.75, 2.05), (0, 1.25, 0.5), focal=30, ease="out2")]}
+    # 7. top-down (front at the top), slow push: everything goes home and locks on b52, then holds
+    d = S("s7_top_home", 4.43)
+    home = lambda frm: [{"t": 0, **frm}, {"t": BEAT, **frm}, {"t": 4 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "inout"}]
+    sh["s7_top_home"] = {"base": [BASE], "parts": [
+        bumper(home({"loc": B_AWAY, "rot": [0, 0, 0]})), hood(home({"loc": [0, 0, 0], "rot": [HH["open_deg"], 0, 0]})),
+        lid(home({"loc": [0, 0, 0], "rot": [HT["open_deg"], 0, 0]}))],
+        "cam": [cam(0, (0, -0.45, 6.3), (0, -0.5, 0.4), ease="lin"), cam(d, (0, -0.15, 5.6), (0, -0.2, 0.4), ease="out2")]}
     return sh
-
-
-def explode_shot():
-    """Bumper, hood and trunk lid lift off on the accent, hang stacked above/in front of the car while the camera
-    orbits front-right -> rear-right, then fly home and lock on a later accent. Base: full car minus the three panels
-    + 'Front End Bumper Off' (front structure, engine bay) + 'NA Trunk Open' (trunk well)."""
-    d = S("s8_explode", 10.0)
-    sep = S("x_sep", 0.0)          # separation starts (s from shot start)
-    out = sep + 2 * BEAT           # parts reach their exploded pose
-    back = S("x_back", d - 4 * BEAT)  # start flying home
-    lock = S("x_lock", d - 1.5 * BEAT)  # parts seated (an accent)
-
-    def ex(off, rot=(0, 0, 0), delay=0.0, pivot=None):
-        k = [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-             {"t": sep + delay, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-             {"t": out + delay, "loc": list(off), "rot": list(rot), "ease": "out"},
-             {"t": back, "loc": [o * 1.06 for o in off], "rot": list(rot), "ease": "lin"},
-             {"t": lock, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
-        return k
-    parts = [
-        {"blend": f"{P}/fbumper_c.blend", "keys": ex((0, -0.25, 1.05))},
-        {"blend": f"{P}/hood_full.blend", "keys": ex((0, -0.05, 1.5), (-8, 0, 0), 0.08)},
-        {"blend": f"{P}/trunk_full.blend", "keys": ex((0, 0.25, 1.1), (10, 0, 0), 0.16)},
-    ]
-    cam = [orbit(d * k / 12, 5.2 + 0.4 * math.sin(math.pi * k / 12), -40 - 85 * (k / 12), 4.4,
-                 c=(0, -0.65 + 0.5 * (k / 12), 1.0), focal=28, ease="lin", tz=0.95) for k in range(13)]
-    return {"base": [f"{P}/comp_explode.blend"], "parts": parts, "cam": cam}
 
 
 def spec(name, mode, frames=None):

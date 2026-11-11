@@ -1,71 +1,66 @@
-# Mazda Miata NA - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
-# Satin-silver scan on black; turntables -> close-ups -> hood + trunk open -> top-down -> exploded view -> logo.
-# Shots: tools/shots.py (specs, timing.json) rendered with projects/ferrari-296/tools/shot.py. Scan prep: editlog.jsonl.
-# Music: mazda-miata-na_track.mp3, 80s synthwave generated for this reel by the coordinating session (not in git).
-# Kick grid 0.6068 + 0.5555 n s (108.0 BPM). Cuts on frames round(b*30): 152, 285, 318, 352, 418, 485, 551, 951; end 1085 (36.16 s = b64).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# Mazda Miata NA - Temerario-style scan reel v2 (scan only: no IRL footage, no text). v1: project_v1.yaml, review_v1.md.
+# v2 (reviewer on v1: same first-revision issues as the siblings; car cropped at the start; repetitive steps; front bumper
+# data first, then the back): ordered by area, no turntables/orbits, only the bumper comes off, hood/trunk open on hinges.
+# Shots: tools/shots.py (specs, timing.json) rendered with tools/shot.py (persistent data off). Scan prep: editlog.jsonl.
+# Music: mazda-miata-na_track.mp3 (80s synthwave, generated for this reel; not in git). Kick grid 0.6068 + 0.5555 n s.
+# Cuts on frames round(b*30): 152, 285, 418, 551, 685, 818, 951; end 1068 (35.6 s, music decay).
+# Clip durs are whole frames; first clip one frame short; logo lengthened by the 0.6 s dip.
 project: mazda-miata-na
 format: reel-9x16
-output: {path: /home/user/media/work/miata/out/mazda_miata_na_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/miata/out/mazda_miata_na_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/mazda-miata-na_track.mp3   # not in git
   start: 0
   fade_out: 0.6
 
-beats: [5.051, 9.495, 10.606, 11.717, 13.939, 16.161, 18.383, 27.271, 29.493, 31.715, 36.159]
+beats: [5.051, 9.495, 13.939, 18.383, 22.827, 27.271, 29.493, 31.715]
 
 timeline:
-  - id: s1_turntable   # front 3/4 turntable, car's right, low; moving from frame 1 (intro, b0-b8)
-    src: /home/user/media/work/miata/renders/final/s1_turntable
+  - id: s1_reveal   # whole car, front-right 3/4, fully in frame; straight push toward the front (b0-b8)
+    src: /home/user/media/work/miata/renders/final/s1_reveal
     src_fps: 15
     interpolate: true
     dur: 5.0333
   - transition: {type: cut, note: "b8 5.051 phrase"}
-  - id: s2_rear   # rear 3/4 orbit, car's left, slight rise (b8-b16)
-    src: /home/user/media/work/miata/renders/final/s2_rear
+  - id: s2_bumper   # FRONT: bumper lifts out into clear air (b9-b11.5), turns 135 deg to show its scanned inside (b12-b15)
+    src: /home/user/media/work/miata/renders/final/s2_bumper
     src_fps: 15
     interpolate: true
     dur: 4.4333
   - transition: {type: cut, note: "b16 9.495 new layer"}
-  - id: s3_wheel   # extreme close-up: front-right wheel, brake, Toyo sidewall (2 mm scan) - new layer at b16
-    src: /home/user/media/work/miata/renders/final/s3_wheel
+  - id: s3_hood   # FRONT: hood opens on its fitted cowl hinge (-44.4 deg) over the real bumper-off front end (b16-b24)
+    src: /home/user/media/work/miata/renders/final/s3_hood
     src_fps: 15
     interpolate: true
-    dur: 1.1000
-  - transition: {type: cut, note: "b18 10.606"}
-  - id: s4_lamp   # tail lamp + blanked plate recess, 2 mm (b18-b20)
-    src: /home/user/media/work/miata/renders/final/s4_lamp
-    src_fps: 15
-    interpolate: true
-    dur: 1.1333
-  - transition: {type: cut, note: "b20 11.717"}
-  - id: s5_hood   # hood opens on the fitted cowl hinge to the captured -44.4 deg; engine bay from 'Front End Hood Open' (b20-b24)
-    src: /home/user/media/work/miata/renders/final/s5_hood
-    src_fps: 15
-    interpolate: true
-    dur: 2.2000
+    dur: 4.4333
   - transition: {type: cut, note: "b24 13.939 build"}
-  - id: s6_trunk   # trunk closed -> half (37.5 deg) -> open (55.6 deg), the three trunk captures; build b24-b28
-    src: /home/user/media/work/miata/renders/final/s6_trunk
+  - id: s4_front_detail   # FRONT detail: close dolly along the right side over the exposed front structure + engine bay (build b24-b32)
+    src: /home/user/media/work/miata/renders/final/s4_front_detail
     src_fps: 15
     interpolate: true
-    dur: 2.2333
-  - transition: {type: cut, note: "b28 16.161 riser"}
-  - id: s7_top   # high rear 3/4 up and over to top-down through the riser (b28-b32)
-    src: /home/user/media/work/miata/renders/final/s7_top
+    dur: 4.4333
+  - transition: {type: cut, note: "b32 18.383 THE DROP - front -> rear"}
+  - id: s5_trunk   # REAR on the drop: trunk closed -> half (37.5) -> pause -> open (55.6), the three trunk captures (b32-b40)
+    src: /home/user/media/work/miata/renders/final/s5_trunk
     src_fps: 15
     interpolate: true
-    dur: 2.2000
-  - transition: {type: cut, note: "b32 18.383 THE DROP"}
-  - id: s8_explode   # DROP b32: bumper/hood/trunk lid separate, stack above, orbit front-right -> side; fly home from b48, lock b52, hold 4 beats
-    src: /home/user/media/work/miata/renders/final/s8_explode
-    src_fps: 15
-    interpolate: true
-    dur: 13.3333
-  - transition: {type: cut, note: "b56 31.715 phrase change"}
-  - id: logo   # ILLUMAESTHETIC logo card (ferrari-296 tools/logo_card.py), fades with the track's end
-    src: /home/user/media/work/miata/out/logo_card.mp4
     dur: 4.4667
+  - transition: {type: cut, note: "b40 22.827 phrase"}
+  - id: s6_trunk_well   # REAR detail: crane up behind the open trunk, into the scanned trunk well + lid underside (b40-b48)
+    src: /home/user/media/work/miata/renders/final/s6_trunk_well
+    src_fps: 15
+    interpolate: true
+    dur: 4.4333
+  - transition: {type: cut, note: "b48 27.271 phrase change"}
+  - id: s7_top_home   # top-down, slow push: bumper slides home, hood + lid close, lock b52, hold (b48-b56)
+    src: /home/user/media/work/miata/renders/final/s7_top_home
+    src_fps: 15
+    interpolate: true
+    dur: 4.4333
+  - transition: {type: dip, duration: 0.6, note: "b56 31.715 phrase change - fade through black"}
+  - id: logo   # small ILLUMAESTHETIC logo (470 px), fades with the music's decay
+    src: /home/user/media/work/miata/out/logo_card_v2.mp4
+    dur: 4.5000
 
 overlays: []

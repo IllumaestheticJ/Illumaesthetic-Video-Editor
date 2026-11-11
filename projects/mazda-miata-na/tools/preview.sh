@@ -4,7 +4,7 @@ cd "$(dirname "$0")/../../.."
 for s in "$@"; do
   sp=$(python projects/mazda-miata-na/tools/shots.py preview $s)
   rm -rf /home/user/media/work/miata/renders/preview/$s
-  blender -b -P projects/ferrari-296/tools/shot.py -- $sp > /home/user/media/work/miata/renders/$s.log 2>&1
+  blender -b -P projects/mazda-miata-na/tools/shot.py -- $sp > /home/user/media/work/miata/renders/$s.log 2>&1
   python - "$s" <<'PY'
 import sys, glob
 from PIL import Image

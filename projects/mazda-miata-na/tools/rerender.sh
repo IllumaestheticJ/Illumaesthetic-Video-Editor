@@ -8,7 +8,7 @@ sp=$(python projects/mazda-miata-na/tools/shots.py final $s)
 for ((i=a; i<=b; i+=n)); do
   j=$(( i+n-1 < b ? i+n-1 : b ))
   python -c "import json,sys;d=json.load(open('$sp'));d['frames']=list(range($i,$j+1));json.dump(d,open('$sp.chunk','w'))"
-  blender -b -P projects/ferrari-296/tools/shot.py -- $sp.chunk > /home/user/media/work/miata/renders/rerender_${s}_$i.log 2>&1
+  blender -b -P projects/mazda-miata-na/tools/shot.py -- $sp.chunk > /home/user/media/work/miata/renders/rerender_${s}_$i.log 2>&1
   echo "$(date +%T) $s $i-$j"
 done
 echo DONE
