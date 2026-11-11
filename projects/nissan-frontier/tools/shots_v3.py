@@ -83,7 +83,7 @@ def shots():
     # S3 FRONT BUMPER on the drop (as v2; base no longer carries bumper skin)
     n = "v3_s3_bumper"
     b1 = [k(0, (0, 0, 0)), k(0.60, (0, -0.70, -0.05), ease="out2"), k(1.19, BUMPER_PARK)]
-    sh[n] = {"base": [f"{P}/c3_fbrhc.blend", f"{P}/c3_fbrhc_fill.blend"],
+    sh[n] = {"base": [f"{P}/c3_fbrhc.blend", f"{P}/c3_fbrhc_fill2.blend"],
              "parts": [part("x_bumper", b1 + [k(2.38, BUMPER_PARK), k(3.60, BUMPER_PARK, BUMPER_ROT)], "bumper", hl(n, "bumper")),
                        part("x_grille", b1 + [k(2.38, GRILLE_PARK)])],
              "cam": cam((0, (-1.4, -5.4, 1.0), (-0.1, -2.9, 0.55), 30, "lin"),
@@ -92,7 +92,7 @@ def shots():
                         (S[n] + 0.2, (-0.4, -5.2, 1.9), (-0.06, -3.65, -0.1), 28, "inout"))}
     # S4 FRONT BUMPER REMOVED: low push-in on the bumper-off state
     n = "v3_s4_removed"
-    sh[n] = {"base": [f"{P}/c3_fbrhc.blend", {"blend": f"{P}/c3_fbrhc_fill.blend", "name": "fbrhc", "hl": hl(n, "fbrhc")}],
+    sh[n] = {"base": [f"{P}/c3_fbrhc.blend", {"blend": f"{P}/c3_fbrhc_fill2.blend", "name": "fbrhc", "hl": hl(n, "fbrhc")}],
              "parts": [],
              "cam": cam((0, (0.6, -6.0, 1.15), (-0.06, -2.6, 0.78), 30, "lin"),
                         (S[n] + 0.2, (0.3, -4.4, 1.05), (-0.06, -2.55, 0.72), 32, "inout"))}
