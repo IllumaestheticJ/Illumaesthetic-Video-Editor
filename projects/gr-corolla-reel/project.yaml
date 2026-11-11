@@ -7,10 +7,10 @@
 # Scan: engineering full-car scan aligned into the model frame (scan/align.json), Epsilon kit CAD overlaid in silver.
 project: gr-corolla-reel
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/out/gr-corolla_reel_v2_freakedout.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/gr-corolla_reel_v3_static_labels.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/music/tiktok/freaked_out.mp3   # FREAKED OUT - Fat Papi & prodshushy (TikTok Commercial Music Library, trending #73 US 7-day; song_clip_id 7644353784302340112) (not in git)
+  path: /home/user/media/music/tiktok/freaked_out.mp3   # FREAKED OUT - Fat Papi & prodshushy (TikTok CML) (not in git)
   start: 10.6295   # drop (12.040 s in the track) lands at 1.411 s
   fade_out: 0.8
 
@@ -18,54 +18,63 @@ music:
 beats: [1.4105, 2.821, 4.2315, 5.642, 7.0525, 8.463, 9.8735, 11.284, 12.6945, 14.105]
 
 timeline:
-  - id: a_real   # HOOK: real car with the Epsilon kit; pre-drop hit
-    src: /home/user/media/cars/gr-corolla/layers/Az_photo.mp4
+  - id: a_cgi   # HOOK: concept CGI over the pre-drop; first cut on the drop
+    src: /home/user/media/cars/gr-corolla/layers/As_cgi.mp4
     in: 0.0000
     dur: 1.3667
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='CONCEPT':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: a_scan   # THE DROP: 1:1 real -> scan (+ kit CAD)
-    src: /home/user/media/cars/gr-corolla/layers/Az_scan.mp4
+  - id: a_scan   # angle A: scan + Epsilon CAD
+    src: /home/user/media/cars/gr-corolla/layers/As_scan.mp4
     in: 1.4000
     dur: 1.4333
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='SCAN / CAD':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: a_cgi   # 1:1 -> lookbook CGI
-    src: /home/user/media/cars/gr-corolla/layers/Az_cgi.mp4
+  - id: a_real   # angle A: real photo
+    src: /home/user/media/cars/gr-corolla/layers/As_photo.mp4
     in: 2.8333
     dur: 1.4000
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='REAL':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: b_scan   # angle 2: scan
-    src: /home/user/media/cars/gr-corolla/layers/Bz_scan.mp4
+  - id: b_cgi   # angle B: concept (lookbook CGI)
+    src: /home/user/media/cars/gr-corolla/layers/Bs_cgi.mp4
     in: 0.0000
     dur: 1.4000
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='CONCEPT':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: b_cgi   # CGI
-    src: /home/user/media/cars/gr-corolla/layers/Bz_cgi.mp4
+  - id: b_scan   # angle B: scan + Epsilon CAD
+    src: /home/user/media/cars/gr-corolla/layers/Bs_scan.mp4
     in: 1.4000
     dur: 1.4333
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='SCAN / CAD':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: b_real   # real
-    src: /home/user/media/cars/gr-corolla/layers/Bz_photo.mp4
+  - id: b_real   # angle B: real photo
+    src: /home/user/media/cars/gr-corolla/layers/Bs_photo.mp4
     in: 2.8333
     dur: 1.4000
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='REAL':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: c_scan   # angle 3: scan
-    src: /home/user/media/cars/gr-corolla/layers/Cz_scan.mp4
+  - id: c_cgi   # angle C: concept (lookbook CGI)
+    src: /home/user/media/cars/gr-corolla/layers/Cs_cgi.mp4
     in: 0.0000
     dur: 1.4000
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='CONCEPT':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: c_cgi   # CGI
-    src: /home/user/media/cars/gr-corolla/layers/Cz_cgi.mp4
+  - id: c_scan   # angle C: scan + Epsilon CAD
+    src: /home/user/media/cars/gr-corolla/layers/Cs_scan.mp4
     in: 1.4000
     dur: 1.4333
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='SCAN / CAD':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
-  - id: c_real   # real
-    src: /home/user/media/cars/gr-corolla/layers/Cz_photo.mp4
+  - id: c_real   # angle C: real photo
+    src: /home/user/media/cars/gr-corolla/layers/Cs_photo.mp4
     in: 2.8333
     dur: 1.4000
+    vf: "drawtext=fontfile=/usr/share/fonts/opentype/inter/InterDisplay-SemiBold.otf:text='REAL':fontsize=68:fontcolor=0xE8ECF2:x=(w-text_w)/2:y=300:shadowcolor=black@0.55:shadowx=0:shadowy=2"
   - transition: {type: cut}
   - id: end_card   # Epsilon+ logo on the 4-bar section change
     src: /home/user/media/work/fg2/layers/end_card_epsilon.png
     duration: 1.4000
     dur: 1.4000
 
-overlays: []   # no text
+overlays: []
