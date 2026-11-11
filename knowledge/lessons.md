@@ -207,3 +207,14 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** Shell args like `--look-at -0.4,...` are parsed as flags by argparse: use `--look-at=-0.4,...`.
 - **[pacing]** Measured: first clip one frame short (dur - 1/30) makes every cut land on round(t*30) exactly; without it all cuts were 1 frame late.
 - **[story]** Don't show a part coming off (exploded bumper etc.) unless it was physically removed on the car AND we have a separate scan of it in that state - we never pulled the EK bumper  _(from honda-civic-11-scan-process @ 9.8s, 2026-11-11, reviewer)_
+## From the GR Corolla scan reel (2026-11-11, built by an agent)
+- **[technical]** Cycles animation renders (persistent data, many keyed parts) can go black from some frame on, deterministically,
+  while the same frames render lit as stills (GR Corolla explode: frames 134+ after every part locked). Check per-frame mean
+  brightness of every render folder; re-render a dark tail via the `frames` list in tools/shot.py.
+- **[scan-look]** No separate panel scans? Cut hood/fenders/doors/hatch from the full car at seams read off mm-grid splats
+  (projects/toyota-gr-corolla/tools/panels.py) and put a registered stripped-shell state scan underneath - lifting a panel
+  then reveals real scanned structure. "Car minus stripped chassis" is not a usable split (the shell's skin differs).
+- **[scan-look]** Missing wheels in the full-car scan: look for them in registered state scans (GR Corolla 'rear' had the
+  real rear wheel) and splice only the wheel boxes (tools/wheelfill.py) before calling them unscanned.
+- **[pacing]** Generated hyperpop track = 140 BPM; `ive beats` reports the half-time 69.8. A no-kick build can carry slow
+  turntables on its phrase lines; put the transformations on the drops.

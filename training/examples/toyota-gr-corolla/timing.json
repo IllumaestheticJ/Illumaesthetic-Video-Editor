@@ -1,0 +1,4 @@
+{"note": "toyota-gr-corolla_track.mp3: 140.0 BPM, beat 0.4286 s, grid t0 0.0825 (kick-peak fit, p90 resid 5.6 ms). Build 0-13.8 (no kick), drop 13.798 (b32), break 26.66-27.08, drop 2 27.513 (b64), last kick 37.37, gone -30 dB 38.19. Cut frames: 208 (6.940 b16), 311 (10.369 b24), 363 (12.083 b28), 414 (13.798 DROP), 517 (17.226 b40), 620 (20.655 b48), 723 (24.084 b56), 1031 (34.370 b80), end 1146 (38.2). Shot-relative keys below are (accent frame - shot start frame)/30.",
+ "beat": 0.4286,
+ "secs": {"s1_front": 6.9, "s2_rear": 3.4333, "s3_wheel": 1.7333, "s4_nose": 1.7, "s5_hood": 3.4333, "s6_hatch": 3.4333, "s7_top": 3.4333, "s8_explode": 10.2667},
+ "hood_open": [0.4333, 1.7], "hatch_open": [0.4333, 2.1333], "sep": 3.4, "lock": 8.5667}
