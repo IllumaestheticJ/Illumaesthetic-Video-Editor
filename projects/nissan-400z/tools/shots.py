@@ -90,18 +90,35 @@ def explode(off, rot=(0, 0, 0), delay=0.0):
 
 
 # portrait-friendly: panels mostly stack UP (Temerario 25-31 s) and only modestly fore/aft/out
-SHOTS["s8_explode"] = {
-    "base": [f"{B}/comp_explode.blend"],
-    "parts": [
-        {"blend": f"{B}/p_hood.blend", "keys": explode((0, -0.05, 1.45), (-8, 0, 0))},
-        {"blend": f"{B}/bumper_shell.blend", "keys": explode((0, -0.22, 0.62), delay=0.05)},
-        {"blend": f"{B}/p_grille.blend", "keys": explode((0, -0.3, 1.02), delay=0.12)},
-        {"blend": f"{B}/p_wing.blend", "keys": explode((0, 0.1, 0.85), (14, 0, 0), 0.08)},
-        {"blend": f"{B}/p_mirror_r.blend", "keys": explode((-0.45, 0, 0.35), (0, 0, -20), 0.1)},
-        {"blend": f"{B}/p_mirror_l.blend", "keys": explode((0.45, 0, 0.35), (0, 0, 20), 0.1)},
-    ],
-    "cam": arc(S["s8_explode"], 5.3, 5.6, -18, -55, 4.4, 3.8, c0=(0, -0.55, 0.75), c1=(0, -0.35, 0.75), focal=28, n=12,
+PARTS = [
+    (f"{B}/p_hood.blend", (0, -0.05, 1.45), (-8, 0, 0), 0.0),
+    (f"{B}/bumper_shell.blend", (0, -0.22, 0.62), (0, 0, 0), 0.05),
+    (f"{B}/p_grille.blend", (0, -0.3, 1.02), (0, 0, 0), 0.12),
+    (f"{B}/p_wing.blend", (0, 0.25, 1.15), (14, 0, 0), 0.08),
+    (f"{B}/p_mirror_r.blend", (-0.45, 0, 0.35), (0, 0, -20), 0.1),
+    (f"{B}/p_mirror_l.blend", (0.45, 0, 0.35), (0, 0, 20), 0.1),
+]
+
+
+def parts(offset=0.0):
+    """One explode timeline across both explode shots; shot B samples it from `offset` s (its cut)."""
+    out = []
+    for blend, off, rot, delay in PARTS:
+        keys = explode(off, rot, delay)
+        for k in keys:
+            k["t"] -= offset
+        out.append({"blend": blend, "keys": keys})
+    return out
+
+
+# A: separate on the 19.32 s accent, fully out on 23.01 s; high front-right 3/4 looking down
+SHOTS["s8a_explode"] = {"base": [f"{B}/comp_explode.blend"], "parts": parts(),
+    "cam": arc(S["s8a_explode"], 5.3, 5.6, -18, -55, 4.4, 3.9, c0=(0, -0.55, 0.75), c1=(0, -0.4, 0.75), focal=28, n=12,
                ease_out=False, tz=0.7)}
+# B (cut on 26.70 s): high rear-left 3/4; panels fly home and LOCK on 30.40 s (heaviest kick), car rests to the logo
+SHOTS["s8b_explode"] = {"base": [f"{B}/comp_explode.blend"], "parts": parts(BACK),
+    "cam": arc(S["s8b_explode"], 5.6, 5.0, 148, 112, 4.0, 2.6, c0=(0, 0.45, 0.75), c1=(0, 0.1, 0.6), focal=28, n=12,
+               ease_out=True, tz=0.6)}
 
 
 def spec(name, mode):
