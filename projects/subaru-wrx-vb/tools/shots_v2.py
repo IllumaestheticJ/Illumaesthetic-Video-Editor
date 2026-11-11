@@ -29,6 +29,12 @@ OFF = {FBUMP: ((0, -0.55, 2.00), (0, 0, 0)), PLATE: ((0, -0.55, 2.00), (0, 0, 0)
        FFL: ((-0.45, 0, 0.90), (0, -8, 0)), DFL: ((-0.45, 0, 0.90), (0, -8, 0)), RFL: ((-0.45, 0, 0.90), (0, -8, 0)),
        SKIRT: ((-0.60, 0, -0.12), (0, 0, 0)), RBUMP: ((0, 0.40, 1.70), (0, 0, 0))}
 PIVOT = {FBUMP: PIV_F, PLATE: PIV_F, RBUMP: PIV_R}
+# preview v1 of v2: parts resting at OFF sat half-clipped at the frame edges of the close section shots. Inside the
+# section shots removed parts leave the frame for good (AWAY); the reassembly starts from the visible OFF poses.
+AWAY = dict(OFF)
+AWAY.update({FBUMP: ((0, -0.55, 6.0), (0, 0, 0)), PLATE: ((0, -0.55, 6.0), (0, 0, 0)), GARN: ((0, -0.45, 5.5), (0, 0, 0)),
+             FFL: ((-0.40, 0, 2.0), (0, -8, 0)), DFL: ((-0.40, 0, 2.0), (0, -8, 0)), RFL: ((-0.40, 0, 2.0), (0, -8, 0)),
+             RBUMP: ((0, 0.40, 2.9), (0, 0, 0))})
 
 SHOT_START = {"v2_opener": 0.0, "v2_front_off": 8.707, "v2_side_off": 16.775, "v2_rear_off": 22.360,
               "v2_reassemble": 27.944}
@@ -50,8 +56,8 @@ def part(b, keys):
     return d
 
 
-def parked(b, end):  # already removed: sits at its off pose for the whole shot (keys so nothing pops)
-    o, r = OFF[b]
+def parked(b, end):  # already removed: out of frame (AWAY) for the whole shot
+    o, r = AWAY[b]
     return part(b, [K(0, o, r), K(end + 1, o, r, "lin")])
 
 
@@ -63,31 +69,31 @@ SHOTS = {}
 
 # 1. whole car, elevated front-right 3/4, moving from frame 1
 SHOTS["v2_opener"] = {"base": [CAR], "parts": [], "cam": [
-    C(0, (-1.10, -5.90, 2.80), (0.40, -0.30, 0.60), 28, "lin"),
-    C(SECS["v2_opener"], (-2.15, -5.89, 2.40), (0.25, -0.50, 0.60), 28)]}
+    C(0, (-1.10, -5.90, 2.80), (0.40, -0.30, 0.60), 38, "lin"),
+    C(SECS["v2_opener"], (-2.15, -5.89, 2.40), (0.25, -0.50, 0.60), 38)]}
 
 # 3. FRONT OFF (hero): bumper + plate leave forward on the drop, flip to show the scanned inner face, rise away;
 # garnish slides forward on the floor then lifts; camera ends low and close on the scanned crash structure.
 n = "v2_front_off"
 fb_keys = [K(0), K(rt(n, 11.191)), K(rt(n, 11.715), (0, -0.75, 0.25), ease="out"),
            K(rt(n, 12.587), (0, -0.85, 0.95), (-160, 0, 0)), K(rt(n, 13.983), (0, -0.85, 1.03), (-160, 0, 0), "lin"),
-           K(rt(n, 14.681), *OFF[FBUMP]), K(SECS[n] + 1, *OFF[FBUMP], ease="lin")]
+           K(rt(n, 14.681), *AWAY[FBUMP]), K(SECS[n] + 1, *AWAY[FBUMP], ease="lin")]
 g_keys = [K(0), K(rt(n, 12.587)), K(rt(n, 13.285), (0, -0.60, -0.02)), K(rt(n, 13.983), (0, -0.65, 0.60)),
-          K(rt(n, 14.681), *OFF[GARN]), K(SECS[n] + 1, *OFF[GARN], ease="lin")]
+          K(rt(n, 14.681), *AWAY[GARN]), K(SECS[n] + 1, *AWAY[GARN], ease="lin")]
 SHOTS[n] = {"base": [XB, RBUMP, FFL, DFL, RFL, SKIRT],
             "parts": [part(FBUMP, fb_keys), part(PLATE, fb_keys), part(GARN, g_keys)],
-            "cam": [C(0, (-2.10, -5.30, 1.20), (-0.10, -2.00, 0.75), 30),
-                    C(2.484, (-1.90, -4.90, 1.10), (-0.10, -2.00, 0.80), 30),
-                    C(3.880, (-1.90, -5.60, 1.40), (-0.10, -2.95, 1.35), 30),
-                    C(5.276, (-1.70, -5.20, 1.40), (-0.10, -2.95, 1.40), 30),
-                    C(8.068, (-1.50, -4.10, 0.90), (-0.10, -2.05, 0.50), 28)]}
+            "cam": [C(0, (-2.10, -5.30, 1.20), (-0.10, -2.05, 0.60), 42),
+                    C(2.484, (-1.90, -4.90, 1.10), (-0.10, -2.05, 0.62), 42),
+                    C(3.880, (-2.10, -6.40, 1.55), (-0.05, -2.90, 1.30), 30),
+                    C(5.276, (-1.90, -6.00, 1.55), (-0.05, -2.90, 1.35), 30),
+                    C(8.068, (-1.30, -3.80, 1.05), (-0.05, -2.00, 0.66), 28)]}
 
 # 4. SIDE OFF: front-right wheel, then front flare / door flare / rear flare / skirt, one per bar, travelling rearward
 n = "v2_side_off"
 
 
 def lift(b, go):
-    o, r = OFF[b]
+    o, r = AWAY[b]
     first = (-0.35, 0, 0.10) if b != SKIRT else None
     ks = [K(0), K(go)]
     if first:
@@ -103,18 +109,18 @@ SHOTS[n] = {"base": [XB, RBUMP],
                     C(1.396, (-3.00, -0.90, 1.10), (-0.90, -0.60, 0.70), 30, "lin"),
                     C(2.792, (-3.20, 0.40, 1.10), (-0.90, 0.40, 0.65), 30, "lin"),
                     C(4.188, (-3.00, 1.60, 1.05), (-0.90, 1.25, 0.60), 30, "lin"),
-                    C(5.585, (-4.60, 1.00, 1.60), (-0.90, 0.30, 0.55), 30)]}
+                    C(5.585, (-7.40, 0.40, 2.20), (-0.60, 0.30, 0.90), 26)]}
 
 # 5. REAR OFF: same grammar as the front
 n = "v2_rear_off"
 rb_keys = [K(0), K(0.0), K(0.524, (0, 0.70, 0.20), ease="out"), K(1.396, (0, 0.80, 0.90), (160, 0, 0)),
-           K(2.792, (0, 0.80, 0.98), (160, 0, 0), "lin"), K(3.490, *OFF[RBUMP]), K(SECS[n] + 1, *OFF[RBUMP], ease="lin")]
+           K(2.792, (0, 0.80, 0.98), (160, 0, 0), "lin"), K(3.490, *AWAY[RBUMP]), K(SECS[n] + 1, *AWAY[RBUMP], ease="lin")]
 SHOTS[n] = {"base": [XB],
             "parts": [parked(b, SECS[n]) for b in (FBUMP, PLATE, GARN, FFL, DFL, RFL, SKIRT)] + [part(RBUMP, rb_keys)],
-            "cam": [C(0, (-1.80, 5.02, 0.85), (-0.05, 1.95, 0.60), 30),
-                    C(1.396, (-1.90, 5.60, 1.30), (-0.05, 2.75, 1.30), 30),
-                    C(2.792, (-1.70, 5.30, 1.35), (-0.05, 2.75, 1.35), 30),
-                    C(5.584, (-1.30, 4.20, 0.75), (-0.10, 2.15, 0.45), 28)]}
+            "cam": [C(0, (-1.50, 5.40, 0.95), (0.0, 1.95, 0.60), 30),
+                    C(1.396, (-1.60, 6.60, 1.45), (0.0, 2.75, 1.30), 30),
+                    C(2.792, (-1.45, 6.30, 1.50), (0.0, 2.75, 1.35), 30),
+                    C(5.584, (-1.10, 4.00, 1.00), (-0.05, 2.05, 0.64), 28)]}
 
 # 6. REASSEMBLE: rear -> side -> front, front bumper locks on 30.736 (shot t 2.792 = frame 43); frames 43+ re-rendered
 # with the clean car (v2_reassemble_car) so no composite seams show after the lock
