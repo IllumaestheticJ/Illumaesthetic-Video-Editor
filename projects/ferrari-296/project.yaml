@@ -1,0 +1,71 @@
+# Ferrari 296 GTB - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of 240sx-scan / fg2-race-car.
+# Satin-silver scan on black; turntables -> close-ups -> hood + engine cover open -> top-down -> exploded view -> logo.
+# Shots: projects/ferrari-296/tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + hinged parts).
+# Music: original procedural score, tools/music.py + cues.json (100 BPM, bar = 2.4 s = 72 frames; every cut on a bar line).
+# Clip durs are whole frames so each cut lands on round(t*30); first clip is one frame short (assembler adds the cut hold frame).
+project: ferrari-296
+format: reel-9x16
+output: {path: /home/user/media/work/f296/out/ferrari_296_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/f296/audio/score_v1.wav   # python projects/ferrari-296/tools/music.py projects/ferrari-296/cues.json <wav>
+  start: 0
+  fade_out: 0.6
+
+# cut times (s): bar lines of the 100 BPM grid; hits in cues.json sit exactly on these
+beats: [4.8, 9.6, 12.0, 14.4, 19.2, 21.6, 26.4, 33.6]
+
+timeline:
+  - id: s1_turntable   # front 3/4 turntable, moving from frame 1 (hook); soft hit on frame 1
+    src: /home/user/media/work/f296/renders/final/s1_turntable
+    src_fps: 15
+    interpolate: true
+    dur: 4.7667
+  - transition: {type: cut, note: "bar 2 (4.8 s)"}
+  - id: s2_rear        # rear 3/4 orbit, other side, slight rise; kick enters on the bar
+    src: /home/user/media/work/f296/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "bar 4 (9.6 s)"}
+  - id: s3_wheel       # extreme close-up: front right wheel + brake through the spokes (3 mm scan)
+    src: /home/user/media/work/f296/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "bar 5 (12.0 s)"}
+  - id: s4_nose        # detail: front lamp + intake slide (tail lamps are scan holes - avoided)
+    src: /home/user/media/work/f296/renders/final/s4_nose
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "bar 6 (14.4 s)"}
+  - id: s5_hood        # hood lifts 15.0 -> 17.4 s on its rear hinge, frunk from the state scan
+    src: /home/user/media/work/f296/renders/final/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "bar 8 (19.2 s)"}
+  - id: s6_engine      # engine-cover louvre lifts 19.8 -> 21.0 s
+    src: /home/user/media/work/f296/renders/final/s6_engine
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "bar 9 (21.6 s)"}
+  - id: s7_top         # rear-high 3/4 up and over to straight top-down; riser 23.4 -> 26.4
+    src: /home/user/media/work/f296/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "bar 11 (26.4 s) - impact, panels separate"}
+  - id: s8_explode     # separate 26.4-28.8, drift, fly home 31.2-32.4, LOCK 32.4 (big impact), hold
+    src: /home/user/media/work/f296/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 7.2
+  - transition: {type: cut, note: "bar 14 (33.6 s) - logo, Dm chord + hall tail"}
+  - id: logo           # tools/logo_card.py: ILLUMAESTHETIC logo on render black, fades out with the music
+    src: /home/user/media/work/f296/out/logo_card.mp4
+    dur: 4.8
+
+overlays: []

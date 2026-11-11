@@ -1,0 +1,36 @@
+{
+  "_note": "Score cues derived from the shot plan (project.yaml). 100 BPM: beat 0.6 s = 18 frames @30, bar 2.4 s. Every cut is on a bar line.",
+  "bpm": 100,
+  "length": 38.4,
+  "key_root": 50,
+  "chords": [[0, "m"], [-4, ""], [-7, "m"], [-5, ""]],
+  "sections": [
+    {"start": 0.0,  "end": 4.8,  "kick": "none", "hats": 0.0, "pad": 0.85, "sub": 0.7},
+    {"start": 4.8,  "end": 9.6,  "kick": "one",  "hats": 0.35, "pad": 0.85, "sub": 0.85},
+    {"start": 9.6,  "end": 14.4, "kick": "half", "hats": 0.7, "ticks": true, "pad": 0.7, "sub": 1.0},
+    {"start": 14.4, "end": 24.0, "kick": "half", "hats": 0.6, "pad": 0.8, "sub": 1.0},
+    {"start": 24.0, "end": 26.4, "kick": "none", "hats": 0.3, "pad": 0.6, "sub": 0.6},
+    {"start": 26.4, "end": 31.2, "kick": "four", "kick_gain": 0.7, "hats": 0.8, "ticks": true, "pad": 0.9, "sub": 1.0},
+    {"start": 31.2, "end": 32.4, "kick": "none", "hats": 0.0, "pad": 0.6, "sub": 0.5},
+    {"start": 32.4, "end": 33.6, "kick": "none", "hats": 0.0, "pad": 0.35, "sub": 0.3},
+    {"start": 33.6, "end": 38.4, "kick": "none", "hats": 0.0, "pad": 0.45, "sub": 0.25}
+  ],
+  "hits": [
+    {"t": 0.0,  "kind": "cut", "gain": 0.8, "_": "first frame: turntable starts"},
+    {"t": 4.8,  "kind": "cut", "_": "cut: rear orbit"},
+    {"t": 9.6,  "kind": "cut", "_": "cut: wheel close-up"},
+    {"t": 12.0, "kind": "cut", "_": "cut: rear detail"},
+    {"t": 14.4, "kind": "cut", "_": "cut: front, hood shut"},
+    {"t": 16.8, "kind": "whoosh", "dur": 3.0, "gain": 0.9, "_": "hood lifts 15.0 -> 17.4"},
+    {"t": 17.4, "kind": "cut", "gain": 0.45, "_": "hood reaches full open"},
+    {"t": 19.2, "kind": "cut", "_": "cut: engine cover"},
+    {"t": 20.4, "kind": "whoosh", "dur": 1.5, "gain": 0.7, "_": "cover lifts 19.8 -> 21.0"},
+    {"t": 21.6, "kind": "cut", "_": "cut: top-down move"},
+    {"t": 26.4, "kind": "impact", "gain": 1.0, "_": "cut + panels start to separate"},
+    {"t": 32.4, "kind": "swell", "dur": 1.2, "gain": 1.0, "_": "panels fly home 31.2 -> 32.4"},
+    {"t": 32.4, "kind": "big", "gain": 1.0, "_": "reassembly LOCK"},
+    {"t": 33.6, "kind": "chord", "chord": [0, "m"], "dur": 4.8, "gain": 1.0, "_": "logo card"}
+  ],
+  "risers": [{"start": 23.4, "end": 26.4, "gain": 1.0, "_": "into the exploded view"}],
+  "fade_out": [36.6, 38.4]
+}
