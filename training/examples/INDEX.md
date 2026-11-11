@@ -13,9 +13,9 @@ Newest first. Read the top two before starting a new edit.
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11
+- [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
-- [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11
 - [c5-corvette](c5-corvette/) - archived 2026-11-11

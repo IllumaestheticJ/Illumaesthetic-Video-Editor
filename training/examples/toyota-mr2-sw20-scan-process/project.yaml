@@ -67,5 +67,5 @@ timeline:
     src: /home/user/media/work/out/webzoom_mr2_v2.mp4
 
 overlays:
-  - src: /home/user/media/work/out/hud_mr2_v1.mov
+  - src: /home/user/media/work/out/hud_mr2_v2.mov
     start: 0
