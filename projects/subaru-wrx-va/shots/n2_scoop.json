@@ -1,0 +1,148 @@
+{
+ "seconds": 2.0333,
+ "lens": 40,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/explode_base_4mm.blend"
+  },
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/wingfull_2mm.blend"
+  },
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/fbump_nofog_2mm.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0.5,
+      0,
+      2.6
+     ],
+     "rot": [
+      0,
+      180,
+      0
+     ]
+    },
+    {
+     "t": 1,
+     "loc": [
+      0.5,
+      0,
+      2.6
+     ],
+     "rot": [
+      0,
+      180,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/fogL_2mm.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0.7,
+      1.6,
+      0
+     ]
+    },
+    {
+     "t": 1,
+     "loc": [
+      0.7,
+      1.6,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/fogR_2mm.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0.7,
+      -1.6,
+      0
+     ]
+    },
+    {
+     "t": 1,
+     "loc": [
+      0.7,
+      -1.6,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/subaru-wrx-va/blend/scoop_2mm.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.1,
+     "loc": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.55,
+     "loc": [
+      0.15,
+      0,
+      0.85
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 1,
+     "loc": [
+      0.15,
+      0,
+      0.85
+     ]
+    }
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": 32,
+   "dist": 2.3,
+   "z": 2.05,
+   "look": [
+    1.85,
+    0,
+    0.85
+   ]
+  },
+  {
+   "t": 1,
+   "az": 20,
+   "dist": 2.0,
+   "z": 1.5,
+   "look": [
+    1.95,
+    0,
+    1.3
+   ]
+  }
+ ]
+}
