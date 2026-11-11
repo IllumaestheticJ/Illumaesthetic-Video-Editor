@@ -22,3 +22,4 @@
 {"ts": "2026-11-11T11:35:32Z", "decision": "n_side start pulled back dist5.4 -> 6.0, look x -0.45", "why": "nose sat 2% from the left edge on frame 1; whole-car wide needs deliberate margins"}
 {"ts": "2026-11-11T11:35:33Z", "decision": "kept n1_bumper frames where the bumper leaves through the top edge", "why": "intended exit move off the car; the hero subject (front end behind the bumper) stays framed with 12-40% margins"}
 {"ts": "2026-11-11T11:35:59Z", "decision": "HOOD SCOOP REMOVED label moved from y 0.74 to 0.13", "why": "n2_scoop pushes in on the hood; the car fills down to 88% of the height, so a bottom label would sit on the scan; the top 27% is clear"}
+{"ts": "2026-11-11T11:52:55Z", "decision": "n_side start look x -0.45 -> -0.05", "why": "check stills after pulling back: car off-centre (L5% R19%); recentred to 8-13% margins on first/middle/last"}
