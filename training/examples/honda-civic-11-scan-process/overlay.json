@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 882,
+ "durationInFrames": 940,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -21,13 +21,13 @@
   },
   {
    "kind": "brackets",
-   "from": 348,
-   "duration": 133
+   "from": 388,
+   "duration": 96
   },
   {
    "kind": "label",
-   "from": 352,
-   "duration": 125,
+   "from": 392,
+   "duration": 90,
    "title": "EXTERIOR SCAN",
    "sub": "HONDA CIVIC EK HATCHBACK",
    "x": 0.08,

@@ -4,6 +4,7 @@ Newest first. Read the top two before starting a new edit.
 
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
+- [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11
@@ -14,7 +15,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11
 - [c5-corvette](c5-corvette/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
-- [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-11
