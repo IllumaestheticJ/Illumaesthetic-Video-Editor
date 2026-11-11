@@ -17,7 +17,10 @@ RB_OFF, RB_ROT = [0.30, 0.95, -0.45], [-110, 0, 0]
 LID_OFF = [0, 0.30, 0.95]
 MR_OFF, ML_OFF = [0.40, -0.10, 0.45], [-0.40, -0.10, 0.45]
 FAR = [0, 0, 9.0]                # parked far out of frame (another section's part)
-REV_END, PL_END = [0, 0.18, 0.40], [0.27, 0.17, 0.33]   # light offsets at the end of f_lights (on top of the bumper pose)
+REV_END = [0, 0.18, 0.40]   # reverse-light offset at the end of f_lights (on top of the bumper pose)
+# plate lamp: when the bumper tips it ends up lens-down INSIDE the bumper (check render), so it turns back upright
+# (rot 0 about RB = its scanned lens facing +Y, the camera) and lands past the bumper's near edge, toward the lens
+PL_LAND, PL_END = [0.12, 1.15, 0.10], [0.13, 1.20, 0.13]   # lands in the black band above the bumper (silver on bumper skin vanished)
 
 
 def add(a, b):
@@ -67,7 +70,7 @@ spec("c_front", [
     cam(4.90, [2.10, -4.70, 1.70], [0.10, -2.10, 0.50], 30),
     cam(7.37, [1.00, -3.60, 1.20], [0.00, -1.85, 0.55], 30)], 7.57,
     [part("hood_t", [k(0, Z), k(0.15, Z), k(2.45, HOOD_OFF, ease="out")]),
-     part("front_bumper", [k(0, Z), k(3.37, Z), k(4.90, FB_OFF, FB_ROT)], FB_PIV),
+     part("front_bumper", [k(0, Z), k(3.37, Z), k(4.90, FB_OFF, FB_ROT), k(7.37, [1.70, -1.30, -0.45], FB_ROT)], FB_PIV),
      part("mirror_R", [k(0, Z)]), part("mirror_L", [k(0, Z)]), part("lid", [k(0, Z)])]
     + rear_group([(0, Z, Z, "inout")]))
 
@@ -82,15 +85,15 @@ spec("d_mirror", [
 
 # E: rear - lid lifts off (lands 19.62) -> TRUNK OPEN cargo -> rear bumper off + tipped (lands 24.52) -> crash beam
 spec("e_rear", [
-    cam(0, [2.40, 4.70, 2.00], [0.05, 1.45, 0.85], 30),
+    cam(0, [2.60, 4.90, 2.00], [0.30, 1.30, 0.85], 30),
     cam(2.45, [1.80, 4.30, 1.80], [0.05, 1.50, 0.80], 30),
     cam(4.60, [1.30, 3.90, 1.55], [0.05, 1.55, 0.72], 30),
     cam(7.35, [2.10, 4.90, 1.50], [0.15, 2.20, 0.45], 30),
     cam(9.80, [1.05, 3.70, 1.15], [0.05, 1.95, 0.68], 30)], 10.0,
-    [part("lid", [k(0, Z), k(0.15, Z), k(2.45, LID_OFF, ease="out"), k(4.60, [0, 0.35, 1.40])]),
+    [part("lid", [k(0, Z), k(0.15, Z), k(2.45, LID_OFF, ease="out"), k(4.60, [0, 0.35, 2.60])]),
      part("hood_t", [k(0, FAR)]), part("front_bumper", [k(0, [1.7, -1.3, -0.45], FB_ROT)], FB_PIV),
      part("mirror_R", [k(0, add(MR_OFF, [0, 0, 6]))]), part("mirror_L", [k(0, add(ML_OFF, [0, 0, 6]))])]
-    + rear_group([(0, Z, Z, "inout"), (5.20, Z, Z, "inout"), (7.35, RB_OFF, RB_ROT, "inout")]))
+    + rear_group([(0, Z, Z, "inout"), (5.20, Z, Z, "inout"), (7.35, RB_OFF, RB_ROT, "inout"), (9.80, add(RB_OFF, [0, 0, -0.12]), RB_ROT, "inout")]))
 
 # F: the two light scans leave the tipped bumper's inner face (plate lamp lands 29.42)
 L0 = (0, RB_OFF, RB_ROT, "inout")
@@ -106,14 +109,13 @@ spec("f_lights", [
                  extra_rev=[((0, RB_OFF, RB_ROT, "inout"), Z), ((0.15, RB_OFF, RB_ROT, "inout"), Z),
                             ((1.00, RB_OFF, RB_ROT, "out"), [0, 0.15, 0.35]), ((1.85, RB_OFF, RB_ROT, "lin"), [0, 0.16, 0.37]),
                             ((2.45, RB_OFF, RB_ROT, "lin"), [0, 0.165, 0.38]), ((4.90, RB_OFF, RB_ROT, "lin"), REV_END)],
-                 extra_pl=[((0, RB_OFF, RB_ROT, "inout"), Z), ((0.15, RB_OFF, RB_ROT, "inout"), Z),
-                           ((1.00, RB_OFF, RB_ROT, "inout"), Z), ((1.85, RB_OFF, RB_ROT, "inout"), Z),
-                           ((2.45, RB_OFF, RB_ROT, "out"), [0.25, 0.15, 0.30]), ((4.90, RB_OFF, RB_ROT, "lin"), PL_END)]))
+                 extra_pl=[((0, RB_OFF, RB_ROT, "inout"), Z), ((1.85, RB_OFF, RB_ROT, "inout"), Z),
+                           ((2.45, Z, Z, "out"), PL_LAND), ((4.90, Z, Z, "lin"), PL_END)]))
 
 # H: every part flies home rear -> front, hood last on the loud return (34.32 = local 2.45); fade in the assembler
 spec("h_reassemble", [
-    cam(0, [1.80, 4.60, 4.60], [0, -0.20, 0.90], 34),
-    cam(4.90, [1.60, 4.20, 4.20], [0, -0.20, 0.90], 34)], 5.1,
+    cam(0, [1.80, 4.60, 4.60], [0, -0.05, 0.75], 29),
+    cam(4.90, [1.60, 4.20, 4.20], [0, -0.20, 0.90], 33)], 5.1,
     [part("hood_t", [k(0, HOOD_OFF), k(1.60, HOOD_OFF), k(2.45, Z, ease="in")]),
      part("front_bumper", [k(0, FB_OFF, FB_ROT), k(1.50, FB_OFF, FB_ROT), k(2.45, Z, Z, "in")], FB_PIV),
      part("mirror_R", [k(0, MR_OFF), k(1.30, MR_OFF), k(2.10, Z, ease="in")]),
@@ -122,5 +124,5 @@ spec("h_reassemble", [
     + rear_group([(0, RB_OFF, RB_ROT, "inout"), (0.60, RB_OFF, RB_ROT, "inout"), (1.50, Z, Z, "in")],
                  extra_rev=[((0, RB_OFF, RB_ROT, "inout"), REV_END), ((0.15, RB_OFF, RB_ROT, "inout"), REV_END),
                             ((0.55, RB_OFF, RB_ROT, "in"), Z), ((0.60, RB_OFF, RB_ROT, "inout"), Z), ((1.50, Z, Z, "in"), Z)],
-                 extra_pl=[((0, RB_OFF, RB_ROT, "inout"), PL_END), ((0.15, RB_OFF, RB_ROT, "inout"), PL_END),
+                 extra_pl=[((0, Z, Z, "inout"), PL_END), ((0.15, Z, Z, "inout"), PL_END),
                            ((0.55, RB_OFF, RB_ROT, "in"), Z), ((0.60, RB_OFF, RB_ROT, "inout"), Z), ((1.50, Z, Z, "in"), Z)]))
