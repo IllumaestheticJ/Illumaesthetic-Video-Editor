@@ -5,7 +5,7 @@ import bpy, json, sys, os
 from mathutils import Matrix
 a = sys.argv[sys.argv.index('--') + 1:]; cj = json.load(open(a[0])); out = a[1]
 scale = float(a[2]) if len(a) > 2 else 1.0; spp = int(a[3]) if len(a) > 3 else 64
-GLB = '/home/user/media/fg2/cgi/epsilon/eps-honda-civic-fg2-v10.glb'
+GLB = '/home/user/media/fg2/cgi/epsilon_final/eps-honda-civic-fg2-v10.glb'   # Epsilon drive: Website Files/Epsilon-final-GLBs-2026-10-15.zip
 T = json.load(open('/home/user/media/work/fg2/scan/game_to_scan.json'))['body_to_scan']
 sc = bpy.context.scene
 # Ecky's scene keeps: world (sky), ground plane 'Plane.004'. Everything else (painted scan, his lip, tyres, scraps) off.
@@ -16,7 +16,7 @@ imp = [o for o in bpy.context.selected_objects]
 root = bpy.data.objects.new('eps_game_root', None); sc.collection.objects.link(root)
 for o in imp:
     if o.parent is None: o.parent = root
-    if o.name.startswith('part_tc_wing_kit'): o.hide_render = True   # rule: no wing unless configurator-exact
+    if o.name.startswith('part_tc_wing_kit') and os.environ.get('IVE_NO_WING'): o.hide_render = True   # user v4: the lookbook TC wing is fine
 root.matrix_world = Matrix(T)
 # paint: lookbook default for this car = Rallye Red R513 #c8102e gloss (also matches #806); lip finish = paint
 def srgb(c): return ((c / 255) / 12.92) if c / 255 <= 0.04045 else (((c / 255) + 0.055) / 1.055) ** 2.4

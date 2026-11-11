@@ -1,6 +1,6 @@
-# FG2 #806 race car reel v3 — self-review (training/rubric.md)
+# FG2 #806 race car reel v4 — self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/fg2_race_car_v3.mp4` — 1080x1920 TikTok, 30 fps, 20.67 s. Earlier: review_v1.md, review_v2.md.
+Output: `/home/user/media/work/out/fg2_race_car_v4.mp4` — 1080x1920 TikTok, 30 fps, 20.67 s. Earlier: review_v1..v3.md. v4 = v3 + the lookbook TC wing on the CGI (user OK); GLB from the Epsilon drive zip (identical sha).
 
 v3 change (user): the CGI layer is the Epsilon lookbook game model, not Ecky's red-painted scan and not the
 wing-configurator glb (a decimated scan). Source: lookbook frames JSON `lb-honda-civic-fg2-5ec63ee519.json`
@@ -22,4 +22,4 @@ median, scale 0.990) so every existing camera solve applies unchanged.
 ## Choices to confirm with the user
 - Paint Rallye Red R513 gloss (the lookbook's default for this car, and the #806 colour); lip part painted to match.
 - Rims switched from the model's dark finish to silver (the #806 runs silver Enkei RPF1s; Ecky's CGI also silver).
-- Lookbook kit includes the TC wing; hidden (standing rule: no wing unless configurator-exact; #806 runs the GT wing).
+- TC wing (lookbook kit) is rendered on the CGI per user; the real #806 runs the GT wing, so wing shapes differ on the rear cut.
