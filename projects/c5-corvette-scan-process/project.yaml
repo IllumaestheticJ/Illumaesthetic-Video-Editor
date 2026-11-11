@@ -1,14 +1,16 @@
-# C5 Corvette scan-process reel (240SX format) v1.
+# C5 Corvette scan-process reel (240SX format) v3 (v1/v2: project_v2.yaml). v3: front bumper glides toward the camera
+# showing its mounting side; new scan-only rear section (rear bumper comes off toward the camera, rear-bumper-removed scan);
+# x-ray reassembly puts the rear bumper back too; track extended by 8 beats.
 # Real stock C5 (Jul 17 2025 outdoor teardown, Dropbox 'Corvette Footage') -> 1:1 cut to the 2023 full-car scan on the
 # kick drop; crew pulls the fender + front bumper -> 1:1 cut to the stripped-front composite; fender + bumper float
 # out and spin (inside + outside scanned); real removed fender; x-ray reassembly ending on the listing's angle ->
 # dissolve to the illumaesthetic.com C5 3D-scan listing.
 project: c5-corvette-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/c5_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/c5_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/c5/music.mp3   # original C5 track (cloudfront hf_20261111_055731), not in git
+  path: /home/user/media/c5/music_ext.wav   # original C5 track + 8 beats (track 22.415-26.780 repeated at 26.780, tools/extend_music.py)
   start: 7.138    # track beat 13 (grid 0.0447 + 0.54562 n); kick drop (track 9.320) lands at 2.182 s
   fade_out: 0.8
 
@@ -16,7 +18,7 @@ music:
 # 65, 163, 229, 294, 327, 491, 524, 687 = round(K_n * 30) for n = 0, 3, 5, 7, 8, 13, 14, 19, with 163/294 moved
 # one frame earlier to the kick peaks measured in the delivered audio (v1 had them 33-35 ms late).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
-beats: [2.1824, 5.4561, 7.6386, 9.8211, 10.9124, 16.3686, 17.4598, 22.9160]
+beats: [2.1824, 5.4561, 7.6386, 9.8211, 10.9124, 16.3686, 17.4598, 21.8248, 27.2810]
 
 timeline:
   - id: irl_open        # stock C5 walk-around, approaching the rear 3/4; ends on the solved frame 35.035 s
@@ -42,8 +44,8 @@ timeline:
     in: 8.943
     dur: 1.1
   - transition: {type: cut, note: "1:1 real -> stripped-front scan (cam_B)"}
-  - id: scan_B          # starts on cam_B; pulls back to the right-front 3/4; fender rises above the arch, bumper below the nose, each turns once to show its inside (v2)
-    src: /home/user/media/work/c5/renders/B2
+  - id: scan_B          # starts on cam_B; pulls back to the right-front 3/4; fender rises above the arch, bumper rises below the nose then glides toward the camera turning its mounting side to it (v3); fender turns once to show its inside
+    src: /home/user/media/work/c5/renders/B3
     src_fps: 15
     interpolate: true
     dur: 5.4667
@@ -51,8 +53,13 @@ timeline:
     src: /home/user/media/c5/dropbox/0074.MP4
     in: 12.0
     dur: 1.1
-  - id: scan_C          # x-ray: fender then bumper translate home; orbit through the nose to the listing's front-left 3/4
-    src: /home/user/media/work/c5/renders/C_final
+  - id: scan_R          # scan only (no IRL footage): rear 3/4, rear bumper comes off toward the camera and turns its mounting side to it; rear-bumper-removed scan underneath
+    src: /home/user/media/work/c5/renders/R
+    src_fps: 15
+    interpolate: true
+    dur: 4.3667
+  - id: scan_C          # x-ray (stripped front + rear): fender, front bumper, rear bumper translate home; orbit through the nose to the listing's front-left 3/4
+    src: /home/user/media/work/c5/renders/C2_final
     src_fps: 15
     interpolate: true
     dur: 5.9333
@@ -62,5 +69,5 @@ timeline:
     dur: 7.1
 
 overlays:
-  - src: /home/user/media/work/out/hud_c5_v1.mov
+  - src: /home/user/media/work/out/hud_c5_v3.mov
     start: 0

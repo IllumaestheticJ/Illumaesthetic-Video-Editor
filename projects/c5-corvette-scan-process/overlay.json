@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 885,
+ "durationInFrames": 1035,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -39,6 +39,29 @@
    "duration": 42,
    "title": "INSIDE + OUTSIDE",
    "sub": "FENDER + FRONT BUMPER SCANNED",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 528,
+   "duration": 124
+  },
+  {
+   "kind": "label",
+   "from": 556,
+   "duration": 48,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "8,028,053 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 606,
+   "duration": 46,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "REAR BUMPER SCANNED",
    "x": 0.08,
    "y": 0.1
   }

@@ -1,0 +1,87 @@
+{
+ "objects": {
+  "car": "/home/user/media/work/c5/rear_stripped.blend",
+  "rb": "/home/user/media/work/c5/rear_bumper.blend"
+ },
+ "seconds": 4.5,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/R",
+ "light_ref": "car",
+ "camera": [
+  {
+   "t": 0,
+   "az": 152,
+   "el": 14,
+   "dist": 4.8,
+   "target": [
+    0,
+    1.35,
+    0.5
+   ],
+   "lens": 27.2
+  },
+  {
+   "t": 1,
+   "az": 140,
+   "el": 17,
+   "dist": 5.0,
+   "target": [
+    0.05,
+    1.75,
+    0.45
+   ],
+   "lens": 27.2
+  }
+ ],
+ "anims": {
+  "rb": [
+   {
+    "t": 0.18,
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "t": 0.55,
+    "off": [
+     0.5,
+     0.8,
+     0.0
+    ]
+   },
+   {
+    "t": 0.85,
+    "off": [
+     1.6,
+     1.5,
+     -0.45
+    ]
+   },
+   {
+    "t": 0.5,
+    "spin": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "t": 0.85,
+    "spin": [
+     150,
+     0,
+     0,
+     1
+    ]
+   }
+  ]
+ }
+}
