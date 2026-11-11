@@ -174,8 +174,10 @@ SHOTS["N2_mirror"] = {"base": [EXP], "parts": [
 # N3: duck-tail wing lifts straight up/back (no flip), camera rises over the Rear Wing Removed deck
 _mw, _rw = STACK["p_wing"]
 SHOTS["N3_wing"] = {"base": [EXP], "parts": [
-    {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.30, (0, 0, 0)), k(1.846, _mw, _rw, ease="out")]},
-    ],  # other parts left out: off-section clutter at the frame top
+    {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.30, (0, 0, 0)), k(1.60, (0, 0.10, 0.42), (8, 0, 0)),
+                                           k(4.60, (0, 0.14, 0.55), (10, 0, 0), ease="lin")]},
+    ],  # other parts left out: off-section clutter at the frame top. v2 render lifted to the full stack (1.2 m) and the
+    # wing left the top of frame for ~2 s mid-shot -> small lift + slow drift so the subject never leaves the frame
     "cam": cam2(S["N3_wing"], [-0.60, 3.60, 1.00], [-0.25, 2.15, 0.85], 38,
                 [-1.10, 4.15, 2.25], [0, 1.80, 1.05], 35)}
 
