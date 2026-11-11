@@ -3,7 +3,7 @@ import sys, os; sys.path.insert(0, os.path.dirname(__file__))
 from rast import *
 import json
 cam=json.load(open(sys.argv[1])); out=sys.argv[2]; S=float(sys.argv[3]) if len(sys.argv)>3 else 1.5
-PH='/home/user/media/de5-configurator/photos/gt_acura-integra-de5-gt-wing-rear-quarter-white.jpg'
+PH=sys.argv[4] if len(sys.argv)>4 else '/home/user/media/de5-configurator/photos/gt_acura-integra-de5-gt-wing-rear-quarter-white.jpg'
 img=cv2.imread(PH); w=int(cam['w']*S);h=int(cam['h']*S); small=cv2.resize(img,(w,h),interpolation=cv2.INTER_AREA)
 V,F,C=load(); R,_=cv2.Rodrigues(np.array(cam['rvec'])); t=np.array(cam['tvec']); f=cam['f']*S
 ren=render(V,F,C,R,t,f,w,h); g=cv2.Canny(cv2.cvtColor(ren,cv2.COLOR_BGR2GRAY),40,120); g=cv2.dilate(g,np.ones((2,2),np.uint8))

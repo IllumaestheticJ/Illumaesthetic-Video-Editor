@@ -19,3 +19,15 @@ Output: `/home/user/media/work/de5/out/de5_configurator_v1.mp4` - 1080x1920, 30 
 - Native select menus do not render in headless capture: Make/Model changes show as tap -> value changes.
 - Music is the CML preview file; attach the same sound in TikTok when posting (drop = 35.97 s of the track, video starts at 22.87 s).
 - Instagram was not reachable from this environment; photos are from the epsilon.plus listing only.
+
+# v2 (user's Drive photo set)
+
+Output: `/home/user/media/work/de5/out/de5_configurator_v2.mp4` - 1080x1920, 30 fps, 28.90 s. Same grid and music as v1; shots B, C, D, E, G1, G2 rebuilt.
+
+| # | Criterion | Score | Notes |
+|---|---|---|---|
+| 2 | Beat sync | 5 | 17 cuts on the grid from frame diffs; drop at 13.10 s on the cut. No jump inside the orbit (max frame diff 1.6). |
+| 3 | 1:1 match | 4 | match/check_v2.jpg (frames 392/393): trunk, emblem, tail lights, plate, diffuser, exhaust, glass coincide. The real wing sits a little lower and to the right of the configurator's default wing, so the blade and left endplate shift at the cut. |
+| 5 | Story | 4 | Listing shot now shows the new hero; 1:1 and payoff are the pro photos. Install clips are still the Sport Wing shoot. |
+| 6 | Grade | 4 | Pro photos at native resolution (no upscale); install clips unchanged. |
+| 9 | Technical | 5 | Orbit sweeps ~75 deg with the car centred throughout. |

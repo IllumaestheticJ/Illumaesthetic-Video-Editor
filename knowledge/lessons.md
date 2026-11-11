@@ -101,3 +101,11 @@ lands here automatically. Agents must read this whole file before editing.
   in `src/three/view3d.js` `mount()`, `node scripts/build.mjs --out dist`, serve on :8123 with a `product.html` carrying `data-car`/`data-wing`/`data-lock-car`.
 - **[audio]** 'Time Back' (110 BPM) has pickup hits 0.5 s and 0.1 s before the drop; take the drop from the first frame where BOTH low band and full band
   jump (35.97 s), not the first full-band transient.
+- **[match-cut]** Driving a web 3D camera to a solved pose: blend the solved orientation as an OFFSET from a plain look-at (`ql * slerp(I, inv(lookAt(eyeS,tgt)) * qS, w)`),
+  blend the principal point with the same weight, and put the look-at point where the crop window's centre ray meets the car. Slerping to the absolute solved
+  orientation while the eye still orbits threw the car out of frame with a 13 m tele camera (DE5 v2); the NC's 3 m phone camera hid the bug.
+- **[match-cut]** Label left/right and front/rear landmarks from the photo, not from memory of the reference render: one swapped door handle cost 28 px RMSE.
+  When RMSE is high, overlay first and look for a single mislabeled point before reaching for refinement.
+- **[story]** Shopify listing images: stage with `stagedUploadsCreate` (host `shopify-staged-uploads.storage.googleapis.com` must be allowed), `productCreateMedia`,
+  `productReorderMedia`; detach a replaced image with `fileUpdate(referencesToRemove)` so the file stays in Files. Images must be <= 5000 px / 20 MB.
+  The store app credentials are in the environment (`SHOPIFY_CLIENT_ID/SECRET`, client-credentials grant on bmspec.myshopify.com). See projects/de5-configurator/tools/listing_photos.py.

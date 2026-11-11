@@ -29,3 +29,16 @@ Media root `/home/user/media/de5-configurator/` (not in git).
 | C0234 | 14 | hand-tightening inside the hatch edge **F8 @5.6** (face at left) |
 | C0241 | 15 | car driving out of the lot, far (not used) |
 Not downloaded (270 MB-1.8 GB each): C0189-0191, 0195, 0197, 0201, 0205-0208, 0210-0212, 0214-0216, 0218, 0221, 0223, 0225-0226, 0228-0233, 0235-0240; C0192 = junk.
+
+## v2 - Drive photo set (user-supplied, folder 1MbS57XZ-PQeFtDnwR43mTBFuyGyYEvxe) -> `drive/`
+| Photo | px | What | Use |
+|---|---|---|---|
+| _DSF3972 wing1 | 7145x4763 | rear 3/4 from the passenger side, parking deck, wing against the sky | **1:1 photo (E)**, 50/50 hero, listing |
+| _DSF3974 wing | 7103x4735 | close-up: blade, swan uprights, white endplate, hatch | **G1**, listing |
+| _DSF3842 wing1 | 3887x5830 | portrait, high angle from behind, low sun | **G2**, listing |
+| _DSF3785 wing | 7345x4897 | rear 3/4 in low sunlight | listing |
+| _DSF3588 wing1 | 7191x4794 | rear 3/4 at dusk | listing |
+| _DSF3969 wing | 7120x4747 | like 3972, more side-on, wing overlaps the roof | dropped |
+| _DSF3975 wing | 6973x4649 | like 3974, tighter | dropped |
+| P1036200 wing1 | 5230x3487 | side profile in a dark garage, wing barely visible | dropped |
+`listing/` = web copies uploaded to Shopify (4000 px long side) + `acura-integra-de5-gt-wing-kit-overview.jpg` (new 50/50 hero).

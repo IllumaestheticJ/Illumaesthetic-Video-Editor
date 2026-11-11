@@ -25,9 +25,10 @@ def kb(name, photo, s0, s1, n=None, dur=None):
         p.stdin.write(cv2.warpAffine(im, Mx, (W, H), flags=cv2.INTER_AREA if sc < 1 else cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REPLICATE).tobytes())
     p.stdin.close(); p.wait()
 PH = f'{M}/photos/gt_acura-integra-de5-gt-wing-'
-if want('E'): kb('E', PH + 'rear-quarter-white.jpg', (1960, 725, 1450), (1860, 712, 1400), dur=82)
-if want('G1'): kb('G1', PH + 'side-profile-white.jpg', (1150, 730, 1320), (1850, 700, 1320))
-if want('G2'): kb('G2', PH + 'rear-wingspan-white.jpg', (660, 1010, 2000), (980, 990, 1940))
+DR = f'{M}/drive/'   # v2: the user's Drive photos of the DE5 GT wing (v1 used the listing's driveway photos)
+if want('E'): kb('E', DR + '_DSF3972 wing1.jpg', (2420, 2381.5, 4763), (2520, 2480, 4250), dur=82)
+if want('G1'): kb('G1', DR + '_DSF3974 wing.jpg', (1500, 2367.5, 4735), (4300, 2367.5, 4735))
+if want('G2'): kb('G2', DR + '_DSF3842 wing1.jpg', (2200, 2950, 4900), (2200, 2850, 4400))
 # --- install snippets: Dropbox 'Integra Sport Wing Install Tutorial' (Sony 1080p 23.976, flat profile): 9:16 window (608 px of 1920) at cx, grade lift
 T = f'{M}/tutorial'
 GR = 'eq=contrast=1.32:gamma=1.18:saturation=1.35'

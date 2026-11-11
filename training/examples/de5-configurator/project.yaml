@@ -5,7 +5,7 @@
 # 2026-11-11), bed starts at 22.87 s of the track so the drop (35.97 s) lands on the 1:1 cut at frame 393.
 project: de5-configurator
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/de5/out/de5_configurator_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/de5/out/de5_configurator_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music: {path: /home/user/media/work/de5/layers/music.wav, start: 0, fade_out: 0.9}
 
