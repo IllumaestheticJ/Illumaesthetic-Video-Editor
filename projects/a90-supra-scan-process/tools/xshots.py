@@ -242,7 +242,7 @@ def main():
     sc.cycles.samples = a.samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = bool(spec.get("persistent", False))  # off by default (all-reels brief: lighting dropouts)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
