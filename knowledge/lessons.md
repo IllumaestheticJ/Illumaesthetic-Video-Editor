@@ -406,3 +406,18 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** Drive state scans can be byte-identical under two names (Sera 'Rear Bumper Removed' = '... No Tail Lights'); md5 first.
 - **[scan-look]** Licence plates aren't in bumper part scans: when removing a bumper for an exploded view, also drop car triangles
   inside the bumper's bbox that the bumper-removed state doesn't have, or the plate floats in the base.
+## From the Mazda Miata ND Temerario-style scan reel (2026-11-11, built by an agent)
+- **[technical]** Artec exports can be upside down (Miata: ground at +Z, car hanging below, long axis X). Look at three
+  orthographic projections of the 6 mm decimation before levelling; flip 180 deg about X, then RANSAC-level (mazda-miata-nd/tools/level.py).
+- **[scan-look]** No isolated hood/trunk scan? Cut the panel out of the full-car skin along its shut lines, traced on a
+  near-orthographic top render (tools/extract.py), and fit the hinge from the state scan that captured the panel propped open
+  (tools/hinge.py: the open panel = state triangles above the car's roofline; hood 3.0 mm median). Distance diffs vs state scans
+  are NOT a clean panel mask: wheels/fenders differ by >12 mm when the car was on stands for the state capture.
+- **[technical]** Never key a camera straight overhead: `to_track_quat('-Z','Y')` loses its up vector and the image rolls ~90 deg
+  in one frame (Miata s7 v1, just before a cut). Approach top-down from one side, ~10-15 deg off vertical.
+- **[story]** Check licence plates in close/rear shots at final res: the Miata scan's plate characters were readable. Flatten the
+  embossing onto the plate plane in every scan that carries it (tools/flatten_plate.py) instead of blurring the video.
+- **[pacing]** `ive beats` BPM can be off enough to drift a quarter second over 30 s (said 117.5, kicks are 116.01). Fit the
+  grid to all kick peaks iteratively (index on current grid, least-squares refit; tools/music_scan.py) and check the residual (1.5 ms).
+- **[pacing]** A generated track with an 8 s pad intro: start the music 8 beats before the first kick, carry the intro with one
+  slow turntable and put the first cut ON the first kick; end the logo on the last hit and let it ride the decay.

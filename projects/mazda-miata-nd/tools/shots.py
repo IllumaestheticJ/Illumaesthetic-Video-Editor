@@ -94,10 +94,11 @@ SHOTS["s6_rear_open"] = {
                "keys": hold_then(a6["trunk"][0], a6["trunk"][1], rot=(TRUNK_OPEN, 0, 0))}],
     "cam": arc(S["s6_rear_open"], 4.5, 4.2, 232, 214, 2.0, 2.4, (0, 1.2, 0.55), (0, 1.35, 0.55), n=6)}
 
-# 7. top-down: from a high front-left 3/4 up and over to straight down (nose at the top of frame)
+# 7. top-down: from a high rear-left 3/4 up and over to ~12 deg off vertical from BEHIND (nose at the top of frame).
+# Never pass straight overhead: to_track_quat's up vector is undefined there and the image rolls (v1 snapped ~90 deg).
 SHOTS["s7_top"] = {"base": [CAR], "cam": [
-    {"t": 0, "loc": [2.2, -3.6, 3.4], "target": [0, -0.2, 0.5], "focal": 30},
-    {"t": S["s7_top"], "loc": [0.0, 0.02, 4.9], "target": [0, 0.0, 0.5], "focal": 30, "ease": "inout"}]}
+    {"t": 0, "loc": [2.3, 3.7, 3.0], "target": [0, 0.2, 0.5], "focal": 30},
+    {"t": S["s7_top"], "loc": [0.0, 0.95, 4.95], "target": [0, 0.05, 0.5], "focal": 30, "ease": "inout"}]}
 
 # 8. exploded view: panels separate on an accent, drift while the camera orbits, fly home and LOCK on an accent
 a8 = ACT.get("s8_explode", {"sep": 0.0, "hold": 3 * BEAT, "back": S["s8_explode"] - 5 * BEAT, "lock": S["s8_explode"] - 2 * BEAT})
