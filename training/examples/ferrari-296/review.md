@@ -1,6 +1,14 @@
-# Ferrari 296 GTB scan reel v1 - self-review (training/rubric.md)
+# Ferrari 296 GTB scan reel v2 - self-review (v1 review: review_v1.md)
 
-Output: `/home/user/media/work/f296/out/ferrari_296_v1.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.97 s (1169 frames).
+v2 answers user feedback on v1 ("starts off too cropped"; "doesn't focus on the subsystems"; "doesn't zoom in on the
+bumpers/skirts well enough"): s1_wide opens on the whole car; the explode is now progressive through three cameras -
+front subsystem close (bumper, fender, hood a beat apart), low sill close (skirt drops, rear bumper + diffuser pull back),
+wide lock on 32.35 s. Cuts measured at frames 152, 292, 361, 431, 553, 622, 692, 831, 901, 1040.
+
+## v1 scores (kept for the record)
+# v1 (training/rubric.md)
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v2.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.97 s (1169 frames).
 Checked: contact sheet of every shot, labelled strips +-1 frame around all 8 cuts, full-size frames mid-separation and
 mid-reassembly (interpolation ghosting), per-frame max-luma scan of every render (caught 127 black explode frames).
 
@@ -26,3 +34,11 @@ mid-reassembly (interpolation ghosting), per-frame max-luma scan of every render
   8M-tri, 7-part explode). Scan renders for max luma before assembling; re-render in 40-frame chunks (`frame_range`).
 - Part-state composites (tools/composite.py): per-panel fill zones + "new geometry only" (>7 mm from the car) +
   de-duplicated fills give a clean "panels off" body from Artec state scans.
+
+## v2 deltas
+| # | v1 | v2 | Why |
+|---|---|---|---|
+| 1 Hook | 4 | 4 | Whole car readable from frame 1 (user: v1 too cropped). |
+| 4 Scan quality | 3 | 3 | Close sill/bumper shots expose the composite's interior structure (intended) and some ragged inner edges. |
+| 5 Story | 4 | 4 | Subsystems now get their own close beats; still no fade-in / small logo like the reference. |
+Gap to the Temerario reference still open: raw scan grain + warm/cool silver look, explode ~half the reel, fade-ins, smaller logo.
