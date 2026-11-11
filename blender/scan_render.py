@@ -58,7 +58,8 @@ def parse():
     ap.add_argument("--explode", action="append", default=[],
                     help="'part.blend:dx,dy,dz[:start:end[:rotZdeg:rstart:rend]]' append a prepared part scan, move it by "
                          "dx,dy,dz (m) between start..end (fractions of the shot), then optionally spin it [x|y|z]deg "
-                         "(prefix start with 'r', e.g. r0.2, to run it backwards: part flies back into place) "
+                         "(prefix start with 'r', e.g. r0.2, to run it backwards: part flies back into place; "
+                         "optional 8th field 'dx,dy,dz' = start offset, e.g. where the crew holds the real part at the cut) "
                          "about its own centre (x = flip about the car's width axis, best for bumpers) between rstart..rend - exploded views that show inside + outside")
     ap.add_argument("--look-at", default="", help="x,y,z pivot for orbit moves (default: scan bbox centre)")
     ap.add_argument("--raycast", help="'name:x,y;...' pixel coords in this camera's render")
@@ -463,6 +464,7 @@ def main():
             ax = bits[4][0].lower() if bits[4][0].isalpha() else "z"
             deg = float(bits[4][1:] if bits[4][0].isalpha() else bits[4])
             rot = (deg, float(bits[5]), float(bits[6]), "xyz".index(ax))
+        start_off = Vector([float(v) for v in bits[7].split(",")]) if len(bits) > 7 else None  # move FROM here
         with bpy.data.libraries.load(os.path.abspath(path), link=False) as (src, dst):
             dst.objects = list(src.objects)
         for o in dst.objects:
@@ -471,7 +473,7 @@ def main():
             bpy.context.scene.collection.objects.link(o)
             if o.type == "MESH":
                 o["ive_scan"] = True
-                parts.append((o, off, a0, a1, rot, reverse))
+                parts.append((o, off, a0, a1, rot, reverse, start_off))
     objs = objs + [p[0] for p in parts]
 
     cam = make_camera(args, lo, hi)
@@ -513,7 +515,7 @@ def main():
         c = Vector([float(v) for v in args.look_at.split(",")])
         lo, hi = c, c
     animate_camera(cam, args, lo, hi, 1, nframes)
-    for o, off, a0, a1, rot, reverse in parts:
+    for o, off, a0, a1, rot, reverse, start_off in parts:
         # Pivot empty at the part's own centre so spins happen in place, not about the car origin.
         bpy.context.view_layer.update()
         plo, phi = bbox([o])
@@ -530,7 +532,10 @@ def main():
             t = (f - 1) / max(1, nframes - 1)
             tm = min(1.0, max(0.0, (t - a0) / max(1e-6, a1 - a0)))
             k = ease(tm, "ease_in_out")
-            pivot.location = base + off * ((1 - k) if reverse else k)
+            if start_off is not None:  # e.g. start where the crew is holding the real part
+                pivot.location = base + start_off + (off - start_off) * k
+            else:
+                pivot.location = base + off * ((1 - k) if reverse else k)
             pivot.keyframe_insert("location", frame=f)
             if rot:
                 tr = min(1.0, max(0.0, (t - rot[1]) / max(1e-6, rot[2] - rot[1])))

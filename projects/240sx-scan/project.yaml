@@ -30,8 +30,8 @@ timeline:
     src: /home/user/media/240sx/dropbox/v_1954_41.mov
     in: 2.4434
     out: 6.2334
-  - transition: {type: cut, note: "1:1 IRL -> scan (front, cam_C62 = cam_C + drift) with the bumper already off"}
-  - id: scan_front   # bumper (already off, low) spins left/right, gentle push-in
+  - transition: {type: cut, note: "1:1 IRL -> scan (front, cam_D: LM-refined on the 6.2 s frame) - scan bumper starts where the crew holds the real one"}
+  - id: scan_front   # bumper starts on top of the real one in the crew's hands, glides up, spins; gentle push-in
     dur: 3.79
     src: /home/user/media/work/renders/shots_v4/s2_front
     src_fps: 15

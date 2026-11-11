@@ -62,3 +62,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** Beat-length `dur`s drift (+40..+119 ms over 16 cuts at 75 BPM). Give clips whole-frame durs so each cut
   lands on round(beat*fps), first clip one frame short; measure cuts from frame diffs.
 - **[format]** "TikTok format" = 1080x1920 full-bleed; keep the hero part above the bottom ~20 % caption zone.
+- **[match-cut]** Near-planar landmarks (bumper beam, horns) let PnP flip to a mirrored pose that fits the
+  points but renders the car at the wrong size. Refine from a known-good nearby camera
+  (`solvePnP(..., useExtrinsicGuess=True)`) and always confirm with an onion overlay.
+- **[match-cut]** When real hands are carrying a part at the cut, start the scan part *at that position*
+  (`--explode` 8th field = start offset) so the part matches across the cut too, then animate it.
