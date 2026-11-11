@@ -22,27 +22,27 @@
   },
   {
    "kind": "brackets",
-   "from": 393,
-   "duration": 172
+   "from": 392,
+   "duration": 174
   },
   {
    "kind": "label",
-   "from": 414,
-   "duration": 50,
+   "from": 420,
+   "duration": 42,
    "title": "REAR REFLECTOR",
    "sub": "408,984 TRIANGLES",
    "x": 0.92,
-   "y": 0.72,
+   "y": 0.82,
    "align": "right"
   },
   {
    "kind": "label",
-   "from": 466,
-   "duration": 99,
+   "from": 470,
+   "duration": 96,
    "title": "INSIDE + OUTSIDE",
    "sub": "REFLECTOR SCANNED, BOTH SIDES",
    "x": 0.92,
-   "y": 0.72,
+   "y": 0.84,
    "align": "right"
   }
  ]

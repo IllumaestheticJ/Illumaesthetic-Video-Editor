@@ -22,3 +22,20 @@ Output: `/home/user/media/work/is350/out/is350_scan_process_v1.mp4` — 1080x192
 ## v2 (user feedback)
 - End card now shows the listing with the **2026+ front bumper** dataset selected and the title "SCAN DATA + 2026 BUMPER NOW AVAILABLE";
   dissolve match unchanged (viewer pixel-identical). The 2026 bumper scans are a different car, so they are not in the 1:1 story.
+
+## v3 (all-reels v2 brief, scene-director + director plans)
+Output: `/home/user/media/work/is350/out/is350_scan_process_v3.mp4` — 1080x1920, 30 fps, 27.57 s.
+
+| # | Criterion | Score | Change vs v1 |
+|---|---|---|---|
+| 1 | Hook | 4 | unchanged opener; 1:1 on the 3.0 s drop |
+| 2 | Beat sync | 5 | music delayed 25 ms so cuts sit on broadband kick attacks; cut frames 90/210/240/285/390/570 all on the 0.5 s grid |
+| 3 | 1:1 match | 5 | both match crops widened (window 1063 px, blurred fill) so the whole car reads; scan camera re-derived (sensor 35.6*win/1920); onions re-checked |
+| 4 | Scan quality | 5 | front shot is a push to grille/headlights instead of a repeated orbit; reflector framed close, never leaves frame |
+| 5 | Story | 4 | still no real removal in the footage (reflector pop-out in scan) |
+| 6 | Grade | 4 | unchanged |
+| 7 | Text | 5 | labels re-timed and moved onto black under the part; numbers from STL headers |
+| 8 | Ending | 5 | x-ray path from the reflector close-up to the listing pose, 0.5 s dissolve kept (director proposed a hard cut; overridden per brief) |
+| 9 | Technical | 5 | persistent data off on moving-part renders; no luma dropouts; no black/dup frames at cuts |
+
+Director flags left on purpose: the two 'same view' pairs are the continuity cut and the listing dissolve; the 1.2 s end hold carries the logo + URL.
