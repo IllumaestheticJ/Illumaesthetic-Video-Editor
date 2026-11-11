@@ -201,7 +201,7 @@ SHOTS["S1_side"] = {"base": [XB], "parts": [
     "cam": [cam(0, (4.4, -1.45, 1.4), (1.0, -1.3, 0.8), 28), cam(2.033, (4.4, -0.55, 1.4), (1.0, -0.5, 0.8), 28, "lin"),
             cam(4.4, (4.3, 0.55, 1.35), (1.0, 0.5, 0.8), 28)]}
 SHOTS["R1_rbumper"] = {"base": [XB], "parts": [
-    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, *FB_END)]), part("fender", [k(0, *FENDER_END)]),
+    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 6.0), FB_END[1])]), part("fender", [k(0, *FENDER_END)]),
     part("door_fl", [k(0, *FL_END)]), part("door_rl", [k(0, *RL_END)]), part("door_fr", REST), part("door_rr", REST),
     part("hatch", [k(0), k(0.5, rot=OPEN_T)], hatch),
     part("rbumper", [k(0), k(0.51), k(1.53, (0, 0.6, 0.05), ease="out"), k(2.3, *RB_END)])],

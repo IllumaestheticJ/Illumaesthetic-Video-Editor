@@ -3,8 +3,8 @@
     python projects/porsche-macan/tools/cutcheck.py out.mp4 [--expect 4.109,8.176,...]
 
 Cuts: frame-difference peaks of the decoded video (mean abs diff of 1/8-scale greyscale frames; a cut is a frame
-whose diff is > 6x the local median). Audio: broadband 1 ms RMS envelope; onset = first sample where the envelope
-reaches half of the local peak within +-120 ms of the cut (a low-passed envelope reads 40-70 ms late).
+whose diff is > 6x the local median). Audio: broadband 1 ms RMS envelope; onset = local half-rise before the strongest
+(5 ms smoothed) peak within +-60 ms of the cut (a low-passed envelope reads 40-70 ms late).
 Prints cut time, nearest onset, error (ms) and frames; target |err| <= half a frame (16.7 ms at 30 fps).
 """
 import subprocess, sys
@@ -28,16 +28,22 @@ a = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-ac", "1
                                  capture_output=True, check=True).stdout, np.float32)
 win = sr // 1000
 env = np.sqrt(np.convolve(a.astype(np.float64) ** 2, np.ones(win) / win, mode="same"))
+e5 = np.convolve(env, np.ones(5 * win) / (5 * win), mode="same")  # 5 ms smoothing to locate the peak
 print(f"{len(fr)} frames ({len(fr)/fps:.3f} s), audio {len(a)/sr:.3f} s; detected cuts: {len(cuts)}")
 print("   cut s   onset s   err ms  err frames")
 errs = []
 for c in cuts:
-    s0, s1 = int((c - 0.12) * sr), int((c + 0.12) * sr)
-    seg = env[max(0, s0):s1]
+    s0, s1 = int((c - 0.06) * sr), int((c + 0.06) * sr)
+    seg = e5[max(0, s0):s1]
     if len(seg) == 0:
         continue
-    pk = seg.max(); base = np.percentile(env[max(0, s0 - sr // 4):max(1, s0)], 20) if s0 > 0 else 0
-    on = np.argmax(seg >= base + 0.5 * (pk - base)) + max(0, s0)
+    # strongest transient within +-60 ms, onset = local half-rise walking back from its peak (a first-crossing rule
+    # over +-120 ms latched onto earlier, weaker transients in the intro and read 110 ms early)
+    ip = int(seg.argmax()); base = np.percentile(e5[max(0, s0 - sr // 4):max(1, s0)], 20) if s0 > 0 else 0
+    half = base + 0.5 * (seg[ip] - base); i = ip
+    while i > 0 and seg[i] > half:
+        i -= 1
+    on = i + max(0, s0)
     t = on / sr; e = (c - t) * 1000; errs.append(e)
     print(f"  {c:7.3f}  {t:7.3f}  {e:+7.1f}  {e/1000*fps:+5.2f}")
 if expect:
