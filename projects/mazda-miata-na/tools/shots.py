@@ -97,11 +97,19 @@ def shots():
               {"t": 3.5 * BEAT, "loc": [0, 0, 0], "rot": [HH["open_deg"], 0, 0], "ease": "inout"}])],
         "cam": [cam(0, (-2.6, -3.9, 2.3), (0, -1.45, 0.6), ease="lin"),
                 cam(d, (-2.2, -3.4, 2.15), (0, -1.5, 0.55), ease="out2")]}
-    # 4. FRONT detail: slow dolly along the car's right side, close, over the exposed front structure + engine bay
-    d = S("s4_front_detail", 4.43)
-    sh["s4_front_detail"] = {"base": [BASE], "parts": [hood(H_OPEN), lid(still())],
-                             "cam": [cam(0, (-1.75, -1.0, 1.45), (-0.2, -1.55, 0.55), focal=32, ease="lin"),
-                                     cam(d, (-1.55, -2.35, 1.3), (-0.1, -1.75, 0.5), focal=32, ease="out2")]}
+    # 3b. FRONT, hero (addendum C): bumper-removed state - move in from front-left on what the bumper hid
+    #     (crash beam + its end brackets, radiator core, wiring below - seen in the bumper-off scan), then hold to read it.
+    #     Hood still closed (it opens in the next shot). Labels in overlay.json.
+    d = S("s3_front_removed", 4.43)
+    sh["s3_front_removed"] = {"base": [BASE], "parts": [hood(still()), lid(still())],
+                              "cam": [cam(0, (1.55, -3.75, 1.05), (0.1, -1.95, 0.45), focal=32, ease="lin"),
+                                      cam(5 * BEAT, (0.95, -3.3, 0.7), (-0.05, -1.95, 0.42), focal=30, ease="out2"),
+                                      cam(d, (0.88, -3.22, 0.68), (-0.05, -1.95, 0.42), focal=30, ease="lin")]}
+    # 4b. SIDE (direction.md): low straight dolly along the right side - wheels, Toyo tyres, brakes, mirror, door line
+    d = S("s4b_side", 2.2)
+    sh["s4b_side"] = {"base": [BASE], "parts": [hood(H_OPEN), lid(still())],
+                      "cam": [cam(0, (-3.3, -1.25, 0.75), (-0.40, -0.95, 0.55), focal=35, ease="lin"),
+                              cam(d, (-3.3, 1.05, 0.75), (-0.40, 1.35, 0.55), focal=35, ease="lin")]}
     # 5. REAR, on the drop: trunk closed -> half open (37.5 deg capture) -> pause -> open (55.6 deg capture)
     d = S("s5_trunk", 4.47)
     sh["s5_trunk"] = {"base": [BASE], "parts": [
@@ -110,13 +118,13 @@ def shots():
              {"t": 2.0 * BEAT, "loc": [0, 0, 0], "rot": [HT["half_deg"], 0, 0], "ease": "inout"},
              {"t": 3.5 * BEAT, "loc": [0, 0, 0], "rot": [HT["half_deg"], 0, 0], "ease": "lin"},
              {"t": 5.0 * BEAT, "loc": [0, 0, 0], "rot": [HT["open_deg"], 0, 0], "ease": "inout"}])],
-        "cam": [cam(0, (2.3, 4.6, 1.55), (0, 1.35, 0.65), ease="lin"),
-                cam(d, (1.95, 4.0, 1.6), (0, 1.3, 0.65), ease="out2")]}
+        "cam": [cam(0, (-2.05, 4.3, 1.5), (0, 1.35, 0.65), ease="lin"),
+                cam(d, (-1.75, 3.8, 1.6), (0, 1.3, 0.65), ease="out2")]}
     # 6. REAR detail: crane up behind the open trunk and look down into the scanned trunk well + lid underside
     d = S("s6_trunk_well", 4.43)
     sh["s6_trunk_well"] = {"base": [BASE], "parts": [hood(H_OPEN), lid(L_OPEN)],
-                           "cam": [cam(0, (0.55, 3.1, 1.5), (0, 1.3, 0.6), focal=30, ease="lin"),
-                                   cam(d, (0.25, 2.75, 2.05), (0, 1.25, 0.5), focal=30, ease="out2")]}
+                           "cam": [cam(0, (-0.55, 3.1, 1.5), (0, 1.3, 0.6), focal=30, ease="lin"),
+                                   cam(d, (-0.3, 3.05, 1.75), (0, 1.3, 0.62), focal=30, ease="out2")]}
     # 7. top-down (front at the top), slow push: everything goes home and locks on b52, then holds
     d = S("s7_top_home", 4.43)
     home = lambda frm: [{"t": 0, **frm}, {"t": BEAT, **frm}, {"t": 4 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "inout"}]
