@@ -193,3 +193,16 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** A car scanned without wheels: frame 3/4 at 1.2-1.6 m, not the reference's low side profile - low views make
   the empty arches the subject. Don't add wheels from single-corner state scans.
 - **[scan-look]** Exploded panels seen from a level camera read as slivers; look down ~30 deg and tilt each panel toward the lens.
+## From the GT3 RS (992) scan-process reel (2026-11-11, built by an agent)
+- **[story]** Footage may arrive mid-session in a *different* Dropbox folder than the brief names (here `1. Video dumps/992 GT3RS scanning`,
+  uploaded from the user's phone). Before stopping for "no footage", search Dropbox for `scanning` folders and re-list after the user uploads.
+- **[technical]** Blender lens shift with sensor_fit HORIZONTAL is in units of the frame **width** (measured: shift 0.05 = 54 px on a
+  1080-wide frame, both axes): cx = W/2 - shift_x*W, cy = H/2 + shift_y*W. Not the long side.
+- **[match-cut]** iPhone shop clips can be the ultrawide lens: both solves landed on 16-18 mm (20.25 mm sensor), not 28 mm. Fix focal
+  to the first good solve for the second clip from the same session.
+- **[match-cut]** For a close, wide side shot, get 3D landmarks by raycasting a plain side-view render of the scan (easy to read), not a
+  guessed perspective view; then PnP. Pick the frame that shows the most rigid features (wheel, intake, handle, mirror, wing tip).
+- **[scan-look]** Car state at the cut: the car was on a lift with the front wheels off - remove the wheels from the scan (connected
+  components) for every shot after the cut, and bring them back as parts in the reassembly if the end card shows them.
+- **[technical]** Shell args like `--look-at -0.4,...` are parsed as flags by argparse: use `--look-at=-0.4,...`.
+- **[pacing]** Measured: first clip one frame short (dur - 1/30) makes every cut land on round(t*30) exactly; without it all cuts were 1 frame late.

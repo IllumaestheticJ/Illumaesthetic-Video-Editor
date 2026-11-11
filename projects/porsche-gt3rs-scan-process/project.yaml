@@ -13,9 +13,9 @@ beats: [3.80, 7.63, 11.42, 14.14, 15.13, 18.81, 22.55, 26.38, 31.93]
 
 timeline:
   - id: irl_headon        # car on the lift, camera settles head-on; ends on the solved frame 4.500 s (camA)
-    dur: 3.8
+    dur: 3.7667   # one frame short: the assembler's cut compensation adds it back (FG2 lesson); measured 1-frame-late cuts otherwise
     src: /home/user/media/gt3rs/scanfoot/v_0130_125744.mov
-    in: 0.7334
+    in: 0.7667
     out: 4.5334
   - transition: {type: cut, note: "1:1 #1 IRL head-on -> scan (camA) on the 3.80 s hit"}
   - id: scan_headon       # silver, front wheels off like the real car, slow pull; TRIANGLES counter
