@@ -129,7 +129,97 @@ def spec(name, mode):
     p = f"{SPECS}/{name}_{mode}2.json"; json.dump(sp, open(p, "w"), indent=1); return p
 
 
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# v2 (brief from all v1 reviews): director.md shot table m1-m6. No turntables/orbits for their own sake, one section per
+# sequence (front -> side -> rear -> wing-removed hero -> wing part -> top/reassembly), wing translates only (never spins).
+# Renders go to renders/final3 (spec name *_final3.json). Times are seconds from each shot's start; beat k = 0.050 + k*BEAT.
+def _frames(dur):
+    return math.ceil(dur * 15) + 3
+
+
+DUR3 = {"m1_open": 4.412, "m2_flank": 4.363, "m3_rear": 6.544, "m4_wingoff": 9.816, "m5_part": 3.272, "m6_reassemble": 6.544}
+SECS.update({k: (_frames(v) - 1) / 15 for k, v in DUR3.items()})
+PTS["wing_back"] = np.vstack([fc.c, WING + [0, 1.10, 0.78]])
+
+
+def _m2():
+    a = fit({"t": 0, "loc": [8.6, -0.6, 1.0], "target": [0, 0, 0.68], "focal": 35}, PTS["car"])
+    b = fit({"t": 0, "loc": [8.6, 0.6, 1.3], "target": [0, 0, 0.68], "focal": 35}, PTS["car"])
+    k = max(np.linalg.norm(np.array(a["loc"]) - [0, 0, 0.68]), np.linalg.norm(np.array(b["loc"]) - [0, 0, 0.68]))
+    out = []
+    for t, L in ((0, [8.6, -0.6, 1.0]), (SECS["m2_flank"], [8.6, 0.6, 1.3])):
+        d = np.array(L) - [0, 0, 0.68]; d = d / np.linalg.norm(d) * k
+        out.append({"t": t, "loc": list(np.array([0, 0, 0.68]) + d), "target": [0, 0, 0.68], "focal": 35, "ease": "inout"})
+    return out
+
+
+def _m3(n=8):
+    k0 = fit(orbit(0, 118, 1.40, c=(0, 0.3, 0.70), focal=35), PTS["car"])
+    r0 = np.linalg.norm(np.array(k0["loc"][:2]) - [0, 0.3])
+    T0, T1 = np.array([0, 0.3, 0.70]), np.array([0.35, 1.70, 0.85])
+    L1 = np.array([2.50, 5.42, 1.15]); r1 = np.linalg.norm(L1[:2] - T1[:2])
+    keys = []
+    for i in range(n + 1):
+        u = i / n; e = u * u * (3 - 2 * u)
+        T = T0 + (T1 - T0) * e; az = math.radians(118 + (150 - 118) * e); r = r0 + (r1 - r0) * e; h = 1.40 + (1.15 - 1.40) * e
+        keys.append({"t": SECS["m3_rear"] * u, "loc": [T[0] + r * math.sin(az), T[1] - r * math.cos(az), h],
+                     "target": list(T), "focal": 35, "ease": "lin"})
+    return keys
+
+
+B = BEAT
+SHOTS.update({
+    "m1_open": {"base": [CAR], "cam": arc(SECS["m1_open"], 35, 35, 1.15, 1.05, c=(0, -0.1, 0.65), tz=0.65, fit_to=0.74,
+                                          push=0.86, shape="lin")},
+    "m2_flank": {"base": [CAR], "cam": _m2()},
+    "m3_rear": {"base": [CAR], "cam": _m3()},
+    "m4_wingoff": {"base": [f"{P}/comp_wingoff.blend"],
+                   "parts": [{"blend": f"{P}/rwing.blend", "keys": [
+                       {"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 8 * B, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                       {"t": 9.5 * B, "loc": [0, 0.05, 0.30], "rot": [0, 0, 0], "ease": "out"},
+                       {"t": 12 * B, "loc": [0, 0.45, 1.55], "rot": [0, 0, 0], "ease": "inout"},  # out through the top edge
+                       {"t": SECS["m4_wingoff"], "loc": [0, 0.55, 2.10], "rot": [0, 0, 0], "ease": "lin"}]}],
+                   "cam": [{"t": 0, "loc": [1.30, 3.90, 3.00], "target": [0, 1.45, 1.30], "focal": 32},
+                           {"t": 8 * B, "loc": [1.05, 3.55, 2.70], "target": [0, 1.48, 1.33], "focal": 32, "ease": "in"},
+                           {"t": 12 * B, "loc": [0.30, 3.14, 2.36], "target": [-0.03, 1.53, 1.33], "focal": 32, "ease": "out"},  # hold on the mounts
+                           {"t": SECS["m4_wingoff"], "loc": [0.28, 3.09, 2.33], "target": [-0.03, 1.53, 1.33], "focal": 32, "ease": "lin"}]},
+    "m5_part": {"base": [f"{P}/comp_wingoff.blend"],
+                "parts": [{"blend": f"{P}/rwing.blend", "keys": [
+                    {"t": 0, "loc": [0, 0.55, 2.10], "rot": [0, 0, 0]},
+                    {"t": 4 * B, "loc": [0, 1.05, 0.80], "rot": [0, 0, 0], "ease": "inout"},
+                    {"t": SECS["m5_part"], "loc": [0, 1.10, 0.78], "rot": [0, 0, 0], "ease": "lin"}]}],
+                "cam": [{"t": 0, "loc": [0.55, 5.10, 0.75], "target": [0.05, 2.40, 1.75], "focal": 32},
+                        {"t": SECS["m5_part"], "loc": [0.45, 4.75, 0.80], "target": [0.0, 2.60, 1.85], "focal": 32, "ease": "inout"}]},
+    "m6_reassemble": {"base": [f"{P}/comp_wingoff.blend"],
+                      "parts": [{"blend": f"{P}/rwing.blend", "keys": [
+                          {"t": 0, "loc": [0, 1.10, 0.78], "rot": [0, 0, 0]},
+                          {"t": 4 * B, "loc": [0, 0.40, 0.50], "rot": [0, 0, 0], "ease": "inout"},
+                          {"t": 8 * B, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"},
+                          {"t": SECS["m6_reassemble"], "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "lin"}]}],
+                      "cam": [fit(orbit(0, 125, 6.4, c=(0, 0.25, 0.7), r=4.0, tz=0.7, focal=35), PTS["wing_back"], 0.80),
+                              dict(fit(orbit(SECS["m6_reassemble"], 125, 6.4, c=(0, 0.25, 0.7), r=4.0, tz=0.7, focal=35),
+                                       PTS["car"], 0.86), ease="out2")]},
+})
+
+
+def spec3(name, mode):
+    s = SHOTS[name]; final = mode == "final"
+    sp = {"base": s["base"], "parts": s.get("parts", []), "camera": {"sensor": 20.25, "keys": s["cam"]},
+          "seconds": SECS[name], "fps": 15, "res": "1080x1920",
+          "res_pct": 75 if final else 30, "samples": 12 if final else 6,
+          "out": f"{OUT}/{'final3' if final else 'preview3'}/{name}"}
+    if not final:
+        sp["frames"] = ["first", "mid", "last"]
+    p = f"{SPECS}/{name}_{mode}3.json"; json.dump(sp, open(p, "w"), indent=1); return p
+
+
 if __name__ == "__main__":
-    mode = sys.argv[1]
-    for n in sys.argv[2:] or list(SHOTS):
-        print(spec(n, mode))
+    mode = sys.argv[1]   # preview|final (v2 whole-car s*) or preview3|final3 (v2 brief m*)
+    if mode.endswith("3"):
+        for n in sys.argv[2:] or [k for k in SHOTS if k.startswith("m")]:
+            print(spec3(n, mode[:-1]))
+    else:
+        for n in sys.argv[2:] or [k for k in SHOTS if k.startswith("s")]:
+            print(spec(n, mode))

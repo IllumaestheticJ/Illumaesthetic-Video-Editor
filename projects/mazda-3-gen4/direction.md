@@ -40,7 +40,7 @@ first and a front -> side -> rear travel, which naturally *arrives* at the wing 
 | 3 | Rear arrival | car4 | rear end: tail lamps + hatch shape | travel step 3; tail lamps are the best rear detail; puts us behind the car for the wing | b16-b28 (12) | rear-left 3/4 swinging behind + pushing in until the rear end fills the width |
 | 4 | **HERO: Rear Wing Removed** | comp_wingoff (Wing Removed state) + rwing | wing seated, lifts ON THE DROP, camera moves IN on the exposed hatch top (mounting points / bolt holes) and holds ~3.3 s; labels REAR WING REMOVED / MOUNTING POINTS | removed-state data is the hero beat (user 2026-11-11); only registered part + state -> kick drop b36 | b28-b46 (18) | high behind-left, framed on the hatch top, pushes in on the mounts after the lift; black band above the roofline kept for the labels |
 | 5 | The part | comp_wingoff + rwing | wing's scanned underside / mounting face | brief: show the part's inner face; underside is scanned (49 % down-facing) | b46-b52 (6) | low behind looking up; wing translates back over clear black (no spin) |
-| 6 | Reassembly, whole car | comp_wingoff + rwing (car4 after lock) | wing returns and seats; whole car from above | Temerario: reassembly -> fade -> small logo; a high angle no other scene uses | b52-b64 (12; fade b62-b64) | high (~60 deg down) from behind-left, slow push, no orbit |
+| 6 | Top: reassembly, whole car | comp_wingoff + rwing (car4 after lock) | wing returns and seats; whole car from above | Temerario: reassembly -> fade -> small logo; a high angle no other scene uses | b52-b64 (12; fade b62-b64) | high (~60 deg down) from behind-left, slow push, no orbit |
 | 7 | Logo | logo card | small ILLUMAESTHETIC logo | brief: fade, then SMALL logo; music decays to ~38.2 | b64-b70 (6) | ~320 px wide (30 % width) on black |
 
 No top-down rotation, no wide explode orbit. Text: only the two file-backed labels on scene 4 (see director.md), never over a car silhouette.
@@ -101,7 +101,7 @@ runs out: scene 2 <- `final2/s4_side` played **reversed** (camera then drifts to
 
 ## 5. Open questions for the editor (check, don't guess)
 1. **Wing underside**: render `rwing.blend` alone from below (one still, 30 %). If the underside is ragged/empty rather
-   than a real mounting face, cut scene 5: scene 4 runs b28-b46 and scene 6 runs b46-b64 (wing returns from scene 4's end pose).
+   than a real mounting face, cut scene 5: scene 4 runs b28-b48 and scene 6 runs b48-b64 (wing returns from scene 4's end pose).
 2. Mount close-up resolution: comp_wingoff is 4 mm + Wing Removed fill. If the holes read soft at scene 4's end pose,
    stop the push ~0.3 m earlier rather than building a 2 mm composite (c2_rear ends at y 0.8 and would show a cut edge).
 3. Seams: check scene 6 frames at the lock (b60) - if comp_wingoff + seated wing shows trim lines, render the frames

@@ -1,0 +1,18 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1147,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 656,
+   "duration": 82,
+   "title": "REAR WING REMOVED",
+   "sub": "MOUNTING POINTS",
+   "x": 0.074,
+   "y": 0.11
+  }
+ ]
+}
