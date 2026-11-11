@@ -20,8 +20,12 @@ R2 = f"{P}/rear2.blend"
 C0 = (0.0, 0.17, 0.55)        # orbit centre
 
 # rendered seconds (15 fps); the timeline may use less
-SECS = {"s1_front": 5.6, "s2_rear": 5.0, "s3_lamp": 3.0, "s4_tail": 3.0, "s5_front_open": 6.0,
-        "s6_trunk": 4.4, "s7_top": 3.6}
+# Music: honda-s2000_track.mp3, 138.05 BPM, beat B = 0.43463 s, first kick 0.0565 s (tools/music_grid.py + LS refit).
+B = 0.43463
+SECS = {"s1_front": 5.6,  # rendered before the track arrived; the timeline uses its first 3.53 s
+        "s2_rear": 3.6, "s3_lamp": 1.9, "s4_tail": 1.9, "s4b_flank": 1.9, "s5_front_open": 3.6,
+        "s6_trunk": 2.75, "s7_top": 2.75}
+M2 = f"{P}/mid2.blend"
 
 LID_HINGE = [0.0, 1.529, 0.874]   # match/lid_hinge.json (fitted to the open lid in the trunk scan)
 LID_OPEN = 77.0
@@ -59,26 +63,30 @@ SHOTS = {
     "s4_tail": {"base": [R2], "cam": [
         {"t": 0, "loc": [-1.55, 3.0, 1.3], "target": [-0.55, 2.12, 0.9], "focal": 45},
         {"t": SECS["s4_tail"], "loc": [-0.85, 3.3, 1.25], "target": [-0.45, 2.15, 0.9], "focal": 45, "ease": "inout"}]},
+    # 4b. close-up glide along the left flank: mirror, door line, side marker (2 mm mid crop)
+    "s4b_flank": {"base": [M2], "cam": [
+        {"t": 0, "loc": [1.75, -0.95, 1.05], "target": [0.85, -0.35, 0.85], "focal": 40},
+        {"t": SECS["s4b_flank"], "loc": [1.8, 0.2, 1.0], "target": [0.85, 0.75, 0.8], "focal": 40, "ease": "inout"}]},
     # 5. front opens: bumper (Bumper Only scan) slides forward/down off the Bumper Removed structure, then the hood lifts
     "s5_front_open": {"base": [f"{P}/comp_fronthood.blend"],
                       "parts": [
                           {"blend": f"{P}/bonly.blend",
                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 0.6, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 2.6, "loc": [0, -1.05, -0.12], "rot": [0, 0, 0], "ease": "inout"},
+                                    {"t": 0.5 * B, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                                    {"t": 3.6 * B, "loc": [0, -1.05, -0.12], "rot": [0, 0, 0], "ease": "inout"},
                                     {"t": SECS["s5_front_open"], "loc": [0, -1.2, -0.14], "rot": [0, 0, 0], "ease": "lin"}]},
                           {"blend": f"{P}/hood.blend", "pivot": HOOD_HINGE,
                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 2.4, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 4.2, "loc": [0, 0, 0], "rot": [-38, 0, 0], "ease": "inout"},
+                                    {"t": 4 * B, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                                    {"t": 6.5 * B, "loc": [0, 0, 0], "rot": [-38, 0, 0], "ease": "out"},
                                     {"t": SECS["s5_front_open"], "loc": [0, 0, 0], "rot": [-40, 0, 0], "ease": "lin"}]}],
                       "cam": arc(0, SECS["s5_front_open"], 4.2, 4.5, -30, -14, 1.3, 1.75, c=(0, -1.45, 0.45), focal=30, n=6)},
     # 6. trunk lid opens on its fitted hinge, high rear 3/4
     "s6_trunk": {"base": [f"{P}/comp_trunk.blend"],
                  "parts": [{"blend": f"{P}/lid.blend", "pivot": LID_HINGE,
                             "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                     {"t": 0.6, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                     {"t": 2.6, "loc": [0, 0, 0], "rot": [LID_OPEN, 0, 0], "ease": "inout"}]}],
+                                     {"t": 1 * B, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                                     {"t": 4 * B, "loc": [0, 0, 0], "rot": [LID_OPEN, 0, 0], "ease": "inout"}]}],
                  "cam": arc(0, SECS["s6_trunk"], 3.6, 3.3, 146, 164, 2.2, 2.5, c=(0, 1.8, 0.6), focal=30, n=6)},
     # 7. top-down: from high front 3/4 up and over to straight down (tail at the top of the frame; starting from the
     # front keeps the camera's up vector continuous - from behind it would flip 180 deg at the top)
@@ -90,7 +98,7 @@ SHOTS = {
 
 # 8. exploded view. Times are set from the music in plan(): parts separate on SEP (accent), drift, fly home and LOCK on a
 # later accent. Parts go UP/forward (portrait stacking, lesson: never at the lens).
-EXP = {"secs": 9.0, "sep": 0.6, "hold": 2.2, "back": 6.6, "lock": 7.8}
+EXP = {"secs": 14.0, "sep": 1 * B, "hold": 4 * B, "back": 24 * B, "lock": 28 * B}  # shot = beats 48..80
 
 
 def explode(off, rot=(0, 0, 0), delay=0.0, e=EXP):
