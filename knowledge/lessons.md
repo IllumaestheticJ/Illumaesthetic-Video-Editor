@@ -72,3 +72,14 @@ lands here automatically. Agents must read this whole file before editing.
   Lock height (sweep a few values, render onions, pick by engine-bay depth / fender tops) and solve the rest.
 - **[scan-look]** Part-state composites: use the state scan *as captured* (e.g. "bumper removed") over the
   full-car scan trimmed back - reviewer preferred that to slicing a thin zone out of the state scan.
+
+## From the NC wing configurator demo (2026-11-11, built by an agent)
+- **[story]** Product-UI demos: capture the LIVE epsilon.plus pages frame-stepped with Playwright (scroll + tap indicator scripted per
+  frame, CSS animations advanced 1/30 s via `document.getAnimations()`), 432x768 @2.5x = 1080x1920. See projects/nc-configurator/tools/capWeb.cjs.
+- **[match-cut]** 1:1 against a web 3D view: export the view's own meshes, solve the photo camera on them, then drive the view's camera
+  (matrixWorld + an off-centre projection matrix for the 9:16 window) from a capture-only build; never commit that build to the site repo.
+- **[match-cut]** Silhouette-only refinement can fit the outline with the car rotated (interior features ~40 px off). Add interior
+  landmarks (emblem, plate, lights, fuel door) and judge with an edge overlay.
+- **[audio]** Trending music: Higgsfield `tiktok_music_trending` lists TikTok's Commercial Music Library with preview files
+  (host sf16-ies-music-sg.tiktokcdn.com). Find the drop from low-band RMS, fit the grid on low-band onsets, put the 1:1 cut on it.
+- **[technical]** Dropbox download hosts are per-file and random; every new batch needs the hosts added to the environment.

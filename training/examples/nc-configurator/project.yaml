@@ -1,0 +1,115 @@
+# NC Miata wing configurator demo (Epsilon+), TikTok 9:16. Website -> NC TC wing listing -> configurator -> 1:1 cut to the listing photo -> install snippets -> payoff.
+# Screen shots are frame-stepped captures of the LIVE epsilon.plus pages (tools/capWeb.cjs); shot D is the configurator's own three.js view driven to the
+# solved camera of nc-05.jpg (match/cam2_722.json, tools/capD.cjs). Music: 'Take Me (To The Moon)' - Ian Asher & D A N N Y (TikTok Commercial Music Library,
+# #2 trending US 7-day on 2026-11-11), bed starts at 12.405 s of the track so the drop (24.915 s) lands on the 1:1 cut at frame 375.
+project: nc-configurator
+format: reel-9x16 (TikTok)
+output: {path: /home/user/media/work/nc/out/nc_configurator_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music: {path: /home/user/media/work/nc/layers/music.wav, start: 0, fade_out: 0.9}
+
+# grid: 172.61 BPM (beat 0.3476 s, bar 1.3904 s); cut frame = round(beat * 10.428); drop = beat 36 = 12.514 s
+beats: [2.767, 4.867, 8.333, 12.500, 15.300, 16.000, 16.700, 17.367, 18.067, 18.767, 19.467, 19.800, 20.167, 20.500, 20.867, 22.233, 23.633, 25.033, 26.433, 29.200]
+
+timeline:
+  - id: A   # home page: scroll to the wing configurator, pick MX-5 Miata NC
+    src: /home/user/media/work/nc/layers/A.mp4
+    in: 0.0
+    dur: 2.7333
+  - transition: {type: cut}
+  - id: B   # NC TC wing listing: photos, price, size/mount
+    src: /home/user/media/work/nc/layers/B.mp4
+    in: 0.0
+    dur: 2.1000
+  - transition: {type: cut}
+  - id: C   # embedded configurator: CONFIGURE, add to cart, checkout
+    src: /home/user/media/work/nc/layers/C.mp4
+    in: 0.0
+    dur: 3.4667
+  - transition: {type: cut}
+  - id: D   # configurator 3D view: orbit to the solved camera of the listing photo
+    src: /home/user/media/work/nc/layers/D.mp4
+    in: 0.0
+    dur: 4.1667
+  - transition: {type: cut, note: '1:1 configurator -> real, on the drop'}
+  - id: E   # REAL: listing photo nc-05, same push continues
+    src: /home/user/media/work/nc/layers/E.mp4
+    in: 0.0
+    dur: 2.8000
+  - transition: {type: cut}
+  - id: F1   # install: hatch strut
+    src: /home/user/media/work/nc/layers/F1.mp4
+    in: 0.0
+    dur: 0.7000
+  - transition: {type: cut}
+  - id: F2   # install: trim panel off
+    src: /home/user/media/work/nc/layers/F2.mp4
+    in: 0.0
+    dur: 0.7000
+  - transition: {type: cut}
+  - id: F3   # install: inside the hatch
+    src: /home/user/media/work/nc/layers/F3.mp4
+    in: 0.0
+    dur: 0.6667
+  - transition: {type: cut}
+  - id: F4   # install: ratchet
+    src: /home/user/media/work/nc/layers/F4.mp4
+    in: 0.0
+    dur: 0.7000
+  - transition: {type: cut}
+  - id: F5   # install: tightening
+    src: /home/user/media/work/nc/layers/F5.mp4
+    in: 0.0
+    dur: 0.7000
+  - transition: {type: cut}
+  - id: F6   # install: hatch check
+    src: /home/user/media/work/nc/layers/F6.mp4
+    in: 0.0
+    dur: 0.7000
+  - transition: {type: cut}
+  - id: F7   # install (1 beat)
+    src: /home/user/media/work/nc/layers/F7.mp4
+    in: 0.0
+    dur: 0.3333
+  - transition: {type: cut}
+  - id: F8   # install (1 beat)
+    src: /home/user/media/work/nc/layers/F8.mp4
+    in: 0.0
+    dur: 0.3667
+  - transition: {type: cut}
+  - id: F9   # install (1 beat)
+    src: /home/user/media/work/nc/layers/F9.mp4
+    in: 0.0
+    dur: 0.3333
+  - transition: {type: cut}
+  - id: F10   # install: wing on the hatch
+    src: /home/user/media/work/nc/layers/F10.mp4
+    in: 0.0
+    dur: 0.3667
+  - transition: {type: cut}
+  - id: G1   # payoff: finished wing on the Integra (tutorial car)
+    src: /home/user/media/work/nc/layers/G1.mp4
+    in: 0.0
+    dur: 1.3667
+  - transition: {type: cut}
+  - id: G2   # NC listing photo: side quarter
+    src: /home/user/media/work/nc/layers/G2.mp4
+    in: 0.0
+    dur: 1.4000
+  - transition: {type: cut}
+  - id: G3   # NC listing photo: rear 3/4
+    src: /home/user/media/work/nc/layers/G3.mp4
+    in: 0.0
+    dur: 1.4000
+  - transition: {type: cut}
+  - id: G4   # NC listing photo: rear
+    src: /home/user/media/work/nc/layers/G4.mp4
+    in: 0.0
+    dur: 1.4000
+  - transition: {type: cut}
+  - id: H   # end card: Epsilon+ logo, epsilon.plus
+    src: /home/user/media/work/nc/layers/H.mp4
+    in: 0.0
+    dur: 2.7667
+
+overlays: []   # no text over IRL; the site UI carries the copy
