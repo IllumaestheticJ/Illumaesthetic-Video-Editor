@@ -179,6 +179,73 @@ SHOTS.update({
 })
 
 
+# ---------------------------------------------------------------- v2 final (direction.md, parent v2 brief + addendum)
+# One continuous sequence per section, travelling front -> rear on the car's right; only states that have scans
+# (no lid lift-off); bumper-removed state is the hero; plate flattened (tools/deplate.py -> *_dp.blend).
+CAR_DP = f"{P}/car4_dp.blend"
+COMP_DP = f"{P}/comp_explode_dp.blend"
+SECS.update({"v3_open": 3.2, "v3_b2": 5.44, "v3_b3a": 4.86, "v3_b3b": 4.86, "v3_rear": 4.86, "v3_end": 3.7,
+             "v3_endclean": 2.6})
+BUMP_PARK = (1.60, -0.85, -0.05)
+HOOD_OPEN_ROT = (-55, 0, 0)
+HOOD_UP, HOOD_UP_ROT = (0, 0.60, 1.50), (-8, 0, 0)   # lifted off over the windscreen, out of the B3b frame top
+BUMP_END = (0, -1.05, 0.0)   # END: parked ahead of the nose (inside the tall top-view frame)
+LID_OPEN_ROT = (HINGE_LID["open_deg"], 0, 0) if HINGE_LID else (74.27, 0, 0)
+LID_P = {"blend": f"{P}/lid4.blend", "pivot": HINGE_LID["p"], "axis": HINGE_LID["axis"]} if HINGE_LID else None
+
+
+def kp(t, loc=(0, 0, 0), rot=(0, 0, 0), ease="inout"):
+    return {"t": t, "loc": list(loc), "rot": list(rot), "ease": ease}
+
+
+def cam2(secs, l0, l1, t0, t1, focal, ease="inout"):
+    return [{"t": 0, "loc": list(l0), "target": list(t0), "focal": focal},
+            {"t": secs, "loc": list(l1), "target": list(t1), "focal": focal, "ease": ease}]
+
+
+def lerp(a, b, u):
+    return [x + (y - x) * u for x, y in zip(a, b)]
+
+
+# END camera: one slow linear rise over END (0-3.495) + END_clean (3.495-6.0); the clean shot continues it exactly.
+END_T, END_SWAP = 6.0, 3.495
+END_L0, END_L1, END_T0, END_T1 = (0, 1.00, 5.90), (0, 1.10, 6.30), (0, -0.60, 0.50), (0, -0.55, 0.50)
+
+SHOTS.update({
+    "v3_open": {"base": [CAR_DP], "cam": [
+        orbit(0, 6.0, -35, 1.1, c=(0, -0.3, 0.5), focal=30, tz=0.45),
+        orbit(SECS["v3_open"], 5.45, -35, 1.05, c=(0, -0.3, 0.5), focal=30, tz=0.45, ease="out")]},
+    "v3_b2": {"base": [COMP_DP],
+              "parts": [dict(BUMP_P, keys=[kp(0, BUMP_OFF), kp(1.0, BUMP_PARK)]),
+                        dict(HOOD_P, keys=[kp(0)]), dict(LID_P, keys=[kp(0)])],
+              "cam": cam2(SECS["v3_b2"], (-0.55, -3.60, 1.05), (-0.30, -2.65, 0.80), (-0.15, -1.85, 0.58),
+                          (-0.10, -1.80, 0.64), 32)},
+    "v3_b3a": {"base": [COMP_DP],
+               "parts": [dict(BUMP_P, keys=[kp(0, BUMP_PARK)]),
+                         dict(HOOD_P, keys=[kp(0), kp(0.6), kp(2.9, rot=HOOD_OPEN_ROT)]), dict(LID_P, keys=[kp(0)])],
+               "cam": cam2(SECS["v3_b3a"], (-1.00, -3.40, 1.70), (-0.75, -3.00, 2.15), (0, -1.45, 0.60),
+                           (0, -1.35, 0.55), 30)},
+    "v3_b3b": {"base": [COMP_DP],
+               "parts": [dict(BUMP_P, keys=[kp(0, BUMP_PARK)]),
+                         dict(HOOD_P, keys=[kp(0, rot=HOOD_OPEN_ROT), kp(1.2, HOOD_UP, HOOD_UP_ROT, "out")]),
+                         dict(LID_P, keys=[kp(0)])],
+               "cam": cam2(SECS["v3_b3b"], (-0.55, -2.55, 2.45), (-0.35, -2.15, 1.95), (0, -1.25, 0.55),
+                           (0, -1.15, 0.50), 32)},
+    "v3_rear": {"base": [COMP_DP],
+                "parts": [dict(BUMP_P, keys=[kp(0, BUMP_PARK)]), dict(HOOD_P, keys=[kp(0, (0, 0.6, 9.0), HOOD_UP_ROT)]),  # parked off-shot
+                          dict(LID_P, keys=[kp(0), kp(0.6), kp(2.4, rot=LID_OPEN_ROT)])],
+                "cam": push(SECS["v3_rear"], -145, 3.6, 2.9, 1.90, 2.15, (0, 1.35, 0.6), 0.6, 30)},
+    "v3_end": {"base": [COMP_DP],
+               "parts": [dict(BUMP_P, keys=[kp(0, BUMP_END), kp(1.165, BUMP_END), kp(END_SWAP)]),
+                         dict(HOOD_P, keys=[kp(0, HOOD_UP, HOOD_UP_ROT), kp(1.165, HOOD_UP, HOOD_UP_ROT), kp(END_SWAP)]),
+                         dict(LID_P, keys=[kp(0, rot=LID_OPEN_ROT), kp(1.165, rot=LID_OPEN_ROT), kp(END_SWAP)])],
+               "cam": cam2(END_T, END_L0, END_L1, END_T0, END_T1, 30, "lin")},
+    "v3_endclean": {"base": [CAR_DP],
+                    "cam": cam2(END_T - END_SWAP, lerp(END_L0, END_L1, END_SWAP / END_T), END_L1,
+                                lerp(END_T0, END_T1, END_SWAP / END_T), END_T1, 30, "lin")},
+})
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
