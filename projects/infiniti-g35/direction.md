@@ -62,16 +62,24 @@ only and opening it reveals nothing scanned). So the reveal ladder has **no stat
   (13.363 s) so the track's ending/logo timing is kept and the reel is 24.63 s.
 
 ### Scene list
-| # | scene | scans used | feature shown | why here (inventory) | beats | camera note |
-|---|---|---|---|---|---|---|
-| 1 | s1_turntable (reuse, new wide render) | car4 | whole car, front-right 3/4, mesh wheels | V2 rule 4 + strongest front feature; motion from frame 1 | 4 | first 80 frames only (the render's last ~2.8 s is near-static) |
-| 2 | g1_lamp (NEW) | car25 | right headlamp | front detail, framed outboard so grille/intakes/plate stay out | 4 | slow arc 60 -> 45 deg off the nose, 65 mm |
-| 3 | g2_wheel (NEW) | car25 | front-right mesh-spoke wheel + arch lip | best-captured detail on the car; framed above the tyre contact speckle | 4 | slide forward along the rim, 60 mm |
-| 4 | g3_side (NEW) | car25 | mirror -> door line/handle -> fuel door + rear quarter | the side section; path dips below the door-glass hole | 8 | parallel track rear-ward, 55 mm |
-| 5 | g4_exhaust (NEW) | car25 | right exhaust tip in the bumper | rear section opens low on the climax entry | 4 | low push, 70 mm, plate + rear-corner shreds out of frame |
-| 6 | g5_spoiler (NEW) | car25 | aftermarket spoiler on the trunk lid | the car's mod = the rear's signature, rising toward the top shot | 4 | high rising arc from rear-right to centre, 40 mm |
-| 7 | s7_top (reuse, trimmed) | car4 | fastback planform, ends straight top-down | top rung; continues the rise of g5; fade to black on its last 12 frames | 4 | in 41 (skips the grille-hole frames) |
-| 8 | logo (re-made card) | - | ILLUMAESTHETIC, small | Temerario ending | 3.3 s | logo 380 px wide |
+| # | section | scene | scans used | feature shown | why here (inventory) | beats | camera note |
+|---|---|---|---|---|---|---|---|
+| 1 | whole (front 3/4) | s1_turntable (reuse, new wide render) | car4 | whole car, front-right 3/4, mesh wheels | V2 rule 4 + strongest front feature; motion from frame 1 | 4 | first 80 frames only (the render's last ~2.8 s is near-static) |
+| 2 | front | g1_lamp (NEW) | car25 | right headlamp | front detail, framed outboard so grille/intakes/plate stay out | 4 | slow arc 60 -> 45 deg off the nose, 65 mm |
+| 3 | front (wheel) | g2_wheel (NEW) | car25 | front-right mesh-spoke wheel + arch lip | best-captured detail on the car; framed above the tyre contact speckle | 4 | slide forward along the rim, 60 mm |
+| 4 | side | g3_side (NEW) | car25 | mirror -> door line/handle -> fuel door + rear quarter | the side section; path dips below the door-glass hole | 8 | parallel track rear-ward, 55 mm |
+| 5 | rear | g4_exhaust (NEW) | car25 | right exhaust tip in the bumper | rear section opens low on the climax entry | 4 | low push, 70 mm, plate + rear-corner shreds out of frame |
+| 6 | rear | g5_spoiler (NEW) | car25 | aftermarket spoiler on the trunk lid | the car's mod = the rear's signature, rising toward the top shot | 4 | high rising arc from rear-right to centre, 40 mm |
+| 7 | top | s7_top (reuse, trimmed) | car4 | fastback planform, ends straight top-down | top rung; continues the rise of g5; fade to black on its last 12 frames | 4 | in 41 (skips the grille-hole frames) |
+| 8 | end | logo (re-made card) | - | ILLUMAESTHETIC, small | Temerario ending | 3.3 s | logo 380 px wide |
+
+Each section appears in ONE continuous run: whole -> front (lamp, front wheel) -> side -> rear (exhaust, spoiler) -> top -> logo.
+The front wheel is the only wheel shot (it belongs to the front run); the rear wheel only passes the bottom edge of g3's last frames and
+is not a focus. No section is revisited.
+
+**No state shots (V2 addendum C/D):** no bumper-removed hero beat - the coupe has no bumper-removed scan (the sedan bumper scans are a
+different body and do not register, fitness 0.04-0.11). No trunk, hood or door opening - no registered open-state scan of this car exists,
+and animating the closed scan's carved panels would fake it. So: no trunk shot, no explode.
 
 ## Music map
 Track: `/home/user/media/work/music/infiniti-g35_track.mp3`, 90 BPM, beat 0.6667 s, bar kicks at 0.03 + k*2.6667 s, climax kicks

@@ -20,25 +20,33 @@ Track time = video time + 13.363 (music starts at the measured kick 13.363 s). C
 |---|---|---|---|---|---|---|---|---|
 | whole | s1_turntable | 0.000-2.667 (13.363-16.030) | 80 | whole car, front-right 3/4, mesh wheels | existing wide orbit (8.0 m, -24 -> -46 deg, h 1.2 -> 1.4, 30 mm); use in 0, out 80 | none | V2 rule 4: whole car, moving from frame 1 | reuse `renders/final/s1_turntable` (new wide render, 84 f) |
 | front | g1_lamp | 2.667-5.333 (16.030-18.697) | 80 | right headlamp | t0: loc (-2.04, -2.80, 1.20) target (-0.65, -2.00, 0.97) 65 mm -> t 2.667: loc (-1.78, -3.13, 1.15) target (-0.65, -2.02, 0.97) 65 mm (arc 60 -> 45 deg off the nose at 1.6 m) | none | lamp shape at 2.5 mm; grille (x within +/-0.35) projects >= 0.43 m off-axis vs 0.25 m half-width -> out of frame; lower intake (z < 0.5) below frame | NEW, 42 f |
-| front | g2_wheel | 5.333-8.000 (18.697-21.370) | 80 | front-right mesh-spoke rim + arch lip | t0: loc (-2.05, -1.15, 0.82) target (-0.86, -1.45, 0.68) 60 mm -> t 2.667: loc (-2.05, -1.95, 0.82) target (-0.86, -1.58, 0.68) 60 mm (slide forward 0.8 m at 1.2 m) | none | best-captured detail on the car; frame spans z ~0.34-1.03 so the contact-patch speckle (< 0.30) stays out | NEW, 42 f |
+| front | g2_wheel | 5.333-8.000 (18.697-21.370) | 80 | front-right mesh-spoke rim + arch lip | t0: loc (-2.05, -1.15, 0.80) target (-0.86, -1.45, 0.60) 60 mm -> t 2.667: loc (-2.05, -1.95, 0.80) target (-0.86, -1.58, 0.60) 60 mm (slide forward 0.8 m at 1.2 m) | none | best-captured detail on the car. Deliberate extreme close-up: the rim (dia ~0.46 m) fills the 0.39 m frame width (rim edge cropped a few cm on purpose); frame spans z ~0.26-0.95, so the contact-patch speckle (< 0.30) sits at most at the bottom edge | NEW, 42 f |
 | side | g3_side | 8.000-13.333 (21.370-26.697) | 160 | right side: mirror -> door line/handle -> fuel door + rear quarter | t0: loc (-2.85, -1.05, 1.05) target (-0.92, -0.62, 1.00) 55 mm; t 2.667: loc (-2.85, 0.35, 0.85) target (-0.92, 0.30, 0.65) 55 mm; t 5.333: loc (-2.80, 2.15, 1.05) target (-0.90, 1.70, 0.92) 55 mm (parallel track rear-ward, ease `lin` on the middle key) | none | the only side shot; dips to target z 0.65 while passing y 0 so the door-glass hole (z >= 1.29) stays above frame; ends on the rear quarter leading into the rear | NEW, 82 f |
 | rear | g4_exhaust | 13.333-16.000 (26.697-29.370) | 80 | right exhaust tip in the bumper | t0: loc (-1.35, 3.25, 0.50) target (-0.45, 2.28, 0.38) 70 mm -> t 2.667: loc (-0.85, 3.45, 0.55) target (-0.45, 2.28, 0.40) 70 mm (low push-in/arc at 1.35 m) | none | opens the rear section on the climax kick; half-width 0.19 m keeps the plate (x within +/-0.17, 0.28 m away) and rear-corner shreds (x -0.85) out | NEW, 42 f |
-| rear | g5_spoiler | 16.000-18.667 (29.370-32.030) | 80 | aftermarket spoiler on the trunk lid | t0: loc (-1.30, 3.45, 1.95) target (-0.25, 2.05, 1.22) 40 mm -> t 2.667: loc (0.00, 3.35, 2.45) target (0.00, 1.95, 1.20) 40 mm (rising arc rear-right -> centre, ~40 deg down) | none | the car's mod, the rear's signature; looking down foreshortens the tail lamps; rising move hands off to the top shot | NEW, 42 f |
+| rear | g5_spoiler | 16.000-18.667 (29.370-32.030) | 80 | aftermarket spoiler on the trunk lid | t0: loc (-1.55, 3.75, 2.10) target (-0.25, 2.05, 1.22) 30 mm -> t 2.667: loc (0.00, 3.75, 2.65) target (0.00, 1.95, 1.20) 30 mm (rising arc rear-right -> centre, ~40 deg down; end half-width 0.81 m vs spoiler half-span 0.70 m, so both spoiler tips stay in frame with margin) | none | the car's mod, the rear's signature; looking down foreshortens the tail lamps; rising move hands off to the top shot | NEW, 42 f |
 | top | s7_top | 18.667-21.333 (32.030-34.697) | 80 | fastback planform, ends straight top-down | existing: (2.4, -4.6, 4.0) -> (0, -0.25, 7.0), 30 mm; use in 41, out 121; fade to black over its last 12 frames (628-640) | none | top rung, continues the rise; trim skips the grille-hole frames | reuse `renders/final/s7_top` |
 | end | logo | 21.333-24.633 (34.697-38.000) | 99 | ILLUMAESTHETIC logo, small | `projects/infiniti-g35/tools/logo_card.py <logo> /home/user/media/work/g35/out/logo_card.mp4 --secs 3.3 --width 380` (was 860 px; 380 px = 35 % of width, the Temerario logo is ~25-35 %) | - | the ending the brief asks for; fades in after the black | re-make card (ffmpeg/PIL, no Blender) |
 
 Preview checks (`shots.py preview <shot>`, first/mid/last at 30 %), before any final:
 - g1: no grille or intake hole visible; if the grille edge shows on the right edge, swing t0 to 65 deg / end to 50 deg.
-- g2: no speckle at the bottom edge; if visible, raise both targets by 0.05.
+- g2: rim centred and filling the width, no speckle at the bottom edge; if speckle reads, raise both targets by 0.04 (keep the hub in frame).
 - g3 mid frame: door-glass hole above the frame; if not, lower the middle target to z 0.60. Rear wheel bottom must not show shreds at the end; if it does, raise the end target to z 0.98.
 - g4: plate slab and the underbody shreds out of frame; tip centred. If the tip position is off (rake), re-aim the target at the tip seen in the first preview.
-- g5: lamp lenses at most a thin sliver at the bottom; if the dark holes read, raise both cameras by 0.3 m.
+- g5: both spoiler tips in frame with margin; lamp lenses at most a thin sliver at the bottom; if the dark holes read, raise both cameras by 0.3 m.
 - Every final: per-frame mean luma scan for dropouts (render with `use_persistent_data` off - spec `"persistent": false` - for all
   new shots), and a frame diff before each cut to catch the 3-frame minterpolate freeze.
 
 Assembly notes for the editor: `concat_assemble.py` with exact `frames:` (80, 80, 80, 160, 80, 80, 80, 99), `src_fps: 15`,
 `interpolate: true`; first clip one frame short if the measured cuts land late (lesson); music `start: 13.363`; set `focus:` on
 every clip as in the table. Log each decision with `ive log ... --why`.
+
+## Framing (V2 addendum A)
+- Wide shots (s1, s7): whole car fully in frame in every used frame (checked on `preview_wide.jpg` and `final_s7_top.jpg`: wheels, bumpers, spoiler, mirrors inside the frame).
+- Detail shots (g1-g5): the named section fills the frame. The only intentional crops are g2 (rim edge, extreme close-up) and the
+  bottom of g3's last frames (rear tyre below the quarter panel, kept out because of contact-patch speckle). Anything else clipped in a
+  preview is a framing error: fix the camera, not the edit.
+- `ive director` was run on the v1 timeline; it flagged two repeated views (s1~s2, s4~s5) and both are gone in v2. It could not be run
+  on v2 because project.yaml is not updated yet (not mine to edit); the editor runs it after updating project.yaml and fixes every flag.
 
 ## Cut list (removed from v1)
 | v1 shot / frames | reason |

@@ -81,6 +81,21 @@ def shots():
                        "cam": [orbit(E * k / 12, 6.4 + 1.6 * math.sin(math.pi * k / 12), -38 - 84 * (k / 12),
                                      2.2 + 0.4 * math.sin(math.pi * k / 12), c=(0, -0.3 + 0.6 * (k / 12), 1.2), focal=28,
                                      ease="lin", tz=1.25) for k in range(13)]}
+    # ---- v2 section close-ups (director.md): front -> side -> rear, all car25, persistent data off
+    def k(t, loc, tgt, f, ease="inout"):
+        return {"t": t, "loc": list(loc), "target": list(tgt), "focal": f, "ease": ease}
+    G = {n: S.get(n, 2.6667) for n in ("g1_lamp", "g2_wheel", "g3_side", "g4_exhaust", "g5_spoiler")}
+    d["g1_lamp"] = {"base": [CAR_HI], "cam": [k(0, (-2.04, -2.80, 1.20), (-0.65, -2.00, 0.97), 65),
+                                              k(G["g1_lamp"], (-1.78, -3.13, 1.15), (-0.65, -2.02, 0.97), 65)]}
+    d["g2_wheel"] = {"base": [CAR_HI], "cam": [k(0, (-2.05, -1.15, 0.80), (-0.86, -1.45, 0.60), 60),
+                                               k(G["g2_wheel"], (-2.05, -1.95, 0.80), (-0.86, -1.58, 0.60), 60)]}
+    d["g3_side"] = {"base": [CAR_HI], "cam": [k(0, (-2.85, -1.05, 1.05), (-0.92, -0.62, 1.00), 55),
+                                              k(G["g3_side"] / 2, (-2.85, 0.35, 0.85), (-0.92, 0.30, 0.65), 55, "lin"),
+                                              k(G["g3_side"], (-2.80, 2.15, 1.05), (-0.90, 1.70, 0.92), 55)]}
+    d["g4_exhaust"] = {"base": [CAR_HI], "cam": [k(0, (-1.35, 3.25, 0.50), (-0.45, 2.28, 0.38), 70),
+                                                 k(G["g4_exhaust"], (-0.85, 3.45, 0.55), (-0.45, 2.28, 0.40), 70)]}
+    d["g5_spoiler"] = {"base": [CAR_HI], "cam": [k(0, (-1.55, 3.75, 2.10), (-0.25, 2.05, 1.22), 30),
+                                                 k(G["g5_spoiler"], (0.00, 3.75, 2.65), (0.00, 1.95, 1.20), 30)]}
     return d
 
 
@@ -91,6 +106,8 @@ def spec(name, mode, frames=None):
           "seconds": SECS[name] + 2 / 15, "fps": 15, "res": "1080x1920",
           "res_pct": 75 if final else 30, "samples": 12 if final else 6,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
+    if s.get("parts") or name.startswith("g"):
+        sp["persistent"] = False  # Cycles persistent data dropped all lights mid-sequence (s8 v1)
     if not final:
         sp["frames"] = frames or ["first", "mid", "last"]
     os.makedirs(SPECS, exist_ok=True)
