@@ -83,7 +83,7 @@ timeline:
     src: /home/user/media/lexus-is350/renders/final/X3_reassembly
     src_fps: 15
     interpolate: true
-    vf: "fade=t=out:st=3.5:d=0.5"
+    vf: "crop=iw:ih-240:0:0,pad=iw:ih+240:0:240:color=0x070709,fade=t=out:st=3.5:d=0.5"   # recentre + fade out
     dur: 4.0
   - transition: {type: cut, note: "30.063 last phrase - small logo fades in from black"}
   - id: logo           # ferrari-296/tools/logo_card.py --secs 3.5333 --width 380 (small, ~35 % width)
