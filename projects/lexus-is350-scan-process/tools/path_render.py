@@ -10,9 +10,16 @@ def pop(flag, default=None):
         k = rest.index(flag); v = rest[k + 1]; del rest[k:k + 2]; return v
     return default
 cam_b = pop('--cam-b'); path_ease = pop('--path-ease', 'ease_in_out')
+no_persist = '--no-persist' in rest
+if no_persist: rest.remove('--no-persist')
 sys.argv = argv[:i + 1] + rest
 spec = importlib.util.spec_from_file_location('scan_render', '/home/user/Illumaesthetic-Video-Editor/blender/scan_render.py')
-sr = importlib.util.module_from_spec(spec); spec.loader.exec_module(sr)
+sr = importlib.util.module_from_spec(spec)
+src = open(spec.origin).read()
+if no_persist:  # Cycles persistent data can drop the studio lights mid-animation (WRX VA lesson)
+    assert 'sc.render.use_persistent_data = True' in src
+    src = src.replace('sc.render.use_persistent_data = True', 'sc.render.use_persistent_data = False')
+exec(compile(src, spec.origin, 'exec'), sr.__dict__)
 from mathutils import Matrix, Vector
 
 def animate(cam, args, lo, hi, f0, f1):
@@ -42,7 +49,9 @@ def animate(cam, args, lo, hi, f0, f1):
         cd.shift_x = sA[0] + (sB[0] - sA[0]) * t; cd.shift_y = sA[1] + (sB[1] - sA[1]) * t
         for k in ('location', 'rotation_quaternion'): cam.keyframe_insert(k, frame=f)
         for k in ('lens', 'shift_x', 'shift_y'): cd.keyframe_insert(k, frame=f)
-    bpy_scene = __import__('bpy').context.scene; bpy_scene.frame_set(f0)
+    bpy_scene = __import__("bpy").context.scene
+    bpy_scene.frame_set(f1); print("PATH_END", tuple(round(v,3) for v in cam.matrix_world.translation), round(cd.lens,2), round(cd.sensor_width,2), cd.sensor_fit, "target_lb", tuple(round(v,3) for v in lb))
+    bpy_scene.frame_set(f0)
 
 sr.animate_camera = animate
 sr.main()

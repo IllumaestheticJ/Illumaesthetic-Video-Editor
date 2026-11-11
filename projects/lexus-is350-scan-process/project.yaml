@@ -1,4 +1,4 @@
-# v2: end card = listing with the 2026+ front bumper dataset selected (user feedback). v1: project_v1.yaml
+# v3: all-reels brief - wider real crops (blurred fill), director plan (push not orbit, reflector framed close, one 180), music +25 ms. v1/v2: project_v1.yaml / project_v2.yaml
 # Lexus IS350 (4IS, plate 9JTY488) scan-process reel - 240SX format with the real shop footage (FX3A, S-Log3).
 # Real clips are pre-rendered by tools/irl.py (LUT + 9:16 window from the 4K original, last frame = match frame).
 # Scan shots: S1/S2 ive render, S3 tools/path_render.py (two-camera swoop). Cameras in /home/user/media/work/is350/match.
@@ -17,11 +17,11 @@ beats: [3.000, 7.000, 8.001, 9.501, 13.001, 19.001, 23.001, 27.002]
 timeline:
   - id: irl_walkout    # FX30554 f193-264: camera walks out of the shop door onto the powdered car; ends on the solved frame
     dur: 2.9667   # 89 frames: the assembler adds one hold frame per cut (FG2 lesson); rendered 89 long so the match frame stays last
-    src: /home/user/media/work/is350/irl/i1_open.mp4
+    src: /home/user/media/work/is350/irl/w1_open.mp4
   - transition: {type: cut, note: "1:1 real -> scan ON THE DROP (cam_A2 -> camP_A, FX3A 32.6 mm)"}
   - id: scan_front     # full-car scan from the matched camera, slow 20 deg orbit; HUD triangle counter
     dur: 4.0
-    src: /home/user/media/work/is350/renders/s1_front
+    src: /home/user/media/work/is350/renders/v3_s1_front
     src_fps: 15
     interpolate: true
   - id: irl_spray      # FX30549: powder spray on the bumper (2 beats)
@@ -32,16 +32,16 @@ timeline:
     src: /home/user/media/work/is350/irl/i3_scanner.mp4
   - id: irl_rear_scan  # FX30542 f1052-1135: crew scanning the rear bumper, frame pans onto the left-rear corner
     dur: 3.5
-    src: /home/user/media/work/is350/irl/i4_rear.mp4
+    src: /home/user/media/work/is350/irl/w4_rear.mp4
   - transition: {type: cut, note: "1:1 real -> scan (cam_B -> camP_B, 31.1 mm) on the bar downbeat"}
   - id: scan_rear      # base = full car with the reflector-removed scan spliced in; reflector pops out below the bumper and spins (inside + outside)
     dur: 6.0
-    src: /home/user/media/work/is350/renders/s2_rear
+    src: /home/user/media/work/is350/renders/v3_s2_rear
     src_fps: 15
     interpolate: true
   - id: scan_xray      # same pose, x-ray: reflector translates home, camera swoops out to the listing's 360-viewer angle, morphs to listing grey
     dur: 4.5
-    src: /home/user/media/work/is350/renders/s3_xray
+    src: /home/user/media/work/is350/renders/v3_s3_xray
     src_fps: 15
     interpolate: true
   - transition: {type: dissolve, duration: 0.5, note: "x-ray (listing pose, listing grey) -> the IS350 scan-data listing"}
