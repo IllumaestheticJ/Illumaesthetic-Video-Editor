@@ -1,0 +1,36 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1116,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 458,
+   "duration": 59,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "STATE SCAN \u00b7 3,999,999 TRIANGLES",
+   "x": 0.08,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 536,
+   "duration": 79,
+   "title": "BUMPER BEAM",
+   "sub": "BEHIND THE FRONT BUMPER",
+   "x": 0.08,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 836,
+   "duration": 46,
+   "title": "FRONT BUMPER",
+   "sub": "INNER SIDE \u00b7 4,000,000 TRIANGLES",
+   "x": 0.08,
+   "y": 0.68
+  }
+ ]
+}

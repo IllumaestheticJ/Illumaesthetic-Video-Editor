@@ -1,0 +1,119 @@
+# Honda S2000 AP1 - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo.
+# Satin-silver scan on black; turntable/orbit -> extreme close-ups -> front opens (bumper off, hood up) # -> top-down -> exploded view -> ILLUMAESTHETIC logo.
+# Shots: tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + moving parts), see clips.md for the scan data.
+# Music: honda-s2000_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via
+# Higgsfield; fast breakbeat + acid line). 138.05 BPM, beat 0.43463 s, first kick 0.0565 s (tools/music_grid.py).
+# Map: groove b0-27 | drums out b28-31 (12.23 s) | DROP b32 (13.965) | groove to b64 | drumless rising outro b65-83 |
+# hard stop b84 (36.565) | reverb tail to ~38.4 s.
+# Cuts on frames round(t*30): 106 (b8), 210 (b16), 262 (b20), 315 (b24), 367 (b28), 471 (b36), 549 (b42), 628 (b48),
+# v4 back half: 680 (b52), 732 (b56), 784 (b60), 836 (b64), 888 (b68), 993 (b76), 1045 (b80); end 1116 (37.2 s).
+# Clip lengths are exact frame counts; assembled with tools/concat_assemble.py (plain concat, no duplicated cut frame).
+project: honda-s2000
+format: reel-9x16
+output: {path: /home/user/media/work/s2k/out/honda_s2000_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/honda-s2000_track.mp3   # not in git
+  start: 0
+  fade_out: 0.7
+
+beats: [3.534, 7.011, 8.749, 10.488, 12.226, 15.703, 18.311, 20.919, 22.657, 24.395, 26.134, 27.873, 29.611, 33.088, 34.827]
+
+timeline:
+  - id: s1_front       # low-ish front 3/4 turntable; rendered 5.6 s before the track arrived, starts 1.4 s in so it is visibly turning from frame 1
+    src: /home/user/media/work/s2k/renders/final/s1_front
+    src_fps: 15
+    interpolate: true
+    trim_start: 1.4
+    frames: 106
+  - transition: {type: cut, note: "b8 3.534"}
+  - id: s2_rear        # rear 3/4 orbit, other side, rising
+    src: /home/user/media/work/s2k/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    frames: 104
+  - transition: {type: cut, note: "b16 7.011"}
+  - id: s3_lamp        # extreme close-up: left headlight (2 mm)
+    src: /home/user/media/work/s2k/renders/final/s3_lamp
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b20 8.749"}
+  - id: s4_tail        # extreme close-up: right tail lamp + ducktail (2 mm)
+    src: /home/user/media/work/s2k/renders/final/s4_tail
+    src_fps: 15
+    interpolate: true
+    frames: 53
+  - transition: {type: cut, note: "b24 10.488"}
+  - id: s4b_flank      # glide along the left flank: mirror, door handle, fender badge (2 mm)
+    src: /home/user/media/work/s2k/renders/final/s4b_flank
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b28 12.226 - drums drop out"}
+  - id: s5_front_open  # bumper (Bumper Only scan) slides off the Bumper Removed structure in the break; hood lifts ON the drop (b32)
+    src: /home/user/media/work/s2k/renders/final/s5_front_open
+    src_fps: 15
+    interpolate: true
+    frames: 104
+  - transition: {type: cut, note: "b36 15.703"}
+  - id: s6_structure   # v5: high close look into the exposed front structure (Bumper Removed + Hood Open scans); replaces the trunk shot (no real open-trunk scan)
+    src: /home/user/media/work/s2k/renders/final/s6_structure
+    src_fps: 15
+    interpolate: true
+    frames: 78
+  - transition: {type: cut, note: "b42 18.311"}
+  - id: s7_top         # high front 3/4 up and over to straight top-down
+    src: /home/user/media/work/s2k/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    frames: 79
+  - transition: {type: cut, note: "b48 20.919"}
+  - id: e1_separate   # panels lift off b49 -> b52 (first 1.73 s of the s8 render)
+    src: /home/user/media/work/s2k/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b52 22.657"}
+  - id: e2_side   # high side view, panels floating in layers above the car
+    src: /home/user/media/work/s2k/renders/final/e2_side
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b56 24.395"}
+  - id: e3_low   # low front looking up at the bumper and hood over the exposed structure
+    src: /home/user/media/work/s2k/renders/final/e3_low
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b60 26.134"}
+  - id: e4_hood   # close on the floating hood
+    src: /home/user/media/work/s2k/renders/final/e4_hood
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b64 27.873 - outro starts"}
+  - id: e5_fronthigh   # high front-right 3/4 down on the floating bumper + hood
+    src: /home/user/media/work/s2k/renders/final/e5_fronthigh
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b68 29.611"}
+  - id: e6_return   # s8 render 8.667 s -> 12.167 s: drift, fly home, LOCK exactly on the cut b76
+    src: /home/user/media/work/s2k/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    trim_start: 8.6667
+    frames: 105
+  - transition: {type: cut, note: "b76 33.088 - the lock"}
+  - id: e8_locked   # push in on the assembled car, front 3/4
+    src: /home/user/media/work/s2k/renders/final/e8_locked
+    src_fps: 15
+    interpolate: true
+    frames: 52
+  - transition: {type: cut, note: "b80 34.827 - last downbeat; music stops under the logo at 36.565"}
+  - id: logo           # tools/logo_card.py --secs 2.3667 (v3 held it 3.6 s): logo on render black, fades with the reverb tail
+    src: /home/user/media/work/s2k/out/logo_card_v4.mp4
+    frames: 71
+
+overlays: []
