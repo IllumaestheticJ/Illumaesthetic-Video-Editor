@@ -8,8 +8,8 @@ import sys
 R = "/home/user/media/work/sti/renders/final"
 # (id, src dir, section, focus, note, start frame)
 SHOTS = [("O1_open", "O1_open", "whole", "whole car, wing", "Blobeye Full Car: rear-left 3/4 orbit, moving from frame 1", 0),
-         ("R_a", "R_a", "rear", "wing", "full car: push in on the wing / trunk", 97),
-         ("R_b", "R_b", "rear", "trunk lid without the wing", "STATE SWAP -> 'Rear Wing data' scan (rear captured with the wing off), alone", 157),
+         ("R_wing", "R_wing", "rear", "wing", "full car: push in on the wing / trunk", 97),
+         ("wing", "s8_wing", "rear", "wing end plate + tail light", "full car 2 mm: wing end plate and tail light", 193),
          ("wheel", "s3_wheel", "wheel", "front-right wheel + caliper", "full car 2 mm: wheel, caliper, disc", 241),
          ("light", "s4_light", "front", "headlight -> hood scoop", "full car 2 mm: blobeye headlight to the scoop", 289),
          ("H_a", "H_a", "engine", "hood + scoop", "full car: push in over the hood", 337),

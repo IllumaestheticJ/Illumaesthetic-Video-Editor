@@ -39,8 +39,9 @@ B0, B1, B2, B3 = (((1.20, -4.70, 0.55), (0.05, -2.10, 0.48), 35), ((0.55, -3.60,
                   ((0.30, -3.20, 0.55), (0, -2.00, 0.42), 38), ((-0.25, -3.10, 0.48), (-0.35, -1.97, 0.36), 38))
 SHOTS = {
     "O1_open": (CAR, 97 * F, [cam(0, (1.916, 5.812, 0.95), (0, 0.55, 0.65), 30), cam(97 * F, (3.682, 4.262, 1.35), (0, 0.45, 0.65), 30, "out2")]),
-    "R_a": (CAR, 60 * F, [cam(0, *R0), cam(60 * F, *R1)]),
-    "R_b": (REAR, 84 * F, [cam(0, *R1), cam(84 * F, *R2, "out")]),
+    # Rear: full car only. The wing-off scan ('Rear Wing data') was rendered and dropped - its capture boundary is a
+    # ragged staircase across the rear window and a hole in the tail light at every framing (reads as "improperly cut").
+    "R_wing": (CAR, 96 * F, [cam(0, *R0), cam(96 * F, (1.08, 3.98, 1.98), (0.09, 1.95, 1.04), 42, "out")]),
     "H_a": (CAR, 60 * F, [cam(0, *H0), cam(60 * F, *H1)]),
     "E_bay": (BAY, 168 * F, [cam(0, *H1), cam(168 * F, *H2, "out")]),
     "B_a": (CAR, 48 * F, [cam(0, *B0), cam(48 * F, *B1)]),
