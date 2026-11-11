@@ -78,7 +78,7 @@ def shots():
     # 1. whole car, front-right 3/4, fully in frame with margin (v1 was cropped); straight push toward the front end
     d = S("s1_reveal", 5.07)
     sh["s1_reveal"] = {"base": [CAR], "cam": [cam(0, (-3.9, -5.9, 1.35), (0, -0.35, 0.5), ease="lin"),
-                                               cam(d, (-2.9, -4.9, 1.15), (0, -0.9, 0.5), ease="out2")]}
+                                               cam(d, (-2.9, -4.9, 1.15), (0, -0.9, 0.5), ease="lin")]}  # v2b: linear - out2 tail read as 0.9 s dead before the cut
     # 2. FRONT: bumper slides up/forward out of the car into clear background, then turns once to show its scanned inside
     d = S("s2_bumper", 4.43)
     sh["s2_bumper"] = {"base": [BASE], "parts": [

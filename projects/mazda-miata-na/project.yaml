@@ -4,7 +4,7 @@
 # open states only where a registered scan of that state exists). Travel: whole -> front -> side -> rear -> top -> logo.
 # Shots: tools/shots.py (timing.json) rendered with tools/shot.py (persistent data off). Labels: overlay.json (ScanHUD).
 # Music: mazda-miata-na_track.mp3 (80s synthwave, generated for this reel; not in git). Kick grid 0.6068 + 0.5555 n s.
-# Cuts on frames round(b*30): 152, 285, 418, 485, 551, 685, 818, 951; end 1068 (35.6 s, music decay).
+# Cuts on frames 151, 285, 418, 485, 551, 684, 818, 951 (152/685 pulled 1 frame to the measured kicks 5.042/22.812 s); end 1068 (35.6 s, music decay).
 project: mazda-miata-na
 format: reel-9x16
 output: {path: /home/user/media/work/miata/out/mazda_miata_na_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -23,7 +23,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s1_reveal
     src_fps: 15
     interpolate: true
-    dur: 5.0333
+    dur: 5.0000
   - transition: {type: cut, note: "b8 5.051 phrase"}
   - id: s2_bumper
     section: front
@@ -31,7 +31,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s2_bumper
     src_fps: 15
     interpolate: true
-    dur: 4.4333
+    dur: 4.4667
   - transition: {type: cut, note: "b16 9.495 new layer"}
   - id: s3_front_removed
     section: front
@@ -63,7 +63,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s5_trunk
     src_fps: 15
     interpolate: true
-    dur: 4.4667
+    dur: 4.4333
   - transition: {type: cut, note: "b40 22.827 phrase"}
   - id: s6_trunk_well
     section: rear
@@ -71,7 +71,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s6_trunk_well
     src_fps: 15
     interpolate: true
-    dur: 4.4333
+    dur: 4.4667
   - transition: {type: cut, note: "b48 27.271 phrase change"}
   - id: s7_top_home
     section: top
