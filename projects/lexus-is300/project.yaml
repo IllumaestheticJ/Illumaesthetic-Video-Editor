@@ -18,7 +18,9 @@ music:
 beats: [5.268, 6.572, 9.181, 15.703, 19.616, 24.834, 31.356]
 
 timeline:
-  - id: s1_wide   # WHOLE CAR: front-right 3/4, slow push, fades up from black
+  - id: s1_wide   # WHOLE CAR: front-right 3/4 orbit (-26 -> -58 deg), fades up from black
+    section: whole
+    focus: "whole car, front-right 3/4 orbit"
     src: /home/user/media/work/is300/renders/final/s1_wide
     src_fps: 14.813   # (N-1)/(dur+3/30): no minterpolate tail freeze
     interpolate: true
@@ -26,36 +28,48 @@ timeline:
     vf: "fade=t=in:st=0:d=0.8"
   - transition: {type: cut, note: "beat 8"}
   - id: s3_wheel   # WHEELS: front-right wheel close (v1 render, no plate in frame)
+    section: wheel
+    focus: "front-right wheel"
     src: /home/user/media/work/is300/renders/final/s3_wheel
     src_fps: 14.286   # (N-1)/(dur+3/30): no minterpolate tail freeze
     interpolate: true
     dur: 1.3000
   - transition: {type: cut, note: "beat 10"}
   - id: s4_nose   # FRONT exterior: headlight + grille slide (re-rendered, plate flattened)
+    section: front
+    focus: "headlight and grille"
     src: /home/user/media/work/is300/renders/final/s4_nose
     src_fps: 14.444   # (N-1)/(dur+3/30): no minterpolate tail freeze
     interpolate: true
     dur: 2.6000
   - transition: {type: cut, note: "beat 14"}
   - id: s5_front   # FRONT HERO: bumper off on the drop (b16), push in on the intercooler, front-right corner
+    section: front
+    focus: "intercooler behind the removed front bumper"
     src: /home/user/media/work/is300/renders/final/s5_front
     src_fps: 15
     interpolate: true
     dur: 6.5333
   - transition: {type: cut, note: "beat 24"}
   - id: s6_side   # SIDE: right skirt slides out (b25), bare sill
+    section: side
+    focus: "bare sill with the side skirt off"
     src: /home/user/media/work/is300/renders/final/s6_side
     src_fps: 15
     interpolate: true
     dur: 3.9000
   - transition: {type: cut, note: "beat 30"}
   - id: s7_rear   # REAR: bumper back + tipped (inside face), trunk lid lifts off the Rear Trunk Open state
+    section: rear
+    focus: "rear bumper inner face and open trunk"
     src: /home/user/media/work/is300/renders/final/s7_rear
     src_fps: 15
     interpolate: true
     dur: 5.2333
   - transition: {type: cut, note: "beat 38"}
   - id: s8_finale   # TOP -> WHOLE CAR: parts lift on b40, land on 44/45/46, rear-left 3/4, fade to black
+    section: whole
+    focus: "explode, reassembly, then held whole car before the fade"
     src: /home/user/media/work/is300/renders/final/s8_finale
     src_fps: 15
     interpolate: true
@@ -63,6 +77,8 @@ timeline:
     vf: "fade=t=out:st=6.0:d=0.5"
   - transition: {type: cut, note: "beat 48 - logo on the tail"}
   - id: logo   # small logo (380 px, ~35 % width) fades in on black, fades out with the track
+    section: logo
+    focus: "ILLUMAESTHETIC logo"
     src: /home/user/media/work/is300/out/logo_card_v2.mp4
     dur: 6.0333
 

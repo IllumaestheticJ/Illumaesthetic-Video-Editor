@@ -71,7 +71,7 @@ SHOTS = {
 }
 
 # v2 opening (user: "car is clipped at beginning"): whole car in frame (68-78 % width, >=9 % margins), slow push
-SHOTS["s1_wide"] = {"base": [CAR], "cam": arc(S("s1_wide"), 6, 8.2, 7.6, -42, -50, 1.2, 1.3, c0=(0, -0.4, 0.6), focal=30)}
+SHOTS["s1_wide"] = {"base": [CAR], "cam": arc(S("s1_wide"), 10, 8.6, 9.0, -26, -58, 1.3, 1.45, c0=(0, -0.35, 0.6), c1=(0, -0.15, 0.6), focal=30, ease_all=False)}
 
 # v2 parts (direction.md): ONE global timeline in BEATS, keyed into every shot so parts are continuous across cuts.
 # Front bumper = derived outer skin (no inner face): translate only. Rear bumper = part scan with a clean scanned
