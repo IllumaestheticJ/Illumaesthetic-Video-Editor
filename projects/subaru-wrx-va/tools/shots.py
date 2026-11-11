@@ -43,6 +43,8 @@ def args():
     ap.add_argument("--res-pct", type=int, default=75)
     ap.add_argument("--samples", type=int, default=12)
     ap.add_argument("--still", type=float, default=-1, help="render one frame at this shot fraction (0-1) to --out .png")
+    ap.add_argument("--no-persist", action="store_true",
+                    help="disable Cycles persistent data (WRX explode: lights dropped out mid-animation with it on)")
     ap.add_argument("--stills", default="", help="comma list of fractions -> <out>_<frac>.png (framing checks)")
     return ap.parse_args(a)
 
@@ -223,7 +225,7 @@ def main():
     sc.cycles.samples = a.samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = not a.no_persist
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
