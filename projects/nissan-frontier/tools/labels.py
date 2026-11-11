@@ -44,7 +44,7 @@ with tempfile.TemporaryDirectory() as td:
             wt, ws = tw(title, FT, 6), tw(sub, FS, 4)
             bw = max(wt, ws)
             top = L.get("side", "top" if ay < H * 0.5 else "bottom") == "top"  # band nearest the section, so the leader never crosses the truck
-            by = int(H * 0.17) if top else int(H * 0.77)
+            by = int(H * L["y"]) if "y" in L else (int(H * 0.17) if top else int(H * 0.77))
             bx = int(min(max(ax - bw * 0.25, M), W - M - bw))
             # leader: from the block edge straight toward the anchor
             lx = min(max(ax, bx), bx + bw); ly = by + (122 if top else -18)
@@ -54,6 +54,10 @@ with tempfile.TemporaryDirectory() as td:
             r = 9
             d.ellipse([ax - r, ay - r, ax + r, ay + r], outline=c(CY), width=3)
             d.ellipse([ax - 3, ay - 3, ax + 3, ay + 3], fill=c(CY))
+            # soft dark plate so the label reads over bright scan surfaces in close-ups
+            pl = Image.new("RGBA", (W, H), (0, 0, 0, 0)); pd = ImageDraw.Draw(pl)
+            pd.rounded_rectangle([bx - 22, by - 14, bx + bw + 22, by + (118 if sub else 86)], 14, fill=(4, 5, 7, int(170 * al)))
+            im.alpha_composite(pl); d = ImageDraw.Draw(im)
             track(d, (bx, by), title, FT, c(OFF), 6)
             if sub:
                 track(d, (bx, by + 78), sub, FS, c(CY, 0.95), 4)
