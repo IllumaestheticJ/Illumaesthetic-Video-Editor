@@ -34,8 +34,9 @@ FRONT = dict(HOME, fb={"off": [0, -0.75, -0.03]}, li={"off": [0, -0.75, -0.03]},
 OPEN = dict(FRONT, rb={"off": [0, 0.7, -0.03]}, trunk={"off": [0, 0, 0], "deg": HT["open_deg"] * 0.9})
 # exploded layout stacks panels ABOVE the car (portrait frame; ref 25-31 s and lesson: don't fly parts at the lens)
 # (framing v1 flew bumpers/lamps 0.55-0.95 m along the car - out of the 9:16 frame; now they rise in front of / behind it)
-EXPL = {"fb": {"off": [0, -0.3, 0.6]}, "li": {"off": [0, -0.55, 1.0]}, "rb": {"off": [0, 0.3, 0.62]},
-        "hood": {"off": [0, -0.12, 1.0], "deg": 0}, "trunk": {"off": [0, 0.15, 0.95], "deg": 0}}
+# v2 still reached the frame edges in side views: v3 stacks every panel in layers over the car's own footprint
+EXPL = {"hood": {"off": [0, -0.1, 0.85], "deg": 0}, "trunk": {"off": [0, 0.1, 0.85], "deg": 0},
+        "fb": {"off": [0, 0.35, 1.45]}, "li": {"off": [0, 0.35, 1.95]}, "rb": {"off": [0, -0.35, 1.55]}}
 EXPL_DRIFT = {k: {"off": [v["off"][0], v["off"][1] * 1.07, v["off"][2] * 1.07 + 0.04], **({"deg": v["deg"]} if "deg" in v else {})}
               for k, v in EXPL.items()}
 
@@ -74,7 +75,7 @@ SHOTS = [
     # 3 rear 3/4 turntable (ref 8-11 s)
     shot(2, CAR, [cam(0, -154, 9, 4.9, [0, 0.2, 0.5], 50), cam(1, -128, 12, 4.7, [0, 0.2, 0.5], 50)]),
     # 4 extreme close-up: front-right wheel (tiny kei car - 14 in rim, can go very tight)
-    shot(3, CAR, [cam(0, -58, 9, 1.5, [-0.66, -1.03, 0.41], 50), cam(1, -86, 12, 1.12, [-0.68, -1.03, 0.42], 50)]),
+    shot(3, CAR, [cam(0, -60, 8, 0.95, [-0.66, -1.03, 0.55], 50), cam(1, -84, 10, 0.78, [-0.68, -1.03, 0.55], 50)]),
     # 5 extreme close-up: right headlamp and the bumper lamp below it, slow slide across the nose
     shot(4, CAR, [cam(0, -38, 12, 1.35, [-0.42, -1.42, 0.5], 50), cam(1, -12, 9, 1.15, [-0.36, -1.5, 0.45], 50)]),
     # 6 front end opens: bumper + lamps slide off, hood swings up on its fitted hinge (ref 12-15 s)
@@ -87,14 +88,14 @@ SHOTS = [
     shot(7, EXPLODED, [cam(0, -140, 55, 7.0, [0, 0.1, 0.4], 40), cam(0.55, -170, 89.9, 6.0, [0, 0.0, 0.4], 40),
                        cam(1, -215, 89.9, 5.7, [0, 0.0, 0.4], 40)], hold(OPEN), light_ref="base"),
     # 9 exploded view builds: panels lift and stack above the car (high 3/4, ref 21-23 s)
-    shot(8, EXPLODED, [cam(0, -58, 22, 6.4, [0, -0.1, 0.75], 40), cam(1, -78, 14, 7.2, [0, -0.1, 1.0], 40)],
+    shot(8, EXPLODED, [cam(0, -58, 22, 6.2, [0, -0.1, 0.75], 40), cam(1, -78, 12, 6.8, [0, -0.1, 1.1], 40)],
          tween(OPEN, EXPL, {"hood": (0.02, 0.45), "fb": (0.12, 0.55), "li": (0.2, 0.62), "trunk": (0.28, 0.7),
                             "rb": (0.36, 0.8)}), light_ref="base"),
     # 10 wide side view, panels floating, slow drift (ref 25-31 s)
-    shot(9, EXPLODED, [cam(0, -96, 6, 7.4, [0, -0.1, 1.05], 40), cam(1, -110, 9, 7.1, [0, -0.1, 1.05], 40, lin=True)],
+    shot(9, EXPLODED, [cam(0, -96, 7, 6.7, [0, -0.05, 1.15], 40), cam(1, -112, 10, 6.4, [0, -0.05, 1.15], 40, lin=True)],
          {k: [dict(t=0, **EXPL[k]), dict(t=1, lin=True, **EXPL_DRIFT[k])] for k in PARTS}, light_ref="base"),
     # 11 reassembly into the finished car, rear 3/4 hero, fade out (ref 32-35 s)
-    shot(10, EXPLODED, [cam(0, -120, 16, 7.2, [0, 0.0, 1.0], 40), cam(1, -146, 9, 5.2, [0, 0.15, 0.52], 40)],
+    shot(10, EXPLODED, [cam(0, -120, 14, 6.8, [0, 0.0, 1.1], 40), cam(1, -146, 9, 5.2, [0, 0.15, 0.52], 40)],
          tween(EXPL_DRIFT, HOME, {"hood": (0.0, 0.42), "trunk": (0.08, 0.5), "li": (0.14, 0.52), "fb": (0.18, 0.6),
                                   "rb": (0.24, 0.66)}), light_ref="base"),
 ]
