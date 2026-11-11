@@ -50,3 +50,19 @@ threshold 0.3); the rest are whip-smears / continuous moves.
 | 32-35 | panels return, assembled car rear 3/4, fades to black |
 | 36-39 | ILLUMAESTHETIC logo (~50 % frame width) on black |
 Look: near-white satin silver, AgX-ish, mid-grey median luma ~200 on car pixels; raw scan speckle visible (dusty capture).
+
+### `v_jul22_1047_58` Temerario - watched frame by frame (2026-11-11, Ferrari 296 session)
+Downloaded and sheeted at 1 fps plus 8 frames/s around each jump. 1440x1920, 24 fps, 39.83 s, **no audio track**.
+- **Timeline:** 0-1 s fade up from black on a side profile → 1-4 side slide → 4-8 low front 3/4 → 8-11 rear 3/4 →
+  ~11.5 fast fly-in to an extreme wheel/arch close-up that fills the frame → 12-16 front-wheel close-up while the front
+  end **progressively comes apart** (bumper slides off, frunk lid opens, inner panels peel) → hard jump at 16.2 to a
+  high top-down 3/4, rotating, front parts *and wheels* floating off → 21-24 rear-high 3/4, engine cover/rear panels
+  lifting → hard jump at 24.2 → 25-27 close side tracking with panels stacked above → 28-31 wide side **fully exploded:
+  panels lifted vertically in layers** above the chassis, wheels off → 32-33 parts fly back → 34-35 assembled rear 3/4
+  → 36 fade to black → 37-38.5 small logo (~35 % of frame width) on black → black.
+- The exploded section is ~20 s of the 40 s (half the reel); disassembly is progressive, not one burst.
+- Only 2-3 visible camera jumps; everything else is one continuous, slow move with occasional fast fly-ins.
+- **Look:** NOT smooth chrome. Warm, slightly mauve satin silver with cool blue-grey shadows (warm key, cool fill),
+  and the **raw scan grain is visible everywhere** (sandblasted/stone texture: full-resolution mesh, no decimation
+  smoothing). Undersides/backfaces of lifted panels read darker mauve-red. Background pure black, no floor.
+- Car is smaller in frame than our reels in the wide shots (~60-70 % of width); close-ups are extreme.
