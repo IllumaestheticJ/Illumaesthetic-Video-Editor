@@ -17,70 +17,70 @@ timeline:
     src: /home/user/media/work/renders/cappuccino/s01_side
     src_fps: 15
     interpolate: true
-    dur: 3.8000
+    dur: 3.8333
     vf: fade=t=in:st=0:d=1.0
-  - transition: {type: cut}
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s02_front34   # front 3/4 low turntable
     src: /home/user/media/work/renders/cappuccino/s02_front34
     src_fps: 15
     interpolate: true
-    dur: 2.8667
-  - transition: {type: cut}
+    dur: 2.9000
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s03_rear34   # rear 3/4 turntable
     src: /home/user/media/work/renders/cappuccino/s03_rear34
     src_fps: 15
     interpolate: true
-    dur: 2.8667
-  - transition: {type: cut}
+    dur: 2.9000
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s04_wheel   # extreme close-up: front-right wheel
     src: /home/user/media/work/renders/cappuccino/s04_wheel
     src_fps: 15
     interpolate: true
-    dur: 1.9000
-  - transition: {type: cut}
+    dur: 1.9333
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s05_lamp   # extreme close-up: headlamp + bumper lamp; holds through the break
     src: /home/user/media/work/renders/cappuccino/s05_lamp
     src_fps: 15
     interpolate: true
-    dur: 3.8000
-  - transition: {type: cut}
+    dur: 3.8333
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s06_frontopen   # ON THE DROP: bumper + lamps slide off, hood swings up on its fitted hinge
     src: /home/user/media/work/renders/cappuccino/s06_frontopen
     src_fps: 15
     interpolate: true
-    dur: 3.8000
-  - transition: {type: cut}
+    dur: 3.8333
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s07_trunk   # rear bumper off, trunk lid up on its fitted hinge
     src: /home/user/media/work/renders/cappuccino/s07_trunk
     src_fps: 15
     interpolate: true
-    dur: 2.8667
-  - transition: {type: cut}
+    dur: 2.9000
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s08_top   # crane up to top-down, spinning, everything open
     src: /home/user/media/work/renders/cappuccino/s08_top
     src_fps: 15
     interpolate: true
-    dur: 2.8667
-  - transition: {type: cut}
+    dur: 2.9000
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s09_explode   # panels lift and stack above the car
     src: /home/user/media/work/renders/cappuccino/s09_explode
     src_fps: 15
     interpolate: true
-    dur: 3.8000
-  - transition: {type: cut}
+    dur: 3.8333
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s10_float   # side view, panels floating
     src: /home/user/media/work/renders/cappuccino/s10_float
     src_fps: 15
     interpolate: true
-    dur: 2.8667
-  - transition: {type: cut}
+    dur: 2.9000
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: s11_reassemble   # panels return, rear 3/4 hero, fades to black
     src: /home/user/media/work/renders/cappuccino/s11_reassemble
     src_fps: 15
     interpolate: true
-    dur: 4.7667
+    dur: 4.8000
     vf: fade=t=out:st=4.267:d=0.5
-  - transition: {type: cut}
+  - transition: {type: fade, duration: 0.0333}   # = hard cut; avoids ive's cloned compensation frame (dup before every cut)
   - id: logo   # ILLUMAESTHETIC logo card (website logo) on black, fades with the music's tail
     src: /home/user/media/work/cappuccino/logo_card.mp4
     dur: 2.6667

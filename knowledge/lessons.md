@@ -421,3 +421,15 @@ lands here automatically. Agents must read this whole file before editing.
   grid to all kick peaks iteratively (index on current grid, least-squares refit; tools/music_scan.py) and check the residual (1.5 ms).
 - **[pacing]** A generated track with an 8 s pad intro: start the music 8 beats before the first kick, carry the intro with one
   slow turntable and put the first cut ON the first kick; end the logo on the last hit and let it ride the decay.
+## From the Suzuki Cappuccino scan reel (2026-11-11, built by an agent)
+- **[technical]** Long sequential `shot.py` renders with keyframed part pivots can lose ALL lighting part-way (luma drops to 0 from
+  one frame to the next, ~40-55 frames in; s06/s09/s10/s11). The same frames render fine with `--frames` in short runs.
+  Scan every render dir for per-frame luma before assembling - first/mid/last contact sheets miss it.
+- **[technical]** `type: cut` compensation in `ive assemble` clones the outgoing clip's last frame -> a duplicate frame before every
+  cut. Workaround: `transition: {type: fade, duration: 0.0333}` (still a hard cut) and give each outgoing clip one extra real
+  frame in `dur`. Same cut timing, no dup (verify with frame diffs).
+- **[match-cut]** State scans with a lid propped open often capture only a sliver of the lid (Cappuccino hood 9k tris). Cut the closed
+  lid from the full car (car tris the open state lacks, clipped at the shut lines) and fit a hinge to the sliver (one-sided distance,
+  open-lid points -> moved lid); confirm with a side-view splat. Gives a real opening motion from partial data.
+- **[pacing]** Generated tracks: `ive beats` reported 63 BPM for a 126 BPM track (half-time) - fit the grid to kick peaks; and
+  measure the end from the RMS envelope (file 40.05 s, music gone by 38.9 s).
