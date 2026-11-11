@@ -61,6 +61,10 @@ def parse():
                          "(prefix start with 'r', e.g. r0.2, to run it backwards: part flies back into place; "
                          "optional 8th field 'dx,dy,dz' = start offset, e.g. where the crew holds the real part at the cut) "
                          "about its own centre (x = flip about the car's width axis, best for bumpers) between rstart..rend - exploded views that show inside + outside")
+    ap.add_argument("--morph-to-clay", default="", help="'start,end' shot fractions: blend the look into flat grey clay "
+                    "(and the background into --morph-bg) - e.g. to dissolve into a grey product render")
+    ap.add_argument("--morph-bg", default="0.045,0.045,0.045", help="background RGB (linear) at the end of --morph-to-clay")
+    ap.add_argument("--clay-color", default="0.30,0.30,0.31")
     ap.add_argument("--look-at", default="", help="x,y,z pivot for orbit moves (default: scan bbox centre)")
     ap.add_argument("--raycast", help="'name:x,y;...' pixel coords in this camera's render")
     ap.add_argument("--save-blend", help="also save the lookdev'd scene here for manual tweaking")
@@ -165,6 +169,24 @@ def studio_world(bg, transparent):
     nt.links.new(cam_bg.outputs[0], mix.inputs[2])
     nt.links.new(mix.outputs[0], out.inputs[0])
     bpy.context.scene.render.film_transparent = transparent
+
+
+def morph_to_clay(m, color, f0, f1):
+    """Wrap material m: Mix(m, grey clay) with the factor keyframed 0 at f0 -> 1 at f1."""
+    nt = m.node_tree
+    out = next(n for n in nt.nodes if n.type == "OUTPUT_MATERIAL")
+    src = out.inputs[0].links[0].from_socket
+    clay = principled(nt, color, 0.6)
+    mix = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(src, mix.inputs[1])
+    nt.links.new(clay.outputs[0], mix.inputs[2])
+    nt.links.new(mix.outputs[0], out.inputs[0])
+    fac = mix.inputs[0]
+    fac.default_value = 0.0
+    fac.keyframe_insert("default_value", frame=f0)
+    fac.default_value = 1.0
+    fac.keyframe_insert("default_value", frame=f1)
+    return m
 
 
 def mat_clay():
@@ -492,6 +514,16 @@ def main():
         studio_lights(lo, hi)
     else:
         setup_world((0, 0, 0, 1) if transparent else rgb(args.bg), transparent)
+    morph = None
+    if args.morph_to_clay:
+        a, b = (float(v) for v in args.morph_to_clay.split(","))
+        morph = (max(1, int(round(1 + a * (nframes - 1)))), max(1, int(round(1 + b * (nframes - 1)))))
+        studio_lights(lo, hi)  # clay needs light; emissive looks are unaffected
+        wb = bpy.context.scene.world.node_tree.nodes.get("Background")
+        if wb is not None:
+            wb.inputs["Color"].keyframe_insert("default_value", frame=morph[0])
+            wb.inputs["Color"].default_value = rgb(args.morph_bg)
+            wb.inputs["Color"].keyframe_insert("default_value", frame=morph[1])
     if args.look in ("clay", "color", "sweep", "scan"):
         studio_lights(lo, hi)
 
@@ -508,6 +540,8 @@ def main():
             "color": lambda: mat_color(o),
             "sweep": lambda: mat_sweep(accent, args.sweep_axis, lo, hi, 1, nframes),
         }[args.look]()
+        if morph:
+            m = morph_to_clay(m, rgb(args.clay_color), *morph)
         o.data.materials.clear()
         o.data.materials.append(m)
 

@@ -72,3 +72,8 @@ lands here automatically. Agents must read this whole file before editing.
   Lock height (sweep a few values, render onions, pick by engine-bay depth / fender tops) and solve the rest.
 - **[scan-look]** Part-state composites: use the state scan *as captured* (e.g. "bumper removed") over the
   full-car scan trimmed back - reviewer preferred that to slicing a thin zone out of the state scan.
+- **[story]** Dissolving a scan render into a product image: solve the product image's camera (landmarks +
+  silhouette IoU on the flat background), end the orbit exactly there, and morph the material/background
+  to the image's grey (`--morph-to-clay`, tuned from median luma) before the dissolve starts.
+- **[technical]** Verify alignment numerically (silhouette bounds / phaseCorrelate) - a hand-made side-by-side
+  overlay with a different material can look mismatched when the geometry is right.

@@ -58,7 +58,10 @@ export const WebZoom: React.FC<WebZoomProps> = (p) => {
   const left = width / 2 - cx * scale;
   const top = height / 2 - cy * scale;
   const frameOpacity = interpolate(t, [0.6, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const urlOpacity = interpolate(f, [p.zoomFrames - 10, p.zoomFrames + 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  // order: page settles -> title -> logo -> URL (last)
+  const logoIn = interpolate(f, [p.zoomFrames + 6, p.zoomFrames + 22], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+  const urlStart = p.logo ? p.zoomFrames + 26 : p.zoomFrames - 10;
+  const urlOpacity = interpolate(f, [urlStart, urlStart + 18], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   const titleIn = interpolate(f, [p.zoomFrames - 18, p.zoomFrames + 4], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   const pageTop = height / 2 - (p.imgH * endScale) / 2;
   return (
@@ -101,7 +104,7 @@ export const WebZoom: React.FC<WebZoomProps> = (p) => {
       <div
         style={{
           position: "absolute",
-          top: height / 2 + (p.imgH * endScale) / 2 + 70,
+          top: height / 2 + (p.imgH * endScale) / 2 + (p.logo ? 90 + ((p.logoWidth ?? 640) * 345) / 2000 + 60 : 70),
           width: "100%",
           textAlign: "center",
           opacity: urlOpacity,
@@ -119,10 +122,10 @@ export const WebZoom: React.FC<WebZoomProps> = (p) => {
           src={staticFile(p.logo)}
           style={{
             position: "absolute",
-            top: height / 2 + (p.imgH * endScale) / 2 + 190,
+            top: height / 2 + (p.imgH * endScale) / 2 + 90,
             left: (width - (p.logoWidth ?? 640)) / 2,
             width: p.logoWidth ?? 640,
-            opacity: interpolate(f, [p.zoomFrames + 4, p.zoomFrames + 22], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+            opacity: logoIn,
           }}
         />
       ) : null}
