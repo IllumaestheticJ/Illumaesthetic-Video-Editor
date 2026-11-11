@@ -1,0 +1,90 @@
+# v2 - user feedback on v1: "starts off too cropped", "doesn't focus on the subsystems", "doesn't zoom in on the
+#   bumpers/skirts well enough". v2: wide opening (whole car), and the explode is progressive like the Temerario reference:
+#   front subsystem close (bumper/fender/hood) -> side close (skirt, rear bumper/diffuser) -> wide lock. v1: project_v1.yaml.
+# Ferrari 296 GTB - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of 240sx-scan / fg2-race-car.
+# Satin-silver scan on black; turntables -> close-ups -> hood + engine cover open -> top-down -> exploded view -> logo.
+# Shots: projects/ferrari-296/tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + hinged parts).
+# Music: ferrari296_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs Music via
+# Higgsfield, licensed to the team; elegant Italian GT: staccato strings, arp, sub). 103.4 BPM, beat 0.5803 s.
+# (The procedural score from tools/music.py + cues.json was v0 and is kept as a silent-friendly fallback / for other reels.)
+# Accents (per-beat RMS + flux, see editlog): 5.077, 9.719, 14.361 (8-beat phrases), music drops out at 12.04,
+# 7-beat phrase, then 18.423, 23.066 (lift, loudest), 27.708, 32.350 (heaviest bass); fade 36.75 -> silent ~39.
+# Cuts on frames round(t*30): 152, 292, 361, 431, 553, 622, 692, 1040; end 1170 (39.0 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+project: ferrari-296
+format: reel-9x16
+output: {path: /home/user/media/work/f296/out/ferrari_296_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/ferrari296_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [5.067, 9.733, 12.033, 14.367, 18.433, 20.733, 23.067, 27.7, 30.033, 34.667]
+
+timeline:
+  - id: s1_wide        # v2: whole car in frame from frame 1 (v1 opened too cropped), slow 3/4 turntable
+    src: /home/user/media/work/f296/renders/final/s1_wide
+    src_fps: 15
+    interpolate: true
+    dur: 5.0333
+  - transition: {type: cut, note: "5.077 phrase accent"}
+  - id: s2_rear        # rear 3/4 orbit, other side, slight rise
+    src: /home/user/media/work/f296/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.6667
+  - transition: {type: cut, note: "9.719 phrase accent"}
+  - id: s3_wheel       # extreme close-up: front right wheel + brake through the spokes (3 mm scan)
+    src: /home/user/media/work/f296/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.3
+  - transition: {type: cut, note: "12.04 - the music drops out"}
+  - id: s4_nose        # detail: front lamp + intake slide (tail lamps are scan holes - avoided)
+    src: /home/user/media/work/f296/renders/final/s4_nose
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut, note: "14.361 phrase accent (bass back in)"}
+  - id: s5_hood        # hood lifts from 1 beat in to 4 beats in (14.94 -> 16.68), frunk from the state scan
+    src: /home/user/media/work/f296/renders/final/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 4.0667
+  - transition: {type: cut, note: "18.423 accent"}
+  - id: s6_engine      # engine-cover louvre lifts 19.00 -> 20.16 (beats)
+    src: /home/user/media/work/f296/renders/final/s6_engine
+    src_fps: 15
+    interpolate: true
+    dur: 2.3
+  - transition: {type: cut, note: "20.744 - build"}
+  - id: s7_top         # high rear 3/4 up and over to straight top-down through the build
+    src: /home/user/media/work/f296/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut, note: "23.066 lift (loudest accent) - panels separate"}
+  - id: s8a_front      # front subsystem close: bumper slides out (23.07), fender (23.65), hood lifts (24.23)
+    src: /home/user/media/work/f296/renders/final/s8a_front
+    src_fps: 15
+    interpolate: true
+    dur: 4.6333
+  - transition: {type: cut, note: "27.708 accent - side close"}
+  - id: s8b_side       # low along the right sill: skirt drops away (27.71), rear bumper (28.29) + diffuser (28.87) pull back
+    src: /home/user/media/work/f296/renders/final/s8b_side
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut, note: "30.029 beat - wide"}
+  - id: s8c_wide       # everything out, flies home and LOCKS on 32.350 (heaviest bass), holds 4 beats
+    src: /home/user/media/work/f296/renders/final/s8c_wide
+    src_fps: 15
+    interpolate: true
+    dur: 4.6333
+  - transition: {type: cut, note: "34.671 beat - logo over the track's ending and fade"}
+  - id: logo           # tools/logo_card.py --secs 4.3333: logo on render black, fades out with the track (~39 s)
+    src: /home/user/media/work/f296/out/logo_card.mp4
+    dur: 4.3333
+
+overlays: []

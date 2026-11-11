@@ -154,6 +154,80 @@ SHOTS.update({
 })
 
 
+# ---------------------------------------------------------------- v3 = director's plan (projects/ferrari-296/director.md)
+# Reviewer on v2: "focus on specific sections; if you open the hood, hold that shot and also pull the front bumper out and
+# show off the bumper"; "minimize redundant frames". Front = ONE held shot (lamp -> hood opens and stays -> bumper out,
+# turned about the vertical axis to show its scanned inner face). Parts carry their pose across shots (video seconds).
+SECS.update({"f5_front": 261 / 30, "x_side": 139 / 30, "x_lock": 139 / 30})
+T8.update({"f5_front": 431 / 30, "x_side": 762 / 30, "x_lock": 901 / 30})
+Z3 = [0, 0, 0]
+
+
+def _k(t, loc=Z3, rot=Z3, ease="inout"):
+    return {"t": t, "loc": list(loc), "rot": list(rot), "ease": ease}
+
+
+def _out(off, rot, a, b):
+    """translate out a->b (ease out), drift to x1.04 by 31.189, fly home + LOCK 32.350 (ease in)"""
+    return [_k(-100), _k(a), _k(b, off, rot, "out"), _k(30.033, off, rot, "lin"),
+            _k(31.189, [o * 1.04 for o in off], rot, "lin"), _k(32.350, Z3, Z3, "in")]
+
+
+BUMP_OUT, BUMP_FAR = (0, -1.00, -0.10), (0, -1.70, -0.10)
+PARTS_V3 = {
+    "x_hood": ((0, -0.86, 0.88), [_k(-100), _k(14.940), _k(16.100, Z3, (-58, 0, 0)), _k(31.189, Z3, (-58, 0, 0), "lin"),
+                                   _k(32.350, Z3, Z3, "in")]),
+    "x_fbumper": ((0, -1.775, 0.475), [_k(-100), _k(16.681), _k(17.842, BUMP_OUT, Z3, "out"), _k(18.423, BUMP_OUT, Z3, "lin"),
+                                        _k(20.164, BUMP_FAR, (0, 0, 65)), _k(23.067, BUMP_FAR, (0, 0, 80), "lin"),
+                                        _k(31.189, BUMP_FAR, (0, 0, 80), "lin"), _k(31.770, BUMP_OUT, Z3),
+                                        _k(32.350, Z3, Z3, "in")]),
+    "x_ecover": ((0, 1.63, 0.9), [_k(-100), _k(23.650), _k(24.810, Z3, (85, 0, 0)), _k(31.189, Z3, (85, 0, 0), "lin"),
+                                  _k(32.350, Z3, Z3, "in")]),
+    "x_fender": (None, _out((-0.50, 0, 0.45), (0, -10, 0), 25.400, 26.548)),
+    "x_skirt": (None, _out((-0.40, 0, -0.28), Z3, 25.981, 27.129)),
+    "x_rbumper": (None, _out((0, 0.95, 0.05), Z3, 27.708, 28.868)),
+    "x_diffuser": (None, _out((0, 0.75, -0.35), Z3, 28.288, 29.449)),
+}
+
+
+def parts_v3(shot):
+    t0 = T8[shot]
+    out = []
+    for name, (pivot, keys) in PARTS_V3.items():
+        p = {"blend": f"{P}/{name}.blend", "keys": [dict(k, t=k["t"] - t0) for k in keys]}
+        if pivot:
+            p["pivot"] = list(pivot)
+        out.append(p)
+    return out
+
+
+def _cam(rows, t0):
+    return [{"t": round(t - t0, 4), "loc": list(l), "target": list(g), "focal": f, "ease": e} for t, l, g, f, e in rows]
+
+
+F5 = [(14.367, (-1.60, -3.60, 0.85), (-0.55, -2.00, 0.68), 32, "inout"),
+      (14.940, (-1.75, -3.85, 1.05), (-0.40, -1.90, 0.65), 32, "inout"),
+      (16.100, (-2.05, -4.35, 1.90), (0.00, -1.40, 0.70), 30, "inout"),
+      (16.681, (-2.25, -4.40, 1.85), (0.00, -1.50, 0.65), 30, "inout"),
+      (17.842, (-2.80, -4.55, 1.35), (-0.05, -2.55, 0.50), 30, "inout"),
+      (18.423, (-3.05, -4.45, 1.25), (-0.05, -2.75, 0.48), 30, "inout"),
+      (19.003, (-3.35, -4.15, 1.15), (-0.05, -3.05, 0.46), 30, "lin"),
+      (19.584, (-3.45, -3.55, 1.45), (-0.05, -3.25, 0.45), 30, "lin"),
+      # raised ~20 deg (level camera made the turned bumper a flat strip); nose stays at screen-left for context
+      (20.164, (-3.40, -3.10, 1.60), (-0.10, -3.25, 0.42), 30, "inout"),
+      (21.326, (-2.95, -3.05, 1.50), (-0.10, -3.25, 0.42), 31, "inout"),
+      (23.067, (-2.45, -3.00, 1.30), (-0.10, -3.25, 0.40), 34, "out")]
+XS = [(25.400, (-3.30, -1.60, 0.95), (-0.70, -0.60, 0.40), 28, "inout"),
+      (30.033, (-3.40, 1.20, 1.05), (-0.60, 1.90, 0.45), 28, "inout")]
+
+SHOTS.update({
+    "f5_front": {"base": [f"{P}/comp_explode.blend"], "parts": parts_v3("f5_front"), "cam": _cam(F5, T8["f5_front"])},
+    "x_side": {"base": [f"{P}/comp_explode.blend"], "parts": parts_v3("x_side"), "cam": _cam(XS, T8["x_side"])},
+    "x_lock": {"base": [f"{P}/comp_explode.blend"], "parts": parts_v3("x_lock"),
+               "cam": arc(SECS["x_lock"], 8, 7.6, 6.4, -95, -105, 4.2, 3.4, (0, 0.2, 0.5), (0, 0.1, 0.5), 30, tz=0.4)},
+})
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
