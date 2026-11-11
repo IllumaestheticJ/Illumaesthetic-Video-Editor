@@ -28,3 +28,16 @@ Panels: hood = car tris missing from Hood Open + filled top-view mask (`tools/ho
 Not used: Bomex CAD, `BRZ-GR86.blend`, `BRZ.fbx`, `Juan BRZ.stl` (other car), aftermarket parts, GR86 Front Lip (product).
 
 Logo: `IllumaestheticLogo_V2COMPLETE_1.png` from illumaesthetic.com (Shopify CDN) -> `remotion/public/illumaesthetic_logo.png` (gitignored).
+
+## v3 additions (user feedback on v2, 2026-11-11)
+| Scan (Drive id) | What it is | Placement in the car frame |
+|---|---|---|
+| Bomex Reverse Light (1NjzGjVILnufEeFVD7vkc4ajDlLTvhS2f) | rear reverse-light bar, own capture; only the socket/back side is well captured | tools/register_part.py on rear_bumper (24 PCA hypotheses + ICP), flipped 180 deg so the sockets face into the car; sits in the lower slot, x 0, z ~300 mm (xf/reverse_light_flip.npy; median 9.8 mm - part is mostly hidden inside the bumper) |
+| Bomex License Plate Light (1oHbDud2DL5qj9t7LW2wtuE5wv_Sjmb_9) | ONE plate lamp, own capture | register_part on rear_bumper: median 2.3 mm, 65 % < 4 mm; lamp recess above the plate (xf/plate_light.npy) |
+| Bomex License Plate Lights Removed (1KQKw4Dlvia07gB51ogVDGYwZDi1AIB2v) | rear bumper with plate lamps out (partial capture) | 64 % overlap, ICP 75 mm |
+| Bomex Side Markers (1CmLE_CsuaAdSjyun5h8VSQ_KezNBZKhR) | FRONT bumper side markers (y -1850..-1680 mm) | 82 % overlap, ICP 84 mm |
+| Bomex Side Markers Removed (1j_9ZUKnY-QjGureHnEUUSCaAnGlZUlLe) | front bumper area, markers out | 90 % overlap, ICP 7 mm |
+| Trunk Open (already fetched) | captures the cargo floor/opening only (z < 875 mm); the raised lid itself is NOT in the scan | - |
+
+Hood fix: parts/hood_m.stl ran 100-230 mm up the windshield (Hood Open hides the lower glass, so the top-view mask
+included it) -> tools/hood_trim.py cuts it at the measured cowl gap (y -1110..-820 mm) -> parts/hood_t.stl.

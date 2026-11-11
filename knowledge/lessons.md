@@ -634,3 +634,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** Parts derived by distance-diff (flares) carry body strips. Look at a depth-coloured side splat and cut by
   geometry (arch annulus + protrusion |x|), one part per arch; move thin parts onto clear black before turning them.
 - **[text]** Logo card: 380 px wide read as too small on this reel; 700 px was used for v3.
+## toyota-gr86 v3 (user feedback on v2)
+- [scan] A hood mask built from "car tris missing in Hood Open" also takes the lower windshield, because the open hood hides it. Trim hood parts at the measured cowl gap (projects/toyota-gr86/tools/hood_trim.py) and look at the windshield in a render.
+- [scan] Before planning, list EVERY state/part scan in the Drive folder (trunk open, mirrors removed, individual lamps). The user flagged three we had missed. Small part scans (reverse light, plate lamp) are explodable beats: register them with tools/register_part.py and check the facing, because ICP can fit a lamp backwards.
+- [scan] `--drop-islands` 1500 deleted tail-lamp lenses in composites. Use ~150 and check the lamps.
+- [text] Measure the scan coverage under each label box over its whole window. Don't assume the top band is black on close-ups.

@@ -6,12 +6,16 @@ Newest first. Read the top two before starting a new edit.
 - [honda-civic-11](honda-civic-11/) - archived 2026-11-11
 - [c5-corvette](c5-corvette/) - archived 2026-11-11
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-11
+- [toyota-gr86](toyota-gr86/) - archived 2026-11-11
 - [porsche-macan](porsche-macan/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-11
+- [nissan-frontier](nissan-frontier/) - archived 2026-11-11
+- [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
+- [honda-civic-11](honda-civic-11/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11 (v4)
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)

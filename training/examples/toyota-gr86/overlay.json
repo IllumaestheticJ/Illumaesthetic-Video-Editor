@@ -5,8 +5,11 @@
  "durationInFrames": 1177,
  "accent": "#e8ecf2",
  "items": [
-  {"kind": "label", "from": 452, "duration": 57, "title": "FRONT BUMPER REMOVED", "sub": "HOOD REMOVED · STATE SCAN", "x": 0.08, "y": 0.08},
-  {"kind": "label", "from": 599, "duration": 57, "title": "REAR BUMPER REMOVED", "sub": "STATE SCAN", "x": 0.08, "y": 0.08},
-  {"kind": "label", "from": 672, "duration": 57, "title": "REAR CRASH BEAM", "sub": " ", "x": 0.08, "y": 0.08}
+  {"kind": "label", "from": 373, "duration": 64, "title": "FRONT BUMPER REMOVED", "sub": "HOOD REMOVED · STATE SCAN", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 470, "duration": 41, "title": "SIDE MIRROR REMOVED", "sub": "MIRROR MOUNT", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 593, "duration": 65, "title": "TRUNK OPEN", "sub": "STATE SCAN", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 740, "duration": 65, "title": "REAR BUMPER REMOVED", "sub": "CRASH BEAM", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 842, "duration": 38, "title": "REVERSE LIGHT", "sub": "PART SCAN", "x": 0.08, "y": 0.33},
+  {"kind": "label", "from": 887, "duration": 65, "title": "LICENSE PLATE LIGHT", "sub": "PART SCAN", "x": 0.08, "y": 0.33}
  ]
 }
