@@ -66,7 +66,9 @@ def cam_matrix(az, el, dist, target, roll=0.0):
     q = d.to_track_quat("-Z", up)
     M = Matrix.Translation(loc) @ q.to_matrix().to_4x4()
     if abs(e) >= math.radians(89.5):  # straight down: define heading by az so a top-down spin is just an az sweep
-        R = Matrix.Rotation(a, 4, "Z") @ Matrix.Rotation(math.pi, 4, "Z")
+        # image-up must match the track_quat case (horizontal direction camera -> target), else the frame flips
+        # 180 deg as el crosses 89.5 (s6 v1 frames 19-20)
+        R = Matrix.Rotation(a, 4, "Z")
         M = Matrix.Translation(loc) @ R
     if roll:
         M = M @ Matrix.Rotation(math.radians(roll), 4, "Z")

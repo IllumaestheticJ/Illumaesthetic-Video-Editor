@@ -55,7 +55,8 @@ def hold(state):
     return {k: [dict(t=0, **state[k])] for k in PARTS}
 
 
-HINGE_SHOTS = ("s5_frontopen", "s7_explode", "s9_reassemble")  # hood hinge animates -> no persistent data (lights dropped)
+# animated parts -> no Cycles persistent data: lights dropped mid-shot in s5 (hinge) AND s8 (translate-only drift)
+HINGE_SHOTS = ("s5_frontopen", "s7_explode", "s8_float", "s9_reassemble")
 
 
 def shot(name, i, objects, camera, anims=None, light_ref=None, extra=None):
