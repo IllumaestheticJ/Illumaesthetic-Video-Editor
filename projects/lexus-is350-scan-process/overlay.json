@@ -4,7 +4,7 @@
   {"kind": "brackets", "from": 93, "duration": 112},
   {"kind": "counter", "from": 96, "duration": 108, "label": "TRIANGLES CAPTURED", "value": 24999992, "x": 0.08, "y": 0.09},
   {"kind": "brackets", "from": 393, "duration": 172},
-  {"kind": "label", "from": 398, "duration": 62, "title": "REAR REFLECTOR", "sub": "408,984 TRIANGLES", "x": 0.08, "y": 0.86},
-  {"kind": "label", "from": 466, "duration": 99, "title": "INSIDE + OUTSIDE", "sub": "REFLECTOR SCANNED, BOTH SIDES", "x": 0.08, "y": 0.86}
+  {"kind": "label", "from": 398, "duration": 62, "title": "REAR REFLECTOR", "sub": "408,984 TRIANGLES", "x": 0.08, "y": 0.66},
+  {"kind": "label", "from": 466, "duration": 99, "title": "INSIDE + OUTSIDE", "sub": "REFLECTOR SCANNED, BOTH SIDES", "x": 0.08, "y": 0.66}
  ]
 }
