@@ -316,3 +316,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** No part/"removed" state scans for the body? Cut panels from the full-car scan along the visible seams
   (near-orthographic renders at a known mm/px give the seam coordinates) and keep every piece in one `--like` frame.
 - **[story]** A team long-form edit may be used only as the source of the IRL shot that cuts 1:1 into the scan - no other shots from it in the reel  _(from na-miata-grimace-scan-process, 2026-11-11, reviewer)_
+- **[pacing]** (honda-s2000 reviewer: "beginning is great, last scenes held too long") A 13.9 s exploded view + 3.6 s logo
+  after a front half of 1.7-3.5 s shots felt held. Keep the back half on the same 4-8 beat rhythm: cut the explode into
+  angles that each render a window (`t0`) of ONE part animation so the panels stay continuous across cuts; logo ~2.4 s.
+- **[pacing]** Shot lengths in frames must come from round(beat_time*fps) per cut, not a repeated 52/53 pattern - at
+  138 BPM (13.04 frames/beat) hand-alternating drifted to +38 ms by the fourth cut.

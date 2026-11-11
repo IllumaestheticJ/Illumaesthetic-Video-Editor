@@ -23,3 +23,15 @@ Scored with `training/rubric.md` before delivery. Measured on the delivered file
 - Ask whether a wheels-on scan of this car exists; it would allow the reference's low side profile.
 - A scan of the open hood or the engine bay would let the hood open fully.
 - Re-frame the 1.7 s after the explode lock (push in on the assembled car) — the only weak framing in the cut.
+
+# v4 — after reviewer feedback ("beginning is great, last scenes held too long")
+`/home/user/media/work/s2k/out/honda_s2000_v4.mp4`, 1116 frames = 37.2 s.
+- The 13.9 s exploded shot is now 7 shots of 4-8 beats (e1 separation, e2 high side, e3 low front looking up, e4 floating
+  hood close-up, e5 high rear, e6 return + lock on the cut, e8 push-in on the locked car). Sub-shots render windows (t0) of
+  the same part animation, so panel positions stay continuous across cuts. Logo 3.6 s -> 2.4 s; the video ends 0.6 s after
+  the track's hard stop.
+- Beat sync re-checked on the file: 15 cuts, all within ±16 ms (first v4 pass had hand-picked 52/53-frame shots that
+  drifted to +38 ms; fixed to round(beat*30)).
+- Scores changed: Story 5 (back half now has the front half's rhythm), Ending 5 (no small off-centre hold, short logo).
+- Open: reviewer wants an IRL opening (S2000 being scanned) with a 1:1 cut; footage is on YouTube only, which this
+  environment cannot reach - waiting for the raw clip on Dropbox.
