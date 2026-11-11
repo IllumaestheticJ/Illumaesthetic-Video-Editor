@@ -64,8 +64,9 @@ timeline:
     in: 3.25
     dur: 2.2333
   - transition: {type: cut}
-  - id: scan_wing      # focus: Lola 2's GT wing + uprights as scan, continuing the IRL wing-spray shot (travel rear -> whole car)
-    src: /home/user/media/work/lola/renders/s4_wing
+  - id: scan_wing      # focus: Lola 2 rear end + GT wing as scan, continuing the IRL wing-spray shot (travel rear -> whole car)
+    # v3 re-frame (addendum A): rear 3/4, whole rear end + wing in frame with margins, slow push (v2 s4_wing clipped the bumper)
+    src: /home/user/media/work/lola/renders/s4_rear_v3
     src_fps: 15
     interpolate: true
     dur: 2.7333

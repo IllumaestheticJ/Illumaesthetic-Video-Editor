@@ -58,3 +58,18 @@ Hold list (> 0.75 s):
 - The logo card holds for the fade.
 
 Renders: all reused. The only new one is `s3_hero_v3` (90 frames), already rendering.
+
+## Addendum A–D (parent, 2026-11-11): cropping, redundancy, bumper data, openings
+- **Sections, each in ONE continuous sequence:**
+  - Lola 1 driver-side front 3/4: irl_spray → scan_A.
+  - Lola 1 rear 3/4 + interior: irl_scanner → scan_B → irl_interior → screen_register.
+  - Lola 2 rear/wing: irl_lola2 → scan_wing.
+  - Lola 2 whole car, front 3/4: scan_hero.
+  - `ive director` flagged no repeated views.
+- **Cropping:**
+  - `scan_wing` was re-rendered as `s4_rear_v3`. The rear 3/4 holds the whole rear end and wing at about 70% of the width with margins; the v2 shot clipped the bumper at the left edge and had an empty bottom half.
+  - `scan_hero` is `s3_hero_v3`, with the whole car centred.
+  - `scan_A` and the start of `scan_B` keep the IRL framing because they are the 1:1 match frames. `scan_B` then pulls back to the whole inside + outside pair.
+  - First/middle/last frames of every shot are checked before assembly.
+- **Wider IRL crops:** blocked by the source. The 3:4 glasses frames are already cropped at full height. The only way to go wider is to letterbox, which is a question for the user.
+- **Bumper-removed, trunk, hood, door states (C, D):** no such scans exist for either Lola, so none are shown. No opening is faked.
