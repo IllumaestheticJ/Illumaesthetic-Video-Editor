@@ -1,3 +1,72 @@
-# Mazda RX-7 FC3S (S5) scan reel - Temerario style, scan only, no text. Timeline filled in once the music arrives.
+# Mazda RX-7 FC3S (S5) - Temerario-style scan reel (scan only: no IRL footage, no text).
+# Satin-silver scan on black; turntables -> close-ups -> hood opens -> top-down -> exploded view -> logo.
+# Shots: projects/mazda-rx7-fc/tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + hinged/exploding parts).
+# Music: mazda-rx7-fc_track.mp3 - original track generated for this reel by the parent session (ElevenLabs via Higgsfield;
+# dark 80s Japanese night drive). Grid 9.067 + k*0.5661 s (106.0 BPM), fitted on hit/snare flux peaks (the 40-120 Hz band
+# is an eighth-note bass line). Soft intro to 9.07, drums 9.07-21.52 (kick 12.46-21.52), breakdown 21.52-33, last hit 36.10,
+# -30 dB by 36.56. Cuts on frames round(t*30): 136, 272, 340, 374, 493, 561, 646, 1002; end 1122 (37.4 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: mazda-rx7-fc
 format: reel-9x16
+output: {path: /home/user/media/work/rx7/out/mazda_rx7_fc_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/mazda-rx7-fc_track.mp3   # not in git
+  start: 0
+  fade_out: 0.8
+
+beats: [4.539, 9.067, 11.331, 12.463, 16.428, 18.692, 21.520, 33.408]
+
+timeline:
+  - id: s1_front34     # slow low front 3/4 turntable over the soft intro; moving from frame 1
+    src: /home/user/media/work/rx7/renders/s1_front34
+    src_fps: 15
+    interpolate: true
+    dur: 4.5
+  - transition: {type: cut, note: "4.539 intro beat (8 beats)"}
+  - id: s2_rear34      # rear-left 3/4 orbit with a slight rise
+    src: /home/user/media/work/rx7/renders/s2_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 4.5333
+  - transition: {type: cut, note: "9.067 drums enter"}
+  - id: s3_wheel       # extreme close-up: upper front-right wheel, tyre sidewall, arch + suspension (2 mm)
+    src: /home/user/media/work/rx7/renders/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.2667
+  - transition: {type: cut, note: "11.331 bar line"}
+  - id: s4_nose        # nose slide: pop-up lid, indicator, bumper (middle 2 beats of the render)
+    src: /home/user/media/work/rx7/renders/s4_nose
+    src_fps: 15
+    interpolate: true
+    in: 1.2
+    dur: 1.1333
+  - transition: {type: cut, note: "12.463 kick drops in"}
+  - id: s6_hood        # hood opens on its fitted hinge 13.03 -> 14.73 to the captured 'Hood Up' angle
+    src: /home/user/media/work/rx7/renders/s6_hood
+    src_fps: 15
+    interpolate: true
+    dur: 3.9667
+  - transition: {type: cut, note: "16.428 strong snare"}
+  - id: s5_mirror      # right mirror / A-pillar / door glide (2 mm)
+    src: /home/user/media/work/rx7/renders/s5_mirror
+    src_fps: 15
+    interpolate: true
+    dur: 2.2667
+  - transition: {type: cut, note: "18.692 strong snare"}
+  - id: s7_top         # high rear 3/4 up and over to top-down
+    src: /home/user/media/work/rx7/renders/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 2.8333
+  - transition: {type: cut, note: "21.52 kick drops out - breakdown"}
+  - id: s8_explode     # hood / front face / rear bumper lift 22.09, out 24.35, drift + orbit, home 30.01 -> lock 32.28, hold
+    src: /home/user/media/work/rx7/renders/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 11.8667
+  - transition: {type: cut, note: "33.408 hit"}
+  - id: logo           # ILLUMAESTHETIC logo on black, fades with the music tail
+    src: /home/user/media/work/rx7/logo_card.mp4
+    dur: 4.0

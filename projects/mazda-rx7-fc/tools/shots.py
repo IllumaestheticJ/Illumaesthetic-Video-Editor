@@ -15,10 +15,11 @@ OUT = "/home/user/media/work/rx7/renders"
 SPECS = "/home/user/media/work/rx7/specs"
 HINGE = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "hinge.json")))
 CAR = f"{P}/car4.blend"
-EXPO = -0.5   # huracan-evo measured: -0.5 EV puts car-pixel luma at the Temerario ref's (median ~200)
+EXPO = -0.5
+BEAT = 0.5661  # mazda-rx7-fc_track.mp3: 106.0 BPM, grid 9.067 + k*BEAT (snare/hit flux peaks, see editlog)   # huracan-evo measured: -0.5 EV puts car-pixel luma at the Temerario ref's (median ~200)
 
 SECS = {"s1_front34": 5.0, "s2_rear34": 5.0, "s3_wheel": 3.6, "s4_nose": 3.6, "s5_mirror": 3.6,
-        "s6_hood": 5.0, "s7_top": 4.4}
+        "s6_hood": 4.0, "s7_top": 2.9}
 
 
 def orbit(t, r, ang_deg, h, c=(0, 0, 0.6), focal=30, ease="inout", tz=None):
@@ -52,8 +53,8 @@ SHOTS = {
     "s6_hood": {"base": [f"{P}/comp_hood.blend"],
                 "parts": [{"blend": f"{P}/hood.blend", "pivot": HINGE["p"],
                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 0.8, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 3.4, "loc": [0, 0, 0], "rot": [HINGE["open_deg"], 0, 0], "ease": "inout"}]}],
+                                    {"t": BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                                    {"t": 5 * BEAT, "loc": [0, 0, 0], "rot": [HINGE["open_deg"], 0, 0], "ease": "inout"}]}],
                 "cam": [orbit(0, 3.9, 34, 2.0, c=(0, 1.0, 0.6), focal=30, ease="lin"),
                         orbit(S["s6_hood"], 3.4, 18, 2.4, c=(0, 1.1, 0.6), focal=30, ease="out2")]},
     # 7. top-down: from a high rear 3/4 up and over to straight down (front at the top of the frame), slow spin
