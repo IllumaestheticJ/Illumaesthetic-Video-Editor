@@ -13,7 +13,8 @@ OUT = "/home/user/media/work/m3/renders"
 SPECS = "/home/user/media/work/m3/specs"
 CAR = f"{P}/car4.blend"
 SECS = {"s1_front34": 5.6, "s2_rear34": 5.0, "s3_lamp": 3.0, "s4_flank": 3.6, "s5_tail": 3.0,
-        "s6_wing": 4.6, "s7_top": 3.6, "s8_explode": 9.4}
+        "s6_wing": 4.6, "s7_top": 3.6, "s8_explode": 12.4}
+BEAT = 0.5453  # mazda-3-gen4_track.mp3: 110.0 BPM, grid fitted on kick peaks (tools/music_grid.py)
 
 
 def orbit(t, r, ang_deg, h, c=(0, 0, 0.7), focal=30, ease="inout", tz=None):
@@ -55,8 +56,8 @@ SHOTS = {
     "s6_wing": {"base": [f"{P}/comp_wingoff.blend"],
                 "parts": [{"blend": f"{P}/rwing.blend",
                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 1.0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": 3.2, "loc": [0, 0.12, 0.42], "rot": [-10, 0, 0], "ease": "inout"},
+                                    {"t": 2 * BEAT, "loc": [0, 0, 0], "rot": [0, 0, 0]},  # shot starts b28 (15.319): lift b30 -> b34
+                                    {"t": 6 * BEAT, "loc": [0, 0.12, 0.42], "rot": [-10, 0, 0], "ease": "inout"},
                                     {"t": S["s6_wing"], "loc": [0, 0.14, 0.46], "rot": [-11, 0, 0], "ease": "lin"}]}],
                 "cam": [{"t": 0, "loc": [1.9, 3.75, 2.25], "target": [0, 1.55, 1.25], "focal": 32},
                         {"t": S["s6_wing"], "loc": [1.25, 3.45, 2.55], "target": [0, 1.5, 1.3], "focal": 32, "ease": "out2"}]},
@@ -69,7 +70,8 @@ SHOTS = {
 # 8. exploded view: wing rises off the hatch, the (unregistered) aero-kit spoiler floats down into the layer above it,
 # camera orbits behind the car left -> right; wing seats again (lock) while the aero spoiler lifts away.
 T8 = S["s8_explode"]
-SEP0, SEP1, BACK0, LOCK = 0.5, 2.2, 6.0, 7.4
+# shot starts on b42 (22.954 s): separate on b44 (+2 beats) -> b48, drift, return from b56, LOCK on b60 (32.770), hold to b64 (logo)
+SEP0, SEP1, BACK0, LOCK = 2 * BEAT, 6 * BEAT, 14 * BEAT, 18 * BEAT
 SHOTS["s8_explode"] = {
     "base": [f"{P}/comp_wingoff.blend"],
     "parts": [
@@ -79,12 +81,12 @@ SHOTS["s8_explode"] = {
             {"t": BACK0, "loc": [0, 0.17, 0.56], "rot": [-14, 0, 0], "ease": "lin"},
             {"t": LOCK, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]},
         {"blend": f"{P}/spoiler.blend", "keys": [
-            {"t": 0, "loc": [0, 0.3, 2.6], "rot": [0, 0, 0]}, {"t": SEP0 + 0.3, "loc": [0, 0.3, 2.6], "rot": [0, 0, 0]},
-            {"t": SEP1 + 0.4, "loc": [0, 0.3, 1.05], "rot": [0, 0, 0], "ease": "out"},
+            {"t": 0, "loc": [0, 0.3, 2.6], "rot": [0, 0, 0]}, {"t": SEP0 + BEAT, "loc": [0, 0.3, 2.6], "rot": [0, 0, 0]},
+            {"t": SEP1 + 2 * BEAT, "loc": [0, 0.3, 1.05], "rot": [0, 0, 0], "ease": "out"},
             {"t": BACK0, "loc": [0, 0.32, 1.12], "rot": [0, 0, 0], "ease": "lin"},
-            {"t": T8, "loc": [0, 0.4, 2.8], "rot": [0, 0, 0], "ease": "in2"}]},
+            {"t": LOCK + BEAT, "loc": [0, 0.4, 2.8], "rot": [0, 0, 0], "ease": "in2"}]},
     ],
-    "cam": arc(T8, 3.9, 4.2, 125, 215, 2.5, 2.8, c=(0, 1.1, 1.2), focal=28, n=12, tz=1.55, shape="inout")}
+    "cam": arc(T8, 3.9, 4.3, 120, 228, 2.5, 2.8, c=(0, 1.1, 1.2), focal=28, n=12, tz=1.55, shape="inout")}
 
 
 def spec(name, mode):
