@@ -33,3 +33,20 @@ Same folder, `Video Nov 10 2026, 1 49 10 AM.mp4`. 13.6 s, 14 shots.
 Drive `74 - Civic FG2 Race Lip` (1itRtubjAyFciRvZC0IKNiRUqHEoOTuET). 1080x1920 60 fps, 52 s, no audio.
 - Red CGI car on a dark ground with black background → same pose, real #806 car; front, lip close-ups, rear wing.
 - CGI look: glossy red paint, black lip/wing, black sky. `projects/fg2-race-car` reuses this look from `FG2 Race Lip.blend`.
+
+### `v_jul22_1047_58` Temerario - measured timeline (added by the huracan-evo agent, 2026-11-11)
+From 1 s contact sheets of the 24 fps 1440x1920 file (no audio track). Two hard shot boundaries detected (`ive analyze`
+threshold 0.3); the rest are whip-smears / continuous moves.
+| t (s) | beat |
+|---|---|
+| 0-3 | fade up from black, low side profile, nose right, slow track |
+| 4-7 | front 3/4 low, slow turntable |
+| 8-11 | rear 3/4, turntable; whip-smear out at ~11 |
+| 12-15 | front-fender/wheel close-up; front bumper comes off, hood opens, front structure exposed |
+| 16-20 | fast flip to top-down, spinning, front parts (bumper, liners) spread around the nose |
+| 21-23 | high rear 3/4, engine cover / panels lifting off |
+| 24 | dark flash |
+| 25-31 | side view, panels floating in layers ABOVE the car (portrait-friendly stacking) |
+| 32-35 | panels return, assembled car rear 3/4, fades to black |
+| 36-39 | ILLUMAESTHETIC logo (~50 % frame width) on black |
+Look: near-white satin silver, AgX-ish, mid-grey median luma ~200 on car pixels; raw scan speckle visible (dusty capture).
