@@ -115,10 +115,11 @@ XP = {"p_hood": ((0, -0.15, 1.0), (-14, 0, 0), 0.0),
 SHOTS["s8_explode"] = {
     "base": [BASE],
     "parts": [{"blend": pb(k), "keys": explode(*v)} for k, v in XP.items()],
-    # radius swells side-on (exploded length spans the 9:16 width there)
-    "cam": [orbit(S["s8_explode"] * k / 14, 6.6 + 1.7 * math.sin(math.pi * (-48 + 183 * (k * k * (3 - 2 * k / 14) / 196)) / 180) ** 2,
-                  -48 + 183 * (k * k * (3 - 2 * k / 14) / 196), 3.3 + 0.4 * k / 14, c=(0, 0, 0.6), focal=28, ease="lin", tz=0.55)
-            for k in range(15)]}
+    # radius swells side-on (exploded length spans the 9:16 width there); tighter (x0.74) on the assembled car through
+    # the break, pulling back over 2 beats as the panels separate on drop 2. Keyed every 1/30 of the move.
+    "cam": [orbit(t, (6.6 + 1.7 * math.sin(math.radians(a)) ** 2) * (0.74 + 0.26 * min(1, max(0, (t - SEP + 0.2) / (2 * BEAT + 0.2))) ** 0.7),
+                  a, 3.3 + 0.4 * t / S["s8_explode"], c=(0, 0, 0.6), focal=28, ease="lin", tz=0.55)
+            for t, a in ((S["s8_explode"] * k / 30, -48 + 183 * (3 * (k / 30) ** 2 - 2 * (k / 30) ** 3)) for k in range(31))]}
 
 
 def spec(name, mode):
