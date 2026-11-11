@@ -20,6 +20,13 @@ cell = 50.0
 k = np.floor(cc[idx, 0] / cell) * 1000 + np.floor(cc[idx, 1] / cell)
 u, inv, cnt = np.unique(k, return_inverse=True, return_counts=True)
 idx = idx[cnt[inv] >= 20]
+# close pinholes: grow the lid into zone triangles within 8 mm of it (twice) - lid triangles that happened to sit
+# near something in the Hood Open scan were missed and showed as black dots once the base was trimmed
+zidx = np.where(zone & (cc[:, 1] < -1220))[0]
+ztree = cKDTree(cc[zidx])
+for _ in range(2):
+    near = ztree.query_ball_point(cc[idx], r=8.0)
+    idx = np.unique(np.concatenate([idx, zidx[np.unique(np.concatenate(near)).astype(int)]]))
 hood = car[idx]
 with open(sys.argv[3], "wb") as f:
     f.write(b"ive revuelto hood".ljust(80)); f.write(struct.pack("<I", len(hood))); hood.tofile(f)

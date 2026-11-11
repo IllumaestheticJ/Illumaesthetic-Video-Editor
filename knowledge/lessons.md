@@ -441,3 +441,13 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** BUMPER-REMOVED DATA IS THE HERO BEAT: where a bumper-removed / front- or rear-end-removed state scan exists, give it its own section - the bumper comes off and the camera moves in on what is behind it (crash beam, mounts, brackets, wiring, ducts), held long enough to read, with a short factual on-screen label (e.g. FRONT BUMPER REMOVED, CRASH BEAM, MOUNTING POINTS) over scan shots only, wording backed by the scan files.  _(from ferrari-296, 2026-11-11, user)_
 
 - **[story]** OPENINGS ONLY FROM DATA: show a trunk, hood or door open (or a part removed) only if a scan of that state of THIS car exists and registers. Never fake an opening by animating the closed scan; no trunk-open scan means no trunk shot.  _(from ferrari-296, 2026-11-11, user)_
+## From the Lamborghini Revuelto scan reel (2026-11-11, built by an agent; not yet reviewed)
+- **[technical]** Low parts (side skirts) die in `ive crop` (bottom-22 cm up-facing rule) and in prep's "island never
+  above 15 cm" rule - for those use only a floor cut (z < 8 mm in the levelled frame) and prep without --drop-islands.
+- **[scan-look]** Part scans can carry big patches of the surrounding body (Revuelto "Side Mirrors" = mirror + door/window
+  skin). Trimming the car with them leaves a jagged hole; crop the part to the part itself before compositing.
+- **[scan-look]** At-home shots: render the raw full car + every part at home (coincident surfaces share one material,
+  so no seams, and the part scans fill the car's uncaptured dark trims); switch to the trimmed base only on the frame the
+  first part starts to move (`visible` windows in tools/shot.py).
+- **[pacing]** `ive beats` BPM can be ~1 % off on generated tracks (103.4 vs 102.52 -> 85 ms drift in 16 s). Fit the grid
+  to strong flux onsets on a 16th grid (projects/lamborghini-revuelto/cuts.json note) before placing cuts.

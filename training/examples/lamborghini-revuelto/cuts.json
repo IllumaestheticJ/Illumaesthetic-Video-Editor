@@ -1,0 +1,8 @@
+{
+ "_note": "Track 102.52 BPM (16th grid phase 0.0833 s, resid <=3 ms); beats b(m)=0.5222+0.58525*m; phrases start 9.30/18.66/28.03. Cut frames = round(t*30); first clip one frame short. Climax taiko attack 27.93-27.95 = parts lock home in s10; logo on the loudest taiko hit (attack 30.40). Music tail to -45 dB at 34.6 s.",
+ "cuts_s": [0, 4.619, 6.960, 9.301, 10.471, 11.642, 15.153, 18.664, 23.346, 25.687, 30.40, 34.6],
+ "cut_frames": [0, 139, 209, 279, 314, 349, 455, 560, 700, 771, 912, 1038],
+ "lock_s": 27.967,
+ "dur": {"s1_side": 4.6, "s2_front34": 2.3333, "s3_rear34": 2.3333, "s4_headlight": 1.1667, "s5_wheel": 1.1667,
+         "s6_frontopen": 3.5333, "s7_top": 3.5, "s8_explode": 4.6667, "s9_float": 2.3667, "s10_reassemble": 4.7, "logo": 4.2}
+}

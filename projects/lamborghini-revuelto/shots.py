@@ -25,12 +25,14 @@ DUR.update({k: v for k, v in CUTS["dur"].items() if k in DUR})
 LEAD = 0.5  # slack on free shots
 
 PARTS = {"fb": "front_bumper", "hl": "head_lights", "hood": "hood", "fe": "fender", "ssf": "side_skirt_front",
-         "ssr": "side_skirt_rear", "fin": "side_fin", "mir": "side_mirrors", "rb": "rear_bumper_forced",
+         "ssr": "side_skirt_rear", "fin": "side_fin", "mir": "mirror_head", "rb": "rear_bumper_forced",
          "wing": "rear_wing", "tll": "tail_light_l", "tlr": "tail_light_r"}
 EXPLODED_OBJS = {"base": M + "base.blend", **{k: M + v + ".blend" for k, v in PARTS.items()}}
-# full-car beats use the ASSEMBLED composite (base + every part at home): the raw full-car scan's front fascia is
-# full of holes (dark trims not captured) that the separately scanned front bumper/headlights fill
-CAR = EXPLODED_OBJS
+# full-car beats: raw 3 mm full car + every part scan at home. The raw car's front fascia has holes (dark trims not
+# captured) that the separately scanned bumper/headlights fill; coincident surfaces share one material so they don't
+# show, and there are no trim seams. The trimmed base is only visible while parts are away (VIS windows below).
+CAR = {"car": M + "car_3mm.blend", **{k: M + v + ".blend" for k, v in PARTS.items()}}
+WITH_CAR = {**EXPLODED_OBJS, "car": M + "car_3mm.blend"}
 ZONE = {"car": M + "car_zone.blend"}  # 2 mm inside the front-left corner and rear boxes (close-ups)
 
 Z = [0, 0, 0]
@@ -58,11 +60,15 @@ def hold(state):
     return {k: [dict(t=0, **state[k])] for k in PARTS}
 
 
-def shot(name, objects, camera, anims=None, light_ref=None, lead=0.0):
+def shot(name, objects, camera, anims=None, light_ref=None, lead=0.0, visible=None):
     d = dict(objects=objects, seconds=round(DUR[name] + lead, 3), fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
              camera=camera, out=RENDERS + name, anims=anims or {}, exposure=EXPOSURE,
              hinges={"hood": {"p": HINGE["p"], "axis": HINGE["axis"]}})
     d["light_ref"] = light_ref or ("base" if "base" in objects else "car")
+    if visible:
+        d["visible"] = visible
+    if any(len(v) > 1 for v in (anims or {}).values()):
+        d["persistent"] = False  # animated parts: see tools/shot.py
     return name, d
 
 
@@ -85,10 +91,11 @@ SHOTS = [
     shot("s5_wheel", ZONE, [dict(t=0, az=62, el=4, dist=2.0, target=[0.9, -1.45, 0.36], lens=50),
                             dict(t=1, az=92, el=6, dist=1.8, target=[0.9, -1.45, 0.36], lens=50)], lead=LEAD),
     # 6 front end opens: bumper slides off, headlights out, lid swings up on its fitted hinge (ref 12-15 s)
-    shot("s6_frontopen", EXPLODED_OBJS,
+    shot("s6_frontopen", WITH_CAR,
          [dict(t=0, az=38, el=12, dist=4.6, target=[0, -1.6, 0.5], lens=40),
           dict(t=1, az=24, el=18, dist=5.0, target=[0, -1.8, 0.65], lens=40)],
-         tween(HOME, OPEN, {"fb": (0.03, 0.42), "hl": (0.25, 0.62), "hood": (0.62, 0.98)}), light_ref="base"),
+         tween(HOME, OPEN, {"fb": (0.03, 0.42), "hl": (0.25, 0.62), "hood": (0.62, 0.98)}), light_ref="base",
+         visible={"car": [0, 0.03], "base": [0.03, 1.01]}),
     # 7 top-down: crane up and over, spinning, front end open (ref 16-20 s)
     shot("s7_top", EXPLODED_OBJS,
          [dict(t=0, az=20, el=60, dist=9.5, target=[0, -0.5, 0.4], lens=40),
@@ -110,13 +117,13 @@ SHOTS = [
          {k: [dict(t=0, **EXPL[k]), dict(t=1, lin=True, **EXPL_DRIFT[k])] for k in PARTS}, light_ref="base", lead=LEAD),
     # 10 panels fly home and LOCK on the climax taiko hit (27.97 s, ease-in = they slam in), then rear 3/4 hero
     #    push through the climax; fades out under the last hit (ref 32-35 s)
-    shot("s10_reassemble", EXPLODED_OBJS,
+    shot("s10_reassemble", WITH_CAR,
          [dict(t=0, az=118, el=14, dist=11.0, target=[0, 0, 1.25], lens=40),
           dict(t=LOCK, az=146, el=9, dist=7.6, target=[0, 0.15, 0.55], lens=40),
           dict(t=1, az=158, el=7, dist=6.6, target=[0, 0.2, 0.5], lens=40, lin=True)],
          {k: [dict(t=0, **EXPL_DRIFT[k]), dict(t=st, **EXPL_DRIFT[k]), dict(t=LOCK, ease="in", **HOME[k]), dict(t=1, **HOME[k])]
           for k, st in zip(PARTS, [0.0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2, 0.22])},
-         light_ref="base"),
+         light_ref="base", visible={"base": [0, LOCK], "car": [LOCK, 1.01]}),
 ]
 
 if __name__ == "__main__":
