@@ -16,61 +16,85 @@ beats: [0.0, 1.8, 3.6, 6.0, 7.2, 9.6, 11.4, 13.8, 15.6, 18.0, 19.8, 23.4, 24.0, 
 timeline:
   # ---- FRONT (one continuous sequence) ----
   - id: irl_open            # focus: the real car, front 3/4 (4342, crop zoom 1.0); ends on solved frame 433
+    section: front
+    focus: the real car, front 3/4
     dur: 1.7667             # one frame short so later cuts land on round(beat*30)
     src: /home/user/media/work/sera/irl/open.mp4
   - transition: {type: cut, note: "1:1 IRL -> full car on the 1.8 s phrase change"}
   - id: scan_open           # focus: nose = scan of that car (v2 render, retimed to 1.8 s)
+    section: front
+    focus: nose = scan of the same car
     dur: 1.8
     src: /home/user/media/work/sera/renders/final/s1_open
     src_fps: 20
     interpolate: true
   - id: irl_front_lift      # focus: crew lifting the stock front bumper off (4351), ends on solved frame 250
+    section: front
+    focus: crew lifting the front bumper off
     dur: 2.4
     src: /home/user/media/work/sera/irl/front.mp4
   - transition: {type: cut, note: "1:1 IRL -> 'Hood open' state on the 6.0 kick"}
   - id: scan_front_match    # focus: bay exactly as in the footage
+    section: front
+    focus: engine bay as in the footage
     dur: 1.2
     src: /home/user/media/work/sera/renders/final/s5_front
     src_fps: 15
     interpolate: true
   - id: scan_front_off      # focus: front bumper drops below the nose, turns to show its scanned inside; whole nose in frame
+    section: front
+    focus: front bumper inside + outside
     dur: 2.4
     src: /home/user/media/work/sera/renders/final/v3_f_off
     src_fps: 15
     interpolate: true
   - id: scan_front_behind   # focus: what was behind the bumper (Hood open state): radiator, fan, lower beam, mounts
+    section: front
+    focus: structure behind the front bumper
     dur: 1.8
     src: /home/user/media/work/sera/renders/final/v3_f_beam
     src_fps: 15
     interpolate: true
   # ---- SIDE ----
   - id: scan_doors          # focus: butterfly doors open (Door Open state as captured, composited on the full car)
+    section: side
+    focus: butterfly doors open
     dur: 2.4
     src: /home/user/media/work/sera/renders/final/v3_doors
     src_fps: 15
     interpolate: true
   # ---- REAR ----
   - id: irl_rear_pull       # focus: crew pulling the rear bumper corner loose (4359) - hard cut, no 1:1 possible
+    section: rear
+    focus: crew pulling the rear bumper
     dur: 1.8
     src: /home/user/media/work/sera/irl/rear.mp4
   - id: scan_rear_off       # focus: rear bumper drops below the tail, turns to show its scanned inside
+    section: rear
+    focus: rear bumper inside + outside
     dur: 2.4
     src: /home/user/media/work/sera/renders/final/v3_r_off
     src_fps: 15
     interpolate: true
   - id: scan_rear_behind    # focus: behind the rear bumper (Rear Bumper Removed state): tail panel, mounts
+    section: rear
+    focus: structure behind the rear bumper
     dur: 1.8
     src: /home/user/media/work/sera/renders/final/v3_r_beam
     src_fps: 15
     interpolate: true
   # ---- WHOLE CAR -> LISTING ----
   - id: scan_xray           # focus: bumpers seat home (front 20.4, rear 21.0 phrase change), orbit lands on the listing hero; last 0.6 s frozen
+    section: whole car
+    focus: bumpers seat home, listing angle
     dur: 4.2
     src: /home/user/media/work/sera/renders/final/v3_xray
     src_fps: 15
     interpolate: true
   - transition: {type: dissolve, duration: 0.6, note: "x-ray (listing angle, clay) -> same-angle listing hero"}
   - id: website             # focus: listing page, title, logo, URL last (re-timed, no dead hold)
+    section: end card
+    focus: listing page + URL
     dur: 3.6
     src: /home/user/media/work/out/webzoom_sera_v3.mp4
 

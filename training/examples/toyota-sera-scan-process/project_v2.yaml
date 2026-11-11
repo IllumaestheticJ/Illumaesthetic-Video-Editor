@@ -1,0 +1,61 @@
+# Toyota Sera (EXY10) scan-process reel v2 (v1: project_v1.yaml). v2 = wider IRL crops at both 1:1 cuts (user feedback). - "240SX style": real footage -> 1:1 cut -> scan beats -> x-ray -> listing.
+# Music: original Sera track (100.0 BPM kick grid, t0 0.0254) started at 7.825 s so beat k of the video = 0.6*k s;
+# 1:1 cuts sit on the two 16-beat phrase changes (1.8 s, 11.4 s); the dissolve ends on the third (21.0 s).
+# IRL clips are pre-graded/cropped by tools/irl.py (FX30 S-Log3 -> Rec709 LUT, 9:16 window, 30 fps).
+# Scan shots: tools/shots.sh final (75 % res, 12 spp, 15 fps, minterpolated to 30).
+project: toyota-sera-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/sera_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/sera/music/sera_track.mp3
+  start: 7.825
+  fade_out: 0.8
+
+beats: [0.0, 1.8, 4.2, 6.0, 9.0, 11.4, 12.6, 15.6, 20.4, 21.0, 27.0]
+
+timeline:
+  - id: irl_open          # 4342 16.26-18.06 s, crop x0 1640 zoom 1.0 (v1: x0 2160 y0 498 zoom 1.3); last frame = solved frame 433
+    dur: 1.7667   # one frame short so every later cut lands on round(beat*30) (lessons; measured +1 frame without)
+    src: /home/user/media/work/sera/irl/open.mp4
+  - transition: {type: cut, note: "1:1 IRL -> full-car scan (match/cam_open.json) on the phrase change"}
+  - id: scan_open         # full car, silver, slow push; HUD triangle counter
+    dur: 2.4
+    src: /home/user/media/work/sera/renders/final/s1_open
+    src_fps: 15
+    interpolate: true
+  - id: irl_rear_pull     # 4359 16.5-18.3 s: crew working the rear bumper corner loose
+    dur: 1.8
+    src: /home/user/media/work/sera/irl/rear.mp4
+  - id: scan_rear         # rear-bumper-removed state; rear bumper scan drops below and spins (inside + outside)
+    dur: 3.0
+    src: /home/user/media/work/sera/renders/final/s3_rear
+    src_fps: 15
+    interpolate: true
+  - id: irl_front_lift    # 4351 8.05-10.43 s: stock front bumper lifted off, ends on solved frame 250
+    dur: 2.4
+    src: /home/user/media/work/sera/irl/front.mp4
+  - transition: {type: cut, note: "1:1 IRL -> 'Hood open' state scan (match/cam_front.json) on the phrase change"}
+  - id: scan_front_match  # matched bay hold, tiny push
+    dur: 1.2
+    src: /home/user/media/work/sera/renders/final/s5_front
+    src_fps: 15
+    interpolate: true
+  - id: scan_front_explode  # wide front 3/4: front bumper rises above the nose and spins
+    dur: 3.0
+    src: /home/user/media/work/sera/renders/final/s6_frontx
+    src_fps: 15
+    interpolate: true
+  - id: scan_xray         # bumpers translate home into the trimmed full car; orbit lands on the listing angle; last 0.6 s frozen
+    dur: 5.4
+    src: /home/user/media/work/sera/renders/final/s7_xray
+    src_fps: 15
+    interpolate: true
+  - transition: {type: dissolve, duration: 0.6, note: "x-ray (listing angle, clay) -> same-angle listing hero"}
+  - id: website           # WebZoom: starts 1.35x on the hero car, zooms out; title, logo, URL last
+    dur: 6.6
+    src: /home/user/media/work/out/webzoom_sera_v1.mp4
+
+overlays:
+  - src: /home/user/media/work/out/hud_sera_v1.mov
+    start: 0

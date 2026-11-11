@@ -7,49 +7,76 @@
  "items": [
   {
    "kind": "label",
-   "from": 183,
-   "duration": 42,
-   "title": "REAR BUMPER",
-   "sub": "4,999,998 TRIANGLES",
+   "from": 219,
+   "duration": 33,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "STOCK BUMPER, SCANNED OFF THE CAR",
    "x": 0.08,
-   "y": 0.08
+   "y": 0.06
   },
   {
    "kind": "label",
-   "from": 228,
-   "duration": 39,
-   "title": "INSIDE + OUTSIDE",
-   "sub": "REAR BUMPER SCANNED",
-   "x": 0.08,
-   "y": 0.08
-  },
-  {
-   "kind": "label",
-   "from": 381,
-   "duration": 42,
+   "from": 254,
+   "duration": 32,
    "title": "FRONT BUMPER",
-   "sub": "1,800,000 TRIANGLES",
+   "sub": "1,800,000 TRIANGLES - INSIDE + OUTSIDE",
    "x": 0.08,
-   "y": 0.08
+   "y": 0.06
   },
   {
    "kind": "label",
-   "from": 426,
-   "duration": 39,
-   "title": "INSIDE + OUTSIDE",
-   "sub": "FRONT BUMPER SCANNED",
+   "from": 292,
+   "duration": 47,
+   "title": "BEHIND THE FRONT BUMPER",
+   "sub": "RADIATOR / FAN / BUMPER MOUNTS",
    "x": 0.08,
-   "y": 0.08
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 346,
+   "duration": 63,
+   "title": "BUTTERFLY DOORS",
+   "sub": "DOOR OPEN SCAN - 10,500,000 TRIANGLES",
+   "x": 0.08,
+   "y": 0.76
+  },
+  {
+   "kind": "label",
+   "from": 471,
+   "duration": 33,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "STOCK BUMPER, SCANNED OFF THE CAR",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 506,
+   "duration": 32,
+   "title": "REAR BUMPER",
+   "sub": "4,999,998 TRIANGLES - INSIDE + OUTSIDE",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 544,
+   "duration": 47,
+   "title": "BEHIND THE REAR BUMPER",
+   "sub": "TAIL PANEL / BUMPER MOUNTS",
+   "x": 0.08,
+   "y": 0.74
   },
   {
    "kind": "brackets",
-   "from": 474,
-   "duration": 105
+   "from": 596,
+   "duration": 100
   },
   {
    "kind": "label",
-   "from": 480,
-   "duration": 96,
+   "from": 612,
+   "duration": 76,
    "title": "14,999,999 TRIANGLES",
    "sub": "FULL CAR SCAN",
    "x": 0.08,
