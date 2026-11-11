@@ -601,3 +601,9 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[text]** Narration should cover quirks and unique facts about the car, not just the spec sheet  _(from huracan-evo @ 4s, 2026-11-11, reviewer)_
 - **[story]** v2: the doors lifting off and the trunk lid lifting off are hallucinated - the scans show doors OPEN and trunk OPEN, so the parts must only open on their hinges, never detach  _(from honda-civic-11 @ 13.3s, 2026-11-11, reviewer)_
+
+### Suzuki Cappuccino v3 (2026-11-11) - reviewer: "the lines where the front bumper and trunk were cut for the exploded view are not correct"
+- **Never cut a panel out of the full-car scan with margins or distance thresholds.** The real shut line is in the scan as a groove. Make a top-down height map (2 mm px), groove depth = grey closing minus height, and trace the gap as a least-cost path through a few waypoints, inside a corridor (`projects/suzuki-cappuccino/tools/panels.py`). Edges that drop over the nose or tail are invisible from above: trace them in the front/rear view.
+- Check where a panel really ends before cutting: the Cappuccino hood runs forward between the head lamps to the bumper seam and back to the screen corners; the trunk lid wraps over the tail down to the seam between the tail lamps. Compare the body-after-removal against the bumper-off state scan in the same view - any band of skin the state does not have is a wrong cut.
+- Body-side cut for a removed bumper = car skin that the bumper-OFF state scan does not have, limited to a zone around the bumper part scan. The state decides the seam; a distance trim to the part scan leaves remnants and ragged fender edges.
+- Logo card: 380 px wide on 1080 was "too small"; 720 px is the current size.

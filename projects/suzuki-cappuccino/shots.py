@@ -10,8 +10,8 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 B = "/home/user/media/work/cappuccino/blend/"
-OUT = "/home/user/media/work/cappuccino/shots_v2/"
-RENDERS = "/home/user/media/work/renders/cappuccino_v2/"
+OUT = "/home/user/media/work/cappuccino/shots_v3/"
+RENDERS = "/home/user/media/work/renders/cappuccino_v3/"
 HH = json.load(open(os.path.join(HERE, "hinge_hood.json")))
 HT = json.load(open(os.path.join(HERE, "hinge_trunk.json")))
 ONSET_F = json.load(open(os.path.join(HERE, "onsets.json")))["frames"]  # beat n -> cut frame at 30 fps
@@ -28,7 +28,7 @@ HINGES = {"hood": {"p": HH["p"], "axis": HH["axis"]}, "trunk": {"p": HT["p"], "a
 def secs(b0, b1):
     """render length for a shot between beats b0..b1 (+2 frames at 15 fps of margin for the assembler's trim)"""
     f0 = 0 if b0 == 0 else ONSET_F[b0]
-    return round((ONSET_F[b1] - f0) / 30 + 2 / FPS, 3)
+    return round((ONSET_F[b1] - f0) / 30 + 3 / FPS, 3)  # +3: minterpolate eats ~1.5 tail frames (v2 had a cloned frame before 2 cuts)
 
 
 def cam(t, az, el, dist, target, lens, **kw):
@@ -58,10 +58,14 @@ SHOTS = {}
 
 
 def shot(name, b0, b1, objects, camera, anims=None, visible=None, light_ref=None):
-    d = dict(objects=objects, seconds=secs(b0, b1), fps=FPS, res=[1080, 1920], res_pct=75, samples=12, camera=camera,
-             out=RENDERS + name, anims=anims or {}, exposure=EXPOSURE, hinges=HINGES, persist=False)
+    # keyframe t is written against the CUT length; the render runs 3 source frames longer, so rescale (v2 drifted <= 2 frames)
+    sec = secs(b0, b1); f = (sec - 3 / FPS) / sec
+    camera = [dict(c, t=c["t"] * f) for c in camera]
+    anims = {p: [dict(q, t=q["t"] * f) for q in ks] for p, ks in (anims or {}).items()}
+    d = dict(objects=objects, seconds=sec, fps=FPS, res=[1080, 1920], res_pct=75, samples=12, camera=camera,
+             out=RENDERS + name, anims=anims, exposure=EXPOSURE, hinges=HINGES, persist=False)
     if visible:
-        d["visible"] = visible
+        d["visible"] = {p: [w[0] * f, w[1] * f if w[1] < 1 else w[1]] for p, w in visible.items()}
     if light_ref:
         d["light_ref"] = light_ref
     SHOTS[name] = d
