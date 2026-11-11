@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11

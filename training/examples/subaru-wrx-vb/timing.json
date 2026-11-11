@@ -1,0 +1,4 @@
+{"note": "subaru-wrx-vb_track.mp3: bar downbeats 11.2522 + 1.39591 n (171.9 BPM), beat 0.34898 s. Cuts (frames @30): 157, 261, 338, 421, 547, 631, 966; end 1065. Shot secs = cut-to-cut; events in seconds from the shot start.",
+ "secs": {"s3_wheel": 2.5667, "s4_scoop": 2.7667, "s2_rear34": 3.4667, "s5_front": 4.2, "s6_top": 2.8, "s7_explode": 11.1667},
+ "events": {"s5_front": {"go": 0.349, "off": 2.792, "garnish": 0.698},
+            "s7_explode": {"sep": 1.395, "out": 2.093, "back": 8.375, "lock": 9.771}}}
