@@ -1,0 +1,27 @@
+# NFSU1 car-select reel. Order as the user listed them. Liveries come from the models; nothing is drawn by hand.
+# Render with tools/render_car.py (project copy of blender/kit_render.py: --livery, --steer, --frs-green, --cam-anim).
+glb_dir: /home/user/media/nfsu1-carselect/glbs
+cars:
+  - id: toyota-gr-corolla                  # "GR Corolla Castrol"
+    glb: eps-toyota-gr-corolla-v23.glb
+    livery: livery_castrol                 # carrier node in the GLB; image applied to `paint` through the body UVs
+    fitted: [front_lip_v2, side_skirts_v2, rear_spats_v2, canards, wrc_wing, wing_strakes]
+    hide: [body_roof_spoiler_stock, part_front_lip, part_front_lip_2025, part_side_skirts, part_rear_spats, part_spoiler_extension]
+    plate: {make: Toyota, model: GR Corolla}
+  - id: mazda-mx5-na                       # "NA Miata Epsilon Motorsports" = livery_ak4some (purple/green #58) - to be confirmed by the user
+    glb: eps-mazda-mx5-na-v15.glb
+    livery: livery_ak4some
+    fitted: [front_bumper, side_skirts, tc_wing_kit]
+    hide: [body_front_bumper_stock, trim_front_bumper_stock, body_side_skirts_stock, trim_side_skirts_stock]
+    plate: {make: Mazda, model: Miata}     # the game's own "Mazda Miata MX-5" plate
+  - id: honda-del-sol                      # "Shaftwerks Del Sol"
+    glb: eps-honda-del-sol-v18.glb
+    livery: edition_shaftwerks (decals are nodes of the GLB, shown as exported)
+    fitted: [widebody_front, widebody_rear, tc_wing_kit]
+    hide: [body_front_fenders_stock, body_rear_quarters_stock]
+    plate: {make: Honda, model: del Sol}
+  - id: lotus-elise                        # "Epsilon Motorsports Elise" - NO MODEL YET
+    glb: null                              # only wing-configurator/data/models/lotus-elise-s2-r3.glb (bare scan); user's Drive has "Elise race car livery.obj" (1.48 GB, id 1FJ4UU-9O93tl890_eqy6bVwqE6ISqgFV) which the service account cannot read
+  - id: scion-frs                          # "FRS Takumi Green race car livery" = Ron's green blend, #555 - to be confirmed by the user
+    blend: /home/user/media/nfsu1-carselect/frs_green/GT2 Animation FRS-green.blend
+    plate: {make: Scion, model: FR-S}

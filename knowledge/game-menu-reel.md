@@ -223,3 +223,51 @@ first scroll, then `ive feedback`, `ive archive`.
 House rules that do **not** apply to this format: the 1:1 real-to-scan cut, the silver scan look,
 the logo end card unless the user asks. Rules that still apply: no invented numbers on screen,
 look at your own output.
+
+## 11. Menus where the camera moves (NFS Underground 1) - `projects/nfsu1-carselect/`
+Underground 1's car select is not a turntable. The car sits still on screen while the garage streams past (it is
+"driving"), and every car change is a fixed 3.7 s animation: the menu flips to the next car at once, the old car drives
+away for 133 frames with the camera swinging after it, hard cut, the new car drives in at the lens with its headlights
+on, sweeps past in close-up and settles. Nothing from sections 5-7 (slide tracking, clean plate, one static camera)
+applies. What does:
+
+1. **Find the structure first.** Mean frame difference of the scene area per frame (`motion.npy`): holds, the 133-frame
+   drive-away, the hard cut (one spike), the 90-frame drive-in. Compare the same phase of several cycles side by side
+   before assuming anything repeats: here the timing repeats exactly, the garage behind it does not.
+2. **Track the game's own car with a model of that car.** The game's Miata is an NB and the showroom has an NB GLB in
+   the same frame as every kit car. `tools/sil.py` + `track_car.py` fit the NB's painted-panel silhouette to the blue
+   pixels of each capture frame (Powell on 1 - IoU, started from the previous frame's pose), which gives the camera
+   *relative to the car*; that camera then renders any kit car (`render_car.py --cam-anim`). Pick the game car by what
+   3D model you have and by colour (a saturated car on a grey garage masks itself).
+   - A painter's-algorithm rasteriser over decimated triangles put hidden inner panels on top. Use: fill camera-facing
+     painted triangles, then camera-facing glass / lamps / near-side wheels over them (`render_classes`). Drop the
+     inner shell and interior from the tracking mesh.
+   - Seed at an easy frame (the hold) with many starts; a wrong local minimum has cost ~0.5, the right one ~0.38.
+   - The track breaks where the view changes fast or the car fills the frame. Re-seed with a multi-start search on a
+     clear frame inside the broken stretch (`--chamfer 0.3` adds an edge-distance term so barely-overlapping starts
+     still converge) and track both ways. Where two runs disagree in a close-up (silhouette says little), bridge the
+     gap by interpolating camera position and rotation (`poses.py`).
+   - Always look at the outline sheet (`track_sheet.py`); the cost alone hid a lost track (0.37 while off the car).
+   - Focal length: only the close-up frames constrain it, and weakly (1600-2000 px on 2144 equal; 1000 clearly worse).
+   - Smooth the poses (5 frames near, up to 15 far away where depth jitters) and ease into the hold pose.
+3. **The menu is drawn over the scene, half transparent.** Per-pixel minimum over ~1000 menu frames = the menu's own
+   colour A; (max - min)/255, dilated and median-filtered per panel = how much scene shows through, B. Then
+   `scene = (frame - A) / B` and `frame = A + B * scene` let a new car pass *under* the bands. Exclude frames with the
+   YouTube player overlay or the statistics are ruined.
+   - Per-state name plates and logos: 8th percentile over that state's calm frames (not the minimum: fast close-ups are
+     smeared by video compression and punch holes into it) minus the same across all states. The plate is a plain 50 %
+     white layer; it comes off with `(x - plate) / (1 - alpha)` and the next one goes on the same way.
+   - The plate flips 19 frames *before* the old car moves; the logo strip slides for ~28 frames from the same moment.
+4. **Removing the game car.** The kit car covers most of it. What sticks out (tracked silhouette + blue pixels, minus
+   the kit's alpha) is inpainted at quarter resolution from outside both cars and feathered in. Choose the smallest
+   game car as the base for this reason. The game car's contact shadow and tail-light glow stay and ground the kit car.
+5. **Reuse one tracked cycle for every car**, stretch only the hold (it has no car motion) to fit the audio, and keep
+   the animation 1:1. Cost: every car drives through the same stretch of garage.
+6. **Render cost.** `use_persistent_data` (camera-only changes) took a frame from 35 s to 11-20 s for a 750k-triangle
+   GLB at 1608x904, 16 samples. 116 frames per car at 30 fps.
+7. **Liveries live in the GLBs**: `livery_<name>` is a 3-vertex carrier node whose material holds the texture; the
+   showroom puts that image on `paint` through the body's UVs (`render_car.py --livery`). Del Sol "editions" are decal
+   nodes parented to the kit parts. The green FR-S race car only exists as Ron's `GT2 Animation FRS-green.blend`
+   (procedural paint, decal planes; `--frs-green` opens it, drops floor/lights/compositor and scales it to real size).
+8. **Logos:** `upload.wikimedia.org/wikipedia/en/<h>/<hh>/<File>` with `h = md5(filename)` works when the API is
+   rate-limited (429 after a handful of calls); `en.wikipedia.org` itself is blocked. `pip install cairosvg` for SVGs.
