@@ -29,7 +29,8 @@
    "duration": 38,
    "title": "STRUT TOWER",
    "x": 0.08,
-   "y": 0.88
+   "y": 0.88,
+   "sub": "FRONT SUSPENSION MOUNT"
   },
   {
    "kind": "label",
@@ -46,7 +47,8 @@
    "duration": 47,
    "title": "ROLL BAR",
    "x": 0.08,
-   "y": 0.88
+   "y": 0.88,
+   "sub": "ROOF-DOWN SCAN"
   },
   {
    "kind": "label",
@@ -63,7 +65,8 @@
    "duration": 54,
    "title": "ENGINE BAY",
    "x": 0.08,
-   "y": 0.88
+   "y": 0.88,
+   "sub": "UNDER THE REAR LID"
   }
  ]
 }
