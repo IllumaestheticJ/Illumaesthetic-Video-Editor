@@ -1,11 +1,11 @@
 # Toyota MR2 Spyder scan reel v3 (delivered as v2 to the user) - Temerario style, scan only. v1: project_v1.yaml
 # Plan: direction.md (scene order from the scan inventory, nose -> roof -> tail, one sequence per section) + director.md.
 # Assembly: projects/honda-s2000/tools/concat_assemble.py (whole-frame `frames:`, plain concat, no cloned cut frame),
-# then the label HUD (overlay.json -> ive hud) is composited on top (labels only over scan shots; there is no IRL).
+# then the label HUD (overlay.json -> ive hud) is composited on top by concat_assemble (labels only over scan shots; there is no IRL).
 # src_fps = 30*N/(slot+4): minterpolate gives 2N-3 frames, so every slot is filled without clone padding.
 project: toyota-mr2-spyder
 format: reel-9x16
-output: {path: /home/user/media/work/mr2/out/mr2_spyder_v2_nolabels.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/mr2/out/mr2_spyder_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/toyota-mr2-spyder_track.mp3   # parent-session generated track (not in git)
@@ -13,11 +13,13 @@ music:
   fade_out: 1.2
 
 # cut times in REEL seconds (music t - 3.155): strong hits 7.441 -> 4.286, 24.583 -> 21.428 (lid opens), final hit 33.690 -> 30.535 (logo)
-beats: [4.286, 6.428, 12.857, 19.285, 25.714, 30.535]
+beats: [4.286, 6.428, 12.967, 19.285, 25.714, 30.535]
 
 timeline:
   - id: s1_wide   # WHOLE CAR: side profile, slow drift toward the nose, fades up (reused v2 render, slowed)
-    src: /home/user/media/work/renders/mr2/s1_wide
+    section: whole
+    focus: whole car establishing orbit
+    src: /home/user/media/work/renders/mr2/s1_wide_z
     src_fps: 12.1805
     interpolate: true
     frames: 129
@@ -25,6 +27,8 @@ timeline:
     vf: fade=t=in:st=0:d=1.0
   - transition: {type: cut}
   - id: s4_wheel   # WHEELS: front wheel + arch extreme close-up; cut ON the 7.441 strong hit
+    section: side
+    focus: front wheel and tyre close-up
     src: /home/user/media/work/renders/mr2/s4_wheel
     src_fps: 15.8824
     interpolate: true
@@ -32,20 +36,26 @@ timeline:
     dur: 2.1333
   - transition: {type: cut}
   - id: s12_front   # FRONT HERO: bumper slides out into black, camera moves in on what's behind it, hood swings up on its fitted hinge (Hood Duct Data state)
+    section: front
+    focus: bumper-removed crash structure, then hood open
     src: /home/user/media/work/renders/mr2/s12_front
-    src_fps: 15.2284
+    src_fps: 15.0000
     interpolate: true
-    frames: 193
-    dur: 6.4333
+    frames: 196
+    dur: 6.5333
   - transition: {type: cut}
   - id: s13_top   # SIDE + TOP: hardtop lifts straight out of frame, crane into the roof-down cabin (Full Car Top Down)
-    src: /home/user/media/work/renders/mr2/s13_top
-    src_fps: 15.2284
+    section: cabin
+    focus: hardtop removed, roll bar
+    src: /home/user/media/work/renders/mr2/s13_top_t
+    src_fps: 13.6082
     interpolate: true
-    frames: 193
-    dur: 6.4333
+    frames: 190
+    dur: 6.3333
   - transition: {type: cut}
   - id: s14_rear   # REAR: tail, rear lid opens ON the 24.583 strong hit, crane over the engine bay (Rear End trunk open)
+    section: rear
+    focus: rear lid open over the engine bay
     src: /home/user/media/work/renders/mr2/s14_rear_z
     src_fps: 15.3061
     interpolate: true
@@ -53,6 +63,8 @@ timeline:
     dur: 6.4000
   - transition: {type: cut}
   - id: s15_reassemble   # REASSEMBLY: wide rear-right 3/4, panels return, clean full car takes over, fades to black
+    section: whole
+    focus: parts return, clean car
     src: /home/user/media/work/renders/mr2/s15_reassemble
     src_fps: 15.3020
     interpolate: true
@@ -65,6 +77,6 @@ timeline:
     frames: 93
     dur: 3.1000
 
-overlays:   # composited after concat (tools/label_pass.sh); labels from overlay.json, see director.md label table
+overlays:   # composited by concat_assemble in the same pass; labels from overlay.json, see director.md label table
   - src: /home/user/media/work/mr2/out/hud_v3.mov
     start: 0

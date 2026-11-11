@@ -1,3 +1,37 @@
+# Toyota MR2 Spyder scan reel v2 - self-review (training/rubric.md)
+
+Output: `/home/user/media/work/mr2/out/mr2_spyder_v2.mp4` - 1080x1920, 30 fps, yuv420p, AAC, faststart, 1009 frames, 33.63 s.
+v2 answers the first-revision notes (lessons.md V2 brief + addendum A-D): one continuous sequence per section, nose -> roof -> tail; bumper-removed hero beat with labels; open states only where a registered scan exists; ive director reports **no repeated views**.
+
+Timeline: s1_wide (whole car, push-in) -> s4_wheel -> s12_front (bumper slides out, camera moves in on the crash structure and holds, hood opens) -> s13_top (hardtop lifts off, crane into the roll-bar cabin) -> s14_rear (rear lid opens on the strong hit, crane over the engine bay) -> s15_reassemble (parts return, clean-car swap, fade) -> small logo.
+
+| # | Criterion | Score | Evidence / gap |
+|---|---|---|---|
+| 1 | Hook | 3 | Whole car from frame 0 with a push-in (1.12x->1.28x) plus orbit; fade-up 1 s. Still nothing *transforms* in the first 1.5 s - the first transformation is the bumper at ~6.6 s. |
+| 2 | Beat sync | 4 | Six cuts measured against the decoded audio's transients (10 ms RMS envelope): 129, 193, 389, 579 within ~20 ms; 771 ~30 ms early; 916 on the final hit. Cut 3 was moved 386->389 because the grid beat had no transient (real hit +100 ms). Not all strictly within the brief's +-1/2 frame - 10 ms resolution. |
+| 3 | 1:1 match | n/a | No IRL. Panel-state continuity carried across s12->s13->s14 (bumper off, hood + lid open). |
+| 4 | Scan quality | 3 | Every frame lit (per-frame luma scan, persistent data off on all moving shots). Diff-made front bumper still has ragged open edges (visible as it slides out); front base ragged where the bumper was differenced - which is honestly what's behind the scanned bumper. Clean-car swap hides it at the end. |
+| 5 | Story | 4 | Whole -> wheel -> front (bumper off = hero) -> roof -> rear -> reassembly -> logo. Each section once, no ping-pong. No explode stack this time (the director plan dropped it as a repeat of s12-s14); the progressive per-section reveal stands in for it. |
+| 6 | Grade | 4 | One satin-silver look; close-ups read brighter because the car fills the frame. |
+| 7 | Text | 4 | 7 short labels over scan only, factual (states that exist as scans: bumper on/off, hood closed/open, hardtop on/off, lid closed/open; STRUT TOWER / ROLL BAR / ENGINE BAY name visible parts), no numbers. More than the rubric's 2 items because the addendum asked for labelled bumper-removed detail. Each label on black; FRONT BUMPER REMOVED moved to the top so the sliding bumper doesn't pass under it. |
+| 8 | Ending | 4 | Clean car fades out (0.45 s), small logo card (380 px) on the final hit, music fade 1.2 s. |
+| 9 | Technical | 5 | Specs correct; plain concat (no cloned hold frames at cuts); freezedetect only fires on the static logo card. |
+
+## Fixes found by looking (not by score)
+- Labels rendered twice: concat_assemble already burns `overlays:` in, so the extra label_pass composited a second copy. Removed label_pass.
+- s14 opened small and low with ~450 px dead black above -> post zoom-crop 1.2x->1.0 instead of a 37-min re-render.
+- Director flagged s13 ~ s14 (both opened on a whole-car 3/4 silhouette, corr 0.78) -> s13 starts 12 source frames in (corr 0.72).
+
+## Not verified
+- Phone-speaker listen; label legibility on an actual phone.
+
+## What the next agent should know
+- `concat_assemble.py` composites `overlays:` itself - don't add a second label pass.
+- ScanHUD label with an empty `sub` crashes (interpolate range [6,6]); always give a sub.
+- Kick grid != transients everywhere: verify each cut on the decoded audio, the 112 BPM grid was 100 ms early at 12.86 s.
+- Post zoom-crops (PIL crop + LANCZOS back to 810x1440) are a cheap fix for framing on 75% renders; keep >=5% margin.
+
+---
 # Toyota MR2 Spyder scan reel v1 - self-review (training/rubric.md)
 
 Output: `/home/user/media/work/mr2/out/mr2_spyder_v1.mp4` - 1080x1920, 30 fps, yuv420p, AAC, faststart (moov first), 1163 frames, 38.77 s.
