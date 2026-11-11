@@ -169,7 +169,9 @@ def _m2b(n=6):
 def _m3(n=8):
     k0 = fit(orbit(0, 118, 1.40, c=(0, 0.3, 0.70), focal=35), PTS["car"])
     r0 = np.linalg.norm(np.array(k0["loc"][:2]) - [0, 0.3])
-    T0, T1 = np.array([0, 0.3, 0.70]), np.array([0.35, 1.70, 0.85])
+    # v2.1: start on the rear section (continuing m2's flank pass), not a second whole-car wide (director m1~m3 IoU 0.83)
+    r0 *= 0.55
+    T0, T1 = np.array([0.2, 1.2, 0.75]), np.array([0.35, 1.70, 0.85])
     L1 = np.array([2.50, 5.42, 1.15]); r1 = np.linalg.norm(L1[:2] - T1[:2])
     keys = []
     for i in range(n + 1):
