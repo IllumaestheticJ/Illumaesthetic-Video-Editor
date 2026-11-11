@@ -2,9 +2,9 @@
 
 Output: `/home/user/media/work/out/lola_scan_process_v1.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 31.97 s (959 frames). Music: the parent session's track, fading out with the logo.
 
-> ⚠️ **Before publishing:** these cars (Lola 1 and Lola 2) were scanned for a **film production
-> (Drifter)**. The user must confirm we are allowed to post this footage and the scan data before
-> it goes public.
+> ✅ **Posting permission confirmed:** these cars (Lola 1 and Lola 2) were scanned for a film production
+> (Drifter). The user confirmed on 2026-11-11 that the production is fine with the reel being posted
+> ("Lola production is fine with it", relayed by the parent session).
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
