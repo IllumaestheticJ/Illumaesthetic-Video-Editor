@@ -179,7 +179,7 @@ SHOTS["N3_wing"] = {"base": [EXP], "parts": [
     ],  # other parts left out: off-section clutter at the frame top. v2 render lifted to the full stack (1.2 m) and the
     # wing left the top of frame for ~2 s mid-shot -> small lift + slow drift so the subject never leaves the frame
     "cam": cam2(S["N3_wing"], [-0.60, 3.60, 1.00], [-0.25, 2.15, 0.85], 38,
-                [-1.10, 4.15, 2.25], [0, 1.80, 1.05], 35)}
+                [-1.10, 4.15, 2.25], [0.05, 1.85, 0.95], 27)}  # f35 cut the wing's left tip + right quarter (v3 frames check)
 
 
 def spec(name, mode):
