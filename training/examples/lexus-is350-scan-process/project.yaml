@@ -1,9 +1,10 @@
+# v2: end card = listing with the 2026+ front bumper dataset selected (user feedback). v1: project_v1.yaml
 # Lexus IS350 (4IS, plate 9JTY488) scan-process reel - 240SX format with the real shop footage (FX3A, S-Log3).
 # Real clips are pre-rendered by tools/irl.py (LUT + 9:16 window from the 4K original, last frame = match frame).
 # Scan shots: S1/S2 ive render, S3 tools/path_render.py (two-camera swoop). Cameras in /home/user/media/work/is350/match.
 project: lexus-is350-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/is350/out/is350_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/is350/out/is350_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/is350/music/is350_reel.wav   # tools/music.py: track from kick 26, kicks 40-56 repeated once

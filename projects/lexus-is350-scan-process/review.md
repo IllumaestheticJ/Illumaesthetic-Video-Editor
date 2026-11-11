@@ -18,3 +18,7 @@ Output: `/home/user/media/work/is350/out/is350_scan_process_v1.mp4` — 1080x192
 - If the team has footage of the reflector (or bumper) actually coming off, a real removal -> part-state 1:1 cut would replace the scan-only pop-out.
 - Front orbit silver reads hot; a lower key light for close full-car shots.
 - The reflector is small (~200 px); a slow push toward it during the spin would help on phones.
+
+## v2 (user feedback)
+- End card now shows the listing with the **2026+ front bumper** dataset selected and the title "SCAN DATA + 2026 BUMPER NOW AVAILABLE";
+  dissolve match unchanged (viewer pixel-identical). The 2026 bumper scans are a different car, so they are not in the 1:1 story.

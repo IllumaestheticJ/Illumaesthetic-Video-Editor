@@ -1,7 +1,17 @@
 {
- "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 138,
- "src": "web_is350_listing.png", "imgW": 2880, "imgH": 1640,
- "focusX": 960, "focusY": 880, "startScale": 1.245, "zoomFrames": 60,
- "url": "ILLUMAESTHETIC.COM", "title": "SCAN DATA NOW AVAILABLE",
- "logo": "illumaesthetic_logo.png", "logoWidth": 640
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 138,
+ "src": "web_is350_listing_bumper.png",
+ "imgW": 2880,
+ "imgH": 1640,
+ "focusX": 960,
+ "focusY": 880,
+ "startScale": 1.245,
+ "zoomFrames": 60,
+ "url": "ILLUMAESTHETIC.COM",
+ "title": "SCAN DATA + 2026 BUMPER NOW AVAILABLE",
+ "logo": "illumaesthetic_logo.png",
+ "logoWidth": 640
 }
