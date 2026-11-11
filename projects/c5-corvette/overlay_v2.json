@@ -11,7 +11,8 @@
    "duration": 54,
    "title": "FRONT BUMPER REMOVED",
    "x": 0.08,
-   "y": 0.86
+   "y": 0.86,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -19,7 +20,8 @@
    "duration": 43,
    "title": "FRONT BUMPER - INSIDE",
    "x": 0.08,
-   "y": 0.86
+   "y": 0.86,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -27,7 +29,8 @@
    "duration": 47,
    "title": "HOOD REMOVED",
    "x": 0.08,
-   "y": 0.86
+   "y": 0.86,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -35,7 +38,8 @@
    "duration": 57,
    "title": "FENDER REMOVED",
    "x": 0.08,
-   "y": 0.86
+   "y": 0.86,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -43,7 +47,8 @@
    "duration": 72,
    "title": "REAR BUMPER REMOVED",
    "x": 0.08,
-   "y": 0.86
+   "y": 0.86,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -51,7 +56,8 @@
    "duration": 90,
    "title": "REAR BUMPER - INSIDE",
    "x": 0.08,
-   "y": 0.86
+   "y": 0.86,
+   "sub": " "
   }
  ]
 }

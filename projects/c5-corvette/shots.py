@@ -183,18 +183,20 @@ SP0 = [0, 0, 0, 1]
 # 1 whole car -> front bumper starts to come off; ends on the old A end pose so the reused B continues
 S1 = 1.20 / sec2(0)
 v2b("a2_open", 0, cam(0, {"t": 0, "az": -28, "el": 11, "dist": 7.2, "target": [0, -0.35, 0.55], "lens": 30},
-                     {"t": sec2(0), "az": -28, "el": 9, "dist": 3.0, "target": [0, -2.0, 0.42], "lens": 30}),
+                     {"t": sec2(0), "az": -28, "el": 9, "dist": 3.7, "target": [0, -2.15, 0.40], "lens": 30}),
     {"fb": anim(0, [{"t": 1.20, "off": Z, "spin": SP0}, {"t": sec2(0), "off": [0, -0.9, 0.05], "spin": SP0}])},
     extra_vis={"car": [0, S1], **{k: [S1, 1.01] for k in V2}}, objs={**V2, **CAR})
 # 3 hood on its fitted hinge -> lift -> flip the scanned underside to camera -> push into the engine bay (hood-removed state)
 v2b("f2_hood", 2, cam(2, {"t": 0, "az": -22, "el": 24, "dist": 3.8, "target": [0, -1.45, 0.70], "lens": 30},
                      {"t": 5.70, "az": -22, "el": 30, "dist": 3.6, "target": [0, -1.35, 0.95], "lens": 30},
-                     {"t": sec2(2), "az": -22, "el": 42, "dist": 2.5, "target": [0, -1.10, 0.50], "lens": 30}),
+                     {"t": sec2(2), "az": -22, "el": 40, "dist": 3.3, "target": [0.12, -1.25, 0.55], "lens": 30}),
     {"hood": anim(2, [{"t": 0.05, "deg": 0, "off": Z, "spin": [0, 1, 0, 0]},
                       {"t": 1.60, "deg": OPEN, "off": Z, "spin": [0, 1, 0, 0]},
                       {"t": 2.20, "deg": OPEN, "off": Z, "spin": [0, 1, 0, 0]},
                       {"t": 4.38, "deg": OPEN, "off": [0, -0.25, 1.15], "spin": [0, 1, 0, 0]},
-                      {"t": 5.70, "deg": 0, "off": [0, -0.55, 1.30], "spin": [-75, 1, 0, 0]}])},
+                      {"t": 5.70, "deg": 0, "off": [0, -0.55, 1.30], "spin": [-75, 1, 0, 0]},
+                      {"t": 6.40, "deg": 0, "off": [0, -0.55, 1.30], "spin": [-75, 1, 0, 0]},
+                      {"t": sec2(2), "deg": 0, "off": [0, -0.20, 3.60], "spin": [-75, 1, 0, 0]}])},
     hidden=("fb",))
 # 4 -X fender (translate only - no scanned inside) -> macro push onto the exposed wheelhouse / mounts
 v2b("c2_fender", 3, cam(3, {"t": 0, "az": -78, "el": 10, "dist": 3.9, "target": [-0.70, -1.40, 0.60], "lens": 30},
