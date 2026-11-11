@@ -22,3 +22,16 @@
 - Dropped: separate scan_R (merged into scan_AR); irl_parts 0074 (fender inside shown in scan_B already - same subject twice).
 - Re-render: scan_AR (new, 115 frames), scan_B (new wider crop -> new start camera, 84 frames). Reused: C2 + C2_clay, all IRL clips, webzoom (re-rendered shorter only).
 - All renders persistent-data OFF; luma checked on every frame.
+
+## Addendum (user feedback for all reels: crops, redundancy, bumper-removed hero beats, no faked openings)
+Section coverage - each section appears in ONE continuous sequence:
+| shot | section | covers |
+|---|---|---|
+| irl_open | rear (real) | stock rear 3/4 |
+| scan_AR | whole car -> rear | 1:1 rear, whole car rear 3/4 (fully in frame), rear bumper mounting side, push-in on the exposed rear structure ('Rear bumper removed' scan) + labels |
+| irl_fender / irl_bumper / irl_stripped | front (real) | crew removing fender + front bumper |
+| scan_B | front / right side | 1:1 stripped front, fender inside, front bumper mounting side, push-in on the exposed nose structure + labels |
+| scan_C | whole car (x-ray) | reassembly orbit ending on the listing angle - the only whole-car pass after the opening |
+| website | listing | end card |
+No hood, trunk or door shots: no open-state scan of this C5 registers (hood-open supplement failed).
+Crop check: first / middle / last frame of every scan shot reviewed at 25-30 % before the finals.

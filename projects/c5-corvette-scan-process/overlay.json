@@ -13,7 +13,7 @@
   {
    "kind": "label",
    "from": 72,
-   "duration": 76,
+   "duration": 68,
    "title": "FULL CAR SCAN",
    "sub": "8,255,611 TRIANGLES",
    "x": 0.08,
@@ -21,42 +21,51 @@
   },
   {
    "kind": "label",
-   "from": 176,
-   "duration": 56,
+   "from": 190,
+   "duration": 38,
+   "title": "REAR BUMPER",
+   "sub": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 242,
+   "duration": 50,
    "title": "REAR BUMPER REMOVED",
    "sub": "8,028,053 TRIANGLES",
    "x": 0.08,
    "y": 0.1
   },
   {
-   "kind": "label",
-   "from": 234,
-   "duration": 56,
-   "title": "INSIDE + OUTSIDE",
-   "sub": "REAR BUMPER SCANNED",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
    "kind": "brackets",
-   "from": 530,
-   "duration": 88
+   "from": 524,
+   "duration": 96
   },
   {
    "kind": "label",
-   "from": 534,
-   "duration": 40,
+   "from": 528,
+   "duration": 28,
    "title": "FENDER",
-   "sub": "6,293,120 TRIANGLES",
+   "sub": "INSIDE + OUTSIDE",
    "x": 0.08,
    "y": 0.1
   },
   {
    "kind": "label",
-   "from": 576,
-   "duration": 42,
-   "title": "INSIDE + OUTSIDE",
-   "sub": "FENDER + FRONT BUMPER SCANNED",
+   "from": 558,
+   "duration": 28,
+   "title": "FRONT BUMPER",
+   "sub": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 588,
+   "duration": 32,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "FENDER + BUMPER OFF",
    "x": 0.08,
    "y": 0.1
   }
