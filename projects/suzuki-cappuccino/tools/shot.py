@@ -196,7 +196,8 @@ def main():
     sc.cycles.samples = samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    sc.render.use_persistent_data = True
+    # persistent data dropped all studio lights mid-sequence with keyframed parts (Cappuccino v1, WRX VA): off by default
+    sc.render.use_persistent_data = bool(spec.get("persist", False))
     sc.render.resolution_x, sc.render.resolution_y = spec.get("res", [1080, 1920])
     sc.render.resolution_percentage = res_pct
     sc.view_settings.view_transform = "AgX"
