@@ -44,9 +44,9 @@ spec("d_front", ["comp_explode.blend"], [
 # D: rear section. rear bumper out + tipped (lands 2.449 = 19.656 abs), push in on the beam, slide to the left tip
 spec("g_rear", ["comp_explode.blend"], [
     cam(0, [1.70, 4.50, 1.60], [0.05, 1.75, 0.75], 30),
-    cam(2.449, [2.10, 4.80, 1.70], [0.10, 2.10, 0.50], 30),
-    cam(4.898, [1.00, 3.60, 1.20], [0.05, 1.95, 0.50], 30),
-    cam(7.547, [-0.60, 3.50, 1.10], [-0.15, 1.95, 0.45], 32)], 7.547,
+    cam(2.449, [2.10, 4.80, 1.70], [0.10, 2.10, 0.60], 30),
+    cam(4.898, [1.10, 3.80, 1.15], [0.05, 1.95, 0.72], 30),
+    cam(7.547, [-0.65, 3.70, 1.05], [-0.15, 1.95, 0.70], 32)], 7.547,
     parts=[{"blend": B + "rear_bumper.blend", "keys": [k(0, Z), k(0.612, Z), k(2.449, RB_OFF, RB_ROT),
                                                        k(4.898, RB_AWAY, RB_ROT)]},
            {"blend": B + "hood_m.blend", "keys": [k(0, [0, -0.10, 8.0])]},  # parked far out of frame
