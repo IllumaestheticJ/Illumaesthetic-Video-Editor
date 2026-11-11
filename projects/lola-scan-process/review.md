@@ -1,10 +1,13 @@
-# Lola (Drifter movie) scan-process reel v3 — agent self-review (training/rubric.md)
+# Lola (Drifter movie) scan-process reel v4 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/lola_scan_process_v3.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 27.57 s (827 frames). Earlier: `review_v1.md`, `review_v2.md`. Plan: `direction.md`.
+Output: `/home/user/media/work/out/lola_scan_process_v4.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 27.57 s (827 frames). Earlier: `review_v1.md`, `review_v2.md`, `review_v3.md`. Plan: `direction.md`.
 
 > ✅ **Posting permission confirmed:** these cars (Lola 1 and Lola 2) were scanned for a film production
 > (Drifter). The user confirmed on 2026-11-11 that the production is fine with the reel being posted
 > ("Lola production is fine with it", relayed by the parent session).
+
+v4 change (user on v3: the Artec Studio clip "just looks like colored blobs"):
+- The 1.37 s screen clip at 14.8 s is now the cut-open Lola body mesh (door opening, cage, seat, wheel) with its colour texture switching on. It reads as a car and shows a processing step. Everything else is unchanged from v3.
 
 v3 changes:
 - **User on v2: "Remove illumaesthetic.com"** → the end card is the logo only, re-centred.

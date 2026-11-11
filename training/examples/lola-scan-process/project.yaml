@@ -8,7 +8,7 @@
 # IRL wing -> scan wing -> whole car; logo on the re-drop (27.6 s). Plan: direction.md.
 project: lola-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/lola_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/lola_scan_process_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   # "Take Me (To The Moon)" - Ian Asher & D A N N Y. TikTok Commercial Music Library (licensed for brand posts),
@@ -53,10 +53,10 @@ timeline:
     in: 1.5
     dur: 1.3667
   - transition: {type: cut}
-  - id: screen_register   # scan software: interior fragments being aligned (2x)
-    src: /home/user/media/work/lola/sel/sr_register.mp4
-    in: 0.0
-    speed: 2.0
+  - id: screen_register   # v4 (user: v3 clip "just looks like colored blobs"): Artec Studio, the cut-open body mesh with the
+    # cage inside gets its colour texture switched on (sr_1120_2154 @ 24:33.0, crop 490x870+260+60 of the viewport)
+    src: /home/user/media/work/lola/sel/sr_texture.mp4
+    in: 0.55
     dur: 1.3667
   - transition: {type: cut}
   - id: irl_lola2      # spraying Lola 2's wing -> rear (scanner on the roof stand)

@@ -3,3 +3,4 @@
 {"ts": "2026-11-11T09:13:05Z", "project": "lola-scan-process", "at": null, "category": "story", "note": "Film production cleared the Lola reel for posting (user: 'Lola production is fine with it')", "by": "user", "promoted": false}
 {"ts": "2026-11-11T09:48:03Z", "project": "lola-scan-process", "at": "27", "category": "text", "note": "Remove Illumaesthetic.com from this", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T09:48:03Z", "project": "lola-scan-process", "at": "20", "category": "scan-look", "note": "Clean up footage at end or use trailer footage from the movie for a nice 1:1 cut", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-11T10:28:59Z", "project": "lola-scan-process", "at": "15.0", "category": "story", "note": "Change the clip where the scans were being imported into Artec Studio - it just looks like colored blobs", "by": "reviewer", "promoted": false}
