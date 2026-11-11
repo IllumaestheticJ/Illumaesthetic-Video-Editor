@@ -1,25 +1,7 @@
 {
- "_note": "PROVISIONAL camera-only shots s1-s4 rendered long (trim/speed to the music); event shots s5-s8 timed once the track arrives.",
- "secs": {
-  "s1_front": 4.8,
-  "s2_rear": 4.4,
-  "s3_wheel": 2.6,
-  "s4_lightbar": 2.6,
-  "s5_hood": 3.4,
-  "s6_hatch": 3.0,
-  "s7_top": 3.4,
-  "s8_explode": 10.0
- },
- "events": {
-  "hood_open0": 0.5,
-  "hood_open1": 2.4,
-  "hatch_open0": 0.4,
-  "hatch_open1": 2.2,
-  "doors_out0": 1.6,
-  "doors_out1": 2.3,
-  "sep": 0.6,
-  "hold": 1.8,
-  "back": 6.6,
-  "lock": 8.2
- }
+ "_note": "Music: porsche-macan_track.mp3 (deep house, 118.03 BPM). Kick grid t = 16.3099 + 0.50836 n (rms 3.8 ms). Cuts (music = video time): 4.109, 8.176, 9.701, 11.226, 16.310 (drop), 20.377, 30.544 (groove stops). secs = rendered length (slot + margin); events = in-shot seconds.",
+ "secs": {"s1_front": 4.8, "s2_rear": 4.4, "s3_wheel": 2.6, "s4_lightbar": 2.6, "s5_open": 5.4, "s7_top": 4.4, "s8_explode": 10.5},
+ "events": {"hood_open0": 0.25, "hood_open1": 1.95, "hatch_open0": 2.45, "hatch_open1": 4.2,
+            "doors_out0": 1.017, "doors_out1": 1.417,
+            "sep": 0.0, "hold": 1.4, "back": 6.1, "lock": 8.134}
 }

@@ -58,20 +58,21 @@ SHOTS = {
     "s4_lightbar": {"base": [CAR_HI], "cam": [
         {"t": 0, "loc": [1.35, 3.5, 1.45], "target": [0.5, 2.2, 1.15], "focal": 55},
         {"t": SECS["s4_lightbar"], "loc": [0.2, 3.78, 1.42], "target": [-0.2, 2.25, 1.15], "focal": 55, "ease": "inout"}]},
-    # 5. hood opens on its fitted hinge (bay from "Hood Removed"), camera high front 3/4 easing in
-    "s5_hood": {"base": [f"{P}/comp_hood.blend"],
+    # 5. one continuous move over the hit-less pre-drop build: high front-left 3/4 -> along the left side -> high rear-left
+    #    3/4. The hood opens on its fitted hinge (bay from "Hood Removed"), then the hatch on its own (boot from
+    #    "Rear Hatch Fully Open"). Base = comp_open (hood + hatch cut out).
+    "s5_open": {"base": [f"{P}/comp_open.blend"],
                 "parts": [{"blend": f"{P}/x_hood.blend", "pivot": hood["pivot"],
                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
                                     {"t": EV["hood_open0"], "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                    {"t": EV["hood_open1"], "loc": [0, 0, 0], "rot": [hood["open_deg"], 0, 0], "ease": "inout"}]}],
-                "cam": arc(SECS["s5_hood"], 6, 4.6, 4.0, -34, -20, 2.3, 2.6, c=(0, -1.0, 0.6), focal=30, tz=0.7, shape=easeout)},
-    # 6. rear hatch opens on its fitted hinge (boot from "Rear Hatch Fully Open"), high rear 3/4 on the car's right
-    "s6_hatch": {"base": [f"{P}/comp_hatch.blend"],
-                 "parts": [{"blend": f"{P}/x_hatch.blend", "pivot": hatch["pivot"],
-                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                     {"t": EV["hatch_open0"], "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                                     {"t": EV["hatch_open1"], "loc": [0, 0, 0], "rot": [hatch["open_deg"], 0, 0], "ease": "inout"}]}],
-                 "cam": arc(SECS["s6_hatch"], 6, 4.9, 4.4, -150, -165, 1.9, 2.2, c=(0, 1.0, 0.7), focal=30, tz=0.85, shape=easeout)},
+                                    {"t": EV["hood_open1"], "loc": [0, 0, 0], "rot": [hood["open_deg"], 0, 0], "ease": "inout"}]},
+                          {"blend": f"{P}/x_hatch.blend", "pivot": hatch["pivot"],
+                           "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                                    {"t": EV["hatch_open0"], "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                                    {"t": EV["hatch_open1"], "loc": [0, 0, 0], "rot": [hatch["open_deg"], 0, 0], "ease": "inout"}]}],
+                "cam": [orbit(SECS["s5_open"] * k / 12, 4.9 + 0.5 * math.sin(math.pi * k / 12), 32 + 118 * smooth(k / 12),
+                              2.55 - 0.15 * (k / 12), c=(0, -0.9 + 1.8 * smooth(k / 12), 0.6), focal=30, ease="lin", tz=0.75)
+                        for k in range(13)]},
 }
 
 # 7. top-down, slow spin; the four doors pop straight out sideways on an accent (doors are full-skinned: door scan

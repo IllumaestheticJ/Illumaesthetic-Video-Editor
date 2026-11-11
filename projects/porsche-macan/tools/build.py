@@ -9,8 +9,7 @@ Panels (each = a part scan, or the car's own skin cut out where the part scan ha
   fbumper/rbumper   "(Warped)" bumper scans (verified 4.4 / 2.7 mm median from the car); car within 12 mm cut
   hatch             car triangles that moved between "Rear Hatch Closed" and "Rear Hatch Fully Open" (hinge.py)
 Bases (car minus panels, plus only NEW geometry from the state scans inside the panel zones):
-  comp_hood   - hood       (fill: Hood Removed)
-  comp_hatch  - hatch      (fill: Rear Hatch Fully Open, minus the open hatch itself)
+  comp_open   - hood + hatch (fills: Hood Removed; Rear Hatch Fully Open minus the open hatch itself)
   comp_doors  - 4 doors    (fill: Doors and Hood Open, inboard of the door skins only - no swung-open doors)
   comp_explode- all panels (fills in order; later fills only add what earlier ones lack)
 """
@@ -136,7 +135,7 @@ def main():
         return cache[f]
 
     openh = np.load(f"{H}/hatch.json.open.npy") if os.path.exists(f"{H}/hatch.json.open.npy") else None
-    sets = {"comp_hood": ["hood"], "comp_hatch": ["hatch"], "comp_doors": [f"door_{d}" for d in ("fl", "fr", "rl", "rr")],
+    sets = {"comp_open": ["hood", "hatch"], "comp_doors": [f"door_{d}" for d in ("fl", "fr", "rl", "rr")],
             "comp_explode": ["hood", "fender", "fbumper", "rbumper", "hatch"] + [f"door_{d}" for d in ("fl", "fr", "rl", "rr")]}
     for sname, names in sets.items():
         names = [n for n in names if n in panels]

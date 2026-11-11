@@ -1,0 +1,71 @@
+# Porsche Macan (Electric) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 etc.
+# Satin-silver scan on black; turntables -> close-ups -> hood + hatch open -> top-down (doors pop out) -> exploded -> logo.
+# Shots: tools/shots.py (specs, timing from timing.json) + tools/shot.py (Blender, keyed cameras + hinged/moving parts).
+# Music: porsche-macan_track.mp3 - original deep-house track generated for this reel by the coordinating session
+# (ElevenLabs via Higgsfield). 118.03 BPM, kick grid t = 16.3099 + 0.50836 n (rms 3.8 ms, tools/music_grid.py + editlog).
+# 0-16.3 ambient intro with syncopated hits (4.109, 8.176 phrase lines; 9.701, 11.226), hit-less build 11.2-16.3,
+# DROP 16.310, strong accents 17.327 / 20.377 / 22.41 / 24.44 / 26.99, phrase 28.511, groove stops dead at 30.544,
+# pad tail to ~33.5 (-38 dB at 33.6), silent ~34.3.
+# Cuts on frames round(t*30): 123, 245, 291, 337, 489, 611, 916; end 1008 (33.6 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# Renders are 15 fps + minterpolate; every render has 2N-3 >= slot+1 frames so no shot ends on cloned frames.
+project: porsche-macan
+format: reel-9x16
+output: {path: /home/user/media/work/macan/out/porsche_macan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/porsche-macan_track.mp3   # not in git
+  start: 0
+  fade_out: 0.8
+
+beats: [4.109, 8.176, 9.701, 11.226, 16.310, 17.327, 20.377, 28.511, 30.544]
+
+timeline:
+  - id: s1_front       # slow front 3/4 turntable, low; fades up from black with the track's fade-in
+    src: /home/user/media/work/macan/renders/final/s1_front
+    src_fps: 15
+    interpolate: true
+    dur: 4.0667
+    vf: "fade=t=in:st=0:d=1.2"
+  - transition: {type: cut, note: "4.109 intro phrase hit"}
+  - id: s2_rear        # rear 3/4 orbit on the car's left, slight rise; light bar in view
+    src: /home/user/media/work/macan/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.0667
+  - transition: {type: cut, note: "8.176 phrase hit"}
+  - id: s3_wheel       # extreme close-up: front right wheel / brake (3 mm scan)
+    src: /home/user/media/work/macan/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 1.5333
+  - transition: {type: cut, note: "9.701 syncopated hit"}
+  - id: s4_lightbar    # 55 mm slide along the full-width light bar, PORSCHE lettering, Macan script (plate out of frame)
+    src: /home/user/media/work/macan/renders/final/s4_lightbar
+    src_fps: 15
+    interpolate: true
+    dur: 1.5333
+  - transition: {type: cut, note: "11.226 last intro hit; then one continuous move over the hit-less build"}
+  - id: s5_open        # front-left high -> left side -> rear-left high; hood opens (0.25-1.95), then hatch (2.45-4.2)
+    src: /home/user/media/work/macan/renders/final/s5_open
+    src_fps: 15
+    interpolate: true
+    dur: 5.0667
+  - transition: {type: cut, note: "16.310 DROP"}
+  - id: s7_top         # straight down, slow spin; four doors pop out sideways on the 17.327 accent
+    src: /home/user/media/work/macan/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 4.0667
+  - transition: {type: cut, note: "20.377 phrase accent - panels separate"}
+  - id: s8_explode     # doors already out; hood/bumpers/fender/hatch stack above, orbit front-left -> rear-left, LOCK 28.511
+    src: /home/user/media/work/macan/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 10.1667
+  - transition: {type: cut, note: "30.544 the groove stops - logo over the pad tail"}
+  - id: logo           # tools/logo_card.py --secs 3.0667: logo on render black (7,7,9), fades out with the tail
+    src: /home/user/media/work/macan/out/logo_card.mp4
+    dur: 3.0667
+
+overlays: []
