@@ -4,7 +4,8 @@
 # IRL = Ray-Ban Meta glasses POV, SDR; selects pre-cropped 3:4 -> 9:16 in /home/user/media/work/lola/sel (crops in editlog).
 # v1/v2: project_v1|v2.yaml, overlay_v1|v2.json, review_v1|v2.md.
 # v3 (user on v2: "remove illumaesthetic.com", "clean up footage at end"): logo-only card; dropped the colour-model
-# screen recording (UI + cursor) and the holey front close-up; new whole-car Lola 2 hero push-in.
+# screen recording (UI + cursor) and the holey front close-up; new whole-car Lola 2 hero push-in; Lola 2 travels
+# IRL wing -> scan wing -> whole car; logo on the re-drop (27.6 s). Plan: direction.md.
 project: lola-scan-process
 format: reel-9x16
 output: {path: /home/user/media/work/out/lola_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -20,7 +21,7 @@ music:
 # Measured 40-120 Hz kick peaks (video s; tools: scratch onsets.py, kick pairs every ~1.37 s):
 # drop 2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 19.766, breakdown riser hit 23.585 (flux), re-drop 24.374,
 # 26.778. Durs are whole frames so each cut = round(kick*30); first clip one frame short.
-beats: [2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 24.374, 26.778]
+beats: [2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 21.142, 24.374]
 
 timeline:
   - id: irl_spray      # powder spray sweep over Lola 1; ENDS on the solved frame (spray.mp4 frame 446)
@@ -63,19 +64,20 @@ timeline:
     in: 3.25
     dur: 2.2333
   - transition: {type: cut}
-  - id: scan_hero      # v3: Lola 2 silver, WHOLE car centred, slow push-in (no orbit), held over the track's breakdown
-    src: /home/user/media/work/lola/renders/s3_hero_v3
-    src_fps: 15
-    interpolate: true
-    dur: 5.9667
-  - transition: {type: cut}
-  - id: scan_wing      # Lola 2 wing detail on the re-drop (cleanest Lola 2 close-up)
+  - id: scan_wing      # focus: Lola 2's GT wing + uprights as scan, continuing the IRL wing-spray shot (travel rear -> whole car)
     src: /home/user/media/work/lola/renders/s4_wing
     src_fps: 15
     interpolate: true
-    dur: 2.4
+    dur: 2.7333
   - transition: {type: cut}
-  - id: logo           # v3: ILLUMAESTHETIC logo only (user: remove illumaesthetic.com); fade to black with the music
+  - id: scan_hero      # focus: whole Lola 2 centred, slow push-in (no orbit); triangle counter; v3: 3.23 s (was 5.97, dead frames)
+    src: /home/user/media/work/lola/renders/s3_hero_v3
+    src_fps: 15
+    interpolate: true
+    speed: 1.8          # 6 s render -> the whole 0.12 push-in plays inside the 3.23 s slot
+    dur: 3.2333
+  - transition: {type: cut}
+  - id: logo           # v3: ILLUMAESTHETIC logo only (user: remove illumaesthetic.com), on the re-drop; fade to black with the music
     src: /home/user/media/work/lola/end_card_v3.mp4
     in: 0
     dur: 3.2333
