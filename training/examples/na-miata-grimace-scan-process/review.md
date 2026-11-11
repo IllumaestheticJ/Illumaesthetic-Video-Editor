@@ -1,6 +1,8 @@
-# NA Miata "Grimace" / stock NB chassis-scan reel v2 — agent self-review (training/rubric.md)
+# Stock NB Miata chassis-scan reel v3 (v2 review kept below) — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/miata/out/na_miata_grimace_scan_v2.mp4` — 1080×1920, 30 fps, yuv420p, AAC, 34.57 s.
+v3 output: `/home/user/media/work/miata/out/nb_miata_scan_v3.mp4` — NB only, 32.5 s. Changes from v2 (user feedback): Grimace hook, scanner close-up and walk-in removed; the rough cut supplies only the two 1:1 shots (1.0 s each); music starts on track beat 3 so the 1:1 cut still lands on the drop (1.0 s); 1:1 cuts at 1.0 and 7.0 s. Hook 5 (transformation at 1.0 s); Story 4 (the "why bracing" context from Grimace is gone; story = scan -> jacked -> brace -> listing).
+
+v2 output: `/home/user/media/work/miata/out/na_miata_grimace_scan_v2.mp4` — 1080×1920, 30 fps, yuv420p, AAC, 34.57 s.
 (v1 = same cut with the S2 labels over the white car body; fixed in v2.)
 
 | # | Criterion | Score | Notes |

@@ -315,3 +315,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[pacing]** `ive beats` can report half tempo (G35 track: 60 BPM reported, 90 BPM real). Confirm from 40-120 Hz kick peaks.
 - **[scan-look]** No part/"removed" state scans for the body? Cut panels from the full-car scan along the visible seams
   (near-orthographic renders at a known mm/px give the seam coordinates) and keep every piece in one `--like` frame.
+- **[story]** A team long-form edit may be used only as the source of the IRL shot that cuts 1:1 into the scan - no other shots from it in the reel  _(from na-miata-grimace-scan-process, 2026-11-11, reviewer)_
