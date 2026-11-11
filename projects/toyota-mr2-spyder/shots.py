@@ -82,7 +82,7 @@ SHOTS = [
     shot("s7_open", 4.5, EXP, [dict(t=0, az=-150, el=16, dist=6.8, target=[0, 0.45, 0.5], lens=40),
                                dict(t=1, az=-130, el=20, dist=7.4, target=[0, 0.35, 0.55], lens=40)],
          tween(GONE, OPEN, {"top": (0, 0.01), "fb": (0.05, 0.45), "hood": (0.3, 0.75), "lid": (0.45, 0.92)}),
-         light_ref="base", extra={"visible": {"top": [0, 0]}}),
+         light_ref="base", extra={"visible": {"top": [0, 0]}, "persistent": False}),
     # 8 top-down: crane up and over, spinning (ref 16-20 s)
     shot("s8_top", 2.4, EXP, [dict(t=0, az=-130, el=60, dist=9.6, target=[0, 0.1, 0.4], lens=40),
                               dict(t=0.55, az=-90, el=89.9, dist=9.2, target=[0, 0.1, 0.4], lens=40),
@@ -92,16 +92,19 @@ SHOTS = [
     shot("s9_explode", 4.5, EXP, [dict(t=0, az=40, el=24, dist=7.0, target=[0, 0, 0.8], lens=40),
                                   dict(t=1, az=60, el=20, dist=7.6, target=[0, 0, 1.15], lens=40)],
          tween(dict(OPEN, top={"off": [0, -0.15, 3.4]}), EXPL, {"fb": (0.05, 0.5), "hood": (0.12, 0.6), "lid": (0.2, 0.68), "top": (0.3, 0.85)}),
-         light_ref="base"),
+         light_ref="base", extra={"persistent": False}),
     # 10 wide side view, panels floating (ref 25-31 s)
     shot("s10_float", 2.4, EXP, [dict(t=0, az=-70, el=13, dist=8.6, target=[0, 0, 1.2], lens=40),
                                  dict(t=1, az=-100, el=11, dist=8.3, target=[0, 0, 1.2], lens=40, lin=True)],
          {k: [dict(t=0, **EXPL[k]), dict(t=1, lin=True, **EXPL_DRIFT[k])] for k in PARTS}, light_ref="base"),
     # 11 reassembly into the finished hardtop car, front 3/4 hero, fades to black (ref 32-36 s)
-    shot("s11_reassemble", 2.9, EXP, [dict(t=0, az=-130, el=14, dist=8.8, target=[0, 0, 1.05], lens=40),
+    shot("s11_reassemble", 2.9, dict(EXP, **CAR), [dict(t=0, az=-130, el=14, dist=8.8, target=[0, 0, 1.05], lens=40),
                                       dict(t=1, az=-150, el=7, dist=7.0, target=[0, 0.1, 0.55], lens=40)],
          tween(EXPL_DRIFT, HOME, {"top": (0.0, 0.42), "hood": (0.08, 0.5), "lid": (0.12, 0.55), "fb": (0.2, 0.62)}),
-         light_ref="base"),
+         light_ref="base", extra={"persistent": False,
+                                  # composite + diff parts are ragged at the front once closed -> the clean 2 mm car takes over
+                                  # the frame the last panel lands (same frame, same pose: reads as the panels locking in)
+                                  "visible": {**{k: [0, 0.64] for k in ["base", *PARTS]}, "car": [0.64, 1.01]}}),
 ]
 
 if __name__ == "__main__":
