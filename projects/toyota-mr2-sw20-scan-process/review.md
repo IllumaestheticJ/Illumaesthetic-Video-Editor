@@ -1,6 +1,6 @@
-# MR2 SW20 scan-process reel v1 — agent self-review (training/rubric.md)
+# MR2 SW20 scan-process reel v2 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/mr2_sw20_scan_v1.mp4` — 1080×1920, 30 fps, 29.30 s (879 frames), AAC, faststart.
+Output: `/home/user/media/work/out/mr2_sw20_scan_v2.mp4` — 1080×1920, 30 fps, 29.30 s (879 frames), AAC, faststart.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -11,10 +11,13 @@ Output: `/home/user/media/work/out/mr2_sw20_scan_v1.mp4` — 1080×1920, 30 fps,
 | 5 | Story | 4 | real car -> scan -> crew scanning (screen, door panel, side) -> scan with T-tops lifting off -> Artec Studio -> doors + T-tops explode/spin -> x-ray reassembly -> SW20 listing. No real removal footage exists in the dump (all clips are scanning), so the removal is told in the scan |
 | 6 | Grade | 4 | all HLG clips tonemapped (hable); daylight shop footage consistent; screen recording is a 2.7x upscale of the Artec viewport (soft, 1 s) |
 | 7 | Text | 5 | only STL-header numbers (34,993,395 / 34,998,108) and a verified claim (inner door panels); ≤2 items; never on IRL; no website specs |
-| 8 | Ending | 4 | dissolve to the SW20 listing, title, logo, URL fading in last; music fade 0.9 s at the track's end. Listing hero is the 2025 assembled car, so no angle-matched morph |
+| 8 | Ending | 5 | v2 (user: 'needs a better final cut into the product listing'): x-ray orbits to the solved listing-hero camera, morphs to listing-grey clay (bg 64 vs 63), dissolves into the hero held 0.6 s - the chassis turns into the listing car at the same pose (2025 full-car scan ICP-registered, IoU 0.89); then zoom-out, logo, URL last |
 | 9 | Technical | 4 | 1080×1920/30/yuv420p/AAC/faststart; the assembler's 1-frame clone before each cut shows as one duplicated frame before every cut |
 
 ## Known issues / v2 ideas
 - S3: the near (left) door dips below the car while edge-on mid-spin (perspective from the high camera) - lift doors more or stack them (one above, one below).
 - Side 1:1: re-hinge the frunk lid to the shoot angle (like huracan hinge.py) so the lid doesn't jump at the cut.
 - A cabin 1:1 (v_1447_56 / v_1529_27) was attempted and dropped: closed sprayed-glass cabin + mixed door states + ambiguous landmarks.
+
+## v1 -> v2
+- User feedback (23.6 s): better final cut into the product listing. Fixed as above; everything before 19.3 s unchanged.

@@ -1,10 +1,10 @@
-# Toyota MR2 SW20 scan-process reel v1 ("240SX style").
+# Toyota MR2 SW20 scan-process reel v2 (v1 + listing ending rebuilt) ("240SX style").
 # Music starts at the 5.428 s kick (2 accents before the drop); drop = 3.215 s video. Kick grid 111.99 BPM (0.53575 s),
 # accents (strong kicks) on every other beat from the drop: 3.215 + 1.0715 k. Every cut sits on round(accent * 30).
 # Cut frames: 96 193 225 257 321 418 450 579 707 | end 879 (music ends ~34.7 s audio = 29.3 s video).
 project: toyota-mr2-sw20-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/mr2_sw20_scan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/mr2_sw20_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/toyota-mr2-sw20-scan-process_track.mp3
@@ -55,15 +55,16 @@ timeline:
     src: /home/user/media/work/mr2/renders/final/s3_parts
     src_fps: 15
     interpolate: true
-  - id: scan_xray   # x-ray reassembly: parts translate home, camera continues the orbit
+  - id: scan_xray   # v2: x-ray reassembly orbits to the listing hero camera (cam_listing) and morphs to listing-grey clay
     dur: 4.7667     # 128 frames + 0.5 s dissolve overlap
-    src: /home/user/media/work/mr2/renders/final/s4_xray
+    src: /home/user/media/work/mr2/renders/final/s4b_xray_listing
     src_fps: 15
     interpolate: true
-  - transition: {type: dissolve, duration: 0.5, note: "x-ray -> SW20 scan listing (scan -> web, not IRL -> scan)"}
-  - id: website
-    dur: 5.7667   # +1 frame so the reel still ends at 879
-    src: /home/user/media/work/out/webzoom_mr2_v1.mp4
+  - transition: {type: dissolve, duration: 0.5, note: "clay chassis -> listing hero (same pose/size: the scan becomes the listing car)"}
+  - id: website   # holds on the hero image 0.6 s (covers the dissolve), then zooms out to the page
+    hold_start: 0.6
+    dur: 5.1667   # + 0.6 hold = 5.7667 -> reel still ends at frame 879
+    src: /home/user/media/work/out/webzoom_mr2_v2.mp4
 
 overlays:
   - src: /home/user/media/work/out/hud_mr2_v1.mov
