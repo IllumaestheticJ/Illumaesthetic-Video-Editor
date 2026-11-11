@@ -4,7 +4,7 @@ Total 36.17 s. Sections (s): whole 5.0, front 11.13, side 2.2, rear 8.9, top 4.4
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_reveal | 0.0 | 5.0 | whole | whole car, front-right 3/4, fully in frame; straight push toward the front | 0.57 | 0.93 | 8.1->10.8 | dead frames 0.9s (nothing moves) - trim or give the hold a reason |
+| s1_reveal | 0.0 | 5.0 | whole | whole car, front-right 3/4, fully in frame; straight push toward the front | 0.54 | 0.0 | 8.1->10.0 |  |
 | s2_bumper | 5.0 | 4.47 | front | front bumper part: lifts out into clear air, turns 135 deg to show its scanned inside | 1.62 | 0.0 | 8.9->11.3 |  |
 | s3_front_removed | 9.47 | 4.43 | front | HERO: bumper-removed front end - crash beam, end brackets, radiator, wiring; move in from front-left and hold | 0.75 | 0.0 | 11.5->15.3 |  |
 | s3_hood | 13.9 | 2.23 | front | hood opens on its fitted cowl hinge (-44.4 deg capture) over the engine bay (first 4 beats of the render) | 2.21 | 0.0 | 18.9->20.9 |  |
