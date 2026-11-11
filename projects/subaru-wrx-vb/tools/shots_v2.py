@@ -103,8 +103,7 @@ def lift(b, go):
 
 
 SHOTS[n] = {"base": [XB, RBUMP],
-            "parts": [parked(b, SECS[n]) for b in (FBUMP, PLATE, GARN)]
-            + [lift(FFL, 0.0), lift(DFL, 1.396), lift(RFL, 2.793), lift(SKIRT, 4.189)],
+            "parts": [lift(FFL, 0.0), lift(DFL, 1.396), lift(RFL, 2.793), lift(SKIRT, 4.189)],
             "cam": [C(0, (-2.70, -0.30, 1.45), (-0.95, -1.30, 0.55), 30),
                     C(1.396, (-3.00, -0.90, 1.10), (-0.90, -0.60, 0.70), 30, "lin"),
                     C(2.792, (-3.20, 0.40, 1.10), (-0.90, 0.40, 0.65), 30, "lin"),
@@ -116,7 +115,9 @@ n = "v2_rear_off"
 rb_keys = [K(0), K(0.0), K(0.524, (0, 0.70, 0.20), ease="out"), K(1.396, (0, 0.80, 0.90), (160, 0, 0)),
            K(2.792, (0, 0.80, 0.98), (160, 0, 0), "lin"), K(3.490, *AWAY[RBUMP]), K(SECS[n] + 1, *AWAY[RBUMP], ease="lin")]
 SHOTS[n] = {"base": [XB],
-            "parts": [parked(b, SECS[n]) for b in (FBUMP, PLATE, GARN, FFL, DFL, RFL, SKIRT)] + [part(RBUMP, rb_keys)],
+            # parts already off are not loaded at all: parked high they still showed at the top of the low rear
+            # camera's frame (final v1 of this shot, frames 1-55)
+            "parts": [part(RBUMP, rb_keys)],
             "cam": [C(0, (-1.50, 5.40, 0.95), (0.0, 1.95, 0.60), 30),
                     C(1.396, (-1.60, 6.60, 1.45), (0.0, 2.75, 1.30), 30),
                     C(2.792, (-1.45, 6.30, 1.50), (0.0, 2.75, 1.35), 30),
