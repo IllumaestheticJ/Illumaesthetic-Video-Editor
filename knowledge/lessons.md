@@ -101,3 +101,24 @@ lands here automatically. Agents must read this whole file before editing.
   real percussive hit and put the transformation ON the drop.
 - **[story]** Never reuse a shot/photo in one reel (FG2 v4 finale repeated the opening angle - user flagged it).
 - **[story]** A white/aftermarket splitter is not the Epsilon lip - check each photo shows the actual product before using it.
+
+## From the Huracan Evo Temerario-style scan reel (2026-11-11, built by an agent)
+- **[technical]** Artec full-car exports can be tilted (~7 deg here): fit the scanned ground plane (RANSAC) and the long axis
+  once on the full car, then apply that ONE rigid transform to every part scan before crop/prep (huracan-evo/tools/level.py).
+- **[technical]** Check part registration numerically before an exploded view: nearest-neighbour distance part->car at 8 mm
+  (median 2.5-3.4 mm = registered) + an ICP dry run (huracan-evo/tools/regcheck.py). Hidden parts (cowls) check against
+  the state scan that exposes them.
+- **[technical]** "All Parts Removed" scans can be partial (no roof, hood propped). Base = full car minus triangles within
+  6 mm of any part scan + APR triangles >6 mm from the trimmed car (tools/composite.py).
+- **[scan-look]** Hood opening: fit the hinge (axis + angle) mapping the closed hood scan onto the captured open hood
+  (tools/hinge.py, 2 mm median) - physically right motion for free.
+- **[scan-look]** Dark rims are often not captured (tyre rings only). Don't frame a wheel close-up on them; use a
+  wheel-off state scan (brake disc/caliper/hub) at 2 mm for the "extreme close-up" beat.
+- **[scan-look]** Exploded views in 9:16 stack panels ABOVE the car (Temerario 25-31 s); flying bumpers along the car's
+  length leaves the frame.
+- **[technical]** Cycles `use_persistent_data` dropped ALL lights mid-sequence when objects animated (hinge AND plain
+  translate). Off for animated-part shots; scan every frame's max luma before assembling.
+- **[technical]** `minterpolate` turns N frames into 2N-3: set `src_fps = 30*N/(slot+4)` or every shot ends on 3-4 cloned frames.
+- **[audio]** `alimiter` auto-levels by default (`level=disabled` to stop it silently lowering the whole mix).
+- **[audio]** Voice-over requests that name a real narrator ("use the same lady's voice"): don't clone a real person's voice;
+  use a preset voice in the same delivery and say so. Spec lines in narration follow the text rule: sourced numbers only.
