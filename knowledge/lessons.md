@@ -600,3 +600,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** Narrator speaks faster, like the example video  _(from huracan-evo @ 4s, 2026-11-11, reviewer)_
 
 - **[text]** Narration should cover quirks and unique facts about the car, not just the spec sheet  _(from huracan-evo @ 4s, 2026-11-11, reviewer)_
+- **[story]** v2: the doors lifting off and the trunk lid lifting off are hallucinated - the scans show doors OPEN and trunk OPEN, so the parts must only open on their hinges, never detach  _(from honda-civic-11 @ 13.3s, 2026-11-11, reviewer)_
