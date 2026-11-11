@@ -231,6 +231,54 @@ SHOTS["v3_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_pa
 SHOTS["v3_g3b_clean"] = {"base": [CAR], "cam": [dict(k, t=round(k["t"] - 2.4, 4)) for k in _g3cam]}
 
 
+# ===================================================================================== v3, revised for the addendum
+# (user: bumper-removed data is the hero beat - bumper comes off, camera moves in on what's behind it and holds, short
+# factual labels; each section once; whole car fully in frame on wide shots). Supersedes v3_s3_front / v3_s5_rear /
+# v3_g1 / v3_g2 above.
+SECS.update({"v3_front": 9.8, "v3_rear": 6.2, "v3_e1_explode": 5.0})
+# FRONT b12-28: hood opens b13-16; bumper slides toward camera b16-18, tips its inner face up b18-20, clears frame b22-24;
+# camera ends close on the structure behind the bumper (front-bumper-removed state) and holds b24-28.
+SHOTS["v3_front"] = {"base": [f"{P}/front_base.blend"],
+    "parts": [swing("hood", BEAT, 4 * BEAT),
+              part("front_bumper_3mm", [lk(0), lk(4 * BEAT), lk(6 * BEAT, (0, -1.20, -0.10), ease="out"),
+                                        lk(8 * BEAT, (0, -1.20, -0.10), (90, 0, 0)), lk(10 * BEAT, (0, -1.20, -0.10), (90, 0, 0)),
+                                        lk(12 * BEAT, (2.6, -1.40, -0.10), (90, 0, 0), ease="in"), lk(20, (2.6, -1.40, -0.10), (90, 0, 0))])],
+    "cam": keys((0, (-2.6, -4.3, 2.0), (0, -1.3, 0.65)), (2.4, (-2.2, -4.6, 2.3), (0, -1.6, 0.6)),
+                (4.2, (-1.5, -4.9, 2.9), (0, -2.3, 0.45), "inout"), (6.0, (-1.2, -4.8, 2.7), (0, -2.6, 0.4)),
+                (7.6, (-0.9, -4.15, 1.25), (0, -1.75, 0.62), "inout"), (9.8, (-0.65, -3.8, 1.1), (0, -1.75, 0.6)))}
+# REAR b34-44: bumper slides out b35-37, tips inner face up b37-39, clears frame b39-40.5; camera in on the rear structure
+SHOTS["v3_rear"] = {"base": [f"{P}/rear_base.blend"],
+    "parts": [part("rear_bumper_only_3mm", [lk(0), lk(BEAT), lk(3 * BEAT, (0, 1.20, -0.10), ease="out"),
+                                            lk(5 * BEAT, (0, 1.20, -0.10), (-90, 0, 0)), lk(5.5 * BEAT, (0, 1.20, -0.10), (-90, 0, 0)),
+                                            lk(6.5 * BEAT, (-2.6, 1.40, -0.10), (-90, 0, 0), ease="in"), lk(20, (-2.6, 1.40, -0.10), (-90, 0, 0))])],
+    "cam": keys((0, (-2.5, 4.1, 1.1), (0, 1.5, 0.6)), (1.8, (-2.3, 5.0, 2.3), (0, 2.2, 0.5)),
+                (3.0, (-1.3, 5.3, 2.7), (0, 2.5, 0.4), "inout"), (4.4, (0.0, 3.95, 1.15), (0, 1.75, 0.5), "inout"),
+                (6.2, (0.45, 3.55, 0.95), (0, 1.75, 0.48)))}
+
+
+# Progressive whole-car explode, T from b44 (26.435 s): front assembly, then doors, then rear bumper, each lifting on
+# its own beat; translate only (inner faces were shown in the front/rear sections); everything locks on b56 (T 7.2).
+def explode_parts2(shift):
+    specs = [("hood", xkeys(0.0, 1.2, (0, 0.05, 1.35), 4.8, 6.0, 7.2), None),
+             ("front_bumper_3mm", xkeys(0.6, 1.8, (0, -0.35, 0.75), 4.8, 6.0, 7.2), None),
+             ("door2", xkeys(1.8, 3.0, (0.45, 0.05, 0.65), 4.8, 5.4, 6.6, hinge("door2")["open_deg"] * 0.35), "door2"),
+             ("door", xkeys(2.4, 3.6, (-0.45, 0.05, 0.65), 4.8, 5.4, 6.6, hinge("door")["open_deg"] * 0.35), "door"),
+             ("rear_bumper_only_3mm", xkeys(3.0, 4.2, (0, 0.35, 0.85), 4.8, 4.8, 6.0), None)]
+    out = []
+    for n, ks, hn in specs:
+        for k in ks:
+            k["t"] = round(k["t"] - shift, 4)
+        out.append(part(n, ks, hn))
+    return out
+
+
+# E1 b44-52: whole exploded car in frame, front-left 3/4 -> left side
+SHOTS["v3_e1_explode"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts2(0.0),
+    "cam": arc2(0, 5.0, 7.4, 7.8, 40, 100, 3.0, 2.7, (0, 0, 0.95), (0, 0.1, 0.95), 0.95, 0.95)}
+# G3a b52-56: reassembly, rear-left 3/4, lock on b56 (T 7.2); G3b (above) continues the same camera on the clean car
+SHOTS["v3_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts2(4.8), "cam": _g3cam}
+
+
 def spec(name, mode, frames=None):
     s = SHOTS[name]
     final = mode == "final"

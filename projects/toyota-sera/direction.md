@@ -76,3 +76,24 @@ New renders: S1, S3, S4, S5, G1, G2, G3a, G3b = 525 frames at 15 fps (~1.5 h). N
   so its bumper does not ghost in front of the crash structure; check a still at S3 t=7.2 s.
 - If the tipped front bumper's top edge still overlaps the nose structure at S3's last frame, raise the camera (more top-down),
   don't move the bumper sideways across the body.
+
+## Revision for the user's addendum (2026-11-11) - implemented by the editor
+Addendum: crops deliberate; each section in ONE continuous sequence; bumper-removed data is the hero beat (bumper comes
+off, camera moves in on what is behind it, holds, short factual label); openings only from real state scans.
+Changes against the plan above: G1 (front lift) and G2 (side/rear lift) re-showed the front and side sections and cropped
+the car, so they became ONE progressive whole-car explode (E1) with the whole car in frame. The front and rear sections
+get longer and end close on the bumper-removed structure, and the doors section shrinks to 6 beats.
+
+| shot | beats | section (only here) | scans | label |
+|---|---|---|---|---|
+| v3_s1_whole | 0-8 | whole car (exterior, front-right 3/4) | full car 4 mm | - |
+| s3_wheel | 8-12 | front-right wheel | full car 3 mm | - |
+| v3_front | 12-28 | FRONT: hood/engine bay, front bumper + inner face, structure behind the bumper | front_base (front-bumper-removed + hood-open states), hood panel, front bumper part | FRONT BUMPER / INNER FACE · 1,800,000 TRIANGLES; FRONT BUMPER REMOVED / 1,999,999 TRIANGLES |
+| v3_s4_doors | 28-34 | SIDE: butterfly doors + cabin | doors_base (Door Open state), door panels | - |
+| v3_rear | 34-44 | REAR: rear bumper + inner face, structure behind the bumper | rear_base (rear-bumper-removed state), rear bumper part | REAR BUMPER / INNER FACE · 4,999,998 TRIANGLES; REAR BUMPER REMOVED / 1,500,000 TRIANGLES |
+| v3_e1_explode | 44-52 | whole car, every scanned panel lifting in turn | explode_base + 5 panels | - |
+| v3_g3a_home + v3_g3b_clean | 52-60 | reassembly -> clean car -> fade | explode_base + panels, then full car | - |
+| logo | 60-end | - | - | (small logo) |
+No section appears twice: the front corner (wheel) sits next to the front section, the side is shown once (doors), the rear
+once, and only the explode and reassembly show the whole car again, as one continuous sequence. No trunk/hatch shot:
+there is no hatch-open scan.
