@@ -148,8 +148,8 @@ SHOTS["s12_rbumper"] = {"base": [EXPDP],
             C(4.30, (1.10, -4.45, 0.80), (0.30, -2.05, 0.70)), C(4.7, (1.10, -4.45, 0.80), (0.30, -2.05, 0.70), ease="lin")]}
 # c10: all three fly home (rear first - we are at the rear), hood locks on the 32.277 hit; frames >= 52 (t >= 3.40) are
 # the clean full car (s13b_clean renders those frames into the same folder with the same camera)
-CAM13 = [C(0, (5.40, 6.30, 4.20), (0.0, 0.10, 0.75), 30), C(4.53, (4.30, 5.00, 3.00), (0.0, 0.0, 0.60), 30),
-         C(4.7, (4.30, 5.00, 3.00), (0.0, 0.0, 0.60), 30, "lin")]
+CAM13 = [C(0, (-4.70, 5.30, 5.40), (0.0, 0.10, 0.70), 30), C(4.53, (-3.90, 4.40, 4.30), (0.0, 0.0, 0.55), 30),
+         C(4.7, (-3.90, 4.40, 4.30), (0.0, 0.0, 0.55), 30, "lin")]   # high front-LEFT: s1 opener is low front-right
 SHOTS["s13_reassemble"] = {"base": [EXPDP], "frames": list(range(1, 52)), "cam": CAM13,
     "parts": [{"blend": f"{P}/rbumper.blend", "keys": [K(0, (0.10, -1.00, -1.20)), K(0.566, (0.10, -1.00, -1.20), ease="lin"), K(1.698)]},
               {"blend": f"{P}/fbumper.blend", "keys": [K(0, (0, 0.95, -1.15), (-112, 0, 0)), K(1.132, (0, 0.95, -1.15), (-112, 0, 0), "lin"),

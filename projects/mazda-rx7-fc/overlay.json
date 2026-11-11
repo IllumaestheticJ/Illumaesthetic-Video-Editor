@@ -11,7 +11,8 @@
    "duration": 44,
    "title": "ENGINE BAY",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -19,7 +20,8 @@
    "duration": 44,
    "title": "FRONT BUMPER REMOVED",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -27,7 +29,8 @@
    "duration": 61,
    "title": "RADIATOR SUPPORT",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -35,7 +38,8 @@
    "duration": 44,
    "title": "CRASH BEAM",
    "x": 0.08,
-   "y": 0.155
+   "y": 0.155,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -43,7 +47,8 @@
    "duration": 31,
    "title": "REAR BUMPER REMOVED",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -51,7 +56,8 @@
    "duration": 45,
    "title": "CRASH BEAM",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": " "
   },
   {
    "kind": "label",
@@ -59,7 +65,8 @@
    "duration": 28,
    "title": "MOUNTING POINTS",
    "x": 0.08,
-   "y": 0.155
+   "y": 0.155,
+   "sub": " "
   }
  ]
 }

@@ -5,7 +5,7 @@
 # Scene order + shot plan: direction.md (scene-director) and director.md (director). Shots: tools/shots.py -> tools/shot.py.
 # Music: mazda-rx7-fc_track.mp3 (parent session). Grid 9.067 + k*0.5661 s (106.0 BPM). Measured on the decoded v1 file
 # against the broadband kick (1 ms RMS, half-rise): the grid is 23 ms early (MAD 2 ms) -> music.start 0.023.
-# Cuts on frames round(t*30): 136, 272, 374, 493, 561, 646, 697, 731, 866, 1002; end 1122 (37.4 s).
+# Cuts on frames: 137, 272, 374, 492, 561, 646, 698, 731, 866, 1002 (137/492/698 moved 1 frame after measuring the decoded v2a audio); end 1122 (37.4 s).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: mazda-rx7-fc
 format: reel-9x16
@@ -29,7 +29,7 @@ timeline:
     src: /home/user/media/work/rx7/renders/s1_front34_pad
     src_fps: 8.70
     interpolate: true
-    dur: 4.5
+    dur: 4.5333
   - transition: {type: cut, note: "4.539 intro beat"}
   - id: s4_nose        # FRONT: slide across the nose - pop-up lids (down), indicators, bumper face
     section: front
@@ -37,7 +37,7 @@ timeline:
     src: /home/user/media/work/rx7/renders/s4_nose
     src_fps: 11.44
     interpolate: true
-    dur: 4.5333
+    dur: 4.5
   - transition: {type: cut, note: "9.067 drums enter"}
   - id: s6_hood        # HOOD: opens on its fitted hinge to the captured Hood Up angle (9.63 -> 11.90)
     section: hood
@@ -53,7 +53,7 @@ timeline:
     src: /home/user/media/work/rx7/renders/s9_hoodoff
     src_fps: 15
     interpolate: true
-    dur: 3.9667
+    dur: 3.9333
   - transition: {type: cut, note: "16.428 strong snare"}
   - id: s10_fbumper    # FRONT BUMPER REMOVED: Front Face part off its mounts toward the lens, tips to show its scanned inside
     section: front bumper
@@ -61,7 +61,7 @@ timeline:
     src: /home/user/media/work/rx7/renders/s10_fbumper
     src_fps: 15
     interpolate: true
-    dur: 2.2667
+    dur: 2.3
   - transition: {type: cut, note: "18.692 strong snare"}
   - id: s11_fsupport   # FRONT BUMPER REMOVED (hero): radiator support, crash beam, brackets - slow push
     section: front structure
@@ -79,7 +79,7 @@ timeline:
     src_fps: 15
     interpolate: true
     in: 1.47
-    dur: 1.7
+    dur: 1.7333
   - transition: {type: cut, note: "23.218 snare"}
   - id: s5_mirror      # SIDE: mirror / A-pillar / door (cowl-hole frames skipped)
     section: side
@@ -88,7 +88,7 @@ timeline:
     src_fps: 15
     interpolate: true
     in: 2.27
-    dur: 1.1333
+    dur: 1.1
   - transition: {type: cut, note: "24.351 snare"}
   - id: s12_rbumper    # REAR BUMPER REMOVED: bumper straight back off its mounts, sinks away; push onto crash beam + mounts
     section: rear
