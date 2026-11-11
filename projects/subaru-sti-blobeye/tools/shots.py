@@ -47,11 +47,11 @@ def pk(u, loc=(0, 0, 0), rot=(0, 0, 0), ease="inout"):
 
 SHOTS = {
     # 1. low front 3/4 turntable on the car's right, moving from frame 1 (hook)
-    "s1_front34": {"base": [CAR], "cam": [orbit(0, 4.7, -28, 0.75, focal=30, ease="lin"),
-                                          orbit(1, 4.5, -62, 0.85, focal=30, ease="out2")]},
+    "s1_front34": {"base": [CAR], "cam": [orbit(0, 5.6, -22, 0.75, c=(0, -0.55, 0.55), focal=30, ease="lin"),
+                                          orbit(1, 5.3, -46, 0.85, c=(0, -0.45, 0.55), focal=30, ease="out2")]},
     # 2. rear 3/4 orbit on the car's left, wing against black, slight rise
-    "s2_rear34": {"base": [CAR], "cam": [orbit(0, 4.7, 150, 0.9, focal=30, ease="lin"),
-                                         orbit(1, 4.5, 118, 1.35, focal=30, ease="out2")]},
+    "s2_rear34": {"base": [CAR], "cam": [orbit(0, 5.6, 160, 0.95, c=(0, 0.55, 0.65), focal=30, ease="lin"),
+                                         orbit(1, 5.3, 136, 1.35, c=(0, 0.45, 0.65), focal=30, ease="out2")]},
     # 3. extreme close-up: front-right wheel (spokes, caliper, disc), slow slide toward the nose
     "s3_wheel": {"base": [FR2], "cam": [
         {"u": 0, "loc": [-2.05, -0.55, 0.42], "target": [-0.80, -1.20, 0.36], "focal": 40},
@@ -60,32 +60,38 @@ SHOTS = {
     "s4_light": {"base": [FR2], "cam": [
         {"u": 0, "loc": [-1.55, -3.00, 0.70], "target": [-0.55, -1.75, 0.70], "focal": 40},
         {"u": 1, "loc": [-0.95, -3.05, 1.55], "target": [-0.10, -1.40, 0.90], "focal": 40, "ease": "inout"}]},
+    # 8. detail: wing end plate + blobeye-era tail light, rear-left, slow slide (2 mm rear half)
+    "s8_wing": {"base": [RR2], "cam": [
+        {"u": 0, "loc": [1.85, 3.05, 1.65], "target": [0.60, 1.85, 1.12], "focal": 42},
+        {"u": 1, "loc": [1.68, 3.28, 1.60], "target": [0.56, 1.90, 1.12], "focal": 42, "ease": "inout"}]},
     # 5. hood opens on its rear hinge over the engine bay (state scans), camera high front 3/4 easing in
     "s5_hood": {"base": [OPEN, BUMP, WING, SKIRT],
                 "parts": [{"blend": HOOD, "pivot": HOOD_PIVOT,
-                           "keys": [pk(0), pk(0.15), pk(0.7, rot=(-52, 0, 0))]}],
-                "cam": [orbit(0, 4.2, -32, 2.3, c=(0, -0.9, 0.55), focal=30, ease="lin"),
-                        orbit(1, 3.6, -18, 2.6, c=(0, -1.1, 0.6), focal=30, ease="out2")]},
+                           "keys": [pk(0), pk(0.083), pk(0.6, rot=(-52, 0, 0))]}],   # starts 1 beat after the 12.69 s lift
+                "cam": [orbit(0, 3.5, -30, 2.2, c=(0, -1.0, 0.6), focal=30, ease="lin"),
+                        orbit(1, 3.0, -16, 2.5, c=(0, -1.15, 0.65), focal=30, ease="out2")]},
     # 6. top-down, slow spin (nose rotates from up to up-right), slight push in
-    "s6_top": {"base": [CAR], "cam": [topdown(0, 8.4, -10, focal=30, ease="lin"),
-                                      topdown(1, 7.6, -40, focal=30, ease="out2")]},
+    "s6_top": {"base": [CAR], "cam": [topdown(0, 7.2, -4, focal=30, ease="lin"),
+                                      topdown(1, 6.4, -30, focal=30, ease="out2")]},
     # 7. exploded view: separate (u 0.12->0.36), drift/hold, fly home and lock (u 0.70->0.86), orbit front-left
+    # 7. exploded view (12.63 s from 22.17 s): assembled 2 bars, separate on bar 16 (25.32 s, u .25) staggered 1 beat
+    #    per panel, float/drift, fly home from bar 20 (u .75) and LOCK on bar 21 (33.22 s, u .875), hold 1 bar
     "s7_explode": {"base": [OPEN],
                    "parts": [
                        {"blend": HOOD, "pivot": HOOD_PIVOT,
-                        "keys": [pk(0), pk(0.12), pk(0.36, (0, -0.15, 0.95), (-14, 0, 0), "out"), pk(0.70, (0, -0.2, 1.05), (-18, 0, 0), "lin"),
-                                 pk(0.86, (0, 0, 0), (0, 0, 0), "in")]},
+                        "keys": [pk(0), pk(0.25), pk(0.38, (0, 0.35, 1.35), (-8, 0, 0), "out"), pk(0.75, (0, 0.35, 1.45), (-12, 0, 0), "lin"),
+                                 pk(0.875, (0, 0, 0), (0, 0, 0), "in")]},
                        {"blend": BUMP,
-                        "keys": [pk(0), pk(0.14), pk(0.38, (0, -0.85, -0.05), (0, 0, 0), "out"), pk(0.70, (0, -0.95, -0.05), (0, 0, 0), "lin"),
-                                 pk(0.86, (0, 0, 0), (0, 0, 0), "in")]},
+                        "keys": [pk(0), pk(0.281), pk(0.41, (0, -0.25, 0.8), (0, 0, 0), "out"), pk(0.75, (0, -0.28, 0.88), (0, 0, 0), "lin"),
+                                 pk(0.875, (0, 0, 0), (0, 0, 0), "in")]},
                        {"blend": WING,
-                        "keys": [pk(0), pk(0.16), pk(0.40, (0, 0.25, 0.75), (0, 0, 0), "out"), pk(0.70, (0, 0.3, 0.85), (0, 0, 0), "lin"),
-                                 pk(0.86, (0, 0, 0), (0, 0, 0), "in")]},
+                        "keys": [pk(0), pk(0.3125), pk(0.44, (0, -0.1, 0.8), (0, 0, 0), "out"), pk(0.75, (0, -0.1, 0.9), (0, 0, 0), "lin"),
+                                 pk(0.875, (0, 0, 0), (0, 0, 0), "in")]},
                        {"blend": SKIRT,
-                        "keys": [pk(0), pk(0.18), pk(0.42, (0.75, 0, -0.0), (0, 0, 0), "out"), pk(0.70, (0.85, 0, 0.0), (0, 0, 0), "lin"),
-                                 pk(0.86, (0, 0, 0), (0, 0, 0), "in")]}],
-                   "cam": [orbit(0, 6.6, 38, 3.6, c=(0, -0.1, 0.6), focal=30, ease="lin"),
-                           orbit(1, 6.8, 72, 3.2, c=(0, 0.0, 0.6), focal=30, ease="inout")]},
+                        "keys": [pk(0), pk(0.344), pk(0.47, (0.5, 0, 0.35), (0, 0, 0), "out"), pk(0.75, (0.55, 0, 0.4), (0, 0, 0), "lin"),
+                                 pk(0.875, (0, 0, 0), (0, 0, 0), "in")]}],
+                   "cam": [orbit(0, 6.3, 36, 3.0, c=(0, -0.35, 1.2), focal=30, ease="lin"),
+                           orbit(1, 6.4, 60, 2.8, c=(0, -0.2, 1.05), focal=30, ease="inout")]},
 }
 
 DEFAULT_SECS = {"s1_front34": 4.8, "s2_rear34": 4.2, "s3_wheel": 2.6, "s4_light": 2.6, "s5_hood": 4.2,
