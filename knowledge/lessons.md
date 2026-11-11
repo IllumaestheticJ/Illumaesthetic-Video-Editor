@@ -390,3 +390,7 @@ lands here automatically. Agents must read this whole file before editing.
   pass (infiniti-g35 / subaru-sti-blobeye tools/deplate.py) and frame close-ups to keep plates out.
 - **[pacing]** Generated eurobeat with a constant rolling bass: no kick drop to cut on - find the lifts as per-bar brightness steps
   (2-6 kHz / 6-11 kHz band energy) and put the hood opening / separation on them.
+
+- **[technical]** All V1 reels get the same edits: lighting-dropout check (per-frame luma scan, render with persistent data off) and cut timing measured against the decoded audio  _(from subaru-wrx-va, 2026-11-11, user)_
+
+- **[story]** Shot order is determined by each car's scan features (what was scanned: parts, open/removed states, signature features), not by a fixed template; a scene-director agent (.claude/agents/scene-director.md) directs the scenes  _(from subaru-wrx-va, 2026-11-11, user)_

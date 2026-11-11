@@ -43,3 +43,12 @@
   report + feedback to the **director** agent (`.claude/agents/director.md`), which writes `projects/<p>/director.md`:
   one focus per shot, sections held instead of cut away, a cut list and a hold list, reuse-vs-render budget.
 - Tag every timeline clip with `section:` and `focus:`; the editor implements the director's plan.
+## Scene direction (added 2026-11-11, user rule)
+- Shot order comes from the car's scan features, not a fixed template. Before planning shots (and for every
+  v1 -> v2 revision), run the **scene-director** agent (`.claude/agents/scene-director.md`; in a session started
+  before it existed, spawn a general-purpose agent told to follow that file). It writes `projects/<p>/direction.md`
+  (feature inventory → ordered scenes → music map) and reviews the contact sheets after rendering.
+- Every long Cycles render: scan the per-frame mean luma of the PNGs before assembly. Persistent data can drop the
+  studio lights mid-animation with no log error (WRX VA, Cappuccino). Render with persistent data off
+  (`use_persistent_data = False`; subaru-wrx-va `tools/shots.py --no-persist`).
+- Verify cut timing against the decoded audio (broadband onset, 1 ms RMS half-rise), not only the beat grid.
