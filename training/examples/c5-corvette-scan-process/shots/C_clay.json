@@ -1,8 +1,9 @@
 {
  "objects": {
-  "car": "/home/user/media/work/c5/stripped.blend",
+  "car": "/home/user/media/work/c5/stripped_all.blend",
   "fender": "/home/user/media/work/c5/fender.blend",
-  "bumper": "/home/user/media/work/c5/front_bumper.blend"
+  "bumper": "/home/user/media/work/c5/front_bumper.blend",
+  "rb": "/home/user/media/work/c5/rear_bumper.blend"
  },
  "seconds": 6.0,
  "fps": 15,
@@ -11,7 +12,7 @@
   1920
  ],
  "sensor": 36,
- "out": "/home/user/media/work/c5/renders/C_clay",
+ "out": "/home/user/media/work/c5/renders/C2_clay",
  "light_ref": "car",
  "look": "clay",
  "camera": [
@@ -100,6 +101,32 @@
    },
    {
     "t": 0.66,
+    "off": [
+     0,
+     0,
+     0
+    ]
+   }
+  ],
+  "rb": [
+   {
+    "t": 0,
+    "off": [
+     0,
+     1.4,
+     0.1
+    ]
+   },
+   {
+    "t": 0.2,
+    "off": [
+     0,
+     1.4,
+     0.1
+    ]
+   },
+   {
+    "t": 0.6,
     "off": [
      0,
      0,

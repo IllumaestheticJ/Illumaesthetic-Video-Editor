@@ -1,35 +1,33 @@
-# C5 Corvette scan-process reel (240SX format) v1.
-# Real stock C5 (Jul 17 2025 outdoor teardown, Dropbox 'Corvette Footage') -> 1:1 cut to the 2023 full-car scan on the
-# kick drop; crew pulls the fender + front bumper -> 1:1 cut to the stripped-front composite; fender + bumper float
-# out and spin (inside + outside scanned); real removed fender; x-ray reassembly ending on the listing's angle ->
-# dissolve to the illumaesthetic.com C5 3D-scan listing.
+# C5 Corvette scan-process reel (240SX format) v3. Earlier: project_v2.yaml. Plan: direction.md.
+# v3 = user notes on v2 (front bumper glides toward the camera showing its mounting side; add the rear-bumper-removed data)
+#      + the all-reels brief (travel rear -> front without ping-pong, one held shot per section, wider 1:1 crop,
+#        no repeated subject, shorter end card, persistent data off + luma check).
 project: c5-corvette-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/c5_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/c5_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/c5/music.mp3   # original C5 track (cloudfront hf_20261111_055731), not in git
-  start: 7.138    # track beat 13 (grid 0.0447 + 0.54562 n); kick drop (track 9.320) lands at 2.182 s
+  path: /home/user/media/c5/music_ext.wav   # original C5 track + 8 beats (track 22.415-26.780 repeated at 26.780, tools/extend_music.py); not in git
+  start: 7.138    # track beat 13; kick drop (track 9.320) lands at 2.182 s
   fade_out: 0.8
 
-# Kick grid (video s) = 2.1824 + 1.09124 n (kicks on alternate beats from the drop). Cuts at frames
-# 65, 163, 229, 294, 327, 491, 524, 687 = round(K_n * 30) for n = 0, 3, 5, 7, 8, 13, 14, 19, with 163/294 moved
-# one frame earlier to the kick peaks measured in the delivered audio (v1 had them 33-35 ms late).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
-beats: [2.1824, 5.4561, 7.6386, 9.8211, 10.9124, 16.3686, 17.4598, 22.9160]
+# Kick grid (video s) K_n = 2.1824 + 1.09124 n. Cuts at frames 65, 294, 360, 425, 458, 621 (round(K_n*30), with 295/426/622
+# moved 1 frame earlier onto the kick peaks measured in the decoded audio of the first v3 assembly),
+# n = 0, 7, 9, 11, 12, 17; dissolve into the listing ends on K22 (786). Whole-frame durs, first clip one frame short.
+beats: [2.1824, 9.8211, 12.0036, 14.1861, 15.2773, 20.7335, 26.1897]
 
 timeline:
-  - id: irl_open        # stock C5 walk-around, approaching the rear 3/4; ends on the solved frame 35.035 s
+  - id: irl_open        # stock C5 rear pass, ends on the solved frame 35.035 s (native portrait - already the full frame)
     src: /home/user/media/c5/dropbox/0056.MP4
     in: 32.935
     dur: 2.1333
-  - transition: {type: cut, note: "1:1 real -> full-car scan on the kick drop (cam_A)"}
-  - id: scan_A          # starts on cam_A, pulls back + orbits to the rear 3/4 of the whole car; HUD triangle count
-    src: /home/user/media/work/c5/renders/A
+  - transition: {type: cut, note: "1:1 real -> scan on the kick drop (cam_A)"}
+  - id: scan_AR         # rear section held: cam_A pull-back to the rear 3/4, rear bumper slides back toward the camera and turns its mounting side to it, rear-bumper-removed scan underneath
+    src: /home/user/media/work/c5/renders/AR
     src_fps: 15
     interpolate: true
-    dur: 3.2667
-  - id: irl_fender      # crew unbolting the front fender (left side), panel gap opening
+    dur: 7.6333
+  - id: irl_fender      # crew unbolting the front fender
     src: /home/user/media/c5/dropbox/0059.MP4
     in: 30.0
     dur: 2.2
@@ -37,30 +35,26 @@ timeline:
     src: /home/user/media/c5/dropbox/0060.MP4
     in: 4.4
     dur: 2.1667
-  - id: irl_stripped    # walk up to the stripped right front; portrait plate x760-1760 y140-1918; ends on 10.010 s (in 8.943 + 33 frames)
-    src: /home/user/media/work/c5/plates/p0078.mp4
+  - id: irl_stripped    # stripped right front; wider plate x681-1839 y0-2058; ends on 10.010 s
+    src: /home/user/media/work/c5/plates/p0078w.mp4
     in: 8.943
     dur: 1.1
-  - transition: {type: cut, note: "1:1 real -> stripped-front scan (cam_B)"}
-  - id: scan_B          # starts on cam_B; pulls back to the right-front 3/4; fender rises above the arch, bumper below the nose, each turns once to show its inside (v2)
-    src: /home/user/media/work/c5/renders/B2
+  - transition: {type: cut, note: "1:1 real -> stripped-front scan (cam_B_wide)"}
+  - id: scan_B          # front section held: fender lifts above its arch and turns its scanned inside to the camera; front bumper glides toward the camera turning its mounting side to it
+    src: /home/user/media/work/c5/renders/B4
     src_fps: 15
     interpolate: true
-    dur: 5.4667
-  - id: irl_parts       # the real removed fender on the ground, inside showing
-    src: /home/user/media/c5/dropbox/0074.MP4
-    in: 12.0
-    dur: 1.1
-  - id: scan_C          # x-ray: fender then bumper translate home; orbit through the nose to the listing's front-left 3/4
-    src: /home/user/media/work/c5/renders/C_final
+    dur: 5.4333
+  - id: scan_C          # x-ray: fender, front bumper, rear bumper translate home; orbit through the nose to the listing's front-left 3/4, morph to listing grey
+    src: /home/user/media/work/c5/renders/C2_final
     src_fps: 15
     interpolate: true
-    dur: 5.9333
+    dur: 6.0
   - transition: {type: dissolve, duration: 0.5, note: "x-ray scan (morphed to listing grey) -> same-angle listing"}
-  - id: website         # C5 3D-scan listing; zoom-out lands on K21; title, logo, URL last
-    src: /home/user/media/work/out/webzoom_c5_v1.mp4
-    dur: 7.1
+  - id: website         # C5 3D-scan listing; zoom lands on K24; title, logo, URL last; ~1.3 s hold
+    src: /home/user/media/work/out/webzoom_c5_v3.mp4
+    dur: 5.6667
 
 overlays:
-  - src: /home/user/media/work/out/hud_c5_v1.mov
+  - src: /home/user/media/work/out/hud_c5_v3.mov
     start: 0

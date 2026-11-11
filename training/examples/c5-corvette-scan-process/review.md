@@ -1,24 +1,23 @@
-# C5 Corvette scan-process reel v2 - agent self-review (training/rubric.md)
+# C5 Corvette scan-process reel v3 - agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/c5_scan_process_v2.mp4` - 1080x1920, 30 fps, 29.97 s (cuts K3/K7 nudged 1 frame to the measured kicks: all cuts 0-17 ms), H.264 yuv420p + AAC.
+Output: `/home/user/media/work/out/c5_scan_process_v3.mp4` - 1080x1920, 30 fps, 31.83 s; cuts at frames 65/294/360/425/458/621, -6..+13 ms from the decoded kicks, H.264 yuv420p + AAC.
+v3 = user notes on v2 (front bumper glides toward the camera showing its mounting side; add the rear-bumper-removed data) +
+the all-reels brief and its addendum (one sequence per section, travel without ping-pong, bumper-removed hero beats with labels,
+wider 1:1 crops, shorter ending, persistent data off + luma check). Plan: direction.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | real stock C5 rear pass, 1:1 cut to the scan on the kick drop at 2.17 s (track intro has no kicks before 9.32 s, so 2.2 s of IRL is the minimum on-beat hook) |
-| 2 | Beat sync | 5 | 7 hard cuts at frames 65/163/229/294/327/491/524, 0-17 ms after the kick peaks measured in the delivered audio; dissolve into the listing sits between K18 and K19 |
-| 3 | 1:1 match | 4 | cut A (rear 3/4, cam_A RMSE 5 px): taillights, lettering, plate recess, silhouette overlap within a few px. Cut B (stripped right front, RMSE 14 px): door edge, arch and sill align; wheel differs (car runs aftermarket wheels, scan has stock) and the real hood is up while no hood-open scan could be registered |
-| 4 | Scan quality | 3 | silver-on-black; stripped composite is clean after dropping duplicate hood / ground / re-steered wheel; some ragged scan borders on the exposed structure and the state-scan front edge |
-| 5 | Story | 4 | real car -> scan -> crew pulls fender + bumper -> stripped scan, parts out + spin (inside + outside) -> real removed fender -> x-ray reassembly -> listing. Missing: no shot of the handheld scanner (none exists in the dump) |
-| 6 | Grade | 4 | all DJI clips are SDR bt709 (no HLG); late-afternoon outdoor warmth consistent across IRL shots |
-| 7 | Text | 4 | only on scan shots, <=2 items, numbers from STL headers (8,255,611 full car; 6,293,120 = Fender outer 2,580,796 + Fender Inner 3,712,324); inside+outside verified from raw normals. v1's counter showed 8,247,549 (ScanHUD easing bug) - replaced by a static label |
-| 8 | Ending | 4 | x-ray reassembly ends on the listing hero's angle (silhouette IoU 0.91), morphs to its grey, dissolves; title -> page -> logo -> URL last; music fades with the card |
-| 9 | Technical | 5 | 1080x1920, 30 fps, yuv420p, AAC; no black/duplicate frames at cuts |
+| 1 | Hook | 4 | real stock rear pass, 1:1 cut to the scan on the kick drop at 2.17 s |
+| 2 | Beat sync | 5 | 6 hard cuts on kick peaks measured in the decoded audio (after nudging 3 cuts 1 frame earlier); dissolve into the listing |
+| 3 | 1:1 match | 4 | cut A RMSE 5 px (taillights/lettering/silhouette on); cut B now on a wider 1158x2058 window (camera rescaled, not re-solved), edges on the wheel/arch/door; aftermarket wheel + raised hood still differ from the scan |
+| 4 | Scan quality | 3 | silver on black, no dark frames (all folders luma-checked); ragged borders remain on the exposed structure of both state scans |
+| 5 | Story | 4 | rear: real -> scan -> rear bumper mounting side -> push-in on rear-bumper-removed structure; front: crew pulls fender + bumper -> 1:1 -> fender inside, bumper mounting side -> push-in on the stripped nose; x-ray reassembly of all three parts -> listing. Each section appears once. No scanner footage exists |
+| 6 | Grade | 4 | SDR DJI footage, consistent late-afternoon warmth |
+| 7 | Text | 4 | scan shots only, one label at a time; numbers from STL headers (8,255,611 full car; 8,028,053 rear-bumper-removed); "MOUNTING POINTS" / "INSIDE + OUTSIDE" verified from the scans; static labels (ScanHUD counter easing bug avoided) |
+| 8 | Ending | 4 | x-ray ends on the listing hero angle (IoU 0.91), morphs to its grey, dissolves; end card 5.7 s (was 7.1) |
+| 9 | Technical | 5 | 1080x1920, 30 fps, yuv420p, AAC; no black/duplicate frames at cuts; renders persistent-data off |
 
-## Known issues / next version
-- Cut B: a hood-open state would make the 1:1 tighter; the 'C5 Supplement Hood Open' scan needs a manual initial alignment before ICP.
-- Scan shots end slightly small in A (car ~70 % width at the end of the pull-back).
-- If the team has any footage of the Artec Leo on this car (2023 or 2024 sessions), it would replace the 0059 fender shot.
-
-## v2 (user feedback on v1: "great, but don't spin or flip unless it shows the backside")
-- scan_B parts no longer spin 360 deg: each turns once (fender -146 deg, bumper +124 deg about Z) so its scanned inside faces the camera and holds
-  under the INSIDE + OUTSIDE label. Everything else unchanged; cuts unchanged.
+## Known issues
+- The opening real clip is native portrait (full frame) - its crop cannot be widened further.
+- Rear bumper part is the car's rear skin + the separately scanned inside surface (no single loose-bumper scan exists).
+- Hood stays closed in the scans (the hood-open supplement does not register), while it is up in the stripped-front footage.
