@@ -86,3 +86,18 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** Search Dropbox by the car AND the product before settling on footage ("TC wing", "NC", the model name), and list `2. Long Form`
   as well as `1. Video dumps`. v1 of the NC demo used the Integra tutorial because only "install tutorial" was searched; the NC's shoot
   was in `/1. Epsilon Plus Videos/2. Long Form/TC Wing Tutorial`. Never substitute another car's footage without asking.
+
+## From the DE5 wing configurator demo (2026-11-11, built by an agent)
+- **[story]** Check that the product in the brief exists for that car before building: list `https://epsilon.plus/products.json?limit=250` and look at what
+  the live configurator defaults to. Brief said "DE5 TC wing"; the store only has a GT Wing and a Sport Wing for the DE5 and the real photos are GT Wing.
+  Asked the user (they chose the GT Wing) instead of substituting.
+- **[story]** A payoff shot must show the same part as the 1:1 photo. The Integra tutorial's finished-car clips show the Sport Wing, so the payoff used
+  the listing's other real GT Wing photos.
+- **[match-cut]** Landscape photo into 9:16: the window is at most the photo's height (1450 px -> 816 px wide). A wide part (66 in wing) will not fit;
+  centre the window on the part and pan, and give capD.cjs the same window path.
+- **[technical]** `update_environment` was rejected when adding 20 hosts to a ~125-host allowlist; removing 20 expired `uc*.dl.dropboxusercontent.com`
+  hosts in the same call went through. Request Dropbox links with `expiration_in_sec: 900` and download in parallel right after approval.
+- **[technical]** NC tools reuse: copy `wing-configurator` out of the site repo, add `window.__ewc3d = {THREE, camera, controls, renderer, scene, carGroup, kitGroup}`
+  in `src/three/view3d.js` `mount()`, `node scripts/build.mjs --out dist`, serve on :8123 with a `product.html` carrying `data-car`/`data-wing`/`data-lock-car`.
+- **[audio]** 'Time Back' (110 BPM) has pickup hits 0.5 s and 0.1 s before the drop; take the drop from the first frame where BOTH low band and full band
+  jump (35.97 s), not the first full-band transient.
