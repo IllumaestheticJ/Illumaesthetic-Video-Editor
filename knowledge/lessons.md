@@ -321,3 +321,14 @@ lands here automatically. Agents must read this whole file before editing.
   angles that each render a window (`t0`) of ONE part animation so the panels stay continuous across cuts; logo ~2.4 s.
 - **[pacing]** Shot lengths in frames must come from round(beat_time*fps) per cut, not a repeated 52/53 pattern - at
   138 BPM (13.04 frames/beat) hand-alternating drifted to +38 ms by the fourth cut.
+## From the Nissan Frontier Pro-4X scan reel (2026-11-11, built by an agent)
+- **[technical]** `ive crop` measures its footprint on the body and clipped both mirrors on a wide truck (|x|<991 mm vs mirrors
+  at 1084). For a car on a lift (no wheels, pads under the frame) a plain height cut above the pads (z>200 mm levelled) +
+  a generous |x| limit was cleaner (projects/nissan-frontier/tools/clean.py). Always compare bbox widths before/after a crop.
+- **[technical]** State-scan names are ambiguous: Frontier "Front Bumper Removed" is the removed *bumper*, not the truck
+  without it. Render every state in silver before planning.
+- **[technical]** No part scan for a panel? Derive it: full-car tris far (>12 mm) from the "... removed" state, limited to
+  the panel's shut lines (top heightmap). For thin add-ons (fender flares) also require the state to have geometry within
+  ~90 mm (the body under the flare), else every small door/bed offset becomes "part" (tools/derive.py, parts.py).
+- **[technical]** librosa is not installed; projects/nissan-frontier/tools/accents.py does the kick-peak grid, per-beat
+  kick/flux/RMS table and the music-end level curve with numpy + ffmpeg.
