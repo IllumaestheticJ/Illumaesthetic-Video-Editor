@@ -1,5 +1,6 @@
-# Mazda 3 (gen 4) hatchback - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
-# House satin-silver scan on black; turntables -> Kodo close-ups -> rear wing off -> top-down -> exploded view -> logo.
+# Mazda 3 (gen 4) hatchback - Temerario-style scan reel v2 (v1: project_v1.yaml). v2 = whole car in every shot (user: v1 cropped too much)
+# (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
+# House satin-silver scan on black; turntables -> front / side / rear views -> rear wing off -> top-down -> exploded view -> logo.
 # Shots: projects/mazda-3-gen4/tools/shots.py (specs) rendered by projects/ferrari-296/tools/shot.py.
 # Music: mazda-3-gen4_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via Higgsfield),
 # minimal Japanese ambient-electronic. Measured with tools/music_grid.py: 110.0 BPM (beat 0.5453 s; `ive beats` says 73.8 = 1.5 beats),
@@ -8,7 +9,7 @@
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: mazda-3-gen4
 format: reel-9x16
-output: {path: /home/user/media/work/m3/out/mazda_3_gen4_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/m3/out/mazda_3_gen4_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/mazda-3-gen4_track.mp3   # not in git
@@ -18,50 +19,50 @@ music:
 beats: [4.412, 8.775, 10.956, 13.138, 15.319, 19.682, 22.954, 34.951, 38.223]
 
 timeline:
-  - id: s1_front34    # front-left 3/4 low turntable, moving from frame 1 (intro plucks)
-    src: /home/user/media/work/m3/renders/final/s1_front34
+  - id: s1_front34    # front-left 3/4 turntable, whole car, moving from frame 1 (intro plucks)
+    src: /home/user/media/work/m3/renders/final2/s1_front34
     src_fps: 15
     interpolate: true
     dur: 4.3667
   - transition: {type: cut, note: "b08 4.412 phrase"}
   - id: s2_rear34     # rear-left 3/4 orbit forward + rise
-    src: /home/user/media/work/m3/renders/final/s2_rear34
+    src: /home/user/media/work/m3/renders/final2/s2_rear34
     src_fps: 15
     interpolate: true
     dur: 4.3667
   - transition: {type: cut, note: "b16 8.775 phrase"}
-  - id: s3_lamp       # headlamp + bumper Kodo surfacing, 70 mm, 2 mm scan
-    src: /home/user/media/work/m3/renders/final/s3_lamp
+  - id: s3_front      # low front-right 3/4, whole car
+    src: /home/user/media/work/m3/renders/final2/s3_front
     src_fps: 15
     interpolate: true
     dur: 2.2
   - transition: {type: cut, note: "b20 10.956 phrase"}
-  - id: s4_flank      # glide along the left flank, reflections over the doors (build starts ~11.4)
-    src: /home/user/media/work/m3/renders/final/s4_flank
+  - id: s4_side       # left side profile, door reflections over the whole flank (build starts ~11.4)
+    src: /home/user/media/work/m3/renders/final2/s4_side
     src_fps: 15
     interpolate: true
     dur: 2.1667
   - transition: {type: cut, note: "b24 13.138"}
-  - id: s5_tail       # left tail lamp + hatch shoulder
-    src: /home/user/media/work/m3/renders/final/s5_tail
+  - id: s5_rear       # low rear, near head-on: tail lamps + hatch, whole car
+    src: /home/user/media/work/m3/renders/final2/s5_rear
     src_fps: 15
     interpolate: true
     dur: 2.2
   - transition: {type: cut, note: "b28 15.319 phrase"}
   - id: s6_wing       # rear wing lifts off the hatch b30 -> b34, mounts from the Wing Removed state scan
-    src: /home/user/media/work/m3/renders/final/s6_wing
+    src: /home/user/media/work/m3/renders/final2/s6_wing
     src_fps: 15
     interpolate: true
     dur: 4.3333
   - transition: {type: cut, note: "b36 19.682 KICK DROP"}
-  - id: s7_top        # rear-high up and over to top-down on the drop
-    src: /home/user/media/work/m3/renders/final/s7_top
+  - id: s7_top        # rear-high up and over to top-down on the drop, whole car (12 fitted keys)
+    src: /home/user/media/work/m3/renders/final2/s7_top
     src_fps: 15
     interpolate: true
     dur: 3.3
   - transition: {type: cut, note: "b42 22.954"}
   - id: s8_explode    # separate b44 24.045 -> b48, drift + orbit behind the car, return from b56, LOCK b60 32.770, hold
-    src: /home/user/media/work/m3/renders/final/s8_explode
+    src: /home/user/media/work/m3/renders/final2/s8_explode
     src_fps: 15
     interpolate: true
     dur: 12.0
