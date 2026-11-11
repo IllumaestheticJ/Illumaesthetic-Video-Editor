@@ -95,6 +95,65 @@ SHOTS["s8_explode"] = {
                   c=(0.1, -0.6 + 1.0 * (k / 12), 0.5), focal=28, ease="lin", tz=0.4) for k in range(13)]}
 
 
+# ---------------------------------------------------------------- v2 (user: "starts too cropped, doesn't focus on the
+# subsystems, doesn't zoom in on the bumpers/skirts") - wider opening; explode becomes progressive like the Temerario
+# reference: one GLOBAL part timeline (video seconds) seen through three cameras cut on the track's accents.
+SECS.update({"s1_wide": 152 / 30, "s8a_front": 139 / 30, "s8b_side": 70 / 30, "s8c_wide": 139 / 30})
+T8 = {"s8a_front": 23.066, "s8b_side": 831 / 30, "s8c_wide": 901 / 30}  # sub-shot start times (video s)
+G_DRIFT, G_HOME, G_LOCK = 31.189, 31.189, 32.350  # fly home 31.189 -> LOCK on the 32.350 accent
+
+# part: (offset m, rot deg, separate start, separate end) in video seconds; staggered a beat apart
+PARTS_G = {
+    "x_fbumper": ((0, -1.0, -0.08), (0, 0, 0), 23.066, 24.807),
+    "x_fender": ((-0.75, 0, 0.18), (0, -8, 0), 23.646, 25.387),
+    "x_hood": ((0, -0.25, 0.95), (-12, 0, 0), 24.227, 25.967),
+    "x_skirt": ((-0.65, 0, -0.18), (0, 0, 0), 27.708, 29.449),
+    "x_rbumper": ((0, 0.95, 0.05), (0, 0, 0), 28.288, 30.029),
+    "x_diffuser": ((0, 0.75, -0.35), (0, 0, 0), 28.868, 30.609),
+    "x_ecover": ((0, 0.15, 0.85), (20, 0, 0), 29.449, 30.609),
+}
+
+
+def parts_for(shot):
+    t0 = T8[shot]
+    out = []
+    for name, (off, rot, a, b) in PARTS_G.items():
+        keys = [{"t": -100, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                {"t": a - t0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                {"t": b - t0, "loc": list(off), "rot": list(rot), "ease": "out"},
+                {"t": G_HOME - t0, "loc": [o * 1.04 for o in off], "rot": list(rot), "ease": "lin"},
+                {"t": G_LOCK - t0, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
+        out.append({"blend": f"{P}/{name}.blend", "keys": keys})
+    return out
+
+
+def arc(t1, n, r0, r1, a0, a1, h0, h1, c0, c1, focal, tz=None):
+    """Orbit keyed every 1/n (linear loc between far keys would cut a chord toward the car)."""
+    ks = []
+    for k in range(n + 1):
+        u = k / n
+        c = tuple(x + (y - x) * u for x, y in zip(c0, c1))
+        ks.append(orbit(t1 * u, r0 + (r1 - r0) * u, a0 + (a1 - a0) * u, h0 + (h1 - h0) * u, c=c, focal=focal,
+                        ease="lin", tz=tz))
+    return ks
+
+
+SHOTS.update({
+    # whole car in frame from frame 1 (v1 opened cropped into the doors/nose)
+    "s1_wide": {"base": [CAR], "cam": arc(SECS["s1_wide"], 6, 7.4, 7.4, -36, -66, 1.25, 1.35, (0, 0, 0.55), (0, 0, 0.55), 30)},
+    # front subsystem close: bumper slides forward-down, fender out, hood lifts - camera low front-right, slow arc
+    "s8a_front": {"base": [f"{P}/comp_explode.blend"], "parts": parts_for("s8a_front"),
+                  "cam": arc(SECS["s8a_front"], 6, 3.9, 4.3, -58, -38, 1.0, 1.35, (-0.25, -2.35, 0.5), (-0.2, -2.25, 0.6), 28)},
+    # side subsystem close: skirt drops off the sill toward the lens, rear bumper + diffuser pull back behind it
+    "s8b_side": {"base": [f"{P}/comp_explode.blend"], "parts": parts_for("s8b_side"), "cam": [
+        {"t": 0, "loc": [-3.1, -0.95, 0.55], "target": [-0.7, 0.45, 0.35], "focal": 28},
+        {"t": SECS["s8b_side"], "loc": [-3.1, 0.35, 0.6], "target": [-0.6, 1.55, 0.4], "focal": 28, "ease": "lin"}]},
+    # wide: everything out, fly home and LOCK on 32.350, hold to the logo
+    "s8c_wide": {"base": [f"{P}/comp_explode.blend"], "parts": parts_for("s8c_wide"),
+                 "cam": arc(SECS["s8c_wide"], 6, 8.8, 7.6, -112, -130, 3.0, 2.6, (0.1, 0.0, 0.5), (0.1, 0.4, 0.5), 28, tz=0.4)},
+})
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
