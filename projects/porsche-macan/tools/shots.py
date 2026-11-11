@@ -154,7 +154,8 @@ def cam(t, loc, tgt, f, ease="inout"):
 OPEN_H, OPEN_T = (0, 0, 0), (0, 0, 0)
 OPEN_H = (hood["open_deg"], 0, 0); OPEN_T = (hatch["open_deg"], 0, 0)
 FB_FLIP = TIMING.get("fb_flip", -160)
-FB_END = ((0, -0.5, 2.6), (FB_FLIP, 0, 0))  # high enough to be out of frame in S1/R1; FENDER_END = ((0.75, 0.05, 0.30), (0, 0, 0))
+FB_END = ((0, -0.5, 2.6), (FB_FLIP, 0, 0))  # high enough to be out of frame in S1/R1
+FENDER_END = ((0.75, 0.05, 0.30), (0, 0, 0))
 FL_END = ((1.0, -0.05, 0.10), (0, 0, 180)); RL_END = ((1.0, 0.12, 0.10), (0, 0, 180)); RB_END = ((-1.7, 0.7, 0.05), (0, 0, 0))
 XB = f"{P}/comp_explode.blend"
 
