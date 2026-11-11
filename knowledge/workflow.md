@@ -35,3 +35,11 @@
   (x→−x) for a PnP start, then re-pick landmarks on a near render (Lola cut B: 5.2 px RMSE).
 - **End the IRL clip on the solved frame** (move the in-point) instead of correcting drift with
   phaseCorrelate when the action allows it.
+
+## Director pass (added 2026-11-11, Ferrari 296 - reviewer asked for "a director agent that guides the shots and
+## minimizes redundant frames")
+- Before rendering a new version, and after every assembly: `python -m ive director projects/<p>/project.yaml`
+  (dead frames, repeated views, subject coverage/cropping, seconds per `section:`, missing `focus:`), then hand the
+  report + feedback to the **director** agent (`.claude/agents/director.md`), which writes `projects/<p>/director.md`:
+  one focus per shot, sections held instead of cut away, a cut list and a hold list, reuse-vs-render budget.
+- Tag every timeline clip with `section:` and `focus:`; the editor implements the director's plan.

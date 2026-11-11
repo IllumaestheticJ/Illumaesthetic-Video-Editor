@@ -12,7 +12,8 @@ the real car to its scan. Every project you finish teaches the next agent.
 
 ## Tools
 `python -m ive <cmd>` — fetch-drive, fetch-url, probe, sheet, frame, analyze, beats, decimate, crop,
-prep, render, lookat, solve, check, hud, assemble, feedback, log, archive. `--help` on each.
+prep, render, lookat, solve, check, hud, assemble, director, feedback, log, archive. `--help` on each.
+- Director agent: `.claude/agents/director.md` + `ive director` - plan shots by section, cut redundant frames (see knowledge/workflow.md).
 - Blender 5.3 at `/usr/local/bin/blender` (setup: `scripts/setup.sh`). Cycles CPU only.
 - Remotion HUD project in `remotion/` (composition `ScanHUD`, driven by JSON props).
 - Media is never committed. Work in `/home/user/media/<project>/` and `/home/user/media/work/`.

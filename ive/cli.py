@@ -113,6 +113,11 @@ def main(argv=None):
     s.add_argument("decision")
     s.add_argument("--why", required=True)
 
+    s = sub.add_parser("director", help="director pass: dead frames, repeated views, subject size, section focus")
+    s.add_argument("project_yaml")
+    s.add_argument("--out", help="markdown report path (default: <project>/director_report.md)")
+    s.add_argument("--fps", type=float, default=6.0)
+
     s = sub.add_parser("archive", help="snapshot a finished project into training/examples/")
     s.add_argument("project_dir")
 
@@ -181,6 +186,12 @@ def main(argv=None):
     elif a.cmd == "log":
         from .training import log_decision
         _p(log_decision(a.project_dir, a.decision, a.why))
+    elif a.cmd == "director":
+        from .director import analyse
+        out = a.out or str(Path(a.project_yaml).resolve().parent / "director_report.md")
+        r = analyse(a.project_yaml, a.fps, out=out)
+        _p({"report": out, "total_s": r["total_s"], "sections": r["sections"], "repeats": r["repeats"],
+            "flags": {c["id"]: c["flags"] for c in r["clips"] if c.get("flags")}})
     elif a.cmd == "archive":
         from .training import archive
         print(archive(a.project_dir))
