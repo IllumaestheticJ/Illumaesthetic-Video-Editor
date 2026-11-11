@@ -75,7 +75,7 @@ def shots():
     sh = {}
     # S1 whole truck, front-right 3/4, moving from frame 1, bed + roof + rails inside the frame
     sh["v2_s1_wide"] = {"base": [f"{P}/car4.blend"], "parts": [],
-                        "cam": keyed_orbit(S["v2_s1_wide"] + 0.2, 6.6, 6.2, -32, -46, 1.4, 1.6, (0, -0.2, 0.75), (0, -0.3, 0.75), focal=26)}
+                        "cam": keyed_orbit(S["v2_s1_wide"] + 0.2, 6.6, 7.0, -32, -43, 1.4, 1.6, (0, -0.2, 0.75), (0, -0.3, 0.75), focal=26)}
     # S2 grille close-up (v1 s3_grille move, stretched to the slot) - grille highlighted + labelled, stays ON (no scan of
     # the grille off with the bumper on)
     sh["v2_s2_grille"] = {"base": [f"{P}/comp_nogrille.blend"],
