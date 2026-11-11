@@ -25,6 +25,13 @@ Timecodes in the 1440p capture (frames of `a60.mp4`, 60 fps):
 | 3861–5208 | 64.35–86.8 | car select: 15 scrolls, 14–15 frames each (list in `track.json`), holds 0.3–3.3 s |
 | 5210– | 86.9– | "Do you want this stock 240SX?", save prompts, loading, drive-out |
 
+Purchase (a60 frames): 5205-5212 cursor to Continue; 5213-5218 prompt fades in; 5218-5263 "Do you want this
+stock 240SX?" (No is the default, cursor reaches Yes about 5250); 5264 bare scene, no UI (used to measure the
+prompt's transparency); 5266- Save/Load. Real-time capture B: scrolls 50.03, 52.03, 53.30; prompt 54.10; Yes 55.30;
+silent from 58.2.
+Used in v5: intro f952-1291; menu f3829-3919, 4041-4112, 4631-4682, 4732-4791, 4947-4984, 5089-5103 + 5204-5212;
+prompt f5213-5218 + 5234-5263.
+
 Used in v1: intro f952–1291; menu f3818–4040, 4041–4126, 4631–4731, 4732–4871, 5089–5208.
 Earlier dead ends (YouTube download, playing nfsu2.xyz here): `knowledge/game-menu-reel.md`.
 

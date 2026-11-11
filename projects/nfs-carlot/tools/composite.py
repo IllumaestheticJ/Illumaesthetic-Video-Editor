@@ -11,8 +11,10 @@ How it works (all coordinates are in the cropped 2144x1206 capture, `a60.mp4`):
     car render (same slide offset) on top. Everything else - menu, stat bars, cursor, room - is the capture.
   * The name plate is repainted with a plate lifted from the capture (Toyota Corolla, Honda Civic, Mazda
     Miata) or, for the car the game never had (Acura Integra), one drawn in the same greys.
-  * The timeline is five scrolls of the capture, each range starting on the first frame of a scroll; how long
-    each runs is set by the real-time capture's audio so its scroll sounds land on the car changes.
+  * The timeline is six scrolls of the capture (five cars, then the list wraps to the first), each range
+    starting on the first frame of a scroll; how long each runs is set by the real-time capture's audio so its
+    scroll sounds land on the car changes. Then the purchase prompt, with our car behind it and the game's
+    car name replaced in the question.
 """
 import json, subprocess, sys
 from pathlib import Path
@@ -31,13 +33,19 @@ ZONE_Y = (480, 1076)
 # The capture's garage section plays at DOUBLE speed (a scroll takes 14 frames at 60 fps here, 0.47 s in a
 # second, real-time capture), so the menu is written at 30 fps with every source frame: that is real time.
 # Segment lengths are the gaps between scrolls in the real-time capture's audio (b.wav), see assemble.py.
-SEGMENTS = [
-    (3829, 3919, "corolla", "corolla"),      # menu opens: empty turntable slides out, car 1 slides in
-    (4041, 4112, "civic_fe", "civic"),
-    (4631, 4682, "integra", "integra"),
-    (4732, 4785, "nc", "miata"),
-    (5089, 5148, "ep3", "civic"),             # 60 frames: to the next scroll in capture B, where the end card cuts in
+SEGMENTS = [                                                   # (source frames, car, plate)
+    (range(3829, 3920), "corolla", "corolla"),                 # menu opens: empty turntable slides out, car 1 slides in
+    (range(4041, 4113), "civic_fe", "civic"),
+    (range(4631, 4683), "integra", "integra"),
+    (range(4732, 4792), "nc", "miata"),
+    (range(4947, 4985), "ep3", "civic"),
+    # the list wraps back to the first car, which gets bought: the scroll, then the last frames before the
+    # player clicks Continue (same game car and stat bars, the cursor travelling to the button)
+    (list(range(5089, 5104)) + list(range(5204, 5213)), "corolla", "corolla"),
 ]
+# "Do you want this stock 240SX?": fade-in (5213-5218) and the tail of the prompt up to the click on Yes (5263)
+DIALOG = {"frames": list(range(5213, 5219)) + list(range(5234, 5264)), "rest": 5212, "steady": 5240, "scene": 5264,
+          "text": "Do you want this stock Corolla?", "text_box": (773, 577, 1382, 620)}
 OUT_FPS = 30
 CARS_DIR = "cars3"                       # wheel-fitted camera, game-matched rig, front wheels steered 25 deg
 PLATE_SRC = {"corolla": 4280, "civic": 4610, "miata": 4430}     # rest frames showing each real plate
@@ -202,7 +210,7 @@ def main():
     bx0, by0, bx1, by1 = BOX
     box_ref = frame(BOX_SRC)[by0:by1, bx0:bx1].copy()
     cars = {}
-    for name in {s[2] for s in SEGMENTS}:
+    for name in {s[1] for s in SEGMENTS}:
         im = cv2.imread(str(W / CARS_DIR / f"{name}.png"), cv2.IMREAD_UNCHANGED).astype(np.float32)
         if im.shape[:2] != (H, Wd):
             im = cv2.resize(im, (Wd, H), interpolation=cv2.INTER_LINEAR)
@@ -237,16 +245,16 @@ def main():
 
     ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{Wd}x{H}", "-r", str(OUT_FPS), "-i", "-",
                            "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-g", "1", "-pix_fmt", "yuv420p", str(W / "menu.mp4")], stdin=subprocess.PIPE)
-    meta, n_out, prev_car = [], 0, None
-    for si, (f0, f1, car, plate) in enumerate(SEGMENTS):
-        # the transition inside this segment
-        ta = next(a for a in sorted(trans) if f0 <= a <= f1)
+    meta, n_out, prev_car, last_out = [], 0, None, None
+    for si, (frames, car, plate) in enumerate(SEGMENTS):
+        frames = list(frames); fset = set(frames)
+        ta = next(a for a in sorted(trans) if a in fset)      # the scroll inside this segment
         tb = trans[ta]
         s = slide(rows, ta, tb)
         ob, oa = rest_offset(rows, ta - 1), rest_offset(rows, tb)
-        hold = list(range(tb, f1 + 1))
+        hold = [f for f in frames if f >= tb]
         med = np.median(np.stack([frame(f) for f in hold[::max(1, len(hold) // 9)]]), 0).astype(np.uint8)
-        for f in range(f0, f1 + 1):
+        for f in frames:
             F = frame(f)
             if f < ta:                       # before the scroll: previous car at rest
                 out = paint(F, prev_car, ob)
@@ -255,7 +263,7 @@ def main():
                 out = paint(out, car, D_CONVEYOR - s[f] + oa)
             else:
                 out = paint(F, car, oa)
-            cur_plate = plate if f >= ta else (SEGMENTS[si - 1][3] if si else plate)
+            cur_plate = plate if f >= ta else (SEGMENTS[si - 1][2] if si else plate)
             out[y0:y1, x0:x1] = plates[cur_plate]
             out[by0:by1, bx0:bx1] = box_ref
             if f >= tb:                      # put the mouse cursor back where it crossed anything we repainted
@@ -271,13 +279,79 @@ def main():
                         cm[lab == i] = 1
                 cm = cv2.dilate(cm, np.ones((3, 3), np.uint8)).astype(bool)
                 out[cm] = F[cm]
-            ff.stdin.write(np.clip(out, 0, 255).astype(np.uint8).tobytes())
+            last_out = np.clip(out, 0, 255)
+            ff.stdin.write(last_out.astype(np.uint8).tobytes())
             n_out += 1
-        meta.append({"car": car, "plate": plate, "src": [f0, f1], "transition": [ta, tb], "out_start": n_out - (f1 - f0 + 1), "frames": f1 - f0 + 1})
-        prev_car = car
-        print(f"segment {si + 1}: {car:9s} src f{f0}-{f1} scroll f{ta}-{tb} rest offsets {ob:+.1f}/{oa:+.1f}", flush=True)
+        meta.append({"car": car, "plate": plate, "src": [frames[0], frames[-1]], "transition": [ta, tb], "out_start": n_out - len(frames),
+                     "scroll_at": n_out - len(frames) + frames.index(ta), "frames": len(frames)})
+        prev_car, last_oa = car, oa
+        print(f"segment {si + 1}: {car:9s} src f{frames[0]}-{frames[-1]} ({len(frames)} frames) scroll f{ta}-{tb} rest offsets {ob:+.1f}/{oa:+.1f}", flush=True)
+
+    # ---- the purchase prompt -------------------------------------------------------------------------
+    # The prompt dims the room, hides the menu and lays a translucent panel over the car. Where the capture
+    # shows the game's car through all that, ours must show instead:  F' = F + T * (our scene - game scene),
+    # with T = how much of the scene reaches each pixel. T is constant per part of the prompt; the values are
+    # robust fits of prompt frames against the one clean frame the game shows right after the click (room and
+    # car, no menu, full brightness): prompt = T * scene + c, same T to 0.001 on four different frames.
+    dg = DIALOG
+    R = frame(dg["rest"]).astype(np.float32)                    # last menu frame as captured
+    Rp = last_out.astype(np.float32)                            # ... and as we just wrote it
+    car_a, _ = shift_x(cars[prev_car][..., 3] / 255.0, last_oa)
+    zmask = np.maximum(shift_x(zone, last_oa)[0], car_a); zmask[985:] = 0
+    dS = (Rp - R) * cv2.GaussianBlur((zmask > 0.01).astype(np.float32), (0, 0), 2)[..., None]
+    T_OUT, T_FRAME, T_PANEL, T_BTN, T_BTN_HOT = 0.361, 0.125, 0.067, 0.055, 0.031
+    BTN = {"yes": (359, 738, 1034, 840), "no": (1115, 738, 1788, 840)}
+
+    def t_map(F):
+        t = np.full((H, Wd), T_OUT, np.float32)
+        t[366:883, 322:1828] = 0                                 # the prompt's outline is opaque
+        t[377:872, 332:1816] = T_FRAME                           # dark band inside the outline
+        t[481:850, 346:1800] = T_PANEL                           # grey panel
+        for bx0_, by0_, bx1_, by1_ in BTN.values():              # the button under the cursor is darker and more opaque
+            hot = float(np.median(F[by0_ + 8:by1_ - 8, bx0_ + 8:bx1_ - 8])) < 68
+            t[by0_:by1_, bx0_:bx1_] = T_BTN_HOT if hot else T_BTN
+        return cv2.GaussianBlur(t, (0, 0), 1.2)[..., None]
+    tx0, ty0, tx1, ty1 = dg["text_box"]
+    FONTS = Path("/home/user/media/nfs-carlot/fonts")
+    S_ = 4
+    fnt = ImageFont.truetype(str(FONTS / "roboto-condensed-latin-400-italic.ttf"), 49 * S_)   # near-exact match for the game's prompt type
+    track_px = 0.85 * S_
+    width = sum(fnt.getlength(ch) + track_px for ch in dg["text"]) - track_px
+    lay = Image.new("L", (Wd * S_, 90 * S_), 0); dr = ImageDraw.Draw(lay)
+    xx = ((tx0 + tx1) / 2) * S_ - width / 2
+    top = fnt.getbbox("D")[1]
+    for ch in dg["text"]:
+        dr.text((xx, 20 * S_ - top), ch, font=fnt, fill=255); xx += fnt.getlength(ch) + track_px
+    text_a = cv2.GaussianBlur(np.asarray(lay.resize((Wd, 90), Image.LANCZOS)).astype(np.float32), (0, 0), 0.7)[..., None] / 255
+    pad = 22
+
+    def prompt(F):
+        """A steady prompt frame with our car behind it and the reworded question."""
+        out = F.astype(np.float32) + t_map(F) * dS
+        reg = np.clip(out[ty0 - pad:ty1 + pad, tx0 - pad:tx1 + pad], 0, 255).astype(np.uint8)
+        g = cv2.cvtColor(F[ty0 - pad:ty1 + pad, tx0 - pad:tx1 + pad], cv2.COLOR_BGR2GRAY)
+        ink = (g > int(np.median(g)) + 38).astype(np.uint8)
+        ink = cv2.dilate(ink, np.ones((5, 5), np.uint8))
+        white = np.percentile(F[ty0:ty1, tx0:tx1].reshape(-1, 3), 99.5, 0)
+        out[ty0 - pad:ty1 + pad, tx0 - pad:tx1 + pad] = cv2.inpaint(reg, ink, 5, cv2.INPAINT_TELEA)
+        a = text_a[:, :, :]
+        out[ty0 - 20:ty0 + 70] = out[ty0 - 20:ty0 + 70] * (1 - a) + white * a
+        return np.clip(out, 0, 255)
+
+    D0 = frame(5218).astype(np.float32); D0p = prompt(frame(5218))
+    for f in dg["frames"]:
+        F = frame(f)
+        if f < 5218:                                            # fading in: a mix of the menu and the steady prompt
+            Ff = F.astype(np.float32)
+            u = float(np.clip(((Ff - R) * (D0 - R)).sum() / (((D0 - R) ** 2).sum() + 1e-6), 0, 1))
+            out = (1 - u) * Rp + u * D0p
+        else:
+            out = prompt(F)
+        ff.stdin.write(np.clip(out, 0, 255).astype(np.uint8).tobytes()); n_out += 1
+    print(f"prompt: {len(dg['frames'])} frames, text '{dg['text']}'", flush=True)
     ff.stdin.close(); ff.wait()
-    json.dump({"fps": OUT_FPS, "segments": meta, "frames": n_out}, open(W / "menu_segments.json", "w"), indent=1)
+    json.dump({"fps": OUT_FPS, "segments": meta, "dialog": {"out_start": n_out - len(dg["frames"]), "frames": len(dg["frames"])}, "frames": n_out},
+              open(W / "menu_segments.json", "w"), indent=1)
     print("frames", n_out, "seconds", round(n_out / OUT_FPS, 2))
 
 

@@ -6,11 +6,12 @@ Picture: the capture is 16:9 with the game's menu in a centred 4:3 box, so the f
 box (x 300-1842 of 2144), scaled to the reel's full width, and set on a blurred, darkened copy of itself.
 
 Sound: the 1440p capture (a.wav) for the arrival. Its garage section is sped up 2x (user, v1 review), so
-the menu uses the second capture (b.wav), which is real time: one continuous take from the menu opening
-through three scrolls, then a jump to a later scroll for the last car so it can hold; that take then runs on
-under the EPSILON+ end card, which cuts in on B's next scroll sound, and fades out. The picture is cut
-to that audio: every car change starts on the frame where the car starts to move in capture B
-(B_SCROLLS, measured from B's picture), which keeps B's own scroll sound on it.
+the menu uses the second capture (b.wav), which is real time, in two takes: the menu opening through two
+scrolls, then B's last three scrolls, the click on Continue, the purchase prompt and the click on Yes, in
+one piece, so the purchase sounds exactly as it does in the game. The EPSILON+ card cuts in on the Yes
+click and B's audio plays on under it and fades. The picture is cut to that audio: every car change
+starts on the frame where the car starts to move in capture B (B_SCROLLS, measured from B's picture),
+and the prompt (B_PROMPT) and the click on Yes (B_YES) likewise.
 """
 import json, subprocess, sys, wave
 from pathlib import Path
@@ -18,12 +19,13 @@ import numpy as np
 
 W = Path("/home/user/media/work/nfs-carlot")
 INTRO = (952, 1291)            # a60.mp4 frames (60 fps): "enter the shop?" (1 s), then the 350Z cutscene (4.65 s)
-B_SCROLLS = [34.93, 37.87, 40.27, 42.00, 50.03]   # seconds in capture B where each of our five car changes starts
-CARD_S = 3.0                                      # EPSILON+ end card, cut in on B's next scroll (52.03 s) so its sound carries the cut
-B_END = 52.03 + CARD_S                            # B's menu music plays on under the card and fades over its last 1.8 s
+B_SCROLLS = [34.93, 37.87, 40.27, 50.03, 52.03, 53.30]   # seconds in capture B where each of our six car changes starts
+TAKE2 = 3                                         # index of the first car change that uses B's second take
+B_PROMPT, B_YES = 54.10, 55.30                    # B: purchase prompt starts to fade in / Yes is clicked (prompt gone)
+CARD_S = 3.0                                      # EPSILON+ end card, cut in on the Yes click; B's audio plays on under it (silent from 58.2 s)
 LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png")   # official EPSILON+ wordmark (site header artwork)
 LEAD = 0.08                                       # B's scroll sound starts up to this long before the car moves
-OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/nfs-carlot_v4.mp4")
+OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/nfs-carlot_v5.mp4")
 
 
 def load(name):
@@ -42,7 +44,8 @@ def audio():
     n_menu = round((meta["frames"] / fps + CARD_S) * sr)          # menu + end card
     menu = np.zeros((n_menu, 2), np.float32)
     # menu time of each car change = when that segment's scroll starts
-    t_scroll = [(s["out_start"] + s["transition"][0] - s["src"][0]) / fps for s in seg]
+    t_scroll = [s["scroll_at"] / fps for s in seg]
+    t_prompt = meta["dialog"]["out_start"] / fps; t_end = meta["frames"] / fps
     xf = int(0.02 * sr)
 
     def place(t_menu, b0, b1):
@@ -54,10 +57,14 @@ def audio():
         src[:len(ramp)] *= ramp; src[-len(ramp):] *= ramp[::-1]
         menu[i0:i0 + len(src)] += src
 
-    # take 1: menu opening through the 4th car change (continuous in B)
-    place(0.0, B_SCROLLS[0] - t_scroll[0], B_SCROLLS[3] + (t_scroll[4] - t_scroll[3]) - LEAD)
-    # take 2: the last car, from a later scroll in B, so it can hold until B_END
-    place(t_scroll[4] - LEAD, B_SCROLLS[4] - LEAD, B_END)
+    # take 1: menu opening through the car changes before TAKE2 (continuous in B), up to the cut to take 2
+    place(0.0, B_SCROLLS[0] - t_scroll[0], B_SCROLLS[TAKE2 - 1] + (t_scroll[TAKE2] - t_scroll[TAKE2 - 1]) - LEAD)
+    # take 2: B's last three scrolls, Continue, the prompt, Yes, and on under the end card
+    off = B_SCROLLS[TAKE2] - t_scroll[TAKE2]                      # B time = menu time + off for the whole take
+    place(t_scroll[TAKE2] - LEAD, B_SCROLLS[TAKE2] - LEAD, off + t_end + CARD_S)
+    sync = {"scrolls": [round(B_SCROLLS[i] - (t_scroll[i] + (off if i >= TAKE2 else B_SCROLLS[0] - t_scroll[0])), 3) for i in range(len(seg))],
+            "prompt": round(B_PROMPT - (t_prompt + off), 3), "yes": round(B_YES - (t_end + off), 3)}
+    print("picture minus sound, seconds (0 = in sync):", sync)
     menu *= 10 ** ((rms_db(intro) - 3.0 - rms_db(menu[menu.any(1)])) / 20)       # menu (and its in-game song) 3 dB under the cutscene
     # capture B is silent for its first ~0.3 s of menu: let the cutscene's sound ring out over that instead of cutting dead
     tail = a[round((INTRO[1] + 1) / 60 * sr):round((INTRO[1] + 1) / 60 * sr) + int(0.45 * sr)].copy()

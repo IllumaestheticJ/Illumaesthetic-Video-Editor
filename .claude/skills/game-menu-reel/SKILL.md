@@ -22,7 +22,7 @@ Worked project: `projects/nfs-carlot/`.
 5. **Track + camera.** `projects/nfs-carlot/tools/track.py` for the turntable slide; fit the menu camera
    to the game cars' outlines (for the NFSU2 car lot reuse `projects/nfs-carlot/cam_carlot.json` and
    `rig_showroom.json`); render each car once with `ive kit-render --camera … --ground shadow`.
-6. **Swap + assemble.** `tools/composite.py` (real frames, only the car zone repainted) then
+6. **Swap + assemble.** `tools/composite.py` (real frames, only the car zone repainted; the purchase prompt at the end) then
    `tools/assemble.py` (9:16 on a blurred copy, the capture's own audio, cuts on scrolls). Copy both
    into the new project and change the constants at the top.
 7. **Deliver + learn.** Look at the join frames, send it, `ive feedback` (`--rule` for anything

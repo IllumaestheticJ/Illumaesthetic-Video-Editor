@@ -227,9 +227,27 @@ the jump hides under the scroll sound. Verify in the output: sound level and pic
 every change (`review.md` v2). v1 instead cut the sped-up capture's own audio on its scrolls, which
 synced but was double speed. Both captures here had the game's licensed menu song under everything.
 
+**Buying the car (user request on v4).** End the menu on the purchase, not on a scroll: Continue,
+the game's "Do you want this stock <car>?" prompt, Yes, then the end card. Use one unbroken audio
+take from the last scrolls through the Yes click so the purchase sounds are the game's own, and cut
+the picture to it (scroll times, when the prompt starts to fade in, when Yes is clicked). If that
+take has more scrolls before the purchase than you have cars left, wrap the list back to car 1 and
+buy that one — it is what a real list does. The prompt is a translucent panel over a dimmed room, so
+do not repaint the car zone under it. Keep the capture's prompt frames and add
+`T * (our last menu frame - the capture's last menu frame)` inside the car zone, where T is how much
+of the scene shows through each part of the prompt. Measure T by fitting `prompt = T * scene + c`
+per region against a frame of the bare scene (NFSU2 shows one for a frame or two right after Yes:
+room 0.361, dark band 0.125, panel 0.067, button 0.055, button under the cursor 0.031). Pick the
+highlighted button per frame. Fitting T per pixel with a sliding window does not work: it comes out
+blotchy and the car glows in patches. Inpaint the game's car name out of the question and reset the
+whole line in the matching face (NFSU2: Roboto Condensed Italic, 49 px on a 2144-wide frame); for
+the fade-in, mix our last menu frame with our first steady prompt frame by the capture's own fade
+amount. Use the model name the name plate shows.
+
 **Ending.** For Epsilon reels end on the EPSILON+ wordmark (white on black,
 `Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png`, 800 px wide): cut to it on a menu
-sound, let the music run about 3 s under it and fade over the last 1.8 s (user request on v3).
+sound (with a purchase: on the Yes click), let the music run about 3 s under it and fade over the
+last 1.8 s (user request on v3).
 
 ## 10. Layout, assemble, review (`projects/nfs-carlot/tools/assemble.py`)
 The game draws its menu in a centred 4:3 box on a 16:9 picture. Crop to that box (x 300–1842),

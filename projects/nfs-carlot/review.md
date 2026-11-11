@@ -49,3 +49,19 @@ Output: `/home/user/media/work/out/nfs-carlot_v4.mp4`, 19.6 s.
 - Plate lettering reset to match the game's plates (Roboto Condensed + stroked Michroma).
 - Last car holds 1.5 s after its slide; cut to the EPSILON+ card on the next scroll sound; music runs 3 s under it and fades.
 - Still open: no separate NFSU2 soundtrack bed (needs a file from the user).
+
+## v5 (2026-11-11) - after the user's review of v4
+User: "Are you able to add the section where you select and purchase the car, THEN it cuts to the epsilon logo?"
+
+Output: `/home/user/media/work/out/nfs-carlot_v5.mp4`, 21.1 s.
+- Order now: Corolla, Civic Si, Integra, NC, EP3, back to the Corolla (list wraps), Continue, "Do you want
+  this stock Corolla?", Yes, EPSILON+ card. The wrap is there because the real-time capture has two more
+  scrolls right before its purchase and that take is used unbroken (B 50.03 s to the end).
+- Checked in the output: Continue highlights under the cursor, prompt fades in with the Corolla dim and blue
+  behind the panel (first pass was blotchy and too bright: per-pixel transparency; fixed with per-region
+  values), question lettering overlays the game's, No is the default, cursor travels to Yes, card cuts in
+  on the click. Picture/sound offsets printed by `assemble.py`: all within 0.007 s.
+- Changes from v4 the user did not ask for: the NC and EP3 swapped places (NC is now 4th), and the last
+  holds are shorter (NC 1.5 s, EP3 0.8 s, Corolla 0.3 s before Continue) because they follow the capture.
+- Still open: no separate NFSU2 soundtrack bed (needs a file from the user). The Corolla's stat bars are
+  the game's 240SX bars on its second appearance (different from its first).
