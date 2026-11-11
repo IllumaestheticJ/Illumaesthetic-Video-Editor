@@ -38,7 +38,7 @@ timeline:
     interpolate: true
     dur: 1.3333
   - transition: {type: cut, note: "beat 16 (drop)"}
-  - id: s4_nose   # v1 render: headlight + grille slide (on the drop)
+  - id: s4_nose   # re-rendered with the plate flattened: headlight + grille slide (on the drop)
     src: /home/user/media/work/is300/renders/final/s4_nose
     src_fps: 15
     interpolate: true
