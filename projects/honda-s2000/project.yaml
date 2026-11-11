@@ -54,8 +54,9 @@ timeline:
     section: top
     focus: "plan view -> high front-right 3/4 (s7_top reversed)"
     src: /home/user/media/work/s2k/renders/final/s7_top
-    src_fps: 12
+    src_fps: 11.54
     interpolate: true
+    trim_end: 3.466   # drop s7_top's last 2 eased-to-rest frames: reversed they opened T1 on 3 frozen frames
     vf: "reverse"
     frames: 104
   - transition: {type: cut, note: "b28 12.226"}

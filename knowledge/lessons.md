@@ -464,3 +464,6 @@ lands here automatically. Agents must read this whole file before editing.
   (first 30 % of peak) of the big hits on the waveform gave an exact 8-beat spacing. Anchor on that when the methods disagree.
 - **[technical]** Close-ups of a 7.7M-tri (2.5 mm) car render at ~36 s/frame at 75 % / 12 spp (vs 13-16 s for 4 mm wides):
   render only the seconds you will use.
+- **[pacing]** (honda-s2000 v6) A beat grid fitted from 11.6 ms RMS windows sat 5-35 ms early and drifted; the delivered-file
+  check (kicks decoded from the mp4) showed 0 % of cuts within half a frame. Detect kick attacks at <=1.5 ms hop and put each
+  cut on its measured kick; use the grid only for bars that have no kick. Coarser hops pick later sub-peaks (+20-40 ms).
