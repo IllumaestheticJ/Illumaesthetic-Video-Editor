@@ -44,7 +44,9 @@ timeline:
     src: /home/user/media/work/renders/c5/v3_sill
     src_fps: 15
     interpolate: true
-    dur: 3.2667
+    dur: 3.2
+    vf: split[fa][fb];[fa][fb]freezeframes=first=31:last=31:replace=30
+    hold_start: 0.0667
   - transition: {type: cut}
   - id: v3_gas
     section: side +X
@@ -53,6 +55,7 @@ timeline:
     src_fps: 15
     interpolate: true
     dur: 3.2667
+    vf: split[fa][fb];[fa][fb]freezeframes=first=33:last=33:replace=32
   - transition: {type: cut}
   - id: v3_trunk
     section: rear
@@ -61,6 +64,7 @@ timeline:
     src_fps: 15
     interpolate: true
     dur: 3.3000
+    vf: split[fa][fb];[fa][fb]freezeframes=first=33:last=33:replace=32
   - transition: {type: cut}
   - id: v3_rear
     section: rear
@@ -68,7 +72,7 @@ timeline:
     src: /home/user/media/work/renders/c5/v3_rear
     src_fps: 15
     interpolate: true
-    dur: 4.3333
+    dur: 4.3667
   - transition: {type: cut}
   - id: v3_fender
     section: side -X
@@ -76,7 +80,7 @@ timeline:
     src: /home/user/media/work/renders/c5/v3_fender
     src_fps: 15
     interpolate: true
-    dur: 3.3000
+    dur: 3.2667
   - transition: {type: cut}
   - id: v3_home
     section: whole
@@ -85,7 +89,7 @@ timeline:
     src_fps: 15
     interpolate: true
     dur: 3.2667
-    vf: fade=t=out:st=2.514:d=0.75
+    vf: split[fa][fb];[fa][fb]freezeframes=first=65:last=65:replace=64,fade=t=out:st=2.514:d=0.75
   - transition: {type: cut}
   - id: logo   # small logo on the biggest hit, gone by 38.6
     src: /home/user/media/c5-corvette/logo/logo_small.png

@@ -612,3 +612,14 @@ lands here automatically. Agents must read this whole file before editing.
 - **A RANSAC "ground" plane on a full-car scan can be the flat undertray, not the floor.** On the Revuelto no floor was scanned; the level plane sat on the undertray and a z > 8 mm floor cut sliced 17 cm off every tyre (plus bumper lips and lower structure). Before any floor cut, plot the z-profile under a wheel: tyres must hang BELOW the plane you call ground. If no floor exists, clean by footprint + lowest tyre z instead (`projects/lamborghini-revuelto/tools/clean2.py`).
 - Bumper sub-part explode (front and rear): cut to the bumper ALONE on black (car loaded hidden, only as the light reference), show the scanned inner face, turn to the outer face, then swap the assembled bumper for the stripped skin + each sub-part scan and move the pieces apart along the car's axes. Register every sub-part scan to the bumper scan first (tint overlay + median distance), leave out anything that is not a bumper part (reverse light, plate light, exhaust tips) and pull the camera back until the spread fits (3 m clipped; 3.8-4.1 m fits a 2 m bumper in portrait).
 - Look at the FIRST frame of every wide after the final render, not only the 30 % preview of an earlier camera: the v3 opener had the nose clipped at the frame edge for its first half and needed a re-render.
+## c5-corvette v3 (2026-11-11): artifacts from state scans
+- Never composite every removed-state scan into one base. Duplicate skins (hood, cowl, glass) sit 3-10 mm off the car and show
+  as shards. Build one base per section from that section's own state (`projects/c5-corvette/tools/composite2.py`: >15 mm from
+  car and parts, island filter ≥4000 tris), and swap to it in the shot where it's used.
+- Clean the full car before it is shown whole: ground scraps and tyre fringe (`projects/c5-corvette/tools/carclean.py`).
+- Region states without a part scan (door open, fuel door, hatch) are shown by an in-shot swap of just that region
+  (`projects/c5-corvette/tools/swapstate.py`) on a kick, with a label.
+- minterpolate smears the frame between pre- and post-swap renders (a ghosted swap). After assembly, find each swap by frame
+  differencing and replace the blend frame: `vf: split[fa][fb];[fa][fb]freezeframes=first=N:last=N:replace=N-1` (N is
+  clip-local after fps). Do not move a swap with `speed:`: the fps resample adds a duplicate plus a blend. Use `hold_start` and
+  shorten `dur` instead.

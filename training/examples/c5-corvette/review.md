@@ -1,42 +1,42 @@
-# C5 Corvette scan reel v2: agent self-review (training/rubric.md)
+# C5 Corvette scan reel v3: agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/c5_corvette_v2.mp4`: 1080x1920, 30 fps, yuv420p, AAC, 39.37 s (1181 frames).
-Scan only (brief); 6 title-only labels over scan shots. Music: the parent session's generated track only.
-v1 (`c5_corvette_v1.mp4`) review is in git history (commit 7687b36). What changed is in `direction.md` §4 and `editlog.jsonl`.
+Output: `/home/user/media/work/out/c5_corvette_v3.mp4`: 1080x1920, 30 fps, yuv420p, AAC, 39.37 s (1181 frames).
+Scan only. Nine title-only labels, all over black. Music: the parent session's generated track only.
+The v2 review (`c5_corvette_v2.mp4`) is in git history. The v3 plan is in `direction.md` ("# v3 direction"), and every decision is in `editlog.jsonl`.
 
-## What changed from v1 (reviewer: "focus on the removed areas and where the useful data is" + parent V2 brief/addendum)
-- Built around the four registered removed states only: front bumper removed, front bumper + hood removed,
-  fender + bumper removed, rear bumper removed. The targa has no roof-off scan, so it never comes off. There are no trunk/door scans, so nothing else opens.
-- One continuous sequence per section, travelling whole → front (bumper, then hood) → -X side (fender) → rear → whole. v1's
-  turntables, top-down spin and all-parts-at-once explode are gone.
-- Each removal holds on the exposed structure and moves in. A part spins only where its backside was scanned:
-  the front bumper inside, the hood underside and the rear bumper inside. The fender only translates.
-- The labels name the scan states, worded from the file names: FRONT BUMPER REMOVED / FRONT BUMPER - INSIDE / HOOD REMOVED /
-  FENDER REMOVED / REAR BUMPER REMOVED / REAR BUMPER - INSIDE. They sit over black, below the car.
-- Cuts on measured kick onsets, within ½ frame. v1 was 2-4 frames late.
-- Clean car → small logo on the biggest hit, then fade.
+## What changed from v2
+Reviewer feedback: "a lot of artifacts ... we also have gas cap and doorsill scans, as well as a trunk scan ... delete/hide the
+artifacts from the full car scan when it cuts in".
+- **Artifacts.** v2 used one composite that carried every removed state at once. The state scans' duplicate hood, cowl and glass sat
+  more than 7 mm off the car and showed as shards. v3 builds a separate base per section (`tools/composite2.py`). Each base uses
+  only that section's own state scan, keeps a state triangle only if it is more than 15 mm from both the car and the parts, and
+  drops connected islands under 4000 triangles.
+- **Clean car.** The full car is now `car3`: `tools/carclean.py` removes ground scraps and tyre fringe. This is the car that cuts
+  in at the open and the end.
+- **New scans.** Left doorsill, gas cap and trunk open are shown as in-shot swaps from the closed car to the captured state
+  (`tools/swapstate.py` replaces just that region), each on a strong kick. There are no door, fuel-door or hatch part scans, so
+  nothing is animated off; the state simply appears. The right doorsill failed registration (5.6 mm) and is not used.
+- **Order.** One lap with no line cross: whole → front bumper → hood → +X sill → gas cap → trunk → rear bumper → -X fender → whole → logo.
+- **Swaps.** Each in-shot swap is a hard one-frame step. The minterpolate blend frame at each swap is replaced (freezeframes).
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | whole clean car moving from frame 1 (0.4 s fade-up). The front bumper starts sliding off at 1.2 s, so the first transformation comes in the first 2 s (v1: 17.7 s) |
-| 2 | Beat sync | 5 | cuts at frames 123, 279, 508, 664, 909, 1065. Measured on the decoded output: +10, -9, -5, +25 (broadband; low-band kick onset 22.126-22.130 → +3..+7), +5 ms. Logo on 35.496. The clean-car swap blends over 1031-1032, on the 34.402 kick (frame 1032) |
+| 1 | Hook | 4 | whole clean car moving from frame 1 (0.4 s fade-up); bumper starts off at 1.2 s |
+| 2 | Beat sync | 5 | cuts at 4.100, 9.300, 14.767, 18.033, 21.300, 24.600, 28.967, 32.233 s; in-shot swaps at 15.867 (sill), 19.133 (gas), 22.400 (trunk), 34.400 (clean car). All within one frame of the measured 40-150 Hz kick rise; most within ½ frame |
 | 3 | 1:1 match | n/a | scan-only by brief |
-| 4 | Scan quality | 4 | every removed state is a registered capture (2.3-4.1 mm median to the car); the composite still shows ragged trim lines where state scans meet the car (most visible on the fender macro); the opening and the ending swap to the clean car |
-| 5 | Story | 4 | one section at a time, each holding on its removed-state data, with the bumper/hood/rear-bumper backsides turned to camera; no section repeats. The front gets 12.8 s because it has two states (bumper, then hood + bay) |
-| 6 | Grade | 5 | one look (house satin silver, AgX, exposure -0.5); per-frame luma has no dropouts (persistent data off for every moving shot). The steps are all smooth exposure-area changes |
-| 7 | Text | 5 | six labels, each a file-backed scan-state name, over scan shots only, no numbers |
-| 8 | Ending | 5 | clean car, 1.1 s settle + 0.75 s fade, small logo (300 px) on the biggest hit, gone by 38.6 s |
-| 9 | Technical | 5 | 1080x1920 30 fps yuv420p AAC. First/middle/last frame of every shot checked: no accidental clipping. The bumper-inside and fender macros fill the frame on purpose. No plate characters (rear recess is empty) |
+| 4 | Scan quality | 4 | per-section bases: no floating shards from duplicate skins. Remaining: the trunk tub has a ragged no-data edge where the glass opening meets the sparse scan, and the gas-door seam shows a thin trim line at macro distance |
+| 5 | Story | 5 | nine sections, one focus each, every state from a registered scan, no section repeats; the user's three new scans each get a held, labelled beat |
+| 6 | Grade | 5 | one look throughout. Per-frame luma has no dropouts; the large steps are the intended swaps and parts turning edge-on |
+| 7 | Text | 5 | nine labels worded from file / state names, over black, no numbers |
+| 8 | Ending | 5 | clean car, fade, small logo on the biggest hit |
+| 9 | Technical | 5 | 1080x1920 30 fps yuv420p AAC. First/mid/last frames and the frames around every swap checked. The hood leaving the top of frame is deliberate (it rises off) |
 
-## Checks run (for the next agent)
-- `projects/porsche-macan/tools/cutcheck.py` and a 40-150 Hz envelope printout on the decoded output.
-  `tools/kickcut.py` with a wide window (±0.15 s) picked the *second* hit of a double kick at 17.0 and 30.3.
-  Read the envelope around each cut instead of trusting one number.
-- The swap frame was located by matching output frames to render frames f_0060/f_0061 (`speed: 0.960` on i2).
-- `ive director` "repeated views" flags small centred cars on black (silhouette IoU) even front vs rear. Section/focus tags are in project.yaml.
+## Checks run
+- `projects/porsche-macan/tools/cutcheck.py` (broadband), plus a 40-150 Hz envelope printed at frame steps around each cut.
+- Swap frames were found by frame differencing the output; each blend frame was then inspected visually.
+- `ive director` flags fb vs home as the same view (IoU 0.73). This is the known silhouette false positive: one is a front macro of the opened car, the other the whole clean car.
 
-## Known issues / v3 ideas
-- Ragged composite trim lines (fender macro, rear structure): trim each state scan to its part's footprint before compositing.
-- The opening wide is small in the 9:16 frame for its first second (car ~40 % of width) so the whole car reads with motion. A lower,
-  closer start would fill more.
-- 1:1 version: solve a camera on a DJI clip from the C5 dump (clips.md) and cut on the 9.309 drop.
+## Known issues / v4 ideas
+- Trunk: the scan is sparse below y 1.6 m, so the tub edge is ragged. A tighter low camera or a fill from the trunk-closed underside would help.
+- The right doorsill could be added after a manual seed for registration (current FPFH result 5.6 mm).
+- 1:1 IRL → scan version from the C5 Dropbox dump.

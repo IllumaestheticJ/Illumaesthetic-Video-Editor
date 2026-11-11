@@ -1,22 +1,23 @@
-# Director report - /tmp/claude-0/-home-user-Illumaesthetic-Video-Editor/697c5c38-da9b-59ed-a3f7-4749354e5ca0/scratchpad/c5_v1.yaml
+# Director report - projects/c5-corvette/project.yaml
 
-Total 39.37 s. Sections (s): untagged 39.38
+Total 39.3 s. Sections (s): whole 7.34, front 10.67, side +X 6.47, rear 7.63, side -X 3.3, untagged 3.9
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_front34 | 0.0 | 4.0 |  |  | 1.08 | 0.0 | 11.1->12.9 | no focus: tag - what should the viewer look at? |
-| s2_rear34 | 4.0 | 5.37 |  |  | 1.02 | 0.0 | 16.0->16.5 | no focus: tag - what should the viewer look at? |
-| s3_orbit | 9.37 | 4.43 |  |  | 0.96 | 0.0 | 17.2->17.6 | no focus: tag - what should the viewer look at? |
-| s4_wheel | 13.8 | 1.67 |  |  | 3.6 | 0.0 | 26.2->28.1 | no focus: tag - what should the viewer look at? |
-| s5_tail | 15.47 | 1.67 |  |  | 4.91 | 0.0 | 31.7->32.7 | no focus: tag - what should the viewer look at? |
-| s6_hood | 17.13 | 5.0 |  |  | 1.44 | 0.0 | 17.6->22.1 | no focus: tag - what should the viewer look at? |
-| s7_top | 22.13 | 4.47 |  |  | 2.21 | 0.0 | 13.7->16.6 | no focus: tag - what should the viewer look at? |
-| s8_explode | 26.6 | 3.87 |  |  | 1.75 | 0.0 | 10.1->12.3 | no focus: tag - what should the viewer look at? |
-| s9_reassemble | 30.47 | 5.0 |  |  | 1.62 | 0.0 | 10.5->12.3 | no focus: tag - what should the viewer look at? |
-| logo | 35.47 | 3.9 |  |  | 0.0 | 0.0 | 0.0->0.0 |  |
+| v3_open | 0.0 | 4.07 | whole | whole clean car, front bumper starts off (front-bumper base cuts in under the bumper only) | 2.05 | 0.0 | 12.1->11.6 |  |
+| v3_fb | 4.07 | 5.2 | front | FRONT BUMPER REMOVED: nose structure + the bumper's scanned inside | 4.87 | 0.0 | 10.8->16.3 |  |
+| v3_hood | 9.27 | 5.47 | front | hood on its fitted hinge -> scanned underside -> bay (front bumper + hood removed state) | 8.12 | 0.0 | 18.4->29.4 |  |
+| v3_sill | 14.73 | 3.2 | side +X | LEFT DOORSILL: closed door -> captured door-open state on 15.856 | 6.42 | 0.0 | 21.7->21.5 |  |
+| v3_gas | 17.93 | 3.27 | side +X | GAS CAP: fuel door closed -> captured open state on 19.135, macro on the cap | 6.85 | 0.0 | 25.6->41.7 |  |
+| v3_trunk | 21.2 | 3.3 | rear | TRUNK OPEN: hatch glass -> captured trunk tub on 22.404 | 5.35 | 0.0 | 19.0->35.0 |  |
+| v3_rear | 24.5 | 4.33 | rear | REAR BUMPER REMOVED: rear structure + the bumper's scanned inside | 3.62 | 0.0 | 7.4->15.9 |  |
+| v3_fender | 28.83 | 3.3 | side -X | FENDER REMOVED (hood on = captured state): wheelhouse / mounts | 7.45 | 0.0 | 12.6->20.6 |  |
+| v3_home | 32.13 | 3.27 | whole | parts return; clean car on 34.402; fade | 1.32 | 0.0 | 12.0->9.5 |  |
+| logo | 35.4 | 3.9 |  |  | 0.0 | 0.0 | 0.0->0.0 |  |
 
 ## Repeated views
-- s1_front34 ~ s2_rear34 (IoU 0.76, corr 0.84): same view shown twice
-- s3_orbit ~ s7_top (IoU 0.83, corr 0.88): same view shown twice
-- s3_orbit ~ s9_reassemble (IoU 0.72, corr 0.84): same view shown twice
-- s5_tail ~ s6_hood (IoU 0.68, corr 0.76): same view shown twice
+- v3_open ~ v3_fb (IoU 0.68, corr 0.83): same view shown twice
+- v3_open ~ v3_rear (IoU 0.66, corr 0.77): same view shown twice
+- v3_open ~ v3_home (IoU 0.71, corr 0.86): same view shown twice in the same section - merge or cut one
+- v3_fb ~ v3_rear (IoU 0.76, corr 0.82): same view shown twice
+- v3_fb ~ v3_home (IoU 0.73, corr 0.86): same view shown twice

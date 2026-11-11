@@ -2,11 +2,11 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [c5-corvette](c5-corvette/) - archived 2026-11-11
 - [porsche-macan](porsche-macan/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-11
-- [c5-corvette](c5-corvette/) - archived 2026-11-11
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-11
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
@@ -35,7 +35,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
-- [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11
