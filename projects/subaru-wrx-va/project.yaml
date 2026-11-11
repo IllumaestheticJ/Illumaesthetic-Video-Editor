@@ -12,7 +12,7 @@ music:
   fade_out: 1.2
 
 # cut kicks (s): b6 2.776, b12 5.496, b26 11.842, b30 13.656, b34 15.468, b42 19.095, b46 20.907, b54 24.533, b58 26.346
-beats: [0.057, 2.776, 5.496, 11.842, 13.656, 15.468, 19.095, 20.907, 24.533, 26.346, 29.066]
+beats: [-0.021, 2.677, 5.48, 11.765, 13.587, 15.402, 19.04, 20.86, 24.495, 26.318, 29.03]   # broadband kick attacks measured on the decoded track (v2); v1 grid read ~78 ms late
 
 overlays:
   - src: /home/user/media/subaru-wrx-va/out/hud_v2.mov   # labels (overlay_v2.json, ive hud)
@@ -26,9 +26,9 @@ timeline:
     src_fps: 15
     interpolate: true
     speed: 1.0
-    dur: 2.7333          # 82 frames (first clip one frame short)
+    dur: 2.6333          # 79 frames (first clip one frame short -> cut at f80)
     vf: "fade=t=in:st=0:d=0.6"
-  - transition: {type: cut, note: "b6 kick 2.776 (f83)"}
+  - transition: {type: cut, note: "b6 kick 2.776 (f80, v2 measured attack 2.677)"}
   - id: s06_hood         # b6-b12 ENGINE BAY, captured hood-open state
     section: engine bay
     focus: engine bay under the propped hood
@@ -36,19 +36,19 @@ timeline:
     src: /home/user/media/subaru-wrx-va/renders/s06_hood
     src_fps: 15
     interpolate: true
-    speed: 1.32
-    dur: 2.7333          # 82 frames
-  - transition: {type: cut, note: "b12 kick 5.496 (f165)"}
+    speed: 1.30
+    dur: 2.8000          # 84 frames
+  - transition: {type: cut, note: "b12 kick 5.496 (f164)"}
   - id: n1_bumper        # b12-b26 FRONT BUMPER (hero): bezels out, bumper off + flip (inside), push in on the bumper-removed front end
     section: front bumper
     focus: front bumper, then the front end behind it (fbumpremoved)
     beat: 12
-    src: /home/user/media/subaru-wrx-va/renders/n1_bumper
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/subaru-wrx-va/renders/n1_bumper30   # 30 fps: odd = 15 fps renders, even = real renders on part moves, mci elsewhere
+    src_fps: 30
+    interpolate: false
     speed: 1.0
-    dur: 6.3333          # 190 frames
-  - transition: {type: cut, note: "b26 kick 11.842 (f355)"}
+    dur: 6.3000          # 189 frames
+  - transition: {type: cut, note: "b26 kick 11.842 (f353)"}
   - id: n2_scoop         # b26-b30 HOOD: scoop lifts off, opening below
     section: hood
     focus: hood scoop and the scoop opening
@@ -58,7 +58,7 @@ timeline:
     interpolate: true
     speed: 1.0
     dur: 1.8333          # 55 frames
-  - transition: {type: cut, note: "b30 kick 13.656 (f410)"}
+  - transition: {type: cut, note: "b30 kick 13.656 (f408)"}
   - id: n_side           # b30-b34 SIDE: whole-car profile glide az 100->135 (reframed after stills)
     section: side
     focus: whole car, left side profile -> rear 3/4
@@ -67,8 +67,8 @@ timeline:
     src_fps: 15
     interpolate: true
     speed: 1.0
-    dur: 1.8             # 54 frames
-  - transition: {type: cut, note: "b34 15.469 (f464) - section change, first half-time kick"}
+    dur: 1.8000          # 54 frames
+  - transition: {type: cut, note: "b34 15.469 (f462) - section change, first half-time kick"}
   - id: n3_wing          # b34-b42 REAR: wing, rise from under the blade (scanned underside) to blade level, no removal
     section: rear
     focus: STI wing uprights and blade
@@ -78,7 +78,7 @@ timeline:
     interpolate: true
     speed: 1.0
     dur: 3.6333          # 109 frames
-  - transition: {type: cut, note: "b42 kick 19.095 (f573)"}
+  - transition: {type: cut, note: "b42 kick 19.095 (f571)"}
   - id: s07_trunk        # b42-b46 REAR: captured trunk-open state, src frames 0-27 (straight high rear)
     section: rear
     focus: open trunk lid and cavity
@@ -87,8 +87,8 @@ timeline:
     src_fps: 15
     interpolate: true
     speed: 1.0
-    dur: 1.8             # 54 frames
-  - transition: {type: cut, note: "b46 kick 20.909 (f627) - wide fully exploded"}
+    dur: 1.8333          # 55 frames
+  - transition: {type: cut, note: "b46 kick 20.909 (f626) - wide fully exploded"}
   - id: n4a_reassemble   # b46-b54 TOP/WIDE: whole car, nose up; bumper/fogs/scoop fly home, last lock on b54
     section: top
     focus: whole car reassembling
@@ -98,7 +98,7 @@ timeline:
     interpolate: true
     speed: 1.0
     dur: 3.6333          # 109 frames
-  - transition: {type: cut, note: "b54 kick 24.535 (f736) - swap to the clean car, same camera"}
+  - transition: {type: cut, note: "b54 kick 24.535 (f735) - swap to the clean car, same camera"}
   - id: n4b_clean        # b54-b58 same camera continues on the clean full car, fade to black
     section: top
     focus: whole car, assembled
@@ -107,7 +107,7 @@ timeline:
     src_fps: 15
     interpolate: true
     speed: 1.0
-    dur: 1.8             # 54 frames
+    dur: 1.8333          # 55 frames
     vf: "fade=t=out:st=0.9:d=0.9"
   - transition: {type: cut, note: "b58 kick 26.348 (f790) - small logo"}
   - id: logo             # small ILLUMAESTHETIC (~30 % width) fading in on black; rebuild logo_card.sh with scale=324 + fade in 0.5 s
