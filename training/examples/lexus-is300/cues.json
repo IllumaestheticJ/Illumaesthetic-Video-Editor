@@ -1,0 +1,53 @@
+{
+ "note": "lexus-is300_track.mp3: 92.0 BPM, beat 0.6522 s, kick grid phase 0.050 s (kick-flux fit). Shot i spans beats in 'beats'; secs = whole-frame durations between round(t*30) cut frames. Explode: separate at shot start (beat 36, 23.53 s), out by beat 38 (24.83 kick), drift, fly home from beat 42, LOCK on beat 46 (30.05 s, last hit), hold 2 beats; logo at beat 48 (31.36 s) over the tail.",
+ "beat": 0.6522,
+ "phase": 0.05,
+ "beats": {
+  "s1_front34": [
+   0,
+   8
+  ],
+  "s2_rear34": [
+   8,
+   14
+  ],
+  "s3_wheel": [
+   14,
+   16
+  ],
+  "s4_nose": [
+   16,
+   20
+  ],
+  "s5_front_off": [
+   20,
+   26
+  ],
+  "s6_trunk": [
+   26,
+   32
+  ],
+  "s7_top": [
+   32,
+   36
+  ],
+  "s8_explode": [
+   36,
+   48
+  ]
+ },
+ "secs": {
+  "s1_front34": 5.2667,
+  "s2_rear34": 3.9,
+  "s3_wheel": 1.3333,
+  "s4_nose": 2.6,
+  "s5_front_off": 3.9,
+  "s6_trunk": 3.9333,
+  "s7_top": 2.6,
+  "s8_explode": 7.8333
+ },
+ "x_sep": 0.0,
+ "x_hold": 1.3044,
+ "x_back": 3.9132,
+ "x_lock": 6.522
+}

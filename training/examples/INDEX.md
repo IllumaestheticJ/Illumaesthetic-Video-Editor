@@ -18,5 +18,6 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
+- [lexus-is300](lexus-is300/) - archived 2026-11-11
 - [fg2-race-car](fg2-race-car/) - archived 2026-11-11
 - [240sx-scan](240sx-scan/) - archived 2026-11-11

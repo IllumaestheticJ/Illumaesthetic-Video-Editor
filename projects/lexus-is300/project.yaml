@@ -21,7 +21,7 @@ timeline:
     src: /home/user/media/work/is300/renders/final/s1_front34
     src_fps: 15
     interpolate: true
-    dur: 5.1667
+    dur: 5.2333
   - transition: {type: cut, note: "beat 8 (5.268 s)"}
   - id: s2_rear34   # rear 3/4 orbit, other side, slight rise
     src: /home/user/media/work/is300/renders/final/s2_rear34
