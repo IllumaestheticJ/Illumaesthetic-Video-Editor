@@ -1,6 +1,6 @@
 # Subaru Impreza STI GD "blobeye" scan reel — inputs
 
-No IRL footage (scan-only Temerario-style reel). Music: `subaru-sti-blobeye_track.mp3` - original eurobeat-inspired track generated for this reel by the coordinating session (Higgsfield/ElevenLabs), 40.05 s, 152 BPM; in `/home/user/media/work/music/` (not in git).
+No IRL footage (scan-only Temerario-style reel). Music: `subaru-sti-blobeye_track.mp3` - original eurobeat-inspired track generated for this reel by the coordinating session (Higgsfield/ElevenLabs), 40.05 s, 150 BPM; in `/home/user/media/work/music/` (not in git).
 
 ## Scans (engineering Drive `Subaru Impreza Blobeye` 11V2-Msw5oHpb26lUmoT4EEQLzsFWGwaQ / `GD STi Scans`)
 Downloaded to `/home/user/media/subaru-sti-blobeye/scans`, worked in `/home/user/media/work/sti/` (A = car-aligned frame, mm; prep = Blender).

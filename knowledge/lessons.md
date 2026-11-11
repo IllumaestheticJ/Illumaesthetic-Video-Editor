@@ -639,3 +639,12 @@ lands here automatically. Agents must read this whole file before editing.
 - [scan] Before planning, list EVERY state/part scan in the Drive folder (trunk open, mirrors removed, individual lamps). The user flagged three we had missed. Small part scans (reverse light, plate lamp) are explodable beats: register them with tools/register_part.py and check the facing, because ICP can fit a lamp backwards.
 - [scan] `--drop-islands` 1500 deleted tail-lamp lenses in composites. Use ~150 and check the lamps.
 - [text] Measure the scan coverage under each label box over its whole window. Don't assume the top band is black on close-ups.
+## From the Subaru STI blobeye v3 (user feedback on v2: "improperly cut and hallucinated scans")
+- **[scan]** Panels carved out of a full-car scan by distance threshold, then animated off the car, read as hallucinated: the
+  edges are ragged and no scan shows the part in the air. Composites of several state scans read as improperly cut. Unless a
+  separate scan of the part exists, show each state scan ALONE, as captured, and make the "removal" a 1:1 state swap: one
+  camera move, hard cut on a kick from the full-car scan to the registered state scan (subaru-sti-blobeye/tools/shots_v3.py).
+- **[scan]** Render every state scan alone before planning. Swap only once the camera is tight enough that the partial capture
+  fills the frame; drop scans whose capture edge is ragged at every framing (thin strips, staircase edges, scattered islands).
+- **[workflow]** Background renders are killed at the task time limit. Queue at most ~2 h per job; resume a partial shot by
+  giving the spec a numeric `frames` list (shot.py writes the same f_NNNN.png names).
