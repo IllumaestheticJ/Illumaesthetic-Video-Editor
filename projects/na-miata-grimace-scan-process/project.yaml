@@ -3,7 +3,7 @@
 project: na-miata-grimace-scan-process
 format: reel-9x16
 output:
-  path: /home/user/media/work/miata/out/na_miata_grimace_scan_v1.mp4
+  path: /home/user/media/work/miata/out/na_miata_grimace_scan_v2.mp4
   width: 1080
   height: 1920
   fps: 30
@@ -61,7 +61,7 @@ timeline:
 - id: scan_jacked
   dur: 5.0333
   src: /home/user/media/work/miata/renders/s2_jacked
-  src_fps: 7.3548
+  src_fps: 14.5161
   interpolate: true
   note: 1:1 -> Strut Tower Jacked Exterior scan, pull back
 - transition:
@@ -77,7 +77,7 @@ timeline:
 - id: scan_reassy
   dur: 4.0
   src: /home/user/media/work/miata/renders/s4_reassy
-  src_fps: 18.1452
+  src_fps: 14.5161
   interpolate: true
   note: 'reassembly: bar drops back onto the towers'
 - transition:
@@ -85,7 +85,7 @@ timeline:
 - id: scan_end
   dur: 4.0
   src: /home/user/media/work/miata/renders/s5_end_graded
-  src_fps: 18.1452
+  src_fps: 14.5161
   interpolate: true
   note: full car orbit lands on the listing photo angle, grades to listing grey
 - transition:

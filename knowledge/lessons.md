@@ -234,3 +234,21 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** (c5-corvette) Exploded views from "... removed" state scans leave a frayed composite (trim lines where the parts
   meet). Once the last panel is home, swap to the clean full car ON a kick (all scans share one frame) so the last frame before
   the logo is clean.
+
+## From the NA Miata "Grimace" / stock NB chassis-scan reel (2026-11-11, built by an agent)
+- **[story]** The car in the brief may not be the scanned car: Grimace's cage ruled it out of the flex test, so the team
+  scanned a stock NB. Read the team's rough cut/PDF titles before planning; tell the parent/user and get the story OK'd.
+- **[story]** When raw scanning clips are missing, a team rough cut can be the source (user approved), but only spans with
+  no burned-in subtitles/section titles; slide the 9:16 crop window to dodge corner titles (crop x0 per shot).
+- **[match-cut]** Landscape source -> 9:16: solve on the full 16:9 frame, then build a crop camera (fx scaled, lens shift).
+  Blender lens shift is in units of the sensor-fit dimension (HORIZONTAL -> output WIDTH), not the long side
+  (na-miata-grimace-scan-process/tools/cropcam.py).
+- **[match-cut]** Very close ultra-wide frames (camera ~1 m from the bumper) didn't solve below ~27 px; pick a calmer frame
+  with the car whole in view and normal perspective.
+- **[scan-look]** A part that only exists in one state scan (strut bar) = ICP the two state scans (PCA coarse + trimmed
+  ICP, 3.6 mm median) and keep triangles >12 mm from the other state, largest voxel cluster (tools/icp.py, diffpart.py).
+  Silver part on a silver engine bay disappears: lift it above the bay so it silhouettes on black.
+- **[technical]** `--morph-to-clay` with `--look silver` does not change the camera background (keys the studio env node);
+  grade the end frames in post instead (tools/greygrade.py, medians: render bg 7/car 214 -> listing 57/148).
+- **[technical]** Check ReadNotifications early and after each long step: the music and parent instructions arrived an
+  hour before they were read.

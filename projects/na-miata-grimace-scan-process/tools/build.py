@@ -59,10 +59,10 @@ items = [
     {"kind": "counter", "from": F(6), "duration": F(10) - F(6), "label": "TRIANGLES CAPTURED", "value": 24997127, "x": 0.08, "y": 0.1},
     {"kind": "label", "from": F(10), "duration": F(15) - F(10) - 6, "title": "STOCK NB MIATA", "sub": "CONTROL SCAN · ON THE GROUND", "x": 0.08, "y": 0.1},
     {"kind": "brackets", "from": F(20, 3), "duration": F(30) - F(20) - 8},
-    {"kind": "label", "from": F(21), "duration": F(25) - F(21), "title": "ONE CORNER JACKED", "sub": "SAME SCAN · NO BRACING", "x": 0.08, "y": 0.1},
-    {"kind": "label", "from": F(25), "duration": F(30) - F(25) - 6, "title": "+1.695 MM", "sub": "ENGINE BAY WIDTH VS CONTROL", "x": 0.08, "y": 0.1},
+    {"kind": "label", "from": F(21), "duration": F(25) - F(21), "title": "ONE CORNER JACKED", "sub": "NO BRACING", "x": 0.92, "y": 0.88, "align": "right"},
+    {"kind": "label", "from": F(25), "duration": F(30) - F(25) - 6, "title": "+1.695 MM", "sub": "ENGINE BAY WIDTH VS CONTROL", "x": 0.92, "y": 0.88, "align": "right"},
     {"kind": "label", "from": F(31), "duration": F(35) - F(31), "title": "960.948 MM", "sub": "ENGINE BAY WIDTH · CONTROL", "x": 0.08, "y": 0.1},
-    {"kind": "label", "from": F(35), "duration": F(40) - F(35) - 6, "title": "STRUT BRACE", "sub": "SCANNED ON + OFF THE CAR", "x": 0.08, "y": 0.1},
+    {"kind": "label", "from": F(35), "duration": F(40) - F(35) - 6, "title": "STRUT BRACE", "sub": "SCANNED INSTALLED VS REMOVED", "x": 0.08, "y": 0.1},
     {"kind": "label", "from": F(41), "duration": F(48) - F(41) - 6, "title": "+0.731 MM", "sub": "JACKED WITH STRUT BRACE (BARE +1.695)", "x": 0.08, "y": 0.1},
 ]
 overlay = {"width": 1080, "height": 1920, "fps": FPS, "durationInFrames": total_f, "accent": "#e8ecf2", "items": items}
@@ -71,7 +71,7 @@ webzoom = {"width": 1080, "height": 1920, "fps": FPS, "durationInFrames": web_du
            "url": "ILLUMAESTHETIC.COM", "title": "SCAN DATA NOW AVAILABLE", "logo": "illumaesthetic_logo.png", "logoWidth": 640}
 proj = {
     "project": "na-miata-grimace-scan-process", "format": "reel-9x16",
-    "output": {"path": f"{W}/out/na_miata_grimace_scan_v1.mp4", "width": 1080, "height": 1920, "fps": FPS, "crf": 16, "preset": "slow"},
+    "output": {"path": f"{W}/out/na_miata_grimace_scan_v2.mp4", "width": 1080, "height": 1920, "fps": FPS, "crf": 16, "preset": "slow"},
     "music": {"path": "/home/user/media/work/music/na-miata-grimace-scan-process_track.mp3", "start": 0, "fade_out": 0.8},
     "beats": [round(c, 3) for c in cuts] + [round(end_f / FPS, 3)],
     "timeline": timeline,

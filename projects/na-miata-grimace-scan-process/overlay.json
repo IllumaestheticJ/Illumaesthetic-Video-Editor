@@ -38,9 +38,10 @@
    "from": 331,
    "duration": 60,
    "title": "ONE CORNER JACKED",
-   "sub": "SAME SCAN \u00b7 NO BRACING",
-   "x": 0.08,
-   "y": 0.1
+   "sub": "NO BRACING",
+   "x": 0.92,
+   "y": 0.88,
+   "align": "right"
   },
   {
    "kind": "label",
@@ -48,8 +49,9 @@
    "duration": 70,
    "title": "+1.695 MM",
    "sub": "ENGINE BAY WIDTH VS CONTROL",
-   "x": 0.08,
-   "y": 0.1
+   "x": 0.92,
+   "y": 0.88,
+   "align": "right"
   },
   {
    "kind": "label",
@@ -65,7 +67,7 @@
    "from": 542,
    "duration": 69,
    "title": "STRUT BRACE",
-   "sub": "SCANNED ON + OFF THE CAR",
+   "sub": "SCANNED INSTALLED VS REMOVED",
    "x": 0.08,
    "y": 0.1
   },

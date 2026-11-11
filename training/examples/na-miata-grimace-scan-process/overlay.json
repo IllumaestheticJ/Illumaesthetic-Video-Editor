@@ -1,0 +1,84 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1038,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "brackets",
+   "from": 94,
+   "duration": 142
+  },
+  {
+   "kind": "counter",
+   "from": 106,
+   "duration": 60,
+   "label": "TRIANGLES CAPTURED",
+   "value": 24997127,
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 166,
+   "duration": 69,
+   "title": "STOCK NB MIATA",
+   "sub": "CONTROL SCAN \u00b7 ON THE GROUND",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 319,
+   "duration": 143
+  },
+  {
+   "kind": "label",
+   "from": 331,
+   "duration": 60,
+   "title": "ONE CORNER JACKED",
+   "sub": "NO BRACING",
+   "x": 0.92,
+   "y": 0.88,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 391,
+   "duration": 70,
+   "title": "+1.695 MM",
+   "sub": "ENGINE BAY WIDTH VS CONTROL",
+   "x": 0.92,
+   "y": 0.88,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 482,
+   "duration": 60,
+   "title": "960.948 MM",
+   "sub": "ENGINE BAY WIDTH \u00b7 CONTROL",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 542,
+   "duration": 69,
+   "title": "STRUT BRACE",
+   "sub": "SCANNED INSTALLED VS REMOVED",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 632,
+   "duration": 99,
+   "title": "+0.731 MM",
+   "sub": "JACKED WITH STRUT BRACE (BARE +1.695)",
+   "x": 0.08,
+   "y": 0.1
+  }
+ ]
+}
