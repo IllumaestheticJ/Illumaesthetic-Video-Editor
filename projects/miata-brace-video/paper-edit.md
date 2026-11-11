@@ -5,7 +5,7 @@ Scan reports: same folder, `Chassis Scan Video/*.pdf`. All numbers below are rea
 tables/dimensions already on screen in the cut (engine-bay width between the strut towers).
 
 ## Reviewer notes received
-- 0:20 — wants a 2D "chassis flex" graphic (delivered: `ChassisFlex`, place at 0:22.0–0:30.0).
+- 0:20 — wants a 2D "chassis flex" graphic as a corner overlay on the track footage, showing flex over bumps and under cornering (delivered: `ChassisFlexOverlay`, cornering at 0:13–0:18, bumps at 0:18–0:23). The earlier full-frame `ChassisFlex` card was not what was wanted.
 - 0:49 — caption reads "kind of races", should be "fender braces".
 - 0:51 — caption reads "Thank you. Good one.", should be "Good-win" (Goodwin Racing).
 - 3:00 onward — no voiceover yet; wants each scan followed directly by its own data, for suspense.

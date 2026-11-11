@@ -1,6 +1,7 @@
 import { Composition } from "remotion";
 import { calculateScanHudMetadata, ScanHUD, scanHudDefaults } from "./ScanHUD";
 import { CHASSIS_FLEX_FPS, CHASSIS_FLEX_SECONDS, ChassisFlex, chassisFlexDefaults } from "./ChassisFlex";
+import { CFO_FPS, CFO_SECONDS, ChassisFlexOverlay, chassisFlexOverlayDefaults } from "./ChassisFlexOverlay";
 import { calculateWebZoomMetadata, WebZoom, webZoomDefaults } from "./WebZoom";
 
 export const RemotionRoot: React.FC = () => {
@@ -34,6 +35,15 @@ export const RemotionRoot: React.FC = () => {
         width={3840}
         height={2160}
         defaultProps={chassisFlexDefaults}
+      />
+      <Composition
+        id="ChassisFlexOverlay"
+        component={ChassisFlexOverlay}
+        durationInFrames={Math.round(CFO_FPS * CFO_SECONDS)}
+        fps={CFO_FPS}
+        width={3840}
+        height={2160}
+        defaultProps={chassisFlexOverlayDefaults}
       />
     </>
   );
