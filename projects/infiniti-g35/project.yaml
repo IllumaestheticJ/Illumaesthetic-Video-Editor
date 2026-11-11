@@ -1,0 +1,72 @@
+# Infiniti G35 coupe - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
+# Satin-silver scan on black; turntables -> close-ups -> trunk opens -> top-down -> exploded view -> logo.
+# Shots: projects/infiniti-g35/tools/shots.py (specs, G35_BEAT=0.66667) + tools/shot.py (Blender, copied from ferrari-296).
+# Music: infiniti-g35_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs via
+# Higgsfield; moody R&B-electronic). 90 BPM, beat 0.6667 s; bar kicks at 0.03 + k*2.6667 s; climax 26.70-36 (kicks every
+# half bar); fade ~37.0, silent 38.3. Cuts on frames round(t*30): 161, 321, 401, 481, 561, 681, 801, 1041; end 1140 (38.0 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+project: infiniti-g35
+format: reel-9x16
+output: {path: /home/user/media/work/g35/out/infiniti_g35_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/infiniti-g35_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [5.363, 10.697, 13.363, 16.030, 18.697, 22.697, 26.697, 34.697]
+
+timeline:
+  - id: s1_turntable   # low front-right 3/4 turntable, moving from frame 1
+    src: /home/user/media/work/g35/renders/final/s1_turntable
+    src_fps: 15
+    interpolate: true
+    dur: 5.3333
+  - transition: {type: cut, note: "5.36 bar kick"}
+  - id: s2_rear        # rear-left 3/4 orbit, rising
+    src: /home/user/media/work/g35/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 5.3333
+  - transition: {type: cut, note: "10.70 bar kick (double hit)"}
+  - id: s3_wheel       # extreme close-up: front right mesh wheel (2.5 mm scan)
+    src: /home/user/media/work/g35/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+  - transition: {type: cut, note: "13.37 bar kick"}
+  - id: s4_lamp        # headlight / fascia slide
+    src: /home/user/media/work/g35/renders/final/s4_lamp
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+  - transition: {type: cut, note: "16.03 bar kick"}
+  - id: s5_tail        # tail lamp + spoiler, rising
+    src: /home/user/media/work/g35/renders/final/s5_tail
+    src_fps: 15
+    interpolate: true
+    dur: 2.6667
+  - transition: {type: cut, note: "18.70 bar kick"}
+  - id: s6_trunk       # trunk lid (part scan) + spoiler open 19.36 -> 20.70
+    src: /home/user/media/work/g35/renders/final/s6_trunk
+    src_fps: 15
+    interpolate: true
+    dur: 4.0
+  - transition: {type: cut, note: "22.70 half-bar hit"}
+  - id: s7_top         # up and over to top-down
+    src: /home/user/media/work/g35/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 4.0
+  - transition: {type: cut, note: "26.70 climax entry - panels separate"}
+  - id: s8_explode     # separate 26.70, out by 29.37, drift + orbit, lock 33.37, hold 2 beats
+    src: /home/user/media/work/g35/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 8.0
+  - transition: {type: cut, note: "34.70 kick - logo over the track's ending"}
+  - id: logo           # tools/logo_card.py --secs 3.3
+    src: /home/user/media/work/g35/out/logo_card.mp4
+    dur: 3.3
+
+overlays: []

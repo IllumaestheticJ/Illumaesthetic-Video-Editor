@@ -62,7 +62,8 @@ def shots():
     }
     # 8. exploded view: panels lift into layers above/around the car, drift, return and lock
     E = S["s8_explode"]
-    SEP, HOLD, BACK, LOCK = 0.0, 4 * BEAT, E - 7 * BEAT, E - 4 * BEAT
+    SEP, HOLD, LOCK = 0.0, 4 * BEAT, E - 2 * BEAT  # separate on the climax kick, out by 4 beats, lock 2 beats before the cut
+    BACK = LOCK - 3 * BEAT
 
     def ex(off, rot=(0, 0, 0), delay=0.0):
         return [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
