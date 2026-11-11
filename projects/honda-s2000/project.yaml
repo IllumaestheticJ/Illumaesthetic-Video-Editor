@@ -4,7 +4,8 @@
 # bumper back on); only the real Bumper Only part moves; no hood animation, no trunk. Plan: direction.md / director.md.
 # Music: honda-s2000_track.mp3 (generated for this reel; 138.05 BPM, beat 0.43463 s, first kick 0.0565 s).
 # Map: groove b0-27 | drums out b28-31 | DROP b32 (13.965) | groove to b64 | outro b65-83 | hard stop b84 (36.565) | tail.
-# Cut k at frame round((0.0565 + beat*0.43463)*30). Exact `frames:` per clip; tools/concat_assemble.py (plain concat + HUD).
+# Cuts on the MEASURED kick attacks (40-120 Hz onset, 1.45 ms hop, tools/kickcheck.py): frames 106 158 211 263 | 367 (drums-out, no kick) |
+# 420 (drop) 524 629 706 785 | 889, 994 (no kick in the outro: drift-corrected grid) | 1044; end 1116.
 project: honda-s2000
 format: reel-9x16
 output: {path: /home/user/media/work/s2k/out/honda_s2000_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -14,7 +15,7 @@ music:
   start: 0
   fade_out: 0.7
 
-beats: [3.534, 5.272, 7.011, 8.749, 12.226, 13.965, 17.442, 20.919, 23.527, 26.134, 29.611, 33.088, 34.827]
+beats: [3.550, 5.289, 7.027, 8.766, 12.243, 13.982, 17.459, 20.936, 23.544, 26.152, 29.629, 33.106, 34.845]
 
 timeline:
   - id: W1   # [whole] whole car, front-left 3/4 turntable
@@ -39,7 +40,7 @@ timeline:
     src: /home/user/media/work/s2k/renders/final/R1
     src_fps: 15
     interpolate: true
-    frames: 52
+    frames: 53
   - transition: {type: cut, note: "b16 7.011"}
   - id: R2   # [rear] right tail lamp + ducktail edge (s4_tail)
     section: rear
@@ -56,7 +57,7 @@ timeline:
     src_fps: 12
     interpolate: true
     vf: "reverse"
-    frames: 105
+    frames: 104
   - transition: {type: cut, note: "b28 12.226"}
   - id: F0   # [front] left headlight + bumper lamps, last look with the bumper on (s3_lamp)
     section: front
@@ -64,7 +65,7 @@ timeline:
     src: /home/user/media/work/s2k/renders/final/s3_lamp
     src_fps: 15
     interpolate: true
-    frames: 52
+    frames: 53
   - transition: {type: cut, note: "b32 13.965"}
   - id: F1   # [front] bumper comes off ON the drop; camera moves in on the structure behind
     section: front
@@ -88,7 +89,7 @@ timeline:
     src: /home/user/media/work/s2k/renders/final/F3
     src_fps: 15
     interpolate: true
-    frames: 78
+    frames: 77
   - transition: {type: cut, note: "b54 23.527"}
   - id: F4   # [front] overhead slide across the beam and undertray
     section: front
@@ -96,7 +97,7 @@ timeline:
     src: /home/user/media/work/s2k/renders/final/F4
     src_fps: 15
     interpolate: true
-    frames: 78
+    frames: 79
   - transition: {type: cut, note: "b60 26.134"}
   - id: F5   # [front] the bumper rises and tips to show its scanned inner side
     section: front
@@ -120,14 +121,14 @@ timeline:
     src: /home/user/media/work/s2k/renders/final/F7
     src_fps: 15
     interpolate: true
-    vf: "fade=t=out:st=1.40:d=0.333"
-    frames: 52
+    vf: "fade=t=out:st=1.333:d=0.333"
+    frames: 50
   - transition: {type: cut, note: "b80 34.827 - small logo through the hard stop"}
   - id: logo   # small logo (~30 % width) on black, fades with the reverb tail
     section: end
     focus: logo
     src: /home/user/media/work/s2k/out/logo_card_v6.mp4
-    frames: 71
+    frames: 72
 
 overlays:
   - {src: /home/user/media/work/s2k/out/hud_v6.mov, start: 0}

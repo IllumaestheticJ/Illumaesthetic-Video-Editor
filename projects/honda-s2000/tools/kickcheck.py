@@ -9,7 +9,7 @@ a = ap.parse_args()
 sr = 22050
 x = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", a.video, "-ac", "1", "-ar", str(sr), "-f", "s16le", "-"],
                                  capture_output=True, check=True).stdout, np.int16).astype(float)
-hop = 64; fr = sr / hop
+hop = 32; fr = sr / hop  # 1.45 ms; coarser hops pick later sub-peaks
 low = sosfiltfilt(butter(4, [40, 120], "band", fs=sr, output="sos"), x)
 n = len(low) // hop; e = np.sqrt((low[:n * hop].reshape(n, hop) ** 2).mean(1))
 d = np.maximum(0, np.diff(e, prepend=e[0])); pk, _ = find_peaks(d, height=d.max() * 0.2, distance=int(fr * 0.15))
