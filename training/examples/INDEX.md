@@ -4,6 +4,7 @@ Newest first. Read the top two before starting a new edit.
 
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
+- [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-11
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11
