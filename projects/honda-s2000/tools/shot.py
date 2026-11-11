@@ -170,7 +170,8 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    # persistent data off for long multi-part animations: on s8 it lost all lighting from frame 17 on (unlit black frames)
+    sc.render.use_persistent_data = spec.get("persistent", True)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"

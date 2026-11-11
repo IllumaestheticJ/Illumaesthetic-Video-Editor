@@ -101,11 +101,12 @@ SHOTS = {
 EXP = {"secs": 14.0, "sep": 1 * B, "hold": 4 * B, "back": 24 * B, "lock": 28 * B}  # shot = beats 48..80
 
 
-def explode(off, rot=(0, 0, 0), delay=0.0, e=EXP):
+def explode(off, rot=(0, 0, 0), delay=0.0, e=EXP, drift=(6, 0, 4)):
     return [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
             {"t": e["sep"] + delay, "loc": [0, 0, 0], "rot": [0, 0, 0]},
             {"t": e["hold"] + delay, "loc": list(off), "rot": list(rot), "ease": "out"},
-            {"t": e["back"], "loc": [o * 1.07 for o in off], "rot": list(rot), "ease": "lin"},
+            # slow drift outward + a small extra tilt so the 8 s float never reads as a freeze (v1 frame diffs ~0)
+            {"t": e["back"], "loc": [o * 1.16 for o in off], "rot": [r + d for r, d in zip(rot, drift)], "ease": "inout"},
             {"t": e["lock"], "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
 
 
@@ -116,8 +117,8 @@ def explode_shot(e=EXP):
                 {"blend": f"{P}/hood.blend", "keys": explode((0.1, -0.2, 1.45), (12, 0, -6), 0.08, e)},
                 {"blend": f"{P}/lid.blend", "keys": explode((0.1, 0.3, 1.25), (38, 0, 0), 0.16, e)}],
             # high front-left 3/4 looking down ~30 deg, slow orbit toward the side; panels float in layers above the car
-            "cam": [orbit(e["secs"] * k / 12, 6.4 - 0.4 * (k / 12), 30 + 32 * (k / 12), 4.4 - 0.3 * (k / 12),
-                          c=(0.3, -0.15 + 0.2 * (k / 12), 0.9), focal=28, ease="lin", tz=0.9)
+            "cam": [orbit(e["secs"] * k / 12, 6.4 + 0.9 * (k / 12), 28 + 50 * (k / 12), 4.4 - 0.5 * (k / 12),
+                          c=(0.3, -0.15 - 0.45 * (k / 12), 0.9), focal=28, ease="lin", tz=0.9)
                     for k in range(13)]}
 
 
@@ -135,6 +136,8 @@ def spec(name, mode):
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if mode == "preview":
         sp["frames"] = ["first", "mid", "last"]
+    if name == "s8_explode":
+        sp["persistent"] = False
     os.makedirs(SPECS, exist_ok=True)
     p = f"{SPECS}/{name}_{mode}.json"
     json.dump(sp, open(p, "w"), indent=1)
