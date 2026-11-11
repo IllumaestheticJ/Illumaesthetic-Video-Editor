@@ -1,0 +1,12 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1177,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "label", "from": 452, "duration": 57, "title": "FRONT BUMPER REMOVED", "sub": "HOOD REMOVED · STATE SCAN", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 599, "duration": 57, "title": "REAR BUMPER REMOVED", "sub": "STATE SCAN", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 672, "duration": 57, "title": "REAR CRASH BEAM", "sub": " ", "x": 0.08, "y": 0.08}
+ ]
+}
