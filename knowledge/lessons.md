@@ -83,3 +83,6 @@ lands here automatically. Agents must read this whole file before editing.
   Render scan/CGI on an extended canvas (same focal, wider sensor, symmetric about the principal point) and put the photo
   on a blurred, darkened fill of itself (fg2-race-car/tools/canvas.py + kb_zoomout.py).
 - **[text]** Epsilon product reels end on the Epsilon+ wordmark (Drive `EPSILON+ Logos`), not the Illumaesthetic logo.
+- **[story]** "CGI model" = Ecky's modelled car (smooth panels, glass, light textures; usually a .glb), NOT a .blend that
+  paints the scan. FG2 Race Lip.blend / Bodykit for turn10.blend are the LQ scan in red/orange - user rejected that.
+  Compare a frame of the team's CGI reference video with your render before using any .blend as "the CGI".
