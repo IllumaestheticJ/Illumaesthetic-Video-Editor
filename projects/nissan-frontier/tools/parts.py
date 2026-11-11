@@ -39,3 +39,12 @@ save(f"{X}/flares.stl", car[fla])
 # v2: flares split by side (car's right = -X is the camera side in the explode) -> flares_r.stl / flares_l.stl
 fr = car[fla]; fx = fr["v"].mean(1)[:, 0]
 save(f"{X}/flares_r.stl", fr[fx < 0]); save(f"{X}/flares_l.stl", fr[fx >= 0])
+
+# v2 fix: the bumper scan carries its own copy of the grille ~6-30 mm off the grille part (bumper registration is 6 mm off),
+# so the 8 mm cut above left a duplicate grille on the bumper. Remove bumper tris inside the grille bbox (+12 mm) that are
+# within 40 mm of the grille scan.
+gv = grille["v"].mean(1); glo, ghi = gv.min(0) - 12, gv.max(0) + 12
+fc = fbr["v"].mean(1)
+inb = np.all((fc >= glo) & (fc <= ghi), axis=1)
+gd2, _ = cKDTree(gv).query(fc, distance_upper_bound=45)
+save(f"{X}/bumper.stl", fbr[~(inb & (gd2 < 40))])
