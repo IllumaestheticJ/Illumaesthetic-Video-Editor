@@ -1,72 +1,45 @@
-# Toyota GR Corolla - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
-# Satin-silver scan on black; turntables -> close-ups -> hood + hatch open -> top-down -> exploded view -> logo.
-# Shots: tools/shots.py (specs, timing from timing.json) + tools/shot.py (Blender renderer copied from ferrari-296).
-# Music: toyota-gr-corolla_track.mp3 - original track generated for this reel by the coordinating session (not in git).
-# 140.0 BPM, beat 0.4286 s; no-kick build to the drop at 13.798, break 26.66-27.08, drop 2 at 27.513, music gone ~38.2.
-# Cuts on frames 208, 311, 363, 414 (DROP), 517, 620, 723, 1031; end 1146 (38.2 s). Durs are whole frames; first clip
-# one frame short (the assembler adds the cut hold frame).
+# Toyota GR Corolla - Temerario-style scan reel v2 (scan only: no IRL footage, no text). v1 (orbits, one-shot explode): project_v1.yaml.
+# v2 = reviewer's "same standard v1 issues": whole car in the opening shots, no turntables/orbits (pushes, slides, rise),
+# the removed areas carry the reel (front bumper off framed on the front -> the structure behind it -> rear bumper off
+# + one turn to show its scanned inner side -> diffuser), drop 2 = everything out over the whole car, fly home, clean
+# car on the lock, short hold, dip to black, small logo. Shots: tools/shots_v2.py + timing_v2.json; tools/shot.py renders.
+# Music: toyota-gr-corolla_track.mp3 (generated for this reel, not in git): 140.0 BPM, beat 0.4286 s, build to the drop at
+# 13.798, break 26.66-27.08, drop 2 at 27.513, music gone ~38.2. Cuts on frames 105, 208, 311, 363, 414, 517, 620, 723,
+# 825, 980; dip 1031 (0.5 s); end 1146. Whole-frame durs, first clip one frame short.
 project: toyota-gr-corolla
 format: reel-9x16
-output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/toyota-gr-corolla_track.mp3   # not in git
   start: 0
   fade_out: 0.3
 
-beats: [6.940, 10.369, 12.083, 13.798, 17.226, 20.655, 24.084, 34.370]
+beats: [3.511, 6.940, 10.369, 12.083, 13.798, 17.226, 20.655, 24.084, 27.513, 32.656, 34.370]
 
 timeline:
-  - id: s1_front      # slow front-right 3/4 turntable through the build (16 beats)
-    src: /home/user/media/work/grc/renders/final/s1_front
-    src_fps: 15
-    interpolate: true
-    dur: 6.9
-  - transition: {type: cut, note: "6.940 phrase (b16)"}
-  - id: s2_rear       # rear-left 3/4 orbit, slight rise (real rear wheel side)
-    src: /home/user/media/work/grc/renders/final/s2_rear
-    src_fps: 15
-    interpolate: true
-    dur: 3.4333
-  - transition: {type: cut, note: "10.369 phrase (b24)"}
-  - id: s3_wheel      # extreme close-up: front-right wheel, 2 mm scan
-    src: /home/user/media/work/grc/renders/final/s3_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 1.7333
-  - transition: {type: cut, note: "12.083 half phrase (b28)"}
-  - id: s4_nose       # headlight + grille slide into the drop
-    src: /home/user/media/work/grc/renders/final/s4_nose
-    src_fps: 15
-    interpolate: true
-    dur: 1.7
+  - {id: a1_front, src: /home/user/media/work/grc/renders2/final/a1_front, src_fps: 15, interpolate: true, dur: 3.4667}   # whole car front-right 3/4, push
+  - transition: {type: cut, note: "3.511 b8"}
+  - {id: a2_rear, src: /home/user/media/work/grc/renders2/final/a2_rear, src_fps: 15, interpolate: true, dur: 3.4333}     # whole car rear-left 3/4, push + rise
+  - transition: {type: cut, note: "6.940 b16"}
+  - {id: a3_top, src: /home/user/media/work/grc/renders2/final/a3_top, src_fps: 15, interpolate: true, dur: 3.4333}       # whole car top-down, descent
+  - transition: {type: cut, note: "10.369 b24"}
+  - {id: a4_wheel, src: /home/user/media/work/grc/renders2/final/a4_wheel, src_fps: 15, interpolate: true, dur: 1.7333}   # front-right wheel, 2 mm
+  - transition: {type: cut, note: "12.083 b28"}
+  - {id: a5_nose, src: /home/user/media/work/grc/renders2/final/a5_nose, src_fps: 15, interpolate: true, dur: 1.7}        # headlight + grille slide into the drop
   - transition: {type: cut, note: "13.798 DROP"}
-  - id: s5_hood       # hood lifts b33-b36 onto the stripped shell's front structure (Chassis Stripped scan)
-    src: /home/user/media/work/grc/renders/final/s5_hood
-    src_fps: 15
-    interpolate: true
-    dur: 3.4333
-  - transition: {type: cut, note: "17.226 phrase (b40)"}
-  - id: s6_hatch      # hatch lifts b41-b45, cargo area from the trunk-open state scan
-    src: /home/user/media/work/grc/renders/final/s6_hatch
-    src_fps: 15
-    interpolate: true
-    dur: 3.4333
-  - transition: {type: cut, note: "20.655 phrase (b48)"}
-  - id: s7_top        # rise from high front-right 3/4 to straight top-down
-    src: /home/user/media/work/grc/renders/final/s7_top
-    src_fps: 15
-    interpolate: true
-    dur: 3.4333
-  - transition: {type: cut, note: "24.084 phrase (b56)"}
-  - id: s8_explode    # front bumper, rear bumper, diffuser (scanned + physically removed) lift ON drop 2 (27.513), lock 32.656, hold 4 beats
-    src: /home/user/media/work/grc/renders/final/s8_explode
-    src_fps: 15
-    interpolate: true
-    dur: 10.2667
-  - transition: {type: cut, note: "34.370 phrase (b80) - logo over the last phrase and the tail"}
-  - id: logo          # projects/ferrari-296/tools/logo_card.py --secs 3.8333
-    src: /home/user/media/work/grc/out/logo_card.mp4
-    dur: 3.8333
+  - {id: b1_fbumper, src: /home/user/media/work/grc/renders2/final/b1_fbumper, src_fps: 15, interpolate: true, dur: 3.4333}  # front bumper lifts off on the drop
+  - transition: {type: cut, note: "17.226 b40"}
+  - {id: b2_front_detail, src: /home/user/media/work/grc/renders2/final/b2_front_detail, src_fps: 15, interpolate: true, dur: 3.4333}  # scanned structure behind it
+  - transition: {type: cut, note: "20.655 b48"}
+  - {id: b3_rbumper, src: /home/user/media/work/grc/renders2/final/b3_rbumper, src_fps: 15, interpolate: true, dur: 3.4333}  # rear bumper lifts off + turns to show its inner side
+  - transition: {type: cut, note: "24.084 b56"}
+  - {id: b4_diffuser, src: /home/user/media/work/grc/renders2/final/b4_diffuser, src_fps: 15, interpolate: true, dur: 3.4}   # diffuser drops away (break 26.66)
+  - transition: {type: cut, note: "27.513 DROP 2"}
+  - {id: c1_explode, src: /home/user/media/work/grc/renders2/final/c1_explode, src_fps: 15, interpolate: true, dur: 5.1667}  # all three out over the whole car; fly home, LOCK 32.656
+  - transition: {type: cut, note: "32.656 b76 lock -> clean car"}
+  - {id: c2_hero, src: /home/user/media/work/grc/renders2/final/c2_hero, src_fps: 15, interpolate: true, dur: 1.7}         # clean whole car, short push
+  - transition: {type: dip, duration: 0.5, note: "34.370 b80 - Temerario fade to black, then the small logo"}
+  - {id: logo, src: /home/user/media/work/grc/out/logo_card_small.mp4, dur: 4.3333}    # 540 px logo (half width), +0.5 s for the dip overlap
 
 overlays: []
