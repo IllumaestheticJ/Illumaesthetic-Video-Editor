@@ -2,7 +2,7 @@
 views: f34 r34 side top front rear or 'cam:x,y,z:tx,ty,tz:focal'. Writes a shot.py spec per view and renders at 30 %."""
 import json, os, subprocess, sys
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-SHOT = f"{REPO}/projects/ferrari-296/tools/shot.py"
+SHOT = f"{REPO}/projects/lexus-is350/tools/shot.py"
 V = {"f34": ([-3.6, -4.6, 1.3], [0, -0.3, 0.6], 30), "r34": ([3.6, 4.6, 1.4], [0, 0.3, 0.6], 30),
      "side": ([-6.5, 0, 1.0], [0, 0, 0.6], 30), "top": ([0, 0.01, 8.5], [0, 0, 0.5], 30),
      "front": ([0, -6.5, 1.0], [0, 0, 0.6], 30), "rear": ([0, 6.5, 1.0], [0, 0, 0.6], 30),

@@ -1,5 +1,5 @@
 """Shot specs for the Lexus IS350 (2026 facelift) Temerario-style scan reel -> JSON for
-projects/ferrari-296/tools/shot.py (shared keyframed renderer: house silver look, camera keys, pivoted parts).
+projects/lexus-is350/tools/shot.py (copy of the ferrari-296 keyframed renderer: house silver look, camera keys, pivoted parts).
 
     python projects/lexus-is350/tools/shots.py preview|final [shot ...]    # writes specs, prints their paths
 
@@ -56,10 +56,10 @@ S = TIMING
 SHOTS = {
     # 1. low front 3/4 turntable, car's right side, slow and continuous from frame 1
     "s1_front34": {"base": [CAR], "cam": arc(S["s1_front34"], 5.9, 5.6, -24, -44, 1.05, 1.15,
-                                              (0, -0.2, 0.62), (0, -0.1, 0.62), focal=30, ease="out")},
+                                              (0.1, -0.75, 0.62), (0.05, -0.5, 0.62), focal=30, ease="out")},
     # 2. rear 3/4 orbit on the other (left) side, slight rise
-    "s2_rear34": {"base": [CAR], "cam": arc(S["s2_rear34"], 5.8, 5.5, 152, 134, 1.1, 1.35,
-                                             (0, 0.2, 0.62), (0, 0.1, 0.62), focal=30, ease="out")},
+    "s2_rear34": {"base": [CAR], "cam": arc(S["s2_rear34"], 6.1, 5.9, 152, 134, 1.1, 1.35,
+                                             (-0.1, 0.95, 0.62), (-0.1, 0.85, 0.62), focal=30, ease="out")},
     # 3. extreme close-up: right headlamp -> grille mesh corner (plate stays out of frame)
     "s3_lamp": {"base": [FR], "cam": [
         {"t": 0, "loc": [-1.55, -3.25, 0.92], "target": [-0.62, -2.18, 0.72], "focal": 40},
