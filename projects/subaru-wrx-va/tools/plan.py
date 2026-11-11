@@ -62,16 +62,18 @@ SHOTS = {
         {"t": 0.65, "pos": [0.0, 0.001, 6.4], "look": [0, 0, 0.5], "up": [1, 0, 0]},
         {"t": 1, "pos": [0.0, 0.001, 6.1], "look": [0, 0, 0.5], "up": [1, 0.18, 0]}]},
     # 9. exploded view: panels separate in layers ABOVE the car (Temerario, portrait-friendly), bumper turns about Z, reassemble
-    "s09_explode": {"seconds": 8.0, "lens": 30, "ease": "sine", "objects": [
+    "s09_explode": {"seconds": 5.439, "lens": 30, "ease": "sine", "objects": [
+        # timed to the track (b46 = 20.907 s start, 0.4533 s beats): out by b48 (0.167), bumper turns b48-b51,
+        # everything locks home on the strong b54 kick (24.533 s = 0.667), assembled car holds to the logo at b58
         {"blend": f"{B}/explode_base_4mm.blend"},
-        part("fbump_nofog_2mm", (-0.45, 0, 1.65), (0, 0, 180)),
-        part("fogL_2mm", (0.15, 0.3, 0.95), (0, 0, 0), t_out=(0.08, 0.28), t_back=(0.6, 0.8)),
-        part("fogR_2mm", (0.15, -0.3, 0.95), (0, 0, 0), t_out=(0.08, 0.28), t_back=(0.6, 0.8)),
-        part("scoop_2mm", (-0.15, 0, 0.5), (0, 0, 0), t_out=(0.06, 0.26), t_back=(0.64, 0.84)),
-        part("wingfull_2mm", (-0.2, 0, 0.85), (0, 0, 0), t_out=(0.10, 0.30), t_back=(0.66, 0.86)),
+        part("fbump_nofog_2mm", (-0.45, 0, 1.65), (0, 0, 180), t_out=(0.0, 0.167), spin=(0.18, 0.47), t_back=(0.5, 0.667)),
+        part("fogL_2mm", (0.15, 0.3, 0.95), t_out=(0.03, 0.18), spin=(0.2, 0.2), t_back=(0.52, 0.667)),
+        part("fogR_2mm", (0.15, -0.3, 0.95), t_out=(0.03, 0.18), spin=(0.2, 0.2), t_back=(0.52, 0.667)),
+        part("scoop_2mm", (-0.15, 0, 0.5), t_out=(0.02, 0.17), spin=(0.2, 0.2), t_back=(0.54, 0.667)),
+        part("wingfull_2mm", (-0.2, 0, 0.85), t_out=(0.05, 0.19), spin=(0.21, 0.21), t_back=(0.54, 0.667)),
     ], "cam": [
         {"t": 0, "az": 42, "dist": 4.7, "z": 2.1, "look": [0.5, 0, 1.25]},
-        {"t": 1, "az": 72, "dist": 4.9, "z": 2.4, "look": [0.3, 0, 1.2]}]},
+        {"t": 1, "az": 70, "dist": 4.9, "z": 2.4, "look": [0.3, 0, 1.2]}]},
 }
 
 if __name__ == "__main__":
