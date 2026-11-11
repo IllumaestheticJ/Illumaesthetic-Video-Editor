@@ -9,9 +9,12 @@ No IRL footage in this reel (scan only, no text) - brief: "Temerario-style scan 
 | oct31 | same folder, `Video Oct 31 2026, 1 30 46 PM.mp4` | approved 240SX IRL reel - **music source** (95.7 BPM, 22.75 s), same track the 240SX scan reel used |
 
 ## Music
-`/home/user/media/huracan-evo/music/huracan_music.wav` = oct31 audio, `[0, 15.697)` + `[5.596, end]` (16 beats repeated,
-12 ms crossfade on measured onsets) = 32.855 s. `ive beats` grid unbroken across the splice (beat 20 lands at 15.697).
-Dropbox has no other music: an audio search only finds DJI field-mic WAVs (Corvette, Fuji Speedway).
+**Final: `/home/user/media/work/music/reel_track_a.mp3`** (not committed) - generated for these reels by the parent session
+after the user asked to "generate music that matches the beat"; 40.05 s, kick-peak grid t = 0.0768 + 0.60006*k (100.0 BPM).
+Sections measured: pads/sub/pulse to 18.1 s, one dropped kick at 18.68 s, lift at 19.28 s (bar k=32, RMS +12 %), last kick
+36.08 s, reverb tail to 40.05 s.
+Superseded: Oct 31 approved-reel track extended to 32.855 s (`/home/user/media/huracan-evo/music/huracan_music.wav`) - Dropbox
+had no other music (audio search = DJI field mics only).
 
 ## Scans (Drive `Lamborghini Huracan` / subfolder named **"Huracan Evo Spider"**, all dated 2026-08-31, one Artec frame)
 | file | tris | what it is |

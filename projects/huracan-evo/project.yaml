@@ -5,74 +5,74 @@ format: reel-9x16
 output: {path: /home/user/media/work/out/huracan_evo_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/huracan-evo/music/huracan_music.wav   # Oct 31 approved reel track, 16 beats repeated at 15.697 s
+  path: /home/user/media/work/music/reel_track_a.mp3   # generated for these reels (parent session, user asked to generate music); not committed
   start: 0
-  fade_out: 1.2
+  fade_out: 0.6   # track's own reverb tail runs under the logo
 
-# even-beat accents from the 3.065 s drop (95.7 BPM); 30.209 = logo (approved reel's logo beat, shifted by the 16-beat repeat)
-beats: [3.065, 6.85, 9.381, 11.912, 15.697, 18.204, 22.013, 25.797, 30.209]
+# kick-peak grid t = 0.0768 + 0.60006*k (100.0 BPM; 40-120 Hz peaks, global pick + LSQ, resid 6 ms). Cuts on bar/half-bar kicks; lift k=32; logo on the music stop k=60
+beats: [3.677, 7.278, 9.678, 12.078, 16.878, 19.279, 24.079, 28.88, 36.08]
 
 timeline:
   - id: s1_side   # low side profile tracking toward the nose; fades up from black (ref 0-3 s)
     src: /home/user/media/work/renders/huracan/s1_side
     src_fps: 15
     interpolate: true
-    dur: 3.0333
+    dur: 3.6333
     vf: fade=t=in:st=0:d=1.2
   - transition: {type: cut}
-  - id: s2_front34   # front 3/4 low turntable - cut on the drop (3.065 s)
+  - id: s2_front34   # front 3/4 low turntable - first cut on the kick at 3.677 s
     src: /home/user/media/work/renders/huracan/s2_front34
     src_fps: 15
     interpolate: true
-    dur: 3.8000
+    dur: 3.6000
   - transition: {type: cut}
   - id: s3_rear34   # rear 3/4 turntable
     src: /home/user/media/work/renders/huracan/s3_rear34
     src_fps: 15
     interpolate: true
-    dur: 2.5000
+    dur: 2.4000
   - transition: {type: cut}
   - id: s4_wheel   # extreme close-up: front-right corner wheel off (brake disc, caliper, hub) - 2 mm state scan
     src: /home/user/media/work/renders/huracan/s4_wheel
     src_fps: 15
     interpolate: true
-    dur: 2.5333
+    dur: 2.4000
   - transition: {type: cut}
   - id: s5_frontopen   # front bumper slides off, fender steps out, hood swings up on its fitted hinge
     src: /home/user/media/work/renders/huracan/s5_frontopen
     src_fps: 15
     interpolate: true
-    dur: 3.8000
+    dur: 4.8000
   - transition: {type: cut}
-  - id: s6_top   # crane up and over to top-down, spinning; splice point of the music (15.697 s)
+  - id: s6_top   # crane up and over to top-down, spinning (whips through the dropped kick at 18.68 s into the lift)
     src: /home/user/media/work/renders/huracan/s6_top
     src_fps: 15
     interpolate: true
-    dur: 2.5000
+    dur: 2.4000
   - transition: {type: cut}
   - id: s7_explode   # high rear 3/4: rear bumper, skirt, fender, front bumper, hood, cowls separate (staggered)
     src: /home/user/media/work/renders/huracan/s7_explode
     src_fps: 15
     interpolate: true
-    dur: 3.8000
+    dur: 4.8000
   - transition: {type: cut}
   - id: s8_float   # wide side view, panels floating above the car
     src: /home/user/media/work/renders/huracan/s8_float
     src_fps: 15
     interpolate: true
-    dur: 3.8000
+    dur: 4.8000
   - transition: {type: cut}
   - id: s9_reassemble   # panels return home, rear 3/4 hero; fades to black
     src: /home/user/media/work/renders/huracan/s9_reassemble
     src_fps: 15
     interpolate: true
-    dur: 4.4000
-    vf: fade=t=out:st=3.600:d=0.8
+    dur: 7.2000
+    vf: fade=t=out:st=6.300:d=0.9
   - transition: {type: cut}
   - id: logo   # ILLUMAESTHETIC logo card on black (Drive IllumaestheticLogoColor-01.png, 560 px wide like the ref card)
     src: /home/user/media/huracan-evo/logo/end_card.png
-    duration: 2.7667
-    dur: 2.6667
+    duration: 4.0667
+    dur: 3.9667
     vf: fade=t=in:st=0:d=0.5
 
 overlays: []   # no text in this format (Temerario ref has none)
