@@ -592,3 +592,11 @@ lands here automatically. Agents must read this whole file before editing.
   never exit: c5 lost 2 h. Chain jobs in one script (`render_all.sh a b c`) or wait on a PID.
 - **Remotion ScanHUD `label` crashes on an empty `sub`** (interpolate inputRange [6,6]). Use `"sub": " "` for title-only labels.
 - **`ive director` "repeated views" is silhouette overlap**: small centred cars on black flag even front vs rear. Check the pairs by eye.
+
+- **[text]** If the video shows a variant (Spyder), the narration must talk about that variant too  _(from huracan-evo @ 41s, 2026-11-11, reviewer)_
+
+- **[text]** Narration units in imperial (hp, lb-ft, mph, 0-60)  _(from huracan-evo @ 4s, 2026-11-11, reviewer)_
+
+- **[audio]** Narrator speaks faster, like the example video  _(from huracan-evo @ 4s, 2026-11-11, reviewer)_
+
+- **[text]** Narration should cover quirks and unique facts about the car, not just the spec sheet  _(from huracan-evo @ 4s, 2026-11-11, reviewer)_
