@@ -6,7 +6,7 @@
 # (v1 measured +1 frame -> first clip 94 frames) | dissolve 699-714 | end 930. Every clip has a whole-frame dur (assembler adds the 1-frame xfade back per cut).
 project: a90-supra-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/a90_scan_process_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/a90_scan_process_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront), ends hard ~29.75 s
