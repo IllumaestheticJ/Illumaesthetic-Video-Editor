@@ -1,0 +1,65 @@
+# C5 Corvette scan-process reel (240SX format) v1.
+# Real stock C5 (Jul 17 2025 outdoor teardown, Dropbox 'Corvette Footage') -> 1:1 cut to the 2023 full-car scan on the
+# kick drop; crew pulls the fender + front bumper -> 1:1 cut to the stripped-front composite; fender + bumper float
+# out and spin (inside + outside scanned); real removed fender; x-ray reassembly ending on the listing's angle ->
+# dissolve to the illumaesthetic.com C5 3D-scan listing.
+project: c5-corvette-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/c5_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/c5/music.mp3   # original C5 track (cloudfront hf_20261111_055731), not in git
+  start: 7.138    # track beat 13 (grid 0.0447 + 0.54562 n); kick drop (track 9.320) lands at 2.182 s
+  fade_out: 0.8
+
+# Kick grid (video s) = 2.1824 + 1.09124 n (kicks on alternate beats from the drop). Cuts at frames
+# 65, 164, 229, 295, 327, 491, 524, 687 = round(K_n * 30) for n = 0, 3, 5, 7, 8, 13, 14, 19.
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+beats: [2.1824, 5.4561, 7.6386, 9.8211, 10.9124, 16.3686, 17.4598, 22.9160]
+
+timeline:
+  - id: irl_open        # stock C5 walk-around, approaching the rear 3/4; ends on the solved frame 35.035 s
+    src: /home/user/media/c5/dropbox/0056.MP4
+    in: 32.935
+    dur: 2.1333
+  - transition: {type: cut, note: "1:1 real -> full-car scan on the kick drop (cam_A)"}
+  - id: scan_A          # starts on cam_A, pulls back + orbits to the rear 3/4 of the whole car; HUD triangle count
+    src: /home/user/media/work/c5/renders/A
+    src_fps: 15
+    interpolate: true
+    dur: 3.3
+  - id: irl_fender      # crew unbolting the front fender (left side), panel gap opening
+    src: /home/user/media/c5/dropbox/0059.MP4
+    in: 30.0
+    dur: 2.1667
+  - id: irl_bumper      # front bumper pulled off the nose
+    src: /home/user/media/c5/dropbox/0060.MP4
+    in: 4.4
+    dur: 2.2
+  - id: irl_stripped    # walk up to the stripped right front; portrait plate x760-1760 y140-1918; ends on 10.010 s
+    src: /home/user/media/work/c5/plates/p0078.mp4
+    in: 8.977
+    dur: 1.0667
+  - transition: {type: cut, note: "1:1 real -> stripped-front scan (cam_B)"}
+  - id: scan_B          # starts on cam_B; pulls back to the right-front 3/4; fender rises above the arch, bumper below the nose, both spin 360 about Z
+    src: /home/user/media/work/c5/renders/B
+    src_fps: 15
+    interpolate: true
+    dur: 5.4667
+  - id: irl_parts       # the real removed fender on the ground, inside showing
+    src: /home/user/media/c5/dropbox/0074.MP4
+    in: 12.0
+    dur: 1.1
+  - id: scan_C          # x-ray: fender then bumper translate home; orbit through the nose to the listing's front-left 3/4
+    src: /home/user/media/work/c5/renders/C_final
+    src_fps: 15
+    interpolate: true
+    dur: 5.9333
+  - transition: {type: dissolve, duration: 0.5, note: "x-ray scan (morphed to listing grey) -> same-angle listing"}
+  - id: website         # C5 3D-scan listing; zoom-out lands on K21; title, logo, URL last
+    src: /home/user/media/work/out/webzoom_c5_v1.mp4
+    dur: 7.1
+
+overlays:
+  - src: /home/user/media/work/out/hud_c5_v1.mov
+    start: 0

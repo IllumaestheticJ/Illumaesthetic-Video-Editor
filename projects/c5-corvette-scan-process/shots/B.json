@@ -1,0 +1,132 @@
+{
+ "objects": {
+  "car": "/home/user/media/work/c5/stripped.blend",
+  "fender": "/home/user/media/work/c5/fender.blend",
+  "bumper": "/home/user/media/work/c5/front_bumper.blend"
+ },
+ "seconds": 5.6,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/B",
+ "light_ref": "car",
+ "camera": [
+  {
+   "t": 0,
+   "cam": "/home/user/Illumaesthetic-Video-Editor/projects/c5-corvette-scan-process/match/cam_B_free.json",
+   "dist": 2.0
+  },
+  {
+   "t": 0.12,
+   "az": -88,
+   "el": 14,
+   "dist": 2.05,
+   "target": [
+    -0.95,
+    -1.25,
+    0.42
+   ],
+   "lens": 27.7
+  },
+  {
+   "t": 1,
+   "az": -56,
+   "el": 15,
+   "dist": 5.9,
+   "target": [
+    -0.6,
+    -1.85,
+    0.55
+   ],
+   "lens": 27.7,
+   "roll": 0
+  }
+ ],
+ "visible": {
+  "fender": [
+   0.14,
+   1.01
+  ],
+  "bumper": [
+   0.22,
+   1.01
+  ]
+ },
+ "anims": {
+  "fender": [
+   {
+    "t": 0.14,
+    "off": [
+     -0.6,
+     0.3,
+     2.6
+    ]
+   },
+   {
+    "t": 0.48,
+    "off": [
+     -0.35,
+     0,
+     0.95
+    ]
+   },
+   {
+    "t": 0.5,
+    "spin": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "t": 0.98,
+    "spin": [
+     360,
+     0,
+     0,
+     1
+    ]
+   }
+  ],
+  "bumper": [
+   {
+    "t": 0.22,
+    "off": [
+     -0.6,
+     -1.2,
+     -1.9
+    ]
+   },
+   {
+    "t": 0.58,
+    "off": [
+     -0.3,
+     -0.35,
+     -0.45
+    ]
+   },
+   {
+    "t": 0.6,
+    "spin": [
+     0,
+     0,
+     0,
+     1
+    ]
+   },
+   {
+    "t": 1.0,
+    "spin": [
+     -360,
+     0,
+     0,
+     1
+    ]
+   }
+  ]
+ }
+}

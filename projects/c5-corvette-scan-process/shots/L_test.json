@@ -1,0 +1,2 @@
+{"objects": {"car": "/home/user/media/work/c5/car.blend"}, "seconds": 1, "fps": 1, "res": [1440,820], "sensor": 36, "look": "clay", "bg":[0.012,0.016,0.013],
+ "out": "/home/user/media/work/c5/renders/L_test", "camera": [{"t":0, "az":62, "el":16, "dist":9.0, "target":[0,-0.1,0.5], "lens":50}]}

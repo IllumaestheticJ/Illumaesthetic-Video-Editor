@@ -1,0 +1,1 @@
+{"objects": {"car": "/home/user/media/work/c5/car.blend"}, "seconds": 1, "fps": 1, "res": [1080, 1920], "sensor": 36, "look": "clay", "bg": [0.06, 0.072, 0.06], "out": "/home/user/media/work/c5/renders/Cend_test", "camera": [{"t": 0, "az": 65.0, "el": 17.0, "dist": 7.0, "target": [0.05, -0.05, 0.42], "lens": 50.0, "roll": 0}], "exposure": -2.6}

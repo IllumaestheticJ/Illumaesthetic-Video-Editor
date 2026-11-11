@@ -1,0 +1,2 @@
+{"objects": {"car": "/home/user/media/work/c5/car.blend"}, "seconds": 0.2, "fps": 15, "res": [1080,1920], "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/A_test", "camera": [{"t":0, "cam": "/home/user/Illumaesthetic-Video-Editor/projects/c5-corvette-scan-process/match/cam_A_free.json", "dist": 2.2}]}
