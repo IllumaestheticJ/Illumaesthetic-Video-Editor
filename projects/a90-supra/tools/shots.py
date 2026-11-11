@@ -121,39 +121,44 @@ def cam_at(ks, t):
 
 
 SILVER = (0.62, 0.63, 0.66)   # mat_silver base colour
-GLOW_GAIN = 2.2               # emission strength at glow 1.0 (rim only, see highlight_mat)
-DIM_GAIN = 0.55               # base colour x (1 - 0.55) at dim 1.0
+GLOW_GAIN = 5.0               # emission strength at glow 1.0 (rim-weighted, see highlight_mat)
+DIM_GAIN = 0.85               # fraction of the surface light replaced by black at dim 1.0 (AgX compresses: 0.5 mix ~ -20 % display)
 
 
 def highlight_mat():
-    """House silver + a facing-ratio rim emission (warm white) and a keyable base-colour dim.
-    glow 0 / dim 0 renders identically to mat_silver. Used for the v2 'highlight the section' treatment:
-    the separating part gets a soft rim pulse; the rest of the car can be dimmed so the section reads."""
+    """House silver + (a) a warm-white facing-ratio RIM emission whose strength is keyed ("glow") and (b) a keyed
+    Mix Shader toward black ("dim"), which darkens reflections too (a base-colour dim barely shows on a metallic).
+    glow 0 / dim 0 renders identically to mat_silver. v2 'highlight the section': the separating part gets a short rim
+    pulse; parked parts of finished sections are dimmed so the current section reads."""
     m = sr.mat_silver()
     m.name = "ive_silver_hl"
     nt = m.node_tree
     out = next(n for n in nt.nodes if n.type == "OUTPUT_MATERIAL")
     p = next(n for n in nt.nodes if n.type == "BSDF_PRINCIPLED")
-    mix = next(n for n in nt.nodes if n.type == "MIX")
     lw = nt.nodes.new("ShaderNodeLayerWeight")
-    lw.inputs["Blend"].default_value = 0.35
+    lw.inputs["Blend"].default_value = 0.45
     pw = nt.nodes.new("ShaderNodeMath")
     pw.operation = "POWER"
-    pw.inputs[1].default_value = 2.0
+    pw.inputs[1].default_value = 1.5
     nt.links.new(lw.outputs["Facing"], pw.inputs[0])
-    e = sr.emission(nt, (1.0, 0.97, 0.93, 1), 0.0)
-    # emission colour weighted by the rim mask: colour = rim * warm white
-    cm = nt.nodes.new("ShaderNodeMix")
+    cm = nt.nodes.new("ShaderNodeMix")  # emission colour = rim mask * warm white
     cm.data_type = "RGBA"
     cm.inputs["A"].default_value = (0, 0, 0, 1)
     cm.inputs["B"].default_value = (1.0, 0.97, 0.93, 1)
     nt.links.new(pw.outputs[0], cm.inputs["Factor"])
+    e = sr.emission(nt, (1.0, 0.97, 0.93, 1), 0.0)
     nt.links.new(cm.outputs["Result"], e.inputs["Color"])
     add = nt.nodes.new("ShaderNodeAddShader")
     nt.links.new(p.outputs[0], add.inputs[0])
     nt.links.new(e.outputs[0], add.inputs[1])
-    nt.links.new(add.outputs[0], out.inputs[0])
-    return m, {"emit": e, "cols": [mix.inputs["A"]]}
+    blk = nt.nodes.new("ShaderNodeBsdfDiffuse")
+    blk.inputs["Color"].default_value = (0, 0, 0, 1)
+    ms = nt.nodes.new("ShaderNodeMixShader")
+    ms.inputs["Fac"].default_value = 0.0
+    nt.links.new(add.outputs[0], ms.inputs[1])
+    nt.links.new(blk.outputs[0], ms.inputs[2])
+    nt.links.new(ms.outputs[0], out.inputs[0])
+    return m, {"emit": e, "dim": ms.inputs["Fac"]}
 
 
 def load_blend(path):
@@ -246,10 +251,8 @@ def main():
             d = seg_ease(dk, t, "v")[0]
             h["emit"].inputs["Strength"].default_value = GLOW_GAIN * g
             h["emit"].inputs["Strength"].keyframe_insert("default_value", frame=f)
-            col = tuple(c * (1 - DIM_GAIN * d) for c in SILVER) + (1,)
-            for sock in h["cols"]:
-                sock.default_value = col
-                sock.keyframe_insert("default_value", frame=f)
+            h["dim"].default_value = DIM_GAIN * d
+            h["dim"].keyframe_insert("default_value", frame=f)
 
     cd = bpy.data.cameras.new("cam")
     cam = bpy.data.objects.new("cam", cd)
