@@ -1,4 +1,4 @@
-"""Quick check still via projects/ferrari-296/tools/shot.py (house look; colored parts for registration checks).
+"""Quick check still via projects/subaru-sti-blobeye/tools/shot.py (house look; colored parts for registration checks).
     python still.py out.png --base a.blend [b.blend] --part x.blend:red --part y.blend:cyan --cam "x,y,z" --tgt "x,y,z" [--focal 35] [--pct 30] [--spp 8]
 """
 import argparse, json, subprocess, os, tempfile
@@ -11,5 +11,5 @@ spec = {"base": a.base, "parts": [{"blend": p.split(":")[0], **({"color": p.spli
         "camera": {"keys": [{"t": 0, "loc": f3(a.cam), "target": f3(a.tgt), "focal": a.focal}]},
         "seconds": 0, "fps": 15, "res_pct": a.pct, "samples": a.spp, "out": os.path.abspath(a.out)}
 fd, sp = tempfile.mkstemp(suffix=".json"); json.dump(spec, open(sp, "w"))
-r = subprocess.run(["blender", "-b", "-P", "projects/ferrari-296/tools/shot.py", "--", sp], capture_output=True, text=True)
+r = subprocess.run(["blender", "-b", "-P", "projects/subaru-sti-blobeye/tools/shot.py", "--", sp], capture_output=True, text=True)
 print(r.stdout[-300:] if "IVE_RENDER_DONE" in r.stdout else r.stdout[-2000:] + r.stderr[-2000:])

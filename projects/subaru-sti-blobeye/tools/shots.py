@@ -82,8 +82,9 @@ SHOTS = {
                         "keys": [pk(0), pk(0.25), pk(0.38, (0, 0.35, 1.35), (-8, 0, 0), "out"), pk(0.75, (0, 0.35, 1.45), (-12, 0, 0), "lin"),
                                  pk(0.875, (0, 0, 0), (0, 0, 0), "in")]},
                        {"blend": BUMP,
-                        "keys": [pk(0), pk(0.281), pk(0.41, (0, -0.25, 0.8), (0, 0, 0), "out"), pk(0.75, (0, -0.28, 0.88), (0, 0, 0), "lin"),
-                                 pk(0.875, (0, 0, 0), (0, 0, 0), "in")]},
+                        "keys": [pk(0), pk(0.281), pk(0.315, (0, -0.32, 0.03), (0, 0, 0), "in2"),   # clear the headlights first (they stay on the car)
+                                 pk(0.43, (0, -0.25, 0.8), (0, 0, 0), "out"), pk(0.75, (0, -0.28, 0.88), (0, 0, 0), "lin"),
+                                 pk(0.845, (0, -0.32, 0.03), (0, 0, 0), "in2"), pk(0.875, (0, 0, 0), (0, 0, 0), "lin")]},
                        {"blend": WING,
                         "keys": [pk(0), pk(0.3125), pk(0.44, (0, -0.1, 0.8), (0, 0, 0), "out"), pk(0.75, (0, -0.1, 0.9), (0, 0, 0), "lin"),
                                  pk(0.875, (0, 0, 0), (0, 0, 0), "in")]},
@@ -117,7 +118,7 @@ def spec(name, mode):
     s = SHOTS[name]
     T = secs()[name]
     sp = {"base": s["base"], "camera": {"keys": to_t(s["cam"], T)}, "seconds": T, "fps": 15,
-          "res": "1080x1920", "out": f"{OUT}/{mode}/{name}"}
+          "res": "1080x1920", "out": f"{OUT}/{mode}/{name}", "exposure": -0.5}
     sp["parts"] = [{**p, "keys": to_t(p["keys"], T)} for p in s.get("parts", [])]
     if mode == "preview":
         sp.update(res_pct=30, samples=8, frames=["first", "mid", "last"])

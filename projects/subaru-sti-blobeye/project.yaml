@@ -1,6 +1,6 @@
 # Subaru Impreza STI GD 'blobeye' - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 / huracan-evo / a90-supra.
 # Satin-silver scan on black; turntables -> close-ups -> hood open -> top-down -> exploded view -> logo.
-# Shots: tools/shots.py (specs, timing from cues.json) rendered with projects/ferrari-296/tools/shot.py (75 %, 12 spp, 15 fps, minterpolate to 30).
+# Shots: tools/shots.py (specs, timing from cues.json) rendered with tools/shot.py (lexus-is300 copy of the ferrari-296 renderer + exposure -0.5 EV) (75 %, 12 spp, 15 fps, minterpolate to 30).
 # Music: subaru-sti-blobeye_track.mp3 - original eurobeat-inspired track generated for this reel by the coordinating session (not in git).
 # Grid: 152.00 BPM, beat 0.39473 s, t0 0.06 s (kick/hat attack; ive beats onsets run ~45 ms early). Cuts on bar lines, frames round(t*30).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
