@@ -1,0 +1,198 @@
+{
+ "FR": {
+  "wheel": {
+   "centre": [
+    1229.0,
+    -802.6,
+    191.3
+   ],
+   "hub_face": [
+    1229.0,
+    -832.5446222787066,
+    191.3
+   ],
+   "offset_mm": 29.94462227870656
+  },
+  "rotor": {
+   "hat_on": [
+    1229.0,
+    -832.5446222787066,
+    191.3
+   ]
+  },
+  "caliper": {
+   "fit": "rotation search straddling the disc ring",
+   "pts_inside_disc": 7171,
+   "of": 355911,
+   "radial_mm": [
+    29.0,
+    223.0
+   ],
+   "axial_mm": [
+    -156.0,
+    32.0
+   ],
+   "disc_axial_mm": [
+    -66,
+    -29
+   ],
+   "disc_r": 187
+  },
+  "coilover": {
+   "top_mount": [
+    1147.0,
+    -532.0,
+    670.0
+   ]
+  }
+ },
+ "FL": {
+  "wheel": {
+   "centre": [
+    1231.0,
+    791.4,
+    187.4
+   ],
+   "hub_face": [
+    1231.0,
+    821.3446222787065,
+    187.4
+   ],
+   "offset_mm": 29.94462227870656
+  },
+  "rotor": {
+   "hat_on": [
+    1231.0,
+    821.3446222787065,
+    187.4
+   ]
+  },
+  "caliper": {
+   "fit": "rotation search straddling the disc ring",
+   "pts_inside_disc": 7171,
+   "of": 355911,
+   "radial_mm": [
+    29.0,
+    223.0
+   ],
+   "axial_mm": [
+    -156.0,
+    32.0
+   ],
+   "disc_axial_mm": [
+    -66,
+    -29
+   ],
+   "disc_r": 187
+  },
+  "coilover": {
+   "top_mount": [
+    1147.0,
+    520.8,
+    670.0
+   ]
+  }
+ },
+ "RR": {
+  "wheel": {
+   "centre": [
+    -1238.0,
+    -800.1,
+    181.0
+   ],
+   "hub_face": [
+    -1238.0,
+    -849.981265088094,
+    181.0
+   ],
+   "offset_mm": 49.88126508809398
+  },
+  "rotor": {
+   "hat_on": [
+    -1238.0,
+    -849.981265088094,
+    181.0
+   ]
+  },
+  "caliper": {
+   "fit": "rotation search straddling the disc ring",
+   "pts_inside_disc": 9049,
+   "of": 432993,
+   "radial_mm": [
+    36.0,
+    192.0
+   ],
+   "axial_mm": [
+    -173.0,
+    50.0
+   ],
+   "disc_axial_mm": [
+    -64,
+    -40
+   ],
+   "disc_r": 175
+  },
+  "damper": {
+   "bolt_fit_mm": 1.220331520572761,
+   "hangs_below_top": true
+  },
+  "spring": {
+   "top_seat": [
+    -1355.0,
+    -471.0,
+    319.0
+   ]
+  }
+ },
+ "RL": {
+  "wheel": {
+   "centre": [
+    -1239.0,
+    788.9,
+    177.0
+   ],
+   "hub_face": [
+    -1239.0,
+    838.781265088094,
+    177.0
+   ],
+   "offset_mm": 49.88126508809398
+  },
+  "rotor": {
+   "hat_on": [
+    -1239.0,
+    838.781265088094,
+    177.0
+   ]
+  },
+  "caliper": {
+   "fit": "rotation search straddling the disc ring",
+   "pts_inside_disc": 8900,
+   "of": 432993,
+   "radial_mm": [
+    34.0,
+    192.0
+   ],
+   "axial_mm": [
+    -168.0,
+    55.0
+   ],
+   "disc_axial_mm": [
+    -64,
+    -40
+   ],
+   "disc_r": 175
+  },
+  "damper": {
+   "bolt_fit_mm": 1.2203315205727254,
+   "hangs_below_top": true
+  },
+  "spring": {
+   "top_seat": [
+    -1355.0,
+    459.8,
+    319.0
+   ]
+  }
+ }
+}
