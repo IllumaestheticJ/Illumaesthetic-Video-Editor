@@ -532,3 +532,13 @@ lands here automatically. Agents must read this whole file before editing.
   or render one extra frame per shot.
 - **[text]** Labels over bright silver scan are unreadable without a halo; ScanHUD `label` now takes `shadow: true`.
   Composite the HUD and look at every label frame - keep titles short (FRONT BUMPER + sub REMOVED) so they fit the dark area.
+## From the Honda Civic 11 (FE1) scan reel (2026-11-11, built by an agent)
+- **[pacing]** A generated track can drift 10-80 ms against a constant-BPM kick grid (Civic: +8..+76 ms). Fit the grid for
+  planning, then put every cut on the MEASURED onset of the decoded audio (1 ms RMS half-rise) rounded to a frame.
+- **[technical]** minterpolate (mci) smears fast part moves (a door lifting at the drop came out as blocks, a lid's edges doubled).
+  Render real 30 fps in-betweens just for the fast windows and blend the slow, camera-only stretches
+  (projects/honda-civic-11/tools/merge30.py); play the result with src_fps 30 and no interpolate.
+- **[scan-look]** In 9:16 a door or lid lifted straight UP into the black above the car keeps the opening visible; moving it out
+  toward the lens covers the very jambs the shot is about.
+- **[technical]** The persistent-data dropout can strike late (Civic v1 s7: frame 91 of 166). Persist off roughly doubles the frame time
+  (12.7 -> 23 s/frame); keep it on only for static-scene, camera-only shots and scan their luma.

@@ -41,16 +41,14 @@ timeline:
   - transition: {type: cut, note: "THE DROP k31 - front door lifts"}
   - id: N2_doors     # right side: doors lift off (Door Open state): sill, jambs, cabin
     focus: right door openings (Door Open scan)
-    src: /home/user/media/work/civic/renders/final/N2_doors
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/civic/renders/final/N2_m   # true 30 fps (tools/merge30.py): minterpolate smeared the door lift
+    src_fps: 30
     dur: 4.5667      # 137 -> 536
   - transition: {type: cut, note: "k42"}
   - id: N3_trunk     # rear: lid opens on its fitted hinge (k44), lifts off (k52), interior (Trunk Open state)
     focus: trunk lid and trunk interior (Trunk Open scan)
-    src: /home/user/media/work/civic/renders/final/N3_trunk
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/civic/renders/final/N3_m   # 30 fps: rendered in-betweens where the lid moves, blends elsewhere
+    src_fps: 30
     dur: 12.6        # 378 -> 914
   - transition: {type: cut, note: "k72 strongest breakdown accent"}
   - id: N4_reassemble  # doors + lid fly home, lock on the k80 big kick, clean car, fade to black k86-k88 (baked)
