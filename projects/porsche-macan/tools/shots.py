@@ -47,7 +47,8 @@ easeout = lambda u: 1 - (1 - u) ** 2
 
 SHOTS = {
     # 1. slow front 3/4 turntable, low (hook: moving on frame 1)
-    "s1_front": {"base": [CAR], "cam": arc(SECS["s1_front"], 8, 5.6, 5.2, -28, -58, 0.95, 1.05, focal=30, tz=0.62, shape=easeout)},
+    "s1_front": {"base": [CAR], "cam": arc(SECS["s1_front"], 8, 5.7, 5.3, -42, -14, 0.95, 1.1, focal=30, tz=0.62, shape=easeout)},
+    # (v0 swung -28 -> -58 toward side-on: the nose left the 9:16 frame - turn toward the front instead)
     # 2. rear 3/4 orbit, car's left side, slight rise; light bar in view
     "s2_rear": {"base": [CAR], "cam": arc(SECS["s2_rear"], 8, 5.5, 5.2, 150, 122, 0.85, 1.3, focal=30, tz=0.62, shape=easeout)},
     # 3. extreme close-up: front right wheel / brake through the spokes, slow slide forward
