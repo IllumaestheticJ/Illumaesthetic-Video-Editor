@@ -135,12 +135,92 @@ SHOTS["s8_explode"] = {
            c=(0.1, 0.0, 0.7), focal=28, ease="lin", tz=0.75) for k in range(13)]}
 
 
+
+# ================= v2 (director.md, 2026-11-11): one pass front -> side -> rear, progressive per-section explode =========
+# User v2 rules: whole car in the opener, one continuous sequence per section, the part that comes off stays in frame
+# and is shown off, bumper-removed data is the hero beat, no repeated views. Every explode shot uses comp_explode as
+# the base: a panel that is not "off" yet sits at rest, so the car reads whole.
+REST = [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}]
+
+
+def k(t, loc=(0, 0, 0), rot=(0, 0, 0), ease="inout"):
+    return {"t": t, "loc": list(loc), "rot": list(rot), "ease": ease}
+
+
+def cam(t, loc, tgt, f, ease="inout"):
+    return {"t": t, "loc": list(loc), "target": list(tgt), "focal": f, "ease": ease}
+
+
+OPEN_H, OPEN_T = (0, 0, 0), (0, 0, 0)
+OPEN_H = (hood["open_deg"], 0, 0); OPEN_T = (hatch["open_deg"], 0, 0)
+FB_FLIP = TIMING.get("fb_flip", -160)
+FB_END = ((0, -0.5, 2.6), (FB_FLIP, 0, 0))  # high enough to be out of frame in S1/R1; FENDER_END = ((0.75, 0.05, 0.30), (0, 0, 0))
+FL_END = ((1.0, -0.05, 0.10), (0, 0, 180)); RL_END = ((1.0, 0.12, 0.10), (0, 0, 180)); RB_END = ((-1.7, 0.7, 0.05), (0, 0, 0))
+XB = f"{P}/comp_explode.blend"
+
+
+def part(name, keys, hinge=None):
+    d = {"blend": f"{P}/x_{name}.blend", "keys": keys}
+    if hinge:
+        d["pivot"] = hinge["pivot"]
+    return d
+
+
+SHOTS["O_whole"] = {"base": [CAR], "cam": arc(SECS["O_whole"], 8, 7.8, 7.4, -40, -30, 1.3, 1.1, c=(0, -0.3, 0.6), focal=30, tz=0.62,
+                                             shape=easeout)}
+SHOTS["N_face"] = {"base": [CAR_HI], "cam": [cam(0, (0.95, -4.75, 0.95), (0.5, -2.3, 0.72), 40, "lin"),
+                                             cam(SECS["N_face"] / 2, (0.0, -4.8, 0.95), (0.0, -2.3, 0.70), 40, "lin"),
+                                             cam(SECS["N_face"], (-0.95, -4.75, 0.90), (-0.5, -2.3, 0.68), 40)]}
+
+
+def _f1(u):
+    e = smooth(u)
+    return orbit(SECS["F1_bay"] * u, 5.6 - 2.2 * e, -40 + 15 * e, 3.2 - 0.6 * e,
+                 c=(0.2 - 0.2 * e, -1.0 - 0.35 * e, 0.9 - 0.1 * e), focal=30, ease="lin")
+
+
+SHOTS["F1_bay"] = {"base": [f"{P}/comp_open.blend"],
+                   "parts": [part("hood", [k(0), k(1.525), k(3.3, rot=OPEN_H)], hood), part("hatch", REST, hatch)],
+                   "cam": [_f1(i / 8) for i in range(9)]}
+SHOTS["F2_fbumper"] = {"base": [XB], "parts": [
+    part("hood", [k(0, rot=OPEN_H)], hood),
+    part("fbumper", [k(0), k(0.5, (0, -0.55, 0.30), ease="out"), k(1.017, (0, -0.55, 0.95), (FB_FLIP, 0, 0)),
+                     k(2.033, (0, -0.55, 1.0), (FB_FLIP, 0, 0), "lin"), k(3.0, FB_END[0], FB_END[1]),
+                     k(4.4, (0, -0.5, 2.65), (FB_FLIP, 0, 0), "lin")]),
+    part("fender", REST), part("hatch", REST, hatch), part("rbumper", REST)] + [part(f"door_{d}", REST) for d in ("fl", "fr", "rl", "rr")],
+    "cam": [cam(0, (2.5, -5.7, 1.35), (0.2, -2.0, 0.75), 32), cam(1.017, (1.8, -6.4, 1.25), (0.1, -2.4, 0.85), 28),
+            cam(2.033, (0.9, -5.4, 1.0), (0.05, -2.3, 0.70), 30), cam(4.4, (0.2, -4.6, 0.78), (0, -2.2, 0.52), 30)]}
+SHOTS["S1_side"] = {"base": [XB], "parts": [
+    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, *FB_END)]),
+    part("fender", [k(0), k(0.5, FENDER_END[0], ease="out")]),
+    part("door_fl", [k(0), k(1.017), k(1.5, FL_END[0], ease="out"), k(2.2, *FL_END)]),
+    part("door_rl", [k(0), k(2.033), k(2.55, RL_END[0], ease="out"), k(3.25, *RL_END)]),
+    part("door_fr", REST), part("door_rr", REST), part("hatch", REST, hatch), part("rbumper", REST)],
+    "cam": [cam(0, (4.4, -1.45, 1.4), (1.0, -1.3, 0.8), 28), cam(2.033, (4.4, -0.55, 1.4), (1.0, -0.5, 0.8), 28, "lin"),
+            cam(4.4, (4.3, 0.55, 1.35), (1.0, 0.5, 0.8), 28)]}
+SHOTS["R1_rbumper"] = {"base": [XB], "parts": [
+    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, *FB_END)]), part("fender", [k(0, *FENDER_END)]),
+    part("door_fl", [k(0, *FL_END)]), part("door_rl", [k(0, *RL_END)]), part("door_fr", REST), part("door_rr", REST),
+    part("hatch", [k(0), k(0.5, rot=OPEN_T)], hatch),
+    part("rbumper", [k(0), k(0.51), k(1.53, (0, 0.6, 0.05), ease="out"), k(2.3, *RB_END)])],
+    "cam": [cam(0, (1.9, 5.6, 1.85), (0.1, 2.0, 1.05), 30), cam(1.53, (1.3, 5.6, 1.3), (0.05, 2.1, 0.65), 30),
+            cam(3.3, (0.95, 3.95, 0.8), (0.45, 2.2, 0.48), 32)]}
+X_LOCK = 1.0
+SHOTS["X_reassemble"] = {"base": [XB], "parts": [
+    part("hood", [k(0, rot=OPEN_H), k(X_LOCK, ease="in")], hood), part("hatch", [k(0, rot=OPEN_T), k(X_LOCK, ease="in")], hatch),
+    part("fbumper", [k(0, *FB_END), k(X_LOCK, ease="in")]), part("fender", [k(0, *FENDER_END), k(X_LOCK, ease="in")]),
+    part("door_fl", [k(0, *FL_END), k(X_LOCK, ease="in")]), part("door_rl", [k(0, *RL_END), k(X_LOCK, ease="in")]),
+    part("rbumper", [k(0, *RB_END), k(X_LOCK, ease="in")]), part("door_fr", REST), part("door_rr", REST)],
+    "cam": [cam(0, (1.3, -4.9, 8.1), (0.05, 0.15, 0.5), 28), cam(2.4, (0.8, -4.3, 7.0), (-0.3, 0.1, 0.5), 28)]}
+# after the lock, the clean full-car scan (no composite seams) with the same camera
+SHOTS["X_clean"] = {"base": [CAR], "cam": SHOTS["X_reassemble"]["cam"]}
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
     sp = {"base": s["base"], "parts": s.get("parts", []),
           "camera": {"sensor": 20.25, "keys": s["cam"]},
-          "seconds": SECS[name] + 1 / 15, "fps": 15, "res": "1080x1920",
+          "seconds": SECS.get(name, SECS.get("X_reassemble")) + 1 / 15, "fps": 15, "res": "1080x1920",
           "res_pct": 75 if final else 30, "samples": 12 if final else 6,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if mode == "preview":

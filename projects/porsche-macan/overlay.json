@@ -1,0 +1,42 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1008,
+ "accent": "#e8ecf2",
+ "_note": "Labels only over the two bumper-removed hero shots (user v2 addendum C). Words name what the 'Front Bumper Off' / 'Rear Bumper Removed' state scans show; no numbers.",
+ "items": [
+  {
+   "kind": "label",
+   "from": 520,
+   "duration": 44,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 581,
+   "duration": 27,
+   "title": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 794,
+   "duration": 29,
+   "title": "REAR BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 825,
+   "duration": 27,
+   "title": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.12
+  }
+ ]
+}
