@@ -1,0 +1,27 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 2155,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 1460,
+   "duration": 66,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "BUMPER SCAN \u00b7 4,000,015 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 1802,
+   "duration": 48,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "BUMPER SCAN \u00b7 7,999,727 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  }
+ ]
+}

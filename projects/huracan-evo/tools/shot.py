@@ -165,6 +165,19 @@ def main():
                         o.data.energy = v
                         o.data.keyframe_insert("energy", frame=max(1, int(round(1 + t * (n - 1)))))
                     o.data.energy = e
+    # reflection/shadow proxy: a light decimate of the hero mesh that only secondary rays see (the glossy garage floor
+    # made every floor pixel trace into the 8M-tri scan: 30 s/frame vs 17.5 s without the floor)
+    prox = []
+    for name, path in spec.get("proxy", {}).items():
+        po = load_objects({name: path})[name][1]
+        for o in po:
+            o.visible_camera = False
+        prox += po
+        for o in objs[spec.get("proxy_of", "car")][1]:
+            o.visible_glossy = False
+            o.visible_shadow = False
+            o.visible_diffuse = False
+    allmesh = allmesh + prox
     for o in allmesh:
         o.data.materials.clear()
         o.data.materials.append(mat)
@@ -225,6 +238,11 @@ def main():
     sc.render.engine = "CYCLES"
     sc.cycles.device = "CPU"
     sc.cycles.samples = samples
+    b = spec.get("bounces")  # [total, diffuse, glossy]: glossy garage floor made h1 ~35 s/frame at Cycles defaults
+    if b:
+        sc.cycles.max_bounces, sc.cycles.diffuse_bounces, sc.cycles.glossy_bounces = b
+        sc.cycles.transmission_bounces = sc.cycles.volume_bounces = sc.cycles.transparent_max_bounces = 0
+        sc.cycles.caustics_reflective = sc.cycles.caustics_refractive = False
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
     # persistent data lost all lights mid-shot when the hood hinge animated (s5 frames 41+ black); off for hinge shots

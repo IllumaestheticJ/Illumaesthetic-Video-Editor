@@ -259,11 +259,13 @@ ST = {}   # running part state, updated shot by shot
 ST0 = {k: P() for k in PARTS}
 ST0["hood"] = P(deg=0)
 OPEN_ST = dict(ST0, fb=P([0, -0.95, -0.02]), fe=P([-0.55, -0.05, 0.02], ax=(0, 1, 0)), hood=P(deg=OPEN_DEG))
-S2_END = dict(OPEN_ST, fb=P([0, -1.60, 0.33], 125))
-S3_END = dict(S2_END, hood=P([0, 0.05, 0.60], deg=HINGE["open_deg"]), tc=P([0, 0, 0.45]), lc=P([-0.22, -0.10, 0.35]),
+S2_END = dict(OPEN_ST, fb=P([0, -1.55, 0.30], 125))
+S2_OUT = dict(OPEN_ST, fb=P([0, -1.95, -0.45], 125))   # where S2 leaves it (out of the way, below the nose)
+S3_END = dict(S2_OUT, hood=P([0, 0.05, 0.60], deg=HINGE["open_deg"]), tc=P([0, 0, 0.45]), lc=P([-0.22, -0.10, 0.35]),
               rc=P([0.22, -0.10, 0.35]))
 S4_END = dict(S3_END, fe=P([-0.95, -0.15, 0.40], -120, (0, 1, 0)), sk=P([-0.55, 0, -0.15], -120, (0, 1, 0)))
 S5_END = dict(S4_END, rb=P([0, 1.00, 0.35], -125))
+S5_OUT = dict(S4_END, rb=P([0, 1.35, -0.45], -125))
 SP_N = {"sp_bumper": (72, 80), "sp_hood": (80, 86), "sp_side": (86, 92), "sp_rear": (92, 98), "sp_finale": (98, 108)}
 
 
@@ -293,25 +295,30 @@ def spshot(name, camera, anims, objects=EXPLODED2, extra=None):
 SP_SHOTS = [
     # S2 front bumper: forward into clear black, tips its inner face toward the lens (beat = 0.125)
     spshot("sp_bumper", [dict(t=0, az=-45, el=25, dist=3.6, target=[0, -2.70, 0.45], lens=45),
-                         dict(t=1, az=-60, el=35, dist=2.6, target=[0, -3.30, 0.65], lens=50)],
-           moves(OPEN_ST, S2_END, {"fb": (0.125, 0.75)}, {"fb": [dict(t=1, off=[0, -1.62, 0.34], spin=[125, 1, 0, 0], lin=True)]})),
+                         dict(t=0.5, az=-48, el=28, dist=3.3, target=[0, -2.85, 0.50], lens=45),
+                         dict(t=1, az=-30, el=22, dist=2.3, target=[0, -1.95, 0.45], lens=45)],
+           # bumper tips its inner face to the lens (0.125-0.5), then drops forward/down out of the way while the camera
+           # moves in and holds on the scanned structure it covered (addendum C: bumper-removed data is the hero beat)
+           moves(OPEN_ST, S2_END, {"fb": (0.125, 0.5)}, {"fb": [dict(t=1, off=[0, -1.95, -0.45], spin=[125, 1, 0, 0])]})),
     # S3 under the hood: hood swings full open and lifts, cowls lift straight off (translate only) (beat = 0.167)
     spshot("sp_hood", [dict(t=0, az=-20, el=28, dist=3.2, target=[0, -1.55, 0.95], lens=45),
                        dict(t=1, az=-14, el=36, dist=2.7, target=[0, -1.55, 0.90], lens=45)],
-           moves(S2_END, S3_END, {"hood": (0.0, 0.5), "tc": (0.333, 0.667), "lc": (0.333, 0.833), "rc": (0.5, 0.833)})),
+           moves(S2_OUT, S3_END, {"hood": (0.0, 0.5), "tc": (0.333, 0.667), "lc": (0.333, 0.833), "rc": (0.5, 0.833)})),
     # S4 right side: fender then skirt move outboard and tip their inner faces up/out to the lens
     spshot("sp_side", [dict(t=0, az=-95, el=22, dist=3.4, target=[-1.0, -0.90, 0.55], lens=50),
                        dict(t=1, az=-88, el=20, dist=3.2, target=[-1.0, 0.35, 0.35], lens=50)],
            moves(S3_END, S4_END, {"fe": (0.0, 0.5), "sk": (0.333, 0.833)})),
     # S5 rear bumper: back past the tail onto black, tips its inner face
     spshot("sp_rear", [dict(t=0, az=-115, el=25, dist=3.8, target=[0, 2.80, 0.65], lens=45),
-                       dict(t=1, az=-125, el=30, dist=3.2, target=[0, 3.00, 0.75], lens=45)],
-           moves(S4_END, S5_END, {"rb": (0.167, 0.667)})),
+                       dict(t=0.5, az=-120, el=27, dist=3.5, target=[0, 2.90, 0.70], lens=45),
+                       dict(t=1, az=-150, el=20, dist=2.4, target=[0, 1.95, 0.55], lens=45)],
+           # rear bumper back past the tail, tips its inner face, then drops away; camera moves in on the structure behind
+           moves(S4_END, S5_END, {"rb": (0.0, 0.5)}, {"rb": [dict(t=1, off=[0, 1.35, -0.45], spin=[-125, 1, 0, 0])]})),
     # S6 the one full-explode view, then reassembly in reverse travel order, clean car swap on n106 (t=0.8), fade in assembly
     spshot("sp_finale", [dict(t=0, az=-105, el=48, dist=8.8, target=[0, 0, 0.90], lens=40),
                          dict(t=0.35, az=-150, el=34, dist=8.2, target=[0, 0.20, 0.75], lens=40, lin=True),
                          dict(t=1, az=-210, el=16, dist=7.2, target=[0, 0.25, 0.55], lens=40)],
-           moves(S5_END, ST0, {"rb": (0.3, 0.5), "sk": (0.4, 0.6), "fe": (0.4, 0.6), "tc": (0.4, 0.6), "lc": (0.4, 0.6),
+           moves(S5_OUT, ST0, {"rb": (0.3, 0.5), "sk": (0.4, 0.6), "fe": (0.4, 0.6), "tc": (0.4, 0.6), "lc": (0.4, 0.6),
                                "rc": (0.4, 0.6), "hood": (0.5, 0.7), "fb": (0.5, 0.75)}),
            objects=dict(EXPLODED2, clean=B + "car2.blend"),
            extra={"visible": dict({k: [0, 0.8] for k in ["base", *PARTS]}, clean=[0.8, 1.01])}),
