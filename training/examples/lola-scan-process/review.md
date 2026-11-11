@@ -1,28 +1,40 @@
-# Lola (Drifter movie) scan-process reel v2 — agent self-review (training/rubric.md)
+# Lola (Drifter movie) scan-process reel v3 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/lola_scan_process_v2.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 29.97 s (899 frames). v1 review: `review_v1.md`.
+Output: `/home/user/media/work/out/lola_scan_process_v3.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 27.57 s (827 frames). Earlier: `review_v1.md`, `review_v2.md`. Plan: `direction.md`.
 
 > ✅ **Posting permission confirmed:** these cars (Lola 1 and Lola 2) were scanned for a film production
 > (Drifter). The user confirmed on 2026-11-11 that the production is fine with the reel being posted
 > ("Lola production is fine with it", relayed by the parent session).
 
-v2 changes (user on v1: "remove the unnecessary spinning, change music to something more mainstream"):
-- **Explode shot:** re-rendered without the 360° spin. The exterior lifts 1.45 m off the interior scan and holds while the camera pulls back. It is trimmed to 4.6 s.
-- **Music:** "Take Me (To The Moon)" by Ian Asher & D A N N Y, #2 US 7-day trending in TikTok's Commercial Music Library (licensed for brand posts). The track's silence→drop sits under the first 1:1 cut. **When posting, attach the same sound in-app.**
-- **Cuts:** all re-timed to the new track's kicks. The reel is now 30 s (was 32).
+v3 changes:
+- **User on v2: "Remove illumaesthetic.com"** → the end card is the logo only, re-centred.
+- **User on v2: "Clean up footage at end (or a trailer 1:1)"**:
+  - Dropped the colour-model screen recording (UI, mouse cursor, ground shadow).
+  - Dropped the holey, clipped front close-up.
+  - New whole-car Lola 2 hero push-in, centred.
+  - The wing shot is re-rendered as a rear 3/4 with the whole rear end and wing in frame.
+  - Lola 2 now travels: real wing spray → scan rear/wing → whole car.
+  - The logo lands on the track's re-drop, so the ending is shorter (30.0 → 27.6 s).
+- **Trailer 1:1 not done:** there's no trailer file in Dropbox or Drive, and downloading the YouTube teaser was blocked by this session's permissions.
+- **Parent all-reels brief + addendum:**
+  - Sections each appear in one sequence, with no repeated views (`ive director`).
+  - There are no state scans (bumper, trunk, hood, doors), so none are shown.
+  - Luma dropout check is clean.
+  - Cuts are measured on the delivered file's decoded audio.
+  - The track isn't used by any other reel.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Spray sweep from frame 0, a hard silence at 1.4 s, then the 1:1 transformation on the drop at 2.44 s. |
-| 2 | Beat sync | 5 | 11 cuts measured on the delivered file at −11 to +15 ms from the kicks (all within ½ frame). |
-| 3 | 1:1 match | 5 | Both 1:1 cuts are unchanged from v1 and verified with overlays. Cut B is on a kick at 8.80 s. |
-| 4 | Scan quality | 4 | Same as v1: Lola 2 at the 4 mm decimation is slightly soft. |
-| 5 | Story | 4 | Real → scanned → shell lifts off the interior (inside + outside) → software → Lola 2 → logo. With no spin, the lift reads as "two scans", not a gimmick. |
+| 1 | Hook | 4 | Spray sweep from frame 0, silence at 1.4 s, then the 1:1 transformation on the drop at 2.44 s. |
+| 2 | Beat sync | 5 | 9 cuts measured on the delivered file's decoded audio at −11 to +12 ms from kick onsets. |
+| 3 | 1:1 match | 5 | Unchanged from v1/v2 and verified with overlays. |
+| 4 | Scan quality | 4 | The weak Lola 2 areas (grille and pop-up holes) are now out of the cut. |
+| 5 | Story | 5 | Real → scanned → inside + outside → software → Lola 2 rear → whole car → logo. Each section is shown once. |
 | 6 | Grade | 4 | Unchanged. |
-| 7 | Text | 5 | Only STL triangle counts, exact on the final counter frames, only over scan shots. |
-| 8 | Ending | 4 | Logo on a kick at 26.78 s, picture and music fade together. The track is mid-phrase there (soft section), so the ending is a fade, not a hit. |
-| 9 | Technical | 5 | Specs met; no black or duplicate frames at cuts. |
+| 7 | Text | 5 | Exact STL triangle counts only, over scan shots only; the URL is removed as asked. |
+| 8 | Ending | 5 | Logo on the re-drop kick, no long holds, picture and music fade together. |
+| 9 | Technical | 5 | Specs met; no dropouts or black frames at cuts (only the logo's fade-in). |
 
-## v3 ideas
-- The 0.77 s wing flash on the breakdown riser is very short. Swap in the wing for the front push if the user wants a longer look.
-- A 2 mm crop render for the Lola 2 close-ups.
+## Open / blocked
+- **Wider IRL crops** (parent addendum A): the glasses footage is 3:4 and already cropped at full height. Going wider means letterboxing the real footage (and the matching scan frames), which is the user's call.
+- **Trailer 1:1:** possible if the user drops the trailer file into Dropbox. The cut would need a solve with free focal on the film camera.
