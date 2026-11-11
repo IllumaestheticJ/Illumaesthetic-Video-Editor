@@ -490,3 +490,12 @@ lands here automatically. Agents must read this whole file before editing.
   locks onto risers/snares in a build.
 - **[pacing]** `ive director` flags same-camera state swaps (A removed -> B removed in one camera) as repeats; they are one
   continuous sequence - log the reason and keep them. Do fix its "dead frames" on the opening: a 2 % push reads as static.
+
+## From the Mazda Miata ND v3 revision (2026-11-11, built by an agent)
+- **[technical]** shot.py renders round(seconds*fps) frames with t=(f-1)/fps: for N renders give `seconds = N/15`, not (N-1)/15
+  (Miata v3 got N-1 everywhere); set each clip's src_fps from the real PNG count at assembly.
+- **[text]** ScanHUD `label` crashes Remotion when `sub` is empty ("inputRange must be strictly monotonically increasing [6,6]"):
+  always give a short factual sub line.
+- **[scan-look]** Bumper-off hero beat in 9:16: park the bumper on the camera's sight line below the nose/tail (inner face to the lens,
+  fully in frame), then let it sink out of frame while the camera pushes in on the structure; leave parked parts out of later shots
+  (steep cameras still see them). Check first/mid/last frames with an edge-touch test (non-black pixels in the outer 3 px).

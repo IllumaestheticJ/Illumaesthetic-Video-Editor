@@ -1,0 +1,100 @@
+# Mazda Miata ND - v3 (user v2 brief + addendum, scene order from direction.md / director.md).
+# Scan-only; factual labels over the bumper-removed sections only (overlay_v3.json, burned in after assembly).
+# Music miata_cut_v3.wav = track from 6.2354 s (cut grid on the broadband kick onset, 8.305 s + n*0.51721), 0.3 s fade-in.
+# Cuts at video frames 62 124 248 341 403 497 590 652 714 776 819; parts lock on the last hit (frame 807); end 885 (29.5 s).
+# Assemble: python projects/honda-s2000/tools/concat_assemble.py projects/mazda-miata-nd/project.yaml
+project: mazda-miata-nd
+format: reel-9x16
+output: {path: /home/user/media/work/miata/out/miata_nd_v3_nolabels.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/miata_cut_v3.wav   # not in git
+  start: 0
+  fade_out: 0.4
+
+beats: [2.067, 4.133, 8.267, 11.367, 13.433, 16.567, 19.667, 21.733, 23.8, 25.867, 27.3]
+
+timeline:
+  - id: v3_a_open   # section: whole | focus: whole car
+    src: /home/user/media/work/miata/renders/final/v3_a_open
+    src_fps: 14.0909   # 31 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 62
+    dur: 2.0667
+  - transition: {type: cut}
+  - id: s4_lamp   # section: front | focus: right headlight + grille
+    src: /home/user/media/work/miata/renders/final/s4_lamp
+    src_fps: 14.5455   # 32 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 62
+    dur: 2.0667
+  - transition: {type: cut}
+  - id: v3_f_bumper   # section: front | focus: front bumper off -> inner face -> crash beam
+    src: /home/user/media/work/miata/renders/final/v3_f_bumper
+    src_fps: 14.5312   # 62 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 124
+    dur: 4.1333
+  - transition: {type: cut}
+  - id: v3_f_bay   # section: front (engine bay) | focus: hood to captured open pose -> engine bay
+    src: /home/user/media/work/miata/renders/final/v3_f_bay
+    src_fps: 14.2268   # 46 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 93
+    dur: 3.1000
+  - transition: {type: cut}
+  - id: s3_wheel_rev   # section: wheels | focus: front-right wheel + brake
+    src: /home/user/media/work/miata/renders/final/s3_wheel_rev
+    src_fps: 14.5455   # 32 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 62
+    dur: 2.0667
+  - transition: {type: cut}
+  - id: v3_s_side   # section: side | focus: right mirror mount, sill skirt
+    src: /home/user/media/work/miata/renders/final/v3_s_side
+    src_fps: 14.3878   # 47 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 94
+    dur: 3.1333
+  - transition: {type: cut}
+  - id: v3_r_bumper   # section: rear | focus: rear bumper off -> inner face -> exhaust / rear structure
+    src: /home/user/media/work/miata/renders/final/v3_r_bumper
+    src_fps: 14.2268   # 46 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 93
+    dur: 3.1000
+  - transition: {type: cut}
+  - id: v3_r_trunk   # section: rear (trunk) | focus: trunk lid to captured pose -> trunk interior
+    src: /home/user/media/work/miata/renders/final/v3_r_trunk
+    src_fps: 14.0909   # 31 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 62
+    dur: 2.0667
+  - transition: {type: cut}
+  - id: v3_x_front   # section: explode | focus: explode: front assembly in layers
+    src: /home/user/media/work/miata/renders/final/v3_x_front
+    src_fps: 14.0909   # 31 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 62
+    dur: 2.0667
+  - transition: {type: cut}
+  - id: v3_x_rear   # section: explode | focus: explode: rear assembly in layers
+    src: /home/user/media/work/miata/renders/final/v3_x_rear
+    src_fps: 14.0909   # 31 renders; 30*N/(slot+4)
+    interpolate: true
+    frames: 62
+    dur: 2.0667
+  - transition: {type: cut}
+  - id: v3_x_home_fade   # section: explode | focus: reassembly lock on the last hit, fade
+    src: /home/user/media/work/miata/renders/final/v3_x_home_fade
+    src_fps: 15.4839   # 23 renders; render 17 (parts lock) -> clip frame 31 = video 807, the last hit
+    interpolate: true
+    frames: 43
+    dur: 1.4333
+  - transition: {type: cut}
+  - id: logo           # end: small logo (logo_card.py --secs 2.2 --width 300)
+    src: /home/user/media/work/miata/out/logo_card_v3.mp4
+    frames: 66
+    dur: 2.2000
+
+overlays: []

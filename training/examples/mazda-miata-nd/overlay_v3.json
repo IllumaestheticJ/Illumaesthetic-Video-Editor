@@ -1,0 +1,45 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 885,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 155,
+   "duration": 31,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "INNER FACE \u00b7 MOUNTING POINTS",
+   "x": 0.074,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 202,
+   "duration": 42,
+   "title": "CRASH BEAM",
+   "x": 0.074,
+   "y": 0.12,
+   "sub": "FRONT BUMPER OFF"
+  },
+  {
+   "kind": "label",
+   "from": 530,
+   "duration": 32,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "INNER FACE",
+   "x": 0.074,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 566,
+   "duration": 22,
+   "title": "EXHAUST",
+   "x": 0.074,
+   "y": 0.12,
+   "sub": "REAR BUMPER OFF"
+  }
+ ]
+}
