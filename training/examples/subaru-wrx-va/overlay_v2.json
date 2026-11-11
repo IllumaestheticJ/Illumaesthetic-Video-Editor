@@ -1,0 +1,63 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 923,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 97,
+   "duration": 54,
+   "title": "HOOD OPEN",
+   "sub": "CAPTURED STATE",
+   "x": 0.08,
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 178,
+   "duration": 55,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 233,
+   "duration": 41,
+   "title": "BUMPER",
+   "sub": "SCANNED INSIDE + OUT",
+   "x": 0.08,
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 287,
+   "duration": 60,
+   "title": "BEHIND THE BUMPER",
+   "sub": "HEADLIGHT HOUSINGS · FRONT STRUCTURE",
+   "x": 0.08,
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 369,
+   "duration": 36,
+   "title": "HOOD SCOOP REMOVED",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.13
+  },
+  {
+   "kind": "label",
+   "from": 580,
+   "duration": 42,
+   "title": "TRUNK OPEN",
+   "sub": "CAPTURED STATE",
+   "x": 0.08,
+   "y": 0.74
+  }
+ ]
+}
