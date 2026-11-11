@@ -1,20 +1,20 @@
 # Director report - projects/porsche-gt3rs-992/project.yaml
 
-Total 37.97 s. Sections (s): untagged 37.97
+Total 38.27 s. Sections (s): whole 11.27, wheel 1.9, front 8.54, rear 4.73, side 3.8, top 3.8, untagged 4.23
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_turntable | 0.0 | 3.73 |  |  | 1.9 | 0.0 | 20.5->22.1 | no focus: tag - what should the viewer look at? |
-| s2_rear | 3.73 | 3.77 |  |  | 2.79 | 0.0 | 21.8->23.7 | no focus: tag - what should the viewer look at? |
-| s3_wheel | 7.5 | 1.87 |  |  | 10.95 | 0.0 | 50.6->53.0 | no focus: tag - what should the viewer look at? |
-| s4_vent | 9.37 | 1.87 |  |  | 19.32 | 0.0 | 77.6->76.0 | no focus: tag - what should the viewer look at? |
-| s5_wing | 11.23 | 2.83 |  |  | 10.27 | 0.0 | 43.5->54.0 | no focus: tag - what should the viewer look at? |
-| s6_lift | 14.07 | 4.67 |  |  | 1.66 | 0.0 | 24.6->26.5 | no focus: tag - what should the viewer look at? |
-| s7_top | 18.73 | 5.63 |  |  | 3.59 | 0.0 | 23.8->29.1 | no focus: tag - what should the viewer look at? |
-| s8_explode | 24.37 | 9.37 |  |  | 3.72 | 0.0 | 21.0->21.9 | no focus: tag - what should the viewer look at? |
-| logo | 33.73 | 4.23 |  |  | 0.59 | 2.83 | 1.5->4.9 |  |
+| sh1_whole | 0.0 | 3.77 | whole | whole car (nose aero, wing silhouette) | 0.39 | 0.8 | 10.0->10.6 | dead frames 0.8s (nothing moves) - trim or give the hold a reason |
+| sh2_wheel | 3.77 | 1.9 | wheel | front-left wheel, centre-lock, drilled disc | 10.95 | 0.0 | 50.6->53.0 |  |
+| sh3_nose | 5.67 | 5.67 | front | front aero (lip, grille trim, hood-vent top) | 1.81 | 0.0 | 19.5->21.6 |  |
+| sh4_louvres | 11.33 | 2.87 | front | right front fender louvres | 8.92 | 0.0 | 68.0->67.8 |  |
+| sh5_wing | 14.2 | 2.83 | rear | swan-neck wing mounts | 10.27 | 0.0 | 43.5->54.0 |  |
+| sh6_rear | 17.03 | 1.9 | rear | rear diffuser + undertray, quarter-panel intakes | 1.33 | 0.0 | 13.4->15.3 |  |
+| sh7_side | 18.93 | 3.8 | side | left side skirts + strake | 6.85 | 0.0 | 26.0->27.7 |  |
+| sh8_top | 22.73 | 3.8 | top | all removed parts around the car | 1.86 | 0.0 | 20.1->23.1 |  |
+| sh9_stack | 26.53 | 7.5 | whole | exploded stack -> reassembly | 2.52 | 0.0 | 10.8->11.7 |  |
+| logo | 34.03 | 4.23 |  |  | 0.06 | 3.66 | 0.0->0.8 |  |
 
 ## Repeated views
-- s1_turntable ~ s2_rear (IoU 0.83, corr 0.87): same view shown twice
-- s1_turntable ~ s8_explode (IoU 0.66, corr 0.76): same view shown twice
-- s7_top ~ s8_explode (IoU 0.79, corr 0.91): same view shown twice
+- sh1_whole ~ sh9_stack (IoU 0.75, corr 0.82): same view shown twice in the same section - merge or cut one
+- sh3_nose ~ sh6_rear (IoU 0.68, corr 0.78): same view shown twice

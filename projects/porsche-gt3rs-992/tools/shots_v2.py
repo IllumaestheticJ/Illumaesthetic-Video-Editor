@@ -38,7 +38,7 @@ REAR = ["rear_diffuser_1", "rear_qpanel_intake_1", "rear_qpanel_intake_2"]
 SIDE = ["sideskirt_lower", "side_skirt_upper", "side_skirt_strake"]
 # shot start frames (30 fps) from the measured onsets
 START = {"v2_sh1": 0, "v2_sh3": 167, "v2_sh4": 338, "v2_sh6": 504, "v2_sh7": 563, "v2_sh8": 676, "v2_sh9": 789}
-SECS = {"v2_sh1": 3.9, "v2_sh3": 5.85, "v2_sh4": 3.0, "v2_sh6": 2.1, "v2_sh7": 3.9, "v2_sh8": 3.9, "v2_sh9": 7.0}
+SECS = {"v2_sh1": 4.1, "v2_sh3": 5.85, "v2_sh4": 3.0, "v2_sh6": 2.1, "v2_sh7": 3.9, "v2_sh8": 3.9, "v2_sh9": 7.0}
 
 
 def loc(shot, reel_t):
@@ -105,8 +105,8 @@ for k, n in enumerate(ORDER):
 SHOTS = {
     # 1 whole car, low front-left 3/4, slide + small push, no orbit
     "v2_sh1": {"base": [CAR], "parts": [],
-               "cam": cam((0, (3.55, -6.0, 1.0), (0.15, -0.2, 0.5), 30),
-                          (3.9, (3.9, -5.45, 0.92), (0.2, -0.15, 0.5), 30, "out2"))},
+               "cam": cam((0, (4.7, -5.9, 1.2), (0.15, -0.15, 0.5), 30),
+                          (4.1, (2.75, -6.15, 0.9), (0.1, -0.3, 0.5), 30, "lin"))},
     # 3 nose: lip off, grille trim toward camera, hood vent top up
     "v2_sh3": {"base": BASE, "parts": SH3,
                "cam": cam((0, (1.75, -4.6, 0.7), (0.2, -1.95, 0.42), 30),

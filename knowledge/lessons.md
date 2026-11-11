@@ -542,3 +542,10 @@ lands here automatically. Agents must read this whole file before editing.
   toward the lens covers the very jambs the shot is about.
 - **[technical]** The persistent-data dropout can strike late (Civic v1 s7: frame 91 of 166). Persist off roughly doubles the frame time
   (12.7 -> 23 s/frame); keep it on only for static-scene, camera-only shots and scan their luma.
+- **[technical]** (porsche-gt3rs-992 v2) In bars with no kick (hi-hat texture every ~100 ms) the half-rise onset tool has no
+  single answer: measured "medium hits" were 0.23 s late in the output check. Cut on big hits only, or on the strongest
+  local peak and say so. Generated tracks: map which bars actually have kicks before placing cuts.
+- **[technical]** (porsche-gt3rs-992 v2) minterpolate drops the tail of a 15 fps sequence (~0.3 s on a 58-frame shot) and
+  `dur` then pads with frozen frames; render ~0.2 s more than the clip needs or the director report shows dead frames.
+- **[technical]** (porsche-gt3rs-992 v2) For parts that stay on in a part-explode, rebuild the composite cutting ONLY the moving
+  parts; overlaying a static part on a cut-out leaves a visible gap line around it.

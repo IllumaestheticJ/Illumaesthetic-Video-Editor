@@ -1,17 +1,27 @@
-# Porsche 911 GT3 RS (992) scan reel v1 - self-review (training/rubric.md)
+# Porsche 911 GT3 RS (992) scan reel v2 - self-review (training/rubric.md)
 
-File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v1.mp4 (1080x1920, 30 fps, 37.97 s, h264 yuv420p + AAC).
+File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v2.mp4 (1080x1920, 30 fps, 37.97 s, h264 yuv420p + AAC).
+Plan: projects/porsche-gt3rs-992/direction.md (scene-director agent; stage-2 shot table). v1 review: review_v1.md.
+
+What changed from v1 (relayed user notes for all V1 reels + addendum A-D):
+- Order from the scan inventory: one lap whole -> wheel -> front (nose aero off, louvres) -> rear (wing, diffuser +
+  QP intakes off) -> side (skirts off) -> top (everything off) -> stack on the drop -> reassembly -> fade -> small logo.
+- Turntables and the one-wide-orbit explode removed; parts come off section by section with the camera on that section
+  and stay off (progressive explode); the stack + reassembly lands on the drop (26.285) and locks on 31.905.
+- Parts whose removal leaves a hollow/ragged cut-out (front strakes, fender vent, rear strake, diffuser outer trim) no
+  longer move; base comp_v2 cuts only the 9 moving parts. No openings/bumper-off: no such state scans exist.
+- Whole car in frame on the opener with a visible slide from frame 1; logo shrunk to 300 px after a fade.
+- Cuts on onsets measured from the decoded audio; 1-frame fade transitions (no cloned frame before cuts).
+- Luma check on every render folder (no dropouts); new renders with persistent data off.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Turntable moves from frame 1; first hard accent (3.78 s) cuts to the swan-neck wing. No transformation in the first 1.5 s (scan-only brief, nothing to transform). |
-| 2 | Beat sync | 5 | Cuts at frames 113/226/282/338/423/563/732/1013, measured by frame diff = round(beat*30); grid anchored on the big-hit waveform attacks (128 BPM, beat 0.46888 s). Explode separates on the drop (26.28 s) and locks on the 31.9 s hit. |
-| 3 | 1:1 match | n/a | Scan-only reel, no IRL. |
-| 4 | Scan quality | 4 | Clean silver-on-black, no ground. Known scan defects visible: hood nostrils are dark holes, a small dark blotch on the hood near the windscreen (s4 first frames, s7 top-down), cut-outs under the front strakes/grille are hollow during s6/s8. |
-| 5 | Story | 4 | Turntables -> wheel/brake, fender louvres, wing -> nose aero lifts -> top-down -> 13 aero pieces explode and lock -> logo. No hood/door/trunk open (no state scans; DRS-open scan shows no flap change). s6, s7 start and s8 start are all high front 3/4 angles - a bit samey. |
-| 6 | Grade | 5 | AgX, no colour, consistent across shots. |
-| 7 | Text | 5 | None (brief). |
-| 8 | Ending | 5 | Logo at 33.78 s (b72), music ends 36.1 s and decays under the logo fade to 38.0 s. |
-| 9 | Technical | 4 | Spec correct. The assembler's cut compensation repeats the last frame of each shot (1 dup frame before every cut). s4 slide is fast at its midpoint (shortened to 2 s). |
-
-To try next: a lower/side angle for s6 or the explode start so the three high-front shots differ; more frames for s4.
+| 1 | Hook | 4 | Whole car, slide + push from frame 1 (re-rendered; ive director still reads 0.8 s of low motion on the small car); first cut on the 3.78 s hit. |
+| 2 | Beat sync | 4 | 7 cuts on kicks within +-0.46 frame of the decoded-audio onset (3.779, 11.281, 14.093, 18.779, 22.532, 26.285 drop, 33.782 logo). Two cuts (5.633, 16.900) fall in bars with no kick - placed on the strongest local peak; the onset tool reads them ~0.22 s late. |
+| 3 | 1:1 match | n/a | scan only |
+| 4 | Scan quality | 4 | Clean silver on black; known defects: hood nostril holes and the hood blotch (visible at the top of sh4), grille bars partly missing (sh3). Cut-outs only under the 9 moving parts. |
+| 5 | Story | 4 | Sections in one lap, each once; parts off where the camera is. ive director still pairs sh1~sh9 (closed car vs exploded stack from the other side) and sh3~sh6 (front vs rear silhouettes) - kept, different sections/content. |
+| 6 | Grade | 5 | AgX, consistent. |
+| 7 | Text | 5 | None (brief: no text; no bumper-removed data to label). |
+| 8 | Ending | 5 | Lock on 31.905, 0.9 s fade to black, small logo at 33.78 as the music ends, decays to 38.0. |
+| 9 | Technical | 4 | Spec correct; no duplicate frame before cuts; the reused v1 wing close-up keeps the end plates out of frame (mount detail) - judge against rule A. |

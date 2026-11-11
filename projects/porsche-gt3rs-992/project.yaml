@@ -4,8 +4,8 @@
 # Shots: tools/shots_v2.py (new) + v1 renders s3_wheel / s5_wing reused (tools/shots.py). Base = comp_v2 (only the
 # 9 moving parts cut out; strakes, fender vent, rear strake, diffuser trim stay as scanned - no removed-state scans).
 # Music: porsche-gt3rs-992_track.mp3 (generated for this reel). Cuts only on onsets measured from the decoded audio
-# (1 ms RMS half-rise): 3.779, 5.565, 11.281, 14.093, 16.807, 18.779, 22.532, 26.285 (drop), 33.782 (logo).
-# Frames: 113, 167, 338, 423, 504, 563, 676, 789, 1013; end 1140 (38.0 s).
+# (1 ms RMS half-rise): 3.779, 11.281, 14.093, 18.779, 22.532, 26.285 (drop), 33.782 (logo); 5.633 and 16.900 are the
+# strongest local peaks in two kick-less bars. Frames: 113, 169, 338, 423, 507, 563, 676, 789, 1013; end 1139.
 # Transitions are 1-frame fades with one extra real frame on each outgoing clip (no cloned hold frame before cuts).
 project: porsche-gt3rs-992
 format: reel-9x16
@@ -16,7 +16,7 @@ music:
   start: 0
   fade_out: 0.3
 
-beats: [3.779, 5.565, 11.281, 14.093, 16.807, 18.779, 22.532, 26.285, 33.782]
+beats: [3.779, 5.633, 11.281, 14.093, 16.900, 18.779, 22.532, 26.285, 33.782]
 
 timeline:
   - id: sh1_whole      # whole car, low front-left 3/4, slide + small push
@@ -25,7 +25,7 @@ timeline:
     src: /home/user/media/work/gt3/renders/final/v2_sh1
     src_fps: 15
     interpolate: true
-    dur: 3.8000          # 113 frames + 1 overlap frame
+    dur: 3.7667          # 113 frames (first clip carries no overlap frame)
   - transition: {type: fade, duration: 0.0333, note: "3.779 big hit b8"}
   - id: sh2_wheel      # REUSE v1 s3_wheel: FL centre-lock + drilled disc
     section: wheel
@@ -33,15 +33,16 @@ timeline:
     src: /home/user/media/work/gt3/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
-    dur: 1.8333          # 54 + 1
-  - transition: {type: fade, duration: 0.0333, note: "5.565 medium hit b12"}
+    dur: 1.9000          # 56 + 1
+  - transition: {type: fade, duration: 0.0333, note: "5.633 strongest local peak at b12 (no kick in this bar; 5.565 measured 230 ms late)"}
   - id: sh3_nose       # lip off 7.53->9.31, grille trim toward camera, hood-vent top up 9.31->10.34
     section: front
     focus: front aero (lip, grille trim, hood-vent top)
     src: /home/user/media/work/gt3/renders/final/v2_sh3
     src_fps: 15
     interpolate: true
-    dur: 5.7333          # 171 + 1
+    trim_start: 0.0667   # starts 2 frames later than rendered; part keys stay on their reel times
+    dur: 5.6667          # 169 + 1
   - transition: {type: fade, duration: 0.0333, note: "11.281 big hit b24"}
   - id: sh4_louvres    # right front fender louvres, front parts held off
     section: front
@@ -57,22 +58,23 @@ timeline:
     src: /home/user/media/work/gt3/renders/final/s5_wing
     src_fps: 15
     interpolate: true
-    trim_start: 0.27
-    dur: 2.7333          # 81 + 1
-  - transition: {type: fade, duration: 0.0333, note: "16.807 medium hit b36"}
+    trim_start: 0.2
+    dur: 2.8333          # 84 + 1
+  - transition: {type: fade, duration: 0.0333, note: "16.900 strongest local peak at b36 (no kick in this bar)"}
   - id: sh6_rear       # diffuser + undertray back, both QP intakes out
     section: rear
     focus: rear diffuser + undertray, quarter-panel intakes
     src: /home/user/media/work/gt3/renders/final/v2_sh6
     src_fps: 15
     interpolate: true
-    dur: 2.0000          # 59 + 1
+    trim_start: 0.1      # starts 3 frames later than rendered
+    dur: 1.9000          # 56 + 1
   - transition: {type: fade, duration: 0.0333, note: "18.779 big hit b40"}
   - id: sh7_side       # left sill dolly, skirts off
     section: side
     focus: left side skirts + strake
     src: /home/user/media/work/gt3/renders/final/v2_sh7
-    src_fps: 15
+    src_fps: 14.5        # 3 % slower: interpolation loses the last source frame
     interpolate: true
     dur: 3.8000          # 113 + 1
   - transition: {type: fade, duration: 0.0333, note: "22.532 big hit b48"}
@@ -80,7 +82,7 @@ timeline:
     section: top
     focus: all removed parts around the car
     src: /home/user/media/work/gt3/renders/final/v2_sh8
-    src_fps: 15
+    src_fps: 14.5        # 3 % slower: interpolation loses the last source frame
     interpolate: true
     dur: 3.8000          # 113 + 1
   - transition: {type: fade, duration: 0.0333, note: "26.285 drop b56"}
