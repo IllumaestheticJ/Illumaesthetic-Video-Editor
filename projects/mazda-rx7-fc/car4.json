@@ -1,0 +1,28 @@
+{
+  "sources": [
+    "/home/user/media/mazda-rx7-fc/lvl/car_4mm_clean.stl"
+  ],
+  "unit_scale": 0.001,
+  "root_location": [
+    0.6076329350471497,
+    0.042658209800720215,
+    0.30364587903022766
+  ],
+  "faces_in": 2539325,
+  "faces_out": 2473046,
+  "bbox_min": [
+    -0.8947600722312927,
+    -2.152141571044922,
+    0.03983491659164429
+  ],
+  "bbox_max": [
+    0.8946536183357239,
+    2.152141571044922,
+    1.3786113262176514
+  ],
+  "objects": [
+    "car_4mm_clean.003"
+  ],
+  "has_color_attribute": false,
+  "has_uv_texture": false
+}
