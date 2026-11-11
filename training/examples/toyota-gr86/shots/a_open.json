@@ -1,0 +1,46 @@
+{
+ "base": [
+  "/home/user/media/work/gr86/blend/car4.blend"
+ ],
+ "parts": [],
+ "camera": {
+  "keys": [
+   {
+    "t": 0,
+    "loc": [
+     4.6,
+     -4.7,
+     1.4
+    ],
+    "target": [
+     0,
+     -0.25,
+     0.7
+    ],
+    "focal": 30,
+    "ease": "inout"
+   },
+   {
+    "t": 5.162,
+    "loc": [
+     2.1,
+     -5.9,
+     1.1
+    ],
+    "target": [
+     0,
+     -0.5,
+     0.66
+    ],
+    "focal": 30,
+    "ease": "inout"
+   }
+  ]
+ },
+ "seconds": 5.162,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 75,
+ "samples": 12,
+ "out": "/home/user/media/work/gr86/shots/a_open"
+}

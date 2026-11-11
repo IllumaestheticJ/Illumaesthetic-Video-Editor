@@ -3,6 +3,7 @@
 Newest first. Read the top two before starting a new edit.
 
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
+- [toyota-gr86](toyota-gr86/) - archived 2026-11-11
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11

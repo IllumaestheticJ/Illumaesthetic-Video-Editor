@@ -571,3 +571,14 @@ lands here automatically. Agents must read this whole file before editing.
 - **[framing]** Exploded state in 9:16: parts parked 2 m above the car read tiny from r 9 m; r 8.5 m with the orbit centre
   pulled ~0.4 m toward the part cluster keeps all parts in with margins. Check first/mid/last at preview res (15 s) before any final.
 - **[text]** ScanHUD `label` crashes on an empty `sub` (typewriter interpolate range [6,6]); always give a short factual sub.
+## From the Toyota GR86 / BRZ v2 (2026-11-11, built by an agent)
+- **[pacing]** cutcheck.py's "largest rise in -120..+80 ms" can lock onto a later transient in the kick's tail and report a
+  cut as 40 ms early when it is 40 ms late. Print the 1 ms envelope around each cut and take the first half-rise after the
+  pre-kick dip: this track's kicks sat ~30 ms ahead of the accents.py downbeat grid, so every cut moved 1 frame earlier.
+- **[text]** Remotion ScanHUD label with an empty `sub` crashes ("inputRange must be strictly monotonically increasing [6,6]");
+  pass `sub: " "` for a title-only label.
+- **[scan-look]** Read the newest lessons right before rendering, not only at the start: gr86 flattened its plate per the
+  older lessons while the user's "only IS300" plate rule had already landed, and two shots had to be re-rendered.
+  (If a plate IS to be flattened: a rear-bumper-removed state's base has no plate - the box there holds the real crash beam.)
+- **[technical]** Lighting-dropout signature (persistent data on): from one frame on, render time halves and luma falls to
+  ~6 (black silhouettes). Turning the key light's camera visibility off does not fix it; `use_persistent_data = False` does.

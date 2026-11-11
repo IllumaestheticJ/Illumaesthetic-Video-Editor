@@ -1,0 +1,95 @@
+{
+ "base": [
+  "/home/user/media/work/gr86/blend/comp_hoodopen.blend"
+ ],
+ "parts": [
+  {
+   "blend": "/home/user/media/work/gr86/blend/hood_m.blend",
+   "pivot": [
+    0.0095,
+    -0.6236,
+    1.0916
+   ],
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.612,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 2.449,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      -52,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ]
+  }
+ ],
+ "camera": {
+  "keys": [
+   {
+    "t": 0,
+    "loc": [
+     -2.7,
+     -4.6,
+     1.75
+    ],
+    "target": [
+     -0.3,
+     -1.1,
+     0.85
+    ],
+    "focal": 31
+   },
+   {
+    "t": 5.0,
+    "loc": [
+     -1.9,
+     -4.1,
+     2.25
+    ],
+    "target": [
+     -0.25,
+     -1.05,
+     0.8
+    ],
+    "focal": 32
+   }
+  ]
+ },
+ "seconds": 5.0,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 75,
+ "samples": 12,
+ "out": "/home/user/media/work/gr86/shots/s5_hood"
+}

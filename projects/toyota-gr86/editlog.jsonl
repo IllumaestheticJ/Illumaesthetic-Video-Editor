@@ -24,3 +24,4 @@
 {"ts": "2026-11-11T14:18:24Z", "decision": "a_open camera: ~20 deg arc (4.60,-4.70)->(2.10,-5.90) with a push, replacing the 0.8 m dolly", "why": "ive director: 4.8 s of dead frames - the v1 dolly read as static; the opener rule wants motion from frame 1"}
 {"ts": "2026-11-11T14:18:24Z", "decision": "f_reassemble fade starts 0.45 s after the parts land (st 2.9, d 2.0) instead of a 2 s hold + 0.5 s fade", "why": "ive director flagged a 2.4 s dead hold; lessons: the ending must not hold too long - fade, then the small logo"}
 {"ts": "2026-11-11T14:18:24Z", "decision": "section/focus tags on every clip", "why": "ive director needs them to check that each section plays as one continuous sequence and every shot has a subject"}
+{"ts": "2026-11-11T14:53:30Z", "decision": "Cuts moved 1 frame earlier (a_open 4.9333->4.9, logo 2.4333->2.5)", "why": "decoded-audio check: kicks half-rise ~30 ms before the accents grid; offsets now +2/-13/-7/+10/-6/+14 ms, inside +-16.7"}
