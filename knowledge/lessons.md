@@ -526,3 +526,9 @@ lands here automatically. Agents must read this whole file before editing.
 - **[pacing]** Measuring kick onsets on generated tracks: take the half-rise of the 1 ms RMS envelope within ~60 ms *before
   the envelope peak*. A wider pre-window catches the sustained pad before each kick and reads 100-145 ms early; the 40-120 Hz
   peak grid read 38 ms late. projects/lexus-is350/tools/cutcheck.py.
+- **[technical]** (ferrari-296 v4) Interpolated PNG clips cut to exactly 2N frames stall: minterpolate makes only
+  (N-1)*30/r - 1 frames from N renders and `_render_clip` clone-pads the rest (2-3 frozen frames before the cut). Scan the
+  final mp4 for near-identical consecutive frames; lower `src_fps` to (N-1)*30/(n+2) (see ferrari-296 `assemble_cuts.py`)
+  or render one extra frame per shot.
+- **[text]** Labels over bright silver scan are unreadable without a halo; ScanHUD `label` now takes `shadow: true`.
+  Composite the HUD and look at every label frame - keep titles short (FRONT BUMPER + sub REMOVED) so they fit the dark area.

@@ -50,6 +50,16 @@ def main():
             c = dict(c)
             c["dur"] = n / fps
             c.pop("frames", None)
+            src = (root / c["src"]).resolve()
+            if c.get("interpolate") and src.is_dir():
+                # minterpolate turns N renders at r fps into (N-1)*fps/r - 1 distinct frames; ive pads the rest by
+                # cloning the last frame (a visible stall before the cut). Stretch the input rate just enough instead.
+                N = len(list(src.glob("*.png")))
+                r = float(c.get("src_fps", fps))
+                need = (N - 1) * fps / (n + 2)  # +1 frame margin: rounding left one clone
+                if need < r:
+                    c["src_fps"] = round(need, 4)
+                    print(f"  {c['id']}: {N} renders -> src_fps {r} -> {c['src_fps']} ({100 * (1 - need / r):.1f}% slower, no clone pad)")
             f = tmp / f"c{i:03d}.mp4"
             _render_clip(c, root, f, cfg)
             if c.get("fade_out"):

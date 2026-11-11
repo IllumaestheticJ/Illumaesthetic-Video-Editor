@@ -4,7 +4,7 @@
 #   Cut-only assembly with exact frame counts: projects/ferrari-296/tools/assemble_cuts.py (ive assemble repeats a frame
 #   at every cut). v3: project_v3.yaml, v2: project_v2.yaml, v1: project_v1.yaml.
 # Music: ferrari296_track.mp3 (generated for this reel; 103.4 BPM, beat 0.5803 s, grid 0.435 + k*0.5803).
-# Cut frames: 152, 222, 483, 622, 762, 901, 1005; end 1170 (39.0 s).
+# Cut frames: 153, 222, 482, 622, 762, 901, 1005; end 1170 (39.0 s).
 project: ferrari-296
 format: reel-9x16
 output: {path: /home/user/media/work/f296/out/ferrari_296_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -14,7 +14,7 @@ music:
   start: 0
   fade_out: 0.3
 
-beats: [5.067, 7.4, 16.1, 20.733, 25.4, 30.033, 33.5]
+beats: [5.1, 7.4, 16.067, 20.733, 25.4, 30.033, 33.5]
 
 timeline:
   - id: s1_wide
@@ -23,7 +23,7 @@ timeline:
     src: /home/user/media/work/f296/renders/final/s1_wide
     src_fps: 15
     interpolate: true
-    frames: 152
+    frames: 153
     dur: 5.0667
   - transition: {type: cut}
   - id: s3_wheel
@@ -32,7 +32,7 @@ timeline:
     src: /home/user/media/work/f296/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
-    frames: 70
+    frames: 69
     dur: 2.3333
   - transition: {type: cut}
   - id: f5_front   # lamp 7.40 -> hood 7.97-9.13 -> bumper out 9.71-10.87 -> turn 11.45-13.19 -> push in
@@ -41,7 +41,7 @@ timeline:
     src: /home/user/media/work/f296/renders/final/f5_front
     src_fps: 15
     interpolate: true
-    frames: 261
+    frames: 260
     dur: 8.7000
   - transition: {type: cut}
   - id: F_hero   # label on the 18.423 accent
@@ -50,7 +50,7 @@ timeline:
     src: /home/user/media/work/f296/renders/final/F_hero
     src_fps: 15
     interpolate: true
-    frames: 139
+    frames: 140
     dur: 4.6333
   - transition: {type: cut}
   - id: x_side   # rear bumper leaves on the 23.066 lift
