@@ -1,4 +1,4 @@
-# Mazda Miata NC - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
+# Mazda Miata NC - Temerario-style scan reel (scan only, no IRL footage; v2 adds labels of what each scan is used for, from the Drive folder). Siblings: ferrari-296, huracan-evo, a90-supra.
 # Satin-silver scan on black: front 3/4 turntable -> rear 3/4 orbit -> wheel + headlight close-ups -> hood opens ->
 # trunk opens -> top-down over the breakdown -> exploded view (bumper / hood / trunk lid) ON the drop -> hero -> logo.
 # Shots: tools/shots.py (specs) + tools/shot.py (Blender, copied from ferrari-296). Scan prep: tools/level.py,
@@ -6,69 +6,82 @@
 # Music: mazda-miata-nc_track.mp3 - original track generated for this reel by the parent session (ElevenLabs via
 # Higgsfield, chill electro-pop). Kick grid -0.524 + 0.58241 n (103.0 BPM); bars on odd beats; breakdown 16.37-18.70;
 # drop beat 33 = 18.696 s; last kick 36.75, music out 37.33, last audio ~37.9 s (tools/accents.py).
-# Cuts on frames round(t*30): 142, 264, 299, 334, 421, 491, 561, 910, 1015; end 1140 (38.0 s).
+# v1 cuts: 142, 264, 299, 334, 421, 491, 561, 910, 1015. v2 (user: rotations wasted; front bumper first, then rear;
+# label what the scan is used for): cuts 89, 142, 194, 281, 351, 421, 491, 701, 840, 910, 1015; end 1140 (38.0 s).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: mazda-miata-nc
 format: reel-9x16
-output: {path: /home/user/media/work/miata/out/mazda_miata_nc_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/miata/out/mazda_miata_nc_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/mazda-miata-nc_track.mp3   # not in git
   start: 0
   fade_out: 0.5
 
-beats: [4.718, 8.795, 9.959, 11.124, 14.036, 16.366, 18.696, 30.344, 33.838]
+beats: [2.970, 4.717, 6.464, 9.376, 11.706, 14.036, 16.366, 23.355, 28.014, 30.344, 33.838]
 
 timeline:
-  - id: s1_front       # slow low front-right 3/4 turntable; rendered 5.6 s (before the music), trimmed
-    src: /home/user/media/work/miata/renders/final/s1_front
+  - id: s1p_front   # front-right 3/4 straight push-in (no turntable)
+    src: /home/user/media/work/miata/renders/final/s1p_front
     src_fps: 15
     interpolate: true
-    dur: 4.7
-  - transition: {type: cut, note: "4.718 bar downbeat (beat 9)"}
-  - id: s2_rear        # rear-left 3/4 orbit, slight rise
-    src: /home/user/media/work/miata/renders/final/s2_rear
-    src_fps: 15
-    interpolate: true
-    dur: 4.0667
-  - transition: {type: cut, note: "8.795 backbeat accent (flux .89)"}
-  - id: s3_wheel       # extreme close-up: front-right wheel, 3 mm scan
+    dur: 2.9333
+  - transition: {type: cut, note: "2.970 beat 6"}
+  - id: s3_wheel   # front-right wheel close-up; label FENDER SCOOP (Drive: nc fender scoop/Straight + Steered out)
     src: /home/user/media/work/miata/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
-    dur: 1.1667
-  - transition: {type: cut, note: "9.959 strongest backbeat (flux 1.00)"}
-  - id: s4_lamp        # headlight + nose slide, 3 mm scan
+    dur: 1.7667
+  - transition: {type: cut, note: "4.717 bar downbeat (beat 9)"}
+  - id: s4_lamp   # headlight close-up; label HEADLIGHT PROJECT (Drive: Headlight Project/Left Bucket.stp, RE.xrl)
     src: /home/user/media/work/miata/renders/final/s4_lamp
     src_fps: 15
     interpolate: true
-    dur: 1.1667
-  - transition: {type: cut, note: "11.124 backbeat accent (.96)"}
-  - id: s5_hood        # hood opens 55 deg on the cowl seam over the real engine bay (state scans)
+    dur: 1.7333
+  - transition: {type: cut, note: "6.464 beat 12"}
+  - id: s5_hood   # hood opens on the cowl seam over the scanned engine bay
     src: /home/user/media/work/miata/renders/final/s5_hood
     src_fps: 15
     interpolate: true
     dur: 2.9
-  - transition: {type: cut, note: "14.036 bar downbeat"}
-  - id: s6_trunk       # trunk lid opens on its fitted hinge (74 deg, 2023 Trunk Open scan)
+  - transition: {type: cut, note: "9.376 beat 17"}
+  - id: s2p_rear   # rear-left 3/4 straight push-in
+    src: /home/user/media/work/miata/renders/final/s2p_rear
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut, note: "11.706 beat 21"}
+  - id: s6_trunk   # trunk lid opens on its fitted hinge
     src: /home/user/media/work/miata/renders/final/s6_trunk
     src_fps: 15
     interpolate: true
     dur: 2.3333
-  - transition: {type: cut, note: "16.366 breakdown starts"}
-  - id: s7_top         # high rear 3/4 rising to top-down over the quiet breakdown
-    src: /home/user/media/work/miata/renders/final/s7_top
+  - transition: {type: cut, note: "14.036 bar downbeat"}
+  - id: s7p_top   # straight-down track nose -> tail (no spin)
+    src: /home/user/media/work/miata/renders/final/s7p_top
     src_fps: 15
     interpolate: true
     dur: 2.3333
-  - transition: {type: cut, note: "18.696 THE DROP - panels separate on this frame"}
-  - id: s8_explode     # bumper (flips to show its scanned inside) / hood / lid float above, orbit front-left -> rear-left; lock 28.014
-    src: /home/user/media/work/miata/renders/final/s8_explode
+  - transition: {type: cut, note: "16.366 breakdown: front explode starts"}
+  - id: s8a_front   # FRONT: bumper slides out (breakdown), hood lifts off ON the drop 18.696; labels FRONT BUMPER / HOOD
+    src: /home/user/media/work/miata/renders/final/s8a_front
     src_fps: 15
     interpolate: true
-    dur: 11.6333
-  - transition: {type: cut, note: "30.344 bar downbeat"}
-  - id: s9_hero        # assembled car, low front-left 3/4 push-in
+    dur: 7.0
+  - transition: {type: cut, note: "23.355 beat 41"}
+  - id: s8b_rear   # REAR: trunk lid lifts off; label TRUNK LID
+    src: /home/user/media/work/miata/renders/final/s8b_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.6333
+  - transition: {type: cut, note: "28.014 bar downbeat"}
+  - id: s8c_home   # all three panels fly home, locked a beat before the cut
+    src: /home/user/media/work/miata/renders/final/s8c_home
+    src_fps: 15
+    interpolate: true
+    dur: 2.3333
+  - transition: {type: cut, note: "30.344 clean car on the downbeat"}
+  - id: s9_hero   # assembled car, low front-left 3/4 push-in
     src: /home/user/media/work/miata/renders/final/s9_hero
     src_fps: 15
     interpolate: true
@@ -77,3 +90,7 @@ timeline:
   - id: logo
     src: /home/user/media/work/miata/logo_card.mp4
     dur: 4.1667
+
+overlays:
+  - src: /home/user/media/work/miata/hud_miata_v2.mov
+    start: 0

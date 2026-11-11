@@ -19,7 +19,7 @@ HOOD_PIVOT = [-0.024, -0.757, 0.772]   # hood rear edge (cowl seam) - tools/poly
 # music grid (tools/accents.py): beat n at -0.524 + 0.58241 n; bars on odd beats; drop = beat 33 = 18.696 s.
 # Rendered ~0.2-0.9 s longer than the cut lengths in project.yaml (s1 was queued before the music arrived).
 BEAT = 0.58241
-SECS = {"s1_front": 5.6, "s2_rear": 4.4, "s3_wheel": 1.4, "s4_lamp": 1.4, "s5_hood": 3.1, "s6_trunk": 2.5,
+SECS = {"s1_front": 5.6, "s2_rear": 4.4, "s3_wheel": 2.0, "s4_lamp": 2.0, "s5_hood": 3.1, "s6_trunk": 2.5,
         "s7_top": 2.5, "s8_explode": 20 * BEAT + 0.2, "s9_hero": 6 * BEAT + 0.2}
 HINGE_LID = json.load(open("/home/user/media/mazda-miata-nc/work/hinge_lid.json")) if os.path.exists(
     "/home/user/media/mazda-miata-nc/work/hinge_lid.json") else None
@@ -118,7 +118,7 @@ SHOTS["s9_hero"] = {"base": [CAR], "cam": sweep(6, S["s9_hero"], lambda u: orbit
 # ---------------------------------------------------------------- v2 (user feedback on v1)
 # "Rotations are wasted" + "front bumper removed: focus on the front bumper, THEN move to the rear".
 # No turntables/orbits: every move is a straight dolly/push or a part moving. Explode split front -> rear -> together.
-SECS.update({"s1p_front": 3.1, "s2p_rear": 2.5, "s7p_top": 3.7, "s8a_front": 7.2, "s8b_rear": 4.8, "s8c_home": 2.5})
+SECS.update({"s1p_front": 3.1, "s2p_rear": 2.5, "s7p_top": 2.5, "s8a_front": 7.2, "s8b_rear": 4.8, "s8c_home": 2.5})
 BUMP_OFF, BUMP_ROT = (0, -0.85, -0.02), (0, 0, 0)          # bumper slides straight out of the nose (no flip)
 HOOD_OFF, HOOD_ROT = (0, -0.15, 0.62), (-8, 0, 0)          # hood lifts off, front edge up
 LID_OFF, LID_ROT = (0, 0.08, 0.55), (10, 0, 0)              # trunk lid lifts off, rear edge up
