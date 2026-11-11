@@ -44,8 +44,8 @@ HOOD = {"blend": B + "/hood_part.blend", "pivot": [0.0609, 1.2197, 1.2671],
         "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 0.65, "loc": [0, 0, 0], "rot": [0, 0, 0]},
                  {"t": 2.6, "loc": [0, 0, 0], "rot": [37.19, 0, 0], "ease": "inout"}]}
 SHOTS["s5_hood"] = dict(base=[B + "/base_hood.blend"], parts=[HOOD], seconds=5.4, camera={"keys": [
-    {"t": 0, "loc": [4.0, 5.4, 2.3], "target": [0.0, 1.5, 1.0], "focal": 30},
-    {"t": 5.4, "loc": [3.1, 4.9, 2.9], "target": [0.0, 1.3, 1.05], "focal": 30, "ease": "inout"}]})
+    {"t": 0, "loc": [4.5, 6.4, 2.5], "target": [0.0, 1.85, 1.0], "focal": 30},
+    {"t": 5.4, "loc": [3.6, 5.8, 3.1], "target": [0.0, 1.65, 1.1], "focal": 30, "ease": "inout"}]})
 
 # s7: exploded view - panels lift into layers ABOVE the car (portrait stacking, Temerario 25-31 s), hold while the
 # camera orbits front-right -> right side, then fly home and lock. Times come from the music (EXPLODE_T).
@@ -101,7 +101,7 @@ Z = (0, 0, 0)
 OFF = {"duct": (0.25, 0.45, 0.05), "vr": (0.30, 0, 0), "vl": (-0.30, 0, 0), "fender": (0.40, 0.05, 0),
        "hood": (0, 0.15, 0.90), "wing": (0, -0.30, 0.30), "exh": (0, -0.35, 0)}
 XB = [B + "/x_base_explode.blend"]
-SHOTS["N0_open"] = dict(base=CAR, seconds=5.47, camera={"keys": orbit((7.6, 7.0), 48, 30, 1.05, 1.0, (0, 0.2, 0.9), (0, 0.5, 0.9), 32, 32, 5.47)})
+SHOTS["N0_open"] = dict(base=CAR, seconds=5.47, camera={"keys": orbit((9.8, 9.2), 46, 30, 1.1, 1.05, (0, 0.3, 0.9), (0, 0.4, 0.9), 32, 32, 5.47)})
 SHOTS["N1_front"] = dict(base=XB, seconds=8.0, parts=[
     track("x_front_bumper_duct_3mm.blend", Z, [(0.65, 1.30, OFF["duct"])]),
     track("x_side_vent_r.blend", Z, [(2.60, 3.25, OFF["vr"])]),
@@ -109,19 +109,19 @@ SHOTS["N1_front"] = dict(base=XB, seconds=8.0, parts=[
     track("x_fender_inner_3mm.blend", Z, [(4.55, 5.20, OFF["fender"])]),
     track("hood_part.blend", Z, [(5.20, 6.50, OFF["hood"])], [(0, 0, 37.19, 37.19)], HP),
     track("x_wing_3mm.blend", Z, []), track("x_exhaust_cover_3mm.blend", Z, [])],
-    camera={"keys": [{"t": 0, "loc": [2.9, 4.2, 1.1], "target": [0.75, 2.2, 0.75], "focal": 35},
-                     {"t": 4.55, "loc": [2.75, 4.0, 1.15], "target": [0.8, 2.1, 0.8], "focal": 35, "ease": "lin"},
-                     {"t": 7.8, "loc": [3.6, 5.2, 2.6], "target": [0.4, 1.8, 1.3], "focal": 30, "ease": "inout"},
-                     {"t": 8.0, "loc": [3.6, 5.2, 2.6], "target": [0.4, 1.8, 1.3], "focal": 30}]})
+    camera={"keys": [{"t": 0, "loc": [3.3, 4.7, 1.25], "target": [0.6, 2.0, 1.0], "focal": 28},
+                     {"t": 4.55, "loc": [3.3, 4.7, 1.3], "target": [0.85, 1.95, 1.05], "focal": 28, "ease": "lin"},
+                     {"t": 7.8, "loc": [4.6, 6.5, 2.9], "target": [0.55, 1.8, 1.4], "focal": 28, "ease": "inout"},
+                     {"t": 8.0, "loc": [4.6, 6.5, 2.9], "target": [0.55, 1.8, 1.4], "focal": 28}]})
 FRONT_OUT = [track("x_front_bumper_duct_3mm.blend", OFF["duct"], []), track("x_side_vent_r.blend", OFF["vr"], []),
              track("x_side_vent_l.blend", OFF["vl"], []), track("x_fender_inner_3mm.blend", OFF["fender"], []),
              track("hood_part.blend", OFF["hood"], [], [(0, 0, 37.19, 37.19)], HP)]
-SHOTS["N2_rear"] = dict(base=XB, seconds=4.1, parts=FRONT_OUT + [
+SHOTS["N2_rear"] = dict(base=XB, seconds=4.1, parts=FRONT_OUT[:4] + [
     track("x_wing_3mm.blend", Z, [(0.65, 1.30, OFF["wing"])]),
     track("x_exhaust_cover_3mm.blend", Z, [(1.30, 1.95, OFF["exh"])])],
-    camera={"keys": [{"t": 0, "loc": [-2.9, -5.0, 1.5], "target": [-0.2, -2.2, 1.15], "focal": 30},
-                     {"t": 4.1, "loc": [-2.55, -4.55, 1.45], "target": [-0.1, -2.3, 1.1], "focal": 30, "ease": "inout"}]})
-N3_CAM = {"keys": [{"t": 0, "loc": [-5.2, 5.6, 3.4], "target": [0, 0.3, 1.0], "focal": 32},
+    camera={"keys": [{"t": 0, "loc": [-3.4, -6.3, 1.1], "target": [-0.1, -2.0, 1.2], "focal": 30},
+                     {"t": 4.1, "loc": [-3.1, -5.85, 1.1], "target": [-0.1, -2.1, 1.2], "focal": 30, "ease": "inout"}]})
+N3_CAM = {"keys": [{"t": 0, "loc": [-6.6, 7.1, 4.0], "target": [0.35, 0.4, 1.1], "focal": 32},
                    {"t": 6.7, "loc": [-6.0, 4.4, 2.2], "target": [0, 0.1, 0.9], "focal": 32, "ease": "inout"}]}
 SHOTS["N3a_reassemble"] = dict(base=XB, seconds=6.7, frames=list(range(1, 60)), out_name="N3_reassemble", parts=[
     track("x_exhaust_cover_3mm.blend", OFF["exh"], [(0.65, 1.30, Z)]),
