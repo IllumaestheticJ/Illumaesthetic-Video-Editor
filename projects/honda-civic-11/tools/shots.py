@@ -14,10 +14,14 @@ P = "/home/user/media/honda-civic-11/prep"
 OUT = "/home/user/media/work/civic/renders"
 SPECS = "/home/user/media/work/civic/specs"
 HINGE = json.load(open("/home/user/media/honda-civic-11/trunk/hinge2.json"))
-BEAT = float(os.environ.get("CIVIC_BEAT", 0.6))
-# shot lengths in beats (whole-frame seconds at 30 fps are applied in project.yaml; renders get a small tail)
-BEATS = {"s1_front34": 8, "s2_rear34": 7, "s3_wheel": 4, "s4_lamp": 4, "s5_trunk": 7, "s6_top": 6, "s7_explode": 16}
-SECS = {k: v * BEAT + 0.2 for k, v in BEATS.items()}   # +0.2 s tail so trims never run out of frames
+# honda-civic-11_track.mp3 kick grid (tools/kicks.py): t(k) = T0 + k*BEAT, 143.56 BPM, half-time trap.
+# Intro 0-13.2 s (first hit k17), drop k31, kicks on bar steps 0/3/5 (k31,34,36,39,42,44,47,50,52), breakdown k53-71,
+# big kicks k80, k88, k91; audio ends 39.8 s.
+T0, BEAT = 0.2899, 0.41794
+K = lambda k: T0 + k * BEAT
+CUTS = {"s1_front34": (0, 17), "s2_rear34": (17, 31), "s3_wheel": (31, 36), "s4_lamp": (36, 42), "s5_trunk": (42, 52),
+        "s6_top": (52, 62), "s7_explode": (62, 88)}
+SECS = {n: (K(b) - (0 if a == 0 else K(a))) + 0.2 for n, (a, b) in CUTS.items()}   # +0.2 s tail for trims
 
 CAR = f"{P}/car4f.blend"
 
@@ -50,8 +54,8 @@ SHOTS = {
         {"t": SECS["s4_lamp"], "loc": [-1.20, 3.55, 0.84], "target": [-0.66, 2.20, 0.70], "focal": 45, "ease": "inout"}]},
     # 5. trunk opens on its fitted hinge (Trunk Open state scan underneath), high rear-left 3/4, camera eases in
     "s5_trunk": {"base": [f"{P}/trunk_base.blend"],
-                 "parts": [dict(LID, keys=[dict(t=0, **CLOSED), dict(t=BEAT, **CLOSED),
-                                           dict(t=4.5 * BEAT, ease="inout", **OPEN)])],
+                 "parts": [dict(LID, keys=[dict(t=0, **CLOSED), dict(t=2 * BEAT, **CLOSED),
+                                           dict(t=7 * BEAT, ease="inout", **OPEN)])],
                  "cam": [orbit(0, 4.6, 152, 2.4, c=(0, -1.3, 0.75), focal=30, ease="lin"),
                          orbit(SECS["s5_trunk"], 4.0, 162, 2.7, c=(0, -1.5, 0.8), focal=30, ease="out2")]},
     # 6. top-down: from a high rear-left 3/4 up and over to straight down (front at the top of frame)
@@ -62,7 +66,7 @@ SHOTS = {
 
 # 7. exploded view (right side: the Door Open scan is the right flank). Panels lift UP and slightly out (not at the
 # lens), drift, then fly home and lock. SEP/LOCK land on accents once the music is in.
-SEP, HOLD, BACK, LOCK = 0.0, 4 * BEAT, 12 * BEAT, 14.5 * BEAT
+SEP, HOLD, BACK, LOCK = 0.0, 4 * BEAT, 14 * BEAT, 18 * BEAT   # separate on k62, lock on the k80 kick
 
 
 def explode(off, rot=(0, 0, 0), delay=0.0, home=None):
@@ -78,10 +82,10 @@ SHOTS["s7_explode"] = {
     "base": [f"{P}/explode_base.blend"],
     "parts": [{"blend": f"{P}/front_door.blend", "keys": explode((0.75, 0.20, 0.30), (0, 0, -5))},
               {"blend": f"{P}/rear_door.blend", "keys": explode((0.75, -0.20, 0.30), (0, 0, 5), delay=0.5 * BEAT)},
-              dict(LID, keys=explode((0, 0.10, 0.75), (-12, 0, 0), delay=BEAT, home=CLOSED))],
+              dict(LID, keys=explode((0, 0.50, 0.55), (-10, 0, 0), delay=BEAT, home=CLOSED))],
     # high rear-right, looking down ~55 deg: nose at the top of the 9:16 frame, doors slide to frame-right
-    "cam": [orbit(0, 3.9, -158, 5.3, c=(0.25, 0.1, 0.5), focal=30, ease="lin"),
-            orbit(SECS["s7_explode"], 3.6, -138, 5.5, c=(0.25, 0.2, 0.5), focal=30, ease="out2")]}
+    "cam": [orbit(0, 4.6, -172, 5.7, c=(0.15, 0.0, 0.45), focal=30, ease="lin"),
+            orbit(SECS["s7_explode"], 4.7, -150, 5.6, c=(0.15, 0.1, 0.45), focal=30, ease="out2")]}
 
 
 def spec(name, mode):
