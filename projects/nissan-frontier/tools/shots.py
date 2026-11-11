@@ -83,12 +83,26 @@ def shots():
                 {"t": E[1] + d, "loc": list(off), "rot": list(rot), "ease": "out"},
                 {"t": E[2], "loc": [o * 1.06 for o in off], "rot": list(rot), "ease": "lin"},
                 {"t": E[3], "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
-    sh["s7_explode"] = {"base": [f"{P}/comp_explode.blend"], "parts": [
+    L = {l["id"]: l["t"] for l in TIMING.get("labels", [])}
+
+    def hl(i):  # highlight weight keys for label window i: ramp in 0.2 s, out 0.15 s
+        if i not in L:
+            return None
+        a, b = L[i]
+        return [[a, 0], [a + 0.2, 1], [b - 0.15, 1], [b + 0.05, 0]]
+    sh["s7_explode"] = {"base": [{"blend": f"{P}/comp_body.blend", "name": "body"},
+                                 {"blend": f"{P}/struct.blend", "name": "struct", "hl": hl("struct")}],
+        "parts": [
         # parts stack UP in front of/above the nose (9:16-friendly, Temerario ref 25-31 s), never toward the lens
-        {"blend": f"{P}/x_hood.blend", "keys": ex((0, -0.1, 1.25), (-8, 0, 0))},
-        {"blend": f"{P}/x_bumper.blend", "keys": ex((0, -0.8, -0.05), d=0.06)},
-        {"blend": f"{P}/x_grille.blend", "keys": ex((0, -0.7, 0.6), d=0.12)},
-        {"blend": f"{P}/x_flares.blend", "keys": ex((0, 0, 0.45), d=0.18)}],
+        {"blend": f"{P}/x_hood.blend", "name": "hood", "hl": hl("hood"), "keys": ex((0, -0.1, 1.25), (-8, 0, 0))},
+        {"blend": f"{P}/x_bumper.blend", "name": "bumper", "hl": hl("bumper"), "keys": ex((0, -0.8, -0.05), d=0.06)},
+        {"blend": f"{P}/x_grille.blend", "name": "grille", "hl": hl("grille"), "keys": ex((0, -0.7, 0.6), d=0.12)},
+        # flares split by side: each moves outward (+ a little up), the camera-side one carries the label
+        {"blend": f"{P}/x_flares_r.blend", "name": "flares", "hl": hl("flares"), "keys": ex((-0.55, 0, 0.15), d=0.18)},
+        {"blend": f"{P}/x_flares_l.blend", "hl": hl("flares"), "keys": ex((0.55, 0, 0.15), d=0.18)}],
+        # full truck lights up once everything has locked home (scan section 06)
+        "hl_all": ([[L["body"][0], 0], [L["body"][0] + 0.25, 0.8], [L["body"][1] - 0.3, 0.8], [L["body"][1] + 0.1, 0]]
+                   if "body" in L else None),
         # high front-right 3/4 orbiting toward the side; radius swells a little while the parts are out
         "cam": [orbit(S["s7_explode"] * k / 12, 5.7 + 0.8 * math.sin(math.pi * k / 12), -22 - 40 * (k / 12),
                       2.7 - 0.4 * (k / 12), c=(0, -1.7 + 0.5 * (k / 12), 0.95), focal=28, ease="lin", tz=0.85)
@@ -100,6 +114,7 @@ def spec(name, mode, frames=None):
     s = shots()[name]
     final = mode == "final"
     sp = {"base": s["base"], "parts": s.get("parts", []), "camera": {"sensor": 20.25, "keys": s["cam"]},
+          "hl_all": s.get("hl_all"), "anchors_out": f"{SPECS}/{name}_{mode}_anchors.json",
           "seconds": SECS[name] + 1 / 15, "fps": 15, "res": "1080x1920",
           "res_pct": 75 if final else 30, "samples": 12 if final else 6, "exposure": -0.5,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}

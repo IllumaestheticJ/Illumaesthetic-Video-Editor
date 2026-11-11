@@ -11,6 +11,7 @@ TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 def load(p): return np.fromfile(p, dtype=TRI, offset=84)
 ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--car", default="/home/user/media/nissan-frontier/lev/full_4mm.stl")
 ap.add_argument("--remove", nargs="+", required=True); ap.add_argument("--fill", nargs="*", default=[])
+ap.add_argument("--fills-out", nargs="*", default=[], help="write fill i to this STL instead of merging it (so it can be highlighted on its own)")
 ap.add_argument("--cut", type=float, default=9.0); ap.add_argument("--new", type=float, default=7.0)
 a = ap.parse_args()
 car = load(a.car); cc = car["v"].mean(1); keep = np.ones(len(car), bool)
@@ -28,7 +29,14 @@ for spec in a.fill:
         inz |= (xx >= x0) & (xx <= x1) & (c[:, 1] >= y0) & (c[:, 1] <= y1) & (c[:, 2] >= z0) & (c[:, 2] <= z1)
     d, _ = tc.query(c[inz], distance_upper_bound=a.new * 2)
     sel = np.zeros(len(m), bool); sel[np.where(inz)[0][d > a.new]] = True
-    print(path, "fill +", int(sel.sum())); pieces.append(m[sel])
+    print(path, "fill +", int(sel.sum()))
+    i = a.fill.index(spec)
+    if i < len(a.fills_out) and a.fills_out[i] != "-":
+        with open(a.fills_out[i], "wb") as f:
+            f.write(b"ive frontier fill".ljust(80)); f.write(struct.pack("<I", int(sel.sum()))); m[sel].tofile(f)
+        print("  ->", a.fills_out[i])
+    else:
+        pieces.append(m[sel])
 res = np.concatenate(pieces)
 with open(a.out, "wb") as f:
     f.write(b"ive frontier composite".ljust(80)); f.write(struct.pack("<I", len(res))); res.tofile(f)

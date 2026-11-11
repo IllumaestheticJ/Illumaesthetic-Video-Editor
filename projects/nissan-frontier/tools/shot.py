@@ -88,13 +88,55 @@ def mat_check(rgb):
     return m
 
 
+HL_RGB = (0.25, 0.82, 1.0)  # cyan accent for "this scan section" (house 'scan' look accent)
+
+
+def _w(keys, t):
+    """piecewise-linear weight from [[t, w], ...]"""
+    if not keys:
+        return 0.0
+    if t <= keys[0][0]:
+        return keys[0][1]
+    for (t0, w0), (t1, w1) in zip(keys, keys[1:]):
+        if t <= t1:
+            u = (t - t0) / max(1e-9, t1 - t0)
+            u = u * u * (3 - 2 * u)
+            return w0 + (w1 - w0) * u
+    return keys[-1][1]
+
+
+def mat_hl(keys, keys_all, fps):
+    """House silver mixed toward a cyan-tinted metallic with a soft cyan glow; mix factor keyed per frame."""
+    m = sr.mat_silver()
+    nt = m.node_tree
+    out = [n for n in nt.nodes if n.type == "OUTPUT_MATERIAL"][0]
+    silver_bsdf = out.inputs[0].links[0].from_node
+    hp = sr.principled(nt, (HL_RGB[0] * 0.55, HL_RGB[1] * 0.55, HL_RGB[2] * 0.6, 1), 0.3, 0.7)
+    he = sr.emission(nt, HL_RGB + (1,), 0.55)
+    add = nt.nodes.new("ShaderNodeAddShader")
+    nt.links.new(hp.outputs[0], add.inputs[0]); nt.links.new(he.outputs[0], add.inputs[1])
+    mix = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(silver_bsdf.outputs[0], mix.inputs[1]); nt.links.new(add.outputs[0], mix.inputs[2])
+    nt.links.new(mix.outputs[0], out.inputs[0])
+    sc = bpy.context.scene
+    for f in range(sc.frame_start, sc.frame_end + 1):
+        t = (f - 1) / fps
+        mix.inputs[0].default_value = max(_w(keys, t), _w(keys_all, t))
+        mix.inputs[0].keyframe_insert("default_value", frame=f)
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     base = []
+    groups = []  # (name, objs, hl keys) for highlight + label anchors
     for b in spec["base"]:
-        base += load_blend(b)
+        bb = b if isinstance(b, dict) else {"blend": b}
+        objs = load_blend(bb["blend"])
+        base += objs
+        groups.append((bb.get("name"), objs, bb.get("hl")))
     bpy.context.view_layer.update()  # matrix_world is stale right after linking
     lo, hi = sr.bbox(base)
     fps = spec.get("fps", 15)
@@ -107,15 +149,20 @@ def main():
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
-    for o in base:
-        o.data.materials.clear()
-        o.data.materials.append(grey if spec.get("base_color") == "grey" else silver)
+    hl_all = spec.get("hl_all")
+    for name, objs, hl in groups:
+        m = grey if spec.get("base_color") == "grey" else (mat_hl(hl, hl_all, fps) if (hl or hl_all) else silver)
+        for o in objs:
+            o.data.materials.clear()
+            o.data.materials.append(m)
 
     colors = {"red": (0.9, 0.05, 0.03), "cyan": (0.0, 0.7, 1.0), "green": (0.1, 0.9, 0.1),
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
-        m = mat_check(colors[p["color"]]) if p.get("color") else silver
+        m = mat_check(colors[p["color"]]) if p.get("color") else (
+            mat_hl(p.get("hl"), hl_all, fps) if (p.get("hl") or hl_all) else silver)
+        groups.append((p.get("name"), objs, None))
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
@@ -164,6 +211,21 @@ def main():
             kp.interpolation = "LINEAR"
 
     w, h = (int(v) for v in spec.get("res", "1080x1920").split("x"))
+    if spec.get("anchors_out"):  # per-frame screen position (0..1, y down) of each named group's bbox centre
+        from bpy_extras.object_utils import world_to_camera_view
+        sc.render.resolution_x, sc.render.resolution_y = w, h
+        anchors = {}
+        for f in range(1, nframes + 1):
+            sc.frame_set(f)
+            for name, objs, _ in groups:
+                if not name:
+                    continue
+                pts = [o.matrix_world @ Vector(c) for o in objs for c in o.bound_box]
+                c = sum(pts, Vector()) / len(pts)
+                p2 = world_to_camera_view(sc, cam, c)
+                anchors.setdefault(name, []).append([round(p2.x, 4), round(1 - p2.y, 4)])
+        json.dump({"fps": fps, "anchors": anchors}, open(spec["anchors_out"], "w"))
+        print("IVE_ANCHORS", spec["anchors_out"])
     sc.render.resolution_x, sc.render.resolution_y = w, h
     sc.render.resolution_percentage = spec.get("res_pct", 75)
     sc.render.engine = "CYCLES"

@@ -36,3 +36,6 @@ z = side & arch
 d, _ = cKDTree(fl[::2]).query(cc[z], distance_upper_bound=100)
 fla = np.zeros(len(car), bool); fla[np.where(z)[0][(d > 10) & (d < 90)]] = True
 save(f"{X}/flares.stl", car[fla])
+# v2: flares split by side (car's right = -X is the camera side in the explode) -> flares_r.stl / flares_l.stl
+fr = car[fla]; fx = fr["v"].mean(1)[:, 0]
+save(f"{X}/flares_r.stl", fr[fx < 0]); save(f"{X}/flares_l.stl", fr[fx >= 0])

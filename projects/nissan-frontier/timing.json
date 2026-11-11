@@ -1,7 +1,115 @@
-{"note": "nissan-frontier_track.mp3: kick grid 0.6035 s (99.4 BPM), phase 0.024 (tools/accents.py). Drop b16 9.681 (after a silent beat at 9.08); accents on even beats 9.68-18.13; b32 19.337; crash hit b46 27.787; music ends ~37.44, silent ~38.8. Shot 'secs' are RENDER lengths (>= the hold); times inside s5/s7 are seconds from the shot start.",
+{
+ "note": "nissan-frontier_track.mp3: kick grid 0.6035 s (99.4 BPM), phase 0.024 (tools/accents.py). Drop b16 9.681 (after a silent beat at 9.08); accents on even beats 9.68-18.13; b32 19.337; crash hit b46 27.787; music ends ~37.44, silent ~38.8. Shot 'secs' are RENDER lengths (>= the hold); times inside s5/s7 are seconds from the shot start.",
  "beat": 0.6035,
- "cuts": [4.852, 9.681, 12.095, 14.509, 19.337, 22.959, 33.822],
- "shots": {"s1_front34": {"secs": 5.4}, "s2_rear34": {"secs": 5.0}, "s3_grille": {"secs": 3.2}, "s4_arch": {"secs": 3.2},
-           "s5_open": {"secs": 4.9}, "s6_top": {"secs": 3.8}, "s7_explode": {"secs": 10.95}},
- "open": {"bumper": [0.604, 2.414], "hood": [1.811, 3.621]},
- "explode": [0.0, 1.207, 4.828, 8.449]}
+ "cuts": [
+  4.852,
+  9.681,
+  12.095,
+  14.509,
+  19.337,
+  22.959,
+  33.822
+ ],
+ "shots": {
+  "s1_front34": {
+   "secs": 5.4
+  },
+  "s2_rear34": {
+   "secs": 5.0
+  },
+  "s3_grille": {
+   "secs": 3.2
+  },
+  "s4_arch": {
+   "secs": 3.2
+  },
+  "s5_open": {
+   "secs": 4.9
+  },
+  "s6_top": {
+   "secs": 3.8
+  },
+  "s7_explode": {
+   "secs": 10.95
+  }
+ },
+ "open": {
+  "bumper": [
+   0.604,
+   2.414
+  ],
+  "hood": [
+   1.811,
+   3.621
+  ]
+ },
+ "explode": [
+  0.0,
+  1.207,
+  7.242,
+  8.449
+ ],
+ "note_v2": "v2 (reviewer: highlight + label each unique scan section): explode re-timed - parts out on the cut, one section highlighted+labelled per 2-beat accent, start home 30.201 (b50), lock 31.408 (b52), full truck highlighted+labelled after the lock",
+ "labels": [
+  {
+   "id": "hood",
+   "title": "HOOD",
+   "sub": "SCAN SECTION 01 / 06",
+   "t": [
+    1.207,
+    2.414
+   ],
+   "side": "top"
+  },
+  {
+   "id": "bumper",
+   "title": "FRONT BUMPER",
+   "sub": "SCAN SECTION 02 / 06",
+   "t": [
+    2.414,
+    3.621
+   ],
+   "side": "bottom"
+  },
+  {
+   "id": "grille",
+   "title": "GRILLE",
+   "sub": "SCAN SECTION 03 / 06",
+   "t": [
+    3.621,
+    4.828
+   ],
+   "side": "top"
+  },
+  {
+   "id": "flares",
+   "title": "FENDER FLARES",
+   "sub": "SCAN SECTION 04 / 06",
+   "t": [
+    4.828,
+    6.035
+   ],
+   "side": "bottom"
+  },
+  {
+   "id": "struct",
+   "title": "FRONT STRUCTURE",
+   "sub": "SCAN SECTION 05 / 06",
+   "t": [
+    6.035,
+    7.242
+   ],
+   "side": "top"
+  },
+  {
+   "id": "body",
+   "title": "FULL TRUCK",
+   "sub": "PRO-4X \u00b7 SCAN SECTION 06 / 06",
+   "t": [
+    8.449,
+    10.45
+   ],
+   "side": "top"
+  }
+ ]
+}
