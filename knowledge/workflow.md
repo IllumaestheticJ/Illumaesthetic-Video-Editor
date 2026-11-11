@@ -21,3 +21,5 @@
 12. **Deliver** — upload/hand over; ask for feedback; record it with `ive feedback` (`--rule` for
     anything that should apply to every future video).
 13. **Archive** — `ive archive projects/<project>`; commit + push.
+14. **Close out** — when the user says the video is done, rename the Dropbox dump folder to
+    `<name> (completed)` (Dropbox MCP `move`) and update the path in `projects/<project>/clips.md`.

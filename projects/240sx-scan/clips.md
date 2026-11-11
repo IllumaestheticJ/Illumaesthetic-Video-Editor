@@ -1,5 +1,5 @@
 # 240SX scanning — clip notes
-Source: Dropbox `/2. Illumaesthetic Videos/1. Video dumps/240SX scanning/` (downloaded to /home/user/media/240sx/dropbox).
+Source: Dropbox `/2. Illumaesthetic Videos/1. Video dumps/240SX scanning (completed)/` (renamed when the video was finished) (downloaded to /home/user/media/240sx/dropbox).
 All iPhone 16 Pro, HEVC HLG, 1920×1080 rotated -90 (portrait), 30 fps unless noted.
 
 | local name | Dropbox name | len | content |
