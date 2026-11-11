@@ -12,7 +12,7 @@ not used by any project (grep of projects/ + training/); re-cut to its 128 BPM g
 | 4 | Scan quality | 5 | intact full-car scan only |
 | 5 | Story | 5 | powder → scan → handheld scanner pass (scanner visible on the door) → scan orbit → software (in the music break) → sweep → listing |
 | 6 | Grade | 4 | HLG tonemapped; software beat is an upscaled viewport crop |
-| 7 | Text | 5 | 24,997,508 triangles (STL header); EXTERIOR SCAN / HONDA CIVIC EK HATCHBACK |
+| 7 | Text | 5 | 24,997,508 triangles (STL header) as a static label - v1-v3 counter had stalled at 24,973,096, fixed; EXTERIOR SCAN / HONDA CIVIC EK HATCHBACK |
 | 8 | Ending | 5 | sweep → listing grey (morph done before the dissolve) → listing; title, logo, URL last; video ends where the track drops out (73.18 s) |
 | 9 | Technical | 5 | 31.30 s; frame-accurate cut holds |
 

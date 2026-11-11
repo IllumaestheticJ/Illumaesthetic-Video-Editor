@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
@@ -9,7 +10,6 @@ Newest first. Read the top two before starting a new edit.
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
-- [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11

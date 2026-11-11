@@ -11,11 +11,11 @@
    "duration": 90
   },
   {
-   "kind": "counter",
+   "kind": "label",
    "from": 102,
    "duration": 84,
-   "label": "TRIANGLES CAPTURED",
-   "value": 24997508,
+   "title": "24,997,508",
+   "sub": "TRIANGLES CAPTURED",
    "x": 0.08,
    "y": 0.1
   },
