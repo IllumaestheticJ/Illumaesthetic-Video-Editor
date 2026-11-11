@@ -77,6 +77,7 @@ class Comp:
         self.P = json.load(open(f"{WORK}/track/poses.json")); self.f = self.P["focal_px"]
         self.V, self.F, _ = sil.load_mesh(f"{WORK}/track/nb.npz")
         self.cap = cv2.VideoCapture(f"{WORK}/a60.mp4")
+        self.name = {k: np.load(f"{WORK}/ui/name_{k}.npz") for k in ("mazda", "dodge")}   # player name -> "Epsilon" (name_patch.py)
         self.asset = {}
         self.kit_cache = {}
 
@@ -174,6 +175,14 @@ class Comp:
             s = s * (1 - g) + np.maximum(s, sc) * g
             changed |= g[..., 0] > 0.01
         out = A + B * s
+        # 4b. player name: the box is rebuilt from the patched menu maps over a blur-filled scene (the scene estimate
+        # under the old, nearly opaque letters is noise)
+        nm = self.name["mazda" if src < FLIP_SRC else "dodge"]; n0, n1, m0, m1 = [int(v) for v in nm["box"]]
+        sr = s[n0:n1, m0:m1]; keep = (1 - nm["old"]).astype(np.float32)
+        fill = cv2.GaussianBlur(sr * keep[..., None], (0, 0), 6) / np.maximum(cv2.GaussianBlur(keep, (0, 0), 6), 1e-3)[..., None]
+        sr = np.where(nm["old"][..., None] > 0, fill, sr)
+        out[n0:n1, m0:m1] = nm["A"] + nm["B"][..., None] * sr
+        changed[n0:n1, m0:m1] = True
         # 5. our plate and strip
         acc_pre = np.zeros((r1 - r0, c1 - c0, 3), np.float32); acc_a = np.zeros((r1 - r0, c1 - c0, 1), np.float32)
         for name, wt in plates:
