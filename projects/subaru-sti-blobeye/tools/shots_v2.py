@@ -61,8 +61,9 @@ SHOTS = {
                 cam(1, (0.85, 3.70, 2.30), (0.05, 1.80, 1.05), 32)]},
     # left side: skirt slides out toward the camera and down out of frame, camera tracks forward along the bare sill
     "S3_skirt": {"parts": parts(seated=("hood", "bump"), parked=("wing",), moving={"skirt": [
-        pk(0), pk(0.125), pk(0.25, (0.30, 0, 0.0), "in2"), pk(0.55, PARK["skirt"], "out")]}),
-        "cam": [cam(0, (3.30, 1.20, 0.55), (0.85, 0.35, 0.20), 30), cam(1, (3.10, 0.35, 0.50), (0.85, -0.25, 0.20), 30)]},
+        pk(0), pk(0.125), pk(0.25, (0.30, 0, 0.0), "in2"), pk(0.55, (0.60, 0, -0.95), "out")]}),   # drops out of the bottom of frame
+        # higher, steeper: door bottom + bare sill fill the frame (v2 final #1 left the lower half black)
+        "cam": [cam(0, (2.55, 1.15, 1.05), (0.85, 0.30, 0.32), 30), cam(1, (2.40, 0.30, 1.00), (0.85, -0.30, 0.32), 30)]},
     # front-left wheel: spokes, caliper, disc; slow arc from the front-left
     "S4_wheel": {"parts": parts(seated=("hood", "bump"), parked=("wing", "skirt")),
                  "cam": [cam(0, (1.60, -2.60, 0.45), (0.85, -1.25, 0.36), 40), cam(1, (2.00, -1.95, 0.40), (0.82, -1.25, 0.36), 40)]},
