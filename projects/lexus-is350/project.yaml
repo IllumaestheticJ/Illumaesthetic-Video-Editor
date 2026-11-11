@@ -76,6 +76,7 @@ timeline:
     src: /home/user/media/lexus-is350/renders/final/X2_inner
     src_fps: 15
     interpolate: true
+    vf: "crop=iw:ih-200:0:0,pad=iw:ih+200:0:200:color=0x070709"   # recentre: bumper inner face sat in the top 55 %
     dur: 4.0
   - transition: {type: cut, note: "26.063 bar"}
   - id: X3_reassembly  # parts return, bumper locks home at 28.563, fade to black over the last 0.5 s
