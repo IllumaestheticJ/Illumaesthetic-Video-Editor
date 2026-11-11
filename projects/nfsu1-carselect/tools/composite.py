@@ -20,7 +20,54 @@ PL = (230, 410, 1150, 1850)
 SLOT = {"L": 750, "C": 1086, "R": 1392}; SW = 322; SY0, SY1 = 20, 205
 STRIP = (22, 200, 560, 1630)                  # logo strip zone that is blur-filled
 FLIP_SRC = 1821                               # native plate: Mazda before, Dodge from here
-NATIVE_W = 0.92
+NATIVE_W = 1.0
+
+
+# wheel centres (x, y, z) and tyre radius in each car's own GLB frame, and the shift that parks the car on the NB
+# (tools: wheels measured from the GLB wheel_* nodes; shift = wheelbase midpoint minus the NB's, as in cams_30_<car>.json)
+WHEELS = {"na": ([(0.734, -1.178), (-0.733, -1.178), (0.733, 1.097), (-0.727, 1.097)], 0.289, (0.0, -0.009)),
+          "corolla": ([(0.802, -1.276), (-0.805, -1.276), (0.810, 1.383), (-0.811, 1.383)], 0.322, (0.0, 0.085)),
+          "delsol": ([(0.815, -1.147), (-0.764, -1.148), (0.779, 1.231), (-0.745, 1.230)], 0.313, (0.021, 0.0735)),
+          "frs": ([(0.749, -1.245), (-0.753, -1.245), (0.755, 1.304), (-0.751, 1.304)], 0.313, (0.0, 0.061))}
+
+
+def spin_wheels(K, car, pose, f, deg):
+    """The game's cars roll while they are shown; the render's wheels stand still. Smear each camera-facing wheel
+    around its axle: unwrap the wheel disc with the homography of its plane, blur along the angle, wrap it back."""
+    if deg <= 0 or car not in WHEELS:
+        return K
+    pts, r, (sx, sy) = WHEELS[car]
+    R, _ = cv2.Rodrigues(np.asarray(pose[:3], float)); t = np.asarray(pose[3:6], float)
+    cam = -R.T @ t
+    N = 160
+    for (x, y) in pts:
+        if (cam[0] - (x - sx)) * x <= 0.3 * abs(x):          # wheel face turned away from the camera
+            continue
+        xo = x + (0.11 if x > 0 else -0.11) - sx                  # outer face of the wheel, NB frame
+        yc = y - sy; rr = r * 0.98
+        P3 = np.array([[xo, yc - rr, r - rr], [xo, yc + rr, r - rr], [xo, yc + rr, r + rr], [xo, yc - rr, r + rr]])
+        Pc = P3 @ R.T + t
+        if Pc[:, 2].min() < 0.3:
+            continue
+        uv = np.stack([f * Pc[:, 0] / Pc[:, 2] + W / 2, f * Pc[:, 1] / Pc[:, 2] + H / 2], 1).astype(np.float32)
+        if uv[:, 0].max() < 0 or uv[:, 0].min() > W or uv[:, 1].max() < 0 or uv[:, 1].min() > H:
+            continue
+        if cv2.contourArea(uv) < 900:
+            continue
+        sq = np.array([[0, N], [N, N], [N, 0], [0, 0]], np.float32)
+        Hm = cv2.getPerspectiveTransform(uv, sq)
+        patch = cv2.warpPerspective(K, Hm, (N, N), flags=cv2.INTER_LINEAR)
+        pol = cv2.warpPolar(patch, (N // 2, 360), (N / 2, N / 2), N / 2, cv2.WARP_POLAR_LINEAR)
+        k = max(3, int(deg) | 1)
+        pol_b = cv2.blur(np.vstack([pol[-k:], pol, pol[:k]]), (1, k))[k:-k]
+        back = cv2.warpPolar(pol_b, (N, N), (N / 2, N / 2), N / 2, cv2.WARP_POLAR_LINEAR | cv2.WARP_INVERSE_MAP)
+        yy, xx = np.mgrid[0:N, 0:N]; rad = np.hypot(xx - N / 2, yy - N / 2) / (N / 2)
+        m = np.clip((0.9 - rad) / 0.08, 0, 1).astype(np.float32)   # rim and sidewall, not the tyre's outline
+        full = cv2.warpPerspective(np.dstack([back, m]), np.linalg.inv(Hm), (W, H), flags=cv2.INTER_LINEAR)
+        full = np.nan_to_num(full)
+        mm = full[..., 4:5] * (K[..., 3:4] > 250)
+        K = K * (1 - mm) + full[..., :4] * mm
+    return K
 
 
 class Comp:
@@ -51,7 +98,7 @@ class Comp:
             self.kit_cache = {p: cv2.resize(k, (W, H), interpolation=cv2.INTER_CUBIC).astype(np.float32)}
         return self.kit_cache[p]
 
-    def compose(self, src, car, kit_src, plates, strip, glare=True):
+    def compose(self, src, car, kit_src, plates, strip, glare=True, spin=28):
         """src: capture frame for the background; kit_src: which render of `car`;
         plates: [(name, weight)]; strip: [(make, x_centre, mix 0=side..1=centre, opacity)]."""
         obs = self.frame(src)
@@ -61,9 +108,33 @@ class Comp:
         # 2a. native plate off
         r0, r1, c0, c1 = PL
         nat = self.a("plate_mazda" if src < FLIP_SRC else "plate_dodge_native")
-        pre = nat[..., :3] * NATIVE_W; al = nat[..., 3:] / 255 * NATIVE_W
-        s[r0:r1, c0:c1] = (s[r0:r1, c0:c1] - pre) / np.clip(1 - al, 0.3, 1)
-        changed[r0:r1, c0:c1] |= al[..., 0] > 0.01
+        # how strongly the plate sits in this frame, fitted per text line (the make line is more solid than the
+        # model wordmark, and the lifted artwork is a low percentile, so a fixed weight leaves a ghost)
+        g = nat[..., 0]; rows_ink = np.nonzero((g > 25).sum(1) > 3)[0]
+        wmap = np.full(g.shape, NATIVE_W, np.float32)
+        if len(rows_ink):
+            gaps = np.nonzero(np.diff(rows_ink) > 3)[0]
+            cut = (rows_ink[gaps[0]] + rows_ink[gaps[0] + 1]) // 2 if len(gaps) else g.shape[0]
+            zg = s[r0:r1, c0:c1].mean(2); hp = lambda q: q - cv2.blur(q, (31, 31))
+            hz, hg = hp(zg), hp(g)
+            for ya, yb in ((0, cut), (cut, g.shape[0])):
+                den = float((hg[ya:yb] ** 2).sum())
+                if den > 1e4:
+                    wmap[ya:yb] = np.clip(float((hz[ya:yb] * hg[ya:yb]).sum()) / den, 0.7, 1.5)
+        pre = nat[..., :3] * wmap[..., None]; al = np.clip(nat[..., 3:] / 255 * wmap[..., None], 0, 0.75)
+        z = np.clip((s[r0:r1, c0:c1] - pre) / np.clip(1 - al, 0.3, 1), 0, 255)
+        # the letter edges never subtract cleanly (the lifted plate is a little softer than the live one):
+        # repaint a thin band along every edge from its neighbours
+        a1 = al[..., 0]
+        edge = (cv2.dilate((a1 > 0.04).astype(np.uint8), np.ones((7, 7), np.uint8)) > 0) & ~(cv2.erode((a1 > 0.36).astype(np.uint8), np.ones((5, 5), np.uint8)) > 0)
+        z = cv2.inpaint(z.astype(np.uint8), edge.astype(np.uint8), 4, cv2.INPAINT_TELEA).astype(np.float32)
+        # and what still shows inside the strokes is mostly painted out (the new plate goes over the same spot)
+        ink = cv2.dilate((a1 > 0.04).astype(np.uint8), np.ones((9, 9), np.uint8))
+        flat = cv2.inpaint(z.astype(np.uint8), ink, 6, cv2.INPAINT_TELEA).astype(np.float32)
+        wi = cv2.GaussianBlur(ink.astype(np.float32), (0, 0), 2)[..., None] * 0.8
+        z = z * (1 - wi) + flat * wi
+        s[r0:r1, c0:c1] = z
+        changed[r0:r1, c0:c1] |= cv2.dilate((a1 > 0.01).astype(np.uint8), np.ones((9, 9), np.uint8)) > 0
         # 2b. logo strip: fill from its surroundings (it sits inside the top band, B ~ 0.3)
         y0, y1, x0, x1 = STRIP
         pad = 60
@@ -74,8 +145,9 @@ class Comp:
         s[y0:y1, x0:x1] = fill[20:20 + (y1 - y0), pad:pad + (x1 - x0)]
         changed[y0:y1, x0:x1] = True
         # 3. what is left of the game's car
-        K = self.kit(car, kit_src); Ka = K[..., 3:] / 255
         pose = self.P["frames"][str(src)] if str(src) in self.P["frames"] else self.P["hold"]
+        kpose = self.P["frames"][str(kit_src)]
+        K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin); Ka = K[..., 3:] / 255
         G = cv2.resize(sil.car_mask(self.V, self.F, pose, self.f, 0.5), (W, H), interpolation=cv2.INTER_NEAREST)
         G = cv2.dilate(G, np.ones((15, 15), np.uint8))
         near = cv2.dilate(G, np.ones((61, 61), np.uint8))
@@ -116,7 +188,7 @@ class Comp:
             sp = spr[:, xs0 - xa:xs1 - xa] * op
             out[SY0:SY1, xs0:xs1] = out[SY0:SY1, xs0:xs1] * (1 - sp[..., 3:] / 255) + sp[..., :3]
         out = np.where(changed[..., None], out, obs)
-        return np.clip(out, 0, 255).astype(np.uint8)
+        return np.clip(np.nan_to_num(out), 0, 255).astype(np.uint8)
 
 
 if __name__ == "__main__":
