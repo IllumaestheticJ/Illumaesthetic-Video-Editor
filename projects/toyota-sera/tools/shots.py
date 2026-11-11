@@ -120,7 +120,7 @@ def explode_shot(E=EXPLODE, secs=S["s8_explode"]):
                 k["rot"] = [0, 0, 0]
         parts.append(p)
     n = 12  # orbit front-right -> right side -> rear-right, radius swells side-on
-    cam = [orbit(secs * k / n, 5.6 + 1.3 * math.sin(math.pi * k / n), -35 - 110 * (k / n), 3.2 - 0.4 * (k / n),
+    cam = [orbit(secs * k / n, 5.2 + 1.7 * math.sin(math.pi * k / n), -35 - 110 * (k / n), 3.2 - 0.4 * (k / n),
                  c=(0, -0.2 + 0.4 * (k / n), 0.95), focal=28, ease="lin", tz=0.95) for k in range(n + 1)]
     return {"base": [f"{P}/explode_base.blend"], "parts": parts, "cam": cam}
 
