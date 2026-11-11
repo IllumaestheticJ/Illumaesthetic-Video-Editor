@@ -16,9 +16,9 @@ beats: [3.215, 4.286, 5.358, 6.429, 7.501, 8.572, 9.644, 10.715, 11.787, 12.858,
 
 timeline:
   - id: irl_rear   # crew scanning the open trunk; ends on the solved frame 4.400 s; cut ON THE DROP
-    dur: 3.2
+    dur: 3.1667   # 95 frames: first clip one frame short (measured: every cut landed 1 frame late with 96)
     src: /home/user/media/mr2/dropbox/v_1602_50.mov
-    in: 1.2334
+    in: 1.2667
     out: 4.4334
   - transition: {type: cut, note: "1:1 IRL -> Interior scan (cam_rear) on the drop"}
   - id: scan_rear   # Interior state (trunk open), eases from cam_rear back to a rear-left 3/4
@@ -62,7 +62,7 @@ timeline:
     interpolate: true
   - transition: {type: dissolve, duration: 0.5, note: "x-ray -> SW20 scan listing (scan -> web, not IRL -> scan)"}
   - id: website
-    dur: 5.7333
+    dur: 5.7667   # +1 frame so the reel still ends at 879
     src: /home/user/media/work/out/webzoom_mr2_v1.mp4
 
 overlays:

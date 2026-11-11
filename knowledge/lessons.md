@@ -148,3 +148,15 @@ lands here automatically. Agents must read this whole file before editing.
   add only state-scan geometry > 7 mm from the car, inside that panel's own bbox, de-duplicated across fills
   (`tools/composite.py`). Drop z above the car where a state scan caught a propped-open hood.
 - **[scan-look]** Tail-lamp lenses and grilles are often scan holes; check close-ups for dark blotches and pick another detail.
+
+## From the MR2 SW20 scan-process reel (2026-11-11, built by an agent)
+- **[technical]** Car on stands: huracan `level.py` RANSAC locked onto the cabin floor (~350 mm above the real ground).
+  Check a z-histogram of up-facing tris before cropping; refit on the true floor (toyota-mr2-sw20-scan-process/tools/relevel.py).
+- **[technical]** `ive prep --drop-islands` OOM-killed Blender on an 8M-tri mesh; do islands in numpy first (tools/islands.py) and prep plain.
+- **[match-cut]** Pick the scan state per *clip*, not per day: the same afternoon had doors on/off and T-tops on/off in different clips.
+  Diff two state scans (tools/diffparts.py) to get the removed panels, then add/remove them to build the exact part-state composite.
+- **[match-cut]** Cabin / over-the-roof views of a stripped car are a trap (closed sprayed-glass box, near-planar, ambiguous openings);
+  an exterior frame with fuel door, side intake and quarter window solved in minutes. An edge-chamfer pose fit on cluttered frames
+  jumped to a wrong minimum - only use it with small local steps from a known-good pose.
+- **[text]** Door scans can be inner-face only (render from outside: you see the inner panel mirrored). Claim "inner door panels", not inside+outside.
+- **[technical]** With music starting mid-track the first clip still needs to be one frame short (measured: every cut +1 frame otherwise).

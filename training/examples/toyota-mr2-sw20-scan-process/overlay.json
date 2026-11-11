@@ -1,0 +1,14 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 879,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "brackets", "from": 99, "duration": 88},
+  {"kind": "counter", "from": 104, "duration": 82, "label": "TRIANGLES CAPTURED", "value": 34993395, "x": 0.08, "y": 0.08},
+  {"kind": "brackets", "from": 324, "duration": 88},
+  {"kind": "label", "from": 330, "duration": 82, "title": "T-TOPS OFF", "sub": "34,998,108 TRIANGLES", "x": 0.08, "y": 0.08},
+  {"kind": "label", "from": 466, "duration": 106, "title": "DOORS OFF", "sub": "INNER DOOR PANELS SCANNED", "x": 0.08, "y": 0.08}
+ ]
+}
