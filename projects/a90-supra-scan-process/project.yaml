@@ -1,12 +1,12 @@
 # Toyota A90 Supra - scan-process reel in the 240SX format (option b: no scanning footage exists for this car,
 # see clips.md). Real car pulls up -> 1:1 cut on the bar-2 downbeat -> rear bumper explodes/turns (inside+outside)
-# -> real bumper-off shop shot -> rolling pan -> front bumper explodes/turns -> blinker -> x-ray reassembly ending
+# -> real bumper-off shop shot -> rolling pan -> front bumper explodes/turns -> (same pose) x-ray reassembly ending
 # on the listing's camera -> dissolve into the illumaesthetic.com A90 scan listing (WebZoom, logo, URL last).
 # Beat grid: kicks 0.682 + 0.625k s (96 BPM), bars every 2.5 s. Cuts land on frames 95 245 283 320 470 489
 # (v1 measured +1 frame -> first clip 94 frames) | dissolve 699-714 | end 930. Every clip has a whole-frame dur (assembler adds the 1-frame xfade back per cut).
 project: a90-supra-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/a90_scan_process_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/a90_scan_process_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront), ends hard ~29.75 s
@@ -42,16 +42,12 @@ timeline:
     src_fps: 15
     interpolate: true
     dur: 5.0
-  - id: irl_blink       # 1-beat insert: sequential amber
-    src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1941_33.mov
-    in: 18.6
-    out: 19.2333
-    dur: 0.6333
-  - id: s3_xray         # x-ray reassembly, translate only; ends on cam_listing, morphs to the listing grey
+  - transition: {type: cut, note: "scan -> x-ray on the 15.68 s accent: s3 starts on s2's last camera and part poses (v2: blinker insert dropped - IRL->x-ray read as a cut into nothing)"}
+  - id: s3_xray         # x-ray reassembly from s2's end pose; ends on cam_listing, morphs to the listing grey
     src: /home/user/media/work/a90sp/renders/s3_xray
     src_fps: 15
     interpolate: true
-    dur: 7.5
+    dur: 8.1333
   - transition: {type: dissolve, duration: 0.5, note: "x-ray scan (listing angle, listing grey) -> listing screenshot"}
   - id: website         # WebZoom: listing -> zoom-out lands 25.68 s; title, logo, URL fades in last
     src: /home/user/media/work/out/webzoom_a90.mp4

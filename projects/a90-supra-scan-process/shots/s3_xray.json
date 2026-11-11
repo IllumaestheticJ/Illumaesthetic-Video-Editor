@@ -1,13 +1,13 @@
 {
- "_note": "X-ray reassembly, translate only (no un-rotating): front bumper lands 18.182 s, fender 19.432, rear bumper 20.682 (bar line). Camera orbits round the right side to cam_listing (solved against the listing hero, f 55.7/36) and arrives on the last frame; look morphs to listing grey (clay + bg sampled from the screenshot) 0.80-0.93, then the 0.5 s dissolve. 7.5 s = 12 beats (16.307 -> 23.807). v2: base_explode2; opens tighter (car fills the frame) so the cut from the blinker insert isn't into a near-empty frame.",
- "seconds": 7.5,
+ "_note": "X-ray reassembly v3: starts on s2's last camera and part poses (cut s2->s3 on the 15.67 s beat reads as the scan switching to x-ray); front bumper slides home (un-turning) by 18.18, rear bumper by 20.68; fender stays; camera arcs round the right side to cam_listing (last frame), morph to listing grey 22.31-23.28, then the 0.5 s dissolve. 8.133 s (15.667 -> 23.800).",
+ "seconds": 8.1333,
  "sensor": 36,
  "ease": "ease_in_out",
  "look": "xray",
  "accent": "0.8,0.82,0.86",
  "morph": [
-  0.8,
-  0.93
+  0.8164,
+  0.9363
  ],
  "clay_color": "0.073,0.075,0.073",
  "morph_bg": "0.0098,0.0118,0.0094",
@@ -16,57 +16,45 @@
    "blend": "/home/user/media/work/a90sp/blend/base_explode2.blend"
   },
   {
+   "blend": "/home/user/media/work/a90sp/blend/fender.blend"
+  },
+  {
    "blend": "/home/user/media/work/a90sp/blend/fbump.blend",
    "keys": [
     {
      "t": 0.0,
      "loc": [
-      0.62,
+      1.05,
+      0.0,
+      -0.55
+     ],
+     "rot": [
       0,
-      0
+      0,
+      180
      ]
     },
     {
-     "t": 0.05,
+     "t": 0.04,
      "loc": [
-      0.62,
+      1.05,
+      0.0,
+      -0.55
+     ],
+     "rot": [
       0,
-      0
+      0,
+      180
      ]
     },
     {
-     "t": 0.25,
+     "t": 0.3092,
      "loc": [
       0,
       0,
       0
      ],
-     "ease": "ease_in_out"
-    }
-   ]
-  },
-  {
-   "blend": "/home/user/media/work/a90sp/blend/fender.blend",
-   "keys": [
-    {
-     "t": 0.0,
-     "loc": [
-      0,
-      -0.5,
-      0.2
-     ]
-    },
-    {
-     "t": 0.22,
-     "loc": [
-      0,
-      -0.5,
-      0.2
-     ]
-    },
-    {
-     "t": 0.4167,
-     "loc": [
+     "rot": [
       0,
       0,
       0
@@ -81,22 +69,37 @@
     {
      "t": 0.0,
      "loc": [
-      -0.62,
+      -1.35,
+      0.0,
+      -0.42
+     ],
+     "rot": [
       0,
-      0
+      0,
+      180
      ]
     },
     {
-     "t": 0.36,
+     "t": 0.3975,
      "loc": [
-      -0.62,
+      -1.35,
+      0.0,
+      -0.42
+     ],
+     "rot": [
       0,
-      0
+      0,
+      180
      ]
     },
     {
-     "t": 0.5833,
+     "t": 0.6166,
      "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
       0,
       0,
       0
@@ -109,26 +112,45 @@
  "cam": [
   {
    "t": 0.0,
-   "az": -72.0,
-   "dist": 6.0,
-   "z": 1.75,
-   "look": [
-    -0.18845,
-    0.07182,
-    0.38831
+   "pos": [
+    6.4437,
+    -2.2417,
+    2.45
    ],
-   "lens": 44.0,
+   "look": [
+    2.15,
+    -0.33,
+    0.0
+   ],
+   "lens": 49.778,
    "roll": 0.0
   },
   {
-   "t": 1.0,
-   "az": -120.995,
-   "dist": 7.35664,
-   "z": 2.72541,
+   "t": 0.5,
+   "pos": [
+    1.9,
+    -6.6,
+    2.55
+   ],
    "look": [
-    -0.18845,
-    0.07182,
-    0.38831
+    0.6,
+    -0.1,
+    0.35
+   ],
+   "lens": 45.0,
+   "roll": -0.7
+  },
+  {
+   "t": 1.0,
+   "pos": [
+    -3.97685,
+    -6.23439,
+    2.72541
+   ],
+   "look": [
+    -0.34499,
+    -0.18876,
+    0.48488
    ],
    "lens": 55.70966,
    "roll": -1.4439
