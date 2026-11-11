@@ -192,7 +192,8 @@ SHOTS["F2_fbumper"] = {"base": [XB], "parts": [
     "cam": [cam(0, (2.5, -5.7, 1.35), (0.2, -2.0, 0.75), 32), cam(1.017, (1.8, -6.4, 1.25), (0.1, -2.4, 0.85), 28),
             cam(2.033, (0.9, -5.4, 1.0), (0.05, -2.3, 0.70), 30), cam(4.4, (0.2, -4.6, 0.78), (0, -2.2, 0.52), 30)]}
 SHOTS["S1_side"] = {"base": [XB], "parts": [
-    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, *FB_END)]),
+    # front bumper parked far above (z 4.5): at 28 mm the 9:16 frame is tall and z 2.6 still clipped its corner in
+    part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 4.5), FB_END[1])]),
     part("fender", [k(0), k(0.5, FENDER_END[0], ease="out")]),
     part("door_fl", [k(0), k(1.017), k(1.5, FL_END[0], ease="out"), k(2.2, *FL_END)]),
     part("door_rl", [k(0), k(2.033), k(2.55, RL_END[0], ease="out"), k(3.25, *RL_END)]),
