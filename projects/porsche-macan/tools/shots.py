@@ -47,10 +47,10 @@ easeout = lambda u: 1 - (1 - u) ** 2
 
 SHOTS = {
     # 1. slow front 3/4 turntable, low (hook: moving on frame 1)
-    "s1_front": {"base": [CAR], "cam": arc(SECS["s1_front"], 8, 5.7, 5.3, -42, -14, 0.95, 1.1, focal=30, tz=0.62, shape=easeout)},
+    "s1_front": {"base": [CAR], "cam": arc(SECS["s1_front"], 8, 5.7, 5.3, -42, -14, 0.95, 1.1, c=(0, -0.4, 0.6), focal=30, tz=0.62, shape=easeout)},
     # (v0 swung -28 -> -58 toward side-on: the nose left the 9:16 frame - turn toward the front instead)
     # 2. rear 3/4 orbit, car's left side, slight rise; light bar in view
-    "s2_rear": {"base": [CAR], "cam": arc(SECS["s2_rear"], 8, 5.6, 5.3, 122, 156, 0.85, 1.3, focal=30, tz=0.62, shape=easeout)},
+    "s2_rear": {"base": [CAR], "cam": arc(SECS["s2_rear"], 8, 5.6, 5.3, 122, 156, 0.85, 1.3, c=(0, 0.45, 0.6), focal=30, tz=0.62, shape=easeout)},
     # (v0 swung 150 -> 122 toward side-on and cropped the tail - turn toward the rear instead)
     # 3. extreme close-up: front right wheel / brake through the spokes, slow slide forward
     "s3_wheel": {"base": [CAR_HI], "cam": [
@@ -131,7 +131,7 @@ SHOTS["s8_explode"] = {
         {"blend": f"{P}/x_hatch.blend", "keys": explode((0, 0.25, 1.15), (15, 0, 0), 0.08)},
         {"blend": f"{P}/x_rbumper.blend", "keys": explode((0, 0.5, 0.6), delay=0.04)},
     ] + [{"blend": f"{P}/x_door_{d}.blend", "keys": door_x(d)} for d in ("fl", "fr", "rl", "rr")],
-    "cam": [orbit(T8 * k / 12, 6.0 + 1.1 * math.sin(math.pi * k / 12), 38 + 97 * smooth(k / 12), 3.3 - 0.5 * (k / 12),
+    "cam": [orbit(T8 * k / 12, 6.2 + 1.6 * math.sin(math.pi * k / 12), 38 + 97 * smooth(k / 12), 3.3 - 0.5 * (k / 12),
            c=(0.1, 0.0, 0.7), focal=28, ease="lin", tz=0.75) for k in range(13)]}
 
 

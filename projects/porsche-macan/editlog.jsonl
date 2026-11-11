@@ -19,3 +19,4 @@
 {"ts": "2026-11-11T07:39:38Z", "decision": "Video starts at track 0 and fades up from black over 1.2 s", "why": "Track fades in from silence (-58 dB at 0 s); Temerario reference also fades up from black"}
 {"ts": "2026-11-11T08:04:52Z", "decision": "s1 turntable re-aimed: -42 -> -14 deg (toward the front) instead of -28 -> -58", "why": "Contact sheet of the s1 final: swinging toward side-on pushed the nose out of the 9:16 frame for the second half"}
 {"ts": "2026-11-11T08:09:59Z", "decision": "s2 rear orbit re-aimed: 122 -> 156 deg (toward the rear) instead of 150 -> 122", "why": "s2 final contact sheet: swinging toward side-on cropped the tail and the light bar in 9:16"}
+{"ts": "2026-11-11T09:00:54Z", "decision": "s1/s2 orbit centres shifted 0.4 m toward the leading end (nose / tail); explode side-on radius 6.2+1.6 sin", "why": "Previews: nose clipped on s1's first frame, light bar clipped on s2's last; explode clipped front/rear parts side-on"}
