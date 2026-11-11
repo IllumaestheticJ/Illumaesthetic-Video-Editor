@@ -1,0 +1,34 @@
+{
+ "seconds": 5.0,
+ "lens": 30,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend/car.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": -150,
+   "dist": 3.2,
+   "z": 0.55,
+   "look": [
+    -0.75,
+    0,
+    0.5
+   ]
+  },
+  {
+   "t": 1,
+   "az": -120,
+   "dist": 3.3,
+   "z": 0.7,
+   "look": [
+    -0.5,
+    0,
+    0.5
+   ]
+  }
+ ]
+}

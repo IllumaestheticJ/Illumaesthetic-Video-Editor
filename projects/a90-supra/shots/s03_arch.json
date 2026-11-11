@@ -1,0 +1,34 @@
+{
+ "seconds": 2.5,
+ "lens": 35,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend/fr_2mm.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0,
+   "az": -62,
+   "dist": 1.55,
+   "z": 0.62,
+   "look": [
+    1.28,
+    -0.8,
+    0.36
+   ]
+  },
+  {
+   "t": 1,
+   "az": -88,
+   "dist": 1.35,
+   "z": 0.48,
+   "look": [
+    1.18,
+    -0.8,
+    0.34
+   ]
+  }
+ ]
+}
