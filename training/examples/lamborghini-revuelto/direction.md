@@ -196,3 +196,154 @@ structure` / v2_reassemble `whole, parts home + rear 3/4`.
    5.4. This would put the budget over.
 3. ssf/ssr OFF on the ground beside the sill: check the side sheet. If they read as lying on the floor in black, lift them
    z +0.25.
+
+---
+
+## v3 direction (2026-11-11, scene director + director, both stages)
+
+Feedback on v2.1: "This works well, the wheels are oddly cut flat. Also I want to do exploded views of the individual
+parts removed from the front and rear bumpers as well." Wheels are fixed in geometry (blend3, tyres to z -0.18). v3 keeps
+the v2.1 travel (whole -> front -> left side -> rear -> reassemble -> logo) and adds one bumper-only shot to the front
+and to the rear section. Every shot is re-rendered. Looked at: test/sub_f.png, test/sub_r.png (outer + inner face of
+both assemblies, tinted pieces), blend3/*.json bboxes, shots_v2.py (the camera/OFF values v2.1 actually shipped).
+
+### v3.1 Inventory changes (everything else as the v2 table)
+
+| Region | New data | Consequence |
+|---|---|---|
+| Front | FRONT bumper assembly = fb_stripped (bare skin) + 10 registered piece scans: fb_hl_trim (one Y-shaped piece, both sides), fb_markers (one object, both sides), fb_fog_l/r, fb_fogtrim_l/r, fb_center_cover, fb_center_carbon, fb_radar, fb_towhook (7 cm). Inner face scanned (brackets, ducts; sub_f.png bottom row). | richness 5 -> 7; gets a bumper-only explode shot |
+| Rear | REAR bumper assembly = rb_top_half1 + rb_diffuser_forced (two big halves) + rb_trim_cover, rb_reflector_l/r, rb_corner_marker_l (left only: no right marker scan, none is shown). Inner face scanned (wiring loom, brackets; sub_r.png bottom row). | richness 6 -> 7; gets a bumper-only explode shot |
+| Wheels / low body | full round tyres, bumper lips and lower structure down to z -0.18 | ground-level targets ~0.09 m lower; check tyre bottoms on every first/mid/last sheet |
+
+Not used (editlog): reverse light (10 mm, 44 %), plate light (66 %). Exhaust tips are not bumper parts.
+Rule D unchanged: mirror never keyed; lid only on its hinge; no right-side part moves.
+
+### v3.2 Scene order and music map
+
+Both bumper explodes need 8 beats (inner face, turn, explode, hold = 2 beats each). The time comes from the opener
+(12 -> 8 beats), from merging v2's s6 + frontin into one front shot, and from the side (6 -> 4 beats). All cuts sit on bar
+downbeats (m = 3 mod 4). The two new bumper shots are the new content, so the front one opens ON phrase B (9.30); at the
+rear the bumper leaves the car into phrase C (18.665) and the camera surges in on it. Lock 27.967 and logo 30.40 unchanged.
+
+| # | id | section | focus (one per shot) | scans | start-end (s) | beats | out frames (30 fps) | render f (15 fps, +3) |
+|---|---|---|---|---|---|---|---|---|
+| 1 | v3_whole | whole | entire car, front-left 3/4, round tyres | CAR (raw car + parts at home) | 0.000-4.619 | 8 (m..7) | 139 | 73 |
+| 2 | v3_front | front | bumper + headlights off, lid up, move in on the structure behind the bumper | car -> base + fb(assembled), hl, hood | 4.619-9.301 | 8 (m7-15) | 140 | 73 |
+| 3 | v3_fb | front | the front bumper alone: inner face -> outer face -> its 10 pieces come off | front_bumper, fb_stripped + 10 pieces (no car) | 9.301-13.983 | 8 (m15-23) | 140 | 73 |
+| 4 | v3_side | left side | fender, side skirts, fin come off | base + side parts | 13.983-16.324 | 4 (m23-27) | 71 | 39 |
+| 5 | v3_rear | rear | wing, tail lights, rear bumper off, move in on the rear structure | base + wing, tll, tlr, rb(assembled) | 16.324-21.006 | 8 (m27-35) | 140 | 73 |
+| 6 | v3_rb | rear | the rear bumper alone: inner face -> outer face -> diffuser / upper half / small parts separate | rear_bumper_forced, rb_top_half1, rb_diffuser_forced + 4 pieces (no car) | 21.006-25.700 | 8 (m35-43) | 141 | 74 |
+| 7 | v3_reassemble | whole | every part home on the climax, closed car rear-left 3/4 | WITH_CAR (assembled bumpers) | 25.700-30.400 | 8 | 141 | 74 |
+| 8 | logo | - | small logo (as v2.1) | card | 30.400-34.600 | - | 126 | - |
+
+Frame cuts: 139 / 279 / 419 / 490 / 630 / 771 / 912 / 1038. Total renders 479 frames (budget 520).
+Why this order (inventory): front and rear are now tied richest (7); the rear still gets the bigger music (phrase C inside
+its section, then the climax directly after its explode). Each section is one continuous sequence (rule B): front = shots
+2+3, rear = shots 5+6. `ive director` will flag 2/3 and 5/6 as same-section and the bumper-only pair as similar
+silhouettes: reviewed, they are car -> its removed bumper, keep.
+
+Music map: 0 fade up 1.5 s | 4.619 cut, bumper starts sliding | 5.789 bumper lifts away, headlights + lid | 6.960 push in |
+8.130 arrive, hold | **9.301 phrase B: cut to the front bumper alone** | 10.471 turn | 11.642 pieces come off | 12.813 hold |
+13.983 cut side | 16.324 cut rear, wing lifts | 17.494 rear bumper starts | **18.665 phrase C: bumper is off, camera
+surges in** | 19.835 hold | 21.006 cut to the rear bumper alone | 22.176 turn | 23.347 pieces separate | 24.517 hold |
+25.700 cut reassemble | **27.967 lock** | 29.90 fade | **30.400 logo**.
+Cuts 4.619 (v1 used frame 139), 9.301, 13.983, 16.324, 21.006 are new for v3: measure each on the decoded audio (1 ms
+half-rise) and move by one frame if needed, as was done for 10.50 / 15.20 in v2. 25.70, 27.967, 30.40 stay.
+
+### v3.3 Shot specs (absolute seconds; convert with `frac()` per shot; smoothstep unless `lin`)
+
+Frame maths at 40 mm: visible width = 0.90 x dist, height = 1.60 x dist (checked against v2 framings).
+OFF poses as shipped in v2.1 (shots_v2.py): fb (0,-0.6,1.6), hl (0,-0.4,1.9), hood 0.85 x open_deg on the hinge,
+fe (0.35,0,0.75), ssf/ssr (0.60,0,0), fin (0.45,0,0.55), wing (0,0.10,1.25), tll (0.15,0.20,1.65), tlr (-0.15,0.20,1.65),
+rb (0,0.35,1.75). Hide any part that is parked out of frame in later shots (edge-touch test first).
+
+**1 v3_whole** (0-4.619). Camera: t0 az 50, el 7, dist 7.1, target (0, 0.10, 0.46), lens 40 -> t1 az 36, el 10, dist 6.5,
+target (0, -0.15, 0.46) `lin`. Same move as v2.1 in 4.6 s instead of 7 (reads as motion, not static). Target z 0.55 -> 0.46
+for the tyres. Whole car incl. tyre bottoms inside the frame at first/mid/last. No parts move.
+
+**2 v3_front** (4.619-9.301). One shot replaces s6 + v2_frontin.
+- Camera: 4.619 az 36, el 13, dist 5.2, target (0,-1.7,0.75) -> 6.960 az 24, el 18, dist 5.0, target (0,-1.8,0.65) `lin`
+  -> 8.130 az 12, el 14, dist 2.4, target (0,-2.10,0.36) -> 9.301 az 6, el 13, dist 2.2, target (0,-2.12,0.34) `lin`.
+- Parts: fb home -> (0,-0.60,0.12) over 4.70-5.79 (slides off the nose into clear black), then -> OFF (0,-0.6,1.6) over
+  5.79-6.96 (out of the top of frame before the push). hl home -> (0,-0.30,0.25) over 5.20-5.79, -> OFF 5.79-6.96.
+  hood deg 0 -> 0.85 x open_deg over 5.79-7.20, hinge only. Swap car -> base on the frame fb starts (4.70).
+- Hold 8.13-9.30 (drift) on the structure behind the bumper + frunk.
+
+**3 v3_fb** (9.301-13.983). Front bumper alone on black, at its HOME coordinates, car not rendered (keep the light rig
+sized on the car: load base with `visible: [0,0]` or pass its bbox as light_ref, so exposure matches the car shots).
+- Camera: 9.301 az 14, el 16, dist 3.0, target (-0.02,-1.98,0.28) -> 11.642 az 18, el 30, dist 3.3, target
+  (-0.05,-2.10,0.30) -> 13.983 az 22, el 30, dist 3.15, same target `lin`. Looks down 30 deg so the pieces spread along
+  the frame HEIGHT.
+- Phase 1, 9.301-10.471: `front_bumper` (assembled, one object) shows its INNER face: spin [180,0,0,1] -> [162,0,0,1]
+  `lin` (slow drift, brackets/ducts readable). Z turn is safe here: no car in the scene, sweep radius 1.13 m < 3 m.
+- Phase 2, 10.471-11.642: spin [162,0,0,1] -> [0,0,0,1] (turns to its outer face, at home pose on 11.642).
+- Swap on 11.642: `front_bumper` visible [start, 11.642), fb_stripped + 10 pieces visible [11.642, end]. Do it on the
+  first frame the pieces move (fb_stripped's bbox is 3-4 cm larger than the assembled scan's, motion hides it).
+- Phase 3, 11.642-12.813, offsets in m from home (start staggered 0 / 0.08 / 0.16 / 0.24 s in this order):
+  fb_stripped (0,0,0) | fb_hl_trim (0,0,+0.95) | fb_markers (0,0,+0.45) | fb_fog_l and fb_fog_r (0,-0.45,+0.22) |
+  fb_fogtrim_l and fb_fogtrim_r (0,-0.45,-0.25) | fb_center_cover (0,-0.55,0) | fb_center_carbon (0,-0.55,-0.55) |
+  fb_radar (0,-0.95,+0.05) | fb_towhook (0,-0.95,+0.05). No x offsets (width is the limit) and no spins.
+- Phase 4, 12.813-13.983: hold, camera drift only.
+- Fit (computed from bboxes at az 18 / el 30 / dist 3.3): the exploded set spans ~76 % of frame width and ~52 % of the
+  height, centred; nearest piece (radar) 2.5 m from the lens.
+
+**4 v3_side** (13.983-16.324). Camera, one continuous track: t0 az 62, el 20, dist 4.0, target (0.85,-1.25,0.48) -> t1
+az 96, el 16, dist 5.2, target (0.90,0.10,0.38). Parts: fe 14.05-14.75 -> OFF; ssf + ssr 14.75-15.45 -> OFF; fin
+14.95-15.65 -> OFF; 0.65 s settle. Front parts stay off (hidden if out of frame); lid stays open; mirror not keyed.
+
+**5 v3_rear** (16.324-21.006).
+- Camera: 16.324 az 145, el 14, dist 6.4, target (0,1.5,0.70) -> 18.665 az 148, el 14, dist 6.2, target (0,1.55,0.70)
+  `lin` -> 19.835 az 162, el 12, dist 2.6, target (0,2.20,0.42) -> 21.006 az 168, el 12, dist 2.4, target (0,2.22,0.40) `lin`.
+- Parts: wing 16.40-17.20 -> OFF; tll + tlr 16.90-17.49 -> OFF; rb (assembled) 17.494-18.665 -> OFF, straight up and
+  0.35 back, fully off on phrase C when the push starts. Hold 19.835-21.006 on the rear structure.
+
+**6 v3_rb** (21.006-25.700). Rear bumper alone, home coordinates, no car (same light rule as shot 3).
+- Camera: 21.006 az 166, el 16, dist 3.0, target (0.02,2.02,0.36) -> 23.347 az 162, el 30, dist 3.3, target
+  (0.05,2.12,0.38) -> 25.700 az 158, el 30, dist 3.15, same target `lin`.
+- Phase 1, 21.006-22.176: `rear_bumper_forced` spin [180,0,0,1] -> [162,0,0,1] `lin` (inner face: wiring loom, brackets).
+- Phase 2, 22.176-23.347: spin -> [0,0,0,1]. Swap on 23.347 to the pieces (assembled visible before, pieces after).
+- Phase 3, 23.347-24.517, offsets from home: rb_diffuser_forced (0,0,-0.35) | rb_top_half1 (0,0,+0.55) |
+  rb_trim_cover (0,+0.50,+0.85) | rb_reflector_l and rb_reflector_r (0,+0.55,+0.05) (they sit in the gap between the
+  two halves) | rb_corner_marker_l (+0.15,0,+0.25) (lags below its hole in the upper half). No spins.
+- Phase 4, 24.517-25.700: hold, drift only.
+
+**7 v3_reassemble** (25.700-30.400). As v2.1 with lower targets: 25.700 az 128, el 16, dist 9.6, target (0,0.3,1.4) ->
+LOCK 27.967 az 146, el 9, dist 7.6, target (0,0.15,0.46) -> end az 158, el 7, dist 6.6, target (0,0.2,0.42) `lin`.
+All v2 movers fly home from DRIFT with `ease: in`, staggered starts as v2, land on 27.967; lid closes on its hinge;
+both bumpers return as the ASSEMBLED scans (no sub-parts in this shot); base -> car swap on the lock frame.
+**Final shot shows:** the complete, closed car, rear-left 3/4, slow push, full round tyres with their bottoms in frame;
+fade out 29.90-30.40; then the small logo on 30.40 riding the decay to 34.6.
+
+### v3.4 Labels (max one on screen; wording backed by scan file names / STL headers in the editlog)
+
+| # | time (s) | title | sub | position |
+|---|---|---|---|---|
+| L1 | 5.80-7.50 | FRONT BUMPER REMOVED | HEADLIGHTS REMOVED | y 0.72 (as v2.1) |
+| L2 | 7.55-9.27 | FRONT STRUCTURE | FRUNK · MOUNTING POINTS | y 0.72 |
+| L3 | 9.40-11.05 | FRONT BUMPER | SCAN · 14,996,520 TRIANGLES | top band y 0.12 |
+| L4 | 11.70-13.95 | FRONT BUMPER PARTS | FOG LIGHTS · RADAR · TRIM COVERS | top band y 0.12 |
+| L5 | 17.80-19.25 | REAR BUMPER REMOVED | TAIL LIGHTS REMOVED | y 0.72 |
+| L6 | 19.30-20.97 | REAR STRUCTURE | EXHAUST · CRASH BEAM · MOUNTS | y 0.72 |
+| L7 | 21.10-22.75 | REAR BUMPER | SCAN · 14,993,289 TRIANGLES | top band y 0.12 |
+| L8 | 23.40-25.65 | REAR BUMPER PARTS | DIFFUSER · REFLECTORS · TRIM COVER | top band y 0.12 |
+
+L2/L6 wording is v2.1's (named after looking at the renders). L3/L7 counts are the raw assembled-bumper STL headers
+already used in v2.1. No label over the side or the reassembly. Bumper-shot labels go in the top band because the lowest
+piece (centre carbon / diffuser) reaches ~75 % down the frame. Check 4 frames per label window for a part crossing it.
+
+### v3.5 Diff against v2.1, holds, budget
+- Moved: opener cut 6.967 -> 4.619; side 15.20-18.667 -> 13.983-16.324; rear starts 16.324 (was 18.667).
+- Merged: s6_frontopen + v2_frontin -> v3_front. Added: v3_fb, v3_rb. Dropped: nothing. Reused renders: none.
+- Holds > 0.75 s: v3_front 8.13-9.30 (read L2); v3_fb 9.30-10.47 (inner face) and 12.81-13.98 (read the pieces);
+  v3_rear 19.84-21.01 (read L6); v3_rb 21.01-22.18 and 24.52-25.70; logo. All have camera drift.
+- Budget: car shots 332 f x ~25-30 s = ~2.5 h; bumper-only shots 147 f x ~12 s (no car) = ~0.5 h. If time remains, render
+  shots 3 and 6 at real 30 fps (lesson: minterpolate smears fast part moves; the 162 deg turn is the fastest move here).
+- Before assembly: first/mid/last sheet + edge-touch per shot, per-frame luma scan, persistent data off.
+
+### v3.6 Open questions for the editor
+1. Spin direction/sign in shots 3 and 6: confirm on one preview frame that spin 180 shows the inner face upright to the
+   lens and spin 0 equals the home pose (needed for the invisible swap).
+2. If the 8-beat front shot reads rushed on the structure hold, take 2 beats from phase 1 of v3_fb (start the turn at
+   once), not from the explode hold.
+3. fb_markers and fb_hl_trim are single objects spanning both sides: they can only lift as one piece (planned so).
+4. v2 question 3 still stands (skirts beside the sill): now that the sill/tyres are complete, check the side sheet.

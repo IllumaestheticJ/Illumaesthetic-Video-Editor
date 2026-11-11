@@ -39,7 +39,7 @@
    "title": "FRONT BUMPER PARTS",
    "sub": "FOG LIGHTS \u00b7 RADAR \u00b7 TRIM COVERS",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.84
   },
   {
    "kind": "label",
@@ -75,7 +75,7 @@
    "title": "REAR BUMPER PARTS",
    "sub": "DIFFUSER \u00b7 REFLECTORS \u00b7 TRIM COVER",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.84
   }
  ]
 }
