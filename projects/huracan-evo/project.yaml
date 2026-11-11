@@ -10,8 +10,8 @@ music:
   start: 0
   fade_out: 0.6
 
-# beats t = 3.0768 + 0.60006*n; dips at n=3,14,25,36,47,57; lift n=64; sections n=72,80,86,92,98; music stop n=108
-beats: [4.877, 11.478, 18.078, 24.679, 31.28, 37.28, 41.481, 46.281, 51.082, 54.682, 58.282, 61.883, 67.883]
+# beats t = 3.0768 + 0.60006*n; dips at n=3,17,32,47,57; lift n=64; sections n=72,80,86,92,98; music stop n=108
+beats: [4.877, 13.278, 22.279, 31.28, 37.28, 41.481, 46.281, 51.082, 54.682, 58.282, 61.883, 67.883]
 
 timeline:
   - id: h0_select   # SELECT: whole coupe revealed as the lights come up with the start-up
@@ -23,27 +23,21 @@ timeline:
   - transition: {type: dip, duration: 0.6}
   - id: h2_front   # COUPE FRONT: low 3/4, nose and intakes
     src: /home/user/media/work/renders/huracan/h2_front
-    src_fps: 13.5000
+    src_fps: 13.7956
     interpolate: true
-    dur: 7.2000
-  - transition: {type: dip, duration: 0.6}
-  - id: h3_hood   # COUPE FRONT: down the hood to the shield (windscreen holes kept out of frame)
-    src: /home/user/media/work/renders/huracan/h3_hood
-    src_fps: 13.5000
-    interpolate: true
-    dur: 7.2000
+    dur: 9.0000
   - transition: {type: dip, duration: 0.6}
   - id: h4_wheel   # COUPE FRONT WHEEL: real rims, sweeping rearward
     src: /home/user/media/work/renders/huracan/h4_wheel
-    src_fps: 13.5000
+    src_fps: 13.8699
     interpolate: true
-    dur: 7.2000
+    dur: 9.6000
   - transition: {type: dip, duration: 0.6}
   - id: h5_side   # COUPE SIDE: slide front -> rear
     src: /home/user/media/work/renders/huracan/h5_side
-    src_fps: 13.5000
+    src_fps: 13.8699
     interpolate: true
-    dur: 7.2000
+    dur: 9.6000
   - transition: {type: dip, duration: 0.6}
   - id: h1_tail   # COUPE REAR: tail light + louvres
     src: /home/user/media/work/renders/huracan/h1_tail

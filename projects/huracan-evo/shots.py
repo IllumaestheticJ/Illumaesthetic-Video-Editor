@@ -236,15 +236,16 @@ if __name__ == "__main__":
 
 # ---------------------------------------------------------------- v3 revision per direction.md (v2 brief: travel + section focus)
 COUPE = {"car": B + "coupe2_npc.blend"}   # plate + 2 floating debris specks (47 tris above nose/roof) removed
-HP_BEATS = [("h0_select", 0, 3), ("h2_front", 3, 14), ("h3_hood", 14, 25), ("h4_wheel", 25, 36), ("h5_side", 36, 47),
-            ("h1_tail", 47, 57), ("h7_rear", 57, 64)]   # front -> side -> rear; h6_high dropped (roof glass holes, 3rd whole-car 3/4)
-CAMS["h3_hood"] = [dict(t=0, az=-12, el=50, dist=2.5, target=[0, -1.85, 0.62], lens=70),
-                   dict(t=1, az=10, el=48, dist=2.3, target=[0, -1.85, 0.62], lens=70, lin=True)]
+HP_BEATS = [("h0_select", 0, 3), ("h2_front", 3, 17), ("h4_wheel", 17, 32), ("h5_side", 32, 47),
+            ("h1_tail", 47, 57), ("h7_rear", 57, 64)]   # h3_hood dropped after tests: blown out under the top light at -1.4 EV,
+            # windscreen holes still in frame, and it repeated h2's front - one continuous front sequence instead   # front -> side -> rear; h6_high dropped (roof glass holes, 3rd whole-car 3/4)
+CAMS["h3_hood"] = [dict(t=0, az=-14, el=40, dist=2.4, target=[0, -2.05, 0.52], lens=60),
+                   dict(t=1, az=12, el=40, dist=2.2, target=[0, -2.05, 0.52], lens=60, lin=True)]   # nose half: shield + intakes, no windscreen
 CAMS["h4_wheel"] = [dict(t=0, az=60, el=5, dist=1.7, target=[0.85, -1.35, 0.35], lens=50),
                     dict(t=1, az=76, el=4, dist=1.4, target=[0.85, -1.35, 0.35], lens=50, lin=True)]   # sweeps rearward
 CAMS["h5_side"] = [dict(t=0, az=90, el=3, dist=5.0, target=[0, -1.1, 0.5], lens=40),
                    dict(t=1, az=90, el=3, dist=5.0, target=[0, 1.1, 0.5], lens=40, lin=True)]           # slides front -> rear
-HP_SHOTS = [hpshot(n, a, b, CAMS[n], extra={"lot": dict(GARAGE, lights_up=[0.04, 0.3])} if n == "h0_select" else None)
+HP_SHOTS = [hpshot(n, a, b, CAMS[n], extra={"exposure": -1.4} if n == "h3_hood" else None)   # hood under the top light blew out at -0.5
             for n, a, b in HP_BEATS if n not in ("h0_select", "h1_tail")]   # h0/h1 already rendered (h1 stretched 9 -> 10 beats)
 
 # Spyder section shots (n64-108): each part comes off in its own section shot, tips its scanned inner face to the lens
@@ -301,23 +302,23 @@ SP_SHOTS = [
            # moves in and holds on the scanned structure it covered (addendum C: bumper-removed data is the hero beat)
            moves(OPEN_ST, S2_END, {"fb": (0.125, 0.5)}, {"fb": [dict(t=1, off=[0, -1.95, -0.45], spin=[125, 1, 0, 0])]})),
     # S3 under the hood: hood swings full open and lifts, cowls lift straight off (translate only) (beat = 0.167)
-    spshot("sp_hood", [dict(t=0, az=-20, el=28, dist=3.2, target=[0, -1.55, 0.95], lens=45),
-                       dict(t=1, az=-14, el=36, dist=2.7, target=[0, -1.55, 0.90], lens=45)],
+    spshot("sp_hood", [dict(t=0, az=-22, el=26, dist=4.4, target=[0, -1.45, 1.25], lens=40),
+                       dict(t=1, az=-14, el=32, dist=3.9, target=[0, -1.45, 1.20], lens=40)],   # whole lifted hood in frame
            moves(S2_OUT, S3_END, {"hood": (0.0, 0.5), "tc": (0.333, 0.667), "lc": (0.333, 0.833), "rc": (0.5, 0.833)})),
     # S4 right side: fender then skirt move outboard and tip their inner faces up/out to the lens
-    spshot("sp_side", [dict(t=0, az=-95, el=22, dist=3.4, target=[-1.0, -0.90, 0.55], lens=50),
-                       dict(t=1, az=-88, el=20, dist=3.2, target=[-1.0, 0.35, 0.35], lens=50)],
+    spshot("sp_side", [dict(t=0, az=-102, el=24, dist=5.4, target=[-1.1, -0.55, 0.62], lens=45),
+                       dict(t=1, az=-92, el=22, dist=5.1, target=[-1.1, -0.30, 0.55], lens=45)],   # fender clipped at the top at d 4.6   # fender + skirt both in frame
            moves(S3_END, S4_END, {"fe": (0.0, 0.5), "sk": (0.333, 0.833)})),
     # S5 rear bumper: back past the tail onto black, tips its inner face
-    spshot("sp_rear", [dict(t=0, az=-115, el=25, dist=3.8, target=[0, 2.80, 0.65], lens=45),
-                       dict(t=0.5, az=-120, el=27, dist=3.5, target=[0, 2.90, 0.70], lens=45),
+    spshot("sp_rear", [dict(t=0, az=-140, el=24, dist=4.4, target=[0, 2.35, 0.60], lens=45),
+                       dict(t=0.5, az=-135, el=27, dist=3.9, target=[0, 2.75, 0.60], lens=45),
                        dict(t=1, az=-150, el=20, dist=2.4, target=[0, 1.95, 0.55], lens=45)],
            # rear bumper back past the tail, tips its inner face, then drops away; camera moves in on the structure behind
            moves(S4_END, S5_END, {"rb": (0.0, 0.5)}, {"rb": [dict(t=1, off=[0, 1.35, -0.45], spin=[-125, 1, 0, 0])]})),
     # S6 the one full-explode view, then reassembly in reverse travel order, clean car swap on n106 (t=0.8), fade in assembly
-    spshot("sp_finale", [dict(t=0, az=-105, el=48, dist=8.8, target=[0, 0, 0.90], lens=40),
-                         dict(t=0.35, az=-150, el=34, dist=8.2, target=[0, 0.20, 0.75], lens=40, lin=True),
-                         dict(t=1, az=-210, el=16, dist=7.2, target=[0, 0.25, 0.55], lens=40)],
+    spshot("sp_finale", [dict(t=0, az=-172, el=58, dist=10.5, target=[0, -0.2, 0.70], lens=40),
+                         dict(t=0.35, az=-185, el=44, dist=9.0, target=[0, 0.0, 0.65], lens=40, lin=True),
+                         dict(t=1, az=-212, el=14, dist=6.3, target=[0, 0.2, 0.55], lens=40)],   # length runs up the 9:16 frame (A90 lesson)
            moves(S5_OUT, ST0, {"rb": (0.3, 0.5), "sk": (0.4, 0.6), "fe": (0.4, 0.6), "tc": (0.4, 0.6), "lc": (0.4, 0.6),
                                "rc": (0.4, 0.6), "hood": (0.5, 0.7), "fb": (0.5, 0.75)}),
            objects=dict(EXPLODED2, clean=B + "car2.blend"),
