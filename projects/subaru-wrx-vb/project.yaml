@@ -21,42 +21,42 @@ timeline:
   - id: v2_opener      # whole car, elevated front-right 3/4, moving from frame 1 (ambient intro)
     focus: whole car
     src: /home/user/media/work/wrx/renders/final/v2_opener
-    src_fps: SRC_v2_opener
+    src_fps: 14.812
     interpolate: true
     dur: 5.2
   - transition: {type: cut, note: "5.224 swell"}
   - id: s4_scoop       # v1 render reused at 0.80x: hood scoop, the front's signature detail
     focus: hood scoop
     src: /home/user/media/work/wrx/renders/final/s4_scoop
-    src_fps: SRC_s4_scoop
+    src_fps: 11.944
     interpolate: true
     dur: 3.4667
   - transition: {type: cut, note: "8.707 swell"}
   - id: v2_front_off   # bumper leaves on the 11.191 drop, flips (scanned inside), garnish follows; hold on the structure
     focus: front bumper / structure behind it
     src: /home/user/media/work/wrx/renders/final/v2_front_off
-    src_fps: SRC_v2_front_off
+    src_fps: 14.878
     interpolate: true
     dur: 8.0667
   - transition: {type: cut, note: "16.775 downbeat"}
   - id: v2_side_off    # front wheel, then front flare / door flare / rear flare / skirt, one per bar
     focus: right-side cladding
     src: /home/user/media/work/wrx/renders/final/v2_side_off
-    src_fps: SRC_v2_side_off
+    src_fps: 14.826
     interpolate: true
     dur: 5.6
   - transition: {type: cut, note: "22.360 downbeat"}
   - id: v2_rear_off    # rear bumper back toward the lens, flips (inner ribs), hold on the rear structure
     focus: rear bumper / structure behind it
     src: /home/user/media/work/wrx/renders/final/v2_rear_off
-    src_fps: SRC_v2_rear_off
+    src_fps: 14.912
     interpolate: true
     dur: 5.5667
   - transition: {type: cut, note: "27.944 downbeat"}
   - id: v2_reassemble  # rear -> side -> front home, front locks on 30.736; clean car from the lock; fade from 31.434
     focus: whole car (reassembly)
     src: /home/user/media/work/wrx/renders/final/v2_reassemble
-    src_fps: SRC_v2_reassemble
+    src_fps: 14.769
     interpolate: true
     dur: 4.2
     vf: "fade=t=out:st=3.5:d=0.7"
