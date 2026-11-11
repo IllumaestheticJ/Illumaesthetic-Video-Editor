@@ -1,7 +1,17 @@
 {
- "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 108,
- "src": "web_mr2_listing.png", "imgW": 2880, "imgH": 1640,
- "focusX": 983, "focusY": 838, "startScale": 1.3, "zoomFrames": 45,
- "url": "ILLUMAESTHETIC.COM", "title": "SCAN DATA NOW AVAILABLE",
- "logo": "illumaesthetic_logo.png", "logoWidth": 640
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 80,
+ "src": "web_mr2_listing.png",
+ "imgW": 2880,
+ "imgH": 1640,
+ "focusX": 983,
+ "focusY": 838,
+ "startScale": 1.3,
+ "zoomFrames": 45,
+ "url": "ILLUMAESTHETIC.COM",
+ "title": "SCAN DATA NOW AVAILABLE",
+ "logo": "illumaesthetic_logo.png",
+ "logoWidth": 640
 }

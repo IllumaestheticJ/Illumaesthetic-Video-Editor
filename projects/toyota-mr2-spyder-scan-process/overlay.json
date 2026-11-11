@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 735,
+ "durationInFrames": 707,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -14,8 +14,8 @@
    "kind": "label",
    "from": 102,
    "duration": 86,
-   "title": "14,999,997 TRIANGLES",
-   "sub": "FULL CAR TOP DOWN SCAN",
+   "title": "FULL CAR SCAN",
+   "sub": "14,999,997 TRIANGLES",
    "x": 0.08,
    "y": 0.1
   },
