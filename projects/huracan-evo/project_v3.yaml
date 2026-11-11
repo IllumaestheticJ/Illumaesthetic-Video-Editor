@@ -1,0 +1,123 @@
+# Huracan EVO v3 - Hot Pursuit Remastered car select (COUPE, narration) -> Spyder section-by-section teardown.
+# Order/sections from direction.md (scene-director) + parent v2 brief + addendum (crop, no repeats, bumper-removed hero + labels).
+# Coupe angles dip to black (0.6 s, incoming clip +0.6 s so it is fully up on its beat); hard cuts from the lift.
+project: huracan-evo
+format: reel-9x16
+output: {path: /home/user/media/work/out/huracan_evo_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/huracan-evo/vo/soundtrack_v3hp.wav   # not committed (tools/mix.py)
+  start: 0
+  fade_out: 0.6
+
+# beats t = 3.0768 + 0.60006*n; dips at n=3,17,32,47,57; lift n=64; sections n=72,80,86,92,98; music stop n=108
+beats: [4.877, 13.278, 22.279, 31.28, 37.28, 41.481, 46.281, 51.082, 54.682, 58.282, 61.883, 67.883]
+
+timeline:
+  - id: h0_select   # SELECT: whole coupe revealed as the lights come up with the start-up
+    section: whole
+    focus: "whole coupe, front-left 3/4, lights come up on the start-up"
+    src: /home/user/media/work/renders/huracan/h0_select
+    src_fps: 14.6000
+    interpolate: true
+    dur: 4.8667
+    vf: fade=t=in:st=0:d=0.3
+  - transition: {type: dip, duration: 0.6}
+  - id: h2_front   # COUPE FRONT: low 3/4, nose and intakes
+    section: front
+    focus: "coupe nose: Y-intakes and splitter, low 3/4"
+    src: /home/user/media/work/renders/huracan/h2_front
+    src_fps: 13.7956
+    interpolate: true
+    dur: 9.0000
+  - transition: {type: dip, duration: 0.6}
+  - id: h4_wheel   # COUPE FRONT WHEEL: real rims, sweeping rearward
+    section: wheel
+    focus: "front wheel: scanned rim spokes and tyre"
+    src: /home/user/media/work/renders/huracan/h4_wheel
+    src_fps: 13.8699
+    interpolate: true
+    dur: 9.6000
+  - transition: {type: dip, duration: 0.6}
+  - id: h5_side   # COUPE SIDE: slide front -> rear
+    section: side
+    focus: "coupe profile slide, front to rear"
+    src: /home/user/media/work/renders/huracan/h5_side
+    src_fps: 13.8699
+    interpolate: true
+    dur: 9.6000
+  - transition: {type: dip, duration: 0.6}
+  - id: h1_tail   # COUPE REAR: tail light + louvres
+    section: rear
+    focus: "tail light, exhaust and engine-cover louvres"
+    src: /home/user/media/work/renders/huracan/h1_tail
+    src_fps: 12.0297
+    interpolate: true
+    dur: 6.6000
+  - transition: {type: dip, duration: 0.6}
+  - id: h7_rear   # COUPE REAR: wide 3/4 pull-back; narration ends, music breathes
+    section: whole
+    focus: "whole coupe, rear 3/4 pull-back"
+    src: /home/user/media/work/renders/huracan/h7_rear
+    src_fps: 12.7703
+    interpolate: true
+    dur: 4.8000
+  - transition: {type: cut}
+  - id: s5_frontopen   # LIFT 41.48 s: SPYDER FRONT - bumper slides off, fender out, hood up to its captured open pose
+    section: front-open
+    focus: "Spyder front opens: bumper off, fender out, hood to its captured open pose"
+    src: /home/user/media/work/renders/huracan/s5_frontopen
+    src_fps: 14.6939
+    interpolate: true
+    dur: 4.7667
+  - transition: {type: cut}
+  - id: sp_bumper   # SPYDER FRONT: bumper tips its scanned inner face, drops away; camera holds on the structure behind (label)
+    section: front-open
+    focus: "FRONT BUMPER REMOVED: bumper inner face, then the structure behind it"
+    src: /home/user/media/work/renders/huracan/sp_bumper
+    src_fps: 14.5946
+    interpolate: true
+    dur: 4.8000
+  - transition: {type: cut}
+  - id: sp_hood   # SPYDER FRONT: hood full open + lift, cowls lift off (translate only)
+    section: hood
+    focus: "hood lifts clear, cowls lift off: frunk structure"
+    src: /home/user/media/work/renders/huracan/sp_hood
+    src_fps: 14.4643
+    interpolate: true
+    dur: 3.6000
+  - transition: {type: cut}
+  - id: sp_side   # SPYDER SIDE: fender then skirt out, inner faces to the lens
+    section: side-open
+    focus: "fender and side skirt off, inner faces to the lens"
+    src: /home/user/media/work/renders/huracan/sp_side
+    src_fps: 14.4643
+    interpolate: true
+    dur: 3.6000
+  - transition: {type: cut}
+  - id: sp_rear   # SPYDER REAR: bumper tips inner face, drops away; camera holds on the structure behind (label)
+    section: rear-open
+    focus: "REAR BUMPER REMOVED: bumper inner face, then the structure behind it"
+    src: /home/user/media/work/renders/huracan/sp_rear
+    src_fps: 14.4643
+    interpolate: true
+    dur: 3.6000
+  - transition: {type: cut}
+  - id: sp_finale   # one full-explode view -> reassembly in reverse order -> clean car swap n106 -> fade
+    section: whole
+    focus: "full explode top-down, reassembly, whole Spyder rear 3/4"
+    src: /home/user/media/work/renders/huracan/sp_finale
+    src_fps: 14.6739
+    interpolate: true
+    dur: 6.0000
+    vf: fade=t=out:st=5.100:d=0.9
+  - transition: {type: cut}
+  - id: logo   # small ILLUMAESTHETIC logo (380 px) on black when the music stops
+    src: /home/user/media/huracan-evo/logo/end_card_small.png
+    duration: 4.0667
+    dur: 3.9667
+    vf: fade=t=in:st=0:d=0.5
+
+overlays:   # addendum C: labels only over the bumper-removed holds (exact counts from the STL headers)
+  - src: /home/user/media/work/out/hud_huracan_v3.mov
+    start: 0

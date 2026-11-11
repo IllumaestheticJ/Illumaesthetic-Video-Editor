@@ -83,5 +83,44 @@ def main(out):
     print(out)
 
 
+# v4 (user on v3: opening pans too long; voice closer to the reference; Spyder shown -> talk about the Spyder; imperial;
+# faster; quirks not just specs). Music = track_a_v4.wav (tools/music_v4.py): lift n40 = 27.079 s, stop n84 = 53.48 s.
+# Voice = preset 'Vesper' (c3204739-...), speech_rate 45, pitch_rate +2: closest preset to the reference narrator by
+# tools/voicematch.py (timbre 1.7 dB LTAS distance, F0 -0.4 st, pace 4.14 vs 4.12 onsets/s). Still NOT a clone.
+V4 = dict(MUSIC="/home/user/media/huracan-evo/music/track_a_v4.wav", LIFT=27.079,
+          VOS=[("/home/user/media/huracan-evo/vo/narration7_coupe.wav", 3.6),     # coupe, ends before the lift
+               ("/home/user/media/huracan-evo/vo/narration7_spyder.wav", 28.6)],  # Spyder, after the 2nd start-up catches
+          TEMPO=1.05)   # take already matched the ref pace; +5 % so the coupe block ends before the lift (user: "speak faster")
+
+
+def main_v4(out):
+    global TEMPO
+    TEMPO = V4["TEMPO"]; g = 10 ** (DUCK_DB / 20)
+    vos, wins = [], []
+    for i, (raw, at) in enumerate(V4["VOS"]):
+        tight = raw.replace(".wav", "_tight.wav"); n = tighten(raw, tight); vos.append((tight, at))
+        wins.append((at - RAMP, at + n + 0.2)); print("voice", i, round(n, 2), "s:", at, "->", round(at + n, 2))
+    assert wins[0][1] + RAMP < V4["LIFT"], "coupe voice runs into the lift"
+    # duck envelope: product of per-window trapezoids
+    def trap(d0, d1):
+        return (f"if(lt(t,{d0}),1,if(lt(t,{d0 + RAMP}),1-(1-{g})*(t-{d0})/{RAMP},"
+                f"if(lt(t,{d1}),{g},if(lt(t,{d1 + RAMP}),{g}+(1-{g})*(t-{d1})/{RAMP},1))))")
+    env = "*".join(f"({trap(a, b)})" for a, b in wins)
+    e2 = V4["LIFT"] - 0.25
+    vchain = ("aresample=48000,highpass=f=110,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=3,"
+              "aecho=0.85:0.5:38|71:0.18|0.10,volume=2.4,alimiter=limit=0.8:level=disabled")
+    fc = (f"[0:a]aresample=48000,volume='{env}':eval=frame[m];"
+          f"[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.9,afade=t=out:st=2.4:d=3.0,"
+          f"adelay={int(ENGINE_AT * 1000)}|{int(ENGINE_AT * 1000)}[e1];"
+          f"[2:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.75,afade=t=out:st=1.6:d=2.4,"
+          f"adelay={int(e2 * 1000)}|{int(e2 * 1000)}[e2];"
+          f"[3:a]{vchain},adelay={int(vos[0][1] * 1000)}|{int(vos[0][1] * 1000)}[v1];"
+          f"[4:a]{vchain},adelay={int(vos[1][1] * 1000)}|{int(vos[1][1] * 1000)}[v2];"
+          f"[m][e1][e2][v1][v2]amix=inputs=5:normalize=0:duration=first,alimiter=limit=0.95:level=disabled[out]")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", V4["MUSIC"], "-i", ENGINE, "-i", ENGINE2, "-i", vos[0][0], "-i", vos[1][0],
+                    "-filter_complex", fc, "-map", "[out]", "-c:a", "pcm_s24le", out], check=True)
+    print(out)
+
+
 if __name__ == "__main__":
-    main(sys.argv[1])
+    (main_v4 if "--v4" in sys.argv else main)(sys.argv[1])
