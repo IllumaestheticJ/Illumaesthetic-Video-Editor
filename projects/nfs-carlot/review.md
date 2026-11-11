@@ -73,3 +73,17 @@ Output: `/home/user/media/work/out/nfs-carlot_v6.mp4`, 21.1 s.
 - EP3 re-rendered in Boost Blue Pearl (B637P, #1c4fa0, pearl): the lookbook's default paint on the 11th-gen
   Civics, taken as "the lookbook blue" because the EP3 itself has no lookbook entry. Everything else as v5.
 - Open: the EP3 (blue) is now followed by the Corolla (blue #16408c) where the list wraps.
+
+## v7 (2026-11-11) - after the user's review of v6
+User: "The cursor arrow freaks out, can you fix that?"
+
+Output: `/home/user/media/work/out/nfs-carlot_v7.mp4`, 21.1 s.
+- Causes: cursor in a different place in each capture range (jump at every cut), a copy of it baked into the
+  clean plate (second arrow, blinking around slides), and a skipped stretch in the prompt.
+- Now one cursor: rests where the capture has it as the menu opens, goes to the "next" arrow once the Corolla
+  has settled, stays there through all five scrolls, travels to Continue during the last slide, then the
+  capture's own cursor goes up to the prompt, hovers at No and crosses to Yes.
+- Checked: contact sheet of every 8th menu frame (one cursor everywhere), 2x crops of the start spot before,
+  during and after the cursor leaves (no patch), arrow buttons, hand-over frames. Sync unchanged.
+- Missed in v1-v6 self-review: I looked at cars, plates and cuts but never followed the cursor. Add it to
+  the checks for this format (done in the knowledge doc).

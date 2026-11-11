@@ -43,8 +43,20 @@ SEGMENTS = [                                                   # (source frames,
     # player clicks Continue (same game car and stat bars, the cursor travelling to the button)
     (list(range(5089, 5104)) + list(range(5204, 5213)), "corolla", "corolla"),
 ]
-# "Do you want this stock 240SX?": fade-in (5213-5218) and the tail of the prompt up to the click on Yes (5263)
-DIALOG = {"frames": list(range(5213, 5219)) + list(range(5234, 5264)), "rest": 5212, "steady": 5240, "scene": 5264,
+# "Do you want this stock 240SX?": fade-in (5213-5218), the cursor's trip from Continue up to the buttons
+# (5224-5233), three frames of it hovering, then across to Yes and the click (5247-5263). 36 frames = the
+# 1.2 s the prompt is up in the real-time capture; the frames left out are ones where the cursor sits still.
+# Cursor (user, v6 review: "the cursor arrow freaks out"). The capture's cursor is in a different place in
+# every range the menu is cut from, so it jumped at each cut, and the clean plate had a copy of it baked in
+# that blinked on and off around slides. Now the capture's cursor is removed from the menu and one cursor
+# (sprite from tools/cursor.py) is drawn on a continuous path: where the capture has it when the menu opens,
+# over to the "next" arrow, there for every scroll, then down to Continue during the last slide. From
+# Continue on, the capture's own cursor is kept: the prompt frames are chosen so its path is unbroken.
+CUR_START, CUR_HOME, CUR_CONTINUE = (1046, 1032), (1730, 242), (1611, 1087)    # top-left of the sprite box, capture px
+CUR_CLEAN_SRC = 4035                    # first car at rest with the cursor elsewhere: clean pixels under CUR_START
+STRIP_L, STRIP_R = (300, 144, 490, 332), (1700, 144, 1842, 332)   # the name bar's ends with the arrow buttons
+STRIP_SRC = {"L": 4050, "R": 4110}      # frames with the cursor on the other arrow
+DIALOG = {"frames": list(range(5213, 5219)) + list(range(5224, 5234)) + [5238, 5240, 5243] + list(range(5247, 5264)), "rest": 5212, "steady": 5240, "scene": 5264,
           "text": "Do you want this stock Corolla?", "text_box": (773, 577, 1382, 620)}
 OUT_FPS = 30
 CARS_DIR = "cars3"                       # wheel-fitted camera, game-matched rig, front wheels steered 25 deg
@@ -198,6 +210,45 @@ def main():
     def frame(f):
         cap.set(cv2.CAP_PROP_POS_FRAMES, f); ok, F = cap.read(); return F
 
+    # cursor sprite, and the plate cleaned of the cursor that was in the capture when it was grabbed
+    spr = cv2.imread(str(W / "cursor/sprite.png"), cv2.IMREAD_UNCHANGED).astype(np.float32)
+    sh, sw = spr.shape[:2]
+    cx0, cy0 = CUR_START
+    cur_hole = cv2.dilate((spr[..., 3] > 5).astype(np.uint8), cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))).astype(bool)   # the capture's cursor is a little larger and softer than the sprite
+    PADC = 14
+    cur_clean = frame(CUR_CLEAN_SRC)[cy0 - PADC:cy0 + sh + PADC, cx0 - PADC:cx0 + sw + PADC]
+    hole_pad = cv2.copyMakeBorder(cur_hole.astype(np.uint8) * 255, PADC, PADC, PADC, PADC, cv2.BORDER_CONSTANT, value=0)
+
+    def lift_start_cursor(img):
+        """Take the capture's cursor out at CUR_START. The clean pixels come from a later frame of the same car,
+        but the floor there is darker or lighter depending on what stands on the turntable, so they are blended
+        in by gradient (Poisson) rather than pasted: a plain paste left a visible cursor-shaped patch."""
+        y, x = cy0 - PADC, cx0 - PADC
+        reg = np.clip(img[y:y + cur_clean.shape[0], x:x + cur_clean.shape[1]], 0, 255).astype(np.uint8)
+        c = (reg.shape[1] // 2, reg.shape[0] // 2)
+        img[y:y + reg.shape[0], x:x + reg.shape[1]] = cv2.seamlessClone(cur_clean, reg, hole_pad, c, cv2.NORMAL_CLONE)
+
+    lift_start_cursor(E)
+    strips = {k: frame(STRIP_SRC[k])[b[1]:b[3], b[0]:b[2]].copy() for k, b in (("L", STRIP_L), ("R", STRIP_R))}
+    cur_track = json.load(open(W / "cursor/track.json"))["track"]
+
+    def draw_cursor(out, pos):
+        """Alpha-composite the sprite with its box's top-left at pos (sub-pixel)."""
+        x, y = pos; xi, yi = int(np.floor(x)), int(np.floor(y))
+        M = np.float32([[1, 0, x - xi + 1], [0, 1, y - yi + 1]])
+        sp = cv2.warpAffine(spr, M, (sw + 3, sh + 3), flags=cv2.INTER_LINEAR, borderValue=0)
+        ya, xa = max(0, yi - 1), max(0, xi - 1); yb, xb = min(H, yi - 1 + sh + 3), min(Wd, xi - 1 + sw + 3)
+        sp = sp[ya - (yi - 1):yb - (yi - 1), xa - (xi - 1):xb - (xi - 1)]
+        a = sp[..., 3:] / 255.0
+        out[ya:yb, xa:xb] = out[ya:yb, xa:xb] * (1 - a) + sp[..., :3] * a
+
+    def glide(p, q, t):
+        """Point t (0..1) of the way from p to q: eased, with a slight bow like a hand-moved mouse."""
+        t = float(np.clip(t, 0, 1)); e = t * t * (3 - 2 * t)
+        dx, dy = q[0] - p[0], q[1] - p[1]
+        bow = 0.045 * np.sin(np.pi * e)
+        return p[0] + dx * e - dy * bow, p[1] + dy * e + dx * bow
+
     T = turntable_mask(H, Wd)
     zone = build_zone(cap, E)
     cv2.imwrite(str(W / "match/zone.png"), (zone * 255).astype(np.uint8))
@@ -252,8 +303,8 @@ def main():
         tb = trans[ta]
         s = slide(rows, ta, tb)
         ob, oa = rest_offset(rows, ta - 1), rest_offset(rows, tb)
-        hold = [f for f in frames if f >= tb]
-        med = np.median(np.stack([frame(f) for f in hold[::max(1, len(hold) // 9)]]), 0).astype(np.uint8)
+        last_seg = si == len(SEGMENTS) - 1
+        n_slide = tb - ta + 1
         for f in frames:
             F = frame(f)
             if f < ta:                       # before the scroll: previous car at rest
@@ -266,19 +317,24 @@ def main():
             cur_plate = plate if f >= ta else (SEGMENTS[si - 1][2] if si else plate)
             out[y0:y1, x0:x1] = plates[cur_plate]
             out[by0:by1, bx0:bx1] = box_ref
-            if f >= tb:                      # put the mouse cursor back where it crossed anything we repainted
-                d = cv2.absdiff(F, med).max(2)
-                m = (d > 46).astype(np.uint8)
-                keep = np.zeros_like(m); keep[y0:y1, x0:x1] = 1
-                keep |= (zone > 0.02).astype(np.uint8)
-                m = cv2.morphologyEx(m & keep, cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
-                n, lab, st, _ = cv2.connectedComponentsWithStats(m)
-                cm = np.zeros_like(m)
-                for i in range(1, n):
-                    if 60 < st[i, cv2.CC_STAT_AREA] < 2600 and st[i, cv2.CC_STAT_WIDTH] < 80 and st[i, cv2.CC_STAT_HEIGHT] < 90:
-                        cm[lab == i] = 1
-                cm = cv2.dilate(cm, np.ones((3, 3), np.uint8)).astype(bool)
-                out[cm] = F[cm]
+            # cursor: take the capture's out, draw ours
+            out[STRIP_L[1]:STRIP_L[3], STRIP_L[0]:STRIP_L[2]] = strips["L"]
+            out[STRIP_R[1]:STRIP_R[3], STRIP_R[0]:STRIP_R[2]] = strips["R"]
+            k = frames.index(f)
+            if si == 0 and ta <= f < tb:     # opening slide: the capture's cursor is at CUR_START and nothing under it is repainted
+                pos = None
+            elif si == 0:                    # ... and it stays there for the whole first range: take it out, draw ours
+                lift_start_cursor(out)
+                k0 = frames.index(tb) + 12   # a beat after the first car has settled, go to the "next" arrow
+                pos = glide(CUR_START, CUR_HOME, (k - k0) / 16.0)
+            elif not last_seg:
+                pos = CUR_HOME
+            elif k < n_slide:                # last scroll clicked: travel to Continue while the car slides in
+                pos = glide(CUR_HOME, CUR_CONTINUE, (k - 2) / float(n_slide - 3))
+            else:
+                pos = None                   # the capture's own cursor is on Continue from here
+            if pos is not None:
+                draw_cursor(out, pos)
             last_out = np.clip(out, 0, 255)
             ff.stdin.write(last_out.astype(np.uint8).tobytes())
             n_out += 1
@@ -347,6 +403,11 @@ def main():
             out = (1 - u) * Rp + u * D0p
         else:
             out = prompt(F)
+            t = cur_track.get(str(f))
+            if t and t["score"] > 0.85:                         # the cursor is on top of everything: no car showing through it
+                tx, ty = t["x"], t["y"]
+                m = cv2.dilate((spr[..., 3] > 40).astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
+                out[ty:ty + sh, tx:tx + sw][m] = F[ty:ty + sh, tx:tx + sw][m]
         ff.stdin.write(np.clip(out, 0, 255).astype(np.uint8).tobytes()); n_out += 1
     print(f"prompt: {len(dg['frames'])} frames, text '{dg['text']}'", flush=True)
     ff.stdin.close(); ff.wait()

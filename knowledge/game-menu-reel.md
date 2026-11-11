@@ -244,6 +244,19 @@ whole line in the matching face (NFSU2: Roboto Condensed Italic, 49 px on a 2144
 the fade-in, mix our last menu frame with our first steady prompt frame by the capture's own fade
 amount. Use the model name the name plate shows.
 
+**The mouse cursor (user on v6: "the cursor arrow freaks out").** A menu cut from several ranges of
+a capture has the player's cursor in a different place in each, so it teleports at every cut. Deal
+with it before the first delivery: track it (`projects/nfs-carlot/tools/cursor.py`), take it out of
+the menu frames, and draw one cursor on a continuous path that makes sense for what happens (to the
+"next" arrow, stays there for the scrolls, to Continue). Check the clean plate for a baked-in
+cursor too: it shows up as a second arrow that blinks around slides. Removal: paste static UI (name
+plate, arrow buttons) from frames where the cursor is elsewhere; over anything that changes with
+the car, blend clean pixels in by gradient (`cv2.seamlessClone`) with a hole wider than the cursor.
+Sprite: measure the white arrow over a flat dark background and rebuild the outline as the shape
+grown 3 px; do not try to solve alpha from the capture. Where the capture's cursor path is already
+continuous (here: from Continue through the purchase prompt) keep it, and choose frames so that it
+stays continuous: drop frames where it sits still, never frames where it moves.
+
 **Ending.** For Epsilon reels end on the EPSILON+ wordmark (white on black,
 `Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png`, 800 px wide): cut to it on a menu
 sound (with a purchase: on the Yes click), let the music run about 3 s under it and fade over the

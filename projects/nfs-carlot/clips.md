@@ -32,6 +32,11 @@ silent from 58.2.
 Used in v5: intro f952-1291; menu f3829-3919, 4041-4112, 4631-4682, 4732-4791, 4947-4984, 5089-5103 + 5204-5212;
 prompt f5213-5218 + 5234-5263.
 
+Cursor in capture A (top-left of a 46x70 box): f3829-3919 at (1046,1032); f4041-4079 on the right arrow (1730,242),
+then to the left arrow; f4631-4791 right arrow (1724,221); f4947-5103 left arrow (405,231); f5204-5224 on Continue
+(1611,1087); f5224-5233 up to the No button; f5248-5254 across to Yes (700,731); click about f5263.
+Used in v7 prompt: f5213-5218, 5224-5233, 5238, 5240, 5243, 5247-5263.
+
 Used in v1: intro f952–1291; menu f3818–4040, 4041–4126, 4631–4731, 4732–4871, 5089–5208.
 Earlier dead ends (YouTube download, playing nfsu2.xyz here): `knowledge/game-menu-reel.md`.
 
