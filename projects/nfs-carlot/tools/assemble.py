@@ -6,24 +6,23 @@ Picture: the capture is 16:9 with the game's menu in a centred 4:3 box, so the f
 box (x 300-1842 of 2144), scaled to the reel's full width, and set on a blurred, darkened copy of itself.
 
 Sound: the 1440p capture (a.wav) for the arrival. Its garage section is sped up 2x (user, v1 review), so
-the menu uses the second capture (b.wav), which is real time, in two takes. Take 1 is the menu opening
-through four scrolls in one piece: the voice message that plays in the car lot runs from B 35.1 s to about
-44.6 s ("... use it to set yourself up ..." and on) and must not be cut (user, v7 review: v5-v7 jumped to
-take 2 at 42.0 s, mid-sentence). Take 2 is B's last scroll, the click on Continue, the purchase prompt and
-the click on Yes, so the purchase sounds as it does in the game.
-No cut may fall inside the menu song (user, v8 and v9 reviews: "the music oddly loops", "audio still
-stumbles"). The song starts at B 44.84 s, right after the message, and changes from phrase to phrase
-(waveform similarity one to three phrases on is 0.4-0.8), so a jump inside it is heard however well it
-is timed: v8 jumped off the beat, v9 on the beat but half a phrase out. Instead take 1 stops in the
-silence just before the song's first hit, and take 2 starts in the silence just before a phrase
-downbeat three phrases later (B 51.90 s), which rises from silence exactly as the first hit does. The
-song is heard to start once, where the game starts it, and then runs unbroken through the last scroll,
-Continue, the prompt, Yes and the end card. For the downbeat to land where the first hit would have,
-the 5th car's range is 73 frames (takes 7.067 s apart = 3.003 phrases).
-The EPSILON+ card cuts in on the Yes
-click and B's audio plays on under it and fades. The picture is cut to that audio: every car change
-starts on the frame where the car starts to move in capture B (B_SCROLLS, measured from B's picture),
-and the prompt (B_PROMPT) and the click on Yes (B_YES) likewise.
+the menu uses the second capture (b.wav), which is real time, in two takes with silence between them.
+Take 1 is the menu opening through all four scrolls in one piece. The voice message that plays in the car
+lot runs from B 35.1 s to about 44.6 s and must not be cut (user, v7 review). It stops in the silence
+before the menu song's first hit (B 44.84 s).
+Take 2 starts just before the click on Continue (B 54.09 s) and runs unbroken through the purchase
+prompt, the click on Yes and on under the EPSILON+ card, where it fades. The song's phrase downbeat at
+B 54.25 s rises from complete silence (-60 dB) right after the click, so the song is heard to start
+there, as the prompt comes up.
+No cut may fall inside the song while it plays (user, v8-v10 reviews: "the music oddly loops", "audio
+still stumbles", "it stumbles right after the EP3 switches"). It is not a steady loop (waveform
+similarity one to three phrases on is 0.4-0.8), so a jump inside it is heard however it is timed, and
+bringing it in early (v10, at B 51.90 s) dragged in the capture's later scroll sounds with no scroll on
+screen. With the last car being the one bought (user, v10 review) no scroll is needed after the voice
+line, so nothing of the song is needed before the click.
+The picture is cut to the audio: every car change starts on the frame where the car starts to move in
+capture B (B_SCROLLS, measured from B's picture), and the prompt (B_PROMPT) and the click on Yes (B_YES)
+likewise.
 """
 import json, subprocess, sys, wave
 from pathlib import Path
@@ -31,11 +30,9 @@ import numpy as np
 
 W = Path("/home/user/media/work/nfs-carlot")
 INTRO = (952, 1291)            # a60.mp4 frames (60 fps): "enter the shop?" (1 s), then the 350Z cutscene (4.65 s)
-B_SCROLLS = [34.93, 37.87, 40.27, 42.00, 43.80, 53.30]   # seconds in capture B where each of our six car changes starts
-TAKE2 = 5                                         # index of the first car change that uses B's second take
-SONG_START = 44.84                                # B: the menu song's first hit (silence before it since the voice line ended)
-SONG_PHRASE = 2.353                               # the song's two-bar phrase, seconds (envelope autocorrelation of B 45-58 s)
-PRE = 0.014                                       # start take 2 this long before its downbeat, inside the silence
+B_SCROLLS = [34.93, 37.87, 40.27, 42.00, 43.80]   # seconds in capture B where each of our five car changes starts
+TAKE1_END = 44.82                                 # B: silence between the end of the voice line (44.6) and the song's first hit (44.84)
+TAKE2_START = 54.085                              # B: quiet spot (-44 dB) just before the click on Continue at 54.10
 TARGET_LUFS = -15.0
 B_PROMPT, B_YES = 54.10, 55.30                    # B: purchase prompt starts to fade in / Yes is clicked (prompt gone)
 CARD_S = 3.0                                      # EPSILON+ end card, cut in on the Yes click; B's audio plays on under it (silent from 58.2 s)
@@ -74,18 +71,17 @@ def audio():
         src[:len(ramp)] *= ramp; src[-len(ramp):] *= ramp[::-1]
         menu[i0:i0 + len(src)] += src
 
-    # take 1: menu opening through the car changes before TAKE2 (continuous in B), up to the join
+    # take 1: menu opening, every car change, the whole voice line
     off1 = B_SCROLLS[0] - t_scroll[0]                             # B time = menu time + off, per take
-    off = B_SCROLLS[TAKE2] - t_scroll[TAKE2]
-    lag = off - off1                                              # how far take 2 is ahead of take 1 in B
-    phrases = lag / SONG_PHRASE
-    print(f"song: take 2 is {lag:.3f} s = {phrases:.3f} phrases ahead (whole number = its downbeat lands on the song's start)")
-    assert abs(phrases - round(phrases)) < 0.01, "take 2 would not start on a phrase downbeat: change the length of the range before TAKE2"
-    t_in = SONG_START - PRE - off1                                # menu time the song comes in
-    place(0.0, off1, SONG_START - PRE - 0.004, fade=0.012)        # take 1: stops in the silence before the song's first hit
-    # take 2: from the silence before its downbeat, through the last scroll, Continue, the prompt, Yes, and under the end card
-    place(t_in, t_in + off, off + t_end + CARD_S, fade=0.004)
-    sync = {"scrolls": [round(B_SCROLLS[i] - (t_scroll[i] + (off if i >= TAKE2 else B_SCROLLS[0] - t_scroll[0])), 3) for i in range(len(seg))],
+    off = B_PROMPT - t_prompt
+    place(0.0, off1, TAKE1_END, fade=0.012)
+    # take 2: the click on Continue, the song's downbeat out of silence, the prompt, Yes, and under the end card
+    t2 = TAKE2_START - off
+    gap = t2 - (TAKE1_END - off1)
+    print(f"voice line ends at menu {44.6 - off1:.2f} s, take 1 stops {TAKE1_END - off1:.2f} s, Continue click {B_PROMPT - off:.2f} s (silence between takes {gap:.2f} s)")
+    assert gap >= 0, "the click on Continue would overlap the voice line: lengthen the last car's range"
+    place(t2, TAKE2_START, off + t_end + CARD_S, fade=0.004)
+    sync = {"scrolls": [round(B_SCROLLS[i] - (t_scroll[i] + off1), 3) for i in range(len(seg))],
             "prompt": round(B_PROMPT - (t_prompt + off), 3), "yes": round(B_YES - (t_end + off), 3)}
     print("picture minus sound, seconds (0 = in sync):", sync)
     menu *= 10 ** ((rms_db(intro) - 3.0 - rms_db(menu[menu.any(1)])) / 20)       # menu (and its in-game song) 3 dB under the cutscene

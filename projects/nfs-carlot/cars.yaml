@@ -42,3 +42,7 @@ cars:
     hide: [body_front_bumper_stock, body_tire_spats_stock, body_fender_cuts_stock, body_side_skirts_stock, body_rear_spats_stock, body_gt_wing_stock]
     paint: "#b3161b"
     finish: gloss
+
+# v11 (user): the last car shown, the EP3, is the one bought; the prompt names it "Epsilon EP3".
+bought: honda-civic-ep3
+prompt_name: "Epsilon EP3"

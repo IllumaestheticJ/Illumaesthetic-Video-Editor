@@ -11,10 +11,10 @@ How it works (all coordinates are in the cropped 2144x1206 capture, `a60.mp4`):
     car render (same slide offset) on top. Everything else - menu, stat bars, cursor, room - is the capture.
   * The name plate is repainted with a plate lifted from the capture (Toyota Corolla, Honda Civic, Mazda
     Miata) or, for the car the game never had (Acura Integra), one drawn in the same greys.
-  * The timeline is six scrolls of the capture (five cars, then the list wraps to the first), each range
-    starting on the first frame of a scroll; how long each runs is set by the real-time capture's audio so its
-    scroll sounds land on the car changes. Then the purchase prompt, with our car behind it and the game's
-    car name replaced in the question.
+  * The timeline is five scrolls of the capture, one per car, each range starting on the first frame of a
+    scroll; how long each runs is set by the real-time capture's audio so its scroll sounds land on the car
+    changes. The last car is the one that gets bought: Continue, then the purchase prompt with our car
+    behind it and the game's car name replaced in the question.
 """
 import json, subprocess, sys
 from pathlib import Path
@@ -38,13 +38,10 @@ SEGMENTS = [                                                   # (source frames,
     (range(4041, 4113), "civic_fe", "civic"),
     (range(4631, 4683), "integra", "integra"),
     (range(4732, 4786), "nc", "miata"),
-    # 73 frames, so the menu song can come in on a phrase downbeat right after the voice line (assemble.py).
-    # Same capture range as the NC, run longer: its hold is the only one long enough, and nothing of the
-    # game's car survives the swap, so ranges can be shared.
-    (range(4732, 4805), "ep3", "civic"),
-    # the list wraps back to the first car, which gets bought: the scroll, then the last frames before the
-    # player clicks Continue (same game car and stat bars, the cursor travelling to the button)
-    (list(range(5089, 5104)) + list(range(5204, 5213)), "corolla", "corolla"),
+    # The last car is bought (user, v10 review: buy the EP3, no wrap back to the Corolla). Its scroll, a rest
+    # with the capture's cursor on the left arrow (pasted over with the name bar's end), then the last frames
+    # before the player clicks Continue. 42 frames: Continue is clicked 0.6 s after the voice line ends.
+    (list(range(5089, 5122)) + list(range(5204, 5213)), "ep3", "civic"),
 ]
 # "Do you want this stock 240SX?": fade-in (5213-5218), the cursor's trip from Continue up to the buttons
 # (5224-5233), three frames of it hovering, then across to Yes and the click (5247-5263). 36 frames = the
@@ -53,14 +50,14 @@ SEGMENTS = [                                                   # (source frames,
 # every range the menu is cut from, so it jumped at each cut, and the clean plate had a copy of it baked in
 # that blinked on and off around slides. Now the capture's cursor is removed from the menu and one cursor
 # (sprite from tools/cursor.py) is drawn on a continuous path: where the capture has it when the menu opens,
-# over to the "next" arrow, there for every scroll, then down to Continue during the last slide. From
+# over to the "next" arrow, there for every scroll, then down to Continue once the last car has settled. From
 # Continue on, the capture's own cursor is kept: the prompt frames are chosen so its path is unbroken.
 CUR_START, CUR_HOME, CUR_CONTINUE = (1046, 1032), (1730, 242), (1611, 1087)    # top-left of the sprite box, capture px
 CUR_CLEAN_SRC = 4035                    # first car at rest with the cursor elsewhere: clean pixels under CUR_START
 STRIP_L, STRIP_R = (300, 144, 490, 332), (1700, 144, 1842, 332)   # the name bar's ends with the arrow buttons
 STRIP_SRC = {"L": 4050, "R": 4110}      # frames with the cursor on the other arrow
 DIALOG = {"frames": list(range(5213, 5219)) + list(range(5224, 5234)) + [5238, 5240, 5243] + list(range(5247, 5264)), "rest": 5212, "steady": 5240, "scene": 5264,
-          "text": "Do you want this stock Corolla?", "text_box": (773, 577, 1382, 620)}
+          "text": "Do you want this stock Epsilon EP3?", "text_box": (773, 577, 1382, 620)}
 OUT_FPS = 30
 CARS_DIR = "cars3"                       # wheel-fitted camera, game-matched rig, front wheels steered 25 deg
 PLATE_SRC = {"corolla": 4280, "civic": 4610, "miata": 4430}     # rest frames showing each real plate
@@ -307,7 +304,7 @@ def main():
         s = slide(rows, ta, tb)
         ob, oa = rest_offset(rows, ta - 1), rest_offset(rows, tb)
         last_seg = si == len(SEGMENTS) - 1
-        n_slide = tb - ta + 1
+        k_real = next((i for i, f_ in enumerate(frames) if f_ >= 5204), len(frames))   # from here the capture's cursor is on Continue
         for f in frames:
             F = frame(f)
             if f < ta:                       # before the scroll: previous car at rest
@@ -332,8 +329,8 @@ def main():
                 pos = glide(CUR_START, CUR_HOME, (k - k0) / 16.0)
             elif not last_seg:
                 pos = CUR_HOME
-            elif k < n_slide:                # last scroll clicked: travel to Continue while the car slides in
-                pos = glide(CUR_HOME, CUR_CONTINUE, (k - 2) / float(n_slide - 3))
+            elif k < k_real:                 # last car: once it has settled, travel to Continue, arriving as the capture's cursor takes over
+                pos = glide(CUR_HOME, CUR_CONTINUE, (k - (k_real - 13)) / 13.0)
             else:
                 pos = None                   # the capture's own cursor is on Continue from here
             if pos is not None:

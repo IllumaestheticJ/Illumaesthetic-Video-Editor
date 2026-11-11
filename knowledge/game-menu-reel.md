@@ -247,12 +247,20 @@ breaking picture sync. `assemble.py` asserts the phrase count and prints it. Ver
 output against the capture: each take must map to one continuous stretch. Use one fixed loudness gain,
 not one-pass `loudnorm`, which rides the level around a loud first hit.
 
+**Which car gets bought.** Buy the last car shown (user on v10, after three rounds of audio trouble
+caused by wrapping the list back to car 1 for the purchase). Then nothing has to happen between the
+last scroll and Continue, and the audio only needs two takes with silence between them: everything up
+to the end of any voice line, and from the click on Continue onward. Look for the click sitting in a
+quiet spot with the song's next downbeat rising from silence after it (NFSU2: click B 54.10, silence,
+downbeat 54.25) and start the second take just before the click. Name the car in the prompt the way
+the user names it ("Epsilon EP3").
+
 **Buying the car (user request on v4).** End the menu on the purchase, not on a scroll: Continue,
 the game's "Do you want this stock <car>?" prompt, Yes, then the end card. Use one unbroken audio
 take from the last scrolls through the Yes click so the purchase sounds are the game's own, and cut
 the picture to it (scroll times, when the prompt starts to fade in, when Yes is clicked). If that
-take has more scrolls before the purchase than you have cars left, wrap the list back to car 1 and
-buy that one — it is what a real list does. The prompt is a translucent panel over a dimmed room, so
+take has more scrolls before the purchase than you have cars left, do not wrap the list to use
+them up (v5-v10 did; see "Which car gets bought"): start the take later. The prompt is a translucent panel over a dimmed room, so
 do not repaint the car zone under it. Keep the capture's prompt frames and add
 `T * (our last menu frame - the capture's last menu frame)` inside the car zone, where T is how much
 of the scene shows through each part of the prompt. Measure T by fitting `prompt = T * scene + c`

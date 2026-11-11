@@ -46,6 +46,10 @@ Used in v9: menu f3829-3919, 4041-4112, 4631-4682, 4732-4785, 4947-4984, 5089-51
 Capture B menu song phrase downbeats that rise from silence: 44.84 (start), 47.19, 51.90 s. Not a steady loop.
 Used in v10: menu f3829-3919, 4041-4112, 4631-4682, 4732-4785 (NC), 4732-4804 (EP3), 5089-5103 + 5204-5212; audio B 34.83-44.82, then 51.89 on.
 
+Capture B around the purchase: quiet -44 dB at 54.07-54.09, Continue click 54.10-54.18, silence to -60 dB 54.19-54.24,
+song downbeat 54.25. Capture A cursor f5104-5170 on the left arrow, f5171-5200 travelling to Continue.
+Used in v11: menu f3829-3919, 4041-4112, 4631-4682, 4732-4785, 5089-5121 + 5204-5212 (EP3, bought); audio B 34.83-44.82, then 54.085 on.
+
 Used in v1: intro f952–1291; menu f3818–4040, 4041–4126, 4631–4731, 4732–4871, 5089–5208.
 Earlier dead ends (YouTube download, playing nfsu2.xyz here): `knowledge/game-menu-reel.md`.
 

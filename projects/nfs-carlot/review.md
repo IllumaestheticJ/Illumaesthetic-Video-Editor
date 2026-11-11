@@ -123,3 +123,15 @@ Output: `/home/user/media/work/out/nfs-carlot_v10.mp4`, 22.1 s.
   -89 dB immediately before the hit; sync within 0.007 s.
 - Why two failed attempts: I cannot listen, and I tried to time a cut inside music instead of removing it.
   Standing rule added to lessons.md.
+
+## v11 (2026-11-11) - after the user's review of v10
+User: "It stumbles right after the EP3 switches. If it helps to get rid of the corolla being selected and switching it to the 'Epsilon EP3', let's do that"
+
+Output: `/home/user/media/work/out/nfs-carlot_v11.mp4`, 20.2 s.
+- Order: Corolla, Civic Si, Integra, NC, EP3 -> Continue -> "Do you want this stock Epsilon EP3?" -> Yes -> EPSILON+.
+- Audio: voice line whole; 0.36 s silence; Continue click, then the song starts on its downbeat as the prompt
+  comes up and runs unbroken to the fade under the card. No music before the click, no stray scroll sounds.
+- EP3 on screen 1.4 s before the click (0.5 s slide, cursor leaves the arrow 0.2 s after it settles).
+- Checked: tail contact sheet (cursor path, Continue highlight, prompt text, blue EP3 behind the panel),
+  correlation of both takes against capture B, digital silence between them, sync 0.000-0.007 s.
+- Two blues back to back is gone with the wrap. Still open: stat bars are the game's; no soundtrack bed.
