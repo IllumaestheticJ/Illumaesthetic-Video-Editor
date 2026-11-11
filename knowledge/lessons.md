@@ -307,3 +307,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** The listing hero may not be exactly recoverable from the scan (Sera: front/roof align but the rear wheel
   ghosts ~70 px whatever the camera). Score candidates by gradient NCC inside the car, not silhouette IoU (IoU was flat
   0.84-0.87 across very different cameras).
+- **[scan-look]** Same issue as other first drafts: too much of the car is cropped. This is just a standard full car scan - show the whole car  _(from mazda-3-gen4, 2026-11-11, reviewer)_
