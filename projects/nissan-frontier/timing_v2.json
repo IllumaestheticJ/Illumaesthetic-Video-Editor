@@ -1,0 +1,12 @@
+{"note": "v2 (director.md). Cut frames on broadband onsets (onsets.json): 146 (b8 4.882), 290 (b16 9.657 drop), 434 (b24 14.459), 542 (b30 18.053), 614 (b34 20.466), 725 (b40 24.177), 833 (b46 27.781 crash), 1015 (b56 33.826); end 1151. Label windows are seconds from each SHOT start, entering on measured onsets.",
+ "frames": {"v2_s1_wide": 146, "v2_s2_grille": 144, "v2_s3_bumper": 144, "v2_s4_removed": 108, "v2_s5_hood": 72,
+            "v2_s6_struct": 111, "v2_s7_flares": 108, "v2_s8_home": 182, "logo": 136},
+ "labels": {
+  "v2_s2_grille":  [{"id": "grille", "title": "GRILLE", "sub": "SCAN SECTION 01 / 06", "t": [2.373, 4.45]}],
+  "v2_s3_bumper":  [{"id": "bumper", "title": "FRONT BUMPER", "sub": "SCAN SECTION 02 / 06", "t": [1.19, 4.45]}],
+  "v2_s4_removed": [{"id": "fbrhc", "title": "FRONT BUMPER REMOVED", "sub": "STATE SCAN", "t": [1.19, 3.3]}],
+  "v2_s5_hood":    [{"id": "hood", "title": "HOOD", "sub": "SCAN SECTION 03 / 06", "t": [1.19, 2.1]}],
+  "v2_s6_struct":  [{"id": "struct", "title": "FRONT STRUCTURE", "sub": "SCAN SECTION 04 / 06", "t": [1.21, 3.4]}],
+  "v2_s7_flares":  [{"id": "flares", "title": "FENDER FLARES", "sub": "SCAN SECTION 05 / 06", "t": [1.18, 3.3]}],
+  "v2_s8_home":    [{"id": "body", "title": "FULL TRUCK", "sub": "PRO-4X · SCAN SECTION 06 / 06", "t": [3.59, 5.43]}]
+ }}

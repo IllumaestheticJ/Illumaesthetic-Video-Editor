@@ -7,10 +7,11 @@ names only (no numbers beyond the section index).
 import argparse, json, os, subprocess, tempfile
 from PIL import Image, ImageDraw, ImageFont
 ap = argparse.ArgumentParser(); ap.add_argument("anchors"); ap.add_argument("timing"); ap.add_argument("out")
-ap.add_argument("--secs", type=float, required=True); ap.add_argument("--fps", type=int, default=30)
+ap.add_argument("--secs", type=float, required=True); ap.add_argument("--shot", help="read timing[labels][shot] (v2 per-shot labels)"); ap.add_argument("--fps", type=int, default=30)
 a = ap.parse_args()
 A = json.load(open(a.anchors)); afps = A["fps"]; anc = A["anchors"]
 labels = json.load(open(a.timing))["labels"]
+if a.shot: labels = labels[a.shot]
 W, H, M = 1080, 1920, 80
 OFF = (232, 236, 242); CY = (64, 209, 255)
 FT = ImageFont.truetype("/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf", 66)
