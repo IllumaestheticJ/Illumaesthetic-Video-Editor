@@ -43,6 +43,6 @@ cars:
     paint: "#b3161b"
     finish: gloss
 
-# v11 (user): the last car shown, the EP3, is the one bought; the prompt names it "Epsilon EP3".
+# v11 (user): the last car shown, the EP3, is the one bought; the prompt reads "Do you want this Epsilon EP3?" (no "stock", user v11).
 bought: honda-civic-ep3
 prompt_name: "Epsilon EP3"

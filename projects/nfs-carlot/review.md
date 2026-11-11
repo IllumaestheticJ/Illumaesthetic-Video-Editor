@@ -135,3 +135,8 @@ Output: `/home/user/media/work/out/nfs-carlot_v11.mp4`, 20.2 s.
 - Checked: tail contact sheet (cursor path, Continue highlight, prompt text, blue EP3 behind the panel),
   correlation of both takes against capture B, digital silence between them, sync 0.000-0.007 s.
 - Two blues back to back is gone with the wrap. Still open: stat bars are the game's; no soundtrack bed.
+
+## v12 (2026-11-11) - after the user's review of v11
+User: "'Do you want this Epsilon EP3' - Remove stock"
+
+Output: `/home/user/media/work/out/nfs-carlot_v12.mp4`, 20.2 s. Prompt reworded, checked on a frame; nothing else changed.

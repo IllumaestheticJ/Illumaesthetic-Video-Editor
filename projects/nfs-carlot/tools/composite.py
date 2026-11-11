@@ -57,7 +57,7 @@ CUR_CLEAN_SRC = 4035                    # first car at rest with the cursor else
 STRIP_L, STRIP_R = (300, 144, 490, 332), (1700, 144, 1842, 332)   # the name bar's ends with the arrow buttons
 STRIP_SRC = {"L": 4050, "R": 4110}      # frames with the cursor on the other arrow
 DIALOG = {"frames": list(range(5213, 5219)) + list(range(5224, 5234)) + [5238, 5240, 5243] + list(range(5247, 5264)), "rest": 5212, "steady": 5240, "scene": 5264,
-          "text": "Do you want this stock Epsilon EP3?", "text_box": (773, 577, 1382, 620)}
+          "text": "Do you want this Epsilon EP3?", "text_box": (773, 577, 1382, 620)}
 OUT_FPS = 30
 CARS_DIR = "cars3"                       # wheel-fitted camera, game-matched rig, front wheels steered 25 deg
 PLATE_SRC = {"corolla": 4280, "civic": 4610, "miata": 4430}     # rest frames showing each real plate

@@ -253,7 +253,8 @@ last scroll and Continue, and the audio only needs two takes with silence betwee
 to the end of any voice line, and from the click on Continue onward. Look for the click sitting in a
 quiet spot with the song's next downbeat rising from silence after it (NFSU2: click B 54.10, silence,
 downbeat 54.25) and start the second take just before the click. Name the car in the prompt the way
-the user names it ("Epsilon EP3").
+the user names it ("Epsilon EP3"), and drop the game's "stock": a kitted car is not stock (user on
+v11: "Do you want this Epsilon EP3?").
 
 **Buying the car (user request on v4).** End the menu on the purchase, not on a scroll: Continue,
 the game's "Do you want this stock <car>?" prompt, Yes, then the end card. Use one unbroken audio
