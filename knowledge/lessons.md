@@ -332,3 +332,5 @@ lands here automatically. Agents must read this whole file before editing.
   ~90 mm (the body under the flare), else every small door/bed offset becomes "part" (tools/derive.py, parts.py).
 - **[technical]** librosa is not installed; projects/nissan-frontier/tools/accents.py does the kick-peak grid, per-beat
   kick/flux/RMS table and the music-end level curve with numpy + ffmpeg.
+
+- **[audio]** Don't reuse music other agents/reels already used - check projects/*/project.yaml and editlogs for the track (title / song_clip_id) before picking  _(from honda-civic-11-scan-process, 2026-11-11, reviewer)_
