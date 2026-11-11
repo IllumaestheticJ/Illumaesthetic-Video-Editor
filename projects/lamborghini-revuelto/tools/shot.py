@@ -169,6 +169,11 @@ def main():
         cd.keyframe_insert("lens", frame=f)
 
     hinges = spec.get("hinges", {})
+    bpy.context.view_layer.update()
+    home_c = {}  # bbox centres at home, taken once (taking them per frame drifted as the part moved)
+    for name in spec.get("anims", {}):
+        plo, phi = sr.bbox(objs[name][1])
+        home_c[name] = (plo + phi) / 2
     for name, ks in spec.get("anims", {}).items():
         piv = objs[name][0]
         h = hinges.get(name)
@@ -181,10 +186,9 @@ def main():
                 p = Vector(h["p"])
                 R = Matrix.Rotation(math.radians(deg), 4, Vector(h["axis"]).normalized())
                 M = M @ Matrix.Translation(p) @ R @ Matrix.Translation(-p)
-            spin = interp(ks, t, "spin", None)  # [deg, ax, ay, az] about the part's own centre
+            spin = interp(ks, t, "spin", None)  # [deg, ax, ay, az] about the part's own HOME centre
             if spin:
-                plo, phi = sr.bbox(objs[name][1])
-                c = (plo + phi) / 2
+                c = home_c[name]
                 R = Matrix.Rotation(math.radians(spin[0]), 4, Vector(spin[1:]).normalized())
                 M = M @ Matrix.Translation(c) @ R @ Matrix.Translation(-c)
             piv.matrix_world = M
