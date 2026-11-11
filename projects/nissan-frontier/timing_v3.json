@@ -80,7 +80,9 @@
      1.18,
      3.35
     ],
-    "anchor_pixels": "/home/user/media/work/frontier/renders/final/v3_s7_flares"
+    "anchor_pixels": "/home/user/media/work/frontier/renders/final/v3_s7_flares",
+    "side": "bottom",
+    "y": 0.72
    }
   ],
   "v3_s8_home": [

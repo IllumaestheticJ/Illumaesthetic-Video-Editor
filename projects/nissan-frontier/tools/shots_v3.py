@@ -70,7 +70,7 @@ def part(blend, keys, name=None, hlk=None, pivot=None):
 
 GRILLE_PARK = (1.90, -0.45, 0.10)
 BUMPER_PARK, BUMPER_ROT = (0, -0.95, -0.60), (120, 0, 0)
-FLARE_OUT = (-0.75, 0, 0.10)     # right-side flares: out toward the lens
+FLARE_OUT = (-0.55, 0, -0.95)    # right-side flares: out toward the lens and DOWN onto clear black under the truck
 FLARE_OUT_L = (0.40, 0, 0.10)
 
 
@@ -118,7 +118,7 @@ def shots():
                                       part("flare_rf", fk(FLARE_OUT), "flares", hl(n, "flares")),
                                       part("flare_rr", fk(FLARE_OUT, 0.0), None, hl(n, "flares")),
                                       part("flare_lf", fl(FLARE_OUT_L)), part("flare_lr", fl(FLARE_OUT_L))],
-             "cam": keyed_orbit(S[n] + 0.2, 7.0, 6.8, -62, -76, 1.7, 1.6, (-0.3, -0.18, 0.75), (-0.3, -0.18, 0.75), focal=26)}
+             "cam": keyed_orbit(S[n] + 0.2, 6.1, 5.9, -62, -76, 1.5, 1.3, (-0.3, -0.18, 0.4), (-0.3, -0.18, 0.3), focal=26)}
     # S8 home one per beat from the crash (lock 30.14); FULL TRUCK; clip fades out in the assembly
     n = "v3_s8_home"
     home = lambda park, rot, t0, t1: [k(0, park, rot), k(t0, park, rot), k(t1, (0, 0, 0), ease="in2")]

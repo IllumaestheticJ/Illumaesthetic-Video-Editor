@@ -3,7 +3,7 @@ import json, os, subprocess, sys
 from PIL import Image
 s, out = sys.argv[1], sys.argv[2]; n = int(sys.argv[3]) if len(sys.argv) > 3 else 4
 d = f"/home/user/media/work/frontier/renders/final/{s}"; fs = sorted(os.listdir(d))
-nf = json.load(open(os.path.join(os.path.dirname(__file__), "..", "timing_v2.json")))["frames"][s]
+nf = json.load(open(os.path.join(os.path.dirname(__file__), "..", os.environ.get("TIMING", "timing_v2.json"))))["frames"][s]
 mov = f"/home/user/media/work/frontier/out/labels_{s}.mov"
 tiles = []
 for k in range(n):
