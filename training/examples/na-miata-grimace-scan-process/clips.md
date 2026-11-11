@@ -6,7 +6,13 @@ Dropbox: `/3. Epsilon Motorsports/1. Video Dumps/NA MIATA GRIMACE/` (downloaded 
 explains Grimace's cage rules it out of a flex test, so they scanned a silver stock **NB Miata** ("Miata chop shop" reference car).
 All heatmap PDFs and Drive scans are that NB. Grimace (purple NA, #558) appears only in the Jun 7 Sonoma track-day clips.
 
-## Footage used
+## Footage used (v4)
+| local | source | content |
+|---|---|---|
+| irl_bay.mp4 | rough cut frames 8938-9005 (372.79-375.58 @23.976), window x1300-3200 full height -> 1080x1228 on a blurred fill (1080x1920 canvas) | tech scanning the engine bay with the Artec (hood open, bumper on, no strut brace = Engine Bay Control state); last frame = solved frame 9005 |
+| irl_side.mp4 (last 25 frames) | rough cut 203.77-204.74 | one continuous shot only after the hard cut at file frame 42/43 |
+
+## Footage used (v1-v3)
 | local | source | content |
 |---|---|---|
 | v0607_113440 | Video Jun 07 2026, 11 34 40 AM.mov (iPhone HLG, portrait, 3.9 s) | Grimace sweeps past close on the paddock exit — hook |
@@ -31,7 +37,14 @@ Text-free scanning spans found: 140.5–141.7 (outdoor low push-in, too wide-ang
 | NB Miata Scan Strut Brace Jacked Up.stl | 4,998,154 | strut bar extracted by ICP diff vs control |
 Also on Drive: Jacked Exterior, Fender and Strut Jacked Up Exterior, Fender Brace Only Jacked (1.25 GB each), Jacked Up / Fender Brace / Fender+Strut engine-bay states.
 
-## Data (distance PDFs, page 2 — engine-bay width)
+## Registration (v4)
+- Engine Bay Control -> Top Bumper Mounting Tabs (car frame): trimmed ICP median 4.1 mm, 90 % of bay points < 3 mm (T_bay_to_car.json).
+- Strut-brace part (diff of the brace bay vs control) lands on Tabs / Frontend Stripped with 100 / 99 % of its points < 5 mm:
+  both front-end scans were taken WITH the strut brace installed; Bay Control and the IRL bay span have no brace.
+- NB Trunk Closed / Open: do NOT register (PCA+ICP median 30 / 78 mm, partial scans) -> no rear scene.
+- Car axes in the prepped frame: forward (0.962, -0.274) (yaw -15.9 deg), +side = car left (car_axes.json).
+
+## Data (distance PDFs, page 2 — engine-bay width) — NOT used on screen from v4 (user: no bracing-test text)
 control 960.948 mm · jacked, no bracing 962.643 (+1.695) · strut brace 961.679 (+0.731) · fender + strut 961.384 (+0.436) · fender brace only 961.185 (+0.237).
 
 ## Listing

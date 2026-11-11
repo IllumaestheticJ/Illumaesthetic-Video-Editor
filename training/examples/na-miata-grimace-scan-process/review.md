@@ -1,3 +1,31 @@
+# Stock NB Miata chassis-scan reel v4 — agent self-review (training/rubric.md)
+
+v4 output: `/home/user/media/work/miata/out/nb_miata_scan_v4.mp4` — 1080×1920, 30 fps, AAC, 26.13 s.
+Changes from v3 (user feedback "still has references to the video in the text", "beginning shot too cropped - doesn't show the
+actual scanning", "use real music" -> "use TikTok trending music"; parent v2 brief): all bracing-test text removed; opener =
+tech scanning the engine bay on a wide canvas, 1:1 on the drop into Engine Bay Control; new bumper-removed hero (Bumper Only
+slides off Frontend Stripped, push onto the crash beam); side re-framed to the whole jacked car; music = 'Prisoner' (DIDKER),
+TikTok CML US 7-day trending #6.
+
+| # | Criterion | Score | Notes |
+|---|---|---|---|
+| 1 | Hook | 5 | Frame 1 = Artec scanner in hand over the open bay (scanner, hands, bay all in frame); transformation at 2.80 s on the drop. |
+| 2 | Beat sync | 4 | Decoded cuts 2.800 / 6.267 / 13.967 / 15.000 / 18.500 s vs audio onsets -2 / +3 / -9 / -14 / -44 ms. Phonk 808s are syncopated; grid = half beats (0.349 s) from a flux comb, beat confirmed by autocorrelation. |
+| 3 | 1:1 match | 4 | Bay: 5 landmarks, f fixed 22 mm, RMSE 4.5 px @4K; onion (match/check_bay.jpg) aligns filter, valve cover, MAF, strut top, badge; intake pipe a few px high. The tech and scanner vanish at the cut (expected). Side: cam_C_crop as v3. |
+| 4 | Scan quality | 4 | Hood shards cut (z > 0.92 m) from the bay and stripped scans; the stripped scan ends behind the front wheels (visible as a cut edge at the right of the front shot). |
+| 5 | Story | 4 | Scanning -> engine bay -> bumper off / crash beam -> crew at the jacked side -> whole car -> listing. Front-end scans have the strut brace installed, Bay Control doesn't; the brace is not called out. No rear (trunk scans don't register). |
+| 6 | Grade | 4 | Rough-cut SDR; IRL opener canvas fill is a darkened blur of itself. |
+| 7 | Text | 5 | Only file facts: ENGINE BAY 4,997,392 / FRONT BUMPER REMOVED 4,994,051 / CRASH BEAM (Frontend Stripped scan) / FULL EXTERIOR 24,993,431 triangles (STL headers). Never over IRL. No test numbers. |
+| 8 | Ending | 4 | s5 trimmed to the front-left 3/4 landing; 0.5 s dissolve into the listing, title -> logo -> URL last; 5.6 s card. Music fades at 26.1 s mid-section (no natural end). |
+| 9 | Technical | 4 | Every frame lit (luma scan; persistent data off for the moving bumper); 0 black frames; IRL side 23.976 pulldown. |
+
+## Known issues / next ideas
+- IRL side shot is only 1.03 s (hard cut in the rough cut at 203.75 s); raw camera files would allow longer IRL shots.
+- Strut-brace beat dropped: the bar vanishes into the silver bay; a top-down camera or accent material could carry it.
+- Music ends on a fade; a track section ending ~26 s after the drop would give a hard out.
+
+---
+
 # Stock NB Miata chassis-scan reel v3 (v2 review kept below) — agent self-review (training/rubric.md)
 
 v3 output: `/home/user/media/work/miata/out/nb_miata_scan_v3.mp4` — NB only, 32.5 s. Changes from v2 (user feedback): Grimace hook, scanner close-up and walk-in removed; the rough cut supplies only the two 1:1 shots (1.0 s each); music starts on track beat 3 so the 1:1 cut still lands on the drop (1.0 s); 1:1 cuts at 1.0 and 7.0 s. Hook 5 (transformation at 1.0 s); Story 4 (the "why bracing" context from Grimace is gone; story = scan -> jacked -> brace -> listing).

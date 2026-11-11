@@ -42,7 +42,7 @@ timeline:
 - id: scan_front
   dur: 7.7
   src: /home/user/media/work/miata/renders/s2_front
-  src_fps: 2.4255
+  src_fps: 14.2979
   interpolate: true
   note: 'front-left 3/4: bumper (Bumper Only scan) comes off the Frontend Stripped scan, push in on the crash beam'
 - transition:
