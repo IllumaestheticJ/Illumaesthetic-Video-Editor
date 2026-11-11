@@ -22,7 +22,7 @@ timeline:
     section: front
     focus: whole car, front-left 3/4
     src: /home/user/media/work/m3/renders/final3/m1_open
-    src_fps: SRC_m1_open
+    src_fps: 15.2238
     interpolate: true
     dur: 4.3667
   - transition: {type: cut, note: "b8 4.412"}
@@ -30,7 +30,7 @@ timeline:
     section: side
     focus: left flank surfacing
     src: /home/user/media/work/m3/renders/final3/m2_flank
-    src_fps: SRC_m2_flank
+    src_fps: 14.9999
     interpolate: true
     dur: 4.3667
   - transition: {type: cut, note: "b16 8.775"}
@@ -38,7 +38,7 @@ timeline:
     section: rear
     focus: tail lamps + hatch
     src: /home/user/media/work/m3/renders/final3/m3_rear
-    src_fps: SRC_m3_rear
+    src_fps: 14.9999
     interpolate: true
     dur: 6.5667
   - transition: {type: cut, note: "b28 15.319 phrase"}
@@ -46,7 +46,7 @@ timeline:
     section: rear-hatch-top
     focus: rear wing -> exposed mounting points (Wing Removed scan)
     src: /home/user/media/work/m3/renders/final3/m4_wingoff
-    src_fps: SRC_m4_wingoff
+    src_fps: 15.0505
     interpolate: true
     dur: 9.8
   - transition: {type: cut, note: "b46 25.135 kick"}
@@ -54,7 +54,7 @@ timeline:
     section: wing-part
     focus: wing underside / mounting face
     src: /home/user/media/work/m3/renders/final3/m5_part
-    src_fps: SRC_m5_part
+    src_fps: 15.1484
     interpolate: true
     dur: 3.2667
   - transition: {type: cut, note: "b52 28.407 kick"}
@@ -62,7 +62,7 @@ timeline:
     section: top
     focus: wing returning to its mounts, whole car from above
     src: /home/user/media/work/m3/renders/final3/m6_reassemble
-    src_fps: SRC_m6_reassemble
+    src_fps: 15.0755
     interpolate: true
     vf: "fade=t=out:st=5.453:d=1.08"
     dur: 6.5333

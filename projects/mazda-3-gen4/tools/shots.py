@@ -155,6 +155,17 @@ def _m2():
     return out
 
 
+def _m2b(n=6):
+    """Close tracking pass down the left flank, front wheel arch -> rear quarter; section fills the frame."""
+    keys = []
+    for i in range(n + 1):
+        u = i / n; e = u * u * (3 - 2 * u)
+        y = -1.75 + 3.25 * e
+        keys.append({"t": SECS["m2_flank"] * u, "loc": [3.05, y - 0.35, 0.78], "target": [0.6, y + 0.15, 0.62],
+                     "focal": 35, "ease": "lin"})
+    return keys
+
+
 def _m3(n=8):
     k0 = fit(orbit(0, 118, 1.40, c=(0, 0.3, 0.70), focal=35), PTS["car"])
     r0 = np.linalg.norm(np.array(k0["loc"][:2]) - [0, 0.3])
@@ -171,9 +182,11 @@ def _m3(n=8):
 
 B = BEAT
 SHOTS.update({
-    "m1_open": {"base": [CAR], "cam": arc(SECS["m1_open"], 35, 35, 1.15, 1.05, c=(0, -0.1, 0.65), tz=0.65, fit_to=0.74,
-                                          push=0.86, shape="lin")},
-    "m2_flank": {"base": [CAR], "cam": _m2()},
+    # v2.1: director flagged the old m1 (fixed-angle push) and m2 (1.2 m truck at 8.6 m) as dead frames and
+    # as the same wide view as m3. m1 now orbits 12->58 deg rising; m2 is a close low flank pass.
+    "m1_open": {"base": [CAR], "cam": arc(SECS["m1_open"], 12, 58, 0.80, 1.35, c=(0, -0.1, 0.65), tz=0.65, fit_to=0.82,
+                                          push=0.95, shape="out2")},
+    "m2_flank": {"base": [CAR], "cam": _m2b()},
     "m3_rear": {"base": [CAR], "cam": _m3()},
     "m4_wingoff": {"base": [f"{P}/comp_wingoff.blend"],
                    "parts": [{"blend": f"{P}/rwing.blend", "keys": [
