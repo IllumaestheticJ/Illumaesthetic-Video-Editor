@@ -169,7 +169,10 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    # persistent data off whenever parts move: long animated renders went black mid-shot with it on (GR Corolla s8,
+    # Miata s8); spec "persistent": true/false overrides
+    moving = any(len(p.get("keys") or []) > 1 for p in spec.get("parts", []))
+    sc.render.use_persistent_data = bool(spec.get("persistent", not moving))
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
