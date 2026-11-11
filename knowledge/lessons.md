@@ -252,3 +252,16 @@ lands here automatically. Agents must read this whole file before editing.
   grade the end frames in post instead (tools/greygrade.py, medians: render bg 7/car 214 -> listing 57/148).
 - **[technical]** Check ReadNotifications early and after each long step: the music and parent instructions arrived an
   hour before they were read.
+
+## From the Mazda 3 (gen 4) scan reel (2026-11-11, built by an agent)
+- **[pacing]** `ive beats` can lock onto 1.5x the beat on ambient tracks (Mazda track: 73.8 BPM reported, real 110). Check that the
+  strong onsets sit on a lattice that divides the claimed period; fit the grid to kick peaks (projects/mazda-3-gen4/tools/music_grid.py).
+- **[technical]** Part STLs in a car's "CAD" Drive folder can be scans in **inches** in their own frame (Mazda trim/spoiler: 44-50 units
+  wide). Check the bbox before decimating (a 1.5 mm cell collapsed them to <1k tris); scale x25.4, then FPFH+RANSAC+ICP.
+- **[technical]** A "panel" scan may be the same part as another scan (Mazda "Hatch Upper Trim Panel" = the Rear Wing, fit 0.96, 93 %
+  coverage). Measure coverage both ways before showing two parts in an explode.
+- **[technical]** Composite fills under a thin bolt-on part (wing on a hatch): compare the state scan against the car *with the part
+  already removed* and use ~1.5 mm, not 6-7 mm against the uncut car - otherwise the mount surface comes out as black holes.
+- **[technical]** Cars scanned on jacks: the jack is part of the scan and `ive crop` keeps it (inside the footprint). Drop tris below the
+  sill height outside the wheel bands (projects/mazda-3-gen4/tools/clean_car.py) and check a low side render.
+- **[technical]** To preview while a final render runs without overlapping heavy jobs: `kill -STOP` the Blender pid, preview, `kill -CONT`.
