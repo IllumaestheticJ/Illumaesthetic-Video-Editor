@@ -100,25 +100,20 @@ def explode(off, rot=(0, 0, 0), delay=0.0):
             {"t": LOCK, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
 
 
-XP = {"p_hood": ((0, -0.15, 1.0), (-14, 0, 0), 0.0),
-      "fbumper": ((0, -0.7, -0.2), (0, 0, 0), 0.0),
-      "p_fender_R": ((-0.6, -0.05, 0.45), (0, -10, 0), 0.06),
-      "p_fender_L": ((0.6, -0.05, 0.45), (0, 10, 0), 0.06),
-      "p_door_FR": ((-0.7, 0, 0.55), (0, -6, 0), 0.12),
-      "p_door_FL": ((0.7, 0, 0.55), (0, 6, 0), 0.12),
-      "p_door_RR": ((-0.7, 0.1, 0.85), (0, -6, 0), 0.18),
-      "p_door_RL": ((0.7, 0.1, 0.85), (0, 6, 0), 0.18),
-      "p_hatch": ((0, 0.45, 1.0), (22, 0, 0), 0.24),
-      "rbumper": ((0, 0.7, -0.15), (0, 0, 0), 0.3),
-      "rbinner": ((0, 0.7, -0.15), (0, 0, 0), 0.3),
-      "diffuser": ((0, 0.55, -0.35), (0, 0, 0), 0.36)}
+# Standing rule (lessons, 2026-11-11): only parts that were physically removed AND have their own scan come off.
+# GR Corolla: front bumper ('Bumper (1.2m)'), rear bumper (outer + inner side), diffuser - each with a removed-state scan.
+XP = {"fbumper": ((0, 0.2, 1.15), (-10, 0, 0), 0.0),
+      "rbumper": ((0, -0.2, 1.2), (10, 0, 0), 0.12),
+      "rbinner": ((0, -0.2, 1.2), (10, 0, 0), 0.12),
+      "diffuser": ((0, 0.5, 0.05), (0, 0, 0), 0.24)}
+XBASE = f"{B}/xbase.blend"  # full car, bumper/diffuser zones trimmed, filled from 'rear bumper removed', 'diffuser removed', 'Chassis Stripped' as captured
 SHOTS["s8_explode"] = {
-    "base": [BASE],
+    "base": [XBASE],
     "parts": [{"blend": pb(k), "keys": explode(*v)} for k, v in XP.items()],
     # radius swells side-on (exploded length spans the 9:16 width there); tighter (x0.74) on the assembled car through
     # the break, pulling back over 2 beats as the panels separate on drop 2. Keyed every 1/30 of the move.
-    "cam": [orbit(t, (6.6 + 1.7 * math.sin(math.radians(a)) ** 2) * (0.74 + 0.26 * min(1, max(0, (t - SEP + 0.2) / (2 * BEAT + 0.2))) ** 0.7),
-                  a, 3.3 + 0.4 * t / S["s8_explode"], c=(0, 0, 0.6), focal=28, ease="lin", tz=0.55)
+    "cam": [orbit(t, (5.6 + 3.0 * math.sin(math.radians(a)) ** 2) * (0.85 + 0.15 * min(1, max(0, (t - SEP + 0.2) / (2 * BEAT + 0.2))) ** 0.7),
+                  a, 2.7 + 0.4 * t / S["s8_explode"], c=(0, 0, 0.75), focal=28, ease="lin", tz=0.75)
             for t, a in ((S["s8_explode"] * k / 30, -48 + 183 * (3 * (k / 30) ** 2 - 2 * (k / 30) ** 3)) for k in range(31))]}
 
 
