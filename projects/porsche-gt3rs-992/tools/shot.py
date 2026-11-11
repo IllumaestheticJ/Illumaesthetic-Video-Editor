@@ -191,6 +191,7 @@ def main():
     else:
         os.makedirs(out, exist_ok=True)
         sc.render.filepath = os.path.join(out, "f_")
+        sc.render.use_overwrite = False  # resume: skip frames already on disk (container restarts kill long queues)
         bpy.ops.render.render(animation=True)
     print("IVE_RENDER_DONE", out)
 

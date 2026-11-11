@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11

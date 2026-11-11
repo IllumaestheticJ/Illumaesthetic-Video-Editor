@@ -451,3 +451,16 @@ lands here automatically. Agents must read this whole file before editing.
   first part starts to move (`visible` windows in tools/shot.py).
 - **[pacing]** `ive beats` BPM can be ~1 % off on generated tracks (103.4 vs 102.52 -> 85 ms drift in 16 s). Fit the grid
   to strong flux onsets on a 16th grid (projects/lamborghini-revuelto/cuts.json note) before placing cuts.
+
+## From the Porsche 911 GT3 RS (992) scan reel (2026-11-11, built by an agent)
+- **[technical]** The GT3 RS full-car STL came with the ground tilted 3.4 deg and the car diagonal in X/Y. Level once
+  (huracan-evo `tools/level.py fit`) and apply the same `level.json` to every part STL before `prep --like`; the Artec
+  part exports then z-fight with the car without any ICP.
+- **[technical]** Drive "Underbody" scans are a separate session/frame (ICP shift 2-4 cm); "DRS Open" vs closed showed
+  no wing change (<8 mm). Measure a state difference before planning an "opens" beat around it.
+- **[technical]** Long serial render queues die when the session idles/disconnects. Render with
+  `use_overwrite=False` (porsche-gt3rs-992 `tools/shot.py`, `RESUME=1 render_final.sh`) so a restart only fills missing frames.
+- **[pacing]** `ive beats` / librosa kick grids disagreed by 50-110 ms on a generated industrial track; the attack
+  (first 30 % of peak) of the big hits on the waveform gave an exact 8-beat spacing. Anchor on that when the methods disagree.
+- **[technical]** Close-ups of a 7.7M-tri (2.5 mm) car render at ~36 s/frame at 75 % / 12 spp (vs 13-16 s for 4 mm wides):
+  render only the seconds you will use.
