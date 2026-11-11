@@ -1,0 +1,22 @@
+# Copy to projects/<name>/project.yaml. Times in seconds; every cut should sit on a `beats` entry.
+project: NAME
+format: reel-9x16
+output: {path: /home/user/media/work/out/NAME_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+music: {path: /path/to/track.wav, start: 0, fade_out: 0.6}
+beats: []            # from `python -m ive beats <track>`
+timeline:
+  - id: irl_1
+    src: /home/user/media/NAME/dropbox/clip.mov   # HLG is tonemapped automatically
+    in: 0.0
+    out: 2.5
+  - id: irl_match           # must END on the solved frame (out = t + 1/fps)
+    src: /home/user/media/NAME/dropbox/clip2.mov
+    in: 1.3
+    out: 3.8334
+  - transition: {type: cut}  # the 1:1 perspective cut; also: dissolve, dip, flash, scanline, ghost
+  - id: scan_match
+    src: /home/user/media/work/renders/shots/s1_match   # PNG sequence dir from `ive render`
+    src_fps: 15
+    interpolate: true
+    trim_end: 2.5
+overlays: []          # [{src: hud.mov, start: 0}] from `ive hud`
