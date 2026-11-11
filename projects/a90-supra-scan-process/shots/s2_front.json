@@ -1,12 +1,12 @@
 {
- "_note": "Front-right 3/4: front bumper (Outside+Inside scans, one object) slides forward/down and turns 180 deg about Z so its scanned inside faces the lens; the 'Under Front Bumper' state scan is revealed. Fender scan stays in place. 5.0 s = 8 beats (10.682 -> 15.682).",
+ "_note": "Front-right 3/4: front bumper (Outside+Inside scans, one object) slides forward/down and turns 180 deg about Z so its scanned inside faces the lens; the 'Under Front Bumper' state scan is revealed. Fender scan stays in place. 5.0 s = 8 beats (10.682 -> 15.682). v2: base_explode2 (Under Front Bumper replaces the loose lip strips; Under Fender + arch Liners fill the corners); tighter opening so the cut lands on a full frame.",
  "seconds": 5.0,
  "lens": 28,
  "sensor": 20.25,
  "ease": "sine",
  "objects": [
   {
-   "blend": "/home/user/media/work/a90sp/blend/base_explode.blend"
+   "blend": "/home/user/media/work/a90sp/blend/base_explode2.blend"
   },
   {
    "blend": "/home/user/media/work/a90sp/blend/fbump.blend",
@@ -62,13 +62,13 @@
  "cam": [
   {
    "t": 0.0,
-   "az": -32,
-   "dist": 4.5,
-   "z": 1.25,
+   "az": -34,
+   "dist": 3.25,
+   "z": 1.05,
    "look": [
-    1.3,
-    -0.15,
-    0.42
+    1.45,
+    -0.2,
+    0.45
    ]
   },
   {
