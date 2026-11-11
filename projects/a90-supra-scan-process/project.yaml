@@ -1,59 +1,63 @@
-# Toyota A90 Supra - scan-process reel in the 240SX format (option b: no scanning footage exists for this car,
-# see clips.md). Real car pulls up -> 1:1 cut on the bar-2 downbeat -> rear bumper explodes/turns (inside+outside)
-# -> real bumper-off shop shot -> rolling pan -> front bumper explodes/turns -> (same pose) x-ray reassembly ending
-# on the listing's camera -> dissolve into the illumaesthetic.com A90 scan listing (WebZoom, logo, URL last).
-# Beat grid: kicks 0.682 + 0.625k s (96 BPM), bars every 2.5 s. Cuts land on frames 95 245 283 320 470 489
-# (v1 measured +1 frame -> first clip 94 frames) | dissolve 699-714 | end 930. Every clip has a whole-frame dur (assembler adds the 1-frame xfade back per cut).
+# Toyota A90 Supra - scan-process reel v2 (240SX format, option b; all-reels v2 brief + user addendum A-D).
+# Plan: direction.md (scene-director). Real car pulls up -> 1:1 cut (cam_B, match 39.200 s, car ~67 % of the width)
+# -> rear styling, bumper ON (no scan under the rear bumper) -> real pan along the right side -> FRONT BUMPER HERO
+# (off toward camera, inside turned, push in on the Under Front Bumper scan: crash beam, radiator, ducts) -> right-front
+# fender off (Under Fender) -> same-pose x-ray switch, parts home, arc to the listing camera -> listing (WebZoom).
+# Cuts = 1-frame fades (type cut clones a duplicate frame - Suzuki lesson); each outgoing clip carries +1 real frame.
+# Frames @30: cuts 95 208 245 433 508 | dissolve 688-703 | end 845 (28.18 s bar). Kicks: 0.682 + 0.625k.
 project: a90-supra-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/a90_scan_process_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/a90_scan_process_v2.0.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront), ends hard ~29.75 s
+  path: /home/user/media/a90-supra-scan-process/music/supra_phonk.mp3   # original Supra track (cloudfront)
   start: 0
   fade_out: 0.6
 
-beats: [3.182, 8.182, 9.432, 10.682, 15.682, 16.307, 18.182, 19.432, 20.682, 23.307, 25.682]
+beats: [3.182, 6.932, 8.182, 9.432, 10.682, 14.432, 15.682, 16.932, 18.182, 23.182, 25.682, 28.182]
 
 timeline:
-  - id: irl_open        # car-to-car: the Supra pulls up behind; ends on the solved frame 40.400 s
+  - id: irl_open        # the Supra pulls up behind the camera car; ends on the solved frame 39.200 s
     src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1944_44.mov
-    in: 37.2833
-    out: 40.4167
-    dur: 3.1333   # one frame short: the assembler's per-cut hold otherwise lands every cut 1 frame (19 ms) late
-  - transition: {type: cut, note: "1:1 IRL -> scan (cam_A, fixed 28 mm, RMSE 4.2 px) on the 3.182 s bar downbeat"}
-  - id: s1_rear         # starts on cam_A; rear bumper (outside+inside) slides back and turns to show its inside
-    src: /home/user/media/work/a90sp/renders/s1_rear
+    in: 36.05
+    out: 39.2167
+    dur: 3.1667
+  - transition: {type: dissolve, duration: 0.0333, note: "hard 1:1 cut IRL -> scan (cam_B) on the 3.182 s bar; 1-frame fade = cut without the cloned frame"}
+  - id: s1_rear         # cam_B hold, push in to the rear-right corner; rear bumper stays ON
+    src: /home/user/media/work/a90sp/renders/v2_s1_rear
     src_fps: 15
     interpolate: true
-    dur: 5.0333   # cut lands on frame 246 = 8.200 s, nearest the 8.185 s kick
-  - id: irl_shop        # the real car in the shop, rear bumper off, heart tail light flashing
-    src: /home/user/media/a90-supra-scan-process/dropbox/v_0707_1613_13.mov
-    in: 2.05
-    out: 3.2833
-    dur: 1.2333
-  - id: irl_pan         # rolling rear 3/4 pan past the wheel
+    dur: 3.8
+  - transition: {type: dissolve, duration: 0.0333}
+  - id: irl_pan         # real car rolling, right side past the rear wheel (rear -> side travel)
     src: /home/user/media/a90-supra-scan-process/dropbox/v_0713_1940_51.mov
     in: 10.0
-    out: 11.2333
-    dur: 1.2333
-  - id: s2_front        # front bumper (outside+inside) slides forward/down and turns; under-bumper structure revealed
-    src: /home/user/media/work/a90sp/renders/s2_front
+    out: 11.2667
+    dur: 1.2667
+  - transition: {type: dissolve, duration: 0.0333}
+  - id: s2_front        # HERO: front bumper off toward camera, inside turned, push in on the Under Front Bumper
+    src: /home/user/media/work/a90sp/renders/v2_s2_front
     src_fps: 15
     interpolate: true
-    dur: 5.0
-  - transition: {type: cut, note: "scan -> x-ray on the 15.68 s accent: s3 starts on s2's last camera and part poses (v2: blinker insert dropped - IRL->x-ray read as a cut into nothing)"}
-  - id: s3_xray         # x-ray reassembly from s2's end pose; ends on cam_listing, morphs to the listing grey
-    src: /home/user/media/work/a90sp/renders/s3_xray
+    dur: 6.3
+  - transition: {type: dissolve, duration: 0.0333}
+  - id: s3_fender       # right-front fender section off on the 15.68 lift, push in on Under Fender
+    src: /home/user/media/work/a90sp/renders/v2_s3_fender
     src_fps: 15
     interpolate: true
-    dur: 8.1333
-  - transition: {type: dissolve, duration: 0.5, note: "x-ray scan (listing angle, listing grey) -> listing screenshot"}
-  - id: website         # WebZoom: listing -> zoom-out lands 25.68 s; title, logo, URL fades in last
-    src: /home/user/media/work/out/webzoom_a90.mp4
-    dur: 7.4333
+    dur: 2.5333
+  - transition: {type: dissolve, duration: 0.0333, note: "same-pose look switch silver -> x-ray"}
+  - id: s4_xray         # parts home, arc to cam_listing, morph to listing grey
+    src: /home/user/media/work/a90sp/renders/v2_s4_xray
+    src_fps: 15
+    interpolate: true
+    dur: 6.5
+  - transition: {type: dissolve, duration: 0.5, note: "x-ray grey on the listing angle -> listing screenshot"}
+  - id: website         # WebZoom: zoom-out lands 25.68; title, logo, URL last; ends on the 28.18 bar
+    src: /home/user/media/work/out/webzoom_a90_v2.mp4
+    dur: 4.9333
     hold_start: 0.3
 
 overlays:
-  - src: /home/user/media/work/out/hud_a90_scan_process.mov
+  - src: /home/user/media/work/out/hud_a90_scan_process_v2.mov
     start: 0

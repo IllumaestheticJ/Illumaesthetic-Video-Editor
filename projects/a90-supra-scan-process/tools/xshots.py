@@ -110,6 +110,38 @@ def cam_keys(spec):
     return ks
 
 
+def cam_seg(spec, t):
+    """spec "cam_interp": "seg" - per-segment eased camera (key "ease", default ease_in_out). Each key is either
+    {pos, look} or cylindrical {az, dist, z, look}; a segment between two cylindrical keys with the same look moves on
+    a true arc, otherwise positions are lerped. lens/roll lerp. Holds = two identical keys."""
+    ks = spec["cam"]
+    def P(k):
+        if "pos" in k:
+            return Vector(k["pos"])
+        lk = k["look"]; az = math.radians(k["az"])
+        return Vector((lk[0] + k["dist"] * math.cos(az), lk[1] + k["dist"] * math.sin(az), k["z"]))
+    if t <= ks[0]["t"]:
+        i, u = 0, 0.0
+    elif t >= ks[-1]["t"]:
+        i, u = len(ks) - 2, 1.0
+    else:
+        i = max(j for j in range(len(ks) - 1) if ks[j]["t"] <= t)
+        u = ease((t - ks[i]["t"]) / (ks[i + 1]["t"] - ks[i]["t"]), ks[i + 1].get("ease", "ease_in_out"))
+    a, b = ks[i], ks[i + 1]
+    la, lb = Vector(a["look"]), Vector(b["look"])
+    look = la.lerp(lb, u)
+    if "az" in a and "az" in b and list(a["look"]) == list(b["look"]):
+        az = math.radians(a["az"] + (b["az"] - a["az"]) * u); dist = a["dist"] + (b["dist"] - a["dist"]) * u
+        z = a["z"] + (b["z"] - a["z"]) * u
+        p = Vector((la[0] + dist * math.cos(az), la[1] + dist * math.sin(az), z))
+    else:
+        p = P(a).lerp(P(b), u)
+    L = lambda k, f, d: k.get(f, spec.get(f, d))
+    lens = L(a, "lens", 50) + (L(b, "lens", 50) - L(a, "lens", 50)) * u
+    roll = a.get("roll", 0.0) + (b.get("roll", 0.0) - a.get("roll", 0.0)) * u
+    return p, look, lens, roll, Vector((0, 0, 1))
+
+
 def cam_at(ks, t):
     look = Vector(catmull(ks, t, "look"))
     if all(k["cyl"] for k in ks):  # interpolate in cylindrical coords -> true arcs
@@ -216,10 +248,13 @@ def main():
     cd.sensor_fit = "VERTICAL" if spec.get("sensor_fit") == "vertical" else "HORIZONTAL"
     cd.sensor_width = spec.get("sensor", 36)
     cd.clip_start, cd.clip_end = 0.01, 200
-    ks = cam_keys(spec)
+    ks = cam_keys(spec) if spec.get("cam_interp") != "seg" else None
     for f in range(1, nframes + 1):
-        t = ease((f - 1) / max(1, nframes - 1), gease)
-        p, look, lens, roll, up = cam_at(ks, t)
+        if spec.get("cam_interp") == "seg":
+            p, look, lens, roll, up = cam_seg(spec, (f - 1) / max(1, nframes - 1))
+        else:
+            t = ease((f - 1) / max(1, nframes - 1), gease)
+            p, look, lens, roll, up = cam_at(ks, t)
         cam.location = p
         f_ = (look - p).normalized()
         if abs(f_.dot(up.normalized())) > 0.995:  # looking along the up hint: fall back to "away from camera"

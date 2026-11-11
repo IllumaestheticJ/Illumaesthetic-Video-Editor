@@ -1,0 +1,116 @@
+{
+ "seconds": 2.7,
+ "sensor": 36,
+ "cam_interp": "seg",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90sp/blend/base_explode2.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/fbump.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.85,
+      -0.55,
+      -1.05
+     ],
+     "rot": [
+      0,
+      0,
+      180
+     ]
+    },
+    {
+     "t": 0.92593,
+     "loc": [
+      0.85,
+      -0.55,
+      -1.05
+     ],
+     "rot": [
+      0,
+      0,
+      180
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/fender.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.23148
+    },
+    {
+     "t": 0.46296,
+     "loc": [
+      0.0,
+      -0.4,
+      -0.75
+     ]
+    },
+    {
+     "t": 0.92593,
+     "loc": [
+      0.0,
+      -0.4,
+      -0.75
+     ]
+    }
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "pos": [
+    0.95,
+    -3.05,
+    0.8
+   ],
+   "look": [
+    0.78,
+    -0.88,
+    0.45
+   ],
+   "lens": 62.22222222222222
+  },
+  {
+   "t": 0.46296,
+   "pos": [
+    0.95,
+    -3.05,
+    0.8
+   ],
+   "look": [
+    0.78,
+    -0.88,
+    0.45
+   ],
+   "lens": 62.22222222222222
+  },
+  {
+   "t": 0.92593,
+   "pos": [
+    0.925,
+    -2.725,
+    0.75
+   ],
+   "look": [
+    0.7,
+    -0.75,
+    0.6
+   ],
+   "lens": 62.22222222222222
+  }
+ ],
+ "_note": "v2 v2_s3_fender: song 14.432-16.932 s (+0.2 s tail). Plan: direction.md"
+}

@@ -1,16 +1,17 @@
 {
- "_note": "ScanHUD, scan shots only (s1 frames 95-245, s2 320-470). Numbers = STL header triangle counts of the Drive files: Chassis_(8.4m).stl 8,400,496; Supra Front Bumper Outside 1,989,952 + Inside 1,991,743 = 3,981,695. Inside+outside claims verified on the renders (bumper turned 180 deg, ribs/tabs visible).",
- "width": 1080,
- "height": 1920,
- "fps": 30,
- "durationInFrames": 930,
- "accent": "#e8ecf2",
+ "_note": "v2 ScanHUD: static labels only (no counter - its easing stops at 99.9 %). Numbers = STL header triangle counts of the Drive files. Scan shots only: s1 95-208, s2 245-433, s3 433-508, s4 508-688. Feature names only where visible in the Under Front Bumper / Under Fender scans.",
+ "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 845, "accent": "#e8ecf2",
  "items": [
-  {"kind": "brackets", "from": 100, "duration": 140},
-  {"kind": "counter", "from": 104, "duration": 66, "label": "TRIANGLES CAPTURED", "value": 8400496, "x": 0.08, "y": 0.1},
-  {"kind": "label", "from": 178, "duration": 64, "title": "INSIDE + OUTSIDE", "sub": "REAR BUMPER SCANNED", "x": 0.08, "y": 0.1},
-  {"kind": "brackets", "from": 324, "duration": 142},
-  {"kind": "label", "from": 328, "duration": 70, "title": "FRONT BUMPER", "sub": "2 SCANS · 3,981,695 TRIANGLES", "x": 0.08, "y": 0.1},
-  {"kind": "label", "from": 400, "duration": 66, "title": "INSIDE + OUTSIDE", "sub": "FRONT BUMPER SCANNED", "x": 0.08, "y": 0.1}
+  {"kind": "brackets", "from": 100, "duration": 104},
+  {"kind": "label", "from": 102, "duration": 48, "title": "CHASSIS SCAN", "sub": "8,400,496 TRIANGLES", "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 152, "duration": 52, "title": "REAR BUMPER", "sub": "INSIDE + OUTSIDE SCANNED · 5,985,144 TRIANGLES", "x": 0.08, "y": 0.1},
+  {"kind": "brackets", "from": 250, "duration": 180},
+  {"kind": "label", "from": 258, "duration": 42, "title": "FRONT BUMPER REMOVED", "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 302, "duration": 36, "title": "INSIDE + OUTSIDE SCANNED", "sub": "FRONT BUMPER · 3,981,695 TRIANGLES", "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 345, "duration": 47, "title": "UNDER FRONT BUMPER", "sub": "3,995,589 TRIANGLES", "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 396, "duration": 34, "title": "CRASH BEAM", "sub": "RADIATOR + AIR DUCTS", "x": 0.08, "y": 0.1},
+  {"kind": "brackets", "from": 438, "duration": 66},
+  {"kind": "label", "from": 455, "duration": 50, "title": "FENDER REMOVED", "sub": "UNDER FENDER · 1,992,817 TRIANGLES", "x": 0.08, "y": 0.1},
+  {"kind": "label", "from": 550, "duration": 90, "title": "9 SCANS COMBINED", "sub": "26,470,665 TRIANGLES", "x": 0.08, "y": 0.1}
  ]
 }
