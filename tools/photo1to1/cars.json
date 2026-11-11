@@ -1,0 +1,220 @@
+{
+ "gr-corolla": {
+  "name": "Toyota GR Corolla",
+  "sheet": "GR Corolla",
+  "ids": [
+   44,
+   30,
+   29
+  ],
+  "glb": "eps-toyota-gr-corolla-v23.glb",
+  "kit": [
+   "part_front_lip",
+   "part_canards",
+   "part_rear_spats",
+   "part_side_skirts",
+   "part_wing_strakes",
+   "part_wrc_wing"
+  ],
+  "paint": [
+   "Supersonic Red",
+   "#b21522",
+   "pearl"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010054.jpg",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010053.jpg",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010061.jpg"
+  }
+ },
+ "civic-fe": {
+  "name": "Honda Civic Si (FE1)",
+  "sheet": "Civic 11th FE/FL",
+  "ids": [
+   16,
+   24,
+   38
+  ],
+  "glb": "eps-honda-civic-sedan-fe-v10.glb",
+  "kit": [
+   "part_front_lip",
+   "part_rear_lip",
+   "part_side_skirts",
+   "part_sport_wing"
+  ],
+  "paint": [
+   "Rallye Red",
+   "#c8102e",
+   "gloss"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/civic-zenki-front-lip-red-industrial.heic",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/civic-fe-side-skirts-red-side-view.heic",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/civic-fe-rear-lip-red-side-rear.heic"
+  }
+ },
+ "mr2": {
+  "name": "Toyota MR2 Spyder",
+  "sheet": "MR2 Spyder",
+  "ids": [
+   13,
+   6,
+   8
+  ],
+  "glb": "eps-toyota-mr2-spyder-v19.glb",
+  "kit": [
+   "part_diffuser",
+   "part_duckbill",
+   "part_eyelids",
+   "part_front_bumper",
+   "part_hardtop",
+   "part_hood_vents",
+   "part_rear_spats",
+   "part_side_skirts",
+   "part_tc_wing_kit"
+  ],
+  "paint": [
+   "Absolutely Red",
+   "#c4121c",
+   "gloss"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/mr2-spyder-hardtop-red-side-rear-aero.heic",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/mr2-spyder-hardtop-red-roofline-side-view.heic",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/mr2-spyder-hardtop-red-rear-quarter-wing.heic"
+  }
+ },
+ "wrx-vb": {
+  "name": "Subaru WRX (VB)",
+  "sheet": "WRX VB",
+  "ids": [
+   9,
+   15,
+   16
+  ],
+  "glb": "eps-subaru-wrx-vb-v12.glb",
+  "kit": [
+   "part_front_bumper",
+   "part_rear_bumper",
+   "part_side_skirts",
+   "part_wrc_wing"
+  ],
+  "paint": [
+   "Crystal Black Silica",
+   "#111214",
+   "pearl"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/that1-67.jpg",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/that1-41_db6662ac-55d9-4894-85fd-0ac346c393fd.jpg",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/that1-64_46aceda6-6715-48bd-9123-047b14ff5967.jpg"
+  }
+ },
+ "gr86": {
+  "name": "Subaru BRZ / Toyota GR86 (ZN8)",
+  "sheet": "GR86/BRZ gen2",
+  "ids": [
+   37,
+   39,
+   38
+  ],
+  "glb": "eps-toyota-gr86-zd8-v10.glb",
+  "kit": [
+   "part_front_lip",
+   "part_gt_wing",
+   "part_rear_spats",
+   "part_side_skirts"
+  ],
+  "paint": [
+   "WR Blue Pearl",
+   "#1c3f9c",
+   "pearl"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/subaru-brz-zn8-gt-wing-swan-blue-front-quarter.jpg",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/subaru-brz-zn8-gt-wing-swan-blue-side-profile.jpg",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/subaru-brz-zn8-gt-wing-swan-blue-rear-quarter.jpg"
+  }
+ },
+ "miata-nc": {
+  "name": "Mazda MX-5 Miata (NC)",
+  "sheet": "Miata NC",
+  "ids": [
+   19,
+   31,
+   35
+  ],
+  "glb": "eps-mazda-mx5-nc-v19.glb",
+  "kit": [
+   "part_brake_ducts",
+   "part_canards",
+   "part_fender_cuts",
+   "part_front_bumper",
+   "part_front_lip",
+   "part_gt_wing",
+   "part_rear_spats",
+   "part_side_skirts",
+   "part_tire_spats"
+  ],
+  "paint": [
+   "Rubystar",
+   "#a61f59",
+   "gloss"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/miata-nc-canards-elevated-front-quarter.heic",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/miata-nc-side-skirts-pink-side-profile.heic",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/miata-nc-side-skirts-rear-quarter-wing.heic"
+  }
+ },
+ "integra-types": {
+  "name": "Acura Integra Type S (DE5)",
+  "sheet": "Integra Type S (DE5)",
+  "ids": [
+   2,
+   1,
+   3
+  ],
+  "glb": "eps-acura-integra-type-s-de5-v19.glb",
+  "kit": [
+   "part_duckbill",
+   "part_sport_wing"
+  ],
+  "paint": [
+   "Platinum White Pearl",
+   "#f2f0e9",
+   "pearl"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/acura-integra-de5-gt-wing-side-profile-white.jpg",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/acura-integra-de5-gt-wing-rear-quarter-white.jpg",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/acura-integra-de5-gt-wing-rear-wingspan-white.jpg"
+  }
+ },
+ "corolla-hatch": {
+  "name": "Toyota Corolla Hatchback (E210)",
+  "sheet": "Corolla hatch E210",
+  "ids": [
+   26,
+   25,
+   21
+  ],
+  "glb": "eps-toyota-corolla-hatch-e210-v18.glb",
+  "kit": [
+   "part_front_lip",
+   "part_rear_spats",
+   "part_side_skirts",
+   "part_wrc_wing"
+  ],
+  "paint": [
+   "Blizzard Pearl",
+   "#f1efe8",
+   "pearl"
+  ],
+  "photos": {
+   "A": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/corolla-hatchback-e210-side-skirts-white-warehouse.jpg",
+   "B": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/corolla-hatchback-e210-side-skirts-white-side-rear.jpg",
+   "C": "https://cdn.shopify.com/s/files/1/0036/2250/2435/files/corolla-hatchback-e210-rear-spats-white-warehouse.jpg"
+  }
+ }
+}
