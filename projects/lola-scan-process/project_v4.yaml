@@ -1,0 +1,88 @@
+# Lola (Drifter movie AE86s) scan-process reel v2 (user on v1: "remove the unnecessary spinning, change music to
+# something more mainstream"). 240SX format: real -> 1:1 cut on the drop -> crew scanning -> 1:1 -> shell lifts off
+# the interior scan (no spin) -> scan-software screens -> Lola 2 detail -> logo card (no illumaesthetic.com listing).
+# IRL = Ray-Ban Meta glasses POV, SDR; selects pre-cropped 3:4 -> 9:16 in /home/user/media/work/lola/sel (crops in editlog).
+# v1/v2: project_v1|v2.yaml, overlay_v1|v2.json, review_v1|v2.md.
+# v3 (user on v2: "remove illumaesthetic.com", "clean up footage at end"): logo-only card; dropped the colour-model
+# screen recording (UI + cursor) and the holey front close-up; new whole-car Lola 2 hero push-in; Lola 2 travels
+# IRL wing -> scan wing -> whole car; logo on the re-drop (27.6 s). Plan: direction.md.
+project: lola-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/lola_scan_process_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  # "Take Me (To The Moon)" - Ian Asher & D A N N Y. TikTok Commercial Music Library (licensed for brand posts),
+  # US 7-day trending #2, song_clip_id 7647229123379972097. Not in git. Start 22.425 s: the pre-drop silence (track
+  # 23.86) sits under the spray clip and the drop kick (track 24.869) is the 1:1 cut at frame 73.
+  path: /home/user/media/work/music/lola-scan-process_v2_take_me.mp3
+  start: 22.425
+  fade_out: 1.2
+
+# Measured 40-120 Hz kick peaks (video s; tools: scratch onsets.py, kick pairs every ~1.37 s):
+# drop 2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 19.766, breakdown riser hit 23.585 (flux), re-drop 24.374,
+# 26.778. Durs are whole frames so each cut = round(kick*30); first clip one frame short.
+beats: [2.444, 5.190, 8.795, 13.421, 14.797, 16.161, 18.396, 21.142, 24.374]
+
+timeline:
+  - id: irl_spray      # powder spray sweep over Lola 1; ENDS on the solved frame (spray.mp4 frame 446)
+    src: /home/user/media/work/lola/sel/spray.mp4
+    in: 12.5
+    out: 14.9
+    dur: 2.4
+  - transition: {type: cut, note: "1:1 IRL -> scan on the drop (cam_A, Lola 1 Exterior)"}
+  - id: scan_A         # Lola 1 exterior, silver, slow 25 deg camera orbit from cam_A
+    src: /home/user/media/work/lola/renders/s1_A
+    src_fps: 15
+    interpolate: true
+    dur: 2.7667
+  - transition: {type: cut}
+  - id: irl_scanner    # handheld scanner comes down and frames the rear 3/4; ENDS on the solved frame (scanner.mp4 frame 282)
+    src: /home/user/media/work/lola/sel/scanner.mp4
+    in: 5.8333
+    out: 9.4333
+    dur: 3.6
+  - transition: {type: cut, note: "1:1 IRL -> scan on a kick (cam_B)"}
+  - id: scan_B         # exterior shell lifts 1.45 m off the interior/cage scan and HOLDS (v2: no 360 spin); camera pulls back
+    src: /home/user/media/work/lola/renders/s2_B_v2
+    src_fps: 15
+    interpolate: true
+    dur: 4.6333
+  - transition: {type: cut}
+  - id: irl_interior   # scanning the gutted Lola 1 cabin / cage
+    src: /home/user/media/work/lola/sel/interior.mp4
+    in: 1.5
+    dur: 1.3667
+  - transition: {type: cut}
+  - id: screen_register   # v4 (user: v3 clip "just looks like colored blobs"): Artec Studio, the cut-open body mesh with the
+    # cage inside gets its colour texture switched on (sr_1120_2154 @ 24:33.0, crop 490x870+260+60 of the viewport)
+    src: /home/user/media/work/lola/sel/sr_texture.mp4
+    in: 0.55
+    dur: 1.3667
+  - transition: {type: cut}
+  - id: irl_lola2      # spraying Lola 2's wing -> rear (scanner on the roof stand)
+    src: /home/user/media/work/lola/sel/lola2_irl.mp4
+    in: 3.25
+    dur: 2.2333
+  - transition: {type: cut}
+  - id: scan_wing      # focus: Lola 2 rear end + GT wing as scan, continuing the IRL wing-spray shot (travel rear -> whole car)
+    # v3 re-frame (addendum A): rear 3/4, whole rear end + wing in frame with margins, slow push (v2 s4_wing clipped the bumper)
+    src: /home/user/media/work/lola/renders/s4_rear_v3
+    src_fps: 15
+    interpolate: true
+    dur: 2.7333
+  - transition: {type: cut}
+  - id: scan_hero      # focus: whole Lola 2 centred, slow push-in (no orbit); triangle counter; v3: 3.23 s (was 5.97, dead frames)
+    src: /home/user/media/work/lola/renders/s3_hero_v3
+    src_fps: 15
+    interpolate: true
+    speed: 1.8          # 6 s render -> the whole 0.12 push-in plays inside the 3.23 s slot
+    dur: 3.2333
+  - transition: {type: cut}
+  - id: logo           # v3: ILLUMAESTHETIC logo only (user: remove illumaesthetic.com), on the re-drop; fade to black with the music
+    src: /home/user/media/work/lola/end_card_v3.mp4
+    in: 0
+    dur: 3.2333
+
+overlays:
+  - src: /home/user/media/work/out/hud_lola_v3.mov   # `ive hud projects/lola-scan-process/overlay.json`
+    start: 0
