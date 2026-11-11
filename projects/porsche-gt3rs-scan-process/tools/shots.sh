@@ -16,20 +16,21 @@ s1) # 1:1 match (head-on), silver, front wheels off like the real car; slow pull
   $R --scene $W/car_noFW.blend --camera $W/cams/camA.json --out $OUT/s1/ $SIL --seconds 3.9 --move pull --move-amount 0.12 --look-at $LA --ease ease_out ;;
 x1a) # same view continues in x-ray. v2 (review): parts end in clear background (below / above the car in screen space);
     # only the fender vent spins (its back shows the mounting structure) - lip, grille trim, strakes, hood fins just translate (3.9 s)
-  M="front_lower_lip front_grille_trim front_bumper_strake hood_vent_fins_x3 fender_vent"
+  # v2b (director): fender vent stays home here - it is the side shot's feature (was a speck in this view, shown twice)
+  M="front_lower_lip front_grille_trim front_bumper_strake hood_vent_fins_x3"
   $R --scene $W/car_carved_noFW.blend --camera $W/cams/x1a_start.json --out $OUT/x1a/ $XR --seconds 3.9 --move pull --move-amount 0.18 --look-at $LA --ease ease_in_out \
    --explode "$P/front_lower_lip.blend:0.1,0,-0.38:0.05:0.4" \
    --explode "$P/front_grille_trim.blend:0.15,0,-0.68:0.08:0.45" \
    --explode "$P/front_bumper_strake.blend:0.05,0,-0.5:0.08:0.42" \
-   --explode "$P/hood_vent_fins_x3.blend:0,0,0.55:0.1:0.45" \
-   --explode "$P/fender_vent.blend:0,-0.35,0.75:0.1:0.45:z-180:0.48:0.95" $(rest $M) ;;
+   --explode "$P/hood_vent_fins_x3.blend:0,0,0.55:0.1:0.45" $(rest $M) ;;
 s2) # 1:1 match (right side, wheel arch) on the drop, silver hold (1.0 s)
   $R --scene $W/car_noFW.blend --camera $W/cams/camC.json --out $OUT/s2/ $SIL --seconds 1.1 ;;
 xs2) # same camera, x-ray: rear-quarter intake + fender vent lift UP into clear background (not toward the lens) and spin -
-    # both have useful backsides (clips / mounting structure); pull back 0.25 (3.8 s)
+    # both have useful backsides (clips / mounting structure). v2b: pull only 0.10 (car stays big); the intake (2.5 m from the lens)
+    # flies forward-up toward the camera into clear space so it reads at ~7 % of frame width (3.8 s)
   M="rear_qpanel_intake_1 fender_vent"
-  $R --scene $W/car_carved_noFW.blend --camera $W/cams/camC.json --out $OUT/xs2/ $XR --seconds 3.8 --move pull --move-amount 0.25 --look-at=-0.4,-0.9,0.8 --ease ease_in_out \
-   --explode "$P/rear_qpanel_intake_1.blend:-0.15,-0.1,0.6:0.06:0.42:z180:0.45:0.95" \
+  $R --scene $W/car_carved_noFW.blend --camera $W/cams/camC.json --out $OUT/xs2/ $XR --seconds 3.8 --move pull --move-amount 0.10 --look-at=-0.4,-0.9,0.8 --ease ease_in_out \
+   --explode "$P/rear_qpanel_intake_1.blend:1.2,-1.0,0.7:0.06:0.42:z180:0.45:0.95" \
    --explode "$P/fender_vent.blend:0,-0.15,0.6:0.1:0.45:z-180:0.48:0.95" $(rest $M) ;;
 x2b) # rear-left 3/4 (4.0 s). v2: rear strake goes DOWN-left instead of up over the deck (was 68% on the body); diffuser + trim
     # drop (top side visible from above, no spin); skirt translates; spins only on rear strake, skirt strake, intake (useful backs)
