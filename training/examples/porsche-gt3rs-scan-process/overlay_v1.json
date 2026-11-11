@@ -1,0 +1,10 @@
+{
+ "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 1122, "accent": "#e8ecf2",
+ "items": [
+  {"kind": "brackets", "from": 118, "duration": 106},
+  {"kind": "counter", "from": 122, "duration": 100, "label": "TRIANGLES CAPTURED", "value": 24999999, "x": 0.08, "y": 0.12},
+  {"kind": "label", "from": 246, "duration": 92, "title": "FRONT AERO", "sub": "LIP · GRILLE TRIM · STRAKES · VENTS", "x": 0.08, "y": 0.12},
+  {"kind": "label", "from": 462, "duration": 96, "title": "REAR QUARTER INTAKE", "sub": "450,000 TRIANGLES", "x": 0.08, "y": 0.72},
+  {"kind": "label", "from": 690, "duration": 96, "title": "REAR DIFFUSER", "sub": "1,100,000 TRIANGLES", "x": 0.08, "y": 0.12}
+ ]
+}

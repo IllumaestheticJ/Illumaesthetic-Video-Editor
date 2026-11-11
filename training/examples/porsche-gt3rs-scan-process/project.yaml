@@ -1,70 +1,81 @@
-# Porsche 911 GT3 RS (992) scan-process reel v1 - 240SX format with the crew scanning the yellow GT3 RS on the lift.
-# Cuts sit on measured kick hits (frames @30): 114 229 343 424 454 564 677 791 958 (3.80 7.63 11.42 14.14 15.13 18.81 22.55 26.38 31.93 s).
+# Porsche 911 GT3 RS (992) scan-process reel v2 (v1: project_v1.yaml) - 240SX format with the crew scanning the yellow GT3 RS on the lift.
+# v2: cuts on the broadband TRANSIENTS (2 kHz band, 1 ms RMS half-rise) measured on the track: 3.780 7.532 11.281 14.093 15.031 18.780
+# 22.532 26.279 31.905 -> frames 113 226 338 423 451 563 676 788 957. v1 sat on bass notes 20-100 ms late.
 project: porsche-gt3rs-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/gt3rs_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/gt3rs_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/gt3rs/music/track.wav   # hf_20261111_055731 GT3 RS track, ~128 BPM, music ends ~36.3 s
   start: 0
   fade_out: 1.2
 
-beats: [3.80, 7.63, 11.42, 14.14, 15.13, 18.81, 22.55, 26.38, 31.93]
+beats: [3.780, 7.532, 11.281, 14.093, 15.031, 18.780, 22.532, 26.279, 31.905]
 
 timeline:
   - id: irl_headon        # car on the lift, camera settles head-on; ends on the solved frame 4.500 s (camA)
-    dur: 3.7667   # one frame short: the assembler's cut compensation adds it back (FG2 lesson); measured 1-frame-late cuts otherwise
+    focus: car on lift
+    dur: 3.7333   # 112 frames: one frame short, the assembler's cut compensation adds it back -> cut on frame 113
     src: /home/user/media/gt3rs/scanfoot/v_0130_125744.mov
-    in: 0.7667
+    in: 0.8
     out: 4.5334
-  - transition: {type: cut, note: "1:1 #1 IRL head-on -> scan (camA) on the 3.80 s hit"}
+  - transition: {type: cut, note: "1:1 #1 IRL head-on -> scan (camA) on the 3.780 s accent"}
   - id: scan_headon       # silver, front wheels off like the real car, slow pull; TRIANGLES counter
-    dur: 3.8333
+    focus: front scan
+    dur: 3.7667
     src: /home/user/media/work/gt3rs/renders/s1
     src_fps: 15
     interpolate: true
-  - id: xray_front        # same view, x-ray: lip / grille trim / strakes drop, hood fins + fender vent lift, spin L/R
-    dur: 3.8
+  - id: xray_front        # v2: same view in x-ray pushes in on the bumper aero; lip + strakes drop forward into clear space
+    focus: front lip + strakes
+    dur: 3.7333
     src: /home/user/media/work/gt3rs/renders/x1a
     src_fps: 15
     interpolate: true
   - id: irl_crew_scan     # crew scanning the front-right arch, camera pulls back; ends on the solved frame 5.300 s (camC)
-    dur: 2.7
+    focus: crew scanning front-right arch
+    dur: 2.8333
     src: /home/user/media/gt3rs/scanfoot/v_0130_125720.mov
-    in: 2.6333
+    in: 2.5
     out: 5.3333
-  - transition: {type: cut, note: "1:1 #2 IRL right side -> scan (camC) on the 14.14 s drop"}
+  - transition: {type: cut, note: "1:1 #2 IRL right side -> scan (camC) on the 14.093 s drop"}
   - id: scan_side         # silver hold, 1 s
-    dur: 1.0
+    focus: right side scan
+    dur: 0.9333
     src: /home/user/media/work/gt3rs/renders/s2
     src_fps: 15
     interpolate: true
-  - id: xray_side         # same camera, x-ray: rear-quarter intake + fender vent pop out, pull back
-    dur: 3.6667
+  - id: xray_side         # v2: pushes in on the front fender; the vent comes off toward the lens and spins (mounting back)
+    focus: fender vent
+    dur: 3.7333
     src: /home/user/media/work/gt3rs/renders/xs2
     src_fps: 15
     interpolate: true
   - id: irl_scanner       # live scan on the handheld's screen
+    focus: live scan screen
     dur: 3.7667
     src: /home/user/media/gt3rs/scanfoot/v_0130_125732.mov
     in: 0.2
     out: 3.9667
-  - id: xray_rear         # rear-left: diffuser, trim, rear strake, skirt, skirt strake, intake explode + spin
-    dur: 3.8
-    src: /home/user/media/work/gt3rs/renders/x2b
+  - id: xray_rear         # v2: rear section close-up - diffuser + trim drop, rear strake out + spin (x2r)
+    focus: rear diffuser assembly
+    dur: 3.7333
+    src: /home/user/media/work/gt3rs/renders/x2r
     src_fps: 15
     interpolate: true
   - id: xray_reassembly   # everything (incl. front wheels) translates home on the dense kicks; ends on the listing angle in listing grey
-    dur: 6.0667
+    focus: removed parts + wheels return
+    dur: 6.1333   # 169 frames to the 31.905 dissolve + 0.5 s overlap; part landings hit 27.217 27.569 28.156 29.094 29.448 30.033
     src: /home/user/media/work/gt3rs/renders/x3
     src_fps: 15
     interpolate: true
-    trim_start: 0.1333
+    trim_start: 0.0667
   - transition: {type: dissolve, duration: 0.5, note: "reassembled scan -> same-angle GT3 RS listing"}
   - id: website           # listing zooms out; title, logo, then ILLUMAESTHETIC.COM fades in last
-    dur: 5.97
-    src: /home/user/media/work/out/webzoom_gt3rs_v1.mp4
+    focus: listing
+    dur: 5.1   # v2 brief: don't hold the ending too long
+    src: /home/user/media/work/out/webzoom_gt3rs_v2.mp4
 
 overlays:
-  - src: /home/user/media/work/out/hud_gt3rs_v1.mov
+  - src: /home/user/media/work/out/hud_gt3rs_v2.mov
     start: 0

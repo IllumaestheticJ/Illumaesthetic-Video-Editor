@@ -6,6 +6,7 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
+- [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
@@ -29,7 +30,6 @@ Newest first. Read the top two before starting a new edit.
 - [ferrari-296](ferrari-296/) - archived 2026-11-11
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
-- [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
