@@ -12,7 +12,9 @@
    "duration": 44,
    "title": "FRONT BUMPER REMOVED",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
   },
   {
    "kind": "label",
@@ -20,7 +22,9 @@
    "duration": 27,
    "title": "CRASH BEAM",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
   },
   {
    "kind": "label",
@@ -28,7 +32,9 @@
    "duration": 29,
    "title": "REAR BUMPER REMOVED",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
   },
   {
    "kind": "label",
@@ -36,7 +42,9 @@
    "duration": 27,
    "title": "MOUNTING POINTS",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
   }
  ]
 }

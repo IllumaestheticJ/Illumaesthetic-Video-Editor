@@ -21,6 +21,8 @@ beats: [4.109, 8.176, 9.701, 11.226, 16.310, 20.377, 24.440, 25.460, 28.511, 30.
 
 timeline:
   - id: O_whole        # whole car, low front-right 3/4, slow drift; fades up with the track
+    section: whole
+    focus: "whole car, front 3/4"
     src: /home/user/media/work/macan/renders/final/O_whole
     src_fps: 15
     interpolate: true
@@ -28,36 +30,48 @@ timeline:
     vf: "fade=t=in:st=0:d=1.2"
   - transition: {type: cut, note: "4.109 intro hit"}
   - id: N_face         # front face slide: left lamp -> intakes -> right lamp (3 mm)
+    section: front
+    focus: "front face: lamps + intakes"
     src: /home/user/media/work/macan/renders/final/N_face
     src_fps: 15
     interpolate: true
     dur: 4.0667
   - transition: {type: cut, note: "8.176 phrase hit"}
   - id: s3_wheel       # front right wheel close-up (v1 render, same slot)
+    section: front
+    focus: "front right wheel"
     src: /home/user/media/work/macan/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
     dur: 1.5333
   - transition: {type: cut, note: "9.701 hit"}
   - id: F1_bay         # one move over the hit-less build; hood opens on its fitted hinge at 11.226 -> push into the bay (Hood Removed)
+    section: front
+    focus: "hood opens -> bay"
     src: /home/user/media/work/macan/renders/final/F1_bay
     src_fps: 15
     interpolate: true
     dur: 6.6
   - transition: {type: cut, note: "16.310 DROP - front bumper comes off"}
   - id: F2_fbumper     # bumper forward, flips to show its scanned inside (17.327), leaves up; camera moves in on the crash beam
+    section: front
+    focus: "front bumper inside -> crash beam"
     src: /home/user/media/work/macan/renders/final/F2_fbumper
     src_fps: 15
     interpolate: true
     dur: 4.0667
   - transition: {type: cut, note: "20.377 kick"}
   - id: S1_side        # left side front -> rear: fender (20.377), FL door (21.393), RL door (22.41); cards turn to the lens
+    section: side
+    focus: "fender + left doors, inner faces"
     src: /home/user/media/work/macan/renders/final/S1_side
     src_fps: 15
     interpolate: true
     dur: 4.0667
   - transition: {type: cut, note: "24.440 phrase kick"}
   - id: s4_lightbar    # light bar + PORSCHE + Macan script (v1 render, middle 1.03 s)
+    section: rear
+    focus: "light bar + script"
     src: /home/user/media/work/macan/renders/final/s4_lightbar
     src_fps: 15
     interpolate: true
@@ -65,12 +79,16 @@ timeline:
     dur: 1.0333
   - transition: {type: cut, note: "25.460 kick"}
   - id: R1_rbumper     # hatch opens (Rear Hatch Fully Open), rear bumper out to the side, push in on the tubular crash beam + mount
+    section: rear
+    focus: "rear bumper off -> crash beam + mounts"
     src: /home/user/media/work/macan/renders/final/R1_rbumper
     src_fps: 15
     interpolate: true
     dur: 3.0333
   - transition: {type: cut, note: "28.511 phrase"}
   - id: X_reassemble   # every part flies home, locks on 29.511, fade to black
+    section: whole
+    focus: "parts lock home"
     src: /home/user/media/work/macan/renders/final/X_reassemble
     src_fps: 15
     interpolate: true

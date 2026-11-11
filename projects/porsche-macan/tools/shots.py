@@ -167,8 +167,8 @@ def part(name, keys, hinge=None):
     return d
 
 
-SHOTS["O_whole"] = {"base": [CAR], "cam": arc(SECS["O_whole"], 8, 7.8, 7.4, -40, -30, 1.3, 1.1, c=(0, -0.3, 0.6), focal=30, tz=0.62,
-                                             shape=easeout)}
+SHOTS["O_whole"] = {"base": [CAR], "cam": arc(SECS["O_whole"], 8, 7.8, 7.3, -40, -22, 1.3, 1.05, c=(0, -0.3, 0.6), focal=30, tz=0.62,
+                                             )}  # linear: easeout left 2.4 s static (director)
 SHOTS["N_face"] = {"base": [CAR_HI], "cam": [cam(0, (0.95, -4.75, 0.95), (0.5, -2.3, 0.72), 40, "lin"),
                                              cam(SECS["N_face"] / 2, (0.0, -4.8, 0.95), (0.0, -2.3, 0.70), 40, "lin"),
                                              cam(SECS["N_face"], (-0.95, -4.75, 0.90), (-0.5, -2.3, 0.68), 40)]}
