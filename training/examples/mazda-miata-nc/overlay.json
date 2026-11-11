@@ -1,0 +1,71 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "durationInFrames": 1139,
+  "accent": "#e8ecf2",
+  "items": [
+    {
+      "kind": "label",
+      "from": 95,
+      "duration": 42,
+      "title": "FENDER SCOOP",
+      "sub": "WHEEL: STRAIGHT + STEERED OUT",
+      "x": 0.08,
+      "y": 0.8,
+      "shadow": true
+    },
+    {
+      "kind": "label",
+      "from": 148,
+      "duration": 41,
+      "title": "HEADLIGHT PROJECT",
+      "sub": "BUCKET REVERSE-ENGINEERED TO CAD",
+      "x": 0.08,
+      "y": 0.8,
+      "shadow": true
+    },
+    {
+      "kind": "label",
+      "from": 206,
+      "duration": 52,
+      "title": "FRONT BUMPER",
+      "sub": "SCANNED ON + OFF THE CAR",
+      "x": 0.92,
+      "y": 0.06,
+      "align": "right",
+      "shadow": true
+    },
+    {
+      "kind": "label",
+      "from": 285,
+      "duration": 125,
+      "title": "FRONT BUMPER REMOVED",
+      "sub": "SCANNED WITH THE BUMPER OFF",
+      "x": 0.08,
+      "y": 0.06,
+      "shadow": true
+    },
+    {
+      "kind": "label",
+      "from": 575,
+      "duration": 115,
+      "title": "HOOD",
+      "sub": "SCANNED OPEN + REMOVED",
+      "x": 0.92,
+      "y": 0.06,
+      "align": "right",
+      "shadow": true
+    },
+    {
+      "kind": "label",
+      "from": 720,
+      "duration": 110,
+      "title": "TRUNK LID",
+      "sub": "SCANNED OPEN + CLOSED",
+      "x": 0.08,
+      "y": 0.8,
+      "shadow": true
+    }
+  ]
+}

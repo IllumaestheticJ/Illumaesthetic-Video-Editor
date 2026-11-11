@@ -23,64 +23,86 @@ beats: [2.970, 4.718, 6.465, 8.795, 14.036, 18.696, 23.355, 28.014, 31.506, 33.8
 
 timeline:
   - id: v3_open   # whole car, front-right 3/4 straight push (moves from frame 1)
+    section: whole
+    focus: "whole car, front-left 3/4, push-in from frame 1"
     src: /home/user/media/work/miata/renders/final/v3_open
     src_fps: 15
     interpolate: true
     dur: 2.9333
   - transition: {type: cut, note: "2.970 n=6"}
   - id: v3_wheel   # front-right wheel (old_v1 s3, 21 f); label FENDER SCOOP
+    section: wheel
+    focus: "front wheel under the fender scoop, straight then steered out"
     src: /home/user/media/work/miata/renders/old_v1/s3_wheel
     src_fps: 10.71
     interpolate: true
     dur: 1.7667
   - transition: {type: cut, note: "4.718 n=9 bar"}
   - id: v3_lamp   # headlight + nose (old_v1 s4, 21 f); label HEADLIGHT PROJECT
+    section: front
+    focus: "headlight close-up, bumper still on"
     src: /home/user/media/work/miata/renders/old_v1/s4_lamp
     src_fps: 10.91
     interpolate: true
     dur: 1.7333
   - transition: {type: cut, note: "6.465 n=12"}
   - id: v3_b1   # front bumper slides off (s8a_front f1-35, hood still shut); label FRONT BUMPER
+    section: front
+    focus: "front bumper leaving the car"
     src: /home/user/media/work/miata/renders/final/v3_b1
     src_fps: 13.97
     interpolate: true
     dur: 2.3333
   - transition: {type: cut, note: "8.795 n=16"}
   - id: v3_b2   # HERO: push in on what the bumper covered (Front Bumper Off scan); label FRONT BUMPER REMOVED
+    section: front
+    focus: "what the bumper covered: beam, intake, lamp housing"
     src: /home/user/media/work/miata/renders/final/v3_b2
     src_fps: 15
     interpolate: true
     dur: 5.2333
   - transition: {type: cut, note: "14.036 n=25 bar"}
   - id: v3_b3a   # engine bay: hood opens on its hinge (Hood Open scan), held through the kick-less breakdown
+    section: engine
+    focus: "hood opening on its hinge"
     src: /home/user/media/work/miata/renders/final/v3_b3a
     src_fps: 15
     interpolate: true
     dur: 4.6667
   - transition: {type: cut, note: "18.696 n=33 THE DROP"}
   - id: v3_b3b   # hood lifts off ON the drop, push into the bay (Hood and Bumper Removed); label HOOD
+    section: engine
+    focus: "engine bay after the hood lifts off"
     src: /home/user/media/work/miata/renders/final/v3_b3b
     src_fps: 15
     interpolate: true
     dur: 4.6667
   - transition: {type: cut, note: "23.355 n=41 bar"}
   - id: v3_rear   # trunk lid opens on its fitted hinge (2023 Trunk Open), push in; plate flattened; label TRUNK LID
+    section: rear
+    focus: "trunk lid opening on its hinge"
     src: /home/user/media/work/miata/renders/final/v3_rear
     src_fps: 15
     interpolate: true
     dur: 4.6333
   - transition: {type: cut, note: "28.014 n=49 bar"}
   - id: v3_end   # top view, every scanned removed/open state at once, all parts fly home by the cut
+    section: whole
+    focus: "top view, bumper/hood/lid off then flying home"
     src: /home/user/media/work/miata/renders/final/v3_end
     src_fps: 15
     interpolate: true
     dur: 3.5
   - transition: {type: cut, note: "31.506 n=55 swap to the clean car on a kick"}
   - id: v3_endclean   # clean full car, same camera continuing; fades to black over its last 12 frames (pre-built mp4)
+    section: whole
+    focus: "clean assembled car fading out"
     src: /home/user/media/work/miata/endclean_fade.mp4
     dur: 2.3333
   - transition: {type: cut, note: "33.838 n=59, out of black"}
   - id: logo   # small logo (460 px), fades up from black, ends with the music
+    section: logo
+    focus: "small logo"
     src: /home/user/media/work/miata/logo_card_small.mp4
     dur: 4.1667
 

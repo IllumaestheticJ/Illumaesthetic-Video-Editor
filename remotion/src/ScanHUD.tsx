@@ -28,6 +28,7 @@ export type HudItem =
       x: number; // 0..1 of width
       y: number; // 0..1 of height
       align?: "left" | "right";
+      shadow?: boolean; // dark halo for labels over bright silver scan surfaces
     }
   | {
       kind: "counter";
@@ -118,6 +119,7 @@ const Label: React.FC<{ item: Extract<HudItem, { kind: "label" }>; accent: strin
         opacity: k,
         transform: `translateX(${right ? slide : -slide}px)`,
         color: accent,
+        textShadow: item.shadow ? "0 0 6px rgba(0,0,0,0.95), 0 0 18px rgba(0,0,0,0.85), 0 0 36px rgba(0,0,0,0.6)" : undefined,
       }}
     >
       <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 52, letterSpacing: 6, lineHeight: 1 }}>{item.title}</div>
@@ -127,11 +129,12 @@ const Label: React.FC<{ item: Extract<HudItem, { kind: "label" }>; accent: strin
           width: 260 * rule,
           background: accent,
           opacity: 0.7,
+          boxShadow: item.shadow ? "0 0 8px rgba(0,0,0,0.9)" : undefined,
           margin: "16px 0 14px",
           marginLeft: right ? "auto" : 0,
         }}
       />
-      <div style={{ fontFamily: MONO, fontSize: 30, letterSpacing: 3, opacity: 0.75 }}>{sub.slice(0, chars)}</div>
+      <div style={{ fontFamily: MONO, fontSize: 30, letterSpacing: 3, opacity: item.shadow ? 0.92 : 0.75 }}>{sub.slice(0, chars)}</div>
     </div>
   );
 };

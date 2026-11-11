@@ -1,79 +1,111 @@
-# Mazda Miata NC - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
-# Satin-silver scan on black: front 3/4 turntable -> rear 3/4 orbit -> wheel + headlight close-ups -> hood opens ->
-# trunk opens -> top-down over the breakdown -> exploded view (bumper / hood / trunk lid) ON the drop -> hero -> logo.
+# Mazda Miata NC - Temerario-style scan reel (scan only, no IRL footage; v2 adds labels of what each scan is used for, from the Drive folder). Siblings: ferrari-296, huracan-evo, a90-supra.
+# Satin-silver scan on black. v2: whole car -> wheel -> headlight -> bumper off -> behind the bumper -> hood opens ->
+# hood off ON the drop -> trunk opens (hinge only) -> top view, all parts home -> clean car fade -> small logo.
 # Shots: tools/shots.py (specs) + tools/shot.py (Blender, copied from ferrari-296). Scan prep: tools/level.py,
 # polycut.py, extract.py, hinge.py, fill.py (see clips.md + editlog).
 # Music: mazda-miata-nc_track.mp3 - original track generated for this reel by the parent session (ElevenLabs via
 # Higgsfield, chill electro-pop). Kick grid -0.524 + 0.58241 n (103.0 BPM); bars on odd beats; breakdown 16.37-18.70;
 # drop beat 33 = 18.696 s; last kick 36.75, music out 37.33, last audio ~37.9 s (tools/accents.py).
-# Cuts on frames round(t*30): 142, 264, 299, 334, 421, 491, 561, 910, 1015; end 1140 (38.0 s).
+# v1 cuts: 142, 264, 299, 334, 421, 491, 561, 910, 1015. v2 follows direction.md (user notes + parent v2 brief/addendum):
+# one sequence per section front -> rear, bumper-removed hero, only scanned states, plate flattened, fade + small logo.
+# v2 cuts (all on kicks, none on the kick-less breakdown n=29-32): 89, 142, 194, 264, 421, 561, 701, 840, 945, 1015; end 1140.
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: mazda-miata-nc
 format: reel-9x16
-output: {path: /home/user/media/work/miata/out/mazda_miata_nc_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/miata/out/mazda_miata_nc_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/mazda-miata-nc_track.mp3   # not in git
   start: 0
   fade_out: 0.5
 
-beats: [4.718, 8.795, 9.959, 11.124, 14.036, 16.366, 18.696, 30.344, 33.838]
+beats: [2.970, 4.718, 6.465, 8.795, 14.036, 18.696, 23.355, 28.014, 31.506, 33.838]
 
 timeline:
-  - id: s1_front       # slow low front-right 3/4 turntable; rendered 5.6 s (before the music), trimmed
-    src: /home/user/media/work/miata/renders/final/s1_front
+  - id: v3_open   # whole car, front-right 3/4 straight push (moves from frame 1)
+    section: whole
+    focus: "whole car, front-left 3/4, push-in from frame 1"
+    src: /home/user/media/work/miata/renders/final/v3_open
     src_fps: 15
     interpolate: true
-    dur: 4.7
-  - transition: {type: cut, note: "4.718 bar downbeat (beat 9)"}
-  - id: s2_rear        # rear-left 3/4 orbit, slight rise
-    src: /home/user/media/work/miata/renders/final/s2_rear
-    src_fps: 15
+    dur: 2.9333
+  - transition: {type: cut, note: "2.970 n=6"}
+  - id: v3_wheel   # front-right wheel (old_v1 s3, 21 f); label FENDER SCOOP
+    section: wheel
+    focus: "front wheel under the fender scoop, straight then steered out"
+    src: /home/user/media/work/miata/renders/old_v1/s3_wheel
+    src_fps: 10.71
     interpolate: true
-    dur: 4.0667
-  - transition: {type: cut, note: "8.795 backbeat accent (flux .89)"}
-  - id: s3_wheel       # extreme close-up: front-right wheel, 3 mm scan
-    src: /home/user/media/work/miata/renders/final/s3_wheel
-    src_fps: 15
+    dur: 1.7667
+  - transition: {type: cut, note: "4.718 n=9 bar"}
+  - id: v3_lamp   # headlight + nose (old_v1 s4, 21 f); label HEADLIGHT PROJECT
+    section: front
+    focus: "headlight close-up, bumper still on"
+    src: /home/user/media/work/miata/renders/old_v1/s4_lamp
+    src_fps: 10.91
     interpolate: true
-    dur: 1.1667
-  - transition: {type: cut, note: "9.959 strongest backbeat (flux 1.00)"}
-  - id: s4_lamp        # headlight + nose slide, 3 mm scan
-    src: /home/user/media/work/miata/renders/final/s4_lamp
-    src_fps: 15
-    interpolate: true
-    dur: 1.1667
-  - transition: {type: cut, note: "11.124 backbeat accent (.96)"}
-  - id: s5_hood        # hood opens 55 deg on the cowl seam over the real engine bay (state scans)
-    src: /home/user/media/work/miata/renders/final/s5_hood
-    src_fps: 15
-    interpolate: true
-    dur: 2.9
-  - transition: {type: cut, note: "14.036 bar downbeat"}
-  - id: s6_trunk       # trunk lid opens on its fitted hinge (74 deg, 2023 Trunk Open scan)
-    src: /home/user/media/work/miata/renders/final/s6_trunk
-    src_fps: 15
+    dur: 1.7333
+  - transition: {type: cut, note: "6.465 n=12"}
+  - id: v3_b1   # front bumper slides off (s8a_front f1-35, hood still shut); label FRONT BUMPER
+    section: front
+    focus: "front bumper leaving the car"
+    src: /home/user/media/work/miata/renders/final/v3_b1
+    src_fps: 13.97
     interpolate: true
     dur: 2.3333
-  - transition: {type: cut, note: "16.366 breakdown starts"}
-  - id: s7_top         # high rear 3/4 rising to top-down over the quiet breakdown
-    src: /home/user/media/work/miata/renders/final/s7_top
+  - transition: {type: cut, note: "8.795 n=16"}
+  - id: v3_b2   # HERO: push in on what the bumper covered (Front Bumper Off scan); label FRONT BUMPER REMOVED
+    section: front
+    focus: "what the bumper covered: beam, intake, lamp housing"
+    src: /home/user/media/work/miata/renders/final/v3_b2
     src_fps: 15
     interpolate: true
-    dur: 2.3333
-  - transition: {type: cut, note: "18.696 THE DROP - panels separate on this frame"}
-  - id: s8_explode     # bumper (flips to show its scanned inside) / hood / lid float above, orbit front-left -> rear-left; lock 28.014
-    src: /home/user/media/work/miata/renders/final/s8_explode
+    dur: 5.2333
+  - transition: {type: cut, note: "14.036 n=25 bar"}
+  - id: v3_b3a   # engine bay: hood opens on its hinge (Hood Open scan), held through the kick-less breakdown
+    section: engine
+    focus: "hood opening on its hinge"
+    src: /home/user/media/work/miata/renders/final/v3_b3a
     src_fps: 15
     interpolate: true
-    dur: 11.6333
-  - transition: {type: cut, note: "30.344 bar downbeat"}
-  - id: s9_hero        # assembled car, low front-left 3/4 push-in
-    src: /home/user/media/work/miata/renders/final/s9_hero
+    dur: 4.6667
+  - transition: {type: cut, note: "18.696 n=33 THE DROP"}
+  - id: v3_b3b   # hood lifts off ON the drop, push into the bay (Hood and Bumper Removed); label HOOD
+    section: engine
+    focus: "engine bay after the hood lifts off"
+    src: /home/user/media/work/miata/renders/final/v3_b3b
+    src_fps: 15
+    interpolate: true
+    dur: 4.6667
+  - transition: {type: cut, note: "23.355 n=41 bar"}
+  - id: v3_rear   # trunk lid opens on its fitted hinge (2023 Trunk Open), push in; plate flattened; label TRUNK LID
+    section: rear
+    focus: "trunk lid opening on its hinge"
+    src: /home/user/media/work/miata/renders/final/v3_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.6333
+  - transition: {type: cut, note: "28.014 n=49 bar"}
+  - id: v3_end   # top view, every scanned removed/open state at once, all parts fly home by the cut
+    section: whole
+    focus: "top view, bumper/hood/lid off then flying home"
+    src: /home/user/media/work/miata/renders/final/v3_end
     src_fps: 15
     interpolate: true
     dur: 3.5
-  - transition: {type: cut, note: "33.838 backbeat; logo over the last 6 beats + tail"}
-  - id: logo
-    src: /home/user/media/work/miata/logo_card.mp4
+  - transition: {type: cut, note: "31.506 n=55 swap to the clean car on a kick"}
+  - id: v3_endclean   # clean full car, same camera continuing; fades to black over its last 12 frames (pre-built mp4)
+    section: whole
+    focus: "clean assembled car fading out"
+    src: /home/user/media/work/miata/endclean_fade.mp4
+    dur: 2.3333
+  - transition: {type: cut, note: "33.838 n=59, out of black"}
+  - id: logo   # small logo (460 px), fades up from black, ends with the music
+    section: logo
+    focus: "small logo"
+    src: /home/user/media/work/miata/logo_card_small.mp4
     dur: 4.1667
+
+overlays:
+  - src: /home/user/media/work/miata/hud_miata_v2.mov
+    start: 0
