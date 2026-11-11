@@ -66,6 +66,8 @@ def parse():
                     "(and the background into --morph-bg) - e.g. to dissolve into a grey product render")
     ap.add_argument("--morph-bg", default="0.045,0.045,0.045", help="background RGB (linear) at the end of --morph-to-clay")
     ap.add_argument("--clay-color", default="0.30,0.30,0.31")
+    ap.add_argument("--end-camera", default="", help="camera JSON to move to (location lerp, rotation slerp, log-focal + shift lerp) - overrides --move")
+    ap.add_argument("--orbit-also", type=float, default=0, help="push/pull/rise: also orbit this many degrees about the pivot (--look-at)")
     ap.add_argument("--look-at", default="", help="x,y,z pivot for orbit moves (default: scan bbox centre)")
     ap.add_argument("--raycast", help="'name:x,y;...' pixel coords in this camera's render")
     ap.add_argument("--save-blend", help="also save the lookdev'd scene here for manual tweaking")
@@ -410,6 +412,21 @@ def ease(t, kind):
 
 def animate_camera(cam, args, lo, hi, f0, f1):
     """Every move starts from the exact (matched) pose at f0 so the cut is 1:1."""
+    if getattr(args, "end_camera", "") and f1 > f0:
+        E = json.load(open(args.end_camera)); cd = cam.data; cam.rotation_mode = "QUATERNION"
+        M0 = cam.matrix_world.copy(); L0, q0 = M0.translation.copy(), M0.to_quaternion()
+        L1 = Vector(E["blender"]["location"]); q1 = Matrix(E["blender"]["rotation_matrix"]).to_quaternion()
+        lens0, lens1 = cd.lens, E["focal_mm"] * cd.sensor_width / E["sensor_width_mm"]
+        sx0, sy0, sx1, sy1 = cd.shift_x, cd.shift_y, E.get("shift_x", 0.0), E.get("shift_y", 0.0)
+        for f in range(f0, f1 + 1):
+            t = ease((f - f0) / (f1 - f0), args.ease)
+            cam.matrix_world = Matrix.Translation(L0.lerp(L1, t)) @ q0.slerp(q1, t).to_matrix().to_4x4()
+            cd.lens = math.exp(math.log(lens0) * (1 - t) + math.log(lens1) * t)
+            cd.shift_x, cd.shift_y = sx0 + (sx1 - sx0) * t, sy0 + (sy1 - sy0) * t
+            for k in ("location", "rotation_quaternion"): cam.keyframe_insert(k, frame=f)
+            for k in ("lens", "shift_x", "shift_y"): cd.keyframe_insert(k, frame=f)
+        cam.matrix_world = M0; cd.lens, cd.shift_x, cd.shift_y = lens0, sx0, sy0
+        return
     if args.move == "static" or f1 <= f0:
         return
     M0 = cam.matrix_world.copy()
@@ -428,6 +445,8 @@ def animate_camera(cam, args, lo, hi, f0, f1):
             M = Matrix.Translation(fwd * dist * amt * t) @ M0
         else:  # rise
             M = Matrix.Translation(Vector((0, 0, (args.move_amount or 0.5) * t))) @ M0
+        if args.orbit_also and args.move != "orbit":
+            M = Matrix.Translation(pivot) @ Matrix.Rotation(math.radians(args.orbit_also) * t, 4, "Z") @ Matrix.Translation(-pivot) @ M
         cam.matrix_world = M
         cam.keyframe_insert("location", frame=f)
         cam.keyframe_insert("rotation_euler", frame=f)

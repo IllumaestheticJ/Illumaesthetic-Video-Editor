@@ -2,81 +2,52 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 977,
+ "durationInFrames": 784,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "brackets",
-   "from": 33,
-   "duration": 142
+   "from": 87,
+   "duration": 104
   },
   {
-   "kind": "counter",
-   "from": 45,
-   "duration": 60,
-   "label": "TRIANGLES CAPTURED",
-   "value": 24997127,
+   "kind": "label",
+   "from": 98,
+   "duration": 92,
+   "title": "ENGINE BAY",
+   "sub": "4,997,392 TRIANGLES",
    "x": 0.08,
    "y": 0.1
   },
   {
    "kind": "label",
-   "from": 105,
-   "duration": 69,
-   "title": "STOCK NB MIATA",
-   "sub": "CONTROL SCAN \u00b7 ON THE GROUND",
+   "from": 266,
+   "duration": 70,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "4,994,051 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 336,
+   "duration": 78,
+   "title": "CRASH BEAM",
+   "sub": "BUMPER REINFORCEMENT \u00b7 AS SCANNED",
    "x": 0.08,
    "y": 0.1
   },
   {
    "kind": "brackets",
-   "from": 213,
-   "duration": 143
+   "from": 451,
+   "duration": 104
   },
   {
    "kind": "label",
-   "from": 226,
-   "duration": 60,
-   "title": "ONE CORNER JACKED",
-   "sub": "NO BRACING",
-   "x": 0.92,
-   "y": 0.88,
-   "align": "right"
-  },
-  {
-   "kind": "label",
-   "from": 286,
-   "duration": 69,
-   "title": "+1.695 MM",
-   "sub": "ENGINE BAY WIDTH VS CONTROL",
-   "x": 0.92,
-   "y": 0.88,
-   "align": "right"
-  },
-  {
-   "kind": "label",
-   "from": 376,
-   "duration": 60,
-   "title": "960.948 MM",
-   "sub": "ENGINE BAY WIDTH \u00b7 CONTROL",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
-   "kind": "label",
-   "from": 436,
-   "duration": 69,
-   "title": "STRUT BRACE",
-   "sub": "SCANNED INSTALLED VS REMOVED",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
-   "kind": "label",
-   "from": 526,
-   "duration": 99,
-   "title": "+0.731 MM",
-   "sub": "JACKED WITH STRUT BRACE (BARE +1.695)",
+   "from": 476,
+   "duration": 78,
+   "title": "FULL EXTERIOR",
+   "sub": "24,993,431 TRIANGLES",
    "x": 0.08,
    "y": 0.1
   }
