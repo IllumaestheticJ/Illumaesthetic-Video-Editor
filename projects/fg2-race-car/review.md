@@ -1,25 +1,20 @@
-# FG2 #806 race car reel v4 — self-review (training/rubric.md)
+# FG2 #806 race car reel v5 — self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/fg2_race_car_v4.mp4` — 1080x1920 TikTok, 30 fps, 20.67 s. Earlier: review_v1..v3.md. v4 = v3 + the lookbook TC wing on the CGI (user OK); GLB from the Epsilon drive zip (identical sha).
-
-v3 change (user): the CGI layer is the Epsilon lookbook game model, not Ecky's red-painted scan and not the
-wing-configurator glb (a decimated scan). Source: lookbook frames JSON `lb-honda-civic-fg2-5ec63ee519.json`
--> `eps-honda-civic-fg2-v10.glb` on the Shopify CDN. Placed in the scan frame (lip-to-lip fit, then body ICP: 15.7 mm
-median, scale 0.990) so every existing camera solve applies unchanged.
+Output: `/home/user/media/work/out/fg2_race_car_v5.mp4` — 1080x1920 TikTok, 30 fps, 15.9 s. Earlier: review_v1..v4.md.
+v5 fixes (user on v4): repeated clip removed, white-splitter photo (D) dropped, cuts re-timed to the real kicks.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Unchanged: tight on the painted lip, real→scan 1:1 at 1.60 s. |
-| 2 | Beat sync | 5 | 16 cuts within ±17 ms; drop on the 6.37 s angle change. |
-| 3 | 1:1 match | 4 | Game model sits on the photos within the game-vs-scan tolerance (~1-2 cm); intra-angle cut blends are single images. |
-| 4 | Scan quality | 3 | Unchanged LQ scan (before-state). |
-| 5 | Story | 5 | Scan (data) → modelled CGI (design, painted lip) → real car now reads as three distinct states. |
-| 6 | Grade | 4 | CGI lit by Ecky's sky on his dark ground, black background like his CGI→real reference. |
+| 1 | Hook | 5 | Real car with painted lip from frame 0; 1:1 real→scan transformation ON the bass drop at 1.59 s. |
+| 2 | Beat sync | 5 | Grid from kick peaks (5 ms rms); in the delivered file all 9 cuts are within −19..+15 ms of a kick. Logo on kick 16 (section change). |
+| 3 | 1:1 match | 4 | Intra-angle cut blends are single images at every zoom level; game-model CGI within ~1-2 cm of the scan. |
+| 4 | Scan quality | 3 | LQ scan, before-state (plate, stock spoiler, glass holes). |
+| 5 | Story | 5 | Each photo/scan/CGI used once: front ¾ (real→scan→CGI), low front ¾ and rear ¾ (scan→CGI→real), Epsilon+ card. |
+| 6 | Grade | 4 | Unchanged. |
 | 7 | Text | 5 | None. |
-| 8 | Ending | 4 | Epsilon+ wordmark on the downbeat. |
-| 9 | Technical | 4 | Specs met; P1/P2 photo resolution caveat as in v2. |
+| 8 | Ending | 5 | Epsilon+ wordmark lands on the 4-bar section change, audio fades 0.8 s. |
+| 9 | Technical | 4 | Specs met; P1/P2 photos 2048 px wide (opening tight frames upscaled ~1.5x). |
 
-## Choices to confirm with the user
-- Paint Rallye Red R513 gloss (the lookbook's default for this car, and the #806 colour); lip part painted to match.
-- Rims switched from the model's dark finish to silver (the #806 runs silver Enkei RPF1s; Ecky's CGI also silver).
-- TC wing (lookbook kit) is rendered on the CGI per user; the real #806 runs the GT wing, so wing shapes differ on the rear cut.
+## Known differences
+- Rear cut: CGI has the lookbook TC wing (user OK), the real #806 has the GT wing.
+- CGI rims silver (photos/Ecky's CGI), paint Rallye Red, lip painted.

@@ -1,0 +1,106 @@
+# FG2 #806 race car - 1:1 photo <-> CGI <-> scan reel (TikTok 9:16). v4: CGI = Epsilon lookbook game model WITH its TC wing
+# (eps-honda-civic-fg2-v10.glb from Epsilon drive Website Files/Epsilon-final-GLBs-2026-10-15.zip). Earlier: project_v1..v3.yaml.
+# Every angle = one finished photo; scan + lookbook-model CGI rendered from the solved camera of that photo
+# (match/cam_*.json) and all three layers share one Ken Burns push (tools/kenburns.py), so the car stays
+# pixel-locked across every cut. Music: user-uploaded Macarena (slowed+reverb), only the opening:
+# audio starts at 7.503 s of the track so its drop (13.874 s) lands at 6.371 s in the video.
+project: fg2-race-car
+format: reel-9x16 (TikTok)
+output: {path: /home/user/media/work/out/fg2_race_car_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/fg2/music/macarena_slowed.mp3   # user upload (not in git)
+  start: 7.503
+  fade_out: 0.8
+
+# clip durs are whole frames so each cut lands on round(beat*30); first clip is 1 frame short (assembler adds the cut hold frame)
+# grid: 75.34 BPM (beat 0.7964 s); drop = 6.371 s; pre-drop cuts every 2 beats, post-drop on every kick
+beats: [1.593, 3.186, 4.778, 6.371, 7.168, 7.964, 9.557, 10.353, 11.15, 12.742, 13.539, 14.335, 15.928, 16.724, 17.521, 19.114, 20.706]
+
+timeline:
+  - id: p1_real   # HOOK: real car (painted lip), slow push
+    src: /home/user/media/work/fg2/layers/P1z_photo.mp4
+    in: 0.0000
+    dur: 1.5667
+  - transition: {type: cut, note: '1:1 real -> scan at 1.593 s (2 beats)'}
+  - id: p1_scan   # same push continues on the scan (+ lip CAD)
+    src: /home/user/media/work/fg2/layers/P1z_scan.mp4
+    in: 1.6000
+    dur: 1.6000
+  - transition: {type: cut, note: '1:1 scan -> CGI'}
+  - id: p1_cgi   # Ecky's CGI, same camera
+    src: /home/user/media/work/fg2/layers/P1z_cgi.mp4
+    in: 3.2000
+    dur: 1.5667
+  - transition: {type: cut, note: '1:1 CGI -> real, lands 2 beats before the drop'}
+  - id: p1_real2   # back to the real car into the drop
+    src: /home/user/media/work/fg2/layers/P1z_photo.mp4
+    in: 4.7667
+    dur: 1.6000
+  - transition: {type: cut, note: 'angle change on the kick (P2)'}
+  - id: p2_scan   # low front 3/4: scan
+    src: /home/user/media/work/fg2/layers/P2z_scan.mp4
+    in: 0.0000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: p2_cgi   # low front 3/4: CGI
+    src: /home/user/media/work/fg2/layers/P2z_cgi.mp4
+    in: 0.8000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: p2_real   # low front 3/4: real photo, 2 beats
+    src: /home/user/media/work/fg2/layers/P2z_photo.mp4
+    in: 1.6000
+    dur: 1.6000
+  - transition: {type: cut, note: 'angle change on the kick (D)'}
+  - id: d_scan   # side 3/4 #806: scan
+    src: /home/user/media/work/fg2/layers/Dz_scan.mp4
+    in: 0.0000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: d_cgi   # side 3/4 #806: CGI
+    src: /home/user/media/work/fg2/layers/Dz_cgi.mp4
+    in: 0.8000
+    dur: 0.7667
+  - transition: {type: cut}
+  - id: d_real   # side 3/4 #806: real photo, 2 beats
+    src: /home/user/media/work/fg2/layers/Dz_photo.mp4
+    in: 1.5667
+    dur: 1.6000
+  - transition: {type: cut, note: 'angle change on the kick (E)'}
+  - id: e_scan   # rear 3/4 + GT wing: scan
+    src: /home/user/media/work/fg2/layers/Ez_scan.mp4
+    in: 0.0000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: e_cgi   # rear 3/4: CGI (no wing)
+    src: /home/user/media/work/fg2/layers/Ez_cgi.mp4
+    in: 0.8000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: e_real   # rear 3/4 + GT wing: real photo, 2 beats
+    src: /home/user/media/work/fg2/layers/Ez_photo.mp4
+    in: 1.6000
+    dur: 1.6000
+  - transition: {type: cut, note: 'finale: front hero again'}
+  - id: p1b_scan   # finale scan, tighter push on the lip
+    src: /home/user/media/work/fg2/layers/P1zb_scan.mp4
+    in: 0.0000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: p1b_cgi   # finale CGI
+    src: /home/user/media/work/fg2/layers/P1zb_cgi.mp4
+    in: 0.8000
+    dur: 0.8000
+  - transition: {type: cut}
+  - id: p1b_real   # finale real car
+    src: /home/user/media/work/fg2/layers/P1zb_photo.mp4
+    in: 1.6000
+    dur: 1.5667
+  - transition: {type: cut, note: 'logo card on the downbeat'}
+  - id: end_card   # Epsilon+ logo (Drive EPSILON+ Logos/Epsilon+ Logo.png) on black
+    src: /home/user/media/work/fg2/layers/end_card_epsilon.png
+    duration: 1.5928
+    dur: 1.6000
+
+overlays: []   # no text: every shot is a photo or full-frame render; nothing to claim

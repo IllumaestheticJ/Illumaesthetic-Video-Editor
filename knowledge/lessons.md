@@ -94,3 +94,10 @@ lands here automatically. Agents must read this whole file before editing.
   FG2 TC wing in eps-honda-civic-fg2-v10.glb) are fine to render. Still never hand-build or borrow a wing from elsewhere.
 - **[technical]** The lookbook GLBs are also on the Epsilon drive: `Website Files/Epsilon-final-GLBs-2026-10-15.zip`
   (Drive id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7, 31 cars). Same files as the CDN (sha matches the lookbook JSON).
+- **[pacing]** Anchor the beat grid on the **kick peak** (40-120 Hz energy, librosa peak_pick + least-squares fit), not the
+  first spectral-flux onset: FG2 v1-v4 cut ~70 ms early on every beat and the user heard it ("doesn't match the music").
+  Verify on the delivered file: decode its audio, find kicks, compare with frame-diff cut times (target |err| <= 1/2 frame).
+- **[pacing]** Don't place cuts on a quiet pre-drop build (no hits to land on): start the video 2 kicks before the drop on a
+  real percussive hit and put the transformation ON the drop.
+- **[story]** Never reuse a shot/photo in one reel (FG2 v4 finale repeated the opening angle - user flagged it).
+- **[story]** A white/aftermarket splitter is not the Epsilon lip - check each photo shows the actual product before using it.

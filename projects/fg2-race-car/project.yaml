@@ -1,106 +1,71 @@
-# FG2 #806 race car - 1:1 photo <-> CGI <-> scan reel (TikTok 9:16). v4: CGI = Epsilon lookbook game model WITH its TC wing
-# (eps-honda-civic-fg2-v10.glb from Epsilon drive Website Files/Epsilon-final-GLBs-2026-10-15.zip). Earlier: project_v1..v3.yaml.
-# Every angle = one finished photo; scan + lookbook-model CGI rendered from the solved camera of that photo
-# (match/cam_*.json) and all three layers share one Ken Burns push (tools/kenburns.py), so the car stays
-# pixel-locked across every cut. Music: user-uploaded Macarena (slowed+reverb), only the opening:
-# audio starts at 7.503 s of the track so its drop (13.874 s) lands at 6.371 s in the video.
+# FG2 #806 race car - 1:1 photo <-> scan <-> CGI reel (TikTok 9:16). v5 (user feedback on v4): no repeated clip,
+# white-splitter photo (D) dropped (not the Epsilon lip), cuts re-timed to the actual kicks.
+# Each angle = one finished photo; scan + lookbook CGI (eps-honda-civic-fg2-v10.glb, TC wing) rendered from that photo's
+# solved camera on an extended canvas; all three layers share one zoom-out to the full car (tools/kb_zoomout.py).
+# Earlier versions: project_v1..v4.yaml.
 project: fg2-race-car
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/out/fg2_race_car_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/fg2_race_car_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/fg2/music/macarena_slowed.mp3   # user upload (not in git)
-  start: 7.503
+  start: 12.3567   # = kick -2; drop (kick 0, 13.950 s in the track) lands at 1.594 s
   fade_out: 0.8
 
-# clip durs are whole frames so each cut lands on round(beat*30); first clip is 1 frame short (assembler adds the cut hold frame)
-# grid: 75.34 BPM (beat 0.7964 s); drop = 6.371 s; pre-drop cuts every 2 beats, post-drop on every kick
-beats: [1.593, 3.186, 4.778, 6.371, 7.168, 7.964, 9.557, 10.353, 11.15, 12.742, 13.539, 14.335, 15.928, 16.724, 17.521, 19.114, 20.706]
+# Kick grid from librosa kick peaks (40-120 Hz), least squares: 13.9502 + 0.79676 n (75.30 BPM), 5 ms rms.
+# v1-v4 grid was anchored on the spectral onset 13.874 s -> every cut ~70 ms early. Cuts every 2 kicks, logo on kick 16.
+# clip durs are whole frames so each cut = round(beat*30); first clip 1 frame short (assembler adds the cut hold frame)
+beats: [1.5935, 3.187, 4.7806, 6.3741, 7.9676, 9.5611, 11.1546, 12.7482, 14.3417, 15.9352]
 
 timeline:
-  - id: p1_real   # HOOK: real car (painted lip), slow push
-    src: /home/user/media/work/fg2/layers/P1z_photo.mp4
+  - id: p1_real   # HOOK: real car, painted lip; pre-drop hit at 0.00 s (2 kicks)
+    src: /home/user/media/work/fg2/layers/P1z5_photo.mp4
     in: 0.0000
     dur: 1.5667
-  - transition: {type: cut, note: '1:1 real -> scan at 1.593 s (2 beats)'}
-  - id: p1_scan   # same push continues on the scan (+ lip CAD)
-    src: /home/user/media/work/fg2/layers/P1z_scan.mp4
+  - transition: {type: cut}
+  - id: p1_scan   # THE DROP: 1:1 real -> scan (scan + lip CAD) (2 kicks)
+    src: /home/user/media/work/fg2/layers/P1z5_scan.mp4
     in: 1.6000
     dur: 1.6000
-  - transition: {type: cut, note: '1:1 scan -> CGI'}
-  - id: p1_cgi   # Ecky's CGI, same camera
-    src: /home/user/media/work/fg2/layers/P1z_cgi.mp4
+  - transition: {type: cut}
+  - id: p1_cgi   # 1:1 scan -> lookbook CGI (TC wing) (2 kicks)
+    src: /home/user/media/work/fg2/layers/P1z5_cgi.mp4
     in: 3.2000
     dur: 1.5667
-  - transition: {type: cut, note: '1:1 CGI -> real, lands 2 beats before the drop'}
-  - id: p1_real2   # back to the real car into the drop
-    src: /home/user/media/work/fg2/layers/P1z_photo.mp4
-    in: 4.7667
-    dur: 1.6000
-  - transition: {type: cut, note: 'angle change on the kick (P2)'}
-  - id: p2_scan   # low front 3/4: scan
-    src: /home/user/media/work/fg2/layers/P2z_scan.mp4
+  - transition: {type: cut}
+  - id: p2_scan   # angle change: low front 3/4, scan (2 kicks)
+    src: /home/user/media/work/fg2/layers/P2z5_scan.mp4
     in: 0.0000
-    dur: 0.8000
+    dur: 1.6000
   - transition: {type: cut}
-  - id: p2_cgi   # low front 3/4: CGI
-    src: /home/user/media/work/fg2/layers/P2z_cgi.mp4
-    in: 0.8000
-    dur: 0.8000
-  - transition: {type: cut}
-  - id: p2_real   # low front 3/4: real photo, 2 beats
-    src: /home/user/media/work/fg2/layers/P2z_photo.mp4
+  - id: p2_cgi   # CGI (2 kicks)
+    src: /home/user/media/work/fg2/layers/P2z5_cgi.mp4
     in: 1.6000
     dur: 1.6000
-  - transition: {type: cut, note: 'angle change on the kick (D)'}
-  - id: d_scan   # side 3/4 #806: scan
-    src: /home/user/media/work/fg2/layers/Dz_scan.mp4
-    in: 0.0000
-    dur: 0.8000
   - transition: {type: cut}
-  - id: d_cgi   # side 3/4 #806: CGI
-    src: /home/user/media/work/fg2/layers/Dz_cgi.mp4
-    in: 0.8000
-    dur: 0.7667
-  - transition: {type: cut}
-  - id: d_real   # side 3/4 #806: real photo, 2 beats
-    src: /home/user/media/work/fg2/layers/Dz_photo.mp4
-    in: 1.5667
+  - id: p2_real   # real, painted lip (2 kicks)
+    src: /home/user/media/work/fg2/layers/P2z5_photo.mp4
+    in: 3.2000
     dur: 1.6000
-  - transition: {type: cut, note: 'angle change on the kick (E)'}
-  - id: e_scan   # rear 3/4 + GT wing: scan
-    src: /home/user/media/work/fg2/layers/Ez_scan.mp4
+  - transition: {type: cut}
+  - id: e_scan   # angle change: rear 3/4, scan (2 kicks)
+    src: /home/user/media/work/fg2/layers/Ez5_scan.mp4
     in: 0.0000
-    dur: 0.8000
-  - transition: {type: cut}
-  - id: e_cgi   # rear 3/4: CGI (no wing)
-    src: /home/user/media/work/fg2/layers/Ez_cgi.mp4
-    in: 0.8000
-    dur: 0.8000
-  - transition: {type: cut}
-  - id: e_real   # rear 3/4 + GT wing: real photo, 2 beats
-    src: /home/user/media/work/fg2/layers/Ez_photo.mp4
-    in: 1.6000
     dur: 1.6000
-  - transition: {type: cut, note: 'finale: front hero again'}
-  - id: p1b_scan   # finale scan, tighter push on the lip
-    src: /home/user/media/work/fg2/layers/P1zb_scan.mp4
-    in: 0.0000
-    dur: 0.8000
   - transition: {type: cut}
-  - id: p1b_cgi   # finale CGI
-    src: /home/user/media/work/fg2/layers/P1zb_cgi.mp4
-    in: 0.8000
-    dur: 0.8000
-  - transition: {type: cut}
-  - id: p1b_real   # finale real car
-    src: /home/user/media/work/fg2/layers/P1zb_photo.mp4
+  - id: e_cgi   # CGI with TC wing (2 kicks)
+    src: /home/user/media/work/fg2/layers/Ez5_cgi.mp4
     in: 1.6000
     dur: 1.5667
-  - transition: {type: cut, note: 'logo card on the downbeat'}
-  - id: end_card   # Epsilon+ logo (Drive EPSILON+ Logos/Epsilon+ Logo.png) on black
+  - transition: {type: cut}
+  - id: e_real   # real #806 rear with GT wing (2 kicks)
+    src: /home/user/media/work/fg2/layers/Ez5_photo.mp4
+    in: 3.1667
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: end_card   # Epsilon+ logo on the 2nd drop (4 bars after the drop: offbeats drop out)
     src: /home/user/media/work/fg2/layers/end_card_epsilon.png
-    duration: 1.5928
+    duration: 1.6000
     dur: 1.6000
 
-overlays: []   # no text: every shot is a photo or full-frame render; nothing to claim
+overlays: []   # no text
