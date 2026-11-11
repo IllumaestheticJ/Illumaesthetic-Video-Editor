@@ -55,11 +55,16 @@ def hold(state):
     return {k: [dict(t=0, **state[k])] for k in PARTS}
 
 
+HINGE_SHOTS = ("s5_frontopen", "s7_explode", "s9_reassemble")  # hood hinge animates -> no persistent data (lights dropped)
+
+
 def shot(name, i, objects, camera, anims=None, light_ref=None, extra=None):
     d = dict(objects=objects, seconds=round(CUTS[i + 1] - CUTS[i], 3), fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
              camera=camera, out=RENDERS + name, anims=anims or {}, exposure=EXPOSURE, hinges={"hood": {"p": HINGE["p"], "axis": HINGE["axis"]}})
     if light_ref:
         d["light_ref"] = light_ref
+    if name in HINGE_SHOTS:
+        d["persistent"] = False
     d.update(extra or {})
     return name, d
 
