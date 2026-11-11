@@ -16,6 +16,9 @@ for s in $SHOTS; do
     s2) IVE_END_CAM=$C/cam_s2_end.json $R --scene ttop.blend --camera $C/cam_side.json --out $OUT/s2_side --look silver --res-pct $PCT --samples $SPP --fps 15 --seconds 3.3 \
           --explode "parts/ttop_L.blend:-0.25,0,0.75:0.2:0.8:z-90:0.3:0.9" --explode "parts/ttop_R.blend:0.25,0,0.75:0.2:0.8:z90:0.3:0.9" ;;
     s3) IVE_END_CAM=$C/cam_s3_end.json $R --scene ttop.blend --camera $C/cam_s3_start.json --out $OUT/s3_parts --look silver --res-pct $PCT --samples $SPP --fps 15 --seconds 4.4 $DOORS_OUT ;;
+    s4b) IVE_PATH=orbit IVE_END_CAM=$C/cam_listing.json $R --scene ttop.blend --camera $C/cam_s3_end.json --out $OUT/s4b_xray_listing --look xray --res-pct $PCT --samples $SPP --fps 15 --seconds 4.9 \
+          --morph-to-clay 0.62,0.86 --morph-bg 0.057,0.057,0.06 --clay-color 0.062,0.062,0.065 \
+          --explode parts/door_L.blend:-1.0,0,0.15:r0.1:0.6 --explode parts/door_R.blend:1.0,0,0.15:r0.1:0.6 --explode parts/ttop_L.blend:-0.3,0,0.7:r0.15:0.65 --explode parts/ttop_R.blend:0.3,0,0.7:r0.15:0.65 ;;
     s4) IVE_END_CAM=$C/cam_s4_end.json $R --scene ttop.blend --camera $C/cam_s3_end.json --out $OUT/s4_xray --look xray --res-pct $PCT --samples $SPP --fps 15 --seconds 4.9 $DOORS_IN ;;
   esac > $OUT.$s.log 2>&1
   echo "$s done in $(( $(date +%s) - t0 )) s"

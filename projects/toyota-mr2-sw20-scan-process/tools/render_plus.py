@@ -40,10 +40,26 @@ def animate_camera(cam, args, lo, hi, f0, f1):
     M0 = cam.matrix_world.copy(); M1 = Matrix.Translation(Vector(cj["blender"]["location"])) @ Matrix(cj["blender"]["rotation_matrix"]).to_4x4()
     q0, q1 = M0.to_quaternion(), M1.to_quaternion(); p0, p1 = M0.translation.copy(), M1.translation.copy()
     kind = os.environ.get("IVE_EASE", args.ease)
+    import math
+    orbit = os.environ.get("IVE_PATH") == "orbit"  # cylindrical path about the car's Z axis (no cutting through it)
+    lens0, lens1 = cam.data.lens, float(cj.get("focal_mm", cam.data.lens))
+    if orbit:
+        a0, a1 = math.atan2(p0.y, p0.x), math.atan2(p1.y, p1.x)
+        da = (a1 - a0 + math.pi) % (2 * math.pi) - math.pi
+        r0, r1 = math.hypot(p0.x, p0.y), math.hypot(p1.x, p1.y)
     for f in range(f0, f1 + 1):
         t = sr.ease((f - f0) / (f1 - f0), kind)
-        cam.matrix_world = Matrix.Translation(p0.lerp(p1, t)) @ q0.slerp(q1, t).to_matrix().to_4x4()
+        if orbit:
+            a = a0 + da * t; r = r0 + (r1 - r0) * t
+            p = Vector((r * math.cos(a), r * math.sin(a), p0.z + (p1.z - p0.z) * t))
+            # orientation: slerp, then yaw by the orbit angle offset so the car stays framed
+            q = q0.slerp(q1, t)
+        else:
+            p = p0.lerp(p1, t); q = q0.slerp(q1, t)
+        cam.matrix_world = Matrix.Translation(p) @ q.to_matrix().to_4x4()
         cam.keyframe_insert("location", frame=f); cam.keyframe_insert("rotation_euler", frame=f)
-    cam.matrix_world = M0
+        if abs(lens1 - lens0) > 1e-3:
+            cam.data.lens = lens0 * (lens1 / lens0) ** t; cam.data.keyframe_insert("lens", frame=f)
+    cam.matrix_world = M0; cam.data.lens = lens0
 sr.animate_camera = animate_camera
 sr.main()
