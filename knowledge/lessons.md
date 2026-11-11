@@ -40,3 +40,9 @@ lands here automatically. Agents must read this whole file before editing.
   duration or the video ends short of the music.
 - **[audio]** Need more length than the track? Repeat whole bars between two measured onsets 8 beats
   apart with a 12 ms crossfade; check `ive beats` shows an unbroken grid across the splice.
+- **[pacing]** Cut on the music's *accents*, not just its beat grid: measure per-beat onset strength
+  (240SX track: accents on alternate beats from the drop at 3.07 s) and put the 1:1 cut on the drop.
+  Vary holds (1–8 beats) - the reviewer asked for "a little longer/shorter" instead of uniform shots.
+- **[match-cut]** Handheld drift after the solved frame: measure it on static background with
+  `cv2.phaseCorrelate` and absorb it as camera lens shift (`shift_x/shift_y` = px / long side) instead
+  of re-solving. Lets the real action play out and still cut 1:1 later in the clip.

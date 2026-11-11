@@ -213,8 +213,8 @@ def mat_wire(accent):
 def mat_xray(accent):
     m, nt, out = new_mat("ive_xray")
     tr = nt.nodes.new("ShaderNodeBsdfTransparent")
-    em = emission(nt, accent, 2.5)
-    mix = fresnel_mix(nt, tr.outputs[0], em.outputs[0], power=1.6)
+    em = emission(nt, accent, 0.5)
+    mix = fresnel_mix(nt, tr.outputs[0], em.outputs[0], power=2.4)  # glowing edges, see-through faces
     add = nt.nodes.new("ShaderNodeAddShader")
     nt.links.new(mix.outputs[0], add.inputs[0])
     nt.links.new(tr.outputs[0], add.inputs[1])

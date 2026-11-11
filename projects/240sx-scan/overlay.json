@@ -7,13 +7,13 @@
  "items": [
   {
    "kind": "brackets",
-   "from": 55,
-   "duration": 150
+   "from": 92,
+   "duration": 151
   },
   {
    "kind": "counter",
-   "from": 58,
-   "duration": 72,
+   "from": 96,
+   "duration": 70,
    "label": "TRIANGLES CAPTURED",
    "value": 24991097,
    "x": 0.08,
@@ -21,8 +21,8 @@
   },
   {
    "kind": "label",
-   "from": 128,
-   "duration": 76,
+   "from": 166,
+   "duration": 75,
    "title": "INSIDE + OUTSIDE",
    "sub": "REAR BUMPER + CRASH BEAM SCANNED",
    "x": 0.08,
@@ -30,13 +30,13 @@
   },
   {
    "kind": "brackets",
-   "from": 281,
-   "duration": 151
+   "from": 357,
+   "duration": 114
   },
   {
    "kind": "label",
-   "from": 287,
-   "duration": 62,
+   "from": 360,
+   "duration": 50,
    "title": "FRONT BUMPER",
    "sub": "7,497,192 TRIANGLES",
    "x": 0.08,
@@ -44,8 +44,8 @@
   },
   {
    "kind": "label",
-   "from": 352,
-   "duration": 78,
+   "from": 410,
+   "duration": 59,
    "title": "INSIDE + OUTSIDE",
    "sub": "FRONT BUMPER SCANNED",
    "x": 0.08,

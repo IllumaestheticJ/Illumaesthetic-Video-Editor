@@ -20,6 +20,8 @@ export type WebZoomProps = {
   zoomFrames: number; // frames to reach the full-width view
   url: string;
   title?: string; // shown above the page once zoomed out, e.g. "SCAN DATA NOW AVAILABLE"
+  logo?: string; // file in remotion/public, shown under the URL
+  logoWidth?: number;
 };
 
 export const webZoomDefaults: WebZoomProps = {
@@ -112,6 +114,18 @@ export const WebZoom: React.FC<WebZoomProps> = (p) => {
       >
         {p.url}
       </div>
+      {p.logo ? (
+        <Img
+          src={staticFile(p.logo)}
+          style={{
+            position: "absolute",
+            top: height / 2 + (p.imgH * endScale) / 2 + 190,
+            left: (width - (p.logoWidth ?? 640)) / 2,
+            width: p.logoWidth ?? 640,
+            opacity: interpolate(f, [p.zoomFrames + 4, p.zoomFrames + 22], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+          }}
+        />
+      ) : null}
     </AbsoluteFill>
   );
 };
