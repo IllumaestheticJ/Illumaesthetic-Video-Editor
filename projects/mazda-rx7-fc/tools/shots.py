@@ -123,9 +123,9 @@ SECS.update({"s9_hoodoff": 4.2, "s10_fbumper": 2.4, "s11_fsupport": 3.0, "s12_rb
 SHOTS["s9_hoodoff"] = {"base": [f"{P}/comp_hood.blend"],
     "parts": [{"blend": f"{P}/hood_up.blend", "pivot": HP, "keys": [
         K(0, rot=(HO, 0, 0)), K(0.567, rot=(HO, 0, 0)), K(1.699, (0, -0.10, 0.60), (HO, 0, 0), "out"),
-        K(2.831, (0, -0.18, 1.00), (25, 0, 0)), K(4.2, (0, -0.20, 1.05), (23, 0, 0), "lin")]}],
+        K(2.831, (0, -0.30, 1.70), (25, 0, 0)), K(4.2, (0, -0.40, 2.40), (18, 0, 0), "in")]}],   # lifts clean out of the top of frame
     "cam": [C(0, (1.076, 4.331, 2.391), (0, 1.098, 0.60)), C(0.567, (1.076, 4.331, 2.391), (0, 1.098, 0.60), ease="lin"),
-            C(3.963, (0.70, 3.70, 2.75), (0.0, 1.25, 0.85)), C(4.2, (0.70, 3.70, 2.75), (0.0, 1.25, 0.85), ease="lin")]}
+            C(3.963, (0.70, 3.80, 2.75), (0.12, 1.25, 0.80)), C(4.2, (0.70, 3.80, 2.75), (0.12, 1.25, 0.80), ease="lin")]}
 # c5: front bumper (Front Face part scan; inner face scanned) straight off its mounts toward the lens, tips to show inside
 SHOTS["s10_fbumper"] = {"base": [EXPDP],
     "parts": [{"blend": f"{P}/fbumper.blend", "keys": [
