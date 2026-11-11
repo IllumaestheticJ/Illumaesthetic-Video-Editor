@@ -1,6 +1,7 @@
 """Exploded-view base for the Sera: full car with every flying panel removed, plus what the state scans saw under them.
 
-    explode_base.py out.stl
+    explode_base.py out.stl [--only hood,door,door2,front,rear]   (default: all five panels)
+Per-section bases (e.g. --only front,hood) remove just those panels and add just their states.
 
 Panels (all in the full car's frame, verified in reg/ overlays):
   hood, door, door2   outer skins from tools/hinge_fit.py masks (<name>_masks.npz)
@@ -29,12 +30,16 @@ def load(n):
 
 def main():
     out = sys.argv[1]
+    only = set(sys.argv[sys.argv.index("--only") + 1].split(",")) if "--only" in sys.argv else {"hood", "door", "door2", "front", "rear"}
     car = load("car3.stl"); cc = car["v"].mean(1)
     keep = np.ones(len(car), bool)
-    for n in ("hood", "door", "door2"):
+    hinged = [n for n in ("hood", "door", "door2") if n in only]
+    for n in hinged:
         keep &= ~np.load(C + n + "_masks.npz")["outer"]
-    panel_pts = [load(n + "_panel.stl")["v"].mean(1) for n in ("hood", "door", "door2")]
-    for p, st in (("front_bumper_3mm.stl", "front_bumper_removed_3mm.stl"), ("rear_bumper_only_3mm.stl", "rear_bumper_removed_3mm.stl")):
+    panel_pts = [load(n + "_panel.stl")["v"].mean(1) for n in hinged]
+    bumpers = [b for k, b in (("front", ("front_bumper_3mm.stl", "front_bumper_removed_3mm.stl")),
+                              ("rear", ("rear_bumper_only_3mm.stl", "rear_bumper_removed_3mm.stl"))) if k in only]
+    for p, st in bumpers:
         v = load(p)["v"].mean(1); panel_pts.append(v)
         d, _ = cKDTree(v).query(cc, distance_upper_bound=CUT + 1)
         keep &= d > CUT
@@ -50,7 +55,9 @@ def main():
     pieces = [car[keep]]; acc = cc[keep]
     drops = {"hood_open_3mm.stl": np.load(C + "hood_masks.npz")["drop"],
              "door_open_3mm.stl": np.load(C + "door_masks.npz")["drop"] | np.load(C + "door2_masks.npz")["drop"]}
-    for f in ("front_bumper_removed_3mm.stl", "rear_bumper_removed_3mm.stl", "hood_open_3mm.stl", "door_open_3mm.stl"):
+    fills = [f for k, f in (("front", "front_bumper_removed_3mm.stl"), ("rear", "rear_bumper_removed_3mm.stl"),
+                            ("hood", "hood_open_3mm.stl"), ("door", "door_open_3mm.stl")) if k in only]
+    for f in fills:
         m = load(f); c = m["v"].mean(1)
         ok = np.ones(len(m), bool) if f not in drops else ~drops[f]
         d, _ = cKDTree(acc).query(c, distance_upper_bound=NEW * 2); ok &= d > NEW

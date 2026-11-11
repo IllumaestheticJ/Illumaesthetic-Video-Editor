@@ -128,6 +128,109 @@ def explode_shot(E=EXPLODE, secs=S["s8_explode"]):
 SHOTS["s8_explode"] = explode_shot()
 
 
+# ===================================================================================== v3 (director.md, 2026-11-11)
+# User v2 brief: order by this car's scan features, travel front -> side -> rear, one section per shot, show parts off,
+# progressive explode over several angles, whole car at the open, small logo. Plan: projects/toyota-sera/director.md.
+def keys(*ks, focal=30):
+    out = []
+    for k in ks:
+        t, loc, tgt = k[0], k[1], k[2]
+        out.append({"t": t, "loc": list(loc), "target": list(tgt), "focal": focal, "ease": k[3] if len(k) > 3 else "lin"})
+    return out
+
+
+def arc2(t0, t1, r0, r1, a0, a1, h0, h1, c0, c1, tz0, tz1, n=8, ease="lin"):
+    """arc() with the centre and target height lerped too."""
+    ks = []
+    for k in range(n + 1):
+        u = k / n
+        w = 1 - (1 - u) ** 2 if ease == "out2" else u
+        c = tuple(a + (b - a) * w for a, b in zip(c0, c1))
+        ks.append(orbit(t0 + (t1 - t0) * u, r0 + (r1 - r0) * w, a0 + (a1 - a0) * w, h0 + (h1 - h0) * w, c, 30, "lin",
+                        tz0 + (tz1 - tz0) * w))
+    return ks
+
+
+def part(n, keys_, hinge_name=None):
+    blend = f"{P}/{n}.blend" if n.endswith("mm") else f"{P}/{n}_panel.blend"
+    d = {"blend": blend, "keys": keys_}
+    if hinge_name:
+        h = hinge(hinge_name); d.update(pivot=h["pivot"], axis=h["axis"])
+    return d
+
+
+def lk(t, loc=(0, 0, 0), rot=(0, 0, 0), ease="inout"):
+    return {"t": t, "loc": list(loc), "rot": list(rot), "ease": ease}
+
+
+SECS.update({"v3_s1_whole": 5.0, "v3_s3_front": 7.4, "v3_s4_doors": 5.0, "v3_s5_rear": 5.0,
+             "v3_g1_front_lift": 3.8, "v3_g2_side_rear_lift": 3.8, "v3_g3a_home": 2.6, "v3_g3b_clean": 2.6})
+
+# S1 whole car, front-right 3/4 push-in (car 79-84 % of the width), moving from frame 1
+SHOTS["v3_s1_whole"] = {"base": [CAR], "cam": arc2(0, 5.0, 6.8, 5.6, -42, -30, 1.25, 1.05, (0, -0.10, 0.60),
+                                                  (0, -0.35, 0.55), 0.60, 0.55)}
+# S3 front section, one held shot: hood opens (b13-16), front bumper slides toward camera (b16-18), tips its inner face up (b18-21)
+SHOTS["v3_s3_front"] = {"base": [f"{P}/front_base.blend"],
+    "parts": [swing("hood", BEAT, 4 * BEAT),
+              part("front_bumper_3mm", [lk(0), lk(4 * BEAT), lk(6 * BEAT, (0, -1.20, -0.10), ease="out"),
+                                        lk(9 * BEAT, (0, -1.20, -0.10), (90, 0, 0)), lk(12 * BEAT, (0, -1.20, -0.10), (90, 0, 0))])],
+    "cam": keys((0, (-2.6, -4.3, 2.0), (0, -1.3, 0.65)), (2.4, (-2.2, -4.6, 2.3), (0, -1.6, 0.6)),
+                (4.2, (-1.5, -4.9, 2.9), (0, -2.3, 0.45), "inout"), (7.4, (-1.0, -4.66, 2.97), (0, -2.7, 0.35), "out2"))}
+# S4 side: both butterfly doors (b25-29), side-on from slightly behind, pushing toward the cabin
+SHOTS["v3_s4_doors"] = {"base": [f"{P}/doors_base.blend"],
+    "parts": [swing("door", BEAT, 5 * BEAT), swing("door2", BEAT, 5 * BEAT)],
+    "cam": keys((0, (-4.0, -0.9, 1.25), (-0.3, -0.2, 0.85)), (3.0, (-3.6, 0.3, 1.6), (-0.2, -0.2, 0.95)),
+                (5.0, (-3.0, 0.9, 1.9), (-0.1, -0.15, 0.85), "out2"))}
+# S5 rear: rear bumper slides toward camera (b33-35), tips inner face up (b35-37), camera rises to straight behind
+SHOTS["v3_s5_rear"] = {"base": [f"{P}/rear_base.blend"],
+    "parts": [part("rear_bumper_only_3mm", [lk(0), lk(BEAT), lk(3 * BEAT, (0, 1.20, -0.10), ease="out"),
+                                            lk(5 * BEAT, (0, 1.20, -0.10), (-90, 0, 0)), lk(8.4 * BEAT, (0, 1.20, -0.10), (-90, 0, 0))])],
+    "cam": keys((0, (-2.5, 4.1, 1.1), (0, 1.5, 0.6)), (1.8, (-1.9, 4.5, 2.2), (0, 2.2, 0.5)),
+                (5.0, (0.0, 4.75, 2.9), (0, 2.7, 0.35), "out2"))}
+
+# Progressive explode: one global timeline T (s from b40 = 24.035), translate only; each shot = a window of it.
+def xkeys(home_until, out_t, off, drift_t, back0, back1, ang=None):
+    ks = [{"t": -10, "loc": [0, 0, 0]}, {"t": home_until, "loc": [0, 0, 0]},
+          {"t": out_t, "loc": list(off), "ease": "out"},
+          {"t": drift_t, "loc": [o * 1.06 for o in off], "ease": "lin"},
+          {"t": back0, "loc": [o * 1.06 for o in off], "ease": "lin"},
+          {"t": back1, "loc": [0, 0, 0], "ease": "in"}, {"t": 20, "loc": [0, 0, 0], "ease": "lin"}]
+    for k in ks:
+        if ang is None:
+            k["rot"] = [0, 0, 0]
+        else:
+            k["ang"] = 0.0
+    if ang is not None:
+        for k in ks[2:5]:
+            k["ang"] = ang
+    return ks
+
+
+def explode_parts(shift):
+    hd, d1, d2 = hinge("door"), hinge("door2"), None
+    specs = [("hood", xkeys(0.0, 1.2, (0, 0.05, 1.35), 7.2, 8.4, 9.6), None),
+             ("front_bumper_3mm", xkeys(0.6, 1.8, (0, -0.35, 0.75), 7.2, 8.4, 9.6), None),
+             ("door2", xkeys(3.6, 4.8, (0.45, 0.05, 0.65), 7.8, 7.8, 9.0, hinge("door2")["open_deg"] * 0.35), "door2"),
+             ("door", xkeys(4.2, 5.4, (-0.45, 0.05, 0.65), 7.8, 7.8, 9.0, hinge("door")["open_deg"] * 0.35), "door"),
+             ("rear_bumper_only_3mm", xkeys(4.8, 6.0, (0, 0.35, 0.85), 7.2, 7.2, 8.4), None)]
+    out = []
+    for n, ks, hn in specs:
+        for k in ks:
+            k["t"] = round(k["t"] - shift, 4)
+        out.append(part(n, ks, hn))
+    return out
+
+
+SHOTS["v3_g1_front_lift"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts(0.0),
+    "cam": arc2(0, 3.8, 4.6, 4.3, 35, 50, 2.9, 2.7, (0, -1.0, 1.0), (0, -1.0, 1.0), 1.1, 1.1)}
+SHOTS["v3_g2_side_rear_lift"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts(3.6),
+    "cam": arc2(0, 3.8, 5.8, 5.5, 80, 100, 2.4, 2.6, (0, 0.55, 1.0), (0, 0.55, 1.0), 1.15, 1.15)}
+_g3cam = arc2(0, 5.0, 6.4, 5.9, 140, 150, 3.0, 2.3, (0, 0.10, 0.70), (0, 0.10, 0.70), 0.9, 0.6, ease="out2")
+SHOTS["v3_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts(7.2), "cam": _g3cam}
+# G3b: the clean car from the lock (T 9.6 = b56) on, same camera continued (t offset 2.4)
+SHOTS["v3_g3b_clean"] = {"base": [CAR], "cam": [dict(k, t=round(k["t"] - 2.4, 4)) for k in _g3cam]}
+
+
 def spec(name, mode, frames=None):
     s = SHOTS[name]
     final = mode == "final"
