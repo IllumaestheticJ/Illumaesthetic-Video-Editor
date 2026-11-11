@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11

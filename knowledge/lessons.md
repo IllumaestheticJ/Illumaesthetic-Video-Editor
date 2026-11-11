@@ -377,3 +377,16 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** (honda-s2000) A file named like a state ("S2000 trunk.stl") is not proof of an open-state capture. v1-v4 opened
   the trunk and floated the lid from it; the reviewer called it made-up. Only animate a panel open/off when a scan of that
   exact state of THIS car exists and you have confirmed what it shows (ask if unsure); otherwise keep the panel shut.
+## From the Subaru STI GD blobeye scan reel (2026-11-11, built by an agent)
+- **[technical]** Look for an `Aligned ...` folder next to the scans: it may hold a level, nose-forward copy of the car
+  (STI: `Front bumper/Aligned for Splitter`). Register the hi-res car onto it (FPFH+RANSAC+ICP, 1.4 mm) instead of hand-levelling.
+- **[technical]** State scans from older sessions may carry a different bumper/lip: fit their ICP only on rigid shared panels
+  (hood/fenders, `refine.py --box`) and use ONE correction for every scan of that session (cross-check the residual table).
+- **[scan-look]** When a part scan doesn't match the car's own panel, carve the panel from the full car (car tris > 12 mm from the
+  matching "removed" state, largest island) - it seats exactly on reassembly. Fill each opening only with its own state scan, in its own box.
+- **[technical]** 15 fps renders + minterpolate leave a 3-frame freeze at the end of every clip (N frames carry (N-1)/15 s and the filter
+  drops ~2 tail frames). Set `src_fps = (N-1)/(dur + 3/30)` or render 3 extra frames; check frame diffs before each cut.
+- **[text]** Scans capture licence plates legibly - check rear/front plates at full res in every rear shot; flatten them with a deplate
+  pass (infiniti-g35 / subaru-sti-blobeye tools/deplate.py) and frame close-ups to keep plates out.
+- **[pacing]** Generated eurobeat with a constant rolling bass: no kick drop to cut on - find the lifts as per-bar brightness steps
+  (2-6 kHz / 6-11 kHz band energy) and put the hood opening / separation on them.

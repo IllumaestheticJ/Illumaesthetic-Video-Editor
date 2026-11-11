@@ -6,7 +6,7 @@
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: subaru-sti-blobeye
 format: reel-9x16
-output: {path: /home/user/media/work/sti/out/subaru_sti_blobeye_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/sti/out/subaru_sti_blobeye_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/subaru-sti-blobeye_track.mp3
@@ -18,43 +18,43 @@ beats: [4.800, 7.967, 9.533, 11.100, 12.700, 17.433, 22.167, 34.800]
 timeline:
   - id: s1_front34   # low front-right 3/4 turntable, moving from frame 1
     src: /home/user/media/work/sti/renders/final/s1_front34
-    src_fps: 15
+    src_fps: 14.589   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 4.7667
   - transition: {type: cut, note: "bar line 4.800 s"}
   - id: s2_rear34   # rear-left 3/4 orbit, wing against black
     src: /home/user/media/work/sti/renders/final/s2_rear34
-    src_fps: 15
+    src_fps: 14.388   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 3.1667
   - transition: {type: cut, note: "bar line 7.967 s"}
   - id: s3_wheel   # extreme close-up: front-right wheel, caliper, disc (2 mm)
     src: /home/user/media/work/sti/renders/final/s3_wheel
-    src_fps: 15
+    src_fps: 13.800   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 1.5667
   - transition: {type: cut, note: "bar line 9.533 s"}
   - id: s4_light   # blobeye headlight -> hood scoop crane (2 mm)
     src: /home/user/media/work/sti/renders/final/s4_light
-    src_fps: 15
+    src_fps: 13.800   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 1.5667
   - transition: {type: cut, note: "bar line 11.100 s"}
   - id: s8_wing   # wing end plate + tail light (2 mm), plate kept out of frame
     src: /home/user/media/work/sti/renders/final/s8_wing
-    src_fps: 15
+    src_fps: 13.529   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 1.6000
   - transition: {type: cut, note: "bar line 12.700 s"}
   - id: s5_hood   # hood opens on its rear hinge over the Engine Bay scan, from 1 beat after the 12.69 lift
     src: /home/user/media/work/sti/renders/final/s5_hood
-    src_fps: 15
+    src_fps: 14.483   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 4.7333
   - transition: {type: cut, note: "bar line 17.433 s"}
   - id: s6_top   # top-down, slow spin + push
     src: /home/user/media/work/sti/renders/final/s6_top
-    src_fps: 15
+    src_fps: 14.483   # (N-1)/(dur+3 frames): minterpolate drops ~2 tail frames; motion runs through the cut
     interpolate: true
     dur: 4.7333
   - transition: {type: cut, note: "bar line 22.167 s"}
