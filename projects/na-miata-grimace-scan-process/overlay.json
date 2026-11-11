@@ -2,18 +2,18 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 784,
+ "durationInFrames": 785,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "brackets",
    "from": 87,
-   "duration": 104
+   "duration": 96
   },
   {
    "kind": "label",
-   "from": 98,
-   "duration": 92,
+   "from": 94,
+   "duration": 88,
    "title": "ENGINE BAY",
    "sub": "4,997,392 TRIANGLES",
    "x": 0.08,
@@ -21,8 +21,8 @@
   },
   {
    "kind": "label",
-   "from": 266,
-   "duration": 70,
+   "from": 272,
+   "duration": 73,
    "title": "FRONT BUMPER REMOVED",
    "sub": "4,994,051 TRIANGLES",
    "x": 0.08,
@@ -30,21 +30,21 @@
   },
   {
    "kind": "label",
-   "from": 336,
-   "duration": 78,
+   "from": 345,
+   "duration": 68,
    "title": "CRASH BEAM",
-   "sub": "BUMPER REINFORCEMENT \u00b7 AS SCANNED",
+   "sub": "FRONTEND STRIPPED SCAN",
    "x": 0.08,
    "y": 0.1
   },
   {
    "kind": "brackets",
-   "from": 451,
-   "duration": 104
+   "from": 453,
+   "duration": 97
   },
   {
    "kind": "label",
-   "from": 476,
+   "from": 471,
    "duration": 78,
    "title": "FULL EXTERIOR",
    "sub": "24,993,431 TRIANGLES",
