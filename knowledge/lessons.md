@@ -549,3 +549,12 @@ lands here automatically. Agents must read this whole file before editing.
   `dur` then pads with frozen frames; render ~0.2 s more than the clip needs or the director report shows dead frames.
 - **[technical]** (porsche-gt3rs-992 v2) For parts that stay on in a part-explode, rebuild the composite cutting ONLY the moving
   parts; overlaying a static part on a cut-out leaves a visible gap line around it.
+## From the Nissan Frontier v2 (2026-11-11, built by an agent)
+- **[technical]** A removed-part scan can carry its own copy of a neighbouring part (Frontier bumper scan includes the grille,
+  6-30 mm off the separate grille scan). An 8 mm proximity cut misses it and the explode shows two grilles. Cut by the
+  neighbour's bbox + a 40 mm distance, then render the part alone before animating it.
+- **[text]** Section labels in close-ups need a dark plate (white text vanished on the white hood); put them in the black band
+  above/below the subject. For a part whose centroid falls off the part (flares spanning both arches), anchor the leader on
+  the largest highlighted blob in the render frame instead (projects/nissan-frontier/tools/labels.py anchor_pixels).
+- **[pacing]** Broadband 1 ms onsets ran ~50 ms ahead of the 93 ms-STFT kick-band grid after this track's drop; measure every
+  cut beat's onset (tools/onsets.py) and verify on the delivered file (tools/cutcheck.py) - v1 had cuts 40-60 ms late.

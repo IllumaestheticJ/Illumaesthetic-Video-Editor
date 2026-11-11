@@ -1,68 +1,111 @@
-# Nissan Frontier Pro-4X - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 /
-# huracan-evo / a90-supra. Satin-silver scan on black: 3/4 turntables -> extreme close-ups -> front opens (bumper off,
-# hood up) -> top-down -> exploded view separates + reassembles -> ILLUMAESTHETIC logo.
-# Shots: tools/shots.py (specs, timing.json) + tools/shot.py (keyed camera + moving parts). Parts/bases: tools/parts.py,
-# tools/composite.py. Music: original track generated for this reel by the coordinating session ("rugged desert rock").
-# Kick grid 0.6035 s (99.4 BPM) phase 0.024 (tools/accents.py). Drop 9.681 after a silent beat; crash hit 27.787;
-# music ends ~37.44, silent ~38.8.
-# Cuts on frames round(t*30): 146, 290, 363, 435, 580, 689, 1015; end 1152 (38.4 s).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# v2 - user: 'highlight and label each unique scan section' + all-reels v2 brief/addendum A-D (relayed). Order from
+# direction.md / director.md (scene-director + director agents). v1: project_v1.yaml.
+# Cut-only assembly with exact frames: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
+# Cut frames on broadband onsets: 146 290 434 541 614 725 833 1015; end 1151 (38.367 s). Labels: tools/labels.py per shot.
 project: nissan-frontier
 format: reel-9x16
-output: {path: /home/user/media/work/frontier/out/nissan_frontier_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-frontier_track.mp3   # not in git
   start: 0
   fade_out: 0.6
 
-beats: [4.852, 9.681, 12.095, 14.509, 19.337, 22.959, 33.822]
+beats: [4.882, 9.657, 14.459, 18.038, 20.466, 24.177, 27.781, 33.826]
 
 timeline:
-  - id: s1_front34     # low front-right 3/4 turntable, moving from frame 1 (hook); bed runs out of frame
-    src: /home/user/media/work/frontier/renders/final/s1_front34
+  - id: v2_s1_wide
+    section: whole
+    focus: "whole truck, front-right 3/4, moving from frame 1"
+    src: /home/user/media/work/frontier/renders/final/v2_s1_wide
     src_fps: 15
     interpolate: true
-    dur: 4.8333
-  - transition: {type: cut, note: "4.852 phrase start (b8)"}
-  - id: s2_rear34      # low rear-left 3/4 orbit, tailgate + bed, rising
-    src: /home/user/media/work/frontier/renders/final/s2_rear34
+    frames: 146
+    dur: 4.8667
+  - transition: {type: cut}
+  - id: v2_s2_grille
+    section: front
+    focus: "grille + badge close-up; GRILLE highlighted + labelled"
+    src: /home/user/media/work/frontier/renders/final/v2_s2_grille
     src_fps: 15
     interpolate: true
-    dur: 4.8
-  - transition: {type: cut, note: "9.681 THE DROP (after the silent beat at 9.08)"}
-  - id: s3_grille      # extreme close-up: grille + right headlamp slide (2 mm)
-    src: /home/user/media/work/frontier/renders/final/s3_grille
+    frames: 144
+    dur: 4.8000
+  - transition: {type: cut}
+  - id: v2_s3_bumper
+    section: front
+    focus: "FRONT BUMPER off on the drop; grille lifts off it; bumper turns to show its scanned inside"
+    src: /home/user/media/work/frontier/renders/final/v2_s3_bumper
     src_fps: 15
     interpolate: true
+    frames: 144
+    dur: 4.8000
+  - transition: {type: cut}
+  - id: v2_s4_removed
+    section: front
+    focus: "FRONT BUMPER REMOVED state - push-in on what is behind the bumper"
+    src: /home/user/media/work/frontier/renders/final/v2_s4_removed
+    src_fps: 15
+    interpolate: true
+    frames: 107
+    dur: 3.5667
+  - transition: {type: cut}
+  - id: v2_s5_hood
+    section: front
+    focus: "HOOD lifts off (hood-removed state)"
+    src: /home/user/media/work/frontier/renders/final/v2_s5_hood
+    src_fps: 15
+    interpolate: true
+    frames: 73
     dur: 2.4333
-  - transition: {type: cut, note: "12.095 accent"}
-  - id: s4_arch        # extreme close-up: front-right arch, scanned suspension (no wheels on the lift)
-    src: /home/user/media/work/frontier/renders/final/s4_arch
+  - transition: {type: cut}
+  - id: v2_s6_struct
+    section: front
+    focus: "FRONT STRUCTURE (bumper + hood removed scan)"
+    src: /home/user/media/work/frontier/renders/final/v2_s6_struct
     src_fps: 15
     interpolate: true
-    dur: 2.4
-  - transition: {type: cut, note: "14.509 accent"}
-  - id: s5_open        # bumper+grille slide off landing on 16.923, hood lifts landing on 18.130
-    src: /home/user/media/work/frontier/renders/final/s5_open
+    frames: 111
+    dur: 3.7000
+  - transition: {type: cut}
+  - id: v2_s7_flares
+    section: side
+    focus: "FENDER FLARES rise off the arches"
+    src: /home/user/media/work/frontier/renders/final/v2_s7_flares
     src_fps: 15
     interpolate: true
-    dur: 4.8333
-  - transition: {type: cut, note: "19.337 accent (b32)"}
-  - id: s6_top         # high rear 3/4 rising to straight top-down, nose up
-    src: /home/user/media/work/frontier/renders/final/s6_top
+    frames: 108
+    dur: 3.6000
+  - transition: {type: cut}
+  - id: v2_s8_home
+    section: whole
+    focus: "parts home one per beat from the crash; FULL TRUCK; fade"
+    src: /home/user/media/work/frontier/renders/final/v2_s8_home
     src_fps: 15
     interpolate: true
-    dur: 3.6333
-  - transition: {type: cut, note: "22.959 - panels separate on the cut"}
-  - id: s7_explode     # separate 22.96-24.17, drift + orbit, start home on the 27.787 crash, LOCK 31.408, hold
-    src: /home/user/media/work/frontier/renders/final/s7_explode
-    src_fps: 15
-    interpolate: true
-    dur: 10.8667
-  - transition: {type: cut, note: "33.822 - logo over the track's ending"}
-  - id: logo           # ferrari-296/tools/logo_card.py --secs 4.5667 --width 760; fades with the track's tail
-    src: /home/user/media/work/frontier/out/logo_card.mp4
-    dur: 4.5667
+    frames: 182
+    dur: 6.0667
+    fade_out: 0.6
+  - transition: {type: cut}
+  - id: logo
+    section: logo
+    focus: "small ILLUMAESTHETIC logo after the fade"
+    src: /home/user/media/work/frontier/out/logo_card_v2.mp4
+    frames: 136
+    dur: 4.5333
 
-overlays: []
+overlays:
+  - src: /home/user/media/work/frontier/out/labels_v2_s2_grille.mov
+    start: 4.8667
+  - src: /home/user/media/work/frontier/out/labels_v2_s3_bumper.mov
+    start: 9.6667
+  - src: /home/user/media/work/frontier/out/labels_v2_s4_removed.mov
+    start: 14.4667
+  - src: /home/user/media/work/frontier/out/labels_v2_s5_hood.mov
+    start: 18.0333
+  - src: /home/user/media/work/frontier/out/labels_v2_s6_struct.mov
+    start: 20.4667
+  - src: /home/user/media/work/frontier/out/labels_v2_s7_flares.mov
+    start: 24.1667
+  - src: /home/user/media/work/frontier/out/labels_v2_s8_home.mov
+    start: 27.7667

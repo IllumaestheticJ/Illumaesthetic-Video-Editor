@@ -1,0 +1,68 @@
+# Nissan Frontier Pro-4X - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296 /
+# huracan-evo / a90-supra. Satin-silver scan on black: 3/4 turntables -> extreme close-ups -> front opens (bumper off,
+# hood up) -> top-down -> exploded view separates + reassembles -> ILLUMAESTHETIC logo.
+# Shots: tools/shots.py (specs, timing.json) + tools/shot.py (keyed camera + moving parts). Parts/bases: tools/parts.py,
+# tools/composite.py. Music: original track generated for this reel by the coordinating session ("rugged desert rock").
+# Kick grid 0.6035 s (99.4 BPM) phase 0.024 (tools/accents.py). Drop 9.681 after a silent beat; crash hit 27.787;
+# music ends ~37.44, silent ~38.8.
+# Cuts on frames round(t*30): 146, 290, 363, 435, 580, 689, 1015; end 1152 (38.4 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+project: nissan-frontier
+format: reel-9x16
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/nissan-frontier_track.mp3   # not in git
+  start: 0
+  fade_out: 0.6
+
+beats: [4.852, 9.681, 12.095, 14.509, 19.337, 22.959, 33.822]
+
+timeline:
+  - id: s1_front34     # low front-right 3/4 turntable, moving from frame 1 (hook); bed runs out of frame
+    src: /home/user/media/work/frontier/renders/final/s1_front34
+    src_fps: 15
+    interpolate: true
+    dur: 4.8333
+  - transition: {type: cut, note: "4.852 phrase start (b8)"}
+  - id: s2_rear34      # low rear-left 3/4 orbit, tailgate + bed, rising
+    src: /home/user/media/work/frontier/renders/final/s2_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "9.681 THE DROP (after the silent beat at 9.08)"}
+  - id: s3_grille      # extreme close-up: grille + right headlamp slide (2 mm)
+    src: /home/user/media/work/frontier/renders/final/s3_grille
+    src_fps: 15
+    interpolate: true
+    dur: 2.4333
+  - transition: {type: cut, note: "12.095 accent"}
+  - id: s4_arch        # extreme close-up: front-right arch, scanned suspension (no wheels on the lift)
+    src: /home/user/media/work/frontier/renders/final/s4_arch
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "14.509 accent"}
+  - id: s5_open        # bumper+grille slide off landing on 16.923, hood lifts landing on 18.130
+    src: /home/user/media/work/frontier/renders/final/s5_open
+    src_fps: 15
+    interpolate: true
+    dur: 4.8333
+  - transition: {type: cut, note: "19.337 accent (b32)"}
+  - id: s6_top         # high rear 3/4 rising to straight top-down, nose up
+    src: /home/user/media/work/frontier/renders/final/s6_top
+    src_fps: 15
+    interpolate: true
+    dur: 3.6333
+  - transition: {type: cut, note: "22.959 - panels separate on the cut"}
+  - id: s7_explode     # separate 22.96-24.17, drift + orbit, start home on the 27.787 crash, LOCK 31.408, hold
+    src: /home/user/media/work/frontier/renders/final/s7_explode
+    src_fps: 15
+    interpolate: true
+    dur: 10.8667
+  - transition: {type: cut, note: "33.822 - logo over the track's ending"}
+  - id: logo           # ferrari-296/tools/logo_card.py --secs 4.5667 --width 760; fades with the track's tail
+    src: /home/user/media/work/frontier/out/logo_card.mp4
+    dur: 4.5667
+
+overlays: []

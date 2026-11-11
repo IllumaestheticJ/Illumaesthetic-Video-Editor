@@ -1,19 +1,23 @@
-# Nissan Frontier Pro-4X scan reel v1 - self-review (training/rubric.md)
+# Nissan Frontier Pro-4X scan reel v2 - self-review (training/rubric.md). v1: review_v1.md
 
-Output: /home/user/media/work/frontier/out/nissan_frontier_v1.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.37 s (1151 frames).
-Scan only (no IRL footage, no text). Music: the reel's own generated track (nissan-frontier_track.mp3).
+Output: /home/user/media/work/frontier/out/nissan_frontier_v2.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC 320k, 38.37 s,
+1151 frames, cut-only assembly with exact frame counts (no duplicated frame at cuts).
+Changes vs v1: user note "highlight and label each unique scan section" + all-reels v2 brief/addendum A-D. Order from the
+scene-director/director agents (direction.md, director.md): whole truck -> GRILLE -> FRONT BUMPER (off on the drop, turns to
+show its scanned inside) -> FRONT BUMPER REMOVED (hero push-in) -> HOOD (lifts off; no hood-open scan, so no hinge) ->
+FRONT STRUCTURE -> FENDER FLARES -> parts home one per beat -> FULL TRUCK -> fade -> small logo.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Front 3/4 turntable moving from frame 1; no transformation until the drop (by design: scan-only Temerario style) |
-| 2 | Beat sync | 5 | Cuts measured from frame diffs: 4.867/9.667/12.100/14.500/19.333/22.967/33.833 vs 4.852/9.681/12.095/14.509/19.337/22.959/33.822 - all within +-15 ms (< 1/2 frame). Close-up lands on the drop (9.681); bumper lands on 16.923, hood on 18.130; parts start home on the 27.787 crash and lock on 31.408 |
-| 3 | 1:1 match | n/a | No IRL footage in this brief |
-| 4 | Scan quality | 4 | Lift pads/ground removed, mirrors kept; silver on black. No wheels anywhere (truck was scanned on a lift) - the arch close-up (s4) shows the real suspension but reads busy/dark in its lower half; hood underside is the outer shell only (closed-hood scan) |
-| 5 | Story | 4 | Turntables -> grille/arch close-ups -> front opens (bumper off, hood up, engine bay from the 'Bumper and Hood Removed' scan) -> top-down -> explode (hood, bumper, grille, flares) -> reassembled -> logo |
-| 6 | Grade | 4 | AgX, -0.5 EV; car median 183 / p90 249 vs ref ~200/231 - top-down roof still close to clipping |
-| 7 | Text | 5 | None (brief) |
-| 8 | Ending | 5 | Logo card (illumaesthetic.com header logo) from 33.82 s, fades with the track's tail; video ends 38.37 s where the music has decayed to -51 dB |
-| 9 | Technical | 4 | Spec correct; one held frame before each cut (assembler's documented cut compensation); 1 frame shorter than planned (1151 vs 1152) |
+| 1 | Hook | 4 | Whole truck in frame, orbit moving from frame 1; first part action is the drop at 9.66 |
+| 2 | Beat sync | 5 | Cuts vs broadband onsets of the delivered audio (cutcheck.py): -15.1/+9.9/+7.8/-5.1/+0.4/-10.0/-14.6 ms (all < 1/2 frame); parts land on measured onsets |
+| 3 | 1:1 match | n/a | scan-only brief |
+| 4 | Scan quality | 4 | Each section shown once, its own shot; bumper re-cut so it no longer carries a duplicate grille; no wheels (lift) and hood underside is the outer shell only |
+| 5 | Story | 5 | Travels front -> side -> rear; every removal backed by a registered state scan; bumper-removed state is the hero beat with label |
+| 6 | Grade | 4 | Silver -0.5 EV; per-frame luma clean in every render (lumacheck.py), persistent data off where parts move |
+| 7 | Text | 4 | One label at a time, names + section index only, dark plate for legibility; S6 label sits over the cab (plate keeps it readable) |
+| 8 | Ending | 5 | Parts home on the crash/accents, FULL TRUCK, 0.6 s fade, small logo riding the track's tail |
+| 9 | Technical | 5 | Spec correct, no dup frames, first/mid/last sheets of every shot checked |
 
-What to try next if the reviewer wants more: replace s4 with a rear-quarter/bed-rail close-up, or light the arch from below;
-split the flares into left/right so they move outward instead of up; a slower separation ease (parts are fully out ~0.6 s after the cut).
+Known gaps: parked bumper partly clipped at the lower-right edge in S5; S7 crops the bed (section shot on the arches).
+Labels claim only section names; FRONT BUMPER REMOVED sub = STATE SCAN. "CRASH BEAM" etc. not used (not provable from the render).

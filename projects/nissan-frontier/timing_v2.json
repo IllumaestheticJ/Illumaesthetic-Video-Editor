@@ -1,11 +1,11 @@
 {
- "note": "v2 (director.md). Cut frames on broadband onsets (onsets.json): 146 (b8 4.882), 290 (b16 9.657 drop), 434 (b24 14.459), 542 (b30 18.053), 614 (b34 20.466), 725 (b40 24.177), 833 (b46 27.781 crash), 1015 (b56 33.826); end 1151. Label windows are seconds from each SHOT start, entering on measured onsets.",
+ "note": "v2 (director.md). Cut frames on broadband onsets (onsets.json): 146 (b8 4.882), 290 (b16 9.657 drop), 434 (b24 14.459), 541 (b30 18.038; 542 measured +28 ms in v2 cutcheck), 614 (b34 20.466), 725 (b40 24.177), 833 (b46 27.781 crash), 1015 (b56 33.826); end 1151. Label windows are seconds from each SHOT start, entering on measured onsets.",
  "frames": {
   "v2_s1_wide": 146,
   "v2_s2_grille": 144,
   "v2_s3_bumper": 144,
-  "v2_s4_removed": 108,
-  "v2_s5_hood": 72,
+  "v2_s4_removed": 107,
+  "v2_s5_hood": 73,
   "v2_s6_struct": 111,
   "v2_s7_flares": 108,
   "v2_s8_home": 182,
