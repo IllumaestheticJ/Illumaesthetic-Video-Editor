@@ -1,0 +1,59 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 810,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 183,
+   "duration": 42,
+   "title": "REAR BUMPER",
+   "sub": "4,999,998 TRIANGLES",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 228,
+   "duration": 39,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "REAR BUMPER SCANNED",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 381,
+   "duration": 42,
+   "title": "FRONT BUMPER",
+   "sub": "1,800,000 TRIANGLES",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 426,
+   "duration": 39,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "FRONT BUMPER SCANNED",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "brackets",
+   "from": 474,
+   "duration": 105
+  },
+  {
+   "kind": "label",
+   "from": 480,
+   "duration": 96,
+   "title": "14,999,999 TRIANGLES",
+   "sub": "FULL CAR SCAN",
+   "x": 0.08,
+   "y": 0.12
+  }
+ ]
+}

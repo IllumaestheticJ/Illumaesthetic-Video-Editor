@@ -1,0 +1,1 @@
+{"ts": "2026-11-11T09:06:04Z", "project": "toyota-sera-scan-process", "at": null, "category": "text", "note": "ScanHUD counter (Easing.out(Easing.exp)) never reaches its value - it stops at 99.9 % (14,999,999 shows as 14,985,351; 240SX's 24,991,097 would show as 24,966,692). Use a label for exact counts or fix the easing", "by": "agent", "promoted": true}

@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11

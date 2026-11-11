@@ -287,3 +287,23 @@ lands here automatically. Agents must read this whole file before editing.
   onto the plate plane (tools/deplate.py) before rendering anything near it.
 - **[pacing]** A kick pick can lock onto an off-beat bass phase. Fold the band energies (sub / snare / hats) over one beat
   period and anchor the grid where they coincide; verify cut-to-kick error on the delivered file.
+- **[text]** ScanHUD counter (Easing.out(Easing.exp)) never reaches its value - it stops at 99.9 % (14,999,999 shows as 14,985,351; 240SX's 24,991,097 would show as 24,966,692). Use a label for exact counts or fix the easing  _(from toyota-sera-scan-process, 2026-11-11, agent)_
+
+## From the Toyota Sera scan-process reel (2026-11-11, built by an agent)
+- **[technical]** Sony FX30 footage is S-Log3 / S-Gamut3.Cine 4:2:2 10-bit (XML sidecar), not HLG - `ive` does not tonemap
+  it. Grade with a generated LUT (projects/toyota-sera-scan-process/tools/slog3_lut.py: legal-range decode -> S-Log3
+  inverse -> SGamut3.Cine->709 -> Hable -> 709 OETF) and crop 16:9 to a 9:16 window per clip (tools/irl.py --last N
+  trims the START so the clip still ends on the solved frame). FX30 XMLs name the lens but record no focal length.
+- **[technical]** The environment allowlist has a size cap; per-link Dropbox hosts fill it. Ask for `*.dl.dropboxusercontent.com`
+  in Settings up front, and don't race sibling sessions editing the same environment.
+- **[match-cut]** A cropped 9:16 window of a 4K frame is a telephoto camera (Sera front: ~14 deg FOV). A 1.6 m bumper
+  cannot explode inside it and a pull-back with the large lens shift drifts the car out of frame - hold the 1:1 bay for
+  2 beats, then cut on an accent to a wide 3/4 for the explode.
+- **[match-cut]** Gradient-correlation pose refiners on a splat render will "improve" the score with a degenerate pose
+  (14 deg roll, camera at 0.34 m). Constrain to small local steps or don't use; the onion is the judge.
+- **[scan-look]** State scans can carry unrelated changes (Sera 'Rear Bumper Removed' was captured with the hatch open and
+  tail lights out). For the x-ray reassembly, cut the bumper surfaces out of the clean full car instead (triangles within
+  12 mm of the part scans, tools/trim_by_parts.py) so the end frame is the closed car the listing shows.
+- **[story]** The listing hero may not be exactly recoverable from the scan (Sera: front/roof align but the rear wheel
+  ghosts ~70 px whatever the camera). Score candidates by gradient NCC inside the car, not silhouette IoU (IoU was flat
+  0.84-0.87 across very different cameras).

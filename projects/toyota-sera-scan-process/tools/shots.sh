@@ -16,9 +16,9 @@ for s in "${@:-s1 s3 s5 s6 s7}"; do
   s5) python -m ive render -- --scene $W/compA.blend --camera $P/match/cam_front.json --look silver --move push --move-amount 0.04 --ease ease_out --seconds 1.2 $Q --out $OUT/s5_front ;;
   s6) python -m ive render -- --scene $W/compA.blend --camera $W/cam_front_wide.json --look silver --move orbit --move-amount 10 --ease ease_in_out --seconds 3.0 $Q \
         --explode "$W/fbump_2mm.blend:0.232,0.869,1.15:0.05:0.45:z180:0.42:0.95" --out $OUT/s6_frontx ;;
-  s7) python -m ive render -- --scene $W/compB.blend --camera $P/match/cam_xray_start.json --look xray --move orbit --move-amount 40 --look-at 0,0,0.7 --ease ease_in_out --seconds 4.8 $Q \
+  s7) python -m ive render -- --scene $W/xbase.blend --camera $P/match/cam_xray_start.json --look xray --move orbit --move-amount 40 --look-at 0,0,0.7 --ease ease_in_out --seconds 4.8 $Q \
         --explode "$W/fbump_2mm.blend:0.116,0.435,0.95:r0.08:0.55" --explode "$W/rbump_2mm.blend:-0.400,-1.497,0.6:r0.15:0.62" \
-        --morph-to-clay 0.80,1.0 --morph-bg 0.0065,0.0068,0.0065 --clay-color 0.30,0.30,0.31 --out $OUT/s7_xray ;;
+        --morph-to-clay 0.80,1.0 --morph-bg 0.0080,0.0090,0.0080 --clay-color 0.05,0.05,0.05 --out $OUT/s7_xray ;;
   esac
   echo "DONE $s $(date +%T)"
 done
