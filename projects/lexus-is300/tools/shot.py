@@ -169,7 +169,7 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    sc.render.use_persistent_data = bool(spec.get("persistent", False))  # off: animated scenes black out with it on (ferrari-296)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.view_settings.exposure = spec.get("exposure", 0.0)
