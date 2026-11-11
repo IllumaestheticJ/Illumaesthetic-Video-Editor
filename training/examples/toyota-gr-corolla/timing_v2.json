@@ -1,0 +1,4 @@
+{"note": "v2 on toyota-gr-corolla_track.mp3 (140 BPM, beat 0.4286, t0 0.0825). Cut frames: 105 (b8 3.511), 208 (b16), 311 (b24), 363 (b28), 414 (b32 DROP), 517 (b40), 620 (b48), 723 (b56), 825 (b64 DROP 2), 980 (b76 LOCK -> clean car), 1031 (b80, dip 0.5 s to the small logo), end 1146. Part keys are shot-relative seconds = (accent frame - shot start)/30.",
+ "beat": 0.4286,
+ "secs": {"a1_front": 3.4667, "a2_rear": 3.4333, "a3_top": 3.4333, "a4_wheel": 1.7333, "a5_nose": 1.7, "b1_fbumper": 3.4333, "b2_front_detail": 3.4333, "b3_rbumper": 3.4333, "b4_diffuser": 3.4, "c1_explode": 5.1667, "c2_hero": 1.7},
+ "fb_off": [0.0667, 1.7], "rb_off": [0.0667, 1.2667], "rb_turn": [1.2667, 2.9667], "df_off": [0.0667, 1.7], "home": [2.6, 5.1667]}

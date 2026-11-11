@@ -4,7 +4,7 @@ Total 38.67 s. Sections (s): whole 6.9, front 15.42, side 1.73, rear 10.26, unta
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_whole | 0.0 | 3.47 | whole | whole car, front-right 3/4 | 0.14 | 3.33 | 9.5->9.8 | dead frames 3.3s (nothing moves) - trim or give the hold a reason |
+| s1_whole | 0.0 | 3.47 | whole | whole car, front-right 3/4 | 0.47 | 1.33 | 7.8->9.5 | dead frames 1.3s (nothing moves) - trim or give the hold a reason |
 | s2_wheel | 3.47 | 3.43 | front | front-right wheel and arch | 7.28 | 0.0 | 39.9->38.0 |  |
 | s3_hood | 6.9 | 3.43 | front | hood vents | 9.67 | 0.0 | 60.2->58.7 |  |
 | s4_nose | 10.33 | 3.43 | front | headlight and grille | 9.21 | 0.0 | 48.7->49.4 |  |
@@ -18,7 +18,7 @@ Total 38.67 s. Sections (s): whole 6.9, front 15.42, side 1.73, rear 10.26, unta
 | logo | 34.33 | 4.33 |  |  | 0.23 | 3.33 | 0.2->1.9 |  |
 
 ## Repeated views
-- s1_whole ~ s6_side (IoU 0.81, corr 0.87): same view shown twice
+- s1_whole ~ s6_side (IoU 0.72, corr 0.82): same view shown twice
 - s4_nose ~ s9_mounts (IoU 0.73, corr 0.76): same view shown twice
 - s8_rbumper ~ s9_mounts (IoU 0.95, corr 0.98): same view shown twice in the same section - merge or cut one
 - s10_reassemble ~ s11_clean (IoU 0.93, corr 0.98): same view shown twice in the same section - merge or cut one

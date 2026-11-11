@@ -1,19 +1,20 @@
-# Self-review - Toyota GR Corolla scan reel v3 (`toyota_gr_corolla_v3.mp4`, 38.17 s, 1080x1920)
+# Self-review - Toyota GR Corolla scan reel v2 (`toyota_gr_corolla_v2final.mp4`, 38.17 s, 1080x1920)
 
-Scan-only Temerario-style reel; no IRL footage, no text, so the 1:1 cut and text criteria are judged as "n/a - held".
+Scan-only Temerario-style reel rebuilt from the reviewer's v1 notes ("same standard v1 issues") + the parent v2 brief
+and addendum A-D. Shot plan in direction.md (scene-director); `ive director` report in director_report.md.
 
 | # | Criterion | Score | Evidence |
 |---|---|---|---|
-| 1 | Hook | 3 | Turntable moves from frame 1, but the first 13.8 s sit on a no-kick build; the first transformation (hood) is on the drop at 13.8 s. Brief order (turntables first) and the track's build put it there. |
-| 2 | Beat sync | 5 | Cuts measured from frame diffs at 208/311/363/414/517/620/723/1031 = planned; drop-side cuts within 4-21 ms of decoded kicks; build cuts on the 140 BPM grid (b16/b24/b28). Hood lifts b33-36, panels separate on drop 2 (27.50 vs 27.513), lock 32.66. |
+| 1 | Hook | 4 | Whole car (fully in frame, ~5 % side margins) pushing in from frame 1; first part comes off on the drop at 13.8 s - the track's no-kick build carries three front detail shots (wheel, hood vents, nose) before it. |
+| 2 | Beat sync | 5 | Cuts from frame diffs 105/208/311/414/568/620/723/(825)/928/(980) + dip 1031 = plan. Kick onsets measured on the decoded audio of the delivered mp4 sit within 15 ms of the 140 BPM grid; every cut within ~0.5 frame of its kick (825: +0.54). |
 | 3 | 1:1 match | n/a | No IRL in this brief. |
-| 4 | Scan quality | 4 | Silver on black, no ground; rear wheels filled from the registered 'rear' state scan (rear-left real, rear-right partial - framed away, briefly visible at the explode start). Hatch cargo floor has capture holes; the hood/hatch that open are skins cut from the full car (single surface). Slight minterpolate ghosting on the drop-2 frame (fast pull-back). |
-| 5 | Story | 4 | Car -> details -> hood/hatch open onto real scanned structure -> top-down -> front bumper, rear bumper and diffuser lift off (each physically removed and scanned, per the new standing rule) revealing the 'removed' state scans -> back together -> logo. v2 also flew hood/fender/door/hatch skins cut from the car; removed in v3 under the rule. |
-| 6 | Grade | 5 | Single AgX silver look throughout; logo card on the render black. |
-| 7 | Text | 5 | None, per brief. |
-| 8 | Ending | 4 | Logo on the b80 phrase line (34.37), music ends ~37.8 and fades with the card; video ends 38.17 at -30 dB. |
-| 9 | Technical | 5 | 1080x1920, 30 fps, yuv420p, AAC, faststart, 1145 frames, no black/dup frames at cuts (Cycles persistent-data glitch blacked frames 134-155 of the explode twice; tail re-rendered as stills, brightness continuous). |
+| 4 | Scan quality | 4 | Silver on black; plate blanked with a grid panel; rear-right wheel only partial so front shots are from the right, rear shots from the left. Composite bases show small capture holes behind the removed bumpers. |
+| 5 | Story | 4 | Front -> side -> rear, one sequence per section: wheel, hood vents, nose -> front bumper off + inner face (Chassis Stripped structure behind) -> left flank -> diffuser off -> rear bumper off + inner face -> crash beam -> crash bar removed / mounting points -> reassembly -> clean scan -> fade -> small logo. Only parts that were removed AND scanned move. No hood/hatch opening (no registered open scan). |
+| 6 | Grade | 5 | One AgX silver look; luma per frame continuous (min 22, max jump 3.0 = bumper exit). |
+| 7 | Text | 4 | Six short factual labels only on removed-state scans (FRONT BUMPER REMOVED, DIFFUSER REMOVED, REAR BUMPER REMOVED, CRASH BEAM, CRASH BEAM REMOVED, MOUNTING POINTS), all in clear black, checked on frames. Front structure is unlabeled (no front-bumper-removed state scan, only Chassis Stripped). |
+| 8 | Ending | 5 | 1.7 s clean-scan lock, 0.5 s dip on b80, 540 px logo; music fades with the card. |
+| 9 | Technical | 5 | 1080x1920, 30 fps, yuv420p, AAC, faststart, 1145 frames; only black frames are the planned dip and logo fade. |
 
-Risks for the reviewer: long slow intro (6.9 s first shot) may want tightening; hood/hatch opening uses skins cut
-at the seams (no separate hood/hatch scans in the car's frame) - the hatch has a real open-state scan, the hood reveals
-the Chassis Stripped scan; the exploded view is smaller than siblings' because only three parts qualify under the rule.
+Director flags kept on purpose: s8->s9 and s10->s11 (same-camera state swaps), s1~s6 and s4~s9 (silhouette
+coincidence across sections). Risks: the 13.8 s build before the first removal; s5/s9 are section close-ups where the
+car runs off one edge by design.

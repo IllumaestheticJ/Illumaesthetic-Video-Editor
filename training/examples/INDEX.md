@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
@@ -26,7 +27,6 @@ Newest first. Read the top two before starting a new edit.
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11
 - [c5-corvette](c5-corvette/) - archived 2026-11-11
-- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11
