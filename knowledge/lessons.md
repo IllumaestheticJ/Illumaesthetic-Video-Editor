@@ -433,3 +433,11 @@ lands here automatically. Agents must read this whole file before editing.
   open-lid points -> moved lid); confirm with a side-view splat. Gives a real opening motion from partial data.
 - **[pacing]** Generated tracks: `ive beats` reported 63 BPM for a 126 BPM track (half-time) - fit the grid to kick peaks; and
   measure the end from the RMS envelope (file 40.05 s, music gone by 38.9 s).
+
+- **[scan-look]** CROPPING: frame every shot on its subject with deliberate margins in 9:16 - whole car fully in frame on wide shots, the named section filling the frame on detail shots; nothing clipped by accident (wheels, bumpers, wings, roof); no dead black where the subject should be. Check a contact sheet of the FIRST, MIDDLE and LAST frame of every shot before assembling.  _(from ferrari-296, 2026-11-11, user)_
+
+- **[story]** REDUNDANCY: each section of the car (front, side, rear, top, engine bay, wheels...) appears in ONE continuous sequence only; two shots of the same section get merged or one is cut. Run python -m ive director, remove every repeated view it flags, and list in direction.md which section each shot covers.  _(from ferrari-296, 2026-11-11, user)_
+
+- **[story]** BUMPER-REMOVED DATA IS THE HERO BEAT: where a bumper-removed / front- or rear-end-removed state scan exists, give it its own section - the bumper comes off and the camera moves in on what is behind it (crash beam, mounts, brackets, wiring, ducts), held long enough to read, with a short factual on-screen label (e.g. FRONT BUMPER REMOVED, CRASH BEAM, MOUNTING POINTS) over scan shots only, wording backed by the scan files.  _(from ferrari-296, 2026-11-11, user)_
+
+- **[story]** OPENINGS ONLY FROM DATA: show a trunk, hood or door open (or a part removed) only if a scan of that state of THIS car exists and registers. Never fake an opening by animating the closed scan; no trunk-open scan means no trunk shot.  _(from ferrari-296, 2026-11-11, user)_

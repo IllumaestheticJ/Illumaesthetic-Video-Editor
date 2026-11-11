@@ -39,3 +39,20 @@ Write the plan where you are told (default `projects/<p>/director.md`):
 - Render budget: frames to render at 15 fps, and which existing renders are reused unchanged.
 Keep total length and the music's cut points unless the feedback says otherwise. Be concrete and decisive; the editor
 should be able to implement the plan without asking you anything.
+
+## Standing rules from the user (all reels, 2026-11-11) - these override anything above
+"They are consistently poorly cropped, and there's a lot of redundant shots that show the same sections. Scans with
+bumper removed data need that highlighted, labeled, and shown in detail. Not all scans need the trunk removed - only if
+there's actual scan data for it."
+- **A. Cropping.** Frame every shot on its subject with deliberate 9:16 margins: wide = the whole car fully in frame;
+  detail = the named section fills the frame. Nothing clipped by accident (wheels, bumpers, wings, roof); no dead black
+  where the subject should be. Require a contact sheet of the FIRST, MIDDLE and LAST frame of every shot before assembly.
+- **B. Redundancy.** Each section (front, side, rear, top, engine bay, wheels, ...) appears in ONE continuous sequence.
+  Same section twice = merge or cut. Remove every repeated view `ive director` flags, and list the section of every shot.
+- **C. Bumper-removed data is the hero beat.** If a bumper-removed / front- or rear-end-removed state scan exists, it gets
+  its own section: the bumper comes off, the camera moves in on what is behind it (crash beam, mounts, brackets, wiring,
+  ducts) and holds long enough to read, with a short factual label (e.g. FRONT BUMPER REMOVED, CRASH BEAM, MOUNTING
+  POINTS) - labels only over scan shots, wording backed by the scan files, never invented specs. Look at the render
+  before naming a component.
+- **D. Openings only from data.** A trunk/hood/door is shown open (or a part removed) only if a registered scan of that
+  state of THIS car exists. Never fake an opening by animating the closed scan; no trunk-open scan = no trunk shot.

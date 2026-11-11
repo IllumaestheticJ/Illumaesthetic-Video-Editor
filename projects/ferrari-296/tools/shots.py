@@ -181,8 +181,10 @@ PARTS_V3 = {
                                         _k(20.164, BUMP_FAR, (0, 0, 65)), _k(23.067, BUMP_FAR, (0, 0, 80), "lin"),
                                         _k(31.189, BUMP_FAR, (0, 0, 80), "lin"), _k(31.770, BUMP_OUT, Z3),
                                         _k(32.350, Z3, Z3, "in")]),
-    "x_ecover": ((0, 1.63, 0.9), [_k(-100), _k(23.650), _k(24.810, Z3, (85, 0, 0)), _k(31.189, Z3, (85, 0, 0), "lin"),
-                                  _k(32.350, Z3, Z3, "in")]),
+    # all-reels addendum D: no engine-lid-OPEN scan exists, only "Engine Bay" with the lid OFF -> the louvre lifts straight
+    # off (removed), never hinges open. Home through x_side (V3 time < 30.02), out for x_lock; x_rear animates the lift.
+    "x_ecover": (None, [_k(-100), _k(30.02), _k(30.033, (0, 0.10, 0.80), Z3, "lin"), _k(31.189, (0, 0.10, 0.83), Z3, "lin"),
+                        _k(32.350, Z3, Z3, "in")]),
     "x_fender": (None, _out((-0.50, 0, 0.45), (0, -10, 0), 25.400, 26.548)),
     "x_skirt": (None, _out((-0.40, 0, -0.28), Z3, 25.981, 27.129)),
     "x_rbumper": (None, _out((0, 0.95, 0.05), Z3, 27.708, 28.868)),
