@@ -1,75 +1,98 @@
-# C5 Corvette scan reel - Temerario style (scan only, no IRL, no text). Shots: shots.py -> tools/shot.py (Blender).
-# Durations are whole frames so each cut lands on round(cut*30); first clip one frame short (FG2 lesson).
+# C5 Corvette scan reel v3 - per-section artifact-free bases + doorsill / gas cap / trunk state swaps (direction.md v3).
+# Durations are whole frames; first clip one frame short so every cut lands on round(t*30).
 project: c5-corvette
 format: reel-9x16
-output: {path: /home/user/media/work/out/c5_corvette_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/c5_corvette_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/c5-corvette_track.mp3   # generated for this car (parent session, ElevenLabs via Higgsfield)
+  path: /home/user/media/work/music/c5-corvette_track.mp3   # generated for this car (parent session)
   start: 0
   fade_out: 1.4
 
-# cuts on measured KICK ONSETS (tools/kickcut.py) - v1 cut on a grid 2-4 frames late; director.md has the plan
-beats: [4.100, 9.309, 16.945, 22.130, 30.290, 35.496]   # 4.100/16.945/30.290 re-read on the low-band + broadband envelopes after v2 cutcheck
+# strong low-band kick onsets (40-150 Hz 8 ms envelope peaks, prominence 0.12)
+beats: [4.100, 9.310, 14.769, 18.040, 21.312, 24.585, 28.946, 32.221, 35.496]
 
 timeline:
-  - id: v2_a2_open   # whole car -> front bumper starts off (clean car swaps to the composite on its first motion)
+  - id: v3_open
     section: whole
-    focus: "whole car, then the front bumper starting off"
-    src: /home/user/media/work/renders/c5/v2_a2_open
+    focus: "whole clean car, front bumper starts off (front-bumper base cuts in under the bumper only)"
+    src: /home/user/media/work/renders/c5/v3_open
     src_fps: 15
     interpolate: true
     dur: 4.0667
     vf: fade=t=in:st=0:d=0.4
   - transition: {type: cut}
-  - id: v2_b_fb_inside   # FRONT BUMPER REMOVED: push into the nose structure; bumper rises and turns its scanned inside to camera
+  - id: v3_fb
     section: front
-    focus: "front bumper removed: nose structure + the bumper's scanned inside"
-    src: /home/user/media/work/renders/c5/v2_b_fb_inside
+    focus: "FRONT BUMPER REMOVED: nose structure + the bumper's scanned inside"
+    src: /home/user/media/work/renders/c5/v3_fb
     src_fps: 15
     interpolate: true
     dur: 5.2000
   - transition: {type: cut}
-  - id: v2_f2_hood   # ON THE DROP (9.309): hood opens on its fitted hinge (captured 46 deg), lifts, flips its underside; push into the bay
+  - id: v3_hood
     section: front
-    focus: "hood on its fitted hinge -> scanned underside -> engine bay (hood removed)"
-    src: /home/user/media/work/renders/c5/v2_f2_hood
+    focus: "hood on its fitted hinge -> scanned underside -> bay (front bumper + hood removed state)"
+    src: /home/user/media/work/renders/c5/v3_hood
     src_fps: 15
     interpolate: true
-    dur: 7.6333
+    dur: 5.4667
   - transition: {type: cut}
-  - id: v2_c2_fender   # -X side: fender lifts off -> macro on the wheelhouse / mounts
-    section: side
-    focus: "-X fender removed: wheelhouse and mounts"
-    src: /home/user/media/work/renders/c5/v2_c2_fender
+  - id: v3_sill
+    section: side +X
+    focus: "LEFT DOORSILL: closed door -> captured door-open state on 15.856"
+    src: /home/user/media/work/renders/c5/v3_sill
     src_fps: 15
     interpolate: true
-    dur: 5.2000
+    dur: 3.2667
   - transition: {type: cut}
-  - id: v2_g2_rear   # REAR BUMPER REMOVED: off toward camera, hold on the structure, turns its inside on 26.471
+  - id: v3_gas
+    section: side +X
+    focus: "GAS CAP: fuel door closed -> captured open state on 19.135, macro on the cap"
+    src: /home/user/media/work/renders/c5/v3_gas
+    src_fps: 15
+    interpolate: true
+    dur: 3.2667
+  - transition: {type: cut}
+  - id: v3_trunk
     section: rear
-    focus: "rear bumper removed: rear structure + the bumper's scanned inside"
-    src: /home/user/media/work/renders/c5/v2_g2_rear
+    focus: "TRUNK OPEN: hatch glass -> captured trunk tub on 22.404"
+    src: /home/user/media/work/renders/c5/v3_trunk
     src_fps: 15
     interpolate: true
-    dur: 8.1667
+    dur: 3.3000
   - transition: {type: cut}
-  - id: v2_i2_home   # reassembly from the rear 3/4; rear bumper locks on 34.402 -> clean car, fade
+  - id: v3_rear
+    section: rear
+    focus: "REAR BUMPER REMOVED: rear structure + the bumper's scanned inside"
+    src: /home/user/media/work/renders/c5/v3_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.3333
+  - transition: {type: cut}
+  - id: v3_fender
+    section: side -X
+    focus: "FENDER REMOVED (hood on = captured state): wheelhouse / mounts"
+    src: /home/user/media/work/renders/c5/v3_fender
+    src_fps: 15
+    interpolate: true
+    dur: 3.3000
+  - transition: {type: cut}
+  - id: v3_home
     section: whole
-    focus: "parts return, clean car on 34.402; 1.1 s settle into the fade (hold = the ending, no new content)"
-    src: /home/user/media/work/renders/c5/v2_i2_home
+    focus: "parts return; clean car on 34.402; fade"
+    src: /home/user/media/work/renders/c5/v3_home
     src_fps: 15
     interpolate: true
-    speed: 0.960   # render swap (f_0061, 4.0 s) -> output frame 1032 so the clean car lands on the 34.402 kick (frame 1032)
-    dur: 5.2000
-    vf: fade=t=out:st=4.45:d=0.75
+    dur: 3.2667
+    vf: fade=t=out:st=2.514:d=0.75
   - transition: {type: cut}
-  - id: logo   # small logo (300 px, ~28 % width) on the biggest hit; gone by 38.6, black under the decay
+  - id: logo   # small logo on the biggest hit, gone by 38.6
     src: /home/user/media/c5-corvette/logo/logo_small.png
     duration: 4.0000
     dur: 3.9000
     vf: fade=t=in:st=0:d=0.25,fade=t=out:st=2.5:d=0.6
 
-overlays:   # file-name labels over scan shots only (reviewer: bumper-removed data highlighted + labeled)
-  - src: /home/user/media/work/out/hud_c5_v2.mov
+overlays:   # title-only labels from the scan file names, over scan shots only
+  - src: /home/user/media/work/out/hud_c5_v3.mov
     start: 0
