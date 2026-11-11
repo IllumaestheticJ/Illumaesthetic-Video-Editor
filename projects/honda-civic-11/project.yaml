@@ -1,64 +1,66 @@
-# Honda Civic 11th gen (FE1 Si sedan) - scan-only Temerario-style reel v1. No IRL footage, no text.
+# Honda Civic 11th gen (FE1 Si sedan) - scan-only Temerario-style reel v2. No IRL footage, no text.
+# v2 = user notes relayed 2026-11-11 (order by scan features, one sequence per section, close section explodes,
+# whole car in the opener, fade + small logo, deplated plate). Plan: direction.md + director.md. v1 timeline: project_v1.yaml.
 # Kick grid of honda-civic-11_track.mp3 (tools/kicks.py): t(k) = 0.2899 + 0.41794 k, 143.56 BPM (half-time trap).
-# Cuts sit on round(t(k) * 30): k17 7.395 (first hit) | k31 13.246 (drop) | k36 15.336 | k42 17.843 | k52 22.023 |
-# k62 26.202 | k88 37.068; audio ends 39.80 s -> video 1194 frames. Clip durs are whole frames; first clip 1 frame
-# short (the assembler adds a hold frame per cut).
+# Cuts on round(t(k) * 30): k24 10.320 (first real hit; k17 has none) | k28 11.992 | k31 13.246 (drop) | k42 17.843 |
+# k72 30.381 | k88 37.068; audio ends 39.80 s -> 1194 frames. First clip 1 frame short (the assembler adds a hold frame per cut).
 project: honda-civic-11
 format: reel-9x16
-output: {path: /home/user/media/work/civic/out/civic_fe1_scan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/civic/out/civic_fe1_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/honda-civic-11_track.mp3   # generated for this reel by the parent session (not in git)
   start: 0
   fade_out: 0.8
 
-beats: [7.395, 13.246, 15.336, 17.843, 22.023, 26.202, 33.725, 37.068]
+beats: [10.320, 11.992, 13.246, 17.843, 30.381, 37.068]
 
 timeline:
-  - id: s1_front34   # slow low front-left 3/4 turntable over the quiet intro; moving from frame 1
-    src: /home/user/media/work/civic/renders/final/s1_front34
+  - id: N1_open      # WHOLE car, front-left 3/4, slow push + rise over the quiet intro; moving from frame 1
+    focus: whole car
+    src: /home/user/media/work/civic/renders/final/N1_open
+    src_fps: 10
+    interpolate: true
+    dur: 10.3        # 309 frames
+  - transition: {type: cut, note: "k24 first real hit"}
+  - id: s3_wheel     # front section: front-left wheel + brake, v1 render played reversed (slides toward the nose)
+    focus: front-left wheel and brake
+    src: /home/user/media/work/civic/renders/final/s3_wheel_rev
     src_fps: 15
     interpolate: true
-    dur: 7.3667      # 221 frames
-  - transition: {type: cut, note: "k17 first hit"}
-  - id: s2_rear34    # rear-left 3/4 orbit, rising
-    src: /home/user/media/work/civic/renders/final/s2_rear34
-    src_fps: 15
-    interpolate: true
-    dur: 5.8333      # 175
-  - transition: {type: cut, note: "THE DROP k31"}
-  - id: s3_wheel     # extreme close-up, front-left wheel + brake (2 mm)
-    src: /home/user/media/work/civic/renders/final/s3_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 2.1         # 63
-  - transition: {type: cut, note: "k36 kick"}
-  - id: s4_lamp      # headlight / grille corner slide (2 mm)
+    dur: 1.6667      # 50
+  - transition: {type: cut, note: "k28"}
+  - id: s4_lamp      # front section: headlight + grille corner (v1 render, middle of the move)
+    focus: headlight and grille
     src: /home/user/media/work/civic/renders/final/s4_lamp
     src_fps: 15
     interpolate: true
-    dur: 2.5         # 75
-  - transition: {type: cut, note: "k42 kick"}
-  - id: s5_trunk     # trunk lid opens on its fitted hinge from the k44 kick (Trunk Open state scan inside)
-    src: /home/user/media/work/civic/renders/final/s5_trunk
+    trim_start: 0.6
+    dur: 1.2333      # 37
+  - transition: {type: cut, note: "THE DROP k31 - front door lifts"}
+  - id: N2_doors     # right side: doors lift off (Door Open state): sill, jambs, cabin
+    focus: right door openings (Door Open scan)
+    src: /home/user/media/work/civic/renders/final/N2_doors
     src_fps: 15
     interpolate: true
-    dur: 4.2         # 126
-  - transition: {type: cut, note: "k52 kick, last before the breakdown"}
-  - id: s6_top       # rise from high rear 3/4 to straight top-down
-    src: /home/user/media/work/civic/renders/final/s6_top
+    dur: 4.6         # 138
+  - transition: {type: cut, note: "k42"}
+  - id: N3_trunk     # rear: lid opens on its fitted hinge (k44), lifts off (k52), interior (Trunk Open state)
+    focus: trunk lid and trunk interior (Trunk Open scan)
+    src: /home/user/media/work/civic/renders/final/N3_trunk
     src_fps: 15
     interpolate: true
-    dur: 4.1667      # 125
-  - transition: {type: cut, note: "k62"}
-  - id: s7_explode   # right doors slide out, trunk lid floats over the rear glass; lock on the k80 kick (33.725)
-    src: /home/user/media/work/civic/renders/final/s7_explode
+    dur: 12.5333     # 376
+  - transition: {type: cut, note: "k72 strongest breakdown accent"}
+  - id: N4_reassemble  # doors + lid fly home, lock on the k80 big kick, clean car, fade to black k86-k88 (baked)
+    focus: reassembly of the whole car
+    src: /home/user/media/work/civic/renders/final/N4_fade
     src_fps: 15
     interpolate: true
-    dur: 10.8667     # 326
+    dur: 6.7         # 201
   - transition: {type: cut, note: "k88 big kick -> logo"}
-  - id: logo         # ILLUMAESTHETIC logo on black, fades with the music's end
-    src: /home/user/media/work/civic/out/logo_card.mp4
+  - id: logo         # small ILLUMAESTHETIC logo on black, fades with the music's end
+    src: /home/user/media/work/civic/out/logo_card_small.mp4
     in: 0
     dur: 2.7333      # 82 -> ends 39.80 s
 
