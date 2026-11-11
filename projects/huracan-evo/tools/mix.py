@@ -8,13 +8,17 @@ narration4.wav (Higgsfield Seed Audio, preset voice 'Imogen' - NOT a clone of th
 import subprocess
 import sys
 
-MUSIC = "/home/user/media/work/music/reel_track_a.mp3"
-ENGINE = "/home/user/media/huracan-evo/vo/engine.mp3"
-VO_RAW = "/home/user/media/huracan-evo/vo/narration4.wav"   # v2 script: car only (user: "don't talk about the scan")
-VO = "/home/user/media/huracan-evo/vo/narration4_tight.wav"
-VO_AT = 0.9          # s: file has 0.44 s lead-in, so speech starts ~1.3 s as the roar peaks
-GAP_KEEP = 0.24      # s: sentence pauses trimmed to this (take had 0.5-0.8 s pauses)
-TEMPO = 1.08         # pitch-preserving speed-up so the read ends before the lift
+# v3 (NFSU2 car-lot reference): coupe on the lot turntable with a sharp start-up + casual narrator, the lot swaps to the
+# Spyder ON the music lift with a second start-up. Music = reel_track_a with the groove repeated 7 bars (track_a_ext.wav).
+MUSIC = "/home/user/media/huracan-evo/music/track_a_ext.wav"
+ENGINE = "/home/user/media/huracan-evo/vo/engine_start1.mp3"      # coupe 'selected' at 0 s
+ENGINE2 = "/home/user/media/huracan-evo/vo/engine_start2.mp3"     # Spyder swap: catch lands on the lift
+ENGINE2_AT = 19.279 - 0.25
+VO_RAW = "/home/user/media/huracan-evo/vo/narration5.wav"   # v3 script: casual car-lot read about the coupe only
+VO = "/home/user/media/huracan-evo/vo/narration5_tight.wav"
+VO_AT = 0.9          # s: file has 0.23 s lead-in -> speech from ~1.1 s, right after the start-up bark
+GAP_KEEP = 0.30      # s: sentence pauses trimmed to this
+TEMPO = 1.04         # pitch-preserving; keep the relaxed read (reference is conversational, not an announcer)
 DUCK_DB = -9.0       # music under the voice
 RAMP = 0.6
 LIFT = 19.279        # music lift / explode start - voice must be done and music back to full by here
@@ -62,13 +66,16 @@ def main(out):
     fc = (
         f"[0:a]aresample=48000,volume='{env}':eval=frame[m];"
         # engine: full at the 'select', then tucks under the first line
-        f"[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.9,afade=t=out:st=2.6:d=2.6[e];"
+        f"[1:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.9,afade=t=out:st=2.4:d=3.0[e1];"
+        f"[3:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=0.75,afade=t=out:st=1.6:d=2.4,"
+        f"adelay={int(ENGINE2_AT * 1000)}|{int(ENGINE2_AT * 1000)}[e2];"
+        f"[e1][e2]amix=inputs=2:normalize=0:duration=longest[e];"
         # voice: clean announcer chain - HPF, gentle comp, short room
         f"[2:a]aresample=48000,highpass=f=110,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=3,"
         f"aecho=0.85:0.5:38|71:0.18|0.10,volume=2.4,alimiter=limit=0.8:level=disabled,adelay={int(VO_AT * 1000)}|{int(VO_AT * 1000)}[v];"
         f"[m][e][v]amix=inputs=3:normalize=0:duration=first,alimiter=limit=0.95:level=disabled[out]"
     )
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", MUSIC, "-i", ENGINE, "-i", VO, "-filter_complex", fc,
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", MUSIC, "-i", ENGINE, "-i", VO, "-i", ENGINE2, "-filter_complex", fc,
                     "-map", "[out]", "-c:a", "pcm_s24le", out], check=True)
     print(out)
 

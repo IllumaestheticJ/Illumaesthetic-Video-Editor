@@ -24,6 +24,8 @@ EXPOSURE = -0.5  # flat-shaded silver at 0 EV clipped the roof; ref surfaces sit
 PARTS = {"fb": "front_bumper", "rb": "Rear_Bumper", "sk": "Side_Skirts", "fe": "Fender",
          "hood": "Hood_Only", "tc": "top_cowl", "lc": "left_cowl", "rc": "right_cowl"}
 EXPLODED_OBJS = {"base": B + "base.blend", **{k: B + v + ".blend" for k, v in PARTS.items()}}
+# v3: rear bumper with the scanned licence plate removed (plate x -0.15..0.20, z 0.49..0.68 m, legible in the s9 hero)
+EXPLODED_OBJS["rb"] = B + "Rear_Bumper_np.blend"
 CAR = {"car": B + "car2.blend"}  # 2 mm full car for the full-car beats (more grille/vent detail than 3 mm)
 
 # part states (offset m, hood hinge deg)
@@ -123,5 +125,71 @@ SHOTS = [
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     for name, d in SHOTS:
+        json.dump(d, open(OUT + name + ".json", "w"), indent=1)
+        print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
+
+
+# ---------------------------------------------------------------- v3 (NFSU2 car-lot reference + Temerario detail zooms)
+# Music track_a_ext.wav (groove repeated 7 bars): beats t = 0.0768 + 0.60006*n. New shots only; s5-s9 renders are reused
+# at their v2 lengths (s8 plays its first 2.4 s).
+def KB(n):
+    return round(0.0768 + 0.60006 * n, 3)
+
+
+V3_CUTS = {"c1_lot": (0, 16), "c2_lot": (16, 32), "c3_swap": (32, 36),
+           "z1_bumper": (56, 60), "z2_hood": (60, 64), "z3_side": (64, 68), "z4_rear": (68, 72)}
+COUPE = {"car": B + "coupe2.blend"}          # 2023 'Huracan Evo Coupe Scan Data (New)' full car, 2 mm (own levelling)
+SPYDER = {"car": B + "car2.blend"}           # 2026 set = Spyder (roof step behind the cabin), 2 mm
+LOT = {"radius": 3.1, "spot": 3800, "spot_deg": 58, "spot_h": 7.0}  # v3 framing test: disc read as a bright mirror; NFSU2 floor is dark
+PARTS2 = {k: B + v + "_2mm.blend" for k, v in PARTS.items()}
+PARTS2["rb"] = B + "Rear_Bumper_2mm_np.blend"
+EXPLODED2 = {"base": B + "base.blend", **PARTS2}
+
+
+def v3shot(name, objects, camera, anims=None, extra=None, light_ref=None):
+    a, b = V3_CUTS[name]
+    d = dict(objects=objects, seconds=round(KB(b) - (KB(a) if a else 0), 3), fps=FPS, res=[1080, 1920], res_pct=75,
+             samples=12, camera=camera, out=RENDERS + name, anims=anims or {}, exposure=EXPOSURE,
+             hinges={"hood": {"p": HINGE["p"], "axis": HINGE["axis"]}})
+    if light_ref:
+        d["light_ref"] = light_ref
+    d.update(extra or {})
+    if anims:
+        d["persistent"] = False
+    return name, d
+
+
+def turntable(d0, d1):
+    return {"car": [dict(t=0, spin=[d0, 0, 0, 1]), dict(t=1, spin=[d1, 0, 0, 1], lin=True)]}
+
+
+def hold_expl():
+    return {k: [dict(t=0, **EXPL[k])] for k in PARTS}
+
+
+fb_c, hood_c, side_c, rb_c = [-0.01, -2.24, 1.37], [0.0, -1.62, 2.1], [-1.25, -0.55, 1.05], [0.35, 2.40, 1.12]  # rb_c low/right: diffuser+exhaust, keeps the scanned plate oblique
+V3_SHOTS = [
+    # car lot: static camera, the car turns on the lit platform; lights come up on 'select' with the start-up
+    v3shot("c1_lot", COUPE, [dict(t=0, az=38, el=12, dist=7.0, target=[0, 0, 0.55], lens=45)],
+           turntable(-8, 30), extra={"lot": dict(LOT, lights_up=[0.0, 0.07])}),
+    v3shot("c2_lot", COUPE, [dict(t=0, az=-28, el=8, dist=6.9, target=[0, 0, 0.6], lens=50),
+                             dict(t=1, az=-28, el=8, dist=6.4, target=[0, 0, 0.6], lens=50, lin=True)],
+           turntable(30, 75), extra={"lot": LOT}),
+    # the lot swaps to the Spyder on the music lift (second start-up), same lot framing as c1
+    v3shot("c3_swap", SPYDER, [dict(t=0, az=38, el=12, dist=7.0, target=[0, 0, 0.55], lens=45)],
+           turntable(-25, -10), extra={"lot": dict(LOT, lights_up=[0.0, 0.12])}),
+    # Temerario-style detail zooms while exploded (2 mm parts), each a push-in with a small orbit
+    v3shot("z1_bumper", EXPLODED2, [dict(t=0, az=-24, el=6, dist=3.2, target=fb_c, lens=50),
+                                    dict(t=1, az=-4, el=4, dist=2.2, target=fb_c, lens=50)], hold_expl(), light_ref="base"),
+    v3shot("z2_hood", EXPLODED2, [dict(t=0, az=-62, el=-20, dist=3.0, target=hood_c, lens=45),
+                                  dict(t=1, az=-46, el=-18, dist=2.4, target=hood_c, lens=45)], hold_expl(), light_ref="base"),
+    v3shot("z3_side", EXPLODED2, [dict(t=0, az=-98, el=4, dist=3.5, target=side_c, lens=45),
+                                  dict(t=1, az=-80, el=6, dist=2.8, target=side_c, lens=45)], hold_expl(), light_ref="base"),
+    v3shot("z4_rear", EXPLODED2, [dict(t=0, az=-104, el=-14, dist=2.9, target=rb_c, lens=50),
+                                  dict(t=1, az=-96, el=-12, dist=2.3, target=rb_c, lens=50)], hold_expl(), light_ref="base"),
+]
+
+if __name__ == "__main__":
+    for name, d in V3_SHOTS:
         json.dump(d, open(OUT + name + ".json", "w"), indent=1)
         print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")

@@ -30,10 +30,29 @@ Mixed by `tools/mix.py` into `/home/user/media/huracan-evo/vo/soundtrack_v2.wav`
 - v1 (`vo/narration2.wav`) also said "Every panel, scanned. Twenty-five million triangles" - removed on feedback.
 - Rejected takes: narration.wav (40 s, speech_rate -12), narration3.wav (24 s, longer script).
 
-## Body: the 2026 scan IS the coupe
-The Drive folder says "Huracan Evo Spider", but the centre-line roof height (250 mm bins, nose->tail) is a continuous
-fastback: 575 693 784 828 921 1020 1105 1163 1189 1198 1195 1179 1042 1014 988 948 905 942 mm - no step/fins behind the
-cabin as on a Spider. So "use the coupe" needed no change of scan data.
+## Body: 2026 set = SPYDER, 2023 set = COUPE (corrected in v3)
+Centre-line roof height, 250 mm bins nose->tail (mm):
+- 2026 'Huracan Evo Spider' folder: 580 696 787 828 925 1024 1108 1164 1190 1197 1194 1178 **1025** 1001 987 946 904 941 - one-bin
+  drop of 153 mm behind the cabin (soft top -> engine deck) = Spyder. (v2 wrongly called this the coupe - no coupe to compare.)
+- 2023 'Huracan Evo Coupe Scan Data (New)' Full Car (1TtT2j6ZZPNjEIWPKbiRl2YgW_FFKcGka, 15M tris): 545 664 757 796 902 1003 1094
+  1153 1172 1173 1169 1148 1103 1066 1027 985 927 955 - smooth glass fastback = coupe. Own levelling (level2023.json),
+  2 mm, cropped, prepped standalone -> coupe2.blend. Unlike the 2026 scan its wheels ARE captured (spokes/rims read).
+
+## NFSU2 car-lot reference (v3)
+Dropbox `/5. Claude Training/Good Reels (Epsilon)/NFSU2 car lot - clean audio.mp4` (67 s) and `- 1440p.mp4` (110 s),
+1206x2622 60 fps phone screen recordings of Need for Speed Underground 2.
+- 10-31 s (clean): story cutscene, female narrator (the game's Rachel Teller, voiced by Brooke Burke) over music; voice band
+  ~180-240 Hz, conversational/intimate delivery. Used as a STYLE reference only - no cloning.
+- 34-54 s (clean): car lot - dark garage, car on a lit turntable platform, static elevated front-3/4 camera, car rotates;
+  audio: dead air (34.5 s), sharp engine start (35.5 s: crank, bark, rev flare), idle, rev blips on each car swap.
+
+## v3 audio (`tools/mix.py` -> `vo/soundtrack_v3.wav`)
+- Music: reel_track_a with the groove (k32-k60) repeated once, spliced 60 ms before the kick peaks, 15 ms xfade ->
+  `music/track_a_ext.wav` 56.85 s; kick grid unbroken (88 kicks, resid 5.5 ms median), music stops at 52.88 s.
+- `vo/engine_start1.mp3` (6 s) at 0 s, `vo/engine_start2.mp3` (4 s) at 19.03 s so its catch lands on the 19.28 lift. Generated.
+- `vo/narration5.wav` (preset 'Imogen', pitch -1): "Check this out. The Lamborghini Huracan EVO Coupe. Naturally aspirated V10,
+  six hundred and forty metric horsepower, all the way to eight thousand RPM. All-wheel drive. Zero to a hundred in
+  two-point-nine. Yeah... you're gonna want this one." Pauses -> 0.30 s, atempo 1.04, at 0.9 s -> speech ~1.1-18.3 s.
 
 ## Scans (Drive `Lamborghini Huracan` / subfolder named **"Huracan Evo Spider"**, all dated 2026-08-31, one Artec frame)
 | file | tris | what it is |

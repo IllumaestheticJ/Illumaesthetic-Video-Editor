@@ -138,6 +138,33 @@ def main():
     root.location = (car_lo + car_hi) / 2
     sr.studio_lights(car_lo, car_hi)
     mat = sr.mat_silver()
+    lot = spec.get("lot")  # car-lot staging (NFSU2 reference): dark glossy turntable disc + overhead spot pool
+    if lot:
+        bpy.ops.mesh.primitive_cylinder_add(vertices=160, radius=lot.get("radius", 3.0), depth=0.04, location=(0, 0, -0.022))
+        disc = bpy.context.active_object
+        dm = bpy.data.materials.new("lot_disc")
+        dm.use_nodes = True
+        bsdf = dm.node_tree.nodes.get("Principled BSDF")
+        bsdf.inputs["Base Color"].default_value = tuple(lot.get("color", [0.004, 0.004, 0.005])) + (1,)
+        bsdf.inputs["Roughness"].default_value = lot.get("rough", 0.38)
+        disc.data.materials.append(dm)
+        sd = bpy.data.lights.new("lot_spot", "SPOT")
+        sd.energy = lot.get("spot", 5000)
+        sd.spot_size = math.radians(lot.get("spot_deg", 62))
+        sd.spot_blend = 0.7
+        sd.shadow_soft_size = 1.2
+        so = bpy.data.objects.new("lot_spot", sd)
+        sc.collection.objects.link(so)
+        so.location = (0, 0, lot.get("spot_h", 7.0))  # spot lights point down -Z by default
+        ramp = lot.get("lights_up")  # [t0, t1] shot fractions: everything lights up = the "car selected" reveal
+        if ramp:
+            for o in sc.objects:
+                if o.type == "LIGHT":
+                    e = o.data.energy
+                    for t, v in ((0, 0.0), (ramp[0], 0.0), (ramp[1], e)):
+                        o.data.energy = v
+                        o.data.keyframe_insert("energy", frame=max(1, int(round(1 + t * (n - 1)))))
+                    o.data.energy = e
     for o in allmesh:
         o.data.materials.clear()
         o.data.materials.append(mat)
@@ -166,6 +193,9 @@ def main():
     for name, ks in spec.get("anims", {}).items():
         piv = objs[name][0]
         h = hinges.get(name)
+        bpy.context.view_layer.update()
+        plo, phi = sr.bbox(objs[name][1])
+        spin_c = (plo + phi) / 2  # turntable/spin pivot fixed at the rest pose (was recomputed per frame from a stale matrix)
         for f in range(1, n + 1):
             t = (f - 1) / max(1, n - 1)
             off = Vector(interp(ks, t, "off", [0, 0, 0]))
@@ -177,8 +207,7 @@ def main():
                 M = M @ Matrix.Translation(p) @ R @ Matrix.Translation(-p)
             spin = interp(ks, t, "spin", None)  # [deg, ax, ay, az] about the part's own centre
             if spin:
-                plo, phi = sr.bbox(objs[name][1])
-                c = (plo + phi) / 2
+                c = Vector((spin_c.x, spin_c.y, 0.0)) if spin[3] == 1 and not spin[1] and not spin[2] else spin_c
                 R = Matrix.Rotation(math.radians(spin[0]), 4, Vector(spin[1:]).normalized())
                 M = M @ Matrix.Translation(c) @ R @ Matrix.Translation(-c)
             piv.matrix_world = M
