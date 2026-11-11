@@ -16,7 +16,8 @@ music:
 # accents at beats 0, 1.5, 3, 5 of each phrase. Video times (track - 10.105), rounded to frames:
 beats: [3.200, 6.500, 7.133, 9.833, 13.133, 16.433, 18.500, 23.067, 26.367]
 
-# Whole-frame durs; first clip one frame short (the assembler adds a cloned hold frame at each cut) - FG2 lesson.
+# Whole-frame durs; first clip one frame short (each cut adds a cloned hold frame to the outgoing clip) - FG2 lesson, verified
+# with tools/cutcheck.py on the delivered file (ive strip seeks can be off by a frame - don't judge cut timing from it).
 timeline:
   - id: irl_powder_front   # crew powders the hood; camera pulls back and settles on the front 3/4 (match frame f150 = 5.002 s)
     src: /home/user/media/civic11/dropbox/v_1957_24.mov

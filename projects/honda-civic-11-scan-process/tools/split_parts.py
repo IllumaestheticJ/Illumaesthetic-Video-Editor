@@ -21,6 +21,19 @@ parts['bumper_R'] = body & (y > 1.59) & (z < 0.65)
 parts['hood'] = body & (x > -0.72) & (x < 0.69) & (y > -2.0) & (y < -0.87) & (z > 0.6) & (nn[:, 2] > 0.45)
 used = np.zeros(n, bool)
 for k, m in parts.items(): used |= m
+# Body faces left disconnected by the bumper cuts (grille / plate-frame scraps) would float in the base:
+# give every non-main base island at the front/back to that bumper.
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import connected_components
+bi = np.where(~used)[0]; V, inv = np.unique(d['v'][bi].reshape(-1, 3), axis=0, return_inverse=True); Fb = inv.reshape(-1, 3)
+e = np.r_[Fb[:, [0, 1]], Fb[:, [1, 2]]]
+_, vl = connected_components(coo_matrix((np.ones(len(e)), (e[:, 0], e[:, 1])), shape=(len(V), len(V))), directed=False)
+fl = vl[Fb[:, 0]]; main = np.argmax(np.bincount(fl))
+for comp in np.unique(fl):
+    if comp == main: continue
+    sel = bi[fl == comp]; cy, cz = y[sel].mean(), z[sel].mean()
+    if cy < -1.6 and cz < 0.6: parts['bumper_F'][sel] = True; used[sel] = True     # radiator/plate scraps behind the front bumper
+    elif cy > 1.6 and cz < 0.65: parts['bumper_R'][sel] = True; used[sel] = True   # exhaust/valance scraps behind the rear bumper
 parts['base'] = ~used
 def write(m, f):
     with open(f, 'wb') as fh:
