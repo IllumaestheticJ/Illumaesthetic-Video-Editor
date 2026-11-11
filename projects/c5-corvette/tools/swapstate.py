@@ -11,13 +11,15 @@ from composite2 import components, L
 ap = argparse.ArgumentParser(); ap.add_argument("car"); ap.add_argument("state"); ap.add_argument("out")
 ap.add_argument("--box", required=True); ap.add_argument("--rm", type=float, default=20); ap.add_argument("--add", type=float, default=6)
 ap.add_argument("--min", type=int, default=2000); ap.add_argument("--pad", default="60")
+ap.add_argument("--rmbox", default="", help="tighter box for the car-tri REMOVAL only (default: --box)")
 a = ap.parse_args()
 b = [float(v) for v in a.box.split(",")]
 pad = [float(v) for v in a.pad.split(",")]; pad = pad * 6 if len(pad) == 1 else pad   # per face: x-,x+,y-,y+,z-,z+
 inbox = lambda c, p=(0,) * 6: ((c[:, 0] > b[0] - p[0]) & (c[:, 0] < b[1] + p[1]) & (c[:, 1] > b[2] - p[2]) & (c[:, 1] < b[3] + p[3])
                                & (c[:, 2] > b[4] - p[4]) & (c[:, 2] < b[5] + p[5]))
 car = L(a.car); cc = car["v"].mean(1); st = L(a.state); sc = st["v"].mean(1)
-ib = inbox(cc)
+rb = [float(v) for v in a.rmbox.split(",")] if a.rmbox else b
+ib = ((cc[:, 0] > rb[0]) & (cc[:, 0] < rb[1]) & (cc[:, 1] > rb[2]) & (cc[:, 1] < rb[3]) & (cc[:, 2] > rb[4]) & (cc[:, 2] < rb[5]))
 ds, _ = cKDTree(sc).query(cc[ib], distance_upper_bound=a.rm + 1)
 rm = np.zeros(len(car), bool); rm[np.where(ib)[0][ds > a.rm]] = True
 kc = car[~rm]
