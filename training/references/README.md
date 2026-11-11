@@ -66,3 +66,16 @@ Downloaded and sheeted at 1 fps plus 8 frames/s around each jump. 1440x1920, 24 
   and the **raw scan grain is visible everywhere** (sandblasted/stone texture: full-resolution mesh, no decimation
   smoothing). Undersides/backfaces of lifted panels read darker mauve-red. Background pure black, no floor.
 - Car is smaller in frame than our reels in the wide shots (~60-70 % of width); close-ups are extreme.
+
+### `v_jul22_1047_58` Temerario - watched 2026-11-11 (A90 session; first agent to actually view it)
+Dropbox download works now (`mcp Dropbox download_link` -> `ive fetch-url`). 1440x1920, 24 fps, 39.8 s, no audio.
+- **Not one continuous move**: ~8 shots of ~4 s with short soft transitions (~0.4 s blends) at 4.2, 8.0, 11.6, 16.4,
+  20.4, 24.5, 28.2, 31.9 s. `ive analyze` called it one shot because the transitions are soft.
+- 0-1 s fade up from black; side-profile turntable -> front 3/4 -> rear 3/4 (car ~60-70 % of width, lots of black).
+- ~12 s: close on the front wheel + suspension, then bumper/hood peel away *in the same shot* (exploded view starts at
+  ~13 s and runs to ~32 s - **half the reel is the explode**).
+- 16 s: top-down, then overhead rotation while front parts fly out; 20-31 s: many panels (hood, bumpers, engine cover,
+  doors, wheels with suspension) separate and **stack above** the car, side and 3/4 views.
+- 32 s: reassembled whole car, small; ~34 s fade to black; logo small (~25 % width) fades in on black at ~35 s, holds.
+- Look: light grey satin, softer/darker than a near-white silver; AO-dark crevices; full car **with wheels, suspension,
+  engine bay** - the explode reveals real structure, nothing hollow.
