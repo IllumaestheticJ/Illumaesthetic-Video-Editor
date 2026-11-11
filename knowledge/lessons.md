@@ -268,3 +268,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[pacing]** Rotations are again wasted: the turntables/orbits (s1 front turntable, s2 rear orbit, rotating top-down, the s8 orbit) spend screen time without showing anything new. Don't fill time with camera rotations  _(from mazda-miata-nc, 2026-11-11, user)_
 
 - **[story]** If you do a front bumper removed shot, focus on the front bumper (camera framed on the front while it comes off), THEN move on to the rear. Don't show every part separating at once in one wide orbit  _(from mazda-miata-nc @ 18.7s, 2026-11-11, user)_
+
+- **[scan-look]** Only spin an exploded part when its backside is useful (scanned inside / mounting side worth showing); otherwise just translate it  _(from porsche-gt3rs-scan-process, 2026-11-11, reviewer)_
+
+- **[scan-look]** A part being removed is hard to see when the rest of the scan is behind it - move parts out into clear background, not across the body  _(from porsche-gt3rs-scan-process, 2026-11-11, reviewer)_
