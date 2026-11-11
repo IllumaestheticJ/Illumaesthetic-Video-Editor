@@ -45,14 +45,14 @@ spec("s3_wheel", ["det_front.blend"], [
 spec("s4_tail", ["det_rear.blend"], [
     {"t": 0, "loc": [-1.75, 3.25, 1.20], "target": [-0.55, 1.95, 0.98], "focal": 40},
     {"t": 5.0, "loc": [-0.95, 3.55, 1.28], "target": [-0.30, 1.98, 1.00], "focal": 44}], 5.0)
-# s5: hood opens on its cowl hinge (rear edge, fitted from the hood panel) over the engine-bay composite
+# s5: hood opens (beat 1 -> next bar downbeat, 0.612 -> 2.449 s into the shot) on its cowl hinge (rear edge, fitted from the hood panel) over the engine-bay composite
 HINGE = [0.0095, -0.6236, 1.0916]
 spec("s5_hood", ["comp_hoodopen.blend"], [
     {"t": 0, "loc": [-2.7, -4.6, 1.75], "target": [-0.3, -1.1, 0.85], "focal": 31},
     {"t": 5.0, "loc": [-1.9, -4.1, 2.25], "target": [-0.25, -1.05, 0.80], "focal": 32}], 5.0,
     parts=[{"blend": B + "hood_m.blend", "pivot": HINGE,
-            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 0.7, "loc": [0, 0, 0], "rot": [0, 0, 0]},
-                     {"t": 3.2, "loc": [0, 0, 0], "rot": [-52, 0, 0], "ease": "inout"}]}])
+            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 0.612, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                     {"t": 2.449, "loc": [0, 0, 0], "rot": [-52, 0, 0], "ease": "inout"}]}])
 # s6: near top-down; camera offset orbits so the car turns in frame (image-up follows the offset)
 spec("s6_top", ["car4.blend"], orbit([0, 0, 0.7], 1.1, 5.9, 250, 300, 5.0, 31, z1=5.6), 5.0)
 

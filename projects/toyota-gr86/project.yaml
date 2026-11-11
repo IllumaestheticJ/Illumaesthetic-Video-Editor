@@ -1,0 +1,66 @@
+# Toyota GR86 / Subaru BRZ (gen 2) - Temerario-style scan reel (scan only: no IRL footage, no text).
+# Hero scan: "BRZ Full Car" (all Bomex state/part scans are registered to it; see clips.md). House satin silver on black.
+# Shots: projects/toyota-gr86/tools/shots.py (specs) rendered by projects/ferrari-296/tools/shot.py (keyed cameras + parts).
+# Music: toyota-gr86_track.mp3 - original lo-fi drift funk generated for this reel by the parent session (ElevenLabs via
+# Higgsfield). tools/accents.py: bar downbeats (strongest kicks) every 2.449 s from 0.064 s (98.0 BPM); audible to 39.24 s.
+# Cuts on downbeats -> frames round(t*30): 149, 296, 369, 443, 590, 737, 1104; end 1177 (39.233 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+project: toyota-gr86
+format: reel-9x16
+output: {path: /home/user/media/work/gr86/out/toyota_gr86_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/toyota-gr86_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [4.962, 9.860, 12.309, 14.758, 19.656, 24.554, 36.799]
+
+timeline:
+  - id: s1_front34     # low front-right 3/4 turntable toward the nose, 2 bars
+    src: /home/user/media/work/gr86/shots/s1_front34
+    src_fps: 15
+    interpolate: true
+    dur: 4.9333
+  - transition: {type: cut, note: "4.962 downbeat"}
+  - id: s2_rear34      # rear-right 3/4, high, orbit toward the tail, 2 bars
+    src: /home/user/media/work/gr86/shots/s2_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 4.9
+  - transition: {type: cut, note: "9.860 phrase start (double kick)"}
+  - id: s3_headlight   # extreme close-up: right headlight + intake, 2 mm scan crop, 1 bar
+    src: /home/user/media/work/gr86/shots/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.4333
+  - transition: {type: cut, note: "12.309 downbeat"}
+  - id: s4_tail        # extreme close-up: left tail lamp + ducktail, 2 mm crop, 1 bar
+    src: /home/user/media/work/gr86/shots/s4_tail
+    src_fps: 15
+    interpolate: true
+    dur: 2.4667
+  - transition: {type: cut, note: "14.758 phrase start"}
+  - id: s5_hood        # hood opens on its cowl hinge, beat 1 -> 17.207 downbeat; engine bay from the Hood Open scan
+    src: /home/user/media/work/gr86/shots/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 4.9
+  - transition: {type: cut, note: "19.656 phrase start"}
+  - id: s6_top         # near top-down, car turns in frame, 2 bars
+    src: /home/user/media/work/gr86/shots/s6_top
+    src_fps: 15
+    interpolate: true
+    dur: 4.9
+  - transition: {type: cut, note: "24.554 phrase start"}
+  - id: s7_explode     # hood + bumpers lift into layers on 27.003, drift, slam home on the 34.350 loud return, settle
+    src: /home/user/media/work/gr86/shots/s7_explode
+    src_fps: 15
+    interpolate: true
+    dur: 12.2333
+  - transition: {type: cut, note: "36.799 downbeat"}
+  - id: logo           # ILLUMAESTHETIC logo on black, fades with the track (audible to 39.24)
+    src: /home/user/media/work/gr86/out/logo_card.mp4
+    dur: 2.4333
+
+overlays: []
