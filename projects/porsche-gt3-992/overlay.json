@@ -12,7 +12,7 @@
    "title": "FRUNK",
    "sub": "FRONT HOOD OPEN SCAN",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.84
   },
   {
    "kind": "label",
@@ -58,7 +58,7 @@
    "title": "EXHAUST",
    "sub": "SCANNED BEHIND THE REAR BUMPER",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.655
   }
  ]
 }

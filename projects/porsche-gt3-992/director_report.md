@@ -1,20 +1,19 @@
 # Director report - projects/porsche-gt3-992/project.yaml
 
-Total 32.97 s. Sections (s): untagged 32.97
+Total 32.97 s. Sections (s): front 8.0, wheel 1.9, side 1.97, rear 15.6, top 3.4, end 2.1
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_front34 | 0.0 | 4.13 |  |  | 1.98 | 0.0 | 20.5->21.2 | no focus: tag - what should the viewer look at? |
-| s2_rear34 | 4.13 | 3.87 |  |  | 2.05 | 0.0 | 20.0->21.9 | no focus: tag - what should the viewer look at? |
-| s3_wheel | 8.0 | 1.93 |  |  | 5.41 | 0.0 | 60.8->63.9 | no focus: tag - what should the viewer look at? |
-| s4_wing | 9.93 | 1.93 |  |  | 7.66 | 0.0 | 45.4->51.9 | no focus: tag - what should the viewer look at? |
-| s5_hood | 11.87 | 3.67 |  |  | 2.29 | 0.0 | 22.9->26.2 | no focus: tag - what should the viewer look at? |
-| s6_top | 15.53 | 4.17 |  |  | 4.07 | 0.0 | 23.5->28.0 | no focus: tag - what should the viewer look at? |
-| s7_explode | 19.7 | 11.17 |  |  | 2.61 | 1.47 | 9.9->16.9 | dead frames 1.5s (nothing moves) - trim or give the hold a reason; no focus: tag - what should the viewer look at? |
-| logo | 30.87 | 2.1 |  |  | 0.57 | 1.0 | 0.4->2.1 |  |
+| n1_front | 0.0 | 8.0 | front | whole car -> front lid opens -> frunk | 3.45 | 0.0 | 14.5->33.1 |  |
+| s3_wheel | 8.0 | 1.9 | wheel | FR brake disc, caliper, spring | 5.65 | 0.0 | 60.8->63.7 |  |
+| n2_side | 9.9 | 1.97 | side | side skirt off the sill | 2.81 | 0.0 | 27.7->30.4 |  |
+| s4_wing | 11.87 | 1.93 | rear | swan-neck wing mounts + lettering | 8.05 | 0.0 | 45.4->51.6 |  |
+| n3_rear_off | 13.8 | 5.9 | rear | wing lifts, bumper/diffuser/lip off ON the drop 15.552 | 3.75 | 0.0 | 19.1->19.7 |  |
+| n4_exhaust | 19.7 | 3.9 | rear | exhaust behind the rear bumper (bumper-off data) | 4.72 | 0.0 | 41.2->44.6 |  |
+| n5_rear_home | 23.6 | 3.87 | rear | rear parts lock home (26.72 kick), pull back to whole car = s6 frame 1 | 11.34 | 0.0 | 47.6->34.1 |  |
+| s6_top | 27.47 | 3.4 | top | whole car rises to top-down, fades to black | 5.72 | 0.0 | 23.5->28.1 |  |
+| logo | 30.87 | 2.1 | end | ILLUMAESTHETIC logo | 0.13 | 1.67 | 0.0->0.6 |  |
 
 ## Repeated views
-- s1_front34 ~ s2_rear34 (IoU 0.86, corr 0.88): same view shown twice
-- s1_front34 ~ s6_top (IoU 0.71, corr 0.77): same view shown twice
-- s2_rear34 ~ s5_hood (IoU 0.64, corr 0.75): same view shown twice
-- s5_hood ~ s7_explode (IoU 0.63, corr 0.78): same view shown twice
+- n1_front ~ n2_side (IoU 0.68, corr 0.76): same view shown twice
+- n5_rear_home ~ s6_top (IoU 0.99, corr 1.0): same view shown twice

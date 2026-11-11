@@ -512,3 +512,9 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** Licence plates: flatten/blur plates ONLY on the IS300 (user: "Only is300"). Every other reel keeps its scanned plate unless the user asks in that reel's chat. This supersedes the earlier 'flatten plates in every scan' lessons.  _(from mazda-miata-nc @ 28.0s, 2026-11-11, user (relayed by parent session))_
 - (mr2 v2, agent-found) `projects/honda-s2000/tools/concat_assemble.py` composites the project's `overlays:` itself. Do not run a second label/HUD pass on its output, or every label renders twice (unnoticed while the copies line up exactly).
 - (mr2 v2, agent-found) Verify every cut against the decoded audio's transients, not just the BPM grid: on the MR2 track the grid beat at 12.86 s had no transient and the real hit was 100 ms later.
+
+## From porsche-gt3-992 v2 (2026-11-11, agent observations, not reviewer rules)
+- Check labels over the actual frames across their whole window (4 samples per label), not only at mid-window: parts that rise or float (lids, wings, bumpers) move into a label set from a mid frame.
+- A side-skirt part-off only reads from a low grazing camera along the sill; side-on it vanishes against the door.
+- Bumper-off composites of a 992 rear are fragmented above the exhaust: frame tight and low on tailpipes/silencers.
+- Cut timing: a cut 0.4 ms outside ±½ frame of the decoded onset is still a fail; move it one frame and re-measure.

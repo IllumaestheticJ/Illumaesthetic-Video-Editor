@@ -4,7 +4,7 @@
 # -> FR brake (wheel-off state) -> SIDE (skirt off over 'SideSkirt_Removed') -> REAR (wing detail -> wing, bumper,
 # diffuser, lip off on the DROP -> push in on the exhaust behind the bumper -> parts lock home) -> TOP-DOWN -> fade -> logo.
 # v1 timeline: /home/user/media/work/gt3/project_v1.yaml (git history). Music grid: see cues.json / editlog.
-# Cut frames: 241, 299, 357, 415, 592, 709, 825, 927; end 990 (33.0 s). First clip one frame short.
+# Cut frames: 241, 298, 357, 415, 592, 709, 825, 927; end 990 (33.0 s). First clip one frame short.
 project: porsche-gt3-992
 format: reel-9x16
 output: {path: /home/user/media/work/gt3/out/porsche_gt3_992_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -14,7 +14,7 @@ music:
   start: 0
   fade_out: 0.4
 
-beats: [8.0333, 9.9667, 11.9, 13.8333, 19.7333, 23.6333, 27.5, 30.9]
+beats: [8.0333, 9.9333, 11.9, 13.8333, 19.7333, 23.6333, 27.5, 30.9]
 
 timeline:
   - id: n1_front
@@ -31,15 +31,15 @@ timeline:
     src: /home/user/media/work/gt3/renders/final/s3_wheel
     src_fps: 14.262
     interpolate: true
-    dur: 1.9333
-  - transition: {type: cut, note: "9.956 beat"}
+    dur: 1.9000
+  - transition: {type: cut, note: "9.950 kick (decoded onset 9.9496): cut at frame 298 = -16.2 ms; frame 299 was +17.1 ms"}
   - id: n2_side
     section: side
     focus: "side skirt off the sill"
     src: /home/user/media/work/gt3/renders/final/n2_side
     src_fps: 15
     interpolate: true
-    dur: 1.9333
+    dur: 1.9667
   - transition: {type: cut, note: "11.894 accent"}
   - id: s4_wing
     section: rear

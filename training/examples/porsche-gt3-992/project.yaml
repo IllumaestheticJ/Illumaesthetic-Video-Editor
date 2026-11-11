@@ -1,0 +1,93 @@
+# Porsche 911 GT3 (992) - Temerario-style scan reel. v2 (user rules relayed 2026-11-11: order by scan features,
+# section explodes, whole-car opener, one sequence per section, bumper-removed hero beat with labels, fade + small logo).
+# Order from direction.md (scene-director agent): FRONT (whole car -> lid opens over the real 'Front Hood Open' frunk)
+# -> FR brake (wheel-off state) -> SIDE (skirt off over 'SideSkirt_Removed') -> REAR (wing detail -> wing, bumper,
+# diffuser, lip off on the DROP -> push in on the exhaust behind the bumper -> parts lock home) -> TOP-DOWN -> fade -> logo.
+# v1 timeline: /home/user/media/work/gt3/project_v1.yaml (git history). Music grid: see cues.json / editlog.
+# Cut frames: 241, 298, 357, 415, 592, 709, 825, 927; end 990 (33.0 s). First clip one frame short.
+project: porsche-gt3-992
+format: reel-9x16
+output: {path: /home/user/media/work/gt3/out/porsche_gt3_992_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/porsche-gt3-992_track.mp3   # not in git
+  start: 0
+  fade_out: 0.4
+
+beats: [8.0333, 9.9333, 11.9, 13.8333, 19.7333, 23.6333, 27.5, 30.9]
+
+timeline:
+  - id: n1_front
+    section: front
+    focus: "whole car -> front lid opens -> frunk"
+    src: /home/user/media/work/gt3/renders/final/n1_front
+    src_fps: 15
+    interpolate: true
+    dur: 8.0000
+  - transition: {type: cut, note: "4.151 accent: lid starts; 8.022 accent"}
+  - id: s3_wheel
+    section: wheel
+    focus: "FR brake disc, caliper, spring"
+    src: /home/user/media/work/gt3/renders/final/s3_wheel
+    src_fps: 14.262
+    interpolate: true
+    dur: 1.9000
+  - transition: {type: cut, note: "9.950 kick (decoded onset 9.9496): cut at frame 298 = -16.2 ms; frame 299 was +17.1 ms"}
+  - id: n2_side
+    section: side
+    focus: "side skirt off the sill"
+    src: /home/user/media/work/gt3/renders/final/n2_side
+    src_fps: 15
+    interpolate: true
+    dur: 1.9667
+  - transition: {type: cut, note: "11.894 accent"}
+  - id: s4_wing
+    section: rear
+    focus: "swan-neck wing mounts + lettering"
+    src: /home/user/media/work/gt3/renders/final/s4_wing
+    src_fps: 14.262
+    interpolate: true
+    dur: 1.9333
+  - transition: {type: cut, note: "13.83 beat: rear explode starts"}
+  - id: n3_rear_off
+    section: rear
+    focus: "wing lifts, bumper/diffuser/lip off ON the drop 15.552"
+    src: /home/user/media/work/gt3/renders/final/n3_rear_off
+    src_fps: 15
+    interpolate: true
+    dur: 5.9000
+  - transition: {type: cut, note: "19.739 accent"}
+  - id: n4_exhaust
+    section: rear
+    focus: "exhaust behind the rear bumper (bumper-off data)"
+    src: /home/user/media/work/gt3/renders/final/n4_exhaust
+    src_fps: 15
+    interpolate: true
+    dur: 3.9000
+  - transition: {type: cut, note: "23.621 accent"}
+  - id: n5_rear_home
+    section: rear
+    focus: "rear parts lock home (26.72 kick), pull back to whole car = s6 frame 1"
+    src: /home/user/media/work/gt3/renders/final/n5_rear_home
+    src_fps: 15
+    interpolate: true
+    dur: 3.8667
+  - transition: {type: cut, note: "27.503 accent (invisible cut: same camera)"}
+  - id: s6_top
+    section: top
+    focus: "whole car rises to top-down, fades to black"
+    src: /home/user/media/work/gt3/renders/final/s6_top
+    src_fps: 18.0
+    interpolate: true
+    dur: 3.4000
+    vf: "fade=t=out:st=2.43:d=0.97"   # fade to black 29.94 -> 30.91 (Temerario: fade, then small logo)
+  - transition: {type: cut, note: "30.906 last hit: logo"}
+  - id: logo           # small logo (300 px, ~28 % width) after the fade - tools/logo_card.py --secs 2.1 --width 300
+    section: end
+    focus: "ILLUMAESTHETIC logo"
+    src: /home/user/media/work/gt3/out/logo_card_v2.mp4
+    dur: 2.1
+
+overlays:   # labels (overlay.json -> ive hud): FRUNK, FRONT BRAKE, SIDE SKIRT REMOVED, SWAN-NECK WING, REAR BUMPER REMOVED, EXHAUST
+  - src: /home/user/media/work/gt3/out/hud_gt3_v2.mov
+    start: 0

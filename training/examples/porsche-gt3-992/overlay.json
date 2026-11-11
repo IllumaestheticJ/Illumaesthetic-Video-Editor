@@ -1,0 +1,64 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 990,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 189,
+   "duration": 46,
+   "title": "FRUNK",
+   "sub": "FRONT HOOD OPEN SCAN",
+   "x": 0.08,
+   "y": 0.84
+  },
+  {
+   "kind": "label",
+   "from": 248,
+   "duration": 47,
+   "title": "FRONT BRAKE",
+   "sub": "FRONT-RIGHT WHEEL-OFF SCAN",
+   "x": 0.08,
+   "y": 0.84
+  },
+  {
+   "kind": "label",
+   "from": 314,
+   "duration": 41,
+   "title": "SIDE SKIRT REMOVED",
+   "sub": "PART + REMOVED-STATE SCANS",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 423,
+   "duration": 40,
+   "title": "SWAN-NECK WING",
+   "sub": "PART SCAN",
+   "x": 0.92,
+   "y": 0.12,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 486,
+   "duration": 101,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "BUMPER, DIFFUSER + LIP: SEPARATE PART SCANS",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 609,
+   "duration": 92,
+   "title": "EXHAUST",
+   "sub": "SCANNED BEHIND THE REAR BUMPER",
+   "x": 0.08,
+   "y": 0.655
+  }
+ ]
+}
