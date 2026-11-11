@@ -1,5 +1,5 @@
-# Toyota Sera scan-process reel v1 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v1.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, faststart, 26.97 s (809 frames).
+# Toyota Sera scan-process reel v2 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v2.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, faststart, 26.97 s (809 frames).
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -14,3 +14,10 @@ Output: /home/user/media/work/out/sera_scan_process_v1.mp4 - 1080x1920, 30 fps, 
 | 9 | Technical | 5 | Spec met; no black/dup frames at cuts (strips in qa). |
 
 Open items for the reviewer: scanner footage location? Is the front 1:1 acceptable given the blurred source frame?
+
+## v2 (user: "Much better, but the irl to cgi crops from the video are awfully close")
+- Both 1:1 IRL crops widened to the full sensor height (zoom 1.0 - the widest full-bleed 9:16 window of the 4K frame):
+  opening now shows the whole front of the car (was a 1.3x crop of its right half), front lift 1.2x -> 1.0x.
+  The front lift cannot go wider (camera ~2 m from the car). Scan shots s1/s5 re-rendered from the re-derived crop cameras;
+  onions in match/check_v2.jpg; cuts re-measured 1.8 / 11.4 s exact.
+- Gap to learn from: v1 picked crops to maximise the solve's landmark area, not the viewer's read of the car.

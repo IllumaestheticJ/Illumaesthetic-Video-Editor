@@ -3,11 +3,11 @@
     1080,
     1920
   ],
-  "fx_px": 4113.57939914163,
+  "fx_px": 3427.9828326180254,
   "focal_mm": 23.4,
-  "sensor_width_mm": 6.1435546875,
-  "shift_x": -1.6845333333333337,
-  "shift_y": -0.06494814814814816,
+  "sensor_width_mm": 7.372265625,
+  "shift_x": -1.3204444444444445,
+  "shift_y": -0.20227160493827154,
   "blender": {
     "location": [
       1.3,
@@ -52,8 +52,8 @@
   "crop_window": {
     "x0": 0.0,
     "y0": 0.0,
-    "w": 1012.5,
-    "h": 1800.0,
-    "from": "projects/toyota-sera-scan-process/match/cam_front_full.json"
+    "w": 1215.0,
+    "h": 2160.0,
+    "from": "match/cam_front_full.json"
   }
 }
