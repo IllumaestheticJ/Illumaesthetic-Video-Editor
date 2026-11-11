@@ -9,7 +9,7 @@ Output: `/home/user/media/work/civic/out/civic_fe1_scan_v2.mp4` — 1080×1920, 
 | 1 | Hook | 3 | the whole car is in frame and moving from frame 1 (slow push + rise), but nothing transforms until the k31 drop at 13.3 s; the track's quiet 10 s intro sets that pace |
 | 2 | Beat sync | 5 | 5 hard cuts measured on the DECODED audio (1 ms RMS broadband half-rise): −3, +7, +5, +16, +5 ms (all ≤ ½ frame). The generated track drifts 8–76 ms behind a constant 143.56 BPM grid, so the cuts sit on the measured onsets, not the grid. k88 → logo is a baked fade (k86–k88), not a cut |
 | 3 | 1:1 match | n/a | scan-only brief, no IRL footage |
-| 4 | Scan quality | 4 | holes in the hood and rear glass filled; floor scraps, the prop sheet and the 849-tri scrap under the right sill removed; plate flattened (checked at full res). Remaining: right-rear wheel is a tyre ring only (visible small in N4); Door Open has no data above ~0.85 m, so the cabin reads dark through the window openings; slight seam patches on the right doors |
+| 4 | Scan quality | 4 | holes in the hood and rear glass filled; floor scraps, the prop sheet and the 849-tri scrap under the right sill removed. The licence plate is kept as scanned (user rule: flatten only on the IS300). Remaining: right-rear wheel is a tyre ring only (visible small in N4); Door Open has no data above ~0.85 m, so the cabin reads dark through the window openings; slight seam patches on the right doors |
 | 5 | Story | 4 | whole car → front (wheel, lamp) → right side (doors lift off on the drop: real Door Open sill/jambs/cabin) → rear (trunk opens on its fitted hinge, lid lifts off showing its real inner trim, dive into the real trunk interior) → reassembly locks on the k80 big kick → fade → small logo. Each section appears once. No hood, bumper or engine scenes, because no such state scans exist |
 | 6 | Grade | 4 | consistent house silver on black (AgX); the fade goes to the logo card's black (7,7,9) so the last cut is invisible |
 | 7 | Text | 5 | none (scan-only brief); nothing invented |
@@ -17,10 +17,10 @@ Output: `/home/user/media/work/civic/out/civic_fe1_scan_v2.mp4` — 1080×1920, 
 | 9 | Technical | 5 | specs above; per-frame luma scan of every render folder (no dropouts; v1 s7 had one and was dropped); persistent data off for every shot with moving parts; N2 and the N3 lid motion use real 30 fps in-betweens (minterpolate smeared them); no black frames; one assembler hold frame per cut, plus one extra frozen frame at the end of N3 |
 
 ## v1 → v2 changes (all logged in editlog.jsonl)
-- Order from the scan features (scene-director); dropped the v1 turntable opener (it clipped the nose), the rear-left orbit, the rotating top-down and the wide all-at-once explode (redundant views, legible plate, too wide).
+- Order from the scan features (scene-director); dropped the v1 turntable opener (it clipped the nose), the rear-left orbit, the rotating top-down and the wide all-at-once explode (redundant views, too wide).
 - First cut moved from k17 (no hit, +2.9 dB) to k24 (+16.6 dB); every cut is on a measured onset.
 - New: N1 (whole car), N2 (doors lift up into the black above the car; they translate only, because their inner faces have no scan data), N3 (trunk opens, lid lifts off), N4 (reassembly + fade). s3/s4 reused (s3 reversed).
-- Licence plate flattened (tools/deplate.py); sill scrap removed (tools/boxdrop.py).
+- Sill scrap removed (tools/boxdrop.py). A plate flatten was tried, then reverted: user rule, only the IS300 gets one (N3 f1-140 and N4 re-rendered).
 - Logo card 860 → 330 px.
 
 ## Known issues / v3 ideas

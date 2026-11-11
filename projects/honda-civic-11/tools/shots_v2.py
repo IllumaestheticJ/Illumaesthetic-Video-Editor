@@ -4,7 +4,7 @@
 
 Order: N1 whole car front-left (0-k24) -> s3 wheel (v1, reversed) -> s4 lamp (v1) -> N2 right doors out (Door Open state)
 -> N3 trunk opens + lid lifts off (Trunk Open state) -> N4 reassembly (lock k80, clean car from frame 53) -> logo.
-Plate-bearing meshes are the deplated ones (tools/deplate.py): car4f_dp, lid_dp.
+Plates are kept as scanned (user rule: only the IS300 gets flattened); tools/deplate.py is unused.
 """
 import json
 import os
@@ -13,8 +13,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from shots import BEAT, CLOSED, HINGE, K, OUT, P, SPECS, orbit  # noqa: E402
 
-CAR = f"{P}/car4f_dp.blend"
-LID = {"blend": f"{P}/lid_dp.blend", "pivot": HINGE["pivot_prepped"]}
+CAR = f"{P}/car4f.blend"   # scanned plate kept: user rule 2026-11-11 "flatten plates ONLY on the IS300"
+LID = {"blend": f"{P}/lid.blend", "pivot": HINGE["pivot_prepped"]}
 OPEN = {"loc": [0, 0, 0], "rot": [0, 0, 0]}
 SECS = {"N1_open": K(24) + 0.2,   # k17 has no hit (+2.9 dB); first real accent k24 (+16.6 dB)
         "N2_doors": K(42) - K(31) + 0.2, "N3_trunk": K(72) - K(42) + 0.2,
