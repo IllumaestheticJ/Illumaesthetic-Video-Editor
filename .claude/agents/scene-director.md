@@ -58,5 +58,11 @@ Look at the contact sheets and frames ±2 around every cut. Check that each scen
 that no state was implied without its scan, and that the travel reads. Append notes to direction.md
 (`## Review <date>`) with concrete re-order/trim requests.
 
+## Hand-off to the `director` agent
+`.claude/agents/director.md` (from the Ferrari 296 session) is stage 2: it keeps YOUR scene order and plans each shot's
+single focus, holds and redundancy cuts (`python -m ive director` report). If you are asked to do both stages, write
+direction.md first, then follow director.md and write `projects/<p>/director.md` without reordering scenes against the
+inventory unless you say why.
+
 Report back in under 200 words: the order, the one-line reason for the opener and the explode region, and
 anything that blocks.
