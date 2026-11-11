@@ -17,6 +17,10 @@ SHOTS = [("S1_rear34", f"{R}/s2_rear34", "whole car, rear-left 3/4 orbit, moving
          ("S6_bumper", f"{R}/S6_bumper_m", "HERO: front bumper off, intercooler core on bar 16 (25.32), slide to the piping (labels)"),
          ("S7a_explode", f"{R}/S7a_explode", "exploded state, high left"),
          ("S7b_reassemble", f"{R}/S7b_reassemble", "reassembly, last lock on bar 21 (33.22), fade to black 34.01-34.80")]
+TAGS = {"S1_rear34": ("whole", "whole car, wing"), "S2_wing": ("rear", "wing off -> trunk lid / mount pads"),
+        "S3_skirt": ("side", "bare left sill"), "S4_wheel": ("wheel", "front-left wheel + caliper"),
+        "S5_hood": ("engine", "hood scoop -> engine bay"), "S6_bumper": ("front", "intercooler core + piping"),
+        "S7a_explode": ("whole", "all removed parts around the car"), "S7b_reassemble": ("whole", "parts lock home")}
 BARS = ["bar 3 (3.217 s shot end)", "", "", "", "", "", "", "bar 22 (34.80)"]
 
 out = sys.argv[1] if len(sys.argv) > 1 else "subaru_sti_blobeye_v2.mp4"
@@ -32,7 +36,7 @@ for i, (sid, src, note) in enumerate(SHOTS):
     dur = frames / 30
     if i:
         L.append(f"  - transition: {{type: cut, note: \"{CUTS[i] / 30:.3f} s\"}}")
-    L += [f"  - id: {sid}   # {note}", f"    src: {src}", f"    src_fps: {(n - 1) / (dur + 3 / 30):.4f}   # {n} frames", "    interpolate: true",
+    L += [f"  - id: {sid}   # {note}", f"    src: {src}", f"    section: {TAGS[sid][0]}", f"    focus: \"{TAGS[sid][1]}\"", f"    src_fps: {(n - 1) / (dur + 3 / 30):.4f}   # {n} frames", "    interpolate: true",
           f"    dur: {dur:.4f}"]
     if sid == "S7b_reassemble":
         st = 34.0127 - CUTS[i] / 30

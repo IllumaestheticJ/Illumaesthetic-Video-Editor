@@ -1,0 +1,12 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 145,
+ "accent": "#e8ecf2",
+ "_note": "S6 bumper-removed hero labels only (direction.md). Placed at video frame 755 (overlays.start 25.1667 s). Text names components visible in the 'bumper removed' state scan (chk/br.jpg): no numbers.",
+ "items": [
+  {"kind": "label", "from": 5, "duration": 88, "title": "FRONT BUMPER REMOVED", "sub": "FRONT-MOUNT INTERCOOLER", "x": 0.074, "y": 0.69},
+  {"kind": "label", "from": 99, "duration": 38, "title": "INTERCOOLER PIPING", "sub": "BUMPER-REMOVED SCAN", "x": 0.074, "y": 0.69}
+ ]
+}

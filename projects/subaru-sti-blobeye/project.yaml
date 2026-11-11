@@ -14,48 +14,64 @@ beats: [3.233, 8.033, 11.233, 12.833, 22.033, 30.033, 31.633, 34.833]
 timeline:
   - id: S1_rear34   # whole car, rear-left 3/4 orbit, moving from frame 1 (v1 s2 reused)
     src: /home/user/media/work/sti/renders/final/s2_rear34
+    section: whole
+    focus: "whole car, wing"
     src_fps: 14.2424   # 48 frames
     interpolate: true
     dur: 3.2000
   - transition: {type: cut, note: "3.233 s"}
   - id: S2_wing   # wing lifts off on bar 3 (4.80), camera tilts down onto the wing-off trunk scan
     src: /home/user/media/work/sti/renders/final/S2_wing
+    section: rear
+    focus: "wing off -> trunk lid / mount pads"
     src_fps: 14.2857   # 71 frames
     interpolate: true
     dur: 4.8000
   - transition: {type: cut, note: "8.033 s"}
   - id: S3_skirt   # left side skirt drops off over the 'sideskirt removed' sill scan
     src: /home/user/media/work/sti/renders/final/S3_skirt
+    section: side
+    focus: "bare left sill"
     src_fps: 13.9394   # 47 frames
     interpolate: true
     dur: 3.2000
   - transition: {type: cut, note: "11.233 s"}
   - id: S4_wheel   # front-left wheel: spokes, caliper, disc
     src: /home/user/media/work/sti/renders/final/S4_wheel
+    section: wheel
+    focus: "front-left wheel + caliper"
     src_fps: 13.5294   # 24 frames
     interpolate: true
     dur: 1.6000
   - transition: {type: cut, note: "12.833 s"}
   - id: S5_hood   # hood + scoop, hood lifts off on bar 9 (12.69), held descent over the engine-bay scan
     src: /home/user/media/work/sti/renders/final/S5_hood
+    section: engine
+    focus: "hood scoop -> engine bay"
     src_fps: 12.1505   # 114 frames
     interpolate: true
     dur: 9.2000
   - transition: {type: cut, note: "22.033 s"}
   - id: S6_bumper   # HERO: front bumper off, intercooler core on bar 16 (25.32), slide to the piping (labels)
     src: /home/user/media/work/sti/renders/final/S6_bumper_m
+    section: front
+    focus: "intercooler core + piping"
     src_fps: 14.4444   # 118 frames
     interpolate: true
     dur: 8.0000
   - transition: {type: cut, note: "30.033 s"}
   - id: S7a_explode   # exploded state, high left
     src: /home/user/media/work/sti/renders/final/S7a_explode
+    section: whole
+    focus: "all removed parts around the car"
     src_fps: 13.5294   # 24 frames
     interpolate: true
     dur: 1.6000
   - transition: {type: cut, note: "31.633 s"}
   - id: S7b_reassemble   # reassembly, last lock on bar 21 (33.22), fade to black 34.01-34.80
     src: /home/user/media/work/sti/renders/final/S7b_reassemble
+    section: whole
+    focus: "parts lock home"
     src_fps: 14.2424   # 48 frames
     interpolate: true
     dur: 3.2000
