@@ -1,0 +1,15 @@
+{
+  "image": "/home/user/media/work/a90sp/match/web0.png",
+  "image_size": [1080, 1920],
+  "sensor_width_mm": 36,
+  "_frame": "WebZoom frame 0: illumaesthetic.com A90 scan listing screenshot (2880x1640) at startScale 1.25, focus (958, 880)",
+  "points": [
+    {"name": "mirror",  "px": [717, 896],  "xyz": [0.00673, -1.00011, 0.90552]},
+    {"name": "handle",  "px": [562, 957],  "xyz": [-0.65482, -0.88246, 0.73151]},
+    {"name": "rarch",   "px": [442, 1000], "xyz": [-1.24126, -0.92921, 0.68898]},
+    {"name": "tl_tip",  "px": [275, 1025], "xyz": [-1.84135, -0.78387, 0.66461]},
+    {"name": "spoiler", "px": [108, 921],  "xyz": [-2.01360, 0.62324, 0.75989]},
+    {"name": "rocker",  "px": [504, 1117], "xyz": [-0.88092, -0.90680, 0.12659]},
+    {"name": "win_tip", "px": [442, 887],  "xyz": [-1.03702, -0.64544, 1.03075]}
+  ]
+}

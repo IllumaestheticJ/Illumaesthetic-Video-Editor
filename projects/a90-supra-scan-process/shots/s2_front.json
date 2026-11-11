@@ -1,0 +1,86 @@
+{
+ "_note": "Front-right 3/4: front bumper (Outside+Inside scans, one object) slides forward/down and turns 180 deg about Z so its scanned inside faces the lens; the 'Under Front Bumper' state scan is revealed. Fender scan stays in place. 5.0 s = 8 beats (10.682 -> 15.682).",
+ "seconds": 5.0,
+ "lens": 28,
+ "sensor": 20.25,
+ "ease": "sine",
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90sp/blend/base_explode.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/fbump.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.08
+    },
+    {
+     "t": 0.4,
+     "loc": [
+      1.05,
+      0.0,
+      -0.55
+     ],
+     "ease": "ease_in_out"
+    },
+    {
+     "t": 0.82,
+     "loc": [
+      1.05,
+      0.0,
+      -0.55
+     ],
+     "rot": [
+      0,
+      0,
+      180
+     ],
+     "ease": "ease_in_out"
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      1.05,
+      0.0,
+      -0.55
+     ],
+     "rot": [
+      0,
+      0,
+      180
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90sp/blend/fender.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "az": -32,
+   "dist": 4.5,
+   "z": 1.25,
+   "look": [
+    1.3,
+    -0.15,
+    0.42
+   ]
+  },
+  {
+   "t": 1.0,
+   "az": -24,
+   "dist": 4.7,
+   "z": 2.45,
+   "look": [
+    2.15,
+    -0.33,
+    0.0
+   ]
+  }
+ ]
+}
