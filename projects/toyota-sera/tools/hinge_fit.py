@@ -56,6 +56,11 @@ def main():
     ap.add_argument("--far", type=float, default=15.0)
     ap.add_argument("--outside", action="store_true",
                     help="open panel pts must be >30 mm above the car's roofline (40 mm XY cells) or outside its footprint")
+    ap.add_argument("--inner-below", action="store_true",
+                    help="keep inner tris only if, swung closed, they sit >3 mm below the outer skin (hood frame); "
+                         "else parts of the open capture's own outer skin poke through the closed panel")
+    ap.add_argument("--land-loose", type=float, default=0.0,
+                    help="mm: closed candidates (car tris the state lacks, inside --closed) count as panel if they land this close")
     ap.add_argument("--land", type=float, default=10.0, help="mm: car tri is panel if hinge lands it this close to the open capture")
     a = ap.parse_args()
     cb = [float(v) for v in a.closed.split(",")]; ob = [float(v) for v in a.open.split(",")]
@@ -112,6 +117,8 @@ def main():
     # outer skin = car tris that land on the open capture
     land, _ = TF.query(xf(cc, piv, ax, ang), distance_upper_bound=a.land * 2)
     outer = (land < a.land) & (d_cs > a.far * 0.5)
+    if a.land_loose:  # skin strips where the fit is weaker (hood nose) would otherwise stay behind on the base
+        outer |= (land < a.land_loose) & (d_cs > a.far) & box(cc, cb)
     dmed, _ = TF.query(xf(cc[outer], piv, ax, ang)); fit_med = float(np.median(dmed))
     print("fit cost %.2f mm; outer tris %d; axis %s angle %.1f; landing median %.2f mm" % (best.fun, outer.sum(), ax.round(3), ang, fit_med))
     # inner skin = the state's open-panel tris that are not the outer skin (hood frame, door trim), swung back closed
@@ -121,6 +128,11 @@ def main():
     R = Rot.from_rotvec(np.radians(-ang) * ax).as_matrix()
     back["v"] = (((back["v"].reshape(-1, 3).astype(float) - piv) @ R.T) + piv).reshape(-1, 3, 3).astype(np.float32)
     back["n"] = (back["n"].astype(float) @ R.T).astype(np.float32)
+    if a.inner_below:
+        bc = back["v"].mean(1).astype(float); oc = cc[outer]
+        _, j = cKDTree(oc[:, :2]).query(bc[:, :2])
+        below = bc[:, 2] < oc[j, 2] - 3
+        idx = np.where(inner)[0]; inner = np.zeros_like(inner); inner[idx[below]] = True; back = back[below]
     save(C + a.name + "_panel.stl", np.concatenate([car[outer], back]))
     print("panel = outer %d + inner %d (from the open capture)" % (outer.sum(), inner.sum()))
     np.savez_compressed(C + a.name + "_masks.npz", outer=outer, drop=om | (d_o < 25), state=a.state)
