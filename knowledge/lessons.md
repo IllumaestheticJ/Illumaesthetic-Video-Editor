@@ -222,3 +222,5 @@ lands here automatically. Agents must read this whole file before editing.
   (connected account). Phonk tracks (e.g. FREAKED OUT, 85 BPM) give a snare every 2 beats = a hard cut every 1.41 s.
   Fit the grid on snare hits, not the beat tracker (175 ms rms vs a few ms). Start right before a stop/silence so the
   drop lands just ahead of the first 1:1 cut. Attach the same sound in TikTok when posting (the export carries it as a guide).
+
+- **[scan-look]** Don't spin or flip parts unless the move is there to show the viewer the backside; a spin for its own sake is pointless  _(from c5-corvette-scan-process @ 14.5s, 2026-11-11, reviewer)_
