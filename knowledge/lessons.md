@@ -77,3 +77,5 @@ lands here automatically. Agents must read this whole file before editing.
   to the image's grey (`--morph-to-clay`, tuned from median luma) before the dissolve starts.
 - **[technical]** Verify alignment numerically (silhouette bounds / phaseCorrelate) - a hand-made side-by-side
   overlay with a different material can look mismatched when the geometry is right.
+
+- **[audio]** Never cut or join inside music that is playing, however well timed to the beat; put the join where the music is silent (before it starts, or have it enter on a downbeat that rises from silence), and check for speech and music before choosing any audio cut.  _(from nfs-carlot, 2026-11-11, reviewer)_

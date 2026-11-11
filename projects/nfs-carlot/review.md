@@ -109,3 +109,17 @@ Output: `/home/user/media/work/out/nfs-carlot_v9.mp4`, 20.9 s.
 - Checked: join = 7.001 bars; hits after the onset on the half-bar grid; no level dip; sync within 0.007 s;
   voice message still whole (take 1 runs to B 44.93 s, message ends 44.6 s).
 - Missed in v8: moved the jump without checking what the music does across it.
+
+## v10 (2026-11-11) - after the user's review of v9
+User: "Audio still stumbles"
+
+Output: `/home/user/media/work/out/nfs-carlot_v10.mp4`, 22.1 s.
+- No join inside the song any more: voice message whole (take 1, ends in silence at B 44.82), then the song
+  comes in on a phrase downbeat that rises from silence (B 51.90) where the game starts the song, and runs
+  unbroken through the last scroll, Continue, the prompt, Yes and under the card.
+- EP3 now holds 2.4 s (73 frames); its scroll-out is the first thing after the music comes in.
+- Fixed loudness gain (+2.7 dB to -15 LUFS) replaces one-pass loudnorm.
+- Checked: correlation against capture B, voice 6.0-15.0 s continuous, song 15.7-21.2 s continuous; level
+  -89 dB immediately before the hit; sync within 0.007 s.
+- Why two failed attempts: I cannot listen, and I tried to time a cut inside music instead of removing it.
+  Standing rule added to lessons.md.

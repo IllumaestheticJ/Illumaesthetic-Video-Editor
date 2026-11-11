@@ -38,7 +38,10 @@ SEGMENTS = [                                                   # (source frames,
     (range(4041, 4113), "civic_fe", "civic"),
     (range(4631, 4683), "integra", "integra"),
     (range(4732, 4786), "nc", "miata"),
-    (range(4947, 4985), "ep3", "civic"),                       # 38 frames: sets the audio join 7 bars apart (assemble.py)
+    # 73 frames, so the menu song can come in on a phrase downbeat right after the voice line (assemble.py).
+    # Same capture range as the NC, run longer: its hold is the only one long enough, and nothing of the
+    # game's car survives the swap, so ranges can be shared.
+    (range(4732, 4805), "ep3", "civic"),
     # the list wraps back to the first car, which gets bought: the scroll, then the last frames before the
     # player clicks Continue (same game car and stat bars, the cursor travelling to the button)
     (list(range(5089, 5104)) + list(range(5204, 5213)), "corolla", "corolla"),

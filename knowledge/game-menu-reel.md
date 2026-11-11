@@ -234,13 +234,18 @@ message is mono and usually plays without music: print the mid and side levels o
 lot: the message runs from the menu opening for 9.6 s, music starts right after). Put audio jumps
 after it, under a scroll sound. I cannot listen, so this check replaces listening; do it every time.
 
-**Joins in music (user on v8: "the music oddly loops").** An audio jump while a song is playing is a
-cut in the song, and a scroll sound does not hide it. Measure the bar (autocorrelation of the low-band
-envelope), make the jump a whole number of bars (two-bar multiples first; check which lags the passage
-actually matches itself at), and get there by changing the length of the picture range before the jump,
-not by moving the jump off the picture sync. `assemble.py` asserts this. Best of all, join where the
-song has only just started, so it is heard to start once. Then confirm in the output that the hits after
-the join sit on the same grid as before it.
+**Joins in music (user on v8: "the music oddly loops", on v9: "audio still stumbles").** Never join
+inside music that is playing. v8 jumped off the beat; v9 jumped a whole number of bars but half a phrase
+out; both were heard. Game menu songs are not steady loops (measure it: waveform similarity one to three
+phrases on was 0.4-0.8 here), so no timing makes a cut inside one inaudible, and the menu's scroll sounds
+are far too quiet to hide it. Put the join where there is no music: end the first take in the silence
+before the song starts, and start the second take in a silence just before a phrase downbeat (find one
+whose level rises from silence like the song's first hit), placed where the song would have started. The
+song is then heard to start once and runs unbroken. Get the placement by changing the length of the picture
+range before the join (capture ranges can be shared between cars if one hold is too short), never by
+breaking picture sync. `assemble.py` asserts the phrase count and prints it. Verify by correlating the
+output against the capture: each take must map to one continuous stretch. Use one fixed loudness gain,
+not one-pass `loudnorm`, which rides the level around a loud first hit.
 
 **Buying the car (user request on v4).** End the menu on the purchase, not on a scroll: Continue,
 the game's "Do you want this stock <car>?" prompt, Yes, then the end card. Use one unbroken audio
