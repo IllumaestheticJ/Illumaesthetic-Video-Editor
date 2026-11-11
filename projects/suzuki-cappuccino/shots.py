@@ -106,7 +106,7 @@ shot("s5_rear", 44, 62, EXPLODED,
 
 # 6 finale a: rear assembly rises into layers, then the front layers come in (high rear-left crane, not straight down)
 shot("x1_layers", 62, 68, EXPLODED,
-     [cam(0, 150, 30, 5.6, [0, 1.0, 0.95], 40), cam(1, 115, 58, 8.0, [0, 0.20, 1.15], 40)],
+     [cam(0, 150, 30, 5.6, [0, 1.0, 0.95], 40), cam(1, 140, 40, 10.0, [0, 0.10, 1.05], 40)],
      {"trunk": [k(0, deg=TRUNK_OPEN), k(0.40, LAYERS["trunk"]["off"], deg=0)],
       "rb": [k(0, R_OUT["rb"]["off"], spin=-95), k(0.10, R_OUT["rb"]["off"], spin=-95), k(0.40, (0, 0.75, 1.30), spin=-80),
              k(0.55, LAYERS["rb"]["off"], spin=-80)],
@@ -119,7 +119,7 @@ shot("x1_layers", 62, 68, EXPLODED,
 # 7 finale b: layered car -> parts home (outer layers last) -> clean car swaps in on beat 74 -> fade (left-rear 3/4)
 _t74 = (ONSET_F[74] - ONSET_F[68]) / (ONSET_F[76] - ONSET_F[68])
 shot("x2_reassemble", 68, 76, dict(EXPLODED, car=CAR["car"]),
-     [cam(0, 95, 34, 8.0, [0, 0, 1.05], 40), cam(0.45, 100, 26, 7.4, [0, 0.05, 0.80], 40),
+     [cam(0, 138, 38, 10.0, [0, 0.10, 1.00], 40), cam(0.45, 128, 26, 8.6, [0, 0.05, 0.75], 40),
       cam(1, 118, 12, 6.8, [0, 0.15, 0.55], 40)],
      {"hood": [k(0, **LAYERS["hood"]), k(0.20, lin=True, **DRIFT["hood"]), k(0.45, deg=0)],
       "trunk": [k(0, **LAYERS["trunk"]), k(0.20, lin=True, **DRIFT["trunk"]), k(0.25, **DRIFT["trunk"]), k(0.50, deg=0)],
