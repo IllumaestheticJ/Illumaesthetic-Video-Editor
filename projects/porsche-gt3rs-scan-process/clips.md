@@ -28,3 +28,19 @@ No GT3 RS exhaust scan exists; the exhaust scans are under `Porsche 911 GT3 (992
   1,000,000; Side Skirt Strake 4,471,552.
 - Listing: illumaesthetic.com/products/porsche-911-gt3-rs-3d-scan ("Porsche 911 GT3 RS (992) 3D Scan (2022+)"),
   screenshot 1440x820 @2x, hero = grey scan in the 360 viewer (rear-right 3/4).
+
+## Scan-process footage (user's phone) - Dropbox `/2. Illumaesthetic Videos/1. Video dumps/992 GT3RS scanning/`
+Downloaded to /home/user/media/gt3rs/scanfoot. iPhone HEVC HLG, 1920x1080 rotated -90 (portrait), 30 fps, ultrawide-ish (solved 16-18 mm on 20.25 mm).
+Car: yellow 992 GT3 RS on an alignment lift, both front wheels OFF, rear wheels on. Jan 30 2025.
+
+| local | Dropbox | len | content |
+|---|---|---|---|
+| v_0130_125744 | Video Jan 30 2025, 12 57 44 PM.mov | 7.8 s | low head-on of the front on the lift, settles 2.5-7 s -> **1:1 #1 @ 4.500 s (camA)** |
+| v_0130_125720 | Video Jan 30 2025, 12 57 20 PM.mov | 5.4 s | crew scanning front-right arch, pulls back to the whole right side -> **1:1 #2 @ 5.300 s (camC)** |
+| v_0130_125732 | Video Jan 30 2025, 12 57 32 PM.mov | 5.5 s | live scan on the handheld's screen next to the brake (used 0.2-3.97) |
+| v_0130_125703 | Video Jan 30 2025, 12 57 03 PM.mov | 9.5 s | front 3/4 (0-1.2 s) -> pan to crew scanning the front-right arch (5.6-9.5 s); arch frame too close to solve (mirror only) |
+| v_0130_125414 | Video Jan 30 2025, 12 54 14 PM.mov | 6.7 s | crew crouched under the front scanning the underbody, tilt up to the head-on front (alternative opener) |
+| v_0130_125651 | Video Jan 30 2025, 12 56 51 PM.mov | 7.0 s | crew scanning the front-right arch, close; pulls back at the end |
+| v_0130_132348 | Video Jan 30 2025, 1 23 48 PM.mov | 38 s | underbody / suspension close-ups (unused) |
+| v_0211_2152, v_0212_0102, v_0212_0104 | Video Feb 11/12 2025 | 24-25 s | already-edited montages incl. a purple GT3 RS - not used |
+| photos | Photo Jan 30 2025 ... | - | suspension/underbody stills, scan screenshots of other cars (unused) |
