@@ -274,3 +274,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** A part being removed is hard to see when the rest of the scan is behind it - move parts out into clear background, not across the body  _(from porsche-gt3rs-scan-process, 2026-11-11, reviewer)_
 
 - **[story]** Same issues as the other first revisions - learn from them and make the same updates (sibling v1 notes: opening too cropped; exploded view too wide, doesn't zoom in on the part assemblies; last scenes held too long; follow the Temerario: progressive explode over several angles, fade, small logo)  _(from toyota-mr2-spyder, 2026-11-11, reviewer)_
+- **[story]** Same issue as the other first drafts. Need to focus more specifically on the removed areas and where the useful data is  _(from c5-corvette, 2026-11-11, reviewer)_

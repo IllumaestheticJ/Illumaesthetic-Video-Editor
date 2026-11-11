@@ -92,3 +92,71 @@ shot("s9_reassemble", {**EXPL, **CAR}, secs(8), [{"t": 0, "az": -112, "el": 18, 
                                  {"t": 1, "az": -148, "el": 11, "dist": 6.3, "target": [0, 0.25, 0.55], "lens": 36}],
      anims=an9, hinges=HINGES, light_ref="base", visible=VIS9)
 print("wrote", sorted(os.listdir(OUT)))
+
+# ---------------------------------------------------------------- v2 (reviewer on v1 + the sibling first drafts)
+# "Focus more specifically on the removed areas and where the useful data is"; "rotations are wasted"; "front bumper
+# removed: frame the front while it comes off, THEN the rear"; bumpers turn about vertical to show the scanned inside.
+# No turntables/orbits/top-down spin: every camera move is a straight push on ONE removed area. Only panels that were
+# physically removed AND have a removed-state scan move (front bumper, -X fender, hood, rear bumper); the targa has no
+# roof-off state, so it stays home. Base = the composite (car trimmed under the parts + the removed states as captured).
+V2 = {"tg": B + "targa_reg.blend", **{k: B + PARTS[k] + ".blend" for k in ["fb", "fe", "hood", "rb"]}, "base": B + "base.blend"}
+Z = [0, 0, 0]
+# parked poses once a panel is off (held in later shots so the state carries through)
+P_FB = {"off": [0, -1.1, 1.0], "spin": [180, 0, 0, 1]}      # above the nose, inner face toward a front camera
+P_FE = {"off": [-0.35, 0, 0.9]}                              # lifted up/out of the -X front quarter
+P_HOOD = {"off": [0, 0.35, 1.0], "deg": OPEN}                # opened on its hinge, then lifted off
+P_RB = {"off": [0, 1.3, 0.95], "spin": [180, 0, 0, 1]}       # above/behind the tail, inner face toward a rear camera
+HOMEK = {"fb": {"off": Z, "spin": [0, 0, 0, 1]}, "fe": {"off": Z}, "hood": {"off": Z, "deg": 0},
+         "rb": {"off": Z, "spin": [0, 0, 0, 1]}}
+def held(**poses):
+    return {k: [dict(t=0, **v)] for k, v in poses.items()}
+def push(az, el, d0, d1, tgt0, tgt1=None, lens=30):
+    """straight push along one bearing - no rotation around the car"""
+    return [{"t": 0, "az": az, "el": el, "dist": d0, "target": tgt0, "lens": lens},
+            {"t": 1, "az": az, "el": el, "dist": d1, "target": tgt1 or tgt0, "lens": lens}]
+def v2shot(name, i, cam, anims, **kw):
+    shot("v2_" + name, V2, secs(i), cam, anims=anims, hinges=HINGES, light_ref="base", persistent=False, **kw)
+
+# A (0-4.04) HOOK: framed on the nose, the front bumper slides straight out from 0.6 s
+v2shot("a_fb_off", 0, push(-28, 9, 4.6, 3.8, [0, -1.95, 0.45]),
+       {"fb": [{"t": fr(0.6, 0), "off": Z, "spin": [0, 0, 0, 1]}, {"t": 1, "off": [0, -0.9, 0.05], "spin": [0, 0, 0, 1]}],
+        **held(fe=HOMEK["fe"], hood=HOMEK["hood"], rb=HOMEK["rb"])})
+# B (4.04-9.39): low head-on push into the exposed crash structure / radiator support; the bumper rises above the nose
+# and turns about vertical so its scanned inner face is on camera (bumper upper frame, structure lower frame)
+v2shot("b_fb_inside", 1, push(-6, 7, 4.2, 3.3, [0, -2.3, 0.75], [0, -2.25, 0.65]),
+       {"fb": [{"t": 0, "off": [0, -0.9, 0.05], "spin": [0, 0, 0, 1]}, {"t": fr(0.3, 1), "off": [0, -0.9, 0.05], "spin": [0, 0, 0, 1]},
+               {"t": fr(3.6, 1), **P_FB}],
+        **held(fe=HOMEK["fe"], hood=HOMEK["hood"], rb=HOMEK["rb"])})
+# C (9.39 DROP-13.84): -X side on the front quarter; the fender lifts off on the drop -> inner wheelhouse + mounts
+v2shot("c_fender", 2, push(-80, 8, 3.7, 3.0, [-0.7, -1.35, 0.55], [-0.75, -1.4, 0.5]),
+       {"fe": [{"t": fr(0.1, 2), "off": Z}, {"t": fr(1.7, 2), **P_FE}],
+        **held(fb=P_FB, hood=HOMEK["hood"], rb=HOMEK["rb"])})
+# D (13.84-15.51) close-up: exposed fender mounts / headlight bucket from the -X front corner
+v2shot("d_fender_macro", 3, push(-52, 14, 1.75, 1.5, [-0.65, -1.75, 0.6], lens=35),
+       held(fb=P_FB, fe=P_FE, hood=HOMEK["hood"], rb=HOMEK["rb"]))
+# E (15.51-17.17) close-up: crash bar / radiator support where the bumper was
+v2shot("e_nose_macro", 4, push(12, 16, 1.8, 1.55, [0.15, -2.05, 0.45], lens=35),
+       held(fb=P_FB, fe=P_FE, hood=HOMEK["hood"], rb=HOMEK["rb"]))
+# F (17.17-22.18): hood opens on the fitted hinge, then lifts off; push down into the engine bay (hood-removed state)
+v2shot("f_hood", 5, push(-18, 38, 4.4, 3.5, [0, -1.15, 0.7], [0, -1.05, 0.6]),
+       {"hood": [{"t": fr(0.3, 5), "off": Z, "deg": 0}, {"t": fr(1.9, 5), "off": Z, "deg": OPEN},
+                 {"t": fr(3.4, 5), **P_HOOD}],
+        **held(fb=P_FB, fe=P_FE, rb=HOMEK["rb"])})
+# G (22.18 kick-26.62): THEN the rear - rear 3/4 framed on the tail, bumper slides straight back -> rear crash bar
+v2shot("g_rb_off", 6, push(152, 9, 4.3, 3.5, [0, 2.05, 0.45]),
+       {"rb": [{"t": fr(0.1, 6), "off": Z, "spin": [0, 0, 0, 1]}, {"t": fr(1.6, 6), "off": [0, 0.9, 0.05], "spin": [0, 0, 0, 1]}],
+        **held(fb=P_FB, fe=P_FE, hood=P_HOOD)})
+# H (26.62-30.51): straight behind; the bumper rises and turns about vertical -> its scanned inside on camera
+v2shot("h_rb_inside", 7, push(178, 8, 4.2, 3.4, [0, 2.4, 0.8], [0, 2.35, 0.7]),
+       {"rb": [{"t": 0, "off": [0, 0.9, 0.05], "spin": [0, 0, 0, 1]}, {"t": fr(2.6, 7), **P_RB}],
+        **held(fb=P_FB, fe=P_FE, hood=P_HOOD)})
+# I (30.51-35.51): wide high front 3/4, everything flies home (rear first, front bumper last, locking on the 34.402 kick),
+# then the clean full car. v1 measured the shot-time->reel mapping ~0.08 s early, so lock/swap are keyed at 3.97/3.98 s.
+an_i = stag({k: dict(P_FB if k == "fb" else P_FE if k == "fe" else P_HOOD if k == "hood" else P_RB) for k in HOMEK},
+            HOMEK, fr(1.2, 8), fr(3.45, 8), ["rb", "hood", "fe", "fb"], fr(0.173, 8))
+SWAP2 = fr(3.98, 8)
+v2shot("i_home", 8, push(-38, 24, 8.4, 7.2, [0, -0.1, 0.75], [0, -0.05, 0.6], lens=32), an_i,
+       visible={"car": [SWAP2, 1.01], **{k: [0, SWAP2] for k in V2}})
+# the clean car is only in the last shot
+json.dump({**json.load(open(OUT + "v2_i_home.json")), "objects": {**V2, **CAR}}, open(OUT + "v2_i_home.json", "w"), indent=1)
+print("v2 shots", [n for n in sorted(os.listdir(OUT)) if n.startswith("v2_")])
