@@ -1,71 +1,75 @@
 # Ferrari 296 GTB - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of 240sx-scan / fg2-race-car.
 # Satin-silver scan on black; turntables -> close-ups -> hood + engine cover open -> top-down -> exploded view -> logo.
 # Shots: projects/ferrari-296/tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + hinged parts).
-# Music: original procedural score, tools/music.py + cues.json (100 BPM, bar = 2.4 s = 72 frames; every cut on a bar line).
-# Clip durs are whole frames so each cut lands on round(t*30); first clip is one frame short (assembler adds the cut hold frame).
+# Music: ferrari296_track.mp3 - original track generated for this reel by the coordinating session (ElevenLabs Music via
+# Higgsfield, licensed to the team; elegant Italian GT: staccato strings, arp, sub). 103.4 BPM, beat 0.5803 s.
+# (The procedural score from tools/music.py + cues.json was v0 and is kept as a silent-friendly fallback / for other reels.)
+# Accents (per-beat RMS + flux, see editlog): 5.077, 9.719, 14.361 (8-beat phrases), music drops out at 12.04,
+# 7-beat phrase, then 18.423, 23.066 (lift, loudest), 27.708, 32.350 (heaviest bass); fade 36.75 -> silent ~39.
+# Cuts on frames round(t*30): 152, 292, 361, 431, 553, 622, 692, 1040; end 1170 (39.0 s).
+# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: ferrari-296
 format: reel-9x16
 output: {path: /home/user/media/work/f296/out/ferrari_296_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/f296/audio/score_v1.wav   # python projects/ferrari-296/tools/music.py projects/ferrari-296/cues.json <wav>
+  path: /home/user/media/work/music/ferrari296_track.mp3   # not in git
   start: 0
-  fade_out: 0.6
+  fade_out: 0.3
 
-# cut times (s): bar lines of the 100 BPM grid; hits in cues.json sit exactly on these
-beats: [4.8, 9.6, 12.0, 14.4, 19.2, 21.6, 26.4, 33.6]
+beats: [5.067, 9.733, 12.033, 14.367, 18.433, 20.733, 23.067, 34.667]
 
 timeline:
-  - id: s1_turntable   # front 3/4 turntable, moving from frame 1 (hook); soft hit on frame 1
+  - id: s1_turntable   # front 3/4 turntable, moving from frame 1; rendered 4.8 s, slowed 4.6 % to reach the 5.077 accent
     src: /home/user/media/work/f296/renders/final/s1_turntable
-    src_fps: 15
+    src_fps: 14.3
     interpolate: true
-    dur: 4.7667
-  - transition: {type: cut, note: "bar 2 (4.8 s)"}
-  - id: s2_rear        # rear 3/4 orbit, other side, slight rise; kick enters on the bar
+    dur: 5.0333
+  - transition: {type: cut, note: "5.077 phrase accent"}
+  - id: s2_rear        # rear 3/4 orbit, other side, slight rise
     src: /home/user/media/work/f296/renders/final/s2_rear
     src_fps: 15
     interpolate: true
-    dur: 4.8
-  - transition: {type: cut, note: "bar 4 (9.6 s)"}
+    dur: 4.6667
+  - transition: {type: cut, note: "9.719 phrase accent"}
   - id: s3_wheel       # extreme close-up: front right wheel + brake through the spokes (3 mm scan)
     src: /home/user/media/work/f296/renders/final/s3_wheel
     src_fps: 15
     interpolate: true
-    dur: 2.4
-  - transition: {type: cut, note: "bar 5 (12.0 s)"}
+    dur: 2.3
+  - transition: {type: cut, note: "12.04 - the music drops out"}
   - id: s4_nose        # detail: front lamp + intake slide (tail lamps are scan holes - avoided)
     src: /home/user/media/work/f296/renders/final/s4_nose
     src_fps: 15
     interpolate: true
-    dur: 2.4
-  - transition: {type: cut, note: "bar 6 (14.4 s)"}
-  - id: s5_hood        # hood lifts 15.0 -> 17.4 s on its rear hinge, frunk from the state scan
+    dur: 2.3333
+  - transition: {type: cut, note: "14.361 phrase accent (bass back in)"}
+  - id: s5_hood        # hood lifts from 1 beat in to 4 beats in (14.94 -> 16.68), frunk from the state scan
     src: /home/user/media/work/f296/renders/final/s5_hood
     src_fps: 15
     interpolate: true
-    dur: 4.8
-  - transition: {type: cut, note: "bar 8 (19.2 s)"}
-  - id: s6_engine      # engine-cover louvre lifts 19.8 -> 21.0 s
+    dur: 4.0667
+  - transition: {type: cut, note: "18.423 accent"}
+  - id: s6_engine      # engine-cover louvre lifts 19.00 -> 20.16 (beats)
     src: /home/user/media/work/f296/renders/final/s6_engine
     src_fps: 15
     interpolate: true
-    dur: 2.4
-  - transition: {type: cut, note: "bar 9 (21.6 s)"}
-  - id: s7_top         # rear-high 3/4 up and over to straight top-down; riser 23.4 -> 26.4
+    dur: 2.3
+  - transition: {type: cut, note: "20.744 - build"}
+  - id: s7_top         # high rear 3/4 up and over to straight top-down through the build
     src: /home/user/media/work/f296/renders/final/s7_top
     src_fps: 15
     interpolate: true
-    dur: 4.8
-  - transition: {type: cut, note: "bar 11 (26.4 s) - impact, panels separate"}
-  - id: s8_explode     # separate 26.4-28.8, drift, fly home 31.2-32.4, LOCK 32.4 (big impact), hold
+    dur: 2.3333
+  - transition: {type: cut, note: "23.066 lift (loudest accent) - panels separate"}
+  - id: s8_explode     # separate 23.07-25.39, drift + orbit front-right -> rear-right, fly home, LOCK 32.350, hold 4 beats
     src: /home/user/media/work/f296/renders/final/s8_explode
     src_fps: 15
     interpolate: true
-    dur: 7.2
-  - transition: {type: cut, note: "bar 14 (33.6 s) - logo, Dm chord + hall tail"}
-  - id: logo           # tools/logo_card.py: ILLUMAESTHETIC logo on render black, fades out with the music
+    dur: 11.6
+  - transition: {type: cut, note: "34.671 beat - logo over the track's ending and fade"}
+  - id: logo           # tools/logo_card.py --secs 4.3333: logo on render black, fades out with the track (~39 s)
     src: /home/user/media/work/f296/out/logo_card.mp4
-    dur: 4.8
+    dur: 4.3333
 
 overlays: []
