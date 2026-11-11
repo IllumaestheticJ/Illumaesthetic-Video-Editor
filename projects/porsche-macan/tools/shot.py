@@ -169,7 +169,8 @@ def main():
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
-    sc.render.use_persistent_data = True
+    # huracan-evo/lexus-is350: with persistent data the scene goes unlit once an animated part starts moving
+    sc.render.use_persistent_data = not any(p.get("keys") for p in spec.get("parts", []))
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"

@@ -56,8 +56,8 @@ SHOTS = {
         {"t": SECS["s3_wheel"], "loc": [-2.25, -1.85, 0.42], "target": [-0.95, -1.47, 0.38], "focal": 40, "ease": "inout"}]},
     # 4. detail: rear light bar, slow slide across the tail (car's left -> centre)
     "s4_lightbar": {"base": [CAR_HI], "cam": [
-        {"t": 0, "loc": [1.65, 3.55, 1.25], "target": [0.55, 2.2, 1.05], "focal": 38},
-        {"t": SECS["s4_lightbar"], "loc": [0.35, 3.85, 1.2], "target": [-0.1, 2.25, 1.05], "focal": 38, "ease": "inout"}]},
+        {"t": 0, "loc": [1.35, 3.5, 1.45], "target": [0.5, 2.2, 1.15], "focal": 55},
+        {"t": SECS["s4_lightbar"], "loc": [0.2, 3.78, 1.42], "target": [-0.2, 2.25, 1.15], "focal": 55, "ease": "inout"}]},
     # 5. hood opens on its fitted hinge (bay from "Hood Removed"), camera high front 3/4 easing in
     "s5_hood": {"base": [f"{P}/comp_hood.blend"],
                 "parts": [{"blend": f"{P}/x_hood.blend", "pivot": hood["pivot"],
@@ -121,14 +121,15 @@ T8 = SECS["s8_explode"]
 SHOTS["s8_explode"] = {
     "base": [f"{P}/comp_explode.blend"],
     "parts": [
-        {"blend": f"{P}/x_hood.blend", "keys": explode((0, -0.25, 0.95), (-12, 0, 0))},
-        {"blend": f"{P}/x_fbumper.blend", "keys": explode((0, -1.05, -0.05))},
-        {"blend": f"{P}/x_fender.blend", "keys": explode((0.8, -0.15, 0.3), (0, 8, 0), 0.05)},
-        {"blend": f"{P}/x_hatch.blend", "keys": explode((0, 0.45, 0.85), (18, 0, 0), 0.08)},
-        {"blend": f"{P}/x_rbumper.blend", "keys": explode((0, 1.05, -0.05), delay=0.04)},
+        # portrait: panels stack ABOVE the car (Temerario 25-31 s) instead of flying fore/aft past the frame edges
+        {"blend": f"{P}/x_hood.blend", "keys": explode((0, -0.15, 1.35), (-10, 0, 0))},
+        {"blend": f"{P}/x_fbumper.blend", "keys": explode((0, -0.5, 0.6))},
+        {"blend": f"{P}/x_fender.blend", "keys": explode((0.55, -0.1, 0.8), (0, 10, 0), 0.05)},
+        {"blend": f"{P}/x_hatch.blend", "keys": explode((0, 0.25, 1.15), (15, 0, 0), 0.08)},
+        {"blend": f"{P}/x_rbumper.blend", "keys": explode((0, 0.5, 0.6), delay=0.04)},
     ] + [{"blend": f"{P}/x_door_{d}.blend", "keys": door_x(d)} for d in ("fl", "fr", "rl", "rr")],
-    "cam": [orbit(T8 * k / 12, 7.6 + 1.2 * math.sin(math.pi * k / 12), 38 + 95 * smooth(k / 12), 3.6 - 0.6 * (k / 12),
-           c=(0.15, 0.0, 0.5), focal=28, ease="lin", tz=0.45) for k in range(13)]}
+    "cam": [orbit(T8 * k / 12, 6.0 + 1.1 * math.sin(math.pi * k / 12), 38 + 97 * smooth(k / 12), 3.3 - 0.5 * (k / 12),
+           c=(0.1, 0.0, 0.7), focal=28, ease="lin", tz=0.75) for k in range(13)]}
 
 
 def spec(name, mode):
