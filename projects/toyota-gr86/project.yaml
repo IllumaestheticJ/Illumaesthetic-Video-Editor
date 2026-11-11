@@ -19,12 +19,16 @@ beats: [4.962, 7.411, 17.207, 24.554, 31.901, 36.799]
 timeline:
   - id: a_open         # whole car, front-right 3/4 dolly-in (motion from frame 1), 2 bars
     src: /home/user/media/work/gr86/shots/a_open
+    section: whole
+    focus: "whole car, front-right 3/4, ~20 deg arc + push from frame 1"
     src_fps: 15
     interpolate: true
     dur: 4.9333
   - transition: {type: cut, note: "4.962 downbeat"}
   - id: b_headlight    # FRONT: right headlight + slat grille + intake, 2 mm crop (s3 render from 2.4 s), 1 bar
     src: /home/user/media/work/gr86/shots/s3_wheel
+    section: front
+    focus: "right headlight + slat grille + intake detail (2 mm crop)"
     src_fps: 15
     trim_start: 2.4
     interpolate: true
@@ -32,32 +36,42 @@ timeline:
   - transition: {type: cut, note: "7.411 downbeat"}
   - id: c_front        # FRONT: hood lifts off (lands 9.860), engine bay (Hood Open scan), front bumper off + tipped (lands 14.758), push-in on the front structure (Bumper Hood Removed scan)
     src: /home/user/media/work/gr86/shots/d_front
+    section: front
+    focus: "hood lifts off -> engine bay (Hood Open scan) -> FRONT BUMPER REMOVED: crash beam + mounts (Bumper Hood Removed scan)"
     src_fps: 15
     interpolate: true
     dur: 9.8
   - transition: {type: cut, note: "17.207 downbeat"}
   - id: d_rear         # REAR: rear bumper off + tipped (lands 19.656), push-in on the rear crash beam + exhaust (Rear Bumper Removed scan)
     src: /home/user/media/work/gr86/shots/g_rear
+    section: rear
+    focus: "REAR BUMPER REMOVED: bumper tips out, push-in on the holed rear crash beam + exhaust (Rear Bumper Removed scan)"
     src_fps: 15
     interpolate: true
     dur: 7.3667
   - transition: {type: cut, note: "24.554 phrase start"}
   - id: e_stack        # TOP: removed parts rise into a layered stack (27.003), crane to high rear 3/4
     src: /home/user/media/work/gr86/shots/s_stack
+    section: top
+    focus: "removed parts (hood, both bumpers) rise into a layered stack over the car"
     src_fps: 15
     interpolate: true
     dur: 7.3333
   - transition: {type: cut, note: "31.901 downbeat"}
   - id: f_reassemble   # WHOLE: s7 from frame 111 - parts drift, slam home on the 34.350 loud return, settle, fade to black
     src: /home/user/media/work/gr86/shots/s7_explode
+    section: whole
+    focus: "parts slam home on the 34.350 return; car complete, fades out"
     src_fps: 15
     trim_start: 7.3333
     interpolate: true
     dur: 4.9
-    vf: "fade=t=out:st=4.4:d=0.5:color=0x070709"
+    vf: "fade=t=out:st=2.9:d=2.0:color=0x070709"   # parts home at 2.449; ive director flagged a 2.4 s dead hold -> fade from 0.45 s after they land
   - transition: {type: cut, note: "36.799 downbeat"}
   - id: logo           # small ILLUMAESTHETIC logo (330 px) on black, fades with the track (audible to 39.24)
     src: /home/user/media/work/gr86/out/logo_card_small.mp4
+    section: end
+    focus: "small ILLUMAESTHETIC logo"
     dur: 2.4333
 
 overlays:

@@ -26,8 +26,8 @@ RB_AWAY = [1.70, 1.30, -0.42]
 
 # A: whole car, front-right 3/4, dolly-in + small arc (motion from frame 1, nothing clipped)
 spec("a_open", ["car4.blend"], [
-    cam(0, [3.70, -5.60, 1.25], [0, -0.35, 0.70], 30),
-    cam(5.162, [2.90, -5.50, 1.20], [0, -0.45, 0.68], 30)], 5.162)
+    cam(0, [4.60, -4.70, 1.40], [0, -0.25, 0.70], 30),
+    cam(5.162, [2.10, -5.90, 1.10], [0, -0.50, 0.66], 30)], 5.162)  # ~20 deg arc + push: v1's 0.8 m dolly read as static (ive director)
 
 # C: front section. hood lifts off (lands 2.449 = 9.860 abs), bay read, front bumper out + tipped (lands 7.347 = 14.758 abs)
 spec("d_front", ["comp_explode.blend"], [
