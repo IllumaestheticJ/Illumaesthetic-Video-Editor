@@ -232,3 +232,92 @@ if __name__ == "__main__":
     for name, d in HP_SHOTS:
         json.dump(d, open(OUT + name + ".json", "w"), indent=1)
         print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
+
+
+# ---------------------------------------------------------------- v3 revision per direction.md (v2 brief: travel + section focus)
+COUPE = {"car": B + "coupe2_npc.blend"}   # plate + 2 floating debris specks (47 tris above nose/roof) removed
+HP_BEATS = [("h0_select", 0, 3), ("h2_front", 3, 14), ("h3_hood", 14, 25), ("h4_wheel", 25, 36), ("h5_side", 36, 47),
+            ("h1_tail", 47, 57), ("h7_rear", 57, 64)]   # front -> side -> rear; h6_high dropped (roof glass holes, 3rd whole-car 3/4)
+CAMS["h3_hood"] = [dict(t=0, az=-12, el=50, dist=2.5, target=[0, -1.85, 0.62], lens=70),
+                   dict(t=1, az=10, el=48, dist=2.3, target=[0, -1.85, 0.62], lens=70, lin=True)]
+CAMS["h4_wheel"] = [dict(t=0, az=60, el=5, dist=1.7, target=[0.85, -1.35, 0.35], lens=50),
+                    dict(t=1, az=76, el=4, dist=1.4, target=[0.85, -1.35, 0.35], lens=50, lin=True)]   # sweeps rearward
+CAMS["h5_side"] = [dict(t=0, az=90, el=3, dist=5.0, target=[0, -1.1, 0.5], lens=40),
+                   dict(t=1, az=90, el=3, dist=5.0, target=[0, 1.1, 0.5], lens=40, lin=True)]           # slides front -> rear
+HP_SHOTS = [hpshot(n, a, b, CAMS[n], extra={"lot": dict(GARAGE, lights_up=[0.04, 0.3])} if n == "h0_select" else None)
+            for n, a, b in HP_BEATS if n not in ("h0_select", "h1_tail")]   # h0/h1 already rendered (h1 stretched 9 -> 10 beats)
+
+# Spyder section shots (n64-108): each part comes off in its own section shot, tips its scanned inner face to the lens
+OPEN_DEG = HINGE["open_deg"] * 0.85
+Z = [0, 0, 0]
+def P(off=Z, spin=0.0, ax=(1, 0, 0), deg=None):
+    d = {"off": list(off), "spin": [spin, *ax]}
+    if deg is not None:
+        d["deg"] = deg
+    return d
+ST = {}   # running part state, updated shot by shot
+ST0 = {k: P() for k in PARTS}
+ST0["hood"] = P(deg=0)
+OPEN_ST = dict(ST0, fb=P([0, -0.95, -0.02]), fe=P([-0.55, -0.05, 0.02], ax=(0, 1, 0)), hood=P(deg=OPEN_DEG))
+S2_END = dict(OPEN_ST, fb=P([0, -1.60, 0.33], 125))
+S3_END = dict(S2_END, hood=P([0, 0.05, 0.60], deg=HINGE["open_deg"]), tc=P([0, 0, 0.45]), lc=P([-0.22, -0.10, 0.35]),
+              rc=P([0.22, -0.10, 0.35]))
+S4_END = dict(S3_END, fe=P([-0.95, -0.15, 0.40], -120, (0, 1, 0)), sk=P([-0.55, 0, -0.15], -120, (0, 1, 0)))
+S5_END = dict(S4_END, rb=P([0, 1.00, 0.35], -125))
+SP_N = {"sp_bumper": (72, 80), "sp_hood": (80, 86), "sp_side": (86, 92), "sp_rear": (92, 98), "sp_finale": (98, 108)}
+
+
+def moves(a, b, windows, extra=None):
+    """keys: every part holds state a, parts in `windows` move a->b between their (t0, t1); extra = additional keys"""
+    an = {}
+    for k in PARTS:
+        if k in windows:
+            t0, t1 = windows[k]
+            an[k] = [dict(t=0, **a[k]), dict(t=t0, **a[k]), dict(t=t1, **b[k]), dict(t=1, **b[k])]
+        else:
+            an[k] = [dict(t=0, **a[k])]
+    for k, ks in (extra or {}).items():
+        an[k] = an[k][:-1] + ks if len(an[k]) > 1 else an[k] + ks
+    return an
+
+
+def spshot(name, camera, anims, objects=EXPLODED2, extra=None):
+    a, b = SP_N[name]
+    d = dict(objects=objects, seconds=round(KH(b) - KH(a), 3), fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
+             camera=camera, out=RENDERS + name, anims=anims, exposure=EXPOSURE, light_ref="base", persistent=False,
+             hinges={"hood": {"p": HINGE["p"], "axis": HINGE["axis"]}})
+    d.update(extra or {})
+    return name, d
+
+
+SP_SHOTS = [
+    # S2 front bumper: forward into clear black, tips its inner face toward the lens (beat = 0.125)
+    spshot("sp_bumper", [dict(t=0, az=-45, el=25, dist=3.6, target=[0, -2.70, 0.45], lens=45),
+                         dict(t=1, az=-60, el=35, dist=2.6, target=[0, -3.30, 0.65], lens=50)],
+           moves(OPEN_ST, S2_END, {"fb": (0.125, 0.75)}, {"fb": [dict(t=1, off=[0, -1.62, 0.34], spin=[125, 1, 0, 0], lin=True)]})),
+    # S3 under the hood: hood swings full open and lifts, cowls lift straight off (translate only) (beat = 0.167)
+    spshot("sp_hood", [dict(t=0, az=-20, el=28, dist=3.2, target=[0, -1.55, 0.95], lens=45),
+                       dict(t=1, az=-14, el=36, dist=2.7, target=[0, -1.55, 0.90], lens=45)],
+           moves(S2_END, S3_END, {"hood": (0.0, 0.5), "tc": (0.333, 0.667), "lc": (0.333, 0.833), "rc": (0.5, 0.833)})),
+    # S4 right side: fender then skirt move outboard and tip their inner faces up/out to the lens
+    spshot("sp_side", [dict(t=0, az=-95, el=22, dist=3.4, target=[-1.0, -0.90, 0.55], lens=50),
+                       dict(t=1, az=-88, el=20, dist=3.2, target=[-1.0, 0.35, 0.35], lens=50)],
+           moves(S3_END, S4_END, {"fe": (0.0, 0.5), "sk": (0.333, 0.833)})),
+    # S5 rear bumper: back past the tail onto black, tips its inner face
+    spshot("sp_rear", [dict(t=0, az=-115, el=25, dist=3.8, target=[0, 2.80, 0.65], lens=45),
+                       dict(t=1, az=-125, el=30, dist=3.2, target=[0, 3.00, 0.75], lens=45)],
+           moves(S4_END, S5_END, {"rb": (0.167, 0.667)})),
+    # S6 the one full-explode view, then reassembly in reverse travel order, clean car swap on n106 (t=0.8), fade in assembly
+    spshot("sp_finale", [dict(t=0, az=-105, el=48, dist=8.8, target=[0, 0, 0.90], lens=40),
+                         dict(t=0.35, az=-150, el=34, dist=8.2, target=[0, 0.20, 0.75], lens=40, lin=True),
+                         dict(t=1, az=-210, el=16, dist=7.2, target=[0, 0.25, 0.55], lens=40)],
+           moves(S5_END, ST0, {"rb": (0.3, 0.5), "sk": (0.4, 0.6), "fe": (0.4, 0.6), "tc": (0.4, 0.6), "lc": (0.4, 0.6),
+                               "rc": (0.4, 0.6), "hood": (0.5, 0.7), "fb": (0.5, 0.75)}),
+           objects=dict(EXPLODED2, clean=B + "car2.blend"),
+           extra={"visible": dict({k: [0, 0.8] for k in ["base", *PARTS]}, clean=[0.8, 1.01])}),
+]
+
+if __name__ == "__main__":
+    for name, d in HP_SHOTS + SP_SHOTS:
+        json.dump(d, open(OUT + name + ".json", "w"), indent=1)
+        print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
