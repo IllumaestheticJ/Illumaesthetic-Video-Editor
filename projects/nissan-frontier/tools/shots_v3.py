@@ -118,7 +118,7 @@ def shots():
                                       part("flare_rf", fk(FLARE_OUT), "flares", hl(n, "flares")),
                                       part("flare_rr", fk(FLARE_OUT, 0.0), None, hl(n, "flares")),
                                       part("flare_lf", fl(FLARE_OUT_L)), part("flare_lr", fl(FLARE_OUT_L))],
-             "cam": keyed_orbit(S[n] + 0.2, 6.1, 5.9, -62, -76, 1.5, 1.3, (-0.3, -0.18, 0.4), (-0.3, -0.18, 0.3), focal=26)}
+             "cam": keyed_orbit(S[n] + 0.2, 7.3, 7.1, -62, -76, 1.5, 1.3, (-0.3, 0.1, 0.4), (-0.3, 0.1, 0.3), focal=26)}
     # S8 home one per beat from the crash (lock 30.14); FULL TRUCK; clip fades out in the assembly
     n = "v3_s8_home"
     home = lambda park, rot, t0, t1: [k(0, park, rot), k(t0, park, rot), k(t1, (0, 0, 0), ease="in2")]
