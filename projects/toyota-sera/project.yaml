@@ -1,22 +1,75 @@
-# Copy to projects/<name>/project.yaml. Times in seconds; every cut should sit on a `beats` entry.
-project: NAME
+# Toyota Sera - Temerario-style scan reel (scan only: no IRL footage, no text). Siblings: ferrari-296, huracan-evo, a90-supra.
+# Satin-silver scan on black; turntables -> close-ups -> hood + butterfly doors open -> top-down -> exploded view -> logo.
+# Shots: tools/shots.py (specs) + tools/shot.py (Blender; keyed cameras, parts on fitted hinges about any axis).
+# Scans: Drive "Toyota Sera" (clips.md); one levelling transform for every state, all prepped --like car4.json.
+# Music: toyota-sera_track.mp3 - original track generated for this reel by the parent session (ElevenLabs via Higgsfield;
+# retro-futurist Japanese synth). Kick grid 0.0355 + 0.59999 n (100.0 BPM, tools/accents.py). 8-beat phrases from
+# 0.036 s; kick break 25.2-27.6 s; music stops 38.435 s, decayed by ~39.1 s -> reel ends 39.30 s.
+# Cuts on frames round(t*30): 145, 289, 361, 433, 523, 649, 721, 1045; end 1179.
+# Clip durs are whole frames; first clip one frame short (the assembler adds the cut hold frame).
+project: toyota-sera
 format: reel-9x16
-output: {path: /home/user/media/work/out/NAME_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
-music: {path: /path/to/track.wav, start: 0, fade_out: 0.6}
-beats: []            # from `python -m ive beats <track>`
+output: {path: /home/user/media/work/sera/out/toyota_sera_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/toyota-sera_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [4.835, 9.635, 12.035, 14.435, 17.435, 21.635, 24.035, 33.635, 34.835]
+
 timeline:
-  - id: irl_1
-    src: /home/user/media/NAME/dropbox/clip.mov   # HLG is tonemapped automatically
-    in: 0.0
-    out: 2.5
-  - id: irl_match           # must END on the solved frame (out = t + 1/fps)
-    src: /home/user/media/NAME/dropbox/clip2.mov
-    in: 1.3
-    out: 3.8334
-  - transition: {type: cut}  # the 1:1 perspective cut; also: dissolve, dip, flash, scanline, ghost
-  - id: scan_match
-    src: /home/user/media/work/renders/shots/s1_match   # PNG sequence dir from `ive render`
+  - id: s1_turntable   # low front 3/4 turntable (car's right), moving from frame 1 - the hook
+    src: /home/user/media/work/sera/renders/final/s1_turntable
     src_fps: 15
     interpolate: true
-    trim_end: 2.5
-overlays: []          # [{src: hud.mov, start: 0}] from `ive hud`
+    dur: 4.8
+  - transition: {type: cut, note: "4.835 phrase downbeat (bass up)"}
+  - id: s2_rear        # rear 3/4 orbit, other side, slight rise
+    src: /home/user/media/work/sera/renders/final/s2_rear
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "9.635 phrase downbeat"}
+  - id: s3_wheel       # extreme close-up: front-right wheel + arch, 3 mm scan
+    src: /home/user/media/work/sera/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "12.035 beat 20"}
+  - id: s4_nose        # nose / headlamp / grille slide, 3 mm scan
+    src: /home/user/media/work/sera/renders/final/s4_nose
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "14.435 phrase downbeat"}
+  - id: s5_hood        # hood swings up on its fitted hinge, beats 1 -> 4 (15.035 -> 16.835); engine bay from 'Hood open'
+    src: /home/user/media/work/sera/renders/final/s5_hood
+    src_fps: 15
+    interpolate: true
+    dur: 3.0
+  - transition: {type: cut, note: "17.435 beat 29"}
+  - id: s6_doors       # both butterfly doors swing up, beats 1 -> 5 (18.035 -> 20.435); interior from 'Door Open'
+    src: /home/user/media/work/sera/renders/final/s6_doors
+    src_fps: 15
+    interpolate: true
+    dur: 4.2
+  - transition: {type: cut, note: "21.635 beat 36"}
+  - id: s7_top         # rise to straight top-down; last 2.4 s of the move (lands on the cut)
+    src: /home/user/media/work/sera/renders/final/s7_top
+    src_fps: 15
+    interpolate: true
+    in: 0.4
+    dur: 2.4
+  - transition: {type: cut, note: "24.035 phrase downbeat - panels separate"}
+  - id: s8_explode     # separate on 24.035, drift through the kick break, LOCK on 33.635 (phrase downbeat), hold 2 beats
+    src: /home/user/media/work/sera/renders/final/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 10.8
+  - transition: {type: cut, note: "34.835 beat 58 - logo over the track's end and decay"}
+  - id: logo           # ferrari-296/tools/logo_card.py --secs 4.4667 --width 760: logo on render black, fades with the decay
+    src: /home/user/media/work/sera/out/logo_card.mp4
+    dur: 4.4667
+
+overlays: []
