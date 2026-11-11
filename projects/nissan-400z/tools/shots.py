@@ -147,9 +147,9 @@ def cam2(secs, p0, t0, f0, p1, t1, f1):
 SHOTS["N0_open"] = {"base": [CAR], "cam": arc(S["N0_open"], 6.5, 6.0, -24, -34, 1.25, 1.35, c0=(0, -0.10, 0.80),
                                                 focal=30, n=8, ease_out=False)}
 # H: the real Hood Open scan (captured open hood on comp_hood) - no animated closed hood (addendum D)
-SHOTS["H_hoodopen"] = {"base": [f"{B}/comp_hoodopen.blend"],
+SHOTS["H_hoodopen"] = {"base": [f"{B}/comp_hood.blend"],  # bay from the Hood Open scan; its captured hood is only ragged flaps (read as noise)
                        "cam": cam2(S["H_hoodopen"], [-1.00, -4.05, 2.35], [0, -1.00, 0.75], 30,
-                                   [-0.60, -3.35, 2.00], [0, -0.95, 0.70], 30)}
+                                   [-0.65, -3.50, 2.10], [0, -0.95, 0.68], 30)}
 # N1a (hero, on the drop): grille out toward the lens and up out of frame, then the bumper shell; camera moves in
 SHOTS["N1a_bumper_off"] = {"base": [EXP], "parts": [
     {"blend": f"{B}/p_grille.blend", "keys": [k(0, (0, 0, 0)), k(0.70, (0, 0, 0)), k(1.30, (0, -0.45, 0.35), ease="out"),

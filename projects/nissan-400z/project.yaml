@@ -1,86 +1,82 @@
-# Nissan 400Z - Temerario-style scan reel v1 (scan only: no IRL footage, no text).
-# Satin-metallic silver scan on pure black (projects/ferrari-296/tools/shot.py + tools/shots.py), x0.955 gain to match
-# Temerario.mov car luma. Renders: 1080x1920 @ 75 %, 12 spp, 15 fps -> minterpolate to 30 fps.
-# Music: track generated for this reel (parent session, ElevenLabs via Higgsfield) - ~129.6 BPM phonk, drop 7.43 s,
-# heaviest kicks every 8 beats from 8.243 s, last hit 36.97 s, tail fades to ~38.4 s (tools/kicks.py, music_grid.py).
-# Cuts land on round(t*30) of measured hits; durs are whole frames, first clip one frame short (assembler adds a
-# frame per cut). Close-ups / hood / top are played faster than rendered (src_fps) to fit their hits.
+# Nissan 400Z - scan reel v2 (scan only; labels over the bumper-removed hero only, per user feedback 2026-11-11).
+# Order from projects/nissan-400z/direction.md (scene director, by scan features) + director.md (one focus per shot):
+# whole car -> engine bay (Hood Open scan) -> front bumper off (hero, on the drop) -> structure behind it (2 mm
+# Bumper and hood removed, labelled) -> right mirror off -> tail detail -> wing off -> reassembly (s8b) -> fade -> small logo.
+# Renders 1080x1920 @ 75 %, 12 spp, 15 fps, persistent data OFF, minterpolate to 30 fps; x0.955 gain (Temerario luma).
+# src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_track.mp3
   start: 0
   fade_out: 1.2
 
-# cut times (s): 3.70 7.43(drop) 9.282 11.128 12.974 16.666 19.319 26.703 34.087(logo) end 38.4
-beats: [3.70, 7.43, 9.282, 11.128, 12.974, 16.666, 19.319, 23.011, 26.703, 30.395, 34.087, 36.97]
+# cut times (s): 3.70 7.43(drop) 11.128 16.666 19.319 22.198 26.703 33.286(logo) end 38.4
+beats: [3.70, 7.43, 8.243, 9.282, 11.128, 11.935, 14.826, 16.666, 19.319, 22.198, 24.044, 26.703, 30.395, 34.087, 36.97]
 
 timeline:
-  - id: s1_front34     # intro bars 1-2: low front 3/4 turntable, fades up from black
-    src: /home/user/media/work/z400/renders/final/s1_front34
-    src_fps: 15
+  - id: N0_open     # whole car, front-right 3/4, fades up (110 f, first clip one frame short)
+    src: /home/user/media/work/z400/renders/final/N0_open
+    src_fps: 15.13
     interpolate: true
-    dur: 3.6667        # 110 f (first clip one frame short)
+    dur: 3.6667
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955,fade=t=in:st=0:d=1.2"
   - transition: {type: cut, note: "3.70 intro bar 3"}
-  - id: s2_rear34      # intro bars 3-4: rear 3/4 orbit
-    src: /home/user/media/work/z400/renders/final/s2_rear34
-    src_fps: 15
+  - id: H_hoodopen     # engine bay from the Hood Open scan, camera pushes in (112 f)
+    src: /home/user/media/work/z400/renders/final/H_hoodopen
+    src_fps: 14.87
     interpolate: true
-    dur: 3.7333        # 112 f
+    dur: 3.7333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "7.43 THE DROP"}
-  - id: s3_haunch      # high glide along the right rear haunch to the mirror (2 mm)
-    src: /home/user/media/work/z400/renders/final/s3_haunch
-    src_fps: 25
+  - id: N1a_bumper_off     # HERO: grille out on 8.24, bumper shell off on 9.28 (111 f)
+    src: /home/user/media/work/z400/renders/final/N1a_bumper_off
+    src_fps: 15.0
     interpolate: true
-    dur: 1.8333        # 55 f
-    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "9.282 kick"}
-  - id: s4_lamp        # headlight + grille close-up (2 mm)
-    src: /home/user/media/work/z400/renders/final/s4_lamp
-    src_fps: 25
-    interpolate: true
-    dur: 1.8667        # 56 f
+    dur: 3.7
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "11.128 kick"}
-  - id: s5_tail        # tail-lamp bar + badge close-up (2 mm)
-    src: /home/user/media/work/z400/renders/final/s5_tail
-    src_fps: 25
+  - id: N1b_structure     # HERO hold: structure behind the bumper, 2 mm, labels (166 f)
+    src: /home/user/media/work/z400/renders/final/N1b_structure
+    src_fps: 14.91
     interpolate: true
-    dur: 1.8333        # 55 f
-    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "12.974 kick"}
-  - id: s6_hood        # hood opens on the fitted hinge, engine bay from 'Hood Open'
-    src: /home/user/media/work/z400/renders/final/s6_hood
-    src_fps: 19
-    interpolate: true
-    dur: 3.7           # 111 f
+    dur: 5.5333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "16.666 kick"}
-  - id: s7_top         # rise to straight overhead, nose up
-    src: /home/user/media/work/z400/renders/final/s7_top
-    src_fps: 23
+  - id: N2_mirror     # right mirror lifts off, Side Mirrors Removed mount (80 f)
+    src: /home/user/media/work/z400/renders/final/N2_mirror
+    src_fps: 14.82
     interpolate: true
-    dur: 2.6667        # 80 f
+    dur: 2.6667
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "19.319 phrase accent - panels separate"}
-  - id: s8a_explode    # high front-right: hood/bumper/grille/spoiler/mirrors separate, fully out on 23.01
-    src: /home/user/media/work/z400/renders/final/s8a_explode
-    src_fps: 15
+  - transition: {type: cut, note: "19.319 phrase accent"}
+  - id: s5_tail     # tail-lamp bar + badge (reused v1 render, native speed, 86 f)
+    src: /home/user/media/work/z400/renders/final/s5_tail
+    src_fps: 15.17
     interpolate: true
-    dur: 7.3667        # 221 f
+    dur: 2.8667
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "26.703 phrase accent - angle change, panels start home"}
-  - id: s8b_explode    # high rear-left: panels LOCK on 30.395 (loudest kick), car rests
+  - transition: {type: cut, note: "22.198 kick"}
+  - id: N3_wing     # duck-tail wing lifts off on 24.04, camera rises over the Rear Wing Removed deck (135 f)
+    src: /home/user/media/work/z400/renders/final/N3_wing
+    src_fps: 15.0
+    interpolate: true
+    dur: 4.5
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "26.703 phrase accent - reassembly from a new angle"}
+  - id: s8b_explode     # panels fly home, LOCK on 30.395; scaled 78 % (edges), fade out (198 f)
     src: /home/user/media/work/z400/renders/final/s8b_explode
     src_fps: 15
     interpolate: true
-    dur: 7.4           # 222 f
-    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "34.087 phrase accent - logo"}
-  - id: logo           # ILLUMAESTHETIC card (projects/ferrari-296/tools/logo_card.py --width 540 --secs 4.4), fades with the tail
-    src: /home/user/media/work/z400/logo_card.mp4
-    dur: 4.3           # 129 f -> ends 38.4 s
+    dur: 6.6
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955,scale=iw*0.78:-2,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:color=0x070709,fade=t=out:st=4.725:d=1.858"
+  - transition: {type: cut, note: "33.286 logo card (0.8 s black lead, logo in on 34.087)"}
+  - id: logo           # small ILLUMAESTHETIC card (logo_card.py --width 340 --lead 0.8 --secs 5.2 --fade-out 1.4)
+    src: /home/user/media/work/z400/logo_card_v2.mp4
+    dur: 5.1           # 153 f -> ends 38.4 s (frame 1152)
+
+overlays:   # labels over the bumper-removed hero only (user feedback 2026-11-11: highlighted + labelled)
+  - src: /home/user/media/work/out/hud_z400_v2.mov
+    start: 0
