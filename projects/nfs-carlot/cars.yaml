@@ -33,8 +33,8 @@ cars:
     kit: "python -m ive kit honda-civic-ep3 --glb <glb>"
     fitted: [front_lip, side_skirts, rear_lip, rear_wing]
     hide: []
-    paint: "#e8c21a"
-    finish: gloss
+    paint: "#1c4fa0"                    # Boost Blue Pearl B637P, the lookbook's Honda blue (user, v5 review)
+    finish: pearl
   - id: mazda-mx5-nc
     glb: eps-mazda-mx5-nc-v19.glb
     kit: "python -m ive kit mazda-mx5-nc --glb <glb>"

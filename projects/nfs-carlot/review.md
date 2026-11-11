@@ -65,3 +65,11 @@ Output: `/home/user/media/work/out/nfs-carlot_v5.mp4`, 21.1 s.
   holds are shorter (NC 1.5 s, EP3 0.8 s, Corolla 0.3 s before Continue) because they follow the capture.
 - Still open: no separate NFSU2 soundtrack bed (needs a file from the user). The Corolla's stat bars are
   the game's 240SX bars on its second appearance (different from its first).
+
+## v6 (2026-11-11) - after the user's review of v5
+User: "Can you also change the EP3 to the blue we use for the lookbook?"
+
+Output: `/home/user/media/work/out/nfs-carlot_v6.mp4`, 21.1 s.
+- EP3 re-rendered in Boost Blue Pearl (B637P, #1c4fa0, pearl): the lookbook's default paint on the 11th-gen
+  Civics, taken as "the lookbook blue" because the EP3 itself has no lookbook entry. Everything else as v5.
+- Open: the EP3 (blue) is now followed by the Corolla (blue #16408c) where the list wraps.
