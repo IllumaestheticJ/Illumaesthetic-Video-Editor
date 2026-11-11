@@ -6,7 +6,7 @@
 # v1 timeline: project_v1.yaml.
 project: infiniti-qx80
 format: reel-9x16
-output: {path: /home/user/media/infiniti-qx80/out/infiniti_qx80_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/infiniti-qx80/out/infiniti_qx80_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/infiniti-qx80_track.mp3   # not in git

@@ -10,12 +10,12 @@ Newest first. Read the top two before starting a new edit.
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
+- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
-- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11

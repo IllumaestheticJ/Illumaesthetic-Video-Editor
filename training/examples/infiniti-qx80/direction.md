@@ -76,3 +76,19 @@ and exact specs in director.md.
 3. Front Bumper Duct sits at 7.2 mm median: check its seat in N3 at the lock; the clean-car swap on 31.962 hides it after.
 4. Rear plate in N2 at ~3.9 m: check it is not legible; deplate (infiniti-g35 tools/deplate.py) if it is.
 5. Side Vents is one mesh with both vents: split by x sign (x>0 = right, x<0 = left) so each can move outward.
+
+## v3 addendum (parent session, user feedback: cropping / redundancy / bumper-removed / openings) - 2026-11-11
+Section coverage - each section appears in ONE continuous run:
+| shot | section | subject |
+|---|---|---|
+| N0_open | whole (front-right side) | whole car, fully in frame (9.8 -> 9.2 m orbit) |
+| s3_grille | front | grille fins + badge |
+| s4_wheel | front / RF wheel | RF wheel + fender vent |
+| s5_hood | front / engine bay | hood opens (registered open-state scan) -> under-hood capture |
+| N1_front | front / RF corner | bumper corner, vents, fender, hood lift - one per hit |
+| N2_rear | rear | roof spoiler, exhaust trims |
+| N3_reassemble | whole (front-left, unseen side) | parts home, hood shuts, clean car, fade |
+- Bumper-removed hero beat (C): not applicable - no bumper/front-end-removed state scan exists for this car. No labels.
+- Openings (D): hood only (real scan). No trunk, no doors.
+- Cropping (A): first/mid/last of every re-rendered shot checked at 30 % (media check/v4f.jpg); s3/s4 are detail shots that
+  fill the frame by design.

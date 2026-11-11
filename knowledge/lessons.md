@@ -504,3 +504,7 @@ lands here automatically. Agents must read this whole file before editing.
 - To move cuts relative to the music, remember the sign: a LATER `music.start` makes kicks arrive EARLIER in the video. Shift `start` by +(mean cut-minus-kick error) and re-measure with the decoded audio.
 - `ive director` "same view shown twice" uses silhouette IoU; close-ups that fill the frame all score IoU ~0.9 even when the subjects differ. Confirm a repeat on the contact sheet before cutting a shot.
 - Background shell tasks are killed at 2 h. Chain long renders one shot per task, and resume a killed shot with a `frames:` list starting at its last (possibly partial) frame.
+- **[technical]** Split shots (parts frames 1-59 + clean-car frames 60-100, same camera): when you change the camera keys,
+  re-render BOTH halves - QX80 v3 re-rendered only the parts half and the luma scan caught a 37 -> 44 step at the swap.
+- **[scan-look]** Whole-car wide in 9:16 at 32 mm needs ~9.5 m for a 5.4 m SUV at a 3/4 angle (projected ~5.4 m wide);
+  anything closer clips the nose or tail. QX80 (2026-11-11).

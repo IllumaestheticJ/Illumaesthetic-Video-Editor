@@ -1,8 +1,12 @@
-# Infiniti QX80 scan reel v2 - self-review (training/rubric.md)
+# Infiniti QX80 scan reel v3 - self-review (training/rubric.md)
 
-Output: `/home/user/media/infiniti-qx80/out/infiniti_qx80_v2.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.80 s, 1164 frames.
+Output: `/home/user/media/infiniti-qx80/out/infiniti_qx80_v3.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.80 s, 1164 frames.
 v2 = the user's all-reels v2 brief (relayed by the parent + WRX VA sessions) via the scene-director/director agents
-(direction.md, director.md). v1 review: review_v1.md.
+(direction.md, director.md). v1 review: review_v1.md, v2: review_v2.md.
+v3 = v2 re-framed for the parent addendum (A cropping): N0, s5, N1, N2, N3 re-rendered; first/mid/last of every shot checked
+on the delivered file (nothing clipped except the grille/wheel detail shots, which fill the frame by design). B: each section
+appears once (direction.md table). C: no bumper-removed state scan exists for this car -> no hero beat, no labels.
+D: only the hood opens (registered open-state scan).
 
 | # | Criterion | v1 | v2 | Notes |
 |---|---|---|---|---|
@@ -16,4 +20,4 @@ v2 = the user's all-reels v2 brief (relayed by the parent + WRX VA sessions) via
 | 8 | Ending | 4 | 5 | 1.3 s fade to render-black, then a 360 px logo over the track's fade; video ends as the music goes silent. |
 | 9 | Technical | 5 | 5 | Spec met; no black/dup frames at cuts. |
 
-Likely reviewer flags: streaky part shading during N1/N2; exploded front reads busy at the N1 pull-back; N2 frame 1 shows a sliver of the lifted hood top-left.
+Likely reviewer flags: streaky part shading during N1/N2; whole-car shots (N0, N3) leave the car ~55-60 % of the 9:16 width - the price of no clipping on a 5.4 m SUV.
