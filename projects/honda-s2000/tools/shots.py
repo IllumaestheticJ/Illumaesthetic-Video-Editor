@@ -153,6 +153,50 @@ for _n, (_t0, _s, _cam) in SUB.items():
     SECS[_n] = _s
 
 
+# ---------------------------------------------------------------- v6 (director.md; all-reels v2 brief + addendum A-D)
+# Front bumper (Bumper Only scan) is the ONLY moving part; no hood animation (never captured open), no trunk.
+# Master part animation, time origin = beat 32 (the drop); each front shot renders a window via t0 = (start beat - 32) * B.
+BFLIP = True   # set False if the bumper's inner face is not worth showing (back render check)
+
+
+def bumper_keys(flip=BFLIP):
+    k = lambda beat, loc, rx, ease="inout": {"t": (beat - 32) * B, "loc": loc, "rot": [rx, 0, 0], "ease": ease}
+    up = [k(64, [0, -1.35, 0.25], 120, "out"), k(66.5, [0, -1.45, 0.32], 126, "lin")] if flip else \
+         [k(64, [0, -1.6, 0.35], 0, "out"), k(66.5, [0, -1.7, 0.4], 0, "lin")]
+    return [k(32, [0, 0, 0], 0), k(33, [0, -0.30, 0], 0, "out"), k(34.5, [0, -0.55, -2.80], 0, "in"),
+            k(60, [0, -0.55, -2.80], 0, "lin")] + up + \
+           [k(68, [0, -0.90, 0.0], 0, "inout"), k(69.5, [0, -0.90, 0.0], 0, "lin"), k(76, [0, 0, 0], 0, "in")]
+
+
+BUMPER = {"blend": f"{P}/bonly.blend", "pivot": [0, -1.75, 0.35], "keys": bumper_keys()}
+CF = f"{P}/comp_front.blend"
+
+
+def cam2(a, b, secs, ease="inout"):
+    """a/b = (loc, target, focal)."""
+    return [{"t": 0, "loc": a[0], "target": a[1], "focal": a[2]},
+            {"t": secs, "loc": b[0], "target": b[1], "focal": b[2], "ease": ease}]
+
+
+V6 = {  # name: (base, parts?, t0, secs, cam keys)
+    "W1": ([CAR], False, 0, 3.6, arc(0, 3.6, 6.4, 6.1, 24, 44, 1.45, 1.30, c=(0, 0.17, 0.55), focal=26)),
+    "R1": ([CAR], False, 0, 1.95, arc(0, 1.95, 6.0, 6.0, 148, 182, 1.7, 1.9, c=(0, 0.35, 0.55), focal=26, n=6)),
+    "F1": ([CF], True, 0.0, 3.6, [
+        {"t": 0, "loc": [-1.25, -5.05, 1.35], "target": [0, -1.7, 0.5], "focal": 28},
+        {"t": 2.5 * B, "loc": [-1.15, -4.95, 1.33], "target": [0, -1.7, 0.5], "focal": 28, "ease": "lin"},
+        {"t": 8 * B, "loc": [-0.55, -3.95, 1.15], "target": [0, -1.8, 0.42], "focal": 28, "ease": "inout"}]),
+    "F2": ([CF], False, 0, 3.6, cam2(([-0.30, -3.45, 0.85], [0, -1.8, 0.62], 30), ([-0.12, -3.1, 0.80], [0, -1.8, 0.60], 30), 3.6)),
+    "F3": ([CF], False, 0, 2.7, cam2(([-1.25, -2.95, 0.45], [-0.55, -1.8, 0.55], 35), ([-0.85, -3.10, 0.42], [-0.30, -1.8, 0.55], 35), 2.7)),
+    "F4": ([CF], False, 0, 2.7, cam2(([0.70, -2.95, 1.05], [0.20, -1.70, 0.40], 30), ([-0.70, -2.95, 1.05], [-0.20, -1.70, 0.40], 30), 2.7)),
+    "F5": ([CF], True, 28 * B, 3.6, cam2(([-0.75, -5.15, 2.45], [0, -2.95, 0.70], 28), ([-0.40, -4.95, 2.20], [0, -3.05, 0.70], 28), 3.6)),
+    "F6": ([CF], True, 36 * B, 3.6, cam2(([2.05, -4.95, 1.00], [0.0, -2.1, 0.50], 28), ([2.35, -4.30, 1.25], [0.10, -1.65, 0.50], 28), 3.6)),
+    "F7": ([CF], True, 44 * B, 1.95, cam2(([2.70, -3.90, 2.90], [0, 0.05, 0.55], 26), ([3.40, -4.90, 3.50], [0, 0.10, 0.60], 26), 1.95, "out2")),
+}
+for _n, (_base, _parts, _t0, _s, _cam) in V6.items():
+    SHOTS[_n] = {"base": _base, "parts": [BUMPER] if _parts else [], "cam": _cam, "t0": _t0, "v6": True}
+    SECS[_n] = _s
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
@@ -163,7 +207,7 @@ def spec(name, mode):
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if mode == "preview":
         sp["frames"] = ["first", "mid", "last"]
-    if name == "s8_explode" or name in SUB:
+    if name == "s8_explode" or name in SUB or s.get("v6"):
         sp["persistent"] = False
     if "t0" in s:
         sp["t0"] = s["t0"]

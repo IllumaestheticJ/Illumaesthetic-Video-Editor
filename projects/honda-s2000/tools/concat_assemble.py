@@ -34,9 +34,17 @@ try:
     total = sum(frames) / fps
     lst = tmp / "list.txt"; lst.write_text("".join(f"file '{f}'\n" for f in files))
     m = proj["music"]; fo = float(m.get("fade_out", 1.0))
+    # HUD overlays (Remotion .mov with alpha) at absolute times; inputs 2.. after concat (0) and music (1)
+    vchain, last = "", "[0:v]"
+    for k, ov in enumerate(proj.get("overlays") or []):
+        vchain += (f"[{k + 2}:v]format=yuva444p,setpts=PTS+{float(ov.get('start', 0))}/TB[ov{k}];"
+                   f"{last}format=yuv444p[b{k}];[b{k}][ov{k}]overlay=eof_action=pass:format=auto[o{k}];")
+        last = f"[o{k}]"
+    vchain += f"{last}format=yuv420p[v];"
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(lst),
                     "-ss", str(m.get("start", 0)), "-i", str((root / m["path"]).resolve()),
-                    "-filter_complex", f"[0:v]format=yuv420p[v];[1:a]atrim=0:{total:.4f},afade=t=out:st={total - fo:.4f}:d={fo}[a]",
+                    *sum((["-i", str((root / ov["src"]).resolve())] for ov in proj.get("overlays") or []), []),
+                    "-filter_complex", vchain + f"[1:a]atrim=0:{total:.4f},afade=t=out:st={total - fo:.4f}:d={fo}[a]",
                     "-map", "[v]", "-map", "[a]", "-c:v", "libx264", "-crf", str(o.get("crf", 16)), "-preset", o.get("preset", "slow"),
                     "-c:a", "aac", "-b:a", "320k", "-movflags", "+faststart", "-t", f"{total:.4f}", str(out)], check=True)
     cuts = [sum(frames[:k]) for k in range(1, len(frames))]
