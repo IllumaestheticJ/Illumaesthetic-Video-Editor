@@ -1,102 +1,145 @@
 # Nissan 400Z: scene direction v2 (scene-director, 2026-11-11)
 
-Brief: scan only, no IRL, no text, satin silver on black, 1080x1920, Temerario-style (training/references/README.md
-`v_jul22_1047_58`). Inputs read: CLAUDE.md, knowledge/lessons.md (all of it), style-guide.md, workflow.md "Scene direction",
-clips.md, project.yaml, cues.json, editlog.jsonl, tools/shots.py, hinge.json. There is no feedback.jsonl yet.
-Parent v2 brief, folded in: travel front → side → rear; each section explodes on its own close camera; no wasted
-rotations; the opener shows the whole car; spin a part only when its back is worth showing; never reuse a shot; the
-ending is not held long (progressive explode → reassembly → fade → small logo).
+Brief: scan only, satin silver on black, 1080x1920, Temerario-style (training/references/README.md `v_jul22_1047_58`).
+Inputs read: CLAUDE.md, knowledge/lessons.md (all of it), style-guide.md, workflow.md "Scene direction", clips.md,
+project.yaml, cues.json, editlog.jsonl, tools/shots.py, hinge.json. There is no feedback.jsonl yet.
+Parent v2 brief and its addendum are folded in. Where they conflict, the addendum wins:
+- travel front → side → rear;
+- section-focused explodes;
+- no wasted rotations;
+- whole-car opener;
+- spin a part only when its back is worth showing;
+- never reuse a shot;
+- a short ending with a small logo;
+- deliberate 9:16 framing;
+- one continuous sequence per section;
+- **the bumper-removed data is the hero beat, with short factual labels**;
+- **the hood is shown open only as the real Hood Open scan**;
+- no trunk or gas-door beat.
 
-Renders reviewed (sheets in `/home/user/media/work/z400/check/`): `fin_a.jpg` (s1-s5), `dir_s1_front34.jpg`,
-`dir_s2_rear34.jpg`, `dir_s6_hood.jpg`, `dir_s7_top.jpg`, `dir_s8a_explode.jpg`, `dir_s8b_explode.jpg` (60/112 frames
-done when sheeted), `dir_keyframes.jpg` (last frames of s3/s5/s6, s1 f1/f56, s8b f1), `dir_s1_crop.jpg` (s1 f30/40/48).
-`python -m ive director` report on v1: `/tmp/claude-0/-home-user-Illumaesthetic-Video-Editor/7fb2e21b-fa3b-5a1c-abba-9b3f48ec7a09/scratchpad/director_report.md`.
+Sheets I looked at (all in `/home/user/media/work/z400/check/`): `fin_a.jpg`, `dir_s1_front34.jpg`, `dir_s1_early.jpg`
+(f1/13/25), `dir_s1_crop.jpg` (f30/40/48), `dir_s2_rear34.jpg`, `dir_s6_hood.jpg`, `dir_s7_top.jpg`, `dir_s8a_explode.jpg`,
+`dir_s8b_explode.jpg`, `dir_fml_all.jpg` (first/mid/last of s3, s5, s8b), `dir_s8b_tail.jpg` (s8b f70/f97),
+`dir_keyframes.jpg`, `dir_states.jpg` (solo renders: Hood Open, Bumper and hood removed, comp_hood, comp_explode,
+Bumper Only, Bumper Grille Removed), `dir_bhr_zoom.jpg` (Bumper and hood removed, front zoom), `dir_front_struct.jpg`
+(s8a f80, front crop).
+v1 `ive director` report: `/tmp/claude-0/-home-user-Illumaesthetic-Video-Editor/7fb2e21b-fa3b-5a1c-abba-9b3f48ec7a09/scratchpad/director_report.md`.
 
 ## 1. Feature inventory
 
-| Region | Scans (all at identity, p50 1.4-1.7 mm; bumper 3.8 mm) | States (registered) | Parts (diffed, registered) | Signature features seen in renders | Weak data | Richness |
+| Region | Scans (identity, p50 1.4-1.7 mm; bumper 3.8 mm) | States (registered) | Parts (diffed, registered) | What the renders actually show | Weak data | Richness |
 |---|---|---|---|---|---|---|
-| **Front** | Full Car, Bumper Only, Bumper Grille Removed, Bumper and hood removed, Hood Open | hood open (fitted hinge -40.4 deg, 5.6 mm), bumper + hood removed (front structure), grille removed | p_hood, bumper_shell, p_grille | Z-style rectangular grille with slats, teardrop headlights, engine bay (Hood Open: real V6, intake, strut towers, see s6 f70) | grille slats have small dark gaps; behind-grille detail is sparse | **4 states + 3 parts + 2 signature features: richest** |
-| **Side** | Full Car, Side Mirrors Removed (Rear Gas Door Open: partial, unused) | mirrors removed (door mounts) | p_mirror_r, p_mirror_l | sculpted shoulder from the door to the rear haunch, mirror on the door | black shut-line slivers at the door/quarter seams (s3 f46); rims are hollow spoke fragments up close (editlog) | 1 state + 2 small parts |
-| **Rear** | Full Car, Rear Wing Removed | wing removed (deck mounts) | p_wing (duck-tail lip) | full-width tail-lamp bar, NISSAN badge, Z script | plate area: no legible characters in s5 f46 (only mounting marks); exhaust tips fine | 1 state + 1 part + 1 signature feature |
-| Top | Full Car only | none | none | roof / long-hood silhouette | nothing new beyond the whole-car wide | low |
-| Wheels | Full Car | none | none | none | hollow rims, so no close-up (editlog) | none |
-| Engine bay | Hood Open | (open state above) | none separate | V6 top end | partial capture in the open scan (hinge fit used fragments) | with Front |
-| Interior / trunk / doors | **no scans** | none | none | none | not planned | none |
+| **Front** | Full Car, Bumper Only, Bumper Grille Removed, **Bumper and hood removed**, Hood Open | hood open (as captured), grille removed, bumper + hood removed | p_hood, bumper_shell, p_grille | Bumper and hood removed (`dir_bhr_zoom.jpg`): a **horizontal beam across the nose behind the bumper with bolt holes**, both **headlamp units from behind**, the **lower lip/undertray**, hoses and wiring beside the right lamp and wheel arch, and radiator/condenser rows behind the beam. Bumper Only: the full bumper with the rectangular slatted grille. Teardrop headlights. | the upper radiator support and the top edge of the core are ragged fragments; behind-grille detail is sparse | **4 states + 3 parts: richest by far** |
+| **Engine bay** | Hood Open (+ visible in Bumper and hood removed) | hood open | none | V6 top, intake, strut towers (s6 f70, comp_hood) | the **captured open hood is two ragged flaps** (`dir_states.jpg` 1st image); bay edges partial | with Front |
+| **Side** | Full Car, Side Mirrors Removed (Rear Gas Door Open: partial, skipped) | mirrors removed (door mounts) | p_mirror_r, p_mirror_l | sculpted shoulder, mirrors | black shut-line slivers at the door/quarter seams (s3); rims hollow up close | 1 state + 2 small parts |
+| **Rear** | Full Car, Rear Wing Removed | wing removed (deck mounts) | p_wing (duck-tail lip) | full-width tail-lamp bar, badge, Z script | plate area shows mounting marks, no legible characters (s5 f46) | 1 state + 1 part |
+| Top | Full Car | none | none | roof silhouette only | nothing new beyond a whole-car wide | none, so skipped |
+| Wheels | Full Car | none | none | none | hollow spoke fragments up close | none, so skipped |
+| Trunk / doors / interior / gas door | **no usable scans** | none | none | none | Rear Gas Door Open is a partial quarter | **not planned** |
 
 Conclusions:
-- The front is by far the richest region, so it opens (whole car, front 3/4), gets the drop and gets the longest
-  section explode.
-- The side has one state with two small parts, so it gets a short scene. The rear also has one part, so it gets a
-  short scene too.
-- Top-down: the full car alone holds no top data that the opener does not already show, and a closed car cannot sit
-  inside a progressive explode. I drop this rung. The reassembly is a high 3/4 that looks down on the car instead.
-- No door, trunk or interior beat: we have no scans of those states.
+- Front + engine bay is the richest region. It opens the travel, and the **bumper-removed structure is the hero beat on
+  the drop (7.43 s)**.
+- The hood can only appear open via the real Hood Open scan. State order forces hood open before bumper off:
+  - "Bumper and hood removed" has both panels off.
+  - No "bumper off, hood closed" scan exists.
+- Side and rear each have one part, so each gets a short scene.
+- There is no top-down, wheel, trunk or door beat.
 
-## 2. Scene list (v2, in order)
+## 2. Existing renders vs the framing rule (addendum A)
 
-Travel: front (whole → detail → hood → front explode) → right side (shoulder → mirror off) → rear (tail → wing off) →
-high rear-left reassembly → fade → small logo. There is one direction of travel and no ping-pong.
+| render | first / mid / last | verdict |
+|---|---|---|
+| s1_front34 | whole car only to ~f10; the right margin is gone by f13; the nose is clipped from ~f25 | **fails** as a whole-car opener: replace (N0) |
+| s2_rear34 | whole car, small | repeats a whole-car wide (IoU 0.77 vs s1/s8b): drop |
+| s3_haunch | the car fills the left ~2/3 and the right third is dead black; the subject is unclear (fender, door and windscreen all clipped arbitrarily); black seam slivers; the mirror sits on the frame edge | **fails**: drop; the side becomes one framed new shot (N2) |
+| s4_lamp | the headlamp is clipped at the left edge and the grille cut at the right; reads as a fragment of the front | borderline; also redundant with the bumper hero (it shows the grille that comes off); drop |
+| s5_tail | badge + centre of the lamp bar fill the frame (good detail); exhaust tips half-clipped at the lower corners at f1/f23/f46; trunk edge clipped at the top at f46 | **borderline pass** as a detail of the badge/lamp bar: keep. If the reviewer flags the exhaust tips, fold the rear into a new N3 that starts on a framed tail (+70 f) |
+| s6_hood | framing fine, but it **animates the closed hood scan open** | **fails rule D**: drop; replaced by the real Hood Open scan (H) |
+| s7_top | whole closed car | no new information: drop |
+| s8a_explode | every part separates at once, wide; f30-51 black | **fails** the section-focus rule: drop |
+| s8b_explode | f1-56 fine (parts stacked above, then home); **from ~f65 the nose and tail touch the frame edges, and both are clipped by f97** | keep as the reassembly, f1-101, **scaled to 78 % with a black pad** in the edit (no re-render). The car then fits with ~8 % margins at f97. Fade from 31.428 |
 
-| # | scene | scans used | feature shown | why here (inventory) | slot (s) / beats | camera note |
+## 3. Section map (addendum B: each section in one continuous sequence)
+
+| order | section | shots | t (s) |
+|---|---|---|---|
+| 1 | whole car | N0_open | 0.000-3.700 |
+| 2 | **front + engine bay** (one sequence) | H_hoodopen → N1a_bumper_off → N1b_structure | 3.700-16.666 |
+| 3 | side (right mirror) | N2_mirror | 16.666-19.319 |
+| 4 | rear | s5_tail → N3_wing | 19.319-26.703 |
+| 5 | reassembly (all parts, whole car) | s8b_explode | 26.703-33.286 |
+| 6 | logo | logo card | 33.286-38.400 |
+
+There are no duplicates. The engine bay is seen in H and behind the structure in N1a/N1b, all inside the single front
+sequence. The whole car appears at the opener and the reassembly only. The reassembly is the one all-parts moment,
+which the rule allows because it bans all-at-once *separation*. Wheels and top are never a subject.
+
+## 4. Scene list (v2)
+
+| # | scene | scans used | feature shown | why here (inventory) | slot / beats | camera note |
 |---|---|---|---|---|---|---|
-| 1 | **N0_open** (new) | car (3 mm) | the whole car, front 3/4 | opener frames the richest end; the whole car is in frame for the full slot (v1 s1 crops the nose from ~f30) | 0.000-3.700, 8 beats (intro) | slow push-in, fade up from black, motion from frame 1 |
-| 2 | s4_lamp (reuse) | front2 (2 mm) | headlight + grille | detail of the front before its parts come off; it introduces the grille and bumper | 3.700-7.430, 8 beats (intro) | extreme close-up slide toward the centre, played 0.79x |
-| 3 | s6_hood (reuse, trimmed) | comp_hood + p_hood (hinge) | hood opens, engine bay from Hood Open | first state reveal lands ON THE DROP | 7.430-11.128, 8 beats | high front-right 3/4 easing in |
-| 4 | **N1_front_explode** (new) | comp_explode + p_hood, p_grille, bumper_shell | hood lifts off its hinge, grille pops out, bumper shell slides toward the lens and tips to show its inner face, front structure from "Bumper and hood removed" | richest region gets the longest section and the heavy kicks 11.935/12.974/14.826/15.627 | 11.128-16.666, 12 beats | starts on s6's last pose (one held move), descends and pushes into the exposed front structure |
-| 5 | s3_haunch (reuse) | side2 (2 mm) | right shoulder glide to the mirror | travel moves to the side; the glide runs forward and ends on the mirror | 16.666-19.319, ~6 beats | as rendered (native speed) |
-| 6 | **N2_mirror** (new) | comp_explode + p_mirror_r/l | mirror moves out into black; scanned door mount (Side Mirrors Removed) | one-part region, so a short scene | 19.319-22.198, ~6 beats | starts on s3's last pose, swings outboard/forward |
-| 7 | s5_tail (reuse) | rear2 (2 mm) | tail-lamp bar + badge | travel moves to the rear; detail before the rear part | 22.198-24.044, 4 beats | as rendered, slide ends car-right |
-| 8 | **N3_wing** (new) | comp_explode + p_wing | duck-tail lifts off; scanned deck mounts (Rear Wing Removed) | one-part region, so a short scene; parts leave in travel order | 24.044-26.703, ~6 beats | starts on s5's last pose, rises and pulls back |
-| 9 | s8b_explode (reuse, frames 1-99) | comp_explode + all parts | every panel flies home, LOCK on 30.395 (loudest kick), car rests, fade | reassembly is the one all-parts moment (allowed: the rule bans all-at-once *separation*); its high rear-left angle is unused elsewhere | 26.703-33.286 | as rendered; fade out 31.428 → 33.286 |
-| 10 | logo (re-made smaller) | logo_card | ILLUMAESTHETIC, ~30 % width | Temerario ending | 33.286-38.400 | black, logo in on 34.087 |
+| 1 | **N0_open** (new) | car 3 mm | whole car, front-right 3/4 | opener frames the richest end; whole car with margins on every frame | 0.000-3.700, 8 beats (quiet intro) | slow push-in, fade up |
+| 2 | **H_hoodopen** (new) | comp_hood + Hood Open **as captured** (incl. the captured open hood) | hood open, engine bay | the real open state; must precede bumper off (state order) | 3.700-7.430, 8 beats | high front, push down into the bay |
+| 3 | **N1a_bumper_off** (new) | comp_explode (Bumper and hood removed) + p_grille, bumper_shell | grille out (state: Bumper Grille Removed), then the bumper shell out, revealing the structure | **HERO on the DROP**: richest data, biggest musical moment, front first | 7.430-11.128, 8 beats (kicks 8.243 / 9.282) | low front-right 3/4 framed on the nose, pushing in |
+| 4 | **N1b_structure** (new) | Bumper and hood removed at ≤2 mm + front 2 mm | beam with bolt holes, headlamps from behind, wiring/hoses at the right lamp, lower lip | hold long enough to read the hero data; labels | 11.128-16.666, 12 beats | slow lateral slide across the beam |
+| 5 | **N2_mirror** (new) | comp_explode + p_mirror_r/l | right mirror out; scanned door mount | side: one part, short | 16.666-19.319, ~6 beats | framed on the mirror, swings outboard |
+| 6 | s5_tail (reuse) | rear2 2 mm | badge + lamp bar centre | rear detail before its part | 19.319-22.198, ~6 beats | as rendered, native speed |
+| 7 | **N3_wing** (new) | comp_explode + p_wing | duck-tail lifts; scanned deck mounts (Rear Wing Removed) | rear: one part | 22.198-26.703, ~10 beats | starts on s5's last pose, rises over the deck |
+| 8 | s8b_explode (reuse) | comp_explode + all parts | everything flies home, LOCK on 30.395 | reassembly; new high rear-left angle | 26.703-33.286 | as rendered, scaled 78 %, fade |
+| 9 | logo (re-made smaller) | logo card | ILLUMAESTHETIC ~30 % width | Temerario ending | 33.286-38.400 | logo in on 34.087 |
 
-## 3. Music map (measured kicks: tools/kicks.py, strength ≥ 0.5)
+On-screen labels are allowed by the addendum, over scan shots only. They go in N1b only:
+- "FRONT BUMPER REMOVED": 11.935 → 14.700.
+- "CRASH BEAM + MOUNTING POINTS": 14.826 → 16.450.
 
-Cut frames are round(t*30). The first clip is one frame short.
-| cut | t (s) | frame | kick strength | scene starting |
+Both are factual: the first comes from the scan names "Bumper Only" / "Bumper and hood removed", the second from what
+is visible (the beam and its bolt holes). If the beam's holes don't read clearly in the 2 mm frame, use
+"MOUNTING POINTS" alone. No numbers. Details are in director.md.
+
+## 5. Music map (measured kicks: tools/kicks.py, strength ≥ 0.5)
+
+| cut | t (s) | frame | kick | scene starting |
 |---|---|---|---|---|
 | - | 0.000 | 0 | - | N0_open (fade up) |
-| 1 | 3.700 | 111 | intro bar 3 (v1 cut) | s4_lamp |
-| 2 | 7.430 | 223 | 0.75 **DROP** | s6_hood |
-| 3 | 11.128 | 334 | 0.71 | N1 (hood lift lands 11.935 = 0.99) |
-| 4 | 16.666 | 500 | 0.64 | s3_haunch |
-| 5 | 19.319 | 580 | 0.87 | N2 (mirror fully out on 20.358) |
-| 6 | 22.198 | 666 | 0.86 | s5_tail |
-| 7 | 24.044 | 721 | 0.61 | N3 (wing out on 25.902) |
-| 8 | 26.703 | 801 | 0.91 | s8b reassembly (LOCK 30.395 = 1.00) |
-| 9 | 33.286 | 999 | 0.57 | logo (fade-in on 34.087 = 0.90) |
+| 1 | 3.700 | 111 | intro bar 3 (v1) | H_hoodopen |
+| 2 | 7.430 | 223 | 0.75 **DROP** | N1a (grille 8.243 = 0.93, bumper 9.282 = 0.62) |
+| 3 | 11.128 | 334 | 0.71 | N1b (label 1 on 11.935 = 0.99, label 2 on 14.826 = 0.64) |
+| 4 | 16.666 | 500 | 0.64 | N2 (mirror out on 17.5, mount on 18.512 = 0.51) |
+| 5 | 19.319 | 580 | 0.87 | s5_tail |
+| 6 | 22.198 | 666 | 0.86 | N3 (wing up on 23.011 = 0.91) |
+| 7 | 26.703 | 801 | 0.91 | s8b (LOCK 30.395 = 1.00) |
+| 8 | 33.286 | 999 | 0.57 | logo (in on 34.087 = 0.90) |
 | end | 38.400 | 1152 | track tail | - |
 
-Durs (frames): 111(110), 112, 111, 166, 80, 86, 55, 80, 198, 153 = 1152 = 38.4 s. Kept from v1: 3.70, 7.43, 11.128,
-16.666, 19.319, 26.703. Dropped from v1: 9.282, 12.974, 34.087 (34.087 is now the logo's entry, not a cut). New cuts,
-all on measured kicks: 22.198, 24.044, 33.286.
+Kept from v1: 3.70, 7.43, 11.128, 16.666, 19.319, 26.703. Dropped: 9.282, 12.974, 34.087 (they are now motion hits
+inside shots or the logo entry). New cuts, all on measured kicks: 22.198, 33.286.
 
-## 4. Diff against v1
+## 6. Diff against v1
 
-| v1 | v2 | why |
-|---|---|---|
-| s1_front34 (slot 1) | **replaced by N0_open** | brief item 4: the opener must show the whole car. s1 crops the nose from ~frame 30 (dir_s1_crop.jpg), and v1 needs frames 1-55 |
-| s2_rear34 (slot 2) | **dropped** | an orbit that repeats a whole-car wide (director report: IoU 0.77 vs s1 and vs s8b); rear covered by tail + wing; front→rear→front ping-pong |
-| s3_haunch (slot 3) | moved to slot 5 | it belongs to the side section, between front and rear |
-| s4_lamp (slot 4) | moved to slot 2 | front detail sits next to the front wide |
-| s5_tail (slot 5) | moved to slot 7 | rear detail, just before the wing |
-| s6_hood (slot 6) | moved to slot 3 (the drop) | first state reveal on the drop; continues into N1 |
-| s7_top (slot 7) | **dropped** | closed whole car again, no top-specific data; a rising/rotating overhead that shows nothing new (brief 3) |
-| s8a_explode (slot 8) | **dropped** | every part separates at once in one wide orbit (standing user rule, mazda-miata-nc); 1.3 s dead; f30-51 black |
-| s8b_explode (slot 9) | kept as the reassembly, frames 1-99 + fade | the parts' start pose = the v1 stacked pose; N1-N3 end in that same pose, so the cut is continuous |
-| logo 4.3 s, 50 % width | small logo (~30 % width) on black, 0.8 s black first | Temerario: small logo; sibling notes say "small logo" |
+Removed:
+- **s1, s2, s3, s4, s6, s7, s8a.** Reasons are in §2.
+- **The queued `s8a_fix` render** (22 frames, waiting on `RENDERS_DONE` in /tmp/claude-0/render2.log). It is no longer used, so cancel it.
 
-Reuse as-is (only position/speed change): s4_lamp, s6_hood, s3_haunch, s5_tail, s8b_explode.
-New renders: N0_open, N1_front_explode, N2_mirror, N3_wing (236 frames total; budget and specs in director.md).
-Not needed any more: the queued `s8a_fix` re-render (22 frames, waiting on render2.log). Cancel it to save CPU.
+Reused:
+- **s5_tail**: moved from slot 5 to slot 7; plays at native speed.
+- **s8b_explode**: kept as the reassembly, frames 1-101, scaled to 78 %, then fade.
+- **The logo**: re-made smaller.
 
-## 5. Open questions for the editor
-1. **Bumper inner face**: does `bumper_shell` (from "Bumper Only") have a scanned inside with mounting tabs? Render it
-   alone from behind (one still) before keeping N1's tip. If the inside is hollow or ragged, translate it only (no tip).
-2. Mirror and wing parts are cut from the full car, so their mounting faces are probably open shells. Plan: no spin
-   beyond the ±20 deg yaw that s8b's start pose needs. Check one still of each from behind.
-3. N2/N3 start on the exact last pose of s3/s5, but the base changes from 2 mm crops to the 3 mm comp_explode. Look at
-   the frames either side of 19.319 and 24.044. If the density jump reads, nudge the new shot's first key
-   ~5 % closer so it reads as a cut, not a glitch.
-4. Rear plate: s5 f46 shows no legible characters. Check N3's last frame anyway.
+New (shots and frame counts are in director.md):
+- **N0, H, N1a, N1b, N2, N3.**
+- **Light prep jobs**, not renders:
+  - a `comp_hoodopen` composite;
+  - a ≤2 mm prep of Bumper and hood removed, using `--like car.json`.
+
+## 7. Open questions
+1. **Bumper inner face**: is the inside of "Bumper Only" scanned (mounting tabs)? Render bumper_shell alone from behind
+   (one still) before keeping N1a's tip. If it is hollow or ragged, translate only. Do the same for p_mirror_r and p_wing.
+   Those two are cut from the full car, so their backs are probably open, and the plan does not flip them.
+2. **Captured open hood**: two ragged flaps. Framing H on the bay keeps the flaps as a deliberate partial crop at the
+   top. If the reviewer still reads them as "broken", the fallback is to show the Hood Open bay with the hood cropped
+   out completely (camera lower, target z 0.6).
+3. **Hood disappearance**: the hood is open in H and gone in N1a. This is a state cut at the drop, backed by the
+   "Bumper and hood removed" scan, with a camera change. Accept, or add an "HOOD REMOVED" label? (I recommend no extra label.)
+4. **Frame budget**: 371 new frames (~1.5-2.5 h) vs the ~250 aim. The cheaper plan B (270 frames) is in director.md
+   and needs a 10-frame interpolation test first. **The parent/user needs to choose.**

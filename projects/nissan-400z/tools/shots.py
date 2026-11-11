@@ -121,13 +121,72 @@ SHOTS["s8b_explode"] = {"base": [f"{B}/comp_explode.blend"], "parts": parts(BACK
                ease_out=True, tz=0.6)}
 
 
+# ---------------- v2 (direction.md / director.md, 2026-11-11): section-focused, front -> side -> rear -------------
+EXP = f"{B}/comp_explode.blend"
+STACK = {  # v1 explode offsets x1.06 = s8b's first frame; parts already off wait here (out of frame)
+    "p_hood": ((0, -0.053, 1.537), (-8, 0, 0)), "bumper_shell": ((0, -0.233, 0.657), (0, 0, 0)),
+    "p_grille": ((0, -0.318, 1.081), (0, 0, 0)), "p_wing": ((0, 0.265, 1.219), (14, 0, 0)),
+    "p_mirror_r": ((-0.477, 0, 0.371), (0, 0, -20)), "p_mirror_l": ((0.477, 0, 0.371), (0, 0, 20))}
+
+
+def held(name, at_stack=True):
+    loc, rot = STACK[name] if at_stack else ((0, 0, 0), (0, 0, 0))
+    return {"blend": f"{B}/{name}.blend", "keys": [{"t": 0, "loc": list(loc), "rot": list(rot)}]}
+
+
+def k(t, loc, rot=(0, 0, 0), ease="inout"):
+    return {"t": t, "loc": list(loc), "rot": list(rot), "ease": ease}
+
+
+def cam2(secs, p0, t0, f0, p1, t1, f1):
+    return [{"t": 0, "loc": p0, "target": t0, "focal": f0},
+            {"t": secs, "loc": p1, "target": t1, "focal": f1, "ease": "inout"}]
+
+
+# N0: whole car, motion from frame 1, never touching an edge (s1 clipped the nose)
+SHOTS["N0_open"] = {"base": [CAR], "cam": arc(S["N0_open"], 7.8, 7.2, -24, -32, 1.10, 1.20, c0=(0, -0.10, 0.55),
+                                                focal=30, n=8, ease_out=False)}
+# H: the real Hood Open scan (captured open hood on comp_hood) - no animated closed hood (addendum D)
+SHOTS["H_hoodopen"] = {"base": [f"{B}/comp_hoodopen.blend"],
+                       "cam": cam2(S["H_hoodopen"], [-1.00, -4.05, 2.35], [0, -1.00, 0.75], 30,
+                                   [-0.60, -3.35, 2.00], [0, -0.95, 0.70], 30)}
+# N1a (hero, on the drop): grille out toward the lens and up out of frame, then the bumper shell; camera moves in
+SHOTS["N1a_bumper_off"] = {"base": [EXP], "parts": [
+    {"blend": f"{B}/p_grille.blend", "keys": [k(0, (0, 0, 0)), k(0.70, (0, 0, 0)), k(1.30, (0, -0.45, 0.35), ease="out"),
+                                             k(1.80, (0, -0.48, 0.40), ease="lin"), k(2.40, (0, -0.40, 2.0), ease="in")]},
+    {"blend": f"{B}/bumper_shell.blend", "keys": [k(0, (0, 0, 0)), k(1.80, (0, 0, 0)), k(2.60, (0, -0.85, 0.15), ease="out"),
+                                                 k(3.10, (0, -0.88, 0.18), ease="lin"), k(3.75, (0, -0.60, 1.8), ease="in")]},
+    held("p_wing", False), held("p_mirror_r", False), held("p_mirror_l", False)],
+    "cam": cam2(S["N1a_bumper_off"], [-2.25, -4.70, 1.30], [-0.10, -1.70, 0.55], 30,
+                [-1.25, -3.55, 0.80], [-0.10, -1.95, 0.50], 30)}
+# N1b (hero hold): slow lateral slide across the 2 mm 'Bumper and hood removed' scan, right lamp -> beam centre
+SHOTS["N1b_structure"] = {"base": [f"{B}/bhr2.blend"],
+                          "cam": cam2(S["N1b_structure"], [-1.05, -3.30, 0.80], [-0.50, -2.00, 0.45], 35,
+                                      [0.20, -3.40, 0.85], [0.05, -2.00, 0.45], 35)}
+# N2: right mirror lifts off outboard/up, camera settles on the scanned mount (Side Mirrors Removed)
+_mr, _rr = STACK["p_mirror_r"]; _ml, _rl = STACK["p_mirror_l"]
+SHOTS["N2_mirror"] = {"base": [EXP], "parts": [
+    {"blend": f"{B}/p_mirror_r.blend", "keys": [k(0, (0, 0, 0)), k(0.25, (0, 0, 0)), k(1.00, _mr, _rr, ease="out")]},
+    {"blend": f"{B}/p_mirror_l.blend", "keys": [k(0, (0, 0, 0)), k(0.25, (0, 0, 0)), k(1.00, _ml, _rl, ease="out")]},
+    held("p_hood"), held("bumper_shell"), held("p_grille"), held("p_wing", False)],
+    "cam": cam2(S["N2_mirror"], [-1.75, 0.95, 1.40], [-0.90, -0.30, 1.00], 40,
+                [-2.30, 0.45, 1.45], [-1.10, -0.35, 1.05], 35)}
+# N3: duck-tail wing lifts straight up/back (no flip), camera rises over the Rear Wing Removed deck
+_mw, _rw = STACK["p_wing"]
+SHOTS["N3_wing"] = {"base": [EXP], "parts": [
+    {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.30, (0, 0, 0)), k(1.846, _mw, _rw, ease="out")]},
+    held("p_hood"), held("bumper_shell"), held("p_grille"), held("p_mirror_r"), held("p_mirror_l")],
+    "cam": cam2(S["N3_wing"], [-0.60, 3.60, 1.00], [-0.25, 2.15, 0.85], 38,
+                [-1.10, 4.15, 2.25], [0, 1.80, 1.05], 35)}
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
     sp = {"base": s["base"], "parts": s.get("parts", []), "camera": {"sensor": 20.25, "keys": s["cam"]},
           "seconds": SECS[name] + 1 / 15, "fps": 15, "res": "1080x1920",
           "res_pct": 75 if final else 30, "samples": 12 if final else 6,
-          "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
+          "out": f"{OUT}/{'final' if final else 'preview'}/{name}", "persist": False}
     if mode == "frames":
         sp["frames"] = ["first", "mid", "last"]
         sp["out"] = f"{OUT}/frames/{name}"
