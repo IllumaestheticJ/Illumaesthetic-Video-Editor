@@ -5,7 +5,7 @@
 # Renders: round(dur*15)+3 frames each, so minterpolate (2N-3 frames) always covers the slot - no frozen tail.
 project: lamborghini-revuelto
 format: reel-9x16
-output: {path: /home/user/media/work/out/lamborghini_revuelto_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/lamborghini_revuelto_v2_1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/lamborghini-revuelto_track.mp3   # original track generated for this reel (parent session)

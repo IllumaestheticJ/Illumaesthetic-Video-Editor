@@ -7,10 +7,10 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11 (v4)
+- [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-11
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-11
-- [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-11
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
