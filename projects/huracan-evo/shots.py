@@ -216,14 +216,14 @@ def hpshot(name, a, b, camera, extra=None):
 
 
 CAMS = {
-    "h0_select": [dict(t=0, az=35, el=9, dist=7.4, target=[0, 0, 0.55], lens=45), dict(t=1, az=33, el=9, dist=7.0, target=[0, 0, 0.55], lens=45, lin=True)],
+    "h0_select": [dict(t=0, az=35, el=9, dist=8.6, target=[0, 0, 0.55], lens=45), dict(t=1, az=33, el=9, dist=8.2, target=[0, 0, 0.55], lens=45, lin=True)],   # v3: d 7.4/7.0 cropped the nose (director: whole-car shot needs margins)
     "h1_tail": [dict(t=0, az=150, el=6, dist=2.0, target=[0.55, 2.1, 0.85], lens=50), dict(t=1, az=164, el=6, dist=1.75, target=[0.5, 2.1, 0.85], lens=50, lin=True)],
     "h2_front": [dict(t=0, az=-42, el=2, dist=3.7, target=[0, -1.6, 0.45], lens=40), dict(t=1, az=-26, el=3, dist=3.3, target=[0, -1.6, 0.45], lens=40, lin=True)],
     "h3_hood": [dict(t=0, az=-14, el=37, dist=2.5, target=[0, -1.65, 0.68], lens=60), dict(t=1, az=12, el=35, dist=2.25, target=[0, -1.7, 0.68], lens=60, lin=True)],  # el>=34 keeps the scan-holed windscreen out of the 9:16 frame
     "h4_wheel": [dict(t=0, az=76, el=4, dist=1.7, target=[0.85, -1.35, 0.35], lens=50), dict(t=1, az=60, el=5, dist=1.4, target=[0.85, -1.35, 0.35], lens=50, lin=True)],
     "h5_side": [dict(t=0, az=90, el=3, dist=5.0, target=[0, 1.1, 0.5], lens=40), dict(t=1, az=90, el=3, dist=5.0, target=[0, -1.1, 0.5], lens=40, lin=True)],
     "h6_high": [dict(t=0, az=140, el=40, dist=6.2, target=[0, 0, 0.6], lens=45), dict(t=1, az=124, el=36, dist=6.0, target=[0, 0, 0.6], lens=45, lin=True)],
-    "h7_rear": [dict(t=0, az=-150, el=8, dist=6.3, target=[0, 0.2, 0.55], lens=45), dict(t=1, az=-144, el=8, dist=7.3, target=[0, 0.2, 0.55], lens=45, lin=True)],
+    "h7_rear": [dict(t=0, az=-150, el=8, dist=7.6, target=[0, 0.2, 0.55], lens=45), dict(t=1, az=-144, el=8, dist=8.6, target=[0, 0.2, 0.55], lens=45, lin=True)],   # v3: d 6.3/7.3 cropped the tail
 }
 HP_SHOTS = [hpshot(n, a, b, CAMS[n], extra={"lot": dict(GARAGE, lights_up=[0.04, 0.3])} if n == "h0_select" else None)
             for n, a, b in HP_BEATS]

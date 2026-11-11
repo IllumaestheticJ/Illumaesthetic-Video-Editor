@@ -9,10 +9,10 @@
    "kind": "label",
    "from": 1460,
    "duration": 66,
-   "title": "FRONT BUMPER REMOVED",
-   "sub": "BUMPER SCAN \u00b7 4,000,015 TRIANGLES",
-   "x": 0.08,
-   "y": 0.1
+   "title": "FRONT BUMPER",
+   "sub": "4,000,015 TRIANGLES",
+   "x": 0.06,
+   "y": 0.855
   },
   {
    "kind": "label",
