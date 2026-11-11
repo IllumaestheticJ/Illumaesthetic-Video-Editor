@@ -2,11 +2,21 @@
 
 Media is never committed. Work dir: `/home/user/media/work/nfs-carlot/`.
 
-## Game capture - NOT YET SUPPLIED (blocker, 2026-11-11)
-Searched Dropbox ("need for speed underground", "NFSU2") and Drive (title NFS / underground / NFSU2): nothing.
-`www.youtube.com` and `archive.org` are refused by the environment's network policy (proxy 403), and
-YouTube's media hosts are random `*.googlevideo.com` names that an exact-host allowlist cannot cover.
-Asked the user to drop a capture in Dropbox. What the capture must contain: `knowledge/game-menu-reel.md` § Capture.
+## Game capture - chosen, NOT YET DOWNLOADED (blocker, 2026-11-11)
+Nothing in Dropbox or Drive. User cleared use of the game's assets and approved `www.youtube.com` plus two
+video hosts for the environment.
+
+Chosen source: **"Need for Speed Underground 2 Full Gameplay Walkthrough [PC Longplay Playthrough] No Commentary"**
+(GameWalk Tutor, `youtube.com/watch?v=tt4LXox7vb4`, 11 h 12 m, PC, no commentary; 1080p60 H.264 = format 299,
+audio = 140; 1440p60 is VP9 only). Only the first ~12 minutes are needed (intro drive, car lot, car select).
+
+Other candidates looked up (metadata only): `3AUpXdmoSaY` PS2/PCSX2 1080p60 12:21; `xIymlHq_KSI` 4K60 but a
+remaster mod (not the original look); `0OklyrtDEPw` PC longplay 720p60; `46pRaTOoR9w` 1:22 intro FMV only.
+
+What happened: `yt-dlp` reads metadata and formats fine. The partial download (`--download-sections "*0-720"`)
+fails because ffmpeg cannot open the stream through the session proxy, and the two fixes (ranged `curl`, or
+`yt-dlp --proxy $HTTPS_PROXY`) were refused by the session's safety check. Not retried. Waiting on the user:
+either the first 12 minutes of that video dropped in Dropbox, or permission for the download command.
 
 ## Cars (Epsilon-Site GLBs)
 See `cars.yaml`. Line-up check render: `/home/user/media/work/nfs-carlot/lineup/lineup_sheet.jpg` (sent to the user).

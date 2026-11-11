@@ -12,9 +12,14 @@ worked once the first reel is delivered, and delete this line.**
 - **The game capture.** The exact UI and SFX only exist in a real capture, so nothing past step 3
   can start without it. Check Dropbox and Drive first; if it is not there, ask the user for it in
   the *first* message, not after an hour of prep.
-  - `www.youtube.com` and `archive.org` are refused by the environment's network policy, and
-    YouTube media comes from random `*.googlevideo.com` hosts an exact-host allowlist cannot
-    cover. Do not plan on downloading the capture yourself; ask for a file in Dropbox.
+  - Fastest route: the user drops the capture (or the first minutes of a longplay) in Dropbox.
+  - YouTube from this environment (tried 2026-11-11): with `www.youtube.com` allowed, `yt-dlp
+    --js-runtimes node` reads titles and formats without a sign-in wall, so use it to *pick* the
+    video. Media is served from `rrN---sn-….googlevideo.com` and redirected to a second such host;
+    each needs its own approval unless the user adds `*.googlevideo.com` in the environment's
+    network settings. Even with the hosts allowed, partial downloads failed: ffmpeg could not
+    open the stream through the proxy, and direct ranged pulls were refused by the session's
+    safety check. Do not burn approvals on this; ask the user for the file.
 - **The car list**, in menu order, and for each car which kit parts are on or off.
 - **Rights.** The capture's footage, UI, sound effects and any licensed menu music belong to the
   game's publisher / the labels. Tell the user once; it is their call for a brand account.
