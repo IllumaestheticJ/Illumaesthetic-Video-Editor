@@ -369,3 +369,6 @@ lands here automatically. Agents must read this whole file before editing.
   that string - two waiters deadlocked. Wait on a PID (`while kill -0 $pid`) or a log line instead.
 - **[scan-look]** Large SUV in 9:16: a 3/4 turntable at 5.4 m / 30 mm cropped the grille; 6.2-6.6 m with the target moved
   ~1 m toward the end you want to show (nose for front 3/4, tail for rear 3/4) keeps the face in and crops the other end.
+- **[story]** Lookbook models carry several versions of a part (GR Corolla: front_lip / front_lip_v2 / front_lip_2025,
+  side_skirts / side_skirts_v2...). The lookbook's default kit is not necessarily what the photo car runs - match each
+  part version to the photos (GR Corolla photo car = Front Lip V2) and confirm with the user when unsure.
