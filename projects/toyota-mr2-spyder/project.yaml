@@ -1,88 +1,116 @@
-# Toyota MR2 Spyder scan reel v1 - Temerario style (scan only, no IRL, no text).
-# Shots: shots.py -> projects/huracan-evo/tools/shot.py (Blender). Durations are whole frames so each cut lands on
-# round(beat*30); first clip one frame short (FG2 lesson). Grid: tools/music_grid.py (kick-anchored, 112.0 BPM).
+# Toyota MR2 Spyder scan reel v2 - Temerario style (scan only, no IRL, no text). v1: project_v1.yaml
+# v2 (user: 'same issues as the other first revisions'): wide opening, close one-bar shots of each part assembly
+# opening / rising, fade to black, small logo held 3.1 s. Assembled with projects/honda-s2000/tools/concat_assemble.py
+# (whole-frame `frames:` per clip, plain concat: cut k lands on sum(frames[:k]) = round(beat*30), no cloned cut frame).
 project: toyota-mr2-spyder
 format: reel-9x16
-output: {path: /home/user/media/work/mr2/out/mr2_spyder_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/mr2/out/mr2_spyder_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/toyota-mr2-spyder_track.mp3   # parent-session ElevenLabs track (not in git)
+  path: /home/user/media/work/music/toyota-mr2-spyder_track.mp3   # parent-session generated track (not in git)
   start: 0
-  fade_out: 0.8
+  fade_out: 1.2
 
-# bar downbeats used as cuts (beat n = 0.4766 + 0.5357 n); 7.441 / 24.583 = big hits, 33.690 = final hit (logo); music rings out to ~38.8 s
-beats: [3.155, 7.441, 9.583, 11.726, 13.869, 18.155, 22.440, 24.583, 28.869, 31.011, 33.690]
+# bar downbeats used as cuts (kick-anchored grid, beat n = -0.0591 + 0.5357 n); 7.441 / 24.583 = big hits, 33.690 = final hit (logo)
+beats: [3.155, 7.441, 9.583, 11.726, 13.869, 18.155, 20.297, 22.440, 24.583, 26.726, 28.869, 31.011, 33.690]
 
 timeline:
-  - id: s1_side   # low side track toward the nose; fades up from black
-    src: /home/user/media/work/renders/mr2/s1_side
+  - id: s1_wide   # whole car side profile, fades up from black (v2: not cropped)
+    src: /home/user/media/work/renders/mr2/s1_wide
     src_fps: 15
     interpolate: true
-    dur: 3.1333
+    frames: 95
+    dur: 3.1667
     vf: fade=t=in:st=0:d=1.0
   - transition: {type: cut}
   - id: s2_front34   # front 3/4 low turntable
     src: /home/user/media/work/renders/mr2/s2_front34
     src_fps: 15
     interpolate: true
+    frames: 128
     dur: 4.2667
   - transition: {type: cut}
   - id: s3_rear34   # rear 3/4 turntable - cut ON the big hit (7.44 s)
     src: /home/user/media/work/renders/mr2/s3_rear34
     src_fps: 15
     interpolate: true
+    frames: 65
     dur: 2.1667
   - transition: {type: cut}
   - id: s4_wheel   # extreme close-up: front wheel + arch (2 mm)
     src: /home/user/media/work/renders/mr2/s4_wheel
     src_fps: 15
     interpolate: true
+    frames: 64
     dur: 2.1333
   - transition: {type: cut}
   - id: s5_tail   # extreme close-up: rear lamp / grille
     src: /home/user/media/work/renders/mr2/s5_tail
     src_fps: 15
     interpolate: true
+    frames: 64
     dur: 2.1333
   - transition: {type: cut}
-  - id: s6_hardtop   # hardtop lifts off -> roof-down Spyder
+  - id: s6_hardtop   # hardtop lifts off -> roof-down Spyder (13.87 s hit)
     src: /home/user/media/work/renders/mr2/s6_hardtop
     src_fps: 15
     interpolate: true
+    frames: 129
     dur: 4.3000
   - transition: {type: cut}
-  - id: s7_open   # bumper slides off, hood + rear lid swing open on fitted hinges
-    src: /home/user/media/work/renders/mr2/s7_open
+  - id: s7a_front   # CLOSE: bumper slides off, hood swings up on its fitted hinge
+    src: /home/user/media/work/renders/mr2/s7a_front
     src_fps: 15
     interpolate: true
-    dur: 4.2667
+    frames: 64
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: s7b_rear   # CLOSE: rear lid swings open on its fitted hinge
+    src: /home/user/media/work/renders/mr2/s7b_rear
+    src_fps: 15
+    interpolate: true
+    frames: 64
+    dur: 2.1333
   - transition: {type: cut}
   - id: s8_top   # top-down crane + spin, front/rear open
     src: /home/user/media/work/renders/mr2/s8_top
     src_fps: 15
     interpolate: true
+    frames: 64
     dur: 2.1333
   - transition: {type: cut}
-  - id: s9_explode   # exploded view - panels separate ON the second big hit (24.58 s), stack above the car
-    src: /home/user/media/work/renders/mr2/s9_explode
+  - id: s9a_front   # CLOSE: explode starts ON the second big hit (24.58 s) - bumper + hood rise into the stack
+    src: /home/user/media/work/renders/mr2/s9a_front
     src_fps: 15
     interpolate: true
-    dur: 4.3000
+    frames: 65
+    dur: 2.1667
   - transition: {type: cut}
-  - id: s10_float   # panels floating, 3/4 side
+  - id: s9b_rear   # CLOSE: rear lid closes and rises, hardtop descends into the stack
+    src: /home/user/media/work/renders/mr2/s9b_rear
+    src_fps: 15
+    interpolate: true
+    frames: 64
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: s10_float   # wide side: whole stack floating above the car
     src: /home/user/media/work/renders/mr2/s10_float
     src_fps: 15
     interpolate: true
+    frames: 64
     dur: 2.1333
   - transition: {type: cut}
-  - id: s11_reassemble   # panels return home -> hardtop car; locks on the final hit
+  - id: s11_reassemble   # panels return; clean full car takes over as the last panel lands; fades to black (Temerario)
     src: /home/user/media/work/renders/mr2/s11_reassemble
     src_fps: 15
     interpolate: true
+    frames: 81
     dur: 2.7000
+    vf: fade=t=out:st=2.3:d=0.4
   - transition: {type: cut}
-  - id: logo   # ILLUMAESTHETIC logo card on black, hard cut on the final hit; holds through the ring-out
-    src: /home/user/media/work/mr2/out/logo_card.mp4
-    dur: 5.1000
+  - id: logo   # small ILLUMAESTHETIC logo (380 px, ~35 % width, Temerario) fades in on black on the final hit; music faded with it
+    src: /home/user/media/work/mr2/out/logo_card_v2.mp4
+    frames: 93
+    dur: 3.1000
 
 overlays: []   # no text (Temerario ref has none)

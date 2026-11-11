@@ -60,6 +60,10 @@ def shot(name, secs, objects, camera, anims=None, light_ref=None, extra=None):
 T = [0, 0, 0.55]
 SHOTS = [
     # 1 intro: low side profile, slow track along the car toward the nose (Temerario 0-3 s); fades up in assembly
+    # v2 opening (feedback on every sibling v1: "starts off too cropped"): whole car in frame, ~65 % of the width (Temerario 0-3 s)
+    shot("s1_wide", 3.6, CAR, [dict(t=0, az=-97, el=4, dist=12.6, target=[0, -0.35, 0.6], lens=50),
+                               dict(t=1, az=-84, el=5, dist=12.0, target=[0, 0.3, 0.6], lens=50, lin=True)]),
+    # v1 opening (cropped side track) - kept for reference, not in the v2 timeline
     shot("s1_side", 3.6, CAR, [dict(t=0, az=-95, el=3, dist=5.6, target=[0, -0.8, 0.5], lens=40),
                                dict(t=1, az=-84, el=4, dist=5.4, target=[0, 0.6, 0.5], lens=40, lin=True)]),
     # 2 front 3/4 low, slow turntable (ref 4-7 s)
@@ -83,6 +87,15 @@ SHOTS = [
                                dict(t=1, az=-130, el=20, dist=7.4, target=[0, 0.35, 0.55], lens=40)],
          tween(GONE, OPEN, {"top": (0, 0.01), "fb": (0.05, 0.45), "hood": (0.3, 0.75), "lid": (0.45, 0.92)}),
          light_ref="base", extra={"visible": {"top": [0, 0]}, "persistent": False}),
+    # v2 7a/7b (feedback: explode too wide / not focused on the part assemblies): one bar each, close on the section that opens
+    shot("s7a_front", 2.4, EXP, [dict(t=0, az=-148, el=20, dist=4.6, target=[0, 1.3, 0.75], lens=40),
+                                 dict(t=1, az=-128, el=24, dist=4.1, target=[0, 1.25, 0.8], lens=40)],
+         tween(GONE, dict(GONE, hood=OPEN["hood"], fb=OPEN["fb"]), {"top": (0, 0.01), "lid": (0, 0.01), "fb": (0.05, 0.5), "hood": (0.3, 0.88)}),
+         light_ref="base", extra={"visible": {"top": [0, 0]}, "persistent": False}),
+    shot("s7b_rear", 2.4, EXP, [dict(t=0, az=32, el=22, dist=4.6, target=[0, -1.3, 0.85], lens=40),
+                                dict(t=1, az=52, el=27, dist=4.2, target=[0, -1.25, 0.95], lens=40)],
+         tween(dict(GONE, hood=OPEN["hood"], fb=OPEN["fb"]), OPEN, {"top": (0, 0.01), "fb": (0, 0.01), "hood": (0, 0.01), "lid": (0.08, 0.7)}),
+         light_ref="base", extra={"visible": {"top": [0, 0]}, "persistent": False}),
     # 8 top-down: crane up and over, spinning (ref 16-20 s)
     shot("s8_top", 2.4, EXP, [dict(t=0, az=-130, el=60, dist=9.6, target=[0, 0.1, 0.4], lens=40),
                               dict(t=0.55, az=-90, el=89.9, dist=9.2, target=[0, 0.1, 0.4], lens=40),
@@ -92,6 +105,16 @@ SHOTS = [
     shot("s9_explode", 4.5, EXP, [dict(t=0, az=40, el=24, dist=7.0, target=[0, 0, 0.8], lens=40),
                                   dict(t=1, az=60, el=20, dist=7.6, target=[0, 0, 1.15], lens=40)],
          tween(dict(OPEN, top={"off": [0, -0.15, 3.4]}), EXPL, {"fb": (0.05, 0.5), "hood": (0.12, 0.6), "lid": (0.2, 0.68), "top": (0.3, 0.85)}),
+         light_ref="base", extra={"persistent": False}),
+    # v2 9a/9b: the explode as a progressive disassembly seen close (Temerario 12-24 s): front panels rise, then rear + hardtop
+    shot("s9a_front", 2.4, EXP, [dict(t=0, az=-142, el=16, dist=5.6, target=[0, 1.45, 1.0], lens=40),
+                                 dict(t=1, az=-122, el=19, dist=5.2, target=[0, 1.4, 1.15], lens=40)],
+         tween(OPEN, dict(OPEN, hood=EXPL["hood"], fb=EXPL["fb"]), {"top": (0, 0.01), "lid": (0, 0.01), "fb": (0.04, 0.6), "hood": (0.15, 0.82)}),
+         light_ref="base", extra={"visible": {"top": [0, 0]}, "persistent": False}),
+    shot("s9b_rear", 2.4, EXP, [dict(t=0, az=38, el=18, dist=6.6, target=[0, -0.75, 1.2], lens=40),
+                                dict(t=1, az=58, el=21, dist=6.2, target=[0, -0.65, 1.35], lens=40)],
+         tween(dict(OPEN, top={"off": [0, -0.15, 3.4]}, hood=EXPL["hood"], fb=EXPL["fb"]), EXPL,
+               {"fb": (0, 0.01), "hood": (0, 0.01), "lid": (0.04, 0.6), "top": (0.2, 0.85)}),
          light_ref="base", extra={"persistent": False}),
     # 10 wide side view, panels floating (ref 25-31 s)
     shot("s10_float", 2.4, EXP, [dict(t=0, az=-70, el=13, dist=8.6, target=[0, 0, 1.2], lens=40),
