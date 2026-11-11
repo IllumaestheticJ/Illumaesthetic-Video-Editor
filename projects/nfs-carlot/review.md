@@ -87,3 +87,14 @@ Output: `/home/user/media/work/out/nfs-carlot_v7.mp4`, 21.1 s.
   during and after the cursor leaves (no patch), arrow buttons, hand-over frames. Sync unchanged.
 - Missed in v1-v6 self-review: I looked at cars, plates and cuts but never followed the cursor. Add it to
   the checks for this format (done in the knowledge doc).
+
+## v8 (2026-11-11) - after the user's review of v7
+User: "The Audio inside the car lot also gets cut off 'use it to set yourself up -'. There's more audio after that."
+
+Output: `/home/user/media/work/out/nfs-carlot_v8.mp4`, 21.4 s.
+- The car-lot voice message (B 35.1-44.6 s) now plays whole: one audio take from the menu opening through four
+  scrolls to B 45.5 s, then one jump at the last scroll to B 53.30 for the purchase. Menu music comes in at the
+  end of the message as in the game, about 0.7 s before the jump.
+- Picture re-timed to it: NC holds 1.3 s, EP3 1.3 s after their slides. Sync within 0.007 s.
+- Checked: output audio correlates with capture B continuously (1.00 at 6, 9, 12, 13.5 s; 0.99 at 14.8 s).
+- Missed in v5-v7: cut the audio by scroll times only and never looked for speech in it.

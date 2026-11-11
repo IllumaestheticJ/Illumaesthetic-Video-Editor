@@ -14,3 +14,4 @@
 {"ts": "2026-11-11T09:24:27Z", "project": "nfs-carlot", "at": null, "category": "story", "note": "v4: add the section where the car is selected and purchased (Continue, the purchase prompt, Yes), THEN cut to the Epsilon logo.", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T09:34:32Z", "project": "nfs-carlot", "at": null, "category": "grade", "note": "v5: change the EP3 to the blue we use for the lookbook.", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T10:14:30Z", "project": "nfs-carlot", "at": null, "category": "technical", "note": "v6: the cursor arrow freaks out, fix it.", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-11T10:18:59Z", "project": "nfs-carlot", "at": "12.8", "category": "audio", "note": "v7: the audio inside the car lot gets cut off at 'use it to set yourself up -'; there is more audio after that.", "by": "reviewer", "promoted": false}

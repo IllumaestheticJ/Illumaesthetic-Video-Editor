@@ -37,8 +37,8 @@ SEGMENTS = [                                                   # (source frames,
     (range(3829, 3920), "corolla", "corolla"),                 # menu opens: empty turntable slides out, car 1 slides in
     (range(4041, 4113), "civic_fe", "civic"),
     (range(4631, 4683), "integra", "integra"),
-    (range(4732, 4792), "nc", "miata"),
-    (range(4947, 4985), "ep3", "civic"),
+    (range(4732, 4786), "nc", "miata"),
+    (range(4947, 5000), "ep3", "civic"),
     # the list wraps back to the first car, which gets bought: the scroll, then the last frames before the
     # player clicks Continue (same game car and stat bars, the cursor travelling to the button)
     (list(range(5089, 5104)) + list(range(5204, 5213)), "corolla", "corolla"),

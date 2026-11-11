@@ -227,6 +227,13 @@ the jump hides under the scroll sound. Verify in the output: sound level and pic
 every change (`review.md` v2). v1 instead cut the sped-up capture's own audio on its scrolls, which
 synced but was double speed. Both captures here had the game's licensed menu song under everything.
 
+**Voice lines (user on v7: "the audio gets cut off ... there's more audio after that").** Before
+choosing where to jump the menu audio, find any speech in it and never cut inside it. A game voice
+message is mono and usually plays without music: print the mid and side levels of the audio in
+0.1 s steps; a stretch where the side channel is 20 dB or more under the mid is voice (NFSU2 car
+lot: the message runs from the menu opening for 9.6 s, music starts right after). Put audio jumps
+after it, under a scroll sound. I cannot listen, so this check replaces listening; do it every time.
+
 **Buying the car (user request on v4).** End the menu on the purchase, not on a scroll: Continue,
 the game's "Do you want this stock <car>?" prompt, Yes, then the end card. Use one unbroken audio
 take from the last scrolls through the Yes click so the purchase sounds are the game's own, and cut

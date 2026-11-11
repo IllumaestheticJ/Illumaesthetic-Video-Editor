@@ -37,6 +37,9 @@ then to the left arrow; f4631-4791 right arrow (1724,221); f4947-5103 left arrow
 (1611,1087); f5224-5233 up to the No button; f5248-5254 across to Yes (700,731); click about f5263.
 Used in v7 prompt: f5213-5218, 5224-5233, 5238, 5240, 5243, 5247-5263.
 
+Capture B audio: voice message 35.1-44.6 s (mono, no music), menu music from 44.8 s.
+Used in v8: menu f3829-3919, 4041-4112, 4631-4682, 4732-4785, 4947-4999, 5089-5103 + 5204-5212; audio B 34.83-45.49, then 53.22 on.
+
 Used in v1: intro f952–1291; menu f3818–4040, 4041–4126, 4631–4731, 4732–4871, 5089–5208.
 Earlier dead ends (YouTube download, playing nfsu2.xyz here): `knowledge/game-menu-reel.md`.
 
