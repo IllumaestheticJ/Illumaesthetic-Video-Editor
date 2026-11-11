@@ -78,6 +78,7 @@ def main(argv=None):
     s.add_argument("--without", default="", help="comma-separated parts to leave off, e.g. fender_flares")
     s.add_argument("--prefer", default="", help="comma-separated parts that win a shared slot, e.g. mid_wing")
     s.add_argument("--site", default="/home/user/Epsilon-Site")
+    s.add_argument("--glb", help="use this GLB (e.g. a newer export from Drive) instead of the repo's")
 
     s = sub.add_parser("kit-render", help="Blender: render a showroom car GLB with its kit (transparent, shadow catcher)")
     s.add_argument("rest", nargs=argparse.REMAINDER, help="args for blender/kit_render.py")
@@ -169,7 +170,7 @@ def main(argv=None):
     elif a.cmd == "kit":
         from .kit import kit
         sp = lambda v: [x for x in v.split(",") if x]
-        _p(kit(a.car_id, sp(a.without), sp(a.prefer), a.site))
+        _p(kit(a.car_id, sp(a.without), sp(a.prefer), a.site, a.glb))
     elif a.cmd == "kit-render":
         from .media import blender
         out = blender(str(BLENDER_DIR / "kit_render.py"), [x for x in a.rest if x != "--"])
