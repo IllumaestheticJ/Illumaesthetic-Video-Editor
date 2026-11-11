@@ -218,3 +218,7 @@ lands here automatically. Agents must read this whole file before editing.
   real rear wheel) and splice only the wheel boxes (tools/wheelfill.py) before calling them unscanned.
 - **[pacing]** Generated hyperpop track = 140 BPM; `ive beats` reports the half-time 69.8. A no-kick build can carry slow
   turntables on its phrase lines; put the transformations on the drops.
+- **[audio]** Trending + licensed music: TikTok Commercial Music Library via the Higgsfield `tiktok_music_trending` tool
+  (connected account). Phonk tracks (e.g. FREAKED OUT, 85 BPM) give a snare every 2 beats = a hard cut every 1.41 s.
+  Fit the grid on snare hits, not the beat tracker (175 ms rms vs a few ms). Start right before a stop/silence so the
+  drop lands just ahead of the first 1:1 cut. Attach the same sound in TikTok when posting (the export carries it as a guide).

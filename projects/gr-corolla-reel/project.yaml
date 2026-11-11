@@ -7,65 +7,65 @@
 # Scan: engineering full-car scan aligned into the model frame (scan/align.json), Epsilon kit CAD overlaid in silver.
 project: gr-corolla-reel
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/out/gr-corolla_reel_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/gr-corolla_reel_v2_freakedout.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/fg2/music/macarena_slowed.mp3   # user upload (not in git)
-  start: 12.3567   # drop (13.950 s in the track) lands at 1.594 s
+  path: /home/user/media/music/tiktok/freaked_out.mp3   # FREAKED OUT - Fat Papi & prodshushy (TikTok Commercial Music Library, trending #73 US 7-day; song_clip_id 7644353784302340112) (not in git)
+  start: 10.6295   # drop (12.040 s in the track) lands at 1.411 s
   fade_out: 0.8
 
-# kick grid 13.9502 + 0.79676 n (75.30 BPM); a cut every 2 kicks; whole-frame durs (first clip 1 frame short)
-beats: [1.5935, 3.187, 4.7806, 6.3741, 7.9676, 9.5611, 11.1546, 12.7482, 14.3417, 15.9352]
+# beat grid 12.0400 + 0.70525 n (85.08 BPM); a cut every 2 kicks; whole-frame durs (first clip 1 frame short)
+beats: [1.4105, 2.821, 4.2315, 5.642, 7.0525, 8.463, 9.8735, 11.284, 12.6945, 14.105]
 
 timeline:
   - id: a_real   # HOOK: real car with the Epsilon kit; pre-drop hit
     src: /home/user/media/cars/gr-corolla/layers/Az_photo.mp4
     in: 0.0000
-    dur: 1.5667
+    dur: 1.3667
   - transition: {type: cut}
   - id: a_scan   # THE DROP: 1:1 real -> scan (+ kit CAD)
     src: /home/user/media/cars/gr-corolla/layers/Az_scan.mp4
-    in: 1.6000
-    dur: 1.6000
+    in: 1.4000
+    dur: 1.4333
   - transition: {type: cut}
   - id: a_cgi   # 1:1 -> lookbook CGI
     src: /home/user/media/cars/gr-corolla/layers/Az_cgi.mp4
-    in: 3.2000
-    dur: 1.5667
+    in: 2.8333
+    dur: 1.4000
   - transition: {type: cut}
   - id: b_scan   # angle 2: scan
     src: /home/user/media/cars/gr-corolla/layers/Bz_scan.mp4
     in: 0.0000
-    dur: 1.6000
+    dur: 1.4000
   - transition: {type: cut}
   - id: b_cgi   # CGI
     src: /home/user/media/cars/gr-corolla/layers/Bz_cgi.mp4
-    in: 1.6000
-    dur: 1.6000
+    in: 1.4000
+    dur: 1.4333
   - transition: {type: cut}
   - id: b_real   # real
     src: /home/user/media/cars/gr-corolla/layers/Bz_photo.mp4
-    in: 3.2000
-    dur: 1.6000
+    in: 2.8333
+    dur: 1.4000
   - transition: {type: cut}
   - id: c_scan   # angle 3: scan
     src: /home/user/media/cars/gr-corolla/layers/Cz_scan.mp4
     in: 0.0000
-    dur: 1.6000
+    dur: 1.4000
   - transition: {type: cut}
   - id: c_cgi   # CGI
     src: /home/user/media/cars/gr-corolla/layers/Cz_cgi.mp4
-    in: 1.6000
-    dur: 1.5667
+    in: 1.4000
+    dur: 1.4333
   - transition: {type: cut}
   - id: c_real   # real
     src: /home/user/media/cars/gr-corolla/layers/Cz_photo.mp4
-    in: 3.1667
-    dur: 1.6000
+    in: 2.8333
+    dur: 1.4000
   - transition: {type: cut}
   - id: end_card   # Epsilon+ logo on the 4-bar section change
     src: /home/user/media/work/fg2/layers/end_card_epsilon.png
-    duration: 1.6000
-    dur: 1.6000
+    duration: 1.4000
+    dur: 1.4000
 
 overlays: []   # no text

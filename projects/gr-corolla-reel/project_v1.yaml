@@ -1,0 +1,71 @@
+# Toyota GR Corolla - 1:1 photo <-> scan <-> CGI reel (TikTok 9:16), built with tools/photo1to1 (FG2 v5 template).
+# Photos (epsilon.plus product images):
+#   A: https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010054.jpg
+#   B: https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010053.jpg
+#   C: https://cdn.shopify.com/s/files/1/0036/2250/2435/files/1000010061.jpg
+# CGI: Epsilon lookbook model eps-toyota-gr-corolla-v23.glb (kit: front_lip, canards, rear_spats, side_skirts, wing_strakes, wrc_wing), paint Supersonic Red #b21522.
+# Scan: engineering full-car scan aligned into the model frame (scan/align.json), Epsilon kit CAD overlaid in silver.
+project: gr-corolla-reel
+format: reel-9x16 (TikTok)
+output: {path: /home/user/media/work/out/gr-corolla_reel_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/fg2/music/macarena_slowed.mp3   # user upload (not in git)
+  start: 12.3567   # drop (13.950 s in the track) lands at 1.594 s
+  fade_out: 0.8
+
+# kick grid 13.9502 + 0.79676 n (75.30 BPM); a cut every 2 kicks; whole-frame durs (first clip 1 frame short)
+beats: [1.5935, 3.187, 4.7806, 6.3741, 7.9676, 9.5611, 11.1546, 12.7482, 14.3417, 15.9352]
+
+timeline:
+  - id: a_real   # HOOK: real car with the Epsilon kit; pre-drop hit
+    src: /home/user/media/cars/gr-corolla/layers/Az_photo.mp4
+    in: 0.0000
+    dur: 1.5667
+  - transition: {type: cut}
+  - id: a_scan   # THE DROP: 1:1 real -> scan (+ kit CAD)
+    src: /home/user/media/cars/gr-corolla/layers/Az_scan.mp4
+    in: 1.6000
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: a_cgi   # 1:1 -> lookbook CGI
+    src: /home/user/media/cars/gr-corolla/layers/Az_cgi.mp4
+    in: 3.2000
+    dur: 1.5667
+  - transition: {type: cut}
+  - id: b_scan   # angle 2: scan
+    src: /home/user/media/cars/gr-corolla/layers/Bz_scan.mp4
+    in: 0.0000
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: b_cgi   # CGI
+    src: /home/user/media/cars/gr-corolla/layers/Bz_cgi.mp4
+    in: 1.6000
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: b_real   # real
+    src: /home/user/media/cars/gr-corolla/layers/Bz_photo.mp4
+    in: 3.2000
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: c_scan   # angle 3: scan
+    src: /home/user/media/cars/gr-corolla/layers/Cz_scan.mp4
+    in: 0.0000
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: c_cgi   # CGI
+    src: /home/user/media/cars/gr-corolla/layers/Cz_cgi.mp4
+    in: 1.6000
+    dur: 1.5667
+  - transition: {type: cut}
+  - id: c_real   # real
+    src: /home/user/media/cars/gr-corolla/layers/Cz_photo.mp4
+    in: 3.1667
+    dur: 1.6000
+  - transition: {type: cut}
+  - id: end_card   # Epsilon+ logo on the 4-bar section change
+    src: /home/user/media/work/fg2/layers/end_card_epsilon.png
+    duration: 1.6000
+    dur: 1.6000
+
+overlays: []   # no text
