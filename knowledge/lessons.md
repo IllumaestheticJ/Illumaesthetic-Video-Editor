@@ -394,3 +394,15 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** All V1 reels get the same edits: lighting-dropout check (per-frame luma scan, render with persistent data off) and cut timing measured against the decoded audio  _(from subaru-wrx-va, 2026-11-11, user)_
 
 - **[story]** Shot order is determined by each car's scan features (what was scanned: parts, open/removed states, signature features), not by a fixed template; a scene-director agent (.claude/agents/scene-director.md) directs the scenes  _(from subaru-wrx-va, 2026-11-11, user)_
+
+## From the Toyota Sera scan reel (2026-11-11, built by an agent)
+- **[scan-look]** Opening panels from state scans: fit the hinge (any axis) that swings the full car's closed panel onto the
+  open capture (toyota-sera/tools/hinge_fit.py; works for butterfly doors - the two door fits came out mirror-symmetric).
+  The panel = car triangles that land on the open capture, plus the open capture's inner side swung back closed.
+- **[scan-look]** When taking a panel's inner side from the open capture, keep only triangles that sit *below* the closed skin
+  after the inverse hinge, and let closed-panel candidates land loosely (30 mm): otherwise the capture's own outer skin pokes
+  through the closed hood and skin strips stay behind on the base as the hood lifts. Check frames mid-swing at final quality.
+- **[scan-look]** A "door open" state may have BOTH doors open - fit and animate both, or the far door shows open in the closed frame.
+- **[technical]** Drive state scans can be byte-identical under two names (Sera 'Rear Bumper Removed' = '... No Tail Lights'); md5 first.
+- **[scan-look]** Licence plates aren't in bumper part scans: when removing a bumper for an exploded view, also drop car triangles
+  inside the bumper's bbox that the bumper-removed state doesn't have, or the plate floats in the base.
