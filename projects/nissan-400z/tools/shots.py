@@ -144,7 +144,7 @@ def cam2(secs, p0, t0, f0, p1, t1, f1):
 
 
 # N0: whole car, motion from frame 1, never touching an edge (s1 clipped the nose)
-SHOTS["N0_open"] = {"base": [CAR], "cam": arc(S["N0_open"], 7.8, 7.2, -24, -32, 1.10, 1.20, c0=(0, -0.10, 0.55),
+SHOTS["N0_open"] = {"base": [CAR], "cam": arc(S["N0_open"], 6.5, 6.0, -24, -34, 1.25, 1.35, c0=(0, -0.10, 0.80),
                                                 focal=30, n=8, ease_out=False)}
 # H: the real Hood Open scan (captured open hood on comp_hood) - no animated closed hood (addendum D)
 SHOTS["H_hoodopen"] = {"base": [f"{B}/comp_hoodopen.blend"],
@@ -168,14 +168,14 @@ _mr, _rr = STACK["p_mirror_r"]; _ml, _rl = STACK["p_mirror_l"]
 SHOTS["N2_mirror"] = {"base": [EXP], "parts": [
     {"blend": f"{B}/p_mirror_r.blend", "keys": [k(0, (0, 0, 0)), k(0.25, (0, 0, 0)), k(1.00, _mr, _rr, ease="out")]},
     {"blend": f"{B}/p_mirror_l.blend", "keys": [k(0, (0, 0, 0)), k(0.25, (0, 0, 0)), k(1.00, _ml, _rl, ease="out")]},
-    held("p_hood"), held("bumper_shell"), held("p_grille"), held("p_wing", False)],
-    "cam": cam2(S["N2_mirror"], [-1.75, 0.95, 1.40], [-0.90, -0.30, 1.00], 40,
+    held("p_wing", False)],  # front parts left out: they exited the top in N1a and cluttered the frame
+    "cam": cam2(S["N2_mirror"], [-1.95, 0.85, 1.40], [-1.00, -0.40, 1.05], 40,
                 [-2.30, 0.45, 1.45], [-1.10, -0.35, 1.05], 35)}
 # N3: duck-tail wing lifts straight up/back (no flip), camera rises over the Rear Wing Removed deck
 _mw, _rw = STACK["p_wing"]
 SHOTS["N3_wing"] = {"base": [EXP], "parts": [
     {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.30, (0, 0, 0)), k(1.846, _mw, _rw, ease="out")]},
-    held("p_hood"), held("bumper_shell"), held("p_grille"), held("p_mirror_r"), held("p_mirror_l")],
+    ],  # other parts left out: off-section clutter at the frame top
     "cam": cam2(S["N3_wing"], [-0.60, 3.60, 1.00], [-0.25, 2.15, 0.85], 38,
                 [-1.10, 4.15, 2.25], [0, 1.80, 1.05], 35)}
 
