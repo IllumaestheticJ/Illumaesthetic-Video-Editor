@@ -1,107 +1,137 @@
-"""Shot list for the Suzuki Cappuccino Temerario-style scan reel -> one tools/shot.py JSON per shot.
-  python projects/suzuki-cappuccino/shots.py            # writes /home/user/media/work/cappuccino/shots/*.json
-Cut times come from cuts.json (beat-gridded from the music; list of shot start times + end of last scan shot).
+"""Shot list v2 for the Suzuki Cappuccino scan reel -> one tools/shot.py JSON per shot (v1 recipe: shots_v1.py).
+Plan: direction.md (scene order from the scan inventory) + director.md (one focus per shot). User v2 brief + addendum A-D.
+  python projects/suzuki-cappuccino/shots.py      # writes /home/user/media/work/cappuccino/shots_v2/*.json
+Cuts land on the broadband kick onset frames of the source track (onsets.json, beat n -> frame), not the low-band grid.
 Prepped frame (m): ground z=0, nose -Y (bumper y=-1.64), car's right = -X. Wheels y=+-1.03, hub z=0.33.
-Camera az: 0 = in front of the nose, -90 = car's right side, +-180 = behind.
+Camera az: 0 = in front of the nose, -90 = car's right side, +-180 = behind, +90 = left side.
 """
 import json
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 B = "/home/user/media/work/cappuccino/blend/"
-OUT = "/home/user/media/work/cappuccino/shots/"
-RENDERS = "/home/user/media/work/renders/cappuccino/"
+OUT = "/home/user/media/work/cappuccino/shots_v2/"
+RENDERS = "/home/user/media/work/renders/cappuccino_v2/"
 HH = json.load(open(os.path.join(HERE, "hinge_hood.json")))
 HT = json.load(open(os.path.join(HERE, "hinge_trunk.json")))
+ONSET_F = json.load(open(os.path.join(HERE, "onsets.json")))["frames"]  # beat n -> cut frame at 30 fps
 FPS = 15
-EXPOSURE = -0.5  # huracan-evo measured: -0.5 EV puts flat-shaded silver at the Temerario ref's median luma
-NAMES = ["s01_side", "s02_front34", "s03_rear34", "s04_wheel", "s05_lamp", "s06_frontopen", "s07_trunk",
-         "s08_top", "s09_explode", "s10_float", "s11_reassemble"]
-_c = os.path.join(HERE, "cuts.json")
-CUTS = json.load(open(_c))["cuts"] if os.path.exists(_c) else [0, 3, 5.5, 8, 10, 12, 15, 18, 21, 24, 27, 31]
+EXPOSURE = -0.5
+HOOD_OPEN, TRUNK_OPEN = HH["open_deg"], HT["open_deg"]  # 100 % = the captured propped angles (v1 used 90 %)
 
 PARTS = {"fb": "fb_nolights", "li": "Front_Bumper_Lights", "rb": "Rear_Bumper", "hood": "hood", "trunk": "trunk"}
 EXPLODED = {"base": B + "base.blend", **{k: B + v + ".blend" for k, v in PARTS.items()}}
-CAR = {"car": B + "car2.blend"}  # untouched 2 mm full car for the full-car beats and close-ups
+CAR = {"car": B + "car2.blend"}
 HINGES = {"hood": {"p": HH["p"], "axis": HH["axis"]}, "trunk": {"p": HT["p"], "axis": HT["axis"]}}
 
-HOME = {k: {"off": [0, 0, 0]} for k in PARTS}
-HOME["hood"]["deg"] = 0
-HOME["trunk"]["deg"] = 0
-# front open: bumper + lamps slide forward and down a touch, hood swings to 90 % of its captured opening
-FRONT = dict(HOME, fb={"off": [0, -0.75, -0.03]}, li={"off": [0, -0.75, -0.03]},
-             hood={"off": [0, 0, 0], "deg": HH["open_deg"] * 0.9})
-OPEN = dict(FRONT, rb={"off": [0, 0.7, -0.03]}, trunk={"off": [0, 0, 0], "deg": HT["open_deg"] * 0.9})
-# exploded layout stacks panels ABOVE the car (portrait frame; ref 25-31 s and lesson: don't fly parts at the lens)
-# (framing v1 flew bumpers/lamps 0.55-0.95 m along the car - out of the 9:16 frame; now they rise in front of / behind it)
-# v2 still reached the frame edges in side views: v3 stacks every panel in layers over the car's own footprint
-EXPL = {"hood": {"off": [0, -0.1, 0.85], "deg": 0}, "trunk": {"off": [0, 0.1, 0.85], "deg": 0},
-        "fb": {"off": [0, 0.35, 1.45]}, "li": {"off": [0, 0.35, 1.95]}, "rb": {"off": [0, -0.35, 1.55]}}
-EXPL_DRIFT = {k: {"off": [v["off"][0], v["off"][1] * 1.07, v["off"][2] * 1.07 + 0.04], **({"deg": v["deg"]} if "deg" in v else {})}
-              for k, v in EXPL.items()}
 
-
-def tween(a, b, stagger):
-    """keys moving every part from state a to b, part k between shot fractions stagger[k] (default: already there)"""
-    out = {}
-    for k in PARTS:
-        s0, s1 = stagger.get(k, (0, 0.001))
-        out[k] = [dict(t=0, **a[k]), dict(t=s0, **a[k]), dict(t=s1, **b[k]), dict(t=1, **b[k])]
-    return out
-
-
-def hold(state):
-    return {k: [dict(t=0, **state[k])] for k in PARTS}
-
-
-def shot(i, objects, camera, anims=None, light_ref=None):
-    name = NAMES[i]
-    d = dict(objects=objects, seconds=round(CUTS[i + 1] - CUTS[i] + 2 / FPS, 3), fps=FPS, res=[1080, 1920], res_pct=75,
-             samples=12, camera=camera, out=RENDERS + name, anims=anims or {}, exposure=EXPOSURE, hinges=HINGES)
-    if light_ref:
-        d["light_ref"] = light_ref
-    return name, d
+def secs(b0, b1):
+    """render length for a shot between beats b0..b1 (+2 frames at 15 fps of margin for the assembler's trim)"""
+    f0 = 0 if b0 == 0 else ONSET_F[b0]
+    return round((ONSET_F[b1] - f0) / 30 + 2 / FPS, 3)
 
 
 def cam(t, az, el, dist, target, lens, **kw):
     return dict(t=t, az=az, el=el, dist=dist, target=target, lens=lens, **kw)
 
 
-SHOTS = [
-    # 1 low side profile tracking toward the nose, fades up from black (ref 0-3 s)
-    shot(0, CAR, [cam(0, -96, 3, 4.6, [0, 0.55, 0.48], 40), cam(1, -84, 4, 4.4, [0, -0.45, 0.48], 40, lin=True)]),
-    # 2 front 3/4 low, slow turntable (ref 4-7 s)
-    shot(1, CAR, [cam(0, -42, 5, 5.0, [0, -0.15, 0.5], 50), cam(1, -14, 8, 4.8, [0, -0.15, 0.5], 50)]),
-    # 3 rear 3/4 turntable (ref 8-11 s)
-    shot(2, CAR, [cam(0, -154, 9, 4.9, [0, 0.2, 0.5], 50), cam(1, -128, 12, 4.7, [0, 0.2, 0.5], 50)]),
-    # 4 extreme close-up: front-right wheel (tiny kei car - 14 in rim, can go very tight)
-    shot(3, CAR, [cam(0, -60, 8, 0.95, [-0.66, -1.03, 0.55], 50), cam(1, -84, 10, 0.78, [-0.68, -1.03, 0.55], 50)]),
-    # 5 extreme close-up: right headlamp and the bumper lamp below it, slow slide across the nose
-    shot(4, CAR, [cam(0, -38, 12, 1.35, [-0.42, -1.42, 0.5], 50), cam(1, -12, 9, 1.15, [-0.36, -1.5, 0.45], 50)]),
-    # 6 front end opens: bumper + lamps slide off, hood swings up on its fitted hinge (ref 12-15 s)
-    shot(5, EXPLODED, [cam(0, -40, 13, 4.2, [0, -0.85, 0.42], 40), cam(1, -22, 19, 4.7, [0, -1.0, 0.5], 40)],
-         tween(HOME, FRONT, {"fb": (0.05, 0.5), "li": (0.05, 0.5), "hood": (0.38, 0.92)}), light_ref="base"),
-    # 7 rear: bumper slides off, trunk lid swings up on its fitted hinge (front stays open)
-    shot(6, EXPLODED, [cam(0, -148, 17, 4.6, [-0.1, 0.85, 0.5], 40), cam(1, -128, 23, 5.0, [-0.1, 0.95, 0.58], 40)],
-         tween(FRONT, OPEN, {"rb": (0.05, 0.5), "trunk": (0.38, 0.92)}), light_ref="base"),
-    # 8 crane up and over to top-down, spinning, everything open (ref 16-20 s)
-    shot(7, EXPLODED, [cam(0, -140, 55, 7.0, [0, 0.1, 0.4], 40), cam(0.55, -170, 89.9, 6.0, [0, 0.0, 0.4], 40),
-                       cam(1, -215, 89.9, 5.7, [0, 0.0, 0.4], 40)], hold(OPEN), light_ref="base"),
-    # 9 exploded view builds: panels lift and stack above the car (high 3/4, ref 21-23 s)
-    shot(8, EXPLODED, [cam(0, -58, 22, 6.2, [0, -0.1, 0.75], 40), cam(1, -78, 12, 6.8, [0, -0.1, 1.1], 40)],
-         tween(OPEN, EXPL, {"hood": (0.02, 0.45), "fb": (0.12, 0.55), "li": (0.2, 0.62), "trunk": (0.28, 0.7),
-                            "rb": (0.36, 0.8)}), light_ref="base"),
-    # 10 wide side view, panels floating, slow drift (ref 25-31 s)
-    shot(9, EXPLODED, [cam(0, -96, 7, 6.7, [0, -0.05, 1.15], 40), cam(1, -112, 10, 6.4, [0, -0.05, 1.15], 40, lin=True)],
-         {k: [dict(t=0, **EXPL[k]), dict(t=1, lin=True, **EXPL_DRIFT[k])] for k in PARTS}, light_ref="base"),
-    # 11 reassembly into the finished car, rear 3/4 hero, fade out (ref 32-35 s)
-    shot(10, EXPLODED, [cam(0, -120, 14, 6.8, [0, 0.0, 1.1], 40), cam(1, -146, 9, 5.2, [0, 0.15, 0.52], 40)],
-         tween(EXPL_DRIFT, HOME, {"hood": (0.0, 0.42), "trunk": (0.08, 0.5), "li": (0.14, 0.52), "fb": (0.18, 0.6),
-                                  "rb": (0.24, 0.66)}), light_ref="base"),
-]
+def k(t, off=(0, 0, 0), deg=None, spin=None, lin=False):
+    d = dict(t=t, off=list(off))
+    if deg is not None:
+        d["deg"] = deg
+    if spin is not None:
+        d["spin"] = [spin, 1, 0, 0]  # about the part's own centre, car-width (X) axis: bumpers tip, never Z-spin
+    if lin:
+        d["lin"] = True
+    return d
+
+
+HOME = {p: [k(0, deg=0 if p in ("hood", "trunk") else None, spin=0 if p in ("fb", "rb") else None)] for p in PARTS}
+# poses (director.md)
+F_OUT = {"fb": dict(off=[0, -0.70, -1.00], spin=95), "li": dict(off=[0, -0.95, -0.90])}
+R_OUT = {"rb": dict(off=[0, 0.75, -1.05], spin=-95)}
+LAYERS = {"hood": dict(off=[0, 0, 0.85], deg=0), "trunk": dict(off=[0, 0, 0.85], deg=0),
+          "fb": dict(off=[0, -0.45, 1.20], spin=80), "li": dict(off=[0, -0.55, 1.60]), "rb": dict(off=[0, 0.45, 1.30], spin=-80)}
+DRIFT = {p: dict(v, off=[v["off"][0], v["off"][1], v["off"][2] + 0.04]) for p, v in LAYERS.items()}
+
+SHOTS = {}
+
+
+def shot(name, b0, b1, objects, camera, anims=None, visible=None, light_ref=None):
+    d = dict(objects=objects, seconds=secs(b0, b1), fps=FPS, res=[1080, 1920], res_pct=75, samples=12, camera=camera,
+             out=RENDERS + name, anims=anims or {}, exposure=EXPOSURE, hinges=HINGES, persist=False)
+    if visible:
+        d["visible"] = visible
+    if light_ref:
+        d["light_ref"] = light_ref
+    SHOTS[name] = d
+
+
+# 1 whole car, front-right 3/4, fully in frame, moving from frame 1 (v1 openers were cropped at 4.4-5 m)
+shot("s1_whole", 0, 8, CAR, [cam(0, -55, 10, 7.3, [0, -0.10, 0.55], 40), cam(1, -35, 7, 6.5, [0, -0.20, 0.52], 40)])
+
+# 2 front: right lamp pair -> lamps out toward the lens -> bumper forward/down and tipped (inner face, mounting tabs)
+#   -> camera moves in on the structure behind the bumper and holds (hero beat C)
+shot("s2_frontbumper", 8, 28, EXPLODED,
+     [cam(0, -30, 8, 1.6, [-0.42, -1.45, 0.45], 50), cam(0.15, -27, 10, 1.5, [-0.30, -1.50, 0.42], 50),
+      cam(0.35, -22, 22, 3.6, [0, -1.75, 0.25], 40), cam(0.50, -18, 40, 2.0, [0, -2.16, -0.13], 45),
+      cam(0.66, -16, 42, 1.9, [0, -2.16, -0.13], 45), cam(0.80, -12, 12, 1.5, [0, -1.45, 0.35], 45),
+      cam(1, -4, 10, 1.3, [0, -1.40, 0.38], 45, lin=True)],
+     {"li": [k(0), k(0.15), k(0.30, (0, -0.75, 0)), k(0.66, (0, -0.75, 0)), k(0.80, F_OUT["li"]["off"])],
+      "fb": [k(0, spin=0), k(0.30, spin=0), k(0.45, (0, -0.55, -0.45), spin=60), k(0.55, (0, -0.55, -0.45), spin=95),
+             k(0.66, (0, -0.55, -0.45), spin=95), k(0.80, F_OUT["fb"]["off"], spin=95)],
+      "hood": HOME["hood"], "rb": HOME["rb"], "trunk": HOME["trunk"]}, light_ref="base")
+
+# 3 engine bay: held rise through the break (no cut), hood swings ON the drop (beat 32), push into the bay
+_t32 = (ONSET_F[32] - ONSET_F[28]) / (ONSET_F[40] - ONSET_F[28])
+shot("s3_engine", 28, 40, EXPLODED,
+     [cam(0, -24, 24, 3.2, [0, -0.95, 0.70], 40), cam(_t32, -20, 30, 2.9, [0, -0.95, 0.65], 40),
+      cam(0.55, -12, 44, 2.3, [0, -1.0, 0.48], 40), cam(1, -6, 36, 1.75, [0.05, -1.15, 0.42], 45)],
+     {"hood": [k(0, deg=0), k(_t32, deg=0), k(_t32 + 0.12, deg=HOOD_OPEN)], "rb": HOME["rb"], "trunk": HOME["trunk"]},
+     visible={"fb": [0, 0], "li": [0, 0]}, light_ref="base")
+
+# 4 front-right wheel: REUSED v1 render (renders/cappuccino/s04_wheel) - no JSON here
+
+# 5 rear: bumper back/down and tipped (inner face) -> hold on rear panel / wiring / exhaust (Rear End All Removed)
+#   -> trunk lid up to its captured angle (Rear End Trunk Open exists and registers)
+shot("s5_rear", 44, 62, EXPLODED,
+     [cam(0, -150, 10, 2.0, [-0.35, 1.45, 0.50], 45), cam(0.25, -165, 24, 3.6, [0, 1.80, 0.30], 40),
+      cam(0.36, -170, 42, 2.0, [0, 2.00, 0.00], 45), cam(0.47, -172, 44, 1.9, [0, 2.00, -0.03], 45),
+      cam(0.58, -160, 14, 1.6, [-0.10, 1.55, 0.40], 45), cam(0.68, -156, 13, 1.5, [-0.10, 1.55, 0.38], 45),
+      cam(0.85, -125, 40, 2.8, [0, 1.30, 0.70], 40), cam(1, -118, 46, 2.4, [0, 1.25, 0.68], 40)],
+     {"rb": [k(0, spin=0), k(0.11, spin=0), k(0.25, (0, 0.60, -0.50), spin=-40), k(0.36, (0, 0.60, -0.50), spin=-95),
+             k(0.47, (0, 0.60, -0.50), spin=-95), k(0.58, R_OUT["rb"]["off"], spin=-95)],
+      "trunk": [k(0, deg=0), k(0.68, deg=0), k(0.80, deg=TRUNK_OPEN)], "hood": [k(0, deg=HOOD_OPEN)]},
+     visible={"fb": [0, 0], "li": [0, 0], "rb": [0, 0.62]}, light_ref="base")  # rb hidden once it has dropped away (clipped corner in framing v1)
+
+# 6 finale a: rear assembly rises into layers, then the front layers come in (high rear-left crane, not straight down)
+shot("x1_layers", 62, 68, EXPLODED,
+     [cam(0, 150, 30, 5.6, [0, 1.0, 0.95], 40), cam(1, 115, 58, 8.0, [0, 0.20, 1.15], 40)],
+     {"trunk": [k(0, deg=TRUNK_OPEN), k(0.40, LAYERS["trunk"]["off"], deg=0)],
+      "rb": [k(0, R_OUT["rb"]["off"], spin=-95), k(0.10, R_OUT["rb"]["off"], spin=-95), k(0.40, (0, 0.75, 1.30), spin=-80),
+             k(0.55, LAYERS["rb"]["off"], spin=-80)],
+      "hood": [k(0, deg=HOOD_OPEN), k(0.30, deg=HOOD_OPEN), k(0.70, LAYERS["hood"]["off"], deg=0)],
+      "fb": [k(0, F_OUT["fb"]["off"], spin=95), k(0.35, F_OUT["fb"]["off"], spin=95), k(0.75, (0, -0.70, 1.20), spin=80),
+             k(0.85, LAYERS["fb"]["off"], spin=80)],
+      "li": [k(0, F_OUT["li"]["off"]), k(0.45, F_OUT["li"]["off"]), k(0.85, (0, -0.95, 1.60)), k(0.95, LAYERS["li"]["off"])]},
+     light_ref="base")
+
+# 7 finale b: layered car -> parts home (outer layers last) -> clean car swaps in on beat 74 -> fade (left-rear 3/4)
+_t74 = (ONSET_F[74] - ONSET_F[68]) / (ONSET_F[76] - ONSET_F[68])
+shot("x2_reassemble", 68, 76, dict(EXPLODED, car=CAR["car"]),
+     [cam(0, 95, 34, 8.0, [0, 0, 1.05], 40), cam(0.45, 100, 26, 7.4, [0, 0.05, 0.80], 40),
+      cam(1, 118, 12, 6.8, [0, 0.15, 0.55], 40)],
+     {"hood": [k(0, **LAYERS["hood"]), k(0.20, lin=True, **DRIFT["hood"]), k(0.45, deg=0)],
+      "trunk": [k(0, **LAYERS["trunk"]), k(0.20, lin=True, **DRIFT["trunk"]), k(0.25, **DRIFT["trunk"]), k(0.50, deg=0)],
+      "fb": [k(0, **LAYERS["fb"]), k(0.20, lin=True, **DRIFT["fb"]), k(0.30, **DRIFT["fb"]), k(0.50, (0, -0.45, 0), spin=0),
+             k(0.62, spin=0)],
+      "rb": [k(0, **LAYERS["rb"]), k(0.20, lin=True, **DRIFT["rb"]), k(0.35, **DRIFT["rb"]), k(0.55, (0, 0.45, 0), spin=0),
+             k(0.67, spin=0)],
+      "li": [k(0, **LAYERS["li"]), k(0.20, lin=True, **DRIFT["li"]), k(0.45, **DRIFT["li"]), k(0.62, (0, -0.55, 0)), k(0.72)]},
+     visible={**{p: [0, _t74] for p in list(PARTS) + ["base"]}, "car": [_t74, 1.01]}, light_ref="base")
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    for name, d in SHOTS:
+    for name, d in SHOTS.items():
         json.dump(d, open(OUT + name + ".json", "w"), indent=1)
         print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
