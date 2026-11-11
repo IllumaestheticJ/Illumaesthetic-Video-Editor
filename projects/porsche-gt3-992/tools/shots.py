@@ -60,8 +60,8 @@ def shots():
         # 3. extreme close-up: front-right brake + suspension (wheel-off state scan); the full car's own wheel
         #    has scan fragments inside the spokes. Slow slide toward the nose, ragged scan edges kept out of frame
         "s3_wheel": {"base": [BRAKE], "cam": [
-            {"t": 0, "loc": [-1.78, -0.78, 0.52], "target": [-0.8, -1.42, 0.42], "focal": 33},
-            {"t": S["s3_wheel"], "loc": [-1.8, -1.08, 0.5], "target": [-0.8, -1.44, 0.42], "focal": 33, "ease": "inout"}]},
+            {"t": 0, "loc": [-1.78, -0.78, 0.44], "target": [-0.8, -1.42, 0.36], "focal": 41},
+            {"t": S["s3_wheel"], "loc": [-1.8, -1.08, 0.42], "target": [-0.8, -1.44, 0.36], "focal": 41, "ease": "inout"}]},
         # 4. extreme close-up: swan-neck wing mounts + duckbill from high rear-left, slide across
         "s4_wing": {"base": [REAR], "cam": [
             {"t": 0, "loc": [1.7, 3.5, 1.75], "target": [0.25, 1.95, 1.1], "focal": 35},
