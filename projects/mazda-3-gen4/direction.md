@@ -38,12 +38,32 @@ first and a front -> side -> rear travel, which naturally *arrives* at the wing 
 | 1 | Whole car, front 3/4 | car4 | the whole standard car, Kodo face | reviewer: "standard full car scan - show the whole car"; brief: whole car + motion from frame 1 | b0-b8 (8) | low front-left 3/4, straight push-in, no orbit |
 | 2 | Left flank | car4 | side surfacing / reflections | travel step 2; clean +X side; no states -> one short-ish scene | b8-b16 (8) | lateral track toward the rear (translation, not a turntable) |
 | 3 | Rear arrival | car4 | rear end: tail lamps + hatch shape | travel step 3; tail lamps are the best rear detail; puts us behind the car for the wing | b16-b28 (12) | rear-left 3/4 swinging behind + pushing in until the rear end fills the width |
-| 4 | Wing off -> mounts | comp_wingoff + rwing | wing seated, lifts ON THE DROP, real mounting holes exposed | the only registered part + state = richest region -> biggest musical moment (kick drop b36) | b28-b42 (14) | high behind-left, framed on the hatch top, pushes in on the mounts after the lift |
-| 5 | The part | comp_wingoff + rwing | wing's scanned underside / mounting face | brief: show the part's inner face; underside is scanned (49 % down-facing) | b42-b52 (10) | low behind-left looking up; wing translates back over clear black (no spin) |
+| 4 | **HERO: Rear Wing Removed** | comp_wingoff (Wing Removed state) + rwing | wing seated, lifts ON THE DROP, camera moves IN on the exposed hatch top (mounting points / bolt holes) and holds ~3.3 s; labels REAR WING REMOVED / MOUNTING POINTS | removed-state data is the hero beat (user 2026-11-11); only registered part + state -> kick drop b36 | b28-b46 (18) | high behind-left, framed on the hatch top, pushes in on the mounts after the lift; black band above the roofline kept for the labels |
+| 5 | The part | comp_wingoff + rwing | wing's scanned underside / mounting face | brief: show the part's inner face; underside is scanned (49 % down-facing) | b46-b52 (6) | low behind looking up; wing translates back over clear black (no spin) |
 | 6 | Reassembly, whole car | comp_wingoff + rwing (car4 after lock) | wing returns and seats; whole car from above | Temerario: reassembly -> fade -> small logo; a high angle no other scene uses | b52-b64 (12; fade b62-b64) | high (~60 deg down) from behind-left, slow push, no orbit |
 | 7 | Logo | logo card | small ILLUMAESTHETIC logo | brief: fade, then SMALL logo; music decays to ~38.2 | b64-b70 (6) | ~320 px wide (30 % width) on black |
 
-No top-down rotation, no wide explode orbit, no text.
+No top-down rotation, no wide explode orbit. Text: only the two file-backed labels on scene 4 (see director.md), never over a car silhouette.
+
+## 2b. Section coverage - each section in ONE continuous sequence (user feedback B)
+
+| shot | section | contiguous with | appears anywhere else? |
+|---|---|---|---|
+| m1_open | front (whole car framed from the front-left) | - | no: the front is never shown again |
+| m2_flank | side (left) | - | no (right side never shown: ribbing) |
+| m3_rear | rear (rear end, tail lamps) | m4, m5 | no: rear sequence = m3 -> m4 -> m5, b16-b52 unbroken |
+| m4_wingoff | rear / hatch top: wing off + mounting points (hero) | m3, m5 | no |
+| m5_part | rear / the wing part's underside | m4, m6 | no (low behind looking UP at the part; m3 is a level 3/4 of the body) |
+| m6_reassemble | top (whole car from ~55 deg above) + wing back on | m5 | no other high/top view in the reel |
+| logo | end card | - | - |
+
+Wheels, engine bay, interior, front parts: no data -> no section. v1 s1~s2 (IoU 0.7) and every turntable are gone;
+no two shots share an azimuth+elevation within ~20 deg (m1 35/low, m2 87-93/level, m3 118->150/level, m4 ~160/high-close,
+m5 ~174/low-up, m6 125/55 deg down).
+
+## 2c. States shown (user feedback D)
+Only one state appears: **Wing Removed** (registered, median 1.05 mm). No hood, trunk/hatch or door opening exists in the
+data, so none is shown; the hatch stays shut, the doors stay shut, nothing is faked.
 
 ## 3. Music map (beat k = 0.050 + 0.5453 k; 110 BPM; frames = round(t*30))
 
@@ -52,13 +72,13 @@ No top-down rotation, no wide explode orbit, no text.
 | 1 | 0.000 | b0 | ambient intro, plucks every 2 beats |
 | 2 | 4.412 (f132) | b8 phrase | intro |
 | 3 | 8.775 (f263) | b16 phrase | intro; build starts ~11.4 (inside scene 3) |
-| 4 | 15.319 (f460) | b28 phrase | build; **wing lifts on b36 = 19.682 KICK DROP (inside the shot)** |
-| 5 | 22.954 (f689) | b42 kick | kicks |
+| 4 | 15.319 (f460) | b28 phrase | build; **wing lifts on b36 = 19.682 KICK DROP (inside the shot)**; labels b40-b45 |
+| 5 | 25.135 (f754) | b46 kick | kicks |
 | 6 | 28.408 (f852) | b52 kick | kicks; wing locks on **b60 32.770** phrase |
 | 7 | 34.951 (f1049) | b64 kick | last kick b67 36.587, decay, end b70 38.223 (f1147) |
 
 The drop is not a cut: the part comes off on the kick inside the held section shot (brief: frame the section and stay
-on it; lesson 240SX: let the shot keep going into the next story beat). The cuts around it (b28, b42) are phrase/kick lines.
+on it; lesson 240SX: let the shot keep going into the next story beat). The cuts around it (b28, b46) are phrase/kick lines.
 
 ## 4. Diff vs v1 (project_v1.yaml) and v2-whole-car (project.yaml)
 
@@ -72,6 +92,7 @@ on it; lesson 240SX: let the shot keep going into the next story beat). The cuts
 | s6_wing (whole car wide, wing lifts b30-b34 in the build) | -> scene 4 (new render, section framing), lift moved to the drop | brief: frame the removed section and stay on it; richest region gets the drop |
 | s7_top (rotating top-down) | **dropped** | rotation, nothing new (no top state) |
 | s8_explode (wide orbit, wing + unregistered spoiler) | **dropped** -> scenes 5 + 6 | too wide; spoiler not registered (implied data); final2 render is a stopped partial (25/186 frames) |
+| no text (v1/v2) | two labels on scene 4 only: REAR WING REMOVED (file: Scans/Mazda 3 (Gen 4) Wing Removed.stl) and MOUNTING POINTS (only if the render shows the holes) | user 2026-11-11 feedback C |
 | logo (820 px, 3.27 s) | scene 7, **re-make at ~320 px** after a fade to black | brief: fade, then small logo |
 
 Reuse: no existing render matches (every one is an orbit, a duplicate subject, or a v1 crop). The only reusable
