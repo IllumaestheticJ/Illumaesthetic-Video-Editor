@@ -17,15 +17,23 @@ Superseded: Oct 31 approved-reel track extended to 32.855 s (`/home/user/media/h
 had no other music (audio search = DJI field mics only).
 
 ## Car-select intro (user request: open like the NFS Hot Pursuit 2010 car-select - roar + female narrator reading the spec sheet)
-Mixed by `tools/mix.py` into `/home/user/media/huracan-evo/vo/soundtrack_v1.wav` (project music). Generated on Higgsfield:
+Mixed by `tools/mix.py` into `/home/user/media/huracan-evo/vo/soundtrack_v2.wav` (project music). Generated on Higgsfield:
 - `vo/engine.mp3` - Mirelo SFX, 6 s generic V10 start + revs (generated, NOT a recording of this car).
-- `vo/narration2.wav` - Seed Audio, preset female voice "Imogen" (3811e986-...), 16.1 s. The game's narrator voice was
-  NOT cloned (real voice actor, no consent) - same delivery style, different voice. Take 1 (`narration.wav`, speech_rate -12)
-  ran 40 s with 2-4 s pauses - rejected.
-Script (original, specs = Lamborghini's Jan 2019 Huracan EVO press release figures, AWD car assumed):
-"Lamborghini Huracan EVO. Naturally aspirated five-point-two-litre V10, six hundred and forty horsepower, all-wheel drive.
-Zero to one hundred in two-point-nine seconds, top speed three hundred and twenty-five kilometres per hour. Every panel,
-scanned. Twenty-five million triangles."  (25M = Full Car STL header 24,999,942.)
+- Narrator: Seed Audio, preset female voice "Imogen" (3811e986-...). The game's narrator voice was NOT cloned (real voice
+  actor, no consent) - same delivery style, different voice.
+- v2 (`vo/narration4.wav`, car only - user: "don't talk about the scan, talk about the car"; "use the Huracan coupe"):
+  "Lamborghini Huracan EVO Coupe. A naturally aspirated five-point-two-litre V10, six hundred and forty metric horsepower.
+  All-wheel drive, rear-wheel steering. Zero to one hundred in two-point-nine seconds. Top speed: three hundred and
+  twenty-five kilometres per hour."  Raw take 21.5 s (0.5-0.8 s pauses) -> pauses trimmed to 0.24 s + atempo 1.08 -> speech 1.31-18.0 s.
+  Sources: Lamborghini media release 7 Jan 2019 (640 PS/470 kW at 8,000 rpm, 600 Nm, AWD + rear-wheel steering, LDVI),
+  0-100 2.9 s / 325 km/h consistent across spec sites. 640 is PS, so the script says "metric horsepower".
+- v1 (`vo/narration2.wav`) also said "Every panel, scanned. Twenty-five million triangles" - removed on feedback.
+- Rejected takes: narration.wav (40 s, speech_rate -12), narration3.wav (24 s, longer script).
+
+## Body: the 2026 scan IS the coupe
+The Drive folder says "Huracan Evo Spider", but the centre-line roof height (250 mm bins, nose->tail) is a continuous
+fastback: 575 693 784 828 921 1020 1105 1163 1189 1198 1195 1179 1042 1014 988 948 905 942 mm - no step/fins behind the
+cabin as on a Spider. So "use the coupe" needed no change of scan data.
 
 ## Scans (Drive `Lamborghini Huracan` / subfolder named **"Huracan Evo Spider"**, all dated 2026-08-31, one Artec frame)
 | file | tris | what it is |
