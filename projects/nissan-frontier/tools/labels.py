@@ -27,6 +27,23 @@ def anchor_at(name, t):
     seq = anc[name]; f = t * afps; i = int(f); u = f - i
     i = max(0, min(i, len(seq) - 1)); j = min(i + 1, len(seq) - 1)
     return [(seq[i][k] * (1 - u) + seq[j][k] * u) for k in (0, 1)]
+def pix_anchor(L, t):
+    """Anchor on the largest highlighted (cyan) blob in the shot's own render frame (labels whose part centroid falls
+    off the part, e.g. the two-arch flare set). Falls back to the projected centroid."""
+    import numpy as np
+    from scipy import ndimage
+    d = L["anchor_pixels"]; f = int(round(t * afps)) + 1
+    p = f"{d}/f_{min(f, len(os.listdir(d))):04d}.png"
+    a = np.asarray(Image.open(p).convert("RGB").reduce(4), np.int16)
+    m = (a[..., 2] - a[..., 0] > 45) & (a[..., 1] - a[..., 0] > 30)
+    lab, n = ndimage.label(m)
+    if n == 0:
+        return None
+    sizes = ndimage.sum(m, lab, range(1, n + 1)); k = int(np.argmax(sizes)) + 1
+    if sizes[k - 1] < 40:
+        return None
+    yy, xx = np.nonzero(lab == k)
+    return [xx.mean() / a.shape[1], yy.mean() / a.shape[0]]
 def ease(u): u = max(0.0, min(1.0, u)); return u * u * (3 - 2 * u)
 n = int(round(a.secs * a.fps))
 with tempfile.TemporaryDirectory() as td:
@@ -39,7 +56,8 @@ with tempfile.TemporaryDirectory() as td:
                 continue
             al = min(ease((t - t0) / 0.22), ease((t1 - t) / 0.22))
             grow = ease((t - t0) / 0.3)
-            ax, ay = anchor_at(L["id"], t); ax *= W; ay *= H
+            pa = pix_anchor(L, t) if L.get("anchor_pixels") else None
+            ax, ay = pa if pa else anchor_at(L["id"], t); ax *= W; ay *= H
             title, sub = L["title"], L.get("sub", "")
             wt, ws = tw(title, FT, 6), tw(sub, FS, 4)
             bw = max(wt, ws)
