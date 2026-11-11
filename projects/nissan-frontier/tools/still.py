@@ -1,4 +1,4 @@
-"""Quick check still via projects/ferrari-296/tools/shot.py (shared keyed-camera renderer).
+"""Quick check still via tools/shot.py.
   still.py out.png --base a.blend b.blend --parts red:x.blend cyan:y.blend --loc x,y,z --target x,y,z [--focal 30] [--pct 30] [--spp 8]"""
 import argparse, json, subprocess, os
 ap = argparse.ArgumentParser()
@@ -15,5 +15,5 @@ sp = {"base": a.base, "parts": parts, "camera": {"sensor": 20.25, "keys": [{"t":
       "seconds": 0, "fps": 15, "res": "1080x1920", "res_pct": a.pct, "samples": a.spp, "out": os.path.abspath(a.out)}
 if a.grey: sp["base_color"] = "grey"
 js = "/home/user/media/nissan-frontier/specs/_still.json"; json.dump(sp, open(js, "w"))
-r = subprocess.run(["blender", "-b", "-P", os.path.join(os.path.dirname(__file__), "..", "..", "ferrari-296", "tools", "shot.py"), "--", js], capture_output=True, text=True)
+r = subprocess.run(["blender", "-b", "-P", os.path.join(os.path.dirname(__file__), "shot.py"), "--", js], capture_output=True, text=True)
 print([l for l in r.stdout.splitlines() if "IVE_RENDER_DONE" in l or "Error" in l][-3:], r.returncode)

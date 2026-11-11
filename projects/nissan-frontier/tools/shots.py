@@ -1,4 +1,4 @@
-"""Shot specs for the Nissan Frontier Pro-4X Temerario-style reel -> JSON for projects/ferrari-296/tools/shot.py.
+"""Shot specs for the Nissan Frontier Pro-4X Temerario-style reel -> JSON for tools/shot.py.
 
     python projects/nissan-frontier/tools/shots.py preview|final [shot ...]
 
@@ -64,10 +64,10 @@ def shots():
              "keys": hold_then([{"t": TIMING["open"]["hood"][1], "loc": [0, 0, 0], "rot": [-60, 0, 0], "ease": "inout"}],
                                TIMING["open"]["hood"][0])},
             {"blend": f"{P}/x_bumper.blend",
-             "keys": hold_then([{"t": TIMING["open"]["bumper"][1], "loc": [0, -0.9, -0.12], "rot": [0, 0, 0], "ease": "inout"}],
+             "keys": hold_then([{"t": TIMING["open"]["bumper"][1], "loc": [0, -0.7, -0.18], "rot": [0, 0, 0], "ease": "inout"}],
                                TIMING["open"]["bumper"][0])},
             {"blend": f"{P}/x_grille.blend",
-             "keys": hold_then([{"t": TIMING["open"]["bumper"][1], "loc": [0, -0.9, -0.12], "rot": [0, 0, 0], "ease": "inout"}],
+             "keys": hold_then([{"t": TIMING["open"]["bumper"][1], "loc": [0, -0.7, -0.18], "rot": [0, 0, 0], "ease": "inout"}],
                                TIMING["open"]["bumper"][0])}],
             "cam": keyed_orbit(S["s5_open"], 5.2, 4.6, -38, -22, 1.9, 2.3, (0, -1.9, 0.55), (0, -2.1, 0.55))},
         # 6. top-down: high rear-right 3/4 rising over to straight down, nose at the top of the frame
@@ -84,13 +84,14 @@ def shots():
                 {"t": E[2], "loc": [o * 1.06 for o in off], "rot": list(rot), "ease": "lin"},
                 {"t": E[3], "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
     sh["s7_explode"] = {"base": [f"{P}/comp_explode.blend"], "parts": [
-        {"blend": f"{P}/x_hood.blend", "keys": ex((0, -0.2, 1.05), (-10, 0, 0))},
-        {"blend": f"{P}/x_bumper.blend", "keys": ex((0, -0.95, -0.05), d=0.06)},
-        {"blend": f"{P}/x_grille.blend", "keys": ex((0, -1.55, 0.25), d=0.12)},
-        {"blend": f"{P}/x_flares.blend", "keys": ex((0, 0, 0.55), d=0.18)}],
-        # high front-right, orbiting toward the side; radius swells while the parts are out
-        "cam": [orbit(S["s7_explode"] * k / 12, 7.0 + 1.2 * math.sin(math.pi * k / 12), -42 - 50 * (k / 12),
-                      3.4 - 0.4 * (k / 12), c=(0, -0.9 + 0.7 * (k / 12), 0.6), focal=28, ease="lin", tz=0.5)
+        # parts stack UP in front of/above the nose (9:16-friendly, Temerario ref 25-31 s), never toward the lens
+        {"blend": f"{P}/x_hood.blend", "keys": ex((0, -0.1, 1.25), (-8, 0, 0))},
+        {"blend": f"{P}/x_bumper.blend", "keys": ex((0, -0.8, -0.05), d=0.06)},
+        {"blend": f"{P}/x_grille.blend", "keys": ex((0, -0.7, 0.6), d=0.12)},
+        {"blend": f"{P}/x_flares.blend", "keys": ex((0, 0, 0.45), d=0.18)}],
+        # high front-right 3/4 orbiting toward the side; radius swells a little while the parts are out
+        "cam": [orbit(S["s7_explode"] * k / 12, 5.7 + 0.8 * math.sin(math.pi * k / 12), -22 - 40 * (k / 12),
+                      2.7 - 0.4 * (k / 12), c=(0, -1.7 + 0.5 * (k / 12), 0.95), focal=28, ease="lin", tz=0.85)
                 for k in range(13)]}
     return sh
 
@@ -100,8 +101,10 @@ def spec(name, mode, frames=None):
     final = mode == "final"
     sp = {"base": s["base"], "parts": s.get("parts", []), "camera": {"sensor": 20.25, "keys": s["cam"]},
           "seconds": SECS[name] + 1 / 15, "fps": 15, "res": "1080x1920",
-          "res_pct": 75 if final else 30, "samples": 12 if final else 6,
+          "res_pct": 75 if final else 30, "samples": 12 if final else 6, "exposure": -0.5,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
+    if sp["parts"]:
+        sp["persistent"] = False  # moving parts: persistent data dropped the lights (huracan-evo)
     if frames:
         sp["frames"] = frames
     os.makedirs(SPECS, exist_ok=True)
