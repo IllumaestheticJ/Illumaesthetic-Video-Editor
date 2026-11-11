@@ -37,7 +37,7 @@
    "from": 287,
    "duration": 60,
    "title": "BEHIND THE BUMPER",
-   "sub": "HEADLIGHT HOUSINGS \u00b7 FRONT STRUCTURE",
+   "sub": "HEADLIGHT HOUSINGS · FRONT STRUCTURE",
    "x": 0.08,
    "y": 0.74
   },
@@ -48,7 +48,7 @@
    "title": "HOOD SCOOP REMOVED",
    "sub": "",
    "x": 0.08,
-   "y": 0.74
+   "y": 0.13
   },
   {
    "kind": "label",
