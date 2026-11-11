@@ -25,7 +25,7 @@ Scan only, no text, no IRL (brief). Music: the parent session's generated track 
 - Exploded base = full car trimmed under the parts + "removed" state scans where they add geometry (tools/composite.py).
 
 ## Known issues / v2 ideas
-- s9 snap: the composite → clean-car swap is a visible change (by design on the kick). A cleaner composite (trim the state
+- s9 snap: the composite → clean-car swap is a visible change (by design); in the delivered file it lands at 34.33 s (frame 1030, one minterpolate blend frame at 1029), ~2 frames ahead of the 34.402 kick. Set SWAP from the assembled timeline offset, not the shot-local time. A cleaner composite (trim the state
   scans to the part footprints) would let the panels return onto a near-clean body.
 - Crop the ground scraps under the sills (tighter `--drop-islands`, or a z-crop just above the tyre contact patch except at the wheels).
 - More separating panels would sell the explode better (side skirt, door card, and light scans exist but are in their own frames;

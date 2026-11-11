@@ -1,0 +1,77 @@
+# C5 Corvette scan reel - Temerario style (scan only, no IRL, no text). Shots: shots.py -> tools/shot.py (Blender).
+# Durations are whole frames so each cut lands on round(cut*30); first clip one frame short (FG2 lesson).
+project: c5-corvette
+format: reel-9x16
+output: {path: /home/user/media/work/out/c5_corvette_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/c5-corvette_track.mp3   # generated for this car (parent session, ElevenLabs via Higgsfield)
+  start: 0
+  fade_out: 1.4
+
+# kick grid 107.96 BPM, b = 0.5013 + 0.5557k; cuts on accents (see editlog); 35.513 = logo (b63, biggest hit)
+beats: [4.040, 9.393, 13.839, 15.506, 17.174, 22.175, 26.621, 30.512, 35.513]
+
+timeline:
+  - id: s1_front34   # front 3/4 low turntable, fades up from black over the quiet intro
+    src: /home/user/media/work/renders/c5/s1_front34
+    src_fps: 15
+    interpolate: true
+    dur: 4.0000
+    vf: fade=t=in:st=0:d=1.2
+  - transition: {type: cut}
+  - id: s2_rear34   # rear 3/4 orbit (quad tail lamps), long hold into the drop
+    src: /home/user/media/work/renders/c5/s2_rear34
+    src_fps: 15
+    interpolate: true
+    dur: 5.3667
+  - transition: {type: cut}
+  - id: s3_orbit   # ON THE DROP (9.393): high 3/4 orbit over the front
+    src: /home/user/media/work/renders/c5/s3_orbit
+    src_fps: 15
+    interpolate: true
+    dur: 4.4333
+  - transition: {type: cut}
+  - id: s4_wheel   # extreme close-up: front wheel + fender (2 mm scan)
+    src: /home/user/media/work/renders/c5/s4_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 1.6667
+  - transition: {type: cut}
+  - id: s5_tail   # extreme close-up: quad round tail lamps (2 mm scan)
+    src: /home/user/media/work/renders/c5/s5_tail
+    src_fps: 15
+    interpolate: true
+    dur: 1.6667
+  - transition: {type: cut}
+  - id: s6_hood   # hood opens on the hinge fitted to the captured hood-open scan; engine bay as captured
+    src: /home/user/media/work/renders/c5/s6_hood
+    src_fps: 15
+    interpolate: true
+    dur: 5.0000
+  - transition: {type: cut}
+  - id: s7_top   # top-down, spinning (22.175 kick accent)
+    src: /home/user/media/work/renders/c5/s7_top
+    src_fps: 15
+    interpolate: true
+    dur: 4.4667
+  - transition: {type: cut}
+  - id: s8_explode   # targa, hood, front bumper, fender, rear bumper separate from the 26.621 accent
+    src: /home/user/media/work/renders/c5/s8_explode
+    src_fps: 15
+    interpolate: true
+    dur: 3.8667
+  - transition: {type: cut}
+  - id: s9_reassemble   # panels float, return home; targa locks on 34.402 (loudest kick)
+    src: /home/user/media/work/renders/c5/s9_reassemble
+    src_fps: 15
+    interpolate: true
+    dur: 5.0000
+  - transition: {type: cut}
+  - id: logo   # ILLUMAESTHETIC logo on black on the b63 hit; music decays to silence by 39.5 s
+    src: /home/user/media/c5-corvette/logo/end_card.png
+    duration: 4.0000
+    dur: 3.9000
+    vf: fade=t=in:st=0:d=0.25,fade=t=out:st=3.0:d=0.9
+
+overlays: []   # no text in this format (Temerario ref has none)
