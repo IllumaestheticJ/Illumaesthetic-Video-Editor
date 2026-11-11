@@ -56,6 +56,8 @@ def parse():
     ap.add_argument("--spin-start", type=float, default=0, help="car heading at frame 1, degrees about Z")
     ap.add_argument("--orbit", type=float, default=0, help="camera orbit, degrees over the shot")
     ap.add_argument("--ease", default="linear", choices=["linear", "ease_in_out"])
+    ap.add_argument("--steer", type=float, default=0, help="turn the front wheels (wheel_FL / wheel_FR) this many degrees about "
+                    "their own vertical axis; positive = steering left (game menus park cars with the wheels turned)")
     ap.add_argument("--rig", default="carlot", choices=["carlot", "studio"])
     ap.add_argument("--rig-json", help="override light rig: {world:[r,g,b,strength], lights:[{loc,rot,size,energy,color,glossy_only,only_nodes}], materials:{name:{principled inputs}}}")
     ap.add_argument("--exposure", type=float, default=0.0)
@@ -322,6 +324,17 @@ def main():
     if missing:
         print("IVE_WARN hide: no such node(s): " + ",".join(missing))
     lookdev(a)
+
+    if a.steer:
+        for n in ("wheel_FL", "wheel_FR"):
+            o = bpy.data.objects.get(n)
+            if not o:
+                print("IVE_WARN steer: no node " + n); continue
+            wl, wh = bbox([x for x in [o] + list(o.children_recursive) if x.type == "MESH"])
+            c = (wl + wh) / 2
+            R = Matrix.Translation(c) @ Matrix.Rotation(math.radians(a.steer), 4, "Z") @ Matrix.Translation(-c)
+            o.matrix_world = R @ o.matrix_world
+        bpy.context.view_layer.update()
 
     # turntable pivot: everything imported hangs off one empty at the car's footprint centre
     lo, hi = bbox(visible_meshes())

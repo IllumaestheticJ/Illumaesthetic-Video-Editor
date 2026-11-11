@@ -182,6 +182,14 @@ What went wrong in v1 and how v2 fixed it (user: "the car needs to be angled to 
   ceiling key, near-black ambient and two reflection-only panels (`glossy_only`), one of them
   linked to the glass node only (`only_nodes`) so it does not wash out the paint.
 
+- **Steer the front wheels.** The game parks every car with its front wheels turned toward the
+  camera (`kit-render --steer 25` for the NFSU2 car lot; compare two angles against a game car).
+- **Badges come from real artwork.** For a make the game lacks, render the emblem front-on from
+  the car's own GLB (`tools/badge_from_glb.py`) and clean it to a mask. A hand-drawn badge was
+  rejected. Wikimedia's API answers 429 from this environment.
+- **Music the user asks for needs a file.** Captures only have the game's songs buried under
+  engine and menu sounds. Ask for the track in Dropbox in the same message as the capture.
+
 ## 7. Swap the cars (`projects/nfs-carlot/tools/composite.py`)
 Start from the **real capture frame** and change as little as possible:
 1. repaint a soft zone where any game car and its shadow can be (union of the differences, grown)

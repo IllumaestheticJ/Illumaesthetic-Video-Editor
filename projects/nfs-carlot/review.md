@@ -32,3 +32,12 @@ Output: `/home/user/media/work/out/nfs-carlot_v2.mp4`, 1080x1920, 30 fps, 16.5 s
   all five car changes. Holds now 2.0, 1.9, 1.2, 1.3, 1.3 s after each 0.5 s slide.
 Still open: 0.3 s of silence where the cutscene audio ends and the second capture's menu audio starts;
 frame fills the middle 44 % of the screen; two "Honda Civic" plates; game's own stat bars; no confirm dialog.
+
+## v3 (2026-11-11) - after the user's review of v2
+User: "The Acura badge is also wrong. Please also add some of the NFSUG2 soundtrack in there. The wheels are turned."
+
+Output: `/home/user/media/work/out/nfs-carlot_v3.mp4`, 16.5 s.
+- Badge: real emblem lifted from the Integra GLB's grille (`tools/badge_from_glb.py`).
+- Wheels: front wheels steered 25 deg, checked against the game's cars.
+- Audio: cutscene tail bridges the silent start of capture B; garage bed +2 dB.
+- NOT done: a proper NFSU2 soundtrack bed. No clean track is available in this environment; waiting on the user.

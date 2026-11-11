@@ -39,7 +39,7 @@ SEGMENTS = [
     (5089, 5143, "ep3", "civic"),
 ]
 OUT_FPS = 30
-CARS_DIR = "cars2"                       # renders with the wheel-fitted camera and the game-matched rig
+CARS_DIR = "cars3"                       # wheel-fitted camera, game-matched rig, front wheels steered 25 deg
 PLATE_SRC = {"corolla": 4280, "civic": 4610, "miata": 4430}     # rest frames showing each real plate
 BOX_SRC = 3996
 
@@ -159,17 +159,15 @@ def integra_plate(plates):
     lay.paste(big, ((2 * 540 - x0) * S, (2 * 128 - y0) * S), big)
     a = np.asarray(lay.resize((w, h), Image.LANCZOS)).astype(np.float32)[..., None] / 255
     out = bg * (1 - a * 0.92) + ink * a * 0.92
-    # logo: the calipers in an oval
-    lg = Image.new("L", (w * S, h * S), 0); d = ImageDraw.Draw(lg)
-    cx, cy = (lx0 + lx1) / 2 * S, (ly0 + ly1) / 2 * S
-    rx, ry = 62 * S, 50 * S
-    d.ellipse((cx - rx, cy - ry, cx + rx, cy + ry), outline=255, width=9 * S)
-    d.line((cx - 30 * S, cy + 40 * S, cx - 5 * S, cy - 40 * S), fill=255, width=9 * S)
-    d.line((cx + 30 * S, cy + 40 * S, cx + 5 * S, cy - 40 * S), fill=255, width=9 * S)
-    d.line((cx - 5 * S, cy - 40 * S, cx + 5 * S, cy - 40 * S), fill=255, width=9 * S)
-    d.line((cx - 17 * S, cy + 6 * S, cx + 17 * S, cy + 6 * S), fill=255, width=7 * S)
-    a = np.asarray(lg.resize((w, h), Image.LANCZOS)).astype(np.float32)[..., None] / 255
-    out = out * (1 - a) + logo * a
+    # badge: the real emblem, lifted front-on from the Integra GLB's own grille (tools/badge_from_glb.py);
+    # v1/v2 drew one by hand and the user called it wrong
+    bm = cv2.imread(str(W / "match/acura_badge.png"), cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255
+    bh = int((ly1 - ly0) * 0.86); bw = int(bm.shape[1] * bh / bm.shape[0])
+    bm = cv2.resize(bm, (bw, bh), interpolation=cv2.INTER_AREA)
+    by, bx = (ly0 + ly1 - bh) // 2, (lx0 + lx1 - bw) // 2
+    shade = np.linspace(1.08, 0.82, bh, dtype=np.float32)[:, None, None]          # chrome: lighter on top, like the game's badges
+    a = bm[..., None]
+    out[by:by + bh, bx:bx + bw] = out[by:by + bh, bx:bx + bw] * (1 - a) + np.clip(logo * shade, 0, 255) * a
     return np.clip(out, 0, 255).astype(np.uint8)
 
 

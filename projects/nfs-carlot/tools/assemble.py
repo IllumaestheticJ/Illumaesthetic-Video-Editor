@@ -20,7 +20,7 @@ INTRO = (952, 1291)            # a60.mp4 frames (60 fps): "enter the shop?" (1 s
 B_SCROLLS = [34.93, 37.87, 40.27, 42.00, 50.03]   # seconds in capture B where each of our five car changes starts
 B_END = 51.86                                     # just before B's next scroll sound
 LEAD = 0.08                                       # B's scroll sound starts up to this long before the car moves
-OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/nfs-carlot_v2.mp4")
+OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/nfs-carlot_v3.mp4")
 
 
 def load(name):
@@ -55,8 +55,11 @@ def audio():
     place(0.0, B_SCROLLS[0] - t_scroll[0], B_SCROLLS[3] + (t_scroll[4] - t_scroll[3]) - LEAD)
     # take 2: the last car, from a later scroll in B, so it can hold until B_END
     place(t_scroll[4] - LEAD, B_SCROLLS[4] - LEAD, B_END)
-    menu *= 10 ** ((rms_db(intro) - 5.0 - rms_db(menu[menu.any(1)])) / 20)       # menu sits 5 dB under the cutscene
-    j = int(0.03 * sr); intro[-j:] *= np.linspace(1, 0, j)[:, None]
+    menu *= 10 ** ((rms_db(intro) - 3.0 - rms_db(menu[menu.any(1)])) / 20)       # menu (and its in-game song) 3 dB under the cutscene
+    # capture B is silent for its first ~0.3 s of menu: let the cutscene's sound ring out over that instead of cutting dead
+    tail = a[round((INTRO[1] + 1) / 60 * sr):round((INTRO[1] + 1) / 60 * sr) + int(0.45 * sr)].copy()
+    tail *= np.linspace(1, 0, len(tail))[:, None] ** 2
+    menu[:len(tail)] += tail
     y = np.concatenate([intro, menu])
     fo = int(0.4 * sr); y[-fo:] *= np.linspace(1, 0, fo)[:, None]
     fi = int(0.05 * sr); y[:fi] *= np.linspace(0, 1, fi)[:, None]
