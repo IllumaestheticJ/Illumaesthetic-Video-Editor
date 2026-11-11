@@ -334,3 +334,27 @@ lands here automatically. Agents must read this whole file before editing.
   kick/flux/RMS table and the music-end level curve with numpy + ffmpeg.
 
 - **[audio]** Don't reuse music other agents/reels already used - check projects/*/project.yaml and editlogs for the track (title / song_clip_id) before picking  _(from honda-civic-11-scan-process, 2026-11-11, reviewer)_
+
+## From the Lexus IS350 scan-process reel (2026-11-11, built by an agent)
+- **[technical]** Shop footage can be **Sony FX3A S-Log3 / S-Gamut3.Cine** (read the XML sidecar `CaptureGammaEquation`; the
+  brief said FX30). `ive probe` reports it as plain Rec.709, so nothing tonemaps it. Build a .cube with colour-science
+  (S-Log3 decode, S-Gamut3.Cine->709, Hable, 709 OETF) and apply it before cropping (projects/lexus-is350-scan-process/tools/irl.py).
+- **[match-cut]** Sony XML/rtmd hold no focal length for the FE 24-70 GM II zoom. A free PnP with points spread in depth
+  (plate corners + both mirror tips, or plate screws + exhausts + diffuser fins) solved 31-33 mm on the 35.6 mm sensor; verify with onions.
+- **[match-cut]** 16:9 footage in a 9:16 reel: solve on the landscape frame, then make the crop camera (sensor = 35.6 x window/W,
+  same focal, window offset as lens shift). **Blender shift is a fraction of the image WIDTH when sensor_fit is HORIZONTAL**
+  (as in scan_render) - dividing by the long side left the scan 46-121 px off. Verify numerically (phaseCorrelate render vs crop).
+- **[match-cut]** With a large lens shift, push/pull moves zoom toward the off-frame optical centre and slide the car out of
+  frame; use rise/orbit or a custom two-camera path (tools/path_render.py) instead.
+- **[scan-look]** A small part (11 cm reflector) is ~20 px in a full-car shot: start close (S2's last pose) and swoop out to the
+  wide/listing pose while it flies home, and pop it into black space, not over the silver body.
+- **[technical]** Artec full-car frames can be tilted/yawed (IS350: 3.5 deg, 9 deg): level with huracan-evo/tools/level.py
+  before ive crop, or a ground flap survives in front of the bumper.
+- **[technical]** Splicing a state scan by bbox+40 mm exposed a black coverage hole; splice by surface distance instead
+  (drop full-car faces <8 mm from the part scan, add state faces >8 mm from the remaining car).
+- **[story]** If the footage has no removal for the part-state scans, say so in the review; don't fake one.
+- **[technical]** The listing's 360 viewer canvas has a flat dark background: a luminance-threshold mask + silhouette refine
+  solves its camera to 0.3 px; GrabCut grabbed background there.
+- **[text]** ScanHUD's `counter` eases with Easing.out(exp) and stops at 99.9 % of `value` (24,999,992 displayed as 24,975,578;
+  the 240SX reel showed 24,966,688 for 24,991,097). Until the component is fixed, pass value/(1-2^-10) and check the final frame.
+- **[technical]** A render queue that waits with `pgrep -f <shot name>` also matches your own watcher loops; wait on the PID.

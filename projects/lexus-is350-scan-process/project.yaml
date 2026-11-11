@@ -15,7 +15,7 @@ beats: [3.000, 7.000, 8.001, 9.501, 13.001, 19.001, 23.001, 27.002]
 
 timeline:
   - id: irl_walkout    # FX30554 f193-264: camera walks out of the shop door onto the powdered car; ends on the solved frame
-    dur: 3.0
+    dur: 2.9667   # 89 frames: the assembler adds one hold frame per cut (FG2 lesson); rendered 89 long so the match frame stays last
     src: /home/user/media/work/is350/irl/i1_open.mp4
   - transition: {type: cut, note: "1:1 real -> scan ON THE DROP (cam_A2 -> camP_A, FX3A 32.6 mm)"}
   - id: scan_front     # full-car scan from the matched camera, slow 20 deg orbit; HUD triangle counter

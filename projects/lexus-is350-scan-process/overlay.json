@@ -1,10 +1,49 @@
 {
- "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 828, "accent": "#e8ecf2",
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 828,
+ "accent": "#e8ecf2",
  "items": [
-  {"kind": "brackets", "from": 93, "duration": 112},
-  {"kind": "counter", "from": 96, "duration": 108, "label": "TRIANGLES CAPTURED", "value": 24999992, "x": 0.08, "y": 0.09},
-  {"kind": "brackets", "from": 393, "duration": 172},
-  {"kind": "label", "from": 398, "duration": 62, "title": "REAR REFLECTOR", "sub": "408,984 TRIANGLES", "x": 0.08, "y": 0.66},
-  {"kind": "label", "from": 466, "duration": 99, "title": "INSIDE + OUTSIDE", "sub": "REFLECTOR SCANNED, BOTH SIDES", "x": 0.08, "y": 0.66}
+  {
+   "kind": "brackets",
+   "from": 93,
+   "duration": 112
+  },
+  {
+   "kind": "counter",
+   "from": 96,
+   "duration": 108,
+   "label": "TRIANGLES CAPTURED",
+   "value": 25024430,
+   "x": 0.08,
+   "y": 0.09,
+   "note": "ScanHUD counter ends at value*(1-2^-10) (Easing.out(exp)); 25024430 displays the true 24,999,992 (STL header)"
+  },
+  {
+   "kind": "brackets",
+   "from": 393,
+   "duration": 172
+  },
+  {
+   "kind": "label",
+   "from": 414,
+   "duration": 50,
+   "title": "REAR REFLECTOR",
+   "sub": "408,984 TRIANGLES",
+   "x": 0.92,
+   "y": 0.72,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 466,
+   "duration": 99,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "REFLECTOR SCANNED, BOTH SIDES",
+   "x": 0.92,
+   "y": 0.72,
+   "align": "right"
+  }
  ]
 }
