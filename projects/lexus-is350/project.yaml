@@ -1,4 +1,5 @@
-# Lexus IS350 (2026 facelift) - Temerario-style scan reel (scan only: no IRL footage, no text). Sibling of ferrari-296,
+# Lexus IS350 2026 FACELIFT - Temerario-style scan reel (scan only: no IRL footage, no text). FACELIFT SCANS ONLY: the
+# root "Full Car" STL is a different, older IS350 (see editlog) - the facelift set is a front clip, so all shots are of it.
 # huracan-evo, a90-supra. Satin-silver scan on black; turntables -> close-ups -> hood opens -> top-down ->
 # exploded front end -> hero -> logo.
 # Shots: tools/shots.py (specs, timing.json) + tools/shot.py (Blender, keyed cameras + hinged/exploded parts).
@@ -19,26 +20,26 @@ music:
 beats: [4.064, 8.064, 9.564, 11.064, 14.063, 16.063, 26.063, 30.063]
 
 timeline:
-  - id: s1_front34     # low front-right 3/4 turntable, moving from frame 1; rendered 4.6 s, sped 13 % to the 4.064 bar
-    src: /home/user/media/lexus-is350/renders/final/s1_front34
+  - id: s1_front34R    # facelift front clip, low front-right 3/4 turntable; rendered 4.6 s, sped 13 % to the 4.064 bar
+    src: /home/user/media/lexus-is350/renders/final/s1_front34R
     src_fps: 17
     interpolate: true
     dur: 4.0333
   - transition: {type: cut, note: "4.064 bar"}
-  - id: s2_rear34      # rear-left 3/4 orbit, slight rise
-    src: /home/user/media/lexus-is350/renders/final/s2_rear34
+  - id: s2_front34L    # front-left 3/4 orbit, higher, swinging toward the nose
+    src: /home/user/media/lexus-is350/renders/final/s2_front34L
     src_fps: 15
     interpolate: true
     dur: 4.0
   - transition: {type: cut, note: "8.064 phrase (flux build peaks here)"}
-  - id: s3_lamp        # extreme close-up: right headlamp -> grille mesh (2 mm), 3 beats
-    src: /home/user/media/lexus-is350/renders/final/s3_lamp
+  - id: s3_grille      # extreme close-up: left grille corner + fog intake (2 mm), 3 beats
+    src: /home/user/media/lexus-is350/renders/final/s3_grille
     src_fps: 15
     interpolate: true
     dur: 1.5
   - transition: {type: cut, note: "9.564 kick"}
-  - id: s4_tail        # extreme close-up: right tail lamp + IS350 badge (2 mm), 3 beats
-    src: /home/user/media/lexus-is350/renders/final/s4_tail
+  - id: s4_lamp        # extreme close-up: right headlamp + corner intake (2 mm), 3 beats
+    src: /home/user/media/lexus-is350/renders/final/s4_lamp
     src_fps: 15
     interpolate: true
     dur: 1.5
@@ -61,7 +62,7 @@ timeline:
     interpolate: true
     dur: 10.0
   - transition: {type: cut, note: "26.063 bar"}
-  - id: s8_hero        # low left-side profile track, bumpers cropped
+  - id: s8_hero        # low nose-on push-in toward the facelift grille
     src: /home/user/media/lexus-is350/renders/final/s8_hero
     src_fps: 15
     interpolate: true

@@ -1,11 +1,13 @@
-"""Shot specs for the Lexus IS350 (2026 facelift) Temerario-style scan reel -> JSON for
+"""Shot specs for the Lexus IS350 2026 facelift Temerario-style scan reel -> JSON for
 projects/lexus-is350/tools/shot.py (copy of the ferrari-296 keyframed renderer: house silver look, camera keys, pivoted parts).
 
     python projects/lexus-is350/tools/shots.py preview|final [shot ...]    # writes specs, prints their paths
 
-Scan frame (prepped, metres): nose = -Y, car's right = -X, ground Z=0; 4.72 m long, 1.94 m wide incl. mirrors.
-Durations come from TIMING (seconds, set from the track's accent grid in project.yaml); each shot renders one
-extra 15 fps frame so assemble can trim to the exact cut.
+FACELIFT CAR ONLY. The root 'Full Car' scan is an older IS350 (different grille, wheels, plate 9JTY488) - a different
+car, not used (see editlog). The facelift set covers the front 1.6 m only (bumper -> A-pillar base, z <= 1.02 m), so
+every shot is the facelift front clip, cameras kept forward of its cut-off rear edge.
+Prepped frame (metres, same transform as car4.json): nose = -Y, car's right = -X, ground Z=0; clip y -2.37..-0.76.
+Durations come from timing.json (the track's kick grid); each shot renders one extra 15 fps frame.
 """
 import json
 import math
@@ -16,23 +18,23 @@ M = "/home/user/media/lexus-is350"
 P = f"{M}/prep"
 OUT = f"{M}/renders"
 SPECS = f"{M}/specs"
-HINGE = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "hinge.json")))
+HERE = os.path.dirname(os.path.abspath(__file__))
+HINGE = json.load(open(os.path.join(HERE, "..", "hinge.json")))
 
-CAR = f"{P}/car4.blend"            # 4 mm full car: whole-car moves
-FR = f"{P}/fr_corner.blend"        # 2 mm front-right corner: close-ups
-RR = f"{P}/rr_corner.blend"        # 2 mm rear-right corner: close-ups
+FE = f"{P}/fe_front_end_hood_closed.blend"   # facelift 'Front End Hood Closed', 3 mm (no hood skin captured)
+FE2 = f"{P}/fl_fe2.blend"                     # same, 2 mm: close-ups
+HOOD = f"{P}/fl_hood_closed.blend"            # facelift hood from 'Hood Open', rotated shut on the fitted hinge
+CLIP = [FE, HOOD]                             # assembled facelift front clip
+CLIP2 = [FE2, HOOD]
 
-# shot lengths (s). Provisional until the track arrives; overwritten by timing.json if present.
-TIMING = {"s1_front34": 4.6, "s2_rear34": 4.0, "s3_lamp": 3.0, "s4_tail": 2.6, "s5_hood": 4.4,
-          "s6_top": 3.4, "s7_explode": 9.0, "s8_hero": 4.0,
-          # explode beats (s from shot start): separate starts, fully out, start return, locked
-          "x_sep": 0.4, "x_out": 2.2, "x_back": 6.2, "x_lock": 7.6}
-_tj = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "timing.json")
+TIMING = {"s1_front34R": 4.6, "s2_front34L": 4.0, "s3_grille": 1.5, "s4_lamp": 1.5, "s5_hood": 3.0, "s6_top": 2.0,
+          "s7_explode": 10.0, "s8_hero": 4.0, "x_sep": 0.0, "x_out": 1.5, "x_back": 6.0, "x_lock": 8.0}
+_tj = os.path.join(HERE, "..", "timing.json")
 if os.path.exists(_tj):
     TIMING.update(json.load(open(_tj)))
 
 
-def orbit(t, r, ang_deg, h, c=(0, 0, 0.55), focal=30, ease="inout", tz=None):
+def orbit(t, r, ang_deg, h, c=(0, -1.75, 0.45), focal=30, ease="inout", tz=None):
     """angle 0 = camera in front of the car (-Y); -90 = car's right (-X); +90 = car's left; 180 = behind."""
     a = math.radians(ang_deg)
     return {"t": t, "loc": [c[0] + r * math.sin(a), c[1] - r * math.cos(a), h],
@@ -41,7 +43,7 @@ def orbit(t, r, ang_deg, h, c=(0, 0, 0.55), focal=30, ease="inout", tz=None):
 
 def arc(secs, r0, r1, a0, a1, h0, h1, c0, c1, focal=30, tz=None, n=8, ease="inout"):
     """Orbit sampled in n segments (linear keys between far-apart points would cut a chord toward the car);
-    the easing is applied to the whole move by remapping the sample times."""
+    the easing is applied to the whole move by remapping the parameters."""
     keys = []
     for k in range(n + 1):
         u = k / n
@@ -54,35 +56,36 @@ def arc(secs, r0, r1, a0, a1, h0, h1, c0, c1, focal=30, tz=None, n=8, ease="inou
 
 S = TIMING
 SHOTS = {
-    # 1. low front 3/4 turntable, car's right side, slow and continuous from frame 1
-    "s1_front34": {"base": [CAR], "cam": arc(S["s1_front34"], 5.9, 5.6, -24, -44, 1.05, 1.15,
-                                              (0.1, -0.75, 0.62), (0.05, -0.5, 0.62), focal=30, ease="out")},
-    # 2. rear 3/4 orbit on the other (left) side, slight rise
-    "s2_rear34": {"base": [CAR], "cam": arc(S["s2_rear34"], 6.1, 5.9, 152, 134, 1.1, 1.35,
-                                             (-0.1, 0.95, 0.62), (-0.1, 0.85, 0.62), focal=30, ease="out")},
-    # 3. extreme close-up: right headlamp -> grille mesh corner (plate stays out of frame)
-    "s3_lamp": {"base": [FR], "cam": [
-        {"t": 0, "loc": [-1.55, -3.25, 0.92], "target": [-0.62, -2.18, 0.72], "focal": 40},
-        {"t": S["s3_lamp"], "loc": [-1.25, -3.5, 0.82], "target": [-0.56, -2.26, 0.64], "focal": 40, "ease": "inout"}]},
-    # 4. extreme close-up: right tail lamp + IS350 badge, slide along the deck lid edge (plate out of frame)
-    "s4_tail": {"base": [RR], "cam": [
-        {"t": 0, "loc": [-2.05, 3.05, 1.12], "target": [-0.74, 2.15, 0.9], "focal": 40},
-        {"t": S["s4_tail"], "loc": [-1.75, 3.3, 1.02], "target": [-0.7, 2.2, 0.86], "focal": 40, "ease": "inout"}]},
-    # 5. hood opens on its fitted hinge (60 deg = the captured 'Hood Open' state); bay from 'Bumper and Hood Removed'
-    "s5_hood": {"base": [f"{P}/comp_hood.blend"],
-                "parts": [{"blend": f"{P}/hood3.blend", "pivot": HINGE["pivot"],
+    # 1. low front-right 3/4 turntable of the facelift front end, moving from frame 1
+    "s1_front34R": {"base": CLIP, "cam": arc(S["s1_front34R"], 3.15, 2.95, -26, -46, 0.6, 0.7,
+                                              (-0.05, -1.95, 0.42), (-0.05, -1.85, 0.42), focal=30, ease="out")},
+    # 2. front-left 3/4 orbit, higher, swinging toward the nose
+    "s2_front34L": {"base": CLIP, "cam": arc(S["s2_front34L"], 3.3, 3.15, 52, 36, 1.15, 1.0,
+                                              (0.12, -1.75, 0.42), (0.1, -1.8, 0.42), focal=30, ease="out")},
+    # 3. extreme close-up: left grille corner + fog intake (dealer plate frame and the speckled hood top kept out)
+    "s3_grille": {"base": CLIP2, "cam": [
+        {"t": 0, "loc": [1.45, -3.3, 0.72], "target": [0.58, -2.3, 0.5], "focal": 45},
+        {"t": S["s3_grille"], "loc": [1.2, -3.45, 0.68], "target": [0.48, -2.32, 0.5], "focal": 45, "ease": "inout"}]},
+    # 4. extreme close-up: right headlamp + corner intake
+    "s4_lamp": {"base": CLIP2, "cam": [
+        {"t": 0, "loc": [-1.75, -3.15, 0.85], "target": [-0.66, -2.12, 0.6], "focal": 40},
+        {"t": S["s4_lamp"], "loc": [-1.45, -3.35, 0.78], "target": [-0.58, -2.18, 0.56], "focal": 40, "ease": "inout"}]},
+    # 5. hood opens on the fitted hinge; -60 deg lands exactly on the 'Hood Open' capture; bay from 'Bumper and Hood
+    #    Removed'
+    "s5_hood": {"base": [f"{P}/fl_comp_hood.blend"],
+                "parts": [{"blend": HOOD, "pivot": HINGE["pivot"],
                            "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
                                     {"t": 0.5, "loc": [0, 0, 0], "rot": [0, 0, 0]},
                                     {"t": S["s5_hood"] - 0.9, "loc": [0, 0, 0], "rot": [HINGE["open_deg"], 0, 0],
                                      "ease": "inout"}]}],
-                "cam": arc(S["s5_hood"], 4.3, 3.8, -32, -18, 2.0, 2.3, (0, -1.0, 0.6), (0, -1.2, 0.6), focal=30,
+                "cam": arc(S["s5_hood"], 3.9, 3.5, -30, -16, 1.9, 2.15, (0, -1.6, 0.55), (0, -1.65, 0.55), focal=30,
                            ease="out")},
-    # 6. top-down: from a high rear 3/4 up and over to straight down, nose to the top of the frame
-    "s6_top": {"base": [CAR], "cam": [
-        {"t": 0, "loc": [2.0, 4.4, 3.8], "target": [0, 0.3, 0.5], "focal": 30},
-        {"t": S["s6_top"], "loc": [0.0, 0.2, 7.4], "target": [0, 0.0, 0.5], "focal": 30, "ease": "inout"}]},
-    # 8. hero closer: low left-side profile, slow track from rear 3/4 toward the side (assembled car after the explode)
-    "s8_hero": {"base": [CAR], "cam": arc(S["s8_hero"], 6.3, 6.0, 112, 86, 0.62, 0.7, (0, 0.3, 0.62), (0, -0.15, 0.6),
+    # 6. top-down: from high in front, up and over to straight down (nose at the top of the frame)
+    "s6_top": {"base": CLIP, "cam": [
+        {"t": 0, "loc": [-1.2, -4.6, 2.9], "target": [0, -1.75, 0.4], "focal": 30},
+        {"t": S["s6_top"], "loc": [0.0, -1.62, 4.6], "target": [0, -1.6, 0.4], "focal": 30, "ease": "inout"}]},
+    # 8. hero closer: low, nose-on push-in toward the new grille
+    "s8_hero": {"base": CLIP, "cam": arc(S["s8_hero"], 3.4, 2.75, 6, -3, 0.4, 0.44, (0, -1.85, 0.45), (0, -1.95, 0.45),
                                           focal=30, ease="out")},
 }
 
@@ -97,13 +100,13 @@ def explode(off, rot=(0, 0, 0), delay=0.0, back_delay=0.0):
             {"t": lock, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "in"}]
 
 
-# 7. exploded front end: outer layers fly first (fog covers, bumper shell), then what was behind them (ducts,
-# radar, top bracket), hood lifts on top; panels stack up/forward (portrait-friendly), then all lock home.
+# 7. exploded front end (all facelift scans): outer layers fly first (fog covers, bumper shell), then what was behind
+# them (ducts, radar, top bracket), hood lifts on top; panels stack up/forward (portrait), then all lock home.
 SHOTS["s7_explode"] = {
-    "base": [f"{P}/comp_explode.blend"],
+    "base": [f"{P}/fl_comp_explode.blend"],
     "parts": [
-        {"blend": f"{P}/hood3.blend", "keys": explode((0, 0.1, 1.55), (-10, 0, 0), 0.10)},
-        {"blend": f"{P}/x_shell.blend", "keys": explode((0, -0.55, 0.5))},
+        {"blend": HOOD, "keys": explode((0, 0.1, 1.45), (-10, 0, 0), 0.10)},
+        {"blend": f"{P}/fl_shell.blend", "keys": explode((0, -0.55, 0.5))},
         {"blend": f"{P}/x_fog_L.blend", "keys": explode((0.3, -0.85, 0.3), (0, 0, -12))},
         {"blend": f"{P}/x_fog_R.blend", "keys": explode((-0.3, -0.85, 0.3), (0, 0, 12))},
         {"blend": f"{P}/x_duct_L.blend", "keys": explode((0.3, -0.3, 0.2), delay=0.2, back_delay=0.15)},
@@ -111,7 +114,7 @@ SHOTS["s7_explode"] = {
         {"blend": f"{P}/x_radar.blend", "keys": explode((0, -0.25, 0.85), delay=0.25, back_delay=0.2)},
         {"blend": f"{P}/x_bracket.blend", "keys": explode((0, -0.15, 1.15), delay=0.3, back_delay=0.1)},
     ],
-    "cam": arc(S["s7_explode"], 6.6, 6.3, -22, -48, 2.3, 2.0, (0, -1.7, 1.15), (0, -1.3, 1.0), focal=30,
+    "cam": arc(S["s7_explode"], 4.4, 4.15, -22, -48, 1.95, 1.75, (0, -2.0, 1.0), (0, -1.85, 0.9), focal=30,
                n=12, ease="inout")}
 
 
