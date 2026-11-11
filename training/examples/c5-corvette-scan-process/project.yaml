@@ -5,7 +5,7 @@
 # dissolve to the illumaesthetic.com C5 3D-scan listing.
 project: c5-corvette-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/c5_scan_process_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/c5_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/c5/music.mp3   # original C5 track (cloudfront hf_20261111_055731), not in git
@@ -42,8 +42,8 @@ timeline:
     in: 8.943
     dur: 1.1
   - transition: {type: cut, note: "1:1 real -> stripped-front scan (cam_B)"}
-  - id: scan_B          # starts on cam_B; pulls back to the right-front 3/4; fender rises above the arch, bumper below the nose, both spin 360 about Z
-    src: /home/user/media/work/c5/renders/B
+  - id: scan_B          # starts on cam_B; pulls back to the right-front 3/4; fender rises above the arch, bumper below the nose, each turns once to show its inside (v2)
+    src: /home/user/media/work/c5/renders/B2
     src_fps: 15
     interpolate: true
     dur: 5.4667

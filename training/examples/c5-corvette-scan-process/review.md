@@ -1,6 +1,6 @@
-# C5 Corvette scan-process reel v1 - agent self-review (training/rubric.md)
+# C5 Corvette scan-process reel v2 - agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/c5_scan_process_v1.mp4` - 1080x1920, 30 fps, 29.97 s (cuts K3/K7 nudged 1 frame to the measured kicks: all cuts 0-17 ms), H.264 yuv420p + AAC.
+Output: `/home/user/media/work/out/c5_scan_process_v2.mp4` - 1080x1920, 30 fps, 29.97 s (cuts K3/K7 nudged 1 frame to the measured kicks: all cuts 0-17 ms), H.264 yuv420p + AAC.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -18,3 +18,7 @@ Output: `/home/user/media/work/out/c5_scan_process_v1.mp4` - 1080x1920, 30 fps, 
 - Cut B: a hood-open state would make the 1:1 tighter; the 'C5 Supplement Hood Open' scan needs a manual initial alignment before ICP.
 - Scan shots end slightly small in A (car ~70 % width at the end of the pull-back).
 - If the team has any footage of the Artec Leo on this car (2023 or 2024 sessions), it would replace the 0059 fender shot.
+
+## v2 (user feedback on v1: "great, but don't spin or flip unless it shows the backside")
+- scan_B parts no longer spin 360 deg: each turns once (fender -146 deg, bumper +124 deg about Z) so its scanned inside faces the camera and holds
+  under the INSIDE + OUTSIDE label. Everything else unchanged; cuts unchanged.
