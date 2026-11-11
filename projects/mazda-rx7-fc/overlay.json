@@ -1,0 +1,65 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1122,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 442,
+   "duration": 44,
+   "title": "ENGINE BAY",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 510,
+   "duration": 44,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 578,
+   "duration": 61,
+   "title": "RADIATOR SUPPORT",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 595,
+   "duration": 44,
+   "title": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.155
+  },
+  {
+   "kind": "label",
+   "from": 782,
+   "duration": 31,
+   "title": "REAR BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 815,
+   "duration": 45,
+   "title": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 832,
+   "duration": 28,
+   "title": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.155
+  }
+ ]
+}
