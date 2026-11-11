@@ -7,7 +7,7 @@
 # Map: groove b0-27 | drums out b28-31 (12.23 s) | DROP b32 (13.965) | groove to b64 | drumless rising outro b65-83 |
 # hard stop b84 (36.565) | reverb tail to ~38.4 s.
 # Cuts on frames round(t*30): 106 (b8), 210 (b16), 262 (b20), 315 (b24), 367 (b28), 471 (b36), 549 (b42), 628 (b48),
-# v4 back half: 680 (b52), 733 (b56), 785 (b60), 837 (b64), 889 (b68), 993 (b76), 1045 (b80); end 1116 (37.2 s).
+# v4 back half: 680 (b52), 732 (b56), 784 (b60), 836 (b64), 888 (b68), 993 (b76), 1045 (b80); end 1116 (37.2 s).
 # Clip lengths are exact frame counts; assembled with tools/concat_assemble.py (plain concat, no duplicated cut frame).
 project: honda-s2000
 format: reel-9x16
@@ -80,7 +80,7 @@ timeline:
     src: /home/user/media/work/s2k/renders/final/e2_side
     src_fps: 15
     interpolate: true
-    frames: 53
+    frames: 52
   - transition: {type: cut, note: "b56 24.395"}
   - id: e3_low   # low front looking up at the bumper and hood over the exposed structure
     src: /home/user/media/work/s2k/renders/final/e3_low
@@ -100,12 +100,12 @@ timeline:
     interpolate: true
     frames: 52
   - transition: {type: cut, note: "b68 29.611"}
-  - id: e6_return   # s8 render 8.7 s -> 12.17 s: drift, fly home, LOCK exactly on the cut b76
+  - id: e6_return   # s8 render 8.667 s -> 12.167 s: drift, fly home, LOCK exactly on the cut b76
     src: /home/user/media/work/s2k/renders/final/s8_explode
     src_fps: 15
     interpolate: true
-    trim_start: 8.7
-    frames: 104
+    trim_start: 8.6667
+    frames: 105
   - transition: {type: cut, note: "b76 33.088 - the lock"}
   - id: e8_locked   # push in on the assembled car, front 3/4
     src: /home/user/media/work/s2k/renders/final/e8_locked
