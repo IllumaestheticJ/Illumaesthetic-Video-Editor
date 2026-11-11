@@ -16,6 +16,17 @@ Sections measured: pads/sub/pulse to 18.1 s, one dropped kick at 18.68 s, lift a
 Superseded: Oct 31 approved-reel track extended to 32.855 s (`/home/user/media/huracan-evo/music/huracan_music.wav`) - Dropbox
 had no other music (audio search = DJI field mics only).
 
+## Car-select intro (user request: open like the NFS Hot Pursuit 2010 car-select - roar + female narrator reading the spec sheet)
+Mixed by `tools/mix.py` into `/home/user/media/huracan-evo/vo/soundtrack_v1.wav` (project music). Generated on Higgsfield:
+- `vo/engine.mp3` - Mirelo SFX, 6 s generic V10 start + revs (generated, NOT a recording of this car).
+- `vo/narration2.wav` - Seed Audio, preset female voice "Imogen" (3811e986-...), 16.1 s. The game's narrator voice was
+  NOT cloned (real voice actor, no consent) - same delivery style, different voice. Take 1 (`narration.wav`, speech_rate -12)
+  ran 40 s with 2-4 s pauses - rejected.
+Script (original, specs = Lamborghini's Jan 2019 Huracan EVO press release figures, AWD car assumed):
+"Lamborghini Huracan EVO. Naturally aspirated five-point-two-litre V10, six hundred and forty horsepower, all-wheel drive.
+Zero to one hundred in two-point-nine seconds, top speed three hundred and twenty-five kilometres per hour. Every panel,
+scanned. Twenty-five million triangles."  (25M = Full Car STL header 24,999,942.)
+
 ## Scans (Drive `Lamborghini Huracan` / subfolder named **"Huracan Evo Spider"**, all dated 2026-08-31, one Artec frame)
 | file | tris | what it is |
 |---|---|---|

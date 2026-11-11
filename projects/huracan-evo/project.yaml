@@ -5,7 +5,7 @@ format: reel-9x16
 output: {path: /home/user/media/work/out/huracan_evo_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/reel_track_a.mp3   # generated for these reels (parent session, user asked to generate music); not committed
+  path: /home/user/media/huracan-evo/vo/soundtrack_v1.wav   # tools/mix.py: reel_track_a (ducked -9 dB under the voice) + engine roar at 0 + car-select narrator 1.8-17.9 s; not committed
   start: 0
   fade_out: 0.6   # track's own reverb tail runs under the logo
 
