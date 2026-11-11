@@ -1,72 +1,112 @@
-# Mazda RX-7 FC3S (S5) - Temerario-style scan reel (scan only: no IRL footage, no text).
-# Satin-silver scan on black; turntables -> close-ups -> hood opens -> top-down -> exploded view -> logo.
-# Shots: projects/mazda-rx7-fc/tools/shots.py (specs) + tools/shot.py (Blender, keyed cameras + hinged/exploding parts).
-# Music: mazda-rx7-fc_track.mp3 - original track generated for this reel by the parent session (ElevenLabs via Higgsfield;
-# dark 80s Japanese night drive). Grid 9.067 + k*0.5661 s (106.0 BPM), fitted on hit/snare flux peaks (the 40-120 Hz band
-# is an eighth-note bass line). Soft intro to 9.07, drums 9.07-21.52 (kick 12.46-21.52), breakdown 21.52-33, last hit 36.10,
-# -30 dB by 36.56. Cuts on frames round(t*30): 136, 272, 340, 374, 493, 561, 646, 1002; end 1122 (37.4 s).
+# Mazda RX-7 FC3S (S5) - scan reel v2 (scan only, no IRL footage). v1: project_v1.yaml.
+# v2 = user's all-reels brief + addendum (relayed by the parent session): order by THIS car's scan features, travel
+# front -> side -> rear, one section per sequence, each part comes off on its own with the camera on that section,
+# bumper-removed data is the hero beat with short labels, no redundant shots, whole car in the opener, fade + small logo.
+# Scene order + shot plan: direction.md (scene-director) and director.md (director). Shots: tools/shots.py -> tools/shot.py.
+# Music: mazda-rx7-fc_track.mp3 (parent session). Grid 9.067 + k*0.5661 s (106.0 BPM). Measured on the decoded v1 file
+# against the broadband kick (1 ms RMS, half-rise): the grid is 23 ms early (MAD 2 ms) -> music.start 0.023.
+# Cuts on frames: 137, 272, 374, 492, 561, 646, 698, 731, 866, 1002 (137/492/698 moved 1 frame after measuring the decoded v2a audio); end 1122 (37.4 s).
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: mazda-rx7-fc
 format: reel-9x16
-output: {path: /home/user/media/work/rx7/out/mazda_rx7_fc_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/rx7/out/mazda_rx7_fc_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/mazda-rx7-fc_track.mp3   # not in git
-  start: 0
+  start: 0.023
   fade_out: 0.8
 
-beats: [4.539, 9.067, 11.331, 12.463, 16.428, 18.692, 21.520, 33.408]
+beats: [4.539, 9.067, 12.463, 16.428, 18.692, 21.520, 23.218, 24.351, 28.880, 33.408]
+
+overlays:   # ScanHUD labels (overlay.json) over scan shots only; rendered with `ive hud`
+  - src: /home/user/media/work/rx7/hud_v2.mov
+    start: 0
 
 timeline:
-  - id: s1_front34     # slow low front 3/4 turntable over the soft intro; moving from frame 1
-    src: /home/user/media/work/rx7/renders/s1_front34
-    src_fps: 15
-    interpolate: true
-    dur: 4.5
-  - transition: {type: cut, note: "4.539 intro beat (8 beats)"}
-  - id: s2_rear34      # rear-left 3/4 orbit with a slight rise
-    src: /home/user/media/work/rx7/renders/s2_rear34
-    src_fps: 15
+  - id: s1_front34     # WHOLE: low front-right 3/4 turntable, frames 1-41, scaled 0.88 + padded (whole car, ~12 % margins)
+    section: whole
+    focus: whole car, nose leading
+    src: /home/user/media/work/rx7/renders/s1_front34_pad
+    src_fps: 8.70
     interpolate: true
     dur: 4.5333
-  - transition: {type: cut, note: "9.067 drums enter"}
-  - id: s3_wheel       # extreme close-up: upper front-right wheel, tyre sidewall, arch + suspension (2 mm)
-    src: /home/user/media/work/rx7/renders/s3_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 2.2667
-  - transition: {type: cut, note: "11.331 bar line"}
-  - id: s4_nose        # nose slide: pop-up lid, indicator, bumper (middle 2 beats of the render)
+  - transition: {type: cut, note: "4.539 intro beat"}
+  - id: s4_nose        # FRONT: slide across the nose - pop-up lids (down), indicators, bumper face
+    section: front
+    focus: pop-up lids, indicators, front bumper face
     src: /home/user/media/work/rx7/renders/s4_nose
-    src_fps: 15
+    src_fps: 11.44
     interpolate: true
-    in: 1.2
-    dur: 1.1333
-  - transition: {type: cut, note: "12.463 kick drops in"}
-  - id: s6_hood        # hood opens on its fitted hinge 13.03 -> 14.73 to the captured 'Hood Up' angle
+    dur: 4.5
+  - transition: {type: cut, note: "9.067 drums enter"}
+  - id: s6_hood        # HOOD: opens on its fitted hinge to the captured Hood Up angle (9.63 -> 11.90)
+    section: hood
+    focus: hood opening
     src: /home/user/media/work/rx7/renders/s6_hood
     src_fps: 15
     interpolate: true
-    dur: 3.9667
+    dur: 3.4
+  - transition: {type: cut, note: "12.463 kick drops in"}
+  - id: s9_hoodoff     # HOOD/BAY: captured open hood lifts off the hinge; camera over the engine bay (Hood Off Bumper Off)
+    section: engine bay
+    focus: engine bay with the hood off
+    src: /home/user/media/work/rx7/renders/s9_hoodoff
+    src_fps: 15
+    interpolate: true
+    dur: 3.9333
   - transition: {type: cut, note: "16.428 strong snare"}
-  - id: s5_mirror      # right mirror / A-pillar / door glide (2 mm)
+  - id: s10_fbumper    # FRONT BUMPER REMOVED: Front Face part off its mounts toward the lens, tips to show its scanned inside
+    section: front bumper
+    focus: front bumper coming off, inner face
+    src: /home/user/media/work/rx7/renders/s10_fbumper
+    src_fps: 15
+    interpolate: true
+    dur: 2.3
+  - transition: {type: cut, note: "18.692 strong snare"}
+  - id: s11_fsupport   # FRONT BUMPER REMOVED (hero): radiator support, crash beam, brackets - slow push
+    section: front structure
+    focus: radiator support + crash beam
+    src: /home/user/media/work/rx7/renders/s11_fsupport
+    src_fps: 15
+    interpolate: true
+    vf: "pad=1080:2304:0:384:color=0x040405,crop=1080:1920:0:0"   # subject sat in the top 55 %: shift down 20 %
+    dur: 2.8333
+  - transition: {type: cut, note: "21.52 breakdown"}
+  - id: s3_wheel       # WHEELS: tyre sidewall, rim face, arch (speckled-hub frames skipped)
+    section: wheel
+    focus: front-right wheel and arch
+    src: /home/user/media/work/rx7/renders/s3_wheel
+    src_fps: 15
+    interpolate: true
+    in: 1.47
+    dur: 1.7333
+  - transition: {type: cut, note: "23.218 snare"}
+  - id: s5_mirror      # SIDE: mirror / A-pillar / door (cowl-hole frames skipped)
+    section: side
+    focus: right mirror, A-pillar, door
     src: /home/user/media/work/rx7/renders/s5_mirror
     src_fps: 15
     interpolate: true
-    dur: 2.2667
-  - transition: {type: cut, note: "18.692 strong snare"}
-  - id: s7_top         # high rear 3/4 up and over to top-down
-    src: /home/user/media/work/rx7/renders/s7_top
+    in: 2.27
+    dur: 1.1
+  - transition: {type: cut, note: "24.351 snare"}
+  - id: s12_rbumper    # REAR BUMPER REMOVED: bumper straight back off its mounts, sinks away; push onto crash beam + mounts
+    section: rear
+    focus: rear bumper off, crash beam + mounting points
+    src: /home/user/media/work/rx7/renders/s12_rbumper
     src_fps: 15
     interpolate: true
-    dur: 2.8333
-  - transition: {type: cut, note: "21.52 kick drops out - breakdown"}
-  - id: s8_explode     # hood / front face / rear bumper lift 22.09, out 24.35, drift + orbit, home 30.01 -> lock 32.28, hold
-    src: /home/user/media/work/rx7/renders/s8_explode
+    dur: 4.5
+  - transition: {type: cut, note: "28.880 snare"}
+  - id: s13_reassemble # WHOLE: rear bumper, front bumper, hood fly home (hood locks 32.277), clean car, fade to black
+    section: whole
+    focus: reassembly
+    src: /home/user/media/work/rx7/renders/s13_reassemble
     src_fps: 15
     interpolate: true
-    dur: 11.8667
+    vf: "fade=t=out:st=3.962:d=0.566:color=0x040405"
+    dur: 4.5333
   - transition: {type: cut, note: "33.408 hit"}
-  - id: logo           # ILLUMAESTHETIC logo on black, fades with the music tail
-    src: /home/user/media/work/rx7/logo_card.mp4
+  - id: logo           # small ILLUMAESTHETIC logo (378 px) on the render black, fades with the music tail
+    src: /home/user/media/work/rx7/logo_card_small.mp4
     dur: 4.0
