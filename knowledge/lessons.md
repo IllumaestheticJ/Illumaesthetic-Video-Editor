@@ -32,3 +32,11 @@ lands here automatically. Agents must read this whole file before editing.
   exists on the car (chassis scan), so it was not claimed.
 - **[scan-look]** Showing a part's inside: flip it about its long (car-width) axis (`x180` in
   `--explode`), not a Z spin - a 1.6 m bumper spinning about Z sweeps into the car and the lens.
+- **[story]** Ending on a product listing: if the listing's hero image is a render of the same scan,
+  end the scan shot on that angle and dissolve - it reads as one object. 240SX v3.
+- **[technical]** Parts spinning about Z need clearance from the body: stack them (one below, one above
+  the car) instead of pulling straight out toward the lens.
+- **[technical]** A dissolve overlaps clips like a cut does; lengthen the incoming clip by the dissolve
+  duration or the video ends short of the music.
+- **[audio]** Need more length than the track? Repeat whole bars between two measured onsets 8 beats
+  apart with a 12 ms crossfade; check `ive beats` shows an unbroken grid across the splice.
