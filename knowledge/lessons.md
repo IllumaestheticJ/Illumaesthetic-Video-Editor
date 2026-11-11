@@ -623,3 +623,14 @@ lands here automatically. Agents must read this whole file before editing.
   differencing and replace the blend frame: `vf: split[fa][fb];[fa][fb]freezeframes=first=N:last=N:replace=N-1` (N is
   clip-local after fps). Do not move a swap with `speed:`: the fps resample adds a duplicate plus a blend. Use `hold_start` and
   shorten `dur` instead.
+## From the Nissan Frontier v3 (2026-11-11, built by an agent)
+- **[scan-look]** "Bumper removed" bases: trimming the truck within a few mm of the removed-part scan leaves bumper skin on the
+  truck when that scan is misregistered (Frontier: 6-30 mm; the user saw leftover valance/corners). Remove truck tris inside
+  the part's bbox that are > 10 mm from the bumper-OFF state scan instead (nissan-frontier/tools/composite.py --remove-diff),
+  then drop state-fill islands not voxel-connected to the body (tools/attached.py).
+- **[scan-look]** User wants hoods to open on their hinge and show the underside. State scans often contain fragments of the
+  propped-open hood (points > 40 mm off the truck above the cowl): fit the hinge to them (nissan-frontier/tools/hinge.py) so
+  the angle is from data, and say in the review when the underside itself was not scanned.
+- **[scan-look]** Parts derived by distance-diff (flares) carry body strips. Look at a depth-coloured side splat and cut by
+  geometry (arch annulus + protrusion |x|), one part per arch; move thin parts onto clear black before turning them.
+- **[text]** Logo card: 380 px wide read as too small on this reel; 700 px was used for v3.
