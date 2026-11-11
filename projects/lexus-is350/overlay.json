@@ -1,0 +1,14 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1008,
+ "accent": "#e8ecf2",
+ "items": [
+  {"kind": "label", "from": 377, "duration": 75, "title": "ENGINE BAY", "x": 0.08, "y": 0.86},
+  {"kind": "label", "from": 557, "duration": 90, "title": "FRONT BUMPER REMOVED", "x": 0.08, "y": 0.80},
+  {"kind": "label", "from": 587, "duration": 60, "title": "CRASH BEAM", "x": 0.08, "y": 0.87},
+  {"kind": "label", "from": 677, "duration": 90, "title": "MOUNTING POINTS", "x": 0.08, "y": 0.84},
+  {"kind": "label", "from": 722, "duration": 45, "title": "RADAR UNIT", "x": 0.08, "y": 0.905}
+ ]
+}
