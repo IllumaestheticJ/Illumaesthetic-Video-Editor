@@ -79,8 +79,8 @@ SHOTS["s1_wide"] = {"base": [CAR], "cam": arc(S("s1_wide"), 6, 8.2, 7.6, -42, -5
 # key: (beat, offset, rot, ease)
 Z = (0, 0, 0)
 PARTS = {
-    "fbumper": (None, [(16, Z, Z, "lin"), (17.5, (0, -0.8, -0.3), Z, "out"), (38, (0, -0.84, -0.32), Z, "lin"),
-                       (41, (0, -0.84, 0.08), Z, "out"), (43.5, (0, -0.84, 0.08), Z, "lin"), (45, Z, Z, "in")]),
+    "fbumper": (None, [(16, Z, Z, "lin"), (17.5, (0, -0.5, -0.5), Z, "out"), (38, (0, -0.52, -0.52), Z, "lin"),
+                       (41, (0, -0.62, 0.08), Z, "out"), (43.5, (0, -0.62, 0.08), Z, "lin"), (45, Z, Z, "in")]),
     "sideskirt": ([-0.75, -0.14, 0.26], [(25, Z, Z, "lin"), (26.5, (-0.55, 0, -0.08), Z, "out"),
                                          (38, (-0.58, 0, -0.09), Z, "lin"), (41, (-0.58, 0, 0.31), Z, "out"),
                                          (43, (-0.58, 0, 0.31), Z, "lin"), (44, Z, Z, "in")]),
@@ -118,24 +118,24 @@ SHOTS.update({
     "s5_front": {"base": [XB], "parts": parts_for("s5_front"), "cam": [
         {"t": 0, "loc": [0.25, -5.9, 1.15], "target": [0, -2.0, 0.45], "focal": 30},
         {"t": L(17.5, "s5_front"), "loc": [0.15, -5.5, 1.10], "target": [0, -2.0, 0.45], "focal": 30, "ease": "inout"},
-        {"t": L(21, "s5_front"), "loc": [0.05, -4.3, 0.95], "target": [0, -2.0, 0.42], "focal": 30, "ease": "inout"},
-        {"t": S("s5_front"), "loc": [-1.9, -5.2, 1.2], "target": [-0.15, -2.45, 0.3], "focal": 30, "ease": "inout"}]},
+        {"t": L(21, "s5_front"), "loc": [0.05, -5.0, 1.0], "target": [0, -2.0, 0.3], "focal": 30, "ease": "inout"},
+        {"t": S("s5_front"), "loc": [-2.3, -6.0, 1.3], "target": [-0.1, -2.1, 0.3], "focal": 30, "ease": "inout"}]},
     # side: dolly rearward along the right sill, skirt slides out into black beside the car
     "s6_side": {"base": [XB], "parts": parts_for("s6_side"), "cam": [
-        {"t": 0, "loc": [-2.6, -1.9, 1.8], "target": [-1.0, 0.1, 0.05], "focal": 30},
-        {"t": S("s6_side"), "loc": [-2.7, -0.7, 1.85], "target": [-1.0, 0.7, 0.05], "focal": 30, "ease": "inout"}]},
+        {"t": 0, "loc": [-3.3, -2.0, 2.0], "target": [-1.0, 0.1, 0.1], "focal": 30},
+        {"t": S("s6_side"), "loc": [-3.4, -0.8, 2.05], "target": [-1.0, 0.6, 0.1], "focal": 30, "ease": "inout"}]},
     # rear: high rear-right 3/4, bumper back + tipped to show its inside, lid lifts off the Rear Trunk Open state
     "s7_rear": {"base": [XB], "parts": parts_for("s7_rear"), "cam": [
-        {"t": 0, "loc": [-1.4, 5.4, 2.3], "target": [0, 1.8, 0.6], "focal": 30},
-        {"t": L(34, "s7_rear"), "loc": [-1.15, 5.0, 2.5], "target": [0, 1.8, 0.68], "focal": 30, "ease": "inout"},
-        {"t": S("s7_rear"), "loc": [-0.85, 4.6, 2.7], "target": [0, 1.75, 0.72], "focal": 30, "ease": "inout"}]},
+        {"t": 0, "loc": [-1.5, 6.3, 2.5], "target": [0, 2.1, 0.6], "focal": 30},
+        {"t": L(34, "s7_rear"), "loc": [-1.3, 6.2, 2.75], "target": [0, 2.15, 0.65], "focal": 30, "ease": "inout"},
+        {"t": S("s7_rear"), "loc": [-1.1, 6.0, 2.95], "target": [0, 2.15, 0.7], "focal": 30, "ease": "inout"}]},
     # finale: high behind (nose at top), parts lift on beat 40 (loudest), land on the triple hit 44/45/46, rear-left 3/4
     "s8_finale": {"base": [XB], "parts": parts_for("s8_finale"), "cam": [
         {"t": 0, "loc": [-0.4, 2.0, 7.0], "target": [-0.2, -0.1, 0.4], "focal": 28},
         {"t": L(42, "s8_finale"), "loc": [0.6, 2.6, 6.2], "target": [0, 0, 0.45], "focal": 28, "ease": "inout"},
-        {"t": L(44, "s8_finale"), "loc": [1.6, 3.6, 6.0], "target": [0, 0.1, 0.5], "focal": 28, "ease": "inout"},
-        {"t": L(46.5, "s8_finale"), "loc": [3.7, 4.9, 3.25], "target": [0, 0.15, 0.55], "focal": 28, "ease": "inout"},
-        {"t": S("s8_finale"), "loc": [3.62, 4.82, 3.2], "target": [0, 0.15, 0.55], "focal": 28, "ease": "lin"}]},
+        {"t": L(44, "s8_finale"), "loc": [2.0, 4.4, 6.8], "target": [0, 0.3, 0.5], "focal": 28, "ease": "inout"},
+        {"t": L(46.5, "s8_finale"), "loc": [4.1, 5.4, 3.5], "target": [0, 0.15, 0.55], "focal": 28, "ease": "inout"},
+        {"t": S("s8_finale"), "loc": [4.0, 5.3, 3.45], "target": [0, 0.15, 0.55], "focal": 28, "ease": "lin"}]},
 })
 
 
@@ -146,7 +146,7 @@ def spec(name, mode):
           "res_pct": 75 if mode == "final" else 30, "samples": 12 if mode == "final" else 6,
           "out": f"{OUT}/{mode}/{name}", "exposure": -0.5}
     if mode == "still":
-        sp["frames"] = ["first", "mid", "last"]
+        sp["frames"] = [int(x) for x in os.environ["FRAMES"].split(",")] if os.environ.get("FRAMES") else ["first", "mid", "last"]
     os.makedirs(SPECS, exist_ok=True)
     p = f"{SPECS}/{name}_{mode}.json"
     json.dump(sp, open(p, "w"), indent=1)
