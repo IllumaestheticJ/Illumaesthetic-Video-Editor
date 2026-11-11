@@ -182,8 +182,9 @@ SHOTS.update({
 # ---------------------------------------------------------------- v2 final (direction.md, parent v2 brief + addendum)
 # One continuous sequence per section, travelling front -> rear on the car's right; only states that have scans
 # (no lid lift-off); bumper-removed state is the hero; plate flattened (tools/deplate.py -> *_dp.blend).
-CAR_DP = f"{P}/car4_dp.blend"
-COMP_DP = f"{P}/comp_explode_dp.blend"
+# v2.1: plate kept — user: plate blurring is for the IS300 only. *_dp blends kept on disk but unused.
+CAR_DP = f"{P}/car4.blend"  # was car4_dp.blend
+COMP_DP = f"{P}/comp_explode.blend"  # was comp_explode_dp.blend
 SECS.update({"v3_open": 3.2, "v3_b2": 5.44, "v3_b3a": 4.86, "v3_b3b": 4.86, "v3_rear": 4.86, "v3_end": 3.7,
              "v3_endclean": 2.6})
 BUMP_PARK = (1.60, -0.85, -0.05)

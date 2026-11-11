@@ -508,3 +508,5 @@ lands here automatically. Agents must read this whole file before editing.
   re-render BOTH halves - QX80 v3 re-rendered only the parts half and the luma scan caught a 37 -> 44 step at the swap.
 - **[scan-look]** Whole-car wide in 9:16 at 32 mm needs ~9.5 m for a 5.4 m SUV at a 3/4 angle (projected ~5.4 m wide);
   anything closer clips the nose or tail. QX80 (2026-11-11).
+
+- **[scan-look]** Licence plates: flatten/blur plates ONLY on the IS300 (user: "Only is300"). Every other reel keeps its scanned plate unless the user asks in that reel's chat. This supersedes the earlier 'flatten plates in every scan' lessons.  _(from mazda-miata-nc @ 28.0s, 2026-11-11, user (relayed by parent session))_
