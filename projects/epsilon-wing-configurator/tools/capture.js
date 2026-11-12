@@ -36,7 +36,7 @@ class Cap {
     await this.p.clock.install();
     await this.settle(1500);
     fs.mkdirSync(this.dir, { recursive: true });
-    for (const f of fs.readdirSync(this.dir)) if (f.endsWith('.jpg')) fs.unlinkSync(this.dir + f);
+    for (const f of fs.readdirSync(this.dir)) if (f.endsWith('.jpg')) fs.unlinkSync(this.dir + f);  // keeps .lock
   }
   async settle(ms) { for (let t = 0; t < ms; t += 100) { await this.p.clock.runFor(100); await this.p.waitForTimeout(40); } }
   async waitIdle(ms = 2500) { await this.p.waitForLoadState('networkidle').catch(() => {}); await this.settle(ms); }
@@ -375,10 +375,17 @@ const FRAMES = { hero_a: 125, hero_b: 138, cars: 168, wing: 123, mounts: 183, ba
 
 (async () => {
   const name = process.argv[2]; const N = FRAMES[name];
+  // parallel queues: skip a shot another queue is doing (.lock) or has finished (.full_done) in full mode
+  const sd = ROOT + name + '/';
+  if (!DRY) {
+    if (fs.existsSync(sd + '.lock') || fs.existsSync(sd + '.full_done')) { console.log(name, 'skipped (locked/done)'); return; }
+    fs.mkdirSync(sd, { recursive: true }); fs.writeFileSync(sd + '.lock', String(process.pid));
+  }
   const c = new Cap(name, LAYOUT[name] || 'desk');
   c.dryFrames = new Set([0, Math.floor(N / 3), Math.floor(N * 2 / 3), N - 1]);
   await c.open();
   await SHOTS[name](c, N);
   if (c.n < N) await c.tick(N - c.n);
   await c.finish();
+  if (!DRY) { fs.writeFileSync(sd + '.full_done', ''); fs.rmSync(sd + '.lock', { force: true }); }
 })().catch(e => { console.error(e); process.exit(1); });
