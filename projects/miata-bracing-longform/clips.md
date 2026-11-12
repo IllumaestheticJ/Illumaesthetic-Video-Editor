@@ -50,3 +50,12 @@ report pattern for control vs jacked. Body-only stats (z > floor + 420 mm, 790k 
 
 The exported alignment is anchored at the front of the car (front third within ~1 mm in every state), so the maps show how far the
 rear moves relative to the front. Includes doors, soft top, glass (hinged/soft panels) - not chassis only.
+
+## Strut-top spread cross-check (2026-11-12, tools/towerspread.py)
+Engine-bay STLs are also exported in a shared frame (median 1.0-1.4 mm to control). Strut-top stud centres picked on the control
+height map: A (1085, 368), B (856, -577) in XY. Local trimmed ICP of each strut-top patch (state -> control), radius 35/45/60 mm:
+- no bracing, jacked: spread change +0.38 / +0.45 / +0.36 mm
+- fender braces only: +0.86 / +0.97 / +0.73 mm (the Distance Measurement PDF p3 says +0.691 for the same pair at strut-top centres)
+- strut brace, both: not measurable this way (brace bracket covers tower B; residuals 2-4 mm, results swing -8 to -0.2 mm)
+So at the strut tops fender-only is NOT smaller than unbraced, while the xlsx "engine bay width" (other points) says 1.695 -> 0.237.
+The two definitions disagree on ranking: the script must not rank the braces or recommend one. Owner/engineer question #1.

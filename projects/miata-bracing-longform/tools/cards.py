@@ -13,10 +13,10 @@ EXT = {'jacked': 'NB Miata Scan Jacked Exterior_Heatmap.pdf', 'fender': 'NB Miat
        'strut': 'NB Miata Scan Strut Tower Jacked Exterior_Heatmap.pdf', 'both': 'NB Miata Scan Fender and Strut Jacked Up Exterior_Heatmap.pdf'}
 BAY = {'jacked': 'NB Miata Scan Jacked Up Engine Bay.pdf', 'fender': 'NB Miata Scan Fender Brace Jacked Engine Bay.pdf',
        'strut': 'NB Miata Scan Strut Brace Jacked Up.pdf', 'both': 'NB Miata Scan Fender + Strut Jacked Up.pdf'}
-TITLE = {'jacked': 'Stock, Jacked (No Bracing)', 'fender': 'Fender Braces Only', 'strut': 'Strut Tower Brace Only', 'both': 'Fender Braces + Strut Tower Brace'}
+TITLE = {'jacked': 'No Bracing, Jacked', 'fender': 'Fender Braces Only', 'strut': 'Strut Tower Brace Only', 'both': 'Fender Braces + Strut Tower Brace'}
 # engine-bay width, mm (Strut Spread.xlsx)
 WID = {'control': 960.948, 'jacked': 962.643, 'fender': 961.185, 'strut': 961.679, 'both': 961.384}
-ROWS = [('control', 'Control (stock, on the ground)'), ('jacked', 'Stock, jacked (no bracing)'), ('fender', 'Fender braces only, jacked'),
+ROWS = [('control', 'Control (stock, on the ground)'), ('jacked', 'No bracing, jacked'), ('fender', 'Fender braces only, jacked'),
         ('strut', 'Strut tower brace only, jacked'), ('both', 'Fender braces + strut tower brace, jacked')]
 _cache = {}
 def page(pdf, p, r=220):
@@ -30,7 +30,7 @@ def frac(im, x0, y0, x1, y1):
     import numpy as np
     w, h = im.size; a = np.array(im.crop((int(w*x0), int(h*y0), int(w*x1), int(h*y1)))); dark = a.max(axis=2) < 90
     a[dark.mean(axis=1) > .5, :, :] = 255; a[:, dark.mean(axis=0) > .5, :] = 255
-    ink = a.min(axis=2) < 235; ys = np.where(ink.any(axis=1))[0]; xs = np.where(ink.any(axis=0))[0]
+    ink = a.min(axis=2) < 235; ys = np.where(ink.sum(axis=1) > 6)[0]; xs = np.where(ink.sum(axis=0) > 6)[0]   # ignore stray specks
     return Image.fromarray(a[max(ys[0]-12, 0):ys[-1]+12, max(xs[0]-12, 0):xs[-1]+12])
 def fit(im, w, h):
     s = min(w/im.width, h/im.height); return im.resize((int(im.width*s), int(im.height*s)), Image.LANCZOS)
@@ -96,10 +96,20 @@ def bullets(name, head, items):
         for j, ln in enumerate(t.split('\n')): d.text((210, y+6+j*58), ln, font=F(46, 'SemiBold' if j == 0 else 'Medium'), fill='#fff' if j == 0 else '#aab0b8')
         y += 250
     c.save(os.path.join(O, name))
-bullets('takeaways.png', 'WHAT THE DATA SAYS', ['Every setup cut the tower spread by more than half', 'Fender braces alone did the most at the towers\n86% less spread, vs 57% for the strut tower brace alone',
-        'The braces did not simply add up\nBoth together: 74% less, about the same as fender braces alone'])
-bullets('caveats.png', 'KEEP IT IN CONTEXT', ['One car, one scan per setup', 'Static load: one corner on a jack, not a corner on track', 'Largest movement measured at the towers: 1.695 mm'])
+bullets('takeaways.png', 'WHAT THE DATA SAYS', ['Every setup cut the tower spread by more than half', 
+        'The two ways of looking at it do not agree\nTowers: fender braces spread least. Whole-body map: strut tower brace is cleanest',
+        'The braces did not add up\nBoth together: 0.436 mm, no better than fender braces alone (0.237 mm)'])
+bullets('caveats.png', 'KEEP IT IN CONTEXT', ['One car, one scan per setup', 'Static load: one corner on a jack, not a corner on track', 'Differences between the braces are fractions of a millimetre'])
 c = Image.new('RGB', (W, H), 'black'); d = ImageDraw.Draw(c)
 d.text((W/2, 470), 'DOES CHASSIS BRACING\nACTUALLY DO ANYTHING?', font=F(72, 'Black'), fill='white', anchor='mm', align='center')
-d.text((W/2, 660), 'YES. AND YOU CAN MEASURE IT.', font=F(44, 'Bold'), fill='white', anchor='mm'); c.save(os.path.join(O, 'end.png'))
+d.text((W/2, 660), 'ON THIS CAR, ON A JACK: YES.', font=F(44, 'Bold'), fill='white', anchor='mm'); c.save(os.path.join(O, 'end.png'))
+# --- how to read the heat maps (replaces the rough cut's card, whose +-8 scale and text contradict the +-15 reports)
+c = Image.new('RGB', (W, H), '#262626'); d = ImageDraw.Draw(c); d.text((110, 110), 'HOW TO READ THE HEAT MAPS', font=F(34, 'SemiBold'), fill='#9aa0a6')
+import numpy as np   # colour bar drawn to the reports' ramp: zero sits at the green / light-blue boundary
+st = np.array([[1, 255, 0, 0], [.65, 255, 150, 0], [.35, 255, 255, 0], [.001, 0, 255, 0], [-.001, 0, 255, 255], [-.35, 0, 140, 255], [-.6, 0, 0, 255], [-1, 0, 0, 255]], float)[::-1]
+v = np.linspace(1, -1, 760); bar = np.stack([np.interp(v, st[:, 0], st[:, i]) for i in (1, 2, 3)], 1).astype('uint8'); c.paste(Image.fromarray(np.repeat(bar[:, None, :], 70, 1)), (150, 220))
+for yv, t in ((220, '+15 mm'), (600, '0'), (980, '-15 mm')): d.text((250, yv), t, font=F(34, 'Medium'), fill='#e8ecf2', anchor='lm')
+for yv, h, t in ((300, 'Yellow to red', 'Surface moved outward from the control scan'), (560, 'Green and light blue', 'Small movement, a few millimetres either way'), (860, 'Dark blue', 'Surface moved inward')):
+    d.text((560, yv), h, font=F(50), fill='#fff'); d.text((560, yv+70), t, font=F(36, 'Medium'), fill='#aab0b8')
+d.text((560, 1000), 'Jacked scan laid over the control scan. One report (both braces) uses a ±8 mm scale.', font=F(28, 'Medium'), fill='#777'); c.save(os.path.join(O, 'legend.png'))
 print('cards ->', O, len(os.listdir(O)))
