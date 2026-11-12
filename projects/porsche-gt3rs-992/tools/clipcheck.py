@@ -7,7 +7,7 @@ from scipy.spatial import cKDTree
 W = "/home/user/media/porsche-gt3rs-992"
 TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 ROOT = np.array(json.load(open(f"{W}/prep/car4.json"))["root_location"])
-SRC = {"comp_v5": f"{W}/dec/comp_v5.stl", "comp_v2": f"{W}/dec/comp_v2.stl", "comp_v3": f"{W}/dec/comp_v3.stl", "comp_explode4": f"{W}/dec/comp_explode4.stl", "car4": f"{W}/dec/carL_4mm_crop.stl"}
+SRC = {"comp_v6": f"{W}/dec/comp_v6.stl", "comp_v6w": f"{W}/dec/comp_v6w.stl", "comp_v5": f"{W}/dec/comp_v5.stl", "comp_v2": f"{W}/dec/comp_v2.stl", "comp_v3": f"{W}/dec/comp_v3.stl", "comp_explode4": f"{W}/dec/comp_explode4.stl", "car4": f"{W}/dec/carL_4mm_crop.stl"}
 
 
 def pts(stl, step=1):
