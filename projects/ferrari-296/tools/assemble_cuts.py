@@ -56,7 +56,9 @@ def main():
                 # cloning the last frame (a visible stall before the cut). Stretch the input rate just enough instead.
                 N = len(list(src.glob("*.png")))
                 r = float(c.get("src_fps", fps))
-                need = (N - 1) * fps / (n + 2)  # +1 frame margin: rounding left one clone
+                trim, sp = float(c.get("trim_start", 0)), float(c.get("speed", 1.0))
+                # renders left after trim_start must cover (n + 1 margin) output frames at this speed
+                need = (N - 1) / (trim + (n + 2) * sp / fps)
                 if need < r:
                     c["src_fps"] = round(need, 4)
                     print(f"  {c['id']}: {N} renders -> src_fps {r} -> {c['src_fps']} ({100 * (1 - need / r):.1f}% slower, no clone pad)")
