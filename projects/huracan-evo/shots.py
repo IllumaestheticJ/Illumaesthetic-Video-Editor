@@ -341,7 +341,7 @@ CP = {"base": B + "c_rearbase.blend", "rb": B + "c_bumper.blend", "dk": B + "c_d
 CKEYS = ["rb", "dk", "gr", "bm", "ex"]
 C0 = {k: P() for k in CKEYS}
 C1 = dict(C0, rb=P([0, 0.95, 0.30], -125))                 # bumper back + tipped: inner face up/back to the lens
-C1_OUT = dict(C0, rb=P([0, 1.30, -1.6], -125))             # dropped out of frame for the hold on the rear end
+C1_OUT = dict(C0, rb=P([0, 1.30, -4.0], -125))             # dropped well out of frame (at z -1.6 it showed in the corners of c2/c3/c5 tests)
 C2 = dict(C1_OUT, gr=P([0, 0.65, 0.55]), bm=P([0, 0.85, 0.35]), dk=P([0, 0.35, 0.60], -18))
 C3 = dict(C2, ex=P([0, 0.95, -0.30], 25, (0, 0, 1)))       # exhaust drops back/out, yaws 25 deg to show its body
 V7_N = {"sp_bumper": (12, 17), "c1_bumper": (17, 22), "c2_deck": (22, 26), "c3_exhaust": (26, 31), "c4_wells": (31, 35),
@@ -371,8 +371,8 @@ def cshot(name, camera, anims, objects=CP, extra=None, light_ref="base"):
 
 
 V7_SHOTS = [
-    cshot("c1_bumper", [dict(t=0, az=-140, el=22, dist=5.0, target=[0, 2.0, 0.60], lens=45),
-                        dict(t=0.5, az=-138, el=25, dist=4.6, target=[0, 2.4, 0.65], lens=45),
+    cshot("c1_bumper", [dict(t=0, az=-150, el=20, dist=6.0, target=[0, 1.3, 0.60], lens=45),   # test: d 5.0 clipped the car side
+                        dict(t=0.5, az=-145, el=24, dist=5.0, target=[0, 2.0, 0.65], lens=45),
                         dict(t=1, az=-152, el=18, dist=2.9, target=[0, 1.95, 0.55], lens=45)],
           moves2(C0, C1, {"rb": (0.10, 0.50)}, {"rb": [dict(t=0.72, **C1["rb"]), dict(t=0.92, **C1_OUT["rb"]), dict(t=1, **C1_OUT["rb"])]})),
     cshot("c2_deck", [dict(t=0, az=-150, el=30, dist=4.4, target=[0, 1.55, 0.85], lens=45),
@@ -381,8 +381,8 @@ V7_SHOTS = [
     cshot("c3_exhaust", [dict(t=0, az=-160, el=12, dist=3.6, target=[0, 2.20, 0.45], lens=45),
                          dict(t=1, az=-172, el=9, dist=3.0, target=[0, 2.55, 0.35], lens=45)],
           moves2(C2, C3, {"ex": (0.05, 0.60)})),
-    cshot("c4_wells", [dict(t=0, az=105, el=12, dist=2.4, target=[0.85, 1.30, 0.40], lens=40),
-                       dict(t=1, az=72, el=14, dist=2.2, target=[0.85, 1.30, 0.40], lens=40)],
+    cshot("c4_wells", [dict(t=0, az=105, el=12, dist=2.3, target=[0.85, 1.30, 0.48], lens=40),
+                       dict(t=1, az=72, el=14, dist=2.1, target=[0.85, 1.30, 0.48], lens=40)],   # stand stub under the hub cut below frame
           {}, objects={"base": B + "c_rww.blend"}),
     cshot("c5_finale", [dict(t=0, az=-150, el=22, dist=4.8, target=[0, 1.6, 0.60], lens=45),
                         dict(t=0.6, az=-148, el=18, dist=5.6, target=[0, 1.2, 0.58], lens=45),
