@@ -1,0 +1,73 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 940,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "brackets",
+   "from": 68,
+   "duration": 224
+  },
+  {
+   "kind": "label",
+   "from": 72,
+   "duration": 68,
+   "title": "FULL CAR SCAN",
+   "sub": "8,255,611 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 190,
+   "duration": 38,
+   "title": "REAR BUMPER",
+   "sub": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 242,
+   "duration": 50,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "8,028,053 TRIANGLES",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 524,
+   "duration": 96
+  },
+  {
+   "kind": "label",
+   "from": 528,
+   "duration": 28,
+   "title": "FENDER",
+   "sub": "INSIDE + OUTSIDE",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 558,
+   "duration": 28,
+   "title": "FRONT BUMPER",
+   "sub": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 588,
+   "duration": 32,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "FENDER + BUMPER OFF",
+   "x": 0.08,
+   "y": 0.1
+  }
+ ]
+}

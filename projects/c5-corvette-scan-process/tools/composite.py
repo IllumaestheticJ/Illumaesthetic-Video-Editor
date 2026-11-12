@@ -12,6 +12,7 @@ ap.add_argument("--xmax", default="", type=lambda s: [float(x) for x in s.split(
 ap.add_argument("--xmin", default="", type=lambda s: [float(x) for x in s.split(",") if x], help="per-state: keep only x > value (mm)")
 ap.add_argument("--below-top", type=float, default=25.0, help="drop state tris higher than car-top-in-40mm-cell minus this (duplicate panels)")
 ap.add_argument("--zmin", type=float, default=100.0, help="drop state tris below this z (mm, raw frame) - ground scraps")
+ap.add_argument("--keep-box", default="", help="xmin,xmax,ymin,ymax,zmin,zmax (mm): keep only state tris inside")
 ap.add_argument("--drop-box", default="", help="xmin,xmax,ymin,ymax,zmin,zmax (mm): drop state tris inside (e.g. a re-steered wheel)")
 a = ap.parse_args()
 L = lambda p: np.fromfile(p, dtype=TRI, offset=84)
@@ -29,6 +30,9 @@ for i, s in enumerate(a.states):
     d2, _ = tree.query(sc, distance_upper_bound=a.add + 1); m &= d2 > a.add
     ks = key(sc[:, :2]); ii = np.clip(np.searchsorted(u, ks), 0, len(u) - 1); roof = np.where(u[ii] == ks, top[ii], 1e9)
     m &= (sc[:, 2] < roof - a.below_top) & (sc[:, 2] > a.zmin)
+    if a.keep_box:
+        b = [float(x) for x in a.keep_box.split(",")]
+        m &= (sc[:, 0] > b[0]) & (sc[:, 0] < b[1]) & (sc[:, 1] > b[2]) & (sc[:, 1] < b[3]) & (sc[:, 2] > b[4]) & (sc[:, 2] < b[5])
     if a.drop_box:
         b = [float(x) for x in a.drop_box.split(",")]
         m &= ~((sc[:, 0] > b[0]) & (sc[:, 0] < b[1]) & (sc[:, 1] > b[2]) & (sc[:, 1] < b[3]) & (sc[:, 2] > b[4]) & (sc[:, 2] < b[5]))
