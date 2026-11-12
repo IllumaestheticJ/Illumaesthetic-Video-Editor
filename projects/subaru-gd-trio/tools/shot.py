@@ -102,6 +102,9 @@ def main():
     sc.frame_start, sc.frame_end = 1, nframes
 
     sr.studio_world(sr.rgb(spec.get("bg", "0.004,0.004,0.005")), False)
+    if spec.get("light_bbox"):  # pin the rig so the same camera on different cars gets identical light (1:1 car swaps)
+        from mathutils import Vector
+        lo, hi = Vector(spec["light_bbox"][0]), Vector(spec["light_bbox"][1])
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()

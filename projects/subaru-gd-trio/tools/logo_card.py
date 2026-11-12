@@ -24,6 +24,7 @@ def main():
     ap.add_argument("--delay", type=float, default=0.0)
     ap.add_argument("--fade-out", type=float, default=0.6)
     ap.add_argument("--y", type=float, default=0.47)
+    ap.add_argument("--fade-in", type=float, default=0.4)
     a = ap.parse_args()
     bg = tuple(int(v) for v in a.bg.split(","))
     logo = Image.open(a.logo).convert("RGBA")
@@ -32,7 +33,7 @@ def main():
     with tempfile.TemporaryDirectory() as td:
         for i in range(n):
             t = i / a.fps
-            fade_in = min(1.0, max(0.0, (t - a.delay) / 0.4))
+            fade_in = min(1.0, max(0.0, (t - a.delay) / a.fade_in))
             fade_out = min(1.0, max(0.0, (a.secs - t) / a.fade_out))
             alpha = (fade_in * fade_out) ** 1.2
             u = min(1.0, t / a.secs)
