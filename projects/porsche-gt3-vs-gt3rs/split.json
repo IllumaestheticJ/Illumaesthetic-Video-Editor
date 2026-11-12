@@ -34,7 +34,7 @@
   {
    "src": "/home/user/media/work/gt3/renders/final/v6_sh4",
    "frames": 86,
-   "crop_y": 560
+   "crop_y": 380
   },
   {
    "src": "/home/user/media/work/gt3/renders/final/s5_wing",
@@ -61,7 +61,7 @@
   {
    "src": "/home/user/media/work/gt3/renders/final/v6_under",
    "frames": 114,
-   "crop_y": 480
+   "fit_vf": "scale=1080:1920:flags=lanczos,transpose=1,scale=1080:608:flags=lanczos,pad=1080:960:0:176:color=0x070709"
   },
   {
    "src": "/home/user/media/work/gt3/renders/final/v6_sh9",

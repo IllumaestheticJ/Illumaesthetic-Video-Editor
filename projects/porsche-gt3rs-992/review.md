@@ -1,3 +1,11 @@
+# Porsche 911 GT3 RS (992) scan reel v6 - self-review
+
+File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v6.mp4 (40.6 s). v6 = v5 with the front bumper strakes (b9-b11) and the
+fender vent (b21-b23) coming off and joining the stack (user: "the front bumper strakes and the fender vents should also be
+coming off the car"). Same music, cuts and labels as v5; tools/shots_v6.py; clipcheck clean; luma clean.
+Scan quality note: with the fender vent off the fender shows an open, ragged hole (nothing was scanned beneath it), and the
+bumper corners are open where the strakes sat. Other scores as v5 below.
+
 # Porsche 911 GT3 RS (992) scan reel v5 - self-review
 
 File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v5.mp4 (40.6 s). Reviewer on v4: "illumaesthetic logo too small; there is

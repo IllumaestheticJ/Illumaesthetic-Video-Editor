@@ -23,7 +23,9 @@ def panel(name, segs):
         if s.get("trim_start"):
             vf.append(f"trim=start={s['trim_start']},setpts=PTS-STARTPTS")
         vf.append(f"minterpolate=fps={fps}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1")
-        if "crop_y" in s:   # 9:16 source -> 1080 wide, take a 960-high band
+        if s.get("fit_vf"):   # custom fit into the 1080x960 panel (e.g. rotate a tall 9:16 shot)
+            vf.append(s["fit_vf"])
+        elif "crop_y" in s:   # 9:16 source -> 1080 wide, take a 960-high band
             vf += ["scale=1080:1920:flags=lanczos", f"crop=1080:960:0:{s['crop_y']}"]
         else:
             vf.append("scale=1080:960:flags=lanczos")
