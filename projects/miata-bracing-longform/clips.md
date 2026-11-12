@@ -33,3 +33,20 @@ PDFs are image-only (no text layer): 4 engine-bay reports (p2 width, p3 strut-to
 Read off the colours: unbraced rear quarter ~+10 mm one side / deep blue other side; fender-only rear ~+5-10 mm one side;
 strut-only almost all within +-2.5 mm; both within ~2 mm except the door (hinged panel, likely latch position).
 The tower close-ups do NOT show a clear braced-vs-unbraced difference (both within ~1 mm), so no claim is made from them.
+
+## Scan-driven heat maps (tested 2026-11-12)
+Exterior STLs (Drive folder 1RbQSJ_kRFcjJwRs7hlSPaUe7-9FEsbyO; ids in tools/../editlog) are **exported already aligned to the control**
+(same frame as the reports; x = length with nose at +x, z up, floor at z = -1154, car yawed ~15 deg in XY). Do NOT re-ICP the whole
+scan: the floor is in every scan and the car moves relative to it, so a global ICP gets worse (median 5.6 -> 22 mm).
+`tools/heat.py control.stl state.stl out.png --asis` (6 mm decimation, signed distance along the control normal) reproduces the
+report pattern for control vs jacked. Body-only stats (z > floor + 420 mm, 790k points, 92-94 % covered), |deviation| in mm:
+
+| state | median | p90 | p99 | within 2.5 mm | within 5 mm | front third median | mid | rear third median |
+|---|---|---|---|---|---|---|---|---|
+| jacked, no bracing | 1.82 | 7.29 | 9.59 | 58 % | 77 % | 0.44 | 1.97 | 3.65 |
+| fender braces only | 1.90 | 6.16 | 9.84 | 60 % | 84 % | 0.99 | 1.30 | 4.33 |
+| strut tower brace only | 0.89 | 2.46 | 4.74 | 91 % | 99 % | 0.70 | 0.54 | 1.66 |
+| fender + strut | 1.14 | 3.98 | 8.55 | 74 % | 94 % | 0.53 | 0.89 | 2.36 |
+
+The exported alignment is anchored at the front of the car (front third within ~1 mm in every state), so the maps show how far the
+rear moves relative to the front. Includes doors, soft top, glass (hinged/soft panels) - not chassis only.
