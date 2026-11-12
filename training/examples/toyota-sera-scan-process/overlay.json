@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 810,
+ "durationInFrames": 882,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -34,7 +34,16 @@
   },
   {
    "kind": "label",
-   "from": 346,
+   "from": 348,
+   "duration": 44,
+   "title": "NEW FRONT BUMPER",
+   "sub": "DESIGNED ON THE SCAN DATA",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 400,
    "duration": 63,
    "title": "BUTTERFLY DOORS",
    "sub": "DOOR OPEN SCAN - 10,500,000 TRIANGLES",
@@ -43,7 +52,7 @@
   },
   {
    "kind": "label",
-   "from": 471,
+   "from": 525,
    "duration": 33,
    "title": "REAR BUMPER REMOVED",
    "sub": "STOCK BUMPER, SCANNED OFF THE CAR",
@@ -52,7 +61,7 @@
   },
   {
    "kind": "label",
-   "from": 506,
+   "from": 560,
    "duration": 32,
    "title": "REAR BUMPER",
    "sub": "4,999,998 TRIANGLES - INSIDE + OUTSIDE",
@@ -61,7 +70,7 @@
   },
   {
    "kind": "label",
-   "from": 544,
+   "from": 598,
    "duration": 47,
    "title": "BEHIND THE REAR BUMPER",
    "sub": "TAIL PANEL / BUMPER MOUNTS",
@@ -69,18 +78,13 @@
    "y": 0.74
   },
   {
-   "kind": "brackets",
-   "from": 596,
-   "duration": 100
-  },
-  {
    "kind": "label",
-   "from": 612,
-   "duration": 76,
-   "title": "14,999,999 TRIANGLES",
-   "sub": "FULL CAR SCAN",
+   "from": 654,
+   "duration": 44,
+   "title": "NEW REAR BUMPER",
+   "sub": "DESIGNED ON THE SCAN DATA",
    "x": 0.08,
-   "y": 0.12
+   "y": 0.06
   }
  ]
 }

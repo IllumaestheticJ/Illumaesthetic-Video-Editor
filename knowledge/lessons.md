@@ -749,3 +749,9 @@ lands here automatically. Agents must read this whole file before editing.
   non-matching old geometry behind ("the old bumper still shows"). In the part's zone, keep only full-car geometry the
   part-off state scan confirms (nearest-neighbour ≤ ~12 mm), and show the removable part on the car in every shot
   before it comes off, never the full-car scan's own version.
+- **[technical]** (toyota-sera-scan-process) Designed-part CAD lives outside the scan folder (Sera: Drive `Ron's Folder/<car>/Print`,
+  car-aligned frame, front at -Y, z=0 ground). To place it on the scan: yaw from the car's forward axis + trimmed-ICP translation,
+  then check the scan's PITCH from tyre-contact heights - the Artec frame was 2.7 deg nose-down and a yaw-only fit left the rear
+  bumper 10 cm low. Always render front, rear and side before animating.
+- **[story]** (toyota-sera-scan-process) Finished-car footage may only exist as a posted short with burned-in captions; crop the
+  caption band out (never text over IRL) and say so, and ask for the raw clips.

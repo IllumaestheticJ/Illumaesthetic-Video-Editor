@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v3 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v3.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 26.97 s.
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md, review_v2.md.
+# Toyota Sera scan-process reel v4 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v4.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.37 s.
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v3.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -25,3 +25,16 @@ Plan: direction.md (scene director). v1/v2 reviews: review_v1.md, review_v2.md.
 ## Gap to learn from
 v1/v2 laid scan shots out by template (rear, front, x-ray) and framed explodes wide; the feature-driven order and
 stacked part paths fixed both without new footage.
+
+## v4 (user: "include shots of the bumper we designed and put them into the scan data, then cut to the finished car")
+- Found: designed kit CAD on Drive (Ron's Folder/Toyota Sera/Print) and the finished car in the posted short
+  'Toyota Sera at home'. Kit registered to the scan (yaw + ICP translation, then 2.70 deg pitch from tyre contacts);
+  fit checked from front, rear and side.
+- New shots: designed front bumper rises onto the bumper-less scan (11.4-13.2), designed rear bumper (21.6-23.4),
+  labelled NEW FRONT/REAR BUMPER - DESIGNED ON THE SCAN DATA; then finished car front (23.4) and rear (24.6), hard cuts
+  on kicks; listing card 25.8-29.4. X-ray reassembly removed (stock bumpers returning contradicts the story).
+- Cuts on decoded audio: all within +/-7 ms of kicks. Director: no dead frames; one flagged repeat (stock bumper off
+  vs designed bumper on share the camera on purpose - same view, different part).
+- Scores changed vs v3: Story 4 -> 5 (scan -> design -> finished car), Ending 4 -> 3 (hard cut into the listing instead
+  of the position-locked dissolve; finished-car clips are a 1.43x upscale of a captioned short, caption cropped out).
+- Open: raw (uncaptioned) finished-car clips would look better; ducktail and side skirts exist as CAD but are not shown.

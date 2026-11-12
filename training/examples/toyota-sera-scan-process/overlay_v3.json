@@ -1,0 +1,86 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 810,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 219,
+   "duration": 33,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "STOCK BUMPER, SCANNED OFF THE CAR",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 254,
+   "duration": 32,
+   "title": "FRONT BUMPER",
+   "sub": "1,800,000 TRIANGLES - INSIDE + OUTSIDE",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 292,
+   "duration": 47,
+   "title": "BEHIND THE FRONT BUMPER",
+   "sub": "RADIATOR / FAN / BUMPER MOUNTS",
+   "x": 0.08,
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 346,
+   "duration": 63,
+   "title": "BUTTERFLY DOORS",
+   "sub": "DOOR OPEN SCAN - 10,500,000 TRIANGLES",
+   "x": 0.08,
+   "y": 0.76
+  },
+  {
+   "kind": "label",
+   "from": 471,
+   "duration": 33,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "STOCK BUMPER, SCANNED OFF THE CAR",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 506,
+   "duration": 32,
+   "title": "REAR BUMPER",
+   "sub": "4,999,998 TRIANGLES - INSIDE + OUTSIDE",
+   "x": 0.08,
+   "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 544,
+   "duration": 47,
+   "title": "BEHIND THE REAR BUMPER",
+   "sub": "TAIL PANEL / BUMPER MOUNTS",
+   "x": 0.08,
+   "y": 0.74
+  },
+  {
+   "kind": "brackets",
+   "from": 596,
+   "duration": 100
+  },
+  {
+   "kind": "label",
+   "from": 612,
+   "duration": 76,
+   "title": "14,999,999 TRIANGLES",
+   "sub": "FULL CAR SCAN",
+   "x": 0.08,
+   "y": 0.12
+  }
+ ]
+}

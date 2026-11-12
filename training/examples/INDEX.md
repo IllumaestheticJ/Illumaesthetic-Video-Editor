@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-12
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-12
 - [ferrari-296](ferrari-296/) - archived 2026-11-12
 - [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-12
@@ -26,7 +27,6 @@ Newest first. Read the top two before starting a new edit.
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
-- [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-11
