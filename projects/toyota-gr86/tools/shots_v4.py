@@ -117,8 +117,8 @@ spec("d_mirror4", [cam(0, [2.10, -1.75, 1.55], [0.80, -0.30, 1.05], 30),
      extra_frames=(0.45,))
 MIRRORS_OUT = dict(mR=add(MR_END, [0, 0, 6]), mL=add(ML_END, [0, 0, 6]))
 # 8  lid hinges open +65 deg, camera forward of the lid on the right (its scanned outer face toward the lens)
-spec("e1_lid_hinge", [cam(0, [2.00, 0.60, 2.90], [0.00, 1.85, 1.15], 30),
-                      cam(2.45, [1.80, 0.85, 3.05], [0.00, 1.90, 1.25], 30)], 74,
+spec("e1_lid_hinge", [cam(0, [3.00, 0.30, 3.20], [0.05, 1.80, 1.05], 30),   # preview 3: pulled back, wheel only a sliver at the bottom
+                      cam(2.45, [2.85, 0.45, 3.25], [0.05, 1.82, 1.10], 31)], 74,
      [part("lid_v4", [k(0, Z), k(0.05, Z), k(0.85, Z, LID_OPEN, "out")], LP)]
      + drop(static(hood=(FAR, HOOD_OPEN), fb=(FB_PARK, FB_ROT), rb=(Z, Z), **MIRRORS_OUT), "lid_v4"), extra_frames=(0.45,))
 # 9  lid lifts off the open pose -> TRUNK OPEN cargo (<= 30 deg down)
