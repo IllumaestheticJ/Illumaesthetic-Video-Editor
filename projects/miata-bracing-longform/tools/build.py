@@ -65,7 +65,7 @@ NAR = [
  "All right, here's our control. Car on the ground, bone stock.",
  "What we're measuring is the width across the engine bay, from one strut tower to the other. On the ground, that's 960.948 millimeters. That's our baseline. So it's five scans total: this one, and then four on the jack.",
  "Now we jack up one front corner to a very specific height, and we check it with a tape measure so it's the same every time. Lift one corner like this and you're twisting the whole chassis. From here on, same corner, same height. All we change is the bracing.",
- "No bracing, one corner in the air, and the strut towers go from 960.948 to 962.643. That's 1.695 millimeters wider, just from jacking up one corner.",
+ "With no bracing, one corner in the air, and the strut towers go from 960.948 to 962.643. That's 1.695 millimeters wider, just from jacking up one corner.",
  "That 1.695 is the number the braces have to beat.",
  "For the rest of the car, we lay the jacked up scan over the control scan and color in what's different. Green and light blue is the small stuff, a few millimeters either way. Yellow to red means it moved outward. Dark blue means it moved inward. And this scale goes out to fifteen millimeters, so it's not going to show you a millimeter at the strut towers. That's what the measurement is for.",
  "With no bracing, it moves a lot. On one side, the door and the rear quarter go dark blue. On the other side, that same area goes orange and red, so around ten millimeters on this scale.",

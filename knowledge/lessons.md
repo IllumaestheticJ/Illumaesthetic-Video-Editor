@@ -710,3 +710,19 @@ lands here automatically. Agents must read this whole file before editing.
   7-10 s sections. Render part moves at native 30 fps.
 - [technical] Cut-offset measurement: the dip window must straddle the cut (g-30..g+5 ms). A window ending 40 ms
   before the cut finds a pre-kick wiggle and reports every cut ~45 ms late.
+
+## From the Miata chassis-bracing long-form (2026-11-12, built by an agent)
+- **[text]** Narration for the owner's own voice: write it from their on-camera transcript (openers, fillers, rhetorical questions), not as
+  copy. v1 "doesn't sound like me"; v2 from their phrasing was accepted. Have a second agent check every claim against the data first.
+- **[text]** Before ranking anything from scan measurements, look for a second measurement of the same thing in the reports and try one
+  yourself (tools/towerspread.py). Here two definitions of "tower spread" disagreed on which brace helped; the script may not rank.
+- **[technical]** State scans exported from the report software can already share the report's alignment (check the as-exported median
+  distance before any ICP). A whole-scan ICP is worse when the floor is in every scan and the car moves relative to it.
+- **[audio]** Higgsfield seed_audio with a cloned voice: 28 lines (about 5.3 min at 48 kHz) used about 100 credits, not the ~25 the
+  1.7-credit test line suggested. Quote cost from a get_cost on the longest line x count, and submit at most ~5 at a time (429s).
+  Pace varies per line (2-5 words/s at the same speech_rate) and fast lines slur words: transcribe every line, slow rushed ones
+  with atempo, and spell decimals out ("nine sixty point nine four eight").
+- **[audio]** A rough cut that ducks its music under graphic cards still carries the track at -40 dB: un-duck it with a slow gain
+  envelope to get a continuous bed (tools/musicbed.py), drop the clips' own audio, loop on a 16-beat grid.
+- **[technical]** Stills made with `-loop 1 -t` run ~0.05 s long each; 30 cards = 1 s of picture lag. Cut segments by frame count.
+- **[text]** Tracked arrow callout: anchor above the roof at the centre of the car's whole colour blob, not on the paint's top edge.
