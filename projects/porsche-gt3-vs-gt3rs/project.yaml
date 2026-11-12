@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v1.mp4",
+ "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v2.mp4",
  "music": {
   "path": "/home/user/media/work/music/alkitran_full.wav",
   "start": 171.651,
@@ -193,5 +193,10 @@
     "ALL SCANNED PARTS OFF"
    ]
   ]
+ },
+ "cta": {
+  "from": 887,
+  "top": "GT3 RS SCAN DATA  \u00b7  ILLUMAESTHETIC.COM",
+  "bottom": "GT3 SCAN DATA  \u00b7  ILLUMAESTHETIC.COM"
  }
 }

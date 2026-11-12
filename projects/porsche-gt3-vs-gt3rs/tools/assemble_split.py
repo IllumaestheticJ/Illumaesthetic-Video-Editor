@@ -53,6 +53,12 @@ lab = []
 for y, key in ((48, "top"), (1008, "bottom")):
     for a, b, txt in cfg.get("labels", {}).get(key, []):
         lab.append(f"drawtext=fontfile={MONO}:text='{txt}':fontcolor=0xe8ecf2@0.85:fontsize=26:x=w-64-text_w:y={y}:enable='between(n,{a},{b})'")
+cta = cfg.get("cta")
+if cta:  # double call-to-action: one line under each panel's header bar, on a dark band
+    en = f"between(n,{cta['from']},{fd['start_frame'] + fd['frames']})"
+    for y, key in ((96, "top"), (1056, "bottom")):
+        lab.append(f"drawbox=x=0:y={y}:w=1080:h=84:color=black@0.6:t=fill:enable='{en}'")
+        lab.append(f"drawtext=fontfile={FONT}:text='{cta[key]}':fontcolor=0xe8ecf2:fontsize=40:x=(w-text_w)/2:y={y + 22}:enable='{en}'")
 bars = "drawbox=x=0:y=0:w=1080:h=96:color=black@0.6:t=fill,drawbox=x=0:y=960:w=1080:h=96:color=black@0.6:t=fill"
 fc = (f"[0:v][1:v]vstack=inputs=2,{bars},drawbox=x=0:y=958:w=1080:h=4:color=0x30343a:t=fill,{dt(tags['top'], 38)},{dt(tags['bottom'], 998)}"
       + ("," + ",".join(lab) if lab else "") + "[st];")

@@ -1,4 +1,7 @@
-# Porsche 911 GT3 vs GT3 RS (992) comparison reel v1 - self-review (training/rubric.md)
+# Porsche 911 GT3 vs GT3 RS (992) comparison reel v2 - self-review
+
+v2 = v1 + a call-to-action on each panel during the final scene (GT3 RS / GT3 SCAN DATA · ILLUMAESTHETIC.COM); both scans are
+listed on the site. File: /home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v2.mp4. v1 notes follow. (training/rubric.md)
 
 File: /home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v1.mp4 (1080x1920, 30 fps, 40.63 s). Timeline: split.json
 (tools/assemble_split.py). Stacked split-screen: 911 GT3 RS (992) top, 911 GT3 (992) bottom, frame-identical cuts.
