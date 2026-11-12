@@ -341,19 +341,23 @@ const SHOTS = {
   },
 
   // 48.57-52.57: more options: blueprint / own photos (no upload)
-  async more(c, N) {
+  async more(c, N) {  // 'Car not listed?' 0.15-0.96 s, 'blueprint' 1.3-2.4 s, 'own photos' 2.8-3.9 s (shot-local)
     await c.pick('Toyota', 'GR86');
     const d = await c.rect('.ewc-drawer');
-    const top = await c.panelTo('.ewc-step-checkout .ewc-pricebox', null, 20); await c.setPanelScroll(top); await c.settle(300);
-    panelFull(c, d, d.y, 0);
-    await c.curShow(d.cx, d.y + 200); await c.tick(3);
-    const to = await c.panelTo('.ewc-more-panel', null, 60); await c.scrollPanel(to, 12);
-    await c.clickSel('.ewc-more-panel > summary', null, 8); await c.tick(8);
-    await c.clickSel('.ewc-more-panel details summary', 'blueprint', 8); await c.tick(14);
-    await c.clickSel('.ewc-more-panel details summary', 'own photos', 10); await c.tick(6);
-    const to2 = await c.panelTo('.ewc-more-panel', null, 20); await c.scrollPanel(to2, 12);
+    const maxS = () => c.p.evaluate(() => { const b = document.querySelector('.ewc-drawer-body'); return b.scrollHeight - b.clientHeight; });
+    await c.setPanelScroll(await maxS()); await c.settle(300);
+    const hh = d.w * 16 / 9; panelFull(c, d, d.y + d.h - hh, 0);
+    const sm = await c.rect('.ewc-more-panel > summary');
+    await c.curShow(sm.cx + 60, sm.cy - 110); await c.tick(2);
+    await c.clickSel('.ewc-more-panel > summary', null, 10); await c.p.waitForTimeout(300);
+    await c.scrollPanel(await maxS(), 10); await c.tick(Math.max(0, 30 - c.n));
+    await c.clickSel('.ewc-more-panel details summary', 'blueprint', 10); await c.p.waitForTimeout(300);
+    await c.scrollPanel(await maxS(), 10); await c.tick(Math.max(0, 72 - c.n));
+    await c.clickSel('.ewc-more-panel details summary', 'own photos', 10); await c.p.waitForTimeout(300);
+    await c.scrollPanel(await maxS(), 12);
     await c.tick(Math.max(0, N - c.n));
   },
+
   // 52.57-55.57: conclusion, wide slow orbit
   async outro(c, N) {  // finished build, high rear 3/4 from the RIGHT (hero_a is rear-left), centred, slow push-in, no orbit
     await c.pick('Toyota', 'GR86');
