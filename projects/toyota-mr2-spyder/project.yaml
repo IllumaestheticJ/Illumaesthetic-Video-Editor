@@ -1,82 +1,90 @@
-# Toyota MR2 Spyder scan reel v3 (delivered as v2 to the user) - Temerario style, scan only. v1: project_v1.yaml
-# Plan: direction.md (scene order from the scan inventory, nose -> roof -> tail, one sequence per section) + director.md.
-# Assembly: projects/honda-s2000/tools/concat_assemble.py (whole-frame `frames:`, plain concat, no cloned cut frame),
-# then the label HUD (overlay.json -> ive hud) is composited on top by concat_assemble (labels only over scan shots; there is no IRL).
-# src_fps = 30*N/(slot+4): minterpolate gives 2N-3 frames, so every slot is filled without clone padding.
+# MR2 Spyder v3 - direction.md 2026-11-12. Plain concat (projects/honda-s2000/tools/concat_assemble.py), exact frames per clip.
+# Music: user-supplied Gran Turismo 2 "East City" theme, reel starts at music 0.239 s (first sound). Cuts sit on the
+# measured onsets of beats n = 16, 20, 24, 32, 40, 48 (1:1 cut), 55, 66 (1 ms RMS rise on the decoded file).
 project: toyota-mr2-spyder
 format: reel-9x16
-output: {path: /home/user/media/work/mr2/out/mr2_spyder_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
-
+output: {path: /home/user/media/work/mr2/out/mr2_spyder_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 music:
-  path: /home/user/media/work/music/toyota-mr2-spyder_track.mp3   # parent-session generated track (not in git)
-  start: 3.155   # first kick accent (bar n=6); removing the repeated shots leaves 30.5 s of unique content
+  path: /home/user/media/work/music/mr2_eastcity.wav   # not in git
+  start: 0.239
   fade_out: 1.2
-
-# cut times in REEL seconds (music t - 3.155): strong hits 7.441 -> 4.286, 24.583 -> 21.428 (lid opens), final hit 33.690 -> 30.535 (logo)
-beats: [4.286, 6.428, 12.967, 19.285, 25.714, 30.535]
-
+beats: [7.900, 9.833, 11.833, 15.733, 19.667, 23.667, 27.100, 32.433]
 timeline:
-  - id: s1_wide   # WHOLE CAR: side profile, slow drift toward the nose, fades up (reused v2 render, slowed)
-    section: whole
-    focus: whole car establishing orbit
-    src: /home/user/media/work/renders/mr2/s1_wide_z
-    src_fps: 12.1805
-    interpolate: true
-    frames: 129
-    dur: 4.3000
-    vf: fade=t=in:st=0:d=1.0
-  - transition: {type: cut}
-  - id: s4_wheel   # WHEELS: front wheel + arch extreme close-up; cut ON the 7.441 strong hit
-    section: side
-    focus: front wheel and tyre close-up
-    src: /home/user/media/work/renders/mr2/s4_wheel
-    src_fps: 15.8824
-    interpolate: true
-    frames: 64
-    dur: 2.1333
-  - transition: {type: cut}
-  - id: s12_front   # FRONT HERO: bumper slides out into black, camera moves in on what's behind it, hood swings up on its fitted hinge (Hood Duct Data state)
+  - id: v1_front   # FRONT: whole car -> hood hinges -> real bumper part off on n 8 -> close hold
     section: front
-    focus: bumper-removed crash structure, then hood open
-    src: /home/user/media/work/renders/mr2/s12_front
+    focus: real front bumper comes off, structure behind it
+    src: /home/user/media/work/renders/mr2/v1_front
+    src_fps: 15.0622
+    interpolate: true
+    frames: 237
+    dur: 7.9000
+  - transition: {type: cut}
+  - id: v2a_under_front   # UNDERBODY FRONT (Kouki and Undertray scan alone, from below)
+    section: underbody front
+    focus: front undertray and subframe
+    src: /home/user/media/work/renders/mr2/v2a_under_front
+    src_fps: 15.9677
+    interpolate: true
+    frames: 58
+    dur: 1.9333
+  - transition: {type: cut}
+  - id: v2b_under_rear   # UNDERBODY REAR (Rear Underbody scan alone, from below)
+    section: underbody rear
+    focus: exhaust and drivetrain underside
+    src: /home/user/media/work/renders/mr2/v2b_under_rear
+    src_fps: 15.4688
+    interpolate: true
+    frames: 60
+    dur: 2.0000
+  - transition: {type: cut}
+  - id: v3_engine   # ENGINE BAY: lid hinges on n 24, push to 1.7 m and hold
+    section: rear
+    focus: engine bay under the hinged lid
+    src: /home/user/media/work/renders/mr2/v3_engine
+    src_fps: 15.3719
+    interpolate: true
+    frames: 117
+    dur: 3.9000
+  - transition: {type: cut}
+  - id: v4a_kit_rear   # KIT REAR: scanned hardtop leaves, red Epsilon parts land
+    section: kit rear
+    focus: Epsilon wing, duckbill, spats, diffuser, hardtop landing
+    src: /home/user/media/work/renders/mr2/v4a_kit_rear
+    src_fps: 15.2459
+    interpolate: true
+    frames: 118
+    dur: 3.9333
+  - transition: {type: cut}
+  - id: v4b_kit_front   # KIT FRONT: ends on the pose the CGI inherits
+    section: kit front
+    focus: Epsilon skirts, vents, eyelids, bumper closing the nose
+    src: /home/user/media/work/renders/mr2/v4b_kit_front
     src_fps: 15.0000
     interpolate: true
-    frames: 196
-    dur: 6.5333
+    frames: 120
+    dur: 4.0000
   - transition: {type: cut}
-  - id: s13_top   # SIDE + TOP: hardtop lifts straight out of frame, crane into the roof-down cabin (Full Car Top Down)
-    section: cabin
-    focus: hardtop removed, roll bar
-    src: /home/user/media/work/renders/mr2/s13_top_t
-    src_fps: 13.6082
-    interpolate: true
-    frames: 190
-    dur: 6.3333
+  - id: c1_drive_front   # 1:1 HARD CUT to the CGI lookbook car (no real driving shot exists)
+    section: drive front
+    focus: finished car driving, same pose
+    src: /home/user/media/work/renders/mr2/c1_drive_front
+    src_fps: 30
+    frames: 103
+    dur: 3.4333
   - transition: {type: cut}
-  - id: s14_rear   # REAR: tail, rear lid opens ON the 24.583 strong hit, crane over the engine bay (Rear End trunk open)
-    section: rear
-    focus: rear lid open over the engine bay
-    src: /home/user/media/work/renders/mr2/s14_rear_z
-    src_fps: 15.3061
-    interpolate: true
-    frames: 192
-    dur: 6.4000
+  - id: c2_drive_rear   # CGI rear follow, car pulls away, fade
+    section: drive rear
+    focus: car pulls away
+    src: /home/user/media/work/renders/mr2/c2_drive_rear
+    src_fps: 30
+    frames: 160
+    dur: 5.3333
+    vf: fade=t=out:st=4.33:d=0.9
   - transition: {type: cut}
-  - id: s15_reassemble   # REASSEMBLY: wide rear-right 3/4, panels return, clean full car takes over, fades to black
-    section: whole
-    focus: parts return, clean car
-    src: /home/user/media/work/renders/mr2/s15_reassemble
-    src_fps: 15.3020
-    interpolate: true
-    frames: 145
-    dur: 4.8333
-    vf: fade=t=out:st=4.38:d=0.45
-  - transition: {type: cut}
-  - id: logo   # small ILLUMAESTHETIC logo (380 px, ~35 % width) fades in on black on the final hit
-    src: /home/user/media/work/mr2/out/logo_card_v2.mp4
-    frames: 93
-    dur: 3.1000
-
-overlays:   # composited by concat_assemble in the same pass; labels from overlay.json, see director.md label table
-  - src: /home/user/media/work/mr2/out/hud_v3.mov
+  - id: logo   # ILLUMAESTHETIC logo card, 720 px wide
+    src: /home/user/media/work/mr2/out/logo_card_v3.mp4
+    frames: 100
+    dur: 3.3333
+overlays:   # composited by concat_assemble in the same pass (do not add a second label pass)
+  - src: /home/user/media/work/mr2/out/hud_v4.mov
     start: 0

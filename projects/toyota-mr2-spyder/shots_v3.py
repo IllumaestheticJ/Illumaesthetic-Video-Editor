@@ -8,7 +8,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import shots as S
 
 B, OUT, R = S.B, S.OUT, S.RENDERS
-RED = [0.76, 0.05, 0.07]
+RED = [0.66, 0.035, 0.05]
 HOOD_UP, LID_UP = 53.0, S.H_LID["open_deg"] * 0.9
 K = lambda n: B + "k_" + n + ".blend"
 BODY = {"base": B + "base.blend", "hood": B + "hood.blend", "lid": B + "rearlid.blend"}
@@ -41,17 +41,17 @@ t = f(0, 16)
 SHOTS.append(shot("v1_front", 0, 16,
     dict(car=B + "car2.blend", **BODY, top=B + "hardtop.blend", bp=B + "bumper_part.blend"),
     cam(0, 16, [(0, -155, 10, 8.6, [0, 0.10, 0.55], 50, 0), (4.5, -160, 13, 5.6, [0, 1.00, 0.75], 50, 0),
-                (7.5, -166, 12, 4.3, [0, 1.55, 0.45], 50, 0), (12, -172, 18, 2.3, [0, 1.55, 0.50], 50, 0),
-                (16, -173, 20, 2.1, [0, 1.55, 0.50], 50, 1)]), 121,
+                (7.5, -166, 12, 4.3, [0, 1.55, 0.45], 50, 0), (12, -172, 18, 2.1, [0, 1.55, 0.62], 50, 0),
+                (16, -173, 20, 1.9, [0, 1.55, 0.62], 50, 1)]), 121,
     anims={"hood": mv(0, 16, [(1, 0), (4.5, HOOD_UP)], "deg"),
            "bp": mv(0, 16, [(8, [0, 0, 0]), (9.5, [0, 0.5, 0]), (11, [0, 0.5, -0.95]), (11.5, [0, 0.5, -0.95]), (13.5, [0, 0.5, -2.6])])},
     visible={"car": [0, t(1)], "base": [t(1), 1.01], "hood": [t(1), 1.01], "lid": [t(1), 1.01], "top": [t(1), 1.01], "bp": [t(1), t(13.5)]}))
 
 # S2 underbody, n 16-20 and 20-24: each scan alone, camera below the floor
 SHOTS.append(shot("v2a_under_front", 16, 20, {"uf": B + "under_front.blend"},
-    cam(16, 20, [(16, 180, -40, 2.3, [0, 1.15, 0.20], 35, 0), (20, 180, -46, 1.9, [0, 0.95, 0.20], 35, 1)]), 33, underlight=0.4))
+    cam(16, 20, [(16, 180, -40, 2.3, [0, 1.15, 0.20], 35, 0), (20, 180, -46, 1.9, [0, 0.95, 0.20], 35, 1)]), 33, underlight=0.25))
 SHOTS.append(shot("v2b_under_rear", 20, 24, {"ur": B + "under_rear.blend"},
-    cam(20, 24, [(20, 0, -40, 2.3, [0, -1.30, 0.25], 35, 0), (24, 0, -46, 1.9, [0, -1.15, 0.25], 35, 1)]), 33, underlight=0.4))
+    cam(20, 24, [(20, 0, -40, 2.3, [0, -1.30, 0.25], 35, 0), (24, 0, -46, 1.9, [0, -1.15, 0.25], 35, 1)]), 33, underlight=0.25))
 
 # S3 engine bay, n 24-32
 SHOTS.append(shot("v3_engine", 24, 32, dict(BODY, top=B + "hardtop.blend"),
@@ -62,7 +62,7 @@ SHOTS.append(shot("v3_engine", 24, 32, dict(BODY, top=B + "hardtop.blend"),
 # S4a kit rear, n 32-40
 objs = dict(BODY, top=B + "hardtop.blend", **{k: K(k) for k in REAR_KIT})
 SHOTS.append(shot("v4a_kit_rear", 32, 40, objs,
-    cam(32, 40, [(32, -20, 22, 9.4, [0, -0.10, 0.60], 50, 0), (40, -28, 28, 9.0, [0, -0.10, 0.60], 50, 1)]), 62,
+    cam(32, 40, [(32, -20, 22, 8.6, [0, -0.10, 0.45], 50, 0), (40, -28, 28, 8.2, [0, -0.10, 0.60], 50, 1)]), 62,
     anims={"lid": mv(32, 40, [(32, LID_UP), (33.5, 0)], "deg"), "hood": mv(32, 40, [(32, HOOD_UP), (33.5, 0)], "deg"),
            "top": mv(32, 40, [(32.5, [0, 0, 0]), (34.5, [0, -0.1, 4.6])]),
            "duckbill": mv(32, 40, [(33.5, [0, -0.4, 1.2]), (35, [0, 0, 0])]), "tc_wing_kit": mv(32, 40, [(33.5, [0, -0.4, 1.2]), (35, [0, 0, 0])]),
@@ -83,10 +83,10 @@ SHOTS.append(shot("v4b_kit_front", 40, 48, objs,
     colors={k: RED for k in REAR_KIT + FRONT_KIT}))
 
 CGI = {
-    "c1_drive_front": dict(seconds=103 / 30, fps=30, res_pct=75, samples=24, out=R + "c1_drive_front", paint=RED, road_z=-0.037,
+    "c1_drive_front": dict(seconds=103 / 30, fps=30, res_pct=75, samples=20, out=R + "c1_drive_front", paint=RED, road_z=-0.037,
         camera=cam(48, 55, [(48, -162, 14, 8.0, [0, 0.20, 0.50], 50, 0), (55, -170, 8, 6.6, [0, 0.30, 0.50], 50, 1)]),
         speed=[{"t": 0, "v": 24}, {"t": 1, "v": 26}]),
-    "c2_drive_rear": dict(seconds=162 / 30, fps=30, res_pct=75, samples=24, out=R + "c2_drive_rear", paint=RED, road_z=-0.037,
+    "c2_drive_rear": dict(seconds=162 / 30, fps=30, res_pct=75, samples=20, out=R + "c2_drive_rear", paint=RED, road_z=-0.037,
         camera=cam(55, 66, [(55, -16, 10, 7.5, [0, -0.20, 0.55], 50, 0), (66, -12, 9, 7.5, [0, -0.20, 0.55], 50, 1)]),
         speed=[{"t": 0, "v": 26}, {"t": 0.45, "v": 26}, {"t": 1, "v": 38}],
         pull=[{"t": 5 / 11, "y": 0}, {"t": 1, "y": 14.5}]),

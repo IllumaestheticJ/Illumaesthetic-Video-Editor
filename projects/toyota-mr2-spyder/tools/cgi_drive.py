@@ -134,7 +134,7 @@ def main():
     asphalt.use_nodes = True
     nt = asphalt.node_tree
     p = nt.nodes.get("Principled BSDF")
-    p.inputs["Base Color"].default_value = (0.012, 0.012, 0.014, 1)
+    p.inputs["Base Color"].default_value = (0.007, 0.007, 0.008, 1)
     p.inputs["Roughness"].default_value = 0.32
     noise = nt.nodes.new("ShaderNodeTexNoise")
     noise.inputs["Scale"].default_value = 90
@@ -153,7 +153,7 @@ def main():
     road.parent = mover
     white = emit_mat("lane", (0.9, 0.9, 0.85), 0.9)
     amber = emit_mat("post", (1.0, 0.45, 0.08), 6.0)
-    bar = emit_mat("bar", (1.0, 0.93, 0.82), spec.get("bar_strength", 12.0))
+    bar = emit_mat("bar", (1.0, 0.93, 0.82), spec.get("bar_strength", 6.0))
     blue = emit_mat("sign", (0.25, 0.5, 1.0), 5.0)
     y = -40.0
     i = 0
@@ -162,7 +162,7 @@ def main():
             if i % 2 == 0:
                 box("dash", (0.14, 3.2, 0.004), (x, y, 0.004), white).parent = mover
         if i % 3 == 0:                                   # overhead light bars: the sweep across the paint
-            box("bar", (11.0, 0.5, 0.06), (1.5, y, 6.2), bar).parent = mover
+            box("bar", (8.0, 0.35, 0.06), (0.5, y, 6.4), bar).parent = mover
         for x in (-7.2, 7.2):                            # low amber reflector posts: parallax at the frame edge
             box("post", (0.06, 0.06, 0.5), (x, y + 2, 0.45), amber).parent = mover
         y += 6.0
