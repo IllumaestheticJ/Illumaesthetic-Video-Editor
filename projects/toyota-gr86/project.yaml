@@ -1,88 +1,151 @@
 # Toyota GR86 / Subaru BRZ (gen 2) - Temerario-style scan reel (scan only: no IRL footage; factual state/part-scan labels).
 # Hero scan: "BRZ Full Car" (all Bomex state/part scans are registered to it; see clips.md). House satin silver on black.
-# v3 (user notes on v2 -> direction.md v3): trimmed hood (windshield intact), TRUNK OPEN lid lift-off, SIDE MIRROR REMOVED,
-# rear lights (reverse light + plate lamp) exploded out of the rear bumper, rear->front reassembly, larger logo.
-# Shots: a_open/s3 (tools/shots_v2.py, shots.py; reused), c/d/e/f/h (tools/shots_v3.py) rendered by tools/shot.py.
-# Music: toyota-gr86_track.mp3 - original lo-fi drift funk generated for this reel by the parent session (ElevenLabs via
-# Higgsfield); audible to 39.24 s. Cuts on MEASURED kick half-rises (decoded audio, v2 check; the accents.py grid is ~30 ms late):
-# 4.931, 7.380, 14.73, 17.174, 26.97, 31.873, 36.766 -> frames 148, 221, 442, 515, 809, 956, 1103; end 1177.
+# v4 (user notes on v3 -> direction.md v4): faster = a cut on every kick, one action per shot; no bumper leftovers
+# (tools/build_v4.py); hood hinges open THEN comes off; trunk lid cut on its shut lines (tools/lid_v4.py), hinge then off.
+# Shots: a_open/s3 reused (v2), the rest tools/shots_v4.py rendered by tools/shot.py (part moves at 30 fps, camera-only 15 + minterpolate).
+# Music: toyota-gr86_track.mp3 (generated for this reel by the parent session); audible to 39.24 s. Cuts = measured kicks
+# (decoded audio) -> frames 74,148,221,295,368,442,515,589,662,736,809,883,956,1030,1103; end 1177.
 # Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
 project: toyota-gr86
 format: reel-9x16
-output: {path: /home/user/media/work/gr86/out/toyota_gr86_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/gr86/out/toyota_gr86_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/toyota-gr86_track.mp3   # not in git
   start: 0
   fade_out: 0.3
 
-beats: [4.931, 7.380, 14.73, 17.174, 26.97, 31.873, 36.766]
+beats: [2.48, 4.931, 7.380, 9.83, 12.28, 14.73, 17.174, 19.62, 22.07, 24.523, 26.97, 29.42, 31.873, 34.32, 36.766]
 
 timeline:
   - id: a_open
     src: /home/user/media/work/gr86/shots/a_open
     section: whole
-    focus: "whole car, front-right 3/4, ~20 deg arc + push from frame 1"
-    src_fps: 15
-    interpolate: true
-    dur: 4.9
-  - transition: {type: cut, note: "4.931 kick"}
+    focus: "whole car, front-right 3/4 arc + push from frame 1 (v2 render played 2x: 15 fps frames at 30)"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4333
+  - transition: {type: cut, note: "2.48 half-kick"}
   - id: b_headlight
     src: /home/user/media/work/gr86/shots/s3_wheel
     section: front
-    focus: "right headlight + slat grille + intake detail (2 mm crop)"
+    focus: "right headlight + slat grille + intake detail"
     src_fps: 15
     interpolate: true
-    dur: 2.4333
+    dur: 2.4667
     trim_start: 2.4
-  - transition: {type: cut, note: "7.380 kick"}
-  - id: c_front
-    src: /home/user/media/work/gr86/shots/c_front
+  - transition: {type: cut, note: "4.931 kick"}
+  - id: c1_hood_hinge
+    src: /home/user/media/work/gr86/shots/c1_hood_hinge
     section: front
-    focus: "hood_t lifts off (lands 9.83) -> engine bay (Hood Open) -> front bumper off + tipped (12.28) -> FRONT BUMPER REMOVED structure"
+    focus: "hood hinges open -50 deg about its rear corners (user: hinge open THEN off)"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4333
+  - transition: {type: cut, note: "7.380 kick"}
+  - id: c2_hood_off
+    src: /home/user/media/work/gr86/shots/c2_hood_off
+    section: front
+    focus: "hood lifts off the open pose, push into the engine bay (Hood Open scan)"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4667
+  - transition: {type: cut, note: "9.83 kick"}
+  - id: c3_front_bumper_off
+    src: /home/user/media/work/gr86/shots/c3_front_bumper_off
+    section: front
+    focus: "front_bumper_v4 (car skin + scan inner) pulls out, tips, drops into black - no leftovers"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4333
+  - transition: {type: cut, note: "12.28 kick"}
+  - id: c4_front_structure
+    src: /home/user/media/work/gr86/shots/c4_front_structure
+    section: front
+    focus: "push-in on the structure behind the bumper (Bumper Hood Removed scan)"
     src_fps: 15
     interpolate: true
-    dur: 7.3667
-  - transition: {type: cut, note: "14.73 phrase kick"}
-  - id: d_mirror
-    src: /home/user/media/work/gr86/shots/d_mirror
+    dur: 2.4667
+  - transition: {type: cut, note: "14.73 kick"}
+  - id: d_mirror4
+    src: /home/user/media/work/gr86/shots/d_mirror4
     section: side
-    focus: "right mirror flies off -> SIDE MIRROR REMOVED mount (Side Mirrors Removed scan)"
-    src_fps: 15
-    interpolate: true
+    focus: "right mirror flies off -> scanned mirror mount (Side Mirrors Removed)"
+    src_fps: 30
+    interpolate: false
     dur: 2.4333
   - transition: {type: cut, note: "17.174 kick"}
-  - id: e_rear
-    src: /home/user/media/work/gr86/shots/e_rear
+  - id: e1_lid_hinge
+    src: /home/user/media/work/gr86/shots/e1_lid_hinge
     section: rear
-    focus: "lid lifts off (19.62) -> TRUNK OPEN cargo (Trunk Open scan) -> rear bumper off + tipped (24.52) -> REAR BUMPER REMOVED crash beam"
+    focus: "lid_v4 (cut on its shut lines) hinges open +65 deg"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4667
+  - transition: {type: cut, note: "19.62 kick"}
+  - id: e2_lid_off_cargo
+    src: /home/user/media/work/gr86/shots/e2_lid_off_cargo
+    section: rear
+    focus: "lid lifts off -> cargo opening (Trunk Open scan)"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4333
+  - transition: {type: cut, note: "22.07 kick"}
+  - id: e3_rear_bumper_off
+    src: /home/user/media/work/gr86/shots/e3_rear_bumper_off
+    section: rear
+    focus: "rear_bumper_v4 pulls back, tips, drops into black"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4667
+  - transition: {type: cut, note: "24.523 kick"}
+  - id: e4_rear_beam
+    src: /home/user/media/work/gr86/shots/e4_rear_beam
+    section: rear
+    focus: "push-in on the rear crash beam (Rear Bumper Removed scan)"
     src_fps: 15
     interpolate: true
-    dur: 9.8
+    dur: 2.4333
   - transition: {type: cut, note: "26.97 kick"}
-  - id: f_lights
-    src: /home/user/media/work/gr86/shots/f_lights
+  - id: f1_reverse_light
+    src: /home/user/media/work/gr86/shots/f1_reverse_light
     section: rear
-    focus: "REVERSE LIGHT leaves the tipped bumper inner face, then the LICENSE PLATE LIGHT (lands 29.42)"
-    src_fps: 15
-    interpolate: true
-    dur: 4.9
+    focus: "reverse light lifts off the parked bumper into the black band"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4667
+  - transition: {type: cut, note: "29.42 kick"}
+  - id: f2_plate_light
+    src: /home/user/media/work/gr86/shots/f2_plate_light
+    section: rear
+    focus: "licence plate lamp lifts out, turns upright, lands below the beam"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4333
   - transition: {type: cut, note: "31.873 kick"}
-  - id: h_reassemble
-    src: /home/user/media/work/gr86/shots/h_reassemble
+  - id: h1_reassemble
+    src: /home/user/media/work/gr86/shots/h1_reassemble
     section: whole
-    focus: "every part flies home rear -> front, hood last on the 34.32 return; complete car fades"
+    focus: "every part flies home rear -> front; hood swings shut on the 34.32 cut"
+    src_fps: 30
+    interpolate: false
+    dur: 2.4667
+  - transition: {type: cut, note: "34.32 loud return"}
+  - id: h2_hero
+    src: /home/user/media/work/gr86/shots/h2_hero
+    section: whole
+    focus: "clean complete car (car4) from high on the right, fade"
     src_fps: 15
     interpolate: true
-    dur: 4.9
-    vf: "fade=t=out:st=2.9:d=1.95:color=0x070709"
+    dur: 2.4333
+    vf: "fade=t=out:st=1.30:d=1.10:color=0x070709"
   - transition: {type: cut, note: "36.766 kick"}
   - id: logo
     src: /home/user/media/work/gr86/out/logo_card_v3.mp4
     section: end
-    focus: "ILLUMAESTHETIC logo, larger (user note)"
-    dur: 2.5
+    focus: "ILLUMAESTHETIC logo (860 px, v3 size)"
+    dur: 2.4667
 
 overlays:
-  - src: /home/user/media/work/gr86/out/hud_gr86_v3.mov   # python -m ive hud projects/toyota-gr86/overlay.json
+  - src: /home/user/media/work/gr86/out/hud_gr86_v4.mov   # python -m ive hud projects/toyota-gr86/overlay.json
     start: 0
