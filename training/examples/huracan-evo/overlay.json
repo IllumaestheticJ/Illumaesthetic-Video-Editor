@@ -7,21 +7,21 @@
  "items": [
   {
    "kind": "label",
-   "from": 434,
-   "duration": 51,
-   "title": "FRONT BUMPER",
-   "sub": "4,000,015 TRIANGLES",
+   "from": 440,
+   "duration": 48,
+   "title": "REAR END, NO BUMPER",
+   "sub": "9,500,000 TRIANGLES",
    "x": 0.06,
-   "y": 0.855
+   "y": 0.8
   },
   {
    "kind": "label",
-   "from": 659,
-   "duration": 42,
-   "title": "REAR BUMPER",
-   "sub": "7,999,727 TRIANGLES",
-   "x": 0.08,
-   "y": 0.1
+   "from": 599,
+   "duration": 50,
+   "title": "EVO EXHAUST",
+   "sub": "17,309,868 TRIANGLES",
+   "x": 0.06,
+   "y": 0.8
   }
  ]
 }
