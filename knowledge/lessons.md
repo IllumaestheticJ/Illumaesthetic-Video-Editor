@@ -755,3 +755,11 @@ lands here automatically. Agents must read this whole file before editing.
   bumper 10 cm low. Always render front, rear and side before animating.
 - **[story]** (toyota-sera-scan-process) Finished-car footage may only exist as a posted short with burned-in captions; crop the
   caption band out (never text over IRL) and say so, and ask for the raw clips.
+
+### Sera v5 - scan -> finished-car match from a phone clip
+- A hand-solved camera for a cropped phone frame: put the principal point where the UNCROPPED frame centre falls in the crop
+  (lens shift), keep the camera level if the horizon sits on that point, then tune angle/distance/focal with onion overlays
+  (projects/toyota-sera-scan-process/tools/fin_cam.py). ~5 previews got within 15 px.
+- To END a scan shot on a solved pose: start the camera further back on the same ray and `--move push` with
+  amount = D/(d+D) and `--look-at` on the ray; set `src_fps` so the rendered frames span the clip exactly (30 frames -> `50/3` for 1.8 s).
+- When a customer asks for "the kit", show every part (bumpers, skirts, wing) - list the CAD folder before planning shots.

@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v4 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v4.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.37 s.
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v3.md.
+# Toyota Sera scan-process reel v5 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v5.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v4.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -38,3 +38,17 @@ stacked part paths fixed both without new footage.
 - Scores changed vs v3: Story 4 -> 5 (scan -> design -> finished car), Ending 4 -> 3 (hard cut into the listing instead
   of the position-locked dissolve; finished-car clips are a 1.43x upscale of a captioned short, caption cropped out).
 - Open: raw (uncaptioned) finished-car clips would look better; ducktail and side skirts exist as CAD but are not shown.
+
+## v5 (user: "missing side skirts and the rear wing, and missing the final transition from the modified car in SG to the finished 3D printed car")
+- Ducktail (Print/Ducktail.stl) and both side skirts registered with the same kit->scan transform as the bumpers
+  (match/kit_to_scan.json); seating checked in clay renders.
+- Rear design shot: rear bumper rises on, then the ducktail drops onto the hatch (label NEW REAR BUMPER + DUCKTAIL), on the 21.0 phrase change.
+- New scan_kit_final (22.8-24.6): doors-up scan wearing all five parts, side skirts slide on, camera pushes in and ends on
+  match/cam_fin.json -> hard 1:1 cut on the 24.6 beat to the real finished car, then the rear, then the listing.
+- Timing: doors 2.4 -> 1.8 s, end card 3.6 -> 3.0 s, total 30.0 s (inside the music).
+- Checked: frames around every changed cut, end-frame onion (qa/v5_onion), per-frame luma (min 28.6, no dropouts).
+
+Scores vs v4: 1:1 match stays 3 - the new scan -> finished-car cut lines up on bumper, bonnet, windshield and wheels within
+~15 px at 540 w, but the real doors are opened to a different angle than the Door Open scan, so the door tips jump.
+Story 4 -> 5 (kit complete, ends scan -> real). Only the car-left skirt is visible in the final shot; the finished-car clips
+are still an upscaled crop of the captioned posted short (raw clips would fix both sharpness and framing).
