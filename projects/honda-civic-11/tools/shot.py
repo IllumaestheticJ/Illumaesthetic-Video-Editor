@@ -86,7 +86,7 @@ def mat_check(rgb):
     return m
 
 
-MATS = {"kit": ((0.012, 0.012, 0.014), 0.32, 0.0),      # Epsilon kit parts: gloss black, so they read on the silver scan
+MATS = {"kit": ((0.80, 0.80, 0.80), 0.35, 0.0),      # Epsilon kit parts: painted white as in Ron's render (gloss black vanished on the black bg)
         "gold": ((0.62, 0.42, 0.14), 0.30, 1.0),       # wheels as in Ron's Final-Sedan-FL renders (gold)
         "rubber": ((0.015, 0.015, 0.015), 0.75, 0.0)}
 _mats = {}
