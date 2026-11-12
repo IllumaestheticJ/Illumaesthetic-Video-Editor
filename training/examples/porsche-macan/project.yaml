@@ -87,7 +87,7 @@ timeline:
     dur: 3.0667
     vf: "fade=t=out:st=2.6:d=0.45"
   - transition: {type: cut, note: "31.56 small logo over the pad tail"}
-  - id: logo           # tools/logo_card.py --secs 2.0333 --width 320
+  - id: logo           # tools/logo_card.py --secs 2.0333 --width 720 (user v3: "logo too small"; lesson: 720 px)
     src: /home/user/media/work/macan/out/logo_card_v3.mp4
     dur: 2.0333
 

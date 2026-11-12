@@ -13,7 +13,7 @@ so it overrides the IS300-only plate default.
 | 5 | Story | 5 | Front -> side -> rear, now with the interior: on the side shot the left doors come off and park up, then the driver seat and the rear bench slide out to camera, one after its own door. The reel ends on a full exploded view with every panel, door, bumper, seat and bench out, which locks home on the kick before the logo. |
 | 6 | Grade | n/a | No IRL footage. |
 | 7 | Text | 4 | 5 factual labels, no numbers: FRONT BUMPER REMOVED, CRASH BEAM, INTERIOR, REAR BUMPER REMOVED, MOUNTING POINTS. INTERIOR first sat over the seat base at y 0.70; moved to 0.80 after checking frames 735-760. |
-| 8 | Ending | 4 | X3 exploded -> lock on 30.54 -> fade -> small logo over the pad tail. |
+| 8 | Ending | 4 | X3 exploded -> lock on 30.54 -> fade -> logo over the pad tail. User: logo too small at 320 px; rebuilt at 720 px (the size lessons.md already set). |
 | 9 | Technical | 5 | Per-frame luma on S1v3/R1v3/X3 finals: no dropouts. Frames +-1 at every cut inspected: no black or duplicate frames. |
 
 ## Director pass
@@ -21,6 +21,7 @@ Same two repeat flags as v2 (F1/R1v3, F2/S1v3, IoU 0.70-0.77), kept for the same
 F1's 0.8 s hold is the landing before the drop.
 
 ## What I'd do differently
+- Grep lessons.md for every element before following a plan's size: the plan said ~320 px logo, the lesson says 720 px.
 - Check label positions against the parts' paths before the HUD render: the seats come out low in frame, into the
   label band used by the bumper shots.
 - regcheck.py against a 3M-point shell without `distance_upper_bound` ran 19+ min; always bound the query.
