@@ -1,0 +1,21 @@
+project: epsilon-wing-configurator
+format: reel-9x16
+output: {path: /home/user/media/epsilon-wing-configurator/work/ewc_v1.mp4, width: 1080, height: 1920, fps: 30}   # built by tools/assemble.py (exact-frame concat)
+music: {path: /home/user/media/epsilon-wing-configurator/work/soundtrack_v1.wav, start: 0}   # tools/mix.py: generated track from 13.5 s + narration (voice 0.5-55.26 s)
+source: https://epsilon.plus/pages/wing-configurator (live, JS 0.9.18) - screen capture via tools/capture.js
+timeline:
+  - {id: hero_a, src: /home/user/media/epsilon-wing-configurator/clips/hero_a.mp4, in: 0, dur: 4.1, start: 0.0, section: app, focus: "GR86 scan + recommended TC wing (3D orbit)"}
+  - {id: hero_b, src: /home/user/media/epsilon-wing-configurator/clips/hero_b.mp4, in: 0, dur: 4.5, start: 4.1, section: app, focus: "phone layout: Configure sheet, steps 1-4"}
+  - {id: cars, src: /home/user/media/epsilon-wing-configurator/clips/cars.mp4, in: 0, dur: 5.5, start: 8.6, section: vehicle, focus: "make/model picker swaps the 3D car (3D Scan labels)"}
+  - {id: wing, src: /home/user/media/epsilon-wing-configurator/clips/wing.mp4, in: 0, dur: 3.9, start: 14.1, section: wing, focus: "wing element: TC 47.5 / TC 66.5 / GT / custom width (rear view)"}
+  - {id: mounts, src: /home/user/media/epsilon-wing-configurator/clips/mounts.mp4, in: 0, dur: 6.0667, start: 18.0, section: setup, focus: "tested setups + mount: bottom, swan neck, fender (NA Miata)"}
+  - {id: bases, src: /home/user/media/epsilon-wing-configurator/clips/bases.mp4, in: 0, dur: 2.0333, start: 24.067, section: setup, focus: "base style: 5-axis CNC vs sheet metal"}
+  - {id: aoa, src: /home/user/media/epsilon-wing-configurator/clips/aoa.mp4, in: 0, dur: 3.0, start: 26.1, section: setup, focus: "AoA hole 0-15, wing pitch in 3D"}
+  - {id: turn3d, src: /home/user/media/epsilon-wing-configurator/clips/turn3d.mp4, in: 0, dur: 1.4667, start: 29.1, section: views, focus: "3D view: drag to turn, scroll to zoom"}
+  - {id: side, src: /home/user/media/epsilon-wing-configurator/clips/side.mp4, in: 0, dur: 5.0, start: 30.567, section: views, focus: "side view: drag wing (overhang/height), tilt handle"}
+  - {id: rear, src: /home/user/media/epsilon-wing-configurator/clips/rear.mp4, in: 0, dur: 3.0, start: 35.567, section: views, focus: "rear view: drag endplate -> width"}
+  - {id: sliders, src: /home/user/media/epsilon-wing-configurator/clips/sliders.mp4, in: 0, dur: 4.5333, start: 38.567, section: setup, focus: "number controls, locks, inches -> mm"}
+  - {id: price, src: /home/user/media/epsilon-wing-configurator/clips/price.mp4, in: 0, dur: 5.6, start: 43.1, section: price, focus: "live estimate, Save spec, Request a quote (locked, not sent)"}
+  - {id: more, src: /home/user/media/epsilon-wing-configurator/clips/more.mp4, in: 0, dur: 3.9, start: 48.7, section: more, focus: "More options: blueprint / own photos"}
+  - {id: outro, src: /home/user/media/epsilon-wing-configurator/clips/outro.mp4, in: 0, dur: 2.9667, start: 52.6, section: app, focus: "finished build, rear 3/4 right, push-in"}
+  - {id: logo, src: /home/user/media/epsilon-wing-configurator/work/logo_card.png, dur: 3.3333, start: 55.567, section: ending, focus: "Epsilon+ wordmark (Drive EPSILON+ Logos, 720 px)"}

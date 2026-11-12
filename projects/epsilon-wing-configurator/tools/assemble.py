@@ -3,19 +3,30 @@ soundtrack. Plain concat = hard cuts with no duplicated/dropped frames (honda-s2
   python assemble.py OUT.mp4"""
 import subprocess, sys
 M = '/home/user/media/epsilon-wing-configurator/'
-CUTS = [0, 4.07, 8.57, 14.07, 18.07, 24.07, 26.07, 29.07, 30.57, 35.57, 38.57, 43.07, 48.57, 52.57, 55.57]
+CUTS = [0, 4.07, 8.57, 14.07, 18.07, 24.07, 26.07, 29.07, 30.57, 35.57, 38.57, 43.07, 48.57, 52.57, 55.57]  # planned grid
+# v1 cut frames = round(30 * measured kick attack) on the decoded track (40-120 Hz half-rise; grid read ~20 ms early;
+# 18.07 and 48.57 fall in drum fills -> nearest real hit 18.003 / 48.71)
+CUT_FRAMES = [0, 123, 258, 423, 540, 722, 783, 873, 917, 1067, 1157, 1293, 1461, 1578, 1667]
 SHOTS = ['hero_a', 'hero_b', 'cars', 'wing', 'mounts', 'bases', 'aoa', 'turn3d', 'side', 'rear', 'sliders',
          'price', 'more', 'outro']
 END = 58.9
 FPS = 30
+PUSH = {'cars', 'wing', 'mounts', 'bases', 'aoa', 'side', 'rear', 'sliders', 'price', 'more', 'hero_b'}  # UI holds: slow 5 % push-in (director: dead frames)
+PUSH_AMT = 0.05
 
 def main(out, audio=M + 'work/soundtrack_v1.wav'):
-    fr = [round(t * FPS) for t in CUTS] + [round(END * FPS)]
+    fr = CUT_FRAMES + [round(END * FPS)]
     ins, parts = [], []
     for i, s in enumerate(SHOTS):
         n = fr[i + 1] - fr[i]
         ins += ['-i', M + f'clips/{s}.mp4']
-        parts.append(f'[{i}:v]trim=end_frame={n},setpts=PTS-STARTPTS,fps={FPS},format=yuv420p[v{i}]')
+        push = ''
+        if s in PUSH:  # centre push-in: per-frame scale up (from 2x) + fixed centre crop
+            D = n / FPS
+            z = f"(1+{PUSH_AMT}*t/{D})"
+            push = (f",scale=w='trunc(2160*{z}/2)*2':h='trunc(3840*{z}/2)*2':eval=frame:flags=lanczos,"
+                    f"crop=2160:3840:'(iw-2160)/2':'(ih-3840)/2',scale=1080:1920:flags=lanczos")
+        parts.append(f'[{i}:v]trim=end_frame={n},setpts=PTS-STARTPTS,fps={FPS}{push},format=yuv420p[v{i}]')
     k = len(SHOTS); nlogo = fr[-1] - fr[-2]
     ins += ['-loop', '1', '-framerate', str(FPS), '-i', M + 'work/logo_card.png']
     parts.append(f'[{k}:v]trim=end_frame={nlogo},setpts=PTS-STARTPTS,format=yuv420p,'

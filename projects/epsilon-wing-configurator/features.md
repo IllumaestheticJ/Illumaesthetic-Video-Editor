@@ -71,3 +71,23 @@ for version 0.8; where the post and the live app differ, the live app wins and t
 | Use your own photos: side photo + rear photo upload | live "More options" |
 | Report a problem: category (Wrong fit or position, Model looks wrong, Missing car, Price or cart, Other), message, optional email (never submitted) | live |
 | Beta notes: positions are a guide, not a drill template; some combinations visualisation only | blog + JS help text |
+
+## Coverage in the reel (v1)
+| Feature | In the reel? | Shot / time | Why |
+|---|---|---|---|
+| Make/Model + 3D Scan/Hybrid/Game labels, 72 cars / 45 scans | yes | cars 8.6-14.1 (spoken) | core step; counts from the live list |
+| Wing element: TC 47.5 / TC 66.5 / GT dry carbon / custom width | yes | wing 14.1-18.0 | step 2, every option shown |
+| Tested setup cards (+RECOMMENDED), Mount: bottom / swan neck / fender | yes | mounts 18.0-24.1 (NA Miata) | the only car checked with all three mounts |
+| Base style CNC vs sheet metal | yes | bases 24.1-26.1 (GR86) | |
+| AoA holes 0-15, 1 deg per hole | yes | aoa 26.1-29.1 | |
+| 3D view drag/zoom | yes | turn3d 29.1-30.6 | |
+| Side view: drag wing (overhang/height), tilt handle; custom upright +$200 | yes | side 30.6-35.6 | |
+| Rear view: endplate drag -> width (snaps TC 47.5, Est. $800) | yes | rear 35.6-38.6 | |
+| Number controls (sliders, +/-), locks, MM/IN | yes | sliders 38.6-43.1 | |
+| Live estimate, price table, Save spec (link), Request a quote (lock) | yes | price 43.1-48.7 | quote never sent |
+| More options: blueprint / own photos | yes | more 48.7-52.6 | nothing uploaded |
+| Phone layout (CONFIGURE bottom sheet) | yes | hero_b 4.1-8.6 | shows the 4 steps + estimate header |
+| Reset to recommended, Base position (Forward/Spacing/Reset bases), upright picker list, TRUNK/WHOLE CAR, HANDLES, Undo/Redo, Details | on screen, not narrated | various | visible in frames; narration kept tight |
+| Fit issue/warning messages | no | - | not triggered by any tested setup; would need a forced bad fit |
+| Report a problem | no | - | support form, not a configuration feature (visible at the bottom of the more-options panel) |
+| Spec/drawing/DXF downloads | no | - | admin-only in 0.9.18 (not public); blog's claim not shown |

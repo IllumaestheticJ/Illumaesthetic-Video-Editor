@@ -3,6 +3,7 @@
 Newest first. Read the top two before starting a new edit.
 
 - [ferrari-296](ferrari-296/) - archived 2026-11-12
+- [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-12
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-12
 - [nissan-400z](nissan-400z/) - archived 2026-11-12
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12

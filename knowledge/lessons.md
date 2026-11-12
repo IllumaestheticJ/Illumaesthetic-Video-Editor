@@ -728,3 +728,19 @@ lands here automatically. Agents must read this whole file before editing.
 - Retime interpolated renders with `src_fps`, never `speed:` (speed drops 1 frame in 19 -> periodic judder).
 - "Not enough parts blown up" = progressive explode: every part off on its own kick and stays off, one label each, then all
   blast on the drop, fly home, lock.
+
+## From the Epsilon+ Wing Configurator screen-capture reel (2026-11-12, built by an agent; not yet reviewed)
+- **[technical]** Web-app screen captures: Playwright fake clock (`page.clock.install()`, then `clock.runFor(1000/30)` +
+  one screenshot per output frame) gives smooth true-speed WebGL/three.js animation at any resolution, however slow the
+  screenshot. Draw your own cursor + click ring (headless has none); native `<select>` popups never render - show the
+  click, then `selectOption` (projects/epsilon-wing-configurator/tools/capture.js).
+- **[text]** Portrait UI must be captured at a phone-width viewport (540x960 @2.5x) to read on a phone; a 720-wide
+  layout scaled 1.5x left stage labels at ~15 px. Desktop panels: 3x DPR, crop the 384-css panel to 1080 wide (2.8x).
+- **[story]** Live app > marketing copy: the launch blog (v0.8) said 49 cars/12 makes and "download spec/drawing";
+  the live app had 72/15 and the downloads were admin-only. Count from the live UI before writing narration.
+- **[technical]** 4-core container: >2 parallel headless Chromes thrash (load 15). Parallel capture queues must lock
+  shots (`.lock`/`.full_done`) and must not re-compose the same mp4 at the same time (two writers left a moov-less file).
+- **[pacing]** A narration-led reel: map phrases from the pause map of the tightened take (N pauses = N-1 clause
+  breaks), time each shot to its phrase, then snap the cut to the nearest measured kick (not the fitted grid).
+- **[technical]** A 3D stage's auto-centre by edge bbox fails (the ground horizon spans the width); use dark-pixel bbox
+  with the toolbar strip masked (tools/bbox.py).
