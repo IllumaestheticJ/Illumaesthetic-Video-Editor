@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 882,
+ "durationInFrames": 900,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -44,7 +44,7 @@
   {
    "kind": "label",
    "from": 400,
-   "duration": 63,
+   "duration": 46,
    "title": "BUTTERFLY DOORS",
    "sub": "DOOR OPEN SCAN - 10,500,000 TRIANGLES",
    "x": 0.08,
@@ -52,7 +52,7 @@
   },
   {
    "kind": "label",
-   "from": 525,
+   "from": 507,
    "duration": 33,
    "title": "REAR BUMPER REMOVED",
    "sub": "STOCK BUMPER, SCANNED OFF THE CAR",
@@ -61,7 +61,7 @@
   },
   {
    "kind": "label",
-   "from": 560,
+   "from": 542,
    "duration": 32,
    "title": "REAR BUMPER",
    "sub": "4,999,998 TRIANGLES - INSIDE + OUTSIDE",
@@ -70,7 +70,7 @@
   },
   {
    "kind": "label",
-   "from": 598,
+   "from": 580,
    "duration": 47,
    "title": "BEHIND THE REAR BUMPER",
    "sub": "TAIL PANEL / BUMPER MOUNTS",
@@ -79,12 +79,21 @@
   },
   {
    "kind": "label",
-   "from": 654,
+   "from": 636,
    "duration": 44,
-   "title": "NEW REAR BUMPER",
+   "title": "NEW REAR BUMPER + DUCKTAIL",
    "sub": "DESIGNED ON THE SCAN DATA",
    "x": 0.08,
    "y": 0.06
+  },
+  {
+   "kind": "label",
+   "from": 690,
+   "duration": 40,
+   "title": "SIDE SKIRTS",
+   "sub": "FULL KIT, DESIGNED ON THE SCAN DATA",
+   "x": 0.08,
+   "y": 0.74
   }
  ]
 }
