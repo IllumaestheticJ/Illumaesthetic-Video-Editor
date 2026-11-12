@@ -8,7 +8,9 @@ HERE = os.path.dirname(os.path.abspath(__file__)); WPS = 2.6
 TL = [
  ('src', 0, 13.98, 'Intro (unchanged)', 'Hook, title card, "All cars flex"', None),
  ('gfx', 13.98, 28.78, 'Intro (new graphics)', 'NEW 2D chassis-flex graphics under the existing voice-over', None),
- ('src', 28.78, 184.27, 'Setup (unchanged)', 'Braces, Miata Chop Shop, test plan', None),
+ ('src', 28.78, 83.92, 'Setup (unchanged)', 'Braces from Goodwin Racing, why we are testing', None),
+ ('fx', 83.92, 89.67, 'Setup (new callout)', 'Grimace in the paddock, NEW tracked arrow + label "GRIMACE / @epsilon_motorsports car"', None),
+ ('src', 89.67, 184.27, 'Setup (new label)', 'Miata Chop Shop (NEW label "Miata Chop Shop / IG @MCS_Parts" at 1:37-1:43 and 1:58-2:02), test plan', None),
  ('src', 184.27, 189.19, '1. Control', 'Scanning the car on the ground', "First, the control. Car on the ground, nothing touched. This scan is our zero."),
  ('card', 'w_control', 4, '1. Control', 'Control engine-bay scan with the 960.948 dimension',
   "The number to watch is the width of the engine bay between the two strut towers. Stock, on the ground: 960.948 millimeters. Every scan after this gets compared to that."),
@@ -93,7 +95,7 @@ _i = iter(NAR); TL = [it[:5] + (next(_i),) if it[5] else it for it in TL]; asser
 def nwords(nar): return sum(6 if re.fullmatch(r'[0-9]+\.[0-9]+[.,]?', w) else 1 for w in nar.split())   # "960.948" is six spoken words
 def dur(it):
     k, a, b, *_, nar = it
-    if k in ('src', 'gfx'): return b - a
+    if k in ('src', 'gfx', 'fx'): return b - a
     return max(b, nwords(nar)/WPS + 0.8)
 def tc(t): return f'{int(t//60)}:{t%60:04.1f}'
 def schedule():
@@ -101,12 +103,12 @@ def schedule():
     for it in TL: d = dur(it); rows.append((t, d, it)); t += d
     return rows, t
 def script_md(rows, total):
-    o = ['# Miata chassis-bracing long-form: script and edit plan (v4, for owner approval)', '',
+    o = ['# Miata chassis-bracing long-form: script and edit plan (v5, for owner approval)', '',
          f'Review cut length {tc(total)}. Narration below starts where the rough cut\'s voice stops (3:04). Tower widths are from',
          '`Strut Spread.xlsx` and the PDF reports on the engineering Drive (percent reductions calculated from them); the four body percentages are our own calculation from the exterior scans (tools/heat.py, clips.md).', '',
          '| Cut time | Section | Picture | Source | Narration (draft) |', '|---|---|---|---|---|']
     for t, d, (k, a, b, sec, pic, nar) in rows:
-        src = f'rough cut {tc(a)}-{tc(b)}' if k in ('src', 'gfx') else (f'rough cut still {tc(a)}' if k == 'still' else f'new card `{a}`')
+        src = f'rough cut {tc(a)}-{tc(b)}' if k in ('src', 'gfx', 'fx') else (f'rough cut still {tc(a)}' if k == 'still' else f'new card `{a}`')
         o.append(f'| {tc(t)}-{tc(t+d)} | {sec} | {pic} | {src} | {nar or "(existing voice, unchanged)"} |')
     words = sum(nwords(it[5]) for it in TL if it[5]); o += ['', f'New narration: {words} words, about {words/WPS/60:.1f} min at {WPS} words/s.']
     open(os.path.join(HERE, '..', 'script.md'), 'w').write('\n'.join(o) + '\n')
@@ -124,7 +126,8 @@ def ass(rows, path):
     L = ['[Script Info]', 'PlayResX: 1920', 'PlayResY: 1080', '[V4+ Styles]',
          'Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV',
          'Style: vo,Inter Display,54,&H0000E6FF,&H00000000,&H00000000,1,1,4,0,2,60,60,40', 'Style: old,Inter Display,54,&H00FFFFFF,&H00000000,&H00000000,1,1,4,0,2,60,60,40',
-         'Style: tag,Inter Display,26,&H0000E6FF,&H00000000,&H00000000,1,1,3,0,7,30,30,24', '[Events]', 'Format: Layer, Start, End, Style, Text']
+         'Style: ig,Inter Display,46,&H00FFFFFF,&H00000000,&H00000000,1,1,4,0,7,60,60,50', 'Style: tag,Inter Display,26,&H0000E6FF,&H00000000,&H00000000,1,1,3,0,7,30,30,24', '[Events]', 'Format: Layer, Start, End, Style, Text']
+    for u0, u1 in ((97.3, 103.0), (118.4, 122.4)): L.append(f'Dialogue: 0,{at(u0)},{at(u1)},ig,Miata Chop Shop\\NIG  @MCS_Parts')
     for t, d, (k, a, b, sec, pic, nar) in rows:
         if k == 'gfx':   # the graphics replace picture that carried burned-in subtitles: put the existing VO lines back
             for s in json.load(open(f'{M}/work/transcript.json')):
@@ -144,6 +147,7 @@ def build(rows):
         f = f'{SEG}/s{i:02d}.mp4'; lst.append(f)
         if os.path.exists(f): continue
         if k == 'src': run(['-ss', str(a), '-t', f'{d:.3f}', '-i', SRC, '-vf', 'scale=1920:1080', *V, f + '.tmp.mp4'])
+        elif k == 'fx': subprocess.run([sys.executable, f'{HERE}/callout.py', SRC, str(a), str(b), f + '.tmp.mp4'], check=True)
         elif k == 'gfx':
             g = f'{M}/work/flex.mp4'
             if not os.path.exists(g): subprocess.run([sys.executable, f'{HERE}/flexgfx.py', g], check=True)
@@ -159,7 +163,7 @@ def build(rows):
     ass(rows, f'{SEG}/draft.ass')
     tcf = "drawtext=font='DejaVu Sans Mono':fontsize=26:fontcolor=white:box=1:boxcolor=black@0.6:boxborderw=6:x=w-tw-24:y=24:text='%{pts\\:hms}'"
     run(['-i', f'{OUT}/clean.mp4', '-vf', f"ass={SEG}/draft.ass,{tcf}", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart',
-         f'{OUT}/MiataBracing_review_v4.mp4'])
+         f'{OUT}/MiataBracing_review_v5.mp4'])
 if __name__ == '__main__':
     rows, total = schedule(); script_md(rows, total)
     for t, d, it in rows:

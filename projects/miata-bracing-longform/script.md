@@ -1,4 +1,4 @@
-# Miata chassis-bracing long-form: script and edit plan (v4, for owner approval)
+# Miata chassis-bracing long-form: script and edit plan (v5, for owner approval)
 
 Review cut length 11:21.6. Narration below starts where the rough cut's voice stops (3:04). Tower widths are from
 `Strut Spread.xlsx` and the PDF reports on the engineering Drive (percent reductions calculated from them); the four body percentages are our own calculation from the exterior scans (tools/heat.py, clips.md).
@@ -7,7 +7,9 @@ Review cut length 11:21.6. Narration below starts where the rough cut's voice st
 |---|---|---|---|---|
 | 0:00.0-0:14.0 | Intro (unchanged) | Hook, title card, "All cars flex" | rough cut 0:00.0-0:14.0 | (existing voice, unchanged) |
 | 0:14.0-0:28.8 | Intro (new graphics) | NEW 2D chassis-flex graphics under the existing voice-over | rough cut 0:14.0-0:28.8 | (existing voice, unchanged) |
-| 0:28.8-3:04.3 | Setup (unchanged) | Braces, Miata Chop Shop, test plan | rough cut 0:28.8-3:04.3 | (existing voice, unchanged) |
+| 0:28.8-1:23.9 | Setup (unchanged) | Braces from Goodwin Racing, why we are testing | rough cut 0:28.8-1:23.9 | (existing voice, unchanged) |
+| 1:23.9-1:29.7 | Setup (new callout) | Grimace in the paddock, NEW tracked arrow + label "GRIMACE / @epsilon_motorsports car" | rough cut 1:23.9-1:29.7 | (existing voice, unchanged) |
+| 1:29.7-3:04.3 | Setup (new label) | Miata Chop Shop (NEW label "Miata Chop Shop / IG @MCS_Parts" at 1:37-1:43 and 1:58-2:02), test plan | rough cut 1:29.7-3:04.3 | (existing voice, unchanged) |
 | 3:04.3-3:09.2 | 1. Control | Scanning the car on the ground | rough cut 3:04.3-3:09.2 | All right, here's our control. Car on the ground, bone stock. |
 | 3:09.2-3:26.9 | 1. Control | Control engine-bay scan with the 960.948 dimension | new card `w_control` | What we're measuring is the width across the engine bay, from one strut tower to the other. On the ground, that's 960.948 millimeters. That's our baseline. So it's five scans total: this one, and then four on the jack. |
 | 3:26.9-3:49.7 | 1. Control (jacked, no bracing) | Jack, tape measure, scanning the jacked car | rough cut 3:09.2-3:32.0 | Now we jack up one front corner to a very specific height, and we check it with a tape measure so it's the same every time. Lift one corner like this and you're twisting the whole chassis. From here on, same corner, same height. All we change is the bracing. |
