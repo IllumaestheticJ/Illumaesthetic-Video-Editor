@@ -30,3 +30,13 @@ three full-car scans, which are registered into one frame, and cuts bugeye → b
 - Model years on the labels (left off).
 - The blobeye bumper-removed scan (left out; earlier brief made it the hero).
 - Hawkeye has 16 beats on screen against 12 each for the other two.
+
+## v2 (user: "re-edit to this music", uploaded RALLY HOUSE 002)
+Deliverable: `/home/user/media/work/gd3/out/subaru_gd_trio_v2.mp4`, 20.43 s. Same 15 renders, re-timed (`tools/make_yaml_v2.py`).
+- Track: 122 BPM, bar 1.967 s, syncopated; break 11.83-15.81 s, drop at 15.81 s. Music starts at 9.94 s.
+- Structure: bugeye on the last intro bar, blobeye from the last kick into the break, hawkeye on a synth accent in the break
+  (14.03 s, not a kick), face detail on the drop, then a car swap every half bar; the blobeye top view holds a full bar.
+- Beat sync 5: 14 kick cuts measured on the delivered file's decoded audio at -16 to +17 ms (half a frame is 16.7 ms).
+- Playback 12-14.4 src fps for most segments (planned 15); the bugeye top view runs at 6.6 src fps over a full bar - slowest
+  motion in the reel, interpolated.
+- Hawkeye front-detail and top segments play their first half only, so the hawkeye no longer gets extra screen time.

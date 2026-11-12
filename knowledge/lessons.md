@@ -690,3 +690,8 @@ lands here automatically. Agents must read this whole file before editing.
   (tools/highlight.py).
 - **[technical]** (porsche-gt3rs-992 v5) Scans from a second session (lift/underbody) shared one small rigid offset to the car
   frame (4 mm, 11 mm up, 0.3 deg): solve it on the scan with the most overlap (the wheels) and apply it to all of them.
+- **[pacing]** (subaru-gd-trio v2) Syncopated house tracks: `beat_track` and a single-BPM kick grid can be wrong (161 vs the
+  real 122 BPM, 38 ms residual). Get the bar from the low-band flux autocorrelation at 2- and 4-bar lags, print a
+  quarter-beat accent table from the drop, and cut on measured kick attacks.
+- **[workflow]** Same-camera segments rendered with a tail can be re-timed to new music without re-rendering:
+  src_fps = 15 x planned frames / new frames keeps each segment on its own stretch of the move.
