@@ -176,5 +176,5 @@ spec("h1_reassemble", [cam(0, [1.80, 4.60, 4.60], [0, -0.05, 0.75], 29),
                       ((0.35, RB_PARK, RB_ROT, "in"), Z), ((0.95, Z, Z, "in"), Z)]),
      extra_frames=(0.70, 1.40, 2.10))
 # 15 clean complete car (car4) hero from high on the right; fade in the assembler
-spec("h2_hero", [cam(0, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 28), cam(2.45, [2.50, 0.50, 6.60], [0, -0.05, 0.80], 28)], 73,
+spec("h2_hero", [cam(0, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 26), cam(2.45, [2.50, 0.50, 6.60], [0, -0.05, 0.80], 26)], 73,   # 26 mm: the final at 28 touched the right edge
      [], fps=15, base="car4")
