@@ -38,3 +38,6 @@ Known weak points (told to the user):
 
 ## v5
 - Game sounds restored under Get Low (ducked in holds). Rule: keep the game car/menu sounds when adding a song.
+
+## v6
+- Wheels rotate frame to frame (26 deg/frame + blur); ground shadow and tyre contact patches added in compositing. Checked on stills for all four cars; rotation direction derived from geometry, not confirmed in playback.
