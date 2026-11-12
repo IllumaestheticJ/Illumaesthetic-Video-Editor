@@ -663,3 +663,12 @@ lands here automatically. Agents must read this whole file before editing.
   assembly and hide the separate neighbour part in those shots instead.
 - **[scan-look]** Parked parts count for cropping too: every part left in a later shot must be fully inside the frame (or fully
   out) on the first/mid/last check - the user flagged a parked bumper clipped at the edge.
+## From the Subaru GD trio showcase (user feedback on blobeye v3: "too long, focuses too long on the wrong things", "logo too small")
+- **[pacing]** A 39 s single-car reel with 4.8 s holds on sparse partial state scans was "too long on the wrong things". Keep
+  scan-only reels near 20 s and spend the time on clean full-car scans.
+- **[scan]** Generations that share a shell (GD bugeye / blobeye / hawkeye) register onto each other with globalreg + refine
+  (1.5-2.4 mm median). Prep them `--like` one car and the same camera gives a pixel-aligned hard cut car to car.
+- **[scan-look]** For same-camera cuts between different scans, pin the light rig to one bbox (`light_bbox` in
+  subaru-gd-trio/tools/shot.py); the default rig follows each scan's own bbox.
+- **[text]** Logo 280 px was "too small" again; 720 px of 1080 used here.
+- **[workflow]** Find sibling scans by name with the Drive API (`name contains 'Hawk'`), not only the project folder.
