@@ -103,17 +103,29 @@ def main():
 
     sr.studio_world(sr.rgb(spec.get("bg", "0.004,0.004,0.005")), False)
     sr.studio_lights(lo, hi)
+    if spec.get("underlight"):  # underbody shots: the studio lights are all above the car
+        c, r = (lo + hi) / 2, max(hi - lo)
+        sr.add_light("under", "AREA", c + Vector((0, 0, -r * 1.2)), 70 * r * r * float(spec["underlight"]), r * 1.5)
+        sr.add_light("under_key", "AREA", c + Vector((r * 0.7, -r * 0.7, -r * 0.8)), 60 * r * r * float(spec["underlight"]), r)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
+    matte = bool(spec.get("matte"))  # mask pass: parts with "emit" render white, everything else is a holdout
+    if matte:
+        hold, nt, out_n = sr.new_mat("ive_holdout")
+        nt.links.new(nt.nodes.new("ShaderNodeHoldout").outputs[0], out_n.inputs[0])
+        emit, nt2, out2 = sr.new_mat("ive_emit")
+        nt2.links.new(sr.emission(nt2, (1, 1, 1, 1), 1.0).outputs[0], out2.inputs[0])
     for o in base:
         o.data.materials.clear()
-        o.data.materials.append(grey if spec.get("base_color") == "grey" else silver)
+        o.data.materials.append(hold if matte else (grey if spec.get("base_color") == "grey" else silver))
 
     colors = {"red": (0.9, 0.05, 0.03), "cyan": (0.0, 0.7, 1.0), "green": (0.1, 0.9, 0.1),
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
         m = mat_check(colors[p["color"]]) if p.get("color") else silver
+        if matte:
+            m = emit if p.get("emit") else hold
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
@@ -167,7 +179,7 @@ def main():
     sc.render.engine = "CYCLES"
     sc.cycles.device = "CPU"
     sc.cycles.samples = spec.get("samples", 12)
-    sc.cycles.use_denoising = True
+    sc.cycles.use_denoising = not matte
     sc.cycles.use_adaptive_sampling = True
     sc.render.use_persistent_data = bool(spec.get("persist", False))  # off by default: persistent data dropped the lights mid-animation on sibling reels
     sc.view_settings.view_transform = "AgX"

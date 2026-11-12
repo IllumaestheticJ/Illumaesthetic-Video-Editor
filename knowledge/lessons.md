@@ -679,3 +679,14 @@ lands here automatically. Agents must read this whole file before editing.
   (recessed parts like quarter-panel intakes exit along their duct opening, not along the car's X axis).
 - **[technical]** (porsche-gt3rs-992 v4) Two Drive files with different names can be the same part captured twice
   ("Side Skirt (upper)" vs "Sideskirt (lower)": p50 3-4 mm apart). Compare part scans against each other before casting them.
+- **[technical]** (porsche-gt3rs-992 v5) Four-on-the-floor tracks: get the grid from the 40-120 Hz envelope peaks (kick attack is
+  ~45 ms before the low-pass peak) and verify cuts on that band; a broadband half-rise check locks onto the off-beat bass and
+  reads every cut half a beat late.
+- **[story]** (porsche-gt3rs-992 v5) List the WHOLE Drive folder into the shot plan, including sub-folders like "Underbody":
+  wheels-off wheel-house scans are a removed-state hero beat (wheel slides off its axle, camera pushes in), and a floor scan
+  needs a camera below the car plus an under-light (`"underlight"` in porsche-gt3rs-992 tools/shot.py; 1.0 blew out, 0.4 worked).
+- **[scan-look]** (porsche-gt3rs-992 v5) Parts that cannot come off (hollow cut-outs) can still be highlighted: render a mask
+  pass (`"matte": true`, part `"emit": true`, base with the part cut out) and dim everything else while the label is up
+  (tools/highlight.py).
+- **[technical]** (porsche-gt3rs-992 v5) Scans from a second session (lift/underbody) shared one small rigid offset to the car
+  frame (4 mm, 11 mm up, 0.3 deg): solve it on the scan with the most overlap (the wheels) and apply it to all of them.

@@ -1,104 +1,102 @@
-# Porsche 911 GT3 RS (992) - scan reel v4 = v3 with collision-free part paths (tools/clipcheck.py) and ONE side skirt
-# (reviewer: "the parts clip into the car, and there are two side skirts"); grille trim stays on. v3 = v2 + part-name labels (user: "GT3RS include the labels"). v2 notes: (direction.md: scene director + director, 2026-11-11 user rules A-D).
-# One clockwise lap, one section per sequence; aero parts come off section by section and stay off (progressive
-# explode), top overview of everything off, then the layered stack on the drop, reassembly, fade, SMALL logo.
-# Shots: tools/shots_v2.py (new) + v1 renders s3_wheel / s5_wing reused (tools/shots.py). Base = comp_v2 (only the
-# 9 moving parts cut out; strakes, fender vent, rear strake, diffuser trim stay as scanned - no removed-state scans).
-# Music: porsche-gt3rs-992_track.mp3 (generated for this reel). Cuts only on onsets measured from the decoded audio
-# (1 ms RMS half-rise): 3.779, 11.281, 14.093, 18.779, 22.532, 26.285 (drop), 33.782 (logo); 5.633 and 16.900 are the
-# strongest local peaks in two kick-less bars. Frames: 113, 169, 338, 423, 507, 563, 676, 789, 1013; end 1139.
-# Transitions are 1-frame fades with one extra real frame on each outgoing clip (no cloned hold frame before cuts).
+# Porsche 911 GT3 RS (992) - scan reel v5.
+# Reviewer on v4: "illumaesthetic logo too small; there is a bunch of underbody/aero scans not highlighted/shown; attached is
+# the audio, start after the ~2:50 mark".
+# Music: user's track (Alkitran - Original Mix) from 171.651 s (kick onset). 127.0 BPM, beat 0.47244 s; reel beat b = b*0.47244 s.
+# The kick drops out b48-b54 (22.68-25.51 s) and returns on b54.
+# Order (one lap + underside): whole -> nose (strakes highlighted, lip off, hood-vent top) -> fender vent (highlighted) -> wing
+# -> rear (diffuser off; trim + bumper strake highlighted) -> side skirt off -> FL wheel off, wheel house (breakdown), wheel on
+# (kick return) -> underbody floor scan from below -> stack lands b68 / locks b74 -> fade -> logo (640 px).
+# Cut frames round(b*0.47244*30): b8 113, b20 283, b26 368, b32 454, b36 510, b44 624, b54 765, b62 879, b78 1105; end 1219.
+# Transitions are 1-frame fades; every outgoing clip except the first carries +1 real frame.
 project: porsche-gt3rs-992
 format: reel-9x16
-output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/porsche-gt3rs-992_track.mp3   # not in git
-  start: 0
-  fade_out: 0.3
+  path: /home/user/media/work/music/alkitran_full.wav   # user's track, not in git
+  start: 171.651
+  fade_out: 1.6
 
-beats: [3.779, 5.633, 11.281, 14.093, 16.900, 18.779, 22.532, 26.285, 33.782]
+beats: [3.780, 9.449, 12.283, 15.118, 17.008, 20.787, 25.512, 29.291, 36.850]
 
 timeline:
-  - id: sh1_whole      # whole car, low front-left 3/4, slide + small push
+  - id: sh1_whole
     section: whole
     focus: whole car (nose aero, wing silhouette)
     src: /home/user/media/work/gt3/renders/final/v2_sh1
     src_fps: 15
     interpolate: true
-    dur: 3.7667          # 113 frames (first clip carries no overlap frame)
-  - transition: {type: fade, duration: 0.0333, note: "3.779 big hit b8"}
-  - id: sh2_wheel      # REUSE v1 s3_wheel: FL centre-lock + drilled disc
-    section: wheel
-    focus: front-left wheel, centre-lock, drilled disc
-    src: /home/user/media/work/gt3/renders/final/s3_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 1.9000          # 56 + 1
-  - transition: {type: fade, duration: 0.0333, note: "5.633 strongest local peak at b12 (no kick in this bar; 5.565 measured 230 ms late)"}
-  - id: sh3_nose       # lip off 7.53->9.31, hood-vent top up 9.31->10.34 (grille trim stays: no clear exit)
+    dur: 3.7667
+  - transition: {type: fade, duration: 0.0333, note: "b8 kick"}
+  - id: sh3_nose       # strakes spotlighted 3.9-5.6, lip off b12->b16, hood-vent top up to b18
     section: front
-    focus: front aero (lip, hood-vent top)
-    src: /home/user/media/work/gt3/renders/final/v3_sh3
+    focus: front aero (bumper strakes, lip, hood-vent top)
+    src: /home/user/media/work/gt3/renders/final/hl_sh3
     src_fps: 15
     interpolate: true
-    trim_start: 0.0667   # starts 2 frames later than rendered; part keys stay on their reel times
-    dur: 5.6667          # 169 + 1
-  - transition: {type: fade, duration: 0.0333, note: "11.281 big hit b24"}
-  - id: sh4_louvres    # right front fender louvres, front parts held off
+    dur: 5.7000
+  - transition: {type: fade, duration: 0.0333, note: "b20 kick"}
+  - id: sh4_louvres    # fender vent spotlighted
     section: front
-    focus: right front fender louvres
-    src: /home/user/media/work/gt3/renders/final/v2_sh4
+    focus: right front fender vent
+    src: /home/user/media/work/gt3/renders/final/hl_sh4
     src_fps: 15
     interpolate: true
-    dur: 2.8667          # 85 + 1
-  - transition: {type: fade, duration: 0.0333, note: "14.093 big hit b30"}
-  - id: sh5_wing       # REUSE v1 s5_wing (trimmed): swan-neck mounts + deck louvres
+    dur: 2.8667
+  - transition: {type: fade, duration: 0.0333, note: "b26 kick"}
+  - id: sh5_wing
     section: rear
     focus: swan-neck wing mounts
     src: /home/user/media/work/gt3/renders/final/s5_wing
-    src_fps: 15
+    src_fps: 14.5
     interpolate: true
-    trim_start: 0.2
-    dur: 2.8333          # 84 + 1
-  - transition: {type: fade, duration: 0.0333, note: "16.900 strongest local peak at b36 (no kick in this bar)"}
-  - id: sh6_rear       # diffuser + undertray back, both QP intakes out
+    dur: 2.9000
+  - transition: {type: fade, duration: 0.0333, note: "b32 kick"}
+  - id: sh6_rear       # diffuser + undertray off; diffuser trim + bumper strake spotlighted
     section: rear
-    focus: rear diffuser + undertray, quarter-panel intakes
-    src: /home/user/media/work/gt3/renders/final/v3_sh6
+    focus: rear diffuser, diffuser trim, rear bumper strake
+    src: /home/user/media/work/gt3/renders/final/hl_sh6
     src_fps: 15
     interpolate: true
-    trim_start: 0.1      # starts 3 frames later than rendered
-    dur: 1.9000          # 56 + 1
-  - transition: {type: fade, duration: 0.0333, note: "18.779 big hit b40"}
-  - id: sh7_side       # left sill dolly, skirts off
+    dur: 1.9000
+  - transition: {type: fade, duration: 0.0333, note: "b36 kick"}
+  - id: sh7_side
     section: side
     focus: left side skirt + strake
     src: /home/user/media/work/gt3/renders/final/v3_sh7
-    src_fps: 14.5        # 3 % slower: interpolation loses the last source frame
+    src_fps: 14.3
     interpolate: true
-    dur: 3.8000          # 113 + 1
-  - transition: {type: fade, duration: 0.0333, note: "22.532 big hit b48"}
-  - id: sh8_top        # crane to near top-down, everything off
-    section: top
-    focus: all removed parts around the car
-    src: /home/user/media/work/gt3/renders/final/v3_sh8
-    src_fps: 14.5        # 3 % slower: interpolation loses the last source frame
+    dur: 3.8333
+  - transition: {type: fade, duration: 0.0333, note: "b44 kick"}
+  - id: sh_wheel       # FL wheel off b44->b47, push into the scanned wheel house through the breakdown, wheel on at b54
+    section: wheel
+    focus: front-left wheel house (wheel removed)
+    src: /home/user/media/work/gt3/renders/final/v5_wheel
+    src_fps: 15
     interpolate: true
-    dur: 3.8000          # 113 + 1
-  - transition: {type: fade, duration: 0.0333, note: "26.285 drop b56"}
-  - id: sh9_stack      # layered stack (lands 29.12), fly home, lock 31.905, fade to black 32.40->33.30
+    dur: 4.7333
+  - transition: {type: fade, duration: 0.0333, note: "b54 kick returns"}
+  - id: sh_under       # underbody floor scan from below, nose to tail
+    section: underbody
+    focus: underbody floor scan
+    src: /home/user/media/work/gt3/renders/final/v5_under
+    src_fps: 15
+    interpolate: true
+    vf: "scale=918:1632,pad=1080:1920:81:288:color=0x070709"   # 85 %, pushed down: clear black band for the label
+    dur: 3.8333
+  - transition: {type: fade, duration: 0.0333, note: "b62 kick"}
+  - id: sh9_stack      # stack lands b68 (32.13), locks b74 (34.96), fade to black 35.5->36.4
     section: whole
     focus: exploded stack -> reassembly
     src: /home/user/media/work/gt3/renders/final/v3_sh9
-    src_fps: 15
+    src_fps: 14.83       # 1.2 % slower so land/lock sit on b68/b74
     interpolate: true
-    vf: "fade=t=out:st=6.1:d=0.9"
-    dur: 7.5000          # 224 + 1
-  - transition: {type: fade, duration: 0.0333, note: "33.782 big hit b72 -> logo"}
-  - id: logo           # small logo (300 px), fades with the music's decay
-    src: /home/user/media/work/gt3/logo_v2.mp4
-    dur: 4.2333
+    vf: "fade=t=out:st=6.2:d=0.9"
+    dur: 7.5667
+  - transition: {type: fade, duration: 0.0333, note: "b78 kick -> logo"}
+  - id: logo
+    src: /home/user/media/work/gt3/logo_v5.mp4
+    dur: 3.8000
 
-overlays:   # ScanHUD part-name labels from the scan file names (overlay.json); top black band, off the car
-  - {src: /home/user/media/work/gt3/hud_v4.mov, start: 0}
+overlays:
+  - {src: /home/user/media/work/gt3/hud_v5.mov, start: 0}

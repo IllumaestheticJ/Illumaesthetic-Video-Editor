@@ -2,62 +2,89 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1139,
+ "durationInFrames": 1219,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "label",
-   "from": 228,
-   "duration": 69,
+   "from": 118,
+   "duration": 50,
+   "title": "FRONT BUMPER STRAKES",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 172,
+   "duration": 52,
    "title": "FRONT LOWER LIP",
    "x": 0.08,
    "y": 0.09
   },
   {
    "kind": "label",
-   "from": 300,
-   "duration": 33,
+   "from": 228,
+   "duration": 51,
    "title": "HOOD VENT TOP",
-   "sub": "LEFT",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": "LEFT"
   },
   {
    "kind": "label",
-   "from": 344,
-   "duration": 74,
+   "from": 288,
+   "duration": 75,
    "title": "FENDER VENT",
-   "sub": "FRONT RIGHT",
    "x": 0.92,
    "y": 0.06,
+   "sub": "FRONT RIGHT",
    "align": "right"
   },
   {
    "kind": "label",
-   "from": 428,
+   "from": 374,
    "duration": 74,
    "title": "REAR WING",
-   "sub": "MOUNTS",
    "x": 0.08,
-   "y": 0.06
+   "y": 0.06,
+   "sub": "MOUNTS"
   },
   {
    "kind": "label",
-   "from": 512,
+   "from": 458,
    "duration": 48,
    "title": "REAR DIFFUSER",
-   "sub": "+ UNDERTRAY \u00b7 QUARTER PANEL INTAKES",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": "+ DIFFUSER TRIM \u00b7 BUMPER STRAKE"
   },
   {
    "kind": "label",
-   "from": 573,
-   "duration": 97,
+   "from": 516,
+   "duration": 102,
    "title": "SIDE SKIRT",
-   "sub": "+ SIDE SKIRT STRAKE",
    "x": 0.08,
-   "y": 0.09
+   "y": 0.09,
+   "sub": "+ SIDE SKIRT STRAKE"
+  },
+  {
+   "kind": "label",
+   "from": 654,
+   "duration": 102,
+   "title": "WHEEL HOUSE",
+   "x": 0.92,
+   "y": 0.06,
+   "sub": "FRONT LEFT \u00b7 WHEEL REMOVED",
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 771,
+   "duration": 99,
+   "title": "UNDERBODY",
+   "x": 0.08,
+   "y": 0.06,
+   "sub": "FLOOR SCAN"
   }
  ]
 }

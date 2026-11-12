@@ -1,3 +1,32 @@
+# Porsche 911 GT3 RS (992) scan reel v5 - self-review
+
+File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v5.mp4 (40.6 s). Reviewer on v4: "illumaesthetic logo too small; there is
+a bunch of underbody/aero scans not highlighted/shown; attached is the audio, start after the ~2:50 mark".
+- Music: user's track (Alkitran - Original Mix) from 171.651 s. 127.0 BPM; every cut on an even-beat kick, measured on the
+  delivered file's kick band (40-120 Hz): all 9 cuts within +-0.49 frame. (tools/cutcheck.py's broadband onset locks onto the
+  off-beat bass on this track and reads +225 ms - use the kick-band check for four-on-the-floor music.)
+- Breakdown (kick out 22.7-25.5 s): FL wheel is off and the camera pushes into the scanned wheel house; the wheel seats on the
+  kick return (25.51). Stack lands on b68 (32.13) and locks on b74 (34.96).
+- New scans shown: Underbody Wheels (FL wheel), Underbody front and rear wheel house (FL arch, wheels-off state),
+  Underbody underbody (floor scan from below, lit from below). Underbody session registered with one shared transform.
+- Aero that cannot come off is spotlighted in place (mask pass dims the rest) with labels: FRONT BUMPER STRAKES, FENDER VENT,
+  REAR DIFFUSER + DIFFUSER TRIM + BUMPER STRAKE.
+- Logo 640 px wide (was 300).
+- Still not used: Underbody steered left + DRS open, DRS open/closed (no wing change), hood vent fins / interface right /
+  no fins and the 992 GT3 diffuser (other frames), Rear Bumper skin, Side Skirt (upper) duplicate, rear wheel house (same
+  state as the front; one wheel scene only).
+
+| # | Criterion | v5 | Notes |
+|---|---|---|---|
+| 1 | Hook | 4 | whole car moving from frame 1, first cut on b8 |
+| 2 | Beat sync | 5 | 9/9 cuts within half a frame of a kick; part events on beats; breakdown used for the wheel house |
+| 4 | Scan quality | 4 | wheel house / floor scans are raw (ragged liner edges); hood blotch remains; no clipping (wheel leaves along its axle) |
+| 5 | Story | 5 | one lap, then inside the arch and under the car, then stack + lock |
+| 7 | Text | 5 | 9 labels from file names, one at a time, in black; underbody shot scaled 85 % to give its label a clear band |
+| 8 | Ending | 5 | lock on b74, fade, logo on b78, music fades over 1.6 s |
+| 9 | Technical | 4 | 1080x1920 30 fps; wheel leaves the frame while the camera pushes in |
+
+## v4 review
 # Porsche 911 GT3 RS (992) scan reel v4 - self-review
 
 File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v4.mp4 (37.97 s). Reviewer on v3: "the parts clip into the car, and there
