@@ -81,10 +81,10 @@ timeline:
     interpolate: true
     dur: 4.4333
   - transition: {type: dip, duration: 0.6, note: "b56 31.715 phrase change - fade through black"}
-  - id: logo
+  - id: cta
     section: end
-    focus: "small ILLUMAESTHETIC logo (470 px), fades with the music's decay"
-    src: /home/user/media/work/miata/out/logo_card_v2.mp4
+    focus: "CTA: mobile listing 'MAZDA MIATA (NA) 3D SCAN' (iPhone 13 capture) pulls back into a phone frame; MIATA NA SCAN NOW AVAILABLE, logo, URL last (cta.json, WebZoom)"
+    src: /home/user/media/work/miata/out/cta_v2.mp4
     dur: 4.5000
 
 overlays:

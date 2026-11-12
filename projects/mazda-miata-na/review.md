@@ -18,7 +18,7 @@ closed → half → open, the three captures (s5) → trunk well (s6) → TOP: e
 | 5 | Story | 4 | Front bumper data first (part, then what's behind it), then side, then rear, then the whole car re-assembled. Each section appears once. Only the bumper has a removed-state scan, so only the bumper comes off. |
 | 6 | Grade | 5 | Silver on pure black, AgX. |
 | 7 | Text | 4 | Three sequential label cards, one at a time, on black (never over the car): FRONT BUMPER / INSIDE + OUTSIDE SCANNED; FRONT BUMPER REMOVED / WHAT'S BEHIND IT, SCANNED; CRASH BEAM / MOUNTING POINTS · RADIATOR. No numbers. Small subtitle line is thin on a phone. |
-| 8 | Ending | 5 | Top-down hold, dip to black, small logo on the b56 phrase change (31.7 s), audio fades with it. |
+| 8 | Ending | 5 | Top-down hold, dip to black, then the 'now available' CTA on the b56 phrase change (31.7 s): the mobile listing (MAZDA MIATA (NA) 3D SCAN, $500) pulls back into a phone frame, MIATA NA SCAN NOW AVAILABLE, logo, ILLUMAESTHETIC.COM holds ~1.3 s while the audio fades. |
 | 9 | Technical | 5 | Specs met; every rendered frame luma-checked (no black/dark frames; persistent data off); first/mid/last of every shot checked for clipping; only the planned dip/fade frames are dark. |
 
 ## v2 fix (reviewer: "the old bumper still shows when you take the new bumper off the main scan")
@@ -27,6 +27,12 @@ closed → half → open, the three captures (s5) → trunk well (s6) → TOP: e
   (comp_explode2): ahead of the front tyres and below the hood line, keep only what the 'Front End Bumper Off' capture
   confirms (−136,823 tris). s1 now shows that base + the removable bumper, so the same bumper is on the car before it
   comes off. Re-rendered s1, s2, s3_front_removed, s3_hood, s4b_side, s7; re-checked luma, framing and cut timing.
+
+## CTA (user: "add the Miata scan 'now available' CTA - using the mobile version of the site")
+- Live listing captured on an iPhone 13 viewport (Playwright); only edits: hid a third-party pin icon that can't load in
+  this sandbox, and one swipe on the 360 viewer to clear its 'Drag to rotate' hint. cta.json -> WebZoom (new optional
+  mobile layout props). Note: the listing's only dataset is 'Exterior Only'; the bumper-off / engine bay / trunk state
+  scans shown in the reel are not a listed dataset.
 
 ## ive director (v2)
 - Sections: whole 5.0, front 11.1, side 2.2, rear 8.9, top 4.4, end 4.5 s — one continuous block each.
