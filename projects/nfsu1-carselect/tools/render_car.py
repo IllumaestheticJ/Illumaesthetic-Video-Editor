@@ -46,6 +46,7 @@ def parse():
     ap.add_argument("--livery", default="", help="material name of a livery carrier node (livery_castrol, livery_ak4some): its image goes on the paint, through the body's own UVs, as the showroom does")
     ap.add_argument("--tail-glow", type=float, default=0.0, help="emission strength for tail-lamp materials (the game's cars sit with their lights on)")
     ap.add_argument("--steer", type=float, default=0.0, help="front wheel steer angle, degrees (+ = wheels point to the car's left)")
+    ap.add_argument("--frs-parts", default="", help="with --frs-green: '<wheels.glb>,<wing.glb>' - showroom GLB wheels in place of the blend's, and that GLB's part_tc_wing_kit in place of its wing")
     ap.add_argument("--cam-anim", default="", help="JSON list of cameras, one per frame")
     ap.add_argument("--frames", default="", help="with --cam-anim: 'a-b' subset of frame indices (0-based, inclusive)")
     ap.add_argument("--out", required=True, help=".png for a still, or a directory for a PNG sequence")
@@ -166,7 +167,86 @@ def lookdev(a):
                         s.material = pm
 
 
-def prep_frs_green(path):
+def frs_parts(spec, wheel_pos):
+    """Showroom GLB wheels (wheel_* of the first GLB) on the blend's wheel centres, and the Epsilon TC wing kit
+    (part_tc_wing_kit of the second GLB) on the boot lid in place of the blend's wing."""
+    import numpy as np
+    from mathutils import Vector
+    wg, tg = spec.split(",")
+    def imp(path, keep):
+        before = set(bpy.data.objects)
+        bpy.ops.import_scene.gltf(filepath=path)
+        new = [o for o in bpy.data.objects if o not in before]
+        out = [o for o in new if keep(o.name)]
+        for o in out:
+            mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
+        for o in new:
+            if o not in out:
+                bpy.data.objects.remove(o, do_unlink=True)
+        bpy.context.view_layer.update()
+        return out
+    for o in list(bpy.data.objects):                         # the blend's own wheels, discs, wing
+        if o.name.startswith(("wheel_", "Cylinder")) or o.name in ("Wing", "DecalWing"):
+            bpy.data.objects.remove(o, do_unlink=True)
+    for o in imp(wg, lambda n: n.startswith("wheel_")):
+        key = o.name[:8]; o.name = "tmp_" + key
+        t = wheel_pos[key]; c = sum((o.matrix_world @ Vector(v) for v in o.bound_box), Vector()) / 8      # tyre centre, not the node origin
+        o.matrix_world = Matrix.Translation((t[0] - c.x, t[1] - c.y, 0)) @ o.matrix_world
+        o.name = key
+        print("IVE_WHEEL", key, [round(v, 3) for v in o.matrix_world.translation])
+    wing = imp(tg, lambda n: n == "part_tc_wing_kit")[0]
+    bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get()
+    body = [bpy.data.objects[n] for n in ("FRS_Exterior_body", "FRS_Exterior.Fender") if n in bpy.data.objects]
+    a = np.empty(len(wing.data.vertices) * 3, "f"); wing.data.vertices.foreach_get("co", a)
+    M = np.array(wing.matrix_world); w = a.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]
+    rear = max(max((b.matrix_world @ Vector(c)).y for c in b.bound_box) for b in body[:1])
+    dy = (rear - 0.09) - w[:, 1].max()                      # trailing edge 9 cm inside the tail, as on the donor car
+    w[:, 1] += dy
+    feet = w[w[:, 2] < w[:, 2].min() + 0.02]                # the mount feet
+    gaps = []
+    for fx, fy, fz in feet[:: max(1, len(feet) // 200)]:
+        for b in body:
+            inv = b.matrix_world.inverted()
+            ok, loc, _n, _i = b.ray_cast(inv @ Vector((fx, fy, 3.0)), inv.to_3x3() @ Vector((0, 0, -1)))
+            if ok:
+                gaps.append(fz - (b.matrix_world @ loc).z)
+    dz = -float(np.median(gaps)) - 0.004 if gaps else 0.0
+    wing.matrix_world = Matrix.Translation((0, dy, dz)) @ wing.matrix_world
+    print(f"IVE_WING dy={dy:.3f} dz={dz:.3f} feet={len(feet)} hits={len(gaps)}")
+
+
+def setup_spin():
+    """Make each wheel's rim and tyre turn about its axle: split wheel_* by material, hang the turning parts
+    (everything but brake / caliper) on an empty at the wheel centre. spin(deg) then rolls all four forward."""
+    import numpy as np
+    for key in ("wheel_FL", "wheel_FR", "wheel_RL", "wheel_RR"):
+        o = bpy.data.objects.get(key)
+        if not o or o.type != "MESH":
+            continue
+        before = set(bpy.data.objects)
+        bpy.ops.object.select_all(action="DESELECT")
+        o.select_set(True); bpy.context.view_layer.objects.active = o
+        bpy.ops.mesh.separate(type="MATERIAL")
+        parts = [o] + [x for x in bpy.data.objects if x not in before]
+        turn = [x for x in parts if not any(k in (x.material_slots[0].material.name.lower() if x.material_slots and x.material_slots[0].material else "") for k in ("brake", "caliper"))]
+        tyre = max(turn, key=lambda x: max(x.dimensions))
+        c = sum((tyre.matrix_world @ Vector(v) for v in tyre.bound_box), Vector()) / 8
+        e = bpy.data.objects.new("spin_" + key[-2:], None); e.location = c
+        bpy.context.scene.collection.objects.link(e)
+        bpy.context.view_layer.update()
+        for x in turn:
+            mw = x.matrix_world.copy(); x.parent = e; x.matrix_world = mw
+        print("IVE_SPIN", key, len(parts), "parts,", len(turn), "turning, centre", [round(v, 3) for v in c])
+
+
+def spin(deg):
+    for o in bpy.data.objects:
+        if o.name.startswith("spin_"):
+            o.rotation_euler = (math.radians(deg), 0, 0)     # +X rotation: top of the wheel moves to -Y (the car's front)
+
+
+def prep_frs_green(path, parts=""):
     bpy.ops.wm.open_mainfile(filepath=path)
     for o in list(bpy.data.objects):
         if o.type in ("LIGHT", "CAMERA") or o.name.startswith("Plane.001") or o.name.startswith("113_T"):
@@ -200,9 +280,13 @@ def prep_frs_green(path):
         p = o.matrix_world.translation
         o.name = "wheel_" + ("F" if p.y < 0 else "R") + ("L" if p.x > 0 else "R")
         print("IVE_WHEEL", o.name, [round(v, 3) for v in p])
+    if parts:
+        frs_parts(parts, {o.name: tuple(o.matrix_world.translation) for o in wheels})
+        wheels = []
     for o in bpy.data.objects:                                # brake discs follow their wheel when it steers
         if o.name.startswith("Cylinder"):
             p = o.matrix_world.translation
+            if not wheels: continue
             w = min(wheels, key=lambda w: (w.matrix_world.translation - p).length)
             mw = o.matrix_world.copy(); o.parent = w; o.matrix_world = mw
     sc = bpy.context.scene
@@ -444,7 +528,7 @@ def ease(t, kind):
 def main():
     a = parse()
     if a.frs_green:
-        prep_frs_green(a.frs_green)
+        prep_frs_green(a.frs_green, a.frs_parts)
         sc = bpy.context.scene
     else:
         bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -458,9 +542,10 @@ def main():
         apply_livery(a.livery)
     tail_glow(a.tail_glow)
     steer(a.steer)
+    setup_spin()
 
     # turntable pivot: everything imported hangs off one empty at the car's footprint centre
-    lo, hi = bbox([o for o in visible_meshes() if not a.frs_green or o.name in ("FRS_Exterior_body", "bumper", "Wing", "wheel_FL", "wheel_RR")])
+    lo, hi = bbox([o for o in visible_meshes() if not a.frs_green or o.name in ("FRS_Exterior_body", "bumper", "Wing")])
     pivot = bpy.data.objects.new("car_pivot", None)
     pivot.location = ((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, 0)
     sc.collection.objects.link(pivot)
@@ -542,8 +627,8 @@ def main():
             dst = os.path.join(os.path.abspath(a.out), f"f_{c.get('src', i):04d}.png")
             if c is None or os.path.exists(dst):
                 continue
-            if "steer" in c:
-                steer(c["steer"])
+            if "spin" in c:
+                spin(c["spin"])
             cd.lens = c["focal_mm"]; cd.sensor_width = c.get("sensor_width_mm", 36.0); cd.sensor_fit = "HORIZONTAL"
             cd.shift_x, cd.shift_y = c.get("shift_x", 0.0), c.get("shift_y", 0.0)
             co.matrix_world = Matrix.Translation(c["blender"]["location"]) @ Matrix(c["blender"]["rotation_matrix"]).to_4x4()

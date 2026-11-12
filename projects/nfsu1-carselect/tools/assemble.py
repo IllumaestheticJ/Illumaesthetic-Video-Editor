@@ -22,6 +22,8 @@ SCROLL = [1181, 1520, 1840, 2139, 2488]
 FLIP_LEAD = 19            # the menu flips to the next car 19 frames before the old car moves (measured: f1821 vs f1840)
 SLIDE = 28                # logo strip slide, capture frames
 IN0, IN_LAST, HOLD0, HOLD1, OUT0, OUT_LAST, KIT_HOLD = 1653, 1745, 1746, 1836, 1838, 1972, 1790
+# wheels: rendered turning 18 deg per output frame; the hold is 20 renders of the hold pose (one full turn), looped
+SPIN_DEG, N_PHASE, HOLD_KIT0, N_IN = 18.0, 20, 9000, (IN_LAST - IN0) // 2 + 1
 SLOT = {"L": 750, "C": 1086, "R": 1392}; SW = 322
 
 
@@ -38,7 +40,8 @@ def timeline():
             src = min(IN0 + 2 * (d_in // 2), IN_LAST); ksrc = src
         else:
             u = (d_in - (IN_LAST - IN0 + 2)) / max(1, (SCROLL[j] - 2 - CUT[j]) - (IN_LAST - IN0 + 2))
-            src = int(round(HOLD0 + u * (HOLD1 - HOLD0))); ksrc = KIT_HOLD
+            src = int(round(HOLD0 + u * (HOLD1 - HOLD0)))
+            ksrc = HOLD_KIT0 + (N_IN + (d_in - (IN_LAST - IN0 + 2)) // 2) % N_PHASE      # the wheels keep turning in the hold
         # menu state
         flip = SCROLL[j] - FLIP_LEAD
         mk = lambda i: MAKE[CARS[i % n]]
@@ -65,11 +68,10 @@ def frames(out, only=None):
         dst = f"{out}/o_{r['n']:04d}.jpg"
         if os.path.exists(dst):
             continue
-        im = c.compose(r["src"], r["car"], r["ksrc"], r["plates"], r["strip"], phase=r["n"] * SPIN_STEP)
+        im = c.compose(r["src"], r["car"], r["ksrc"], r["plates"], r["strip"])
         cv2.imwrite(dst, im, [cv2.IMWRITE_JPEG_QUALITY, 96])
 
 
-SPIN_STEP = 26.0        # degrees the wheels turn per output frame (reads as forward roll on 5- to 10-spoke wheels)
 LOGO = "/home/user/media/nfsu1-carselect/logo/white.png"      # Dropbox /Misc. Brand Logos/Epsilon+ logo WHITE.png
 CARD = 60                                                     # end card: 2 s
 
@@ -105,12 +107,32 @@ def video(fdir, out, music=None, music_ss=0.0):
     print(out, n + CARD, "frames", round(dur, 2), "s")
 
 
+def cams(track):
+    """Per-car camera lists for render_car.py --cam-anim, with the wheel angle of every frame:
+    drive-in i -> 18*i, hold phase p -> 18*(N_IN+p), drive-away k -> continues from that car's hold length."""
+    rows = timeline()
+    for car in CARS:
+        base = {c["src"]: c for c in json.load(open(f"{track}/cams_30_{car}.json")) if c["src"] < HOLD_KIT0}
+        nh = sum(1 for r in rows if r["car"] == car and r["ksrc"] >= HOLD_KIT0)
+        out = []
+        for src in sorted(base):
+            if src == KIT_HOLD: continue
+            c = dict(base[src]); c.pop("steer", None)
+            c["spin"] = SPIN_DEG * ((src - IN0) // 2 if src <= IN_LAST else N_IN + nh + (src - OUT0) // 2)
+            out.append(c)
+        for p in range(N_PHASE):
+            c = dict(base[KIT_HOLD]); c.pop("steer", None); c["src"] = HOLD_KIT0 + p; c["spin"] = SPIN_DEG * (N_IN + p); out.append(c)
+        json.dump(out, open(f"{track}/cams_spin_{car}.json", "w")); print(car, len(out), "frames, hold", nh)
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "frames":
         only = None
         if "--only" in sys.argv:
             a, b = sys.argv[sys.argv.index("--only") + 1].split("-"); only = (int(a), int(b))
         frames(sys.argv[2], only)
+    elif sys.argv[1] == "cams":
+        cams(sys.argv[2])
     elif sys.argv[1] == "video":
         video(sys.argv[2], sys.argv[3], *(sys.argv[4:5]), *[float(v) for v in sys.argv[5:6]])
     else:

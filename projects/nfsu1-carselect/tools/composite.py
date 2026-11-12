@@ -128,7 +128,7 @@ class Comp:
             self.kit_cache = {p: cv2.resize(k, (W, H), interpolation=cv2.INTER_CUBIC).astype(np.float32)}
         return self.kit_cache[p]
 
-    def compose(self, src, car, kit_src, plates, strip, glare=True, spin=22, phase=0.0, shadow=True):
+    def compose(self, src, car, kit_src, plates, strip, glare=True, spin=7, phase=0.0, shadow=True):
         """src: capture frame for the background; kit_src: which render of `car`;
         plates: [(name, weight)]; strip: [(make, x_centre, mix 0=side..1=centre, opacity)]."""
         obs = self.frame(src)
@@ -176,7 +176,7 @@ class Comp:
         changed[y0:y1, x0:x1] = True
         # 3. what is left of the game's car
         pose = self.P["frames"][str(src)] if str(src) in self.P["frames"] else self.P["hold"]
-        kpose = self.P["frames"][str(kit_src)]
+        kpose = self.P["frames"][str(kit_src)] if str(kit_src) in self.P["frames"] else self.P["frames"]["1790"]   # 9000+: hold pose, wheel phases
         K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin, phase)
         SH = ground_shadow(car, kpose, self.f) if shadow and car in WHEELS else None
         dx, dy = self.shift.get(str(kit_src), (0.0, 0.0))            # steady.py: steadied screen path, render only

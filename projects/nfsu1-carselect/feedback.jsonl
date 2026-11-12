@@ -7,3 +7,4 @@
 {"ts": "2026-11-12T03:56:44Z", "project": "nfsu1-carselect", "at": null, "category": "motion", "note": "the cars still do a weird shaking when moving straight. music attached (Get Low, NFSU OST upload)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T06:20:03Z", "project": "nfsu1-carselect", "at": null, "category": "audio", "note": "the car and menu sounds got removed (wants them back under Get Low)", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-12T08:14:46Z", "project": "nfsu1-carselect", "at": null, "category": "motion", "note": "the wheels need to be fixed and spinning correctly, it looks weird like its just translating off the ground", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T19:36:49Z", "project": "nfsu1-carselect", "at": null, "category": "model", "note": "Replace the FRS wing with an epsilon TC wing. These cars also need the real wheels we used from the .glb files", "by": "reviewer", "promoted": false}
