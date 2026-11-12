@@ -257,8 +257,8 @@ const SHOTS = {
     await c.pan(-80, 0); await c.orbit(-150, 0); await c.zoom(-1);
     const v = await c.rect('.ewc-viewport');
     await c.curShow(v.cx + 110, v.cy + 90);
-    await c.drag(v.cx + 110, v.cy + 90, v.cx - 70, v.cy + 80, 24, 3);
-    for (let i = 0; i < 6; i++) { await c.p.mouse.wheel(0, -60); await c.tick(2); }
+    await c.drag(v.cx + 110, v.cy + 90, v.cx - 40, v.cy + 80, 24, 3);
+    for (let i = 0; i < 4; i++) { await c.p.mouse.wheel(0, -30); await c.tick(2); }
     await c.tick(Math.max(0, N - c.n));
   },
 
