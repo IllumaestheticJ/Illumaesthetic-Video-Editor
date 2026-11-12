@@ -1,81 +1,83 @@
-# Porsche 911 GT3 RS (992) scan-process reel v2 (v1: project_v1.yaml) - 240SX format with the crew scanning the yellow GT3 RS on the lift.
-# v2: cuts on the broadband TRANSIENTS (2 kHz band, 1 ms RMS half-rise) measured on the track: 3.780 7.532 11.281 14.093 15.031 18.780
-# 22.532 26.279 31.905 -> frames 113 226 338 423 451 563 676 788 957. v1 sat on bass notes 20-100 ms late.
+# Porsche 911 GT3 RS (992) scan-process reel v3 - re-cut to the user's track: Le Castle Vania "John Wick Medley"
+# (user upload, 604.7 s). Section used: 182.967-219.7 s = quiet build -> DROP at 186.747 (video 3.78) -> 120 BPM, 4-bar phrases
+# every 4.0 s (video 3.78 7.78 11.78 15.78 19.78 23.78 27.78 31.78), fill at 18.78, break at 27.78 (bass out, hats in),
+# bass drops out 35.78, track goes quiet ~37 s. Transients measured on the 2 kHz band (1 ms RMS). v2: project_v2.yaml.
+# Cut frames @30: 113 233 353 473 503 593 713 833 953(dissolve).
 project: porsche-gt3rs-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/gt3rs_scan_process_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/gt3rs_scan_process_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/gt3rs/music/track.wav   # hf_20261111_055731 GT3 RS track, ~128 BPM, music ends ~36.3 s
-  start: 0
+  path: /home/user/media/gt3rs/music2/johnwick.wav
+  start: 182.967
   fade_out: 1.2
 
-beats: [3.780, 7.532, 11.281, 14.093, 15.031, 18.780, 22.532, 26.279, 31.905]
+beats: [3.78, 7.78, 11.78, 15.78, 16.78, 19.78, 23.78, 27.78, 31.78]
 
 timeline:
-  - id: irl_headon        # car on the lift, camera settles head-on; ends on the solved frame 4.500 s (camA)
+  - id: irl_headon        # car on the lift over the quiet build; ends on the solved frame 4.500 s (camA)
     focus: car on lift
     dur: 3.7333   # 112 frames: one frame short, the assembler's cut compensation adds it back -> cut on frame 113
     src: /home/user/media/gt3rs/scanfoot/v_0130_125744.mov
     in: 0.8
     out: 4.5334
-  - transition: {type: cut, note: "1:1 #1 IRL head-on -> scan (camA) on the 3.780 s accent"}
-  - id: scan_headon       # silver, front wheels off like the real car, slow pull; TRIANGLES counter
+  - transition: {type: cut, note: "1:1 #1 IRL head-on -> scan (camA) on the DROP (186.747 s in the track)"}
+  - id: scan_headon
     focus: front scan
-    dur: 3.7667
+    dur: 4.0
     src: /home/user/media/work/gt3rs/renders/s1
     src_fps: 15
     interpolate: true
-  - id: xray_front        # v2: same view in x-ray pushes in on the bumper aero; lip + strakes drop forward into clear space
+  - id: xray_front        # cut-in on the front bumper section: lip + strakes drop forward into clear space
     focus: front lip + strakes
-    dur: 3.7333
+    dur: 4.0
     src: /home/user/media/work/gt3rs/renders/x1a
     src_fps: 15
     interpolate: true
-  - id: irl_crew_scan     # crew scanning the front-right arch, camera pulls back; ends on the solved frame 5.300 s (camC)
+  - id: irl_crew_scan     # crew scanning the front-right arch, pull back; ends on the solved frame 5.300 s (camC)
     focus: crew scanning front-right arch
-    dur: 2.8333
+    dur: 4.0
     src: /home/user/media/gt3rs/scanfoot/v_0130_125720.mov
-    in: 2.5
+    in: 1.3333
     out: 5.3333
-  - transition: {type: cut, note: "1:1 #2 IRL right side -> scan (camC) on the 14.093 s drop"}
-  - id: scan_side         # silver hold, 1 s
+  - transition: {type: cut, note: "1:1 #2 IRL right side -> scan (camC) on the 15.78 phrase start"}
+  - id: scan_side
     focus: right side scan
-    dur: 0.9333
+    dur: 1.0
     src: /home/user/media/work/gt3rs/renders/s2
     src_fps: 15
     interpolate: true
-  - id: xray_side         # v2: pushes in on the front fender; the vent comes off toward the lens and spins (mounting back)
+  - id: xray_side         # push in on the front fender; the vent comes off toward the lens and spins (mounting back)
     focus: fender vent
-    dur: 3.7333
+    dur: 3.0
+    speed: 1.2667   # 3.8 s render played in one 3 s slot (to the 19.78 phrase)
     src: /home/user/media/work/gt3rs/renders/xs2
     src_fps: 15
     interpolate: true
   - id: irl_scanner       # live scan on the handheld's screen
     focus: live scan screen
-    dur: 3.7667
+    dur: 4.0
     src: /home/user/media/gt3rs/scanfoot/v_0130_125732.mov
     in: 0.2
-    out: 3.9667
-  - id: xray_rear         # v2: rear section close-up - diffuser + trim drop, rear strake out + spin (x2r)
+    out: 4.2
+  - id: xray_rear         # rear section close-up - diffuser + trim drop, rear strake out + spin
     focus: rear diffuser assembly
-    dur: 3.7333
+    dur: 4.0
     src: /home/user/media/work/gt3rs/renders/x2r
     src_fps: 15
     interpolate: true
-  - id: xray_reassembly   # everything (incl. front wheels) translates home on the dense kicks; ends on the listing angle in listing grey
+  - id: xray_reassembly   # on the 27.78 break: removed parts + wheels land on consecutive beats, ends on the listing angle in listing grey
     focus: removed parts + wheels return
-    dur: 6.1333   # 169 frames to the 31.905 dissolve + 0.5 s overlap; part landings hit 27.217 27.569 28.156 29.094 29.448 30.033
-    src: /home/user/media/work/gt3rs/renders/x3
+    dur: 4.5      # 120 frames to the 31.78 dissolve + 0.5 s overlap
+    src: /home/user/media/work/gt3rs/renders/x3jw
     src_fps: 15
     interpolate: true
-    trim_start: 0.0667
-  - transition: {type: dissolve, duration: 0.5, note: "reassembled scan -> same-angle GT3 RS listing"}
-  - id: website           # listing zooms out; title, logo, then ILLUMAESTHETIC.COM fades in last
+  - transition: {type: dissolve, duration: 0.5, note: "reassembled scan -> same-angle GT3 RS listing on the 31.78 phrase"}
+  - id: website
     focus: listing
-    dur: 5.1   # v2 brief: don't hold the ending too long
-    src: /home/user/media/work/out/webzoom_gt3rs_v2.mp4
+    dur: 5.0
+    src: /home/user/media/work/out/webzoom_gt3rs_v3.mp4
 
 overlays:
-  - src: /home/user/media/work/out/hud_gt3rs_v2.mov
+  - src: /home/user/media/work/out/hud_gt3rs_v3.mov
     start: 0

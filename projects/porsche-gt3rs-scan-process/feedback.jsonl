@@ -4,3 +4,4 @@
 {"ts": "2026-11-11T08:54:07Z", "project": "porsche-gt3rs-scan-process", "at": null, "category": "scan-look", "note": "Check framing of the exploded shots", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T08:54:07Z", "project": "porsche-gt3rs-scan-process", "at": null, "category": "scan-look", "note": "A part being removed is hard to see when the rest of the scan is behind it - move parts out into clear background, not across the body", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-12T00:45:43Z", "project": "porsche-gt3rs-scan-process", "at": null, "category": "audio", "note": "Change the music to 'All On Me' by Tchami (youtube 1Qp9X17lU2g) and re-edit to it", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T08:14:25Z", "project": "porsche-gt3rs-scan-process", "at": null, "category": "audio", "note": "Use the uploaded Le Castle Vania - John Wick Medley audio instead (replaces the Tchami request)", "by": "reviewer", "promoted": false}

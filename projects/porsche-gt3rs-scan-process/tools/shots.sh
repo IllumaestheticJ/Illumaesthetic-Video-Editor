@@ -60,4 +60,17 @@ x3) # v2 brief: only the parts that came off in this reel (lip, front strakes, f
    --explode "$P/rear_diffuser_1.blend:0,0,-0.5:r$(f 2.02):$(f 2.82)" \
    --explode "$P/rear_diffuser_trim_outer.blend:0,0,-0.5:r$(f 2.37):$(f 3.17)" \
    --explode "$P/rear_bumper_strake.blend:0,0.35,-0.35:r$(f 2.95):$(f 3.75)" $(rest front_lower_lip front_bumper_strake fender_vent rear_diffuser_1 rear_diffuser_trim_outer rear_bumper_strake) ;;
+x3jw) # John Wick medley edit (120 BPM): same reassembly, parts land on consecutive beats 0.5 s apart from the 27.78 s break
+    # (lip + wheels 28.28, strakes 28.78, vent 29.28, diffuser 29.78, trim 30.28, rear strake 30.78); morph 30.88-31.68; dissolve at 31.78 (4.6 s)
+  L=4.6; f() { python3 -c "print(round($1/$L,4))"; }
+  $R --scene $W/car_carved_noFW.blend --camera $W/cams/x3_start.json --out $OUT/x3jw/ $XR --seconds $L --move orbit --move-amount 30 --ease ease_in_out --look-at 0,0,0.6 \
+   --morph-to-clay $(f 3.1),$(f 3.9) --morph-bg 0.012,0.014,0.013 --clay-color 0.06,0.06,0.06 \
+   --explode "$P/front_lower_lip.blend:0,0,0.7:r$(f 0.02):$(f 0.5)" \
+   --explode "$P/wheel_FR.blend:0,-0.6,0:r$(f 0.02):$(f 0.5)" \
+   --explode "$P/wheel_FL.blend:0,0.6,0:r$(f 0.02):$(f 0.5)" \
+   --explode "$P/front_bumper_strake.blend:0,0,0.9:r$(f 0.5):$(f 1.0)" \
+   --explode "$P/fender_vent.blend:0,-0.35,-0.35:r$(f 1.0):$(f 1.5)" \
+   --explode "$P/rear_diffuser_1.blend:0,0,-0.5:r$(f 1.5):$(f 2.0)" \
+   --explode "$P/rear_diffuser_trim_outer.blend:0,0,-0.5:r$(f 2.0):$(f 2.5)" \
+   --explode "$P/rear_bumper_strake.blend:0,0.35,-0.35:r$(f 2.5):$(f 3.0)" $(rest front_lower_lip front_bumper_strake fender_vent rear_diffuser_1 rear_diffuser_trim_outer rear_bumper_strake) ;;
 esac
