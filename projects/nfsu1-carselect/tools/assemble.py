@@ -9,6 +9,7 @@ Every car reuses the Miata cycle's frames (the only cycle with a tracked camera)
 """
 import sys, os, json, subprocess
 import numpy as np
+import cv2
 sys.path.insert(0, os.path.dirname(__file__))
 
 WORK = "/home/user/media/work/nfsu1-carselect"
@@ -68,19 +69,39 @@ def frames(out, only=None):
         cv2.imwrite(dst, im, [cv2.IMWRITE_JPEG_QUALITY, 96])
 
 
-def video(fdir, out):
+LOGO = "/home/user/media/nfsu1-carselect/logo/white.png"      # Dropbox /Misc. Brand Logos/Epsilon+ logo WHITE.png
+CARD = 60                                                     # end card: 2 s
+
+
+def end_card(path):
+    """Black 1080x1920 card with the white EPSILON+ wordmark, 800 px wide, centred."""
+    im = cv2.imread(LOGO, cv2.IMREAD_UNCHANGED); al = im[..., 3]
+    ys, xs = np.where(al > 8); al = al[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    w = 800; al = cv2.resize(al, (w, round(al.shape[0] * w / al.shape[1])), interpolation=cv2.INTER_AREA)
+    card = np.zeros((1920, 1080), np.uint8); y0 = (1920 - al.shape[0]) // 2; x0 = (1080 - w) // 2
+    card[y0:y0 + al.shape[0], x0:x0 + w] = al
+    cv2.imwrite(path, cv2.merge([card] * 3))
+
+
+def video(fdir, out, music=None, music_ss=0.0):
+    """music: a track laid over the whole reel in place of the capture audio (music_ss = where in the track to start)."""
     rows = timeline(); n = len(rows)
     while not os.path.exists(f"{fdir}/o_{n - 1:04d}.jpg"):      # preview of what exists so far
         n -= 1
-    t0 = rows[0]["audio"] / 60.0; dur = n / 30.0
-    # the menu's own width (x 290-1850) fills the reel's width; a blurred, darkened copy of the frame fills the rest
+    t0 = rows[0]["audio"] / 60.0; dur = (n + CARD) / 30.0
+    card = f"{WORK}/end_card.png"; end_card(card)
+    # the menu's own width (x 290-1850) fills the reel's width; a blurred, darkened copy of the frame fills the rest;
+    # then a hard cut to the logo card, which fades up over 8 frames
     vf = ("[0:v]split[a][b];[a]scale=-2:1920,crop=1080:1920,gblur=sigma=28,eq=brightness=-0.22:saturation=0.8[bg];"
-          "[b]crop=1560:1206:290:0,scale=1080:-2:flags=lanczos[fg];[bg][fg]overlay=0:(H-h)/2-60,format=yuv420p[v]")
-    cmd = ["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-i", f"{fdir}/o_%04d.jpg", "-ss", f"{t0:.4f}", "-t", f"{dur:.4f}", "-i", f"{WORK}/a.wav",
-           "-filter_complex", vf, "-map", "[v]", "-map", "1:a", "-af", f"afade=t=in:d=0.08,afade=t=out:st={dur - 0.5:.3f}:d=0.5",
-           "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-frames:v", str(n), "-shortest", out]
+          "[b]crop=1560:1206:290:0,scale=1080:-2:flags=lanczos[fg];[bg][fg]overlay=0:(H-h)/2-60,format=yuv420p,setsar=1[m];"
+          f"[2:v]fade=t=in:st=0:d={8 / 30:.3f},format=yuv420p,setsar=1[c];[m][c]concat=n=2:v=1:a=0[v]")
+    aud = ["-ss", f"{music_ss:.4f}", "-t", f"{dur:.4f}", "-i", music] if music else ["-ss", f"{t0:.4f}", "-t", f"{dur:.4f}", "-i", f"{WORK}/a.wav"]
+    cmd = ["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-t", f"{n / 30:.4f}", "-i", f"{fdir}/o_%04d.jpg", *aud,
+           "-loop", "1", "-framerate", "30", "-t", f"{CARD / 30:.4f}", "-i", card,
+           "-filter_complex", vf, "-map", "[v]", "-map", "1:a", "-af", f"afade=t=in:d=0.08,afade=t=out:st={dur - 1.2:.3f}:d=1.2",
+           "-c:v", "libx264", "-crf", "17", "-preset", "medium", "-pix_fmt", "yuv420p", "-r", "30", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-frames:v", str(n + CARD), out]
     subprocess.run(cmd, check=True)
-    print(out, n, "frames", round(dur, 2), "s")
+    print(out, n + CARD, "frames", round(dur, 2), "s")
 
 
 if __name__ == "__main__":
@@ -90,7 +111,7 @@ if __name__ == "__main__":
             a, b = sys.argv[sys.argv.index("--only") + 1].split("-"); only = (int(a), int(b))
         frames(sys.argv[2], only)
     elif sys.argv[1] == "video":
-        video(sys.argv[2], sys.argv[3])
+        video(sys.argv[2], sys.argv[3], *(sys.argv[4:5]), *[float(v) for v in sys.argv[5:6]])
     else:
         for r in timeline()[::10]:
             print(r["n"], r["audio"], r["car"], r["src"], r["ksrc"], r["plates"][0][0], [(s[0], round(s[1]), round(s[2], 2), round(s[3], 2)) for s in r["strip"]])

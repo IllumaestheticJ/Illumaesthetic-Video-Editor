@@ -27,3 +27,6 @@ Known weak points (told to the user):
 - Not done: "Get Low" over the reel — no audio file available here; v2 still carries the capture audio. Elise still missing (no model reachable).
 - Still rough: same garage stretch per car, FR-S reads dark, "Reputation" label fades under bright cars, typeset del Sol / FR-S plates.
 - Lesson: when recovering a game camera from silhouettes, constrain it (no roll, smooth height) before rendering — an unconstrained per-frame fit looks like the car shaking.
+
+## v3
+- Added EPSILON+ end card (2 s). Get Low still missing: no audio file reachable; `assemble.py video <frames> <out> <music> [start_s]` is ready for it.
