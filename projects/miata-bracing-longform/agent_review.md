@@ -150,3 +150,40 @@ Budget guide: #1-#2 no Blender time; #3 five stills plus cross-fades; #4 twelve 
 8. Can the team export the IRL shots without the burned-in section titles?
 9. Inches as well as millimetres in the narration?
 10. Confirm on record that the clone is your own voice and you approve its use for the full narration.
+
+## Sign-off pass on v3
+
+Checked: script.md v3, `build.py` rates, the two new clips.md sections, `work/exterior_stats.json`, `bay/towerspread.json`, and v3 contact sheets at 5:37-5:43, 8:17-8:28 and one frame of each new or changed card. I did not re-run `heat.py` or `towerspread.py`; the body percentages and strut-top figures are taken from the editor's output files.
+
+**Verdict: not approved yet. Five wording changes (below), then approved for owner review with no further pass from me.**
+
+### (a) B1-B6
+| # | Status | Note |
+|---|---|---|
+| B1 second tower measurement | partly | The conflict is recorded and goes to the owner, and the recommendation is gone. But "by this measurement" is spoken only once (5:50.2); the conclusions still state the xlsx result unqualified. |
+| B2 ranking / mechanism | resolved | No recommendation, no "left to do", no "stop it"; `takeaways` #3 now quotes both numbers. |
+| B3 heat-map claims | resolved | "Twisting" hedged, "now" removed, trunk line owns the rear deck, strut-only map left unexplained ("It's one scan"), fender hot spot added, colour reads replaced by computed shares. |
+| B4 wrong title at fender tail | resolved | 5:37-5:42 is clean; "Scanning Fender Brace + Strut Brace" first appears at about 8:21, inside the both section. |
+| B5 legend card | resolved | New card uses the real ±15 bar with zero at the green/light-blue boundary and no interpretive text. |
+| B6 line lengths | partly | All IRL lines are now 2.44 words/s or less. At the clone's 2.2 words/s, 3:04.3 still needs 5.5 s against 4.9 s and 5:19.8 needs 22.7 s against 21.7 s. Card holds still come from word count; time them from the audio. |
+
+### (b) New problems in v3
+1. **The strut-top cross-check undercuts three unqualified conclusion lines.** `towerspread.json`: no bracing +0.36 to +0.45 mm, fender braces only +0.73 to +0.97 mm (and the PDF's +0.691). By that measure the fender braces did not reduce the spread at all, and the unbraced spread is about 0.4 mm, not 1.695.
+   - 10:00.4 "every setup cut that spread by more than half" is true only for the xlsx engine-bay width. Not defensible as a bare takeaway; same for card `takeaways` #1 and the #2 subline "Towers: fender braces spread least".
+   - 10:57.4 "the car moved less with either one": not defensible for the fender braces. Strut-top spread is larger than unbraced, and the body share within 2.5 mm is 60 % against 58 %, which the script itself calls "basically the same" at 6:28.0.
+   - 7:17.1 "on this test the fender braces did more" needs the same qualifier as 5:50.2.
+2. **The four spoken body percentages (58 / 60 / 91 / 74) are defensible**, with two conditions. They agree in order and rough size with my colour-bar read of the PDFs. But they are our own calculation from the STLs, not values in the xlsx or PDFs, so the script.md header ("Every number is from `Strut Spread.xlsx` and the nine PDF reports") is now false, and the video should say once that these are computed from the scans. "Body" includes doors, soft top and glass; the 4:57.1 line already says so, which is enough.
+3. `exterior_stats.json` labels the thirds the opposite way to the clips.md table (json: jacked front 3.65, rear 0.44; clips.md: front 0.44, rear 3.65). Nothing spoken depends on it, but fix one before anyone quotes it.
+4. 5:37-5:40: "Then the fender goes back on" plays over the fender visibly off with the brace being bolted. Still needs the owner's confirmation that it was refitted before the scan (open question 5).
+5. No other new picture/word mismatch found. `w_jacked` is now drawn at matching size; the both section has side + top cards.
+
+### (c) Lines to change before owner review
+| Where | Change to |
+|---|---|
+| 7:17.1 | "... This brace bolts right to the strut towers, and by this measurement the fender braces did more." |
+| 9:39.6 | "So does chassis bracing actually do anything? On this car, on the jack, by this measurement, yes. With no bracing, the engine bay spread 1.695 millimeters. Fender braces, 0.237. Strut tower brace, 0.731. Both, 0.436." |
+| 10:00.4 | "So what do we take away from this? Number one, by the engine bay width, every setup cut that spread by more than half. Number two, the two ways of looking at it don't agree. By the engine bay width, the fender braces did the most. On the heat map of the whole car, the strut tower brace was the cleanest. And number three, they didn't add up. Both together was no better than the fender braces alone." Card `takeaways`: #1 "By engine bay width, every setup cut the spread by more than half"; #2 subline "Engine bay width: fender braces spread least. Whole-body map: strut tower brace is cleanest". |
+| 10:57.4 | "So which one would I do first? Honestly, off this one test, I can't tell you. What I can tell you is the engine bay spread less with every setup we tried. Let us know in the comments what you want us to measure next." |
+| script.md header | "Tower widths are from `Strut Spread.xlsx` and the PDF reports; the four body percentages are our own calculation from the exterior scans (tools/heat.py)." Add the same disclosure once on screen or in the 4:57.1 line ("... by our own math on the scans, a little under sixty percent ..."). |
+
+Owner question 1 should now say plainly: if the strut-top measurement is the right one, the fender-brace section and all of section 5 need rewriting, because by that measure the fender braces did not reduce the spread.

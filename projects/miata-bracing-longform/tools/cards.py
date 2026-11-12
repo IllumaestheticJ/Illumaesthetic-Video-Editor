@@ -96,8 +96,8 @@ def bullets(name, head, items):
         for j, ln in enumerate(t.split('\n')): d.text((210, y+6+j*58), ln, font=F(46, 'SemiBold' if j == 0 else 'Medium'), fill='#fff' if j == 0 else '#aab0b8')
         y += 250
     c.save(os.path.join(O, name))
-bullets('takeaways.png', 'WHAT THE DATA SAYS', ['Every setup cut the tower spread by more than half', 
-        'The two ways of looking at it do not agree\nTowers: fender braces spread least. Whole-body map: strut tower brace is cleanest',
+bullets('takeaways.png', 'WHAT THE DATA SAYS', ['By engine bay width, every setup cut the spread by more than half', 
+        'The two ways of looking at it do not agree\nEngine bay width: fender braces spread least. Whole-body map: strut tower brace is cleanest',
         'The braces did not add up\nBoth together: 0.436 mm, no better than fender braces alone (0.237 mm)'])
 bullets('caveats.png', 'KEEP IT IN CONTEXT', ['One car, one scan per setup', 'Static load: one corner on a jack, not a corner on track', 'Differences between the braces are fractions of a millimetre'])
 c = Image.new('RGB', (W, H), 'black'); d = ImageDraw.Draw(c)
