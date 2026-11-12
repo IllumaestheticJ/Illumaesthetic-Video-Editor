@@ -130,11 +130,11 @@ function portraitStage(c, st) {  // 9:16 window of the portrait app: full bleed 
   const clip = { x: st.x, y: st.y, width: w, height: h };
   c.setMeta(clip, [{ src: [0, 0, w, h], dst: [0, 0, 1080, 1920] }]);
 }
-function stack(c, top, bot) {  // top: stage rect (abs css, aspect 1080:1100), bot: panel rect (abs css, aspect 1080:800)
+function stack(c, top, bot, split = 1100) {  // top: stage rect (aspect 1080:split), bot: panel rect (aspect 1080:(1900-split))
   const x0 = Math.min(top.x, bot.x), y0 = Math.min(top.y, bot.y), x1 = Math.max(top.x + top.w, bot.x + bot.w), y1 = Math.max(top.y + top.h, bot.y + bot.h);
   const clip = { x: x0, y: y0, width: x1 - x0, height: y1 - y0 };
-  c.setMeta(clip, [{ src: [top.x - x0, top.y - y0, top.w, top.h], dst: [0, 0, 1080, 1100] },
-                   { src: [bot.x - x0, bot.y - y0, bot.w, bot.h], dst: [0, 1120, 1080, 800] }]);
+  c.setMeta(clip, [{ src: [top.x - x0, top.y - y0, top.w, top.h], dst: [0, 0, 1080, split] },
+                   { src: [bot.x - x0, bot.y - y0, bot.w, bot.h], dst: [0, split + 20, 1080, 1900 - split] }]);
 }
 function topRect(cx, cy, h) { const w = h * 1080 / 1100; return { x: cx - w / 2, y: cy - h / 2, w, h }; }
 async function panelRect(c, yTop, h = 284) { const d = await c.rect('.ewc-drawer'); return { x: d.x, y: yTop, w: d.w, h }; }
@@ -193,7 +193,8 @@ const SHOTS = {
   async wing(c, N) {
     await c.pick('Mazda', 'MX-5 Miata NA'); await c.view('Rear');
     const v = await c.rect('.ewc-viewport'); const ws = await c.rect('select[aria-label="Wing element"][data-where="panel"]');
-    stack(c, topRect(v.cx, v.cy, 694), await panelRect(c, ws.y - 120));
+    const tw = 1050, th = tw * 760 / 1080;   // wide pane: the whole 66.5" wing + car fit
+    stack(c, { x: v.cx - tw / 2, y: v.y + 4, w: tw, h: th }, await panelRect(c, ws.y - 110, 384 * 1140 / 1080), 760);
     await c.curShow(ws.x + 200, ws.y + 120); await c.tick(2);
     const sel = 'select[aria-label="Wing element"][data-where="panel"]';
     for (const [lab, hold] of [['TC 47.5" (1206 mm)', 12], ['TC 66.5" (1689 mm)', 8], ['GT Wing (66 Inch, Dry Carbon)', 10], ['Custom TC width…', 1]]) {
