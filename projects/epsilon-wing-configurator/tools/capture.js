@@ -116,6 +116,17 @@ class Cap {
   async orbit(dx, dy) { const v = await this.rect('.ewc-viewport'); await this.p.mouse.move(v.cx, v.cy); await this.p.mouse.down();
     await this.p.mouse.move(v.cx + dx, v.cy + dy, { steps: 8 }); await this.p.mouse.up(); await this.settle(600); }
   async zoom(ticks) { const v = await this.rect('.ewc-viewport'); await this.p.mouse.move(v.cx, v.cy); for (let i = 0; i < Math.abs(ticks); i++) { await this.p.mouse.wheel(0, ticks > 0 ? 120 : -120); await this.settle(150); } await this.settle(600); }
+  async center(fx = 0.5, fy = 0.5, iters = 2) {  // pan so the car+wing edge bbox centre sits at (fx, fy) of the viewport
+    const { execFileSync } = require('child_process');
+    for (let k = 0; k < iters; k++) {
+      const v = await this.rect('.ewc-viewport'); const f = '/tmp/claude-0/ewc_center.png';
+      await this.p.screenshot({ path: f, clip: { x: v.x, y: v.y, width: v.w, height: v.h } });
+      const [x0, y0, x1, y1] = execFileSync('python3', ['/home/user/illumaesthetic-video-editor/projects/epsilon-wing-configurator/tools/bbox.py', f]).toString().trim().split(' ').map(Number).map(n => n / this.dpr);
+      const dx = v.w * fx - (x0 + x1) / 2, dy = v.h * fy - (y0 + y1) / 2;
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) break;
+      await this.pan(dx, dy);
+    }
+  }
   async view(name) { await this.p.click(`.ewc-stage button:has-text("${name}")`); await this.settle(1200); }
   async openAdjust() { await this.p.evaluate(() => { document.querySelector('.ewc-more-setup').open = true; }); await this.settle(300); }
   async finish() {
@@ -343,13 +354,14 @@ const SHOTS = {
     await c.tick(Math.max(0, N - c.n));
   },
   // 52.57-55.57: conclusion, wide slow orbit
-  async outro(c, N) {  // finished build, front 3/4 from the side opposite hero_a, slow push-in (no orbit)
+  async outro(c, N) {  // finished build, front 3/4 (left side; hero_a is the rear), centred, slow push-in, no orbit
     await c.pick('Toyota', 'GR86');
     portraitStage(c, await c.rect('.ewc-bleed'));
-    await c.pan(-80, 0); await c.orbit(150, -15); await c.zoom(-1);
+    await c.orbit(260, -15); await c.zoom(-1); await c.center(0.5, 0.5);
     const v = await c.rect('.ewc-viewport'); await c.p.mouse.move(v.cx, v.cy);
-    for (let i = 0; i < N; i++) { if (i % 9 === 0 && i < N - 20) await c.p.mouse.wheel(0, -14); await c.tick(); }
+    for (let i = 0; i < N; i++) { if (i % 6 === 0 && i < N - 12) await c.p.mouse.wheel(0, -25); await c.tick(); }
   },
+
 
 
 };
