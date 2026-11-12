@@ -655,3 +655,4 @@ lands here automatically. Agents must read this whole file before editing.
   1080 wide frame) for the end logo.
 
 - **[scan-look]** the parts clip into the car  _(from porsche-gt3rs-992, 2026-11-12, reviewer)_
+- **[music]** Music (THE DEATH - Sworra, CML library track) is awful - change it to a real, trending song  _(from honda-civic-11-scan-process, 2026-11-11, reviewer)_
