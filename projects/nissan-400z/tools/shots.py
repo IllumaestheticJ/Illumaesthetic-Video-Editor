@@ -182,11 +182,14 @@ SHOTS["N3_wing"] = {"base": [EXP], "parts": [
                 [-1.10, 4.15, 2.25], [0.05, 1.85, 0.95], 27)}  # f35 cut the wing's left tip + right quarter (v3 frames check)
 
 
+FPS = {"N2_mirror": 30}  # v3: mirror moves too fast for minterpolate (ghost trails f706-722) -> native 30 fps
+
+
 def spec(name, mode):
     s = SHOTS[name]
     final = mode == "final"
     sp = {"base": s["base"], "parts": s.get("parts", []), "camera": {"sensor": 20.25, "keys": s["cam"]},
-          "seconds": SECS[name] + 1 / 15, "fps": 15, "res": "1080x1920",
+          "seconds": SECS[name] + 1 / FPS.get(name, 15), "fps": FPS.get(name, 15), "res": "1080x1920",
           "res_pct": 75 if final else 30, "samples": 12 if final else 6,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}", "persist": False}
     if mode == "frames":
