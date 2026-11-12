@@ -48,8 +48,8 @@ timeline:
   - transition: {type: cut, note: "23.363 kick"}
   - id: N2_mirror     # right mirror lifts off (glass-trimmed part), Side Mirrors Removed mount (84 f)
     src: /home/user/media/work/z400/renders/final/N2_mirror
-    src_fps: 15.17
-    interpolate: true
+    src_fps: 30    # native 30 fps render (90 f), no interpolation
+    interpolate: false
     dur: 2.8
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "26.181 kick (break follows)"}
