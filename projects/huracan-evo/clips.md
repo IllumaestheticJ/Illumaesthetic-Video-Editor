@@ -121,3 +121,15 @@ dips to black on kicks. Spyder (2026 scan, exploded 2 mm parts) from the lift 41
 - Sources: Lamborghini EVO release 7 Jan 2019 (640 CV = 631 hp at 8,000 rpm, 600 Nm = 443 lb-ft, LDVI "anticipates", aero >5x
   first Huracan incl. slotted spoiler, 0-100 km/h 2.9 s, 325 km/h = 202 mph); EVO Spyder release 26 Feb 2019 (0-100 km/h 3.1 s,
   325 km/h, roof 17 s up to 50 km/h = 31 mph, aero kept roof up or down); name = Huracan, fighting bull, Alicante 1879.
+
+## v6 voice (custom clone, consented)
+- Source: `jennp_voice2.mp4` (user upload, 61 s): a fan-made edit from a mod; per the user, the mod creator voiced it, and the user
+  says they obtained **explicit permission from the speaker** for cloning (2026-11-12; written OK kept by the user, not in this repo).
+  Prep: voice band 90 Hz-9 kHz, mono, no separation (music bed remains -> some clone quality loss). Higgsfield custom voice
+  "Jenn P (mod narrator, consented)" id 2f42bfcb-... (element). Measured vs the HP reference: F0 203 Hz (ref 182), timbre 2.8 dB.
+- NOT used, refused: `NFS_Hot_Pursuit_Remastered_..._Descriptions.mp3` and `jenn_voice.mp3` (game narrator: F0 182.0 Hz
+  identical to hp_1138, same encoder/silence signature) - a real voice actor who has not consented.
+- Script (single EVO speech, user: "only a speech about the EVO", "add more information as necessary"): "Lamborghini Huracan EVO.
+  Named after a fighting bull from 1879. A naturally aspirated V10: six hundred thirty-one horsepower, four hundred forty-three
+  pound-feet of torque. Four-wheel drive, rear-wheel steering, and a brain called LDVI that predicts your next move. More than
+  five times the downforce of the original Huracan. Zero to sixty-two in two-point-nine. Two hundred and two miles per hour."

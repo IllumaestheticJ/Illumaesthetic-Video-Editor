@@ -158,5 +158,29 @@ def main_v5(out):
     print(out)
 
 
+# v6: ONE speech about the EVO (user), in the consented custom voice (clips.md "v6 voice"), natural pitch and pace: no
+# pitch_rate, no atempo; only pauses > GAP_KEEP trimmed. Same music/engine as v5.
+V6 = dict(VO="/home/user/media/huracan-evo/vo/narration9.wav", AT=3.0, LAST=26.9)
+
+
+def main_v6(out):
+    global TEMPO
+    TEMPO = 1.0; g = 10 ** (DUCK_DB / 20)
+    tight = V6["VO"].replace(".wav", "_tight.wav"); n = tighten(V6["VO"], tight)
+    d0, d1 = V6["AT"] - RAMP, V6["AT"] + n + 0.2
+    print("voice", round(n, 2), "s:", V6["AT"], "->", round(V6["AT"] + n, 2))
+    assert V6["AT"] + n <= V6["LAST"], "speech runs into the logo"
+    env = (f"if(lt(t,{d0}),1,if(lt(t,{d0 + RAMP}),1-(1-{g})*(t-{d0})/{RAMP},"
+           f"if(lt(t,{d1}),{g},if(lt(t,{d1 + RAMP}),{g}+(1-{g})*(t-{d1})/{RAMP},1))))")
+    vchain = ("aresample=48000,highpass=f=90,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=3,"
+              "aecho=0.85:0.5:38|71:0.18|0.10,volume=2.4,alimiter=limit=0.8:level=disabled")
+    ea = int(V5["ENGINE_AT"] * 1000); va = int(V6["AT"] * 1000)
+    fc = (f"[0:a]aresample=48000,volume='{env}':eval=frame[m];[1:a]aresample=48000,adelay={ea}|{ea}[e];"
+          f"[2:a]{vchain},adelay={va}|{va}[v];[m][e][v]amix=inputs=3:normalize=0:duration=first,alimiter=limit=0.89:level=disabled[out]")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", V5["MUSIC"], "-i", V5["ENGINE"], "-i", tight, "-filter_complex", fc,
+                    "-map", "[out]", "-c:a", "pcm_s24le", out], check=True)
+    print(out)
+
+
 if __name__ == "__main__":
-    {"--v4": main_v4, "--v5": main_v5}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
