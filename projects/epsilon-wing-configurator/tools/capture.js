@@ -242,7 +242,8 @@ const SHOTS = {
     const cnc = await c.rectText('.ewc-step-setup button', '^5 axis CNC');
     stack(c, topRect(v.cx, v.cy + 40, 560), await panelRect(c, cnc.y - 110));
     await c.curShow(cnc.cx + 60, cnc.cy + 90); await c.tick(2);
-    await c.clickSel('.ewc-step-setup button', '^5 axis CNC', 8); await c.p.waitForTimeout(800); await c.tick(14);
+    await c.clickSel('.ewc-step-setup button', '^5 axis CNC', 8); await c.p.waitForTimeout(800); await c.tick(4);
+    const t2 = await c.panelTo('.ewc-step-setup button', '^Sheet metal', 110); await c.scrollPanel(t2, 6); await c.tick(4);
     await c.clickSel('.ewc-step-setup button', '^Sheet metal', 8); await c.p.waitForTimeout(800);
     await c.tick(Math.max(0, N - c.n));
   },
