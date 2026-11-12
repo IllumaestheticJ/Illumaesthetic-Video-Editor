@@ -144,7 +144,7 @@ timeline:
     src: /home/user/media/work/gr86/out/logo_card_v3.mp4
     section: end
     focus: "ILLUMAESTHETIC logo (860 px, v3 size)"
-    dur: 2.4667
+    dur: 2.5   # 75 frames: with 74 the delivered file was 1176 frames (the logo clip loses its last frame to the audio end)
 
 overlays:
   - src: /home/user/media/work/gr86/out/hud_gr86_v4.mov   # python -m ive hud projects/toyota-gr86/overlay.json

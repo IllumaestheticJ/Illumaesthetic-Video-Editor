@@ -1,3 +1,37 @@
+# Toyota GR86 / Subaru BRZ (gen 2) - v4 self-review (training/rubric.md)
+
+Output: `/home/user/media/work/gr86/out/toyota_gr86_v4.mp4` (not in git). 1080x1920, 30 fps, 1177 frames / 39.233 s,
+h264 yuv420p + AAC. Scan-only, so criteria 3 and 6 don't apply.
+
+v3 user feedback addressed:
+1. "Move faster". There is now a cut on every kick: 16 clips of 2.45 s, where v3 had 8 clips of up to 9.8 s. Each shot has one action, part moves take 0.4-1.0 s, and part-move shots render at native 30 fps.
+2. "Parts of the old bumper still visible".
+   - Each bumper now carries every car4 triangle that its bumper-removed state lacks (tools/build_v4.py).
+   - Hood Open and Trunk Open were captured with the bumpers on, so they may no longer fill the bumper zones. In v3 they put bumper skin back on the car.
+   - Projections and renders show bare front and rear structure.
+3. "Hood needs to hinge open THEN come off". The hood swings -50 deg about its rear corners, then lifts off on the next kick. Neither open-state scan captured the propped panel, so there was nothing to fit a hinge to. The angle matches the 250 mm strip of open hood in Hood Open.
+4. "Rear trunk cut correctly / done the same".
+   - lid_v4 is cut on the shut lines: top and rear silhouettes voted by the opening Trunk Open leaves, one smoothed symmetric interval per row, and the front edge at the glass shut arc (tools/lid_v4.py).
+   - It hinges +65 deg, then lifts off to show the cargo area.
+   - There is no "lid removed" scan, so the lid coming off rests on the user's request.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Hook | 4 | Whole car with motion from frame 0 (v2 opener at 2x), then a cut at 2.48 s. The first part move is the hood hinge at 4.93 s; it was 7.4 s in v3. |
+| 2 | Beat sync | 5 | 15 cuts on decoded audio, half-rise after the dip, offsets -16..+14 ms (target +-16.7). |
+| 3 | 1:1 match | n/a | Scan only. |
+| 4 | Scan quality | 4 | No bumper skin is left on the base. Every render was luma-checked; the steps are only parts entering or leaving frame. The lid/hood undersides are not scanned, so the hinge cameras stay on the outer-face side. The rear wheel scan is patchy, so e1 keeps it to a corner. |
+| 5 | Story | 4 | front (hinge, hood off, bumper off, structure) -> side (mirror) -> rear (lid hinge, lid off/cargo, rear bumper off, beam, reverse light, plate lamp) -> reassembly with the hood shutting on the 34.32 return -> clean car -> logo. No section repeats. |
+| 7 | Text | 4 | 7 short factual labels, one per state/part beat, no numbers. Each sits where scan coverage under the label box is <= 4 % over its whole window. |
+| 8 | Ending | 4 | Parts home rear -> front, hood shuts on the kick, then a clean complete car (car4) from high on the right fades into the 860 px logo. ive director calls the h2 rise + fade "dead"; it is the only hold in the reel. |
+| 9 | Technical | 5 | Spec above, one Blender at a time, persistent data off. In-shot frame-diff spikes are fast part moves, checked frame by frame with no pops. |
+
+## Remaining weak spots for the next agent
+- e4_rear_beam: a fragment of the parked rear bumper shows at the frame bottom (camera-only push).
+- e1_lid_hinge: the hinge reads, but the quarter panel fills the left third; a higher pass over the deck would be cleaner.
+- h2_hero is a slow camera; a slightly faster rise would keep the pace to the logo.
+
+---
 # Toyota GR86 / Subaru BRZ (gen 2) - v3 self-review (training/rubric.md)
 
 Output: `/home/user/media/work/gr86/out/toyota_gr86_v3.mp4` (not in git). 1080x1920, 30 fps, 1177 frames / 39.233 s,

@@ -695,3 +695,18 @@ lands here automatically. Agents must read this whole file before editing.
   quarter-beat accent table from the drop, and cut on measured kick attacks.
 - **[workflow]** Same-camera segments rendered with a tail can be re-timed to new music without re-rendering:
   src_fps = 15 x planned frames / new frames keeps each segment on its own stretch of the move.
+
+## toyota-gr86 v4 (user feedback on v3)
+- [scan] Bumper leftovers: removing car tris "within N mm of the bumper part scan" leaves every strip that scan missed.
+  The bumper skin is the car tris its *removed* state lacks (> 10 mm, inside the bumper zone). Move them with the
+  bumper, and let each state scan fill ONLY the opening it shows. Hood Open / Trunk Open captured with the bumpers ON
+  refilled the bumper zones in v3 (projects/toyota-gr86/tools/build_v4.py).
+- [scan] Lid cut: an "open state lacks it" mask is speckled and spills onto lamps. Use it only to vote a top and a rear
+  silhouette, one interval per row, median-smoothed and symmetric about the centreline. Start the front edge at the
+  glass shut-line arc (projects/toyota-gr86/tools/lid_v4.py).
+- [story] (user) Hood and trunk: hinge open first, THEN come off, on separate kicks. If the open state never captured
+  the propped panel, hinge it about its measured edge corners. A pivot set behind the edge swings that edge into the glass or cowl.
+- [pacing] (user: "needs to move faster") A cut on every kick (~2.45 s) with one 0.4-1.0 s action per shot replaced
+  7-10 s sections. Render part moves at native 30 fps.
+- [technical] Cut-offset measurement: the dip window must straddle the cut (g-30..g+5 ms). A window ending 40 ms
+  before the cut finds a pre-kick wiggle and reports every cut ~45 ms late.

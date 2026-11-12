@@ -1,170 +1,111 @@
-# Scene direction - toyota-gr86 (BRZ gen 2 hero scan), v3
+# Scene direction - toyota-gr86 (BRZ gen 2 hero scan), v4
 
-Scene director, 2026-11-11. Inputs: lessons.md (all), style-guide, clips.md (incl. "v3 additions"), project.yaml (v2),
-editlog, feedback.jsonl (5 v2 notes), review.md, v2 direction/director.md, v2 sheets (`/home/user/media/work/gr86/out/sheet_*.jpg`),
-state renders (`reg/states_sheet.jpg`) and NEW check stills of the v3 assets, 30 % res / 8 spp, in
-`/home/user/media/work/gr86/reg/v3dir/t1..t10.png` (spec next to each png):
-t1 lid lifted over comp_trunkopen (rear-right high) · t2 rear bumper tipped -110 deg with reverse light (red) + plate light (cyan)
-riding on its inner face · t3/t6 lights + mirrors coloured on car4 · t4/t5 Side Mirrors Removed, right/left mount ·
-t7 comp_trunkopen near top-down · t8 Trunk Open scan alone · t9 comp_trunkopen rear-right 3/4 at ~25 deg down ·
-t10 comp_hoodopen + hood_t lifted (windshield intact).
+Scene director, 2026-11-12. Inputs: lessons.md (all), v3 direction (below, superseded), clips.md, feedback.jsonl (4 v3 notes),
+editlog (v4 geometry entries 00:19-00:22), tools/shots_v3.py, part bboxes (`/home/user/media/work/gr86/blend/*_v4.json`, hood_t.json),
+v3 delivered file `/home/user/media/work/gr86/out/toyota_gr86_v3.mp4` (1 fps sheet + frames at 13.9 / 21.5 / 26.0 s).
+No v4 render exists yet: every v4 framing below is an intent to be checked on first/mid/last stills.
 
-## v2 -> v3 changes (user feedback 2026-11-11)
-| # | v2 note | v3 answer |
+## v3 -> v4 changelog
+| # | v3 user note | v4 answer |
 |---|---|---|
-| 1 | Logo too small (330 px card) | New card at ~860 px wide (80 % of 1080; `ferrari-296/tools/logo_card.py --width 860`), centred, 2.47 s |
-| 2 | Hood shot cut the windshield | hood_t (trimmed at the cowl gap) replaces hood_m everywhere; base rebuilt with the hood hole limited to hood_t (t10: glass intact). c_front + reassembly re-rendered |
-| 3 | Use the trunk-open scan | NEW rear beat: the closed lid (lid.blend) LIFTS OFF straight up/back (no hinge: the raised lid was never scanned) and reveals the scanned cargo opening. Label TRUNK OPEN |
-| 4 | Explode the rear lights | NEW f_lights: on the tipped rear bumper, the reverse-light bar comes off the INNER face toward the lens (only its socket side is captured - shown socket side only, no spin), then ONE licence-plate lamp lifts out. Labels REVERSE LIGHT, LICENSE PLATE LIGHT |
-| 5 | Use the side-mirror-removed scans | NEW d_mirror between front and rear: framed on the RIGHT A-pillar (good capture); both mirrors fly out/up, the left one off-screen (thin broken capture); push in on the scanned right mirror mount. Label SIDE MIRROR REMOVED |
-| - | (budget) | Top stack (v2 e_stack) dropped: the rear is now the richest region and needs the screen time; the reassembly is restaged progressively (rear -> front) instead of one slam |
+| 1 | "the video needs to move faster" | A cut on EVERY kick (~2.45 s, 15 shots + logo, was 8 clips of 2.4-9.8 s). One action per shot; every part move takes 0.4-1.0 s and starts in the first 2 frames; opener plays a_open at 2x (whole 20 deg arc in 2.48 s). Part-move shots render at real 30 fps (minterpolate smears fast moves, Civic lesson) |
+| 2 | bumper leftovers | geometry fixed (comp_explode4, front_bumper_v4, rear_bumper_v4). Direction: each bumper first pulls STRAIGHT OUT 0.30 m (a black gap opens all round), then tips and drops out of frame into black, never across the body |
+| 3 | "hood needs to hinge open THEN come off" | 2 shots: hood hinges -50 deg (nose up) about pivot [0.0185,-0.7777,1.0441]; next kick it lifts off the open pose. Camera on the hinge side so the scanned outer face of the hood faces the lens |
+| 4 | "rear trunk cut correctly / done the same" | lid_v4; 2 shots: lid hinges +65 deg (tail up) about pivot [0.0185,1.5923,1.1491]; next kick it lifts off -> cargo (TRUNK OPEN) at <= 30 deg down |
+| - | ending | reassembly split into two cameras over ONE part animation: hood swings shut ON the 34.32 cut, then a clean-car high hero pass fades (v3: one 4.9 s wide shot = the slowest stretch, at the end) |
 
-## 1. Feature inventory (v3)
+Note on rules: lessons.md (honda-civic-11) says lids shown OPEN in a scan must only hinge, never detach. For this reel the user asked
+in so many words for hinge open THEN off (hood and trunk). The user's request wins here. The hood coming off is also backed by the
+Bumper Hood Removed state scan; there is no "trunk lid removed" scan, so the lid coming off rests only on the user's request.
 
-| Region | Signature / what the data holds | States (registered to BRZ Full Car) | Parts (registered) | Weak data | Richness |
+## 1. Feature inventory (v4, unchanged scans, new parts)
+| Region | Signature / data | States (registered) | Parts (moving, v4) | Weak data | Richness |
 |---|---|---|---|---|---|
-| **Rear** | Ducktail lid with BRZ badge, twin exhausts, diffuser, plate recess | **Rear Bumper Removed** (63 %, 3.2 mm: holed full-width crash beam, silencer, lamp backs); **Trunk Open** (74 %, 2.8 mm: cargo opening/floor only, z < 875 mm); Trunk Open Bumper Off (fill < 750 mm); License Plate Lights Removed (ICP 75 mm = NOT registered, unused) | **rear bumper** (part scan, inner face scanned); **lid** (cut from the car's own skin, outer only); **reverse light** (median 9.8 mm, socket side only, sits on the bumper inner face - t2); **plate light** (one lamp, 2.3 mm, good) | Cargo is a black void from above (t7) - readable only from a rear 3/4 at <= ~30 deg down (t9); left tail lamp has a scan hole (keep rear-RIGHT); plate kept as scanned (plate rule: IS300 only) | **Highest**: 2 usable states + 4 parts |
-| **Front** | Slat grille, LED headlights, corner intakes | **Hood Open** (engine bay, 48 %, 3.8 mm); **Bumper Hood Removed** (front structure < 650 mm, 27.6 %, 3.9 mm) | **front bumper** (inner face scanned); **hood_t** (car skin, trimmed at cowl) | Open hood never captured (lift off, never hinge); Side Markers (ICP 84 mm) not registered -> unused | High: 2 states + 2 parts + best detail (s3) |
-| **Side** | Profile, doors, A-pillar | **Side Mirrors Removed** (92 %, 2.6 mm): both mount bosses captured (t4 right: clean bracket stub; t5 left: mount with a dark hole) | **mirror_R** (decent); mirror_L (thin broken capture, 0.68 m long bbox = junk attached) | left mirror + left mount weak; wheels/tyres rough | Medium-low: 1 state + 1 good part -> one short scene, right side only |
-| Top | Roof, glass | - | - | sprayed glass, nothing new | none (v2 stack dropped) |
+| **Rear** | ducktail lid + BRZ badge, twin exhausts, diffuser | Rear Bumper Removed (holed crash beam, silencer: seen in v3 at 26.0 s); Trunk Open (cargo opening/floor, z < 875 mm) | rear_bumper_v4, lid_v4 (outer skin only), reverse_light (socket side only), plate_light (one lamp, 2.3 mm) | cargo = black void from above; left tail lamp hole; propped lid never scanned | **highest**: 2 states + 4 parts -> 6 shots, 3 phrase kicks |
+| **Front** | slat grille, LED headlights, corner intakes | Hood Open (engine bay); Bumper Hood Removed (< 650 mm) | hood_t (outer skin only, trimmed at cowl), front_bumper_v4 | propped hood: only a 250 mm strip in Hood Open; front structure still unverified on v4 (v3 frame showed bumper leftovers) | high: 2 states + 2 parts + best detail (s3) -> 5 shots |
+| **Side** | profile, A-pillar | Side Mirrors Removed (right mount clean) | mirror_R (mirror_L junk-laden) | left side weak | low: 1 shot, right side only |
+| Top | roof/glass | - | - | nothing new | only the closing hero pass on the complete car |
 | Wheels / interior | - | - | - | rough / not scanned | none |
 
-## 2. Scene order (front -> side -> rear -> reassembly -> logo)
+## 2. Scene order (front -> side -> rear -> reassembly -> logo, camera always on the car's RIGHT)
+Frame (Blender m): nose -Y (-2.13), tail +Y (2.13), car's right = +X, ground z ~0.19, roof 1.45. Open hood front edge reaches
+~(y -1.58, z 1.80); open lid tail edge ~(y 2.09, z 1.46-1.6). Cam = loc -> target, focal mm. Local t = shot seconds.
 
-Travel: front-right 3/4 -> front detail -> front states -> right A-pillar -> rear-right -> under/behind the rear bumper ->
-high rear-right whole car. The camera stays on the car's RIGHT side throughout (left mirror/left lamp are the weak data).
+| # | id | start-end s (frames @30) | section | ONE action | camera start -> end intent | label |
+|---|---|---|---|---|---|---|
+| 1 | `a_open` REUSE | 0.000-2.480 (0-74) | whole | camera only: arc + push on the whole car | front-right 3/4 whole car (as rendered); a_open PNGs 1-74 at src_fps 30, NO interpolate = the full 20 deg arc in 2.48 s, motion from frame 1 | - |
+| 2 | `b_headlight` REUSE | 2.480-4.931 (74-148) | front | camera only: slide across the right headlight | s3_wheel from 2.4 s, as v3 (headlight + slat grille + intake fill frame) | - |
+| 3 | `c1_hood_hinge` NEW | 4.931-7.380 (148-221) | front / bay | hood hinges open -50 deg, t0.05 -> 0.85 ease out, holds open | START right side behind the front wheel, above the fender (2.30,-0.60,1.55)->(0.10,-1.30,1.05) f28: hood, right fender, headlight, windshield base; END small rise + push (1.85,-0.95,1.85)->(0.05,-1.35,1.10) f30: open hood whole incl. far edge, its top (z 1.8) inside the frame with margin, bay visible under it. Never frontal: the hood underside is not scanned | - |
+| 4 | `c2_hood_off` NEW | 7.380-9.830 (221-295) | front / bay | hood lifts off the open pose: +Z 1.30, -Y 0.15 (clear of the glass), no extra rotation, t0.05 -> 0.70, gone through the frame top by ~0.6 | START higher, still on the hinge side (2.05,-1.10,2.35)->(0.05,-1.30,0.95) f30; END push down into the bay (1.35,-1.75,2.15)->(0.00,-1.30,0.80) f32: bay fills the frame, strut tower to radiator support, windshield base intact | `ENGINE BAY` / sub `HOOD REMOVED`, local 0.85-2.35 (f246-291), in whichever band is black over the whole window (measure; v3 lesson: top band is not always black on close-ups) |
+| 5 | `c3_front_bumper_off` NEW | 9.830-12.280 (295-368) | front | front_bumper_v4 pulls straight forward -Y 0.30 (t0.05 -> 0.40, black gap all round), then tips +110 deg about X (inner face up) and drops (+0.30 X, -0.90 Z) out the frame bottom-right, t0.40 -> 1.10 | START front-right 3/4 LOW, much closer than the opener (2.10,-4.40,1.35)->(0.10,-1.85,0.60) f30: whole front end + right front wheel, open bay at top; END (1.75,-4.00,1.15)->(0.05,-1.90,0.55) f30. Bumper leaves into black in front/below the nose, never across the body | - |
+| 6 | `c4_front_structure` NEW | 12.280-14.730 (368-442) | front | camera only: push-in on what is behind the bumper, decelerating to near-still for the last ~0.8 s (readable hold) | START low, near-frontal (0.95,-3.60,0.95)->(0.00,-1.90,0.60) f30: the whole exposed front ~1.5 m across; END (0.55,-3.05,0.85)->(0.00,-1.95,0.58) f35: centre structure fills the frame. Bumper out of frame (parked below - check last frame) | `FRONT BUMPER REMOVED` / sub `CRASH BEAM` only if the v4 still shows a beam; otherwise sub `STATE SCAN`. Local 0.15-2.35 (f373-438), top black band |
+| 7 | `d_mirror` REUSE (if check passes) | 14.730-17.174 (442-515) | side | right mirror flies out/up (0.9 s), push in on the mount | as v3: right A-pillar (2.10,-1.75,1.55)->(1.55,-1.05,1.30); fresh angle after the frontal push, travels back along the right side | `SIDE MIRROR REMOVED` / `MIRROR MOUNT` as v3 |
+| 8 | `e1_lid_hinge` NEW | 17.174-19.620 (515-589) | rear | lid hinges open +65 deg, t0.05 -> 0.85 ease out, holds open | continues back along the right side: START behind the C-pillar, above the deck, FORWARD of the lid (2.25,0.70,1.60)->(0.10,1.75,1.00) f28 so the lid's scanned outer face turns toward the lens; END (1.95,0.95,1.85)->(0.05,1.80,1.10) f30: deck, right tail lamp, open lid whole with its top in frame. Never from behind: lid underside not scanned | - |
+| 9 | `e2_lid_off_cargo` NEW | 19.620-22.070 (589-662) PHRASE | rear | lid lifts off the open pose +Z 1.30, +Y 0.10, t0.05 -> 0.65, exits the top | START rear-right, more side-on (2.30,2.70,1.75)->(0.05,1.60,0.85) f30 (lid seen 3/4 side as it leaves); END the v3 t9 pose (1.30,3.90,1.55)->(0.05,1.55,0.72) f30: cargo opening ~25 deg down. Do not go higher/closer (black void) | `TRUNK OPEN` / sub `CARGO AREA`, local 0.80-2.35 (f613-659), top-left black (lid has left by then) |
+| 10 | `e3_rear_bumper_off` NEW | 22.070-24.523 (662-736) | rear | rear_bumper_v4 (+ both lights riding, pivot RB) pulls straight back +Y 0.30 (t0.05 -> 0.40), then tips -110 deg about X and drops to the v3 park pose loc (0.30,0.95,-0.45) (t0.40 -> 1.10) | START rear-right 3/4 LOW (2.20,4.70,1.40)->(0.15,2.05,0.55) f30: whole rear end + right rear wheel; END (1.85,4.30,1.25)->(0.10,2.00,0.55) f30. Bumper separates over black, inner face ends up toward the lens at the frame bottom | - |
+| 11 | `e4_rear_beam` NEW | 24.523-26.970 (736-809) PHRASE | rear | camera only: push-in on the crash beam, decelerating hold | START (1.35,4.10,1.20)->(0.05,1.95,0.68) f30; END (0.80,3.55,1.05)->(0.05,1.98,0.66) f35: holed beam + silencer + right exhaust fill the frame; parked bumper below frame or whole at the bottom, never clipped | `REAR BUMPER REMOVED` / `CRASH BEAM` (seen in v3 frame), local 0.15-2.35 (f741-806), top black band |
+| 12 | `f1_reverse_light` NEW | 26.970-29.420 (809-883) | rear | reverse light lifts straight off the parked bumper's inner face +(0,0.15,0.35), socket side to the lens, no spin, t0.05 -> 0.65, then still | camera tilts down from the beam onto the bumper lying just below it: START (1.05,4.55,1.65)->(0.36,2.75,0.25) f28 whole tipped bumper; END (0.80,4.15,1.40)->(0.30,2.80,0.35) f32. Steep enough that the background behind the bumper is black | `REVERSE LIGHT` / `PART SCAN`, local 0.75-2.35, black band between car and bumper (v3: y 0.33) |
+| 13 | `f2_plate_light` NEW | 29.420-31.873 (883-956) PHRASE | rear | plate lamp lifts out, turns upright (lens toward the lens, as v3) and lands on black above the bumper, t0.05 -> 0.70 | fresh, closer, lower angle: START (0.55,3.85,1.05)->(0.15,2.85,0.40) f38; END (0.45,3.65,0.95)->(0.15,2.88,0.45) f42: lamp + its recess in the middle third; reverse light either fully in or fully out of frame | `LICENSE PLATE LIGHT` / `PART SCAN`, local 0.80-2.35 |
+| 14 | `h1_reassemble` NEW | 31.873-34.320 (956-1030) | whole | every part flies home rear -> front; hood lands LAST on the cut | high rear-right ~35 deg down, nose up in frame, all parts in frame (v3 h pose) (1.80,4.60,4.60)->(0,-0.05,0.75) f29 -> (1.65,4.35,4.35)->(0,-0.20,0.90) f31 | - |
+| 15 | `h2_hero` NEW | 34.320-36.766 (1030-1103) LOUD RETURN | whole / top | clean complete car (swap to car4 on the cut frame 1030), camera rise; fade to black local 1.30 -> 2.40 | high right side ~55-60 deg down, 10-15 deg off vertical (never straight overhead), nose up in frame: (2.60,0.60,5.60)->(0,-0.10,0.80) f30 -> (2.30,0.40,6.10) same target. Whole car with margins; the only top view in the reel | - |
+| 16 | `logo` REUSE | 36.766-39.240 (1103-1177) | end | logo_card_v3.mp4 (860 px) | static | - |
 
-| # | id | section | scans used | feature shown | why here (inventory) | bars | camera note |
-|---|---|---|---|---|---|---|---|
-| A | `a_open` REUSE | whole | car4 | whole car, front-right 3/4, arc + push | opener = whole car, motion from frame 1, front-right toward the first section | 2 | as rendered |
-| B | `b_headlight` REUSE (s3 from 2.4 s) | front | det_front | right headlight + slat grille + intake | front signature detail, best close-up in the set | 1 | as rendered |
-| C | `c_front` NEW | front | comp_v3 + hood_t + front_bumper | hood lifts off -> engine bay (Hood Open) -> front bumper off, tipped -> FRONT BUMPER REMOVED structure | 2 states + 2 parts, hero beat; windshield now intact | 3 | v2 d_front path compressed 4 -> 3 bars |
-| D | `d_mirror` NEW | side | comp_v3 + mirror_R/L | right mirror flies out -> SIDE MIRROR REMOVED mount | 1 state + 1 good part = short scene; physically between front and rear | 1 | right A-pillar, push in on the mount |
-| E | `e_rear` NEW | rear | comp_v3 + lid + rear_bumper (+ lights riding in it) | lid lifts off -> TRUNK OPEN cargo -> rear bumper off, tipped -> REAR BUMPER REMOVED crash beam | richest region: one continuous 4-bar shot over two phrase kicks (19.62, 24.52) | 4 | rear-right, ~25 deg down for the cargo (never top-down), low for the beam |
-| F | `f_lights` NEW | rear | comp_v3 + rear_bumper + reverse_light + plate_light | the two light scans come off the tipped bumper's inner face | the rear's last layer = the explode zoomed in on one assembly; lands on 29.42 | 2 | looking down at the parked bumper from rear-right; lights lift toward the lens |
-| H | `h_reassemble` NEW | reassembly | comp_v3 + all 8 parts | parts fly home rear -> front, last one on the loud return 34.32, fade | payoff on the biggest musical moment; progressive, not one wide separation | 2 | high rear-right, nose up in frame, slow push (no orbit) |
-| I | `logo` NEW card | end | logo | ILLUMAESTHETIC logo, LARGER | user note 1 | 1 | static |
+Shot 14 + 15 share ONE part animation (local t from 31.873): lights back into the bumper 0.05 -> 0.45 · rear_bumper (+lights) 0.35 -> 0.95 ·
+lid flies to its OPEN pose 0.70 -> 1.20, hinges shut 1.20 -> 1.55 · mirrors 1.05 -> 1.50 · front_bumper 1.30 -> 1.85 · hood flies to its
+open pose 1.60 -> 2.05, hinges shut 2.05 -> 2.447 (shut on frame 1030 = 34.32, the cut). Landings ease "in" (slam). Start poses = each
+part's end pose in its own shot; anything out of frame at frame 0 enters within 0.3 s on its way home. Shot 15 renders the clean
+car4 only (c5 lesson: swap to the clean car on a kick), so the frayed composite never reaches the end.
 
-## 3. Shot specs (for director.md / shot JSON)
+Redundancy check: every section is one continuous run (front 2-6, side 7, rear 8-13, whole 14-15). Same-section neighbours differ in
+subject and angle: 3 side/hinge vs 4 high bay vs 5 low front 3/4 vs 6 frontal push; 8 side/hinge vs 9 rear 3/4 high vs 10 rear 3/4
+low vs 11 beam push vs 12 steep down on the bumper vs 13 close low on the lamp. No shot reuses the opener's angle (5 is close/low;
+15 is near-top). Expect `ive director` silhouette flags on 4/6 and 11/13 (frame-filling close-ups); check by eye, log the reason.
 
-Frame: Blender m, car4 prep. Nose -Y (-2.13), tail +Y (2.13), ground z 0.19, roof ~1.45, car's RIGHT = +X.
-Part `loc` = world offset from home; `rot` deg XYZ about `pivot` (default = part bbox centre). All new shots: base
-`comp_v3.blend` (see Q1), 15 fps, 75 %, 12 spp, persistent data OFF, `seconds` = slot + 0.2 (3 spare frames for the
-minterpolate tail). Local t = 0 at the shot's first frame. Ease inout unless noted.
-Pivots: front bumper (-0.07,-1.818,0.605), rear bumper RB = (0.064,1.817,0.638). **reverse_light and plate_light use pivot RB and
-repeat the rear bumper's keys** (they ride in the bumper), plus their own extra offset in f_lights.
-
-Kicks (s / frame @30): k1 4.931/148 · k2 7.380/221 · k3 9.83/295 · k4 12.28/368 · k5 14.73/442 · k6 17.174/515 · k7 19.62/589 ·
-k8 22.07/662 · k9 24.523/736 · k10 26.97/809 · k11 29.42/883 · k12 31.873/956 · k13 34.32/1030 (loud return) · k14 36.766/1103 · end 39.24/1177.
-
-### A `a_open` - whole - f0-148 (148 f) - 0 -> k1 - REUSE /home/user/media/work/gr86/shots/a_open
-Whole car front-right 3/4, ~20 deg arc + push from frame 1. No parts, no label. dur 4.9 (first clip one frame short).
-
-### B `b_headlight` - front - f148-221 (73 f) - k1 -> k2 - REUSE s3_wheel from 2.4 s
-Right headlight + slat grille + intake (2 mm). No label.
-
-### C `c_front` - front - f221-442 (221 f; 111+3 new @15) - k2 -> k5
-Focus: hood off -> engine bay -> front bumper off -> front structure.
-Camera: K0 t0 (2.20,-4.90,2.00)->(0.10,-1.40,0.80) f30 whole front end incl. right wheel ·
-K1 t2.45 (1.40,-3.90,2.70)->(0.05,-1.15,0.75) f30 above the bay, hood leaving the top ·
-K2 t3.37 (1.20,-3.60,2.40)->(0.00,-1.10,0.70) f32 bay fills frame (windshield base in, intact) ·
-K3 t4.90 (2.10,-4.70,1.70)->(0.10,-2.10,0.50) f30 bumper low in front, structure exposed ·
-K4 t7.37 (1.00,-3.60,1.20)->(0.00,-1.85,0.55) f30 front structure ~1.45 m fills frame.
-Parts: **hood_t** home to t0.15; t0.15 -> t2.45 loc (0,-0.10,1.20) ease out (**lands k3 9.83**); hold (exits top as camera drops).
-**front_bumper** home to t3.37; t3.37 -> t4.90 loc (0.30,-0.90,-0.45) rot (110,0,0) (**lands k4 12.28**, scanned inner face up to the lens); hold.
-mirrors, lid, rear bumper + lights: home.
-Label: `FRONT BUMPER REMOVED` / sub `HOOD REMOVED`, 12.43 -> 14.58 (f373-437), over the K3->K4 push-in, on black above the car.
-
-### D `d_mirror` - side - f442-515 (73 f; 37+3 new) - k5 -> k6
-Focus: right mirror flies off -> scanned right mirror mount.
-Camera: K0 t0 (2.10,-1.75,1.55)->(0.80,-0.30,1.05) f30 (~2 m: right A-pillar, mirror, fender top, windshield edge; the open bay
-may show at frame left - that is continuity) · K1 t2.43 (1.55,-1.05,1.30)->(0.80,-0.32,1.03) f35 (~1.1 m: the mount fills the centre).
-Parts: **mirror_R** home to t0.10; t0.10 -> t1.00 loc (0.40,-0.10,0.45) ease out (out and up above the roofline onto black);
-t1.00 -> t2.43 loc (0.55,-0.05,0.95) (keeps rising, leaves frame top-right as the camera pushes in). **mirror_L** same times,
-loc (-0.40,-0.10,0.45) -> (-0.55,-0.05,0.95): must stay OUT of frame (behind the cabin) - check first/mid/last.
-hood_t (0,-0.10,1.20) and front_bumper (0.30,-0.90,-0.45) rot (110,0,0) parked (out of frame - check).
-Label: `SIDE MIRROR REMOVED` / sub `MIRROR MOUNT`, 15.88 -> 17.02 (f476-511), top-LEFT (mirror exits top-right).
-
-### E `e_rear` - rear - f515-809 (294 f; 147+3 new) - k6 -> k10 (one continuous shot, cut at k8 removed)
-Focus: lid lifts off -> TRUNK OPEN cargo -> rear bumper off, tipped -> crash beam.
-Camera: K0 t0 (2.40,4.70,2.00)->(0.05,1.45,0.85) f30 whole rear half incl. right rear wheel, room above for the lid ·
-K1 t2.45 (1.80,4.30,1.80)->(0.05,1.50,0.80) f30 · K2 t4.60 (1.30,3.90,1.55)->(0.05,1.55,0.72) f30 (= t9: cargo opening, ~25 deg down;
-do not go higher/closer - t7 shows a black void from above) · K3 t7.35 (2.10,4.90,1.50)->(0.15,2.20,0.45) f30 (whole rear end low, bumper
-tipped in front) · K4 t9.80 (1.05,3.70,1.15)->(0.05,1.95,0.68) f30 (crash beam + right exhaust fill frame; targets as v2 g_rear end).
-Parts: **lid** home to t0.15; t0.15 -> t2.45 loc (0,0.30,0.95) ease out (straight up and back toward the lens, no rotation;
-**lands k7 19.62**); t2.45 -> t4.60 loc (0,0.35,1.40) (rises out of the frame top, cargo stays clear); hold.
-**rear_bumper** (+ reverse_light + plate_light, pivot RB, same keys) home to t5.20; t5.20 -> t7.35 loc (0.30,0.95,-0.45) rot (-110,0,0)
-(**lands k9 24.52**, scanned inner face turns up/back to the lens, ~15 cm clear of the body); hold (should sit below frame at K4 -
-if it pokes the bottom edge, park it at z -0.55).
-Labels: `TRUNK OPEN`, 19.77 -> 21.92 (f593-658) · `REAR BUMPER REMOVED` / sub `CRASH BEAM`, 24.67 -> 26.82 (f740-805).
-
-### F `f_lights` - rear - f809-956 (147 f; 74+3 new) - k10 -> k12
-Focus: the two light scans leave the tipped bumper's inner face.
-Bumper parked as E's end (loc (0.30,0.95,-0.45) rot (-110,0,0) about RB; centre ~ (0.36,2.77,0.19); inner-face normal ~ (0,0.34,0.94)).
-Camera: K0 t0 (1.05,4.55,1.65)->(0.36,2.75,0.25) f28 (whole tipped bumper, inner face up) · K1 t2.45 (0.75,4.05,1.30)->(0.36,2.80,0.32) f32
-(centre section ~1.1 m) · K2 t4.90 (0.60,3.75,1.15)->(0.30,2.85,0.40) f35 (both lights fill frame). Looking down steeply so the
-background behind the bumper is black (below the car), not the body.
-Parts (extra offset ON TOP of the bumper keys): **reverse_light** t0.15 -> t1.00 +(0,0.15,0.35) ease out (straight off the inner face,
-socket side toward the lens, NO spin - its lens side is not captured); t1.00 -> t4.90 drift +(0,0.18,0.40).
-**plate_light** t1.85 -> t2.45 +(0.25,0.15,0.30) ease out (**lands k11 29.42**, offset +X so it clears the reverse light); t2.45 -> t4.90 drift
-+(0.27,0.17,0.33). Translate only. Both lights must read on black or with clear separation from the bumper skin - check mid/last;
-if they sit over the bumper, add more toward-lens offset.
-Labels: `REVERSE LIGHT`, 28.05 -> 29.27 (f842-878) · `LICENSE PLATE LIGHT`, 29.57 -> 31.72 (f887-952).
-
-### H `h_reassemble` - reassembly - f956-1103 (147 f; 74+3 new) - k12 -> k14
-Focus: every removed part flies home, rear -> front, the last on the loud return; the car complete; fade.
-Start poses = each part's landed pose from its own section: hood_t (0,-0.10,1.20) · front_bumper (0.30,-0.90,-0.45) rot (110,0,0) ·
-mirror_R (0.40,-0.10,0.45) · mirror_L (-0.40,-0.10,0.45) · lid (0,0.30,0.95) · rear_bumper (0.30,0.95,-0.45) rot (-110,0,0) about RB ·
-lights on the bumper keys + their f_lights t4.90 offsets.
-Camera: K0 t0 (1.80,4.60,4.60)->(0,-0.20,0.90) f34 (high rear-right ~35 deg down, nose up in frame, all parts in frame - v2 stack end pose)
--> K1 t4.90 (1.60,4.20,4.20)->(0,-0.20,0.90) f34 (slow push, no orbit).
-Homing (each to 0 with ease in = slam): lights t0.15 -> 0.90 back into the bumper · rear_bumper (+lights) t0.60 -> 1.50 · lid t1.00 -> 1.85 ·
-mirrors t1.30 -> 2.10 · front_bumper t1.50 -> 2.45 · hood_t t1.60 -> 2.45 (**k13 34.32**). From 34.32 (local 2.45) optionally render
-the base as clean car4 with no parts (c5 lesson: swap to the clean car on the kick; check the plate/bumper pop is hidden by the slam).
-Fade: `fade=t=out:st=2.9:d=1.95` (black by ~36.72). No label.
-
-### I `logo` - end - f1103-1177 (74 f) - k14 -> end
-ILLUMAESTHETIC logo ~860 px wide (80 % of frame width), centred, fade in 0.3 s, holds to the end of the audio (39.24).
-
-## 4. Music map
-| shot | start -> end (s) | frames | lands on |
+## 3. Music map (cuts = measured kicks, frames = round(t*30))
+| shot | start s | frame | music |
 |---|---|---|---|
-| A a_open | 0.000 -> 4.931 | 0-148 | - |
-| B b_headlight | 4.931 -> 7.380 | 148-221 | k1 |
-| C c_front | 7.380 -> 14.73 | 221-442 | hood k3 9.83, bumper k4 12.28 |
-| D d_mirror | 14.73 -> 17.174 | 442-515 | cut on phrase k5; mirror off by 15.73 |
-| E e_rear | 17.174 -> 26.97 | 515-809 | lid k7 19.62 (phrase), bumper k9 24.52 (phrase) |
-| F f_lights | 26.97 -> 31.873 | 809-956 | plate lamp k11 29.42 (phrase) |
-| H h_reassemble | 31.873 -> 36.766 | 956-1103 | last part home on k13 34.32 (loud return) |
-| I logo | 36.766 -> 39.24 | 1103-1177 | k14 |
-Total 1177 frames / 39.23 s. Cuts at f148, 221, 442, 515, 809, 956, 1103 (first clip one frame short; frames as above).
+| 1 a_open | 0.000 | 0 | intro |
+| 2 b_headlight | 2.480 | 74 | half-kick (measured onset) |
+| 3 hood hinge | 4.931 | 148 | kick / phrase |
+| 4 hood off + bay | 7.380 | 221 | kick |
+| 5 front bumper off | 9.830 | 295 | phrase |
+| 6 front structure | 12.280 | 368 | kick |
+| 7 mirror | 14.730 | 442 | phrase |
+| 8 lid hinge | 17.174 | 515 | kick |
+| 9 lid off, TRUNK OPEN | 19.620 | 589 | phrase |
+| 10 rear bumper off | 22.070 | 662 | kick |
+| 11 crash beam, REAR BUMPER REMOVED | 24.523 | 736 | phrase |
+| 12 reverse light | 26.970 | 809 | kick |
+| 13 plate light | 29.420 | 883 | phrase |
+| 14 reassembly | 31.873 | 956 | kick |
+| 15 hood shuts / hero | 34.320 | 1030 | loud return |
+| 16 logo | 36.766 | 1103 | kick; end 39.24 = 1177 |
+Durations 74,74,73,74,73,74,73,74,73,74,73,74,73,74,73,74 = 1177. Use concat_assemble (exact frames per clip). The richest region
+(rear) owns three phrase kicks (TRUNK OPEN, REAR BUMPER REMOVED, plate lamp); the hood shutting is the loud return.
 
-## 5. Diff vs v2 and render reuse
-| v2 clip | v3 | why |
+## 4. Diff vs v3 and render reuse
+| v3 clip | v4 | why |
 |---|---|---|
-| a_open | **REUSE as-is** | whole car, motion from frame 1; intact car4 unaffected by the hood change |
-| b_headlight (s3 from 2.4 s) | **REUSE as-is** | det_front unaffected |
-| c_front (d_front, 9.8 s) | **NEW** c_front, 7.37 s | hood_t (windshield fix); compressed from 4 to 3 bars to make room for side + rear additions |
-| - | **ADDED** d_mirror | user note 5 |
-| d_rear (g_rear, 7.37 s) | **NEW** e_rear, 9.8 s | adds the lid lift-off / TRUNK OPEN before the bumper (user note 3); one continuous shot so the two rear-right views don't repeat across a cut |
-| - | **ADDED** f_lights | user note 4 |
-| e_stack | **DROPPED** | top-down stack of all parts at once; time and budget go to the richest region (rear) |
-| f_reassemble (s7 tail) | **NEW** h_reassemble | s7 has the old hood and none of the new parts; progressive rear -> front homing |
-| logo small | **NEW** card ~860 px | user note 1 |
-New render frames @15 fps: c 114 + d 40 + e 150 + f 77 + h 77 = **458** (+ ~15 check stills at 25 %). ~65-80 min at 8-10 s/frame, one at a time.
-Required before assembly: first/mid/last still of every new shot (cropping rule A), per-frame luma check of every render (black-frame lesson).
+| a_open | REUSE, 2x (PNG 1-74 @30, no interpolate) | faster; real frames, no smear |
+| b_headlight | REUSE as v3 trim, moved to 2.48 | unchanged content |
+| c_front (7.37 s) | NEW 3,4,5,6 | hinge-then-off (note 3), v4 bumper (note 2), one action per kick (note 1) |
+| d_mirror | REUSE as-is IF its first/mid/last frames show no hood/bumper/lid zone (base was comp_explode3); else re-render the same keys on comp_explode4 | mirror move is already 0.9 s |
+| e_rear (9.8 s) | NEW 8,9,10,11 | lid_v4 hinge-then-off (note 4), v4 bumper, split per kick |
+| f_lights (4.9 s) | NEW 12,13 | bumper is now rear_bumper_v4; one light per shot, new angles |
+| h_reassemble (4.9 s) | NEW 14,15 | hinge-shut homing + split at the loud return |
+| logo | REUSE logo_card_v3.mp4 | - |
+New renders: 12 shots. Part-move shots (3,4,5,8,9,10,12,13,14) at native 30 fps, `seconds` = slot + 0.1 (+3 frames), persistent data OFF;
+camera-only shots (6, 11, 15) may be 15 fps + minterpolate with +3 source frames. ~880 frames at 30 fps-equivalent cost; render
+one at a time, 30 % / 8 spp first/mid/last stills of all 12 before any final. Per-frame luma scan of every render.
 
-## 6. Open questions / blockers for the editor
-1. **Base `comp_v3` does not exist yet.** comp_explode has the old hood hole (windshield cut); comp_trunkopen/comp_hoodopen still have bumpers/mirrors.
-   Build ONE base so every v3 shot shares it: full car minus hood_t, lid, front + rear bumper, both mirrors; fills only inside each
-   panel's own zone: Hood Open (hood_t zone, glass stays), Bumper Hood Removed (< 650 mm), Rear Bumper Removed, Trunk Open (lid zone,
-   cargo), Side Mirrors Removed (mirror zones). Check a front still (windshield intact), t4/t5-style mount stills, and t9-style cargo still.
-2. rear_bumper still contains the plate lamp (2.3 mm match) and probably reverse-light geometry: delete rear_bumper tris within ~3 mm of
-   plate_light and ~10 mm of reverse_light (at their registered poses) or the lamps double when they lift out. The recess left behind is real.
-3. Which plate lamp is plate_light (x +0.03..+0.15 = the car's right one)? The other lamp stays in the bumper; label is singular.
-4. mirror_L carries junk (bbox 0.68 m in y): keep it off-screen in D; clean to its largest island before H, where it is on the far side.
-5. Not used (not registered): License Plate Lights Removed (ICP 75 mm), Side Markers (ICP 84 mm). If Side Markers registers < 3 mm, a
-   front side-marker explode off the tipped front bumper is a candidate for a later version - not in v3.
-6. Label wording is from scan names only (Bomex Bumper Hood Removed / Side Mirrors Removed / Trunk Open / Rear Bumper Removed /
-   Reverse Light / License Plate Light) plus CRASH BEAM (holed beam visible in the Rear Bumper Removed scan, v2) and MIRROR MOUNT
-   (bracket stub visible in t4). Confirm each in the rendered frame before burning it in.
+## 5. Open questions / checks for the editor
+1. hood_t and lid_v4 are outer skin only. Render one still of each at its open angle from the FRONT (hood) / REAR (lid): if the
+   underside reads as a mirrored skin, keep cameras 3/4/8 exactly on the hinge side as specified, and shot 9 must have the lid gone
+   before the camera reaches the rear view.
+2. lid_v4 starts 5 cm forward of its pivot (bbox y 1.541 < 1.5923): at +65 deg that edge dips ~3 cm into the rear glass. Check a
+   mid-swing still; if it clips, nudge the pivot or trim the lip.
+3. Front label sub: look at the v4 shot-6 still before writing CRASH BEAM (v3's front frame showed bumper leftovers, not a clear beam).
+4. Confirm the 2.48 s half-kick on the decoded audio before cutting there. If it is soft, keep the cut anyway only if it lands
+   within 1/2 frame of a clear onset; otherwise move it to the nearest clear onset and re-split frames 0-148 between shots 1 and 2.
+5. mirror_L carries junk (0.68 m bbox): in shot 14 it is on the far side; clean to its largest island if it shows.
+6. Labels: measure scan coverage under every label box across its whole window (4 samples); short subs, never empty.
