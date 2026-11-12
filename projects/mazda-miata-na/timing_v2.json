@@ -1,0 +1,39 @@
+{
+ "version": 2,
+ "beat": 0.5555,
+ "t0": 0.6068,
+ "cut_frames": {
+  "s1_reveal": 0,
+  "s2_bumper": 152,
+  "s3_front_removed": 285,
+  "s3_hood": 418,
+  "s4b_side": 485,
+  "s5_trunk": 551,
+  "s6_trunk_well": 685,
+  "s7_top_home": 818,
+  "logo": 951,
+  "end": 1068
+ },
+ "dur_frames": {
+  "s1_reveal": 151,
+  "s2_bumper": 133,
+  "s3_front_removed": 133,
+  "s3_hood": 67,
+  "s4b_side": 66,
+  "s5_trunk": 134,
+  "s6_trunk_well": 133,
+  "s7_top_home": 133,
+  "logo": 135
+ },
+ "secs": {
+  "s1_reveal": 5.066666666666666,
+  "s2_bumper": 4.433333333333334,
+  "s3_front_removed": 4.433333333333334,
+  "s3_hood": 4.433333333333334,
+  "s4b_side": 2.2,
+  "s5_trunk": 4.466666666666667,
+  "s6_trunk_well": 4.433333333333334,
+  "s7_top_home": 4.433333333333334,
+  "logo": 3.9
+ }
+}

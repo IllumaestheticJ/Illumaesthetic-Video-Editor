@@ -43,7 +43,8 @@ def S(n, default):
 # real bumper-off front end -> close slide across that exposed front data -> REAR on the drop: trunk closed -> half ->
 # open -> into the trunk well -> top-down: everything returns home -> dip to black -> small logo.
 # Every camera move is a straight push / dolly / crane; parts translate (bumper turns once: its inside is scanned).
-BASE = f"{P}/comp_explode2.blend"  # v2c: + old-bumper remnants removed (lev/comp_explode2.stl); car - bumper - hood - lid + 'Front End Bumper Off' + 'NA Trunk Open'
+COVER = json.load(open("/home/user/media/work/miata/web/cover/cam_cover.json"))  # listing cover-photo camera
+BASE = f"{P}/comp_explode3.blend"  # v2d: front zone (y<-1660, z<650 mm) = whole Front End Bumper Off capture (lev/comp_explode3.stl); car - bumper - hood - lid + 'Front End Bumper Off' + 'NA Trunk Open'
 B_OUT = [0, -0.55, 0.75]           # bumper parked up and forward, in clear background above the nose line
 B_ROT = [135, 0, 0]                # inside (mounting side) turned toward a front camera
 
@@ -135,7 +136,13 @@ def shots():
     sh["s7_top_home"] = {"base": [BASE], "parts": [
         bumper(home({"loc": B_AWAY, "rot": [0, 0, 0]})), hood(home({"loc": [0, 0, 0], "rot": [HH["open_deg"], 0, 0]})),
         lid(home({"loc": [0, 0, 0], "rot": [HT["open_deg"], 0, 0]}))],
-        "cam": [cam(0, (0, -0.45, 6.3), (0, -0.5, 0.4), ease="lin"), cam(d, (0, -0.15, 5.6), (0, -0.2, 0.4), ease="out2")]}
+        # v3: top-down while the parts go home, then the camera swings down onto the listing COVER PHOTO camera
+        # (tools/coversolve.py silhouette fit, IoU 0.976; 43.98 mm/36 on the cover = 24.74 mm on this 20.25 mm sensor),
+        # lands on beat 7 and holds -> hard 1:1 cut into the cover on the mobile listing (cta.json)
+        "cam": [cam(0, (0, -0.45, 6.3), (0, -0.5, 0.4), ease="lin"),
+                cam(2.5 * BEAT, (0.35, -1.2, 5.6), (0, -0.5, 0.4), focal=30, ease="inout"),
+                cam(7.0 * BEAT, COVER["loc"], COVER["target"], focal=24.74, ease="inout"),
+                cam(d, COVER["loc"], COVER["target"], focal=24.74, ease="lin")]}
     return sh
 
 
