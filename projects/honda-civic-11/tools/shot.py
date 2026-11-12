@@ -25,7 +25,7 @@ import os
 import sys
 
 import bpy
-from mathutils import Euler, Matrix, Vector
+from mathutils import Euler, Matrix, Quaternion, Vector
 
 sys.path.insert(0, "/home/user/Illumaesthetic-Video-Editor/blender")
 import scan_render as sr  # noqa: E402
@@ -86,6 +86,22 @@ def mat_check(rgb):
     return m
 
 
+MATS = {"kit": ((0.012, 0.012, 0.014), 0.32, 0.0),      # Epsilon kit parts: gloss black, so they read on the silver scan
+        "gold": ((0.62, 0.42, 0.14), 0.30, 1.0),       # wheels as in Ron's Final-Sedan-FL renders (gold)
+        "rubber": ((0.015, 0.015, 0.015), 0.75, 0.0)}
+_mats = {}
+
+
+def mat_named(name):
+    if name not in _mats:
+        rgb, rough, metal = MATS[name]
+        m, nt, out = sr.new_mat("ive_" + name)
+        pr = sr.principled(nt, rgb + (1,), rough, metal)
+        nt.links.new(pr.outputs[0], out.inputs[0])
+        _mats[name] = m
+    return _mats[name]
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -113,7 +129,7 @@ def main():
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
-        m = mat_check(colors[p["color"]]) if p.get("color") else silver
+        m = mat_check(colors[p["color"]]) if p.get("color") else mat_named(p["mat"]) if p.get("mat") else silver
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
@@ -152,7 +168,12 @@ def main():
         loc = Vector(sample(ck, t, "loc"))
         tgt = Vector(sample(ck, t, "target"))
         cam.location = loc
-        cam.rotation_euler = (tgt - loc).to_track_quat("-Z", "Y").to_euler()
+        q = (tgt - loc).to_track_quat("-Z", "Y")
+        if any("roll" in k for k in ck):   # roll about the view axis (deg), for a camera solved against a tilted image
+            for k in ck:
+                k.setdefault("roll", 0.0)
+            q = q @ Quaternion((0, 0, 1), math.radians(sample(ck, t, "roll")))
+        cam.rotation_euler = q.to_euler()
         cd.lens = sample(ck, t, "focal")
         cam.keyframe_insert("location", frame=f)
         cam.keyframe_insert("rotation_euler", frame=f)
