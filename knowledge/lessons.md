@@ -653,3 +653,5 @@ lands here automatically. Agents must read this whole file before editing.
   door aperture) looks worse than leaving it out. Only show a region state when the opening's edges are fully captured.
 - **[ending]** (c5-corvette v3 reviewer) "Illumaesthetic logo too small" at 300 px (28 % width). Use about 650 px (60 % of a
   1080 wide frame) for the end logo.
+
+- **[scan-look]** the parts clip into the car  _(from porsche-gt3rs-992, 2026-11-12, reviewer)_
