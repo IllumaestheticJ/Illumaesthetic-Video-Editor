@@ -21,6 +21,7 @@ def main(shot, sheet=False):
     files = sorted(f for f in os.listdir(d) if f.endswith('.jpg'))
     os.makedirs(OUT, exist_ok=True)
     if sheet:
+        if len(files) > 6: files = [files[round(i * (len(files) - 1) / 4)] for i in range(5)]
         ims = [frame(meta, d + f).resize((270, 480)) for f in files]
         s = Image.new('RGB', (270 * len(ims) + 10 * (len(ims) - 1), 480), (255, 0, 255))
         for i, im in enumerate(ims): s.paste(im, (i * 280, 0))
