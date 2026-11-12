@@ -710,3 +710,14 @@ lands here automatically. Agents must read this whole file before editing.
   7-10 s sections. Render part moves at native 30 fps.
 - [technical] Cut-offset measurement: the dip window must straddle the cut (g-30..g+5 ms). A window ending 40 ms
   before the cut finds a pre-kick wiggle and reports every cut ~45 ms late.
+
+## From the Nissan Frontier v5 / Ronin section (2026-11-12, built by an agent)
+- **[story]** "How the car became the build" sections: look for the team's own CAD first - Drive has per-build folders (e.g.
+  `Nissan Frontier (SEMA 2026)/STL` with grille + fender STLs) that a name search for the car finds. They are in a design frame:
+  register with a feature-based offset + trimmed ICP (closest 35 % of points; mating faces touch the scan, outer skins don't) and
+  confirm with a coloured overlay (nissan-frontier/tools/reg_cad.py).
+- **[scan-look]** A side-view livery PSD wraps a scan with a world-space projection material: side image along X for |n.x| > 0.55
+  (mirror the logo for the far side), tiled pattern on top/front/rear, dark glass by height + normal; reveal with a keyed sweep
+  along the car (nissan-frontier/tools/shot.py mat_livery, livery_tex.py).
+- **[text]** Parts with no scan/CAD (wheels, lift, turbo): a clearly generic stand-in or a label only, wording from the user, and say so
+  in the delivery. Labels longer than ~18 characters at 66 px overflow 1080 px - shorten the title, put the rest in the subline.

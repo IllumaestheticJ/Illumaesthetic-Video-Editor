@@ -50,8 +50,8 @@ def shots():
              "cam": cam((0, (-1.9, -5.6, 1.1), (-0.06, -2.7, 0.62), 34, "lin"), (S[n] + 0.2, (-1.3, -5.3, 1.0), (-0.06, -2.7, 0.62), 34, "inout"))}
     # R2 WIDE FENDERS: stock flares drop away, CAD fenders arrive from outside (home 1.21)
     n = "r2_fenders"
-    offR = [k(0, (0, 0, 0)), k(0.1, (0, 0, 0)), k(0.7, (-0.7, 0, -0.5)), k(1.15, (-0.7, 0, -6.0), ease="in2")]
-    offL = [k(0, (0, 0, 0)), k(0.1, (0, 0, 0)), k(0.7, (0.7, 0, -0.5)), k(1.15, (0.7, 0, -6.0), ease="in2")]
+    offR = [k(0, (0, 0, 0)), k(0.1, (0, 0, 0)), k(0.7, (-0.7, 0, -0.5)), k(1.15, (-0.7, 0, -14.0), ease="in2")]
+    offL = [k(0, (0, 0, 0)), k(0.1, (0, 0, 0)), k(0.7, (0.7, 0, -0.5)), k(1.15, (0.7, 0, -14.0), ease="in2")]
     inR = [k(0, (-1.5, 0, 0.5)), k(0.5, (-1.5, 0, 0.5)), k(1.21, (0, 0, 0), ease="out2")]
     inL = [k(0, (1.5, 0, 0.5)), k(0.5, (1.5, 0, 0.5)), k(1.21, (0, 0, 0), ease="out2")]
     sh[n] = {"base": body, "parts": [part("x_hood", still()), part("x_bumper", still())] + cad_static(CAD[:2]) + stock_flares(offR, offL) + [
