@@ -358,9 +358,9 @@ const SHOTS = {
   async outro(c, N) {  // finished build, high rear 3/4 from the RIGHT (hero_a is rear-left), centred, slow push-in, no orbit
     await c.pick('Toyota', 'GR86');
     portraitStage(c, await c.rect('.ewc-bleed'));
-    await c.orbit(150, -30); await c.zoom(-2); await c.center(0.5, 0.48, 3);
+    await c.orbit(150, -30); await c.zoom(-4); await c.center(0.5, 0.46, 3);
     const v = await c.rect('.ewc-viewport'); await c.p.mouse.move(v.cx, v.cy);
-    for (let i = 0; i < N; i++) { if (i % 6 === 0 && i < N - 12) await c.p.mouse.wheel(0, -25); await c.tick(); }
+    for (let i = 0; i < N; i++) { if (i % 5 === 0 && i < N - 10) await c.p.mouse.wheel(0, -45); await c.tick(); }
   },
 
 
