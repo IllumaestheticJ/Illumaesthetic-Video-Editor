@@ -29,7 +29,7 @@ FAR = [0, 0, 9.0]
 # reverse light ends in the black band between car and parked bumper (f1 end v 0.37); plate lamp lands ~1.1 m from the
 # f2 camera at screen (0.55, 0.30), below the beam (v3 pose sat 0.6 m from the lens: huge, over the structure)
 REV_UP, REV_END = [0, 0.22, 0.50], [0, 0.25, 0.56]
-PL_LAND, PL_END = [-0.013, 0.656, -0.261], [-0.010, 0.680, -0.250]
+PL_LAND, PL_END = [0.027, 0.746, -0.151], [0.030, 0.770, -0.140]   # preview 2: +0.12 m toward the lens/up, off the bumper edge
 
 
 def add(a, b):
@@ -117,8 +117,8 @@ spec("d_mirror4", [cam(0, [2.10, -1.75, 1.55], [0.80, -0.30, 1.05], 30),
      extra_frames=(0.45,))
 MIRRORS_OUT = dict(mR=add(MR_END, [0, 0, 6]), mL=add(ML_END, [0, 0, 6]))
 # 8  lid hinges open +65 deg, camera forward of the lid on the right (its scanned outer face toward the lens)
-spec("e1_lid_hinge", [cam(0, [2.10, 0.80, 2.20], [0.05, 1.75, 1.15], 28),
-                      cam(2.45, [1.90, 1.00, 2.40], [0.05, 1.80, 1.25], 30)], 74,
+spec("e1_lid_hinge", [cam(0, [2.00, 0.60, 2.90], [0.00, 1.85, 1.15], 30),
+                      cam(2.45, [1.80, 0.85, 3.05], [0.00, 1.90, 1.25], 30)], 74,
      [part("lid_v4", [k(0, Z), k(0.05, Z), k(0.85, Z, LID_OPEN, "out")], LP)]
      + drop(static(hood=(FAR, HOOD_OPEN), fb=(FB_PARK, FB_ROT), rb=(Z, Z), **MIRRORS_OUT), "lid_v4"), extra_frames=(0.45,))
 # 9  lid lifts off the open pose -> TRUNK OPEN cargo (<= 30 deg down)
@@ -176,5 +176,5 @@ spec("h1_reassemble", [cam(0, [1.80, 4.60, 4.60], [0, -0.05, 0.75], 29),
                       ((0.35, RB_PARK, RB_ROT, "in"), Z), ((0.95, Z, Z, "in"), Z)]),
      extra_frames=(0.70, 1.40, 2.10))
 # 15 clean complete car (car4) hero from high on the right; fade in the assembler
-spec("h2_hero", [cam(0, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 24), cam(2.45, [2.50, 0.50, 6.60], [0, -0.05, 0.80], 24)], 73,
+spec("h2_hero", [cam(0, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 28), cam(2.45, [2.50, 0.50, 6.60], [0, -0.05, 0.80], 28)], 73,
      [], fps=15, base="car4")
