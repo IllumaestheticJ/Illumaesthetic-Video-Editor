@@ -721,3 +721,10 @@ lands here automatically. Agents must read this whole file before editing.
   along the car (nissan-frontier/tools/shot.py mat_livery, livery_tex.py).
 - **[text]** Parts with no scan/CAD (wheels, lift, turbo): a clearly generic stand-in or a label only, wording from the user, and say so
   in the delivery. Labels longer than ~18 characters at 66 px overflow 1080 px - shorten the title, put the rest in the subline.
+## Ferrari 296 v5 (2026-11-12)
+- Parts that leave a wheel: find the axle as the least-squares intersection of the tread-triangle normals; a hub-face
+  circle fit was 100 mm off. Fill the arch from a wheel-off state scan if one exists (real disc/caliper > empty hole).
+- tools/shot.py camera: lowering the target moves the subject UP in frame (and vice versa) - check one preview frame.
+- Retime interpolated renders with `src_fps`, never `speed:` (speed drops 1 frame in 19 -> periodic judder).
+- "Not enough parts blown up" = progressive explode: every part off on its own kick and stays off, one label each, then all
+  blast on the drop, fly home, lock.

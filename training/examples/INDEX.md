@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [ferrari-296](ferrari-296/) - archived 2026-11-12
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-12
 - [nissan-400z](nissan-400z/) - archived 2026-11-12
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12
@@ -18,7 +19,6 @@ Newest first. Read the top two before starting a new edit.
 - [c5-corvette](c5-corvette/) - archived 2026-11-12
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
-- [ferrari-296](ferrari-296/) - archived 2026-11-11 (v4)
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-11
