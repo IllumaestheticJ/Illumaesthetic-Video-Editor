@@ -34,6 +34,10 @@ for s in "${@:-s1 s3 s5 s6 s7}"; do
   x3) python -m ive render -- --scene $W/xbase.blend --camera $P/match/cam_xray_start.json --look xray --move orbit --move-amount 40 --look-at=0,0,0.7 --ease ease_in_out --seconds 3.6 $Q \
         --explode "$W/fbump_2mm.blend:0.116,0.435,0.95:r0.0:0.167" --explode "$W/rbump_2mm.blend:-0.400,-1.497,0.6:r0.0:0.333" \
         --morph-to-clay 0.83,1.0 --morph-bg 0.0080,0.0090,0.0080 --clay-color 0.05,0.05,0.05 --out $OUT/v3_xray ;;
+  f_design) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_foff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_front_p.blend:0.181,0.676,-0.80:r0.05:0.60" --out $OUT/v4_f_design ;;
+  r_design) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.05:0.60" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v4_r_design ;;
   esac
   echo "DONE $s $(date +%T)"
 done
