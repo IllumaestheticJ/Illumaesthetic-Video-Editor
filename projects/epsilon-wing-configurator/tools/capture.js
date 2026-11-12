@@ -125,9 +125,9 @@ class Cap {
 }
 
 // ---- layouts: clip = absolute css rect captured; panes = [{src:[x,y,w,h] clip-relative css, dst:[x,y,w,h] px of 1080x1920}]
-function portraitStage(c, st) {  // 9:16 window of the portrait app (toolbar + view + foot + car/price bar)
-  const h = Math.min(st.h, 960 - st.y), w = h * 9 / 16, x = st.x + (st.w - w) / 2;
-  const clip = { x, y: st.y, width: w, height: h };
+function portraitStage(c, st) {  // 9:16 window of the portrait app: full bleed width, height = width*16/9 from the bleed top
+  const w = st.w, h = w * 16 / 9;
+  const clip = { x: st.x, y: st.y, width: w, height: h };
   c.setMeta(clip, [{ src: [0, 0, w, h], dst: [0, 0, 1080, 1920] }]);
 }
 function stack(c, top, bot) {  // top: stage rect (abs css, aspect 1080:1100), bot: panel rect (abs css, aspect 1080:800)
@@ -148,9 +148,9 @@ const SHOTS = {
   async hero_a(c, N) {
     await c.pick('Toyota', 'GR86');
     portraitStage(c, await c.rect('.ewc-bleed'));
-    await c.pan(-80, 0); await c.orbit(-30, 0); await c.zoom(-3);
+    await c.pan(-80, 0); await c.orbit(-12, 0); await c.zoom(-3);
     const v = await c.rect('.ewc-viewport');
-    await c.linearDrag(v.cx, v.cy, 70, 0, N - 1);
+    await c.linearDrag(v.cx, v.cy, 62, 0, N - 1);
   },
 
 
