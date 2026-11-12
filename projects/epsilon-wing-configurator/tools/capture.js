@@ -301,8 +301,8 @@ const SHOTS = {
     await c.pick('Toyota', 'GR86'); await c.openAdjust(); await c.view('Rear');
     const to = await c.panelTo('.ewc-numctl[data-num="overhang"]', null, 10); await c.setPanelScroll(to); await c.settle(300);
     const v = await c.rect('.ewc-viewport'); const foot = await c.rect('.ewc-stagefoot'); const oc = await c.rect('.ewc-numctl[data-num="overhang"]');
-    const h = 700, bottom = foot.y + foot.h - 8; const tr = topRect(v.x + 380, bottom - h / 2, h);
-    stack(c, tr, await panelRect(c, oc.y - 8));
+    const st = await c.rect('.ewc-stage'); const tw = st.w - 4, th = tw * 800 / 1080;   // whole rear view + MM/IN foot
+    stack(c, { x: st.x + 2, y: foot.y + foot.h - 6 - th, w: tw, h: th }, await panelRect(c, oc.y - 8, 384 * 1100 / 1080), 800);
     const sl = await c.rect('.ewc-numctl[data-num="height"] .ewc-num-slider');
     const val = await c.p.$eval('.ewc-numctl[data-num="height"] .ewc-num-slider', e => [+e.min, +e.max, +e.value]);
     const fx = x => sl.x + 8 + (sl.w - 16) * (x - val[0]) / (val[1] - val[0]);
