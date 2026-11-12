@@ -43,7 +43,7 @@ def S(n, default):
 # real bumper-off front end -> close slide across that exposed front data -> REAR on the drop: trunk closed -> half ->
 # open -> into the trunk well -> top-down: everything returns home -> dip to black -> small logo.
 # Every camera move is a straight push / dolly / crane; parts translate (bumper turns once: its inside is scanned).
-BASE = f"{P}/comp_explode.blend"   # car - bumper - hood - lid + 'Front End Bumper Off' + 'NA Trunk Open'
+BASE = f"{P}/comp_explode2.blend"  # v2c: + old-bumper remnants removed (lev/comp_explode2.stl); car - bumper - hood - lid + 'Front End Bumper Off' + 'NA Trunk Open'
 B_OUT = [0, -0.55, 0.75]           # bumper parked up and forward, in clear background above the nose line
 B_ROT = [135, 0, 0]                # inside (mounting side) turned toward a front camera
 
@@ -75,9 +75,11 @@ L_OPEN = still(rot=(HT["open_deg"], 0, 0))
 
 def shots():
     sh = {}
+    # v2c: same base + parts as s2 frame 1, so the bumper that comes off is the one shown on the car (car4 carries
+    # the full-car scan's own bumper, fog-lamp holes, which differs from 'Front Bumper Only')
     # 1. whole car, front-right 3/4, fully in frame with margin (v1 was cropped); straight push toward the front end
     d = S("s1_reveal", 5.07)
-    sh["s1_reveal"] = {"base": [CAR], "cam": [cam(0, (-3.9, -5.9, 1.35), (0, -0.35, 0.5), ease="lin"),
+    sh["s1_reveal"] = {"base": [BASE], "parts": [bumper(still()), hood(still()), lid(still())], "cam": [cam(0, (-3.9, -5.9, 1.35), (0, -0.35, 0.5), ease="lin"),
                                                cam(d, (-2.9, -4.9, 1.15), (0, -0.9, 0.5), ease="lin")]}  # v2b: linear - out2 tail read as 0.9 s dead before the cut
     # 2. FRONT: bumper slides up/forward out of the car into clear background, then turns once to show its scanned inside
     d = S("s2_bumper", 4.43)
