@@ -75,6 +75,7 @@ class Comp:
         # per menu state: the stat bars are different for every car, so the menu colour map is too
         self.AB = {k: (np.load(f"{WORK}/ui/A_{k}.npy"), np.load(f"{WORK}/ui/B_{k}.npy")[..., None]) for k in ("mazda", "dodge")}
         self.P = json.load(open(f"{WORK}/track/poses.json")); self.f = self.P["focal_px"]
+        sp = f"{WORK}/track/shift.json"; self.shift = json.load(open(sp)) if os.path.exists(sp) else {}
         self.V, self.F, _ = sil.load_mesh(f"{WORK}/track/nb.npz")
         self.cap = cv2.VideoCapture(f"{WORK}/a60.mp4")
         self.name = {k: np.load(f"{WORK}/ui/name_{k}.npz") for k in ("mazda", "dodge")}   # player name -> "Epsilon" (name_patch.py)
@@ -148,7 +149,11 @@ class Comp:
         # 3. what is left of the game's car
         pose = self.P["frames"][str(src)] if str(src) in self.P["frames"] else self.P["hold"]
         kpose = self.P["frames"][str(kit_src)]
-        K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin); Ka = K[..., 3:] / 255
+        K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin)
+        dx, dy = self.shift.get(str(kit_src), (0.0, 0.0))            # steady.py: steadied screen path, render only
+        if abs(dx) + abs(dy) > 1e-3:
+            K = cv2.warpAffine(K, np.float32([[1, 0, dx], [0, 1, dy]]), (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+        Ka = K[..., 3:] / 255
         G = cv2.resize(sil.car_mask(self.V, self.F, pose, self.f, 0.5), (W, H), interpolation=cv2.INTER_NEAREST)
         G = cv2.dilate(G, np.ones((15, 15), np.uint8))
         near = cv2.dilate(G, np.ones((61, 61), np.uint8))

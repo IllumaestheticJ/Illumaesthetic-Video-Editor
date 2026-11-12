@@ -271,3 +271,6 @@ applies. What does:
    (procedural paint, decal planes; `--frs-green` opens it, drops floor/lights/compositor and scales it to real size).
 8. **Logos:** `upload.wikimedia.org/wikipedia/en/<h>/<hh>/<File>` with `h = md5(filename)` works when the API is
    rate-limited (429 after a handful of calls); `en.wikipedia.org` itself is blocked. `pip install cairosvg` for SVGs.
+9. **Steady the car's screen path, not just the camera** (`tools/steady.py`): print the render's centroid velocity per frame.
+   If it oscillates while the car drives straight, the user will call it shaking. Fix it as a 2D shift of the render (ease
+   onto the hold, one cubic for the drive-away); keep the original fit for masking the game's car.
