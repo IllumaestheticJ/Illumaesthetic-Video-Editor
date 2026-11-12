@@ -35,3 +35,6 @@ Known weak points (told to the user):
 - Get Low on (user's file), from 0:00, no game audio. Car screen path steadied (steady.py). Logo card kept.
 - Lesson: after constraining the camera, also check the car's on-screen velocity frame by frame; the game car's suspension rock and small-size fit noise survive smoothing of the camera and read as shake on a rigid kit car.
 - Not verified by ear: music start point / level; scale (distance) wobble not measured.
+
+## v5
+- Game sounds restored under Get Low (ducked in holds). Rule: keep the game car/menu sounds when adding a song.

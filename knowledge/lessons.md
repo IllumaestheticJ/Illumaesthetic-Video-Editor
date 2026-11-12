@@ -77,3 +77,5 @@ lands here automatically. Agents must read this whole file before editing.
   to the image's grey (`--morph-to-clay`, tuned from median luma) before the dissolve starts.
 - **[technical]** Verify alignment numerically (silhouette bounds / phaseCorrelate) - a hand-made side-by-side
   overlay with a different material can look mismatched when the geometry is right.
+
+- **[audio]** the car and menu sounds got removed (wants them back under Get Low)  _(from nfsu1-carselect, 2026-11-12, reviewer)_
