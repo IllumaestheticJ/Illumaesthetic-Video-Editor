@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-12
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
 - [huracan-evo](huracan-evo/) - archived 2026-11-12
@@ -42,7 +43,6 @@ Newest first. Read the top two before starting a new edit.
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
-- [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
