@@ -10,7 +10,6 @@
    "from": 228,
    "duration": 69,
    "title": "FRONT LOWER LIP",
-   "sub": "+ FRONT GRILLE TRIM",
    "x": 0.08,
    "y": 0.09
   },
@@ -55,8 +54,8 @@
    "kind": "label",
    "from": 573,
    "duration": 97,
-   "title": "SIDE SKIRTS",
-   "sub": "UPPER \u00b7 LOWER \u00b7 STRAKE",
+   "title": "SIDE SKIRT",
+   "sub": "+ SIDE SKIRT STRAKE",
    "x": 0.08,
    "y": 0.09
   }

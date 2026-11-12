@@ -2,6 +2,8 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
+- [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-12
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-12
 - [subaru-gd-trio](subaru-gd-trio/) - archived 2026-11-12
@@ -15,7 +17,7 @@ Newest first. Read the top two before starting a new edit.
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-11
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
-- [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
+- [huracan-evo](huracan-evo/) - archived 2026-11-11
 - [ferrari-296](ferrari-296/) - archived 2026-11-11 (v4)
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)

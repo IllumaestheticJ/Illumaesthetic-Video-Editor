@@ -672,3 +672,10 @@ lands here automatically. Agents must read this whole file before editing.
   subaru-gd-trio/tools/shot.py); the default rig follows each scan's own bbox.
 - **[text]** Logo 280 px was "too small" again; 720 px of 1080 used here.
 - **[workflow]** Find sibling scans by name with the Drive API (`name contains 'Hawk'`), not only the project folder.
+- **[technical]** (porsche-gt3rs-992 v4) Check part paths numerically before rendering: `projects/porsche-gt3rs-992/tools/clipcheck.py`
+  samples each keyed part at 120 Hz and flags parts with >1 % of points within 8 mm of the body away from home. Straight
+  "rise above the car" moves from beside the body and vertical drops back onto mounts pass THROUGH the body; route
+  out past the silhouette -> up -> over (and back the same way). Find each part's exit direction with a direction search
+  (recessed parts like quarter-panel intakes exit along their duct opening, not along the car's X axis).
+- **[technical]** (porsche-gt3rs-992 v4) Two Drive files with different names can be the same part captured twice
+  ("Side Skirt (upper)" vs "Sideskirt (lower)": p50 3-4 mm apart). Compare part scans against each other before casting them.

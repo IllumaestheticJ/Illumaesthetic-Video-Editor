@@ -1,3 +1,23 @@
+# Porsche 911 GT3 RS (992) scan reel v4 - self-review
+
+File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v4.mp4 (37.97 s). Reviewer on v3: "the parts clip into the car, and there
+are two side skirts".
+- Two skirts: "Side Skirt (upper)" and "Sideskirt (lower)" are two captures of the same left skirt (p50 3-4 mm apart). Only
+  "Sideskirt (lower)" is used now; label reads SIDE SKIRT + SIDE SKIRT STRAKE.
+- Clipping: new tools/clipcheck.py samples every part path at 120 Hz against the body. v3 stack shot had 8/9 parts passing
+  through the body (up to 25 % of points within 8 mm). v4: every part leaves along its clear direction (found by a direction
+  search: QP intakes forward + out along the duct opening, diffuser back + down, skirt down then out, strake out then down)
+  and in the stack shot goes out past the silhouette, up, over, and back the same way. All v4 shots: 0 clipping parts
+  (worst 0.7 % of points within 8 mm, at the seat). Grille trim no longer moves (no clear exit found), label line dropped.
+- Unchanged: shot order, music, cut frames, small logo, sh1/sh2/sh4/sh5 renders.
+
+| # | Criterion | v4 | Notes |
+|---|---|---|---|
+| 4 | Scan quality | 4 | no part passes through the body; one skirt; hood nostril holes / blotch remain (scan) |
+| 5 | Story | 4 | 7 moving parts (was 9 with the duplicate skirt and the grille trim) |
+Other criteria as v3 below.
+
+## v3 review
 # Porsche 911 GT3 RS (992) scan reel v3 - self-review
 
 v3 = v2 + part-name labels (user: "GT3RS include the labels"). File: /home/user/media/work/gt3/out/porsche_gt3rs_992_v3.mp4.

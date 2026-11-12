@@ -108,7 +108,8 @@ const Label: React.FC<{ item: Extract<HudItem, { kind: "label" }>; accent: strin
   const rule = interpolate(f, [2, 14], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   // typewriter on the sub line
   const sub = item.sub ?? "";
-  const chars = Math.floor(interpolate(f, [6, 6 + sub.length * 0.9], [0, sub.length], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }));
+  // empty sub: interpolate() needs a strictly increasing input range
+  const chars = sub.length ? Math.floor(interpolate(f, [6, 6 + sub.length * 0.9], [0, sub.length], { extrapolateLeft: "clamp", extrapolateRight: "clamp" })) : 0;
   return (
     <div
       style={{
