@@ -3,7 +3,7 @@ VO), then control -> fender braces -> strut tower brace -> both -> conclusions, 
 usage: python build.py <media_dir> [--script-only]      writes <media_dir>/out/*.mp4 and ../script.md"""
 import sys, os, subprocess, json, re
 M = sys.argv[1]; SRC = f'{M}/dl/MiataScan_RoughCut_1.mp4'; CARDS = f'{M}/work/cards'; SEG = f'{M}/work/seg'; OUT = f'{M}/out'
-HERE = os.path.dirname(os.path.abspath(__file__)); WPS = 2.7
+HERE = os.path.dirname(os.path.abspath(__file__)); WPS = 2.9
 # (kind, a, b, section, picture note, narration)   src: a,b = rough-cut seconds; card: a = png, b = min seconds
 TL = [
  ('src', 0, 13.98, 'Intro (unchanged)', 'Hook, title card, "All cars flex"', None),
@@ -56,6 +56,38 @@ TL = [
  ('card', 'end', 4, '5. Conclusions', 'End card',
   "If you're buying one brace for a stock NB, this data says start with the fender braces. Tell us what you want measured next."),
 ]
+# v2 narration (2026-11-12): rewritten in the user's own speaking style after "the script doesn't sound like me".
+# Style source: their on-camera lines at 0:46-3:03 ("All right, so...", "we're going to", "throw on", "actually", "just how much").
+NAR = [
+ "All right, so first up is our control scan, car on the ground, completely stock.",
+ "So what we're actually measuring here is the width of the engine bay, from strut tower to strut tower. On the ground, bone stock, that comes out to 960.948 millimeters. That's our baseline, and everything else gets compared to it.",
+ "Next, we're going to jack up one corner of the car to a very specific height, and we're checking that with a tape measure so it's the same every single time. When you lift one corner like this, you're basically twisting the whole chassis. So the jack height never changes from here on out. The only thing we're changing is the bracing.",
+ "So with no bracing at all and one corner jacked up, the engine bay goes from 960.948 to 962.643. That's 1.695 millimeters wider, just from jacking up one corner of the car.",
+ "So that 1.695 is the number we're trying to beat with the bracing.",
+ "For the rest of the car, we take the jacked up scan, lay it over the control scan, and color in the difference. So green and light blue means it pretty much didn't move. Red means it moved outward, and dark blue means it moved inward.",
+ "And on the stock car, it actually moves quite a bit. On one side, the rear quarter is going orange and red, which is about ten millimeters on this scale. And then on the other side, that same area is going dark blue.",
+ "So one side is going out and the other side is going in. That's the car twisting, and this is what we're going to compare every brace against.",
+ "So first we're going to throw on the fender braces from Goodwin Racing. These go behind the front fenders, and what they do is tie the door hinge area into the front of the chassis, so it kind of boxes in a corner that's open from the factory. So the fender comes off, the brace gets bolted in, and then we scan it.",
+ "Then it's the same corner, same jack height, and we scan the engine bay again.",
+ "So with just the fender braces on the car, we're at 961.185. That's only 0.237 over our control, when stock it was 1.695. So about 86 percent of that movement is just gone.",
+ "And the crazy part is, these braces don't even touch the strut towers.",
+ "If we look at the heat map, the front of the car is pretty much all green and light blue now. The back of the car is still moving, it's going yellow and orange on one side, so somewhere around five to ten millimeters.",
+ "Which makes sense, because these braces are all the way at the front of the car. They're not really going to do anything for the trunk.",
+ "Next up is the strut tower brace by itself, so no fender braces on the car for this one. This is the one that everyone does first because it's such an easy mod. It just bolts onto the top of both strut towers and ties them together across the engine bay. Then same thing, jack it up to the same height and scan it.",
+ "So with just the strut tower brace, we're at 961.679, which is 0.731 over our control. That's about 57 percent less movement, so it's definitely doing something. But the interesting part is, this brace connects the strut towers directly, and it actually did less for them than the fender braces did.",
+ "So 0.731 for the strut tower brace, and 0.237 for the fender braces.",
+ "But then if you look at the heat map, it's kind of a different story. With the strut tower brace on, pretty much the whole car is green and light blue, so everything is within about two and a half millimeters, front to back.",
+ "So out of the two braces by themselves, this one actually has the cleaner heat map for the whole car.",
+ "And then for the last scan, we've got both of them on the car together, same jack height.",
+ "So with both braces on, we're at 961.384, which is 0.436 over our control, or about 74 percent less than stock. So that's better than the strut tower brace by itself, but it's actually not better than just the fender braces.",
+ "Now, the difference between those two is only about two tenths of a millimeter, and we only did one scan of each, so I'm not going to sit here and tell you one is better than the other. But what it does tell us is that the braces don't just stack on top of each other.",
+ "One thing to point out on this heat map is the scale is different. This one only goes to eight millimeters instead of fifteen, so the same colors actually mean smaller numbers. Most of the car is within a couple of millimeters. The door is showing up hot, but that's a door, it's on hinges, so that's most likely just how it was closed and not the chassis moving.",
+ "So does chassis bracing actually do anything? Yes, it does, and we can actually measure it. Stock, with one corner jacked up, the strut towers spread 1.695 millimeters. With the fender braces it was 0.237, with the strut tower brace it was 0.731, and with both it was 0.436.",
+ "So there's a few things we can take away from this. Number one, every single setup cut that movement by more than half. Number two, the fender braces actually did the most for the strut towers, even more than the strut tower brace that everyone does first. And number three, they don't just add up. Once the front of the car is already tied together, the next brace just doesn't have as much left to do.",
+ "Now, keep in mind, this is one car, one scan of each setup, and we're loading it with a jack, not taking a corner on track. And the most we saw the strut towers move was about a millimeter and a half. But that's where your front suspension bolts to the car, and now we actually know how much it moves and what it takes to stop it.",
+ "So if you've got a stock NB and you're only going to do one of these, the data says do the fender braces first. Let us know in the comments what you want us to measure next.",
+]
+_i = iter(NAR); TL = [it[:5] + (next(_i),) if it[5] else it for it in TL]; assert next(_i, None) is None
 def dur(it):
     k, a, b, *_, nar = it
     if k in ('src', 'gfx'): return b - a
@@ -66,7 +98,7 @@ def schedule():
     for it in TL: d = dur(it); rows.append((t, d, it)); t += d
     return rows, t
 def script_md(rows, total):
-    o = ['# Miata chassis-bracing long-form: script and edit plan (v1, for review)', '',
+    o = ['# Miata chassis-bracing long-form: script and edit plan (v2, for review)', '',
          f'Review cut length {tc(total)}. Narration below starts where the rough cut\'s voice stops (3:04). Every number is from',
          '`Strut Spread.xlsx` and the nine PDF reports on the engineering Drive; percentages are calculated from those widths.', '',
          '| Cut time | Section | Picture | Source | Narration (draft) |', '|---|---|---|---|---|']
@@ -124,7 +156,7 @@ def build(rows):
     ass(rows, f'{SEG}/draft.ass')
     tcf = "drawtext=font='DejaVu Sans Mono':fontsize=26:fontcolor=white:box=1:boxcolor=black@0.6:boxborderw=6:x=w-tw-24:y=24:text='%{pts\\:hms}'"
     run(['-i', f'{OUT}/clean.mp4', '-vf', f"ass={SEG}/draft.ass,{tcf}", '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '22', '-pix_fmt', 'yuv420p', '-c:a', 'copy', '-movflags', '+faststart',
-         f'{OUT}/MiataBracing_review_v1.mp4'])
+         f'{OUT}/MiataBracing_review_v2.mp4'])
 if __name__ == '__main__':
     rows, total = schedule(); script_md(rows, total)
     for t, d, it in rows:
