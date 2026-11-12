@@ -656,3 +656,10 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[scan-look]** the parts clip into the car  _(from porsche-gt3rs-992, 2026-11-12, reviewer)_
 - **[music]** Music (THE DEATH - Sworra, CML library track) is awful - change it to a real, trending song  _(from honda-civic-11-scan-process, 2026-11-11, reviewer)_
+
+## From the Nissan Frontier v4 (2026-11-12, built by an agent)
+- **[scan-look]** Do not carve a part scan to avoid a duplicate neighbour (v2/v3 cut the grille zone out of the bumper scan and
+  lost the grille mounting frame + upper inside; user: "I scanned the whole inside"). Use the removed-part scan COMPLETE as one
+  assembly and hide the separate neighbour part in those shots instead.
+- **[scan-look]** Parked parts count for cropping too: every part left in a later shot must be fully inside the frame (or fully
+  out) on the first/mid/last check - the user flagged a parked bumper clipped at the edge.

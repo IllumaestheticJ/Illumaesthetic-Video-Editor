@@ -1,9 +1,9 @@
-# v3 - user notes on v2: bigger logo; clean flares that show their back; no bumper leftovers on the truck; hood opens on its
-# hinge. Shots: tools/shots_v3.py (S1/S2 = v2 renders). Same cut frames as v2. v2: project_v2.yaml, v1: project_v1.yaml.
+# v4 - user notes on v3: complete bumper scan (whole inside, grille included, one assembly); parked bumper fully in frame;
+# flare shot no longer crops. Shots: tools/shots_v4.py (S1/S2 = v2 renders, S4 = v3 render). Same cut frames. v3: project_v3.yaml.
 # Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
 project: nissan-frontier
 format: reel-9x16
-output: {path: /home/user/media/work/frontier/out/nissan_frontier_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-frontier_track.mp3   # not in git
@@ -31,10 +31,10 @@ timeline:
     frames: 144
     dur: 4.8000
   - transition: {type: cut}
-  - id: v3_s3_bumper
+  - id: v4_s3_bumper
     section: front
-    focus: "FRONT BUMPER off on the drop; grille lifts off it; bumper turns to show its scanned inside"
-    src: /home/user/media/work/frontier/renders/final/v3_s3_bumper
+    focus: "FRONT BUMPER off on the drop; complete bumper scan (grille on it) turns to show its whole scanned inside"
+    src: /home/user/media/work/frontier/renders/final/v4_s3_bumper
     src_fps: 15
     interpolate: true
     frames: 144
@@ -49,37 +49,37 @@ timeline:
     frames: 107
     dur: 3.5667
   - transition: {type: cut}
-  - id: v3_s5_hood
+  - id: v4_s5_hood
     section: front
     focus: "HOOD opens on its fitted hinge (33.5 deg from the propped-hood fragments)"
-    src: /home/user/media/work/frontier/renders/final/v3_s5_hood
+    src: /home/user/media/work/frontier/renders/final/v4_s5_hood
     src_fps: 15
     interpolate: true
     frames: 73
     dur: 2.4333
   - transition: {type: cut}
-  - id: v3_s6_struct
+  - id: v4_s6_struct
     section: front
     focus: "FRONT STRUCTURE (bumper + hood removed scan)"
-    src: /home/user/media/work/frontier/renders/final/v3_s6_struct
+    src: /home/user/media/work/frontier/renders/final/v4_s6_struct
     src_fps: 15
     interpolate: true
     frames: 111
     dur: 3.7000
   - transition: {type: cut}
-  - id: v3_s7_flares
+  - id: v4_s7_flares
     section: side
     focus: "FENDER FLARES pull out onto black and turn to show their back"
-    src: /home/user/media/work/frontier/renders/final/v3_s7_flares
+    src: /home/user/media/work/frontier/renders/final/v4_s7_flares
     src_fps: 15
     interpolate: true
     frames: 108
     dur: 3.6000
   - transition: {type: cut}
-  - id: v3_s8_home
+  - id: v4_s8_home
     section: whole
     focus: "parts home one per beat from the crash; FULL TRUCK; fade"
-    src: /home/user/media/work/frontier/renders/final/v3_s8_home
+    src: /home/user/media/work/frontier/renders/final/v4_s8_home
     src_fps: 15
     interpolate: true
     frames: 182
@@ -96,15 +96,15 @@ timeline:
 overlays:
   - src: /home/user/media/work/frontier/out/labels_v2_s2_grille.mov
     start: 4.8667
-  - src: /home/user/media/work/frontier/out/labels_v3_s3_bumper.mov
+  - src: /home/user/media/work/frontier/out/labels_v4_s3_bumper.mov
     start: 9.6667
   - src: /home/user/media/work/frontier/out/labels_v3_s4_removed.mov
     start: 14.4667
-  - src: /home/user/media/work/frontier/out/labels_v3_s5_hood.mov
+  - src: /home/user/media/work/frontier/out/labels_v4_s5_hood.mov
     start: 18.0333
-  - src: /home/user/media/work/frontier/out/labels_v3_s6_struct.mov
+  - src: /home/user/media/work/frontier/out/labels_v4_s6_struct.mov
     start: 20.4667
-  - src: /home/user/media/work/frontier/out/labels_v3_s7_flares.mov
+  - src: /home/user/media/work/frontier/out/labels_v4_s7_flares.mov
     start: 24.1667
-  - src: /home/user/media/work/frontier/out/labels_v3_s8_home.mov
+  - src: /home/user/media/work/frontier/out/labels_v4_s8_home.mov
     start: 27.7667

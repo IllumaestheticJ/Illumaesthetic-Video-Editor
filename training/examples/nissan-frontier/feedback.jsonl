@@ -4,3 +4,5 @@
 {"ts": "2026-11-11T18:50:35Z", "project": "nissan-frontier", "at": "24.2", "category": "scan-look", "note": "Flare section has a lot of artifacts with it; need to show backside", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T18:50:35Z", "project": "nissan-frontier", "at": "10", "category": "scan-look", "note": "Front bumper removed scan shows front bumper parts leftover on the truck when the bumper is moved", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T18:50:35Z", "project": "nissan-frontier", "at": "18", "category": "scan-look", "note": "Hood needs to open normally (hinge) to show its underside", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T00:12:21Z", "project": "nissan-frontier", "at": null, "category": "scan-look", "note": "Fix the flare shot crop and the clipped (parked) bumper", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T00:12:21Z", "project": "nissan-frontier", "at": "10", "category": "scan-look", "note": "Front bumper should be a more complete version of the bumper scan - the whole inside of the bumper was scanned", "by": "reviewer", "promoted": false}
