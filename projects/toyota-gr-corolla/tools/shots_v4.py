@@ -48,10 +48,10 @@ def part(blend, keys, pivot=None):
 E = 2.1  # end of a 2 s shot incl. tail
 SHOTS = {
     # BUILD (0-6 s): whole car push -> grille (intercooler behind the mesh) -> front wheel/arch
-    "a1_whole": {"base": [CAR], "cam": [cam(0, [-4.9, -6.9, 1.8], [0, -0.15, 0.6]),
-                                        cam(E, [-4.05, -6.15, 1.35], [0, -0.40, 0.55], ease="out")]},
-    "a2_grille": {"base": [CAR_HI], "cam": [cam(0, [-1.15, -3.75, 0.62], [-0.05, -2.05, 0.36], 40),
-                                            cam(E, [-0.45, -3.35, 0.45], [0, -2.05, 0.31], 40)]},
+    "a1_whole": {"base": [CAR], "cam": [cam(0, [-4.4, -6.3, 1.6], [0, -0.3, 0.6]),
+                                        cam(E, [-3.05, -4.8, 1.1], [0, -0.55, 0.55], ease="out")]},
+    "a2_grille": {"base": [CAR_HI], "cam": [cam(0, [-1.5, -4.2, 0.72], [-0.05, -2.05, 0.38], 40),
+                                            cam(E, [-0.75, -3.85, 0.52], [0, -2.05, 0.33], 40)]},
     "a3_wheel": {"base": [CAR_HI], "cam": [cam(0, [-2.55, -0.45, 0.45], [-0.85, -1.05, 0.36], 34),
                                            cam(E, [-2.55, -1.6, 0.45], [-0.85, -1.3, 0.34], 34)]},
     # DROP (6 s): front under-bumper sequence on fbase, one removal per shot, each part leaves the frame
@@ -68,18 +68,18 @@ SHOTS = {
                  "cam": [cam(0, [-0.35, -4.4, 0.55], [0, -1.9, 0.37], 30), cam(E, [-0.25, -4.1, 0.5], [0, -1.9, 0.35], 30)]},
     "b3_ducts": {"base": [FBASE], "parts": [part(IC, []),
                                               part(FD, [k(0), k(0.1), k(0.6, [0, -0.5, 0], ease="out"),
-                                                        k(1.1, [0, -0.6, -0.9], ease="in2")]),
+                                                        k(1.1, [0, -0.6, -2.0], ease="in2")]),
                                               part(RDV, [k(0), k(0.5), k(0.95, [0, -0.5, 0], ease="out"),
                                                          k(1.45, [0, -0.6, 1.3], ease="in2")]),
                                               part(RD, [k(0), k(0.6), k(1.1, [0, -0.55, 0], ease="out"),
                                                         k(1.7, [0, -0.65, 1.5], ease="in2")])],
                  "cam": [cam(0, [1.75, -4.1, 0.7], [0, -1.95, 0.38], 32), cam(E, [1.45, -3.8, 0.6], [0, -1.95, 0.36], 32)]},
     "b4_ic": {"base": [FBASE], "parts": [part(IC, [k(0), k(0.1), k(0.7, [0, -0.5, 0.12], ease="out"),
-                                                    k(1.4, [0, -0.62, 0.22], [0, 0, -22])])],
-              "cam": [cam(0, [-1.4, -3.75, 0.55], [0, -2.05, 0.32], 34), cam(E, [-1.0, -3.4, 0.5], [0, -2.15, 0.33], 34)]},
+                                                    k(1.4, [0, -0.55, 0.2], [0, 0, -20])])],
+              "cam": [cam(0, [-0.75, -4.6, 0.9], [0, -2.3, 0.3], 32), cam(E, [-0.55, -4.3, 0.8], [0, -2.3, 0.3], 32)]},
     # REAR (diffuser -> rear bumper -> crash beam, the order the state scans were taken), from the car's left
     "c1_diffuser": {"base": [DBASE], "parts": [part(DF, [k(0), k(0.1), k(0.7, [0, 0.45, -0.05], ease="out"),
-                                                          k(1.4, [0, 0.6, -0.75], ease="in2")])],
+                                                          k(1.4, [0, 0.9, -3.2], ease="in2")])],
                     "cam": [cam(0, [2.4, 6.7, 0.7], [-0.1, 1.9, 0.45]), cam(E, [1.5, 5.5, 0.62], [0, 1.95, 0.4])]},
     "c2_rbumper": {"base": [XBASE], "parts": [part(b, [k(0), k(0.1), k(0.75, [0, 0.55, 0.15], ease="out"),
                                                         k(1.6, [0, 0.8, 1.8], [150, 0, 0], ease="in2")], RB_PIVOT)
@@ -88,8 +88,8 @@ SHOTS = {
     # same camera as c2's end: state swap to 'crash bar removed' on the kick
     "c3_mounts": {"base": [CBASE], "cam": [cam(0, [1.15, 4.2, 0.75], [0, 2.05, 0.6], 32),
                                            cam(1.2, [0.85, 4.1, 0.75], [-0.05, 2.03, 0.6], 32)]},
-    "d1_clean": {"base": [CAR], "cam": [cam(0, [4.6, 5.9, 1.55], [0, 0.35, 0.58], 30),
-                                        cam(E, [4.2, 5.45, 1.4], [0, 0.4, 0.55], 30, ease="out")]},
+    "d1_clean": {"base": [CAR], "cam": [cam(0, [3.85, 4.95, 1.4], [0, 0.4, 0.58], 30),
+                                        cam(E, [3.7, 4.8, 1.3], [0, 0.4, 0.55], 30, ease="out")]},
 }
 
 
