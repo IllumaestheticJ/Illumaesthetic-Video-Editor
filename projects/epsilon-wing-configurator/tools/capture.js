@@ -282,7 +282,7 @@ const SHOTS = {
     const w = await c.rect('svg .ewc-wing');
     const gx = w.x + w.w * 0.5, gy = w.y + w.h * 0.3;
     await c.curShow(gx + 80, gy + 160); await c.tick(8);
-    await c.drag(gx, gy, gx - 18, gy - 40, 34, 12); await c.tick(10);
+    await c.drag(gx, gy, gx + 12, gy - 40, 34, 12); await c.tick(10);
     const h = await c.rect('svg .ewc-handle-rotate');
     await c.drag(h.cx, h.cy, h.cx + 6, h.cy - 34, 28, 12); await c.tick(Math.max(0, N - c.n));
   },
