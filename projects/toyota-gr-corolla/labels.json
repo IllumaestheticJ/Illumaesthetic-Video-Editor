@@ -1,10 +1,11 @@
-{"note": "direction.md labels; frames are reel frames at 30 fps; y = text top in px (top band 150-330, low band 1300-1500)",
- "frames": 1146, "fps": 30,
+{"note": "v3 labels (direction.md section 3); frames are reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Each window starts after any moving part has left its band.",
+ "frames": 705, "fps": 30,
  "items": [
-  {"text": "FRONT BUMPER REMOVED", "in": 452, "out": 555, "y": 1380},
-  {"text": "DIFFUSER REMOVED", "in": 645, "out": 712, "y": 220},
-  {"text": "REAR BUMPER REMOVED", "in": 748, "out": 790, "y": 1380},
-  {"text": "CRASH BEAM", "in": 795, "out": 822, "y": 1380},
-  {"text": "CRASH BEAM REMOVED", "in": 838, "out": 920, "y": 220},
-  {"text": "MOUNTING POINTS", "in": 864, "out": 920, "y": 300}
+  {"text": "FRONT BUMPER REMOVED", "in": 195, "out": 237, "y": 1380},
+  {"text": "BUMPER BEAMS", "in": 278, "out": 299, "y": 220},
+  {"text": "RADIATOR DUCTS", "in": 335, "out": 358, "y": 1380},
+  {"text": "INTERCOOLER", "in": 369, "out": 418, "y": 1380},
+  {"text": "DIFFUSER REMOVED", "in": 432, "out": 478, "y": 220},
+  {"text": "REAR BUMPER REMOVED", "in": 498, "out": 538, "y": 1380},
+  {"text": "CRASH BEAM REMOVED", "in": 541, "out": 568, "y": 220}
  ]}
