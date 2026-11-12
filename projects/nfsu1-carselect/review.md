@@ -41,3 +41,9 @@ Known weak points (told to the user):
 
 ## v6
 - Wheels rotate frame to frame (26 deg/frame + blur); ground shadow and tyre contact patches added in compositing. Checked on stills for all four cars; rotation direction derived from geometry, not confirmed in playback.
+
+## v7
+- FR-S: blend wheels and wing removed; showroom wheels from the 86 GLB on the same centres, TC wing kit from the RX-8 GLB (the 86 GLB has no TC wing) seated on the boot lid. Donor choice is mine — not confirmed by the user.
+- Wheels are the real GLB rims turning in the Blender render (18 deg/frame, brakes static, 20 phase renders loop through the hold); the 2D smear is reduced to a light blur.
+- Checked on contact sheets for all four cars and on consecutive hold frames (spokes move). Not checked in playback: wheel speed/direction feel, audio balance.
+- Lesson: a 2D post effect on wheels hides the rims the user cares about; spin the wheel objects in the render and keep phases for the hold.
