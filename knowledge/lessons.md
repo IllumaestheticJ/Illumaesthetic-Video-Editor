@@ -744,3 +744,8 @@ lands here automatically. Agents must read this whole file before editing.
   breaks), time each shot to its phrase, then snap the cut to the nearest measured kick (not the fitted grid).
 - **[technical]** A 3D stage's auto-centre by edge bbox fails (the ground horizon spans the width); use dark-pixel bbox
   with the toolbar strip masked (tools/bbox.py).
+- (Mazda Miata NA, reviewer) When a removed part was scanned separately, it may not be the part that is on the full-car
+  scan (Miata: the full car had a different front bumper). A proximity cut against the removed part leaves the
+  non-matching old geometry behind ("the old bumper still shows"). In the part's zone, keep only full-car geometry the
+  part-off state scan confirms (nearest-neighbour ≤ ~12 mm), and show the removable part on the car in every shot
+  before it comes off, never the full-car scan's own version.

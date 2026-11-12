@@ -2,3 +2,4 @@
 {"ts": "2026-11-11T09:11:50Z", "project": "mazda-miata-na", "at": "0", "category": "scan-look", "note": "Car is cropped in the beginning", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T09:11:50Z", "project": "mazda-miata-na", "at": null, "category": "pacing", "note": "Repetitive steps (turntable, orbit, rotating top-down, orbiting explode all do the same thing)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-11T09:11:50Z", "project": "mazda-miata-na", "at": null, "category": "story", "note": "Order by area: front bumper data first - show it - then move to the back, etc.", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T07:04:58Z", "project": "mazda-miata-na", "at": null, "category": "scan", "note": "the old bumper still shows when you take the new bumper off the main scan", "by": "reviewer", "promoted": false}

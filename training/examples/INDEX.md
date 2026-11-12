@@ -7,6 +7,8 @@ Newest first. Read the top two before starting a new edit.
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-12
 - [nissan-400z](nissan-400z/) - archived 2026-11-12
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12
+- [mazda-miata-na](mazda-miata-na/) - archived 2026-11-12
+- [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
 - [huracan-evo](huracan-evo/) - archived 2026-11-12
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-12
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-12
@@ -22,7 +24,6 @@ Newest first. Read the top two before starting a new edit.
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
-- [mazda-miata-na](mazda-miata-na/) - archived 2026-11-11
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-11

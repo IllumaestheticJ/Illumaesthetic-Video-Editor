@@ -14,12 +14,19 @@ closed → half → open, the three captures (s5) → trunk well (s6) → TOP: e
 | 1 | Hook | 4 | Whole car, fully in frame with margins, moving from frame 1 (linear push, no ease-out stall). First transformation (bumper lifts) at 5.0 s on the phrase kick; the intro is the track's calm 8 bars. |
 | 2 | Beat sync | 5 | Measured on the decoded audio of the delivered file: all 8 cuts −12..+16 ms from the kick (≤ ½ frame). 152/685 moved one frame after measuring +24/+22 ms. |
 | 3 | 1:1 match | n/a | No IRL footage. |
-| 4 | Scan quality | 4 | Real bumper-off capture is the hero; open lids are fitted to the real open-state scans (no faked openings). Plate blanked. Hood underside capture partial (camera kept on the scanned side). |
+| 4 | Scan quality | 4 | Real bumper-off capture is the hero (old-bumper remnants removed from the base); open lids are fitted to the real open-state scans (no faked openings). Plate blanked. Hood underside capture partial (camera kept on the scanned side). |
 | 5 | Story | 4 | Front bumper data first (part, then what's behind it), then side, then rear, then the whole car re-assembled. Each section appears once. Only the bumper has a removed-state scan, so only the bumper comes off. |
 | 6 | Grade | 5 | Silver on pure black, AgX. |
 | 7 | Text | 4 | Three sequential label cards, one at a time, on black (never over the car): FRONT BUMPER / INSIDE + OUTSIDE SCANNED; FRONT BUMPER REMOVED / WHAT'S BEHIND IT, SCANNED; CRASH BEAM / MOUNTING POINTS · RADIATOR. No numbers. Small subtitle line is thin on a phone. |
 | 8 | Ending | 5 | Top-down hold, dip to black, small logo on the b56 phrase change (31.7 s), audio fades with it. |
 | 9 | Technical | 5 | Specs met; every rendered frame luma-checked (no black/dark frames; persistent data off); first/mid/last of every shot checked for clipping; only the planned dip/fade frames are dark. |
+
+## v2 fix (reviewer: "the old bumper still shows when you take the new bumper off the main scan")
+- The full-car scan carries a different bumper (round fog-lamp holes, deeper chin) than 'Front Bumper Only'. The explode
+  base only cut car skin within 9 mm of the removed part, so the old bumper's chin/corners stayed. New base
+  (comp_explode2): ahead of the front tyres and below the hood line, keep only what the 'Front End Bumper Off' capture
+  confirms (−136,823 tris). s1 now shows that base + the removable bumper, so the same bumper is on the car before it
+  comes off. Re-rendered s1, s2, s3_front_removed, s3_hood, s4b_side, s7; re-checked luma, framing and cut timing.
 
 ## ive director (v2)
 - Sections: whole 5.0, front 11.1, side 2.2, rear 8.9, top 4.4, end 4.5 s — one continuous block each.
