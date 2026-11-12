@@ -129,8 +129,8 @@
   "r3_lift": [
    {
     "id": "wheel",
-    "title": "WHEELS + TIRES",
-    "sub": "UPGRADE 03",
+    "title": "35-INCH OFF-ROAD WHEELS",
+    "sub": "UPGRADE 03 \u00b7 NISSAN OFF-ROAD",
     "t": [
      1.2,
      2.25
@@ -164,14 +164,18 @@
    },
    {
     "id": "body",
-    "title": "TWIN-TURBO V6",
-    "sub": "UPGRADE 06",
+    "title": "GT-R TWIN TURBOS",
+    "sub": "UPGRADE 06 \u00b7 UNDER THE TRUCK",
     "t": [
      3.25,
      4.9
     ],
-    "side": "top",
-    "y": 0.14
+    "side": "bottom",
+    "y": 0.72,
+    "offset": [
+     0.0,
+     0.035
+    ]
    }
   ]
  }
