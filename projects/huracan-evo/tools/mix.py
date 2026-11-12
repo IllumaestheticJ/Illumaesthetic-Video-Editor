@@ -182,5 +182,12 @@ def main_v6(out):
     print(out)
 
 
+# v7: same voice/settings; script ends on a conclusion (user: "it needs a conclusion for the end of the video"):
+# "...Named after a fighting bull, and built like one. This is the Huracan EVO." - last line lands on the logo (27.08 s).
+def main_v7(out):
+    V6.update(VO="/home/user/media/huracan-evo/vo/narration11.wav", LAST=29.2)
+    main_v6(out)
+
+
 if __name__ == "__main__":
-    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])

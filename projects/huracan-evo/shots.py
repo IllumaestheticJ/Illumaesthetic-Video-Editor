@@ -329,3 +329,70 @@ if __name__ == "__main__":
     for name, d in HP_SHOTS + SP_SHOTS:
         json.dump(d, open(OUT + name + ".json", "w"), indent=1)
         print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
+
+
+# ---------------------------------------------------------------- v7: coupe rear-end disassembly, exhaust, wheel wells
+# user on v6: "show the full rear end disassembly of the coupe and wheel wells, and the exhaust scans we have".
+# Parts (2023 coupe set, all prepped --like coupe2.json): c_rearbase = 'Rear End (No Bumper)' minus the moving panels;
+# c_bumper = coupe surface the no-bumper scan lacks (plate already removed); decklid / upper grille / support beam scans;
+# c_exhaust = standalone 'EVO exhaust' scan registered into the car frame (tools/exhaust_place.py, 4.7 mm median).
+CP = {"base": B + "c_rearbase.blend", "rb": B + "c_bumper.blend", "dk": B + "c_decklid.blend", "gr": B + "c_grille.blend",
+      "bm": B + "c_beam.blend", "ex": B + "c_exhaust.blend"}
+CKEYS = ["rb", "dk", "gr", "bm", "ex"]
+C0 = {k: P() for k in CKEYS}
+C1 = dict(C0, rb=P([0, 0.95, 0.30], -125))                 # bumper back + tipped: inner face up/back to the lens
+C1_OUT = dict(C0, rb=P([0, 1.30, -1.6], -125))             # dropped out of frame for the hold on the rear end
+C2 = dict(C1_OUT, gr=P([0, 0.65, 0.55]), bm=P([0, 0.85, 0.35]), dk=P([0, 0.35, 0.60], -18))
+C3 = dict(C2, ex=P([0, 0.95, -0.30], 25, (0, 0, 1)))       # exhaust drops back/out, yaws 25 deg to show its body
+V7_N = {"sp_bumper": (12, 17), "c1_bumper": (17, 22), "c2_deck": (22, 26), "c3_exhaust": (26, 31), "c4_wells": (31, 35),
+        "c5_finale": (35, 40)}
+K5 = lambda n: 3.0768 + 0.60006 * n
+
+
+def moves2(a, b, windows, extra=None):
+    an = {}
+    for k in CKEYS:
+        if k in windows:
+            t0, t1 = windows[k]
+            an[k] = [dict(t=0, **a[k]), dict(t=t0, **a[k]), dict(t=t1, **b[k]), dict(t=1, **b[k])]
+        else:
+            an[k] = [dict(t=0, **a[k])]
+    for k, ks in (extra or {}).items():
+        an[k] = an[k][:-1] + ks if len(an[k]) > 1 else an[k] + ks
+    return an
+
+
+def cshot(name, camera, anims, objects=CP, extra=None, light_ref="base"):
+    a, b = V7_N[name]
+    d = dict(objects=objects, seconds=round(K5(b) - K5(a), 3), fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
+             camera=camera, out=RENDERS + name, anims=anims, exposure=EXPOSURE, light_ref=light_ref, persistent=False)
+    d.update(extra or {})
+    return name, d
+
+
+V7_SHOTS = [
+    cshot("c1_bumper", [dict(t=0, az=-140, el=22, dist=5.0, target=[0, 2.0, 0.60], lens=45),
+                        dict(t=0.5, az=-138, el=25, dist=4.6, target=[0, 2.4, 0.65], lens=45),
+                        dict(t=1, az=-152, el=18, dist=2.9, target=[0, 1.95, 0.55], lens=45)],
+          moves2(C0, C1, {"rb": (0.10, 0.50)}, {"rb": [dict(t=0.72, **C1["rb"]), dict(t=0.92, **C1_OUT["rb"]), dict(t=1, **C1_OUT["rb"])]})),
+    cshot("c2_deck", [dict(t=0, az=-150, el=30, dist=4.4, target=[0, 1.55, 0.85], lens=45),
+                      dict(t=1, az=-138, el=34, dist=4.0, target=[0, 1.70, 0.95], lens=45)],
+          moves2(C1_OUT, C2, {"gr": (0.0, 0.45), "bm": (0.15, 0.60), "dk": (0.30, 0.80)})),
+    cshot("c3_exhaust", [dict(t=0, az=-160, el=12, dist=3.6, target=[0, 2.20, 0.45], lens=45),
+                         dict(t=1, az=-172, el=9, dist=3.0, target=[0, 2.55, 0.35], lens=45)],
+          moves2(C2, C3, {"ex": (0.05, 0.60)})),
+    cshot("c4_wells", [dict(t=0, az=105, el=12, dist=2.4, target=[0.85, 1.30, 0.40], lens=40),
+                       dict(t=1, az=72, el=14, dist=2.2, target=[0.85, 1.30, 0.40], lens=40)],
+          {}, objects={"base": B + "c_rww.blend"}),
+    cshot("c5_finale", [dict(t=0, az=-150, el=22, dist=4.8, target=[0, 1.6, 0.60], lens=45),
+                        dict(t=0.6, az=-148, el=18, dist=5.6, target=[0, 1.2, 0.58], lens=45),
+                        dict(t=1, az=-142, el=12, dist=8.6, target=[0, 0.0, 0.55], lens=45)],
+          moves2(C3, C0, {"ex": (0.0, 0.25), "bm": (0.15, 0.40), "gr": (0.20, 0.45), "dk": (0.25, 0.50), "rb": (0.35, 0.65)}),
+          objects=dict(CP, clean=B + "coupe2_npc.blend"),
+          extra={"visible": dict({k: [0, 0.72] for k in ["base", *CKEYS]}, clean=[0.72, 1.01])}),
+]
+
+if __name__ == "v7":   # write only these: python -c "import runpy; runpy.run_path('shots.py', run_name='v7')"
+    for name, d in V7_SHOTS:
+        json.dump(d, open(OUT + name + ".json", "w"), indent=1)
+        print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
