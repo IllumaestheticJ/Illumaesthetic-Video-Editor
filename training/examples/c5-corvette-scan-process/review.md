@@ -1,6 +1,6 @@
-# C5 Corvette scan-process reel v3 - agent self-review (training/rubric.md)
+# C5 Corvette scan-process reel v4 - agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/c5_scan_process_v3.mp4` - 1080x1920, 30 fps, 31.83 s; cuts at frames 65/294/360/425/458/621, -6..+13 ms from the decoded kicks, H.264 yuv420p + AAC.
+Output: `/home/user/media/work/out/c5_scan_process_v4.mp4` - 1080x1920, 30 fps, 31.83 s; cuts at frames 65/294/360/425/458/621, -6..+13 ms from the decoded kicks, H.264 yuv420p + AAC.
 v3 = user notes on v2 (front bumper glides toward the camera showing its mounting side; add the rear-bumper-removed data) +
 the all-reels brief and its addendum (one sequence per section, travel without ping-pong, bumper-removed hero beats with labels,
 wider 1:1 crops, shorter ending, persistent data off + luma check). Plan: direction.md.
@@ -21,3 +21,13 @@ wider 1:1 crops, shorter ending, persistent data off + luma check). Plan: direct
 - The opening real clip is native portrait (full frame) - its crop cannot be widened further.
 - Rear bumper part is the car's rear skin + the separately scanned inside surface (no single loose-bumper scan exists).
 - Hood stays closed in the scans (the hood-open supplement does not register), while it is up in the stripped-front footage.
+
+## v4 (user: use the uploaded NASCAR 2005 Chase theme; include more scans, e.g. under the hood)
+- Music: 'Thunder' from track 48.03 s; 1:1 cut on the section change (2.0 s), end card on the final hit (38 s); 39.8 s total.
+  8 hard cuts on accented even beats, -4..+15 ms from the kick peaks in the decoded audio.
+- New sections: TARGA ROOF (registered targa top lifts, turns its scanned underside to camera, then the 2026 roof-open cockpit)
+  and UNDERBODY (Project 8 C5 Underside, x-ray). Order: rear -> top -> front (IRL + 1:1) -> underbody -> reassembly -> listing.
+- Under the hood: not possible with this car's data (Engine Bay Z06 = a different car; hood-open supplement does not register;
+  'front bumper and hood removed' covers only the radiator support). Asked the user for a registered engine-bay scan.
+- Scores unchanged except Story 4 -> 4 (more data shown, still no scanner footage) and Beat sync 5.
+- Risk: underbody (x-ray) and reassembly (x-ray) sit back to back - different subjects, similar look.

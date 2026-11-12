@@ -1,0 +1,47 @@
+{
+ "objects": {
+  "car": "/home/user/media/work/c5/under.blend"
+ },
+ "seconds": 4.2,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/U",
+ "light_ref": "car",
+ "camera": [
+  {
+   "t": 0,
+   "az": -62,
+   "el": -24,
+   "dist": 4.6,
+   "target": [
+    0,
+    -0.9,
+    0.35
+   ],
+   "lens": 27.2
+  },
+  {
+   "t": 1,
+   "az": -118,
+   "el": -24,
+   "dist": 4.6,
+   "target": [
+    0,
+    0.9,
+    0.35
+   ],
+   "lens": 27.2,
+   "roll": 0
+  }
+ ],
+ "look": "xray",
+ "accent": [
+  0.62,
+  0.66,
+  0.72
+ ]
+}
