@@ -10,7 +10,6 @@
   "top": "911 GT3 RS (992)",
   "bottom": "911 GT3 (992)"
  },
- "hud": "/home/user/media/work/gt3vs/hud.mov",
  "logo": {
   "src": "/home/user/media/work/gt3/logo_v5.mp4",
   "frame": 1106
@@ -103,5 +102,96 @@
    "src": "/home/user/media/work/gt3vs/renders/final/g_home",
    "frames": 227
   }
- ]
+ ],
+ "labels": {
+  "top": [
+   [
+    128,
+    166,
+    "FRONT BUMPER STRAKES"
+   ],
+   [
+    170,
+    223,
+    "FRONT LOWER LIP"
+   ],
+   [
+    227,
+    279,
+    "HOOD VENT TOP"
+   ],
+   [
+    287,
+    365,
+    "FENDER VENT"
+   ],
+   [
+    373,
+    450,
+    "REAR WING"
+   ],
+   [
+    458,
+    506,
+    "REAR DIFFUSER + UNDERTRAY"
+   ],
+   [
+    514,
+    620,
+    "SIDE SKIRT + STRAKE"
+   ],
+   [
+    628,
+    761,
+    "WHEEL HOUSE \u00b7 WHEEL REMOVED"
+   ],
+   [
+    769,
+    875,
+    "UNDERBODY"
+   ]
+  ],
+  "bottom": [
+   [
+    128,
+    279,
+    "FRUNK \u00b7 HOOD OPEN"
+   ],
+   [
+    287,
+    365,
+    "FRONT BRAKE \u00b7 WHEEL REMOVED"
+   ],
+   [
+    373,
+    450,
+    "REAR WING"
+   ],
+   [
+    458,
+    506,
+    "REAR BUMPER REMOVED"
+   ],
+   [
+    510,
+    563,
+    "DIFFUSER \u00b7 LIP \u00b7 TAIL LIGHTS"
+   ],
+   [
+    567,
+    620,
+    "EXHAUST"
+   ],
+   [
+    628,
+    761,
+    "SIDE SKIRT REMOVED"
+   ],
+   [
+    769,
+    875,
+    "ALL SCANNED PARTS OFF"
+   ]
+  ]
+ }
 }

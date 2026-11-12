@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-12
 - [ferrari-296](ferrari-296/) - archived 2026-11-12
 - [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-12
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-12
@@ -12,7 +13,6 @@ Newest first. Read the top two before starting a new edit.
 - [huracan-evo](huracan-evo/) - archived 2026-11-12
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-12
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-12
-- [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
 - [subaru-gd-trio](subaru-gd-trio/) - archived 2026-11-12
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [honda-civic-11](honda-civic-11/) - archived 2026-11-11

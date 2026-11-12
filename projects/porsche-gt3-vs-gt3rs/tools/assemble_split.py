@@ -47,9 +47,17 @@ end = cfg["end_frame"]; fd = cfg["fade"]
 tags = cfg["tags"]
 dt = lambda txt, y: (f"drawtext=fontfile={FONT}:text='{txt}':fontcolor=0xe8ecf2@0.92:fontsize=34:x=64:y={y}"
                      f":enable='lt(n,{fd['start_frame']})'")
-fc = (f"[0:v][1:v]vstack=inputs=2,drawbox=x=0:y=958:w=1080:h=4:color=0x30343a:t=fill,{dt(tags['top'], 44)},{dt(tags['bottom'], 1004)}[st];")
+# header bar per panel: car name left, current section right (labels never sit on the scan)
+MONO = "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf"
+lab = []
+for y, key in ((48, "top"), (1008, "bottom")):
+    for a, b, txt in cfg.get("labels", {}).get(key, []):
+        lab.append(f"drawtext=fontfile={MONO}:text='{txt}':fontcolor=0xe8ecf2@0.85:fontsize=26:x=w-64-text_w:y={y}:enable='between(n,{a},{b})'")
+bars = "drawbox=x=0:y=0:w=1080:h=96:color=black@0.6:t=fill,drawbox=x=0:y=960:w=1080:h=96:color=black@0.6:t=fill"
+fc = (f"[0:v][1:v]vstack=inputs=2,{bars},drawbox=x=0:y=958:w=1080:h=4:color=0x30343a:t=fill,{dt(tags['top'], 38)},{dt(tags['bottom'], 998)}"
+      + ("," + ",".join(lab) if lab else "") + "[st];")
 last = "[st]"; inputs = ["-i", top, "-i", bot]; k = 2
-if cfg.get("hud"):
+if cfg.get("hud") and os.path.exists(cfg["hud"]):
     inputs += ["-i", cfg["hud"]]; fc += f"{last}[{k}:v]overlay=0:0:eof_action=pass[h];"; last = "[h]"; k += 1
 fc += f"{last}fade=t=out:s={fd['start_frame']}:n={fd['frames']},format=yuv420p[body];"
 inputs += ["-i", cfg["logo"]["src"]]
