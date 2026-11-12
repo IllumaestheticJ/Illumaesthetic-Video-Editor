@@ -20,14 +20,14 @@ beats: [7.311, 14.004, 17.795, 23.363, 26.181, 28.987, 33.672, 37.429, 40.289, 4
 timeline:
   - id: N0_open     # whole car, slow 3/4 orbit through the intro, fades up (218 f + first-clip offset -> cut 219)
     src: /home/user/media/work/z400/renders/final/N0_open
-    src_fps: 15.07
+    src_fps: 15.2
     interpolate: true
     dur: 7.2667
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955,fade=t=in:st=0:d=1.2"
   - transition: {type: cut, note: "7.311 intro pulse"}
   - id: H_hoodopen     # engine bay from the Hood Open scan, slow push to the drop (201 f)
     src: /home/user/media/work/z400/renders/final/H_hoodopen
-    src_fps: 15.0
+    src_fps: 15.15
     interpolate: true
     dur: 6.7
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
