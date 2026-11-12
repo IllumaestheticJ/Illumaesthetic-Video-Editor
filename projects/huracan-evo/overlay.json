@@ -2,13 +2,13 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1723,
+ "durationInFrames": 900,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "label",
-   "from": 1028,
-   "duration": 66,
+   "from": 434,
+   "duration": 51,
    "title": "FRONT BUMPER",
    "sub": "4,000,015 TRIANGLES",
    "x": 0.06,
@@ -16,10 +16,10 @@
   },
   {
    "kind": "label",
-   "from": 1370,
-   "duration": 48,
-   "title": "REAR BUMPER REMOVED",
-   "sub": "BUMPER SCAN \u00b7 7,999,727 TRIANGLES",
+   "from": 659,
+   "duration": 42,
+   "title": "REAR BUMPER",
+   "sub": "7,999,727 TRIANGLES",
    "x": 0.08,
    "y": 0.1
   }

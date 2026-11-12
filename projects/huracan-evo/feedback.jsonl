@@ -11,3 +11,7 @@
 {"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "text", "note": "Narration units in imperial (hp, lb-ft, mph, 0-60)", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "audio", "note": "Narrator speaks faster, like the example video", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-11T18:39:03Z", "project": "huracan-evo", "at": "4", "category": "text", "note": "Narration should cover quirks and unique facts about the car, not just the spec sheet", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-12T01:52:20Z", "project": "huracan-evo", "at": "0", "category": "audio", "note": "Use the engine start-up sound from the example video exactly", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T01:52:20Z", "project": "huracan-evo", "at": "4", "category": "audio", "note": "Female voice still too high-pitched", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T01:52:20Z", "project": "huracan-evo", "at": "27", "category": "audio", "note": "Why is there a fighter jet sound (generated engine start at the Spyder lift)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-12T01:52:20Z", "project": "huracan-evo", "at": "0", "category": "pacing", "note": "Cut the video to 30 seconds; the scan data needs to happen sooner", "by": "reviewer", "promoted": false}

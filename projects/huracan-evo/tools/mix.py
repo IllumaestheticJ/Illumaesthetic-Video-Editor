@@ -122,5 +122,41 @@ def main_v4(out):
     print(out)
 
 
+# v5 (user on v4: 30 s total, scan data sooner; engine start = the reference clip's exactly; voice still too high; "why is
+# there a fighter jet sound" = the generated engine_start2 at the lift (energy 57 % 200-1k Hz, 26 % 1-4 kHz: a whine) -> removed).
+# Engine: hp_1138.mp4 1.70-6.60 s (the game's Gallardo start-up on the select screen), unprocessed, at 0.3 s.
+# NOTE: that is game audio from the user's own screen recording - flagged to the user (rights), used as asked.
+# Voice: Vesper pitch_rate -3 (F0 ~136 Hz, ~5 st under the ref narrator; same intonation spread), speech_rate 60.
+V5 = dict(MUSIC="/home/user/media/huracan-evo/music/track_a_v5.wav", LIFT=10.278,
+          ENGINE="/home/user/media/huracan-evo/vo/engine_ref.wav", ENGINE_AT=0.3,
+          VOS=[("/home/user/media/huracan-evo/vo/narration8_coupe.wav", 3.0, 1.15),
+               ("/home/user/media/huracan-evo/vo/narration8_spyder.wav", 10.6, 1.0)])
+
+
+def main_v5(out):
+    global TEMPO
+    g = 10 ** (DUCK_DB / 20); vos, wins = [], []
+    for raw, at, tempo in V5["VOS"]:
+        TEMPO = tempo; tight = raw.replace(".wav", "_tight.wav"); n = tighten(raw, tight); vos.append((tight, at))
+        wins.append((at - RAMP, at + n + 0.2)); print("voice", raw.split("/")[-1], round(n, 2), "s:", at, "->", round(at + n, 2))
+    assert wins[0][1] - 0.2 <= V5["LIFT"] + 0.05, "coupe voice runs past the lift"
+    assert wins[1][1] < 27.0, "Spyder voice runs into the music stop"
+    def trap(d0, d1):
+        return (f"if(lt(t,{d0}),1,if(lt(t,{d0 + RAMP}),1-(1-{g})*(t-{d0})/{RAMP},"
+                f"if(lt(t,{d1}),{g},if(lt(t,{d1 + RAMP}),{g}+(1-{g})*(t-{d1})/{RAMP},1))))")
+    env = f"({trap(wins[0][0], wins[1][1])})"          # one continuous duck: voice blocks are 0.5 s apart
+    vchain = ("aresample=48000,highpass=f=90,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=3,"
+              "aecho=0.85:0.5:38|71:0.18|0.10,volume=2.4,alimiter=limit=0.8:level=disabled")
+    ea = int(V5["ENGINE_AT"] * 1000)
+    fc = (f"[0:a]aresample=48000,volume='{env}':eval=frame[m];"
+          f"[1:a]aresample=48000,adelay={ea}|{ea}[e];"           # reference start-up exactly (no EQ/fade beyond its own tail)
+          f"[2:a]{vchain},adelay={int(vos[0][1] * 1000)}|{int(vos[0][1] * 1000)}[v1];"
+          f"[3:a]{vchain},adelay={int(vos[1][1] * 1000)}|{int(vos[1][1] * 1000)}[v2];"
+          f"[m][e][v1][v2]amix=inputs=4:normalize=0:duration=first,alimiter=limit=0.89:level=disabled[out]")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", V5["MUSIC"], "-i", V5["ENGINE"], "-i", vos[0][0], "-i", vos[1][0],
+                    "-filter_complex", fc, "-map", "[out]", "-c:a", "pcm_s24le", out], check=True)
+    print(out)
+
+
 if __name__ == "__main__":
-    (main_v4 if "--v4" in sys.argv else main)(sys.argv[1])
+    {"--v4": main_v4, "--v5": main_v5}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
