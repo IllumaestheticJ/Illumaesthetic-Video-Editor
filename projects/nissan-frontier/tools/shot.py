@@ -140,14 +140,31 @@ def mat_simple(name, rgb, rough, metal=0.0):
 
 
 _MATS = {}
+LED_KEYS = None  # [[t, w], ...] from the spec ("led"); None = always on
+
+
+def mat_led():
+    """LED lens: dark until switched on, then white emission (keyed strength)."""
+    m, nt, out = sr.new_mat("r_led")
+    p = sr.principled(nt, (0.03, 0.03, 0.035, 1), 0.25)
+    e = sr.emission(nt, (1.0, 0.96, 0.9, 1), 3.0)
+    mx = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(p.outputs[0], mx.inputs[1]); nt.links.new(e.outputs[0], mx.inputs[2]); nt.links.new(mx.outputs[0], out.inputs[0])
+    sc = bpy.context.scene; fps = sc.render.fps
+    for f in range(sc.frame_start, sc.frame_end + 1):
+        mx.inputs[0].default_value = 1.0 if LED_KEYS is None else _w(LED_KEYS, (f - 1) / fps)
+        mx.inputs[0].keyframe_insert("default_value", frame=f)
+    return m
 
 
 def named_mat(k):
     if k not in _MATS:
         _MATS[k] = {"black": lambda: mat_simple("r_black", (0.018, 0.018, 0.02), 0.42),
                     "rubber": lambda: mat_simple("r_rubber", (0.012, 0.012, 0.013), 0.78),
-                    "bronze": lambda: mat_simple("r_bronze", (0.36, 0.25, 0.11), 0.33, 1.0),
-                    "steel": lambda: mat_simple("r_steel", (0.55, 0.55, 0.57), 0.3, 1.0)}[k]()
+                    "bronze": lambda: mat_simple("r_bronze", (0.17, 0.115, 0.055), 0.38, 1.0),
+                    "steel": lambda: mat_simple("r_steel", (0.55, 0.55, 0.57), 0.3, 1.0),
+                    "red": lambda: mat_simple("r_red", (0.5, 0.02, 0.015), 0.4),
+                    "led": lambda: mat_led()}[k]()
     return _MATS[k]
 
 
@@ -260,6 +277,8 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     hl_all = spec.get("hl_all")
+    global LED_KEYS
+    LED_KEYS = spec.get("led")
     liv = spec.get("livery")
     for gi, (name, objs, hl) in enumerate(groups):
         if base_mats.get(gi) == "livery":
@@ -281,7 +300,7 @@ def main():
         groups.append((p.get("name"), objs, None))
         for o in objs:
             o.data.materials.clear()
-            k = p.get("mat") or o.get("mat")
+            k = o.get("mat") or p.get("mat")
             o.data.materials.append(mat_livery(liv["sweep"], fps) if k == "livery" else (named_mat(k) if k else m))
         keys = p.get("keys")
         if not keys:
@@ -322,7 +341,11 @@ def main():
         loc = Vector(sample(ck, t, "loc"))
         tgt = Vector(sample(ck, t, "target"))
         cam.location = loc
-        cam.rotation_euler = (tgt - loc).to_track_quat("-Z", "Y").to_euler()
+        q = (tgt - loc).to_track_quat("-Z", "Y")
+        if any("roll" in kk for kk in ck):  # roll about the view axis (deg) - needed to end on a solved, tilted IRL camera
+            from mathutils import Quaternion
+            q = q @ Quaternion((0, 0, 1), math.radians(sample([dict(kk, roll=kk.get("roll", 0.0)) for kk in ck], t, "roll")))
+        cam.rotation_euler = q.to_euler()
         cd.lens = sample(ck, t, "focal")
         cam.keyframe_insert("location", frame=f)
         cam.keyframe_insert("rotation_euler", frame=f)

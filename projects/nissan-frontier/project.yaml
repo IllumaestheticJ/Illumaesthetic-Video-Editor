@@ -1,16 +1,17 @@
-# v5 = v4 + RONIN section (user: transition into how the truck became the Ronin Nissan Frontier). Shots: tools/shots_v5.py.
-# Cut frames: 146 290 434 541 614 725 833 1015 | 1087 1162 1270 1452; end 1588 (52.93 s). v4: project_v4.yaml.
+# v6: Ronin section re-cut (grille fix + lights, bumper bar, accurate wheels, higher lift) ending on a 1:1 CUT to the real SEMA
+# footage (Dropbox 'SEMA Reels/Nissan Frontier'), then the MotoIQ photo + logo card. Shots: tools/shots_v6.py. v5: project_v5.yaml.
+# Cut frames: 146 290 434 541 614 725 833 1015 | 1126 1197 1270 1378 (1:1) 1414 1488; end 1608 (53.6 s).
 # Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
 project: nissan-frontier
 format: reel-9x16
-output: {path: /home/user/media/work/frontier/out/nissan_frontier_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-frontier_track_ronin.wav   # track with beats 32-56 replayed once (see editlog); not in git
   start: 0
-  fade_out: 0.6
+  fade_out: 1.2
 
-beats: [4.882, 9.657, 14.459, 18.038, 20.466, 24.177, 27.781, 33.826, 36.242, 38.744, 42.348, 48.393]
+beats: [4.882, 9.657, 14.459, 18.038, 20.466, 24.177, 27.781, 33.826, 37.529, 39.909, 42.348, 45.922, 47.130, 49.597]
 
 timeline:
   - id: v2_s1_wide
@@ -85,49 +86,66 @@ timeline:
     frames: 182
     dur: 6.0667
   - transition: {type: cut}
-  - id: r1_grille
+  - id: q1_grille
     section: ronin
-    focus: "RONIN GRILLE: stock grille out, CAD upper + lower grille in"
-    src: /home/user/media/work/frontier/renders/final/r1_grille
+    focus: "RONIN GRILLE: stock grille + bumper window out, LED bars in, CAD grille in, lights on"
+    src: /home/user/media/work/frontier/renders/final/q1_grille
     src_fps: 15
     interpolate: true
-    frames: 72
-    dur: 2.4000
+    frames: 111
+    dur: 3.7000
   - transition: {type: cut}
-  - id: r2_fenders
+  - id: q2_bar
     section: ronin
-    focus: "WIDE FENDERS: stock flares off, CAD fenders on"
-    src: /home/user/media/work/frontier/renders/final/r2_fenders
+    focus: "BUMPER BAR slides in, then WIDE FENDERS replace the stock flares"
+    src: /home/user/media/work/frontier/renders/final/q2_bar
     src_fps: 15
     interpolate: true
-    frames: 75
-    dur: 2.5000
+    frames: 71
+    dur: 2.3667
   - transition: {type: cut}
-  - id: r3_lift
+  - id: q3_lift
     section: ronin
-    focus: "WHEELS + TIRES roll in, then the LIFT"
-    src: /home/user/media/work/frontier/renders/final/r3_lift
+    focus: "35-INCH WHEELS roll in, then the LIFT"
+    src: /home/user/media/work/frontier/renders/final/q3_lift
+    src_fps: 15
+    interpolate: true
+    frames: 73
+    dur: 2.4333
+  - transition: {type: cut}
+  - id: q4_livery
+    section: ronin
+    focus: "RONIN LIVERY sweep on the crash; camera lands on the solved IMG_3223 camera"
+    src: /home/user/media/work/frontier/renders/final/q4_livery
     src_fps: 15
     interpolate: true
     frames: 108
     dur: 3.6000
+  - transition: {type: cut, note: "1:1 scan -> real (cam_3223, RMSE 2.8 px, onion match/check_3223_final.jpg) on b52' 45.922"}
+  - id: irl_3223
+    section: real
+    focus: "the real Ronin Frontier at SEMA 2026, same camera as the scan frame"
+    src: /home/user/media/nissan-frontier/sema/IMG_3223.mov
+    in: 2.4
+    out: 3.6
+    frames: 36
+    dur: 1.2000
   - transition: {type: cut}
-  - id: r4_livery
-    section: ronin
-    focus: "RONIN LIVERY sweeps nose to tail on the crash; hero orbit; TWIN-TURBO V6 callout; fade"
-    src: /home/user/media/work/frontier/renders/final/r4_livery
-    src_fps: 15
-    interpolate: true
-    frames: 182
-    dur: 6.0667
-    fade_out: 0.6
+  - id: irl_3239
+    section: real
+    focus: "real truck side pass: RONIN livery, wheels, lift"
+    src: /home/user/media/nissan-frontier/sema/IMG_3239.mov
+    in: 1.6
+    out: 4.0667
+    frames: 74
+    dur: 2.4667
   - transition: {type: cut}
-  - id: logo
+  - id: card
     section: logo
-    focus: "ILLUMAESTHETIC logo (700 px) after the fade"
-    src: /home/user/media/work/frontier/out/logo_card_v3.mp4
-    frames: 136
-    dur: 4.5333
+    focus: "MotoIQ photo of the truck with the ILLUMAESTHETIC logo below it"
+    src: /home/user/media/work/frontier/out/photo_card.mp4
+    frames: 120
+    dur: 4.0000
 
 overlays:
   - src: /home/user/media/work/frontier/out/labels_v2_s2_grille.mov
@@ -144,11 +162,11 @@ overlays:
     start: 24.1667
   - src: /home/user/media/work/frontier/out/labels_v4_s8_home.mov
     start: 27.7667
-  - src: /home/user/media/work/frontier/out/labels_r1_grille.mov
+  - src: /home/user/media/work/frontier/out/labels_q1_grille.mov
     start: 33.8333
-  - src: /home/user/media/work/frontier/out/labels_r2_fenders.mov
-    start: 36.2333
-  - src: /home/user/media/work/frontier/out/labels_r3_lift.mov
-    start: 38.7333
-  - src: /home/user/media/work/frontier/out/labels_r4_livery.mov
+  - src: /home/user/media/work/frontier/out/labels_q2_bar.mov
+    start: 37.5333
+  - src: /home/user/media/work/frontier/out/labels_q3_lift.mov
+    start: 39.9000
+  - src: /home/user/media/work/frontier/out/labels_q4_livery.mov
     start: 42.3333
