@@ -1,0 +1,72 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 985,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 132,
+   "duration": 55,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 230,
+   "duration": 43,
+   "title": "FRONT BUMPER - INSIDE",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 381,
+   "duration": 56,
+   "title": "HOOD REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 479,
+   "duration": 56,
+   "title": "GAS CAP",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 563,
+   "duration": 41,
+   "title": "REAR BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 632,
+   "duration": 33,
+   "title": "REAR BUMPER - INSIDE",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  },
+  {
+   "kind": "label",
+   "from": 707,
+   "duration": 57,
+   "title": "FENDER REMOVED",
+   "x": 0.08,
+   "y": 0.86,
+   "sub": " "
+  }
+ ]
+}

@@ -648,3 +648,8 @@ lands here automatically. Agents must read this whole file before editing.
   fills the frame; drop scans whose capture edge is ragged at every framing (thin strips, staircase edges, scattered islands).
 - **[workflow]** Background renders are killed at the task time limit. Queue at most ~2 h per job; resume a partial shot by
   giving the spec a numeric `frames` list (shot.py writes the same f_NNNN.png names).
+- **[scan-quality]** (c5-corvette v3 reviewer, 2026-11-12) "trunk open scan should be removed cause it looks bad; doorsill
+  scan should be removed (gas cap is ok)". A state scan with sparse or ragged coverage around its opening (the trunk tub, the
+  door aperture) looks worse than leaving it out. Only show a region state when the opening's edges are fully captured.
+- **[ending]** (c5-corvette v3 reviewer) "Illumaesthetic logo too small" at 300 px (28 % width). Use about 650 px (60 % of a
+  1080 wide frame) for the end logo.

@@ -1,8 +1,8 @@
-# C5 Corvette scan reel v3 - per-section artifact-free bases + doorsill / gas cap / trunk state swaps (direction.md v3).
+# C5 Corvette scan reel v4 = v3 minus the doorsill and trunk sections (reviewer 2026-11-12: they look bad) + larger logo.
 # Durations are whole frames; first clip one frame short so every cut lands on round(t*30).
 project: c5-corvette
 format: reel-9x16
-output: {path: /home/user/media/work/out/c5_corvette_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/c5_corvette_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/c5-corvette_track.mp3   # generated for this car (parent session)
@@ -10,7 +10,7 @@ music:
   fade_out: 1.4
 
 # strong low-band kick onsets (40-150 Hz 8 ms envelope peaks, prominence 0.12)
-beats: [4.100, 9.310, 14.769, 18.040, 21.312, 24.585, 28.946, 32.221, 35.496]
+beats: [4.100, 9.310, 14.769, 18.040, 22.404, 25.676, 28.946]
 
 timeline:
   - id: v3_open
@@ -38,16 +38,6 @@ timeline:
     interpolate: true
     dur: 5.4667
   - transition: {type: cut}
-  - id: v3_sill
-    section: side +X
-    focus: "LEFT DOORSILL: closed door -> captured door-open state on 15.856"
-    src: /home/user/media/work/renders/c5/v3_sill
-    src_fps: 15
-    interpolate: true
-    dur: 3.2
-    vf: split[fa][fb];[fa][fb]freezeframes=first=31:last=31:replace=30
-    hold_start: 0.0667
-  - transition: {type: cut}
   - id: v3_gas
     section: side +X
     focus: "GAS CAP: fuel door closed -> captured open state on 19.135, macro on the cap"
@@ -55,15 +45,6 @@ timeline:
     src_fps: 15
     interpolate: true
     dur: 3.2667
-    vf: split[fa][fb];[fa][fb]freezeframes=first=33:last=33:replace=32
-  - transition: {type: cut}
-  - id: v3_trunk
-    section: rear
-    focus: "TRUNK OPEN: hatch glass -> captured trunk tub on 22.404"
-    src: /home/user/media/work/renders/c5/v3_trunk
-    src_fps: 15
-    interpolate: true
-    dur: 3.3000
     vf: split[fa][fb];[fa][fb]freezeframes=first=33:last=33:replace=32
   - transition: {type: cut}
   - id: v3_rear
@@ -91,12 +72,12 @@ timeline:
     dur: 3.2667
     vf: split[fa][fb];[fa][fb]freezeframes=first=65:last=65:replace=64,fade=t=out:st=2.514:d=0.75
   - transition: {type: cut}
-  - id: logo   # small logo on the biggest hit, gone by 38.6
-    src: /home/user/media/c5-corvette/logo/logo_small.png
+  - id: logo   # logo 650 px (reviewer v3: too small) on the 28.946 kick
+    src: /home/user/media/c5-corvette/logo/logo_v4.png
     duration: 4.0000
     dur: 3.9000
     vf: fade=t=in:st=0:d=0.25,fade=t=out:st=2.5:d=0.6
 
 overlays:   # title-only labels from the scan file names, over scan shots only
-  - src: /home/user/media/work/out/hud_c5_v3.mov
+  - src: /home/user/media/work/out/hud_c5_v4.mov
     start: 0

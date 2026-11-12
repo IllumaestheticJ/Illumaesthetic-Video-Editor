@@ -1,3 +1,16 @@
+# C5 Corvette scan reel v4: agent self-review (training/rubric.md)
+
+Output: `/home/user/media/work/out/c5_corvette_v4.mp4`: 1080x1920, 30 fps, yuv420p, AAC, 32.80 s (984 frames).
+v4 = v3 with these reviewer notes (2026-11-12) applied:
+- **Removed the left doorsill and trunk-open sections** ("looks bad"). The gas cap stays.
+- **Logo 650 px wide** instead of 300 px ("too small").
+
+Every later section moves up 6 kicks, so the cuts are now at 4.100, 9.300, 14.767, 18.033, 22.400 and 25.667 s, with the logo at 28.933 s.
+All are within one frame of the measured kicks. The gas-cap swap lands at 15.867 s and the clean-car swap at 27.833 s, each as a hard one-frame step.
+Scores as below, except Story (5 → 4): six sections now and no side door content. Scan quality goes 4 → 5, because the two weakest scans are gone.
+
+---
+
 # C5 Corvette scan reel v3: agent self-review (training/rubric.md)
 
 Output: `/home/user/media/work/out/c5_corvette_v3.mp4`: 1080x1920, 30 fps, yuv420p, AAC, 39.37 s (1181 frames).
