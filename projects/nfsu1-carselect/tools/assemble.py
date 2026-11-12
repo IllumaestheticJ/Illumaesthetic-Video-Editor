@@ -65,10 +65,11 @@ def frames(out, only=None):
         dst = f"{out}/o_{r['n']:04d}.jpg"
         if os.path.exists(dst):
             continue
-        im = c.compose(r["src"], r["car"], r["ksrc"], r["plates"], r["strip"])
+        im = c.compose(r["src"], r["car"], r["ksrc"], r["plates"], r["strip"], phase=r["n"] * SPIN_STEP)
         cv2.imwrite(dst, im, [cv2.IMWRITE_JPEG_QUALITY, 96])
 
 
+SPIN_STEP = 26.0        # degrees the wheels turn per output frame (reads as forward roll on 5- to 10-spoke wheels)
 LOGO = "/home/user/media/nfsu1-carselect/logo/white.png"      # Dropbox /Misc. Brand Logos/Epsilon+ logo WHITE.png
 CARD = 60                                                     # end card: 2 s
 

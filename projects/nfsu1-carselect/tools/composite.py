@@ -31,7 +31,7 @@ WHEELS = {"na": ([(0.734, -1.178), (-0.733, -1.178), (0.733, 1.097), (-0.727, 1.
           "frs": ([(0.749, -1.245), (-0.753, -1.245), (0.755, 1.304), (-0.751, 1.304)], 0.313, (0.0, 0.061))}
 
 
-def spin_wheels(K, car, pose, f, deg):
+def spin_wheels(K, car, pose, f, deg, phase=0.0):
     """The game's cars roll while they are shown; the render's wheels stand still. Smear each camera-facing wheel
     around its axle: unwrap the wheel disc with the homography of its plane, blur along the angle, wrap it back."""
     if deg <= 0 or car not in WHEELS:
@@ -59,6 +59,7 @@ def spin_wheels(K, car, pose, f, deg):
         patch = cv2.warpPerspective(K, Hm, (N, N), flags=cv2.INTER_LINEAR)
         pol = cv2.warpPolar(patch, (N // 2, 360), (N / 2, N / 2), N / 2, cv2.WARP_POLAR_LINEAR)
         k = max(3, int(deg) | 1)
+        pol = np.roll(pol, -int(round(phase)) % 360, axis=0)      # the wheel has really turned by `phase` degrees (forward roll)
         pol_b = cv2.blur(np.vstack([pol[-k:], pol, pol[:k]]), (1, k))[k:-k]
         back = cv2.warpPolar(pol_b, (N, N), (N / 2, N / 2), N / 2, cv2.WARP_POLAR_LINEAR | cv2.WARP_INVERSE_MAP)
         yy, xx = np.mgrid[0:N, 0:N]; rad = np.hypot(xx - N / 2, yy - N / 2) / (N / 2)
@@ -68,6 +69,33 @@ def spin_wheels(K, car, pose, f, deg):
         mm = full[..., 4:5] * (K[..., 3:4] > 250)
         K = K * (1 - mm) + full[..., :4] * mm
     return K
+
+
+def ground_shadow(car, pose, f):
+    """Soft shadow on the road under the car plus a darker patch under each tyre, from the car's footprint at z = 0.
+    Without it the kit car reads as sliding above the floor. Returns a 0..1 darkening map (H, W)."""
+    pts, r, (sx, sy) = WHEELS[car]
+    R, _ = cv2.Rodrigues(np.asarray(pose[:3], float)); t = np.asarray(pose[3:6], float)
+    xs = [p[0] - sx for p in pts]; ys = [p[1] - sy for p in pts]
+    def proj(P3):
+        Pc = np.asarray(P3, float) @ R.T + t
+        if Pc[:, 2].min() < 0.25: return None, None
+        return np.stack([f * Pc[:, 0] / Pc[:, 2] + W / 2, f * Pc[:, 1] / Pc[:, 2] + H / 2], 1), Pc[:, 2].mean()
+    out = np.zeros((H, W), np.float32)
+    x0, x1, y0, y1 = min(xs) - 0.08, max(xs) + 0.08, min(ys) - 0.72, max(ys) + 0.72
+    th = np.linspace(0, 2 * np.pi, 40, endpoint=False)
+    # body: rounded footprint
+    body = [[(x0 + x1) / 2 + (x1 - x0) / 2 * np.sign(np.cos(a)) * abs(np.cos(a)) ** 0.35, (y0 + y1) / 2 + (y1 - y0) / 2 * np.sign(np.sin(a)) * abs(np.sin(a)) ** 0.35, 0] for a in th]
+    uv, z = proj(body)
+    if uv is not None and np.abs(uv).max() < 20000:
+        m = np.zeros((H, W), np.float32); cv2.fillPoly(m, [np.round(uv * 8).astype(np.int32)], 1.0, shift=3)
+        sg = max(2.0, f * 0.10 / z); out = np.maximum(out, 0.62 * cv2.GaussianBlur(m, (0, 0), sg))
+    for (x, y) in pts:                                   # tyre contact patches
+        uv, z = proj([[x - sx + 0.17 * np.cos(a), y - sy + 0.26 * np.sin(a), 0] for a in th])
+        if uv is None or np.abs(uv).max() > 20000: continue
+        m = np.zeros((H, W), np.float32); cv2.fillPoly(m, [np.round(uv * 8).astype(np.int32)], 1.0, shift=3)
+        out = np.maximum(out, 0.9 * cv2.GaussianBlur(m, (0, 0), max(1.2, f * 0.035 / z)))
+    return out
 
 
 class Comp:
@@ -100,7 +128,7 @@ class Comp:
             self.kit_cache = {p: cv2.resize(k, (W, H), interpolation=cv2.INTER_CUBIC).astype(np.float32)}
         return self.kit_cache[p]
 
-    def compose(self, src, car, kit_src, plates, strip, glare=True, spin=28):
+    def compose(self, src, car, kit_src, plates, strip, glare=True, spin=22, phase=0.0, shadow=True):
         """src: capture frame for the background; kit_src: which render of `car`;
         plates: [(name, weight)]; strip: [(make, x_centre, mix 0=side..1=centre, opacity)]."""
         obs = self.frame(src)
@@ -149,10 +177,12 @@ class Comp:
         # 3. what is left of the game's car
         pose = self.P["frames"][str(src)] if str(src) in self.P["frames"] else self.P["hold"]
         kpose = self.P["frames"][str(kit_src)]
-        K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin)
+        K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin, phase)
+        SH = ground_shadow(car, kpose, self.f) if shadow and car in WHEELS else None
         dx, dy = self.shift.get(str(kit_src), (0.0, 0.0))            # steady.py: steadied screen path, render only
         if abs(dx) + abs(dy) > 1e-3:
             K = cv2.warpAffine(K, np.float32([[1, 0, dx], [0, 1, dy]]), (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+            if SH is not None: SH = cv2.warpAffine(SH, np.float32([[1, 0, dx], [0, 1, dy]]), (W, H), flags=cv2.INTER_LINEAR)
         Ka = K[..., 3:] / 255
         G = cv2.resize(sil.car_mask(self.V, self.F, pose, self.f, 0.5), (W, H), interpolation=cv2.INTER_NEAREST)
         G = cv2.dilate(G, np.ones((15, 15), np.uint8))
@@ -170,7 +200,9 @@ class Comp:
             wgt = np.clip(wgt * 2.2, 0, 1)
             s = s * (1 - wgt) + inp * wgt
             changed |= wgt[..., 0] > 0.01
-        # 4. kit car
+        # 4. kit car, on its shadow
+        if SH is not None:
+            s = s * (1 - SH[..., None]); changed |= SH > 0.01
         s = s * (1 - Ka) + K[..., :3] * Ka
         changed |= Ka[..., 0] > 0.003
         if glare and src < 1700:                       # the game's headlight flare, kept on top
