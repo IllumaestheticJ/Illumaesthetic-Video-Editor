@@ -21,12 +21,15 @@ HOOD_GONE = [0, -0.15, 3.2]     # lifted off the open pose, above frame
 LID_GONE = [0, 0.10, 3.2]
 RB = [0.064, 1.817, 0.638]      # rear bumper pivot (the lights ride on it)
 FB_PIV = [-0.07, -1.818, 0.605]
-FB_PARK, FB_ROT = [0.35, -0.70, -1.10], [110, 0, 0]
+FB_PARK, FB_ROT = [0.35, -0.70, -1.60], [110, 0, 0]   # below frame in c4 (preview: a corner showed)
 RB_OFF, RB_ROT = [0.30, 0.95, -0.45], [-110, 0, 0]
 MR_END, ML_END = [0.55, -0.05, 0.95], [-0.55, -0.05, 0.95]
 FAR = [0, 0, 9.0]
-REV_END = [0, 0.18, 0.40]
-PL_LAND, PL_END = [0.12, 1.15, 0.10], [0.13, 1.20, 0.13]
+# light poses placed with a pinhole projection of the f1/f2 end cameras (checked against a debug render, 0.02 off):
+# reverse light ends in the black band between car and parked bumper (f1 end v 0.37); plate lamp lands ~1.1 m from the
+# f2 camera at screen (0.55, 0.30), below the beam (v3 pose sat 0.6 m from the lens: huge, over the structure)
+REV_UP, REV_END = [0, 0.22, 0.50], [0, 0.25, 0.56]
+PL_LAND, PL_END = [-0.013, 0.656, -0.261], [-0.010, 0.680, -0.250]
 
 
 def add(a, b):
@@ -84,19 +87,19 @@ def drop(ps, name):
 
 
 # 3  hood hinges open -50 deg (t 0.05 -> 0.85), camera on the hinge side (hood underside never scanned)
-spec("c1_hood_hinge", [cam(0, [2.30, -0.60, 1.55], [0.10, -1.30, 1.05], 28),
-                       cam(2.45, [1.85, -0.95, 1.85], [0.05, -1.35, 1.10], 30)], 73,
+spec("c1_hood_hinge", [cam(0, [2.40, -0.55, 1.70], [0.10, -1.30, 1.10], 27),
+                       cam(2.45, [2.20, -0.75, 2.15], [0.05, -1.30, 1.25], 26)], 73,
      [part("hood_t", [k(0, Z), k(0.05, Z), k(0.85, Z, HOOD_OPEN, "out")], HP)]
      + drop(static(rb=(Z, Z)), "hood_t"), extra_frames=(0.45,))
 # 4  hood lifts off the open pose (t 0.05 -> 0.70), push into the bay
-spec("c2_hood_off", [cam(0, [2.05, -1.10, 2.35], [0.05, -1.30, 0.95], 30),
+spec("c2_hood_off", [cam(0, [2.20, -0.95, 2.45], [0.05, -1.30, 1.15], 27),
                      cam(2.45, [1.35, -1.75, 2.15], [0.00, -1.30, 0.80], 32)], 74,
      [part("hood_t", [k(0, Z, HOOD_OPEN), k(0.05, Z, HOOD_OPEN), k(0.70, [0, -0.15, 1.30], HOOD_OPEN, "in"),
                       k(1.10, HOOD_GONE, HOOD_OPEN, "lin")], HP)]
      + drop(static(rb=(Z, Z)), "hood_t"), extra_frames=(0.35,))
 # 5  front bumper pulls straight out 0.30 (black gap all round), then tips and drops out bottom-right
-spec("c3_front_bumper_off", [cam(0, [2.10, -4.40, 1.35], [0.10, -1.85, 0.60], 30),
-                             cam(2.45, [1.75, -4.00, 1.15], [0.05, -1.90, 0.55], 30)], 73,
+spec("c3_front_bumper_off", [cam(0, [1.70, -3.70, 1.25], [0.10, -1.80, 0.62], 30),
+                             cam(2.45, [1.45, -3.40, 1.10], [0.05, -1.85, 0.55], 30)], 73,
      [part("front_bumper_v4", [k(0, Z), k(0.05, Z), k(0.40, [0, -0.30, 0], ease="out"),
                                k(1.10, [0.30, -0.60, -0.90], FB_ROT, "in"), k(2.55, FB_PARK, FB_ROT, "lin")], FB_PIV)]
      + drop(static(hood=(HOOD_GONE, HOOD_OPEN), rb=(Z, Z)), "front_bumper_v4"), extra_frames=(0.40, 0.80))
@@ -114,8 +117,8 @@ spec("d_mirror4", [cam(0, [2.10, -1.75, 1.55], [0.80, -0.30, 1.05], 30),
      extra_frames=(0.45,))
 MIRRORS_OUT = dict(mR=add(MR_END, [0, 0, 6]), mL=add(ML_END, [0, 0, 6]))
 # 8  lid hinges open +65 deg, camera forward of the lid on the right (its scanned outer face toward the lens)
-spec("e1_lid_hinge", [cam(0, [2.25, 0.70, 1.60], [0.10, 1.75, 1.00], 28),
-                      cam(2.45, [1.95, 0.95, 1.85], [0.05, 1.80, 1.10], 30)], 74,
+spec("e1_lid_hinge", [cam(0, [2.10, 0.80, 2.20], [0.05, 1.75, 1.15], 28),
+                      cam(2.45, [1.90, 1.00, 2.40], [0.05, 1.80, 1.25], 30)], 74,
      [part("lid_v4", [k(0, Z), k(0.05, Z), k(0.85, Z, LID_OPEN, "out")], LP)]
      + drop(static(hood=(FAR, HOOD_OPEN), fb=(FB_PARK, FB_ROT), rb=(Z, Z), **MIRRORS_OUT), "lid_v4"), extra_frames=(0.45,))
 # 9  lid lifts off the open pose -> TRUNK OPEN cargo (<= 30 deg down)
@@ -126,8 +129,8 @@ spec("e2_lid_off_cargo", [cam(0, [2.30, 2.70, 1.75], [0.05, 1.60, 0.85], 30),
      + drop(static(hood=(FAR, HOOD_OPEN), fb=(FB_PARK, FB_ROT), rb=(Z, Z), **MIRRORS_OUT), "lid_v4"), extra_frames=(0.35,))
 REAR_FIXED = dict(hood=(FAR, HOOD_OPEN), lid=(FAR, LID_OPEN), fb=(FB_PARK, FB_ROT), **MIRRORS_OUT)
 # 10 rear bumper (+ both lights) pulls straight back 0.30, then tips and drops to the park pose
-spec("e3_rear_bumper_off", [cam(0, [2.20, 4.70, 1.40], [0.15, 2.05, 0.55], 30),
-                            cam(2.45, [1.85, 4.30, 1.25], [0.10, 2.00, 0.55], 30)], 74,
+spec("e3_rear_bumper_off", [cam(0, [1.85, 4.20, 1.30], [0.12, 2.00, 0.55], 30),
+                            cam(2.45, [1.60, 3.90, 1.15], [0.10, 1.95, 0.50], 30)], 74,
      static(**REAR_FIXED)
      + rear_group([(0, Z, Z, "inout"), (0.05, Z, Z, "inout"), (0.40, [0, 0.30, 0], Z, "out"), (1.10, RB_OFF, RB_ROT, "in"),
                    (2.55, add(RB_OFF, [0, 0.02, -0.03]), RB_ROT, "lin")]), extra_frames=(0.40, 0.80))
@@ -144,15 +147,17 @@ spec("f1_reverse_light", [cam(0, [1.05, 4.55, 1.65], [0.36, 2.75, 0.25], 28),
      static(**REAR_FIXED)
      + rear_group([L0, (0.05, RB_PARK, RB_ROT, "inout"), (0.65, RB_PARK, RB_ROT, "out"), (2.55, RB_PARK, RB_ROT, "lin")],
                   rev=[((0, RB_PARK, RB_ROT, "inout"), Z), ((0.05, RB_PARK, RB_ROT, "inout"), Z),
-                       ((0.65, RB_PARK, RB_ROT, "out"), [0, 0.15, 0.35]), ((2.55, RB_PARK, RB_ROT, "lin"), REV_END)]),
+                       ((0.65, RB_PARK, RB_ROT, "out"), REV_UP), ((2.55, RB_PARK, RB_ROT, "lin"), REV_END)]),
      extra_frames=(0.35,))
 # 13 plate lamp lifts out, turns upright and lands on black above the bumper
 spec("f2_plate_light", [cam(0, [0.55, 3.85, 1.05], [0.15, 2.85, 0.40], 38),
                         cam(2.45, [0.45, 3.65, 0.95], [0.15, 2.88, 0.45], 42)], 73,
      static(**REAR_FIXED)
-     + rear_group([L0, (2.55, RB_PARK, RB_ROT, "lin")],
-                  rev=[(L0, REV_END), ((2.55, RB_PARK, RB_ROT, "lin"), REV_END)],
-                  pl=[(L0, Z), ((0.05, RB_PARK, RB_ROT, "inout"), Z), ((0.70, Z, Z, "out"), PL_LAND), ((2.55, Z, Z, "lin"), PL_END)]),
+     + rear_group([L0, (0.05, RB_PARK, RB_ROT, "inout"), (0.55, RB_PARK, RB_ROT, "in"), (2.55, RB_PARK, RB_ROT, "lin")],
+                  rev=[(L0, REV_END), ((0.05, RB_PARK, RB_ROT, "inout"), REV_END), ((0.55, RB_PARK, RB_ROT, "in"), add(REV_END, [-0.9, 0, 0])),
+                       ((2.55, RB_PARK, RB_ROT, "lin"), add(REV_END, [-0.9, 0, 0]))],   # starts at the left edge: clears out
+                  pl=[(L0, Z), ((0.05, RB_PARK, RB_ROT, "inout"), Z), ((0.55, add(RB_PARK, [0, 0, 0.05]), RB_ROT, "out"), Z),
+                      ((1.20, Z, Z, "out"), PL_LAND), ((2.55, Z, Z, "lin"), PL_END)]),
      extra_frames=(0.35,))
 # 14 reassembly rear -> front; hood swings shut exactly on the cut (local 2.447 = frame 1030)
 spec("h1_reassemble", [cam(0, [1.80, 4.60, 4.60], [0, -0.05, 0.75], 29),
@@ -171,5 +176,5 @@ spec("h1_reassemble", [cam(0, [1.80, 4.60, 4.60], [0, -0.05, 0.75], 29),
                       ((0.35, RB_PARK, RB_ROT, "in"), Z), ((0.95, Z, Z, "in"), Z)]),
      extra_frames=(0.70, 1.40, 2.10))
 # 15 clean complete car (car4) hero from high on the right; fade in the assembler
-spec("h2_hero", [cam(0, [2.60, 0.60, 5.60], [0, -0.10, 0.80], 30), cam(2.45, [2.30, 0.40, 6.10], [0, -0.10, 0.80], 30)], 73,
+spec("h2_hero", [cam(0, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 24), cam(2.45, [2.50, 0.50, 6.60], [0, -0.05, 0.80], 24)], 73,
      [], fps=15, base="car4")
