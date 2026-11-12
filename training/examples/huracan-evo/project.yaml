@@ -1,11 +1,11 @@
-# Huracan EVO v5 - 30 s cut (v4: project_v4.yaml). User on v4: cut to 30 s, scan data sooner, reference engine start, no jet
+# Huracan EVO v6 - v5 30 s cut with one EVO speech in the consented custom voice (v5: project_v5.yaml). User on v4: cut to 30 s, scan data sooner, reference engine start, no jet
 # sound, lower voice. Coupe: select + wheel + side (lift at 10.28 s, was 27.08); Spyder sections at 1.3-2x speed.
 project: huracan-evo
 format: reel-9x16
-output: {path: /home/user/media/work/out/huracan_evo_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/huracan_evo_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/huracan-evo/vo/soundtrack_v5.wav   # not committed (tools/music_v5.py + tools/mix.py --v5)
+  path: /home/user/media/huracan-evo/vo/soundtrack_v6.wav   # not committed (tools/music_v5.py + tools/mix.py --v6)
   start: 0
   fade_out: 0.6
 
