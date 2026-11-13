@@ -1,44 +1,41 @@
-# Toyota GR Corolla - scan reel v3 (scan only). User on v2: "we have a significant amount of underbumper data in the front
-# ... please add that. also take what you learned from the other videos, and apply it here." + new track.
-# Plan: direction.md (scene-director v3); shots tools/shots_v4.py; v2 = project_v2.yaml.
-# Music: Le Castle Vania - Blood Code (user-supplied, not in git), 120 BPM, kicks on x.105/x.605; start 114.605 so
-# the drop (track 120.605, after the stop + riser) lands at video 6.0. Cuts (frames): 60, 120, 180 DROP, 240, 300, 360,
-# 420, 480, 540, 570, dip 630, end ~705. Part-move shots are native 30 fps renders; camera-only shots 15 fps + interpolate.
+# Toyota GR Corolla - scan reel v4 (scan only). User on v3: "that's way too intense" (new track: GT2 'Going Up North'),
+# "the scan data underneath the engine bay as the parts come off still need to be there - needs to be properly nested.
+# same with the front", "parts off the bumper shouldn't be coming off until the bumper is off". v3 = project_v3.yaml.
+# Shots tools/shots_v5.py. Music 102.9 BPM, bar 2.332 s, downbeat kicks 113.916 + 2.332k (40-200 Hz flux grid
+# 96.426 + 0.583k); start 109.246 centres the 70-frame bars on the kicks (drift 0.04 fr/bar). One bar per shot.
+# Cuts (frames): 70, 140 BUMPER (first full downbeat after the bass returns at 112.75), 210, 280, 350, 420, 490, 560,
+# dip 630 into the song's outro, end ~705.
 project: toyota-gr-corolla
 format: reel-9x16
-output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/music/grc_bloodcode.m4a   # user-supplied, not in git
-  start: 114.605
-  fade_out: 0.6
+  path: /home/user/media/music/grc_goingupnorth.m4a   # user-supplied, not in git
+  start: 109.246
+  fade_out: 0.8
 
-beats: [2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 19.0, 21.0]
+beats: [2.333, 4.667, 7.0, 9.333, 11.667, 14.0, 16.333, 18.667, 21.0]
 
 timeline:
-  - {id: a1_whole, src: /home/user/media/work/grc/renders4/final/a1_whole, src_fps: 15, interpolate: true, dur: 1.9667, section: whole, focus: "whole car, front-right 3/4 push"}
-  - transition: {type: cut, note: "116.605 kick"}
-  - {id: a3_wheel, src: /home/user/media/work/grc/renders4/final/a3_wheel, src_fps: 15, interpolate: true, dur: 2.0, section: front, focus: "front-right wheel + arch"}
-  - transition: {type: cut, note: "118.605 kick"}
-  - {id: a2_grille, src: /home/user/media/work/grc/renders4/final/a2_grille, src_fps: 15, interpolate: true, dur: 2.0, section: front, focus: "lower grille, intercooler behind the mesh"}
-  - transition: {type: cut, note: "120.605 DROP"}
-  - {id: b1_fbumper, src: /home/user/media/work/grc/renders4/final/b1_fbumper, src_fps: 30, dur: 2.0, section: front, focus: "front bumper off, inner face"}
-  - transition: {type: cut, note: "122.605"}
-  - {id: b2_beams, src: /home/user/media/work/grc/renders4/final/b2_beams, src_fps: 30, dur: 2.0, section: front, focus: "upper + lower bumper beams"}
-  - transition: {type: cut, note: "124.605"}
-  - {id: b3_ducts, src: /home/user/media/work/grc/renders4/final/b3_ducts, src_fps: 30, dur: 2.0, section: front, focus: "bumper + radiator ducts"}
-  - transition: {type: cut, note: "126.605"}
-  - {id: b4_ic, src: /home/user/media/work/grc/renders4/final/b4_ic, src_fps: 30, dur: 2.0, section: front, focus: "intercooler"}
-  - transition: {type: cut, note: "128.605"}
-  - {id: c1_diffuser, src: /home/user/media/work/grc/renders4/final/c1_diffuser, src_fps: 30, dur: 2.0, section: rear, focus: "diffuser removed"}
-  - transition: {type: cut, note: "130.605"}
-  - {id: c2_rbumper, src: /home/user/media/work/grc/renders4/final/c2_rbumper, src_fps: 30, dur: 2.0, section: rear, focus: "rear bumper off -> crash beam"}
-  - transition: {type: cut, note: "132.605 same camera, state swap"}
-  - {id: c3_mounts, src: /home/user/media/work/grc/renders4/final/c3_mounts, src_fps: 15, interpolate: true, dur: 1.0, section: rear, focus: "crash beam removed, mounting points"}
-  - transition: {type: cut, note: "133.605"}
-  - {id: d1_clean, src: /home/user/media/work/grc/renders4/final/d1_clean, src_fps: 15, interpolate: true, dur: 2.0, section: whole, focus: "clean car, rear-left 3/4", hold: true}
-  - transition: {type: dip, duration: 0.5, note: "135.605 fade to black -> 720 px logo"}
+  - {id: a1_whole, src: /home/user/media/work/grc/renders5/final/a1_whole, src_fps: 15, interpolate: true, dur: 2.3, section: whole, focus: "whole car, front-left 3/4 push"}
+  - transition: {type: cut, note: "111.584 kick (breakdown)"}
+  - {id: a2_grille, src: /home/user/media/work/grc/renders5/final/a2_grille, src_fps: 15, interpolate: true, dur: 2.3333, section: front, focus: "lower grille, intercooler behind the mesh"}
+  - transition: {type: cut, note: "113.916 first full downbeat after the bass returns"}
+  - {id: b1_fbumper, src: /home/user/media/work/grc/renders5/final/b1_fbumper, src_fps: 30, dur: 2.3333, section: front, focus: "front bumper off - first, before anything behind it"}
+  - transition: {type: cut, note: "116.248"}
+  - {id: b2_beams, src: /home/user/media/work/grc/renders5/final/b2_beams, src_fps: 30, dur: 2.3333, section: front, focus: "upper + lower bumper beams"}
+  - transition: {type: cut, note: "118.580"}
+  - {id: b3_ducts, src: /home/user/media/work/grc/renders5/final/b3_ducts, src_fps: 30, dur: 2.3333, section: front, focus: "bumper + radiator ducts"}
+  - transition: {type: cut, note: "120.912"}
+  - {id: b4_ic, src: /home/user/media/work/grc/renders5/final/b4_ic, src_fps: 30, dur: 2.3333, section: front, focus: "intercooler; engine-bay scan behind"}
+  - transition: {type: cut, note: "123.244"}
+  - {id: c1_rbumper, src: /home/user/media/work/grc/renders5/final/c1_rbumper, src_fps: 30, dur: 2.3333, section: rear, focus: "rear bumper + diffuser off together"}
+  - transition: {type: cut, note: "125.576 same camera, state swap"}
+  - {id: c2_crash, src: /home/user/media/work/grc/renders5/final/c2_crash, src_fps: 15, interpolate: true, dur: 2.3333, section: rear, focus: "crash beam removed, mounting points"}
+  - transition: {type: cut, note: "127.908"}
+  - {id: d1_clean, src: /home/user/media/work/grc/renders5/final/d1_clean, src_fps: 15, interpolate: true, dur: 2.3333, section: whole, focus: "clean car, rear-right 3/4", hold: true}
+  - transition: {type: dip, duration: 0.5, note: "130.240 fade to black -> 720 px logo over the outro"}
   - {id: logo, src: /home/user/media/work/grc/out/logo_card_720.mp4, dur: 3.0}
 
 overlays:
-  - {src: /home/user/media/work/grc/out/labels_v3.mov, start: 0}   # tools/labels.py labels.json
+  - {src: /home/user/media/work/grc/out/labels_v4.mov, start: 0}   # tools/labels.py labels.json

@@ -896,3 +896,20 @@ lands here automatically. Agents must read this whole file before editing.
 - **[text]** No one cares about triangle count - never put triangle counts in labels  _(from huracan-evo @ 15s, 2026-11-13, reviewer)_
 
 - **[text]** No one cares about triangle count - don't put triangle counts on screen  _(from c5-corvette-scan-process, 2026-11-13, reviewer)_
+
+- **[story]** parts on the bumper must not come off until the bumper itself is off  _(from toyota-gr-corolla, 2026-11-13, reviewer)_
+
+## Toyota GR Corolla v4 (reviewer on v3)
+- **[story] RULE (user): parts mounted on a bumper never come off before the bumper itself.** A diffuser, lip or duct
+  that bolts to the bumper leaves WITH the bumper (same keys, same pivot), never in its own earlier shot - even when the
+  shop's state scans were captured in that order (GR Corolla: diffuser removed -> rear bumper removed).
+- **[scan] RULE (user): what is behind a removed part must be real scan data, nested in place.** A base built from the
+  car minus the panel + a stripped-SHELL fill leaves a black void behind beams/ducts/intercooler. Add the shop's
+  bay/engine-bay state scan (GR Corolla: "Engine Bay Stripped") into the base first, then the stripped shell only where
+  the bay scan has no data (composite.py in two passes: pass 2 uses pass 1 as --car so nothing doubles). Check a frame
+  with every part out before rendering finals.
+- **[music]** "Too intense" -> slower track AND slower cutting: one bar per shot (2.33 s at 103 BPM) instead of 2 s, and
+  let the song's own outro carry the logo.
+- **[music]** Breakbeat / live-bass tracks: the 35-110 Hz envelope follows bass notes (here ~0.33 s off the kicks). Fit
+  the grid on 40-200 Hz spectral flux and confirm with `ive beats`; cut on the bar's strong downbeat kick, not on the
+  first bass note after a breakdown.
