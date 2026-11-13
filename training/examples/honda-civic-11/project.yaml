@@ -1,115 +1,40 @@
-# Honda Civic 11th gen (FE1 Si sedan) - v4: EPSILON kit reel. Scan + Epsilon kit, ends on Ron's render. No IRL footage.
-# User (v3 notes): "illumaesthetic logo takes too long, the whole video is paced too slowly ... turn this into an epsilon
-# video ... once the parts are opened up, we install the front lip, side skirts, rear apron, new wheels, and the rear wing
-# through the scan data. then end the video with one of the render shots Ron has". Plan: direction.md "## v4 (Epsilon)".
-# Earlier timelines: project_v1.yaml, project_v2.yaml, project_v3.yaml.
-# Track: honda-civic-11_track.mp3 (the user's replacement song could not be downloaded - see editlog). Audio in at 12.026 s.
-# Bar = 3.31 s with hits at +0/+1.5/+3/+5 beats (scene-director, 1 ms RMS half-rise). Cuts (track s -> video frame):
-# 13.295->38 | 15.358->100 | 17.851->175 | 19.923->237 | 21.996->299 | 23.227->336 | 25.100->392 | 26.521->435 |
-# 28.612->498 | 31.088->572 | 33.161->634 | 35.241->696 | 36.471->733 | end 39.800 -> 833 frames.
+# Honda Civic 11th gen (FE1 Si sedan) - v5: EPSILON kit reel, complete reshoot. Plan: director_v5.md (director agent).
+# User on v4: "all the parts are placed on incorrectly/inaccurately, and the cutting/organizaiton is a mess - please have a
+# separate agent plan out the shots and then reshoot everything". Parts now from Ron's design scene (tools/kit_parts2.py).
+# Three clips, two cuts: S1 open-up (rolled near-top) | L_build (one take round the car's left: lip, skirts, apron, wheels,
+# wing -> the camera of Ron's render 7) | Ron's render 7 + Epsilon+ wordmark. Nothing reused from v1-v4 (project_v*.yaml).
+# Track: honda-civic-11_track.mp3, audio in at 12.026 s (replacement song not available). Cuts: 17.216 -> frame 156,
+# 33.161 -> frame 634; end 36.971 -> 748 frames. Seats: lip 17.851, skirts 19.923, apron 23.227, wheels off 25.100 / on 26.521,
+# wing 29.847; wordmark 35.241; fade from 36.471.
 project: honda-civic-11
 format: reel-9x16
-output: {path: /home/user/media/work/civic/out/civic_fe1_epsilon_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/civic/out/civic_fe1_epsilon_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/honda-civic-11_track.mp3
   start: 12.026
   fade_out: 0.5
 
-beats: [1.269, 3.332, 5.825, 7.897, 9.970, 11.201, 13.074, 14.495, 16.586, 19.062, 21.135, 23.215, 24.445]   # video time of each cut's hit
+beats: [5.190, 21.135]   # video time of the two cuts' hits (B2b 17.216, B7a 33.161)
 
 timeline:
-  - id: N1_open        # whole car, front-left, quick push (10 fps render played 1:1 = 3x)
-    focus: whole car
-    src: /home/user/media/work/civic/renders/final/N1_open
+  - id: S1_open        # whole car from a rolled near-top view: right doors open on the drop, trunk opens, all shut
+    focus: whole car opening (doors, trunk)
+    src: /home/user/media/work/civic/renders/final5/S1_m
     src_fps: 30
-    trim_start: 2.2667
-    dur: 1.2333        # 37 (+1: the assembler starts clip k one frame after sum(durs)) -> cut on frame 38
-  - transition: {type: cut, note: "THE DROP 13.295 - front door opens"}
-  - id: N2_doors       # right doors swing open on their hinges (Door Open scan)
-    focus: right door openings
-    src: /home/user/media/work/civic/renders/final3/N2_m
+    dur: 5.1667        # 155 (+1: the assembler starts clip k one frame after sum(durs)) -> cut on frame 156
+  - transition: {type: cut, note: "B2b 17.216 - on the slam; front lip already in flight"}
+  - id: L_build        # ONE take: lip (front) -> skirt (left side) -> apron (rear) -> wheel swap (rear-left wide, then the wheel) -> wing -> render-7 pose
+    focus: Epsilon kit going on, part by part
+    src: /home/user/media/work/civic/renders/final5/L_m
     src_fps: 30
-    trim_start: 0.0667
-    dur: 2.0667        # 62
-  - transition: {type: cut, note: "15.358"}
-  - id: N3_trunk       # trunk lid opens on its hinge (Trunk Open scan)
-    focus: trunk lid opening
-    src: /home/user/media/work/civic/renders/final3/N3_m
+    dur: 15.9333       # 478 -> cut on frame 634
+  - transition: {type: cut, note: "B7a 33.161 - 1:1 cut scan+kit -> Ron's render 7"}
+  - id: R_ron7         # Ron's Final-Sedan-FL render 7, same push; Epsilon+ wordmark from 35.241; fade from 36.471
+    focus: finished car (Ron's render)
+    src: /home/user/media/work/civic/renders/final5/R_ron7
     src_fps: 30
-    trim_start: 0.8333
-    dur: 2.5           # 75
-  - transition: {type: cut, note: "17.851"}
-  - id: N3b_interior   # cut-in: the scanned trunk interior (later window of the same render, lid stays open)
-    focus: trunk interior
-    src: /home/user/media/work/civic/renders/final3/N3_m
-    src_fps: 30
-    trim_start: 9.0
-    dur: 2.0667        # 62
-  - transition: {type: cut, note: "19.923"}
-  - id: N4_close       # doors and lid close
-    focus: car closing up
-    src: /home/user/media/work/civic/renders/final3/N4_m
-    src_fps: 30
-    trim_start: 1.3333
-    dur: 2.0667        # 62
-  - transition: {type: cut, note: "21.996"}
-  - id: s4_lamp        # stock nose = the "before" for the lip
-    focus: stock headlight and grille
-    src: /home/user/media/work/civic/renders/final/s4_lamp
-    src_fps: 15
-    interpolate: true
-    trim_start: 0.6
-    dur: 1.2333        # 37
-  - transition: {type: cut, note: "23.227"}
-  - id: I1_lip         # Epsilon front lip flies in from ahead/below, seated at +0.62 s
-    focus: front lip install
-    src: /home/user/media/work/civic/renders/final4/I1_lip_m
-    src_fps: 30
-    dur: 1.8667        # 56
-  - transition: {type: cut, note: "25.100"}
-  - id: s3_wheel       # stock front-left wheel = the "before" for the wheels
-    focus: stock wheel and brake
-    src: /home/user/media/work/civic/renders/final/s3_wheel_rev
-    src_fps: 15
-    interpolate: true
-    dur: 1.4333        # 43
-  - transition: {type: cut, note: "26.521"}
-  - id: I2_wheels      # scanned wheels pull off, gold wheels slide on (seated at +1.26 s)
-    focus: wheel swap
-    src: /home/user/media/work/civic/renders/final4/I2_wheels_m
-    src_fps: 30
-    dur: 2.1           # 63
-  - transition: {type: cut, note: "28.612"}
-  - id: I3_skirt       # side skirts snap onto the sills (seated at +1.24 s)
-    focus: side skirt install
-    src: /home/user/media/work/civic/renders/final4/I3_skirt_m
-    src_fps: 30
-    dur: 2.4667        # 74
-  - transition: {type: cut, note: "31.088"}
-  - id: I4_apron       # rear apron from behind/below (seated at +0.83 s)
-    focus: rear apron install
-    src: /home/user/media/work/civic/renders/final4/I4_apron_m
-    src_fps: 30
-    dur: 2.0667        # 62
-  - transition: {type: cut, note: "33.161"}
-  - id: I5_wing        # wing drops onto the trunk lid (seated at +0.64 s)
-    focus: wing install
-    src: /home/user/media/work/civic/renders/final4/I5_wing_m
-    src_fps: 30
-    dur: 2.0667        # 62
-  - transition: {type: cut, note: "35.241"}
-  - id: W_kit          # whole car with the full kit at the camera solved against Ron's render 1
-    focus: whole car with kit
-    src: /home/user/media/work/civic/renders/final4/end/W_kit
-    src_fps: 30
-    dur: 1.2333        # 37
-  - transition: {type: cut, note: "36.471 - 1:1 cut scan -> Ron's render"}
-  - id: R_ron          # Ron's Final-Sedan-FL render 1, same push; Epsilon+ wordmark from 38.323
-    focus: finished car (render)
-    src: /home/user/media/work/civic/renders/final4/end/R_ron
-    src_fps: 30
-    dur: 3.3333        # 100
-    hold_end: 0.0334   # +1 frame so the video still ends at 833 frames
+    dur: 3.8           # 114
+    hold_end: 0.0334
 
 overlays: []
