@@ -135,7 +135,7 @@ SHOTS["KIT_SIDE"] = {
         kit(f"{B}/k_rear_fender_slats_pass.blend", (-0.75, 0, 0.35), 34.656 - 32.781, (-0.08, 0, 0)),
         kit(f"{B}/k_rear_fender_slats_driver.blend", (0.75, 0, 0.35), 34.656 - 32.781, (0.08, 0, 0)),
         kit(f"{B}/k_gas_cap_x.blend", (-0.35, 0, 0.15), 35.593 - 32.781)],
-    "cam": cam(arc(d, -60, -120, 8, 9, 5.5, 5.5, [-0.1, 0.1, 0.55], [-0.1, 0.5, 0.6], 36, n=6))}
+    "cam": cam(arc(d, -62, -120, 8, 9, 6.6, 5.9, [-0.25, 0.25, 0.55], [-0.2, 0.5, 0.6], 36, n=6))}
 
 SIDE_HELD = FRONT_HELD + [held(f"{B}/k_{n}.blend") for n in ("rear_fender_driver", "rear_fender_pass",
             "side_skirts_driver", "side_skirts_pass", "rear_fender_slats_driver", "rear_fender_slats_pass", "gas_cap_x")]
@@ -148,7 +148,7 @@ SHOTS["REAR"] = {
         {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.3, (0, 0, 0)), k(0.75, (0, 0, 0.15), ease="out"), k(1.4, (0, 0.2, 0.6), ease="in"), k(d, (0, 0.2, 0.6))]},
         kit(f"{B}/k_ducktail.blend", (0, 0.1, 0.35), 38.406 - 36.531, (0, 0, 0.08)),
         kit(f"{B}/k_diffuser.blend", (0, 0.45, 0), 38.875 - 36.531, (0, 0.1, 0))],
-    "cam": cam(arc(d, -150, -180, 20, 20, 4.4, 4.2, [0, 1.4, 0.65], [0, 1.45, 0.65], 48, n=6))}
+    "cam": cam(arc(d, -150, -180, 20, 20, 5.3, 4.6, [0.1, 1.4, 0.65], [0, 1.45, 0.65], 46, n=6))}
 
 # 10. LIVERY: full kitted car, livery sweep (camera + material only)
 d = dur("LIVERY")
