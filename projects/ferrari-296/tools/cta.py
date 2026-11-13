@@ -26,14 +26,22 @@ def kf(i):
 
 
 def props():
+    """v7 (user: "when scrolling through the different photos/options, change the dropdown so the scan price reflects the
+    photo"): every swipe is a Dataset option change - the listing's own variant -> featured-image mapping (products/<h>.js):
+    Front Bumper F4 $1,000, Hood F12 $800, Rear Bumper R7 $1,000, Engine Bay R6 $600, Side Skirt F7 $800, Fender F10 $800,
+    then All Data $4,000 with the CTA. Page screenshots opt_N = the real page with that option selected (price from the
+    site, nothing typed by us). Gallery order is monotonic (indices 4,5,9,10,13,16) so the carousel only travels one way."""
     photos = [{"src": "f296_p00.jpg", "w": 3465, "h": 2292}] + [{"src": f"f296_p{i:02d}.jpg", "w": 1800, "h": 1191} for i in range(1, 17)]
-    # land each swipe ON the kick (a swipe snaps): front bumper explode (F4), rear 3/4 (R2), rear bumper + engine explode (R7)
-    sw = [(kf(80), 4), (kf(82), 6), (kf(84), 9)]
-    swipes = [{"at": t - 7, "to": to, "dur": 7} for t, to in sw]
-    pages = [{"src": "f296_mpage_d1.png", "from": 0}] + [{"src": f"f296_mpage_d{to + 1}.png", "from": t - 3} for t, to in sw]
+    sw = [(kf(80), 4, 1), (kf(81), 5, 2), (kf(82), 9, 3), (kf(83), 10, 4), (kf(84), 13, 5), (kf(85), 16, 6)]
+    swipes = [{"at": t - 7, "to": to, "dur": 7} for t, to, _ in sw]
+    pages = ([{"src": "f296_mpage_d1.png", "from": 0}] + [{"src": f"f296_opt_{o}.png", "from": t - 7} for t, _, o in sw]
+             + [{"src": "f296_opt_7.png", "from": kf(86)}])  # All Data
     return {"width": 1080, "height": 1920, "fps": 30, "durationInFrames": 184, "pageW": 1179, "pages": pages,
             "slot": {"x": 147.37, "y": 177, "w": 884.25, "h": 585.57, "pitch": 896.25}, "photos": photos, "start": 0,
-            "startScale": START_SCALE, "hold": 6, "zoomEnd": kf(79), "swipes": swipes, "ctaAt": kf(85), "urlAt": kf(86), "drift": 0.06,
+            "startScale": START_SCALE, "hold": 6, "zoomEnd": kf(79), "swipes": swipes, "ctaAt": kf(86), "urlAt": kf(87),
+            "drift": 0.02, "ctaBand": 175,
+            # dropdown (select 51.5,586.2 275x40.4 CSS) and price (centred, widest "$4,000.00") in screenshot px (@3x)
+            "highlights": [{"x": 154.5, "y": 1758.6, "w": 825, "h": 121.2}, {"x": 420, "y": 1434, "w": 324, "h": 84}],
             "title": "SCAN DATA", "sub": "AVAILABLE NOW", "url": "ILLUMAESTHETIC.COM"}
 
 

@@ -28,6 +28,8 @@ export type MobileCTAProps = {
   swipes: { at: number; to: number; dur: number }[];
   ctaAt: number;
   urlAt: number;
+  highlights?: { x: number; y: number; w: number; h: number }[]; // screenshot px: flash these when the page changes
+  ctaBand?: number; // video px from the bottom the CTA may use (below the dropdown so option + price stay readable)
   drift?: number; // slow push-in after the zoom-out (1.0 -> 1 + drift by the last frame) so the page never sits dead
   title: string;
   sub: string;
@@ -94,6 +96,9 @@ export const MobileCTA: React.FC<MobileCTAProps> = (p) => {
   let page = p.pages[0].src;
   for (const pg of p.pages) if (f >= pg.from) page = pg.src;
 
+  // dropdown/price flash whenever the page (selected option) changes
+  let flash = 0;
+  for (const pg of p.pages.slice(1)) flash = Math.max(flash, interpolate(f, [pg.from, pg.from + 3, pg.from + 16], [0, 1, 0], clamp));
   const push = 1 + (p.drift ?? 0) * interpolate(f, [p.zoomEnd, p.durationInFrames - 1], [0, 1], clamp);
   const ctaIn = interpolate(f, [p.ctaAt, p.ctaAt + 10], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
   const urlIn = interpolate(f, [p.urlAt, p.urlAt + 8], [0, 1], { ...clamp, easing: Easing.out(Easing.back(1.6)) });
@@ -113,45 +118,48 @@ export const MobileCTA: React.FC<MobileCTAProps> = (p) => {
   }
   return (
     <AbsoluteFill style={{ backgroundColor: "#0b0b0b", overflow: "hidden" }}>
-      <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: "50% 30%" }}>
+      <AbsoluteFill style={{ transform: `scale(${push})`, transformOrigin: "50% 40%" }}>
       <Img src={staticFile(page)} style={{ position: "absolute", left: ox, top: oy, width: p.pageW * s }} />
       {/* gallery strip, clipped to the full-width band of the slot like the page's overflow */}
       <div style={{ position: "absolute", left: 0, top: p.slot.y * s + oy, width: p.width, height: p.slot.h * s, overflow: "hidden" }}>
         <div style={{ position: "absolute", left: 0, top: -(p.slot.y * s + oy), width: p.width, height: p.height }}>{strip}</div>
       </div>
+      {(p.highlights ?? []).map((r, i) => (
+        <div key={`hl${i}`} style={{ position: "absolute", left: r.x * s + ox - 8, top: r.y * s + oy - 8, width: r.w * s + 16, height: r.h * s + 16,
+          borderRadius: 10, border: "4px solid #6fcf8a", boxShadow: "0 0 26px rgba(111,207,138,0.75)", opacity: flash }} />
+      ))}
       </AbsoluteFill>
-      {/* CTA: rises over the lower page (dataset / delivery lines), page stays readable above */}
+      {/* CTA: compact band under the dropdown so the selected option and its price stay readable */}
       <div
         style={{
           position: "absolute",
           left: 0,
           right: 0,
           bottom: 0,
-          height: 600,
+          height: p.ctaBand ?? 600,
           opacity: ctaIn,
-          transform: `translateY(${(1 - ctaIn) * 80}px)`,
-          background: "linear-gradient(to bottom, rgba(11,11,11,0) 0%, rgba(11,11,11,0.94) 22%, #0b0b0b 40%)",
+          transform: `translateY(${(1 - ctaIn) * 40}px)`,
+          background: "linear-gradient(to bottom, rgba(11,11,11,0) 0%, #0b0b0b 14%)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-end",
-          paddingBottom: 150,
+          paddingBottom: 26,
           boxSizing: "border-box",
           color: "#e8ecf2",
           fontFamily: "'Inter Display', 'Inter', sans-serif",
         }}
       >
-        <div style={{ fontWeight: 800, fontSize: 104, letterSpacing: 12, lineHeight: 1 }}>{p.title}</div>
-        <div style={{ fontWeight: 600, fontSize: 46, letterSpacing: 14, marginTop: 18, opacity: 0.85 }}>{p.sub}</div>
+        <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 8, lineHeight: 1 }}>{p.title} {p.sub}</div>
         <div
           style={{
-            marginTop: 44,
-            padding: "22px 46px",
+            marginTop: 16,
+            padding: "16px 44px",
             borderRadius: 10,
             background: "#5c9e6e",
             color: "#0b0b0b",
             fontWeight: 800,
-            fontSize: 50,
+            fontSize: 46,
             letterSpacing: 6,
             opacity: urlIn,
             transform: `scale(${0.8 + 0.2 * urlIn})`,
