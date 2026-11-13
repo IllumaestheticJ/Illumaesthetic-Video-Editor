@@ -147,6 +147,36 @@ def mwav(name):
     return _wavs[name]
 
 
+def hero_name():
+    """hero_outro_p8 with the 8-bar block repeated (editor config hero.repeat=[a,b] file s, both measured onsets)"""
+    h = CFG["music"]["hero"]
+    rp = h.get("repeat")
+    if not rp:
+        return h["file"]
+    key = "hero_ext"
+    if key not in _wavs:
+        x = mwav(h["file"]); a, b = int(rp[0] * SR), int(rp[1] * SR); xf = int(0.012 * SR)
+        head, tail = x[:b + xf].copy(), x[a:].copy()
+        head[-xf:] *= np.linspace(1, 0, xf)[:, None]; tail[:xf] *= np.linspace(0, 1, xf)[:, None]
+        y = np.zeros((b + len(tail), 2), np.float32)
+        y[:len(head)] += head; y[b:b + len(tail)] += tail
+        _wavs[key] = y
+    return key
+
+
+def hero_extra():
+    rp = CFG["music"]["hero"].get("repeat")
+    return (rp[1] - rp[0]) if rp else 0.0
+
+
+def hero_onsets_ext():
+    on = beats_json("beats_hero_outro.json")["kick_onsets_file_s"]
+    rp = CFG["music"]["hero"].get("repeat")
+    if not rp:
+        return on
+    return [t for t in on if t < rp[1]] + [t + rp[1] - rp[0] for t in on if t >= rp[0]]
+
+
 def beats_json(name):
     return json.load(open(Path(CFG["music"]["dir"]) / name))
 
@@ -306,7 +336,19 @@ def plan():
         e["dur"] = nd
     layout(evs)
     # CON_02 absorbs any change in CON_01 so the P8 final hit lands exactly on the END card
-    by["CON_02"]["dur"] = by["M6"]["tl_in"] + (M["hero"]["hit_file"] - M["hero"]["lift_file"]) - by["CON_02"]["tl_in"]
+    if CFG.get("snap_con01_to_hero"):
+        layout(evs)
+        f0 = by["M6"]["tl_in"] - M["hero"]["lift_file"]
+        t = by["CON_01"]["tl_out"]
+        lo, hi = CFG["snap_con01_to_hero"]
+        cands = sorted([f0 + o - t for o in hero_onsets_ext() if lo <= f0 + o - t <= hi], key=abs)
+        if cands:
+            d = cands[0]; by["CON_01"]["dur"] += d; by["CON_01"]["src_out"] += d
+            rep.append({"cut": "CON_01|CON_02", "moved": round(d, 3), "music": "hero P8", "why": "measured P8 kick onset (transition after the last word on a musical point)"})
+        else:
+            rep.append({"cut": "CON_01|CON_02", "moved": 0.0, "music": "hero P8", "why": "no P8 onset within the allowed tail window"})
+        layout(evs)
+    by["CON_02"]["dur"] = by["M6"]["tl_in"] + (M["hero"]["hit_file"] + hero_extra() - M["hero"]["lift_file"]) - by["CON_02"]["tl_in"]
     by["CON_02"]["src_out"] = by["CON_02"]["dur"]
     layout(evs)
     A["montage_file0"] = m_file0; A["lift"] = by["M6"]["tl_in"]
@@ -315,7 +357,7 @@ def plan():
     A["time"] = rel(by["TM_01"], CFG["anchors"]["time"]["src"])
     A["end_card"] = by["END"]["tl_in"]
     A["hero_file0"] = A["lift"] - M["hero"]["lift_file"]
-    A["hero_hit_err"] = round(A["hero_file0"] + M["hero"]["hit_file"] - A["end_card"], 4)
+    A["hero_hit_err"] = round(A["hero_file0"] + M["hero"]["hit_file"] + hero_extra() - A["end_card"], 4)
     # --- frames
     f = 0
     for e in evs:
@@ -757,7 +799,7 @@ def audio(evs, A):
     mus += add(music_part(total, M["montage"]["file"], A["montage_file0"], m1["tl_in"] - M["montage"]["lead_in"], A["lift"], 0.8, 0.01),
                "montage")
     # hero / conclusion / end card
-    mus += add(music_part(total, M["hero"]["file"], A["hero_file0"], A["lift"] - 0.01, total / SR, 0.005, 0.0), "hero")
+    mus += add(music_part(total, hero_name(), A["hero_file0"], A["lift"] - 0.01, total / SR, 0.005, 0.0), "hero")
     dia *= gate; room *= gate; mus *= gate[:, None]
     fx *= gate[:, None]
     stems = {"dialogue": np.stack([dia, dia], 1), "music": mus, "fx_room": fx + np.stack([room, room], 1)}

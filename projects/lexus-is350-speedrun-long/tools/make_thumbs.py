@@ -247,12 +247,130 @@ def concept_F():
     return c
 
 
+
+# ================================================================ F v3 (F1/F2/F3): scanner + 3D scanning wording
+def split_base(s, cx, band, top_dx=260, bot_dx=-220):
+    """Real car (4K FX30554 @ 11.011) | scan (halfhalf still), registered 1:1, as a (W, H-band) window.
+    s = scale vs 4K; cx = canvas x of the car centre. Left of the seam = real, right = scan on black."""
+    wh = H - band
+    real = Image.open(f'{FR}/car4k.png').convert('RGB')
+    sc = contrast_arr(Image.open(f'{SC}/B5_halfhalf_FX30554_alpha.png').convert('RGBA'))
+    right = Image.new('RGBA', real.size, (0, 0, 0, 255)); right.alpha_composite(sc)
+    nw, nh = round(3840 * s), round(2160 * s)
+    real = real.resize((nw, nh), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.6, percent=60, threshold=2))
+    right = right.convert('RGB').resize((nw, nh), Image.LANCZOS)
+    ox = round(cx - 1815 * s); oy = round(wh / 2 - 1080 * s)
+    assert ox <= 0 and ox + nw >= W and oy <= 0 and oy + nh >= wh, (ox, oy, nw, nh)
+    sx0 = -ox
+    m = Image.new('L', (W * 2, wh * 2), 0)
+    ImageDraw.Draw(m).polygon([(0, 0), ((cx + top_dx) * 2, 0), ((cx + bot_dx) * 2, wh * 2), (0, wh * 2)], fill=255)
+    m = m.resize((W, wh), Image.LANCZOS)
+    box = (sx0, -oy, sx0 + W, -oy + wh)
+    comp = Image.composite(real.crop(box), right.crop(box), m)
+    d = ImageDraw.Draw(comp)
+    d.line([(cx + top_dx, 0), (cx + bot_dx, wh)], fill=OFF, width=10)
+    return comp
+
+
+def scanner_cut(width, angle=0):
+    a = Image.open(f'{FR}/scanner84_rgba.png')   # BGRA from cv2
+    rgba = a.convert('RGBA')   # file written by cv2 as BGRA = correct RGBA on disk
+    rgba = rgba.crop((0, 270, 3360, 2160))
+    r = width / rgba.width
+    rgba = rgba.resize((width, round(rgba.height * r)), Image.LANCZOS)
+    al = rgba.getchannel('A').filter(ImageFilter.GaussianBlur(1.2))
+    rgba.putalpha(al)
+    # a touch more punch so the white body reads
+    rgb = np.asarray(rgba.convert('RGB')).astype(np.float32)
+    rgb = np.clip((rgb - 12) * 1.12, 0, 255)
+    out = Image.fromarray(rgb.astype(np.uint8)); out.putalpha(al)
+    return out.rotate(angle, expand=True, resample=Image.BICUBIC) if angle else out
+
+
+def drop_shadow_paste(c, img, xy, blur=30, off=(18, 26), op=170):
+    sh = Image.new('RGBA', img.size, (0, 0, 0, 0))
+    sh.putalpha(img.getchannel('A').point(lambda v: v * op // 255))
+    big = Image.new('RGBA', c.size, (0, 0, 0, 0)); big.paste(sh, (xy[0] + off[0], xy[1] + off[1]))
+    big = big.filter(ImageFilter.GaussianBlur(blur))
+    c.paste(big, (0, 0), big)
+    c.paste(img, xy, img)
+
+
+def fit_text(d, lines, fpath, width, gap=0.04):
+    size = 400
+    while max(d.textlength(t, font=font(fpath, size)) for t in lines) > width:
+        size -= 4
+    return size
+
+
+def band_text(c, lines, band, tag_sw=True, sw_text='00:00', width=1640):
+    d = ImageDraw.Draw(c)
+    size = fit_text(d, lines, INTER % 'Black', width)
+    f = font(INTER % 'Black', size)
+    lh = size * 0.96
+    y0 = (band - lh * len(lines)) / 2 - size * 0.12
+    for i, t in enumerate(lines):
+        text(d, (80, y0 + i * lh), t, f)
+    if tag_sw:
+        text(d, (2480, band / 2 - 20), sw_text, font(MONO % 'ExtraBold', 215), anchor='rm', fill=RED)
+    return size
+
+
+def guess_tags(d, x, y, w, h, gap, f, labels=('2 HOURS?', '30 MIN?', '15 MIN?')):
+    for i, t in enumerate(labels):
+        yy = y + i * (h + gap)
+        d.rounded_rectangle([x, yy, x + w, yy + h], radius=h // 4, outline=OFF, width=12, fill=(0, 0, 0))
+        text(d, (x + w / 2, yy + h / 2 + 6), t, f, anchor='mm')
+
+
+def concept_F1():
+    band = 420
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    c.paste(split_base(0.74, 1343, band), (0, band))
+    sc = scanner_cut(920)
+    drop_shadow_paste(c, sc, (0, H - sc.height + 20))
+    band_text(c, ['HOW LONG TO', '3D SCAN A CAR?'], band)
+    return c
+
+
+def concept_F2():
+    band = 420
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    c.paste(split_base(0.74, 1210, band), (0, band))
+    d = ImageDraw.Draw(c)
+    guess_tags(d, 1880, 470, 620, 200, 40, font(MONO % 'ExtraBold', 114))
+    sc = scanner_cut(660)
+    drop_shadow_paste(c, sc, (0, H - sc.height + 12), blur=22, off=(12, 18))
+    band_text(c, ['3D SCAN A CAR', 'IN ___ MIN?'], band, width=1640)
+    return c
+
+
+def concept_F3():
+    band = 420
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    c.paste(split_base(0.74, 1300, band), (0, band))
+    # picture-in-picture: the scanner's own screen building the car (FX30545 @ 104 s), top-left of the road
+    pip = Image.open(f'{FR}/q45_104.png').convert('RGB').crop((0, 300, 3840, 2160)).resize((860, round(1860 * 860 / 3840)), Image.LANCZOS)
+    pip = pip.filter(ImageFilter.UnsharpMask(radius=1.4, percent=60, threshold=2))
+    pw, ph = pip.size
+    frame = Image.new('RGBA', (pw + 24, ph + 24), OFF + (255,)); frame.paste(pip, (12, 12))
+    msk = Image.new('L', frame.size, 0); ImageDraw.Draw(msk).rounded_rectangle([0, 0, frame.width - 1, frame.height - 1], radius=36, fill=255)
+    frame.putalpha(msk)
+    frame = frame.rotate(3, expand=True, resample=Image.BICUBIC)
+    drop_shadow_paste(c, frame, (50, band + 40), blur=26)
+    band_text(c, ['HOW FAST CAN WE', '3D SCAN THIS?'], band)
+    return c
+
+
 if __name__ == '__main__':
-    which = sys.argv[1:] or ['D', 'E', 'F']
+    which = sys.argv[1:] or ['F1', 'F2', 'F3']
     for w in which:
         {'A': lambda: save(concept_A(), 'thumb_A'),
          'B': lambda: save(concept_B(), 'thumb_B'),
          'C': lambda: save(concept_C(), 'thumb_C'),
          'D': lambda: save(concept_D(), 'thumb_D'),
          'E': lambda: save(concept_E(), 'thumb_E'),
-         'F': lambda: save(concept_F(), 'thumb_F')}[w]()
+         'F': lambda: save(concept_F(), 'thumb_F'),
+         'F1': lambda: save(concept_F1(), 'thumb_F1'),
+         'F2': lambda: save(concept_F2(), 'thumb_F2'),
+         'F3': lambda: save(concept_F3(), 'thumb_F3')}[w]()
