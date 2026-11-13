@@ -98,7 +98,7 @@
   {
    "clip": "FX30541",
    "event_v1": "E21",
-   "src_start": 351.267,
+   "src_start": 351.2,
    "src_end": 352.81,
    "lines": [
     "You see how it's like",
@@ -265,7 +265,7 @@
   {
    "clip": "FX30545",
    "event_v1": "E39",
-   "src_start": 100.767,
+   "src_start": 100.65,
    "src_end": 103.603,
    "lines": [
     "Front, hood, roof, right side."
@@ -423,7 +423,7 @@
   {
    "clip": "FX30553",
    "event_v1": "E61",
-   "src_start": 9.718,
+   "src_start": 9.56,
    "src_end": 10.76,
    "lines": [
     "20 minutes."
@@ -575,7 +575,7 @@
    "src_start": 81.24,
    "src_end": 83.05,
    "lines": [
-    "Oh no, oh no, that's not the end."
+    "Oh no, oh no, that's not the..."
    ]
   },
   {
@@ -608,8 +608,8 @@
   {
    "clip": "FX30541",
    "event_v1": null,
-   "src_start": 353.1,
-   "src_end": 353.8,
+   "src_start": 353.0,
+   "src_end": 353.5,
    "lines": [
     "Got you."
    ]
@@ -626,8 +626,8 @@
   {
    "clip": "FX30551",
    "event_v1": null,
-   "src_start": 13.72,
-   "src_end": 15.45,
+   "src_start": 13.85,
+   "src_end": 15.35,
    "lines": [
     "Oh, it's right here. Right?"
    ]
@@ -635,10 +635,10 @@
   {
    "clip": "FX30551",
    "event_v1": null,
-   "src_start": 16.07,
+   "src_start": 15.72,
    "src_end": 18.0,
    "lines": [
-    "Oh yeah, it is. It blended in."
+    "Yeah. Oh yeah, it is. It blended in."
    ]
   },
   {

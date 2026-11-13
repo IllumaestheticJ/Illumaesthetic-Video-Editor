@@ -89,7 +89,7 @@
   "start": 23.106,
   "end": 24.9,
   "lines": [
-   "Oh no, oh no, that's not the end."
+   "Oh no, oh no, that's not the..."
   ],
   "event": "P_02",
   "n": 10
@@ -141,7 +141,7 @@
   "n": 15
  },
  {
-  "start": 65.107,
+  "start": 65.023,
   "end": 66.65,
   "lines": [
    "You see how it's like",
@@ -151,8 +151,8 @@
   "n": 16
  },
  {
-  "start": 66.942,
-  "end": 67.651,
+  "start": 66.858,
+  "end": 67.359,
   "lines": [
    "Got you."
   ],
@@ -335,7 +335,7 @@
   "n": 36
  },
  {
-  "start": 150.317,
+  "start": 150.192,
   "end": 153.153,
   "lines": [
    "Front, hood, roof, right side."
@@ -466,8 +466,8 @@
   "n": 50
  },
  {
-  "start": 208.333,
-  "end": 210.043,
+  "start": 208.458,
+  "end": 209.96,
   "lines": [
    "Oh, it's right here. Right?"
   ],
@@ -475,10 +475,10 @@
   "n": 51
  },
  {
-  "start": 210.669,
+  "start": 210.335,
   "end": 212.629,
   "lines": [
-   "Oh yeah, it is. It blended in."
+   "Yeah. Oh yeah, it is. It blended in."
   ],
   "event": "H_11",
   "n": 52
@@ -520,7 +520,7 @@
   "n": 56
  },
  {
-  "start": 238.113,
+  "start": 237.946,
   "end": 239.156,
   "lines": [
    "20 minutes."

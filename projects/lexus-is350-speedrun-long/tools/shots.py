@@ -91,7 +91,7 @@ def shots():
     S["SC_PAIR_3"] = {"base": [CAR], "dur": 2.5,
                       "keys": lambda s: push_from(f"{MATCH}/cam_542_fit.json", 2.4, 0.10, s)}
     # --- conclusion hero: one slow continuous pull-back from the front-LEFT 3/4 (front-right well is ragged), lower-left band clear ---
-    S["SC_CON_HERO"] = {"base": [CAR], "dur": 8.0, "keys": lambda s: [  # v2: 8.0 s of the planned 11.76 s
+    S["SC_CON_HERO"] = {"base": [CAR], "dur": 13.3, "keys": lambda s: [  # v2: 8.0 s of the planned 11.76 s
         {"t": 0, "loc": [3.7, -4.6, 1.0], "target": [0.2, -0.6, 0.45], "focal": 40},
         {"t": s, "loc": [5.0, -6.4, 1.3], "target": [0.05, -0.3, 0.4], "focal": 40, "ease": "out2"}]}
     return S
