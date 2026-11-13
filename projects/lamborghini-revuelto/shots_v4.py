@@ -90,7 +90,7 @@ SHOTS.append(shot(n, objs, [(T(2), cam(16, 15, 3.6, [0.12, -2.05, 0.45])), (T(4)
 
 # left side (bars 7-9): fender lifts, skirts slide out, fin lifts; wide enough that all four stay in frame
 n = "v4_side"; t0 = T(7)
-SHOTS.append(shot(n, objs, [(t0, cam(72, 14, 8.4, [0.4, -0.25, 0.6])), (T(9), cam(86, 12, 8.1, [0.4, -0.15, 0.6], lin=True))],
+SHOTS.append(shot(n, objs, [(t0, cam(72, 14, 9.4, [0.4, -0.25, 0.6])), (T(9), cam(86, 12, 9.1, [0.4, -0.15, 0.6], lin=True))],
     {"hood": held({"off": Z, "deg": HOOD_OPEN}),
      "fe": keys(n, [(t0, {"off": Z}), (t0 + 0.07, {"off": Z}), (t0 + 2 * KICK, {"off": OFF["fe"]})]),
      "ssf": keys(n, [(t0, {"off": Z}), (t0 + 2 * KICK, {"off": Z}), (t0 + 4 * KICK, {"off": OFF["ssf"]})]),
