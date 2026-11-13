@@ -49,3 +49,22 @@ Note: the three guesses come from three different people; no thumbnail attribute
 ## Pick: E for CTR (face + one argue-able number), D as the clearest "pick one" mechanic, F as the on-brand 1:1 reveal. Recommend E.
 Alt text: D "2 HR? 30 MIN? 15 MIN?" / "HOW LONG? + 3 tags"; E "2 HOURS?" / "LESS THAN 15?" (not true: he said 15, avoid); F "HOW FAST?" / "00:00 GO".
 Weaknesses: F's guesses line is unreadable at phone size (decorative); F/E IRL is soft 1080p; plate legible in F by owner's choice; D has no human; scan stills are flat grey with a ragged right-rear arch.
+
+---
+# v3: F developed (owner: keep F, add the 3D scanner picture, say "3D scan")
+Files: `thumb_F1|F2|F3.jpg|png` (+ `_320x180.png`, `_2560.png`), contact `thumb_options_v3.jpg` (JPGs + contact in `preview/`; all JPGs < 300 KB). Code: `tools/make_thumbs.py` (`split_base`, `scanner_cut`, `concept_F1..F3`).
+Common: black top band (text only there), real car left / silver scan right, diagonal seam, registered 1:1. Car half rebuilt from the **4K** FX30554 @ 11.011 s (graded with `fx3a_slog3cine_to_709.cube`) and the `B5_halfhalf_FX30554` scan (onion-checked). Plate unblurred (owner rule). Red = the "00:00" stopwatch text only. Bottom-right corner empty of anything key. No numbers beyond the guesses 2 HOURS / 30 MIN / 15 MIN (transcript FX30541 2.4, 17.5, 22.1, 26.3 s).
+Scanner picture source: **FX30545 4K @ 84 s** (`-noautorotate`), the white handheld unit with its screen ("Opening project" UI, blue power ring), no hands, no brand logo visible. FX30555 (host holding it) was tried: the white body against bright sky/building with dark lens holes did not grab-cut cleanly, so it was dropped. Cut-out: luminance threshold on the blurred 4K frame, morphological close, largest contour filled, opened/eroded 5 px, 1.2 px feather; edges checked at 100 % (clean on the rim; the far/left end of the body is naturally out of focus in the source). Subtle drop shadow added.
+| | wording | scanner | extras |
+|---|---|---|---|
+| F1 | HOW LONG TO / 3D SCAN A CAR? | cut-out, large, foreground bottom-left (partly over the road and the car's front-left) | none |
+| F2 | 3D SCAN A CAR / IN ___ MIN? | cut-out, smaller, bottom-left | three big guess tags 2 HOURS? / 30 MIN? / 15 MIN? on the black scan side |
+| F3 | HOW FAST CAN WE / 3D SCAN THIS? | picture-in-picture photo (FX30545 @ 104 s: hands on the scanner, its screen showing the car being built), top-left over the road | none |
+Pick: **F2** (says what is timed, keeps the owner's "what people THINK" idea with legible tags, scanner recognisable). F1 is the cleanest; F3 shows the scanner in use but the screen content is small.
+Weaknesses: scanner body's left end is soft/pale against the sand road (it is out of focus in the source); scanner overlaps the car's front-left corner in F1/F2; tags in F2 are 12 px tall-ish at the 320x180 proof (readable, small); the plate is partly covered by the seam/scanner in some variants; F3 PiP covers the left road area; "___" blank in F2 reads as a gap at phone size.
+
+---
+# v4: F2b / F2c, whole scanner standing on its base (owner: "put the bottom of the scanner back in")
+Source frame: `/home/user/media/work/is350-long/thumb/scanner4k/f_010.jpg` (FX30542, about 5-6 s of the lead's 4 fps extract, Rec709 graded, 4K): the full handheld unit on its base on the workbench, sharpest of f_008-f_013 with the least spray-gun overlap. Matte: hand polygon + grabCut refinement + luminance clean-up for the black base vs bench, grip loop kept see-through, 1 px choke + 1.6 px feather, edges checked at 100 %. Only reconstruction: the rear end of the body is hidden by the spray gun's grille in every frame, so the rear is closed with a simple rounded cap (a ~50 px shave of white surface at 4K); nothing else invented. Own soft ground shadow added; the bench contact shadow is not used. Matte inputs saved in `tools/matte/`; `leo_cut()` / `stand_on_ground()` in `tools/make_thumbs.py`.
+- F2b: scanner 665 px wide (26 % of frame), standing at the left, clear of the headlight and plate. F2c: 790 px, overlapping the car's lower-left bumper corner for depth. Title, red 00:00 and the four tags (2 HOURS? / 30 MIN? / 15 MIN? / LONGER?) unchanged; bottom-right empty.
+- Weaknesses: scanner is a touch softer than the 4K car (shallow depth of field in the source); its shooting angle/lighting differ slightly from the road scene; spray-gun-hidden rear end is a simple cap; ground shadow is subtle.
