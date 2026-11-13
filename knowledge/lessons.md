@@ -894,3 +894,5 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** Nothing should come off the bumper until the bumper itself comes off (grille left first)  _(from nissan-400z @ 14.5s, 2026-11-13, reviewer)_
 
 - **[text]** No one cares about triangle count - never put triangle counts in labels  _(from huracan-evo @ 15s, 2026-11-13, reviewer)_
+
+- **[text]** No one cares about triangle count - don't put triangle counts on screen  _(from c5-corvette-scan-process, 2026-11-13, reviewer)_

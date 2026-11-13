@@ -1,0 +1,42 @@
+{
+ "objects": {
+  "headlamp": "/home/user/media/work/c5/parts/headlamp.blend"
+ },
+ "seconds": 1.3,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/M_hl",
+ "light_ref": "headlamp",
+ "camera": [
+  {
+   "t": 0,
+   "az": 25,
+   "el": 25,
+   "dist": 1.0496934205293655,
+   "target": [
+    1.4901161193847656e-08,
+    -0.002452179789543152,
+    0.17882564663887024
+   ],
+   "lens": 50
+  },
+  {
+   "t": 1,
+   "az": 45,
+   "el": 22,
+   "dist": 0.8671380430459976,
+   "target": [
+    1.4901161193847656e-08,
+    -0.002452179789543152,
+    0.17882564663887024
+   ],
+   "lens": 50,
+   "lin": true
+  }
+ ],
+ "look": "silver"
+}

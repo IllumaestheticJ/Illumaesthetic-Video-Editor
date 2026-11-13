@@ -2,7 +2,7 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1200,
+ "durationInFrames": 1440,
  "accent": "#e8ecf2",
  "items": [
   {
@@ -15,7 +15,7 @@
    "from": 66,
    "duration": 62,
    "title": "FULL CAR SCAN",
-   "sub": "8,255,611 TRIANGLES",
+   "sub": "EXTERIOR",
    "x": 0.08,
    "y": 0.1
   },
@@ -33,42 +33,33 @@
    "from": 246,
    "duration": 50,
    "title": "REAR BUMPER REMOVED",
-   "sub": "8,028,053 TRIANGLES",
+   "sub": "BUMPER OFF",
    "x": 0.08,
    "y": 0.1
   },
   {
    "kind": "brackets",
    "from": 303,
-   "duration": 144
+   "duration": 84
   },
   {
    "kind": "label",
-   "from": 358,
-   "duration": 42,
+   "from": 340,
+   "duration": 46,
    "title": "TARGA ROOF",
    "sub": "INSIDE + OUTSIDE",
    "x": 0.08,
    "y": 0.1
   },
   {
-   "kind": "label",
-   "from": 412,
-   "duration": 36,
-   "title": "TARGA ROOF REMOVED",
-   "sub": "11,173,967 TRIANGLES",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
    "kind": "brackets",
-   "from": 663,
-   "duration": 264
+   "from": 603,
+   "duration": 144
   },
   {
    "kind": "label",
-   "from": 735,
-   "duration": 32,
+   "from": 662,
+   "duration": 27,
    "title": "FENDER",
    "sub": "INSIDE + OUTSIDE",
    "x": 0.08,
@@ -76,8 +67,8 @@
   },
   {
    "kind": "label",
-   "from": 768,
-   "duration": 24,
+   "from": 690,
+   "duration": 20,
    "title": "FRONT BUMPER",
    "sub": "MOUNTING POINTS",
    "x": 0.08,
@@ -85,19 +76,88 @@
   },
   {
    "kind": "label",
-   "from": 794,
-   "duration": 42,
+   "from": 712,
+   "duration": 35,
    "title": "FRONT BUMPER REMOVED",
    "sub": "FENDER + BUMPER OFF",
    "x": 0.08,
    "y": 0.1
   },
   {
+   "kind": "brackets",
+   "from": 753,
+   "duration": 114
+  },
+  {
    "kind": "label",
-   "from": 846,
-   "duration": 78,
+   "from": 762,
+   "duration": 100,
+   "title": "ENGINE BAY",
+   "sub": "Z06",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 873,
+   "duration": 234
+  },
+  {
+   "kind": "label",
+   "from": 874,
+   "duration": 25,
+   "title": "HEAD LAMP",
+   "sub": "",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 904,
+   "duration": 25,
+   "title": "TURN SIGNAL",
+   "sub": "",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 934,
+   "duration": 54,
+   "title": "DOOR PANEL",
+   "sub": "",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 993,
+   "duration": 84,
+   "title": "DOOR PANEL REMOVED",
+   "sub": "INNER DOOR",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "label",
+   "from": 1083,
+   "duration": 25,
+   "title": "FUEL DOOR",
+   "sub": "",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 1113,
+   "duration": 54
+  },
+  {
+   "kind": "label",
+   "from": 1116,
+   "duration": 50,
    "title": "UNDERBODY",
-   "sub": "10,000,000 TRIANGLES",
+   "sub": "FRONT TO REAR",
    "x": 0.08,
    "y": 0.1
   }

@@ -1,0 +1,42 @@
+{
+ "objects": {
+  "doorbare": "/home/user/media/work/c5/parts/doorbare.blend"
+ },
+ "seconds": 3.2,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/M_d2",
+ "light_ref": "doorbare",
+ "camera": [
+  {
+   "t": 0,
+   "az": 100,
+   "el": 14,
+   "dist": 1.979610135555267,
+   "target": [
+    0.0065000057220458984,
+    0.0,
+    0.46100008487701416
+   ],
+   "lens": 50
+  },
+  {
+   "t": 1,
+   "az": 108,
+   "el": 14,
+   "dist": 1.7214001178741454,
+   "target": [
+    0.0065000057220458984,
+    0.0,
+    0.46100008487701416
+   ],
+   "lens": 50,
+   "lin": true
+  }
+ ],
+ "look": "silver"
+}
