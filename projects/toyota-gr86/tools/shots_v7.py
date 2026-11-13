@@ -17,8 +17,8 @@ FAR = [0, 0, 9.0]
 Z = [0, 0, 0]
 FB_PIV, RB = [-0.07, -1.818, 0.605], [0.064, 1.817, 0.638]
 # BRZ skin leaves upward after the split (rel. to home, via the pulled-out pose), fully out of frame by 1.60 s
-BRZ_F_TAIL = [{"t": 0.95, "loc": [-0.10, -0.75, 0.55], "rot": Z, "ease": "out"}, {"t": 1.60, "loc": [-0.15, -0.95, 2.80], "rot": Z, "ease": "in"}]
-BRZ_R_TAIL = [{"t": 0.95, "loc": [0.10, 0.75, 0.55], "rot": Z, "ease": "out"}, {"t": 1.60, "loc": [0.15, 0.95, 2.80], "rot": Z, "ease": "in"}]
+BRZ_F_TAIL = [{"t": 0.95, "loc": [0, -0.35, 0.75], "rot": Z, "ease": "out"}, {"t": 1.60, "loc": [0, -0.40, 2.80], "rot": Z, "ease": "in"}]   # straight UP (preview: forward+up flew at the lens)
+BRZ_R_TAIL = [{"t": 0.95, "loc": [0, 0.35, 0.75], "rot": Z, "ease": "out"}, {"t": 1.60, "loc": [0, 0.40, 2.80], "rot": Z, "ease": "in"}]
 
 
 def blend(name):
@@ -81,7 +81,9 @@ for n, src in (("e4_rear_beam7", "e4_rear_beam6"), ("f1_reverse_light7", "f1_rev
 _v5 = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "shots_v5.py")).read()
 exec(_v5.split("# 4  m1:")[0].split('"""', 2)[2])                                   # helpers + constants
 exec(_v5[_v5.index("# 14-17  explode"):_v5.index('spec("x1_explode_fr"')])              # EX, HOME, explode_keys, explode_parts
-EX.update({"fbB": [0, -1.45, 0.60], "rbB": [0, 1.30, 0.85]})
+# BRZ skins: front above the GR86 bumper (preview: hidden behind it at +0.60), rear behind + above the GR86 bumper; the plate lamp
+# drops below the rear BRZ skin (its v5 pose (0.50,1.05,0.20) lies inside the skin at this offset)
+EX.update({"fbB": [0, -1.40, 0.75], "rbB": [0, 1.55, 0.45], "pl": [0.50, 0.95, -0.35]})
 HOME.update({"fbB": (7.05, 7.55), "rbB": (6.20, 6.75)})
 
 
