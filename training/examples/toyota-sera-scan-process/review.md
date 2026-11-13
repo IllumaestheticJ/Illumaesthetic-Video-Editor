@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v9 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v9.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 31.63 s (v9).
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v8.md.
+# Toyota Sera scan-process reel v10 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v10.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 31.63 s (v9).
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v9.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -89,3 +89,13 @@ are still an upscaled crop of the captioned posted short (raw clips would fix bo
   The finished-car material is only ~1.1 s + 1.2 s long, so those two shots stay short.
 - Checked: frames around every cut (qa/v9a-d), luma min 28.6, 31.63 s.
 - Earlier rubric rows above describe v4 timings; the v9 cut list in this section supersedes them.
+
+## v10 (user: punchline dead centre and visible; "custom make 3D parts" and THEN all the parts go on)
+- Punchline centred on screen (frames 60-142), scan dimmed to 38 % behind it; checked at 2.2 / 3.3 / 4.6 s - readable,
+  scan back to full brightness before the cut at 150.
+- Story regrouped: front (lift, 1:1, bumper off, behind) -> doors -> rear (pull, bumper off, behind) -> title
+  "CUSTOM MAKE 3D PARTS" (554-598, centred) -> front bumper on (600) -> rear bumper + ducktail on (650) -> skirts /
+  full kit (700) -> crossfade to the finished car (775) -> rear -> listing (850). Cuts measured on the file:
+  50/150/200/225/300/350/400/450/500/550/600*/650/700/812/850 (*600 is the held frame releasing, not a cut).
+- Trade-off: rear bumper off and behind-the-rear shots are now 1.67 s each (were 2.5 s); the rear-off shot plays 1.56x
+  faster and carries one combined label instead of two.

@@ -1,0 +1,135 @@
+# Toyota Sera (EXY10) scan-process reel v9 (v1-v8: project_v1..v8.yaml).
+# v9 (user): new music (GT2 "What License Test Will You Go With"), punchline title, new bumpers go onto the exposed
+# under-bumper scans. Whole edit re-timed to the new track.
+# Music: 143.9 BPM, beat 0.4169 s, 8-beat phrases starting at 0.344 + 3.3352 n (kick+stab). Video 0 = track 35.402 (measured attacks land on frames 50, 150, 250 ...)
+# (half a phrase before the 37.03 fill); half-phrase H = 1.667 s = 50 frames. Drums enter 40.37 (video 5.0 s).
+project: toyota-sera-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/sera_scan_process_v9.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/sera/music2/gt2_license.m4a
+  start: 35.402
+  fade_out: 1.0
+
+beats: [0.0, 1.6667, 5.0, 6.6667, 7.5, 10.0, 11.6667, 13.3333, 15.0, 16.6667, 19.1667, 21.6667, 23.3333, 25.8333, 27.0667, 28.3333, 31.6667]
+
+timeline:
+  - id: irl_open
+    section: front
+    focus: the real car, front 3/4
+    dur: 1.6333
+    src: /home/user/media/work/sera/irl/open.mp4
+    in: 0.1333
+    note: "ends on solved frame 433; one frame short so cuts land on the grid"
+  - transition: {type: cut, note: "1:1 IRL -> full car on the 37.03 phrase start (drum fill)"}
+  - id: scan_open
+    section: front
+    focus: nose = scan of the same car + punchline
+    dur: 3.3333
+    src: /home/user/media/work/sera/renders/final/v9_open
+    src_fps: 15.3
+    interpolate: true
+    note: "3.33 s fill phrase; punchline title sits in the black above the nose"
+  - id: irl_front_lift
+    section: front
+    focus: crew lifting the front bumper off
+    dur: 1.6667
+    src: /home/user/media/work/sera/irl/front.mp4
+    in: 0.7333
+    note: "drums drop (40.37); ends on solved frame 250"
+  - transition: {type: cut, note: "1:1 IRL -> Hood open state"}
+  - id: scan_front_match
+    section: front
+    focus: engine bay as in the footage
+    dur: 0.8333
+    src: /home/user/media/work/sera/renders/final/s5_front
+    src_fps: 21.6
+    interpolate: true
+  - id: scan_front_off
+    section: front
+    focus: front bumper inside + outside
+    dur: 2.5
+    src: /home/user/media/work/sera/renders/final/v3_f_off
+    src_fps: 15
+    interpolate: true
+  - id: scan_front_behind
+    section: front
+    focus: structure behind the front bumper
+    dur: 1.6667
+    src: /home/user/media/work/sera/renders/final/v3_f_beam
+    src_fps: 15
+    interpolate: true
+  - id: scan_front_design
+    section: front
+    focus: designed front bumper going onto the exposed under-bumper scan
+    dur: 1.6667
+    src: /home/user/media/work/sera/renders/final/v9_f_design
+    src_fps: 15
+    interpolate: true
+    note: "v9: base = Hood open state, radiator/mounts stay visible until the bumper covers them"
+  - id: scan_doors
+    section: side
+    focus: butterfly doors open
+    dur: 1.6667
+    src: /home/user/media/work/sera/renders/final/v3_doors
+    src_fps: 23.4
+    interpolate: true
+  - id: irl_rear_pull
+    section: rear
+    focus: crew pulling the rear bumper
+    dur: 1.6667
+    src: /home/user/media/work/sera/irl/rear.mp4
+    note: "hard cut, no 1:1 possible"
+  - id: scan_rear_off
+    section: rear
+    focus: rear bumper inside + outside
+    dur: 2.5
+    src: /home/user/media/work/sera/renders/final/v3_r_off
+    src_fps: 15
+    interpolate: true
+  - id: scan_rear_behind
+    section: rear
+    focus: structure behind the rear bumper
+    dur: 2.5
+    src: /home/user/media/work/sera/renders/final/v3_r_beam
+    src_fps: 12
+    interpolate: true
+  - id: scan_rear_design
+    section: rear
+    focus: designed rear bumper + ducktail going onto the exposed tail-panel scan
+    dur: 1.6667
+    src: /home/user/media/work/sera/renders/final/v9_r_design
+    src_fps: 18
+    interpolate: true
+    note: "v9: base = Rear Bumper Removed state"
+  - id: scan_kit_final
+    section: finished car
+    focus: side skirts going on, full kit on the scan
+    dur: 2.3
+    src: /home/user/media/work/sera/renders/final/v9_kit_final
+    src_fps: 360/23
+    interpolate: true
+    note: "36 frames span 2.3 s; ends on match/cam_fin_full.json"
+  - transition: {type: dissolve, duration: 0.4, hold: true, note: "1:1 kitted scan -> real finished car, held crossfade centred on frame 775 (15.5 half-phrases)"}
+  - id: irl_finished_front
+    section: finished car
+    focus: the real car wearing the kit, front
+    dur: 1.0333
+    src: /home/user/media/work/sera/irl/fin_front_full.mp4
+    note: "caption painted out, full frame"
+  - id: irl_finished_rear
+    section: finished car
+    focus: the real car wearing the kit, rear
+    dur: 1.2667
+    src: /home/user/media/work/sera/irl/fin_rear_full.mp4
+  - id: website
+    section: end card
+    focus: listing page + URL (answers the punchline)
+    dur: 3.3333
+    src: /home/user/media/work/out/webzoom_sera_v3.mp4
+    note: "starts on the 63.71 phrase start"
+
+overlays:
+  - src: /home/user/media/work/out/hud_sera_v9.mov
+    start: 0

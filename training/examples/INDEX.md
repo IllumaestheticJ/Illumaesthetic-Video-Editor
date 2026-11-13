@@ -4,11 +4,11 @@ Newest first. Read the top two before starting a new edit.
 
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
+- [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
-- [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
