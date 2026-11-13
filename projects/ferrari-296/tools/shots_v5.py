@@ -30,6 +30,18 @@ HOOD_OPEN = (Z3, (-58, 0, 0))  # f5_front opens the hood on its hinge (scanned p
 SPREAD, HOME_A, HOME_B = 1.05, K(69), K(71)  # slow drift x1.05 after the blast, fly home 69 -> LOCK on 71
 
 
+def _end_cam():
+    try:
+        from cta import camera
+        c = camera(os.environ.get("CTA_CAM", "/home/user/media/work/f296/web/fit/s4_best.json"))
+        return tuple(c["loc"]), tuple(c["target"]), c["focal"]
+    except FileNotFoundError:  # before the photo solve: the v5 drift end pose
+        return (-4.20, -4.80, 2.40), (0.00, -0.30, 0.55), 26
+
+
+END_CAM = _end_cam()
+
+
 def part(name, keys, pivot=None):
     p = {"blend": f"{P}/{name}.blend", "keys": keys}
     if pivot:
@@ -93,7 +105,11 @@ SHOTS = {
         (K(63), (-4.60, -5.60, 4.40), (-0.10, -1.20, 0.80), 24, "inout"),
         (K(69), (-5.40, -3.20, 4.60), (-0.50, 0.00, 0.70), 24, "inout"),
         (K(71), (-4.40, -4.60, 2.60), (0.00, -0.30, 0.55), 26, "inout"),
-        (K(75), (-4.20, -4.80, 2.40), (0.00, -0.30, 0.55), 26, "lin")]),
+        # CTA (user: "mobile version CTA ... with the 1:1 transition of the website photos"): after the lock the camera
+        # swings round the nose (k71 -> k73 accelerating, k73 -> k75 settling) onto the camera solved against the
+        # listing's cover photo (tools/photo_search.py, cta.py), and k75 cuts 1:1 into that photo on the mobile page.
+        (K(73), (0.00, -7.60, 3.30), (0.00, -0.25, 0.40), 30, "in"),
+        (K(75), *END_CAM, "out")]),
 }
 
 

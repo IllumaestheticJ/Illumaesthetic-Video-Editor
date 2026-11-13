@@ -93,7 +93,7 @@ def main(argv=None):
     s = sub.add_parser("hud", help="render a Remotion composition: ScanHUD overlay (transparent ProRes) or WebZoom end card")
     s.add_argument("overlay_json")
     s.add_argument("out")
-    s.add_argument("--comp", default="ScanHUD", help="ScanHUD | WebZoom")
+    s.add_argument("--comp", default="ScanHUD", help="ScanHUD | WebZoom | MobileCTA")
 
     s = sub.add_parser("assemble", help="build the final video from project.yaml")
     s.add_argument("project_yaml")

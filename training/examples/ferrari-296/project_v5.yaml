@@ -1,0 +1,90 @@
+# v5 - user on v4: "re-edit it to this song (Buckshot Roulette OST - General Release), learn from the GT3RS video editor on
+#   what to change. right now, not enough of the parts are blown up or shown".
+#   GT3RS lessons applied: every part comes off on a kick where the camera is and STAYS off (progressive explode), one label
+#   per part from its scan file, all parts blast out together on the drop, fly home, lock; logo ~60 % width.
+#   9 moving parts (v4: 7): + front-right WHEEL (wheel-off state scan "Brake Disk": disc, caliper, hub, liner) + EXHAUST TIP.
+#   Shots: tools/shots_v5.py (new) + reused s1_wide, f5_front (x1.0527 so its events land on k9/k13/k17), F_hero.
+#   v4: project_v4.yaml.
+# Music: user-supplied mp4 -> buckshot_general_release.wav, from 0 s. 145.1 BPM; kicks measured on the decoded 40-120 Hz band
+#   (buckshot_kicks.json). Breakdown (no kick) k41-56 = 17.4-24.4 s, drop k57 = 24.407 s.
+# Cut frames: 124 (k8), 298 (k22), 347 (k26), 446 (k34), 521 (k40), 732 (k57 drop), 956 (fade -> logo); end 1140 (38.0 s).
+project: ferrari-296
+format: reel-9x16
+output: {path: /home/user/media/work/f296/out/ferrari_296_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/buckshot_general_release.wav   # user-supplied track, not in git
+  start: 0
+  fade_out: 2.0
+
+beats: [4.123, 9.918, 11.569, 14.883, 17.364, 24.407]
+
+timeline:
+  - id: s1_wide
+    section: whole
+    focus: "whole car, front-right 3/4, moving from frame 1 (intro bars)"
+    src: /home/user/media/work/f296/renders/final/s1_wide
+    src_fps: 15
+    interpolate: true
+    frames: 124
+  - transition: {type: cut}
+  - id: f5_front   # hood opens k9, bumper out k13, turns k17 (x1.0527 via the input rate: speed: drops 1 frame in 19)
+    section: front
+    focus: "HOOD opens (scanned open state) -> FRONT BUMPER out, turned to show its scanned inner face"
+    src: /home/user/media/work/f296/renders/final/f5_front
+    src_fps: 15.7905
+    interpolate: true
+    trim_start: 0.132
+    frames: 174
+  - transition: {type: cut}
+  - id: F_hero
+    section: front
+    focus: "FRONT BUMPER REMOVED: crash beam behind the bumper"
+    src: /home/user/media/work/f296/renders/final/F_hero
+    src_fps: 15
+    interpolate: true
+    trim_start: 1.0
+    frames: 49
+  - transition: {type: cut}
+  - id: v5_wheel   # wheel slides off along its axle k27-29, fender lifts off k30-31
+    section: wheel
+    focus: "FRONT WHEEL off -> scanned brake disc + caliper in the arch; FENDER off"
+    src: /home/user/media/work/f296/renders/final/v5_wheel
+    src_fps: 15
+    interpolate: true
+    frames: 99
+  - transition: {type: cut}
+  - id: v5_side   # skirt k35, rear bumper k37, diffuser k38
+    section: side
+    focus: "SIDE SKIRT drops; REAR BUMPER + DIFFUSER pull back"
+    src: /home/user/media/work/f296/renders/final/v5_side
+    src_fps: 15
+    interpolate: true
+    frames: 75
+  - transition: {type: cut}
+  - id: v5_rear   # breakdown: engine cover lifts off k42-44, exhaust tip k46-49, rise to the high view of every part off
+    section: rear
+    focus: "ENGINE COVER off -> engine bay; EXHAUST TIP out; every removed part from above"
+    src: /home/user/media/work/f296/renders/final/v5_rear
+    src_fps: 15
+    interpolate: true
+    frames: 211
+  - transition: {type: cut}
+  - id: v5_drop   # blast k57-59, drift, fly home k69 -> LOCK k71, fade from k73
+    section: explode
+    focus: "all 9 parts blown out on the drop, then home and lock"
+    src: /home/user/media/work/f296/renders/final/v5_drop
+    src_fps: 15
+    interpolate: true
+    frames: 224
+    fade_out: 0.83
+  - transition: {type: cut}
+  - id: logo   # tools/logo_card.py --secs 6.1333 --width 660 --lead 0.817 --fade-out 1.0 --tail 0.3 (logo in on k77)
+    section: logo
+    focus: Illumaesthetic logo
+    src: /home/user/media/work/f296/out/logo_v5.mp4
+    frames: 184
+
+overlays:
+  - src: /home/user/media/work/f296/out/hud_v5.mov   # one label per part, scan shots only; overlay.json
+    start: 0

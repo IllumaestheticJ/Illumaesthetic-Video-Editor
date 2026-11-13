@@ -1,3 +1,26 @@
+# Ferrari 296 GTB scan reel v6 - self-review (v5: review_v5.md)
+
+User on v5: "add the mobile version CTA for the scan data at the end with the 1:1 transition of the website photos".
+
+v6 = v5 up to the lock (k71), then a new ending (replaces the fade + logo card):
+- k71 -> k75: the locked car swings round the nose onto the camera solved against the listing's cover photo (the
+  website photos are grey renders of this same scan); k75 = hard 1:1 cut from the silver scan to that photo.
+- the photo is in the phone layout of illumaesthetic.com/products/ferrari-296-gtb-type-f171-3d-scan-2022 (Playwright,
+  iPhone 14 Pro, 393x699 = 9:16); zoom out k75 -> k79 into its gallery slot, carousel swipes land on k80/k82/k84
+  (front bumper explode, rear 3/4, rear bumper + engine explode - the listing's own photos), "SCAN DATA / AVAILABLE NOW"
+  k85, "ILLUMAESTHETIC.COM" k86, slow push-in to the end (Remotion MobileCTA, cta.json).
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v6.mp4` - 1080x1920, 30 fps, 38.00 s, cuts unchanged (956 = k75).
+Checked: cover-photo camera by edge overlay (wheels, headlights, windscreen, mirror, side intake on the photo's);
+frames 955/956 overlaid at the cut; near-duplicate/dark scan (only the 6-frame hold on the 1:1 frame + the arrival);
+`ive director` (no flags); every CTA phase in a contact sheet.
+
+Ending score 5 -> 5 (now a CTA that lands on the product). Text 4: CTA wording is the listing's ("scan data ... is now
+available"), no numbers added; the page's own price shows faintly above the CTA.
+Open: the scan composite and the website scan differ slightly at the front lip and sill (both visible across the cut
+by ~10-20 px); the site may change - the page was captured 2026-11-12.
+
+---
 # Ferrari 296 GTB scan reel v5 - self-review (v4: review_v4.md)
 
 User on v4: "re-edit it to this song (Buckshot Roulette OST - General Release), learn from the GT3RS video editor on what

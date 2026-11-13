@@ -780,3 +780,16 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** "Mobile call to action" before the final shot (user): capture the car's listing page in a phone viewport (Playwright
   device 'iPhone 14 Pro'), shrink the last scan frame into the listing's 360 viewer (same scan) and dissolve, title + URL around the
   phone, then cut to the logo (mazda-miata-nd/tools/cta_card.py). The user wanted the logo bigger again (760 px) after a 300 px card.
+
+## Ferrari 296 v6 - mobile CTA with a 1:1 cut into the website photos (2026-11-13)
+- The listing photos (Shopify `/products/<handle>.js` -> images) are grey renders of the scan: solve each photo's camera
+  against the exact end-of-shot scene and cut 1:1 scan -> photo on a kick (projects/ferrari-296/tools/photo_search.py,
+  photo_grid.py; one Blender run renders 16 candidate cameras as 16 frames).
+- Silhouette IoU is NOT enough for a photo solve: at IoU 0.88 the wheels were 150 photo px off (yaw traded against
+  framing). Grid az/el/focal with bbox re-centring per candidate, then refine on gradient NCC inside the car; check the
+  edge overlay on wheels/headlights/mirror.
+- Mobile page capture: Playwright iPhone 14 Pro UA with viewport 393x699 (@3x = 1179x2097 ~ exactly 9:16); hide the
+  gallery's 360/Photos switch, zoom button and the broken "Marker" widget. Draw the carousel yourself in Remotion
+  (MobileCTA: slot rect + pitch from getBoundingClientRect) and swap page screenshots per dot at the swipe midpoint.
+- Map photo -> video at frame 0 by a fixed scale with the photo centre on the frame centre: the shot camera is the
+  photo camera with focal x (photoW * scale / 1080) and no lens shift.

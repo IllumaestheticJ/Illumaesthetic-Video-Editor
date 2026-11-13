@@ -9,6 +9,8 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-12
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-12
 - [ferrari-296](ferrari-296/) - archived 2026-11-12
+- [ferrari-296](ferrari-296/) - archived 2026-11-13
+- [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-12
 - [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-12
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-12
 - [nissan-400z](nissan-400z/) - archived 2026-11-12

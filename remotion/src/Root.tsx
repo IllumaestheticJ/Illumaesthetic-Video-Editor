@@ -2,6 +2,7 @@ import { Composition } from "remotion";
 import { calculateScanHudMetadata, ScanHUD, scanHudDefaults } from "./ScanHUD";
 import { calculateWebZoomMetadata, WebZoom, webZoomDefaults } from "./WebZoom";
 import { calculateWebZoomSplitMetadata, WebZoomSplit, webZoomSplitDefaults } from "./WebZoomSplit";
+import { calculateMobileCtaMetadata, MobileCTA, mobileCtaDefaults } from "./MobileCTA";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -35,6 +36,14 @@ export const RemotionRoot: React.FC = () => {
         height={webZoomSplitDefaults.height}
         defaultProps={webZoomSplitDefaults}
         calculateMetadata={calculateWebZoomSplitMetadata}
+        id="MobileCTA"
+        component={MobileCTA}
+        durationInFrames={mobileCtaDefaults.durationInFrames}
+        fps={mobileCtaDefaults.fps}
+        width={mobileCtaDefaults.width}
+        height={mobileCtaDefaults.height}
+        defaultProps={mobileCtaDefaults}
+        calculateMetadata={calculateMobileCtaMetadata}
       />
     </>
   );
