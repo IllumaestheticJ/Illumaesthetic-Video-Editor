@@ -192,6 +192,14 @@ V6 = {  # name: (base, parts?, t0, secs, cam keys)
     "F6": ([CF], True, 36 * B, 3.6, cam2(([2.05, -4.95, 1.00], [0.0, -2.1, 0.50], 28), ([2.35, -4.30, 1.25], [0.10, -1.65, 0.50], 28), 3.6)),
     "F7": ([CF], True, 44 * B, 1.95, cam2(([2.70, -3.90, 2.90], [0, 0.05, 0.55], 26), ([3.40, -4.90, 3.50], [0, 0.10, 0.60], 26), 1.95, "out2")),
 }
+# v7: 1:1 cut from the real car (scan video 5:59.6, source frame 8622, match/cam.json: 14-point solve, f 27.1 mm on 36 mm =
+# 15.25 mm on the 20.25 mm sensor, roll 0.36 deg ignored). W0 starts EXACTLY on the solved pose, then pulls back and swings
+# to the front-left 3/4 so the whole car is in frame. Same horizontal FOV as the 1080-wide IRL band -> car keeps its pixels.
+SOLVED = {"loc": [-0.079, -3.226, 0.447], "target": [-0.026, -1.6, 0.372], "focal": 15.253}
+V6["W0"] = ([CAR], False, 0, 2.75, [
+    {"t": 0, **SOLVED},
+    {"t": 1.3, "loc": [1.6, -5.2, 0.85], "target": [0, -0.4, 0.5], "focal": 21, "ease": "inout"},
+    {"t": 2.75, "loc": [3.285, -5.088, 1.3], "target": [0, 0.17, 0.55], "focal": 24, "ease": "out2"}])
 for _n, (_base, _parts, _t0, _s, _cam) in V6.items():
     SHOTS[_n] = {"base": _base, "parts": [BUMPER] if _parts else [], "cam": _cam, "t0": _t0, "v6": True}
     SECS[_n] = _s
