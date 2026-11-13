@@ -991,3 +991,5 @@ lands here automatically. Agents must read this whole file before editing.
   section, while the riser cut-off and sub kick are on the grid. Check the band envelope before moving the cut.
 
 - **[audio]** No generated tracks - use real music  _(from infiniti-qx80, 2026-11-13, reviewer)_
+- (WRX VB v6) Do not skip a Drive folder as "aftermarket" by its name: everything under `Scan Files/` is scan data (reviewer: "we did the fog lights and reflectors"). Download, measure and look at each one, then decide. A small "X removed" scan is usually one corner of a bumper, not the car: register it to that corner (globalreg on a crop of the bumper part, then ICP to the car skin).
+- (WRX VB v6) Small clipped parts (reflector, 150 mm): PCA+ICP landed 15 deg off and once back to front. Register by features instead: clip centres on the part to the clip holes in the "removed" scan, lens normal to the recess normal, then verify lens-to-lens distance and an outline overlay. Show a small silver part in a close-up; in a wide shot it disappears against the bumper.
