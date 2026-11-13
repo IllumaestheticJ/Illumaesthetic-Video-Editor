@@ -2,7 +2,7 @@
  "fps": 23.976,
  "width": 1920,
  "height": 270,
- "durationInFrames": 7384,
+ "durationInFrames": 7252,
  "segments": [
   {
    "id": "CO_01",
@@ -19,37 +19,9 @@
    }
   },
   {
-   "id": "CO_02",
-   "t0": 3.7955,
-   "t1": 5.7975,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "CO_03",
-   "t0": 5.7975,
-   "t1": 10.8025,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
    "id": "B_01",
-   "t0": 10.8025,
-   "t1": 14.5562,
+   "t0": 3.7955,
+   "t1": 7.5492,
    "visible": true,
    "corner": "TR",
    "chapter": "THE BET",
@@ -62,8 +34,8 @@
   },
   {
    "id": "B_02",
-   "t0": 14.5562,
-   "t1": 21.4798,
+   "t0": 7.5492,
+   "t1": 14.4728,
    "visible": true,
    "corner": "TR",
    "chapter": "THE BET",
@@ -76,8 +48,8 @@
   },
   {
    "id": "P_01a",
-   "t0": 21.4798,
-   "t1": 25.34249999999999,
+   "t0": 14.4728,
+   "t1": 18.33549999999999,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -90,8 +62,8 @@
   },
   {
    "id": "P_01b",
-   "t0": 25.34249999999999,
-   "t1": 25.9426,
+   "t0": 18.33549999999999,
+   "t1": 18.9356,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -106,8 +78,8 @@
   },
   {
    "id": "P_02",
-   "t0": 25.9426,
-   "t1": 32.8662,
+   "t0": 18.9356,
+   "t1": 25.8592,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -122,8 +94,8 @@
   },
   {
    "id": "P_03",
-   "t0": 32.8662,
-   "t1": 36.1194,
+   "t0": 25.8592,
+   "t1": 29.1124,
    "visible": true,
    "corner": "TL",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -138,8 +110,8 @@
   },
   {
    "id": "P_04",
-   "t0": 36.1194,
-   "t1": 44.2525,
+   "t0": 29.1124,
+   "t1": 37.2455,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -154,8 +126,8 @@
   },
   {
    "id": "P_05",
-   "t0": 44.2525,
-   "t1": 47.8812,
+   "t0": 37.2455,
+   "t1": 40.8742,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -258,8 +230,8 @@
   },
   {
    "id": "P_06",
-   "t0": 47.8812,
-   "t1": 50.759,
+   "t0": 40.8742,
+   "t1": 43.752,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -274,8 +246,8 @@
   },
   {
    "id": "P_07",
-   "t0": 50.759,
-   "t1": 53.5952,
+   "t0": 43.752,
+   "t1": 46.5882,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
@@ -290,15 +262,15 @@
   },
   {
    "id": "P_08",
-   "t0": 53.5952,
-   "t1": 55.5972,
+   "t0": 46.5882,
+   "t1": 48.6319,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 1 \u00b7 SPRAY",
    "c1": {
     "k": "time",
     "a": 125.9822,
-    "b": 127.27420000000001
+    "b": 127.3159
    },
    "t2": {
     "k": "hidden"
@@ -306,15 +278,15 @@
   },
   {
    "id": "Q_01",
-   "t0": 55.5972,
-   "t1": 58.4751,
+   "t0": 48.6319,
+   "t1": 51.4681,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN",
    "c1": {
     "k": "time",
     "a": 171.9967,
-    "b": 174.8746
+    "b": 174.8329
    },
    "t2": {
     "k": "hidden"
@@ -322,8 +294,8 @@
   },
   {
    "id": "Q_02",
-   "t0": 58.4751,
-   "t1": 62.5208,
+   "t0": 51.4681,
+   "t1": 55.5138,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN",
@@ -338,8 +310,8 @@
   },
   {
    "id": "Q_03",
-   "t0": 62.5208,
-   "t1": 64.1474,
+   "t0": 55.5138,
+   "t1": 57.1404,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN",
@@ -354,8 +326,8 @@
   },
   {
    "id": "Q_04",
-   "t0": 64.1474,
-   "t1": 68.2348,
+   "t0": 57.1404,
+   "t1": 61.2278,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN",
@@ -370,15 +342,15 @@
   },
   {
    "id": "Q_05",
-   "t0": 68.2348,
-   "t1": 74.6996,
+   "t0": 61.2278,
+   "t1": 67.7343,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN",
    "c1": {
     "k": "time",
     "a": 272.01869999999997,
-    "b": 279.0735
+    "b": 279.1152
    },
    "t2": {
     "k": "hidden"
@@ -386,15 +358,15 @@
   },
   {
    "id": "C_01",
-   "t0": 74.6996,
-   "t1": 89.2558,
+   "t0": 67.7343,
+   "t1": 82.2488,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
    "c1": {
     "k": "time",
     "a": 293.9968,
-    "b": 308.03299999999996
+    "b": 307.99129999999997
    },
    "t2": {
     "k": "hidden"
@@ -402,8 +374,8 @@
   },
   {
    "id": "C_02",
-   "t0": 89.2558,
-   "t1": 90.2568,
+   "t0": 82.2488,
+   "t1": 83.2498,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
@@ -421,8 +393,8 @@
   },
   {
    "id": "C_03a",
-   "t0": 90.2568,
-   "t1": 90.50705025025024,
+   "t0": 83.2498,
+   "t1": 83.50005025025024,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
@@ -440,8 +412,8 @@
   },
   {
    "id": "C_03b",
-   "t0": 90.50705025025024,
-   "t1": 91.4247,
+   "t0": 83.50005025025024,
+   "t1": 84.4177,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
@@ -458,15 +430,15 @@
   },
   {
    "id": "C_04",
-   "t0": 91.4247,
-   "t1": 93.5935,
+   "t0": 84.4177,
+   "t1": 86.7116,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
    "c1": {
     "k": "time",
     "a": 324.9866,
-    "b": 326.9854
+    "b": 327.1105
    },
    "t2": {
     "k": "hidden"
@@ -476,15 +448,15 @@
   },
   {
    "id": "C_05",
-   "t0": 93.5935,
-   "t1": 95.387,
+   "t0": 86.7116,
+   "t1": 88.5468,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
    "c1": {
     "k": "time",
     "a": 329.0201,
-    "b": 331.01349999999996
+    "b": 331.05519999999996
    },
    "t2": {
     "k": "hidden"
@@ -494,8 +466,8 @@
   },
   {
    "id": "C_06",
-   "t0": 95.387,
-   "t1": 99.5578,
+   "t0": 88.5468,
+   "t1": 92.7176,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
@@ -510,8 +482,8 @@
   },
   {
    "id": "C_07",
-   "t0": 99.5578,
-   "t1": 102.5608,
+   "t0": 92.7176,
+   "t1": 95.6789,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
@@ -527,15 +499,15 @@
   },
   {
    "id": "C_08a",
-   "t0": 102.5608,
-   "t1": 115.5608,
+   "t0": 95.6789,
+   "t1": 108.6789,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
    "c1": {
     "k": "time",
     "a": 716.0,
-    "b": 729.035662359751
+    "b": 729.0355908397617
    },
    "t2": {
     "k": "hidden"
@@ -543,15 +515,15 @@
   },
   {
    "id": "C_08b",
-   "t0": 115.5608,
-   "t1": 118.0608,
+   "t0": 108.6789,
+   "t1": 111.1789,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
    "c1": {
     "k": "time",
-    "a": 729.035662359751,
-    "b": 731.5425205058569
+    "a": 729.0355908397617,
+    "b": 731.5424352320235
    },
    "t2": {
     "k": "time",
@@ -562,14 +534,14 @@
   },
   {
    "id": "C_08c",
-   "t0": 118.0608,
-   "t1": 120.7873,
+   "t0": 111.1789,
+   "t1": 113.9055,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
    "c1": {
     "k": "time",
-    "a": 731.5425205058569,
+    "a": 731.5424352320235,
     "b": 734.2765
    },
    "t2": {
@@ -580,8 +552,8 @@
   },
   {
    "id": "T_01",
-   "t0": 120.7873,
-   "t1": 121.9969,
+   "t0": 113.9055,
+   "t1": 115.115,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -598,8 +570,8 @@
   },
   {
    "id": "T_02",
-   "t0": 121.9969,
-   "t1": 126.0009,
+   "t0": 115.115,
+   "t1": 119.119,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -616,8 +588,8 @@
   },
   {
    "id": "T_03",
-   "t0": 126.0009,
-   "t1": 130.0049,
+   "t0": 119.119,
+   "t1": 123.123,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -634,8 +606,8 @@
   },
   {
    "id": "T_02b",
-   "t0": 130.0049,
-   "t1": 134.0089,
+   "t0": 123.123,
+   "t1": 127.127,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -652,8 +624,8 @@
   },
   {
    "id": "T_04",
-   "t0": 134.0089,
-   "t1": 138.0129,
+   "t0": 127.127,
+   "t1": 131.131,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -670,8 +642,8 @@
   },
   {
    "id": "T_05",
-   "t0": 138.0129,
-   "t1": 139.2224,
+   "t0": 131.131,
+   "t1": 132.3405,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -688,8 +660,8 @@
   },
   {
    "id": "T_06",
-   "t0": 139.2224,
-   "t1": 140.432,
+   "t0": 132.3405,
+   "t1": 133.5501,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -706,8 +678,8 @@
   },
   {
    "id": "T_07a",
-   "t0": 140.432,
-   "t1": 143.29559999999998,
+   "t0": 133.5501,
+   "t1": 136.9142,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -722,8 +694,8 @@
   },
   {
    "id": "T_07b",
-   "t0": 143.29559999999998,
-   "t1": 150.5254,
+   "t0": 136.9142,
+   "t1": 144.144,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -738,8 +710,8 @@
   },
   {
    "id": "T_08",
-   "t0": 150.5254,
-   "t1": 180.0966,
+   "t0": 144.144,
+   "t1": 173.5901,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
@@ -754,8 +726,8 @@
   },
   {
    "id": "H_01",
-   "t0": 180.0966,
-   "t1": 182.0986,
+   "t0": 173.5901,
+   "t1": 175.5921,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -772,26 +744,26 @@
   },
   {
    "id": "H_02",
-   "t0": 182.0986,
-   "t1": 185.6855,
+   "t0": 175.5921,
+   "t1": 179.2207,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
    "c1": {
     "k": "time",
     "a": 1321.0178,
-    "b": 1325.1047
+    "b": 1325.1464
    },
    "t2": {
     "k": "time",
     "a": 580.0178,
-    "b": 584.1047
+    "b": 584.1464
    }
   },
   {
    "id": "H_03",
-   "t0": 185.6855,
-   "t1": 189.6895,
+   "t0": 179.2207,
+   "t1": 183.2247,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -808,44 +780,44 @@
   },
   {
    "id": "H_04",
-   "t0": 189.6895,
-   "t1": 193.3181,
+   "t0": 183.2247,
+   "t1": 186.8116,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
    "c1": {
     "k": "time",
     "a": 1387.9943,
-    "b": 1391.1229
+    "b": 1391.0812
    },
    "t2": {
     "k": "time",
     "a": 646.9943,
-    "b": 650.1229
+    "b": 650.0812
    }
   },
   {
    "id": "H_05",
-   "t0": 193.3181,
-   "t1": 197.6975,
+   "t0": 186.8116,
+   "t1": 191.2327,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
    "c1": {
     "k": "time",
     "a": 1405.0118,
-    "b": 1409.8912
+    "b": 1409.9329
    },
    "t2": {
     "k": "time",
     "a": 664.0118,
-    "b": 668.8912
+    "b": 668.9329
    }
   },
   {
    "id": "H_06",
-   "t0": 197.6975,
-   "t1": 198.907,
+   "t0": 191.2327,
+   "t1": 192.4422,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -862,8 +834,8 @@
   },
   {
    "id": "H_07",
-   "t0": 198.907,
-   "t1": 204.913,
+   "t0": 192.4422,
+   "t1": 198.4482,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -880,8 +852,8 @@
   },
   {
    "id": "H_08",
-   "t0": 204.913,
-   "t1": 206.915,
+   "t0": 198.4482,
+   "t1": 200.4502,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -898,8 +870,8 @@
   },
   {
    "id": "H_09",
-   "t0": 206.915,
-   "t1": 210.919,
+   "t0": 200.4502,
+   "t1": 204.4542,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -916,26 +888,26 @@
   },
   {
    "id": "H_10",
-   "t0": 210.919,
-   "t1": 214.5477,
+   "t0": 204.4542,
+   "t1": 208.0412,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
    "c1": {
     "k": "time",
     "a": 1642.0,
-    "b": 1645.1786
+    "b": 1645.1369
    },
    "t2": {
     "k": "time",
     "a": 901.0,
-    "b": 904.1786
+    "b": 904.1369
    }
   },
   {
    "id": "H_11",
-   "t0": 214.5477,
-   "t1": 221.0542,
+   "t0": 208.0412,
+   "t1": 214.5477,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -952,8 +924,8 @@
   },
   {
    "id": "H_12",
-   "t0": 221.0542,
-   "t1": 222.5557,
+   "t0": 214.5477,
+   "t1": 216.0492,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -970,26 +942,26 @@
   },
   {
    "id": "H_13",
-   "t0": 222.5557,
-   "t1": 228.1446,
+   "t0": 216.0492,
+   "t1": 221.6798,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
    "c1": {
     "k": "time",
     "a": 1726.0006,
-    "b": 1730.8895
+    "b": 1730.9312
    },
    "t2": {
     "k": "time",
     "a": 985.0006,
-    "b": 990.8895
+    "b": 990.9312
    }
   },
   {
    "id": "H_14",
-   "t0": 228.1446,
-   "t1": 232.941,
+   "t0": 221.6798,
+   "t1": 226.4762,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -1006,8 +978,8 @@
   },
   {
    "id": "H_15",
-   "t0": 232.941,
-   "t1": 236.945,
+   "t0": 226.4762,
+   "t1": 230.4802,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
@@ -1024,26 +996,26 @@
   },
   {
    "id": "H_16",
-   "t0": 236.945,
-   "t1": 242.5757,
+   "t0": 230.4802,
+   "t1": 235.6938,
    "visible": true,
    "corner": "TR",
    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
    "c1": {
     "k": "time",
     "a": 1914.0166,
-    "b": 1919.6471999999999
+    "b": 1919.2301
    },
    "t2": {
     "k": "time",
     "a": 1173.0166,
-    "b": 1178.6471999999999
+    "b": 1178.2301
    }
   },
   {
    "id": "TM_01a",
-   "t0": 242.5757,
-   "t1": 244.2767,
+   "t0": 235.6938,
+   "t1": 237.3948,
    "visible": true,
    "corner": "TR",
    "chapter": "TIME",
@@ -1060,8 +1032,8 @@
   },
   {
    "id": "TM_01b",
-   "t0": 244.2767,
-   "t1": 251.41670000000002,
+   "t0": 237.3948,
+   "t1": 244.53480000000002,
    "visible": true,
    "corner": "TR",
    "chapter": "TIME",
@@ -1078,8 +1050,8 @@
   },
   {
    "id": "TM_01c",
-   "t0": 251.41670000000002,
-   "t1": 252.87670000000003,
+   "t0": 244.53480000000002,
+   "t1": 245.9948,
    "visible": true,
    "corner": "TR",
    "chapter": "TIME",
@@ -1096,8 +1068,8 @@
   },
   {
    "id": "TM_01d",
-   "t0": 252.87670000000003,
-   "t1": 253.7952,
+   "t0": 245.9948,
+   "t1": 246.955,
    "visible": true,
    "corner": "TR",
    "chapter": "TIME",
@@ -1112,8 +1084,8 @@
   },
   {
    "id": "TM_02",
-   "t0": 253.7952,
-   "t1": 256.7982,
+   "t0": 246.955,
+   "t1": 272.3554,
    "visible": true,
    "corner": "TR",
    "chapter": "TIME",
@@ -1127,121 +1099,9 @@
    }
   },
   {
-   "id": "M1_A",
-   "t0": 256.7982,
-   "t1": 259.8846,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M1_B",
-   "t0": 259.8846,
-   "t1": 262.8459,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M2_A",
-   "t0": 262.8459,
-   "t1": 265.4735,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M2_B",
-   "t0": 265.4735,
-   "t1": 268.268,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M3_A",
-   "t0": 268.268,
-   "t1": 270.6871,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M3_B",
-   "t0": 270.6871,
-   "t1": 273.273,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M4_A",
-   "t0": 273.273,
-   "t1": 275.4835,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M4_B",
-   "t0": 275.4835,
-   "t1": 277.8192,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
    "id": "M6",
-   "t0": 277.8192,
-   "t1": 284.8262,
+   "t0": 272.3554,
+   "t1": 279.3207,
    "visible": false,
    "corner": "TR",
    "chapter": "THE SCAN",
@@ -1254,8 +1114,8 @@
   },
   {
    "id": "CON_01",
-   "t0": 284.8262,
-   "t1": 289.6644,
+   "t0": 279.3207,
+   "t1": 284.1172,
    "visible": true,
    "corner": "TR",
    "chapter": "THE ANSWER",
@@ -1270,8 +1130,8 @@
   },
   {
    "id": "CON_02",
-   "t0": 289.6644,
-   "t1": 302.9693,
+   "t0": 284.1172,
+   "t1": 297.5055,
    "visible": false,
    "corner": "TR",
    "chapter": "THE ANSWER",
@@ -1284,8 +1144,8 @@
   },
   {
    "id": "END",
-   "t0": 302.9693,
-   "t1": 307.9743,
+   "t0": 297.5055,
+   "t1": 302.4688,
    "visible": false,
    "corner": "TR",
    "chapter": "",
@@ -1305,16 +1165,16 @@
   },
   {
    "text": "30 MIN",
-   "t0": 13.766399999999999,
+   "t0": 6.759399999999999,
    "hl": false
   },
   {
    "text": "15 MIN",
-   "t0": 20.6076,
+   "t0": 13.6006,
    "hl": true
   }
  ],
- "chipsOut": 21.4798,
- "t2Appear": 115.5608,
+ "chipsOut": 14.4728,
+ "t2Appear": 108.6789,
  "plateAlpha": 0.55
 }
