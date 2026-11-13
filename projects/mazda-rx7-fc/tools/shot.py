@@ -86,6 +86,26 @@ def mat_check(rgb):
     return m
 
 
+def mat_paint(rgb, name, rough=0.38, metal=0.25):
+    """Satin paint with the silver's AO multiply so scan/CAD detail reads (copied from ferrari-296 v7). v3: the
+    HertLife kit parts (red paint skins, dark carbon-tone aero) against the silver stock scan."""
+    m, nt, out = sr.new_mat(f"ive_paint_{name}")
+    c = tuple(rgb) + (1,)
+    p = sr.principled(nt, c, rough, metal)
+    ao = nt.nodes.new("ShaderNodeAmbientOcclusion")
+    ao.inputs["Distance"].default_value = 0.08
+    ao.inputs["Color"].default_value = (1, 1, 1, 1)
+    mul = nt.nodes.new("ShaderNodeMix")
+    mul.data_type = "RGBA"
+    mul.blend_type = "MULTIPLY"
+    mul.inputs["Factor"].default_value = 0.85
+    mul.inputs["A"].default_value = c
+    nt.links.new(ao.outputs["Color"], mul.inputs["B"])
+    nt.links.new(mul.outputs["Result"], p.inputs["Base Color"])
+    nt.links.new(p.outputs[0], out.inputs[0])
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -113,7 +133,8 @@ def main():
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
-        m = mat_check(colors[p["color"]]) if p.get("color") else silver
+        m = mat_check(colors[p["color"]]) if p.get("color") else (
+            mat_paint(p["paint"], os.path.basename(p["blend"]), p.get("rough", 0.38), p.get("metal", 0.25)) if p.get("paint") else silver)
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
