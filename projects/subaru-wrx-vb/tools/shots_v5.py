@@ -113,10 +113,13 @@ def lift(b, go):
 
 SHOTS[n] = {"base": [B4, RBUMP, LID],
             "parts": [lift(FFL, 0.0), lift(DFL, BAR), lift(RFL, 2 * BAR), lift(SKIRT, 3 * BAR)],
+            # v5b (reviewer: "it says door flare but you can't see anything come off"): the door flare is the rear
+            # door's part of the REAR arch (y 0.87..1.26), so the camera must be on the rear arch at BAR, not the door
             "cam": [C(0, (-2.70, -0.30, 1.45), (-0.95, -1.30, 0.55), 30),
-                    C(BAR, (-3.00, -0.90, 1.10), (-0.90, -0.60, 0.70), 30, "lin"),
-                    C(2 * BAR, (-3.20, 0.40, 1.10), (-0.90, 0.40, 0.65), 30, "lin"),
-                    C(3 * BAR, (-3.00, 1.60, 1.05), (-0.90, 1.25, 0.60), 30, "lin"),
+                    C(0.50, (-2.75, -0.20, 1.40), (-0.95, -1.20, 0.58), 30, "lin"),
+                    C(BAR, (-3.00, 0.45, 1.10), (-0.90, 1.02, 0.60), 30),
+                    C(2 * BAR, (-3.20, 1.45, 1.10), (-0.90, 1.32, 0.62), 30, "lin"),
+                    C(3 * BAR, (-3.40, 0.35, 1.05), (-0.90, 0.20, 0.50), 30, "lin"),
                     C(SECS[n], (-7.40, 0.40, 2.20), (-0.60, 0.30, 0.90), 26)]}
 
 # REAR: the trunk lid swings up on its fitted hinge to the captured open pose, then the rear bumper comes off
@@ -175,7 +178,7 @@ SHOTS["v5_reassemble_car"] = {"base": [CAR], "parts": [], "cam": RCAM,
                               "secs": SECS[n], "out": "v5_reassemble"}
 
 PREVIEW = {"v5_front": [9, 20, 34, 45, 62, 84, 96, 104],
-           "v5_side": [1, 12, 33, 54, 75, 82],
+           "v5_side": [1, 6, 12, 21, 24, 27, 31, 41, 45, 50, 62, 66, 82],
            "v5_rear": [1, 12, 24, 41, 52, 62, 82, 103],
            "v5_reassemble": [1, 12, 25, 33, 41], "v5_reassemble_car": [42, 62]}
 
