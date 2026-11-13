@@ -123,6 +123,10 @@ def reels_manifest(now):
          f"Progress note (auto, {now}). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable; queue in tools/queue.json).",
          "1080x1920 from 810x1440 renders (75 %), 8 spp + denoise, 15 fps; `<id>_src.mov` = ProRes 422 HQ 15 fps, `<id>_preview.mp4` = H.264 minterpolated to 30 fps (use this). "
          "PNG frames are deleted after encoding (disk). Folder: `/home/user/media/work/is350-reels/renders/<id>/`.", "",
+         "Incident 13 Nov 13:00-13:01 UTC: the container's shared memory limit was hit (several 4K h264 ffmpeg decodes running at once); the kernel "
+         "OOM-killed the Blender renders of V_MATCH_REAR (at frame 40/42), V_PAIR_2 and V_RES_FULL, and the chain moved on and ended. Resumed 13:26: "
+         "REAR finished from its 39 valid frames (luma continuous across the resume). The chain now waits for >= 4 GB free memory before each render "
+         "and retries a killed render up to 6 times. Avoid running many 4K decodes in parallel while a render is going.", "",
          "Pairs: frame 1 = EXACTLY the 9:16 window of the solved 16:9 camera (sensor cropped + lens shift, not re-solved; projects/lexus-is350-scan-process/tools/portrait.py). "
          "Window = 607.5 x 1080 px at x0 in the 1920x1080 frame = 1215 x 2160 at 2*x0 in the 3840x2160 original, full height. Each pair: 2.5 s + 0.3 s handle, slow push after frame 1. "
          "IRL side must use the same window on the Rec709-graded frame. Checks (IRL window | render frame 1 | onion | edges: red IRL, cyan scan, white both): "
