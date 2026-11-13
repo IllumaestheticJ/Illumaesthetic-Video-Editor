@@ -265,6 +265,7 @@ def plan():
     ids_m = [e["id"] for e in evs if e["section"].startswith("9 THE SCAN") and e["id"] != "M6"]
     m_start = by[ids_m[0]]["tl_in"]
     total = sum(by[i]["dur"] for i in ids_m)
+    rc = CFG.get("results_card")
     if rc:
         # card starts on a montage bar line (file bar_in), ends 'bars' bars later; montage runs from there to the riser end
         card = by[rc["id"]]
