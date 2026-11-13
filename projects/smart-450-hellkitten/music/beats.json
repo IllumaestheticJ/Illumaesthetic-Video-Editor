@@ -1,0 +1,185 @@
+{
+ "file": "smart450_short.wav",
+ "duration_s": 29.6,
+ "bpm": 159.64,
+ "beat_period_s": 0.37583,
+ "first_downbeat_s": 1.499,
+ "note": "Grid anchored on the three measured drops (broadband 1 ms half-rise, clip time): 1.499, 13.526, 28.559 = exactly 32 and 40 beats apart (P=0.37583 s). The track's kick is a rolling 16th pattern, so a kick-band LSQ fit is weak (concentration 0.2); cut on the drops/breaks, beat grid n=0 at drop 1. ive beats reports 161.5 BPM / 0.372 s (slightly fast, drifts ~0.3 s over 30 s) - do not use it.",
+ "beat_times": [
+  1.499,
+  1.875,
+  2.251,
+  2.626,
+  3.002,
+  3.378,
+  3.754,
+  4.13,
+  4.506,
+  4.881,
+  5.257,
+  5.633,
+  6.009,
+  6.385,
+  6.761,
+  7.136,
+  7.512,
+  7.888,
+  8.264,
+  8.64,
+  9.016,
+  9.391,
+  9.767,
+  10.143,
+  10.519,
+  10.895,
+  11.271,
+  11.646,
+  12.022,
+  12.398,
+  12.774,
+  13.15,
+  13.526,
+  13.901,
+  14.277,
+  14.653,
+  15.029,
+  15.405,
+  15.781,
+  16.156,
+  16.532,
+  16.908,
+  17.284,
+  17.66,
+  18.036,
+  18.411,
+  18.787,
+  19.163,
+  19.539,
+  19.915,
+  20.29,
+  20.666,
+  21.042,
+  21.418,
+  21.794,
+  22.17,
+  22.545,
+  22.921,
+  23.297,
+  23.673,
+  24.049,
+  24.425,
+  24.8,
+  25.176,
+  25.552,
+  25.928,
+  26.304,
+  26.68,
+  27.055,
+  27.431,
+  27.807,
+  28.183,
+  28.559,
+  28.935,
+  29.31
+ ],
+ "bar_downbeats": [
+  1.499,
+  3.002,
+  4.506,
+  6.009,
+  7.512,
+  9.016,
+  10.519,
+  12.022,
+  13.526,
+  15.029,
+  16.532,
+  18.036,
+  19.539,
+  21.042,
+  22.545,
+  24.049,
+  25.552,
+  27.055,
+  28.559
+ ],
+ "sections": [
+  {
+   "name": "pre-drop riser/hits",
+   "start": 0,
+   "end": 1.499,
+   "hits": [
+    1.12,
+    1.32
+   ]
+  },
+  {
+   "name": "drop 1",
+   "start": 1.499,
+   "end": 12.02,
+   "beat_n": 0
+  },
+  {
+   "name": "break 1 (kick out, ~1.5 s)",
+   "start": 12.02,
+   "end": 13.526,
+   "beat_n": 28
+  },
+  {
+   "name": "drop 2",
+   "start": 13.526,
+   "end": 22.55,
+   "beat_n": 32
+  },
+  {
+   "name": "break 2 (kick out, 6 s, pad/riser; sparse build hits)",
+   "start": 22.55,
+   "end": 28.559,
+   "beat_n": 56,
+   "build_hits": [
+    27.055,
+    27.807,
+    28.183
+   ]
+  },
+  {
+   "name": "drop 3 = LOGO DOWNBEAT then fade",
+   "start": 28.559,
+   "end": 29.6,
+   "beat_n": 72,
+   "fade_start": 28.6
+  }
+ ],
+ "drops": [
+  1.499,
+  13.526,
+  28.559
+ ],
+ "breaks": [
+  [
+   12.02,
+   13.526
+  ],
+  [
+   22.55,
+   28.559
+  ]
+ ],
+ "loop_points": {
+  "drop1": {
+   "from_beat": 4,
+   "to_beat": 12,
+   "len_s": 3.0066,
+   "how": "repeat whole 8-beat blocks between measured onsets with a 12 ms crossfade"
+  },
+  "drop2": {
+   "from_beat": 36,
+   "to_beat": 44
+  }
+ },
+ "loudness": {
+  "integrated_lufs": -9.6,
+  "true_peak_dbfs": -4.4,
+  "clipped_samples": 0
+ }
+}
