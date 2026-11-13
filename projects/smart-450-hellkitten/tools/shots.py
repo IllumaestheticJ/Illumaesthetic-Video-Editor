@@ -71,7 +71,41 @@ def a3():
     return {"base": [STR2], "light_bbox": LIGHT, "camera": {"sensor": 36, "keys": keys}, "seconds": secs + TAIL}
 
 
-SHOTS = {"a1_match_str": a1, "a2_body_on_off": a2, "a3_detail": a3}
+HK = "/home/user/media/smart-hellkitten/model/SmartHellkitten.blend"
+HK_REG = f"{W}/scan3d/hk_reg.json"   # SmartBase -> Assembled scan, trimmed similarity ICP (scale 0.9948, p50 19 mm)
+
+
+def a2_cam_at(t):
+    """A2's camera evaluated exactly as shot.py does (linear blend of key vectors with the segment's ease)."""
+    k = a2()["camera"]["keys"]
+    for a, b in zip(k, k[1:]):
+        if t <= b["t"]:
+            u = (t - a["t"]) / (b["t"] - a["t"])
+            e = u * u * (3 - 2 * u) if b["ease"] == "inout" else u
+            mix = lambda x, y: [p + (q - p) * e for p, q in zip(x, y)] if isinstance(x, list) else x + (y - x) * e
+            return {"loc": mix(a["loc"], b["loc"]), "target": mix(a["target"], b["target"]), "focal": mix(a["focal"], b["focal"])}
+    return {kk: k[-1][kk] for kk in ("loc", "target", "focal")}
+
+
+def a4():
+    """Stripped scan on A2's end camera (t=4.8 s) -> hard swap to Ron's Hellkitten model in its own materials (registered
+    to the scan via its SmartBase body), pull back to the whole car with margin, then a slow push/orbit."""
+    secs, SWAP = 4.3, 0.4
+    c0 = a2_cam_at(4.8)
+    k0 = dict(c0, t=0)
+    k1 = dict(c0, t=SWAP, ease="lin")
+    cc = (0.0, 0.05, 0.62)
+    k2 = orbit(1.7, 5.6, 54, 1.65, c=cc, focal=45, tz=0.6, ease="in2")
+    k3 = orbit(secs + TAIL, 5.0, 40, 1.45, c=cc, focal=45, tz=0.6, ease="out2")
+    return {"base": [{"blend": STR, "vis": [0, SWAP]},
+                     {"blend": HK, "look": "own", "xform": HK_REG, "vis": [SWAP, 99]}],
+            "light_bbox": LIGHT, "camera": {"sensor": 36, "keys": [k0, k1, k2, k3]}, "seconds": secs + TAIL,
+            "swap_at": SWAP,
+            "extra_lights": [[[3.2, 3.6, 3.2], 250, 3.0], [[-3.4, -2.6, 2.6], 120, 3.0], [[0.0, 0.0, 4.5], 150, 4.0]],
+            "extra_lights_vis": [SWAP, 99]}
+
+
+SHOTS = {"a1_match_str": a1, "a2_body_on_off": a2, "a3_detail": a3, "a4_hellkitten": a4}
 
 
 def main():

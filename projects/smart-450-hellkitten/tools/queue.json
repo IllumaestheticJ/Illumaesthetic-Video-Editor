@@ -65,6 +65,17 @@
   ]
  ],
  [
+  "smart",
+  "a4_hellkitten",
+  "/home/user/media/work/smart-450/scan3d/specs/a4_hellkitten_final.json",
+  "seq",
+  [
+   "15",
+   "30",
+   "1080x1920"
+  ]
+ ],
+ [
   "lexus",
   "SC_MATCH_FRONT",
   "/home/user/media/work/is350-long/scan3d/specs/SC_MATCH_FRONT_final.json",

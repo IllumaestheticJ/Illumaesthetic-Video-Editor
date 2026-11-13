@@ -76,6 +76,10 @@ SMART_DESC = {
     "a2_body_on_off": "Front-right 3/4. Assembled scan 0.0-1.6 s, HARD same-camera swap to Fully Stripped at 1.6 s (source frame 25 @15 fps, 1.6 s into the shot), "
                       "then push in to the door aperture + front structure. Lights pinned, no relight at the swap.",
     "a3_detail": "2 mm Stripped scan: front structure with clamshell, bumper and headlamps off; slow lateral slide.",
+    "a4_hellkitten": "Starts on A2's camera at t=4.8 s (end of A2's 4.8 s use, before its handle), stripped scan 0-0.4 s, HARD same-camera swap at 0.4 s (frame 7) "
+                     "to Ron's SmartHellkitten.blend in its own materials (red paint, gold wheels, cat decal), registered to the scan via the model's SmartBase body "
+                     "(similarity ICP: scale 0.9948, p50 19 mm; front axle within ~1 cm, rear axle 4-6 cm forward = the design's 1.778 m wheelbase). "
+                     "Pull back 0.4-1.7 s to the whole car with margin, then a slow push/orbit to 4.5 s. The first 0.4 s keep A2's close (clipped) framing on purpose for continuity.",
 }
 LEX_DESC = {
     "SC_MATCH_REAR": "E33, 4.5 s. Frame 1 = solved FX30542 f1135 (47.339 s) camera, 16:9 1920x1080; slow push on the rear bumper. Plates flattened.",

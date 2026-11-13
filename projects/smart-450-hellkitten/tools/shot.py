@@ -90,17 +90,21 @@ def key_from_cam(k, sensor):
     return out, c
 
 
+LOADED = {}
+
+
 def load_blend(path):
     with bpy.data.libraries.load(os.path.abspath(path), link=False) as (src, dst):
         dst.objects = list(src.objects)
     meshes = []
-    for o in dst.objects:
-        if o is None:
-            continue
+    loaded = [o for o in dst.objects if o is not None and o.type not in ("CAMERA", "LIGHT")]
+    for o in loaded:
         bpy.context.scene.collection.objects.link(o)
         if o.type == "MESH":
             o["ive_scan"] = True
             meshes.append(o)
+    LOADED["roots"] = [o for o in loaded if o.parent is None or o.parent not in loaded]
+    LOADED["all"] = loaded
     return meshes
 
 
@@ -137,6 +141,24 @@ def main():
     for b in spec["base"]:
         item = {"blend": b} if isinstance(b, str) else b
         objs = load_blend(item["blend"])
+        if item.get("xform"):        # registration (similarity) into the scan frame: parent every root object to one empty
+            X = json.load(open(item["xform"]))
+            M = Matrix(X["R"]).to_4x4() @ Matrix.Scale(X["scale"], 4)
+            M.translation = Vector(X["t"])
+            reg = bpy.data.objects.new("REG", None); sc.collection.objects.link(reg); reg.matrix_world = M
+            for o in LOADED["roots"]:
+                o.parent = reg
+        if item.get("look") == "own":
+            for o in objs:
+                o["ive_scan"] = False
+            if item.get("vis"):
+                t0, t1 = item["vis"]
+                for o in LOADED["all"]:
+                    for f in range(1, nframes + 1):
+                        o.hide_render = not (t0 <= (f - 1) / fps < t1)
+                        o.keyframe_insert("hide_render", frame=f)
+            allobjs += objs
+            continue
         if item.get("look") == "wire":
             wire = wire or mat_wire_silver(spec.get("wire_px", 0.9))
         for o in objs:
@@ -161,6 +183,14 @@ def main():
     sc.collection.objects.link(root)
     root.location = (lo + hi) / 2
     sr.studio_lights(lo, hi)
+    for i, (pos, en, size) in enumerate(spec.get("extra_lights", [])):
+        ld = bpy.data.lights.new(f"xl{i}", "AREA"); ld.energy = en; ld.size = size
+        lo_ = bpy.data.objects.new(f"xl{i}", ld); sc.collection.objects.link(lo_); lo_.location = pos
+        lo_.rotation_euler = (Vector(((lo + hi) / 2)) - Vector(pos)).to_track_quat("-Z", "Y").to_euler()
+        if spec.get("extra_lights_vis"):
+            t0, t1 = spec["extra_lights_vis"]
+            for f in range(1, nframes + 1):
+                lo_.hide_render = not (t0 <= (f - 1) / fps < t1); lo_.keyframe_insert("hide_render", frame=f)
 
     cd = bpy.data.cameras.new("cam")
     cam = bpy.data.objects.new("cam", cd)

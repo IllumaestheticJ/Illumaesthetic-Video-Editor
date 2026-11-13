@@ -11,7 +11,7 @@ previews, with a small PLACEHOLDER tag burned in. Rebuilding picks up finished r
 import glob, hashlib, json, os, subprocess, sys, shutil
 from pathlib import Path
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 sys.path.insert(0, os.path.dirname(__file__))
 from edit_shots import SHOTS, DB, DESIGN, SM, SCAN_NEED, FPS
@@ -68,14 +68,35 @@ def lerp_expr(keys, idx, scale, n):
     return expr
 
 
+def sharp_slip(s):
+    """Slip the in-point forward (max 0.6 s) to the first frame whose sharpness (Laplacian variance, 3-frame mean) is >= 80 % of the
+    median of the span: v1's S1/S6/S7 opened on motion blur."""
+    import cv2
+    src = f"{DB}/{s['src']}.mov"
+    dur = s["n"] / FPS + 0.7
+    r = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{s['ss']:.4f}", "-t", f"{dur:.3f}", "-i", src, "-vf", "fps=30,scale=360:640,format=gray",
+                        "-f", "rawvideo", "-"], capture_output=True, check=True).stdout
+    h = 640
+    fr = np.frombuffer(r, np.uint8).reshape(-1, h, 360)
+    sh = np.array([cv2.Laplacian(f, cv2.CV_64F).var() for f in fr])
+    med = np.median(sh[: int(s["n"] + 6)])
+    for d in range(0, min(18, len(sh) - s["n"] - 1)):
+        if sh[d:d + 3].mean() >= 0.8 * med:
+            return s["ss"] + d / FPS, d, sh[:int(s["n"]) + d + 1]
+    return s["ss"], 0, sh
+
+
 def prep_irl(s):
     out = BUILD / f"{s['id']}.mp4"
-    stamp = json.dumps({k: s.get(k) for k in ("src", "ss", "n", "win", "keys", "rot180")}, sort_keys=True) + f"v5_{nout(s)}"
+    ss = s["ss"] if s.get("ss") is not None else s["end_ss"] - (s["n"] - 1) / FPS
+    if s.get("sharp"):
+        ss, d, _ = sharp_slip({**s, "ss": ss})
+    stamp = json.dumps({k: s.get(k) for k in ("src", "n", "win", "keys", "rot180")}, sort_keys=True) + f"v6_{ss:.4f}"
     if stamp_ok(out, stamp):
         return out
     src = f"{DB}/{s['src']}.mov"
     hlg = probe_tf(src) in ("arib-std-b67", "smpte2084")
-    pre = ["-display_rotation", "0"] if s.get("rot180") else []   # drop the wrong -90 tag on the input (a bare -noautorotate leaves it as side data on the output, and every later decoder rotates it again)
+    pre = ["-display_rotation", "0"] if s.get("rot180") else []
     vf = []
     if s.get("rot180"):
         vf.append("hflip,vflip")
@@ -85,7 +106,6 @@ def prep_irl(s):
     if s["win"]:
         w, h = s["win"]
         sc = H / h
-        # source dims after rotation fix (landscape 1920x1080 or the 3:4 sizes): scale by sc, crop at scaled offsets
         vf.append(f"scale=round(iw*{sc:.6f}):round(ih*{sc:.6f}):flags=lanczos")
         xe = lerp_expr(s["keys"], 1, sc, s["n"])
         ye = lerp_expr(s["keys"], 2, sc, s["n"])
@@ -93,9 +113,10 @@ def prep_irl(s):
     else:
         vf.append(f"scale={W}:{H}:force_original_aspect_ratio=increase:flags=lanczos,crop={W}:{H}")
     vf.append("format=yuv420p")
-    sh(["ffmpeg", "-y", "-v", "error", *pre, "-ss", f"{s['ss']:.4f}", "-i", src, "-an", "-vf", ",".join(vf),
-        "-frames:v", str(nout(s)), *ENC, str(out)])
+    sh(["ffmpeg", "-y", "-v", "error", *pre, "-ss", f"{ss:.4f}", "-i", src, "-an", "-vf", ",".join(vf),
+        "-frames:v", str(s["n"]), *ENC, str(out)])
     write_stamp(out, stamp)
+    (BUILD / f"{s['id']}.ss").write_text(f"{ss:.4f}")
     return out
 
 
@@ -104,56 +125,52 @@ def ffmpeg_pipe(out, extra_in=()):
                              "-r", str(FPS), "-i", "-", *ENC, str(out)], stdin=subprocess.PIPE)
 
 
-def window_frame(img, win, flat):
-    """win = (x0, y0, w, h) in source px, may be fractional; returns the 1080x1920 RGB array (Lanczos from the source)."""
-    x0, y0, w, h = win
-    # affine crop+scale in one resample (PIL transform with Lanczos is not available -> crop box + resize with box)
-    out = img.resize((W, H), Image.LANCZOS, box=(x0, y0, x0 + w, y0 + h))
-    return np.asarray(out)
-
-
-PLATE_X0, PLATE_X1, PLATE_Y0, PLATE_Y1 = 40, 520, 1296, 1500
-_m = np.zeros((PLATE_Y1 - PLATE_Y0, PLATE_X1 - PLATE_X0), np.float32)
-_m[30:-30, 30:-30] = 1.0
-PLATE_MASK = np.asarray(Image.fromarray((_m * 255).astype(np.uint8)).filter(__import__("PIL.ImageFilter", fromlist=["x"]).GaussianBlur(14))).astype(np.float32) / 255.0
+def lerp(a, b, t):
+    return a + (b - a) * t
 
 
 def prep_still(s):
     out = BUILD / f"{s['id']}.mp4"
-    stamp = json.dumps({"id": s["id"], "n": s["n"], "img": s["img"]}) + f"v5_{nout(s)}"
+    stamp = json.dumps({k: s.get(k) for k in ("id", "n", "img", "mode", "z", "c", "shift", "w", "x0", "y0", "yc", "plate")}, sort_keys=True) + "v7"
     if stamp_ok(out, stamp):
         return out
     img = Image.open(f"{DESIGN}/{s['img']}").convert("RGB")
-    n = nout(s)
-    p = ffmpeg_pipe(out)
+    n = s["n"]
     ease = lambda t: t * t * (3 - 2 * t)
+    p = ffmpeg_pipe(out)
+    mode = s["mode"]
+    if mode == "fit":
+        bg = img.resize((1920, 1920), Image.BILINEAR).crop((420, 0, 1500, 1920)).filter(ImageFilter.GaussianBlur(40))
+        bg = Image.eval(bg, lambda v: int(v * 0.55))
     for i in range(n):
-        t = ease(i / (n - 1))
-        if s["id"] == "S19":
-            # Blueprint: crop x 98..1308 (car 1114 px wide), 3 % push-in; the still's flat grey (51,51,51) pads top and bottom
+        t = ease(i / max(n - 1, 1))
+        if mode == "blueprint":
             zoom = 1 + 0.03 * t
-            cw = 1210 / zoom
-            cx = (98 + 1308) / 2 + 0 * t
-            ch = 1440 / zoom
-            x0 = cx - cw / 2
-            y0 = 720 - ch / 2
-            sc = W / cw
-            ph = ch * sc                     # scaled height of the full 1440-row band (< 1920)
+            cw = 1210 / zoom; ch = 1440 / zoom
+            x0 = 703 - cw / 2; y0 = 720 - ch / 2
+            ph = ch * (W / cw)
             body = img.resize((W, round(ph)), Image.LANCZOS, box=(x0, y0, x0 + cw, y0 + ch))
             canvas = Image.new("RGB", (W, H), (51, 51, 51))
             canvas.paste(body, (0, round((H - ph) / 2)))
-            arr = np.asarray(canvas)
+        elif mode == "fit":
+            z = lerp(*s["z"], t); sc = 0.75 * z
+            cx = s["c"][0] + s["shift"][0] * t; cy = s["c"][1] + s["shift"][1] * t
+            yc = s.get("yc", 0.5) * H
+            im2 = img.resize((round(1440 * sc), round(1440 * sc)), Image.LANCZOS)
+            canvas = bg.copy()
+            canvas.paste(im2, (round(W / 2 - cx * sc), round(yc - cy * sc)))
         else:
-            # RenderDay1: 810x1440 @ x0 310 -> 778x1383 @ x0 326, y0 0 -> 44 (4 % push, car stays in with ~20 px margin)
-            w = 810 + (778 - 810) * t; h = 1440 + (1383 - 1440) * t
-            x0 = 310 + (326 - 310) * t; y0 = 0 + 44 * t
-            arr = window_frame(img, (x0, y0, w, h), None)
-            # dark plate behind the HELLKITTEN / DESIGN RENDER label (it straddles the yellow arrow): label frames 23..84 of this shot
-            k = min(1.0, max(0.0, (i - 23) / 8.0)) * min(1.0, max(0.0, (84 - i) / 6.0))
+            w = lerp(*s["w"], t); h = w * 16 / 9
+            x0 = lerp(*s["x0"], t); y0 = lerp(*s["y0"], t)
+            canvas = img.resize((W, H), Image.LANCZOS, box=(x0, y0, x0 + w, y0 + h))
+        arr = np.asarray(canvas)
+        pl = s.get("plate")
+        if pl:   # (frame_from, frame_to, y0, y1, alpha): feathered dark band behind a label
+            f0, f1, y0, y1, al = pl
+            k = min(1.0, max(0.0, (i - f0) / 8.0)) * min(1.0, max(0.0, (f1 - i) / 6.0))
             if k > 0:
-                arr = arr.astype(np.float32)
-                arr[PLATE_Y0:PLATE_Y1, PLATE_X0:PLATE_X1] *= (1 - 0.55 * k * PLATE_MASK[:, :, None])
-                arr = arr.clip(0, 255).astype(np.uint8)
+                yy = np.arange(y0, y1); edge = np.minimum(1, np.minimum(yy - y0, y1 - yy) / 80.0)
+                arr = arr.astype(np.float32); arr[y0:y1] *= (1 - al * k * edge)[:, None, None]; arr = arr.clip(0, 255).astype(np.uint8)
         p.stdin.write(arr.tobytes())
     p.stdin.close(); p.wait()
     write_stamp(out, stamp)
