@@ -81,7 +81,7 @@ timeline:
     dur: 5.3333
     vf: fade=t=out:st=4.33:d=0.9
   - transition: {type: cut}
-  - id: logo   # ILLUMAESTHETIC logo card, 720 px wide
+  - id: logo   # Epsilon+ wordmark card, 720 px wide
     src: /home/user/media/work/mr2/out/logo_card_v4.mp4
     frames: 100
     dur: 3.3333
