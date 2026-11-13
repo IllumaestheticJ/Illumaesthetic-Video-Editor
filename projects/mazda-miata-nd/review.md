@@ -1,4 +1,14 @@
-# Mazda Miata ND scan reel - self-review (v3, delivered)
+# Mazda Miata ND scan reel - self-review (v4, delivered)
+
+v4 = v3 + the user's notes on v3 (feedback.jsonl): rear-wing residue on the trunk deleted, mobile call-to-action
+transition into the final shot, logo 760 px. File: `/home/user/media/work/miata/out/miata_nd_v4.mp4` (32.1 s, 963 frames).
+- Scan quality 4 -> 4: wing fragments gone from the closed and open lid (fills cleaned, 6 shots re-rendered); thin seam lines
+  at the lid gap remain (trunk-opening edge visible through the panel gap).
+- Ending 5: reassembly locks on the last hit -> car shrinks into a phone showing the real ND listing (CTA) -> 760 px logo.
+- Technical: luma scan clean on every re-render (incl. the s_side frames resumed after a worker restart); cuts unchanged.
+
+## v3 review (kept for the record)
+
 
 File: `/home/user/media/work/miata/out/miata_nd_v3.mp4` - 1080x1920, 30 fps, 29.5 s (885 frames), h264 yuv420p + AAC, faststart.
 v3 = the user's v2 brief + addendum (relayed by the parent session). Scene order from the scene-director agent

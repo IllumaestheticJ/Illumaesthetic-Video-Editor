@@ -772,3 +772,11 @@ lands here automatically. Agents must read this whole file before editing.
   The Dropbox per-link download hosts worked from this environment on 2026-11-12.
 - **[scan-look]** Installing a new part over an old one: remove the old part's surround together with it (cut the stock bumper's grille
   window by the new grille's bbox) or the new part clips through leftovers.
+## From the Mazda Miata ND v4 revision (2026-11-13, built by an agent)
+- **[scan-look]** After removing a captured-open panel from a state scan (hinge.py keeps only the largest blob), the panel's
+  spoiler/wing fragments stay behind and float on the closed lid ("rear wing residue", user). Drop every state triangle at or
+  above the closed panel's surface inside its footprint (mazda-miata-nd/tools/clean_trunk_fill.py), and cap other state fills
+  below the panel (composite --fill-zmax) so they don't add a second lid skin.
+- **[story]** "Mobile call to action" before the final shot (user): capture the car's listing page in a phone viewport (Playwright
+  device 'iPhone 14 Pro'), shrink the last scan frame into the listing's 360 viewer (same scan) and dissolve, title + URL around the
+  phone, then cut to the logo (mazda-miata-nd/tools/cta_card.py). The user wanted the logo bigger again (760 px) after a 300 px card.
