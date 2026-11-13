@@ -24,7 +24,7 @@
   "s1_reveal": 0,
   "s2_bumper": 155,
   "s3_front_removed": 309,
-  "s3_hood": 463,
+  "s3_hood": 464,
   "s4b_side": 541,
   "s5_trunk": 618,
   "s7_top_home": 772,
@@ -32,23 +32,33 @@
   "end": 1080
  },
  "dur_frames": {
-  "s1_reveal": 155,
+  "s1_reveal": 154,
   "s2_bumper": 154,
-  "s3_front_removed": 154,
-  "s3_hood": 78,
+  "s3_front_removed": 155,
+  "s3_hood": 77,
   "s4b_side": 77,
   "s5_trunk": 154,
   "s7_top_home": 154,
-  "cta": 154
+  "cta": 155
  },
  "secs": {
-  "s1_reveal": 5.166666666666667,
+  "s1_reveal": 5.133333333333334,
   "s2_bumper": 5.133333333333334,
-  "s3_front_removed": 5.133333333333334,
-  "s3_hood": 2.6,
+  "s3_front_removed": 5.166666666666667,
+  "s3_hood": 2.566666666666667,
   "s4b_side": 2.566666666666667,
   "s5_trunk": 5.133333333333334,
   "s7_top_home": 5.133333333333334,
-  "cta": 5.133333333333334
+  "cta": 5.166666666666667
+ },
+ "assemble_note": "ive assemble builds each cut as a 1-frame xfade, so the new shot first shows one frame after the summed durations. The first clip is therefore one frame shorter and the last one frame longer than the gaps between cut_frames. Always verify cuts on the decoded picture.",
+ "measured_cuts_ms": {
+  "155": -6,
+  "309": -15,
+  "464": 11,
+  "541": 9,
+  "618": 4,
+  "772": 0,
+  "926": -13
  }
 }

@@ -818,3 +818,4 @@ lands here automatically. Agents must read this whole file before editing.
   a container restart killed the queue mid-shot and the resume lost nothing.
 - **[framing]** Check the top/bottom 25 % bands for bright pixels over the last 15 frames of every part-move shot: an
   exit key that "looked fine" in the 3-frame preview still left the bumper in a corner at the cut.
+- **Measure cuts on the decoded picture, not the plan** (mazda-miata-na v3). `ive assemble` builds a cut as a 1-frame xfade, so the incoming shot first appears one frame after the summed `dur`s, and every cut lands +33 ms late. Find the first new-shot frame from frame differences in the delivered mp4, then match it against the audio onsets. Fix in the project by shortening the first clip by one frame and lengthening the last clip by one frame.

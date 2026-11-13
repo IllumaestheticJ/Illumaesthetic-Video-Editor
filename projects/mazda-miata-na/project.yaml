@@ -4,7 +4,7 @@
 # 1:1 into the cover on the mobile listing, which then pulls back (cta.json, WebZoom); re-cut to the user's track.
 # Shots: tools/shots.py (timing.json, BEAT = 2 track beats) rendered with tools/shot.py. Labels: overlay.json (ScanHUD).
 # Music: mazda-miata-na_v3_track.m4a (user upload; not in git), 186.7 BPM, grid t = 0.0628 + 0.32132 n, started at 0.68 s
-# so the first note is at 0. Cuts on phrase downbeats n = 2 + 8k: frames 155, 309, 463, 541, 618, 772, 926; end 1080 (36.0 s).
+# so the first note is at 0. Cuts on phrase downbeats n = 2 + 8k: frames 155, 309, 464, 541, 618, 772, 926; end 1080 (36.0 s).
 project: mazda-miata-na
 format: reel-9x16
 output: {path: /home/user/media/work/miata/out/mazda_miata_na_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -14,7 +14,7 @@ music:
   start: 0.68
   fade_out: 0.6
 
-beats: [5.167, 10.3, 15.433, 18.033, 20.6, 25.733, 30.867]
+beats: [5.167, 10.3, 15.467, 18.033, 20.6, 25.733, 30.867]
 
 timeline:
   - id: s1_reveal
@@ -23,7 +23,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s1_reveal
     src_fps: 15
     interpolate: true
-    dur: 5.1667
+    dur: 5.1333
   - transition: {type: cut, note: "n18 5.167 phrase downbeat"}
   - id: s2_bumper
     section: front
@@ -39,7 +39,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s3_front_removed
     src_fps: 15
     interpolate: true
-    dur: 5.1333
+    dur: 5.1667
   - transition: {type: cut, note: "n50 15.449 phrase downbeat"}
   - id: s3_hood
     section: front
@@ -47,7 +47,7 @@ timeline:
     src: /home/user/media/work/miata/renders/final/s3_hood
     src_fps: 15
     interpolate: true
-    dur: 2.6000
+    dur: 2.5667
   - transition: {type: cut, note: "n58 18.020 phrase downbeat"}
   - id: s4b_side
     section: side
@@ -77,7 +77,7 @@ timeline:
     section: end
     focus: "CTA: 1:1 on the cover photo of the mobile listing (Photos tab, iPhone 13 capture), page pulls back into a phone frame; MIATA NA SCAN NOW AVAILABLE, logo, URL last"
     src: /home/user/media/work/miata/out/cta_v3.mp4
-    dur: 5.1333
+    dur: 5.1667
 
 overlays:
   - src: /home/user/media/work/miata/out/hud_v3.mov
