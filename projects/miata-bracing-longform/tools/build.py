@@ -21,82 +21,82 @@ TL = [
  ('card', 'table_2', 3, '1. Control (jacked, no bracing)', 'Table: control + no bracing', "That 1.695 is the number every brace has to beat."),
  ('card', 'legend', 4, '1. Control (jacked, no bracing)', 'NEW "How to read the heat maps" card (real ±15 mm colour bar)',
   "For the rest of the body, we lay the jacked scan over the control and color the difference. Green and light blue: it hasn't moved. Red: it moved outward. Dark blue: it moved inward."),
- ('card', 'h_jacked_side', 4, '1. Control (jacked, no bracing)', 'Heat map, both sides',
+ ('heat', 'control>jacked', 'sides', '1. Control (jacked, no bracing)', 'NEW 3D heat map from the scans: control (silver) vs no bracing, orbit around both sides',
   "Stock, it moves a lot. On one side, the rear quarter goes orange and red, roughly ten millimeters out on a fifteen millimeter scale. On the other side, the same area goes deep blue."),
- ('card', 'h_jacked_top', 4, '1. Control (jacked, no bracing)', 'Heat map, top and 3/4',
+ ('heat', 'control>jacked', 'top', '1. Control (jacked, no bracing)', 'NEW 3D heat map: control vs no bracing, rising to top-down',
   "One side out, the other side in. That's the body twisting, and it's the picture every brace gets compared to."),
+ ('card', 'title_fender', 2.8, '2. Fender braces', 'NEW title card: Installing the fender braces', None),
  ('src', 298.59, 320.30, '2. Fender braces', 'Fender off, brace bolted in, scanner over the brace',
   "First brace: the fender braces from Goodwin Racing. They sit behind the front fenders and tie the door hinge pillar to the front of the chassis, closing a corner the factory left open. Fender off, brace bolted in, and the scanner goes over it."),
  ('src', 372.33, 381.01, '2. Fender braces', 'Engine-bay scan with fender braces only', "Same corner, same jack height, and we scan the engine bay again."),
  ('card', 'w_fender', 4, '2. Fender braces', 'Control vs fender-braces-only engine bay',
   "With only the fender braces, the towers measure 961.185. That's 0.237 over the control, down from 1.695. Eighty-six percent of the spread is gone."),
  ('card', 'table_3', 3, '2. Fender braces', 'Table adds the fender-brace row', "And these braces don't even touch the strut towers."),
- ('card', 'h_fender_side', 4, '2. Fender braces', 'Heat map, both sides',
+ ('heat', 'jacked>fender', 'sides', '2. Fender braces', 'NEW 3D before/after: no bracing vs fender braces, both sides',
   "On the body map, the front of the car settles into green and light blue. The rear still moves, yellow into orange on one side, somewhere around five to ten millimeters."),
- ('card', 'h_fender_top', 4, '2. Fender braces', 'Heat map, top and 3/4', "That makes sense. These braces live at the front of the car. They aren't doing anything for the trunk."),
+ ('heat', 'jacked>fender', 'top', '2. Fender braces', 'NEW 3D before/after: no bracing vs fender braces, top', "That makes sense. These braces live at the front of the car. They aren't doing anything for the trunk."),
+ ('card', 'title_strut', 2.8, '3. Strut tower brace', 'NEW title card: Installing the strut tower brace', None),
  ('src', 248.00, 270.94, '3. Strut tower brace', 'Strut tower brace install, jack, engine-bay scan',
   "Second brace, on its own: the strut tower brace. No fender braces for this run. This is the one everybody buys first. It bolts to the top of both strut towers and ties left to right with a bar across the engine bay. Same corner on the jack, same height, and scan."),
  ('card', 'w_strut', 4, '3. Strut tower brace', 'Control vs strut-brace-only engine bay',
   "Strut tower brace only: 961.679. That's 0.731 over the control, a 57 percent cut. It works. But the brace that connects the towers directly did less for tower spread than the fender braces did."),
  ('card', 'table_4', 3, '3. Strut tower brace', 'Table adds the strut-brace row', "0.731 for the strut tower brace. 0.237 for the fender braces."),
- ('card', 'h_strut_side', 4, '3. Strut tower brace', 'Heat map, both sides',
+ ('heat', 'jacked>strut', 'sides', '3. Strut tower brace', 'NEW 3D before/after: no bracing vs strut tower brace, both sides',
   "The body map is the other half of the story. With the strut tower brace, nearly the whole car sits in green and light blue, within about two and a half millimeters, nose to tail."),
- ('card', 'h_strut_top', 4, '3. Strut tower brace', 'Heat map, top and 3/4', "Of the two single-brace runs, this is the calmer full-body map."),
+ ('heat', 'jacked>strut', 'top', '3. Strut tower brace', 'NEW 3D before/after: no bracing vs strut tower brace, top', "Of the two single-brace runs, this is the calmer full-body map."),
+ ('card', 'title_both', 2.8, '4. Both braces', 'NEW title card: Both braces together', None),
  ('src', 320.32, 330.21, '4. Both braces', 'Scanning with fender braces + strut tower brace', "Last run: both together. Fender braces and the strut tower brace, same jack height, final scan."),
  ('card', 'w_both', 4, '4. Both braces', 'Control vs both-braces engine bay',
   "Both installed: 961.384. That's 0.436 over the control, 74 percent less than unbraced. Better than the strut tower brace alone, but not better than the fender braces alone."),
  ('card', 'table_5', 4, '4. Both braces', 'Full table, all five rows',
   "The gap between those two is two tenths of a millimeter. With one scan per setup, I'm not going to call a winner on that. What I can say is the braces didn't simply add up."),
- ('card', 'h_both_side', 4, '4. Both braces', 'Heat map, both sides (±8 mm scale)',
+ ('heat', 'jacked>both', 'sides', '4. Both braces', 'NEW 3D before/after: no bracing vs both braces, both sides',
   "Heads up: this report uses a tighter color scale, eight millimeters instead of fifteen, so the same colors mean smaller numbers. Most of the body is within a couple of millimeters. The hot spot is the door, and a door is a hinged panel. That's most likely how it was latched, not the chassis."),
- ('card', 'h_both_top', 4, '4. Both braces', 'Heat map, top and 3/4 (±8 mm scale)', "x"),
+ ('heat', 'jacked>both', 'top', '4. Both braces', 'NEW 3D before/after: no bracing vs both braces, top', "x"),
  ('card', 'chart', 5, '5. Conclusions', 'NEW bar chart: tower spread per setup',
   "So, does chassis bracing actually do anything? Yes, and you can measure it. With no bracing, jacking one corner spread the strut towers 1.695 millimeters. Fender braces alone: 0.237. Strut tower brace alone: 0.731. Both: 0.436."),
  ('card', 'takeaways', 5, '5. Conclusions', 'NEW takeaways card',
   "Three things. One: every setup cut the tower spread by more than half. Two: the fender braces did the most at the towers, more than the strut tower brace everybody starts with. Three: the parts don't just add up. Once the front of the car is tied together, the next brace has less left to fix."),
- ('card', 'caveats', 5, '5. Conclusions', 'NEW context card',
-  "Keep it in context. This is one car, one scan per setup, loaded with a jack, not a corner on track. The biggest movement we measured at the towers was about a millimeter and a half. But those towers are where the front suspension bolts on. Now we know how much they move, and what it takes to hold them still."),
- ('card', 'end', 4, '5. Conclusions', 'End card',
-  "If you're buying one brace for a stock NB, this data says start with the fender braces. Tell us what you want measured next."),
+ ('end', 14.0, 22.6, '5. Conclusions', 'Grimace on track (rough cut 0:14-0:23) with MotoIQ and Illumaesthetic logos', "x"),
 ]
 # v3 narration (2026-11-12): after the independent agent review (agent_review.md) and the scan tests (clips.md).
 # Tower numbers = Strut Spread.xlsx. Body percentages = share of body points within 2.5 mm, computed from the exterior scans.
 NAR = [
  "All right, here's our control. Car on the ground, bone stock.",
- "What we're measuring is the width across the engine bay, from one strut tower to the other. On the ground, that's 960.948 millimeters. That's our baseline. So it's five scans total: this one, and then four on the jack.",
+ "What we're measuring is the width across the engine bay, from one strut tower to the other. On the ground, that's 960.9 millimeters. That's our baseline. So it's five scans total: this one, and the remaining four with the car jacked up.",
  "Now we jack up one front corner to a very specific height, and we check it with a tape measure so it's the same every time. Lift one corner like this and you're twisting the whole chassis. From here on, same corner, same height. All we change is the bracing.",
- "With no bracing, one corner in the air, and the strut towers go from 960.948 to 962.643. That's 1.695 millimeters wider, just from jacking up one corner.",
- "That 1.695 is the number the braces have to beat.",
+ "With no bracing, one corner in the air, and the strut towers go from 960.9 to 962.6. That's 1.7 millimeters wider, just from jacking up one corner.",
+ "That 1.7 is the number the braces have to beat.",
  "For the rest of the car, we lay the jacked up scan over the control scan and color in what's different. Green and light blue is the small stuff, a few millimeters either way. Yellow to red means it moved outward. Dark blue means it moved inward. And this scale goes out to fifteen millimeters, so it's not going to show you a millimeter at the strut towers. That's what the measurement is for.",
- "With no bracing, it moves a lot. On one side, the door and the rear quarter go dark blue. On the other side, that same area goes orange and red, so around ten millimeters on this scale.",
+ "With no bracing, it moves a lot. On one side, the door and the rear quarter go orange, so that's moving outward, around six millimeters. Come around to the other side, and the same area goes blue. That's moving inward.",
  "One side in, the other side out. That's what you'd expect from a car that's twisting. Just keep in mind this is the outside of the car. Doors, the top, the trunk, those can shift on their own. Overall, by our own math on the scans, a little under sixty percent of the body is within two and a half millimeters of the control.",
  "First we're going to throw on the fender braces from Goodwin Racing. The fender has to come off for these. They bolt in behind it, from the door hinge area down to the chassis, so they triangulate that whole corner. Then we scan it.",
  "Then it's the same corner, same jack height, and we scan the engine bay again.",
- "With just the fender braces, we're at 961.185. That's 0.237 over our control. With no bracing it was 1.695, so by this measurement that's about 86 percent less.",
+ "With just the fender braces, the engine bay is only 0.2 millimeters wider than our control. With no bracing it was 1.7, so by this measurement that's almost ninety percent less.",
  "And the crazy part is, these braces don't even touch the strut towers.",
- "On the heat map, the front of the car is green and light blue. The back is still moving. One side is going yellow and orange, so somewhere around five to ten millimeters on this scale.",
- "And from the top, the trunk and the rear deck are yellow and orange too. Is that the braces? I doubt it. They're all the way at the front of the car, and a trunk lid can sit a little different from scan to scan. Overall it's about sixty percent of the body within two and a half millimeters, so basically the same as no bracing.",
- "Next up is the strut tower brace by itself. No fender braces on the car for this one. This is the one everyone does first, because it's such an easy mod. It bolts to the top of both strut towers and ties them together. Same corner, same height, scan it.",
- "With just the strut tower brace, we're at 961.679. That's 0.731 over our control, about 57 percent less than no bracing. So it's doing something. But here's the interesting part. This brace bolts right to the strut towers, and by this measurement the fender braces did more.",
- "0.731 for the strut tower brace. 0.237 for the fender braces.",
- "But look at the heat map. With the strut tower brace on, pretty much the whole car is green and light blue, front to back. About ninety percent of the body is within two and a half millimeters.",
- "Out of the two braces by themselves, this is the cleaner heat map. Why would a brace in the engine bay clean up the back of the car? Honestly, I don't know. It's one scan.",
- "And then the last scan. Both of them on the car together, same corner, same height.",
- "With both braces on, we're at 961.384. That's 0.436 over our control, about 74 percent less than no bracing. Better than the strut tower brace by itself. Not better than just the fender braces.",
+ "Here's no bracing on the left, and the fender braces on the right. The sides calm down. That orange door and that blue rear quarter are mostly gone.",
+ "But from the top, the trunk and the rear deck go yellow and orange, and they weren't before. Is that the braces? I doubt it. They're all the way at the front of the car, and a trunk lid can sit a little different from scan to scan. Overall it's still about sixty percent of the body within two and a half millimeters.",
+ "Next up is the strut tower brace by itself. No fender braces on the car for this one. This is the one everyone does first, because it's such an easy mod. It bolts to the top of both strut towers and ties them together. Now we jack up the same corner to the same height, and rescan.",
+ "With just the strut tower brace, the engine bay is 0.7 millimeters wider than our control. That's about sixty percent less than no bracing. So it's doing something. But here's the interesting part. This brace bolts right to the strut towers, and by this measurement the fender braces were more effective.",
+ "0.7 for the strut tower brace. 0.2 for the fender braces.",
+ "Now look at the heat map. No bracing on the left, strut tower brace on the right. Pretty much the whole car goes green and light blue, front to back. About ninety percent of the body is within two and a half millimeters.",
+ "Out of the two braces by themselves, this is the cleaner heat map. My guess is the strut tower brace is better at resisting this specific kind of twist, the kind you get from jacking up one corner. But that's a hypothesis. We would need to investigate more.",
+ "And then the last scan. Both the fender braces and the strut tower brace on the car, jacked up and scanned.",
+ "With both braces on, it's 0.4 millimeters wider than our control, about seventy percent less than no bracing. Better than the strut tower brace by itself. Not better than just the fender braces.",
  "Now, those two are only about two tenths of a millimeter apart, and we only did one scan of each. So I'm not going to tell you one beats the other. What I can tell you is, adding the second brace didn't make it any better.",
- "One thing on this heat map, the scale is different. This one only goes to eight millimeters, not fifteen, so the same colors mean smaller numbers. The hot spot is the door and the bottom of the fender. The door's on hinges, and that fender came off for the brace. So that's most likely how they went back on, not the chassis moving.",
- "Everywhere else, most of the car is within a couple of millimeters. About three quarters of the body is within two and a half.",
- "So does chassis bracing actually do anything? On this car, on the jack, by this measurement, yes. With no bracing, the engine bay spread 1.695 millimeters. Fender braces, 0.237. Strut tower brace, 0.731. Both, 0.436.",
- "So what do we take away from this? Number one, by the engine bay width, every setup cut that spread by more than half. Number two, the two ways of looking at it don't agree. By the engine bay width, the fender braces did the most. On the heat map of the whole car, the strut tower brace was the cleanest. And number three, they didn't add up. Both together was no better than the fender braces alone.",
- "Now keep in mind, this is one car, one scan of each setup, and it's a jack, not a corner at the track. The differences between the braces are fractions of a millimeter, so I wouldn't rank them off this. The most the strut towers moved was 1.695 millimeters. But that's where your front suspension bolts to the car, and now we know how much it moves.",
- "So which one would I do first? Honestly, off this one test, I can't tell you. What I can tell you is the engine bay spread less with every setup we tried. Let us know in the comments what you want us to measure next.",
+ "And here's both braces against no bracing. Most of the car is back to green and light blue. The one hot spot is the door, and a door sits on hinges, so that's most likely how it was closed, not the chassis moving.",
+ "About three quarters of the body is within two and a half millimeters. So, cleaner than the fender braces alone, but not as clean as the strut tower brace alone.",
+ "So does chassis bracing actually do anything? On this car, on the jack, yes. No bracing, 1.7 millimeters. Fender braces, 0.2. Strut tower brace, 0.7. And both together, 0.4.",
+ "So the fender braces were very effective, and both braces work. To really rank them, we'd need more controlled testing.",
+ "Parts were brought to you by MotoIQ. Scanning by Illumaesthetic. Let us know in the comments what you want us to measure next.",
 ]
-_i = iter(NAR); TL = [it[:5] + (next(_i),) if it[5] else it for it in TL]; assert next(_i, None) is None
-def nwords(nar): return sum(6 if re.fullmatch(r'[0-9]+\.[0-9]+[.,]?', w) else 1 for w in nar.split())   # "960.948" is six spoken words
+_i = iter(NAR); TL = [it[:5] + (next(_i),) if it[5] else it for it in TL]; assert next(_i, None) is None, 'NAR/TL mismatch'
+def nwords(nar): return sum(4 if re.fullmatch(r'[0-9]+\.[0-9]+[.,]?', w) else 1 for w in nar.split())   # "960.9" is four spoken words
 def dur(it):
     k, a, b, *_, nar = it
     if k in ('src', 'gfx', 'fx'): return b - a
-    return max(b, nwords(nar)/WPS + 0.8)
+    if k in ('heat', 'end'): return nwords(nar)/WPS + 0.8
+    return max(b, nwords(nar)/WPS + 0.8) if nar else float(b)
 def tc(t): return f'{int(t//60)}:{t%60:04.1f}'
 def schedule():
     t = 0; rows = []
@@ -108,7 +108,7 @@ def script_md(rows, total):
          '`Strut Spread.xlsx` and the PDF reports on the engineering Drive (percent reductions calculated from them); the four body percentages are our own calculation from the exterior scans (tools/heat.py, clips.md).', '',
          '| Cut time | Section | Picture | Source | Narration (draft) |', '|---|---|---|---|---|']
     for t, d, (k, a, b, sec, pic, nar) in rows:
-        src = f'rough cut {tc(a)}-{tc(b)}' if k in ('src', 'gfx', 'fx') else (f'rough cut still {tc(a)}' if k == 'still' else f'new card `{a}`')
+        src = f'rough cut {tc(a)}-{tc(b)}' if k in ('src', 'gfx', 'fx', 'end') else (f'3D render from the scans ({a}, {b})' if k == 'heat' else f'new card `{a}`')
         o.append(f'| {tc(t)}-{tc(t+d)} | {sec} | {pic} | {src} | {nar or "(existing voice, unchanged)"} |')
     words = sum(nwords(it[5]) for it in TL if it[5]); o += ['', f'New narration: {words} words, about {words/WPS/60:.1f} min at {WPS} words/s.']
     open(os.path.join(HERE, '..', 'script.md'), 'w').write('\n'.join(o) + '\n')

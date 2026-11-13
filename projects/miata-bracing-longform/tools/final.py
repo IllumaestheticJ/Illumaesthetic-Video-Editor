@@ -4,37 +4,56 @@ Timing comes from the generated audio (vo/NN.wav), not word counts: cards hold f
 and a line that runs past its shot carries into the next card. After 3:04 the clips' own audio is dropped (it carries
 pieces of the same music) and replaced by one levelled bed (musicbed.py) under the narration."""
 import sys, os, wave, subprocess, importlib.util, numpy as np
+from PIL import Image
 M, OUTN = sys.argv[1], sys.argv[2]; HERE = os.path.dirname(os.path.abspath(__file__)); a0 = sys.argv[:]
 sys.argv = [a0[0], M, '--script-only']; sp = importlib.util.spec_from_file_location('b', f'{HERE}/build.py'); b = importlib.util.module_from_spec(sp); sp.loader.exec_module(b); sys.argv = a0
-SR = 48000; VO_RMS = -19.0; BED_DB = -11.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55
+SR = 48000; VO_DB = -2.5; BED_DB = -11.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo8'        # VO_DB: relative to the owner's real voice level
 def wav(p):
-    w = wave.open(p); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768; x = x.reshape(-1, w.getnchannels()).mean(1); assert w.getframerate() == SR, p; return x
+    w = wave.open(p); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768; x = x.reshape(-1, w.getnchannels()).mean(1); r = w.getframerate()
+    return x if r == SR else np.interp(np.arange(0, len(x), r/SR), np.arange(len(x)), x).astype(np.float32)
 def trim(x, th=10**(-45/20)):
     k = np.nonzero(np.abs(x) > th)[0]; return x[max(k[0]-int(.03*SR), 0):k[-1]+int(.12*SR)]
-def level(x):
-    n = len(x)//4800; e = np.sqrt((x[:n*4800].reshape(n, 4800)**2).mean(1)); act = e[e > e.max()*.1]; return x*10**(VO_RMS/20)/np.sqrt((act**2).mean())
+def act_rms(x):
+    n = len(x)//4800; e = np.sqrt((x[:n*4800].reshape(n, 4800)**2).mean(1)); act = e[e > e.max()*.1]; return np.sqrt((act**2).mean())
+def spectrum(x, n=4096):
+    k = (len(x) - n)//(n//2); fr = np.stack([x[i*n//2:i*n//2+n] for i in range(k)])*np.hanning(n); P = np.abs(np.fft.rfft(fr, axis=1))**2
+    e = P.sum(1); return P[e > np.percentile(e, 60)].mean(0)                    # loud (voiced) frames only
+_rw = wave.open(f'{M}/work/audio48.wav'); _r = np.frombuffer(_rw.readframes(int(184*SR)), np.int16).reshape(-1, 2).mean(1).astype(np.float32)/32768
+REAL = np.concatenate([_r[int(46.3*SR):int(95*SR)], _r[int(141*SR):int(183.3*SR)]]); REAL_RMS = act_rms(REAL); REAL_SPEC = spectrum(REAL)
+def tone(lines):
+    """one EQ curve for all lines: third-octave-smoothed ratio real/clone, limited to +-7 dB, applied as a linear-phase filter"""
+    S = np.mean([spectrum(x) for x in lines if len(x) > SR*3], axis=0); f = np.fft.rfftfreq(4096, 1/SR); g = 10*np.log10((REAL_SPEC + 1e-12)/(S + 1e-12))
+    sm = np.array([g[(f >= fc/1.26) & (f <= fc*1.26)].mean() if fc > 40 else 0 for fc in f]); sm -= np.median(sm[(f > 200) & (f < 3000)])
+    sm = np.clip(sm, -6, 2.5); sm[f < 80] = -12
+    # the reference has shop noise and music in its top end, so never ADD treble from it: above 3 kHz only cut, with a
+    # shelf that takes the breathy "air" off the clone (-2 dB at 5 kHz to -5 dB at 9 kHz, steeper above 11 kHz)
+    hi = f > 3000; sm[hi] = np.minimum(sm[hi], 0) - np.interp(f[hi], [3000, 5000, 9000, 11000, 16000], [0, 2, 5, 7, 16])
+    print('  tone match (dB) at 100/250/500/1k/2k/4k/6k/8k/10k Hz:', ' '.join('%+.1f' % np.interp(q, f, sm) for q in (100, 250, 500, 1000, 2000, 4000, 6000, 8000, 10000)))
+    def apply(x):
+        X = np.fft.rfft(x); ff = np.fft.rfftfreq(len(x), 1/SR); return np.fft.irfft(X*10**(np.interp(ff, f, sm)/20), len(x)).astype(np.float32)
+    return apply
+def level(x): return x*REAL_RMS*10**(VO_DB/20)/act_rms(x)
 # ---- fit the generated lines: one splice, then slow down the lines the voice model rushed (no pitch change)
-FIT = f'{M}/vo_fit'; os.makedirs(FIT, exist_ok=True); MAXRATE = 3.7
+FIT = f'{M}/vo_fit'; os.makedirs(FIT, exist_ok=True); MAXRATE = 4.0
 def save(p, x):
     w = wave.open(p, 'w'); w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.clip(x, -1, 1)*32767).astype(np.int16).tobytes())
 def fade(x, n=720): x = x.copy(); x[:n] *= np.linspace(0, 1, n); x[-n:] *= np.linspace(1, 0, n); return x
-# line 03 came out with a garbled first word ("Mill bracing"): take "With no bracing," from line 06 and join it to the rest of 03
-l3, l6 = wav(f'{M}/vo/03.wav'), wav(f'{M}/vo/06.wav'); h = fade(l6[int(1.30*SR):int(2.08*SR)]); r = fade(l3[int(1.08*SR):]); h *= np.sqrt((r[:SR*3]**2).mean())/np.sqrt((h**2).mean())*1.0
-save(f'{FIT}/03_spliced.wav', np.concatenate([h, np.zeros(int(.10*SR), np.float32), r]))
 def fitted(i, nar):
-    src = f'{FIT}/03_spliced.wav' if i == 3 else f'{M}/vo/{i:02d}.wav'; x = trim(wav(src)); rate = b.nwords(nar)/(len(x)/SR)
+    src = f'{VODIR}/{i:02d}.wav'; x = trim(wav(src)); rate = b.nwords(nar)/(len(x)/SR)
     if rate <= MAXRATE: return x, rate, 1.0
-    f = max(MAXRATE/rate, 0.72); out = f'{FIT}/{i:02d}_t{f:.3f}.wav'
+    f = max(MAXRATE/rate, 0.90); out = f'{FIT}/v8_{i:02d}_t{f:.3f}.wav'          # gentle only: big stretches sounded airy in v6/v7
     if not os.path.exists(out): b.run(['-i', src, '-af', f'atempo={f:.4f}', '-ar', str(SR), '-ac', '1', out])
     return trim(wav(out)), rate, f
 # ---- schedule from audio
+LINES = [fitted(i, n) for i, n in enumerate(b.NAR)]; EQ = tone([x for x, _, _ in LINES])
 rows = []; t = 0.0; cur = 0.0; vi = 0; vo = []
 for it in b.TL:
     k, a, c, sec, pic, nar = it
     if nar:
-        x, rate, f = fitted(vi, nar); print('  line %02d  %.1f s  %.2f words/s%s' % (vi, len(x)/SR, b.nwords(nar)/(len(x)/SR), '' if f == 1 else '  (slowed x%.2f from %.2f)' % (f, rate))); x = level(x); s = max(t + LEAD, cur + GAP); e = s + len(x)/SR; vo.append((s, x, nar, vi)); vi += 1; cur = e
-        d = (c - a) if k in ('src', 'gfx', 'fx') else max(float(c), e + TAIL - t)
+        x, rate, f = LINES[vi]; print('  line %02d  %.1f s  %.2f words/s%s' % (vi, len(x)/SR, b.nwords(nar)/(len(x)/SR), '' if f == 1 else '  (slowed x%.2f from %.2f)' % (f, rate))); x = level(EQ(x)); s = max(t + LEAD, cur + GAP); e = s + len(x)/SR; vo.append((s, x, nar, vi)); vi += 1; cur = e
+        d = (c - a) if k in ('src', 'gfx', 'fx') else max(4.0 if k in ('heat', 'end') else float(c), e + (2.6 if k == 'end' else TAIL) - t)
     else: d = b.dur(it)
+    if not nar and k == 'card': cur = max(cur, t + d - GAP + 0.05)          # nothing is spoken over a title card
     rows.append((t, d, it)); t += d
 total = t; t_new = next(tt for tt, d, it in rows if it[5]); print('total %s, narration from %s, %d lines, last line ends %s' % (b.tc(total), b.tc(t_new), len(vo), b.tc(cur)))
 for (tt, d, it), nxt in zip(rows, rows[1:] + [None]):
@@ -44,6 +63,16 @@ for (tt, d, it), nxt in zip(rows, rows[1:] + [None]):
 b.script_md(rows, total)
 # ---- picture: frame-exact segments (cached by index + frame count) so cards cannot drift against the sound
 SEG = f'{M}/work/segf'; os.makedirs(SEG, exist_ok=True); lst = []; FPS = 24000/1001; done_fr = 0
+jobs = []; _fr = 0
+for i, (tt, d, (k, a, c, sec, pic, nar)) in enumerate(rows):
+    n = int(round((tt + d)*FPS)) - _fr
+    if k == 'fx': n = int(round((c - a)*FPS))
+    _fr += n; f = f'{SEG}/s{i:02d}_{k}_{n}f.mp4'
+    if k == 'heat' and not os.path.exists(f): jobs.append((f, [sys.executable, f'{HERE}/heat3d.py', 'shot', f'{M}/heat3d', *a.split('>'), c, str(n), f + '.tmp.mp4']))
+run_ = []
+while jobs or run_:
+    while jobs and len(run_) < 4: f, cmd = jobs.pop(0); run_.append((f, subprocess.Popen(cmd, stdout=subprocess.DEVNULL)))
+    f, p = run_.pop(0); p.wait(); os.rename(f + '.tmp.mp4', f); print('  rendered', os.path.basename(f))
 for i, (tt, d, (k, a, c, sec, pic, nar)) in enumerate(rows):
     n = int(round((tt + d)*FPS)) - done_fr
     if k == 'fx': n = int(round((c - a)*FPS))
@@ -52,6 +81,8 @@ for i, (tt, d, (k, a, c, sec, pic, nar)) in enumerate(rows):
     if k == 'src': b.run(['-ss', str(a), '-i', b.SRC, '-vf', 'scale=1920:1080', '-an', *FR, *[v for v in b.V if v not in ('-c:a', 'aac', '-b:a', '160k', '-ar', '48000', '-ac', '2')], f + '.tmp.mp4'])
     elif k == 'fx':
         subprocess.run([sys.executable, f'{HERE}/callout.py', b.SRC, str(a), str(c), f + '.fx.mp4'], check=True); b.run(['-i', f + '.fx.mp4', '-an', '-c:v', 'copy', f + '.tmp.mp4']); os.remove(f + '.fx.mp4')
+    elif k == 'heat': subprocess.run([sys.executable, f'{HERE}/heat3d.py', 'shot', f'{M}/heat3d', *a.split('>'), c, str(n), f + '.tmp.mp4'], check=True, stdout=subprocess.DEVNULL)
+    elif k == 'end': b.run(['-ss', str(a), '-t', str(c - a), '-i', b.SRC, '-vf', f'scale=1920:1080,setpts=PTS*{d/(c - a) + 0.02:.4f}', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     elif k == 'gfx': b.run(['-i', f'{M}/work/flex.mp4', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     else: b.run(['-loop', '1', '-framerate', '24000/1001', '-i', f'{b.CARDS}/{a}.png', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     os.rename(f + '.tmp.mp4', f)
@@ -73,6 +104,7 @@ def track(name):
 TR = {k: track(k) for k in ('2am', 'time_stand_still', 'cosmic_countdown', 'dark_summer_night')}; LEN = {k: len(v)/SR for k, v in TR.items()}
 def want(k, a, sec):
     if sec.startswith('1.'): return '2am', 92.3 + (184.27 - 180.0)          # carries the whole control section, as in the rough cut
+    if k == 'card' and a.startswith('title'): return {'title_fender': ('time_stand_still', 135.6 - 2.8), 'title_strut': ('cosmic_countdown', 95.9 - 2.8), 'title_both': ('time_stand_still', 157.3 - 2.8)}[a]
     if k != 'src': return 'dark_summer_night', None
     if 240 <= a < 275: return 'cosmic_countdown', 87.9 + (a - 240.0)
     return 'time_stand_still', 137.0 + (a - 300.0) if a < 335 else 137.0
@@ -121,6 +153,19 @@ for s, x, nar, i in vo:
     for q in cs: e = u + (len(x)/SR)*b.nwords(q)/n; L.append(f'Dialogue: 0,{b.at(u)},{b.at(e - .03)},old,{q}'); u = e
 open(f'{SEG}/final.ass', 'w').write('\n'.join(L) + '\n')
 os.makedirs(b.OUT, exist_ok=True)
-b.run(['-i', f'{SEG}/picture.mp4', '-i', f'{SEG}/mix.wav', '-map', '0:v', '-map', '1:a', '-vf', f'ass={SEG}/final.ass', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '21', '-pix_fmt', 'yuv420p',
-       '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', f'{b.OUT}/{OUTN}'])
+sys.path.insert(0, HERE); import fx
+G = fx.Fx(rows, vo, t_new, total); FB = 1920*1080*3
+dec = subprocess.Popen(['ffmpeg', '-v', 'error', '-i', f'{SEG}/picture.mp4', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE, bufsize=FB*4)
+enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '1920x1080', '-r', '24000/1001', '-i', '-', '-i', f'{SEG}/mix.wav', '-map', '0:v', '-map', '1:a',
+                        '-vf', f'ass={SEG}/final.ass', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', f'{b.OUT}/{OUTN}'], stdin=subprocess.PIPE)
+only = [float(v) for v in sys.argv[sys.argv.index('--stills')+1].split(',')] if '--stills' in sys.argv else None; i = 0
+while True:
+    buf = dec.stdout.read(FB)
+    if len(buf) < FB: break
+    tcur = i/FPS; i += 1
+    if only is not None:
+        if any(abs(tcur - v) < .5/FPS for v in only): Image.fromarray(G.apply(np.frombuffer(buf, np.uint8).reshape(1080, 1920, 3), tcur)).save(f'{M}/work/fr/still_{tcur:07.2f}.jpg', quality=88)
+        continue
+    enc.stdin.write(G.apply(np.frombuffer(buf, np.uint8).reshape(1080, 1920, 3), tcur).tobytes() if (tcur >= t_new or 50.8 < tcur < 52.8) else buf)
+enc.stdin.close(); enc.wait(); dec.wait()
 print('done', f'{b.OUT}/{OUTN}')
