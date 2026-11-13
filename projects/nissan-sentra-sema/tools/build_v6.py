@@ -28,10 +28,11 @@ def seg_hook():
             if u > 0:
                 y0 = 250 - int((1 - u) * 40); h = 118
                 w = max(d.textlength(t, font=f1) for t in lines)
-                d.rectangle([(WD - w) // 2 - 44, y0 - 30, (WD + w) // 2 + 44, y0 + h * len(lines) + 26], fill=(0, 0, 0))
-                d.rectangle([(WD - w) // 2 - 44, y0 - 30, (WD - w) // 2 - 32, y0 + h * len(lines) + 26], fill=RED)
+                box = [(WD - int(w)) // 2 - 44, y0 - 30, (WD + int(w)) // 2 + 44, y0 + h * len(lines) + 26]
+                ov = Image.new('RGBA', fr_.size, (0, 0, 0, 0)); ImageDraw.Draw(ov).rectangle(box, fill=(0, 0, 0, int(115 * u)))   # v8b: 45 % black, not solid
+                fr_ = Image.alpha_composite(fr_.convert('RGBA'), ov).convert('RGB'); d = ImageDraw.Draw(fr_)
                 for k, t in enumerate(lines):
-                    d.text(((WD - d.textlength(t, font=f1)) // 2, y0 + k * h), t, font=f1, fill=OFF)
+                    d.text(((WD - d.textlength(t, font=f1)) // 2, y0 + k * h), t, font=f1, fill=OFF, stroke_width=3, stroke_fill=(0, 0, 0))
             yield fr_
     pipe('v6_a_hook', gen())
 
