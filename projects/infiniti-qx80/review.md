@@ -1,23 +1,24 @@
-# Infiniti QX80 scan reel v3 - self-review (training/rubric.md)
+# Infiniti QX80 R-Spec reel v4 - "how it was made" - self-review (training/rubric.md)
 
-Output: `/home/user/media/infiniti-qx80/out/infiniti_qx80_v3.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.80 s, 1164 frames.
-v2 = the user's all-reels v2 brief (relayed by the parent + WRX VA sessions) via the scene-director/director agents
-(direction.md, director.md). v1 review: review_v1.md, v2: review_v2.md.
-v3 = v2 re-framed for the parent addendum (A cropping): N0, s5, N1, N2, N3 re-rendered; first/mid/last of every shot checked
-on the delivered file (nothing clipped except the grille/wheel detail shots, which fill the frame by design). B: each section
-appears once (direction.md table). C: no bumper-removed state scan exists for this car -> no hero beat, no labels.
-D: only the hood opens (registered open-state scan).
+Output: `/home/user/media/infiniti-qx80/out/infiniti_qx80_v4.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.83 s, 1165 frames.
+Built by `tools/build_v4.py` (exact-frame segments + concat, Sentra pattern); scene list `direction.md` "## v4" (scene-director).
+Earlier versions (scan-only Temerario style): review_v1.md, review_v2.md, review_v3.md.
 
-| # | Criterion | v1 | v2 | Notes |
-|---|---|---|---|---|
-| 1 | Hook | 4 | 4 | Whole car in frame, orbiting from frame 1 (v1 cropped the rear). Slow string intro, no transformation in 1.5 s. |
-| 2 | Beat sync | 5 | 4 | Cut frames 159/237/315/471/705/822 exact; vs decoded audio (cutcheck.py, 1 ms RMS half-rise): +4, +35, -3, +107, -42, +1 ms. The +107 cut (music 16.362) sits in a flat sustained string passage (-18/-19 dB, no hit within 0.4 s) - kept on the grid. Last cut is the fade into the logo (34.562). Part moves land on beats 17.01/18.96/20.91/21.56 (lift)/24.81/25.46, hood shuts on the 32.00 step. |
-| 3 | 1:1 match | n/a | n/a | Scan-only. |
-| 4 | Scan quality | 3 | 3 | Clean car for the opener, close-ups and the end (reassembly swaps to the full car at lock - no seams). Exploded section: part scans show streaky shading where they sit on the car, and the fender/bumper-corner holes are visible while parts are out (kept small: 0.25-0.45 m moves, toward the lens). |
-| 5 | Story | 4 | 5 | Order follows the scan data: whole -> grille -> wheel/vent -> hood state -> RF corner parts one per hit (camera stays on the section) -> rear parts -> reassembly from the unseen front-left -> fade -> small logo. No repeated view; v1's redundant rear orbit and rotating top-down cut. |
-| 6 | Grade | 5 | 5 | All scan, AgX. Luma scan of every render: no dropouts (persistent data off on animated shots). |
-| 7 | Text | 5 | 5 | None (brief). |
-| 8 | Ending | 4 | 5 | 1.3 s fade to render-black, then a 360 px logo over the track's fade; video ends as the music goes silent. |
-| 9 | Technical | 5 | 5 | Spec met; no black/dup frames at cuts. |
+Sources used: WhatsApp export (Dropbox, 540 photos + chat), Ecky's Drive folder `100 - Nismo QX80` (16 kit STL groups placed on
+our scan with his own scan matrix; Render/ + Presentation Render/ originals in the concepts), press screenshots (Carscoops x2,
+Motor Illustrated - the only outlets this environment could reach), our QX80 full-car scan.
 
-Likely reviewer flags: streaky part shading during N1/N2; whole-car shots (N0, N3) leave the car ~55-60 % of the 9:16 width - the price of no clipping on a 5.4 m SUV.
+| # | Criterion | Score | Notes |
+|---|---|---|---|
+| 1 | Hook | 4 | Finished car (studio photo 1701) from frame 1, three real headlines stack on the beats at 1.4/2.7/4.0 s. Only 3 outlets (network allow-list). |
+| 2 | Beat sync | 4 | All 14 section cuts on their planned frames (frame diff = plan); grid = 0.650 s beats on the measured loudness steps of a kick-less strings track (v1-v3 checks: steps at 18.95/21.55/32.00/34.60 music). Kit parts land on beats; the wrap sweep starts on the lift. |
+| 3 | 1:1 match | n/a | No IRL->scan match cut in this cut (optional: photo 46 -> scan solve, not done). |
+| 4 | Scan quality | 4 | Clean full-car scan; kit seated with Ecky's matrix (1.6 mm scan agreement). Wrap is an approximation of a colour-shift film (checked against 1702, copper/blue flips added); wheels/glass/grille masked by position. Stock wheels shown (the real car runs aftermarket wheels). |
+| 5 | Story | 5 | Stock -> scan -> concepts -> kit on the scan -> wrap -> engineering -> print -> test fit -> finished, all from real project data. |
+| 6 | Grade | 4 | Photos untouched (phone shots of varying light) on darkened blurred fills; renders AgX. |
+| 7 | Text | 4 | Short section labels in the band above photos / clear black above renders; no triangle counts, no hp claims of our own, no staff names. |
+| 8 | Ending | 4 | Finished car on the strongest accent (31.96 music), logo 720 px + "Customize everything" over the fade. |
+| 9 | Technical | 5 | Spec met; luma scan clean on D/E; edge-touch test on scan segments (E re-rendered wider after it failed). |
+
+Open items for the user: allow motor1/thedrive/gearjunkie/drifted/infinitinews in the environment for more headlines; OK to credit
+Ecky by name?; the 3D wrap is an approximation; music is the generated QX80 track (another user rejected a generated track on MR2).

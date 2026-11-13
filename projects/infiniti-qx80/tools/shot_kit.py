@@ -113,10 +113,11 @@ def mat_purple():
     m, nt, out = sr.new_mat("qx_purple")
     lw = nt.nodes.new("ShaderNodeLayerWeight"); lw.inputs["Blend"].default_value = 0.45
     ramp = nt.nodes.new("ShaderNodeValToRGB")
-    ramp.color_ramp.elements[0].color = (0.085, 0.012, 0.16, 1)
-    ramp.color_ramp.elements[1].color = (0.010, 0.10, 0.17, 1)
+    ramp.color_ramp.elements[0].color = (0.032, 0.004, 0.060, 1)
+    ramp.color_ramp.elements[1].color = (0.004, 0.045, 0.080, 1)
+    mid = ramp.color_ramp.elements.new(0.55); mid.color = (0.085, 0.022, 0.030, 1)   # copper flip seen on the real wrap (photo 1702)
     nt.links.new(lw.outputs["Facing"], ramp.inputs[0])
-    p = sr.principled(nt, (0.1, 0.02, 0.18, 1), 0.28, 0.75)
+    p = sr.principled(nt, (0.04, 0.008, 0.07, 1), 0.24, 0.8)
     nt.links.new(ramp.outputs[0], p.inputs["Base Color"])
     blk = sr.principled(nt, (0.008, 0.008, 0.01, 1), 0.18, 0.2)
     for q in (p, blk):
