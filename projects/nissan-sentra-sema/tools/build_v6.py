@@ -58,14 +58,14 @@ END = fr(47.5)
 def seg_hook():
     """motor1com post 'NISSAN ADMITS IT USED AI IN ITS SENTRA SPEC V PICTURES' from the Instagram recording (t=171), slow 3 % push,
     with the user's blurb 'THE WORLD THOUGHT IT WAS AI' boxed over the top of the post (v8)."""
-    im = ig_frames(171.0, 1)[0]; n = CUT['wasnt']; f1 = FJ(80)   # v12: 3 lines in the band between car (y~780) and headline (y~1040)
-    lines = [[('THE WORLD', WHITE)], [('THOUGHT IT', WHITE)], [('WAS ', WHITE), ('AI', GREEN)]]
+    im = ig_frames(171.0, 1)[0]; n = CUT['wasnt']; f1 = FJ(98)   # v13: two rows, in the band between car (y~780) and headline (y~1040)
+    lines = [[('THE WORLD THOUGHT', WHITE)], [('IT WAS ', WHITE), ('AI', GREEN)]]
     def gen():
         for f in range(n):
             fr_ = B.punch(im, f, n, 1.03); d = ImageDraw.Draw(fr_)
             u = min(1.0, max(0.0, (f - 4) / 5))
             if u > 0:
-                y0 = 796 - int((1 - u) * 40); h = 60
+                y0 = 806 - int((1 - u) * 40); h = 84
                 ws = [sum(d.textlength(t, font=f1) for t, _ in ln) for ln in lines]; w = max(ws)
                 box = [(WD - int(w)) // 2 - 44, y0 - 20, (WD + int(w)) // 2 + 44, y0 + h * len(lines) + 30]
                 ov = Image.new('RGBA', fr_.size, (0, 0, 0, 0)); ImageDraw.Draw(ov).rounded_rectangle(box, radius=34, fill=INK + (int(70 * u),))   # v11: softer (~27 % black), rounded corners
