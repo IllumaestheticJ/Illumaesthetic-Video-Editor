@@ -795,3 +795,12 @@ lands here automatically. Agents must read this whole file before editing.
   photo camera with focal x (photoW * scale / 1080) and no lens shift.
 - "Keep both sides" is only safe for append-only text: a keep-both merge of remotion/src/Root.tsx fused two <Composition>
   tags into one. After resolving a code-file conflict, run `npx tsc --noEmit` / a `remotion still` before pushing.
+
+## From the GT3 vs GT3 RS comparison reel v3 (2026-11-13, built by an agent)
+- **[match-cut]** Listing pages now open on the 360 viewer (dark background, rear-right view ~10 m away at 30-40 mm). silsolve's
+  random global search around a near guess stuck at IoU 0.85; a coarse az/el/focal grid with distance+target fitted to the
+  mask bbox (porsche-gt3-vs-gt3rs/tools/silgrid.py) reaches 0.97 in 2 minutes and gives a roll-free look-at pose shot.py can use directly.
+- **[technical]** Split-screen website ending: remotion `WebZoomSplit` (two screenshots, each starts 1:1 on a region filling its
+  half, zooms out to two cards). Hide the viewer's "Drag to rotate" hint via a Playwright text locator before the screenshot.
+- **[technical]** Scans named -WT are watertight (fake smooth skin); use the -UWT file. ASCII STLs need converting before `ive decimate`.
+- **[technical]** Two Blender jobs plus two solver processes at once got the worker killed (exit 137): one heavy job at a time, really.

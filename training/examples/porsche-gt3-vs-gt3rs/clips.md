@@ -25,3 +25,13 @@ dropped before prep (they lifted the car 25 cm); everything prepped `--like car4
 
 Known: the frunk floor has a scan hole (black opening); the bumper-off structure is fragmented above the exhaust.
 Music: user's track (Alkitran - Original Mix) from 171.651 s, 127.0 BPM (see porsche-gt3rs-992 project.yaml).
+
+## v3 additions
+- `GT3-992-ExhaustOn-UWT.stl` (Drive 18jZHt8jP5OBeEsv4jh9ETOX39OfMPqRZ, Exhaust folder, 2026-06-08, ASCII STL): rear engine /
+  exhaust from below. Own frame; registered with tools/multireg.py onto comp_gt3 (24 axis starts, best 0.53 fit at 8 mm),
+  only its NEW geometry added (tools/addnew.py, >8 mm from the base, >14 mm from bumper/diffuser/lip) -> comp_gt3b.
+  `GT3-992-ExhaustOn-WT` is the same capture made watertight (fake skin) and `GT3-ExhaustCavity-WithExhaust` a subset: not used.
+- `Nikitas GT3 Full Underbody + Bumper Off.stl`: FRONT bumper off, rear bumper on; not used.
+- Website end card: Playwright screenshots (1440x900 @2x) of /products/porsche-911-gt3-rs-3d-scan and /products/porsche-911-gt3-3d-scan
+  (www host), "Drag to rotate" hint hidden; remotion/public/web_gt3rs_listing.png, web_gt3_listing.png; props in webzoom.json
+  (composition WebZoomSplit). Viewer region [435,368,1060,942] px fills a 1080x960 panel at frame 0.

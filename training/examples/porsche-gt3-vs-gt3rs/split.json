@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v2.mp4",
+ "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v3.mp4",
  "music": {
   "path": "/home/user/media/work/music/alkitran_full.wav",
   "start": 171.651,
@@ -10,15 +10,7 @@
   "top": "911 GT3 RS (992)",
   "bottom": "911 GT3 (992)"
  },
- "logo": {
-  "src": "/home/user/media/work/gt3/logo_v5.mp4",
-  "frame": 1106
- },
- "end_frame": 1219,
- "fade": {
-  "start_frame": 1066,
-  "frames": 27
- },
+ "end_frame": 1276,
  "top": [
   {
    "src": "/home/user/media/work/gt3/renders/final/v2_sh1",
@@ -64,9 +56,14 @@
   },
   {
    "src": "/home/user/media/work/gt3/renders/final/v6_sh9",
-   "frames": 227,
+   "frames": 170,
    "src_fps": 14.83,
    "crop_y": 330
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/r_orbit",
+   "frames": 57,
+   "src_fps": 16
   }
  ],
  "bottom": [
@@ -100,7 +97,12 @@
   },
   {
    "src": "/home/user/media/work/gt3vs/renders/final/g_home",
-   "frames": 227
+   "frames": 170
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_orbit",
+   "frames": 57,
+   "src_fps": 16
   }
  ],
  "labels": {
@@ -180,7 +182,7 @@
    [
     567,
     620,
-    "EXHAUST"
+    "UNDER THE REAR BUMPER"
    ],
    [
     628,
@@ -194,9 +196,9 @@
    ]
   ]
  },
- "cta": {
-  "from": 887,
-  "top": "GT3 RS SCAN DATA  \u00b7  ILLUMAESTHETIC.COM",
-  "bottom": "GT3 SCAN DATA  \u00b7  ILLUMAESTHETIC.COM"
+ "web": {
+  "src": "/home/user/media/work/gt3vs/out/webzoom_split_v3.mp4",
+  "start_frame": 1092,
+  "xfade": 14
  }
 }

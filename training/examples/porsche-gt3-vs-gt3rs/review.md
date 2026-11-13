@@ -1,22 +1,26 @@
-# Porsche 911 GT3 vs GT3 RS (992) comparison reel v2 - self-review
+# Review - GT3 vs GT3 RS (992) split-screen, v3
 
-v2 = v1 + a call-to-action on each panel during the final scene (GT3 RS / GT3 SCAN DATA · ILLUMAESTHETIC.COM); both scans are
-listed on the site. File: /home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v2.mp4. v1 notes follow. (training/rubric.md)
+Output: /home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v3.mp4 (1080x1920, 42.5 s). Previous: review_v2.md.
 
-File: /home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v1.mp4 (1080x1920, 30 fps, 40.63 s). Timeline: split.json
-(tools/assemble_split.py). Stacked split-screen: 911 GT3 RS (992) top, 911 GT3 (992) bottom, frame-identical cuts.
+## What changed (user feedback on v2)
+1. "When the GT3 rear bumper comes off, show the bumper-removed scan underneath" - rear base rebuilt (comp_gt3b: the
+   2023 stripped-state scans + the 2026 GT3-992-ExhaustOn-UWT scan, ICP-registered); g_rear restaged so the camera
+   pushes in low under the lifted bumper and holds on the exposed rear for 4 beats (label "UNDER THE REAR BUMPER").
+2. "CTA is wrong - like the 240SX videos" - text CTA and logo card removed. After the lock both cars sweep round the
+   tail and land on the angle of their product listing's scan view (silhouette IoU 0.977 GT3 / 0.962 RS), dissolve into
+   screenshots of the two real listing pages, zoom out to two page cards with SCAN DATA NOW AVAILABLE, logo, URL.
 
-| # | Criterion | Score | Notes |
-|---|---|---|---|
-| 1 | Hook | 4 | both whole cars, same camera move from frame 1 |
-| 2 | Beat sync | 5 | 8 cuts measured on the delivered file's kick band: all within +-0.51 frame; both cars lock on b74; breakdown = RS wheel house / GT3 sill + open wheel well |
-| 3 | 1:1 match | n/a | scan only; the two openers share one camera |
-| 4 | Scan quality | 4 | GT3 frunk floor has a scan hole; bumper-off structure is fragmented above the exhaust; RS fender shows an open hole with the vent off |
-| 5 | Story | 4 | sections are paired (front / front wheel / wing / rear / side / everything off / reassembly); the RS underbody plays against the GT3 "all parts off" wide because no GT3 underbody was prepared |
-| 6 | Grade | 5 | same silver-on-black on both |
-| 7 | Text | 4 | car names + one section label per panel in a header bar, names from the scan files / states; "ALL SCANNED PARTS OFF" is a description, not a file name |
-| 8 | Ending | 5 | both lock on b74, fade, logo on b78 |
-| 9 | Technical | 4 | RS panel is the centre band of 9:16 renders (underbody rotated 90 deg to fit); GT3 wing leaves the top of its frame when it lifts |
+## Self-score (training/rubric.md, 1-5)
+- Story / one focus per shot: 4 - the rear reveal now has its own held beat.
+- Match / transition: 4 - landing frames overlay the listing views within a few px (match_end.jpg, check_v3.jpg);
+  the look still changes silver-on-black -> viewer grey through the dissolve (no grade morph).
+- Scan look: 3 - the under-bumper structure is real scan data but still fragmented.
+- Sync: 4 - cuts unchanged on the kick grid; sweep lands b77, zoom-out b78-b82.
+- Text: 4 - no on-screen numbers; all end-card text is the real page.
 
-Not shown: GT3 Front Bumper part (nothing scanned behind it), GT3 2024 underbody / 2025 wing HD / exhaust folders (other sessions),
-RS rear wheel house, RS steered-left capture.
+## Known limits / open
+- No dedicated GT3 REAR bumper-off capture was found in the Drive folder: "Nikitas GT3 Full Underbody + Bumper Off" has the
+  FRONT bumper off, the 2026 Exhaust scans are taken from below. If a cleaner rear capture exists, it needs pointing out.
+- The listing pages open on the 360 viewer, so the 1:1 match targets that frame, not the grey "Photos" cover render.
+- g_side / g_wide were not re-rendered on the new base (difference is on the underside, not visible from those angles).
+- The sweep shots were not beat-checked with a cutcheck run; verified by frames only.

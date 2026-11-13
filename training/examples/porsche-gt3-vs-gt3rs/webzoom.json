@@ -1,0 +1,10 @@
+{
+ "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 184,
+ "pages": [
+  {"src": "web_gt3rs_listing.png", "imgW": 2880, "imgH": 1800, "region": [435, 368, 1060, 942]},
+  {"src": "web_gt3_listing.png", "imgW": 2880, "imgH": 1800, "region": [435, 368, 1060, 942]}
+ ],
+ "holdFrames": 14, "zoomFrames": 70, "cardWidth": 940, "cardCenters": [606, 1226],
+ "title": "SCAN DATA NOW AVAILABLE", "titleTop": 62,
+ "url": "ILLUMAESTHETIC.COM", "logo": "illumaesthetic_logo.png", "logoWidth": 560, "logoTop": 1590, "urlTop": 1742
+}
