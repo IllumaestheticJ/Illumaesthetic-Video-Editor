@@ -66,9 +66,9 @@ SHOTS["STRUCT"] = {
     "swap": {"t": t_swap, "blend": f"{B}/foam_noduct.blend"},  # hard 1:1 state swap
     "parts": [{"blend": f"{B}/Air_Ducting_2mm.blend",
                "keys": [k(0, (0, 0, 0)), k(t_duct - 0.4, (0, 0, 0)), k(t_duct, (0, -0.18, 0.05), ease="out"),
-                        k(t_duct + 0.9, (0, -0.20, 0.5), ease="in"), k(d, (0, -0.20, 0.5))]}],
-    "cam": cam([{"t": 0, "loc": [-1.9, -4.6, 1.3], "target": [-0.32, -1.75, 0.55], "focal": 44},
-                {"t": d, "loc": [-0.7, -4.4, 1.15], "target": [-0.22, -1.8, 0.55], "focal": 38, "ease": "inout"}])}
+                        k(t_duct + 1.0, (0, -0.22, 0.95), ease="in"), k(d, (0, -0.22, 0.95))]}],
+    "cam": cam([{"t": 0, "loc": [-1.9, -4.6, 1.3], "target": [-0.30, -1.75, 0.75], "focal": 52},
+                {"t": d, "loc": [-0.7, -4.4, 1.15], "target": [-0.20, -1.8, 0.75], "focal": 45, "ease": "inout"}])}
 
 # 5. BUMPER: bumper shell alone, upper+lower grille out
 d = dur("BUMPER"); tu, tl = 24.343 - 23.406, 24.812 - 23.406
@@ -155,15 +155,15 @@ d = dur("LIVERY")
 SHOTS["LIVERY"] = {
     "base": [{"blend": f"{B}/kb_nowing.blend", "mat": "livery"}] + [{"blend": f"{B}/k_{n}.blend", "mat": "livery", "keys": [k(0, (0, 0, 0))]} for n in KIT] + [{"blend": f"{B}/{n}_2mm.blend"} for n in ("Upper_Grille", "Lower_Grille")],
     "livery": {**LIV, "sweep": [[0, 2.6], [42.156 - 40.281, -2.4]]},
-    "cam": cam(arc(d, 140, 75, 9, 9, 5.4, 5.4, [0, 0.4, 0.6], [0, 0.0, 0.6], 43, n=6))}
+    "cam": cam(arc(d, 140, 78, 9, 9, 5.6, 5.8, [0, 0.4, 0.6], [0, 0.1, 0.6], 40, n=6))}
 
 # 11. HERO: whole kitted liveried car
 d = dur("HERO")
 SHOTS["HERO"] = {
     "base": [{"blend": f"{B}/kb_nowing.blend", "mat": "livery"}] + [{"blend": f"{B}/k_{n}.blend", "mat": "livery", "keys": [k(0, (0, 0, 0))]} for n in KIT] + [{"blend": f"{B}/{n}_2mm.blend"} for n in ("Upper_Grille", "Lower_Grille")],
     "livery": {**LIV, "sweep": [[0, -9.0]]},
-    "cam": cam([{"t": 0, "loc": [3.9, -4.4, 0.9], "target": [0, -0.4, 0.55], "focal": 52},
-                {"t": d, "loc": [3.75, -4.2, 0.95], "target": [0, -0.4, 0.55], "focal": 53, "ease": "inout"}])}
+    "cam": cam([{"t": 0, "loc": [3.9, -4.4, 0.9], "target": [0, -0.25, 0.55], "focal": 40},
+                {"t": d, "loc": [3.75, -4.2, 0.95], "target": [0, -0.25, 0.55], "focal": 41, "ease": "inout"}])}
 
 
 def spec(name, mode):
