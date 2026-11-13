@@ -31,3 +31,11 @@ Output: `/home/user/media/work/de5/out/de5_configurator_v2.mp4` - 1080x1920, 30 
 | 5 | Story | 4 | Listing shot now shows the new hero; 1:1 and payoff are the pro photos. Install clips are still the Sport Wing shoot. |
 | 6 | Grade | 4 | Pro photos at native resolution (no upscale); install clips unchanged. |
 | 9 | Technical | 5 | Orbit sweeps ~75 deg with the car centred throughout. |
+
+# v3 (user feedback on v2: install before the transition, end on the photo, brighter photo)
+
+Output: `/home/user/media/work/de5/out/de5_configurator_v3.mp4` - 1080x1920, 30 fps, 21.80 s (654 frames).
+- Beat sync 5: 14 cuts on the grid from frame diffs; audio drop 17.47 s = cut frame 524.
+- Story 4: the 1:1 is now the ending. No end card or logo at all (user asked to end on the photo) - flag if a brand tag is wanted.
+- Hook 2: the transformation is the last beat; first real footage at 8.7 s.
+- Listing removals requested by the user (two driveway photos, first two blue renders) NOT done: blocked by the session's permission check; Shopify connector needs re-auth.

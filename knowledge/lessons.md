@@ -109,3 +109,6 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** Shopify listing images: stage with `stagedUploadsCreate` (host `shopify-staged-uploads.storage.googleapis.com` must be allowed), `productCreateMedia`,
   `productReorderMedia`; detach a replaced image with `fileUpdate(referencesToRemove)` so the file stays in Files. Images must be <= 5000 px / 20 MB.
   The store app credentials are in the environment (`SHOPIFY_CLIENT_ID/SECRET`, client-credentials grant on bmspec.myshopify.com). See projects/de5-configurator/tools/listing_photos.py.
+- **[story]** DE5 v3 (user): install snippets go BEFORE the 3D-model -> real transition, and the video ends on the real photo (the 1:1 is the payoff, no montage after it).
+- **[grade]** Shaded car against a bright sky: brighten with a gamma that follows blurred local luminance (0.6 in shade -> 1.0 in sky), not a flat lift.
+- **[technical]** Replace a Shopify product image in place with `fileUpdate(files:[{id, originalSource: <staged url>}])`: same media id, position and alt text.

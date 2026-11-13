@@ -1,16 +1,15 @@
-# DE5 Acura Integra Type S wing configurator demo (Epsilon+), TikTok 9:16. Website -> GT Wing listing -> configurator -> add to cart -> 3D orbit -> 1:1 cut to the real
-# listing photo -> install snippets -> real-photo payoff -> end card. Brief said 'TC wing'; no real DE5 TC-wing photo exists, the user chose the GT Wing (editlog).
-# Screen shots are frame-stepped captures of the LIVE epsilon.plus pages (tools/capWeb.cjs); shot D is the configurator's own three.js view driven to the solved
-# camera of the listing photo (match/cam.json, tools/capD.cjs). Music: 'Time Back' - Sinny & 7vvch (TikTok Commercial Music Library, #4 trending US 7-day on
-# 2026-11-11), bed starts at 22.87 s of the track so the drop (35.97 s) lands on the 1:1 cut at frame 393.
+# DE5 Acura Integra Type S wing configurator demo (Epsilon+), TikTok 9:16, v3.
+# Order (user feedback on v2): website -> GT Wing listing -> configurator / add to cart -> install snippets -> 3D orbit -> 1:1 cut to the real photo, and END on that photo
+# (no payoff montage, no end card). v2 timeline is kept in project_v2.yaml.
+# Music: 'Time Back' - Sinny & 7vvch (TikTok Commercial Music Library), bed starts at 18.50 s of the track so the drop (35.97 s) lands on the 1:1 cut at frame 524.
 project: de5-configurator
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/de5/out/de5_configurator_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/de5/out/de5_configurator_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
-music: {path: /home/user/media/work/de5/layers/music.wav, start: 0, fade_out: 0.9}
+music: {path: /home/user/media/work/de5/layers/music.wav, start: 0, fade_out: 1.2}
 
-# grid: 110.0 BPM (beat 0.54545 s); cut frame = 393 + round((beat-24) * 16.3636); drop = beat 24 = 13.100 s
-beats: [2.733, 4.933, 8.733, 13.100, 15.833, 16.367, 16.933, 17.467, 18.000, 18.567, 19.100, 19.367, 19.633, 19.933, 20.200, 22.367, 25.100, 28.933]
+# grid: 110.0 BPM (beat 0.54545 s); cut frame = 524 + round((beat-32) * 16.3636); drop = beat 32 = 17.467 s
+beats: [2.733, 4.933, 8.733, 9.300, 9.833, 10.367, 10.933, 11.467, 12.000, 12.300, 12.567, 12.833, 13.100, 17.467, 21.833]
 
 timeline:
   - id: A   # home page: scroll to the wing configurator, pick Acura > Integra Type S DE5
@@ -18,7 +17,7 @@ timeline:
     in: 0.0
     dur: 2.7000   # one frame short: the assembler's cut lands on the next frame (lessons.md)
   - transition: {type: cut}
-  - id: B   # GT Wing - Acura Integra listing: photos, price, options
+  - id: B   # GT Wing - Acura Integra listing: new hero, price, options
     src: /home/user/media/work/de5/layers/B.mp4
     in: 0.0
     dur: 2.2000
@@ -28,25 +27,15 @@ timeline:
     in: 0.0
     dur: 3.8000
   - transition: {type: cut}
-  - id: D   # configurator 3D view: orbit to the solved camera of the listing photo
-    src: /home/user/media/work/de5/layers/D.mp4
-    in: 0.0
-    dur: 4.3667
-  - transition: {type: cut, note: '1:1 configurator -> real, on the drop'}
-  - id: E   # REAL: listing photo rear-quarter-white, same window move continues
-    src: /home/user/media/work/de5/layers/E.mp4
-    in: 0.0
-    dur: 2.7333
-  - transition: {type: cut}
   - id: F1   # install: hatch trim panel coming off
     src: /home/user/media/work/de5/layers/F1.mp4
     in: 0.0
-    dur: 0.5333
+    dur: 0.5667
   - transition: {type: cut}
   - id: F2   # install: unclipping the panel
     src: /home/user/media/work/de5/layers/F2.mp4
     in: 0.0
-    dur: 0.5667
+    dur: 0.5333
   - transition: {type: cut}
   - id: F3   # install: hatch from inside
     src: /home/user/media/work/de5/layers/F3.mp4
@@ -56,12 +45,12 @@ timeline:
   - id: F4   # install: drilled hatch
     src: /home/user/media/work/de5/layers/F4.mp4
     in: 0.0
-    dur: 0.5333
+    dur: 0.5667
   - transition: {type: cut}
   - id: F5   # install: wing taped over the hatch
     src: /home/user/media/work/de5/layers/F5.mp4
     in: 0.0
-    dur: 0.5667
+    dur: 0.5333
   - transition: {type: cut}
   - id: F6   # install: ratchet on the hatch bolt
     src: /home/user/media/work/de5/layers/F6.mp4
@@ -71,7 +60,7 @@ timeline:
   - id: F7   # install (half beat): hatch strut
     src: /home/user/media/work/de5/layers/F7.mp4
     in: 0.0
-    dur: 0.2667
+    dur: 0.3000
   - transition: {type: cut}
   - id: F8   # install (half beat): hand-tightening
     src: /home/user/media/work/de5/layers/F8.mp4
@@ -81,26 +70,21 @@ timeline:
   - id: F9   # install (half beat): tape
     src: /home/user/media/work/de5/layers/F9.mp4
     in: 0.0
-    dur: 0.3000
+    dur: 0.2667
   - transition: {type: cut}
   - id: F10   # install (half beat): hatch lip
     src: /home/user/media/work/de5/layers/F10.mp4
     in: 0.0
     dur: 0.2667
   - transition: {type: cut}
-  - id: G1   # payoff: real side profile, pan to the GT wing
-    src: /home/user/media/work/de5/layers/G1.mp4
+  - id: D   # configurator 3D view: orbit to the solved camera of the Drive photo _DSF3972
+    src: /home/user/media/work/de5/layers/D.mp4
     in: 0.0
-    dur: 2.1667
-  - transition: {type: cut}
-  - id: G2   # payoff: real rear, wingspan pan
-    src: /home/user/media/work/de5/layers/G2.mp4
+    dur: 4.3667
+  - transition: {type: cut, note: '1:1 configurator -> real, on the drop'}
+  - id: E   # REAL: _DSF3972 (brightened), same window move continues; the video ends here
+    src: /home/user/media/work/de5/layers/E.mp4
     in: 0.0
-    dur: 2.7333
-  - transition: {type: cut}
-  - id: H   # end card: Epsilon+ logo, WING CONFIGURATOR, epsilon.plus
-    src: /home/user/media/work/de5/layers/H.mp4
-    in: 0.0
-    dur: 3.8333
+    dur: 4.3667
 
 overlays: []   # no text over IRL; the site UI carries the copy
