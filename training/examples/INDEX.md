@@ -3,6 +3,7 @@
 Newest first. Read the top two before starting a new edit.
 
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
+- [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [honda-s2000](honda-s2000/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
@@ -28,7 +29,6 @@ Newest first. Read the top two before starting a new edit.
 - [c5-corvette](c5-corvette/) - archived 2026-11-11
 - [porsche-macan](porsche-macan/) - archived 2026-11-12
 - [c5-corvette](c5-corvette/) - archived 2026-11-12
-- [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-11
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)

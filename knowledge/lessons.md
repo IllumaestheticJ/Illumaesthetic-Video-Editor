@@ -866,3 +866,19 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** Cutting a scanned panel for a new CAD part: mask by the new part's own silhouette (grille x-z outline, up to 260 mm
   behind its back face), not a hand-drawn box, and animate in real install order (grille -> lights into grille -> onto cut bumper).
 - **[technical]** `rm -rf` with shell variables in the path is blocked by the safety check - use literal paths or leave cleanup to the user.
+## Lamborghini Revuelto v4 (rear wing, exhaust teardown, new track)
+- **[framing]** "Parts go off screen" (reviewer, v3): measure the edge margin of every final shot over ALL frames
+  (bright-pixel bbox vs frame, see review.md) - a 6-frame sheet passed a side shot whose tail sat at 0 px. Keep >= 20 px.
+- **[animation]** "The bumper clips the tail lights and wing" (reviewer, v3): parts must leave along the direction they
+  unbolt, with a via key that clears the neighbours first. `projects/lamborghini-revuelto/tools/pathcheck.py` samples the
+  paths and reports parts passing through each other; ignore hits within 10 cm of home (seat contact).
+- **[scan]** Scans from a second scanning session (exhaust states, catback, cats) share ONE offset to the car frame: solve
+  it once by ICP of one state against the nearest state of the first session and apply the same transform to all
+  (`tools/xform.py`); per-part ICP of pipes against a car is unreliable.
+- **[story]** Teardown order follows the real job: bumper off -> exhaust tips -> catback -> cats -> bare bay, shown as 1:1
+  state swaps at native 30 fps (no minterpolate over a swap). A removed part gets a wide shot of it leaving, then a close
+  shot of the "removed" state scan.
+- **[music]** A track swap is a new edit, not a re-time: cut the song to whole bars around its drops (splice with a 20 ms
+  crossfade on a downbeat), then give every shot a whole number of bars and put the reassembly lock on the second drop.
+- **[technical]** The image viewer caches by path - write every re-made check image to a new (timestamped) filename.
+  A background waiter that greps a log for a completion string must match what the tool really prints, or it waits forever.
