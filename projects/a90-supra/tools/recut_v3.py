@@ -35,11 +35,11 @@ for z in sys.argv[1:]:
         # panel, the bumper-off scan decides - bumper flank skin is absent there, the quarter panel beyond the seam is present
         e1 = allm["v"][cand, 1] - allm["v"][cand, 0]; e2 = allm["v"][cand, 2] - allm["v"][cand, 0]
         n = np.cross(e1, e2); n /= np.linalg.norm(n, axis=1, keepdims=True) + 1e-9
-        fl = np.flatnonzero((np.abs(n[:, 1]) > 0.6) & (dp[cand] <= 16.0) & ~on)
+        fl = np.flatnonzero((np.abs(n[:, 1]) > 0.6) & (dp[cand] <= 24.0) & ~on)
         lo, hi = c[cand][fl].min(0) - 90, c[cand][fl].max(0) + 90
         sub = sc[np.all((sc > lo) & (sc < hi), axis=1)]
         ds = cKDTree(sub).query(c[cand][fl], distance_upper_bound=80.0, workers=2)[0]
-        add = fl[(ds > 10.0) & np.isfinite(ds)]; on[add] = True
+        add = fl[(ds > 5.0) & np.isfinite(ds)]; on[add] = True
         print(z, "flank skin the bumper-off scan lacks:", len(add), "of", len(fl), flush=True)
     t = cKDTree(c[cand]); n_all = t.query_ball_point(c[cand], 12.0, workers=2, return_length=True)
     n_on = cKDTree(c[cand][on]).query_ball_point(c[cand], 12.0, workers=2, return_length=True)
