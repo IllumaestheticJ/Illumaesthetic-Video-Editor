@@ -11,6 +11,7 @@ shot.json:
   "camera": [ {"t":0, "az":30, "el":8, "dist":7.5, "target":[0,0,0.55], "lens":50}, {"t":1, ...} ],  # az: deg from +X toward +Y... see cam_matrix
   "anims": { "fb": [ {"t":0,"off":[0,0,0]}, {"t":0.6,"off":[0,-1.2,-0.1]} ],
              "hood": [ {"t":0,"deg":0}, {"t":1,"deg":-48}], },
+  "parents": { "li": "fb" },                               # nested part: its keys are relative to the parent's motion
   "hinges": { "hood": {"p":[x,y,z], "axis":[1,0,0]} },     # rotation pivot+axis (m) for "deg" keys
   "visible": { "car_full": [0, 0.5], "apr": [0.5, 1.01] }    # shot-fraction windows; default always visible
 }
@@ -161,25 +162,36 @@ def main():
         cd.keyframe_insert("lens", frame=f)
 
     hinges = spec.get("hinges", {})
-    for name, ks in spec.get("anims", {}).items():
-        piv = objs[name][0]
+    parents = spec.get("parents", {})  # {"li": "fb"}: child keys are in the parent's moving frame (nested parts travel together)
+    anims = spec.get("anims", {})
+
+    def part_matrix(name, t):
+        ks = anims.get(name) or [{"t": 0}]
         h = hinges.get(name)
+        M = Matrix.Translation(Vector(interp(ks, t, "off", [0, 0, 0])))
+        if h:
+            deg = interp(ks, t, "deg", 0)
+            p = Vector(h["p"])
+            R = Matrix.Rotation(math.radians(deg), 4, Vector(h["axis"]).normalized())
+            M = M @ Matrix.Translation(p) @ R @ Matrix.Translation(-p)
+        spin = interp(ks, t, "spin", None)  # [deg, ax, ay, az] about the part's own centre
+        if spin:
+            c = centres[name]
+            R = Matrix.Rotation(math.radians(spin[0]), 4, Vector(spin[1:]).normalized())
+            M = M @ Matrix.Translation(c) @ R @ Matrix.Translation(-c)
+        if name in parents:
+            M = part_matrix(parents[name], t) @ M
+        return M
+
+    centres = {}
+    for name in set(anims) | set(parents.values()):
+        plo, phi = sr.bbox(objs[name][1])
+        centres[name] = (plo + phi) / 2
+    for name in set(anims) | set(parents):
+        piv = objs[name][0]
         for f in range(1, n + 1):
             t = (f - 1) / max(1, n - 1)
-            off = Vector(interp(ks, t, "off", [0, 0, 0]))
-            M = Matrix.Translation(off)
-            if h:
-                deg = interp(ks, t, "deg", 0)
-                p = Vector(h["p"])
-                R = Matrix.Rotation(math.radians(deg), 4, Vector(h["axis"]).normalized())
-                M = M @ Matrix.Translation(p) @ R @ Matrix.Translation(-p)
-            spin = interp(ks, t, "spin", None)  # [deg, ax, ay, az] about the part's own centre
-            if spin:
-                plo, phi = sr.bbox(objs[name][1])
-                c = (plo + phi) / 2
-                R = Matrix.Rotation(math.radians(spin[0]), 4, Vector(spin[1:]).normalized())
-                M = M @ Matrix.Translation(c) @ R @ Matrix.Translation(-c)
-            piv.matrix_world = M
+            piv.matrix_world = part_matrix(name, t)
             piv.keyframe_insert("location", frame=f)
             piv.keyframe_insert("rotation_euler", frame=f)
             piv.keyframe_insert("scale", frame=f)

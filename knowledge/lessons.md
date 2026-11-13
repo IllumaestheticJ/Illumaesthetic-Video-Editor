@@ -889,3 +889,5 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** User rejected a generated track as "slop music" and asked for a real NFSU2 song. YouTube/fan sites can't supply it here:
   ask the user to upload the file, and keep the old renders - re-time by keeping each shot's accent count and lowering `src_fps`.
 - **[text]** ScanHUD `counter` easing settles at ~99.9 % (34,959,222 shown for 34,993,395). Use a static `label` for exact counts.
+
+- **[scan]** Corner markers should not come out until the bumper comes off; nest everything correctly (child parts travel with their parent panel and only separate after the parent is off)  _(from suzuki-cappuccino @ 8s, 2026-11-13, reviewer)_
