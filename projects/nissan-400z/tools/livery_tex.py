@@ -45,3 +45,21 @@ Image.fromarray(w).crop(bb).save(f"{O}/glass.png"); print("glass px", int(keep.s
 # hood decal (mockups hood-sponsor1-whitelogo / reference1): BOMEX + slogan in white, as one block, unmirrored
 hd = Image.new("RGBA", (W, H), (0, 0, 0, 0)); hd.alpha_composite(lay(7)); hd.alpha_composite(lay(6))
 hb = hd.getbbox(); hd = hd.crop(hb); hd.save(f"{O}/hood.png"); print("hood decal px", hd.size)
+
+# windscreen banner (user's photos of the built car: white "KAIDO★HOUSE" across the top of the windscreen). No vector file
+# was supplied, so it is set in Inter Display Black (condensed) with a drawn star - a stand-in for the real decal font.
+from PIL import ImageDraw, ImageFont
+import math, subprocess as _sp
+fp = _sp.run(["fc-list", ":family=Inter Display:style=Black", "file"], capture_output=True, text=True).stdout.split(":")[0]
+fnt = ImageFont.truetype(fp, 220)
+def word(t):
+    bb = fnt.getbbox(t); im = Image.new("RGBA", (bb[2] - bb[0] + 20, bb[3] - bb[1] + 20), (0, 0, 0, 0))
+    ImageDraw.Draw(im).text((10 - bb[0], 10 - bb[1]), t, font=fnt, fill=(250, 250, 250, 255))
+    return im.resize((int(im.width * 0.78), im.height))
+a, b = word("KAIDO"), word("HOUSE"); h = max(a.height, b.height); s = int(h * 0.9)
+star = Image.new("RGBA", (s, s), (0, 0, 0, 0)); r1, r2 = s * 0.48, s * 0.19
+pts = [(s / 2 + (r1 if i % 2 == 0 else r2) * math.sin(i * math.pi / 5), s / 2 - (r1 if i % 2 == 0 else r2) * math.cos(i * math.pi / 5)) for i in range(10)]
+ImageDraw.Draw(star).polygon(pts, fill=(250, 250, 250, 255))
+ban = Image.new("RGBA", (a.width + s + b.width + 20, h), (0, 0, 0, 0))
+ban.alpha_composite(a, (0, 0)); ban.alpha_composite(star, (a.width + 10, (h - s) // 2)); ban.alpha_composite(b, (a.width + s + 20, 0))
+ban.save(f"{O}/banner.png"); print("banner px", ban.size)

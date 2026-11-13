@@ -62,6 +62,8 @@ def sample(keys, t, field):
 
 
 def load_blend(path):
+    if isinstance(path, dict):
+        path = path["blend"]
     with bpy.data.libraries.load(os.path.abspath(path), link=False) as (src, dst):
         dst.objects = list(src.objects)
     meshes = []
@@ -157,6 +159,17 @@ def mat_livery(spec, fps, nframes):
                     math("LESS_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), C[4])))
     glass = math("MAXIMUM", glass, cab)
     col = mix(glass, col, dark)
+    # windscreen banner (KAIDO*HOUSE), projected along Y onto the top band of the windscreen
+    BN = L.get("banner")  # [x centre, width, z bottom, z height, y min, y max]
+    ban_w = None
+    if BN:
+        bu = math("ADD", math("DIVIDE", math("SUBTRACT", X, BN[0]), BN[1]), 0.5)
+        bv = math("DIVIDE", math("SUBTRACT", Z, BN[2]), BN[3])
+        ib = img("banner.png", vec(bu, bv))
+        sel = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Y, BN[4]), math("LESS_THAN", Y, BN[5])),
+                   math("MULTIPLY", math("GREATER_THAN", ny, 0.25), math("LESS_THAN", nx, 0.6)))
+        ban_w = math("MULTIPLY", sel, math("GREATER_THAN", ib.outputs["Alpha"], 0.5))
+        col = mix(ban_w, col, (0.92, 0.92, 0.92, 1))
     wrap = sr.principled(nt, (0.2, 0.2, 0.2, 1), 0.38, 0.0)
     Lk(col, wrap.inputs["Base Color"])
     if "Coat Weight" in wrap.inputs:
@@ -164,6 +177,8 @@ def mat_livery(spec, fps, nframes):
     # glass: low-specular dark (a glossy dark windscreen mirrors the studio top light and reads white)
     gb = N.new("ShaderNodeBsdfDiffuse"); gb.inputs["Color"].default_value = dark  # no Fresnel sheen
     gsel = math("MAXIMUM", glass, math("MULTIPLY", side_w, math("GREATER_THAN", ig.outputs["Alpha"], 0.5)))
+    if ban_w is not None:
+        gsel = math("MULTIPLY", gsel, math("SUBTRACT", 1.0, ban_w))
     wm = N.new("ShaderNodeMixShader"); Lk(gsel, wm.inputs[0]); Lk(wrap.outputs[0], wm.inputs[1]); Lk(gb.outputs[0], wm.inputs[2])
     wrap = wm
     val = N.new("ShaderNodeValue")
@@ -190,10 +205,13 @@ def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     base = []
+    base_objs = []  # (objs, entry) for per-entry material/hide
     for b in spec["base"]:
-        base += load_blend(b)
+        objs = load_blend(b)
+        base += objs
+        base_objs.append((objs, b if isinstance(b, dict) else {}))
     bpy.context.view_layer.update()  # matrix_world is stale right after linking
-    lo, hi = sr.bbox(base)
+    lo, hi = sr.bbox([o for objs, e in base_objs if not e.get("hide") for o in objs] or base)
     fps = spec.get("fps", 15)
     secs = spec.get("seconds", 0)
     nframes = max(1, int(round(secs * fps)))
@@ -205,9 +223,30 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     liv_all = bool(spec.get("livery"))
-    for o in base:
-        o.data.materials.clear()
-        o.data.materials.append(mat_livery(spec, fps, nframes) if liv_all else (grey if spec.get("base_color") == "grey" else silver))
+    base_mat = (lambda: mat_livery(spec, fps, nframes)) if liv_all else (lambda: grey if spec.get("base_color") == "grey" else silver)
+    swap_objs = []
+    for objs, e in base_objs:
+        for o in objs:
+            o.data.materials.clear(); o.data.materials.append(base_mat())
+            if e.get("hide"):
+                o.hide_render = True
+    for sh in spec.get("show", []):  # extra static silver meshes (e.g. the bumper shell alone)
+        for o in load_blend(sh):
+            o.data.materials.clear(); o.data.materials.append(silver); swap_objs.append(o)
+    sw = spec.get("swap")  # hard 1:1 state swap at t: base hidden, swap mesh shown, on a beat (no dissolve)
+    if sw:
+        fcut = max(1, int(round(sw["t"] * fps)) + 1)
+        swobjs = load_blend(sw["blend"])
+        for o in swobjs:
+            o.data.materials.clear(); o.data.materials.append(base_mat())
+            o.hide_render = True
+            o.keyframe_insert("hide_render", frame=1)
+            o.hide_render = False; o.keyframe_insert("hide_render", frame=fcut)
+        for objs, e in base_objs:
+            if e.get("swapout", True) and not e.get("hide"):
+                for o in objs:
+                    o.hide_render = False; o.keyframe_insert("hide_render", frame=1)
+                    o.hide_render = True; o.keyframe_insert("hide_render", frame=fcut)
 
     colors = {"red": (0.9, 0.05, 0.03), "cyan": (0.0, 0.7, 1.0), "green": (0.1, 0.9, 0.1),
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
