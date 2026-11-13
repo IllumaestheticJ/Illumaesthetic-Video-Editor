@@ -209,5 +209,16 @@ def main_v9(out):
     main_v6(out)
 
 
+# v10 (user: may run longer than 30 s for pacing): music = track_a_v10.wav (stop n56 = 36.68 s); with the extra room the
+# fuller enthusiast script is used (the 31.8 s one-take draft that did not fit v9): adds the 5.2 l, port + direct injection
+# and the 8,000 rpm peak. Untrimmed, no tempo/pitch change; speech 3.2 -> 34.6 s.
+def main_v10(out):
+    global GAP_KEEP
+    GAP_KEEP = 9.0
+    V5["MUSIC"] = "/home/user/media/huracan-evo/music/track_a_v10.wav"
+    V6.update(VO="/home/user/media/huracan-evo/vo/narration13_r12.wav", LAST=36.2)
+    main_v6(out)
+
+
 if __name__ == "__main__":
-    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9, "--v10": main_v10}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])

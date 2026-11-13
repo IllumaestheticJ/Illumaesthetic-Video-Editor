@@ -2,26 +2,71 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 900,
+ "durationInFrames": 1192,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "label",
-   "from": 493,
-   "duration": 30,
-   "title": "REAR END, NO BUMPER",
+   "from": 409,
+   "duration": 54,
+   "title": "FRONT BUMPER",
    "sub": " ",
    "x": 0.06,
-   "y": 0.8
+   "y": 0.88
   },
   {
    "kind": "label",
-   "from": 571,
-   "duration": 40,
+   "from": 481,
+   "duration": 54,
+   "title": "HOOD + COWLS",
+   "sub": " ",
+   "x": 0.06,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 553,
+   "duration": 54,
+   "title": "FENDER + SIDE SKIRT",
+   "sub": " ",
+   "x": 0.06,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 625,
+   "duration": 72,
+   "title": "REAR BUMPER",
+   "sub": " ",
+   "x": 0.06,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 715,
+   "duration": 54,
+   "title": "DECKLID + GRILLE",
+   "sub": " ",
+   "x": 0.06,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 787,
+   "duration": 72,
    "title": "EVO EXHAUST",
    "sub": " ",
    "x": 0.06,
-   "y": 0.8
+   "y": 0.74
+  },
+  {
+   "kind": "label",
+   "from": 877,
+   "duration": 54,
+   "title": "REAR WHEEL WELL",
+   "sub": " ",
+   "x": 0.06,
+   "y": 0.07
   }
  ]
 }

@@ -336,7 +336,7 @@ if __name__ == "__main__":
 # Parts (2023 coupe set, all prepped --like coupe2.json): c_rearbase = 'Rear End (No Bumper)' minus the moving panels;
 # c_bumper = coupe surface the no-bumper scan lacks (plate already removed); decklid / upper grille / support beam scans;
 # c_exhaust = standalone 'EVO exhaust' scan registered into the car frame (tools/exhaust_place.py, 4.7 mm median).
-CP = {"base": B + "c_rearbase.blend", "wh": B + "c_wheels.blend", "rb": B + "c_bumper3.blend",   # v8: bumper = skin inside the scanned B-side envelope + B-side scan; wheels stay on the car
+CP = {"base": B + "c_rearbase.blend", "wh": B + "c_wheels.blend", "rb": B + "c_bumper4.blend",   # v10: + smoothed blank plate (was a hole)   # v8: bumper = skin inside the scanned B-side envelope + B-side scan; wheels stay on the car
       "dk": B + "c_decklid.blend", "gr": B + "c_grille.blend",
       "bm": B + "c_beam.blend", "ex": B + "c_exhaust.blend"}
 CKEYS = ["rb", "dk", "gr", "bm", "ex"]
@@ -389,7 +389,7 @@ V7_SHOTS = [
                         dict(t=0.6, az=-148, el=18, dist=5.6, target=[0, 1.2, 0.58], lens=45),
                         dict(t=1, az=-142, el=12, dist=8.6, target=[0, 0.0, 0.55], lens=45)],
           moves2(C3, C0, {"ex": (0.0, 0.25), "bm": (0.15, 0.40), "gr": (0.20, 0.45), "dk": (0.25, 0.50), "rb": (0.35, 0.65)}),
-          objects=dict(CP, clean=B + "coupe2_npc.blend"),
+          objects=dict(CP, clean=B + "coupe2_fp.blend"),   # v10: full car with the plate region smoothed blank instead of cut out
           extra={"visible": dict({k: [0, 0.72] for k in ["base", "wh", *CKEYS]}, clean=[0.72, 1.01])}),
 ]
 
