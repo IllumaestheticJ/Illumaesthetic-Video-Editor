@@ -374,7 +374,7 @@ def decode_cmd(e, start_f, n):
         vf.append("scale=1920:1080:flags=lanczos")
     vf += ["format=rgb48le", f"lut3d=file={al.LUT}:interp=tetrahedral", "format=rgb24"]
     return ["ffmpeg", "-v", "error", "-threads", "2"] + pre + ["-ss", f"{max(0, (start_f - 0.5) / FPS):.4f}", "-i", src,
-                                                            "-frames:v", str(n), "-vf", ",".join(vf), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
+                                                            "-frames:v", str(n), "-fps_mode", "passthrough", "-vf", ",".join(vf), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
 
 
 def irl_frames(e):
@@ -808,8 +808,41 @@ def master():
     log("wrote", OUT / "is350_long_v2_clean.mp4")
 
 
+def composite(evs):
+    """STAGE B: HUD_v2 (0,0) + cue clips + black cards + captions band (360,880) over the clean picture -> is350_long_v2.mp4"""
+    G = W / "gfx/v2"
+    by = {e["id"]: e for e in evs}
+    props = json.load(open(P / "gfx_v2_cues_props.json"))
+    tied = {"G05a_v2": "C_03", "G05b_v2": "C_07", "G15_v2": "END", "FX_GLITCH_C02": "C_02"}
+    layers = [("HUD_v2.mov", 0, 0, 0)]
+    for c in props:
+        f0 = by[tied[c["cue"]]]["in_f"] if c["cue"] in tied else F(c["in"])
+        layers.append((c["file"], f0, 0, 0))
+    layers.append(("CAPTIONS_v2.mov", 0, 360, 880))
+    inputs = ["-i", str(B2 / "picture_clean.mp4")]
+    fc = []
+    cur = "0:v"
+    for k, (fname, f0, x, y) in enumerate(layers, start=1):
+        inputs += ["-i", str(G / fname)]
+        fc.append(f"[{k}:v]setpts=PTS+{f0}/(24000/1001)/TB[l{k}]")
+        fc.append(f"[{cur}][l{k}]overlay={x}:{y}:eof_action=pass:format=auto[v{k}]")
+        cur = f"v{k}"
+    fc.append(f"[{cur}]format=yuv420p[vout]")
+    mix = OUT / "is350_long_v2_mix.wav"
+    tmp = OUT / "is350_long_v2.tmp.mp4"
+    subprocess.run(NICE + ["ffmpeg", "-v", "error", "-y"] + inputs + ["-i", str(mix), "-filter_complex", ";".join(fc),
+                           "-map", "[vout]", "-map", f"{len(layers) + 1}:a", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
+                           "-threads", "3", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
+                           "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-frames:v", str(evs[-1]["out_f"]),
+                           "-movflags", "+faststart", str(tmp)], check=True)
+    os.replace(tmp, OUT / "is350_long_v2.mp4")
+    import shutil
+    shutil.copy(P / "captions_v2.srt", OUT / "captions_v2.srt")
+    log("wrote", OUT / "is350_long_v2.mp4", "layers:", [(l[0], l[1]) for l in layers])
+
+
 def main(argv):
-    stages = [a for a in argv if not a.startswith("--") and not a.endswith(".json")] or ["plan", "video", "audio", "master"]
+    stages = [a for a in argv if not a.startswith("--") and not a.endswith(".json")] or ["plan", "video", "audio", "master", "composite"]
     B2.mkdir(parents=True, exist_ok=True)
     evs, A = plan()
     if "video" in stages:
@@ -818,6 +851,8 @@ def main(argv):
         audio(evs, A)
     if "master" in stages:
         master()
+    if "composite" in stages:
+        composite(evs)
 
 
 if __name__ == "__main__":

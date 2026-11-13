@@ -2154,7 +2154,7 @@
     "visible": false
    },
    "gfx": [],
-   "scan_status": "black"
+   "scan_status": "final"
   },
   {
    "id": "MREAR_A",
@@ -2256,7 +2256,7 @@
     "visible": false
    },
    "gfx": [],
-   "scan_status": "black"
+   "scan_status": "final"
   },
   {
    "id": "MFRONT_A",

@@ -1,5 +1,5 @@
 {
- "seg_version": 1,
+ "seg_version": 2,
  "x264_preset": "faster",
  "drop_events": [
   "CO_02",
@@ -253,5 +253,6 @@
     "scan": 4.0
    }
   ]
- }
+ },
+ "seg_version_why": "v2: decode with -fps_mode passthrough; the default CFR output duplicated the first frame after an input seek, so every IRL segment ran one frame late and match cuts ended on solved-1 (measured on MFRONT_A)"
 }
