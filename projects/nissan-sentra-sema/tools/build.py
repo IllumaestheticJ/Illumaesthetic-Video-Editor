@@ -156,6 +156,13 @@ def seg_timelapse():
     print('c3_timelapse 57 frames, last = src frame', idx[-1])
 
 
+def seg_timelapse2():
+    """Stock red car being sprayed for scanning (rear tripod timelapse), source frames 10-280 in 28 frames."""
+    idx = np.round(np.linspace(10, 280, 28)).astype(int); sel = '+'.join(f'eq(n\\,{i})' for i in idx)
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{D}/dropbox/may11_1135.mov', '-vf', f"select='{sel}',setpts=N/{FPS}/TB,scale={WD}:{HT}", '-frames:v', '28'] + ENC + [f'{SEG}/c1_spray.mp4'], check=True)
+    print('c1_spray 28 frames')
+
+
 def seg_end():
     logo = Image.open(f'{D}/drive/IllumaestheticLogoColor-01.png').convert('RGBA'); lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
     def gen():
@@ -192,7 +199,7 @@ def seg_barrage1():
     """Real article screenshots (tools/capture.js) alternating with outlet posts from the Instagram recording, one per kick."""
     cuts = [45, 55, 59, 69, 73, 83, 87, 97, 113, 129, 141, 153, 158]
     items = ['carscoops', ('ig', 138.5), 'topgear_ph', 'motorweek', ('ig', 188.5), 'tflcar', 'motoringresearch', ('ig', 178.5),
-             'motorillustrated', ('ig', 173.5), ('ig', 193.5), ('ig', 168.5)]
+             'motorillustrated', ('ig', 173.5), ('ig', 148.5), ('ig', 168.5)]
     def gen():
         for i, it in enumerate(items):
             n = cuts[i + 1] - cuts[i]
@@ -270,8 +277,8 @@ S = D + '/dropbox/'
 SEGS = {
     'a_hook': lambda: clip('a_hook', S + 'IMG_3233.mov', 0.2, 45),
     'b_barrage1': seg_barrage1,
-    'c1_badge': lambda: clip('c1_badge', S + 'IMG_3231.mov', 0.3, 28),
-    'c2_front': lambda: clip('c2_front', S + 'IMG_3229.mov', 4.3, 27),
+    'c1_spray': lambda: seg_timelapse2(),          # v3: scan day replaces the two SEMA shots (user: "out of place")
+    'c2_scanner': lambda: clip('c2_scanner', S + 'may11_1145.mov', 7.0, 27, hdr=False),
     'c3_timelapse': seg_timelapse,
     'd1_scan': seg_scan1,
     'e_concepts': seg_concepts,
@@ -287,7 +294,7 @@ if __name__ == '__main__':
     for k in ([a for a in sys.argv[1:] if a != 'mux'] or ([] if 'mux' in sys.argv else list(SEGS))): SEGS[k]()
     if not sys.argv[1:] or 'mux' in sys.argv:
         lst = SEG + '/list.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in SEGS))
-        out = W + '/out/sentra_sema_30s_v2.mp4'
+        out = W + '/out/sentra_sema_30s_v3.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-ss', str(MUSIC_START), '-i', MUSIC,
                         '-filter_complex', '[1:a]afade=t=in:d=0.03,afade=t=out:st=29.3:d=0.7[a]', '-map', '0:v', '-map', '[a]',
                         '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', '30', '-movflags', '+faststart', out], check=True)
