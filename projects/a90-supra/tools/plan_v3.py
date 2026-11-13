@@ -23,6 +23,7 @@ BAR, HB = 4 * BEAT, BEAT / 2
 TRACK0 = 13.912                # excerpt start in the track (s): kick attack of riff bar 2
 F = [int(round(k * BAR * 30)) for k in range(21)]   # reel frame of each bar line
 LIGHT = [[-2.19, -1.015, 0.0], [2.19, 1.015, 1.174]]  # light rig pinned to the car bbox in every shot
+LOOK, EXPOSURE = "AgX - Medium High Contrast", -0.7   # v3 grade: flat white washed the scan detail out at exposure 0
 SHOTS = {}
 
 
@@ -32,7 +33,7 @@ class Shot:
         self.n = F[bar - 1 + bars] - F[bar - 1]          # reel frames
         self.m = self.n if fps == 30 else self.n // 2 + 3  # rendered frames
         self.spec = dict(_bar=bar, _reel_frames=[F[bar - 1], F[bar - 1 + bars]], fps=fps, seconds=self.m / fps,
-                         ease="linear", light_bbox=LIGHT, objects=[], cam=[], **{"lens": 35, **kw})
+                         ease="linear", light_bbox=LIGHT, objects=[], cam=[], **{"lens": 35, "look": LOOK, "exposure": EXPOSURE, **kw})
         SHOTS[name] = self
 
     def t(self, hb):
@@ -187,7 +188,8 @@ mech(s, "FR", lambda v: kin.front(rack=v), [(0, 0), (1.2, -45), (2.5, 35), (3.3,
     "caliper": ([(0, dict()), (4.8, dict()), (5.3, dict(loc=[-0.07, 0, 0.06], ease="ease_out")),
                  (6.1, dict(loc=add([-0.07, 0, 0.06], out(FAX, 0.55)))), (8.1, dict(loc=add([-0.07, 0, 0.06], out(FAX, 0.55))))], {}),
     "rotor": ([(0, dict()), (6.2, dict()), (7.5, dict(loc=out(FAX, 0.33))), (8.1, dict(loc=out(FAX, 0.33)))], {})})
-s.cam((0, dict(az=-50, dist=2.3, z=1.5, look=[1.2, -1.15, 0.30])), (8.1, dict(az=-50, dist=2.1, z=1.5, look=[1.2, -1.15, 0.30])))
+s.cam((0, dict(az=-52, dist=1.75, z=1.05, look=[1.22, -0.95, 0.28])), (3.3, dict(az=-52, dist=1.7, z=1.05, look=[1.22, -1.0, 0.26])),
+      (8.1, dict(az=-46, dist=1.9, z=1.15, look=[1.22, -1.25, 0.24])))
 
 # ---------------------------------------------------------------- s09 bump / droop travel, then dust shield and hub bearing off
 s = Shot("s09_fc_strut", 9, 30)
@@ -196,7 +198,7 @@ mech(s, "FR", lambda v: kin.front(travel=v), [(0, 0), (1.1, 38), (2.7, -76), (3.
     "dust_shield": ([(0, dict()), (4.2, dict()), (5.3, dict(loc=out(FAX, 0.30), ease="ease_out")), (8.1, dict(loc=out(FAX, 0.30)))], {}),
     "bearing": ([(0, dict()), (5.6, dict()), (6.8, dict(loc=out(FAX, 0.15), ease="ease_out")), (8.1, dict(loc=out(FAX, 0.15)))], {})},
      hidden=("wheel", "rotor", "caliper"))
-s.cam((0, dict(az=-75, dist=1.25, z=0.60, look=[1.2, -0.80, 0.42])), (8.1, dict(az=-68, dist=1.05, z=0.60, look=[1.2, -0.80, 0.42])))
+s.cam((0, dict(az=-78, dist=1.05, z=0.50, look=[1.22, -0.80, 0.36])), (8.1, dict(az=-66, dist=0.95, z=0.50, look=[1.22, -0.85, 0.34])))
 
 # ---------------------------------------------------------------- s10 fender section
 OFF_SIDE0 = ("fbump",)
@@ -217,7 +219,7 @@ s.cam((0, dict(az=-104, dist=2.5, z=0.50, look=[-0.10, -0.90, 0.28])), (8.1, dic
 OFF_SIDE = ("fbump", "fender", "dtrim", "uskirt", "lskirt")
 
 # ---------------------------------------------------------------- s12 interior x-ray (two layers, one camera) / s13 console
-XCAM = ((0, dict(pos=[-1.25, 0, 3.6], look=[-0.55, 0, 0.5], up=[1, 0, 0])), (8.6, dict(pos=[-0.75, 0, 2.75], look=[-0.30, 0, 0.5], up=[1, 0, 0])))
+XCAM = ((0, dict(pos=[-1.25, 0, 3.05], look=[-0.62, 0, 0.5], up=[1, 0, 0])), (8.6, dict(pos=[-0.75, 0, 2.45], look=[-0.35, 0, 0.5], up=[1, 0, 0])))
 s = Shot("s12a_shell", 12, 15)           # layer a: only the first frames are rendered (crossfade ends on hb2)
 home(s, off=OFF_SIDE); corners(s, fr_off=FR_OFF); s.obj("interior"); s.obj("console"); s.cam(*XCAM)
 s.spec["_render_frames"] = "1-8"
@@ -242,20 +244,21 @@ mech(s, "RR", lambda v: kin.rear(travel=v), [(3.8, 0), (4.8, 45), (6.3, -75), (7
 for o in s.spec["objects"]:      # parts already off the hub must not ride the suspension travel
     if o["blend"].split("/")[-1] in ("k_RR_wheel.blend", "k_RR_caliper.blend", "k_RR_rotor.blend"):
         o.pop("mats", None)
-s.cam((0, dict(az=-125, dist=2.3, z=1.5, look=[-1.25, -1.10, 0.30])), (8.1, dict(az=-118, dist=1.9, z=1.2, look=[-1.25, -1.10, 0.30])))
+s.cam((0, dict(az=-128, dist=1.8, z=1.05, look=[-1.24, -0.95, 0.26])), (3.7, dict(az=-126, dist=1.85, z=1.0, look=[-1.24, -1.2, 0.24])),
+      (8.1, dict(az=-112, dist=1.35, z=0.62, look=[-1.26, -0.95, 0.24])))
 
 # ---------------------------------------------------------------- s15 rear bumper off / s16 what it hid
 RB_PIV = BB["part_rbump"]["c"]
 RB_PARK, RB_ROT = [-1.05, 0, -0.55], [0, -105, 0]
 OFF_ALL = OFF_SIDE + ("rbump",)
 s = Shot("s15_rb_off", 15, 30)
-home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF)
+home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 s.obj("part_rbump", pivot=RB_PIV, keys=[(0, dict(loc=[0, 0, 0])), (2, dict(loc=[-0.45, 0, 0], ease="ease_out")),
                                         (3.5, dict(loc=[-0.75, 0, -0.10], rot=[0, -35, 0], ease="linear")),
                                         (5, dict(loc=RB_PARK, rot=RB_ROT, ease="ease_out")), (8.1, dict(loc=RB_PARK, rot=RB_ROT))])
 s.cam((0, dict(az=-162, dist=2.45, z=1.7, look=[-2.25, 0, 0.12])), (8.1, dict(az=-162, dist=2.1, z=1.5, look=[-2.6, 0, -0.15])))
 s = Shot("s16_rb_beam", 16, 15)
-home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF)
+home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 s.cam((0, dict(az=-155, dist=1.25, z=0.62, look=[-2.0, -0.45, 0.40])), (8.6, dict(az=-185, dist=1.0, z=0.62, look=[-2.0, 0.25, 0.36])))
 
 # ---------------------------------------------------------------- s17 line-up / s18 reassembly / s19 clean car
@@ -273,22 +276,22 @@ LINE = {  # part: (pivot or None, loc, rot)
 SEAT = {"k_FR_bearing": 1.5, "k_FR_dust_shield": 2.2, "k_FR_rotor": 3, "k_RR_rotor": 3, "k_FR_caliper": 4, "k_RR_caliper": 4,
         "k_FR_wheel": 5, "k_RR_wheel": 5, "part_fender": 6, "part_dtrim": 6, "part_uskirt": 6, "part_lskirt": 6.5, "part_rbump": 7, "part_fbump": 8}
 s = Shot("s17_lineup", 17, 15, lens=31)
-home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF)
+home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 for n, (piv, loc, rot) in LINE.items():
     kw = dict(pivot=piv) if piv else {}
     s.obj(n, keys=[(0, dict(loc=loc, rot=rot)), (8.6, dict(loc=loc, rot=rot))], **kw)
-s.cam((0, dict(pos=[-1.2, -0.55, 8.6], look=[0.0, -0.55, 0.3], up=[1, 0, 0])), (8.6, dict(pos=[-1.1, -0.55, 8.1], look=[0.0, -0.55, 0.3], up=[1, 0, 0])))
+s.cam((0, dict(pos=[-0.5, -0.55, 3.75], look=[0.0, -0.55, 0.3], up=[1, 0, 0])), (8.6, dict(pos=[-0.45, -0.55, 3.55], look=[0.0, -0.55, 0.3], up=[1, 0, 0])))
 s = Shot("s18_reasm", 18, 30)
-home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF)
+home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 for n, (piv, loc, rot) in LINE.items():
     kw = dict(pivot=piv) if piv else {}
     h = SEAT[n]
     s.obj(n, keys=[(0, dict(loc=loc, rot=rot)), (max(0, h - 2.2), dict(loc=loc, rot=rot)), (h, dict(loc=[0, 0, 0], rot=[0, 0, 0], ease="ease_in")),
                    (8.1, dict(loc=[0, 0, 0], rot=[0, 0, 0]))], **kw)
-s.cam((0, dict(az=-55, dist=7.0, z=3.0, look=[0.2, 0, 0.45])), (8.1, dict(az=-55, dist=6.2, z=2.3, look=[0.2, 0, 0.45])))
+s.cam((0, dict(az=-55, dist=6.6, z=3.0, look=[0.2, -0.3, 0.40])), (8.1, dict(az=-55, dist=5.2, z=2.3, look=[0.2, 0, 0.45])))
 s = Shot("s19_clean", 19, 15)
 home(s); corners(s)
-s.cam((0, dict(az=-55, dist=6.2, z=2.3, look=[0.2, 0, 0.45])), (8.6, dict(az=-58, dist=5.6, z=1.9, look=[0.2, 0, 0.45])))
+s.cam((0, dict(az=-55, dist=5.2, z=2.3, look=[0.2, 0, 0.45])), (8.6, dict(az=-58, dist=4.7, z=1.9, look=[0.2, 0, 0.45])))
 
 
 if __name__ == "__main__":

@@ -133,6 +133,12 @@
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/interior.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/console.blend"
   }
  ],
  "cam": [
@@ -159,5 +165,7 @@
    ]
   }
  ],
- "lens": 35
+ "lens": 35,
+ "look": "AgX - Medium High Contrast",
+ "exposure": -0.7
 }

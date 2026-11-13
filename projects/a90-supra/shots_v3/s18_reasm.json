@@ -135,6 +135,12 @@
    "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
   },
   {
+   "blend": "/home/user/media/work/a90/blend3/interior.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/console.blend"
+  },
+  {
    "blend": "/home/user/media/work/a90/blend3/part_fbump.blend",
    "pivot": [
     1.7662,
@@ -961,18 +967,18 @@
   {
    "t": 0.0,
    "az": -55,
-   "dist": 7.0,
+   "dist": 6.6,
    "z": 3.0,
    "look": [
     0.2,
-    0,
-    0.45
+    -0.3,
+    0.4
    ]
   },
   {
    "t": 1.0,
    "az": -55,
-   "dist": 6.2,
+   "dist": 5.2,
    "z": 2.3,
    "look": [
     0.2,
@@ -981,5 +987,7 @@
    ]
   }
  ],
- "lens": 35
+ "lens": 35,
+ "look": "AgX - Medium High Contrast",
+ "exposure": -0.7
 }

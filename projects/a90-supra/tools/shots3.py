@@ -394,6 +394,12 @@ def main():
         sc.world.color = (0, 0, 0)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
+    if spec.get("look"):                       # v3: more contrast so scan detail reads (same silver material)
+        try:
+            sc.view_settings.look = spec["look"]
+        except TypeError:
+            print("IVE_WARN look not available:", spec["look"])
+    sc.view_settings.exposure = spec.get("exposure", 0.0)
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGB"
 
