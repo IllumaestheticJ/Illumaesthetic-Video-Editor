@@ -62,13 +62,14 @@ export const calculateMobileCtaMetadata: CalculateMetadataFunction<MobileCTAProp
   width: props.width,
   height: props.height,
   fps: props.fps,
-  durationInFrames: props.durationInFrames,
+  durationInFrames: Math.round(props.durationInFrames * (props.fps / 30)),
 });
 
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
 
 export const MobileCTA: React.FC<MobileCTAProps> = (p) => {
-  const f = useCurrentFrame();
+  // every frame prop is on a 30 fps grid; at fps 60 each output frame is a half step (true 60 fps, same timing)
+  const f = useCurrentFrame() / (p.fps / 30);
   const page0 = p.width / p.pageW; // screenshot px -> video px when the page fills the frame
   // photo display scale in the slot at rest (object-fit: cover by width)
   const ph0 = p.photos[p.start];

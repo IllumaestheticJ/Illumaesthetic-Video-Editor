@@ -44,6 +44,29 @@ PAINT_V8 = {
 BODY_MAT, LOOK, EXPOSURE = [0.45, 0.0, 0.3], "AgX - Punchy", -1.7
 
 
+# v9 (user: "make the car colors less saturated, more pastel colors (except the ferrari red)"): same hues, lifted toward
+# white; the body red and the exposure/look stay. Also "true 60 FPS": rendered at 60 fps natively (no minterpolate).
+PAINT_V9 = dict(PAINT_V8, **{
+    "x_hood": (0.95, 0.85, 0.28),      # butter
+    "x_fbumper": (0.95, 0.40, 0.70),   # pastel pink
+    "x_wheel": (0.32, 0.46, 0.98),     # periwinkle
+    "x_fender": (0.98, 0.55, 0.28),    # apricot
+    "x_skirt": (0.28, 0.80, 0.82),     # pastel teal
+    "x_rbumper": (0.85, 0.85, 0.88),   # pearl
+    "x_diffuser": (0.62, 0.44, 0.98),  # lavender
+    "x_ecover": (0.45, 0.70, 0.95),    # baby blue
+    "x_eglass": (0.45, 0.70, 0.95),
+    "x_etrim_c": (0.65, 0.88, 0.40),   # pistachio
+    "x_etrim_l": (0.65, 0.88, 0.40),
+    "x_etrim_r": (0.65, 0.88, 0.40),
+    "x_exhaust": (0.40, 0.80, 0.55),   # mint
+})
+FPS_V9 = 60
+# f5_front plays x1.0527 faster than rendered (hood k9 / bumper k13 / turn k17 on the kicks). Resampling 60 fps renders at
+# 63.162 drops 1 frame in 19 (judder, lessons) -> sample scene time at 63.162 steps/s and play the frames at exactly 60.
+FPS_V9_SHOT = {"f5_front": 63.162}
+
+
 def _home(k):
     return not any(abs(v) > 1e-6 for v in list(k["loc"]) + list(k["rot"]))
 
@@ -58,9 +81,11 @@ def reveal(keys):
     return None
 
 
-if __name__ == "__main__" and len(sys.argv) > 3 and sys.argv[3] == "v8":
+if __name__ == "__main__" and len(sys.argv) > 3 and sys.argv[3] in ("v8", "v9"):
     s = json.load(open(sys.argv[1]))
-    s["paint"] = {k: list(v) for k, v in PAINT_V8.items()}
+    s["paint"] = {k: list(v) for k, v in (PAINT_V9 if sys.argv[3] == "v9" else PAINT_V8).items()}
+    if sys.argv[3] == "v9":
+        s["fps"] = FPS_V9_SHOT.get(sys.argv[2].rstrip("/").rsplit("/", 1)[-1], FPS_V9)
     s["paint"]["reveal"] = {}
     for p in s.get("parts", []):
         stem = p["blend"].rsplit("/", 1)[-1].rsplit(".", 1)[0]
@@ -69,7 +94,7 @@ if __name__ == "__main__" and len(sys.argv) > 3 and sys.argv[3] == "v8":
             s["paint"]["reveal"][stem] = r
     s["paint_mat"], s["look"], s["exposure"] = {"base": BODY_MAT}, LOOK, EXPOSURE
     s["out"] = sys.argv[2]
-    p = sys.argv[1].replace(".json", "_v8.json")
+    p = sys.argv[1].replace(".json", f"_{sys.argv[3]}.json")
     json.dump(s, open(p, "w"), indent=1)
     print(p, s["paint"]["reveal"])
     sys.exit()

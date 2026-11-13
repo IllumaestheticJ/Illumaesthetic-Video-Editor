@@ -25,7 +25,8 @@ def K(i):
     return round(_KK.get(i, KJ["t0"] + i * KJ["period"]), 4)
 
 
-BASE = [f"{P}/comp_v8b.blend"]  # comp_v5 (comp_explode minus FR wheel + arch fill) minus engine-bay trims + engine glass lid (v8, trim_off.py)
+BASE = [f"{P}/comp_v9.blend"]  # v9: + fender skin cut, chassis-side body filled from Front Fully Removed (fender_off.py)
+_BASE_V8 = [f"{P}/comp_v8b.blend"]  # comp_v5 (comp_explode minus FR wheel + arch fill) minus engine-bay trims + engine glass lid (v8, trim_off.py)
 HOOD_OPEN = (Z3, (-58, 0, 0))  # f5_front opens the hood on its hinge (scanned propped-open state)
 SPREAD, HOME_A, HOME_B = 1.05, K(69), K(71)  # slow drift x1.05 after the blast, fly home 69 -> LOCK on 71
 

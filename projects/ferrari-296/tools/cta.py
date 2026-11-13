@@ -36,7 +36,8 @@ def props():
     swipes = [{"at": t - 7, "to": to, "dur": 7} for t, to, _ in sw]
     pages = ([{"src": "f296_mpage_d1.png", "from": 0}] + [{"src": f"f296_opt_{o}.png", "from": t - 7} for t, _, o in sw]
              + [{"src": "f296_opt_7.png", "from": kf(86)}])  # All Data
-    return {"width": 1080, "height": 1920, "fps": 30, "durationInFrames": 184, "pageW": 1179, "pages": pages,
+    # v9: "fps": 60 renders true 60 fps; every frame value here stays on the 30 fps grid (MobileCTA scales the clock)
+    return {"width": 1080, "height": 1920, "fps": 60, "durationInFrames": 184, "pageW": 1179, "pages": pages,
             "slot": {"x": 147.37, "y": 177, "w": 884.25, "h": 585.57, "pitch": 896.25}, "photos": photos, "start": 0,
             "startScale": START_SCALE, "hold": 6, "zoomEnd": kf(79), "swipes": swipes, "ctaAt": kf(86), "urlAt": kf(87),
             "drift": 0.02, "ctaBand": 175,

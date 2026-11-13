@@ -84,7 +84,7 @@ export const calculateScanHudMetadata: CalculateMetadataFunction<ScanHUDProps> =
   width: props.width,
   height: props.height,
   fps: props.fps,
-  durationInFrames: props.durationInFrames,
+  durationInFrames: Math.round(props.durationInFrames * (props.fps / 30)),  // authored on a 30 fps grid
   defaultCodec: "prores",
   defaultVideoImageFormat: "png",
   defaultPixelFormat: "yuva444p10le",
@@ -95,8 +95,11 @@ const MONO = "'JetBrains Mono', 'DejaVu Sans Mono', monospace";
 const SANS = "'Inter Display', 'Inter', sans-serif";
 
 /** Fade/slide in over 8 frames, out over 6. */
+// Items are authored on a 30 fps grid; at fps 60 every frame is a half step (true 60 fps, same timing).
+const useT = () => useVideoConfig().fps / 30;
+
 const useInOut = (duration: number) => {
-  const f = useCurrentFrame();
+  const f = useCurrentFrame() / useT();
   const fin = interpolate(f, [0, 8], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   const fout = interpolate(f, [duration - 6, duration], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
   return { f, k: Math.min(fin, fout), slide: (1 - fin) * 18 };
@@ -211,10 +214,11 @@ const Title: React.FC<{ item: Extract<HudItem, { kind: "title" }>; accent: strin
 };
 
 export const ScanHUD: React.FC<ScanHUDProps> = ({ items, accent }) => {
+  const T = useT();
   return (
     <AbsoluteFill>
       {items.map((item, i) => (
-        <Sequence key={i} from={item.from} durationInFrames={item.duration} layout="none">
+        <Sequence key={i} from={Math.round(item.from * T)} durationInFrames={Math.round(item.duration * T)} layout="none">
           {item.kind === "label" ? <Label item={item} accent={accent} /> : null}
           {item.kind === "counter" ? <Counter item={item} accent={accent} /> : null}
           {item.kind === "brackets" ? <Brackets item={item} accent={accent} /> : null}
