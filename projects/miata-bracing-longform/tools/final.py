@@ -109,7 +109,7 @@ for tt, d, (k, a, c, sec, pic, nar) in rows:                              # befo
         if not os.path.exists(f'{M}/work/gag.wav'): subprocess.run([sys.executable, f'{HERE}/mapgag.py', M, str(int(round(d*FPS))), f'{M}/work/fr/gag_sheet.jpg'], check=True)
         g = wave.open(f'{M}/work/gag.wav'); x = np.frombuffer(g.readframes(g.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768; x = x[:n]; mix[p:p+len(x)] = x; continue
     x = o[int(round(a*SR)):int(round(a*SR)) + n].copy(); e = 240
-    if a > 0 and abs(a - 94.59) < 1e-6: x[:e] *= np.linspace(0, 1, e)[:, None]             # the two edges the gag creates
+    if a > 0 and abs(a - 94.68) < 1e-6: x[:e] *= np.linspace(0, 1, e)[:, None]             # the two edges the gag creates
     if abs(c - 94.469) < 1e-6: x[-e:] *= np.linspace(1, 0, e)[:, None]
     mix[p:p+len(x)] = x
 mix[n0:n0+xf] *= np.linspace(1, 0, xf)[:, None]
@@ -126,6 +126,7 @@ def track(name):
 TR = {k: track(k) for k in ('2am', 'time_stand_still', 'cosmic_countdown', 'dark_summer_night')}; LEN = {k: len(v)/SR for k, v in TR.items()}
 def want(k, a, sec):
     if sec.startswith('1.'): return '2am', 92.3 + (184.27 - 180.0)          # carries the whole control section, as in the rough cut
+    if k == 'card' and a.startswith('title'): return 'dark_summer_night', None      # v9: the card bed carries through the title; the section track eases in under the footage
     if k == 'card' and a.startswith('title'): return {'title_fender': ('time_stand_still', 135.6 - 2.8), 'title_strut': ('cosmic_countdown', 95.9 - 2.8), 'title_both': ('time_stand_still', 157.3 - 2.8)}[a]
     if k != 'src': return 'dark_summer_night', None
     if 240 <= a < 275: return 'cosmic_countdown', 87.9 + (a - 240.0)
@@ -155,6 +156,8 @@ for i, (t0, name, pos) in enumerate(plan):
     if len(x) > xf: x[-xf:] *= np.cos(np.linspace(0, np.pi/2, xf))[:, None]
     p = int((t0 - t_new)*SR); x = x[:len(bed)-p]; bed[p:p+len(x)] += x
     print('  music %s  %-18s from %5.1f s' % (b.tc(t0), name, pos))
+_h = SR//2; _n = len(bed)//_h; _e = 10*np.log10((bed[:_n*_h].reshape(_n, _h, 2)**2).mean((1, 2)) + 1e-12); _e = np.convolve(np.pad(_e, 2, mode='edge'), np.ones(5)/5, 'valid')
+_fill = np.clip(-21.0 - _e, 0, 12); bed *= (10**(np.interp(np.arange(len(bed)), (np.arange(_n) + .5)*_h, _fill)/20))[:, None]      # v9: lift the quiet breaks inside a track so the bed never drops out and comes back
 g = np.full(len(bed), 10**(BED_DB/20), np.float32); r = int(1.5*SR); g[:r] = 10**(np.linspace(0, BED_DB, r)/20); r2 = int(3*SR); g[-r2:] *= np.linspace(1, 0, r2)       # ease down from the rough cut's level
 m = min(len(bed), N - n0); mix[n0:n0+m] += bed[:m]*g[:m, None]
 for s, x, nar, i in vo: p = int(s*SR); mix[p:p+len(x)] += x[:, None]

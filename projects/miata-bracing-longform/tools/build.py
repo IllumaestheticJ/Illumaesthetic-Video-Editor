@@ -5,7 +5,7 @@ import sys, os, subprocess, json, re
 M = sys.argv[1]; SRC = f'{M}/dl/MiataScan_RoughCut_1.mp4'; CARDS = f'{M}/work/cards'; SEG = f'{M}/work/seg'; OUT = f'{M}/out'
 HERE = os.path.dirname(os.path.abspath(__file__)); WPS = 2.6
 # (kind, a, b, section, picture note, narration)   src: a,b = rough-cut seconds; card: a = png, b = min seconds
-GAG = 153*1001/24000 + (94.59 - 94.469)      # map joke: 153 frames; the 3 frames after the scene cut still carry the previous subtitle, so they are dropped
+GAG = 153*1001/24000 + (94.68 - 94.469)      # map joke: 153 frames; the 3 frames after the scene cut still carry the previous subtitle, so they are dropped
 TL = [
  ('src', 0, 13.98, 'Intro (unchanged)', 'Hook, title card, "All cars flex"', None),
  ('gfx', 13.98, 28.78, 'Intro (new graphics)', 'NEW 2D chassis-flex graphics under the existing voice-over', None),
@@ -13,7 +13,7 @@ TL = [
  ('fx', 83.92, 89.67, 'Setup (new callout)', 'Grimace in the paddock, NEW tracked arrow + label "GRIMACE / @epsilon_motorsports car"', None),
  ('src', 89.67, 94.469, 'Setup (unchanged)', '"So first, we are going to need a stock car."', None),
  ('gag', 0.0, GAG, 'Setup (new gag)', 'NEW map joke: globe + "FINDING A STOCK MIATA / CALCULATING ROUTE" with a riser, hard cut to the real map, a car drives next door, "You have arrived / NEXT DOOR"', None),
- ('src', 94.59, 184.27, 'Setup (new label)', 'Miata Chop Shop (NEW label "Miata Chop Shop / IG @MCS_Parts"), test plan', None),
+ ('src', 94.68, 184.27, 'Setup (new label)', 'Miata Chop Shop (NEW label "Miata Chop Shop / IG @MCS_Parts"), test plan', None),
  ('src', 184.27, 189.19, '1. Control', 'Scanning the car on the ground', "First, the control. Car on the ground, nothing touched. This scan is our zero."),
  ('card', 'w_control', 4, '1. Control', 'Control engine-bay scan with the 960.948 dimension',
   "The number to watch is the width of the engine bay between the two strut towers. Stock, on the ground: 960.948 millimeters. Every scan after this gets compared to that."),
