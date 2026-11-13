@@ -1,21 +1,24 @@
-# Huracan Evo scan reel v12 - self-review (training/rubric.md)  (older: review_v11 ... review_v1.md)
+# Huracan Evo scan reel v13 - self-review (training/rubric.md)  (older: review_v12 ... review_v1.md)
 
-Output: `/home/user/media/work/out/huracan_evo_v12.mp4` - 1080x1920, 30 fps, AAC, 39.6 s.
-Picture identical to v10/v11 (video stream copied). Narration changes from the user's notes on v11: "don't drop the Huracan",
-and replace the successor / last-naturally-aspirated ending with facts about how the EVO improves on the previous generation.
+Output: `/home/user/media/work/out/huracan_evo_v13.mp4` - 1080x1920, 30 fps, AAC, 46.8 s.
+Change from the user's note on v12: "the front feels rushed - the whole thing is not the same pacing. re-pace the whole video -
+make it longer if it needs to be". Narration take unchanged from v12.
 
-All rubric rows as v10 (review_v10.md). Audio on the delivered file: speech 3.4-35.3 s (ends 1.4 s before the last kick and the
-logo), speech section -13.2 LUFS, peak -1.0 dBFS.
-
-## Narration (one take, untrimmed, speech_rate 12, no tempo/pitch change)
-"Lamborghini Huracan LP six-forty four EVO, representing the six hundred forty metric horsepower it produces, mated to a
-four-wheel drive system. Its V10 fires at uneven intervals, fifty-four and ninety degrees apart, for that jagged, howling note.
-Titanium intake valves carry it to eight thousand RPM, and LDVI predicts your next move. Over the original Huracan it gained
-thirty horsepower, rear-wheel steering, and more than five times the downforce, cutting zero to sixty-two from three-point-two
-seconds to two-point-nine."
-Sources for the new ending: LP 610-4 = 610 CV and 0-100 km/h 3.2 s (most consistently reported; some tables say 3.1 or 3.4);
-EVO = 640 CV, 2.9 s, rear-wheel steering and LDVI new for the EVO, aero more than five times the first Huracan (EVO release,
-7 Jan 2019). "Thirty horsepower" is in metric hp (CV), consistent with the opening line.
+| # | Criterion | Score | Evidence / gap |
+|---|---|---|---|
+| 1 | Hook | 4 | Unchanged: engine start-up and lights-up reveal, speech from 3.4 s. |
+| 2 | Beat sync | 5 | 10 scan cuts on the kick grid of the delivered file: +22 (drop, 13.28 s), then -12..-14 ms. Logo on the last kick, 43.88 s. |
+| 3 | 1:1 match | 4 | Coupe -> Spyder stealth cut: IoU 0.887 with the re-rendered 36-frame push; frame difference at the cut 3.2 (other cuts 31-68). |
+| 5 | Story / pacing | 4 | Playback speed per shot: wheel 1.0x, side 1.2x, push 0.8-1.0x, Spyder opener 1.15x, front bumper 1.22x, hood 1.2x, side 1.2x, rear bumper 1.0x, decklid 0.8x, exhaust 1.0x, wheel well 0.8x, explode 1.06x, reassembly 1.0x (v12: 1.5-2.0x in the opening and front, 1.0x in the rear). Opening shots 3.0 s each, every labelled teardown step 3.0 s. No frozen runs. |
+| 7 | Text | 4 | Seven title-only labels, 2.25 s each, on black. |
+| 8 | Ending | 4 | The speech ends at 35.3 s; the last 8.5 s before the logo (wheel well, explode, reassembly) are music and picture only. |
+| 9 | Technical | 4 | Every frame lit. Speech -13.3 LUFS, peak -1.0 dBFS. |
 
 ## Not verified
-- I can't listen here: "L P six-forty four" and the take's delivery are unheard.
+- I can't listen here, so the narration against the new picture timing is unheard.
+
+## What the next agent should know
+- "Not the same pacing" = uneven playback speeds between sections. Tabulate frames-used / duration / 15 fps for every shot and keep
+  them within about 0.8-1.2x; give every equivalent step the same number of beats, and re-render a shot longer rather than slow it
+  below ~0.8x or squeeze it above ~1.2x.
+- Re-pacing moves the drop: rebuild the music from an earlier source bar (`tools/music_v13.py`) so the drop still lands on the cut.

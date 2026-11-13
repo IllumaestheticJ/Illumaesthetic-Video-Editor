@@ -1,16 +1,16 @@
-# Huracan EVO v12 (v11: project_v11.yaml; v12 = same picture, narration keeps "Huracan" and ends on EVO-vs-previous-generation facts). v11 notes: ( v11 = same picture, narration names the car LP640-4 EVO). v10 notes: ( v10 = ~40 s, slower scan pacing, 7 step labels, plate hole filled). v9 notes: ( v9 = deeper narration, faster scan pacing, Spyder scans back in via a 1:1 stealth cut). v8 notes: ( v8 = re-flowed one-take narration, rear bumper rebuilt from the B-side scan, labels without counts). v7 notes: - user on v6: bigger logo; full coupe rear-end disassembly + wheel wells + exhaust; narration conclusion. User on v4: cut to 30 s, scan data sooner, reference engine start, no jet
+# Huracan EVO v13 (v12: project_v12.yaml; v13 = whole video re-paced evenly: every shot 0.8-1.2x, every teardown step 5 beats, ~47 s). v12 notes: ( v12 = same picture, narration keeps "Huracan" and ends on EVO-vs-previous-generation facts). v11 notes: ( v11 = same picture, narration names the car LP640-4 EVO). v10 notes: ( v10 = ~40 s, slower scan pacing, 7 step labels, plate hole filled). v9 notes: ( v9 = deeper narration, faster scan pacing, Spyder scans back in via a 1:1 stealth cut). v8 notes: ( v8 = re-flowed one-take narration, rear bumper rebuilt from the B-side scan, labels without counts). v7 notes: - user on v6: bigger logo; full coupe rear-end disassembly + wheel wells + exhaust; narration conclusion. User on v4: cut to 30 s, scan data sooner, reference engine start, no jet
 # sound, lower voice. Coupe: select + wheel + side (lift at 10.28 s, was 27.08); Spyder sections at 1.3-2x speed.
 project: huracan-evo
 format: reel-9x16
-output: {path: /home/user/media/work/out/huracan_evo_v12.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/huracan_evo_v13.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/huracan-evo/vo/soundtrack_v12.wav   # not committed (tools/music_v10.py + tools/mix.py --v12)
+  path: /home/user/media/huracan-evo/vo/soundtrack_v13.wav   # not committed (tools/music_v13.py + tools/mix.py --v13)
   start: 0
   fade_out: 0.6
 
-# beats t = 3.0768 + 0.60006*n; dips n=3,7,10; drop n=12; scan cuts n=17,21,25,29,34,38,43,47,51; music stop n=56 (36.68 s)
-beats: [4.877, 7.277, 9.077, 10.278, 13.278, 15.678, 18.078, 20.479, 23.479, 25.879, 28.879, 31.28, 33.68, 36.68]
+# beats t = 3.0768 + 0.60006*n; dips n=3,8,13; drop n=17; scan cuts n=24,29,34,39,44,49,54,59,63; music stop n=68 (43.88 s)
+beats: [4.877, 7.877, 10.878, 13.278, 17.478, 20.479, 23.479, 26.479, 29.479, 32.48, 35.48, 38.48, 40.881, 43.881]
 
 timeline:
   - id: h0_select   # SELECT: reference engine start-up as the lights come up
@@ -22,106 +22,107 @@ timeline:
     dur: 4.8667
     vf: fade=t=in:st=0:d=0.3
   - transition: {type: dip, duration: 0.6}
-  - id: h4_wheel   # n3-7
+  - id: h4_wheel   # n3-8, 1.0x
     section: wheel
     focus: "front wheel: scanned rim spokes and tyre"
     src: /home/user/media/work/renders/huracan/h4_wheel
-    src_fps: 22.5000
-    trim_start: 1.50
+    src_fps: 14.4643
+    trim_start: 2.7654
     interpolate: true
-    dur: 3.0000
+    dur: 3.6000
   - transition: {type: dip, duration: 0.6}
-  - id: h5_side   # n7-10
+  - id: h5_side   # n8-13, 1.2x
     section: side
     focus: "coupe profile slide"
     src: /home/user/media/work/renders/huracan/h5_side
-    src_fps: 30.0000
-    trim_start: 0.90
-    dur: 2.4000
-  - transition: {type: dip, duration: 0.5}
-  - id: hx_match   # n10-12: closed COUPE, no floor, camera lands on s5's first key (shifted 29 px down to register with the Spyder)
-    section: whole
-    focus: "whole coupe front-right 3/4, push toward the nose"
-    src: /home/user/media/work/renders/huracan/hx_match
-    src_fps: 9.8182
+    src_fps: 17.4107
+    trim_start: 1.6656
     interpolate: true
-    dur: 1.7000
+    dur: 3.6000
+  - transition: {type: dip, duration: 0.5}
+  - id: hx_match   # n13-17, 36 frames
+    section: whole
+    focus: "whole coupe front-right 3/4, push toward the nose (lands on s5's first camera key)"
+    src: /home/user/media/work/renders/huracan/hx_match
+    src_fps: 11.8681
+    interpolate: true
+    dur: 2.9000
     vf: crop=iw:ih-29:0:0,pad=iw:ih+29:0:29:black
   - transition: {type: cut}
-  - id: s5_frontopen   # n12-17: frames 1-72 at 1.6x
+  - id: s5_frontopen   # n17-24: frames 1-72 at 1.15x
     section: front-open
     focus: "1:1 cut on the drop: same camera, now the Spyder - bumper, fender, hood open"
     src: /home/user/media/work/renders/huracan/s5_frontopen
-    src_fps: 23.2256
+    src_fps: 16.7441
     interpolate: true
-    dur: 2.9667
+    dur: 4.1667
   - transition: {type: cut}
-  - id: sp_bumper   # n17-21: frames 6-60 at 1.5x
+  - id: sp_bumper   # n24-29: frames 6-60 at 1.22x
     section: front-open
-    focus: "FRONT BUMPER: tips its inner face, hold on the structure behind (label)"
+    focus: "FRONT BUMPER: tips its inner face, hold on the structure behind"
     src: /home/user/media/work/renders/huracan/sp_bumper
-    src_fps: 21.7105
-    trim_start: 0.2303
+    src_fps: 17.5532
+    trim_start: 0.2848
     interpolate: true
-    dur: 2.4000
+    dur: 3.0000
   - transition: {type: cut}
-  - id: sp_hood   # n21-25: frames 1-54 at 1.5x
+  - id: sp_hood   # n29-34: frames 1-54 at 1.20x
     section: hood
-    focus: "HOOD + COWLS lift off (label)"
+    focus: "HOOD + COWLS lift off"
     src: /home/user/media/work/renders/huracan/sp_hood
-    src_fps: 21.3158
+    src_fps: 17.2340
     interpolate: true
-    dur: 2.4000
+    dur: 3.0000
   - transition: {type: cut}
-  - id: sp_side   # n25-29: frames 1-54 at 1.5x
+  - id: sp_side   # n34-39: frames 1-54 at 1.20x
     section: side-open
-    focus: "FENDER + SIDE SKIRT off (label)"
+    focus: "FENDER + SIDE SKIRT off"
     src: /home/user/media/work/renders/huracan/sp_side
-    src_fps: 21.3158
+    src_fps: 17.2340
     interpolate: true
-    dur: 2.4000
+    dur: 3.0000
   - transition: {type: cut}
-  - id: c1_bumper   # n29-34: frames 1-45 at 1.0x
+  - id: c1_bumper   # n39-44: frames 1-45 at 1.00x
     section: rear-open
-    focus: "REAR BUMPER off, hold on the structure (label)"
+    focus: "REAR BUMPER off, hold on the structure"
     src: /home/user/media/work/renders/huracan/c1_bumper
     src_fps: 14.3617
     interpolate: true
     dur: 3.0000
   - transition: {type: cut}
-  - id: c2_deck   # n34-38: frames 1-36 at 1.0x
+  - id: c2_deck   # n44-49: frames 1-36 at 0.80x
     section: rear-open
-    focus: "DECKLID + GRILLE (and beam) lift off (label)"
+    focus: "DECKLID + GRILLE (and beam) lift off"
     src: /home/user/media/work/renders/huracan/c2_deck
-    src_fps: 14.2105
+    src_fps: 11.4894
     interpolate: true
-    dur: 2.4000
+    dur: 3.0000
   - transition: {type: cut}
-  - id: c3_exhaust   # n38-43: frames 1-45 at 1.0x
+  - id: c3_exhaust   # n49-54: frames 1-45 at 1.00x
     section: exhaust
-    focus: "EVO EXHAUST drops out (label)"
+    focus: "EVO EXHAUST drops out"
     src: /home/user/media/work/renders/huracan/c3_exhaust
     src_fps: 14.3617
     interpolate: true
     dur: 3.0000
   - transition: {type: cut}
-  - id: c4_wells   # n43-47: frames 1-36 at 1.0x
+  - id: c4_wells   # n54-59: frames 1-36 at 0.80x
     section: wheel
-    focus: "REAR WHEEL WELL, no liner (label)"
+    focus: "REAR WHEEL WELL, no liner"
     src: /home/user/media/work/renders/huracan/c4_wells
-    src_fps: 14.2105
+    src_fps: 11.4894
     interpolate: true
-    dur: 2.4000
+    dur: 3.0000
   - transition: {type: cut}
-  - id: sp_finale   # n47-51: frames 1-40 at 1.1x
+  - id: sp_finale   # n59-63: frames 1-38 at 1.06x
     section: whole
     focus: "Spyder fully exploded, top-down"
     src: /home/user/media/work/renders/huracan/sp_finale
-    src_fps: 15.7895
+    src_fps: 15.0000
     interpolate: true
     dur: 2.4000
   - transition: {type: cut}
-  - id: c5_finale   # n51-56: frames 1-45 at 1.0x
+  - id: c5_finale   # n63-68: frames 1-45 at 1.00x
     section: whole
     focus: "rear reassembles -> whole coupe pull-back"
     src: /home/user/media/work/renders/huracan/c5_finale
@@ -130,12 +131,12 @@ timeline:
     dur: 3.0000
     vf: fade=t=out:st=2.400:d=0.6
   - transition: {type: cut}
-  - id: logo   # ILLUMAESTHETIC logo 720 px on the music stop 36.68 s -> 39.7 s
+  - id: logo   # ILLUMAESTHETIC logo 720 px on the music stop 43.88 s -> 46.9 s
     src: /home/user/media/huracan-evo/logo/end_card_720.png
     duration: 3.1
     dur: 3.0000
     vf: fade=t=in:st=0:d=0.5
 
-overlays:   # one title-only label per teardown step (user: label more of the disassembly; no triangle counts)
-  - src: /home/user/media/work/out/hud_huracan_v10.mov
+overlays:   # one title-only label per teardown step
+  - src: /home/user/media/work/out/hud_huracan_v13.mov
     start: 0
