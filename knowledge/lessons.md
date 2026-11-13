@@ -730,3 +730,12 @@ lands here automatically. Agents must read this whole file before editing.
   few seconds at the start: Miata v6 shipped with the wrong three minutes of audio up front and matching loudness numbers.
 - **[audio]** A rough cut's music can be several tracks; fingerprint it against the supplied tracks (log-band spectral-change
   correlation, 15 s windows) before assuming one bed. Ask for / look for the music folder before reconstructing music from a mix.
+- **[scan-look]** Heat maps for a data video: render them from the scans (projects/miata-bracing-longform/tools/heat3d.py: numpy point
+  renderer, 0.6 s per 1080p split-screen frame, no Blender) with one scale for every state and a before/after split on the same
+  camera. The user asked for this over report screenshots; grey out wheels, floor and anything > 25 mm off.
+- **[text]** Data on screen and in narration at the measurement's real resolution (user: 0.1 mm). When rounded values and the rounded
+  difference disagree (961.2 - 960.9 vs 0.2), speak only the differences and footnote the table.
+- **[audio]** Don't EQ-match a cloned voice to a noisy on-camera reference: it adds treble. Cut-only above 3 kHz. Keep atempo within
+  10 %; re-roll takes instead of stretching them (stretched lines were heard as "airy" with odd pacing).
+- **[text]** Long-form data sections need motion: scan tracker, shot chips, count-up deltas, staged reveals, section title cards
+  (tools/fx.py). User asked for all of these after seeing static cards.
