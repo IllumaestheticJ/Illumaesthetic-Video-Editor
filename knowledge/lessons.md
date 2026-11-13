@@ -1032,3 +1032,17 @@ lands here automatically. Agents must read this whole file before editing.
 - Nested parts are parented in the renderer (`tools/shot.py` `"parents": {"li": "fb"}`): child keys are offsets in the parent's moving frame. Removal order = parent off first with children in it, then children out; reassembly is the reverse.
 - When a beat is about a small child part (corner markers), frame the whole parent with both children in view - the v3 inner-face close-up clipped exactly the bumper ends where the markers sit.
 - Keep the last camera key at the render end (not rescaled with the others) so the move is still travelling at the cut; re-check label clearance at the END of each label window because the push-in no longer stops.
+## Ferrari 296 v8 (missing scans, red start)
+- LIST THE WHOLE DRIVE FOLDER against the local scans before planning (and in clips.md). The first fetch here skipped 6 of
+  28 files, including two "Frunk Trim" scans the user knew existed. File names can mislead: "Frunk Trim" registered onto
+  the rear ENGINE BAY of this mid-engine car - check where a part lands before naming/labelling it.
+- A state scan captured WITH a part fitted keeps a copy of it: cut the composite within ~7 mm of the part surface before
+  lifting the part off (tools/trim_off.py). A cover over it (here the glass engine lid) = car-scan surface absent from the
+  lid-off state scan; split it off and move it first, so the part has a clear path.
+- Red paint under the studio key + AgX goes salmon/pink at ANY albedo (highlight desaturation). Matte (rough 0.45, metal 0,
+  specular 0.3) + look "AgX - Punchy" + exposure -1.7 gives Rosso; the other part colours get richer with it.
+- "Start red, each part its own colour": keyframe the paint colour from body red to the part colour over 0.3 s at the key
+  where the part first leaves home (palette.py reveal()).
+- A darker grade lowers frame-diff motion: `ive director` "dead frames" can be a luma artifact - compare per-frame diffs
+  with the previous version before trimming.
+- End-card CTA at the very bottom edge reads "too low" on a phone (UI covers it): put it high, on empty photo area.

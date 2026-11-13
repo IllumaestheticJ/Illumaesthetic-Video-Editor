@@ -172,6 +172,7 @@
  "urlAt": 149,
  "drift": 0.02,
  "ctaBand": 175,
+ "ctaTop": 548,
  "highlights": [
   {
    "x": 154.5,

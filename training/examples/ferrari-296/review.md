@@ -1,3 +1,33 @@
+# Ferrari 296 GTB scan reel v8 - self-review (v7: review_v7.md)
+
+User on v7: "available now is too low on the scan" / "im pretty certain there were underhood plastics that weren't
+included (check for me)" / "start with the car being red (cause ferrari)" / "im also certain there were more parts removed
+than this".
+
+Check: the Drive folder has 28 scans; 6 had never been fetched. Two ("Frunk Trim", "Frunk Trim ") are the plastics the
+user remembered - they register onto the ENGINE BAY (rear; mid-engine): left + right side trims and a cross panel behind
+the cabin. The other 4 are second captures of parts already shown (rear bumper inner without diffuser, front end removed,
+sill with skirt off, side skirt). Fender Bracket (25k tris) still unused.
+
+v8 = v7 timing (cuts 124, 298, 347, 446, 521, 732, 956) with:
+- 13 moving parts (v7: 9): + glass engine lid (split from the car scan: its surface is absent from the lid-off Engine Bay
+  scan; lifts with the louvred cover k42-44) + 3 engine-bay trims (cut out of the composite within 7 mm, lift out of the
+  open bay k51-53, splay outward; in the blast). New label ENGINE BAY TRIM / LEFT · RIGHT · CROSS PANEL (662-706).
+- Body Ferrari red; every part starts red (opening car fully red) and turns its own colour over 0.3 s when it first
+  leaves home. Rear bumper -> pearl, exhaust -> green, trims lime. Red needed matte body + AgX Punchy + exposure -1.7.
+- CTA "SCAN DATA AVAILABLE NOW" + URL pill moved from the bottom edge up onto the empty lower part of the gallery photo.
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v8.mp4` - 1080x1920, 30 fps, 38.00 s, h264 + AAC.
+Checked: trims + lid registration stills (home / lifted, no copy left behind), 4 red tests, test frames before the full
+render, every render (counts, 0 dark), contact sheets of all 7 shots, frames at the new label and at the 1:1 cut (955/956),
+CTA still, probe, `ive director` (one flag: s1_wide "dead frames" - metric artifact of the darker red, motion = v7).
+
+Scores as v7 except: Story 4 -> 5 (engine bay now opened down to the trims; 13 parts). Grade 4 (red body reads Ferrari;
+whole frame darker at exposure -1.7 - wheels/tyres are body red too). Scan quality 3: the bay under the trims shows
+small dark gaps where the trims were cut.
+Open: Fender Bracket unused; tyres red (one body mesh).
+
+---
 # Ferrari 296 GTB scan reel v7 - self-review (v6: review_v6.md)
 
 User on v6: "when scrolling through the different photos/options, change the dropdown so the scan price reflects the
