@@ -186,7 +186,10 @@ def main():
             M = np.array(o.matrix_world); w = co.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]; x, y, z = w[:, 0], w[:, 1], w[:, 2]
             c = np.tile(np.array(WHITE, np.float32), (n, 1))
             # v4 rules, measured on the Nov 12 side photo (152 px/m, front axle at y=1.41): see editlog
-            c[(z > 1.00) & (y > -1.9) & (y < 0.9)] = BLACK                        # roof, pillars, glass
+            # v5: black above the window line read off a gridded side render of the scan (chk/belt_side_g.jpg):
+            # windshield base -> mirror -> rear of front door -> rear of rear door -> quarter-glass tip -> rear deck
+            zb = np.interp(y, [-1.90, -1.50, -1.20, -0.22, 0.67, 1.02], [1.165, 1.155, 1.08, 1.00, 0.955, 0.99])
+            c[(z > zb) & (y > -1.90) & (y < 1.02)] = BLACK                         # roof, pillars, glass
             c[(np.abs(x) > 0.85) & (z > 0.95) & (y > 0.45) & (y < 0.95)] = BLACK   # mirrors
             side = (np.abs(x) > 0.70) & (y > -1.75) & (y < 1.02)
             c[side & (z < 0.29)] = BLACK                                           # side skirts
@@ -195,11 +198,12 @@ def main():
                 c[(z < 0.172) & (y > 1.0)] = REDC                                  # red edge of the splitter
                 c[side & (z < 0.185)] = REDC                                       # red line under the skirts
             if group == "black": c[:] = BLACK
+            if group == "wheel": c[:] = (0.045, 0.045, 0.05)                   # Ron's wheel/tyre/brake model: dark gunmetal
             wheel = (np.abs(x) > 0.55) & (((y - 1.41) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2) | ((y + 1.30) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2))
-            if group != "kit": c[wheel] = DARK
+            if group not in ("kit", "wheel"): c[wheel] = DARK
             c2 = c.copy(); u = y - 1.16 * (z - 0.30)      # stripes lean FORWARD at the top (about 49 deg), sill to mid-door
             st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.76) & (((u > 0.16) & (u < 0.42)) | ((u > -0.12) & (u < 0.11))) & ~wheel
-            if group != "black": c2[st] = REDC
+            if group not in ("black", "wheel"): c2[st] = REDC
             for name, arr in (("paint", c), ("paint2", c2)):
                 a = me.color_attributes.new(name, "FLOAT_COLOR", "POINT")
                 a.data.foreach_set("color", np.concatenate([arr, np.ones((n, 1), np.float32)], 1).ravel())

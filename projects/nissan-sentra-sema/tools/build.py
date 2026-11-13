@@ -164,7 +164,7 @@ def seg_timelapse2():
 
 
 def seg_end():
-    logo = Image.open(f'{D}/drive/IllumaestheticLogoColor-01.png').convert('RGBA'); lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
+    logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
     def gen():
         for f in range(67):
             al = min(1.0, f / 8); im = Image.new('RGB', (WD, HT), (0, 0, 0)); d = ImageDraw.Draw(im)
@@ -225,7 +225,7 @@ def seg_barrage1():
 
 def seg_ig():
     """v4: three reels of the car at SEMA posted by other people, held ~1 s each so they can be read (cuts on strong hits)."""
-    cuts = [0, 38, 68, 113]; ts = [20.0, 120.0, 186.0]   # alex.martini, Mike Kojima / motoiq, cabezas_de_petroleo (all at the SEMA booth)
+    cuts = [0, 38, 68, 113]; ts = [150.6, 120.0, 186.0]   # motoiq reveal, Mike Kojima / motoiq, cabezas_de_petroleo (v5: alex.martini reel was paused - play button on screen)
     def gen():
         for i, t in enumerate(ts): yield from ig_frames(t, cuts[i + 1] - cuts[i])
     pipe('h_ig', gen())
@@ -266,7 +266,7 @@ def seg_scan1():
 
 
 def seg_livery():
-    fr = render_seq('s3_livery', 112)
+    fr = render_seq('s4_livery', 112)
     def gen():
         for f in range(112):
             im = Image.fromarray(fr[min(f, len(fr) - 1)]); d = ImageDraw.Draw(im)
@@ -307,7 +307,7 @@ if __name__ == '__main__':
     for k in ([a for a in sys.argv[1:] if a != 'mux'] or ([] if 'mux' in sys.argv else list(SEGS))): SEGS[k]()
     if not sys.argv[1:] or 'mux' in sys.argv:
         lst = SEG + '/list.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in SEGS))
-        out = W + '/out/sentra_sema_30s_v4.mp4'
+        out = W + '/out/sentra_sema_30s_v5.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-ss', str(MUSIC_START), '-i', MUSIC,
                         '-filter_complex', '[1:a]afade=t=in:d=0.03,afade=t=out:st=29.3:d=0.7[a]', '-map', '0:v', '-map', '[a]',
                         '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', '30', '-movflags', '+faststart', out], check=True)
