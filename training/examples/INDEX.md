@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [honda-s2000](honda-s2000/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-13
@@ -39,7 +40,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
-- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11
 - [lexus-is350](lexus-is350/) - archived 2026-11-11
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
