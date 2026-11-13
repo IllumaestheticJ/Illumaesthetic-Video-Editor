@@ -31,3 +31,17 @@ for nm, fl in (("side_left", False), ("side_right", True)):
     c.crop(bb).save(f"{O}/{nm}.png")
 mask.crop(bb).save(f"{O}/mask.png")
 print("wrote", O, Image.open(f"{O}/side_left.png").size)
+
+# side glass: the dark (glass) pixels of the PSD's own car render (layer 1) inside the silhouette, upper body only
+r = np.asarray(Image.open(f"{D}/layers/L1.png").convert("L")).astype(float)
+from scipy import ndimage
+g = (r < 95) & (np.asarray(mask)[..., 3] > 128); g[:500, :] &= True; g[560:, :] = False
+g = ndimage.binary_opening(ndimage.binary_closing(g, np.ones((7, 7)), iterations=2), np.ones((3, 3)))
+g = ndimage.binary_fill_holes(ndimage.binary_closing(g, np.ones((15, 15)), iterations=3))
+lab, n = ndimage.label(g); sz = ndimage.sum(g, lab, range(1, n + 1)); keep = np.isin(lab, 1 + np.where(sz > 1500)[0])
+w = np.zeros((H, W, 4), np.uint8); w[..., 3] = keep * 255
+Image.fromarray(w).crop(bb).save(f"{O}/glass.png"); print("glass px", int(keep.sum()))
+
+# hood decal (mockups hood-sponsor1-whitelogo / reference1): BOMEX + slogan in white, as one block, unmirrored
+hd = Image.new("RGBA", (W, H), (0, 0, 0, 0)); hd.alpha_composite(lay(7)); hd.alpha_composite(lay(6))
+hb = hd.getbbox(); hd = hd.crop(hb); hd.save(f"{O}/hood.png"); print("hood decal px", hd.size)

@@ -86,6 +86,105 @@ def mat_check(rgb):
     return m
 
 
+_LIV = {}
+
+
+def mat_livery(spec, fps, nframes):
+    """Bomex x Kaido House wrap (tools/livery_tex.py, livery_fit.py): grey paint; PSD side view projected along X onto
+    side-facing surfaces (driver +X as drawn, passenger with text pre-mirrored); dark side glass from the PSD render;
+    BOMEX hood block projected along Z; dark windscreen/rear glass by height + normal. Revealed where world y > sweep
+    (keyed hard-edged wipe from the tail forward) over house silver; sweep keys [[t, y], ...]."""
+    if "m" in _LIV:
+        return _LIV["m"]
+    L = spec["livery"]; T = L["tex"]; M = L["map"]
+    m = sr.mat_silver(); nt = m.node_tree; N = nt.nodes; Lk = nt.links.new
+    out = [n for n in N if n.type == "OUTPUT_MATERIAL"][0]
+    silver = out.inputs[0].links[0].from_node
+    geo = N.new("ShaderNodeNewGeometry")
+    sp = N.new("ShaderNodeSeparateXYZ"); Lk(geo.outputs["Position"], sp.inputs[0])
+    sn = N.new("ShaderNodeSeparateXYZ"); Lk(geo.outputs["Normal"], sn.inputs[0])
+
+    def math(op, a, b=None):
+        n = N.new("ShaderNodeMath"); n.operation = op
+        for i, v in enumerate((a, b)):
+            if v is None: continue
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: Lk(v, n.inputs[i])
+        return n.outputs[0]
+
+    def vec(x, y):
+        n = N.new("ShaderNodeCombineXYZ")
+        for i, v in enumerate((x, y)):
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: Lk(v, n.inputs[i])
+        return n.outputs[0]
+
+    def img(name, v):
+        n = N.new("ShaderNodeTexImage"); n.image = bpy.data.images.load(os.path.join(T, name)); n.extension = "CLIP"
+        Lk(v, n.inputs[0]); return n
+
+    def mix(f, a, b):
+        n = N.new("ShaderNodeMix"); n.data_type = "RGBA"
+        for k, v in (("Factor", f), ("A", a), ("B", b)):
+            if isinstance(v, (int, float)): n.inputs[k].default_value = v
+            elif isinstance(v, tuple): n.inputs[k].default_value = v
+            else: Lk(v, n.inputs[k])
+        return n.outputs["Result"]
+    X, Y, Z = sp.outputs
+    nx, ny, nz = (math("ABSOLUTE", o) for o in sn.outputs)
+    uv = vec(math("DIVIDE", math("SUBTRACT", Y, M["Y0"]), M["LEN"]), math("DIVIDE", math("SUBTRACT", Z, M["Z0"]), M["HGT"]))
+    il, ir, ig = img("side_left.png", uv), img("side_right.png", uv), img("glass.png", uv)
+    is_r = math("LESS_THAN", X, L.get("xc", -0.07))
+    side = mix(is_r, il.outputs["Color"], ir.outputs["Color"])
+    side_a = math("ADD", math("MULTIPLY", il.outputs["Alpha"], math("SUBTRACT", 1.0, is_r)), math("MULTIPLY", ir.outputs["Alpha"], is_r))
+    side_w = math("GREATER_THAN", nx, 0.45)
+    paint = tuple(L.get("paint", (0.20, 0.21, 0.22))) + (1,)
+    dark = tuple(L.get("dark", (0.010, 0.010, 0.012))) + (1,)
+    col = mix(math("MULTIPLY", side_w, side_a), paint, side)
+    col = mix(math("MULTIPLY", side_w, math("GREATER_THAN", ig.outputs["Alpha"], 0.5)), col, dark)
+    H = L["hood"]  # x centre, y top (rear edge), width, height (m); text reads from the front, top toward the screen
+    hu = math("ADD", math("DIVIDE", math("SUBTRACT", X, H[0]), H[2]), 0.5)
+    hv = math("DIVIDE", math("SUBTRACT", Y, H[1] - H[3]), H[3])
+    ih = img("hood.png", vec(hu, hv))
+    top_w = math("MULTIPLY", math("GREATER_THAN", nz, 0.55), math("LESS_THAN", Y, H[1] + 0.05))
+    col = mix(math("MULTIPLY", top_w, ih.outputs["Alpha"]), col, ih.outputs["Color"])
+    glass = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Z, L.get("belt", 1.0)), math("SUBTRACT", 1.0, side_w)),
+                 math("LESS_THAN", nz, L.get("glass_nz", 0.95)))
+    # cabin seen through the (unscanned) glass: dash/seats inside the body sides, below the roof skin
+    C = L.get("cabin", [-0.75, 1.0, 0.80, 1.18, 0.65])  # y0, y1, z0, z1, half-width about xc
+    cab = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Y, C[0]), math("LESS_THAN", Y, C[1])),
+               math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Z, C[2]), math("LESS_THAN", Z, C[3])),
+                    math("LESS_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), C[4])))
+    glass = math("MAXIMUM", glass, cab)
+    col = mix(glass, col, dark)
+    wrap = sr.principled(nt, (0.2, 0.2, 0.2, 1), 0.38, 0.0)
+    Lk(col, wrap.inputs["Base Color"])
+    if "Coat Weight" in wrap.inputs:
+        wrap.inputs["Coat Weight"].default_value = 0.3
+    # glass: low-specular dark (a glossy dark windscreen mirrors the studio top light and reads white)
+    gb = N.new("ShaderNodeBsdfDiffuse"); gb.inputs["Color"].default_value = dark  # no Fresnel sheen
+    gsel = math("MAXIMUM", glass, math("MULTIPLY", side_w, math("GREATER_THAN", ig.outputs["Alpha"], 0.5)))
+    wm = N.new("ShaderNodeMixShader"); Lk(gsel, wm.inputs[0]); Lk(wrap.outputs[0], wm.inputs[1]); Lk(gb.outputs[0], wm.inputs[2])
+    wrap = wm
+    val = N.new("ShaderNodeValue")
+    f = math("MINIMUM", math("MAXIMUM", math("DIVIDE", math("SUBTRACT", Y, val.outputs[0]), 0.02), 0.0), 1.0)
+    mx = N.new("ShaderNodeMixShader"); Lk(f, mx.inputs[0]); Lk(silver.outputs[0], mx.inputs[1]); Lk(wrap.outputs[0], mx.inputs[2])
+    Lk(mx.outputs[0], out.inputs[0])
+    ks = L.get("sweep", [[0, -9.0]])
+    for fr in range(1, nframes + 1):
+        t = (fr - 1) / fps
+        if t <= ks[0][0]: y = ks[0][1]
+        elif t >= ks[-1][0]: y = ks[-1][1]
+        else:
+            for (t0, y0), (t1, y1) in zip(ks, ks[1:]):
+                if t <= t1:
+                    uu = (t - t0) / max(1e-9, t1 - t0); uu = uu * uu * (3 - 2 * uu); y = y0 + (y1 - y0) * uu; break
+        val.outputs[0].default_value = y
+        val.outputs[0].keyframe_insert("default_value", frame=fr)
+    _LIV["m"] = m
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -105,15 +204,16 @@ def main():
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
+    liv_all = bool(spec.get("livery"))
     for o in base:
         o.data.materials.clear()
-        o.data.materials.append(grey if spec.get("base_color") == "grey" else silver)
+        o.data.materials.append(mat_livery(spec, fps, nframes) if liv_all else (grey if spec.get("base_color") == "grey" else silver))
 
     colors = {"red": (0.9, 0.05, 0.03), "cyan": (0.0, 0.7, 1.0), "green": (0.1, 0.9, 0.1),
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
-        m = mat_check(colors[p["color"]]) if p.get("color") else silver
+        m = mat_check(colors[p["color"]]) if p.get("color") else (mat_livery(spec, fps, nframes) if liv_all else silver)
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
