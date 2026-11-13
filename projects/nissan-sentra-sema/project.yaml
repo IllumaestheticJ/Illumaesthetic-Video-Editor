@@ -1,8 +1,8 @@
-# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v6 (approved "really good"; end-card logo still to swap)
+# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v8 (v6 approved "really good"; v7-v8: logo-only end card, EXIF-fixed reveal camera, hook blurb)
 # Built by tools/build_v6.py (exact-frame segments + concat). Structure and rules: knowledge/short-form.md.
 project: nissan-sentra-sema
 format: reel-9x16
-output: {path: /home/user/media/work/sentra/out/sentra_sema_v6.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
+output: {path: /home/user/media/work/sentra/out/sentra_sema_v8.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
 music: {title: "Killa", artist: "Way Out West", source: "user-supplied m4a (Juiced soundtrack) - commercial track, not from the CML",
         path: /home/user/media/work/music/killa.m4a, start: 0, fade_out: 1.2, bpm: 130, bar_s: 1.8462, drop_s: 29.873}
 beats: [4.027, 5.873, 7.719, 9.565, 11.411, 15.104, 18.796, 22.489, 29.873, 37.258, 44.642]
@@ -21,4 +21,4 @@ timeline:   # frames are [start, end) at 30 fps
   - {id: r_reveal,    frames: [896, 1118],  section: reveal,    focus: "Photo Nov 05 5 25 36 PM + 8 cropped real headlines, one per beat"}
   - {id: s1_reels,    frames: [1118, 1284], section: coverage,  focus: "motoiq door reveal (151.4), caranddriver track (72), eddiex616 front (88)"}
   - {id: s3_rear,     frames: [1284, 1339], section: coverage,  focus: IMG_3235 rear wide}
-  - {id: z_end,       frames: [1339, 1425], section: end card,  focus: "website logo + typed 'Customize everything' (official lockup pending from the user)"}
+  - {id: z_end,       frames: [1339, 1425], section: end card,  focus: "website logo only (slogan removed by the user)"}

@@ -42,3 +42,10 @@ Looked at: 1.5 s-interval sheet of the whole cut, frames at the scan cut (341/34
 - 3D parts pop on (no fly-in); one blended frame at each pop. Black is dark charcoal, wheels flat gunmetal.
 - End clips: three are Instagram reels with the app UI; caranddriver and eddiex616 are at the track, not the booth.
 - Music is a commercial track supplied by the user (not from the CML).
+
+# Self-review - v8, 47.5 s (2026-11-13)
+Looked at: last CGI frame of the delivered file (895) blended with the reveal photo - splitter, badge, both headlights, front wheel and
+stripes coincide; roof ~10 px high and rear wheel slightly left (real car is lowered, scan is stock height). Hook frame with the
+semi-transparent blurb; end card logo only; luma of s9_turn / s6c_livery (no dropout).
+- Not measured: cut-to-beat error on the delivered file.
+- CGI is still on black with a stock-height body; the cut reads as a change of look even with the outline matched.
