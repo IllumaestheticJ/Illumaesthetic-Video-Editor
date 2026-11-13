@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v7 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v7.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v6.md.
+# Toyota Sera scan-process reel v8 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v8.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v7.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -67,3 +67,10 @@ are still an upscaled crop of the captioned posted short (raw clips would fix bo
   matched frame; the real clip then plays 24.8-25.8. Later cuts unchanged (25.8, 27.0). Frames 24.3-24.8 checked: body
   stays registered through the fade; the door-angle difference now reads as a soft ghost instead of a jump.
 - The IRL -> scan cuts at 1.8 s and 6.0 s remain hard cuts (standing rule).
+
+## v8 (user: "match the photo to the transition better in the model")
+- Cause: the final match camera was ~18 % too long (scan too large at the fade). My v5-v7 checks used a 540 px onion and
+  I wrongly put the mismatch down to door angle. A 1000 px close-up (qa/fin_cmp) showed a pure scale error.
+- Fix: tools/fin_fit.py, focal 42 -> 36.3 mm with the principal point re-aimed; kit_final re-rendered. qa/v8_cmp: bumper,
+  bonnet, headlights, wheels and BOTH doors within a few px at full resolution. 1:1 match for this transition: 3 -> 4.
+- Self-critique: I reported v5-v7 as "within ~15 px, doors differ" from a too-small overlay. Check matches at full resolution.

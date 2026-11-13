@@ -1,4 +1,5 @@
-# Toyota Sera (EXY10) scan-process reel v7 (v1-v6: project_v1..v6.yaml). v7: scan -> finished-car 1:1 is a 0.4 s held crossfade centred on the 24.6 beat (user request).
+# Toyota Sera (EXY10) scan-process reel v8 (v1-v7: project_v1..v7.yaml). v8: final match camera re-solved at full resolution (scan was ~18 % too large at the fade).
+# v7: v7: scan -> finished-car 1:1 is a 0.4 s held crossfade centred on the 24.6 beat (user request).
 # v6: v6: finished-car clips at FULL frame (caption painted out of the sky, tools/uncaption.py) instead of a 1.43x crop; final scan shot re-rendered on the full-frame camera.
 # v5: v5 adds the ducktail + side skirts on the scan and a 1:1 cut from the kitted scan to the finished car (user feedback).
 # v4: v4 adds the designed bumpers placed on the scan + finished-car footage (user request). Plan: direction.md.
@@ -7,7 +8,7 @@
 # Music: Sera track from 7.825 s, 100 BPM, beat k at 0.6*k s; phrase changes 1.8 / 11.4 / 21.0.
 project: toyota-sera-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/sera_scan_process_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/sera_scan_process_v8.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/sera/music/sera_track.mp3

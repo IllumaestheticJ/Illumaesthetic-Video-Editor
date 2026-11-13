@@ -827,3 +827,6 @@ lands here automatically. Agents must read this whole file before editing.
 - Before cropping a captioned social clip, check what the caption sits on: if it is plain sky, paint it out
   (projects/toyota-sera-scan-process/tools/uncaption.py) and keep the full frame - the reviewer rejected the 1.43x crop as too tight.
   For a camera solved on a crop, the full-frame camera is the same pose with sensor = sensor_crop * full_w / crop_w and no crop shift.
+- Judge a 1:1 match on a FULL-resolution close-up of the subject (photo | photo + render edges), never on a 540 px onion:
+  on the Sera an 18 % scale error passed three versions at 540 px and was misread as "the doors are at a different angle".
+  If every feature is off in the same direction from one anchor point, it is scale (focal), not pose.
