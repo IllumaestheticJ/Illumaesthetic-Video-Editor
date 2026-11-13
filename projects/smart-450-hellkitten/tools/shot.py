@@ -124,6 +124,51 @@ def mat_wire_silver(px=0.9):
     return m
 
 
+def mat_xglow():
+    """House silver with a cool fresnel rim glow: reads through a ghosted body (a5 x-ray)."""
+    m, nt, out = sr.new_mat("ive_xglow")
+    p = sr.principled(nt, (0.62, 0.63, 0.66, 1), 0.35, 0.8)
+    lw = nt.nodes.new("ShaderNodeLayerWeight"); lw.inputs["Blend"].default_value = 0.35
+    em = nt.nodes.new("ShaderNodeEmission"); em.inputs["Color"].default_value = (0.75, 0.85, 1.0, 1); em.inputs["Strength"].default_value = 2.5
+    add = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(lw.outputs["Facing"], add.inputs[0]); nt.links.new(p.outputs[0], add.inputs[1]); nt.links.new(em.outputs[0], add.inputs[2])
+    nt.links.new(add.outputs[0], out.inputs[0])
+    return m
+
+
+def xray_materials(objs, window, nframes, fps, color):
+    """Mix every material of these objects from its own surface (0) to a fresnel-edged ghost (1) over window=[t0, t1] s."""
+    t0, t1 = window
+    done = set()
+    for o in objs:
+        for slot in o.material_slots:
+            m = slot.material
+            if m is None or m.name in done or not m.use_nodes:
+                continue
+            done.add(m.name)
+            nt = m.node_tree
+            outs = [n for n in nt.nodes if n.type == "OUTPUT_MATERIAL"]
+            if not outs or not outs[0].inputs["Surface"].is_linked:
+                continue
+            out = outs[0]
+            src = out.inputs["Surface"].links[0].from_socket
+            tr = nt.nodes.new("ShaderNodeBsdfTransparent")
+            lw = nt.nodes.new("ShaderNodeLayerWeight"); lw.inputs["Blend"].default_value = 0.25
+            em = nt.nodes.new("ShaderNodeEmission"); em.inputs["Color"].default_value = (*color, 1); em.inputs["Strength"].default_value = 3.0
+            ghost = nt.nodes.new("ShaderNodeMixShader")
+            nt.links.new(lw.outputs["Facing"], ghost.inputs[0]); nt.links.new(tr.outputs[0], ghost.inputs[1]); nt.links.new(em.outputs[0], ghost.inputs[2])
+            mix = nt.nodes.new("ShaderNodeMixShader")
+            val = nt.nodes.new("ShaderNodeValue")
+            nt.links.new(val.outputs[0], mix.inputs[0]); nt.links.new(src, mix.inputs[1]); nt.links.new(ghost.outputs[0], mix.inputs[2])
+            nt.links.new(mix.outputs[0], out.inputs["Surface"])
+            m.blend_method = "BLEND" if hasattr(m, "blend_method") else None
+            for f in range(1, nframes + 1):
+                t = (f - 1) / fps
+                u = min(1.0, max(0.0, (t - t0) / max(1e-6, t1 - t0)))
+                val.outputs[0].default_value = u * u * (3 - 2 * u)
+                val.outputs[0].keyframe_insert("default_value", frame=f)
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -151,12 +196,29 @@ def main():
         if item.get("look") == "own":
             for o in objs:
                 o["ive_scan"] = False
+            for o in LOADED["all"]:
+                if o.name in item.get("hide_names", []):
+                    o.hide_render = True
+                    for c in o.children_recursive:
+                        c.hide_render = True
+            if item.get("xray"):
+                xray_materials(objs, item["xray"], nframes, fps, item.get("xray_color", [1.0, 0.12, 0.08]))
             if item.get("vis"):
                 t0, t1 = item["vis"]
                 for o in LOADED["all"]:
                     for f in range(1, nframes + 1):
                         o.hide_render = not (t0 <= (f - 1) / fps < t1)
                         o.keyframe_insert("hide_render", frame=f)
+            allobjs += objs
+            continue
+        if item.get("look") == "xglow":
+            xg = mat_xglow()
+            for o in objs:
+                o.data.materials.clear(); o.data.materials.append(xg)
+                if item.get("vis"):
+                    t0, t1 = item["vis"]
+                    for f in range(1, nframes + 1):
+                        o.hide_render = not (t0 <= (f - 1) / fps < t1); o.keyframe_insert("hide_render", frame=f)
             allobjs += objs
             continue
         if item.get("look") == "wire":
@@ -231,6 +293,8 @@ def main():
     sc.cycles.samples = spec.get("samples", 16)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
+    sc.cycles.transparent_max_bounces = 64
+    sc.cycles.max_bounces = 16
     sc.render.use_overwrite = False
     sc.render.use_persistent_data = bool(spec.get("persistent", False))  # only for camera-only shots; luma-scan every frame
     sc.view_settings.view_transform = "AgX"
