@@ -1,6 +1,6 @@
 # IS350 speed-run long-form: scan shots (v2)
 
-Progress note (auto, 2026-11-13 04:40 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).
+Progress note (auto, 2026-11-13 05:11 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).
 Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; +0.5 s handle past each duration.
 Files per shot in `/home/user/media/work/is350-long/renders/<id>/`: `png/`, `<id>_src.mov` (ProRes 422 HQ, 8 fps), `<id>_preview.mp4` (H.264 minterpolated to 23.976 fps: use this in the timeline).
 
@@ -29,4 +29,4 @@ IRL frames for the cut must be the full-frame 1920x1080 Rec709 grade (fx3a_slog3
 | SC_PAIR_2 | done | 26/26 | frames 26 mean 174.08..189.65 max_step 0.94 dark_frames [] | 2.75 s + 0.5 s handle. Frame 1 = solved FX30541 f5641 (235.277 s): rear-RIGHT quarter, C-pillar, trunk lid, tail lamp; then a slow push (10 % of 2.4 m). |
 | SC_PAIR_3 | done | 24/24 | frames 24 mean 137.24..155.39 max_step 1.15 dark_frames [] | 2.5 s + 0.5 s handle. Frame 1 = solved FX30542 f5401 (225.267 s): hood, windshield base, front-LEFT headlamp and fender; then a slow push. |
 | SC_RES_FULL | done | 60/60 | frames 60 mean 54.95..61.65 max_step 0.33 dark_frames [] | 7.0 s. From above-left, one continuous dolly side -> front-left 3/4 (not a turntable). The ragged rear-left well is visible only in the first ~2 s, small. |
-| SC_CON_HERO | todo | 0/110 |  | 8.0 s + 0.5 s handle (v2). Front-LEFT 3/4 (the front-right well is a ragged hole), one slow continuous pull-back; lower-left band clear for the CTA. |
+| SC_CON_HERO | done | 110/110 | frames 110 mean 31.43..54.77 max_step 0.68 dark_frames [] | 8.0 s + 0.5 s handle (v2). Front-LEFT 3/4 (the front-right well is a ragged hole), one slow continuous pull-back; lower-left band clear for the CTA. |
