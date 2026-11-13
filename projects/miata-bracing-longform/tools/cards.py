@@ -16,6 +16,7 @@ BAY = {'jacked': 'NB Miata Scan Jacked Up Engine Bay.pdf', 'fender': 'NB Miata S
 TITLE = {'jacked': 'No Bracing, Jacked', 'fender': 'Fender Braces Only', 'strut': 'Strut Tower Brace Only', 'both': 'Fender Braces + Strut Tower Brace'}
 # engine-bay width, mm (Strut Spread.xlsx)
 WID = {'control': 960.948, 'jacked': 962.643, 'fender': 961.185, 'strut': 961.679, 'both': 961.384}
+WID = {k: round(v, 1) for k, v in WID.items()}      # owner rule (v9): 0.1 mm is the resolution, so differences are between the ROUNDED widths (961.2 - 960.9 = 0.3)
 ROWS = [('control', 'Control (stock, on the ground)'), ('jacked', 'No bracing, jacked'), ('fender', 'Fender braces only, jacked'),
         ('strut', 'Strut tower brace only, jacked'), ('both', 'Fender braces + strut tower brace, jacked')]
 _cache = {}
@@ -73,7 +74,7 @@ def table(n, name, hl=None):
         d.line((110, y-18, W-110, y-18), fill='#444', width=2); col = '#ffffff' if (hl is None or i == n-1) else '#aab0b8'
         d.text((xs[0], y), lab, font=F(38, 'Medium'), fill=col); d.text((xs[1], y), f'{WID[k]:.1f} mm', font=F(38, 'Medium'), fill=col)
         dl = WID[k]-WID['control']; d.text((xs[2], y), '—' if k == 'control' else f'+{dl:.1f} mm wider', font=F(38, 'Medium'), fill=col); y += 96
-    d.text((110, 990), 'Rounded to 0.1 mm. Differences are taken before rounding.', font=F(28, 'Medium'), fill='#777')
+    d.text((110, 990), 'Widths rounded to 0.1 mm; differences are between the rounded widths.', font=F(28, 'Medium'), fill='#777')
     c.save(os.path.join(O, name))
 for n in range(1, 6): table(n, f'table_{n}.png', hl=True)
 # --- exterior heat maps (each view keeps its own colour scale from the report)
@@ -107,7 +108,7 @@ def bullets(name, head, items):
         for j, ln in enumerate(t.split('\n')): d.text((210, y+6+j*58), ln, font=F(46, 'SemiBold' if j == 0 else 'Medium'), fill='#fff' if j == 0 else '#aab0b8')
         y += 250
     c.save(os.path.join(O, name))
-bullets('takeaways.png', 'WHAT THE DATA SAYS', ['Fender braces: very effective\n0.2 mm of spread instead of 1.7 mm, by engine bay width', 'Both braces work\nEvery setup spread less than no bracing', 'Ranking them needs more controlled testing\nOne car, one scan per setup, a jack instead of a corner'])
+bullets('takeaways.png', 'WHAT THE DATA SAYS', ['Fender braces: very effective\n0.3 mm of spread instead of 1.7 mm, by engine bay width', 'Both braces work\nEvery setup spread less than no bracing', 'Ranking them needs more controlled testing\nOne car, one scan per setup, a jack instead of a corner'])
 c = Image.new('RGB', (W, H), 'black'); d = ImageDraw.Draw(c)
 d.text((W/2, 470), 'DOES CHASSIS BRACING\nACTUALLY DO ANYTHING?', font=F(72, 'Black'), fill='white', anchor='mm', align='center')
 d.text((W/2, 660), 'ON THIS CAR, ON A JACK: YES.', font=F(44, 'Bold'), fill='white', anchor='mm'); c.save(os.path.join(O, 'end.png'))

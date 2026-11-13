@@ -60,7 +60,9 @@ TL = [
   "So, does chassis bracing actually do anything? Yes, and you can measure it. With no bracing, jacking one corner spread the strut towers 1.695 millimeters. Fender braces alone: 0.237. Strut tower brace alone: 0.731. Both: 0.436."),
  ('card', 'takeaways', 5, '5. Conclusions', 'NEW takeaways card',
   "Three things. One: every setup cut the tower spread by more than half. Two: the fender braces did the most at the towers, more than the strut tower brace everybody starts with. Three: the parts don't just add up. Once the front of the car is tied together, the next brace has less left to fix."),
- ('end', 14.0, 22.6, '5. Conclusions', 'Grimace on track (rough cut 0:14-0:23) with MotoIQ and Illumaesthetic logos', "x"),
+ ('end', 14.0, 18.2, '6. Sign-off', 'Grimace on track (rough cut 0:14-0:18, slowed), no graphics', "x"),
+ ('end', 18.2, 22.6, '6. Sign-off', 'Grimace on track, darkened: THANK YOU + MotoIQ, Whiteline and Good-Win Racing logos', "x"),
+ ('end', 14.0, 22.6, '6. Sign-off', 'Grimace on track, darkened: Illumaesthetic logo, "3D scanning + engineering consulting", "Tell us what you want to see next"', "x"),
 ]
 # v3 narration (2026-11-12): after the independent agent review (agent_review.md) and the scan tests (clips.md).
 # Tower numbers = Strut Spread.xlsx. Body percentages = share of body points within 2.5 mm, computed from the exterior scans.
@@ -75,23 +77,25 @@ NAR = [
  "One side in, the other side out. That's what you'd expect from a car that's twisting. Just keep in mind this is the outside of the car. Doors, the top, the trunk, those can shift on their own. Overall, by our own math on the scans, a little under sixty percent of the body is within two and a half millimeters of the control.",
  "First we're going to throw on the fender braces from Goodwin Racing. The fender has to come off for these. They bolt in behind it, from the door hinge area down to the chassis, so they triangulate that whole corner. Then we scan it.",
  "Then it's the same corner, same jack height, and we scan the engine bay again.",
- "With just the fender braces, the engine bay is only 0.2 millimeters wider than our control. With no bracing it was 1.7, so by this measurement that's almost ninety percent less.",
+ "With just the fender braces, the engine bay is only 0.3 millimeters wider than our control. With no bracing it was 1.7, so by this measurement that's about eighty percent less.",
  "And the crazy part is, these braces don't even touch the strut towers.",
  "Here's no bracing on the left, and the fender braces on the right. The sides calm down. That orange door and that blue rear quarter are mostly gone.",
- "But from the top, the trunk and the rear deck go yellow and orange, and they weren't before. Is that the braces? I doubt it. They're all the way at the front of the car, and a trunk lid can sit a little different from scan to scan. Overall it's still about sixty percent of the body within two and a half millimeters.",
+ "But from the top, the trunk and the rear deck go yellow and orange, and they weren't before. Why? Most likely because the front of the car is stiffer now, so more of that load gets transferred to the rear. Overall it's still about sixty percent of the body within two and a half millimeters.",
  "Next up is the strut tower brace by itself. No fender braces on the car for this one. This is the one everyone does first, because it's such an easy mod. It bolts to the top of both strut towers and ties them together. Now we jack up the same corner to the same height, and rescan.",
- "With just the strut tower brace, the engine bay is 0.7 millimeters wider than our control. That's about sixty percent less than no bracing. So it's doing something. But here's the interesting part. This brace bolts right to the strut towers, and by this measurement the fender braces were more effective.",
- "0.7 for the strut tower brace. 0.2 for the fender braces.",
+ "With just the strut tower brace, the engine bay is 0.8 millimeters wider than our control. That's about half of what it was with no bracing. So it's doing something. But here's the interesting part. This brace bolts right to the strut towers, and by this measurement the fender braces were more effective.",
+ "0.8 for the strut tower brace. 0.3 for the fender braces.",
  "Now look at the heat map. No bracing on the left, strut tower brace on the right. Pretty much the whole car goes green and light blue, front to back. About ninety percent of the body is within two and a half millimeters.",
  "Out of the two braces by themselves, this is the cleaner heat map. My guess is the strut tower brace is better at resisting this specific kind of twist, the kind you get from jacking up one corner. But that's a hypothesis. We would need to investigate more.",
  "And then the last scan. Both the fender braces and the strut tower brace on the car, jacked up and scanned.",
- "With both braces on, it's 0.4 millimeters wider than our control, about seventy percent less than no bracing. Better than the strut tower brace by itself. Not better than just the fender braces.",
+ "With both braces on, it's 0.5 millimeters wider than our control, about seventy percent less than no bracing. Better than the strut tower brace by itself. Not better than just the fender braces.",
  "Now, those two are only about two tenths of a millimeter apart, and we only did one scan of each. So I'm not going to tell you one beats the other. What I can tell you is, adding the second brace didn't make it any better.",
  "And here's both braces against no bracing. Most of the car is back to green and light blue. The one hot spot is the door, and a door sits on hinges, so that's most likely how it was closed, not the chassis moving.",
  "About three quarters of the body is within two and a half millimeters. So, cleaner than the fender braces alone, but not as clean as the strut tower brace alone.",
- "So does chassis bracing actually do anything? On this car, on the jack, yes. No bracing, 1.7 millimeters. Fender braces, 0.2. Strut tower brace, 0.7. And both together, 0.4.",
+ "So does chassis bracing actually do anything? On this car, on the jack, yes. No bracing, 1.7 millimeters. Fender braces, 0.3. Strut tower brace, 0.8. And both together, 0.5.",
  "So the fender braces were very effective, and both braces work. To really rank them, we'd need more controlled testing.",
- "Parts were brought to you by MotoIQ. Scanning by Illumaesthetic. Let us know in the comments what you want us to measure next.",
+ "This was an awesome test we got to perform using our 3D scanner. I hope you found this as interesting as we did.",
+ "Thank you to our technology partners at MotoIQ for getting us set up with all the parts, and to Whiteline and Goodwin Racing for sending us the braces. Check them out to get your own.",
+ "If you need scanning and other engineering consulting work, reach out to us at Illumaesthetic. Want more? Tell us what you want to see next.",
 ]
 _i = iter(NAR); TL = [it[:5] + (next(_i),) if it[5] else it for it in TL]; assert next(_i, None) is None, 'NAR/TL mismatch'
 def nwords(nar): return sum(4 if re.fullmatch(r'[0-9]+\.[0-9]+[.,]?', w) else 1 for w in nar.split())   # "960.9" is four spoken words

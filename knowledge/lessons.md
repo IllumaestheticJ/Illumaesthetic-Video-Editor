@@ -894,3 +894,9 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** Cutting a scanned panel for a new CAD part: mask by the new part's own silhouette (grille x-z outline, up to 260 mm
   behind its back face), not a hand-drawn box, and animate in real install order (grille -> lights into grille -> onto cut bumper).
 - **[technical]** `rm -rf` with shell variables in the path is blocked by the safety check - use literal paths or leave cleanup to the user.
+
+- **[data]** the math/sig figs is wrong: 960.9 -> 961.2 is 0.3, not 0.2. Differences must be taken between the rounded values  _(from miata-bracing-longform @ 330s, 2026-11-13, reviewer)_
+
+- **[audio]** the music cutting in is distracting, keep it low; fix the other track changes as well  _(from miata-bracing-longform @ 393s, 2026-11-13, reviewer)_
+
+- **[audio]** make the voiceover voice less airy (second time asked)  _(from miata-bracing-longform @ 200s, 2026-11-13, reviewer)_

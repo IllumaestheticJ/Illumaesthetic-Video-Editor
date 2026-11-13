@@ -7,7 +7,7 @@ import sys, os, wave, subprocess, importlib.util, numpy as np
 from PIL import Image
 M, OUTN = sys.argv[1], sys.argv[2]; HERE = os.path.dirname(os.path.abspath(__file__)); a0 = sys.argv[:]
 sys.argv = [a0[0], M, '--script-only']; sp = importlib.util.spec_from_file_location('b', f'{HERE}/build.py'); b = importlib.util.module_from_spec(sp); sp.loader.exec_module(b); sys.argv = a0
-SR = 48000; VO_DB = -2.5; BED_DB = -11.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo8'        # VO_DB: relative to the owner's real voice level
+SR = 48000; VO_DB = -2.5; BED_DB = -15.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo8'        # VO_DB: relative to the owner's real voice level
 def wav(p):
     w = wave.open(p); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768; x = x.reshape(-1, w.getnchannels()).mean(1); r = w.getframerate()
     return x if r == SR else np.interp(np.arange(0, len(x), r/SR), np.arange(len(x)), x).astype(np.float32)
@@ -27,12 +27,21 @@ def tone(lines):
     sm = np.clip(sm, -6, 2.5); sm[f < 80] = -12
     # the reference has shop noise and music in its top end, so never ADD treble from it: above 3 kHz only cut, with a
     # shelf that takes the breathy "air" off the clone (-2 dB at 5 kHz to -5 dB at 9 kHz, steeper above 11 kHz)
-    hi = f > 3000; sm[hi] = np.minimum(sm[hi], 0) - np.interp(f[hi], [3000, 5000, 9000, 11000, 16000], [0, 2, 5, 7, 16])
+    hi = f > 3000; sm[hi] = np.minimum(sm[hi], 0) - np.interp(f[hi], [3000, 5000, 9000, 11000, 16000], [0, 3, 7, 10, 20])
     print('  tone match (dB) at 100/250/500/1k/2k/4k/6k/8k/10k Hz:', ' '.join('%+.1f' % np.interp(q, f, sm) for q in (100, 250, 500, 1000, 2000, 4000, 6000, 8000, 10000)))
     def apply(x):
         X = np.fft.rfft(x); ff = np.fft.rfftfreq(len(x), 1/SR); return np.fft.irfft(X*10**(np.interp(ff, f, sm)/20), len(x)).astype(np.float32)
     return apply
 def level(x): return x*REAL_RMS*10**(VO_DB/20)/act_rms(x)
+def deair(x):
+    """v9 owner note 'less airy': the clone breathes between and under words. Split at 4.5 kHz; the top band is turned down
+    wherever the voice below it is weak (breaths, tails), and kept where a voiced word carries it (so s/t stay intelligible)."""
+    X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1/SR); wgt = np.clip((f - 3500)/2000, 0, 1); hi = np.fft.irfft(X*wgt, len(x)); lo = x - hi
+    k = int(.012*SR); env = lambda v: np.sqrt(np.convolve(v*v, np.ones(k)/k, 'same') + 1e-12); el, eh = env(lo), env(hi); ref = np.percentile(el, 90)
+    g = np.clip(el/(ref*0.25), 0.18, 1.0)                    # weak low band -> top band down to -15 dB
+    g = np.minimum(g, np.clip(el/(eh*2.0 + 1e-9), 0.25, 1.0))   # top band louder than half the low band (breath, hiss) -> down
+    g = np.convolve(g, np.ones(k)/k, 'same'); gl = np.clip(el/(ref*0.06), 0.3, 1.0); gl = np.convolve(gl, np.ones(4*k)/(4*k), 'same')   # gentle expander on the gaps
+    return (lo*gl + hi*g*gl).astype(np.float32)
 # ---- fit the generated lines: one splice, then slow down the lines the voice model rushed (no pitch change)
 FIT = f'{M}/vo_fit'; os.makedirs(FIT, exist_ok=True); MAXRATE = 4.0
 def save(p, x):
@@ -50,8 +59,8 @@ rows = []; t = 0.0; cur = 0.0; vi = 0; vo = []
 for it in b.TL:
     k, a, c, sec, pic, nar = it
     if nar:
-        x, rate, f = LINES[vi]; print('  line %02d  %.1f s  %.2f words/s%s' % (vi, len(x)/SR, b.nwords(nar)/(len(x)/SR), '' if f == 1 else '  (slowed x%.2f from %.2f)' % (f, rate))); x = level(EQ(x)); s = max(t + LEAD, cur + GAP); e = s + len(x)/SR; vo.append((s, x, nar, vi)); vi += 1; cur = e
-        d = (c - a) if k in ('src', 'gfx', 'fx', 'gag') else max(4.0 if k in ('heat', 'end') else float(c), e + (2.6 if k == 'end' else TAIL) - t)
+        x, rate, f = LINES[vi]; print('  line %02d  %.1f s  %.2f words/s%s' % (vi, len(x)/SR, b.nwords(nar)/(len(x)/SR), '' if f == 1 else '  (slowed x%.2f from %.2f)' % (f, rate))); x = level(deair(EQ(x))); s = max(t + (0.7 if k == 'end' else LEAD), cur + GAP); e = s + len(x)/SR; vo.append((s, x, nar, vi)); vi += 1; cur = e
+        d = (c - a) if k in ('src', 'gfx', 'fx', 'gag') else max(4.0 if k in ('heat', 'end') else float(c), e + (3.0 if it is b.TL[-1] else TAIL) - t)
     else: d = b.dur(it)
     if not nar and k == 'card': cur = max(cur, t + d - GAP + 0.05)          # nothing is spoken over a title card
     rows.append((t, d, it)); t += d
@@ -83,7 +92,7 @@ for i, (tt, d, (k, a, c, sec, pic, nar)) in enumerate(rows):
         subprocess.run([sys.executable, f'{HERE}/callout.py', b.SRC, str(a), str(c), f + '.fx.mp4'], check=True); b.run(['-i', f + '.fx.mp4', '-an', '-c:v', 'copy', f + '.tmp.mp4']); os.remove(f + '.fx.mp4')
     elif k == 'heat': subprocess.run([sys.executable, f'{HERE}/heat3d.py', 'shot', f'{M}/heat3d', *a.split('>'), c, str(n), f + '.tmp.mp4'], check=True, stdout=subprocess.DEVNULL)
     elif k == 'gag': subprocess.run([sys.executable, f'{HERE}/mapgag.py', M, str(n), f + '.tmp.mp4'], check=True)
-    elif k == 'end': b.run(['-ss', str(a), '-t', str(c - a), '-i', b.SRC, '-vf', f'scale=1920:1080,setpts=PTS*{d/(c - a) + 0.02:.4f}', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
+    elif k == 'end': b.run(['-ss', str(a), '-t', str(c - a), '-i', b.SRC, '-vf', f'scale=1920:1080,setpts=PTS*{d/(c - a) + 0.02:.4f},minterpolate=fps=24000/1001:mi_mode=blend', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     elif k == 'gfx': b.run(['-i', f'{M}/work/flex.mp4', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     else: b.run(['-loop', '1', '-framerate', '24000/1001', '-i', f'{b.CARDS}/{a}.png', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     os.rename(f + '.tmp.mp4', f)
@@ -108,7 +117,7 @@ def outt(u): return next(tt + u - a for tt, d, (k, a, c, *_) in rows if k in ('s
 # music after 3:04 from the real tracks (Dropbox "Media for Miata Brace Vid"), following the rough cut's own choices, found by
 # fingerprint matching: 2AM under the control section, Time Stand Still under fender / both-braces shop footage, Cosmic
 # Countdown under the strut-brace footage, Dark Summer Night under the data cards. One level, crossfades, no gaps.
-MUS = f'{M}/music'; XF = 1.2
+MUS = f'{M}/music'; XF = 4.0          # v9: long crossfades and a lower bed, a new track must not 'cut in' (owner note)
 def track(name):
     w = wave.open(f'{MUS}/{name}_48.wav'); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768
     hop = SR//2; n = len(x)//hop; e = 10*np.log10((x[:n*hop].reshape(n, hop, 2)**2).mean((1, 2)) + 1e-12)

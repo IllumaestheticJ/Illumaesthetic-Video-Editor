@@ -23,13 +23,13 @@ SCAN = ['CONTROL', 'NO BRACING', 'FENDER BRACES', 'STRUT TOWER BRACE', 'BOTH BRA
 BADGE = {184.27: (1, 'CONTROL', 'car on the ground, stock'), 189.19: (2, 'NO BRACING', 'one front corner on the jack'),
          298.59: (3, 'FENDER BRACES', 'Goodwin Racing'), 372.33: (3, 'FENDER BRACES', 'engine-bay scan'),
          248.0: (4, 'STRUT TOWER BRACE', 'on its own'), 320.32: (5, 'BOTH BRACES', 'final scan')}
-DELTA = {'w_jacked': 1.7, 'w_fender': 0.2, 'w_strut': 0.7, 'w_both': 0.4}
+DELTA = {'w_jacked': 1.7, 'w_fender': 0.3, 'w_strut': 0.8, 'w_both': 0.5}
 # heat-map callouts: (start as a fraction of the line, kind, x, y, text)
 CALL = {
  'h_jacked_side': [(.28, 'ring', 274, 533, 'moved inward'), (.55, 'ring', 1728, 590, 'moved outward, around 10 mm')],
  'h_jacked_top': [(.03, 'ring', 432, 438, 'out'), (.10, 'ring', 432, 706, 'in'), (.70, 'badge', 960, 905, 'just under 60% of the body within 2.5 mm')],
  'h_fender_side': [(.35, 'ring', 1734, 562, 'rear still moving')],
- 'h_fender_top': [(.12, 'ring', 200, 576, 'trunk lid: a hinged panel'), (.72, 'badge', 960, 905, 'about 60% of the body within 2.5 mm')],
+ 'h_fender_top': [(.12, 'ring', 200, 576, 'likely: stiffer front, load moves to the rear'), (.72, 'badge', 960, 905, 'about 60% of the body within 2.5 mm')],
  'h_strut_side': [(.55, 'badge', 960, 905, 'about 90% of the body within 2.5 mm')],
  'h_strut_top': [(.55, 'badge', 960, 905, 'one scan: we cannot explain this yet')],
  'h_both_side': [(.04, 'badge', 960, 205, 'this map: 8 mm scale, not 15'), (.48, 'ring', 452, 605, 'door'), (.56, 'ring', 620, 640, 'fender, refitted')],
@@ -113,17 +113,31 @@ class Fx:
         p = spring(u/0.55); tw = d.textlength(text, font=F(34, 'Bold')); w = (tw/2 + 34)*p; h = 34*min(p, 1.05)
         d.rounded_rectangle((x - w, y - h, x + w, y + h), 16, fill=a8(GOLD if gold else (12, 12, 12), .96))
         if p > .6: d.text((x, y), text, font=F(34, 'Bold'), fill=(20, 20, 20, 255) if gold else a8(WHITE, 1), anchor='mm')
-    def end(self, im, d, u, dur):
+    def end(self, im, d, u, dur, stage=2):
+        """sign-off over the Grimace track footage. stage 0: footage only; 1: thank-you with partner logos; 2: Illumaesthetic."""
+        L = '/home/user/media/miata-bracing/logos'
         if not LOGO:
-            LOGO['m'] = _logo('/home/user/media/miata-bracing/logos/motoiq_white.png', 520); LOGO['i'] = _logo('/home/user/media/miata-bracing/logos/IllumaestheticLogoColor-01.png', 760)
-        d.rectangle((0, 0, W, H), fill=(0, 0, 0, 120))
+            LOGO['m'] = _logo(f'{L}/motoiq_official.png', 400); LOGO['w'] = _logo(f'{L}/web/wl_yellow.png', 300); LOGO['g'] = _logo(f'{L}/goodwin_official.png', 400)
+            LOGO['i'] = _logo(f'{L}/IllumaestheticLogoColor-01.png', 900)
+        d.rectangle((0, 0, W, H), fill=(0, 0, 0, 60 if stage == 0 else 150))
         for j in range(140): d.line((0, 880 + j, W, 880 + j), fill=(0, 0, 0, int(255*min(1, j/90))))          # hides the rough cut's burned-in subtitle band
         d.rectangle((0, 1020, W, H), fill=(0, 0, 0, 255))
-        for key, y, small, t0 in (('m', 250, 'PARTS BROUGHT TO YOU BY', .4), ('i', 560, 'SCANNING BY', 2.2)):
-            p = ease((u - t0)/.6)
-            if p <= 0: continue
-            d.text((W/2, y - 12*(1 - p)), small, font=F(34, 'Bold'), fill=a8(GOLD, p), anchor='mm'); lg = LOGO[key].copy(); lg.putalpha(lg.getchannel('A').point(lambda v: int(v*p)))
-            d._image.alpha_composite(lg, (int(W/2 - lg.width/2), int(y + 50 - 12*(1 - p))))
+        def put(key, cx, cy, p, tile=False):
+            lg = LOGO[key].copy(); lg.putalpha(lg.getchannel('A').point(lambda v: int(v*p))); y = cy - 14*(1 - p)
+            if tile: d.rounded_rectangle((cx - lg.width/2 - 34, y - lg.height/2 - 28, cx + lg.width/2 + 34, y + lg.height/2 + 28), 22, fill=(255, 255, 255, int(255*p)))
+            d._image.alpha_composite(lg, (int(cx - lg.width/2), int(y - lg.height/2)))
+        if stage == 1:
+            p = ease(u/.5); d.text((W/2, 150 - 12*(1 - p)), 'THANK YOU', font=F(64, 'Bold'), fill=a8(WHITE, p), anchor='mm')
+            for key, cx, small, t0, tile in (('m', 400, 'TECHNOLOGY PARTNER  ·  PARTS', .5, True), ('w', 960, 'BRACES', .7 + (dur - 1.25)*.49, False), ('g', 1520, 'BRACES', .7 + (dur - 1.25)*.59, False)):
+                p = ease((u - t0)/.6)
+                if p <= 0: continue
+                d.text((cx, 330 - 12*(1 - p)), small, font=F(30, 'Bold'), fill=a8(GOLD, p), anchor='mm'); put(key, cx, 540, p, tile)
+        elif stage == 2:
+            p = ease((u - .3)/.6)
+            if p > 0: put('i', W/2, 330, p)
+            p = ease((u - 1.0)/.6); d.text((W/2, 520 - 12*(1 - p)), '3D SCANNING  ·  ENGINEERING CONSULTING', font=F(40, 'Bold'), fill=a8(GOLD, p), anchor='mm')
+            v = self.line.get(self.rows[-1][2][5]); t2 = (v[1]*0.62 if v else dur*.6)
+            p = ease((u - t2)/.6); d.text((W/2, 720 - 12*(1 - p)), 'Tell us what you want to see next', font=F(56, 'Bold'), fill=a8(WHITE, p), anchor='mm')
     # ---------- per frame
     def apply(self, f, t):
         f = self.caption(f, t)
@@ -142,7 +156,7 @@ class Fx:
             for j in range(5):
                 q = ease((u - .15*j)/.3); x = W/2 - 80 + 40*j; d.ellipse((x - 9*q, 700 - 9*q, x + 9*q, 700 + 9*q), fill=a8(GOLD if j <= idx else (90, 90, 90), 1))
         elif name == 'end': pass
-        elif k == 'end': self.end(im, d, u, dur)
+        elif k == 'end': self.end(im, d, u, dur, [r[2] for r in self.rows if r[2][0] == 'end'].index(self.row(t)[2]))
         else: self.tracker(d, t, idx, dark)
         if k == 'src':                                                      # shop footage: chip with the scan number
             b = BADGE.get(round(a, 2)) if isinstance(a, float) or isinstance(a, int) else None

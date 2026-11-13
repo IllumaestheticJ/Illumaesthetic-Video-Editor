@@ -7,7 +7,7 @@ SAY = {'960': 'nine sixty', '961': 'nine sixty-one', '962': 'nine sixty-two', '1
 def num(m): a, c = m.group(1), m.group(2); return f"{SAY[a]} point {' '.join(D[int(x)] for x in c)}"
 def tts(s):
     s = re.sub(r'\b(\d+)\.(\d+)\b', num, s)
-    for a, c in (('86 percent', 'eighty-six percent'), ('57 percent', 'fifty-seven percent'), ('74 percent', 'seventy-four percent'), ('stock NB', 'stock N B')): s = s.replace(a, c)
+    for a, c in (('86 percent', 'eighty-six percent'), ('57 percent', 'fifty-seven percent'), ('74 percent', 'seventy-four percent'), ('stock NB', 'stock N B'), ('3D', 'three D')): s = s.replace(a, c)
     return s
 L = [tts(n) for n in b.NAR]
 if __name__ == '__main__': print(json.dumps(L, indent=0))
