@@ -122,9 +122,8 @@ export const HudV2: React.FC<HudV2Props> = (props) => {
     }
     if (seg.pill) {
       els.push(
-        <Plate key="pill" top={y} h={40} border>
-          <div style={{ position: "absolute", left: 20, right: 20, top: 0, bottom: 0, display: "flex", alignItems: "center", gap: 12, fontFamily: MONO, fontWeight: 800, fontSize: 24, letterSpacing: 2, color: C.accent, opacity: stillPulse, textShadow: SH }}>{seg.pill}</div>
-        </Plate>
+        <div key="pill" style={{ position: "absolute", top: y, ...(seg.corner === "TR" ? { right: 1920 - 1880 } : { left: 40 }), height: 40, padding: "0 20px", boxSizing: "border-box", display: "flex", alignItems: "center", gap: 12,
+          background: plateBg, borderRadius: 12, border: `3px solid ${C.accent}`, fontFamily: MONO, fontWeight: 800, fontSize: 24, letterSpacing: 2, color: C.accent, opacity: stillPulse, textShadow: SH, whiteSpace: "nowrap" }}>{seg.pill}</div>
       );
       y += 40 + 8;
     }
@@ -132,33 +131,28 @@ export const HudV2: React.FC<HudV2Props> = (props) => {
   if (seg.chapter) {
     const chapChanged = !!prev && prev.visible && prev.chapter !== seg.chapter;
     const cIn = chapChanged || wasHidden ? interpolate(lf, [0, 8], [0, 1], { extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) }) : 1;
-    const fs = Math.min(26, 372 / (seg.chapter.length * 0.66));
+    const fs = Math.min(26, 330 / (seg.chapter.length * 0.66));
     els.push(
-      <div key="tag" style={{ opacity: cIn }}>
-        <Plate top={y} h={40}>
-          <div style={{ position: "absolute", left: 14, right: 14, top: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: seg.corner === "TR" ? "flex-end" : "flex-start", fontFamily: SANS, fontWeight: 600, fontSize: fs, letterSpacing: 1.5, color: C.ink, textShadow: SH, whiteSpace: "nowrap" }}>
-            <span style={{ width: 4, height: 20, background: C.accent, marginRight: 10, flex: "none" }} />{seg.chapter}
-          </div>
-        </Plate>
+      <div key="tag" style={{ position: "absolute", top: y, ...(seg.corner === "TR" ? { right: 1920 - 1880 } : { left: 40 }), height: 40, padding: "0 20px", boxSizing: "border-box", display: "flex", alignItems: "center", gap: 12, opacity: cIn,
+        background: plateBg, borderRadius: 12, fontFamily: SANS, fontWeight: 600, fontSize: fs, letterSpacing: 1.5, color: C.ink, textShadow: SH, whiteSpace: "nowrap" }}>
+        <span style={{ width: 4, height: 20, background: C.accent, flex: "none" }} />{seg.chapter}
       </div>
     );
   }
   void subTop;
 
   // bet tally (top-left pills), only while the HUD is visible
-  const chips = props.chips.map((c, i) => {
+  const chipEls = props.chips.map((c) => {
     const cf = f - fr(c.t0, fps);
     const outF = f - (fr(props.chipsOut, fps) - 6);
-    if (cf < 0 || t >= props.chipsOut) return null;
-    const a = interpolate(cf, [0, 6], [0, 1], { extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) }) * (outF > 0 ? 1 - outF / 6 : 1);
-    const wds = [104, 136, 136];
-    const xs = [40, 40 + 104 + 12, 40 + 104 + 12 + 136 + 12];
+    const a = t >= props.chipsOut ? 0 : interpolate(cf, [0, 6], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) }) * (outF > 0 ? 1 - outF / 6 : 1);
     return (
-      <div key={c.text} style={{ position: "absolute", left: xs[i] - (1 - a) * 14, top: 40, width: wds[i], height: 46, opacity: a, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center",
+      <div key={c.text} style={{ height: 46, opacity: a, transform: `translateX(${(1 - a) * -14}px)`, boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "center", gap: 12, padding: "0 24px", whiteSpace: "nowrap",
         background: plateBg, borderRadius: 23, fontFamily: MONO, fontWeight: 700, fontSize: 26, letterSpacing: 1, color: c.hl ? C.ink : "#b4bbc6", textShadow: SH,
-        border: `2px solid ${c.hl ? C.ink : "rgba(232,236,242,0.35)"}`, borderLeft: c.hl ? `8px solid ${C.accent}` : undefined }}>{c.text}</div>
+        border: `2px solid ${c.hl ? C.ink : "rgba(232,236,242,0.35)"}` }}>{c.hl && <span style={{ width: 10, height: 10, background: C.accent, flex: "none" }} />}{c.text}</div>
     );
   });
+  const chips = <div style={{ position: "absolute", left: 40, top: 40, display: "flex", gap: 12 }}>{chipEls}</div>;
 
   const cluster = <AbsoluteFill>{els}</AbsoluteFill>;
   return (

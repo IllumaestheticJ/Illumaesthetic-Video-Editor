@@ -16,10 +16,11 @@ FPS = 23.976
 ap = argparse.ArgumentParser()
 ap.add_argument("--project", default="projects/lexus-is350-speedrun-long")
 ap.add_argument("--timeline", default=None)
+ap.add_argument("--ver", default="v2", help="output suffix: props gfx_<ver>_*.json, clip names *_<ver>")
 a = ap.parse_args()
 P = Path(a.project)
 edl = json.loads((P / "edl_v2.json").read_text())
-tlp = Path(a.timeline) if a.timeline else (P / "timeline_v2.json")
+tlp = Path(a.timeline) if a.timeline else (P / f"timeline_{a.ver}.json")
 tl = {}
 if tlp.exists():
     for e in json.loads(tlp.read_text()).get("events", []):
@@ -199,7 +200,7 @@ chips = [
 chips = [c for c in chips if c["t0"] == c["t0"]]
 hud = {"fps": FPS, "width": 1920, "height": 270, "durationInFrames": round(TOTAL * FPS), "segments": segs, "chips": chips,
        "chipsOut": EV["B_02"]["tout"] if "B_02" in EV else 0, "t2Appear": T2_APPEAR, "plateAlpha": 0.55}
-(P / "gfx_v2_hud_props.json").write_text(json.dumps(hud, indent=1))
+(P / f"gfx_{a.ver}_hud_props.json").write_text(json.dumps(hud, indent=1))
 print("HUD frames", hud["durationInFrames"], "segments", len(segs))
 
 # ---- per-cue clips ----
@@ -211,6 +212,7 @@ def cue(cid, comp, t_in, t_out, file, alpha, place, **props):
         print("WARN: cue", cid, "skipped (anchor event missing)")
         return
     fr = round((t_out - t_in) * FPS)
+    file = file.replace("_v2.", f"_{a.ver}.") if "_v2." in file else (file.replace("_C02.", f"_C02_{a.ver}.") if file.startswith("FX_") else file)
     cues.append({"cue": cid, "comp": comp, "file": file, "alpha": alpha, "in": round(t_in, 3), "out": round(t_out, 3), "frames": fr, "placement": place,
                  "props": {"cue": cid, "frames": fr, **props}})
 
@@ -257,6 +259,8 @@ cue("CON_G3_v2", "ScanLabel", ev["CON_02"]["tin"] + 3.5, ev["CON_02"]["tout"], "
 cue("G05a_v2", "CardV2", ev["C_03"]["tin"], ev["C_03"]["tout"], "G05a_v2.mp4", False, "BLACK CARD 1/3 full frame; HUD overlay stays on top", text=g["G05a_v2"]["text"])
 cue("G05b_v2", "CardV2", ev["C_07"]["tin"], ev["C_07"]["tout"], "G05b_v2.mp4", False, "BLACK CARD 2/3 full frame; carries the big CLOCK 1 fast-forward (HUD shows chapter tag only)", text=g["G05b_v2"]["text"], **{"from": EV["C_06"]["hud"] and sec(EV["C_06"]["hud"]["clock1"]["end"]) , "to": sec("11:56")})
 cue("G15_v2", "CardV2", ev["END"]["tin"], ev["END"]["tout"], "G15_v2.mp4", False, "BLACK CARD 3/3 end card, logo 900 px", text="ILLUMAESTHETIC")
+if "RESULTS_CARD" in EV:
+    cue("G_RESULTS_v3", "CardV2", ev["RESULTS_CARD"]["tin"], ev["RESULTS_CARD"]["tout"], "G_RESULTS_v3.mp4", False, "BLACK CARD full frame: RESULTS PREVIEW, HUD hidden", text="RESULTS PREVIEW")
 cue("FX_GLITCH_C02", "FxGlitch", ev["C_02"]["tin"], ev["C_02"]["tout"], "FX_GLITCH_C02.mov", True, "full-frame glitch treatment over the frozen picture (scanlines, red edge, tear bands); editor adds RGB split + desaturate on the picture", text="")
-(P / "gfx_v2_cues_props.json").write_text(json.dumps(cues, indent=1))
+(P / f"gfx_{a.ver}_cues_props.json").write_text(json.dumps(cues, indent=1))
 print(len(cues), "cues")

@@ -20,8 +20,17 @@ const inA = (f: number, at = 0, d = 7) => interpolate(f, [at, at + d], [0, 1], {
 const SH = "0 1px 3px rgba(0,0,0,0.9), 0 0 10px rgba(0,0,0,0.6)";
 const PLATE = "rgba(0,0,0,0.58)";
 
-const Box: React.FC<{ x: number; y: number; w: number; align?: "left" | "right"; a: number; dx: number; children: React.ReactNode }> = ({ x, y, w, align = "left", a, dx, children }) => (
-  <div style={{ position: "absolute", left: x, top: y, width: w, opacity: a, transform: `translateX(${dx}px)`, background: PLATE, borderRadius: 14, padding: "22px 28px", boxSizing: "border-box", textAlign: align, borderLeft: align === "left" ? `8px solid ${C.accent}` : undefined, borderRight: align === "right" ? `8px solid ${C.accent}` : undefined }}>{children}</div>
+/**
+ * Plate sized FROM its content: width/height = text + equal padding on every side (PAD), the red bar sits inside the box
+ * (same padding to the box edge). Anchored by its left (x) or right edge (right = 1920 - x - w for right-aligned stamps).
+ */
+const PAD = 30;
+const Box: React.FC<{ x: number; y: number; w: number; align?: "left" | "right"; a: number; dx: number; pad?: number; children: React.ReactNode }> = ({ x, y, w, align = "left", a, dx, pad = PAD, children }) => (
+  <div style={{ position: "absolute", top: y, ...(align === "left" ? { left: x } : { right: 1920 - x - w }), width: "fit-content", opacity: a, transform: `translateX(${dx}px)`,
+    background: PLATE, borderRadius: 14, padding: `${pad}px ${pad}px ${pad - 7}px`, boxSizing: "border-box", display: "flex", alignItems: "stretch", flexDirection: align === "left" ? "row" : "row-reverse", gap: 24 }}>
+    <div style={{ width: 8, borderRadius: 4, background: C.accent, flex: "none" }} />
+    <div style={{ textAlign: align }}>{children}</div>
+  </div>
 );
 
 /** Plated overlays on footage: G03, STING1/2, G_SPRAY, G08, G09, CON_G1. Transparent. */
@@ -61,8 +70,8 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
       return (
         <AbsoluteFill>
           <Box x={x} y={y} w={w} a={a} dx={dx}>
-            {lines.map((l, i) => <div key={i}>{big(l, 58)}</div>)}
-            <div style={{ marginTop: 16, fontFamily: MONO, fontWeight: 700, fontSize: 27, letterSpacing: 2, lineHeight: 1.3, color: "#d5dae2", textShadow: SH }}>{p.sub}</div>
+            {lines.map((l, i) => <div key={i} style={{ lineHeight: 1.08 }}>{big(l, 52)}</div>)}
+            <div style={{ marginTop: 14, fontFamily: MONO, fontWeight: 700, fontSize: 24, letterSpacing: 1.5, lineHeight: 1.1, color: "#d5dae2", textShadow: SH, whiteSpace: "nowrap" }}>{p.sub}</div>
           </Box>
         </AbsoluteFill>
       );
@@ -101,15 +110,18 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
       const at = p.beats ?? [0, 60];
       return (
         <AbsoluteFill>
-          <div style={{ position: "absolute", left: x, top: y, width: w, display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ position: "absolute", left: x, top: y, maxWidth: w, width: "fit-content", display: "flex", flexDirection: "column", alignItems: "stretch", gap: 14 }}>
             {txt.map((r, i) => {
               const k = r.lastIndexOf(" · ");
               const label = r.slice(0, k), value = r.slice(k + 3);
               const aa = inA(f, at[i]);
               return (
-                <div key={i} style={{ opacity: aa, transform: `translateX(${(1 - aa) * -40}px)`, background: PLATE, borderRadius: 14, borderLeft: `8px solid ${C.accent}`, padding: "14px 24px", boxSizing: "border-box" }}>
+                <div key={i} style={{ opacity: aa, transform: `translateX(${(1 - aa) * -40}px)`, background: PLATE, borderRadius: 14, padding: 22, boxSizing: "border-box", display: "flex", gap: 20, alignItems: "stretch" }}>
+                  <div style={{ width: 8, borderRadius: 4, background: C.accent, flex: "none" }} />
+                  <div>
                   <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 27, letterSpacing: 2.5, lineHeight: 1.2, color: "#d5dae2", textShadow: SH }}>{label}</div>
                   <div style={{ fontFamily: MONO, fontWeight: 800, fontSize: 78, lineHeight: 1.0, color: C.ink, textShadow: SH }}>{value}</div>
+                  </div>
                 </div>
               );
             })}
@@ -135,13 +147,15 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
       const at = p.beats ?? [0, 32, 66];
       return (
         <AbsoluteFill>
-          <div style={{ position: "absolute", left: x, top: y, width: w, display: "flex", flexDirection: "column", gap: 12 }}>
+          <div style={{ position: "absolute", left: x, top: y, maxWidth: w, width: "fit-content", display: "flex", flexDirection: "column", alignItems: "stretch", gap: 12 }}>
             {txt.map((r, i) => {
               const aa = inA(f, at[i]);
               const last = i === txt.length - 1;
               const k = r.indexOf(" MIN ");
               return (
-                <div key={i} style={{ opacity: aa, transform: `translateX(${(1 - aa) * -40}px)`, background: PLATE, borderRadius: 14, borderLeft: `8px solid ${last ? "rgba(232,236,242,0.5)" : C.accent}`, padding: last ? "10px 24px" : "12px 24px", boxSizing: "border-box" }}>
+                <div key={i} style={{ opacity: aa, transform: `translateX(${(1 - aa) * -40}px)`, background: PLATE, borderRadius: 14, padding: last ? 18 : 22, boxSizing: "border-box", display: "flex", gap: 20, alignItems: "stretch" }}>
+                  <div style={{ width: 8, borderRadius: 4, background: last ? "rgba(232,236,242,0.5)" : C.accent, flex: "none" }} />
+                  <div>
                   {last ? (
                     <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 34, letterSpacing: 4, color: "#d5dae2", textShadow: SH }}>{r}</div>
                   ) : (
@@ -150,6 +164,7 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
                       <span style={{ fontFamily: SANS, fontWeight: 600, fontSize: 32, letterSpacing: 3, color: "#d5dae2", textShadow: SH }}>{r.slice(k + 5)}</span>
                     </div>
                   )}
+                  </div>
                 </div>
               );
             })}
@@ -171,6 +186,16 @@ export const CardV2: React.FC<CueV2Props> = (p) => {
       <AbsoluteFill style={{ background: C.black, alignItems: "center", justifyContent: "center" }}>
         <Img src={staticFile("illumaesthetic_logo.png")} style={{ width: 900, opacity: inA(f, 0, 12) }} />
         {p.cta ? <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 40, letterSpacing: 3, color: "#b4bbc6", marginTop: 56, opacity: inA(f, 14) }}>{p.cta}</div> : null}
+      </AbsoluteFill>
+    );
+  }
+  if (p.cue === "G_RESULTS_v3") {
+    const bar = inA(f, 0, 12);
+    const ta = inA(f, 3, 9);
+    return (
+      <AbsoluteFill style={{ background: C.black, alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 120 * bar, height: 6, background: C.accent, marginBottom: 36 }} />
+        <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 116, letterSpacing: 6, lineHeight: 1.08, color: C.ink, opacity: ta, transform: `translateY(${(1 - ta) * 10}px)` }}>{txt}</div>
       </AbsoluteFill>
     );
   }

@@ -13,12 +13,13 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 ap = argparse.ArgumentParser()
 ap.add_argument("--project", default="projects/lexus-is350-speedrun-long")
-ap.add_argument("--out", default="/home/user/media/work/is350-long/gfx/v2")
+ap.add_argument("--ver", default="v2")
+ap.add_argument("--out", default=None)
 ap.add_argument("--only", default=None)
 ap.add_argument("--concurrency", default="2")
 a = ap.parse_args()
 P = REPO / a.project
-OUT = Path(a.out)
+OUT = Path(a.out or f"/home/user/media/work/is350-long/gfx/{a.ver}")
 OUT.mkdir(parents=True, exist_ok=True)
 hs = sorted(glob.glob("/opt/pw-browsers/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell"))
 B = [f"--browser-executable={hs[-1]}"] if hs else []
@@ -34,8 +35,8 @@ def render(comp, out, props, fmt):
 
 
 if only is None or "HUD" in only:
-    render("HudV2", OUT / "HUD_v2.mov", json.loads((P / "gfx_v2_hud_props.json").read_text()), PRORES)
-for c in json.loads((P / "gfx_v2_cues_props.json").read_text()):
+    render("HudV2", OUT / f"HUD_{a.ver}.mov", json.loads((P / f"gfx_{a.ver}_hud_props.json").read_text()), PRORES)
+for c in json.loads((P / f"gfx_{a.ver}_cues_props.json").read_text()):
     if only is not None and c["cue"] not in only:
         continue
     render(c["comp"], OUT / c["file"], c["props"], PRORES if c["alpha"] else H264)

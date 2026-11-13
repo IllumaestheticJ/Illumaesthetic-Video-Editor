@@ -163,3 +163,11 @@ HUD_v2.mov is 7384 frames (307.97 s). The time-lapse clock follows the editor's 
 | G15_v2 | v2/G15_v2.mp4 | 4:57.505-5:02.469 | 119 f / 4.96 s |
 | FX_GLITCH_C02 | v2/FX_GLITCH_C02.mov | 1:22.249-1:23.250 | 24 f / 1.00 s |
 | HUD_v2 | v2/HUD_v2.mov (1920x270 alpha, composite at 0,0) | 0:00.000-5:02.469 | 7252 f / 302.47 s |
+
+## Captions v3 (caption agent)
+
+- **File:** `/home/user/media/work/is350-long/gfx/v3/CAPTIONS_v3.mov`, ProRes 4444 alpha, 1200x160 band, 7309 frames (timeline_v3, 304.846 s), 276 MB. Same look and placement as v2: composite at x=360, y=880 for the whole timeline.
+- **Content:** 62 captions, 109.2 s (`captions_v3.srt/.vtt/.json`). Versus v2: the two conclusion captions moved +2.38 s (after the 77-frame RESULTS_CARD); everything before the card is unchanged. The T_07 line now reads "So, are you still recording?" (starts 134.26; the "So," onset is only about +-0.2 s certain).
+- **No captions** during RESULTS_CARD, the scan shots, or the end card (no speech there). Spot-checked 10 frames on `is350_long_v3_clean.mp4` (`out/qa/captions_v3_*.jpg`).
+- Regenerate: `python3 tools/captions_retime.py timeline_v3.json --source captions_source_v2.json --suffix _v3 --out .`
+- Wording uncertainties are unchanged from "Captions v2" above.
