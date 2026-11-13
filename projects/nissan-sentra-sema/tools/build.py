@@ -175,7 +175,7 @@ def seg_end():
     pipe('i_end', gen())
 
 
-def section_label(im, text, y=110):
+def section_label(im, text, y=430):
     """Section title in the top band (on the blurred fill / viewport background, never on the photo itself)."""
     d = ImageDraw.Draw(im); f = F('InterDisplay-Bold', 76); w = d.textlength(text, font=f)
     d.rectangle([70, y - 22, 134, y - 14], fill=RED)
@@ -196,26 +196,38 @@ def punch(im, f, n, z0=1.04):
 
 
 def seg_barrage1():
-    """Real article screenshots (tools/capture.js) alternating with outlet posts from the Instagram recording, one per kick."""
-    cuts = [45, 55, 59, 69, 73, 83, 87, 97, 113, 129, 141, 153, 158]
-    items = ['carscoops', ('ig', 138.5), 'topgear_ph', 'motorweek', ('ig', 188.5), 'tflcar', 'motoringresearch', ('ig', 178.5),
-             'motorillustrated', ('ig', 173.5), ('ig', 148.5), ('ig', 168.5)]
+    """v4: cropped real headlines stacking down the screen, one per kick (user: full-page flashes were hard to read).
+    Crops are the headline blocks of the article screenshots (tools/capture.js) + the MotorTrend post headline from the
+    Instagram recording; the small outlet tag above each is typed (several site logos did not load)."""
+    A = lambda name, y0, y1, x0=0, x1=1080: Image.open(f'{D}/press/{name}.png').convert('RGB').crop((x0, y0, x1, y1))
+    mt = subprocess.run(['ffmpeg', '-v', 'error', '-ss', '141', '-i', REC, '-frames:v', '1', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
+    mt = Image.fromarray(np.frombuffer(mt, np.uint8).reshape(2622, 1206, 3)).crop((60, 1465, 1085, 1615))
+    strips = [('CARSCOOPS', A('carscoops', 215, 500)), ('TOP GEAR PHILIPPINES', A('topgear_ph', 310, 610, 80, 1080)), ('MOTORTREND', mt),
+              ('MOTORWEEK', A('motorweek', 520, 700)), ('TFLCAR', A('tflcar', 245, 460)), ('MOTORING RESEARCH', A('motoringresearch', 235, 510)),
+              ('MOTOR ILLUSTRATED', A('motorillustrated', 255, 460)), ('AUTO123', A('auto123', 460, 580))]
+    CW = 800; x0 = (WD - CW) // 2; tagf = F('Inter-Bold', 26); cards = []; y = 0
+    for tag, im in strips:
+        h = int(im.height * CW / im.width); cards.append((tag, im.resize((CW, h), Image.LANCZOS), y)); y += h + 52
+    top = (HT - (y - 22)) // 2 + 14
+    appear = [45, 59, 69, 83, 97, 113, 129, 141]
     def gen():
-        for i, it in enumerate(items):
-            n = cuts[i + 1] - cuts[i]
-            if isinstance(it, tuple): yield from ig_frames(it[1], n)
-            else:
-                im = Image.open(f'{D}/press/{it}.png').convert('RGB').resize((WD, HT), Image.LANCZOS)
-                for f in range(n): yield punch(im, f, n)
+        for f in range(45, 158):
+            im = Image.new('RGB', (WD, HT), (8, 8, 10)); d = ImageDraw.Draw(im)
+            for k, (tag, c, cy) in enumerate(cards):
+                if f < appear[k]: continue
+                u = min(1.0, (f - appear[k] + 1) / 4); dy = int((1 - u) * 60)
+                d.rectangle([x0, top + cy + dy - 30, x0 + 40, top + cy + dy - 25], fill=RED)
+                d.text((x0 + 52, top + cy + dy - 42), tag, font=tagf, fill=OFF)
+                im.paste(c, (x0, top + cy + dy))
+            yield im
     pipe('b_barrage1', gen())
 
 
 def seg_ig():
-    """Instagram screen recording, a different post on each kick (none repeated from barrage 1)."""
-    hits = [0, 10, 13, 24, 28, 38, 42, 52, 68, 84, 96, 113]
-    ts = [20.0, 60.0, 70.0, 86.0, 91.0, 104.0, 119.0, 133.5, 143.5, 153.5, 183.5]
+    """v4: three reels of the car at SEMA posted by other people, held ~1 s each so they can be read (cuts on strong hits)."""
+    cuts = [0, 38, 68, 113]; ts = [20.0, 120.0, 186.0]   # alex.martini, Mike Kojima / motoiq, cabezas_de_petroleo (all at the SEMA booth)
     def gen():
-        for i, t in enumerate(ts): yield from ig_frames(t, hits[i + 1] - hits[i])
+        for i, t in enumerate(ts): yield from ig_frames(t, cuts[i + 1] - cuts[i])
     pipe('h_ig', gen())
 
 
@@ -227,7 +239,7 @@ def seg_concepts():
             src = Image.open(wa(n)).convert('RGB'); a = src.width / src.height
             pw = int(WD * 1.5); ph = int(pw / a); p = src.resize((pw, ph), Image.LANCZOS)
             im = Image.new('RGB', (WD, HT), tuple(int(v) for v in np.asarray(src)[4, 4])); im.paste(p, ((WD - pw) // 2, (HT - ph) // 2))
-            section_label(im, 'CONCEPTS', 300)
+            section_label(im, 'CONCEPTS', 430)
             for _ in range(3 if j < len(nums) - 1 else 71 - 3 * (len(nums) - 1)): yield im
     pipe('e_concepts', gen())
 
@@ -254,22 +266,23 @@ def seg_scan1():
 
 
 def seg_livery():
-    fr = render_seq('s2_livery', 112)
+    fr = render_seq('s3_livery', 112)
     def gen():
         for f in range(112):
             im = Image.fromarray(fr[min(f, len(fr) - 1)]); d = ImageDraw.Draw(im)
-            if fade(f, 3, 46) > 0: label(d, 330, 'NEW BODY PANELS', 'BOMEX WIDEBODY / NISSAN x MOTOIQ', fade(f, 3, 46))
-            if fade(f, 52, 109) > 0: label(d, 330, 'LIVERY', 'APPLIED IN 3D FIRST', fade(f, 52, 109))
+            if fade(f, 3, 74) > 0: label(d, 330, 'NEW BODY PANELS', 'BOMEX WIDEBODY / NISSAN x MOTOIQ', fade(f, 3, 74))
+            if fade(f, 80, 110) > 0: label(d, 330, 'LIVERY', 'APPLIED IN 3D FIRST', fade(f, 80, 110))
             yield im
     pipe('d2_livery', gen())
 
 
 def seg_fab():
     FAB = '3D PRINT + FABRICATION'; N = D + '/new/'
-    shots = [(wa(5898), 1.75, 1.55, 0.5, 24), (wa(5895), 1.6, 1.75, 0.45, 28), (N + 'nov12_11.jpg', 1.7, 1.55, 0.42, 16),
-             (N + 'oct14_0612.jpg', 1.9, 1.75, 0.5, 16), (N + 'oct14_0035.jpg', 1.9, 1.7, 0.45, 29)]
+    # v4: whole photo, static (user: zooming crops the details)
+    shots = [(wa(5898), 1.0, 1.0, 0.5, 24), (wa(5895), 1.0, 1.0, 0.5, 28), (N + 'nov12_11.jpg', 1.0, 1.0, 0.5, 16),
+             (N + 'oct14_0612.jpg', 1.0, 1.0, 0.5, 16), (N + 'oct14_0035.jpg', 1.0, 1.0, 0.5, 29)]
     def gen():
-        for ph, z0, z1, cx, n in shots: yield from fill(ph, z0, z1, cx, cx, n, cy=0.57, section=FAB)
+        for ph, z0, z1, cx, n in shots: yield from fill(ph, z0, z1, cx, cx, n, section=FAB)
     pipe('f_fab', gen())
 
 
@@ -284,7 +297,7 @@ SEGS = {
     'e_concepts': seg_concepts,
     'd2_livery': seg_livery,
     'f_fab': seg_fab,
-    'g1_reveal': lambda: pipe('g1_reveal', fill(D + '/new/nov05_2544.jpg', 2.3, 1.75, 0.5, 0.5, 55)),
+    'g1_reveal': lambda: pipe('g1_reveal', fill(D + '/new/nov05_2544.jpg', 1.0, 1.0, 0.5, 0.5, 55)),
     'g2_wheel': lambda: clip('g2_wheel', S + 'IMG_3236.mov', 3.9, 29),
     'g4_side': lambda: clip('g4_side', S + 'IMG_3233.mov', 12.5, 28),
     'h_ig': seg_ig,
@@ -294,7 +307,7 @@ if __name__ == '__main__':
     for k in ([a for a in sys.argv[1:] if a != 'mux'] or ([] if 'mux' in sys.argv else list(SEGS))): SEGS[k]()
     if not sys.argv[1:] or 'mux' in sys.argv:
         lst = SEG + '/list.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in SEGS))
-        out = W + '/out/sentra_sema_30s_v3.mp4'
+        out = W + '/out/sentra_sema_30s_v4.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-ss', str(MUSIC_START), '-i', MUSIC,
                         '-filter_complex', '[1:a]afade=t=in:d=0.03,afade=t=out:st=29.3:d=0.7[a]', '-map', '0:v', '-map', '[a]',
                         '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', '30', '-movflags', '+faststart', out], check=True)

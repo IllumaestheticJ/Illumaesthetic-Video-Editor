@@ -185,14 +185,20 @@ def main():
             me = o.data; n = len(me.vertices); co = np.empty(n * 3, np.float32); me.vertices.foreach_get("co", co)
             M = np.array(o.matrix_world); w = co.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]; x, y, z = w[:, 0], w[:, 1], w[:, 2]
             c = np.tile(np.array(WHITE, np.float32), (n, 1))
-            c[(z > 1.04) & (y > -1.9) & (y < 0.9)] = BLACK                       # roof, pillars, glass
-            c[(np.abs(x) > 0.85) & (z > 0.95) & (y > 0.45) & (y < 0.95)] = BLACK  # mirrors
-            c[z < 0.30] = BLACK                                                   # splitter, skirts, diffuser line
+            # v4 rules, measured on the Nov 12 side photo (152 px/m, front axle at y=1.41): see editlog
+            c[(z > 1.00) & (y > -1.9) & (y < 0.9)] = BLACK                        # roof, pillars, glass
+            c[(np.abs(x) > 0.85) & (z > 0.95) & (y > 0.45) & (y < 0.95)] = BLACK   # mirrors
+            side = (np.abs(x) > 0.70) & (y > -1.75) & (y < 1.02)
+            c[side & (z < 0.29)] = BLACK                                           # side skirts
+            c[z < 0.185] = BLACK                                                   # splitter / underside
+            if group == "kit":
+                c[(z < 0.172) & (y > 1.0)] = REDC                                  # red edge of the splitter
+                c[side & (z < 0.185)] = REDC                                       # red line under the skirts
             if group == "black": c[:] = BLACK
             wheel = (np.abs(x) > 0.55) & (((y - 1.41) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2) | ((y + 1.30) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2))
             if group != "kit": c[wheel] = DARK
-            c2 = c.copy(); u = y + 0.45 * (z - 0.30)
-            st = (np.abs(x) > 0.78) & (z > 0.30) & (z < 0.97) & (((u > 0.90) & (u < 1.12)) | ((u > 0.64) & (u < 0.85))) & ~wheel
+            c2 = c.copy(); u = y - 1.16 * (z - 0.30)      # stripes lean FORWARD at the top (about 49 deg), sill to mid-door
+            st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.76) & (((u > 0.16) & (u < 0.42)) | ((u > -0.12) & (u < 0.11))) & ~wheel
             if group != "black": c2[st] = REDC
             for name, arr in (("paint", c), ("paint2", c2)):
                 a = me.color_attributes.new(name, "FLOAT_COLOR", "POINT")
@@ -205,6 +211,10 @@ def main():
         vs = N("ShaderNodeValue"); vs.label = "stripes"; mixc = N("ShaderNodeMix"); mixc.data_type = "RGBA"
         lk(vs.outputs[0], mixc.inputs[0]); lk(a1.outputs["Color"], mixc.inputs[6]); lk(a2.outputs["Color"], mixc.inputs[7])
         lk(mixc.outputs[2], pa.inputs["Base Color"])
+        bw = N("ShaderNodeRGBToBW"); lk(mixc.outputs[2], bw.inputs[0])      # dark paint: rougher, so black reads black under the studio lights
+        m1 = N("ShaderNodeMath"); m1.operation = "MULTIPLY"; m1.use_clamp = True; m1.inputs[1].default_value = 6.0; lk(bw.outputs[0], m1.inputs[0])
+        m2 = N("ShaderNodeMath"); m2.operation = "MULTIPLY_ADD"; m2.inputs[1].default_value = -0.38; m2.inputs[2].default_value = 0.62; lk(m1.outputs[0], m2.inputs[0])
+        lk(m2.outputs[0], pa.inputs["Roughness"])
         geo = N("ShaderNodeNewGeometry"); sep = N("ShaderNodeSeparateXYZ"); lk(geo.outputs["Position"], sep.inputs[0])
         vw = N("ShaderNodeValue"); vw.label = "wipe_y"; gt = N("ShaderNodeMath"); gt.operation = "GREATER_THAN"
         lk(sep.outputs["Y"], gt.inputs[0]); lk(vw.outputs[0], gt.inputs[1])
