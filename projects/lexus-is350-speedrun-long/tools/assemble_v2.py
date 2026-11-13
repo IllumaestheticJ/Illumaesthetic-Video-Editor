@@ -927,7 +927,7 @@ def final_exports(evs):
         tmp = y.with_suffix(".tmp.mp4")
         subprocess.run(NICE + ["ffmpeg", "-v", "error", "-y", "-i", str(m), "-vf",
                                "scale=2560:1440:flags=lanczos,unsharp=5:5:0.4:5:5:0.0,setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709",
-                               "-c:v", "libx264", "-profile:v", "high", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
+                               "-c:v", "libx264", "-profile:v", "high", "-preset", "slow", "-crf", "18", "-maxrate", "11M", "-bufsize", "22M", "-pix_fmt", "yuv420p",
                                "-threads", "4", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
                                "-c:a", "copy", "-movflags", "+faststart", str(tmp)], check=True)
         os.replace(tmp, y)
