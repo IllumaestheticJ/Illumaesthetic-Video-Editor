@@ -1,58 +1,249 @@
 {
  "seg_version": 1,
  "x264_preset": "faster",
- "drop_events": ["M5_A", "M5_B"],
- "drop_why": "Lead: the front pair appears ONLY in the cold open (CO_02/CO_03); the montage is rear + PAIR_2/3/4, then SC_RES_FULL. Montage music is re-placed so its riser still lands on the hero.",
+ "drop_events": [
+  "CO_02",
+  "CO_03"
+ ],
+ "drop_why": "Lead (2nd update): no scan tease in the cold open (scan presentation only at the end); the cold open is CO_01 only and the gap is closed. Front pair moves into the end montage as the finale pair.",
  "overrides": {
-  "CON_01": {"src_out": 16.35, "why": "Lead: script FALLBACK cut. Measured 555 energy: 'car,' ends 16.03, '10' starts 16.46 -> 16.35 clips no word (tail 0.32 s)."},
-  "CON_02": {"dur": 13.3, "why": "fallback: CON_02 grows by 5.3 s so the P8 final hit still lands on the END card"}
+  "CON_01": {
+   "src_out": 16.35,
+   "why": "Lead: script FALLBACK cut. Measured 555 energy: 'car,' ends 16.03, '10' starts 16.46 -> 16.35 clips no word (tail 0.32 s). In point 11.56: 'but' (other speaker) ends 11.52, 'If' starts 11.70 (energy).",
+   "src_in": 11.56
+  },
+  "CON_02": {
+   "dur": 13.3,
+   "why": "fallback: CON_02 grows by 5.3 s so the P8 final hit still lands on the END card"
+  },
+  "T_07": {
+   "src_in": 52.62,
+   "why": "verify_dialogue: edl in 53.14 cut 'So,' (speech-band energy 52.90-53.15); 52.62 sits in silence (-52 dB) -> lead 0.28"
+  },
+  "C_04": {
+   "src_out": 402.62,
+   "why": "tail edge flagged (a tick at 402.40 right after 'rolling' ends 402.15); out moved into silence (-50 dB)"
+  }
  },
- "max_src_out": {"T_07": 63.22, "H_10": 3.90, "H_07": 126.8, "CON_01": 16.35, "H_11": 19.96, "C_06": 414.72, "P_08": 203.6, "B_02": 31.9, "B_01": 23.6, "CO_01": 19.4},
- "fixed_src_out": ["CO_02", "M1_A", "M5_A"],
+ "max_src_out": {
+  "T_07": 63.22,
+  "H_10": 3.9,
+  "H_07": 126.8,
+  "CON_01": 16.35,
+  "H_11": 19.96,
+  "C_06": 414.72,
+  "P_08": 203.6,
+  "B_02": 31.9,
+  "B_01": 23.6,
+  "CO_01": 19.4,
+  "C_04": 402.62
+ },
+ "fixed_src_out": [
+  "M1_A"
+ ],
  "anchors": {
-  "go":      {"event": "P_01", "clip": "FX30541", "src": 74.23},
-  "crashed": {"event": "C_01", "src": 379.60},
-  "now":     {"event": "C_08", "clip": "FX30542", "src": 13.53},
-  "time":    {"event": "TM_01", "src": 7.60},
-  "tick":    {"event": "C_05", "src": 404.542}
+  "go": {
+   "event": "P_01",
+   "clip": "FX30541",
+   "src": 74.23
+  },
+  "crashed": {
+   "event": "C_01",
+   "src": 379.6
+  },
+  "now": {
+   "event": "C_08",
+   "clip": "FX30542",
+   "src": 13.53
+  },
+  "time": {
+   "event": "TM_01",
+   "src": 7.6
+  },
+  "tick": {
+   "event": "C_05",
+   "src": 404.542
+  }
  },
- "pairs": {
-  "M2": {"shot": "SC_PAIR_2", "placeholder_irl": {"clip": "FX30544", "end": 135.0}},
-  "M3": {"shot": "SC_PAIR_3", "placeholder_irl": {"clip": "FX30542", "end": 232.0}},
-  "M4": {"shot": "SC_PAIR_4", "placeholder_irl": {"clip": "FX30541", "end": 221.0}},
-  "why": "IRL side resolved automatically from match/cam_<shot>_<clip>_f<frame>.json (ends on the solved frame); until a solve exists, the script's free candidate ranges are used with a PLACEHOLDER tag"
+ "snap": {
+  "free": 0.21,
+  "protected_grow": 0.42,
+  "main_last_bar": 0.81,
+  "montage_beat": 0.21,
+  "montage_eighth": 0.11
  },
- "snap": {"free": 0.21, "protected_grow": 0.42, "main_last_bar": 0.81, "montage_beat": 0.21, "montage_eighth": 0.11},
- "timelapse": {"ramp_s": 0.4, "shutter": 0.5},
+ "timelapse": {
+  "ramp_s": 0.4,
+  "shutter": 0.5
+ },
  "music": {
   "dir": "/home/user/media/work/is350-long/music/v2",
-  "intro":   {"file": "intro_p5_long.wav", "clear": -6, "under": -14, "fade_out": 0.9},
-  "spray":   {"file": "spray_p7.wav", "anchor_file": 1.0, "landing_file": 23.76, "clear": -5, "under": -12, "xfade_to_tense": 1.5},
-  "tense":   {"file": "crash_tense_long.wav", "clear": -4, "under": -10},
-  "drone":   {"file": "crash_bed_drone.wav", "tick_anchor_file": 8.86, "clear": -9, "under": -16},
-  "ticks":   {"file": "crash_bed_ticks.wav", "clear": -9, "under": -18},
-  "c07":     {"file": "crash_c07_ticks_riser.wav", "clear": -3},
-  "main":    {"file": "main_p4.wav", "anchor_file": 0.1, "clear": -6, "under": -14, "hard_parts_db": 2.0},
-  "sting":   {"file": "time_sting.wav", "onset": 0.007, "clear": -6},
-  "montage": {"file": "montage_p1.wav", "riser_end_file": 27.5, "clear": -3, "lead_in": 1.0},
-  "hero":    {"file": "hero_outro_p8.wav", "lift_file": 3.0, "hit_file": 28.15, "clear": -5, "under": -14},
-  "hit_big": {"file": "hit_big.wav", "onset": 0.007, "gain": -2},
-  "hit_small": {"file": "hit_small.wav", "onset": 0.005, "gain": -2},
-  "riser":   {"file": "riser_landing_3p78.wav", "landing": 3.78, "gain": -3}
+  "intro": {
+   "file": "intro_p5_long.wav",
+   "clear": -6,
+   "under": -14,
+   "fade_out": 0.9
+  },
+  "spray": {
+   "file": "spray_p7.wav",
+   "anchor_file": 1.0,
+   "landing_file": 23.76,
+   "clear": -5,
+   "under": -12,
+   "xfade_to_tense": 1.5
+  },
+  "tense": {
+   "file": "crash_tense_long.wav",
+   "clear": -4,
+   "under": -10
+  },
+  "drone": {
+   "file": "crash_bed_drone.wav",
+   "tick_anchor_file": 8.86,
+   "clear": -9,
+   "under": -16
+  },
+  "ticks": {
+   "file": "crash_bed_ticks.wav",
+   "clear": -9,
+   "under": -18
+  },
+  "c07": {
+   "file": "crash_c07_ticks_riser.wav",
+   "clear": -3
+  },
+  "main": {
+   "file": "main_p4.wav",
+   "anchor_file": 0.1,
+   "clear": -6,
+   "under": -14,
+   "hard_parts_db": 2.0
+  },
+  "sting": {
+   "file": "time_sting.wav",
+   "onset": 0.007,
+   "clear": -6
+  },
+  "montage": {
+   "file": "montage_p1.wav",
+   "riser_end_file": 27.5,
+   "clear": -3,
+   "lead_in": 1.0
+  },
+  "hero": {
+   "file": "hero_outro_p8.wav",
+   "lift_file": 3.0,
+   "hit_file": 28.15,
+   "clear": -5,
+   "under": -14
+  },
+  "hit_big": {
+   "file": "hit_big.wav",
+   "onset": 0.007,
+   "gain": -2
+  },
+  "hit_small": {
+   "file": "hit_small.wav",
+   "onset": 0.005,
+   "gain": -2
+  },
+  "riser": {
+   "file": "riser_landing_3p78.wav",
+   "landing": 3.78,
+   "gain": -3
+  }
  },
  "audio": {
   "clean": "highpass=f=90,afftdn=nr=10:nf=-45:tn=1,lowpass=f=13000",
-  "declip_clips": ["FX30547", "FX30551", "FX30552", "FX30553"],
+  "declip_clips": [
+   "FX30547",
+   "FX30551",
+   "FX30552",
+   "FX30553"
+  ],
   "dialogue_lufs": -18.0,
   "dia_comp": "acompressor=threshold=0.06:ratio=2.5:attack=8:release=200:knee=4",
   "dia_peak_dbfs": -7.0,
   "line_tolerance_lu": 1.0,
-  "preroll": {"C_08": ["FX30542", 14.70, 14.95], "H_03": ["FX30547", 3.75, 3.95], "H_10": ["FX30551", 3.40, 3.65]},
-  "end_fade": {"T_07": 0.125, "CON_01": 0.08},
-  "room_events": {"C_05": -8.0, "P_03": -14.0},
+  "preroll": {
+   "C_08": [
+    "FX30542",
+    14.7,
+    14.95
+   ],
+   "H_03": [
+    "FX30547",
+    3.75,
+    3.95
+   ],
+   "H_10": [
+    "FX30551",
+    3.4,
+    3.65
+   ]
+  },
+  "end_fade": {
+   "T_07": 0.125,
+   "CON_01": 0.08
+  },
+  "room_events": {
+   "C_05": -8.0,
+   "P_03": -14.0
+  },
   "freeze_sfx_db": -14.0,
   "dead_silence_s": 0.4,
   "target_lufs": -14.0,
   "limit_dbfs": -2.0
+ },
+ "montage": {
+  "why": "Lead: order builds rear quarter -> rear bumper -> hood -> front walk-out (finale, longest) -> hero. Durations in whole P1 beats (0.4 s); IRL->scan cuts snap to the nearest kick, scan->IRL to the nearest eighth; montage total fixed so the riser/hero lift stays on its anchor.",
+  "replaces": [
+   "M1_A",
+   "M1_B",
+   "M2_A",
+   "M2_B",
+   "M3_A",
+   "M3_B",
+   "M4_A",
+   "M4_B",
+   "M5_A",
+   "M5_B"
+  ],
+  "pairs": [
+   {
+    "id": "MP2",
+    "shot": "SC_PAIR_2",
+    "clip": "FX30541",
+    "frame": 5641,
+    "irl": 2.4,
+    "scan": 2.4,
+    "irl_max": 2.49
+   },
+   {
+    "id": "MREAR",
+    "shot": "SC_MATCH_REAR",
+    "clip": "FX30542",
+    "frame": 1135,
+    "irl": 3.2,
+    "scan": 2.4
+   },
+   {
+    "id": "MP3",
+    "shot": "SC_PAIR_3",
+    "clip": "FX30542",
+    "frame": 5401,
+    "irl": 2.4,
+    "scan": 2.4,
+    "irl_max": 2.46
+   },
+   {
+    "id": "MFRONT",
+    "shot": "SC_MATCH_FRONT",
+    "clip": "FX30554",
+    "frame": 264,
+    "irl": 3.2,
+    "scan": 4.0
+   }
+  ]
  }
 }

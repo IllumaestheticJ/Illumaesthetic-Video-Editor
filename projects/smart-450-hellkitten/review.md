@@ -1,3 +1,28 @@
+# Smart 450 "Hellkitten" reel v4: what changed from v3
+
+Output `/home/user/media/work/smart-450/out/smart450_v4.mp4` (857 frames, 28.57 s) and `smart450_v4_meowlite.mp4` (same picture, meows 6 dB lower). Stems `stem_music.wav`, `stem_shopsound.wav`, `stem_meows.wav`. Copies in `preview/`. Rebuild: `python projects/smart-450-hellkitten/tools/build.py`.
+
+**No placeholders remain**: a4_hellkitten (68 frames) and a5_xray (29 frames used, first 1.5 s of its 3 s) are finished renders and swapped in automatically.
+
+- **New first shot**: a5_xray (red Hellkitten dissolving into the Smart inside it) with "THIS IS A SMART CAR?" baked in at full opacity from frame 0 (Inter Display Bold 112 px, two lines, in the clear black top band). The question "SHOULD WE BUILD THIS? / TELL US IN THE COMMENTS" is now at the end only. 4.r.1 moved into drop 3 (m 56-58); Street2 and Night2 are one beat each after it.
+- **Meow drum kit**: 70 meows on 62 distinct moments (two 4-layer choirs count as 4 each): `meow_map.json` (time, sample, pitch shift, pan, gain, bar/beat, voice, kind, why). Kit: hats (first 0.16 s of a mew, off-beats), backbeat mids, "MRROW" lows doubling bar downbeats and the swap, rising 16th rolls into the scanner, the 1:1 cut, the swap and drop 3, two voices answering each other (A lower and left, B +3 semitones and right), choir on the Hellkitten reveal (m 44.5) and on the question (m 60, A C E A), stutter rolls in break 2, the long unimpressed meow on the question (m 61) as punchline, a small mew on the logo. +4 dB over v3, room reverb 14 %, kick sidechain up to -5 dB.
+
+| section | meows |
+|---|---|
+| hook (m -4..0) | 4 |
+| drop 1 (0..20) | 16 |
+| break 1 (20..24) | 6 |
+| drop 2 (24..48) | 19 |
+| break 2 (48..56) | 11 |
+| drop 3 + question (56..64) | 11 |
+| logo (64..72) | 3 |
+
+- **Level**: stem -19.4 LUFS, peak -3.7 dBFS; music stem -10.4 LUFS, peak -4.0. Master -10.1 LUFS, -1.2 dBFS peak. Meowlite -10.3 LUFS, -1.7 dBFS.
+- **Onset accuracy**: every meow is placed on the lattice (16th grid) by sample; cross-correlating each known one-shot with the decoded stem gives a placement error of at most 0.07 ms; the mp4 decodes with 0.0 ms lag against the master. The audible onset of a one-shot (20 % crossing) sits 2-3.5 ms after the lattice time by construction. `out/meow_strip.png` shows the arrangement. Nobody has listened to it.
+- **Meme cats** (owner-supplied, rights not cleared; `sfx.md`): huh_cat bottom right frames 12-44 next to the opening question; oiiaoiia_cat bottom left frames 397-441, its spin starts on the body-off swap (frame 406); yapapa_cat bottom left frames 535-585, first yell on the choir meow (frame 547); clapping_cat bottom right frames 744-766, after the long meow and before the logo. happy_cat not used (about 100 px tall in its frame). Meme audio muted (no stem_memes.wav). Keying: each clip keyed on its own measured background (huh BGR 80,193,85; the others about 0,245,0), CbCr distance with soft ramp, 1 px erode, despill, premultiplied downscale; checked on 3 frames per clip at crop size (out/meme_check_*.png) and in the cut at phone size: no green fringe or holes seen on the black cat; the spinning tabby is a dark blur by nature and looks like debris at 330 px.
+- **Weaknesses**: the huh cat sits close to the x-ray car; A4 starts on A2's end camera, which clips the car at both edges for about 0.7 s before the body appears whole; meows are adult cats (no CC0 kitten recordings found, Wikimedia rate-limited); the density is high and unheard, so use the meowlite cut if it is too much; a5 is 3 s but only its first 1.5 s is used.
+
+---
 # Smart 450 "Hellkitten" reel v3 ("Should we build this?"): editor notes
 
 Output `/home/user/media/work/smart-450/out/smart450_v3.mp4` (1080x1920, 30 fps, 857 frames = 28.57 s, H.264 High CRF 17, AAC 256k). Stems `out/stem_music.wav`, `out/stem_shopsound.wav`, `out/stem_meows.wav`, master `out/smart450_mix.wav`. Preview copy in `preview/`. Rebuild: `python projects/smart-450-hellkitten/tools/build.py`.

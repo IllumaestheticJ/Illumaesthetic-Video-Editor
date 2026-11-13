@@ -77,30 +77,31 @@ def load_events():
         if ev["type"] == "card":
             ev["card"] = ev["source"].split(":")[1]
         o = CFG["overrides"].get(e["id"], {})
+        if "src_in" in o:
+            ev["src_in"] = o["src_in"]; ev["dur"] = ev["src_out"] - ev["src_in"]
         if "src_out" in o:
             ev["src_out"] = o["src_out"]; ev["dur"] = ev["src_out"] - ev["src_in"]
         if "dur" in o:
             ev["dur"] = o["dur"]; ev["src_out"] = ev["src_in"] + o["dur"]
         evs.append(ev)
-    # montage pairs: IRL side from a solve file, else placeholder candidate
-    for key, pc in CFG["pairs"].items():
-        if key == "why":
-            continue
-        a = next((x for x in evs if x["id"] == f"{key}_A"), None)
-        if a is None:
-            continue
-        cams = glob.glob(str(P / f"match/cam_{pc['shot']}_FX305*_f*.json"))
-        if cams:
-            m = re.search(r"_(FX305\d\d)_f(\d+)\.json$", cams[0])
-            clip, fr = m.group(1), int(m.group(2))
-            a["clip"] = clip; a["source"] = f"{DROP}/{clip}.MP4"
-            a["match_frame"] = fr; a["pair_status"] = "solved"
-        else:
-            ph = pc["placeholder_irl"]
-            a["clip"] = ph["clip"]; a["source"] = f"{DROP}/{ph['clip']}.MP4"
-            a["match_frame"] = F(ph["end"]) - 1; a["pair_status"] = "placeholder"
-            a["tag"] = f"PLACEHOLDER {pc['shot']} IRL (no solve yet)"
-        a["src_out"] = T(a["match_frame"] + 1); a["src_in"] = a["src_out"] - a["dur"]
+    # end montage rebuilt from editor_v2.json (lead's order); IRL ends on the solved frame from match/cam_*.json
+    mc = CFG["montage"]
+    i6 = next(k for k, e in enumerate(evs) if e["id"] == "M6")
+    evs = [e for e in evs if e["id"] not in mc["replaces"]]
+    i6 = next(k for k, e in enumerate(evs) if e["id"] == "M6")
+    ins = []
+    for pc in mc["pairs"]:
+        cam = P / f"match/cam_{pc['shot']}_{pc['clip']}_f{pc['frame']}.json"
+        a_ = {"id": pc["id"] + "_A", "section": "9 THE SCAN (END MONTAGE)", "type": "irl", "source": f"{DROP}/{pc['clip']}.MP4",
+              "clip": pc["clip"], "audio": "music", "hear": None, "protect": False, "hud": {"visible": False}, "gfx": [],
+              "decode": None, "speed": None, "dur": pc["irl"], "match_frame": pc["frame"], "pair_status": "solved" if cam.exists() else "missing solve",
+              "edl_in": 0.0, "edl_out": pc["irl"], "irl_max": pc.get("irl_max")}
+        a_["src_out"] = T(pc["frame"] + 1); a_["src_in"] = a_["src_out"] - a_["dur"]
+        b_ = {"id": pc["id"] + "_B", "section": a_["section"], "type": "scan", "source": pc["shot"], "shot": pc["shot"], "audio": "music",
+              "hear": None, "protect": False, "hud": {"visible": False}, "gfx": [], "decode": None, "speed": None, "dur": pc["scan"],
+              "src_in": 0.0, "src_out": pc["scan"], "edl_in": 0.0, "edl_out": pc["scan"]}
+        ins += [a_, b_]
+    evs = evs[:i6] + ins + evs[i6:]
     for e in evs:
         if e["id"] in CFG["fixed_src_out"]:
             e["match_frame"] = F(e["src_out"]) - 1
@@ -253,8 +254,8 @@ def plan():
     # --- montage: M1_A start .. M6 start fixed by the music (riser lands on the hero), cuts snap without ripple
     layout(evs)
     mo = beats_json("beats_montage.json")
-    ids_m = [e["id"] for e in evs if e["id"].startswith("M") and e["id"] != "M6"]
-    m_start = by["M1_A"]["tl_in"]
+    ids_m = [e["id"] for e in evs if e["section"].startswith("9 THE SCAN") and e["id"] != "M6"]
+    m_start = by[ids_m[0]]["tl_in"]
     total = sum(by[i]["dur"] for i in ids_m)
     s0 = M["montage"]["riser_end_file"] - total
     m_file0 = m_start - s0
@@ -267,7 +268,10 @@ def plan():
         is_irl_to_scan = by[i]["type"] == "irl"
         grid_m, win = (beats, CFG["snap"]["montage_beat"]) if is_irl_to_scan else (eighths, CFG["snap"]["montage_eighth"])
         near = min(grid_m, key=lambda x: abs(x - cum))
-        cuts.append(near if abs(near - cum) <= win else cum)
+        prev_edge = cuts[-1] if cuts else m_start
+        mx = by[i].get("irl_max")
+        ok = abs(near - cum) <= win and (mx is None or near - prev_edge <= mx)
+        cuts.append(near if ok else cum)
         rep.append({"cut": f"{i}|{ids_m[k + 1]}", "t_pre": round(cum, 3), "moved": round(cuts[-1] - cum, 3),
                     "music": "montage P1", "why": "beat (kick)" if is_irl_to_scan else "eighth"})
     edges = [m_start] + cuts + [m_start + total]
@@ -279,6 +283,10 @@ def plan():
         elif e["type"] == "irl":
             e["src_out"] = e["src_in"] + nd
         e["dur"] = nd
+    layout(evs)
+    # CON_02 absorbs any change in CON_01 so the P8 final hit lands exactly on the END card
+    by["CON_02"]["dur"] = by["M6"]["tl_in"] + (M["hero"]["hit_file"] - M["hero"]["lift_file"]) - by["CON_02"]["tl_in"]
+    by["CON_02"]["src_out"] = by["CON_02"]["dur"]
     layout(evs)
     A["montage_file0"] = m_file0; A["lift"] = by["M6"]["tl_in"]
     A["crashed"] = rel(by["C_01"], CFG["anchors"]["crashed"]["src"])
@@ -310,7 +318,8 @@ def plan():
     A["go"] = rel(by["P_01"], go_src); A["now"] = rel(by["C_08"], now_src)
     A["crashed"] = rel(by["C_01"], CFG["anchors"]["crashed"]["src"]); A["tick"] = rel(by["C_05"], CFG["anchors"]["tick"]["src"])
     A["time"] = rel(by["TM_01"], CFG["anchors"]["time"]["src"]); A["lift"] = by["M6"]["tl_in"]; A["end_card"] = by["END"]["tl_in"]
-    A["montage_file0"] = by["M1_A"]["tl_in"] - (M["montage"]["riser_end_file"] - (by["M6"]["tl_in"] - by["M1_A"]["tl_in"]))
+    m1 = next(e for e in evs if e["section"].startswith("9 THE SCAN"))
+    A["montage_file0"] = m1["tl_in"] - (M["montage"]["riser_end_file"] - (by["M6"]["tl_in"] - m1["tl_in"]))
     A["spray_file0"] = A["go"] - M["spray"]["anchor_file"]
     A["hero_file0"] = A["lift"] - M["hero"]["lift_file"]
     write_timeline(evs, A, rep)
@@ -459,6 +468,29 @@ def black_frames(e, text=None):
         yield fr
 
 
+def scan_frames_v2(e):
+    """finished render shorter than the slot (e.g. CON_02 13.3 s vs an 8.5 s render): slow it down with frame blending
+    instead of freezing the last frame; otherwise as v1 (placeholders tagged)"""
+    kind, src = al.scan_source(e["shot"])
+    if kind != "final":
+        yield from al.scan_frames(e); return
+    avail = int(subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
+                                "stream=nb_read_frames", "-of", "csv=p=0", src], capture_output=True, text=True).stdout.strip() or 0)
+    if avail >= e["n"]:
+        yield from al.scan_frames(e); return
+    e["retimed"] = round(avail / e["n"], 3)
+    gen = al.reader(["ffmpeg", "-v", "error", "-i", src, "-vf", "scale=1920:1080", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], 1920, 1080)
+    a = next(gen).astype(np.float32); b = next(gen, None); ia = 0
+    b = a if b is None else b.astype(np.float32)
+    for k in range(e["n"]):
+        p = k * (avail - 1) / max(1, e["n"] - 1)
+        while ia + 1 < p and ia + 1 < avail - 1:
+            a = b; nb = next(gen, None); ia += 1
+            b = a if nb is None else nb.astype(np.float32)
+        u = min(1.0, max(0.0, p - ia))
+        yield (a * (1 - u) + b * u + 0.5).astype(np.uint8)
+
+
 def seg_key(e):
     k = {kk: e.get(kk) for kk in ("id", "type", "source", "src_start_f", "n", "src_in", "src_out", "tag", "decode")}
     k["v"] = CFG["seg_version"]; k["tl"] = CFG["timelapse"]
@@ -478,6 +510,10 @@ def render_segment(e, prev):
     meta = out.with_suffix(".json")
     if out.exists() and meta.exists() and json.load(open(meta)).get("key") == key:
         return out, False
+    for om in glob.glob(str(d / f"*_{e['id']}.json")):  # same content at a new timeline position: rename, don't re-render
+        if json.load(open(om)).get("key") == key and os.path.exists(om[:-5] + ".mp4"):
+            os.replace(om[:-5] + ".mp4", out); os.replace(om, meta)
+            return out, False
     for old in glob.glob(str(d / f"*_{e['id']}.*")):
         os.remove(old)
     if e["type"] == "irl":
@@ -487,7 +523,7 @@ def render_segment(e, prev):
     elif e["type"] == "freeze":
         gen = freeze_frames(e, prev)
     elif e["type"] == "scan":
-        gen = al.scan_frames(e)
+        gen = scan_frames_v2(e)
     else:
         gen = black_frames(e)
     tmp = out.with_suffix(".tmp.mp4")
@@ -655,7 +691,8 @@ def audio(evs, A):
         return duck(part, mask, c["clear"] + extra_db, c.get("under", c["clear"]) + extra_db)
     # intro: 0 -> go
     mus += add(music_part(total, M["intro"]["file"], 0.0, 0.0, A["go"] - 0.03, 0.8, M["intro"]["fade_out"]), "intro")
-    put(fx, mwav(M["hit_big"]["file"]), by["CO_03"]["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
+    if "CO_03" in by:
+        put(fx, mwav(M["hit_big"]["file"]), by["CO_03"]["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
     # spray: file0 at go-1.0, until C_01 + crossfade
     c1 = by["C_01"]
     sp_end = min(c1["tl_in"] + M["spray"]["xfade_to_tense"], A["spray_file0"] + len(mwav(M["spray"]["file"])) / SR - 0.02)
@@ -688,7 +725,7 @@ def audio(evs, A):
     mus += add(main, "main")
     put(fx, mwav(M["sting"]["file"]), A["time"] - M["sting"]["onset"], M["sting"]["clear"])
     # montage: riser lands on the hero
-    m1 = by["M1_A"]
+    m1 = next(e for e in evs if e["section"].startswith("9 THE SCAN"))
     mus += add(music_part(total, M["montage"]["file"], A["montage_file0"], m1["tl_in"] - M["montage"]["lead_in"], A["lift"], 0.8, 0.01),
                "montage")
     # hero / conclusion / end card

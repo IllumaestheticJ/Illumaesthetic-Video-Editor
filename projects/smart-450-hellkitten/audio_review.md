@@ -14,3 +14,6 @@ Owner feedback 2026-11-13: "0:04, my voice gets cut off from the music (mute my 
 - Scanner beeps were not kept: the scanner shots (S9, S17) come from clips with bystander speech and are muted.
 - The meows (`stem_meows.wav`) are the only other sound besides the music. v1's table of speech rows (profanity / slur / price scan) is superseded by this mute; the v1 transcription is in `out/audio_review_raw.json` history only.
 - Nobody has listened to this mix.
+
+## v4 note
+The four meme cats' own audio is not used. Only music, the three hiss spans and the meow stem are in the mix. No speech was added in v4.

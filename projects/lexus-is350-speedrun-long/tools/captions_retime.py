@@ -14,11 +14,11 @@ Event fields used: id, type, source (path ending FX305xx.MP4), src_in, src_out, 
 """
 import json, sys, os, argparse
 FPS = 24000 / 1001
-ap = argparse.ArgumentParser(); ap.add_argument('timeline'); ap.add_argument('--out'); ap.add_argument('--min', type=float, default=0.3)
+ap = argparse.ArgumentParser(); ap.add_argument('timeline'); ap.add_argument('--out'); ap.add_argument('--min', type=float, default=0.3); ap.add_argument('--source', default='captions_source.json'); ap.add_argument('--suffix', default='')
 a = ap.parse_args()
 here = os.path.dirname(os.path.abspath(__file__)); proj = os.path.dirname(here)
 TL = json.load(open(a.timeline)); evs = TL['events'] if isinstance(TL, dict) else TL
-src = json.load(open(os.path.join(proj, 'captions_source.json')))['captions']
+src = json.load(open(os.path.join(proj, a.source)))['captions']
 out_dir = a.out or os.path.dirname(os.path.abspath(a.timeline))
 snap = lambda t: round(t * FPS) / FPS
 def clip_of(e):
@@ -50,7 +50,7 @@ for i, r in enumerate(res, 1):
 def tc(t, sep):
     ms = round(t * 1000); return f"{ms//3600000:02d}:{ms//60000%60:02d}:{ms//1000%60:02d}{sep}{ms%1000:03d}"
 os.makedirs(out_dir, exist_ok=True)
-json.dump(res, open(os.path.join(out_dir, 'captions.json'), 'w'), indent=1)
-open(os.path.join(out_dir, 'captions.srt'), 'w').write(''.join(f"{r['n']}\n{tc(r['start'],',')} --> {tc(r['end'],',')}\n" + '\n'.join(r['lines']) + "\n\n" for r in res))
-open(os.path.join(out_dir, 'captions.vtt'), 'w').write("WEBVTT\n\n" + ''.join(f"{tc(r['start'],'.')} --> {tc(r['end'],'.')}\n" + '\n'.join(r['lines']) + "\n\n" for r in res))
+json.dump(res, open(os.path.join(out_dir, f'captions{a.suffix}.json'), 'w'), indent=1)
+open(os.path.join(out_dir, f'captions{a.suffix}.srt'), 'w').write(''.join(f"{r['n']}\n{tc(r['start'],',')} --> {tc(r['end'],',')}\n" + '\n'.join(r['lines']) + "\n\n" for r in res))
+open(os.path.join(out_dir, f'captions{a.suffix}.vtt'), 'w').write("WEBVTT\n\n" + ''.join(f"{tc(r['start'],'.')} --> {tc(r['end'],'.')}\n" + '\n'.join(r['lines']) + "\n\n" for r in res))
 print(f"{len(res)} captions, {sum(r['end']-r['start'] for r in res):.1f} s -> {out_dir}"); print('\n'.join(rep))
