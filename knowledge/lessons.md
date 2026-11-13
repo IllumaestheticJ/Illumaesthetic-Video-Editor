@@ -956,3 +956,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan]** (Revuelto v5) "The exhaust scans need the surround scan more present, too much is cut off": never crop a
   state scan's sides to hide ragged edges. Keep its full width and set it inside the car, with the car carved around it
   (`projects/lamborghini-revuelto/tools/carve.py`: distance to the state scans + a box for leftover parts).
+- (WRX VB v5b) A part label needs its part in frame when it moves (reviewer: "it says door flare but you can't see anything come off"). Print each part's bbox in the prepped frame and put the camera target on it at the lift key; don't trust a part's name for where it sits (the 'door flare' is on the rear arch).

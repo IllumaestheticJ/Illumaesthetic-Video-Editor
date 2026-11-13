@@ -4,6 +4,7 @@ Output: `/home/user/media/work/wrx/out/subaru_wrx_vb_v5.mp4`. Specs: 1080x1920, 
 
 The v4 feedback this version addresses (feedback.jsonl):
 - **List the flares and side skirt as they come off:** FRONT FLARE, DOOR FLARE, REAR FLARE, SIDE SKIRT appear as each part lifts (names from the scan files).
+- **Door flare not visible (v5 first cut):** the door flare is the rear door's half of the rear arch flare; the camera was on the front door at that beat. The side camera now reaches the rear arch on the door-flare beat (`chk/v5cut/side_1045.jpg`).
 - **"Scanned separately" is redundant:** the sub-lines on FRONT GRILLE and LOWER GARNISH are gone.
 - **Rear still had leftover bumper:** v4 removed the rear bumper by point distance to its part scan, and the tub fill from 'Rear Bumper Trunk Open' (bumper on) put bumper skin back. v5 cuts the bumper as a state difference on the car mesh against 'Rear Bumper Removed'. Rear fills must be more than 6 mm from kept and removed skin (`tools/seg_v5.py`, `build_v5.py`). The crash bar and structure now show.
 - **Trunk not accurately cut:** on the VB the plate panel between the tail lights is part of the lid. v4 cut that panel in half and ran 50-80 mm onto the rear glass. v5 traces the deck shut lines on a band-passed top-view height map (guide points snapped to the groove) and takes the rear face from the trunk-open state difference.
