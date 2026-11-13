@@ -1,0 +1,2263 @@
+{
+ "project": "lexus-is350-speedrun-long",
+ "fps": "24000/1001",
+ "frames_total": 7356,
+ "duration_s": 306.8065,
+ "built_by": "tools/assemble_long.py plan",
+ "note": "Final timeline after dropping E41 (no cabin geometry), replacing E71 with conclusion Version A and beat snap. Times in seconds and frames (frame = round(t*fps)); src_in/src_out are seconds in the source clip (for IRL exact frame bounds). sync_speech: event carries sync dialogue -> caption from the word JSON in that src range. Caption zone: rail centre x 410-1510, y 920-1080, kept empty in picture.",
+ "anchors_s": {
+  "go": 24.456,
+  "crashed": 78.108,
+  "now": 102.433,
+  "time": 220.741,
+  "title": 6.6,
+  "bet": 12.6,
+  "crashcard": 88.2,
+  "card32": 227.261,
+  "lift": 249.814,
+  "p7": 292.6,
+  "end": 306.814
+ },
+ "music": [
+  {
+   "piece": "P4b",
+   "tl_in": 0.0,
+   "tl_out": 12.6,
+   "gain_db": -6.0,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     0.0,
+     12.6,
+     593.5392
+    ]
+   ]
+  },
+  {
+   "piece": "P5",
+   "tl_in": 12.6,
+   "tl_out": 24.416,
+   "gain_db": -4.5,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     12.6,
+     24.4156,
+     681.2991
+    ]
+   ]
+  },
+  {
+   "piece": "P1",
+   "tl_in": 24.456,
+   "tl_out": 78.108,
+   "gain_db": -1.5,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     24.4556,
+     78.108,
+     8.4359
+    ]
+   ]
+  },
+  {
+   "piece": "P3",
+   "tl_in": 88.2,
+   "tl_out": 102.433,
+   "gain_db": -10.0,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     88.2,
+     102.4326,
+     301.8852
+    ]
+   ]
+  },
+  {
+   "piece": "P4",
+   "tl_in": 102.433,
+   "tl_out": 220.741,
+   "gain_db": -6.0,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     102.4326,
+     220.741,
+     355.7692
+    ]
+   ]
+  },
+  {
+   "piece": "P8",
+   "tl_in": 227.261,
+   "tl_out": 293.0,
+   "gain_db": -3.0,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     227.261,
+     238.9584,
+     1100.6638
+    ],
+    [
+     238.9584,
+     293.0,
+     1102.2344
+    ]
+   ]
+  },
+  {
+   "piece": "P7",
+   "tl_in": 292.6,
+   "tl_out": 306.814,
+   "gain_db": -2.0,
+   "chunks_tl_in_tl_out_mix_in": [
+    [
+     292.6,
+     306.814,
+     1082.1635
+    ]
+   ]
+  }
+ ],
+ "events": [
+  {
+   "id": "E01",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "tl_in": 0.0,
+   "tl_out": 2.2522,
+   "in_frame": 0,
+   "out_frame": 54,
+   "frames": 54,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 0.7925,
+   "src_out": 3.0447,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 0.0,
+   "edl_tl_out": 2.15,
+   "src_frames": [
+    19,
+    72
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E02",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "tl_in": 2.2522,
+   "tl_out": 4.4628,
+   "in_frame": 54,
+   "out_frame": 107,
+   "frames": 53,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 380.6302,
+   "src_out": 382.8408,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 2.15,
+   "edl_tl_out": 4.45,
+   "src_frames": [
+    9126,
+    9178
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E03",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "tl_in": 4.4628,
+   "tl_out": 6.5899,
+   "in_frame": 107,
+   "out_frame": 158,
+   "frames": 51,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 2.5442,
+   "src_out": 4.6713,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 4.45,
+   "edl_tl_out": 6.6,
+   "src_frames": [
+    61,
+    111
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "E04",
+   "section": "2 TITLE",
+   "type": "scan",
+   "tl_in": 6.5899,
+   "tl_out": 12.5959,
+   "in_frame": 158,
+   "out_frame": 302,
+   "frames": 144,
+   "source": "SC_TITLE",
+   "src_in": 0.0,
+   "src_out": 6.006,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 6.6,
+   "edl_tl_out": 12.6
+  },
+  {
+   "id": "E05",
+   "section": "3 THE BET",
+   "type": "irl",
+   "tl_in": 12.5959,
+   "tl_out": 14.5562,
+   "in_frame": 302,
+   "out_frame": 349,
+   "frames": 47,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 12.1371,
+   "src_out": 14.0974,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 12.6,
+   "edl_tl_out": 14.55,
+   "src_frames": [
+    291,
+    337
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E06",
+   "section": "3 THE BET",
+   "type": "irl",
+   "tl_in": 14.5562,
+   "tl_out": 15.6406,
+   "in_frame": 349,
+   "out_frame": 375,
+   "frames": 26,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 21.8969,
+   "src_out": 22.9813,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 14.55,
+   "edl_tl_out": 15.65,
+   "src_frames": [
+    525,
+    550
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E07",
+   "section": "3 THE BET",
+   "type": "irl",
+   "tl_in": 15.6406,
+   "tl_out": 19.5195,
+   "in_frame": 375,
+   "out_frame": 468,
+   "frames": 93,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 26.1511,
+   "src_out": 30.03,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 15.65,
+   "edl_tl_out": 19.5,
+   "src_frames": [
+    627,
+    719
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E08",
+   "section": "3 THE BET",
+   "type": "card",
+   "tl_in": 19.5195,
+   "tl_out": 21.9803,
+   "in_frame": 468,
+   "out_frame": 527,
+   "frames": 59,
+   "source": "gfx:G03",
+   "src_in": 0.0,
+   "src_out": 2.4608,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 19.5,
+   "edl_tl_out": 22.0
+  },
+  {
+   "id": "E09",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 21.9803,
+   "tl_out": 27.2355,
+   "in_frame": 527,
+   "out_frame": 653,
+   "frames": 126,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 71.2795,
+   "src_out": 76.5348,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 22.0,
+   "edl_tl_out": 27.3,
+   "src_frames": [
+    1709,
+    1834
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E10",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 27.2355,
+   "tl_out": 30.9893,
+   "in_frame": 653,
+   "out_frame": 743,
+   "frames": 90,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 77.2438,
+   "src_out": 80.9976,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 27.3,
+   "edl_tl_out": 31.0,
+   "src_frames": [
+    1852,
+    1941
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E11",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "card",
+   "tl_in": 30.9893,
+   "tl_out": 32.4074,
+   "in_frame": 743,
+   "out_frame": 777,
+   "frames": 34,
+   "source": "gfx:G04",
+   "src_in": 0.0,
+   "src_out": 1.4181,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 31.0,
+   "edl_tl_out": 32.5
+  },
+  {
+   "id": "E12",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 32.4074,
+   "tl_out": 36.036,
+   "in_frame": 777,
+   "out_frame": 864,
+   "frames": 87,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 102.9362,
+   "src_out": 106.5648,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 32.5,
+   "edl_tl_out": 36.1,
+   "src_frames": [
+    2468,
+    2554
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E13",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 36.036,
+   "tl_out": 40.9159,
+   "in_frame": 864,
+   "out_frame": 981,
+   "frames": 117,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 106.6065,
+   "src_out": 111.4864,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 36.1,
+   "edl_tl_out": 40.9,
+   "src_frames": [
+    2556,
+    2672
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E14",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 40.9159,
+   "tl_out": 44.0023,
+   "in_frame": 981,
+   "out_frame": 1055,
+   "frames": 74,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 118.9939,
+   "src_out": 122.0803,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 40.9,
+   "edl_tl_out": 43.9,
+   "src_frames": [
+    2853,
+    2926
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E15",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 44.0023,
+   "tl_out": 47.2138,
+   "in_frame": 1055,
+   "out_frame": 1132,
+   "frames": 77,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 166.1243,
+   "src_out": 169.3358,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 43.9,
+   "edl_tl_out": 47.4,
+   "src_frames": [
+    3983,
+    4059
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E16",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 47.2138,
+   "tl_out": 49.2575,
+   "in_frame": 1132,
+   "out_frame": 1181,
+   "frames": 49,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 191.3995,
+   "src_out": 193.4432,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 47.4,
+   "edl_tl_out": 49.2,
+   "src_frames": [
+    4589,
+    4637
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E17",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 49.2575,
+   "tl_out": 53.2615,
+   "in_frame": 1181,
+   "out_frame": 1277,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 285.5352,
+   "src_out": 289.5392,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 49.2,
+   "edl_tl_out": 53.2,
+   "src_frames": [
+    6846,
+    6941
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E18",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 53.2615,
+   "tl_out": 54.8047,
+   "in_frame": 1277,
+   "out_frame": 1314,
+   "frames": 37,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 297.5472,
+   "src_out": 299.0905,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 53.2,
+   "edl_tl_out": 54.7,
+   "src_frames": [
+    7134,
+    7170
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E19",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 54.8047,
+   "tl_out": 58.8505,
+   "in_frame": 1314,
+   "out_frame": 1411,
+   "frames": 97,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 307.0985,
+   "src_out": 311.1442,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 54.7,
+   "edl_tl_out": 58.7,
+   "src_frames": [
+    7363,
+    7459
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E20",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "scan",
+   "tl_in": 58.8505,
+   "tl_out": 61.6449,
+   "in_frame": 1411,
+   "out_frame": 1478,
+   "frames": 67,
+   "source": "SC_INS_ROOF",
+   "src_in": 0.0,
+   "src_out": 2.7945,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 58.7,
+   "edl_tl_out": 61.7
+  },
+  {
+   "id": "E21",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "tl_in": 61.6449,
+   "tl_out": 67.6926,
+   "in_frame": 1478,
+   "out_frame": 1623,
+   "frames": 145,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 347.3053,
+   "src_out": 353.353,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 61.7,
+   "edl_tl_out": 67.7,
+   "src_frames": [
+    8327,
+    8471
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E22",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 67.6926,
+   "tl_out": 78.9956,
+   "in_frame": 1623,
+   "out_frame": 1894,
+   "frames": 271,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 368.9936,
+   "src_out": 380.2966,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 67.7,
+   "edl_tl_out": 79.0,
+   "src_frames": [
+    8847,
+    9117
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E23",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 78.9956,
+   "tl_out": 81.081,
+   "in_frame": 1894,
+   "out_frame": 1944,
+   "frames": 50,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 382.7157,
+   "src_out": 384.8011,
+   "sync_speech": false,
+   "audio": "room",
+   "edl_tl_in": 79.0,
+   "edl_tl_out": 81.1,
+   "src_frames": [
+    9176,
+    9225
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E24",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 81.081,
+   "tl_out": 82.7076,
+   "in_frame": 1944,
+   "out_frame": 1983,
+   "frames": 39,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 400.4,
+   "src_out": 402.0266,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 81.1,
+   "edl_tl_out": 82.7,
+   "src_frames": [
+    9600,
+    9638
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E25",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 82.7076,
+   "tl_out": 84.5011,
+   "in_frame": 1983,
+   "out_frame": 2026,
+   "frames": 43,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 403.8201,
+   "src_out": 405.6135,
+   "sync_speech": false,
+   "audio": "room",
+   "edl_tl_in": 82.7,
+   "edl_tl_out": 84.5,
+   "src_frames": [
+    9682,
+    9724
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E26",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 84.5011,
+   "tl_out": 88.2131,
+   "in_frame": 2026,
+   "out_frame": 2115,
+   "frames": 89,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 410.702,
+   "src_out": 414.414,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 84.5,
+   "edl_tl_out": 88.2,
+   "src_frames": [
+    9847,
+    9935
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "E27",
+   "section": "5 THE CRASH",
+   "type": "card",
+   "tl_in": 88.2131,
+   "tl_out": 91.2161,
+   "in_frame": 2115,
+   "out_frame": 2187,
+   "frames": 72,
+   "source": "gfx:G05",
+   "src_in": 0.0,
+   "src_out": 3.003,
+   "sync_speech": false,
+   "audio": "room",
+   "edl_tl_in": 88.2,
+   "edl_tl_out": 91.2
+  },
+  {
+   "id": "E28",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 91.2161,
+   "tl_out": 93.7186,
+   "in_frame": 2187,
+   "out_frame": 2247,
+   "frames": 60,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 0.0,
+   "src_out": 2.5025,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 91.2,
+   "edl_tl_out": 93.7,
+   "src_frames": [
+    0,
+    59
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "E29",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 93.7186,
+   "tl_out": 103.6035,
+   "in_frame": 2247,
+   "out_frame": 2484,
+   "frames": 237,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 4.713,
+   "src_out": 14.5979,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 93.7,
+   "edl_tl_out": 103.6,
+   "src_frames": [
+    113,
+    349
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "E30",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 103.6035,
+   "tl_out": 105.2301,
+   "in_frame": 2484,
+   "out_frame": 2523,
+   "frames": 39,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 15.3904,
+   "src_out": 17.017,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 103.6,
+   "edl_tl_out": 105.2,
+   "src_frames": [
+    369,
+    407
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "E31",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 105.2301,
+   "tl_out": 106.4397,
+   "in_frame": 2523,
+   "out_frame": 2552,
+   "frames": 29,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 23.6486,
+   "src_out": 24.8582,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 105.2,
+   "edl_tl_out": 106.6,
+   "src_frames": [
+    567,
+    595
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "E32",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 106.4397,
+   "tl_out": 112.821,
+   "in_frame": 2552,
+   "out_frame": 2705,
+   "frames": 153,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 40.9993,
+   "src_out": 47.3807,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 106.6,
+   "edl_tl_out": 113.011,
+   "src_frames": [
+    983,
+    1135
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "E33",
+   "section": "6 TRY AGAIN",
+   "type": "scan",
+   "tl_in": 112.821,
+   "tl_out": 117.6175,
+   "in_frame": 2705,
+   "out_frame": 2820,
+   "frames": 115,
+   "source": "SC_MATCH_REAR",
+   "src_in": 0.0,
+   "src_out": 4.7965,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 113.011,
+   "edl_tl_out": 117.511
+  },
+  {
+   "id": "E34",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 117.6175,
+   "tl_out": 121.6632,
+   "in_frame": 2820,
+   "out_frame": 2917,
+   "frames": 97,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 4.1291,
+   "src_out": 8.1748,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 117.511,
+   "edl_tl_out": 121.511,
+   "src_frames": [
+    99,
+    195
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "E35",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 121.6632,
+   "tl_out": 122.831,
+   "in_frame": 2917,
+   "out_frame": 2945,
+   "frames": 28,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 29.738,
+   "src_out": 30.9059,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 121.511,
+   "edl_tl_out": 122.911,
+   "src_frames": [
+    713,
+    740
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "E36",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 122.831,
+   "tl_out": 124.416,
+   "in_frame": 2945,
+   "out_frame": 2983,
+   "frames": 38,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 44.5028,
+   "src_out": 46.0877,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 122.911,
+   "edl_tl_out": 124.311,
+   "src_frames": [
+    1067,
+    1104
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "E37",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 124.416,
+   "tl_out": 129.2124,
+   "in_frame": 2983,
+   "out_frame": 3098,
+   "frames": 115,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 126.126,
+   "src_out": 130.9225,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 124.311,
+   "edl_tl_out": 129.311,
+   "src_frames": [
+    3024,
+    3138
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "E38",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 129.2124,
+   "tl_out": 139.0139,
+   "in_frame": 3098,
+   "out_frame": 3333,
+   "frames": 235,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 53.2198,
+   "src_out": 63.0213,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 129.311,
+   "edl_tl_out": 139.011,
+   "src_frames": [
+    1276,
+    1510
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "id": "E39",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 139.0139,
+   "tl_out": 152.2771,
+   "in_frame": 3333,
+   "out_frame": 3651,
+   "frames": 318,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 100.6839,
+   "src_out": 113.9472,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 139.011,
+   "edl_tl_out": 152.261,
+   "src_frames": [
+    2414,
+    2731
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "id": "E40",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 152.2771,
+   "tl_out": 153.4032,
+   "in_frame": 3651,
+   "out_frame": 3678,
+   "frames": 27,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 115.1567,
+   "src_out": 116.2828,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 152.261,
+   "edl_tl_out": 153.411,
+   "src_frames": [
+    2761,
+    2787
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "id": "E42",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 153.4032,
+   "tl_out": 160.6188,
+   "in_frame": 3678,
+   "out_frame": 3851,
+   "frames": 173,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 116.3662,
+   "src_out": 123.5818,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 156.411,
+   "edl_tl_out": 163.611,
+   "src_frames": [
+    2790,
+    2962
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "id": "E43",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 160.6188,
+   "tl_out": 162.454,
+   "in_frame": 3851,
+   "out_frame": 3895,
+   "frames": 44,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30546.MP4",
+   "src_in": 4.5879,
+   "src_out": 6.4231,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 163.611,
+   "edl_tl_out": 165.611,
+   "src_frames": [
+    110,
+    153
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30546.json"
+  },
+  {
+   "id": "E44",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 162.454,
+   "tl_out": 166.1243,
+   "in_frame": 3895,
+   "out_frame": 3983,
+   "frames": 88,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30546.MP4",
+   "src_in": 59.3092,
+   "src_out": 62.9796,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 165.611,
+   "edl_tl_out": 169.111,
+   "src_frames": [
+    1422,
+    1509
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30546.json"
+  },
+  {
+   "id": "E45",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 166.1243,
+   "tl_out": 169.169,
+   "in_frame": 3983,
+   "out_frame": 4056,
+   "frames": 73,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 0.0,
+   "src_out": 3.0447,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 169.111,
+   "edl_tl_out": 172.161,
+   "src_frames": [
+    0,
+    72
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "E46",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 169.169,
+   "tl_out": 172.8393,
+   "in_frame": 4056,
+   "out_frame": 4144,
+   "frames": 88,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 35.9943,
+   "src_out": 39.6646,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 172.161,
+   "edl_tl_out": 175.661,
+   "src_frames": [
+    863,
+    950
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "E47",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 172.8393,
+   "tl_out": 177.2187,
+   "in_frame": 4144,
+   "out_frame": 4249,
+   "frames": 105,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 53.6786,
+   "src_out": 58.058,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 175.661,
+   "edl_tl_out": 180.161,
+   "src_frames": [
+    1287,
+    1391
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "E48",
+   "section": "7 THE HARD PARTS",
+   "type": "scan",
+   "tl_in": 177.2187,
+   "tl_out": 180.0549,
+   "in_frame": 4249,
+   "out_frame": 4317,
+   "frames": 68,
+   "source": "SC_INS_WHEEL",
+   "src_in": 0.0,
+   "src_out": 2.8362,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 180.161,
+   "edl_tl_out": 183.161
+  },
+  {
+   "id": "E49",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 180.0549,
+   "tl_out": 181.6398,
+   "in_frame": 4317,
+   "out_frame": 4355,
+   "frames": 38,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 65.4821,
+   "src_out": 67.067,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 183.161,
+   "edl_tl_out": 184.561,
+   "src_frames": [
+    1570,
+    1607
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "E50",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 181.6398,
+   "tl_out": 186.8533,
+   "in_frame": 4355,
+   "out_frame": 4480,
+   "frames": 125,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 120.4537,
+   "src_out": 125.6672,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 184.561,
+   "edl_tl_out": 189.961,
+   "src_frames": [
+    2888,
+    3012
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "E51",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 186.8533,
+   "tl_out": 188.8553,
+   "in_frame": 4480,
+   "out_frame": 4528,
+   "frames": 48,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30548.MP4",
+   "src_in": 6.0894,
+   "src_out": 8.0914,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 189.961,
+   "edl_tl_out": 191.961,
+   "src_frames": [
+    146,
+    193
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30548.json"
+  },
+  {
+   "id": "E52",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 188.8553,
+   "tl_out": 190.8156,
+   "in_frame": 4528,
+   "out_frame": 4575,
+   "frames": 47,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30549.MP4",
+   "src_in": 0.4171,
+   "src_out": 2.3774,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 191.961,
+   "edl_tl_out": 193.961,
+   "src_frames": [
+    10,
+    56
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30549.json"
+  },
+  {
+   "id": "E53",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 190.8156,
+   "tl_out": 194.9447,
+   "in_frame": 4575,
+   "out_frame": 4674,
+   "frames": 99,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30550.MP4",
+   "src_in": 11.8869,
+   "src_out": 16.016,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 193.961,
+   "edl_tl_out": 197.961,
+   "src_frames": [
+    285,
+    383
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30550.json"
+  },
+  {
+   "id": "E54",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 194.9447,
+   "tl_out": 197.3638,
+   "in_frame": 4674,
+   "out_frame": 4732,
+   "frames": 58,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 0.0,
+   "src_out": 2.4191,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 197.961,
+   "edl_tl_out": 200.361,
+   "src_frames": [
+    0,
+    57
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "E55",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 197.3638,
+   "tl_out": 198.8236,
+   "in_frame": 4732,
+   "out_frame": 4767,
+   "frames": 35,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 29.6129,
+   "src_out": 31.0727,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 200.361,
+   "edl_tl_out": 201.761,
+   "src_frames": [
+    710,
+    744
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "E56",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 198.8236,
+   "tl_out": 204.4542,
+   "in_frame": 4767,
+   "out_frame": 4902,
+   "frames": 135,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 84.084,
+   "src_out": 89.7146,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 201.761,
+   "edl_tl_out": 207.461,
+   "src_frames": [
+    2016,
+    2150
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "E57",
+   "section": "7 THE HARD PARTS",
+   "type": "scan",
+   "tl_in": 204.4542,
+   "tl_out": 207.4572,
+   "in_frame": 4902,
+   "out_frame": 4974,
+   "frames": 72,
+   "source": "SC_INS_SILL",
+   "src_in": 0.0,
+   "src_out": 3.003,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 207.461,
+   "edl_tl_out": 210.461
+  },
+  {
+   "id": "E58",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 207.4572,
+   "tl_out": 211.3778,
+   "in_frame": 4974,
+   "out_frame": 5068,
+   "frames": 94,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 19.311,
+   "src_out": 23.2315,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 210.461,
+   "edl_tl_out": 214.361,
+   "src_frames": [
+    463,
+    556
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "id": "E59",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 211.3778,
+   "tl_out": 215.215,
+   "in_frame": 5068,
+   "out_frame": 5160,
+   "frames": 92,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 48.0063,
+   "src_out": 51.8435,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 214.361,
+   "edl_tl_out": 218.361,
+   "src_frames": [
+    1151,
+    1242
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "id": "E60",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 215.215,
+   "tl_out": 220.4285,
+   "in_frame": 5160,
+   "out_frame": 5285,
+   "frames": 125,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 99.8915,
+   "src_out": 105.105,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 218.361,
+   "edl_tl_out": 223.361,
+   "src_frames": [
+    2395,
+    2519
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "id": "E61",
+   "section": "8 TIME",
+   "type": "irl",
+   "tl_in": 220.4285,
+   "tl_out": 227.2687,
+   "in_frame": 5285,
+   "out_frame": 5449,
+   "frames": 164,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 6.8819,
+   "src_out": 13.722,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 223.361,
+   "edl_tl_out": 230.261,
+   "src_frames": [
+    165,
+    328
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "id": "E62",
+   "section": "8 TIME",
+   "type": "card",
+   "tl_in": 227.2687,
+   "tl_out": 231.6481,
+   "in_frame": 5449,
+   "out_frame": 5554,
+   "frames": 105,
+   "source": "gfx:G08",
+   "src_in": 0.0,
+   "src_out": 4.3794,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 230.261,
+   "edl_tl_out": 234.661,
+   "sync_audio": {
+    "clip": "FX30553",
+    "src_in": 13.7,
+    "src_out": 18.079375
+   },
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "id": "E63",
+   "section": "8 TIME",
+   "type": "card",
+   "tl_in": 231.6481,
+   "tl_out": 233.9003,
+   "in_frame": 5554,
+   "out_frame": 5608,
+   "frames": 54,
+   "source": "gfx:G09",
+   "src_in": 0.0,
+   "src_out": 2.2522,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 234.661,
+   "edl_tl_out": 236.861
+  },
+  {
+   "id": "E64",
+   "section": "8 TIME",
+   "type": "irl",
+   "tl_in": 233.9003,
+   "tl_out": 237.5707,
+   "in_frame": 5608,
+   "out_frame": 5696,
+   "frames": 88,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 18.727,
+   "src_out": 22.3974,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 236.861,
+   "edl_tl_out": 240.561,
+   "src_frames": [
+    449,
+    536
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "id": "E65",
+   "section": "8 TIME",
+   "type": "irl",
+   "tl_in": 237.5707,
+   "tl_out": 244.7445,
+   "in_frame": 5696,
+   "out_frame": 5868,
+   "frames": 172,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 25.9009,
+   "src_out": 33.0747,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 240.561,
+   "edl_tl_out": 247.761,
+   "src_frames": [
+    621,
+    792
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "id": "E66",
+   "section": "8 TIME",
+   "type": "irl",
+   "tl_in": 244.7445,
+   "tl_out": 249.8329,
+   "in_frame": 5868,
+   "out_frame": 5990,
+   "frames": 122,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30554.MP4",
+   "src_in": 5.9643,
+   "src_out": 11.0527,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 247.761,
+   "edl_tl_out": 252.814,
+   "src_frames": [
+    143,
+    264
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30554.json"
+  },
+  {
+   "id": "E67",
+   "section": "8 TIME",
+   "type": "scan",
+   "tl_in": 249.8329,
+   "tl_out": 254.7545,
+   "in_frame": 5990,
+   "out_frame": 6108,
+   "frames": 118,
+   "source": "SC_MATCH_FRONT",
+   "src_in": 0.0,
+   "src_out": 4.9216,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 252.814,
+   "edl_tl_out": 257.814
+  },
+  {
+   "id": "E68",
+   "section": "9 THE SCAN",
+   "type": "scan",
+   "tl_in": 254.7545,
+   "tl_out": 261.7198,
+   "in_frame": 6108,
+   "out_frame": 6275,
+   "frames": 167,
+   "source": "SC_RES_FULL",
+   "src_in": 0.0,
+   "src_out": 6.9653,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 257.814,
+   "edl_tl_out": 264.814
+  },
+  {
+   "id": "E69",
+   "section": "9 THE SCAN",
+   "type": "scan",
+   "tl_in": 261.7198,
+   "tl_out": 266.7665,
+   "in_frame": 6275,
+   "out_frame": 6396,
+   "frames": 121,
+   "source": "SC_RES_MESH",
+   "src_in": 0.0,
+   "src_out": 5.0467,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 264.814,
+   "edl_tl_out": 269.814
+  },
+  {
+   "id": "E70",
+   "section": "9 THE SCAN",
+   "type": "scan",
+   "tl_in": 266.7665,
+   "tl_out": 273.8152,
+   "in_frame": 6396,
+   "out_frame": 6565,
+   "frames": 169,
+   "source": "SC_RES_REFLECTOR",
+   "src_in": 0.0,
+   "src_out": 7.0487,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 269.814,
+   "edl_tl_out": 276.814
+  },
+  {
+   "id": "CON_01",
+   "section": "10 CONCLUSION",
+   "type": "irl",
+   "tl_in": 273.8152,
+   "tl_out": 277.9443,
+   "in_frame": 6565,
+   "out_frame": 6664,
+   "frames": 99,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 11.6366,
+   "src_out": 15.7657,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 276.814,
+   "edl_tl_out": 280.954,
+   "src_frames": [
+    279,
+    377
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30555.json"
+  },
+  {
+   "id": "CON_02",
+   "section": "10 CONCLUSION",
+   "type": "card",
+   "tl_in": 277.9443,
+   "tl_out": 282.8659,
+   "in_frame": 6664,
+   "out_frame": 6782,
+   "frames": 118,
+   "source": "gfx:CON_G1",
+   "src_in": 0.0,
+   "src_out": 4.9216,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 280.954,
+   "edl_tl_out": 285.954
+  },
+  {
+   "id": "CON_03",
+   "section": "10 CONCLUSION",
+   "type": "irl",
+   "tl_in": 282.8659,
+   "tl_out": 284.4925,
+   "in_frame": 6782,
+   "out_frame": 6821,
+   "frames": 39,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 25.6089,
+   "src_out": 27.2355,
+   "sync_speech": true,
+   "audio": "sync",
+   "edl_tl_in": 285.954,
+   "edl_tl_out": 287.554,
+   "src_frames": [
+    614,
+    652
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30555.json"
+  },
+  {
+   "id": "CON_04",
+   "section": "10 CONCLUSION",
+   "type": "card",
+   "tl_in": 284.4925,
+   "tl_out": 290.1649,
+   "in_frame": 6821,
+   "out_frame": 6957,
+   "frames": 136,
+   "source": "gfx:CON_G2",
+   "src_in": 0.0,
+   "src_out": 5.6723,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 287.554,
+   "edl_tl_out": 293.054
+  },
+  {
+   "id": "CON_05",
+   "section": "10 CONCLUSION",
+   "type": "scan",
+   "tl_in": 290.1649,
+   "tl_out": 301.9266,
+   "in_frame": 6957,
+   "out_frame": 7239,
+   "frames": 282,
+   "source": "SC_CON_HERO (NEW REQUEST to 3D agent; no scan_shots.md existed)",
+   "src_in": 0.0,
+   "src_out": 11.7617,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 293.054,
+   "edl_tl_out": 304.814
+  },
+  {
+   "id": "E72",
+   "section": "11 END CARD",
+   "type": "card",
+   "tl_in": 301.9266,
+   "tl_out": 306.8065,
+   "in_frame": 7239,
+   "out_frame": 7356,
+   "frames": 117,
+   "source": "gfx:G15",
+   "src_in": 0.0,
+   "src_out": 4.8799,
+   "sync_speech": false,
+   "audio": "music",
+   "edl_tl_in": 304.814,
+   "edl_tl_out": 309.814
+  }
+ ],
+ "cuts": [
+  {
+   "cut": "E01|E02",
+   "t_edl": 2.15,
+   "moved": 0.088,
+   "why": "P4b beat"
+  },
+  {
+   "cut": "E02|E03",
+   "t_edl": 4.45,
+   "moved": 0.0,
+   "why": "P4b: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E03|E04",
+   "t_edl": 6.6,
+   "moved": 0.0,
+   "why": "P4b bar"
+  },
+  {
+   "cut": "E04|E05",
+   "t_edl": 12.6,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E05|E06",
+   "t_edl": 14.55,
+   "moved": 0.0,
+   "why": "P5: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E06|E07",
+   "t_edl": 15.65,
+   "moved": 0.0,
+   "why": "P5: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E07|E08",
+   "t_edl": 19.5,
+   "moved": 0.0,
+   "why": "P5: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E08|E09",
+   "t_edl": 22.0,
+   "moved": 0.0,
+   "why": "P5: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E09|E10",
+   "t_edl": 27.3,
+   "moved": -0.076,
+   "why": "P1 beat"
+  },
+  {
+   "cut": "E10|E11",
+   "t_edl": 31.0,
+   "moved": 0.0,
+   "why": "P1: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E11|E12",
+   "t_edl": 32.5,
+   "moved": -0.075,
+   "why": "P1 bar"
+  },
+  {
+   "cut": "E12|E13",
+   "t_edl": 36.1,
+   "moved": -0.082,
+   "why": "P1 beat"
+  },
+  {
+   "cut": "E13|E14",
+   "t_edl": 40.9,
+   "moved": 0.0,
+   "why": "P1: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E14|E15",
+   "t_edl": 43.9,
+   "moved": 0.118,
+   "why": "P1 beat"
+  },
+  {
+   "cut": "E15|E16",
+   "t_edl": 47.4,
+   "moved": -0.181,
+   "why": "P1 beat"
+  },
+  {
+   "cut": "E16|E17",
+   "t_edl": 49.2,
+   "moved": 0.04,
+   "why": "P1 beat (grid, no attack)"
+  },
+  {
+   "cut": "E17|E18",
+   "t_edl": 53.2,
+   "moved": 0.065,
+   "why": "P1 bar"
+  },
+  {
+   "cut": "E18|E19",
+   "t_edl": 54.7,
+   "moved": 0.119,
+   "why": "P1 bar"
+  },
+  {
+   "cut": "E19|E20",
+   "t_edl": 58.7,
+   "moved": 0.157,
+   "why": "P1 beat"
+  },
+  {
+   "cut": "E20|E21",
+   "t_edl": 61.7,
+   "moved": -0.076,
+   "why": "P1 beat"
+  },
+  {
+   "cut": "E21|E22",
+   "t_edl": 67.7,
+   "moved": 0.0,
+   "why": "P1: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E22|E23",
+   "t_edl": 79.0,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E23|E24",
+   "t_edl": 81.1,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E24|E25",
+   "t_edl": 82.7,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E25|E26",
+   "t_edl": 84.5,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E26|E27",
+   "t_edl": 88.2,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E27|E28",
+   "t_edl": 91.2,
+   "moved": 0.0,
+   "why": "P3: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E28|E29",
+   "t_edl": 93.7,
+   "moved": 0.0,
+   "why": "P3: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E29|E30",
+   "t_edl": 103.6,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E30|E31",
+   "t_edl": 105.2,
+   "moved": 0.051,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E31|E32",
+   "t_edl": 106.6,
+   "moved": -0.167,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E32|E33",
+   "t_edl": 113.011,
+   "moved": -0.178,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E33|E34",
+   "t_edl": 117.511,
+   "moved": 0.122,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E34|E35",
+   "t_edl": 121.511,
+   "moved": 0.142,
+   "why": "P4 bar"
+  },
+  {
+   "cut": "E35|E36",
+   "t_edl": 122.911,
+   "moved": -0.095,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E36|E37",
+   "t_edl": 124.311,
+   "moved": 0.124,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E37|E38",
+   "t_edl": 129.311,
+   "moved": -0.078,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E38|E39",
+   "t_edl": 139.011,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E39|E40",
+   "t_edl": 152.261,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E40|E42",
+   "t_edl": 153.411,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E42|E43",
+   "t_edl": 160.611,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E43|E44",
+   "t_edl": 162.611,
+   "moved": -0.178,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E44|E45",
+   "t_edl": 166.111,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E45|E46",
+   "t_edl": 169.161,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E46|E47",
+   "t_edl": 172.661,
+   "moved": 0.183,
+   "why": "P4 bar"
+  },
+  {
+   "cut": "E47|E48",
+   "t_edl": 177.161,
+   "moved": 0.063,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E48|E49",
+   "t_edl": 180.161,
+   "moved": -0.123,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E49|E50",
+   "t_edl": 181.561,
+   "moved": 0.072,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E50|E51",
+   "t_edl": 186.961,
+   "moved": -0.127,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E51|E52",
+   "t_edl": 188.961,
+   "moved": -0.095,
+   "why": "P4 bar"
+  },
+  {
+   "cut": "E52|E53",
+   "t_edl": 190.961,
+   "moved": -0.127,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E53|E54",
+   "t_edl": 194.961,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E54|E55",
+   "t_edl": 197.361,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E55|E56",
+   "t_edl": 198.761,
+   "moved": 0.073,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E56|E57",
+   "t_edl": 204.461,
+   "moved": -0.024,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E57|E58",
+   "t_edl": 207.461,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E58|E59",
+   "t_edl": 211.361,
+   "moved": 0.0,
+   "why": "P4: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E59|E60",
+   "t_edl": 215.361,
+   "moved": -0.127,
+   "why": "P4 beat (grid, no attack)"
+  },
+  {
+   "cut": "E60|E61",
+   "t_edl": 220.361,
+   "moved": 0.082,
+   "why": "P4 beat"
+  },
+  {
+   "cut": "E61|E62",
+   "t_edl": 227.261,
+   "moved": 0.0,
+   "why": "no music under this cut (room tone)"
+  },
+  {
+   "cut": "E62|E63",
+   "t_edl": 231.661,
+   "moved": -0.023,
+   "why": "P8 bar"
+  },
+  {
+   "cut": "E63|E64",
+   "t_edl": 233.861,
+   "moved": 0.027,
+   "why": "P8 beat (grid, no attack)"
+  },
+  {
+   "cut": "E64|E65",
+   "t_edl": 237.561,
+   "moved": 0.0,
+   "why": "P8: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E65|E66",
+   "t_edl": 244.761,
+   "moved": 0.0,
+   "why": "P8: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "E66|E67",
+   "t_edl": 249.814,
+   "moved": 0.0,
+   "why": "anchor (music placed to it)"
+  },
+  {
+   "cut": "E67|E68",
+   "t_edl": 254.814,
+   "moved": -0.045,
+   "why": "P8 beat"
+  },
+  {
+   "cut": "E68|E69",
+   "t_edl": 261.814,
+   "moved": -0.079,
+   "why": "P8 bar"
+  },
+  {
+   "cut": "E69|E70",
+   "t_edl": 266.814,
+   "moved": -0.05,
+   "why": "P8 bar"
+  },
+  {
+   "cut": "E70|CON_01",
+   "t_edl": 273.814,
+   "moved": 0.0,
+   "why": "P8: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "CON_01|CON_02",
+   "t_edl": 277.954,
+   "moved": 0.0,
+   "why": "P8: no beat within 0.15 s that keeps sync words / limits"
+  },
+  {
+   "cut": "CON_02|CON_03",
+   "t_edl": 282.954,
+   "moved": -0.071,
+   "why": "P8 beat (grid, no attack)"
+  },
+  {
+   "cut": "CON_03|CON_04",
+   "t_edl": 284.554,
+   "moved": -0.081,
+   "why": "P8 bar"
+  },
+  {
+   "cut": "CON_04|CON_05",
+   "t_edl": 290.054,
+   "moved": 0.109,
+   "why": "P8 beat"
+  },
+  {
+   "cut": "CON_05|E72",
+   "t_edl": 301.814,
+   "moved": 0.116,
+   "why": "P7 beat"
+  }
+ ],
+ "grids": {
+  "P4b": {
+   "ok": true,
+   "t_first": 585.3792098007694,
+   "period": 0.3999338637943405,
+   "bpm": 150.02480517842326,
+   "n_attacks": 139,
+   "on_grid": 0.6258992805755396,
+   "resid_ms": 47.9122349609686,
+   "accent_by_phase": [
+    0.869,
+    1.0,
+    0.842,
+    0.882
+   ],
+   "downbeat_phase": 1
+  },
+  "P5": {
+   "ok": true,
+   "t_first": 660.2878015625275,
+   "period": 0.7003773115952546,
+   "bpm": 85.66810918437314,
+   "n_attacks": 110,
+   "on_grid": 0.5636363636363636,
+   "resid_ms": 65.88365047792223,
+   "accent_by_phase": [
+    0.76,
+    0.694,
+    1.0,
+    0.653
+   ],
+   "downbeat_phase": 2
+  },
+  "P1": {
+   "ok": true,
+   "t_first": 8.012965227071472,
+   "period": 0.4001135464827279,
+   "bpm": 149.95743215255044,
+   "n_attacks": 156,
+   "on_grid": 0.9743589743589743,
+   "resid_ms": 24.652675488823874,
+   "accent_by_phase": [
+    0.919,
+    1.0,
+    0.98,
+    0.931
+   ],
+   "downbeat_phase": 1
+  },
+  "P3": {
+   "ok": true,
+   "t_first": 290.18426417684464,
+   "period": 0.377904762197006,
+   "bpm": 158.7701611675413,
+   "n_attacks": 144,
+   "on_grid": 0.9513888888888888,
+   "resid_ms": 16.18210502962124,
+   "accent_by_phase": [
+    0.925,
+    0.865,
+    0.914,
+    1.0
+   ],
+   "downbeat_phase": 3
+  },
+  "P4": {
+   "ok": true,
+   "t_first": 356.16920278321356,
+   "period": 0.4000042734208824,
+   "bpm": 149.99839748428965,
+   "n_attacks": 409,
+   "on_grid": 0.6601466992665037,
+   "resid_ms": 47.22677557246226,
+   "accent_by_phase": [
+    0.921,
+    0.912,
+    0.989,
+    1.0
+   ],
+   "downbeat_phase": 3
+  },
+  "P8i": {
+   "ok": true,
+   "t_first": 1100.6446926358649,
+   "period": 0.3164625289337189,
+   "bpm": 189.59590635315507,
+   "n_attacks": 47,
+   "on_grid": 0.574468085106383,
+   "resid_ms": 32.028324330755154,
+   "accent_by_phase": [
+    0.596,
+    0.565,
+    1.0,
+    0.428
+   ],
+   "downbeat_phase": 2
+  },
+  "P8": {
+   "ok": true,
+   "t_first": 1113.314416090078,
+   "period": 0.3158111935117766,
+   "bpm": 189.98693280250245,
+   "n_attacks": 146,
+   "on_grid": 0.815068493150685,
+   "resid_ms": 22.82727620290493,
+   "accent_by_phase": [
+    0.801,
+    1.0,
+    0.714,
+    0.921
+   ],
+   "downbeat_phase": 1
+  },
+  "P7": {
+   "ok": true,
+   "t_first": 1075.2659193086267,
+   "period": 0.4057396566859429,
+   "bpm": 147.87807652344458,
+   "n_attacks": 48,
+   "on_grid": 0.7916666666666666,
+   "resid_ms": 18.529834070104982,
+   "accent_by_phase": [
+    0.689,
+    1.0,
+    0.72,
+    0.917
+   ],
+   "downbeat_phase": 1
+  }
+ }
+}
