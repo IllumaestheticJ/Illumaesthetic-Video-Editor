@@ -58,7 +58,7 @@ SHOTS = {
     "b1_fbumper": {"base": [FBASE], "parts": [part(UB, []), part(LB, []), part(FD, []), part(RD, []), part(RDV, []),
                                                 part(IC, []),
                                                 part(FB, [k(0), k(0.1), k(0.75, [0, -0.55, 0.12], ease="out"),
-                                                          k(1.6, [0, -0.75, 1.75], [150, 0, 0], ease="in2")])],
+                                                          k(1.75, [0, -0.85, 2.9], [150, 0, 0], ease="in2")])],  # fully out by the cut
                    "cam": [cam(0, [-2.3, -4.75, 0.85], [0, -1.85, 0.4], 30), cam(E, [-1.95, -4.35, 0.72], [0, -1.9, 0.36], 30)]},
     "b2_beams": {"base": [FBASE], "parts": [part(FD, []), part(RD, []), part(RDV, []), part(IC, []),
                                               part(UB, [k(0), k(0.1), k(0.55, [0, -0.45, 0], ease="out"),
