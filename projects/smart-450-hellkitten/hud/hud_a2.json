@@ -1,0 +1,29 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 106,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 0,
+   "duration": 39,
+   "title": "BODY ON",
+   "sub": "29,997,021 TRIANGLES",
+   "x": 0.08,
+   "y": 0.13,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 43,
+   "duration": 63,
+   "title": "BODY OFF",
+   "sub": "29,998,690 TRIANGLES",
+   "x": 0.08,
+   "y": 0.13,
+   "shadow": true
+  }
+ ]
+}
