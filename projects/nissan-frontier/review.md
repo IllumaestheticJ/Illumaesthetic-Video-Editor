@@ -1,3 +1,14 @@
+# Nissan Frontier Pro-4X -> RONIN "how we modified this truck" v9 - self-review (training/rubric.md). Earlier: review_v8.md ... review_v1.md
+
+Output: /home/user/media/work/frontier/out/nissan_frontier_v9.mp4 - 1080x1920, 30 fps, 53.6 s, 1608 frames. Same cut as v8.
+v9 (user on v8): every scanned triangle inside or in front of the Ronin grille removed (170,771 body + 25,785 hood, tools/grille_clip.py;
+before/after stills chk/gc_check.png); the SCANNED NISSAN badge goes onto the new grille after the lights; labels carry no MOD/STEP numbers.
+Looked at: before/after clip stills (front 3/4 + top), full-res grille close-up f_0176, 20-frame sheet of the assembled file, onion
+match/check_3223_v9.jpg, luma of all six re-rendered shots (clean). Scores as v8 except Scan quality: the grille close-up is now clean.
+Left as is: thin dark seam where the hood lip was trimmed; the stock plate recess below the lower grille (stock bumper, not clipping);
+badge is scan-silver in the build shots and black in the livery shots (the real one is black with a red outline).
+
+--- v8 review follows ---
 # Nissan Frontier Pro-4X -> RONIN "how we modified this truck" v8 - self-review (training/rubric.md). Earlier: review_v7.md ... review_v1.md
 
 Output: /home/user/media/work/frontier/out/nissan_frontier_v8.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 53.6 s, 1608 frames.

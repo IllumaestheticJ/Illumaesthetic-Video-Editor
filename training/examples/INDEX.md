@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-13
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [ferrari-296](ferrari-296/) - archived 2026-11-13

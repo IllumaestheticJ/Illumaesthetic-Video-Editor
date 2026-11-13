@@ -1070,3 +1070,10 @@ lands here automatically. Agents must read this whole file before editing.
   captured, and keep other states (e.g. "Trunk Open Bumper Off") out of that zone. A one-sided coverage hole reads as panel:
   mirror the clean half (the panel is symmetric) rather than requiring both halves (that AND shrank the lid to 60 %).
   Check the outline against the capture in top + rear projections before rendering (projects/toyota-gr86/tools/lid_v6.py).
+## From the Nissan Frontier v9 revision (2026-11-13, built by an agent)
+- **[scan-look]** A CAD part put onto a scan clips the stock geometry behind it even after the obvious panel is cut: the body's front
+  structure came through the lower grille and the stock hood lip covered the top of the new grille (and its light pockets). Clip EVERY base
+  mesh against the new part's back-face depth map (tools/grille_clip.py), render the removed triangles in red for a before/after check.
+- **[scan-look]** Accessory scans made with the part mounted are already in the car frame ('Frontier Accessories Front Badge', 'Front Grille'):
+  level them with the car's level.json and they sit on the CAD - no fitting. Voxel-cluster to drop scan noise first.
+- **[text]** User: "do not count the mod #s or list" - label subs must not number the steps/mods (no MOD 01 / STEP 01).
