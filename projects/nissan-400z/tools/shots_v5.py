@@ -63,7 +63,7 @@ SHOTS = {}
 d = dur("STRUCT"); t_duct, t_swap = 18.718 - 16.843, 21.531 - 16.843
 SHOTS["STRUCT"] = {
     "base": [{"blend": f"{B}/bhr2_noduct.blend"}],
-    "swap": {"t": t_swap, "blend": f"{B}/Front_end_crash_foam_removed_2mm.blend"},  # hard 1:1 state swap
+    "swap": {"t": t_swap, "blend": f"{B}/foam_noduct.blend"},  # hard 1:1 state swap
     "parts": [{"blend": f"{B}/Air_Ducting_2mm.blend",
                "keys": [k(0, (0, 0, 0)), k(t_duct - 0.4, (0, 0, 0)), k(t_duct, (0, -0.18, 0.05), ease="out"),
                         k(t_duct + 0.9, (0, -0.20, 0.5), ease="in"), k(d, (0, -0.20, 0.5))]}],

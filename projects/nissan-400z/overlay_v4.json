@@ -1,0 +1,27 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1322,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 559,
+   "duration": 83,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.72,
+   "sub": "SCAN: BUMPER AND HOOD REMOVED"
+  },
+  {
+   "kind": "label",
+   "from": 646,
+   "duration": 49,
+   "title": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.72,
+   "sub": "BEHIND THE FRONT BUMPER"
+  }
+ ]
+}
