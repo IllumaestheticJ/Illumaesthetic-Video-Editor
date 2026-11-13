@@ -59,10 +59,48 @@ open(f'{SEG}/list.txt', 'w').write(''.join(f"file '{x}'\n" for x in lst)); b.run
 print('picture frames', done_fr, '= %.3f s; schedule %.3f s' % (done_fr/FPS, total))
 # ---- sound: rough-cut audio up to 3:04, then bed + narration
 w = wave.open(f'{M}/work/audio48.wav')   # the cut is 1:1 with the rough cut up to 3:04
-o = np.frombuffer(w.readframes(int(200*SR)), np.int16).reshape(-1, 2).astype(np.float32)/32768; o = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768
+o = np.frombuffer(w.readframes(int(200*SR)), np.int16).reshape(-1, 2).astype(np.float32)/32768        # FIRST 200 s only (v6 bug: a second read replaced this with 200 s onward)
 N = int(total*SR) + SR; mix = np.zeros((N, 2), np.float32); n0 = int(t_new*SR); xf = int(.25*SR); mix[:n0+xf] = o[:n0+xf]; mix[n0:n0+xf] *= np.linspace(1, 0, xf)[:, None]
-subprocess.run([sys.executable, f'{HERE}/musicbed.py', f'{M}/work/audio48.wav', '184.27', '421.5', f'{total - t_new + 1:.1f}', f'{SEG}/bed.wav'], check=True, stdout=subprocess.DEVNULL)
-w = wave.open(f'{SEG}/bed.wav'); bed = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768
+# music after 3:04 from the real tracks (Dropbox "Media for Miata Brace Vid"), following the rough cut's own choices, found by
+# fingerprint matching: 2AM under the control section, Time Stand Still under fender / both-braces shop footage, Cosmic
+# Countdown under the strut-brace footage, Dark Summer Night under the data cards. One level, crossfades, no gaps.
+MUS = f'{M}/music'; XF = 1.2
+def track(name):
+    w = wave.open(f'{MUS}/{name}_48.wav'); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768
+    hop = SR//2; n = len(x)//hop; e = 10*np.log10((x[:n*hop].reshape(n, hop, 2)**2).mean((1, 2)) + 1e-12)
+    env = np.convolve(np.pad(e, 8, mode='edge'), np.ones(17)/17, 'valid'); g = np.clip(-20.0 - env, -12, 9)            # slow levelling to -20 dB RMS
+    return x*(10**(np.interp(np.arange(len(x)), (np.arange(n)+.5)*hop, g)/20))[:, None]
+TR = {k: track(k) for k in ('2am', 'time_stand_still', 'cosmic_countdown', 'dark_summer_night')}; LEN = {k: len(v)/SR for k, v in TR.items()}
+def want(k, a, sec):
+    if sec.startswith('1.'): return '2am', 92.3 + (184.27 - 180.0)          # carries the whole control section, as in the rough cut
+    if k != 'src': return 'dark_summer_night', None
+    if 240 <= a < 275: return 'cosmic_countdown', 87.9 + (a - 240.0)
+    return 'time_stand_still', 137.0 + (a - 300.0) if a < 335 else 137.0
+blocks = []                                                               # merged (start, end, track, anchor)
+for tt, d, (k, a, c, sec, pic, nar) in rows:
+    if tt < t_new - 1e-6: continue
+    name, pos = want(k, a, sec)
+    if blocks and blocks[-1][2] == name: blocks[-1][1] = tt + d
+    else: blocks.append([tt, tt + d, name, pos])
+plan = []; DSN0 = 20.0; dsn = DSN0; END = lambda n: LEN[n] - XF - 6.0     # (cut time, track, track position)
+def card_bed(t0, t1):
+    global dsn
+    while t0 < t1 - 0.01:
+        if END('dark_summer_night') - dsn < 25: dsn = DSN0
+        run = min(t1 - t0, END('dark_summer_night') - dsn); plan.append((t0, 'dark_summer_night', dsn)); dsn += run; t0 += run
+for t0, t1, name, pos in blocks:
+    if name == 'dark_summer_night': card_bed(t0, t1); continue
+    run = min(t1 - t0, max(END(name) - pos, 0))
+    if run > 3: plan.append((t0, name, pos))
+    else: run = 0
+    card_bed(t0 + run, t1)                                                # track ran out before the section did
+bed = np.zeros((int((total - t_new + 1)*SR), 2), np.float32); xf = int(XF*SR)
+for i, (t0, name, pos) in enumerate(plan):
+    t1 = plan[i+1][0] if i+1 < len(plan) else total; n = int((t1 - t0)*SR) + xf; x = TR[name][int(pos*SR):int(pos*SR)+n].copy()
+    if i > 0: x[:xf] *= np.sin(np.linspace(0, np.pi/2, xf))[:, None]
+    if len(x) > xf: x[-xf:] *= np.cos(np.linspace(0, np.pi/2, xf))[:, None]
+    p = int((t0 - t_new)*SR); x = x[:len(bed)-p]; bed[p:p+len(x)] += x
+    print('  music %s  %-18s from %5.1f s' % (b.tc(t0), name, pos))
 g = np.full(len(bed), 10**(BED_DB/20), np.float32); r = int(1.5*SR); g[:r] = 10**(np.linspace(0, BED_DB, r)/20); r2 = int(3*SR); g[-r2:] *= np.linspace(1, 0, r2)       # ease down from the rough cut's level
 m = min(len(bed), N - n0); mix[n0:n0+m] += bed[:m]*g[:m, None]
 for s, x, nar, i in vo: p = int(s*SR); mix[p:p+len(x)] += x[:, None]

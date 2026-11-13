@@ -7,3 +7,5 @@
 {"ts": "2026-11-12T23:34:31Z", "project": "miata-bracing-longform", "at": "84", "category": "text", "note": "Grimace arrow clips through the car and the tracking is odd", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T23:34:32Z", "project": "miata-bracing-longform", "at": null, "category": "audio", "note": "Go ahead and generate the audio from the script", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T23:34:32Z", "project": "miata-bracing-longform", "at": null, "category": "audio", "note": "Equalize the music so it plays continuously and is not cut off under the graphic panels", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T00:54:14Z", "project": "miata-bracing-longform", "at": "0", "category": "audio", "note": "v6: what happened to the audio/voice in the front (first 3 minutes were wrong)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T00:54:14Z", "project": "miata-bracing-longform", "at": null, "category": "audio", "note": "Full video music is in Dropbox Video Dumps / Media for Miata Brace Vid", "by": "reviewer", "promoted": false}

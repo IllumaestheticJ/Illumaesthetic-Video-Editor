@@ -59,3 +59,9 @@ height map: A (1085, 368), B (856, -577) in XY. Local trimmed ICP of each strut-
 - strut brace, both: not measurable this way (brace bracket covers tower B; residuals 2-4 mm, results swing -8 to -0.2 mm)
 So at the strut tops fender-only is NOT smaller than unbraced, while the xlsx "engine bay width" (other points) says 1.695 -> 0.237.
 The two definitions disagree on ranking: the script must not rank the braces or recommend one. Owner/engineer question #1.
+
+## Music (2026-11-13) - Dropbox `/3. Epsilon Motorsports/1. Video Dumps/Media for Miata Brace Vid/`
+Epidemic Sound tracks + SFX + screenshots + `Miata Brace Video.prproj` one level up. Fingerprint match against the rough cut (tools: see final.py):
+0-48 s Dark Summer Night from 3.8 s | ~50-180 s speech (no confident match) | 180-240 2AM from 92.3 s | 240-270 Cosmic Countdown from 87.9 s |
+270-298, 330-360, 380-425 Dark Summer Night from ~84 s, ducked ~25 dB (data cards) | 298-330 Time Stand Still from 137 s | 360-380 Time Stand Still from 104 s.
+The rough cut is NOT one continuous track after 3:04: v6's "un-ducked bed" was a patchwork. v7 lays the real tracks per section at one level.

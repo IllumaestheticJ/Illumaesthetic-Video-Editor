@@ -726,3 +726,7 @@ lands here automatically. Agents must read this whole file before editing.
   envelope to get a continuous bed (tools/musicbed.py), drop the clips' own audio, loop on a 16-beat grid.
 - **[technical]** Stills made with `-loop 1 -t` run ~0.05 s long each; 30 cards = 1 s of picture lag. Cut segments by frame count.
 - **[text]** Tracked arrow callout: anchor above the roof at the centre of the car's whole colour blob, not on the paint's top edge.
+- **[audio]** After any audio rebuild, correlate the untouched part of the mix against the source (not just levels) and transcribe a
+  few seconds at the start: Miata v6 shipped with the wrong three minutes of audio up front and matching loudness numbers.
+- **[audio]** A rough cut's music can be several tracks; fingerprint it against the supplied tracks (log-band spectral-change
+  correlation, 15 s windows) before assuming one bed. Ask for / look for the music folder before reconstructing music from a mix.
