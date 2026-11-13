@@ -19,7 +19,6 @@
    "from": 253,
    "duration": 36,
    "title": "FRONT GRILLE",
-   "sub": "SCANNED AS A SEPARATE PART",
    "x": 0.08,
    "y": 0.765
   },
@@ -28,7 +27,38 @@
    "from": 294,
    "duration": 36,
    "title": "LOWER GARNISH",
-   "sub": "SCANNED AS A SEPARATE PART",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 412,
+   "duration": 36,
+   "title": "FRONT FLARE",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 452,
+   "duration": 36,
+   "title": "DOOR FLARE",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 493,
+   "duration": 36,
+   "title": "REAR FLARE",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 535,
+   "duration": 36,
+   "title": "SIDE SKIRT",
    "x": 0.08,
    "y": 0.765
   },
