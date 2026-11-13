@@ -1,2 +1,2 @@
 {"objects": {"car": "/home/user/media/work/mr2/scan/topdown.blend", "ht": "/home/user/media/work/mr2/scan/ht_rear.blend"}, "out_frames": 129, "out": "/home/user/media/work/mr2/renders3/sP",
- "camera": [{"f": 0, "cam": "/home/user/Illumaesthetic-Video-Editor/projects/toyota-mr2-spyder-scan-process/match/camB.json"}, {"f": 129, "loc": [0.449,-2.150,2.251], "look": [0.0,-0.45,0.95], "lens36": 39.1, "ease": "inout"}]}
+ "camera": [{"f": 0, "cam": "/home/user/Illumaesthetic-Video-Editor/projects/toyota-mr2-spyder-scan-process/match/camB2.json"}, {"f": 129, "loc": [0.449,-2.150,2.251], "look": [0.0,-0.45,0.95], "lens36": 39.1, "ease": "inout"}]}
