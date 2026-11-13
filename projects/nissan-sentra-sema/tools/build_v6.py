@@ -52,6 +52,7 @@ MUSIC = '/home/user/media/work/music/killa.m4a'
 BAR = 1.8462; DROP = 29.873
 fr = lambda t: int(round(t * FPS))
 CUT = {k: fr(DROP + b * BAR) for k, b in dict(wasnt=-14, spray=-13, scanner=-12, tl=-11, scan=-10, concepts=-9, livery=-7, turn=-3, reveal=0, sema=4, end=8).items()}   # v9: scan 1 bar, bumper swap 4 bars, 360 3 bars
+CUT['sema'] = fr(DROP + 7 * BAR / 4)   # v17: cut to the SEMA videos at 0:33 (7th base beat after the drop) so they get more time (user)
 END = fr(47.5)
 
 
@@ -123,7 +124,7 @@ def seg_livery():
     """v9 bumper swap: real 30 fps renders (parts move, so no interpolation): stock bumper off -> scanned structure -> new bumper on
     -> ducts, sides, wheels -> rear: diffuser, wing -> paint wipe -> stripes."""
     import glob
-    n = CUT['turn'] - CUT['livery']; fs = sorted(glob.glob(f'{W}/renders/s10_swap/f_*.png')); print('s10 frames', len(fs), 'need', n)
+    n = CUT['turn'] - CUT['livery']; fs = sorted(glob.glob(f'{W}/renders/s16_swap/f_*.png')); print('s16 frames', len(fs), 'need', n)
     def gen():
         for f in range(n):
             im = Image.open(fs[min(f, len(fs) - 1)]).convert('RGB').resize((WD, HT), Image.LANCZOS); d = ImageDraw.Draw(im)
@@ -136,7 +137,7 @@ def seg_livery():
 
 def seg_turn():
     """360 rendered at 30 fps: 4.2 s constant-speed orbit, 1 s ease into the reveal camera, hold on it."""
-    n = CUT['reveal'] - CUT['turn']; frs = render_seq('s12_turn', n, direct=True)   # v12: 30 fps render, no minterpolate (it wobbled the car)
+    n = CUT['reveal'] - CUT['turn']; frs = render_seq('s16_turn', n, direct=True)   # v12: 30 fps render, no minterpolate (it wobbled the car)
     def gen():
         for f in range(n):
             im = Image.fromarray(frs[min(f, len(frs) - 1)]); d = ImageDraw.Draw(im)
@@ -157,7 +158,7 @@ def seg_reveal():
         for k, (tag, im) in enumerate(lst):
             h = int(im.height * CW / im.width); cards.append([tag, im.resize((CW, h), Image.LANCZOS), xs[k % 2], y + 34]); y += h + 34 + 14
         return y
-    print('top stack ends y', lay(top, 44, (50, 50))); print('bottom stack ends y', lay(bot, 1330, (50, 50)))   # v15: one column each, cards stack on top of each other
+    print('top stack ends y', lay(top, 44, (50, 410))); print('bottom stack ends y', lay(bot, 1330, (410, 50)))   # v17: back to staggered left/right (user preferred it to one column)
     order = [0, 5, 1, 6, 2, 7, 3, 4]                      # alternate top / bottom so the car stays clear in the middle
     beat_s = BAR / 4                                                          # base beat grid (0.4615 s), from the drop
     appear = {c: int(round((k * beat_s) * FPS)) for k, c in enumerate(order)}   # v14: one headline per base beat, starting on the drop
@@ -220,7 +221,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v16.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v18.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)

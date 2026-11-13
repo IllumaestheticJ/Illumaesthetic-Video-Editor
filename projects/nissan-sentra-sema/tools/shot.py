@@ -4,7 +4,8 @@
   - base entries may be {"blend":..., "mat":..., "visible":...}
   - "livery": {"wipe": [t0, t1], "stripes": t2}: every mesh gets two vertex-colour layers (paint / paint + stripes) from
     position rules matched by eye to the finished car photos; the silver look is wiped to paint nose-to-tail between
-    t0 and t1 and the red stripes switch on at t2. Entries may set "livery_group": "black" (vents, diffuser, wing mount).
+    t0 and t1 and the red stripes switch on at t2. Entries may set "livery_group": "black" (vents, diffuser, wing mount), "caliper", "rotor".
+    "livery"."diffuser": npz (x0, cell, ymin, ymax, zmax per x column) - the stock scan inside it is painted black.
 
 
     blender -b -P projects/ferrari-296/tools/shot.py -- spec.json
@@ -183,6 +184,7 @@ def main():
         import numpy as np
         L = spec["livery"]; bpy.context.view_layer.update()
         WHITE, BLACK, DARK, REDC = (0.80, 0.80, 0.78), (0.012, 0.012, 0.014), (0.03, 0.03, 0.035), (0.55, 0.02, 0.03)
+        DU = dict(np.load(L["diffuser"])) if L.get("diffuser") else None        # per-x-column envelope of the rear diffuser (m)
         def bake(o, group):
             me = o.data; n = len(me.vertices); co = np.empty(n * 3, np.float32); me.vertices.foreach_get("co", co)
             M = np.array(o.matrix_world); w = co.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]; x, y, z = w[:, 0], w[:, 1], w[:, 2]
@@ -197,17 +199,24 @@ def main():
             c[side & (z < 0.29)] = BLACK                                           # side skirts
             c[z < 0.185] = BLACK                                                   # splitter / underside
             if group == "kit":
-                c[(z < 0.172) & (y > 1.0)] = REDC                                  # red edge of the splitter
+                c[(z < 0.245) & (y > 1.9)] = BLACK                                 # v16: front lip black like the concepts (user), no red edge
                 c[side & (z < 0.185)] = REDC                                       # red line under the skirts
+            if group == "car" and DU is not None:                                  # v16: stock scan inside the diffuser's envelope -> black
+                ix = np.floor((x - DU["x0"]) / DU["cell"]).astype(int); ok = (ix >= 0) & (ix < len(DU["zmax"]))
+                ixc = np.clip(ix, 0, len(DU["zmax"]) - 1)
+                inside = ok & (y >= DU["ymin"][ixc] - 0.02) & (y <= DU["ymax"][ixc] + 0.02) & (z <= DU["zmax"][ixc] + 0.01)
+                c[inside] = BLACK
             if group == "black": c[:] = BLACK
             if group == "wheel": c[:] = (0.045, 0.045, 0.05)                   # Ron's wheel/tyre/brake model: dark gunmetal
+            if group == "caliper": c[:] = (0.50, 0.17, 0.035)                  # v16: GT-R calipers, copper-orange as on the show car
+            if group == "rotor": c[:] = (0.20, 0.20, 0.21)                     # rotors + adapters: steel
             wheel = (np.abs(x) > 0.55) & (((y - 1.41) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2) | ((y + 1.30) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2))
-            if group not in ("kit", "wheel"): c[wheel] = DARK
+            if group not in ("kit", "wheel", "caliper", "rotor"): c[wheel] = DARK
             # v7 stripes: corners of the real stripes raycast through the reveal camera solved with the photo's EXIF focal
             # (24 mm-eq main lens = 27.0 mm on the 20.25 sensor): slope dy/dz 0.835, z 0.29-0.67, front u 0.39-0.615, rear u 0.145-0.35
             c2 = c.copy(); u = y - 0.835 * (z - 0.30)
             st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.67) & (((u > 0.39) & (u < 0.615)) | ((u > 0.145) & (u < 0.35))) & ~wheel
-            if group not in ("black", "wheel"): c2[st] = REDC
+            if group not in ("black", "wheel", "caliper", "rotor"): c2[st] = REDC
             for name, arr in (("paint", c), ("paint2", c2)):
                 a = me.color_attributes.new(name, "FLOAT_COLOR", "POINT")
                 a.data.foreach_set("color", np.concatenate([arr, np.ones((n, 1), np.float32)], 1).ravel())
