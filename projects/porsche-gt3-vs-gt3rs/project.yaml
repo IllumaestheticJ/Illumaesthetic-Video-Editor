@@ -1,26 +1,28 @@
 {
  "fps": 30,
- "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v3.mp4",
+ "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v4.mp4",
  "music": {
   "path": "/home/user/media/work/music/alkitran_full.wav",
-  "start": 171.651,
+  "start": 176.351,
   "fade_out": 1.6
  },
  "tags": {
   "top": "911 GT3 RS (992)",
   "bottom": "911 GT3 (992)"
  },
- "end_frame": 1276,
+ "end_frame": 1135,
  "top": [
   {
    "src": "/home/user/media/work/gt3/renders/final/v2_sh1",
-   "frames": 113,
-   "crop_y": 440
+   "frames": 57,
+   "crop_y": 440,
+   "src_fps": 30
   },
   {
    "src": "/home/user/media/work/gt3/renders/final/v6_sh3",
-   "frames": 170,
-   "crop_y": 480
+   "frames": 85,
+   "crop_y": 480,
+   "src_fps": 30
   },
   {
    "src": "/home/user/media/work/gt3/renders/final/v6_sh4",
@@ -63,17 +65,19 @@
   {
    "src": "/home/user/media/work/gt3vs/renders/final/r_orbit",
    "frames": 57,
-   "src_fps": 16
+   "src_fps": 60
   }
  ],
  "bottom": [
   {
    "src": "/home/user/media/work/gt3vs/renders/final/g_whole",
-   "frames": 113
+   "frames": 57,
+   "src_fps": 30
   },
   {
    "src": "/home/user/media/work/gt3vs/renders/final/g_front",
-   "frames": 170
+   "frames": 85,
+   "src_fps": 30
   },
   {
    "src": "/home/user/media/work/gt3vs/renders/final/g_wheel",
@@ -102,103 +106,103 @@
   {
    "src": "/home/user/media/work/gt3vs/renders/final/g_orbit",
    "frames": 57,
-   "src_fps": 16
+   "src_fps": 60
   }
  ],
  "labels": {
   "top": [
    [
-    128,
-    166,
+    64,
+    84,
     "FRONT BUMPER STRAKES"
    ],
    [
-    170,
-    223,
+    86,
+    112,
     "FRONT LOWER LIP"
    ],
    [
-    227,
-    279,
+    114,
+    140,
     "HOOD VENT TOP"
    ],
    [
-    287,
-    365,
+    146,
+    224,
     "FENDER VENT"
    ],
    [
-    373,
-    450,
+    232,
+    309,
     "REAR WING"
    ],
    [
-    458,
-    506,
+    317,
+    365,
     "REAR DIFFUSER + UNDERTRAY"
    ],
    [
-    514,
-    620,
+    373,
+    479,
     "SIDE SKIRT + STRAKE"
    ],
    [
-    628,
-    761,
+    487,
+    620,
     "WHEEL HOUSE \u00b7 WHEEL REMOVED"
    ],
    [
-    769,
-    875,
+    628,
+    734,
     "UNDERBODY"
    ]
   ],
   "bottom": [
    [
-    128,
-    279,
+    64,
+    140,
     "FRUNK \u00b7 HOOD OPEN"
    ],
    [
-    287,
-    365,
+    146,
+    224,
     "FRONT BRAKE \u00b7 WHEEL REMOVED"
    ],
    [
-    373,
-    450,
+    232,
+    309,
     "REAR WING"
    ],
    [
-    458,
-    506,
+    317,
+    365,
     "REAR BUMPER REMOVED"
    ],
    [
-    510,
-    563,
+    369,
+    422,
     "DIFFUSER \u00b7 LIP \u00b7 TAIL LIGHTS"
    ],
    [
-    567,
-    620,
-    "UNDER THE REAR BUMPER"
+    426,
+    479,
+    "EXHAUST \u00b7 UNDERSIDE"
    ],
    [
-    628,
-    761,
+    487,
+    620,
     "SIDE SKIRT REMOVED"
    ],
    [
-    769,
-    875,
+    628,
+    734,
     "ALL SCANNED PARTS OFF"
    ]
   ]
  },
  "web": {
   "src": "/home/user/media/work/gt3vs/out/webzoom_split_v3.mp4",
-  "start_frame": 1092,
+  "start_frame": 951,
   "xfade": 14
  }
 }

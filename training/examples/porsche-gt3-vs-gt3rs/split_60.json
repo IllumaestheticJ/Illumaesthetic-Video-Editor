@@ -1,0 +1,209 @@
+{
+ "fps": 30,
+ "out": "/home/user/media/work/gt3vs/out/gt3_vs_gt3rs_v4_60fps.mp4",
+ "music": {
+  "path": "/home/user/media/work/music/alkitran_full.wav",
+  "start": 176.351,
+  "fade_out": 1.6
+ },
+ "tags": {
+  "top": "911 GT3 RS (992)",
+  "bottom": "911 GT3 (992)"
+ },
+ "end_frame": 1135,
+ "top": [
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v2_sh1",
+   "frames": 57,
+   "crop_y": 440,
+   "src_fps": 30
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v6_sh3",
+   "frames": 85,
+   "crop_y": 480,
+   "src_fps": 30
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v6_sh4",
+   "frames": 86,
+   "crop_y": 380
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/s5_wing",
+   "frames": 85,
+   "src_fps": 14.5,
+   "crop_y": 520
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v3_sh6",
+   "frames": 56,
+   "crop_y": 520
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v6_sh7",
+   "frames": 114,
+   "src_fps": 14.3,
+   "crop_y": 440
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v6_wheel",
+   "frames": 141,
+   "crop_y": 500
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v6_under",
+   "frames": 114,
+   "fit_vf": "scale=1080:1920:flags=lanczos,transpose=1,scale=1080:608:flags=lanczos,pad=1080:960:0:176:color=0x070709"
+  },
+  {
+   "src": "/home/user/media/work/gt3/renders/final/v6_sh9",
+   "frames": 170,
+   "src_fps": 14.83,
+   "crop_y": 330
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/r_orbit",
+   "frames": 57,
+   "src_fps": 60
+  }
+ ],
+ "bottom": [
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_whole",
+   "frames": 57,
+   "src_fps": 30
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_front",
+   "frames": 85,
+   "src_fps": 30
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_wheel",
+   "frames": 86
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_wing",
+   "frames": 85
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_rear",
+   "frames": 170
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_side",
+   "frames": 141
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_wide",
+   "frames": 114
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_home",
+   "frames": 170
+  },
+  {
+   "src": "/home/user/media/work/gt3vs/renders/final/g_orbit",
+   "frames": 57,
+   "src_fps": 60
+  }
+ ],
+ "labels": {
+  "top": [
+   [
+    64,
+    84,
+    "FRONT BUMPER STRAKES"
+   ],
+   [
+    86,
+    112,
+    "FRONT LOWER LIP"
+   ],
+   [
+    114,
+    140,
+    "HOOD VENT TOP"
+   ],
+   [
+    146,
+    224,
+    "FENDER VENT"
+   ],
+   [
+    232,
+    309,
+    "REAR WING"
+   ],
+   [
+    317,
+    365,
+    "REAR DIFFUSER + UNDERTRAY"
+   ],
+   [
+    373,
+    479,
+    "SIDE SKIRT + STRAKE"
+   ],
+   [
+    487,
+    620,
+    "WHEEL HOUSE \u00b7 WHEEL REMOVED"
+   ],
+   [
+    628,
+    734,
+    "UNDERBODY"
+   ]
+  ],
+  "bottom": [
+   [
+    64,
+    140,
+    "FRUNK \u00b7 HOOD OPEN"
+   ],
+   [
+    146,
+    224,
+    "FRONT BRAKE \u00b7 WHEEL REMOVED"
+   ],
+   [
+    232,
+    309,
+    "REAR WING"
+   ],
+   [
+    317,
+    365,
+    "REAR BUMPER REMOVED"
+   ],
+   [
+    369,
+    422,
+    "DIFFUSER \u00b7 LIP \u00b7 TAIL LIGHTS"
+   ],
+   [
+    426,
+    479,
+    "EXHAUST \u00b7 UNDERSIDE"
+   ],
+   [
+    487,
+    620,
+    "SIDE SKIRT REMOVED"
+   ],
+   [
+    628,
+    734,
+    "ALL SCANNED PARTS OFF"
+   ]
+  ]
+ },
+ "web": {
+  "src": "/home/user/media/work/gt3vs/out/webzoom_split_v3_60.mp4",
+  "start_frame": 951,
+  "xfade": 14
+ },
+ "out_fps": 60
+}

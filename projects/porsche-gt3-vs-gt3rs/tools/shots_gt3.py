@@ -115,12 +115,15 @@ SHOTS = {
     # wing + engine lid from high behind; wing lifts b29 -> b32
     "g_wing": {"parts": state("g_wing", {"rear_wing": (29, 32)}),
                "cam": cam((0, (1.6, 3.75, 1.85), (0.05, 1.9, 1.0), 38), (S["g_wing"], (-1.2, 3.85, 1.95), (-0.05, 1.9, 1.05), 38))},
-    # rear strip: bumper b32->35, diffuser + lip b34->37, tail lights + engine-lid spoiler b36->39, push in on the exhaust
+    # rear strip: bumper b32->34.5, diffuser + lip, tail lights + engine-lid spoiler by b39; then (v4) the diffuser slides
+    # aside and the camera drops below the tail and looks up at the exhaust / engine underside (b39 -> b41.5, hold to b44)
     "g_rear": {"parts": state("g_rear", {"rear_bumper": (32, 34.5), "rear_diffuser": (34, 36.5), "rear_lip": (34.5, 37),
                                          "tail_lights": (36, 38.5), "rear_duckbill": (36.5, 39)}),
-               "cam": cam((0, (-2.9, 6.1, 1.35), (-0.1, 1.9, 0.85), 30), (4.5 * B, (-2.6, 5.7, 1.1), (-0.1, 1.9, 0.7), 30),
-                          (8.5 * B, (-1.25, 4.35, 0.62), (0.0, 1.9, 0.42), 30),
-                          (S["g_rear"], (-0.55, 4.2, 0.55), (0.0, 1.9, 0.42), 30, "lin"))},
+               "underlight": 0.35,
+               "cam": cam((0, (-2.9, 6.1, 1.35), (-0.1, 1.9, 0.85), 30), (4.0 * B, (-2.6, 5.7, 1.1), (-0.1, 1.9, 0.7), 30),
+                          (7.0 * B, (-1.25, 4.6, 0.62), (0.0, 1.9, 0.42), 30),
+                          (9.5 * B, (0.0, 4.3, -2.4), (0.0, 1.6, 0.3), 40),
+                          (S["g_rear"], (0.25, 4.15, -2.5), (0.0, 1.55, 0.3), 40, "lin"))},
     # everything off, wide from the front-right, high
     "g_wide": {"parts": state("g_wide", {}),
                "cam": cam((0, (-5.5, -5.5, 3.0), (0, 0.45, 0.95), 30), (S["g_wide"], (-6.6, -2.9, 3.3), (0, 0.5, 0.95), 30, "lin"))},
@@ -138,19 +141,26 @@ LISTING = {"g_orbit": ((-7.2253, 4.9075, 3.1727), (0.0727, 0.0771, 0.6632), 30.0
 ORBIT_FROM = {"g_orbit": ((5.0, 5.4, 1.5), (0, 0.7, 0.6)),      # g_home at b74
               "r_orbit": ((4.95, 5.35, 1.4), (0, 0.7, 1.29))}   # v6_sh9 at b74, target raised for its crop band (crop_y 330)
 ORBIT_MID = {"g_orbit": ((-0.9, 8.3, 2.5), (0.05, 0.4, 0.65), 30.0), "r_orbit": ((-1.2, 9.6, 2.9), (0.05, 0.4, 0.9), 34.0)}
-SECS.update({"g_orbit": 2.2, "r_orbit": 2.2})
+SECS.update({"g_orbit": 2.0, "r_orbit": 2.0})
 for _n, _base in (("g_orbit", f"{G}/car4.blend"), ("r_orbit", "/home/user/media/porsche-gt3rs-992/prep/car4.blend")):
     _l, _t, _f = LISTING[_n]
     SHOTS[_n] = {"base": [_base], "parts": [],
-                 "cam": cam((0, ORBIT_FROM[_n][0], ORBIT_FROM[_n][1], 30), (0.78, *ORBIT_MID[_n], "in"),
-                            (1.52, _l, _t, _f, "out"), (2.2, _l, _t, _f))}
+                 "fps": 60,   # v4: native 60 fps (no interpolation smear on the fast sweep); lands at 1.425 s = b77
+                 "cam": cam((0, ORBIT_FROM[_n][0], ORBIT_FROM[_n][1], 30), (0.73, *ORBIT_MID[_n], "in"),
+                            (1.425, _l, _t, _f, "out"), (2.0, _l, _t, _f))}
+
+for _p in SHOTS["g_rear"]["parts"]:
+    if _p["blend"].endswith("x_rear_diffuser.blend"):
+        _o = PATH["rear_diffuser"][1]
+        _p["keys"] += [{"t": 7.0 * B, "loc": list(_o), "rot": [0, 0, 0]},
+                       {"t": 8.6 * B, "loc": [2.0, _o[1], _o[2]], "rot": [0, 0, 0], "ease": "inout"}]
 
 
 def spec(name, mode, frames=None):
     s = SHOTS[name]
     final = mode == "final"
-    sp = {"base": s.get("base", BASE), "parts": s["parts"], "camera": {"sensor": 20.25, "keys": s["cam"]}, "seconds": SECS[name], "fps": 15,
-          "res": "1080x960", "res_pct": 75 if final else 35, "samples": 12 if final else 6, "persist": False,
+    sp = {"base": s.get("base", BASE), "parts": s["parts"], "camera": {"sensor": 20.25, "keys": s["cam"]}, "seconds": SECS[name], "fps": s.get("fps", 15),
+          "res": "1080x960", "res_pct": 75 if final else 35, "samples": 12 if final else 6, "persist": False, **({"underlight": s["underlight"]} if s.get("underlight") else {}),
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if not final:
         sp["frames"] = frames or ["first", "mid", "last"]
