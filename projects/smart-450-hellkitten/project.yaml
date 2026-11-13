@@ -3,7 +3,7 @@
 project: smart-450-hellkitten
 format: reel-9x16
 output:
-  path: /home/user/media/work/smart-450/build/smart450_v4_video.mp4
+  path: /home/user/media/work/smart-450/build/smart450_v5_video.mp4
   width: 1080
   height: 1920
   fps: 30

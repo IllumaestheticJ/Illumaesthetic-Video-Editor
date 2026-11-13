@@ -21,7 +21,8 @@ MEMES = {
     "huh": dict(file="huh_cat.mp4", t0=0.5, dur=1.1, width=340, pos=("right", 1690), start=12, tol=(26, 62), why="a confused cat next to the opening question 'THIS IS A SMART CAR?'"),
     "oiia": dict(file="oiiaoiia_cat.mp4", t0=1.2, dur=1.5, width=330, pos=("left", 1690), start=397, tol=(30, 70), why="the spin on the body-off swap (beat 32): the spin starts on the swap frame"),
     "yapapa": dict(file="yapapa_cat.mp4", t0=0.5, dur=1.7, width=400, pos=("left", 1690), start=535, tol=(30, 70), why="mouth open on the choir meow of the Hellkitten reveal (beat 44.5)"),
-    "clap": dict(file="clapping_cat.mp4", t0=0.0, dur=0.77, width=440, pos=("right", 1690), start=744, tol=(30, 70), why="approval clap after the long unimpressed meow, before the logo (beats 62-64)"),
+    "clap": dict(file="clapping_cat.mp4", t0=0.0, dur=101 / 30, width=440, pos=("right", 1690), start=744, tol=(30, 70), rim=True, retime=(3.5, 1.109, 79, 50),
+                 why="approval clap after the long unimpressed meow, carried over the cut onto the logo card; claps retimed (x1.109, 2 beats per clap) so one lands on the logo downbeat (frame 767) and the next ones on beats 66, 68, 70; exit on beat 71 (frame 845)"),
 }
 
 
@@ -87,6 +88,33 @@ def build_overlay(mid, cfg):
     p = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "bgra", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                           "-c:v", "prores_ks", "-profile:v", "4444", "-pix_fmt", "yuva444p10le", str(out)], stdin=subprocess.PIPE)
     i = 0
+    def prep(f):
+        k = key(f, bg, cfg["tol"])[y0:y1, x0:x1]
+        a = k[..., 3:4].astype(np.float32) / 255.0; rgb = k[..., :3].astype(np.float32) * a
+        rgb = cv2.resize(rgb, (tw, th), interpolation=cv2.INTER_AREA); al = cv2.resize(a[..., 0], (tw, th), interpolation=cv2.INTER_AREA)
+        col = np.where(al[..., None] > 1e-3, rgb / np.maximum(al[..., None], 1e-3), 0)
+        if cfg.get("rim"):   # faint cool-grey outer glow so dark fur stays visible on a black card
+            glow = np.clip(cv2.GaussianBlur(al, (0, 0), 4.0) * 1.8 - al * 1.0, 0, 1) * 0.95
+            col = np.clip(col * 1.35 + 6, 0, 255)           # lift the black fur a little so it separates from the black card
+            rc = np.array([225, 210, 205], np.float32)           # BGR
+            col = (col * al[..., None] + rc * glow[..., None] * (1 - al[..., None])) / np.maximum(al + glow * (1 - al), 1e-3)[..., None]
+            al = al + glow * (1 - al)
+        return col.astype(np.float32), al.astype(np.float32)
+    if cfg.get("retime"):
+        base0, rate, wrap_at, wrap_by = cfg["retime"]
+        cache = [prep(f) for j, f in zip(range(int(wrap_at) + 2), gen_frames(path, 0.0, (wrap_at + 2) / FPS))]
+        for i in range(n):
+            pos = base0 + rate * i
+            while pos >= wrap_at: pos -= wrap_by
+            j = int(np.floor(pos)); fr_ = pos - j
+            c0, a0 = cache[j]; c1, a1 = cache[min(j + 1, len(cache) - 1)]
+            col = c0 * (1 - fr_) + c1 * fr_; al = a0 * (1 - fr_) + a1 * fr_
+            ramp = min(1.0, (i + 1) / 3.0, (n - i) / 3.0)
+            frame = np.zeros((H, W, 4), np.uint8)
+            frame[py:py + th, px:px + tw, :3] = col.clip(0, 255).astype(np.uint8); frame[py:py + th, px:px + tw, 3] = (al * 255 * ramp).clip(0, 255).astype(np.uint8)
+            p.stdin.write(frame.tobytes())
+        p.stdin.close(); p.wait()
+        return dict(id=mid, file=cfg["file"], start_frame=cfg["start"], frames=n, crop=[x0, y0, x1, y1], screen=[px, py, tw, th], bg_bgr=bg.tolist(), why=cfg["why"])
     for f in gen_frames(path, cfg["t0"], cfg["dur"]):
         if i >= n: break
         k = key(f, bg, cfg["tol"])[y0:y1, x0:x1]

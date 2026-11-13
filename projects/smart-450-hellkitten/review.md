@@ -1,3 +1,7 @@
+# v5 (one change from v4)
+`out/smart450_v5.mp4` and `smart450_v5_meowlite.mp4`. The clapping black cat now keeps playing through the cut (frame 767) and stays on over the logo card, bottom right (x 610-1050, y 1199-1690, same size and position as on the render), until a beat-aligned exit on beat 71 (frame 845); the last 12 frames are the clean logo. The clap loop is retimed x1.109 (2 beats per clap) so a clap lands on the logo downbeat (frame 767) and the next ones on beats 66, 68 and 70; after the clip's own clapping ends (frame 79) its two-clap cycle is looped. A faint cool rim glow and a small lift keep the black fur visible on the black card (checked at full res on frames 790, 812, 836). The logo was raised (centre at 36 % of the height) so the cat sits below the wordmark. Weakness: retiming blends frames, leaving a faint motion ghost around the moving arm; the rim glow is visible.
+
+---
 # Smart 450 "Hellkitten" reel v4: what changed from v3
 
 Output `/home/user/media/work/smart-450/out/smart450_v4.mp4` (857 frames, 28.57 s) and `smart450_v4_meowlite.mp4` (same picture, meows 6 dB lower). Stems `stem_music.wav`, `stem_shopsound.wav`, `stem_meows.wav`. Copies in `preview/`. Rebuild: `python projects/smart-450-hellkitten/tools/build.py`.

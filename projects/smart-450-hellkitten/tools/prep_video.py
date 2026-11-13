@@ -181,7 +181,7 @@ def prep_still(s):
 
 def prep_logo(s):
     out = BUILD / f"{s['id']}.mp4"
-    stamp = json.dumps({"n": s["n"], "w": 720}) + f"v4_{nout(s)}"
+    stamp = json.dumps({"n": s["n"], "w": 720}) + f"v5_{nout(s)}"
     if stamp_ok(out, stamp):
         return out
     logo = Image.open(LOGO).convert("RGBA")
@@ -196,7 +196,7 @@ def prep_logo(s):
         L = logo.resize((round(logo.width * sc), round(logo.height * sc)), Image.LANCZOS)
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         L.putalpha(L.getchannel("A").point(lambda v: int(v * a)))
-        fr.alpha_composite(L, (W // 2 - L.width // 2, H // 2 - L.height // 2))
+        fr.alpha_composite(L, (W // 2 - L.width // 2, int(0.36 * H) - L.height // 2))   # v5: logo raised so the clapping cat can sit below it
         p.stdin.write(np.asarray(fr.convert("RGB")).tobytes())
     p.stdin.close(); p.wait()
     write_stamp(out, stamp)

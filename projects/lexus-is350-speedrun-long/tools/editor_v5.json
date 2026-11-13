@@ -293,7 +293,7 @@
    [
     29.1,
     37.25,
-    -15
+    -21
    ],
    [
     46.6,
@@ -303,7 +303,7 @@
    [
     61.2,
     67.594,
-    -13
+    -17
    ],
    [
     67.594,
@@ -313,12 +313,12 @@
    [
     109.1,
     113.9,
-    -14
+    -17
    ],
    [
     133.5,
     173.6,
-    -10
+    -12
    ],
    [
     179.2,
@@ -328,7 +328,7 @@
    [
     192.4,
     198.4,
-    -14
+    -15
    ],
    [
     204.5,
@@ -338,7 +338,7 @@
    [
     221.6,
     226.6,
-    -19
+    -24
    ],
    [
     235.99,
@@ -348,7 +348,7 @@
    [
     274.69,
     297.93,
-    -12
+    -14
    ]
   ],
   "drone_gain": -8.0,
@@ -360,6 +360,7 @@
    78.5075
   ],
   "shelf_db": 3.0,
-  "why": "Owner: 'constant music changing is incredibly distracting' -> one continuous P4 track (music agent v5), ducks per music_v5_map.json; H_14 deeper (-19, map flags 33-43 % speech-band share); wind-up 2-8 kHz rose 5.0 dB (under the 6 dB limit) - a gentle 3 dB shelf above 2.5 kHz is ramped in over its last 7.5 s anyway"
+  "why": "Owner: 'constant music changing is incredibly distracting' -> one continuous P4 track (music agent v5), ducks per music_v5_map.json; H_14 deeper (-19, map flags 33-43 % speech-band share); wind-up 2-8 kHz rose 5.0 dB (under the 6 dB limit) - a gentle 3 dB shelf above 2.5 kHz is ramped in over its last 7.5 s anyway",
+  "ducks_why": "QA recall on the full mix (medium.en vs the dialogue stem): P_04 0.26, H_14 0.00, Q_05 0.76, C_08 0.81, CON_01 0.90 at the map's depths -> P_04 -21, H_14 -24, Q_05 -17, C_08 tail -17, T_08 -12, CON_01 -14"
  }
 }

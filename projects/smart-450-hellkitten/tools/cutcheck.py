@@ -17,7 +17,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from edit_shots import SHOTS, FPS, SM
 
 SR = 44100
-f = sys.argv[1] if len(sys.argv) > 1 else f"{SM}/out/smart450_v4.mp4"
+f = sys.argv[1] if len(sys.argv) > 1 else f"{SM}/out/smart450_v5.mp4"
 
 raw = subprocess.run(["ffmpeg", "-v", "error", "-i", f, "-vn", "-f", "f32le", "-ac", "1", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
 x = np.frombuffer(raw, np.float32).astype(np.float64)

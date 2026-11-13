@@ -16,7 +16,7 @@ OUT = Path(SM) / "out"
 def dec(p, mono=True):
     r = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout, np.float32).reshape(-1, 2)
     return r.mean(axis=1).astype(np.float64) if mono else r.astype(np.float64)
-stem, mix, mp4 = dec(OUT / "stem_meows.wav"), dec(OUT / "smart450_mix.wav"), dec(OUT / "smart450_v4.mp4")
+stem, mix, mp4 = dec(OUT / "stem_meows.wav"), dec(OUT / "smart450_mix.wav"), dec(OUT / "smart450_v5.mp4")
 n = min(len(mix), len(mp4)); a, b = mix[:n], mp4[:n]
 lag = int(np.argmax(correlate(b[: SR * 10], a[: SR * 10], mode="full", method="fft")) - (SR * 10 - 1))
 print("mp4 vs wav master lag samples", lag, "=", round(lag / SR * 1000, 2), "ms")

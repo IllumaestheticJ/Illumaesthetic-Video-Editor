@@ -26,7 +26,7 @@ def main():
     proj = {
         "project": "smart-450-hellkitten",
         "format": "reel-9x16",
-        "output": {"path": f"{SM}/build/smart450_v4_video.mp4", "width": 1080, "height": 1920, "fps": 30, "crf": 17, "preset": "slow"},
+        "output": {"path": f"{SM}/build/smart450_v5_video.mp4", "width": 1080, "height": 1920, "fps": 30, "crf": 17, "preset": "slow"},
         "audio": {"mix": f"{SM}/out/smart450_mix.wav", "note": "muxed by tools/build.py (AAC 256k); music v2 from harder.m4a + shop sound, stems in out/"},
         "beats_note": "T(m)=1.499+0.37583*m; cut frames = round(T*30); see direction.md section 2",
         "timeline": tl,
