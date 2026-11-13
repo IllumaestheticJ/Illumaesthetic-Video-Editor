@@ -75,3 +75,25 @@ Each beats json has an `extend` rule. Short version: spray/hero/montage have a l
 - Bar 1 (downbeat) is unverified in P7 and P1; P4's was picked from chroma novelty.
 - P8 starts at 190 BPM (felt 95) and the montage is 150: the hero is a hard music change by design.
 - Licence unchanged: owner-supplied third-party game-music compilation, YouTube clearance not confirmed.
+
+---
+# v5 music (2026-11-13) - ONE continuous track (replaces v2-v4 scoring)
+Owner: "the constant music changing is incredibly distracting". Rebuilt from P4 only (the 300 s, 150 BPM piece of the owner mix; it is an exact 360-beat / 144.000 s loop played twice). Picture locked to `timeline_v4.json` (315.023 s). **Unheard**: all checks are measurements.
+Files in `/home/user/media/work/is350-long/music/v5/`: `music_v5_full.wav` (stereo 44.1 kHz, exactly 315.023 s, t=0 = timeline 0, UNDUCKED), `music_v5_crash_drone.wav`, `music_v5_crash_ticks.wav` (same length, aligned), `music_v5_map.json`, `music_v5_strip.png` (waveform + spectrogram with anchors).
+
+## Structure in plain words
+Thin low-band P4 warming up under the opening, opens to full band on "go" (18.147); plays straight through spray and scan (landing 40.874 on a strong beat); from 67.59 the same piece tape-winds up (speed 1.0 -> 1.8x, rising level) through its own build bars and stops dead on "crashed" 78.5075, exactly where its loop drop would have hit; silence (drone + tick stems, derived from slowed calm P4 bars) until "Now." 109.1115, where P4 re-enters on that drop bar and then plays on to the end: through Try again, the hard parts, a filter dip (not silence) under "Time" 235.99-246.96 that reopens as the build into the results card, the montage on P4's loud bars and build/breakdown bars, the loop drop again on the hero lift 274.691, the low-mid bars under the conclusion, a 3-bar pull-back and the final hit on the end card 310.018 with a reverb ring to ~314.4 s.
+Audible piece changes: 0 (v4 had 8). Deliberate dynamic events: the crash stop and the "Now." re-entry (owner's crash drama), plus the Time dip and the ending.
+
+## Anchor errors (ms, rendered file; grid phase from kick-band / broadband onsets)
+go +6.4 / +2.0; landing -1.5 / -17.8; Now. +24.8 / -13.7 (one-sided); Time -17.7 / +8.3; card in +10.6 / +11.4; card out +7.9 / -1.4; lift +18.5 / -5.4; end hit -0.9 / +1.8.
+Montage cuts (kick-fitted local grid): beats 6.0, -9.8, 2.0, -4.7; eighths -4.1, -8.6, -1.5. Cuts 1 and 3 sit on a beat with no kick (build bars). Nearest single onset is ambiguous (+-40 ms: P4 is a dense 16th pattern).
+Tempo of the output: 150.44 BPM (opening to crash), 150.85 (Now. to card), 150.07 (card to lift), 149.5 (lift to end): at most 0.6 % tempo steps, continuous.
+
+## Edits inside P4 and checks
+- Jump back 56 beats (k398 -> k342) at 160.02, inside the T_08 speech over calm bars; loop wrap k568 -> k208 at 249.92 (identical audio, 12 ms crossfade). Step/loudness ratios at the edit points 0.15 and 0.86 (typical 0.61): no clicks measured.
+- Crash gap is digital silence (max |x| 0.0). Peak 0.857 (stereo). Section LUFS: opening -19.7, spray -13.1, Now-Time -13.9, dip -20.5, card -16.3, montage -13.8, hero -13.1, conclusion -14.0, end card -21.9.
+- Under speech the source bars used have 7-24 % speech-band share except P_04 (24-43 %), H_07, H_10/11, H_14 (33-43 %, worst): suggested ducks per section are in `music_v5_map.json` (-10 dB calm bars, -12 to -17 dB melodic bars).
+
+## Caveats
+Not listened to. The wind-up reaches +10 semitones (may read shrill). The end ring is a synthetic reverb of the final beat. Montage cuts 1 and 3 land on beats without a kick.

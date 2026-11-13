@@ -1,0 +1,380 @@
+{
+ "seg_version": 2,
+ "x264_preset": "faster",
+ "drop_events": [
+  "CO_02",
+  "CO_03"
+ ],
+ "drop_why": "Lead (2nd update): no scan tease in the cold open (scan presentation only at the end); the cold open is CO_01 only and the gap is closed. Front pair moves into the end montage as the finale pair.",
+ "overrides": {
+  "CON_01": {
+   "src_out": 27.7,
+   "why": "v4 (owner): the host's whole closing statement 11.56-27.70: '...Artec Leo. I don't know if there's any other scanner out there that can do it faster, but yeah, this thing's fast.' Speech ends 27.25 (energy), tail 0.45; camera swings away from ~27.9.",
+   "src_in": 11.56
+  },
+  "T_07": {
+   "src_in": 52.62,
+   "why": "verify_dialogue: edl in 53.14 cut 'So,' (speech-band energy 52.90-53.15); 52.62 sits in silence (-52 dB) -> lead 0.28"
+  },
+  "C_04": {
+   "src_out": 402.62,
+   "why": "tail edge flagged (a tick at 402.40 right after 'rolling' ends 402.15); out moved into silence (-50 dB)"
+  }
+ },
+ "max_src_out": {
+  "T_07": 63.22,
+  "H_10": 3.9,
+  "H_07": 126.8,
+  "CON_01": 27.85,
+  "H_11": 19.96,
+  "C_06": 414.72,
+  "P_08": 203.6,
+  "B_02": 31.9,
+  "B_01": 23.6,
+  "CO_01": 19.4,
+  "C_04": 402.62
+ },
+ "fixed_src_out": [
+  "M1_A"
+ ],
+ "anchors": {
+  "go": {
+   "event": "P_01",
+   "clip": "FX30541",
+   "src": 74.23
+  },
+  "crashed": {
+   "event": "C_01",
+   "src": 379.6
+  },
+  "now": {
+   "event": "C_08",
+   "clip": "FX30542",
+   "src": 13.53
+  },
+  "time": {
+   "event": "TM_01",
+   "src": 7.6
+  },
+  "tick": {
+   "event": "C_05",
+   "src": 404.542
+  }
+ },
+ "snap": {
+  "free": 0.21,
+  "protected_grow": 0.42,
+  "main_last_bar": 0.81,
+  "montage_beat": 0.21,
+  "montage_eighth": 0.11
+ },
+ "timelapse": {
+  "ramp_s": 0.4,
+  "shutter": 0.5
+ },
+ "music": {
+  "dir": "/home/user/media/work/is350-long/music/v2",
+  "intro": {
+   "file": "intro_p5_long.wav",
+   "clear": -6,
+   "under": -14,
+   "fade_out": 0.9
+  },
+  "spray": {
+   "file": "spray_p7.wav",
+   "anchor_file": 1.0,
+   "landing_file": 23.76,
+   "clear": -5,
+   "under": -12,
+   "xfade_to_tense": 1.5
+  },
+  "tense": {
+   "file": "crash_tense_long.wav",
+   "clear": -4,
+   "under": -10
+  },
+  "drone": {
+   "file": "crash_bed_drone.wav",
+   "tick_anchor_file": 8.86,
+   "clear": -9,
+   "under": -16
+  },
+  "ticks": {
+   "file": "crash_bed_ticks.wav",
+   "clear": -9,
+   "under": -18
+  },
+  "c07": {
+   "file": "crash_c07_ticks_riser.wav",
+   "clear": -3
+  },
+  "main": {
+   "file": "main_p4.wav",
+   "anchor_file": 0.1,
+   "clear": -6,
+   "under": -14,
+   "hard_parts_db": 2.0
+  },
+  "sting": {
+   "file": "time_sting.wav",
+   "onset": 0.007,
+   "clear": -6
+  },
+  "montage": {
+   "file": "montage_p1.wav",
+   "riser_end_file": 27.5,
+   "clear": -3,
+   "lead_in": 0.0
+  },
+  "hero": {
+   "file": "hero_outro_p8.wav",
+   "lift_file": 3.0,
+   "hit_file": 28.15,
+   "clear": -5,
+   "under": -14,
+   "repeat": [
+    5.209,
+    15.388
+   ],
+   "repeat_why": "v4: CON_01 +11.35 s; repeat the 8-bar P8 block (src 1115.27-1125.38, sim 0.85) between measured onsets 5.209 and 15.388 (10.179 s) so the closing scan keeps ~12 s and the final hit still lands on the END card"
+  },
+  "hit_big": {
+   "file": "hit_big.wav",
+   "onset": 0.007,
+   "gain": -2
+  },
+  "hit_small": {
+   "file": "hit_small.wav",
+   "onset": 0.005,
+   "gain": -2
+  },
+  "riser": {
+   "file": "riser_landing_3p78.wav",
+   "landing": 3.78,
+   "gain": -3
+  }
+ },
+ "audio": {
+  "clean": "highpass=f=90,afftdn=nr=10:nf=-45:tn=1,lowpass=f=13000",
+  "declip_clips": [
+   "FX30547",
+   "FX30551",
+   "FX30552",
+   "FX30553"
+  ],
+  "dialogue_lufs": -18.0,
+  "dia_comp": "acompressor=threshold=0.06:ratio=2.5:attack=8:release=200:knee=4",
+  "dia_peak_dbfs": -7.0,
+  "line_tolerance_lu": 1.0,
+  "preroll": {
+   "C_08": [
+    "FX30542",
+    14.7,
+    14.95
+   ],
+   "H_03": [
+    "FX30547",
+    3.75,
+    3.95
+   ],
+   "H_10": [
+    "FX30551",
+    3.4,
+    3.65
+   ]
+  },
+  "end_fade": {
+   "T_07": 0.125,
+   "CON_01": 0.08
+  },
+  "room_events": {
+   "C_05": -8.0,
+   "P_03": -14.0,
+   "TM_02": {
+    "db": -10.0,
+    "src": [
+     39.95,
+     42.6
+    ],
+    "why": "QA silencedetect: 2.0 s digital silence between the end of TM_01 and the montage; 553 after 'do that.' (39.87) is word-free room tone"
+   }
+  },
+  "freeze_sfx_db": -14.0,
+  "dead_silence_s": 0.4,
+  "target_lufs": -14.0,
+  "limit_dbfs": -2.0,
+  "duck_ramp_s": 0.2
+ },
+ "montage": {
+  "why": "Lead: order builds rear quarter -> rear bumper -> hood -> front walk-out (finale, longest) -> hero. Durations in whole P1 beats (0.4 s); IRL->scan cuts snap to the nearest kick, scan->IRL to the nearest eighth; montage total fixed so the riser/hero lift stays on its anchor.",
+  "replaces": [
+   "M1_A",
+   "M1_B",
+   "M2_A",
+   "M2_B",
+   "M3_A",
+   "M3_B",
+   "M4_A",
+   "M4_B",
+   "M5_A",
+   "M5_B"
+  ],
+  "pairs": [
+   {
+    "id": "MP2",
+    "shot": "SC_PAIR_2",
+    "clip": "FX30541",
+    "frame": 5641,
+    "irl": 2.4,
+    "scan": 2.4,
+    "irl_max": 2.49
+   },
+   {
+    "id": "MREAR",
+    "shot": "SC_MATCH_REAR",
+    "clip": "FX30542",
+    "frame": 1135,
+    "irl": 2.8,
+    "scan": 2.4
+   },
+   {
+    "id": "MP3",
+    "shot": "SC_PAIR_3",
+    "clip": "FX30542",
+    "frame": 5401,
+    "irl": 2.4,
+    "scan": 2.4,
+    "irl_max": 2.46
+   },
+   {
+    "id": "MFRONT",
+    "shot": "SC_MATCH_FRONT",
+    "clip": "FX30554",
+    "frame": 264,
+    "irl": 2.8,
+    "scan": 4.0
+   }
+  ],
+  "why_v3": "v3: MREAR/MFRONT IRL 3.2->2.8 s and MFRONT scan absorbs the rest so the montage (card end -> hero lift) is 21.55 s"
+ },
+ "seg_version_why": "v2: decode with -fps_mode passthrough; the default CFR output duplicated the first frame after an input seek, so every IRL segment ran one frame late and match cuts ended on solved-1 (measured on MFRONT_A)",
+ "results_card": {
+  "id": "RESULTS_CARD",
+  "cue": "G_RESULTS_v3",
+  "after": "TM_02",
+  "section": "8b RESULTS PREVIEW",
+  "bars": 2,
+  "file_bar": 1,
+  "why": "Owner: 'results preview' title card before the end montage. 2 bars of the montage piece (P1 150 BPM, 3.2 s): starts on montage-file bar 1 (2.748 s), hit_big into the card, riser lands on the cut out, montage music starts on that cut; the hero lift stays on the montage riser end (file 27.5)."
+ },
+ "snap_con01_to_hero": [
+  0.0,
+  0.15
+ ],
+ "captions_ver": "v4",
+ "music_v5": {
+  "dir": "/home/user/media/work/is350-long/music/v5",
+  "full": "music_v5_full.wav",
+  "drone": "music_v5_crash_drone.wav",
+  "ticks": "music_v5_crash_ticks.wav",
+  "gain": -6.0,
+  "duck_default": -12.0,
+  "ducks": [
+   [
+    0,
+    18.147,
+    -12
+   ],
+   [
+    18.147,
+    25.9,
+    -14
+   ],
+   [
+    29.1,
+    37.25,
+    -21
+   ],
+   [
+    46.6,
+    48.63,
+    -12
+   ],
+   [
+    61.2,
+    67.594,
+    -17
+   ],
+   [
+    67.594,
+    78.5075,
+    -12
+   ],
+   [
+    109.1,
+    113.9,
+    -17
+   ],
+   [
+    133.5,
+    173.6,
+    -12
+   ],
+   [
+    179.2,
+    183.2,
+    -10
+   ],
+   [
+    192.4,
+    198.4,
+    -15
+   ],
+   [
+    204.5,
+    214.5,
+    -15
+   ],
+   [
+    221.6,
+    226.6,
+    -24
+   ],
+   [
+    235.99,
+    246.96,
+    -6
+   ],
+   [
+    274.69,
+    297.93,
+    -14
+   ]
+  ],
+  "drone_gain": -8.0,
+  "drone_duck": -14.0,
+  "ticks_gain": -9.0,
+  "ticks_duck": -18.0,
+  "windup": [
+   71.0,
+   78.5075
+  ],
+  "shelf_db": 3.0,
+  "why": "Owner: 'constant music changing is incredibly distracting' -> one continuous P4 track (music agent v5), ducks per music_v5_map.json; H_14 deeper (-19, map flags 33-43 % speech-band share); wind-up 2-8 kHz rose 5.0 dB (under the 6 dB limit) - a gentle 3 dB shelf above 2.5 kHz is ramped in over its last 7.5 s anyway",
+  "ducks_why": "QA recall on the full mix (medium.en vs the dialogue stem): P_04 0.26, H_14 0.00, Q_05 0.76, C_08 0.81, CON_01 0.90 at the map's depths -> P_04 -21, H_14 -24, Q_05 -17, C_08 tail -17, T_08 -12, CON_01 -14; P_04 tested at -28 dB with no recall gain (the line is masked by its own spray-gun noise), kept at -21",
+  "hold_regions": [
+   [
+    29.0,
+    37.3
+   ],
+   [
+    221.5,
+    226.7
+   ],
+   [
+    61.1,
+    67.75
+   ]
+  ]
+ }
+}

@@ -183,20 +183,20 @@
  },
  {
   "cue": "CON_G3_v2",
-  "comp": "ScanLabel",
+  "comp": "CueV2",
   "file": "CON_G3_v4.mov",
   "alpha": true,
   "in": 301.423,
   "out": 310.018,
   "frames": 206,
-  "placement": "bottom-left over black, halo",
+  "placement": "lower-left x80 y840 (content-sized plate) over black below the car",
   "props": {
    "cue": "CON_G3_v2",
    "frames": 206,
-   "text": "LINK IN THE DESCRIPTION",
-   "sub": "",
-   "pos": "bl",
-   "plate": false
+   "text": "SCANS AVAILABLE AT ILLUMAESTHETIC.COM",
+   "x": 80,
+   "y": 840,
+   "w": 900
   }
  },
  {
