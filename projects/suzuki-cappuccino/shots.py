@@ -1,4 +1,4 @@
-"""Shot list v4 (v3 recipe: shots_v3.py; re-cut to the reviewer-supplied track, nested parts) for the Suzuki Cappuccino scan reel -> one tools/shot.py JSON per shot (v1 recipe: shots_v1.py).
+"""Shot list v5 (v4: shots_v4.py; v5 = smooth hood nose + corner markers out through the bumper FRONT; re-cut to the reviewer-supplied track, nested parts) for the Suzuki Cappuccino scan reel -> one tools/shot.py JSON per shot (v1 recipe: shots_v1.py).
 Plan: direction.md (scene order from the scan inventory) + director.md (one focus per shot). User v2 brief + addendum A-D.
   python projects/suzuki-cappuccino/shots.py      # writes /home/user/media/work/cappuccino/shots_v2/*.json
 Cuts land on the broadband kick onset frames of the source track (onsets.json, beat n -> frame), not the low-band grid.
@@ -10,8 +10,8 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 B = "/home/user/media/work/cappuccino/blend/"
-OUT = "/home/user/media/work/cappuccino/shots_v4/"
-RENDERS = "/home/user/media/work/renders/cappuccino_v4/"
+OUT = "/home/user/media/work/cappuccino/shots_v5/"
+RENDERS = "/home/user/media/work/renders/cappuccino_v5/"
 HH = json.load(open(os.path.join(HERE, "hinge_hood.json")))
 HT = json.load(open(os.path.join(HERE, "hinge_trunk.json")))
 ONSET_F = {int(k_): v for k_, v in json.load(open(os.path.join(HERE, "onsets.json")))["frames"].items()}  # v3 beat label -> cut frame at 30 fps on the new track
@@ -48,17 +48,19 @@ def k(t, off=(0, 0, 0), deg=None, spin=None, lin=False):
 
 HOME = {p: [k(0, deg=0 if p in ("hood", "trunk") else None, spin=0 if p in ("fb", "rb") else None)] for p in PARTS}
 # poses (director.md)
-F_OUT = {"fb": dict(off=[0, -0.70, -1.00], spin=95)}
+F_OUT = {"fb": dict(off=[0, -0.70, -1.00], spin=0)}  # parked upright (markers out in front of it)
 R_OUT = {"rb": dict(off=[0, 0.75, -1.05], spin=-95)}
 LAYERS = {"hood": dict(off=[0, 0, 0.85], deg=0), "trunk": dict(off=[0, 0, 0.85], deg=0),
-          "fb": dict(off=[0, -0.45, 1.20], spin=80), "rb": dict(off=[0, 0.45, 1.30], spin=-80)}
+          "fb": dict(off=[0, -0.45, 1.20], spin=0), "rb": dict(off=[0, 0.45, 1.30], spin=-80)}
 DRIFT = {p: dict(v, off=[v["off"][0], v["off"][1], v["off"][2] + 0.04]) for p, v in LAYERS.items()}
 
 # nesting (reviewer v3: "corner markers should not come out until the bumper comes off; nest everything correctly"):
 # li keys are offsets in the bumper's own moving frame, so the markers travel with the bumper and only leave it once it is off
 PARENTS = {"li": "fb"}
-LI_OUT = (0, 0.28, 0)  # out of the tipped bumper toward its inner face (up, to the camera)
-LI_LAYER = (0, 0.38, 0.10)  # layered view: markers float just above their bumper
+# v5 reviewer: "the corner markers come out of the car from the front" -> they leave through the bumper's OUTER face
+# (local -Y), with the bumper upright, after it is off the car. v4 pushed them out of the inner face.
+LI_OUT = (0, -0.30, 0.04)  # in front of the upright bumper
+LI_LAYER = (0, -0.20, 0.35)  # layered view: in front of and above their (upright) bumper, clear of its top edge
 
 SHOTS = {}
 
@@ -81,17 +83,19 @@ def shot(name, b0, b1, objects, camera, anims=None, visible=None, light_ref=None
 # 1 whole car, front-right 3/4, fully in frame, moving from frame 1 (v1 openers were cropped at 4.4-5 m)
 shot("s1_whole", 0, 8, CAR, [cam(0, -58, 9, 6.1, [0, -0.05, 0.52], 40), cam(1, -34, 7, 5.5, [0, -0.15, 0.50], 40, lin=True)])  # lin: constant orbit, moving from frame 1
 
-# 2 front (nested): right lamp / marker close -> BUMPER comes off first, markers still in it, tips to show the inner face
-#   (mounting points) -> only then the corner markers lift out of the bumper -> bumper + markers drop away,
-#   camera moves in on the structure behind the bumper and holds (hero beat C)
+# 2 front (nested): right lamp close -> bumper slides straight forward off the car with the markers in it -> drops and tips
+#   to show the inner face (mounting points) -> rights itself, outer face to the lens -> only then the corner markers push
+#   out through the FRONT of the bumper -> bumper + markers drop away, camera moves in on the exposed structure (hero beat C)
+_FBP = (0, -0.55, -0.45)  # bumper's working pose in front of / below the car
 shot("s2_frontbumper", 8, 28, EXPLODED,
      [cam(0, -30, 8, 1.6, [-0.42, -1.45, 0.45], 50), cam(0.12, -27, 10, 1.5, [-0.30, -1.50, 0.42], 50),
-      cam(0.28, -22, 22, 3.6, [0, -1.75, 0.25], 40), cam(0.42, -18, 40, 3.2, [0, -1.95, 0.12], 45),
-      cam(0.68, -16, 44, 3.2, [0, -1.95, 0.18], 45), cam(0.82, -12, 12, 1.5, [0, -1.45, 0.35], 45),
+      cam(0.26, -22, 22, 3.6, [0, -1.75, 0.25], 40), cam(0.38, -18, 40, 3.2, [0, -1.95, 0.12], 45),
+      cam(0.52, -16, 42, 3.2, [0, -1.95, 0.15], 45), cam(0.62, -14, 12, 3.0, [0, -2.10, -0.02], 45),
+      cam(0.78, -12, 10, 2.7, [0, -2.20, -0.02], 45), cam(0.88, -10, 12, 1.5, [0, -1.45, 0.35], 45),
       cam(1, -4, 10, 1.3, [0, -1.40, 0.38], 45, lin=True)],
-     {"fb": [k(0, spin=0), k(0.12, spin=0), k(0.30, (0, -0.55, -0.45), spin=60), k(0.42, (0, -0.55, -0.45), spin=95),
-             k(0.68, (0, -0.55, -0.45), spin=95), k(0.82, F_OUT["fb"]["off"], spin=95)],
-      "li": [k(0), k(0.52), k(0.64, LI_OUT)],
+     {"fb": [k(0, spin=0), k(0.12, spin=0), k(0.22, (0, -0.45, 0), spin=0), k(0.30, _FBP, spin=60), k(0.38, _FBP, spin=95),
+             k(0.52, _FBP, spin=95), k(0.61, _FBP, spin=0), k(0.80, _FBP, spin=0), k(0.88, F_OUT["fb"]["off"], spin=0)],
+      "li": [k(0), k(0.63), k(0.73, LI_OUT)],
       "hood": HOME["hood"], "rb": HOME["rb"], "trunk": HOME["trunk"]}, light_ref="base")
 
 # 3 engine bay: held rise through the break (no cut), hood swings ON the drop (beat 32), push into the bay
@@ -123,8 +127,8 @@ shot("x1_layers", 62, 68, EXPLODED,
       "rb": [k(0, R_OUT["rb"]["off"], spin=-95), k(0.10, R_OUT["rb"]["off"], spin=-95), k(0.40, (0, 0.75, 1.30), spin=-80),
              k(0.55, LAYERS["rb"]["off"], spin=-80)],
       "hood": [k(0, deg=HOOD_OPEN), k(0.30, deg=HOOD_OPEN), k(0.70, LAYERS["hood"]["off"], deg=0)],
-      "fb": [k(0, F_OUT["fb"]["off"], spin=95), k(0.35, F_OUT["fb"]["off"], spin=95), k(0.75, (0, -0.70, 1.20), spin=80),
-             k(0.85, LAYERS["fb"]["off"], spin=80)],
+      "fb": [k(0, F_OUT["fb"]["off"], spin=0), k(0.35, F_OUT["fb"]["off"], spin=0), k(0.75, (0, -0.70, 1.20), spin=0),
+             k(0.85, LAYERS["fb"]["off"], spin=0)],
       "li": [k(0, LI_OUT), k(0.85, LI_OUT), k(0.97, LI_LAYER)]},  # nested: rides the bumper, then spreads above it
      light_ref="base")
 

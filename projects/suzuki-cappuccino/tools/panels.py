@@ -1,7 +1,7 @@
 """v3 panel cuts for the Cappuccino exploded view - seams come from the scan, not from margins (reviewer: "the lines
 where the front bumper and the trunk were cut are not correct"). Replaces lids.py --clip and composite.py's trims.
 
-  panels.py LEVDIR OUTDIR        (levelled+cropped mm frame; writes hood.stl trunk.stl base.stl fb_nolights.stl + check PNGs)
+  panels.py LEVDIR OUTDIR [--hood-only]        (levelled+cropped mm frame; writes hood.stl trunk.stl base.stl fb_nolights.stl + check PNGs)
 
 How each seam is found
   trunk lid   sides + front edge: least-cost path along the shut-line GROOVE in a top-down height map (2 mm px, groove
@@ -63,6 +63,10 @@ TRUNK_TOP = [(-634, 1720), (-638, 1540), (-600, 1390), (-120, 1414), (360, 1388)
 TRUNK_REAR = [(-630, 785), (-520, 778), (-430, 715), (-415, 660), (-120, 658), (175, 660), (190, 715), (280, 778), (385, 785)]
 HOOD_L = [(-712, -116), (-711, -250), (-708, -400), (-704, -550), (-700, -700), (-694, -850), (-686, -1000), (-676, -1136), (-436, -1326)]
 HOOD_R = [(156, -1326), (396, -1136), (408, -1000), (416, -850), (420, -700), (426, -550), (430, -400), (434, -250), (436, -116)]
+# v5 (reviewer: "the hood is cut a little funny when the front bumper comes off"): the nose edge between the lamps came out
+# ragged (+-6 mm waves and 10-45 mm tabs where the bumper-top outline dipped). Its real edge is a smooth arc: a quadratic fitted
+# to the 28 mm upper envelope of the v4 edge (z mm over x mm). Hood tris below it are dropped (also kept off the body, so no lip).
+NOSE_EDGE = (-8.7237e-05, -2.9107e-02, 493.62); NOSE_X = (-436.0, 162.0)
 TRUNK_YT = 1720.0     # behind this the lid edge is taken from the rear view
 
 class Cuts:
@@ -105,13 +109,17 @@ class Cuts:
         seam = np.interp(c[:, 0], self.seam_x, self.seam_z, left=1e9, right=1e9)
         return m & ((c[:, 1] < TRUNK_YT) | (c[:, 2] > seam))
 
-    def hood(self, c):
+    def hood(self, c, smooth_nose=True):
         i, j, ok = self._px(c, self.rh, self.hh)
         m = ok & (c[:, 2] > 450) & self.hood_mask[j, i] & (c[:, 2] > self.hh[j, i] - 60)
         nose = c[:, 1] < -1150
         top = self.fb_top[np.floor((c[:, 0] + 900) / 4).astype(int).clip(0, 399)]
         d, _ = self.fb_tree.query(c[m & nose], distance_upper_bound=5); near = np.zeros(len(c), bool); near[np.where(m & nose)[0]] = d <= 4
-        return m & ~(nose & ((c[:, 2] < top + 2) | near))
+        m &= ~(nose & ((c[:, 2] < top + 2) | near))
+        if smooth_nose:
+            band = nose & (c[:, 0] > NOSE_X[0]) & (c[:, 0] < NOSE_X[1]) & (c[:, 2] < np.polyval(NOSE_EDGE, c[:, 0]))
+            m &= ~band
+        return m
 
 def main(lev, od):
     g = lambda n: load(f"{lev}/{n}")
@@ -120,8 +128,9 @@ def main(lev, od):
     car2 = g("Full_Car_2mm_c.stl"); c2 = cen(car2)
     cuts = Cuts(c2, cen(fb), cen(li), od)
     save(f"{od}/hood.stl", car2[cuts.hood(c2)]); save(f"{od}/trunk.stl", car2[cuts.trunk(c2)])
+    if "--hood-only" in sys.argv: return
     car = g("Full_Car_3mm_c.stl"); cc = cen(car)
-    rm = cuts.hood(cc) | cuts.trunk(cc)
+    rm = cuts.hood(cc, smooth_nose=False) | cuts.trunk(cc)   # the trimmed nose strip goes with neither hood nor body
     for state, parts in ((fbo, (fb, li)), (rear, (rb,))):
         dn = cKDTree(np.vstack([cen(p) for p in parts])).query(cc, distance_upper_bound=NEAR_LOW + 1)[0]
         near = (dn <= NEAR) | ((dn <= NEAR_LOW) & (cc[:, 2] < 350))   # lower lip / undertray edge: the part scans are thin there

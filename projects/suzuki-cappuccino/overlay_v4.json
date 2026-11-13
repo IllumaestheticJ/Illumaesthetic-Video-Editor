@@ -1,0 +1,60 @@
+{
+ "_note": "Cappuccino v4 section labels (same five as v2/v3, re-timed to the new track's cut frames): scan shots only, factual, no numbers; placed in black space.",
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1212,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 248,
+   "duration": 72,
+   "title": "MOUNTING POINTS",
+   "sub": "FRONT BUMPER \u00b7 INNER FACE",
+   "x": 0.08,
+   "y": 0.74,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 376,
+   "duration": 41,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "RADIATOR",
+   "x": 0.08,
+   "y": 0.76,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 512,
+   "duration": 66,
+   "title": "ENGINE BAY",
+   "sub": "HOOD OPEN \u00b7 BUMPER OFF",
+   "x": 0.08,
+   "y": 0.84,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 772,
+   "duration": 35,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "EXHAUST",
+   "x": 0.08,
+   "y": 0.64,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 827,
+   "duration": 45,
+   "title": "TRUNK OPEN",
+   "sub": "REAR END TRUNK OPEN SCAN",
+   "x": 0.08,
+   "y": 0.12,
+   "align": "left"
+  }
+ ]
+}
