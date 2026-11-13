@@ -94,7 +94,7 @@ def corners(s, skip=(), fr_off=None, rr_off=None):
 # ---------------------------------------------------------------- s01 whole car
 s = Shot("s01_whole", 1, 15)
 home(s); corners(s)
-s.cam((0, dict(az=-35, dist=4.5, z=1.5, look=[0.1, 0, 0.55])), (8.6, dict(az=-55, dist=4.2, z=0.30, look=[0.2, 0, 0.35])))
+s.cam((0, dict(az=-35, dist=4.6, z=1.5, look=[0.15, 0, 0.55])), (8.6, dict(az=-55, dist=4.7, z=0.30, look=[0.30, -0.1, 0.35])))
 
 # ---------------------------------------------------------------- s02/s03 underbody (one move, two clips)
 for name, bar, x0, x1 in (("s02_under_r", 2, -1.75, -0.45), ("s03_under_f", 3, -0.45, 1.2)):
