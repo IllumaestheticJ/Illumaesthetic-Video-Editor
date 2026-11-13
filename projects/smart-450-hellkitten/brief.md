@@ -35,3 +35,12 @@ RenderNight1/2 (1440x1440 CGI, red car, gold wheels, cat decal), `Blueprint.jpeg
 Local copies: `/home/user/media/smart-hellkitten/design/`. This is the finished result the scan is for: the reel's payoff is
 stripped scan -> Blueprint -> Ron's render -> logo. Ron's renders are CGI stills (text is allowed on them as on scan shots; never present
 them as a real photo). Use each still once.
+
+## v2/v3 - owner feedback (2026-11-13), overrides earlier points where they conflict
+- The reel's message is now **"Should we build this?"** - it is a pitch for the Hellkitten build, not only a scan-process reel. Hook, order
+  and ending serve that question; end on the question with the Hellkitten.
+- Mute the owner's voice (it got cut off by the music at ~0:04). No speech in the mix; keep non-speech shop sound (spray hiss, scanner) only where clean.
+- In the scan section (BODY ON -> BODY OFF) add a final transition to the **Hellkitten 3D model with textures** from Ron's Drive folder
+  (SmartHellkitten.blend 1Q8wICrdHPKAFr3LCjF_1UR-VfaV7Y8Wp / .fbx): same camera, stripped scan -> Hellkitten body. Scan shot id: a4_hellkitten.
+- More design renders (Ron's Renders folder: RenderDay1, RenderStreet1/2, RenderNight1/2, 4.r.1-7, Blueprint; local /home/user/media/smart-hellkitten/design/).
+- Kitten meows on the beat, used ironically (deadpan/comic timing against the hard techno), on their own stem.

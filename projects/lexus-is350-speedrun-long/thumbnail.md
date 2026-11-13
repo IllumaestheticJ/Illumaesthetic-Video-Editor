@@ -30,3 +30,22 @@ Only B has a human face (clear readable expression), a visible conflict (bet cro
 - Scan has ragged right-rear wheel arch visible at right in all three (hidden-ish at small size). Scan material is flat light grey, not the satin silver of the video renders (the stills are what exist).
 - Source IRL is 1080p proxy upscaled; softness is acceptable at 1280 but an A or B from the 4K originals would be crisper.
 - "BET WAS 15" in A is the second-smallest text at 320x180.
+
+---
+# v2: built on the guess (owner: "around how fast people think it takes"). Concepts D, E, F
+Files: `thumb_D|E|F.jpg|png` (+ `_320x180.png`, `_2560.png`) in `/home/user/media/work/is350-long/thumb/`; contact `thumb_options_v2.jpg`; JPGs + contact copied to `preview/`. v1 files kept. 32 and 20 are NOT shown in D/E/F. No triangle counts anywhere. Plate blur removed (owner v2); `thumb_A` was regenerated without the blur.
+
+## Guess text and transcript source (`transcripts/FX30541.json`)
+- "2 HOURS?": "Two hours." 2.4 s and "I'll say two hours." 17.5-18.1 s (a crew member, not the host).
+- "30 MIN?": "Maybe 30 minutes." 22.1-22.7 s (the man in the black polo).
+- "15 MIN?": host, "I think I can do it in less than the length of a YouTube video... 15 minutes" 26.3-28.9 s (+ 541 @ 26 s per brief).
+Note: the three guesses come from three different people; no thumbnail attributes them to the host except E's "15 MIN?", which is his own line.
+
+## Concepts
+- D: scan hero (B5_front34_hero) + three equal "tags" (2 HOURS? / 30 MIN? / 15 MIN?) so the viewer picks; the only red is a stopwatch glyph (drawn, not footage).
+- E: host FX30541 @ 26.6 s (questioning, looking up; 1080p proxy, upscaled 1.33x) + huge "15 MIN?" (red "?"), small scan. Alt: swap the text to "2 HOURS?" (arguable claim) but then the face would imply the host said it.
+- F: "HOW LONG?" + red "00:00" in a black band (no text over footage); below it FX30554 @ 11.011 s real car split diagonally with the `B5_halfhalf_FX30554` scan (landed; onion check shows it registers 1:1). Small guesses line "2 HR · 30 MIN · 15 MIN" in the band. The typographic "00:00" replaces the real phone-stopwatch frame (FX30541 72-75 s): the phone is sharp but the frame is mostly bokeh and only 1080p.
+
+## Pick: E for CTR (face + one argue-able number), D as the clearest "pick one" mechanic, F as the on-brand 1:1 reveal. Recommend E.
+Alt text: D "2 HR? 30 MIN? 15 MIN?" / "HOW LONG? + 3 tags"; E "2 HOURS?" / "LESS THAN 15?" (not true: he said 15, avoid); F "HOW FAST?" / "00:00 GO".
+Weaknesses: F's guesses line is unreadable at phone size (decorative); F/E IRL is soft 1080p; plate legible in F by owner's choice; D has no human; scan stills are flat grey with a ragged right-rear arch.

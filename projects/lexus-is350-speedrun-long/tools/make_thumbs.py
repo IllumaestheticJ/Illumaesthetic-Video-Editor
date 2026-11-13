@@ -7,6 +7,7 @@ T = '/home/user/media/work/is350-long/thumb'
 FR = T + '/frames'
 SC = '/home/user/media/work/is350-long/renders/B5_stills'
 W, H = 2560, 1440
+BLUR_PLATE = False   # owner v2: plates are no longer blurred
 OFF = (232, 236, 242)       # #e8ecf2
 RED = (226, 37, 37)         # brand bar red (one use per thumbnail)
 INTER = '/usr/share/fonts/opentype/inter/InterDisplay-%s.otf'
@@ -89,7 +90,8 @@ def concept_A(scan_name='B5_front34_hero_alpha.png'):
     layer.paste(full, (off, 0))
     # plate: source px (745..922, 718..815) -> out
     px0, py0, px1, py1 = 735, 712, 932, 820
-    plate_blur(layer, (round(px0 * s + off), round(py0 * s), round(px1 * s + off), round(py1 * s)))
+    if BLUR_PLATE:
+        plate_blur(layer, (round(px0 * s + off), round(py0 * s), round(px1 * s + off), round(py1 * s)))
     # diagonal seam polygon (left = IRL)
     top_x, bot_x = 1330, 1060
     mask = Image.new('L', (W * 2, H * 2), 0)
@@ -163,9 +165,94 @@ def concept_C(scan_name='B5_front34_hero_alpha.png'):
     return c
 
 
+
+def contrast_arr(a):
+    arr = np.asarray(a).astype(np.float32)
+    rgb = np.clip((arr[..., :3] / 255.0 - 0.06) / 0.94, 0, 1) ** 1.35
+    arr[..., :3] = np.clip(rgb * 1.08, 0, 1) * 255
+    return Image.fromarray(arr.astype(np.uint8), 'RGBA')
+
+
+def stopwatch(d, cx, cy, r, col=RED):
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], outline=col, width=int(r * .16))
+    d.rounded_rectangle([cx - r * .16, cy - r * 1.32, cx + r * .16, cy - r * 1.02], radius=8, fill=col)
+    d.rounded_rectangle([cx + r * .80, cy - r * 1.12, cx + r * 1.12, cy - r * .86], radius=8, fill=col)
+    for k in range(12):
+        import math
+        a = math.radians(k * 30)
+        d.line([(cx + math.sin(a) * r * .70, cy - math.cos(a) * r * .70), (cx + math.sin(a) * r * .84, cy - math.cos(a) * r * .84)],
+               fill=OFF, width=int(r * .05))
+    d.line([(cx, cy), (cx + r * .38, cy - r * .50)], fill=OFF, width=int(r * .09))
+    d.ellipse([cx - r * .09, cy - r * .09, cx + r * .09, cy + r * .09], fill=OFF)
+
+
+# ---------------------------------------------------------------- D: guess stack
+def concept_D():
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    scan = scan_img()
+    paste_scan(c, scan, 960, 560, 1580)
+    d = ImageDraw.Draw(c)
+    stopwatch(d, 1880, 290, 190)
+    f = font(MONO % 'ExtraBold', 175)
+    for i, t in enumerate(['2 HOURS?', '30 MIN?', '15 MIN?']):
+        y = 90 + i * 330
+        d.rounded_rectangle([70, y, 1010, y + 270], radius=60, outline=OFF, width=14)
+        text(d, (540, y + 138), t, f, anchor='mm')
+    return c
+
+
+# ---------------------------------------------------------------- E: face + the claim
+def concept_E():
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    host = irl('d_26.6.png', (590, 0, 1565, 1080), (1300, 1440))
+    fa = np.ones((1440, 1300), np.float32)
+    fa[:, :300] = (np.linspace(0, 1, 300) ** 1.3)[None, :]
+    c.paste(host, (1260, 0), Image.fromarray((fa * 255).astype(np.uint8)))
+    d = ImageDraw.Draw(c)
+    fn = font(MONO % 'ExtraBold', 760)
+    text(d, (60, 20), '15', fn)
+    fm = font(MONO % 'ExtraBold', 400)
+    text(d, (60, 700), 'MIN', fm)
+    text(d, (60 + d.textlength('MIN', font=fm), 700), '?', fm, fill=RED)
+    paste_scan(c, scan_img(), 80, 1130, 760, glow=False)
+    return c
+
+
+# ---------------------------------------------------------------- F: question over real | scan
+def concept_F():
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    band = 360
+    s = 1440 / 1080
+    real = Image.open(f'{FR}/FX30554_11.011.png').convert('RGB').resize((W, H), Image.LANCZOS)
+    real = real.filter(ImageFilter.UnsharpMask(radius=2.2, percent=70, threshold=2))
+    sc = Image.open(f'{SC}/B5_halfhalf_FX30554_alpha.png').convert('RGBA').resize((W, H), Image.LANCZOS)
+    sc = contrast_arr(sc)
+    right = Image.new('RGBA', (W, H), (0, 0, 0, 255)); right.alpha_composite(sc)
+    top_x, bot_x = 1560, 1080
+    m = Image.new('L', (W * 2, H * 2), 0)
+    ImageDraw.Draw(m).polygon([(0, 0), (top_x * 2, 0), (bot_x * 2, H * 2), (0, H * 2)], fill=255)
+    m = m.resize((W, H), Image.LANCZOS)
+    comp = Image.composite(real, right.convert('RGB'), m)
+    d = ImageDraw.Draw(comp)
+    d.line([(top_x, 0), (bot_x, H)], fill=OFF, width=10)
+    k = 1.2
+    comp = comp.resize((round(W * k), round(H * k)), Image.LANCZOS)
+    cx, cy = round(1230 * k), round(790 * k)
+    win = comp.crop((cx - W // 2, cy - (H - band) // 2, cx + W // 2, cy + (H - band) // 2))
+    c.paste(win, (0, band))
+    d = ImageDraw.Draw(c)
+    text(d, (80, 30), 'HOW LONG?', font(INTER % 'Black', 285))
+    text(d, (2480, 70), '00:00', font(MONO % 'ExtraBold', 200), anchor='ra', fill=RED)
+    text(d, (2480, 285), '2 HR · 30 MIN · 15 MIN', font(MONO % 'Bold', 50), anchor='ra', fill=(176, 182, 194))
+    return c
+
+
 if __name__ == '__main__':
-    which = sys.argv[1:] or ['A', 'B', 'C']
+    which = sys.argv[1:] or ['D', 'E', 'F']
     for w in which:
         {'A': lambda: save(concept_A(), 'thumb_A'),
          'B': lambda: save(concept_B(), 'thumb_B'),
-         'C': lambda: save(concept_C(), 'thumb_C')}[w]()
+         'C': lambda: save(concept_C(), 'thumb_C'),
+         'D': lambda: save(concept_D(), 'thumb_D'),
+         'E': lambda: save(concept_E(), 'thumb_E'),
+         'F': lambda: save(concept_F(), 'thumb_F')}[w]()
