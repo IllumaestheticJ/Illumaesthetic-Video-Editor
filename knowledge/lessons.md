@@ -900,3 +900,11 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** the music cutting in is distracting, keep it low; fix the other track changes as well  _(from miata-bracing-longform @ 393s, 2026-11-13, reviewer)_
 
 - **[audio]** make the voiceover voice less airy (second time asked)  _(from miata-bracing-longform @ 200s, 2026-11-13, reviewer)_
+
+## Miata long-form v9 (2026-11-13, owner notes)
+- Differences on screen and in the voice are taken between the ROUNDED values (960.9 -> 961.2 is 0.3, not 0.2 from the unrounded data). Recompute every delta and percentage after rounding.
+- A music change must never "cut in": keep the card bed playing through title cards, ease the section track in over about 4 s under the footage, bed about 14 dB under the voice. Measure the bed second by second around every change.
+- Sign-offs are not rushed: thank each partner by name with their official logo (ask the owner for logo files; partner sites often block downloads), then the Illumaesthetic pitch, then the call to action.
+- Cloned voice: de-air it (top band follows the voiced band) on top of the treble shelf; the owner asked twice.
+- Remove personal map pins (home / saved places) from any screenshot before it goes into a video.
+- When inserting anything into the rough cut's front section, assemble its audio row by row and check the first frames after the insert for a stale burned-in subtitle.
