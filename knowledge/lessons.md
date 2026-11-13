@@ -846,3 +846,14 @@ lands here automatically. Agents must read this whole file before editing.
   are dark grooves. A shaded render tracing put the hood's rear edge over the cowl (user: "hood cutout line is incorrect").
 - **[pacing]** Long techno tracks: check `cutcheck` for one huge rise (x700) far from the grid - it's an off-grid fill hit after a gap
   (Megalomaniac 238.96 s, 118 ms early). Cut on the hit, not the grid; slow the next shot a few % to keep its motion hit on the drop.
+
+- **[text]** dont change the dropdown in the actual product, change the dropdown in the video  _(from ferrari-296 @ 32s, 2026-11-13, reviewer)_
+
+## Ferrari 296 v7 (per-part colors, dropdown follows the photo)
+- "Change the dropdown in the video" = never touch the live store. Select options in a local headless browser like a
+  visitor, screenshot each state, swap the screenshots in the video. Say so explicitly; the user worried the product changed.
+- Photo <-> option pairing: use the product JSON (`/products/<handle>.js`), variant.featured_image -> gallery index. Order
+  the swipes by gallery index so the carousel only travels one way.
+- Per-part palette: saturated satin (roughness ~0.38, metallic ~0.25) x AO; pastel/low-saturation values washed out to
+  near-white under AgX. Keep hue steps wide between parts that share a frame.
+- A colored scan cutting 1:1 to a grey website render still reads as a match (shape carries it), but the grade score drops.

@@ -1,3 +1,29 @@
+# Ferrari 296 GTB scan reel v7 - self-review (v6: review_v6.md)
+
+User on v6: "when scrolling through the different photos/options, change the dropdown so the scan price reflects the
+photo, and then re-render with all scans in a different color" -> chose "Each part its own color". Then: "dont change the
+dropdown in the actual product, change the dropdown in the video" (nothing on the store was ever changed: the options were
+picked in a local headless browser like a visitor and screenshotted).
+
+v7 = v6 timing (cuts 124, 298, 347, 446, 521, 732, 956) with:
+- every scan shot re-rendered with a palette: body green, hood yellow, front bumper pink, wheel blue, fender amber, skirt
+  teal, rear bumper salmon, diffuser violet, engine cover sky, exhaust orange (satin BSDF, tools/palette.py).
+- CTA: each carousel swipe (k80-k85) lands on the photo the site itself shows for a Dataset option (variant featured
+  image), and the page under it switches to that option's screenshot, so the dropdown + price match the photo:
+  Front Bumper $1,000, Hood $800, Rear Bumper $1,000, Engine Bay $600, Side Skirt $800, Fender $800; All Data $4,000 with
+  the CTA (k86). Green outline pulses on the dropdown + price at each change. Prices are the site's, nothing typed.
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v7.mp4` - 1080x1920, 30 fps, 38.00 s, h264 + AAC.
+Checked: every color render (frame counts, 0 dark), contact sheets of all 7 shots, HUD labels over the colored scans,
+frames 954-956 at the 1:1 cut, CTA stills per option, probe, `ive director` (only flag: 0.8 s still at the very end =
+URL hold, kept).
+
+Scores as v6 except: Grade 5 -> 4 (deliberate departure from the house silver look at the user's request; the parts now
+read apart instantly, but the 1:1 cut now also changes colour, colored scan -> grey website render). Text 5: dropdown and
+price follow each photo from the site's own variant data.
+Open: salmon rear bumper and amber fender are close-ish hues (never in frame together except the drop).
+
+---
 # Ferrari 296 GTB scan reel v6 - self-review (v5: review_v5.md)
 
 User on v5: "add the mobile version CTA for the scan data at the end with the 1:1 transition of the website photos".

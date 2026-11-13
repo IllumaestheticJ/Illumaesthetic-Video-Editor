@@ -10,16 +10,32 @@
    "from": 0
   },
   {
-   "src": "f296_mpage_d5.png",
-   "from": 58
+   "src": "f296_opt_1.png",
+   "from": 54
   },
   {
-   "src": "f296_mpage_d7.png",
-   "from": 83
+   "src": "f296_opt_2.png",
+   "from": 67
   },
   {
-   "src": "f296_mpage_d10.png",
-   "from": 108
+   "src": "f296_opt_3.png",
+   "from": 79
+  },
+  {
+   "src": "f296_opt_4.png",
+   "from": 92
+  },
+  {
+   "src": "f296_opt_5.png",
+   "from": 104
+  },
+  {
+   "src": "f296_opt_6.png",
+   "from": 117
+  },
+  {
+   "src": "f296_opt_7.png",
+   "from": 136
   }
  ],
  "slot": {
@@ -127,19 +143,49 @@
    "dur": 7
   },
   {
+   "at": 67,
+   "to": 5,
+   "dur": 7
+  },
+  {
    "at": 79,
-   "to": 6,
+   "to": 9,
+   "dur": 7
+  },
+  {
+   "at": 92,
+   "to": 10,
    "dur": 7
   },
   {
    "at": 104,
-   "to": 9,
+   "to": 13,
+   "dur": 7
+  },
+  {
+   "at": 117,
+   "to": 16,
    "dur": 7
   }
  ],
- "ctaAt": 124,
- "urlAt": 136,
- "drift": 0.06,
+ "ctaAt": 136,
+ "urlAt": 149,
+ "drift": 0.02,
+ "ctaBand": 175,
+ "highlights": [
+  {
+   "x": 154.5,
+   "y": 1758.6,
+   "w": 825,
+   "h": 121.2
+  },
+  {
+   "x": 420,
+   "y": 1434,
+   "w": 324,
+   "h": 84
+  }
+ ],
  "title": "SCAN DATA",
  "sub": "AVAILABLE NOW",
  "url": "ILLUMAESTHETIC.COM"
