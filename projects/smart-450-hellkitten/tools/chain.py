@@ -189,6 +189,21 @@ def manifest():
         open(path, "w").write("\n".join(L) + "\n")
 
 
+def mem_available_gb():
+    for line in open("/proc/meminfo"):
+        if line.startswith("MemAvailable:"):
+            return int(line.split()[1]) / 1048576
+    return 99.0
+
+
+def wait_for_memory(need_gb=4.0, label=""):
+    """The container shares one memory limit: other agents' 4K ffmpeg decodes got Blender OOM-killed (13 Nov 13:00).
+    Never start a render into a full box."""
+    while mem_available_gb() < need_gb:
+        print(f"WAIT memory {mem_available_gb():.1f} GB < {need_gb} GB before {label} {time.strftime('%H:%M:%S')}", flush=True)
+        time.sleep(60)
+
+
 def blender_running():
     r = subprocess.run(["pgrep", "-f", "smart-450-hellkitten/tools/shot.py"], capture_output=True, text=True)
     return bool(r.stdout.strip())
@@ -201,6 +216,7 @@ def main():
     while blender_running():          # a render left by an earlier chain instance: let it finish, never run two
         time.sleep(20)
     tried = set()
+    attempts = {}
     while True:
         todo = [j for j in jobs() if j[1] not in tried and state(j)[0] not in ("done", "no spec")]
         if not todo:
@@ -211,6 +227,7 @@ def main():
         s = spec(sp)
         log = sp.replace(".json", ".log")
         if st in ("todo", "partial"):
+            wait_for_memory(4.0, n)
             print(f"RENDER {n} {have}/{want} {time.strftime('%H:%M:%S')}", flush=True)
             render(sp, log)
         st, have, want = state(job)
@@ -224,7 +241,12 @@ def main():
                 open(f"{d}/.frames_deleted", "w").write(time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()))
         st, have, want = state(job)
         if st != "done":
-            tried.add(n)              # failed render: do not loop on it; rerun the chain to retry
+            attempts[n] = attempts.get(n, 0) + 1
+            if attempts[n] >= 6:
+                tried.add(n)          # give up on this one after 6 tries; rerun the chain to retry
+            else:
+                print(f"RETRY {n} attempt {attempts[n] + 1} after a failed/killed render {time.strftime('%H:%M:%S')}", flush=True)
+                time.sleep(30)
         print(f"{st.upper()} {n} {have}/{want} {time.strftime('%H:%M:%S')}", flush=True)
         manifest()
     print("CHAIN_DONE", flush=True)
