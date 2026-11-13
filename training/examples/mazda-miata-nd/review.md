@@ -1,3 +1,15 @@
+# Mazda Miata ND scan reel - self-review (v5, delivered)
+
+v5 = the user's notes on v4 (feedback.jsonl): edit to the uploaded Megalomaniac track, hood cut line corrected, 1:1 match into
+the mobile listing. File: `/home/user/media/work/miata/out/miata_nd_v5.mp4` (30.1 s, 903 frames, 1080x1920).
+- Beat sync 4: 128.05 BPM onset grid; cuts -21..+20 ms on clear onsets; the hood-shot cut sits on the off-grid stutter-fill hit
+  (238.96 s, +10 ms); the hood lands on the drop. One weak-onset cut (21.6 s) reads +120 ms in a dense passage (measurement noise).
+- Scan quality 4: hood cut on the real shut lines (cowl arc, fender-top seams, headlight tops, badge line) from a high-pass height map.
+- 1:1 into the CTA 5: reassembly ends on the listing camera solved from the screenshot (IoU 0.975); onion check shows wheels,
+  glass line, door and lamps coinciding; scan toned to the listing grey, then dissolves into the page's own image.
+- Ending 5: CTA phone (title, ILLUMAESTHETIC.COM) -> 760 px logo; music fades out over the logo (the track continues past the reel).
+
+## Earlier reviews (v4/v3) kept below
 # Mazda Miata ND scan reel - self-review (v4, delivered)
 
 v4 = v3 + the user's notes on v3 (feedback.jsonl): rear-wing residue on the trunk deleted, mobile call-to-action

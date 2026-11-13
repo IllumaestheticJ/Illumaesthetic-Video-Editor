@@ -835,3 +835,14 @@ lands here automatically. Agents must read this whole file before editing.
 - (mr2 v3) `python -m ive prep` needs `--` before its arguments; negative argparse values need the `--box=...` form.
 - (mr2 v3) Container restarts kill background render queues silently; keep queues resumable and re-check the frame counts, not the waiter.
 - (mr2 v3) Measure cuts on the assembled file, not the plan: three cuts were 2 frames late on a syncopated track. If a retime leaves a 30 fps CGI shot short, render the extra frames (extrapolate linear keys) instead of duplicating.
+## From the Mazda Miata ND v5 revision (2026-11-13, built by an agent)
+- **[match-cut]** Scan -> website listing 1:1: solve the listing viewer's camera from the car silhouette in the (mobile) screenshot
+  (mazda-miata-nd/tools/solve_listing.py: point-cloud projection, orbit az/el/d + image scale/offset, IoU) and END the scan move on
+  that camera; the CTA then scales the last frame by the solved k onto the listing car (tools/cta_card.py --map). Search the full
+  360 deg of azimuth: Miata's first fit used the wrong rear quarter (IoU 0.82 vs 0.975) - render guesses next to the screenshot.
+- **[technical]** Shopify 360 viewers show a "Drag to rotate" pill over the car: hide only that element (`span.ia-spin__hint`) before the
+  screenshot; a broad text match hid the poster image and exposed a different 3D view.
+- **[scan-look]** Trace panel cut lines on a high-pass height map of the 2 mm scan (z minus a 4-px Gaussian, 3 mm/px top view): shut lines
+  are dark grooves. A shaded render tracing put the hood's rear edge over the cowl (user: "hood cutout line is incorrect").
+- **[pacing]** Long techno tracks: check `cutcheck` for one huge rise (x700) far from the grid - it's an off-grid fill hit after a gap
+  (Megalomaniac 238.96 s, 118 ms early). Cut on the hit, not the grid; slow the next shot a few % to keep its motion hit on the drop.

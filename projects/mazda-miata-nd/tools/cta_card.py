@@ -9,6 +9,7 @@ Text is factual: the listing exists (illumaesthetic.com/products/mazda-miata-nd-
 beyond what the page itself shows.
 """
 import argparse
+import json
 import subprocess
 
 import numpy as np
@@ -55,6 +56,8 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--secs", type=float, default=2.6)
     ap.add_argument("--crop-h", type=int, default=1760, help="screenshot rows kept (below: a broken widget image)")
+    ap.add_argument("--map", help="json {k, ox, oy}: the render frame (1080x1920) scaled by k with its top-left at (ox, oy)"
+                    " in screenshot px lands 1:1 on the listing car (tools/solve_listing.py + the reassembly's last frame)")
     a = ap.parse_args()
 
     car = Image.open(a.last_frame).convert("RGB").resize((W, H), Image.LANCZOS)
@@ -83,6 +86,18 @@ def main():
     vx0, vy0, vx1, vy1 = [v * sw / shot.width for v in (200, 330, 980, 760)]
     vcx, vcy = px + bez + (vx0 + vx1) / 2, py + bez + (vy0 + vy1) / 2
     vscale = (vx1 - vx0) / W * 1.35  # car frame (whole 1080 width) scaled so the car ~ fills the viewer
+    sp = sw / shot.width  # screenshot px -> phone screen px
+    if a.map:
+        mp = json.load(open(a.map))
+        s_end = mp["k"] * sp
+        tl_end = (px + bez + mp["ox"] * sp, py + bez + mp["oy"] * sp)
+        # tone the scan toward the listing's grey render as it lands (per-channel median gain on car pixels)
+        sh_np = np.asarray(shot).astype(np.float32)
+        lst = sh_np[int(330):int(700), 200:980].reshape(-1, 3); lst = lst[lst.mean(1) > 62]
+        car_np = np.asarray(car).astype(np.float32).reshape(-1, 3); car_np = car_np[car_np.mean(1) > 40]
+        gain = np.median(lst, 0) / np.maximum(1, np.median(car_np, 0))
+    else:
+        mp = None
 
     title = tracked("MIATA ND 3D SCAN", ImageFont.truetype(FONT_T, 70), 7, INK + (255,))
     sub = tracked("SCAN DATA AVAILABLE", ImageFont.truetype(FONT_S, 40), 9, INK + (210,))
@@ -102,18 +117,27 @@ def main():
         fr.alpha_composite(with_alpha(phone, ap_), (px, py + oy))
         # car: full frame -> into the viewer, then dissolves into the listing's own render of the scan
         m = ramp(t, 0.0, 0.55)
-        s = 1.0 + (vscale - 1.0) * m
-        cx = W / 2 + (vcx - W / 2) * m
-        cy = H / 2 + (vcy + oy - H / 2) * m
-        ac = 1.0 - ramp(t, 0.40, 0.75)
+        if mp:
+            s = float(np.exp(np.log(s_end) * m))  # log-scale zoom reads as a constant-speed pull-out
+            x0, y0 = tl_end[0] * m, (tl_end[1] + oy) * m
+            ac = 1.0 - ramp(t, 0.58, 0.88)
+        else:
+            s = 1.0 + (vscale - 1.0) * m
+            x0 = W / 2 + (vcx - W / 2) * m - W * s / 2
+            y0 = H / 2 + (vcy + oy - H / 2) * m - H * s / 2
+            ac = 1.0 - ramp(t, 0.40, 0.75)
         if ac > 0:
             cw, chh = max(2, int(W * s)), max(2, int(H * s))
-            c = car.resize((cw, chh), Image.LANCZOS).convert("RGBA")
+            c = car.resize((cw, chh), Image.LANCZOS)
+            if mp:
+                g = 1 + (gain - 1) * m
+                c = Image.fromarray(np.clip(np.asarray(c).astype(np.float32) * g, 0, 255).astype(np.uint8))
+            c = c.convert("RGBA")
             # black of the render -> transparent so it sits on the phone screen
             lum = np.asarray(c.convert("L")).astype(np.float32)
             al = np.clip((lum - 12) / 30, 0, 1) * ac
             c.putalpha(Image.fromarray((al * 255).astype(np.uint8)))
-            fr.alpha_composite(c, (int(cx - cw / 2), int(cy - chh / 2)))
+            fr.alpha_composite(c, (int(round(x0)), int(round(y0))))
         # text
         at = ramp(t, 0.55, 1.0)
         ty = py - 250 + int(30 * (1 - at))
