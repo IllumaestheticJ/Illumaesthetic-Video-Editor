@@ -7,8 +7,8 @@
  "items": [
   {
    "kind": "label",
-   "from": 440,
-   "duration": 48,
+   "from": 493,
+   "duration": 30,
    "title": "REAR END, NO BUMPER",
    "sub": " ",
    "x": 0.06,
@@ -16,8 +16,8 @@
   },
   {
    "kind": "label",
-   "from": 599,
-   "duration": 50,
+   "from": 571,
+   "duration": 40,
    "title": "EVO EXHAUST",
    "sub": " ",
    "x": 0.06,

@@ -1,29 +1,31 @@
-# Huracan Evo scan reel v8 - self-review (training/rubric.md)  (older: review_v7 ... review_v1.md)
+# Huracan Evo scan reel v9 - self-review (training/rubric.md)  (older: review_v8 ... review_v1.md)
 
-Output: `/home/user/media/work/out/huracan_evo_v8.mp4` - 1080x1920, 30 fps, AAC, 29.97 s.
-Changes from the user's notes on v7: narration re-flowed (the ending felt patched on), rear bumper rebuilt (it came off as one giant
-piece with too much attached), triangle counts removed from the labels.
+Output: `/home/user/media/work/out/huracan_evo_v9.mp4` - 1080x1920, 30 fps, AAC, 29.97 s.
+Changes from the user's notes on v8: deeper narration ("ball knowledge"), faster scan pacing, Spyder scans back in with a stealth
+transition between the two cars.
 
 | # | Criterion | Score | Evidence / gap |
 |---|---|---|---|
-| 2 | Beat sync | 5 | Hard cuts vs kicks on the delivered file: +22 -11 -11 -12 -12 -12 ms. |
-| 4 | Scan quality | 4 | The rear bumper is now the skin inside the scanned 'Rear Bumper B side' envelope plus that scan as its inner face (1.44M tris). The wheels stay on the car as a static object. The skin's outline is still cut from the full-car scan, so its edge is slightly ragged. |
-| 5 | Story | 4 | Same order as v7. |
-| 7 | Text | 5 | Two title-only labels on black: REAR END, NO BUMPER and EVO EXHAUST. No numbers. |
-| 8 | Ending | 5 | The speech ends at 26.6 s on its concluding sentence, the music stops at 27.08 s, and the 720 px logo follows. |
-| 9 | Technical | 4 | Re-rendered frames all lit. Speech -13.0 LUFS, peaks <= -0.4 dBFS. |
-Rows 1, 3, 6 unchanged from v7.
+| 2 | Beat sync | 5 | 10 scan cuts vs kicks on the delivered file: +22 (drop) then -11..-12 ms each. |
+| 3 | 1:1 match | 4 | Coupe -> Spyder on the drop: same camera, silhouette IoU 0.89 after a 29 px registration shift; frame difference at the cut 3.3 (other cuts 31-60). Tells: the Spyder's wheels are dark (not captured) and its windscreen has no scan holes. |
+| 4 | Scan quality | 4 | As v8. |
+| 5 | Story | 4 | Coupe select, wheel, side, push to the nose -> drop -> Spyder front opens, bumper, hood, side -> coupe rear bumper, deck, exhaust, wheel well -> Spyder full explode -> coupe reassembly -> logo. Ten scan shots in 16.8 s (1.2-1.8 s each; v8 had six). The parts move at 1.3-2.7x, so individual moves are brisk. |
+| 7 | Text | 5 | Two title-only labels (REAR END, NO BUMPER 1.0 s; EVO EXHAUST 1.3 s). They're short at this pace. |
+| 8 | Ending | 5 | The speech ends ~26.7 s on its conclusion, the music stops at 27.08 s, and the 720 px logo follows. |
+| 9 | Technical | 4 | Every frame lit. Speech -13.4 LUFS, peak -1.0 dBFS. |
 
-## Narration (one take, untrimmed, no tempo/pitch change)
-"Lamborghini Huracan EVO. Its naturally aspirated V10 makes six hundred thirty-one horsepower. Four-wheel drive and rear-wheel
-steering are run by LDVI, a brain that predicts your next move. It makes more than five times the downforce of the original
-Huracan, reaches sixty-two in two-point-nine seconds, and runs on to two hundred and two miles per hour. It was named after a
-fighting bull, and the EVO has more than earned it."
+## Narration (one take, untrimmed, speech_rate 8, no tempo/pitch change)
+"Lamborghini Huracan EVO. Its V10 fires at uneven intervals, fifty-four then ninety degrees, and that is the howl you hear.
+Titanium intake valves help it make six hundred thirty-one horsepower, while LDVI steers all four wheels before you ask. Its
+successor went twin-turbo hybrid, so this is one of the last great naturally aspirated Lamborghinis."
+Sources: 5.2 V10 odd firing 90/54 deg (Lamborghini V10 references; evo.co.uk 'anatomy of a V10'); titanium intake valves (EVO
+release, 7 Jan 2019); LDVI + rear-wheel steering + four-wheel torque vectoring (same); Temerario twin-turbo V8 hybrid (Lamborghini,
+Aug 2024).
 
 ## Not verified
-- I can't listen here, so the take's delivery is unheard.
+- I can't listen here, so the delivery is unheard. "That is the howl you hear" attributes the sound to the firing intervals; they're one contributor, not the only one.
 
 ## What the next agent should know
-- "Feels patched on" came from three things: clipped fragment sentences added after a spec list, pause-trimming, and the voice running past the music stop. Write the conclusion as the speech's last sentence, generate one take that fits untrimmed, and end it before the music stops.
-- Don't derive a removable panel as "everything the panel-off state scan lacks": state scans are often shot wheels-off and on stands, so wheels and underbody come along. Bound the panel by its own part scan (here the B-side scan's envelope).
-- No triangle counts in labels (reviewer rule).
+- Stealth swap between two scans of the same model: render car A at car B's first camera key (no floor), register by silhouette (IoU search for dx/dy), and hard-cut on a beat while B is still closed. Then start B's parts moving within a few frames.
+- This custom voice reads number-heavy scripts slowly (70 words with decimals ran 32-34 s). Budget about 50-55 words for 24 s and cut words, never tempo.
+- Faster pacing from existing renders: play frame ranges at 1.3-2.7x (`src_fps` >= 30 needs no interpolation), choosing the range where the part actually moves.
