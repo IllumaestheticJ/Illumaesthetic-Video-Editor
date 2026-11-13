@@ -105,7 +105,22 @@ def a4():
             "extra_lights_vis": [SWAP, 99]}
 
 
-SHOTS = {"a1_match_str": a1, "a2_body_on_off": a2, "a3_detail": a3, "a4_hellkitten": a4}
+def a5():
+    """Reel's FIRST shot: Hellkitten (own materials) nearly opaque 0-0.4 s, then the body turns to fresnel-edged red glass
+    (0.4-1.0 s) and the registered ASSEMBLED Smart scan glows through it (hold), slow push-in. 3/4 front, whole car in frame,
+    top ~22 % of the 1080x1920 frame left black for the title (editor adds "THIS IS A SMART CAR?")."""
+    secs = 2.8
+    cc = (0.0, 0.05, 0.62)
+    keys = [orbit(0, 5.0, 38, 1.7, c=cc, focal=45, tz=0.95),
+            orbit(secs + TAIL, 4.5, 34, 1.6, c=cc, focal=45, tz=0.93, ease="out2")]
+    return {"base": [{"blend": ASM, "look": "xglow"},
+                     {"blend": HK, "look": "own", "xform": HK_REG, "xray": [0.4, 1.0],
+                      "hide_names": ["SmartBase", "Steering"]}],
+            "light_bbox": LIGHT, "camera": {"sensor": 36, "keys": keys}, "seconds": secs + TAIL,
+            "extra_lights": [[[3.2, 3.6, 3.2], 250, 3.0], [[-3.4, -2.6, 2.6], 120, 3.0], [[0.0, 0.0, 4.5], 150, 4.0]]}
+
+
+SHOTS = {"a1_match_str": a1, "a2_body_on_off": a2, "a3_detail": a3, "a4_hellkitten": a4, "a5_xray": a5}
 
 
 def main():

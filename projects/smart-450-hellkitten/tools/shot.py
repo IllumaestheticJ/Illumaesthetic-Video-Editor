@@ -153,15 +153,16 @@ def xray_materials(objs, window, nframes, fps, color):
             out = outs[0]
             src = out.inputs["Surface"].links[0].from_socket
             tr = nt.nodes.new("ShaderNodeBsdfTransparent")
-            lw = nt.nodes.new("ShaderNodeLayerWeight"); lw.inputs["Blend"].default_value = 0.25
-            em = nt.nodes.new("ShaderNodeEmission"); em.inputs["Color"].default_value = (*color, 1); em.inputs["Strength"].default_value = 3.0
+            lw = nt.nodes.new("ShaderNodeLayerWeight"); lw.inputs["Blend"].default_value = 0.4
+            em = nt.nodes.new("ShaderNodeEmission"); em.inputs["Color"].default_value = (*color, 1); em.inputs["Strength"].default_value = 4.0
             ghost = nt.nodes.new("ShaderNodeMixShader")
-            nt.links.new(lw.outputs["Facing"], ghost.inputs[0]); nt.links.new(tr.outputs[0], ghost.inputs[1]); nt.links.new(em.outputs[0], ghost.inputs[2])
+            pw = nt.nodes.new("ShaderNodeMath"); pw.operation = "POWER"; pw.inputs[1].default_value = 3.0
+            nt.links.new(lw.outputs["Facing"], pw.inputs[0])
+            nt.links.new(pw.outputs[0], ghost.inputs[0]); nt.links.new(tr.outputs[0], ghost.inputs[1]); nt.links.new(em.outputs[0], ghost.inputs[2])
             mix = nt.nodes.new("ShaderNodeMixShader")
             val = nt.nodes.new("ShaderNodeValue")
             nt.links.new(val.outputs[0], mix.inputs[0]); nt.links.new(src, mix.inputs[1]); nt.links.new(ghost.outputs[0], mix.inputs[2])
             nt.links.new(mix.outputs[0], out.inputs["Surface"])
-            m.blend_method = "BLEND" if hasattr(m, "blend_method") else None
             for f in range(1, nframes + 1):
                 t = (f - 1) / fps
                 u = min(1.0, max(0.0, (t - t0) / max(1e-6, t1 - t0)))
@@ -294,7 +295,6 @@ def main():
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.transparent_max_bounces = 64
-    sc.cycles.max_bounces = 16
     sc.render.use_overwrite = False
     sc.render.use_persistent_data = bool(spec.get("persistent", False))  # only for camera-only shots; luma-scan every frame
     sc.view_settings.view_transform = "AgX"

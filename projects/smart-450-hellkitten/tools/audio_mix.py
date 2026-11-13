@@ -53,7 +53,7 @@ def build_meows(music):
     n = int(0.45 * SR); t = np.arange(n) / SR
     ir = rng.standard_normal(n) * np.exp(-t / 0.11); ir[: int(0.004 * SR)] = 0
     ir = sosfiltfilt(butter(2, 5000, "low", fs=SR, output="sos"), ir); ir /= np.abs(ir).sum() / 4
-    wet = fftconvolve(dry, ir)[: len(dry)]
+    wet = np.stack([fftconvolve(dry[:, c], ir)[: len(dry)] for c in (0, 1)], axis=1)
     y = dry + 0.14 * wet
     kick = sosfiltfilt(butter(4, [35, 110], "band", fs=SR, output="sos"), music.mean(axis=1))
     env = np.sqrt(np.convolve(kick ** 2, np.ones(SR // 100) / (SR // 100), "same")); env /= np.percentile(env, 99)
@@ -61,8 +61,7 @@ def build_meows(music):
     for i in range(1, len(env)):          # fast attack, 120 ms release
         sm[i] = env[i] if env[i] > sm[i - 1] else sm[i - 1] * a_r
     duck = 1 - 0.44 * np.clip(sm, 0, 1)    # up to about -5 dB
-    y = y * duck
-    return np.stack([y, y], axis=1)
+    return y * duck[:, None]
 
 
 def main():
@@ -115,6 +114,14 @@ def main():
     write_wav(OUT / "stem_music.wav", music_s)
     write_wav(OUT / "stem_shopsound.wav", shop_s)
     write_wav(OUT / "stem_meows.wav", meow_s)
+    # variant with the meows 6 dB lower, same gain on everything else (so only the meows change)
+    lite = (music + shop + 0.5 * meows) * g
+    tmp2 = OUT / "_mix_lite.f32"; tmp2.write_bytes(lite.astype(np.float32).tobytes())
+    lim2 = subprocess.run(["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", str(tmp2), "-af",
+                           "alimiter=limit=0.84:attack=3:release=40:level=disabled", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-"], capture_output=True, check=True).stdout
+    tmp2.unlink(); lite_m = np.frombuffer(lim2, np.float32).reshape(-1, 2).astype(np.float64)
+    write_wav(OUT / "smart450_mix_meowlite.wav", lite_m)
+    Il, tpl = lufs(lite_m); print(f"meowlite {Il:.2f} LUFS, true peak {tpl:.2f}")
     info = dict(master_lufs=I2, master_true_peak_dbtp=tp2, premix_lufs=I, gain_db=20 * np.log10(g), shots=levels,
                 note="stems carry the same gain as the master (pre-limiter)")
     (OUT / "audio_levels.json").write_text(json.dumps(info, indent=1))
