@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v8 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v8.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v7.md.
+# Toyota Sera scan-process reel v9 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v9.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 31.63 s (v9).
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v8.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -74,3 +74,18 @@ are still an upscaled crop of the captioned posted short (raw clips would fix bo
 - Fix: tools/fin_fit.py, focal 42 -> 36.3 mm with the principal point re-aimed; kit_final re-rendered. qa/v8_cmp: bumper,
   bonnet, headlights, wheels and BOTH doors within a few px at full resolution. 1:1 match for this transition: 3 -> 4.
 - Self-critique: I reported v5-v7 as "within ~15 px, doors differ" from a too-small overlay. Check matches at full resolution.
+
+## v9 (user: new music, punchline, keep the under-bumper scans visible when the bumper goes back on)
+- Music: GT2 "What License Test Will You Go With", track 35.40-67.0 s. 143.9 BPM; 8-beat phrases open with kick + stab.
+  Edit re-timed to half-phrases of 50 frames. Measured on the delivered file: cuts at frames 50/150/200/225/300/350/400/
+  450/500/575/650/700/812/850; phrase attacks at 49.9/149.9/250.0/350.2/450.1/550.2/650.4/850.4 (all < 1/2 frame).
+  1:1 open on the fill, drums drop on the bumper lift (5.0 s), end card on a phrase start. Beat sync stays 5.
+- Punchline: title "WHAT COULD I DO WITH THIS SCAN?" over the first scan shot (1.9-4.7 s, in the black above the nose,
+  never over real footage); the reel and the "SCAN DATA NOW AVAILABLE" card answer it. Hook 4 -> 5.
+- Design shots re-rendered on the bumper-removed states: radiator/fan/mounts (front) and tail panel (rear) stay visible
+  while the new bumper travels on, until it covers them. The front shot therefore has the bonnet open (that is the
+  captured state) - consistent with the shot before it.
+- End: full-kit scan shot 2.3 s (re-rendered), held crossfade centred on frame 775, finished car front 1.0 s + rear 1.3 s.
+  The finished-car material is only ~1.1 s + 1.2 s long, so those two shots stay short.
+- Checked: frames around every cut (qa/v9a-d), luma min 28.6, 31.63 s.
+- Earlier rubric rows above describe v4 timings; the v9 cut list in this section supersedes them.

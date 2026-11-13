@@ -921,3 +921,13 @@ lands here automatically. Agents must read this whole file before editing.
 - A CTA's static end hold gets flagged as dead frames by `ive director`; a 3-4 % push-in about the phone fixes it.
 
 - **[text]** Narration is shallow at best - include real enthusiast 'ball knowledge', not surface facts  _(from huracan-evo @ 3s, 2026-11-13, reviewer)_
+
+### Sera v9 - swapping the music on a finished edit
+- Do not trust a first tempo fit on a sparse/jazzy track: kicks.py locked to 99 BPM on a 144 BPM tune. Check the
+  autocorrelation's shortest strong period and the spacing of the loud stabs, then print a per-beat table in 8-beat rows -
+  the phrase structure (which beats carry kicks) is obvious there.
+- Lay the cuts out in frames on the phrase grid first (here 50 frames per half-phrase), then derive clip `dur`, `in` and
+  `src_fps` from the frame counts; measure the phrase attacks on the track and nudge `music.start` so they fall on the cut frames.
+- When a designed part goes back onto a scan, use the part-removed capture as the base so the structure behind it stays
+  visible until covered (reviewer request) - not a hollow trimmed shell.
+- A punchline/question title belongs over the first scan shot (black space, never over real footage), with the end card as the answer.
