@@ -1,0 +1,42 @@
+{
+ "objects": {
+  "gascap": "/home/user/media/work/c5/parts/gascap.blend"
+ },
+ "seconds": 1.3,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/M_gc",
+ "light_ref": "gascap",
+ "camera": [
+  {
+   "t": 0,
+   "az": 75,
+   "el": 15,
+   "dist": 2.6539203047752378,
+   "target": [
+    -0.07107588648796082,
+    0.16043168306350708,
+    0.7418542265892029
+   ],
+   "lens": 50
+  },
+  {
+   "t": 1,
+   "az": 90,
+   "el": 12,
+   "dist": 1.5085441732406615,
+   "target": [
+    -0.07107588648796082,
+    0.16043168306350708,
+    0.7418542265892029
+   ],
+   "lens": 50,
+   "lin": true
+  }
+ ],
+ "look": "silver"
+}

@@ -35,3 +35,21 @@ Section coverage - each section appears in ONE continuous sequence:
 | website | listing | end card |
 No hood, trunk or door shots: no open-state scan of this C5 registers (hood-open supplement failed).
 Crop check: first / middle / last frame of every scan shot reviewed at 25-30 % before the finals.
+
+## v5 (user: Z06 engine bay anyway, more scans, no roof cockpit after the roof leaves, no triangle counts)
+
+| beats | t (s) | shot | focus |
+|---|---|---|---|
+| 80-84 | 0-2 | IRL 0056 | rear pass, ends on solved frame |
+| 84-100 | 2-10 | AR | 1:1 cut; rear bumper mounting side; bumper-removed structure |
+| 100-106 | 10-13 | T (trimmed) | targa lifts, underside; cut as it leaves |
+| 106-120 | 13-20 | IRL fender / bumper / stripped | crew work |
+| 120-130 | 20-25 | B4 | 1:1 cut; fender inside, bumper mounting points, stripped nose |
+| 130-138 | 25-29 | E | Z06 engine bay scan, own frame, look-down drift |
+| 138-142 | 29-31 | head lamp, turn signal | front lighting parts, 1 s each |
+| 142-152 | 31-36 | door panel on -> removed | same camera, state cut on beat 146 |
+| 152-154 | 36-37 | fuel door | rear quarter, fuel door open |
+| 154-158 | 37-39 | U | underbody, x-ray |
+| 158-172 | 39-46+ | C -> listing | reassembly, dissolve into listing, URL on final hit |
+
+Not used: C5 Interior and left doorsill (fragmentary at every angle), standalone Door Cover (redundant with door-panel-on).

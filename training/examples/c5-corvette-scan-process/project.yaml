@@ -1,37 +1,38 @@
-# C5 Corvette scan-process reel v4 (earlier: project_v3.yaml). v4 = user: use the uploaded NASCAR 2005 Chase theme
-# ("Thunder", David Robidoux) and include more scans. New sections: targa roof removed (registered C5 Targa Top + the 2026
-# roof-open full scan) and underbody (Project 8 C5 Underside). No under-hood section: see editlog (no registered data).
+# C5 Corvette scan-process reel v5 (earlier: project_v4.yaml). v5 = user: "use the Z06 engine bay scan anyway, there are a ton
+# more scans not shown. get rid of the redundant scan of the roof (after roof goes away). again, no one cares about triangle count".
+# New: engine bay (Z06 scan, standalone) + part montage (head lamp, turn signal, door panel on -> removed 1:1 state cut, fuel door).
+# Targa shot now ends while the roof is leaving (no roof-open cockpit look). HUD has no triangle counts.
 project: c5-corvette-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/c5_scan_process_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/c5_scan_process_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/c5/music2/thunder.wav   # user upload (YouTube rip, 128k m4a -> wav); not in git
-  start: 48.0325   # beat 96 minus 32 ms (decoded-audio check: kick peaks sit 25-44 ms before the grid); of the 120.00 BPM grid (t0 0.0661 + 0.49998 n); section change at beat 100 (50.06 s) = 1:1 cut at 2.0 s
+  path: /home/user/media/c5/music2/thunder.wav   # user upload (YouTube rip); not in git
+  start: 40.0325   # v4 start minus 16 beats (8.0 s): grid t0 0.0401 + 0.50001 n, 120 BPM; beat 84 (kick 0.69) = 1:1 cut at 2.0 s
   fade_out: 0.6
 
-# Video time of beat b = 2.0 + 0.5 (b - 100). Cuts on accented even beats 100/116/126/130/136/140/152/158 = frames
-# 60/300/450/510/600/660/840/930; dissolve into the listing ends on beat 168 (36.0 s); the track's final hit (beat 172) at 38.0 s.
-beats: [2.0, 10.0, 15.0, 17.0, 20.0, 22.0, 28.0, 31.0, 36.0, 38.0]
+# Video time of beat b = 2.0 + 0.5 (b - 84). Cuts on kick beats 84/100/106/110/116/120/130/138/140/142/146/152/154/158
+# = frames 60/300/390/450/540/600/750/870/900/930/990/1080/1110/1170; listing dissolve ends 44.0 s, final hit (beat 172) 46.0 s.
+beats: [2.0, 10.0, 13.0, 15.0, 18.0, 20.0, 25.0, 29.0, 30.0, 31.0, 33.0, 36.0, 37.0, 39.0, 44.0, 46.0]
 
 timeline:
   - id: irl_open        # stock C5 rear pass, ends on the solved frame 35.035 s
     src: /home/user/media/c5/dropbox/0056.MP4
     in: 33.1017
     dur: 1.9667
-  - transition: {type: cut, note: "1:1 real -> scan on the section change (cam_A)"}
+  - transition: {type: cut, note: "1:1 real -> scan on beat 84 (cam_A)"}
   - id: scan_AR         # rear: pull-back, rear bumper mounting side toward camera, push-in on the rear-bumper-removed structure
     src: /home/user/media/work/c5/renders/AR
     src_fps: 15
     interpolate: true
     speed: 0.966
     dur: 8.0
-  - id: scan_T          # top: targa roof lifts and turns its scanned underside to the camera, then the camera looks into the roof-open cockpit (2026 scan)
+  - id: scan_T          # targa roof lifts and turns its underside to camera; cut at render 3.87 s as it leaves (no cockpit look)
     src: /home/user/media/work/c5/renders/T
     src_fps: 15
     interpolate: true
-    speed: 1.08
-    dur: 5.0
+    speed: 1.29
+    dur: 3.0
   - id: irl_fender      # crew unbolting the front fender
     src: /home/user/media/c5/dropbox/0059.MP4
     in: 30.0
@@ -44,19 +45,56 @@ timeline:
     src: /home/user/media/work/c5/plates/p0078w.mp4
     in: 8.0433
     dur: 2.0
-  - transition: {type: cut, note: "1:1 real -> stripped-front scan (cam_B_wide)"}
+  - transition: {type: cut, note: "1:1 real -> stripped-front scan on beat 120 (cam_B_wide)"}
   - id: scan_B          # front: fender inside, front bumper mounting points toward camera, push-in on the stripped nose
     src: /home/user/media/work/c5/renders/B4
     src_fps: 15
     interpolate: true
-    speed: 0.933
-    dur: 6.0
-  - id: scan_U          # underbody pass front -> rear, x-ray look (underside is unlit in silver)
+    speed: 1.12
+    dur: 5.0
+  - id: scan_E          # Z06 engine bay scan (standalone, own frame): high look-down with a slow drift + push
+    src: /home/user/media/work/c5/renders/E
+    src_fps: 15
+    interpolate: true
+    speed: 1.15
+    dur: 4.0
+  - id: part_headlamp
+    src: /home/user/media/work/c5/renders/M_hl
+    src_fps: 15
+    interpolate: true
+    speed: 1.3
+    dur: 1.0
+  - id: part_turnsignal
+    src: /home/user/media/work/c5/renders/M_ts
+    src_fps: 15
+    interpolate: true
+    speed: 1.3
+    dur: 1.0
+  - id: part_door_panel # door with its panel on ...
+    src: /home/user/media/work/c5/renders/M_d1
+    src_fps: 15
+    interpolate: true
+    speed: 1.1
+    dur: 2.0
+  - transition: {type: cut, note: "1:1 state cut: same camera, door panel scan -> panel-removed scan (shared scan frame)"}
+  - id: part_door_bare  # ... and with the panel removed
+    src: /home/user/media/work/c5/renders/M_d2
+    src_fps: 15
+    interpolate: true
+    speed: 1.067
+    dur: 3.0
+  - id: part_fueldoor   # rear quarter scan with the fuel door open
+    src: /home/user/media/work/c5/renders/M_gc
+    src_fps: 15
+    interpolate: true
+    speed: 1.3
+    dur: 1.0
+  - id: scan_U          # underbody pass, x-ray look; first 3.2 s of the move
     src: /home/user/media/work/c5/renders/U
     src_fps: 15
     interpolate: true
-    speed: 1.4
-    dur: 3.0
+    speed: 1.6
+    dur: 2.0
   - id: scan_C          # x-ray reassembly of fender, front bumper, rear bumper; ends on the listing angle in listing grey
     src: /home/user/media/work/c5/renders/C2_final
     src_fps: 15
@@ -69,5 +107,5 @@ timeline:
     dur: 3.8
 
 overlays:
-  - src: /home/user/media/work/out/hud_c5_v4.mov
+  - src: /home/user/media/work/out/hud_c5_v5.mov
     start: 0

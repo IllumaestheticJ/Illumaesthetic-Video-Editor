@@ -4,3 +4,6 @@
 {"ts": "2026-11-11T09:12:45Z", "project": "c5-corvette-scan-process", "at": null, "category": "story", "note": "Add a section showing the rear bumper removed data, even without IRL footage for it", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T07:59:38Z", "project": "c5-corvette-scan-process", "at": null, "category": "audio", "note": "Use the uploaded NASCAR 2005 Chase for the Cup theme (David Robidoux, 'Thunder') as the music", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T07:59:38Z", "project": "c5-corvette-scan-process", "at": null, "category": "story", "note": "Include more scans - like the underhood, etc.", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T08:15:59Z", "project": "c5-corvette-scan-process", "at": null, "category": "story", "note": "Use the Z06 engine bay scan anyway; there are a ton more scans not shown", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T08:15:59Z", "project": "c5-corvette-scan-process", "at": "14", "category": "story", "note": "Get rid of the redundant roof scan after the roof goes away (cockpit view after the targa lifts off)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T08:16:00Z", "project": "c5-corvette-scan-process", "at": null, "category": "text", "note": "No one cares about triangle count - don't put triangle counts on screen", "by": "reviewer", "promoted": true}

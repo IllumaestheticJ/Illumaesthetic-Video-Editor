@@ -9,6 +9,7 @@ Newest first. Read the top two before starting a new edit.
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
+- [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
@@ -27,6 +28,7 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-12
+- [huracan-evo](huracan-evo/) - archived 2026-11-12
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-12
 - [subaru-gd-trio](subaru-gd-trio/) - archived 2026-11-12
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
