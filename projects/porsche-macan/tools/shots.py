@@ -271,7 +271,8 @@ SHOTS["X3"] = {"base": [XBI], "parts": [
 XBD = f"{P}/comp_explode_int_nd.blend"
 DASH = {"pivot": [-0.012, -0.788, 0.961]}  # bbox centre (prepped m)
 # dash lifts clear of the screen header, then turns its face to the lens (seen end-on from the side it reads as a blob)
-DASH_KEYS = [k(0), k(0.55, (0, 0.15, 1.15), ease="out"), k(1.0, (-0.55, 0.15, 1.15), (0, 0, 90))]
+DASH_KEYS = [k(0), k(0.55, (0, 0.15, 1.15), ease="out"), k(1.0, (-0.55, 0.15, 1.15), (0, 0, 90)), k(1.9, (-0.55, 0.15, 1.2), (0, 0, 90), "lin"),
+             k(2.7, (-0.55, 0.15, 3.4), (0, 0, 90), "in")]  # exits up (it grazed the top edge once the camera tracks the seat)
 FR4 = ((-0.75, -0.05, 0.55), (0, 0, 180)); RR4 = ((-0.75, 0.12, 0.55), (0, 0, 180))  # lower: the floating dash stays clear
 # left doors parked low behind the body (from -X they sat above the roof as clutter)
 LEFT_OFF = [part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 6.0), FB_END[1])]),
