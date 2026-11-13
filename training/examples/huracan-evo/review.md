@@ -1,23 +1,21 @@
-# Huracan Evo scan reel v11 - self-review (training/rubric.md)  (older: review_v10 ... review_v1.md)
+# Huracan Evo scan reel v12 - self-review (training/rubric.md)  (older: review_v11 ... review_v1.md)
 
-Output: `/home/user/media/work/out/huracan_evo_v11.mp4` - 1080x1920, 30 fps, AAC, 39.6 s.
-Picture identical to v10 (video stream copied). Only the narration changed: the user asked for the car to be named
-"LP640-4 Evo, representing the 640 metric horsepower it produces, mated to a 4-wheel drive system".
+Output: `/home/user/media/work/out/huracan_evo_v12.mp4` - 1080x1920, 30 fps, AAC, 39.6 s.
+Picture identical to v10/v11 (video stream copied). Narration changes from the user's notes on v11: "don't drop the Huracan",
+and replace the successor / last-naturally-aspirated ending with facts about how the EVO improves on the previous generation.
 
-All rubric rows as v10 (review_v10.md). Audio re-checked on the delivered file: music is sample-aligned with v10 (0.0 ms offset),
-speech 3.2-34.9 s (ends 1.8 s before the last kick and the logo), speech section -13.6 LUFS, peak -1.0 dBFS.
+All rubric rows as v10 (review_v10.md). Audio on the delivered file: speech 3.4-35.3 s (ends 1.4 s before the last kick and the
+logo), speech section -13.2 LUFS, peak -1.0 dBFS.
 
 ## Narration (one take, untrimmed, speech_rate 12, no tempo/pitch change)
-"Lamborghini LP six-forty four EVO, representing the six hundred forty metric horsepower it produces, mated to a four-wheel drive
-system. Its V10 fires at uneven intervals, fifty-four and ninety degrees apart, which gives it that jagged, howling note. Titanium
-intake valves carry it to eight thousand RPM, while LDVI steers all four wheels before you ask. Its successor went to a twin-turbo
-hybrid V8, which makes this one of the last great naturally aspirated Lamborghinis."
-- "Huracan" is no longer spoken (the user's line replaces "Huracan Evo"). The separate 631 hp figure was dropped so the power is
-  stated once (640 metric hp). The 5.2 l and injection details were cut to fit the same slot.
+"Lamborghini Huracan LP six-forty four EVO, representing the six hundred forty metric horsepower it produces, mated to a
+four-wheel drive system. Its V10 fires at uneven intervals, fifty-four and ninety degrees apart, for that jagged, howling note.
+Titanium intake valves carry it to eight thousand RPM, and LDVI predicts your next move. Over the original Huracan it gained
+thirty horsepower, rear-wheel steering, and more than five times the downforce, cutting zero to sixty-two from three-point-two
+seconds to two-point-nine."
+Sources for the new ending: LP 610-4 = 610 CV and 0-100 km/h 3.2 s (most consistently reported; some tables say 3.1 or 3.4);
+EVO = 640 CV, 2.9 s, rear-wheel steering and LDVI new for the EVO, aero more than five times the first Huracan (EVO release,
+7 Jan 2019). "Thirty horsepower" is in metric hp (CV), consistent with the opening line.
 
 ## Not verified
-- I can't listen here: how the voice reads "L P six-forty four" is unheard.
-
-## What the next agent should know
-- An audio-only revision does not need a re-assembly: copy the video stream and mux the new mix with the assembler's audio
-  settings (aac 320k, 0.6 s fade-out), then confirm the music offset against the previous file by cross-correlation.
+- I can't listen here: "L P six-forty four" and the take's delivery are unheard.

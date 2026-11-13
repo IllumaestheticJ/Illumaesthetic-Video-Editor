@@ -230,5 +230,15 @@ def main_v11(out):
     main_v6(out)
 
 
+# v12 (user: "don't drop the huracan"; replace the successor/last-NA ending with how the EVO improves on the previous
+# generation): one take - "Lamborghini Huracan LP640-4 EVO ..." ending on +30 hp, rear-wheel steering, >5x downforce, 0-62 3.2 -> 2.9 s.
+def main_v12(out):
+    global GAP_KEEP
+    GAP_KEEP = 9.0
+    V5["MUSIC"] = "/home/user/media/huracan-evo/music/track_a_v10.wav"
+    V6.update(VO="/home/user/media/huracan-evo/vo/narration16_r12.wav", LAST=36.2)
+    main_v6(out)
+
+
 if __name__ == "__main__":
-    {"--v11": main_v11, "--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9, "--v10": main_v10}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v12": main_v12, "--v11": main_v11, "--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9, "--v10": main_v10}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
