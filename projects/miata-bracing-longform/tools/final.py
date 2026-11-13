@@ -7,7 +7,7 @@ import sys, os, wave, subprocess, importlib.util, numpy as np
 from PIL import Image
 M, OUTN = sys.argv[1], sys.argv[2]; HERE = os.path.dirname(os.path.abspath(__file__)); a0 = sys.argv[:]
 sys.argv = [a0[0], M, '--script-only']; sp = importlib.util.spec_from_file_location('b', f'{HERE}/build.py'); b = importlib.util.module_from_spec(sp); sp.loader.exec_module(b); sys.argv = a0
-SR = 48000; VO_DB = -2.5; BED_DB = -15.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo8'        # VO_DB: relative to the owner's real voice level
+SR = 48000; VO_DB = -2.5; BED_DB = -15.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo10'        # VO_DB: relative to the owner's real voice level
 def wav(p):
     w = wave.open(p); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768; x = x.reshape(-1, w.getnchannels()).mean(1); r = w.getframerate()
     return x if r == SR else np.interp(np.arange(0, len(x), r/SR), np.arange(len(x)), x).astype(np.float32)
@@ -19,15 +19,15 @@ def spectrum(x, n=4096):
     k = (len(x) - n)//(n//2); fr = np.stack([x[i*n//2:i*n//2+n] for i in range(k)])*np.hanning(n); P = np.abs(np.fft.rfft(fr, axis=1))**2
     e = P.sum(1); return P[e > np.percentile(e, 60)].mean(0)                    # loud (voiced) frames only
 _rw = wave.open(f'{M}/work/audio48.wav'); _r = np.frombuffer(_rw.readframes(int(184*SR)), np.int16).reshape(-1, 2).mean(1).astype(np.float32)/32768
-REAL = np.concatenate([_r[int(46.3*SR):int(95*SR)], _r[int(141*SR):int(183.3*SR)]]); REAL_RMS = act_rms(REAL); REAL_SPEC = spectrum(REAL)
+REAL = _r[int(48*SR):int(93*SR)]            # v10: the owner's reference for tone and quality is the intro speech 0:48-1:33 (0:00-0:10 has music under it); REAL_RMS = act_rms(REAL); REAL_SPEC = spectrum(REAL)
 def tone(lines):
     """one EQ curve for all lines: third-octave-smoothed ratio real/clone, limited to +-7 dB, applied as a linear-phase filter"""
     S = np.mean([spectrum(x) for x in lines if len(x) > SR*3], axis=0); f = np.fft.rfftfreq(4096, 1/SR); g = 10*np.log10((REAL_SPEC + 1e-12)/(S + 1e-12))
     sm = np.array([g[(f >= fc/1.26) & (f <= fc*1.26)].mean() if fc > 40 else 0 for fc in f]); sm -= np.median(sm[(f > 200) & (f < 3000)])
-    sm = np.clip(sm, -6, 2.5); sm[f < 80] = -12
+    sm = np.clip(sm, -9, 4); sm[f < 80] = -12
     # the reference has shop noise and music in its top end, so never ADD treble from it: above 3 kHz only cut, with a
     # shelf that takes the breathy "air" off the clone (-2 dB at 5 kHz to -5 dB at 9 kHz, steeper above 11 kHz)
-    hi = f > 3000; sm[hi] = np.minimum(sm[hi], 0) - np.interp(f[hi], [3000, 5000, 9000, 11000, 16000], [0, 3, 7, 10, 20])
+    hi = f > 3000; sm[hi] = np.minimum(sm[hi], 1.0) - np.interp(f[hi], [3000, 9000, 12000, 16000], [0, 0, 4, 14])       # v10: follow the intro speech's own top end; only the very top is rolled off
     print('  tone match (dB) at 100/250/500/1k/2k/4k/6k/8k/10k Hz:', ' '.join('%+.1f' % np.interp(q, f, sm) for q in (100, 250, 500, 1000, 2000, 4000, 6000, 8000, 10000)))
     def apply(x):
         X = np.fft.rfft(x); ff = np.fft.rfftfreq(len(x), 1/SR); return np.fft.irfft(X*10**(np.interp(ff, f, sm)/20), len(x)).astype(np.float32)
@@ -50,7 +50,7 @@ def fade(x, n=720): x = x.copy(); x[:n] *= np.linspace(0, 1, n); x[-n:] *= np.li
 def fitted(i, nar):
     src = f'{VODIR}/{i:02d}.wav'; x = trim(wav(src)); rate = b.nwords(nar)/(len(x)/SR)
     if rate <= MAXRATE: return x, rate, 1.0
-    f = max(MAXRATE/rate, 0.90); out = f'{FIT}/v8_{i:02d}_t{f:.3f}.wav'          # gentle only: big stretches sounded airy in v6/v7
+    f = max(MAXRATE/rate, 0.90); out = f'{FIT}/v10_{i:02d}_t{f:.3f}.wav'          # gentle only: big stretches sounded airy in v6/v7
     if not os.path.exists(out): b.run(['-i', src, '-af', f'atempo={f:.4f}', '-ar', str(SR), '-ac', '1', out])
     return trim(wav(out)), rate, f
 # ---- schedule from audio

@@ -5,7 +5,7 @@ import sys, os, subprocess, json, re
 M = sys.argv[1]; SRC = f'{M}/dl/MiataScan_RoughCut_1.mp4'; CARDS = f'{M}/work/cards'; SEG = f'{M}/work/seg'; OUT = f'{M}/out'
 HERE = os.path.dirname(os.path.abspath(__file__)); WPS = 2.6
 # (kind, a, b, section, picture note, narration)   src: a,b = rough-cut seconds; card: a = png, b = min seconds
-GAG = 153*1001/24000 + (94.68 - 94.469)      # map joke: 153 frames; the 3 frames after the scene cut still carry the previous subtitle, so they are dropped
+GAG = 94*1001/24000 + (94.68 - 94.469)      # map joke: 153 frames; the 3 frames after the scene cut still carry the previous subtitle, so they are dropped
 TL = [
  ('src', 0, 13.98, 'Intro (unchanged)', 'Hook, title card, "All cars flex"', None),
  ('gfx', 13.98, 28.78, 'Intro (new graphics)', 'NEW 2D chassis-flex graphics under the existing voice-over', None),

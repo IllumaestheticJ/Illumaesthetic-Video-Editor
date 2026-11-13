@@ -7,7 +7,7 @@ import sys, os, math, subprocess, wave
 import numpy as np, cv2
 from PIL import Image, ImageDraw, ImageFont
 M, NF, OUT = sys.argv[1], int(sys.argv[2]), sys.argv[3]
-FPS = 24000/1001; W, H, SS = 1920, 1080, 2; TA = 2.6; SR = 48000           # TA: length of the build-up; the map gets the rest
+FPS = 24000/1001; W, H, SS = 1920, 1080, 2; TA = 1.5; SR = 48000           # TA: length of the build-up; the map gets the rest (v10: owner found 6.4 s too long, now 3.9 s)
 BG, FG, DIM, RED, GOLD = '#0d0f12', '#e8ecf2', '#7b8088', '#e5484d', '#d6a419'
 def F(sz, wt='Bold'):
     c = subprocess.run(['fc-match', '-f', '%{file}', f'Inter Display:style={wt}'], capture_output=True, text=True).stdout
@@ -18,7 +18,7 @@ f_big, f_mid, f_sm, f_lab = F(64), F(34, 'SemiBold'), F(26, 'Medium'), F(30)
 # ---------------------------------------------------------------- part A: globe
 def globe(t):
     im = Image.new('RGB', (W*SS, H*SS), BG); d = ImageDraw.Draw(im)
-    z = ease((t - (TA - 0.55))/0.55); R = (300 + 40*ease(t/TA))*(1 + 3.2*z*z); cx, cy = 960, 610 + 500*z*z; rot = 0.5*t + 2.2*z; tilt = math.radians(22)
+    z = ease((t - (TA - 0.45))/0.45); R = (300 + 40*ease(t/TA))*(1 + 3.2*z*z); cx, cy = 960, 610 + 500*z*z; rot = 0.5*t + 2.2*z; tilt = math.radians(22)
     def P(lat, lon):
         x = math.cos(lat)*math.sin(lon + rot); y = math.sin(lat); zz = math.cos(lat)*math.cos(lon + rot)
         y, zz = y*math.cos(tilt) - zz*math.sin(tilt), y*math.sin(tilt) + zz*math.cos(tilt); return ((cx + R*x)*SS, (cy - R*y)*SS), zz
@@ -33,7 +33,7 @@ def globe(t):
     for la in range(-75, 90, 15): poly([P(math.radians(la), math.radians(lo)) for lo in range(0, 365, 5)], '#2c343e', 1.5)
     for lo in range(0, 360, 15): poly([P(math.radians(la), math.radians(lo)) for la in range(-90, 95, 5)], '#2c343e', 1.5)
     # the "route": a long great-circle arc, lifted off the surface, drawn on while the globe turns
-    a0, a1 = (math.radians(18), math.radians(-70) - 0.5*t), (math.radians(-12), math.radians(75) - 0.5*t); k = ease((t - 0.35)/1.5); n = 60; pts = []
+    a0, a1 = (math.radians(18), math.radians(-70) - 0.5*t), (math.radians(-12), math.radians(75) - 0.5*t); k = ease((t - 0.15)/0.8); n = 60; pts = []
     v0 = np.array([math.cos(a0[0])*math.sin(a0[1]), math.sin(a0[0]), math.cos(a0[0])*math.cos(a0[1])]); v1 = np.array([math.cos(a1[0])*math.sin(a1[1]), math.sin(a1[0]), math.cos(a1[0])*math.cos(a1[1])])
     om = math.acos(float(v0@v1))
     for i in range(int(n*k) + 1):
@@ -44,7 +44,7 @@ def globe(t):
     if pts:
         r = 9*SS; d.ellipse([pts[0][0] - r, pts[0][1] - r, pts[0][0] + r, pts[0][1] + r], fill=FG)
         r = 11*SS; d.ellipse([pts[-1][0] - r, pts[-1][1] - r, pts[-1][0] + r, pts[-1][1] + r], fill=GOLD)
-    al = ease(t/0.25)*(1 - z)
+    al = ease(t/0.12)*(1 - z)
     if al > 0.02:
         ov = Image.new('RGB', im.size, BG); o = ImageDraw.Draw(ov); s = 'FINDING A STOCK MIATA'; w = o.textlength(s, font=f_big)
         o.text(((W*SS - w)/2, 96*SS), s, font=f_big, fill=FG)
@@ -75,10 +75,10 @@ def pill(d, xy, s, font, fill, fg='#ffffff', anchor='l', pad=(16, 9)):
     if anchor == 'c': x -= (w/2 + pad[0]*SS)
     d.rounded_rectangle([x, y, x + w + 2*pad[0]*SS, y + h + 2*pad[1]*SS], radius=(h/2 + pad[1]*SS), fill=fill); d.text((x + pad[0]*SS, y + pad[1]*SS - bb[1]/2), s, font=font, fill=fg)
     return w + 2*pad[0]*SS
-T_GO, T_ARR = 0.45, 2.0                                                    # car leaves / arrives, seconds into the map
+T_GO, T_ARR = 0.2, 1.2                                                    # car leaves / arrives, seconds into the map
 def mapframe(t):
     # 16:9 window on the map with a slow push towards the route
-    z = 1.22 + 0.08*ease(t/3.5); cw = MW/z; ch = cw*9/16; x0 = 1010 - cw/2; y0 = max(500 - ch/2, 0); s = W*SS/cw
+    z = 1.22 + 0.08*ease(t/2.4); cw = MW/z; ch = cw*9/16; x0 = 1010 - cw/2; y0 = max(500 - ch/2, 0); s = W*SS/cw
     im = MAP.crop((int(x0), int(y0), int(x0 + cw), int(y0 + ch))).resize((W*SS, H*SS), Image.LANCZOS).convert('RGB'); d = ImageDraw.Draw(im)
     X = lambda p: ((p[0] - x0)*s, (p[1] - y0)*s)
     k = ease((t - T_GO)/(T_ARR - T_GO)); dist = k*CUM[-1]; i = int(np.searchsorted(CUM, dist)); i = min(max(i, 1), len(PATH) - 1)
@@ -98,7 +98,7 @@ def mapframe(t):
     if ta > 0.1:
         a = back((ta - 0.1)/0.3); lay = Image.new('RGBA', im.size, (0, 0, 0, 0)); ld = ImageDraw.Draw(lay)
         pill(ld, (ex + 44*SS, ey - 96*SS), 'MIATA CHOP SHOP', f_lab, RED)
-        if ta > 0.45: pill(ld, (ex + 44*SS, ey - 30*SS), 'NEXT DOOR', f_big, '#20262d', GOLD, pad=(26, 16))
+        if ta > 0.3: pill(ld, (ex + 44*SS, ey - 30*SS), 'NEXT DOOR', f_big, '#20262d', GOLD, pad=(26, 16))
         im.paste(lay, (0, int((1 - min(a, 1))*14*SS)), lay)
     # navigation banner
     lay = Image.new('RGBA', im.size, (0, 0, 0, 0)); ld = ImageDraw.Draw(lay); msg = 'You have arrived.' if ta > 0.1 else ('Head next door' if t > T_GO else 'Starting route')
@@ -112,7 +112,7 @@ def sfx():
     def put(x, t0, peak):
         x = x*peak/(np.abs(x).max() + 1e-9); p = int(t0*SR); x = x[:n - p]; out[p:p + len(x)] += x
     r = load(f'{M}/sfx/riser.wav'); pk = int(np.argmax(np.convolve(np.abs(r), np.ones(2400)/2400, 'same'))); end = min(pk + int(.10*SR), len(r)); r = r[max(end - int(TA*SR), 0):end]
-    r[:int(.3*SR)] *= np.linspace(0, 1, int(.3*SR)); r[-int(.04*SR):] *= np.linspace(1, 0, int(.04*SR)); put(r, TA - len(r)/SR, 0.42)              # the peak lands on the cut, then nothing
+    r[:int(.15*SR)] *= np.linspace(0, 1, int(.15*SR)); r[-int(.04*SR):] *= np.linspace(1, 0, int(.04*SR)); put(r, TA - len(r)/SR, 0.42)              # the peak lands on the cut, then nothing
     s = load(f'{M}/sfx/swoosh.mp3'); k = np.nonzero(np.abs(s) > 0.02*np.abs(s).max())[0]; s = s[k[0]:k[-1]]; put(s, TA + T_GO, 0.30)
     tt = np.arange(int(.9*SR))/SR; ch = sum(a*np.sin(2*np.pi*f*np.maximum(tt - dl, 0))*np.exp(-np.maximum(tt - dl, 0)*6)*(tt >= dl) for f, a, dl in ((880, 1, 0), (1318.5, .8, .13)))
     put(ch.astype(np.float32), TA + T_ARR + 0.02, 0.22)                    # two-note "arrived" chime (synthesised)
@@ -120,7 +120,7 @@ def sfx():
 if __name__ == '__main__':
     sfx()
     if OUT.endswith('.jpg'):                                               # contact sheet for checking
-        ts = [0.3, 1.2, 2.0, 2.45, TA + 0.1, TA + 1.0, TA + 1.7, TA + 2.1, TA + 2.7, NF/FPS - 0.1]; sh = Image.new('RGB', (960*2, 540*5))
+        ts = [0.2, 0.7, 1.1, 1.4, TA + 0.1, TA + 0.6, TA + 1.0, TA + 1.3, TA + 1.8, NF/FPS - 0.1]; sh = Image.new('RGB', (960*2, 540*5))
         for i, t in enumerate(ts): sh.paste((globe(t) if t < TA else mapframe(t - TA)).resize((960, 540)), (960*(i % 2), 540*(i//2)))
         sh.save(OUT, quality=88); sys.exit()
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', '24000/1001', '-i', '-', '-frames:v', str(NF), '-c:v', 'libx264', '-preset', 'veryfast',
