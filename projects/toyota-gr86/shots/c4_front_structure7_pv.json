@@ -1,0 +1,273 @@
+{
+ "base": [
+  "/home/user/media/work/gr86/blend/comp_explode7.blend"
+ ],
+ "parts": [
+  {
+   "blend": "/home/user/media/work/gr86/blend/hood_t.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      -0.15,
+      3.2
+     ],
+     "rot": [
+      -50,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.0185,
+    -0.7327,
+    1.0441
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/lid_v7.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.0185,
+    1.5423,
+    1.1691
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/fb_gr86.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0.35,
+      -0.7,
+      -1.6
+     ],
+     "rot": [
+      110,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    -0.07,
+    -1.818,
+    0.605
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/mirror_R.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/mirror_L.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/rear_bumper_v4.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.064,
+    1.817,
+    0.638
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/reverse_light.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.064,
+    1.817,
+    0.638
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/plate_light.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.064,
+    1.817,
+    0.638
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/fb_brz.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      9.0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    -0.07,
+    -1.818,
+    0.605
+   ]
+  }
+ ],
+ "camera": {
+  "keys": [
+   {
+    "t": 0,
+    "loc": [
+     0.95,
+     -3.6,
+     0.95
+    ],
+    "target": [
+     0.0,
+     -1.9,
+     0.6
+    ],
+    "focal": 30,
+    "ease": "inout"
+   },
+   {
+    "t": 1.7,
+    "loc": [
+     0.6,
+     -3.1,
+     0.86
+    ],
+    "target": [
+     0.0,
+     -1.95,
+     0.58
+    ],
+    "focal": 35,
+    "ease": "inout"
+   },
+   {
+    "t": 2.45,
+    "loc": [
+     0.55,
+     -3.05,
+     0.85
+    ],
+    "target": [
+     0.0,
+     -1.95,
+     0.58
+    ],
+    "focal": 35,
+    "ease": "inout"
+   }
+  ]
+ },
+ "seconds": 2.5333,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 30,
+ "samples": 8,
+ "out": "/home/user/media/work/gr86/preview/c4_front_structure7",
+ "frames": [
+  "first",
+  "mid",
+  "last"
+ ]
+}
