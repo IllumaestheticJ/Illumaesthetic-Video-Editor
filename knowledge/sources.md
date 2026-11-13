@@ -26,3 +26,17 @@
 - (porsche-gt3-992) The logo for `remotion/public/illumaesthetic_logo.png` (gitignored) is on Drive:
   `IllumaestheticLogoColor-01.png` (1cZJj521P88T_vC2YZDJVVUCctGyNoukR, 6447x1434 RGBA, white wordmark + red bar).
   illumaesthetic.com answers a Shopify bot check (429) to curl.
+
+## Camera Uploads (Dropbox `/Camera Uploads`, cleaned 2026-11-13)
+- Phone camera backup: 6,650 files / 94 GB flat in one folder (1,008 videos = 92.7 GB, 5,642 photos), mixed shop
+  footage, CAD/scan screenshots and personal travel. Reviewed rejects live in `/Camera Uploads/_Cleanup Review/`.
+- A `-1`/`-2` filename suffix is NOT a duplicate marker (same-second captures / different renders). Only Dropbox
+  `content_hash` (sha256 of the 4 MiB block sha256s; `download_link` returns it) proves a byte-identical copy.
+- Perceptual-hash "near duplicates" among photos are mostly CAD/scan design iterations (same view, different part
+  or markup) - never auto-remove them. Near-identical videos are usually a full-quality file plus a smaller re-share;
+  keep the larger. A raw clip and its captioned final also match - keep both.
+- CLIP car-scoring flags personal clips well below car score 0.5, but golf simulators, arcades and expo halls score
+  0.5-0.75: always look at contact sheets. Expo halls in Jan 2025 = Tokyo Auto Salon trip (keep).
+- `download_link` URLs must be hand-copied by the agent; a sub-agent handles ~8 batches of 25 before its context
+  fills. The proxy can transiently 403 `*.dl.dropboxusercontent.com` hosts and the connector can lose its
+  credential mid-run - retry later rather than routing around it.
