@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
@@ -17,8 +18,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-13
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
-- [nissan-frontier](nissan-frontier/) - archived 2026-11-13
-- [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [honda-s2000](honda-s2000/) - archived 2026-11-13
 - [ferrari-296](ferrari-296/) - archived 2026-11-13
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-13

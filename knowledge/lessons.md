@@ -999,3 +999,18 @@ lands here automatically. Agents must read this whole file before editing.
   long lens from tens of metres away (94 mm at 41 m) with a similar IoU and a wrong perspective.
 - When the designer's review/preview .blend exists, take wheels, grille and lights from it (its scan object's
   matrix_world maps CAD to the raw scan frame) instead of re-modelling them; remove the stock wheels from the scan first.
+## From the Nissan Frontier v8 revision (2026-11-13, built by an agent)
+- **[story]** A scan reel that turns into a build can be asked to become a build-story reel ("how we modified this truck", then "apply what we
+  learned from the Sentra videos"): use `knowledge/short-form.md` (branch claude/upbeat-goldberg-gy0s84) from the start for any press/SEMA
+  build - hook article, answer card, steps in build order, 360 of the finished render, 1:1 reveal ON the drop, real clips ~2 s.
+- **[scan-look]** Before modelling a stand-in, list the WHOLE Drive scan folder: 'Frontier Accessories Grille Fogs' (three grille lights scanned
+  side by side - split on the gaps along the long axis) and 'Sidemarker 1/2' (fender lights) had been skipped as "aftermarket". User: "we
+  have 3D scans for that".
+- **[scan-look]** Seating a scanned part in CAD: cut a section through the CAD pocket and overlay the part's section (tools/lights.py + a
+  y-z raster) - the light's underside matched the pocket floor/back wall once tilted; the first guess (lens vertical on the nose) was wrong.
+  Through-slots (fender lights) are found as enclosed holes in the side projection.
+- **[technical]** News hosts: check the environment allow-list before asking for more - motorweek.org, auto123.com, motorillustrated.com were
+  already allowed from the Sentra reel (tools/capture.js). Site search pages (`/?s=`) find the article URL when only the host is known.
+- **[technical]** Long render queues outlive the 2 h background limit and container restarts: render to `<shot>_30` by frame list and re-run only
+  missing frames (tools/render30.sh); existing 15 fps frames are the odd 30 fps frames when the spec's keys are in seconds.
+- **[text]** User: "get rid of customize everything" - no slogan on this end card (logo only).
