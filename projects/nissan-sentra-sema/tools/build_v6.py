@@ -159,7 +159,8 @@ def seg_reveal():
         return y
     print('top stack ends y', lay(top, 44, (50, 410))); print('bottom stack ends y', lay(bot, 1330, (410, 50)))
     order = [0, 5, 1, 6, 2, 7, 3, 4]                      # alternate top / bottom so the car stays clear in the middle
-    beat = BAR / 4 * FPS; appear = {c: int(round((2 + i) * beat)) for i, c in enumerate(order)}
+    hits = [29.873, 30.476, 30.748, 30.917, 31.211, 31.439, 31.643, 31.810]     # kick attacks from kicks.py (strong hits after the drop)
+    appear = {c: int(round((t - DROP) * FPS)) for c, t in zip(order, hits)}   # v12b: each headline lands on a measured kick
     base = Image.open(f'{W}/match/reveal.png').convert('RGB'); n = CUT['sema'] - CUT['reveal']
     def gen():
         for f in range(n):
@@ -175,12 +176,22 @@ def seg_reveal():
 
 
 def seg_end():
-    logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 760; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS); n = END - CUT['end']
+    """v12b: Illumaesthetic logo, with the partner marks under it (MotoIQ mark, Bomex badge). Partners fade in after the wordmark."""
+    logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 700; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
+    mq = Image.open(f'{D}/logo/motoiq_mark.png').convert('RGB'); mq = mq.resize((int(mq.width * 300 / mq.height), 300), Image.LANCZOS)
+    bx = Image.open(f'{D}/logo/bomex_plate.png').convert('RGB'); bx = bx.resize((520, int(bx.height * 520 / bx.width)), Image.LANCZOS)
+    row_w = mq.width + 44 + bx.width; row_x = (WD - row_w) // 2
+    n = END - CUT['end']; y_main = 520; y_part = 1080
     def gen():
         for f in range(n):
-            al = min(1.0, f / 8); im = Image.new('RGB', (WD, HT), (0, 0, 0)); d = ImageDraw.Draw(im)
-            l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al))); im.paste(l, ((WD - lw) // 2, (HT - logo.height) // 2), l)
-            # v7: slogan removed by the user - logo only
+            im = Image.new('RGB', (WD, HT), (0, 0, 0)); d = ImageDraw.Draw(im)
+            al = min(1.0, f / 8); l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al)))
+            im.paste(l, ((WD - lw) // 2, y_main), l)
+            pa = max(0.0, min(1.0, (f - 14) / 8))
+            if pa > 0:
+                d.line([(row_x, y_part - 60), (row_x + row_w, y_part - 60)], fill=mul(WHITE, 0.25 * pa), width=2)
+                im.paste(Image.blend(Image.new('RGB', mq.size, (0, 0, 0)), mq, pa), (row_x, y_part))
+                im.paste(Image.blend(Image.new('RGB', bx.size, (0, 0, 0)), bx, pa), (row_x + mq.width + 44, y_part + (mq.height - bx.height) // 2))
             yield im
     pipe('v6_z_end', gen())
 

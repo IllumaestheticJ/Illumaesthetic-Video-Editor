@@ -34,3 +34,4 @@
 {"ts": "2026-11-13T22:16:38Z", "project": "nissan-sentra-sema", "at": "0", "category": "text", "note": "Move the primary (opening) text between the car and the headline", "by": "user", "promoted": false}
 {"ts": "2026-11-13T22:16:38Z", "project": "nissan-sentra-sema", "at": "5", "category": "text", "note": "Use the generic AI-slop brush-stroke font for IT WASN'T.", "by": "user", "promoted": false}
 {"ts": "2026-11-13T22:16:38Z", "project": "nissan-sentra-sema", "at": "22", "category": "scan-look", "note": "The car wiggles during the 360 final render", "by": "user", "promoted": false}
+{"ts": "2026-11-13T22:48:39Z", "project": "nissan-sentra-sema", "at": "29.9", "category": "pacing", "note": "Second batch of articles (the headlines after the drop) should land on the music beat", "by": "user", "promoted": false}
