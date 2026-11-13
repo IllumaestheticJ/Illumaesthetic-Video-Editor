@@ -242,6 +242,6 @@ overlays:
 - src: /home/user/media/work/smart-450/build/hud_a4.mov
   start: 18.5333
 - src: /home/user/media/work/smart-450/build/hud_final.mov
-  start: 24.5
+  start: 24.0667
 - src: /home/user/media/work/smart-450/build/meme_huh.mov
   start: 0.4

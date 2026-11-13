@@ -2,14 +2,14 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 32,
+ "durationInFrames": 45,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "title",
    "from": 0,
-   "duration": 31,
-   "text": "SHOULD WE BUILD THIS?",
+   "duration": 44,
+   "text": "SHOULD WE MAKE THIS?",
    "sub": "TELL US IN THE COMMENTS",
    "y": 0.07,
    "size": 80,

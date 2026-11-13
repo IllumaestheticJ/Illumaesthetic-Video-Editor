@@ -7,7 +7,7 @@ from memes import MEMES
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-HUD = [("hud_body", 363), ("hud_a4", 556), ("hud_final", 735)]   # overlay name, timeline start frame
+HUD = [("hud_body", 363), ("hud_a4", 556), ("hud_final", 722)]   # overlay name, timeline start frame
 
 def main():
     tl = []
