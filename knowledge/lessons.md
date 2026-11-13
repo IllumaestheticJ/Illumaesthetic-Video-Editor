@@ -724,3 +724,9 @@ Playbook for this kind of reel: `knowledge/short-form.md`. Tools: `projects/niss
   onion at BOTH ends of the car, and check the last frame of the delivered video against the photo, not only a still render.
 - **[text]** (sentra v7) End card for this reel = Illumaesthetic logo only; the user had "Customize everything" removed after the
   official lockup could not be sourced. Don't type a slogan under the logo.
+- **[text]** (sentra v9) Brand text style = illumaesthetic.com: **Fjalla One**, caps, off-white `#f2f3f1`, ONE key word in accent green `#619f73`;
+  kickers in JetBrains Mono caps, green; cards `#0b0c0b`. No red rules, no Inter. Font file: the site's own CDN woff2 -> ttf (fonttools).
+  Helpers `FJ`, `MONO`, `label`, `section_label` in `projects/nissan-sentra-sema/tools/build_v6.py`. The user asked for this after eight versions in Inter + red.
+- **[scan-look]** (sentra v9) "Panels going on" must show the OLD part coming off first where it was physically replaced: stock bumper part scan
+  slides off -> bumper-removed state scan shows -> new part slides on (`tools/bumper_off.py`; render real 30 fps, parts move). Parts parked ahead
+  of the nose get painted by a position-based wipe unless the wipe threshold starts beyond them.

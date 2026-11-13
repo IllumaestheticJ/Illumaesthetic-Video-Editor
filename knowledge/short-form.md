@@ -14,12 +14,12 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 | Beat | Length | Content | Notes |
 |---|---|---|---|
 | Hook | ~2 bars | one real post/article, full frame | still frame of the screen recording, 3 % push |
-| Answer card | 1 bar | 2-3 words on black ("IT WASN'T.") | Inter Display Black ~190 px, red rule |
+| Answer card | 1 bar | 2-3 words on near-black ("IT WASN'T.") | Fjalla One ~250 px, key word in brand green |
 | Scan day | 3 bars | spray timelapse, scanner in hand, timelapse ending on the solved frame | process order only - no finished-car shots here |
-| 3D scan | 2 bars | **1:1 cut** from the last timelapse frame; label `3D SCAN` + triangle count from the STL header | `match/cam.json` |
+| 3D scan | 1 bar | **1:1 cut** from the last timelapse frame; label `3D SCAN` + triangle count from the STL header | `match/cam.json` |
 | Concepts | 2 bars | flipbook of the designer's iteration screenshots, ~4-5 frames each, label `CONCEPTS` | chronological |
-| Panels + livery | 2 bars | kit, wheels, diffuser, wing pop on; paint wipe; stripes | labels `NEW BODY PANELS`, `LIVERY` |
-| Final render 360 | 4 bars | full lap, then ease into the solved camera of the reveal photo and hold through the riser | `match/cam_reveal.json` |
+| Swap + panels + livery | 4 bars | old bumper slides OFF (scanned structure shows), new bumper ON, ducts/sides/wheels, rear diffuser + wing, paint wipe, stripes | real 30 fps; labels `OLD BUMPER OFF`, `NEW BODY PANELS`, `LIVERY` |
+| Final render 360 | 3 bars | full lap, then ease into the solved camera of the reveal photo and hold through the riser | `match/cam_reveal.json` |
 | **Reveal** | 4 bars | **1:1 cut to the real car on the drop**; cropped real headlines land around it, one per beat from beat 2 | car stays clear in the middle |
 | Other people's clips | 4 bars | 4 clips, whole car in frame, ~2 s each | no paused reels |
 | End card | ~3 s | Illumaesthetic logo only (no typed slogan) | fade music |
@@ -40,3 +40,7 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 - Every render folder: frame count and per-frame luma.
 - Every borrowed clip: 6 frames across its window - whole car visible, no play button.
 - Say plainly what was not measured (cut-to-beat error on the delivered file was never measured on the Sentra reel).
+
+## Text style
+Website style everywhere: Fjalla One caps, off-white `#f2f3f1`, one key word in green `#619f73`, JetBrains Mono green kickers, `#0b0c0b` cards
+(`build_v6.py`: `FJ`, `MONO`, `label`, `section_label`, `spaced`). A blurb over footage sits on a semi-transparent panel, never a solid box.

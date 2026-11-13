@@ -244,9 +244,9 @@ def seg_concepts():
     pipe('e_concepts', gen())
 
 
-def render_seq(name, n_out, mode='mci:mc_mode=aobmc:vsbmc=1'):
+def render_seq(name, n_out, mode='mci:mc_mode=aobmc:vsbmc=1', fps_in=15):
     tmp = f'{SEG}/_{name}_raw.mp4'
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', '15', '-i', f'{W}/renders/{name}/f_%04d.png', '-vf',
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', str(fps_in), '-i', f'{W}/renders/{name}/f_%04d.png', '-vf',
                     f'scale={WD}:{HT}:flags=lanczos,minterpolate=fps=30:mi_mode={mode}', '-frames:v', str(n_out)] + ENC + [tmp], check=True)
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', tmp, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
     fr = np.frombuffer(raw, np.uint8).reshape(-1, HT, WD, 3); print(name, 'interpolated', len(fr)); return fr

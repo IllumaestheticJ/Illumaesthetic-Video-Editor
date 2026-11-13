@@ -103,6 +103,8 @@ def main():
         b = {"blend": b} if isinstance(b, str) else b
         objs = load_blend(b["blend"])
         base += objs
+        for o in objs:
+            if b.get("livery_group"): o["livery_group"] = b["livery_group"]
         base_items.append((b, objs))
     bpy.context.view_layer.update()  # matrix_world is stale right after linking
     lo, hi = sr.bbox(base)
@@ -232,7 +234,8 @@ def main():
         lk(ms.outputs[0], out.inputs[0])
         for f in range(1, nframes + 1):
             t = (f - 1) / fps; u = min(1.0, max(0.0, (t - L["wipe"][0]) / (L["wipe"][1] - L["wipe"][0])))
-            vw.outputs[0].default_value = 3.0 - 6.0 * (u * u * (3 - 2 * u)); vw.outputs[0].keyframe_insert("default_value", frame=f)
+            vw.outputs[0].default_value = 50.0 if u <= 0 else 3.0 - 6.0 * (u * u * (3 - 2 * u))   # 50: nothing is painted before the wipe, even parts parked ahead of the nose
+            vw.outputs[0].keyframe_insert("default_value", frame=f)
             vs.outputs[0].default_value = 1.0 if t >= L["stripes"] else 0.0; vs.outputs[0].keyframe_insert("default_value", frame=f)
         for o in [o for o in sc.objects if o.type == "MESH"]:
             bake(o, o.get("livery_group", "car")); o.data.materials.clear(); o.data.materials.append(m)
