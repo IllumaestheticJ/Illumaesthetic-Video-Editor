@@ -1,5 +1,5 @@
 {
- "track_start": 13.912,
+ "track_start": 0.527,
  "bar": 2.6773,
  "bars": [
   0,
@@ -22,7 +22,8 @@
   1365,
   1446,
   1526,
-  1606
+  1606,
+  1687
  ],
  "shots": [
   {
@@ -136,37 +137,37 @@
    "rendered": 81
   },
   {
-   "shot": "s12a_shell",
+   "shot": "s11b_sill",
    "bar": 12,
    "fps": 15,
    "reel_frames": [
     884,
     964
+   ],
+   "rendered": 43
+  },
+  {
+   "shot": "s12a_shell",
+   "bar": 13,
+   "fps": 15,
+   "reel_frames": [
+    964,
+    1044
    ],
    "rendered": 43
   },
   {
    "shot": "s12_int_xray",
-   "bar": 12,
+   "bar": 13,
    "fps": 15,
    "reel_frames": [
-    884,
-    964
+    964,
+    1044
    ],
    "rendered": 43
   },
   {
    "shot": "s13_int_console",
-   "bar": 13,
-   "fps": 30,
-   "reel_frames": [
-    964,
-    1044
-   ],
-   "rendered": 80
-  },
-  {
-   "shot": "s14_rc",
    "bar": 14,
    "fps": 30,
    "reel_frames": [
@@ -176,7 +177,7 @@
    "rendered": 80
   },
   {
-   "shot": "s15_rb_off",
+   "shot": "s14_rc",
    "bar": 15,
    "fps": 30,
    "reel_frames": [
@@ -186,17 +187,17 @@
    "rendered": 81
   },
   {
-   "shot": "s16_rb_beam",
+   "shot": "s15_rb_off",
    "bar": 16,
-   "fps": 15,
+   "fps": 30,
    "reel_frames": [
     1205,
     1285
    ],
-   "rendered": 43
+   "rendered": 80
   },
   {
-   "shot": "s17_lineup",
+   "shot": "s16_rb_beam",
    "bar": 17,
    "fps": 15,
    "reel_frames": [
@@ -206,22 +207,32 @@
    "rendered": 43
   },
   {
-   "shot": "s18_reasm",
+   "shot": "s17_lineup",
    "bar": 18,
-   "fps": 30,
+   "fps": 15,
    "reel_frames": [
     1365,
     1446
    ],
-   "rendered": 81
+   "rendered": 43
   },
   {
-   "shot": "s19_clean",
+   "shot": "s18_reasm",
    "bar": 19,
-   "fps": 15,
+   "fps": 30,
    "reel_frames": [
     1446,
     1526
+   ],
+   "rendered": 80
+  },
+  {
+   "shot": "s19_clean",
+   "bar": 20,
+   "fps": 15,
+   "reel_frames": [
+    1526,
+    1606
    ],
    "rendered": 43
   }

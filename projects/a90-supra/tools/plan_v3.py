@@ -20,8 +20,8 @@ B2 = "/home/user/media/work/a90/blend/"
 BB = json.load(open(D + "/match/bbox_v3.json"))
 BEAT = 2.6773 / 4            # measured on the kick attacks of the excerpt (89.64 BPM)
 BAR, HB = 4 * BEAT, BEAT / 2
-TRACK0 = 13.912                # excerpt start in the track (s): kick attack of riff bar 2
-F = [int(round(k * BAR * 30)) for k in range(21)]   # reel frame of each bar line
+TRACK0 = 0.527                 # the song's beginning (standing reviewer rule): kick attack of riff bar 1
+F = [int(round(k * BAR * 30)) for k in range(22)]   # 21 bars   # reel frame of each bar line
 LIGHT = [[-2.19, -1.015, 0.0], [2.19, 1.015, 1.174]]  # light rig pinned to the car bbox in every shot
 LOOK, EXPOSURE = "AgX - Medium High Contrast", -0.7   # v3 grade: flat white washed the scan detail out at exposure 0
 SHOTS = {}
@@ -212,20 +212,24 @@ s.cam((0, dict(az=-90, dist=1.6, z=0.75, look=[0.55, -0.90, 0.55])), (8.1, dict(
 # ---------------------------------------------------------------- s11 skirts + door trim unclip from the sill
 s = Shot("s11_skirts", 11, 30)
 home(s, off=("fbump", "fender", "dtrim", "uskirt", "lskirt")); corners(s, fr_off=FR_OFF)
-for part, h0 in (("part_lskirt", 0), ("part_uskirt", 2), ("part_dtrim", 4)):
-    s.obj(part, keys=[(0, dict()), (h0, dict()), (h0 + 0.5, dict(loc=[0, -0.10, 0], ease="ease_out")),
-                      (h0 + 2.3, dict(loc=[0, -0.55, -0.95], ease="ease_in"))], vis=[(0, h0 + 2.3)])
-s.cam((0, dict(az=-104, dist=2.5, z=0.50, look=[-0.10, -0.90, 0.28])), (8.1, dict(az=-96, dist=1.9, z=0.42, look=[-0.10, -0.90, 0.25])))
+for part, h0 in (("part_lskirt", 0), ("part_uskirt", 1.2), ("part_dtrim", 2.4)):
+    s.obj(part, keys=[(0, dict()), (h0, dict()), (h0 + 0.4, dict(loc=[0, -0.10, 0], ease="ease_out")),
+                      (h0 + 1.9, dict(loc=[0, -0.55, -0.95], ease="ease_in"))], vis=[(0, h0 + 1.9)])
+s.cam((0, dict(az=-104, dist=2.5, z=0.50, look=[-0.10, -0.90, 0.28])), (4.3, dict(az=-98, dist=2.1, z=0.45, look=[-0.10, -0.90, 0.26])),
+      (8.1, dict(az=-94, dist=1.75, z=0.42, look=[-0.20, -0.90, 0.25])))
+s = Shot("s11b_sill", 12, 15)            # stay on the section: travel along the exposed sill and door-trim structure
+home(s, off=("fbump", "fender", "dtrim", "uskirt", "lskirt")); corners(s, fr_off=FR_OFF)
+s.cam((0, dict(pos=[-1.15, -1.55, 0.50], look=[-0.70, -0.85, 0.38])), (8.6, dict(pos=[0.55, -1.40, 0.32], look=[0.45, -0.85, 0.16])))
 OFF_SIDE = ("fbump", "fender", "dtrim", "uskirt", "lskirt")
 
 # ---------------------------------------------------------------- s12 interior x-ray (two layers, one camera) / s13 console
 XCAM = ((0, dict(pos=[-1.25, 0, 3.05], look=[-0.62, 0, 0.5], up=[1, 0, 0])), (8.6, dict(pos=[-0.75, 0, 2.45], look=[-0.35, 0, 0.5], up=[1, 0, 0])))
-s = Shot("s12a_shell", 12, 15)           # layer a: only the first frames are rendered (crossfade ends on hb2)
+s = Shot("s12a_shell", 13, 15)           # layer a: only the first frames are rendered (crossfade ends on hb2)
 home(s, off=OFF_SIDE); corners(s, fr_off=FR_OFF); s.obj("interior"); s.obj("console"); s.cam(*XCAM)
 s.spec["_render_frames"] = "1-8"
-s = Shot("s12_int_xray", 12, 15)
+s = Shot("s12_int_xray", 13, 15)
 s.obj("interior"); s.obj("console"); s.cam(*XCAM)
-s = Shot("s13_int_console", 13, 30)
+s = Shot("s13_int_console", 14, 30)
 s.obj("interior")
 CPARK = [-0.15, 0, 0.50]
 s.obj("console", keys=[(0, dict()), (1, dict()), (2, dict(loc=[0, 0, 0.08], ease="ease_out")), (2.8, dict(loc=[-0.10, 0, 0.25], ease="linear")),
@@ -234,7 +238,7 @@ s.cam((0, dict(pos=[0.9, 0, 1.55], look=[0.2, 0, 0.55])), (4.5, dict(pos=[0.75, 
       (8.1, dict(pos=[-0.6, 0, 1.45], look=[-1.35, 0, 0.55])))
 
 # ---------------------------------------------------------------- s14 rear: wheel -> caliper -> rotor off, then the five-link works
-s = Shot("s14_rc", 14, 30, lens=32)
+s = Shot("s14_rc", 15, 30, lens=32)
 home(s, off=OFF_SIDE); corners(s, skip=("RR",), fr_off=FR_OFF)
 mech(s, "RR", lambda v: kin.rear(travel=v), [(3.8, 0), (4.8, 45), (6.3, -75), (7.4, 0)], {
     "wheel": ([(0, dict()), (0.8, dict(loc=out(RAX, 0.30), ease="ease_out")), (1.6, dict(loc=out(RAX, 0.95))), (8.1, dict(loc=out(RAX, 0.95)))], {}),
@@ -251,13 +255,13 @@ s.cam((0, dict(az=-128, dist=1.8, z=1.05, look=[-1.24, -0.95, 0.26])), (3.7, dic
 RB_PIV = BB["part_rbump"]["c"]
 RB_PARK, RB_ROT = [-1.05, 0, -0.55], [0, -105, 0]
 OFF_ALL = OFF_SIDE + ("rbump",)
-s = Shot("s15_rb_off", 15, 30)
+s = Shot("s15_rb_off", 16, 30)
 home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 s.obj("part_rbump", pivot=RB_PIV, keys=[(0, dict(loc=[0, 0, 0])), (2, dict(loc=[-0.45, 0, 0], ease="ease_out")),
                                         (3.5, dict(loc=[-0.75, 0, -0.10], rot=[0, -35, 0], ease="linear")),
                                         (5, dict(loc=RB_PARK, rot=RB_ROT, ease="ease_out")), (8.1, dict(loc=RB_PARK, rot=RB_ROT))])
 s.cam((0, dict(az=-162, dist=2.45, z=1.7, look=[-2.25, 0, 0.12])), (8.1, dict(az=-162, dist=2.1, z=1.5, look=[-2.6, 0, -0.15])))
-s = Shot("s16_rb_beam", 16, 15)
+s = Shot("s16_rb_beam", 17, 15)
 home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 s.cam((0, dict(az=-155, dist=1.25, z=0.62, look=[-2.0, -0.45, 0.40])), (8.6, dict(az=-185, dist=1.0, z=0.62, look=[-2.0, 0.25, 0.36])))
 
@@ -275,13 +279,13 @@ LINE = {  # part: (pivot or None, loc, rot)
 }
 SEAT = {"k_FR_bearing": 1.5, "k_FR_dust_shield": 2.2, "k_FR_rotor": 3, "k_RR_rotor": 3, "k_FR_caliper": 4, "k_RR_caliper": 4,
         "k_FR_wheel": 5, "k_RR_wheel": 5, "part_fender": 6, "part_dtrim": 6, "part_uskirt": 6, "part_lskirt": 6.5, "part_rbump": 7, "part_fbump": 8}
-s = Shot("s17_lineup", 17, 15, lens=31)
+s = Shot("s17_lineup", 18, 15, lens=31)
 home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 for n, (piv, loc, rot) in LINE.items():
     kw = dict(pivot=piv) if piv else {}
     s.obj(n, keys=[(0, dict(loc=loc, rot=rot)), (8.6, dict(loc=loc, rot=rot))], **kw)
 s.cam((0, dict(pos=[-0.5, -0.55, 3.75], look=[0.0, -0.55, 0.3], up=[1, 0, 0])), (8.6, dict(pos=[-0.45, -0.55, 3.55], look=[0.0, -0.55, 0.3], up=[1, 0, 0])))
-s = Shot("s18_reasm", 18, 30)
+s = Shot("s18_reasm", 19, 30)
 home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 for n, (piv, loc, rot) in LINE.items():
     kw = dict(pivot=piv) if piv else {}
@@ -289,7 +293,7 @@ for n, (piv, loc, rot) in LINE.items():
     s.obj(n, keys=[(0, dict(loc=loc, rot=rot)), (max(0, h - 2.2), dict(loc=loc, rot=rot)), (h, dict(loc=[0, 0, 0], rot=[0, 0, 0], ease="ease_in")),
                    (8.1, dict(loc=[0, 0, 0], rot=[0, 0, 0]))], **kw)
 s.cam((0, dict(az=-55, dist=6.6, z=3.0, look=[0.2, -0.3, 0.40])), (8.1, dict(az=-55, dist=5.2, z=2.3, look=[0.2, 0, 0.45])))
-s = Shot("s19_clean", 19, 15)
+s = Shot("s19_clean", 20, 15)
 home(s); corners(s)
 s.cam((0, dict(az=-55, dist=5.2, z=2.3, look=[0.2, 0, 0.45])), (8.6, dict(az=-58, dist=4.7, z=1.9, look=[0.2, 0, 0.45])))
 
@@ -300,5 +304,6 @@ if __name__ == "__main__":
     for n, s in SHOTS.items():
         json.dump(s.spec, open(f"{D}/shots_v3/{n}.json", "w"), indent=1)
         tl.append(dict(shot=n, bar=s.bar, fps=s.fps, reel_frames=s.spec["_reel_frames"], rendered=s.m))
+    tl.sort(key=lambda x: x["bar"])
     json.dump(dict(track_start=TRACK0, bar=BAR, bars=F, shots=tl), open(D + "/timeline_v3.json", "w"), indent=1)
     print(len(SHOTS), "shots,", sum(s.m for s in SHOTS.values()), "frames")
