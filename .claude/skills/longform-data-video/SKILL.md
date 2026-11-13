@@ -6,7 +6,8 @@ description: Finish or build an Illumaesthetic long-form (16:9, YouTube) video t
 # Long-form data video
 
 Worked example: `projects/miata-bracing-longform/` ("Does chassis bracing actually do anything?", 8 versions with the
-owner). Its knowledge graph is in `graphify-out/` (`graphify query "<question>"`, or open `graphify-out/graph.html`).
+owner). The repo's knowledge graph is in `graphify-out/` (`graphify query "<question>"`), and every note the owner has
+given on any video is in `knowledge/feedback/`.
 Read `CLAUDE.md` and `knowledge/lessons.md` first; the Miata section there is the short form of this skill.
 
 ## Pipeline
