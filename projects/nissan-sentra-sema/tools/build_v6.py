@@ -20,7 +20,7 @@ _HELV = D + '/fonts/Helvetica-Bold.ttf'
 _HELV = _HELV if os.path.exists(_HELV) else '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf'
 FJ = lambda size: ImageFont.truetype(_HELV, int(size * 0.76))        # 0.76: Helvetica is wider than the condensed Fjalla sizes used in v9
 MONO = lambda size: ImageFont.truetype(_HELV, size)
-BRUSH = lambda size: ImageFont.truetype(D + '/fonts/RoadRage-Regular.ttf', size)   # v11 (user): Road Rage for the punch line (@fontsource/road-rage, OFL)
+BRUSH = lambda size: ImageFont.truetype(D + '/fonts/PermanentMarker-Regular.ttf', size)   # v12 (user): generic brush-stroke (Permanent Marker)   # v11 (user): Road Rage for the punch line (@fontsource/road-rage, OFL)
 mul = lambda c, a: tuple(int(v * a) for v in c)
 
 
@@ -58,14 +58,14 @@ END = fr(47.5)
 def seg_hook():
     """motor1com post 'NISSAN ADMITS IT USED AI IN ITS SENTRA SPEC V PICTURES' from the Instagram recording (t=171), slow 3 % push,
     with the user's blurb 'THE WORLD THOUGHT IT WAS AI' boxed over the top of the post (v8)."""
-    im = ig_frames(171.0, 1)[0]; n = CUT['wasnt']; f1 = FJ(128)
+    im = ig_frames(171.0, 1)[0]; n = CUT['wasnt']; f1 = FJ(80)   # v12: 3 lines in the band between car (y~780) and headline (y~1040)
     lines = [[('THE WORLD', WHITE)], [('THOUGHT IT', WHITE)], [('WAS ', WHITE), ('AI', GREEN)]]
     def gen():
         for f in range(n):
             fr_ = B.punch(im, f, n, 1.03); d = ImageDraw.Draw(fr_)
             u = min(1.0, max(0.0, (f - 4) / 5))
             if u > 0:
-                y0 = 250 - int((1 - u) * 40); h = 140
+                y0 = 796 - int((1 - u) * 40); h = 60
                 ws = [sum(d.textlength(t, font=f1) for t, _ in ln) for ln in lines]; w = max(ws)
                 box = [(WD - int(w)) // 2 - 44, y0 - 20, (WD + int(w)) // 2 + 44, y0 + h * len(lines) + 30]
                 ov = Image.new('RGBA', fr_.size, (0, 0, 0, 0)); ImageDraw.Draw(ov).rounded_rectangle(box, radius=34, fill=INK + (int(70 * u),))   # v11: softer (~27 % black), rounded corners
@@ -135,8 +135,8 @@ def seg_livery():
 
 
 def seg_turn():
-    """360 (114 renders at 15 fps) played 1.33x to fit 3 bars: interpolated as if shot at 20 fps; the last ~1 s sits on the reveal camera."""
-    n = CUT['reveal'] - CUT['turn']; frs = render_seq('s11_turn', n, fps_in=20)
+    """360 rendered at 30 fps: 4.2 s constant-speed orbit, 1 s ease into the reveal camera, hold on it."""
+    n = CUT['reveal'] - CUT['turn']; frs = render_seq('s12_turn', n, direct=True)   # v12: 30 fps render, no minterpolate (it wobbled the car)
     def gen():
         for f in range(n):
             im = Image.fromarray(frs[min(f, len(frs) - 1)]); d = ImageDraw.Draw(im)
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v11.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v12.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)

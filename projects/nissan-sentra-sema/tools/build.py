@@ -244,10 +244,10 @@ def seg_concepts():
     pipe('e_concepts', gen())
 
 
-def render_seq(name, n_out, mode='mci:mc_mode=aobmc:vsbmc=1', fps_in=15):
+def render_seq(name, n_out, mode='mci:mc_mode=aobmc:vsbmc=1', fps_in=15, direct=False):
     tmp = f'{SEG}/_{name}_raw.mp4'
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', str(fps_in), '-i', f'{W}/renders/{name}/f_%04d.png', '-vf',
-                    f'scale={WD}:{HT}:flags=lanczos,minterpolate=fps=30:mi_mode={mode}', '-frames:v', str(n_out)] + ENC + [tmp], check=True)
+    vf = f'scale={WD}:{HT}:flags=lanczos' if direct else f'scale={WD}:{HT}:flags=lanczos,minterpolate=fps=30:mi_mode={mode}'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', str(30 if direct else fps_in), '-i', f'{W}/renders/{name}/f_%04d.png', '-vf', vf, '-frames:v', str(n_out)] + ENC + [tmp], check=True)
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', tmp, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
     fr = np.frombuffer(raw, np.uint8).reshape(-1, HT, WD, 3); print(name, 'interpolated', len(fr)); return fr
 

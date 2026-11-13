@@ -31,3 +31,6 @@
 {"ts": "2026-11-13T19:20:55Z", "project": "nissan-sentra-sema", "at": "19", "category": "scan-look", "note": "Correct: only the front bumper is truly replaced on the Sentra; every other kit panel goes on over the stock body", "by": "user", "promoted": false}
 {"ts": "2026-11-13T20:46:44Z", "project": "nissan-sentra-sema", "at": null, "category": "text", "note": "Change the text to Helvetica Bold, except 'IT WASN'T.' - that goes in the 'AI slop' brushstroke font", "by": "user", "promoted": false}
 {"ts": "2026-11-13T22:04:00Z", "project": "nissan-sentra-sema", "at": null, "category": "text", "note": "Translucent backgrounds: make them softer, with rounded corners", "by": "user", "promoted": false}
+{"ts": "2026-11-13T22:16:38Z", "project": "nissan-sentra-sema", "at": "0", "category": "text", "note": "Move the primary (opening) text between the car and the headline", "by": "user", "promoted": false}
+{"ts": "2026-11-13T22:16:38Z", "project": "nissan-sentra-sema", "at": "5", "category": "text", "note": "Use the generic AI-slop brush-stroke font for IT WASN'T.", "by": "user", "promoted": false}
+{"ts": "2026-11-13T22:16:38Z", "project": "nissan-sentra-sema", "at": "22", "category": "scan-look", "note": "The car wiggles during the 360 final render", "by": "user", "promoted": false}
