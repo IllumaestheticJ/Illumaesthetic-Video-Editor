@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Dropbox__list_folder",
+      "mcp__Dropbox__search",
+      "mcp__Dropbox__get_file_metadata",
+      "mcp__Dropbox__download_link",
+      "mcp__Dropbox__file_preview",
+      "mcp__Dropbox__fetch"
+    ]
+  }
+}

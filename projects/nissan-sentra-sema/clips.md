@@ -49,3 +49,14 @@ Client chain: **Bomex** (kit) for **Nissan / MotoIQ**. Illumaesthetic: scan, des
 
 ## Not found (asked user 2026-11-12)
 media-coverage captures, print/bodywork/paint video, Ron's earlier screen recordings, clean hero footage of the finished car
+
+## Added 2026-11-13
+- `Video Nov 11 2026, 9 15 44 PM.mp4` (197.5 s, 1206x2622 120 fps SDR): phone screen recording scrolling Instagram posts/reels about the car.
+  ~t: 0-52 alex.martini booth reel; 54-67 interior; 69-80 caranddriver track reel; 84-109 eddiex616 reel (BADASS SEMA BUILD, GT-R seats, 19-inch forged);
+  119-128 Mike Kojima / motoiq walkaround; 133 booth photo; 138 motortrend "Holy Spec-V"; 143 shop photo; 153 motoiq rear; 168 "Nissan admits it used AI";
+  178 Nissan press 2-up; 183 "Nissan Sentra Nismo"; 188 Road & Track; 193 Spec-V vs Civic Si.
+- 24 photos `Photo Oct 14 / Nov 02 / Nov 03 / Nov 05 / Nov 12 ...jpg` (local: new/): Oct 14 = painted white, no stripes (0032, 0611 rear, 0612 front) and
+  stripes being applied (0035); Nov 12 (11) = car on the lift mid-build; Nov 12 (2,3,5,6,7,8,9,10) finished car in the shop; Nov 05 = hi-res SEMA booth stills
+  (5712x4284); Nov 02 5820 = car at the track; Nov 12 (4) = Autopian AI story screenshot (not used).
+- Article screenshots: tools/capture.js -> press/*.png (carscoops, topgear_ph, motorweek, tflcar, motoringresearch, motorillustrated used;
+  auto123 shows an ad, topspeed and yahoo render unstyled).

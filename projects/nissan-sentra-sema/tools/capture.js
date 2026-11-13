@@ -5,7 +5,6 @@ const out = process.argv[2];
 const urls = {
   topgear_ph: 'https://www.topgear.com.ph/news/car-news/nissan-sentra-spec-v-concept-sema-2026-a6941-20261029',
   carscoops: 'https://www.carscoops.com/2299297/nissan-sentra-spec-v-sema-concept/',
-  autopian: 'https://www.theautopian.com/it-sure-seems-like-nissan-released-ai-generated-slop-of-its-latest-concept-car/',
   topspeed: 'https://www.topspeed.com/nissan-full-beast-mode-three-concepts/',
   motorweek: 'https://motorweek.org/this-just-in/nissan-sentra-spec-v-is-a-super-cool-sema-concept/',
   tflcar: 'https://tflcar.com/2026/10/nissan-sentra-spec-v-concept-sema-2026/',
@@ -13,8 +12,6 @@ const urls = {
   motoringresearch: 'https://www.motoringresearch.com/america-news/sema-show-nissan-sentra-v-spec-concept/',
   auto123: 'https://www.auto123.com/en/news/nissan-sentra-spec-v-concept-sema-2026/74330/',
   motorillustrated: 'https://motorillustrated.com/nissan-sentra-spec-v-concept-sema-2026/200447/',
-  autonewsline: 'https://www.autonewsline.com/2026/10/nissan-sentra-spec-v-concept-sema-2026.html',
-  pakwheels: 'https://www.pakwheels.com/blog/nissan-sentra-spec-v-300hp-sema-2026/',
 };
 (async () => {
   const b = await chromium.launch();

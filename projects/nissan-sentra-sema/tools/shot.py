@@ -2,6 +2,9 @@
   - camera keys may be {"t":..,"cam":"cam.json"} (solved camera: exact location/rotation/focal) and are slerped with loc/target keys
   - parts/base entries take "mat": silver|grey|dark|white|<colour name> and "visible": [t0, t1] (seconds)
   - base entries may be {"blend":..., "mat":..., "visible":...}
+  - "livery": {"wipe": [t0, t1], "stripes": t2}: every mesh gets two vertex-colour layers (paint / paint + stripes) from
+    position rules matched by eye to the finished car photos; the silver look is wiped to paint nose-to-tail between
+    t0 and t1 and the red stripes switch on at t2. Entries may set "livery_group": "black" (vents, diffuser, wing mount).
 
 
     blender -b -P projects/ferrari-296/tools/shot.py -- spec.json
@@ -150,6 +153,8 @@ def main():
             p["mat"] = p["color"]
         set_mat(objs, p, silver)
         set_visible(objs, p)
+        for o in objs:
+            o["livery_group"] = p.get("livery_group", "kit")
         keys = p.get("keys")
         if not keys:
             continue
@@ -171,6 +176,46 @@ def main():
             pv.rotation_euler = Euler([math.radians(v) for v in sample(keys, t, "rot")], "XYZ")
             pv.keyframe_insert("location", frame=f)
             pv.keyframe_insert("rotation_euler", frame=f)
+
+    if spec.get("livery"):
+        import numpy as np
+        L = spec["livery"]; bpy.context.view_layer.update()
+        WHITE, BLACK, DARK, REDC = (0.80, 0.80, 0.78), (0.012, 0.012, 0.014), (0.03, 0.03, 0.035), (0.55, 0.02, 0.03)
+        def bake(o, group):
+            me = o.data; n = len(me.vertices); co = np.empty(n * 3, np.float32); me.vertices.foreach_get("co", co)
+            M = np.array(o.matrix_world); w = co.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]; x, y, z = w[:, 0], w[:, 1], w[:, 2]
+            c = np.tile(np.array(WHITE, np.float32), (n, 1))
+            c[(z > 1.04) & (y > -1.9) & (y < 0.9)] = BLACK                       # roof, pillars, glass
+            c[(np.abs(x) > 0.85) & (z > 0.95) & (y > 0.45) & (y < 0.95)] = BLACK  # mirrors
+            c[z < 0.30] = BLACK                                                   # splitter, skirts, diffuser line
+            if group == "black": c[:] = BLACK
+            wheel = (np.abs(x) > 0.55) & (((y - 1.41) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2) | ((y + 1.30) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2))
+            if group != "kit": c[wheel] = DARK
+            c2 = c.copy(); u = y + 0.45 * (z - 0.30)
+            st = (np.abs(x) > 0.78) & (z > 0.30) & (z < 0.97) & (((u > 0.90) & (u < 1.12)) | ((u > 0.64) & (u < 0.85))) & ~wheel
+            if group != "black": c2[st] = REDC
+            for name, arr in (("paint", c), ("paint2", c2)):
+                a = me.color_attributes.new(name, "FLOAT_COLOR", "POINT")
+                a.data.foreach_set("color", np.concatenate([arr, np.ones((n, 1), np.float32)], 1).ravel())
+        m, nt, out = sr.new_mat("ive_livery")
+        N = nt.nodes.new; lk = nt.links.new
+        sil = sr.principled(nt, (0.62, 0.63, 0.66, 1), 0.32, 0.85)
+        pa = sr.principled(nt, (1, 1, 1, 1), 0.22, 0.0)
+        a1 = N("ShaderNodeAttribute"); a1.attribute_name = "paint"; a2 = N("ShaderNodeAttribute"); a2.attribute_name = "paint2"
+        vs = N("ShaderNodeValue"); vs.label = "stripes"; mixc = N("ShaderNodeMix"); mixc.data_type = "RGBA"
+        lk(vs.outputs[0], mixc.inputs[0]); lk(a1.outputs["Color"], mixc.inputs[6]); lk(a2.outputs["Color"], mixc.inputs[7])
+        lk(mixc.outputs[2], pa.inputs["Base Color"])
+        geo = N("ShaderNodeNewGeometry"); sep = N("ShaderNodeSeparateXYZ"); lk(geo.outputs["Position"], sep.inputs[0])
+        vw = N("ShaderNodeValue"); vw.label = "wipe_y"; gt = N("ShaderNodeMath"); gt.operation = "GREATER_THAN"
+        lk(sep.outputs["Y"], gt.inputs[0]); lk(vw.outputs[0], gt.inputs[1])
+        ms = N("ShaderNodeMixShader"); lk(gt.outputs[0], ms.inputs[0]); lk(sil.outputs[0], ms.inputs[1]); lk(pa.outputs[0], ms.inputs[2])
+        lk(ms.outputs[0], out.inputs[0])
+        for f in range(1, nframes + 1):
+            t = (f - 1) / fps; u = min(1.0, max(0.0, (t - L["wipe"][0]) / (L["wipe"][1] - L["wipe"][0])))
+            vw.outputs[0].default_value = 3.0 - 6.0 * (u * u * (3 - 2 * u)); vw.outputs[0].keyframe_insert("default_value", frame=f)
+            vs.outputs[0].default_value = 1.0 if t >= L["stripes"] else 0.0; vs.outputs[0].keyframe_insert("default_value", frame=f)
+        for o in [o for o in sc.objects if o.type == "MESH"]:
+            bake(o, o.get("livery_group", "car")); o.data.materials.clear(); o.data.materials.append(m)
 
     cd = bpy.data.cameras.new("cam")
     cam = bpy.data.objects.new("cam", cd)
