@@ -1,0 +1,71 @@
+# Subaru WRX VB (2022+) scan reel v2. Scan only, silver on black. Scene order from this car's scan features (direction.md,
+# director.md; user rules 2026-11-11): whole car -> hood scoop -> FRONT BUMPER OFF (hero, on the drop, labelled) ->
+# right-side cladding off -> REAR BUMPER OFF (labelled) -> reassembly -> fade -> small logo. v1 timeline: project_v1.yaml.
+# Shots: tools/shots_v2.py rendered with tools/shot.py (persistent data off for keyed parts); s4 reused from v1 (tools/shots.py).
+# Music: subaru-wrx-vb_track.mp3 (generated for this reel by the coordinating session; not in git).
+# Broadband kick grid (1 ms RMS half-rise; the v1 40-120 Hz grid read ~58 ms late): downbeats 11.1910 + 1.39609 n.
+# Cut frames: 157, 261, 503, 671, 838, 964; end 1063 (35.43 s). First clip one frame short (assembler cut frame).
+# src_fps per clip = 30*N/(slot+4) (no cloned tails, lessons.md).
+project: subaru-wrx-vb
+format: reel-9x16
+output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/subaru-wrx-vb_track.mp3   # not in git
+  start: 0
+  fade_out: 0.8
+
+beats: [5.224, 8.707, 16.775, 22.360, 27.944, 32.132]
+
+timeline:
+  - id: v2_opener      # whole car, elevated front-right 3/4, moving from frame 1 (ambient intro)
+    focus: whole car
+    src: /home/user/media/work/wrx/renders/final/v2_opener
+    src_fps: 14.72
+    interpolate: true
+    dur: 5.2333
+  - transition: {type: cut, note: "5.224 swell"}
+  - id: s4_scoop       # v1 render reused at 0.80x: hood scoop, the front's signature detail
+    focus: hood scoop
+    src: /home/user/media/work/wrx/renders/final/s4_scoop
+    src_fps: 11.944
+    interpolate: true
+    dur: 3.4667
+  - transition: {type: cut, note: "8.707 swell"}
+  - id: v2_front_off   # bumper leaves on the 11.191 drop, flips (scanned inside), garnish follows; hold on the structure
+    focus: front bumper / structure behind it
+    src: /home/user/media/work/wrx/renders/final/v2_front_off
+    src_fps: 14.939
+    interpolate: true
+    dur: 8.0333
+  - transition: {type: cut, note: "16.775 downbeat"}
+  - id: v2_side_off    # front wheel, then front flare / door flare / rear flare / skirt, one per bar
+    focus: right-side cladding
+    src: /home/user/media/work/wrx/renders/final/v2_side_off
+    src_fps: 14.826
+    interpolate: true
+    dur: 5.6
+  - transition: {type: cut, note: "22.360 downbeat"}
+  - id: v2_rear_off    # rear bumper back toward the lens, flips (inner ribs), hold on the rear structure
+    focus: rear bumper / structure behind it
+    src: /home/user/media/work/wrx/renders/final/v2_rear_off
+    src_fps: 14.826
+    interpolate: true
+    dur: 5.6
+  - transition: {type: cut, note: "27.944 downbeat"}
+  - id: v2_reassemble  # rear -> side -> front home, front locks on 30.736; clean car from the lock; fade from 31.434
+    focus: whole car (reassembly)
+    src: /home/user/media/work/wrx/renders/final/v2_reassemble
+    src_fps: 14.769
+    interpolate: true
+    dur: 4.2
+    vf: "fade=t=out:st=3.5:d=0.7"
+  - transition: {type: cut, note: "32.132 downbeat - small logo through the music fade"}
+  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3 --width 380 --fade-out 0.8
+    focus: logo
+    src: /home/user/media/work/wrx/out/logo_small.mp4
+    dur: 3.2667
+
+overlays:
+  - src: /home/user/media/work/wrx/out/hud_wrx_v2.mov   # ive hud projects/subaru-wrx-vb/overlay.json ...
+    start: 0

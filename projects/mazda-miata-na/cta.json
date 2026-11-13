@@ -1,0 +1,22 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 154,
+ "src": "web_miata_na_mobile_cover.png",
+ "imgW": 1170,
+ "imgH": 2340,
+ "focusX": 585.0,
+ "focusY": 467.062,
+ "startScale": 1.23077,
+ "zoomFrames": 45,
+ "endWidth": 580,
+ "pageCenterY": 960,
+ "titleTop": 150,
+ "radius": 36,
+ "url": "ILLUMAESTHETIC.COM",
+ "title": "MIATA NA SCAN NOW AVAILABLE",
+ "logo": "illumaesthetic_logo.png",
+ "logoWidth": 440,
+ "titleFrom": 44
+}

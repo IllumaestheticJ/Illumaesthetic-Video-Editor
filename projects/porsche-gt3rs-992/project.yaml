@@ -1,4 +1,5 @@
-# Porsche 911 GT3 RS (992) - scan reel v5.
+# Porsche 911 GT3 RS (992) - scan reel v6 = v5 with the front bumper strakes and the fender vent coming off too
+# (user: "the front bumper strakes and the fender vents should also be coming off the car"). v5 notes:
 # Reviewer on v4: "illumaesthetic logo too small; there is a bunch of underbody/aero scans not highlighted/shown; attached is
 # the audio, start after the ~2:50 mark".
 # Music: user's track (Alkitran - Original Mix) from 171.651 s (kick onset). 127.0 BPM, beat 0.47244 s; reel beat b = b*0.47244 s.
@@ -10,7 +11,7 @@
 # Transitions are 1-frame fades; every outgoing clip except the first carries +1 real frame.
 project: porsche-gt3rs-992
 format: reel-9x16
-output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/gt3/out/porsche_gt3rs_992_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/alkitran_full.wav   # user's track, not in git
@@ -28,18 +29,18 @@ timeline:
     interpolate: true
     dur: 3.7667
   - transition: {type: fade, duration: 0.0333, note: "b8 kick"}
-  - id: sh3_nose       # strakes spotlighted 3.9-5.6, lip off b12->b16, hood-vent top up to b18
+  - id: sh3_nose       # strakes off b9->b11, lip off b12->b16, hood-vent top up b16->b18
     section: front
     focus: front aero (bumper strakes, lip, hood-vent top)
-    src: /home/user/media/work/gt3/renders/final/hl_sh3
+    src: /home/user/media/work/gt3/renders/final/v6_sh3
     src_fps: 15
     interpolate: true
     dur: 5.7000
   - transition: {type: fade, duration: 0.0333, note: "b20 kick"}
-  - id: sh4_louvres    # fender vent spotlighted
+  - id: sh4_louvres    # fender vent comes off b21->b23
     section: front
     focus: right front fender vent
-    src: /home/user/media/work/gt3/renders/final/hl_sh4
+    src: /home/user/media/work/gt3/renders/final/v6_sh4
     src_fps: 15
     interpolate: true
     dur: 2.8667
@@ -63,7 +64,7 @@ timeline:
   - id: sh7_side
     section: side
     focus: left side skirt + strake
-    src: /home/user/media/work/gt3/renders/final/v3_sh7
+    src: /home/user/media/work/gt3/renders/final/v6_sh7
     src_fps: 14.3
     interpolate: true
     dur: 3.8333
@@ -71,7 +72,7 @@ timeline:
   - id: sh_wheel       # FL wheel off b44->b47, push into the scanned wheel house through the breakdown, wheel on at b54
     section: wheel
     focus: front-left wheel house (wheel removed)
-    src: /home/user/media/work/gt3/renders/final/v5_wheel
+    src: /home/user/media/work/gt3/renders/final/v6_wheel
     src_fps: 15
     interpolate: true
     dur: 4.7333
@@ -79,7 +80,7 @@ timeline:
   - id: sh_under       # underbody floor scan from below, nose to tail
     section: underbody
     focus: underbody floor scan
-    src: /home/user/media/work/gt3/renders/final/v5_under
+    src: /home/user/media/work/gt3/renders/final/v6_under
     src_fps: 15
     interpolate: true
     vf: "scale=918:1632,pad=1080:1920:81:288:color=0x070709"   # 85 %, pushed down: clear black band for the label
@@ -88,7 +89,7 @@ timeline:
   - id: sh9_stack      # stack lands b68 (32.13), locks b74 (34.96), fade to black 35.5->36.4
     section: whole
     focus: exploded stack -> reassembly
-    src: /home/user/media/work/gt3/renders/final/v3_sh9
+    src: /home/user/media/work/gt3/renders/final/v6_sh9
     src_fps: 14.83       # 1.2 % slower so land/lock sit on b68/b74
     interpolate: true
     vf: "fade=t=out:st=6.2:d=0.9"

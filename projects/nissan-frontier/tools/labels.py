@@ -58,6 +58,7 @@ with tempfile.TemporaryDirectory() as td:
             grow = ease((t - t0) / 0.3)
             pa = pix_anchor(L, t) if L.get("anchor_pixels") else None
             ax, ay = pa if pa else anchor_at(L["id"], t); ax *= W; ay *= H
+            ax += L.get("offset", [0, 0])[0] * W; ay += L.get("offset", [0, 0])[1] * H   # e.g. point under the truck
             title, sub = L["title"], L.get("sub", "")
             wt, ws = tw(title, FT, 6), tw(sub, FS, 4)
             bw = max(wt, ws)

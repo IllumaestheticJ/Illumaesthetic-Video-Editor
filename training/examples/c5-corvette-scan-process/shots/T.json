@@ -1,0 +1,113 @@
+{
+ "objects": {
+  "car": "/home/user/media/work/c5/roofoff.blend",
+  "targa": "/home/user/media/work/c5/targa.blend"
+ },
+ "seconds": 5.4,
+ "fps": 15,
+ "res": [
+  1080,
+  1920
+ ],
+ "sensor": 21.2,
+ "out": "/home/user/media/work/c5/renders/T",
+ "light_ref": "car",
+ "camera": [
+  {
+   "t": 0,
+   "az": 125,
+   "el": 30,
+   "dist": 5.2,
+   "target": [
+    0,
+    0.2,
+    0.9
+   ],
+   "lens": 27.2
+  },
+  {
+   "t": 0.6,
+   "az": 118,
+   "el": 34,
+   "dist": 4.6,
+   "target": [
+    0,
+    0.2,
+    1.0
+   ],
+   "lens": 27.2
+  },
+  {
+   "t": 1.0,
+   "az": 105,
+   "el": 52,
+   "dist": 3.2,
+   "target": [
+    0,
+    0.1,
+    0.7
+   ],
+   "lens": 27.2
+  }
+ ],
+ "anims": {
+  "targa": [
+   {
+    "t": 0.12,
+    "off": [
+     0,
+     0,
+     0
+    ]
+   },
+   {
+    "t": 0.38,
+    "off": [
+     0.7,
+     0.45,
+     0.5
+    ]
+   },
+   {
+    "t": 0.62,
+    "off": [
+     0.7,
+     0.45,
+     0.5
+    ]
+   },
+   {
+    "t": 0.8,
+    "off": [
+     1.8,
+     1.2,
+     2.6
+    ]
+   },
+   {
+    "t": 0.3,
+    "spin": [
+     0,
+     0,
+     1,
+     0
+    ]
+   },
+   {
+    "t": 0.52,
+    "spin": [
+     -125,
+     0,
+     1,
+     0
+    ]
+   }
+  ]
+ },
+ "visible": {
+  "targa": [
+   0,
+   0.8
+  ]
+ }
+}

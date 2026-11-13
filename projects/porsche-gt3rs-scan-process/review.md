@@ -1,24 +1,24 @@
-# GT3 RS (992) scan-process reel v2 — agent self-review (training/rubric.md)
+# GT3 RS (992) scan-process reel v3 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/gt3rs_scan_process_v2.mp4` — 1080×1920, 30 fps, H.264 + AAC, 36.97 s. v1 review: review_v1.md.
+Output: `/home/user/media/work/out/gt3rs_scan_process_v3.mp4` — 1080×1920, 30 fps, H.264 + AAC, 36.73 s. Earlier: review_v1.md, review_v2.md.
 
-v2 = user notes on this reel (spin only useful backsides, framing, parts into clear background) + the all-reels v2 brief and
-addendum relayed from the parent session (scan-feature order via scene director, section focus, no redundancy, exact HUD
-numbers, cropping, luma check, transient-locked cuts).
+v3 = music swap requested by the user: Le Castle Vania – "John Wick Medley" (user-supplied file; the YouTube "All On Me" route
+was blocked by the bot check). Section 182.967–219.7 s of the medley: 120 BPM, drop at 3:06.75 (video 3.78 s), 4-bar phrases
+every 4.0 s, bass drops out at 35.78 s. Edit re-timed to one phrase per scene; x3 reassembly re-rendered shorter (x3jw, 4.6 s,
+orbit 30° onto the listing angle, morph to listing clay 3.1–3.9 s, returning parts staggered every 0.5 s).
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | real car on the lift -> 1:1 on the first accent (3.78 s) |
-| 2 | Beat sync | 5 | 9 cuts measured on the delivered audio's broadband transients: -12..+8 ms (all < 1/2 frame). v1 sat on bass notes 20-100 ms late |
-| 3 | 1:1 match | 4 | unchanged solves (head-on 9 px, side 6 px), onions verified in v1 |
-| 4 | Scan quality | 4 | section close-ups (front bumper aero, front fender, rear diffuser); x-ray cabin still busy behind the front parts |
-| 5 | Story | 5 | one continuous sequence per section: front -> right side (+ scanner screen) -> rear -> reassembly -> listing; parts only leave where the camera is framed on them |
+| 1 | Hook | 4 | real car on the lift -> 1:1 on the medley drop (3.78 s) |
+| 2 | Beat sync | 5 | 8 cuts + dissolve start measured on the delivered audio's 2 kHz transients: -12..-15 ms (all < 1/2 frame) |
+| 3 | 1:1 match | 4 | unchanged solves (head-on 9 px, side 6 px); size/position match re-checked in the cut strip |
+| 4 | Scan quality | 4 | same section close-ups as v2; fender-vent spin kept (its back is a visible mounting face) |
+| 5 | Story | 5 | front -> crew scanning -> side -> scanner screen -> rear -> reassembly -> listing, one phrase each |
 | 6 | Grade | 4 | unchanged |
-| 7 | Text | 5 | static labels with exact STL-header counts (24,999,999 / 100,000 + 399,999 / 400,000 / 1,100,000); counter easing (stops at 99.9 %) no longer used |
-| 8 | Ending | 5 | reassembly lands on the listing angle in listing grey, dissolve, end card 5.1 s (was 6.0) |
-| 9 | Technical | 5 | per-frame luma clean on all six render folders; persistent data off for the re-renders; no dup/black frames at cuts |
+| 7 | Text | 5 | static labels with exact STL-header counts, only over scan shots |
+| 8 | Ending | 5 | reassembly lands on the listing turntable angle, 0.5 s dissolve on the phrase, end card 5 s, music fades 1.2 s after the bass drops |
+| 9 | Technical | 5 | x3jw luma clean (69 frames), no dup/black frames at cuts |
 
 ## Known issues / ideas
-- Side explode keeps the 1:1 camera, so the lower half (where the lift is in the real frame) stays empty.
-- The aero parts' scans include their mounting backs, but no footage shows them coming off the car; nothing on screen says "removed".
-- Opener alternative v_0130_125414 (crew under the car) still unused.
+- Side explode still keeps the 1:1 camera (empty lower half).
+- Scanner-screen IRL shot (4 s) is the longest IRL hold; could be trimmed to 2 bars if the user wants it tighter.

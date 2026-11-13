@@ -1,0 +1,10 @@
+{"note": "direction.md labels; frames are reel frames at 30 fps; y = text top in px (top band 150-330, low band 1300-1500)",
+ "frames": 1146, "fps": 30,
+ "items": [
+  {"text": "FRONT BUMPER REMOVED", "in": 452, "out": 555, "y": 1380},
+  {"text": "DIFFUSER REMOVED", "in": 645, "out": 712, "y": 220},
+  {"text": "REAR BUMPER REMOVED", "in": 748, "out": 790, "y": 1380},
+  {"text": "CRASH BEAM", "in": 795, "out": 822, "y": 1380},
+  {"text": "CRASH BEAM REMOVED", "in": 838, "out": 920, "y": 220},
+  {"text": "MOUNTING POINTS", "in": 864, "out": 920, "y": 300}
+ ]}

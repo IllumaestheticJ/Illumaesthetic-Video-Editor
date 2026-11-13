@@ -1,0 +1,81 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1038,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 174,
+   "duration": 51,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "HEADLIGHTS REMOVED",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "label",
+   "from": 226,
+   "duration": 51,
+   "title": "FRONT STRUCTURE",
+   "sub": "FRUNK \u00b7 MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "label",
+   "from": 282,
+   "duration": 50,
+   "title": "FRONT BUMPER",
+   "sub": "SCAN \u00b7 14,996,520 TRIANGLES",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 351,
+   "duration": 67,
+   "title": "FRONT BUMPER PARTS",
+   "sub": "FOG LIGHTS \u00b7 RADAR \u00b7 TRIM COVERS",
+   "x": 0.08,
+   "y": 0.84
+  },
+  {
+   "kind": "label",
+   "from": 534,
+   "duration": 43,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "TAIL LIGHTS REMOVED",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "label",
+   "from": 579,
+   "duration": 49,
+   "title": "REAR STRUCTURE",
+   "sub": "EXHAUST \u00b7 CRASH BEAM \u00b7 MOUNTS",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "label",
+   "from": 633,
+   "duration": 49,
+   "title": "REAR BUMPER",
+   "sub": "SCAN \u00b7 14,993,289 TRIANGLES",
+   "x": 0.08,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 702,
+   "duration": 68,
+   "title": "REAR BUMPER PARTS",
+   "sub": "DIFFUSER \u00b7 REFLECTORS \u00b7 TRIM COVER",
+   "x": 0.08,
+   "y": 0.84
+  }
+ ]
+}

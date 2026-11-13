@@ -1,17 +1,17 @@
 # Director report - projects/ferrari-296/project.yaml
 
-Total 39.0 s. Sections (s): whole 5.07, wheel 2.33, front 13.33, side 4.67, rear 4.63, explode 3.47, logo 5.5
+Total 52.5 s. Sections (s): whole 6.5, front 13.16, wheel 4.5, side 3.33, rear 9.17, explode 9.67, cta 6.17
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_wide | 0.0 | 5.07 | whole | whole car, front-right 3/4, moving from frame 1 | 0.59 | 0.0 | 9.1->9.8 |  |
-| s3_wheel | 5.07 | 2.33 | wheel | carbon-ceramic disc through the front-right spokes | 5.55 | 0.0 | 43.9->47.4 |  |
-| f5_front | 7.4 | 8.7 | front | hood opens (scanned open state) -> front bumper out, turned to show its scanned inner face | 6.59 | 0.0 | 29.5->18.0 |  |
-| F_hero | 16.1 | 4.63 | front | FRONT BUMPER REMOVED: crash beam + brackets behind the bumper (Front Fully Removed scan) | 10.23 | 0.0 | 51.3->60.7 |  |
-| x_side | 20.73 | 4.67 | side | right flank: fender, side skirt, then rear bumper + diffuser come off | 10.17 | 0.0 | 29.7->30.2 |  |
-| R_hero | 25.4 | 4.63 | rear | REAR BUMPER REMOVED: exposed rear structure, then the louvre lifts off -> ENGINE BAY | 11.11 | 0.0 | 46.8->57.9 |  |
-| x_lock | 30.03 | 3.47 | explode | every part out -> fly home -> LOCK on 32.350 | 1.74 | 0.0 | 11.5->12.8 |  |
-| logo | 33.5 | 5.5 | logo | Illumaesthetic logo | 0.1 | 4.5 | 0.0->0.8 |  |
+| s1_wide | 0.0 | 6.5 | whole | whole car, front-right 3/4, moving from frame 1 (intro bars) | 0.55 | 0.0 | 8.7->9.5 |  |
+| f5_front | 6.5 | 7.33 | front | HOOD opens (scanned open state) -> FRONT BUMPER out, turned to show its scanned inner face | 7.54 | 0.0 | 28.4->17.1 |  |
+| F_hero | 13.83 | 5.83 | front | FRONT BUMPER REMOVED: crash beam behind the bumper | 8.58 | 0.0 | 48.7->57.1 |  |
+| v5_wheel | 19.67 | 4.5 | wheel | FRONT WHEEL off -> scanned brake disc + caliper in the arch; FENDER off | 7.04 | 0.0 | 27.6->29.2 |  |
+| v5_side | 24.17 | 3.33 | side | SIDE SKIRT drops; REAR BUMPER + DIFFUSER pull back | 12.36 | 0.0 | 30.5->25.6 |  |
+| v5_rear | 27.5 | 9.17 | rear | ENGINE COVER off -> engine bay; EXHAUST TIP out; every removed part from above | 11.24 | 0.0 | 30.3->37.5 |  |
+| v5_drop | 36.67 | 9.67 | explode | all 9 parts blown out on the drop, then home and lock | 3.99 | 0.0 | 10.5->13.6 |  |
+| cta | 46.33 | 6.17 | cta | mobile listing: 1:1 scan -> website cover photo, gallery photos, SCAN DATA AVAILABLE NOW / ILLUMAESTHETIC.COM | 7.1 | 0.83 | 56.3->45.1 | dead frames 0.8s (nothing moves) - trim or give the hold a reason |
 
 ## Repeated views
-- s1_wide ~ x_lock (IoU 0.7, corr 0.79): same view shown twice
+- none

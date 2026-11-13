@@ -1,3 +1,10 @@
+# v7 - user on v6: "when scrolling through the different photos/options, change the dropdown so the scan price reflects
+#   the photo, and then re-render with all scans in a different color" (asked: each part its own colour).
+#   -> every shot re-rendered with tools/palette.py (green body, each removed part its own colour) into renders/color/;
+#      CTA swipes = Dataset option changes with the site's own variant -> photo mapping and prices (tools/cta.py).
+#   v6: project_v6.yaml.
+# v6 - user on v5: "add the mobile version CTA for the scan data at the end with the 1:1 transition of the website photos"
+#   -> the logo card is replaced by the mobile listing CTA (cut at frame 956 = k75 unchanged). v5: project_v5.yaml.
 # v5 - user on v4: "re-edit it to this song (Buckshot Roulette OST - General Release), learn from the GT3RS video editor on
 #   what to change. right now, not enough of the parts are blown up or shown".
 #   GT3RS lessons applied: every part comes off on a kick where the camera is and STAYS off (progressive explode), one label
@@ -10,7 +17,7 @@
 # Cut frames: 124 (k8), 298 (k22), 347 (k26), 446 (k34), 521 (k40), 732 (k57 drop), 956 (fade -> logo); end 1140 (38.0 s).
 project: ferrari-296
 format: reel-9x16
-output: {path: /home/user/media/work/f296/out/ferrari_296_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/f296/out/ferrari_296_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/buckshot_general_release.wav   # user-supplied track, not in git
@@ -23,7 +30,7 @@ timeline:
   - id: s1_wide
     section: whole
     focus: "whole car, front-right 3/4, moving from frame 1 (intro bars)"
-    src: /home/user/media/work/f296/renders/final/s1_wide
+    src: /home/user/media/work/f296/renders/color/s1_wide
     src_fps: 15
     interpolate: true
     frames: 124
@@ -31,7 +38,7 @@ timeline:
   - id: f5_front   # hood opens k9, bumper out k13, turns k17 (x1.0527 via the input rate: speed: drops 1 frame in 19)
     section: front
     focus: "HOOD opens (scanned open state) -> FRONT BUMPER out, turned to show its scanned inner face"
-    src: /home/user/media/work/f296/renders/final/f5_front
+    src: /home/user/media/work/f296/renders/color/f5_front
     src_fps: 15.7905
     interpolate: true
     trim_start: 0.132
@@ -40,7 +47,7 @@ timeline:
   - id: F_hero
     section: front
     focus: "FRONT BUMPER REMOVED: crash beam behind the bumper"
-    src: /home/user/media/work/f296/renders/final/F_hero
+    src: /home/user/media/work/f296/renders/color/F_hero
     src_fps: 15
     interpolate: true
     trim_start: 1.0
@@ -49,7 +56,7 @@ timeline:
   - id: v5_wheel   # wheel slides off along its axle k27-29, fender lifts off k30-31
     section: wheel
     focus: "FRONT WHEEL off -> scanned brake disc + caliper in the arch; FENDER off"
-    src: /home/user/media/work/f296/renders/final/v5_wheel
+    src: /home/user/media/work/f296/renders/color/v5_wheel
     src_fps: 15
     interpolate: true
     frames: 99
@@ -57,7 +64,7 @@ timeline:
   - id: v5_side   # skirt k35, rear bumper k37, diffuser k38
     section: side
     focus: "SIDE SKIRT drops; REAR BUMPER + DIFFUSER pull back"
-    src: /home/user/media/work/f296/renders/final/v5_side
+    src: /home/user/media/work/f296/renders/color/v5_side
     src_fps: 15
     interpolate: true
     frames: 75
@@ -65,7 +72,7 @@ timeline:
   - id: v5_rear   # breakdown: engine cover lifts off k42-44, exhaust tip k46-49, rise to the high view of every part off
     section: rear
     focus: "ENGINE COVER off -> engine bay; EXHAUST TIP out; every removed part from above"
-    src: /home/user/media/work/f296/renders/final/v5_rear
+    src: /home/user/media/work/f296/renders/color/v5_rear
     src_fps: 15
     interpolate: true
     frames: 211
@@ -73,16 +80,16 @@ timeline:
   - id: v5_drop   # blast k57-59, drift, fly home k69 -> LOCK k71, fade from k73
     section: explode
     focus: "all 9 parts blown out on the drop, then home and lock"
-    src: /home/user/media/work/f296/renders/final/v5_drop
+    src: /home/user/media/work/f296/renders/color/v5_drop
     src_fps: 15
     interpolate: true
-    frames: 224
-    fade_out: 0.83
+    frames: 224   # v6: no fade - the camera swings onto the cover photo's solved camera and cuts 1:1 on k75
   - transition: {type: cut}
-  - id: logo   # tools/logo_card.py --secs 6.1333 --width 660 --lead 0.817 --fade-out 1.0 --tail 0.3 (logo in on k77)
-    section: logo
-    focus: Illumaesthetic logo
-    src: /home/user/media/work/f296/out/logo_v5.mp4
+  - id: cta   # Remotion MobileCTA (cta.json, tools/cta.py): 1:1 into the listing's cover photo on the mobile page,
+    #            zoom out k75-k79, gallery swipes land on k80/k82/k84, CTA k85, URL k86
+    section: cta
+    focus: "mobile listing: 1:1 scan -> website cover photo, gallery photos, SCAN DATA AVAILABLE NOW / ILLUMAESTHETIC.COM"
+    src: /home/user/media/work/f296/out/cta_v7.mp4
     frames: 184
 
 overlays:

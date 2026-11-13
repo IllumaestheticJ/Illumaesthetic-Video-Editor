@@ -1,25 +1,25 @@
-# Huracan Evo scan reel v6 - self-review (training/rubric.md)  (older: review_v5 ... review_v1.md)
+# Huracan Evo scan reel v7 - self-review (training/rubric.md)  (older: review_v6 ... review_v1.md)
 
-Output: `/home/user/media/work/out/huracan_evo_v6.mp4` - 1080x1920, 30 fps, AAC, 29.97 s. Picture is identical to v5 (same timeline).
-Change: one continuous speech about the EVO (user), in a custom voice cloned from the mod creator's own narration
-(`jennp_voice2.mp4`; the user attests explicit consent from the speaker), at her natural pitch, without the pitch/speed processing
-v5 had.
+Output: `/home/user/media/work/out/huracan_evo_v7.mp4` - 1080x1920, 30 fps, AAC, 29.97 s.
+Changes from the user's notes on v6: the full coupe rear-end disassembly, the exhaust and the wheel wells (2023 coupe scan set),
+a 720 px logo (was 380), and a narration conclusion ("Named after a fighting bull, and built like one. This is the Huracan EVO."
+landing on the logo).
 
 | # | Criterion | Score | Evidence / gap |
 |---|---|---|---|
-| 1 | Hook | 4 | Reference engine start-up at 0.3 s, speech from 3.0 s. |
-| 2 | Beat sync | 5 | Same cuts as v5 (-12..+22 ms vs kicks). |
-| 7 | Text | 4 | Spoken: EVO, named after an 1879 fighting bull, NA V10, 631 hp, AWD + rear-wheel steering, LDVI predicts your next move, >5x the original Huracan's downforce, 0-62 mph 2.9 s, 202 mph. The torque line was cut to fit 30 s without speeding the voice up. |
-| 9 | Technical | 4 | Speech section -12.7 LUFS, engine -10 LUFS, peaks <= -0.4 dBFS. The clone is built from a clip with music under the voice (no stem separation available here), so some bed colour may carry into the voice. |
-Other rows: unchanged from v5 (review_v5.md).
-
-## Voice measurements (tools/voicematch.py)
-- Against her source recording: F0 -0.2 st, timbre 1.1 dB; pace 3.7 onsets/s (calmer than v5's 4.3-4.8).
-- Pauses are trimmed to 0.32 s (no time-stretch). seed_audio speech_rate +5 (the 0 take with the full script ran 28 s).
+| 1 | Hook | 4 | Reference engine start-up and lights-up reveal; speech from 3.0 s. |
+| 2 | Beat sync | 5 | Hard cuts vs kicks on the delivered file: +22 -11 -11 -12 -12 -12 ms. The drop is at 10.28 s and the logo is on the music stop at 27.08 s. |
+| 4 | Scan quality | 3 | New parts are registered (regcheck 2.3-7.6 mm median). The exhaust (scanned standalone) was fitted by ICP at 4.7 mm median. Jack stands were cut from the rear-end and wheel-well scans. The derived bumper has ragged edges where the full car and the no-bumper scan meet, and the rear-end scan ends at mid-car (framing keeps the cut edge small). |
+| 5 | Story | 4 | Coupe select -> wheel -> side -> drop -> Spyder front bumper -> coupe rear bumper off (hold) -> grille/beam/decklid off -> exhaust out -> rear wheel well (no liner) -> reassembly to the whole coupe -> logo. One Spyder shot remains at the front of the teardown. |
+| 7 | Text | 4 | Labels: REAR END, NO BUMPER / 9,500,000 TRIANGLES and EVO EXHAUST / 17,309,868 TRIANGLES (STL header counts, size-checked), both on black. |
+| 8 | Ending | 5 | Reassembly -> whole-coupe pull-back -> fade -> 720 px logo while the narration says "This is the Huracan EVO." |
+| 9 | Technical | 4 | Every new frame is lit (luma scan). Speech is -13.1 LUFS, engine -10 LUFS, peaks <= -0.4 dBFS. |
+Unchanged rows (3, 6) as in v5.
 
 ## Not verified
-- I can't listen here, so the clone's likeness and pronunciation (Huracan, LDVI) are unchecked.
+- I can't listen here, so the conclusion line's delivery is unheard.
 
 ## What the next agent should know
-- Only clone a voice with the speaker's consent. Files traced to a game narrator (exact F0 match to the reference, downloader encoder tag, digital-silence gaps) were refused even when renamed.
-- A clean voice-only recording makes a better clone than one cut from a mix.
+- Standalone part scans (e.g. 'EVO exhaust', scanned upright on a stand) are NOT in the car frame. Fit them to a state scan that shows the part installed: PCA axes x sign-flip search + trimmed ICP, then keep the clear winner (here 4.7 mm vs 17 mm for the next orientation).
+- State scans taken with the car on jack stands carry the stands. Cut low triangles outside the tyre contact zones before prep.
+- `shots.py` has several `__main__` blocks. Write a single section's JSONs with `runpy.run_path(..., run_name='v7')` so older sections don't overwrite rendered shots' JSONs.

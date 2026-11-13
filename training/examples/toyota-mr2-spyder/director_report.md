@@ -1,16 +1,18 @@
 # Director report - projects/toyota-mr2-spyder/project.yaml
 
-Total 33.63 s. Sections (s): whole 9.13, side 2.13, front 6.53, cabin 6.33, rear 6.4, untagged 3.1
+Total 35.77 s. Sections (s): front 7.87, underbody front 1.97, underbody rear 1.93, rear 3.97, kit rear 3.93, kit front 3.93, drive front 3.5, drive rear 5.33, untagged 3.33
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| s1_wide | 0.0 | 4.3 | whole | whole car establishing orbit | 0.48 | 0.0 | 6.8->8.0 |  |
-| s4_wheel | 4.3 | 2.13 | side | front wheel and tyre close-up | 4.7 | 0.0 | 34.4->36.0 |  |
-| s12_front | 6.43 | 6.53 | front | bumper-removed crash structure, then hood open | 9.37 | 0.0 | 24.7->44.1 |  |
-| s13_top | 12.97 | 6.33 | cabin | hardtop removed, roll bar | 4.89 | 0.0 | 35.7->38.5 |  |
-| s14_rear | 19.3 | 6.4 | rear | rear lid open over the engine bay | 8.31 | 0.0 | 31.2->37.5 |  |
-| s15_reassemble | 25.7 | 4.83 | whole | parts return, clean car | 5.74 | 0.0 | 26.2->22.6 |  |
-| logo | 30.53 | 3.1 |  |  | 0.16 | 2.16 | 0.1->1.0 |  |
+| v1_front | 0.0 | 7.87 | front | real front bumper comes off, structure behind it | 11.54 | 0.0 | 10.7->37.4 |  |
+| v2a_under_front | 7.87 | 1.97 | underbody front | front undertray and subframe | 23.85 | 0.0 | 44.5->54.4 |  |
+| v2b_under_rear | 9.83 | 1.93 | underbody rear | exhaust and drivetrain underside | 18.25 | 0.0 | 39.7->46.3 |  |
+| v3_engine | 11.77 | 3.97 | rear | engine bay under the hinged lid | 20.84 | 0.0 | 36.0->67.4 |  |
+| v4a_kit_rear | 15.73 | 3.93 | kit rear | Epsilon wing, duckbill, spats, diffuser, hardtop landing | 6.0 | 0.0 | 19.2->16.7 |  |
+| v4b_kit_front | 19.67 | 3.93 | kit front | Epsilon skirts, vents, eyelids, bumper closing the nose | 2.75 | 0.0 | 16.7->15.8 |  |
+| c1_drive_front | 23.6 | 3.5 | drive front | finished car driving, same pose | 12.07 | 0.0 | 64.9->65.5 |  |
+| c2_drive_rear | 27.1 | 5.33 | drive rear | car pulls away | 16.59 | 0.0 | 62.4->65.0 |  |
+| logo | 32.43 | 3.33 |  |  | 0.48 | 2.5 | 0.8->3.5 |  |
 
 ## Repeated views
-- none
+- v1_front ~ v4b_kit_front (IoU 0.8, corr 0.9): same view shown twice

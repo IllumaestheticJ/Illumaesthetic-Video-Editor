@@ -1,43 +1,87 @@
-# Ferrari 296 GTB scan reel v4 - self-review (v2: review_v2.md, v1: review_v1.md)
+# Ferrari 296 GTB scan reel v7 - self-review (v6: review_v6.md)
 
-v4 answers the all-reels brief + addendum A-D (relayed from the user) on top of the v3 director plan:
-scene order by the scene director (direction.md) - whole car -> wheel -> FRONT (hood opens from the scanned open state,
-bumper out and turned to show its inner face, then the FRONT BUMPER REMOVED hero) -> SIDE (fender, skirt off) -> REAR
-(REAR BUMPER REMOVED hero, louvre lifts off -> ENGINE BAY) -> full explode locks home -> fade -> small logo.
-Each section appears once (front -> side -> rear, no ping-pong). Labels only over the bumper-removed / engine-bay scan
-shots, wording from the scan files.
+User on v6: "when scrolling through the different photos/options, change the dropdown so the scan price reflects the
+photo, and then re-render with all scans in a different color" -> chose "Each part its own color". Then: "dont change the
+dropdown in the actual product, change the dropdown in the video" (nothing on the store was ever changed: the options were
+picked in a local headless browser like a visitor and screenshotted).
 
-Output: `/home/user/media/work/f296/out/ferrari_296_v4.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 39.00 s (1170 frames).
-Cut frames 153, 222, 482, 622, 762, 901, 1005 (assemble_cuts.py, no repeated frame at any cut).
+v7 = v6 timing (cuts 124, 298, 347, 446, 521, 732, 956) with:
+- every scan shot re-rendered with a palette: body green, hood yellow, front bumper pink, wheel blue, fender amber, skirt
+  teal, rear bumper salmon, diffuser violet, engine cover sky, exhaust orange (satin BSDF, tools/palette.py).
+- CTA: each carousel swipe (k80-k85) lands on the photo the site itself shows for a Dataset option (variant featured
+  image), and the page under it switches to that option's screenshot, so the dropdown + price match the photo:
+  Front Bumper $1,000, Hood $800, Rear Bumper $1,000, Engine Bay $600, Side Skirt $800, Fender $800; All Data $4,000 with
+  the CTA (k86). Green outline pulses on the dropdown + price at each change. Prices are the site's, nothing typed.
 
-Checked: max luma of every render frame (caught f5_front 31-40 black again even in a fresh process -> re-rendered);
-first/middle/last contact sheet of every shot (rule A); label frames composited (two labels moved/shortened + halo
-after they ran over bright geometry); per-frame near-duplicate scan of the final mp4 (found 2-3 clone-padded frames at 4
-clip ends -> fixed, now 0); `ive director` (one flag, see below); cuts against the decoded audio.
+Output: `/home/user/media/work/f296/out/ferrari_296_v7.mp4` - 1080x1920, 30 fps, 38.00 s, h264 + AAC.
+Checked: every color render (frame counts, 0 dark), contact sheets of all 7 shots, HUD labels over the colored scans,
+frames 954-956 at the 1:1 cut, CTA stills per option, probe, `ive director` (only flag: 0.8 s still at the very end =
+URL hold, kept).
+
+Scores as v6 except: Grade 5 -> 4 (deliberate departure from the house silver look at the user's request; the parts now
+read apart instantly, but the 1:1 cut now also changes colour, colored scan -> grey website render). Text 5: dropdown and
+price follow each photo from the site's own variant data.
+Open: salmon rear bumper and amber fender are close-ish hues (never in frame together except the drop).
+
+---
+# Ferrari 296 GTB scan reel v6 - self-review (v5: review_v5.md)
+
+User on v5: "add the mobile version CTA for the scan data at the end with the 1:1 transition of the website photos".
+
+v6 = v5 up to the lock (k71), then a new ending (replaces the fade + logo card):
+- k71 -> k75: the locked car swings round the nose onto the camera solved against the listing's cover photo (the
+  website photos are grey renders of this same scan); k75 = hard 1:1 cut from the silver scan to that photo.
+- the photo is in the phone layout of illumaesthetic.com/products/ferrari-296-gtb-type-f171-3d-scan-2022 (Playwright,
+  iPhone 14 Pro, 393x699 = 9:16); zoom out k75 -> k79 into its gallery slot, carousel swipes land on k80/k82/k84
+  (front bumper explode, rear 3/4, rear bumper + engine explode - the listing's own photos), "SCAN DATA / AVAILABLE NOW"
+  k85, "ILLUMAESTHETIC.COM" k86, slow push-in to the end (Remotion MobileCTA, cta.json).
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v6.mp4` - 1080x1920, 30 fps, 38.00 s, cuts unchanged (956 = k75).
+Checked: cover-photo camera by edge overlay (wheels, headlights, windscreen, mirror, side intake on the photo's);
+frames 955/956 overlaid at the cut; near-duplicate/dark scan (only the 6-frame hold on the 1:1 frame + the arrival);
+`ive director` (no flags); every CTA phase in a contact sheet.
+
+Ending score 5 -> 5 (now a CTA that lands on the product). Text 4: CTA wording is the listing's ("scan data ... is now
+available"), no numbers added; the page's own price shows faintly above the CTA.
+Open: the scan composite and the website scan differ slightly at the front lip and sill (both visible across the cut
+by ~10-20 px); the site may change - the page was captured 2026-11-12.
+
+---
+# Ferrari 296 GTB scan reel v5 - self-review (v4: review_v4.md)
+
+User on v4: "re-edit it to this song (Buckshot Roulette OST - General Release), learn from the GT3RS video editor on what
+to change. right now, not enough of the parts are blown up or shown."
+
+v5: 9 moving parts (v4: 7) - hood, front bumper, + FRONT WHEEL (arch filled from the wheel-off "Brake Disk" state scan:
+disc, caliper, hub, liner), fender, side skirt, rear bumper, diffuser, engine cover, + EXHAUST TIP. GT3RS pattern:
+every part comes off on a kick where the camera is and STAYS off (progressive explode), one label per part, then all 9
+blast out together on the drop (k57), drift, fly home k69 and lock k71, fade, logo (660 px).
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v5.mp4` - 1080x1920, 30 fps, h264 yuv420p + AAC, 38.00 s (1140 frames).
+Cut frames 124, 298, 347, 446, 521, 732, 956.
+
+Checked: max luma of every render frame (0 bad); first/quarter/middle/three-quarter/last sheets of the new shots;
+frames at every label window before placing labels and again composited (labels type on, all complete); per-frame
+near-duplicate + dark scan of the final mp4 (0 / 0 before the fade); cuts vs measured kicks; `ive director`; probe.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Whole car, centred with margins (y 607-836 of 1440), turning from frame 1. |
-| 2 | Beat sync | 4 | All cuts on the 103.4 BPM grid. Measured on the decoded track: the sub-bass is a sustained drone, no kick transients. The two cuts with a strong broadband transient within 2 frames were moved onto it (153: +13 ms, 482: +3 ms). The other five have no strong transient within +-150 ms (beatless passages), so they stay on the grid. |
+| 1 | Hook | 4 | Whole car turning from frame 1 over the intro bars. |
+| 2 | Beat sync | 5 | Kicks measured on the decoded 40-120 Hz band; every cut within +-16 ms (half a frame) of a kick; drop cut on k57. Part motions start on kicks (wheel k27, fender k30, skirt k35, rear bumper k37, diffuser k38, cover k42, exhaust k46, blast k57, lock k71). |
 | 3 | 1:1 match | n/a | Scan-only reel. |
-| 4 | Scan quality | 3 | Composite interiors are ragged where the state scans overlap (frunk holes, bumper inner face speckle); grille gaps. Real data, not hidden. |
-| 5 | Story | 4 | One continuous sequence per section, hero beats on both bumper-removed scans, opening only from data (hood: scanned open state; engine louvre lifts off, no hinge, no trunk shot). |
-| 6 | Grade | 5 | One AgX silver look; logo card black matched (7,7,9). |
-| 7 | Text | 4 | 3 labels, scan shots only, no numbers: FRONT BUMPER / REMOVED - CRASH BEAM; REAR BUMPER / REMOVED - REAR STRUCTURE; ENGINE BAY / ENGINE COVER REMOVED. Dark halo (ScanHUD `shadow: true`) keeps them legible over bright scan; front sub line still crosses some structure. |
-| 8 | Ending | 5 | x_lock fades to black (0.5 s), then the small logo (380 px) fades in/out with the track's fade. |
-| 9 | Technical | 5 | 1080x1920, 30 fps, yuv420p, AAC, faststart; 0 black frames outside the intended fade, 0 duplicated frames before the logo. |
+| 4 | Scan quality | 3 | Composite interiors ragged where state scans overlap; rear bumper inner face speckled; wheel bottom 31 mm completed by rotating the wheel 144 deg (5 double spokes, spoke-for-spoke). |
+| 5 | Story | 4 | front -> wheel -> side -> rear -> everything off from above -> drop blast -> lock. Parts stay off, so by the breakdown the car is visibly stripped. |
+| 6 | Grade | 5 | One AgX silver look across old and new shots. |
+| 7 | Text | 4 | 9 labels, one per part, scan shots only, wording from scan files, no numbers. Short windows on the side shot (30-32 frames) because the parts come off fast on consecutive kicks. |
+| 8 | Ending | 5 | Lock on k71, fade, logo in on k77 with the track fade. |
+| 9 | Technical | 5 | Spec correct; 0 duplicated/black frames before the fade. |
 
-## Open points the reviewer may push on
-- `ive director` flags s1_wide ~ x_lock (IoU 0.70): both are side-ish 3/4 wides of the whole car. Kept: x_lock is the
-  exploded car flying home (the brief's "exploded view that reassembles"), and it is the bookend before the fade.
-- x_lock opens with rear-bumper pieces entering from the frame edges; x_side's skirt slides out of frame at its end.
-- Frames inside clips are stretched up to 2.8 % (input rate 14.58-14.81 fps instead of 15) to avoid clone padding.
+## Open points
+- `ive director`: s1_wide ~ v5_drop (IoU 0.71) - bookend whole-car view, kept. v5_drop "dead frames 1.7 s" = the locked
+  car holding before the fade, kept.
+- The drop opens with the front bumper partly leaving frame bottom-right.
 
 ## For the next agent
-- `ive assemble`/_render_clip pads short interpolated clips by cloning the last frame (tpad). minterpolate turns N
-  renders at r fps into only (N-1)*30/r - 1 frames, so a clip cut to 2N frames stalls for 2-3 frames before its cut.
-  Scan the final mp4 for near-identical consecutive frames; fix by lowering src_fps to (N-1)*30/(n+2) (assemble_cuts.py
-  does this) or by rendering one extra 15 fps frame per shot.
-- Persistent data off + 40-frame chunks still produced a 10-frame black run once: the per-frame luma scan is mandatory.
-- A generated track may have no kick at all in the low band; measure transients in the 2-8 kHz band before claiming
-  "cut on the kick".
+- Wheel axle: least-squares intersection of tread-triangle normals, not a hub-face circle fit (that was 100 mm off).
+- shot.py: aiming the camera target LOWER moves the subject UP in frame.
+- Don't retime interpolated renders with `speed:` (drops 1 frame in 19 -> judder); change `src_fps` instead.

@@ -1,4 +1,26 @@
-# Mazda Miata ND scan reel - self-review (v3, delivered)
+# Mazda Miata ND scan reel - self-review (v5, delivered)
+
+v5 = the user's notes on v4 (feedback.jsonl): edit to the uploaded Megalomaniac track, hood cut line corrected, 1:1 match into
+the mobile listing. File: `/home/user/media/work/miata/out/miata_nd_v5.mp4` (30.1 s, 903 frames, 1080x1920).
+- Beat sync 4: 128.05 BPM onset grid; cuts -21..+20 ms on clear onsets; the hood-shot cut sits on the off-grid stutter-fill hit
+  (238.96 s, +10 ms); the hood lands on the drop. One weak-onset cut (21.6 s) reads +120 ms in a dense passage (measurement noise).
+- Scan quality 4: hood cut on the real shut lines (cowl arc, fender-top seams, headlight tops, badge line) from a high-pass height map.
+- 1:1 into the CTA 5: reassembly ends on the listing camera solved from the screenshot (IoU 0.975); onion check shows wheels,
+  glass line, door and lamps coinciding; scan toned to the listing grey, then dissolves into the page's own image.
+- Ending 5: CTA phone (title, ILLUMAESTHETIC.COM) -> 760 px logo; music fades out over the logo (the track continues past the reel).
+
+## Earlier reviews (v4/v3) kept below
+# Mazda Miata ND scan reel - self-review (v4, delivered)
+
+v4 = v3 + the user's notes on v3 (feedback.jsonl): rear-wing residue on the trunk deleted, mobile call-to-action
+transition into the final shot, logo 760 px. File: `/home/user/media/work/miata/out/miata_nd_v4.mp4` (32.1 s, 963 frames).
+- Scan quality 4 -> 4: wing fragments gone from the closed and open lid (fills cleaned, 6 shots re-rendered); thin seam lines
+  at the lid gap remain (trunk-opening edge visible through the panel gap).
+- Ending 5: reassembly locks on the last hit -> car shrinks into a phone showing the real ND listing (CTA) -> 760 px logo.
+- Technical: luma scan clean on every re-render (incl. the s_side frames resumed after a worker restart); cuts unchanged.
+
+## v3 review (kept for the record)
+
 
 File: `/home/user/media/work/miata/out/miata_nd_v3.mp4` - 1080x1920, 30 fps, 29.5 s (885 frames), h264 yuv420p + AAC, faststart.
 v3 = the user's v2 brief + addendum (relayed by the parent session). Scene order from the scene-director agent

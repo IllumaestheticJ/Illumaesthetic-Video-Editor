@@ -24,7 +24,7 @@ from ive.assemble import _render_clip  # noqa: E402
 
 def nframes(f):
     return int(subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
-                               "stream=nb_read_frames", "-of", "csv=p=0", str(f)], capture_output=True, text=True).stdout.strip())
+                               "stream=nb_read_frames", "-of", "csv=p=0", str(f)], capture_output=True, text=True).stdout.strip().split(",")[0])
 
 
 def main():

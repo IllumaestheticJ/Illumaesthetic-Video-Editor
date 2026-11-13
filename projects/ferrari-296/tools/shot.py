@@ -86,6 +86,26 @@ def mat_check(rgb):
     return m
 
 
+def mat_paint(rgb, name):
+    """Per-part colour (v7, user: "re-render with all scans in a different color", each part its own colour - like the
+    listing's explode photos): satin paint with the same AO multiply as the silver so scan detail still reads."""
+    m, nt, out = sr.new_mat(f"ive_paint_{name}")
+    c = tuple(rgb) + (1,)
+    p = sr.principled(nt, c, 0.38, 0.25)
+    ao = nt.nodes.new("ShaderNodeAmbientOcclusion")
+    ao.inputs["Distance"].default_value = 0.08
+    ao.inputs["Color"].default_value = (1, 1, 1, 1)
+    mul = nt.nodes.new("ShaderNodeMix")
+    mul.data_type = "RGBA"
+    mul.blend_type = "MULTIPLY"
+    mul.inputs["Factor"].default_value = 0.85
+    mul.inputs["A"].default_value = c
+    nt.links.new(ao.outputs["Color"], mul.inputs["B"])
+    nt.links.new(mul.outputs["Result"], p.inputs["Base Color"])
+    nt.links.new(p.outputs[0], out.inputs[0])
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -105,15 +125,18 @@ def main():
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
+    paint = spec.get("paint") or {}
+    body = mat_paint(paint["base"], "base") if "base" in paint else None
     for o in base:
         o.data.materials.clear()
-        o.data.materials.append(grey if spec.get("base_color") == "grey" else silver)
+        o.data.materials.append(body or (grey if spec.get("base_color") == "grey" else silver))
 
     colors = {"red": (0.9, 0.05, 0.03), "cyan": (0.0, 0.7, 1.0), "green": (0.1, 0.9, 0.1),
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
-        m = mat_check(colors[p["color"]]) if p.get("color") else silver
+        stem = os.path.splitext(os.path.basename(p["blend"]))[0]
+        m = mat_check(colors[p["color"]]) if p.get("color") else (mat_paint(paint[stem], stem) if stem in paint else silver)
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)

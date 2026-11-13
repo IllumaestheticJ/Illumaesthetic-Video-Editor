@@ -1,5 +1,5 @@
 # Honda S2000 AP1 - scan reel v6 (scan only; factual labels over the bumper-removed section only).
-# v6 = all-reels v2 brief + addendum A-D + this reel's feedback: travel front-left -> side -> rear -> over the top -> front;
+# v7 = v6 + real-footage opening with a 1:1 cut (reviewer request). v6 = all-reels v2 brief + addendum A-D + this reel's feedback: travel front-left -> side -> rear -> over the top -> front;
 # the front bumper-removed state is the hero section (bumper off on the drop, structure in detail, bumper inner side,
 # bumper back on); only the real Bumper Only part moves; no hood animation, no trunk. Plan: direction.md / director.md.
 # Music: honda-s2000_track.mp3 (generated for this reel; 138.05 BPM, beat 0.43463 s, first kick 0.0565 s).
@@ -8,7 +8,7 @@
 # 420 (drop) 524 629 706 785 | 889, 994 (no kick in the outro: drift-corrected grid) | 1044; end 1116.
 project: honda-s2000
 format: reel-9x16
-output: {path: /home/user/media/work/s2k/out/honda_s2000_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/s2k/out/honda_s2000_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/honda-s2000_track.mp3   # not in git
@@ -18,13 +18,20 @@ music:
 beats: [3.550, 5.289, 7.027, 8.766, 12.243, 13.982, 17.459, 20.936, 23.544, 26.152, 29.629, 33.106, 34.845]
 
 timeline:
-  - id: W1   # [whole] whole car, front-left 3/4 turntable
+  - id: irl_open   # [whole] REAL car being scanned (YouTube 'How to: Scan A Car for Engineering!' 5:58.7-5:59.6, src frames 8601-8622), landscape band over its blurred fill; ends ON the solved frame 8622
     section: whole
-    focus: "whole car, front-left 3/4 turntable"
-    src: /home/user/media/work/s2k/renders/final/W1
+    focus: "real S2000 front, powder on the bumper, being scanned"
+    src: /home/user/media/work/s2k/renders/final/irl_open
+    src_fps: 30
+    frames: 28
+  - transition: {type: cut, note: "1:1 perspective cut on the kick at 0.917 s (frame 28): real car -> scan, same pixels (match/cam.json)"}
+  - id: W0   # [whole] scan starts on the solved camera, pulls back + swings to front-left 3/4, whole car in frame
+    section: whole
+    focus: "the same car as a scan, whole car"
+    src: /home/user/media/work/s2k/renders/final/W0
     src_fps: 15
     interpolate: true
-    frames: 106
+    frames: 78
   - transition: {type: cut, note: "b8 3.534"}
   - id: S1   # [side] S2000 fender badge -> mirror -> door handle (s4b_flank frames 0-21)
     section: side

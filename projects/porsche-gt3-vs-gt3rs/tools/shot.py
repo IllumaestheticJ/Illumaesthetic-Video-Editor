@@ -164,7 +164,10 @@ def main():
         loc = Vector(sample(ck, t, "loc"))
         tgt = Vector(sample(ck, t, "target"))
         cam.location = loc
-        cam.rotation_euler = (tgt - loc).to_track_quat("-Z", "Y").to_euler()
+        q = (tgt - loc).to_track_quat("-Z", "Y")
+        if all("roll" in k for k in ck):  # optional camera roll (deg, ive.camera.lookat convention) for solved end poses
+            q = q @ Euler((0, 0, -math.radians(sample(ck, t, "roll")))).to_quaternion()
+        cam.rotation_euler = q.to_euler()
         cd.lens = sample(ck, t, "focal")
         cam.keyframe_insert("location", frame=f)
         cam.keyframe_insert("rotation_euler", frame=f)

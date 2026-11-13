@@ -193,6 +193,7 @@ def main():
     sc.render.use_persistent_data = bool(spec.get("persist", False))  # off: lights dropped out mid-animation (lessons, 2026-11-11)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
+    sc.view_settings.exposure = float(spec.get("exposure", 0.0))   # stops; the near-top S1 view blows out at 0
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGB"
     out = os.path.abspath(spec["out"])

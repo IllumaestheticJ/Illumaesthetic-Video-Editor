@@ -1,93 +1,97 @@
-# v4 - all-reels brief + addendum A-D (relayed from the user) on top of v3 (director's held front):
-#   scene order by the scene director (direction.md): travel front -> side -> rear, each section once; bumper-removed state
-#   scans are hero beats with labels (F_hero, R_hero); openings only from data (louvre lifts off); fade, then a SMALL logo.
-#   Cut-only assembly with exact frame counts: projects/ferrari-296/tools/assemble_cuts.py (ive assemble repeats a frame
-#   at every cut). v3: project_v3.yaml, v2: project_v2.yaml, v1: project_v1.yaml.
-# Music: ferrari296_track.mp3 (generated for this reel; 103.4 BPM, beat 0.5803 s, grid 0.435 + k*0.5803).
-# Cut frames: 153, 222, 482, 622, 762, 901, 1005; end 1170 (39.0 s).
+# v7 - user on v6: "when scrolling through the different photos/options, change the dropdown so the scan price reflects
+#   the photo, and then re-render with all scans in a different color" (asked: each part its own colour).
+#   -> every shot re-rendered with tools/palette.py (green body, each removed part its own colour) into renders/color/;
+#      CTA swipes = Dataset option changes with the site's own variant -> photo mapping and prices (tools/cta.py).
+#   v6: project_v6.yaml.
+# v6 - user on v5: "add the mobile version CTA for the scan data at the end with the 1:1 transition of the website photos"
+#   -> the logo card is replaced by the mobile listing CTA (cut at frame 956 = k75 unchanged). v5: project_v5.yaml.
+# v5 - user on v4: "re-edit it to this song (Buckshot Roulette OST - General Release), learn from the GT3RS video editor on
+#   what to change. right now, not enough of the parts are blown up or shown".
+#   GT3RS lessons applied: every part comes off on a kick where the camera is and STAYS off (progressive explode), one label
+#   per part from its scan file, all parts blast out together on the drop, fly home, lock; logo ~60 % width.
+#   9 moving parts (v4: 7): + front-right WHEEL (wheel-off state scan "Brake Disk": disc, caliper, hub, liner) + EXHAUST TIP.
+#   Shots: tools/shots_v5.py (new) + reused s1_wide, f5_front (x1.0527 so its events land on k9/k13/k17), F_hero.
+#   v4: project_v4.yaml.
+# Music: user-supplied mp4 -> buckshot_general_release.wav, from 0 s. 145.1 BPM; kicks measured on the decoded 40-120 Hz band
+#   (buckshot_kicks.json). Breakdown (no kick) k41-56 = 17.4-24.4 s, drop k57 = 24.407 s.
+# Cut frames: 124 (k8), 298 (k22), 347 (k26), 446 (k34), 521 (k40), 732 (k57 drop), 956 (fade -> logo); end 1140 (38.0 s).
 project: ferrari-296
 format: reel-9x16
-output: {path: /home/user/media/work/f296/out/ferrari_296_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/f296/out/ferrari_296_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/ferrari296_track.mp3   # not in git
+  path: /home/user/media/work/music/buckshot_general_release.wav   # user-supplied track, not in git
   start: 0
-  fade_out: 0.3
+  fade_out: 2.0
 
-beats: [5.1, 7.4, 16.067, 20.733, 25.4, 30.033, 33.5]
+beats: [4.123, 9.918, 11.569, 14.883, 17.364, 24.407]
 
 timeline:
   - id: s1_wide
     section: whole
-    focus: "whole car, front-right 3/4, moving from frame 1"
-    src: /home/user/media/work/f296/renders/final/s1_wide
+    focus: "whole car, front-right 3/4, moving from frame 1 (intro bars)"
+    src: /home/user/media/work/f296/renders/color/s1_wide
     src_fps: 15
     interpolate: true
-    frames: 153
-    dur: 5.0667
+    frames: 124
   - transition: {type: cut}
-  - id: s3_wheel
+  - id: f5_front   # hood opens k9, bumper out k13, turns k17 (x1.0527 via the input rate: speed: drops 1 frame in 19)
+    section: front
+    focus: "HOOD opens (scanned open state) -> FRONT BUMPER out, turned to show its scanned inner face"
+    src: /home/user/media/work/f296/renders/color/f5_front
+    src_fps: 15.7905
+    interpolate: true
+    trim_start: 0.132
+    frames: 174
+  - transition: {type: cut}
+  - id: F_hero
+    section: front
+    focus: "FRONT BUMPER REMOVED: crash beam behind the bumper"
+    src: /home/user/media/work/f296/renders/color/F_hero
+    src_fps: 15
+    interpolate: true
+    trim_start: 1.0
+    frames: 49
+  - transition: {type: cut}
+  - id: v5_wheel   # wheel slides off along its axle k27-29, fender lifts off k30-31
     section: wheel
-    focus: "carbon-ceramic disc through the front-right spokes"
-    src: /home/user/media/work/f296/renders/final/s3_wheel
+    focus: "FRONT WHEEL off -> scanned brake disc + caliper in the arch; FENDER off"
+    src: /home/user/media/work/f296/renders/color/v5_wheel
     src_fps: 15
     interpolate: true
-    frames: 69
-    dur: 2.3333
+    frames: 99
   - transition: {type: cut}
-  - id: f5_front   # lamp 7.40 -> hood 7.97-9.13 -> bumper out 9.71-10.87 -> turn 11.45-13.19 -> push in
-    section: front
-    focus: "hood opens (scanned open state) -> front bumper out, turned to show its scanned inner face"
-    src: /home/user/media/work/f296/renders/final/f5_front
-    src_fps: 15
-    interpolate: true
-    frames: 260
-    dur: 8.7000
-  - transition: {type: cut}
-  - id: F_hero   # label on the 18.423 accent
-    section: front
-    focus: "FRONT BUMPER REMOVED: crash beam + brackets behind the bumper (Front Fully Removed scan)"
-    src: /home/user/media/work/f296/renders/final/F_hero
-    src_fps: 15
-    interpolate: true
-    frames: 140
-    dur: 4.6333
-  - transition: {type: cut}
-  - id: x_side   # rear bumper leaves on the 23.066 lift
+  - id: v5_side   # skirt k35, rear bumper k37, diffuser k38
     section: side
-    focus: "right flank: fender, side skirt, then rear bumper + diffuser come off"
-    src: /home/user/media/work/f296/renders/final/x_side
+    focus: "SIDE SKIRT drops; REAR BUMPER + DIFFUSER pull back"
+    src: /home/user/media/work/f296/renders/color/v5_side
     src_fps: 15
     interpolate: true
-    frames: 140
-    dur: 4.6667
+    frames: 75
   - transition: {type: cut}
-  - id: R_hero   # louvre lifts on the 27.708 accent (no lid-open scan: lifted off, not hinged)
+  - id: v5_rear   # breakdown: engine cover lifts off k42-44, exhaust tip k46-49, rise to the high view of every part off
     section: rear
-    focus: "REAR BUMPER REMOVED: exposed rear structure, then the louvre lifts off -> ENGINE BAY"
-    src: /home/user/media/work/f296/renders/final/R_hero
+    focus: "ENGINE COVER off -> engine bay; EXHAUST TIP out; every removed part from above"
+    src: /home/user/media/work/f296/renders/color/v5_rear
     src_fps: 15
     interpolate: true
-    frames: 139
-    dur: 4.6333
+    frames: 211
   - transition: {type: cut}
-  - id: x_lock   # fade to black over the last 0.5 s
+  - id: v5_drop   # blast k57-59, drift, fly home k69 -> LOCK k71, fade from k73
     section: explode
-    focus: "every part out -> fly home -> LOCK on 32.350"
-    src: /home/user/media/work/f296/renders/final/x_lock
+    focus: "all 9 parts blown out on the drop, then home and lock"
+    src: /home/user/media/work/f296/renders/color/v5_drop
     src_fps: 15
     interpolate: true
-    frames: 104
-    dur: 3.4667
-    fade_out: 0.5
+    frames: 224   # v6: no fade - the camera swings onto the cover photo's solved camera and cuts 1:1 on k75
   - transition: {type: cut}
-  - id: logo   # tools/logo_card.py --secs 5.5 --width 380 --lead 0.5667 --fade-out 0.8 --tail 0.4 (small, like the Temerario)
-    section: logo
-    focus: Illumaesthetic logo
-    src: /home/user/media/work/f296/out/logo_small.mp4
-    frames: 165
-    dur: 5.5
+  - id: cta   # Remotion MobileCTA (cta.json, tools/cta.py): 1:1 into the listing's cover photo on the mobile page,
+    #            zoom out k75-k79, gallery swipes land on k80/k82/k84, CTA k85, URL k86
+    section: cta
+    focus: "mobile listing: 1:1 scan -> website cover photo, gallery photos, SCAN DATA AVAILABLE NOW / ILLUMAESTHETIC.COM"
+    src: /home/user/media/work/f296/out/cta_v7.mp4
+    frames: 184
 
 overlays:
-  - src: /home/user/media/work/f296/out/hud_v4.mov   # labels over scan shots only (rule C); overlay.json
+  - src: /home/user/media/work/f296/out/hud_v5.mov   # one label per part, scan shots only; overlay.json
     start: 0

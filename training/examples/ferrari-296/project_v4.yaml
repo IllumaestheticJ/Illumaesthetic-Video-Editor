@@ -1,0 +1,93 @@
+# v4 - all-reels brief + addendum A-D (relayed from the user) on top of v3 (director's held front):
+#   scene order by the scene director (direction.md): travel front -> side -> rear, each section once; bumper-removed state
+#   scans are hero beats with labels (F_hero, R_hero); openings only from data (louvre lifts off); fade, then a SMALL logo.
+#   Cut-only assembly with exact frame counts: projects/ferrari-296/tools/assemble_cuts.py (ive assemble repeats a frame
+#   at every cut). v3: project_v3.yaml, v2: project_v2.yaml, v1: project_v1.yaml.
+# Music: ferrari296_track.mp3 (generated for this reel; 103.4 BPM, beat 0.5803 s, grid 0.435 + k*0.5803).
+# Cut frames: 153, 222, 482, 622, 762, 901, 1005; end 1170 (39.0 s).
+project: ferrari-296
+format: reel-9x16
+output: {path: /home/user/media/work/f296/out/ferrari_296_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/ferrari296_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [5.1, 7.4, 16.067, 20.733, 25.4, 30.033, 33.5]
+
+timeline:
+  - id: s1_wide
+    section: whole
+    focus: "whole car, front-right 3/4, moving from frame 1"
+    src: /home/user/media/work/f296/renders/final/s1_wide
+    src_fps: 15
+    interpolate: true
+    frames: 153
+    dur: 5.0667
+  - transition: {type: cut}
+  - id: s3_wheel
+    section: wheel
+    focus: "carbon-ceramic disc through the front-right spokes"
+    src: /home/user/media/work/f296/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    frames: 69
+    dur: 2.3333
+  - transition: {type: cut}
+  - id: f5_front   # lamp 7.40 -> hood 7.97-9.13 -> bumper out 9.71-10.87 -> turn 11.45-13.19 -> push in
+    section: front
+    focus: "hood opens (scanned open state) -> front bumper out, turned to show its scanned inner face"
+    src: /home/user/media/work/f296/renders/final/f5_front
+    src_fps: 15
+    interpolate: true
+    frames: 260
+    dur: 8.7000
+  - transition: {type: cut}
+  - id: F_hero   # label on the 18.423 accent
+    section: front
+    focus: "FRONT BUMPER REMOVED: crash beam + brackets behind the bumper (Front Fully Removed scan)"
+    src: /home/user/media/work/f296/renders/final/F_hero
+    src_fps: 15
+    interpolate: true
+    frames: 140
+    dur: 4.6333
+  - transition: {type: cut}
+  - id: x_side   # rear bumper leaves on the 23.066 lift
+    section: side
+    focus: "right flank: fender, side skirt, then rear bumper + diffuser come off"
+    src: /home/user/media/work/f296/renders/final/x_side
+    src_fps: 15
+    interpolate: true
+    frames: 140
+    dur: 4.6667
+  - transition: {type: cut}
+  - id: R_hero   # louvre lifts on the 27.708 accent (no lid-open scan: lifted off, not hinged)
+    section: rear
+    focus: "REAR BUMPER REMOVED: exposed rear structure, then the louvre lifts off -> ENGINE BAY"
+    src: /home/user/media/work/f296/renders/final/R_hero
+    src_fps: 15
+    interpolate: true
+    frames: 139
+    dur: 4.6333
+  - transition: {type: cut}
+  - id: x_lock   # fade to black over the last 0.5 s
+    section: explode
+    focus: "every part out -> fly home -> LOCK on 32.350"
+    src: /home/user/media/work/f296/renders/final/x_lock
+    src_fps: 15
+    interpolate: true
+    frames: 104
+    dur: 3.4667
+    fade_out: 0.5
+  - transition: {type: cut}
+  - id: logo   # tools/logo_card.py --secs 5.5 --width 380 --lead 0.5667 --fade-out 0.8 --tail 0.4 (small, like the Temerario)
+    section: logo
+    focus: Illumaesthetic logo
+    src: /home/user/media/work/f296/out/logo_small.mp4
+    frames: 165
+    dur: 5.5
+
+overlays:
+  - src: /home/user/media/work/f296/out/hud_v4.mov   # labels over scan shots only (rule C); overlay.json
+    start: 0

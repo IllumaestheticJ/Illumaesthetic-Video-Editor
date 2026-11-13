@@ -7,7 +7,7 @@ output: {path: /home/user/media/work/out/c5_scan_process_v4.mp4, width: 1080, he
 
 music:
   path: /home/user/media/c5/music2/thunder.wav   # user upload (YouTube rip, 128k m4a -> wav); not in git
-  start: 48.0645   # beat 96 of the 120.00 BPM grid (t0 0.0661 + 0.49998 n); section change at beat 100 (50.06 s) = 1:1 cut at 2.0 s
+  start: 48.0325   # beat 96 minus 32 ms (decoded-audio check: kick peaks sit 25-44 ms before the grid); of the 120.00 BPM grid (t0 0.0661 + 0.49998 n); section change at beat 100 (50.06 s) = 1:1 cut at 2.0 s
   fade_out: 0.6
 
 # Video time of beat b = 2.0 + 0.5 (b - 100). Cuts on accented even beats 100/116/126/130/136/140/152/158 = frames

@@ -4,7 +4,7 @@
 set -e
 cd /home/user/Illumaesthetic-Video-Editor
 W=/home/user/media/work/sera; P=projects/toyota-sera-scan-process
-MODE=$1; shift
+MODE=$1; shift; ORB=${ORB:-35}
 if [ "$MODE" = final ]; then Q="--res-pct 75 --samples 12 --fps 15"; OUT=$W/renders/final; else Q="--res-pct 20 --samples 4 --fps 6"; OUT=$W/renders/prev; fi
 python -m ive lookat $W/cam_rear.json --loc=1.55,-6.4,1.3 --target=-0.25,-1.9,0.35 --focal 40 --sensor 23.3 --size 1080x1920 >/dev/null
 python -m ive lookat $W/cam_front_wide.json --loc=3.30,5.70,1.55 --target=0.62,2.05,1.10 --focal 46 --sensor 23.3 --size 1080x1920 >/dev/null
@@ -34,6 +34,15 @@ for s in "${@:-s1 s3 s5 s6 s7}"; do
   x3) python -m ive render -- --scene $W/xbase.blend --camera $P/match/cam_xray_start.json --look xray --move orbit --move-amount 40 --look-at=0,0,0.7 --ease ease_in_out --seconds 3.6 $Q \
         --explode "$W/fbump_2mm.blend:0.116,0.435,0.95:r0.0:0.167" --explode "$W/rbump_2mm.blend:-0.400,-1.497,0.6:r0.0:0.333" \
         --morph-to-clay 0.83,1.0 --morph-bg 0.0080,0.0090,0.0080 --clay-color 0.05,0.05,0.05 --out $OUT/v3_xray ;;
+  f_design) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_foff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_front_p.blend:0.181,0.676,-0.80:r0.05:0.60" --out $OUT/v4_f_design ;;
+  r_design) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.05:0.60" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v4_r_design ;;
+  r_design5) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.0:0.45" --explode "$W/kit_duck.blend:0,0,0.6:r0.40:0.85" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v5_r_design ;;
+  kit_final) python -m ive render -- --scene $W/kitbase.blend --camera $P/match/cam_fin_start${FULL}.json --look silver --move push --move-amount 0.318182 --look-at=0,0,1.5 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_front_p.blend:0,0,0:0:1" --explode "$W/kit_rear_p.blend:0,0,0:0:1" --explode "$W/kit_duck.blend:0,0,0:0:1" \
+        --explode "$W/kit_skirtL.blend:-0.58,0.155,0:r0.0:0.50" --explode "$W/kit_skirtR.blend:0.58,-0.155,0:r0.0:0.50" --out $OUT/v5_kit_final${FULL} ;;
   esac
   echo "DONE $s $(date +%T)"
 done

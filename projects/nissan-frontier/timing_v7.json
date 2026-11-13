@@ -1,0 +1,195 @@
+{
+ "note": "v7 (bar removed, correct bumper cutaway + grille/lights order, solid wheels on a wider track; same cut frames as v6): Ronin section re-cut (user notes on v5). Same extended track. Cut frames after 1015: 1126 (b38' 37.529), 1197 (b42' 39.909), 1270 (b46' 42.348 crash), 1378 (b52' 45.922 = 1:1 CUT to IRL IMG_3223 @2.4 s), 1414 (b54' 47.130 -> IMG_3239), 1488 (b58' 49.597 -> MotoIQ photo + logo card); end 1608 (53.6 s).",
+ "frames": {
+  "v2_s1_wide": 146,
+  "v2_s2_grille": 144,
+  "v4_s3_bumper": 144,
+  "v3_s4_removed": 107,
+  "v4_s5_hood": 73,
+  "v4_s6_struct": 111,
+  "v4_s7_flares": 108,
+  "v4_s8_home": 182,
+  "q1_grille": 111,
+  "q2_bar": 71,
+  "q3_lift": 73,
+  "q4_livery": 108,
+  "irl_3223": 36,
+  "irl_3239": 74,
+  "card": 120
+ },
+ "labels": {
+  "v2_s2_grille": [
+   {
+    "id": "grille",
+    "title": "GRILLE",
+    "sub": "SCAN SECTION 01 / 06",
+    "t": [
+     2.373,
+     4.45
+    ],
+    "y": 0.06
+   }
+  ],
+  "v4_s3_bumper": [
+   {
+    "id": "bumper",
+    "title": "FRONT BUMPER",
+    "sub": "SCAN SECTION 02 / 06",
+    "t": [
+     1.19,
+     4.45
+    ],
+    "side": "bottom",
+    "y": 0.66
+   }
+  ],
+  "v3_s4_removed": [
+   {
+    "id": "fbrhc",
+    "title": "FRONT BUMPER REMOVED",
+    "sub": "STATE SCAN",
+    "t": [
+     1.19,
+     3.3
+    ]
+   }
+  ],
+  "v4_s5_hood": [
+   {
+    "id": "hood",
+    "title": "HOOD",
+    "sub": "SCAN SECTION 03 / 06",
+    "t": [
+     1.19,
+     2.15
+    ]
+   }
+  ],
+  "v4_s6_struct": [
+   {
+    "id": "struct",
+    "title": "FRONT STRUCTURE",
+    "sub": "SCAN SECTION 04 / 06",
+    "t": [
+     1.21,
+     3.4
+    ],
+    "y": 0.1
+   }
+  ],
+  "v4_s7_flares": [
+   {
+    "id": "flares",
+    "title": "FENDER FLARES",
+    "sub": "SCAN SECTION 05 / 06",
+    "t": [
+     1.18,
+     3.35
+    ],
+    "anchor_pixels": "/home/user/media/work/frontier/renders/final/v4_s7_flares",
+    "side": "bottom",
+    "y": 0.72
+   }
+  ],
+  "v4_s8_home": [
+   {
+    "id": "body",
+    "title": "FULL TRUCK",
+    "sub": "PRO-4X \u00b7 SCAN SECTION 06 / 06",
+    "t": [
+     3.59,
+     5.43
+    ]
+   }
+  ],
+  "q1_grille": [
+   {
+    "id": "rgrille",
+    "title": "RONIN GRILLE",
+    "sub": "UPGRADE 01",
+    "t": [
+     1.21,
+     1.78
+    ],
+    "side": "top",
+    "y": 0.08
+   },
+   {
+    "id": "rgrille",
+    "title": "GRILLE LIGHTS",
+    "sub": "UPGRADE 02",
+    "t": [
+     3.04,
+     3.65
+    ],
+    "side": "top",
+    "y": 0.08
+   }
+  ],
+  "q2_bar": [
+   {
+    "id": "rfender",
+    "title": "WIDE FENDERS",
+    "sub": "UPGRADE 03",
+    "t": [
+     1.22,
+     2.25
+    ],
+    "side": "bottom",
+    "y": 0.74
+   }
+  ],
+  "q3_lift": [
+   {
+    "id": "wheel",
+    "title": "35-INCH WHEELS",
+    "sub": "UPGRADE 04 \u00b7 NISSAN OFF-ROAD",
+    "t": [
+     0.65,
+     1.15
+    ],
+    "side": "bottom",
+    "y": 0.76
+   },
+   {
+    "id": "body",
+    "title": "LIFT KIT",
+    "sub": "UPGRADE 05",
+    "t": [
+     1.81,
+     2.4
+    ],
+    "side": "top",
+    "y": 0.14
+   }
+  ],
+  "q4_livery": [
+   {
+    "id": "body",
+    "title": "RONIN LIVERY",
+    "sub": "UPGRADE 06",
+    "t": [
+     1.2,
+     2.1
+    ],
+    "side": "top",
+    "y": 0.1
+   },
+   {
+    "id": "body",
+    "title": "GT-R TWIN TURBOS",
+    "sub": "UPGRADE 07 \u00b7 UNDER THE TRUCK",
+    "t": [
+     2.3,
+     3.3
+    ],
+    "side": "bottom",
+    "y": 0.78,
+    "offset": [
+     0.0,
+     0.04
+    ]
+   }
+  ]
+ }
+}

@@ -347,3 +347,52 @@ piece (centre carbon / diffuser) reaches ~75 % down the frame. Check 4 frames pe
    once), not from the explode hold.
 3. fb_markers and fb_hl_trim are single objects spanning both sides: they can only lift as one piece (planned so).
 4. v2 question 3 still stands (skirts beside the sill): now that the sill/tyres are complete, check the side sheet.
+
+---
+
+## v4 direction (2026-11-13, scene director; checks the editor's draft `shots_v4.py`)
+
+Reviewer on v3: add the rear-wing-removed section; rear bumper clips tail lights + wing on its way off; exhaust sections after the bumper; parts leave the screen; new song (Sector Shift edit, 140 BPM, bar n at 3.4286 + 1.7143 n s, frame = round(t x 30)).
+Looked at: preview/v4_*.png (30 %, 6 frames each; only v4_rear and v4_exh post-date the 02:59 specs, the rest are one iteration old), v3_fb / v3_rb sheets, shots_v4.py, tools/pathcheck.py. Inventory change: rear gains 3 exhaust states + 4 exhaust part scans, so the rear is now clearly the richest region and holds bars 9-19.
+Order is kept as drafted (travel front -> left side -> rear, one continuous sequence per section; exhaust directly after the bumper comes off = rule C "move in on what is behind it", same wide -> close -> bumper-alone pattern as the front). Four changes to bars / shots, marked CHANGE.
+
+| bars | frames | id | section | single focus | must be in frame | label (one at a time, clear black, `shadow`) |
+|---|---|---|---|---|---|---|
+| -2..0 | 0-103 | v3_whole REUSE (72 f, src_fps ~20.2) | whole | entire car, front-left 3/4, push | whole car incl. tyre bottoms | none; fade-up <= 0.8 s |
+| 0-2 | 103-206 | v4_front NEW | front | bumper off ON the drop, then headlights, then lid on its hinge | whole car + parked fb + hl, no part touching an edge | L1 bar 1-2: FRONT BUMPER REMOVED / HEADLIGHTS REMOVED |
+| 2-4 | 206-309 | v4_frontin NEW | front | structure behind the bumper (frunk tub, lower structure) | full structure width, both corners; fb/hl not loaded | L2 bar 2.25-4: FRONT STRUCTURE / FRUNK · MOUNTING POINTS |
+| 4-7 | 309-463 | v3_fb REUSE (73 f, src_fps ~13.9) | front | front bumper alone -> its 10 pieces | all pieces (as v3) | L3 bar 4-5.3, L4 bar 5.55-7: v3 wording, L4 at y 0.84 |
+| 7-9 | 463-566 | v4_side NEW | left side | fender, then skirts, then fin | whole left side wheel to wheel + the 4 parts | none |
+| 9-10 | 566-617 | v4_wing NEW (CHANGE 1) | rear | wing lifts straight up off the deck on bar 9 | whole rear half + parked wing | none |
+| 10-11 | 617-669 | v4_wingin NEW (CHANGE 1) | rear | deck where the wing sat (state "Rear End Wing Removed") | mount area fills the width; wing not loaded | L5: REAR WING REMOVED / sub see Q1 |
+| 11-13 | 669-771 | v4_rear NEW (CHANGE 2) | rear | tail lights out, then bumper slides back and clears | rear half + tll, tlr, rb parked; wing not loaded | L6 bar 12-13: REAR BUMPER REMOVED / TAIL LIGHTS REMOVED |
+| 13-16 | 771-926 | v4_exh NEW (CHANGE 3) | rear | exhaust, one state per bar: Exhaust On -> Cats On -> No Exhaust | the capture fills ~80 % of width; every exhaust part parked in frame, none over the bay | L7 / L8 / L9, one per bar (below) |
+| 16-19 | 926-1080 | v3_rb REUSE (74 f, src_fps ~14.05) (CHANGE 4) | rear | rear bumper alone -> its pieces | all pieces (as v3) | L10 bar 16-17.3, L11 bar 17.55-19: v3 wording, L11 at y 0.84 |
+| 19-22 | 1080-1234 | v4_reassemble NEW (CHANGE 4) | whole | every part home through the fill, LOCK on bar 20 (frame 1131), then hero push | every mover inside the frame on every frame | none; fade 0.5 s into 1234 |
+| 22-24 | 1234-1337 | logo (720 px card) | - | logo on a kick, rides the fade | - | - |
+
+**CHANGE 1, wing (bars 9-11): split the draft's single push into wide + close.** The draft ends at 4.0 m with the wing hovering 0.6 m over the deck: in the preview the wing lies across the deck it is meant to reveal and the mounts never get big enough to read. Apply the draft's own rule: bar 9-10 wide (az ~152, dist ~6.0, wing home -> up over 3 kicks, 1 kick settle, wing ends in frame); bar 10 hard cut to a close shot of the deck (dist ~2.2-2.6, high rear 3/4, slow drift, wing not loaded), labelled. This is the "rear wing removed section" the reviewer asked for.
+
+**CHANGE 2, rear wide (bars 11-13): the clipping note is a screen-space problem too.** pathcheck proves 3D clearance only. In the 03:00 preview the parked bumper (top right) still overlaps the hovering wing and sits on the right tail light on screen, which will read as the same clipping; the left tail light is within ~1-3 % of the left edge at frames 43 and 54. Fix: (a) do not load the wing here (it left in the previous section, same convention as fb/hl in v4_side); (b) tail lights 0.55 m out instead of 0.75, or pull back, so each keeps >= 5 % margin; (c) park the bumper where its silhouette overlaps neither tail light nor the body: alternative to "slide back then rise" is slide back ~1.1 m and lower it into the empty black under the tail (Miata ND v3 lesson). Test = mask overlap of each parked part against the others on every frame, plus the 3 px edge-touch test.
+
+**CHANGE 3, exhaust (bars 13-16): retime and re-park, keep the 3 bars.** Draft swaps at 13.5 and 15, so each clean state is readable for only 2 kicks (0.86 s). Use 12 kicks as: k0-2 hold "Exhaust On" (L7) | k2-3 tip assembly off | k3-5 catback off | k5-8 hold "Cats On" (L8, swap frame stays the frame the tips start to move) | k8 (bar 15) swap, both cats off by k9.5 | k9.5-12 hold "No Exhaust" (L9). In the preview the catback (EX 0, 0.50, 0.62) ends directly in front of the bay and hides the No Exhaust state: park it clear of the bay silhouette (out the back, then down into the black below, or stacked above under the tip assembly), cats up-left / up-right. Start tighter (the capture is ~45 % of frame width at 3.8-3.9 m, with loose islands left and right in frame 1: crop the islands or frame inside them). Native 30 fps as drafted.
+Labels (titles = state file names, subs = part file names): L7 EXHAUST ON / TIP ASSEMBLY · CATBACK; L8 CATS ON / LH CAT · RH CAT; L9 NO EXHAUST / ENGINE BAY. v3's "REAR STRUCTURE / EXHAUST · CRASH BEAM · MOUNTS" is dropped (its push-in shot no longer exists).
+
+**CHANGE 4, bars 16-22: rear bumper alone 16-19 (was 16-18), reassembly 19-20 (was 18-20).** v3_rb is a 4.68 s four-phase render; in 2 bars it plays 1.37x fast (the 162 deg turn in 0.86 s, L11's 34-char sub gets ~50 frames, the Sera minimum) and it would speed up exactly where the music goes half-time. At 3 bars it plays 7 % slower than v3, the same as v3_fb at bars 4-7. The fly-home then takes the one-bar fill (stagger 0.06 s, native 30 fps for bar 19-20) and locks on the second drop. Camera: the 02:57 preview has the rear bumper cut by the right edge and the car by the left while parts are still out (push 12.5 -> 7.6 m before the lock). Hold wide (drift only) until the lock, then push 20-22. Fallback if the one-bar fly-home previews rushed: keep the draft's 18-20 and start v3_rb at render frame ~19 (drop the inner-face drift) so two bars play at native speed.
+
+Smaller notes on the draft
+- v4_front: whole (ends az 36, 7.6 m) -> front (az 34, 8.6 m) is a cut OUT on the same axis on the drop, and the car is ~60 % of frame width. Start closer (~6.6-6.8 m, target toward the nose) so the drop is a cut IN and car + parked parts fill ~85 %. pathcheck skips hinged parts: check the lid sweep against the parked bumper at kicks 5, 6, 7 (the older preview shows them overlapping on screen).
+- v4_frontin: the 02:56 preview clips the right side of the structure in all 6 frames while the left has margin. Recentre / start ~3.6 m.
+- v4_side at 9 m puts a 4.95 m car at ~61 % of width and the fender / skirts / fin read as slivers. ~6.3 m (85-90 %), low enough that the skirts read along the sill.
+- v3_fb / v3_rb at linear retime put "pieces come off" on beat 3 of bars 5 and 17: confirm a kick there, nudge with src_fps (not speed).
+- Bars 8 and 12 pass mid-shot (cuts on 7, 9, 11, 13). If the accent table shows a new layer / crash on bar 8 or 12, tell me before rendering.
+- Length 44.57 s against the "scan-only reels near 20 s" lesson: accepted because the song edit is the user's and no shot holds on sparse data; nothing in bars 0-20 should sit still for more than 3 kicks.
+
+Reuse vs render: reuse v3_whole, v3_fb, v3_rb (retime only). New: v4_front, v4_frontin, v4_side, v4_wing, v4_wingin, v4_rear, v4_exh, v4_reassemble (154 f, was 205).
+`ive director` will flag whole/front, wing/wingin/rear, the three exhaust states (same-camera swaps) and fb/rb alone: intended, one sequence per section.
+Before assembly: first/mid/last sheet + edge-touch per shot, EVERY frame of v4_rear / v4_exh / v4_reassemble for edge-touch and part-on-part overlap, 4 frames per label window, per-frame luma scan, cuts and the lock measured on the decoded kick band.
+
+Open questions
+1. L5 sub: use MOUNTING POINTS only if the 10-11 close render shows the mounts unmistakably; otherwise REAR WING · 7,235,817 TRIANGLES (STL header, clips.md). Also check that close-up for black holes where the wing sat (Mazda 3 thin-part fill lesson).
+2. "Exhaust after the bumper" is read as after the bumper comes OFF. If the reviewer meant after the bumper-parts explode, swap the two blocks (v3_rb 13-16, v4_exh 16-19 with swaps on bars 17 and 18); nothing else moves.
+3. Are the exhaust part scans' parked poses clear of each other (pathcheck covers clean3 STLs: are ex_* in clean3)?

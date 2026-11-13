@@ -126,17 +126,144 @@ def mat_hl(keys, keys_all, fps):
     return m
 
 
+LIV = "/home/user/media/nissan-frontier/livery/tex"
+# livery side-view mapping (prep metres): PSD truck bbox spans nose..tail (y -2.685..2.685) and z 0.067..1.608
+LIV_Y0, LIV_LEN, LIV_Z0, LIV_H = -2.685, 5.37, 0.067, 1.541
+TILE_W = 2.3
+
+
+def mat_simple(name, rgb, rough, metal=0.0):
+    m, nt, out = sr.new_mat(name)
+    p = sr.principled(nt, rgb + (1,), rough, metal)
+    nt.links.new(p.outputs[0], out.inputs[0])
+    return m
+
+
+_MATS = {}
+LED_KEYS = None  # [[t, w], ...] from the spec ("led"); None = always on
+
+
+def mat_led():
+    """LED lens: dark until switched on, then white emission (keyed strength)."""
+    m, nt, out = sr.new_mat("r_led")
+    p = sr.principled(nt, (0.03, 0.03, 0.035, 1), 0.25)
+    e = sr.emission(nt, (1.0, 0.96, 0.9, 1), 3.0)
+    mx = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(p.outputs[0], mx.inputs[1]); nt.links.new(e.outputs[0], mx.inputs[2]); nt.links.new(mx.outputs[0], out.inputs[0])
+    sc = bpy.context.scene; fps = sc.render.fps
+    for f in range(sc.frame_start, sc.frame_end + 1):
+        mx.inputs[0].default_value = 1.0 if LED_KEYS is None else _w(LED_KEYS, (f - 1) / fps)
+        mx.inputs[0].keyframe_insert("default_value", frame=f)
+    return m
+
+
+def named_mat(k):
+    if k not in _MATS:
+        _MATS[k] = {"black": lambda: mat_simple("r_black", (0.018, 0.018, 0.02), 0.42),
+                    "rubber": lambda: mat_simple("r_rubber", (0.012, 0.012, 0.013), 0.78),
+                    "bronze": lambda: mat_simple("r_bronze", (0.17, 0.115, 0.055), 0.38, 1.0),
+                    "steel": lambda: mat_simple("r_steel", (0.55, 0.55, 0.57), 0.3, 1.0),
+                    "red": lambda: mat_simple("r_red", (0.5, 0.02, 0.015), 0.4),
+                    "led": lambda: mat_led()}[k]()
+    return _MATS[k]
+
+
+def mat_livery(sweep_keys, fps):
+    """Ronin wrap from the user's files (tools/livery_tex.py): side view projected along X onto side-facing surfaces
+    (left/right images; right has the logo pre-flipped), topo tile on top/front/rear faces, dark glass above the beltline.
+    Revealed where world y < sweep (keyed), over house silver."""
+    if "livery" in _MATS:
+        return _MATS["livery"]
+    m = sr.mat_silver(); nt = m.node_tree; N = nt.nodes; Lk = nt.links.new
+    out = [n for n in N if n.type == "OUTPUT_MATERIAL"][0]
+    silver = out.inputs[0].links[0].from_node
+    geo = N.new("ShaderNodeNewGeometry")
+    sp = N.new("ShaderNodeSeparateXYZ"); Lk(geo.outputs["Position"], sp.inputs[0])
+    sn = N.new("ShaderNodeSeparateXYZ"); Lk(geo.outputs["Normal"], sn.inputs[0])
+
+    def math(op, a, b=None, c=None):
+        n = N.new("ShaderNodeMath"); n.operation = op
+        for i, v in enumerate((a, b, c)):
+            if v is None: continue
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: Lk(v, n.inputs[i])
+        return n.outputs[0]
+
+    def vec(x, y):
+        n = N.new("ShaderNodeCombineXYZ")
+        for i, v in enumerate((x, y)):
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: Lk(v, n.inputs[i])
+        return n.outputs[0]
+
+    def img(name, v, ext):
+        n = N.new("ShaderNodeTexImage"); n.image = bpy.data.images.load(os.path.join(LIV, name)); n.extension = ext
+        Lk(v, n.inputs[0]); return n
+
+    def mix(f, a, b):
+        n = N.new("ShaderNodeMix"); n.data_type = "RGBA"
+        for k, v in (("Factor", f), ("A", a), ("B", b)):
+            if isinstance(v, (int, float)): n.inputs[k].default_value = v
+            elif isinstance(v, tuple): n.inputs[k].default_value = v
+            else: Lk(v, n.inputs[k])
+        return n.outputs["Result"]
+    X, Y, Z = sp.outputs
+    u = math("DIVIDE", math("SUBTRACT", Y, LIV_Y0), LIV_LEN)
+    v = math("DIVIDE", math("SUBTRACT", Z, LIV_Z0), LIV_H)
+    uv = vec(u, v)
+    il, ir, iw = img("side_left.png", uv, "CLIP"), img("side_right.png", uv, "CLIP"), img("window_util.png", uv, "CLIP")
+    is_right = math("LESS_THAN", X, 0.0)
+    side = mix(is_right, il.outputs["Color"], ir.outputs["Color"])
+    side_a = math("ADD", math("MULTIPLY", il.outputs["Alpha"], math("SUBTRACT", 1.0, is_right)), math("MULTIPLY", ir.outputs["Alpha"], is_right))
+    aspect = 715 / 2048
+    ax, ay, az = (math("ABSOLUTE", o) for o in sn.outputs)
+    t_top = img("topo_tile.png", vec(math("DIVIDE", X, TILE_W), math("DIVIDE", Y, TILE_W * aspect)), "REPEAT")
+    t_frt = img("topo_tile.png", vec(math("DIVIDE", X, TILE_W), math("DIVIDE", Z, TILE_W * aspect)), "REPEAT")
+    t_sid = img("topo_tile.png", vec(math("DIVIDE", Y, TILE_W), math("DIVIDE", Z, TILE_W * aspect)), "REPEAT")
+    tile = mix(math("GREATER_THAN", ay, az), t_top.outputs["Color"], t_frt.outputs["Color"])
+    side_w = math("GREATER_THAN", ax, 0.55)
+    side_col = mix(math("GREATER_THAN", side_a, 0.5), t_sid.outputs["Color"], side)
+    side_col = mix(math("GREATER_THAN", iw.outputs["Alpha"], 0.5), side_col, (0.012, 0.012, 0.014, 1))
+    col = mix(side_w, tile, side_col)
+    glass = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Z, 1.08), math("SUBTRACT", 1.0, side_w)), math("LESS_THAN", sn.outputs[2], 0.93))
+    col = mix(glass, col, (0.012, 0.012, 0.014, 1))
+    wrap = sr.principled(nt, (0.2, 0.4, 0.38, 1), 0.34, 0.0)
+    Lk(col, wrap.inputs["Base Color"])
+    if "Coat Weight" in wrap.inputs:
+        wrap.inputs["Coat Weight"].default_value = 0.35
+    val = N.new("ShaderNodeValue")
+    f = math("MINIMUM", math("MAXIMUM", math("DIVIDE", math("SUBTRACT", val.outputs[0], Y), 0.25), 0.0), 1.0)
+    mx = N.new("ShaderNodeMixShader"); Lk(f, mx.inputs[0]); Lk(silver.outputs[0], mx.inputs[1]); Lk(wrap.outputs[0], mx.inputs[2])
+    Lk(mx.outputs[0], out.inputs[0])
+    sc = bpy.context.scene
+    for fr in range(sc.frame_start, sc.frame_end + 1):
+        t = (fr - 1) / fps
+        ks = sweep_keys
+        if t <= ks[0][0]: y = ks[0][1]
+        elif t >= ks[-1][0]: y = ks[-1][1]
+        else:
+            for (t0, y0), (t1, y1) in zip(ks, ks[1:]):
+                if t <= t1:
+                    uu = (t - t0) / max(1e-9, t1 - t0); uu = uu * uu * (3 - 2 * uu); y = y0 + (y1 - y0) * uu; break
+        val.outputs[0].default_value = y
+        val.outputs[0].keyframe_insert("default_value", frame=fr)
+    _MATS["livery"] = m
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     base = []
     groups = []  # (name, objs, hl keys) for highlight + label anchors
+    base_mats = {}
     for b in spec["base"]:
         bb = b if isinstance(b, dict) else {"blend": b}
         objs = load_blend(bb["blend"])
         base += objs
         groups.append((bb.get("name"), objs, bb.get("hl")))
+        base_mats[len(groups) - 1] = bb.get("mat")
     bpy.context.view_layer.update()  # matrix_world is stale right after linking
     lo, hi = sr.bbox(base)
     fps = spec.get("fps", 15)
@@ -150,7 +277,15 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     hl_all = spec.get("hl_all")
-    for name, objs, hl in groups:
+    global LED_KEYS
+    LED_KEYS = spec.get("led")
+    liv = spec.get("livery")
+    for gi, (name, objs, hl) in enumerate(groups):
+        if base_mats.get(gi) == "livery":
+            lm = mat_livery(liv["sweep"], fps)
+            for o in objs:
+                o.data.materials.clear(); o.data.materials.append(lm)
+            continue
         m = grey if spec.get("base_color") == "grey" else (mat_hl(hl, hl_all, fps) if (hl or hl_all) else silver)
         for o in objs:
             o.data.materials.clear()
@@ -165,7 +300,8 @@ def main():
         groups.append((p.get("name"), objs, None))
         for o in objs:
             o.data.materials.clear()
-            o.data.materials.append(m)
+            k = o.get("mat") or p.get("mat")
+            o.data.materials.append(mat_livery(liv["sweep"], fps) if k == "livery" else (named_mat(k) if k else m))
         keys = p.get("keys")
         if not keys:
             continue
@@ -205,7 +341,11 @@ def main():
         loc = Vector(sample(ck, t, "loc"))
         tgt = Vector(sample(ck, t, "target"))
         cam.location = loc
-        cam.rotation_euler = (tgt - loc).to_track_quat("-Z", "Y").to_euler()
+        q = (tgt - loc).to_track_quat("-Z", "Y")
+        if any("roll" in kk for kk in ck):  # roll about the view axis (deg) - needed to end on a solved, tilted IRL camera
+            from mathutils import Quaternion
+            q = q @ Quaternion((0, 0, 1), math.radians(sample([dict(kk, roll=kk.get("roll", 0.0)) for kk in ck], t, "roll")))
+        cam.rotation_euler = q.to_euler()
         cd.lens = sample(ck, t, "focal")
         cam.keyframe_insert("location", frame=f)
         cam.keyframe_insert("rotation_euler", frame=f)

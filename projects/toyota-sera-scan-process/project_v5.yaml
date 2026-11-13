@@ -1,0 +1,130 @@
+# Toyota Sera (EXY10) scan-process reel v5 (v1-v4: project_v1..v4.yaml). v5 adds the ducktail + side skirts on the scan and a 1:1 cut from the kitted scan to the finished car (user feedback).
+# v4: v4 adds the designed bumpers placed on the scan + finished-car footage (user request). Plan: direction.md.
+# v3 = all-reels brief + addendum: travel front -> side -> rear (one sequence per section), bumper-removed data as the
+# hero beats with labels, tighter subject framing, doors-open state as captured, re-timed x-ray + shorter end card.
+# Music: Sera track from 7.825 s, 100 BPM, beat k at 0.6*k s; phrase changes 1.8 / 11.4 / 21.0.
+project: toyota-sera-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/sera_scan_process_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/sera/music/sera_track.mp3
+  start: 7.825
+  fade_out: 0.8
+
+beats: [0.0, 1.8, 3.6, 6.0, 7.2, 9.6, 11.4, 13.2, 15.0, 16.8, 19.2, 21.0, 22.8, 24.6, 25.8, 27.0, 30.0]
+
+timeline:
+  # ---- FRONT (one continuous sequence) ----
+  - id: irl_open            # focus: the real car, front 3/4 (4342, crop zoom 1.0); ends on solved frame 433
+    section: front
+    focus: the real car, front 3/4
+    dur: 1.7667             # one frame short so later cuts land on round(beat*30)
+    src: /home/user/media/work/sera/irl/open.mp4
+  - transition: {type: cut, note: "1:1 IRL -> full car on the 1.8 s phrase change"}
+  - id: scan_open           # focus: nose = scan of that car (v2 render, retimed to 1.8 s)
+    section: front
+    focus: nose = scan of the same car
+    dur: 1.8
+    src: /home/user/media/work/sera/renders/final/s1_open
+    src_fps: 20
+    interpolate: true
+  - id: irl_front_lift      # focus: crew lifting the stock front bumper off (4351), ends on solved frame 250
+    section: front
+    focus: crew lifting the front bumper off
+    dur: 2.4
+    src: /home/user/media/work/sera/irl/front.mp4
+  - transition: {type: cut, note: "1:1 IRL -> 'Hood open' state on the 6.0 kick"}
+  - id: scan_front_match    # focus: bay exactly as in the footage
+    section: front
+    focus: engine bay as in the footage
+    dur: 1.2
+    src: /home/user/media/work/sera/renders/final/s5_front
+    src_fps: 15
+    interpolate: true
+  - id: scan_front_off      # focus: front bumper drops below the nose, turns to show its scanned inside; whole nose in frame
+    section: front
+    focus: front bumper inside + outside
+    dur: 2.4
+    src: /home/user/media/work/sera/renders/final/v3_f_off
+    src_fps: 15
+    interpolate: true
+  - id: scan_front_behind   # focus: what was behind the bumper (Hood open state): radiator, fan, lower beam, mounts
+    section: front
+    focus: structure behind the front bumper
+    dur: 1.8
+    src: /home/user/media/work/sera/renders/final/v3_f_beam
+    src_fps: 15
+    interpolate: true
+  - id: scan_front_design  # the bumper we designed (CAD, Ron's Folder/Toyota Sera/Print) rises onto the bumper-less scan
+    section: front
+    focus: designed front bumper on the scan
+    dur: 1.8
+    src: /home/user/media/work/sera/renders/final/v4_f_design
+    src_fps: 15
+    interpolate: true
+  # ---- SIDE ----
+  - id: scan_doors          # focus: butterfly doors open (Door Open state as captured, composited on the full car)
+    section: side
+    focus: butterfly doors open
+    dur: 1.8                # v5: 2.4 -> 1.8 to make room for the full-kit shot inside the music
+    src: /home/user/media/work/sera/renders/final/v3_doors
+    src_fps: 20
+    interpolate: true
+  # ---- REAR ----
+  - id: irl_rear_pull       # focus: crew pulling the rear bumper corner loose (4359) - hard cut, no 1:1 possible
+    section: rear
+    focus: crew pulling the rear bumper
+    dur: 1.8
+    src: /home/user/media/work/sera/irl/rear.mp4
+  - id: scan_rear_off       # focus: rear bumper drops below the tail, turns to show its scanned inside
+    section: rear
+    focus: rear bumper inside + outside
+    dur: 2.4
+    src: /home/user/media/work/sera/renders/final/v3_r_off
+    src_fps: 15
+    interpolate: true
+  - id: scan_rear_behind    # focus: behind the rear bumper (Rear Bumper Removed state): tail panel, mounts
+    section: rear
+    focus: structure behind the rear bumper
+    dur: 1.8
+    src: /home/user/media/work/sera/renders/final/v3_r_beam
+    src_fps: 15
+    interpolate: true
+  - id: scan_rear_design   # designed rear bumper rises onto the scan, then the ducktail drops onto the hatch (lands on the 21.0 phrase change)
+    section: rear
+    focus: designed rear bumper + ducktail on the scan
+    dur: 1.8
+    src: /home/user/media/work/sera/renders/final/v5_r_design
+    src_fps: 15
+    interpolate: true
+  # ---- FULL KIT -> FINISHED CAR ----
+  - id: scan_kit_final     # doors-up scan wearing the whole kit; side skirts slide on, camera pushes in and ENDS on match/cam_fin.json
+    section: finished car
+    focus: side skirts going on, full kit on the scan
+    dur: 1.8
+    src: /home/user/media/work/sera/renders/final/v5_kit_final
+    src_fps: 50/3           # 30 rendered frames span exactly 1.8 s so the last frame is the matched pose
+    interpolate: true
+  - transition: {type: cut, note: "1:1 kitted scan -> real finished car on the 24.6 beat"}
+  # (posted short 'Toyota Sera at home', caption cropped out)
+  - id: irl_finished_front
+    section: finished car
+    focus: the real car wearing the kit, front
+    dur: 1.2
+    src: /home/user/media/work/sera/irl/fin_front.mp4
+  - id: irl_finished_rear
+    section: finished car
+    focus: the real car wearing the kit, rear
+    dur: 1.2
+    src: /home/user/media/work/sera/irl/fin_rear.mp4
+  # ---- LISTING ----
+  - id: website             # focus: listing page, title, logo, URL last (re-timed, no dead hold)
+    section: end card
+    focus: listing page + URL
+    dur: 3.0
+    src: /home/user/media/work/out/webzoom_sera_v3.mp4
+
+overlays:
+  - src: /home/user/media/work/out/hud_sera_v5.mov
+    start: 0

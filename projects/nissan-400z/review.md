@@ -1,3 +1,43 @@
+# Nissan 400Z scan reel — v3 self-review (2026-11-12)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v3.mp4`: 1080x1920, 30 fps, h264 yuv420p, AAC, 1320 f (44.00 s).
+
+## User feedback on v2 → v3 changes
+- **"Logo needs to be bigger"**: card logo 340 → 640 px wide, fades in on the 41.172 kick, ends on the 44.03 phrase.
+- **"Side mirror coming off took a part of the window with it"**: the parts.py diff had flagged door-glass triangles
+  (|x| 765–783 mm; glass scans differently between sessions) as mirror. Fitted the glass plane, dropped everything within
+  8 mm / inboard from both mirror parts, rebuilt comp_explode with the trimmed parts, re-rendered N2 and s8b. Checked: the
+  mirror lifts off alone, the window stays on the door.
+- **New music (album audio from 19:50)**: 128 BPM, 14 s quiet intro, drop 14.031. Intro = N0 (7.27 s) + H (6.7 s), both
+  re-rendered with longer moves; bumper-off hero on the drop; cuts on measured half-rise onsets.
+- Also: N2 re-rendered at native 30 fps (minterpolate left ghost trails on the fast mirror); s8b re-render cleared its old
+  dark f101-112 tail.
+
+## Cut timing (cutcheck, broadband half-rise)
+219 −11 ms vs the 7.311 intro kick (cutcheck's ±120 ms window picks a stronger non-kick hit at 7.194) · 420 −3.6 · 534 +10.8 ·
+701 +3.6 · 785 −14.7 · 870 +12.5 · 1010 −5.2 — all within ±½ frame.
+
+## Scores (1–5)
+| # | Criterion | Score | Note |
+|---|---|---|---|
+| 1 | Hook | 3 | Quiet 14 s intro (user's music choice); car orbits under the fade from frame 1, but the first big moment is at 14 s |
+| 2 | Beat sync | 5 | 7/7 hard cuts within ±½ frame |
+| 3 | 1:1 match | N/A | scan only |
+| 4 | Scan quality | 4 | mirror/glass fixed; bay and radiator capture noise is real; N2 wheel spokes have scan holes |
+| 5 | Story | 4 | unchanged section order, hero on the drop |
+| 6 | Grade | N/A | |
+| 7 | Text | 5 | two factual labels over scan only |
+| 8 | Ending | 4 | reassembly locks near the 37.43 kick, fade, bigger logo on 41.17, ends on the phrase at 44.03 |
+| 9 | Technical | 5 | spec correct, no dark/dup frames at cuts, no interpolation ghosting on N2 |
+
+## For the next agent
+- parts.py diffs pick up glass/trim that scanned differently between sessions; fit and strip the glass plane before using a
+  door-mounted part, and look at the part alone from the side before rendering.
+- Fast small parts ghost under minterpolate: render those shots at native 30 fps.
+- s5_tail -> N3 still joins two close badge framings (see v2 notes).
+
+---
+
 # Nissan 400Z scan reel — v2 self-review
 
 Output: `/home/user/media/work/out/nissan_400z_scan_v2.mp4`. Specs: 1080x1920, 30 fps, h264 yuv420p, AAC, 1151 frames (38.37 s).

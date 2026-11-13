@@ -739,3 +739,158 @@ lands here automatically. Agents must read this whole file before editing.
   10 %; re-roll takes instead of stretching them (stretched lines were heard as "airy" with odd pacing).
 - **[text]** Long-form data sections need motion: scan tracker, shot chips, count-up deltas, staged reveals, section title cards
   (tools/fx.py). User asked for all of these after seeing static cards.
+## From the Nissan Frontier v5 / Ronin section (2026-11-12, built by an agent)
+- **[story]** "How the car became the build" sections: look for the team's own CAD first - Drive has per-build folders (e.g.
+  `Nissan Frontier (SEMA 2026)/STL` with grille + fender STLs) that a name search for the car finds. They are in a design frame:
+  register with a feature-based offset + trimmed ICP (closest 35 % of points; mating faces touch the scan, outer skins don't) and
+  confirm with a coloured overlay (nissan-frontier/tools/reg_cad.py).
+- **[scan-look]** A side-view livery PSD wraps a scan with a world-space projection material: side image along X for |n.x| > 0.55
+  (mirror the logo for the far side), tiled pattern on top/front/rear, dark glass by height + normal; reveal with a keyed sweep
+  along the car (nissan-frontier/tools/shot.py mat_livery, livery_tex.py).
+- **[text]** Parts with no scan/CAD (wheels, lift, turbo): a clearly generic stand-in or a label only, wording from the user, and say so
+  in the delivery. Labels longer than ~18 characters at 66 px overflow 1080 px - shorten the title, put the rest in the subline.
+## Ferrari 296 v5 (2026-11-12)
+- Parts that leave a wheel: find the axle as the least-squares intersection of the tread-triangle normals; a hub-face
+  circle fit was 100 mm off. Fill the arch from a wheel-off state scan if one exists (real disc/caliper > empty hole).
+- tools/shot.py camera: lowering the target moves the subject UP in frame (and vice versa) - check one preview frame.
+- Retime interpolated renders with `src_fps`, never `speed:` (speed drops 1 frame in 19 -> periodic judder).
+- "Not enough parts blown up" = progressive explode: every part off on its own kick and stays off, one label each, then all
+  blast on the drop, fly home, lock.
+
+## From the Epsilon+ Wing Configurator screen-capture reel (2026-11-12, built by an agent; not yet reviewed)
+- **[technical]** Web-app screen captures: Playwright fake clock (`page.clock.install()`, then `clock.runFor(1000/30)` +
+  one screenshot per output frame) gives smooth true-speed WebGL/three.js animation at any resolution, however slow the
+  screenshot. Draw your own cursor + click ring (headless has none); native `<select>` popups never render - show the
+  click, then `selectOption` (projects/epsilon-wing-configurator/tools/capture.js).
+- **[text]** Portrait UI must be captured at a phone-width viewport (540x960 @2.5x) to read on a phone; a 720-wide
+  layout scaled 1.5x left stage labels at ~15 px. Desktop panels: 3x DPR, crop the 384-css panel to 1080 wide (2.8x).
+- **[story]** Live app > marketing copy: the launch blog (v0.8) said 49 cars/12 makes and "download spec/drawing";
+  the live app had 72/15 and the downloads were admin-only. Count from the live UI before writing narration.
+- **[technical]** 4-core container: >2 parallel headless Chromes thrash (load 15). Parallel capture queues must lock
+  shots (`.lock`/`.full_done`) and must not re-compose the same mp4 at the same time (two writers left a moov-less file).
+- **[pacing]** A narration-led reel: map phrases from the pause map of the tightened take (N pauses = N-1 clause
+  breaks), time each shot to its phrase, then snap the cut to the nearest measured kick (not the fitted grid).
+- **[technical]** A 3D stage's auto-centre by edge bbox fails (the ground horizon spans the width); use dark-pixel bbox
+  with the toolbar strip masked (tools/bbox.py).
+- (Mazda Miata NA, reviewer) When a removed part was scanned separately, it may not be the part that is on the full-car
+  scan (Miata: the full car had a different front bumper). A proximity cut against the removed part leaves the
+  non-matching old geometry behind ("the old bumper still shows"). In the part's zone, keep only full-car geometry the
+  part-off state scan confirms (nearest-neighbour ≤ ~12 mm), and show the removable part on the car in every shot
+  before it comes off, never the full-car scan's own version.
+- **[technical]** (toyota-sera-scan-process) Designed-part CAD lives outside the scan folder (Sera: Drive `Ron's Folder/<car>/Print`,
+  car-aligned frame, front at -Y, z=0 ground). To place it on the scan: yaw from the car's forward axis + trimmed-ICP translation,
+  then check the scan's PITCH from tyre-contact heights - the Artec frame was 2.7 deg nose-down and a yaw-only fit left the rear
+  bumper 10 cm low. Always render front, rear and side before animating.
+- **[story]** (toyota-sera-scan-process) Finished-car footage may only exist as a posted short with burned-in captions; crop the
+  caption band out (never text over IRL) and say so, and ask for the raw clips.
+
+### Sera v5 - scan -> finished-car match from a phone clip
+- A hand-solved camera for a cropped phone frame: put the principal point where the UNCROPPED frame centre falls in the crop
+  (lens shift), keep the camera level if the horizon sits on that point, then tune angle/distance/focal with onion overlays
+  (projects/toyota-sera-scan-process/tools/fin_cam.py). ~5 previews got within 15 px.
+- To END a scan shot on a solved pose: start the camera further back on the same ray and `--move push` with
+  amount = D/(d+D) and `--look-at` on the ray; set `src_fps` so the rendered frames span the clip exactly (30 frames -> `50/3` for 1.8 s).
+- When a customer asks for "the kit", show every part (bumpers, skirts, wing) - list the CAD folder before planning shots.
+## From the Nissan Frontier v6 (2026-11-13, built by an agent)
+- **[match-cut]** Scan -> real 1:1 cuts work in reverse too: solve the camera on the first IRL frame used and END the scan shot on it
+  (last used frame = S - 1/30; hold the key after). A truck posed on a rock needs camera ROLL: shot.py look-at cameras got a
+  `roll` key (derive loc/target/roll from the solved rotation matrix). Verify with an onion of the final render frame over the IRL frame.
+- **[match-cut]** Before judging a frame "cropped", look at the full 9:16 frame, not a zoom crop - IMG_3223 @ 2.4 s had the whole truck.
+- **[story]** Real SEMA footage lives in Dropbox `1. Video dumps/SEMA Reels/<car>`; name search for the car finds the folder, not the clips.
+  The Dropbox per-link download hosts worked from this environment on 2026-11-12.
+- **[scan-look]** Installing a new part over an old one: remove the old part's surround together with it (cut the stock bumper's grille
+  window by the new grille's bbox) or the new part clips through leftovers.
+## From the Mazda Miata ND v4 revision (2026-11-13, built by an agent)
+- **[scan-look]** After removing a captured-open panel from a state scan (hinge.py keeps only the largest blob), the panel's
+  spoiler/wing fragments stay behind and float on the closed lid ("rear wing residue", user). Drop every state triangle at or
+  above the closed panel's surface inside its footprint (mazda-miata-nd/tools/clean_trunk_fill.py), and cap other state fills
+  below the panel (composite --fill-zmax) so they don't add a second lid skin.
+- **[story]** "Mobile call to action" before the final shot (user): capture the car's listing page in a phone viewport (Playwright
+  device 'iPhone 14 Pro'), shrink the last scan frame into the listing's 360 viewer (same scan) and dissolve, title + URL around the
+  phone, then cut to the logo (mazda-miata-nd/tools/cta_card.py). The user wanted the logo bigger again (760 px) after a 300 px card.
+
+## Ferrari 296 v6 - mobile CTA with a 1:1 cut into the website photos (2026-11-13)
+- The listing photos (Shopify `/products/<handle>.js` -> images) are grey renders of the scan: solve each photo's camera
+  against the exact end-of-shot scene and cut 1:1 scan -> photo on a kick (projects/ferrari-296/tools/photo_search.py,
+  photo_grid.py; one Blender run renders 16 candidate cameras as 16 frames).
+- Silhouette IoU is NOT enough for a photo solve: at IoU 0.88 the wheels were 150 photo px off (yaw traded against
+  framing). Grid az/el/focal with bbox re-centring per candidate, then refine on gradient NCC inside the car; check the
+  edge overlay on wheels/headlights/mirror.
+- Mobile page capture: Playwright iPhone 14 Pro UA with viewport 393x699 (@3x = 1179x2097 ~ exactly 9:16); hide the
+  gallery's 360/Photos switch, zoom button and the broken "Marker" widget. Draw the carousel yourself in Remotion
+  (MobileCTA: slot rect + pitch from getBoundingClientRect) and swap page screenshots per dot at the swipe midpoint.
+- Map photo -> video at frame 0 by a fixed scale with the photo centre on the frame centre: the shot camera is the
+  photo camera with focal x (photoW * scale / 1080) and no lens shift.
+- "Keep both sides" is only safe for append-only text: a keep-both merge of remotion/src/Root.tsx fused two <Composition>
+  tags into one. After resolving a code-file conflict, run `npx tsc --noEmit` / a `remotion still` before pushing.
+
+## From the GT3 vs GT3 RS comparison reel v3 (2026-11-13, built by an agent)
+- **[match-cut]** Listing pages now open on the 360 viewer (dark background, rear-right view ~10 m away at 30-40 mm). silsolve's
+  random global search around a near guess stuck at IoU 0.85; a coarse az/el/focal grid with distance+target fitted to the
+  mask bbox (porsche-gt3-vs-gt3rs/tools/silgrid.py) reaches 0.97 in 2 minutes and gives a roll-free look-at pose shot.py can use directly.
+- **[technical]** Split-screen website ending: remotion `WebZoomSplit` (two screenshots, each starts 1:1 on a region filling its
+  half, zooms out to two cards). Hide the viewer's "Drag to rotate" hint via a Playwright text locator before the screenshot.
+- **[technical]** Scans named -WT are watertight (fake smooth skin); use the -UWT file. ASCII STLs need converting before `ive decimate`.
+- **[technical]** Two Blender jobs plus two solver processes at once got the worker killed (exit 137): one heavy job at a time, really.
+
+## Toyota GR Corolla v3 (front under-bumper data, Blood Code)
+- **[data]** A user's brand name for a folder ("Jackson Racing", "CSF") may not exist for that car - search Drive by part
+  ("Front Bumper Underbody Data") and say in the delivery which folder was used. Shop part scans of one car are usually
+  already in the car's raw frame: render them coloured over the car before reaching for ICP.
+- **[scan]** Front-off base: trimming by distance to the bumper leaves ragged skin flakes at the corners. Use
+  `composite.py --remove-diff "chassis_clean.stl:Bumper.stl:10:30"` + `--fill` from the stripped scan instead.
+- **[music]** Find the drop from the sub stop: the 35-110 Hz envelope goes silent for the riser, the first kick after it
+  is the drop. Kick-sync check: take the LAST half-rise crossing before the kick peak - a bass note before the kick can
+  fool a first-crossing detector by 2-4 frames.
+- **[technical]** Long render queues must be resumable (skip complete shots, restart partial ones from the last frame):
+  a container restart killed the queue mid-shot and the resume lost nothing.
+- **[framing]** Check the top/bottom 25 % bands for bright pixels over the last 15 frames of every part-move shot: an
+  exit key that "looked fine" in the 3-frame preview still left the bumper in a corner at the cut.
+- **Measure cuts on the decoded picture, not the plan** (mazda-miata-na v3). `ive assemble` builds a cut as a 1-frame xfade, so the incoming shot first appears one frame after the summed `dur`s, and every cut lands +33 ms late. Find the first new-shot frame from frame differences in the delivered mp4, then match it against the audio onsets. Fix in the project by shortening the first clip by one frame and lengthening the last clip by one frame.
+- **[audio]** (epsilon-wing-configurator v5) Higgsfield seed_audio can clip the first/last phoneme of a single generated line
+  (file starts at 8 % level mid-"P"). Wrap the text in "... text ..." and check the first/last 10-50 ms envelope of every take
+  before splicing; the user heard v4's clipped "Pick".
+- **[technical]** (epsilon-wing-configurator v5) When a stacked shot's top pane is not 1080x1100, build its src rect at the
+  pane's own aspect - a topRect() (1080:1100) drawn into a 1080x800 pane squashed the side view ("aspect ratio messed up").
+- Before cropping a captioned social clip, check what the caption sits on: if it is plain sky, paint it out
+  (projects/toyota-sera-scan-process/tools/uncaption.py) and keep the full frame - the reviewer rejected the 1.43x crop as too tight.
+  For a camera solved on a crop, the full-frame camera is the same pose with sensor = sensor_crop * full_w / crop_w and no crop shift.
+- Judge a 1:1 match on a FULL-resolution close-up of the subject (photo | photo + render edges), never on a 540 px onion:
+  on the Sera an 18 % scale error passed three versions at 540 px and was misread as "the doors are at a different angle".
+  If every feature is off in the same direction from one anchor point, it is scale (focal), not pose.
+- (mr2 v3, 2026-11-13) List the WHOLE Drive folder recursively before planning: v1 and v2 missed the loose front bumper scan and both underbody scans that the reviewer then asked for.
+- (mr2 v3) A part scanned loose beats a part made by differencing two car scans. Thin shells fail global registration; a PCA-frame start plus ICP worked (projects/toyota-mr2-spyder/tools/pcareg.py).
+- (mr2 v3) `python -m ive prep` needs `--` before its arguments; negative argparse values need the `--box=...` form.
+- (mr2 v3) Container restarts kill background render queues silently; keep queues resumable and re-check the frame counts, not the waiter.
+- (mr2 v3) Measure cuts on the assembled file, not the plan: three cuts were 2 frames late on a syncopated track. If a retime leaves a 30 fps CGI shot short, render the extra frames (extrapolate linear keys) instead of duplicating.
+## From the Mazda Miata ND v5 revision (2026-11-13, built by an agent)
+- **[match-cut]** Scan -> website listing 1:1: solve the listing viewer's camera from the car silhouette in the (mobile) screenshot
+  (mazda-miata-nd/tools/solve_listing.py: point-cloud projection, orbit az/el/d + image scale/offset, IoU) and END the scan move on
+  that camera; the CTA then scales the last frame by the solved k onto the listing car (tools/cta_card.py --map). Search the full
+  360 deg of azimuth: Miata's first fit used the wrong rear quarter (IoU 0.82 vs 0.975) - render guesses next to the screenshot.
+- **[technical]** Shopify 360 viewers show a "Drag to rotate" pill over the car: hide only that element (`span.ia-spin__hint`) before the
+  screenshot; a broad text match hid the poster image and exposed a different 3D view.
+- **[scan-look]** Trace panel cut lines on a high-pass height map of the 2 mm scan (z minus a 4-px Gaussian, 3 mm/px top view): shut lines
+  are dark grooves. A shaded render tracing put the hood's rear edge over the cowl (user: "hood cutout line is incorrect").
+- **[pacing]** Long techno tracks: check `cutcheck` for one huge rise (x700) far from the grid - it's an off-grid fill hit after a gap
+  (Megalomaniac 238.96 s, 118 ms early). Cut on the hit, not the grid; slow the next shot a few % to keep its motion hit on the drop.
+
+- **[text]** dont change the dropdown in the actual product, change the dropdown in the video  _(from ferrari-296 @ 32s, 2026-11-13, reviewer)_
+
+## Ferrari 296 v7 (per-part colors, dropdown follows the photo)
+- "Change the dropdown in the video" = never touch the live store. Select options in a local headless browser like a
+  visitor, screenshot each state, swap the screenshots in the video. Say so explicitly; the user worried the product changed.
+- Photo <-> option pairing: use the product JSON (`/products/<handle>.js`), variant.featured_image -> gallery index. Order
+  the swipes by gallery index so the carousel only travels one way.
+- Per-part palette: saturated satin (roughness ~0.38, metallic ~0.25) x AO; pastel/low-saturation values washed out to
+  near-white under AgX. Keep hue steps wide between parts that share a frame.
+- A colored scan cutting 1:1 to a grey website render still reads as a match (shape carries it), but the grade score drops.
+## From the Nissan Frontier v7 revision (2026-11-13, built by an agent)
+- **[scan-look]** Bigger wheels on a stock-height scan WILL clip: count body/flare/bumper points inside the tyre ring before rendering.
+  Frontier 35s: tens of thousands of points inside at stock height, zero at track +/-0.98 m and the lifted height - so show the new
+  wheels only on the lifted body, widen the track to the wide fenders, and carve the hub volume out of the body scan (c7_body_w).
+- **[scan-look]** Stand-in parts must be solid and plain (closed wheel barrel, no see-through spokes) - user on an open-spoke stand-in:
+  "super ugly". Do not add parts you cannot source (bumper bar modelled from a photo: "not accurate" -> removed). Label-only is safer.
+- **[scan-look]** Cutting a scanned panel for a new CAD part: mask by the new part's own silhouette (grille x-z outline, up to 260 mm
+  behind its back face), not a hand-drawn box, and animate in real install order (grille -> lights into grille -> onto cut bumper).
+- **[technical]** `rm -rf` with shell variables in the path is blocked by the safety check - use literal paths or leave cleanup to the user.

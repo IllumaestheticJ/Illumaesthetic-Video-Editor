@@ -1,0 +1,104 @@
+# Mazda Miata ND - v5: user's v4 notes. Music = Megalomaniac (user upload; 128.05 BPM, beat 0.46864 s, broadband onset grid
+# 195.963 + k*B), cut from 231.580 s so the hood lands on the drop (240.953 s onset = video n16). Hood re-cut on its real
+# shut lines (tools/extract_hp.py); reassembly ends on the listing 360-viewer camera solved from the mobile screenshot
+# (tools/solve_listing.py, IoU 0.975) and the CTA shrinks it 1:1 onto that car (tools/cta_card.py --map).
+# Reused v3/v4 renders are re-timed by src_fps (116 -> 128 BPM, same beat counts); new renders: N = ceil((slot+3)/2), src_fps 15.
+# Cuts: 56 112 222 (on the stutter-fill hit 238.96 s, 118 ms before the grid) 309 366 450 534 590 647 703 | CTA 759 | logo 837 | end 903 (30.1 s).
+project: mazda-miata-nd
+format: reel-9x16
+output: {path: /home/user/media/work/miata/out/miata_nd_v5_nolabels.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/mega_cut_v5.wav   # not in git (user-supplied track)
+  start: 0
+  fade_out: 1.6
+
+timeline:
+  - id: v3_a_open   # section: whole | focus: whole car, front 3/4
+    src: /home/user/media/work/miata/renders/final/v3_a_open
+    src_fps: 15.5000   # reused, 31 renders retimed to the 128 BPM grid
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: s4_lamp   # section: front | focus: right headlight + grille
+    src: /home/user/media/work/miata/renders/final/s4_lamp
+    src_fps: 16.0000   # reused, 32 renders retimed to the 128 BPM grid
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: v3_f_bumper   # section: front | focus: front bumper off -> inner face -> crash beam
+    src: /home/user/media/work/miata/renders_v5/final/v3_f_bumper
+    src_fps: 15.0000   # new render, N=ceil((slot+3)/2)
+    interpolate: true
+    frames: 110
+    dur: 3.6667
+  - transition: {type: cut}
+  - id: v3_f_bay   # section: front (engine bay) | focus: hood (re-cut on its shut lines) to the captured open pose, lands on the drop
+    src: /home/user/media/work/miata/renders_v5/final/v3_f_bay
+    src_fps: 14.5055   # new render (44); slot 87 after the cut moved 3 frames earlier; hood still lands on the drop (9.34 vs 9.37 s)
+    interpolate: true
+    frames: 87
+    dur: 2.9000
+  - transition: {type: cut}
+  - id: s3_wheel_rev   # section: wheels | focus: front-right wheel + brake
+    src: /home/user/media/work/miata/renders/final/s3_wheel_rev
+    src_fps: 15.7377   # reused, 32 renders retimed to the 128 BPM grid
+    interpolate: true
+    frames: 57
+    dur: 1.9000
+  - transition: {type: cut}
+  - id: v3_s_side   # section: side | focus: right mirror mount, sill skirt
+    src: /home/user/media/work/miata/renders_v5/final/v3_s_side
+    src_fps: 15.0000   # new render, N=ceil((slot+3)/2)
+    interpolate: true
+    frames: 84
+    dur: 2.8000
+  - transition: {type: cut}
+  - id: v3_r_bumper   # section: rear | focus: rear bumper off -> inner face -> exhaust/rear structure (wing residue removed)
+    src: /home/user/media/work/miata/renders/final/v3_r_bumper
+    src_fps: 15.6818   # reused, 46 renders retimed to the 128 BPM grid
+    interpolate: true
+    frames: 84
+    dur: 2.8000
+  - transition: {type: cut}
+  - id: v3_r_trunk   # section: rear (trunk) | focus: trunk lid to its captured pose
+    src: /home/user/media/work/miata/renders/final/v3_r_trunk
+    src_fps: 15.5000   # reused, 31 renders retimed to the 128 BPM grid
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: v3_x_front   # section: explode | focus: front assembly in layers
+    src: /home/user/media/work/miata/renders_v5/final/v3_x_front
+    src_fps: 15.0000   # new render, N=ceil((slot+3)/2)
+    interpolate: true
+    frames: 57
+    dur: 1.9000
+  - transition: {type: cut}
+  - id: v3_x_rear   # section: explode | focus: rear assembly in layers (right-rear quarter)
+    src: /home/user/media/work/miata/renders_v5/final/v3_x_rear
+    src_fps: 15.0000   # new render, N=ceil((slot+3)/2)
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: v3_x_home   # section: explode | focus: reassembly lock on n48, camera lands on the listing camera
+    src: /home/user/media/work/miata/renders_v5/final/v3_x_home
+    src_fps: 15.0000   # new render, N=ceil((slot+3)/2)
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: cta   # section: cta | focus: car shrinks 1:1 onto the listing car in the phone
+    src: /home/user/media/work/miata/out/cta_v5.mp4
+    frames: 78
+    dur: 2.6000
+  - transition: {type: cut}
+  - id: logo   # section: end | focus: logo 760 px
+    src: /home/user/media/work/miata/out/logo_card_v4.mp4
+    frames: 66
+    dur: 2.2000
+
+overlays: []

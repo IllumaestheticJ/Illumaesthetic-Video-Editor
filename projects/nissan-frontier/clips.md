@@ -28,3 +28,24 @@ remotion/public/illumaesthetic_logo.png (gitignored) = illumaesthetic.com header
 
 ## Music
 Original track generated for this reel by the coordinating session (pending at the time of writing).
+
+## Ronin section (v5, 2026-11-12)
+- CAD (team's own, Drive `Nissan Frontier (SEMA 2026)/STL`, folder 1odGutrIcjHGx4MRtXSqz2FSSwEr0smeC): `Grille/V1 (Oct 1)/Upper_Grille_V1.stl`,
+  `Lower_Grille_V1.stl`; `Fender/V1 (Oct 7)/Fender.{Front,Rear}{Left,Right}.stl`. Design frame -> scan frame by `ronin_T.json` (tools/reg_cad.py).
+- Livery: user uploads (RONIN-livery-final2-draft.psd, topology-PSD.psd, group1/group2/Combined SVGs, black/gold slash SVGs) in
+  /home/user/media/nissan-frontier/livery; textures by tools/livery_tex.py.
+- Not data: wheels/tyres (tools/make_wheel.py, generic 35x12.50R17 on 17x9 beadlock-style), lift (0.10 m), turbo (label only).
+- Music: /home/user/media/work/music/nissan-frontier_track_ronin.wav = original track with 19.259-33.826 s replayed once after 33.826 s.
+
+## Real footage (v6): Dropbox `/2. Illumaesthetic Videos/1. Video dumps/SEMA Reels/Nissan Frontier` -> /home/user/media/nissan-frontier/sema
+All 1080x1920 30 fps HEVC HLG. Sheet: chk/sema_sheet.png.
+| clip | s | what |
+|---|---|---|
+| IMG_3223 | 3.9 | wide front-left 3/4 of the whole truck on the stand, slow pan - **1:1 cut frame @ 2.4 s** (match/cam_3223.json) |
+| IMG_3224 | 5.7 | front-left fender/flare + tyre close-up, pan to the door |
+| IMG_3225 | 13.2 | rear wheel/suspension, rear flare, bed side with NISMO OFF ROAD decal |
+| IMG_3226 | 9.0 | Nissan badge close -> pull back to the whole front (grille LED bars, bumper bar, skid plate) |
+| IMG_3227 | 8.8 | front -> push in to the grille/badge, marker lights |
+| IMG_3239 | 5.5 | right side pass rear -> front: RONIN door livery, wheels, lift - used after the 1:1 cut |
+| IMG_3240 | 19.3 | front-right wheel, suspension (coilover), brake, wheel face close-ups |
+MotoIQ photo: the image the user attached on 2026-11-12 (ronin/user_ref_photo.png, 928x580).
