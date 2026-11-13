@@ -1,71 +1,74 @@
-# Toyota MR2 SW20 scan-process reel v2 (v1 + listing ending rebuilt) ("240SX style").
-# Music starts at the 5.428 s kick (2 accents before the drop); drop = 3.215 s video. Kick grid 111.99 BPM (0.53575 s),
-# accents (strong kicks) on every other beat from the drop: 3.215 + 1.0715 k. Every cut sits on round(accent * 30).
-# Cut frames: 96 193 225 257 321 418 450 579 707 | end 879 (music ends ~34.7 s audio = 29.3 s video).
+# Toyota MR2 SW20 scan-process reel v3: v2 edit re-timed to "Riders on the Storm" (Snoop Dogg feat. The Doors, NFSU2).
+# User: "This is slop music. Change to real music (NFSUG2 soundtrack) and re-time the video" -> picked Riders on the Storm.
+# Track (user upload, not in git): 6:12 version. Beat enters 3.937 s after the rain/keys intro; 102.0 BPM; strong kicks on
+# every other beat = accents every 1.1765 s (local fit 3.9-40 s, 31/39 kicks, max residual 14 ms).
+# Music starts 0.737 s so the beat enters ON the rear 1:1 cut (3.2 s). Cut frames: 96 202 237 272 343 449 484 625 | dissolve 767 | end 943.
+# Renders are the v2 renders slowed ~6 % via src_fps to fill the longer holds (no re-render).
 project: toyota-mr2-sw20-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/mr2_sw20_scan_v2.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/mr2_sw20_scan_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/toyota-mr2-sw20-scan-process_track.mp3
-  start: 5.428
-  fade_out: 0.9
+  path: /home/user/media/work/music/riders/riders.m4a
+  start: 0.7372
+  fade_out: 1.2
 
-beats: [3.215, 4.286, 5.358, 6.429, 7.501, 8.572, 9.644, 10.715, 11.787, 12.858, 13.930, 15.001, 16.073, 17.144,
-        18.216, 19.287, 20.359, 21.430, 22.502, 23.573, 24.645, 25.716, 26.788, 27.859, 28.931]
+beats: [3.200, 4.376, 5.553, 6.729, 7.906, 9.082, 10.259, 11.435, 12.612, 13.788, 14.965, 16.141, 17.317, 18.494,
+        19.670, 20.847, 22.023, 23.200, 24.376, 25.553, 26.729, 27.906, 29.082, 30.258, 31.435]
 
 timeline:
-  - id: irl_rear   # crew scanning the open trunk; ends on the solved frame 4.400 s; cut ON THE DROP
-    dur: 3.1667   # 95 frames: first clip one frame short (measured: every cut landed 1 frame late with 96)
+  - id: irl_rear   # crew scanning the open trunk; ends on the solved frame 4.400 s; cut ON THE BEAT ENTRY
+    dur: 3.1667   # 95 frames: first clip one frame short (assembler offset)
     src: /home/user/media/mr2/dropbox/v_1602_50.mov
     in: 1.2667
     out: 4.4334
-  - transition: {type: cut, note: "1:1 IRL -> Interior scan (cam_rear) on the drop"}
-  - id: scan_rear   # Interior state (trunk open), eases from cam_rear back to a rear-left 3/4
-    dur: 3.2333
+  - transition: {type: cut, note: "1:1 IRL -> Interior scan (cam_rear) on the beat entry"}
+  - id: scan_rear   # 106 frames (3 accents); 50 rendered frames at 14.15 fps
+    dur: 3.5333
     src: /home/user/media/work/mr2/renders/final/s1_rear
-    src_fps: 15
+    src_fps: 14.15
     interpolate: true
-  - id: irl_screen   # scanner screen shows the live scan
-    dur: 1.0667
+  - id: irl_screen   # 35 frames
+    dur: 1.1667
     src: /home/user/media/mr2/dropbox/v_1500_26.mov
     in: 1.0
-    out: 2.0667
-  - id: irl_door   # passenger door inner panel being scanned (door still on)
-    dur: 1.0667
+    out: 2.1667
+  - id: irl_door   # 35 frames
+    dur: 1.1667
     src: /home/user/media/mr2/dropbox/v_1447_56.mov
-    in: 2.9
+    in: 2.8
     out: 3.9667
-  - id: irl_side   # crew leaning into the empty door opening; ends on solved frame 2.300 s
-    dur: 2.1333
+  - id: irl_side   # 71 frames: whole clip up to the solved frame (70) + first frame held 1 frame
+    hold_start: 0.0333
+    dur: 2.3334
     src: /home/user/media/mr2/dropbox/v_1433_07.mov
-    in: 0.2
+    in: 0.0
     out: 2.3334
   - transition: {type: cut, note: "1:1 IRL -> 'T-Top Off + T-tops' composite (cam_side)"}
-  - id: scan_side   # T-tops lift off -> T-Top Off state
-    dur: 3.2333
+  - id: scan_side   # 106 frames; T-tops lift off
+    dur: 3.5333
     src: /home/user/media/work/mr2/renders/final/s2_side
-    src_fps: 15
+    src_fps: 14.15
     interpolate: true
-  - id: screen_rec   # Artec Studio, textured SW20 scan (2026-07-29 screen recording, viewport crop, 2x)
-    dur: 1.0667
-    src: /home/user/media/work/mr2/screen_crop.mp4
-  - id: scan_parts   # doors + T-tops explode out and spin left/right (doors turn their scanned inner panels to camera)
-    dur: 4.3
+  - id: screen_rec   # 35 frames; Artec Studio viewport crop, 63.5-65.95 s at 2x
+    dur: 1.1667
+    src: /home/user/media/work/mr2/screen_crop_v3.mp4
+  - id: scan_parts   # 141 frames (4 accents); 66 rendered frames at 14.04 fps
+    dur: 4.7
     src: /home/user/media/work/mr2/renders/final/s3_parts
-    src_fps: 15
+    src_fps: 14.04
     interpolate: true
-  - id: scan_xray   # v2: x-ray reassembly orbits to the listing hero camera (cam_listing) and morphs to listing-grey clay
-    dur: 4.7667     # 128 frames + 0.5 s dissolve overlap
+  - id: scan_xray   # 142 frames (4 accents) + 0.5 s dissolve; 74 rendered frames at 14.14 fps; ends on the listing hero pose
+    dur: 5.2333
     src: /home/user/media/work/mr2/renders/final/s4b_xray_listing
-    src_fps: 15
+    src_fps: 14.14
     interpolate: true
-  - transition: {type: dissolve, duration: 0.5, note: "clay chassis -> listing hero (same pose/size: the scan becomes the listing car)"}
-  - id: website   # holds on the hero image 0.6 s (covers the dissolve), then zooms out to the page
+  - transition: {type: dissolve, duration: 0.5, note: "clay chassis -> listing hero (same pose/size), dissolve starts on accent 767"}
+  - id: website   # hold 0.6 s on the hero, zoom out, logo, URL; ends on accent 943
     hold_start: 0.6
-    dur: 5.1667   # + 0.6 hold = 5.7667 -> reel still ends at frame 879
-    src: /home/user/media/work/out/webzoom_mr2_v2.mp4
+    dur: 5.2667
+    src: /home/user/media/work/out/webzoom_mr2_v3.mp4
 
 overlays:
-  - src: /home/user/media/work/out/hud_mr2_v2.mov
+  - src: /home/user/media/work/out/hud_mr2_v3.mov
     start: 0

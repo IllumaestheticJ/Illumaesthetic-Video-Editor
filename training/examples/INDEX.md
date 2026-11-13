@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
@@ -49,7 +50,6 @@ Newest first. Read the top two before starting a new edit.
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11
-- [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-11
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
 - [fg2-race-car](fg2-race-car/) - archived 2026-11-11
 - [240sx-scan](240sx-scan/) - archived 2026-11-11

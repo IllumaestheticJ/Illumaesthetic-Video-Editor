@@ -884,3 +884,8 @@ lands here automatically. Agents must read this whole file before editing.
   A background waiter that greps a log for a completion string must match what the tool really prints, or it waits forever.
 
 - (WRX VB v4) Segment a panel on the car mesh (vertex-ring smoothing + island absorption), never by point distance to its part scan: point distance speckles neighbouring panels and leaves double skins that render mottled. Fill holes from state scans only > ~6 mm from kept skin. Check a state scan's coverage before treating it as "panel off".
+
+## From the MR2 SW20 reel v3 (2026-11-13)
+- **[audio]** User rejected a generated track as "slop music" and asked for a real NFSU2 song. YouTube/fan sites can't supply it here:
+  ask the user to upload the file, and keep the old renders - re-time by keeping each shot's accent count and lowering `src_fps`.
+- **[text]** ScanHUD `counter` easing settles at ~99.9 % (34,959,222 shown for 34,993,395). Use a static `label` for exact counts.

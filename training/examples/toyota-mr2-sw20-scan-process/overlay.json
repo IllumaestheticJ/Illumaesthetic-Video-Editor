@@ -2,18 +2,18 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 879,
+ "durationInFrames": 943,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "brackets",
    "from": 99,
-   "duration": 88
+   "duration": 99
   },
   {
    "kind": "label",
    "from": 104,
-   "duration": 82,
+   "duration": 94,
    "title": "34,993,395 TRIANGLES",
    "sub": "FULL CHASSIS \u00b7 INTERIOR STATE",
    "x": 0.08,
@@ -21,13 +21,13 @@
   },
   {
    "kind": "brackets",
-   "from": 324,
-   "duration": 88
+   "from": 346,
+   "duration": 99
   },
   {
    "kind": "label",
-   "from": 330,
-   "duration": 82,
+   "from": 352,
+   "duration": 93,
    "title": "T-TOPS OFF",
    "sub": "34,998,108 TRIANGLES",
    "x": 0.08,
@@ -35,8 +35,8 @@
   },
   {
    "kind": "label",
-   "from": 466,
-   "duration": 106,
+   "from": 500,
+   "duration": 120,
    "title": "DOORS OFF",
    "sub": "INNER DOOR PANELS SCANNED",
    "x": 0.08,
