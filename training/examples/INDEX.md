@@ -6,6 +6,7 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-13
 - [honda-civic-11](honda-civic-11/) - archived 2026-11-13
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
+- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-13
 - [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-12
@@ -41,7 +42,6 @@ Newest first. Read the top two before starting a new edit.
 - [lexus-is350](lexus-is350/) - archived 2026-11-11
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11
-- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [honda-s2000](honda-s2000/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11

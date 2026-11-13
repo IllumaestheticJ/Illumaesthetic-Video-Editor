@@ -804,3 +804,17 @@ lands here automatically. Agents must read this whole file before editing.
   half, zooms out to two cards). Hide the viewer's "Drag to rotate" hint via a Playwright text locator before the screenshot.
 - **[technical]** Scans named -WT are watertight (fake smooth skin); use the -UWT file. ASCII STLs need converting before `ive decimate`.
 - **[technical]** Two Blender jobs plus two solver processes at once got the worker killed (exit 137): one heavy job at a time, really.
+
+## Toyota GR Corolla v3 (front under-bumper data, Blood Code)
+- **[data]** A user's brand name for a folder ("Jackson Racing", "CSF") may not exist for that car - search Drive by part
+  ("Front Bumper Underbody Data") and say in the delivery which folder was used. Shop part scans of one car are usually
+  already in the car's raw frame: render them coloured over the car before reaching for ICP.
+- **[scan]** Front-off base: trimming by distance to the bumper leaves ragged skin flakes at the corners. Use
+  `composite.py --remove-diff "chassis_clean.stl:Bumper.stl:10:30"` + `--fill` from the stripped scan instead.
+- **[music]** Find the drop from the sub stop: the 35-110 Hz envelope goes silent for the riser, the first kick after it
+  is the drop. Kick-sync check: take the LAST half-rise crossing before the kick peak - a bass note before the kick can
+  fool a first-crossing detector by 2-4 frames.
+- **[technical]** Long render queues must be resumable (skip complete shots, restart partial ones from the last frame):
+  a container restart killed the queue mid-shot and the resume lost nothing.
+- **[framing]** Check the top/bottom 25 % bands for bright pixels over the last 15 frames of every part-move shot: an
+  exit key that "looked fine" in the 3-frame preview still left the bumper in a corner at the cut.
