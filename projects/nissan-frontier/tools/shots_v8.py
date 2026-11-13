@@ -77,7 +77,7 @@ def shots():
     sh[n] = {"base": body, "parts": front(bk=bin_) + [part("flare_rf", still()), part("flare_rr", still()), part("flare_lf", still()), part("flare_lr", still())]
              + grille(gin) + glights(lin), "led": [[0, 0], [7 * B - 0.02, 0], [7 * B + 0.08, 1]],
              "cam": cam((0, (-3.0, -5.9, 1.25), (-0.06, -3.1, 0.66), 30, "lin"), (3 * B, (-2.4, -6.0, 1.3), (-0.06, -3.2, 0.72), 30, "inout"),
-                        (6 * B, (-1.9, -5.3, 1.25), (-0.06, -2.9, 0.80), 32, "inout"), (S[n] + 0.2, (-1.2, -4.5, 1.25), (-0.06, -2.7, 0.84), 36, "inout"))}
+                        (6 * B, (-1.9, -5.3, 1.25), (-0.06, -2.9, 0.80), 32, "inout"), (S[n] + 0.2, (-1.0, -4.3, 1.3), (-0.06, -2.7, 0.86), 42, "inout"))}
     ronin_front = lambda mat=None: front(mat) + grille() + glights()
     # M2 stock flares off / M3 fenders + scanned fender lights: one camera path
     c_a, t_a = (-4.2, -6.2, 1.3), (-0.3, -0.8, 0.5)
@@ -95,7 +95,7 @@ def shots():
     lL = [k(0, (1.8, 0, 2.4)), k(3 * B, (1.8, 0, 2.4)), k(5 * B, (0.20, 0, 0.23), ease="out2"), k(6 * B, (0, 0, 0))]
     sh[n] = {"base": body, "parts": ronin_front() + fenders(inR, inL) + flights(lR, lL), "led2": [[0, 0], [7 * B - 0.02, 0], [7 * B + 0.08, 1]],
              "cam": cam((0, c_b, t_b, 26, "lin"), (2 * B, (-5.3, -5.2, 1.3), (-0.3, -0.4, 0.5), 26, "lin"),
-                        (5 * B, (-3.3, -3.6, 1.5), (-1.0, -1.75, 0.62), 34, "inout"), (S[n] + 0.2, (-3.0, -3.2, 1.42), (-1.0, -1.75, 0.62), 34, "inout"))}
+                        (5 * B, (-2.8, -3.1, 1.4), (-1.0, -1.78, 0.68), 42, "inout"), (S[n] + 0.2, (-2.55, -2.8, 1.32), (-1.0, -1.78, 0.68), 42, "inout"))}
     done = lambda mat=None: ronin_front(mat) + fenders() + flights()
     # M4 wheels / M5 lift: one orbit, hidden cut
     Tw = S["m4_wheels"]; Ta = Tw + S["m5_lift"]
