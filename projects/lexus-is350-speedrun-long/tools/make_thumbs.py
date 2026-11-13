@@ -345,19 +345,6 @@ def concept_F2():
     return c
 
 
-def concept_F2b():
-    # owner 2026-11-13: "this is good, but move the scanner higher"
-    band = 420
-    c = Image.new('RGB', (W, H), (0, 0, 0))
-    c.paste(split_base(0.74, 1210, band), (0, band))
-    d = ImageDraw.Draw(c)
-    guess_tags(d, 1880, 462, 620, 172, 34, font(MONO % 'ExtraBold', 102), labels=('2 HOURS?', '30 MIN?', '15 MIN?', 'LONGER?'))  # owner: add LONGER?
-    sc = scanner_cut(660)
-    drop_shadow_paste(c, sc, (20, H - sc.height - 300), blur=22, off=(12, 18))
-    band_text(c, ['3D SCAN A CAR', 'IN ___ MIN?'], band, width=1640)
-    return c
-
-
 def concept_F3():
     band = 420
     c = Image.new('RGB', (W, H), (0, 0, 0))
@@ -375,6 +362,60 @@ def concept_F3():
     return c
 
 
+
+# ================================================================ v4: whole scanner standing on its base (FX30542 4K frame f_010)
+def leo_cut(width):
+    """Whole Artec-style handheld on its base/stand, cut from the 4K FX30542 frame (scanner4k/f_010, ~5 s).
+    Matte: hand polygon + grabCut refinement + threshold clean-up (see frames/poly10.py); rear end rounded where a spray gun hides it."""
+    im = Image.open(f'{T}/frames/leo_f010.jpg').convert('RGB')
+    m = Image.open(f'{T}/scanner_leo_mask.png').convert('L')
+    box = m.getbbox()
+    im, m = im.crop(box), m.crop(box)
+    m = m.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(1.6))    # 1px choke + feather (no bench halo)
+    r = width / im.width
+    sz = (width, round(im.height * r))
+    im = im.resize(sz, Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=1.6, percent=80, threshold=2))
+    m = m.resize(sz, Image.LANCZOS)
+    arr = np.asarray(im).astype(np.float32)
+    arr = np.clip((arr - 10) * 1.16, 0, 255)          # source is flat/pale: restore white body contrast
+    out = Image.fromarray(arr.astype(np.uint8)).convert('RGBA'); out.putalpha(m)
+    return out
+
+
+def stand_on_ground(c, sc, x, base_y, blur_k=0.05):
+    """Paste cut-out with its bottom at base_y and a soft ground shadow so it sits on the road."""
+    w, h = sc.size
+    sh = Image.new('L', c.size, 0)
+    ImageDraw.Draw(sh).ellipse([x - w * .02, base_y - h * .075, x + w * 1.06, base_y + h * .055], fill=170)
+    sh = sh.filter(ImageFilter.GaussianBlur(w * blur_k))
+    c.paste(Image.new('RGB', c.size, (0, 0, 0)), (0, 0), sh)
+    c.paste(sc, (x, base_y - h), sc)
+
+
+def concept_F2b():
+    band = 420
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    c.paste(split_base(0.74, 1210, band), (0, band))
+    d = ImageDraw.Draw(c)
+    guess_tags(d, 1880, 462, 620, 172, 34, font(MONO % 'ExtraBold', 102), labels=('2 HOURS?', '30 MIN?', '15 MIN?', 'LONGER?'))
+    sc = leo_cut(665)
+    stand_on_ground(c, sc, 34, H - 70)
+    band_text(c, ['3D SCAN A CAR', 'IN ___ MIN?'], band, width=1640)
+    return c
+
+
+def concept_F2c():
+    band = 420
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    c.paste(split_base(0.74, 1210, band), (0, band))
+    d = ImageDraw.Draw(c)
+    guess_tags(d, 1880, 462, 620, 172, 34, font(MONO % 'ExtraBold', 102), labels=('2 HOURS?', '30 MIN?', '15 MIN?', 'LONGER?'))
+    sc = leo_cut(790)
+    stand_on_ground(c, sc, 0, H - 40)
+    band_text(c, ['3D SCAN A CAR', 'IN ___ MIN?'], band, width=1640)
+    return c
+
+
 if __name__ == '__main__':
     which = sys.argv[1:] or ['F1', 'F2', 'F3']
     for w in which:
@@ -387,4 +428,5 @@ if __name__ == '__main__':
          'F1': lambda: save(concept_F1(), 'thumb_F1'),
          'F2': lambda: save(concept_F2(), 'thumb_F2'),
          'F2b': lambda: save(concept_F2b(), 'thumb_F2b'),
+         'F2c': lambda: save(concept_F2c(), 'thumb_F2c'),
          'F3': lambda: save(concept_F3(), 'thumb_F3')}[w]()
