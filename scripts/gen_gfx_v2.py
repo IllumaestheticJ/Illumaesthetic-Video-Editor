@@ -256,7 +256,8 @@ try:
     cue("CON_G1_v2", "CueV2", c1in, c1out, "CON_G1_v2.mov", True, "top-left x60-760 y60 (plates; sky is bright)", text=g["CON_G1_v2"]["text"], x=60, y=60, w=700, beats=[0, round(nf * 0.3), round(nf * 0.62)])
 except ValueError:
     print("WARN: CON_G1_v2 skipped (anchor missing)")
-cue("CON_G3_v2", "ScanLabel", ev["CON_02"]["tin"] + 3.5, ev["CON_02"]["tout"], "CON_G3_v2.mov", True, "bottom-left over black, halo", text=g["CON_G3_v2"]["text"], sub="", pos="bl", plate=False)
+# CTA wording per owner (was "LINK IN THE DESCRIPTION"); text is split at the domain: small line above, large mono domain
+cue("CON_G3_v2", "CueV2", ev["CON_02"]["tin"] + 3.5, ev["CON_02"]["tout"], "CON_G3_v2.mov", True, "lower-left x80 y840 (content-sized plate) over black below the car", text="SCANS AVAILABLE AT ILLUMAESTHETIC.COM", x=80, y=840, w=900)
 cue("G05a_v2", "CardV2", ev["C_03"]["tin"], ev["C_03"]["tout"], "G05a_v2.mp4", False, "BLACK CARD 1/3 full frame; HUD overlay stays on top", text=g["G05a_v2"]["text"])
 cue("G05b_v2", "CardV2", ev["C_07"]["tin"], ev["C_07"]["tout"], "G05b_v2.mp4", False, "BLACK CARD 2/3 full frame; carries the big CLOCK 1 fast-forward (HUD shows chapter tag only)", text=g["G05b_v2"]["text"], **{"from": EV["C_06"]["hud"] and sec(EV["C_06"]["hud"]["clock1"]["end"]) , "to": sec("11:56")})
 cue("G15_v2", "CardV2", ev["END"]["tin"], ev["END"]["tout"], "G15_v2.mp4", False, "BLACK CARD 3/3 end card, logo 900 px", text="ILLUMAESTHETIC")

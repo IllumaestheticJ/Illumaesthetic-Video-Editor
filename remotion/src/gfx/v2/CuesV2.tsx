@@ -76,6 +76,19 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
         </AbsoluteFill>
       );
     }
+    case "CON_G3_v2": {
+      const [l1, l2] = txt[0].split(/ (?=[A-Z]+\.COM$)/);
+      const fo = interpolate(f, [p.frames - 7, p.frames - 1], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
+      return (
+        <AbsoluteFill>
+          <Box x={x} y={y} w={w} a={a * fo} dx={dx}>
+            <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 36, letterSpacing: 5, lineHeight: 1.1, color: "#d5dae2", textShadow: SH, whiteSpace: "nowrap" }}>{l1}</div>
+            <div style={{ height: 12 }} />
+            <div style={{ fontFamily: MONO, fontWeight: 800, fontSize: 68, letterSpacing: 1, lineHeight: 1.05, color: C.ink, textShadow: SH, whiteSpace: "nowrap" }}>{l2}</div>
+          </Box>
+        </AbsoluteFill>
+      );
+    }
     case "STING1_v2":
     case "STING2_v2": {
       const [pt, nm] = txt[0].split(" · ");
