@@ -81,6 +81,16 @@ Each of these was a correction on a delivered version; the reason matters more t
 - **State scans are shown as captured, swapped 1:1 on a beat** - no dissolve, no blending two states.
 - **Labels**: short, one at a time, only over scan shots, in clear black away from moving parts, text only from
   file names and STL headers (triangle counts). Never invent a number.
+- **Hold on what a removal exposed, for every section including the side.** (Miata ND: "the side skirt comes off
+  and then immediately cuts away, its just a bad practice") The Revuelto's side shot is its weakest for this reason.
+- **Every scanned part gets a beat and a name.** (GR86: "make sure all parts are highlighted") Where it helps, say
+  what the scan is used for (Miata NC), not only what it is.
+- **Sub-parts move only after their parent is off; hinged panels open before they come off.** (400Z, GR86)
+- **No leftover skin or scan specks.** (A90: "scan artifacts must be cut out, and no parts may be left behind")
+- **No turntables, no wheel close-ups, nothing shown twice.** (Miata NC, ND)
+- **Length follows content.** 35-45 s was accepted when each second was a requested section; the older guidance is
+  15-30 s and "move faster", so do not stretch holds to fill bars.
+- **Look for underbody and interior scans** in the car's Drive folder; the A90 reviewer wants them in when they exist.
 - **Number plate**: leave the scanned plate alone unless the lessons file names that car.
 
 ## Checks before sending (do all, on the real files)

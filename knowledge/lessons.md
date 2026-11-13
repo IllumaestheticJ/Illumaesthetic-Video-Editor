@@ -969,3 +969,7 @@ lands here automatically. Agents must read this whole file before editing.
   compare a final-quality frame with a photo of the finished car before rendering.
 - **[technical]** Edge-touch test on the ASSEMBLED file (bright pixels in the outer 3 px per frame) caught a side leg of an
   orbit where the 5.4 m SUV touched both edges for 48 frames; the 30 % first/mid/last preview had missed it.
+- **[workflow]** (Revuelto v5, approved: "this is perfect for the temerario style videos") The format is saved as the
+  `temerario-scan-reel` skill (`.claude/skills/temerario-scan-reel/`); start every scan-only teardown reel from it and
+  from its `references/comparison.md` (how this reel differs from the A90 and the other reels: side section needs a
+  hold + label, name every part, no scan specks).
