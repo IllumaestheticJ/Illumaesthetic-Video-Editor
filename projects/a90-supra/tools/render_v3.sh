@@ -9,7 +9,7 @@ import json;d=json.load(open("$D/shots_v3/$s.json"));n=max(1,int(round(d["second
 a,b=(int(x) for x in d.get("_render_frames","1-%d"%n).split("-"));print(n,a,b)
 PY
 )
-  t0=$(date +%s)
+  t0=$(date +%s); find $R/$s -name "f_*.png" -size 0 -delete 2>/dev/null   # placeholders left by an interrupted run
   for a in $(seq $A 30 $B); do b=$((a+29)); [ $b -gt $B ] && b=$B
     have=$(for f in $(seq $a $b); do [ -s $R/$s/f_$(printf %04d $f).png ] && echo 1; done | wc -l)
     [ $have -eq $((b-a+1)) ] && continue
