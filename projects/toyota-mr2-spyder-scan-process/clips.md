@@ -28,3 +28,16 @@ Scans (engineering Drive "Toyota MR2 Spyder" -> "MR2 Spyder Scan Data"):
   FrontEnd.stl is ASCII (not inspected).
 
 Music: original MR2 Spyder track (city-pop, 112.1 BPM), cloudfront link in the brief; /home/user/media/mr2/music/mr2_track.mp3.
+
+## Footage + scan audit after v2 feedback ("a mess; more scanning footage, more of the car, the other scans") - 2026-11-13
+Every clip in both dumps is now viewed (full res or LRF proxy), except FX30637 (3.7 GB) and FX30646 (4.4 GB) and the
+Jul 10/11 + Jul 15 afternoon FX sets (their *REEL samples are all print-shop / hardtop parts, no car).
+- **Handheld-scanner footage exists in ONE clip only: Epsilon DJI_20250715210710_0030** (98.8 s, portrait). Scanner on the car:
+  ~20-36 s (rear deck with the printed hardtop rear section), 44-66 s (deck / hoop / scanner screen close-ups), 70-80 s (front, windscreen).
+- Other car action (no scanner): main DJI_20250715 0029-0035 + Epsilon 0044-0048 (landscape 4K): door-sill / interior trim removal
+  (e0044-47), locked-off wide side profile with engine lid open and crew at the rear (e0048, m0031, m0032, 15 min), hardtop test-fit on the
+  car (m0034, m0035); FX30641-645 hardtop pieces on the floor, FX30647/648 header-latch close-ups from inside, FX30649 hardtop on the car.
+- **The scans made at this shoot were not used in v1/v2** (Drive dates Jul 16-17 2025): Print Evaluation/Mr2 hardtop revision 1.stl
+  (35,052,792 tris: printed hardtop rear section on the car with roll hoop, deck and louvres - what the crew scans at 20-66 s),
+  Hardtop Mounting/Roof Front Edge (14,756,964), Roof Latch Reference (Closed) (16,835,345), Front Latch Roof Underside (12,399,862),
+  Handle (520,439). They are in other Artec frames (voxel overlap with Top Down 0-13 % before registration) - registration not attempted yet.
