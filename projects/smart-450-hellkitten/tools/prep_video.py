@@ -243,9 +243,13 @@ def text_png(lines, y0=150, size=112, track=10):
     sh = sh.filter(ImageFilter.GaussianBlur(8)); sh.alpha_composite(im); return sh
 
 
-def add_text(out, lines):
-    """burn the title text (full opacity from frame 0; house type, Inter Display Bold, tracked) into a finished shot."""
-    png = BUILD / "_text.png"; text_png(lines).save(png)
+def add_text(out, lines, small=None):
+    """burn the title text (full opacity from frame 0; house type, Inter Display Bold, tracked) into a finished shot.
+    v6: optional smaller lines under the title (the reason for the scan), same type at 50 px."""
+    im = text_png(lines)
+    if small:
+        im.alpha_composite(text_png(small, y0=150 + int(112 * 1.12) * len(lines) + 36, size=50, track=6))
+    png = BUILD / "_text.png"; im.save(png)
     tmp = BUILD / "_text_tmp.mp4"
     sh(["ffmpeg", "-y", "-v", "error", "-i", str(out), "-i", str(png), "-filter_complex", "[0:v][1:v]overlay=0:0,format=yuv420p", *ENC, str(tmp)])
     os.replace(tmp, out)
@@ -274,7 +278,7 @@ def prep_scan(s):
         pv[int(Path(f).stem.split("_")[1])] = f
     stamp = json.dumps({"scan": s["scan"], "complete": complete, "n": s["n"],
                         "frames": sorted(have)[-1] if complete else sorted(have), "pv": sorted(pv),
-                        "t0": s.get("t0"), "text": s.get("text"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
+                        "t0": s.get("t0"), "text": s.get("text"), "small": s.get("text_small"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
     if stamp_ok(out, stamp):
         return out, complete
     n = nout(s); t0 = s["t0"]
@@ -308,7 +312,7 @@ def prep_scan(s):
             p.stdin.write(np.asarray(im).tobytes())
         p.stdin.close(); p.wait()
     if s.get("text"):
-        add_text(out, s["text"])
+        add_text(out, s["text"], s.get("text_small"))
     write_stamp(out, stamp)
     return out, complete
 

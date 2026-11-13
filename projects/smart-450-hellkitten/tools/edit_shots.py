@@ -18,7 +18,7 @@ def S(id, m0, m1, **kw):
     d.update(kw); return d
 
 SHOTS = [
-    S("H1", -4, 0, kind="scan", scan="a5_xray", t0=0.0, text=("THIS IS A", "SMART CAR?"), section="hook_render",
+    S("H1", -4, 0, kind="scan", scan="a5_xray", t0=0.0, text=("THIS IS A", "SMART CAR?"), text_small=("WE SCANNED IT TO BUILD", "THIS BODY KIT"), section="hook_render",
       focus="the Hellkitten with the Smart inside it as an x-ray: 'THIS IS A SMART CAR?'"),
     S("S5", 0, 2, kind="irl", src="v_1632_12", ss=0.000, win=(608, 1080), keys=[(0, 370, 0)], audio=None, section="whole_assembled",
       focus="here is the real car: black and intact"),

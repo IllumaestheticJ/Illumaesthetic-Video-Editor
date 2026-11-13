@@ -54,14 +54,37 @@ def build_meows(music):
     ir = rng.standard_normal(n) * np.exp(-t / 0.11); ir[: int(0.004 * SR)] = 0
     ir = sosfiltfilt(butter(2, 5000, "low", fs=SR, output="sos"), ir); ir /= np.abs(ir).sum() / 4
     wet = np.stack([fftconvolve(dry[:, c], ir)[: len(dry)] for c in (0, 1)], axis=1)
-    y = dry + 0.14 * wet
+    y = dry + 0.05 * wet                  # v6: 5 % room (was 14 %): owner asked for cleaner meows
     kick = sosfiltfilt(butter(4, [35, 110], "band", fs=SR, output="sos"), music.mean(axis=1))
     env = np.sqrt(np.convolve(kick ** 2, np.ones(SR // 100) / (SR // 100), "same")); env /= np.percentile(env, 99)
     sm = np.zeros_like(env); a_r = np.exp(-1 / (0.12 * SR))
     for i in range(1, len(env)):          # fast attack, 120 ms release
         sm[i] = env[i] if env[i] > sm[i - 1] else sm[i - 1] * a_r
-    duck = 1 - 0.44 * np.clip(sm, 0, 1)    # up to about -5 dB
+    duck = 1 - 0.15 * np.clip(sm, 0, 1)    # v6: at most -1.4 dB under the kick (was -5 dB): meows stay in front
     return y * duck[:, None]
+
+
+def build_sfx(nsamp):
+    """v6 meme sounds (owner-supplied): the huh cat's own HUH, in sync with its picture (clip 0.5-1.6 s from timeline frame 12), and the
+    long 'yeah boy' from the moment the black cat starts clapping (frame 744) to the end, faded out with the music."""
+    from memes import MEMES
+    from meows import loud_norm
+    sfx = np.zeros((nsamp, 2)); info = {}
+    def put(path, ss, dur, frame, ref, fade_out, name):
+        if not Path(path).exists():
+            info[name] = "missing"; return
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ss:.4f}", "-t", f"{dur:.4f}", "-i", str(path), "-vn", "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"],
+                             capture_output=True, check=True).stdout
+        x = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
+        m = loud_norm(x.mean(axis=1), ref); g = np.abs(m).max() / max(np.abs(x.mean(axis=1)).max(), 1e-9); x = x * g
+        fi = int(0.005 * SR); x[:fi] *= np.linspace(0, 1, fi)[:, None]
+        fo = int(fade_out * SR); x[-fo:] *= np.linspace(1, 0, fo)[:, None]
+        a = int(round(frame / FPS * SR)); b = min(a + len(x), nsamp)
+        sfx[a:b] += x[: b - a]; info[name] = dict(start_frame=frame, start_s=round(frame / FPS, 3), dur_s=round((b - a) / SR, 3), gain_db=round(20 * np.log10(g), 1))
+    h = MEMES["huh"]
+    put(Path(SM) / "memes" / "src" / h["file"], h["t0"], h["dur"], h["start"], 0.30, 0.03, "huh")
+    put(Path(SM) / "sfx" / "meme" / "yeahboy.wav", 0.30, (TOTAL - 744) / FPS, 744, 0.22, 1.0, "yeahboy")
+    return sfx, info
 
 
 def main():
@@ -97,11 +120,19 @@ def main():
         shop[a:b] += y
         levels[s["id"]] = dict(src=s["src"], ss=ss, mode=s["audio"], src_rms_db=round(src_rms, 1), gain_db=round(g_db, 1),
                                music_rms_db=round(rms_db(music[a:b]), 1))
-    meows = build_meows(music) * 10 ** (4.0 / 20)    # v4: +4 dB so the meow layer sits about level with the hat/snare band
-    mix = music + shop + meows
+    meows = build_meows(music)                       # v6: one-shots are loudness-normalised (100 ms RMS 0.25 = -12 dBFS) in meows.py
+    sfx, sfx_info = build_sfx(nsamp)
+    # v6: the music dips up to -2.5 dB under each meow / meme sound (25 ms attack, 180 ms release) so they read clean and loud
+    fg = np.abs(meows).max(axis=1) + np.abs(sfx).max(axis=1)
+    w = int(0.025 * SR); env = np.sqrt(np.convolve(fg ** 2, np.ones(w) / w, "same")); env = np.clip(env / 0.12, 0, 1)
+    sm = np.zeros_like(env); a_r = np.exp(-1 / (0.18 * SR))
+    for i in range(1, len(env)):
+        sm[i] = env[i] if env[i] > sm[i - 1] else sm[i - 1] * a_r
+    music = music * (1 - 0.25 * sm)[:, None]
+    mix = music + shop + meows + sfx
     I, tp = lufs(mix)
     g = 10 ** ((-10.0 - I) / 20)
-    mix *= g; music_s = music * g; shop_s = shop * g; meow_s = meows * g
+    mix *= g; music_s = music * g; shop_s = shop * g; meow_s = meows * g; sfx_s = sfx * g
     # true-peak limiter on the master only (level=disabled keeps the loudness)
     tmp = OUT / "_mix_pre.f32"; tmp.write_bytes(mix.astype(np.float32).tobytes())
     lim = subprocess.run(["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", str(tmp), "-af",
@@ -114,15 +145,10 @@ def main():
     write_wav(OUT / "stem_music.wav", music_s)
     write_wav(OUT / "stem_shopsound.wav", shop_s)
     write_wav(OUT / "stem_meows.wav", meow_s)
-    # variant with the meows 6 dB lower, same gain on everything else (so only the meows change)
-    lite = (music + shop + 0.5 * meows) * g
-    tmp2 = OUT / "_mix_lite.f32"; tmp2.write_bytes(lite.astype(np.float32).tobytes())
-    lim2 = subprocess.run(["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", str(tmp2), "-af",
-                           "alimiter=limit=0.84:attack=3:release=40:level=disabled", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-"], capture_output=True, check=True).stdout
-    tmp2.unlink(); lite_m = np.frombuffer(lim2, np.float32).reshape(-1, 2).astype(np.float64)
-    write_wav(OUT / "smart450_mix_meowlite.wav", lite_m)
-    Il, tpl = lufs(lite_m); print(f"meowlite {Il:.2f} LUFS, true peak {tpl:.2f}")
-    info = dict(master_lufs=I2, master_true_peak_dbtp=tp2, premix_lufs=I, gain_db=20 * np.log10(g), shots=levels,
+    write_wav(OUT / "stem_sfx.wav", sfx_s)
+    stems = {n: dict(zip(("lufs", "peak_dbfs"), lufs(x))) for n, x in (("music", music_s), ("meows", meow_s), ("sfx", sfx_s))}
+    print("stems", json.dumps(stems))
+    info = dict(stems=stems, sfx=sfx_info, master_lufs=I2, master_true_peak_dbtp=tp2, premix_lufs=I, gain_db=20 * np.log10(g), shots=levels,
                 note="stems carry the same gain as the master (pre-limiter)")
     (OUT / "audio_levels.json").write_text(json.dumps(info, indent=1))
     print(f"master {I2:.2f} LUFS, true peak {tp2:.2f} dBTP (pre-limit {I:.2f} / {tp:.2f}), gain {20*np.log10(g):.2f} dB")

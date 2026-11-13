@@ -3,7 +3,7 @@
 project: smart-450-hellkitten
 format: reel-9x16
 output:
-  path: /home/user/media/work/smart-450/build/smart450_v5_video.mp4
+  path: /home/user/media/work/smart-450/build/smart450_v6_video.mp4
   width: 1080
   height: 1920
   fps: 30
@@ -245,9 +245,3 @@ overlays:
   start: 24.5
 - src: /home/user/media/work/smart-450/build/meme_huh.mov
   start: 0.4
-- src: /home/user/media/work/smart-450/build/meme_oiia.mov
-  start: 13.2333
-- src: /home/user/media/work/smart-450/build/meme_yapapa.mov
-  start: 17.8333
-- src: /home/user/media/work/smart-450/build/meme_clap.mov
-  start: 24.8

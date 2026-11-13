@@ -75,7 +75,7 @@ def key(fr, bg, tol):
 def build_overlay(mid, cfg):
     out = BUILD / f"meme_{mid}.mov"
     path = SRC / cfg["file"]; n = int(round(cfg["dur"] * FPS))
-    bg = bg_colour(one_frame(path, 0.0))
+    bg = bg_colour(one_frame(path, cfg["t0"]))   # v6: measured at the clip in-point (the YouTube huh clip opens on a black frame)
     boxes = []
     sw, sh = probe_wh(path)
     for f in gen_frames(path, cfg["t0"], cfg["dur"], scale_w=240):
@@ -131,15 +131,17 @@ def build_overlay(mid, cfg):
 
 
 if __name__ == "__main__" and "--build" in sys.argv:
-    info = [build_overlay(m, c) for m, c in MEMES.items()]
+    info = [build_overlay(m, c) for m, c in MEMES.items() if (SRC / c["file"]).exists()]   # v6: clips the owner has not re-supplied yet are skipped
+    print("memes missing:", [m for m, c in MEMES.items() if not (SRC / c["file"]).exists()])
     (BUILD / "memes.json").write_text(json.dumps(info, indent=1)); print(json.dumps(info))
     sys.exit(0)
 
 if __name__ == "__main__":
     for mid, cfg in MEMES.items():
         path = SRC / cfg["file"]
+        if not path.exists(): continue
         dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)], capture_output=True, text=True).stdout)
-        bg = bg_colour(one_frame(path, 0.0))
+        bg = bg_colour(one_frame(path, cfg["t0"]))
         tiles = []
         for q in (0.18, 0.5, 0.8):
             f = one_frame(path, dur * q); k = key(f, bg, cfg["tol"]); al = k[..., 3:4] / 255.0
