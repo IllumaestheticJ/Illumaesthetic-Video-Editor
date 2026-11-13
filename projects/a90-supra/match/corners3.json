@@ -1,0 +1,9527 @@
+{
+ "frame": "car raw Artec mm (+X nose, -Y right, Z up)",
+ "centreline_y": 0.0,
+ "note": "left corners are the right-hand placements mirrored in y about centreline_y (matrix has det -1; triangle winding flipped in the STLs)",
+ "left_out": {
+  "FR sway bar + bushing (FR Swaybar (50k), FR Swaybar Bushing (21k))": "bar and bushing share a bench frame, but the bushing bracket has no STEP: its two bolt holes would have to be picked on the mesh to seat it on the subframe's M8 pair (Front Suspension.STEP, y=-281.8, x 1416/1508); without that the bar's axis height and its rotation are a guess",
+  "FR sway bar end link (Endlink Body, BJ 1, BJ 2)": "hangs off the sway bar eye (not placed) and the strut-body tab (FR Coilover.STEP r5.2 hole, now in the car frame via strut_body); two unknown ball sides + unknown bar angle",
+  "FR Knuckle Bracket 1 (14k)": "2 screw holes match the knuckle's 2 holes (19.1 mm both) but that leaves a 180 deg flip that the data does not resolve",
+  "FR Knuckle Bracket 2 (9k)": "single hole in its STEP: rotation about the screw is undetermined",
+  "rear half-shaft (Axle Shaft.prt)": "never scanned (NX CAD only); cv_inner and cv_outer are placed, the shaft between them is missing",
+  "rear upper spring pad / perch as separate parts (Rear Spring Bottom Perch (23k), Rear Spring Spring (34k))": "duplicates of geometry already inside the Top + Bottom spring scans used for RR_spring",
+  "FR Coilover (4.2m) / Rear Shock (2.2m) / Rear Spring (1.9m) full-assembly scans": "fully extended bench state; replaced by their Top/Bottom sub-scans so the damper can telescope to ride height",
+  "LCA Sensor *": "later add-on, not stock suspension (as instructed)"
+ },
+ "knuckle_group": {
+  "FR": [
+   "knuckle",
+   "bearing",
+   "dust_shield",
+   "caliper",
+   "strut_body",
+   "lca_balljoint",
+   "tension_rod_balljoint",
+   "tie_rod_end_balljoint",
+   "rotor",
+   "wheel"
+  ],
+  "RR": [
+   "knuckle",
+   "bearing",
+   "dust_shield",
+   "caliper",
+   "cv_outer",
+   "rotor",
+   "wheel"
+  ]
+ },
+ "articulation_notes": {
+  "measured (STEP / scan features)": [
+   "wheel spin axis = bearing axis through the solved hub (point wheel_centre, direction spin_axis_outboard)",
+   "front steering axis = steer_axis_top (strut tower mount centre) -> steer_axis_bottom (LCA ball joint centre); note this is a double-joint axle: the true instantaneous lower pivot is the intersection of the LCA and tension-rod lines, so the kinematically exact motion is in steer_samples",
+   "front: lca_inner / tension_rod_inner bracket centres + bolt axes, ball centres, link lengths, strut axis, tie-rod inner/outer balls",
+   "rear: links{} inner bracket centres + axes, outer joints, lengths; damper top/eye; spring seat/pocket; sway-bar axis",
+   "travel_samples / steer_samples: exact mechanism solves at each step. Apply knuckle_group_delta (4x4, car frame) to every part in knuckle_group, arm_deltas[name] to each link (and to lca_wing, damper_body, spring bottom with the lca), keep body-fixed parts (top mounts, cv_inner, rack) still"
+  ],
+  "sign conventions": [
+   "camber_deg < 0 = top of the wheel leans inboard",
+   "toe_deg / steer_deg > 0 = front of the RIGHT wheel towards +y (toe-in on the right, i.e. a left turn); left-side values are mirrored",
+   "wheel_travel_mm > 0 = bump (wheel centre up relative to the body); rack_travel_mm > 0 = rack towards +y (left)"
+  ],
+  "assumed": [
+   "ride height = Ground Plane.STEP ground + 331 mm tyre radius (255/35R19 front, same radius used rear as in corners.py)",
+   "front toe = 0 at rack centre (tie-rod length is then an output: 340.4 mm, 30 mm thread engagement with the in-situ inner rod)",
+   "rack travel is applied as a pure y shift of the inner tie-rod ball"
+  ],
+  "not determinable from the data": [
+   "bump/droop limits (bump stop contact) - samples stop at the scanned full-extension strut (front droop -76 mm) and are otherwise open-ended",
+   "spring clocking about its own axis; bushing compliance; sway-bar preload",
+   "left side: mirrored, not measured"
+  ]
+ },
+ "FR": {
+  "parts": {
+   "knuckle": {
+    "source": "fsusp/FR Knuckle (137k).stl",
+    "matrix": [
+     [
+      -0.98672,
+      0.00241,
+      -0.1624,
+      1230.43196
+     ],
+     [
+      -0.00699,
+      -0.99959,
+      0.02764,
+      -769.2956
+     ],
+     [
+      -0.16227,
+      0.02841,
+      0.98634,
+      190.73736
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "mechanism solve: LCA + tension-rod lengths, strut axis through the tower mount, toe 0, ride height",
+    "residual_mm": 1.7053025658242404e-13,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "FR_knuckle.stl"
+   },
+   "bearing": {
+    "source": "fsusp/Front Bearing.stl",
+    "matrix": [
+     [
+      0.26052,
+      -0.96531,
+      -0.01759,
+      1231.64045
+     ],
+     [
+      -0.00564,
+      -0.01974,
+      0.99979,
+      -496.28312
+     ],
+     [
+      -0.96545,
+      -0.26037,
+      -0.01059,
+      241.62402
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "pilot r48.5 in knuckle bore r49 + 4 flange bolts on the knuckle's 4 holes",
+    "residual_mm": 0.09590651961144564,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "FR_bearing.stl"
+   },
+   "dust_shield": {
+    "source": "fsusp/FR Dust Shield (100k).stl",
+    "matrix": [
+     [
+      0.98718,
+      0.07173,
+      -0.14256,
+      1162.8435
+     ],
+     [
+      -0.14823,
+      0.08111,
+      -0.98562,
+      -1073.62131
+     ],
+     [
+      -0.05914,
+      0.99412,
+      0.0907,
+      147.61281
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "screw-hole pattern (STEP) on the knuckle's M5 holes (STEP)",
+    "residual_mm": 1.0171829128111771,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "FR_dust_shield.stl"
+   },
+   "lca": {
+    "source": "fsusp/FR LCA (73k).stl",
+    "matrix": [
+     [
+      0.04936,
+      -0.98286,
+      -0.17763,
+      1182.32016
+     ],
+     [
+      -0.49676,
+      -0.17845,
+      0.84934,
+      -410.61128
+     ],
+     [
+      -0.86648,
+      0.04631,
+      -0.49706,
+      39.2153
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner bushing on the subframe bracket centre (STEP bolt segment), ball on knuckle hole 'lca' (STEP) at the measured stud stand-off; length is a solve constraint",
+    "residual_mm": 1.7053025658242404e-13,
+    "confidence": "high",
+    "note": "bushing axis 0.1 deg off the bracket bolt axis; ball stud swivelled 22.1 deg from its scanned pose",
+    "deformed": false,
+    "file": "FR_lca.stl"
+   },
+   "lca_balljoint": {
+    "source": "fsusp/FR LCA BJ.stl",
+    "matrix": [
+     [
+      -0.0163,
+      -0.99931,
+      -0.03347,
+      1228.14418
+     ],
+     [
+      -0.76766,
+      -0.00894,
+      0.64079,
+      -418.41854
+     ],
+     [
+      -0.64065,
+      0.03613,
+      -0.76699,
+      -63.0281
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball centre on the arm's housing centre, stud on the knuckle hole axis (shoulder on the seat)",
+    "residual_mm": 0.2561327566759219,
+    "confidence": "high",
+    "note": "housing sphere r22.2 rms 0.27; stud axis misses the sphere centre by 0.3 mm",
+    "deformed": false,
+    "file": "FR_lca_balljoint.stl"
+   },
+   "tension_rod": {
+    "source": "fsusp/FR Tension Rod.stl",
+    "matrix": [
+     [
+      -0.01193,
+      -0.76376,
+      -0.6454,
+      1558.25076
+     ],
+     [
+      -0.01153,
+      0.6455,
+      -0.76367,
+      -337.25919
+     ],
+     [
+      0.99986,
+      -0.00167,
+      -0.0165,
+      113.60551
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner bushing on the subframe bracket centre (STEP bolt segment), ball on knuckle hole 'tr' (STEP); length is a solve constraint",
+    "residual_mm": 5.684341886080802e-14,
+    "confidence": "high",
+    "note": "bushing axis 0.1 deg off the bracket bolt axis; ball stud swivelled 23.6 deg from its scanned pose",
+    "deformed": false,
+    "file": "FR_tension_rod.stl"
+   },
+   "tension_rod_balljoint": {
+    "source": "fsusp/FR Tension Rod BJ.stl",
+    "matrix": [
+     [
+      -0.15341,
+      -0.87539,
+      -0.45842,
+      1469.91824
+     ],
+     [
+      -0.33889,
+      0.48239,
+      -0.80775,
+      -314.95379
+     ],
+     [
+      0.92823,
+      0.03144,
+      -0.37067,
+      282.31802
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball centre on the arm's housing centre, stud on the knuckle hole axis (shoulder on the seat)",
+    "residual_mm": 0.21616248310834915,
+    "confidence": "high",
+    "note": "housing sphere r22.4 rms 0.49; stud axis misses the sphere centre by 0.2 mm",
+    "deformed": false,
+    "file": "FR_tension_rod_balljoint.stl"
+   },
+   "tie_rod_end": {
+    "source": "fsusp/FR Tie Rod Outer (22k).stl",
+    "matrix": [
+     [
+      -0.36036,
+      -0.85533,
+      0.37223,
+      1329.42339
+     ],
+     [
+      0.93183,
+      -0.34843,
+      0.10147,
+      -620.69084
+     ],
+     [
+      0.0429,
+      0.38342,
+      0.92258,
+      84.7385
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball on knuckle steering-arm hole (STEP), socket axis through the rack inner ball joint (Inner Tie Rod.stp)",
+    "residual_mm": 0.0011834541545629343,
+    "confidence": "high",
+    "note": "toe set to 0; stud swivel 19.2 deg; in-situ inner rod points 1.1 deg from the solved ball joint; thread engagement with the in-situ rod 30 mm",
+    "deformed": false,
+    "file": "FR_tie_rod_end.stl"
+   },
+   "tie_rod_end_balljoint": {
+    "source": "fsusp/FR Tie Rod Outer BJ.stl",
+    "matrix": [
+     [
+      -0.43029,
+      -0.79492,
+      0.42773,
+      1321.94091
+     ],
+     [
+      0.83301,
+      -0.53222,
+      -0.15111,
+      -630.57374
+     ],
+     [
+      0.34777,
+      0.29128,
+      0.89118,
+      116.91942
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball centre in the housing, stud on the knuckle hole axis",
+    "residual_mm": 1.5267988953258547,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "FR_tie_rod_end_balljoint.stl"
+   },
+   "rack_tie_rod": {
+    "source": "fsusp/Rack Cleaned (35k).stl",
+    "matrix": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "scanned on the car: already in the car frame (Rack.STEP / Inner Tie Rod.stp features lie on the car scan)",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "as scanned (steering centred, rod hanging 1.1 deg from the solved outer ball joint)",
+    "deformed": false,
+    "file": "FR_rack_tie_rod.stl"
+   },
+   "strut_body": {
+    "source": "fsusp/FR Coilover Bottom (112k).stl",
+    "matrix": [
+     [
+      0.47094,
+      0.85129,
+      -0.23135,
+      1128.63497
+     ],
+     [
+      -0.84617,
+      0.51006,
+      0.15437,
+      -547.69191
+     ],
+     [
+      0.24942,
+      0.12306,
+      0.96055,
+      468.39754
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "clamp section r28.4 in the knuckle clamp bore r28.4, 45 deg cone seats coincident, locating pin in the clamp slit (all STEP)",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "rigid with the knuckle",
+    "deformed": false,
+    "file": "FR_strut_body.stl"
+   },
+   "strut_top_mount": {
+    "source": "fsusp/Top Hat.stl",
+    "matrix": [
+     [
+      -0.99509,
+      0.01226,
+      -0.0982,
+      1215.99696
+     ],
+     [
+      -0.0303,
+      -0.9824,
+      0.18433,
+      -525.61199
+     ],
+     [
+      -0.09422,
+      0.1864,
+      0.97795,
+      423.80273
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "top-hat centre on the tower hole centre (circle r39.6), hat axis on the tower normal, stud in the tower stud hole",
+    "residual_mm": 0.1686599710691965,
+    "confidence": "high",
+    "note": "fixed to the body; the strut pivots in it",
+    "deformed": false,
+    "file": "FR_strut_top_mount.stl"
+   },
+   "strut_spring": {
+    "source": "fsusp/FR Coilover Top (115k).stl",
+    "matrix": [
+     [
+      0.47094,
+      0.85129,
+      -0.23135,
+      1137.39846
+     ],
+     [
+      -0.84617,
+      0.51006,
+      0.15437,
+      -556.2779
+     ],
+     [
+      0.24942,
+      0.12306,
+      0.96055,
+      415.20761
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "upper seat under the top mount, lowest coil on the strut-body perch, on the solved strut axis",
+    "residual_mm": null,
+    "confidence": "medium",
+    "note": "DEFORMED: bench scan is at full extension; spring compressed 54.6 mm to ride height (wire section kept). Rigid alternative: use the scan with warp off - it then overlaps the perch by 55 mm",
+    "deformed": true,
+    "file": "FR_strut_spring.stl"
+   },
+   "rotor": {
+    "source": "fsusp/Front Rotor (70k).stl",
+    "matrix": [
+     [
+      0.99964,
+      -0.00057,
+      -0.02671,
+      1189.53432
+     ],
+     [
+      -0.0267,
+      0.00639,
+      -0.99962,
+      -1145.73768
+     ],
+     [
+      0.00074,
+      0.99998,
+      0.00638,
+      159.58235
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "hat inner face on the hub flange face (bearing STEP), coaxial with the bearing",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "FR_rotor.stl"
+   },
+   "wheel": {
+    "source": "fsusp/Front Wheel (680k).stl",
+    "matrix": [
+     [
+      0.9992,
+      -0.00278,
+      -0.03977,
+      1260.37535
+     ],
+     [
+      -0.03986,
+      -0.04212,
+      -0.99832,
+      -1473.21693
+     ],
+     [
+      0.0011,
+      0.99911,
+      -0.0422,
+      227.24934
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "pad face on the rotor hat outer face, coaxial; tread mid-plane = pad - measured ET",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "FR_wheel.stl"
+   },
+   "caliper": {
+    "source": "fsusp/FR Caliper (118k).stl",
+    "matrix": [
+     [
+      0.33895,
+      -0.06036,
+      0.93887,
+      1139.20238
+     ],
+     [
+      -0.04174,
+      -0.99792,
+      -0.04908,
+      -734.86506
+     ],
+     [
+      0.93988,
+      -0.02255,
+      -0.34077,
+      128.22302
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "two mounting-lug holes (mesh cylinder fits, 138 mm apart) on the knuckle's two axial caliper holes (STEP, 137.6 mm); of the 8 lug-face/order combinations the one that straddles the disc",
+    "residual_mm": 0.5387746230932748,
+    "confidence": "high",
+    "note": "78 of 9133 sampled points >3 mm inside the rotor (pads); runner-up combination has 212",
+    "deformed": false,
+    "file": "FR_caliper.stl"
+   }
+  },
+  "evidence": {
+   "knuckle_step_to_stl": {
+    "median_mm": 0.6062532415622592,
+    "p90_mm": 1.830887892028853,
+    "note": "ICP of STEP circle edges onto the re-framed STL; next best pose 2.75 mm"
+   },
+   "wheel_chain": {
+    "hub_face_outboard_of_knuckle_seat_mm": 44.04445093536636,
+    "rotor_hat_mm": 7.132933363259707,
+    "wheel_pad_to_tread_mid_mm": 32.657887909517854,
+    "oem_et": 32
+   },
+   "tie_rod": {
+    "inner_ball": [
+     1302.6,
+     -384.8,
+     92.3
+    ],
+    "outer_ball": [
+     1367.03731,
+     -718.84614,
+     81.81819
+    ],
+    "length_mm": 340.36577000192216,
+    "insitu_rod_angle_deg": 1.1186744139426343,
+    "thread_engagement_mm": 30.159495638900097
+   },
+   "strut": {
+    "compression_at_ride_mm": 54.5865096988715,
+    "axis_vs_tower_normal_deg": 0.1236554305592371,
+    "top_pivot": [
+     1146.6,
+     -532.2,
+     669.8
+    ],
+    "clamp_cone_seat": [
+     1214.6935,
+     -598.91425,
+     256.50738
+    ],
+    "free_length_cone_to_hat_mm": 491.8378400088245
+   },
+   "caliper": {
+    "hole_spacing_mesh_mm": 137.18554909320704,
+    "candidates": [
+     {
+      "combo": [
+       0,
+       0,
+       1
+      ],
+      "rotor_pts": 78,
+      "straddle": 0.26495176848874596
+     },
+     {
+      "combo": [
+       1,
+       1,
+       1
+      ],
+      "rotor_pts": 212,
+      "straddle": 0.1566420070762303
+     },
+     {
+      "combo": [
+       0,
+       0,
+       0
+      ],
+      "rotor_pts": 310,
+      "straddle": 0.20372670807453416
+     },
+     {
+      "combo": [
+       0,
+       1,
+       1
+      ],
+      "rotor_pts": 27,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       1,
+       0,
+       1
+      ],
+      "rotor_pts": 186,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       0,
+       1,
+       0
+      ],
+      "rotor_pts": 192,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       1,
+       1,
+       0
+      ],
+      "rotor_pts": 311,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       1,
+       0,
+       0
+      ],
+      "rotor_pts": 381,
+      "straddle": 0.09462504023173479
+     }
+    ]
+   }
+  },
+  "articulation": {
+   "wheel_centre": [
+    1230.44654,
+    -788.03122,
+    191.3
+   ],
+   "spin_axis_outboard": [
+    0.0,
+    -0.99962,
+    0.0277
+   ],
+   "camber_deg": -1.5870789186265486,
+   "toe_deg": 0.0,
+   "solve_residual_mm": 1.7053025658242404e-13,
+   "droop_wheel_centre": [
+    1230.08719,
+    -780.55397,
+    114.83085
+   ],
+   "droop_solve_residual_mm": 2.2737367544323206e-13,
+   "hub_face": [
+    1230.44654,
+    -813.54638,
+    192.00694
+   ],
+   "steer_axis_top": [
+    1146.6,
+    -532.2,
+    669.8
+   ],
+   "steer_axis_bottom": [
+    1234.21202,
+    -698.08574,
+    22.7353
+   ],
+   "lca_ball": [
+    1234.21202,
+    -698.08574,
+    22.7353
+   ],
+   "tension_rod_ball": [
+    1251.22218,
+    -700.42139,
+    109.82337
+   ],
+   "tie_rod_ball": [
+    1367.03731,
+    -718.84614,
+    81.81819
+   ],
+   "lca_inner": [
+    1182.32016,
+    -410.61128,
+    39.2153
+   ],
+   "lca_inner_axis": [
+    -0.98316,
+    -0.17677,
+    0.04641
+   ],
+   "tension_rod_inner": [
+    1558.25076,
+    -337.25919,
+    113.60551
+   ],
+   "tension_rod_inner_axis": [
+    -0.76248,
+    0.64701,
+    -0.00165
+   ],
+   "strut_axis": [
+    -0.16054,
+    0.15729,
+    0.97442
+   ],
+   "rack_inner_ball": [
+    1302.6,
+    -384.8,
+    92.3
+   ],
+   "lca_length": 292.58489475422607,
+   "tension_rod_length": 475.5708593369391,
+   "tie_rod_length_mm": 340.36577000192216,
+   "travel_samples": [
+    {
+     "wheel_travel_mm": -76,
+     "rack_travel_mm": 0.0,
+     "residual_mm": 3.481659405224491e-13,
+     "knuckle_group_delta": [
+      [
+       0.9998,
+       0.00322,
+       0.0197,
+       -1.7646
+      ],
+      [
+       -0.00257,
+       0.99944,
+       -0.03342,
+       16.60428
+      ],
+      [
+       -0.0198,
+       0.03337,
+       0.99925,
+       -25.20316
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1229.66421,
+      -780.53404,
+      115.3
+     ],
+     "spin_axis_outboard": [
+      -0.00268,
+      -0.99998,
+      -0.00568
+     ],
+     "camber_deg": 0.32530117855409213,
+     "steer_deg": -0.1534377022829813,
+     "strut_length_cone_to_top_mm": 491.51389238426384,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99896,
+        0.01054,
+        0.04434,
+        3.81648
+       ],
+       [
+        0.00077,
+        0.96886,
+        -0.24759,
+        -3.98464
+       ],
+       [
+        -0.04557,
+        0.24737,
+        0.96785,
+        156.70694
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99486,
+        0.0112,
+        -0.10066,
+        23.22692
+       ],
+       [
+        -0.02304,
+        0.99284,
+        -0.11721,
+        46.80383
+       ],
+       [
+        0.09863,
+        0.11893,
+        0.98799,
+        -112.21039
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99907,
+        0.0067,
+        0.04248,
+        -0.13728
+       ],
+       [
+        0.00286,
+        0.97526,
+        -0.22106,
+        7.15919
+       ],
+       [
+        -0.04291,
+        0.22098,
+        0.97433,
+        143.29664
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0.0
+    },
+    {
+     "wheel_travel_mm": -50,
+     "rack_travel_mm": 0.0,
+     "residual_mm": 1.2789769243681803e-13,
+     "knuckle_group_delta": [
+      [
+       0.99991,
+       0.00165,
+       0.01332,
+       -1.32854
+      ],
+      [
+       -0.00138,
+       0.9998,
+       -0.01974,
+       8.49982
+      ],
+      [
+       -0.01335,
+       0.01972,
+       0.99972,
+       -17.97808
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.25723,
+      -784.8567,
+      141.3
+     ],
+     "spin_axis_outboard": [
+      -0.00128,
+      -0.99997,
+      0.00797
+     ],
+     "camber_deg": -0.4568210070757018,
+     "steer_deg": -0.07319820210380396,
+     "strut_length_cone_to_top_mm": 469.04045954009496,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99955,
+        0.00619,
+        0.02937,
+        1.92242
+       ],
+       [
+        -0.00131,
+        0.98658,
+        -0.16326,
+        2.44469
+       ],
+       [
+        -0.02998,
+        0.16315,
+        0.98615,
+        102.9834
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99779,
+        0.00567,
+        -0.06618,
+        12.87302
+       ],
+       [
+        -0.01082,
+        0.99692,
+        -0.07773,
+        24.65634
+       ],
+       [
+        0.06553,
+        0.07827,
+        0.99478,
+        -75.12762
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9996,
+        0.00367,
+        0.02807,
+        -0.65683
+       ],
+       [
+        0.00047,
+        0.9893,
+        -0.14589,
+        8.74259
+       ],
+       [
+        -0.02831,
+        0.14585,
+        0.9889,
+        94.01857
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0.0
+    },
+    {
+     "wheel_travel_mm": -25,
+     "rack_travel_mm": 0.0,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       0.99998,
+       0.00069,
+       0.00684,
+       -0.69507
+      ],
+      [
+       -0.00063,
+       0.99996,
+       -0.00876,
+       3.17659
+      ],
+      [
+       -0.00685,
+       0.00875,
+       0.99994,
+       -9.66323
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.49089,
+      -787.26989,
+      166.3
+     ],
+     "spin_axis_outboard": [
+      -0.0005,
+      -0.99982,
+      0.01895
+     ],
+     "camber_deg": -1.0856474024774039,
+     "steer_deg": -0.028451423076086033,
+     "strut_length_cone_to_top_mm": 446.8875571647705,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99989,
+        0.00278,
+        0.0148,
+        0.69347
+       ],
+       [
+        -0.00156,
+        0.99665,
+        -0.08181,
+        3.671
+       ],
+       [
+        -0.01498,
+        0.08177,
+        0.99654,
+        51.42091
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99945,
+        0.00206,
+        -0.03313,
+        5.31714
+       ],
+       [
+        -0.00336,
+        0.99923,
+        -0.03911,
+        9.41313
+       ],
+       [
+        0.03302,
+        0.0392,
+        0.99869,
+        -38.08787
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9999,
+        0.00152,
+        0.01411,
+        -0.58776
+       ],
+       [
+        -0.00048,
+        0.99732,
+        -0.07317,
+        6.34695
+       ],
+       [
+        -0.01418,
+        0.07316,
+        0.99722,
+        46.88176
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0.0
+    },
+    {
+     "wheel_travel_mm": 0,
+     "rack_travel_mm": 0.0,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       1.0,
+       -0.0,
+       -0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       1.0,
+       0.0,
+       0.0
+      ],
+      [
+       -0.0,
+       0.0,
+       1.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.44654,
+      -788.03122,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.0,
+      -0.99962,
+      0.0277
+     ],
+     "camber_deg": -1.5870789186265486,
+     "steer_deg": 5.16559998013154e-15,
+     "strut_length_cone_to_top_mm": 424.144199625914,
+     "arm_deltas": {
+      "lca": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0.0
+    },
+    {
+     "wheel_travel_mm": 25,
+     "rack_travel_mm": 0.0,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       0.99997,
+       -0.00065,
+       -0.00727,
+       0.62974
+      ],
+      [
+       0.0007,
+       0.99998,
+       0.00632,
+       -1.21954
+      ],
+      [
+       0.00727,
+       -0.00632,
+       0.99995,
+       11.08413
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.16628,
+      -787.16733,
+      216.3
+     ],
+     "spin_axis_outboard": [
+      0.00045,
+      -0.99942,
+      0.03401
+     ],
+     "camber_deg": -1.9491804259413807,
+     "steer_deg": 0.02584214226203787,
+     "strut_length_cone_to_top_mm": 400.7425066776024,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99988,
+        -0.00224,
+        -0.01512,
+        -0.18861
+       ],
+       [
+        0.00347,
+        0.99661,
+        0.08218,
+        -8.72254
+       ],
+       [
+        0.01488,
+        -0.08222,
+        0.9965,
+        -51.22187
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99944,
+        -0.00058,
+        0.03339,
+        -3.11906
+       ],
+       [
+        -0.00074,
+        0.99922,
+        0.03949,
+        -3.59303
+       ],
+       [
+        -0.03339,
+        -0.0395,
+        0.99866,
+        38.86214
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9999,
+        -0.00097,
+        -0.01431,
+        1.08231
+       ],
+       [
+        0.00202,
+        0.99728,
+        0.07367,
+        -10.4792
+       ],
+       [
+        0.0142,
+        -0.07369,
+        0.99718,
+        -46.59824
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0.0
+    },
+    {
+     "wheel_travel_mm": 50,
+     "rack_travel_mm": 0.0,
+     "residual_mm": 2.1316282072803006e-13,
+     "knuckle_group_delta": [
+      [
+       0.99989,
+       -0.00151,
+       -0.01506,
+       1.07304
+      ],
+      [
+       0.00165,
+       0.99995,
+       0.00986,
+       -0.60665
+      ],
+      [
+       0.01504,
+       -0.00988,
+       0.99984,
+       23.7353
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1229.6856,
+      -784.67575,
+      241.3
+     ],
+     "spin_axis_outboard": [
+      0.00109,
+      -0.99929,
+      0.03757
+     ],
+     "camber_deg": -2.15325296205537,
+     "steer_deg": 0.06242898707305313,
+     "strut_length_cone_to_top_mm": 376.5989068433764,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99952,
+        -0.00404,
+        -0.03068,
+        0.11198
+       ],
+       [
+        0.00904,
+        0.98629,
+        0.16478,
+        -22.78005
+       ],
+       [
+        0.02959,
+        -0.16497,
+        0.98585,
+        -102.1749
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99774,
+        0.0003,
+        0.06726,
+        -4.01071
+       ],
+       [
+        -0.00564,
+        0.99684,
+        0.07928,
+        -1.27691
+       ],
+       [
+        -0.06702,
+        -0.07948,
+        0.99458,
+        78.24417
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99958,
+        -0.00147,
+        -0.02892,
+        2.64954
+       ],
+       [
+        0.00573,
+        0.98899,
+        0.1479,
+        -25.3592
+       ],
+       [
+        0.02838,
+        -0.148,
+        0.98858,
+        -92.87073
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0.0
+    }
+   ],
+   "steer_samples": [
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": -60,
+     "residual_mm": 9.663381206337363e-13,
+     "knuckle_group_delta": [
+      [
+       0.84198,
+       0.50158,
+       -0.19872,
+       578.03637
+      ],
+      [
+       -0.51813,
+       0.85442,
+       -0.03872,
+       544.84534
+      ],
+      [
+       0.15037,
+       0.13556,
+       0.97929,
+       -74.23749
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1180.7699,
+      -773.40718,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      -0.50689,
+      -0.85517,
+      -0.10839
+     ],
+     "camber_deg": 6.222312849849401,
+     "steer_deg": -30.65685170512226,
+     "strut_length_cone_to_top_mm": 411.3597136407588,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99498,
+        -0.09846,
+        -0.01795,
+        -33.78871
+       ],
+       [
+        0.09928,
+        0.99367,
+        0.05264,
+        -122.04704
+       ],
+       [
+        0.01266,
+        -0.05415,
+        0.99845,
+        -37.14123
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99956,
+        -0.01962,
+        0.02227,
+        -8.45964
+       ],
+       [
+        0.01901,
+        0.99945,
+        0.02711,
+        -32.88659
+       ],
+       [
+        -0.02279,
+        -0.02667,
+        0.99938,
+        26.59258
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99626,
+        0.08495,
+        -0.01585,
+        44.12222
+       ],
+       [
+        -0.08297,
+        0.99156,
+        0.09961,
+        95.12565
+       ],
+       [
+        0.02418,
+        -0.09792,
+        0.9949,
+        -74.57441
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -60
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": -40,
+     "residual_mm": 2.955857780762017e-11,
+     "knuckle_group_delta": [
+      [
+       0.93953,
+       0.32059,
+       -0.12043,
+       319.30242
+      ],
+      [
+       -0.32664,
+       0.94454,
+       -0.03387,
+       368.71703
+      ],
+      [
+       0.1029,
+       0.07116,
+       0.99214,
+       -69.02734
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1199.66875,
+      -784.00686,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      -0.3238,
+      -0.94512,
+      -0.04366
+     ],
+     "camber_deg": 2.502088364292336,
+     "steer_deg": -18.91185427357459,
+     "strut_length_cone_to_top_mm": 418.0922865130388,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99798,
+        -0.06291,
+        -0.00925,
+        -23.07498
+       ],
+       [
+        0.06313,
+        0.99766,
+        0.0263,
+        -76.63191
+       ],
+       [
+        0.00757,
+        -0.02683,
+        0.99961,
+        -19.952
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.9998,
+        -0.01611,
+        0.01202,
+        -6.48254
+       ],
+       [
+        0.01593,
+        0.99977,
+        0.01465,
+        -26.56435
+       ],
+       [
+        -0.01225,
+        -0.01446,
+        0.99982,
+        14.23837
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99927,
+        0.0365,
+        -0.01099,
+        17.46421
+       ],
+       [
+        -0.03576,
+        0.99748,
+        0.06128,
+        39.84948
+       ],
+       [
+        0.0132,
+        -0.06084,
+        0.99806,
+        -42.85898
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -40
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": -20,
+     "residual_mm": 1.9895196601282805e-13,
+     "knuckle_group_delta": [
+      [
+       0.98639,
+       0.15471,
+       -0.05564,
+       134.81314
+      ],
+      [
+       -0.15602,
+       0.98756,
+       -0.01982,
+       185.87824
+      ],
+      [
+       0.05188,
+       0.02823,
+       0.99825,
+       -41.25374
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1215.95138,
+      -788.10658,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      -0.1562,
+      -0.98773,
+      -0.00057
+     ],
+     "camber_deg": 0.03274705841480162,
+     "steer_deg": -8.986190041372215,
+     "strut_length_cone_to_top_mm": 422.0416471656034,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99953,
+        -0.0303,
+        -0.00367,
+        -11.74841
+       ],
+       [
+        0.03034,
+        0.99949,
+        0.00982,
+        -36.46433
+       ],
+       [
+        0.00337,
+        -0.00992,
+        0.99995,
+        -8.05774
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99995,
+        -0.00912,
+        0.00493,
+        -3.55219
+       ],
+       [
+        0.00909,
+        0.99994,
+        0.006,
+        -14.86631
+       ],
+       [
+        -0.00499,
+        -0.00595,
+        0.99997,
+        5.76404
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99993,
+        0.01066,
+        -0.00534,
+        4.89995
+       ],
+       [
+        -0.0105,
+        0.99954,
+        0.02851,
+        10.86185
+       ],
+       [
+        0.00564,
+        -0.02845,
+        0.99958,
+        -18.82563
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -20
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 0,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       1.0,
+       -0.0,
+       -0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       1.0,
+       0.0,
+       0.0
+      ],
+      [
+       -0.0,
+       0.0,
+       1.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.44654,
+      -788.03122,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.0,
+      -0.99962,
+      0.0277
+     ],
+     "camber_deg": -1.5870789186265486,
+     "steer_deg": 5.16559998013154e-15,
+     "strut_length_cone_to_top_mm": 424.144199625914,
+     "arm_deltas": {
+      "lca": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 20,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       0.9881,
+       -0.14591,
+       0.04865,
+       -96.49683
+      ],
+      [
+       0.14487,
+       0.98915,
+       0.0242,
+       -188.19689
+      ],
+      [
+       -0.05165,
+       -0.01686,
+       0.99852,
+       50.54567
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1243.59361,
+      -784.79844,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.1472,
+      -0.98811,
+      0.04451
+     ],
+     "camber_deg": -2.5511556345460114,
+     "steer_deg": 8.472967938902489,
+     "strut_length_cone_to_top_mm": 424.84943123531224,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99959,
+        0.02839,
+        0.0024,
+        12.04177
+       ],
+       [
+        -0.02838,
+        0.99959,
+        -0.0047,
+        33.56356
+       ],
+       [
+        -0.00254,
+        0.00463,
+        0.99999,
+        4.89895
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99994,
+        0.01068,
+        -0.00326,
+        4.06819
+       ],
+       [
+        -0.01069,
+        0.99994,
+        -0.00394,
+        17.08458
+       ],
+       [
+        0.00321,
+        0.00397,
+        0.99999,
+        -3.6652
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99999,
+        0.001,
+        0.00456,
+        -0.04083
+       ],
+       [
+        -0.00089,
+        0.99969,
+        -0.02497,
+        3.3483
+       ],
+       [
+        -0.00458,
+        0.02496,
+        0.99968,
+        15.10684
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 20
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 40,
+     "residual_mm": 3.929301328753354e-12,
+     "knuckle_group_delta": [
+      [
+       0.95427,
+       -0.2846,
+       0.09151,
+       -160.29521
+      ],
+      [
+       0.2808,
+       0.95834,
+       0.05225,
+       -379.1695
+      ],
+      [
+       -0.10257,
+       -0.02416,
+       0.99443,
+       108.2315
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1255.65951,
+      -778.86868,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.28702,
+      -0.95653,
+      0.05169
+     ],
+     "camber_deg": -2.9631086895135206,
+     "steer_deg": 16.702710506218445,
+     "strut_length_cone_to_top_mm": 424.3937401002058,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99847,
+        0.0551,
+        0.00392,
+        24.27504
+       ],
+       [
+        -0.05508,
+        0.99847,
+        -0.00511,
+        64.69074
+       ],
+       [
+        -0.0042,
+        0.00488,
+        0.99998,
+        6.96758
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99973,
+        0.02266,
+        -0.00508,
+        8.6396
+       ],
+       [
+        -0.02269,
+        0.99972,
+        -0.00615,
+        35.96173
+       ],
+       [
+        0.00494,
+        0.00627,
+        0.99997,
+        -5.58677
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9999,
+        0.01188,
+        0.00811,
+        3.48351
+       ],
+       [
+        -0.01149,
+        0.99884,
+        -0.04683,
+        18.88936
+       ],
+       [
+        -0.00866,
+        0.04673,
+        0.99887,
+        27.49655
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 40
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 60,
+     "residual_mm": 2.4158453015843406e-13,
+     "knuckle_group_delta": [
+      [
+       0.89956,
+       -0.41724,
+       0.12925,
+       -193.56723
+      ],
+      [
+       0.40931,
+       0.90851,
+       0.08415,
+       -574.16347
+      ],
+      [
+       -0.15254,
+       -0.02279,
+       0.98804,
+       172.01774
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1266.81585,
+      -770.36999,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.42066,
+      -0.90583,
+      0.05015
+     ],
+     "camber_deg": -2.874359057152493,
+     "steer_deg": 24.90998757833941,
+     "strut_length_cone_to_top_mm": 422.88964738731204,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99676,
+        0.08028,
+        0.0048,
+        36.60521
+       ],
+       [
+        -0.08027,
+        0.99677,
+        -0.00162,
+        93.64591
+       ],
+       [
+        -0.00492,
+        0.00123,
+        0.99999,
+        6.31591
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99934,
+        0.03587,
+        -0.0056,
+        13.76103
+       ],
+       [
+        -0.03591,
+        0.99933,
+        -0.00682,
+        56.50375
+       ],
+       [
+        0.00535,
+        0.00702,
+        0.99996,
+        -5.96717
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99944,
+        0.03191,
+        0.01054,
+        10.12915
+       ],
+       [
+        -0.03115,
+        0.99735,
+        -0.06582,
+        45.79366
+       ],
+       [
+        -0.01261,
+        0.06546,
+        0.99778,
+        37.88918
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 60
+    }
+   ]
+  },
+  "interference": [
+   {
+    "a": "caliper",
+    "b": "wheel",
+    "pts_of_a_deeper_than_3mm_in_b": 4444,
+    "of": 59319,
+    "pct": 7.49,
+    "expected": "front wheel scan has a spurious inner skin at r 168-185 mm (real barrel r~226, Front Wheel.STEP); the caliper (r<=207) clears the real barrel"
+   },
+   {
+    "a": "tension_rod_balljoint",
+    "b": "tension_rod",
+    "pts_of_a_deeper_than_3mm_in_b": 667,
+    "of": 9228,
+    "pct": 7.23,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "tie_rod_end_balljoint",
+    "b": "tie_rod_end",
+    "pts_of_a_deeper_than_3mm_in_b": 434,
+    "of": 6698,
+    "pct": 6.48,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "tie_rod_end",
+    "b": "tie_rod_end_balljoint",
+    "pts_of_a_deeper_than_3mm_in_b": 594,
+    "of": 12814,
+    "pct": 4.64,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "dust_shield",
+    "b": "wheel",
+    "pts_of_a_deeper_than_3mm_in_b": 2160,
+    "of": 49932,
+    "pct": 4.33,
+    "expected": "same front-wheel scan artefact (inner skin at r 168-185)"
+   },
+   {
+    "a": "strut_top_mount",
+    "b": "strut_spring",
+    "pts_of_a_deeper_than_3mm_in_b": 849,
+    "of": 38416,
+    "pct": 2.21,
+    "expected": "both scans contain the upper spring seat / mount underside"
+   },
+   {
+    "a": "bearing",
+    "b": "wheel",
+    "pts_of_a_deeper_than_3mm_in_b": 743,
+    "of": 43156,
+    "pct": 1.72,
+    "expected": "hub spigot r33.3 sits in the wheel centre bore"
+   },
+   {
+    "a": "lca_balljoint",
+    "b": "lca",
+    "pts_of_a_deeper_than_3mm_in_b": 209,
+    "of": 12171,
+    "pct": 1.72,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "strut_spring",
+    "b": "strut_top_mount",
+    "pts_of_a_deeper_than_3mm_in_b": 651,
+    "of": 57867,
+    "pct": 1.12,
+    "expected": "both scans contain the upper spring seat / mount underside"
+   },
+   {
+    "a": "caliper",
+    "b": "rotor",
+    "pts_of_a_deeper_than_3mm_in_b": 537,
+    "of": 59319,
+    "pct": 0.91,
+    "expected": "brake pads sit on the disc"
+   },
+   {
+    "a": "rotor",
+    "b": "wheel",
+    "pts_of_a_deeper_than_3mm_in_b": 306,
+    "of": 70650,
+    "pct": 0.43,
+    "expected": "disc edge r174 against the same artefact skin; hat face on the wheel pad"
+   },
+   {
+    "a": "caliper",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 215,
+    "of": 59319,
+    "pct": 0.36,
+    "expected": ""
+   },
+   {
+    "a": "lca_balljoint",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 43,
+    "of": 12171,
+    "pct": 0.35,
+    "expected": "stud shank sits in the knuckle hole"
+   },
+   {
+    "a": "wheel",
+    "b": "caliper",
+    "pts_of_a_deeper_than_3mm_in_b": 155,
+    "of": 45340,
+    "pct": 0.34,
+    "expected": ""
+   },
+   {
+    "a": "rotor",
+    "b": "caliper",
+    "pts_of_a_deeper_than_3mm_in_b": 203,
+    "of": 70650,
+    "pct": 0.29,
+    "expected": "disc runs in the pad slot"
+   },
+   {
+    "a": "knuckle",
+    "b": "caliper",
+    "pts_of_a_deeper_than_3mm_in_b": 117,
+    "of": 45854,
+    "pct": 0.26,
+    "expected": ""
+   },
+   {
+    "a": "knuckle",
+    "b": "dust_shield",
+    "pts_of_a_deeper_than_3mm_in_b": 112,
+    "of": 45854,
+    "pct": 0.24,
+    "expected": ""
+   },
+   {
+    "a": "tension_rod",
+    "b": "tension_rod_balljoint",
+    "pts_of_a_deeper_than_3mm_in_b": 85,
+    "of": 45557,
+    "pct": 0.19,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "caliper",
+    "b": "dust_shield",
+    "pts_of_a_deeper_than_3mm_in_b": 92,
+    "of": 59319,
+    "pct": 0.16,
+    "expected": ""
+   },
+   {
+    "a": "tension_rod_balljoint",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 13,
+    "of": 9228,
+    "pct": 0.14,
+    "expected": "stud shank sits in the knuckle hole"
+   },
+   {
+    "a": "lca",
+    "b": "wheel",
+    "pts_of_a_deeper_than_3mm_in_b": 74,
+    "of": 58850,
+    "pct": 0.13,
+    "expected": "front-wheel scan artefact skin"
+   },
+   {
+    "a": "tie_rod_end_balljoint",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 7,
+    "of": 6698,
+    "pct": 0.1,
+    "expected": "stud shank sits in the knuckle hole"
+   },
+   {
+    "a": "wheel",
+    "b": "rotor",
+    "pts_of_a_deeper_than_3mm_in_b": 40,
+    "of": 45340,
+    "pct": 0.09,
+    "expected": "wheel pad on the rotor hat"
+   },
+   {
+    "a": "knuckle",
+    "b": "tie_rod_end",
+    "pts_of_a_deeper_than_3mm_in_b": 34,
+    "of": 45854,
+    "pct": 0.07,
+    "expected": ""
+   },
+   {
+    "a": "knuckle",
+    "b": "tension_rod",
+    "pts_of_a_deeper_than_3mm_in_b": 25,
+    "of": 45854,
+    "pct": 0.05,
+    "expected": ""
+   },
+   {
+    "a": "strut_spring",
+    "b": "strut_body",
+    "pts_of_a_deeper_than_3mm_in_b": 16,
+    "of": 57867,
+    "pct": 0.03,
+    "expected": "lowest coil / boot sit on the perch (spring was compressed onto it)"
+   },
+   {
+    "a": "strut_body",
+    "b": "strut_spring",
+    "pts_of_a_deeper_than_3mm_in_b": 9,
+    "of": 55976,
+    "pct": 0.02,
+    "expected": "perch under the lowest coil"
+   },
+   {
+    "a": "rotor",
+    "b": "dust_shield",
+    "pts_of_a_deeper_than_3mm_in_b": 15,
+    "of": 70650,
+    "pct": 0.02,
+    "expected": ""
+   },
+   {
+    "a": "wheel",
+    "b": "dust_shield",
+    "pts_of_a_deeper_than_3mm_in_b": 9,
+    "of": 45340,
+    "pct": 0.02,
+    "expected": ""
+   },
+   {
+    "a": "knuckle",
+    "b": "tie_rod_end_balljoint",
+    "pts_of_a_deeper_than_3mm_in_b": 4,
+    "of": 45854,
+    "pct": 0.01,
+    "expected": "stud shank sits in the knuckle hole"
+   }
+  ],
+  "interference_vs_car_scan": [
+   {
+    "a": "tension_rod",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 7,
+    "of": 45557
+   },
+   {
+    "a": "rack_tie_rod",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 595,
+    "of": 35256
+   },
+   {
+    "a": "strut_top_mount",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 622,
+    "of": 38416
+   }
+  ],
+  "check_images": [
+   "/home/user/media/work/a90/corners3/check/FR_outside.png",
+   "/home/user/media/work/a90/corners3/check/FR_inside.png",
+   "/home/user/media/work/a90/corners3/check/FR_above.png",
+   "/home/user/media/work/a90/corners3/check/FR_above_body.png",
+   "/home/user/media/work/a90/corners3/check/FR_front.png",
+   "/home/user/media/work/a90/corners3/check/FR_below.png",
+   "/home/user/media/work/a90/corners3/check/FR_outside_with_wheel.png",
+   "/home/user/media/work/a90/corners3/check/FR_front_with_wheel.png"
+  ]
+ },
+ "FL": {
+  "mirror_of": "FR",
+  "parts": {
+   "knuckle": {
+    "source": "fsusp/FR Knuckle (137k).stl",
+    "matrix": [
+     [
+      -0.98672,
+      0.00241,
+      -0.1624,
+      1230.43196
+     ],
+     [
+      0.00699,
+      0.99959,
+      -0.02764,
+      769.2956
+     ],
+     [
+      -0.16227,
+      0.02841,
+      0.98634,
+      190.73736
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_knuckle.stl"
+   },
+   "bearing": {
+    "source": "fsusp/Front Bearing.stl",
+    "matrix": [
+     [
+      0.26052,
+      -0.96531,
+      -0.01759,
+      1231.64045
+     ],
+     [
+      0.00564,
+      0.01974,
+      -0.99979,
+      496.28312
+     ],
+     [
+      -0.96545,
+      -0.26037,
+      -0.01059,
+      241.62402
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_bearing.stl"
+   },
+   "dust_shield": {
+    "source": "fsusp/FR Dust Shield (100k).stl",
+    "matrix": [
+     [
+      0.98718,
+      0.07173,
+      -0.14256,
+      1162.8435
+     ],
+     [
+      0.14823,
+      -0.08111,
+      0.98562,
+      1073.62131
+     ],
+     [
+      -0.05914,
+      0.99412,
+      0.0907,
+      147.61281
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_dust_shield.stl"
+   },
+   "lca": {
+    "source": "fsusp/FR LCA (73k).stl",
+    "matrix": [
+     [
+      0.04936,
+      -0.98286,
+      -0.17763,
+      1182.32016
+     ],
+     [
+      0.49676,
+      0.17845,
+      -0.84934,
+      410.61128
+     ],
+     [
+      -0.86648,
+      0.04631,
+      -0.49706,
+      39.2153
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_lca.stl"
+   },
+   "lca_balljoint": {
+    "source": "fsusp/FR LCA BJ.stl",
+    "matrix": [
+     [
+      -0.0163,
+      -0.99931,
+      -0.03347,
+      1228.14418
+     ],
+     [
+      0.76766,
+      0.00894,
+      -0.64079,
+      418.41854
+     ],
+     [
+      -0.64065,
+      0.03613,
+      -0.76699,
+      -63.0281
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_lca_balljoint.stl"
+   },
+   "tension_rod": {
+    "source": "fsusp/FR Tension Rod.stl",
+    "matrix": [
+     [
+      -0.01193,
+      -0.76376,
+      -0.6454,
+      1558.25076
+     ],
+     [
+      0.01153,
+      -0.6455,
+      0.76367,
+      337.25919
+     ],
+     [
+      0.99986,
+      -0.00167,
+      -0.0165,
+      113.60551
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_tension_rod.stl"
+   },
+   "tension_rod_balljoint": {
+    "source": "fsusp/FR Tension Rod BJ.stl",
+    "matrix": [
+     [
+      -0.15341,
+      -0.87539,
+      -0.45842,
+      1469.91824
+     ],
+     [
+      0.33889,
+      -0.48239,
+      0.80775,
+      314.95379
+     ],
+     [
+      0.92823,
+      0.03144,
+      -0.37067,
+      282.31802
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_tension_rod_balljoint.stl"
+   },
+   "tie_rod_end": {
+    "source": "fsusp/FR Tie Rod Outer (22k).stl",
+    "matrix": [
+     [
+      -0.36036,
+      -0.85533,
+      0.37223,
+      1329.42339
+     ],
+     [
+      -0.93183,
+      0.34843,
+      -0.10147,
+      620.69084
+     ],
+     [
+      0.0429,
+      0.38342,
+      0.92258,
+      84.7385
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_tie_rod_end.stl"
+   },
+   "tie_rod_end_balljoint": {
+    "source": "fsusp/FR Tie Rod Outer BJ.stl",
+    "matrix": [
+     [
+      -0.43029,
+      -0.79492,
+      0.42773,
+      1321.94091
+     ],
+     [
+      -0.83301,
+      0.53222,
+      0.15111,
+      630.57374
+     ],
+     [
+      0.34777,
+      0.29128,
+      0.89118,
+      116.91942
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_tie_rod_end_balljoint.stl"
+   },
+   "rack_tie_rod": {
+    "source": "fsusp/Rack Cleaned (35k).stl",
+    "matrix": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_rack_tie_rod.stl"
+   },
+   "strut_body": {
+    "source": "fsusp/FR Coilover Bottom (112k).stl",
+    "matrix": [
+     [
+      0.47094,
+      0.85129,
+      -0.23135,
+      1128.63497
+     ],
+     [
+      0.84617,
+      -0.51006,
+      -0.15437,
+      547.69191
+     ],
+     [
+      0.24942,
+      0.12306,
+      0.96055,
+      468.39754
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_strut_body.stl"
+   },
+   "strut_top_mount": {
+    "source": "fsusp/Top Hat.stl",
+    "matrix": [
+     [
+      -0.99509,
+      0.01226,
+      -0.0982,
+      1215.99696
+     ],
+     [
+      0.0303,
+      0.9824,
+      -0.18433,
+      525.61199
+     ],
+     [
+      -0.09422,
+      0.1864,
+      0.97795,
+      423.80273
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_strut_top_mount.stl"
+   },
+   "strut_spring": {
+    "source": "fsusp/FR Coilover Top (115k).stl",
+    "matrix": [
+     [
+      0.47094,
+      0.85129,
+      -0.23135,
+      1137.39846
+     ],
+     [
+      0.84617,
+      -0.51006,
+      -0.15437,
+      556.2779
+     ],
+     [
+      0.24942,
+      0.12306,
+      0.96055,
+      415.20761
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_strut_spring.stl"
+   },
+   "rotor": {
+    "source": "fsusp/Front Rotor (70k).stl",
+    "matrix": [
+     [
+      0.99964,
+      -0.00057,
+      -0.02671,
+      1189.53432
+     ],
+     [
+      0.0267,
+      -0.00639,
+      0.99962,
+      1145.73768
+     ],
+     [
+      0.00074,
+      0.99998,
+      0.00638,
+      159.58235
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_rotor.stl"
+   },
+   "wheel": {
+    "source": "fsusp/Front Wheel (680k).stl",
+    "matrix": [
+     [
+      0.9992,
+      -0.00278,
+      -0.03977,
+      1260.37535
+     ],
+     [
+      0.03986,
+      0.04212,
+      0.99832,
+      1473.21693
+     ],
+     [
+      0.0011,
+      0.99911,
+      -0.0422,
+      227.24934
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_wheel.stl"
+   },
+   "caliper": {
+    "source": "fsusp/FR Caliper (118k).stl",
+    "matrix": [
+     [
+      0.33895,
+      -0.06036,
+      0.93887,
+      1139.20238
+     ],
+     [
+      0.04174,
+      0.99792,
+      0.04908,
+      734.86506
+     ],
+     [
+      0.93988,
+      -0.02255,
+      -0.34077,
+      128.22302
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "FL_caliper.stl"
+   }
+  },
+  "articulation": {
+   "wheel_centre": [
+    1230.44654,
+    788.03122,
+    191.3
+   ],
+   "spin_axis_outboard": [
+    0.0,
+    0.99962,
+    0.0277
+   ],
+   "camber_deg": -1.5870789186265486,
+   "toe_deg": -0.0,
+   "solve_residual_mm": 1.7053025658242404e-13,
+   "droop_wheel_centre": [
+    1230.08719,
+    780.55397,
+    114.83085
+   ],
+   "droop_solve_residual_mm": 2.2737367544323206e-13,
+   "hub_face": [
+    1230.44654,
+    813.54638,
+    192.00694
+   ],
+   "steer_axis_top": [
+    1146.6,
+    532.2,
+    669.8
+   ],
+   "steer_axis_bottom": [
+    1234.21202,
+    698.08574,
+    22.7353
+   ],
+   "lca_ball": [
+    1234.21202,
+    698.08574,
+    22.7353
+   ],
+   "tension_rod_ball": [
+    1251.22218,
+    700.42139,
+    109.82337
+   ],
+   "tie_rod_ball": [
+    1367.03731,
+    718.84614,
+    81.81819
+   ],
+   "lca_inner": [
+    1182.32016,
+    410.61128,
+    39.2153
+   ],
+   "lca_inner_axis": [
+    -0.98316,
+    0.17677,
+    0.04641
+   ],
+   "tension_rod_inner": [
+    1558.25076,
+    337.25919,
+    113.60551
+   ],
+   "tension_rod_inner_axis": [
+    -0.76248,
+    -0.64701,
+    -0.00165
+   ],
+   "strut_axis": [
+    -0.16054,
+    -0.15729,
+    0.97442
+   ],
+   "rack_inner_ball": [
+    1302.6,
+    384.8,
+    92.3
+   ],
+   "lca_length": 292.58489475422607,
+   "tension_rod_length": 475.5708593369391,
+   "tie_rod_length_mm": 340.36577000192216,
+   "travel_samples": [
+    {
+     "wheel_travel_mm": -76,
+     "rack_travel_mm": -0.0,
+     "residual_mm": 3.481659405224491e-13,
+     "knuckle_group_delta": [
+      [
+       0.9998,
+       -0.00322,
+       0.0197,
+       -1.7646
+      ],
+      [
+       0.00257,
+       0.99944,
+       0.03342,
+       -16.60428
+      ],
+      [
+       -0.0198,
+       -0.03337,
+       0.99925,
+       -25.20316
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1229.66421,
+      780.53404,
+      115.3
+     ],
+     "spin_axis_outboard": [
+      -0.00268,
+      0.99998,
+      -0.00568
+     ],
+     "camber_deg": 0.32530117855409213,
+     "steer_deg": 0.1534377022829813,
+     "strut_length_cone_to_top_mm": 491.51389238426384,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99896,
+        -0.01054,
+        0.04434,
+        3.81648
+       ],
+       [
+        -0.00077,
+        0.96886,
+        0.24759,
+        3.98464
+       ],
+       [
+        -0.04557,
+        -0.24737,
+        0.96785,
+        156.70694
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99486,
+        -0.0112,
+        -0.10066,
+        23.22692
+       ],
+       [
+        0.02304,
+        0.99284,
+        0.11721,
+        -46.80383
+       ],
+       [
+        0.09863,
+        -0.11893,
+        0.98799,
+        -112.21039
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99907,
+        -0.0067,
+        0.04248,
+        -0.13728
+       ],
+       [
+        -0.00286,
+        0.97526,
+        0.22106,
+        -7.15919
+       ],
+       [
+        -0.04291,
+        -0.22098,
+        0.97433,
+        143.29664
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -0.0
+    },
+    {
+     "wheel_travel_mm": -50,
+     "rack_travel_mm": -0.0,
+     "residual_mm": 1.2789769243681803e-13,
+     "knuckle_group_delta": [
+      [
+       0.99991,
+       -0.00165,
+       0.01332,
+       -1.32854
+      ],
+      [
+       0.00138,
+       0.9998,
+       0.01974,
+       -8.49982
+      ],
+      [
+       -0.01335,
+       -0.01972,
+       0.99972,
+       -17.97808
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.25723,
+      784.8567,
+      141.3
+     ],
+     "spin_axis_outboard": [
+      -0.00128,
+      0.99997,
+      0.00797
+     ],
+     "camber_deg": -0.4568210070757018,
+     "steer_deg": 0.07319820210380396,
+     "strut_length_cone_to_top_mm": 469.04045954009496,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99955,
+        -0.00619,
+        0.02937,
+        1.92242
+       ],
+       [
+        0.00131,
+        0.98658,
+        0.16326,
+        -2.44469
+       ],
+       [
+        -0.02998,
+        -0.16315,
+        0.98615,
+        102.9834
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99779,
+        -0.00567,
+        -0.06618,
+        12.87302
+       ],
+       [
+        0.01082,
+        0.99692,
+        0.07773,
+        -24.65634
+       ],
+       [
+        0.06553,
+        -0.07827,
+        0.99478,
+        -75.12762
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9996,
+        -0.00367,
+        0.02807,
+        -0.65683
+       ],
+       [
+        -0.00047,
+        0.9893,
+        0.14589,
+        -8.74259
+       ],
+       [
+        -0.02831,
+        -0.14585,
+        0.9889,
+        94.01857
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -0.0
+    },
+    {
+     "wheel_travel_mm": -25,
+     "rack_travel_mm": -0.0,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       0.99998,
+       -0.00069,
+       0.00684,
+       -0.69507
+      ],
+      [
+       0.00063,
+       0.99996,
+       0.00876,
+       -3.17659
+      ],
+      [
+       -0.00685,
+       -0.00875,
+       0.99994,
+       -9.66323
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.49089,
+      787.26989,
+      166.3
+     ],
+     "spin_axis_outboard": [
+      -0.0005,
+      0.99982,
+      0.01895
+     ],
+     "camber_deg": -1.0856474024774039,
+     "steer_deg": 0.028451423076086033,
+     "strut_length_cone_to_top_mm": 446.8875571647705,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99989,
+        -0.00278,
+        0.0148,
+        0.69347
+       ],
+       [
+        0.00156,
+        0.99665,
+        0.08181,
+        -3.671
+       ],
+       [
+        -0.01498,
+        -0.08177,
+        0.99654,
+        51.42091
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99945,
+        -0.00206,
+        -0.03313,
+        5.31714
+       ],
+       [
+        0.00336,
+        0.99923,
+        0.03911,
+        -9.41313
+       ],
+       [
+        0.03302,
+        -0.0392,
+        0.99869,
+        -38.08787
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9999,
+        -0.00152,
+        0.01411,
+        -0.58776
+       ],
+       [
+        0.00048,
+        0.99732,
+        0.07317,
+        -6.34695
+       ],
+       [
+        -0.01418,
+        -0.07316,
+        0.99722,
+        46.88176
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -0.0
+    },
+    {
+     "wheel_travel_mm": 0,
+     "rack_travel_mm": -0.0,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       1.0,
+       0.0,
+       -0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       1.0,
+       -0.0,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       1.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.44654,
+      788.03122,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.0,
+      0.99962,
+      0.0277
+     ],
+     "camber_deg": -1.5870789186265486,
+     "steer_deg": -5.16559998013154e-15,
+     "strut_length_cone_to_top_mm": 424.144199625914,
+     "arm_deltas": {
+      "lca": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -0.0
+    },
+    {
+     "wheel_travel_mm": 25,
+     "rack_travel_mm": -0.0,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       0.99997,
+       0.00065,
+       -0.00727,
+       0.62974
+      ],
+      [
+       -0.0007,
+       0.99998,
+       -0.00632,
+       1.21954
+      ],
+      [
+       0.00727,
+       0.00632,
+       0.99995,
+       11.08413
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.16628,
+      787.16733,
+      216.3
+     ],
+     "spin_axis_outboard": [
+      0.00045,
+      0.99942,
+      0.03401
+     ],
+     "camber_deg": -1.9491804259413807,
+     "steer_deg": -0.02584214226203787,
+     "strut_length_cone_to_top_mm": 400.7425066776024,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99988,
+        0.00224,
+        -0.01512,
+        -0.18861
+       ],
+       [
+        -0.00347,
+        0.99661,
+        -0.08218,
+        8.72254
+       ],
+       [
+        0.01488,
+        0.08222,
+        0.9965,
+        -51.22187
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99944,
+        0.00058,
+        0.03339,
+        -3.11906
+       ],
+       [
+        0.00074,
+        0.99922,
+        -0.03949,
+        3.59303
+       ],
+       [
+        -0.03339,
+        0.0395,
+        0.99866,
+        38.86214
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9999,
+        0.00097,
+        -0.01431,
+        1.08231
+       ],
+       [
+        -0.00202,
+        0.99728,
+        -0.07367,
+        10.4792
+       ],
+       [
+        0.0142,
+        0.07369,
+        0.99718,
+        -46.59824
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -0.0
+    },
+    {
+     "wheel_travel_mm": 50,
+     "rack_travel_mm": -0.0,
+     "residual_mm": 2.1316282072803006e-13,
+     "knuckle_group_delta": [
+      [
+       0.99989,
+       0.00151,
+       -0.01506,
+       1.07304
+      ],
+      [
+       -0.00165,
+       0.99995,
+       -0.00986,
+       0.60665
+      ],
+      [
+       0.01504,
+       0.00988,
+       0.99984,
+       23.7353
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1229.6856,
+      784.67575,
+      241.3
+     ],
+     "spin_axis_outboard": [
+      0.00109,
+      0.99929,
+      0.03757
+     ],
+     "camber_deg": -2.15325296205537,
+     "steer_deg": -0.06242898707305313,
+     "strut_length_cone_to_top_mm": 376.5989068433764,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99952,
+        0.00404,
+        -0.03068,
+        0.11198
+       ],
+       [
+        -0.00904,
+        0.98629,
+        -0.16478,
+        22.78005
+       ],
+       [
+        0.02959,
+        0.16497,
+        0.98585,
+        -102.1749
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99774,
+        -0.0003,
+        0.06726,
+        -4.01071
+       ],
+       [
+        0.00564,
+        0.99684,
+        -0.07928,
+        1.27691
+       ],
+       [
+        -0.06702,
+        0.07948,
+        0.99458,
+        78.24417
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99958,
+        0.00147,
+        -0.02892,
+        2.64954
+       ],
+       [
+        -0.00573,
+        0.98899,
+        -0.1479,
+        25.3592
+       ],
+       [
+        0.02838,
+        0.148,
+        0.98858,
+        -92.87073
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -0.0
+    }
+   ],
+   "steer_samples": [
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": -60,
+     "residual_mm": 9.663381206337363e-13,
+     "knuckle_group_delta": [
+      [
+       0.84198,
+       -0.50158,
+       -0.19872,
+       578.03637
+      ],
+      [
+       0.51813,
+       0.85442,
+       0.03872,
+       -544.84534
+      ],
+      [
+       0.15037,
+       -0.13556,
+       0.97929,
+       -74.23749
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1180.7699,
+      773.40718,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      -0.50689,
+      0.85517,
+      -0.10839
+     ],
+     "camber_deg": 6.222312849849401,
+     "steer_deg": 30.65685170512226,
+     "strut_length_cone_to_top_mm": 411.3597136407588,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99498,
+        0.09846,
+        -0.01795,
+        -33.78871
+       ],
+       [
+        -0.09928,
+        0.99367,
+        -0.05264,
+        122.04704
+       ],
+       [
+        0.01266,
+        0.05415,
+        0.99845,
+        -37.14123
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99956,
+        0.01962,
+        0.02227,
+        -8.45964
+       ],
+       [
+        -0.01901,
+        0.99945,
+        -0.02711,
+        32.88659
+       ],
+       [
+        -0.02279,
+        0.02667,
+        0.99938,
+        26.59258
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99626,
+        -0.08495,
+        -0.01585,
+        44.12222
+       ],
+       [
+        0.08297,
+        0.99156,
+        -0.09961,
+        -95.12565
+       ],
+       [
+        0.02418,
+        0.09792,
+        0.9949,
+        -74.57441
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -60
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": -40,
+     "residual_mm": 2.955857780762017e-11,
+     "knuckle_group_delta": [
+      [
+       0.93953,
+       -0.32059,
+       -0.12043,
+       319.30242
+      ],
+      [
+       0.32664,
+       0.94454,
+       0.03387,
+       -368.71703
+      ],
+      [
+       0.1029,
+       -0.07116,
+       0.99214,
+       -69.02734
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1199.66875,
+      784.00686,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      -0.3238,
+      0.94512,
+      -0.04366
+     ],
+     "camber_deg": 2.502088364292336,
+     "steer_deg": 18.91185427357459,
+     "strut_length_cone_to_top_mm": 418.0922865130388,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99798,
+        0.06291,
+        -0.00925,
+        -23.07498
+       ],
+       [
+        -0.06313,
+        0.99766,
+        -0.0263,
+        76.63191
+       ],
+       [
+        0.00757,
+        0.02683,
+        0.99961,
+        -19.952
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.9998,
+        0.01611,
+        0.01202,
+        -6.48254
+       ],
+       [
+        -0.01593,
+        0.99977,
+        -0.01465,
+        26.56435
+       ],
+       [
+        -0.01225,
+        0.01446,
+        0.99982,
+        14.23837
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99927,
+        -0.0365,
+        -0.01099,
+        17.46421
+       ],
+       [
+        0.03576,
+        0.99748,
+        -0.06128,
+        -39.84948
+       ],
+       [
+        0.0132,
+        0.06084,
+        0.99806,
+        -42.85898
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -40
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": -20,
+     "residual_mm": 1.9895196601282805e-13,
+     "knuckle_group_delta": [
+      [
+       0.98639,
+       -0.15471,
+       -0.05564,
+       134.81314
+      ],
+      [
+       0.15602,
+       0.98756,
+       0.01982,
+       -185.87824
+      ],
+      [
+       0.05188,
+       -0.02823,
+       0.99825,
+       -41.25374
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1215.95138,
+      788.10658,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      -0.1562,
+      0.98773,
+      -0.00057
+     ],
+     "camber_deg": 0.03274705841480162,
+     "steer_deg": 8.986190041372215,
+     "strut_length_cone_to_top_mm": 422.0416471656034,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99953,
+        0.0303,
+        -0.00367,
+        -11.74841
+       ],
+       [
+        -0.03034,
+        0.99949,
+        -0.00982,
+        36.46433
+       ],
+       [
+        0.00337,
+        0.00992,
+        0.99995,
+        -8.05774
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99995,
+        0.00912,
+        0.00493,
+        -3.55219
+       ],
+       [
+        -0.00909,
+        0.99994,
+        -0.006,
+        14.86631
+       ],
+       [
+        -0.00499,
+        0.00595,
+        0.99997,
+        5.76404
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99993,
+        -0.01066,
+        -0.00534,
+        4.89995
+       ],
+       [
+        0.0105,
+        0.99954,
+        -0.02851,
+        -10.86185
+       ],
+       [
+        0.00564,
+        0.02845,
+        0.99958,
+        -18.82563
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": -20
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 0,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       1.0,
+       0.0,
+       -0.0,
+       -0.0
+      ],
+      [
+       0.0,
+       1.0,
+       -0.0,
+       0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       1.0,
+       -0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1230.44654,
+      788.03122,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.0,
+      0.99962,
+      0.0277
+     ],
+     "camber_deg": -1.5870789186265486,
+     "steer_deg": -5.16559998013154e-15,
+     "strut_length_cone_to_top_mm": 424.144199625914,
+     "arm_deltas": {
+      "lca": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 0
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 20,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       0.9881,
+       0.14591,
+       0.04865,
+       -96.49683
+      ],
+      [
+       -0.14487,
+       0.98915,
+       -0.0242,
+       188.19689
+      ],
+      [
+       -0.05165,
+       0.01686,
+       0.99852,
+       50.54567
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1243.59361,
+      784.79844,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.1472,
+      0.98811,
+      0.04451
+     ],
+     "camber_deg": -2.5511556345460114,
+     "steer_deg": -8.472967938902489,
+     "strut_length_cone_to_top_mm": 424.84943123531224,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99959,
+        -0.02839,
+        0.0024,
+        12.04177
+       ],
+       [
+        0.02838,
+        0.99959,
+        0.0047,
+        -33.56356
+       ],
+       [
+        -0.00254,
+        -0.00463,
+        0.99999,
+        4.89895
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99994,
+        -0.01068,
+        -0.00326,
+        4.06819
+       ],
+       [
+        0.01069,
+        0.99994,
+        0.00394,
+        -17.08458
+       ],
+       [
+        0.00321,
+        -0.00397,
+        0.99999,
+        -3.6652
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99999,
+        -0.001,
+        0.00456,
+        -0.04083
+       ],
+       [
+        0.00089,
+        0.99969,
+        0.02497,
+        -3.3483
+       ],
+       [
+        -0.00458,
+        -0.02496,
+        0.99968,
+        15.10684
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 20
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 40,
+     "residual_mm": 3.929301328753354e-12,
+     "knuckle_group_delta": [
+      [
+       0.95427,
+       0.2846,
+       0.09151,
+       -160.29521
+      ],
+      [
+       -0.2808,
+       0.95834,
+       -0.05225,
+       379.1695
+      ],
+      [
+       -0.10257,
+       0.02416,
+       0.99443,
+       108.2315
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1255.65951,
+      778.86868,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.28702,
+      0.95653,
+      0.05169
+     ],
+     "camber_deg": -2.9631086895135206,
+     "steer_deg": -16.702710506218445,
+     "strut_length_cone_to_top_mm": 424.3937401002058,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99847,
+        -0.0551,
+        0.00392,
+        24.27504
+       ],
+       [
+        0.05508,
+        0.99847,
+        0.00511,
+        -64.69074
+       ],
+       [
+        -0.0042,
+        -0.00488,
+        0.99998,
+        6.96758
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99973,
+        -0.02266,
+        -0.00508,
+        8.6396
+       ],
+       [
+        0.02269,
+        0.99972,
+        0.00615,
+        -35.96173
+       ],
+       [
+        0.00494,
+        -0.00627,
+        0.99997,
+        -5.58677
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.9999,
+        -0.01188,
+        0.00811,
+        3.48351
+       ],
+       [
+        0.01149,
+        0.99884,
+        0.04683,
+        -18.88936
+       ],
+       [
+        -0.00866,
+        -0.04673,
+        0.99887,
+        27.49655
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 40
+    },
+    {
+     "wheel_travel_mm": 0.0,
+     "rack_travel_mm": 60,
+     "residual_mm": 2.4158453015843406e-13,
+     "knuckle_group_delta": [
+      [
+       0.89956,
+       0.41724,
+       0.12925,
+       -193.56723
+      ],
+      [
+       -0.40931,
+       0.90851,
+       -0.08415,
+       574.16347
+      ],
+      [
+       -0.15254,
+       0.02279,
+       0.98804,
+       172.01774
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      1266.81585,
+      770.36999,
+      191.3
+     ],
+     "spin_axis_outboard": [
+      0.42066,
+      0.90583,
+      0.05015
+     ],
+     "camber_deg": -2.874359057152493,
+     "steer_deg": -24.90998757833941,
+     "strut_length_cone_to_top_mm": 422.88964738731204,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99676,
+        -0.08028,
+        0.0048,
+        36.60521
+       ],
+       [
+        0.08027,
+        0.99677,
+        0.00162,
+        -93.64591
+       ],
+       [
+        -0.00492,
+        -0.00123,
+        0.99999,
+        6.31591
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tension_rod": [
+       [
+        0.99934,
+        -0.03587,
+        -0.0056,
+        13.76103
+       ],
+       [
+        0.03591,
+        0.99933,
+        0.00682,
+        -56.50375
+       ],
+       [
+        0.00535,
+        -0.00702,
+        0.99996,
+        -5.96717
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "tie_rod_end": [
+       [
+        0.99944,
+        -0.03191,
+        0.01054,
+        10.12915
+       ],
+       [
+        0.03115,
+        0.99735,
+        0.06582,
+        -45.79366
+       ],
+       [
+        -0.01261,
+        -0.06546,
+        0.99778,
+        37.88918
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "rack_shift_y_mm": 60
+    }
+   ]
+  }
+ },
+ "RR": {
+  "parts": {
+   "knuckle": {
+    "source": "rsusp/RR Knuckle (170k).stl",
+    "matrix": [
+     [
+      -0.7771,
+      -0.62933,
+      -0.00761,
+      -1177.28713
+     ],
+     [
+      -0.07169,
+      0.10052,
+      -0.99235,
+      -986.92299
+     ],
+     [
+      0.62528,
+      -0.77061,
+      -0.12323,
+      145.59015
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "five-link solve: 5 link lengths (STEP) between subframe bracket centres (STEP + scan) and the knuckle joints (STEP), ride height",
+    "residual_mm": 1.7053025658242404e-13,
+    "confidence": "high",
+    "note": "toe comes out -0.11 deg and camber -1.47 deg without being imposed",
+    "deformed": false,
+    "file": "RR_knuckle.stl"
+   },
+   "bearing": {
+    "source": "rsusp/Rear Bearing.stl",
+    "matrix": [
+     [
+      -0.99618,
+      0.08736,
+      -0.00076,
+      -1169.40575
+     ],
+     [
+      0.00839,
+      0.10424,
+      0.99452,
+      -535.76832
+     ],
+     [
+      0.08696,
+      0.99071,
+      -0.10457,
+      86.85345
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "pilot r48.6 in knuckle bore r48.9 + 4 flange bolts on the knuckle's 4 holes",
+    "residual_mm": 0.06340665682785987,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "RR_bearing.stl"
+   },
+   "dust_shield": {
+    "source": "rsusp/RR Dust Shield (88k).stl",
+    "matrix": [
+     [
+      0.35028,
+      0.46572,
+      -0.81266,
+      -1318.1572
+     ],
+     [
+      -0.49773,
+      -0.64244,
+      -0.5827,
+      -760.82879
+     ],
+     [
+      -0.79346,
+      0.60859,
+      0.00677,
+      202.73456
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "4 screw holes (STEP) on the knuckle's 4 dust-shield holes (STEP)",
+    "residual_mm": 0.6957395710010098,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "RR_dust_shield.stl"
+   },
+   "rotor": {
+    "source": "rsusp/Rear Rotor (120k).stl",
+    "matrix": [
+     [
+      0.9999,
+      -0.00021,
+      -0.01403,
+      -1267.72027
+     ],
+     [
+      -0.01402,
+      0.00706,
+      -0.99988,
+      -922.46394
+     ],
+     [
+      0.00031,
+      0.99998,
+      0.00705,
+      118.4406
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "hat inner face on the hub flange face (bearing STEP), coaxial with the bearing",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "RR_rotor.stl"
+   },
+   "wheel": {
+    "source": "rsusp/Wheel Rear (1.2m).stl",
+    "matrix": [
+     [
+      0.99982,
+      0.00043,
+      -0.01892,
+      -1219.92201
+     ],
+     [
+      -0.01892,
+      0.04562,
+      -0.99878,
+      -1426.51732
+     ],
+     [
+      0.00044,
+      0.99896,
+      0.04562,
+      174.21238
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "pad face on the rotor hat outer face, coaxial; tread mid-plane = pad - measured ET",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "RR_wheel.stl"
+   },
+   "caliper": {
+    "source": "rsusp/Rear Caliper (144k).stl",
+    "matrix": [
+     [
+      -0.01114,
+      0.99876,
+      -0.04848,
+      -1173.37497
+     ],
+     [
+      -0.07416,
+      0.04752,
+      0.99611,
+      -12.90187
+     ],
+     [
+      0.99718,
+      0.01469,
+      0.07354,
+      198.1922
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "two mounting holes (STEP, 90.8 mm) on the knuckle's two axial caliper holes (STEP, 91 mm); of the 8 lug-face/order combinations the one that straddles the disc",
+    "residual_mm": 0.16928744911480464,
+    "confidence": "high",
+    "note": "82 of 10674 sampled points >3 mm inside the rotor (pads)",
+    "deformed": false,
+    "file": "RR_caliper.stl"
+   },
+   "lca": {
+    "source": "rsusp/Rear LCA (240k).stl",
+    "matrix": [
+     [
+      -0.87219,
+      0.48905,
+      0.01041,
+      -1354.33879
+     ],
+     [
+      -0.48852,
+      -0.87194,
+      0.03263,
+      -418.81654
+     ],
+     [
+      0.02504,
+      0.02337,
+      0.99941,
+      404.79227
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner sleeve centre on the subframe bracket centre (STEP bolt + scan ears), outer joint on its knuckle joint (STEP); length is a solve constraint",
+    "residual_mm": 1.1368683772161603e-13,
+    "confidence": "high",
+    "note": "inner sleeve axis 0.6 deg and outer joint axis 5.4 deg off their bolts; half-turn about the link line: spring pocket (STEP cone, widening along part +z) opens upwards",
+    "deformed": false,
+    "file": "RR_lca.stl"
+   },
+   "lower_tension_arm": {
+    "source": "rsusp/Rear Lower Tension Arm (65k).stl",
+    "matrix": [
+     [
+      -0.97223,
+      -0.00507,
+      0.23399,
+      -1007.73845
+     ],
+     [
+      -0.01035,
+      0.99972,
+      -0.02136,
+      -591.54008
+     ],
+     [
+      -0.23382,
+      -0.02319,
+      -0.972,
+      -288.74447
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner sleeve centre on the subframe bracket centre (STEP bolt + scan ears), outer joint on its knuckle joint (STEP); length is a solve constraint",
+    "residual_mm": 1.7053025658242404e-13,
+    "confidence": "medium",
+    "note": "inner sleeve axis 0.0 deg and outer joint axis 1.0 deg off their bolts; half-turn about the link line: chosen by clearance (4 vs 6 pts >3 mm inside knuckle/subframe) - near tie, NOT determined by the data (the two poses differ by 40 mm on average)",
+    "deformed": false,
+    "file": "RR_lower_tension_arm.stl"
+   },
+   "toe_rod": {
+    "source": "rsusp/Rear Toe Rod (73k).stl",
+    "matrix": [
+     [
+      0.04486,
+      0.99442,
+      0.09549,
+      -1403.88506
+     ],
+     [
+      0.99893,
+      -0.04573,
+      0.00701,
+      -451.42978
+     ],
+     [
+      0.01134,
+      0.09508,
+      -0.99541,
+      -310.09611
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner sleeve centre on the subframe bracket centre (STEP bolt + scan ears), outer joint on its knuckle joint (STEP); length is a solve constraint",
+    "residual_mm": 5.684341886080802e-14,
+    "confidence": "medium",
+    "note": "inner sleeve axis 2.1 deg and outer joint axis 1.7 deg off their bolts; half-turn about the link line: chosen by clearance (79 vs 89 pts >3 mm inside knuckle/subframe) - near tie, NOT determined by the data (the two poses differ by 31 mm on average)",
+    "deformed": false,
+    "file": "RR_toe_rod.stl"
+   },
+   "upper_arm": {
+    "source": "rsusp/Rear Upper Arm (60k).stl",
+    "matrix": [
+     [
+      0.98429,
+      -0.16178,
+      -0.07077,
+      -1286.20806
+     ],
+     [
+      -0.16481,
+      -0.98554,
+      -0.03933,
+      -565.10121
+     ],
+     [
+      -0.06339,
+      0.05038,
+      -0.99672,
+      -150.29522
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner sleeve centre on the subframe bracket centre (STEP bolt + scan ears), outer joint on its knuckle joint (STEP); length is a solve constraint",
+    "residual_mm": 1.1368683772161603e-13,
+    "confidence": "high",
+    "note": "inner sleeve axis 0.0 deg and outer joint axis 0.9 deg off their bolts; half-turn about the link line: chosen by clearance (5 vs 116 pts >3 mm inside knuckle/subframe)",
+    "deformed": false,
+    "file": "RR_upper_arm.stl"
+   },
+   "upper_tension_rod": {
+    "source": "rsusp/RR Tension Rod (54k).stl",
+    "matrix": [
+     [
+      -0.84989,
+      0.52268,
+      -0.06703,
+      -1168.14181
+     ],
+     [
+      0.52554,
+      0.85005,
+      -0.03497,
+      -587.72746
+     ],
+     [
+      0.0387,
+      -0.06495,
+      -0.99714,
+      -103.83957
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "inner sleeve centre on the subframe bracket centre (STEP bolt + scan ears), outer joint on its knuckle joint (STEP); length is a solve constraint",
+    "residual_mm": 1.4210854715202004e-13,
+    "confidence": "high",
+    "note": "inner sleeve axis 0.5 deg and outer joint axis 1.0 deg off their bolts; half-turn about the link line: chosen by clearance (11 vs 171 pts >3 mm inside knuckle/subframe)",
+    "deformed": false,
+    "file": "RR_upper_tension_rod.stl"
+   },
+   "lca_wing": {
+    "source": "rsusp/RR LCA Wing (224k).stl",
+    "matrix": [
+     [
+      -0.08097,
+      0.99621,
+      -0.03164,
+      -1375.02883
+     ],
+     [
+      0.99665,
+      0.08128,
+      0.00879,
+      -468.03418
+     ],
+     [
+      0.01133,
+      -0.03082,
+      -0.99946,
+      -454.64148
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "4 screw posts (STEP cones) on the LCA's 4 screw holes r2.6 (STEP), post tips against the arm underside",
+    "residual_mm": 0.7916906701109321,
+    "confidence": "medium",
+    "note": "hole pattern is mirror-symmetric: face sense taken from the parts (holes in the arm underside, posts taper towards the arm); axial contact from the meshes",
+    "deformed": false,
+    "file": "RR_lca_wing.stl"
+   },
+   "damper_top_mount": {
+    "source": "rsusp/Rear Top Hat (45k).stl",
+    "matrix": [
+     [
+      -0.93573,
+      -0.3428,
+      0.08301,
+      -1206.13759
+     ],
+     [
+      0.0607,
+      0.07531,
+      0.99531,
+      -311.6696
+     ],
+     [
+      -0.34744,
+      0.93639,
+      -0.04966,
+      263.15348
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "3 top studs (STEP) on the body's 3-hole pattern (Rear Suspension.STEP)",
+    "residual_mm": 0.8287182166822571,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "RR_damper_top_mount.stl"
+   },
+   "damper_body": {
+    "source": "rsusp/Rear Shock Bottom (60k).stl",
+    "matrix": [
+     [
+      -0.93509,
+      -0.30701,
+      -0.17704,
+      -1286.34441
+     ],
+     [
+      -0.1904,
+      0.01384,
+      0.98161,
+      -292.22767
+     ],
+     [
+      -0.29892,
+      0.9516,
+      -0.07139,
+      311.25169
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "lower eye sleeve (61.1 mm, STEP) on the LCA's damper bolt (sleeve seat 60.2 mm, STEP), axis through the top-mount centre",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "eye axis 0.0 deg off the LCA bolt; slides 58.3 mm up the rod relative to the bench scan",
+    "deformed": false,
+    "file": "RR_damper_body.stl"
+   },
+   "damper_rod_boot": {
+    "source": "rsusp/Rear Shock Top (46k).stl",
+    "matrix": [
+     [
+      -0.93509,
+      -0.30701,
+      -0.17704,
+      -1283.98137
+     ],
+     [
+      -0.1904,
+      0.01384,
+      0.98161,
+      -299.13003
+     ],
+     [
+      -0.29892,
+      0.9516,
+      -0.07139,
+      253.43632
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "top on the top-mount centre, on the line to the lower eye",
+    "residual_mm": 0.0,
+    "confidence": "medium",
+    "note": "rigid; telescopes into the body: overlaps damper_body by the 58.3 mm compression (bench scan is fully extended); axis 1.3 deg off the top-mount normal",
+    "deformed": false,
+    "file": "RR_damper_rod_boot.stl"
+   },
+   "spring": {
+    "source": [
+     "rsusp/Rear Spring Top (58k).stl",
+     "rsusp/Rear Spring Bottom (58k).stl"
+    ],
+    "matrix": [
+     [
+      -0.0732,
+      0.09691,
+      0.9926,
+      -1147.11574
+     ],
+     [
+      -0.57864,
+      -0.81475,
+      0.03687,
+      -403.20003
+     ],
+     [
+      0.81229,
+      -0.57166,
+      0.11571,
+      223.06134
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "top pad spigot hole (STEP r18.9) on the body spring seat (STEP r20.5), perch spigot (STEP r27) in the LCA pocket (STEP r28)",
+    "residual_mm": null,
+    "confidence": "medium",
+    "note": "DEFORMED: coil compressed 99.1 mm (free 327 -> installed 228 mm, wire section kept); clocking about the spring axis is not determined by the data; spring line 2.2 deg off the seat normal. corners.py had this spring upside-down",
+    "deformed": true,
+    "file": "RR_spring.stl"
+   },
+   "cv_inner": {
+    "source": "rsusp/CV Inner.stl",
+    "matrix": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "scanned on the car (differential output): already in the car frame",
+    "residual_mm": 0.0,
+    "confidence": "high",
+    "note": "",
+    "deformed": false,
+    "file": "RR_cv_inner.stl"
+   },
+   "cv_outer": {
+    "source": "rsusp/CV Outer.stl",
+    "matrix": [
+     [
+      0.73713,
+      0.26247,
+      -0.6227,
+      -187.24337
+     ],
+     [
+      0.01517,
+      0.91483,
+      0.40356,
+      -43.70956
+     ],
+     [
+      0.67558,
+      -0.30692,
+      0.67036,
+      838.10619
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "splined stub r15 (STEP) coaxial in the bearing spline r14.8 (STEP), joint shoulder against the bearing inner race",
+    "residual_mm": null,
+    "confidence": "medium",
+    "note": "scanned hanging on the car, moved rigidly to the hub; bell-to-differential distance 567 mm vs 582 mm as scanned (plunge -14 mm). The half-shaft between the joints was not scanned (CAD only) and is left out",
+    "deformed": false,
+    "file": "RR_cv_outer.stl"
+   },
+   "sway_bar": {
+    "source": "rsusp/Rear Sway Bar.stl",
+    "matrix": [
+     [
+      0.94425,
+      -0.00196,
+      0.32923,
+      -160.93776
+     ],
+     [
+      0.00169,
+      1.0,
+      0.0011,
+      1.63402
+     ],
+     [
+      -0.32923,
+      -0.00048,
+      0.94425,
+      -364.53981
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "scanned on the car (already in the car frame); turned about its own bushing axis (STEP r8.8 cylinder) until the end link closes onto the knuckle tab",
+    "residual_mm": 0.0,
+    "confidence": "medium",
+    "note": "rotated -19.2 deg from the as-scanned (hanging) position; only the right-hand end of the bar was scanned",
+    "deformed": false,
+    "file": "RR_sway_bar.stl"
+   },
+   "sway_link": {
+    "source": "rsusp/Rear Sway Endlink Body.stl",
+    "matrix": [
+     [
+      -0.08066,
+      0.99179,
+      0.09919,
+      -1316.15267
+     ],
+     [
+      -0.39785,
+      0.0592,
+      -0.91554,
+      -978.61022
+     ],
+     [
+      -0.9139,
+      -0.11331,
+      0.38981,
+      379.85123
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball centres (STEP spheres, 135 mm apart) one stud stand-off from the bar eye (STEP r4.9) and from the knuckle tab hole (RR Knuckle 2.STEP r5.1)",
+    "residual_mm": 0.0,
+    "confidence": "low",
+    "note": "studs as scanned: 10 deg / 11 deg off the eye / tab hole axes; which side of each tab the ball sits was chosen by stud alignment (combo (0, -1, -1); 16 closures tried, runner-up score 27 vs 27)",
+    "deformed": false,
+    "file": "RR_sway_link.stl"
+   },
+   "sway_link_bj1": {
+    "source": "rsusp/Rear Sway Endlink BJ 1.stl",
+    "matrix": [
+     [
+      -0.08066,
+      0.99179,
+      0.09919,
+      -1316.15267
+     ],
+     [
+      -0.39785,
+      0.0592,
+      -0.91554,
+      -978.61022
+     ],
+     [
+      -0.9139,
+      -0.11331,
+      0.38981,
+      379.85123
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball centres (STEP spheres, 135 mm apart) one stud stand-off from the bar eye (STEP r4.9) and from the knuckle tab hole (RR Knuckle 2.STEP r5.1)",
+    "residual_mm": 0.0,
+    "confidence": "low",
+    "note": "studs as scanned: 10 deg / 11 deg off the eye / tab hole axes; which side of each tab the ball sits was chosen by stud alignment (combo (0, -1, -1); 16 closures tried, runner-up score 27 vs 27)",
+    "deformed": false,
+    "file": "RR_sway_link_bj1.stl"
+   },
+   "sway_link_bj2": {
+    "source": "rsusp/Rear Sway Endlink BJ 2.stl",
+    "matrix": [
+     [
+      -0.08066,
+      0.99179,
+      0.09919,
+      -1316.15267
+     ],
+     [
+      -0.39785,
+      0.0592,
+      -0.91554,
+      -978.61022
+     ],
+     [
+      -0.9139,
+      -0.11331,
+      0.38981,
+      379.85123
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "mate": "ball centres (STEP spheres, 135 mm apart) one stud stand-off from the bar eye (STEP r4.9) and from the knuckle tab hole (RR Knuckle 2.STEP r5.1)",
+    "residual_mm": 0.0,
+    "confidence": "low",
+    "note": "studs as scanned: 10 deg / 11 deg off the eye / tab hole axes; which side of each tab the ball sits was chosen by stud alignment (combo (0, -1, -1); 16 closures tried, runner-up score 27 vs 27)",
+    "deformed": false,
+    "file": "RR_sway_link_bj2.stl"
+   }
+  },
+  "evidence": {
+   "wheel_chain": {
+    "hub_face_outboard_of_knuckle_seat_mm": 43.889362615047936,
+    "rotor_hat_mm": 7.162939430378711,
+    "wheel_pad_to_tread_mid_mm": 41.20082701274612,
+    "oem_et": 40
+   },
+   "chassis_brackets": {
+    "lca": {
+     "centre": [
+      -1399.97107,
+      -271.18687,
+      70.95661
+     ],
+     "axis": [
+      -0.9624,
+      -0.27161,
+      -0.00292
+     ],
+     "ear_gap_mm": 64.96013231333247
+    },
+    "toe_rod": {
+     "centre": [
+      -1471.35802,
+      -260.30084,
+      137.80714
+     ],
+     "axis": [
+      -0.97813,
+      -0.173,
+      -0.11545
+     ],
+     "ear_gap_mm": 33.14787138765585
+    },
+    "upper_arm": {
+     "centre": [
+      -1272.23023,
+      -407.82076,
+      291.24917
+     ],
+     "axis": [
+      -0.9881,
+      -0.14436,
+      0.05318
+     ],
+     "ear_gap_mm": 47.99631001115709
+    },
+    "upper_tension_rod": {
+     "centre": [
+      -1063.6791,
+      -469.2662,
+      238.40436
+     ],
+     "axis": [
+      -0.86921,
+      0.49397,
+      -0.02157
+     ],
+     "ear_gap_mm": 48.27302607866723
+    },
+    "lower_tension_arm": {
+     "centre": [
+      -1009.39669,
+      -426.53363,
+      100.44892
+     ],
+     "axis": [
+      -0.80137,
+      0.56782,
+      -0.18813
+     ],
+     "ear_gap_mm": 43.367883852735936
+    }
+   },
+   "knuckle_joints": {
+    "upper_arm_clevis_gap_mm": 48.10109184805382,
+    "upper_tension_rod": "sleeve cone (STEP, 60 deg) seated in the knuckle boss cone (STEP, 60 deg): apexes coincident"
+   },
+   "toe_rod_side": [
+    {
+     "side": 1,
+     "toe_deg": 4.10980649928137,
+     "solve_residual": 2.2737367544323206e-13
+    },
+    {
+     "side": -1,
+     "toe_deg": 0.11072863247320018,
+     "solve_residual": 1.7053025658242404e-13
+    }
+   ],
+   "caliper": {
+    "candidates": [
+     {
+      "combo": [
+       0,
+       0,
+       0
+      ],
+      "rotor_pts": 82,
+      "straddle": 0.16934373565855898
+     },
+     {
+      "combo": [
+       1,
+       0,
+       1
+      ],
+      "rotor_pts": 172,
+      "straddle": 0.40144829146865807
+     },
+     {
+      "combo": [
+       0,
+       1,
+       1
+      ],
+      "rotor_pts": 319,
+      "straddle": 0.27585426567096627
+     },
+     {
+      "combo": [
+       1,
+       0,
+       0
+      ],
+      "rotor_pts": 49,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       1,
+       1,
+       1
+      ],
+      "rotor_pts": 76,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       0,
+       1,
+       0
+      ],
+      "rotor_pts": 85,
+      "straddle": 0.0
+     },
+     {
+      "combo": [
+       0,
+       0,
+       1
+      ],
+      "rotor_pts": 105,
+      "straddle": 0.10569105691056911
+     },
+     {
+      "combo": [
+       1,
+       1,
+       0
+      ],
+      "rotor_pts": 540,
+      "straddle": 0.0
+     }
+    ]
+   },
+   "damper": {
+    "free_length_mm": 546.8276297152676,
+    "installed_length_mm": 488.55376789556965,
+    "compression_mm": 58.27386181969791,
+    "top": [
+     -1321.70473,
+     -546.26897,
+     561.46577
+    ],
+    "eye": [
+     -1301.89366,
+     -604.13664,
+     76.75592
+    ]
+   },
+   "spring": {
+    "free_mm": 327.06676012228144,
+    "installed_mm": 227.99670655301588,
+    "compression_mm": 99.07005356926555,
+    "seat": [
+     -1354.95668,
+     -470.92424,
+     319.32111
+    ],
+    "pocket": [
+     -1332.07605,
+     -501.8947,
+     94.59949
+    ]
+   },
+   "cv": {
+    "inner": [
+     -1230.4,
+     -152.8,
+     158.4
+    ],
+    "outer_bell": [
+     -1239.21289,
+     -719.49204,
+     179.33492
+    ],
+    "distance_ride_mm": 567.1470741682922,
+    "distance_as_scanned_mm": 581.6156304351796
+   },
+   "sway_bar": {
+    "bar_axis_point": [
+     -1156.17952,
+     -282.83561,
+     291.36553
+    ],
+    "bar_axis": [
+     0.00241,
+     -0.99998,
+     -0.00555
+    ],
+    "rotation_deg": -19.22222978081952,
+    "link_length_mm": 135.15502834216844,
+    "eye": [
+     -1338.92305,
+     -610.76788,
+     294.08153
+    ],
+    "knuckle_ball": [
+     -1370.36795,
+     -667.41169,
+     175.46637
+    ],
+    "candidates": [
+     [
+      [
+       0,
+       -1,
+       -1
+      ],
+      -19.2,
+      10,
+      11
+     ],
+     [
+      [
+       1,
+       -1,
+       -1
+      ],
+      -19.2,
+      11,
+      10
+     ],
+     [
+      [
+       0,
+       1,
+       1
+      ],
+      -24.0,
+      24,
+      25
+     ],
+     [
+      [
+       1,
+       1,
+       1
+      ],
+      -24.0,
+      25,
+      24
+     ],
+     [
+      [
+       0,
+       1,
+       -1
+      ],
+      44.7,
+      31,
+      45
+     ],
+     [
+      [
+       0,
+       -1,
+       -1
+      ],
+      39.4,
+      1,
+      76
+     ],
+     [
+      [
+       1,
+       -1,
+       -1
+      ],
+      39.3,
+      0,
+      78
+     ],
+     [
+      [
+       1,
+       1,
+       -1
+      ],
+      44.6,
+      32,
+      46
+     ],
+     [
+      [
+       1,
+       -1,
+       1
+      ],
+      55.4,
+      5,
+      88
+     ],
+     [
+      [
+       0,
+       -1,
+       1
+      ],
+      55.3,
+      6,
+      89
+     ],
+     [
+      [
+       0,
+       -1,
+       1
+      ],
+      -20.8,
+      5,
+      143
+     ],
+     [
+      [
+       0,
+       1,
+       -1
+      ],
+      -20.8,
+      19,
+      130
+     ],
+     [
+      [
+       1,
+       -1,
+       1
+      ],
+      -20.8,
+      6,
+      145
+     ],
+     [
+      [
+       1,
+       1,
+       -1
+      ],
+      -20.8,
+      20,
+      131
+     ],
+     [
+      [
+       0,
+       1,
+       1
+      ],
+      62.3,
+      35,
+      145
+     ],
+     [
+      [
+       1,
+       1,
+       1
+      ],
+      62.3,
+      37,
+      143
+     ]
+    ]
+   }
+  },
+  "articulation": {
+   "wheel_centre": [
+    -1239.2664,
+    -782.64337,
+    181.0
+   ],
+   "spin_axis_outboard": [
+    -0.00193,
+    -0.99967,
+    0.02564
+   ],
+   "camber_deg": -1.4694038058475418,
+   "toe_deg": -0.11072863247320018,
+   "solve_residual_mm": 1.7053025658242404e-13,
+   "hub_face": [
+    -1239.33219,
+    -816.67001,
+    181.87284
+   ],
+   "links": {
+    "lca": {
+     "inner": [
+      -1399.97107,
+      -271.18687,
+      70.95661
+     ],
+     "inner_axis": [
+      -0.9624,
+      -0.27161,
+      -0.00292
+     ],
+     "outer": [
+      -1282.08801,
+      -670.11237,
+      73.29861
+     ],
+     "outer_axis": [
+      0.93235,
+      0.35793,
+      0.05107
+     ],
+     "length": 415.9849205697899
+    },
+    "lower_tension_arm": {
+     "inner": [
+      -1009.39669,
+      -426.53363,
+      100.44892
+     ],
+     "inner_axis": [
+      -0.80137,
+      0.56782,
+      -0.18813
+     ],
+     "outer": [
+      -1184.99431,
+      -696.82476,
+      32.43866
+     ],
+     "outer_axis": [
+      0.80283,
+      -0.571,
+      0.17154
+     ],
+     "length": 329.4195110856704
+    },
+    "toe_rod": {
+     "inner": [
+      -1471.35802,
+      -260.30084,
+      137.80714
+     ],
+     "inner_axis": [
+      -0.97813,
+      -0.173,
+      -0.11545
+     ],
+     "outer": [
+      -1379.57944,
+      -690.57105,
+      139.56011
+     ],
+     "outer_axis": [
+      0.97705,
+      0.17937,
+      0.11488
+     ],
+     "length": 439.9532169407713
+    },
+    "upper_arm": {
+     "inner": [
+      -1272.23023,
+      -407.82076,
+      291.24917
+     ],
+     "inner_axis": [
+      -0.9881,
+      -0.14436,
+      0.05318
+     ],
+     "outer": [
+      -1229.21273,
+      -693.53963,
+      299.37001
+     ],
+     "outer_axis": [
+      0.98858,
+      0.13562,
+      -0.06578
+     ],
+     "length": 289.053150426345
+    },
+    "upper_tension_rod": {
+     "inner": [
+      -1063.6791,
+      -469.2662,
+      238.40436
+     ],
+     "inner_axis": [
+      -0.86921,
+      0.49397,
+      -0.02157
+     ],
+     "outer": [
+      -1176.56934,
+      -678.41721,
+      239.79174
+     ],
+     "outer_axis": [
+      -0.86693,
+      0.49828,
+      -0.01225
+     ],
+     "length": 237.67682869111272
+    }
+   },
+   "damper_top": [
+    -1321.70473,
+    -546.26897,
+    561.46577
+   ],
+   "damper_eye": [
+    -1301.89366,
+    -604.13664,
+    76.75592
+   ],
+   "spring_top": [
+    -1354.95668,
+    -470.92424,
+    319.32111
+   ],
+   "spring_bottom": [
+    -1332.07605,
+    -501.8947,
+    94.59949
+   ],
+   "cv_inner": [
+    -1230.4,
+    -152.8,
+    158.4
+   ],
+   "cv_outer": [
+    -1239.21289,
+    -719.49204,
+    179.33492
+   ],
+   "sway_bar_axis_point": [
+    -1156.17952,
+    -282.83561,
+    291.36553
+   ],
+   "sway_bar_axis": [
+    0.00241,
+    -0.99998,
+    -0.00555
+   ],
+   "sway_link_top": [
+    -1338.92305,
+    -610.76788,
+    294.08153
+   ],
+   "sway_link_bottom": [
+    -1370.36795,
+    -667.41169,
+    175.46637
+   ],
+   "travel_samples": [
+    {
+     "wheel_travel_mm": -75,
+     "residual_mm": 1.9895196601282805e-12,
+     "knuckle_group_delta": [
+      [
+       0.99682,
+       -0.00232,
+       -0.07966,
+       17.79168
+      ],
+      [
+       0.00044,
+       0.99972,
+       -0.02363,
+       14.57163
+      ],
+      [
+       0.07969,
+       0.02352,
+       0.99654,
+       42.78881
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1230.13365,
+      -772.67648,
+      106.0
+     ],
+     "spin_axis_outboard": [
+      -0.00165,
+      -1.0,
+      0.00189
+     ],
+     "camber_deg": -0.1084612360484497,
+     "toe_deg": -0.09438042851975804,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99744,
+        -0.04451,
+        0.05589,
+        -19.61577
+       ],
+       [
+        0.05355,
+        0.98358,
+        -0.17236,
+        82.74907
+       ],
+       [
+        -0.0473,
+        0.17492,
+        0.98345,
+        -17.61402
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99188,
+        -0.0406,
+        -0.12051,
+        -13.40587
+       ],
+       [
+        0.01838,
+        0.98349,
+        -0.18001,
+        29.59626
+       ],
+       [
+        0.12583,
+        0.17634,
+        0.97625,
+        204.61425
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99864,
+        -0.02955,
+        0.04302,
+        -15.62607
+       ],
+       [
+        0.03706,
+        0.98191,
+        -0.18568,
+        75.40261
+       ],
+       [
+        -0.03675,
+        0.18702,
+        0.98167,
+        -2.86782
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99929,
+        0.00283,
+        0.03751,
+        -10.67113
+       ],
+       [
+        0.00653,
+        0.96893,
+        -0.24724,
+        67.65126
+       ],
+       [
+        -0.03705,
+        0.24731,
+        0.96823,
+        62.9761
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.99065,
+        -0.01502,
+        -0.1356,
+        15.33562
+       ],
+       [
+        -0.01962,
+        0.96792,
+        -0.25049,
+        23.7993
+       ],
+       [
+        0.13501,
+        0.25081,
+        0.95858,
+        271.18054
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 550.8903141670792,
+     "spring_length_mm": 272.2643474562725
+    },
+    {
+     "wheel_travel_mm": -50,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       0.99853,
+       -0.00161,
+       -0.05418,
+       12.03607
+      ],
+      [
+       0.00068,
+       0.99985,
+       -0.01707,
+       8.35495
+      ],
+      [
+       0.0542,
+       0.017,
+       0.99839,
+       30.76964
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1233.95892,
+      -778.10753,
+      131.0
+     ],
+     "spin_axis_outboard": [
+      -0.00171,
+      -0.99996,
+      0.0085
+     ],
+     "camber_deg": -0.4869078430875746,
+     "toe_deg": -0.09823295013367553,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99896,
+        -0.02773,
+        0.0361,
+        -11.53288
+       ],
+       [
+        0.03172,
+        0.99283,
+        -0.11521,
+        50.6448
+       ],
+       [
+        -0.03264,
+        0.11623,
+        0.99269,
+        -13.65969
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99642,
+        -0.02606,
+        -0.08038,
+        -6.65272
+       ],
+       [
+        0.01643,
+        0.99284,
+        -0.1183,
+        25.4106
+       ],
+       [
+        0.08289,
+        0.11655,
+        0.98972,
+        134.41278
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99946,
+        -0.01769,
+        0.02782,
+        -9.2385
+       ],
+       [
+        0.02102,
+        0.99204,
+        -0.12412,
+        45.95488
+       ],
+       [
+        -0.0254,
+        0.12464,
+        0.99188,
+        -3.81103
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99969,
+        0.00507,
+        0.02441,
+        -5.43634
+       ],
+       [
+        -0.00099,
+        0.9864,
+        -0.16439,
+        41.07081
+       ],
+       [
+        -0.02491,
+        0.16431,
+        0.98609,
+        39.36979
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.99594,
+        -0.00731,
+        -0.08975,
+        13.64603
+       ],
+       [
+        -0.00774,
+        0.98606,
+        -0.16623,
+        24.84958
+       ],
+       [
+        0.08971,
+        0.16625,
+        0.98199,
+        177.73481
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 530.119724184464,
+     "spring_length_mm": 257.44072818481
+    },
+    {
+     "wheel_travel_mm": -25,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       0.99962,
+       -0.0009,
+       -0.02756,
+       6.10498
+      ],
+      [
+       0.00065,
+       0.99996,
+       -0.0092,
+       3.68394
+      ],
+      [
+       0.02756,
+       0.00918,
+       0.99958,
+       16.41758
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1236.97492,
+      -781.39056,
+      156.0
+     ],
+     "spin_axis_outboard": [
+      -0.00174,
+      -0.99986,
+      0.0164
+     ],
+     "camber_deg": -0.9399396395685476,
+     "toe_deg": -0.09972006205373773,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99976,
+        -0.01294,
+        0.01756,
+        -5.0877
+       ],
+       [
+        0.01393,
+        0.99824,
+        -0.05772,
+        23.12229
+       ],
+       [
+        -0.01678,
+        0.05795,
+        0.99818,
+        -7.64782
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99911,
+        -0.01255,
+        -0.04027,
+        -2.20733
+       ],
+       [
+        0.01019,
+        0.99825,
+        -0.05832,
+        15.39639
+       ],
+       [
+        0.04093,
+        0.05786,
+        0.99749,
+        66.24296
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99988,
+        -0.00788,
+        0.01357,
+        -4.10275
+       ],
+       [
+        0.00871,
+        0.99803,
+        -0.06218,
+        20.87369
+       ],
+       [
+        -0.01305,
+        0.06229,
+        0.99797,
+        -2.70835
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99992,
+        0.00402,
+        0.01209,
+        -1.98361
+       ],
+       [
+        -0.00302,
+        0.99663,
+        -0.08192,
+        18.6485
+       ],
+       [
+        -0.01238,
+        0.08188,
+        0.99657,
+        18.64855
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.999,
+        -0.00241,
+        -0.04461,
+        8.44396
+       ],
+       [
+        -0.00129,
+        0.99657,
+        -0.08271,
+        16.7338
+       ],
+       [
+        0.04465,
+        0.08268,
+        0.99558,
+        87.35216
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 509.35617537161215,
+     "spring_length_mm": 242.69749842426768
+    },
+    {
+     "wheel_travel_mm": 0,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       1.0,
+       -0.0,
+       -0.0,
+       0.0
+      ],
+      [
+       0.0,
+       1.0,
+       -0.0,
+       0.0
+      ],
+      [
+       -0.0,
+       0.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1239.2664,
+      -782.64337,
+      181.0
+     ],
+     "spin_axis_outboard": [
+      -0.00193,
+      -0.99967,
+      0.02564
+     ],
+     "camber_deg": -1.469403805847537,
+     "toe_deg": -0.11072863247319793,
+     "arm_deltas": {
+      "lca": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 488.55376789556965,
+     "spring_length_mm": 227.99670655301588
+    },
+    {
+     "wheel_travel_mm": 25,
+     "residual_mm": 3.410605131648481e-13,
+     "knuckle_group_delta": [
+      [
+       0.9996,
+       0.00118,
+       0.02833,
+       -6.31632
+      ],
+      [
+       -0.00148,
+       0.99994,
+       0.01061,
+       -3.09124
+      ],
+      [
+       -0.02832,
+       -0.01065,
+       0.99954,
+       -18.34184
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1240.88138,
+      -781.93187,
+      206.0
+     ],
+     "spin_axis_outboard": [
+      -0.00239,
+      -0.99934,
+      0.03633
+     ],
+     "camber_deg": -2.082071124570372,
+     "toe_deg": -0.13672961707330883,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.9998,
+        0.01116,
+        -0.01683,
+        3.93535
+       ],
+       [
+        -0.01017,
+        0.99827,
+        0.05787,
+        -18.81275
+       ],
+       [
+        0.01744,
+        -0.05768,
+        0.99818,
+        8.90652
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99911,
+        0.01162,
+        0.04056,
+        -0.0154
+       ],
+       [
+        -0.01392,
+        0.9983,
+        0.05667,
+        -20.46581
+       ],
+       [
+        -0.03983,
+        -0.05719,
+        0.99757,
+        -64.35683
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.9999,
+        0.00602,
+        -0.01313,
+        3.2236
+       ],
+       [
+        -0.00519,
+        0.99804,
+        0.06231,
+        -16.73647
+       ],
+       [
+        0.01348,
+        -0.06224,
+        0.99797,
+        3.91465
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.9999,
+        -0.0068,
+        -0.01233,
+        0.68919
+       ],
+       [
+        0.00778,
+        0.99666,
+        0.08123,
+        -15.11708
+       ],
+       [
+        0.01173,
+        -0.08132,
+        0.99662,
+        -17.25297
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.99902,
+        0.00011,
+        0.04422,
+        -11.53134
+       ],
+       [
+        -0.00373,
+        0.99664,
+        0.08177,
+        -25.03626
+       ],
+       [
+        -0.04407,
+        -0.08185,
+        0.99567,
+        -84.24946
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 467.683598293375,
+     "spring_length_mm": 213.31625942058943
+    },
+    {
+     "wheel_travel_mm": 50,
+     "residual_mm": 2.2737367544323206e-13,
+     "knuckle_group_delta": [
+      [
+       0.99835,
+       0.00265,
+       0.05732,
+       -12.91418
+      ],
+      [
+       -0.00396,
+       0.99973,
+       0.02277,
+       -5.87921
+      ],
+      [
+       -0.05724,
+       -0.02296,
+       0.9981,
+       -38.56317
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1241.84037,
+      -779.28013,
+      231.0
+     ],
+     "spin_axis_outboard": [
+      -0.00311,
+      -0.99881,
+      0.04866
+     ],
+     "camber_deg": -2.78917677137919,
+     "toe_deg": -0.17822581745837152,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99924,
+        0.02058,
+        -0.03315,
+        6.86746
+       ],
+       [
+        -0.01662,
+        0.99314,
+        0.11577,
+        -33.33719
+       ],
+       [
+        0.0353,
+        -0.11513,
+        0.99272,
+        18.7165
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99642,
+        0.02232,
+        0.08153,
+        -2.28118
+       ],
+       [
+        -0.03139,
+        0.99325,
+        0.11168,
+        -45.78421
+       ],
+       [
+        -0.07849,
+        -0.11384,
+        0.99039,
+        -126.81928
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99961,
+        0.01021,
+        -0.02606,
+        5.67177
+       ],
+       [
+        -0.00688,
+        0.99218,
+        0.12462,
+        -29.3366
+       ],
+       [
+        0.02713,
+        -0.12439,
+        0.99186,
+        8.65494
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99955,
+        -0.01629,
+        -0.02533,
+        0.15588
+       ],
+       [
+        0.02018,
+        0.98665,
+        0.16161,
+        -26.84155
+       ],
+       [
+        0.02236,
+        -0.16205,
+        0.98653,
+        -33.71549
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.9961,
+        -0.00194,
+        0.0882,
+        -26.08521
+       ],
+       [
+        -0.01246,
+        0.98664,
+        0.16243,
+        -58.24541
+       ],
+       [
+        -0.08733,
+        -0.1629,
+        0.98277,
+        -165.23095
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 446.73216054550375,
+     "spring_length_mm": 198.6496553308074
+    }
+   ]
+  },
+  "interference": [
+   {
+    "a": "damper_body",
+    "b": "damper_rod_boot",
+    "pts_of_a_deeper_than_3mm_in_b": 3510,
+    "of": 59863,
+    "pct": 5.86,
+    "expected": "telescoping damper"
+   },
+   {
+    "a": "damper_top_mount",
+    "b": "damper_rod_boot",
+    "pts_of_a_deeper_than_3mm_in_b": 2266,
+    "of": 45389,
+    "pct": 4.99,
+    "expected": "both scans contain the top mount's centre boss"
+   },
+   {
+    "a": "sway_link",
+    "b": "sway_link_bj2",
+    "pts_of_a_deeper_than_3mm_in_b": 589,
+    "of": 14974,
+    "pct": 3.93,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "sway_link_bj2",
+    "b": "sway_link",
+    "pts_of_a_deeper_than_3mm_in_b": 97,
+    "of": 2782,
+    "pct": 3.49,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "sway_link",
+    "b": "sway_link_bj1",
+    "pts_of_a_deeper_than_3mm_in_b": 436,
+    "of": 14974,
+    "pct": 2.91,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "bearing",
+    "b": "wheel",
+    "pts_of_a_deeper_than_3mm_in_b": 872,
+    "of": 47007,
+    "pct": 1.86,
+    "expected": "hub spigot r33.3 sits in the wheel centre bore"
+   },
+   {
+    "a": "spring",
+    "b": "lca",
+    "pts_of_a_deeper_than_3mm_in_b": 746,
+    "of": 58241,
+    "pct": 1.28,
+    "expected": "perch spigot sits in the LCA pocket"
+   },
+   {
+    "a": "lca",
+    "b": "spring",
+    "pts_of_a_deeper_than_3mm_in_b": 363,
+    "of": 41267,
+    "pct": 0.88,
+    "expected": "perch spigot sits in the LCA pocket"
+   },
+   {
+    "a": "lca",
+    "b": "damper_body",
+    "pts_of_a_deeper_than_3mm_in_b": 349,
+    "of": 41267,
+    "pct": 0.85,
+    "expected": "damper eye between the LCA ears"
+   },
+   {
+    "a": "caliper",
+    "b": "rotor",
+    "pts_of_a_deeper_than_3mm_in_b": 376,
+    "of": 48111,
+    "pct": 0.78,
+    "expected": "brake pads sit on the disc"
+   },
+   {
+    "a": "sway_link_bj1",
+    "b": "sway_link",
+    "pts_of_a_deeper_than_3mm_in_b": 21,
+    "of": 2907,
+    "pct": 0.72,
+    "expected": "ball sits in its housing"
+   },
+   {
+    "a": "knuckle",
+    "b": "dust_shield",
+    "pts_of_a_deeper_than_3mm_in_b": 255,
+    "of": 42395,
+    "pct": 0.6,
+    "expected": ""
+   },
+   {
+    "a": "sway_link_bj1",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 17,
+    "of": 2907,
+    "pct": 0.58,
+    "expected": ""
+   },
+   {
+    "a": "caliper",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 215,
+    "of": 48111,
+    "pct": 0.45,
+    "expected": ""
+   },
+   {
+    "a": "rotor",
+    "b": "caliper",
+    "pts_of_a_deeper_than_3mm_in_b": 235,
+    "of": 59989,
+    "pct": 0.39,
+    "expected": "disc runs in the pad slot"
+   },
+   {
+    "a": "sway_bar",
+    "b": "sway_link_bj2",
+    "pts_of_a_deeper_than_3mm_in_b": 12,
+    "of": 5778,
+    "pct": 0.21,
+    "expected": ""
+   },
+   {
+    "a": "dust_shield",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 69,
+    "of": 44204,
+    "pct": 0.16,
+    "expected": ""
+   },
+   {
+    "a": "knuckle",
+    "b": "caliper",
+    "pts_of_a_deeper_than_3mm_in_b": 34,
+    "of": 42395,
+    "pct": 0.08,
+    "expected": ""
+   },
+   {
+    "a": "rotor",
+    "b": "bearing",
+    "pts_of_a_deeper_than_3mm_in_b": 40,
+    "of": 59989,
+    "pct": 0.07,
+    "expected": ""
+   },
+   {
+    "a": "knuckle",
+    "b": "sway_link_bj1",
+    "pts_of_a_deeper_than_3mm_in_b": 13,
+    "of": 42395,
+    "pct": 0.03,
+    "expected": ""
+   },
+   {
+    "a": "caliper",
+    "b": "dust_shield",
+    "pts_of_a_deeper_than_3mm_in_b": 9,
+    "of": 48111,
+    "pct": 0.02,
+    "expected": ""
+   },
+   {
+    "a": "bearing",
+    "b": "knuckle",
+    "pts_of_a_deeper_than_3mm_in_b": 2,
+    "of": 47007,
+    "pct": 0.0,
+    "expected": ""
+   },
+   {
+    "a": "wheel",
+    "b": "bearing",
+    "pts_of_a_deeper_than_3mm_in_b": 2,
+    "of": 41136,
+    "pct": 0.0,
+    "expected": ""
+   },
+   {
+    "a": "damper_body",
+    "b": "lca",
+    "pts_of_a_deeper_than_3mm_in_b": 1,
+    "of": 59863,
+    "pct": 0.0,
+    "expected": ""
+   }
+  ],
+  "interference_vs_car_scan": [
+   {
+    "a": "lca",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 4,
+    "of": 41267
+   },
+   {
+    "a": "lower_tension_arm",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 22,
+    "of": 65631
+   },
+   {
+    "a": "toe_rod",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 837,
+    "of": 73265
+   },
+   {
+    "a": "upper_arm",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 26,
+    "of": 60482
+   },
+   {
+    "a": "upper_tension_rod",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 111,
+    "of": 53924
+   },
+   {
+    "a": "damper_top_mount",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 12046,
+    "of": 45389
+   },
+   {
+    "a": "damper_rod_boot",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 3720,
+    "of": 46273
+   },
+   {
+    "a": "spring",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 1,
+    "of": 58241
+   },
+   {
+    "a": "cv_inner",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 90,
+    "of": 4978
+   },
+   {
+    "a": "sway_bar",
+    "b": "car_scan",
+    "pts_of_a_deeper_than_3mm_in_b": 15,
+    "of": 5778
+   }
+  ],
+  "check_images": [
+   "/home/user/media/work/a90/corners3/check/RR_outside.png",
+   "/home/user/media/work/a90/corners3/check/RR_inside.png",
+   "/home/user/media/work/a90/corners3/check/RR_above.png",
+   "/home/user/media/work/a90/corners3/check/RR_above_body.png",
+   "/home/user/media/work/a90/corners3/check/RR_front.png",
+   "/home/user/media/work/a90/corners3/check/RR_below.png",
+   "/home/user/media/work/a90/corners3/check/RR_outside_with_wheel.png",
+   "/home/user/media/work/a90/corners3/check/RR_front_with_wheel.png"
+  ]
+ },
+ "RL": {
+  "mirror_of": "RR",
+  "parts": {
+   "knuckle": {
+    "source": "rsusp/RR Knuckle (170k).stl",
+    "matrix": [
+     [
+      -0.7771,
+      -0.62933,
+      -0.00761,
+      -1177.28713
+     ],
+     [
+      0.07169,
+      -0.10052,
+      0.99235,
+      986.92299
+     ],
+     [
+      0.62528,
+      -0.77061,
+      -0.12323,
+      145.59015
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_knuckle.stl"
+   },
+   "bearing": {
+    "source": "rsusp/Rear Bearing.stl",
+    "matrix": [
+     [
+      -0.99618,
+      0.08736,
+      -0.00076,
+      -1169.40575
+     ],
+     [
+      -0.00839,
+      -0.10424,
+      -0.99452,
+      535.76832
+     ],
+     [
+      0.08696,
+      0.99071,
+      -0.10457,
+      86.85345
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_bearing.stl"
+   },
+   "dust_shield": {
+    "source": "rsusp/RR Dust Shield (88k).stl",
+    "matrix": [
+     [
+      0.35028,
+      0.46572,
+      -0.81266,
+      -1318.1572
+     ],
+     [
+      0.49773,
+      0.64244,
+      0.5827,
+      760.82879
+     ],
+     [
+      -0.79346,
+      0.60859,
+      0.00677,
+      202.73456
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_dust_shield.stl"
+   },
+   "rotor": {
+    "source": "rsusp/Rear Rotor (120k).stl",
+    "matrix": [
+     [
+      0.9999,
+      -0.00021,
+      -0.01403,
+      -1267.72027
+     ],
+     [
+      0.01402,
+      -0.00706,
+      0.99988,
+      922.46394
+     ],
+     [
+      0.00031,
+      0.99998,
+      0.00705,
+      118.4406
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_rotor.stl"
+   },
+   "wheel": {
+    "source": "rsusp/Wheel Rear (1.2m).stl",
+    "matrix": [
+     [
+      0.99982,
+      0.00043,
+      -0.01892,
+      -1219.92201
+     ],
+     [
+      0.01892,
+      -0.04562,
+      0.99878,
+      1426.51732
+     ],
+     [
+      0.00044,
+      0.99896,
+      0.04562,
+      174.21238
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_wheel.stl"
+   },
+   "caliper": {
+    "source": "rsusp/Rear Caliper (144k).stl",
+    "matrix": [
+     [
+      -0.01114,
+      0.99876,
+      -0.04848,
+      -1173.37497
+     ],
+     [
+      0.07416,
+      -0.04752,
+      -0.99611,
+      12.90187
+     ],
+     [
+      0.99718,
+      0.01469,
+      0.07354,
+      198.1922
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_caliper.stl"
+   },
+   "lca": {
+    "source": "rsusp/Rear LCA (240k).stl",
+    "matrix": [
+     [
+      -0.87219,
+      0.48905,
+      0.01041,
+      -1354.33879
+     ],
+     [
+      0.48852,
+      0.87194,
+      -0.03263,
+      418.81654
+     ],
+     [
+      0.02504,
+      0.02337,
+      0.99941,
+      404.79227
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_lca.stl"
+   },
+   "lower_tension_arm": {
+    "source": "rsusp/Rear Lower Tension Arm (65k).stl",
+    "matrix": [
+     [
+      -0.97223,
+      -0.00507,
+      0.23399,
+      -1007.73845
+     ],
+     [
+      0.01035,
+      -0.99972,
+      0.02136,
+      591.54008
+     ],
+     [
+      -0.23382,
+      -0.02319,
+      -0.972,
+      -288.74447
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_lower_tension_arm.stl"
+   },
+   "toe_rod": {
+    "source": "rsusp/Rear Toe Rod (73k).stl",
+    "matrix": [
+     [
+      0.04486,
+      0.99442,
+      0.09549,
+      -1403.88506
+     ],
+     [
+      -0.99893,
+      0.04573,
+      -0.00701,
+      451.42978
+     ],
+     [
+      0.01134,
+      0.09508,
+      -0.99541,
+      -310.09611
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_toe_rod.stl"
+   },
+   "upper_arm": {
+    "source": "rsusp/Rear Upper Arm (60k).stl",
+    "matrix": [
+     [
+      0.98429,
+      -0.16178,
+      -0.07077,
+      -1286.20806
+     ],
+     [
+      0.16481,
+      0.98554,
+      0.03933,
+      565.10121
+     ],
+     [
+      -0.06339,
+      0.05038,
+      -0.99672,
+      -150.29522
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_upper_arm.stl"
+   },
+   "upper_tension_rod": {
+    "source": "rsusp/RR Tension Rod (54k).stl",
+    "matrix": [
+     [
+      -0.84989,
+      0.52268,
+      -0.06703,
+      -1168.14181
+     ],
+     [
+      -0.52554,
+      -0.85005,
+      0.03497,
+      587.72746
+     ],
+     [
+      0.0387,
+      -0.06495,
+      -0.99714,
+      -103.83957
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_upper_tension_rod.stl"
+   },
+   "lca_wing": {
+    "source": "rsusp/RR LCA Wing (224k).stl",
+    "matrix": [
+     [
+      -0.08097,
+      0.99621,
+      -0.03164,
+      -1375.02883
+     ],
+     [
+      -0.99665,
+      -0.08128,
+      -0.00879,
+      468.03418
+     ],
+     [
+      0.01133,
+      -0.03082,
+      -0.99946,
+      -454.64148
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_lca_wing.stl"
+   },
+   "damper_top_mount": {
+    "source": "rsusp/Rear Top Hat (45k).stl",
+    "matrix": [
+     [
+      -0.93573,
+      -0.3428,
+      0.08301,
+      -1206.13759
+     ],
+     [
+      -0.0607,
+      -0.07531,
+      -0.99531,
+      311.6696
+     ],
+     [
+      -0.34744,
+      0.93639,
+      -0.04966,
+      263.15348
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_damper_top_mount.stl"
+   },
+   "damper_body": {
+    "source": "rsusp/Rear Shock Bottom (60k).stl",
+    "matrix": [
+     [
+      -0.93509,
+      -0.30701,
+      -0.17704,
+      -1286.34441
+     ],
+     [
+      0.1904,
+      -0.01384,
+      -0.98161,
+      292.22767
+     ],
+     [
+      -0.29892,
+      0.9516,
+      -0.07139,
+      311.25169
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_damper_body.stl"
+   },
+   "damper_rod_boot": {
+    "source": "rsusp/Rear Shock Top (46k).stl",
+    "matrix": [
+     [
+      -0.93509,
+      -0.30701,
+      -0.17704,
+      -1283.98137
+     ],
+     [
+      0.1904,
+      -0.01384,
+      -0.98161,
+      299.13003
+     ],
+     [
+      -0.29892,
+      0.9516,
+      -0.07139,
+      253.43632
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_damper_rod_boot.stl"
+   },
+   "spring": {
+    "source": [
+     "rsusp/Rear Spring Top (58k).stl",
+     "rsusp/Rear Spring Bottom (58k).stl"
+    ],
+    "matrix": [
+     [
+      -0.0732,
+      0.09691,
+      0.9926,
+      -1147.11574
+     ],
+     [
+      0.57864,
+      0.81475,
+      -0.03687,
+      403.20003
+     ],
+     [
+      0.81229,
+      -0.57166,
+      0.11571,
+      223.06134
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_spring.stl"
+   },
+   "cv_inner": {
+    "source": "rsusp/CV Inner.stl",
+    "matrix": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      -1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_cv_inner.stl"
+   },
+   "cv_outer": {
+    "source": "rsusp/CV Outer.stl",
+    "matrix": [
+     [
+      0.73713,
+      0.26247,
+      -0.6227,
+      -187.24337
+     ],
+     [
+      -0.01517,
+      -0.91483,
+      -0.40356,
+      43.70956
+     ],
+     [
+      0.67558,
+      -0.30692,
+      0.67036,
+      838.10619
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_cv_outer.stl"
+   },
+   "sway_bar": {
+    "source": "rsusp/Rear Sway Bar.stl",
+    "matrix": [
+     [
+      0.94425,
+      -0.00196,
+      0.32923,
+      -160.93776
+     ],
+     [
+      -0.00169,
+      -1.0,
+      -0.0011,
+      -1.63402
+     ],
+     [
+      -0.32923,
+      -0.00048,
+      0.94425,
+      -364.53981
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_sway_bar.stl"
+   },
+   "sway_link": {
+    "source": "rsusp/Rear Sway Endlink Body.stl",
+    "matrix": [
+     [
+      -0.08066,
+      0.99179,
+      0.09919,
+      -1316.15267
+     ],
+     [
+      0.39785,
+      -0.0592,
+      0.91554,
+      978.61022
+     ],
+     [
+      -0.9139,
+      -0.11331,
+      0.38981,
+      379.85123
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_sway_link.stl"
+   },
+   "sway_link_bj1": {
+    "source": "rsusp/Rear Sway Endlink BJ 1.stl",
+    "matrix": [
+     [
+      -0.08066,
+      0.99179,
+      0.09919,
+      -1316.15267
+     ],
+     [
+      0.39785,
+      -0.0592,
+      0.91554,
+      978.61022
+     ],
+     [
+      -0.9139,
+      -0.11331,
+      0.38981,
+      379.85123
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_sway_link_bj1.stl"
+   },
+   "sway_link_bj2": {
+    "source": "rsusp/Rear Sway Endlink BJ 2.stl",
+    "matrix": [
+     [
+      -0.08066,
+      0.99179,
+      0.09919,
+      -1316.15267
+     ],
+     [
+      0.39785,
+      -0.0592,
+      0.91554,
+      978.61022
+     ],
+     [
+      -0.9139,
+      -0.11331,
+      0.38981,
+      379.85123
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "file": "RL_sway_link_bj2.stl"
+   }
+  },
+  "articulation": {
+   "wheel_centre": [
+    -1239.2664,
+    782.64337,
+    181.0
+   ],
+   "spin_axis_outboard": [
+    -0.00193,
+    0.99967,
+    0.02564
+   ],
+   "camber_deg": -1.4694038058475418,
+   "toe_deg": 0.11072863247320018,
+   "solve_residual_mm": 1.7053025658242404e-13,
+   "hub_face": [
+    -1239.33219,
+    816.67001,
+    181.87284
+   ],
+   "links": {
+    "lca": {
+     "inner": [
+      -1399.97107,
+      271.18687,
+      70.95661
+     ],
+     "inner_axis": [
+      -0.9624,
+      0.27161,
+      -0.00292
+     ],
+     "outer": [
+      -1282.08801,
+      670.11237,
+      73.29861
+     ],
+     "outer_axis": [
+      0.93235,
+      -0.35793,
+      0.05107
+     ],
+     "length": 415.9849205697899
+    },
+    "lower_tension_arm": {
+     "inner": [
+      -1009.39669,
+      426.53363,
+      100.44892
+     ],
+     "inner_axis": [
+      -0.80137,
+      -0.56782,
+      -0.18813
+     ],
+     "outer": [
+      -1184.99431,
+      696.82476,
+      32.43866
+     ],
+     "outer_axis": [
+      0.80283,
+      0.571,
+      0.17154
+     ],
+     "length": 329.4195110856704
+    },
+    "toe_rod": {
+     "inner": [
+      -1471.35802,
+      260.30084,
+      137.80714
+     ],
+     "inner_axis": [
+      -0.97813,
+      0.173,
+      -0.11545
+     ],
+     "outer": [
+      -1379.57944,
+      690.57105,
+      139.56011
+     ],
+     "outer_axis": [
+      0.97705,
+      -0.17937,
+      0.11488
+     ],
+     "length": 439.9532169407713
+    },
+    "upper_arm": {
+     "inner": [
+      -1272.23023,
+      407.82076,
+      291.24917
+     ],
+     "inner_axis": [
+      -0.9881,
+      0.14436,
+      0.05318
+     ],
+     "outer": [
+      -1229.21273,
+      693.53963,
+      299.37001
+     ],
+     "outer_axis": [
+      0.98858,
+      -0.13562,
+      -0.06578
+     ],
+     "length": 289.053150426345
+    },
+    "upper_tension_rod": {
+     "inner": [
+      -1063.6791,
+      469.2662,
+      238.40436
+     ],
+     "inner_axis": [
+      -0.86921,
+      -0.49397,
+      -0.02157
+     ],
+     "outer": [
+      -1176.56934,
+      678.41721,
+      239.79174
+     ],
+     "outer_axis": [
+      -0.86693,
+      -0.49828,
+      -0.01225
+     ],
+     "length": 237.67682869111272
+    }
+   },
+   "damper_top": [
+    -1321.70473,
+    546.26897,
+    561.46577
+   ],
+   "damper_eye": [
+    -1301.89366,
+    604.13664,
+    76.75592
+   ],
+   "spring_top": [
+    -1354.95668,
+    470.92424,
+    319.32111
+   ],
+   "spring_bottom": [
+    -1332.07605,
+    501.8947,
+    94.59949
+   ],
+   "cv_inner": [
+    -1230.4,
+    152.8,
+    158.4
+   ],
+   "cv_outer": [
+    -1239.21289,
+    719.49204,
+    179.33492
+   ],
+   "sway_bar_axis_point": [
+    -1156.17952,
+    282.83561,
+    291.36553
+   ],
+   "sway_bar_axis": [
+    0.00241,
+    0.99998,
+    -0.00555
+   ],
+   "sway_link_top": [
+    -1338.92305,
+    610.76788,
+    294.08153
+   ],
+   "sway_link_bottom": [
+    -1370.36795,
+    667.41169,
+    175.46637
+   ],
+   "travel_samples": [
+    {
+     "wheel_travel_mm": -75,
+     "residual_mm": 1.9895196601282805e-12,
+     "knuckle_group_delta": [
+      [
+       0.99682,
+       0.00232,
+       -0.07966,
+       17.79168
+      ],
+      [
+       -0.00044,
+       0.99972,
+       0.02363,
+       -14.57163
+      ],
+      [
+       0.07969,
+       -0.02352,
+       0.99654,
+       42.78881
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1230.13365,
+      772.67648,
+      106.0
+     ],
+     "spin_axis_outboard": [
+      -0.00165,
+      1.0,
+      0.00189
+     ],
+     "camber_deg": -0.1084612360484497,
+     "toe_deg": 0.09438042851975804,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99744,
+        0.04451,
+        0.05589,
+        -19.61577
+       ],
+       [
+        -0.05355,
+        0.98358,
+        0.17236,
+        -82.74907
+       ],
+       [
+        -0.0473,
+        -0.17492,
+        0.98345,
+        -17.61402
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99188,
+        0.0406,
+        -0.12051,
+        -13.40587
+       ],
+       [
+        -0.01838,
+        0.98349,
+        0.18001,
+        -29.59626
+       ],
+       [
+        0.12583,
+        -0.17634,
+        0.97625,
+        204.61425
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99864,
+        0.02955,
+        0.04302,
+        -15.62607
+       ],
+       [
+        -0.03706,
+        0.98191,
+        0.18568,
+        -75.40261
+       ],
+       [
+        -0.03675,
+        -0.18702,
+        0.98167,
+        -2.86782
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99929,
+        -0.00283,
+        0.03751,
+        -10.67113
+       ],
+       [
+        -0.00653,
+        0.96893,
+        0.24724,
+        -67.65126
+       ],
+       [
+        -0.03705,
+        -0.24731,
+        0.96823,
+        62.9761
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.99065,
+        0.01502,
+        -0.1356,
+        15.33562
+       ],
+       [
+        0.01962,
+        0.96792,
+        0.25049,
+        -23.7993
+       ],
+       [
+        0.13501,
+        -0.25081,
+        0.95858,
+        271.18054
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 550.8903141670792,
+     "spring_length_mm": 272.2643474562725
+    },
+    {
+     "wheel_travel_mm": -50,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       0.99853,
+       0.00161,
+       -0.05418,
+       12.03607
+      ],
+      [
+       -0.00068,
+       0.99985,
+       0.01707,
+       -8.35495
+      ],
+      [
+       0.0542,
+       -0.017,
+       0.99839,
+       30.76964
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1233.95892,
+      778.10753,
+      131.0
+     ],
+     "spin_axis_outboard": [
+      -0.00171,
+      0.99996,
+      0.0085
+     ],
+     "camber_deg": -0.4869078430875746,
+     "toe_deg": 0.09823295013367553,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99896,
+        0.02773,
+        0.0361,
+        -11.53288
+       ],
+       [
+        -0.03172,
+        0.99283,
+        0.11521,
+        -50.6448
+       ],
+       [
+        -0.03264,
+        -0.11623,
+        0.99269,
+        -13.65969
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99642,
+        0.02606,
+        -0.08038,
+        -6.65272
+       ],
+       [
+        -0.01643,
+        0.99284,
+        0.1183,
+        -25.4106
+       ],
+       [
+        0.08289,
+        -0.11655,
+        0.98972,
+        134.41278
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99946,
+        0.01769,
+        0.02782,
+        -9.2385
+       ],
+       [
+        -0.02102,
+        0.99204,
+        0.12412,
+        -45.95488
+       ],
+       [
+        -0.0254,
+        -0.12464,
+        0.99188,
+        -3.81103
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99969,
+        -0.00507,
+        0.02441,
+        -5.43634
+       ],
+       [
+        0.00099,
+        0.9864,
+        0.16439,
+        -41.07081
+       ],
+       [
+        -0.02491,
+        -0.16431,
+        0.98609,
+        39.36979
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.99594,
+        0.00731,
+        -0.08975,
+        13.64603
+       ],
+       [
+        0.00774,
+        0.98606,
+        0.16623,
+        -24.84958
+       ],
+       [
+        0.08971,
+        -0.16625,
+        0.98199,
+        177.73481
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 530.119724184464,
+     "spring_length_mm": 257.44072818481
+    },
+    {
+     "wheel_travel_mm": -25,
+     "residual_mm": 1.7053025658242404e-13,
+     "knuckle_group_delta": [
+      [
+       0.99962,
+       0.0009,
+       -0.02756,
+       6.10498
+      ],
+      [
+       -0.00065,
+       0.99996,
+       0.0092,
+       -3.68394
+      ],
+      [
+       0.02756,
+       -0.00918,
+       0.99958,
+       16.41758
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1236.97492,
+      781.39056,
+      156.0
+     ],
+     "spin_axis_outboard": [
+      -0.00174,
+      0.99986,
+      0.0164
+     ],
+     "camber_deg": -0.9399396395685476,
+     "toe_deg": 0.09972006205373773,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99976,
+        0.01294,
+        0.01756,
+        -5.0877
+       ],
+       [
+        -0.01393,
+        0.99824,
+        0.05772,
+        -23.12229
+       ],
+       [
+        -0.01678,
+        -0.05795,
+        0.99818,
+        -7.64782
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99911,
+        0.01255,
+        -0.04027,
+        -2.20733
+       ],
+       [
+        -0.01019,
+        0.99825,
+        0.05832,
+        -15.39639
+       ],
+       [
+        0.04093,
+        -0.05786,
+        0.99749,
+        66.24296
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99988,
+        0.00788,
+        0.01357,
+        -4.10275
+       ],
+       [
+        -0.00871,
+        0.99803,
+        0.06218,
+        -20.87369
+       ],
+       [
+        -0.01305,
+        -0.06229,
+        0.99797,
+        -2.70835
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99992,
+        -0.00402,
+        0.01209,
+        -1.98361
+       ],
+       [
+        0.00302,
+        0.99663,
+        0.08192,
+        -18.6485
+       ],
+       [
+        -0.01238,
+        -0.08188,
+        0.99657,
+        18.64855
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.999,
+        0.00241,
+        -0.04461,
+        8.44396
+       ],
+       [
+        0.00129,
+        0.99657,
+        0.08271,
+        -16.7338
+       ],
+       [
+        0.04465,
+        -0.08268,
+        0.99558,
+        87.35216
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 509.35617537161215,
+     "spring_length_mm": 242.69749842426768
+    },
+    {
+     "wheel_travel_mm": 0,
+     "residual_mm": 1.1368683772161603e-13,
+     "knuckle_group_delta": [
+      [
+       1.0,
+       0.0,
+       -0.0,
+       0.0
+      ],
+      [
+       -0.0,
+       1.0,
+       0.0,
+       -0.0
+      ],
+      [
+       -0.0,
+       -0.0,
+       1.0,
+       0.0
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1239.2664,
+      782.64337,
+      181.0
+     ],
+     "spin_axis_outboard": [
+      -0.00193,
+      0.99967,
+      0.02564
+     ],
+     "camber_deg": -1.469403805847537,
+     "toe_deg": 0.11072863247319793,
+     "arm_deltas": {
+      "lca": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 488.55376789556965,
+     "spring_length_mm": 227.99670655301588
+    },
+    {
+     "wheel_travel_mm": 25,
+     "residual_mm": 3.410605131648481e-13,
+     "knuckle_group_delta": [
+      [
+       0.9996,
+       -0.00118,
+       0.02833,
+       -6.31632
+      ],
+      [
+       0.00148,
+       0.99994,
+       -0.01061,
+       3.09124
+      ],
+      [
+       -0.02832,
+       0.01065,
+       0.99954,
+       -18.34184
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1240.88138,
+      781.93187,
+      206.0
+     ],
+     "spin_axis_outboard": [
+      -0.00239,
+      0.99934,
+      0.03633
+     ],
+     "camber_deg": -2.082071124570372,
+     "toe_deg": 0.13672961707330883,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.9998,
+        -0.01116,
+        -0.01683,
+        3.93535
+       ],
+       [
+        0.01017,
+        0.99827,
+        -0.05787,
+        18.81275
+       ],
+       [
+        0.01744,
+        0.05768,
+        0.99818,
+        8.90652
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99911,
+        -0.01162,
+        0.04056,
+        -0.0154
+       ],
+       [
+        0.01392,
+        0.9983,
+        -0.05667,
+        20.46581
+       ],
+       [
+        -0.03983,
+        0.05719,
+        0.99757,
+        -64.35683
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.9999,
+        -0.00602,
+        -0.01313,
+        3.2236
+       ],
+       [
+        0.00519,
+        0.99804,
+        -0.06231,
+        16.73647
+       ],
+       [
+        0.01348,
+        0.06224,
+        0.99797,
+        3.91465
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.9999,
+        0.0068,
+        -0.01233,
+        0.68919
+       ],
+       [
+        -0.00778,
+        0.99666,
+        -0.08123,
+        15.11708
+       ],
+       [
+        0.01173,
+        0.08132,
+        0.99662,
+        -17.25297
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.99902,
+        -0.00011,
+        0.04422,
+        -11.53134
+       ],
+       [
+        0.00373,
+        0.99664,
+        -0.08177,
+        25.03626
+       ],
+       [
+        -0.04407,
+        0.08185,
+        0.99567,
+        -84.24946
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 467.683598293375,
+     "spring_length_mm": 213.31625942058943
+    },
+    {
+     "wheel_travel_mm": 50,
+     "residual_mm": 2.2737367544323206e-13,
+     "knuckle_group_delta": [
+      [
+       0.99835,
+       -0.00265,
+       0.05732,
+       -12.91418
+      ],
+      [
+       0.00396,
+       0.99973,
+       -0.02277,
+       5.87921
+      ],
+      [
+       -0.05724,
+       0.02296,
+       0.9981,
+       -38.56317
+      ],
+      [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ]
+     ],
+     "wheel_centre": [
+      -1241.84037,
+      779.28013,
+      231.0
+     ],
+     "spin_axis_outboard": [
+      -0.00311,
+      0.99881,
+      0.04866
+     ],
+     "camber_deg": -2.78917677137919,
+     "toe_deg": 0.17822581745837152,
+     "arm_deltas": {
+      "lca": [
+       [
+        0.99924,
+        -0.02058,
+        -0.03315,
+        6.86746
+       ],
+       [
+        0.01662,
+        0.99314,
+        -0.11577,
+        33.33719
+       ],
+       [
+        0.0353,
+        0.11513,
+        0.99272,
+        18.7165
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "lower_tension_arm": [
+       [
+        0.99642,
+        -0.02232,
+        0.08153,
+        -2.28118
+       ],
+       [
+        0.03139,
+        0.99325,
+        -0.11168,
+        45.78421
+       ],
+       [
+        -0.07849,
+        0.11384,
+        0.99039,
+        -126.81928
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "toe_rod": [
+       [
+        0.99961,
+        -0.01021,
+        -0.02606,
+        5.67177
+       ],
+       [
+        0.00688,
+        0.99218,
+        -0.12462,
+        29.3366
+       ],
+       [
+        0.02713,
+        0.12439,
+        0.99186,
+        8.65494
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_arm": [
+       [
+        0.99955,
+        0.01629,
+        -0.02533,
+        0.15588
+       ],
+       [
+        -0.02018,
+        0.98665,
+        -0.16161,
+        26.84155
+       ],
+       [
+        0.02236,
+        0.16205,
+        0.98653,
+        -33.71549
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ],
+      "upper_tension_rod": [
+       [
+        0.9961,
+        0.00194,
+        0.0882,
+        -26.08521
+       ],
+       [
+        0.01246,
+        0.98664,
+        -0.16243,
+        58.24541
+       ],
+       [
+        -0.08733,
+        0.1629,
+        0.98277,
+        -165.23095
+       ],
+       [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ]
+      ]
+     },
+     "damper_length_mm": 446.73216054550375,
+     "spring_length_mm": 198.6496553308074
+    }
+   ]
+  }
+ }
+}

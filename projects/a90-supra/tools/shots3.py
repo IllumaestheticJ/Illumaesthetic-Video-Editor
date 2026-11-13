@@ -61,6 +61,7 @@ def args():
     ap.add_argument("--stills", default="", help="comma list of fractions -> <out>_<frac>.png (framing checks)")
     ap.add_argument("--persistent", choices=["auto", "on", "off"], default="auto",
                     help="Cycles persistent data; auto = off when any part is keyed (lights dropped mid-shot on v1 s08)")
+    ap.add_argument("--preview", action="store_true", help="Workbench engine (seconds per frame) for framing/motion checks")
     ap.add_argument("--frames", default="", help="render only this frame range a-b (re-render dark frames in a fresh process)")
     return ap.parse_args(a)
 
@@ -271,6 +272,62 @@ def main():
             piv.keyframe_insert("location", frame=f)
             piv.keyframe_insert("rotation_quaternion", frame=f)
 
+    # v3 mechanism motion: "mats" = rigid 4x4 deltas (scene frame) applied on top of everything else; keys are dense
+    # (the generator samples the solved suspension), so matrices are blended element-wise between neighbours.
+    from mathutils import Quaternion as _Q
+    for ob, ms in groups:
+        if "mats" not in ob:
+            continue
+        E = bpy.data.objects.new("mech", None)
+        sc.collection.objects.link(E)
+        E.rotation_mode = "QUATERNION"
+        bpy.context.view_layer.update()
+        tops = {(m.parent or m) for m in ms}
+        tops = {(t.parent or t) for t in tops}          # the keyed pivot, when there is one
+        for r in tops:
+            mw = r.matrix_world.copy(); r.parent = E; r.matrix_world = mw
+        mk = ob["mats"]
+        prev = None
+        for f in range(1, nframes + 1):
+            t = (f - 1) / max(1, nframes - 1)
+            if t <= mk[0]["t"]:
+                M = Matrix(mk[0]["m"])
+            elif t >= mk[-1]["t"]:
+                M = Matrix(mk[-1]["m"])
+            else:
+                i = max(j for j in range(len(mk) - 1) if mk[j]["t"] <= t)
+                u = (t - mk[i]["t"]) / (mk[i + 1]["t"] - mk[i]["t"])
+                A, Bm = Matrix(mk[i]["m"]), Matrix(mk[i + 1]["m"])
+                M = Matrix([[A[r_][c_] + (Bm[r_][c_] - A[r_][c_]) * u for c_ in range(4)] for r_ in range(4)])
+            loc, q, _s = M.decompose()
+            if prev is not None and q.dot(prev) < 0:
+                q.negate()
+            prev = q.copy()
+            E.location, E.rotation_quaternion = loc, q
+            E.keyframe_insert("location", frame=f); E.keyframe_insert("rotation_quaternion", frame=f)
+
+    # v3 springs: "stretch" = {"p": fixed end, "keys": [{"t", "axis": [..] (towards the moving end), "s": length ratio}]}
+    for ob, ms in groups:
+        if "stretch" not in ob:
+            continue
+        st = ob["stretch"]
+        S = bpy.data.objects.new("stretch", None)
+        sc.collection.objects.link(S)
+        S.rotation_mode = "QUATERNION"
+        S.location = Vector(st["p"])
+        a0 = Vector(st["axis0"]).normalized()
+        S.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(a0)
+        bpy.context.view_layer.update()
+        for r in {(m.parent or m) for m in ms}:
+            mw = r.matrix_world.copy(); r.parent = S; r.matrix_world = mw
+        sk = [{"t": k["t"], "v": list(k["axis"]) + [k["s"]]} for k in st["keys"]]
+        for f in range(1, nframes + 1):
+            t = (f - 1) / max(1, nframes - 1)
+            v = seg_ease(sk, t, "v", "linear")
+            S.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(Vector(v[:3]).normalized())
+            S.scale = (1, 1, v[3])
+            S.keyframe_insert("rotation_quaternion", frame=f); S.keyframe_insert("scale", frame=f)
+
     # v3 visibility windows (state swaps, parts that have left)
     for ob, ms in groups:
         if "vis" not in ob:
@@ -328,8 +385,13 @@ def main():
     sc.cycles.samples = a.samples
     sc.cycles.use_adaptive_sampling = True
     sc.cycles.use_denoising = True
-    moving = any("keys" in ob or "glow" in ob or "dim" in ob or "vis" in ob for ob, _ in groups)
+    moving = any(k in ob for ob, _ in groups for k in ("keys", "glow", "dim", "vis", "mats", "stretch"))
     sc.render.use_persistent_data = a.persistent == "on" or (a.persistent == "auto" and not moving)
+    if a.preview:
+        sc.render.engine = "BLENDER_WORKBENCH"
+        sh = sc.display.shading
+        sh.light = "STUDIO"; sh.color_type = "SINGLE"; sh.single_color = (0.75, 0.75, 0.78); sh.show_cavity = True
+        sc.world.color = (0, 0, 0)
     sc.view_settings.view_transform = "AgX"
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"

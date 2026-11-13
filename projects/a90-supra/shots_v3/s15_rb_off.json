@@ -1,0 +1,231 @@
+{
+ "_bar": 15,
+ "_reel_frames": [
+  1124,
+  1205
+ ],
+ "fps": 30,
+ "seconds": 2.7,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_rack_tie_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_top_mount.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_spring.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_knuckle.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_bearing.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_dust_shield.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_lca.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_lower_tension_arm.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_toe_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_upper_arm.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_upper_tension_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_lca_wing.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_damper_top_mount.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_damper_body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_damper_rod_boot.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_spring.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_cv_inner.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_cv_outer.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_bar.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_link.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_link_bj1.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_link_bj2.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_rbump.blend",
+   "pivot": [
+    -1.8009,
+    -0.0089,
+    0.3771
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.251,
+     "loc": [
+      -0.45,
+      0,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.43924,
+     "loc": [
+      -0.75,
+      0,
+      -0.1
+     ],
+     "rot": [
+      0,
+      -35,
+      0
+     ],
+     "ease": "linear"
+    },
+    {
+     "t": 0.62749,
+     "loc": [
+      -1.05,
+      0,
+      -0.55
+     ],
+     "rot": [
+      0,
+      -105,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -1.05,
+      0,
+      -0.55
+     ],
+     "rot": [
+      0,
+      -105,
+      0
+     ]
+    }
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "az": -162,
+   "dist": 2.45,
+   "z": 1.7,
+   "look": [
+    -2.25,
+    0,
+    0.12
+   ]
+  },
+  {
+   "t": 1.0,
+   "az": -162,
+   "dist": 2.1,
+   "z": 1.5,
+   "look": [
+    -2.6,
+    0,
+    -0.15
+   ]
+  }
+ ],
+ "lens": 35
+}

@@ -1,0 +1,150 @@
+{
+ "_bar": 4,
+ "_reel_frames": [
+  241,
+  321
+ ],
+ "fps": 30,
+ "seconds": 2.6666666666666665,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_uskirt.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_lskirt.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_fbump.blend",
+   "pivot": [
+    1.7662,
+    -0.0046,
+    0.3281
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.25417,
+     "loc": [
+      0.45,
+      0,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.4448,
+     "loc": [
+      0.75,
+      0,
+      -0.1
+     ],
+     "rot": [
+      0,
+      35,
+      0
+     ],
+     "ease": "linear"
+    },
+    {
+     "t": 0.63544,
+     "loc": [
+      1.05,
+      0,
+      -0.55
+     ],
+     "rot": [
+      0,
+      105,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      1.05,
+      0,
+      -0.55
+     ],
+     "rot": [
+      0,
+      105,
+      0
+     ]
+    }
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "az": -10,
+   "dist": 2.45,
+   "z": 1.7,
+   "look": [
+    2.25,
+    0,
+    0.12
+   ]
+  },
+  {
+   "t": 1.0,
+   "az": -10,
+   "dist": 2.1,
+   "z": 1.5,
+   "look": [
+    2.6,
+    0,
+    -0.15
+   ]
+  }
+ ],
+ "lens": 35
+}

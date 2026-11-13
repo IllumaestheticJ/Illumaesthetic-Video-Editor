@@ -1,0 +1,214 @@
+{
+ "_bar": 11,
+ "_reel_frames": [
+  803,
+  884
+ ],
+ "fps": 30,
+ "seconds": 2.7,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_rack_tie_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_top_mount.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_spring.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_lskirt.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.06275,
+     "loc": [
+      0,
+      -0.1,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.28865,
+     "loc": [
+      0,
+      -0.55,
+      -0.95
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.28864640624999993
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_uskirt.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.251
+    },
+    {
+     "t": 0.31375,
+     "loc": [
+      0,
+      -0.1,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.53964,
+     "loc": [
+      0,
+      -0.55,
+      -0.95
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.5396432812499998
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_dtrim.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.50199
+    },
+    {
+     "t": 0.56474,
+     "loc": [
+      0,
+      -0.1,
+      0
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.79064,
+     "loc": [
+      0,
+      -0.55,
+      -0.95
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.79064015625
+    ]
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "az": -104,
+   "dist": 2.5,
+   "z": 0.5,
+   "look": [
+    -0.1,
+    -0.9,
+    0.28
+   ]
+  },
+  {
+   "t": 1.0,
+   "az": -96,
+   "dist": 1.9,
+   "z": 0.42,
+   "look": [
+    -0.1,
+    -0.9,
+    0.25
+   ]
+  }
+ ],
+ "lens": 35
+}

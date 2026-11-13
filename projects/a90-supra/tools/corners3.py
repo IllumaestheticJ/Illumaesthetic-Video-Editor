@@ -1,7 +1,7 @@
 """v3 wheel corners: knuckles, bearings, dust shields, arms, tie rod, strut/damper/spring sub-scans, CV, sway bars
 placed in the car frame (raw Artec mm) as mechanisms solved from engineering's STEP hardpoints.
 
-    python projects/a90-supra/tools/corners3.py /home/user/media/work/a90/corners3 [--no-stl] [--check]
+    python projects/a90-supra/tools/corners3.py /home/user/media/work/a90/corners3 [--no-stl] [--no-check | --check-only | --check-left]
 
 Method (evidence for every mate is written to match/corners3.json):
   * Chassis pickups (bracket bolt axes, strut tower, damper studs, spring seat) come from Front|Rear Suspension.STEP,
@@ -242,8 +242,8 @@ def car_pts(c):
     f = f"/home/user/media/work/a90/corners3/.car_{c}.npy"
     if not os.path.exists(f):
         m = load(CAR); p = m["v"].mean(1)
-        for cc, (x0, x1) in (("FR", (850, 1750)), ("RR", (-1750, -800))):
-            k = (p[:, 0] > x0) & (p[:, 0] < x1) & (p[:, 1] < -100) & (p[:, 2] < 800); m[k].tofile(f"/home/user/media/work/a90/corners3/.car_{cc}.tri")
+        for cc, (x0, x1) in (("FR", (850, 1750)), ("RR", (-1750, -800)), ("FL", (850, 1750)), ("RL", (-1750, -800))):
+            k = (p[:, 0] > x0) & (p[:, 0] < x1) & ((p[:, 1] < -100) if cc[1] == "R" else (p[:, 1] > 100)) & (p[:, 2] < 800); m[k].tofile(f"/home/user/media/work/a90/corners3/.car_{cc}.tri")
             np.save(f"/home/user/media/work/a90/corners3/.car_{cc}.npy", p[k].astype(np.float32))
     return np.load(f).astype(float)
 
@@ -375,10 +375,12 @@ def bolt_fit(pb, pc, pa, qb, qc, qa):
     return best
 
 
-def pattern_fit(pp, pa, qq, qa, flip=(1, -1)):
-    """hole pattern of a sheet part onto a hole pattern of its carrier (subset + order search, both face senses);
-    holes are projected on a common plane first"""
-    pp = pp - np.outer((pp - pp[0]) @ pa, pa); qq = qq - np.outer((qq - qq[0]) @ qa, qa); best = None; n = min(len(pp), len(qq))
+def pattern_fit(pp, pa, qq, qa, flip=(1, -1), flatten=False):
+    """hole pattern of a sheet part onto a hole pattern of its carrier (subset + order search, both face senses), in 3D
+    (the holes are not coplanar, which fixes the tilt); flatten=True projects both on their hole-axis planes first"""
+    best = None; n = min(len(pp), len(qq))
+    if flatten:
+        pp = pp - np.outer((pp - pp[0]) @ pa, pa); qq = qq - np.outer((qq - qq[0]) @ qa, qa)
     for sub in itertools.permutations(range(len(pp)), n):
         for qs in itertools.combinations(range(len(qq)), n):
             for sg in flip:
@@ -400,9 +402,11 @@ class Surf:
         self.p = np.concatenate([v.mean(1), v[:, 0], (v[:, 0] + v[:, 1]) / 2]); self.n = np.concatenate([n, n, n]); self.c = v.mean(1); self.tree = cKDTree(self.p)
 
     def depth(self, q, k=4):
-        """positive = q is that many mm behind (inside) the surface; robust vote over k nearest oriented samples"""
-        d, j = self.tree.query(q, k=k); sd = -np.einsum("ijk,ijk->ij", q[:, None, :] - self.p[j], self.n[j])
-        dep = np.median(sd, axis=1); dep[d[:, 0] > 12] = np.minimum(dep[d[:, 0] > 12], 0)  # far from any surface: not a reliable 'inside'
+        """positive = q is that many mm behind (inside) the surface: median over the k nearest oriented samples within
+        12 mm (points farther than that from any surface are never counted as inside)"""
+        d, j = self.tree.query(q, k=k, distance_upper_bound=12.0); ok = np.isfinite(d); dep = np.zeros(len(q)); rows = ok[:, 0]
+        jj = np.where(ok, j, 0)[rows]; sd = -np.einsum("ijk,ijk->ij", q[rows][:, None, :] - self.p[jj], self.n[jj]); sd[~ok[rows]] = np.nan
+        dep[rows] = np.nanmedian(sd, axis=1)
         return dep
 
 
@@ -553,18 +557,18 @@ def check_images(out, c, meshes=None, tag="", hide=("wheel",), views=None):
     import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
     from matplotlib.patches import Patch
     car_pts(c); car = np.fromfile(f"/home/user/media/work/a90/corners3/.car_{c}.tri", dtype=TRI)
-    names = [n for n in PARTS[c] if n not in hide]; items = []
+    names = [n for n in PARTS[{"FL": "FR", "RL": "RR"}.get(c, c)] if n not in hide]; items = []
     for i, n in enumerate(names):
         m = meshes[n] if meshes else placed(c, n, 250000); items.append(cn(m) + (np.array(COLORS[i % len(COLORS)]),))
     P = np.concatenate([it[0] for it in items]); lo, hi = P.min(0) - 60, P.max(0) + 60
     cc, cnn = cn(car, False); k = np.all((cc > lo - 150) & (cc < hi + 150), axis=1); cc, cnn = cc[k], cnn[k]; grey = np.array([0.55, 0.55, 0.58])
-    V_ = views or {"outside": ([1, 0, 0], [0, 0, 1]), "inside": ([-1, 0, 0], [0, 0, 1]), "above": ([1, 0, 0], [0, 1, 0]), "front": ([0, 1, 0], [0, 0, 1]), "below": ([1, 0, 0], [0, -1, 0])}
+    V_ = views or {"outside": ([1, 0, 0], [0, 0, 1]), "inside": ([-1, 0, 0], [0, 0, 1]), "above": ([1, 0, 0], [0, 1, 0]), "front": ([0, 1, 0], [0, 0, 1]), "below": ([1, 0, 0], [0, -1, 0]), "above_body": ([1, 0, 0], [0, 1, 0])}
     os.makedirs(f"{out}/check", exist_ok=True); paths = []
     for vn, (r, u) in V_.items():
         r, u = np.array(r, float), np.array(u, float); d = np.cross(r, u); fig, ax = plt.subplots(figsize=(11.5, 9))
         # car scan: drop what lies between the camera and the parts for the outside / above views (fender, body) so the assembly is visible
         zc = cc @ d; zmax = (P @ d).max() + 5
-        kk = zc < (zmax if vn != "inside" else np.median(P @ d))
+        kk = zc < (np.median(P @ d) if vn == "inside" else (np.median(P @ d) + 110) if vn == "above" else zmax)
         lim = ((P @ r).min() - 70, (P @ r).max() + 70, (P @ u).min() - 70, (P @ u).max() + 70)
         splat(ax, [(cc[kk], cnn[kk], grey)] + items, r, u, lim)
         ax.legend(handles=[Patch(color=COLORS[i % len(COLORS)], label=n) for i, n in enumerate(names)], fontsize=6.5, loc="upper left", ncol=2, framealpha=0.6)
@@ -709,28 +713,28 @@ def rear_more(L):
         for sg in (1, -1):
             Rl, tl, dl, ang = two_point(l["pi"], l["po"], pc, qo, l["ai"] * sg, ac)
             P = verts(l["src"])[::5] @ Rl.T + tl; cand.append((clash(P, [kn, cs]), Rl, tl, dl, ang, float(np.degrees(np.arccos(min(1, abs((Rl @ l["ao"]) @ ao)))))))
-        cand.sort(key=lambda q: q[0]); q = cand[0]; joints[n] = dict(inner=pc, inner_axis=ac, outer=qo, outer_axis=ao, length=l["L"])
+        Pv = verts(l["src"])[::5]; hd = float(np.linalg.norm((Pv @ cand[0][1].T + cand[0][2]) - (Pv @ cand[1][1].T + cand[1][2]), axis=1).mean())
+        cand.sort(key=lambda q: q[0])
+        if n == "lca":      # spring pocket must open upwards (cone in Rear LCA.STEP widens along +z of the part)
+            cand.sort(key=lambda q: -(q[1] @ np.array([0, 0, 1.0]))[2])
+        q = cand[0]; joints[n] = dict(inner=pc, inner_axis=ac, outer=qo, outer_axis=ao, length=l["L"])
         put(c, n, l["src"], q[1], q[2], "inner sleeve centre on the subframe bracket centre (STEP bolt + scan ears), outer joint on its knuckle joint (STEP); length is a solve constraint", abs(q[3]),
-            note=f"inner sleeve axis {q[4]:.1f} deg and outer joint axis {q[5]:.1f} deg off their bolts; half-turn chosen by clearance ({q[0]} vs {cand[1][0]} pts >3 mm inside knuckle/subframe)")
+            note=f"inner sleeve axis {q[4]:.1f} deg and outer joint axis {q[5]:.1f} deg off their bolts; half-turn about the link line: " + ("spring pocket (STEP cone, widening along part +z) opens upwards" if n == "lca" else f"chosen by clearance ({q[0]} vs {cand[1][0]} pts >3 mm inside knuckle/subframe)" + (f" - near tie, NOT determined by the data (the two poses differ by {hd:.0f} mm on average)" if abs(q[0] - cand[1][0]) < 30 else "")),
+            conf="high" if n == "lca" or abs(q[0] - cand[1][0]) >= 30 else "medium")
     art["links"] = joints
     # LCA wing (plastic cover): 4 posts on the LCA's 4 screw holes
     Wn = "RR LCA Wing.STEP"; wp = np.array([d["p"] - d["z"] * d["r"] / np.tan(d["ang"]) * 0 for d in feats(Wn) if d["k"] == "CON"]); w_ax = [d["z"] for d in feats(Wn) if d["k"] == "CON"][0]
     lh = [d for d in feats("Rear LCA.STEP") if d["k"] == "CYL" and abs(d["r"] - 2.6) < 0.1]; lp = np.array([d["p"] for d in lh]); l_ax = lh[0]["z"]
-    Wv = verts("rsusp/RR LCA Wing (224k).stl"); Lv = Surf(load(S + "rsusp/Rear LCA (240k).stl")); bestw = None
-    for sg in (1, -1):
-        Rw_, tw_, wres, _ = pattern_fit(wp, w_ax, lp, l_ax, flip=(sg,))
-        # slide along the screw axis until the post tips touch the arm (holes give no axial position)
-        P = Wv[::9] @ Rw_.T + tw_; n_in = int((Lv.depth(P) > 3).sum())
-        if bestw is None or n_in < bestw[0]:
-            bestw = (n_in, Rw_, tw_, wres, sg)
-    n_in, Rw_, tw_, wres, sg = bestw; Ll = PARTS[c]["lca"]
+    # the 4-hole pattern is mirror-symmetric (both face senses fit to 0.8 mm), so the sense comes from the parts: the screw holes are in the
+    # arm's -z face (STEP hole segments z -350..-360, arm underside) and the wing's posts taper towards its -z, so wing -z faces the arm
+    Wv = verts("rsusp/RR LCA Wing (224k).stl"); Lvv = verts("rsusp/Rear LCA (240k).stl"); Ll = PARTS[c]["lca"]
+    Rw_, tw_, wres, _ = pattern_fit(wp, w_ax, lp, l_ax, flip=(-1,), flatten=True)
     posts = Wv[np.min(np.linalg.norm((Wv[:, None, :] - wp[None]) - np.einsum("ijk,k->ij", Wv[:, None, :] - wp[None], w_ax)[..., None] * w_ax, axis=2), axis=1) < 9]
-    tip_w = (posts @ Rw_.T + tw_) @ l_ax; Lvv = verts("rsusp/Rear LCA (240k).stl")
-    near = Lvv[np.min(np.linalg.norm((Lvv[:, None, :2] - lp[None, :, :2]), axis=2), axis=1) < 9] @ l_ax
-    side = np.sign(np.median((Wv @ Rw_.T + tw_) @ l_ax) - np.median(Lvv @ l_ax))          # wing above or below the arm
-    shift = (near.min() - tip_w.max()) if side < 0 else (near.max() - tip_w.min()); tw_ = tw_ + l_ax * shift
+    tip_w = (posts @ Rw_.T + tw_) @ l_ax; near = Lvv[np.min(np.linalg.norm((Lvv[:, None, :2] - lp[None, :, :2]), axis=2), axis=1) < 9] @ l_ax
+    shift = float(np.percentile(near, 2) - np.percentile(tip_w, 99)); tw_ = tw_ + l_ax * shift
     Rww, tww = compose(Ll["R"], Ll["t"], Rw_, tw_)
-    put(c, "lca_wing", "rsusp/RR LCA Wing (224k).stl", Rww, tww, "4 screw posts (STEP cones) on the LCA's 4 screw holes r2.6 (STEP), post tips against the arm", wres, note=f"axial contact from the meshes (shift {shift:.1f} mm)")
+    put(c, "lca_wing", "rsusp/RR LCA Wing (224k).stl", Rww, tww, "4 screw posts (STEP cones) on the LCA's 4 screw holes r2.6 (STEP), post tips against the arm underside", wres, conf="medium",
+        note="hole pattern is mirror-symmetric: face sense taken from the parts (holes in the arm underside, posts taper towards the arm); axial contact from the meshes")
     rear_spring_damper(g, art, ev); rear_cv(g, R, t, art, ev); rear_sway(g, R, t, art, ev)
     return dict(art=art, ev=ev, g=g, R=R, t=t, KJ=KJ)
 
@@ -870,8 +874,21 @@ def rear_samples(g, R0, t0, KJ, art):
 
 
 # ----------------------------------------------------------------------------- outputs
-KNOWN = {("caliper", "rotor"): "brake pads sit on the disc", ("strut_spring", "strut_body"): "lowest coil / boot sit on the perch (spring was compressed onto it)",
-         ("damper_rod_boot", "damper_body"): "telescoping damper: body slides into the boot by the ride-height compression", ("damper_body", "damper_rod_boot"): "telescoping damper"}
+KNOWN = {("caliper", "rotor"): "brake pads sit on the disc", ("rotor", "caliper"): "disc runs in the pad slot",
+         ("strut_spring", "strut_body"): "lowest coil / boot sit on the perch (spring was compressed onto it)", ("strut_body", "strut_spring"): "perch under the lowest coil",
+         ("damper_rod_boot", "damper_body"): "telescoping damper: body slides into the boot by the ride-height compression", ("damper_body", "damper_rod_boot"): "telescoping damper",
+         ("damper_top_mount", "damper_rod_boot"): "both scans contain the top mount's centre boss", ("damper_rod_boot", "damper_top_mount"): "both scans contain the top mount's centre boss",
+         ("strut_top_mount", "strut_spring"): "both scans contain the upper spring seat / mount underside", ("strut_spring", "strut_top_mount"): "both scans contain the upper spring seat / mount underside",
+         ("caliper", "wheel"): "front wheel scan has a spurious inner skin at r 168-185 mm (real barrel r~226, Front Wheel.STEP); the caliper (r<=207) clears the real barrel",
+         ("dust_shield", "wheel"): "same front-wheel scan artefact (inner skin at r 168-185)", ("rotor", "wheel"): "disc edge r174 against the same artefact skin; hat face on the wheel pad",
+         ("bearing", "wheel"): "hub spigot r33.3 sits in the wheel centre bore", ("wheel", "rotor"): "wheel pad on the rotor hat", ("lca", "wheel"): "front-wheel scan artefact skin",
+         ("lca", "spring"): "perch spigot sits in the LCA pocket", ("spring", "lca"): "perch spigot sits in the LCA pocket", ("lca", "damper_body"): "damper eye between the LCA ears",
+         ("cv_outer", "bearing"): "splined stub inside the bearing", ("bearing", "cv_outer"): "splined stub inside the bearing", ("cv_outer", "knuckle"): "joint bell inside the knuckle bore"}
+for _arm in ("lca", "tension_rod", "tie_rod_end"):
+    KNOWN[(_arm + "_balljoint", _arm)] = KNOWN[(_arm, _arm + "_balljoint")] = "ball sits in its housing"
+    KNOWN[(_arm + "_balljoint", "knuckle")] = KNOWN[("knuckle", _arm + "_balljoint")] = "stud shank sits in the knuckle hole"
+for _b in ("sway_link_bj1", "sway_link_bj2"):
+    KNOWN[(_b, "sway_link")] = KNOWN[("sway_link", _b)] = "ball sits in its housing"
 
 
 def interference(c, extra=()):
@@ -903,8 +920,17 @@ def jsonable(o):
 
 
 def main(out, write_stl=True, check=True):
-    os.makedirs(out, exist_ok=True)
-    F = front(); Rr = rear()
+    import time; T0 = time.time(); os.makedirs(out, exist_ok=True)
+    F = front(); print("front %.0fs" % (time.time() - T0), flush=True); Rr = rear(); print("rear %.0fs" % (time.time() - T0), flush=True)
+    if check == "left":      # mirrored corners, rendered from the written STLs against the left side of the car scan
+        for c in ("FL", "RL"):
+            ms = {n: load(f"{out}/{c}_{n}.stl") for n in PARTS[{"FL": "FR", "RL": "RR"}[c]]}; ms = {n: (m[:: len(m) // 250000 + 1]) for n, m in ms.items()}
+            check_images(out, c, meshes=ms, views={"outside": ([-1, 0, 0], [0, 0, 1]), "inside": ([1, 0, 0], [0, 0, 1])})
+        return None
+    if check == "only":
+        for c in ("FR", "RR"):
+            check_images(out, c); check_images(out, c, tag="_with_wheel", hide=(), views={"outside": ([1, 0, 0], [0, 0, 1]), "front": ([0, 1, 0], [0, 0, 1])})
+        return None
     front_samples(type("G", (), F["L"]), F["art"]); rear_samples(Rr["g"], Rr["R"], Rr["t"], Rr["KJ"], Rr["art"])
     res = {"frame": "car raw Artec mm (+X nose, -Y right, Z up)", "centreline_y": YC,
            "note": "left corners are the right-hand placements mirrored in y about centreline_y (matrix has det -1; triangle winding flipped in the STLs)",
@@ -913,7 +939,7 @@ def main(out, write_stl=True, check=True):
            "articulation_notes": ARTICULATION_NOTES}
     Mir = np.diag([1.0, -1.0, 1.0, 1.0]); Mir[1, 3] = 2 * YC
     for c, lc, A in (("FR", "FL", F), ("RR", "RL", Rr)):
-        inter, body = interference(c)
+        inter, body = interference(c); print(c, "interference %.0fs" % (time.time() - T0), flush=True)
         for o in inter:
             o["expected"] = KNOWN.get((o["a"], o["b"]), "")
         parts = {}
@@ -925,8 +951,9 @@ def main(out, write_stl=True, check=True):
         if write_stl:
             for n in PARTS[c]:
                 m = placed(c, n); save(m, f"{out}/{c}_{n}.stl"); save(mirror(m), f"{out}/{lc}_{n}.stl")
+        res[c]["check_images"] = [f"{out}/check/{c}_{v}.png" for v in ("outside", "inside", "above", "above_body", "front", "below", "outside_with_wheel", "front_with_wheel")]
         if check:
-            res[c]["check_images"] = check_images(out, c) + check_images(out, c, tag="_with_wheel", hide=(), views={"outside": ([1, 0, 0], [0, 0, 1]), "front": ([0, 1, 0], [0, 0, 1])})
+            check_images(out, c); check_images(out, c, tag="_with_wheel", hide=(), views={"outside": ([1, 0, 0], [0, 0, 1]), "front": ([0, 1, 0], [0, 0, 1])})
     js = os.path.join(HERE, "..", "match", "corners3.json"); json.dump(jsonable(res), open(js, "w"), indent=1); json.dump(jsonable(res), open(f"{out}/corners3.json", "w"), indent=1)
     return res
 
@@ -947,11 +974,36 @@ def mirror_art(a):
     return mv("", a)
 
 
-LEFT_OUT = {}
-ARTICULATION_NOTES = {}
+LEFT_OUT = {
+    "FR sway bar + bushing (FR Swaybar (50k), FR Swaybar Bushing (21k))": "bar and bushing share a bench frame, but the bushing bracket has no STEP: its two bolt holes would have to be picked on the mesh to seat it "
+        "on the subframe's M8 pair (Front Suspension.STEP, y=-281.8, x 1416/1508); without that the bar's axis height and its rotation are a guess",
+    "FR sway bar end link (Endlink Body, BJ 1, BJ 2)": "hangs off the sway bar eye (not placed) and the strut-body tab (FR Coilover.STEP r5.2 hole, now in the car frame via strut_body); two unknown ball sides + unknown bar angle",
+    "FR Knuckle Bracket 1 (14k)": "2 screw holes match the knuckle's 2 holes (19.1 mm both) but that leaves a 180 deg flip that the data does not resolve",
+    "FR Knuckle Bracket 2 (9k)": "single hole in its STEP: rotation about the screw is undetermined",
+    "rear half-shaft (Axle Shaft.prt)": "never scanned (NX CAD only); cv_inner and cv_outer are placed, the shaft between them is missing",
+    "rear upper spring pad / perch as separate parts (Rear Spring Bottom Perch (23k), Rear Spring Spring (34k))": "duplicates of geometry already inside the Top + Bottom spring scans used for RR_spring",
+    "FR Coilover (4.2m) / Rear Shock (2.2m) / Rear Spring (1.9m) full-assembly scans": "fully extended bench state; replaced by their Top/Bottom sub-scans so the damper can telescope to ride height",
+    "LCA Sensor *": "later add-on, not stock suspension (as instructed)",
+}
+ARTICULATION_NOTES = {
+    "measured (STEP / scan features)": [
+        "wheel spin axis = bearing axis through the solved hub (point wheel_centre, direction spin_axis_outboard)",
+        "front steering axis = steer_axis_top (strut tower mount centre) -> steer_axis_bottom (LCA ball joint centre); note this is a double-joint axle: the true instantaneous lower pivot is the intersection of the LCA and tension-rod lines, so the kinematically exact motion is in steer_samples",
+        "front: lca_inner / tension_rod_inner bracket centres + bolt axes, ball centres, link lengths, strut axis, tie-rod inner/outer balls",
+        "rear: links{} inner bracket centres + axes, outer joints, lengths; damper top/eye; spring seat/pocket; sway-bar axis",
+        "travel_samples / steer_samples: exact mechanism solves at each step. Apply knuckle_group_delta (4x4, car frame) to every part in knuckle_group, arm_deltas[name] to each link (and to lca_wing, damper_body, spring bottom with the lca), keep body-fixed parts (top mounts, cv_inner, rack) still"],
+    "sign conventions": ["camber_deg < 0 = top of the wheel leans inboard", "toe_deg / steer_deg > 0 = front of the RIGHT wheel towards +y (toe-in on the right, i.e. a left turn); left-side values are mirrored",
+                         "wheel_travel_mm > 0 = bump (wheel centre up relative to the body); rack_travel_mm > 0 = rack towards +y (left)"],
+    "assumed": ["ride height = Ground Plane.STEP ground + 331 mm tyre radius (255/35R19 front, same radius used rear as in corners.py)", "front toe = 0 at rack centre (tie-rod length is then an output: 340.4 mm, 30 mm thread engagement with the in-situ inner rod)",
+                "rack travel is applied as a pure y shift of the inner tie-rod ball"],
+    "not determinable from the data": ["bump/droop limits (bump stop contact) - samples stop at the scanned full-extension strut (front droop -76 mm) and are otherwise open-ended",
+                                       "spring clocking about its own axis; bushing compliance; sway-bar preload", "left side: mirrored, not measured"],
+}
 
 if __name__ == "__main__":
-    r = main(sys.argv[1], write_stl="--no-stl" not in sys.argv, check="--no-check" not in sys.argv)
+    r = main(sys.argv[1], write_stl="--no-stl" not in sys.argv, check="only" if "--check-only" in sys.argv else "left" if "--check-left" in sys.argv else "--no-check" not in sys.argv)
+    if r is None:
+        sys.exit(0)
     for c in ("FR", "RR"):
         print(c, "wheel centre", np.round(r[c]["articulation"]["wheel_centre"], 1), "camber", round(r[c]["articulation"]["camber_deg"], 2))
         for n, p in r[c]["parts"].items():

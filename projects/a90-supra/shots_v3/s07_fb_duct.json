@@ -1,0 +1,82 @@
+{
+ "_bar": 7,
+ "_reel_frames": [
+  482,
+  562
+ ],
+ "fps": 15,
+ "seconds": 2.8666666666666667,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_uskirt.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_lskirt.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/L_part_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fduct.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "az": -5,
+   "dist": 0.85,
+   "z": 0.6,
+   "look": [
+    2.0,
+    0.0,
+    0.36
+   ]
+  },
+  {
+   "t": 1.0,
+   "az": -28,
+   "dist": 0.7,
+   "z": 0.5,
+   "look": [
+    1.95,
+    -0.5,
+    0.32
+   ]
+  }
+ ],
+ "lens": 35
+}
