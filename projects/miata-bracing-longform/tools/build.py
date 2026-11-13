@@ -5,12 +5,15 @@ import sys, os, subprocess, json, re
 M = sys.argv[1]; SRC = f'{M}/dl/MiataScan_RoughCut_1.mp4'; CARDS = f'{M}/work/cards'; SEG = f'{M}/work/seg'; OUT = f'{M}/out'
 HERE = os.path.dirname(os.path.abspath(__file__)); WPS = 2.6
 # (kind, a, b, section, picture note, narration)   src: a,b = rough-cut seconds; card: a = png, b = min seconds
+GAG = 153*1001/24000 + (94.59 - 94.469)      # map joke: 153 frames; the 3 frames after the scene cut still carry the previous subtitle, so they are dropped
 TL = [
  ('src', 0, 13.98, 'Intro (unchanged)', 'Hook, title card, "All cars flex"', None),
  ('gfx', 13.98, 28.78, 'Intro (new graphics)', 'NEW 2D chassis-flex graphics under the existing voice-over', None),
  ('src', 28.78, 83.92, 'Setup (unchanged)', 'Braces from Goodwin Racing, why we are testing', None),
  ('fx', 83.92, 89.67, 'Setup (new callout)', 'Grimace in the paddock, NEW tracked arrow + label "GRIMACE / @epsilon_motorsports car"', None),
- ('src', 89.67, 184.27, 'Setup (new label)', 'Miata Chop Shop (NEW label "Miata Chop Shop / IG @MCS_Parts" at 1:37-1:43 and 1:58-2:02), test plan', None),
+ ('src', 89.67, 94.469, 'Setup (unchanged)', '"So first, we are going to need a stock car."', None),
+ ('gag', 0.0, GAG, 'Setup (new gag)', 'NEW map joke: globe + "FINDING A STOCK MIATA / CALCULATING ROUTE" with a riser, hard cut to the real map, a car drives next door, "You have arrived / NEXT DOOR"', None),
+ ('src', 94.59, 184.27, 'Setup (new label)', 'Miata Chop Shop (NEW label "Miata Chop Shop / IG @MCS_Parts"), test plan', None),
  ('src', 184.27, 189.19, '1. Control', 'Scanning the car on the ground', "First, the control. Car on the ground, nothing touched. This scan is our zero."),
  ('card', 'w_control', 4, '1. Control', 'Control engine-bay scan with the 960.948 dimension',
   "The number to watch is the width of the engine bay between the two strut towers. Stock, on the ground: 960.948 millimeters. Every scan after this gets compared to that."),
@@ -94,7 +97,7 @@ _i = iter(NAR); TL = [it[:5] + (next(_i),) if it[5] else it for it in TL]; asser
 def nwords(nar): return sum(4 if re.fullmatch(r'[0-9]+\.[0-9]+[.,]?', w) else 1 for w in nar.split())   # "960.9" is four spoken words
 def dur(it):
     k, a, b, *_, nar = it
-    if k in ('src', 'gfx', 'fx'): return b - a
+    if k in ('src', 'gfx', 'fx', 'gag'): return b - a
     if k in ('heat', 'end'): return nwords(nar)/WPS + 0.8
     return max(b, nwords(nar)/WPS + 0.8) if nar else float(b)
 def tc(t): return f'{int(t//60)}:{t%60:04.1f}'
@@ -108,7 +111,7 @@ def script_md(rows, total):
          '`Strut Spread.xlsx` and the PDF reports on the engineering Drive (percent reductions calculated from them); the four body percentages are our own calculation from the exterior scans (tools/heat.py, clips.md).', '',
          '| Cut time | Section | Picture | Source | Narration (draft) |', '|---|---|---|---|---|']
     for t, d, (k, a, b, sec, pic, nar) in rows:
-        src = f'rough cut {tc(a)}-{tc(b)}' if k in ('src', 'gfx', 'fx', 'end') else (f'3D render from the scans ({a}, {b})' if k == 'heat' else f'new card `{a}`')
+        src = 'new animation (tools/mapgag.py)' if k == 'gag' else f'rough cut {tc(a)}-{tc(b)}' if k in ('src', 'gfx', 'fx', 'end') else (f'3D render from the scans ({a}, {b})' if k == 'heat' else f'new card `{a}`')
         o.append(f'| {tc(t)}-{tc(t+d)} | {sec} | {pic} | {src} | {nar or "(existing voice, unchanged)"} |')
     words = sum(nwords(it[5]) for it in TL if it[5]); o += ['', f'New narration: {words} words, about {words/WPS/60:.1f} min at {WPS} words/s.']
     open(os.path.join(HERE, '..', 'script.md'), 'w').write('\n'.join(o) + '\n')

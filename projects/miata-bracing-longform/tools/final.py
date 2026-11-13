@@ -51,7 +51,7 @@ for it in b.TL:
     k, a, c, sec, pic, nar = it
     if nar:
         x, rate, f = LINES[vi]; print('  line %02d  %.1f s  %.2f words/s%s' % (vi, len(x)/SR, b.nwords(nar)/(len(x)/SR), '' if f == 1 else '  (slowed x%.2f from %.2f)' % (f, rate))); x = level(EQ(x)); s = max(t + LEAD, cur + GAP); e = s + len(x)/SR; vo.append((s, x, nar, vi)); vi += 1; cur = e
-        d = (c - a) if k in ('src', 'gfx', 'fx') else max(4.0 if k in ('heat', 'end') else float(c), e + (2.6 if k == 'end' else TAIL) - t)
+        d = (c - a) if k in ('src', 'gfx', 'fx', 'gag') else max(4.0 if k in ('heat', 'end') else float(c), e + (2.6 if k == 'end' else TAIL) - t)
     else: d = b.dur(it)
     if not nar and k == 'card': cur = max(cur, t + d - GAP + 0.05)          # nothing is spoken over a title card
     rows.append((t, d, it)); t += d
@@ -82,6 +82,7 @@ for i, (tt, d, (k, a, c, sec, pic, nar)) in enumerate(rows):
     elif k == 'fx':
         subprocess.run([sys.executable, f'{HERE}/callout.py', b.SRC, str(a), str(c), f + '.fx.mp4'], check=True); b.run(['-i', f + '.fx.mp4', '-an', '-c:v', 'copy', f + '.tmp.mp4']); os.remove(f + '.fx.mp4')
     elif k == 'heat': subprocess.run([sys.executable, f'{HERE}/heat3d.py', 'shot', f'{M}/heat3d', *a.split('>'), c, str(n), f + '.tmp.mp4'], check=True, stdout=subprocess.DEVNULL)
+    elif k == 'gag': subprocess.run([sys.executable, f'{HERE}/mapgag.py', M, str(n), f + '.tmp.mp4'], check=True)
     elif k == 'end': b.run(['-ss', str(a), '-t', str(c - a), '-i', b.SRC, '-vf', f'scale=1920:1080,setpts=PTS*{d/(c - a) + 0.02:.4f}', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     elif k == 'gfx': b.run(['-i', f'{M}/work/flex.mp4', '-an', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
     else: b.run(['-loop', '1', '-framerate', '24000/1001', '-i', f'{b.CARDS}/{a}.png', *FR, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '19', '-pix_fmt', 'yuv420p', '-r', '24000/1001', '-video_track_timescale', '24000', f + '.tmp.mp4'])
@@ -91,7 +92,19 @@ print('picture frames', done_fr, '= %.3f s; schedule %.3f s' % (done_fr/FPS, tot
 # ---- sound: rough-cut audio up to 3:04, then bed + narration
 w = wave.open(f'{M}/work/audio48.wav')   # the cut is 1:1 with the rough cut up to 3:04
 o = np.frombuffer(w.readframes(int(200*SR)), np.int16).reshape(-1, 2).astype(np.float32)/32768        # FIRST 200 s only (v6 bug: a second read replaced this with 200 s onward)
-N = int(total*SR) + SR; mix = np.zeros((N, 2), np.float32); n0 = int(t_new*SR); xf = int(.25*SR); mix[:n0+xf] = o[:n0+xf]; mix[n0:n0+xf] *= np.linspace(1, 0, xf)[:, None]
+N = int(total*SR) + SR; mix = np.zeros((N, 2), np.float32); n0 = int(t_new*SR); xf = int(.25*SR)
+for tt, d, (k, a, c, sec, pic, nar) in rows:                              # before 3:04 the rough cut's own sound follows its picture, row by row
+    if tt >= t_new - 1e-6: break
+    p = int(round(tt*SR)); n = int(round((tt + d)*SR)) - p + (xf if abs(tt + d - t_new) < 1e-6 else 0)
+    if k == 'gag':
+        if not os.path.exists(f'{M}/work/gag.wav'): subprocess.run([sys.executable, f'{HERE}/mapgag.py', M, str(int(round(d*FPS))), f'{M}/work/fr/gag_sheet.jpg'], check=True)
+        g = wave.open(f'{M}/work/gag.wav'); x = np.frombuffer(g.readframes(g.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768; x = x[:n]; mix[p:p+len(x)] = x; continue
+    x = o[int(round(a*SR)):int(round(a*SR)) + n].copy(); e = 240
+    if a > 0 and abs(a - 94.59) < 1e-6: x[:e] *= np.linspace(0, 1, e)[:, None]             # the two edges the gag creates
+    if abs(c - 94.469) < 1e-6: x[-e:] *= np.linspace(1, 0, e)[:, None]
+    mix[p:p+len(x)] = x
+mix[n0:n0+xf] *= np.linspace(1, 0, xf)[:, None]
+def outt(u): return next(tt + u - a for tt, d, (k, a, c, *_) in rows if k in ('src', 'fx', 'gfx') and tt < t_new and a <= u < c)      # rough-cut time -> time in this cut
 # music after 3:04 from the real tracks (Dropbox "Media for Miata Brace Vid"), following the rough cut's own choices, found by
 # fingerprint matching: 2AM under the control section, Time Stand Still under fender / both-braces shop footage, Cosmic
 # Countdown under the strut-brace footage, Dark Summer Night under the data cards. One level, crossfades, no gaps.
@@ -140,7 +153,7 @@ mix = np.tanh(mix*1.0); ww = wave.open(f'{SEG}/mix.wav', 'w'); ww.setnchannels(2
 # ---- subtitles in the rough cut's style (white) for the new narration + the labels build.ass() already makes
 L = ['[Script Info]', 'PlayResX: 1920', 'PlayResY: 1080', '[V4+ Styles]', 'Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV',
      'Style: old,Inter Display,54,&H00FFFFFF,&H00000000,&H00000000,1,1,4,0,2,60,60,40', 'Style: ig,Inter Display,46,&H00FFFFFF,&H00000000,&H00000000,1,1,4,0,7,60,60,50', '[Events]', 'Format: Layer, Start, End, Style, Text']
-for u0, u1 in ((97.3, 103.0), (118.4, 122.4)): L.append(f'Dialogue: 0,{b.at(u0)},{b.at(u1)},ig,Miata Chop Shop\\NIG  @MCS_Parts')
+for u0, u1 in ((97.3, 103.0), (118.4, 122.4)): L.append(f'Dialogue: 0,{b.at(outt(u0))},{b.at(outt(u1))},ig,Miata Chop Shop\\NIG  @MCS_Parts')
 import json
 for tt, d, (k, a, c, sec, pic, nar) in rows:
     if k == 'gfx':
