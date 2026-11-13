@@ -1,3 +1,77 @@
+# Smart 450 "Hellkitten" reel v3 ("Should we build this?"): editor notes
+
+Output `/home/user/media/work/smart-450/out/smart450_v3.mp4` (1080x1920, 30 fps, 857 frames = 28.57 s, H.264 High CRF 17, AAC 256k). Stems `out/stem_music.wav`, `out/stem_shopsound.wav`, `out/stem_meows.wav`, master `out/smart450_mix.wav`. Preview copy in `preview/`. Rebuild: `python projects/smart-450-hellkitten/tools/build.py`.
+
+## Direction v3 (written before the build)
+Beats m on the 160.00 BPM lattice, T(m) = 1.499 + 0.37583 m, cut frame = round(T*30). Message: a pitch asking "Should we build this?".
+
+| shot | beats | frames | source | why |
+|---|---|---|---|---|
+| H1 | -4..0 | 0-44 | 4.r.1 studio render, push-in, text on the black band | the question and the Hellkitten inside 2 s (CGI, so text is allowed) |
+| S5 | 0..2 | 45 | v_1632_12 intact car | drop 1: "here is the real car" |
+| S6 S7 S8 | 2..8 | 68-134 | powder front, side, rear (spray hiss kept) | the car is prepared |
+| S9 | 8..12 | 135-179 | scanner capturing | it gets scanned |
+| S1 S13 S12 S4 | 12..20 | 180-269 | parts on the floor, front off, bare rear, hand on braces | stripped down |
+| S17 S2 | 20..24 | 270-315 | scanner result, bare shell ending on the solved frame | break 1 (kick out), then the proof |
+| S3 (A1) | 24..28 | 316-360 | 1:1 cut into the scan on drop 2 | "this is real engineering" |
+| S10a/b (A2) | 28..40 | 361-495 | body on, swap to body off on beat 32, push | the scan with and without the body |
+| S18 (A4) | 40..50 | 496-608 | a4_hellkitten: stripped scan becomes the textured Hellkitten body (PLACEHOLDER until rendered) | the answer to "what is it for" |
+| R1 | 50..52 | 609-630 | Blueprint | body drawn over this Smart (break 2) |
+| R2-R5 | 52..56 | 631-675 | 4.r.2, 4.r.4, 4.r.5, 4.r.6, one beat each on the build hits | quick run of renders |
+| R6 R7 | 56..60 | 676-720 | RenderStreet2, RenderNight2 | drop 3 |
+| R8 | 60..64 | 721-766 | RenderDay1 (strongest, decal), question on top | end on the question |
+| LOGO | 64..72 | 767-856 | logo 720 px, 3.0 s | final downbeat and hold |
+
+### On-screen wording (three options; option 1 is used)
+1. Hook: "SHOULD WE BUILD THIS?" / "HELLKITTEN · DESIGN RENDER". Scan: "BODY ON" / "BODY OFF" with 29,997,021 / 29,998,690 TRIANGLES. Model: "HELLKITTEN" / "DESIGN CONCEPT". End: "SHOULD WE BUILD THIS?" / "TELL US IN THE COMMENTS".
+2. Hook: "WOULD YOU DRIVE THIS?" / "SMART 450 · HELLKITTEN CONCEPT". End: "BUILD IT?" / "YES OR NO IN THE COMMENTS".
+3. Hook: "BUILD IT OR BIN IT?" / "A SMART 450, REIMAGINED". End: "SHOULD WE?" / "VOTE IN THE COMMENTS".
+No Dodge / Charger / Hellcat wording; no text on IRL footage.
+
+## What the cut does (measured)
+- Frame-exact: every frame of every shot sits on its timeline frame (cutpos.py); A2's swap is on frame 406 (beat 32).
+- Cuts: 17 of 24 cuts are on a kick click, error -15.5 .. +14.5 ms (half a frame 16.7); the other seven are in breaks.
+- Audio: master -10.0 LUFS, true peak -2.0 dBTP (WAV); delivered AAC -10.0 LUFS, -1.7 dBFS. Speech muted (audio_review.md).
+- Labels: title items of 64-80 px (cap height 46-58 px at 1080 wide), mono sub 30-32 px, in the black band above the scan (checked on BODY ON / BODY OFF, hook and end frames); the end question sits on a dark plate over the buildings.
+- Logo 720 px wide, held 3.0 s (8 beats), fades with the music (1.0 s).
+- S1 and S6 slipped to the first sharp frame; S7 was already sharp by the Laplacian test but is a soft shot overall (low-texture floor). The first frame of the video is the sharp render H1.
+
+## Meows
+Sources and licences: `sfx.md` (three CC0 recordings: archive.org "Jorge the Cat Meowing", archive.org "meow!", one Wikimedia Commons clip by Tsester). They are adult cats pitched up 0-5.5 semitones toward the A-minor tones of the track (key A, estimated from chroma), not real kittens. 15 meows, own stem, room reverb (14 % wet), sidechain to the kick (up to -5 dB), stem peak -9.4 dBFS vs music -3.9. `meow_map.json` has time, sample, pitch shift, gain, beat/bar and the reason.
+
+| # | s | beat | one-shot | shift (st) | peak dB | why |
+|---|---|---|---|---|---|---|
+| 1 | 1.69 | m 0.5 (bar 1, beat 1.5) | tiny_a | +3.0 | -14 | drop 1 = the first huge kick; a tiny polite mew answers it half a beat later, on the intact car |
+| 2 | 7.70 | m 16.5 (bar 5, beat 1.5) | sad_e | +1.5 | -12 | bare rear (S12): a small sad meow after the bumper-less tail |
+| 3 | 13.53 | m 32.0 (bar 9, beat 1.0) | big_f | +0.0 | -5 | THE body-off swap on the drop: where a tough car would rev, one big confident meow |
+| 4 | 14.84 | m 35.5 (bar 9, beat 4.5) | short_b | +3.0 | -11 | motif A (answers the kick, off-beat) while the camera pushes in on the bare structure |
+| 5 | 15.59 | m 37.5 (bar 10, beat 2.5) | short_c | +2.8 | -11 | motif B, two beats later |
+| 6 | 16.34 | m 39.5 (bar 10, beat 4.5) | short_b | +3.0 | -11 | motif A again, a bar later: the repeating 2-bar motif |
+| 7 | 18.22 | m 44.5 (bar 12, beat 1.5) | mid_d | +1.5 | -9 | the Hellkitten body arrives on the structure: a plain, unimpressed meow |
+| 8 | 19.54 | m 48.0 (bar 13, beat 1.0) | long_i | +0.0 | -8 | break 2: the kick drops out and a lone meow sits in the gap |
+| 9 | 21.79 | m 54.0 (bar 14, beat 3.0) | short_c | +2.8 | -14 | rising stutter into the render, 1/4 |
+| 10 | 21.98 | m 54.5 (bar 14, beat 3.5) | short_b | +5.0 | -12 | rising stutter 2/4 (+2 semitones) |
+| 11 | 22.17 | m 55.0 (bar 14, beat 4.0) | tiny_a | +7.0 | -10 | rising stutter 3/4 |
+| 12 | 22.36 | m 55.5 (bar 14, beat 4.5) | chirp_j | +10.5 | -9 | rising stutter 4/4, the chirp |
+| 13 | 22.55 | m 56.0 (bar 15, beat 1.0) | big_g | +0.8 | -5 | DROP 3: the Hellkitten render appears: one big confident meow exactly on the drop |
+| 14 | 24.42 | m 61.0 (bar 16, beat 2.0) | long_h | -2.2 | -6 | the question 'SHOULD WE BUILD THIS?' is on screen: one long unimpressed meow |
+| 15 | 25.55 | m 64.0 (bar 17, beat 1.0) | tiny_a | +3.0 | -13 | logo card: a last small mew on the downbeat |
+
+Onset accuracy (decoded stem; the delivered mp4 decodes with 0.0 ms lag against the master): by the 20 % crossing used to trim the one-shots all meows are within 3.3 ms of the lattice (meow 11 excluded: it sits on the tail of meow 10); by a rise-slope definition within 14.8 ms (meow 2 has a slow attack), mean 5.2 ms. `out/meow_strip.png` shows waveform, spectrogram and cut marks. **Nobody has listened to this arrangement or mix**: the placement, pitch and loudness of every meow are unheard, the "ironic" timing is a design intent, and the reverb and ducking were set by numbers.
+
+## Placeholders
+S18 (A4, the Hellkitten model shot) is a placeholder: framing-preview frames held, with a PLACEHOLDER tag, until `renders/a4_hellkitten` has 68 frames; the next `build.py` swaps it in (A4 plays at 1.2x to fit 10 beats; the HUD label HELLKITTEN / DESIGN CONCEPT at 18.5 s must be re-checked against the real frames). Everything else is final. A3 was rendered but is not in this cut.
+
+## Known weaknesses
+- A4 will start on A2's end camera, but A2's end pose clips the car at both edges (R1 never re-keyed): visible in the last 1.3 s of S10b.
+- The studio renders sit small in the frame (the car is wider than any 9:16 window), so H1 and R2-R5 have large black areas; R4's floor shows a lighter rectangle.
+- Street and night stills are punched in 1.5-1.8x and are soft.
+- Meows are adult cats pitched up; the long ones show their age.
+- S6 and S7 are soft handheld shots; third-party marks as in v1 (DRIFTER stickers, wall poster, windscreen sticker).
+- The 1:1 cut now lands on drop 2 instead of drop 1; it still reads as in v1 (door frame, braces, handle cup within 5-15 px; cabin and front wheel loose).
+
+---
+# v1 notes (kept)
 # Smart 450 "Hellkitten" reel v1: editor self-review (training/rubric.md)
 
 Output `/home/user/media/work/smart-450/out/smart450_v1.mp4`: 1080x1920, 30 fps, 798 frames = 26.60 s, H.264 High CRF 17, yuv420p, AAC 256k, faststart.

@@ -97,7 +97,7 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
               const aa = inA(f, at[i]);
               return (
                 <div key={i} style={{ opacity: aa, transform: `translateX(${(1 - aa) * -40}px)`, background: PLATE, borderRadius: 14, borderLeft: `8px solid ${C.accent}`, padding: "14px 24px", boxSizing: "border-box" }}>
-                  <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 27, letterSpacing: 2.5, lineHeight: 1.2, color: "#d5dae2", textShadow: SH }}>{label} ·</div>
+                  <div style={{ fontFamily: SANS, fontWeight: 600, fontSize: 27, letterSpacing: 2.5, lineHeight: 1.2, color: "#d5dae2", textShadow: SH }}>{label}</div>
                   <div style={{ fontFamily: MONO, fontWeight: 800, fontSize: 78, lineHeight: 1.0, color: C.ink, textShadow: SH }}>{value}</div>
                 </div>
               );

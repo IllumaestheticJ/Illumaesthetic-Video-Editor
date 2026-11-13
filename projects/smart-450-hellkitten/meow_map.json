@@ -14,7 +14,7 @@
    "shot": "tiny_a",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 3.0,
-   "peak_dbfs_pre_master": -17,
+   "peak_dbfs_pre_master": -14,
    "role": "tiny polite mew",
    "why": "drop 1 = the first huge kick; a tiny polite mew answers it half a beat later, on the intact car"
   },
@@ -29,7 +29,7 @@
    "shot": "sad_e",
    "source": "wm__2015-11-24_Niaou_Tsester.flac",
    "pitch_shift_semitones": 1.5,
-   "peak_dbfs_pre_master": -15,
+   "peak_dbfs_pre_master": -12,
    "role": "small sad meow",
    "why": "bare rear (S12): a small sad meow after the bumper-less tail"
   },
@@ -44,7 +44,7 @@
    "shot": "big_f",
    "source": "meow_20220616__meow_.wav",
    "pitch_shift_semitones": 0.0,
-   "peak_dbfs_pre_master": -8,
+   "peak_dbfs_pre_master": -5,
    "role": "big confident meow",
    "why": "THE body-off swap on the drop: where a tough car would rev, one big confident meow"
   },
@@ -59,7 +59,7 @@
    "shot": "short_b",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 3.0,
-   "peak_dbfs_pre_master": -14,
+   "peak_dbfs_pre_master": -11,
    "role": "short high mew",
    "why": "motif A (answers the kick, off-beat) while the camera pushes in on the bare structure"
   },
@@ -74,7 +74,7 @@
    "shot": "short_c",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 2.75,
-   "peak_dbfs_pre_master": -14,
+   "peak_dbfs_pre_master": -11,
    "role": "short mew",
    "why": "motif B, two beats later"
   },
@@ -89,7 +89,7 @@
    "shot": "short_b",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 3.0,
-   "peak_dbfs_pre_master": -14,
+   "peak_dbfs_pre_master": -11,
    "role": "short high mew",
    "why": "motif A again, a bar later: the repeating 2-bar motif"
   },
@@ -104,7 +104,7 @@
    "shot": "mid_d",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 1.5,
-   "peak_dbfs_pre_master": -12,
+   "peak_dbfs_pre_master": -9,
    "role": "plain meow",
    "why": "the Hellkitten body arrives on the structure: a plain, unimpressed meow"
   },
@@ -119,7 +119,7 @@
    "shot": "long_i",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 0.0,
-   "peak_dbfs_pre_master": -11,
+   "peak_dbfs_pre_master": -8,
    "role": "long meow",
    "why": "break 2: the kick drops out and a lone meow sits in the gap"
   },
@@ -134,7 +134,7 @@
    "shot": "short_c",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 2.75,
-   "peak_dbfs_pre_master": -17,
+   "peak_dbfs_pre_master": -14,
    "role": "short mew",
    "why": "rising stutter into the render, 1/4"
   },
@@ -149,7 +149,7 @@
    "shot": "short_b",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 5.0,
-   "peak_dbfs_pre_master": -15,
+   "peak_dbfs_pre_master": -12,
    "role": "short high mew",
    "why": "rising stutter 2/4 (+2 semitones)"
   },
@@ -164,7 +164,7 @@
    "shot": "tiny_a",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 7.0,
-   "peak_dbfs_pre_master": -13,
+   "peak_dbfs_pre_master": -10,
    "role": "tiny polite mew",
    "why": "rising stutter 3/4"
   },
@@ -179,7 +179,7 @@
    "shot": "chirp_j",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 10.5,
-   "peak_dbfs_pre_master": -12,
+   "peak_dbfs_pre_master": -9,
    "role": "tiny chirp",
    "why": "rising stutter 4/4, the chirp"
   },
@@ -194,7 +194,7 @@
    "shot": "big_g",
    "source": "meow_20220616__meow_.wav",
    "pitch_shift_semitones": 0.75,
-   "peak_dbfs_pre_master": -8,
+   "peak_dbfs_pre_master": -5,
    "role": "second big meow",
    "why": "DROP 3: the Hellkitten render appears: one big confident meow exactly on the drop"
   },
@@ -209,7 +209,7 @@
    "shot": "long_h",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": -2.25,
-   "peak_dbfs_pre_master": -9,
+   "peak_dbfs_pre_master": -6,
    "role": "long unimpressed meow",
    "why": "the question 'SHOULD WE BUILD THIS?' is on screen: one long unimpressed meow"
   },
@@ -224,7 +224,7 @@
    "shot": "tiny_a",
    "source": "JorgeTheCatMeowing__Untitled3.ogg",
    "pitch_shift_semitones": 3.0,
-   "peak_dbfs_pre_master": -16,
+   "peak_dbfs_pre_master": -13,
    "role": "tiny polite mew",
    "why": "logo card: a last small mew on the downbeat"
   }

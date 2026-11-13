@@ -1,0 +1,2864 @@
+{
+ "project": "lexus-is350-speedrun-long",
+ "version": "v2",
+ "fps": "24000/1001",
+ "frames_total": 7384,
+ "duration_s": 307.9743,
+ "built_by": "tools/assemble_long.py --edl edl_v2.json (assemble_v2.py)",
+ "edl": "edl_v2.json",
+ "note": "Final v2 timeline (stage A: clean picture, no graphics/captions). Event ids = edl_v2.json. Times in seconds and frames (frame = round(t*fps)). src_in/src_out are seconds in the source clip (IRL: exact frame bounds src_frames). grew_s = final duration - edl duration (dialogue-protected events only grow). P_05 is a speed-ramped time-lapse: speed_effective is the mean source/timeline ratio and src_map gives the source time per timeline frame (for the clock overlay). sync_speech: caption from word_json within src_in..src_out. hud = edl_v2 hud block (corner/clock values) passed through.",
+ "dropped": [
+  "M5_A",
+  "M5_B"
+ ],
+ "anchors_s": {
+  "go": 25.1541,
+  "landing": 47.8812,
+  "spray_file0": 24.1541,
+  "now": 115.9934,
+  "montage_file0": 250.3192,
+  "lift": 277.8192,
+  "crashed": 85.4728,
+  "tick": 94.3154,
+  "time": 242.8767,
+  "end_card": 302.9693,
+  "hero_file0": 274.8192,
+  "hero_hit_err": -0.0
+ },
+ "events": [
+  {
+   "id": "CO_01",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "tl_in": 0.0,
+   "tl_out": 3.7955,
+   "in_frame": 0,
+   "out_frame": 91,
+   "frames": 91,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 14.7647,
+   "src_out": 18.5602,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 0.0,
+   "edl_tl_out": 3.8,
+   "grew_s": -0.005,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "",
+    "clock1": {
+     "start": "00:00",
+     "end": "00:00",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "G02_v2"
+   ],
+   "src_frames": [
+    354,
+    444
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "CO_02",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "tl_in": 3.7955,
+   "tl_out": 5.7975,
+   "in_frame": 91,
+   "out_frame": 139,
+   "frames": 48,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30554.MP4",
+   "src_in": 9.0507,
+   "src_out": 11.0527,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 3.8,
+   "edl_tl_out": 5.8,
+   "grew_s": 0.002,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "",
+    "clock1": {
+     "start": "32 MIN",
+     "end": "32 MIN",
+     "basis": "frozen final (owner)"
+    },
+    "timer2": {
+     "start": "20 MIN",
+     "end": "20 MIN",
+     "basis": "frozen final (owner)"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    217,
+    264
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30554.json"
+  },
+  {
+   "id": "CO_03",
+   "section": "1 COLD OPEN",
+   "type": "scan",
+   "tl_in": 5.7975,
+   "tl_out": 10.8025,
+   "in_frame": 139,
+   "out_frame": 259,
+   "frames": 120,
+   "source": "SC_MATCH_FRONT",
+   "src_in": 0.0,
+   "src_out": 5.005,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 5.8,
+   "edl_tl_out": 10.8,
+   "grew_s": 0.005,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [
+    "G01_v2"
+   ],
+   "scan_status": "final"
+  },
+  {
+   "id": "B_01",
+   "section": "2 THE BET",
+   "type": "irl",
+   "tl_in": 10.8025,
+   "tl_out": 14.5562,
+   "in_frame": 259,
+   "out_frame": 349,
+   "frames": 90,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 19.4361,
+   "src_out": 23.1898,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 10.8,
+   "edl_tl_out": 14.55,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "THE BET",
+    "clock1": {
+     "start": "00:00",
+     "end": "00:00",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "G02_v2"
+   ],
+   "src_frames": [
+    466,
+    555
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "B_02",
+   "section": "2 THE BET",
+   "type": "irl",
+   "tl_in": 14.5562,
+   "tl_out": 21.4798,
+   "in_frame": 349,
+   "out_frame": 515,
+   "frames": 166,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 23.6486,
+   "src_out": 30.5722,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 14.55,
+   "edl_tl_out": 21.47,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "THE BET",
+    "clock1": {
+     "start": "00:00",
+     "end": "00:00",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "G02_v2",
+    "G03_v2"
+   ],
+   "src_frames": [
+    567,
+    732
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_01",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 21.4798,
+   "tl_out": 25.9426,
+   "in_frame": 515,
+   "out_frame": 622,
+   "frames": 107,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 70.7373,
+   "src_out": 75.2001,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 21.47,
+   "edl_tl_out": 25.69,
+   "grew_s": 0.243,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "00:00",
+     "end": "00:00",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    1696,
+    1802
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_02",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 25.9426,
+   "tl_out": 32.8662,
+   "in_frame": 622,
+   "out_frame": 788,
+   "frames": 166,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 77.077,
+   "src_out": 84.0006,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 25.69,
+   "edl_tl_out": 32.38,
+   "grew_s": 0.234,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "00:02",
+     "end": "00:09",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    1848,
+    2013
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_03",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 32.8662,
+   "tl_out": 36.1194,
+   "in_frame": 788,
+   "out_frame": 866,
+   "frames": 78,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 96.805,
+   "src_out": 100.0583,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 32.38,
+   "edl_tl_out": 36.18,
+   "grew_s": -0.547,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "00:22",
+     "end": "00:26",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "STING1_v2"
+   ],
+   "src_frames": [
+    2321,
+    2398
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_04",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 36.1194,
+   "tl_out": 44.2525,
+   "in_frame": 866,
+   "out_frame": 1061,
+   "frames": 195,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 106.4814,
+   "src_out": 114.6145,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 36.18,
+   "edl_tl_out": 43.93,
+   "grew_s": 0.383,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "00:31",
+     "end": "00:39",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    2553,
+    2747
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_05",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl_timelapse",
+   "tl_in": 44.2525,
+   "tl_out": 47.8812,
+   "in_frame": 1061,
+   "out_frame": 1148,
+   "frames": 87,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 114.24,
+   "src_out": 189.8,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 43.93,
+   "edl_tl_out": 47.708,
+   "grew_s": -0.149,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "00:39",
+     "end": "01:55",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true,
+    "note": "clock runs at 20x showing the true value for each source frame; \">> 20x\" glyph"
+   },
+   "gfx": [
+    "TL_v2"
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json",
+   "speed_effective": 20.823,
+   "src_map": [
+    114.24,
+    114.334,
+    114.482,
+    114.74,
+    115.132,
+    115.668,
+    116.345,
+    117.148,
+    118.049,
+    119.008,
+    119.979,
+    120.95,
+    121.921,
+    122.892,
+    123.863,
+    124.834,
+    125.805,
+    126.776,
+    127.747,
+    128.717,
+    129.688,
+    130.659,
+    131.63,
+    132.601,
+    133.572,
+    134.543,
+    135.514,
+    136.485,
+    137.456,
+    138.427,
+    139.398,
+    140.369,
+    141.34,
+    142.311,
+    143.282,
+    144.252,
+    145.223,
+    146.194,
+    147.165,
+    148.136,
+    149.107,
+    150.078,
+    151.049,
+    152.02,
+    152.991,
+    153.962,
+    154.933,
+    155.904,
+    156.875,
+    157.846,
+    158.817,
+    159.788,
+    160.758,
+    161.729,
+    162.7,
+    163.671,
+    164.642,
+    165.613,
+    166.584,
+    167.555,
+    168.526,
+    169.497,
+    170.468,
+    171.439,
+    172.41,
+    173.381,
+    174.352,
+    175.323,
+    176.293,
+    177.264,
+    178.235,
+    179.206,
+    180.177,
+    181.148,
+    182.119,
+    183.09,
+    184.061,
+    185.032,
+    185.991,
+    186.892,
+    187.695,
+    188.372,
+    188.908,
+    189.3,
+    189.558,
+    189.706,
+    189.778
+   ]
+  },
+  {
+   "id": "P_06",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 47.8812,
+   "tl_out": 50.759,
+   "in_frame": 1148,
+   "out_frame": 1217,
+   "frames": 69,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 189.8146,
+   "src_out": 192.6925,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 47.708,
+   "edl_tl_out": 50.708,
+   "grew_s": -0.122,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "01:55",
+     "end": "01:58",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "G_SPRAY_v2"
+   ],
+   "src_frames": [
+    4551,
+    4619
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_07",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 50.759,
+   "tl_out": 53.5952,
+   "in_frame": 1217,
+   "out_frame": 1285,
+   "frames": 68,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 193.9855,
+   "src_out": 196.8216,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 50.708,
+   "edl_tl_out": 53.708,
+   "grew_s": -0.164,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "01:59",
+     "end": "02:02",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    4651,
+    4718
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "P_08",
+   "section": "3 PART 1 - SPRAY",
+   "type": "irl",
+   "tl_in": 53.5952,
+   "tl_out": 55.5972,
+   "in_frame": 1285,
+   "out_frame": 1333,
+   "frames": 48,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 200.7422,
+   "src_out": 202.7442,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 53.708,
+   "edl_tl_out": 55.418,
+   "grew_s": 0.292,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 1 \u00b7 SPRAY",
+    "clock1": {
+     "start": "02:06",
+     "end": "02:07",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    4813,
+    4860
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "Q_01",
+   "section": "4 PART 2 - SCAN",
+   "type": "irl",
+   "tl_in": 55.5972,
+   "tl_out": 58.4751,
+   "in_frame": 1333,
+   "out_frame": 1402,
+   "frames": 69,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 246.9967,
+   "src_out": 249.8746,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 55.418,
+   "edl_tl_out": 58.418,
+   "grew_s": -0.122,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN",
+    "clock1": {
+     "start": "02:52",
+     "end": "02:55",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "STING2_v2"
+   ],
+   "src_frames": [
+    5922,
+    5990
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "Q_02",
+   "section": "4 PART 2 - SCAN",
+   "type": "irl",
+   "tl_in": 58.4751,
+   "tl_out": 62.5208,
+   "in_frame": 1402,
+   "out_frame": 1499,
+   "frames": 97,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 285.4935,
+   "src_out": 289.5392,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 58.418,
+   "edl_tl_out": 62.418,
+   "grew_s": 0.046,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN",
+    "clock1": {
+     "start": "03:30",
+     "end": "03:34",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    6845,
+    6941
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "Q_03",
+   "section": "4 PART 2 - SCAN",
+   "type": "irl",
+   "tl_in": 62.5208,
+   "tl_out": 64.1474,
+   "in_frame": 1499,
+   "out_frame": 1538,
+   "frames": 39,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 297.5055,
+   "src_out": 299.1322,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 62.418,
+   "edl_tl_out": 63.918,
+   "grew_s": 0.127,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN",
+    "clock1": {
+     "start": "03:42",
+     "end": "03:44",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    7133,
+    7171
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "Q_04",
+   "section": "4 PART 2 - SCAN",
+   "type": "irl",
+   "tl_in": 64.1474,
+   "tl_out": 68.2348,
+   "in_frame": 1538,
+   "out_frame": 1636,
+   "frames": 98,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 320.9873,
+   "src_out": 325.0747,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 63.918,
+   "edl_tl_out": 67.918,
+   "grew_s": 0.087,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN",
+    "clock1": {
+     "start": "04:06",
+     "end": "04:10",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    7696,
+    7793
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "Q_05",
+   "section": "4 PART 2 - SCAN",
+   "type": "irl",
+   "tl_in": 68.2348,
+   "tl_out": 74.6996,
+   "in_frame": 1636,
+   "out_frame": 1791,
+   "frames": 155,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 347.3887,
+   "src_out": 353.8535,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 67.918,
+   "edl_tl_out": 74.328,
+   "grew_s": 0.055,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN",
+    "clock1": {
+     "start": "04:32",
+     "end": "04:39",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    8329,
+    8483
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "C_01",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 74.6996,
+   "tl_out": 89.2558,
+   "in_frame": 1791,
+   "out_frame": 2140,
+   "frames": 349,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 368.8268,
+   "src_out": 383.383,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 74.328,
+   "edl_tl_out": 88.848,
+   "grew_s": 0.036,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock1": {
+     "start": "04:54",
+     "end": "05:08",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    8843,
+    9191
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "C_02",
+   "section": "5 THE CRASH",
+   "type": "freeze",
+   "tl_in": 89.2558,
+   "tl_out": 90.2568,
+   "in_frame": 2140,
+   "out_frame": 2164,
+   "frames": 24,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 383.35,
+   "src_out": 384.35,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 88.848,
+   "edl_tl_out": 89.848,
+   "grew_s": 0.001,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock1": {
+     "start": "05:08",
+     "end": "05:09",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true,
+    "note": "picture frozen; CLOCK 1 keeps counting in red (\"\u25cf STILL RUNNING\")"
+   },
+   "gfx": [
+    "G_FREEZE_v2"
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "C_03",
+   "section": "5 THE CRASH",
+   "type": "card",
+   "tl_in": 90.2568,
+   "tl_out": 91.4247,
+   "in_frame": 2164,
+   "out_frame": 2192,
+   "frames": 28,
+   "source": "gfx:G05a_v2",
+   "src_in": 0.0,
+   "src_out": 1.1678,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 89.848,
+   "edl_tl_out": 91.048,
+   "grew_s": -0.032,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock_known": false,
+    "note": "clock overlay stays on the card and keeps counting"
+   },
+   "gfx": [
+    "G05a_v2"
+   ]
+  },
+  {
+   "id": "C_04",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 91.4247,
+   "tl_out": 93.5935,
+   "in_frame": 2192,
+   "out_frame": 2244,
+   "frames": 52,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 400.3166,
+   "src_out": 402.4854,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 91.048,
+   "edl_tl_out": 93.218,
+   "grew_s": -0.001,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock1": {
+     "start": "05:25",
+     "end": "05:27",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    9598,
+    9649
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "C_05",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 93.5935,
+   "tl_out": 95.387,
+   "in_frame": 2244,
+   "out_frame": 2287,
+   "frames": 43,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 403.8201,
+   "src_out": 405.6135,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 93.218,
+   "edl_tl_out": 95.018,
+   "grew_s": -0.007,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock1": {
+     "start": "05:29",
+     "end": "05:31",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "G_FREEZE_v2"
+   ],
+   "src_frames": [
+    9682,
+    9724
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "C_06",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 95.387,
+   "tl_out": 99.5578,
+   "in_frame": 2287,
+   "out_frame": 2387,
+   "frames": 100,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 410.5351,
+   "src_out": 414.706,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 95.018,
+   "edl_tl_out": 99.188,
+   "grew_s": 0.001,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock1": {
+     "start": "05:35",
+     "end": "05:40",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": null,
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    9843,
+    9942
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "id": "C_07",
+   "section": "5 THE CRASH",
+   "type": "card",
+   "tl_in": 99.5578,
+   "tl_out": 102.5608,
+   "in_frame": 2387,
+   "out_frame": 2459,
+   "frames": 72,
+   "source": "gfx:G05b_v2",
+   "src_in": 0.0,
+   "src_out": 3.003,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 99.188,
+   "edl_tl_out": 102.188,
+   "grew_s": 0.003,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock_known": false,
+    "note": "CLOCK 1 fast-forwards 05:49 -> 11:56 big and centred (INTERPOLATED, \">>\")"
+   },
+   "gfx": [
+    "G05b_v2"
+   ]
+  },
+  {
+   "id": "C_08",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "tl_in": 102.5608,
+   "tl_out": 120.7873,
+   "in_frame": 2459,
+   "out_frame": 2896,
+   "frames": 437,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 0.0,
+   "src_out": 18.2265,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 102.188,
+   "edl_tl_out": 120.138,
+   "grew_s": 0.277,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+    "clock1": {
+     "start": "11:56",
+     "end": "12:14",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "00:00",
+     "end": "00:04",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "G06_v2"
+   ],
+   "src_frames": [
+    0,
+    436
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "T_01",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 120.7873,
+   "tl_out": 121.9969,
+   "in_frame": 2896,
+   "out_frame": 2925,
+   "frames": 29,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 23.6069,
+   "src_out": 24.8165,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 120.138,
+   "edl_tl_out": 121.538,
+   "grew_s": -0.19,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "12:20",
+     "end": "12:21",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "00:10",
+     "end": "00:12",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    566,
+    594
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "T_02",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 121.9969,
+   "tl_out": 126.0009,
+   "in_frame": 2925,
+   "out_frame": 3021,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 63.9806,
+   "src_out": 67.9846,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 121.538,
+   "edl_tl_out": 125.538,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "13:00",
+     "end": "13:04",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "00:51",
+     "end": "00:55",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    1534,
+    1629
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "T_03",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 126.0009,
+   "tl_out": 130.0049,
+   "in_frame": 3021,
+   "out_frame": 3117,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 109.9849,
+   "src_out": 113.9889,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 125.538,
+   "edl_tl_out": 129.538,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "13:46",
+     "end": "13:50",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "01:37",
+     "end": "01:41",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    2637,
+    2732
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "T_02b",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 130.0049,
+   "tl_out": 134.0089,
+   "in_frame": 3117,
+   "out_frame": 3213,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 168.0012,
+   "src_out": 172.0052,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 129.538,
+   "edl_tl_out": 133.538,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "14:44",
+     "end": "14:48",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "02:35",
+     "end": "02:39",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    4028,
+    4123
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "T_04",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 134.0089,
+   "tl_out": 138.0129,
+   "in_frame": 3213,
+   "out_frame": 3309,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 4.004,
+   "src_out": 8.008,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 133.538,
+   "edl_tl_out": 137.538,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "17:12",
+     "end": "17:16",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "05:02",
+     "end": "05:06",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    96,
+    191
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "T_05",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 138.0129,
+   "tl_out": 139.2224,
+   "in_frame": 3309,
+   "out_frame": 3338,
+   "frames": 29,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 29.6129,
+   "src_out": 30.8225,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 137.538,
+   "edl_tl_out": 138.938,
+   "grew_s": -0.19,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "17:37",
+     "end": "17:39",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "05:28",
+     "end": "05:29",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    710,
+    738
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "T_06",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 139.2224,
+   "tl_out": 140.432,
+   "in_frame": 3338,
+   "out_frame": 3367,
+   "frames": 29,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 44.5862,
+   "src_out": 45.7957,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 138.938,
+   "edl_tl_out": 140.338,
+   "grew_s": -0.19,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": "17:52",
+     "end": "17:54",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "05:43",
+     "end": "05:44",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    1069,
+    1097
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json"
+  },
+  {
+   "id": "T_07",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 140.432,
+   "tl_out": 150.5254,
+   "in_frame": 3367,
+   "out_frame": 3609,
+   "frames": 242,
+   "source": "/home/user/media/lexus-is350/dropbox_4k/FX30545.MP4",
+   "src_in": 53.1364,
+   "src_out": 63.2298,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 140.338,
+   "edl_tl_out": 150.418,
+   "grew_s": 0.013,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": null,
+     "end": null,
+     "basis": "unknown: show the label with no digits"
+    },
+    "timer2": {
+     "start": "08:29",
+     "end": "08:32",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "G07_v2"
+   ],
+   "src_frames": [
+    1274,
+    1515
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "id": "T_08",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "tl_in": 150.5254,
+   "tl_out": 180.0966,
+   "in_frame": 3609,
+   "out_frame": 4318,
+   "frames": 709,
+   "source": "/home/user/media/lexus-is350/dropbox_4k/FX30545.MP4",
+   "src_in": 94.5945,
+   "src_out": 124.1657,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 150.418,
+   "edl_tl_out": 179.798,
+   "grew_s": 0.191,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+    "clock1": {
+     "start": null,
+     "end": null,
+     "basis": "unknown: show the label with no digits"
+    },
+    "timer2": {
+     "start": "08:32",
+     "end": "08:32",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "G07_v2"
+   ],
+   "src_frames": [
+    2268,
+    2976
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "id": "H_01",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 180.0966,
+   "tl_out": 182.0986,
+   "in_frame": 4318,
+   "out_frame": 4366,
+   "frames": 48,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30546.MP4",
+   "src_in": 4.5879,
+   "src_out": 6.5899,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 179.798,
+   "edl_tl_out": 181.798,
+   "grew_s": 0.002,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "21:06",
+     "end": "21:08",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "08:46",
+     "end": "08:48",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    110,
+    157
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30546.json"
+  },
+  {
+   "id": "H_02",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 182.0986,
+   "tl_out": 185.6855,
+   "in_frame": 4366,
+   "out_frame": 4452,
+   "frames": 86,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30546.MP4",
+   "src_in": 59.5178,
+   "src_out": 63.1047,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 181.798,
+   "edl_tl_out": 185.298,
+   "grew_s": 0.087,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "22:01",
+     "end": "22:05",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "09:40",
+     "end": "09:44",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    1427,
+    1512
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30546.json"
+  },
+  {
+   "id": "H_03",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 185.6855,
+   "tl_out": 189.6895,
+   "in_frame": 4452,
+   "out_frame": 4548,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 0.0,
+   "src_out": 4.004,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 185.298,
+   "edl_tl_out": 188.998,
+   "grew_s": 0.304,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "22:32",
+     "end": "22:35",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "10:11",
+     "end": "10:15",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    0,
+    95
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "H_04",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 189.6895,
+   "tl_out": 193.3181,
+   "in_frame": 4548,
+   "out_frame": 4635,
+   "frames": 87,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 35.9943,
+   "src_out": 39.6229,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 188.998,
+   "edl_tl_out": 192.498,
+   "grew_s": 0.129,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "23:08",
+     "end": "23:11",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "10:47",
+     "end": "10:50",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    863,
+    949
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "H_05",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 193.3181,
+   "tl_out": 197.6975,
+   "in_frame": 4635,
+   "out_frame": 4740,
+   "frames": 105,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 53.5118,
+   "src_out": 57.8912,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 192.498,
+   "edl_tl_out": 196.998,
+   "grew_s": -0.121,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "23:25",
+     "end": "23:30",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "11:04",
+     "end": "11:09",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    1283,
+    1387
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "H_06",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 197.6975,
+   "tl_out": 198.907,
+   "in_frame": 4740,
+   "out_frame": 4769,
+   "frames": 29,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 65.6072,
+   "src_out": 66.8167,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 196.998,
+   "edl_tl_out": 198.398,
+   "grew_s": -0.19,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "23:37",
+     "end": "23:39",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "11:16",
+     "end": "11:18",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    1573,
+    1601
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "H_07",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 198.907,
+   "tl_out": 204.913,
+   "in_frame": 4769,
+   "out_frame": 4913,
+   "frames": 144,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 120.2451,
+   "src_out": 126.2511,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 198.398,
+   "edl_tl_out": 204.248,
+   "grew_s": 0.156,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "24:32",
+     "end": "24:38",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "12:11",
+     "end": "12:17",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    2883,
+    3026
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "id": "H_08",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 204.913,
+   "tl_out": 206.915,
+   "in_frame": 4913,
+   "out_frame": 4961,
+   "frames": 48,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30548.MP4",
+   "src_in": 6.2145,
+   "src_out": 8.2165,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 204.248,
+   "edl_tl_out": 206.248,
+   "grew_s": 0.002,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "25:25",
+     "end": "25:27",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "13:04",
+     "end": "13:06",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    149,
+    196
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30548.json"
+  },
+  {
+   "id": "H_09",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 206.915,
+   "tl_out": 210.919,
+   "in_frame": 4961,
+   "out_frame": 5057,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30550.MP4",
+   "src_in": 12.012,
+   "src_out": 16.016,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 206.248,
+   "edl_tl_out": 210.248,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "26:51",
+     "end": "26:55",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "14:30",
+     "end": "14:34",
+     "basis": "DERIVED from the camera clock (no face in this clip)"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    288,
+    383
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30550.json"
+  },
+  {
+   "id": "H_10",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 210.919,
+   "tl_out": 214.5477,
+   "in_frame": 5057,
+   "out_frame": 5144,
+   "frames": 87,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 0.0,
+   "src_out": 3.6286,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 210.248,
+   "edl_tl_out": 213.698,
+   "grew_s": 0.179,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "27:22",
+     "end": "27:25",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "15:01",
+     "end": "15:04",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    0,
+    86
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "H_11",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 214.5477,
+   "tl_out": 221.0542,
+   "in_frame": 5144,
+   "out_frame": 5300,
+   "frames": 156,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 13.4301,
+   "src_out": 19.9366,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 213.698,
+   "edl_tl_out": 220.208,
+   "grew_s": -0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "27:35",
+     "end": "27:42",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "15:14",
+     "end": "15:21",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    322,
+    477
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "H_12",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 221.0542,
+   "tl_out": 222.5557,
+   "in_frame": 5300,
+   "out_frame": 5336,
+   "frames": 36,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 29.6129,
+   "src_out": 31.1144,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 220.208,
+   "edl_tl_out": 221.608,
+   "grew_s": 0.101,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "27:51",
+     "end": "27:53",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "15:30",
+     "end": "15:32",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    710,
+    745
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "H_13",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 222.5557,
+   "tl_out": 228.1446,
+   "in_frame": 5336,
+   "out_frame": 5470,
+   "frames": 134,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 84.0006,
+   "src_out": 89.5895,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 221.608,
+   "edl_tl_out": 227.308,
+   "grew_s": -0.111,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "28:46",
+     "end": "28:51",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "16:25",
+     "end": "16:31",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    2014,
+    2147
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "id": "H_14",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 228.1446,
+   "tl_out": 232.941,
+   "in_frame": 5470,
+   "out_frame": 5585,
+   "frames": 115,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 19.1441,
+   "src_out": 23.9406,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 227.308,
+   "edl_tl_out": 231.768,
+   "grew_s": 0.336,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "30:33",
+     "end": "30:37",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "18:12",
+     "end": "18:16",
+     "basis": "DERIVED from the camera clock (no face in this clip)"
+    },
+    "clock_known": false
+   },
+   "gfx": [
+    "CAP_v2"
+   ],
+   "src_frames": [
+    459,
+    573
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "id": "H_15",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 232.941,
+   "tl_out": 236.945,
+   "in_frame": 5585,
+   "out_frame": 5681,
+   "frames": 96,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 48.0063,
+   "src_out": 52.0103,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 231.768,
+   "edl_tl_out": 235.768,
+   "grew_s": 0.004,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "31:02",
+     "end": "31:06",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "18:41",
+     "end": "18:45",
+     "basis": "DERIVED from the camera clock (no face in this clip)"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    1151,
+    1246
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "id": "H_16",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "tl_in": 236.945,
+   "tl_out": 242.5757,
+   "in_frame": 5681,
+   "out_frame": 5816,
+   "frames": 135,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 100.0166,
+   "src_out": 105.6472,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 235.768,
+   "edl_tl_out": 240.768,
+   "grew_s": 0.631,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+    "clock1": {
+     "start": "31:54",
+     "end": "31:59",
+     "basis": "DERIVED: camera clock - 18:10:00.9 (anchored 553@16.14 = 32:53.18; matches 546@0 \"21:--\")"
+    },
+    "timer2": {
+     "start": "19:33",
+     "end": "19:38",
+     "basis": "DERIVED from the camera clock (no face in this clip)"
+    },
+    "clock_known": false
+   },
+   "gfx": [],
+   "src_frames": [
+    2398,
+    2532
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "id": "TM_01",
+   "section": "8 TIME",
+   "type": "irl",
+   "tl_in": 242.5757,
+   "tl_out": 253.7952,
+   "in_frame": 5816,
+   "out_frame": 6085,
+   "frames": 269,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 7.299,
+   "src_out": 18.5185,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 240.768,
+   "edl_tl_out": 252.018,
+   "grew_s": -0.03,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "TIME",
+    "clock1": {
+     "start": "32:44",
+     "end": "32:53",
+     "basis": "legible 553@16.14 = 32:53.18 (phone), real time before it; frozen at 32:53 after it"
+    },
+    "timer2": {
+     "start": "20:23",
+     "end": "20:24",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true,
+    "note": "TIMER 2 runs to 20:24 at src 9.0 and freezes; CLOCK 1 runs to 32:53 at src 16.14 and freezes; at src 17.6 both flip to \"32 MIN\" / \"20 MIN\" (owner) and stay frozen to the end"
+   },
+   "gfx": [
+    "CAP_v2",
+    "G08_v2"
+   ],
+   "src_frames": [
+    175,
+    443
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "id": "TM_02",
+   "section": "8 TIME",
+   "type": "irl",
+   "tl_in": 253.7952,
+   "tl_out": 256.7982,
+   "in_frame": 6085,
+   "out_frame": 6157,
+   "frames": 72,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 39.4978,
+   "src_out": 42.5008,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 252.018,
+   "edl_tl_out": 255.018,
+   "grew_s": 0.003,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "TIME",
+    "clock1": {
+     "start": "32 MIN",
+     "end": "32 MIN",
+     "basis": "frozen final (owner)"
+    },
+    "timer2": {
+     "start": "20 MIN",
+     "end": "20 MIN",
+     "basis": "frozen final (owner)"
+    },
+    "clock_known": true
+   },
+   "gfx": [
+    "G09_v2"
+   ],
+   "src_frames": [
+    947,
+    1018
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "id": "M1_A",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "irl",
+   "tl_in": 256.7982,
+   "tl_out": 259.8846,
+   "in_frame": 6157,
+   "out_frame": 6231,
+   "frames": 74,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 44.2942,
+   "src_out": 47.3807,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 255.018,
+   "edl_tl_out": 258.018,
+   "grew_s": 0.086,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN",
+    "clock1": {
+     "start": "12:41",
+     "end": "12:44",
+     "basis": "legible faces in this clip, real time"
+    },
+    "timer2": {
+     "start": "00:31",
+     "end": "00:34",
+     "basis": "legible faces in this clip, real time"
+    },
+    "clock_known": true
+   },
+   "gfx": [],
+   "src_frames": [
+    1062,
+    1135
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "id": "M1_B",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "scan",
+   "tl_in": 259.8846,
+   "tl_out": 262.8459,
+   "in_frame": 6231,
+   "out_frame": 6302,
+   "frames": 71,
+   "source": "SC_MATCH_REAR",
+   "src_in": 0.0,
+   "src_out": 2.9613,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 258.018,
+   "edl_tl_out": 261.018,
+   "grew_s": -0.039,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [],
+   "scan_status": "final"
+  },
+  {
+   "id": "M2_A",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "irl",
+   "tl_in": 262.8459,
+   "tl_out": 265.4735,
+   "in_frame": 6302,
+   "out_frame": 6365,
+   "frames": 63,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 132.3822,
+   "src_out": 135.0099,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 261.018,
+   "edl_tl_out": 263.768,
+   "grew_s": -0.122,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN"
+   },
+   "gfx": [],
+   "src_frames": [
+    3174,
+    3236
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30544.json",
+   "pair_status": "placeholder",
+   "placeholder": "PLACEHOLDER SC_PAIR_2 IRL (no solve yet)"
+  },
+  {
+   "id": "M2_B",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "scan",
+   "tl_in": 265.4735,
+   "tl_out": 268.268,
+   "in_frame": 6365,
+   "out_frame": 6432,
+   "frames": 67,
+   "source": "SC_PAIR_2",
+   "src_in": 0.0,
+   "src_out": 2.7945,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 263.768,
+   "edl_tl_out": 266.518,
+   "grew_s": 0.044,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [],
+   "scan_status": "black"
+  },
+  {
+   "id": "M3_A",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "irl",
+   "tl_in": 268.268,
+   "tl_out": 270.6871,
+   "in_frame": 6432,
+   "out_frame": 6490,
+   "frames": 58,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 229.5627,
+   "src_out": 231.9817,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 266.518,
+   "edl_tl_out": 269.018,
+   "grew_s": -0.081,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN"
+   },
+   "gfx": [],
+   "src_frames": [
+    5504,
+    5561
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json",
+   "pair_status": "placeholder",
+   "placeholder": "PLACEHOLDER SC_PAIR_3 IRL (no solve yet)"
+  },
+  {
+   "id": "M3_B",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "scan",
+   "tl_in": 270.6871,
+   "tl_out": 273.273,
+   "in_frame": 6490,
+   "out_frame": 6552,
+   "frames": 62,
+   "source": "SC_PAIR_3",
+   "src_in": 0.0,
+   "src_out": 2.5859,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 269.018,
+   "edl_tl_out": 271.518,
+   "grew_s": 0.086,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [],
+   "scan_status": "black"
+  },
+  {
+   "id": "M4_A",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "irl",
+   "tl_in": 273.273,
+   "tl_out": 275.4835,
+   "in_frame": 6552,
+   "out_frame": 6605,
+   "frames": 53,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 218.8019,
+   "src_out": 221.0125,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 271.518,
+   "edl_tl_out": 273.768,
+   "grew_s": -0.039,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN"
+   },
+   "gfx": [],
+   "src_frames": [
+    5246,
+    5298
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json",
+   "pair_status": "placeholder",
+   "placeholder": "PLACEHOLDER SC_PAIR_4 IRL (no solve yet)"
+  },
+  {
+   "id": "M4_B",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "scan",
+   "tl_in": 275.4835,
+   "tl_out": 277.8192,
+   "in_frame": 6605,
+   "out_frame": 6661,
+   "frames": 56,
+   "source": "SC_PAIR_4",
+   "src_in": 0.0,
+   "src_out": 2.3357,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 273.768,
+   "edl_tl_out": 276.018,
+   "grew_s": 0.086,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [],
+   "scan_status": "black"
+  },
+  {
+   "id": "M6",
+   "section": "9 THE SCAN (END MONTAGE)",
+   "type": "scan",
+   "tl_in": 277.8192,
+   "tl_out": 284.8262,
+   "in_frame": 6661,
+   "out_frame": 6829,
+   "frames": 168,
+   "source": "SC_RES_FULL",
+   "src_in": 0.0,
+   "src_out": 7.007,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 281.518,
+   "edl_tl_out": 288.518,
+   "grew_s": 0.007,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE SCAN",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [
+    "G10_v2"
+   ],
+   "scan_status": "preview"
+  },
+  {
+   "id": "CON_01",
+   "section": "10 CONCLUSION",
+   "type": "irl",
+   "tl_in": 284.8262,
+   "tl_out": 289.6644,
+   "in_frame": 6829,
+   "out_frame": 6945,
+   "frames": 116,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 11.5115,
+   "src_out": 16.3497,
+   "sync_speech": true,
+   "protect_dialogue": true,
+   "edl_tl_in": 288.518,
+   "edl_tl_out": 298.668,
+   "grew_s": -5.312,
+   "hud": {
+    "visible": true,
+    "corner": "TR",
+    "chapter": "THE ANSWER",
+    "clock1": {
+     "start": "32 MIN",
+     "end": "32 MIN",
+     "basis": "frozen final (owner)"
+    },
+    "timer2": {
+     "start": "20 MIN",
+     "end": "20 MIN",
+     "basis": "frozen final (owner)"
+    },
+    "clock_known": true
+   },
+   "gfx": [
+    "CAP_v2",
+    "CON_G1_v2"
+   ],
+   "src_frames": [
+    276,
+    391
+   ],
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30555.json"
+  },
+  {
+   "id": "CON_02",
+   "section": "10 CONCLUSION",
+   "type": "scan",
+   "tl_in": 289.6644,
+   "tl_out": 302.9693,
+   "in_frame": 6945,
+   "out_frame": 7264,
+   "frames": 319,
+   "source": "SC_CON_HERO",
+   "src_in": 0.0,
+   "src_out": 13.305,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 298.668,
+   "edl_tl_out": 306.668,
+   "grew_s": 5.305,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "THE ANSWER",
+    "note": "no HUD on scan shots (montage, tease, hero)"
+   },
+   "gfx": [
+    "CON_G3_v2"
+   ],
+   "scan_status": "preview"
+  },
+  {
+   "id": "END",
+   "section": "11 END CARD",
+   "type": "card",
+   "tl_in": 302.9693,
+   "tl_out": 307.9743,
+   "in_frame": 7264,
+   "out_frame": 7384,
+   "frames": 120,
+   "source": "gfx:G15_v2",
+   "src_in": 0.0,
+   "src_out": 5.005,
+   "sync_speech": false,
+   "protect_dialogue": false,
+   "edl_tl_in": 306.668,
+   "edl_tl_out": 311.668,
+   "grew_s": 0.005,
+   "hud": {
+    "visible": false,
+    "corner": "TR",
+    "chapter": "",
+    "clock_known": false,
+    "note": ""
+   },
+   "gfx": [
+    "G15_v2"
+   ]
+  }
+ ],
+ "cuts": [
+  {
+   "cut": "P_01|P_02",
+   "t_pre": 25.69,
+   "moved": 0.26,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "P_02|P_03",
+   "t_pre": 32.64,
+   "moved": 0.219,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "P_03|P_04",
+   "t_pre": 36.659,
+   "moved": -0.142,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "P_04|P_05",
+   "t_pre": 44.266,
+   "moved": 0.378,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "P_03|P_04",
+   "moved": -0.406,
+   "music": "spray P7",
+   "why": "P_03 shortened by 1 beat(s) so the time-lapse keeps ~20x after the dialogue growth"
+  },
+  {
+   "cut": "P_06|P_07",
+   "t_pre": 50.892,
+   "moved": -0.152,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "P_07|P_08",
+   "t_pre": 53.74,
+   "moved": -0.155,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "P_08|Q_01",
+   "t_pre": 55.294,
+   "moved": 0.322,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "Q_01|Q_02",
+   "t_pre": 58.616,
+   "moved": -0.155,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "Q_02|Q_03",
+   "t_pre": 62.461,
+   "moved": 0.064,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "Q_03|Q_04",
+   "t_pre": 64.025,
+   "moved": 0.126,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "Q_04|Q_05",
+   "t_pre": 68.151,
+   "moved": 0.064,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "Q_05|C_01",
+   "t_pre": 74.625,
+   "moved": 0.092,
+   "music": "spray P7",
+   "why": "beat"
+  },
+  {
+   "cut": "C_08|T_01",
+   "t_pre": 120.527,
+   "moved": 0.278,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "T_01|T_02",
+   "t_pre": 122.204,
+   "moved": -0.198,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "T_02|T_03",
+   "t_pre": 126.006,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "T_03|T_02b",
+   "t_pre": 130.006,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "T_02b|T_04",
+   "t_pre": 134.006,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "T_04|T_05",
+   "t_pre": 138.006,
+   "moved": 0.021,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "T_05|T_06",
+   "t_pre": 139.427,
+   "moved": -0.198,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "T_06|T_07",
+   "t_pre": 140.629,
+   "moved": -0.198,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "T_07|T_08",
+   "t_pre": 150.51,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "no allowed beat in window"
+  },
+  {
+   "cut": "T_08|H_01",
+   "t_pre": 179.89,
+   "moved": 0.193,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_01|H_02",
+   "t_pre": 182.083,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "H_02|H_03",
+   "t_pre": 185.583,
+   "moved": 0.107,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_03|H_04",
+   "t_pre": 189.391,
+   "moved": 0.305,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_04|H_05",
+   "t_pre": 193.196,
+   "moved": 0.105,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_05|H_06",
+   "t_pre": 197.801,
+   "moved": -0.094,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_06|H_07",
+   "t_pre": 199.106,
+   "moved": -0.198,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_07|H_08",
+   "t_pre": 204.758,
+   "moved": 0.158,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_08|H_09",
+   "t_pre": 206.916,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "H_09|H_10",
+   "t_pre": 210.916,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "H_10|H_11",
+   "t_pre": 214.366,
+   "moved": 0.163,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_11|H_12",
+   "t_pre": 221.039,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "no allowed beat in window"
+  },
+  {
+   "cut": "H_12|H_13",
+   "t_pre": 222.439,
+   "moved": 0.101,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_13|H_14",
+   "t_pre": 228.239,
+   "moved": -0.092,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_14|H_15",
+   "t_pre": 232.607,
+   "moved": 0.346,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "H_15|H_16",
+   "t_pre": 236.953,
+   "moved": 0.0,
+   "music": "main P4",
+   "why": "already on beat"
+  },
+  {
+   "cut": "H_16|TM_01",
+   "t_pre": 241.953,
+   "moved": 0.613,
+   "music": "main P4",
+   "why": "beat"
+  },
+  {
+   "cut": "M1_A|M1_B",
+   "t_pre": 259.816,
+   "moved": 0.049,
+   "music": "montage P1",
+   "why": "beat (kick)"
+  },
+  {
+   "cut": "M1_B|M2_A",
+   "t_pre": 262.816,
+   "moved": 0.049,
+   "music": "montage P1",
+   "why": "eighth"
+  },
+  {
+   "cut": "M2_A|M2_B",
+   "t_pre": 265.566,
+   "moved": -0.1,
+   "music": "montage P1",
+   "why": "beat (kick)"
+  },
+  {
+   "cut": "M2_B|M3_A",
+   "t_pre": 268.316,
+   "moved": -0.05,
+   "music": "montage P1",
+   "why": "eighth"
+  },
+  {
+   "cut": "M3_A|M3_B",
+   "t_pre": 270.816,
+   "moved": -0.15,
+   "music": "montage P1",
+   "why": "beat (kick)"
+  },
+  {
+   "cut": "M3_B|M4_A",
+   "t_pre": 273.316,
+   "moved": -0.049,
+   "music": "montage P1",
+   "why": "eighth"
+  },
+  {
+   "cut": "M4_A|M4_B",
+   "t_pre": 275.566,
+   "moved": -0.099,
+   "music": "montage P1",
+   "why": "beat (kick)"
+  }
+ ]
+}

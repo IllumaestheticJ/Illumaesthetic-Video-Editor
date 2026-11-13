@@ -90,21 +90,21 @@ def prep(name, spec):
 
 # arrangement: (id, beat m, peak dBFS before the master gain, why)
 ARR = [
-    ("tiny_a", 0.5, -17, "drop 1 = the first huge kick; a tiny polite mew answers it half a beat later, on the intact car"),
-    ("sad_e", 16.5, -15, "bare rear (S12): a small sad meow after the bumper-less tail"),
-    ("big_f", 32.0, -8, "THE body-off swap on the drop: where a tough car would rev, one big confident meow"),
-    ("short_b", 35.5, -14, "motif A (answers the kick, off-beat) while the camera pushes in on the bare structure"),
-    ("short_c", 37.5, -14, "motif B, two beats later"),
-    ("short_b", 39.5, -14, "motif A again, a bar later: the repeating 2-bar motif"),
-    ("mid_d", 44.5, -12, "the Hellkitten body arrives on the structure: a plain, unimpressed meow"),
-    ("long_i", 48.0, -11, "break 2: the kick drops out and a lone meow sits in the gap"),
-    ("short_c", 54.0, -17, "rising stutter into the render, 1/4"),
-    ("short_b", 54.5, -15, "rising stutter 2/4 (+2 semitones)"),
-    ("tiny_a", 55.0, -13, "rising stutter 3/4"),
-    ("chirp_j", 55.5, -12, "rising stutter 4/4, the chirp"),
-    ("big_g", 56.0, -8, "DROP 3: the Hellkitten render appears: one big confident meow exactly on the drop"),
-    ("long_h", 61.0, -9, "the question 'SHOULD WE BUILD THIS?' is on screen: one long unimpressed meow"),
-    ("tiny_a", 64.0, -16, "logo card: a last small mew on the downbeat"),
+    ("tiny_a", 0.5, -14, "drop 1 = the first huge kick; a tiny polite mew answers it half a beat later, on the intact car"),
+    ("sad_e", 16.5, -12, "bare rear (S12): a small sad meow after the bumper-less tail"),
+    ("big_f", 32.0, -5, "THE body-off swap on the drop: where a tough car would rev, one big confident meow"),
+    ("short_b", 35.5, -11, "motif A (answers the kick, off-beat) while the camera pushes in on the bare structure"),
+    ("short_c", 37.5, -11, "motif B, two beats later"),
+    ("short_b", 39.5, -11, "motif A again, a bar later: the repeating 2-bar motif"),
+    ("mid_d", 44.5, -9, "the Hellkitten body arrives on the structure: a plain, unimpressed meow"),
+    ("long_i", 48.0, -8, "break 2: the kick drops out and a lone meow sits in the gap"),
+    ("short_c", 54.0, -14, "rising stutter into the render, 1/4"),
+    ("short_b", 54.5, -12, "rising stutter 2/4 (+2 semitones)"),
+    ("tiny_a", 55.0, -10, "rising stutter 3/4"),
+    ("chirp_j", 55.5, -9, "rising stutter 4/4, the chirp"),
+    ("big_g", 56.0, -5, "DROP 3: the Hellkitten render appears: one big confident meow exactly on the drop"),
+    ("long_h", 61.0, -6, "the question 'SHOULD WE BUILD THIS?' is on screen: one long unimpressed meow"),
+    ("tiny_a", 64.0, -13, "logo card: a last small mew on the downbeat"),
 ]
 STUTTER_STEP = {"short_c@54.0": 0, "short_b@54.5": 2, "tiny_a@55.0": 4, "chirp_j@55.5": 5}   # extra semitones for the rising run
 

@@ -944,6 +944,12 @@ def loudness(path):
 
 # ----------------------------------------------------------------------------------------------------------- main
 def main():
+    if "--edl" in sys.argv:
+        edl = sys.argv[sys.argv.index("--edl") + 1]
+        if Path(edl).name != "edl.json":
+            import assemble_v2
+            return assemble_v2.main([a for a in sys.argv[1:] if a not in ("--edl", edl)])
+        sys.argv = [a for a in sys.argv if a not in ("--edl", edl)]
     stages = sys.argv[1:] or ["plan", "video", "audio", "master"]
     B.mkdir(parents=True, exist_ok=True)
     evs, pl, A = plan()
