@@ -10,7 +10,7 @@ TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 src, dst, out, oj = sys.argv[1:5]
 m = np.fromfile(src, dtype=TRI, offset=84); c = m["v"].mean(1).astype(float)
 car = np.fromfile(dst, dtype=TRI, offset=84)["v"].mean(1).astype(float); T = cKDTree(car[::12])
-flip = np.diag([1.0, -1.0, -1.0])                       # 180 deg about X (upside down)
+flip = np.eye(3)   # the file is upright (a PCA splat with an inverted axis looked upside down)
 best = None
 for k in range(4):
     a = np.radians(90 * k); Rz = np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [0, 0, 1]])

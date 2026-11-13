@@ -85,11 +85,22 @@ SHOTS["k_reveal"] = {"base": [EXPDP], "parts": FRONT_KIT + SIDE_KIT + REAR_KIT,
     "cam": [C(0, (-2.05, -7.60, 1.30), (0, -0.10, 0.60), 32), C(5.067, (-5.65, -5.75, 2.45), (0, -0.10, 0.55), 30),
             C(SECS, (-5.65, -5.75, 2.45), (0, -0.10, 0.55), 30, "lin")]}
 
+# CTA: the listing's own scan (2025 'FC3S Full Car', stock, mesh wheels) in silver, a short orbit that ENDS on the
+# listing 360 viewer's solved camera (tools/solve_listing.py, IoU 0.959) so cta_card.py --map shrinks it 1:1 onto the phone
+LC = json.load(open("/home/user/media/work/rx7/cta/listing_cam.json"))
+CTA_F = 32.0
+def lcam(da, t, ease="inout"):
+    import math
+    a, e, d = math.radians(LC["a"] + da), math.radians(LC["e"]), LC["d"]; c = LC["target"]
+    loc = [c[0] + d * math.cos(e) * math.sin(a), c[1] - d * math.cos(e) * math.cos(a), c[2] + d * math.sin(e)]
+    return {"t": t, "loc": loc, "target": c, "focal": CTA_F, "ease": ease}
+SHOTS["cta_scan"] = {"base": [f"{P}/car2025.blend"], "parts": [], "cam": [lcam(-22, 0, "lin"), lcam(0, 1.333, "out")], "secs": 1.4}
+
 
 def spec(name, mode):
     s = SHOTS[name]
     d = {"base": s["base"], "parts": s["parts"], "camera": {"keys": s["cam"], "sensor": 20.25},
-         "seconds": SECS, "fps": 15, "res": "1080x1920", "exposure": EXPO}
+         "seconds": s.get("secs", SECS), "fps": 15, "res": "1080x1920", "exposure": EXPO}
     if mode == "preview":
         d.update(res_pct=30, samples=8, frames=[1, 20, 30, 40, 50, 60, 70, 81], out=f"{OUT}/preview/{name}")
     else:
