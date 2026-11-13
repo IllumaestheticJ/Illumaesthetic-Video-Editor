@@ -5,7 +5,8 @@
 # -> fade -> small logo. Shots: tools/shots_v3.py over base b3 (tools/build_v3.py); opener + scoop reused from v2/v1.
 # Music: Roni Size - The Streets (user upload; not in git), track 146.799 -> 180.399, fades baked into seg.wav.
 # Grid: beat 1 of each bar = reel 1.3672 n (track 153.635 + 1.3672 n); the drop slams in at reel 6.152.
-# Cuts (reel s): 4.101, 6.152 (drop), 13.672, 19.141, 25.977, 30.078; end 33.4. src_fps per clip = 30*N/(slot+4).
+# Cuts (reel s): 4.101, 6.152 (drop), 13.633, 19.100, 25.900, 30.000 (measured broadband hits; the track is 176.0 BPM,
+# beat 0.34095 s, so the 1.3672 s grid drifted up to 76 ms by 26 s); end 33.3. src_fps per clip = 30*N/(slot+4).
 project: subaru-wrx-vb
 format: reel-9x16
 output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -15,7 +16,7 @@ music:
   start: 0
   fade_out: 0
 
-beats: [4.101, 6.152, 13.672, 19.141, 25.977, 30.078]
+beats: [4.101, 6.152, 13.633, 19.100, 25.900, 30.000]
 
 timeline:
   - id: v2_opener      # whole car, elevated front-right 3/4, moving from frame 1 (breakdown), v2 render at 1.25x
@@ -35,24 +36,24 @@ timeline:
   - id: v3_front       # grille out on the drop, lower garnish, bumper shell (flip: scanned inner face); hold on the structure
     focus: front bumper parts / structure behind them
     src: /home/user/media/work/wrx/renders/final/v3_front
-    src_fps: 14.934
+    src_fps: 15.000
     interpolate: true
-    dur: 7.5
-  - transition: {type: cut, note: "13.672 beat 1"}
+    dur: 7.4667
+  - transition: {type: cut, note: "13.633 snare hit"}
   - id: v3_side        # front flare / door flare / rear flare / skirt, one per bar; wide of all four
     focus: right-side cladding
     src: /home/user/media/work/wrx/renders/final/v3_side
     src_fps: 14.821
     interpolate: true
     dur: 5.4667
-  - transition: {type: cut, note: "19.141 beat 1"}
+  - transition: {type: cut, note: "19.100 hit"}
   - id: v3_rear        # trunk lid opens on its fitted hinge to the scanned open pose; rear bumper off; hold on structure
     focus: trunk / rear bumper / structure behind it
     src: /home/user/media/work/wrx/renders/final/v3_rear
-    src_fps: 14.928
+    src_fps: 15.000
     interpolate: true
-    dur: 6.8333
-  - transition: {type: cut, note: "25.977 beat 1"}
+    dur: 6.8
+  - transition: {type: cut, note: "25.900 hit"}
   - id: v3_reassemble  # lid closes, rear bumper, side, shell, garnish, grille locks on 28.711; clean car after; fade
     focus: whole car (reassembly)
     src: /home/user/media/work/wrx/renders/final/v3_reassemble
@@ -60,7 +61,7 @@ timeline:
     interpolate: true
     dur: 4.1
     vf: "fade=t=out:st=3.35:d=0.75"
-  - transition: {type: cut, note: "30.078 beat 1 - small logo through the music fade"}
+  - transition: {type: cut, note: "30.000 hit - small logo through the music fade"}
   - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3 --width 380 --fade-out 0.8
     focus: logo
     src: /home/user/media/work/wrx/out/logo_small.mp4
