@@ -15,3 +15,12 @@ Looked at: 1 fps sheet, frames 269-485 (1:1 cut, panels, paint wipe, stripes), p
 - 3D stripes are placed by eye (position rules), not from the stripe DXF; no red splitter line, wing or intercooler in the 3D livery.
 - topgear_ph screenshot shows broken image placeholders under the headline (image CDN blocked).
 - Stock grille still visible inside the kit bumper opening before the paint wipe.
+
+# Self-review - 30 s v4 (2026-11-13)
+Looked at: 1 fps sheet, 9 frames across the 3D shot (384-494), side/front/rear livery check renders against the Nov 12 photos, segment sheets.
+- Not measured: cut-to-kick error on the delivered file; interpolated part fly-ins not checked frame by frame (first frames of the 3D shot show
+  the bumper entering at the left edge).
+- Headline stack fills the full height: the first outlet tag sits close to the top edge (platform UI may cover it).
+- 3D livery is rule-based: no intercooler, orange calipers, badges or number plate; wheels are the stock scanned wheels, not the Nismo wheels.
+- Photo stills are 1080x810 bands on blurred fill (whole photo, static) - small in a 9:16 frame by request.
+- Closing reels keep the Instagram UI (account names visible); three clips, 38/30/45 frames.
