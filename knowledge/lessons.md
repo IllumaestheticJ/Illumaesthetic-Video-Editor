@@ -910,3 +910,4 @@ lands here automatically. Agents must read this whole file before editing.
 - When inserting anything into the rough cut's front section, assemble its audio row by row and check the first frames after the insert for a stale burned-in subtitle.
 - (v10) Clone the narration voice from the exact stretch the owner names as the reference (here the indoor intro speech 0:48-1:33, no music under it), not from the longest clean span: the clone then needs almost no EQ, and the level and top end can be matched by measurement. Transcribe the FINAL MIX against the script, not only each take: one take stuttered a phrase and passed the per-take word check.
 - (v10) A joke insert should be about 4 s, not 6.
+- (Miata v10 close-out) Standing credits for video descriptions: Illumaesthetic contact sales@illumaesthetic.com, Instagram @illumaesthetic; Grimace is @epsilon_motorsports. The owner does not want exact product links for parts.
