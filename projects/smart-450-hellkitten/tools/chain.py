@@ -113,8 +113,8 @@ PAIR_NOTES = [
 REELS_DESC = {
     "V_MATCH_FRONT": ("FX30554 frame 264 = 11.011 s", 531, "front walk-out: grille, both headlamps, plate", "16:9 solve RMSE 0.4 px (6 pts); 9:16 frame-1 edge check median 3.6 px / p75 9.4 px @1080x1920", "GOOD"),
     "V_PAIR_3": ("FX30542 frame 5401 = 225.267 s", 150, "hood front, grille corner, front-left headlamp; host + scanner at left", "16:9 edge fit median 3.0 / p75 7.4 px @1080p; 9:16 check median 10.4 / p75 21.4 px @1080x1920 (inflated by host/shop edges in the window; car edges coincide)", "GOOD"),
-    "V_MATCH_REAR": ("FX30542 frame 1135 = 47.339 s", 480, "rear bumper: plate, emblem, IS350 badge, scanner in hand", "16:9 solve RMSE 5.9 px (10 pts, focal 31.1 fixed); 9:16 check median 4.0 / p75 9.0 px @1080x1920", "GOOD"),
-    "V_PAIR_2": ("FX30541 frame 5641 = 235.277 s", 850, "rear-right quarter: tail lamp tip, C-pillar, side glass, rear door handle", "16:9 edge fit median 7.7 / p75 19 px @1080p; 9:16 check median 14.6 / p75 32.4 px @1080x1920", "GOOD (roof edge ~15 px off at top, outside most of this window)"),
+    "V_MATCH_REAR": ("FX30542 frame 1135 = 47.339 s", 480, "rear bumper: plate, emblem, IS350 badge, scanner in hand", "16:9 solve RMSE 5.9 px (10 pts, focal 31.1 fixed); 9:16 check of the final frame 1 median 4.0 / p75 8.8 px @1080x1920", "GOOD (looked at frames 1/21/42 + 1:1 overlay: plate outline, emblem, badge, bumper line, exhaust coincide; bottom ~40 % black because the IRL window shows floor there). See match/verify_V_MATCH_REAR.jpg"),
+    "V_PAIR_2": ("FX30541 frame 5641 = 235.277 s", 850, "rear-right quarter: tail lamp tip, C-pillar, side glass, rear door handle", "16:9 edge fit median 7.7 / p75 19 px @1080p; 9:16 check of the final frame 1 median 15.4 / p75 33.6 px @1080x1920", "USABLE with a caveat (looked at the final render): upper ~70 % (C-pillar, side glass, door shut line, handle, tail lamp tip) within ~5-10 px; lower-right corner is off - the scan's rear-right wheel well / tyre interior is ragged and shaped differently, and the rocker/sill line is ~25-30 px off at 1080p (~50 px in this frame). Outer arch lip matches. Cut on the upper body; a quick hard cut hides it. See match/verify_V_PAIR_2.jpg and verify_V_PAIR_2_lower.jpg"),
 }
 
 
@@ -144,7 +144,7 @@ def reels_manifest(now):
     st, fr, lu = rows.get("V_RES_FULL", ("not queued", "-", ""))
     L += ["", "| id | what | status | frames | luma |", "|---|---|---|---|---|",
           f"| V_RES_FULL | 4.0 s + 0.3 s handle. Full car from the front-LEFT 3/4 (clean wheel; ragged rear-left well small and far), slow push/orbit. "
-          f"Car spans 70-80 % of the width, 39-63 % of the height: top 22 % and bottom 25 % stay black for text/UI. | {st} | {fr} | {lu} |"]
+          f"Final render checked (frames 1/33/64): car spans x 85-946 of 1080 and 39-63 % of the height; top 22 % and bottom 25 % black throughout; smooth push. | {st} | {fr} | {lu} |"]
     open(f"{REPO}/projects/lexus-is350-reels/scan_shots.md", "w").write("\n".join(L) + "\n")
 
 
