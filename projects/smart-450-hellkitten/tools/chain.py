@@ -86,17 +86,26 @@ SMART_DESC = {
                      "Pull back 0.4-1.7 s to the whole car with margin, then a slow push/orbit to 4.5 s. The first 0.4 s keep A2's close (clipped) framing on purpose for continuity.",
 }
 LEX_DESC = {
-    "SC_MATCH_REAR": "E33, 4.5 s. Frame 1 = solved FX30542 f1135 (47.339 s) camera, 16:9 1920x1080; slow push on the rear bumper. Plates flattened.",
-    "SC_MATCH_FRONT": "E67, 5.0 s. Frame 1 = solved FX30554 f264 (11.011 s) camera, 16:9; slow push. Plates flattened.",
-    "SC_TITLE": "E04, 6.0 s. Front-left 3/4 hero, slow push; lower third clean for G01.",
-    "SC_RES_FULL": "E68, 7.0 s. From above-left, one continuous dolly side -> front-left 3/4 (not a turntable). The ragged rear-left well is visible only in the first ~2 s, small.",
-    "SC_RES_MESH": "E69, 5.0 s. 4 mm mesh with dark wire edges (triangles readable), front-left bumper/fender edge on a diagonal; lower-left black for G11.",
-    "SC_RES_REFLECTOR": "E70, 7.0 s. Rear-left lower corner; reflector in place 0-3.0 s, HARD state swap to reflector removed at 3.0 s; small drift, no push-in.",
-    "SC_INS_ROOF": "E20, 3.0 s. Roof + rear glass, high rear-right, slow lateral move.",
-    "SC_INS_WHEEL": "E48, 3.0 s. Front-LEFT wheel and arch only (the rear well is ragged).",
-    "SC_INS_SILL": "E57, 3.0 s. Right sill from low, front-right wheel at the frame edge; no underside shown.",
-    "SC_CON_HERO": "CON_05, 11.76 s. Front-LEFT 3/4 (the front-right well is a ragged hole), one slow continuous pull-back; lower-left band clear for the CTA.",
+    "SC_MATCH_REAR": "v2 montage, use 0-3.0 s (render is 4.5 s + 0.5 s handle). Frame 1 = solved FX30542 f1135 (47.339 s), full 16:9; slow push on the rear bumper.",
+    "SC_MATCH_FRONT": "v2 cold open: 0-5.0 s (title from +2.0 s, lower third clean); not reused in the montage. Frame 1 = solved FX30554 f264 (11.011 s), full 16:9; slow push.",
+    "SC_PAIR_2": "2.75 s + 0.5 s handle. Frame 1 = solved FX30541 f5641 (235.277 s): rear-RIGHT quarter, C-pillar, trunk lid, tail lamp; then a slow push (10 % of 2.4 m).",
+    "SC_PAIR_3": "2.5 s + 0.5 s handle. Frame 1 = solved FX30542 f5401 (225.267 s): hood, windshield base, front-LEFT headlamp and fender; then a slow push.",
+    "SC_RES_FULL": "7.0 s. From above-left, one continuous dolly side -> front-left 3/4 (not a turntable). The ragged rear-left well is visible only in the first ~2 s, small.",
+    "SC_CON_HERO": "8.0 s + 0.5 s handle (v2). Front-LEFT 3/4 (the front-right well is a ragged hole), one slow continuous pull-back; lower-left band clear for the CTA.",
 }
+PAIR_NOTES = [
+    "| pair | IRL clip, match frame | IRL lead-in (2-3 s ending on the match frame) | part of the car | fit | verdict |",
+    "|---|---|---|---|---|---|",
+    "| SC_PAIR_2 | FX30541 frame 5641 = 235.277 s | 232.78-235.277 (host scanning the rear deck with the Leo; the camera pans onto the car in the last ~1 s, a moderate pan, not a whip) | rear-right quarter, C-pillar, trunk lid, tail lamp | 6-pt PnP RMSE 11 px, then edge fit: median 7.7 px, p75 19 px (p75 inflated by powder-pattern edges), focal 26.9 mm | GOOD: windows, both door handles, mirror, tail lamp, trunk shut line coincide; roof / rear-window top edge ~15 px off at upper left |",
+    "| SC_PAIR_3 | FX30542 frame 5401 = 225.267 s | 222.80-225.267 (host scanning the hood with the Leo, steady, host at the left edge) | hood, windshield base, front-left headlamp and fender | edge fit: median 3.0 px, p75 7.4 px, focal 22.9 mm | STRONG: hood silhouette, hood/fender shut line, cowl, headlamp and grille edges coincide; no ghosting |",
+    "",
+    "Not shipped (honest): FX30544 130.0 s (rear-right quarter + wheel, scanner in the foreground) repeats SC_PAIR_2's part of the car; FX30545 8-16 s (rear "
+    "corner from the 4K rotated clip) is blown out by sun in the 16:9 band and the editor's crop is not fixed, so no reliable 1:1. FX30552 / FX30547 floor shots "
+    "are jacked or outside the v2 free ranges. Per script_v2 rule 7 (two new pairs): drop PAIR_4, PAIR_3 = 2.5 s. Ordered worst first (PAIR_2 then PAIR_3).",
+    "IRL frames for the cut must be the full-frame 1920x1080 Rec709 grade (fx3a_slog3cine_to_709.cube); the scan's frame 1 equals that frame. "
+    "Evidence: `match/onion_SC_PAIR_*.jpg`, `match/edges_SC_PAIR_*.jpg` (red = IRL edges, cyan = scan, white = both), cams `match/cam_SC_PAIR_*.json`; "
+    "refiner `tools/edgefit.py`.",
+]
 
 
 def manifest():
@@ -119,16 +128,15 @@ def manifest():
                   "Use it as a hard cut on a beat; if it reads loose, cut on the brace line.", "",
                   "| id | status | frames | luma | what |", "|---|---|---|---|---|"]
         else:
-            L += ["# IS350 speed-run long-form: scan shots", "",
-                  f"Progress note (auto, {now}). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable).",
-                  "Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; each has +4 frames (0.5 s) of handle past the EDL duration.",
+            L += ["# IS350 speed-run long-form: scan shots (v2)", "",
+                  f"Progress note (auto, {now}). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).",
+                  "Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; +0.5 s handle past each duration.",
                   "Files per shot in `/home/user/media/work/is350-long/renders/<id>/`: `png/`, `<id>_src.mov` (ProRes 422 HQ, 8 fps), `<id>_preview.mp4` "
-                  "(H.264 minterpolated to 23.976 fps: use this one in the 23.976 timeline). At SC_RES_REFLECTOR's 3.0 s swap, freeze-replace the blended frames.", "",
-                  "Plates: both flattened in the mesh before rendering (tools/deplate.py), so every render is plate-free.", "",
-                  "**SC_INS_CABIN: skipped.** The full-car STL is a closed shell (the sprayed glass was scanned as surfaces), so there is no cabin geometry. Drop E41 and let E40 run into E42.",
-                  "SC_INS_FRONT / SC_INS_REAR: not rendered (no longer needed).", "",
-                  "1:1 solves: SC_MATCH_REAR on FX30542 f1135 (47.339 s), focal fixed 31.1 mm, RMSE 5.9 px on 10 points; SC_MATCH_FRONT on FX30554 f264 (11.011 s), focal 29.2 mm, RMSE 0.4 px. "
-                  "Onions in `match/`. IRL frames must be the Rec709-graded 16:9 frames (fx3a_slog3cine_to_709.cube); the scan's first frame equals the IRL frame.", "",
+                  "(H.264 minterpolated to 23.976 fps: use this in the timeline).", "",
+                  "v2 dropped (not rendered): SC_TITLE, SC_RES_MESH, SC_RES_REFLECTOR, SC_INS_ROOF, SC_INS_WHEEL, SC_INS_SILL. SC_INS_CABIN: the STL is a closed shell, no cabin.",
+                  "Plates: the scan mesh keeps the flattened plates (owner: renders stay as delivered); the IRL footage is not blurred.", "",
+                  "1:1 solves: SC_MATCH_REAR on FX30542 f1135 (47.339 s), focal 31.1 mm fixed, RMSE 5.9 px; SC_MATCH_FRONT on FX30554 f264 (11.011 s), focal 29.2 mm, RMSE 0.4 px.", "",
+                  "## End-montage pairs", ""] + PAIR_NOTES + ["",
                   "| id | status | frames | luma | what |", "|---|---|---|---|---|"]
         for job in jobs():
             if job[0] != proj or job[3] == "preview":

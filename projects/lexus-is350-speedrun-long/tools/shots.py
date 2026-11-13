@@ -85,8 +85,13 @@ def shots():
     S["SC_INS_SILL"] = {"base": [CAR], "dur": 3.0, "keys": lambda s: [
         {"t": 0, "loc": [-2.2, -1.3, 0.22], "target": [-0.9, 0.2, 0.25], "focal": 32},
         {"t": s, "loc": [-2.15, -0.8, 0.2], "target": [-0.9, 0.6, 0.25], "focal": 32, "ease": "inout"}]}
+    # --- v2 end-montage pairs: frame 1 = the solved IRL frame (full 1920x1080, Rec709), then a slow push along the view axis ---
+    S["SC_PAIR_2"] = {"base": [CAR], "dur": 2.75,
+                      "keys": lambda s: push_from(f"{MATCH}/cam_541_fiti.json", 2.4, 0.10, s)}
+    S["SC_PAIR_3"] = {"base": [CAR], "dur": 2.5,
+                      "keys": lambda s: push_from(f"{MATCH}/cam_542_fit.json", 2.4, 0.10, s)}
     # --- conclusion hero: one slow continuous pull-back from the front-LEFT 3/4 (front-right well is ragged), lower-left band clear ---
-    S["SC_CON_HERO"] = {"base": [CAR], "dur": 11.76, "keys": lambda s: [
+    S["SC_CON_HERO"] = {"base": [CAR], "dur": 8.0, "keys": lambda s: [  # v2: 8.0 s of the planned 11.76 s
         {"t": 0, "loc": [3.7, -4.6, 1.0], "target": [0.2, -0.6, 0.45], "focal": 40},
         {"t": s, "loc": [5.0, -6.4, 1.3], "target": [0.05, -0.3, 0.4], "focal": 40, "ease": "out2"}]}
     return S

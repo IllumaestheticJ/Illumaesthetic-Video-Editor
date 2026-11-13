@@ -99,6 +99,28 @@
  ],
  [
   "lexus",
+  "SC_PAIR_2",
+  "/home/user/media/work/is350-long/scan3d/specs/SC_PAIR_2_final.json",
+  "seq",
+  [
+   "8",
+   "23.976",
+   "1920x1080"
+  ]
+ ],
+ [
+  "lexus",
+  "SC_PAIR_3",
+  "/home/user/media/work/is350-long/scan3d/specs/SC_PAIR_3_final.json",
+  "seq",
+  [
+   "8",
+   "23.976",
+   "1920x1080"
+  ]
+ ],
+ [
+  "lexus",
   "SC_RES_FULL",
   "/home/user/media/work/is350-long/scan3d/specs/SC_RES_FULL_final.json",
   "seq",

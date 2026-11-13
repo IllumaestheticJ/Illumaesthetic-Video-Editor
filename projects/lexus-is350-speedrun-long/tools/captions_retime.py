@@ -26,7 +26,7 @@ def clip_of(e):
     return os.path.basename(s)[:-4] if s.lower().endswith('.mp4') else None
 # card events carrying sync audio (e.g. E62) continue the previous IRL event's source clip
 for i, e in enumerate(evs):
-    if e.get('audio') == 'sync' and e.get('type') == 'card' and not clip_of(e) and i:
+    if (e.get('audio') == 'sync' or e.get('sync_speech')) and e.get('type') == 'card' and not clip_of(e) and i:
         p = evs[i-1]
         if clip_of(p):
             e['source'] = p['source']; e['src_in'] = p['src_out']; e['src_out'] = p['src_out'] + (e['tl_out'] - e['tl_in'])
@@ -34,7 +34,7 @@ res, rep = [], []
 for c in src:
     placed = False
     for e in evs:
-        if clip_of(e) != c['clip'] or e.get('audio') != 'sync': continue
+        if clip_of(e) != c['clip'] or not (e.get('audio') == 'sync' or e.get('sync_speech')): continue
         if c['src_end'] <= e['src_in'] or c['src_start'] >= e['src_out']: continue
         s0, s1 = max(c['src_start'], e['src_in']), min(c['src_end'], e['src_out'])
         clipped = (s0 > c['src_start'] + 0.05) or (s1 < c['src_end'] - 0.05)
