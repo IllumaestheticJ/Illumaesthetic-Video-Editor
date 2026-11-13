@@ -6,6 +6,7 @@ the real car to its scan. Every project you finish teaches the next agent.
 
 ## Before touching footage (mandatory)
 1. Read `knowledge/lessons.md` (standing rules from reviewer feedback — they override everything).
+   Then `knowledge/feedback/INDEX.md` and the pages for the most similar projects: every note the owner has given on every video, from every branch (regenerate with `python tools/feedback_digest.py` after `git fetch origin`).
 2. Read `knowledge/style-guide.md` and `knowledge/workflow.md`.
 3. Read `training/examples/INDEX.md` and the newest two examples' `project.yaml`, `editlog.jsonl`, `feedback.jsonl`.
 4. If the request involves a match cut: `knowledge/match-cut.md`. Scan data: `knowledge/scan-pipeline.md`.
@@ -36,3 +37,14 @@ prep, render, lookat, solve, check, hud, assemble, director, feedback, log, arch
 - Put text over IRL footage.
 - Use a dissolve for the IRL→scan transformation (it is always a hard 1:1 cut on a beat).
 - Re-normalise a scan after a camera solve without `--like`.
+
+## Long-form videos
+For a 16:9 long-form / explainer edit (script, voice-over, data cards, heat maps), use the `longform-data-video` skill
+(`.claude/skills/longform-data-video/SKILL.md`). Worked example: `projects/miata-bracing-longform/`.
+
+## graphify
+`graphify-out/` holds a knowledge graph of this whole repo: knowledge, all feedback, code, and each project's clip notes and
+direction (8,921 nodes; scope in `.graphifyignore`). If the CLI is installed (`pip install graphifyy`), ask it before grepping:
+`graphify query "<question>"`, `graphify path "<A>" "<B>"`, `graphify explain "<concept>"`. Rebuild with `/graphify .` after
+new projects or feedback (`graphify update .` refreshes code only). The installer's always-on hooks were not kept, because cloud
+sessions start without the CLI; `graphify claude install --project` turns them on.

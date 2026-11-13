@@ -2,6 +2,8 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [miata-bracing-longform](miata-bracing-longform/) - archived 2026-11-12
+- [toyota-gr86](toyota-gr86/) - archived 2026-11-12
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13

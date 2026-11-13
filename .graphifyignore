@@ -1,0 +1,19 @@
+# graphify scope for this repo: knowledge, feedback, code and project docs.
+# training/examples/ are archived copies of projects/ (same files twice)
+training/examples/
+# solver / overlay / registration data, not knowledge
+*.json
+*.jsonl
+# images would each need their own vision pass
+*.jpg
+*.png
+# graphify's own skill text and outputs
+.claude/skills/graphify/
+graphify-out/
+remotion/node_modules/
+# agent self-scores and auto-generated tool reports: the owner's edits are in knowledge/feedback/ and knowledge/lessons.md
+projects/*/review*.md
+projects/*/director_report*.md
+projects/*/drive_listing*
+projects/*/hood_poly*
+requirements.txt

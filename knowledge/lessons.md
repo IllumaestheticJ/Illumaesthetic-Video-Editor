@@ -711,6 +711,34 @@ lands here automatically. Agents must read this whole file before editing.
 - [technical] Cut-offset measurement: the dip window must straddle the cut (g-30..g+5 ms). A window ending 40 ms
   before the cut finds a pre-kick wiggle and reports every cut ~45 ms late.
 
+## From the Miata chassis-bracing long-form (2026-11-12, built by an agent)
+- **[text]** Narration for the owner's own voice: write it from their on-camera transcript (openers, fillers, rhetorical questions), not as
+  copy. v1 "doesn't sound like me"; v2 from their phrasing was accepted. Have a second agent check every claim against the data first.
+- **[text]** Before ranking anything from scan measurements, look for a second measurement of the same thing in the reports and try one
+  yourself (tools/towerspread.py). Here two definitions of "tower spread" disagreed on which brace helped; the script may not rank.
+- **[technical]** State scans exported from the report software can already share the report's alignment (check the as-exported median
+  distance before any ICP). A whole-scan ICP is worse when the floor is in every scan and the car moves relative to it.
+- **[audio]** Higgsfield seed_audio with a cloned voice: 28 lines (about 5.3 min at 48 kHz) used about 100 credits, not the ~25 the
+  1.7-credit test line suggested. Quote cost from a get_cost on the longest line x count, and submit at most ~5 at a time (429s).
+  Pace varies per line (2-5 words/s at the same speech_rate) and fast lines slur words: transcribe every line, slow rushed ones
+  with atempo, and spell decimals out ("nine sixty point nine four eight").
+- **[audio]** A rough cut that ducks its music under graphic cards still carries the track at -40 dB: un-duck it with a slow gain
+  envelope to get a continuous bed (tools/musicbed.py), drop the clips' own audio, loop on a 16-beat grid.
+- **[technical]** Stills made with `-loop 1 -t` run ~0.05 s long each; 30 cards = 1 s of picture lag. Cut segments by frame count.
+- **[text]** Tracked arrow callout: anchor above the roof at the centre of the car's whole colour blob, not on the paint's top edge.
+- **[audio]** After any audio rebuild, correlate the untouched part of the mix against the source (not just levels) and transcribe a
+  few seconds at the start: Miata v6 shipped with the wrong three minutes of audio up front and matching loudness numbers.
+- **[audio]** A rough cut's music can be several tracks; fingerprint it against the supplied tracks (log-band spectral-change
+  correlation, 15 s windows) before assuming one bed. Ask for / look for the music folder before reconstructing music from a mix.
+- **[scan-look]** Heat maps for a data video: render them from the scans (projects/miata-bracing-longform/tools/heat3d.py: numpy point
+  renderer, 0.6 s per 1080p split-screen frame, no Blender) with one scale for every state and a before/after split on the same
+  camera. The user asked for this over report screenshots; grey out wheels, floor and anything > 25 mm off.
+- **[text]** Data on screen and in narration at the measurement's real resolution (user: 0.1 mm). When rounded values and the rounded
+  difference disagree (961.2 - 960.9 vs 0.2), speak only the differences and footnote the table.
+- **[audio]** Don't EQ-match a cloned voice to a noisy on-camera reference: it adds treble. Cut-only above 3 kHz. Keep atempo within
+  10 %; re-roll takes instead of stretching them (stretched lines were heard as "airy" with odd pacing).
+- **[text]** Long-form data sections need motion: scan tracker, shot chips, count-up deltas, staged reveals, section title cards
+  (tools/fx.py). User asked for all of these after seeing static cards.
 ## From the Nissan Frontier v5 / Ronin section (2026-11-12, built by an agent)
 - **[story]** "How the car became the build" sections: look for the team's own CAD first - Drive has per-build folders (e.g.
   `Nissan Frontier (SEMA 2026)/STL` with grille + fender STLs) that a name search for the car finds. They are in a design frame:
