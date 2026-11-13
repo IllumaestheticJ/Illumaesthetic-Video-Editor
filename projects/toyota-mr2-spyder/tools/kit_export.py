@@ -31,6 +31,9 @@ for o in bpy.context.scene.objects:
         for k, m in enumerate(mats):
             sub = "rim" if m.startswith("rim") else "tyre" if m == "rubber" else "brake"
             groups.setdefault(f"{o.name}_{sub}", []).append(v[mi == k])
+    if o.name.startswith("part_") and len(set(mats)) > 1:      # v4: split kit parts by material (paint / plastic_black / carbon)
+        for m in set(mats):
+            groups.setdefault(f"{o.name}__{m}", []).append(v[np.isin(mi, [k for k, x in enumerate(mats) if x == m])])
     print("OBJ", o.name, mats, len(v))
 for g, vs in groups.items():
     v = np.concatenate(vs).astype(np.float32)

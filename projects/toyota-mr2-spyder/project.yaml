@@ -1,9 +1,9 @@
-# MR2 Spyder v3 - direction.md 2026-11-12. Plain concat (projects/honda-s2000/tools/concat_assemble.py), exact frames per clip.
+# MR2 Spyder v4 (nested kit, v4 city, Epsilon+ end card; shots_v4.py) - was v3 - direction.md 2026-11-12. Plain concat (projects/honda-s2000/tools/concat_assemble.py), exact frames per clip.
 # Music: user-supplied Gran Turismo 2 "East City" theme, reel starts at music 0.239 s (first sound). Cuts sit on the
 # measured onsets of beats n = 16, 20, 24, 32, 40, 48 (1:1 cut), 55, 66 (1 ms RMS rise on the decoded file).
 project: toyota-mr2-spyder
 format: reel-9x16
-output: {path: /home/user/media/work/mr2/out/mr2_spyder_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/mr2/out/mr2_spyder_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 music:
   path: /home/user/media/work/music/mr2_eastcity.wav   # not in git
   start: 0.239
@@ -49,7 +49,7 @@ timeline:
   - id: v4a_kit_rear   # KIT REAR: scanned hardtop leaves, red Epsilon parts land
     section: kit rear
     focus: Epsilon wing, duckbill, spats, diffuser, hardtop landing
-    src: /home/user/media/work/renders/mr2/v4a_kit_rear
+    src: /home/user/media/work/renders/mr2/k4a_kit_rear
     src_fps: 15.2459
     interpolate: true
     frames: 118
@@ -58,7 +58,7 @@ timeline:
   - id: v4b_kit_front   # KIT FRONT: ends on the pose the CGI inherits
     section: kit front
     focus: Epsilon skirts, vents, eyelids, bumper closing the nose
-    src: /home/user/media/work/renders/mr2/v4b_kit_front
+    src: /home/user/media/work/renders/mr2/k4b_kit_front
     src_fps: 15.2459
     interpolate: true
     frames: 118
@@ -67,7 +67,7 @@ timeline:
   - id: c1_drive_front   # 1:1 HARD CUT to the CGI lookbook car (no real driving shot exists)
     section: drive front
     focus: finished car driving, same pose
-    src: /home/user/media/work/renders/mr2/c1_drive_front
+    src: /home/user/media/work/renders/mr2/c3_drive_front
     src_fps: 30
     frames: 105
     dur: 3.5000
@@ -75,14 +75,14 @@ timeline:
   - id: c2_drive_rear   # CGI rear follow, car pulls away, fade
     section: drive rear
     focus: car pulls away
-    src: /home/user/media/work/renders/mr2/c2_drive_rear
+    src: /home/user/media/work/renders/mr2/c4_drive_rear
     src_fps: 30
     frames: 160
     dur: 5.3333
     vf: fade=t=out:st=4.33:d=0.9
   - transition: {type: cut}
   - id: logo   # ILLUMAESTHETIC logo card, 720 px wide
-    src: /home/user/media/work/mr2/out/logo_card_v3.mp4
+    src: /home/user/media/work/mr2/out/logo_card_v4.mp4
     frames: 100
     dur: 3.3333
 overlays:   # composited by concat_assemble in the same pass (do not add a second label pass)
