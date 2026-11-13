@@ -13,8 +13,14 @@ from build import D, W, SEG, FPS, WD, HT, ENC, F, RED, OFF, pipe, clip, wa, fade
 # illumaesthetic.com: headings Fjalla One, uppercase, off-white #f2f3f1 with ONE phrase in the accent green #619f73;
 # kickers / small labels in JetBrains Mono caps, green; background #0b0c0b; buttons are green parallelograms.
 GREEN = (97, 159, 115); WHITE = (242, 243, 241); INK = (11, 12, 11)
-FJ = lambda size: ImageFont.truetype(D + '/fonts/FjallaOne-Regular.ttf', size)      # from the site's own CDN (woff2 -> ttf)
-MONO = lambda size: ImageFont.truetype('/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf', size)
+# v10 (user): all text in Helvetica Bold, except "IT WASN'T." in a brushstroke font. Helvetica itself is not on this box (proprietary):
+# Liberation Sans Bold is the metric-compatible stand-in; drop a real Helvetica-Bold.ttf into media fonts/ and it is used instead.
+import os
+_HELV = D + '/fonts/Helvetica-Bold.ttf'
+_HELV = _HELV if os.path.exists(_HELV) else '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf'
+FJ = lambda size: ImageFont.truetype(_HELV, int(size * 0.76))        # 0.76: Helvetica is wider than the condensed Fjalla sizes used in v9
+MONO = lambda size: ImageFont.truetype(_HELV, size)
+BRUSH = lambda size: ImageFont.truetype(D + '/fonts/PermanentMarker-Regular.ttf', size)   # Permanent Marker (Apache 2.0, @fontsource)
 mul = lambda c, a: tuple(int(v * a) for v in c)
 
 
@@ -31,7 +37,7 @@ def slash(d, x, y, w=70, h=12, fill=GREEN):
 
 def label(d, y, title, sub, alpha):
     """Scan/CGI shots: green mono kicker over a Fjalla title (replaces build.label's Inter + red rule)."""
-    spaced(d, (80, y - 44), sub, MONO(27), mul(GREEN, alpha), track=2.5)
+    spaced(d, (80, y - 44), sub, MONO(26), mul(GREEN, alpha), track=1.5)
     spaced(d, (78, y), title, FJ(92), mul(WHITE, alpha), track=2)
 
 
@@ -73,13 +79,13 @@ def seg_hook():
 
 
 def seg_wasnt():
-    n = CUT['spray'] - CUT['wasnt']; f1 = FJ(250)
+    n = CUT['spray'] - CUT['wasnt']; f1 = BRUSH(185)
     def gen():
         for f in range(n):
             im = Image.new('RGB', (WD, HT), INK); d = ImageDraw.Draw(im)
             if f >= 2:
                 for k, (t, c) in enumerate((('IT', WHITE), ("WASN'T.", GREEN))):
-                    d.text(((WD - d.textlength(t, font=f1)) // 2, 690 + k * 270), t, font=f1, fill=c)
+                    d.text(((WD - d.textlength(t, font=f1)) // 2, 720 + k * 230), t, font=f1, fill=c)
             yield im
     pipe('v6_b_wasnt', gen())
 
@@ -204,7 +210,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v9.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v10.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)

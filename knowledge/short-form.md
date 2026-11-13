@@ -14,7 +14,7 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 | Beat | Length | Content | Notes |
 |---|---|---|---|
 | Hook | ~2 bars | one real post/article, full frame | still frame of the screen recording, 3 % push |
-| Answer card | 1 bar | 2-3 words on near-black ("IT WASN'T.") | Fjalla One ~250 px, key word in brand green |
+| Answer card | 1 bar | 2-3 words on near-black ("IT WASN'T.") | brush font (Permanent Marker) ~185 px, key word in brand green |
 | Scan day | 3 bars | spray timelapse, scanner in hand, timelapse ending on the solved frame | process order only - no finished-car shots here |
 | 3D scan | 1 bar | **1:1 cut** from the last timelapse frame; label `3D SCAN` + triangle count from the STL header | `match/cam.json` |
 | Concepts | 2 bars | flipbook of the designer's iteration screenshots, ~4-5 frames each, label `CONCEPTS` | chronological |
@@ -42,5 +42,6 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 - Say plainly what was not measured (cut-to-beat error on the delivered file was never measured on the Sentra reel).
 
 ## Text style
-Website style everywhere: Fjalla One caps, off-white `#f2f3f1`, one key word in green `#619f73`, JetBrains Mono green kickers, `#0b0c0b` cards
-(`build_v6.py`: `FJ`, `MONO`, `label`, `section_label`, `spaced`). A blurb over footage sits on a semi-transparent panel, never a solid box.
+Colours from the website: off-white `#f2f3f1`, one key word in green `#619f73`, `#0b0c0b` cards. Typeface (user, Sentra v10): **Helvetica Bold**
+for labels, blurbs and tags (Liberation Sans Bold stand-in here), a brush font (Permanent Marker) for the one punch-line card.
+`build_v6.py`: `FJ`, `MONO`, `BRUSH`, `label`, `section_label`, `spaced`. A blurb over footage sits on a semi-transparent panel, never a solid box.

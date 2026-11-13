@@ -29,3 +29,4 @@
 {"ts": "2026-11-13T18:58:39Z", "project": "nissan-sentra-sema", "at": null, "category": "text", "note": "Re-edit the text to match the colour style of our brand and website", "by": "user", "promoted": false}
 {"ts": "2026-11-13T18:58:39Z", "project": "nissan-sentra-sema", "at": "19", "category": "scan-look", "note": "Change the kit animation so the old bumper actually comes off and the new ones go on", "by": "user", "promoted": false}
 {"ts": "2026-11-13T19:20:55Z", "project": "nissan-sentra-sema", "at": "19", "category": "scan-look", "note": "Correct: only the front bumper is truly replaced on the Sentra; every other kit panel goes on over the stock body", "by": "user", "promoted": false}
+{"ts": "2026-11-13T20:46:44Z", "project": "nissan-sentra-sema", "at": null, "category": "text", "note": "Change the text to Helvetica Bold, except 'IT WASN'T.' - that goes in the 'AI slop' brushstroke font", "by": "user", "promoted": false}

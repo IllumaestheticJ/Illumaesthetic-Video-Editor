@@ -732,3 +732,6 @@ Playbook for this kind of reel: `knowledge/short-form.md`. Tools: `projects/niss
   of the nose get painted by a position-based wipe unless the wipe threshold starts beyond them.
 - **[story]** (sentra v9, user-confirmed) On the Sentra only the front bumper is truly replaced; all other kit panels are add-ons over the stock
   body. Ask which stock parts actually came off before animating any removal - a photo of a printed panel on the car is not proof.
+- **[text]** (sentra v10) One version after asking for the website style the user changed the TYPEFACE to **Helvetica Bold** for all labels/blurbs/tags
+  (brand white + green kept) and a **brushstroke font (Permanent Marker)** for the punch-line card only. Helvetica is not on the box: Liberation
+  Sans Bold is the stand-in; say so. Treat colour and typeface as separate decisions and show a type sample before re-rendering text.
