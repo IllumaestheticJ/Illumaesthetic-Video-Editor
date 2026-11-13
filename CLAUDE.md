@@ -36,3 +36,13 @@ prep, render, lookat, solve, check, hud, assemble, director, feedback, log, arch
 - Put text over IRL footage.
 - Use a dissolve for the IRL→scan transformation (it is always a hard 1:1 cut on a beat).
 - Re-normalise a scan after a camera solve without `--like`.
+
+## Long-form videos
+For a 16:9 long-form / explainer edit (script, voice-over, data cards, heat maps), use the `longform-data-video` skill
+(`.claude/skills/longform-data-video/SKILL.md`). Worked example: `projects/miata-bracing-longform/`.
+
+## graphify
+`graphify-out/` holds a knowledge graph of `projects/miata-bracing-longform` (code + docs). If the CLI is installed
+(`pip install graphifyy`), `graphify query "<question>"`, `graphify path "<A>" "<B>"` and `graphify explain "<concept>"`
+answer from it; `/graphify <path>` rebuilds it. The installer's always-on hooks were not kept: cloud sessions start
+without the CLI. To turn them on, run `graphify claude install --project`.
