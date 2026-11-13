@@ -219,6 +219,10 @@ def main():
         m1 = N("ShaderNodeMath"); m1.operation = "MULTIPLY"; m1.use_clamp = True; m1.inputs[1].default_value = 6.0; lk(bw.outputs[0], m1.inputs[0])
         m2 = N("ShaderNodeMath"); m2.operation = "MULTIPLY_ADD"; m2.inputs[1].default_value = -0.38; m2.inputs[2].default_value = 0.62; lk(m1.outputs[0], m2.inputs[0])
         lk(m2.outputs[0], pa.inputs["Roughness"])
+        m3 = N("ShaderNodeMath"); m3.operation = "MULTIPLY_ADD"; m3.inputs[1].default_value = 0.42; m3.inputs[2].default_value = 0.08   # v6: dark paint
+        lk(m1.outputs[0], m3.inputs[0])                                       # gets almost no specular, or the black roof renders mid-grey
+        for nm in ("Specular IOR Level", "Specular"):
+            if nm in pa.inputs: lk(m3.outputs[0], pa.inputs[nm]); break
         geo = N("ShaderNodeNewGeometry"); sep = N("ShaderNodeSeparateXYZ"); lk(geo.outputs["Position"], sep.inputs[0])
         vw = N("ShaderNodeValue"); vw.label = "wipe_y"; gt = N("ShaderNodeMath"); gt.operation = "GREATER_THAN"
         lk(sep.outputs["Y"], gt.inputs[0]); lk(vw.outputs[0], gt.inputs[1])
