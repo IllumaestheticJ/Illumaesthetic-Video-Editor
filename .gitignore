@@ -20,3 +20,9 @@ remotion/out/
 graphify-out/.graphify_python
 graphify-out/.graphify_root
 graphify-out/cost.json
+graphify-out/.graphify_*.json
+!graphify-out/.graphify_labels.json
+graphify-out/.graphify_*.txt
+graphify-out/.prompt_*.txt
+graphify-out/.chunks.json
+graphify-out/.ast.log
