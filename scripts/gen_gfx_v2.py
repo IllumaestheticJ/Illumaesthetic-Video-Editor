@@ -31,21 +31,37 @@ corners = json.loads((P / "gfx_v2_corners.json").read_text())["corners"] if (P /
 
 EV = {}
 ORDER = []
-for e in edl["events"]:
-    if tl and e["id"] not in tl:
-        continue  # dropped by the editor
-    t = tl.get(e["id"], {})
+edl_by = {e["id"]: e for e in edl["events"]}
+stub_hud = {"visible": False, "corner": "TR", "chapter": ""}
+order_src = [e["id"] for e in sorted(tl.values(), key=lambda x: x.get("tl_in", x.get("timeline_in", 0)))] if tl else [e["id"] for e in edl["events"]]
+for eid in order_src:
+    e = edl_by.get(eid)
+    t = tl.get(eid, {})
+    if e is None:  # event the editor added/renamed (not in edl_v2): hidden HUD stub, times from the timeline
+        print("WARN: event", eid, "not in edl_v2: HUD hidden over it")
+        e = {"id": eid, "type": t.get("type", "irl"), "hud": stub_hud, "src_in": t.get("src_in"), "src_out": t.get("src_out"),
+             "timeline_in": t.get("tl_in", 0), "timeline_out": t.get("tl_out", 0)}
     ti = t.get("tl_in", t.get("timeline_in", e["timeline_in"]))
     to = t.get("tl_out", t.get("timeline_out", e["timeline_out"]))
     si = t.get("src_in", e.get("src_in"))
     so = t.get("src_out", e.get("src_out"))
-    EV[e["id"]] = dict(e, src_map=t.get("src_map"), tin=ti, tout=to, sin=si, sout=so, d_in=(si - e["src_in"]) if si is not None and e.get("src_in") is not None else 0.0,
-                       d_out=(so - e["src_out"]) if so is not None and e.get("src_out") is not None else 0.0)
-    ORDER.append(e["id"])
+    EV[eid] = dict(e, src_map=t.get("src_map"), tin=ti, tout=to, sin=si, sout=so, d_in=(si - e["src_in"]) if si is not None and e.get("src_in") is not None else 0.0,
+                   d_out=(so - e["src_out"]) if so is not None and e.get("src_out") is not None else 0.0)
+    ORDER.append(eid)
+for eid in edl_by:
+    if tl and eid not in tl:
+        print("WARN: edl event", eid, "is not in the timeline: skipped")
 TOTAL = max(v["tout"] for v in EV.values())
 
 
+class Missing(Exception):
+    pass
+
+
 def srcT(eid, s):
+    if eid not in EV:
+        print("WARN: srcT on missing event", eid)
+        return float("nan")
     e = EV[eid]
     return e["tin"] + (s - e["sin"])
 
@@ -180,8 +196,9 @@ chips = [
     {"text": "30 MIN", "t0": srcT("B_01", 22.4), "hl": False},
     {"text": "15 MIN", "t0": srcT("B_02", 29.7), "hl": True},
 ]
+chips = [c for c in chips if c["t0"] == c["t0"]]
 hud = {"fps": FPS, "width": 1920, "height": 270, "durationInFrames": round(TOTAL * FPS), "segments": segs, "chips": chips,
-       "chipsOut": EV["B_02"]["tout"], "t2Appear": T2_APPEAR, "plateAlpha": 0.55}
+       "chipsOut": EV["B_02"]["tout"] if "B_02" in EV else 0, "t2Appear": T2_APPEAR, "plateAlpha": 0.55}
 (P / "gfx_v2_hud_props.json").write_text(json.dumps(hud, indent=1))
 print("HUD frames", hud["durationInFrames"], "segments", len(segs))
 
@@ -190,29 +207,48 @@ cues = []
 
 
 def cue(cid, comp, t_in, t_out, file, alpha, place, **props):
+    if t_in is None or t_out is None or t_in != t_in or t_out != t_out:
+        print("WARN: cue", cid, "skipped (anchor event missing)")
+        return
     fr = round((t_out - t_in) * FPS)
     cues.append({"cue": cid, "comp": comp, "file": file, "alpha": alpha, "in": round(t_in, 3), "out": round(t_out, 3), "frames": fr, "placement": place,
                  "props": {"cue": cid, "frames": fr, **props}})
 
 
 g = {c["id"]: c for c in edl["gfx_cues"]}
-ev = EV
+class _EV(dict):
+    def __missing__(self, k):
+        print("WARN: missing event", k)
+        return {"tin": float("nan"), "tout": float("nan")}
+
+
+ev = _EV(EV)
+
+
+def A(x, off=0.0):
+    return None if x is None else x + off
 cue("G01_v2", "ScanLabel", ev["CO_03"]["tin"] + 2.0, ev["CO_03"]["tout"], "G01_v2.mov", True, "lower-left lower third over black below the car (rail-free), halo",
     text="HOW FAST CAN WE\n3D-SCAN AN ENTIRE CAR?", sub=g["G01_v2"]["sub"], pos="lower3", plate=False)
 cue("G03_v2", "CueV2", ev["B_02"]["tout"] - 0.85, ev["B_02"]["tout"], "G03_v2.mov", True, "lower-left x80-900 y640 (plate)", text=g["G03_v2"]["text"], x=80, y=640, w=820)
 cue("STING1_v2", "CueV2", ev["P_03"]["tin"], ev["P_03"]["tin"] + 1.6, "STING1_v2.mov", True, "lower-left x80-900 y700 (plate, slides in/out)", text="PART 1 · SPRAY", x=80, y=700, w=860)
 cue("STING2_v2", "CueV2", ev["Q_01"]["tin"], ev["Q_01"]["tin"] + 1.6, "STING2_v2.mov", True, "same as STING1_v2", text="PART 2 · SCAN", x=80, y=700, w=860)
 cue("G_SPRAY_v2", "CueV2", ev["P_06"]["tin"] + 0.298, ev["P_07"]["tout"], "G_SPRAY_v2.mov", True, "lower-right x1020-1840 y640 (plate)", text=g["G_SPRAY_v2"]["text"], x=1020, y=640, w=820, align="right")
-g8in = srcT("TM_01", 13.2)
-cue("G08_v2", "CueV2", g8in, ev["TM_01"]["tout"], "G08_v2.mov", True, "lower-left x60-620 y560 (narrower than x80-900 to stay clear of the phone at src 16)", text=g["G08_v2"]["text"][:1] + ['TIMER 2 · RESTARTED AFTER THE CRASH · 20 MIN'],
-    x=60, y=560, w=560, beats=[round((srcT("TM_01", 14.4) - g8in) * FPS), round((srcT("TM_01", 17.2) - g8in) * FPS)])
+try:
+    g8in = srcT("TM_01", 13.2)
+    cue("G08_v2", "CueV2", g8in, ev["TM_01"]["tout"], "G08_v2.mov", True, "lower-left x60-620 y560 (narrower than x80-900 to stay clear of the phone at src 16)", text=g["G08_v2"]["text"][:1] + ['TIMER 2 · RESTARTED AFTER THE CRASH · 20 MIN'],
+        x=60, y=560, w=560, beats=[round((srcT("TM_01", 14.4) - g8in) * FPS), round((srcT("TM_01", 17.2) - g8in) * FPS)])
+except ValueError:
+    print("WARN: G08_v2 skipped (anchor missing)")
 cue("G09_v2", "CueV2", ev["TM_02"]["tin"], ev["TM_02"]["tout"], "G09_v2.mov", True, "lower-left x80-900 y640 (plate)", text=g["G09_v2"]["text"], sub=g["G09_v2"]["sub"], x=80, y=640, w=820)
 cue("G10_v2", "ScanLabel", ev["M6"]["tin"] + 1.0, ev["M6"]["tout"] - 0.3, "G10_v2.mov", True, "bottom-left over black, halo", text=g["G10_v2"]["text"], sub=g["G10_v2"]["sub"], pos="bl", plate=False)
-# edl_v2: from src 13.75 to end -1.65 s. The editor may play CON_01 shorter (fallback cut), so keep >= 3 s and end with the event.
-c1in = max(ev["CON_01"]["tin"], min(srcT("CON_01", 13.75), ev["CON_01"]["tout"] - 3.2))
-c1out = ev["CON_01"]["tout"] if srcT("CON_01", 13.75) > ev["CON_01"]["tout"] - 3.2 else ev["CON_01"]["tout"] - 1.65
-nf = round((c1out - c1in) * FPS)
-cue("CON_G1_v2", "CueV2", c1in, c1out, "CON_G1_v2.mov", True, "top-left x60-760 y60 (plates; sky is bright)", text=g["CON_G1_v2"]["text"], x=60, y=60, w=700, beats=[0, round(nf * 0.3), round(nf * 0.62)])
+try:
+    # edl_v2: from src 13.75 to end -1.65 s. The editor may play CON_01 shorter (fallback cut), so keep >= 3 s and end with the event.
+    c1in = max(ev["CON_01"]["tin"], min(srcT("CON_01", 13.75), ev["CON_01"]["tout"] - 3.2))
+    c1out = ev["CON_01"]["tout"] if srcT("CON_01", 13.75) > ev["CON_01"]["tout"] - 3.2 else ev["CON_01"]["tout"] - 1.65
+    nf = round((c1out - c1in) * FPS)
+    cue("CON_G1_v2", "CueV2", c1in, c1out, "CON_G1_v2.mov", True, "top-left x60-760 y60 (plates; sky is bright)", text=g["CON_G1_v2"]["text"], x=60, y=60, w=700, beats=[0, round(nf * 0.3), round(nf * 0.62)])
+except ValueError:
+    print("WARN: CON_G1_v2 skipped (anchor missing)")
 cue("CON_G3_v2", "ScanLabel", ev["CON_02"]["tin"] + 3.5, ev["CON_02"]["tout"], "CON_G3_v2.mov", True, "bottom-left over black, halo", text=g["CON_G3_v2"]["text"], sub="", pos="bl", plate=False)
 cue("G05a_v2", "CardV2", ev["C_03"]["tin"], ev["C_03"]["tout"], "G05a_v2.mp4", False, "BLACK CARD 1/3 full frame; HUD overlay stays on top", text=g["G05a_v2"]["text"])
 cue("G05b_v2", "CardV2", ev["C_07"]["tin"], ev["C_07"]["tout"], "G05b_v2.mp4", False, "BLACK CARD 2/3 full frame; carries the big CLOCK 1 fast-forward (HUD shows chapter tag only)", text=g["G05b_v2"]["text"], **{"from": EV["C_06"]["hud"] and sec(EV["C_06"]["hud"]["clock1"]["end"]) , "to": sec("11:56")})

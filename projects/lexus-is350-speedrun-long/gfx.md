@@ -115,3 +115,26 @@ The files in `v2/` were rendered from `timeline_v2.json`, not the edl_v2 times, 
 | FX_GLITCH_C02 | 1:29.256-1:30.257 | 24 f |
 
 HUD_v2.mov is 7384 frames (307.97 s). The time-lapse clock follows the editor's `src_map` (clock = src - 74.6 per frame) and lands on 01:55. The editor plays CON_01 as the short fallback (src 11.51-16.35, no "10 minutes"), so CON_G1_v2 starts at CON_01 src 13.0 and runs to the end of CON_01 (3.2 s, lines at +0, +0.96 s, +2.0 s) instead of 7.0 s. CON_G3_v2 runs 9.8 s over the longer hero (13.3 s); shorten its end if it should leave earlier.
+
+## Captions v2 (caption agent)
+
+- **File:** `/home/user/media/work/is350-long/gfx/v2/CAPTIONS_v2.mov` - ProRes 4444 with alpha, **1200x160 band**, 7252 frames at 23.976 fps (= full timeline length of `timeline_v2.json`, 5:02.47), 275 MB.
+- **Placement:** composite at **x=360, y=880** on the 1920x1080 timeline for the whole timeline (`overlay=360:880:format=auto`). The band sits inside the reserved caption zone (y880-1040, x360-1560). Captions are bottom-anchored at y=1020 (plate bottom), so a 2-line caption occupies about y893-1020.
+- **Look:** Inter SemiBold 46 px (cap height ~33 px), off-white #e8ecf2, 2 lines max (<=42 chars), plate 50 % black with 12 px radius (same family as HUD_v2), text-shadow. Plate width follows the text. Hard in/out on exact frames (no fades). Checked on the brightest shots (outdoor CON_01, blown-out H_11, powdered hood): legible.
+- **Content:** 62 captions, 108.5 s captioned, all on IRL sync events, none over scan shots, cards or the HUD. Sources: `captions_v2.srt/.vtt/.json` (same timing; editor can also use the SRT for the YouTube upload). Re-time to a new timeline with `python3 projects/lexus-is350-speedrun-long/tools/captions_retime.py timeline_v2.json --source captions_source_v2.json --suffix _v2 --out .` (props for the render: `remotion` composition `Captions`, props file built from `captions_v2.json`; command in `remotion/README` style: `npx remotion render Captions OUT.mov --props=PROPS.json --codec=prores --prores-profile=4444 --pixel-format=yuva444p10le --image-format=png`).
+- **Collisions:** none found. All lower-left/right overlays (G03_v2, G_SPRAY_v2, STING*, G08_v2, G09_v2) sit at y640-860, above the band. G10_v2 / CON_G3_v2 are on scan shots, which carry no speech and no captions. Keep any new overlay out of x360-1560, y880-1040 while a caption is up.
+- **Timing check:** verified against the clean-cut dialogue stem (`out/stems_v2`, re-transcribed per event, gain-normalised): 52 of 62 captions start within 0.1 s of the stem word and end within 0.15 s (rest: first or last word clipped by the cut, or +0.3 s hold on one-word replies). QA frames: `out/qa/captions_v2_NN.jpg` (NN = caption number).
+- **Not captioned:** "Yeah, I know." (C_06) and "Yup." (C_08) - not audible enough in the mix; "Okay." fragments; the "10 minutes" that starts at src 16.05 in CON_01 (the cut ends at 16.35, mid-word); "Huh?" in P_01 (before the in-point).
+- **Uncertain wording (models disagree; check by ear):**
+  1. P_02 "Oh no, oh no, that's not the..." - last word heard as "end" (3 passes), "way" (2), "right one" (1). Left open on screen.
+  2. P_08 "Checkpoint. ... two minutes." - word before "two minutes" heard as "There's / It's / He's / Just / That's". The script's "Checkpoint. Just two minutes." is not confirmed.
+  3. P_04 "Yeah, for checkpoint." (113.2-113.9) - wording and time rest on one model; not in the stem pass. Drop if you cannot hear it.
+  4. C_04 "Timer's still rolling." (3 of 5 passes; "We're still rolling" is the other reading).
+  5. P_02 "I gotta take my time." ("gonna" in one pass).
+  6. B_02 "less than the length" ("a length" in one pass).
+  7. T_07 "The cheating time is" (all passes agree, but it is an odd phrase). "So," before "Are you still recording?" is omitted; start is 0.2-1.0 s uncertain (stem puts "are you" earlier).
+  8. T_08 "wanna" (others: "want to") and "wheel wells inside" (one pass "and sides").
+  9. H_07 first caption "...a crazy position." - the first word is clipped by the cut (heard as "This is" / "It's").
+  10. H_11 "Yeah. Oh yeah, it is. It blended in." and "I do the same thing all the time." (the latter is faint and not in the stem pass; kept per the script, drop if inaudible).
+  11. TM_01 "Yep." (some passes "Yeah.").
+  12. CON_01 "on me..." (stem and one pass say "on you").
