@@ -1,6 +1,6 @@
 # IS350 speed-run long-form: scan shots
 
-Progress note (auto, 2026-11-13 02:08 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable).
+Progress note (auto, 2026-11-13 02:12 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable).
 Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; each has +4 frames (0.5 s) of handle past the EDL duration.
 Files per shot in `/home/user/media/work/is350-long/renders/<id>/`: `png/`, `<id>_src.mov` (ProRes 422 HQ, 8 fps), `<id>_preview.mp4` (H.264 minterpolated to 23.976 fps: use this one in the 23.976 timeline). At SC_RES_REFLECTOR's 3.0 s swap, freeze-replace the blended frames.
 
@@ -15,7 +15,7 @@ SC_INS_FRONT / SC_INS_REAR: not rendered (no longer needed).
 |---|---|---|---|---|
 | B5_front34_hero | done | 1 | - | 3840x2160 RGBA (transparent bg), `/home/user/media/work/is350-long/renders/B5_stills/B5_front34_hero_alpha.png` |
 | B5_side_profile | done | 1 | - | 3840x2160 RGBA (transparent bg), `/home/user/media/work/is350-long/renders/B5_stills/B5_side_profile_alpha.png` (rear-left well is ragged; crop it or prefer the 3/4) |
-| B5_halfhalf_FX30554 | todo | 1 | - | 3840x2160 RGBA (transparent bg), `/home/user/media/work/is350-long/renders/B5_stills/B5_halfhalf_FX30554_alpha.png` |
+| B5_halfhalf_FX30554 | done | 1 | - | 3840x2160 RGBA (transparent bg), `/home/user/media/work/is350-long/renders/B5_stills/B5_halfhalf_FX30554_alpha.png` |
 | SC_MATCH_REAR | todo | 0/40 |  | E33, 4.5 s. Frame 1 = solved FX30542 f1135 (47.339 s) camera, 16:9 1920x1080; slow push on the rear bumper. Plates flattened. |
 | SC_MATCH_FRONT | todo | 0/44 |  | E67, 5.0 s. Frame 1 = solved FX30554 f264 (11.011 s) camera, 16:9; slow push. Plates flattened. |
 | SC_TITLE | todo | 0/52 |  | E04, 6.0 s. Front-left 3/4 hero, slow push; lower third clean for G01. |

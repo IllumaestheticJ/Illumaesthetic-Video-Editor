@@ -30,3 +30,19 @@ Deliverable: YouTube long-form, 1920x1080, 23.976 fps, 5-7 min, plus a 1280x720 
 - Blender renders: Cycles CPU, one render job at a time on this box (4 cores), in the background.
 - Log every editorial decision: `python -m ive log projects/lexus-is350-speedrun-long "<what>" --why "<why>"`.
 - Look at your own output (sheets, frames) before reporting it good. Report failures and gaps plainly.
+
+## v2 - owner feedback on the v1 rough cut (2026-11-13). These override the v1 rules above where they conflict.
+1. Some cuts were too short and clipped the dialogue: every sync line plays to its natural end (plus a breath).
+2. The scan presentation moves to the END as one montage: short real-life scanning clip from one angle -> hard cut/transition to the
+   resulting scan from the same angle; repeat for several different angles; then the full-car hero. No scan inserts in the body.
+3. The vertical FX30545 clip looked wrong (pillarboxed, ~2:15). Use the 4K original at /home/user/media/lexus-is350/dropbox_4k/FX30545.MP4
+   and crop it to fill the frame.
+4. Do NOT blur licence plates (owner's decision; remove all plate blurs. The scan renders keep the mesh as delivered by the 3D agent.)
+5. Fewer, non-repetitive spraying clips.
+6. A small subsection break separating SPRAYING from SCANNING.
+7. A transition that shows how long the spraying took (use the real stopwatch values).
+8. Dramatize the crash section, with fitting music for it.
+9. Graphics are OVERLAYS on full-frame footage (timer, chapter, captions) - no black HUD rail/bars. IRL footage is full 1920x1080.
+   (This is the owner's explicit choice for this video and replaces the "no text over IRL" rule here.)
+10. Remove the triangle count / mesh shot everywhere (video, conclusion card, thumbnails keep no triangle text).
+11. Remove the reflector section.
