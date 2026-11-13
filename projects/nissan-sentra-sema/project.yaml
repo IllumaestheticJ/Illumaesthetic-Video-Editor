@@ -1,8 +1,8 @@
-# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v10 (v6 approved "really good"; v7-v8: logo-only end card, EXIF-fixed reveal camera, hook blurb, brand text style, bumper swap)
+# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v11 (v6 approved "really good"; v7-v8: logo-only end card, EXIF-fixed reveal camera, hook blurb, brand text style, bumper swap)
 # Built by tools/build_v6.py (exact-frame segments + concat). Structure and rules: knowledge/short-form.md.
 project: nissan-sentra-sema
 format: reel-9x16
-output: {path: /home/user/media/work/sentra/out/sentra_sema_v10.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
+output: {path: /home/user/media/work/sentra/out/sentra_sema_v11.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
 music: {title: "Killa", artist: "Way Out West", source: "user-supplied m4a (Juiced soundtrack) - commercial track, not from the CML",
         path: /home/user/media/work/music/killa.m4a, start: 0, fade_out: 1.2, bpm: 130, bar_s: 1.8462, drop_s: 29.873}
 beats: [4.027, 5.873, 7.719, 9.565, 11.411, 15.104, 18.796, 22.489, 29.873, 37.258, 44.642]

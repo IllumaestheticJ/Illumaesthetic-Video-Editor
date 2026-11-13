@@ -20,7 +20,7 @@ _HELV = D + '/fonts/Helvetica-Bold.ttf'
 _HELV = _HELV if os.path.exists(_HELV) else '/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf'
 FJ = lambda size: ImageFont.truetype(_HELV, int(size * 0.76))        # 0.76: Helvetica is wider than the condensed Fjalla sizes used in v9
 MONO = lambda size: ImageFont.truetype(_HELV, size)
-BRUSH = lambda size: ImageFont.truetype(D + '/fonts/PermanentMarker-Regular.ttf', size)   # Permanent Marker (Apache 2.0, @fontsource)
+BRUSH = lambda size: ImageFont.truetype(D + '/fonts/RoadRage-Regular.ttf', size)   # v11 (user): Road Rage for the punch line (@fontsource/road-rage, OFL)
 mul = lambda c, a: tuple(int(v * a) for v in c)
 
 
@@ -68,7 +68,7 @@ def seg_hook():
                 y0 = 250 - int((1 - u) * 40); h = 140
                 ws = [sum(d.textlength(t, font=f1) for t, _ in ln) for ln in lines]; w = max(ws)
                 box = [(WD - int(w)) // 2 - 44, y0 - 20, (WD + int(w)) // 2 + 44, y0 + h * len(lines) + 30]
-                ov = Image.new('RGBA', fr_.size, (0, 0, 0, 0)); ImageDraw.Draw(ov).rectangle(box, fill=INK + (int(115 * u),))   # semi-transparent panel
+                ov = Image.new('RGBA', fr_.size, (0, 0, 0, 0)); ImageDraw.Draw(ov).rounded_rectangle(box, radius=34, fill=INK + (int(70 * u),))   # v11: softer (~27 % black), rounded corners
                 fr_ = Image.alpha_composite(fr_.convert('RGBA'), ov).convert('RGB'); d = ImageDraw.Draw(fr_)
                 for k, ln in enumerate(lines):
                     x = (WD - ws[k]) // 2
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v10.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v11.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)
