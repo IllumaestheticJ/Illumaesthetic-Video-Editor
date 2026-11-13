@@ -1,0 +1,285 @@
+{
+ "project": "lexus-is350-speedrun-long",
+ "version": "conclusion v1 (recommended: A, host-sync led), 2026-11-13",
+ "fps": 23.976,
+ "frame": [
+  1920,
+  1080
+ ],
+ "slot": {
+  "replaces": "E71",
+  "timeline_in": 276.814,
+  "timeline_out": 304.814,
+  "length_s": 28.0,
+  "allowed_range_s": "20-30; this version is exactly 28.0 (26.4 if CON_03 dropped and nothing extends)",
+  "then": "E72 end card (G15) 304.814-309.814 unchanged"
+ },
+ "timing_note": "timeline times are pre-beat-snap, same rule as edl.json. Never cut inside a sync word; CON_01 out and CON_03 in/out have 0.2-0.6 s of air each side.",
+ "music": {
+  "bed": "P8 continues from E68-E70 (mix 1119.5 at slot start, assuming E68 starts P8 at 1100.5), ducked -12 dB under words, back to full on cards",
+  "outro": "P7 tail 1082.3-1096.5 in at timeline 295.6 on a bar line (snap), native fade 1090-1096.5 lands 303.3-309.8, i.e. across the end card"
+ },
+ "events": [
+  {
+   "id": "CON_01",
+   "section": "10 CONCLUSION",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 11.64,
+   "src_out": 15.78,
+   "timeline_in": 276.814,
+   "timeline_out": 280.954,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"If we ignore the scanner crashing on me... 20 minutes. 20 minutes for the whole car,\"",
+    "transcript": "555 [00:11.6]-[00:15.8]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music (P8 bed) ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "RESULT",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final: CLOCK 1 \"32 MIN\", TIMER 2 \"20 MIN\" (owner numbers)",
+    "clock1_display": "CLOCK 1 \"32 MIN\" (frozen)",
+    "timer2_display": "TIMER 2 \"20 MIN\" (frozen)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "CON_G0"
+   ],
+   "blur": null,
+   "what_we_see": "Host (navy Berkeley tee) to camera outdoors holding the scanner and spray gun; crew member in black polo behind him, car with fading powder on the hood",
+   "notes": "Cut IN at 11.64 (on 'if', drops the 'but' that answers the crew member's '30 minutes actual'). Cut OUT at 15.78, before '10' at 16.02, so the '10 minutes if I just did the exterior' figure and the brand line stay out. Ends on a trailing comma: land it on a hard cut into the card with a music accent. Plate not visible at 11.64/14/15.5/15.8 (checked)."
+  },
+  {
+   "id": "CON_02",
+   "section": "10 CONCLUSION",
+   "type": "card",
+   "source": "gfx:CON_G1",
+   "src_in": 0.0,
+   "src_out": 5.0,
+   "timeline_in": 280.954,
+   "timeline_out": 285.954,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only (P8 bed rises back +6 dB after the last word)",
+    "transcript": null,
+    "gain": "music bed back to full over 0.5 s"
+   },
+   "hud": {
+    "chapter": "RESULT",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final: CLOCK 1 \"32 MIN\", TIMER 2 \"20 MIN\" (owner numbers)",
+    "clock1_display": "CLOCK 1 \"32 MIN\" (frozen)",
+    "timer2_display": "TIMER 2 \"20 MIN\" (frozen)"
+   },
+   "gfx": [
+    "CON_G1",
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Answer card on black: the bet vs the two clocks",
+   "notes": "Lines build one per beat. All numbers are the owner's (32, 20) or said on camera (15, 541 [00:26.3]). Rail stays frozen."
+  },
+  {
+   "id": "CON_03",
+   "section": "10 CONCLUSION",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 25.7,
+   "src_out": 27.3,
+   "timeline_in": 285.954,
+   "timeline_out": 287.554,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Yeah, this thing's fast.\"",
+    "transcript": "555 [00:25.9]-[00:27.1]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music (P8 bed) ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "RESULT",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final: CLOCK 1 \"32 MIN\", TIMER 2 \"20 MIN\" (owner numbers)",
+    "clock1_display": "CLOCK 1 \"32 MIN\" (frozen)",
+    "timer2_display": "TIMER 2 \"20 MIN\" (frozen)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": "front plate (9JT...488) legible at src 25.86 bottom-left, fragment at 26.5 - track and blur for the whole shot",
+   "what_we_see": "Host leans toward camera and lifts the scanner on 'fast'",
+   "notes": "OPTIONAL: owner/judgement call (praise of the scanner). If dropped, extend CON_05 by 1.6 s and CON_01 hard-cuts card CON_G1 -> CON_G2 (total stays 28.0). Starts 0.6 s after 'but' (25.10) so the cut-off 'any other scanner' claim is not audible. Out 27.30 is before the camera swings to the car."
+  },
+  {
+   "id": "CON_04",
+   "section": "10 CONCLUSION",
+   "type": "card",
+   "source": "gfx:CON_G2",
+   "src_in": 0.0,
+   "src_out": 5.5,
+   "timeline_in": 287.554,
+   "timeline_out": 293.054,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; swell"
+   },
+   "hud": {
+    "chapter": "RESULT",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final: CLOCK 1 \"32 MIN\", TIMER 2 \"20 MIN\" (owner numbers)",
+    "clock1_display": "CLOCK 1 \"32 MIN\" (frozen)",
+    "timer2_display": "TIMER 2 \"20 MIN\" (frozen)"
+   },
+   "gfx": [
+    "CON_G2",
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "So-what card on black",
+   "notes": "Only the STL-header number and the owner's coffee-break framing (flag: owner to confirm wording)."
+  },
+  {
+   "id": "CON_05",
+   "section": "10 CONCLUSION",
+   "type": "scan",
+   "source": "SC_CON_HERO (NEW REQUEST to 3D agent; no scan_shots.md existed)",
+   "src_in": 0.0,
+   "src_out": 11.76,
+   "timeline_in": 293.054,
+   "timeline_out": 304.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only; P7 tail enters on a bar line at timeline 295.6 (CON +18.8), its native fade lands on the end card",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "RESULT",
+    "visible": false,
+    "mode": "hidden",
+    "clock_known": false,
+    "basis": "rail hidden (as E68-E70)"
+   },
+   "gfx": [
+    "CON_G3"
+   ],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Full car, satin silver on pure black, one slow continuous pull-back from the front three-quarter (no turntable); black lower-left band kept clear for the CTA line",
+   "notes": "Hard cut from CON_04, rail hidden like E68-E70. CTA label appears 4.8 s into the shot. Last frame holds into the end card E72 (hard cut, no dissolve)."
+  }
+ ],
+ "gfx_cues": [
+  {
+   "id": "CON_G0",
+   "type": "caption note",
+   "text": "RAIL_CAP lines",
+   "timeline_in": 276.814,
+   "timeline_out": 280.954,
+   "placement": "HUD rail centre, 2 lines max",
+   "source": "555 word times",
+   "lines": [
+    "If we ignore the scanner crashing on me...",
+    "20 minutes. 20 minutes for the whole car."
+   ]
+  },
+  {
+   "id": "CON_G1",
+   "type": "full-frame card on black",
+   "text": [
+    "HOW FAST?",
+    "32 MIN · FROM \"GO\"",
+    "20 MIN · WITHOUT THE CRASH"
+   ],
+   "sub": "THE BET WAS 15",
+   "timeline_in": 280.954,
+   "timeline_out": 285.954,
+   "placement": "centre; HOW FAST? first, then the two rows on successive beats, THE BET WAS 15 last, smaller; same type as G08",
+   "source": "owner: 32 min elapsed / 20 min without the crash (as G08); 15 = host, 541 [00:26.3]"
+  },
+  {
+   "id": "CON_G2",
+   "type": "full-frame card on black",
+   "text": "A FULL CAR IN ABOUT A COFFEE BREAK",
+   "sub": "24,999,992 TRIANGLES: THE STARTING POINT FOR NEW PARTS",
+   "timeline_in": 287.554,
+   "timeline_out": 293.054,
+   "placement": "centre; sub on the next beat",
+   "source": "coffee break = owner's framing (owner to confirm; 20-32 min); 24,999,992 = STL header of Lexus 4IS IS350 Full Car.stl; 'new parts' = host 545 [01:56.4] 'if you wanna make a lip kit'"
+  },
+  {
+   "id": "CON_G3",
+   "type": "label on scan render (CTA)",
+   "text": "LINK IN THE DESCRIPTION",
+   "sub": null,
+   "timeline_in": 297.854,
+   "timeline_out": 304.414,
+   "placement": "bottom-left over pure black only, white sans with halo (measure coverage)",
+   "source": "generic CTA; owner picks the final wording (see conclusion.md)",
+   "alternatives": [
+    "GET THIS LEXUS IS350 SCAN: LINK IN THE DESCRIPTION",
+    "WANT YOUR CAR SCANNED? LINK IN THE DESCRIPTION",
+    "WHICH CAR SHOULD WE SCAN NEXT? TELL US BELOW"
+   ]
+  }
+ ],
+ "caption_source": [
+  {
+   "event": "CON_01",
+   "timeline_in": 276.814,
+   "timeline_out": 280.954,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 11.64,
+   "src_out": 15.78,
+   "words": "\"If we ignore the scanner crashing on me... 20 minutes. 20 minutes for the whole car,\"",
+   "transcript": "555 [00:11.6]-[00:15.8]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30555.json"
+  },
+  {
+   "event": "CON_03",
+   "timeline_in": 285.954,
+   "timeline_out": 287.554,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30555.MP4",
+   "src_in": 25.7,
+   "src_out": 27.3,
+   "words": "\"Yeah, this thing's fast.\"",
+   "transcript": "555 [00:25.9]-[00:27.1]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30555.json"
+  }
+ ],
+ "stats": {
+  "conclusion_total": 28.0,
+  "irl_sync": 5.74,
+  "cards": 10.5,
+  "scan": 11.76,
+  "sections_replaced": "E71 only"
+ },
+ "sections": [
+  {
+   "section": "10 CONCLUSION",
+   "timeline_in": 276.814,
+   "timeline_out": 304.814,
+   "dur": 28.0
+  }
+ ]
+}

@@ -1,0 +1,2778 @@
+{
+ "project": "lexus-is350-speedrun-long",
+ "version": "script v1 (2026-11-12)",
+ "fps": 23.976,
+ "frame": [
+  1920,
+  1080
+ ],
+ "layout": {
+  "irl": "top 1920x920 (scale/crop the 16:9 source to 1920x920, keep heads; rotated 545: rotate upright, centre-crop to 1920x920 from the 4K original if available, else pillarbox on a blurred, darkened copy - no text there)",
+  "hud_rail": "bottom 1920x160 black: CLOCK 1 (left), TIMER 2 (appears at E29), captions (centre), chapter (right)",
+  "scan": "full frame 1920x1080; rail overlays with transparent background unless hud.visible is false; frame the car above y=900",
+  "card": "full frame black; rail stays"
+ },
+ "timing_note": "timeline times are pre-beat-snap. Editor snaps each cut to the nearest music accent within +-0.15 s, moving the src_in/out of music-only shots first; never cut inside a sync word; match-cut src_out values are fixed (move src_in).",
+ "clock_model": {
+  "clock1": "phone stopwatch from \"go\" (541 src 74.6). Real-time inside each clip; legible faces: 541@72 00:00.00, 541@75 00:00.43, 541@192 01:57.46, 541@298 03:43.44, 541@300 03:45.43, 541@374 04:59.52, 541@404 05:29.46, 542@24 12:20.75, 544@45 17:53.38, 546@0 21:-- (minutes only). After 544 no legible value until the said/owner \"32 minutes\".",
+  "timer2": "watch stopwatch restarted at 542 src 13.0 (\"Now.\" 13.53). Legible: 542@16 00:03.00, 544@30 05:28.64, 545@56 08:32.23 STOPPED, 546@5 08:46.40, 547@66 11:17.36, 548@7 13:05.01, 551@30 15:31.30, 553@9 20:24.95. Paused ~86 s around the 545 review; camera wall-clock (creation_time) agrees with all faces after the pause to within 0.4 s.",
+  "display": "MM:SS, truncated like a stopwatch. Each IRL event shows the true value for its own source frames, so the clock jumps forward at cuts (animate the jump as an 8-frame digit roll). Never run backwards. Scan inserts and cards hold the last value unless the event says otherwise."
+ },
+ "events": [
+  {
+   "id": "E01",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 0.8,
+   "src_out": 2.95,
+   "timeline_in": 0.0,
+   "timeline_out": 2.15,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"How long do you think it's gonna take?\" / \"Two hours.\"",
+    "transcript": "541 [00:00.9]-[00:02.8]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "",
+    "visible": true,
+    "clock1_start": "00:00",
+    "clock1_end": "00:00",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "not started (grey)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host off-camera asks; crew member (dark tee) answers to camera, smiling",
+   "notes": "Rail clock shows 00:00 (grey, not started). No chapter label in the cold open."
+  },
+  {
+   "id": "E02",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 380.55,
+   "src_out": 382.85,
+   "timeline_in": 2.15,
+   "timeline_out": 4.45,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"It's never crashed on me before.\"",
+    "transcript": "541 [06:20.8]-[06:22.7]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "",
+    "visible": true,
+    "clock1_start": "05:05",
+    "clock1_end": "05:08",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": "background red car plate behind the host (541 ~344-384 s) - blur if legible at 1080p",
+   "what_we_see": "Host laughing, scanner held up over his head (crash moment)",
+   "notes": "Flash-forward. The body (E21) uses the lines before this one, so no frame repeats."
+  },
+  {
+   "id": "E03",
+   "section": "1 COLD OPEN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 2.55,
+   "src_out": 4.7,
+   "timeline_in": 4.45,
+   "timeline_out": 6.6,
+   "audio": {
+    "mode": "music-only (sync ducked out; no words in this span)",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "",
+    "visible": true,
+    "clock1_start": "11:59",
+    "clock1_end": "12:01",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [24] in FX30542"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Host, hands over his face (after the reboot decision)",
+   "notes": "Hard cut to title on the next downbeat."
+  },
+  {
+   "id": "E04",
+   "section": "2 TITLE",
+   "type": "scan",
+   "source": "SC_TITLE",
+   "src_in": 0.0,
+   "src_out": 6.0,
+   "timeline_in": 6.6,
+   "timeline_out": 12.6,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "",
+    "visible": false,
+    "mode": "hidden",
+    "clock_known": false,
+    "basis": "rail hidden"
+   },
+   "gfx": [
+    "G01"
+   ],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Title hero: whole car, satin silver on black, slow push",
+   "notes": "Music hit on the first frame. Rail hidden for the title only."
+  },
+  {
+   "id": "E05",
+   "section": "3 THE BET",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 12.15,
+   "src_out": 14.1,
+   "timeline_in": 12.6,
+   "timeline_out": 14.55,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"How long do you think it'll take to scan this car?\"",
+    "transcript": "541 [00:12.2]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE BET",
+    "visible": true,
+    "clock1_start": "00:00",
+    "clock1_end": "00:00",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "not started (grey)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G02"
+   ],
+   "blur": null,
+   "what_we_see": "Host to camera with the crew member in black polo beside him",
+   "notes": ""
+  },
+  {
+   "id": "E06",
+   "section": "3 THE BET",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 21.9,
+   "src_out": 23.0,
+   "timeline_in": 14.55,
+   "timeline_out": 15.65,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Maybe 30 minutes.\"",
+    "transcript": "541 [00:22.1]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE BET",
+    "visible": true,
+    "clock1_start": "00:00",
+    "clock1_end": "00:00",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "not started (grey)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G02"
+   ],
+   "blur": null,
+   "what_we_see": "Crew member in black polo + lanyard, to camera",
+   "notes": "G02 adds chip \"30 MIN\"."
+  },
+  {
+   "id": "E07",
+   "section": "3 THE BET",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 26.15,
+   "src_out": 30.0,
+   "timeline_in": 15.65,
+   "timeline_out": 19.5,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"I think I can do it in less than the length of a YouTube video. 15 minutes.\"",
+    "transcript": "541 [00:26.3]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE BET",
+    "visible": true,
+    "clock1_start": "00:00",
+    "clock1_end": "00:00",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "not started (grey)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G02"
+   ],
+   "blur": null,
+   "what_we_see": "Host (Berkeley tee) to camera, grinning",
+   "notes": "Cut before \"of course\" (large-v3 only). G02 adds chip \"15 MIN\" (host's bet, highlighted)."
+  },
+  {
+   "id": "E08",
+   "section": "3 THE BET",
+   "type": "card",
+   "source": "gfx:G03",
+   "src_in": 0.0,
+   "src_out": 2.5,
+   "timeline_in": 19.5,
+   "timeline_out": 22.0,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE BET",
+    "visible": true,
+    "clock_known": false,
+    "basis": "hold the previous event's last value"
+   },
+   "gfx": [
+    "G03"
+   ],
+   "blur": null,
+   "what_we_see": "Card on black: the bet",
+   "notes": "Pickup slot PU1 can play here."
+  },
+  {
+   "id": "E09",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 71.3,
+   "src_out": 76.6,
+   "timeline_in": 22.0,
+   "timeline_out": 27.3,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Three, two, one, go.\"",
+    "transcript": "541 [01:11.6]-[01:14]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "00:00",
+    "clock1_end": "00:02",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G14"
+   ],
+   "blur": null,
+   "what_we_see": "Phone stopwatch at 00:00.00 in hand, start pressed; car behind",
+   "notes": "MUSIC DROP on \"go\" (src 73.78). Rail CLOCK 1 starts at src 74.6 = 00:00 and runs real time."
+  },
+  {
+   "id": "E10",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 77.3,
+   "src_out": 81.0,
+   "timeline_in": 27.3,
+   "timeline_out": 31.0,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"I'm so confident in my ability, I'm not gonna rush. I gotta take my time.\"",
+    "transcript": "541 [01:17.6]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "00:02",
+    "clock1_end": "00:06",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Hands at the bench: spray bottle, scanner on its stand, spray gun",
+   "notes": "Out before \"Oh no\" (81.12). Do NOT run on into the \"Artec ad\" line at 87.9."
+  },
+  {
+   "id": "E11",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "card",
+   "source": "gfx:G04",
+   "src_in": 0.0,
+   "src_out": 1.5,
+   "timeline_in": 31.0,
+   "timeline_out": 32.5,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock_known": false,
+    "basis": "CLOCK 1 holds its last value (00:06)"
+   },
+   "gfx": [
+    "G04"
+   ],
+   "blur": null,
+   "what_we_see": "Card on black: step 1",
+   "notes": ""
+  },
+  {
+   "id": "E12",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 103.0,
+   "src_out": 106.6,
+   "timeline_in": 32.5,
+   "timeline_out": 36.1,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "00:28",
+    "clock1_end": "00:32",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": "front plate (9JTY488) legible - track and blur",
+   "what_we_see": "Host sprays the front bumper/grille",
+   "notes": ""
+  },
+  {
+   "id": "E13",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 106.7,
+   "src_out": 111.5,
+   "timeline_in": 36.1,
+   "timeline_out": 40.9,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Then when I'm done spraying the car, show the watch. ... I'm gonna show the watch periodically.\"",
+    "transcript": "541 [01:46.7]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "00:32",
+    "clock1_end": "00:36",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Spraying along the side",
+   "notes": ""
+  },
+  {
+   "id": "E14",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 119.0,
+   "src_out": 122.0,
+   "timeline_in": 40.9,
+   "timeline_out": 43.9,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "00:44",
+    "clock1_end": "00:47",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Host crouched, spraying the door and wheel",
+   "notes": ""
+  },
+  {
+   "id": "E15",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 166.0,
+   "src_out": 169.5,
+   "timeline_in": 43.9,
+   "timeline_out": 47.4,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "01:31",
+    "clock1_end": "01:34",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": "front plate (9JTY488) legible - track and blur",
+   "what_we_see": "Static front of the fully powdered car",
+   "notes": ""
+  },
+  {
+   "id": "E16",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 191.6,
+   "src_out": 193.4,
+   "timeline_in": 47.4,
+   "timeline_out": 49.2,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "01:57",
+    "clock1_end": "01:58",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Phone stopwatch close-up (01:57.46 at src 192)",
+   "notes": "Legible face = rail value."
+  },
+  {
+   "id": "E17",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 285.5,
+   "src_out": 289.5,
+   "timeline_in": 49.2,
+   "timeline_out": 53.2,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "03:30",
+    "clock1_end": "03:34",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "First scan pass: scanner close-up along the car",
+   "notes": ""
+  },
+  {
+   "id": "E18",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 297.5,
+   "src_out": 299.0,
+   "timeline_in": 53.2,
+   "timeline_out": 54.7,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "03:42",
+    "clock1_end": "03:44",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Phone stopwatch 03:43.44 (src 298)",
+   "notes": ""
+  },
+  {
+   "id": "E19",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 307.0,
+   "src_out": 311.0,
+   "timeline_in": 54.7,
+   "timeline_out": 58.7,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "03:52",
+    "clock1_end": "03:56",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Crew member in black polo sprays the roof/trunk",
+   "notes": ""
+  },
+  {
+   "id": "E20",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "scan",
+   "source": "SC_INS_ROOF",
+   "src_in": 0.0,
+   "src_out": 3.0,
+   "timeline_in": 58.7,
+   "timeline_out": 61.7,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "mode": "overlay",
+    "clock_known": false,
+    "basis": "hold the previous IRL event's last value (clock frozen during scan inserts)"
+   },
+   "gfx": [],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Scan insert: the roof and rear glass, low raking light, slow lateral move",
+   "notes": "Tied to the roof being sprayed in E19. Hard cut in and out."
+  },
+  {
+   "id": "E21",
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 347.4,
+   "src_out": 353.4,
+   "timeline_in": 61.7,
+   "timeline_out": 67.7,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"The corner of the left headlight. You see how it's like not fully covered?\" / \"Got you.\"",
+    "transcript": "541 [05:47.6]-[05:53.2]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "SPRAY + FIRST PASS",
+    "visible": true,
+    "clock1_start": "04:32",
+    "clock1_end": "04:38",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": "background red car plate behind the host (541 ~344-384 s) - blur if legible at 1080p",
+   "what_we_see": "Host with scanner points out a spot; crew member with spray gun",
+   "notes": ""
+  },
+  {
+   "id": "E22",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 369.0,
+   "src_out": 380.3,
+   "timeline_in": 67.7,
+   "timeline_out": 79.0,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Time check.\" / \"What? Oh, it's switched. Five minutes on the dot.\" / \"How you feeling halfway through it?\" / \"It just crashed.\"",
+    "transcript": "541 [06:09.2]-[06:19.5]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE CRASH",
+    "visible": true,
+    "clock1_start": "04:54",
+    "clock1_end": "05:05",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G14"
+   ],
+   "blur": "background red car plate behind the host (541 ~344-384 s) - blur if legible at 1080p",
+   "what_we_see": "Crew around the host; analog watch face 04:57.46 (src 372), phone 04:59.52 (src 374); host lifts the scanner",
+   "notes": "MUSIC CUTS DEAD on \"crashed\" (src 379.5). Room tone only until E27 \"Now.\""
+  },
+  {
+   "id": "E23",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 382.7,
+   "src_out": 384.8,
+   "timeline_in": 79.0,
+   "timeline_out": 81.1,
+   "audio": {
+    "mode": "room tone (no music)",
+    "hear": "room tone",
+    "transcript": null,
+    "gain": "room tone (no music)"
+   },
+   "hud": {
+    "chapter": "THE CRASH",
+    "visible": true,
+    "clock1_start": "05:08",
+    "clock1_end": "05:10",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Scanner screen in the host's hand",
+   "notes": ""
+  },
+  {
+   "id": "E24",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 400.4,
+   "src_out": 402.0,
+   "timeline_in": 81.1,
+   "timeline_out": 82.7,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"We're still rolling.\"",
+    "transcript": "541 [06:40.6]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE CRASH",
+    "visible": true,
+    "clock1_start": "05:25",
+    "clock1_end": "05:27",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host walking with scanner and spray gun",
+   "notes": "medium.en heard \"timer's still rolling\"; caption the large-v3 words."
+  },
+  {
+   "id": "E25",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 403.8,
+   "src_out": 405.6,
+   "timeline_in": 82.7,
+   "timeline_out": 84.5,
+   "audio": {
+    "mode": "room tone",
+    "hear": "room tone",
+    "transcript": null,
+    "gain": "room tone"
+   },
+   "hud": {
+    "chapter": "THE CRASH",
+    "visible": true,
+    "clock1_start": "05:29",
+    "clock1_end": "05:31",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Phone stopwatch 05:29.46 (src 404)",
+   "notes": ""
+  },
+  {
+   "id": "E26",
+   "section": "5 THE CRASH",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 410.7,
+   "src_out": 414.4,
+   "timeline_in": 84.5,
+   "timeline_out": 88.2,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Yeah, once this is sorted out, I'm just gonna start a new scan.\" / \"Yeah, I know.\"",
+    "transcript": "541 [06:50.8]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE CRASH",
+    "visible": true,
+    "clock1_start": "05:36",
+    "clock1_end": "05:39",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [72, 75, 192, 298, 300, 374, 404] in FX30541"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host with the spray gun",
+   "notes": ""
+  },
+  {
+   "id": "E27",
+   "section": "5 THE CRASH",
+   "type": "card",
+   "source": "gfx:G05",
+   "src_in": 0.0,
+   "src_out": 3.0,
+   "timeline_in": 88.2,
+   "timeline_out": 91.2,
+   "audio": {
+    "mode": "room tone + low \"loading\" pad (music agent)",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "room tone + low \"loading\" pad (music agent)"
+   },
+   "hud": {
+    "chapter": "THE CRASH",
+    "visible": true,
+    "clock_known": false,
+    "basis": "CLOCK 1 fast-forwards 05:49 -> 11:56 (INTERPOLATED between legible 05:29.46 [541@404] and 12:20.75 [542@24]; show the fast-forward glyph)"
+   },
+   "gfx": [
+    "G05"
+   ],
+   "blur": null,
+   "what_we_see": "Card on black: crash / reboot; CLOCK 1 fast-forwards",
+   "notes": ""
+  },
+  {
+   "id": "E28",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 0.0,
+   "src_out": 2.5,
+   "timeline_in": 91.2,
+   "timeline_out": 93.7,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"So, what happened? So the scanner crashed.\"",
+    "transcript": "542 [00:00]-[00:02.4]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "11:56",
+    "clock1_end": "11:59",
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [24] in FX30542"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G14"
+   ],
+   "blur": null,
+   "what_we_see": "Host turns to camera at the bench",
+   "notes": ""
+  },
+  {
+   "id": "E29",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 4.7,
+   "src_out": 14.6,
+   "timeline_in": 93.7,
+   "timeline_out": 103.6,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"So after like a five minute delay, we're rebooting it. And now we're gonna try again. All right, let's start the... start a secondary timer. Now. Yep.\"",
+    "transcript": "542 [00:04.8]-[00:14.1]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "12:01",
+    "clock1_end": "12:11",
+    "timer2_start": "00:00",
+    "timer2_end": "00:01",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [24] in FX30542"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G06"
+   ],
+   "blur": null,
+   "what_we_see": "Bench: scanner, spray gun; host; wrist",
+   "notes": "Jump cut over the facepalm used in E03. MUSIC BACK IN on \"Now.\" (src 13.53). TIMER 2 appears in the rail at src 13.0."
+  },
+  {
+   "id": "E30",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 15.4,
+   "src_out": 17.0,
+   "timeline_in": 103.6,
+   "timeline_out": 105.2,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "12:12",
+    "clock1_end": "12:13",
+    "timer2_start": "00:02",
+    "timer2_end": "00:04",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [24] in FX30542; TIMER 2 real-time from legible face(s) [16] in FX30542"
+   },
+   "gfx": [
+    "G06"
+   ],
+   "blur": null,
+   "what_we_see": "Watch face 00:03.00 (src 16), running",
+   "notes": ""
+  },
+  {
+   "id": "E31",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 23.6,
+   "src_out": 25.0,
+   "timeline_in": 105.2,
+   "timeline_out": 106.6,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "12:20",
+    "clock1_end": "12:21",
+    "timer2_start": "00:10",
+    "timer2_end": "00:12",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [24] in FX30542; TIMER 2 real-time from legible face(s) [16] in FX30542"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Phone stopwatch 12:20.75 (src 24)",
+   "notes": ""
+  },
+  {
+   "id": "E32",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 40.97,
+   "src_out": 47.381,
+   "timeline_in": 106.6,
+   "timeline_out": 113.011,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "12:37",
+    "clock1_end": "12:44",
+    "timer2_start": "00:27",
+    "timer2_end": "00:34",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [24] in FX30542; TIMER 2 real-time from legible face(s) [16] in FX30542"
+   },
+   "gfx": [],
+   "blur": "rear plate (9JTY488) legible - track and blur",
+   "what_we_see": "Host crouched scanning the rear bumper; ENDS on solved frame 1135 (47.339 s)",
+   "notes": "out = 47.339 + 1/23.976. Cut point sits on a beat: move src_in, never src_out."
+  },
+  {
+   "id": "E33",
+   "section": "6 TRY AGAIN",
+   "type": "scan",
+   "source": "SC_MATCH_REAR",
+   "src_in": 0.0,
+   "src_out": 4.5,
+   "timeline_in": 113.011,
+   "timeline_out": 117.511,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "mode": "overlay",
+    "clock_known": false,
+    "basis": "hold the previous IRL event's last value (clock frozen during scan inserts)"
+   },
+   "gfx": [],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "HARD 1:1 CUT to the scan from the same camera, then a slow push on the rear bumper",
+   "notes": "No dissolve. Plate flattened in the render."
+  },
+  {
+   "id": "E34",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 4.0,
+   "src_out": 8.0,
+   "timeline_in": 117.511,
+   "timeline_out": 121.511,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "17:12",
+    "clock1_end": "17:16",
+    "timer2_start": "05:02",
+    "timer2_end": "05:06",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [45] in FX30544; TIMER 2 real-time from legible face(s) [30] in FX30544"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Host kneeling, scanning the lower front fender in the doorway light",
+   "notes": ""
+  },
+  {
+   "id": "E35",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 29.6,
+   "src_out": 31.0,
+   "timeline_in": 121.511,
+   "timeline_out": 122.911,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "17:37",
+    "clock1_end": "17:39",
+    "timer2_start": "05:28",
+    "timer2_end": "05:29",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [45] in FX30544; TIMER 2 real-time from legible face(s) [30] in FX30544"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Watch 05:28.64 (src 30)",
+   "notes": ""
+  },
+  {
+   "id": "E36",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 44.6,
+   "src_out": 46.0,
+   "timeline_in": 122.911,
+   "timeline_out": 124.311,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "17:52",
+    "clock1_end": "17:54",
+    "timer2_start": "05:43",
+    "timer2_end": "05:44",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [45] in FX30544; TIMER 2 real-time from legible face(s) [30] in FX30544"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Phone lock screen stopwatch 17:53.38 (src 45)",
+   "notes": "Last legible CLOCK 1 value until the result."
+  },
+  {
+   "id": "E37",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30544.MP4",
+   "src_in": 126.0,
+   "src_out": 131.0,
+   "timeline_in": 124.311,
+   "timeline_out": 129.311,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": "19:14",
+    "clock1_end": "19:19",
+    "timer2_start": "07:04",
+    "timer2_end": "07:09",
+    "clock_known": true,
+    "basis": "CLOCK 1 real-time from legible face(s) [45] in FX30544; TIMER 2 real-time from legible face(s) [30] in FX30544"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Scanner close along the lower door",
+   "notes": ""
+  },
+  {
+   "id": "E38",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 53.3,
+   "src_out": 63.0,
+   "timeline_in": 129.311,
+   "timeline_out": 139.011,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"So, are you still recording?\" \"Yep.\" \"So that's the exterior. That's done. Check mark. What's the time?\" \"The cheating time is 8 minutes and 32 seconds.\"",
+    "transcript": "545 [00:53.4]-[01:02.9]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "08:29",
+    "timer2_end": "08:32",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [56] in FX30545",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G07"
+   ],
+   "blur": null,
+   "what_we_see": "Camera rotated 90 deg: watch 08:32.23 stopped (src 56), host",
+   "notes": "ROTATED SOURCE: rotate upright; fill 1920x920 per the editor note. Stop before \"Is that with the 2 minutes of spraying?\" and the \"20 minutes with the crash\" slip."
+  },
+  {
+   "id": "E39",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 100.7,
+   "src_out": 113.95,
+   "timeline_in": 139.011,
+   "timeline_out": 152.261,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Front, hood, roof, right side. Rear quarter panel's a little messed up. Roof's messed up. So I came back here, did the whole roof, did the right quarter panel, fixed the trunk.\"",
+    "transcript": "545 [01:40.8]-[01:53.8]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "08:32",
+    "timer2_end": "08:32",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [56] in FX30545",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G07"
+   ],
+   "blur": null,
+   "what_we_see": "Scanner screen: the car's scan turning under his thumb",
+   "notes": "Rotated source."
+  },
+  {
+   "id": "E40",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 115.15,
+   "src_out": 116.3,
+   "timeline_in": 152.261,
+   "timeline_out": 153.411,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"That's the full interior.\"",
+    "transcript": "545 [01:55.2]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "08:32",
+    "timer2_end": "08:32",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [56] in FX30545",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G07"
+   ],
+   "blur": null,
+   "what_we_see": "Scanner screen / host",
+   "notes": ""
+  },
+  {
+   "id": "E41",
+   "section": "6 TRY AGAIN",
+   "type": "scan",
+   "source": "SC_INS_CABIN",
+   "src_in": 0.0,
+   "src_out": 3.0,
+   "timeline_in": 153.411,
+   "timeline_out": 156.411,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "mode": "overlay",
+    "clock_known": false,
+    "basis": "hold the previous IRL event's last value (clock frozen during scan inserts)"
+   },
+   "gfx": [],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Scan insert: cabin through the side glass opening (CONDITIONAL)",
+   "notes": "ONLY if the full-car STL really holds cabin geometry (the reel notes said sprayed glass may be a closed shell). If not: drop E41 and let E40 run straight into E42."
+  },
+  {
+   "id": "E42",
+   "section": "6 TRY AGAIN",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 116.35,
+   "src_out": 123.55,
+   "timeline_in": 156.411,
+   "timeline_out": 163.611,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"So now, if you wanna make a lip kit, let's jack the car up, do the fronts and sides, wheel wells inside. So let's also time that.\"",
+    "transcript": "545 [01:56.4]-[02:03.3]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TRY AGAIN",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "08:32",
+    "timer2_end": "08:32",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [56] in FX30545",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G07"
+   ],
+   "blur": null,
+   "what_we_see": "Host (rotated source)",
+   "notes": ""
+  },
+  {
+   "id": "E43",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30546.MP4",
+   "src_in": 4.6,
+   "src_out": 6.6,
+   "timeline_in": 163.611,
+   "timeline_out": 165.611,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "08:46",
+    "timer2_end": "08:48",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [5, 6] in FX30546",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "G14"
+   ],
+   "blur": null,
+   "what_we_see": "Watch 08:46.40 -> 08:47.40, running again",
+   "notes": ""
+  },
+  {
+   "id": "E44",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30546.MP4",
+   "src_in": 59.5,
+   "src_out": 63.0,
+   "timeline_in": 165.611,
+   "timeline_out": 169.111,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "09:40",
+    "timer2_end": "09:44",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [5, 6] in FX30546",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Host working the floor jack",
+   "notes": ""
+  },
+  {
+   "id": "E45",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 0.0,
+   "src_out": 3.05,
+   "timeline_in": 169.111,
+   "timeline_out": 172.161,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"For harder-to-reach areas, I'll use the can.\"",
+    "transcript": "547 [00:00.1]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "10:11",
+    "timer2_end": "10:14",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [66] in FX30547",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host holds up the spray can",
+   "notes": ""
+  },
+  {
+   "id": "E46",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 36.0,
+   "src_out": 39.5,
+   "timeline_in": 172.161,
+   "timeline_out": 175.661,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "10:47",
+    "timer2_end": "10:50",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [66] in FX30547",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Spray can into the front wheel arch",
+   "notes": ""
+  },
+  {
+   "id": "E47",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 53.5,
+   "src_out": 58.0,
+   "timeline_in": 175.661,
+   "timeline_out": 180.161,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "11:04",
+    "timer2_end": "11:09",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [66] in FX30547",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Live scan on the scanner screen beside the wheel",
+   "notes": ""
+  },
+  {
+   "id": "E48",
+   "section": "7 THE HARD PARTS",
+   "type": "scan",
+   "source": "SC_INS_WHEEL",
+   "src_in": 0.0,
+   "src_out": 3.0,
+   "timeline_in": 180.161,
+   "timeline_out": 183.161,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "mode": "overlay",
+    "clock_known": false,
+    "basis": "hold the previous IRL event's last value (clock frozen during scan inserts)"
+   },
+   "gfx": [],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Scan insert: front wheel and arch (the front-left wheel is the well-captured one)",
+   "notes": "Never hold on the rear wheel: the reel notes say the rear well is ragged."
+  },
+  {
+   "id": "E49",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 65.6,
+   "src_out": 67.0,
+   "timeline_in": 183.161,
+   "timeline_out": 184.561,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "11:16",
+    "timer2_end": "11:18",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [66] in FX30547",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Watch 11:17.36 (src 66)",
+   "notes": ""
+  },
+  {
+   "id": "E50",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 120.4,
+   "src_out": 125.8,
+   "timeline_in": 184.561,
+   "timeline_out": 189.961,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"It's a crazy position.\" \"Is this the most optimal scanning position?\" \"Yeah.\"",
+    "transcript": "547 [02:00.6]-[02:05.3]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "12:11",
+    "timer2_end": "12:17",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [66] in FX30547",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host lying on the floor scanning under the front",
+   "notes": "Stop before 127 s (\"I can't wait to blur that\" - the thing to blur is in 127-133 s; do not use that span)."
+  },
+  {
+   "id": "E51",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30548.MP4",
+   "src_in": 6.2,
+   "src_out": 8.2,
+   "timeline_in": 189.961,
+   "timeline_out": 191.961,
+   "audio": {
+    "mode": "music-only (duck the jack call - it names a crew member)",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "13:04",
+    "timer2_end": "13:06",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [7] in FX30548",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Watch 13:05.01 (src 7)",
+   "notes": ""
+  },
+  {
+   "id": "E52",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30549.MP4",
+   "src_in": 0.5,
+   "src_out": 2.5,
+   "timeline_in": 191.961,
+   "timeline_out": 193.961,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "13:46",
+    "timer2_end": "13:48",
+    "clock_known": false,
+    "basis": "TIMER 2 derived from camera wall-clock (creation_time) - no face in this clip",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Low-angle powder spray close-up",
+   "notes": ""
+  },
+  {
+   "id": "E53",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30550.MP4",
+   "src_in": 12.0,
+   "src_out": 16.0,
+   "timeline_in": 193.961,
+   "timeline_out": 197.961,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "14:30",
+    "timer2_end": "14:34",
+    "clock_known": false,
+    "basis": "TIMER 2 derived from camera wall-clock (creation_time) - no face in this clip",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": "check rear plate at 1080p (visible at 0 s and 36 s, likely not in 12-16 s)",
+   "what_we_see": "Jacking the rear up",
+   "notes": ""
+  },
+  {
+   "id": "E54",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 0.0,
+   "src_out": 2.4,
+   "timeline_in": 197.961,
+   "timeline_out": 200.361,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Oh, under the car! It disappeared!\"",
+    "transcript": "551 [00:00]-[00:02.3]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "15:01",
+    "timer2_end": "15:03",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [30] in FX30551",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Floor / under the car (the can went missing)",
+   "notes": "HARD OUT at 2.40: profanity starts at 4.34."
+  },
+  {
+   "id": "E55",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 29.6,
+   "src_out": 31.0,
+   "timeline_in": 200.361,
+   "timeline_out": 201.761,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "15:30",
+    "timer2_end": "15:32",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [30] in FX30551",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Watch 15:31.30 (src 30)",
+   "notes": ""
+  },
+  {
+   "id": "E56",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 84.0,
+   "src_out": 89.7,
+   "timeline_in": 201.761,
+   "timeline_out": 207.461,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "16:25",
+    "timer2_end": "16:31",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [30] in FX30551",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Host lying under the car scanning the sill/underside",
+   "notes": "Out before the cat noises at 89.9."
+  },
+  {
+   "id": "E57",
+   "section": "7 THE HARD PARTS",
+   "type": "scan",
+   "source": "SC_INS_SILL",
+   "src_in": 0.0,
+   "src_out": 3.0,
+   "timeline_in": 207.461,
+   "timeline_out": 210.461,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "mode": "overlay",
+    "clock_known": false,
+    "basis": "hold the previous IRL event's last value (clock frozen during scan inserts)"
+   },
+   "gfx": [],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Scan insert: side sill from a low angle",
+   "notes": "Show only what the STL holds. No underside claim unless the render shows underside data."
+  },
+  {
+   "id": "E58",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 19.3,
+   "src_out": 23.2,
+   "timeline_in": 210.461,
+   "timeline_out": 214.361,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Okay.\" \"Done?\" \"Nope.\" \"Oh yeah, almost done.\"",
+    "transcript": "552 [00:19.4]-[00:23.1]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "18:12",
+    "timer2_end": "18:16",
+    "clock_known": false,
+    "basis": "TIMER 2 derived from camera wall-clock (creation_time) - no face in this clip",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host scanning low by the car",
+   "notes": ""
+  },
+  {
+   "id": "E59",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 48.0,
+   "src_out": 52.0,
+   "timeline_in": 214.361,
+   "timeline_out": 218.361,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "18:41",
+    "timer2_end": "18:45",
+    "clock_known": false,
+    "basis": "TIMER 2 derived from camera wall-clock (creation_time) - no face in this clip",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Under the rear wheel arch beside the jack",
+   "notes": ""
+  },
+  {
+   "id": "E60",
+   "section": "7 THE HARD PARTS",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 100.0,
+   "src_out": 105.0,
+   "timeline_in": 218.361,
+   "timeline_out": 223.361,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE HARD PARTS",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "19:33",
+    "timer2_end": "19:38",
+    "clock_known": false,
+    "basis": "TIMER 2 derived from camera wall-clock (creation_time) - no face in this clip",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": null,
+   "what_we_see": "Host flat on his back scanning upward",
+   "notes": "Last process shot: biggest energy, cut to E61 on the bar."
+  },
+  {
+   "id": "E61",
+   "section": "8 TIME",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 6.8,
+   "src_out": 13.7,
+   "timeline_in": 223.361,
+   "timeline_out": 230.261,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"Time. 20 minutes. Done.\"",
+    "transcript": "553 [00:07.3]-[00:11.8]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": "20:22",
+    "timer2_end": "20:24",
+    "clock_known": true,
+    "basis": "TIMER 2 real-time from legible face(s) [9] in FX30553",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP",
+    "G14"
+   ],
+   "blur": null,
+   "what_we_see": "Watch 20:24.95 (src 9) fills the frame, then the host",
+   "notes": "Music stops/stings on \"Time.\" Rail TIMER 2 runs to 20:24 then flips to \"20 MIN\" (G08 style)."
+  },
+  {
+   "id": "E62",
+   "section": "8 TIME",
+   "type": "card",
+   "source": "gfx:G08",
+   "src_in": 0.0,
+   "src_out": 4.4,
+   "timeline_in": 230.261,
+   "timeline_out": 234.661,
+   "audio": {
+    "mode": "sync (audio only from FX30553 13.70-18.10)",
+    "hear": "\"And the other one, 32 minutes. Yep.\"",
+    "transcript": null,
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words",
+    "source_audio": {
+     "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+     "src_in": 13.7,
+     "src_out": 18.1,
+     "ts": "553 [00:13.2]-[00:17.6]"
+    }
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "clock_known": false,
+    "basis": "rail clocks frozen: CLOCK 1 \"32 MIN\", TIMER 2 \"20 MIN\""
+   },
+   "gfx": [
+    "G08",
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Scoreboard card on black",
+   "notes": "J-cut: 553 audio continues under the card (the picture there is a blurred whip pan)."
+  },
+  {
+   "id": "E63",
+   "section": "8 TIME",
+   "type": "card",
+   "source": "gfx:G09",
+   "src_in": 0.0,
+   "src_out": 2.2,
+   "timeline_in": 234.661,
+   "timeline_out": 236.861,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "clock_known": false,
+    "basis": "frozen as E62"
+   },
+   "gfx": [
+    "G09"
+   ],
+   "blur": null,
+   "what_we_see": "Card on black: the bet result",
+   "notes": ""
+  },
+  {
+   "id": "E64",
+   "section": "8 TIME",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 18.7,
+   "src_out": 22.4,
+   "timeline_in": 236.861,
+   "timeline_out": 240.561,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"So one thing to note is also cleanup time.\"",
+    "transcript": "553 [00:18.8]-[00:22.3]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final after \"Time.\" - owner: 32 min elapsed, 20 min without the crash",
+    "final": "CLOCK 1 \"32 MIN\" / TIMER 2 \"20 MIN\" (frozen, owner numbers; said 553 [00:09.7], [00:14.5])",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": null,
+   "what_we_see": "Host walking to the front of the car",
+   "notes": ""
+  },
+  {
+   "id": "E65",
+   "section": "8 TIME",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 25.9,
+   "src_out": 33.1,
+   "timeline_in": 240.561,
+   "timeline_out": 247.761,
+   "audio": {
+    "mode": "sync",
+    "hear": "\"...in that 20 minute span right here, most of the spray is already off the hood and it's already starting to evaporate.\"",
+    "transcript": "553 [00:26.0]-[00:32.9]",
+    "gain": "sync: dialogue normalised to -16 LUFS short-term, music ducked -12 dB under words"
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final after \"Time.\" - owner: 32 min elapsed, 20 min without the crash",
+    "final": "CLOCK 1 \"32 MIN\" / TIMER 2 \"20 MIN\" (frozen, owner numbers; said 553 [00:09.7], [00:14.5])",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": "front plate if in frame",
+   "what_we_see": "The hood: powder already clearing in X-shaped marks",
+   "notes": "Skips the product name at 23.8 (brand line). Check the front plate if the hood shot reaches the bumper."
+  },
+  {
+   "id": "E66",
+   "section": "8 TIME",
+   "type": "irl",
+   "source": "/home/user/media/lexus-is350/dropbox/FX30554.MP4",
+   "src_in": 6.0,
+   "src_out": 11.053,
+   "timeline_in": 247.761,
+   "timeline_out": 252.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "clock1_start": null,
+    "clock1_end": null,
+    "timer2_start": null,
+    "timer2_end": null,
+    "clock_known": true,
+    "basis": "frozen final after \"Time.\" - owner: 32 min elapsed, 20 min without the crash",
+    "final": "CLOCK 1 \"32 MIN\" / TIMER 2 \"20 MIN\" (frozen, owner numbers; said 553 [00:09.7], [00:14.5])",
+    "clock1_display": "CLOCK 1 running - no digits (no legible reading between 544@45 and the end)"
+   },
+   "gfx": [],
+   "blur": "front plate (9JTY488) legible - track and blur",
+   "what_we_see": "Walk out of the shop door onto the car in the sun; ENDS on solved frame 264 (11.011 s)",
+   "notes": "out = 11.011 + 1/23.976."
+  },
+  {
+   "id": "E67",
+   "section": "8 TIME",
+   "type": "scan",
+   "source": "SC_MATCH_FRONT",
+   "src_in": 0.0,
+   "src_out": 5.0,
+   "timeline_in": 252.814,
+   "timeline_out": 257.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "TIME",
+    "visible": true,
+    "mode": "overlay",
+    "clock_known": false,
+    "basis": "hold the previous IRL event's last value (clock frozen during scan inserts)"
+   },
+   "gfx": [],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "HARD 1:1 CUT to the scan from the same camera, front of the car, slow push",
+   "notes": "No dissolve. Plate flattened in the render."
+  },
+  {
+   "id": "E68",
+   "section": "9 THE SCAN",
+   "type": "scan",
+   "source": "SC_RES_FULL",
+   "src_in": 0.0,
+   "src_out": 7.0,
+   "timeline_in": 257.814,
+   "timeline_out": 264.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE SCAN",
+    "visible": false,
+    "mode": "hidden",
+    "clock_known": false,
+    "basis": "rail hidden"
+   },
+   "gfx": [
+    "G10"
+   ],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Full car, satin silver on black, slow continuous move (not a turntable)",
+   "notes": ""
+  },
+  {
+   "id": "E69",
+   "section": "9 THE SCAN",
+   "type": "scan",
+   "source": "SC_RES_MESH",
+   "src_in": 0.0,
+   "src_out": 5.0,
+   "timeline_in": 264.814,
+   "timeline_out": 269.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE SCAN",
+    "visible": false,
+    "mode": "hidden",
+    "clock_known": false,
+    "basis": "rail hidden"
+   },
+   "gfx": [
+    "G11"
+   ],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Mesh-density close-up: triangles visible on a panel edge",
+   "notes": ""
+  },
+  {
+   "id": "E70",
+   "section": "9 THE SCAN",
+   "type": "scan",
+   "source": "SC_RES_REFLECTOR",
+   "src_in": 0.0,
+   "src_out": 7.0,
+   "timeline_in": 269.814,
+   "timeline_out": 276.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "THE SCAN",
+    "visible": false,
+    "mode": "hidden",
+    "clock_known": false,
+    "basis": "rail hidden"
+   },
+   "gfx": [
+    "G12",
+    "G13"
+   ],
+   "blur": "plate flattened in render (scan agent)",
+   "what_we_see": "Rear lower corner: reflector in place -> reflector removed (pocket)",
+   "notes": "Only state change that exists. Pocket shown small; do not push in on its holes."
+  },
+  {
+   "id": "E71",
+   "section": "10 CONCLUSION (written by the conclusion agent)",
+   "type": "slot",
+   "source": "CONCLUSION_SLOT",
+   "src_in": 0.0,
+   "src_out": 28.0,
+   "timeline_in": 276.814,
+   "timeline_out": 304.814,
+   "audio": {
+    "mode": "per conclusion agent",
+    "hear": "see script.md slot brief",
+    "transcript": null,
+    "gain": "per conclusion agent"
+   },
+   "hud": {
+    "chapter": "RESULT",
+    "visible": true,
+    "clock_known": true,
+    "basis": "frozen final: CLOCK 1 \"32 MIN\", TIMER 2 \"20 MIN\""
+   },
+   "gfx": [
+    "RAIL_CAP"
+   ],
+   "blur": "front plate (9JTY488) legible - track and blur (555 @30 s)",
+   "what_we_see": "Conclusion: hands off from E70; primary source FX30555 to-camera",
+   "notes": "Target 28 s (25-32)."
+  },
+  {
+   "id": "E72",
+   "section": "11 END CARD",
+   "type": "card",
+   "source": "gfx:G15",
+   "src_in": 0.0,
+   "src_out": 5.0,
+   "timeline_in": 304.814,
+   "timeline_out": 309.814,
+   "audio": {
+    "mode": "music-only",
+    "hear": "music only",
+    "transcript": null,
+    "gain": "music bed full; source audio muted"
+   },
+   "hud": {
+    "chapter": "",
+    "visible": false,
+    "clock_known": false,
+    "basis": "rail hidden"
+   },
+   "gfx": [
+    "G15"
+   ],
+   "blur": null,
+   "what_we_see": "End card on black",
+   "notes": ""
+  }
+ ],
+ "gfx_cues": [
+  {
+   "id": "G01",
+   "type": "title on scan render",
+   "text": "HOW FAST CAN WE 3D-SCAN AN ENTIRE CAR?",
+   "sub": "LEXUS IS350 · ONE CAR · ONE STOPWATCH",
+   "timeline_in": 7.3999999999999995,
+   "timeline_out": 12.6,
+   "placement": "lower third of the scan render, white sans, black halo/plate (lessons: labels on silver need a halo)",
+   "source": "question = video title; no numbers"
+  },
+  {
+   "id": "G02",
+   "type": "rail chips (prediction tally)",
+   "text": [
+    "2 HR",
+    "30 MIN",
+    "15 MIN"
+   ],
+   "timeline_in": 12.6,
+   "timeline_out": 22.0,
+   "placement": "HUD rail, right of the clock; \"2 HR\" shows from E05 (heard in E01), \"30 MIN\" pops on E06 \"30\", \"15 MIN\" pops on E07 \"15\" and is highlighted as THE BET",
+   "source": "541 [00:02.4] / [00:17.5] \"two hours\", [00:22.1] \"30 minutes\", [00:26.3] \"15 minutes\""
+  },
+  {
+   "id": "G03",
+   "type": "full-frame card on black",
+   "text": "THE BET: 15 MINUTES",
+   "sub": "\"LESS THAN THE LENGTH OF A YOUTUBE VIDEO\"",
+   "timeline_in": 19.5,
+   "timeline_out": 22.0,
+   "placement": "centre",
+   "source": "541 [00:26.3]"
+  },
+  {
+   "id": "G04",
+   "type": "full-frame card on black",
+   "text": "STEP 1: SPRAY",
+   "sub": "A TEMPORARY MATTE COAT SO THE SCANNER CAN READ SHINY PAINT AND GLASS",
+   "timeline_in": 31.0,
+   "timeline_out": 32.5,
+   "placement": "centre",
+   "source": "no numbers; \"it evaporates\" is said on camera (541 [05:57.3], 553 [00:32])"
+  },
+  {
+   "id": "G05",
+   "type": "full-frame card on black",
+   "text": "SCANNER CRASHED",
+   "sub": "REBOOTING · CLOCK 1 KEEPS RUNNING",
+   "timeline_in": 88.2,
+   "timeline_out": 91.2,
+   "placement": "centre; rail CLOCK 1 fast-forwards 05:49 -> 11:56 with a \">>\" glyph (interpolated)",
+   "source": "541 [06:19.5] \"It just crashed\", 542 [00:01.7] \"the scanner crashed\", 542 [00:08] \"we're rebooting it\", 541 [06:40.6] \"We're still rolling\"; clock continuity checked: 542@24 reads 12:20.75"
+  },
+  {
+   "id": "G06",
+   "type": "rail element",
+   "text": "TIMER 2",
+   "sub": "STARTED AFTER THE REBOOT",
+   "timeline_in": 102.0,
+   "timeline_out": 309.814,
+   "placement": "HUD rail, second clock right of CLOCK 1; from here TIMER 2 is the big clock and CLOCK 1 goes small",
+   "source": "542 [00:12.6] \"start a secondary timer. Now.\"; watch 00:03.00 at 542@16"
+  },
+  {
+   "id": "G07",
+   "type": "rail state",
+   "text": "TIMER 2 08:32 ❚❚",
+   "sub": "",
+   "timeline_in": 132.011,
+   "timeline_out": 163.611,
+   "placement": "HUD rail TIMER 2 frozen with a pause glyph",
+   "source": "watch 08:32.23 stopped at 545@56; \"8 minutes and 32 seconds\" said at 545 [01:01.5]"
+  },
+  {
+   "id": "G08",
+   "type": "full-frame scoreboard card on black",
+   "text": [
+    "CLOCK 1 · FROM \"GO\" · 32 MIN",
+    "TIMER 2 · RESTARTED AFTER THE CRASH · 20 MIN"
+   ],
+   "timeline_in": 230.261,
+   "timeline_out": 234.661,
+   "placement": "two rows, centre; row 2 lands on the beat after \"32 minutes\" ends",
+   "source": "owner: 32 min elapsed / 20 min without the crash; said 553 [00:09.7] \"20 minutes\", [00:14.5] \"32 minutes\"; watch 20:24.95 at 553@9"
+  },
+  {
+   "id": "G09",
+   "type": "full-frame card on black",
+   "text": "THE 15-MINUTE BET: MISSED",
+   "sub": "CLOSEST GUESS: 30 MINUTES",
+   "timeline_in": 234.661,
+   "timeline_out": 236.861,
+   "placement": "centre, playful",
+   "source": "541 [00:26.3] 15, [00:22.1] 30; owner 32/20"
+  },
+  {
+   "id": "G10",
+   "type": "label on scan render",
+   "text": "LEXUS IS350",
+   "sub": "FULL CAR SCAN",
+   "timeline_in": 258.814,
+   "timeline_out": 264.314,
+   "placement": "bottom-left, over pure black only (measure coverage under the box)",
+   "source": "car identity from clips.md"
+  },
+  {
+   "id": "G11",
+   "type": "label on scan render",
+   "text": "24,999,992 TRIANGLES",
+   "sub": "FULL CAR · STL FILE",
+   "timeline_in": 265.314,
+   "timeline_out": 269.814,
+   "placement": "bottom-left, static text (NOT the ScanHUD counter: it stops at 99.9 %)",
+   "source": "STL header of \"Lexus 4IS IS350 Full Car.stl\""
+  },
+  {
+   "id": "G12",
+   "type": "label on scan render",
+   "text": "REAR REFLECTOR",
+   "sub": "SCANNED IN PLACE",
+   "timeline_in": 270.314,
+   "timeline_out": 273.11400000000003,
+   "placement": "black band above the car",
+   "source": "scan file \"Lexus 4IS reflector.stl\""
+  },
+  {
+   "id": "G13",
+   "type": "label on scan render",
+   "text": "REFLECTOR REMOVED",
+   "sub": "THE MOUNTING POCKET BEHIND IT",
+   "timeline_in": 273.314,
+   "timeline_out": 276.814,
+   "placement": "same position as G12 (swap on the state change)",
+   "source": "scan file \"Lexus 4IS reflector removed.stl\""
+  },
+  {
+   "id": "G14",
+   "type": "rail chapter label",
+   "text": "per event hud.chapter",
+   "timeline_in": 0.0,
+   "timeline_out": 309.814,
+   "placement": "HUD rail, right end; changes on the first event of each section",
+   "source": "-"
+  },
+  {
+   "id": "G15",
+   "type": "end card on black",
+   "text": "ILLUMAESTHETIC",
+   "sub": "[owner to confirm: scan listing CTA / URL]",
+   "timeline_in": 304.814,
+   "timeline_out": 309.814,
+   "placement": "logo large (lessons: 700+ px wide), CTA below",
+   "source": "-"
+  },
+  {
+   "id": "RAIL_CAP",
+   "type": "burned-in captions in the HUD rail",
+   "text": "verbatim sync words (event audio.hear)",
+   "timeline_in": 0.0,
+   "timeline_out": 309.814,
+   "placement": "HUD rail centre, max 2 lines x 42 chars, white on the black rail, never over picture",
+   "source": "large-v3 word times in /home/user/media/work/is350-long/transcripts/"
+  }
+ ],
+ "caption_source": [
+  {
+   "event": "E01",
+   "timeline_in": 0.0,
+   "timeline_out": 2.15,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 0.8,
+   "src_out": 2.95,
+   "words": "\"How long do you think it's gonna take?\" / \"Two hours.\"",
+   "transcript": "541 [00:00.9]-[00:02.8]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E02",
+   "timeline_in": 2.15,
+   "timeline_out": 4.45,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 380.55,
+   "src_out": 382.85,
+   "words": "\"It's never crashed on me before.\"",
+   "transcript": "541 [06:20.8]-[06:22.7]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E05",
+   "timeline_in": 12.6,
+   "timeline_out": 14.55,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 12.15,
+   "src_out": 14.1,
+   "words": "\"How long do you think it'll take to scan this car?\"",
+   "transcript": "541 [00:12.2]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E06",
+   "timeline_in": 14.55,
+   "timeline_out": 15.65,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 21.9,
+   "src_out": 23.0,
+   "words": "\"Maybe 30 minutes.\"",
+   "transcript": "541 [00:22.1]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E07",
+   "timeline_in": 15.65,
+   "timeline_out": 19.5,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 26.15,
+   "src_out": 30.0,
+   "words": "\"I think I can do it in less than the length of a YouTube video. 15 minutes.\"",
+   "transcript": "541 [00:26.3]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E09",
+   "timeline_in": 22.0,
+   "timeline_out": 27.3,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 71.3,
+   "src_out": 76.6,
+   "words": "\"Three, two, one, go.\"",
+   "transcript": "541 [01:11.6]-[01:14]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E10",
+   "timeline_in": 27.3,
+   "timeline_out": 31.0,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 77.3,
+   "src_out": 81.0,
+   "words": "\"I'm so confident in my ability, I'm not gonna rush. I gotta take my time.\"",
+   "transcript": "541 [01:17.6]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E13",
+   "timeline_in": 36.1,
+   "timeline_out": 40.9,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 106.7,
+   "src_out": 111.5,
+   "words": "\"Then when I'm done spraying the car, show the watch. ... I'm gonna show the watch periodically.\"",
+   "transcript": "541 [01:46.7]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E21",
+   "timeline_in": 61.7,
+   "timeline_out": 67.7,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 347.4,
+   "src_out": 353.4,
+   "words": "\"The corner of the left headlight. You see how it's like not fully covered?\" / \"Got you.\"",
+   "transcript": "541 [05:47.6]-[05:53.2]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E22",
+   "timeline_in": 67.7,
+   "timeline_out": 79.0,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 369.0,
+   "src_out": 380.3,
+   "words": "\"Time check.\" / \"What? Oh, it's switched. Five minutes on the dot.\" / \"How you feeling halfway through it?\" / \"It just crashed.\"",
+   "transcript": "541 [06:09.2]-[06:19.5]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E24",
+   "timeline_in": 81.1,
+   "timeline_out": 82.7,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 400.4,
+   "src_out": 402.0,
+   "words": "\"We're still rolling.\"",
+   "transcript": "541 [06:40.6]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E26",
+   "timeline_in": 84.5,
+   "timeline_out": 88.2,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30541.MP4",
+   "src_in": 410.7,
+   "src_out": 414.4,
+   "words": "\"Yeah, once this is sorted out, I'm just gonna start a new scan.\" / \"Yeah, I know.\"",
+   "transcript": "541 [06:50.8]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30541.json"
+  },
+  {
+   "event": "E28",
+   "timeline_in": 91.2,
+   "timeline_out": 93.7,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 0.0,
+   "src_out": 2.5,
+   "words": "\"So, what happened? So the scanner crashed.\"",
+   "transcript": "542 [00:00]-[00:02.4]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "event": "E29",
+   "timeline_in": 93.7,
+   "timeline_out": 103.6,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30542.MP4",
+   "src_in": 4.7,
+   "src_out": 14.6,
+   "words": "\"So after like a five minute delay, we're rebooting it. And now we're gonna try again. All right, let's start the... start a secondary timer. Now. Yep.\"",
+   "transcript": "542 [00:04.8]-[00:14.1]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30542.json"
+  },
+  {
+   "event": "E38",
+   "timeline_in": 129.311,
+   "timeline_out": 139.011,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 53.3,
+   "src_out": 63.0,
+   "words": "\"So, are you still recording?\" \"Yep.\" \"So that's the exterior. That's done. Check mark. What's the time?\" \"The cheating time is 8 minutes and 32 seconds.\"",
+   "transcript": "545 [00:53.4]-[01:02.9]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "event": "E39",
+   "timeline_in": 139.011,
+   "timeline_out": 152.261,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 100.7,
+   "src_out": 113.95,
+   "words": "\"Front, hood, roof, right side. Rear quarter panel's a little messed up. Roof's messed up. So I came back here, did the whole roof, did the right quarter panel, fixed the trunk.\"",
+   "transcript": "545 [01:40.8]-[01:53.8]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "event": "E40",
+   "timeline_in": 152.261,
+   "timeline_out": 153.411,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 115.15,
+   "src_out": 116.3,
+   "words": "\"That's the full interior.\"",
+   "transcript": "545 [01:55.2]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "event": "E42",
+   "timeline_in": 156.411,
+   "timeline_out": 163.611,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30545.MP4",
+   "src_in": 116.35,
+   "src_out": 123.55,
+   "words": "\"So now, if you wanna make a lip kit, let's jack the car up, do the fronts and sides, wheel wells inside. So let's also time that.\"",
+   "transcript": "545 [01:56.4]-[02:03.3]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30545.json"
+  },
+  {
+   "event": "E45",
+   "timeline_in": 169.111,
+   "timeline_out": 172.161,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 0.0,
+   "src_out": 3.05,
+   "words": "\"For harder-to-reach areas, I'll use the can.\"",
+   "transcript": "547 [00:00.1]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "event": "E50",
+   "timeline_in": 184.561,
+   "timeline_out": 189.961,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30547.MP4",
+   "src_in": 120.4,
+   "src_out": 125.8,
+   "words": "\"It's a crazy position.\" \"Is this the most optimal scanning position?\" \"Yeah.\"",
+   "transcript": "547 [02:00.6]-[02:05.3]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30547.json"
+  },
+  {
+   "event": "E54",
+   "timeline_in": 197.961,
+   "timeline_out": 200.361,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30551.MP4",
+   "src_in": 0.0,
+   "src_out": 2.4,
+   "words": "\"Oh, under the car! It disappeared!\"",
+   "transcript": "551 [00:00]-[00:02.3]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30551.json"
+  },
+  {
+   "event": "E58",
+   "timeline_in": 210.461,
+   "timeline_out": 214.361,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30552.MP4",
+   "src_in": 19.3,
+   "src_out": 23.2,
+   "words": "\"Okay.\" \"Done?\" \"Nope.\" \"Oh yeah, almost done.\"",
+   "transcript": "552 [00:19.4]-[00:23.1]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30552.json"
+  },
+  {
+   "event": "E61",
+   "timeline_in": 223.361,
+   "timeline_out": 230.261,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 6.8,
+   "src_out": 13.7,
+   "words": "\"Time. 20 minutes. Done.\"",
+   "transcript": "553 [00:07.3]-[00:11.8]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "event": "E62",
+   "timeline_in": 230.261,
+   "timeline_out": 234.661,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 13.7,
+   "src_out": 18.1,
+   "words": "\"And the other one, 32 minutes. Yep.\"",
+   "transcript": "553 [00:13.2]-[00:17.6]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "event": "E64",
+   "timeline_in": 236.861,
+   "timeline_out": 240.561,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 18.7,
+   "src_out": 22.4,
+   "words": "\"So one thing to note is also cleanup time.\"",
+   "transcript": "553 [00:18.8]-[00:22.3]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  },
+  {
+   "event": "E65",
+   "timeline_in": 240.561,
+   "timeline_out": 247.761,
+   "source": "/home/user/media/lexus-is350/dropbox/FX30553.MP4",
+   "src_in": 25.9,
+   "src_out": 33.1,
+   "words": "\"...in that 20 minute span right here, most of the spray is already off the hood and it's already starting to evaporate.\"",
+   "transcript": "553 [00:26.0]-[00:32.9]",
+   "word_json": "/home/user/media/work/is350-long/transcripts/FX30553.json"
+  }
+ ],
+ "stats": {
+  "total": 309.81,
+  "irl_sync": 124.0,
+  "irl_music_or_roomtone": 92.71,
+  "scan": 46.5,
+  "cards": 18.6,
+  "card_with_sync_audio": 4.4,
+  "conclusion_slot": 28.0
+ },
+ "sections": [
+  {
+   "section": "1 COLD OPEN",
+   "timeline_in": 0.0,
+   "timeline_out": 6.6,
+   "dur": 6.6
+  },
+  {
+   "section": "2 TITLE",
+   "timeline_in": 6.6,
+   "timeline_out": 12.6,
+   "dur": 6.0
+  },
+  {
+   "section": "3 THE BET",
+   "timeline_in": 12.6,
+   "timeline_out": 22.0,
+   "dur": 9.4
+  },
+  {
+   "section": "4 GO: SPRAY + FIRST PASS",
+   "timeline_in": 22.0,
+   "timeline_out": 67.7,
+   "dur": 45.7
+  },
+  {
+   "section": "5 THE CRASH",
+   "timeline_in": 67.7,
+   "timeline_out": 91.2,
+   "dur": 23.5
+  },
+  {
+   "section": "6 TRY AGAIN",
+   "timeline_in": 91.2,
+   "timeline_out": 163.611,
+   "dur": 72.41
+  },
+  {
+   "section": "7 THE HARD PARTS",
+   "timeline_in": 163.611,
+   "timeline_out": 223.361,
+   "dur": 59.75
+  },
+  {
+   "section": "8 TIME",
+   "timeline_in": 223.361,
+   "timeline_out": 257.814,
+   "dur": 34.45
+  },
+  {
+   "section": "9 THE SCAN",
+   "timeline_in": 257.814,
+   "timeline_out": 276.814,
+   "dur": 19.0
+  },
+  {
+   "section": "10 CONCLUSION (written by the conclusion agent)",
+   "timeline_in": 276.814,
+   "timeline_out": 304.814,
+   "dur": 28.0
+  },
+  {
+   "section": "11 END CARD",
+   "timeline_in": 304.814,
+   "timeline_out": 309.814,
+   "dur": 5.0
+  }
+ ]
+}

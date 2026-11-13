@@ -1,0 +1,577 @@
+[
+ {
+  "start": 0.292,
+  "end": 2.544,
+  "lines": [
+   "How long do you think it'll take",
+   "to scan this car?"
+  ],
+  "event": "CO_01",
+  "n": 1
+ },
+ {
+  "start": 2.669,
+  "end": 3.337,
+  "lines": [
+   "I'll say two hours."
+  ],
+  "event": "CO_01",
+  "n": 2
+ },
+ {
+  "start": 4.046,
+  "end": 6.298,
+  "lines": [
+   "How long do you think it'll take",
+   "to scan this car?"
+  ],
+  "event": "B_01",
+  "n": 3
+ },
+ {
+  "start": 6.423,
+  "end": 7.132,
+  "lines": [
+   "Maybe 30 minutes."
+  ],
+  "event": "B_01",
+  "n": 4
+ },
+ {
+  "start": 7.841,
+  "end": 9.885,
+  "lines": [
+   "How long do you think it'll take",
+   "to scan this car?"
+  ],
+  "event": "B_02",
+  "n": 5
+ },
+ {
+  "start": 10.135,
+  "end": 13.931,
+  "lines": [
+   "I think I can do it in less than the",
+   "length of a YouTube video. 15 minutes."
+  ],
+  "event": "B_02",
+  "n": 6
+ },
+ {
+  "start": 14.848,
+  "end": 18.268,
+  "lines": [
+   "Yeah. Three, two, one, go."
+  ],
+  "event": "P_01",
+  "n": 7
+ },
+ {
+  "start": 19.228,
+  "end": 21.605,
+  "lines": [
+   "I'm so confident in my ability,",
+   "I'm not gonna rush."
+  ],
+  "event": "P_02",
+  "n": 8
+ },
+ {
+  "start": 22.272,
+  "end": 22.898,
+  "lines": [
+   "I gotta take my time."
+  ],
+  "event": "P_02",
+  "n": 9
+ },
+ {
+  "start": 23.106,
+  "end": 24.9,
+  "lines": [
+   "Oh no, oh no, that's not the..."
+  ],
+  "event": "P_02",
+  "n": 10
+ },
+ {
+  "start": 29.404,
+  "end": 31.698,
+  "lines": [
+   "Then when I'm done spraying the car,",
+   "show the watch."
+  ],
+  "event": "P_04",
+  "n": 11
+ },
+ {
+  "start": 33.408,
+  "end": 35.202,
+  "lines": [
+   "I'm gonna show the watch periodically."
+  ],
+  "event": "P_04",
+  "n": 12
+ },
+ {
+  "start": 35.827,
+  "end": 36.536,
+  "lines": [
+   "Yeah, for checkpoint."
+  ],
+  "event": "P_04",
+  "n": 13
+ },
+ {
+  "start": 46.838,
+  "end": 48.048,
+  "lines": [
+   "Checkpoint. ... two minutes."
+  ],
+  "event": "P_08",
+  "n": 14
+ },
+ {
+  "start": 61.603,
+  "end": 63.23,
+  "lines": [
+   "The corner of the left headlight."
+  ],
+  "event": "Q_05",
+  "n": 15
+ },
+ {
+  "start": 65.023,
+  "end": 66.65,
+  "lines": [
+   "You see how it's like",
+   "not fully covered?"
+  ],
+  "event": "Q_05",
+  "n": 16
+ },
+ {
+  "start": 66.858,
+  "end": 67.359,
+  "lines": [
+   "Got you."
+  ],
+  "event": "Q_05",
+  "n": 17
+ },
+ {
+  "start": 68.151,
+  "end": 68.902,
+  "lines": [
+   "Time check."
+  ],
+  "event": "C_01",
+  "n": 18
+ },
+ {
+  "start": 70.362,
+  "end": 71.738,
+  "lines": [
+   "What? Oh, it's switched."
+  ],
+  "event": "C_01",
+  "n": 19
+ },
+ {
+  "start": 72.489,
+  "end": 74.366,
+  "lines": [
+   "Five minutes on the dot."
+  ],
+  "event": "C_01",
+  "n": 20
+ },
+ {
+  "start": 75.909,
+  "end": 78.12,
+  "lines": [
+   "How you feeling halfway through it?"
+  ],
+  "event": "C_01",
+  "n": 21
+ },
+ {
+  "start": 78.203,
+  "end": 79.162,
+  "lines": [
+   "It just crashed."
+  ],
+  "event": "C_01",
+  "n": 22
+ },
+ {
+  "start": 79.788,
+  "end": 81.581,
+  "lines": [
+   "It's never crashed on me before."
+  ],
+  "event": "C_01",
+  "n": 23
+ },
+ {
+  "start": 84.876,
+  "end": 85.961,
+  "lines": [
+   "Timer's still rolling."
+  ],
+  "event": "C_04",
+  "n": 24
+ },
+ {
+  "start": 89.423,
+  "end": 91.925,
+  "lines": [
+   "Yeah, once this is sorted out,",
+   "I'm just gonna start a new scan."
+  ],
+  "event": "C_06",
+  "n": 25
+ },
+ {
+  "start": 95.762,
+  "end": 96.43,
+  "lines": [
+   "So what happened?"
+  ],
+  "event": "C_08",
+  "n": 26
+ },
+ {
+  "start": 96.763,
+  "end": 98.14,
+  "lines": [
+   "So the scanner crashed."
+  ],
+  "event": "C_08",
+  "n": 27
+ },
+ {
+  "start": 100.475,
+  "end": 102.269,
+  "lines": [
+   "After like a five minute delay,"
+  ],
+  "event": "C_08",
+  "n": 28
+ },
+ {
+  "start": 103.77,
+  "end": 106.315,
+  "lines": [
+   "We're rebooting it, and now",
+   "we're gonna try again."
+  ],
+  "event": "C_08",
+  "n": 29
+ },
+ {
+  "start": 106.523,
+  "end": 107.816,
+  "lines": [
+   "All right, let's start there."
+  ],
+  "event": "C_08",
+  "n": 30
+ },
+ {
+  "start": 107.983,
+  "end": 109.776,
+  "lines": [
+   "Start a secondary timer. Now."
+  ],
+  "event": "C_08",
+  "n": 31
+ },
+ {
+  "start": 134.259,
+  "end": 135.927,
+  "lines": [
+   "So, are you still recording?"
+  ],
+  "event": "T_07",
+  "n": 32
+ },
+ {
+  "start": 136.219,
+  "end": 138.18,
+  "lines": [
+   "Yep. So that's the exterior."
+  ],
+  "event": "T_07",
+  "n": 33
+ },
+ {
+  "start": 138.68,
+  "end": 140.432,
+  "lines": [
+   "That's done. Check mark.",
+   "What's the time?"
+  ],
+  "event": "T_07",
+  "n": 34
+ },
+ {
+  "start": 141.141,
+  "end": 143.852,
+  "lines": [
+   "The cheating time is",
+   "8 minutes and 32 seconds."
+  ],
+  "event": "T_07",
+  "n": 35
+ },
+ {
+  "start": 144.436,
+  "end": 149.107,
+  "lines": [
+   "This is the full walk around of the car."
+  ],
+  "event": "T_08",
+  "n": 36
+ },
+ {
+  "start": 150.192,
+  "end": 153.153,
+  "lines": [
+   "Front, hood, roof, right side."
+  ],
+  "event": "T_08",
+  "n": 37
+ },
+ {
+  "start": 153.904,
+  "end": 156.448,
+  "lines": [
+   "Rear quarter panel's a little messed up.",
+   "Roof's messed up."
+  ],
+  "event": "T_08",
+  "n": 38
+ },
+ {
+  "start": 156.99,
+  "end": 158.241,
+  "lines": [
+   "So I came back here, did"
+  ],
+  "event": "T_08",
+  "n": 39
+ },
+ {
+  "start": 160.16,
+  "end": 162.329,
+  "lines": [
+   "the whole roof, did the right",
+   "quarter panel,"
+  ],
+  "event": "T_08",
+  "n": 40
+ },
+ {
+  "start": 162.454,
+  "end": 163.413,
+  "lines": [
+   "fixed the trunk."
+  ],
+  "event": "T_08",
+  "n": 41
+ },
+ {
+  "start": 164.79,
+  "end": 165.707,
+  "lines": [
+   "That's the full interior."
+  ],
+  "event": "T_08",
+  "n": 42
+ },
+ {
+  "start": 165.999,
+  "end": 168.126,
+  "lines": [
+   "So now, if you wanna make a lip kit,"
+  ],
+  "event": "T_08",
+  "n": 43
+ },
+ {
+  "start": 168.251,
+  "end": 172.13,
+  "lines": [
+   "let's jack the car up, do the fronts",
+   "and sides, wheel wells inside."
+  ],
+  "event": "T_08",
+  "n": 44
+ },
+ {
+  "start": 172.297,
+  "end": 173.006,
+  "lines": [
+   "So let's also time that."
+  ],
+  "event": "T_08",
+  "n": 45
+ },
+ {
+  "start": 179.262,
+  "end": 182.432,
+  "lines": [
+   "For harder-to-reach areas,",
+   "I'll use the can."
+  ],
+  "event": "H_03",
+  "n": 46
+ },
+ {
+  "start": 192.692,
+  "end": 193.694,
+  "lines": [
+   "...a crazy position."
+  ],
+  "event": "H_07",
+  "n": 47
+ },
+ {
+  "start": 194.903,
+  "end": 197.114,
+  "lines": [
+   "Is this the most optimal",
+   "scanning position?"
+  ],
+  "event": "H_07",
+  "n": 48
+ },
+ {
+  "start": 197.489,
+  "end": 197.864,
+  "lines": [
+   "Yeah."
+  ],
+  "event": "H_07",
+  "n": 49
+ },
+ {
+  "start": 204.496,
+  "end": 206.79,
+  "lines": [
+   "Oh, under the car! It disappeared!"
+  ],
+  "event": "H_10",
+  "n": 50
+ },
+ {
+  "start": 208.458,
+  "end": 209.96,
+  "lines": [
+   "Oh, it's right here. Right?"
+  ],
+  "event": "H_11",
+  "n": 51
+ },
+ {
+  "start": 210.335,
+  "end": 212.629,
+  "lines": [
+   "Yeah. Oh yeah, it is. It blended in."
+  ],
+  "event": "H_11",
+  "n": 52
+ },
+ {
+  "start": 212.712,
+  "end": 214.464,
+  "lines": [
+   "I do the same thing all the time."
+  ],
+  "event": "H_11",
+  "n": 53
+ },
+ {
+  "start": 223.765,
+  "end": 224.349,
+  "lines": [
+   "Done?"
+  ],
+  "event": "H_14",
+  "n": 54
+ },
+ {
+  "start": 224.599,
+  "end": 225.684,
+  "lines": [
+   "Nope. Oh yeah, almost done."
+  ],
+  "event": "H_14",
+  "n": 55
+ },
+ {
+  "start": 235.819,
+  "end": 236.611,
+  "lines": [
+   "Time."
+  ],
+  "event": "TM_01",
+  "n": 56
+ },
+ {
+  "start": 237.946,
+  "end": 239.156,
+  "lines": [
+   "20 minutes."
+  ],
+  "event": "TM_01",
+  "n": 57
+ },
+ {
+  "start": 240.157,
+  "end": 240.949,
+  "lines": [
+   "Done."
+  ],
+  "event": "TM_01",
+  "n": 58
+ },
+ {
+  "start": 242.117,
+  "end": 245.579,
+  "lines": [
+   "And the other one, 32 minutes."
+  ],
+  "event": "TM_01",
+  "n": 59
+ },
+ {
+  "start": 245.954,
+  "end": 246.455,
+  "lines": [
+   "Yep."
+  ],
+  "event": "TM_01",
+  "n": 60
+ },
+ {
+  "start": 281.781,
+  "end": 283.909,
+  "lines": [
+   "If we ignore the scanner crashing on me..."
+  ],
+  "event": "CON_01",
+  "n": 61
+ },
+ {
+  "start": 283.909,
+  "end": 285.911,
+  "lines": [
+   "20 minutes. 20 minutes",
+   "for the whole car,"
+  ],
+  "event": "CON_01",
+  "n": 62
+ }
+]

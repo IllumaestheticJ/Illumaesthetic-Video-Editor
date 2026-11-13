@@ -1,0 +1,340 @@
+{
+ "seg_version": 1,
+ "x264_preset": "faster",
+ "drop_events": [
+  "E41"
+ ],
+ "drop_why": "scan_shots.md: SC_INS_CABIN skipped (closed shell, no cabin geometry) -> E41 dropped, E40 runs into E42 (contiguous source 545 115.15-123.55). Timeline after it moves up 3.0 s; the HUD rail is retimed per event so nothing desyncs.",
+ "anchors": {
+  "go": [
+   "E09",
+   "FX30541",
+   73.78
+  ],
+  "crashed": [
+   "E22",
+   "FX30541",
+   379.54
+  ],
+  "now": [
+   "E29",
+   "FX30542",
+   13.53
+  ],
+  "time": [
+   "E61",
+   "FX30553",
+   7.33
+  ]
+ },
+ "no_snap": [],
+ "prefer_bar": [
+  "E61",
+  "E04",
+  "E09",
+  "E43",
+  "E68"
+ ],
+ "overlay_offsets": {
+  "G01": 0.8,
+  "G10": 1.0,
+  "G11": 0.5,
+  "G12": 0.5,
+  "G13": 3.5,
+  "CON_G3": 4.8
+ },
+ "music": {
+  "grids": {
+   "P4b": {
+    "a": 585.0,
+    "b": 625.0,
+    "bpm": 150.0
+   },
+   "P5": {
+    "a": 660.0,
+    "b": 720.0,
+    "bpm": 86.0
+   },
+   "P1": {
+    "a": 8.0,
+    "b": 70.0,
+    "bpm": 149.97
+   },
+   "P3": {
+    "a": 290.0,
+    "b": 343.0,
+    "bpm": 158.77
+   },
+   "P4": {
+    "a": 356.0,
+    "b": 480.0,
+    "bpm": 150.0
+   },
+   "P8i": {
+    "a": 1100.6,
+    "b": 1113.0,
+    "bpm": 189.85
+   },
+   "P8": {
+    "a": 1113.0,
+    "b": 1154.0,
+    "bpm": 189.85
+   },
+   "P7": {
+    "a": 1075.0,
+    "b": 1096.0,
+    "bpm": 148.0
+   }
+  },
+  "P4_cold_title_mix": 600.0,
+  "P5_in_mix": 681.954,
+  "P1_in_mix": 8.0,
+  "P3_in_mix": 301.402,
+  "P4_in_mix": 356.17,
+  "P8_lift_mix": 1113.09,
+  "P8_intro_min_mix": 1100.55,
+  "P7_in_mix": 1082.3,
+  "p7_after_con05": 2.546,
+  "xfade_p8_p7": 0.4,
+  "gain": {
+   "P4": -6.0,
+   "P5": -4.5,
+   "P1": -1.5,
+   "P3": -10.0,
+   "P8": -3.0,
+   "P7": -2.0
+  }
+ },
+ "audio": {
+  "clean": "highpass=f=90,afftdn=nr=10:nf=-45:tn=1,lowpass=f=13000",
+  "declip": "adeclip",
+  "declip_clips": [
+   "FX30547",
+   "FX30551",
+   "FX30552",
+   "FX30553"
+  ],
+  "dialogue_lufs": -18.0,
+  "max_gain_db": 24.0,
+  "room_rel_db": -4.0,
+  "room_events_own_audio": false,
+  "duck_db": -12.0,
+  "target_lufs": -14.0,
+  "limit_dbfs": -2.0,
+  "dia_comp": "acompressor=threshold=0.05:ratio=3:attack=5:release=150:knee=4",
+  "dia_peak_dbfs": -8.0
+ },
+ "room_bridges": [
+  {
+   "from": "crashed",
+   "to": "now",
+   "to_off": 0.6,
+   "clip": "FX30541",
+   "src": [
+    384.0,
+    390.3
+   ],
+   "rel_db": -2.0,
+   "why": "music cuts dead on 'crashed' and returns on 'Now.': continuous room tone (word-free 541 384.0-390.3) under the gap, the G05 card and the reboot lines"
+  },
+  {
+   "from": "time",
+   "to": "card32",
+   "to_off": 0.8,
+   "clip": "FX30553",
+   "src": [
+    7.95,
+    9.6
+   ],
+   "rel_db": -6.0,
+   "why": "after 'Time.' the music stops; a low bed from 553 between words keeps the stop from going digital-silent"
+  }
+ ],
+ "scan": {
+  "SC_RES_REFLECTOR": {
+   "swap_at": 3.0
+  }
+ },
+ "events": {
+  "E01": {
+   "crop_y": 40
+  },
+  "E02": {
+   "crop_y": 60
+  },
+  "E03": {
+   "crop_y": 60
+  },
+  "E05": {
+   "crop_y": 60
+  },
+  "E06": {
+   "crop_y": 30
+  },
+  "E07": {
+   "crop_y": 60
+  },
+  "E09": {
+   "crop_y": 80
+  },
+  "E10": {
+   "crop_y": 80
+  },
+  "E12": {
+   "crop_y": 60
+  },
+  "E13": {
+   "crop_y": 80
+  },
+  "E14": {
+   "crop_y": 80
+  },
+  "E15": {
+   "crop_y": 100
+  },
+  "E16": {
+   "crop_y": 30
+  },
+  "E17": {
+   "crop_y": 80
+  },
+  "E18": {
+   "crop_y": 60
+  },
+  "E19": {
+   "crop_y": 60
+  },
+  "E21": {
+   "crop_y": 80
+  },
+  "E22": {
+   "crop_y": 40
+  },
+  "E23": {
+   "crop_y": 40
+  },
+  "E24": {
+   "crop_y": 80
+  },
+  "E25": {
+   "crop_y": 80
+  },
+  "E26": {
+   "crop_y": 80
+  },
+  "E28": {
+   "crop_y": 60
+  },
+  "E29": {
+   "crop_y": 60
+  },
+  "E30": {
+   "crop_y": 60
+  },
+  "E31": {
+   "crop_y": 60
+  },
+  "E32": {
+   "crop_y": 0,
+   "match_out_frame": 1135,
+   "why": "1:1 cut: IRL rows 0-919 sit exactly where the full-frame scan's rows 0-919 are; last frame = solved f1135"
+  },
+  "E34": {
+   "crop_y": 80
+  },
+  "E35": {
+   "crop_y": 80
+  },
+  "E36": {
+   "crop_y": 100
+  },
+  "E37": {
+   "crop_y": 80
+  },
+  "E38": {
+   "rotate": "cclock"
+  },
+  "E39": {
+   "rotate": "cclock"
+  },
+  "E40": {
+   "rotate": "cclock"
+  },
+  "E42": {
+   "rotate": "cclock"
+  },
+  "E43": {
+   "crop_y": 100
+  },
+  "E44": {
+   "crop_y": 40
+  },
+  "E45": {
+   "crop_y": 60
+  },
+  "E46": {
+   "crop_y": 80
+  },
+  "E47": {
+   "crop_y": 80
+  },
+  "E49": {
+   "crop_y": 100
+  },
+  "E50": {
+   "crop_y": 110,
+   "why": "red car plate (ESF089) sits at y<=86 in 547 ~125 s; crop rows 110-1030 keeps it out"
+  },
+  "E51": {
+   "crop_y": 60
+  },
+  "E52": {
+   "crop_y": 80
+  },
+  "E53": {
+   "crop_y": 60
+  },
+  "E54": {
+   "crop_y": 80
+  },
+  "E55": {
+   "crop_y": 100
+  },
+  "E56": {
+   "crop_y": 80
+  },
+  "E58": {
+   "crop_y": 80
+  },
+  "E59": {
+   "crop_y": 80
+  },
+  "E60": {
+   "crop_y": 80
+  },
+  "E61": {
+   "crop_y": 80
+  },
+  "E64": {
+   "crop_y": 60
+  },
+  "E65": {
+   "crop_y": 60
+  },
+  "E66": {
+   "crop_y": 0,
+   "match_out_frame": 264,
+   "why": "1:1 cut: same as E32, last frame = solved f264"
+  },
+  "CON_01": {
+   "crop_y": 80
+  },
+  "CON_03": {
+   "crop_y": 40,
+   "why": "front plate sits at y>=990 in the source; crop rows 40-960 keeps it out of picture (checked)"
+  }
+ },
+ "snap_window": 0.15,
+ "snap_window_free": 0.21,
+ "snap_why": "EDL: nearest accent within +-0.15 s. Where neither side carries sync speech the window is 0.21 s (just over half a 150 BPM beat) so every music-only cut lands on a beat"
+}

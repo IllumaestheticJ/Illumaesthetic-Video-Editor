@@ -1,0 +1,16 @@
+{
+ "method": "3 frames per visible IRL event (10/50/90 % of src range), LUT fx3a_slog3cine_to_709, 1920x1080 (FX30545 from dropbox_4k, -noautorotate), with the TR cluster box x1480-1880 y40-240 and TL box x40-440 y40-240 drawn; frames in /home/user/media/work/is350-long/gfx/v2/frames, sheets in .../v2/sheets",
+ "default": "TR",
+ "corners": {"P_03": "TL"},
+ "notes": {
+  "P_03": "host crouching at the bumper reaches x>1100 and his shoulder/arm fills the top-right in the last third: cluster moved to TL (bumper and hood, no face)",
+  "Q_05": "TR kept: host's head ends at x~1400, crew head left; TL would cover the host's head in the first third",
+  "T_02": "TR kept: the white scanner body clips the box edge by ~60 px at its far right (back of the device, not the screen)",
+  "H_07": "TR kept: scanner back-end touches the box corner, face at x~1000-1200",
+  "C_05": "TR kept: a spray bottle label sits in the box (not a face/stopwatch); the phone is centre-left",
+  "C_06": "TR kept: the red spray-gun head is in the box (not a face/stopwatch/screen)",
+  "TM_01": "TR kept in all three frames; the phone (src 16-17.6) is centre-left x620-1165, so G08 uses a narrow block x60-620",
+  "CON_01": "TR kept: bright sky, plates at 55 % black carry the text; host centre, crew left",
+  "all_other": "TR clear of faces, in-shot stopwatches and scanner screens in all 3 frames"
+ }
+}

@@ -1,0 +1,1292 @@
+{
+ "fps": 23.976,
+ "width": 1920,
+ "height": 270,
+ "durationInFrames": 7252,
+ "segments": [
+  {
+   "id": "CO_01",
+   "t0": 0.0,
+   "t1": 3.7955,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "B_01",
+   "t0": 3.7955,
+   "t1": 7.5492,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "B_02",
+   "t0": 7.5492,
+   "t1": 14.4728,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_01a",
+   "t0": 14.4728,
+   "t1": 18.33549999999999,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_01b",
+   "t0": 18.33549999999999,
+   "t1": 18.9356,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 0,
+    "b": 0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_02",
+   "t0": 18.9356,
+   "t1": 25.8592,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 1.9869999999999948,
+    "b": 9.220600000000005
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_03",
+   "t0": 25.8592,
+   "t1": 29.1124,
+   "visible": true,
+   "corner": "TL",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 22.00500000000001,
+    "b": 25.45830000000001
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_04",
+   "t0": 29.1124,
+   "t1": 37.2455,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 30.9914,
+    "b": 39.37450000000001
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_05",
+   "t0": 37.2455,
+   "t1": 40.8742,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "map",
+    "vals": [
+     39.64,
+     39.734,
+     39.882,
+     40.14,
+     40.532,
+     41.068,
+     41.745,
+     42.548,
+     43.449,
+     44.408,
+     45.379,
+     46.35,
+     47.321,
+     48.292,
+     49.263,
+     50.234,
+     51.205,
+     52.176,
+     53.147,
+     54.117,
+     55.088,
+     56.059,
+     57.03,
+     58.001,
+     58.972,
+     59.943,
+     60.914,
+     61.885,
+     62.856,
+     63.827,
+     64.798,
+     65.769,
+     66.74,
+     67.711,
+     68.682,
+     69.652,
+     70.623,
+     71.594,
+     72.565,
+     73.536,
+     74.507,
+     75.478,
+     76.449,
+     77.42,
+     78.391,
+     79.362,
+     80.333,
+     81.304,
+     82.275,
+     83.246,
+     84.217,
+     85.188,
+     86.158,
+     87.129,
+     88.1,
+     89.071,
+     90.042,
+     91.013,
+     91.984,
+     92.955,
+     93.926,
+     94.897,
+     95.868,
+     96.839,
+     97.81,
+     98.781,
+     99.752,
+     100.723,
+     101.693,
+     102.664,
+     103.635,
+     104.606,
+     105.577,
+     106.548,
+     107.519,
+     108.49,
+     109.461,
+     110.432,
+     111.391,
+     112.292,
+     113.095,
+     113.772,
+     114.308,
+     114.7,
+     114.958,
+     115.106,
+     115.178
+    ]
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "glyph": ">> 20x"
+  },
+  {
+   "id": "P_06",
+   "t0": 40.8742,
+   "t1": 43.752,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 115.0146,
+    "b": 117.89249999999998
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_07",
+   "t0": 43.752,
+   "t1": 46.5882,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 118.9855,
+    "b": 121.82159999999999
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_08",
+   "t0": 46.5882,
+   "t1": 48.6319,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 125.9822,
+    "b": 127.3159
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_01",
+   "t0": 48.6319,
+   "t1": 51.4681,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 171.9967,
+    "b": 174.8329
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_02",
+   "t0": 51.4681,
+   "t1": 55.5138,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 209.99349999999998,
+    "b": 214.0392
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_03",
+   "t0": 55.5138,
+   "t1": 57.1404,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 222.00549999999998,
+    "b": 224.1322
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_04",
+   "t0": 57.1404,
+   "t1": 61.2278,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 245.9873,
+    "b": 250.0747
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_05",
+   "t0": 61.2278,
+   "t1": 67.7343,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 272.01869999999997,
+    "b": 279.1152
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_01",
+   "t0": 67.7343,
+   "t1": 82.2488,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 293.9968,
+    "b": 307.99129999999997
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_02",
+   "t0": 82.2488,
+   "t1": 83.2498,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 308.0,
+    "b": 309.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING",
+   "glitch": true
+  },
+  {
+   "id": "C_03a",
+   "t0": 83.2498,
+   "t1": 83.50005025025024,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 309.0,
+    "b": 310.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "glitch": true,
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_03b",
+   "t0": 83.50005025025024,
+   "t1": 84.4177,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 309.0,
+    "b": 310.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_04",
+   "t0": 84.4177,
+   "t1": 86.7116,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 324.9866,
+    "b": 327.1105
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_05",
+   "t0": 86.7116,
+   "t1": 88.5468,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 329.0201,
+    "b": 331.05519999999996
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_06",
+   "t0": 88.5468,
+   "t1": 92.7176,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 334.9851,
+    "b": 339.986
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_07",
+   "t0": 92.7176,
+   "t1": 95.6789,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "ff",
+    "a": 339.986,
+    "b": 716
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "hideClock": true
+  },
+  {
+   "id": "C_08a",
+   "t0": 95.6789,
+   "t1": 108.6789,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 716.0,
+    "b": 729.0355908397617
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_08b",
+   "t0": 108.6789,
+   "t1": 111.1789,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 729.0355908397617,
+    "b": 731.5424352320235
+   },
+   "t2": {
+    "k": "time",
+    "a": 0,
+    "b": 2
+   },
+   "sub": "AFTER REBOOT"
+  },
+  {
+   "id": "C_08c",
+   "t0": 111.1789,
+   "t1": 113.9055,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 731.5424352320235,
+    "b": 734.2765
+   },
+   "t2": {
+    "k": "time",
+    "a": 2,
+    "b": 4
+   }
+  },
+  {
+   "id": "T_01",
+   "t0": 113.9055,
+   "t1": 115.115,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 740.0069,
+    "b": 740.8165
+   },
+   "t2": {
+    "k": "time",
+    "a": 10.006899999999998,
+    "b": 11.816500000000001
+   }
+  },
+  {
+   "id": "T_02",
+   "t0": 115.115,
+   "t1": 119.119,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 779.9806,
+    "b": 783.9846
+   },
+   "t2": {
+    "k": "time",
+    "a": 50.9806,
+    "b": 54.9846
+   }
+  },
+  {
+   "id": "T_03",
+   "t0": 119.119,
+   "t1": 123.123,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 825.9849,
+    "b": 829.9889000000001
+   },
+   "t2": {
+    "k": "time",
+    "a": 96.9849,
+    "b": 100.9889
+   }
+  },
+  {
+   "id": "T_02b",
+   "t0": 123.123,
+   "t1": 127.127,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 884.0012,
+    "b": 888.0052000000001
+   },
+   "t2": {
+    "k": "time",
+    "a": 155.0012,
+    "b": 159.0052
+   }
+  },
+  {
+   "id": "T_04",
+   "t0": 127.127,
+   "t1": 131.131,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1032.004,
+    "b": 1036.008
+   },
+   "t2": {
+    "k": "time",
+    "a": 302.004,
+    "b": 306.008
+   }
+  },
+  {
+   "id": "T_05",
+   "t0": 131.131,
+   "t1": 132.3405,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1057.0129,
+    "b": 1058.8225
+   },
+   "t2": {
+    "k": "time",
+    "a": 328.0129,
+    "b": 328.8225
+   }
+  },
+  {
+   "id": "T_06",
+   "t0": 132.3405,
+   "t1": 133.5501,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1071.9862,
+    "b": 1073.7957
+   },
+   "t2": {
+    "k": "time",
+    "a": 342.9862,
+    "b": 343.7957
+   }
+  },
+  {
+   "id": "T_07a",
+   "t0": 133.5501,
+   "t1": 136.9142,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 509,
+    "b": 512
+   }
+  },
+  {
+   "id": "T_07b",
+   "t0": 136.9142,
+   "t1": 144.144,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "T_08",
+   "t0": 144.144,
+   "t1": 173.5901,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "H_01",
+   "t0": 173.5901,
+   "t1": 175.5921,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1265.9879,
+    "b": 1267.9899
+   },
+   "t2": {
+    "k": "time",
+    "a": 525.9879,
+    "b": 527.9899
+   }
+  },
+  {
+   "id": "H_02",
+   "t0": 175.5921,
+   "t1": 179.2207,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1321.0178,
+    "b": 1325.1464
+   },
+   "t2": {
+    "k": "time",
+    "a": 580.0178,
+    "b": 584.1464
+   }
+  },
+  {
+   "id": "H_03",
+   "t0": 179.2207,
+   "t1": 183.2247,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1352.0,
+    "b": 1355.304
+   },
+   "t2": {
+    "k": "time",
+    "a": 611.0,
+    "b": 615.304
+   }
+  },
+  {
+   "id": "H_04",
+   "t0": 183.2247,
+   "t1": 186.8116,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1387.9943,
+    "b": 1391.0812
+   },
+   "t2": {
+    "k": "time",
+    "a": 646.9943,
+    "b": 650.0812
+   }
+  },
+  {
+   "id": "H_05",
+   "t0": 186.8116,
+   "t1": 191.2327,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1405.0118,
+    "b": 1409.9329
+   },
+   "t2": {
+    "k": "time",
+    "a": 664.0118,
+    "b": 668.9329
+   }
+  },
+  {
+   "id": "H_06",
+   "t0": 191.2327,
+   "t1": 192.4422,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1417.0072,
+    "b": 1418.8167
+   },
+   "t2": {
+    "k": "time",
+    "a": 676.0072,
+    "b": 677.8167
+   }
+  },
+  {
+   "id": "H_07",
+   "t0": 192.4422,
+   "t1": 198.4482,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1471.9951,
+    "b": 1478.1511
+   },
+   "t2": {
+    "k": "time",
+    "a": 730.9951,
+    "b": 737.1511
+   }
+  },
+  {
+   "id": "H_08",
+   "t0": 198.4482,
+   "t1": 200.4502,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1525.0145,
+    "b": 1527.0165
+   },
+   "t2": {
+    "k": "time",
+    "a": 784.0145,
+    "b": 786.0165
+   }
+  },
+  {
+   "id": "H_09",
+   "t0": 200.4502,
+   "t1": 204.4542,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1611.012,
+    "b": 1615.016
+   },
+   "t2": {
+    "k": "time",
+    "a": 870.012,
+    "b": 874.016
+   }
+  },
+  {
+   "id": "H_10",
+   "t0": 204.4542,
+   "t1": 208.0412,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1642.0,
+    "b": 1645.1369
+   },
+   "t2": {
+    "k": "time",
+    "a": 901.0,
+    "b": 904.1369
+   }
+  },
+  {
+   "id": "H_11",
+   "t0": 208.0412,
+   "t1": 214.5477,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1654.9801,
+    "b": 1661.9766
+   },
+   "t2": {
+    "k": "time",
+    "a": 913.9801,
+    "b": 920.9766
+   }
+  },
+  {
+   "id": "H_12",
+   "t0": 214.5477,
+   "t1": 216.0492,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1671.0129,
+    "b": 1673.1144
+   },
+   "t2": {
+    "k": "time",
+    "a": 930.0129,
+    "b": 932.1144
+   }
+  },
+  {
+   "id": "H_13",
+   "t0": 216.0492,
+   "t1": 221.6798,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1726.0006,
+    "b": 1730.9312
+   },
+   "t2": {
+    "k": "time",
+    "a": 985.0006,
+    "b": 990.9312
+   }
+  },
+  {
+   "id": "H_14",
+   "t0": 221.6798,
+   "t1": 226.4762,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1832.9841,
+    "b": 1837.3206
+   },
+   "t2": {
+    "k": "time",
+    "a": 1091.9841,
+    "b": 1096.3206
+   }
+  },
+  {
+   "id": "H_15",
+   "t0": 226.4762,
+   "t1": 230.4802,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1862.0063,
+    "b": 1866.0103
+   },
+   "t2": {
+    "k": "time",
+    "a": 1121.0063,
+    "b": 1125.0103
+   }
+  },
+  {
+   "id": "H_16",
+   "t0": 230.4802,
+   "t1": 235.6938,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1914.0166,
+    "b": 1919.2301
+   },
+   "t2": {
+    "k": "time",
+    "a": 1173.0166,
+    "b": 1178.2301
+   }
+  },
+  {
+   "id": "TM_01a",
+   "t0": 235.6938,
+   "t1": 237.3948,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "time",
+    "a": 1964.3390000000002,
+    "b": 1966.0400000000002
+   },
+   "t2": {
+    "k": "time",
+    "a": 1223.249,
+    "b": 1224.95
+   }
+  },
+  {
+   "id": "TM_01b",
+   "t0": 237.3948,
+   "t1": 244.53480000000002,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "time",
+    "a": 1966.0400000000002,
+    "b": 1973.18
+   },
+   "t2": {
+    "k": "time",
+    "a": 1224.95,
+    "b": 1224.95
+   }
+  },
+  {
+   "id": "TM_01c",
+   "t0": 244.53480000000002,
+   "t1": 245.9948,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "time",
+    "a": 1973.18,
+    "b": 1973.18
+   },
+   "t2": {
+    "k": "time",
+    "a": 1224.95,
+    "b": 1224.95
+   }
+  },
+  {
+   "id": "TM_01d",
+   "t0": 245.9948,
+   "t1": 246.955,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "TM_02",
+   "t0": 246.955,
+   "t1": 249.9163,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "MP2_A",
+   "t0": 249.9163,
+   "t1": 252.3771,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MP2_B",
+   "t0": 252.3771,
+   "t1": 254.7962,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MREAR_A",
+   "t0": 254.7962,
+   "t1": 257.966,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MREAR_B",
+   "t0": 257.966,
+   "t1": 260.3851,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MP3_A",
+   "t0": 260.3851,
+   "t1": 262.8042,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MP3_B",
+   "t0": 262.8042,
+   "t1": 265.1816,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MFRONT_A",
+   "t0": 265.1816,
+   "t1": 268.3931,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "MFRONT_B",
+   "t0": 268.3931,
+   "t1": 272.3554,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M6",
+   "t0": 272.3554,
+   "t1": 279.3207,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "CON_01",
+   "t0": 279.3207,
+   "t1": 284.1172,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "THE ANSWER",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "CON_02",
+   "t0": 284.1172,
+   "t1": 297.5055,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE ANSWER",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "END",
+   "t0": 297.5055,
+   "t1": 302.4688,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  }
+ ],
+ "chips": [
+  {
+   "text": "2 HR",
+   "t0": 3.2353000000000005,
+   "hl": false
+  },
+  {
+   "text": "30 MIN",
+   "t0": 6.759399999999999,
+   "hl": false
+  },
+  {
+   "text": "15 MIN",
+   "t0": 13.6006,
+   "hl": true
+  }
+ ],
+ "chipsOut": 14.4728,
+ "t2Appear": 108.6789,
+ "plateAlpha": 0.55
+}
