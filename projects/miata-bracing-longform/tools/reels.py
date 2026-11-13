@@ -17,8 +17,22 @@ def ease(x): x = min(max(x, 0), 1); return x*x*(3 - 2*x)
 def run(c): subprocess.run(['ffmpeg', '-v', 'error', '-y'] + c, check=True)
 ENC = ['-c:v', 'libx264', '-preset', 'fast', '-crf', '17', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-video_track_timescale', '30000']
 # ---------------------------------------------------------------- segments
+def track(a, d):
+    """where the host's face is, 4 times a second (skin tone in the top 55 % of the frame), smoothed: the 9:16 window follows him"""
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-ss', str(a), '-t', str(d + .3), '-i', SRC, '-vf', 'fps=4,scale=480:270', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
+    f = np.frombuffer(raw, np.uint8).reshape(-1, 270, 480, 3).astype(int); xs = []
+    for g in f:
+        r, gg, b = g[:150, :, 0], g[:150, :, 1], g[:150, :, 2]; skin = (r > 110) & (gg > 60) & (r > gg*1.15) & (r < gg*1.7) & (gg > b*1.05) & (r - b > 30) & (r < 245)
+        xs.append(np.argmax(np.convolve(skin.sum(0).astype(float), np.ones(50), 'same'))/480)
+    xs = np.array(xs); xs = np.array([np.median(xs[max(i - 1, 0):i + 2]) for i in range(len(xs))]); xs = np.convolve(np.pad(xs, 1, mode='edge'), np.ones(3)/3, 'valid')
+    return [(i/4, float(x)) for i, x in enumerate(xs)]
 def irl(out, a, d, cx, n):
-    hh = 1840 if a < 184.27 else 2160; ww = int(hh*9/16)//2*2; x = int(min(max(cx*3840 - ww/2, 0), 3840 - ww))      # front section: crop above the burned-in subtitle band
+    hh = 1840 if a < 184.27 else 2160; ww = int(hh*9/16)//2*2; px = lambda c: int(min(max(c*3840 - ww/2, 0), 3840 - ww))      # front section: crop above the burned-in subtitle band
+    if cx == 'host':
+        K = track(a, d); e = str(px(K[-1][1]))
+        for (t0, c0), (t1, c1) in reversed(list(zip(K, K[1:]))): e = f'if(lt(t,{t1}),{px(c0)}+({px(c1) - px(c0)})*(t-{t0})/{t1 - t0},{e})'
+        x = f"'{e}'"
+    else: x = px(cx)
     run(['-ss', f'{a:.3f}', '-i', SRC, '-vf', f'crop={ww}:{hh}:{x}:0,scale={W}:{H}:flags=lanczos,fps={FPS}', '-an', '-frames:v', str(n), *ENC, out])
 def pipe(out, n, draw):
     ff = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', *ENC, out], stdin=subprocess.PIPE)
@@ -33,7 +47,7 @@ def ramp(im, d, y):
     d.text((226, y + 11), 'IN', font=F(30), fill=FG, anchor='rm'); d.text((854, y + 11), 'OUT', font=F(30), fill=FG, anchor='lm')
 def heat_single(state, y0, y1, head, big, sub):
     def draw(t, D):
-        im = Image.new('RGB', (W, H), BG); u = t/D; im.paste(car(state, y0 + (y1 - y0)*ease(u), 15, W, 900, 0.262), (0, 560)); d = ImageDraw.Draw(im)
+        im = Image.new('RGB', (W, H), BG); u = t/D; im.paste(car(state, y0 + (y1 - y0)*ease(u), 15, W, 900, 0.29), (0, 560)); d = ImageDraw.Draw(im)
         ctext(d, 300, head, F(64), FG, t/.3)
         if big:
             k = ease((t - .5)/1.2); ctext(d, 430, f'+{big*k:.1f} mm', F(170, 'Black'), GOLD, (t - .4)/.3); ctext(d, 555, sub, F(46, 'SemiBold'), FG, (t - .9)/.3)
@@ -53,13 +67,13 @@ def heat_pair(a, b, la, lb, y0, y1, head=None):
 def bars(rows):
     def draw(t, D):
         im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im); ctext(d, 330, 'STRUT TOWER SPREAD', F(60), FG, t/.3); ctext(d, 405, 'one corner jacked, vs the car on the ground', F(36, 'Medium'), (150, 156, 164), (t - .2)/.3)
-        y = 560
+        y = 640
         for lab, v, col, t0 in rows:
             k = ease((t - t0)/.8); al = (t - t0)/.25
             if al > 0:
                 d.text((110, y), lab, font=F(48), fill=FG); d.rounded_rectangle([110, y + 76, 110 + max(860*v/1.7*k, 18), y + 166], 14, fill=col)
                 d.text((110 + 860*v/1.7*k + 26, y + 121), f'+{v*k:.1f} mm', font=F(76, 'Black'), fill=FG, anchor='lm')
-            y += 290
+            y += 340
         return im
     return draw
 _logo = None
@@ -100,21 +114,21 @@ def music(name, pos, n):
 # voice: ('own', a) rough-cut audio from a for the segment | ('vo', i) narration take i | None
 REELS = {
  1: dict(name='Reel1_1p7mm', music=('time_stand_still', 137.0), seg=[
-    ('irl', 192.35, 0.36, 1.9, None),
-    ('irl', 196.2, 0.50, 2.4, ('vo', 3)),
+    ('irl', 191.6, 0.36, 1.25, None),
+    ('irl', 194.1, 0.50, 2.4, ('vo', 3)),
     ('draw', heat_single('jacked', 255, 325, 'ONE CORNER JACKED UP', 1.7, 'wider between the strut towers'), 8.9, None),      # the rest of narration take 3, which starts under the tape-measure shot
     ('draw', heat_pair('jacked', 'fender', 'NO BRACING  +1.7 mm', 'FENDER BRACES  +0.3 mm', 210, 320), None, ('vo', 10)),
     ('draw', endcard(['DOES BRACING', 'ACTUALLY WORK?']), 2.8, None)]),
  2: dict(name='Reel2_the_surprise', music=('cosmic_countdown', 95.9), seg=[
-    ('irl', 64.62, 0.47, 4.45, ('own', 64.62)),
-    ('irl', 257.0, 0.62, 2.0, None),
+    ('irl', 64.62, 'host', 4.45, ('own', 64.62)),
+    ('irl', 257.75, 0.62, 2.0, None),
     ('draw', bars([('Strut tower brace', 0.8, BLUE, .3), ('Fender braces', 0.3, GREEN, 2.3)]), None, ('vo', 16)),
-    ('irl', 314.6, 0.55, None, ('vo', 11)),
+    ('irl', 313.8, 0.55, None, ('vo', 11)),
     ('draw', heat_pair('strut', 'fender', 'STRUT TOWER BRACE  +0.8 mm', 'FENDER BRACES  +0.3 mm', 210, 300, 'BODY MOVEMENT, SAME SCALE'), 3.4, None),
     ('draw', endcard(['WHICH BRACE', 'WOULD YOU PICK?']), 2.8, None)]),
  3: dict(name='Reel3_the_question', music=('dark_summer_night', 12.0), seg=[
-    ('irl', 0.0, 0.47, 8.25, ('own', 0.0)),
-    ('irl', 186.0, 0.55, 1.2, None), ('irl', 192.35, 0.36, 1.2, None), ('irl', 196.6, 0.50, 1.2, None), ('irl', 210.2, 0.68, 1.2, None),
+    ('irl', 0.0, 'host', 8.25, ('own', 0.0)),
+    ('irl', 185.5, 0.55, 1.2, None), ('irl', 191.6, 0.36, 1.2, None), ('irl', 194.2, 0.50, 1.2, None), ('irl', 207.7, 0.50, 1.2, None), ('irl', 209.27, 0.68, 0.9, None),
     ('draw', heat_single('jacked', 255, 315, 'WHERE DOES A MIATA FLEX?', 0, 'one corner jacked, 3D scanned'), 3.0, None),
     ('draw', heat_pair('jacked', 'strut', 'NO BRACING', 'STRUT TOWER BRACE', 215, 305), 3.0, None),
     ('draw', endcard(['DOES BRACING', 'ACTUALLY WORK?']), 2.8, None)]),
@@ -136,8 +150,8 @@ def build(k):
     for s, x, kind in voice:
         p = int(s*SR); x = x[:N - p]; mix[p:p + len(x)] += x; duck[max(p - 4800, 0):p + len(x) + 4800] = 1 if kind == 'vo' else 0.75
     kk = int(.35*SR); duck = np.convolve(duck, np.ones(kk)/kk, 'same'); m = music(*R['music'], N); g = 10**((-1.5 - 11.5*duck)/20)          # -21.5 dB RMS open, -33 under the voice
-    if k == 3: g[:int(8.25*SR)] = 0; r = int(.5*SR); p = int(8.0*SR); g[p:p + r] = np.linspace(0, g[p + r], r)                              # the rough cut carries this track itself under the on-camera hook
-    m = m*g; r = int(1.2*SR); m[-r:] *= np.linspace(1, 0.25, r); mix = np.tanh((mix + m)*1.25)
+    if k == 3: g[:int(8.0*SR)] = 0; r = int(.5*SR); p = int(8.0*SR); g[p:p + r] = np.linspace(0, g[p + r], r)                              # the rough cut carries this track itself under the on-camera hook
+    m = m*g; r = int(1.2*SR); m[-r:] *= np.linspace(1, 0.25, r); mix = np.tanh((mix + m)*1.15)*0.8          # peaks stay under -1.5 dBFS after AAC
     w = wave.open(f'{WK}/r{k}.wav', 'w'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.repeat(mix[:, None], 2, 1)*32767).astype(np.int16).tobytes())
     out = f"{OUT}/Miata_{R['name']}.mp4"
     run(['-f', 'concat', '-safe', '0', '-i', f'{WK}/r{k}.txt', '-i', f'{WK}/r{k}.wav', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', out])
