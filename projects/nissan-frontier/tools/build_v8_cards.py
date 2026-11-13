@@ -1,7 +1,7 @@
 """v8 non-CGI segments (short-form.md playbook from the Sentra reel):
   hook.mp4      146 f  real article, full frame, 3 % push (press/motorillustrated_art.png from tools/capture.js)
-  answer.mp4     71 f  "HERE'S HOW." on black, Inter Display Black, red rule
-  irl_3223_slow.mp4 71 f  the 1:1 reveal clip from 2.4 s (only 1.5 s of clip is left) slowed to 0.63x so the payoff holds 2.4 s;
+  answer.mp4     72 f  "HERE'S HOW." on black, Inter Display Black, red rule
+  irl_3223_slow.mp4 72 f  the 1:1 reveal clip from 2.4 s (only 1.5 s of clip is left) slowed to 0.615x so the payoff holds 2.4 s;
                           frame 1 is the exact solved frame
     python build_v8_cards.py"""
 import subprocess
@@ -25,7 +25,7 @@ def hook(n=146):
         yield src.resize((W, H), Image.BICUBIC, box=((W - w) / 2, (H - h) / 2, (W + w) / 2, (H + h) / 2))
 
 
-def answer(n=71):
+def answer(n=72):
     ft = ImageFont.truetype("/usr/share/fonts/opentype/inter/InterDisplay-Black.otf", 190)
     for f in range(n):
         im = Image.new("RGB", (W, H), (0, 0, 0)); d = ImageDraw.Draw(im)
@@ -39,5 +39,5 @@ def answer(n=71):
 pipe(f"{O}/hook.mp4", hook()); pipe(f"{O}/answer.mp4", answer())
 TM = "zscale=t=linear:npl=100,tonemap=hable,zscale=t=bt709:m=bt709:p=bt709:r=tv,format=yuv420p"
 subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", "2.4", "-i", f"{M}/sema/IMG_3223.mov", "-an", "-vf",
-                f"{TM},setpts=PTS/0.62,minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1:scd=none,scale={W}:{H}",
-                "-frames:v", "71", "-r", "30", "-c:v", "libx264", "-crf", "12", "-pix_fmt", "yuv420p", f"{O}/irl_3223_slow.mp4"], check=True)
+                f"{TM},setpts=PTS/0.615,minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1:scd=none,scale={W}:{H}",
+                "-frames:v", "72", "-r", "30", "-c:v", "libx264", "-crf", "12", "-pix_fmt", "yuv420p", f"{O}/irl_3223_slow.mp4"], check=True)
