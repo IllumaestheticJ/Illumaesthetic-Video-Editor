@@ -931,3 +931,6 @@ lands here automatically. Agents must read this whole file before editing.
 - When a designed part goes back onto a scan, use the part-removed capture as the base so the structure behind it stays
   visible until covered (reviewer request) - not a hollow trimmed shell.
 - A punchline/question title belongs over the first scan shot (black space, never over real footage), with the end card as the answer.
+- (WRX VB v5) A lid seeded from its open-lid capture misses the rear face: on the VB the plate panel between the tail lights is the lid (reviewer: "trunk still not accurately cut"). Trace deck shut lines on a band-passed top-view height map (gauss 1.5 px minus gauss 5 px at 1.5 mm/px, snap guides to the groove, robust cubic) and take the rear face from the trunk-open state difference (projects/subaru-wrx-vb/tools/seg_v5.py).
+- (WRX VB v5) A state scan used as fill can put a removed panel back ('Rear Bumper Trunk Open' re-added the rear bumper; reviewer: "leftover bumper"). Reject fill within 6 mm of REMOVED skin as well as kept skin (build_v5.py).
+- (WRX VB v5) Listing 360 viewers can be rolled (-1.83 deg here) and their distance is loose on silhouette alone: scan distance/roll on interior edges, then ease the roll in during the CTA shrink (cta_card.py --roll). Python Playwright is not installed; use node with NODE_PATH=$(npm root -g).

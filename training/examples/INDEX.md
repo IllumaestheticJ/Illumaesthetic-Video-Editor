@@ -4,6 +4,7 @@ Newest first. Read the top two before starting a new edit.
 
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-13
+- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
@@ -11,7 +12,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
-- [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [honda-s2000](honda-s2000/) - archived 2026-11-13
 - [ferrari-296](ferrari-296/) - archived 2026-11-13

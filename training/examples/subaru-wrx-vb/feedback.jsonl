@@ -5,3 +5,7 @@
 {"ts": "2026-11-13T05:23:00Z", "project": "subaru-wrx-vb", "at": "21", "category": "scan", "note": "rear trunk isn't cut correctly", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T05:23:00Z", "project": "subaru-wrx-vb", "at": "9", "category": "scan", "note": "front bumper has a ton of artifacts", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T05:23:00Z", "project": "subaru-wrx-vb", "at": "6.2", "category": "story", "note": "remove the front bumper first, then pull the grille and other parts off", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T07:31:05Z", "project": "subaru-wrx-vb", "at": "14", "category": "text", "note": "as the flares and side skirts come off, list them", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T07:31:05Z", "project": "subaru-wrx-vb", "at": "9", "category": "text", "note": "the front bumper 'scanned separately' is redundant", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T07:41:34Z", "project": "subaru-wrx-vb", "at": "22", "category": "scan", "note": "the rear skirt area needs to be redone - still has leftover bumper, and the trunk is still not accurately cut out of the car", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T07:41:34Z", "project": "subaru-wrx-vb", "at": "30", "category": "ending", "note": "this also needs to blend into the illumaesthetic call to action - refer to the graphify or skill for more information", "by": "reviewer", "promoted": false}
