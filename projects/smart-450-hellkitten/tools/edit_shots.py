@@ -46,7 +46,7 @@ SHOTS = [
          keys=[(0, 240, 250)], audio="under", section="stripped_front", focus="scanning the bare front"),
     dict(id="S17", start=541, n=23, kind="irl", src="v_1729_10", ss=0.480, win=(608, 1080),
          keys=[(0, 590, 0)], audio="under", section="scanner_result", focus="the scan is on the device"),
-    dict(id="S18", start=564, n=67, kind="scan", scan="a3_detail", t0=0.0, section="stripped_front_scan",
+    dict(id="S18", start=564, n=67, kind="scan", scan="a3_detail", t0=0.0, speed=0.75, section="stripped_front_scan",
          focus="front structure in detail (scan)"),
     dict(id="S19", start=631, n=45, kind="still", img="Blueprint.jpeg", section="payoff_design",
          focus="the new body drawn over this Smart"),
@@ -58,4 +58,5 @@ END = 798
 
 # frames of each scan shot's PNG sequence that must exist for the shot to count as finished (see direction.md section 4)
 # CHANGED a2: 46 (not 60) because S10 plays the post-swap part at 0.537x speed, shot time 1.60-2.80 (R1 not re-keyed: the car touches the frame edge from shot time 3.6 s)
-SCAN_NEED = {"a1_match_str": 26, "a2_body_on_off": 46, "a3_detail": 36}
+SCAN_NEED = {"a1_match_str": 26, "a2_body_on_off": 46, "a3_detail": 29}   # a3: S18 plays at 0.75x (shot time 0-1.68 s): the car reaches the left frame edge from render frame 30
+

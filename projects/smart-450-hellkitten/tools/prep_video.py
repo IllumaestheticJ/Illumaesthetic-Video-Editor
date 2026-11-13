@@ -221,7 +221,7 @@ def prep_scan(s):
         pv[int(Path(f).stem.split("_")[1])] = f
     stamp = json.dumps({"scan": s["scan"], "complete": complete, "n": s["n"],
                         "frames": sorted(have)[-1] if complete else sorted(have), "pv": sorted(pv),
-                        "t0": s.get("t0"), "swap": s.get("swap_t"), "ps": s.get("post_speed"), "need": SCAN_NEED[s["scan"]]}) + f"v6_{nout(s)}"
+                        "t0": s.get("t0"), "swap": s.get("swap_t"), "ps": s.get("post_speed"), "sp": s.get("speed"), "need": SCAN_NEED[s["scan"]]}) + f"v6_{nout(s)}"
     if stamp_ok(out, stamp):
         return out, complete
     n = nout(s); t0 = s["t0"]
@@ -230,7 +230,7 @@ def prep_scan(s):
         first = int(round(t0 * 15)) + 1             # png index at t0 (idx 1 = t 0)
         swap = s.get("swap_t")
         if swap is None:
-            minterp(pat, first, n, out, SCAN_NEED[s["scan"]] - first + 1)
+            minterp(pat, first, n, out, SCAN_NEED[s["scan"]] - first + 1, rate=15.0 * s.get("speed", 1.0))
         else:
             k_swap = int(round((swap - t0) * 30))       # output frame where the stripped state starts
             sidx = int(round(swap * 15)) + 1             # png index of the first stripped frame (25)
@@ -249,7 +249,7 @@ def prep_scan(s):
         p = ffmpeg_pipe(out)
         cache = {}
         for k in range(n):
-            t = t0 + k / 30.0
+            t = t0 + k / 30.0 * s.get("speed", 1.0)
             if s.get("swap_t") is not None and t >= s["swap_t"]:
                 t = s["swap_t"] + (k - int(round((s["swap_t"] - t0) * 30))) / 30.0 * s.get("post_speed", 1.0)
             pidx = t * 15 + 1 + 1e-6
