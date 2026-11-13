@@ -1,0 +1,31 @@
+{
+ "xc": -0.0765,
+ "r": 0.342,
+ "stock": {
+  "fr": {
+   "y": -1.22,
+   "z": 0.318,
+   "x_outer": -0.9985
+  },
+  "fl": {
+   "y": -1.22,
+   "z": 0.318,
+   "x_outer": 0.8467
+  },
+  "rr": {
+   "y": 1.347,
+   "z": 0.318,
+   "x_outer": -0.9798
+  },
+  "rl": {
+   "y": 1.347,
+   "z": 0.318,
+   "x_outer": 0.8782
+  }
+ },
+ "bbs": {
+  "width": 0.29,
+  "half_outer": 1.03,
+  "note": "stand-in deep-dish mesh wheel, outer sidewall 20 mm inside the kit arch lip (half-width 1.05 m about xc)"
+ }
+}

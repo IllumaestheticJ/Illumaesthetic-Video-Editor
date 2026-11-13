@@ -73,16 +73,25 @@
    "from": 930,
    "duration": 51,
    "title": "FRONT BUMPER",
-   "sub": "CANARDS - FENDERS - SLATS",
+   "sub": "CANARDS - FENDERS - MIRRORS",
    "x": 0.08,
    "y": 0.78
   },
   {
    "kind": "label",
-   "from": 1041,
-   "duration": 51,
+   "from": 986,
+   "duration": 50,
    "title": "SIDE SKIRTS",
    "sub": "REAR FENDERS - SLATS - GAS CAP",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 1042,
+   "duration": 52,
+   "title": "BBS LM WHEELS",
+   "sub": "DEEP DISH - STAND-IN MODEL",
    "x": 0.08,
    "y": 0.78
   },

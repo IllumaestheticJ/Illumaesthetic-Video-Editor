@@ -1,3 +1,33 @@
+# Nissan 400Z scan reel — v6 self-review (2026-11-14)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v6.mp4`: 1080x1920, 30 fps, 48.67 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v5 -> v6
+- **"Front bumper on the Kaido House bumper is cut funny ... it still uses part of the original bumper (check photos)"**:
+  the Bomex front is a U-shaped surround around the stock nose and grille. v5 removed the whole stock bumper first, so the
+  surround looked cut open. v6 kit bases keep the stock bumper + grilles; the surround lands over them (matches the photos).
+- **"Bomex mirrors"**: Ron's folder Mirror/V1 Shell + Glass Backing (v5 had only read the V2 folder = internals). Installed
+  on the bare mounts after the canards.
+- **"Deep dish BBS LMs"**: no scan/CAD of the wheels on the Drive (searched). Procedural stand-in (tools/make_bbs.py:
+  polished stepped lip, 20 cross-laced spokes, rivets, low-profile tyre) placed 20 mm inside the kit arch lips; hard 1:1
+  swap for the stock wheels on the 34.656 kick (no hub scan exists to show wheels-off). Label: BBS LM WHEELS / DEEP DISH -
+  STAND-IN MODEL.
+- Re-rendered KIT_FRONT, KIT_SIDE, REAR, LIVERY, HERO; teardown shots unchanged from v5.
+
+## Checks
+Luma clean on all five; nothing touches the frame edge; cuts unchanged from v5 (all within half a frame of the kick);
+12 labels, one at a time, all fully typed before they leave.
+
+## Scores (1-5)
+Hook 3 · Beat sync 5 · Scan quality 4 · Story 5 · Text 5 · Ending 4 · Technical 5.
+
+## For the next agent
+- Look at photos of the built car before deciding what a kit part replaces: add-on surrounds go OVER stock panels.
+- List every version folder of a CAD part (V1/V2) before calling it missing.
+- A part with no scan/CAD that the user asks for: procedural stand-in, hard swap, say STAND-IN on screen and in the delivery.
+
+---
+
 # Nissan 400Z scan reel — v5 self-review (2026-11-13)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v5.mp4`: 1080x1920, 30 fps, 48.67 s. Music: user's album audio from 19:50,
