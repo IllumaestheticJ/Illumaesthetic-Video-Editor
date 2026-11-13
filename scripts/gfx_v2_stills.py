@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 P = Path("/home/user/Illumaesthetic-Video-Editor/projects/lexus-is350-speedrun-long")
 V = Path("/home/user/media/work/is350-long/gfx/v2")
-FR = V / "frames"
+FR = V / "frames_clean"
 (V / "comp").mkdir(exist_ok=True)
 hud = json.load(open(P / "gfx_v2_hud_props.json"))
 cues = json.load(open(P / "gfx_v2_cues_props.json"))

@@ -138,3 +138,28 @@ HUD_v2.mov is 7384 frames (307.97 s). The time-lapse clock follows the editor's 
   10. H_11 "Yeah. Oh yeah, it is. It blended in." and "I do the same thing all the time." (the latter is faint and not in the stem pass; kept per the script, drop if inaudible).
   11. TM_01 "Yep." (some passes "Yeah.").
   12. CON_01 "on me..." (stem and one pass say "on you").
+
+## v2 update: final stage-A timeline (302.47 s, 7252 frames; CO_02/CO_03 and M1-M5 removed, montage renamed MP2/MREAR/MP3/MFRONT)
+- Generator is robust: unknown/renamed timeline events become hidden-HUD stubs (warning), edl events missing from the timeline are skipped, and a cue whose anchor event is missing is skipped with a warning (no crash).
+- **G01_v2 title** now sits on **B_02** (host answering the bet question; first 3.0 s from B_02 start +0.25 s = 7.80-10.80 s), lower-left x60-700 y500 on a plate, three lines "HOW FAST CAN WE / 3D-SCAN AN / ENTIRE CAR?" + sub. The left wall behind the host is clear; the plate stops at the host's shoulder. Falls back to B_01 if B_02 is missing.
+- Re-timed to the final timeline: all cues below; HUD_v2.mov re-rendered (7252 frames). Per-event corners re-checked on `out/is350_long_v2_clean.mp4` frames for the events whose source span changed (P_03, P_04, P_08, T_07, H_03, H_14, CON_01): no change needed (P_03 stays top-left). Review sheets over the clean cut: `v2/comp/hud_sheet_*.jpg`, `v2/comp/cue_sheet_*.jpg`, `v2/comp/changed.jpg`, `v2/comp/scanchk.jpg`.
+- No label sits on SC_MATCH_REAR / SC_MATCH_FRONT / SC_PAIR_* (the montage carries no text). G10_v2 (SC_RES_FULL) and CON_G3_v2 (SC_CON_HERO) are on scan shots that are still **placeholder preview frames** in the clean cut: G10's bottom-left label clips the front wheel in the placeholder; re-check on the final render. CON_G3 is clear. The CON_01 fallback (CON_G1 3.2 s) and the 13.4 s CON_02 (CON_G3 9.9 s) apply as before.
+- Caption band: CAPTIONS_v2.mov is a 1200x160 strip (placed x360, y880 by the editor); every overlay here ends above y880 and the HUD is in the top 270 px.
+
+| cue | file | timeline in-out | duration |
+|---|---|---|---|
+| G01_v2 | v2/G01_v2.mov | 0:07.799-0:10.799 | 72 f / 3.00 s |
+| G03_v2 | v2/G03_v2.mov | 0:13.623-0:14.473 | 20 f / 0.83 s |
+| STING1_v2 | v2/STING1_v2.mov | 0:25.859-0:27.459 | 38 f / 1.58 s |
+| STING2_v2 | v2/STING2_v2.mov | 0:48.632-0:50.232 | 38 f / 1.58 s |
+| G_SPRAY_v2 | v2/G_SPRAY_v2.mov | 0:41.172-0:46.588 | 130 f / 5.42 s |
+| G08_v2 | v2/G08_v2.mov | 4:01.595-4:06.955 | 129 f / 5.38 s |
+| G09_v2 | v2/G09_v2.mov | 4:06.955-4:09.916 | 71 f / 2.96 s |
+| G10_v2 | v2/G10_v2.mov | 4:33.355-4:39.021 | 136 f / 5.67 s |
+| CON_G1_v2 | v2/CON_G1_v2.mov | 4:40.917-4:44.117 | 77 f / 3.21 s |
+| CON_G3_v2 | v2/CON_G3_v2.mov | 4:47.617-4:57.505 | 237 f / 9.88 s |
+| G05a_v2 | v2/G05a_v2.mp4 | 1:23.250-1:24.418 | 28 f / 1.17 s |
+| G05b_v2 | v2/G05b_v2.mp4 | 1:32.718-1:35.679 | 71 f / 2.96 s |
+| G15_v2 | v2/G15_v2.mp4 | 4:57.505-5:02.469 | 119 f / 4.96 s |
+| FX_GLITCH_C02 | v2/FX_GLITCH_C02.mov | 1:22.249-1:23.250 | 24 f / 1.00 s |
+| HUD_v2 | v2/HUD_v2.mov (1920x270 alpha, composite at 0,0) | 0:00.000-5:02.469 | 7252 f / 302.47 s |

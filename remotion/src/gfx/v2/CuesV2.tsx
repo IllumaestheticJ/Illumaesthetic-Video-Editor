@@ -56,6 +56,17 @@ export const CueV2: React.FC<CueV2Props> = (p) => {
         </AbsoluteFill>
       );
     }
+    case "G01_v2": {
+      const lines = txt[0].split("\n");
+      return (
+        <AbsoluteFill>
+          <Box x={x} y={y} w={w} a={a} dx={dx}>
+            {lines.map((l, i) => <div key={i}>{big(l, 58)}</div>)}
+            <div style={{ marginTop: 16, fontFamily: MONO, fontWeight: 700, fontSize: 27, letterSpacing: 2, lineHeight: 1.3, color: "#d5dae2", textShadow: SH }}>{p.sub}</div>
+          </Box>
+        </AbsoluteFill>
+      );
+    }
     case "STING1_v2":
     case "STING2_v2": {
       const [pt, nm] = txt[0].split(" · ");

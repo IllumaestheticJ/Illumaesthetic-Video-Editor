@@ -227,8 +227,12 @@ ev = _EV(EV)
 
 def A(x, off=0.0):
     return None if x is None else x + off
-cue("G01_v2", "ScanLabel", ev["CO_03"]["tin"] + 2.0, ev["CO_03"]["tout"], "G01_v2.mov", True, "lower-left lower third over black below the car (rail-free), halo",
-    text="HOW FAST CAN WE\n3D-SCAN AN ENTIRE CAR?", sub=g["G01_v2"]["sub"], pos="lower3", plate=False)
+# title overlay: the hook question lands in the bet footage (CO_03 scan tease was removed): first 3 s of B_02 (host, clear left wall), fallback B_01
+hook = "B_02" if "B_02" in EV else ("B_01" if "B_01" in EV else None)
+if hook:
+    cue("G01_v2", "CueV2", ev[hook]["tin"] + 0.25, ev[hook]["tin"] + 3.25, "G01_v2.mov", True, f"lower-left x60-720 y520 (plate) over {hook}", text="HOW FAST CAN WE\n3D-SCAN AN\nENTIRE CAR?", sub=g["G01_v2"]["sub"], x=60, y=500, w=640)
+else:
+    print("WARN: G01_v2 skipped (no B_02/B_01)")
 cue("G03_v2", "CueV2", ev["B_02"]["tout"] - 0.85, ev["B_02"]["tout"], "G03_v2.mov", True, "lower-left x80-900 y640 (plate)", text=g["G03_v2"]["text"], x=80, y=640, w=820)
 cue("STING1_v2", "CueV2", ev["P_03"]["tin"], ev["P_03"]["tin"] + 1.6, "STING1_v2.mov", True, "lower-left x80-900 y700 (plate, slides in/out)", text="PART 1 · SPRAY", x=80, y=700, w=860)
 cue("STING2_v2", "CueV2", ev["Q_01"]["tin"], ev["Q_01"]["tin"] + 1.6, "STING2_v2.mov", True, "same as STING1_v2", text="PART 2 · SCAN", x=80, y=700, w=860)

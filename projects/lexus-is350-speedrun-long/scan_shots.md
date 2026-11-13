@@ -1,6 +1,6 @@
 # IS350 speed-run long-form: scan shots (v2)
 
-Progress note (auto, 2026-11-13 03:50 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).
+Progress note (auto, 2026-11-13 04:05 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).
 Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; +0.5 s handle past each duration.
 Files per shot in `/home/user/media/work/is350-long/renders/<id>/`: `png/`, `<id>_src.mov` (ProRes 422 HQ, 8 fps), `<id>_preview.mp4` (H.264 minterpolated to 23.976 fps: use this in the timeline).
 
@@ -26,7 +26,7 @@ IRL frames for the cut must be the full-frame 1920x1080 Rec709 grade (fx3a_slog3
 | B5_halfhalf_FX30554 | done | 1 | - | 3840x2160 RGBA (transparent bg), `/home/user/media/work/is350-long/renders/B5_stills/B5_halfhalf_FX30554_alpha.png` |
 | SC_MATCH_REAR | done | 40/40 | frames 40 mean 58.04..59.60 max_step 0.07 dark_frames [] | v2 montage, use 0-3.0 s (render is 4.5 s + 0.5 s handle). Frame 1 = solved FX30542 f1135 (47.339 s), full 16:9; slow push on the rear bumper. |
 | SC_MATCH_FRONT | done | 44/44 | frames 44 mean 46.20..58.89 max_step 0.47 dark_frames [] | v2 cold open: 0-5.0 s (title from +2.0 s, lower third clean); not reused in the montage. Frame 1 = solved FX30554 f264 (11.011 s), full 16:9; slow push. |
-| SC_PAIR_2 | todo | 0/26 |  | 2.75 s + 0.5 s handle. Frame 1 = solved FX30541 f5641 (235.277 s): rear-RIGHT quarter, C-pillar, trunk lid, tail lamp; then a slow push (10 % of 2.4 m). |
+| SC_PAIR_2 | done | 26/26 | frames 26 mean 174.08..189.65 max_step 0.94 dark_frames [] | 2.75 s + 0.5 s handle. Frame 1 = solved FX30541 f5641 (235.277 s): rear-RIGHT quarter, C-pillar, trunk lid, tail lamp; then a slow push (10 % of 2.4 m). |
 | SC_PAIR_3 | todo | 0/24 |  | 2.5 s + 0.5 s handle. Frame 1 = solved FX30542 f5401 (225.267 s): hood, windshield base, front-LEFT headlamp and fender; then a slow push. |
 | SC_RES_FULL | todo | 0/60 |  | 7.0 s. From above-left, one continuous dolly side -> front-left 3/4 (not a turntable). The ragged rear-left well is visible only in the first ~2 s, small. |
-| SC_CON_HERO | todo | 0/68 |  | 8.0 s + 0.5 s handle (v2). Front-LEFT 3/4 (the front-right well is a ragged hole), one slow continuous pull-back; lower-left band clear for the CTA. |
+| SC_CON_HERO | todo | 0/110 |  | 8.0 s + 0.5 s handle (v2). Front-LEFT 3/4 (the front-right well is a ragged hole), one slow continuous pull-back; lower-left band clear for the CTA. |

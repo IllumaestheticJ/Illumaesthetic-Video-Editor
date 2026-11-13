@@ -1,5 +1,24 @@
 [
  {
+  "cue": "G01_v2",
+  "comp": "CueV2",
+  "file": "G01_v2.mov",
+  "alpha": true,
+  "in": 7.799,
+  "out": 10.799,
+  "frames": 72,
+  "placement": "lower-left x60-720 y520 (plate) over B_02",
+  "props": {
+   "cue": "G01_v2",
+   "frames": 72,
+   "text": "HOW FAST CAN WE\n3D-SCAN AN\nENTIRE CAR?",
+   "sub": "LEXUS IS350 \u00b7 ONE CAR \u00b7 ONE STOPWATCH",
+   "x": 60,
+   "y": 500,
+   "w": 640
+  }
+ },
+ {
   "cue": "G03_v2",
   "comp": "CueV2",
   "file": "G03_v2.mov",
