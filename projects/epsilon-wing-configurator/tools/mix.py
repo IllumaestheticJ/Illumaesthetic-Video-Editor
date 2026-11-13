@@ -39,7 +39,10 @@ def main(out):
 
 # ---- v2 (user on v1): drop "Car not listed? Add it from a blueprint, or your own photos." (tight take 48.07-52.12, inside
 # the pauses either side), add "Try it now, on epsilon dot plus." (same voice/settings, line_try.wav) on the logo card.
-V2 = dict(CUT=(48.07, 52.12), LINE=M + 'vo/line_try.wav', LINE_AT=55.45, LENGTH=58.9)
+V2 = dict(CUT=(48.07, 52.12), LINE=M + 'vo/line_try.wav', LINE_AT=55.45, LENGTH=58.9,
+          # v4 (user): car line replaced, same start (tight 8.14 = video 8.64), padded to the old length (region 8.00-13.29
+          # lies inside the pauses either side), so nothing after it moves
+          CARS=dict(file=M + 'vo/line_cars.wav', region=(8.00, 13.29), at=8.14))
 
 def main_v2(out):
     import numpy as np
@@ -49,7 +52,16 @@ def main_v2(out):
     sr = 48000
     rd = lambda f: np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', f, '-ac', '2', '-ar', str(sr), '-f', 'f32le', '-'],
                                                 capture_output=True, check=True).stdout, np.float32).reshape(-1, 2)
-    x = rd(tight); a, b = (int(t * sr) for t in V2['CUT']); xf = int(0.01 * sr)
+    x = rd(tight)
+    if V2.get('CARS') and '--v4' in sys.argv:
+        cr = V2['CARS']; ct = cr['file'].replace('.wav', '_tight.wav'); hmix.tighten(cr['file'], ct); y = rd(ct)
+        e = np.sqrt(np.convolve(y.mean(1) ** 2, np.ones(1440) / 1440, 'same')); on = np.flatnonzero(e > 0.06 * e.max())
+        y = y[max(0, on[0] - int(0.02 * sr)):on[-1] + int(0.1 * sr)]
+        r0, r1 = (int(t * sr) for t in cr['region']); at = int(cr['at'] * sr)
+        assert at + len(y) < r1, 'new car line longer than the old one'
+        x = x.copy(); x[r0:r1] = 0; x[at:at + len(y)] = y
+        print('car line', round(len(y) / sr, 2), 's at tight', cr['at'])
+    a, b = (int(t * sr) for t in V2['CUT']); xf = int(0.01 * sr)
     seg = x[b:].copy(); r = np.linspace(0, 1, xf)[:, None]
     head = x[:a].copy(); head[-xf:] = head[-xf:] * (1 - r) + seg[:xf] * r
     vo = np.concatenate([head, seg[xf:]])
@@ -79,4 +91,4 @@ def main_v2(out):
 
 
 if __name__ == '__main__':
-    (main_v2 if '--v2' in sys.argv else main)(sys.argv[1])
+    (main_v2 if ('--v2' in sys.argv or '--v4' in sys.argv) else main)(sys.argv[1])

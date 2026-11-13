@@ -47,7 +47,10 @@ def main(out, audio=M + 'work/soundtrack_v1.wav', card='work/logo_card.png'):
     print(out, 'cut frames', fr)
 
 if __name__ == '__main__':
-    if '--v2' in sys.argv:
+    if '--v4' in sys.argv:
+        SHOTS[:] = V2['SHOTS']; CUT_FRAMES[:] = V2['CUT_FRAMES']
+        main(sys.argv[1], M + 'work/soundtrack_v4.wav', V2['CARD'])
+    elif '--v2' in sys.argv:
         SHOTS[:] = V2['SHOTS']; CUT_FRAMES[:] = V2['CUT_FRAMES']
         main(sys.argv[1], M + V2['AUDIO'], V2['CARD'])
     else:
