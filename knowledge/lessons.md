@@ -793,3 +793,5 @@ lands here automatically. Agents must read this whole file before editing.
   (MobileCTA: slot rect + pitch from getBoundingClientRect) and swap page screenshots per dot at the swipe midpoint.
 - Map photo -> video at frame 0 by a fixed scale with the photo centre on the frame centre: the shot camera is the
   photo camera with focal x (photoW * scale / 1080) and no lens shift.
+- "Keep both sides" is only safe for append-only text: a keep-both merge of remotion/src/Root.tsx fused two <Composition>
+  tags into one. After resolving a code-file conflict, run `npx tsc --noEmit` / a `remotion still` before pushing.

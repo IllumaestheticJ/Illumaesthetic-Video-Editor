@@ -36,6 +36,8 @@ export const RemotionRoot: React.FC = () => {
         height={webZoomSplitDefaults.height}
         defaultProps={webZoomSplitDefaults}
         calculateMetadata={calculateWebZoomSplitMetadata}
+      />
+      <Composition
         id="MobileCTA"
         component={MobileCTA}
         durationInFrames={mobileCtaDefaults.durationInFrames}
