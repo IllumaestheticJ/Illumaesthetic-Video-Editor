@@ -1,10 +1,9 @@
-# v6: Ronin section re-cut (grille fix + lights, bumper bar, accurate wheels, higher lift) ending on a 1:1 CUT to the real SEMA
-# footage (Dropbox 'SEMA Reels/Nissan Frontier'), then the MotoIQ photo + logo card. Shots: tools/shots_v6.py. v5: project_v5.yaml.
-# Cut frames: 146 290 434 541 614 725 833 1015 | 1126 1197 1270 1378 (1:1) 1414 1488; end 1608 (53.6 s).
+# v7: no bumper bar; correct bumper cutaway (grille shown -> lights go in -> grille onto the cut bumper); solid wheels on a wider
+# track, never clipping. Shots: tools/shots_v7.py. Same cut frames as v6 (project_v6.yaml).
 # Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
 project: nissan-frontier
 format: reel-9x16
-output: {path: /home/user/media/work/frontier/out/nissan_frontier_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-frontier_track_ronin.wav   # track with beats 32-56 replayed once (see editlog); not in git
@@ -88,7 +87,7 @@ timeline:
   - transition: {type: cut}
   - id: q1_grille
     section: ronin
-    focus: "RONIN GRILLE: stock grille + bumper window out, LED bars in, CAD grille in, lights on"
+    focus: "bumper cut away with the stock grille; RONIN GRILLE shown in front; LED bars go into it; grille goes onto the cut bumper; lights on"
     src: /home/user/media/work/frontier/renders/final/q1_grille
     src_fps: 15
     interpolate: true
@@ -97,7 +96,7 @@ timeline:
   - transition: {type: cut}
   - id: q2_bar
     section: ronin
-    focus: "BUMPER BAR slides in, then WIDE FENDERS replace the stock flares"
+    focus: "WIDE FENDERS replace the stock flares"
     src: /home/user/media/work/frontier/renders/final/q2_bar
     src_fps: 15
     interpolate: true
@@ -106,7 +105,7 @@ timeline:
   - transition: {type: cut}
   - id: q3_lift
     section: ronin
-    focus: "35-INCH WHEELS roll in, then the LIFT"
+    focus: "35-INCH WHEELS roll in at lifted height on the wider track, then the LIFT"
     src: /home/user/media/work/frontier/renders/final/q3_lift
     src_fps: 15
     interpolate: true
