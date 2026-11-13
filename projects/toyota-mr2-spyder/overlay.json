@@ -2,71 +2,62 @@
   "width": 1080,
   "height": 1920,
   "fps": 30,
-  "durationInFrames": 1009,
+  "durationInFrames": 1073,
   "accent": "#e8ecf2",
   "items": [
     {
       "kind": "label",
-      "from": 225,
-      "duration": 62,
-      "title": "FRONT BUMPER REMOVED",
-      "x": 0.08,
-      "y": 0.1,
-      "sub": "SCANNED ON + OFF THE CAR"
-    },
-    {
-      "kind": "label",
-      "from": 305,
-      "duration": 31,
+      "from": 55,
+      "duration": 56,
       "title": "HOOD OPEN",
+      "sub": "SCANNED CLOSED + OPEN",
       "x": 0.08,
-      "y": 0.88,
-      "sub": "SCANNED CLOSED + OPEN"
+      "y": 0.88
     },
     {
       "kind": "label",
-      "from": 338,
-      "duration": 38,
-      "title": "STRUT TOWER",
+      "from": 172,
+      "duration": 60,
+      "title": "FRONT BUMPER REMOVED",
+      "sub": "SCANNED ON THE CAR + AS A LOOSE PART",
       "x": 0.08,
-      "y": 0.88,
-      "sub": "FRONT SUSPENSION MOUNT"
+      "y": 0.88
     },
     {
       "kind": "label",
-      "from": 466,
-      "duration": 46,
-      "title": "HARDTOP REMOVED",
+      "from": 242,
+      "duration": 48,
+      "title": "UNDERBODY SCAN",
+      "sub": "FRONT UNDERTRAY + SUBFRAME",
       "x": 0.08,
-      "y": 0.88,
-      "sub": "SCANNED ON + OFF"
+      "y": 0.86
     },
     {
       "kind": "label",
-      "from": 522,
-      "duration": 47,
-      "title": "ROLL BAR",
+      "from": 300,
+      "duration": 50,
+      "title": "REAR UNDERBODY",
+      "sub": "EXHAUST + REAR SUSPENSION",
       "x": 0.08,
-      "y": 0.88,
-      "sub": "ROOF-DOWN SCAN"
+      "y": 0.86
     },
     {
       "kind": "label",
-      "from": 659,
-      "duration": 46,
-      "title": "REAR LID OPEN",
-      "x": 0.08,
-      "y": 0.88,
-      "sub": "SCANNED CLOSED + OPEN"
-    },
-    {
-      "kind": "label",
-      "from": 707,
-      "duration": 54,
+      "from": 358,
+      "duration": 36,
       "title": "ENGINE BAY",
+      "sub": "SCANNED WITH THE REAR LID OPEN",
       "x": 0.08,
-      "y": 0.88,
-      "sub": "UNDER THE REAR LID"
+      "y": 0.9
+    },
+    {
+      "kind": "label",
+      "from": 500,
+      "duration": 86,
+      "title": "EPSILON AERO KIT",
+      "sub": "BUILT ON THE SCAN DATA",
+      "x": 0.08,
+      "y": 0.88
     }
   ]
 }
