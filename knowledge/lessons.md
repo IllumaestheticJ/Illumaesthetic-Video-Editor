@@ -989,3 +989,5 @@ lands here automatically. Agents must read this whole file before editing.
   on the kick entry and the user said the drop was "right when the music ends". Put the money shot (explode) on the drop.
 - **[technical]** cutcheck right after a drop can read +100 ms or more: it finds the first big broadband transient (a clap) in the new
   section, while the riser cut-off and sub kick are on the grid. Check the band envelope before moving the cut.
+
+- **[audio]** No generated tracks - use real music  _(from infiniti-qx80, 2026-11-13, reviewer)_
