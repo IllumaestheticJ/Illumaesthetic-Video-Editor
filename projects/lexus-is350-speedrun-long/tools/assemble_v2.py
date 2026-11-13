@@ -29,9 +29,10 @@ import assemble_long as al  # noqa: E402
 
 FPS, F, T, SR = al.FPS, al.F, al.T, al.SR
 P, W = al.P, al.W
-B2 = W / "build_v2"
+VER = os.environ.get("IS350_VER", "v2")
+B2 = W / f"build_{VER}"
 OUT = W / "out"
-CFG = json.load(open(P / "tools/editor_v2.json"))
+CFG = json.load(open(P / f"tools/editor_{VER}.json"))
 NICE = al.NICE
 DROP = "/home/user/media/lexus-is350/dropbox"
 
@@ -84,6 +85,13 @@ def load_events():
         if "dur" in o:
             ev["dur"] = o["dur"]; ev["src_out"] = ev["src_in"] + o["dur"]
         evs.append(ev)
+    rc = CFG.get("results_card")
+    if rc:
+        k = next(i for i, e in enumerate(evs) if e["id"] == rc["after"])
+        evs.insert(k + 1, {"id": rc["id"], "section": rc["section"], "type": "card", "source": f"gfx:{rc['cue']}", "card": rc["cue"],
+                           "src_in": 0.0, "src_out": rc["bars"] * 1.6, "dur": rc["bars"] * 1.6, "edl_in": 0.0, "edl_out": rc["bars"] * 1.6,
+                           "audio": "music", "hear": None, "protect": False, "hud": {"visible": False}, "gfx": [rc["cue"]],
+                           "decode": None, "speed": None})
     # end montage rebuilt from editor_v2.json (lead's order); IRL ends on the solved frame from match/cam_*.json
     mc = CFG["montage"]
     i6 = next(k for k, e in enumerate(evs) if e["id"] == "M6")
@@ -257,6 +265,18 @@ def plan():
     ids_m = [e["id"] for e in evs if e["section"].startswith("9 THE SCAN") and e["id"] != "M6"]
     m_start = by[ids_m[0]]["tl_in"]
     total = sum(by[i]["dur"] for i in ids_m)
+    if rc:
+        # card starts on a montage bar line (file bar_in), ends 'bars' bars later; montage runs from there to the riser end
+        card = by[rc["id"]]
+        mo_bp = mo["beat_period_s"] if "beat_period_s" in mo else 0.40005
+        f_card = mo["beat_times_file_s"][0] + 4 * mo_bp * rc["file_bar"]
+        card["dur"] = 4 * mo_bp * rc["bars"]; card["src_out"] = card["dur"]
+        layout(evs)
+        m_start = by[ids_m[0]]["tl_in"]
+        new_total = M["montage"]["riser_end_file"] - (f_card + card["dur"])
+        last = by[ids_m[-1]]
+        last["dur"] += new_total - total; last["src_out"] = last["dur"]
+        total = new_total
     s0 = M["montage"]["riser_end_file"] - total
     m_file0 = m_start - s0
     eighths = [m_file0 + x for x in mo["eighth_times_file_s"]]
@@ -330,7 +350,7 @@ def plan():
 
 
 def write_timeline(evs, A, rep):
-    tl = {"project": "lexus-is350-speedrun-long", "version": "v2", "fps": "24000/1001", "frames_total": evs[-1]["out_f"],
+    tl = {"project": "lexus-is350-speedrun-long", "version": VER, "fps": "24000/1001", "frames_total": evs[-1]["out_f"],
           "duration_s": round(T(evs[-1]["out_f"]), 4), "built_by": "tools/assemble_long.py --edl edl_v2.json (assemble_v2.py)",
           "edl": "edl_v2.json",
           "note": "Final v2 timeline (stage A: clean picture, no graphics/captions). Event ids = edl_v2.json. Times in seconds and frames "
@@ -359,7 +379,7 @@ def write_timeline(evs, A, rep):
         if e.get("tag"):
             o["placeholder"] = e["tag"]
         tl["events"].append(o)
-    al.atomic_json(P / "timeline_v2.json", tl)
+    al.atomic_json(P / f"timeline_{VER}.json", tl)
 
 
 # --------------------------------------------------------------------------------------------------------- video
@@ -729,6 +749,10 @@ def audio(evs, A):
     put(fx, mwav(M["sting"]["file"]), A["time"] - M["sting"]["onset"], M["sting"]["clear"])
     # montage: riser lands on the hero
     m1 = next(e for e in evs if e["section"].startswith("9 THE SCAN"))
+    if CFG.get("results_card"):
+        cd = by[CFG["results_card"]["id"]]
+        put(fx, mwav(M["hit_big"]["file"]), cd["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
+        put(fx, mwav(M["riser"]["file"]), cd["tl_out"] - M["riser"]["landing"], M["riser"]["gain"])
     mus += add(music_part(total, M["montage"]["file"], A["montage_file0"], m1["tl_in"] - M["montage"]["lead_in"], A["lift"], 0.8, 0.01),
                "montage")
     # hero / conclusion / end card
@@ -785,8 +809,8 @@ def master():
     AC = CFG["audio"]
     mixd = np.load(B2 / "audio/mix_pre.npy")
     al.write_wav(B2 / "audio/mix_pre.wav", mixd)
-    (OUT / "stems_v2").mkdir(parents=True, exist_ok=True)
-    mixout = OUT / "is350_long_v2_mix.wav"
+    (OUT / f"stems_{VER}").mkdir(parents=True, exist_ok=True)
+    mixout = OUT / f"is350_long_{VER}_mix.wav"
     trim = 0.0
     for it in range(4):
         af = f"volume={trim:.3f}dB,alimiter=limit={10 ** (AC['limit_dbfs'] / 20):.4f}:attack=3:release=60:level=disabled"
@@ -798,14 +822,14 @@ def master():
             break
         trim += AC["target_lufs"] - r["I"] if r["TP"] <= -1.0 else -0.5
     for k in ("dialogue", "music", "fx_room"):
-        os.replace(B2 / f"audio/{k}.wav", OUT / f"stems_v2/is350_long_v2_stem_{k}.wav")
+        os.replace(B2 / f"audio/{k}.wav", OUT / f"stems_{VER}/is350_long_{VER}_stem_{k}.wav")
     os.remove(B2 / "audio/mix_pre.wav")
-    tmp = OUT / "is350_long_v2_clean.tmp.mp4"
+    tmp = OUT / f"is350_long_{VER}_clean.tmp.mp4"
     subprocess.run(NICE + ["ffmpeg", "-v", "error", "-y", "-i", str(B2 / "picture_clean.mp4"), "-i", str(mixout), "-map", "0:v", "-map", "1:a",
                            "-c:v", "copy", "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-shortest", "-movflags", "+faststart",
                            str(tmp)], check=True)
-    os.replace(tmp, OUT / "is350_long_v2_clean.mp4")
-    log("wrote", OUT / "is350_long_v2_clean.mp4")
+    os.replace(tmp, OUT / f"is350_long_{VER}_clean.mp4")
+    log("wrote", OUT / f"is350_long_{VER}_clean.mp4")
 
 
 def composite(evs):
@@ -828,17 +852,17 @@ def composite(evs):
         fc.append(f"[{cur}][l{k}]overlay={x}:{y}:eof_action=pass:format=auto[v{k}]")
         cur = f"v{k}"
     fc.append(f"[{cur}]format=yuv420p[vout]")
-    mix = OUT / "is350_long_v2_mix.wav"
-    tmp = OUT / "is350_long_v2.tmp.mp4"
+    mix = OUT / f"is350_long_{VER}_mix.wav"
+    tmp = OUT / f"is350_long_{VER}.tmp.mp4"
     subprocess.run(NICE + ["ffmpeg", "-v", "error", "-y"] + inputs + ["-i", str(mix), "-filter_complex", ";".join(fc),
                            "-map", "[vout]", "-map", f"{len(layers) + 1}:a", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
                            "-threads", "3", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
                            "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-frames:v", str(evs[-1]["out_f"]),
                            "-movflags", "+faststart", str(tmp)], check=True)
-    os.replace(tmp, OUT / "is350_long_v2.mp4")
+    os.replace(tmp, OUT / f"is350_long_{VER}.mp4")
     import shutil
     shutil.copy(P / "captions_v2.srt", OUT / "captions_v2.srt")
-    log("wrote", OUT / "is350_long_v2.mp4", "layers:", [(l[0], l[1]) for l in layers])
+    log("wrote", OUT / f"is350_long_{VER}.mp4", "layers:", [(l[0], l[1]) for l in layers])
 
 
 def main(argv):

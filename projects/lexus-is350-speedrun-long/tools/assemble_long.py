@@ -947,6 +947,9 @@ def main():
     if "--edl" in sys.argv:
         edl = sys.argv[sys.argv.index("--edl") + 1]
         if Path(edl).name != "edl.json":
+            if "--ver" in sys.argv:
+                os.environ["IS350_VER"] = sys.argv[sys.argv.index("--ver") + 1]
+                sys.argv = [a for a in sys.argv if a not in ("--ver", os.environ["IS350_VER"])]
             import assemble_v2
             return assemble_v2.main([a for a in sys.argv[1:] if a not in ("--edl", edl)])
         sys.argv = [a for a in sys.argv if a not in ("--edl", edl)]
