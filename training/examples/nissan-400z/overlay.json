@@ -2,26 +2,107 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1322,
+ "durationInFrames": 1460,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "label",
-   "from": 559,
-   "duration": 83,
-   "title": "FRONT BUMPER REMOVED",
+   "from": 270,
+   "duration": 105,
+   "title": "ENGINE BAY",
+   "sub": "SCAN: HOOD OPEN",
    "x": 0.08,
-   "y": 0.72,
-   "sub": "SCAN: BUMPER AND HOOD REMOVED"
+   "y": 0.78
   },
   {
    "kind": "label",
-   "from": 646,
-   "duration": 49,
-   "title": "CRASH BEAM",
+   "from": 507,
+   "duration": 51,
+   "title": "FRONT BUMPER",
+   "sub": "REMOVED",
    "x": 0.08,
-   "y": 0.72,
-   "sub": "BEHIND THE FRONT BUMPER"
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 570,
+   "duration": 57,
+   "title": "AIR DUCTING",
+   "sub": "REMOVED",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 648,
+   "duration": 51,
+   "title": "CRASH FOAM",
+   "sub": "FRONT END - REMOVED",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 732,
+   "duration": 50,
+   "title": "GRILLES",
+   "sub": "UPPER - LOWER",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 818,
+   "duration": 50,
+   "title": "SIDE MIRRORS",
+   "sub": "REMOVED",
+   "x": 0.08,
+   "y": 0.07
+  },
+  {
+   "kind": "label",
+   "from": 873,
+   "duration": 51,
+   "title": "BOMEX x KAIDOHOUSE",
+   "sub": "BODY KIT",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 930,
+   "duration": 51,
+   "title": "FRONT BUMPER",
+   "sub": "CANARDS - FENDERS - SLATS",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 1041,
+   "duration": 51,
+   "title": "SIDE SKIRTS",
+   "sub": "REAR FENDERS - SLATS - GAS CAP",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 1098,
+   "duration": 39,
+   "title": "REAR WING",
+   "sub": "REMOVED",
+   "x": 0.08,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 1155,
+   "duration": 51,
+   "title": "DUCKTAIL",
+   "sub": "DIFFUSER",
+   "x": 0.08,
+   "y": 0.78
   }
  ]
 }

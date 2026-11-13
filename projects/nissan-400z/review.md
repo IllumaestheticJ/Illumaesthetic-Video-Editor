@@ -1,3 +1,40 @@
+# Nissan 400Z scan reel — v5 self-review (2026-11-13)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v5.mp4`: 1080x1920, 30 fps, 48.67 s. Music: user's album audio from 19:50,
+-14.4 LUFS, true peak -3.4 dBTP.
+
+## User requests -> v5
+- **"A bunch of parts that were removed didn't show up, including the grille"**: added the real part/state scans v2-v4 had
+  skipped (400Z Scans folder; all already in the car frame, p50 1.3-2.9 mm): Upper Grille, Lower Grille (bumper alone,
+  exploded forward), Air Ducting (lifts off the structure), Front end crash foam removed (1:1 state swap on the 21.49 kick),
+  Side Mirrors (real part scans incl. mount base + harness, no glass). Every removed part has a beat and a label.
+- **"Include the Bomex bodykit from Ron's folder"**: Ron's Folder / Nissan 400Z Bomex/Kaido House / STL via the service
+  account. 64 print sections merged into 16 parts, rigid trimmed ICP to the scan (p20 2.2 mm, p35 3.9 mm, 0.9 deg).
+  Installed in order after the teardown: front fenders -> slats -> bumper -> stock grilles back in -> canards; rear fenders
+  -> skirts -> slats -> gas cap; stock wing off -> ducktail -> diffuser. Kit mirror files skipped (glass backing/skeleton only).
+- **"And the livery files"**: 400z-full.psd layers (flame/alligator, BOMEX + slogan, rear claw, sponsor row) projected on
+  both sides (passenger text pre-mirrored), BOMEX block on the hood, dark glass. Matched to the build photos the user sent:
+  satin grey paint, KAIDO*HOUSE windscreen banner, stock grille inside the Bomex bumper.
+
+## Checks
+- Luma: no dark frames in any v5 render. Edge margins: first-pass finals clipped in STRUCT/KIT_SIDE/REAR/LIVERY/HERO;
+  all re-framed and re-rendered, final sheets show every parked part fully in frame.
+- Cuts (broadband half-rise): 420 -3.6, 504 +3.5, 701 +3.6, 785 -14.7, 870 +12.5, 984 +10.7, 1096 -13.5, 1209 +11.0,
+  1376 -0.8 ms; 219 and 1321 within -16 ms of the measured kick (cutcheck window picks a louder non-kick hit).
+- Labels: 11, one at a time, text from file/folder names, all in black space (SIDE MIRRORS moved to the top band).
+
+## Scores (1-5)
+Hook 3 (quiet 14 s intro = the chosen music) · Beat sync 5 · Scan quality 4 (raw capture noise in the bay/structure) ·
+Story 5 (stock teardown -> kit build -> livery) · Text 5 · Ending 4 · Technical 5.
+
+## Known weaknesses / for the next agent
+- Windscreen banner font is a stand-in (Inter Display Black); no vector of the real KAIDO*HOUSE decal was supplied. The
+  "KW automotive" strip and hood-side small sponsors in the photos have no files and are not shown.
+- Wheels are the scanned stock wheels (photos show polished deep-dish wheels; no scan of them).
+- Kit fenders sit over the stock fenders (no fender-removed scan), so the stock fender never comes off on screen.
+
+---
+
 # Nissan 400Z scan reel — v4 self-review (2026-11-13)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v4.mp4`: 1080x1920, 30 fps, 1320 f (44.00 s).
