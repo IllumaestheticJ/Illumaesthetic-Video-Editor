@@ -8,43 +8,43 @@ music:
   path: /home/user/media/work/music/mr2_eastcity.wav   # not in git
   start: 0.239
   fade_out: 1.2
-beats: [7.900, 9.833, 11.833, 15.733, 19.667, 23.667, 27.100, 32.433]
+beats: [7.867, 9.833, 11.767, 15.733, 19.667, 23.600, 27.100, 32.433]
 timeline:
   - id: v1_front   # FRONT: whole car -> hood hinges -> real bumper part off on n 8 -> close hold
     section: front
     focus: real front bumper comes off, structure behind it
     src: /home/user/media/work/renders/mr2/v1_front
-    src_fps: 15.0622
+    src_fps: 15.125
     interpolate: true
-    frames: 237
-    dur: 7.9000
+    frames: 236
+    dur: 7.8667
   - transition: {type: cut}
   - id: v2a_under_front   # UNDERBODY FRONT (Kouki and Undertray scan alone, from below)
     section: underbody front
     focus: front undertray and subframe
     src: /home/user/media/work/renders/mr2/v2a_under_front
-    src_fps: 15.9677
+    src_fps: 15.7143
     interpolate: true
-    frames: 58
-    dur: 1.9333
+    frames: 59
+    dur: 1.9667
   - transition: {type: cut}
   - id: v2b_under_rear   # UNDERBODY REAR (Rear Underbody scan alone, from below)
     section: underbody rear
     focus: exhaust and drivetrain underside
     src: /home/user/media/work/renders/mr2/v2b_under_rear
-    src_fps: 15.4688
+    src_fps: 15.9677
     interpolate: true
-    frames: 60
-    dur: 2.0000
+    frames: 58
+    dur: 1.9333
   - transition: {type: cut}
   - id: v3_engine   # ENGINE BAY: lid hinges on n 24, push to 1.7 m and hold
     section: rear
     focus: engine bay under the hinged lid
     src: /home/user/media/work/renders/mr2/v3_engine
-    src_fps: 15.3719
+    src_fps: 15.122
     interpolate: true
-    frames: 117
-    dur: 3.9000
+    frames: 119
+    dur: 3.9667
   - transition: {type: cut}
   - id: v4a_kit_rear   # KIT REAR: scanned hardtop leaves, red Epsilon parts land
     section: kit rear
@@ -59,18 +59,18 @@ timeline:
     section: kit front
     focus: Epsilon skirts, vents, eyelids, bumper closing the nose
     src: /home/user/media/work/renders/mr2/v4b_kit_front
-    src_fps: 15.0000
+    src_fps: 15.2459
     interpolate: true
-    frames: 120
-    dur: 4.0000
+    frames: 118
+    dur: 3.9333
   - transition: {type: cut}
   - id: c1_drive_front   # 1:1 HARD CUT to the CGI lookbook car (no real driving shot exists)
     section: drive front
     focus: finished car driving, same pose
     src: /home/user/media/work/renders/mr2/c1_drive_front
     src_fps: 30
-    frames: 103
-    dur: 3.4333
+    frames: 105
+    dur: 3.5000
   - transition: {type: cut}
   - id: c2_drive_rear   # CGI rear follow, car pulls away, fade
     section: drive rear

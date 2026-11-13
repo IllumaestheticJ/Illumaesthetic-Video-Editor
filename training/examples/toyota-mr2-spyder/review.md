@@ -1,3 +1,26 @@
+# Toyota MR2 Spyder scan reel v3 - self-review (training/rubric.md)
+
+Output: `/home/user/media/work/mr2/out/mr2_spyder_v3.mp4` - 1080x1920, 30 fps, yuv420p, AAC, 1073 frames, 35.77 s. Music: user-supplied "East City".
+v3 answers: "front bumper / rear engine / underbody data isn't properly shown; quick exploded showcase, install the Epsilon aero parts, end on the car driving (1:1), CGI if no clean real shot".
+
+Timeline: v1_front (whole car, hood hinges, real scanned bumper part off, close hold) -> v2a/v2b underbody front + rear (each scan alone, from below) -> v3_engine (lid opens, push to 1.7 m, hold) -> v4a/v4b kit install in red on the silver scan -> hard 1:1 cut -> c1/c2 CGI drive (lookbook GLB, same pose) -> fade -> logo (720 px).
+
+| # | Criterion | Score | Evidence / gap |
+|---|---|---|---|
+| 1 | Hook | 4 | Whole car moving from frame 0, hood starts hinging inside the first second. |
+| 2 | Beat sync | 4 | 8 cuts at 236/295/353/472/590/708/813/973, each within ~half a frame of the transient on the decoded output (10 ms RMS envelope). First assembly had three cuts 2 frames late; retimed. Syncopated track, so "the" onset at 295 and 973 is a 20-30 ms ramp. |
+| 3 | 1:1 match | 4 | Scan+kit last frame vs CGI first frame onion-checked: silhouette, hood vents, bumper, wheels overlap. Wing is red in the kit shot and carbon black in the CGI (GLB material) - a visible mismatch at the cut. It is scan->CGI, not IRL->scan (no clean real driving shot found). |
+| 4 | Scan quality | 3 | Every frame lit (luma scan). Loose bumper part is speckled (holes in the raw scan) and passes large through the lower frame for ~1 s. Lower nose of the base is ragged. under_front carries its own bumper skin at the frame top, right after the bumper-removed beat. |
+| 5 | Story | 4 | Sections once each: front -> under front -> under rear -> engine -> kit rear -> kit front -> drive. `ive director` flags v1_front ~ v4b_kit_front as the same view (front 3/4 whole car, iou 0.8): stock at the open, kitted before the cut. Left as a before/after echo; not re-rendered. |
+| 6 | Grade | 3 | Close holds run bright (frame-mean luma 120-140, ~1 % clipped); wide kit shots are dark by comparison (mean ~28) because the car is small on black. |
+| 7 | Text | 4 | 6 short labels, scan shots only, black behind each, no numbers, none over the CGI. ENGINE BAY shows only ~1.2 s (wide phase). "BUILT ON THE SCAN DATA" is the user's statement of what the kit is, not something measured here. |
+| 8 | Ending | 4 | Drive pulls away, 0.9 s fade, 720 px logo on the final hit, music fade 1.2 s. |
+| 9 | Technical | 5 | Specs correct; no frozen frames inside shots (only the 2 static frames at shot starts and the logo). |
+
+Not verified: the reel was checked from contact sheets and per-frame scans, not watched at speed with sound. minterpolate smear on the kit part moves was not checked frame by frame. One state on screen has no scan of its own (hood closed + bumper off, ~7 s, wide).
+
+---
+
 # Toyota MR2 Spyder scan reel v2 - self-review (training/rubric.md)
 
 Output: `/home/user/media/work/mr2/out/mr2_spyder_v2.mp4` - 1080x1920, 30 fps, yuv420p, AAC, faststart, 1009 frames, 33.63 s.

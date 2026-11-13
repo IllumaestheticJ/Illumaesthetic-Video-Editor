@@ -830,3 +830,8 @@ lands here automatically. Agents must read this whole file before editing.
 - Judge a 1:1 match on a FULL-resolution close-up of the subject (photo | photo + render edges), never on a 540 px onion:
   on the Sera an 18 % scale error passed three versions at 540 px and was misread as "the doors are at a different angle".
   If every feature is off in the same direction from one anchor point, it is scale (focal), not pose.
+- (mr2 v3, 2026-11-13) List the WHOLE Drive folder recursively before planning: v1 and v2 missed the loose front bumper scan and both underbody scans that the reviewer then asked for.
+- (mr2 v3) A part scanned loose beats a part made by differencing two car scans. Thin shells fail global registration; a PCA-frame start plus ICP worked (projects/toyota-mr2-spyder/tools/pcareg.py).
+- (mr2 v3) `python -m ive prep` needs `--` before its arguments; negative argparse values need the `--box=...` form.
+- (mr2 v3) Container restarts kill background render queues silently; keep queues resumable and re-check the frame counts, not the waiter.
+- (mr2 v3) Measure cuts on the assembled file, not the plan: three cuts were 2 frames late on a syncopated track. If a retime leaves a 30 fps CGI shot short, render the extra frames (extrapolate linear keys) instead of duplicating.
