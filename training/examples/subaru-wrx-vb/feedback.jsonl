@@ -2,3 +2,6 @@
 {"ts": "2026-11-13T02:54:34Z", "project": "subaru-wrx-vb", "at": "12", "category": "story", "note": "The front bumper disassembles further (more part scans than one bumper + garnish)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T02:54:34Z", "project": "subaru-wrx-vb", "at": null, "category": "story", "note": "There is a trunk-open scan; use it", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T02:54:34Z", "project": "subaru-wrx-vb", "at": "13", "category": "scan", "note": "The cut of the front bumper off the car isn't great", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T05:23:00Z", "project": "subaru-wrx-vb", "at": "21", "category": "scan", "note": "rear trunk isn't cut correctly", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T05:23:00Z", "project": "subaru-wrx-vb", "at": "9", "category": "scan", "note": "front bumper has a ton of artifacts", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T05:23:00Z", "project": "subaru-wrx-vb", "at": "6.2", "category": "story", "note": "remove the front bumper first, then pull the grille and other parts off", "by": "reviewer", "promoted": false}

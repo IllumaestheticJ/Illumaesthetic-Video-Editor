@@ -882,3 +882,5 @@ lands here automatically. Agents must read this whole file before editing.
   crossfade on a downbeat), then give every shot a whole number of bars and put the reassembly lock on the second drop.
 - **[technical]** The image viewer caches by path - write every re-made check image to a new (timestamped) filename.
   A background waiter that greps a log for a completion string must match what the tool really prints, or it waits forever.
+
+- (WRX VB v4) Segment a panel on the car mesh (vertex-ring smoothing + island absorption), never by point distance to its part scan: point distance speckles neighbouring panels and leaves double skins that render mottled. Fill holes from state scans only > ~6 mm from kept skin. Check a state scan's coverage before treating it as "panel off".

@@ -37,7 +37,7 @@ timeline:
   - id: v4_front       # whole bumper assembly off on the drop, then grille, lower garnish, shell flip; push in on the structure
     focus: front bumper parts / structure behind them
     src: /home/user/media/work/wrx/renders/final/v4_front
-    src_fps: 15.000
+    src_fps: 14.868
     interpolate: true
     dur: 7.4667
   - transition: {type: cut, note: "13.633 snare hit"}
@@ -51,14 +51,14 @@ timeline:
   - id: v4_rear        # trunk lid opens on its fitted hinge to the scanned open pose; rear bumper off; hold on structure
     focus: trunk / rear bumper / structure behind it
     src: /home/user/media/work/wrx/renders/final/v4_rear
-    src_fps: 15.000
+    src_fps: 14.856
     interpolate: true
     dur: 6.8
   - transition: {type: cut, note: "25.900 hit"}
   - id: v4_reassemble  # lid closes, rear bumper, side; grille + garnish rejoin the shell in the air, assembly locks; clean car; fade
     focus: whole car (reassembly)
     src: /home/user/media/work/wrx/renders/final/v4_reassemble
-    src_fps: 14.882
+    src_fps: 14.646
     interpolate: true
     dur: 4.1
     vf: "fade=t=out:st=3.35:d=0.75"
