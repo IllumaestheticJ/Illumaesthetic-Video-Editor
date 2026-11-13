@@ -1,3 +1,16 @@
+# Mazda Miata ND scan reel - self-review (v6, delivered)
+
+v6 = the user's notes on v5: edit from the beginning of Megalomaniac, drop the wheel close-up, hold on the side skirt.
+File: `/home/user/media/work/miata/out/miata_nd_v6.mp4` (35.8 s, 1074 frames, 1080x1920).
+- Beat sync 4: music from 0.432 s; intro verified to be on the same 128.05 BPM grid as the kick (phase within 4 ms), cuts on
+  k = -24 -20 -12 -4 2 12 18 22 26 30; kick entry lands on the hood reaching its captured open pose. Onset checks in the intro
+  read +24..+95 ms because the arpeggio has notes between beats - the grid itself is right.
+- Story 4: whole car -> lamp -> front bumper off (inner face) -> crash beam / front structure pass -> hood opens on the kick entry
+  -> side (mirror, then skirt off and HOLD on the exposed sill) -> rear bumper off -> trunk -> explode -> reassembly -> CTA -> logo.
+  No wheel close-up; each section appears once; nothing cuts away mid-action.
+- Length: 35.8 s (v5 30.1 s) - the song's intro is 15.5 s and carries five shots. Longer than the 15-30 s house default.
+
+## Earlier reviews (v5/v4/v3) kept below
 # Mazda Miata ND scan reel - self-review (v5, delivered)
 
 v5 = the user's notes on v4 (feedback.jsonl): edit to the uploaded Megalomaniac track, hood cut line corrected, 1:1 match into

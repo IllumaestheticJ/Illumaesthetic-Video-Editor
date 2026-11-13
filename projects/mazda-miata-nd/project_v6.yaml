@@ -1,0 +1,102 @@
+# Mazda Miata ND - v6: user's v5 notes. Music from the BEGINNING of Megalomaniac (trending side): starts 0.432 s (2 frames
+# before the first sound); intro has a beat-locked pulse (onsets every beat), kick enters at 15.495 s (onset) = k0 where the hood
+# lands. Wheel close-up removed. Side shot stays on the skirt + exposed sill for 4 beats after it slides out.
+# Beat grid: onset(k) = 15.4952 + k*0.46864; cuts on k = -24 -20 -12 -4 2 12 18 22 26 30; CTA at k34; logo; music fades out.
+project: mazda-miata-nd
+format: reel-9x16
+output: {path: /home/user/media/work/miata/out/miata_nd_v6_nolabels.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/mega_cut_v6.wav   # not in git (user-supplied track)
+  start: 0
+  fade_out: 1.5
+
+timeline:
+  - id: v6_a_open   # section: whole | focus: whole car, front 3/4, slow push over the intro
+    src: /home/user/media/work/miata/renders_v6/final/v6_a_open
+    src_fps: 14.7458   # 58 renders
+    interpolate: true
+    frames: 114
+    dur: 3.8000
+  - transition: {type: cut}
+  - id: s4_lamp   # section: front | focus: right headlight + grille
+    src: /home/user/media/work/miata/renders/final/s4_lamp
+    src_fps: 15.7377   # 32 renders
+    interpolate: true
+    frames: 57
+    dur: 1.9000
+  - transition: {type: cut}
+  - id: v3_f_bumper   # section: front | focus: front bumper off -> inner face
+    src: /home/user/media/work/miata/renders_v5/final/v3_f_bumper
+    src_fps: 15.0000   # 58 renders
+    interpolate: true
+    frames: 112
+    dur: 3.7333
+  - transition: {type: cut}
+  - id: v6_f_struct   # section: front | focus: close pass along the exposed crash beam / front structure
+    src: /home/user/media/work/miata/renders_v6/final/v6_f_struct
+    src_fps: 14.8718   # 58 renders
+    interpolate: true
+    frames: 113
+    dur: 3.7667
+  - transition: {type: cut}
+  - id: v3_f_bay   # section: front (engine bay) | focus: hood to its captured open pose, lands on the kick entry (k0)
+    src: /home/user/media/work/miata/renders_v5/final/v3_f_bay
+    src_fps: 15.0000   # 44 renders
+    interpolate: true
+    frames: 84
+    dur: 2.8000
+  - transition: {type: cut}
+  - id: v6_s_side   # section: side | focus: mirror off + mount, then the skirt slides out and the shot STAYS on skirt + exposed sill
+    src: /home/user/media/work/miata/renders_v6/final/v6_s_side
+    src_fps: 14.8966   # 72 renders
+    interpolate: true
+    frames: 141
+    dur: 4.7000
+  - transition: {type: cut}
+  - id: v3_r_bumper   # section: rear | focus: rear bumper off -> inner face -> exhaust / rear structure
+    src: /home/user/media/work/miata/renders/final/v3_r_bumper
+    src_fps: 15.6818   # 46 renders
+    interpolate: true
+    frames: 84
+    dur: 2.8000
+  - transition: {type: cut}
+  - id: v3_r_trunk   # section: rear (trunk) | focus: trunk lid to its captured pose
+    src: /home/user/media/work/miata/renders/final/v3_r_trunk
+    src_fps: 15.5000   # 31 renders
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: v3_x_front   # section: explode | focus: front assembly in layers
+    src: /home/user/media/work/miata/renders_v5/final/v3_x_front
+    src_fps: 15.0000   # 30 renders
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: v3_x_rear   # section: explode | focus: rear assembly in layers
+    src: /home/user/media/work/miata/renders_v5/final/v3_x_rear
+    src_fps: 14.7541   # 30 renders
+    interpolate: true
+    frames: 57
+    dur: 1.9000
+  - transition: {type: cut}
+  - id: v3_x_home   # section: explode | focus: reassembly locks on k32, camera lands on the listing camera
+    src: /home/user/media/work/miata/renders_v5/final/v3_x_home
+    src_fps: 15.0000   # 30 renders
+    interpolate: true
+    frames: 56
+    dur: 1.8667
+  - transition: {type: cut}
+  - id: cta   # mobile call to action: reassembled car shrinks 1:1 onto the listing car
+    src: /home/user/media/work/miata/out/cta_v5.mp4
+    frames: 78
+    dur: 2.6000
+  - transition: {type: cut}
+  - id: logo   # final shot, logo 760 px
+    src: /home/user/media/work/miata/out/logo_card_v4.mp4
+    frames: 66
+    dur: 2.2000
+
+overlays: []

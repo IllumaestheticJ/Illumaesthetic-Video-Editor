@@ -936,3 +936,15 @@ lands here automatically. Agents must read this whole file before editing.
 - (WRX VB v5) Listing 360 viewers can be rolled (-1.83 deg here) and their distance is loose on silhouette alone: scan distance/roll on interior edges, then ease the roll in during the CTA shrink (cta_card.py --roll). Python Playwright is not installed; use node with NODE_PATH=$(npm root -g).
 
 - **[text]** More of the disassembly needs to be labeled - label each teardown step (titles, no counts)  _(from huracan-evo @ 12s, 2026-11-13, reviewer)_
+- **[audio]** use the beginning of the song, its the trending side  _(from mazda-miata-nd, 2026-11-13, reviewer)_
+
+- **[story]** the side skirt comes off and then immediately cuts away, its just a bad practice  _(from mazda-miata-nd @ 15s, 2026-11-13, reviewer)_
+
+## From the Mazda Miata ND v6 revision (2026-11-13, built by an agent)
+- **[pacing]** "Use the beginning of the song" (user, trending side): before extrapolating the kick grid back over a melodic intro,
+  score the candidate beat periods against the intro's own onset envelope (mean onset strength at the grid times, swept over phase).
+  Megalomaniac's arpeggio scored best on the kick's own 128.05 BPM grid, phase within 4 ms - so one grid carries the whole reel.
+  `cutcheck` will still read +50..+100 ms there: the detector snaps to arpeggio notes between beats, not to a wrong cut.
+- **[story]** A part that comes off and then cuts away immediately is bad practice (user, side skirt): after the part moves, keep the
+  camera on that section for several beats and travel along what the part leaves behind (exposed sill/rocker), with its label.
+  Budget the shot at ~10 beats: part off ~beat 5-6.5, then 4+ beats on the exposed structure.
