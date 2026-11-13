@@ -1,0 +1,81 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 897,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "title",
+   "from": 8,
+   "duration": 62,
+   "text": "MY LIFE BE LIKE…",
+   "y": 0.735,
+   "size": 72
+  },
+  {
+   "kind": "brackets",
+   "from": 76,
+   "duration": 76
+  },
+  {
+   "kind": "counter",
+   "from": 79,
+   "duration": 72,
+   "label": "LOLA 1 · EXTERIOR TRIANGLES",
+   "value": 21717402,
+   "true_value": 21696194,
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "title",
+   "from": 84,
+   "duration": 68,
+   "text": "…3D SCANNING THE AE86s FROM DRIFTER",
+   "sub": "FROM DIRECTOR SUNG KANG",
+   "y": 0.735,
+   "size": 56,
+   "subSize": 28
+  },
+  {
+   "kind": "brackets",
+   "from": 267,
+   "duration": 94
+  },
+  {
+   "kind": "label",
+   "from": 296,
+   "duration": 64,
+   "title": "INSIDE + OUTSIDE",
+   "sub": "INTERIOR 25,188,507 TRIANGLES",
+   "x": 0.08,
+   "y": 0.72
+  },
+  {
+   "kind": "brackets",
+   "from": 558,
+   "duration": 140
+  },
+  {
+   "kind": "counter",
+   "from": 562,
+   "duration": 130,
+   "label": "LOLA 2 · TRIANGLES CAPTURED",
+   "value": 50045945,
+   "true_value": 49997072,
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "title",
+   "from": 706,
+   "duration": 90,
+   "text": "HONORED TO BE PART OF DRIFTER",
+   "sub": "WORLD PREMIERE · TIFF 2026",
+   "y": 0.69,
+   "size": 60,
+   "subSize": 28
+  }
+ ]
+}

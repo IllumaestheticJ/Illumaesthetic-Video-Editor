@@ -1,6 +1,6 @@
-# Lola (Drifter movie) scan-process reel v6 — agent self-review (training/rubric.md)
+# Lola (Drifter movie) scan-process reel v7 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/lola_scan_process_v6.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 29.87 s (896 frames). Earlier: `review_v1.md`–`review_v5.md`.
+Output: `/home/user/media/work/out/lola_scan_process_v7.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 29.87 s (896 frames). Earlier: `review_v1.md`–`review_v6.md`.
 
 > ✅ **Posting permission confirmed:** the user confirmed on 2026-11-11 that the Drifter production is fine with
 > the reel being posted. v6 also uses footage from the film's public trailer, which the user supplied.
@@ -11,7 +11,7 @@ v6 (user: trailer shots for a 1:1, new music, "an honor and super cool to be inv
   - A hard 1:1 cut on the beat drop turns it into the scan from the same camera (cam_M).
   - The second caption reads "…3D SCANNING THE AE86s FROM DRIFTER / FROM DIRECTOR SUNG KANG".
 - **Middle (how it was scanned):** spray → handheld scanner → 1:1 → outside lifts off inside → cabin → Artec Studio → Lola 2 wing → scan rear → 360° turntable.
-- **Ending:** the film's FPV tandem drift of Lola 2 (band), with the caption "HONORED TO BE PART OF DRIFTER / WORLD PREMIERE · TIFF 2026" → logo on the downbeat.
+- **Ending:** the film's FPV tandem drift of Lola 2 (band), with the caption "HONORED TO BE PART OF DRIFTER" (v7: the user asked to remove the "WORLD PREMIERE · TIFF 2026" line) → logo on the downbeat.
 - **Music:** user-supplied Grits "My Life Be Like (Ooh Ahh)" remix. One bar of the drum-less hook plays under the movie shot, and the beat drops on the 1:1. It is a commercial song, so **attach it in-app when posting**.
 
 | # | Criterion | Score | Notes |

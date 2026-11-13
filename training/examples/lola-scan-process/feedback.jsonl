@@ -8,3 +8,4 @@
 {"ts": "2026-11-13T08:03:53Z", "project": "lola-scan-process", "at": null, "category": "match-cut", "note": "Here is the movie trailer - pull some shots for a 1:1; intelligently add movie clips", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:03:53Z", "project": "lola-scan-process", "at": null, "category": "audio", "note": "Use Grits 'My Life Be Like (Ooh Ahh)' (Tokyo Drift version) as the music instead", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:03:53Z", "project": "lola-scan-process", "at": null, "category": "story", "note": "Frame it like it's an honor and super cool to be involved with the movie (hence 'my life be like'); add captions if they help the reel", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T08:59:44Z", "project": "lola-scan-process", "at": "25", "category": "text", "note": "Remove the TIFF 2026 part (end caption)", "by": "reviewer", "promoted": false}
