@@ -2,8 +2,8 @@
 # own beat (user: "make sure all parts of the car are highlighted"). v3: project_v3.yaml.
 # Music: 117.51 BPM, grid 0.378 + 0.5106 n; strongest kicks 3.952 + 2.042 n; kicks drop out 18.76-24.4 (breakdown,
 # cut on its onset 19.691), kicks return 24.887 (the right-side reveal), four-on-the-floor from 33.06.
-# Cut frames: 119, 241, 302, 486, 591, 747, 869, 930, 1022, 1114; end 1192 (39.73 s). First clip one frame short.
-# logo: tools/logo_card.py --secs 2.6 --width 720 (lesson: 720 px)
+# Cut frames (half-rise before the strongest hit within 100 ms of each kick): 119, 242, 304, 488, 596, 746, 869, 930, 1022, 1115; end 1192 (39.73 s). First clip one frame short.
+# logo: tools/logo_card.py --secs 2.5667 --width 720 (lesson: 720 px)
 project: porsche-macan
 format: reel-9x16
 output:
@@ -18,18 +18,16 @@ music:
   start: 0
   fade_out: 1.0
 beats:
-- 3.952
-- 8.037
-- 10.08
-- 16.207
-- 19.691
-- 24.887
-- 28.972
-- 31.014
-- 34.078
-- 35.099
-- 36.121
-- 37.142
+- 3.974
+- 8.07
+- 10.118
+- 16.266
+- 19.866
+- 24.862
+- 28.959
+- 31.009
+- 34.075
+- 37.17
 timeline:
 - id: O_whole
   section: whole
@@ -41,27 +39,27 @@ timeline:
   vf: fade=t=in:st=0:d=0.5
 - transition:
     type: cut
-    note: 3.952 kick
+    note: 3.974 onset (half-rise before the strongest hit)
 - id: N_face
   section: front
   focus: 'front face: lamps + intakes'
   src: /home/user/media/work/macan/renders/final/N_face
   src_fps: 15
   interpolate: true
-  dur: 4.0667
+  dur: 4.1
 - transition:
     type: cut
-    note: 8.037 kick
+    note: 8.07 onset (half-rise before the strongest hit)
 - id: s3_wheel
   section: front
   focus: front right wheel
   src: /home/user/media/work/macan/renders/final/s3_wheel
   src_fps: 15
   interpolate: true
-  dur: 2.0333
+  dur: 2.0667
 - transition:
     type: cut
-    note: 10.080 kick
+    note: 10.118 onset (half-rise before the strongest hit)
 - id: F1_bay
   section: front
   focus: hood opens -> bay
@@ -71,37 +69,37 @@ timeline:
   dur: 6.1333
 - transition:
     type: cut
-    note: 16.207 kick - front bumper comes off
+    note: '16.266 onset (cutcheck, 1 ms RMS: this hit has a slow attack)'
 - id: F2_fbumper
   section: front
   focus: front bumper inside -> crash beam
   src: /home/user/media/work/macan/renders/final/F2_fbumper
   src_fps: 15
   interpolate: true
-  dur: 3.5
+  dur: 3.6
 - transition:
     type: cut
-    note: 19.691 breakdown onset
+    note: 19.866 onset (half-rise before the strongest hit)
 - id: S1v3
   section: side
   focus: left doors off -> driver seat + rear bench out
   src: /home/user/media/work/macan/renders/final/S1v3
   src_fps: 15
   interpolate: true
-  dur: 5.2
+  dur: 5.0
 - transition:
     type: cut
-    note: 24.887 kicks return - right side, dash lifts
+    note: 24.862 onset (half-rise before the strongest hit)
 - id: S2v4
   section: side
   focus: dash lifts out, right doors off, passenger seat out
   src: /home/user/media/work/macan/renders/final/S2v4
   src_fps: 15
   interpolate: true
-  dur: 4.0667
+  dur: 4.1
 - transition:
     type: cut
-    note: 28.972 kick
+    note: 28.959 onset (half-rise before the strongest hit)
 - id: s4_lightbar
   section: rear
   focus: taillight bar
@@ -111,7 +109,7 @@ timeline:
   dur: 2.0333
 - transition:
     type: cut
-    note: 31.014 kick
+    note: 31.009 onset (half-rise before the strongest hit)
 - id: R1v3
   section: rear
   focus: rear bumper off -> crash beam + mounts
@@ -121,21 +119,21 @@ timeline:
   dur: 3.0667
 - transition:
     type: cut
-    note: 34.078 kick
+    note: 34.075 onset (half-rise before the strongest hit)
 - id: X4
   section: whole
   focus: exploded view (with dash) -> parts lock home
   src: /home/user/media/work/macan/renders/final/X4
   src_fps: 15
   interpolate: true
-  dur: 3.0667
+  dur: 3.1
   vf: fade=t=out:st=2.6:d=0.45
 - transition:
     type: cut
-    note: 37.142 logo
+    note: 37.17 onset (half-rise before the strongest hit)
 - id: logo
   src: /home/user/media/work/macan/out/logo_card_v4.mp4
-  dur: 2.6
+  dur: 2.5667
 overlays:
 - src: /home/user/media/work/macan/out/hud_v4.mov
   start: 0

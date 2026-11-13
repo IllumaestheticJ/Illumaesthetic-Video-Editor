@@ -1,96 +1,139 @@
-# Porsche Macan (Electric) - Temerario-style scan reel, v3 (user: rear plate removed, interior + exploded view; plan direction.md v3).
-# v2: v1 (never delivered): project_v1.yaml.
-# v2 = user's rules for all reels (relayed by the parent session): scene order from this car's scan features, one pass
-# front -> side -> rear, one continuous sequence per section, progressive per-section explode with the camera on the
-# part that comes off, bumper-removed state scans as the hero beats (with factual labels), whole car in the opener,
-# fade then a small logo. Plan: direction.md (scene director) + director.md (shot director).
-# Music: porsche-macan_track.mp3 (deep house generated for this reel, 118.03 BPM, kick grid 16.3099 + 0.50836 n).
-# Intro hits 4.109 / 8.176 / 9.701 / 11.226, hit-less build 11.2-16.3, DROP 16.310, kicks 20.377, 24.440, 25.460,
-# phrase 28.511, groove stops 30.544, pad tail to ~33.6.
-# v3 cuts on frames: 123, 245, 291, 489, 611, 764, 855, 947; end 1008 (33.6 s).
-# Clip durs are whole frames; first clip one frame short (assembler adds the cut hold frame).
+# Porsche Macan (Electric) - v4: re-cut to the user's track (Gran Turismo 2 "South City" BGM) and every part gets its
+# own beat (user: "make sure all parts of the car are highlighted"). v3: project_v3.yaml.
+# Music: 117.51 BPM, grid 0.378 + 0.5106 n; strongest kicks 3.952 + 2.042 n; kicks drop out 18.76-24.4 (breakdown,
+# cut on its onset 19.691), kicks return 24.887 (the right-side reveal), four-on-the-floor from 33.06.
+# Cut frames (half-rise before the strongest hit within 100 ms of each kick): 119, 242, 304, 488, 596, 746, 869, 930, 1022, 1115; end 1192 (39.73 s). First clip one frame short.
+# logo: tools/logo_card.py --secs 2.5667 --width 720 (lesson: 720 px)
 project: porsche-macan
 format: reel-9x16
-output: {path: /home/user/media/work/macan/out/porsche_macan_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
-
+output:
+  path: /home/user/media/work/macan/out/porsche_macan_v4.mp4
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 16
+  preset: slow
 music:
-  path: /home/user/media/work/music/porsche-macan_track.mp3   # not in git
+  path: /home/user/media/work/macan/music_gt2/south_city.m4a
   start: 0
-  fade_out: 0.8
-
-beats: [4.109, 8.176, 9.701, 11.226, 16.310, 20.377, 21.394, 22.410, 23.427, 24.440, 25.460, 28.511, 29.527, 30.544, 31.56]
-
+  fade_out: 1.0
+beats:
+- 3.974
+- 8.07
+- 10.118
+- 16.266
+- 19.866
+- 24.862
+- 28.959
+- 31.009
+- 34.075
+- 37.17
 timeline:
-  - id: O_whole        # whole car, low front-right 3/4, slow drift; fades up with the track
-    section: whole
-    focus: "whole car, front 3/4"
-    src: /home/user/media/work/macan/renders/final/O_whole
-    src_fps: 15
-    interpolate: true
-    dur: 4.0667
-    vf: "fade=t=in:st=0:d=1.2"
-  - transition: {type: cut, note: "4.109 intro hit"}
-  - id: N_face         # front face slide: left lamp -> intakes -> right lamp (3 mm)
-    section: front
-    focus: "front face: lamps + intakes"
-    src: /home/user/media/work/macan/renders/final/N_face
-    src_fps: 15
-    interpolate: true
-    dur: 4.0667
-  - transition: {type: cut, note: "8.176 phrase hit"}
-  - id: s3_wheel       # front right wheel close-up (v1 render, same slot)
-    section: front
-    focus: "front right wheel"
-    src: /home/user/media/work/macan/renders/final/s3_wheel
-    src_fps: 15
-    interpolate: true
-    dur: 1.5333
-  - transition: {type: cut, note: "9.701 hit"}
-  - id: F1_bay         # one move over the hit-less build; hood opens on its fitted hinge at 11.226 -> push into the bay (Hood Removed)
-    section: front
-    focus: "hood opens -> bay"
-    src: /home/user/media/work/macan/renders/final/F1_bay
-    src_fps: 15
-    interpolate: true
-    dur: 6.6
-  - transition: {type: cut, note: "16.310 DROP - front bumper comes off"}
-  - id: F2_fbumper     # bumper forward, flips to show its scanned inside (17.327), leaves up; camera moves in on the crash beam
-    section: front
-    focus: "front bumper inside -> crash beam"
-    src: /home/user/media/work/macan/renders/final/F2_fbumper
-    src_fps: 15
-    interpolate: true
-    dur: 4.0667
-  - transition: {type: cut, note: "20.377 kick"}
-  - id: S1v3           # left side + interior: fender 20.377, FL door 21.394, driver seat 22.41, RL door 23.427, rear bench 24.44
-    section: side
-    focus: "left doors off -> driver seat + rear bench out"
-    src: /home/user/media/work/macan/renders/final/S1v3
-    src_fps: 15
-    interpolate: true
-    dur: 5.1
-  - transition: {type: cut, note: "25.460 kick"}
-  - id: R1v3           # hatch opens (Rear Hatch Fully Open), rear bumper out to the side, push in on the tubular crash beam + mount
-    section: rear
-    focus: "rear bumper off -> crash beam + mounts"
-    src: /home/user/media/work/macan/renders/final/R1v3
-    src_fps: 15
-    interpolate: true
-    dur: 3.0333
-  - transition: {type: cut, note: "28.511 phrase"}
-  - id: X3             # full exploded view (panels + seats), slow orbit, flies home 29.527, locks 30.544, fade
-    section: whole
-    focus: "exploded view -> parts lock home"
-    src: /home/user/media/work/macan/renders/final/X3
-    src_fps: 15
-    interpolate: true
-    dur: 3.0667
-    vf: "fade=t=out:st=2.6:d=0.45"
-  - transition: {type: cut, note: "31.56 small logo over the pad tail"}
-  - id: logo           # tools/logo_card.py --secs 2.0333 --width 720 (user v3: "logo too small"; lesson: 720 px)
-    src: /home/user/media/work/macan/out/logo_card_v3.mp4
-    dur: 2.0333
-
+- id: O_whole
+  section: whole
+  focus: whole car, front 3/4
+  src: /home/user/media/work/macan/renders/final/O_whole
+  src_fps: 15
+  interpolate: true
+  dur: 3.9333
+  vf: fade=t=in:st=0:d=0.5
+- transition:
+    type: cut
+    note: 3.974 onset (half-rise before the strongest hit)
+- id: N_face
+  section: front
+  focus: 'front face: lamps + intakes'
+  src: /home/user/media/work/macan/renders/final/N_face
+  src_fps: 15
+  interpolate: true
+  dur: 4.1
+- transition:
+    type: cut
+    note: 8.07 onset (half-rise before the strongest hit)
+- id: s3_wheel
+  section: front
+  focus: front right wheel
+  src: /home/user/media/work/macan/renders/final/s3_wheel
+  src_fps: 15
+  interpolate: true
+  dur: 2.0667
+- transition:
+    type: cut
+    note: 10.118 onset (half-rise before the strongest hit)
+- id: F1_bay
+  section: front
+  focus: hood opens -> bay
+  src: /home/user/media/work/macan/renders/final/F1_bay
+  src_fps: 15
+  interpolate: true
+  dur: 6.1333
+- transition:
+    type: cut
+    note: '16.266 onset (cutcheck, 1 ms RMS: this hit has a slow attack)'
+- id: F2_fbumper
+  section: front
+  focus: front bumper inside -> crash beam
+  src: /home/user/media/work/macan/renders/final/F2_fbumper
+  src_fps: 15
+  interpolate: true
+  dur: 3.6
+- transition:
+    type: cut
+    note: 19.866 onset (half-rise before the strongest hit)
+- id: S1v3
+  section: side
+  focus: left doors off -> driver seat + rear bench out
+  src: /home/user/media/work/macan/renders/final/S1v3
+  src_fps: 15
+  interpolate: true
+  dur: 5.0
+- transition:
+    type: cut
+    note: 24.862 onset (half-rise before the strongest hit)
+- id: S2v4
+  section: side
+  focus: dash lifts out, right doors off, passenger seat out
+  src: /home/user/media/work/macan/renders/final/S2v4
+  src_fps: 15
+  interpolate: true
+  dur: 4.1
+- transition:
+    type: cut
+    note: 28.959 onset (half-rise before the strongest hit)
+- id: s4_lightbar
+  section: rear
+  focus: taillight bar
+  src: /home/user/media/work/macan/renders/final/s4_lightbar
+  src_fps: 15
+  interpolate: true
+  dur: 2.0333
+- transition:
+    type: cut
+    note: 31.009 onset (half-rise before the strongest hit)
+- id: R1v3
+  section: rear
+  focus: rear bumper off -> crash beam + mounts
+  src: /home/user/media/work/macan/renders/final/R1v3
+  src_fps: 15
+  interpolate: true
+  dur: 3.0667
+- transition:
+    type: cut
+    note: 34.075 onset (half-rise before the strongest hit)
+- id: X4
+  section: whole
+  focus: exploded view (with dash) -> parts lock home
+  src: /home/user/media/work/macan/renders/final/X4
+  src_fps: 15
+  interpolate: true
+  dur: 3.1
+  vf: fade=t=out:st=2.6:d=0.45
+- transition:
+    type: cut
+    note: 37.17 onset (half-rise before the strongest hit)
+- id: logo
+  src: /home/user/media/work/macan/out/logo_card_v4.mp4
+  dur: 2.5667
 overlays:
-  - src: /home/user/media/work/macan/out/hud_v3.mov   # ive hud projects/porsche-macan/overlay.json (labels over F2 and R1 only)
-    start: 0
+- src: /home/user/media/work/macan/out/hud_v4.mov
+  start: 0

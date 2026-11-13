@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
@@ -30,7 +31,6 @@ Newest first. Read the top two before starting a new edit.
 - [subaru-gd-trio](subaru-gd-trio/) - archived 2026-11-12
 - [subaru-sti-blobeye](subaru-sti-blobeye/) - archived 2026-11-11
 - [c5-corvette](c5-corvette/) - archived 2026-11-11
-- [porsche-macan](porsche-macan/) - archived 2026-11-12
 - [c5-corvette](c5-corvette/) - archived 2026-11-12
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-11
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11

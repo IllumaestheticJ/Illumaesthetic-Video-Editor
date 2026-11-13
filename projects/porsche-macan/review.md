@@ -1,3 +1,29 @@
+# Porsche Macan (Electric) - self-review, v4
+
+Output: `/home/user/media/work/macan/out/porsche_macan_v4.mp4` (1080x1920, 30 fps, 39.70 s, h264 + AAC).
+User asks: "edit to this music" (Gran Turismo 2 "South City" BGM) and "make sure all parts of the car are highlighted".
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Hook | 4 | The track grooves from 0.38 s; the whole car arcs from frame 1 with a 0.5 s fade-in (the v3 1.2 s fade was for a quiet intro this track does not have). |
+| 2 | Beat sync | 5 | `tools/cutcheck.py` on the decoded mp4: 9 music cuts at -8.9 to +13.9 ms. The fitted 117.51 BPM grid drifted 30-60 ms from the real hits, and at 16.27 / 19.87 s the nearest onset was a weaker event; both were re-measured on the audio and moved (frames 488, 596). Hood opens on the 11.6 kick, front bumper flips on 17.2, the right-side reveal lands as the kicks return (24.86), X4 locks on 36.1, logo on 37.17. |
+| 3 | 1:1 match | n/a | Scan-only reel. |
+| 4 | Scan quality | 4 | Dash: base minus everything within 30 mm of the Dash Separate scan (`tools/build_dash.py`), pinned `--like`. It registers 5-9 mm on its visible face (looser than the other parts, 1-4 mm); no seam is visible at reel size because it lifts clear at once. Minterpolate smears the fastest door moves in S1v3 for a frame or two. |
+| 5 | Story | 5 | Every scanned part has its own beat: whole car, face + headlights, wheel, hood, front bumper (+ crash beam), fender, both left doors, driver seat, rear bench (3 pieces), then NEW S2v4: dash lifts out and turns to the lens, right front door, passenger seat, right rear door; taillight bar (back in); hatch + rear bumper (+ mounts); exploded view now with the dash. |
+| 6 | Grade | n/a | No IRL footage. |
+| 7 | Text | 4 | 6 factual labels, no numbers: FRONT BUMPER REMOVED, CRASH BEAM, INTERIOR, DASHBOARD, REAR BUMPER REMOVED, MOUNTING POINTS; all clear of the parts (frames checked). |
+| 8 | Ending | 4 | X4 exploded -> lock -> fade -> 720 px logo; music fades over the last 1.0 s (the track itself does not end here). |
+| 9 | Technical | 5 | Luma check on S2v4/X4 finals clean; frames +-1 at every cut inspected. |
+
+## Director pass
+Same flags as v3 (F1/R1v3, F2/S1v3 silhouettes; F1 0.8 s hold before the front bumper beat), kept for the same reasons. S1v3 and S2v4 (mirror sides) are not flagged: different parts move.
+
+## What I'd do differently
+- Measure every cut on the decoded audio before assembling, not from a fitted grid: this track drifts from a straight-line BPM fit by up to 60 ms.
+- Park off-screen parts out of sight per camera side: the left doors' "parked up" pose from S1v3 read as clutter above the roof from the right.
+
+---
+
 # Porsche Macan (Electric) - self-review, v3
 
 Output: `/home/user/media/work/macan/out/porsche_macan_v3.mp4` (1080x1920, 30 fps, 33.57 s, h264 yuv420p + AAC).
