@@ -42,7 +42,7 @@ def section_label(im, text, y=430):
 
 B.label = label; B.section_label = section_label
 
-MUSIC = '/home/user/media/work/music/killa.m4'
+MUSIC = '/home/user/media/work/music/killa.m4a'
 BAR = 1.8462; DROP = 29.873
 fr = lambda t: int(round(t * FPS))
 CUT = {k: fr(DROP + b * BAR) for k, b in dict(wasnt=-14, spray=-13, scanner=-12, tl=-11, scan=-10, concepts=-9, livery=-7, turn=-3, reveal=0, sema=4, end=8).items()}   # v9: scan 1 bar, bumper swap 4 bars, 360 3 bars

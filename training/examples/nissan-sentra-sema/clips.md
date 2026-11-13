@@ -60,3 +60,7 @@ media-coverage captures, print/bodywork/paint video, Ron's earlier screen record
   (5712x4284); Nov 02 5820 = car at the track; Nov 12 (4) = Autopian AI story screenshot (not used).
 - Article screenshots: tools/capture.js -> press/*.png (carscoops, topgear_ph, motorweek, tflcar, motoringresearch, motorillustrated used;
   auto123 shows an ad, topspeed and yahoo render unstyled).
+
+## Confirmed by the user 2026-11-13
+Only the FRONT BUMPER is replaced on this car. Fenders, skirts, rear quarters, rear bumper corners, diffuser and wing go on over the stock
+body - never animate those stock panels coming off (my reading of WhatsApp photo 5895 as a replaced fender was wrong).

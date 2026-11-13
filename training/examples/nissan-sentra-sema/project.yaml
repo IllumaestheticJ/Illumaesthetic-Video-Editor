@@ -1,8 +1,8 @@
-# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v8 (v6 approved "really good"; v7-v8: logo-only end card, EXIF-fixed reveal camera, hook blurb)
+# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v9 (v6 approved "really good"; v7-v8: logo-only end card, EXIF-fixed reveal camera, hook blurb, brand text style, bumper swap)
 # Built by tools/build_v6.py (exact-frame segments + concat). Structure and rules: knowledge/short-form.md.
 project: nissan-sentra-sema
 format: reel-9x16
-output: {path: /home/user/media/work/sentra/out/sentra_sema_v8.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
+output: {path: /home/user/media/work/sentra/out/sentra_sema_v9.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
 music: {title: "Killa", artist: "Way Out West", source: "user-supplied m4a (Juiced soundtrack) - commercial track, not from the CML",
         path: /home/user/media/work/music/killa.m4a, start: 0, fade_out: 1.2, bpm: 130, bar_s: 1.8462, drop_s: 29.873}
 beats: [4.027, 5.873, 7.719, 9.565, 11.411, 15.104, 18.796, 22.489, 29.873, 37.258, 44.642]
@@ -13,10 +13,10 @@ timeline:   # frames are [start, end) at 30 fps
   - {id: c2_scanner,  frames: [232, 287],   section: scan day,  focus: Artec Leo in hand (may11_1145 @7.0)}
   - {id: c3_timelapse, frames: [287, 342],  section: scan day,  focus: front timelapse ending on the solved frame (may11_1140 frame 780)}
   - {transition: cut, note: "1:1 IRL -> scan, match/cam.json"}
-  - {id: d1_scan,     frames: [342, 453],   section: 3d,        focus: scan from the solved camera, label 3D SCAN (renders/s7_scan)}
-  - {id: e_concepts,  frames: [453, 564],   section: concepts,  focus: 24 of Ron's iterations, label CONCEPTS}
-  - {id: d2_livery,   frames: [564, 675],   section: 3d,        focus: "panels, wheels, diffuser, wing pop on; paint wipe; stripes (renders/s6b_livery)"}
-  - {id: d3_turn,     frames: [675, 896],   section: 3d,        focus: "360 of the final render ending on match/cam_reveal.json (renders/s8_turn)"}
+  - {id: d1_scan,     frames: [342, 398],   section: 3d,        focus: scan from the solved camera, label 3D SCAN (renders/s7_scan)}
+  - {id: e_concepts,  frames: [398, 508],   section: concepts,  focus: 24 of Ron's iterations, label CONCEPTS}
+  - {id: d2_swap,     frames: [508, 730],   section: 3d,        focus: "stock front bumper off -> scanned structure -> new bumper on, ducts, sides, wheels, diffuser, wing, paint, stripes (renders/s10_swap, 30 fps)"}
+  - {id: d3_turn,     frames: [730, 896],   section: 3d,        focus: "360 of the final render ending on match/cam_reveal.json (renders/s11_turn, played 1.33x)"}
   - {transition: cut, note: "1:1 final render -> real car on the drop (29.873 s)"}
   - {id: r_reveal,    frames: [896, 1118],  section: reveal,    focus: "Photo Nov 05 5 25 36 PM + 8 cropped real headlines, one per beat"}
   - {id: s1_reels,    frames: [1118, 1284], section: coverage,  focus: "motoiq door reveal (151.4), caranddriver track (72), eddiex616 front (88)"}

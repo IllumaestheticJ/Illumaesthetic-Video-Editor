@@ -49,3 +49,12 @@ stripes coincide; roof ~10 px high and rear wheel slightly left (real car is low
 semi-transparent blurb; end card logo only; luma of s9_turn / s6c_livery (no dropout).
 - Not measured: cut-to-beat error on the delivered file.
 - CGI is still on black with a stock-height body; the cut reads as a change of look even with the outline matched.
+
+# Self-review - v9, 47.5 s (2026-11-13)
+Looked at: 10 frames across scan / bumper swap / kit / livery / 360, last CGI frame (895) blended with the reveal photo (still coincides:
+splitter, badge, headlights, wheel, stripes), brand-text frames (hook, IT WASN'T., CONCEPTS, reveal tags), luma of s10_swap / s11_turn.
+- Not measured: cut-to-beat error on the delivered file.
+- Bumper-swap shot is a close front 3/4: the rear of the car is out of frame until the camera pulls back (intended, focus on the bumper).
+- Departing stock bumper leaves through the left/bottom frame edge.
+- 360 is played 1.33x (interpolated from 15 fps); not checked frame by frame.
+- Green mono kickers are small (27 px) - readable on the sheets at full size, not verified on a phone.
