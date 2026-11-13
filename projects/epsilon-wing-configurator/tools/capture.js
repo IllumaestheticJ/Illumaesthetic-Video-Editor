@@ -301,12 +301,12 @@ const SHOTS = {
   },
 
   // 38.57-41.57: number controls + a lock, side view on top
-  async sliders(c, N) {  // rear view on top (height + spacing dims, MM/IN toggle); number controls + locks below
-    await c.pick('Toyota', 'GR86'); await c.openAdjust(); await c.view('Rear');
+  async sliders(c, N) {  // v3 (user): SIDE view on top so height/overhang changes read; number controls + locks below;
+    // MM switched on the 'millimetres' word with the cursor hidden (the MM button sits outside the wing crop)
+    await c.pick('Toyota', 'GR86'); await c.openAdjust(); await c.view('Side');
     const to = await c.panelTo('.ewc-numctl[data-num="overhang"]', null, 10); await c.setPanelScroll(to); await c.settle(300);
-    const v = await c.rect('.ewc-viewport'); const foot = await c.rect('.ewc-stagefoot'); const oc = await c.rect('.ewc-numctl[data-num="overhang"]');
-    const st = await c.rect('.ewc-stage'); const tw = st.w - 4, th = tw * 800 / 1080;   // whole rear view + MM/IN foot
-    stack(c, { x: st.x + 2, y: foot.y + foot.h - 6 - th, w: tw, h: th }, await panelRect(c, oc.y - 8, 384 * 1100 / 1080), 800);
+    const w = await c.rect('svg .ewc-wing'); const oc = await c.rect('.ewc-numctl[data-num="overhang"]');
+    stack(c, topRect(w.cx - 70, w.cy + 50, 560), await panelRect(c, oc.y - 8, 384 * 1100 / 1080), 800);
     const sl = await c.rect('.ewc-numctl[data-num="height"] .ewc-num-slider');
     const val = await c.p.$eval('.ewc-numctl[data-num="height"] .ewc-num-slider', e => [+e.min, +e.max, +e.value]);
     const fx = x => sl.x + 8 + (sl.w - 16) * (x - val[0]) / (val[1] - val[0]);
@@ -314,11 +314,13 @@ const SHOTS = {
     await c.drag(fx(val[2]), sl.cy, fx(Math.min(val[1], val[2] + 76)), sl.cy, 24, 6); await c.tick(3);
     await c.clickSel('.ewc-numctl[data-num="overhang"] .ewc-num-btn[data-dir="more"]', null, 8);
     await c.clickSel('.ewc-numctl[data-num="overhang"] .ewc-num-btn[data-dir="more"]', null, 2);
+    await c.clickSel('.ewc-numctl[data-num="overhang"] .ewc-num-btn[data-dir="more"]', null, 2);
     const tl = await c.panelTo('.ewc-locks', null, 120); await c.scrollPanel(tl, 12);
-    await c.clickSel('.ewc-lock', '^Width', 8); await c.tick(Math.max(0, 88 - c.n));
-    const mm = await c.rect('button[aria-label=Millimetres]');
-    await c.click(mm.cx, mm.cy, 10); await c.tick(Math.max(0, N - c.n));
+    await c.clickSel('.ewc-lock', '^Width', 8); await c.tick(Math.max(0, 86 - c.n));
+    await c.p.evaluate(() => { document.getElementById('capcur').style.display = 'none'; });
+    await c.p.click('button[aria-label=Millimetres]'); await c.tick(Math.max(0, N - c.n));
   },
+
 
   async units_unused(c, N) {
     await c.pick('Toyota', 'GR86'); await c.view('Side');
