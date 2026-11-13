@@ -1,0 +1,60 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1008,
+ "accent": "#e8ecf2",
+ "_note": "Labels only over the bumper-removed hero shots (v2 addendum C) and the interior beat (v3: seats are separate registered scans). Words name what the scans show; no numbers.",
+ "items": [
+  {
+   "kind": "label",
+   "from": 520,
+   "duration": 44,
+   "title": "FRONT BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 581,
+   "duration": 27,
+   "title": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 733,
+   "duration": 28,
+   "title": "INTERIOR",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.8,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 794,
+   "duration": 29,
+   "title": "REAR BUMPER REMOVED",
+   "x": 0.08,
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 825,
+   "duration": 27,
+   "title": "MOUNTING POINTS",
+   "x": 0.08,
+   "y": 0.7,
+   "sub": " ",
+   "shadow": true
+  }
+ ]
+}
