@@ -13,3 +13,9 @@ The reel rubric only partly applies (16:9 long-form, no music, no 1:1 cut). Scor
 Known gaps: continuity (bumper/fender on in the strut run, off in the fender and both runs, because the shoot order was
 strut -> both -> fender); chassis-flex graphics are schematic boxes, not the Miata; lower heat-map crops carry a sliver of
 the neighbouring colour bar; contact sheets checked, not watched in real time with sound.
+
+## v10 final (2026-11-13) - approved by the owner ("done"), thumbnail approved ("that works")
+Delivered: MiataBracing_v10.mp4 (9:16) and MiataBracing_thumbnail.jpg. Rounds after v8: map joke (then shortened), deltas from
+rounded widths, load-transfer explanation, softer music changes, owner-dictated sign-off with partner logos, voice re-cloned
+from the intro speech. Still open for the owner: pronunciation of "Illumaesthetic" in the last line (transcriber heard
+"Ilum Esthetic"), a larger Whiteline logo, and which strut-tower measurement is the right one (clips.md).
