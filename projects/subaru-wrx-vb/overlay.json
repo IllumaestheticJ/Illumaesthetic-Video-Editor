@@ -2,14 +2,55 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1002,
+ "durationInFrames": 1000,
  "accent": "#e8ecf2",
  "items": [
-  {"kind": "label", "from": 192, "duration": 48, "title": "FRONT GRILLE", "sub": "SCANNED AS A SEPARATE PART", "x": 0.08, "y": 0.765},
-  {"kind": "label", "from": 250, "duration": 36, "title": "LOWER GARNISH", "sub": "SCANNED AS A SEPARATE PART", "x": 0.08, "y": 0.765},
-  {"kind": "label", "from": 292, "duration": 52, "title": "FRONT BUMPER", "sub": "SCANNED AS A SEPARATE PART", "x": 0.08, "y": 0.765},
-  {"kind": "label", "from": 352, "duration": 54, "title": "FRONT BUMPER REMOVED", "sub": "SCANNED STRUCTURE BEHIND IT", "x": 0.08, "y": 0.765},
-  {"kind": "label", "from": 606, "duration": 46, "title": "TRUNK OPEN", "sub": "LID SCANNED IN THE OPEN POSITION", "x": 0.92, "y": 0.765, "align": "right"},
-  {"kind": "label", "from": 722, "duration": 54, "title": "REAR BUMPER REMOVED", "sub": "SCANNED STRUCTURE BEHIND IT", "x": 0.92, "y": 0.765, "align": "right"}
+  {
+   "kind": "label",
+   "from": 206,
+   "duration": 40,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "SCANNED STRUCTURE BEHIND IT",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 253,
+   "duration": 36,
+   "title": "FRONT GRILLE",
+   "sub": "SCANNED AS A SEPARATE PART",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 294,
+   "duration": 36,
+   "title": "LOWER GARNISH",
+   "sub": "SCANNED AS A SEPARATE PART",
+   "x": 0.08,
+   "y": 0.765
+  },
+  {
+   "kind": "label",
+   "from": 606,
+   "duration": 46,
+   "title": "TRUNK OPEN",
+   "sub": "LID SCANNED IN THE OPEN POSITION",
+   "x": 0.92,
+   "y": 0.765,
+   "align": "right"
+  },
+  {
+   "kind": "label",
+   "from": 722,
+   "duration": 54,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "SCANNED STRUCTURE BEHIND IT",
+   "x": 0.92,
+   "y": 0.765,
+   "align": "right"
+  }
  ]
 }
