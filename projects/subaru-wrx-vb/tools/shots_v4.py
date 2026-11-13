@@ -90,9 +90,9 @@ sh_keys = off_assembly([K(s0, OUTP, ease="lin"), K(s0 + 0.85, add((0, 0, 0.85)),
 SHOTS[n] = {"base": [B4, RBUMP, LID, FFL, DFL, RFL, SKIRT],
             "parts": [part(GRILLE, gr_keys), part(GARN, ga_keys), part(SHELL, sh_keys), part(PLATE, sh_keys)],
             "cam": [C(0, (-2.10, -5.30, 1.20), (-0.10, -2.05, 0.60), 42),
-                    C(1.10, (-2.55, -6.70, 1.45), (-0.05, -2.80, 0.68), 30),
-                    C(s0, (-2.75, -7.05, 1.55), (-0.05, -2.95, 0.80), 30, "lin"),
-                    C(aw, (-2.60, -7.10, 1.75), (-0.05, -2.95, 1.00), 30),
+                    C(1.10, (-4.60, -5.70, 1.60), (-0.10, -3.10, 0.62), 26),
+                    C(s0, (-4.85, -6.20, 1.70), (-0.05, -3.20, 0.75), 26, "lin"),
+                    C(aw, (-4.50, -6.45, 1.90), (-0.05, -3.15, 0.95), 26),
                     C(SECS[n], (-1.30, -3.80, 1.05), (-0.05, -2.00, 0.66), 28)]}
 
 # SIDE: v2 grammar on the new bar (front flare, door flare, rear flare, skirt), ends on a wide of all four
@@ -167,7 +167,7 @@ SHOTS["v4_reassemble_car"] = {"base": [CAR], "parts": [], "cam": RCAM,
                               "frame_range": [int(LOCK * 15) + 1, int(round((SECS[n] + 1 / 15) * 15))],
                               "secs": SECS[n], "out": "v4_reassemble"}
 
-PREVIEW = {"v4_front": [1, 9, 20, 32, 40, 52, 62, 72, 84, 96, 112],
+PREVIEW = {"v4_front": [9, 20, 34, 45, 62, 84, 96, 104],
            "v4_side": [1, 12, 33, 54, 75, 82],
            "v4_rear": [1, 12, 24, 41, 52, 62, 82, 103],
            "v4_reassemble": [1, 12, 25, 33, 41], "v4_reassemble_car": [42, 62]}
