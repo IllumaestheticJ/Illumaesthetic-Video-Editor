@@ -855,6 +855,8 @@ def music_v5(total, mask, by):
             d[int(t0 * SR):int(t1 * SR)] = db
         return d
     dd = duckdb(V["ducks"], V["duck_default"])
+    for t0, t1 in V.get("hold_regions", []):  # sparse back-and-forth lines: keep the duck down for the whole line (no pumping)
+        mask = np.maximum(mask, env_seg(total, t0, t1, 0.2, 0.25))
     gm = 10 ** ((V["gain"] + dd * mask) / 20)
     mus = full * gm[:, None]
     drone, ticks = fit(load(V["drone"])), fit(load(V["ticks"]))

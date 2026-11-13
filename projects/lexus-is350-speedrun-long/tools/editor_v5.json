@@ -361,6 +361,20 @@
   ],
   "shelf_db": 3.0,
   "why": "Owner: 'constant music changing is incredibly distracting' -> one continuous P4 track (music agent v5), ducks per music_v5_map.json; H_14 deeper (-19, map flags 33-43 % speech-band share); wind-up 2-8 kHz rose 5.0 dB (under the 6 dB limit) - a gentle 3 dB shelf above 2.5 kHz is ramped in over its last 7.5 s anyway",
-  "ducks_why": "QA recall on the full mix (medium.en vs the dialogue stem): P_04 0.26, H_14 0.00, Q_05 0.76, C_08 0.81, CON_01 0.90 at the map's depths -> P_04 -21, H_14 -24, Q_05 -17, C_08 tail -17, T_08 -12, CON_01 -14"
+  "ducks_why": "QA recall on the full mix (medium.en vs the dialogue stem): P_04 0.26, H_14 0.00, Q_05 0.76, C_08 0.81, CON_01 0.90 at the map's depths -> P_04 -21, H_14 -24, Q_05 -17, C_08 tail -17, T_08 -12, CON_01 -14; P_04 tested at -28 dB with no recall gain (the line is masked by its own spray-gun noise), kept at -21",
+  "hold_regions": [
+   [
+    29.0,
+    37.3
+   ],
+   [
+    221.5,
+    226.7
+   ],
+   [
+    61.1,
+    67.75
+   ]
+  ]
  }
 }
