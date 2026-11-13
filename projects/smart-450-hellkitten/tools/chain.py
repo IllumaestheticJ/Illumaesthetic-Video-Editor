@@ -76,6 +76,10 @@ SMART_DESC = {
     "a2_body_on_off": "Front-right 3/4. Assembled scan 0.0-1.6 s, HARD same-camera swap to Fully Stripped at 1.6 s (source frame 25 @15 fps, 1.6 s into the shot), "
                       "then push in to the door aperture + front structure. Lights pinned, no relight at the swap.",
     "a3_detail": "2 mm Stripped scan: front structure with clamshell, bumper and headlamps off; slow lateral slide.",
+    "a5_xray": "The reel's FIRST shot, 3.0 s incl. handle. Front-right 3/4, whole car in frame (>= 9 % side margin all through), top ~41 % black for the title "
+               "(editor adds THIS IS A SMART CAR?). Hellkitten in its own materials 0-0.4 s, body turns to fresnel-edged red glass 0.4-1.0 s, the registered "
+               "ASSEMBLED Smart scan (silver with a cool rim glow) stays visible inside for the hold; slow push-in. Same registration as a4 "
+               "(SmartBase -> Assembled scan, similarity ICP, scale 0.9948, residual p50 19 mm / p75 56 mm). Ron's own SmartBase/Steering parts are hidden.",
     "a4_hellkitten": "Starts on A2's camera at t=4.8 s (end of A2's 4.8 s use, before its handle), stripped scan 0-0.4 s, HARD same-camera swap at 0.4 s (frame 7) "
                      "to Ron's SmartHellkitten.blend in its own materials (red paint, gold wheels, cat decal), registered to the scan via the model's SmartBase body "
                      "(similarity ICP: scale 0.9948, p50 19 mm; front axle within ~1 cm, rear axle 4-6 cm forward = the design's 1.778 m wheelbase). "

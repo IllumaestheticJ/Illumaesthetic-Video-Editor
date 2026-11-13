@@ -1,6 +1,6 @@
 # IS350 speed-run long-form: scan shots
 
-Progress note (auto, 2026-11-13 02:41 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable).
+Progress note (auto, 2026-11-13 03:08 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable).
 Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; each has +4 frames (0.5 s) of handle past the EDL duration.
 Files per shot in `/home/user/media/work/is350-long/renders/<id>/`: `png/`, `<id>_src.mov` (ProRes 422 HQ, 8 fps), `<id>_preview.mp4` (H.264 minterpolated to 23.976 fps: use this one in the 23.976 timeline). At SC_RES_REFLECTOR's 3.0 s swap, freeze-replace the blended frames.
 

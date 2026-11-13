@@ -39,7 +39,7 @@ for e in edl["events"]:
     to = t.get("tl_out", t.get("timeline_out", e["timeline_out"]))
     si = t.get("src_in", e.get("src_in"))
     so = t.get("src_out", e.get("src_out"))
-    EV[e["id"]] = dict(e, tin=ti, tout=to, sin=si, sout=so, d_in=(si - e["src_in"]) if si is not None and e.get("src_in") is not None else 0.0,
+    EV[e["id"]] = dict(e, src_map=t.get("src_map"), tin=ti, tout=to, sin=si, sout=so, d_in=(si - e["src_in"]) if si is not None and e.get("src_in") is not None else 0.0,
                        d_out=(so - e["src_out"]) if so is not None and e.get("src_out") is not None else 0.0)
     ORDER.append(e["id"])
 TOTAL = max(v["tout"] for v in EV.values())

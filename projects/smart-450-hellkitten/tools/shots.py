@@ -110,9 +110,9 @@ def a5():
     (0.4-1.0 s) and the registered ASSEMBLED Smart scan glows through it (hold), slow push-in. 3/4 front, whole car in frame,
     top ~22 % of the 1080x1920 frame left black for the title (editor adds "THIS IS A SMART CAR?")."""
     secs = 2.8
-    cc = (0.0, 0.05, 0.62)
-    keys = [orbit(0, 5.0, 38, 1.7, c=cc, focal=45, tz=0.95),
-            orbit(secs + TAIL, 4.5, 34, 1.6, c=cc, focal=45, tz=0.93, ease="out2")]
+    cc = (0.0, 0.2, 0.62)           # Hellkitten centre in the scan frame (its nose reaches y ~ +1.9)
+    keys = [orbit(0, 5.6, 38, 1.75, c=cc, focal=45, tz=0.95),
+            orbit(secs + TAIL, 5.05, 34, 1.65, c=cc, focal=45, tz=0.93, ease="out2")]
     return {"base": [{"blend": ASM, "look": "xglow"},
                      {"blend": HK, "look": "own", "xform": HK_REG, "xray": [0.4, 1.0],
                       "hide_names": ["SmartBase", "Steering"]}],
