@@ -892,3 +892,5 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[scan]** Corner markers should not come out until the bumper comes off; nest everything correctly (child parts travel with their parent panel and only separate after the parent is off)  _(from suzuki-cappuccino @ 8s, 2026-11-13, reviewer)_
 - **[story]** Nothing should come off the bumper until the bumper itself comes off (grille left first)  _(from nissan-400z @ 14.5s, 2026-11-13, reviewer)_
+
+- **[text]** No one cares about triangle count - never put triangle counts in labels  _(from huracan-evo @ 15s, 2026-11-13, reviewer)_

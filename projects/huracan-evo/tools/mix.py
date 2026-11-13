@@ -189,5 +189,15 @@ def main_v7(out):
     main_v6(out)
 
 
+# v8 (user on v7: "the voice at the end feels patched on - needs to be re-flowed"): the script was rewritten as flowing sentences
+# with the conclusion as its last sentence, generated as ONE take and used UNTRIMMED (no pause cuts, no tempo); it ends at
+# ~26.6 s, before the music stop, instead of running over the logo after the music had gone.
+def main_v8(out):
+    global GAP_KEEP
+    GAP_KEEP = 9.0
+    V6.update(VO="/home/user/media/huracan-evo/vo/narration12_r5.wav", LAST=26.95)
+    main_v6(out)
+
+
 if __name__ == "__main__":
-    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])

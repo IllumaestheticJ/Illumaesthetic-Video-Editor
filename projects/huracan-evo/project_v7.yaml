@@ -1,0 +1,100 @@
+# Huracan EVO v7 (v6: project_v6.yaml) - user on v6: bigger logo; full coupe rear-end disassembly + wheel wells + exhaust; narration conclusion. User on v4: cut to 30 s, scan data sooner, reference engine start, no jet
+# sound, lower voice. Coupe: select + wheel + side (lift at 10.28 s, was 27.08); Spyder sections at 1.3-2x speed.
+project: huracan-evo
+format: reel-9x16
+output: {path: /home/user/media/work/out/huracan_evo_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/huracan-evo/vo/soundtrack_v7.wav   # not committed (tools/music_v5.py + tools/mix.py --v7)
+  start: 0
+  fade_out: 0.6
+
+# beats t = 3.0768 + 0.60006*n; dips n=3,7; lift n=12; sections n=17,22,26,31,35; music stop n=40 (27.079 s)
+beats: [4.877, 7.277, 10.278, 13.278, 16.278, 18.678, 21.679, 24.079, 27.079]
+
+timeline:
+  - id: h0_select   # SELECT: reference engine start-up (hp_1138 1.7-6.6 s) as the lights come up
+    section: whole
+    focus: "whole coupe, front-left 3/4, lights come up on the reference start-up"
+    src: /home/user/media/work/renders/huracan/h0_select
+    src_fps: 14.6000
+    interpolate: true
+    dur: 4.8667
+    vf: fade=t=in:st=0:d=0.3
+  - transition: {type: dip, duration: 0.6}
+  - id: h4_wheel   # COUPE WHEEL n3-7, 1.5x, centred
+    section: wheel
+    focus: "front wheel: scanned rim spokes and tyre"
+    src: /home/user/media/work/renders/huracan/h4_wheel
+    src_fps: 22.5000
+    trim_start: 1.50
+    interpolate: true
+    dur: 3.0000
+  - transition: {type: dip, duration: 0.6}
+  - id: h5_side   # COUPE SIDE n7-12, 1.5x
+    section: side
+    focus: "coupe profile slide, front to rear"
+    src: /home/user/media/work/renders/huracan/h5_side
+    src_fps: 22.5000
+    trim_start: 1.20
+    interpolate: true
+    dur: 3.6000
+  - transition: {type: cut}
+  - id: sp_bumper   # LIFT n12-17: Spyder front bumper (front of the travel)
+    section: front-open
+    focus: "FRONT BUMPER: inner face, then the structure behind it"
+    src: /home/user/media/work/renders/huracan/sp_bumper
+    src_fps: 23.2256
+    interpolate: true
+    dur: 2.9667
+  - transition: {type: cut}
+  - id: c1_bumper   # n17-22
+    section: rear-open
+    focus: "REAR END, NO BUMPER: coupe bumper tips its inner face, hold on the structure behind (label)"
+    src: /home/user/media/work/renders/huracan/c1_bumper
+    src_fps: 14.3617
+    interpolate: true
+    dur: 3.0000
+  - transition: {type: cut}
+  - id: c2_deck   # n22-26
+    section: rear-open
+    focus: "grille, support beam and decklid lift off: engine bay"
+    src: /home/user/media/work/renders/huracan/c2_deck
+    src_fps: 14.2105
+    interpolate: true
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: c3_exhaust   # n26-31
+    section: exhaust
+    focus: "EVO exhaust drops out and turns to the lens (label)"
+    src: /home/user/media/work/renders/huracan/c3_exhaust
+    src_fps: 14.3617
+    interpolate: true
+    dur: 3.0000
+  - transition: {type: cut}
+  - id: c4_wells   # n31-35
+    section: wheel
+    focus: "rear wheel well without liner: disc, hub, suspension"
+    src: /home/user/media/work/renders/huracan/c4_wells
+    src_fps: 14.2105
+    interpolate: true
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: c5_finale   # n35-40
+    section: whole
+    focus: "rear reassembles -> whole coupe pull-back"
+    src: /home/user/media/work/renders/huracan/c5_finale
+    src_fps: 14.3617
+    interpolate: true
+    dur: 3.0000
+    vf: fade=t=out:st=2.400:d=0.6
+  - transition: {type: cut}
+  - id: logo   # ILLUMAESTHETIC logo 720 px (user: bigger) on the music stop 27.08 s -> 30.0 s
+    src: /home/user/media/huracan-evo/logo/end_card_720.png
+    duration: 3.0
+    dur: 2.9333
+    vf: fade=t=in:st=0:d=0.5
+
+overlays:   # two labels on the bumper-removed hold and the exhaust (exact counts from the STL headers)
+  - src: /home/user/media/work/out/hud_huracan_v7.mov
+    start: 0
