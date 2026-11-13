@@ -245,3 +245,5 @@ overlays:
   start: 24.0667
 - src: /home/user/media/work/smart-450/build/meme_huh.mov
   start: 0.4
+- src: /home/user/media/work/smart-450/build/meme_clap.mov
+  start: 24.8

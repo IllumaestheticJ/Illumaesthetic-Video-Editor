@@ -1,3 +1,7 @@
+# v6c (2026-11-13)
+End title reworded to SHOULD WE MAKE THIS? and held from the cut to the final render (frame 722) to the logo. The owner's new clapping-cat clip enters on frame 744 with the yeah-boy and claps through the logo (loop of source frames 30-55, hands meet on frame 767 and within one frame of beats 66/68/70; checked on frames 746-844). Still missing: oiia and yapapa overlays. Rim glow on the black cat is visible, as in v5. Audio unchanged from v6 and still not listened to.
+
+---
 # v6 (owner notes of 2026-11-13, rebuilt in a fresh container)
 `out/smart450_v6.mp4` (857 frames, 28.57 s, 1080x1920; one mix, no meowlite). All four scan shots re-rendered from the committed specs (per-shot luma lines identical to the v5 manifest); 0 placeholders.
 - **Sound**: the huh cat's own HUH in sync with the cat (frame 12); the long "yeah boy" from frame 744 to the end (1 s fade). Meows: 35 real meows from 8 CC0/PD recordings at natural pitch (max +-2 st), spectral-gate denoise, room 5 %, kick ducking -1.4 dB, music dips up to -2.5 dB under each meow/sfx. 4 before the scan, 3 in the scan, then one per cut from m 40, stacks of 2-4 cats on the body swap, drop 3 and the question (`meow_map.json`). Stems: music -11.5 LUFS, meows -15.8 (v5 -19.4), sfx -11.8; master -10.0 LUFS, -1.4 dBTP.
