@@ -27,3 +27,11 @@ Deliverable: 9:16 reel, 1080x1920, 30 fps, about 25 s. Illumaesthetic logo card 
 - Blender renders: Cycles CPU, one render job at a time on this box, in the background.
 - Log every decision with its reason: `python -m ive log projects/smart-450-hellkitten "<what>" --why "<why>"`.
 - Look at your own output before reporting it good. Report failures and gaps plainly.
+
+## Added 2026-11-13 (owner): what Hellkitten is
+"Hellkitten is the Charger Smart car, in Ron's folder." Ron's Drive folder "Smart Hellcat" (1wDvirPDOZtlTEvG0f31H7VdnKhCd-L9g) holds the
+design: a Dodge Charger/Hellcat-style body on the Smart 450. `Renders/` (1P32Gb4vGm08dt8w08hKQhxpUd9RpM4bE): RenderDay1, RenderStreet1/2,
+RenderNight1/2 (1440x1440 CGI, red car, gold wheels, cat decal), `Blueprint.jpeg` (the new body drawn over the Smart, side view), 4.r.1-7.
+Local copies: `/home/user/media/smart-hellkitten/design/`. This is the finished result the scan is for: the reel's payoff is
+stripped scan -> Blueprint -> Ron's render -> logo. Ron's renders are CGI stills (text is allowed on them as on scan shots; never present
+them as a real photo). Use each still once.
