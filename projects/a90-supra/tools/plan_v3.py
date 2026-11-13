@@ -242,7 +242,8 @@ s.cam((0, dict(pos=[0.9, 0, 1.55], look=[0.2, 0, 0.55])), (4.5, dict(pos=[0.75, 
 s = Shot("s14_rc", 15, 30, lens=32)
 home(s, off=OFF_SIDE); corners(s, skip=("RR",), fr_off=FR_OFF)
 mech(s, "RR", lambda v: kin.rear(travel=v), [(3.8, 0), (4.8, 45), (6.3, -75), (7.4, 0)], {
-    "wheel": ([(0, dict()), (0.8, dict(loc=out(RAX, 0.30), ease="ease_out")), (1.6, dict(loc=out(RAX, 0.95))), (8.1, dict(loc=out(RAX, 0.95)))], {}),
+    "wheel": ([(0, dict()), (0.8, dict(loc=out(RAX, 0.30), ease="ease_out")), (1.6, dict(loc=out(RAX, 0.95))), (3.3, dict(loc=out(RAX, 0.95))),
+               (4.5, dict(loc=add(out(RAX, 1.1), [1.5, 0, -0.5]), ease="ease_in"))], dict(vis=[(0, 4.5)])),   # leaves the frame before the push-in
     "caliper": ([(0, dict()), (1.6, dict()), (2.1, dict(loc=[0.07, 0, 0.05], ease="ease_out")), (2.8, dict(loc=add([0.07, 0, 0.05], out(RAX, 0.55)))),
                  (8.1, dict(loc=add([0.07, 0, 0.05], out(RAX, 0.55))))], {}),
     "rotor": ([(0, dict()), (2.6, dict()), (3.7, dict(loc=out(RAX, 0.33))), (8.1, dict(loc=out(RAX, 0.33)))], {})})
