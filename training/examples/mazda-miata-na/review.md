@@ -1,12 +1,32 @@
-# Mazda Miata NA scan reel v4 — self-review (training/rubric.md)
+# Mazda Miata NA scan reel v5 — self-review (training/rubric.md)
 
-Output: `/home/user/media/work/miata/out/mazda_miata_na_v4.mp4`. Specs: 1080x1920, 30 fps, 32.13 s (964 frames), H.264 + AAC, faststart.
-v4 = v3 (review_v3.md, below for reference) with the reviewer's "intro way too slow" / "if the video needs to be shorter, make it shorter":
-- s1 (whole car) 5.13 s → 1.27 s: the same render played 4x (src_fps 60), so the push is fast from frame 0 and the bumper comes off at 1.30 s.
-- Music seek 0.68 → 4.5467 s, the same 116 frames, so every later cut keeps its v3 musical position. The first frame lands on a track beat.
-- HUD labels shifted −116 frames (hud_v4.mov). Reel 36.0 → 32.13 s.
-- Measured on the decoded picture and audio: cuts at 39/193/348/425/502/656/810 are −16..+13 ms from onsets.
-- Hook score 4 → 5 (transformation inside 1.3 s); the other scores are unchanged from v3.
+Output: `/home/user/media/work/miata/out/mazda_miata_na_v5.mp4`. Specs: 1080x1920, 30 fps, 20.57 s (617 frames), H.264 + AAC, faststart.
+v5 = reviewer on v4: "make the car pink, make the whole thing faster, edit it so the music starts at the beginning". Earlier: review_v4.md, review_v3.md (below).
+
+**Pink.** The scan clips are graded with per-channel curves: black stays black, highlights stay bright, and the mid-tones are hot pink. Nothing was re-rendered. The listing page is the real site, so it keeps its grey cover photo, and the 1:1 cut now changes colour (pink car → grey photo) while keeping the framing.
+
+**Faster.** The same renders are now played faster:
+
+| Shot | Speed | Length |
+|---|---|---|
+| s1 | 4x | 1.27 s |
+| s2, s5, s7 | 2x | 2.57 s each |
+| s3_hood, s4b_side | 2x | 1.3 s each |
+| s3 (two labels) | 1.35x | 3.87 s |
+
+Cuts come every 4 track beats. The trunk cut lands on the track's first section change (12.87 s). Reel 32.1 → 20.57 s.
+
+**Music from the beginning.** The track plays from its first note at frame 0 (seek 0.70 s). Measured on the decoded picture and audio, all 7 cuts are within −9..+10 ms of an onset.
+
+Scores vs v3:
+- Hook 5: the bumper comes off at 1.3 s.
+- Beat sync 5.
+- Grade 4: pink was requested, but it's a post grade, not a material, so the reflections stay neutral.
+- 1:1 match 3: the framing matches, the colour doesn't.
+- Text 4: labels are about 1.7–2 s each, still readable.
+- Everything else as in v3.
+
+Known: the s7 cover-camera hold is 0.3 s before the 1:1 cut, and s3 has a 3-frame settle before its cut.
 
 ---
 

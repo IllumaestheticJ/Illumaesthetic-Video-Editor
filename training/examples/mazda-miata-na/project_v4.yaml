@@ -1,0 +1,84 @@
+# Mazda Miata NA - scan reel v4 = v3 with a 4x faster 1.27 s intro (all later cuts -116 frames, music seek +3.8667 s); v3: project_v3.yaml.
+# Mazda Miata NA - scan reel v3. v1/v2: project_v1.yaml, project_v2.yaml (+ review_v*.md).
+# v3 = reviewer on v2: trunk zoom (s6) dropped; crash beam no longer clipped (base front zone = whole 'Front End Bumper Off'
+# capture, comp_explode3); the parts-go-home shot lands on the listing COVER PHOTO camera (tools/coversolve.py) and hard-cuts
+# 1:1 into the cover on the mobile listing, which then pulls back (cta.json, WebZoom); re-cut to the user's track.
+# Shots: tools/shots.py (timing.json, BEAT = 2 track beats) rendered with tools/shot.py. Labels: overlay.json (ScanHUD).
+# Music: mazda-miata-na_v3_track.m4a (user upload; not in git), 186.7 BPM, grid t = 0.0628 + 0.32132 n, started at 0.68 s
+# so the first note is at 0. Cuts on phrase downbeats n = 2 + 8k: frames 155, 309, 464, 541, 618, 772, 926; end 1080 (36.0 s).
+project: mazda-miata-na
+format: reel-9x16
+output: {path: /home/user/media/work/miata/out/mazda_miata_na_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/mazda-miata-na_v3_track.m4a   # user upload, not in git
+  start: 4.5467   # v4: +116 frames (3.8667 s) so every cut keeps its v3 music position; first frame ~15 ms before track beat n14
+  fade_out: 0.6
+
+beats: [1.300, 6.433, 11.600, 14.167, 16.733, 21.867, 27.000]
+
+timeline:
+  - id: s1_reveal
+    section: whole
+    focus: "whole car, front-right 3/4, fully in frame; straight push toward the front"
+    src: /home/user/media/work/miata/renders/final/s1_reveal
+    src_fps: 60   # v4: same 78-frame render played 4x (user: "intro way too slow")
+    dur: 1.2667
+  - transition: {type: cut, note: "n18 phrase downbeat (1.30 s in v4)"}
+  - id: s2_bumper
+    section: front
+    focus: "front bumper part: lifts out into clear air, turns 135 deg to show its scanned inside"
+    src: /home/user/media/work/miata/renders/final/s2_bumper
+    src_fps: 15
+    interpolate: true
+    dur: 5.1333
+  - transition: {type: cut, note: "n34 10.308 phrase downbeat"}
+  - id: s3_front_removed
+    section: front
+    focus: "HERO: bumper-removed front end - crash beam, end brackets, radiator, wiring; move in from front-left and hold"
+    src: /home/user/media/work/miata/renders/final/s3_front_removed
+    src_fps: 15
+    interpolate: true
+    dur: 5.1667
+  - transition: {type: cut, note: "n50 15.449 phrase downbeat"}
+  - id: s3_hood
+    section: front
+    focus: "hood opens on its fitted cowl hinge (-44.4 deg capture) over the engine bay"
+    src: /home/user/media/work/miata/renders/final/s3_hood
+    src_fps: 15
+    interpolate: true
+    dur: 2.5667
+  - transition: {type: cut, note: "n58 18.020 phrase downbeat"}
+  - id: s4b_side
+    section: side
+    focus: "right side: wheels, Toyo tyres, brakes, mirror, door line - straight low dolly front to rear"
+    src: /home/user/media/work/miata/renders/final/s4b_side
+    src_fps: 15
+    interpolate: true
+    dur: 2.5667
+  - transition: {type: cut, note: "n66 20.590 phrase downbeat"}
+  - id: s5_trunk
+    section: rear
+    focus: "trunk lid closed -> half (37.5) -> open (55.6): the three trunk captures, rear-right; holds on the open trunk well (no separate zoom)"
+    src: /home/user/media/work/miata/renders/final/s5_trunk
+    src_fps: 15
+    interpolate: true
+    dur: 5.1333
+  - transition: {type: cut, note: "n82 25.732 phrase downbeat"}
+  - id: s7_top_home
+    section: top
+    focus: "top-down: bumper, hood, lid go home, then the camera swings down onto the listing cover-photo camera and holds (1:1 into cta)"
+    src: /home/user/media/work/miata/renders/final/s7_top_home
+    src_fps: 15
+    interpolate: true
+    dur: 5.1333
+  - transition: {type: cut, note: "n98 30.873 section change - HARD 1:1 cut: s7 ends on the cover-photo camera, cta starts on the cover photo"}
+  - id: cta
+    section: end
+    focus: "CTA: 1:1 on the cover photo of the mobile listing (Photos tab, iPhone 13 capture), page pulls back into a phone frame; MIATA NA SCAN NOW AVAILABLE, logo, URL last"
+    src: /home/user/media/work/miata/out/cta_v3.mp4
+    dur: 5.1667
+
+overlays:
+  - src: /home/user/media/work/miata/out/hud_v4.mov
+    start: 0

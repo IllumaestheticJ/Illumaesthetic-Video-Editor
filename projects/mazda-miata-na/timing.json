@@ -1,11 +1,11 @@
 {
- "version": 4,
+ "version": 5,
  "track": "mazda-miata-na_v3_track.m4a (user upload)",
  "track_grid": {
   "t0": 0.0628,
   "P": 0.32132,
   "bpm": 186.73,
-  "music_start": 4.5467,
+  "music_start": 0.7,
   "note": "phrase downbeats n=2+8k (video t = 0.32132 n - 0.6172); sections change n42 12.88 s, n74 23.16, n90 28.30, n98 30.87, n106 33.44"
  },
  "beat": 0.64264,
@@ -23,43 +23,43 @@
  "cut_frames": {
   "s1_reveal": 0,
   "s2_bumper": 39,
-  "s3_front_removed": 193,
-  "s3_hood": 348,
-  "s4b_side": 425,
-  "s5_trunk": 502,
-  "s7_top_home": 656,
-  "cta": 810,
-  "end": 964
+  "s3_front_removed": 116,
+  "s3_hood": 232,
+  "s4b_side": 270,
+  "s5_trunk": 309,
+  "s7_top_home": 386,
+  "cta": 463,
+  "end": 617
  },
  "dur_frames": {
   "s1_reveal": 38,
-  "s2_bumper": 154,
-  "s3_front_removed": 155,
-  "s3_hood": 77,
-  "s4b_side": 77,
-  "s5_trunk": 154,
-  "s7_top_home": 154,
+  "s2_bumper": 77,
+  "s3_front_removed": 116,
+  "s3_hood": 38,
+  "s4b_side": 39,
+  "s5_trunk": 77,
+  "s7_top_home": 77,
   "cta": 155
  },
  "secs": {
   "s1_reveal": 1.2666666666666666,
-  "s2_bumper": 5.133333333333334,
-  "s3_front_removed": 5.166666666666667,
-  "s3_hood": 2.566666666666667,
-  "s4b_side": 2.566666666666667,
-  "s5_trunk": 5.133333333333334,
-  "s7_top_home": 5.133333333333334,
+  "s2_bumper": 2.566666666666667,
+  "s3_front_removed": 3.8666666666666667,
+  "s3_hood": 1.2666666666666666,
+  "s4b_side": 1.3,
+  "s5_trunk": 2.566666666666667,
+  "s7_top_home": 2.566666666666667,
   "cta": 5.166666666666667
  },
  "assemble_note": "ive assemble builds each cut as a 1-frame xfade, so the new shot first shows one frame after the summed durations. The first clip is therefore one frame shorter and the last one frame longer than the gaps between cut_frames. Always verify cuts on the decoded picture.",
  "measured_cuts_ms": {
-  "39": -6,
-  "193": -16,
-  "348": 13,
-  "425": 11,
-  "502": 6,
-  "656": -1,
-  "810": -14
+  "39": -3,
+  "116": -5,
+  "232": 10,
+  "270": -9,
+  "309": 5,
+  "386": 3,
+  "463": -2
  },
- "s1_note": "v4: s1_reveal render (78 f @15) played at src_fps 60 = 4x, 38 frames"
+ "s1_note": "v5: playback speeds - s1 src_fps 60 (4x), s3_front_removed 20.17 + minterpolate, rest src_fps 30 (2x, no interpolation)"
 }
