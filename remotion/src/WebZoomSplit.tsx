@@ -65,13 +65,14 @@ export const calculateWebZoomSplitMetadata: CalculateMetadataFunction<WebZoomSpl
 
 export const WebZoomSplit: React.FC<WebZoomSplitProps> = (p) => {
   const f = useCurrentFrame();
-  const { width, height } = useVideoConfig();
+  const { width, height, fps } = useVideoConfig();
+  const k = fps / 30; // fade offsets below are written for 30 fps
   const t = interpolate(f, [p.holdFrames, p.zoomFrames], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.inOut(Easing.cubic) });
   const fade = (a: number, b: number) => interpolate(f, [a, b], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp", easing: Easing.out(Easing.cubic) });
   const frameOpacity = interpolate(t, [0.5, 1], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const titleIn = fade(p.zoomFrames - 22, p.zoomFrames);
-  const logoIn = fade(p.zoomFrames + 4, p.zoomFrames + 20);
-  const urlIn = fade(p.zoomFrames + 22, p.zoomFrames + 40);
+  const titleIn = fade(p.zoomFrames - 22 * k, p.zoomFrames);
+  const logoIn = fade(p.zoomFrames + 4 * k, p.zoomFrames + 20 * k);
+  const urlIn = fade(p.zoomFrames + 22 * k, p.zoomFrames + 40 * k);
   const panelH = height / 2;
   return (
     <AbsoluteFill style={{ backgroundColor: "#050506" }}>
