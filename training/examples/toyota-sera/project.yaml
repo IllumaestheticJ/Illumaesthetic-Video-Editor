@@ -1,4 +1,9 @@
-# Toyota Sera - Temerario-style scan reel, v3 (user's v2 brief for all reels, relayed by the parent session).
+# Toyota Sera - Temerario-style scan reel, v4. User on v3 (2026-11-13): "add the scan data call to action to the end, where it
+# aligned to the website mobile listing" -> the reassembly orbits round the rear to the solved camera of the listing's 360
+# viewer on the mobile page (tools/solve_listing.py, IoU 0.972) and the CTA (tools/cta_card.py) shrinks that frame 1:1 onto
+# the listing car in the phone; logo + SCAN DATA AVAILABLE NOW + ILLUMAESTHETIC.COM. Replaces the fade + logo card.
+# v3 cut: project_v3.yaml.
+#
 # Scan only, no text. Order from this car's scan data, travelling front -> side -> rear (projects/toyota-sera/direction.md,
 # director.md): whole car -> front wheel -> FRONT (hood opens, front bumper off + inner face over the crash structure)
 # -> SIDE (both butterfly doors, cabin) -> REAR (rear bumper off + inner face over the rear structure) -> progressive
@@ -11,7 +16,7 @@
 # Clip durs are whole frames; first clip one frame short (the assembler adds the cut hold frame).
 project: toyota-sera
 format: reel-9x16
-output: {path: /home/user/media/work/sera/out/toyota_sera_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/sera/out/toyota_sera_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/toyota-sera_track.mp3   # not in git
@@ -71,26 +76,26 @@ timeline:
     interpolate: true
     dur: 4.8
   - transition: {type: cut, note: "31.235 b52"}
-  - id: v3_g3a_home       # b52-56: rear bumper, doors, front assembly fly home, LOCK on b56
+  - id: v4_g3a_home       # b52-56: parts fly home while the camera orbits 135 -> 235 deg round the rear, LOCK on b56
     section: reassembly
     focus: reassembly
-    src: /home/user/media/work/sera/renders/final/v3_g3a_home
+    src: /home/user/media/work/sera/renders/final/v4_g3a_home
     src_fps: 15
     interpolate: true
     dur: 2.4
   - transition: {type: cut, note: "33.635 b56 lock - swap to the clean full-car scan, same camera"}
-  - id: v3_g3b_clean      # b56-60: clean car; fades to black over b58-60 (tools/fade_frames.py)
+  - id: v4_g3b_clean      # b56-60: clean car, camera eases to a stop on the listing camera exactly at b60
     section: reassembly
     focus: the reassembled car
-    src: /home/user/media/work/sera/renders/final/v3_g3b_fade
+    src: /home/user/media/work/sera/renders/final/v4_g3b_clean
     src_fps: 15
     interpolate: true
     dur: 2.4
-  - transition: {type: cut, note: "36.035 b60 - small logo from black"}
-  - id: logo              # ferrari-296/tools/logo_card.py --secs 3.2667 --width 480 (44 % width), fades with the decay
-    section: logo
-    focus: logo
-    src: /home/user/media/work/sera/out/logo_card_small.mp4
+  - transition: {type: cut, note: "36.035 b60 - same frame: the CTA starts by shrinking it onto the listing car (1:1)"}
+  - id: cta               # tools/cta_card.py <v4_g3b_clean f_0037> sera_mobile.png --map listing_cam.json --secs 3.2667
+    section: cta
+    focus: "mobile listing: 1:1 scan -> listing 360 viewer, SCAN DATA AVAILABLE NOW / ILLUMAESTHETIC.COM"
+    src: /home/user/media/work/sera/out/cta_card.mp4
     dur: 3.2667
 
 overlays:

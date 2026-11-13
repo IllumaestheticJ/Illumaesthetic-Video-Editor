@@ -279,6 +279,31 @@ SHOTS["v3_e1_explode"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_
 SHOTS["v3_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts2(4.8), "cam": _g3cam}
 
 
+# ===================================================================================== v4 (user 2026-11-13)
+# "add the scan data call to action to the end, where it aligned to the website mobile listing": the reassembly orbits
+# round the rear to the camera of the listing's 360 viewer on the mobile page (tools/solve_listing.py, IoU 0.972, edge
+# overlay checked: /home/user/media/work/sera/web/listing_cam.json) and stops on it at b60, where tools/cta_card.py
+# shrinks that exact frame 1:1 onto the listing car in the phone. Replaces the fade + logo card.
+_LC = json.load(open("/home/user/media/work/sera/web/listing_cam.json"))
+_lr = math.hypot(_LC["loc"][0], _LC["loc"][1])
+_la = math.degrees(math.atan2(_LC["loc"][0], -_LC["loc"][1])) % 360  # 234.6 = rear, -X side
+
+
+def _g4cam():
+    ks = arc2(0, 4.8, 6.6, _lr, 135, _la, 3.0, _LC["loc"][2], (0, 0.10, 0.70), (0, 0, 0.6), 0.9, _LC["target"][2],
+              n=10, ease="out2")
+    for i, k in enumerate(ks):  # lens 30 -> the listing's solved focal, on the same ease
+        w = 1 - (1 - i / 10) ** 2
+        k["focal"] = round(30 + (_LC["focal"] - 30) * w, 4)
+    ks[-1]["loc"], ks[-1]["target"], ks[-1]["focal"] = list(_LC["loc"]), list(_LC["target"]), _LC["focal"]
+    return ks
+
+
+SECS.update({"v4_g3a_home": 2.6, "v4_g3b_clean": 2.6})
+SHOTS["v4_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts2(4.8), "cam": _g4cam()}
+SHOTS["v4_g3b_clean"] = {"base": [CAR], "cam": [dict(k, t=round(k["t"] - 2.4, 4)) for k in _g4cam()]}
+
+
 def spec(name, mode, frames=None):
     s = SHOTS[name]
     final = mode == "final"

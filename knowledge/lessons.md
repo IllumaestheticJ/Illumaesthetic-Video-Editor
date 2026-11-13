@@ -913,3 +913,9 @@ lands here automatically. Agents must read this whole file before editing.
 - **[music]** Breakbeat / live-bass tracks: the 35-110 Hz envelope follows bass notes (here ~0.33 s off the kicks). Fit
   the grid on 40-200 Hz spectral flux and confirm with `ive beats`; cut on the bar's strong downbeat kick, not on the
   first bass note after a breakdown.
+## From the Toyota Sera v4 (mobile listing CTA, 2026-11-13)
+- The end of the reassembly is the cheapest place to reach the listing's camera: orbit there while the parts fly home and
+  ease out to rest exactly on the cut beat - the 1:1 handoff is then the same frame (diff 0.01) and costs no extra time.
+- solve_listing.py ports to any car: crop the viewer below its 360/Photos/Spin buttons and above the watermark, keep the
+  largest component, search 0-360 deg; write k/ox/oy/focal in the same json so the shot camera and the CTA map agree.
+- A CTA's static end hold gets flagged as dead frames by `ive director`; a 3-4 % push-in about the phone fixes it.

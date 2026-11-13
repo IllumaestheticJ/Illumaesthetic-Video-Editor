@@ -107,3 +107,14 @@ there is no hatch-open scan.
     reassembled car is the brief.
   - v3_g3a_home ~ v3_g3b_clean: one continuous camera move; the cut is the invisible lock swap to the clean scan.
 - Labels lengthened so the sub-line is fully typed for >= 1 s while the bumper's inner face is on screen.
+
+## v4 - mobile listing CTA (user 2026-11-13)
+"add the scan data call to action to the end, where it aligned to the website mobile listing"
+- reassembly (b52-60): parts fly home while the camera orbits 135 -> 234.6 deg round the rear and eases to rest on the
+  solved camera of the listing's 360 viewer (tools/solve_listing.py: az 234.6, el 16.2, d 8.06, 34.0 mm; IoU 0.972,
+  edge overlay checked at full res).
+- cta (b60-end, section: cta): that exact frame shrinks 1:1 onto the car in the phone (mobile page capture, iPhone UA),
+  dissolves into the page's own image; logo + SCAN DATA AVAILABLE NOW above, ILLUMAESTHETIC.COM below, slow push-in.
+- Director repeat flags reviewed: g3b ~ cta is the intended 1:1 handoff; g3a ~ g3b one continuous camera split by the
+  invisible lock swap; whole-car pairs (s1 front-right 3/4, explode side, end rear-left 3/4) are silhouette matches of
+  different views.
