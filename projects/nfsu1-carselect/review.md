@@ -47,3 +47,8 @@ Known weak points (told to the user):
 - Wheels are the real GLB rims turning in the Blender render (18 deg/frame, brakes static, 20 phase renders loop through the hold); the 2D smear is reduced to a light blur.
 - Checked on contact sheets for all four cars and on consecutive hold frames (spokes move). Not checked in playback: wheel speed/direction feel, audio balance.
 - Lesson: a 2D post effect on wheels hides the rims the user cares about; spin the wheel objects in the render and keep phases for the hold.
+
+## v8
+- User: "the cars still do a little left/right shimmy as they move in and out". Cause measured: heading (view azimuth) wandered ~3 deg on the drive-away and twitched ~1 deg before the stop; the centre reversed left-right-left through the swing out. kitpath.py smooths azimuth, height, distance and screen position together and bakes them into the pose (poses_kit.json); the 2D shift is gone. 94 frames per car re-rendered.
+- Checked: rendered car's horizontal path now moves left once, then right once on the drive-away, and decelerates monotonically onto the hold. Contact sheets look right. Not checked in playback.
+- Lesson: steadying the car's screen position is not enough — check the heading too. Smooth the whole view (azimuth, height, distance, position) before rendering rather than shifting the render afterwards.

@@ -274,3 +274,4 @@ applies. What does:
 9. **Steady the car's screen path, not just the camera** (`tools/steady.py`): print the render's centroid velocity per frame.
    If it oscillates while the car drives straight, the user will call it shaking. Fix it as a 2D shift of the render (ease
    onto the hold, one cubic for the drive-away); keep the original fit for masking the game's car.
+   Also smooth the heading (view azimuth), camera height and distance on the straights and bake all of it into the kit car's pose (`kitpath.py` in nfsu1-carselect); a 2D shift of the render fixes position only and leaves a left/right shimmy.
