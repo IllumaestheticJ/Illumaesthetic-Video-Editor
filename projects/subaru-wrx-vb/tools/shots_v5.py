@@ -162,7 +162,7 @@ def join(b, t0, t1):
 # car on the mobile listing (tools/cta_card.py). The viewer's -1.83 deg roll is applied in the CTA, not here.
 LCAM = ((8.7624, -6.0321, 3.4607), (0.0, 0.0, 0.7295), 42.05)
 RCAM = [C(0, (-1.79, 6.32, 3.40), (0.40, 0.30, 0.90), 28, "lin"),
-        C(1.35, (6.60, 5.60, 3.60), (0.15, 0.20, 0.82), 33, "lin"),
+        C(1.35, (7.20, 5.80, 3.60), (0.15, -0.30, 1.30), 29, "lin"),
         C(LOCK, (9.80, -2.60, 3.50), (0.0, 0.0, 0.75), 39, "lin"),
         C(SECS[n], *LCAM)]
 SHOTS[n] = {"base": [B4],
