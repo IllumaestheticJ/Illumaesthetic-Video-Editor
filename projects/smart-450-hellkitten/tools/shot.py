@@ -104,14 +104,14 @@ def load_blend(path):
     return meshes
 
 
-def mat_wire_silver():
+def mat_wire_silver(px=0.9):
     """Silver with dark wireframe edges: the triangles of the scan read as a mesh."""
     m, nt, out = sr.new_mat("ive_wiresilver")
     p = sr.principled(nt, (0.62, 0.63, 0.66, 1), 0.35, 0.8)
     dark = sr.principled(nt, (0.01, 0.012, 0.015, 1), 0.6, 0.0)
     wf = nt.nodes.new("ShaderNodeWireframe")
     wf.use_pixel_size = True
-    wf.inputs["Size"].default_value = 0.9
+    wf.inputs["Size"].default_value = px
     mix = nt.nodes.new("ShaderNodeMixShader")
     nt.links.new(wf.outputs[0], mix.inputs[0])
     nt.links.new(p.outputs[0], mix.inputs[1])
@@ -138,7 +138,7 @@ def main():
         item = {"blend": b} if isinstance(b, str) else b
         objs = load_blend(item["blend"])
         if item.get("look") == "wire":
-            wire = wire or mat_wire_silver()
+            wire = wire or mat_wire_silver(spec.get("wire_px", 0.9))
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(wire if item.get("look") == "wire" else silver)

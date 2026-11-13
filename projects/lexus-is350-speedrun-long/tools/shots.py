@@ -61,14 +61,15 @@ def shots():
     S["SC_TITLE"] = {"base": [CAR], "dur": 6.0, "keys": lambda s: [
         {"t": 0, "loc": [5.0, -6.3, 1.25], "target": [0.15, -0.2, 0.25], "focal": 42},
         {"t": s, "loc": [4.55, -5.75, 1.18], "target": [0.15, -0.2, 0.25], "focal": 42, "ease": "inout"}]}
-    # --- result: full car, right side, slow continuous lateral dolly rear-3/4 -> side (not a turntable) ---
+    # --- result: full car from above-left, slow continuous dolly side -> front-left 3/4 (not a turntable); both right well and rear-left well are ragged, so the rear wheel stays far/small ---
     S["SC_RES_FULL"] = {"base": [CAR], "dur": 7.0, "keys": lambda s: [
-        {"t": 0, "loc": [-5.4, 4.6, 1.35], "target": [0.0, 0.5, 0.6], "focal": 40},
-        {"t": s, "loc": [-6.6, 1.2, 1.15], "target": [0.0, -0.3, 0.6], "focal": 40, "ease": "inout"}]}
-    # --- result: mesh density: 2.5 mm scan with dark wire edges, front-left headlamp/fender edge, black lower-left ---
-    S["SC_RES_MESH"] = {"base": [{"blend": CAR25, "look": "wire"}], "dur": 5.0, "keys": lambda s: [
-        {"t": 0, "loc": [1.45, -2.75, 1.05], "target": [0.62, -1.95, 0.62], "focal": 50},
-        {"t": s, "loc": [1.25, -2.85, 1.02], "target": [0.55, -1.98, 0.64], "focal": 50, "ease": "inout"}]}
+        {"t": 0, "loc": [6.2, -1.2, 2.6], "target": [0.0, -0.2, 0.55], "focal": 40},
+        {"t": s, "loc": [4.6, -4.6, 2.35], "target": [0.0, -0.45, 0.55], "focal": 40, "ease": "inout"}]}
+    
+    # --- result: mesh density: 4 mm mesh, dark 1.6 px wire edges, front-left bumper/fender edge diagonal, black lower-left (G11) ---
+    S["SC_RES_MESH"] = {"base": [{"blend": CAR, "look": "wire"}], "dur": 5.0, "extra": {"wire_px": 1.6}, "keys": lambda s: [
+        {"t": 0, "loc": [1.55, -2.35, 0.28], "target": [0.75, -2.25, 0.55], "focal": 70},
+        {"t": s, "loc": [1.52, -2.15, 0.30], "target": [0.75, -2.15, 0.56], "focal": 70, "ease": "inout"}]}
     # --- result: rear-left lower corner, reflector in place -> removed (hard state swap), small drift, no push-in ---
     S["SC_RES_REFLECTOR"] = {"base": [{"blend": CAR25, "vis": [0, 3.0]}, {"blend": CAR25RR, "vis": [3.0, 99]}],
                              "dur": 7.0, "keys": lambda s: [
@@ -84,16 +85,16 @@ def shots():
     S["SC_INS_SILL"] = {"base": [CAR], "dur": 3.0, "keys": lambda s: [
         {"t": 0, "loc": [-2.2, -1.3, 0.22], "target": [-0.9, 0.2, 0.25], "focal": 32},
         {"t": s, "loc": [-2.15, -0.8, 0.2], "target": [-0.9, 0.6, 0.25], "focal": 32, "ease": "inout"}]}
-    # --- conclusion hero: one slow continuous pull-back from the front-right 3/4, lower-left band clear ---
+    # --- conclusion hero: one slow continuous pull-back from the front-LEFT 3/4 (front-right well is ragged), lower-left band clear ---
     S["SC_CON_HERO"] = {"base": [CAR], "dur": 11.76, "keys": lambda s: [
-        {"t": 0, "loc": [-3.7, -4.6, 1.0], "target": [-0.2, -0.6, 0.45], "focal": 40},
-        {"t": s, "loc": [-5.0, -6.4, 1.3], "target": [-0.05, -0.3, 0.4], "focal": 40, "ease": "out2"}]}
+        {"t": 0, "loc": [3.7, -4.6, 1.0], "target": [0.2, -0.6, 0.45], "focal": 40},
+        {"t": s, "loc": [5.0, -6.4, 1.3], "target": [0.05, -0.3, 0.4], "focal": 40, "ease": "out2"}]}
     return S
 
 
 STILLS = {
-    "B5_front34_hero": [{"t": 0, "loc": [-4.4, -5.0, 1.05], "target": [-0.1, -0.35, 0.5], "focal": 45}],
-    "B5_side_profile": [{"t": 0, "loc": [-8.6, 0.0, 0.85], "target": [0.0, 0.0, 0.62], "focal": 55}],
+    "B5_front34_hero": [{"t": 0, "loc": [4.4, -5.0, 1.05], "target": [0.1, -0.35, 0.5], "focal": 45}],
+    "B5_side_profile": [{"t": 0, "loc": [8.6, 0.0, 0.85], "target": [0.0, 0.0, 0.62], "focal": 55}],
     "B5_halfhalf_FX30554": [{"t": 0, "cam": f"{MATCH}/cam_front.json", "dist": 4.2}],
 }
 
@@ -108,7 +109,7 @@ def main():
             continue
         secs = d["dur"] + TAIL
         s = {"base": d["base"], "light_bbox": LIGHT, "camera": {"sensor": SENSOR, "keys": d["keys"](secs)},
-             "seconds": secs, "fps": FPS, "res": "1920x1080", "edl_dur": d["dur"]}
+             "seconds": secs, "fps": FPS, "res": "1920x1080", "edl_dur": d["dur"], **d.get("extra", {})}
         if mode == "preview":
             s.update({"res_pct": 30, "samples": 4, "frames": ["first", "mid", "last"], "out": f"{W}/scan3d/look/pv_{n}/"})
             if n == "SC_RES_REFLECTOR":
