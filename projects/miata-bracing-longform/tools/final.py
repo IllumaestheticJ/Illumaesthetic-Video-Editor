@@ -19,7 +19,7 @@ def spectrum(x, n=4096):
     k = (len(x) - n)//(n//2); fr = np.stack([x[i*n//2:i*n//2+n] for i in range(k)])*np.hanning(n); P = np.abs(np.fft.rfft(fr, axis=1))**2
     e = P.sum(1); return P[e > np.percentile(e, 60)].mean(0)                    # loud (voiced) frames only
 _rw = wave.open(f'{M}/work/audio48.wav'); _r = np.frombuffer(_rw.readframes(int(184*SR)), np.int16).reshape(-1, 2).mean(1).astype(np.float32)/32768
-REAL = _r[int(48*SR):int(93*SR)]            # v10: the owner's reference for tone and quality is the intro speech 0:48-1:33 (0:00-0:10 has music under it); REAL_RMS = act_rms(REAL); REAL_SPEC = spectrum(REAL)
+REAL = _r[int(48*SR):int(93*SR)]; REAL_RMS = act_rms(REAL); REAL_SPEC = spectrum(REAL)     # v10: the owner's reference for tone and quality is the intro speech 0:48-1:33 (0:00-0:10 has music under it)
 def tone(lines):
     """one EQ curve for all lines: third-octave-smoothed ratio real/clone, limited to +-7 dB, applied as a linear-phase filter"""
     S = np.mean([spectrum(x) for x in lines if len(x) > SR*3], axis=0); f = np.fft.rfftfreq(4096, 1/SR); g = 10*np.log10((REAL_SPEC + 1e-12)/(S + 1e-12))
