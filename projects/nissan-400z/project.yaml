@@ -33,10 +33,10 @@ timeline:
     dur: 6.7
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "14.004 THE DROP"}
-  - id: N1a_bumper_off     # HERO on the 14.004 drop: grille out, then bumper shell off (114 f)
+  - id: N1a_bumper_off     # HERO on the 14.004 drop: bumper + grille leave as one unit (114 f)
     src: /home/user/media/work/z400/renders/final/N1a_bumper_off
-    src_fps: 14.62
-    interpolate: true
+    src_fps: 30    # native 30 fps render (115 f), no interpolation
+    interpolate: false
     dur: 3.8
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "17.795 kick"}
