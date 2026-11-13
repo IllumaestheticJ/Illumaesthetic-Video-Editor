@@ -200,6 +200,17 @@ def mat_livery(spec, fps, nframes):
     return m
 
 
+def key_vis(objs, e, fps):
+    """entry keys show_at / hide_at (s): hard visibility switch on that frame (1:1 swaps on a beat)."""
+    for key, first in (("show_at", True), ("hide_at", False)):
+        if e.get(key) is None:
+            continue
+        fcut = max(1, int(round(e[key] * fps)) + 1)
+        for o in objs:
+            o.hide_render = first; o.keyframe_insert("hide_render", frame=1)
+            o.hide_render = not first; o.keyframe_insert("hide_render", frame=fcut)
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -227,9 +238,11 @@ def main():
     swap_objs = []
     for objs, e in base_objs:
         for o in objs:
-            o.data.materials.clear(); o.data.materials.append(base_mat())
+            if not e.get("keep_mats"):
+                o.data.materials.clear(); o.data.materials.append(base_mat())
             if e.get("hide"):
                 o.hide_render = True
+        key_vis(objs, e, fps)
     for sh in spec.get("show", []):  # extra static silver meshes (e.g. the bumper shell alone)
         for o in load_blend(sh):
             o.data.materials.clear(); o.data.materials.append(silver); swap_objs.append(o)
@@ -243,7 +256,7 @@ def main():
             o.keyframe_insert("hide_render", frame=1)
             o.hide_render = False; o.keyframe_insert("hide_render", frame=fcut)
         for objs, e in base_objs:
-            if e.get("swapout", True) and not e.get("hide"):
+            if e.get("swapout", True) and not e.get("hide") and e.get("show_at") is None and e.get("hide_at") is None:
                 for o in objs:
                     o.hide_render = False; o.keyframe_insert("hide_render", frame=1)
                     o.hide_render = True; o.keyframe_insert("hide_render", frame=fcut)
@@ -254,8 +267,11 @@ def main():
         objs = load_blend(p["blend"])
         m = mat_check(colors[p["color"]]) if p.get("color") else (mat_livery(spec, fps, nframes) if liv_all else silver)
         for o in objs:
+            if p.get("keep_mats"):
+                continue
             o.data.materials.clear()
             o.data.materials.append(m)
+        key_vis(objs, p, fps)
         keys = p.get("keys")
         if not keys:
             continue
