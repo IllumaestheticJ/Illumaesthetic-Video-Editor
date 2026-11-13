@@ -32,3 +32,13 @@ Looked at: 9 frames across the 3D shot (386-494), reel and end-card frames.
 - Black paint now renders dark charcoal (specular cut for dark colours); wheels are Ron's models in flat dark gunmetal, no orange calipers.
 - End card: website logo + typed slogan; official slogan lockup not found.
 - Not measured: cut-to-kick error on the delivered file.
+
+# Self-review - v6, 47.5 s (2026-11-13)
+Looked at: 1.5 s-interval sheet of the whole cut, frames at the scan cut (341/342) and the reveal cut (895/896), reveal onion overlay
+(2.7 px RMSE), per-frame luma of s7/s8/s6b (no dropout).
+- Not measured: cut-to-beat error on the delivered file (cuts sit on round(bar * 30) from a drop measured at 29.873 s).
+- 360: the car fills roughly 60 % of the frame width at the side view (r 7.3 m, 28 mm); "larger" was read as a full, longer lap.
+- Reveal: headlines stack above and below the car, not over it. Text over IRL footage here is by explicit user request.
+- 3D parts pop on (no fly-in); one blended frame at each pop. Black is dark charcoal, wheels flat gunmetal.
+- End clips: three are Instagram reels with the app UI; caranddriver and eddiex616 are at the track, not the booth.
+- Music is a commercial track supplied by the user (not from the CML).
