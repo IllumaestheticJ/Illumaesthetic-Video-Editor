@@ -93,7 +93,7 @@ def explode(off, rot=(0, 0, 0), delay=0.0):
 PARTS = [
     (f"{B}/p_hood.blend", (0, -0.05, 1.45), (-8, 0, 0), 0.0),
     (f"{B}/bumper_shell.blend", (0, -0.22, 0.62), (0, 0, 0), 0.05),
-    (f"{B}/p_grille.blend", (0, -0.3, 1.02), (0, 0, 0), 0.12),
+    (f"{B}/p_grille.blend", (0, -0.22, 0.62), (0, 0, 0), 0.05),  # v4: grille rides in the bumper (user: nothing comes off the bumper before the bumper)
     (f"{B}/p_wing.blend", (0, 0.25, 1.15), (14, 0, 0), 0.08),
     (f"{B}/p_mirror_r.blend", (-0.45, 0, 0.35), (0, 0, -20), 0.1),
     (f"{B}/p_mirror_l.blend", (0.45, 0, 0.35), (0, 0, 20), 0.1),
@@ -125,7 +125,7 @@ SHOTS["s8b_explode"] = {"base": [f"{B}/comp_explode.blend"], "parts": parts(BACK
 EXP = f"{B}/comp_explode.blend"
 STACK = {  # v1 explode offsets x1.06 = s8b's first frame; parts already off wait here (out of frame)
     "p_hood": ((0, -0.053, 1.537), (-8, 0, 0)), "bumper_shell": ((0, -0.233, 0.657), (0, 0, 0)),
-    "p_grille": ((0, -0.318, 1.081), (0, 0, 0)), "p_wing": ((0, 0.265, 1.219), (14, 0, 0)),
+    "p_grille": ((0, -0.233, 0.657), (0, 0, 0)), "p_wing": ((0, 0.265, 1.219), (14, 0, 0)),
     "p_mirror_r": ((-0.477, 0, 0.371), (0, 0, -20)), "p_mirror_l": ((0.477, 0, 0.371), (0, 0, 20))}
 
 
@@ -152,10 +152,11 @@ SHOTS["H_hoodopen"] = {"base": [f"{B}/comp_hood.blend"],  # bay from the Hood Op
                                    [-0.80, -3.80, 2.25], [0.05, -0.95, 0.68], 30)}  # v3 preview: end touched the right edge
 # N1a (hero, on the drop): grille out toward the lens and up out of frame, then the bumper shell; camera moves in
 SHOTS["N1a_bumper_off"] = {"base": [EXP], "parts": [
-    {"blend": f"{B}/p_grille.blend", "keys": [k(0, (0, 0, 0)), k(0.70, (0, 0, 0)), k(1.30, (0, -0.45, 0.35), ease="out"),
-                                             k(1.80, (0, -0.48, 0.40), ease="lin"), k(2.40, (0, -0.40, 2.0), ease="in")]},
-    {"blend": f"{B}/bumper_shell.blend", "keys": [k(0, (0, 0, 0)), k(1.80, (0, 0, 0)), k(2.60, (0, -0.85, 0.15), ease="out"),
-                                                 k(3.10, (0, -0.88, 0.18), ease="lin"), k(3.75, (0, -0.60, 1.8), ease="in")]},
+    # v4 (user): nothing comes off the bumper until the bumper itself comes off -> grille + shell leave as ONE unit,
+    # home until the 14.971 kick (0.94 s in), out toward the lens, then up out of frame top by ~2.8 s (16.846 kick)
+    *[{"blend": f"{B}/{n}.blend", "keys": [k(0, (0, 0, 0)), k(0.94, (0, 0, 0)), k(1.60, (0, -0.85, 0.15), ease="out"),
+                                           k(2.10, (0, -0.88, 0.18), ease="lin"), k(2.80, (0, -0.60, 1.8), ease="in")]}
+      for n in ("bumper_shell", "p_grille")],
     held("p_wing", False), held("p_mirror_r", False), held("p_mirror_l", False)],
     "cam": cam2(S["N1a_bumper_off"], [-2.25, -4.70, 1.30], [-0.10, -1.70, 0.55], 30,
                 [-1.25, -3.55, 0.80], [-0.10, -1.95, 0.50], 30)}
