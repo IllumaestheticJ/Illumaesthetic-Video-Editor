@@ -26,6 +26,7 @@ End CTA: "SCANS AVAILABLE AT ILLUMAESTHETIC.COM". No triangle counts, no reflect
   cut the needed spans to 9:16 intermediates, delete the original.
 - Scan shots must be the vertical re-renders (ids V_PAIR_2, V_MATCH_REAR, V_PAIR_3, V_MATCH_FRONT, V_RES_FULL) - never a crop of the
   16:9 renders. The 3D agent publishes the 9:16 crop window (x0) it solved each pair for; use exactly that window on the IRL side.
-- Music: one track per reel from the TikTok Commercial Music Library, not used by any earlier project; the owner disliked constant
-  music changes - one track, no switching. Deliver music on its own stem. The long-form's game-music compilation is NOT cleared: do not use it.
+- Music (updated by the owner 2026-11-13: "you can use the saved audio - the uploaded ones are royalty free"): use the owner-supplied mix
+  /home/user/media/work/is350-long/music/mix_full.wav (pieces P1-P8, map in projects/lexus-is350-speedrun-long/music.md). ONE piece per
+  reel, no switching (the owner found constant music changes distracting). Music on its own stem. No TikTok-library tracks needed.
 - Log every decision: python -m ive log projects/lexus-is350-reels "<what>" --why "<why>". Look at your output before reporting.
