@@ -1,3 +1,5 @@
+# v6 (reviewer on v5): bigger final logo (760 px); the rear bumper reflector (own scan) pulls out of the bumper
+# (tools/shots_v6.py rear + reassembly); door flare framed (v5b). v5: project_v5.yaml.
 # Subaru WRX VB (2022+) scan reel v5. Scan only, silver on black. Reviewer v4 notes (feedback.jsonl): list the flares and
 # side skirt as they come off; "scanned separately" on the front parts is redundant; the rear still had leftover bumper
 # and the trunk was not accurately cut; blend into the Illumaesthetic call to action.
@@ -11,7 +13,7 @@
 # src_fps per clip = 30*N/(slot+4).
 project: subaru-wrx-vb
 format: reel-9x16
-output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/streets/seg5.wav   # not in git
@@ -51,14 +53,14 @@ timeline:
   - transition: {type: cut, note: "19.100 hit"}
   - id: v4_rear        # trunk lid opens on its fitted hinge to the scanned open pose; rear bumper off; hold on structure
     focus: trunk / rear bumper / structure behind it
-    src: /home/user/media/work/wrx/renders/final/v5_rear
+    src: /home/user/media/work/wrx/renders/final/v6_rear
     src_fps: 14.856
     interpolate: true
     dur: 6.8
   - transition: {type: cut, note: "25.900 hit"}
   - id: v4_reassemble  # lid closes, rear bumper, side; grille + garnish rejoin the shell in the air, assembly locks; clean car; fade
     focus: whole car (reassembly)
-    src: /home/user/media/work/wrx/renders/final/v5_reassemble
+    src: /home/user/media/work/wrx/renders/final/v6_reassemble
     src_fps: 14.646
     interpolate: true
     dur: 4.1
@@ -68,11 +70,11 @@ timeline:
     src: /home/user/media/work/wrx/out/cta_v5.mp4
     dur: 2.7333
   - transition: {type: cut, note: "32.733 hit - logo through the music fade"}
-  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3 --width 380 --fade-out 0.8
+  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3 --width 760 --fade-out 0.8
     focus: logo
-    src: /home/user/media/work/wrx/out/logo_small.mp4
+    src: /home/user/media/work/wrx/out/logo_big.mp4
     dur: 3.3333
 
 overlays:
-  - src: /home/user/media/work/wrx/out/hud_wrx_v5.mov   # ive hud projects/subaru-wrx-vb/overlay.json
+  - src: /home/user/media/work/wrx/out/hud_wrx_v6.mov   # ive hud projects/subaru-wrx-vb/overlay.json
     start: 0
