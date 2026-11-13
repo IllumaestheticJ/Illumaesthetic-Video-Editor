@@ -7,7 +7,7 @@ import sys, os, wave, subprocess, importlib.util, numpy as np
 from PIL import Image
 M, OUTN = sys.argv[1], sys.argv[2]; HERE = os.path.dirname(os.path.abspath(__file__)); a0 = sys.argv[:]
 sys.argv = [a0[0], M, '--script-only']; sp = importlib.util.spec_from_file_location('b', f'{HERE}/build.py'); b = importlib.util.module_from_spec(sp); sp.loader.exec_module(b); sys.argv = a0
-SR = 48000; VO_DB = -2.5; BED_DB = -15.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo10'        # VO_DB: relative to the owner's real voice level
+SR = 48000; VO_DB = -1.0; BED_DB = -15.0; LEAD, GAP, TAIL = 0.30, 0.25, 0.55; VODIR = f'{M}/vo10'        # VO_DB: relative to the owner's real voice level
 def wav(p):
     w = wave.open(p); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768; x = x.reshape(-1, w.getnchannels()).mean(1); r = w.getframerate()
     return x if r == SR else np.interp(np.arange(0, len(x), r/SR), np.arange(len(x)), x).astype(np.float32)
@@ -38,8 +38,8 @@ def deair(x):
     wherever the voice below it is weak (breaths, tails), and kept where a voiced word carries it (so s/t stay intelligible)."""
     X = np.fft.rfft(x); f = np.fft.rfftfreq(len(x), 1/SR); wgt = np.clip((f - 3500)/2000, 0, 1); hi = np.fft.irfft(X*wgt, len(x)); lo = x - hi
     k = int(.012*SR); env = lambda v: np.sqrt(np.convolve(v*v, np.ones(k)/k, 'same') + 1e-12); el, eh = env(lo), env(hi); ref = np.percentile(el, 90)
-    g = np.clip(el/(ref*0.25), 0.18, 1.0)                    # weak low band -> top band down to -15 dB
-    g = np.minimum(g, np.clip(el/(eh*2.0 + 1e-9), 0.25, 1.0))   # top band louder than half the low band (breath, hiss) -> down
+    g = np.clip(el/(ref*0.10), 0.5, 1.0)                    # weak low band -> top band down to -15 dB
+    g = np.minimum(g, np.clip(el/(eh*1.0 + 1e-9), 0.5, 1.0))   # top band louder than half the low band (breath, hiss) -> down
     g = np.convolve(g, np.ones(k)/k, 'same'); gl = np.clip(el/(ref*0.06), 0.3, 1.0); gl = np.convolve(gl, np.ones(4*k)/(4*k), 'same')   # gentle expander on the gaps
     return (lo*gl + hi*g*gl).astype(np.float32)
 # ---- fit the generated lines: one splice, then slow down the lines the voice model rushed (no pitch change)
