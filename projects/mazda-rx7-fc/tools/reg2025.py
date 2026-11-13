@@ -9,13 +9,13 @@ from icp import icp
 TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 src, dst, out, oj = sys.argv[1:5]
 m = np.fromfile(src, dtype=TRI, offset=84); c = m["v"].mean(1).astype(float)
-car = np.fromfile(dst, dtype=TRI, offset=84)["v"].mean(1).astype(float); T = cKDTree(car[::3])
+car = np.fromfile(dst, dtype=TRI, offset=84)["v"].mean(1).astype(float); T = cKDTree(car[::12])
 flip = np.diag([1.0, -1.0, -1.0])                       # 180 deg about X (upside down)
 best = None
 for k in range(4):
     a = np.radians(90 * k); Rz = np.array([[np.cos(a), -np.sin(a), 0], [np.sin(a), np.cos(a), 0], [0, 0, 1]])
-    R0 = Rz @ flip; Q = c[::6] @ R0.T; t0 = car.mean(0) - Q.mean(0); t0[2] = car[:, 2].min() - Q[:, 2].min()
-    R, t, med, p90 = icp(Q + t0, T, 60, 0.7)
+    R0 = Rz @ flip; Q = c[::40] @ R0.T; t0 = car.mean(0) - Q.mean(0); t0[2] = car[:, 2].min() - Q[:, 2].min()
+    R, t, med, p90 = icp(Q + t0, T, 35, 0.7)
     print(f"turn {90*k:3d}: median {med:.1f} mm p90 {p90:.1f}")
     if best is None or med < best[0]:
         best = (med, R @ R0, R @ t0 + t, p90)
