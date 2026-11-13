@@ -1014,3 +1014,15 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** Long render queues outlive the 2 h background limit and container restarts: render to `<shot>_30` by frame list and re-run only
   missing frames (tools/render30.sh); existing 15 fps frames are the odd 30 fps frames when the spec's keys are in seconds.
 - **[text]** User: "get rid of customize everything" - no slogan on this end card (logo only).
+
+## toyota-gr86 v5 (user feedback on v4)
+- [audio] (user) Music swapped to a user-supplied track. `ive beats` said 61.5 BPM, half the real tempo. Kick-band onsets were
+  unusable (bass guitar in 40-150 Hz) and also locked onto off-beat hits 0.2 s off the downbeat. A spectral-flux grid fit over the excerpt
+  (librosa onset_strength, median aggregate) gave 122.05 BPM, and the kick onsets confirmed it. Pick the excerpt by per-bar band energy:
+  the drop (bass in), the hats entering, the loudest bar, the decay.
+- [story] (user: "make sure all parts are highlighted") Every scanned part gets its own beat AND its own label, including parts
+  that only move as a means to an end (hood, bumpers, lid). Re-list the scan inventory against the shots: the side markers had been fetched in v3 but were never
+  shown. A short exploded view with every part out at once after the single-part beats closes the inventory.
+- [technical] One-bar shots from earlier renders: action that lands in the first ~1.2 s survives a trim to the bar. Camera-only
+  push-ins are trimmed from 0.48 s so they keep their readable end hold. A shared part animation for several camera angles =
+  shift the keys by each window's start (shot.py's sampler takes negative key times).

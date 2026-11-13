@@ -4,7 +4,7 @@
 # excerpt from song 79.402 s: 122.05 BPM, one shot per bar (1.9664 s = 59 frames), drop on bar 2; every part highlighted with
 # its own bar + label (new: side markers), then a 3-angle exploded view, reassembly, clean car, logo.
 # Shots: v4 renders trimmed to one bar (tools/shots_v4.py) + new tools/shots_v5.py (m1, c3b, x1-x3, h1_reassemble_v5).
-# Cuts at frames 59n (n = 1..19); first clip one frame short; logo 75 frames (v4: 74 delivered one frame short).
+# Cuts at frames 59n (n = 1..19), seven moved one frame onto the measured onsets (117, 530, 589, 709, 884, 943, 1002); first clip one frame short; logo 75 frames (v4: 74 delivered one frame short).
 project: toyota-gr86
 format: reel-9x16
 output: {path: /home/user/media/work/gr86/out/toyota_gr86_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
@@ -31,7 +31,7 @@ timeline:
     focus: "headlight + slat grille + intake - build bar 1"
     src_fps: 15
     interpolate: true
-    dur: 1.9667
+    dur: 1.9333
     trim_start: 2.4
   - transition: {type: cut, note: "bar 2"}
   - id: c1_hood_hinge
@@ -40,7 +40,7 @@ timeline:
     focus: "DROP: hood hinges open -50 deg (label HOOD)"
     src_fps: 30
     interpolate: false
-    dur: 1.9667
+    dur: 2.0000
   - transition: {type: cut, note: "bar 3"}
   - id: c2_hood_off
     src: /home/user/media/work/gr86/shots/c2_hood_off
@@ -89,7 +89,7 @@ timeline:
     focus: "trunk lid (shut-line cut) hinges open +65 deg"
     src_fps: 30
     interpolate: false
-    dur: 1.9667
+    dur: 1.9333
   - transition: {type: cut, note: "bar 9"}
   - id: e2_lid_off_cargo
     src: /home/user/media/work/gr86/shots/e2_lid_off_cargo
@@ -105,7 +105,7 @@ timeline:
     focus: "rear bumper (part scan) pulls, tips, drops"
     src_fps: 30
     interpolate: false
-    dur: 1.9667
+    dur: 2.0000
   - transition: {type: cut, note: "bar 11"}
   - id: e4_rear_beam
     src: /home/user/media/work/gr86/shots/e4_rear_beam
@@ -113,7 +113,7 @@ timeline:
     focus: "rear crash beam push-in (Rear Bumper Removed) - loudest bar"
     src_fps: 15
     interpolate: true
-    dur: 1.9667
+    dur: 2.0000
     trim_start: 0.48
   - transition: {type: cut, note: "bar 12"}
   - id: f1_reverse_light
@@ -122,7 +122,7 @@ timeline:
     focus: "reverse light (part scan) lifts into the black band"
     src_fps: 30
     interpolate: false
-    dur: 1.9667
+    dur: 1.9333
   - transition: {type: cut, note: "bar 13"}
   - id: f2_plate_light
     src: /home/user/media/work/gr86/shots/f2_plate_light
@@ -138,7 +138,7 @@ timeline:
     focus: "every part flies out to the exploded view - front-right"
     src_fps: 30
     interpolate: false
-    dur: 1.9667
+    dur: 1.9333
   - transition: {type: cut, note: "bar 15"}
   - id: x2_explode_rr
     src: /home/user/media/work/gr86/shots/x2_explode_rr
@@ -163,7 +163,7 @@ timeline:
     focus: "every part flies home, hood lands on the cut"
     src_fps: 30
     interpolate: false
-    dur: 1.9667
+    dur: 2.0000
   - transition: {type: cut, note: "bar 18"}
   - id: h2_hero
     src: /home/user/media/work/gr86/shots/h2_hero

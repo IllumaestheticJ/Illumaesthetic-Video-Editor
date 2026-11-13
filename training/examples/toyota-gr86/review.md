@@ -1,3 +1,35 @@
+# Toyota GR86 / Subaru BRZ (gen 2) - v5 self-review (training/rubric.md)
+
+Output: `/home/user/media/work/gr86/out/toyota_gr86_v5.mp4` (not in git). 1080x1920, 30 fps, 1195 frames / 39.833 s,
+h264 yuv420p + AAC. Scan-only, so criteria 3 and 6 don't apply.
+
+v4 user feedback addressed:
+1. "Use this music instead": the user-supplied Gran Turismo 2 "East City" theme (not in git).
+   - `ive beats` said 61.5 BPM (half time). The spectral-flux grid over the section is 122.05 BPM, bar 1.9664 s.
+   - The excerpt starts two bars before the drop (song 79.402 s), and the cut is one shot per bar.
+   - The drop (83.34 s) lands on the hood hinge. The hats enter on the side markers. The loudest bar is the rear crash beam. The section's decay sits under the logo.
+2. "Make sure all parts are highlighted": every part and cut panel now gets its own bar with its own label.
+   - New: the front SIDE MARKERS. Their part scan was fetched in v3 but never shown. It is placed by ICP at 3.5 mm, and the bumper keeps the "Side Markers Removed" recess.
+   - New labels: HOOD, FRONT BUMPER, TRUNK LID and REAR BUMPER. These moved unlabelled in v4.
+   - After the last single part, a three-angle exploded view puts every part out at once (offsets with 0.2 m+ clearance, checked by projection), then a one-bar reassembly lands on the clean car.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 1 | Hook | 4 | Whole car with motion from frame 0, then a cut at 1.97 s. The first part move (hood hinge) is on the drop at 3.93 s. |
+| 2 | Beat sync | 4 | 19 cuts measured on decoded audio: 18 within +-16 ms, and f943 at +20 ms on a doubled hit. Seven cuts were moved one frame onto their measured onsets. |
+| 3 | 1:1 match | n/a | Scan only. |
+| 4 | Scan quality | 4 | Every new render was luma-checked; the steps are only parts entering the frame. No bumper skin is left (v4 geometry). The left mirror is a broken capture, so it stays home in the explode. |
+| 5 | Story | 5 | Front: hood hinge/off, side markers, front bumper, structure. Side: mirror. Rear: lid hinge/off, rear bumper, beam, reverse light, plate lamp. Then all parts at once (3 angles), reassembly, clean car, logo. One part per bar. |
+| 7 | Text | 4 | 12 short factual labels, one per part/state bar. Coverage under each label box is <= 7 % (10 of 12 at 0 %). No numbers. |
+| 8 | Ending | 4 | Reassembly ends on h2's camera, the clean car swaps in on the bar, then a fade and the 860 px logo over the music's decay. |
+| 9 | Technical | 5 | Spec above, one Blender at a time. x2 is re-centred in the assembler (losslessly shifted, padded with the render's own black). |
+
+## Remaining weak spots for the next agent
+- x1/x2 exploded views keep the set small (a car + 1.6 m of parts in 9:16), and x2 needed a vertical re-centre. A lower, closer orbit per group would read better.
+- The side marker is a thin part. It reads on the push-in, but a turn would show more if its back was scanned (unchecked).
+- e4: a fragment of the parked rear bumper shows at the frame bottom (from v4).
+
+---
 # Toyota GR86 / Subaru BRZ (gen 2) - v4 self-review (training/rubric.md)
 
 Output: `/home/user/media/work/gr86/out/toyota_gr86_v4.mp4` (not in git). 1080x1920, 30 fps, 1177 frames / 39.233 s,

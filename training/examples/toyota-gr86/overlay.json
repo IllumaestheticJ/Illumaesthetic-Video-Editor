@@ -2,13 +2,22 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1177,
+ "durationInFrames": 1195,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "label",
-   "from": 246,
-   "duration": 46,
+   "from": 128,
+   "duration": 47,
+   "title": "HOOD",
+   "sub": "HINGE OPEN",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 199,
+   "duration": 35,
    "title": "ENGINE BAY",
    "sub": "HOOD REMOVED",
    "x": 0.08,
@@ -16,17 +25,35 @@
   },
   {
    "kind": "label",
-   "from": 373,
-   "duration": 66,
-   "title": "FRONT BUMPER REMOVED",
-   "sub": "CRASH BEAM",
+   "from": 248,
+   "duration": 45,
+   "title": "SIDE MARKER",
+   "sub": "PART SCAN",
    "x": 0.08,
    "y": 0.08
   },
   {
    "kind": "label",
-   "from": 470,
-   "duration": 42,
+   "from": 305,
+   "duration": 47,
+   "title": "FRONT BUMPER",
+   "sub": "PART SCAN",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 357,
+   "duration": 54,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "CRASH BEAM",
+   "x": 0.08,
+   "y": 0.05
+  },
+  {
+   "kind": "label",
+   "from": 425,
+   "duration": 45,
    "title": "SIDE MIRROR REMOVED",
    "sub": "MIRROR MOUNT",
    "x": 0.08,
@@ -34,8 +61,17 @@
   },
   {
    "kind": "label",
-   "from": 613,
+   "from": 482,
    "duration": 47,
+   "title": "TRUNK LID",
+   "sub": "HINGE OPEN",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 555,
+   "duration": 33,
    "title": "TRUNK OPEN",
    "sub": "CARGO AREA",
    "x": 0.08,
@@ -43,8 +79,17 @@
   },
   {
    "kind": "label",
-   "from": 741,
-   "duration": 66,
+   "from": 600,
+   "duration": 47,
+   "title": "REAR BUMPER",
+   "sub": "PART SCAN",
+   "x": 0.08,
+   "y": 0.08
+  },
+  {
+   "kind": "label",
+   "from": 652,
+   "duration": 54,
    "title": "REAR BUMPER REMOVED",
    "sub": "CRASH BEAM",
    "x": 0.08,
@@ -52,8 +97,8 @@
   },
   {
    "kind": "label",
-   "from": 834,
-   "duration": 47,
+   "from": 720,
+   "duration": 45,
    "title": "REVERSE LIGHT",
    "sub": "PART SCAN",
    "x": 0.08,
@@ -61,8 +106,8 @@
   },
   {
    "kind": "label",
-   "from": 907,
-   "duration": 46,
+   "from": 785,
+   "duration": 39,
    "title": "LICENSE PLATE LIGHT",
    "sub": "PART SCAN",
    "x": 0.08,
