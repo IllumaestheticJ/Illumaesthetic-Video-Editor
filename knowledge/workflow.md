@@ -52,3 +52,6 @@
   studio lights mid-animation with no log error (WRX VA, Cappuccino). Render with persistent data off
   (`use_persistent_data = False`; subaru-wrx-va `tools/shots.py --no-persist`).
 - Verify cut timing against the decoded audio (broadband onset, 1 ms RMS half-rise), not only the beat grid.
+- **Finding a lyric without speech-to-text (Lola v8):** correlate a log-spectrogram template of the song's first
+  vocal phrase against the track; a hook's lead-in recurs at a fixed lag before each downbeat. Start the music on
+  one of those occurrences and re-time the cuts.

@@ -2,25 +2,25 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 897,
+ "durationInFrames": 1032,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "title",
-   "from": 8,
-   "duration": 62,
+   "from": 4,
+   "duration": 168,
    "text": "MY LIFE BE LIKE…",
    "y": 0.735,
    "size": 72
   },
   {
    "kind": "brackets",
-   "from": 76,
+   "from": 179,
    "duration": 76
   },
   {
    "kind": "counter",
-   "from": 79,
+   "from": 182,
    "duration": 72,
    "label": "LOLA 1 · EXTERIOR TRIANGLES",
    "value": 21717402,
@@ -30,7 +30,7 @@
   },
   {
    "kind": "title",
-   "from": 84,
+   "from": 187,
    "duration": 68,
    "text": "…3D SCANNING THE AE86s FROM DRIFTER",
    "sub": "FROM DIRECTOR SUNG KANG",
@@ -40,26 +40,40 @@
   },
   {
    "kind": "brackets",
-   "from": 267,
+   "from": 370,
    "duration": 94
   },
   {
    "kind": "label",
-   "from": 296,
-   "duration": 64,
+   "from": 396,
+   "duration": 66,
    "title": "INSIDE + OUTSIDE",
-   "sub": "INTERIOR 25,188,507 TRIANGLES",
+   "sub": "LOLA 1 SCANNED",
    "x": 0.08,
    "y": 0.72
   },
   {
    "kind": "brackets",
-   "from": 558,
-   "duration": 140
+   "from": 579,
+   "duration": 63
+  },
+  {
+   "kind": "label",
+   "from": 584,
+   "duration": 56,
+   "title": "INTERIOR",
+   "sub": "25,188,507 TRIANGLES",
+   "x": 0.08,
+   "y": 0.4
+  },
+  {
+   "kind": "brackets",
+   "from": 698,
+   "duration": 139
   },
   {
    "kind": "counter",
-   "from": 562,
+   "from": 702,
    "duration": 130,
    "label": "LOLA 2 · TRIANGLES CAPTURED",
    "value": 50045945,
@@ -69,8 +83,8 @@
   },
   {
    "kind": "title",
-   "from": 706,
-   "duration": 90,
+   "from": 845,
+   "duration": 86,
    "text": "HONORED TO BE PART OF DRIFTER",
    "y": 0.7,
    "size": 60

@@ -65,3 +65,10 @@ converge; pick frames where the car fills ≤70 % of the frame with roofline + o
   (`proj.py refine --fix-h 0.7`), fix a long focal, and look at a one-frame render before the full render.
 - 2.39:1 footage in a 9:16 reel: show it as a band on black so the whole car fits; the scan's black background
   takes over at the 1:1 cut and captions go in the bars (never on footage).
+
+## Interior 1:1 from a driver's-eye clip (Lola v8)
+- Works well: roof-header cut-out corners + a dash vent/recess give a stable 10-point PnP. Get xyz with
+  `ive render -- --scene <int>.blend --out <dir> --camera <guess>.json --raycast "name:x,y;..."` on a rough
+  driver's-eye reference render (head ~0.36 m off centre, in FRONT of the seat back, z ~1.1 m).
+- Solve the focal free per clip: glasses clips of different pixel sizes (1376 vs 1488 wide) gave 1336 vs 1094 px.
+- Dense interior scans render ~110 s/frame at 75 %/12 spp; render slow pushes at 10 fps and interpolate.

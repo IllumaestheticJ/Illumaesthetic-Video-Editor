@@ -1,0 +1,96 @@
+# Lola (Drifter movie AE86s) scan-process reel v6. Earlier versions: project_v1..v5.yaml (+ overlay_vN.json, review_vN.md).
+# v6 (user): add shots from the DRIFTER trailer with a 1:1 cut, new music ("My Life Be Like"), frame the reel as
+# "an honor and super cool to be involved with the movie", captions where they help the reel.
+# Structure: MOVIE shot of Lola 1 (letterboxed band on black) -> 1:1 on the beat drop -> the same view as scan ->
+# how it was scanned (spray, handheld scanner -> 1:1 -> outside lifts off inside) -> cabin scan -> Artec Studio ->
+# Lola 2 (IRL wing -> scan rear -> 360 turntable) -> MOVIE tandem drift of Lola 2 -> logo.
+# Movie clips are 2.39:1; they sit as a band on black so the whole car stays in frame and captions go in the black
+# bars (never on footage). IRL = Ray-Ban Meta glasses POV, selects in /home/user/media/work/lola/sel.
+project: lola-scan-process
+format: reel-9x16
+output: {path: /home/user/media/work/out/lola_scan_process_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  # User upload: Grits - "My Life Be Like (Ooh Ahh)" remix ft. 2Pac & Xzibit (Tokyo Drift video version). Not in git.
+  # Commercial track supplied by the user: attach the song in-app when posting. Start 24.2367 s: one bar of the
+  # drum-less hook plays under the movie shot and the beat drop (track 26.670) is the 1:1 cut at frame 73.
+  path: /home/user/media/work/music/lola-scan-process_v6_mylifebelike.m4a
+  start: 24.2367
+  fade_out: 1.2
+
+# Measured 40-120 Hz kick onsets (track s -> video s = track - 24.2367), ~99 BPM, pattern repeats every 4.85 s:
+# 26.670 drop, 29.40, 30.612, 33.039, 36.385 (downbeat), 37.436, 39.10, 41.224 (downbeat), 42.742, 47.589,
+# 50.927 (downbeat). Durs are whole frames so each cut = round(video s * 30); first clip one frame short.
+beats: [2.433, 5.163, 6.375, 8.802, 12.148, 13.199, 14.863, 16.987, 18.505, 23.352, 26.690]
+
+timeline:
+  - id: movie_side     # focus: Lola 1 in the film (DRIFTER trailer 4.99-6.16 s, slowed 2.14x, band 1150x804 -> 1080x756)
+    src: /home/user/media/work/lola/sel/movie_side.mp4   # ENDS on the solved frame (cam_M)
+    in: 0
+    dur: 2.4
+  - transition: {type: cut, note: "1:1 MOVIE -> scan on the beat drop (cam_M, Lola 1 Exterior)"}
+  - id: scan_M         # focus: the same side view as scan, 16 deg orbit toward the front; triangle counter + caption
+    src: /home/user/media/work/lola/renders/s6_M
+    src_fps: 15
+    interpolate: true
+    dur: 2.7333
+  - transition: {type: cut}
+  - id: irl_spray      # focus: how - powder spray over Lola 1
+    src: /home/user/media/work/lola/sel/spray.mp4
+    in: 13.5
+    dur: 1.2
+  - transition: {type: cut}
+  - id: irl_scanner    # focus: handheld scanner frames the rear 3/4; ENDS on the solved frame (scanner.mp4 frame 282)
+    src: /home/user/media/work/lola/sel/scanner.mp4
+    in: 7.0
+    out: 9.4333
+    dur: 2.4333
+  - transition: {type: cut, note: "1:1 IRL -> scan on a kick (cam_B)"}
+  - id: scan_B         # focus: outside surface lifts 1.45 m off the registered inside/cage scan (translate only)
+    src: /home/user/media/work/lola/renders/s2_B_v2
+    src_fps: 15
+    interpolate: true
+    speed: 1.3          # lift completes at 2.5 s, short hold, ends on the downbeat
+    dur: 3.3333
+  - transition: {type: cut}
+  - id: irl_interior   # focus: scanning the gutted cabin / cage
+    src: /home/user/media/work/lola/sel/interior.mp4
+    in: 1.5
+    dur: 1.0667
+  - transition: {type: cut}
+  - id: screen_register   # focus: Artec Studio - cut-open body mesh with the cage inside gets its colour texture
+    src: /home/user/media/work/lola/sel/sr_texture.mp4
+    in: 0.3
+    dur: 1.6667
+  - transition: {type: cut}
+  - id: irl_lola2      # focus: spraying Lola 2's wing
+    src: /home/user/media/work/lola/sel/lola2_irl.mp4
+    in: 3.35
+    dur: 2.1333
+  - transition: {type: cut}
+  - id: scan_wing      # focus: Lola 2 rear end + GT wing as scan (continues the IRL wing shot)
+    src: /home/user/media/work/lola/renders/s4_rear_v3
+    src_fps: 15
+    interpolate: true
+    dur: 1.5
+  - transition: {type: cut}
+  - id: scan_turntable # focus: whole Lola 2, linear 360 deg turntable (user request, v5); triangle counter
+    src: /home/user/media/work/lola/renders/s3_turntable_v5
+    src_fps: 15
+    interpolate: true
+    speed: 1.178        # 5.73 s render -> one full turn in the 4.87 s slot
+    dur: 4.8667
+  - transition: {type: cut}
+  - id: movie_tandem   # focus: Lola 2 in the film - FPV tandem drift (DRIFTER trailer 118.5-121.8 s, band 1500x804 -> 1080x580)
+    src: /home/user/media/work/lola/sel/movie_tandem.mp4
+    in: 0
+    dur: 3.3333
+  - transition: {type: cut}
+  - id: logo           # ILLUMAESTHETIC logo only, on the downbeat; fade to black with the music
+    src: /home/user/media/work/lola/end_card_v3.mp4
+    in: 0
+    dur: 3.2
+
+overlays:
+  - src: /home/user/media/work/out/hud_lola_v7.mov   # `ive hud projects/lola-scan-process/overlay.json`
+    start: 0
