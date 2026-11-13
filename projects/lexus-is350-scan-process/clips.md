@@ -1,5 +1,5 @@
 # Lexus IS350 scan speed run — clip notes
-Source: Dropbox `/2. Illumaesthetic Videos/1. Video dumps/IS350 scanning Speed run/` (downloaded to /home/user/media/lexus-is350/dropbox).
+Source: Dropbox `/2. Illumaesthetic Videos/1. Video dumps/IS350 scanning Speed run (completed)/` (downloaded to /home/user/media/lexus-is350/dropbox).
 All **Sony ILME-FX3A** (full frame, 35.6 mm wide) + **FE 24-70 mm F2.8 GM II**, HEVC 4:2:2 10-bit 3840x2160 23.976p,
 **S-Log3 / S-Gamut3.Cine** (XML sidecars; brief said FX30). No focal length in the XML or rtmd -> solved: 31-33 mm.
 Recorded 2025-07-11 18:07-18:44 (PDT). Car: blue 2021+ IS350 F Sport, plate 9JTY488, aftermarket wheels.

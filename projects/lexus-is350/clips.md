@@ -32,7 +32,7 @@ Weak data: hood top is speckled (dusty glossy capture) - keep it out of close-up
 A-pillar (no cabin, sides end at the front doors), so no rear/side/trunk scenes.
 
 ## IRL footage (not used in this reel — for a future 1:1-cut version)
-Dropbox `/2. Illumaesthetic Videos/1. Video dumps/IS350 scanning Speed run` — 15 Sony FX30 clips
+Dropbox `/2. Illumaesthetic Videos/1. Video dumps/IS350 scanning Speed run (completed)` — 15 Sony FX30 clips
 FX30541–FX30555.MP4 (+ M01.XML sidecars), shot 2025-07-12 01:14–01:44 UTC, total ~21 GB.
 Big takes: FX30541 (5.6 GB), FX30542 (3.8 GB), FX30547 (2.1 GB), FX30544 (2.0 GB), FX30545 (1.7 GB),
 FX30552 (1.6 GB), FX30551 (1.5 GB), FX30546 (1.0 GB); short: 30543/48 (200 MB), 30549 (134 MB), 30550 (537 MB),
