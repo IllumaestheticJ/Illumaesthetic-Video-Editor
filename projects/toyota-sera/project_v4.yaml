@@ -1,0 +1,103 @@
+# Toyota Sera - Temerario-style scan reel, v4. User on v3 (2026-11-13): "add the scan data call to action to the end, where it
+# aligned to the website mobile listing" -> the reassembly orbits round the rear to the solved camera of the listing's 360
+# viewer on the mobile page (tools/solve_listing.py, IoU 0.972) and the CTA (tools/cta_card.py) shrinks that frame 1:1 onto
+# the listing car in the phone; logo + SCAN DATA AVAILABLE NOW + ILLUMAESTHETIC.COM. Replaces the fade + logo card.
+# v3 cut: project_v3.yaml.
+#
+# Scan only, no text. Order from this car's scan data, travelling front -> side -> rear (projects/toyota-sera/direction.md,
+# director.md): whole car -> front wheel -> FRONT (hood opens, front bumper off + inner face over the crash structure)
+# -> SIDE (both butterfly doors, cabin) -> REAR (rear bumper off + inner face over the rear structure) -> progressive
+# explode (front assembly / doors + rear bumper / reassembly, swap to the clean car on the lock) -> fade -> small logo.
+# Earlier cut: project_v2.yaml (turntables, rotating top-down, all-at-once explode).
+# Music: toyota-sera_track.mp3 (generated for this reel), kick grid 0.0355 + 0.59999 n (100.0 BPM, tools/accents.py);
+# 8-beat phrases from 0.036 s; kick break 25.2-27.6 s; music stops 38.435 s -> reel ends 39.30 s.
+# Cuts on frames round(t*30): 145, 217, 505, 613, 793, 937, 1009 (lock swap), 1081; end 1179.
+# Addendum (user): bumper-removed data is the hero beat with short factual labels (overlay.json); each section once.
+# Clip durs are whole frames; first clip one frame short (the assembler adds the cut hold frame).
+project: toyota-sera
+format: reel-9x16
+output: {path: /home/user/media/work/sera/out/toyota_sera_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/toyota-sera_track.mp3   # not in git
+  start: 0
+  fade_out: 0.3
+
+beats: [4.835, 7.235, 16.835, 20.435, 26.435, 31.235, 33.635, 36.035]
+
+timeline:
+  - id: v3_s1_whole       # b0-8: whole car, front-right 3/4, pushing in 6.8 -> 5.6 m (car 73-75 % of the width)
+    section: whole
+    focus: the whole Sera
+    src: /home/user/media/work/sera/renders/final/v3_s1_whole
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "4.835 phrase downbeat"}
+  - id: s3_wheel          # b8-12: front-right tyre, rim, centre badge (v2 render reused, 3 mm scan)
+    section: front
+    focus: front-right wheel
+    src: /home/user/media/work/sera/renders/final/s3_wheel
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "7.235 b12"}
+  - id: v3_front          # b12-28 FRONT, one held shot: hood opens b13-16; bumper out b16-18, inner face b18-22 (label),
+    section: front
+    # clears frame b22-24; camera in on the structure behind it (front-bumper-removed state) b24-28 (label)
+    focus: front - engine bay, front bumper inner face, structure behind the bumper
+    src: /home/user/media/work/sera/renders/final/v3_front
+    src_fps: 15
+    interpolate: true
+    dur: 9.6
+  - transition: {type: cut, note: "16.835 b28"}
+  - id: v3_s4_doors       # b28-34 SIDE: both butterfly doors open b29-33 (real 'Door Open' interior)
+    section: side
+    focus: butterfly doors + cabin
+    src: /home/user/media/work/sera/renders/final/v3_s4_doors
+    src_fps: 15
+    interpolate: true
+    dur: 3.6
+  - transition: {type: cut, note: "20.435 b34"}
+  - id: v3_rear           # b34-44 REAR: bumper out b35-37, inner face b37-39.5 (label), clears frame; camera in on the
+    section: rear
+    # rear structure (rear-bumper-removed state) b40-44 (label)
+    focus: rear - bumper inner face, structure behind the bumper
+    src: /home/user/media/work/sera/renders/final/v3_rear
+    src_fps: 15
+    interpolate: true
+    dur: 6.0
+  - transition: {type: cut, note: "26.435 b44 (inside the kick break; the kicks return at 28.2)"}
+  - id: v3_e1_explode     # b44-52: progressive whole-car explode - front assembly, doors, rear bumper on successive beats
+    section: explode
+    focus: every scanned panel, whole car in frame
+    src: /home/user/media/work/sera/renders/final/v3_e1_explode
+    src_fps: 15
+    interpolate: true
+    dur: 4.8
+  - transition: {type: cut, note: "31.235 b52"}
+  - id: v4_g3a_home       # b52-56: parts fly home while the camera orbits 135 -> 235 deg round the rear, LOCK on b56
+    section: reassembly
+    focus: reassembly
+    src: /home/user/media/work/sera/renders/final/v4_g3a_home
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "33.635 b56 lock - swap to the clean full-car scan, same camera"}
+  - id: v4_g3b_clean      # b56-60: clean car, camera eases to a stop on the listing camera exactly at b60
+    section: reassembly
+    focus: the reassembled car
+    src: /home/user/media/work/sera/renders/final/v4_g3b_clean
+    src_fps: 15
+    interpolate: true
+    dur: 2.4
+  - transition: {type: cut, note: "36.035 b60 - same frame: the CTA starts by shrinking it onto the listing car (1:1)"}
+  - id: cta               # tools/cta_card.py <v4_g3b_clean f_0037> sera_mobile.png --map listing_cam.json --secs 3.2667
+    section: cta
+    focus: "mobile listing: 1:1 scan -> listing 360 viewer, SCAN DATA AVAILABLE NOW / ILLUMAESTHETIC.COM"
+    src: /home/user/media/work/sera/out/cta_card.mp4
+    dur: 3.2667
+
+overlays:
+  - src: /home/user/media/work/sera/out/hud_v3.mov   # ive hud projects/toyota-sera/overlay.json (4 scan labels)
+    start: 0

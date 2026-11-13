@@ -11,7 +11,8 @@ Panels (all in the full car's frame, verified in reg/ overlays):
 Fills, in order (state scans as captured; each adds only triangles > NEW mm from everything kept so far, so no double
 skins, and never within KEEP_OUT mm of any panel's closed position - e.g. 'Hood open' still has the front bumper on):
   front_bumper_removed, rear_bumper_removed (the byte-identical 'No Tail Lights' copy is the same file), hood_open
-  (its open hood dropped), door_open (both open doors dropped).
+  (its open hood dropped; since v4 only under the hood - tools/hood_clean.py), door_open (both open doors dropped).
+  Bumper-removed fills only inside their bumper's bbox + ZONE (v4).
 """
 import struct
 import sys
@@ -22,6 +23,7 @@ from scipy.spatial import cKDTree
 TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 C = "/home/user/media/toyota-sera/clean/"
 CUT, NEW, KEEP_OUT = 9.0, 8.0, 12.0
+ZONE = 80.0  # mm: a bumper-removed fill is limited to its bumper part's bbox grown by this
 
 
 def load(n):
@@ -39,8 +41,10 @@ def main():
     panel_pts = [load(n + "_panel.stl")["v"].mean(1) for n in hinged]
     bumpers = [b for k, b in (("front", ("front_bumper_3mm.stl", "front_bumper_removed_3mm.stl")),
                               ("rear", ("rear_bumper_only_3mm.stl", "rear_bumper_removed_3mm.stl"))) if k in only]
+    zones = {}
     for p, st in bumpers:
         v = load(p)["v"].mean(1); panel_pts.append(v)
+        zones[st] = (v.min(0) - ZONE, v.max(0) + ZONE)
         d, _ = cKDTree(v).query(cc, distance_upper_bound=CUT + 1)
         keep &= d > CUT
         # things mounted on the bumper but not in its part scan (licence plates): inside the bumper's bbox, car tris
@@ -60,6 +64,9 @@ def main():
     for f in fills:
         m = load(f); c = m["v"].mean(1)
         ok = np.ones(len(m), bool) if f not in drops else ~drops[f]
+        if f in zones:  # a bumper-removed state only fills what was behind its bumper (v4 fix: the front capture also had
+            lo, hi = zones[f]  # a card standing on the right fender by the A-pillar, which came along as a white flap)
+            ok &= np.all((c >= lo) & (c <= hi), axis=1)
         d, _ = cKDTree(acc).query(c, distance_upper_bound=NEW * 2); ok &= d > NEW
         dp, _ = tpanel.query(c, distance_upper_bound=KEEP_OUT * 2); ok &= dp > KEEP_OUT
         pieces.append(m[ok]); acc = np.concatenate([acc, c[ok]])
