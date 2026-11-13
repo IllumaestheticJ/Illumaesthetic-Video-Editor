@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [nissan-sentra-sema](nissan-sentra-sema/) - archived 2026-11-13
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-11
 - [huracan-evo](huracan-evo/) - archived 2026-11-12

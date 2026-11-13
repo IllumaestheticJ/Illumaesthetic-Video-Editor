@@ -1,29 +1,24 @@
-# Nissan Sentra Spec-V (SEMA 2026) - "everyone posted it, here's how it was made" - 30 s v1
-# Built by tools/build.py (exact-frame segments + concat), not `ive assemble`: stills, headline cards and a flipbook.
-# Cut frames = kick onsets of the track (tools/kicks.py), video t = music t - 21.135.
+# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v6 (approved "really good"; end-card logo still to swap)
+# Built by tools/build_v6.py (exact-frame segments + concat). Structure and rules: knowledge/short-form.md.
 project: nissan-sentra-sema
 format: reel-9x16
-output: {path: /home/user/media/work/sentra/out/sentra_sema_30s_v1.mp4, width: 1080, height: 1920, fps: 30}
-music: {title: "MONTAGEM LUNAE", artist: "KXNO1X & TREVOLX", song_clip_id: "7621613469654534145", source: TikTok Commercial Music Library,
-        path: /home/user/media/work/music/montagem_lunae.mp3, start: 21.135, fade_out: 0.7}
-beats: [1.5, 5.25, 6.194, 7.095, 9.0, 12.75, 14.163, 16.5, 18.239, 19.306, 20.25, 22.095, 23.056, 24.0, 27.75]
+output: {path: /home/user/media/work/sentra/out/sentra_sema_v6.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
+music: {title: "Killa", artist: "Way Out West", source: "user-supplied m4a (Juiced soundtrack) - commercial track, not from the CML",
+        path: /home/user/media/work/music/killa.m4a, start: 0, fade_out: 1.2, bpm: 130, bar_s: 1.8462, drop_s: 29.873}
+beats: [4.027, 5.873, 7.719, 9.565, 11.411, 15.104, 18.796, 22.489, 29.873, 37.258, 44.642]
 timeline:   # frames are [start, end) at 30 fps
-  - {id: a_hook,      frames: [0, 45],    section: hook,     focus: finished car on the Nissan booth, src: IMG_3233.mov@0.2}
-  - {id: b_barrage1,  frames: [45, 158],  section: coverage, focus: 12 headlines one per kick (typographic stand-ins for real captures)}
-  - {id: c1_badge,    frames: [158, 186], section: real car, focus: real NISSAN badge (answers the 'garbled badge' headline), src: IMG_3231.mov@0.3}
-  - {id: c2_front,    frames: [186, 213], section: real car, focus: front end + intercooler, src: IMG_3229.mov@4.3}
-  - {id: c3_timelapse, frames: [213, 270], section: scan, focus: scan-spray timelapse 4.2x ending on the solved frame, src: may11_1140.mov frames 540-780}
-  - {transition: cut, note: "1:1 IRL -> scan on the bar-3 downbeat (9.00 s), match/cam.json"}
-  - {id: d_scan,      frames: [270, 383], section: scan + design, focus: scan from the solved camera then kit parts land on kicks, src: renders/s1_scan (15 fps, interpolated)}
-  - {id: e_flip,      frames: [383, 425], section: design, focus: 14 of Ron's iterations x 3 frames}
-  - {id: f1_print,    frames: [425, 460], section: print, focus: printed bumper test-fit (WhatsApp 5898), music break}
-  - {id: f2_fender,   frames: [460, 495], section: print, focus: printed fender in primer (WhatsApp 5895)}
-  - {id: g1_reveal,   frames: [495, 547], section: reveal, focus: finished car in the shop on drop 2 (WhatsApp 5888)}
-  - {id: g2_wheel,    frames: [547, 579], section: details, focus: front wheel + GT-R caliper, src: IMG_3236.mov@3.9}
-  - {id: g3_splitter, frames: [579, 608], section: details, focus: splitter + intercooler, src: IMG_3230.mov@3.2}
-  - {id: g4_side,     frames: [608, 663], section: details, focus: rear 3/4 + wing, src: IMG_3233.mov@12.5}
-  - {id: g5_exhaust,  frames: [663, 692], section: details, focus: side-exit exhaust, src: IMG_3237.mov@3.6}
-  - {id: g6_diffuser, frames: [692, 720], section: details, focus: diffuser, src: IMG_3235.mov@10.0}
-  - {id: h_wall,      frames: [720, 833], section: coverage, focus: headline wall filling one tile per kick}
-  - {id: i_end,       frames: [833, 900], section: end card, focus: Illumaesthetic logo 720 px + 'Customize everything'}
-overlays: "labels drawn in build.py seg_scan: '3D SCAN / 24,996,032 TRIANGLES' (STL header) and 'DESIGNED ON THE SCAN / BOMEX WIDEBODY / NISSAN x MOTOIQ' - scan shot only"
+  - {id: a_hook,      frames: [0, 121],     section: hook,      focus: "motor1com post 'Nissan admits it used AI in its Sentra Spec V pictures' (screen recording t=171)"}
+  - {id: b_wasnt,     frames: [121, 176],   section: hook,      focus: "'IT WASN'T.' card"}
+  - {id: c1_spray,    frames: [176, 232],   section: scan day,  focus: stock red car sprayed (may11_1135 frames 10-280)}
+  - {id: c2_scanner,  frames: [232, 287],   section: scan day,  focus: Artec Leo in hand (may11_1145 @7.0)}
+  - {id: c3_timelapse, frames: [287, 342],  section: scan day,  focus: front timelapse ending on the solved frame (may11_1140 frame 780)}
+  - {transition: cut, note: "1:1 IRL -> scan, match/cam.json"}
+  - {id: d1_scan,     frames: [342, 453],   section: 3d,        focus: scan from the solved camera, label 3D SCAN (renders/s7_scan)}
+  - {id: e_concepts,  frames: [453, 564],   section: concepts,  focus: 24 of Ron's iterations, label CONCEPTS}
+  - {id: d2_livery,   frames: [564, 675],   section: 3d,        focus: "panels, wheels, diffuser, wing pop on; paint wipe; stripes (renders/s6b_livery)"}
+  - {id: d3_turn,     frames: [675, 896],   section: 3d,        focus: "360 of the final render ending on match/cam_reveal.json (renders/s8_turn)"}
+  - {transition: cut, note: "1:1 final render -> real car on the drop (29.873 s)"}
+  - {id: r_reveal,    frames: [896, 1118],  section: reveal,    focus: "Photo Nov 05 5 25 36 PM + 8 cropped real headlines, one per beat"}
+  - {id: s1_reels,    frames: [1118, 1284], section: coverage,  focus: "motoiq door reveal (151.4), caranddriver track (72), eddiex616 front (88)"}
+  - {id: s3_rear,     frames: [1284, 1339], section: coverage,  focus: IMG_3235 rear wide}
+  - {id: z_end,       frames: [1339, 1425], section: end card,  focus: "website logo + typed 'Customize everything' (official lockup pending from the user)"}

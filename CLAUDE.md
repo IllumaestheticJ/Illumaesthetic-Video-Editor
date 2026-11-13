@@ -9,6 +9,7 @@ the real car to its scan. Every project you finish teaches the next agent.
 2. Read `knowledge/style-guide.md` and `knowledge/workflow.md`.
 3. Read `training/examples/INDEX.md` and the newest two examples' `project.yaml`, `editlog.jsonl`, `feedback.jsonl`.
 4. If the request involves a match cut: `knowledge/match-cut.md`. Scan data: `knowledge/scan-pipeline.md`.
+5. Short-form build-story reels (process + press coverage): `knowledge/short-form.md` and the `illumaesthetic-short-form` skill.
 
 ## Tools
 `python -m ive <cmd>` — fetch-drive, fetch-url, probe, sheet, frame, analyze, beats, decimate, crop,

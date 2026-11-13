@@ -679,3 +679,42 @@ lands here automatically. Agents must read this whole file before editing.
   (recessed parts like quarter-panel intakes exit along their duct opening, not along the car's X axis).
 - **[technical]** (porsche-gt3rs-992 v4) Two Drive files with different names can be the same part captured twice
   ("Side Skirt (upper)" vs "Sideskirt (lower)": p50 3-4 mm apart). Compare part scans against each other before casting them.
+
+## From the Nissan Sentra Spec-V SEMA short-form reel (2026-11-13, built by an agent; v6 approved "really good" bar the end logo)
+Playbook for this kind of reel: `knowledge/short-form.md`. Tools: `projects/nissan-sentra-sema/tools/`.
+- **[story]** Approved structure for a build-story reel: controversy/press HOOK (one real post, 4 s) -> a short text card answering it
+  ("IT WASN'T.") -> process in order (scan day -> 1:1 to scan -> CONCEPTS flipbook -> panels + livery in 3D -> 360 of the final render)
+  -> **1:1 cut from the final render to the real car ON THE DROP**, headlines landing around it -> other people's clips -> logo.
+  The first four versions (rapid-fire coverage first, 30 s) were each corrected; the user re-ordered it themselves. Ask for the hook and
+  the drop moment before building.
+- **[story]** Don't put finished-car beauty shots between the hook and the scan section ("out of place"): once the process starts, stay in
+  process order until the reveal.
+- **[story]** Coverage must be READABLE: full-page article flashes and 10-frame Instagram flashes were "confusing". Use cropped real
+  headlines stacking/landing one per beat, and hold other people's clips ~2 s each. Check every reel clip for a paused-video play button
+  and that the WHOLE car stays in frame for the whole clip (sample 6 frames over the window).
+- **[story]** Photos: show the whole photo, static, on a blurred fill - no Ken Burns ("crops the details"). This replaces the older
+  zoom-out rule for in-progress/build photos.
+- **[text]** Section labels were requested (CONCEPTS, NEW BODY PANELS, LIVERY, 3D PRINT + FABRICATION, FINAL RENDER). On IRL stills put
+  them in the fill band above the photo. Headlines over the real car at the reveal were an explicit user request.
+- **[text]** End card = the official "Customize everything" logo from the YouTube videos. It is NOT on illumaesthetic.com, in Dropbox
+  `Misc. Brand Logos`, or on the drive, and YouTube cannot be downloaded here - ask the user for the file at the START of the project.
+  The website logo (`IllumaestheticLogo_V2COMPLETE_1.png`, cdn/shop/files) is the plain wordmark.
+- **[scan-look]** A 3D livery must be MEASURED, not eyeballed: solve the camera of one sharp photo of the finished car against the 3D model
+  (kit + scan), then raycast the photo's stripe corners through it (`shot.py` `"raycast"`). Eyeballing a side photo gave the slant mirrored,
+  then 1.16 instead of 0.67. Black-above-window-line = polyline read off a gridded side render, not a flat height.
+- **[scan-look]** Dark paint under the studio rig renders mid-grey unless specular is cut for dark colours (`shot.py` livery shader).
+- **[scan-look]** The designer's own .blend (Ron's `Sentra Review 2.zip`) holds the wing and wheel models the design was built around
+  (`nissan_gtr_nismo.001`, `FL/FR/RL/RR`): use those, never the stock scanned wheels, on a "final render". Check there before saying a part
+  has no model.
+- **[technical]** Designer CAD -> scan frame without ICP: a scan object inside the designer's .blend still carries its matrix_world from the
+  raw Artec frame; ron -> artec -> level.json -> prep `root_location` is exact (`tools/ron2car.py`). ICP of a bumper-off scan onto the full
+  car stalled at 20 mm / 5 deg.
+- **[technical]** 15 fps + minterpolate: `mci` smears parts that fly in, `blend` ghosts them. Either render the shot at 30 fps or make
+  parts POP on (visible switch) and keep the motion in the camera only.
+- **[technical]** Article screenshots: `tools/capture.js` (Playwright, phone viewport). News hosts must be on the environment allow-list -
+  the list has a size cap; remove stale per-link `uc*.dl.dropboxusercontent.com` hosts in the same update. Image CDNs stay blocked, so crop
+  to the headline block.
+- **[technical]** Background Blender renders can die silently mid-queue; run them from ONE script that logs each shot's frame count, and
+  check the count before assembling.
+- **[audio]** A user-supplied commercial track is fine to cut to, but say once that the platform may mute/claim it. Map the track first
+  (2 s energy rows -> find intro/break/drop), then put the reveal on the measured drop and count bars back for every cut.

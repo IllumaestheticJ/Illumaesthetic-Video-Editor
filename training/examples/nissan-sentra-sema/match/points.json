@@ -1,0 +1,16 @@
+{"image": "/home/user/media/work/sentra/match/frame.png", "image_size": [1080, 1920], "sensor_width_mm": 20.25,
+ "note": "may11_1140.mov t=26.0 (tripod timelapse, sprayed stock car, front-left 3/4). xyz raycast from cam_guess (-2.1,4.3,0.75)->(0.25,1.0,0.8) f15",
+ "points": [
+  {"name": "badge", "px": [274, 1010], "xyz": [-0.0119, 2.3221, 0.6226]},
+  {"name": "plate_c", "px": [281, 1120], "xyz": [-0.0220, 2.3068, 0.3261]},
+  {"name": "plate_tl", "px": [256, 1101], "xyz": [0.0837, 2.3038, 0.3561]},
+  {"name": "plate_br", "px": [307, 1140], "xyz": [-0.0921, 2.2785, 0.2867]},
+  {"name": "mirror_in", "px": [751, 848], "xyz": [-0.8353, 0.7744, 1.0291]},
+  {"name": "mirror_out", "px": [830, 855], "xyz": [-0.9569, 0.6021, 1.0253]},
+  {"name": "wheel_f", "px": [715, 1100], "xyz": [-0.8658, 1.4113, 0.3665]},
+  {"name": "roof_ap", "px": [725, 784], "xyz": [-0.5912, 0.2836, 1.3620]},
+  {"name": "hl_tip", "px": [667, 940], "xyz": [-0.8589, 1.7960, 0.7530]},
+  {"name": "lgrille_tip", "px": [465, 1135], "xyz": [-0.5115, 2.2212, 0.3256]},
+  {"name": "hood_r", "px": [179, 962], "xyz": [0.6838, 2.0640, 0.7280]},
+  {"name": "bump_r", "px": [151, 1115], "xyz": [0.6215, 2.2423, 0.2460]}
+ ]}

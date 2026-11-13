@@ -1,0 +1,13 @@
+{"image": "/home/user/media/work/sentra/match/reveal.png", "image_size": [1080, 1920], "sensor_width_mm": 20.25,
+ "note": "reveal still = Photo Nov 05 2026, 5 25 36 PM.jpg (1206x2144) scaled to 1080x1920; xyz raycast on the finished 3D car (scan + kit + Ron's wheels) from (3.3,5.6,1.55)->(0.1,0.4,0.6) f30",
+ "points": [
+  {"name": "badge", "px": [871, 1078], "xyz": [0.0278, 2.3215, 0.6249]},
+  {"name": "wheel_f", "px": [427, 1160], "xyz": [0.9528, 1.3526, 0.333]},
+  {"name": "wheel_r", "px": [95, 1080], "xyz": [0.946, -1.3311, 0.3618]},
+  {"name": "mirror", "px": [270, 937], "xyz": [0.9373, 0.5968, 1.0326]},
+  {"name": "hl_tip", "px": [507, 1031], "xyz": [0.7993, 1.9488, 0.7401]},
+  {"name": "roof_ap", "px": [337, 855], "xyz": [0.5472, 0.3334, 1.3612]},
+  {"name": "handle_f", "px": [232, 983], "xyz": [0.9118, 0.0485, 0.8744]},
+  {"name": "handle_r", "px": [133, 970], "xyz": [0.9117, -0.927, 0.9136]},
+  {"name": "vent_r", "px": [673, 995], "xyz": [0.4781, 1.9067, 0.8541]}
+ ]}
