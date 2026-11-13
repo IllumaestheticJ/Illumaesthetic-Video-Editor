@@ -1,6 +1,6 @@
-# Lamborghini Revuelto scan reel v4 — self-review (training/rubric.md)
+# Lamborghini Revuelto scan reel v5 — self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/lamborghini_revuelto_v4.mp4` — 1080x1920, 30 fps, 44.57 s (1337 frames), h264 yuv420p + AAC.
+Output: `/home/user/media/work/out/lamborghini_revuelto_v5.mp4` — 1080x1920, 30 fps, 44.57 s (1337 frames), h264 yuv420p + AAC.
 Earlier versions: review_v3.md, review_v2.md (v2.1), review_v1.md. v4 answers the reviewer's notes on v3: add the rear-wing-removed
 section; the rear bumper clipped the tail lights and wing on its way off; exhaust sections after the bumper; some parts left the
 screen; music re-edited to the supplied track ("Sector Shift").
@@ -29,3 +29,12 @@ screen; music re-edited to the supplied track ("Sector Shift").
 - Only one tail light is visible leaving in the rear wide (the other is hidden behind the car from that side).
 - The wide wing shot sits high-left in frame.
 - 44.6 s is 10 s longer than v3.
+
+## v5 changes (reviewer on v4: "is the music way too loud and blown out?", "use the beginning of the song", "the exhaust scans
+## need the surround scan to be more present, too much of it is cut off")
+- Audio: v4 measured -7.8 LUFS, true peak +2.8 dBFS (clipping). v5 is -14.1 LUFS, peak -4.3 dBFS. Music is the song's first
+  26 bars, unspliced; cuts are unchanged and still on bar lines. No drop in this passage: the reassembly lock is on a plain
+  downbeat; the logo cut lands on the breakdown. Beat sync stays 4, ending 4.
+- Exhaust shot: full-width engine-bay scans inside the carved bumper-off car (tools/carve.py), camera 1 m wider, cats park to
+  the sides. Left cat sits in front of the rear wheel (silver on silver, weaker read). Scan quality 4.
+- v4 review: review_v4.md.

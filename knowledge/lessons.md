@@ -948,3 +948,11 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** A part that comes off and then cuts away immediately is bad practice (user, side skirt): after the part moves, keep the
   camera on that section for several beats and travel along what the part leaves behind (exposed sill/rocker), with its label.
   Budget the shot at ~10 beats: part off ~beat 5-6.5, then 4+ beats on the exposed structure.
+- **[audio]** (Revuelto v5) Reviewer: "music way too loud and blown out". Measure the delivered file with
+  `ffmpeg -af ebur128=peak=true` before sending: target about -14 LUFS and true peak below -1 dBFS. A hot master
+  (-8 LUFS, 0 dBFS) passed straight through clips after the AAC encode (+2.8 dBFS) - turn it down, do not normalise up.
+- **[music]** (Revuelto v5) "Use the beginning of the song": when the reviewer supplies a track, start from its start unless
+  told otherwise; check the intro is on the same grid, then the existing bar-line cuts need no re-render.
+- **[scan]** (Revuelto v5) "The exhaust scans need the surround scan more present, too much is cut off": never crop a
+  state scan's sides to hide ragged edges. Keep its full width and set it inside the car, with the car carved around it
+  (`projects/lamborghini-revuelto/tools/carve.py`: distance to the state scans + a box for leftover parts).
