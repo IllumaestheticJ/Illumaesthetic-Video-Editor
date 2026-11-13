@@ -15,6 +15,7 @@ export type GfxProps = {
   /** ScanLabel placement: bl = bottom-left, top = top centre, lower3 = lower third (title) */
   pos?: "bl" | "top" | "lower3";
   plate?: boolean;
+  bottom?: number; // ScanLabel bottom margin (default 96)
 };
 export const gfxDefaults: GfxProps = { cue: "G03", frames: 72, text: "THE BET: 15 MINUTES", sub: "" };
 export const calculateGfxMetadata: CalculateMetadataFunction<GfxProps> = ({ props }) => ({
@@ -151,6 +152,6 @@ export const ScanLabel: React.FC<GfxProps> = (p) => {
   );
   const style: React.CSSProperties =
     pos === "top" ? { position: "absolute", top: 90, left: 0, right: 0, display: "flex", justifyContent: "center" }
-    : { position: "absolute", left: 96, bottom: 96 };
+    : { position: "absolute", left: 96, bottom: p.bottom ?? 96 };
   return <AbsoluteFill>{<div style={style}>{block}</div>}</AbsoluteFill>;
 };

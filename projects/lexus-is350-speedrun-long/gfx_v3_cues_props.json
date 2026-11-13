@@ -150,7 +150,8 @@
    "text": "LEXUS IS350",
    "sub": "FULL CAR SCAN",
    "pos": "bl",
-   "plate": false
+   "plate": false,
+   "bottom": 44
   }
  },
  {

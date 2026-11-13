@@ -171,3 +171,30 @@ HUD_v2.mov is 7384 frames (307.97 s). The time-lapse clock follows the editor's 
 - **No captions** during RESULTS_CARD, the scan shots, or the end card (no speech there). Spot-checked 10 frames on `is350_long_v3_clean.mp4` (`out/qa/captions_v3_*.jpg`).
 - Regenerate: `python3 tools/captions_retime.py timeline_v3.json --source captions_source_v2.json --suffix _v3 --out .`
 - Wording uncertainties are unchanged from "Captions v2" above.
+
+# v3 graphics (final pass, against `timeline_v3.json`, 304.846 s, 7309 frames)
+
+Output dir `/home/user/media/work/is350-long/gfx/v3/`. Re-render: `python scripts/gen_gfx_v2.py --ver v3 --timeline projects/lexus-is350-speedrun-long/timeline_v3.json && python scripts/render_gfx_v2.py --ver v3` (props `gfx_v3_hud_props.json`, `gfx_v3_cues_props.json`). HUD_v3.mov is 1920x270 alpha, composite at x=0,y=0, 7309 frames; HUD is hidden during G_RESULTS_v3 (RESULTS_CARD is a hidden stub).
+
+**Plate fix (owner: "graphic background not evenly spaced")**: the overlay plates (G01, G03, STING, G_SPRAY, G09) had a fixed width, so "HOW FAST CAN WE" ran past the plate edge and padding was uneven. Plates now size from their content (fit-content): 30 px padding left, right and top, 23 px bottom (optical, because capitals have no descenders), the red bar inside the box with the same inset, radius 14, 58 % black. G01 title is 3 balanced lines at 52 px and the sub is one line (24 px). Audit, all at 100 % crops over the clean cut: G08 and CON_G1 rows are content-sized plates of equal width (padding 22/18, radius 14); the HUD chapter tag and the STILL RUNNING pill are content-sized with 20 px left/right (they were 400 px plates with the text pushed to one side); bet pills are content-sized with symmetric 24 px padding and the accent square inside (the uneven 8 px left border is gone); the HUD clock plates stay 400 px with 20 px left/right insets (label left, digits right). G10/CON_G3 are text with halo on black (no plate). G10 moved down (bottom 44 px) because the final SC_RES_FULL nose reached the old position.
+
+| cue | file | alpha | timeline | frames | placement |
+|---|---|---|---|---|---|
+| G01_v3 | v3/G01_v3.mov | yes (ProRes 4444) | 0:07.799-0:10.799 | 72 f | lower-left x60-720 y520 (plate) over B_02 |
+| G03_v3 | v3/G03_v3.mov | yes (ProRes 4444) | 0:13.623-0:14.473 | 20 f | lower-left x80-900 y640 (plate) |
+| STING1_v3 | v3/STING1_v3.mov | yes (ProRes 4444) | 0:25.859-0:27.459 | 38 f | lower-left x80-900 y700 (plate, slides in/out) |
+| STING2_v3 | v3/STING2_v3.mov | yes (ProRes 4444) | 0:48.632-0:50.232 | 38 f | same as STING1_v2 |
+| G_SPRAY_v3 | v3/G_SPRAY_v3.mov | yes (ProRes 4444) | 0:41.172-0:46.588 | 130 f | lower-right x1020-1840 y640 (plate) |
+| G08_v3 | v3/G08_v3.mov | yes (ProRes 4444) | 4:01.595-4:06.955 | 129 f | lower-left x60-620 y560 (narrower than x80-900 to stay clear of the phone at src 16) |
+| G09_v3 | v3/G09_v3.mov | yes (ProRes 4444) | 4:06.955-4:09.916 | 71 f | lower-left x80-900 y640 (plate) |
+| G10_v3 | v3/G10_v3.mov | yes (ProRes 4444) | 4:35.691-4:41.398 | 137 f | bottom-left over black, halo |
+| CON_G1_v3 | v3/CON_G1_v3.mov | yes (ProRes 4444) | 4:43.295-4:46.495 | 77 f | top-left x60-760 y60 (plates; sky is bright) |
+| CON_G3_v3 | v3/CON_G3_v3.mov | yes (ProRes 4444) | 4:49.995-4:59.841 | 236 f | bottom-left over black, halo |
+| G05a_v3 | v3/G05a_v3.mp4 | no (black card, H.264) | 1:23.250-1:24.418 | 28 f | BLACK CARD 1/3 full frame; HUD overlay stays on top |
+| G05b_v3 | v3/G05b_v3.mp4 | no (black card, H.264) | 1:32.718-1:35.679 | 71 f | BLACK CARD 2/3 full frame; carries the big CLOCK 1 fast-forward (HUD shows chapter tag only) |
+| G15_v3 | v3/G15_v3.mp4 | no (black card, H.264) | 4:59.841-5:04.846 | 120 f | BLACK CARD 3/3 end card, logo 900 px |
+| G_RESULTS_v3 | v3/G_RESULTS_v3.mp4 | no (black card, H.264) | 4:09.916-4:13.128 | 77 f | BLACK CARD full frame: RESULTS PREVIEW, HUD hidden |
+| FX_GLITCH_C02 | v3/FX_GLITCH_C02_v3.mov | yes (ProRes 4444) | 1:22.249-1:23.250 | 24 f | full-frame glitch treatment over the frozen picture (scanlines, red edge, tear bands); editor adds RGB split + desaturate on the picture |
+| HUD_v3 | v3/HUD_v3.mov | yes | 0:00.000-5:04.846 | 7309 f | top 270 px strip, composite at 0,0 |
+
+G_RESULTS_v3: black card, one red accent bar above "RESULTS PREVIEW" (Inter Display 116 px, tracking 6), bar draws in over 12 frames and the title fades up over frames 3-12, then holds; no sub. Timeline 249.916-253.128 s (frames 5992-6069), 77 frames. Labels checked on the final scan shots: G10 on SC_RES_FULL and CON_G3 on SC_CON_HERO are clear of the car at the start, middle and end of the cue; nothing sits on the montage scans.

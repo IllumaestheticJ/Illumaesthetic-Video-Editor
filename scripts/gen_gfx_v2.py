@@ -246,7 +246,7 @@ try:
 except ValueError:
     print("WARN: G08_v2 skipped (anchor missing)")
 cue("G09_v2", "CueV2", ev["TM_02"]["tin"], ev["TM_02"]["tout"], "G09_v2.mov", True, "lower-left x80-900 y640 (plate)", text=g["G09_v2"]["text"], sub=g["G09_v2"]["sub"], x=80, y=640, w=820)
-cue("G10_v2", "ScanLabel", ev["M6"]["tin"] + 1.0, ev["M6"]["tout"] - 0.3, "G10_v2.mov", True, "bottom-left over black, halo", text=g["G10_v2"]["text"], sub=g["G10_v2"]["sub"], pos="bl", plate=False)
+cue("G10_v2", "ScanLabel", ev["M6"]["tin"] + 1.0, ev["M6"]["tout"] - 0.3, "G10_v2.mov", True, "bottom-left over black, halo", text=g["G10_v2"]["text"], sub=g["G10_v2"]["sub"], pos="bl", plate=False, bottom=44)
 try:
     # edl_v2: from src 13.75 to end -1.65 s. The editor may play CON_01 shorter (fallback cut), so keep >= 3 s and end with the event.
     c1in = max(ev["CON_01"]["tin"], min(srcT("CON_01", 13.75), ev["CON_01"]["tout"] - 3.2))
