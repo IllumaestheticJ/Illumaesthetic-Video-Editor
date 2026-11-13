@@ -40,6 +40,8 @@ def props():
             "slot": {"x": 147.37, "y": 177, "w": 884.25, "h": 585.57, "pitch": 896.25}, "photos": photos, "start": 0,
             "startScale": START_SCALE, "hold": 6, "zoomEnd": kf(79), "swipes": swipes, "ctaAt": kf(86), "urlAt": kf(87),
             "drift": 0.02, "ctaBand": 175,
+            # v8 (user: "available now is too low"): CTA up onto the empty lower part of the gallery photo
+            "ctaTop": 548,
             # dropdown (select 51.5,586.2 275x40.4 CSS) and price (centred, widest "$4,000.00") in screenshot px (@3x)
             "highlights": [{"x": 154.5, "y": 1758.6, "w": 825, "h": 121.2}, {"x": 420, "y": 1434, "w": 324, "h": 84}],
             "title": "SCAN DATA", "sub": "AVAILABLE NOW", "url": "ILLUMAESTHETIC.COM"}

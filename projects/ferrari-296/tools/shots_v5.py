@@ -25,7 +25,7 @@ def K(i):
     return round(_KK.get(i, KJ["t0"] + i * KJ["period"]), 4)
 
 
-BASE = [f"{P}/comp_v5.blend"]  # comp_explode minus the FR wheel + wheel-off arch fill
+BASE = [f"{P}/comp_v8b.blend"]  # comp_v5 (comp_explode minus FR wheel + arch fill) minus engine-bay trims + engine glass lid (v8, trim_off.py)
 HOOD_OPEN = (Z3, (-58, 0, 0))  # f5_front opens the hood on its hinge (scanned propped-open state)
 SPREAD, HOME_A, HOME_B = 1.05, K(69), K(71)  # slow drift x1.05 after the blast, fly home 69 -> LOCK on 71
 
@@ -67,6 +67,14 @@ PARTS = {
     "x_diffuser": (None, life([_k(-100), _k(K(38)), _k(K(40), (0, 0.75, -0.35), Z3, "out")], (0, 1.40, -0.40))),
     # no engine-lid-open scan exists, only the Engine Bay with the lid OFF -> it lifts straight off (rule D)
     "x_ecover": (None, life([_k(-100), _k(K(42)), _k(K(44), (0, 0.10, 0.80), Z3, "out")], (0, 0.50, 1.65))),
+    # v8: the glass engine lid the louvred cover sits in (car-scan surface absent from the lid-off Engine Bay scan) goes
+    # with the cover as one unit, which opens the bay for the trims
+    "x_eglass": (None, life([_k(-100), _k(K(42)), _k(K(44), (0, 0.10, 0.80), Z3, "out")], (0, 0.50, 1.65))),
+    # v8 (user: "underhood plastics that weren't included"): the 3 "Frunk Trim" pieces registered onto the engine bay
+    # lift out of the open bay after the exhaust (k51 -> k53), side trims splay outward
+    "x_etrim_c": (None, life([_k(-100), _k(K(51)), _k(K(53), (0, -0.05, 0.50), Z3, "out")], (0, 0.15, 1.15))),
+    "x_etrim_l": (None, life([_k(-100), _k(K(51)), _k(K(53), (0.30, 0.05, 0.40), (0, 12, 0), "out")], (0.85, 0.25, 0.95), (0, 20, 0))),
+    "x_etrim_r": (None, life([_k(-100), _k(K(51)), _k(K(53), (-0.30, 0.05, 0.40), (0, -12, 0), "out")], (-0.85, 0.25, 0.95), (0, -20, 0))),
     # back out of its pipe first, then up over the pulled rear bumper (clear path)
     "x_exhaust": (None, life([_k(-100), _k(K(46)), _k(K(47) + 0.2, (0, 0.35, 0), Z3, "inout"),
                               _k(K(49), (0, 0.35, 0.62), Z3, "out")], (0, 2.40, 1.00))),

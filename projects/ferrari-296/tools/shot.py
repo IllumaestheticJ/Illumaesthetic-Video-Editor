@@ -86,12 +86,17 @@ def mat_check(rgb):
     return m
 
 
-def mat_paint(rgb, name):
+MAT_OVERRIDE, MAT_SPEC = {}, {}  # spec["paint_mat"] = {name: [rough, metal, specular]} (v8: deep red body)
+
+
+def mat_paint(rgb, name, red=None, reveal=None, fps=15):
     """Per-part colour (v7, user: "re-render with all scans in a different color", each part its own colour - like the
     listing's explode photos): satin paint with the same AO multiply as the silver so scan detail still reads."""
     m, nt, out = sr.new_mat(f"ive_paint_{name}")
     c = tuple(rgb) + (1,)
-    p = sr.principled(nt, c, 0.38, 0.25)
+    p = sr.principled(nt, c, *(MAT_OVERRIDE.get(name) or (0.38, 0.25)))
+    if MAT_SPEC.get(name) is not None:
+        p.inputs["Specular IOR Level"].default_value = MAT_SPEC[name]
     ao = nt.nodes.new("ShaderNodeAmbientOcclusion")
     ao.inputs["Distance"].default_value = 0.08
     ao.inputs["Color"].default_value = (1, 1, 1, 1)
@@ -100,6 +105,15 @@ def mat_paint(rgb, name):
     mul.blend_type = "MULTIPLY"
     mul.inputs["Factor"].default_value = 0.85
     mul.inputs["A"].default_value = c
+    if red is not None and reveal is not None and reveal > -1e8:
+        # v8: starts as the body red, turns to its own colour over 0.3 s when the part first leaves home
+        f0 = 1 + reveal * fps
+        mul.inputs["A"].default_value = tuple(red) + (1,)
+        mul.inputs["A"].keyframe_insert("default_value", frame=f0)
+        mul.inputs["A"].default_value = c
+        mul.inputs["A"].keyframe_insert("default_value", frame=f0 + 0.3 * fps)
+    elif red is not None and reveal is None:
+        mul.inputs["A"].default_value = tuple(red) + (1,)
     nt.links.new(ao.outputs["Color"], mul.inputs["B"])
     nt.links.new(mul.outputs["Result"], p.inputs["Base Color"])
     nt.links.new(p.outputs[0], out.inputs[0])
@@ -126,6 +140,8 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     paint = spec.get("paint") or {}
+    for k, v in (spec.get("paint_mat") or {}).items():
+        MAT_OVERRIDE[k], MAT_SPEC[k] = (v[0], v[1]), (v[2] if len(v) > 2 else None)
     body = mat_paint(paint["base"], "base") if "base" in paint else None
     for o in base:
         o.data.materials.clear()
@@ -136,7 +152,13 @@ def main():
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
         stem = os.path.splitext(os.path.basename(p["blend"]))[0]
-        m = mat_check(colors[p["color"]]) if p.get("color") else (mat_paint(paint[stem], stem) if stem in paint else silver)
+        rv = paint.get("reveal")
+        if p.get("color"):
+            m = mat_check(colors[p["color"]])
+        elif stem in paint:
+            m = (mat_paint(paint[stem], stem, paint["base"], rv.get(stem), fps) if rv is not None else mat_paint(paint[stem], stem))
+        else:
+            m = silver
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
@@ -194,7 +216,8 @@ def main():
     sc.cycles.use_adaptive_sampling = True
     sc.render.use_persistent_data = bool(spec.get("persist", False))  # off: lighting dropped out mid-animation (lessons)
     sc.view_settings.view_transform = "AgX"
-    sc.view_settings.look = "None"
+    sc.view_settings.look = spec.get("look", "None")
+    sc.view_settings.exposure = spec.get("exposure", 0.0)
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGB"
     out = os.path.abspath(spec["out"])

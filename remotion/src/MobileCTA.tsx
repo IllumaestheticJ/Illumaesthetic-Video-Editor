@@ -29,6 +29,7 @@ export type MobileCTAProps = {
   ctaAt: number;
   urlAt: number;
   highlights?: { x: number; y: number; w: number; h: number }[]; // screenshot px: flash these when the page changes
+  ctaTop?: number; // video px: put the CTA over the lower part of the gallery photo (the scan) instead of the bottom band
   ctaBand?: number; // video px from the bottom the CTA may use (below the dropdown so option + price stay readable)
   drift?: number; // slow push-in after the zoom-out (1.0 -> 1 + drift by the last frame) so the page never sits dead
   title: string;
@@ -135,22 +136,21 @@ export const MobileCTA: React.FC<MobileCTAProps> = (p) => {
           position: "absolute",
           left: 0,
           right: 0,
-          bottom: 0,
-          height: p.ctaBand ?? 600,
+          ...(p.ctaTop != null ? { top: p.ctaTop } : { bottom: 0, height: p.ctaBand ?? 600 }),
           opacity: ctaIn,
           transform: `translateY(${(1 - ctaIn) * 40}px)`,
-          background: "linear-gradient(to bottom, rgba(11,11,11,0) 0%, #0b0b0b 14%)",
+          background: p.ctaTop != null ? "none" : "linear-gradient(to bottom, rgba(11,11,11,0) 0%, #0b0b0b 14%)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-end",
-          paddingBottom: 26,
+          paddingBottom: p.ctaTop != null ? 0 : 26,
           boxSizing: "border-box",
           color: "#e8ecf2",
           fontFamily: "'Inter Display', 'Inter', sans-serif",
         }}
       >
-        <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 8, lineHeight: 1 }}>{p.title} {p.sub}</div>
+        <div style={{ fontWeight: 700, fontSize: 34, letterSpacing: 8, lineHeight: 1, textShadow: "0 2px 10px rgba(0,0,0,0.85)" }}>{p.title} {p.sub}</div>
         <div
           style={{
             marginTop: 16,

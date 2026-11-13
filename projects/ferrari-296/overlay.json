@@ -5,14 +5,105 @@
  "durationInFrames": 1140,
  "accent": "#e8ecf2",
  "items": [
-  {"kind": "label", "from": 136, "duration": 48, "title": "HOOD", "sub": "OPENED · SCANNED STATE", "x": 0.08, "y": 0.06, "shadow": true},
-  {"kind": "label", "from": 190, "duration": 72, "title": "FRONT BUMPER", "sub": "OUTER + INNER SCANNED", "x": 0.08, "y": 0.06, "shadow": true},
-  {"kind": "label", "from": 300, "duration": 45, "title": "FRONT BUMPER", "sub": "REMOVED · CRASH BEAM", "x": 0.08, "y": 0.84, "shadow": true},
-  {"kind": "label", "from": 362, "duration": 42, "title": "FRONT WHEEL", "sub": "REMOVED · BRAKE DISC + CALIPER", "x": 0.08, "y": 0.06, "shadow": true},
-  {"kind": "label", "from": 406, "duration": 38, "title": "FENDER", "sub": "RIGHT FRONT", "x": 0.08, "y": 0.06, "shadow": true},
-  {"kind": "label", "from": 456, "duration": 32, "title": "SIDE SKIRT", "sub": "REMOVED", "x": 0.08, "y": 0.06, "shadow": true},
-  {"kind": "label", "from": 490, "duration": 30, "title": "REAR BUMPER", "sub": "+ DIFFUSER", "x": 0.08, "y": 0.06, "shadow": true},
-  {"kind": "label", "from": 552, "duration": 44, "title": "ENGINE COVER", "sub": "REMOVED · ENGINE BAY", "x": 0.06, "y": 0.02, "shadow": true},
-  {"kind": "label", "from": 602, "duration": 48, "title": "EXHAUST TIP", "sub": "REMOVED", "x": 0.06, "y": 0.02, "shadow": true}
+  {
+   "kind": "label",
+   "from": 136,
+   "duration": 48,
+   "title": "HOOD",
+   "sub": "OPENED \u00b7 SCANNED STATE",
+   "x": 0.08,
+   "y": 0.06,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 190,
+   "duration": 72,
+   "title": "FRONT BUMPER",
+   "sub": "OUTER + INNER SCANNED",
+   "x": 0.08,
+   "y": 0.06,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 300,
+   "duration": 45,
+   "title": "FRONT BUMPER",
+   "sub": "REMOVED \u00b7 CRASH BEAM",
+   "x": 0.08,
+   "y": 0.84,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 362,
+   "duration": 42,
+   "title": "FRONT WHEEL",
+   "sub": "REMOVED \u00b7 BRAKE DISC + CALIPER",
+   "x": 0.08,
+   "y": 0.06,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 406,
+   "duration": 38,
+   "title": "FENDER",
+   "sub": "RIGHT FRONT",
+   "x": 0.08,
+   "y": 0.06,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 456,
+   "duration": 32,
+   "title": "SIDE SKIRT",
+   "sub": "REMOVED",
+   "x": 0.08,
+   "y": 0.06,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 490,
+   "duration": 30,
+   "title": "REAR BUMPER",
+   "sub": "+ DIFFUSER",
+   "x": 0.08,
+   "y": 0.06,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 552,
+   "duration": 44,
+   "title": "ENGINE COVER",
+   "sub": "REMOVED \u00b7 ENGINE BAY",
+   "x": 0.06,
+   "y": 0.02,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 602,
+   "duration": 48,
+   "title": "EXHAUST TIP",
+   "sub": "REMOVED",
+   "x": 0.06,
+   "y": 0.02,
+   "shadow": true
+  },
+  {
+   "kind": "label",
+   "from": 662,
+   "duration": 44,
+   "title": "ENGINE BAY TRIM",
+   "sub": "LEFT \u00b7 RIGHT \u00b7 CROSS PANEL",
+   "x": 0.06,
+   "y": 0.02,
+   "shadow": true
+  }
  ]
 }
