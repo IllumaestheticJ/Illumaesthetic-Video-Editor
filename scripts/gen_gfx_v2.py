@@ -251,6 +251,7 @@ try:
     # edl_v2: from src 13.75 to end -1.65 s. The editor may play CON_01 shorter (fallback cut), so keep >= 3 s and end with the event.
     c1in = max(ev["CON_01"]["tin"], min(srcT("CON_01", 13.75), ev["CON_01"]["tout"] - 3.2))
     c1out = ev["CON_01"]["tout"] if srcT("CON_01", 13.75) > ev["CON_01"]["tout"] - 3.2 else ev["CON_01"]["tout"] - 1.65
+    c1out = min(c1out, c1in + 5.2)  # v4 (editor): the long CON_01 is the host to camera - show the answer ~5 s, then leave
     nf = round((c1out - c1in) * FPS)
     cue("CON_G1_v2", "CueV2", c1in, c1out, "CON_G1_v2.mov", True, "top-left x60-760 y60 (plates; sky is bright)", text=g["CON_G1_v2"]["text"], x=60, y=60, w=700, beats=[0, round(nf * 0.3), round(nf * 0.62)])
 except ValueError:
