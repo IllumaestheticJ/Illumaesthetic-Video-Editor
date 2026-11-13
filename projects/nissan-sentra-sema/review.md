@@ -24,3 +24,11 @@ Looked at: 1 fps sheet, 9 frames across the 3D shot (384-494), side/front/rear l
 - 3D livery is rule-based: no intercooler, orange calipers, badges or number plate; wheels are the stock scanned wheels, not the Nismo wheels.
 - Photo stills are 1080x810 bands on blurred fill (whole photo, static) - small in a 9:16 frame by request.
 - Closing reels keep the Instagram UI (account names visible); three clips, 38/30/45 frames.
+
+# Self-review - 30 s v5 (2026-11-13)
+Looked at: 9 frames across the 3D shot (386-494), reel and end-card frames.
+- 3D shot is 15 fps renders blended to 30 fps: in-between frames show ghosted doubles of the wheels/bumper while they fly in
+  (mci interpolation smeared them instead). True 30 fps render queued as renders/s6_livery30.
+- Black paint now renders dark charcoal (specular cut for dark colours); wheels are Ron's models in flat dark gunmetal, no orange calipers.
+- End card: website logo + typed slogan; official slogan lockup not found.
+- Not measured: cut-to-kick error on the delivered file.
