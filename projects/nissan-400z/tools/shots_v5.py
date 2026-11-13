@@ -67,8 +67,8 @@ SHOTS["STRUCT"] = {
     "parts": [{"blend": f"{B}/Air_Ducting_2mm.blend",
                "keys": [k(0, (0, 0, 0)), k(t_duct - 0.4, (0, 0, 0)), k(t_duct, (0, -0.18, 0.05), ease="out"),
                         k(t_duct + 0.9, (0, -0.20, 0.5), ease="in"), k(d, (0, -0.20, 0.5))]}],
-    "cam": cam([{"t": 0, "loc": [-2.25, -4.55, 1.25], "target": [-0.05, -1.85, 0.5], "focal": 30},
-                {"t": d, "loc": [-0.9, -3.95, 1.05], "target": [-0.05, -1.95, 0.48], "focal": 30, "ease": "inout"}])}
+    "cam": cam([{"t": 0, "loc": [-1.9, -4.6, 1.3], "target": [-0.07, -1.75, 0.55], "focal": 46},
+                {"t": d, "loc": [-0.7, -4.4, 1.15], "target": [-0.07, -1.8, 0.55], "focal": 40, "ease": "inout"}])}
 
 # 5. BUMPER: bumper shell alone, upper+lower grille out
 d = dur("BUMPER"); tu, tl = 24.343 - 23.406, 24.812 - 23.406
@@ -79,8 +79,7 @@ SHOTS["BUMPER"] = {
                "keys": [k(0, (0, 0, 0)), k(tu, (0, 0, 0)), k(tu + 0.5, (0, -0.14, 0.04), ease="out"), k(tu + 1.1, (0, -0.16, 0.34), ease="in"), k(d, (0, -0.16, 0.34))]},
               {"blend": f"{B}/Lower_Grille_2mm.blend",
                "keys": [k(0, (0, 0, 0)), k(tl, (0, 0, 0)), k(tl + 0.5, (0, -0.14, -0.04), ease="out"), k(tl + 1.1, (0, -0.16, -0.28), ease="in"), k(d, (0, -0.16, -0.28))]}],
-    "cam": cam([{"t": 0, "loc": [-1.7, -4.05, -0.05], "target": [-0.05, -2.2, -0.42], "focal": 34},
-                {"t": d, "loc": [-1.95, -3.7, 0.15], "target": [-0.05, -2.25, -0.42], "focal": 34, "ease": "inout"}])}
+    "cam": cam([orbit(0, -30, 15, 3.9, [-0.08, -1.80, 0.45], 60), orbit(d, -24, 18, 3.6, [-0.08, -1.82, 0.47], 60)])}
 
 # 6. MIRRORS: both real mirror scans off, hold on the mounts
 d = dur("MIRRORS"); tm = 27.156 - 26.218
@@ -90,8 +89,7 @@ SHOTS["MIRRORS"] = {
                "keys": [k(0, (0, 0, 0)), k(tm, (0, 0, 0)), k(tm + 0.45, (-0.15, 0, 0.05), ease="out"), k(tm + 0.9, (-0.17, 0, 0.35), ease="in"), k(d, (-0.17, 0, 0.35))]},
               {"blend": f"{B}/mirror_l_scan.blend", "pivot": [0.84, -0.44, 1.0],
                "keys": [k(0, (0, 0, 0)), k(tm, (0, 0, 0)), k(tm + 0.45, (0.15, 0, 0.05), ease="out"), k(tm + 0.9, (0.17, 0, 0.35), ease="in"), k(d, (0.17, 0, 0.35))]}],
-    "cam": cam([{"t": 0, "loc": [-0.9, -3.4, 1.95], "target": [-0.3, -1.1, 1.0], "focal": 36},
-                {"t": d, "loc": [-1.25, -3.2, 2.0], "target": [-0.35, -1.0, 1.0], "focal": 34, "ease": "inout"}])}
+    "cam": cam([orbit(0, -8, 30, 3.6, [-0.06, -0.25, 0.98], 46), orbit(d, -14, 30, 3.45, [-0.06, -0.25, 0.98], 46)])}
 
 
 def kit(blend, stage, t0, via=None):
@@ -118,8 +116,8 @@ SHOTS["KIT_FRONT"] = {
         kit(f"{B}/Lower_Grille_2mm.blend", (0, -0.55, -0.15), rel(31.375), (0, -0.12, 0)),
         kit(f"{B}/k_canard_driver.blend", (0.25, -0.5, 0), rel(31.843)),
         kit(f"{B}/k_canard_pass.blend", (-0.25, -0.5, 0), rel(31.843))],
-    "cam": cam([{"t": 0, "loc": [0.0, -5.6, 1.1], "target": [0, -1.5, 0.55], "focal": 35},
-                {"t": d, "loc": [-2.7, -4.6, 1.2], "target": [-0.1, -1.4, 0.55], "focal": 34, "ease": "inout"}])}
+    "cam": cam([{"t": 0, "loc": [0.0, -5.6, 1.1], "target": [0, -1.5, 0.6], "focal": 46},
+                {"t": d, "loc": [-2.9, -4.9, 1.25], "target": [-0.1, -0.9, 0.55], "focal": 40, "ease": "inout"}])}
 
 FRONT_HELD = [held(f"{B}/k_{n}.blend") for n in ("front_fender_driver", "front_fender_pass", "front_fender_slats_driver",
               "front_fender_slats_pass", "front_bumper", "canard_driver", "canard_pass")] + \
@@ -137,7 +135,7 @@ SHOTS["KIT_SIDE"] = {
         kit(f"{B}/k_rear_fender_slats_pass.blend", (-0.75, 0, 0.35), 34.656 - 32.781, (-0.08, 0, 0)),
         kit(f"{B}/k_rear_fender_slats_driver.blend", (0.75, 0, 0.35), 34.656 - 32.781, (0.08, 0, 0)),
         kit(f"{B}/k_gas_cap_x.blend", (-0.35, 0, 0.15), 35.593 - 32.781)],
-    "cam": cam(arc(d, -70, -125, 7, 9, 4.6, 4.7, [-0.1, -0.3, 0.55], [-0.1, 0.9, 0.6], 34, n=6))}
+    "cam": cam(arc(d, -60, -120, 8, 9, 6.0, 6.0, [-0.1, 0.1, 0.55], [-0.1, 0.5, 0.6], 36, n=6))}
 
 SIDE_HELD = FRONT_HELD + [held(f"{B}/k_{n}.blend") for n in ("rear_fender_driver", "rear_fender_pass",
             "side_skirts_driver", "side_skirts_pass", "rear_fender_slats_driver", "rear_fender_slats_pass", "gas_cap_x")]
@@ -150,22 +148,22 @@ SHOTS["REAR"] = {
         {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.3, (0, 0, 0)), k(0.75, (0, 0, 0.15), ease="out"), k(1.4, (0, 0.2, 0.6), ease="in"), k(d, (0, 0.2, 0.6))]},
         kit(f"{B}/k_ducktail.blend", (0, 0.1, 0.35), 38.406 - 36.531, (0, 0, 0.08)),
         kit(f"{B}/k_diffuser.blend", (0, 0.45, 0), 38.875 - 36.531, (0, 0.1, 0))],
-    "cam": cam(arc(d, -150, 185, 20, 20, 5.0, 4.8, [0, 1.2, 0.55], [0, 1.3, 0.6], 32, n=6))}
+    "cam": cam(arc(d, -150, -180, 20, 20, 4.4, 4.2, [0, 1.4, 0.65], [0, 1.45, 0.65], 48, n=6))}
 
 # 10. LIVERY: full kitted car, livery sweep (camera + material only)
 d = dur("LIVERY")
 SHOTS["LIVERY"] = {
     "base": [{"blend": f"{B}/kb_nowing.blend", "mat": "livery"}] + [{"blend": f"{B}/k_{n}.blend", "mat": "livery", "keys": [k(0, (0, 0, 0))]} for n in KIT] + [{"blend": f"{B}/{n}_2mm.blend"} for n in ("Upper_Grille", "Lower_Grille")],
     "livery": {**LIV, "sweep": [[0, 2.6], [42.156 - 40.281, -2.4]]},
-    "cam": cam(arc(d, 140, 80, 9, 9, 4.7, 4.6, [0, 0.9, 0.6], [0, -0.3, 0.6], 34, n=6))}
+    "cam": cam(arc(d, 140, 75, 9, 9, 5.4, 5.4, [0, 0.4, 0.6], [0, 0.0, 0.6], 38, n=6))}
 
 # 11. HERO: whole kitted liveried car
 d = dur("HERO")
 SHOTS["HERO"] = {
     "base": [{"blend": f"{B}/kb_nowing.blend", "mat": "livery"}] + [{"blend": f"{B}/k_{n}.blend", "mat": "livery", "keys": [k(0, (0, 0, 0))]} for n in KIT] + [{"blend": f"{B}/{n}_2mm.blend"} for n in ("Upper_Grille", "Lower_Grille")],
     "livery": {**LIV, "sweep": [[0, -9.0]]},
-    "cam": cam([{"t": 0, "loc": [3.9, -4.4, 0.9], "target": [0, -0.6, 0.55], "focal": 34},
-                {"t": d, "loc": [4.2, -4.0, 1.0], "target": [0, -0.5, 0.55], "focal": 33, "ease": "inout"}])}
+    "cam": cam([{"t": 0, "loc": [3.9, -4.4, 0.9], "target": [0, -0.4, 0.55], "focal": 42},
+                {"t": d, "loc": [3.75, -4.2, 0.95], "target": [0, -0.4, 0.55], "focal": 43, "ease": "inout"}])}
 
 
 def spec(name, mode):
