@@ -17,9 +17,23 @@ END = fr(47.5)
 
 
 def seg_hook():
-    """motor1com post 'NISSAN ADMITS IT USED AI IN ITS SENTRA SPEC V PICTURES' from the Instagram recording (t=171), slow 3 % push."""
-    im = ig_frames(171.0, 1)[0]; n = CUT['wasnt']
-    pipe('v6_a_hook', (B.punch(im, f, n, 1.03) for f in range(n)))
+    """motor1com post 'NISSAN ADMITS IT USED AI IN ITS SENTRA SPEC V PICTURES' from the Instagram recording (t=171), slow 3 % push,
+    with the user's blurb 'THE WORLD THOUGHT IT WAS AI' boxed over the top of the post (v8)."""
+    im = ig_frames(171.0, 1)[0]; n = CUT['wasnt']; f1 = F('InterDisplay-Black', 104)
+    lines = ['THE WORLD', 'THOUGHT IT', 'WAS AI']
+    def gen():
+        for f in range(n):
+            fr_ = B.punch(im, f, n, 1.03); d = ImageDraw.Draw(fr_)
+            u = min(1.0, max(0.0, (f - 4) / 5))
+            if u > 0:
+                y0 = 250 - int((1 - u) * 40); h = 118
+                w = max(d.textlength(t, font=f1) for t in lines)
+                d.rectangle([(WD - w) // 2 - 44, y0 - 30, (WD + w) // 2 + 44, y0 + h * len(lines) + 26], fill=(0, 0, 0))
+                d.rectangle([(WD - w) // 2 - 44, y0 - 30, (WD - w) // 2 - 32, y0 + h * len(lines) + 26], fill=RED)
+                for k, t in enumerate(lines):
+                    d.text(((WD - d.textlength(t, font=f1)) // 2, y0 + k * h), t, font=f1, fill=OFF)
+            yield fr_
+    pipe('v6_a_hook', gen())
 
 
 def seg_wasnt():
@@ -150,7 +164,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v7.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v8.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)
