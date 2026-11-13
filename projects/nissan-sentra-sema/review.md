@@ -7,3 +7,11 @@ Looked at: 1 fps sheet of the whole cut, frames 268-382 around the 1:1 cut, per-
 - Print step = two low-res WhatsApp stills on blurred fill; g1 reveal is a still, not a 1:1 from the CAD render.
 - SEMA clips are handheld with passers-by (g4_side has a person crossing).
 - minterpolate on the part fly-ins not inspected frame by frame.
+
+# Self-review - 30 s v2 (2026-11-13)
+Looked at: 1 fps sheet, frames 269-485 (1:1 cut, panels, paint wipe, stripes), per-segment sheets, luma of s2_livery (26.5-33.4, no dropout).
+- Not measured: cut-to-kick error on the delivered file; minterpolate on the part fly-ins not checked frame by frame.
+- First frames of the panel shot: the front bumper flies in from 0.7 m ahead and is clipped by the left frame edge for a few frames.
+- 3D stripes are placed by eye (position rules), not from the stripe DXF; no red splitter line, wing or intercooler in the 3D livery.
+- topgear_ph screenshot shows broken image placeholders under the headline (image CDN blocked).
+- Stock grille still visible inside the kit bumper opening before the paint wipe.
