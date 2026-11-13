@@ -92,3 +92,106 @@ Section coverage - each section appears in ONE continuous run:
 - Openings (D): hood only (real scan). No trunk, no doors.
 - Cropping (A): first/mid/last of every re-rendered shot checked at 30 % (media check/v4f.jpg); s3/s4 are detail shots that
   fill the frame by design.
+
+## v4 - how it was made (scene-director, 2026-11-13)
+
+User: "redo this with the new knowledge you have from doing the frontier and sentra videos ... include articles of the QX80
+online, Ecky's project files and folder ... WhatsApp export". The reel changes from a scan showcase to a build story
+(Sentra SEMA v3 / Frontier v8 pattern). Inputs: lessons.md (all, incl. 2026-11-13 entries), style-guide, workflow, Sentra
+clips/project/editlog/feedback (branch claude/upbeat-goldberg-gy0s84), Frontier feedback/editlog, WhatsApp `_chat.txt`,
+wa_sheet_0..4, every photo named below opened whole-frame (grids in the scratchpad), press/*_headline.png, check/kit_fit_1.jpg.
+
+### User taste carried over (Sentra / Frontier feedback, binding)
+- Hook: real article screenshots, **cropped headlines stacking** one per hit (not full-page flashes, not text cards).
+- **Section labels** on every section ("CONCEPTS" over the iterations; print / fabrication labelled too).
+- Concepts -> **3D panels going on the scan -> paint in colour** (Sentra "livery being applied in colour").
+- **Static photos: whole photo, no zoom/pan** (blurred fill of itself behind, label in the band ABOVE the photo, never on it).
+- Finished car only in the hook and after fabrication (Sentra: SEMA shots before the scan "felt out of place").
+- End: Illumaesthetic logo ~720 px + "Customize everything". **No triangle counts on screen** (lessons 2026-11-13, twice).
+- "How we modified this car", not "what we scanned" (Frontier v8): scan showcase shots only where they serve the build.
+
+### 1. Inventory (what the data really holds for this story)
+| Source | What it shows (looked at) | Use |
+|---|---|---|
+| WA 13/16/45/46/47/48 (Apr 30-May 1 2025) | stock grey QX80 in the shop, glass taped (blue X), scan spray on grille/lamps = scan prep. 46 = cleanest (front-left 3/4, doors shut, 2048x1536). 13/47 doors open; 16/45/48 rear with clutter | **46** |
+| WA 62, 67 | 62 a different black QX80 (reference), 67 a G-sedan studio shot | reject (wrong car) |
+| car4 scan + renders/final/N0_open | whole stock car, front-right orbit, whole car in frame (v3 check) | reuse |
+| WA concept renders 109-870 (May 14-Aug 14) | grey studio renders bronze wheels (May) -> dark-floor grey (May 30-Jul 23) -> first purple 594/595 (Jul 24) -> 610-612 (Jul 28, viewer UI dots top-right) -> purple finals 845/869-872 (Aug 14). Tan/blue viewport pairs = design-on-scan screenshots | flipbook (front-left 3/4 renders only, one angle so it reads as evolution) |
+| k_*.blend (16 kit groups on the scan, Ecky's own scan matrix, 1.6 mm) | front bumper, lower grille, front lip, brake ducts, NACA (hood), 4 flares, 2 skirts, 2 vents (motoiq logo), diffuser, exhaust, wing | panels-on scene |
+| WA 1129 (Aug 28) | trans adapter plate (green) seated on the purple engine scan, flywheel visible, no annotations | **ENGINEERED** |
+| WA 1295 / 1314 / 1317 / 1319 | plate CAD (1295 clean), 1314/1317/1319 have red marker circles/arrows | reject (annotations) except 1295 as fallback |
+| WA 1388 (Sep 8, 2160x3840) | 3D-printed exhaust shroud with tips, on the bench | **3D PRINTED** |
+| WA 1356 | printed brake duct + hose in a gloved hand ("It fit so no need to reprint") | fallback for 1388 |
+| WA 1402 (Sep 8, 3840x5120) | wing test-fitted on the grey car (rear 3/4), clear | **TEST FIT** |
+| WA 1423 / 1424 (Sep 8) | grey car on the lift, wheels off, rear kit on (1423); front with lip on (1424) | **TEST FIT** |
+| WA 1541-1544 | printed vent badge mock-ups lying on store receipts / invoices | **reject** (clutter + private paperwork) |
+| WA 1629 (=1626 hi-res, Oct 10) | installed motoiq vent on the wrapped fender, clean | finale detail |
+| WA 1683-1694 (Oct 17) | finished wrapped car in the shop; pairs 1683=1689, 1684=1690, 1686=1692, 1687=1693, 1688=1694 (use the 4032/5120 copies). 1690 rear (wing + tips) best; 1692 cluttered by lift post | **1690** |
+| WA 1699-1702 (Oct 24) | studio warehouse shoot; 1699=1701 (rear-left 3/4), 1700=1702 (front-left 3/4). 4032x3024 copies | **1701** hook, **1702** reveal |
+| press/carscoops_teaser (Oct 21), carscoops (Oct 27), motorillustrated (Oct 27) | real headline screenshots | hook |
+| Ecky Drive `Render/` (19) + `Presentation Render/` (14 png) | not downloaded, not looked at | open question 1 |
+
+Not earning a place in v4: **s5_hood** (hood open on the stock engine bay - true data, but the build story is the kit + VR38
+swap; showing the stock bay invites "is that the GT-R engine?" - it is not), **s3_grille, s4_wheel** (stock-car showcase
+details, same section as N0, no build information), N1/N2/N3 (explode of stock part scans - "what we scanned").
+
+### 2. Scene list (video t = music t - 0.66; beat k at video 0.102 + 0.65k; phrases every 8 beats)
+| # | video t (music t) | beats | sources (exact) | label (band above photo / on scan) | why / camera |
+|---|---|---|---|---|---|
+| A | 0 - 5.302 (0.66 - 5.962) | 8 | photo **1701** whole, top of frame on its own blurred fill; headlines stack below, one per 2 beats: **carscoops_teaser** @1.402, **motorillustrated** @2.702, **carscoops** @4.002 (chronological: Oct 21, Oct 27, Oct 27). Crop each to outlet masthead + headline only (no hero image, no byline) | none (the headlines are the text) | Sentra opening rule. Rear 3/4 shows wing + exhaust = the build's signature. Headlines never overlap the photo |
+| B1 | 5.302 - 6.602 (5.962 - 7.262) | 2 | photo **46** whole, static | **STOCK QX80** / sub `before` | the starting point; first stock image right after the finished one |
+| B2 | 6.602 - 10.502 (7.262 - 11.162) | 6 | **N0_open** reuse as rendered (front-right orbit) | **3D SCAN** / sub `the stock car, scanned in-house` (no triangle count) | hard cut on the beat. Optional upgrade: solve 46's camera and start N0 from it (front-left) for a 1:1 photo->scan cut - new render, only if time allows |
+| C | 10.502 - 15.702 (11.162 - 16.362) | 8 | flipbook, 16 frames x half beat (alternate 10/9 frames), whole renders on black fill, in this order: **109, 135, 166, 216, 241, 249, 257, 326, 360, 375, 395, 520, 543, 584, 595, 870** | **CONCEPTS** / sub `design iterations, May - Aug 2025` (dates from the WA timestamps) | grey bronze-wheel -> dark-floor grey -> purple; all one front-left 3/4 angle so the car stays put and the kit morphs. 612 left out (viewer UI dots in the corner), 845 = same as 870 |
+| D | 15.702 - 20.902 (16.362 - 21.562) | 8 | NEW render: car4 silver + k_* groups landing one step per beat, satin white/grey kit on silver (kit_fit colours too busy) | **DESIGNED ON THE SCAN** / sub `body kit by Ecky` (or `front · flares · skirts · rear`) | camera front-right 3/4 -> right side -> rear-right 3/4 (continues N0's side; whole car in frame, ~9.5 m at 32 mm per lesson). Order below |
+| E | 20.902 - 26.102 (21.562 - 26.762) | 8 | NEW render, **same camera move continued** (no cut at 21.562 if D+E is one shot; else hard cut on the lift): kitted car, wing lands ON the lift (21.562), then colour-shift wrap wipes rear -> front, camera rear-right 3/4 -> rear -> rear-left 3/4 | **MIDNIGHT PURPLE** / sub `colour-shift wrap` | the biggest musical moment (the lift) = the colour reveal, the user's "paint in colour" beat. Match the hue shift (purple -> blue -> bronze-red with angle) to 1701/1702/1629 - check a side-by-side before finals (Sentra livery was rejected as "applied wrong") |
+| F1 | 26.102 - 27.402 (26.762 - 28.062) | 2 | photo **1129** | **ENGINEERED** / sub `trans adapter plate, on our engine scans` | engineering section; one image only (no flipbook of annotated screenshots) |
+| F2 | 27.402 - 28.702 (28.062 - 29.362) | 2 | photo **1388** | **3D PRINTED** / sub `exhaust shroud` | print labelled (Sentra note) |
+| F3 | 28.702 - 30.002 (29.362 - 30.662) | 2 | photo **1402** | **TEST FIT** / sub `wing` | |
+| F4 | 30.002 - 30.652 (30.662 - 31.312) | 1 | photo **1423** | TEST FIT (label stays, sub `rear kit`) | |
+| F5 | 30.652 - 31.302 (31.312 - 31.962) | 1 | photo **1424** | TEST FIT (sub `front lip`) | quickens into the accent |
+| G1 | 31.302 - 33.902 (31.962 - 34.562) | 4 | photo **1702** | **FINISHED** / sub `QX80 R-Spec · SEMA 2025` | strongest accent = the reveal, front 3/4 studio (hook was the rear 3/4 of the same shoot, different photo) |
+| G2 | 33.902 - 35.202 (34.562 - 35.862) | 2 | photo **1629** | (FINISHED stays) | travel front -> side: the printed motoiq vent installed |
+| G3 | 35.202 - 36.502 (35.862 - 37.162) | 2 | photo **1690** | (FINISHED stays) | travel -> rear: wing + exhaust on the real car |
+| H | 36.502 - 38.84 (37.162 - 39.5) | ~3.5 | logo card ~720 px + **Customize everything** | - | track fades from 37.162 |
+
+All photos: static, whole frame, blurred-fill background, no Ken Burns. Labels only in the band / on scan renders.
+Portrait photos (1388, 1402) fill the width; the band sits above them.
+
+### 3. Kit landing order in D (one step per beat; travel front -> side -> rear, no ping-pong; bumper-nested parts after the bumper)
+| beat | video t | group(s) | camera sees |
+|---|---|---|---|
+| 0 | 15.702 | k_front_bumper + k_lower_grille (grille sits in the bumper; arrives as one assembly) | front-right 3/4 |
+| 1 | 16.352 | k_front_lip + k_brake_ducts (both mount on the bumper -> after it) | front |
+| 2 | 17.002 | k_naca (hood duct) | front / hood |
+| 3 | 17.652 | k_flare_fr + k_flare_fl | front arches |
+| 4 | 18.302 | k_vent_r + k_vent_l (motoiq vents on the front fenders) | right side |
+| 5 | 18.952 | k_skirt_r + k_skirt_l | right side |
+| 6 | 19.602 | k_flare_rr + k_flare_rl | rear arches |
+| 7 | 20.252 | k_diffuser + k_exhaust | rear-right 3/4 |
+| 8 | 20.902 (= E start, the lift) | k_wing | rear 3/4, then the wrap wipe |
+Each part arrives along its mounting direction (out past the silhouette, then in), no path through the body (clipcheck /
+pathcheck lessons). The kit front bumper sits over the stock bumper: check for stock skin poking through the kit (Frontier
+"new part over old" lesson) - cut the stock bumper under the kit bumper's own silhouette if it does.
+
+### 4. Reuse vs render
+Reuse: N0_open (as-is). New renders: D+E (one continuous ~10.4 s move, or two shots cut on 21.562). Optional: N0 from photo
+46's solved camera for a 1:1 cut. Everything else is stills + press + logo card (build like Sentra tools/build.py, exact frames).
+
+### 5. Flags - things that could read as made-up
+1. **Triangle count** in the draft's 3D SCAN label: removed (user rule 2026-11-13).
+2. **"VR38" / "GT-R engine" on the 1129 still**: the chat is contradictory about which scan the purple engine is ("Purple
+   engine is QX80" vs "If this lines up, that purple engine is the GTR engine", Aug 28). Label says only "trans adapter
+   plate, on our engine scans". Don't write 1,000 hp anywhere ourselves - it appears only inside the press screenshots.
+3. **"MIDNIGHT PURPLE"**: supported by the chat colour options (Midnight Purple listed), Ron "Midnight purple 3?!" and
+   Adam "It's wrapped" (Oct 17), and The Drive's URL. If the editor wants zero risk: `COLOUR-SHIFT WRAP` alone.
+4. **"body kit by Ecky"**: Ecky's name on screen is a credit - confirm the user wants designer names shown (Sentra credited
+   the client, not staff). Neutral alternative given.
+5. The 3D wrap is an approximation of a colour-shift film; it must match the photos or be cut (Sentra livery lesson).
+6. "16 kit parts" or any part count: don't. The 16 groups are our grouping; the print folder has many more files.
+
+### 6. Open questions for the editor
+1. Ecky's `Render/` and `Presentation Render/` PNGs were not looked at. If they are full-res versions of the purple finals
+   (870 etc.) at the same angle, swap them into the flipbook's last 2-3 frames; don't add new angles.
+2. Is the user OK with a D+E continuous move of ~120 + 90 deg in 10 s? If it reads fast at preview, drop the rear-left leg of E.
+3. The brake adapters (Illumaesthetic-designed) have no clean photo in the export (CAD screenshots only, annotated) - left out;
+   ask whether to add a label-only beat.

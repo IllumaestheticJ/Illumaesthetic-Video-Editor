@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
@@ -53,6 +54,5 @@ Newest first. Read the top two before starting a new edit.
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11
-- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-11
 - [fg2-race-car](fg2-race-car/) - archived 2026-11-11
 - [240sx-scan](240sx-scan/) - archived 2026-11-11

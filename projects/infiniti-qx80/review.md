@@ -11,7 +11,7 @@ Motor Illustrated - the only outlets this environment could reach), our QX80 ful
 | # | Criterion | Score | Notes |
 |---|---|---|---|
 | 1 | Hook | 4 | Finished car (studio photo 1701) from frame 1, three real headlines stack on the beats at 1.4/2.7/4.0 s. Only 3 outlets (network allow-list). |
-| 2 | Beat sync | 4 | All 14 section cuts on their planned frames (frame diff = plan); grid = 0.650 s beats on the measured loudness steps of a kick-less strings track (v1-v3 checks: steps at 18.95/21.55/32.00/34.60 music). Kit parts land on beats; the wrap sweep starts on the lift. |
+| 2 | Beat sync | 4 | All 14 section cuts on their planned frames (frame diff = plan). Decoded-audio check (cutcheck.py): section cuts -5..+44 ms of the nearest onset except 15.70 s (+107) and 28.70 s (+96), both in sustained string passages with no hit (flat RMS). Kit parts land on beats; the wrap sweep starts on the lift. |
 | 3 | 1:1 match | n/a | No IRL->scan match cut in this cut (optional: photo 46 -> scan solve, not done). |
 | 4 | Scan quality | 4 | Clean full-car scan; kit seated with Ecky's matrix (1.6 mm scan agreement). Wrap is an approximation of a colour-shift film (checked against 1702, copper/blue flips added); wheels/glass/grille masked by position. Stock wheels shown (the real car runs aftermarket wheels). |
 | 5 | Story | 5 | Stock -> scan -> concepts -> kit on the scan -> wrap -> engineering -> print -> test fit -> finished, all from real project data. |

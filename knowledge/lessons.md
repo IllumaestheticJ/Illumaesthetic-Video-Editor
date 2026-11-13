@@ -957,3 +957,15 @@ lands here automatically. Agents must read this whole file before editing.
   state scan's sides to hide ragged edges. Keep its full width and set it inside the car, with the car carved around it
   (`projects/lamborghini-revuelto/tools/carve.py`: distance to the state scans + a box for leftover parts).
 - (WRX VB v5b) A part label needs its part in frame when it moves (reviewer: "it says door flare but you can't see anything come off"). Print each part's bbox in the prepped frame and put the camera target on it at the lift key; don't trust a part's name for where it sits (the 'door flare' is on the rear arch).
+
+## From the Infiniti QX80 R-Spec v4 "how it was made" (2026-11-13, built by an agent)
+- **[story]** A designer's working .blend usually holds the full-car scan as an object whose local coords are the raw Artec
+  frame (QX80: Ecky's `review(rear-bumper).blend`, `... Full Car.008`, local metres x1000 = raw mm at 1.6 mm). Its
+  matrix_world maps raw -> design frame, so every print STL in that folder lands on our scan exactly
+  (projects/infiniti-qx80/tools/kit2lev.py). Check a small review .blend before downloading the 8 GB master.
+- **[scan-look]** A colour-shift wrap on a scan: Layer Weight facing -> 3-stop ramp (plum / copper / blue) on a metallic
+  coat, and mask what the film doesn't cover by position (wheels from measured axles, glasshouse z-band, grille box) to
+  gloss black (tools/shot_kit.py mat_purple). The first pass read as bright lavender next to the real photo - always
+  compare a final-quality frame with a photo of the finished car before rendering.
+- **[technical]** Edge-touch test on the ASSEMBLED file (bright pixels in the outer 3 px per frame) caught a side leg of an
+  orbit where the 5.4 m SUV touched both edges for 48 frames; the 30 % first/mid/last preview had missed it.
