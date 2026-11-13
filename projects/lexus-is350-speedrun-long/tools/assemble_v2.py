@@ -674,7 +674,7 @@ def speech_mask(total, evs):
     c = np.r_[0.0, np.cumsum(m, dtype=np.float64)]
     idx = np.arange(total)
     m = ((c[idx + 1] - c[np.maximum(0, idx + 1 - nrel)]) > 0.5).astype(np.float32)
-    k = int(0.15 * SR)
+    k = int(CFG["audio"].get("duck_ramp_s", 0.15) * SR)
     c = np.r_[0.0, np.cumsum(m, dtype=np.float64)]
     m = ((c[np.minimum(total, idx + k)] - c[idx]) / k).astype(np.float32)  # smoothed
     return m
@@ -751,55 +751,59 @@ def audio(evs, A):
     put(fx, sfx, c2["tl_in"], AC["freeze_sfx_db"])
     # music
     mask = speech_mask(total, evs)
-    mus = np.zeros((total, 2), np.float32)
-    def add(part, cfgk, extra_db=0.0):
-        c = M[cfgk]
-        return duck(part, mask, c["clear"] + extra_db, c.get("under", c["clear"]) + extra_db)
-    # intro: 0 -> go
-    mus += add(music_part(total, M["intro"]["file"], 0.0, 0.0, A["go"] - 0.03, 0.8, M["intro"]["fade_out"]), "intro")
-    if "CO_03" in by:
-        put(fx, mwav(M["hit_big"]["file"]), by["CO_03"]["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
-    # spray: file0 at go-1.0, until C_01 + crossfade
-    c1 = by["C_01"]
-    sp_end = min(c1["tl_in"] + M["spray"]["xfade_to_tense"], A["spray_file0"] + len(mwav(M["spray"]["file"])) / SR - 0.02)
-    mus += add(music_part(total, M["spray"]["file"], A["spray_file0"], A["spray_file0"] + 0.9, sp_end, 0.05,
-                          sp_end - c1["tl_in"]), "spray")
-    put(fx, mwav(M["hit_small"]["file"]), by["P_03"]["tl_in"] - M["hit_small"]["onset"], M["hit_small"]["gain"])
-    put(fx, mwav(M["hit_small"]["file"]), by["Q_01"]["tl_in"] - M["hit_small"]["onset"], M["hit_small"]["gain"])
-    put(fx, mwav(M["riser"]["file"]), A["landing"] - M["riser"]["landing"], M["riser"]["gain"])
-    # tense: ends dead on "crashed", starts at C_01
-    tl_file = M["tense"]["file"]; tx = mwav(tl_file); tlen = len(tx) / SR
-    t0 = A["crashed"] - tlen
-    mus += add(music_part(total, tl_file, t0, c1["tl_in"], A["crashed"], 0.6, 0.003), "tense")
-    # drone bed: placed by the tick anchor; enters at the card; out after "Now."
-    d0 = A["tick"] - M["drone"]["tick_anchor_file"]
-    mus += add(music_part(total, M["drone"]["file"], d0, c3["tl_in"], A["now"] + 1.5, 0.05, 1.5), "drone")
-    c7 = by["C_07"]
-    tick = music_part(total, M["ticks"]["file"], d0, by["C_04"]["tl_in"], A["now"] + 0.2, 0.01, 0.15)
-    tick *= (1 - env_seg(total, c7["tl_in"], c7["tl_out"], 0.01, 0.01))[:, None]
-    mus += add(tick, "ticks")
-    mus += add(music_part(total, M["c07"]["file"], c7["tl_in"], c7["tl_in"], c7["tl_out"] + 0.05, 0.005, 0.05), "c07")
-    # dead silence before the card: nothing at all
-    ds_a, ds_b = c3["tl_in"] - AC["dead_silence_s"], c3["tl_in"]
-    gate = 1 - env_seg(total, ds_a, ds_b, 0.0, 0.0)
-    # main: release on "Now." to the TM_01 cut; +2 dB from H_01
-    tm1 = by["TM_01"]
-    m0 = A["now"] - M["main"]["anchor_file"]
-    main = music_part(total, M["main"]["file"], m0, A["now"] - 0.1, tm1["tl_in"], 0.005, 0.006)
-    hp = env_seg(total, by["H_01"]["tl_in"], tm1["tl_in"], 0.5, 0.0)
-    main *= (10 ** (M["main"]["hard_parts_db"] * hp / 20))[:, None]
-    mus += add(main, "main")
-    put(fx, mwav(M["sting"]["file"]), A["time"] - M["sting"]["onset"], M["sting"]["clear"])
-    # montage: riser lands on the hero
-    m1 = next(e for e in evs if e["section"].startswith("9 THE SCAN"))
-    if CFG.get("results_card"):
-        cd = by[CFG["results_card"]["id"]]
-        put(fx, mwav(M["hit_big"]["file"]), cd["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
-        put(fx, mwav(M["riser"]["file"]), cd["tl_out"] - M["riser"]["landing"], M["riser"]["gain"])
-    mus += add(music_part(total, M["montage"]["file"], A["montage_file0"], m1["tl_in"] - M["montage"]["lead_in"], A["lift"], 0.8, 0.01),
-               "montage")
-    # hero / conclusion / end card
-    mus += add(music_part(total, hero_name(), A["hero_file0"], A["lift"] - 0.01, total / SR, 0.005, 0.0), "hero")
+    c3 = by["C_03"]
+    if CFG.get("music_v5"):
+        mus, gate = music_v5(total, mask, by)
+    else:
+        mus = np.zeros((total, 2), np.float32)
+        def add(part, cfgk, extra_db=0.0):
+            c = M[cfgk]
+            return duck(part, mask, c["clear"] + extra_db, c.get("under", c["clear"]) + extra_db)
+        # intro: 0 -> go
+        mus += add(music_part(total, M["intro"]["file"], 0.0, 0.0, A["go"] - 0.03, 0.8, M["intro"]["fade_out"]), "intro")
+        if "CO_03" in by:
+            put(fx, mwav(M["hit_big"]["file"]), by["CO_03"]["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
+        # spray: file0 at go-1.0, until C_01 + crossfade
+        c1 = by["C_01"]
+        sp_end = min(c1["tl_in"] + M["spray"]["xfade_to_tense"], A["spray_file0"] + len(mwav(M["spray"]["file"])) / SR - 0.02)
+        mus += add(music_part(total, M["spray"]["file"], A["spray_file0"], A["spray_file0"] + 0.9, sp_end, 0.05,
+                              sp_end - c1["tl_in"]), "spray")
+        put(fx, mwav(M["hit_small"]["file"]), by["P_03"]["tl_in"] - M["hit_small"]["onset"], M["hit_small"]["gain"])
+        put(fx, mwav(M["hit_small"]["file"]), by["Q_01"]["tl_in"] - M["hit_small"]["onset"], M["hit_small"]["gain"])
+        put(fx, mwav(M["riser"]["file"]), A["landing"] - M["riser"]["landing"], M["riser"]["gain"])
+        # tense: ends dead on "crashed", starts at C_01
+        tl_file = M["tense"]["file"]; tx = mwav(tl_file); tlen = len(tx) / SR
+        t0 = A["crashed"] - tlen
+        mus += add(music_part(total, tl_file, t0, c1["tl_in"], A["crashed"], 0.6, 0.003), "tense")
+        # drone bed: placed by the tick anchor; enters at the card; out after "Now."
+        d0 = A["tick"] - M["drone"]["tick_anchor_file"]
+        mus += add(music_part(total, M["drone"]["file"], d0, c3["tl_in"], A["now"] + 1.5, 0.05, 1.5), "drone")
+        c7 = by["C_07"]
+        tick = music_part(total, M["ticks"]["file"], d0, by["C_04"]["tl_in"], A["now"] + 0.2, 0.01, 0.15)
+        tick *= (1 - env_seg(total, c7["tl_in"], c7["tl_out"], 0.01, 0.01))[:, None]
+        mus += add(tick, "ticks")
+        mus += add(music_part(total, M["c07"]["file"], c7["tl_in"], c7["tl_in"], c7["tl_out"] + 0.05, 0.005, 0.05), "c07")
+        # dead silence before the card: nothing at all
+        ds_a, ds_b = c3["tl_in"] - AC["dead_silence_s"], c3["tl_in"]
+        gate = 1 - env_seg(total, ds_a, ds_b, 0.0, 0.0)
+        # main: release on "Now." to the TM_01 cut; +2 dB from H_01
+        tm1 = by["TM_01"]
+        m0 = A["now"] - M["main"]["anchor_file"]
+        main = music_part(total, M["main"]["file"], m0, A["now"] - 0.1, tm1["tl_in"], 0.005, 0.006)
+        hp = env_seg(total, by["H_01"]["tl_in"], tm1["tl_in"], 0.5, 0.0)
+        main *= (10 ** (M["main"]["hard_parts_db"] * hp / 20))[:, None]
+        mus += add(main, "main")
+        put(fx, mwav(M["sting"]["file"]), A["time"] - M["sting"]["onset"], M["sting"]["clear"])
+        # montage: riser lands on the hero
+        m1 = next(e for e in evs if e["section"].startswith("9 THE SCAN"))
+        if CFG.get("results_card"):
+            cd = by[CFG["results_card"]["id"]]
+            put(fx, mwav(M["hit_big"]["file"]), cd["tl_in"] - M["hit_big"]["onset"], M["hit_big"]["gain"])
+            put(fx, mwav(M["riser"]["file"]), cd["tl_out"] - M["riser"]["landing"], M["riser"]["gain"])
+        mus += add(music_part(total, M["montage"]["file"], A["montage_file0"], m1["tl_in"] - M["montage"]["lead_in"], A["lift"], 0.8, 0.01),
+                   "montage")
+        # hero / conclusion / end card
+        mus += add(music_part(total, hero_name(), A["hero_file0"], A["lift"] - 0.01, total / SR, 0.005, 0.0), "hero")
     dia *= gate; room *= gate; mus *= gate[:, None]
     fx *= gate[:, None]
     stems = {"dialogue": np.stack([dia, dia], 1), "music": mus, "fx_room": fx + np.stack([room, room], 1)}
@@ -816,6 +820,49 @@ def audio(evs, A):
     al.atomic_json(B2 / "audio/report.json", {"lines": lines, "line_lufs_final_stem": per, "pre_master_lufs": Lm, "gain": g})
     v = list(per.values())
     log(f"audio v2: {len(lines)} lines; line LUFS {min(v)} .. {max(v)} (spread {max(v) - min(v):.1f})")
+
+
+def music_v5(total, mask, by):
+    """v5: ONE continuous P4 track (music_v5_full.wav, timeline-aligned, unducked) + crash drone/tick layers.
+    Per-section duck depth from editor (music_v5.ducks: [t0, t1, dB]); 150-250 ms ramps come from speech_mask;
+    the wind-up's 2-8 kHz is tamed with a ramped high shelf; nothing else musical is added."""
+    from scipy.signal import butter, sosfiltfilt
+    V = CFG["music_v5"]
+    D = Path(V["dir"])
+    def load(n):
+        if n not in _wavs:
+            from scipy.io import wavfile
+            from scipy.signal import resample_poly
+            sr, x = wavfile.read(str(D / n))
+            x = x.astype(np.float32) / 32768.0
+            g = math.gcd(SR, sr)
+            _wavs[n] = resample_poly(x, SR // g, sr // g, axis=0).astype(np.float32)
+        return _wavs[n]
+    def fit(x):
+        y = np.zeros((total, 2), np.float32); n = min(total, len(x)); y[:n] = x[:n]; return y
+    full = fit(load(V["full"]))
+    # tame the wind-up top end: high shelf (-shelf_db above 2.5 kHz) ramped in over the wind-up
+    a, b = V["windup"]
+    hp = sosfiltfilt(butter(2, 2500, btype="high", fs=SR, output="sos"), full, axis=0).astype(np.float32)
+    ramp = np.zeros(total, np.float32)
+    i0, i1 = int(a * SR), int(b * SR)
+    ramp[i0:i1] = np.linspace(0, 1, i1 - i0); ramp[i1:] = 0
+    k = 1 - 10 ** (-V["shelf_db"] / 20)
+    full = full - hp * (k * ramp)[:, None]
+    def duckdb(t_ranges, default):
+        d = np.full(total, float(default), np.float32)
+        for t0, t1, db in t_ranges:
+            d[int(t0 * SR):int(t1 * SR)] = db
+        return d
+    dd = duckdb(V["ducks"], V["duck_default"])
+    gm = 10 ** ((V["gain"] + dd * mask) / 20)
+    mus = full * gm[:, None]
+    drone, ticks = fit(load(V["drone"])), fit(load(V["ticks"]))
+    mus += drone * (10 ** ((V["drone_gain"] + V["drone_duck"] * mask) / 20))[:, None]
+    mus += ticks * (10 ** ((V["ticks_gain"] + V["ticks_duck"] * mask) / 20))[:, None]
+    c3 = by["C_03"]
+    gate = 1 - env_seg(total, c3["tl_in"] - CFG["audio"]["dead_silence_s"], c3["tl_in"], 0.0, 0.0)
+    return mus, gate
 
 
 def bus(x, af):
@@ -935,8 +982,9 @@ def final_exports(evs):
     for k in ("dialogue", "music", "fx_room"):
         shutil.copy(OUT / f"stems_{VER}/is350_long_{VER}_stem_{k}.wav", D / f"IS350_speedrun_stem_{k}.wav")  # 32-bit float: no clipping, sums to the pre-limiter mix
     shutil.copy(OUT / f"is350_long_{VER}_mix.wav", D / "IS350_speedrun_full_mix.wav")
+    cv = CFG.get("captions_ver", VER)
     for ext in ("srt", "vtt"):
-        shutil.copy(P / f"captions_{VER}.{ext}", D / f"captions_{VER}.{ext}")
+        shutil.copy(P / f"captions_{cv}.{ext}", D / f"captions_{cv}.{ext}")
 
 
 def main(argv):
