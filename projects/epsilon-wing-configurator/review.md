@@ -33,3 +33,5 @@ Known weaknesses / for the reviewer:
 # v3 - `/home/user/media/epsilon-wing-configurator/work/ewc_v3.mp4`: v2 with the sliders/locks shot previewing the Side view (user).
 
 # v4 - `/home/user/media/epsilon-wing-configurator/work/ewc_v4.mp4`: v3 with the car line "Pick from seventy-two cars, or request yours be added, all built from 3D scans." (user wording; the site labels 45/72 as 3D Scan - flagged, user kept it).
+
+# v5 - `/home/user/media/epsilon-wing-configurator/work/ewc_v5.mp4`: AoA section removed, sliders side view at the right aspect, clean car line, 7 customer cars at the end.

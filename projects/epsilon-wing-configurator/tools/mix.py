@@ -42,7 +42,10 @@ def main(out):
 V2 = dict(CUT=(48.07, 52.12), LINE=M + 'vo/line_try.wav', LINE_AT=55.45, LENGTH=58.9,
           # v4 (user): car line replaced, same start (tight 8.14 = video 8.64), padded to the old length (region 8.00-13.29
           # lies inside the pauses either side), so nothing after it moves
-          CARS=dict(file=M + 'vo/line_cars.wav', region=(8.00, 13.29), at=8.14))
+          CARS=dict(file=M + 'vo/line_cars.wav', region=(8.00, 13.29), at=8.14),
+          # v5 (user): drop 'Step the angle of attack, one degree per hole.' = tight 25.55-28.45 (both ends inside pauses; 2.9 s keeps a 0.23 s breath,
+          # exactly 3.0 s = 6 beats so everything after stays on the grid); car line re-take with clean edges
+          AOA_CUT=(25.55, 28.45), CARS_V5=M + 'vo/line_cars_v5.wav')
 
 def main_v2(out):
     import numpy as np
@@ -53,18 +56,23 @@ def main_v2(out):
     rd = lambda f: np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', f, '-ac', '2', '-ar', str(sr), '-f', 'f32le', '-'],
                                                 capture_output=True, check=True).stdout, np.float32).reshape(-1, 2)
     x = rd(tight)
-    if V2.get('CARS') and '--v4' in sys.argv:
-        cr = V2['CARS']; ct = cr['file'].replace('.wav', '_tight.wav'); hmix.tighten(cr['file'], ct); y = rd(ct)
+    v5 = '--v5' in sys.argv
+    if V2.get('CARS') and ('--v4' in sys.argv or v5):
+        cr = V2['CARS']; cf = V2['CARS_V5'] if v5 else cr['file']
+        ct = cf.replace('.wav', '_tight.wav'); hmix.tighten(cf, ct); y = rd(ct)
         e = np.sqrt(np.convolve(y.mean(1) ** 2, np.ones(1440) / 1440, 'same')); on = np.flatnonzero(e > 0.06 * e.max())
-        y = y[max(0, on[0] - int(0.02 * sr)):on[-1] + int(0.1 * sr)]
-        r0, r1 = (int(t * sr) for t in cr['region']); at = int(cr['at'] * sr)
+        y = y[max(0, on[0] - int(0.02 * sr)):on[-1] + int(0.1 * sr)].copy()
+        fo = int(0.04 * sr); y[-fo:] *= np.linspace(1, 0, fo)[:, None]      # v5: close the final 's' cleanly
+        r0, r1 = (int(t * sr) for t in ((7.95, 13.29) if v5 else cr['region'])); at = int((7.98 if v5 else cr['at']) * sr)
         assert at + len(y) < r1, 'new car line longer than the old one'
         x = x.copy(); x[r0:r1] = 0; x[at:at + len(y)] = y
         print('car line', round(len(y) / sr, 2), 's at tight', cr['at'])
-    a, b = (int(t * sr) for t in V2['CUT']); xf = int(0.01 * sr)
-    seg = x[b:].copy(); r = np.linspace(0, 1, xf)[:, None]
-    head = x[:a].copy(); head[-xf:] = head[-xf:] * (1 - r) + seg[:xf] * r
-    vo = np.concatenate([head, seg[xf:]])
+    xf = int(0.01 * sr); r = np.linspace(0, 1, xf)[:, None]
+    def cut(x, t0, t1):
+        a, b = int(t0 * sr), int(t1 * sr); seg = x[b:].copy(); head = x[:a].copy()
+        head[-xf:] = head[-xf:] * (1 - r) + seg[:xf] * r; return np.concatenate([head, seg[xf:]])
+    vo = cut(x, *V2['CUT'])                      # later cut first, so the earlier cut's times stay valid
+    if v5: vo = cut(vo, *V2['AOA_CUT'])
     n1 = len(vo) / sr
     line = rd(lt); at = int((V2['LINE_AT'] - VO_AT) * sr)
     full = np.zeros((max(at + len(line), len(vo)), 2), np.float32); full[:len(vo)] = vo; full[at:at + len(line)] += line
@@ -91,4 +99,4 @@ def main_v2(out):
 
 
 if __name__ == '__main__':
-    (main_v2 if ('--v2' in sys.argv or '--v4' in sys.argv) else main)(sys.argv[1])
+    (main_v2 if any(a in sys.argv for a in ('--v2', '--v4', '--v5')) else main)(sys.argv[1])

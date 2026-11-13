@@ -22,6 +22,14 @@ V2 = dict(SHOTS=['hero_a', 'hero_b', 'cars', 'wing', 'mounts', 'bases', 'aoa', '
           CARD='work/logo_card_v2.png', AUDIO='work/soundtrack_v2.wav')
 
 
+# v5 (user on v4): angle-of-attack shot removed (3.0 s = 6 beats: later shots move up 90 frames), 7 customer cars at the end
+# on the freed time, sliders shot recaptured at the right aspect. Cut frames snapped to measured kicks (snap_cuts.py).
+V5 = dict(SHOTS=['hero_a', 'hero_b', 'cars', 'wing', 'mounts', 'bases', 'turn3d', 'side', 'rear', 'sliders', 'price', 'outro',
+                 'ph1', 'ph5', 'ph2', 'ph6', 'ph3', 'ph7', 'ph4'],
+          CUT_FRAMES=[0, 123, 258, 423, 540, 722, 783, 827, 980, 1067, 1203, 1368, 1460, 1484, 1518, 1547, 1578, 1608, 1637, 1667],
+          CARD='work/logo_card_v2.png', AUDIO='work/soundtrack_v5.wav')
+
+
 def main(out, audio=M + 'work/soundtrack_v1.wav', card='work/logo_card.png'):
     fr = CUT_FRAMES + [round(END * FPS)]
     ins, parts = [], []
@@ -47,7 +55,10 @@ def main(out, audio=M + 'work/soundtrack_v1.wav', card='work/logo_card.png'):
     print(out, 'cut frames', fr)
 
 if __name__ == '__main__':
-    if '--v4' in sys.argv:
+    if '--v5' in sys.argv:
+        SHOTS[:] = V5['SHOTS']; CUT_FRAMES[:] = V5['CUT_FRAMES']
+        main(sys.argv[1], M + V5['AUDIO'], V5['CARD'])
+    elif '--v4' in sys.argv:
         SHOTS[:] = V2['SHOTS']; CUT_FRAMES[:] = V2['CUT_FRAMES']
         main(sys.argv[1], M + 'work/soundtrack_v4.wav', V2['CARD'])
     elif '--v2' in sys.argv:

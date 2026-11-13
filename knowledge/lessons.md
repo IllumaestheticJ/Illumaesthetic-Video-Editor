@@ -819,3 +819,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[framing]** Check the top/bottom 25 % bands for bright pixels over the last 15 frames of every part-move shot: an
   exit key that "looked fine" in the 3-frame preview still left the bumper in a corner at the cut.
 - **Measure cuts on the decoded picture, not the plan** (mazda-miata-na v3). `ive assemble` builds a cut as a 1-frame xfade, so the incoming shot first appears one frame after the summed `dur`s, and every cut lands +33 ms late. Find the first new-shot frame from frame differences in the delivered mp4, then match it against the audio onsets. Fix in the project by shortening the first clip by one frame and lengthening the last clip by one frame.
+- **[audio]** (epsilon-wing-configurator v5) Higgsfield seed_audio can clip the first/last phoneme of a single generated line
+  (file starts at 8 % level mid-"P"). Wrap the text in "... text ..." and check the first/last 10-50 ms envelope of every take
+  before splicing; the user heard v4's clipped "Pick".
+- **[technical]** (epsilon-wing-configurator v5) When a stacked shot's top pane is not 1080x1100, build its src rect at the
+  pane's own aspect - a topRect() (1080:1100) drawn into a 1080x800 pane squashed the side view ("aspect ratio messed up").

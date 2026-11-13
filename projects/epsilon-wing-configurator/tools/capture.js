@@ -306,7 +306,8 @@ const SHOTS = {
     await c.pick('Toyota', 'GR86'); await c.openAdjust(); await c.view('Side');
     const to = await c.panelTo('.ewc-numctl[data-num="overhang"]', null, 10); await c.setPanelScroll(to); await c.settle(300);
     const w = await c.rect('svg .ewc-wing'); const oc = await c.rect('.ewc-numctl[data-num="overhang"]');
-    stack(c, topRect(w.cx - 70, w.cy + 50, 560), await panelRect(c, oc.y - 8, 384 * 1100 / 1080), 800);
+    const th = 560, tw = th * 1080 / 800;   // top pane is 1080x800: crop at that aspect (v3 used 1080:1100 -> squashed)
+    stack(c, { x: w.cx - 70 - tw / 2, y: w.cy + 50 - th / 2, w: tw, h: th }, await panelRect(c, oc.y - 8, 384 * 1100 / 1080), 800);
     const sl = await c.rect('.ewc-numctl[data-num="height"] .ewc-num-slider');
     const val = await c.p.$eval('.ewc-numctl[data-num="height"] .ewc-num-slider', e => [+e.min, +e.max, +e.value]);
     const fx = x => sl.x + 8 + (sl.w - 16) * (x - val[0]) / (val[1] - val[0]);
