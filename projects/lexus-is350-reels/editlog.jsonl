@@ -9,3 +9,4 @@
 {"ts": "2026-11-13T12:25:32Z", "decision": "FX30541 4K: 14 spans cut, alignment verified vs proxy (match frame f5641 exact), original deleted", "why": "disk; frame-exact intermediates are all the reels need"}
 {"ts": "2026-11-13T12:43:28Z", "decision": "R2 order: rear bumper first, then rear quarter, hood, front walk-out", "why": "the rear-quarter lead-in (541 233.7) opens on a pan blur in the 3D agent's window; the rear-bumper lead-in is steady, so the first frame is sharp"}
 {"ts": "2026-11-13T12:53:48Z", "decision": "All 4K spans cut and frame-verified (541,542,547,551,553,554); every downloaded original deleted after cutting", "why": "brief: one original at a time on a 6 GB disk"}
+{"ts": "2026-11-13T13:22:13Z", "decision": "v1 delivered with scan placeholders for V_MATCH_REAR, V_PAIR_2, V_RES_FULL", "why": "3D chain ended (CHAIN_DONE 13:01) before those renders finished; build swaps them in on re-run"}

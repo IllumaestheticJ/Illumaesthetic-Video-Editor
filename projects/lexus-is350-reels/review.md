@@ -56,3 +56,9 @@ the cuts sit on the agent's lattice to the frame. Nobody has listened to the mix
 - R1 and R3 both end on V_RES_FULL with the same result card (R3 uses more of it, 3.45 s vs 2.8 s).
 - Clock 1 in the reboot shot (12:09) is derived from 542@24 (12:20.75 legible); all other clock values are legible or are the long-form's derivation.
 - `ive director` does not fit this format (it reads each listed file whole, so it reports every shot as the same view); not used for decisions.
+
+## Still placeholder (13:22 UTC)
+The 3D agent's chain log ends `CHAIN_DONE` at 13:01 with V_MATCH_REAR 39/42 frames (no preview mp4), V_PAIR_2 0/42 and V_RES_FULL 0/64; no Blender
+process is running. Placeholders (darkened matched IRL window / black, tagged "PLACEHOLDER <id>"): R1 V_RES_FULL; R2 V_MATCH_REAR, V_PAIR_2,
+V_RES_FULL; R3 V_RES_FULL. When `renders/<id>/<id>_preview.mp4` exists, `python projects/lexus-is350-reels/tools/build.py && python projects/lexus-is350-reels/tools/qa.py`
+swaps them in (graphics and intermediates are cached). Re-check the rear and rear-quarter onions (`out/qa/R2/onions.jpg`) then.
