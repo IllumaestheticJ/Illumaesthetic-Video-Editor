@@ -833,17 +833,22 @@ def master():
     log("wrote", OUT / f"is350_long_{VER}_clean.mp4")
 
 
-def composite(evs):
-    """STAGE B: HUD_v2 (0,0) + cue clips + black cards + captions band (360,880) over the clean picture -> is350_long_v2.mp4"""
-    G = W / "gfx/v2"
+def composite(evs, out=None, captions=True, crf=18, preset="medium"):
+    """HUD (0,0) + cue clips + black cards + captions band (360,880) over the clean picture"""
+    G = W / f"gfx/{VER}"
     by = {e["id"]: e for e in evs}
-    props = json.load(open(P / "gfx_v2_cues_props.json"))
-    tied = {"G05a_v2": "C_03", "G05b_v2": "C_07", "G15_v2": "END", "FX_GLITCH_C02": "C_02"}
-    layers = [("HUD_v2.mov", 0, 0, 0)]
+    props = json.load(open(P / f"gfx_{VER}_cues_props.json"))
+    tied = {"G05a": "C_03", "G05b": "C_07", "G15": "END", "FX_GLITCH_C02": "C_02", "G_RESULTS": "RESULTS_CARD"}
+    layers = [(f"HUD_{VER}.mov", 0, 0, 0)]
     for c in props:
-        f0 = by[tied[c["cue"]]]["in_f"] if c["cue"] in tied else F(c["in"])
+        base = re.sub(r"_v\d+$", "", c["cue"])
+        f0 = by[tied[base]]["in_f"] if base in tied and tied[base] in by else F(c["in"])
         layers.append((c["file"], f0, 0, 0))
-    layers.append(("CAPTIONS_v2.mov", 0, 360, 880))
+    # cards are opaque: put them under the HUD so the HUD stays on top (G05a); the HUD itself hides on RESULTS/END
+    cards = [l for l in layers if l[0].endswith(".mp4")]
+    layers = cards + [l for l in layers if not l[0].endswith(".mp4")]
+    if captions:
+        layers.append((f"CAPTIONS_{VER}.mov", 0, 360, 880))
     inputs = ["-i", str(B2 / "picture_clean.mp4")]
     fc = []
     cur = "0:v"
@@ -852,18 +857,44 @@ def composite(evs):
         fc.append(f"[{k}:v]setpts=PTS+{f0}/(24000/1001)/TB[l{k}]")
         fc.append(f"[{cur}][l{k}]overlay={x}:{y}:eof_action=pass:format=auto[v{k}]")
         cur = f"v{k}"
-    fc.append(f"[{cur}]format=yuv420p[vout]")
+    fc.append(f"[{cur}]format=yuv420p,setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709:range=tv[vout]")
     mix = OUT / f"is350_long_{VER}_mix.wav"
-    tmp = OUT / f"is350_long_{VER}.tmp.mp4"
+    out = Path(out or OUT / f"is350_long_{VER}.mp4")
+    tmp = out.with_suffix(".tmp.mp4")
     subprocess.run(NICE + ["ffmpeg", "-v", "error", "-y"] + inputs + ["-i", str(mix), "-filter_complex", ";".join(fc),
-                           "-map", "[vout]", "-map", f"{len(layers) + 1}:a", "-c:v", "libx264", "-preset", "medium", "-crf", "18",
-                           "-threads", "3", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
-                           "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-frames:v", str(evs[-1]["out_f"]),
+                           "-map", "[vout]", "-map", f"{len(layers) + 1}:a", "-c:v", "libx264", "-profile:v", "high", "-preset", preset,
+                           "-crf", str(crf), "-threads", "4", "-r", "24000/1001", "-color_primaries", "bt709", "-color_trc", "bt709",
+                           "-colorspace", "bt709", "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-frames:v", str(evs[-1]["out_f"]),
                            "-movflags", "+faststart", str(tmp)], check=True)
-    os.replace(tmp, OUT / f"is350_long_{VER}.mp4")
+    os.replace(tmp, out)
+    log("wrote", out, "captions" if captions else "no captions", "layers:", [(l[0], l[1]) for l in layers])
+
+
+def final_exports(evs):
     import shutil
-    shutil.copy(P / "captions_v2.srt", OUT / "captions_v2.srt")
-    log("wrote", OUT / f"is350_long_{VER}.mp4", "layers:", [(l[0], l[1]) for l in layers])
+    D = OUT / "final"
+    D.mkdir(parents=True, exist_ok=True)
+    m = D / "IS350_speedrun_1080p_master.mp4"
+    if not m.exists():
+        composite(evs, m, True, 16, "slow")
+    c = D / "IS350_speedrun_clean_no_captions_1080p.mp4"
+    if not c.exists():
+        composite(evs, c, False, 16, "slow")
+    y = D / "IS350_speedrun_1440p_youtube.mp4"
+    if not y.exists():
+        tmp = y.with_suffix(".tmp.mp4")
+        subprocess.run(NICE + ["ffmpeg", "-v", "error", "-y", "-i", str(m), "-vf",
+                               "scale=2560:1440:flags=lanczos,unsharp=5:5:0.4:5:5:0.0,setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709",
+                               "-c:v", "libx264", "-profile:v", "high", "-preset", "slow", "-crf", "16", "-pix_fmt", "yuv420p",
+                               "-threads", "4", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
+                               "-c:a", "copy", "-movflags", "+faststart", str(tmp)], check=True)
+        os.replace(tmp, y)
+        log("wrote", y)
+    for k in ("dialogue", "music", "fx_room"):
+        shutil.copy(OUT / f"stems_{VER}/is350_long_{VER}_stem_{k}.wav", D / f"IS350_speedrun_stem_{k}.wav")  # 32-bit float: no clipping, sums to the pre-limiter mix
+    shutil.copy(OUT / f"is350_long_{VER}_mix.wav", D / "IS350_speedrun_full_mix.wav")
+    for ext in ("srt", "vtt"):
+        shutil.copy(P / f"captions_{VER}.{ext}", D / f"captions_{VER}.{ext}")
 
 
 def main(argv):
@@ -878,6 +909,8 @@ def main(argv):
         master()
     if "composite" in stages:
         composite(evs)
+    if "final" in stages:
+        final_exports(evs)
 
 
 if __name__ == "__main__":
