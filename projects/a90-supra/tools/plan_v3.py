@@ -68,12 +68,12 @@ PARTS = ["fbump", "fender", "dtrim", "uskirt", "lskirt", "rbump"]
 def home(s, off=(), hero=()):
     """body + every panel still on the car (1.5 mm copy unless hero) + ALL state fills: under a fitted panel the fill backs
     the seams with real geometry (without it the kept-skin islands dropped as scrap left dark gaps along the panel edges)"""
-    s.obj("body_s")      # cut edges smoothed (tools/smooth_body_v3.py)
+    s.obj("body_c")      # cut edges smoothed (tools/smooth_body_v3.py)
     for p in PARTS:
         if p in off:
             continue
-        s.obj("skin_" + p)   # fitted panel = the car scan's own skin (seamless); the panel scan takes over when it moves
-    for f in ("fill_fbump", "fill2_fender", "fill2_dtrim", "fill2_skirts", "fill_rbump"):   # fill2 = 3 mm gap (refill_v3.py)
+        s.obj(("skinc_" if p in ("fender", "rbump") else "skin_") + p)   # v3.1: fender + rear bumper re-cut on the panel scan outline (recut_v3.py)   # fitted panel = the car scan's own skin (seamless); the panel scan takes over when it moves
+    for f in ("fill_fbump", "fillc_fender", "fill2_dtrim", "fill2_skirts", "fillc_rbump"):   # fill2 = 3 mm gap (refill_v3.py)
         s.obj(f)
 
 
@@ -204,7 +204,7 @@ OFF_SIDE0 = ("fbump",)
 s = Shot("s10_fender", 10, 30)
 home(s, off=("fbump", "fender")); corners(s, fr_off=FR_OFF)
 EXIT = [0, -0.45, -1.05]
-s.obj("part_fender", keys=[(0, dict()), (1, dict(loc=[0, -0.12, 0], ease="ease_out")), (2, dict(loc=[0, -0.35, -0.15], ease="linear")),
+s.obj("partc_fender", keys=[(0, dict()), (1, dict(loc=[0, -0.12, 0], ease="ease_out")), (2, dict(loc=[0, -0.35, -0.15], ease="linear")),
                            (3.2, dict(loc=EXIT, ease="ease_in"))], vis=[(0, 3.2)])
 s.cam((0, dict(az=-90, dist=1.6, z=0.75, look=[0.55, -0.90, 0.55])), (8.1, dict(az=-90, dist=1.0, z=0.75, look=[0.60, -0.85, 0.50])))
 
@@ -259,7 +259,7 @@ RB_PARK, RB_ROT = [-1.05, 0, -0.55], [0, -105, 0]
 OFF_ALL = OFF_SIDE + ("rbump",)
 s = Shot("s15_rb_off", 16, 30)
 home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
-s.obj("part_rbump", pivot=RB_PIV, keys=[(0, dict(loc=[0, 0, 0])), (2, dict(loc=[-0.45, 0, 0], ease="ease_out")),
+s.obj("partc_rbump", pivot=RB_PIV, keys=[(0, dict(loc=[0, 0, 0])), (2, dict(loc=[-0.45, 0, 0], ease="ease_out")),
                                         (3.5, dict(loc=[-0.75, 0, -0.10], rot=[0, -35, 0], ease="linear")),
                                         (5, dict(loc=RB_PARK, rot=RB_ROT, ease="ease_out")), (8.1, dict(loc=RB_PARK, rot=RB_ROT))])
 s.cam((0, dict(az=-162, dist=2.45, z=1.7, look=[-2.25, 0, 0.12])), (8.1, dict(az=-162, dist=2.1, z=1.5, look=[-2.6, 0, -0.15])))
@@ -270,8 +270,8 @@ s.cam((0, dict(az=-155, dist=1.25, z=0.62, look=[-2.0, -0.45, 0.40])), (8.6, dic
 # ---------------------------------------------------------------- s17 line-up / s18 reassembly / s19 clean car
 TILT = [-70, 0, 0]   # thin side panels: outer face up toward the overhead lens
 LINE = {  # part: (pivot or None, loc, rot)
-    "part_fbump": (FB_PIV, [0.60, 0, 0], [0, 105, 0]), "part_rbump": (RB_PIV, [-0.60, 0, 0], [0, -105, 0]),
-    "part_fender": (None, [-0.05, -0.75, 0], TILT), "part_dtrim": (None, [0, -0.62, 0], TILT),
+    "part_fbump": (FB_PIV, [0.60, 0, 0], [0, 105, 0]), "partc_rbump": (RB_PIV, [-0.60, 0, 0], [0, -105, 0]),
+    "partc_fender": (None, [-0.05, -0.75, 0], TILT), "part_dtrim": (None, [0, -0.62, 0], TILT),
     "part_uskirt": (None, [0, -1.10, 0], TILT), "part_lskirt": (None, [0, -1.48, 0], TILT),
     "k_FR_wheel": (None, out(FAX, 1.05), [0, 0, 0]), "k_FR_caliper": (None, add([-0.07, 0, 0.06], out(FAX, 0.66)), [0, 0, 0]),
     "k_FR_rotor": (None, out(FAX, 0.46), [0, 0, 0]), "k_FR_dust_shield": (None, out(FAX, 0.30), [0, 0, 0]),
@@ -280,7 +280,7 @@ LINE = {  # part: (pivot or None, loc, rot)
     "k_RR_rotor": (None, out(RAX, 0.38), [0, 0, 0]),
 }
 SEAT = {"k_FR_bearing": 1.5, "k_FR_dust_shield": 2.2, "k_FR_rotor": 3, "k_RR_rotor": 3, "k_FR_caliper": 4, "k_RR_caliper": 4,
-        "k_FR_wheel": 5, "k_RR_wheel": 5, "part_fender": 6, "part_dtrim": 6, "part_uskirt": 6, "part_lskirt": 6.5, "part_rbump": 7, "part_fbump": 8}
+        "k_FR_wheel": 5, "k_RR_wheel": 5, "partc_fender": 6, "part_dtrim": 6, "part_uskirt": 6, "part_lskirt": 6.5, "partc_rbump": 7, "part_fbump": 8}
 s = Shot("s17_lineup", 18, 15, lens=31)
 home(s, off=OFF_ALL); corners(s, fr_off=FR_OFF, rr_off=RR_OFF); s.obj("interior"); s.obj("console")
 for n, (piv, loc, rot) in LINE.items():
@@ -293,9 +293,9 @@ for n, (piv, loc, rot) in LINE.items():
     kw = dict(pivot=piv) if piv else {}
     h = SEAT[n]
     s.obj(n, keys=[(0, dict(loc=loc, rot=rot)), (max(0, h - 2.2), dict(loc=loc, rot=rot)), (h, dict(loc=[0, 0, 0], rot=[0, 0, 0], ease="ease_in")),
-                   (8.1, dict(loc=[0, 0, 0], rot=[0, 0, 0]))], vis=[(0, h - 0.02)] if n.startswith("part_") and h < 8 else None, **kw)
-    if n.startswith("part_") and h < 8:
-        s.obj(n.replace("part_", "skin_"), vis=[(h, 8.2)])     # seated: back to the car's own seamless skin
+                   (8.1, dict(loc=[0, 0, 0], rot=[0, 0, 0]))], vis=[(0, h - 0.02)] if n.startswith("part") and h < 8 else None, **kw)
+    if n.startswith("part") and h < 8:
+        s.obj(n.replace("partc_", "skinc_").replace("part_", "skin_"), vis=[(h, 8.2)])     # seated: back to the car's own seamless skin
 s.cam((0, dict(az=-55, dist=6.6, z=3.0, look=[0.2, -0.3, 0.40])), (8.1, dict(az=-55, dist=5.2, z=2.3, look=[0.2, 0, 0.45])))
 s = Shot("s19_clean", 20, 15)
 home(s); corners(s)
