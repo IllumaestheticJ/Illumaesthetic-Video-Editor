@@ -5,8 +5,8 @@
 cd "$(dirname "$0")/../../.."
 R=/home/user/media/work/frontier/renders/final
 for s in "$@"; do
-  spec=$(python projects/nissan-frontier/tools/shots_v8.py final $s)
-  python - "$spec" "$R/$s" "$R/${s}_30" "$( [[ " $REUSE " == *" $s "* ]] && echo 1 || echo 0 )" <<'PY'
+  spec=$(python projects/nissan-frontier/tools/${SHOTS:-shots_v8}.py final $s)
+  python - "$spec" "$R/$s" "$R/${s}${SUF:-_30}" "$( [[ " $REUSE " == *" $s "* ]] && echo 1 || echo 0 )" <<'PY'
 import json, os, sys
 spec, d15, d30, reuse = sys.argv[1:5]
 sp = json.load(open(spec)); n = int(round(sp["seconds"] * sp["fps"])); os.makedirs(d30, exist_ok=True)
@@ -20,8 +20,8 @@ print("missing", len(miss), "of", n)
 PY
   t0=$(date +%s)
   if [ "$(python -c "import json;print(len(json.load(open('$spec'))['frames']))")" != "0" ]; then
-    blender -b -P projects/nissan-frontier/tools/shot.py -- $spec > /home/user/media/nissan-frontier/chk/final30_$s.log 2>&1
+    blender -b -P projects/nissan-frontier/tools/shot.py -- $spec > /home/user/media/nissan-frontier/chk/final${SUF:-_30}_$s.log 2>&1
   fi
-  echo "$s done rc=$? $(( $(date +%s)-t0 ))s frames=$(ls $R/${s}_30 | wc -l)"
+  echo "$s done rc=$? $(( $(date +%s)-t0 ))s frames=$(ls $R/${s}${SUF:-_30} | wc -l)"
 done
 echo QUEUEDONE
