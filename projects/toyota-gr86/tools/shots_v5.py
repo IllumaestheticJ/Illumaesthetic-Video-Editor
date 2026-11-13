@@ -71,7 +71,9 @@ def front_static(markers=FAR):
 #    left one mirrored (hidden by the car). Pure translate: the marker's back was never checked as scanned -> no spin.
 MK_R = [0.15, -0.30, 0.30]
 MK_L = [-0.15, -0.30, 0.30]
-spec("m1_side_marker", [cam(0, [1.70, -2.40, 0.55], [0.80, -1.62, 0.75], 30), cam(2.0, [1.62, -2.30, 0.57], [0.80, -1.62, 0.75], 32)],
+# camera ahead of the corner (preview 1 at (1.70,-2.40,0.55) framed the wheel and lost the marker top-left; pinhole check:
+# marker home (0.65,0.57) -> end (0.50,0.31) of the frame)
+spec("m1_side_marker", [cam(0, [2.00, -3.10, 0.95], [0.80, -1.80, 0.75], 34), cam(2.0, [1.92, -3.00, 0.95], [0.85, -1.88, 0.82], 42)],   # preview 2: marker reads but small -> push in on its end pose
      [part("front_bumper_v5", [k(0, Z)], FB_PIV),
       part("side_marker_R", [k(0, Z), k(0.05, Z), k(0.30, [0.15, 0, 0], ease="out"), k(0.75, MK_R, ease="out"),
                              k(2.1, add(MK_R, [0.01, -0.02, 0.02]), ease="lin")]),
