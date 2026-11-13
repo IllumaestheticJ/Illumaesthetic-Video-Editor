@@ -1,36 +1,36 @@
 {
- "width": 1080,
- "height": 1920,
- "fps": 30,
- "durationInFrames": 1080,
- "accent": "#e8ecf2",
- "items": [
-  {
-   "kind": "label",
-   "from": 230,
-   "duration": 64,
-   "title": "FRONT BUMPER",
-   "sub": "INSIDE + OUTSIDE SCANNED",
-   "x": 0.08,
-   "y": 0.74
-  },
-  {
-   "kind": "label",
-   "from": 326,
-   "duration": 55,
-   "title": "FRONT BUMPER REMOVED",
-   "sub": "WHAT'S BEHIND IT, SCANNED",
-   "x": 0.08,
-   "y": 0.12
-  },
-  {
-   "kind": "label",
-   "from": 386,
-   "duration": 66,
-   "title": "CRASH BEAM",
-   "sub": "MOUNTING POINTS \u00b7 RADIATOR",
-   "x": 0.08,
-   "y": 0.12
-  }
- ]
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "durationInFrames": 964,
+  "accent": "#e8ecf2",
+  "items": [
+    {
+      "kind": "label",
+      "from": 114,
+      "duration": 64,
+      "title": "FRONT BUMPER",
+      "sub": "INSIDE + OUTSIDE SCANNED",
+      "x": 0.08,
+      "y": 0.74
+    },
+    {
+      "kind": "label",
+      "from": 210,
+      "duration": 55,
+      "title": "FRONT BUMPER REMOVED",
+      "sub": "WHAT'S BEHIND IT, SCANNED",
+      "x": 0.08,
+      "y": 0.12
+    },
+    {
+      "kind": "label",
+      "from": 270,
+      "duration": 66,
+      "title": "CRASH BEAM",
+      "sub": "MOUNTING POINTS \u00b7 RADIATOR",
+      "x": 0.08,
+      "y": 0.12
+    }
+  ]
 }

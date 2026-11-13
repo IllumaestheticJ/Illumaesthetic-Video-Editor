@@ -1,3 +1,15 @@
+# Mazda Miata NA scan reel v4 — self-review (training/rubric.md)
+
+Output: `/home/user/media/work/miata/out/mazda_miata_na_v4.mp4`. Specs: 1080x1920, 30 fps, 32.13 s (964 frames), H.264 + AAC, faststart.
+v4 = v3 (review_v3.md, below for reference) with the reviewer's "intro way too slow" / "if the video needs to be shorter, make it shorter":
+- s1 (whole car) 5.13 s → 1.27 s: the same render played 4x (src_fps 60), so the push is fast from frame 0 and the bumper comes off at 1.30 s.
+- Music seek 0.68 → 4.5467 s, the same 116 frames, so every later cut keeps its v3 musical position. The first frame lands on a track beat.
+- HUD labels shifted −116 frames (hud_v4.mov). Reel 36.0 → 32.13 s.
+- Measured on the decoded picture and audio: cuts at 39/193/348/425/502/656/810 are −16..+13 ms from onsets.
+- Hook score 4 → 5 (transformation inside 1.3 s); the other scores are unchanged from v3.
+
+---
+
 # Mazda Miata NA scan reel v3 — self-review (training/rubric.md)
 
 Output: `/home/user/media/work/miata/out/mazda_miata_na_v3.mp4`. Specs: 1080x1920, 30 fps, 36.00 s (1080 frames), H.264 yuv420p + AAC, faststart.
