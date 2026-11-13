@@ -1,0 +1,28 @@
+{
+  "sources": [
+    "/home/user/media/smart-hellkitten/scan/dec/clam_C.stl"
+  ],
+  "unit_scale": 0.001,
+  "root_location": [
+    0.021746546030044556,
+    0.18538177013397217,
+    0.0070648458786308765
+  ],
+  "faces_in": 1631891,
+  "faces_out": 1572238,
+  "bbox_min": [
+    -0.787300705909729,
+    -1.2867714166641235,
+    0.09115877002477646
+  ],
+  "bbox_max": [
+    0.7863967418670654,
+    1.2102646827697754,
+    1.5272910594940186
+  ],
+  "objects": [
+    "clam_C"
+  ],
+  "has_color_attribute": false,
+  "has_uv_texture": false
+}

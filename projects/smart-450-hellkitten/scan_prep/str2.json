@@ -1,0 +1,28 @@
+{
+  "sources": [
+    "/home/user/media/smart-hellkitten/scan/dec/str2_C.stl"
+  ],
+  "unit_scale": 0.001,
+  "root_location": [
+    0.021746546030044556,
+    0.18538177013397217,
+    0.0070648458786308765
+  ],
+  "faces_in": 6987097,
+  "faces_out": 6841266,
+  "bbox_min": [
+    -0.77152419090271,
+    -1.2499473094940186,
+    0.018692445009946823
+  ],
+  "bbox_max": [
+    0.7667702436447144,
+    1.2457722425460815,
+    1.5354918241500854
+  ],
+  "objects": [
+    "str2_C"
+  ],
+  "has_color_attribute": false,
+  "has_uv_texture": false
+}

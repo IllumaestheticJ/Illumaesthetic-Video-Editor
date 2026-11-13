@@ -1,0 +1,28 @@
+{
+  "sources": [
+    "/home/user/media/smart-hellkitten/scan/dec/door_C.stl"
+  ],
+  "unit_scale": 0.001,
+  "root_location": [
+    0.021746546030044556,
+    0.18538177013397217,
+    0.0070648458786308765
+  ],
+  "faces_in": 1374147,
+  "faces_out": 1338247,
+  "bbox_min": [
+    -0.7732721567153931,
+    -1.2606080770492554,
+    0.11119022965431213
+  ],
+  "bbox_max": [
+    0.7660712003707886,
+    0.8684387803077698,
+    1.3394359350204468
+  ],
+  "objects": [
+    "door_C.001"
+  ],
+  "has_color_attribute": false,
+  "has_uv_texture": false
+}
