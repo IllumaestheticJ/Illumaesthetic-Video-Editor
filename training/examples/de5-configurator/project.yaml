@@ -4,7 +4,7 @@
 # Music: 'Time Back' - Sinny & 7vvch (TikTok Commercial Music Library), bed starts at 18.50 s of the track so the drop (35.97 s) lands on the 1:1 cut at frame 524.
 project: de5-configurator
 format: reel-9x16 (TikTok)
-output: {path: /home/user/media/work/de5/out/de5_configurator_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/de5/out/de5_configurator_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music: {path: /home/user/media/work/de5/layers/music.wav, start: 0, fade_out: 1.2}
 

@@ -39,3 +39,7 @@ Output: `/home/user/media/work/de5/out/de5_configurator_v3.mp4` - 1080x1920, 30 
 - Story 4: the 1:1 is now the ending. No end card or logo at all (user asked to end on the photo) - flag if a brand tag is wanted.
 - Hook 2: the transformation is the last beat; first real footage at 8.7 s.
 - Listing removals requested by the user (two driveway photos, first two blue renders) NOT done: blocked by the session's permission check; Shopify connector needs re-auth.
+
+# v4 (user: hated the zoom on the last shot)
+Output: `/home/user/media/work/de5/out/de5_configurator_v4.mp4` - 21.80 s. Last shot is a constant-scale sideways slide that eases to rest on the whole wing; orbit recaptured to match.
+14 cuts on the grid, drop 17.47 s on the cut, no jump inside the orbit (max frame diff 2.6), final frames still (diff 0.07). 1:1 overlay: body lines, plate, wheel, lights coincide; emblem ~20 px off.

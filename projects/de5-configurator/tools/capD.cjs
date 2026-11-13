@@ -3,7 +3,7 @@ const { chromium } = require('playwright'); const fs = require('fs');
 const cam = JSON.parse(fs.readFileSync('/home/user/media/work/de5/match/cam_v2.json'));
 const N = +process.argv[2] || 131, OUT = process.argv[3] || '/home/user/media/work/de5/frames/D', STEP = +process.argv[4] || 1;
 // photo window (cx, cy, height in photo px; 9:16) at time t (s) relative to the cut; same linear push as shot E
-const WIN = { c0: [2420, 2381.5, 4763], c1: [2520, 2480, 4250], dur: 82 / 30 };
+const WIN = { c0: [3320, 2381.5, 4763], c1: [2193, 2381.5, 4763], dur: 82 / 30 };   // v4: sideways slide at constant scale (user hated the zoom); 13.74 photo px/frame at the cut, same as layers.py E
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const b = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });

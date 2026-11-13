@@ -15,17 +15,17 @@ if 'grid' in only: print({k: fr(v) for k, v in CUTS.items()}, N); sys.exit()
 for n in 'ABCD':
     if want(n): run('-framerate', FPS, '-pattern_type', 'glob', '-i', f'{Wk}/frames/{n}/0*.png', '-vf', f'scale={W}:{H}:flags=lanczos,tpad=stop_mode=clone:stop=60', '-frames:v', N[n], *X264, f'{L}/{n}.mp4')
 # --- stills with a linear 9:16 window move (cx, cy, height in photo px). E uses the SAME window path the configurator camera ends on (capD.cjs WIN)
-def kb(name, photo, s0, s1, n=None, dur=None):
+def kb(name, photo, s0, s1, n=None, dur=None, decel=False):   # decel: starts at the linear speed and glides to a stop on the last frame
     im = cv2.imread(photo); n = n or N[name]; dur = dur or n
     p = subprocess.Popen(['ffmpeg', '-y', '-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-', *X264, f'{L}/{name}.mp4'], stdin=subprocess.PIPE)
     for i in range(n):
-        u = i / dur; cx, cy, h = [a + (b - a) * u for a, b in zip(s0, s1)]; sc = H / h
+        u = (i - i * i / (2 * n) if decel else i) / dur; cx, cy, h = [a + (b - a) * u for a, b in zip(s0, s1)]; sc = H / h
         Mx = np.array([[sc, 0, W / 2 - cx * sc], [0, sc, H / 2 - cy * sc]])
         p.stdin.write(cv2.warpAffine(im, Mx, (W, H), flags=cv2.INTER_AREA if sc < 1 else cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REPLICATE).tobytes())
     p.stdin.close(); p.wait()
 PH = f'{M}/photos/gt_acura-integra-de5-gt-wing-'
 DR = f'{M}/drive/'   # v2: the user's Drive photos of the DE5 GT wing (v1 used the listing's driveway photos)
-if want('E'): kb('E', f'{M}/listing/_DSF3972_bright_full.png', (2420, 2381.5, 4763), (2520, 2480, 4250), dur=82)   # brightened copy (user request); same window speed as capD.cjs, held for 8 beats
+if want('E'): kb('E', f'{M}/listing/_DSF3972_bright_full.png', (3320, 2381.5, 4763), (2193, 2381.5, 4763), dur=82, decel=True)   # v4: no zoom - slide from the rear quarter back to the whole wing at full height, easing to a stop on it (v3 pushed in; user hated it). Brightened copy; speed at the cut = capD.cjs WIN
 # --- install snippets: Dropbox 'Integra Sport Wing Install Tutorial' (Sony 1080p 23.976, flat profile): 9:16 window (608 px of 1920) at cx, grade lift
 T = f'{M}/tutorial'
 GR = 'eq=contrast=1.32:gamma=1.18:saturation=1.35'
