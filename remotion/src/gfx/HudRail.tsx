@@ -145,10 +145,8 @@ export const HudRail: React.FC<HudRailProps> = (props) => {
   const post = seg.t2.k !== "hidden";
   const finalState = seg.c1.k === "final";
   const shrink = interpolate(t, [props.timer2Appear, props.timer2Appear + 10 / fps], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const pre = t < props.chipsOut ? (bet ? 56 : 84) : 84;
-  const c1Size = post ? (finalState ? 38 : 38) : (t >= props.timer2Appear - 0.01 ? 38 : pre);
+  const pre = t < props.chipsOut ? (bet ? 52 : 76) : 76;
   const c1SizeA = post ? 38 : interpolate(shrink, [0, 1], [pre, 38]);
-  void c1Size;
   const t2Size = finalState ? 52 : 64;
   const c1 = rollStart("c1"), t2 = rollStart("t2");
   const c1Color = seg.c1.k === "notstarted" ? C.grey : C.ink;
@@ -169,7 +167,7 @@ export const HudRail: React.FC<HudRailProps> = (props) => {
       {seg.mode === "plate" && <div style={{ position: "absolute", left: 0, right: 0, top: 0, height: 1, background: "rgba(232,236,242,0.14)" }} />}
 
       {/* CLOCK 1 */}
-      <div style={{ position: "absolute", left: c1X, bottom: 34 }}>
+      <div style={{ position: "absolute", left: c1X, bottom: 30 }}>
         <Label>
           <span>CLOCK 1</span>
           {crashOn && (
@@ -182,7 +180,7 @@ export const HudRail: React.FC<HudRailProps> = (props) => {
 
       {/* TIMER 2 */}
       {post && (
-        <div style={{ position: "absolute", left: t2X, bottom: 34 }}>
+        <div style={{ position: "absolute", left: t2X, bottom: 30 }}>
           <Label>
             <span>TIMER 2</span>
             {seg.t2.k === "paused" && <PauseGlyph />}

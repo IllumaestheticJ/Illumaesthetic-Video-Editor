@@ -107,5 +107,37 @@
   "frames": 120,
   "text": "ILLUMAESTHETIC",
   "sub": "[owner to confirm: scan listing CTA / URL]"
+ },
+ "CON_G1": {
+  "comp": "GfxCard",
+  "cue": "CON_G1",
+  "in": 280.954,
+  "out": 285.954,
+  "frames": 120,
+  "text": [
+   "HOW FAST?",
+   "32 MIN \u00b7 FROM \"GO\"",
+   "20 MIN \u00b7 WITHOUT THE CRASH"
+  ],
+  "sub": "THE BET WAS 15"
+ },
+ "CON_G2": {
+  "comp": "GfxCard",
+  "cue": "CON_G2",
+  "in": 287.554,
+  "out": 293.054,
+  "frames": 132,
+  "text": "A FULL CAR IN ABOUT A COFFEE BREAK",
+  "sub": "24,999,992 TRIANGLES: THE STARTING POINT FOR NEW PARTS"
+ },
+ "CON_G3": {
+  "pos": "bl",
+  "comp": "ScanLabel",
+  "cue": "CON_G3",
+  "in": 297.854,
+  "out": 304.414,
+  "frames": 157,
+  "text": "LINK IN THE DESCRIPTION",
+  "sub": ""
  }
 }

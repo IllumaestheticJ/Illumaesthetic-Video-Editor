@@ -84,6 +84,14 @@ for ev in edl["events"]:
     segs.append(entry)
     # E5-E7 (bet): clock shown compact with the prediction tally
 
+# conclusion_edl.json replaces E71: rail visible until CON_05 (scan), hidden from there
+cp = P / "conclusion_edl.json"
+con = json.loads(cp.read_text()) if cp.exists() else None
+if con:
+    i = next(i for i, x in enumerate(segs) if x["id"] == "E71")
+    e71 = segs[i]
+    cut = next(e for e in con["events"] if e["id"] == "CON_05")["timeline_in"]
+    segs[i:i + 1] = [dict(e71, t1=cut, id="E71/CON_01-04"), dict(e71, t0=cut, id="CON_05", mode="hidden")]
 # merge nothing; chips and crash marker are event-time based
 chips = [
     {"text": "2 HR", "t0": 12.6, "hl": False},
@@ -111,5 +119,12 @@ for cid, c in cues.items():
     out[cid] = {**extra, "comp": "ScanLabel" if cid in ("G01", "G10", "G11", "G12", "G13") else "GfxCard", "cue": cid, "in": c["timeline_in"], "out": c["timeline_out"],
                 "frames": round((c["timeline_out"] - c["timeline_in"]) * FPS),
                 "text": c["text"].replace("HOW FAST CAN WE ", "HOW FAST CAN WE\n") if cid == "G01" else c["text"], "sub": c.get("sub", "")}
+if con:
+    for c in con["gfx_cues"]:
+        if c["id"] in ("CON_G1", "CON_G2", "CON_G3"):
+            g3 = c["id"] == "CON_G3"
+            out[c["id"]] = {**({"pos": "bl"} if g3 else {}), "comp": "ScanLabel" if g3 else "GfxCard", "cue": c["id"], "in": c["timeline_in"],
+                            "out": c["timeline_out"], "frames": round((c["timeline_out"] - c["timeline_in"]) * FPS),
+                            "text": c["text"], "sub": c.get("sub") or ""}
 (P / "gfx_cards_props.json").write_text(json.dumps(out, indent=1))
 print(list(out))

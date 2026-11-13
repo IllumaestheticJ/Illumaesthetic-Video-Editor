@@ -1083,10 +1083,25 @@
    }
   },
   {
-   "id": "E71",
+   "id": "E71/CON_01-04",
    "t0": 276.814,
-   "t1": 304.814,
+   "t1": 293.054,
    "mode": "plate",
+   "chapter": "RESULT",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "CON_05",
+   "t0": 293.054,
+   "t1": 304.814,
+   "mode": "hidden",
    "chapter": "RESULT",
    "c1": {
     "k": "final",

@@ -91,6 +91,35 @@ export const GfxCard: React.FC<GfxProps> = (p) => {
           {p.cta ? <div style={{ fontFamily: MONO, fontWeight: 500, fontSize: 40, letterSpacing: 3, color: C.grey, marginTop: 56, opacity: inA(f, 14) }}>{p.cta}</div> : null}
         </AbsoluteFill>
       );
+    case "CON_G1": {
+      const rows = txt.slice(1).map((r) => {
+        const i = r.indexOf(" · ");
+        return { value: r.slice(0, i), label: r.slice(i + 3) };
+      });
+      const at = [28, 56]; // successive beats (frames); editor re-times after beat snap
+      return (
+        <Stage>
+          <Title f={f} size={130}>{txt[0]}</Title>
+          <div style={{ display: "flex", flexDirection: "column", gap: 34, marginTop: 64 }}>
+            {rows.map((r, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "baseline", width: 1300, borderBottom: `2px solid ${C.dim}`, paddingBottom: 14, opacity: inA(f, at[i]), transform: `translateY(${(1 - inA(f, at[i])) * 10}px)` }}>
+                <span style={{ fontFamily: MONO, fontWeight: 800, fontSize: 92, color: C.ink, whiteSpace: "nowrap", width: 440 }}>{r.value}</span>
+                <span style={{ fontFamily: SANS, fontWeight: 600, fontSize: 44, letterSpacing: 4, color: C.ink, whiteSpace: "nowrap" }}>{r.label}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 48, fontFamily: MONO, fontWeight: 600, fontSize: 40, letterSpacing: 3, color: "#b4bbc6", opacity: inA(f, 88) }}>{p.sub}</div>
+        </Stage>
+      );
+    }
+    case "CON_G2":
+      return (
+        <Stage>
+          <Bar f={f} />
+          <div style={{ maxWidth: 1500 }}><Title f={f} size={116}>{txt[0]}</Title></div>
+          <Sub f={f} at={30} size={40}>{p.sub}</Sub>
+        </Stage>
+      );
     default: // G03, G04 and any title+sub card
       return (
         <Stage>
