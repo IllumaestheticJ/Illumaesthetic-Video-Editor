@@ -1,8 +1,13 @@
-# Subaru WRX VB scan reel v5: self-review (training/rubric.md)
+# Subaru WRX VB scan reel v6: self-review (training/rubric.md)
 
-Output: `/home/user/media/work/wrx/out/subaru_wrx_vb_v5.mp4`. Specs: 1080x1920, 30 fps, h264 yuv420p + AAC, 36.0 s (1081 frames). v4: `review_v4.md`, `project_v4.yaml`, `overlay_v4.json`.
+Output: `/home/user/media/work/wrx/out/subaru_wrx_vb_v6.mp4`. Specs: 1080x1920, 30 fps, h264 yuv420p + AAC, 36.0 s (1081 frames). v5: `review_v5.md`, v4: `review_v4.md`, `project_v4.yaml`, `overlay_v4.json`.
 
-The v4 feedback this version addresses (feedback.jsonl):
+The v5 feedback v6 addresses (feedback.jsonl):
+- **Logo bigger:** 760 px wide (was 380).
+- **"We did the fog lights and reflectors":** v1 skipped `Scan Files/Rear Bumper Reflector`, `Hella Fog Light` and `F1 Light` as aftermarket; they are scans. The reflector is now its own part: 'reflector removed' is the right rear bumper corner (registered to the car skin, median 2.0 mm), and the reflector sits by its two clips on the pocket's two clip holes (lens 1.75 mm median from the car's lens). In the rear shot the bumper comes off, the camera moves in, the reflector pulls out (label REFLECTOR), then the bumper flips and leaves. Check frames: `chk/r5/refl_fit_1210.png`, `chk/v5cut/v6_tail_1410.jpg`.
+- **Fog light not used:** the scan is a loose 140x183x128 mm lamp; the stock front bumper's fog hole is 88 mm across and the best fit to the mounted lamp has 19 % of points within 4 mm. Flagged to the reviewer. The F1 light scans are loose too and not used.
+
+The v4 feedback v5 addressed:
 - **List the flares and side skirt as they come off:** FRONT FLARE, DOOR FLARE, REAR FLARE, SIDE SKIRT appear as each part lifts (names from the scan files).
 - **Door flare not visible (v5 first cut):** the door flare is the rear door's half of the rear arch flare; the camera was on the front door at that beat. The side camera now reaches the rear arch on the door-flare beat (`chk/v5cut/side_1045.jpg`).
 - **"Scanned separately" is redundant:** the sub-lines on FRONT GRILLE and LOWER GARNISH are gone.
@@ -25,7 +30,7 @@ What was checked:
 | 4 | Scan quality | 4 | Rear bumper fully off, lid on its real gaps. A ragged sliver remains on the lid's right edge by the tail light, and the exposed front structure is as rough as its scan. |
 | 5 | Story | 5 | Front, side, rear, reassembly, listing, logo. |
 | 6 | Grade | 5 | One house look; the scan is toned to the listing grey as it lands. |
-| 7 | Text | 3 | Nine short labels, all over scan shots, no numbers; requested by the reviewer. The CTA shows the listing page as it is, including its price. |
+| 7 | Text | 3 | Ten short labels, all over scan shots, no numbers; requested by the reviewer. The CTA shows the listing page as it is, including its price. |
 | 8 | Ending | 5 | CTA into logo on the 32.73 s hit, music fades under the logo. |
 | 9 | Technical | 5 | 1081 frames; `src_fps = 30N/(slot+4)` from actual counts. |
 
@@ -33,9 +38,12 @@ What was checked:
 - The listing screenshot has the viewer's Top / Underside / Spin / Full screen buttons hidden, because Spin sat on the car's roof. Everything else on the page is as captured.
 - The listing's price is visible on the phone.
 - The front shot is reused from v4.
-- The logo is still the small one (380 px).
+- The reflector is small and silver on silver; it reads only in the close-up.
+- The fog light and F1 light scans are not shown (see above).
 
 ## For the next agent
+- Everything under `Scan Files/` is scan data, whatever the folder is called. Download and measure it before calling it aftermarket.
+- Small clipped parts: register by features (clip centres to clip holes, lens normal), then check lens distance. PCA+ICP on a 150 mm lens sat 15 deg off and once back to front.
 - Check which panel a badge or plate belongs to before cutting a lid: a lid seeded from the open-lid capture misses its rear face.
 - A state scan used as fill can put a removed panel back. Reject fill within 6 mm of removed skin as well as kept skin.
 - Shut lines show as dark grooves in gaussian(1.5 px) minus gaussian(5 px) of a 1.5 mm/px height map. Snap hand guides to the minimum and fit a robust cubic.

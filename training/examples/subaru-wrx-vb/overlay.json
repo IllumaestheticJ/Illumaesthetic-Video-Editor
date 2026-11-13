@@ -74,6 +74,15 @@
   },
   {
    "kind": "label",
+   "from": 676,
+   "duration": 30,
+   "title": "REFLECTOR",
+   "x": 0.92,
+   "y": 0.765,
+   "align": "right"
+  },
+  {
+   "kind": "label",
    "from": 722,
    "duration": 54,
    "title": "REAR BUMPER REMOVED",

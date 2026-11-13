@@ -1,0 +1,78 @@
+# Subaru WRX VB (2022+) scan reel v5. Scan only, silver on black. Reviewer v4 notes (feedback.jsonl): list the flares and
+# side skirt as they come off; "scanned separately" on the front parts is redundant; the rear still had leftover bumper
+# and the trunk was not accurately cut; blend into the Illumaesthetic call to action.
+# (v4: project_v4.yaml, v3: project_v3.yaml.)
+# Order: whole car -> hood scoop -> FRONT (bumper off as one, then grille, garnish, shell) -> right-side cladding off,
+# each part named -> REAR (lid opens on its traced shut lines with the plate panel, rear bumper off) -> reassembly ending
+# on the listing viewer's camera -> mobile CTA (the car shrinks 1:1 onto its illumaesthetic.com listing) -> logo.
+# Shots: tools/shots_v5.py over base b5 (tools/seg_v5.py + build_v5.py); front reused from v4, opener + scoop from v2/v1.
+# Music: Roni Size - The Streets (user upload; not in git), track 146.799 -> 183.099 (seg5.wav, fades baked).
+# Cuts (reel s, measured broadband hits): 4.101, 6.152 (drop), 13.633, 19.100, 25.900, 30.000 (CTA), 32.733 (logo); end 36.07.
+# src_fps per clip = 30*N/(slot+4).
+project: subaru-wrx-vb
+format: reel-9x16
+output: {path: /home/user/media/work/wrx/out/subaru_wrx_vb_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/streets/seg5.wav   # not in git
+  start: 0
+  fade_out: 0
+
+beats: [4.101, 6.152, 13.633, 19.100, 25.900, 30.000, 32.733]
+
+timeline:
+  - id: v2_opener      # whole car, elevated front-right 3/4, moving from frame 1 (breakdown), v2 render at 1.25x
+    focus: whole car
+    src: /home/user/media/work/wrx/renders/final/v2_opener
+    src_fps: 18.810
+    interpolate: true
+    dur: 4.0667
+  - transition: {type: cut, note: "4.101 beat 1"}
+  - id: s4_scoop       # v1 render: hood scoop, the front's signature detail
+    focus: hood scoop
+    src: /home/user/media/work/wrx/renders/final/s4_scoop
+    src_fps: 19.545
+    interpolate: true
+    dur: 2.0667
+  - transition: {type: cut, note: "6.152 drop"}
+  - id: v4_front       # whole bumper assembly off on the drop, then grille, lower garnish, shell flip; push in on the structure
+    focus: front bumper parts / structure behind them
+    src: /home/user/media/work/wrx/renders/final/v4_front
+    src_fps: 14.868
+    interpolate: true
+    dur: 7.4667
+  - transition: {type: cut, note: "13.633 snare hit"}
+  - id: v4_side        # front flare / door flare / rear flare / skirt, one per bar; wide of all four
+    focus: right-side cladding
+    src: /home/user/media/work/wrx/renders/final/v5_side
+    src_fps: 14.821
+    interpolate: true
+    dur: 5.4667
+  - transition: {type: cut, note: "19.100 hit"}
+  - id: v4_rear        # trunk lid opens on its fitted hinge to the scanned open pose; rear bumper off; hold on structure
+    focus: trunk / rear bumper / structure behind it
+    src: /home/user/media/work/wrx/renders/final/v5_rear
+    src_fps: 14.856
+    interpolate: true
+    dur: 6.8
+  - transition: {type: cut, note: "25.900 hit"}
+  - id: v4_reassemble  # lid closes, rear bumper, side; grille + garnish rejoin the shell in the air, assembly locks; clean car; fade
+    focus: whole car (reassembly)
+    src: /home/user/media/work/wrx/renders/final/v5_reassemble
+    src_fps: 14.646
+    interpolate: true
+    dur: 4.1
+  - transition: {type: cut, note: "30.000 hit"}
+  - id: cta            # tools/cta_card.py: last reassembly frame shrinks 1:1 onto the mobile listing's car, title + URL
+    focus: call to action (illumaesthetic.com listing)
+    src: /home/user/media/work/wrx/out/cta_v5.mp4
+    dur: 2.7333
+  - transition: {type: cut, note: "32.733 hit - logo through the music fade"}
+  - id: logo           # projects/ferrari-296/tools/logo_card.py --secs 3.3 --width 760 --fade-out 0.8
+    focus: logo
+    src: /home/user/media/work/wrx/out/logo_big.mp4
+    dur: 3.3333
+
+overlays:
+  - src: /home/user/media/work/wrx/out/hud_wrx_v5.mov   # ive hud projects/subaru-wrx-vb/overlay.json
+    start: 0
