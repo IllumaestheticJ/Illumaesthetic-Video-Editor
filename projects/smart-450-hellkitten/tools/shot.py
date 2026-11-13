@@ -177,6 +177,8 @@ def main():
             k, c = key_from_cam(k, sensor)
             spec["camera"].setdefault("shift_x", c.get("shift_x", 0.0))
             spec["camera"].setdefault("shift_y", c.get("shift_y", 0.0))
+        if "roll" not in k and keys:
+            k = dict(k, roll=keys[-1].get("roll", 0.0))  # a moved key keeps the solved camera's roll
         keys.append(k)
     cd.shift_x = spec["camera"].get("shift_x", 0.0)
     cd.shift_y = spec["camera"].get("shift_y", 0.0)

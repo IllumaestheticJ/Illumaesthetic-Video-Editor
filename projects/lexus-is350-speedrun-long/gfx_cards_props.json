@@ -1,0 +1,111 @@
+{
+ "G01": {
+  "pos": "lower3",
+  "plate": true,
+  "comp": "ScanLabel",
+  "cue": "G01",
+  "in": 7.3999999999999995,
+  "out": 12.6,
+  "frames": 125,
+  "text": "HOW FAST CAN WE\n3D-SCAN AN ENTIRE CAR?",
+  "sub": "LEXUS IS350 \u00b7 ONE CAR \u00b7 ONE STOPWATCH"
+ },
+ "G03": {
+  "comp": "GfxCard",
+  "cue": "G03",
+  "in": 19.5,
+  "out": 22.0,
+  "frames": 60,
+  "text": "THE BET: 15 MINUTES",
+  "sub": "\"LESS THAN THE LENGTH OF A YOUTUBE VIDEO\""
+ },
+ "G04": {
+  "comp": "GfxCard",
+  "cue": "G04",
+  "in": 31.0,
+  "out": 32.5,
+  "frames": 36,
+  "text": "STEP 1: SPRAY",
+  "sub": "A TEMPORARY MATTE COAT SO THE SCANNER CAN READ SHINY PAINT AND GLASS"
+ },
+ "G05": {
+  "comp": "GfxCard",
+  "cue": "G05",
+  "in": 88.2,
+  "out": 91.2,
+  "frames": 72,
+  "text": "SCANNER CRASHED",
+  "sub": "REBOOTING \u00b7 CLOCK 1 KEEPS RUNNING"
+ },
+ "G08": {
+  "row2At": 80,
+  "comp": "GfxCard",
+  "cue": "G08",
+  "in": 230.261,
+  "out": 234.661,
+  "frames": 105,
+  "text": [
+   "CLOCK 1 \u00b7 FROM \"GO\" \u00b7 32 MIN",
+   "TIMER 2 \u00b7 RESTARTED AFTER THE CRASH \u00b7 20 MIN"
+  ],
+  "sub": ""
+ },
+ "G09": {
+  "comp": "GfxCard",
+  "cue": "G09",
+  "in": 234.661,
+  "out": 236.861,
+  "frames": 53,
+  "text": "THE 15-MINUTE BET: MISSED",
+  "sub": "CLOSEST GUESS: 30 MINUTES"
+ },
+ "G10": {
+  "pos": "bl",
+  "comp": "ScanLabel",
+  "cue": "G10",
+  "in": 258.814,
+  "out": 264.314,
+  "frames": 132,
+  "text": "LEXUS IS350",
+  "sub": "FULL CAR SCAN"
+ },
+ "G11": {
+  "pos": "bl",
+  "comp": "ScanLabel",
+  "cue": "G11",
+  "in": 265.314,
+  "out": 269.814,
+  "frames": 108,
+  "text": "24,999,992 TRIANGLES",
+  "sub": "FULL CAR \u00b7 STL FILE"
+ },
+ "G12": {
+  "pos": "top",
+  "comp": "ScanLabel",
+  "cue": "G12",
+  "in": 270.314,
+  "out": 273.11400000000003,
+  "frames": 67,
+  "text": "REAR REFLECTOR",
+  "sub": "SCANNED IN PLACE"
+ },
+ "G13": {
+  "pos": "top",
+  "comp": "ScanLabel",
+  "cue": "G13",
+  "in": 273.314,
+  "out": 276.814,
+  "frames": 84,
+  "text": "REFLECTOR REMOVED",
+  "sub": "THE MOUNTING POCKET BEHIND IT"
+ },
+ "G15": {
+  "comp": "GfxCard",
+  "cue": "G15",
+  "in": 304.814,
+  "out": 309.814,
+  "frames": 120,
+  "text": "ILLUMAESTHETIC",
+  "sub": "[owner to confirm: scan listing CTA / URL]"
+ }
+}

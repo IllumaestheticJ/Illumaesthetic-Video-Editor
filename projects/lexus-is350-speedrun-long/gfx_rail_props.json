@@ -1,0 +1,1143 @@
+{
+ "fps": 23.976,
+ "width": 1920,
+ "height": 160,
+ "durationInFrames": 7428,
+ "segments": [
+  {
+   "id": "E01",
+   "t0": 0.0,
+   "t1": 2.15,
+   "mode": "plate",
+   "chapter": "",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E02",
+   "t0": 2.15,
+   "t1": 4.45,
+   "mode": "plate",
+   "chapter": "",
+   "c1": {
+    "k": "time",
+    "a": 305,
+    "b": 308
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E03",
+   "t0": 4.45,
+   "t1": 6.6,
+   "mode": "plate",
+   "chapter": "",
+   "c1": {
+    "k": "time",
+    "a": 719,
+    "b": 721
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E04",
+   "t0": 6.6,
+   "t1": 12.6,
+   "mode": "hidden",
+   "chapter": "",
+   "c1": {
+    "k": "time",
+    "a": 719,
+    "b": 721
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E05",
+   "t0": 12.6,
+   "t1": 14.55,
+   "mode": "plate",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E06",
+   "t0": 14.55,
+   "t1": 15.65,
+   "mode": "plate",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E07",
+   "t0": 15.65,
+   "t1": 19.5,
+   "mode": "plate",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E08",
+   "t0": 19.5,
+   "t1": 22.0,
+   "mode": "plate",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E09",
+   "t0": 22.0,
+   "t1": 27.3,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 0,
+    "b": 2
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E10",
+   "t0": 27.3,
+   "t1": 31.0,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 2,
+    "b": 6
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E11",
+   "t0": 31.0,
+   "t1": 32.5,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 6,
+    "b": 6
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E12",
+   "t0": 32.5,
+   "t1": 36.1,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 28,
+    "b": 32
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E13",
+   "t0": 36.1,
+   "t1": 40.9,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 32,
+    "b": 36
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E14",
+   "t0": 40.9,
+   "t1": 43.9,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 44,
+    "b": 47
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E15",
+   "t0": 43.9,
+   "t1": 47.4,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 91,
+    "b": 94
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E16",
+   "t0": 47.4,
+   "t1": 49.2,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 117,
+    "b": 118
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E17",
+   "t0": 49.2,
+   "t1": 53.2,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 210,
+    "b": 214
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E18",
+   "t0": 53.2,
+   "t1": 54.7,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 222,
+    "b": 224
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E19",
+   "t0": 54.7,
+   "t1": 58.7,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 232,
+    "b": 236
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E20",
+   "t0": 58.7,
+   "t1": 61.7,
+   "mode": "overlay",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 236,
+    "b": 236
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E21",
+   "t0": 61.7,
+   "t1": 67.7,
+   "mode": "plate",
+   "chapter": "SPRAY + FIRST PASS",
+   "c1": {
+    "k": "time",
+    "a": 272,
+    "b": 278
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E22",
+   "t0": 67.7,
+   "t1": 79.0,
+   "mode": "plate",
+   "chapter": "THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 294,
+    "b": 305
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E23",
+   "t0": 79.0,
+   "t1": 81.1,
+   "mode": "plate",
+   "chapter": "THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 308,
+    "b": 310
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E24",
+   "t0": 81.1,
+   "t1": 82.7,
+   "mode": "plate",
+   "chapter": "THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 325,
+    "b": 327
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E25",
+   "t0": 82.7,
+   "t1": 84.5,
+   "mode": "plate",
+   "chapter": "THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 329,
+    "b": 331
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E26",
+   "t0": 84.5,
+   "t1": 88.2,
+   "mode": "plate",
+   "chapter": "THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 336,
+    "b": 339
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E27",
+   "t0": 88.2,
+   "t1": 91.2,
+   "mode": "plate",
+   "chapter": "THE CRASH",
+   "c1": {
+    "k": "ff",
+    "a": 339,
+    "b": 716
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E28",
+   "t0": 91.2,
+   "t1": 93.7,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 716,
+    "b": 719
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E29",
+   "t0": 93.7,
+   "t1": 102.0,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 721,
+    "b": 731
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "E29b",
+   "t0": 102.0,
+   "t1": 103.6,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 721,
+    "b": 731
+   },
+   "t2": {
+    "k": "time",
+    "a": 0,
+    "b": 1
+   }
+  },
+  {
+   "id": "E30",
+   "t0": 103.6,
+   "t1": 105.2,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 732,
+    "b": 733
+   },
+   "t2": {
+    "k": "time",
+    "a": 2,
+    "b": 4
+   }
+  },
+  {
+   "id": "E31",
+   "t0": 105.2,
+   "t1": 106.6,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 740,
+    "b": 741
+   },
+   "t2": {
+    "k": "time",
+    "a": 10,
+    "b": 12
+   }
+  },
+  {
+   "id": "E32",
+   "t0": 106.6,
+   "t1": 113.011,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 757,
+    "b": 764
+   },
+   "t2": {
+    "k": "time",
+    "a": 27,
+    "b": 34
+   }
+  },
+  {
+   "id": "E33",
+   "t0": 113.011,
+   "t1": 117.511,
+   "mode": "overlay",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 764,
+    "b": 764
+   },
+   "t2": {
+    "k": "time",
+    "a": 34,
+    "b": 34
+   }
+  },
+  {
+   "id": "E34",
+   "t0": 117.511,
+   "t1": 121.511,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1032,
+    "b": 1036
+   },
+   "t2": {
+    "k": "time",
+    "a": 302,
+    "b": 306
+   }
+  },
+  {
+   "id": "E35",
+   "t0": 121.511,
+   "t1": 122.911,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1057,
+    "b": 1059
+   },
+   "t2": {
+    "k": "time",
+    "a": 328,
+    "b": 329
+   }
+  },
+  {
+   "id": "E36",
+   "t0": 122.911,
+   "t1": 124.311,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1072,
+    "b": 1074
+   },
+   "t2": {
+    "k": "time",
+    "a": 343,
+    "b": 344
+   }
+  },
+  {
+   "id": "E37",
+   "t0": 124.311,
+   "t1": 129.311,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1154,
+    "b": 1159
+   },
+   "t2": {
+    "k": "time",
+    "a": 424,
+    "b": 429
+   }
+  },
+  {
+   "id": "E38",
+   "t0": 129.311,
+   "t1": 132.011,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 509,
+    "b": 512
+   }
+  },
+  {
+   "id": "E38b",
+   "t0": 132.011,
+   "t1": 139.011,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "E39",
+   "t0": 139.011,
+   "t1": 152.261,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "E40",
+   "t0": 152.261,
+   "t1": 153.411,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "E41",
+   "t0": 153.411,
+   "t1": 156.411,
+   "mode": "overlay",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "E42",
+   "t0": 156.411,
+   "t1": 163.611,
+   "mode": "plate",
+   "chapter": "TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "E43",
+   "t0": 163.611,
+   "t1": 165.611,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 526,
+    "b": 528
+   }
+  },
+  {
+   "id": "E44",
+   "t0": 165.611,
+   "t1": 169.111,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 580,
+    "b": 584
+   }
+  },
+  {
+   "id": "E45",
+   "t0": 169.111,
+   "t1": 172.161,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 611,
+    "b": 614
+   }
+  },
+  {
+   "id": "E46",
+   "t0": 172.161,
+   "t1": 175.661,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 647,
+    "b": 650
+   }
+  },
+  {
+   "id": "E47",
+   "t0": 175.661,
+   "t1": 180.161,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 664,
+    "b": 669
+   }
+  },
+  {
+   "id": "E48",
+   "t0": 180.161,
+   "t1": 183.161,
+   "mode": "overlay",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 669,
+    "b": 669
+   }
+  },
+  {
+   "id": "E49",
+   "t0": 183.161,
+   "t1": 184.561,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 676,
+    "b": 678
+   }
+  },
+  {
+   "id": "E50",
+   "t0": 184.561,
+   "t1": 189.961,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 731,
+    "b": 737
+   }
+  },
+  {
+   "id": "E51",
+   "t0": 189.961,
+   "t1": 191.961,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 784,
+    "b": 786
+   }
+  },
+  {
+   "id": "E52",
+   "t0": 191.961,
+   "t1": 193.961,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "unknown"
+   }
+  },
+  {
+   "id": "E53",
+   "t0": 193.961,
+   "t1": 197.961,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "unknown"
+   }
+  },
+  {
+   "id": "E54",
+   "t0": 197.961,
+   "t1": 200.361,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 901,
+    "b": 903
+   }
+  },
+  {
+   "id": "E55",
+   "t0": 200.361,
+   "t1": 201.761,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 930,
+    "b": 932
+   }
+  },
+  {
+   "id": "E56",
+   "t0": 201.761,
+   "t1": 207.461,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 985,
+    "b": 991
+   }
+  },
+  {
+   "id": "E57",
+   "t0": 207.461,
+   "t1": 210.461,
+   "mode": "overlay",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 991,
+    "b": 991
+   }
+  },
+  {
+   "id": "E58",
+   "t0": 210.461,
+   "t1": 214.361,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "unknown"
+   }
+  },
+  {
+   "id": "E59",
+   "t0": 214.361,
+   "t1": 218.361,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "unknown"
+   }
+  },
+  {
+   "id": "E60",
+   "t0": 218.361,
+   "t1": 223.361,
+   "mode": "plate",
+   "chapter": "THE HARD PARTS",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "unknown"
+   }
+  },
+  {
+   "id": "E61",
+   "t0": 223.361,
+   "t1": 230.261,
+   "mode": "plate",
+   "chapter": "TIME",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 1222,
+    "b": 1224
+   }
+  },
+  {
+   "id": "E62",
+   "t0": 230.261,
+   "t1": 234.661,
+   "mode": "plate",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E63",
+   "t0": 234.661,
+   "t1": 236.861,
+   "mode": "plate",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E64",
+   "t0": 236.861,
+   "t1": 240.561,
+   "mode": "plate",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E65",
+   "t0": 240.561,
+   "t1": 247.761,
+   "mode": "plate",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E66",
+   "t0": 247.761,
+   "t1": 252.814,
+   "mode": "plate",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E67",
+   "t0": 252.814,
+   "t1": 257.814,
+   "mode": "overlay",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E68",
+   "t0": 257.814,
+   "t1": 264.814,
+   "mode": "hidden",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E69",
+   "t0": 264.814,
+   "t1": 269.814,
+   "mode": "hidden",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E70",
+   "t0": 269.814,
+   "t1": 276.814,
+   "mode": "hidden",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E71",
+   "t0": 276.814,
+   "t1": 304.814,
+   "mode": "plate",
+   "chapter": "RESULT",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "E72",
+   "t0": 304.814,
+   "t1": 309.814,
+   "mode": "hidden",
+   "chapter": "",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  }
+ ],
+ "chips": [
+  {
+   "text": "2 HR",
+   "t0": 12.6,
+   "hl": false
+  },
+  {
+   "text": "30 MIN",
+   "t0": 14.55,
+   "hl": false
+  },
+  {
+   "text": "15 MIN",
+   "t0": 15.65,
+   "hl": true
+  }
+ ],
+ "chipsOut": 22.0,
+ "crash": [
+  79.0,
+  91.2
+ ],
+ "ffCard": [
+  88.2,
+  91.2
+ ],
+ "timer2Appear": 102.0
+}
