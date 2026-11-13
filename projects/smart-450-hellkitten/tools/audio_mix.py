@@ -97,7 +97,7 @@ def main():
         shop[a:b] += y
         levels[s["id"]] = dict(src=s["src"], ss=ss, mode=s["audio"], src_rms_db=round(src_rms, 1), gain_db=round(g_db, 1),
                                music_rms_db=round(rms_db(music[a:b]), 1))
-    meows = build_meows(music)
+    meows = build_meows(music) * 10 ** (4.0 / 20)    # v4: +4 dB so the meow layer sits about level with the hat/snare band
     mix = music + shop + meows
     I, tp = lufs(mix)
     g = 10 ** ((-10.0 - I) / 20)

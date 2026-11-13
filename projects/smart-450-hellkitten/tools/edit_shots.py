@@ -18,8 +18,8 @@ def S(id, m0, m1, **kw):
     d.update(kw); return d
 
 SHOTS = [
-    S("H1", -4, 0, kind="still", img="4.r.1.jpg", mode="fit", z=(1.2, 1.32), c=(742, 700), shift=(0, -40), yc=0.60,
-      section="hook_render", focus="the Hellkitten and the question"),
+    S("H1", -4, 0, kind="scan", scan="a5_xray", t0=0.0, text=("THIS IS A", "SMART CAR?"), section="hook_render",
+      focus="the Hellkitten with the Smart inside it as an x-ray: 'THIS IS A SMART CAR?'"),
     S("S5", 0, 2, kind="irl", src="v_1632_12", ss=0.000, win=(608, 1080), keys=[(0, 370, 0)], audio=None, section="whole_assembled",
       focus="here is the real car: black and intact"),
     S("S6", 2, 4, sharp=True, kind="irl", src="v_1634_19", ss=14.500, win=(608, 1080), keys=[(0, 560, 0), (1, 450, 0)], audio="up",
@@ -52,8 +52,9 @@ SHOTS = [
     S("R3", 53, 54, kind="still", img="4.r.4.jpg", mode="fit", z=(1.45, 1.3), c=(720, 700), shift=(40, 0), section="renders", focus="side, kitten decal"),
     S("R4", 54, 55, kind="still", img="drive/4.r.5/4.r.5.jpg", mode="fit", z=(1.3, 1.42), c=(750, 650), shift=(0, 30), section="renders", focus="from above"),
     S("R5", 55, 56, kind="still", img="drive/4.r.6/4.r.6.jpg", mode="fit", z=(1.42, 1.28), c=(780, 700), shift=(-30, 0), section="renders", focus="rear"),
-    S("R6", 56, 58, kind="still", img="RenderStreet2.jpeg", mode="win", w=(780, 640), x0=(367, 437), y0=(53, 100), section="renders", focus="on the street"),
-    S("R7", 58, 60, kind="still", img="RenderNight2.jpeg", mode="win", w=(640, 760), x0=(452, 392), y0=(91, 85), section="renders", focus="at night"),
+    S("R6", 56, 58, kind="still", img="4.r.1.jpg", mode="fit", z=(1.2, 1.32), c=(742, 700), shift=(0, -40), yc=0.55, section="renders", focus="drop 3: front three-quarter"),
+    S("R7", 58, 59, kind="still", img="RenderStreet2.jpeg", mode="win", w=(780, 640), x0=(367, 437), y0=(53, 100), section="renders", focus="on the street"),
+    S("R7b", 59, 60, kind="still", img="RenderNight2.jpeg", mode="win", w=(640, 760), x0=(452, 392), y0=(91, 85), section="renders", focus="at night"),
     S("R8", 60, 64, kind="still", img="RenderDay1.jpeg", mode="win", w=(810, 778), x0=(310, 326), y0=(0, 44), plate=(12, 46, 100, 560, 0.62), section="payoff_render",
       focus="the render, and the question"),
     S("LOGO", 64, 72, kind="logo", section="logo", focus="logo card"),
@@ -61,4 +62,4 @@ SHOTS = [
 END = F(72)
 
 # frames of each scan shot's PNG sequence that must exist for the shot to count as finished (direction.md section 4)
-SCAN_NEED = {"a1_match_str": 26, "a2_body_on_off": 75, "a4_hellkitten": 68}
+SCAN_NEED = {"a1_match_str": 26, "a2_body_on_off": 75, "a4_hellkitten": 68, "a5_xray": 25}

@@ -16,27 +16,31 @@ OUT = Path(SM) / "out"
 def dec(p, mono=True):
     r = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", str(p), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout, np.float32).reshape(-1, 2)
     return r.mean(axis=1).astype(np.float64) if mono else r.astype(np.float64)
-stem, mix, mp4 = dec(OUT / "stem_meows.wav"), dec(OUT / "smart450_mix.wav"), dec(OUT / "smart450_v3.mp4")
+stem, mix, mp4 = dec(OUT / "stem_meows.wav"), dec(OUT / "smart450_mix.wav"), dec(OUT / "smart450_v4.mp4")
 n = min(len(mix), len(mp4)); a, b = mix[:n], mp4[:n]
 lag = int(np.argmax(correlate(b[: SR * 10], a[: SR * 10], mode="full", method="fft")) - (SR * 10 - 1))
 print("mp4 vs wav master lag samples", lag, "=", round(lag / SR * 1000, 2), "ms")
 mm = json.loads((Path(__file__).resolve().parent.parent / "meow_map.json").read_text())
 hp = sosfiltfilt(butter(4, 250, "high", fs=SR, output="sos"), stem)
 w = int(0.002 * SR); env = np.sqrt(np.convolve(hp ** 2, np.ones(w) / w, "same"))
+import meows as MW
+from scipy.signal import fftconvolve
+MW.arrange()
+evs = sorted(MW.EV, key=lambda d: (d["m"], d["kind"]))
+stem_hp = hp
 rows = []
-st = int(0.003 * SR)
-slope = np.zeros_like(env); slope[:-st] = env[st:] - env[:-st]
-for m in mm["meows"]:
-    t = m["time_s"]; i0, i1 = int((t - 0.05) * SR), int((t + 0.05) * SR)
-    seg = slope[i0:i1]; k = int(np.argmax(seg > 0.5 * seg.max()))   # first sample whose 3 ms rise is >= half the largest rise near the lattice time
-    o1 = (i0 + k) / SR
-    pk = env[i0:i0 + int(0.25 * SR)].max(); k2 = int(np.argmax(env[i0:i1 + int(0.1 * SR)] > 0.2 * pk)); o2 = (i0 + k2) / SR
-    rows.append(dict(n=m["n"], expected_s=t, stem_onset_s=round(o1, 5), err_ms=round((o1 - t) * 1000, 2), crossing20_onset_s=round(o2, 5), crossing20_err_ms=round((o2 - t) * 1000, 2),
-                     note="20 % crossing is contaminated by the previous meow's tail" if m["n"] == 11 else ""))
+for m, e in zip(mm["meows"], evs):
+    z, s_, r = MW.shot(e["sid"], e["semis"], e["crop"], e["tune"])
+    zt = sosfiltfilt(butter(4, 250, "high", fs=SR, output="sos"), z) if len(z) > 64 else z
+    t = m["time_s"]; idx = int(round(t * SR)) - int(round(0.003 * SR * r))
+    lo = idx - int(0.025 * SR); hi = idx + len(zt) + int(0.025 * SR)
+    seg = stem_hp[lo:hi]
+    # cross-correlation of the known one-shot against the decoded stem (mono mix of both channels): lag of the peak = placement error
+    cc = fftconvolve(seg, zt[::-1], mode="valid")
+    lag = int(np.argmax(cc)) - int(0.025 * SR)
+    rows.append(dict(n=m["n"], kind=m["kind"], beat_m=m["beat_m"], expected_s=t, err_ms=round(lag / SR * 1000, 2), xcorr_peak=round(float(cc.max() / (np.linalg.norm(zt) * np.linalg.norm(seg[np.argmax(cc):np.argmax(cc) + len(zt)]) + 1e-12)), 2)))
 e1 = [abs(r["err_ms"]) for r in rows]
-e20 = [abs(r["crossing20_err_ms"]) for r in rows if not r["note"]]
-print("20pct-crossing onset error (the trimming definition; #11 excluded, overlapped tail): max {:.2f} ms".format(max(e20)))
-print("rise-slope onset error: max %.2f ms mean %.2f ms" % (max(e1), np.mean(e1)))
+print("meows:", len(rows), "| onset error against the lattice by cross-correlating each known one-shot with the DECODED stem: max {:.2f} ms, mean {:.2f} ms".format(max(abs(r["err_ms"]) for r in rows), np.mean([abs(r["err_ms"]) for r in rows])))
 (OUT / "meow_check.json").write_text(json.dumps(dict(mp4_vs_master_lag_ms=lag / SR * 1000, rows=rows), indent=1))
 # strip: waveform of the stem + spectrogram of the final mix, meow times marked, cuts as ticks
 fig, ax = plt.subplots(3, 1, figsize=(18, 8), sharex=True, gridspec_kw=dict(height_ratios=[1, 2, 0.5]))

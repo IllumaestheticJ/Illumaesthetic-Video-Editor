@@ -231,6 +231,40 @@ def minterp(frames_dir_pattern, start_number, nframes_out, out_mp4, nin, rate=15
         "-vf", vf, "-frames:v", str(nframes_out), *ENC, str(out_mp4)])
 
 
+def text_png(lines, y0=150, size=112, track=10):
+    font = ImageFont.truetype("/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf", size)
+    im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); sh = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im); ds = ImageDraw.Draw(sh)
+    y = y0
+    for ln in lines:
+        w = sum(font.getlength(c) for c in ln) + track * (len(ln) - 1); x = (W - w) / 2
+        for c in ln:
+            ds.text((x, y + 4), c, font=font, fill=(0, 0, 0, 200)); d.text((x, y), c, font=font, fill=(232, 236, 242, 255)); x += font.getlength(c) + track
+        y += int(size * 1.12)
+    sh = sh.filter(ImageFilter.GaussianBlur(8)); sh.alpha_composite(im); return sh
+
+
+def add_text(out, lines):
+    """burn the title text (full opacity from frame 0; house type, Inter Display Bold, tracked) into a finished shot."""
+    png = BUILD / "_text.png"; text_png(lines).save(png)
+    tmp = BUILD / "_text_tmp.mp4"
+    sh(["ffmpeg", "-y", "-v", "error", "-i", str(out), "-i", str(png), "-filter_complex", "[0:v][1:v]overlay=0:0,format=yuv420p", *ENC, str(tmp)])
+    os.replace(tmp, out)
+
+
+def xray_placeholder():
+    """a5 not rendered yet: 4.r.1 with Blueprint's Smart screened over it (timing only), tagged."""
+    car = Image.open(f"{DESIGN}/4.r.1.jpg").convert("RGB"); bp = Image.open(f"{DESIGN}/Blueprint.jpeg").convert("RGB")
+    sc = 0.75 * 1.25
+    c = car.resize((round(1440 * sc), round(1440 * sc)), Image.LANCZOS)
+    canvas = Image.new("RGB", (W, H), (0, 0, 0)); cx, cy = 742 * sc, 700 * sc
+    canvas.paste(c, (round(W / 2 - cx), round(0.62 * H - cy)))
+    b = bp.crop((140, 470, 1270, 1010)); bw = round(885 * sc * 0.95); b = b.resize((bw, round(b.height * bw / b.width)), Image.LANCZOS)
+    arr = np.asarray(canvas).astype(np.float32); ba = np.clip(np.asarray(b).astype(np.float32) - 51, 0, None) * 1.2
+    x0 = round(W / 2 - bw / 2); y0 = round(0.62 * H - b.height / 2)
+    arr[y0:y0 + b.height, x0:x0 + bw] = np.clip(arr[y0:y0 + b.height, x0:x0 + bw] * 0.8 + ba * 0.9, 0, 255)
+    return Image.fromarray(arr.astype(np.uint8))
+
+
 def prep_scan(s):
     out = BUILD / f"{s['id']}.mp4"
     have, complete = scan_status(s["scan"])
@@ -240,7 +274,7 @@ def prep_scan(s):
         pv[int(Path(f).stem.split("_")[1])] = f
     stamp = json.dumps({"scan": s["scan"], "complete": complete, "n": s["n"],
                         "frames": sorted(have)[-1] if complete else sorted(have), "pv": sorted(pv),
-                        "t0": s.get("t0"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
+                        "t0": s.get("t0"), "text": s.get("text"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
     if stamp_ok(out, stamp):
         return out, complete
     n = nout(s); t0 = s["t0"]
@@ -251,6 +285,8 @@ def prep_scan(s):
         minterp(pat, first, n, out, last - first + 1, rate=15.0 * s.get("speed", 1.0))   # last_png: S10a stops before the state swap (frame frozen)
     else:
         avail = dict(pv); avail.update(have)         # real renders override the previews at the same index
+        if not avail and s["scan"] == "a5_xray":
+            xp = BUILD / "_a5_placeholder.png"; xray_placeholder().save(xp); avail = {1: str(xp)}
         if not avail:                                # a4 not rendered yet: hold A2's last frame (the same camera it starts from)
             avail = {1: str(Path(SM) / "renders" / "a2_body_on_off" / "png" / "f_0075.png")}
         idxs = sorted(avail)
@@ -271,6 +307,8 @@ def prep_scan(s):
             d.text((34, H - 84), f"PLACEHOLDER {s['scan']}", font=font, fill=(255, 80, 80))
             p.stdin.write(np.asarray(im).tobytes())
         p.stdin.close(); p.wait()
+    if s.get("text"):
+        add_text(out, s["text"])
     write_stamp(out, stamp)
     return out, complete
 

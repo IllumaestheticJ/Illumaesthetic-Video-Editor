@@ -3,7 +3,7 @@
 project: smart-450-hellkitten
 format: reel-9x16
 output:
-  path: /home/user/media/work/smart-450/build/smart450_v3_video.mp4
+  path: /home/user/media/work/smart-450/build/smart450_v4_video.mp4
   width: 1080
   height: 1920
   fps: 30
@@ -19,7 +19,8 @@ timeline:
   frames: 45
   start_frame: 0
   section: hook_render
-  focus: the Hellkitten and the question
+  focus: 'the Hellkitten with the Smart inside it as an x-ray: ''THIS IS A SMART CAR?'''
+  origin: scan a5_xray (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
 - transition:
     type: cut
 - id: S5
@@ -202,13 +203,21 @@ timeline:
   frames: 23
   start_frame: 676
   section: renders
-  focus: on the street
+  focus: 'drop 3: front three-quarter'
 - transition:
     type: cut
 - id: R7
   src: /home/user/media/work/smart-450/build/R7.mp4
-  frames: 22
+  frames: 11
   start_frame: 699
+  section: renders
+  focus: on the street
+- transition:
+    type: cut
+- id: R7b
+  src: /home/user/media/work/smart-450/build/R7b.mp4
+  frames: 11
+  start_frame: 710
   section: renders
   focus: at night
 - transition:
@@ -228,11 +237,17 @@ timeline:
   section: logo
   focus: logo card
 overlays:
-- src: /home/user/media/work/smart-450/build/hud_hook.mov
-  start: 0.0
 - src: /home/user/media/work/smart-450/build/hud_body.mov
   start: 12.1
 - src: /home/user/media/work/smart-450/build/hud_a4.mov
   start: 18.5333
 - src: /home/user/media/work/smart-450/build/hud_final.mov
   start: 24.5
+- src: /home/user/media/work/smart-450/build/meme_huh.mov
+  start: 0.4
+- src: /home/user/media/work/smart-450/build/meme_oiia.mov
+  start: 13.2333
+- src: /home/user/media/work/smart-450/build/meme_yapapa.mov
+  start: 17.8333
+- src: /home/user/media/work/smart-450/build/meme_clap.mov
+  start: 24.8

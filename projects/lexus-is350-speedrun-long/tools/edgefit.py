@@ -51,7 +51,7 @@ def fit():
     if m:
         mm = np.zeros_like(e); mm[m[1]:m[3], m[0]:m[2]] = 1; e = e * mm
     dt = cv2.distanceTransform((e == 0).astype(np.uint8), cv2.DIST_L2, 5)
-    T = 12.0
+    T = float(sys.argv[sys.argv.index('--trunc') + 1]) if '--trunc' in sys.argv else 12.0
     rv0 = np.array(cam["opencv"]["rvec"], float); tv0 = np.array(cam["opencv"]["tvec"], float); f0 = cam["fx_px"]
     fixf = "--fixf" in sys.argv
 

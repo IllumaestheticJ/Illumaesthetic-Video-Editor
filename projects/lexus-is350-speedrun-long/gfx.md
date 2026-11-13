@@ -93,3 +93,25 @@ Caption band (x360-1560, y880-1040) is free in every cue. G05a/G05b/G15 are the 
 6. HUD plate 55 % black instead of 45 %; chapter tags and small labels are 22-26 px (cap height 16-19 px), digits are 62 px (large) and 36 px (small row), below the usual ~28 px cap only for labels, as the script's 400x34 tag size dictates.
 7. CON_G3 text is the generic CTA; the owner still has to choose.
 8. Removed as ordered: no triangle count (G11, CON_G2, mesh), no reflector labels (G12/G13), no rail, no plate blur, no G04 card.
+
+## v2 as rendered: against `timeline_v2.json` (editor's final, 65 events, 307.97 s; M5_A/M5_B dropped)
+The files in `v2/` were rendered from `timeline_v2.json`, not the edl_v2 times, so the times in the table above are the edl_v2 originals; the as-rendered cue times are:
+
+| cue | timeline in-out | frames |
+|---|---|---|
+| G01_v2 | 0:07.798-0:10.803 | 72 f |
+| G03_v2 | 0:20.630-0:21.480 | 20 f |
+| STING1_v2 | 0:32.866-0:34.466 | 38 f |
+| STING2_v2 | 0:55.597-0:57.197 | 38 f |
+| G_SPRAY_v2 | 0:48.179-0:53.595 | 130 f |
+| G08_v2 | 4:08.477-4:13.795 | 128 f |
+| G09_v2 | 4:13.795-4:16.798 | 72 f |
+| G10_v2 | 4:38.819-4:44.526 | 137 f |
+| CON_G1_v2 | 4:46.464-4:49.664 | 77 f |
+| CON_G3_v2 | 4:53.164-5:02.969 | 235 f |
+| G05a_v2 | 1:30.257-1:31.425 | 28 f |
+| G05b_v2 | 1:39.558-1:42.561 | 72 f |
+| G15_v2 | 5:02.969-5:07.974 | 120 f |
+| FX_GLITCH_C02 | 1:29.256-1:30.257 | 24 f |
+
+HUD_v2.mov is 7384 frames (307.97 s). The time-lapse clock follows the editor's `src_map` (clock = src - 74.6 per frame) and lands on 01:55. The editor plays CON_01 as the short fallback (src 11.51-16.35, no "10 minutes"), so CON_G1_v2 starts at CON_01 src 13.0 and runs to the end of CON_01 (3.2 s, lines at +0, +0.96 s, +2.0 s) instead of 7.0 s. CON_G3_v2 runs 9.8 s over the longer hero (13.3 s); shorten its end if it should leave earlier.
