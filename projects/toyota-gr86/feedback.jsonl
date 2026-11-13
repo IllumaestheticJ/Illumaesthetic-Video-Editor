@@ -7,3 +7,5 @@
 {"ts": "2026-11-12T00:10:56Z", "project": "toyota-gr86", "at": "12.3", "category": "scan", "note": "as the bumper is removed, parts of the old bumper are still visible on the car", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T00:10:56Z", "project": "toyota-gr86", "at": "7.4", "category": "story", "note": "the hood needs to hinge open THEN come off", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T00:10:56Z", "project": "toyota-gr86", "at": "17.2", "category": "scan", "note": "the rear trunk needs to be cut correctly and done the same way (hinge open, then off) - we have a trunk open scan", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T08:08:39Z", "project": "toyota-gr86", "at": null, "category": "audio", "note": "use this music instead (user-supplied track: Gran Turismo 2 East City theme)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T08:08:39Z", "project": "toyota-gr86", "at": null, "category": "story", "note": "make sure all parts are highlighted", "by": "reviewer", "promoted": false}
