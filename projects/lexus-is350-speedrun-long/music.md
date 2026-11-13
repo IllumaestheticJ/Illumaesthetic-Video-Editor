@@ -3,7 +3,7 @@
 ## Source and licence
 - **Source:** owner-supplied upload, received 2026-11-12. Audio extracted from the upload's video as two halves (`part1.m4a` 599.6 s, `part2.m4a` 587.0 s), 128 kbps AAC, 44.1 kHz stereo. Title shown in the upload: "speed up - fun/epic video game music for try hard".
 - **Joined** sample-accurately into `/home/user/media/work/is350-long/music/mix_full.wav` (44.1 kHz s16, 1185.588 s = 19.76 min): part2 starts at part1 sample 26398720 (598.610 s); the overlap is 0.998 s (not 1.6 s), NCC 0.99. Not in git.
-- **Licence:** the owner supplied it; the upload's video shows it is a third-party compilation of game music; rights/clearance for YouTube not confirmed.
+- **Licence:** the owner supplied it; the upload's video shows it is a third-party compilation of game music; rights/clearance for YouTube not confirmed. 2026-11-13 owner states the uploaded music is royalty free.
 - Quality caveat: 128 kbps AAC source (re-encode of a re-encode). Fine under speech, soft on transients; beat grids below are measured on this file.
 - The earlier plan to generate a bed (Higgsfield balance 0.63 credits vs 17.44 for 120 s) is superseded; no credits spent.
 
