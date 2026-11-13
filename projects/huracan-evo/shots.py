@@ -402,8 +402,8 @@ if __name__ == "v7":   # write only these: python -c "import runpy; runpy.run_pa
 # ---------------------------------------------------------------- v9: stealth coupe -> Spyder swap (user: "transition into the other car stealthily")
 # hx_match: the closed COUPE, no floor, camera arriving exactly on s5_frontopen's first key; the hard cut on the drop lands on the
 # closed SPYDER at the same camera (s5 holds closed until t 0.125), so the house 1:1 cut hides the car swap.
-HX = ("hx_match", dict(objects=COUPE, seconds=1.2, fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
-                       camera=[dict(t=0, az=-54, el=8, dist=6.3, target=[-0.1, -1.30, 0.50], lens=40),
+HX = ("hx_match", dict(objects=COUPE, seconds=2.4,   # v13: 2.4 s (was 1.2 s) - the push to the nose felt rushed fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
+                       camera=[dict(t=0, az=-64, el=7, dist=6.9, target=[-0.1, -1.25, 0.50], lens=40),
                                dict(t=1, az=-42, el=10, dist=5.6, target=[-0.1, -1.35, 0.50], lens=40, lin=True)],
                        out=RENDERS + "hx_match", anims={}, exposure=EXPOSURE, persistent=True))
 if __name__ == "v9":

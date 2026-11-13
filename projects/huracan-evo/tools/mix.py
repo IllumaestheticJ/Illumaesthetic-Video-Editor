@@ -240,5 +240,15 @@ def main_v12(out):
     main_v6(out)
 
 
+# v13 (user: re-pace the whole video evenly): same narration take as v12 over the longer music (track_a_v13: drop n17 =
+# 13.28 s, stop n68 = 43.88 s). The speech still starts at 3.0 s and ends ~35.5 s; the last 8 s are music + picture only.
+def main_v13(out):
+    global GAP_KEEP
+    GAP_KEEP = 9.0
+    V5["MUSIC"] = "/home/user/media/huracan-evo/music/track_a_v13.wav"
+    V6.update(VO="/home/user/media/huracan-evo/vo/narration16_r12.wav", LAST=43.4)
+    main_v6(out)
+
+
 if __name__ == "__main__":
-    {"--v12": main_v12, "--v11": main_v11, "--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9, "--v10": main_v10}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v13": main_v13, "--v12": main_v12, "--v11": main_v11, "--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9, "--v10": main_v10}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])

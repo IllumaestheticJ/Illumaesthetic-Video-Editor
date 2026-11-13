@@ -981,3 +981,5 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** A panel cut from the full-car skin can include neighbours (trunk lid took tail-light tops). Refine it with the state
   scan where the panel was opened: lid triangles within ~8 mm of that scan stayed on the body, so they are not lid
   (mazda-miata-nd/tools/refine_lid.py). Then composite with a small per-panel cut (6 mm) for panels cut from the same scan.
+
+- **[pacing]** The front feels rushed and the whole thing is not the same pacing - re-pace the whole video evenly; longer is fine  _(from huracan-evo @ 5s, 2026-11-13, reviewer)_
