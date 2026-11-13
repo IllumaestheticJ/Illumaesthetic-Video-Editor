@@ -176,22 +176,21 @@ def seg_reveal():
 
 
 def seg_end():
-    """v12b: Illumaesthetic logo, with the partner marks under it (MotoIQ mark, Bomex badge). Partners fade in after the wordmark."""
+    """v15: Illumaesthetic wordmark on top, MotoIQ mark between it and the Bomex badge (stacked). Partners fade in after the wordmark."""
     logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 700; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
-    mq = Image.open(f'{D}/logo/motoiq_white.png').convert('RGBA'); mq = mq.resize((int(mq.width * 300 / mq.height), 300), Image.LANCZOS)
+    mq = Image.open(f'{D}/logo/motoiq_lockup_white.png').convert('RGBA'); mq = mq.resize((560, int(mq.height * 560 / mq.width)), Image.LANCZOS)   # v16: full motoiq lockup (white moto, red iq box)
     bx = Image.open(f'{D}/logo/bomex_white.png').convert('RGBA'); bx = bx.resize((520, int(bx.height * 520 / bx.width)), Image.LANCZOS)
-    row_w = mq.width + 44 + bx.width; row_x = (WD - row_w) // 2
-    n = END - CUT['end']; y_main = 520; y_part = 1080
+    n = END - CUT['end']; y_main = 420; y_mq = 800; y_bx = y_mq + mq.height + 140
     def gen():
         for f in range(n):
-            im = Image.new('RGB', (WD, HT), (0, 0, 0)); d = ImageDraw.Draw(im)
+            im = Image.new('RGB', (WD, HT), (0, 0, 0))
             al = min(1.0, f / 8); l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al)))
             im.paste(l, ((WD - lw) // 2, y_main), l)
             pa = max(0.0, min(1.0, (f - 14) / 8))
             if pa > 0:
-                d.line([(row_x, y_part - 60), (row_x + row_w, y_part - 60)], fill=mul(WHITE, 0.25 * pa), width=2)
-                for lg, xx, yy in ((mq, row_x, y_part), (bx, row_x + mq.width + 44, y_part + (mq.height - bx.height) // 2)):
-                    al_ = lg.getchannel('A').point(lambda v: int(v * pa)); lg2 = lg.copy(); lg2.putalpha(al_); im.paste(lg2, (xx, yy), lg2)
+                for lg, yy in ((mq, y_mq), (bx, y_bx)):
+                    lg2 = lg.copy(); lg2.putalpha(lg.getchannel('A').point(lambda v: int(v * pa)))
+                    im.paste(lg2, ((WD - lg.width) // 2, yy), lg2)
             yield im
     pipe('v6_z_end', gen())
 
@@ -221,7 +220,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v14.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v16.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)
