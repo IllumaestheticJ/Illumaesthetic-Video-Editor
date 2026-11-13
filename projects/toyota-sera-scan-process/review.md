@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v6 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v6.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v5.md.
+# Toyota Sera scan-process reel v7 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v7.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v6.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -61,3 +61,9 @@ are still an upscaled crop of the captioned posted short (raw clips would fix bo
   holds the same alignment as v5. SIDE SKIRTS label moved to the top (car now sits in the lower half).
 - The FX30 shop shots were not changed: they already use the full frame height (crop zoom 1.0); going wider would need bars.
 - Checked: frames around the 24.6 / 25.8 / 27.0 cuts, luma min 28.6 (no dropouts), 29.97 s.
+
+## v7 (user: "crossfade the 1:1 shot")
+- Kitted scan -> finished car is now a 0.4 s crossfade (24.4-24.8) centred on the 24.6 beat, both sides frozen on the
+  matched frame; the real clip then plays 24.8-25.8. Later cuts unchanged (25.8, 27.0). Frames 24.3-24.8 checked: body
+  stays registered through the fade; the door-angle difference now reads as a soft ghost instead of a jump.
+- The IRL -> scan cuts at 1.8 s and 6.0 s remain hard cuts (standing rule).
