@@ -70,8 +70,8 @@ timeline:
     dur: 2.5667
   - transition: {type: cut, note: "1:1 IRL -> interior scan on a kick (cam_D, Lola 1 Interior)"}
   - id: scan_D         # focus: the interior scan from the driver's eye - wheel, gauges, vents, roof header; slow push
-    src: /home/user/media/work/lola/renders/s7_D
-    src_fps: 15
+    src: /home/user/media/work/lola/renders/s7_D   # rendered at 10 fps (110 s/frame), interpolated
+    src_fps: 10
     interpolate: true
     dur: 2.3
   - transition: {type: cut}
