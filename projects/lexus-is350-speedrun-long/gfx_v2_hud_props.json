@@ -1,0 +1,1261 @@
+{
+ "fps": 23.976,
+ "width": 1920,
+ "height": 270,
+ "durationInFrames": 7473,
+ "segments": [
+  {
+   "id": "CO_01",
+   "t0": 0.0,
+   "t1": 3.8,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "CO_02",
+   "t0": 3.8,
+   "t1": 5.8,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "CO_03",
+   "t0": 5.8,
+   "t1": 10.8,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "B_01",
+   "t0": 10.8,
+   "t1": 14.55,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "B_02",
+   "t0": 14.55,
+   "t1": 21.47,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "THE BET",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_01a",
+   "t0": 21.47,
+   "t1": 25.319999999999993,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "notstarted"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_01b",
+   "t0": 25.319999999999993,
+   "t1": 25.69,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 0,
+    "b": 0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_02",
+   "t0": 25.69,
+   "t1": 32.38,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 2.0,
+    "b": 9.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_03",
+   "t0": 32.38,
+   "t1": 36.18,
+   "visible": true,
+   "corner": "TL",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 22.0,
+    "b": 26.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_04",
+   "t0": 36.18,
+   "t1": 43.93,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 31.0,
+    "b": 39.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_05",
+   "t0": 43.93,
+   "t1": 47.708,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 39.0,
+    "b": 115.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "glyph": ">> 20x"
+  },
+  {
+   "id": "P_06",
+   "t0": 47.708,
+   "t1": 50.708,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 115.0,
+    "b": 118.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_07",
+   "t0": 50.708,
+   "t1": 53.708,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 119.0,
+    "b": 122.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "P_08",
+   "t0": 53.708,
+   "t1": 55.418,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 1 \u00b7 SPRAY",
+   "c1": {
+    "k": "time",
+    "a": 126.0,
+    "b": 127.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_01",
+   "t0": 55.418,
+   "t1": 58.418,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 172.0,
+    "b": 175.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_02",
+   "t0": 58.418,
+   "t1": 62.418,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 210.0,
+    "b": 214.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_03",
+   "t0": 62.418,
+   "t1": 63.918,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 222.0,
+    "b": 224.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_04",
+   "t0": 63.918,
+   "t1": 67.918,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 246.0,
+    "b": 250.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "Q_05",
+   "t0": 67.918,
+   "t1": 74.328,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN",
+   "c1": {
+    "k": "time",
+    "a": 272.0,
+    "b": 279.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_01",
+   "t0": 74.328,
+   "t1": 88.848,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 294.0,
+    "b": 308.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_02",
+   "t0": 88.848,
+   "t1": 89.848,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 308.0,
+    "b": 309.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING",
+   "glitch": true
+  },
+  {
+   "id": "C_03a",
+   "t0": 89.848,
+   "t1": 90.09825025025025,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 309.0,
+    "b": 310.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "glitch": true,
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_03b",
+   "t0": 90.09825025025025,
+   "t1": 91.048,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 309.0,
+    "b": 310.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_04",
+   "t0": 91.048,
+   "t1": 93.218,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 325.0,
+    "b": 327.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_05",
+   "t0": 93.218,
+   "t1": 95.018,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 329.0,
+    "b": 331.0
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "red": true,
+   "pill": "\u25cf STILL RUNNING"
+  },
+  {
+   "id": "C_06",
+   "t0": 95.018,
+   "t1": 99.188,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 335.0,
+    "b": 340.0
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_07",
+   "t0": 99.188,
+   "t1": 102.188,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "ff",
+    "a": 340.0,
+    "b": 716
+   },
+   "t2": {
+    "k": "hidden"
+   },
+   "hideClock": true
+  },
+  {
+   "id": "C_08a",
+   "t0": 102.188,
+   "t1": 115.188,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 716.0,
+    "b": 729.0362116991644
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "C_08b",
+   "t0": 115.188,
+   "t1": 117.688,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 729.0362116991644,
+    "b": 731.5431754874652
+   },
+   "t2": {
+    "k": "time",
+    "a": 0,
+    "b": 2
+   },
+   "sub": "AFTER REBOOT"
+  },
+  {
+   "id": "C_08c",
+   "t0": 117.688,
+   "t1": 120.138,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE CRASH",
+   "c1": {
+    "k": "time",
+    "a": 731.5431754874652,
+    "b": 734.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 2,
+    "b": 4
+   }
+  },
+  {
+   "id": "T_01",
+   "t0": 120.138,
+   "t1": 121.538,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 740.0,
+    "b": 741.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 10.0,
+    "b": 12.0
+   }
+  },
+  {
+   "id": "T_02",
+   "t0": 121.538,
+   "t1": 125.538,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 780.0,
+    "b": 784.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 51.0,
+    "b": 55.0
+   }
+  },
+  {
+   "id": "T_03",
+   "t0": 125.538,
+   "t1": 129.538,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 826.0,
+    "b": 830.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 97.0,
+    "b": 101.0
+   }
+  },
+  {
+   "id": "T_02b",
+   "t0": 129.538,
+   "t1": 133.538,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 884.0,
+    "b": 888.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 155.0,
+    "b": 159.0
+   }
+  },
+  {
+   "id": "T_04",
+   "t0": 133.538,
+   "t1": 137.538,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1032.0,
+    "b": 1036.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 302.0,
+    "b": 306.0
+   }
+  },
+  {
+   "id": "T_05",
+   "t0": 137.538,
+   "t1": 138.938,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1057.0,
+    "b": 1059.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 328.0,
+    "b": 329.0
+   }
+  },
+  {
+   "id": "T_06",
+   "t0": 138.938,
+   "t1": 140.338,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "time",
+    "a": 1072.0,
+    "b": 1074.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 343.0,
+    "b": 344.0
+   }
+  },
+  {
+   "id": "T_07a",
+   "t0": 140.338,
+   "t1": 143.19799999999998,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "time",
+    "a": 509,
+    "b": 512
+   }
+  },
+  {
+   "id": "T_07b",
+   "t0": 143.19799999999998,
+   "t1": 150.418,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "T_08",
+   "t0": 150.418,
+   "t1": 179.798,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 TRY AGAIN",
+   "c1": {
+    "k": "unknown"
+   },
+   "t2": {
+    "k": "paused",
+    "a": 512,
+    "b": 512
+   }
+  },
+  {
+   "id": "H_01",
+   "t0": 179.798,
+   "t1": 181.798,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1266.0,
+    "b": 1268.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 526.0,
+    "b": 528.0
+   }
+  },
+  {
+   "id": "H_02",
+   "t0": 181.798,
+   "t1": 185.298,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1321.0,
+    "b": 1325.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 580.0,
+    "b": 584.0
+   }
+  },
+  {
+   "id": "H_03",
+   "t0": 185.298,
+   "t1": 188.998,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1352.0,
+    "b": 1355.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 611.0,
+    "b": 615.0
+   }
+  },
+  {
+   "id": "H_04",
+   "t0": 188.998,
+   "t1": 192.498,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1388.0,
+    "b": 1391.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 647.0,
+    "b": 650.0
+   }
+  },
+  {
+   "id": "H_05",
+   "t0": 192.498,
+   "t1": 196.998,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1405.0,
+    "b": 1410.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 664.0,
+    "b": 669.0
+   }
+  },
+  {
+   "id": "H_06",
+   "t0": 196.998,
+   "t1": 198.398,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1417.0,
+    "b": 1419.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 676.0,
+    "b": 678.0
+   }
+  },
+  {
+   "id": "H_07",
+   "t0": 198.398,
+   "t1": 204.248,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1472.0,
+    "b": 1478.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 731.0,
+    "b": 737.0
+   }
+  },
+  {
+   "id": "H_08",
+   "t0": 204.248,
+   "t1": 206.248,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1525.0,
+    "b": 1527.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 784.0,
+    "b": 786.0
+   }
+  },
+  {
+   "id": "H_09",
+   "t0": 206.248,
+   "t1": 210.248,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1611.0,
+    "b": 1615.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 870.0,
+    "b": 874.0
+   }
+  },
+  {
+   "id": "H_10",
+   "t0": 210.248,
+   "t1": 213.698,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1642.0,
+    "b": 1645.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 901.0,
+    "b": 904.0
+   }
+  },
+  {
+   "id": "H_11",
+   "t0": 213.698,
+   "t1": 220.208,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1655.0,
+    "b": 1662.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 914.0,
+    "b": 921.0
+   }
+  },
+  {
+   "id": "H_12",
+   "t0": 220.208,
+   "t1": 221.608,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1671.0,
+    "b": 1673.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 930.0,
+    "b": 932.0
+   }
+  },
+  {
+   "id": "H_13",
+   "t0": 221.608,
+   "t1": 227.308,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1726.0,
+    "b": 1731.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 985.0,
+    "b": 991.0
+   }
+  },
+  {
+   "id": "H_14",
+   "t0": 227.308,
+   "t1": 231.768,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1833.0,
+    "b": 1837.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 1092.0,
+    "b": 1096.0
+   }
+  },
+  {
+   "id": "H_15",
+   "t0": 231.768,
+   "t1": 235.768,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1862.0,
+    "b": 1866.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 1121.0,
+    "b": 1125.0
+   }
+  },
+  {
+   "id": "H_16",
+   "t0": 235.768,
+   "t1": 240.768,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "PART 2 \u00b7 SCAN \u2014 THE HARD PARTS",
+   "c1": {
+    "k": "time",
+    "a": 1914.0,
+    "b": 1919.0
+   },
+   "t2": {
+    "k": "time",
+    "a": 1173.0,
+    "b": 1178.0
+   }
+  },
+  {
+   "id": "TM_01a",
+   "t0": 240.768,
+   "t1": 242.468,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "time",
+    "a": 1964.3400000000001,
+    "b": 1966.0400000000002
+   },
+   "t2": {
+    "k": "time",
+    "a": 1223.25,
+    "b": 1224.95
+   }
+  },
+  {
+   "id": "TM_01b",
+   "t0": 242.468,
+   "t1": 249.608,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "time",
+    "a": 1966.0400000000002,
+    "b": 1973.18
+   },
+   "t2": {
+    "k": "time",
+    "a": 1224.95,
+    "b": 1224.95
+   }
+  },
+  {
+   "id": "TM_01c",
+   "t0": 249.608,
+   "t1": 251.068,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "time",
+    "a": 1973.18,
+    "b": 1973.18
+   },
+   "t2": {
+    "k": "time",
+    "a": 1224.95,
+    "b": 1224.95
+   }
+  },
+  {
+   "id": "TM_01d",
+   "t0": 251.068,
+   "t1": 252.018,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "TM_02",
+   "t0": 252.018,
+   "t1": 255.018,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "TIME",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "M1_A",
+   "t0": 255.018,
+   "t1": 258.018,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M1_B",
+   "t0": 258.018,
+   "t1": 261.018,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M2_A",
+   "t0": 261.018,
+   "t1": 263.768,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M2_B",
+   "t0": 263.768,
+   "t1": 266.518,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M3_A",
+   "t0": 266.518,
+   "t1": 269.018,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M3_B",
+   "t0": 269.018,
+   "t1": 271.518,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M4_A",
+   "t0": 271.518,
+   "t1": 273.768,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M4_B",
+   "t0": 273.768,
+   "t1": 276.018,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M5_A",
+   "t0": 276.018,
+   "t1": 278.518,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M5_B",
+   "t0": 278.518,
+   "t1": 281.518,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "M6",
+   "t0": 281.518,
+   "t1": 288.518,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE SCAN",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "CON_01",
+   "t0": 288.518,
+   "t1": 298.668,
+   "visible": true,
+   "corner": "TR",
+   "chapter": "THE ANSWER",
+   "c1": {
+    "k": "final",
+    "label": "32 MIN"
+   },
+   "t2": {
+    "k": "final",
+    "label": "20 MIN"
+   }
+  },
+  {
+   "id": "CON_02",
+   "t0": 298.668,
+   "t1": 306.668,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "THE ANSWER",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  },
+  {
+   "id": "END",
+   "t0": 306.668,
+   "t1": 311.668,
+   "visible": false,
+   "corner": "TR",
+   "chapter": "",
+   "c1": {
+    "k": "hidden"
+   },
+   "t2": {
+    "k": "hidden"
+   }
+  }
+ ],
+ "chips": [
+  {
+   "text": "2 HR",
+   "t0": 3.25,
+   "hl": false
+  },
+  {
+   "text": "30 MIN",
+   "t0": 13.75,
+   "hl": false
+  },
+  {
+   "text": "15 MIN",
+   "t0": 20.62,
+   "hl": true
+  }
+ ],
+ "chipsOut": 21.47,
+ "t2Appear": 115.188,
+ "plateAlpha": 0.55
+}

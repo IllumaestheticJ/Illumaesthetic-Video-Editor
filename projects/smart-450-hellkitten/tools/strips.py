@@ -6,7 +6,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 sys.path.insert(0, os.path.dirname(__file__))
 from edit_shots import SHOTS, SM
-f = sys.argv[1] if len(sys.argv) > 1 else f"{SM}/out/smart450_v1.mp4"
+f = sys.argv[1] if len(sys.argv) > 1 else f"{SM}/out/smart450_v3.mp4"
 od = Path(sys.argv[2] if len(sys.argv) > 2 else f"{SM}/out"); od.mkdir(exist_ok=True, parents=True)
 TW, TH = 216, 384
 r = subprocess.run(["ffmpeg", "-v", "error", "-i", f, "-vf", f"scale={TW}:{TH}", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True, check=True).stdout

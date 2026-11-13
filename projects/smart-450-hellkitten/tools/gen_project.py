@@ -6,7 +6,7 @@ from edit_shots import SHOTS, SM, FPS, END
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-HUD = [("hud_a2", 273), ("hud_a3", 586), ("hud_render", 699)]   # overlay name, timeline start frame
+HUD = [("hud_hook", 0), ("hud_body", 363), ("hud_a4", 556), ("hud_final", 735)]   # overlay name, timeline start frame
 
 def main():
     tl = []
@@ -16,7 +16,7 @@ def main():
         c = dict(id=s["id"], src=f"{SM}/build/{s['id']}.mp4", frames=n, start_frame=s["start"],
                  section=s["section"], focus=s["focus"])
         if s["kind"] == "irl":
-            c["origin"] = f"{s['src']} @ {s['ss']:.3f} s"
+            c["origin"] = f"{s['src']} @ {s['ss'] if s.get('ss') is not None else s['end_ss']} s"
         if s["kind"] == "scan":
             c["origin"] = f"scan {s['scan']} (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)"
         if i:
@@ -25,7 +25,7 @@ def main():
     proj = {
         "project": "smart-450-hellkitten",
         "format": "reel-9x16",
-        "output": {"path": f"{SM}/build/smart450_v1_video.mp4", "width": 1080, "height": 1920, "fps": 30, "crf": 17, "preset": "slow"},
+        "output": {"path": f"{SM}/build/smart450_v3_video.mp4", "width": 1080, "height": 1920, "fps": 30, "crf": 17, "preset": "slow"},
         "audio": {"mix": f"{SM}/out/smart450_mix.wav", "note": "muxed by tools/build.py (AAC 256k); music v2 from harder.m4a + shop sound, stems in out/"},
         "beats_note": "T(m)=1.499+0.37583*m; cut frames = round(T*30); see direction.md section 2",
         "timeline": tl,

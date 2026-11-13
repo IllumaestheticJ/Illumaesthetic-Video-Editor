@@ -3,7 +3,7 @@
 project: smart-450-hellkitten
 format: reel-9x16
 output:
-  path: /home/user/media/work/smart-450/build/smart450_v1_video.mp4
+  path: /home/user/media/work/smart-450/build/smart450_v3_video.mp4
   width: 1080
   height: 1920
   fps: 30
@@ -14,194 +14,225 @@ audio:
   note: muxed by tools/build.py (AAC 256k); music v2 from harder.m4a + shop sound, stems in out/
 beats_note: T(m)=1.499+0.37583*m; cut frames = round(T*30); see direction.md section 2
 timeline:
-- id: S1
-  src: /home/user/media/work/smart-450/build/S1.mp4
-  frames: 22
+- id: H1
+  src: /home/user/media/work/smart-450/build/H1.mp4
+  frames: 45
   start_frame: 0
-  section: parts_off
-  focus: 'panels on the floor: this car is in pieces'
-  origin: v_1852_56 @ 20.800 s
-- transition:
-    type: cut
-- id: S2
-  src: /home/user/media/work/smart-450/build/S2.mp4
-  frames: 23
-  start_frame: 22
-  section: stripped_side
-  focus: bare shell and its door frame (ends on the solved 26.0 s frame)
-  origin: v_1852_56 @ 25.267 s
-- transition:
-    type: cut
-- id: S3
-  src: /home/user/media/work/smart-450/build/S3.mp4
-  frames: 45
-  start_frame: 45
-  section: stripped_side
-  focus: the same frame as a 3D scan (1:1 cut on drop 1)
-  origin: scan a1_match_str (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
-- transition:
-    type: cut
-- id: S4
-  src: /home/user/media/work/smart-450/build/S4.mp4
-  frames: 45
-  start_frame: 90
-  section: stripped_side
-  focus: hand on the real door braces
-  origin: v_1857_58 @ 1.200 s
+  section: hook_render
+  focus: the Hellkitten and the question
 - transition:
     type: cut
 - id: S5
   src: /home/user/media/work/smart-450/build/S5.mp4
   frames: 23
-  start_frame: 135
+  start_frame: 45
   section: whole_assembled
-  focus: 'the car before: black and intact'
-  origin: v_1632_12 @ 0.000 s
+  focus: 'here is the real car: black and intact'
+  origin: v_1632_12 @ 0.0 s
 - transition:
     type: cut
 - id: S6
   src: /home/user/media/work/smart-450/build/S6.mp4
   frames: 22
-  start_frame: 158
+  start_frame: 68
   section: assembled_front
   focus: powder turns black paint matte grey
-  origin: v_1634_19 @ 14.500 s
+  origin: v_1634_19 @ 14.5 s
 - transition:
     type: cut
 - id: S7
   src: /home/user/media/work/smart-450/build/S7.mp4
   frames: 23
-  start_frame: 180
+  start_frame: 90
   section: assembled_side
   focus: the powder mist on the door
-  origin: v_1634_19 @ 6.900 s
+  origin: v_1634_19 @ 6.9 s
 - transition:
     type: cut
 - id: S8
   src: /home/user/media/work/smart-450/build/S8.mp4
   frames: 22
-  start_frame: 203
+  start_frame: 113
   section: assembled_rear
   focus: tail lamp goes matte
-  origin: v_1634_51 @ 0.150 s
+  origin: v_1634_51 @ 0.15 s
 - transition:
     type: cut
 - id: S9
   src: /home/user/media/work/smart-450/build/S9.mp4
   frames: 45
-  start_frame: 225
+  start_frame: 135
   section: scanner
   focus: 'the scanner: green = captured'
-  origin: v_1724_26 @ 11.000 s
+  origin: v_1724_26 @ 11.0 s
 - transition:
     type: cut
-- id: S10
-  src: /home/user/media/work/smart-450/build/S10.mp4
-  frames: 113
-  start_frame: 270
-  section: whole_scan
-  focus: scan body on, then body off on drop 2
-  origin: scan a2_body_on_off (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
-- transition:
-    type: cut
-- id: S11
-  src: /home/user/media/work/smart-450/build/S11.mp4
+- id: S1
+  src: /home/user/media/work/smart-450/build/S1.mp4
   frames: 23
-  start_frame: 383
+  start_frame: 180
   section: parts_off
-  focus: 'what came off: inside of a body panel'
-  origin: v_1659_53 @ 1.900 s
-- transition:
-    type: cut
-- id: S12
-  src: /home/user/media/work/smart-450/build/S12.mp4
-  frames: 22
-  start_frame: 406
-  section: stripped_rear
-  focus: the bare rear
-  origin: v_1712_33 @ 19.050 s
+  focus: 'the car comes apart: panels on the floor'
+  origin: v_1852_56 @ 20.8 s
 - transition:
     type: cut
 - id: S13
   src: /home/user/media/work/smart-450/build/S13.mp4
-  frames: 23
-  start_frame: 428
+  frames: 22
+  start_frame: 203
   section: stripped_front
   focus: front end off, nose on the jack
-  origin: v_1852_56 @ 6.000 s
+  origin: v_1852_56 @ 6.0 s
 - transition:
     type: cut
-- id: S14
-  src: /home/user/media/work/smart-450/build/S14.mp4
-  frames: 22
-  start_frame: 451
-  section: stripped_front
-  focus: the bare structure gets powdered
-  origin: v_1722_25 @ 24.600 s
-- transition:
-    type: cut
-- id: S15
-  src: /home/user/media/work/smart-450/build/S15.mp4
+- id: S12
+  src: /home/user/media/work/smart-450/build/S12.mp4
   frames: 23
-  start_frame: 473
-  section: stripped_front
-  focus: glass turns matte so the scanner can see it
-  origin: v_1722_25 @ 35.000 s
+  start_frame: 225
+  section: stripped_rear
+  focus: the bare rear
+  origin: v_1712_33 @ 19.05 s
 - transition:
     type: cut
-- id: S16
-  src: /home/user/media/work/smart-450/build/S16.mp4
-  frames: 45
-  start_frame: 496
-  section: stripped_front
-  focus: scanning the bare front
-  origin: v_1724_26 @ 107.300 s
+- id: S4
+  src: /home/user/media/work/smart-450/build/S4.mp4
+  frames: 22
+  start_frame: 248
+  section: stripped_side
+  focus: hand on the real door braces
+  origin: v_1857_58 @ 1.2 s
 - transition:
     type: cut
 - id: S17
   src: /home/user/media/work/smart-450/build/S17.mp4
   frames: 23
-  start_frame: 541
+  start_frame: 270
   section: scanner_result
   focus: the scan is on the device
-  origin: v_1729_10 @ 0.480 s
+  origin: v_1729_10 @ 0.48 s
+- transition:
+    type: cut
+- id: S2
+  src: /home/user/media/work/smart-450/build/S2.mp4
+  frames: 23
+  start_frame: 293
+  section: stripped_side
+  focus: the bare shell (ends on the solved 26.0 s frame)
+  origin: v_1852_56 @ 26.0333 s
+- transition:
+    type: cut
+- id: S3
+  src: /home/user/media/work/smart-450/build/S3.mp4
+  frames: 45
+  start_frame: 316
+  section: stripped_side
+  focus: 'the same frame as a 3D scan: proof this is real engineering (1:1 cut)'
+  origin: scan a1_match_str (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
+- transition:
+    type: cut
+- id: S10a
+  src: /home/user/media/work/smart-450/build/S10a.mp4
+  frames: 45
+  start_frame: 361
+  section: whole_scan
+  focus: scan, body on
+  origin: scan a2_body_on_off (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
+- transition:
+    type: cut
+- id: S10b
+  src: /home/user/media/work/smart-450/build/S10b.mp4
+  frames: 90
+  start_frame: 406
+  section: whole_scan
+  focus: body off on the drop; push to the structure
+  origin: scan a2_body_on_off (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
 - transition:
     type: cut
 - id: S18
   src: /home/user/media/work/smart-450/build/S18.mp4
-  frames: 67
-  start_frame: 564
-  section: stripped_front_scan
-  focus: front structure in detail (scan)
-  origin: scan a3_detail (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
+  frames: 113
+  start_frame: 496
+  section: hellkitten_model
+  focus: 'same camera: the stripped scan becomes the textured Hellkitten body'
+  origin: scan a4_hellkitten (PLACEHOLDER tag burned in until the render finishes; build.py swaps in the finished frames)
 - transition:
     type: cut
-- id: S19
-  src: /home/user/media/work/smart-450/build/S19.mp4
-  frames: 45
-  start_frame: 631
+- id: R1
+  src: /home/user/media/work/smart-450/build/R1.mp4
+  frames: 22
+  start_frame: 609
   section: payoff_design
   focus: the new body drawn over this Smart
 - transition:
     type: cut
-- id: S20
-  src: /home/user/media/work/smart-450/build/S20.mp4
-  frames: 91
-  start_frame: 676
-  section: payoff_render
-  focus: what the scan is for
+- id: R2
+  src: /home/user/media/work/smart-450/build/R2.mp4
+  frames: 12
+  start_frame: 631
+  section: renders
+  focus: front
 - transition:
     type: cut
-- id: S21
-  src: /home/user/media/work/smart-450/build/S21.mp4
-  frames: 31
+- id: R3
+  src: /home/user/media/work/smart-450/build/R3.mp4
+  frames: 11
+  start_frame: 643
+  section: renders
+  focus: side, kitten decal
+- transition:
+    type: cut
+- id: R4
+  src: /home/user/media/work/smart-450/build/R4.mp4
+  frames: 11
+  start_frame: 654
+  section: renders
+  focus: from above
+- transition:
+    type: cut
+- id: R5
+  src: /home/user/media/work/smart-450/build/R5.mp4
+  frames: 11
+  start_frame: 665
+  section: renders
+  focus: rear
+- transition:
+    type: cut
+- id: R6
+  src: /home/user/media/work/smart-450/build/R6.mp4
+  frames: 23
+  start_frame: 676
+  section: renders
+  focus: on the street
+- transition:
+    type: cut
+- id: R7
+  src: /home/user/media/work/smart-450/build/R7.mp4
+  frames: 22
+  start_frame: 699
+  section: renders
+  focus: at night
+- transition:
+    type: cut
+- id: R8
+  src: /home/user/media/work/smart-450/build/R8.mp4
+  frames: 46
+  start_frame: 721
+  section: payoff_render
+  focus: the render, and the question
+- transition:
+    type: cut
+- id: LOGO
+  src: /home/user/media/work/smart-450/build/LOGO.mp4
+  frames: 90
   start_frame: 767
   section: logo
   focus: logo card
 overlays:
-- src: /home/user/media/work/smart-450/build/hud_a2.mov
-  start: 9.1
-- src: /home/user/media/work/smart-450/build/hud_a3.mov
-  start: 19.5333
-- src: /home/user/media/work/smart-450/build/hud_render.mov
-  start: 23.3
+- src: /home/user/media/work/smart-450/build/hud_hook.mov
+  start: 0.0
+- src: /home/user/media/work/smart-450/build/hud_body.mov
+  start: 12.1
+- src: /home/user/media/work/smart-450/build/hud_a4.mov
+  start: 18.5333
+- src: /home/user/media/work/smart-450/build/hud_final.mov
+  start: 24.5

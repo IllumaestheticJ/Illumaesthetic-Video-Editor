@@ -1,0 +1,19 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 46,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "title",
+   "from": 3,
+   "duration": 40,
+   "text": "SHOULD WE BUILD THIS?",
+   "sub": "HELLKITTEN \u00b7 DESIGN RENDER",
+   "y": 0.07,
+   "size": 64,
+   "subSize": 30
+  }
+ ]
+}

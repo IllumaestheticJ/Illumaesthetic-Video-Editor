@@ -27,12 +27,12 @@ export const calculateHudRailMetadata: CalculateMetadataFunction<HudRailProps> =
   durationInFrames: props.durationInFrames, fps: props.fps, width: props.width, height: props.height,
 });
 
-const ROLL = 8;
-const mmss = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
-const fr = (t: number, fps: number) => Math.round(t * fps);
+export const ROLL = 8;
+export const mmss = (s: number) => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
+export const fr = (t: number, fps: number) => Math.round(t * fps);
 
 /** text shown by a clock state at local frame lf of a segment of n frames; null = running/unreadable */
-function textOf(st: ClockState, lf: number, n: number): string | null {
+export function textOf(st: ClockState, lf: number, n: number): string | null {
   const p = n > 1 ? Math.min(1, Math.max(0, lf / (n - 1))) : 1;
   switch (st.k) {
     case "notstarted": return "00:00";
@@ -43,7 +43,7 @@ function textOf(st: ClockState, lf: number, n: number): string | null {
   }
 }
 
-const Face: React.FC<{ cur: string | null; prev: string | null; rf: number; size: number; color: string; frame: number }> = ({ cur, prev, rf, size, color, frame }) => {
+export const Face: React.FC<{ cur: string | null; prev: string | null; rf: number; size: number; color: string; frame: number }> = ({ cur, prev, rf, size, color, frame }) => {
   const h = Math.round(size * 1.1);
   const w = Math.round(size * 0.6);
   const rolling = rf < ROLL;

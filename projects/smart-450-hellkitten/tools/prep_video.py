@@ -131,7 +131,7 @@ def lerp(a, b, t):
 
 def prep_still(s):
     out = BUILD / f"{s['id']}.mp4"
-    stamp = json.dumps({k: s.get(k) for k in ("id", "n", "img", "mode", "z", "c", "shift", "w", "x0", "y0", "yc", "plate")}, sort_keys=True) + "v7"
+    stamp = json.dumps({k: s.get(k) for k in ("id", "n", "img", "mode", "z", "c", "shift", "w", "x0", "y0", "yc", "plate")}, sort_keys=True) + "v8"
     if stamp_ok(out, stamp):
         return out
     img = Image.open(f"{DESIGN}/{s['img']}").convert("RGB")
@@ -158,7 +158,9 @@ def prep_still(s):
             yc = s.get("yc", 0.5) * H
             im2 = img.resize((round(1440 * sc), round(1440 * sc)), Image.LANCZOS)
             canvas = bg.copy()
-            canvas.paste(im2, (round(W / 2 - cx * sc), round(yc - cy * sc)))
+            m = np.ones(im2.size[::-1], np.float32); ramp = np.linspace(0, 1, 200)
+            m[:200] *= ramp[:, None]; m[-200:] *= ramp[::-1][:, None]
+            canvas.paste(im2, (round(W / 2 - cx * sc), round(yc - cy * sc)), Image.fromarray((m * 255).astype(np.uint8)))
         else:
             w = lerp(*s["w"], t); h = w * 16 / 9
             x0 = lerp(*s["x0"], t); y0 = lerp(*s["y0"], t)
@@ -189,7 +191,7 @@ def prep_logo(s):
     p = ffmpeg_pipe(out)
     for i in range(n):
         a = min(1.0, (i + 1) / 5.0)                      # pops in over 5 frames on the downbeat
-        a *= min(1.0, (n - i) / 10.0)                    # and goes with the music's fade
+        a *= min(1.0, (n - i) / 16.0)                    # and goes with the music's fade
         sc = 1 + 0.03 * i / n
         L = logo.resize((round(logo.width * sc), round(logo.height * sc)), Image.LANCZOS)
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
@@ -238,37 +240,25 @@ def prep_scan(s):
         pv[int(Path(f).stem.split("_")[1])] = f
     stamp = json.dumps({"scan": s["scan"], "complete": complete, "n": s["n"],
                         "frames": sorted(have)[-1] if complete else sorted(have), "pv": sorted(pv),
-                        "t0": s.get("t0"), "swap": s.get("swap_t"), "ps": s.get("post_speed"), "sp": s.get("speed"), "need": SCAN_NEED[s["scan"]]}) + f"v6_{nout(s)}"
+                        "t0": s.get("t0"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
     if stamp_ok(out, stamp):
         return out, complete
     n = nout(s); t0 = s["t0"]
     pat = str(Path(SM) / "renders" / s["scan"] / "png" / "f_%04d.png")
     if complete:
         first = int(round(t0 * 15)) + 1             # png index at t0 (idx 1 = t 0)
-        swap = s.get("swap_t")
-        if swap is None:
-            minterp(pat, first, n, out, SCAN_NEED[s["scan"]] - first + 1, rate=15.0 * s.get("speed", 1.0))
-        else:
-            k_swap = int(round((swap - t0) * 30))       # output frame where the stripped state starts
-            sidx = int(round(swap * 15)) + 1             # png index of the first stripped frame (25)
-            a, b = BUILD / f"{s['id']}_pre.mp4", BUILD / f"{s['id']}_post.mp4"
-            # pre-swap: assembled frames only (png first .. sidx-1), the last one frozen for the odd frame before the swap
-            minterp(pat, first, k_swap, a, sidx - first)
-            minterp(pat, sidx, n - k_swap, b, SCAN_NEED[s["scan"]] - sidx + 1, rate=15.0 * s.get("post_speed", 1.0))
-            lst = BUILD / f"{s['id']}_list.txt"
-            lst.write_text(f"file '{a}'\nfile '{b}'\n")
-            sh(["ffmpeg", "-y", "-v", "error", "-f", "concat", "-safe", "0", "-i", str(lst), "-c:v", "libx264", "-preset",
-                "veryfast", "-crf", "10", "-pix_fmt", "yuv420p", "-frames:v", str(n), str(out)])
+        last = s.get("last_png") or SCAN_NEED[s["scan"]]
+        minterp(pat, first, n, out, last - first + 1, rate=15.0 * s.get("speed", 1.0))   # last_png: S10a stops before the state swap (frame frozen)
     else:
         avail = dict(pv); avail.update(have)         # real renders override the previews at the same index
+        if not avail:                                # a4 not rendered yet: hold A2's last frame (the same camera it starts from)
+            avail = {1: str(Path(SM) / "renders" / "a2_body_on_off" / "png" / "f_0075.png")}
         idxs = sorted(avail)
         font = ImageFont.truetype("/usr/share/fonts/opentype/inter/Inter-Bold.otf", 30)
         p = ffmpeg_pipe(out)
         cache = {}
         for k in range(n):
             t = t0 + k / 30.0 * s.get("speed", 1.0)
-            if s.get("swap_t") is not None and t >= s["swap_t"]:
-                t = s["swap_t"] + (k - int(round((s["swap_t"] - t0) * 30))) / 30.0 * s.get("post_speed", 1.0)
             pidx = t * 15 + 1 + 1e-6
             cands = [i for i in idxs if i <= pidx]
             i = cands[-1] if cands else idxs[0]

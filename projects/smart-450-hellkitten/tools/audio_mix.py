@@ -18,7 +18,8 @@ from edit_shots import SHOTS, DB, SM, FPS
 SR = 44100
 OUT = Path(SM) / "out"; OUT.mkdir(exist_ok=True, parents=True)
 MUSIC = Path(SM) / "music" / "music_v2_raw.wav"
-TOTAL = 798
+from edit_shots import END
+TOTAL = END
 
 
 def read_wav_f32(path):
@@ -44,6 +45,26 @@ def rms_db(x):
     return 20 * np.log10(max(np.sqrt(np.mean(x ** 2)), 1e-9))
 
 
+def build_meows(music):
+    """dry meow track (meows.py) -> small synthetic room (0.45 s, ~14 % wet) -> light sidechain from the music's kick band (up to -5 dB)."""
+    from scipy.signal import butter, sosfiltfilt, fftconvolve
+    dry = np.load(OUT / "_stem_meows_dry.npy")
+    rng = np.random.default_rng(7)
+    n = int(0.45 * SR); t = np.arange(n) / SR
+    ir = rng.standard_normal(n) * np.exp(-t / 0.11); ir[: int(0.004 * SR)] = 0
+    ir = sosfiltfilt(butter(2, 5000, "low", fs=SR, output="sos"), ir); ir /= np.abs(ir).sum() / 4
+    wet = fftconvolve(dry, ir)[: len(dry)]
+    y = dry + 0.14 * wet
+    kick = sosfiltfilt(butter(4, [35, 110], "band", fs=SR, output="sos"), music.mean(axis=1))
+    env = np.sqrt(np.convolve(kick ** 2, np.ones(SR // 100) / (SR // 100), "same")); env /= np.percentile(env, 99)
+    sm = np.zeros_like(env); a_r = np.exp(-1 / (0.12 * SR))
+    for i in range(1, len(env)):          # fast attack, 120 ms release
+        sm[i] = env[i] if env[i] > sm[i - 1] else sm[i - 1] * a_r
+    duck = 1 - 0.44 * np.clip(sm, 0, 1)    # up to about -5 dB
+    y = y * duck
+    return np.stack([y, y], axis=1)
+
+
 def main():
     music = read_wav_f32(MUSIC)
     nsamp = int(round(TOTAL / FPS * SR))
@@ -58,7 +79,9 @@ def main():
             continue
         a, b = int(round(s["start"] / FPS * SR)), int(round((s["start"] + s["n"]) / FPS * SR))
         dur = s["n"] / FPS
-        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{s['ss']:.4f}", "-t", f"{dur:.4f}", "-i", f"{DB}/{s['src']}.mov",
+        ssf = Path(SM) / "build" / f"{s['id']}.ss"
+        ss = float(ssf.read_text()) if ssf.exists() else s["ss"]
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", f"{ss:.4f}", "-t", f"{dur:.4f}", "-i", f"{DB}/{s['src']}.mov",
                               "-map", "0:a:0", "-f", "f32le", "-ac", "2", "-ar", str(SR), "-"], capture_output=True, check=True).stdout
         x = np.frombuffer(raw, np.float32).reshape(-1, 2).astype(np.float64)
         x = x[:b - a]
@@ -73,12 +96,13 @@ def main():
         c = 10 ** (rms_db(music[a:b]) / 20)           # soft ceiling at the music's RMS: handling thumps must not pump the master
         y = c * np.tanh(y / c)
         shop[a:b] += y
-        levels[s["id"]] = dict(src=s["src"], ss=s["ss"], mode=s["audio"], src_rms_db=round(src_rms, 1), gain_db=round(g_db, 1),
+        levels[s["id"]] = dict(src=s["src"], ss=ss, mode=s["audio"], src_rms_db=round(src_rms, 1), gain_db=round(g_db, 1),
                                music_rms_db=round(rms_db(music[a:b]), 1))
-    mix = music + shop
+    meows = build_meows(music)
+    mix = music + shop + meows
     I, tp = lufs(mix)
     g = 10 ** ((-10.0 - I) / 20)
-    mix *= g; music_s = music * g; shop_s = shop * g
+    mix *= g; music_s = music * g; shop_s = shop * g; meow_s = meows * g
     # true-peak limiter on the master only (level=disabled keeps the loudness)
     tmp = OUT / "_mix_pre.f32"; tmp.write_bytes(mix.astype(np.float32).tobytes())
     lim = subprocess.run(["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", str(tmp), "-af",
@@ -90,6 +114,7 @@ def main():
     write_wav(OUT / "smart450_mix.wav", master)
     write_wav(OUT / "stem_music.wav", music_s)
     write_wav(OUT / "stem_shopsound.wav", shop_s)
+    write_wav(OUT / "stem_meows.wav", meow_s)
     info = dict(master_lufs=I2, master_true_peak_dbtp=tp2, premix_lufs=I, gain_db=20 * np.log10(g), shots=levels,
                 note="stems carry the same gain as the master (pre-limiter)")
     (OUT / "audio_levels.json").write_text(json.dumps(info, indent=1))

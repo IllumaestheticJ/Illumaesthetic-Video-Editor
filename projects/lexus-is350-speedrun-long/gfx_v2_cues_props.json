@@ -1,0 +1,262 @@
+[
+ {
+  "cue": "G01_v2",
+  "comp": "ScanLabel",
+  "file": "G01_v2.mov",
+  "alpha": true,
+  "in": 7.8,
+  "out": 10.8,
+  "frames": 72,
+  "placement": "lower-left lower third over black below the car (rail-free), halo",
+  "props": {
+   "cue": "G01_v2",
+   "frames": 72,
+   "text": "HOW FAST CAN WE\n3D-SCAN AN ENTIRE CAR?",
+   "sub": "LEXUS IS350 \u00b7 ONE CAR \u00b7 ONE STOPWATCH",
+   "pos": "lower3",
+   "plate": false
+  }
+ },
+ {
+  "cue": "G03_v2",
+  "comp": "CueV2",
+  "file": "G03_v2.mov",
+  "alpha": true,
+  "in": 20.62,
+  "out": 21.47,
+  "frames": 20,
+  "placement": "lower-left x80-900 y640 (plate)",
+  "props": {
+   "cue": "G03_v2",
+   "frames": 20,
+   "text": "THE BET: 15 MINUTES",
+   "x": 80,
+   "y": 640,
+   "w": 820
+  }
+ },
+ {
+  "cue": "STING1_v2",
+  "comp": "CueV2",
+  "file": "STING1_v2.mov",
+  "alpha": true,
+  "in": 32.38,
+  "out": 33.98,
+  "frames": 38,
+  "placement": "lower-left x80-900 y700 (plate, slides in/out)",
+  "props": {
+   "cue": "STING1_v2",
+   "frames": 38,
+   "text": "PART 1 \u00b7 SPRAY",
+   "x": 80,
+   "y": 700,
+   "w": 860
+  }
+ },
+ {
+  "cue": "STING2_v2",
+  "comp": "CueV2",
+  "file": "STING2_v2.mov",
+  "alpha": true,
+  "in": 55.418,
+  "out": 57.018,
+  "frames": 38,
+  "placement": "same as STING1_v2",
+  "props": {
+   "cue": "STING2_v2",
+   "frames": 38,
+   "text": "PART 2 \u00b7 SCAN",
+   "x": 80,
+   "y": 700,
+   "w": 860
+  }
+ },
+ {
+  "cue": "G_SPRAY_v2",
+  "comp": "CueV2",
+  "file": "G_SPRAY_v2.mov",
+  "alpha": true,
+  "in": 48.006,
+  "out": 53.708,
+  "frames": 137,
+  "placement": "lower-right x1020-1840 y640 (plate)",
+  "props": {
+   "cue": "G_SPRAY_v2",
+   "frames": 137,
+   "text": "SPRAY DONE \u00b7 01:55 ON THE CLOCK",
+   "x": 1020,
+   "y": 640,
+   "w": 820,
+   "align": "right"
+  }
+ },
+ {
+  "cue": "G08_v2",
+  "comp": "CueV2",
+  "file": "G08_v2.mov",
+  "alpha": true,
+  "in": 246.668,
+  "out": 252.018,
+  "frames": 128,
+  "placement": "lower-left x60-620 y560 (narrower than x80-900 to stay clear of the phone at src 16)",
+  "props": {
+   "cue": "G08_v2",
+   "frames": 128,
+   "text": [
+    "CLOCK 1 \u00b7 FROM \"GO\" \u00b7 32 MIN",
+    "TIMER 2 \u00b7 RESTARTED AFTER THE CRASH \u00b7 20 MIN"
+   ],
+   "x": 60,
+   "y": 560,
+   "w": 560,
+   "beats": [
+    29,
+    96
+   ]
+  }
+ },
+ {
+  "cue": "G09_v2",
+  "comp": "CueV2",
+  "file": "G09_v2.mov",
+  "alpha": true,
+  "in": 252.018,
+  "out": 255.018,
+  "frames": 72,
+  "placement": "lower-left x80-900 y640 (plate)",
+  "props": {
+   "cue": "G09_v2",
+   "frames": 72,
+   "text": "THE 15-MINUTE BET: MISSED",
+   "sub": "CLOSEST GUESS: 30 MINUTES",
+   "x": 80,
+   "y": 640,
+   "w": 820
+  }
+ },
+ {
+  "cue": "G10_v2",
+  "comp": "ScanLabel",
+  "file": "G10_v2.mov",
+  "alpha": true,
+  "in": 282.518,
+  "out": 288.218,
+  "frames": 137,
+  "placement": "bottom-left over black, halo",
+  "props": {
+   "cue": "G10_v2",
+   "frames": 137,
+   "text": "LEXUS IS350",
+   "sub": "FULL CAR SCAN",
+   "pos": "bl",
+   "plate": false
+  }
+ },
+ {
+  "cue": "CON_G1_v2",
+  "comp": "CueV2",
+  "file": "CON_G1_v2.mov",
+  "alpha": true,
+  "in": 290.768,
+  "out": 297.018,
+  "frames": 150,
+  "placement": "top-left x60-760 y60 (plates; sky is bright)",
+  "props": {
+   "cue": "CON_G1_v2",
+   "frames": 150,
+   "text": [
+    "32 MIN FROM \"GO\"",
+    "20 MIN WITHOUT THE CRASH",
+    "THE BET WAS 15"
+   ],
+   "x": 60,
+   "y": 60,
+   "w": 700,
+   "beats": [
+    0,
+    32,
+    66
+   ]
+  }
+ },
+ {
+  "cue": "CON_G3_v2",
+  "comp": "ScanLabel",
+  "file": "CON_G3_v2.mov",
+  "alpha": true,
+  "in": 302.168,
+  "out": 306.668,
+  "frames": 108,
+  "placement": "bottom-left over black, halo",
+  "props": {
+   "cue": "CON_G3_v2",
+   "frames": 108,
+   "text": "LINK IN THE DESCRIPTION",
+   "sub": "",
+   "pos": "bl",
+   "plate": false
+  }
+ },
+ {
+  "cue": "G05a_v2",
+  "comp": "CardV2",
+  "file": "G05a_v2.mp4",
+  "alpha": false,
+  "in": 89.848,
+  "out": 91.048,
+  "frames": 29,
+  "placement": "BLACK CARD 1/3 full frame; HUD overlay stays on top",
+  "props": {
+   "cue": "G05a_v2",
+   "frames": 29,
+   "text": "SCANNER CRASHED"
+  }
+ },
+ {
+  "cue": "G05b_v2",
+  "comp": "CardV2",
+  "file": "G05b_v2.mp4",
+  "alpha": false,
+  "in": 99.188,
+  "out": 102.188,
+  "frames": 72,
+  "placement": "BLACK CARD 2/3 full frame; carries the big CLOCK 1 fast-forward (HUD shows chapter tag only)",
+  "props": {
+   "cue": "G05b_v2",
+   "frames": 72,
+   "text": "REBOOTING...",
+   "from": 340,
+   "to": 716
+  }
+ },
+ {
+  "cue": "G15_v2",
+  "comp": "CardV2",
+  "file": "G15_v2.mp4",
+  "alpha": false,
+  "in": 306.668,
+  "out": 311.668,
+  "frames": 120,
+  "placement": "BLACK CARD 3/3 end card, logo 900 px",
+  "props": {
+   "cue": "G15_v2",
+   "frames": 120,
+   "text": "ILLUMAESTHETIC"
+  }
+ },
+ {
+  "cue": "FX_GLITCH_C02",
+  "comp": "FxGlitch",
+  "file": "FX_GLITCH_C02.mov",
+  "alpha": true,
+  "in": 88.848,
+  "out": 89.848,
+  "frames": 24,
+  "placement": "full-frame glitch treatment over the frozen picture (scanlines, red edge, tear bands); editor adds RGB split + desaturate on the picture",
+  "props": {
+   "cue": "FX_GLITCH_C02",
+   "frames": 24,
+   "text": ""
+  }
+ }
+]

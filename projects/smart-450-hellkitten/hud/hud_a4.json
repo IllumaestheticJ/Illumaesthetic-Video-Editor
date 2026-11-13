@@ -1,0 +1,19 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 50,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "title",
+   "from": 0,
+   "duration": 48,
+   "text": "HELLKITTEN",
+   "sub": "DESIGN CONCEPT",
+   "y": 0.115,
+   "size": 72,
+   "subSize": 32
+  }
+ ]
+}

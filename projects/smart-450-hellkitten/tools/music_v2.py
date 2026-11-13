@@ -11,7 +11,7 @@ were off by 6-9 ms. Here every segment edge is snapped to the lattice and each s
   seg 2  m 4..50   : src L(109) at T(4)     ->  join at T(50) (8 beats j 101..109 removed)
   seg 3  m 50..end : src L(163) at T(50)    ->  (8 beats j 155..163 removed; drop 3 = j 169 lands at m 56, beats up to j 177 at m 64)
 12 ms equal-power crossfades centred on the joins; -6 dB; 1.0 s fade out from 25.59 s; true-peak limiter (level=disabled).
-Output: music_v2_raw.wav, 26.600 s (798 frames). Resumable: skips when it exists unless --force.
+Output: music_v2_raw.wav, END/30 s (v3: 857 frames = 28.57 s; segment 3 simply runs 8 beats further, source up to ~69.5 s). Resumable: skips when it exists unless --force.
 """
 import subprocess, sys, numpy as np
 from pathlib import Path
@@ -26,9 +26,11 @@ R = P_OUT / P_SRC                    # 1.002213
 UP, DOWN = 451, 450                  # 1.002222, 0.0009 % off R: < 0.3 ms over the reel
 T = lambda m: 1.499 + P_OUT * m
 L = lambda j: L0 + P_SRC * j
-TOTAL = 798 / 30.0
+sys.path.insert(0, str(Path(__file__).parent))
+from edit_shots import END
+TOTAL = END / 30.0   # v3: 857 frames = 8 more beats of drop 3 under the longer logo hold
 XF = 0.012
-FADE_START, FADE_LEN = 25.59, 1.0
+FADE_START, FADE_LEN = TOTAL - 1.0, 1.0
 # (j anchor, m anchor, output start s, output end s)
 SEGS = [(97, 0, 0.0, T(4)), (109, 4, T(4), T(50)), (163, 50, T(50), TOTAL)]
 
@@ -52,7 +54,8 @@ def segment(x, j, m, o0, o1):
 
 
 def main():
-    if OUT.exists() and "--force" not in sys.argv:
+    here = Path(__file__).parent
+    if OUT.exists() and "--force" not in sys.argv and OUT.stat().st_mtime > max((here / "music_v2.py").stat().st_mtime, (here / "edit_shots.py").stat().st_mtime):
         print("exists", OUT); return
     x = decode() * 0.5            # -6 dB
     h = int(round(XF / 2 * SR))   # 6 ms each side of a join
