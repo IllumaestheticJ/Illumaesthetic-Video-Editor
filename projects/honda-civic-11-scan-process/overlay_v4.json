@@ -1,0 +1,37 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 827,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "brackets",
+   "from": 99,
+   "duration": 62
+  },
+  {
+   "kind": "label",
+   "from": 102,
+   "duration": 58,
+   "title": "24,997,508",
+   "sub": "TRIANGLES CAPTURED",
+   "x": 0.08,
+   "y": 0.1
+  },
+  {
+   "kind": "brackets",
+   "from": 380,
+   "duration": 96
+  },
+  {
+   "kind": "label",
+   "from": 384,
+   "duration": 90,
+   "title": "EXTERIOR SCAN",
+   "sub": "HONDA CIVIC EK HATCHBACK",
+   "x": 0.08,
+   "y": 0.1
+  }
+ ]
+}

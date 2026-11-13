@@ -1,21 +1,24 @@
-# Honda Civic EK (6th gen hatch) - scan-process reel in the 240SX format. v4 (v1-v3: project_v1/v2/v3.yaml).
+# Honda Civic EK (6th gen hatch) - scan-process reel in the 240SX format. v5 (v1-v4: project_v1..v4.yaml).
+# v5 feedback: "THE DEATH" was awful -> user-supplied track "The Real Motorious City" (Gran Turismo 2 soundtrack); re-cut to it.
+# Song map: ~102 BPM, 9.41 s phrases, each phrase ends in a ~1.8-2.5 s drumless break then a big hit (track 25.65, 35.06,
+# 44.47, 53.88). Drop = 25.65 (video 3.20); cut B on the next phrase hit; sweep on the one after; video ends in the 4th break.
 # v4 = parent "v2 brief for all reels" (user: "Yes, make v4"): scenes in travel order front -> left side -> rear -> top/hero,
 # each section once (no second/third orbit), wider IRL frame at cut B (whole car, rear wide), end on the listing hero with a
 # short end card (no dead hold), exact HUD numbers only, cuts on decoded-audio kicks. Plan: direction.md.
 # v3 feedback: don't reuse music other agents used -> THE DEATH (Sworra). v2 feedback: nothing comes off the car.
 project: honda-civic-11-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/civic_ek_scan_process_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/civic_ek_scan_process_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  # "THE DEATH" - Sworra, TikTok Commercial Music Library EDM 7-day trending #2 (2026-11-11), song_clip_id 7280976752053504002
-  path: /home/user/media/civic11/music/trend/the_death.m4a
-  start: 41.867   # drop kick 45.067 s = video 3.200 s (frame 96)
-  fade_out: 0.4
+  # "The Real Motorious City" - Gran Turismo 2 soundtrack (user upload, 147.7 s, YouTube rip 128k AAC)
+  path: /home/user/media/civic11/music/user/motorious_city.m4a
+  start: 22.479   # +30 ms so the kick body (40-120 Hz peak) sits on the cut; break 23.2-25.6 under the settled pull-back -> phrase hit 25.649 = video 3.200 (frame 96)
+  fade_out: 0.4   # ends in the break before the 53.885 phrase hit
 
-# 128 BPM, beat 0.46875 s: t = 3.200 + 0.46875 k. Cuts (k): 0 5 8 13 16 28 32 | dissolve 42 | end 52
-# -> frames 96 166 208 279 321 490 546 | 687 | 827
-beats: [3.200, 5.544, 6.950, 9.294, 10.700, 16.325, 18.200, 22.888, 27.575]
+# Cuts on measured onsets (track - 22.449): 25.649 28.000 29.387(kick) 33.295 | 35.059 40.940 44.469 | dissolve 49.177 | end 53.885
+# -> video 3.200 5.551 6.900 10.845 12.610 18.490 22.020 | 26.728 | 31.435 -> frames 96 167 207 325 378 555 661 | 802 | 943
+beats: [3.200, 5.551, 6.900, 10.845, 12.610, 18.490, 22.020, 26.728, 31.435]
 
 # Whole-frame durs; first clip one frame short (each cut adds a cloned hold frame to the outgoing clip).
 timeline:
@@ -27,33 +30,33 @@ timeline:
   - transition: {type: cut, note: "1:1 IRL -> scan ON THE DROP (cam_A: f 18.3 mm, LM + silhouette refine)"}
   - id: scan_front   # FRONT (scan): final_s1 f1-32 only (from f33 the rear touches the frame edge); eased arc toward the left side; HUD triangle label
     src: /home/user/media/work/civic11/renders/final_s1
-    src_fps: 13.7143
+    src_fps: 13.5211
     interpolate: true
-    dur: 2.3333
+    dur: 2.3667
   - id: irl_scanner_left   # LEFT SIDE (IRL): operator holds the handheld scanner, front-left -> left flank
     src: /home/user/media/civic11/dropbox/v_2003_40.mov
-    in: 0.20
+    in: 0.2667
     out: 1.60
-    dur: 1.4000
+    dur: 1.3333
   - id: irl_powder_hatch   # REAR detail (IRL): powder sprayed on the hatch glass / spoiler / taillight
     src: /home/user/media/civic11/dropbox/v_1958_06.mov
     in: 9.00
-    out: 11.3667
-    dur: 2.3667
-  - id: irl_rear_wide   # REAR wide (IRL): whole car in frame; ends on the match frame 1.401 s
-    src: /home/user/media/civic11/dropbox/v_1958_06.mov
-    in: 0.0343
-    out: 1.4343
-    dur: 1.4000
+    out: 12.9333
+    dur: 3.9333
+  - id: irl_rear_wide   # REAR wide (IRL): whole car in frame; ends on the match frame 1.401 s; 0.81x slow-mo through the drumless break
+    # pre-rendered: v_1958_06 0-1.4343 s, HLG tonemap, setpts/0.8119 + minterpolate -> 52 f (the in-assembler vf path added 2 stray frames)
+    src: /home/user/media/work/civic11/irl/rear_wide_slow.mp4
+    tonemap: false
+    dur: 1.7667
   - transition: {type: cut, note: "1:1 IRL -> scan, wide rear (cam_B2: f 24 mm, PnP + silhouette refine, median 2.9 px)"}
   - id: scan_rear   # REAR (scan): holds the IRL pose, eased push into the hatch/spoiler/taillights, crane up to a high rear view (whole car)
     src: /home/user/media/work/civic11/renders/v4/final_s2
-    src_fps: 15
+    src_fps: 14.7458
     interpolate: true
-    dur: 5.6333
-  - id: software_align   # PROCESS: in the music's 2-bar break; scan software aligning two passes
-    src: /home/user/media/work/civic11/sr/sr_align_v2.mp4
-    dur: 1.8667
+    dur: 5.9000
+  - id: software_align   # PROCESS: runs into the drumless break before the sweep; scan software aligning two passes
+    src: /home/user/media/work/civic11/sr/sr_align_v5.mp4   # 41.5-55.65 s at 4x (2.5x of the v4 range barely moved)
+    dur: 3.5333
   - id: scan_sweep_hero   # TOP -> HERO: top-down over the car on the re-entry kick, scan line turns raw scan solid, orbit lands on cam_end (listing angle), morph to listing grey
     src: /home/user/media/work/civic11/renders/v4/final_s3
     src_fps: 15
@@ -61,9 +64,9 @@ timeline:
     dur: 5.2000
   - transition: {type: dissolve, duration: 0.5, note: "solid scan (listing grey) -> EK scan-data listing, same angle"}
   - id: website   # EK listing; zoom out, title, logo, then ILLUMAESTHETIC.COM fades in last (~1.8 s hold, no dead tail)
-    src: /home/user/media/work/civic11/out/webzoom_ek_v4.mp4
-    dur: 4.6667
+    src: /home/user/media/work/civic11/out/webzoom_ek_v5.mp4
+    dur: 4.7000
 
 overlays:
-  - src: /home/user/media/work/civic11/out/hud_ek_v4.mov
+  - src: /home/user/media/work/civic11/out/hud_ek_v5.mov
     start: 0
