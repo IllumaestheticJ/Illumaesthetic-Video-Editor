@@ -56,6 +56,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--secs", type=float, default=2.6)
     ap.add_argument("--title", required=True)
+    ap.add_argument("--roll", type=float, default=0.0, help="listing camera roll in deg (+ = picture turns CCW); eased in with the shrink")
     ap.add_argument("--sub", default="SCAN DATA AVAILABLE")
     ap.add_argument("--viewer", default="200,330,980,760", help="listing viewer rect in screenshot px (tone sampling)")
     ap.add_argument("--crop-h", type=int, default=1760, help="screenshot rows kept (below: a broken widget image)")
@@ -96,7 +97,8 @@ def main():
         tl_end = (px + bez + mp["ox"] * sp, py + bez + mp["oy"] * sp)
         # tone the scan toward the listing's grey render as it lands (per-channel median gain on car pixels)
         sh_np = np.asarray(shot).astype(np.float32)
-        lst = sh_np[int(330):int(700), 200:980].reshape(-1, 3); lst = lst[lst.mean(1) > 62]
+        vx0_, vy0_, vx1_, vy1_ = [int(v) for v in a.viewer.split(",")]
+        lst = sh_np[vy0_:vy1_, vx0_:vx1_].reshape(-1, 3); lst = lst[lst.mean(1) > 62]
         car_np = np.asarray(car).astype(np.float32).reshape(-1, 3); car_np = car_np[car_np.mean(1) > 40]
         gain = np.median(lst, 0) / np.maximum(1, np.median(car_np, 0))
     else:
@@ -132,6 +134,8 @@ def main():
         if ac > 0:
             cw, chh = max(2, int(W * s)), max(2, int(H * s))
             c = car.resize((cw, chh), Image.LANCZOS)
+            if a.roll:
+                c = c.rotate(a.roll * m, resample=Image.BICUBIC)
             if mp:
                 g = 1 + (gain - 1) * m
                 c = Image.fromarray(np.clip(np.asarray(c).astype(np.float32) * g, 0, 255).astype(np.uint8))

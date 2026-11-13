@@ -157,7 +157,14 @@ def join(b, t0, t1):
     so = OFF[SHELL][0]
     pre = [K(0, o, r), K(t0, o, r, "lin"), K(t1, so)] if t1 > 0 else [K(0, so)]
     return part(b, pre + [K(1.95, so, ease="lin"), K(LOCK, ease="in"), K(SECS[n] + 1, ease="lin")])
-RCAM = [C(0, (-1.79, 6.32, 3.40), (0.40, 0.30, 0.90), 28, "lin"), C(SECS[n], (-2.75, 5.61, 2.60), (0.20, 0.50, 0.60), 28)]
+# v5: the reassembly ends on the listing 360-viewer's camera (tools/solve_listing.py -> cta/listing_cam.json: orbit az 55.5,
+# el 14.4, d 10.98 m about (0,0,0.73), 42.05 mm on the 20.25 sensor, IoU 0.983) so the last frame shrinks 1:1 onto the
+# car on the mobile listing (tools/cta_card.py). The viewer's -1.83 deg roll is applied in the CTA, not here.
+LCAM = ((8.7624, -6.0321, 3.4607), (0.0, 0.0, 0.7295), 42.05)
+RCAM = [C(0, (-1.79, 6.32, 3.40), (0.40, 0.30, 0.90), 28, "lin"),
+        C(1.35, (6.60, 5.60, 3.60), (0.15, 0.20, 0.82), 33, "lin"),
+        C(LOCK, (9.80, -2.60, 3.50), (0.0, 0.0, 0.75), 39, "lin"),
+        C(SECS[n], *LCAM)]
 SHOTS[n] = {"base": [B4],
             "parts": [home(LID, 0.0, 0.70, rot0=(OPEN, 0, 0)), home(RBUMP, 0.15, 0.80), home(RFL, 0.60, 1.20),
                       home(DFL, 0.75, 1.35), home(SKIRT, 0.75, 1.35), home(FFL, 0.90, 1.50),
