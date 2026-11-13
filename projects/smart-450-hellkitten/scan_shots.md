@@ -1,6 +1,6 @@
 # Smart 450 short: scan shots
 
-Progress note (auto, 2026-11-13 04:05 UTC). Rendered by the 3D agent with `tools/chain.py` (resumable: rerun it after a restart).
+Progress note (auto, 2026-11-13 04:40 UTC). Rendered by the 3D agent with `tools/chain.py` (resumable: rerun it after a restart).
 Renders: 15 fps, 810x1440 (75 %), 8 spp + denoise, silver on black, upscaled to 1080x1920. Each shot has +3 tail frames (handles).
 Files per shot in `/home/user/media/work/smart-450/renders/<id>/`: `png/` frames, `<id>_src.mov` (ProRes 422 HQ, 15 fps, 1080x1920), `<id>_preview.mp4` (H.264, minterpolated to 30 fps). For a 30 fps edit, conform `_src.mov` with minterpolate or use the preview; at the A2 swap, freeze-replace the interpolated frames around the cut (blended swap frames).
 
