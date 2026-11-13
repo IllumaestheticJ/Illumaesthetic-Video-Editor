@@ -104,6 +104,9 @@ class Comp:
         self.AB = {k: (np.load(f"{WORK}/ui/A_{k}.npy"), np.load(f"{WORK}/ui/B_{k}.npy")[..., None]) for k in ("mazda", "dodge")}
         self.P = json.load(open(f"{WORK}/track/poses.json")); self.f = self.P["focal_px"]
         sp = f"{WORK}/track/shift.json"; self.shift = json.load(open(sp)) if os.path.exists(sp) else {}
+        kp = f"{WORK}/track/poses_kit.json"                      # kitpath.py: the kit car's own smoothed path (replaces the 2D shift)
+        self.PK = json.load(open(kp))["frames"] if os.path.exists(kp) else self.P["frames"]
+        if os.path.exists(kp): self.shift = {}
         self.V, self.F, _ = sil.load_mesh(f"{WORK}/track/nb.npz")
         self.cap = cv2.VideoCapture(f"{WORK}/a60.mp4")
         self.name = {k: np.load(f"{WORK}/ui/name_{k}.npz") for k in ("mazda", "dodge")}   # player name -> "Epsilon" (name_patch.py)
@@ -176,7 +179,7 @@ class Comp:
         changed[y0:y1, x0:x1] = True
         # 3. what is left of the game's car
         pose = self.P["frames"][str(src)] if str(src) in self.P["frames"] else self.P["hold"]
-        kpose = self.P["frames"][str(kit_src)] if str(kit_src) in self.P["frames"] else self.P["frames"]["1790"]   # 9000+: hold pose, wheel phases
+        kpose = self.PK[str(kit_src)] if str(kit_src) in self.PK else self.PK["1790"]   # 9000+: hold pose, wheel phases
         K = spin_wheels(self.kit(car, kit_src), car, kpose, self.f, spin, phase)
         SH = ground_shadow(car, kpose, self.f) if shadow and car in WHEELS else None
         dx, dy = self.shift.get(str(kit_src), (0.0, 0.0))            # steady.py: steadied screen path, render only
