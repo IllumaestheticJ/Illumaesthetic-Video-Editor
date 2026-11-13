@@ -857,3 +857,12 @@ lands here automatically. Agents must read this whole file before editing.
 - Per-part palette: saturated satin (roughness ~0.38, metallic ~0.25) x AO; pastel/low-saturation values washed out to
   near-white under AgX. Keep hue steps wide between parts that share a frame.
 - A colored scan cutting 1:1 to a grey website render still reads as a match (shape carries it), but the grade score drops.
+## From the Nissan Frontier v7 revision (2026-11-13, built by an agent)
+- **[scan-look]** Bigger wheels on a stock-height scan WILL clip: count body/flare/bumper points inside the tyre ring before rendering.
+  Frontier 35s: tens of thousands of points inside at stock height, zero at track +/-0.98 m and the lifted height - so show the new
+  wheels only on the lifted body, widen the track to the wide fenders, and carve the hub volume out of the body scan (c7_body_w).
+- **[scan-look]** Stand-in parts must be solid and plain (closed wheel barrel, no see-through spokes) - user on an open-spoke stand-in:
+  "super ugly". Do not add parts you cannot source (bumper bar modelled from a photo: "not accurate" -> removed). Label-only is safer.
+- **[scan-look]** Cutting a scanned panel for a new CAD part: mask by the new part's own silhouette (grille x-z outline, up to 260 mm
+  behind its back face), not a hand-drawn box, and animate in real install order (grille -> lights into grille -> onto cut bumper).
+- **[technical]** `rm -rf` with shell variables in the path is blocked by the safety check - use literal paths or leave cleanup to the user.
