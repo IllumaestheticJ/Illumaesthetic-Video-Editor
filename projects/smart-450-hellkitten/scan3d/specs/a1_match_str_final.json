@@ -1,0 +1,48 @@
+{
+ "base": [
+  "/home/user/media/smart-hellkitten/prep/str.blend"
+ ],
+ "light_bbox": [
+  [
+   -0.78,
+   -1.27,
+   0.0
+  ],
+  [
+   0.78,
+   1.27,
+   1.54
+  ]
+ ],
+ "camera": {
+  "sensor": 11.390625,
+  "keys": [
+   {
+    "t": 0,
+    "cam": "/home/user/media/work/smart-450/scan3d/match/camP_str.json",
+    "dist": 1.6
+   },
+   {
+    "t": 2.6,
+    "loc": [
+     1.220400359255991,
+     -0.6809500350406478,
+     1.3418331768463208
+    ],
+    "target": [
+     0.018579543543990145,
+     -0.024853589082953514,
+     0.59558201708324
+    ],
+    "focal": 10.292659945004102,
+    "ease": "out2"
+   }
+  ]
+ },
+ "seconds": 2.6,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 75,
+ "samples": 8,
+ "out": "/home/user/media/work/smart-450/renders/a1_match_str/png/"
+}

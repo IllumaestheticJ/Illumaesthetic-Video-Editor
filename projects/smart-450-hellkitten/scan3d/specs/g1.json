@@ -1,0 +1,3 @@
+{"base": ["/home/user/media/smart-hellkitten/prep/str.blend"],
+ "camera": {"sensor": 36, "keys": [{"t": 0, "loc": [1.5, -2.3, 1.55], "target": [0.0, 0.2, 0.75], "focal": 16}]},
+ "seconds": 0, "res": "1920x1080", "res_pct": 50, "samples": 8, "out": "/home/user/media/work/smart-450/scan3d/look/g1.png"}

@@ -1,0 +1,2 @@
+{"base": ["/home/user/media/lexus-is350/prep/car.blend"], "camera": {"sensor": 35.6, "keys": [{"t": 0, "loc": [-2.4,2.7,1.7], "target": [0.2,0.0,0.6], "focal": 22}]},
+ "seconds": 0, "res": "1920x1080", "res_pct": 25, "samples": 6, "out": "/home/user/media/work/smart-450/scan3d/look/r541_4.png"}

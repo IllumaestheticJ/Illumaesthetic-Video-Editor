@@ -1,0 +1,94 @@
+{
+ "base": [
+  {
+   "blend": "/home/user/media/smart-hellkitten/prep/asm.blend",
+   "vis": [
+    0,
+    1.6
+   ]
+  },
+  {
+   "blend": "/home/user/media/smart-hellkitten/prep/str.blend",
+   "vis": [
+    1.6,
+    99
+   ]
+  }
+ ],
+ "light_bbox": [
+  [
+   -0.78,
+   -1.27,
+   0.0
+  ],
+  [
+   0.78,
+   1.27,
+   1.54
+  ]
+ ],
+ "camera": {
+  "sensor": 36,
+  "keys": [
+   {
+    "t": 0,
+    "loc": [
+     3.037573328164014,
+     2.556871677777503,
+     1.85
+    ],
+    "target": [
+     0.05,
+     0.05,
+     0.62
+    ],
+    "focal": 45,
+    "ease": "inout"
+   },
+   {
+    "t": 1.6,
+    "loc": [
+     3.0444408637055433,
+     2.389513606237501,
+     1.83
+    ],
+    "target": [
+     0.05,
+     0.05,
+     0.62
+    ],
+    "focal": 45,
+    "ease": "lin"
+   },
+   {
+    "t": 5.0,
+    "loc": [
+     2.474926843218478,
+     1.3032581725468435,
+     1.5
+    ],
+    "target": [
+     0.4,
+     0.2,
+     0.75
+    ],
+    "focal": 45,
+    "ease": "inout"
+   }
+  ]
+ },
+ "seconds": 5.0,
+ "swap_at": 1.6,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 30,
+ "samples": 4,
+ "frames": [
+  "first",
+  24,
+  25,
+  "mid",
+  "last"
+ ],
+ "out": "/home/user/media/work/smart-450/scan3d/look/pv_a2_body_on_off/"
+}

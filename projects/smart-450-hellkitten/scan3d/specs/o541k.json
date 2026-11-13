@@ -1,0 +1,2 @@
+{"base": ["/home/user/media/lexus-is350/prep/car.blend"], "camera": {"sensor": 35.6, "keys": [{"t": 0, "cam": "/home/user/media/work/is350-long/scan3d/match/cam_541_fitj.json"}]},
+ "seconds": 0, "res": "1920x1080", "res_pct": 50, "samples": 6, "out": "/home/user/media/work/smart-450/scan3d/look/o541k.png"}

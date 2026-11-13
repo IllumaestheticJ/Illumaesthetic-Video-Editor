@@ -1,0 +1,2 @@
+{"base": ["/home/user/media/smart-hellkitten/prep/str.blend"], "camera": {"sensor": 11.390625, "keys": [{"t": 0, "cam": "/home/user/media/work/smart-450/scan3d/match/camP_str.json"}]},
+ "seconds": 0, "res": "1080x1920", "res_pct": 50, "samples": 6, "out": "/home/user/media/work/smart-450/scan3d/look/op.png"}

@@ -1,0 +1,2 @@
+{"base": ["/home/user/media/lexus-is350/prep/car.blend"], "camera": {"sensor": 20.03, "keys": [{"t": 0, "loc": [-0.9,3.5,1.45], "target": [-0.65,2.2,0.65], "focal": 14}]},
+ "seconds": 0, "res": "1920x1080", "res_pct": 50, "samples": 6, "out": "/home/user/media/work/smart-450/scan3d/look/p545a.png"}
