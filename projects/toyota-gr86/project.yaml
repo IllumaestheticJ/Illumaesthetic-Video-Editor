@@ -1,5 +1,7 @@
 # Toyota GR86 / Subaru BRZ (gen 2) - Temerario-style scan reel (scan only: no IRL footage; factual state/part-scan labels).
 # Hero scan: "BRZ Full Car" (all Bomex state/part scans are registered to it; see clips.md). House satin silver on black.
+# v6 (user note on v5: "Rear trunk area is not cut correctly based on real trunk opening"): trunk lid = lid_v6 (cut on the
+# real Trunk Open opening), base comp_explode6; the 9 shots that show the lid/opening re-rendered (tools/respec_v6.py).
 # v5 (user notes on v4 -> direction.md v5): new music = user-supplied Gran Turismo 2 "East City" theme (m4a, not in git),
 # excerpt from song 79.402 s: 122.05 BPM, one shot per bar (1.9664 s = 59 frames), drop on bar 2; every part highlighted with
 # its own bar + label (new: side markers), then a 3-angle exploded view, reassembly, clean car, logo.
@@ -7,7 +9,7 @@
 # Cuts at frames 59n (n = 1..19), seven moved one frame onto the measured onsets (117, 530, 589, 709, 884, 943, 1002); first clip one frame short; logo 75 frames (v4: 74 delivered one frame short).
 project: toyota-gr86
 format: reel-9x16
-output: {path: /home/user/media/work/gr86/out/toyota_gr86_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/gr86/out/toyota_gr86_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/gt2/east_city.m4a   # user-supplied, not in git
@@ -84,7 +86,7 @@ timeline:
     dur: 1.9667
   - transition: {type: cut, note: "bar 8"}
   - id: e1_lid_hinge
-    src: /home/user/media/work/gr86/shots/e1_lid_hinge
+    src: /home/user/media/work/gr86/shots/e1_lid_hinge6
     section: rear
     focus: "trunk lid (shut-line cut) hinges open +65 deg"
     src_fps: 30
@@ -92,7 +94,7 @@ timeline:
     dur: 1.9333
   - transition: {type: cut, note: "bar 9"}
   - id: e2_lid_off_cargo
-    src: /home/user/media/work/gr86/shots/e2_lid_off_cargo
+    src: /home/user/media/work/gr86/shots/e2_lid_off_cargo6
     section: rear
     focus: "lid lifts off -> cargo (Trunk Open)"
     src_fps: 30
@@ -100,7 +102,7 @@ timeline:
     dur: 1.9667
   - transition: {type: cut, note: "bar 10"}
   - id: e3_rear_bumper_off
-    src: /home/user/media/work/gr86/shots/e3_rear_bumper_off
+    src: /home/user/media/work/gr86/shots/e3_rear_bumper_off6
     section: rear
     focus: "rear bumper (part scan) pulls, tips, drops"
     src_fps: 30
@@ -108,7 +110,7 @@ timeline:
     dur: 2.0000
   - transition: {type: cut, note: "bar 11"}
   - id: e4_rear_beam
-    src: /home/user/media/work/gr86/shots/e4_rear_beam
+    src: /home/user/media/work/gr86/shots/e4_rear_beam6
     section: rear
     focus: "rear crash beam push-in (Rear Bumper Removed) - loudest bar"
     src_fps: 15
@@ -117,7 +119,7 @@ timeline:
     trim_start: 0.48
   - transition: {type: cut, note: "bar 12"}
   - id: f1_reverse_light
-    src: /home/user/media/work/gr86/shots/f1_reverse_light
+    src: /home/user/media/work/gr86/shots/f1_reverse_light6
     section: rear
     focus: "reverse light (part scan) lifts into the black band"
     src_fps: 30
@@ -133,7 +135,7 @@ timeline:
     dur: 1.9667
   - transition: {type: cut, note: "bar 14"}
   - id: x1_explode_fr
-    src: /home/user/media/work/gr86/shots/x1_explode_fr
+    src: /home/user/media/work/gr86/shots/x1_explode_fr6
     section: whole
     focus: "every part flies out to the exploded view - front-right"
     src_fps: 30
@@ -141,7 +143,7 @@ timeline:
     dur: 1.9333
   - transition: {type: cut, note: "bar 15"}
   - id: x2_explode_rr
-    src: /home/user/media/work/gr86/shots/x2_explode_rr
+    src: /home/user/media/work/gr86/shots/x2_explode_rr6
     section: whole
     focus: "exploded view, rear-right (rear bumper + lights)"
     src_fps: 30
@@ -150,7 +152,7 @@ timeline:
     vf: "crop=1080:1152:0:0,pad=1080:1920:0:384:color=0x070709"   # render left the set in the top 30 %: re-centre vertically (no scaling)
   - transition: {type: cut, note: "bar 16"}
   - id: x3_explode_high
-    src: /home/user/media/work/gr86/shots/x3_explode_high
+    src: /home/user/media/work/gr86/shots/x3_explode_high6
     section: whole
     focus: "exploded view, high (every part)"
     src_fps: 30
@@ -158,7 +160,7 @@ timeline:
     dur: 1.9667
   - transition: {type: cut, note: "bar 17"}
   - id: h1_reassemble_v5
-    src: /home/user/media/work/gr86/shots/h1_reassemble_v5
+    src: /home/user/media/work/gr86/shots/h1_reassemble_v56
     section: whole
     focus: "every part flies home, hood lands on the cut"
     src_fps: 30
