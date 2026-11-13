@@ -73,7 +73,7 @@ def home(s, off=(), hero=()):
         if p in off:
             continue
         s.obj("skin_" + p)   # fitted panel = the car scan's own skin (seamless); the panel scan takes over when it moves
-    for f in ("fill_fbump", "fill_fender", "fill_dtrim", "fill_skirts", "fill_rbump"):
+    for f in ("fill_fbump", "fill2_fender", "fill2_dtrim", "fill2_skirts", "fill_rbump"):   # fill2 = 3 mm gap (refill_v3.py)
         s.obj(f)
 
 
@@ -225,18 +225,18 @@ OFF_SIDE = ("fbump", "fender", "dtrim", "uskirt", "lskirt")
 
 # ---------------------------------------------------------------- s12 interior x-ray (two layers, one camera) / s13 console
 XCAM = ((0, dict(pos=[-1.25, 0, 3.05], look=[-0.62, 0, 0.5], up=[1, 0, 0])), (8.6, dict(pos=[-0.75, 0, 2.45], look=[-0.35, 0, 0.5], up=[1, 0, 0])))
-s = Shot("s12a_shell", 13, 15)           # layer a: only the first frames are rendered (crossfade ends on hb2)
+INT_EXP = -1.9       # the cabin scan alone under the full rig blew out at the car's exposure
+s = Shot("s12a_shell", 13, 15)           # layer a: only the first frames are rendered (crossfade ends before hb2)
 home(s, off=OFF_SIDE); corners(s, fr_off=FR_OFF); s.obj("interior"); s.obj("console"); s.cam(*XCAM)
 s.spec["_render_frames"] = "1-8"
-s = Shot("s12_int_xray", 13, 15)
+s = Shot("s12_int_xray", 13, 15, exposure=INT_EXP)
 s.obj("interior"); s.obj("console"); s.cam(*XCAM)
-s = Shot("s13_int_console", 14, 30)
+s = Shot("s13_int_console", 14, 30, exposure=INT_EXP)
 s.obj("interior")
-CPARK = [-0.15, 0, 0.50]
-s.obj("console", keys=[(0, dict()), (1, dict()), (2, dict(loc=[0, 0, 0.08], ease="ease_out")), (2.8, dict(loc=[-0.10, 0, 0.25], ease="linear")),
-                       (3.6, dict(loc=CPARK, ease="ease_out")), (8.1, dict(loc=CPARK))])
-s.cam((0, dict(pos=[0.9, 0, 1.55], look=[0.2, 0, 0.55])), (4.5, dict(pos=[0.75, 0, 1.5], look=[0.0, 0, 0.5])),
-      (8.1, dict(pos=[-0.6, 0, 1.45], look=[-1.35, 0, 0.55])))
+CPARK = [0.0, 0, 0.32]
+s.obj("console", keys=[(0, dict()), (1, dict()), (2, dict(loc=[0, 0, 0.08], ease="ease_out")), (3.4, dict(loc=CPARK, ease="ease_out")), (8.1, dict(loc=CPARK))])
+s.cam((0, dict(pos=[-0.75, 0, 2.45], look=[-0.35, 0, 0.5], up=[1, 0, 0])), (3.6, dict(pos=[-0.45, 0, 1.75], look=[-0.20, 0, 0.5], up=[1, 0, 0])),
+      (5.0, dict(pos=[-0.55, 0, 1.75], look=[-0.30, 0, 0.5], up=[1, 0, 0])), (8.1, dict(pos=[-1.55, 0, 1.75], look=[-1.40, 0, 0.5], up=[1, 0, 0])))
 
 # ---------------------------------------------------------------- s14 rear: wheel -> caliper -> rotor off, then the five-link works
 s = Shot("s14_rc", 15, 30, lens=32)
