@@ -143,9 +143,13 @@ _MATS = {}
 LED_KEYS = None  # [[t, w], ...] from the spec ("led"); None = always on
 
 
-def mat_led():
+LED2_KEYS = None  # second, independently switched LED group ("led2": fender lights, v8)
+
+
+def mat_led(name="r_led", which=1):
     """LED lens: dark until switched on, then white emission (keyed strength)."""
-    m, nt, out = sr.new_mat("r_led")
+    LED_KEYS = globals()["LED_KEYS" if which == 1 else "LED2_KEYS"]
+    m, nt, out = sr.new_mat(name)
     p = sr.principled(nt, (0.03, 0.03, 0.035, 1), 0.25)
     e = sr.emission(nt, (1.0, 0.96, 0.9, 1), 3.0)
     mx = nt.nodes.new("ShaderNodeMixShader")
@@ -164,7 +168,7 @@ def named_mat(k):
                     "bronze": lambda: mat_simple("r_bronze", (0.17, 0.115, 0.055), 0.38, 1.0),
                     "steel": lambda: mat_simple("r_steel", (0.55, 0.55, 0.57), 0.3, 1.0),
                     "red": lambda: mat_simple("r_red", (0.5, 0.02, 0.015), 0.4),
-                    "led": lambda: mat_led()}[k]()
+                    "led": lambda: mat_led(), "led2": lambda: mat_led("r_led2", 2)}[k]()
     return _MATS[k]
 
 
@@ -277,8 +281,8 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     hl_all = spec.get("hl_all")
-    global LED_KEYS
-    LED_KEYS = spec.get("led")
+    global LED_KEYS, LED2_KEYS
+    LED_KEYS = spec.get("led"); LED2_KEYS = spec.get("led2")
     liv = spec.get("livery")
     for gi, (name, objs, hl) in enumerate(groups):
         if base_mats.get(gi) == "livery":

@@ -1,21 +1,22 @@
-# v7: no bumper bar; correct bumper cutaway (grille shown -> lights go in -> grille onto the cut bumper); solid wheels on a wider
-# track, never clipping. Shots: tools/shots_v7.py. Same cut frames as v6 (project_v6.yaml).
+# v8: 'how we modified this truck' (user on v7) - stock scan -> grille -> bumper -> mounts -> Ronin grille + SCANNED grille lights ->
+# flares off -> wide fenders + SCANNED fender lights -> wheels -> lift -> turbos/livery -> 1:1 cut to the real truck. Shots: tools/shots_v8.py,
+# lights: tools/lights.py. v7 = project_v7.yaml.
 # Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
 project: nissan-frontier
 format: reel-9x16
-output: {path: /home/user/media/work/frontier/out/nissan_frontier_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v8.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-frontier_track_ronin.wav   # track with beats 32-56 replayed once (see editlog); not in git
   start: 0
   fade_out: 1.2
 
-beats: [4.882, 9.657, 14.459, 18.038, 20.466, 24.177, 27.781, 33.826, 37.529, 39.909, 42.348, 45.922, 47.130, 49.597]
+beats: [4.882, 9.657, 14.459, 18.038, 24.177, 27.781, 33.826, 37.529, 39.909, 42.348, 45.922, 47.130, 49.597]
 
 timeline:
   - id: v2_s1_wide
     section: whole
-    focus: "whole truck, front-right 3/4, moving from frame 1"
+    focus: "STEP 01: the stock Pro-4X, 3D scanned whole"
     src: /home/user/media/work/frontier/renders/final/v2_s1_wide
     src_fps: 15
     interpolate: true
@@ -24,7 +25,7 @@ timeline:
   - transition: {type: cut}
   - id: v2_s2_grille
     section: front
-    focus: "grille + badge close-up; GRILLE highlighted + labelled"
+    focus: "STEP 02: stock grille that gets replaced"
     src: /home/user/media/work/frontier/renders/final/v2_s2_grille
     src_fps: 15
     interpolate: true
@@ -33,7 +34,7 @@ timeline:
   - transition: {type: cut}
   - id: v4_s3_bumper
     section: front
-    focus: "FRONT BUMPER off on the drop; complete bumper scan (grille on it) turns to show its whole scanned inside"
+    focus: "STEP 03: front bumper comes off to be trimmed (inside scanned)"
     src: /home/user/media/work/frontier/renders/final/v4_s3_bumper
     src_fps: 15
     interpolate: true
@@ -42,85 +43,67 @@ timeline:
   - transition: {type: cut}
   - id: v3_s4_removed
     section: front
-    focus: "FRONT BUMPER REMOVED state - push-in on what is behind the bumper"
+    focus: "STEP 04: mounting points scanned with the bumper off"
     src: /home/user/media/work/frontier/renders/final/v3_s4_removed
     src_fps: 15
     interpolate: true
     frames: 107
     dur: 3.5667
   - transition: {type: cut}
-  - id: v4_s5_hood
-    section: front
-    focus: "HOOD opens on its fitted hinge (33.5 deg from the propped-hood fragments)"
-    src: /home/user/media/work/frontier/renders/final/v4_s5_hood
+  - id: m1_grille
+    section: build
+    focus: "trimmed bumper back on; RONIN GRILLE parks in front; three SCANNED grille lights drop into its pockets; seats; lights on"
+    src: /home/user/media/work/frontier/renders/final/m1_grille
     src_fps: 15
     interpolate: true
-    frames: 73
-    dur: 2.4333
+    frames: 184
+    dur: 6.1333
   - transition: {type: cut}
-  - id: v4_s6_struct
-    section: front
-    focus: "FRONT STRUCTURE (bumper + hood removed scan)"
-    src: /home/user/media/work/frontier/renders/final/v4_s6_struct
-    src_fps: 15
-    interpolate: true
-    frames: 111
-    dur: 3.7000
-  - transition: {type: cut}
-  - id: v4_s7_flares
-    section: side
-    focus: "FENDER FLARES pull out onto black and turn to show their back"
-    src: /home/user/media/work/frontier/renders/final/v4_s7_flares
+  - id: m2_flares
+    section: build
+    focus: "stock flares highlighted, come off"
+    src: /home/user/media/work/frontier/renders/final/m2_flares
     src_fps: 15
     interpolate: true
     frames: 108
     dur: 3.6000
   - transition: {type: cut}
-  - id: v4_s8_home
-    section: whole
-    focus: "parts home one per beat from the crash; FULL TRUCK; fade"
-    src: /home/user/media/work/frontier/renders/final/v4_s8_home
+  - id: m3_fenders
+    section: build
+    focus: "WIDE FENDERS on; push in on the front-right arch; SCANNED fender lights seat in the slots; lights on"
+    src: /home/user/media/work/frontier/renders/final/m3_fenders
     src_fps: 15
     interpolate: true
     frames: 182
     dur: 6.0667
   - transition: {type: cut}
-  - id: q1_grille
-    section: ronin
-    focus: "bumper cut away with the stock grille; RONIN GRILLE shown in front; LED bars go into it; grille goes onto the cut bumper; lights on"
-    src: /home/user/media/work/frontier/renders/final/q1_grille
+  - id: m4_wheels
+    section: build
+    focus: "35-INCH WHEELS roll in at lifted height on the wider track"
+    src: /home/user/media/work/frontier/renders/final/m4_wheels
     src_fps: 15
     interpolate: true
     frames: 111
     dur: 3.7000
   - transition: {type: cut}
-  - id: q2_bar
-    section: ronin
-    focus: "WIDE FENDERS replace the stock flares"
-    src: /home/user/media/work/frontier/renders/final/q2_bar
+  - id: m5_lift
+    section: build
+    focus: "the LIFT (same orbit continues)"
+    src: /home/user/media/work/frontier/renders/final/m5_lift
     src_fps: 15
     interpolate: true
     frames: 71
     dur: 2.3667
   - transition: {type: cut}
-  - id: q3_lift
-    section: ronin
-    focus: "35-INCH WHEELS roll in at lifted height on the wider track, then the LIFT"
-    src: /home/user/media/work/frontier/renders/final/q3_lift
+  - id: m6_livery
+    section: build
+    focus: "GT-R twin turbo label beat on the silver truck; RONIN LIVERY sweeps on the crash; camera lands on the solved IMG_3223 camera"
+    src: /home/user/media/work/frontier/renders/final/m6_livery
     src_fps: 15
     interpolate: true
-    frames: 73
-    dur: 2.4333
-  - transition: {type: cut}
-  - id: q4_livery
-    section: ronin
-    focus: "RONIN LIVERY sweep on the crash; camera lands on the solved IMG_3223 camera"
-    src: /home/user/media/work/frontier/renders/final/q4_livery
-    src_fps: 15
-    interpolate: true
-    frames: 108
-    dur: 3.6000
-  - transition: {type: cut, note: "1:1 scan -> real (cam_3223, RMSE 2.8 px, onion match/check_3223_final.jpg) on b52' 45.922"}
+    frames: 181
+    dur: 6.0333
+  - transition: {type: cut, note: "1:1 scan -> real (cam_3223, RMSE 2.8 px) on b52' 45.922"}
   - id: irl_3223
     section: real
     focus: "the real Ronin Frontier at SEMA 2026, same camera as the scan frame"
@@ -147,25 +130,23 @@ timeline:
     dur: 4.0000
 
 overlays:
+  - src: /home/user/media/work/frontier/out/labels_v2_s1_wide.mov
+    start: 0.0000
   - src: /home/user/media/work/frontier/out/labels_v2_s2_grille.mov
     start: 4.8667
   - src: /home/user/media/work/frontier/out/labels_v4_s3_bumper.mov
     start: 9.6667
   - src: /home/user/media/work/frontier/out/labels_v3_s4_removed.mov
     start: 14.4667
-  - src: /home/user/media/work/frontier/out/labels_v4_s5_hood.mov
+  - src: /home/user/media/work/frontier/out/labels_m1_grille.mov
     start: 18.0333
-  - src: /home/user/media/work/frontier/out/labels_v4_s6_struct.mov
-    start: 20.4667
-  - src: /home/user/media/work/frontier/out/labels_v4_s7_flares.mov
+  - src: /home/user/media/work/frontier/out/labels_m2_flares.mov
     start: 24.1667
-  - src: /home/user/media/work/frontier/out/labels_v4_s8_home.mov
+  - src: /home/user/media/work/frontier/out/labels_m3_fenders.mov
     start: 27.7667
-  - src: /home/user/media/work/frontier/out/labels_q1_grille.mov
+  - src: /home/user/media/work/frontier/out/labels_m4_wheels.mov
     start: 33.8333
-  - src: /home/user/media/work/frontier/out/labels_q2_bar.mov
+  - src: /home/user/media/work/frontier/out/labels_m5_lift.mov
     start: 37.5333
-  - src: /home/user/media/work/frontier/out/labels_q3_lift.mov
+  - src: /home/user/media/work/frontier/out/labels_m6_livery.mov
     start: 39.9000
-  - src: /home/user/media/work/frontier/out/labels_q4_livery.mov
-    start: 42.3333

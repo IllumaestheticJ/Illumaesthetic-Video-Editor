@@ -57,7 +57,7 @@ with tempfile.TemporaryDirectory() as td:
             al = min(ease((t - t0) / 0.22), ease((t1 - t) / 0.22))
             grow = ease((t - t0) / 0.3)
             pa = pix_anchor(L, t) if L.get("anchor_pixels") else None
-            ax, ay = pa if pa else anchor_at(L["id"], t); ax *= W; ay *= H
+            ax, ay = L["xy"] if L.get("xy") else (pa if pa else anchor_at(L["id"], t)); ax *= W; ay *= H   # "xy": fixed screen anchor (v8)
             ax += L.get("offset", [0, 0])[0] * W; ay += L.get("offset", [0, 0])[1] * H   # e.g. point under the truck
             title, sub = L["title"], L.get("sub", "")
             wt, ws = tw(title, FT, 6), tw(sub, FS, 4)
