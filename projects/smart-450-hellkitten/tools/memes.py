@@ -18,7 +18,7 @@ W, H = 1080, 1920
 # pos = (side, bottom y). Timeline frames: huh enters on m-3 and leaves on the drop (frame 45); oiia's spin starts (clip t 1.5 s) exactly on the
 # body-off swap, frame 406; yapapa's first yell (audio onset 0.9 s into the clip) lands on the choir meow, T(44.5) = frame 547; clap runs m62..m64.
 MEMES = {
-    "huh": dict(file="huh_cat.mp4", t0=0.5, dur=1.1, width=340, pos=("right", 1690), start=12, tol=(26, 62), why="a confused cat next to the opening question 'THIS IS A SMART CAR?'"),
+    "huh": dict(file="huh_cat.mp4", t0=0.5, dur=1.1, width=280, pos=("right", 1690), start=12, tol=(26, 62), why="a confused cat next to the opening question 'THIS IS A SMART CAR?'"),
     "oiia": dict(file="oiiaoiia_cat.mp4", t0=1.2, dur=1.5, width=330, pos=("left", 1690), start=397, tol=(30, 70), why="the spin on the body-off swap (beat 32): the spin starts on the swap frame"),
     "yapapa": dict(file="yapapa_cat.mp4", t0=0.5, dur=1.7, width=400, pos=("left", 1690), start=535, tol=(30, 70), why="mouth open on the choir meow of the Hellkitten reveal (beat 44.5)"),
     "clap": dict(file="clapping_cat.mp4", t0=0.0, dur=101 / 30, width=440, pos=("right", 1690), start=744, tol=(30, 70), rim=True, retime=(3.5, 1.109, 79, 50),

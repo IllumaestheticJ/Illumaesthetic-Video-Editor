@@ -278,7 +278,7 @@ def prep_scan(s):
         pv[int(Path(f).stem.split("_")[1])] = f
     stamp = json.dumps({"scan": s["scan"], "complete": complete, "n": s["n"],
                         "frames": sorted(have)[-1] if complete else sorted(have), "pv": sorted(pv),
-                        "t0": s.get("t0"), "text": s.get("text"), "small": s.get("text_small"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
+                        "t0": s.get("t0"), "text": s.get("text"), "small": s.get("text_small"), "fixb": s.get("fix_blend"), "sp": s.get("speed"), "last": s.get("last_png"), "need": SCAN_NEED[s["scan"]]}) + f"v7_{nout(s)}"
     if stamp_ok(out, stamp):
         return out, complete
     n = nout(s); t0 = s["t0"]
@@ -311,6 +311,10 @@ def prep_scan(s):
             d.text((34, H - 84), f"PLACEHOLDER {s['scan']}", font=font, fill=(255, 80, 80))
             p.stdin.write(np.asarray(im).tobytes())
         p.stdin.close(); p.wait()
+    if complete and s.get("fix_blend") is not None:   # v6: minterpolate leaves one ghosted frame at an in-shot state swap; replace it with the frame before
+        k = s["fix_blend"]; tmp = BUILD / "_fix_tmp.mp4"
+        sh(["ffmpeg", "-y", "-v", "error", "-i", str(out), "-vf", f"split[fa][fb];[fa][fb]freezeframes=first={k}:last={k}:replace={k - 1},format=yuv420p", *ENC, str(tmp)])
+        os.replace(tmp, out)
     if s.get("text"):
         add_text(out, s["text"], s.get("text_small"))
     write_stamp(out, stamp)

@@ -45,7 +45,7 @@ SHOTS = [
     S("S3", 24, 28, kind="scan", scan="a1_match_str", t0=0.0, section="stripped_side", focus="the same frame as a 3D scan: proof this is real engineering (1:1 cut)"),
     S("S10a", 28, 32, kind="scan", scan="a2_body_on_off", t0=0.1, last_png=24, section="whole_scan", focus="scan, body on"),
     S("S10b", 32, 40, kind="scan", scan="a2_body_on_off", t0=1.6, speed=1.11, section="whole_scan", focus="body off on the drop; push to the structure"),
-    S("S18", 40, 50, kind="scan", scan="a4_hellkitten", t0=0.0, speed=1.2, section="hellkitten_model",
+    S("S18", 40, 50, kind="scan", scan="a4_hellkitten", t0=0.0, speed=1.2, fix_blend=9, section="hellkitten_model",
       focus="same camera: the stripped scan becomes the textured Hellkitten body"),
     S("R1", 50, 52, kind="still", img="Blueprint.jpeg", mode="blueprint", section="payoff_design", focus="the new body drawn over this Smart"),
     S("R2", 52, 53, kind="still", img="drive/4.r.2/4.r.2.jpg", mode="fit", z=(1.3, 1.42), c=(720, 730), shift=(-30, 0), section="renders", focus="front"),
