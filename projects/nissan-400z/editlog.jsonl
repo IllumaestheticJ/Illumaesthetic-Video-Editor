@@ -33,3 +33,4 @@
 {"ts": "2026-11-12T19:37:10Z", "decision": "N2_mirror rendered natively at 30 fps, no interpolation", "why": "v3 frames check: minterpolate left ghost trails on the fast mirror exit (f706-722)"}
 {"ts": "2026-11-13T08:17:41Z", "decision": "Music gain 0.63 (-4 dB)", "why": "User: music too loud; v3 was -10.5 LUFS integrated with +0.4 dBTP (clipping); target about -14.5 LUFS, true peak below -1 dBTP"}
 {"ts": "2026-11-13T08:17:41Z", "decision": "N1a: grille and bumper shell leave as one unit on the 14.971 kick, up out of frame by 16.846; s8b grille stacks inside the bumper (same offset/delay)", "why": "User rule: nothing comes off the bumper until the bumper itself comes off; v3 pulled the grille out first"}
+{"ts": "2026-11-13T09:18:11Z", "decision": "N1a rendered natively at 30 fps", "why": "v4 check: minterpolate tore the bumper+grille unit on its fast exit (f491-503)"}

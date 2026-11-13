@@ -183,7 +183,7 @@ SHOTS["N3_wing"] = {"base": [EXP], "parts": [
                 [-1.10, 4.15, 2.25], [0.05, 1.85, 0.95], 27)}  # f35 cut the wing's left tip + right quarter (v3 frames check)
 
 
-FPS = {"N2_mirror": 30}  # v3: mirror moves too fast for minterpolate (ghost trails f706-722) -> native 30 fps
+FPS = {"N2_mirror": 30, "N1a_bumper_off": 30}  # fast part exits tear under minterpolate (N2 f706-722, N1a f491-503) -> native 30 fps
 
 
 def spec(name, mode):
