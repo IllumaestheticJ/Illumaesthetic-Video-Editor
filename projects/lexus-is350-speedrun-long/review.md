@@ -48,3 +48,15 @@ Honest gaps:
 - Runtime 5:15.023, -14.1 LUFS / -1.5 dBTP; cut-to-beat median 0.59 f (31/40 within 1 f); montage match 38.9-40.7 dB; no placeholders.
 - Scores unchanged from v3 except Story 4 -> 4 (complete ending) and Ending 4: the ring decays into ~3.9 s of digital silence over the logo (by the music agent's built tail).
 - Faint "but" from the other speaker's line is audible at the in-point (11.553; 'but' ends 11.52 by energy, whisper still hears it).
+
+---
+
+# FINAL v5 (owner: "the constant music changing is incredibly distracting"; new CTA) - 2026-11-13
+
+- Picture identical to v4 (timeline_v5 == timeline_v4, 7553 frames). Only the CON_G3 overlay changed: "SCANS AVAILABLE AT / ILLUMAESTHETIC.COM" (checked first/mid/last frame: clear of the car, fades out).
+- Music: every v2-era element removed (P5 intro, P7 spray, P3 tense cue and old drone/tick bed, time sting, P1 montage, P8 hero/outro, hit_big/hit_small/risers incl. the results-card hit and riser). Now: music_v5_full.wav (one P4 track) + music_v5_crash_drone/ticks, ducked per section with the word mask (200 ms ramps); whole-line holds on P_04, Q_05, H_14 (sparse back-and-forth) to avoid pumping. Kept non-musical fx: freeze power-down/crackle + 0.4 s dead stop, room tone/pre-rolls.
+- Wind-up 2-8 kHz rose 5.0 dB over the surrounding bars (limit 6): a 3 dB high shelf above 2.5 kHz is ramped in over its last 7.5 s.
+- QA: -14.1 LUFS / -1.6 dBTP / LRA 4.1. Silence: only the freeze gap (0.54 s) and 0.28 s at the very end (ring audible to 314.74 s). No clicks at "crashed", "Now.", the 160 s jump or the 249.9 s loop wrap (max sample step 0.005-0.083 vs 0.099 p99.9). Spectral strip (qa_v5/music_spectrum_strip.jpg): one texture throughout; only the crash and the Time dip change it.
+- Speech recall full mix vs dialogue stem (medium.en): 0.896 overall; low: P_04 0.42 (spray-gun noise in the line itself; -28 dB duck tested, no gain), H_14 0.60, C_04 0.67 (3 words), C_08 0.76 (fillers), the rest 0.85-1.0.
+- Cut-to-beat: the cuts were snapped to the v2 music and are locked, so against the new track the body sits at median 1.21 frames (17/40 within 1); montage cuts -0.25/-1.44/-1.41/-0.90 frames, hero lift -1.2 frames (kick onsets on P4's dense 16ths are +-40 ms ambiguous).
+- Still unheard by anyone.
