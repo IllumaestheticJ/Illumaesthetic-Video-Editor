@@ -1,0 +1,117 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1440,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 280,
+   "duration": 34,
+   "title": "ENGINE BAY",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 340,
+   "duration": 53,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 420,
+   "duration": 54,
+   "title": "RADIATOR SUPPORT",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 440,
+   "duration": 34,
+   "title": "CRASH BEAM",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.155
+  },
+  {
+   "kind": "label",
+   "from": 540,
+   "duration": 38,
+   "title": "FRONT BUMPER",
+   "sub": "HEADLIGHTS \u00b7 SPLITTER",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 600,
+   "duration": 34,
+   "title": "VENTED HOOD",
+   "sub": "CANARDS",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 740,
+   "duration": 53,
+   "title": "OVERFENDERS",
+   "sub": "SIDE SPLITTERS",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 820,
+   "duration": 37,
+   "title": "REAR BUMPER REMOVED",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 880,
+   "duration": 74,
+   "title": "CRASH BEAM",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 900,
+   "duration": 54,
+   "title": "MOUNTING POINTS",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.155
+  },
+  {
+   "kind": "label",
+   "from": 1020,
+   "duration": 38,
+   "title": "REAR BUMPER",
+   "sub": "DIFFUSER",
+   "x": 0.08,
+   "y": 0.09
+  },
+  {
+   "kind": "label",
+   "from": 1080,
+   "duration": 34,
+   "title": "GT WING",
+   "sub": " ",
+   "x": 0.08,
+   "y": 0.09
+  }
+ ]
+}
