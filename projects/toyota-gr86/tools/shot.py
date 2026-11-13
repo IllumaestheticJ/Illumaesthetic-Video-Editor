@@ -121,6 +121,13 @@ def main():
         for o in objs:
             o.data.materials.clear()
             o.data.materials.append(m)
+        if p.get("show") is not None:  # visibility windows [[t0, t1], ...] (shot seconds): hidden outside them (v7: GR86 bumper
+            for f in range(1, nframes + 1):  # scan swaps in for the BRZ-skin + inner-face part at the moment the two split)
+                t = (f - 1) / fps
+                vis = any(a <= t < b for a, b in p["show"])
+                for o in objs:
+                    o.hide_render = not vis
+                    o.keyframe_insert("hide_render", frame=f)
         keys = p.get("keys")
         if not keys:
             continue
