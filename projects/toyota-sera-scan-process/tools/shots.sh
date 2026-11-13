@@ -38,6 +38,14 @@ for s in "${@:-s1 s3 s5 s6 s7}"; do
         --explode "$W/kit_front_p.blend:0.181,0.676,-0.80:r0.05:0.60" --out $OUT/v4_f_design ;;
   r_design) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
         --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.05:0.60" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v4_r_design ;;
+  s1_9) python -m ive render -- --scene $W/full.blend --camera $P/match/cam_open.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 3.4 $Q --out $OUT/v9_open ;;
+  kit_final9) python -m ive render -- --scene $W/kitbase.blend --camera $P/match/cam_fin_start_full.json --look silver --move push --move-amount 0.318182 --look-at=0,0,1.5 --ease ease_in_out --seconds 2.4 $Q \
+        --explode "$W/kit_front_p.blend:0,0,0:0:1" --explode "$W/kit_rear_p.blend:0,0,0:0:1" --explode "$W/kit_duck.blend:0,0,0:0:1" \
+        --explode "$W/kit_skirtL.blend:-0.58,0.155,0:r0.0:0.45" --explode "$W/kit_skirtR.blend:0.58,-0.155,0:r0.0:0.45" --out $OUT/v9_kit_final ;;
+  f_design9) python -m ive render -- --scene $W/compA.blend --camera $W/cam_foff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_front_p.blend:0.181,0.676,-0.80:r0.15:0.75" --out $OUT/v9_f_design ;;
+  r_design9) python -m ive render -- --scene $W/compB.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
+        --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.12:0.55" --explode "$W/kit_duck.blend:0,0,0.6:r0.45:0.88" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v9_r_design ;;
   r_design5) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
         --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.0:0.45" --explode "$W/kit_duck.blend:0,0,0.6:r0.40:0.85" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v5_r_design ;;
   kit_final) python -m ive render -- --scene $W/kitbase.blend --camera $P/match/cam_fin_start${FULL}.json --look silver --move push --move-amount 0.318182 --look-at=0,0,1.5 --ease ease_in_out --seconds 2.0 $Q \
