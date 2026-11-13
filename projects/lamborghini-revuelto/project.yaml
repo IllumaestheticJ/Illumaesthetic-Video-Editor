@@ -1,13 +1,14 @@
+# v5 (v4: project_v4.yaml): music from the start of the song and 5 dB lower; exhaust shot with the car surround.
 # Lamborghini Revuelto scan reel v4 (v3: project_v3.yaml). User on v3: add the rear-wing-removed section; rear bumper clipped
 # the tail lights and wing; exhaust sections after the bumper; parts went off screen; new song (Sector Shift), re-edited.
 # Music edit: 140 BPM, bar = 51.43 frames; cut frames on bar lines: 103 (drop 1), 206, 309, 463, 566, 617, 669, 771, 926, 1080, 1234.
 # Assembled with projects/honda-s2000/tools/concat_assemble.py; src_fps = 30*N/(frames+4) for interpolated 15 fps renders.
 project: lamborghini-revuelto
 format: reel-9x16
-output: {path: /home/user/media/work/out/lamborghini_revuelto_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/lamborghini_revuelto_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
-  path: /home/user/media/work/music/revuelto_sector_shift_edit.wav   # user's song "Sector Shift", edited (see editlog)
+  path: /home/user/media/work/music/revuelto_sector_shift_intro.wav   # Sector Shift from its first bar (0.032 s), 26 bars, -5 dB (v4 clipped at -7.8 LUFS)
   start: 0
   fade_out: 0.05
 

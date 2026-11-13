@@ -26,7 +26,7 @@ OFF = {"fb": [0, -0.75, 1.75], "hl": [0, -0.35, 2.15], "fe": [0.30, 0, 0.55], "s
        "fin": [0.40, 0, 0.45], "wing": [0, -0.10, 0.60], "tll": [0.55, 0, 0.80], "tlr": [-0.55, 0, 0.80],
        "rb": [0, 0.95, 1.75]}
 VIA = {"fb": [0, -0.75, 0.05], "rb": [0, 0.95, 0.0], "hl": [0, -0.35, 0.03], "tll": [0.05, 0.28, 0.0], "tlr": [-0.05, 0.28, 0.0]}  # bumpers slide off along the car first, then rise
-EX = {"ex_tips": [0, 0.15, 0.95], "ex_catback": [0, 1.05, -0.05], "ex_cat_lh": [0.03, 0.05, 0.50], "ex_cat_rh": [-0.03, 0.05, 0.50]}
+EX = {"ex_tips": [0, 0.15, 0.95], "ex_catback": [0, 1.05, -0.05], "ex_cat_lh": [0.60, 0.75, 0.50], "ex_cat_rh": [-0.60, 0.75, 0.50]}
 
 
 def fps(name):
@@ -120,14 +120,17 @@ SHOTS.append(shot(n, nowing, [(t0, cam(148, 13, 8.2, [0, 1.6, 1.25])), (T(13), c
 # exhaust (bars 13-16), after the bumper: the bumper-off state as scanned -> tip assembly and catback come off (state swap
 # to 'Engine Bay Cats On') -> both cats come out (swap to 'Engine Bay No Exhaust'). Each state scan shown alone, as captured.
 n = "v4_exh"; t0 = T(13); s2 = T(13) + 2 * KICK; s3 = T(15)  # kicks: 0-2 Exhaust On, 2-3 tips, 3-5 catback, hold, 8-9.5 cats, hold
-objs = blend({"s1": "st_eb_exhaust_on_c", "s2": "st_eb_cats_on_c", "s3": "st_eb_no_exhaust_c", **{k: k for k in EX}})
-SHOTS.append(shot(n, objs, [(t0, cam(168, 20, 3.0, [0.03, 2.1, 0.55])), (s2 + 3 * KICK, cam(164, 28, 4.5, [0.03, 2.45, 0.80])), (T(16), cam(158, 31, 4.4, [0.03, 2.4, 0.80], lin=True))],
-    {"ex_tips": keys(n, [(t0, {"off": Z}), (s2, {"off": Z}), (s2 + 1 * KICK, {"off": EX["ex_tips"]})]),
+# v5: full-width state scans (_w, not cropped at the sides) set inside the car (base carved 15 mm around the bay, tools/carve.py)
+objs = blend({"base": "base_exh", "s1": "st_eb_exhaust_on_w", "s2": "st_eb_cats_on_w", "s3": "st_eb_no_exhaust_w", **{k: k for k in EX}})
+objs.update({"hood": ALL["hood"], "mir": ALL["mir"]})
+SHOTS.append(shot(n, objs, [(t0, cam(168, 20, 4.0, [0.0, 2.0, 0.60])), (s2 + 3 * KICK, cam(164, 27, 5.4, [0.0, 2.3, 0.80])), (T(16), cam(158, 30, 5.3, [0.0, 2.25, 0.80], lin=True))],
+    {"hood": held({"off": Z, "deg": HOOD_OPEN}),
+     "ex_tips": keys(n, [(t0, {"off": Z}), (s2, {"off": Z}), (s2 + 1 * KICK, {"off": EX["ex_tips"]})]),
      "ex_catback": keys(n, [(t0, {"off": Z}), (s2 + 1 * KICK, {"off": Z}), (s2 + 3 * KICK, {"off": EX["ex_catback"]})]),
      "ex_cat_lh": keys(n, [(t0, {"off": Z}), (s3, {"off": Z}), (s3 + 1.5 * KICK, {"off": EX["ex_cat_lh"]})]),
      "ex_cat_rh": keys(n, [(t0, {"off": Z}), (s3, {"off": Z}), (s3 + 1.5 * KICK, {"off": EX["ex_cat_rh"]})])},
     visible={"s1": (t0, s2), "s2": (s2, s3), "s3": (s3, None), "ex_tips": (s2, None), "ex_catback": (s2, None),
-             "ex_cat_lh": (s3, None), "ex_cat_rh": (s3, None)}, light_ref="s1"))
+             "ex_cat_lh": (s3, None), "ex_cat_rh": (s3, None)}))
 
 # reassemble (bars 18-22): every part flies home through the fill and locks ON the second drop (bar 20); hero push; fade
 n = "v4_reassemble"; t0 = T(19); LOCK = T(20)
