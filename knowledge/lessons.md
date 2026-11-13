@@ -763,3 +763,12 @@ lands here automatically. Agents must read this whole file before editing.
 - To END a scan shot on a solved pose: start the camera further back on the same ray and `--move push` with
   amount = D/(d+D) and `--look-at` on the ray; set `src_fps` so the rendered frames span the clip exactly (30 frames -> `50/3` for 1.8 s).
 - When a customer asks for "the kit", show every part (bumpers, skirts, wing) - list the CAD folder before planning shots.
+## From the Nissan Frontier v6 (2026-11-13, built by an agent)
+- **[match-cut]** Scan -> real 1:1 cuts work in reverse too: solve the camera on the first IRL frame used and END the scan shot on it
+  (last used frame = S - 1/30; hold the key after). A truck posed on a rock needs camera ROLL: shot.py look-at cameras got a
+  `roll` key (derive loc/target/roll from the solved rotation matrix). Verify with an onion of the final render frame over the IRL frame.
+- **[match-cut]** Before judging a frame "cropped", look at the full 9:16 frame, not a zoom crop - IMG_3223 @ 2.4 s had the whole truck.
+- **[story]** Real SEMA footage lives in Dropbox `1. Video dumps/SEMA Reels/<car>`; name search for the car finds the folder, not the clips.
+  The Dropbox per-link download hosts worked from this environment on 2026-11-12.
+- **[scan-look]** Installing a new part over an old one: remove the old part's surround together with it (cut the stock bumper's grille
+  window by the new grille's bbox) or the new part clips through leftovers.
