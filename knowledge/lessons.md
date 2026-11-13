@@ -919,3 +919,5 @@ lands here automatically. Agents must read this whole file before editing.
 - solve_listing.py ports to any car: crop the viewer below its 360/Photos/Spin buttons and above the watermark, keep the
   largest component, search 0-360 deg; write k/ox/oy/focal in the same json so the shot camera and the CTA map agree.
 - A CTA's static end hold gets flagged as dead frames by `ive director`; a 3-4 % push-in about the phone fixes it.
+
+- **[text]** Narration is shallow at best - include real enthusiast 'ball knowledge', not surface facts  _(from huracan-evo @ 3s, 2026-11-13, reviewer)_

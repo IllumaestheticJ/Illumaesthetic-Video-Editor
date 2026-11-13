@@ -199,5 +199,15 @@ def main_v8(out):
     main_v6(out)
 
 
+# v9 (user on v8: "the narration is shallow at best, include some ball knowledge"): enthusiast script - odd-firing V10 (54/90
+# degree intervals), titanium intake valves, LDVI + four-wheel steering, successor went twin-turbo hybrid. One take
+# (speech_rate 8), untrimmed, no tempo/pitch change. Longer drafts ran 32-34 s -> script shortened, voice not sped up.
+def main_v9(out):
+    global GAP_KEEP
+    GAP_KEEP = 9.0
+    V6.update(VO="/home/user/media/huracan-evo/vo/narration14_short_r8.wav", LAST=27.0)
+    main_v6(out)
+
+
 if __name__ == "__main__":
-    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])
+    {"--v4": main_v4, "--v5": main_v5, "--v6": main_v6, "--v7": main_v7, "--v8": main_v8, "--v9": main_v9}.get(next((a for a in sys.argv if a.startswith("--v")), ""), main)(sys.argv[1])

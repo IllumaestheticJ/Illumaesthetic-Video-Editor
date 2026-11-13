@@ -397,3 +397,14 @@ if __name__ == "v7":   # write only these: python -c "import runpy; runpy.run_pa
     for name, d in V7_SHOTS:
         json.dump(d, open(OUT + name + ".json", "w"), indent=1)
         print(name, d["seconds"], "s", round(d["seconds"] * FPS), "frames")
+
+
+# ---------------------------------------------------------------- v9: stealth coupe -> Spyder swap (user: "transition into the other car stealthily")
+# hx_match: the closed COUPE, no floor, camera arriving exactly on s5_frontopen's first key; the hard cut on the drop lands on the
+# closed SPYDER at the same camera (s5 holds closed until t 0.125), so the house 1:1 cut hides the car swap.
+HX = ("hx_match", dict(objects=COUPE, seconds=1.2, fps=FPS, res=[1080, 1920], res_pct=75, samples=12,
+                       camera=[dict(t=0, az=-54, el=8, dist=6.3, target=[-0.1, -1.30, 0.50], lens=40),
+                               dict(t=1, az=-42, el=10, dist=5.6, target=[-0.1, -1.35, 0.50], lens=40, lin=True)],
+                       out=RENDERS + "hx_match", anims={}, exposure=EXPOSURE, persistent=True))
+if __name__ == "v9":
+    json.dump(HX[1], open(OUT + "hx_match.json", "w"), indent=1); print("hx_match", HX[1]["seconds"])
