@@ -19,3 +19,5 @@ timeline:
   - {id: more, src: /home/user/media/epsilon-wing-configurator/clips/more.mp4, in: 0, dur: 3.9, start: 48.7, section: more, focus: "More options: blueprint / own photos"}
   - {id: outro, src: /home/user/media/epsilon-wing-configurator/clips/outro.mp4, in: 0, dur: 2.9667, start: 52.6, section: app, focus: "finished build, rear 3/4 right, push-in"}
   - {id: logo, src: /home/user/media/epsilon-wing-configurator/work/logo_card.png, dur: 3.3333, start: 55.567, section: ending, focus: "Epsilon+ wordmark (Drive EPSILON+ Logos, 720 px)"}
+# v2: python tools/assemble.py OUT --v2 (shots/cut frames in assemble.py V2; ph1-ph4 = tools/photos.py; card work/logo_card_v2.png;
+# audio tools/mix.py --v2 -> work/soundtrack_v2.wav)

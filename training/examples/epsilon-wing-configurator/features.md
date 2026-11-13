@@ -91,3 +91,8 @@ for version 0.8; where the post and the live app differ, the live app wins and t
 | Fit issue/warning messages | no | - | not triggered by any tested setup; would need a forced bad fit |
 | Report a problem | no | - | support form, not a configuration feature (visible at the bottom of the more-options panel) |
 | Spec/drawing/DXF downloads | no | - | admin-only in 0.9.18 (not public); blog's claim not shown |
+
+## v2 changes
+- More options (blueprint / own photos): **removed** from the reel (user). Still in the app.
+- Base style now shown with the tested setups (Swan Tall sheet metal vs Type A Swan CNC) instead of forcing CNC on a bottom mount.
+- Ending adds real customer cars (epsilon.plus TC-wing product galleries: GR86 c216, S2000 c017, NA Miata c163, NB Miata c065) and the call to action "Try it now on epsilon.plus".

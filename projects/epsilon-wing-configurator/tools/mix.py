@@ -35,5 +35,48 @@ def main(out):
                     '-c:a', 'pcm_s24le', out], check=True)
     print(out)
 
+
+
+# ---- v2 (user on v1): drop "Car not listed? Add it from a blueprint, or your own photos." (tight take 48.07-52.12, inside
+# the pauses either side), add "Try it now, on epsilon dot plus." (same voice/settings, line_try.wav) on the logo card.
+V2 = dict(CUT=(48.07, 52.12), LINE=M + 'vo/line_try.wav', LINE_AT=55.45, LENGTH=58.9)
+
+def main_v2(out):
+    import numpy as np
+    hmix.TEMPO = 1.0
+    tight = VO_RAW.replace('.wav', '_tight.wav'); hmix.tighten(VO_RAW, tight)
+    lt = V2['LINE'].replace('.wav', '_tight.wav'); nl = hmix.tighten(V2['LINE'], lt)
+    sr = 48000
+    rd = lambda f: np.frombuffer(subprocess.run(['ffmpeg', '-v', 'error', '-i', f, '-ac', '2', '-ar', str(sr), '-f', 'f32le', '-'],
+                                                capture_output=True, check=True).stdout, np.float32).reshape(-1, 2)
+    x = rd(tight); a, b = (int(t * sr) for t in V2['CUT']); xf = int(0.01 * sr)
+    seg = x[b:].copy(); r = np.linspace(0, 1, xf)[:, None]
+    head = x[:a].copy(); head[-xf:] = head[-xf:] * (1 - r) + seg[:xf] * r
+    vo = np.concatenate([head, seg[xf:]])
+    n1 = len(vo) / sr
+    line = rd(lt); at = int((V2['LINE_AT'] - VO_AT) * sr)
+    full = np.zeros((max(at + len(line), len(vo)), 2), np.float32); full[:len(vo)] = vo; full[at:at + len(line)] += line
+    vo_path = M + 'vo/narration_v2.wav'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(sr), '-ac', '2', '-i', '-', vo_path], input=full.tobytes(), check=True)
+    w1 = (VO_AT, VO_AT + n1); w2 = (V2['LINE_AT'], V2['LINE_AT'] + nl)
+    print('voice block 1', [round(t, 2) for t in w1], 'line', [round(t, 2) for t in w2])
+    g = 10 ** (DUCK_DB / 20)
+    def trap(d0, d1):
+        d0 = max(d0, 0.0)
+        return (f"if(lt(t,{d0}),1,if(lt(t,{d0 + RAMP}),1-(1-{g})*(t-{d0})/{RAMP},"
+                f"if(lt(t,{d1}),{g},if(lt(t,{d1 + RAMP}),{g}+(1-{g})*(t-{d1})/{RAMP},1))))")
+    env = f"({trap(w1[0] - RAMP, w1[1] + 0.2)})*({trap(w2[0] - RAMP, w2[1] + 0.2)})"
+    vchain = ("aresample=48000,highpass=f=90,acompressor=threshold=-20dB:ratio=3:attack=8:release=120:makeup=3,"
+              "aecho=0.85:0.5:38|71:0.18|0.10,volume=2.4,alimiter=limit=0.8:level=disabled")
+    va = int(VO_AT * 1000); L = V2['LENGTH']
+    fc = (f"[0:a]atrim=start={MUSIC_IN},asetpts=PTS-STARTPTS,aresample=48000,volume='{env}':eval=frame[m];"
+          f"[1:a]{vchain},adelay={va}|{va}[v];"
+          f"[m][v]amix=inputs=2:normalize=0:duration=first,atrim=end={L},afade=t=out:st={L - FADE}:d={FADE},"
+          f"alimiter=limit=0.89:level=disabled[out]")
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', MUSIC, '-i', vo_path, '-filter_complex', fc, '-map', '[out]',
+                    '-c:a', 'pcm_s24le', out], check=True)
+    print(out)
+
+
 if __name__ == '__main__':
-    main(sys.argv[1])
+    (main_v2 if '--v2' in sys.argv else main)(sys.argv[1])

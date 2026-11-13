@@ -233,20 +233,24 @@ const SHOTS = {
   },
 
   // 24.07-26.07: base style on the GR86 (CNC <-> sheet metal)
-  async bases(c, N) {
-    await c.pick('Toyota', 'GR86'); await c.openAdjust();
+  async bases(c, N) {  // v2: the app's own tested setups (v1 forced CNC on the bottom mount -> broken purple strips)
+    // 'on CNC' ~0.5 s, 'sheet metal bases' ~1.2 s (shot-local)
+    await c.pick('Toyota', 'GR86');
+    await c.p.evaluate(() => [...document.querySelectorAll('.ewc-presets button')].find(e => e.textContent.includes('BRZ Swan Tall')).click());
+    await c.settle(2500);
     const v = await c.rect('.ewc-viewport');
-    await c.p.mouse.move(v.cx, v.cy); for (let i = 0; i < 2; i++) { await c.p.mouse.wheel(0, -120); await c.settle(150); }
-    await c.p.click('.ewc-step-setup button:has-text("Change")').catch(() => {}); await c.settle(500);
-    const to = await c.panelTo('.ewc-step-setup button', '^5 axis CNC', 110); await c.setPanelScroll(to); await c.settle(300);
-    const cnc = await c.rectText('.ewc-step-setup button', '^5 axis CNC');
-    stack(c, topRect(v.cx, v.cy + 40, 560), await panelRect(c, cnc.y - 110));
-    await c.curShow(cnc.cx + 60, cnc.cy + 90); await c.tick(2);
-    await c.clickSel('.ewc-step-setup button', '^5 axis CNC', 8); await c.p.waitForTimeout(800); await c.tick(4);
-    const t2 = await c.panelTo('.ewc-step-setup button', '^Sheet metal', 110); await c.scrollPanel(t2, 6); await c.tick(4);
-    await c.clickSel('.ewc-step-setup button', '^Sheet metal', 8); await c.p.waitForTimeout(800);
+    await c.p.mouse.move(v.cx, v.cy); for (let i = 0; i < 3; i++) { await c.p.mouse.wheel(0, -120); await c.settle(150); }
+    await c.settle(800);
+    const top = await c.panelTo('.ewc-presets', null, 60); await c.setPanelScroll(top); await c.settle(300);
+    const pr = await c.rect('.ewc-presets');
+    stack(c, topRect(v.cx - 20, v.cy, 560), await panelRect(c, pr.y - 60));
+    const cnc = await c.rectText('.ewc-presets button', 'Type A Swan');
+    await c.curShow(cnc.cx - 40, cnc.cy + 70); await c.tick(2);
+    await c.clickSel('.ewc-presets button', 'Type A Swan', 8); await c.p.waitForTimeout(1500); await c.tick(Math.max(0, 34 - c.n));
+    await c.clickSel('.ewc-presets button', 'BRZ Swan Tall', 8); await c.p.waitForTimeout(1500);
     await c.tick(Math.max(0, N - c.n));
   },
+
   // 26.07-29.07: AoA holes, side view (trunk zoom), GR86
   async aoa(c, N) {  // 3D close-up of the wing from the side; AoA hole 0 -> 15 below
     await c.pick('Toyota', 'GR86'); await c.openAdjust();

@@ -20,3 +20,12 @@ Known weaknesses / for the reviewer:
 - Narration word timings were aligned from the pause map (28 phrases = 28 script clauses), not ASR (Hugging Face blocked).
 - Some page chrome is cropped at pane edges (toolbar half-visible at the top of stacked panes).
 - `ive director` "dead frames" flags refer to the raw clips; the delivered file's holds carry the push-in.
+
+# v2 (user feedback on v1) - `/home/user/media/epsilon-wing-configurator/work/ewc_v2.mp4`, 58.9 s, 1767 frames
+- Bases: tested setup cards (BRZ Swan Tall sheet metal <-> Type A Swan CNC); no forced CNC, no purple strip.
+- "Car not listed / blueprint" line and shot removed.
+- Ending: outro -> 4 customer-car photos from the TC-wing product pages (GR86, S2000, NA, NB; whole car in frame on a
+  blurred fill) -> wordmark + "TRY IT NOW ON EPSILON.PLUS", narrated "Try it now, on epsilon dot plus."
+- Scores unchanged except Story 4 -> 5 (ends on real cars + call to action) and Text 4 (one added text line on the card,
+  black background, not over the photos). Beat sync 4: 15/17 cuts within 15 ms; 18.0 / 48.7 s sit in drum fills.
+- Photos are 3:4 phone shots, so the cars sit in the middle ~75 % of the frame height with a blurred fill above/below.

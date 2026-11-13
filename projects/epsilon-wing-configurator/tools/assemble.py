@@ -14,7 +14,15 @@ FPS = 30
 PUSH = {'cars', 'wing', 'mounts', 'bases', 'aoa', 'side', 'rear', 'sliders', 'price', 'more', 'hero_b'}  # UI holds: slow 5 % push-in (director: dead frames)
 PUSH_AMT = 0.05
 
-def main(out, audio=M + 'work/soundtrack_v1.wav'):
+# v2 (user on v1): 'more options' removed, customer photos before the card, 'try it now on epsilon.plus' card + line.
+# Cut frames: price ends 1461 as v1; outro to the kick at 51.597 (1548); photos on kicks 52.598/53.598/54.579/55.597.
+V2 = dict(SHOTS=['hero_a', 'hero_b', 'cars', 'wing', 'mounts', 'bases', 'aoa', 'turn3d', 'side', 'rear', 'sliders',
+                 'price', 'outro', 'ph1', 'ph2', 'ph3', 'ph4'],
+          CUT_FRAMES=[0, 123, 258, 423, 540, 722, 783, 873, 918, 1067, 1157, 1293, 1461, 1547, 1578, 1608, 1637, 1667],
+          CARD='work/logo_card_v2.png', AUDIO='work/soundtrack_v2.wav')
+
+
+def main(out, audio=M + 'work/soundtrack_v1.wav', card='work/logo_card.png'):
     fr = CUT_FRAMES + [round(END * FPS)]
     ins, parts = [], []
     for i, s in enumerate(SHOTS):
@@ -28,7 +36,7 @@ def main(out, audio=M + 'work/soundtrack_v1.wav'):
                     f"crop=2160:3840:'(iw-2160)/2':'(ih-3840)/2',scale=1080:1920:flags=lanczos")
         parts.append(f'[{i}:v]trim=end_frame={n},setpts=PTS-STARTPTS,fps={FPS}{push},format=yuv420p[v{i}]')
     k = len(SHOTS); nlogo = fr[-1] - fr[-2]
-    ins += ['-loop', '1', '-framerate', str(FPS), '-i', M + 'work/logo_card.png']
+    ins += ['-loop', '1', '-framerate', str(FPS), '-i', M + card]
     parts.append(f'[{k}:v]trim=end_frame={nlogo},setpts=PTS-STARTPTS,format=yuv420p,'
                  f'fade=t=in:st=0:d=0.35,fade=t=out:st={nlogo / FPS - 0.8}:d=0.8[v{k}]')
     fc = ';'.join(parts) + ';' + ''.join(f'[v{i}]' for i in range(k + 1)) + f'concat=n={k + 1}:v=1:a=0[v]'
@@ -39,4 +47,8 @@ def main(out, audio=M + 'work/soundtrack_v1.wav'):
     print(out, 'cut frames', fr)
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    if '--v2' in sys.argv:
+        SHOTS[:] = V2['SHOTS']; CUT_FRAMES[:] = V2['CUT_FRAMES']
+        main(sys.argv[1], M + V2['AUDIO'], V2['CARD'])
+    else:
+        main(sys.argv[1])
