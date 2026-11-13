@@ -6,12 +6,13 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
   start: 0
   fade_out: 1.2
+  gain: 0.63         # -4 dB: v3 measured -10.5 LUFS / +0.4 dBTP (user: music too loud) -> ~-14.5 LUFS, < -1 dBTP
 
 # v3 cuts = measured half-rise onsets (frames): 7.311(219) 14.004 drop(420) 17.795(534) 23.363(701) 26.181(785) 28.987 phrase(870)
 # 33.672(1010) 40.289 logo(1209) end 44.03(1321). 128 BPM; drop 14.031; phrases 21.53 29.03 36.53 44.03
@@ -32,10 +33,10 @@ timeline:
     dur: 6.7
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "14.004 THE DROP"}
-  - id: N1a_bumper_off     # HERO on the 14.004 drop: grille out, then bumper shell off (114 f)
+  - id: N1a_bumper_off     # HERO on the 14.004 drop: bumper + grille leave as one unit (114 f)
     src: /home/user/media/work/z400/renders/final/N1a_bumper_off
-    src_fps: 14.62
-    interpolate: true
+    src_fps: 30    # native 30 fps render (115 f), no interpolation
+    interpolate: false
     dur: 3.8
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "17.795 kick"}

@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
@@ -24,7 +25,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-12
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-12
-- [nissan-400z](nissan-400z/) - archived 2026-11-12
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-12
@@ -42,7 +42,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
-- [nissan-400z](nissan-400z/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11

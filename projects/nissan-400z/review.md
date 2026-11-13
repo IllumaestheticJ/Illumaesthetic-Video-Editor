@@ -1,3 +1,30 @@
+# Nissan 400Z scan reel — v4 self-review (2026-11-13)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v4.mp4`: 1080x1920, 30 fps, 1320 f (44.00 s).
+
+## User feedback on v3 → v4 changes
+- **"Music too large"** (read as too loud): v3 measured −10.5 LUFS, +0.4 dBTP (clipping). Music gain 0.63 (−4 dB) →
+  v4 measures **−14.4 LUFS, −3.5 dBTP**.
+- **"Nothing should come off the bumper until the bumper itself comes off"** (recorded as a rule): v3 pulled the grille out
+  first. Now grille + bumper shell share one key set — seated until the 14.971 kick, out together, up out of frame by
+  16.846. In s8b the grille stacks inside the bumper (same offset/delay), so it also goes home with it.
+- N1a re-rendered at native 30 fps: under minterpolate the fast bumper exit tore (f491-503). Checked frame by frame: clean.
+
+## Cut timing
+420 −3.6 · 534 +5.1 · 701 +3.6 · 785 −14.7 · 870 +12.5 · 1010 −5.3 ms; 219 −11 ms vs the 7.311 intro kick. All within ±½ frame.
+(cutcheck lists f488-501: the bumper unit's motion inside N1a, not cuts.)
+
+## Scores (1–5)
+Hook 3 (quiet 14 s intro is the track) · Beat sync 5 · Scan quality 4 · Story 5 (parts now come off in a physical order) ·
+Text 5 · Ending 4 · Technical 5 (level −14.4 LUFS; no interpolation tearing on fast parts).
+
+## For the next agent
+- Child parts travel with their parent panel; separate them only after the parent is off (lessons.md rule).
+- Any shot where a part leaves the frame fast: render at native 30 fps, not 15 fps + minterpolate.
+- Measure the mix (loudnorm summary) before delivery; aim near −14 LUFS, true peak below −1 dBTP.
+
+---
+
 # Nissan 400Z scan reel — v3 self-review (2026-11-12)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v3.mp4`: 1080x1920, 30 fps, h264 yuv420p, AAC, 1320 f (44.00 s).
