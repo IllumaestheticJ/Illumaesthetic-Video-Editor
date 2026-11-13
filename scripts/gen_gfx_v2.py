@@ -32,6 +32,8 @@ corners = json.loads((P / "gfx_v2_corners.json").read_text())["corners"] if (P /
 EV = {}
 ORDER = []
 for e in edl["events"]:
+    if tl and e["id"] not in tl:
+        continue  # dropped by the editor
     t = tl.get(e["id"], {})
     ti = t.get("tl_in", t.get("timeline_in", e["timeline_in"]))
     to = t.get("tl_out", t.get("timeline_out", e["timeline_out"]))
@@ -116,6 +118,8 @@ for eid in ORDER:
         continue
     if eid == "P_05":
         extra["glyph"] = ">> 20x"
+        if e.get("src_map"):  # speed-ramped time-lapse: true clock per timeline frame (541: clock = src - 74.6)
+            c1 = {"k": "map", "vals": [round(v - 74.6, 3) for v in e["src_map"]]}
     if eid == "P_01":  # grey until "go" (src 74.6)
         tg = srcT(eid, 74.6)
         add(e, t0, tg, c1={"k": "notstarted"}, t2=t2, sid="P_01a")
@@ -204,8 +208,11 @@ cue("G08_v2", "CueV2", g8in, ev["TM_01"]["tout"], "G08_v2.mov", True, "lower-lef
     x=60, y=560, w=560, beats=[round((srcT("TM_01", 14.4) - g8in) * FPS), round((srcT("TM_01", 17.2) - g8in) * FPS)])
 cue("G09_v2", "CueV2", ev["TM_02"]["tin"], ev["TM_02"]["tout"], "G09_v2.mov", True, "lower-left x80-900 y640 (plate)", text=g["G09_v2"]["text"], sub=g["G09_v2"]["sub"], x=80, y=640, w=820)
 cue("G10_v2", "ScanLabel", ev["M6"]["tin"] + 1.0, ev["M6"]["tout"] - 0.3, "G10_v2.mov", True, "bottom-left over black, halo", text=g["G10_v2"]["text"], sub=g["G10_v2"]["sub"], pos="bl", plate=False)
-c1in = srcT("CON_01", 13.75)
-cue("CON_G1_v2", "CueV2", c1in, ev["CON_01"]["tout"] - 1.65, "CON_G1_v2.mov", True, "top-left x60-760 y60 (plates; sky is bright)", text=g["CON_G1_v2"]["text"], x=60, y=60, w=700, beats=[0, 32, 66])
+# edl_v2: from src 13.75 to end -1.65 s. The editor may play CON_01 shorter (fallback cut), so keep >= 3 s and end with the event.
+c1in = max(ev["CON_01"]["tin"], min(srcT("CON_01", 13.75), ev["CON_01"]["tout"] - 3.2))
+c1out = ev["CON_01"]["tout"] if srcT("CON_01", 13.75) > ev["CON_01"]["tout"] - 3.2 else ev["CON_01"]["tout"] - 1.65
+nf = round((c1out - c1in) * FPS)
+cue("CON_G1_v2", "CueV2", c1in, c1out, "CON_G1_v2.mov", True, "top-left x60-760 y60 (plates; sky is bright)", text=g["CON_G1_v2"]["text"], x=60, y=60, w=700, beats=[0, round(nf * 0.3), round(nf * 0.62)])
 cue("CON_G3_v2", "ScanLabel", ev["CON_02"]["tin"] + 3.5, ev["CON_02"]["tout"], "CON_G3_v2.mov", True, "bottom-left over black, halo", text=g["CON_G3_v2"]["text"], sub="", pos="bl", plate=False)
 cue("G05a_v2", "CardV2", ev["C_03"]["tin"], ev["C_03"]["tout"], "G05a_v2.mp4", False, "BLACK CARD 1/3 full frame; HUD overlay stays on top", text=g["G05a_v2"]["text"])
 cue("G05b_v2", "CardV2", ev["C_07"]["tin"], ev["C_07"]["tout"], "G05b_v2.mp4", False, "BLACK CARD 2/3 full frame; carries the big CLOCK 1 fast-forward (HUD shows chapter tag only)", text=g["G05b_v2"]["text"], **{"from": EV["C_06"]["hud"] and sec(EV["C_06"]["hud"]["clock1"]["end"]) , "to": sec("11:56")})

@@ -157,13 +157,13 @@
   "comp": "CueV2",
   "file": "CON_G1_v2.mov",
   "alpha": true,
-  "in": 287.065,
-  "out": 288.014,
-  "frames": 23,
+  "in": 286.464,
+  "out": 289.664,
+  "frames": 77,
   "placement": "top-left x60-760 y60 (plates; sky is bright)",
   "props": {
    "cue": "CON_G1_v2",
-   "frames": 23,
+   "frames": 77,
    "text": [
     "32 MIN FROM \"GO\"",
     "20 MIN WITHOUT THE CRASH",
@@ -174,8 +174,8 @@
    "w": 700,
    "beats": [
     0,
-    32,
-    66
+    23,
+    48
    ]
   }
  },

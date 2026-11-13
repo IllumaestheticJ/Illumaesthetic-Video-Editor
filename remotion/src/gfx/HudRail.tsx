@@ -13,7 +13,8 @@ export type ClockState =
   | { k: "notstarted" }
   | { k: "unknown" }
   | { k: "time" | "paused" | "ff"; a: number; b: number }
-  | { k: "final"; label: string };
+  | { k: "final"; label: string }
+  | { k: "map"; vals: number[] }; // clock seconds per frame (speed-ramped time-lapse)
 export type Seg = { id: string; t0: number; t1: number; mode: "plate" | "overlay" | "hidden"; chapter: string; c1: ClockState; t2: ClockState };
 export type HudRailProps = {
   fps: number; width: number; height: number; durationInFrames: number;
@@ -36,6 +37,7 @@ export function textOf(st: ClockState, lf: number, n: number): string | null {
   const p = n > 1 ? Math.min(1, Math.max(0, lf / (n - 1))) : 1;
   switch (st.k) {
     case "notstarted": return "00:00";
+    case "map": return mmss(Math.floor(st.vals[Math.min(lf, st.vals.length - 1)] + 1e-9));
     case "final": return st.label;
     case "time": case "paused": return mmss(Math.floor(st.a + (st.b - st.a) * p));
     case "ff": return mmss(Math.floor(st.a + (st.b - st.a) * Easing.inOut(Easing.cubic)(p) + 1e-9));

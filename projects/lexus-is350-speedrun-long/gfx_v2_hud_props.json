@@ -1140,20 +1140,6 @@
   {
    "id": "M4_B",
    "t0": 275.4835,
-   "t1": 276.018,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M5_A",
-   "t0": 276.018,
    "t1": 277.8192,
    "visible": false,
    "corner": "TR",
@@ -1168,20 +1154,6 @@
   {
    "id": "M6",
    "t0": 277.8192,
-   "t1": 278.518,
-   "visible": false,
-   "corner": "TR",
-   "chapter": "THE SCAN",
-   "c1": {
-    "k": "hidden"
-   },
-   "t2": {
-    "k": "hidden"
-   }
-  },
-  {
-   "id": "M5_B",
-   "t0": 278.518,
    "t1": 284.8262,
    "visible": false,
    "corner": "TR",
