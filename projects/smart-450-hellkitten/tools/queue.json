@@ -140,5 +140,65 @@
    "23.976",
    "1920x1080"
   ]
+ ],
+ [
+  "reels",
+  "V_MATCH_FRONT",
+  "/home/user/media/work/is350-reels/scan3d/specs/V_MATCH_FRONT_final.json",
+  "seq",
+  [
+   "15",
+   "30",
+   "1080x1920",
+   "delete"
+  ]
+ ],
+ [
+  "reels",
+  "V_PAIR_3",
+  "/home/user/media/work/is350-reels/scan3d/specs/V_PAIR_3_final.json",
+  "seq",
+  [
+   "15",
+   "30",
+   "1080x1920",
+   "delete"
+  ]
+ ],
+ [
+  "reels",
+  "V_MATCH_REAR",
+  "/home/user/media/work/is350-reels/scan3d/specs/V_MATCH_REAR_final.json",
+  "seq",
+  [
+   "15",
+   "30",
+   "1080x1920",
+   "delete"
+  ]
+ ],
+ [
+  "reels",
+  "V_PAIR_2",
+  "/home/user/media/work/is350-reels/scan3d/specs/V_PAIR_2_final.json",
+  "seq",
+  [
+   "15",
+   "30",
+   "1080x1920",
+   "delete"
+  ]
+ ],
+ [
+  "reels",
+  "V_RES_FULL",
+  "/home/user/media/work/is350-reels/scan3d/specs/V_RES_FULL_final.json",
+  "seq",
+  [
+   "15",
+   "30",
+   "1080x1920",
+   "delete"
+  ]
  ]
 ]

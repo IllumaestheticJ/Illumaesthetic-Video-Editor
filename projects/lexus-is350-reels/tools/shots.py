@@ -54,10 +54,10 @@ def shots():
                 "camera": {"sensor": c["sensor_width_mm"], "shift_x": c["shift_x"], "shift_y": c.get("shift_y", 0.0), "keys": keys}}
     # full-car hero: left-front 3/4 (clean front-left wheel; rear-left well kept small/far), car in the middle ~53 % of the height
     secs = 4.0 + HANDLE
-    cc = (0.0, -0.25, 0.62)
+    cc = (0.0, -0.55, 0.62)
     S["V_RES_FULL"] = {"base": [CAR], "light_bbox": LIGHT, "seconds": secs,
-                       "camera": {"sensor": 36, "keys": [orbit(0, 8.6, 28, 1.55, cc, 45, 0.62),
-                                                         orbit(secs, 8.0, 34, 1.45, cc, 45, 0.62, ease="out2")]}}
+                       "camera": {"sensor": 36, "keys": [orbit(0, 5.55, 28, 1.5, cc, 45, 0.62),
+                                                         orbit(secs, 5.25, 34, 1.42, cc, 45, 0.62, ease="out2")]}}
     return S
 
 

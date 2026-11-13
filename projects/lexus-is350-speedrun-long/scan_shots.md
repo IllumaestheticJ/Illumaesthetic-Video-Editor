@@ -1,6 +1,6 @@
 # IS350 speed-run long-form: scan shots (v2)
 
-Progress note (auto, 2026-11-13 05:11 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).
+Progress note (auto, 2026-11-13 11:51 UTC). Rendered by the 3D agent with `projects/smart-450-hellkitten/tools/chain.py` (resumable, queue in tools/queue.json).
 Sequences: 8 fps rendered, 1440x810 (75 %), 8 spp + denoise, upscaled to 1920x1080; +0.5 s handle past each duration.
 Files per shot in `/home/user/media/work/is350-long/renders/<id>/`: `png/`, `<id>_src.mov` (ProRes 422 HQ, 8 fps), `<id>_preview.mp4` (H.264 minterpolated to 23.976 fps: use this in the timeline).
 
