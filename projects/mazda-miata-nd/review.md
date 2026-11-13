@@ -1,3 +1,11 @@
+# Mazda Miata ND scan reel - self-review (v8, delivered)
+
+v8 = the user's note on v7: "the drop is right when the music ends". File `/home/user/media/work/miata/out/miata_nd_v8.mp4`
+(34.9 s, 1046 frames). Music 21.052-55.9 s of Megalomaniac: the 1-bar riser (43.1 s) plays under the trunk opening and the
+explode separates on the drop (45.488 s), reassembly + CTA + logo ride the new section, music fades over the logo.
+Re-time of v7 (no new renders). Beat sync 5 (drop cut within 3 ms of the riser cut-off / sub kick).
+
+## Earlier reviews (v7 and before) kept below
 # Mazda Miata ND scan reel - self-review (v7, delivered)
 
 v7 = the user's notes on v6: music started too early and missed the drop; the trunk lid took a chunk of the tail light.

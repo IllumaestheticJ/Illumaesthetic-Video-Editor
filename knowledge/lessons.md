@@ -983,3 +983,9 @@ lands here automatically. Agents must read this whole file before editing.
   (mazda-miata-nd/tools/refine_lid.py). Then composite with a small per-panel cut (6 mm) for panels cut from the same scan.
 
 - **[pacing]** The front feels rushed and the whole thing is not the same pacing - re-pace the whole video evenly; longer is fine  _(from huracan-evo @ 5s, 2026-11-13, reviewer)_
+## From the Mazda Miata ND v8 revision (2026-11-13, built by an agent)
+- **[pacing]** A kick ENTRY is not the drop. Find the drop as the section change AFTER a riser: per-beat band energy (highs climbing
+  for a bar, then cutting out while the bass section starts). Megalomaniac: kick entry 15.5 s, riser 43.1 s, drop 45.488 s - v6/v7 cut
+  on the kick entry and the user said the drop was "right when the music ends". Put the money shot (explode) on the drop.
+- **[technical]** cutcheck right after a drop can read +100 ms or more: it finds the first big broadband transient (a clap) in the new
+  section, while the riser cut-off and sub kick are on the grid. Check the band envelope before moving the cut.
