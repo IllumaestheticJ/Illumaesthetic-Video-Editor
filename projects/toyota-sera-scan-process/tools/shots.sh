@@ -40,9 +40,9 @@ for s in "${@:-s1 s3 s5 s6 s7}"; do
         --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.05:0.60" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v4_r_design ;;
   r_design5) python -m ive render -- --scene $W/xbase.blend --camera $W/cam_roff.json --look silver --move push --move-amount 0.10 --ease ease_in_out --seconds 2.0 $Q \
         --explode "$W/kit_rear_p.blend:-0.181,-0.676,-0.85:r0.0:0.45" --explode "$W/kit_duck.blend:0,0,0.6:r0.40:0.85" --explode "$W/kit_front_p.blend:0,0,0:0:1" --out $OUT/v5_r_design ;;
-  kit_final) python -m ive render -- --scene $W/kitbase.blend --camera $P/match/cam_fin_start.json --look silver --move push --move-amount 0.318182 --look-at=0,0,1.5 --ease ease_in_out --seconds 2.0 $Q \
+  kit_final) python -m ive render -- --scene $W/kitbase.blend --camera $P/match/cam_fin_start${FULL}.json --look silver --move push --move-amount 0.318182 --look-at=0,0,1.5 --ease ease_in_out --seconds 2.0 $Q \
         --explode "$W/kit_front_p.blend:0,0,0:0:1" --explode "$W/kit_rear_p.blend:0,0,0:0:1" --explode "$W/kit_duck.blend:0,0,0:0:1" \
-        --explode "$W/kit_skirtL.blend:-0.58,0.155,0:r0.0:0.50" --explode "$W/kit_skirtR.blend:0.58,-0.155,0:r0.0:0.50" --out $OUT/v5_kit_final ;;
+        --explode "$W/kit_skirtL.blend:-0.58,0.155,0:r0.0:0.50" --explode "$W/kit_skirtR.blend:0.58,-0.155,0:r0.0:0.50" --out $OUT/v5_kit_final${FULL} ;;
   esac
   echo "DONE $s $(date +%T)"
 done

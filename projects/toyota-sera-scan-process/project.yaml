@@ -1,11 +1,12 @@
-# Toyota Sera (EXY10) scan-process reel v5 (v1-v4: project_v1..v4.yaml). v5 adds the ducktail + side skirts on the scan and a 1:1 cut from the kitted scan to the finished car (user feedback).
+# Toyota Sera (EXY10) scan-process reel v6 (v1-v5: project_v1..v5.yaml). v6: finished-car clips at FULL frame (caption painted out of the sky, tools/uncaption.py) instead of a 1.43x crop; final scan shot re-rendered on the full-frame camera.
+# v5: v5 adds the ducktail + side skirts on the scan and a 1:1 cut from the kitted scan to the finished car (user feedback).
 # v4: v4 adds the designed bumpers placed on the scan + finished-car footage (user request). Plan: direction.md.
 # v3 = all-reels brief + addendum: travel front -> side -> rear (one sequence per section), bumper-removed data as the
 # hero beats with labels, tighter subject framing, doors-open state as captured, re-timed x-ray + shorter end card.
 # Music: Sera track from 7.825 s, 100 BPM, beat k at 0.6*k s; phrase changes 1.8 / 11.4 / 21.0.
 project: toyota-sera-scan-process
 format: reel-9x16
-output: {path: /home/user/media/work/out/sera_scan_process_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/sera_scan_process_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/sera/music/sera_track.mp3
@@ -99,25 +100,25 @@ timeline:
     src_fps: 15
     interpolate: true
   # ---- FULL KIT -> FINISHED CAR ----
-  - id: scan_kit_final     # doors-up scan wearing the whole kit; side skirts slide on, camera pushes in and ENDS on match/cam_fin.json
+  - id: scan_kit_final     # doors-up scan wearing the whole kit; side skirts slide on, camera pushes in and ENDS on match/cam_fin_full.json
     section: finished car
     focus: side skirts going on, full kit on the scan
     dur: 1.8
-    src: /home/user/media/work/sera/renders/final/v5_kit_final
+    src: /home/user/media/work/sera/renders/final/v5_kit_final_full
     src_fps: 50/3           # 30 rendered frames span exactly 1.8 s so the last frame is the matched pose
     interpolate: true
   - transition: {type: cut, note: "1:1 kitted scan -> real finished car on the 24.6 beat"}
-  # (posted short 'Toyota Sera at home', caption cropped out)
+  # (posted short 'Toyota Sera at home', caption painted out, full frame)
   - id: irl_finished_front
     section: finished car
     focus: the real car wearing the kit, front
     dur: 1.2
-    src: /home/user/media/work/sera/irl/fin_front.mp4
+    src: /home/user/media/work/sera/irl/fin_front_full.mp4
   - id: irl_finished_rear
     section: finished car
     focus: the real car wearing the kit, rear
     dur: 1.2
-    src: /home/user/media/work/sera/irl/fin_rear.mp4
+    src: /home/user/media/work/sera/irl/fin_rear_full.mp4
   # ---- LISTING ----
   - id: website             # focus: listing page, title, logo, URL last (re-timed, no dead hold)
     section: end card
@@ -126,5 +127,5 @@ timeline:
     src: /home/user/media/work/out/webzoom_sera_v3.mp4
 
 overlays:
-  - src: /home/user/media/work/out/hud_sera_v5.mov
+  - src: /home/user/media/work/out/hud_sera_v6.mov
     start: 0

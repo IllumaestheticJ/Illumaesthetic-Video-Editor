@@ -824,3 +824,6 @@ lands here automatically. Agents must read this whole file before editing.
   before splicing; the user heard v4's clipped "Pick".
 - **[technical]** (epsilon-wing-configurator v5) When a stacked shot's top pane is not 1080x1100, build its src rect at the
   pane's own aspect - a topRect() (1080:1100) drawn into a 1080x800 pane squashed the side view ("aspect ratio messed up").
+- Before cropping a captioned social clip, check what the caption sits on: if it is plain sky, paint it out
+  (projects/toyota-sera-scan-process/tools/uncaption.py) and keep the full frame - the reviewer rejected the 1.43x crop as too tight.
+  For a camera solved on a crop, the full-frame camera is the same pose with sensor = sensor_crop * full_w / crop_w and no crop shift.

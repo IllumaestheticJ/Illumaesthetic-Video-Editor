@@ -1,6 +1,6 @@
-# Toyota Sera scan-process reel v5 - self review (training/rubric.md)
-Output: /home/user/media/work/out/sera_scan_process_v5.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
-Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v4.md.
+# Toyota Sera scan-process reel v6 - self review (training/rubric.md)
+Output: /home/user/media/work/out/sera_scan_process_v6.mp4 - 1080x1920, 30 fps, h264 yuv420p + AAC, 29.97 s.
+Plan: direction.md (scene director). v1/v2 reviews: review_v1.md .. review_v5.md.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
@@ -52,3 +52,12 @@ Scores vs v4: 1:1 match stays 3 - the new scan -> finished-car cut lines up on b
 ~15 px at 540 w, but the real doors are opened to a different angle than the Door Open scan, so the door tips jump.
 Story 4 -> 5 (kit complete, ends scan -> real). Only the car-left skirt is visible in the final shot; the finished-car clips
 are still an upscaled crop of the captioned posted short (raw clips would fix both sharpness and framing).
+
+## v6 (user: "zoom out more of the irl photos so its not as cropped")
+- Finished-car clips now use the full 1080x1920 frame of the posted short: the burned-in caption sat entirely on clear sky,
+  so tools/uncaption.py replaces it with a per-column sky ramp + grain (checked first/last frame of both clips: no trace).
+  No crop, no 1.43x upscale -> sharper, and the whole car with road and horizon is in frame.
+- match/cam_fin_full.json = same solved pose on the full sensor; scan_kit_final re-rendered; end-frame onion (qa/v6_onion)
+  holds the same alignment as v5. SIDE SKIRTS label moved to the top (car now sits in the lower half).
+- The FX30 shop shots were not changed: they already use the full frame height (crop zoom 1.0); going wider would need bars.
+- Checked: frames around the 24.6 / 25.8 / 27.0 cuts, luma min 28.6 (no dropouts), 29.97 s.
