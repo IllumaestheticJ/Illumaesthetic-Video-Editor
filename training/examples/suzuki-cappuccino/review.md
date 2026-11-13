@@ -57,3 +57,23 @@ bumper seams from the bumper-off state scans); the five exploded-view shots re-r
 
 Known limits: hood/trunk swings in the explode are hinge animations of the closed panels (open-state
 scans are used for the hero beats); the pre-cut rest frames would need the keyframes un-rescaled and a re-render.
+
+## v4 self-review (reviewer: re-edit to the supplied track; corner markers must not come out before the bumper; nest everything)
+
+Changes: music replaced with the reviewer-supplied track (first 40.4 s, start 0.6105 s); all 7 cuts re-placed on individually
+measured low-band hits (no grid: the track is live-feel, a fitted grid missed 149/250 beats by > 40 ms); corner markers are now
+children of the front bumper (`tools/shot.py` `parents`) - bumper comes off with them in it, they lift out of the tipped bumper,
+and on reassembly go back in before the bumper returns; s2/s3/s5/x1/x2 re-rendered to the new lengths; labels re-timed.
+
+| Criterion | Score | Notes |
+|---|---|---|
+| Hook | 5 | opener moving from frame 1, first hit of the track on frame 3 |
+| Beat sync | 5 | 7 cuts within 7.7 ms of the decoded hits (cutcheck); hood swing and clean-car swap also on hits |
+| Scan fidelity | 5 | v3 seams kept; removal order now matches the real car (bumper, then markers) |
+| Story | 4 | front -> side -> rear -> explode -> reassemble; wheel shot is only 1.3 s |
+| Grade | 5 | unchanged look |
+| Text | 4 | same 5 labels, re-timed, all in black space (engine-bay label lowered to y 0.84) |
+| Ending | 5 | 720 px logo, music fades under it |
+| Technical | 5 | no held frames before cuts any more (last key at render end); black frames 1129-1131 are the fade to logo |
+
+Known limits: hood/trunk swings in the explode are hinge animations of the closed panels; the wheel shot is the v1 render trimmed.

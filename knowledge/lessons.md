@@ -1026,3 +1026,9 @@ lands here automatically. Agents must read this whole file before editing.
 - [technical] One-bar shots from earlier renders: action that lands in the first ~1.2 s survives a trim to the bar. Camera-only
   push-ins are trimmed from 0.48 s so they keep their readable end hold. A shared part animation for several camera angles =
   shift the keys by each window's start (shot.py's sampler takes negative key times).
+
+### Suzuki Cappuccino v4 (reviewer-supplied music, nesting)
+- Live-feel / funk tracks: do not fit a beat grid (a fit missed 149 of 250 beats by > 40 ms). Measure each strong low-band hit individually (`projects/suzuki-cappuccino/tools/onsets2.py`) and pick the music start offset that rounds all cuts to within half a frame.
+- Nested parts are parented in the renderer (`tools/shot.py` `"parents": {"li": "fb"}`): child keys are offsets in the parent's moving frame. Removal order = parent off first with children in it, then children out; reassembly is the reverse.
+- When a beat is about a small child part (corner markers), frame the whole parent with both children in view - the v3 inner-face close-up clipped exactly the bumper ends where the markers sit.
+- Keep the last camera key at the render end (not rescaled with the others) so the move is still travelling at the cut; re-check label clearance at the END of each label window because the push-in no longer stops.
