@@ -20,22 +20,14 @@ FINALIZE = "/home/user/media/work/smart-450/scan3d/tools/finalize.py"
 SM = "/home/user/media/work/smart-450"
 LX = "/home/user/media/work/is350-long"
 
-# (project, id, spec, kind, encode args)  kind: seq | still | preview
-JOBS = [
-    ("lexus", f"pv_{n}", f"{LX}/scan3d/specs/{n}_preview.json", "preview", None)
-    for n in ["SC_RES_FULL", "SC_RES_MESH", "SC_RES_REFLECTOR", "SC_INS_ROOF", "SC_INS_WHEEL", "SC_INS_SILL",
-              "SC_CON_HERO", "B5_front34_hero", "B5_side_profile", "B5_halfhalf_FX30554"]
-] + [
-    ("smart", n, f"{SM}/scan3d/specs/{n}_final.json", "seq", ("15", "30", "1080x1920"))
-    for n in ["a1_match_str", "a2_body_on_off", "a3_detail"]
-] + [
-    ("lexus", n, f"{LX}/scan3d/specs/{n}_final.json", "still", None)
-    for n in ["B5_front34_hero", "B5_side_profile", "B5_halfhalf_FX30554"]
-] + [
-    ("lexus", n, f"{LX}/scan3d/specs/{n}_final.json", "seq", ("8", "23.976", "1920x1080"))
-    for n in ["SC_MATCH_REAR", "SC_MATCH_FRONT", "SC_TITLE", "SC_RES_FULL", "SC_RES_MESH", "SC_RES_REFLECTOR",
-              "SC_INS_ROOF", "SC_INS_WHEEL", "SC_INS_SILL", "SC_CON_HERO"]
-]
+# Queue = tools/queue.json, re-read before every job (edit it to add/drop shots without restarting the chain).
+# Each entry: [project, id, spec, kind, encode args]  kind: seq | still | preview
+QUEUE = f"{REPO}/projects/smart-450-hellkitten/tools/queue.json"
+PAIRS = f"{REPO}/projects/lexus-is350-speedrun-long/match/pairs.json"
+
+
+def jobs():
+    return [tuple(j) if j[4] is None else (j[0], j[1], j[2], j[3], tuple(j[4])) for j in json.load(open(QUEUE))]
 
 
 def spec(p):
@@ -130,7 +122,7 @@ def manifest():
                   "1:1 solves: SC_MATCH_REAR on FX30542 f1135 (47.339 s), focal fixed 31.1 mm, RMSE 5.9 px on 10 points; SC_MATCH_FRONT on FX30554 f264 (11.011 s), focal 29.2 mm, RMSE 0.4 px. "
                   "Onions in `match/`. IRL frames must be the Rec709-graded 16:9 frames (fx3a_slog3cine_to_709.cube); the scan's first frame equals the IRL frame.", "",
                   "| id | status | frames | luma | what |", "|---|---|---|---|---|"]
-        for job in JOBS:
+        for job in jobs():
             if job[0] != proj or job[3] == "preview":
                 continue
             st, have, want = state(job)
@@ -144,15 +136,25 @@ def manifest():
         open(path, "w").write("\n".join(L) + "\n")
 
 
+def blender_running():
+    r = subprocess.run(["pgrep", "-f", "smart-450-hellkitten/tools/shot.py"], capture_output=True, text=True)
+    return bool(r.stdout.strip())
+
+
 def main():
     manifest()
     if "--status" in sys.argv:
         return
-    for job in JOBS:
+    while blender_running():          # a render left by an earlier chain instance: let it finish, never run two
+        time.sleep(20)
+    tried = set()
+    while True:
+        todo = [j for j in jobs() if j[1] not in tried and state(j)[0] not in ("done", "no spec")]
+        if not todo:
+            break
+        job = todo[0]
         proj, n, sp, kind, enc = job
         st, have, want = state(job)
-        if st in ("done", "no spec"):
-            continue
         s = spec(sp)
         log = sp.replace(".json", ".log")
         if st in ("todo", "partial"):
@@ -163,6 +165,8 @@ def main():
             d = os.path.dirname(s["out"].rstrip("/"))
             subprocess.run(["python3", FINALIZE, d, *enc])
         st, have, want = state(job)
+        if st != "done":
+            tried.add(n)              # failed render: do not loop on it; rerun the chain to retry
         print(f"{st.upper()} {n} {have}/{want} {time.strftime('%H:%M:%S')}", flush=True)
         manifest()
     print("CHAIN_DONE", flush=True)
