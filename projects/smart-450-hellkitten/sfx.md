@@ -21,3 +21,16 @@ No new meow recordings were added in v4: Wikimedia's upload host kept returning 
 
 ## Meme clips
 Five green-screen cat meme clips supplied by the owner on 2026-11-13, in `/home/user/media/work/smart-450/memes/src/`. Source: third-party internet meme green-screen clips downloaded by the owner; **rights not cleared by us**. Used as overlays (each once): `huh_cat.mp4`, `oiiaoiia_cat.mp4`, `yapapa_cat.mp4`, `clapping_cat.mp4`. Not used: `happy_cat.mp4` (the cat is about 100 px tall in a 1920x1080 frame; at 25-40 % of the frame width it would be a blur). Their own audio is not used (muted), so there is no `stem_memes.wav`.
+
+## v6 additions (fetched 2026-11-13 from Wikimedia Commons with sfx/wm_fetch.py; licence read from the Commons API `LicenseShortName`)
+| file in sfx/src | author | licence | length |
+|---|---|---|---|
+| wm__Maullido_de_gata_hembra.ogg | George Miquilena | CC0 | 1.8 s |
+| wm__Maullido_de_gata_hembra_joven.ogg ("young female cat") | George Miquilena | CC0 | 1.2 s |
+| wm__Meow_of_a_Siamese_cat_-_freemaster2.wav | freemaster2 | CC0 | 1.5 s |
+| wm__GettingOutImpatient.ogg | Heismark | Public domain | 9.3 s |
+| wm__Meow_of_a_pleading_cat.oga | Heismark | Public domain | 11.9 s |
+
+Not fetched: "Black cat sound begging the foods.flac" (the script skips anything whose licence field is not CC0 / Public domain, or the download failed; not checked which).
+Owner-supplied meme sources (rights not cleared by us): `memes/src/huh_cat.mp4` (YouTube lyrzrAZFZUE, with its HUH sound at 0.52 / 4.11 / 7.86 s) and `sfx/meme/yeahboy.wav` (YouTube eVgR9UbMBAg, 30.8 s).
+Not yet listened to or cut into one-shots.
