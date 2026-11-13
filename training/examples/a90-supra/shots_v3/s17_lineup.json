@@ -1,0 +1,629 @@
+{
+ "_bar": 18,
+ "_reel_frames": [
+  1365,
+  1446
+ ],
+ "fps": 15,
+ "seconds": 2.8666666666666667,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_rack_tie_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_top_mount.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_spring.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_knuckle.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_bearing.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_dust_shield.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_lca.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_lower_tension_arm.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_toe_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_upper_arm.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_upper_tension_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_lca_wing.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_damper_top_mount.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_damper_body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_damper_rod_boot.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_spring.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_cv_inner.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_cv_outer.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_bar.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_link.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_link_bj1.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_sway_link_bj2.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/interior.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/console.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_fbump.blend",
+   "pivot": [
+    1.7662,
+    -0.0046,
+    0.3281
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.6,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      105,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0.6,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      105,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_rbump.blend",
+   "pivot": [
+    -1.8009,
+    -0.0089,
+    0.3771
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.6,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      -105,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.6,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      -105,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_fender.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.05,
+      -0.75,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.05,
+      -0.75,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_dtrim.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      -0.62,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0,
+      -0.62,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_uskirt.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      -1.1,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0,
+      -1.1,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/part_lskirt.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      -1.48,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0,
+      -1.48,
+      0
+     ],
+     "rot": [
+      -70,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_wheel.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.0,
+      -1.0496,
+      0.0291
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0.0,
+      -1.0496,
+      0.0291
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_caliper.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.07,
+      -0.6597,
+      0.0783
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.07,
+      -0.6597,
+      0.0783
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_rotor.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.0,
+      -0.4598,
+      0.0127
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0.0,
+      -0.4598,
+      0.0127
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_dust_shield.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.0,
+      -0.2999,
+      0.0083
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0.0,
+      -0.2999,
+      0.0083
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_bearing.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.0,
+      -0.1499,
+      0.0042
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0.0,
+      -0.1499,
+      0.0042
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_wheel.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.002,
+      -1.0497,
+      0.0269
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.002,
+      -1.0497,
+      0.0269
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_caliper.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0.0688,
+      -0.6198,
+      0.0659
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      0.0688,
+      -0.6198,
+      0.0659
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_rotor.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.0007,
+      -0.3799,
+      0.0097
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.0007,
+      -0.3799,
+      0.0097
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "pos": [
+    -0.5,
+    -0.55,
+    3.75
+   ],
+   "look": [
+    0.0,
+    -0.55,
+    0.3
+   ],
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "t": 1.0,
+   "pos": [
+    -0.45,
+    -0.55,
+    3.55
+   ],
+   "look": [
+    0.0,
+    -0.55,
+    0.3
+   ],
+   "up": [
+    1,
+    0,
+    0
+   ]
+  }
+ ],
+ "lens": 31,
+ "look": "AgX - Medium High Contrast",
+ "exposure": -0.7
+}

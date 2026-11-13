@@ -15,7 +15,8 @@
    "x": 0.08,
    "y": 0.84,
    "align": "left",
-   "shadow": true
+   "shadow": true,
+   "plate": true
   },
   {
    "kind": "label",
@@ -26,7 +27,8 @@
    "x": 0.08,
    "y": 0.84,
    "align": "left",
-   "shadow": true
+   "shadow": true,
+   "plate": true
   },
   {
    "kind": "label",
@@ -37,7 +39,8 @@
    "x": 0.08,
    "y": 0.8,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -48,7 +51,8 @@
    "x": 0.08,
    "y": 0.8,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -59,7 +63,8 @@
    "x": 0.08,
    "y": 0.8,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -70,7 +75,8 @@
    "x": 0.08,
    "y": 0.8,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -79,9 +85,10 @@
    "title": "FRONT CORNER",
    "sub": "STEERING · WHEEL · BRAKE",
    "x": 0.08,
-   "y": 0.8,
+   "y": 0.88,
    "align": "left",
-   "shadow": false
+   "shadow": true,
+   "plate": false
   },
   {
    "kind": "label",
@@ -90,9 +97,10 @@
    "title": "FRONT SUSPENSION",
    "sub": "STRUT · KNUCKLE · ARMS",
    "x": 0.08,
-   "y": 0.8,
+   "y": 0.86,
    "align": "left",
-   "shadow": false
+   "shadow": true,
+   "plate": false
   },
   {
    "kind": "label",
@@ -103,7 +111,8 @@
    "x": 0.08,
    "y": 0.84,
    "align": "left",
-   "shadow": true
+   "shadow": true,
+   "plate": false
   },
   {
    "kind": "label",
@@ -112,9 +121,10 @@
    "title": "SIDE SKIRTS",
    "sub": "LOWER · UPPER · DOOR TRIM",
    "x": 0.08,
-   "y": 0.8,
+   "y": 0.09,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -123,9 +133,10 @@
    "title": "SKIRTS REMOVED",
    "sub": "SILL · CLIP MOUNTS",
    "x": 0.08,
-   "y": 0.8,
+   "y": 0.84,
    "align": "left",
-   "shadow": false
+   "shadow": true,
+   "plate": false
   },
   {
    "kind": "label",
@@ -134,9 +145,10 @@
    "title": "INTERIOR",
    "sub": "SEATS · DASH · STEERING WHEEL",
    "x": 0.08,
-   "y": 0.88,
+   "y": 0.07,
    "align": "left",
-   "shadow": true
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -147,7 +159,8 @@
    "x": 0.08,
    "y": 0.88,
    "align": "left",
-   "shadow": true
+   "shadow": true,
+   "plate": true
   },
   {
    "kind": "label",
@@ -156,9 +169,10 @@
    "title": "REAR SUSPENSION",
    "sub": "BRAKE · FIVE-LINK · SPRING",
    "x": 0.08,
-   "y": 0.8,
+   "y": 0.09,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -169,7 +183,8 @@
    "x": 0.08,
    "y": 0.8,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   },
   {
    "kind": "label",
@@ -180,7 +195,8 @@
    "x": 0.08,
    "y": 0.8,
    "align": "left",
-   "shadow": false
+   "shadow": false,
+   "plate": false
   }
  ]
 }

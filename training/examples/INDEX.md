@@ -8,6 +8,7 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
+- [a90-supra](a90-supra/) - archived 2026-11-13
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
@@ -16,17 +17,11 @@ Newest first. Read the top two before starting a new edit.
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
-- [porsche-macan](porsche-macan/) - archived 2026-11-13
-- [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
-- [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-13
-- [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-13
-- [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
 - [honda-s2000](honda-s2000/) - archived 2026-11-13
-- [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-13
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-13
 - [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-13
@@ -46,7 +41,6 @@ Newest first. Read the top two before starting a new edit.
 - [porsche-gt3-992](porsche-gt3-992/) - archived 2026-11-11
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
-- [a90-supra](a90-supra/) - archived 2026-11-11
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
 - [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11

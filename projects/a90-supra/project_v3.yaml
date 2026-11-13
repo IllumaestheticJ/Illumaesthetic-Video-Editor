@@ -109,6 +109,7 @@ timeline:
     src_fps: 15
     interpolate: true
     dur: 2.7000
+    vf: "scale=1026:1824:flags=lanczos,pad=1080:1920:27:48:black"
   - transition: {type: cut}
   - id: s18_reasm
     src: /home/user/media/work/a90/renders_v3/s18_reasm

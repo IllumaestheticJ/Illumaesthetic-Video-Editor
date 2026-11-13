@@ -49,3 +49,32 @@ wheels + suspension corners built from the engineering STEP hardpoints, 8 factua
 - Length 41.5 s vs the 30-40 s brief. Cheapest trims: logo to 2.5 s (40.5 s) or v08 line-up to one bar (39.5 s).
 - No trunk-open beat: no open-trunk scan exists (2024 trunk registers closed only).
 - FL/RL corners are mirrored FR/RR scans (only right-side corners were scanned).
+
+---
+
+# A90 Supra scan reel v3 - self-review (training/rubric.md)
+
+Output: `/home/user/media/work/out/a90_supra_scan_v3.mp4` - 1080x1920, 30 fps, yuv420p, H.264 + AAC, 56.2 s (1,686 frames),
+-14.3 LUFS, true peak -4.9 dBFS. User-supplied track from its beginning, 21 bars (bar 2.6773 s), hard cuts on bar lines.
+Brief: re-edit to this music; excruciating detail in how parts articulate and interact; incredibly detailed; scan artifacts
+cut out and no parts left behind; underbody and interior highlighted; "the longer version".
+
+| # | Criterion | Score | Evidence (tools/verify_v3.py on the delivered file) |
+|---|---|---|---|
+| 1 | Hook | 3 | Whole car with a camera drop for one bar, underbody from 2.7 s; first part comes off at 8.0 s. Calm opener under the riff. |
+| 2 | Beat sync | 5 | 19 cuts, every one on its planned frame as one clean jump; kick attack within -36..+36 ms (about one frame) of each cut. |
+| 3 | 1:1 match | n/a | Scan only. Same-camera swaps (ducts-removed state on the bar-7 cut, shell -> cabin crossfade, reassembled -> clean car) hold. |
+| 4 | Scan quality | 4 | Cuts rebuilt so the removed-state scan decides each seam (build_v3); fitted panels are the car's own skin until they move; full-resolution meshes; cut edges smoothed; ~6k scrap islands dropped. Minus: fender opening and trunk-lip slot still have ragged/dark edges; the ducts-removed state is dark in its upper half (scanned with the top cover off). |
+| 5 | Story | 5 | whole -> underbody -> front bumper -> radar grille nest -> crash beam -> ducts removed -> steering + brake -> suspension travel -> fender -> skirts -> sill -> cabin -> console -> rear five-link -> rear bumper -> rear structure -> line-up -> reassembly -> clean car -> logo. Each section one run; each removal followed by what it exposed. |
+| 6 | Grade | 4 | AgX Medium High Contrast, exposure -0.7 (cabin -1.9): detail reads; no dark frames in any shot. Underbody shots are brighter than the rest. |
+| 7 | Text | 4 | 16 labels, one per step, names only, no numbers, all legible on the delivered frames (3 on a dark plate where the scan fills the frame). Rubric's "<= 2 items" exceeded by design (reviewer rule: label each step). |
+| 8 | Ending | 5 | Reassembly, invisible cut to the clean car on bar 20, fade, 720 px logo, audio fades with it. |
+| 9 | Technical | 4 | Spec above, no black frames. Minus: the assembler's cloned frame leaves a 1-frame hold before 8 of the cuts. |
+
+## Known gaps / for the reviewer
+- Springs are deformed to follow the suspension travel (bench scans are at full extension); everything else moves rigidly on the
+  solved hardpoints. Left-side corners are mirrored right-side scans. Front sway bar + two knuckle brackets not placed (no mate in the data).
+- Steering, bump/droop and five-link travel are exact mechanism solves from engineering's STEP hardpoints, not captured motion.
+- No trunk-open / hood / door states exist; the cabin is entered by a same-camera crossfade, nothing "opens".
+- The A->B entry of the track falls on the front-suspension travel shot (bar 9) because the reel starts at the song's beginning.
+- Length 56.2 s (user: "try the longer version"); a 16-bar cut is described in direction_v3.md.

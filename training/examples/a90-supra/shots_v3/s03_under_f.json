@@ -1,0 +1,114 @@
+{
+ "_bar": 3,
+ "_reel_frames": [
+  161,
+  241
+ ],
+ "fps": 15,
+ "seconds": 2.8666666666666667,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_uskirt.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_lskirt.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "pos": [
+    -0.45,
+    0,
+    -0.85
+   ],
+   "look": [
+    -0.2,
+    0,
+    0.2
+   ],
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "t": 1.0,
+   "pos": [
+    1.2,
+    0,
+    -0.85
+   ],
+   "look": [
+    1.45,
+    0,
+    0.2
+   ],
+   "up": [
+    1,
+    0,
+    0
+   ]
+  }
+ ],
+ "lens": 32,
+ "look": "AgX - Medium High Contrast",
+ "exposure": -0.7,
+ "underlight": 0.4
+}

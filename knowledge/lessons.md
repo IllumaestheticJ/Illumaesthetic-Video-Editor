@@ -1046,3 +1046,19 @@ lands here automatically. Agents must read this whole file before editing.
 - A darker grade lowers frame-diff motion: `ive director` "dead frames" can be a luma artifact - compare per-frame diffs
   with the previous version before trimming.
 - End-card CTA at the very bottom edge reads "too low" on a phone (UI covers it): put it high, on empty photo area.
+## From the A90 Supra v3 (2026-11-13/14: new track, suspension articulation, underbody + interior)
+- **[scan-look]** Fitted panels: show the car scan's OWN skin until the frame a panel starts to move, then swap to the panel scan
+  (a90-supra/tools/make_skins_v3.py + `vis` windows in shots3.py). A panel scan sitting on a cut body shows dark seam gaps, and a
+  grid-decimated copy shows stepped contour rings - both read as scan artifacts in final quality but not in a Workbench preview.
+- **[scan-look]** Never grid-decimate hero meshes: 3 mm vertex clustering put stair-step contours on bumpers and fenders. Build cuts
+  and fills from the full-resolution scans; use reduced copies only for parts the camera never gets near.
+- **[scan-look]** Flat white = no detail. At exposure 0 the front view blew out; AgX "Medium High Contrast" with exposure -0.7
+  (a cabin scan alone: -1.9) made grille mesh, tabs and structure read. Render one final-quality still before queueing.
+- **[story]** "How parts articulate": if engineering's hardpoint STEP exists, solve the corner as a mechanism (a90-supra/tools/corners3.py)
+  and drive steering / bump travel from the solved samples (kin_v3.py: per-part matrices, springs stretched between their seats,
+  dampers telescoping on the mount line). Parts with no defensible mate are left out and listed.
+- **[framing]** A parked wheel in the foreground blocks a later push-in and gets cut by the frame: give it an exit before the camera moves.
+- **[text]** Full-frame scan shots (underbody, cabin) have no clear black: ScanHUD labels take `plate: true` (dark backing).
+- **[workflow]** Container restarts and 2 h waiter limits are normal on 4-5 h render queues: keep the queue resumable, delete
+  zero-byte placeholder frames on restart, and check the queue (not the waiter) on every wake. A KD-tree job on 8 M triangles
+  next to a Cycles render gets OOM-killed - restrict trees to the region that matters.

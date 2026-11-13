@@ -1,0 +1,118 @@
+{
+ "_bar": 12,
+ "_reel_frames": [
+  884,
+  964
+ ],
+ "fps": 15,
+ "seconds": 2.8666666666666667,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill2_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_lca_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tension_rod_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_tie_rod_end_balljoint.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_rack_tie_rod.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_body.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_top_mount.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FR_strut_spring.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RR_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "pos": [
+    -1.25,
+    -1.95,
+    0.42
+   ],
+   "look": [
+    -0.8,
+    -0.85,
+    0.3
+   ]
+  },
+  {
+   "t": 1.0,
+   "pos": [
+    0.45,
+    -1.8,
+    0.26
+   ],
+   "look": [
+    0.35,
+    -0.85,
+    0.12
+   ]
+  }
+ ],
+ "lens": 35,
+ "look": "AgX - Medium High Contrast",
+ "exposure": -0.7
+}

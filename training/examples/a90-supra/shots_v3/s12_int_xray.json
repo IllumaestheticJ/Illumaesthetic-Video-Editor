@@ -1,0 +1,71 @@
+{
+ "_bar": 13,
+ "_reel_frames": [
+  964,
+  1044
+ ],
+ "fps": 15,
+ "seconds": 2.8666666666666667,
+ "ease": "linear",
+ "light_bbox": [
+  [
+   -2.19,
+   -1.015,
+   0.0
+  ],
+  [
+   2.19,
+   1.015,
+   1.174
+  ]
+ ],
+ "objects": [
+  {
+   "blend": "/home/user/media/work/a90/blend3/interior.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/console.blend"
+  }
+ ],
+ "cam": [
+  {
+   "t": 0.0,
+   "pos": [
+    -1.25,
+    0,
+    3.05
+   ],
+   "look": [
+    -0.62,
+    0,
+    0.5
+   ],
+   "up": [
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "t": 1.0,
+   "pos": [
+    -0.75,
+    0,
+    2.45
+   ],
+   "look": [
+    -0.35,
+    0,
+    0.5
+   ],
+   "up": [
+    1,
+    0,
+    0
+   ]
+  }
+ ],
+ "lens": 35,
+ "look": "AgX - Medium High Contrast",
+ "exposure": -1.9
+}

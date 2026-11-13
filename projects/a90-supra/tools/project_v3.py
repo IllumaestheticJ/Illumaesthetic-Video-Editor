@@ -29,6 +29,8 @@ for s in tl["shots"]:
     L.append(f"    dur: {(frames - (1 if first else 0)) / 30:.4f}")
     if n == "s19_clean":
         L.append('    vf: "fade=t=out:st=1.33:d=0.67"')
+    if n == "s17_lineup":      # the parked parts touched the left frame edge for a quarter of the shot: 5 % smaller, on black
+        L.append('    vf: "scale=1026:1824:flags=lanczos,pad=1080:1920:27:48:black"')
     first = False
 L += ["  - transition: {type: cut}", "  - id: logo", "    src: /home/user/media/work/a90/logo_card_v3.mp4", f"    dur: {(tl['bars'][21] - tl['bars'][19] - 60) / 30:.4f}"]
 open(D + "/project_v3.yaml", "w").write("\n".join(L) + "\n")
