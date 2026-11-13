@@ -676,9 +676,12 @@ def audio(evs, A):
         put(room, x, e["tl_in"] - (b - a))
     for eid, rdb in AC["room_events"].items():
         e = by[eid]
-        x = al.src_audio(e["clip"], e["src_in"], e["src_out"], AC["clean"])
-        x = al.fade(x * 10 ** ((AC["dialogue_lufs"] + rdb - al.lufs(x)) / 20), 0.05, 0.05)
-        put(room, x, e["tl_in"])
+        a, b, at = e["src_in"], e["src_out"], e["tl_in"]
+        if isinstance(rdb, dict):
+            a, b = rdb["src"]; at = e["tl_out"] - (b - a); rdb = rdb["db"]
+        x = al.src_audio(e["clip"], a, b, AC["clean"])
+        x = al.fade(x * 10 ** ((AC["dialogue_lufs"] + rdb - al.lufs(x)) / 20), 0.3, 0.3)
+        put(room, x, at)
     # freeze SFX + dead silence
     c2, c3 = by["C_02"], by["C_03"]
     sfx = freeze_sfx()

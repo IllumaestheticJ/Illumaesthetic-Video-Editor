@@ -128,7 +128,7 @@
    "file": "montage_p1.wav",
    "riser_end_file": 27.5,
    "clear": -3,
-   "lead_in": 1.0
+   "lead_in": 2.0
   },
   "hero": {
    "file": "hero_outro_p8.wav",
@@ -188,7 +188,15 @@
   },
   "room_events": {
    "C_05": -8.0,
-   "P_03": -14.0
+   "P_03": -14.0,
+   "TM_02": {
+    "db": -10.0,
+    "src": [
+     39.95,
+     42.6
+    ],
+    "why": "QA silencedetect: 2.0 s digital silence between the end of TM_01 and the montage; 553 after 'do that.' (39.87) is word-free room tone"
+   }
   },
   "freeze_sfx_db": -14.0,
   "dead_silence_s": 0.4,
