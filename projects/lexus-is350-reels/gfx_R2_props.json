@@ -1,0 +1,29 @@
+{
+ "fps": 30,
+ "durationInFrames": 583,
+ "items": [
+  {
+   "kind": "title",
+   "t0": 0,
+   "t1": 3.0433999999999997,
+   "lines": [
+    "REAL CAR",
+    "\u2192 3D SCAN"
+   ]
+  },
+  {
+   "kind": "label",
+   "t0": 15.606198,
+   "t1": 17.838796,
+   "y": 1290,
+   "text": "LEXUS IS350 \u00b7 FULL SCAN",
+   "sub": "32 MIN FROM GO \u00b7 20 WITHOUT THE CRASH"
+  },
+  {
+   "kind": "logo",
+   "t0": 17.838796,
+   "t1": 19.438796,
+   "cta": "SCANS AVAILABLE AT\nILLUMAESTHETIC.COM"
+  }
+ ]
+}

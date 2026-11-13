@@ -1,0 +1,50 @@
+project: lexus-is350-reels-R2
+format: reel-9x16
+output:
+  path: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 17
+built_by: tools/build.py (frame-exact; not ive assemble)
+timeline:
+- id: 00_R2_REAR
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 0.0
+  out: 1.6333
+- id: 01_V_MATCH_REAR
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 1.6333
+  out: 3.2333
+- id: 02_R2_P2
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 3.2333
+  out: 4.8667
+- id: 03_V_PAIR_2
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 4.8667
+  out: 6.5
+- id: 04_R2_P3
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 6.5
+  out: 8.1
+- id: 05_V_PAIR_3
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 8.1
+  out: 9.7333
+- id: 06_R2_FRONT
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 9.7333
+  out: 12.9667
+- id: 07_V_MATCH_FRONT
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 12.9667
+  out: 15.4
+- id: 08_V_RES_FULL
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 15.4
+  out: 17.8333
+- id: 09_logo
+  src: /home/user/media/work/is350-reels/out/is350_reel_R2_real_to_scan.mp4
+  in: 17.8333
+  out: 19.4333

@@ -1,0 +1,50 @@
+project: lexus-is350-reels-R1
+format: reel-9x16
+output:
+  path: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  width: 1080
+  height: 1920
+  fps: 30
+  crf: 17
+built_by: tools/build.py (frame-exact; not ive assemble)
+timeline:
+- id: 00_R1_BET
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 0.0
+  out: 4.4667
+- id: 01_R1_GO
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 4.4667
+  out: 8.0667
+- id: 02_R1_SPRAY
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 8.0667
+  out: 9.2667
+- id: 03_R1_SCAN
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 9.2667
+  out: 10.8667
+- id: 04_R1_CRASH
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 10.8667
+  out: 17.4
+- id: 05_R1_NOW
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 17.4
+  out: 19.7667
+- id: 06_R1_TIMEA
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 19.7667
+  out: 21.3667
+- id: 07_R1_TIMEB
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 21.3667
+  out: 25.7667
+- id: 08_V_RES_FULL
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 25.7667
+  out: 28.5667
+- id: 09_logo
+  src: /home/user/media/work/is350-reels/out/is350_reel_R1_crash.mp4
+  in: 28.5667
+  out: 30.1667

@@ -1,0 +1,435 @@
+{
+ "_doc": "Source spans for the three IS350 reels. a/b = used span in ORIGINAL clip seconds (23.976 fps clock). x0 = left edge of the 608x1080 9:16 window in 1920x1080 coords, keyframes [t_src, x0] linearly interpolated (clamped outside). pair: x0 comes from scan_shots.md (3D agent's solved window) when published; the value here is the editor's proposal. match_f = solved source frame the shot must END on. Intermediates: tools/cut_src.py writes graded 3414x1920 (full 16:9 width, 1920 tall) native-rate clips with 0.5 s handles, so crops stay re-decidable without re-downloading.",
+ "spans": {
+  "R1_BET": {
+   "clip": "FX30541",
+   "a": 26.1,
+   "b": 30.55,
+   "x0": [
+    [
+     26.1,
+     740
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R1_GO": {
+   "clip": "FX30541",
+   "a": 71.45,
+   "b": 75.05,
+   "x0": [
+    [
+     71.6,
+     886
+    ],
+    [
+     72.8,
+     736
+    ],
+    [
+     74.0,
+     666
+    ],
+    [
+     74.7,
+     756
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R1_SPRAY": {
+   "clip": "FX30541",
+   "a": 120.3,
+   "b": 121.5,
+   "x0": [
+    [
+     120.3,
+     760
+    ],
+    [
+     121.5,
+     650
+    ]
+   ],
+   "audio": "room"
+  },
+  "R1_CRASH": {
+   "clip": "FX30541",
+   "a": 376.7,
+   "b": 383.25,
+   "x0": [
+    [
+     376.0,
+     690
+    ],
+    [
+     377.0,
+     840
+    ],
+    [
+     378.5,
+     420
+    ],
+    [
+     380.0,
+     480
+    ],
+    [
+     381.0,
+     720
+    ],
+    [
+     381.8,
+     500
+    ],
+    [
+     382.6,
+     630
+    ],
+    [
+     383.2,
+     660
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R1_NOW": {
+   "clip": "FX30542",
+   "a": 12.4,
+   "b": 14.75,
+   "x0": [
+    [
+     12.4,
+     800
+    ],
+    [
+     13.6,
+     700
+    ],
+    [
+     14.75,
+     700
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R2_P2": {
+   "clip": "FX30541",
+   "a": 233.65,
+   "b": 235.319,
+   "x0": [
+    [
+     0,
+     850
+    ]
+   ],
+   "pair": "V_PAIR_2",
+   "match_f": 5641,
+   "audio": "mute"
+  },
+  "R2_REAR": {
+   "clip": "FX30542",
+   "a": 45.7,
+   "b": 47.381,
+   "x0": [
+    [
+     0,
+     480
+    ]
+   ],
+   "pair": "V_MATCH_REAR",
+   "match_f": 1135,
+   "audio": "mute"
+  },
+  "R2_P3": {
+   "clip": "FX30542",
+   "a": 223.65,
+   "b": 225.309,
+   "x0": [
+    [
+     0,
+     150
+    ]
+   ],
+   "pair": "V_PAIR_3",
+   "match_f": 5401,
+   "audio": "mute"
+  },
+  "R2_FRONT": {
+   "clip": "FX30554",
+   "a": 7.75,
+   "b": 11.053,
+   "x0": [
+    [
+     0,
+     531
+    ]
+   ],
+   "pair": "V_MATCH_FRONT",
+   "match_f": 264,
+   "audio": "mute"
+  },
+  "R3_QPIC": {
+   "clip": "FX30541",
+   "a": 37.0,
+   "b": 39.8,
+   "x0": [
+    [
+     37.0,
+     840
+    ],
+    [
+     38.5,
+     1010
+    ],
+    [
+     39.5,
+     900
+    ]
+   ],
+   "audio": "mute"
+  },
+  "R3_QAUD": {
+   "clip": "FX30541",
+   "a": 14.69,
+   "b": 17.45,
+   "audio": "sync",
+   "audio_only": true
+  },
+  "R3_2H": {
+   "clip": "FX30541",
+   "a": 17.45,
+   "b": 18.83,
+   "x0": [
+    [
+     17.45,
+     730
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R3_30": {
+   "clip": "FX30541",
+   "a": 22.06,
+   "b": 23.44,
+   "x0": [
+    [
+     22.06,
+     730
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R3_15": {
+   "clip": "FX30541",
+   "a": 29.35,
+   "b": 30.73,
+   "x0": [
+    [
+     29.35,
+     740
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R3_M1": {
+   "clip": "FX30541",
+   "a": 98.4,
+   "b": 99.1,
+   "x0": [
+    [
+     98.4,
+     1000
+    ],
+    [
+     99.1,
+     1180
+    ]
+   ],
+   "audio": "room"
+  },
+  "R3_M2": {
+   "clip": "FX30541",
+   "a": 175.0,
+   "b": 175.7,
+   "x0": [
+    [
+     175.0,
+     420
+    ],
+    [
+     175.7,
+     680
+    ]
+   ],
+   "audio": "room"
+  },
+  "R3_M3": {
+   "clip": "FX30542",
+   "a": 111.0,
+   "b": 111.7,
+   "x0": [
+    [
+     111.0,
+     700
+    ],
+    [
+     111.7,
+     740
+    ]
+   ],
+   "audio": "room"
+  },
+  "R3_M4": {
+   "clip": "FX30547",
+   "a": 37.8,
+   "b": 38.5,
+   "x0": [
+    [
+     37.8,
+     650
+    ]
+   ],
+   "audio": "room"
+  },
+  "R3_M5": {
+   "clip": "FX30551",
+   "a": 85.5,
+   "b": 86.2,
+   "x0": [
+    [
+     85.5,
+     730
+    ],
+    [
+     86.2,
+     700
+    ]
+   ],
+   "audio": "mute"
+  },
+  "R3_OPT": {
+   "clip": "FX30547",
+   "a": 121.95,
+   "b": 126.09,
+   "x0": [
+    [
+     122.45,
+     850
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R3_TIME": {
+   "clip": "FX30553",
+   "a": 7.05,
+   "b": 8.43,
+   "x0": [
+    [
+     7.05,
+     200
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R3_FRONT": {
+   "clip": "FX30554",
+   "a": 8.95,
+   "b": 11.053,
+   "x0": [
+    [
+     0,
+     531
+    ]
+   ],
+   "pair": "V_MATCH_FRONT",
+   "match_f": 264,
+   "audio": "mute"
+  },
+  "R1_SCAN": {
+   "clip": "FX30541",
+   "a": 322.0,
+   "b": 323.6,
+   "x0": [
+    [
+     322.0,
+     600
+    ],
+    [
+     323.6,
+     650
+    ]
+   ],
+   "audio": "room"
+  },
+  "R1_TIMEA": {
+   "clip": "FX30553",
+   "a": 9.35,
+   "b": 10.95,
+   "x0": [
+    [
+     9.4,
+     120
+    ],
+    [
+     10.2,
+     600
+    ],
+    [
+     10.95,
+     680
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R1_TIMEB": {
+   "clip": "FX30553",
+   "a": 13.0,
+   "b": 17.4,
+   "x0": [
+    [
+     13.0,
+     700
+    ],
+    [
+     15.5,
+     650
+    ],
+    [
+     16.2,
+     600
+    ],
+    [
+     17.3,
+     650
+    ]
+   ],
+   "audio": "sync"
+  },
+  "R3_M6": {
+   "clip": "FX30541",
+   "a": 287.0,
+   "b": 287.7,
+   "x0": [
+    [
+     287.0,
+     1000
+    ]
+   ],
+   "audio": "room"
+  },
+  "R3_M7": {
+   "clip": "FX30542",
+   "a": 65.0,
+   "b": 65.7,
+   "x0": [
+    [
+     65.0,
+     700
+    ]
+   ],
+   "audio": "room"
+  }
+ },
+ "_pairs_from": "scan_shots.md (3D agent, 2026-11-13 11:51): V_MATCH_FRONT 531, V_PAIR_3 150, V_MATCH_REAR 480, V_PAIR_2 850 (607.5 px wide)"
+}

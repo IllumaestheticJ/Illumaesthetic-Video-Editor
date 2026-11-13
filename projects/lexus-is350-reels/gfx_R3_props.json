@@ -1,0 +1,138 @@
+{
+ "fps": 30,
+ "durationInFrames": 793,
+ "items": [
+  {
+   "kind": "title",
+   "t0": 0,
+   "t1": 6.8961,
+   "lines": [
+    "HOW LONG DOES IT",
+    "TAKE TO 3D-SCAN",
+    "A WHOLE CAR?"
+   ]
+  },
+  {
+   "kind": "pills",
+   "t0": 3.0084,
+   "t1": 6.8961,
+   "y": 1200,
+   "pills": [
+    {
+     "text": "2 HOURS?",
+     "at": 3.0084
+    },
+    {
+     "text": "30 MIN?",
+     "at": 4.317699999999999
+    },
+    {
+     "text": "15 MIN",
+     "at": 5.786899999999999,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "kind": "result",
+   "t0": 21.3779,
+   "t1": 24.826,
+   "y": 240,
+   "rows": [
+    {
+     "value": "32 MIN",
+     "label": "FROM GO",
+     "at": 21.3779
+    },
+    {
+     "value": "20 MIN",
+     "label": "WITHOUT THE CRASH",
+     "at": 22.0675
+    }
+   ],
+   "footer": {
+    "text": "THE BET WAS 15",
+    "at": 22.7571
+   }
+  },
+  {
+   "kind": "logo",
+   "t0": 24.826,
+   "t1": 26.426000000000002,
+   "cta": "SCANS AVAILABLE AT\nILLUMAESTHETIC.COM"
+  },
+  {
+   "kind": "cap",
+   "t0": 0.31,
+   "t1": 1.85,
+   "lines": [
+    "How long do you",
+    "think it'll take"
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 1.85,
+   "t1": 2.73,
+   "lines": [
+    "to scan this car?"
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 2.8084,
+   "t1": 4.0584,
+   "lines": [
+    "I'll say two hours."
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 4.2377,
+   "t1": 5.3777,
+   "lines": [
+    "Maybe 30 minutes."
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 5.7869,
+   "t1": 6.8169,
+   "lines": [
+    "15 minutes."
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 12.0734,
+   "t1": 13.8834,
+   "lines": [
+    "Is this the most optimal"
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 13.8834,
+   "t1": 15.2234,
+   "lines": [
+    "scanning position?"
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 15.3234,
+   "t1": 15.8234,
+   "lines": [
+    "Yeah."
+   ]
+  },
+  {
+   "kind": "cap",
+   "t0": 16.141,
+   "t1": 17.161,
+   "lines": [
+    "Time."
+   ]
+  }
+ ]
+}

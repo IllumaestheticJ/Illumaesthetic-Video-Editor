@@ -5,6 +5,7 @@ import { calculateGfxMetadata, GfxCard, gfxDefaults, ScanLabel } from "./gfx/Car
 import { calculateCaptionsMetadata, Captions, captionsDefaults } from "./gfx/Captions";
 import { calculateHudV2Metadata, HudV2, hudV2Defaults } from "./gfx/v2/HudV2";
 import { calculateCueV2Metadata, CardV2, CueV2, cueV2Defaults, FxGlitch } from "./gfx/v2/CuesV2";
+import { calculateReelGfxMetadata, ReelGfx, reelGfxDefaults } from "./gfx/reel/ReelGfx";
 import { calculateWebZoomMetadata, WebZoom, webZoomDefaults } from "./WebZoom";
 
 export const RemotionRoot: React.FC = () => {
@@ -38,6 +39,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="CueV2" component={CueV2} durationInFrames={cueV2Defaults.frames} fps={23.976} width={1920} height={1080} defaultProps={cueV2Defaults} calculateMetadata={calculateCueV2Metadata} />
       <Composition id="CardV2" component={CardV2} durationInFrames={cueV2Defaults.frames} fps={23.976} width={1920} height={1080} defaultProps={cueV2Defaults} calculateMetadata={calculateCueV2Metadata} />
       <Composition id="FxGlitch" component={FxGlitch} durationInFrames={cueV2Defaults.frames} fps={23.976} width={1920} height={1080} defaultProps={cueV2Defaults} calculateMetadata={calculateCueV2Metadata} />
+      <Composition id="ReelGfx" component={ReelGfx} durationInFrames={reelGfxDefaults.durationInFrames} fps={30} width={1080} height={1920} defaultProps={reelGfxDefaults} calculateMetadata={calculateReelGfxMetadata} />
     </>
   );
 };
