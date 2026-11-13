@@ -1,0 +1,54 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1018,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 135,
+   "duration": 37,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "INNER FACE",
+   "x": 0.074,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 241,
+   "duration": 56,
+   "title": "CRASH BEAM",
+   "sub": "FRONT BUMPER OFF",
+   "x": 0.074,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 515,
+   "duration": 44,
+   "title": "SIDE SKIRT REMOVED",
+   "sub": "SILL EXPOSED",
+   "x": 0.074,
+   "y": 0.78
+  },
+  {
+   "kind": "label",
+   "from": 594,
+   "duration": 29,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "INNER FACE",
+   "x": 0.074,
+   "y": 0.12
+  },
+  {
+   "kind": "label",
+   "from": 627,
+   "duration": 20,
+   "title": "EXHAUST",
+   "sub": "REAR BUMPER OFF",
+   "x": 0.074,
+   "y": 0.12
+  }
+ ]
+}

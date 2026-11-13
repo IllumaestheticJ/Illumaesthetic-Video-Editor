@@ -1,3 +1,15 @@
+# Mazda Miata ND scan reel - self-review (v7, delivered)
+
+v7 = the user's notes on v6: music started too early and missed the drop; the trunk lid took a chunk of the tail light.
+File: `/home/user/media/work/miata/out/miata_nd_v7.mp4` (33.9 s, 1018 frames, 1080x1920).
+- Beat sync 5: music from 2 bars before the drop; hard cut ON the drop (frame 114) into the bumper popping off on the hit;
+  hood lands on the k20 bar accent; reassembly locks on k52.
+- Scan quality 4: trunk lid no longer carries tail-light pieces (open-state scan decides what stays on the body); lamp housings
+  stay whole when the lid opens and in the explode.
+- Story: whole car over the build -> DROP: front bumper off -> crash beam -> hood -> side (skirt holds on the sill) -> rear bumper ->
+  trunk -> explode -> reassembly -> mobile CTA -> logo. Headlight detail cut to reach the drop in 3.8 s.
+
+## Earlier reviews (v6 and before) kept below
 # Mazda Miata ND scan reel - self-review (v6, delivered)
 
 v6 = the user's notes on v5: edit from the beginning of Megalomaniac, drop the wheel close-up, hold on the side skirt.

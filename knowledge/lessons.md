@@ -973,3 +973,11 @@ lands here automatically. Agents must read this whole file before editing.
   `temerario-scan-reel` skill (`.claude/skills/temerario-scan-reel/`); start every scan-only teardown reel from it and
   from its `references/comparison.md` (how this reel differs from the A90 and the other reels: side section needs a
   hold + label, name every part, no scan specks).
+
+## From the Mazda Miata ND v7 revision (2026-11-13, built by an agent)
+- **[pacing]** "Use the beginning of the song" did NOT mean "start at 0:00 and wait 15 s for the drop" (user: "starts too early, misses
+  the drop"). Find the drop (biggest per-bar sub-bass step; Megalomaniac 15.495 s, +14 dB), start the music ~2 bars before it on a
+  bar hit, and HARD-CUT on the drop into an action (trim the clip so the part moves on the hit - assembler `trim_start`).
+- **[scan-look]** A panel cut from the full-car skin can include neighbours (trunk lid took tail-light tops). Refine it with the state
+  scan where the panel was opened: lid triangles within ~8 mm of that scan stayed on the body, so they are not lid
+  (mazda-miata-nd/tools/refine_lid.py). Then composite with a small per-panel cut (6 mm) for panels cut from the same scan.
