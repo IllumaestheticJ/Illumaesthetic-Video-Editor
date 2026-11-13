@@ -1,47 +1,32 @@
-# Lola (Drifter movie) scan-process reel v5 — agent self-review (training/rubric.md)
+# Lola (Drifter movie) scan-process reel v6 — agent self-review (training/rubric.md)
 
-Output: `/home/user/media/work/out/lola_scan_process_v5.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 29.97 s (899 frames). Earlier: `review_v1.md`–`review_v4.md`. Plan: `direction.md`.
+Output: `/home/user/media/work/out/lola_scan_process_v6.mp4`. Specs: 1080×1920, 30 fps, yuv420p, AAC, 29.87 s (896 frames). Earlier: `review_v1.md`–`review_v5.md`.
 
-> ✅ **Posting permission confirmed:** these cars (Lola 1 and Lola 2) were scanned for a film production
-> (Drifter). The user confirmed on 2026-11-11 that the production is fine with the reel being posted
-> ("Lola production is fine with it", relayed by the parent session).
+> ✅ **Posting permission confirmed:** the user confirmed on 2026-11-11 that the Drifter production is fine with
+> the reel being posted. v6 also uses footage from the film's public trailer, which the user supplied.
 
-v5 change (user on v4: "end the last part of the video with Lola 2 rotating around in frame"):
-- The Lola 2 push-in is replaced by a linear 360° camera turntable around the whole car (5.63 s, 21.14→26.78 s). The car stays in frame at every angle; I checked all 86 frames for edge contact and luma. The triangle counter plays over it, and the logo moves to the 26.78 s kick. The reel is now 30.0 s.
-- This is an explicit user request, so it overrides the all-reels "no wasted orbits" rule for this shot.
-
-v4 change (user on v3: the Artec Studio clip "just looks like colored blobs"):
-- The 1.37 s screen clip at 14.8 s is now the cut-open Lola body mesh (door opening, cage, seat, wheel) with its colour texture switching on. It reads as a car and shows a processing step. Everything else is unchanged from v3.
-
-v3 changes:
-- **User on v2: "Remove illumaesthetic.com"** → the end card is the logo only, re-centred.
-- **User on v2: "Clean up footage at end (or a trailer 1:1)"**:
-  - Dropped the colour-model screen recording (UI, mouse cursor, ground shadow).
-  - Dropped the holey, clipped front close-up.
-  - New whole-car Lola 2 hero push-in, centred.
-  - The wing shot is re-rendered as a rear 3/4 with the whole rear end and wing in frame.
-  - Lola 2 now travels: real wing spray → scan rear/wing → whole car.
-  - The logo lands on the track's re-drop, so the ending is shorter (30.0 → 27.6 s).
-- **Trailer 1:1 not done:** there's no trailer file in Dropbox or Drive, and downloading the YouTube teaser was blocked by this session's permissions.
-- **Parent all-reels brief + addendum:**
-  - Sections each appear in one sequence, with no repeated views (`ive director`).
-  - There are no state scans (bumper, trunk, hood, doors), so none are shown.
-  - Luma dropout check is clean.
-  - Cuts are measured on the delivered file's decoded audio.
-  - The track isn't used by any other reel.
+v6 (user: trailer shots for a 1:1, new music, "an honor and super cool to be involved", captions if they help the reel):
+- **Opening:**
+  - The trailer's parked side-profile shot of Lola 1 plays as a letterboxed band on black, with the caption "MY LIFE BE LIKE…" in the black bar.
+  - A hard 1:1 cut on the beat drop turns it into the scan from the same camera (cam_M).
+  - The second caption reads "…3D SCANNING THE AE86s FROM DRIFTER / FROM DIRECTOR SUNG KANG".
+- **Middle (how it was scanned):** spray → handheld scanner → 1:1 → outside lifts off inside → cabin → Artec Studio → Lola 2 wing → scan rear → 360° turntable.
+- **Ending:** the film's FPV tandem drift of Lola 2 (band), with the caption "HONORED TO BE PART OF DRIFTER / WORLD PREMIERE · TIFF 2026" → logo on the downbeat.
+- **Music:** user-supplied Grits "My Life Be Like (Ooh Ahh)" remix. One bar of the drum-less hook plays under the movie shot, and the beat drops on the 1:1. It is a commercial song, so **attach it in-app when posting**.
 
 | # | Criterion | Score | Notes |
 |---|---|---|---|
-| 1 | Hook | 4 | Spray sweep from frame 0, silence at 1.4 s, then the 1:1 transformation on the drop at 2.44 s. |
-| 2 | Beat sync | 5 | 9 cuts measured on the delivered file's decoded audio at −11 to +12 ms from kick onsets. |
-| 3 | 1:1 match | 5 | Unchanged from v1/v2 and verified with overlays. |
-| 4 | Scan quality | 4 | The weak Lola 2 areas (grille and pop-up holes) are now out of the cut. |
-| 5 | Story | 5 | Real → scanned → inside + outside → software → Lola 2 rear → whole car → logo. Each section is shown once. |
-| 6 | Grade | 4 | Unchanged. |
-| 7 | Text | 5 | Exact STL triangle counts only, over scan shots only; the URL is removed as asked. |
-| 8 | Ending | 5 | Logo on the re-drop kick, no long holds, picture and music fade together. |
-| 9 | Technical | 5 | Specs met; no dropouts or black frames at cuts (only the logo's fade-in). |
+| 1 | Hook | 5 | Film footage of the car from frame 0, caption hook, transformation on the drop at 2.43 s. |
+| 2 | Beat sync | 5 | 11 cuts at −19 to +13 ms from kick onsets, measured on the delivered file's decoded audio. |
+| 3 | 1:1 match | 4 | Movie → scan: roofline, glass, door and body lines overlap (onion_M.jpg and the blended cut frames). The film car's wheels sit about 20 px lower than on scan day, a real stance/tyre difference. Scanner → scan is unchanged. |
+| 4 | Scan quality | 4 | Unchanged; the Lola 1 nose in pure side view shows the bumper/lip layering. |
+| 5 | Story | 5 | Film car → we scanned it → how → the second car → that car on screen → honoured. |
+| 6 | Grade | 4 | The film clips keep their grade; the glasses footage is flatter by comparison. |
+| 7 | Text | 4 | Three captions, all in black bars or on scan shots, never on footage. Facts come from the trailer's cards and the scan files. This is more text than the rubric's "≤2 items", at the user's request. |
+| 8 | Ending | 5 | Movie payoff, then the logo on the downbeat with the fade. |
+| 9 | Technical | 4 | Specs met. The movie bands are 1080 px wide from a 1080p trailer (sharp), but the tandem band is only 580 px tall. |
 
-## Open / blocked
-- **Wider IRL crops** (parent addendum A): the glasses footage is 3:4 and already cropped at full height. Going wider means letterboxing the real footage (and the matching scan frames), which is the user's call.
-- **Trailer 1:1:** possible if the user drops the trailer file into Dropbox. The cut would need a solve with free focal on the film camera.
+## Notes / open
+- The camera for the movie shot was re-solved with its height pinned to 0.7 m. The free solve matched the silhouette from 1.5 m below ground and rendered far-side wheels under the car.
+- The spray → scan 1:1 from v1–v5 is retired; two Lola 1 exterior scans back to back would repeat a view.
+- The turntable is no longer the very last shot (user request in v5); the movie drift follows it. Swap them if the user wants the rotation last.

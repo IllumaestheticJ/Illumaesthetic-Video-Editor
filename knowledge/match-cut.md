@@ -58,3 +58,10 @@ point and shift the whole car. Always re-prep with `--like <first prep>.json` to
 ## Glasses POV (Ray-Ban Meta) — Lola reel
 Close, steep top-down views from the glasses (e.g. standing over a rear deck/wing) did not
 converge; pick frames where the car fills ≤70 % of the frame with roofline + one wheel visible.
+
+## Matching a film/trailer shot (Lola v6)
+- Long-lens side profiles: the silhouette refine is degenerate in camera height/offset. A free refine can match
+  the outline from below ground and still render wrong (far-side wheels under the car). Pin the height
+  (`proj.py refine --fix-h 0.7`), fix a long focal, and look at a one-frame render before the full render.
+- 2.39:1 footage in a 9:16 reel: show it as a band on black so the whole car fits; the scan's black background
+  takes over at the 1:1 cut and captions go in the bars (never on footage).
