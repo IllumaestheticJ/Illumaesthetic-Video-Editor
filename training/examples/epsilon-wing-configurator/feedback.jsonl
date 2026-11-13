@@ -2,3 +2,4 @@
 {"ts": "2026-11-12T23:43:29Z", "project": "epsilon-wing-configurator", "at": "48.7", "category": "story", "note": "Remove the section mentioning 'car not listed / blueprint'", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T23:43:29Z", "project": "epsilon-wing-configurator", "at": "55", "category": "text", "note": "End with 'try it now on epsilon.plus'", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-12T23:43:29Z", "project": "epsilon-wing-configurator", "at": "24", "category": "content", "note": "Subaru BRZ CNC base section: the base renders broken (big purple strip)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T00:13:44Z", "project": "epsilon-wing-configurator", "at": "39", "category": "content", "note": "Sliders/locks section: show the SIDE view as the preview so the changes are easy to see while they are made", "by": "reviewer", "promoted": false}

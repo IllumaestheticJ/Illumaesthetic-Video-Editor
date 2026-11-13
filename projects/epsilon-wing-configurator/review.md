@@ -29,3 +29,5 @@ Known weaknesses / for the reviewer:
 - Scores unchanged except Story 4 -> 5 (ends on real cars + call to action) and Text 4 (one added text line on the card,
   black background, not over the photos). Beat sync 4: 15/17 cuts within 15 ms; 18.0 / 48.7 s sit in drum fills.
 - Photos are 3:4 phone shots, so the cars sit in the middle ~75 % of the frame height with a blurred fill above/below.
+
+# v3 - `/home/user/media/epsilon-wing-configurator/work/ewc_v3.mp4`: v2 with the sliders/locks shot previewing the Side view (user).
