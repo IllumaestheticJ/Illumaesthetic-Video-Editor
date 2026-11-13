@@ -5,6 +5,8 @@
 split.json: {"fps":30, "out":..., "music":{"path","start","fade_out"}, "tags":{"top":"...","bottom":"..."},
   "hud": hud.mov (optional, full frame), "logo": {"src": card.mp4, "frame": 1105}, "end_frame": 1219,
   "fade": {"start_frame": 1065, "frames": 27},           # both panels fade to black before the logo
+  "web": {"src": webzoom.mp4, "start_frame": 1092, "xfade": 14},   # v3: instead of fade+logo, dissolve into the
+                                                                   # website end card (Remotion WebZoomSplit) - bars/tags stop there
   "top": [seg...], "bottom": [seg...]}
 seg: {"src": png dir, "frames": N, "src_fps": 15, "trim_start": s, "crop_y": 480}   crop_y only for 9:16 sources
 Each segment is interpolated to 30 fps and cut to exactly N frames, so every cut is frame-exact on both panels."""
@@ -42,8 +44,14 @@ def panel(name, segs):
 
 
 top, bot = panel("top", cfg["top"]), panel("bottom", cfg["bottom"])
-n_body = sum(s["frames"] for s in cfg["top"]); assert n_body == sum(s["frames"] for s in cfg["bottom"]) == cfg["logo"]["frame"], n_body
-end = cfg["end_frame"]; fd = cfg["fade"]
+web = cfg.get("web")
+n_body = sum(s["frames"] for s in cfg["top"]); assert n_body == sum(s["frames"] for s in cfg["bottom"]), n_body
+if web:
+    fd = {"start_frame": web["start_frame"], "frames": web["xfade"]}; assert n_body == web["start_frame"] + web["xfade"], n_body
+else:
+    assert n_body == cfg["logo"]["frame"], n_body
+    fd = cfg["fade"]
+end = cfg["end_frame"]
 tags = cfg["tags"]
 dt = lambda txt, y: (f"drawtext=fontfile={FONT}:text='{txt}':fontcolor=0xe8ecf2@0.92:fontsize=34:x=64:y={y}"
                      f":enable='lt(n,{fd['start_frame']})'")
@@ -59,15 +67,21 @@ if cta:  # double call-to-action: one line under each panel's header bar, on a d
     for y, key in ((96, "top"), (1056, "bottom")):
         lab.append(f"drawbox=x=0:y={y}:w=1080:h=84:color=black@0.6:t=fill:enable='{en}'")
         lab.append(f"drawtext=fontfile={FONT}:text='{cta[key]}':fontcolor=0xe8ecf2:fontsize=40:x=(w-text_w)/2:y={y + 22}:enable='{en}'")
-bars = "drawbox=x=0:y=0:w=1080:h=96:color=black@0.6:t=fill,drawbox=x=0:y=960:w=1080:h=96:color=black@0.6:t=fill"
-fc = (f"[0:v][1:v]vstack=inputs=2,{bars},drawbox=x=0:y=958:w=1080:h=4:color=0x30343a:t=fill,{dt(tags['top'], 38)},{dt(tags['bottom'], 998)}"
+ben = f":enable='lt(n,{fd['start_frame']})'" if web else ""
+bars = f"drawbox=x=0:y=0:w=1080:h=96:color=black@0.6:t=fill{ben},drawbox=x=0:y=960:w=1080:h=96:color=black@0.6:t=fill{ben}"
+fc = (f"[0:v][1:v]vstack=inputs=2,{bars},drawbox=x=0:y=958:w=1080:h=4:color=0x30343a:t=fill{ben},{dt(tags['top'], 38)},{dt(tags['bottom'], 998)}"
       + ("," + ",".join(lab) if lab else "") + "[st];")
 last = "[st]"; inputs = ["-i", top, "-i", bot]; k = 2
 if cfg.get("hud") and os.path.exists(cfg["hud"]):
     inputs += ["-i", cfg["hud"]]; fc += f"{last}[{k}:v]overlay=0:0:eof_action=pass[h];"; last = "[h]"; k += 1
-fc += f"{last}fade=t=out:s={fd['start_frame']}:n={fd['frames']},format=yuv420p[body];"
-inputs += ["-i", cfg["logo"]["src"]]
-fc += f"[{k}:v]fps={fps},scale=1080:1920,format=yuv420p,trim=end_frame={end - n_body},setpts=PTS-STARTPTS[lg];[body][lg]concat=n=2:v=1:a=0[v]"; k += 1
+if web:
+    inputs += ["-i", web["src"]]
+    fc += (f"{last}fps={fps},format=yuv420p,settb=AVTB[body];[{k}:v]fps={fps},scale=1080:1920,format=yuv420p,settb=AVTB[wb];"
+           f"[body][wb]xfade=transition=fade:duration={web['xfade'] / fps:.5f}:offset={web['start_frame'] / fps:.5f}[v]"); k += 1
+else:
+    fc += f"{last}fade=t=out:s={fd['start_frame']}:n={fd['frames']},format=yuv420p[body];"
+    inputs += ["-i", cfg["logo"]["src"]]
+    fc += f"[{k}:v]fps={fps},scale=1080:1920,format=yuv420p,trim=end_frame={end - n_body},setpts=PTS-STARTPTS[lg];[body][lg]concat=n=2:v=1:a=0[v]"; k += 1
 m = cfg["music"]; dur = end / fps
 inputs += ["-ss", str(m["start"]), "-i", m["path"]]
 fc += f";[{k}:a]atrim=0:{dur:.3f},afade=t=out:st={dur - m['fade_out']:.3f}:d={m['fade_out']}[a]"

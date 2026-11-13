@@ -16,7 +16,8 @@ G = "/home/user/media/porsche-gt3-992/prep"
 OUT = "/home/user/media/work/gt3vs/renders"
 SPECS = "/home/user/media/work/gt3vs/specs"
 B = 0.47244
-BASE = [f"{G}/comp_gt3.blend"]
+# v3: comp_gt3b = comp_gt3 + the new geometry of GT3-992-ExhaustOn-UWT (2026 exhaust session, ICP-registered)
+BASE = [f"{G}/comp_gt3b.blend"]
 # order follows the RS panel: whole, front, front wheel (RS fender vent), wing, rear (RS rear + side), side (RS wheel house)
 START = {"g_whole": 0, "g_front": 8, "g_wheel": 20, "g_wing": 26, "g_rear": 32, "g_side": 44, "g_wide": 54, "g_home": 62}
 BEATS = {"g_whole": 8, "g_front": 12, "g_wheel": 6, "g_wing": 6, "g_rear": 12, "g_side": 10, "g_wide": 8, "g_home": 15}
@@ -115,10 +116,11 @@ SHOTS = {
     "g_wing": {"parts": state("g_wing", {"rear_wing": (29, 32)}),
                "cam": cam((0, (1.6, 3.75, 1.85), (0.05, 1.9, 1.0), 38), (S["g_wing"], (-1.2, 3.85, 1.95), (-0.05, 1.9, 1.05), 38))},
     # rear strip: bumper b32->35, diffuser + lip b34->37, tail lights + engine-lid spoiler b36->39, push in on the exhaust
-    "g_rear": {"parts": state("g_rear", {"rear_bumper": (32, 35), "rear_diffuser": (34, 37), "rear_lip": (34.5, 37.5),
-                                         "tail_lights": (36, 39), "rear_duckbill": (36.5, 39.5)}),
-               "cam": cam((0, (-2.9, 6.1, 1.35), (-0.1, 1.9, 0.85), 30), (6.5 * B, (-2.7, 5.8, 1.25), (-0.1, 1.9, 0.8), 30),
-                          (S["g_rear"], (-1.3, 4.3, 0.8), (0.0, 1.9, 0.5), 30))},
+    "g_rear": {"parts": state("g_rear", {"rear_bumper": (32, 34.5), "rear_diffuser": (34, 36.5), "rear_lip": (34.5, 37),
+                                         "tail_lights": (36, 38.5), "rear_duckbill": (36.5, 39)}),
+               "cam": cam((0, (-2.9, 6.1, 1.35), (-0.1, 1.9, 0.85), 30), (4.5 * B, (-2.6, 5.7, 1.1), (-0.1, 1.9, 0.7), 30),
+                          (8.5 * B, (-1.25, 4.35, 0.62), (0.0, 1.9, 0.42), 30),
+                          (S["g_rear"], (-0.55, 4.2, 0.55), (0.0, 1.9, 0.42), 30, "lin"))},
     # everything off, wide from the front-right, high
     "g_wide": {"parts": state("g_wide", {}),
                "cam": cam((0, (-5.5, -5.5, 3.0), (0, 0.45, 0.95), 30), (S["g_wide"], (-6.6, -2.9, 3.3), (0, 0.5, 0.95), 30, "lin"))},
@@ -128,11 +130,26 @@ SHOTS = {
                           (S["g_home"], (4.85, 5.25, 1.4), (0, 0.7, 0.6), 30))},
 }
 
+# ---- v3 ending: after the lock (b74) both closed cars sweep round the tail and land 1:1 on the angle of their product
+# listing's scan view (illumaesthetic.com 360 viewer, first frame). End poses from tools/silgrid.py (silhouette IoU
+# 0.977 GT3 / 0.962 RS against the listing screenshot crop); the assembler dissolves into the website end card there.
+LISTING = {"g_orbit": ((-7.2253, 4.9075, 3.1727), (0.0727, 0.0771, 0.6632), 30.0),
+           "r_orbit": ((-9.3668, 6.8967, 4.0174), (0.061, 0.047, 0.6758), 40.0)}
+ORBIT_FROM = {"g_orbit": ((5.0, 5.4, 1.5), (0, 0.7, 0.6)),      # g_home at b74
+              "r_orbit": ((4.95, 5.35, 1.4), (0, 0.7, 1.29))}   # v6_sh9 at b74, target raised for its crop band (crop_y 330)
+ORBIT_MID = {"g_orbit": ((-0.9, 8.3, 2.5), (0.05, 0.4, 0.65), 30.0), "r_orbit": ((-1.2, 9.6, 2.9), (0.05, 0.4, 0.9), 34.0)}
+SECS.update({"g_orbit": 2.2, "r_orbit": 2.2})
+for _n, _base in (("g_orbit", f"{G}/car4.blend"), ("r_orbit", "/home/user/media/porsche-gt3rs-992/prep/car4.blend")):
+    _l, _t, _f = LISTING[_n]
+    SHOTS[_n] = {"base": [_base], "parts": [],
+                 "cam": cam((0, ORBIT_FROM[_n][0], ORBIT_FROM[_n][1], 30), (0.78, *ORBIT_MID[_n], "in"),
+                            (1.52, _l, _t, _f, "out"), (2.2, _l, _t, _f))}
+
 
 def spec(name, mode, frames=None):
     s = SHOTS[name]
     final = mode == "final"
-    sp = {"base": BASE, "parts": s["parts"], "camera": {"sensor": 20.25, "keys": s["cam"]}, "seconds": SECS[name], "fps": 15,
+    sp = {"base": s.get("base", BASE), "parts": s["parts"], "camera": {"sensor": 20.25, "keys": s["cam"]}, "seconds": SECS[name], "fps": 15,
           "res": "1080x960", "res_pct": 75 if final else 35, "samples": 12 if final else 6, "persist": False,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     if not final:
