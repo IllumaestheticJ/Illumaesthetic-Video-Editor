@@ -345,6 +345,19 @@ def concept_F2():
     return c
 
 
+def concept_F2b():
+    # owner 2026-11-13: "this is good, but move the scanner higher"
+    band = 420
+    c = Image.new('RGB', (W, H), (0, 0, 0))
+    c.paste(split_base(0.74, 1210, band), (0, band))
+    d = ImageDraw.Draw(c)
+    guess_tags(d, 1880, 462, 620, 172, 34, font(MONO % 'ExtraBold', 102), labels=('2 HOURS?', '30 MIN?', '15 MIN?', 'LONGER?'))  # owner: add LONGER?
+    sc = scanner_cut(660)
+    drop_shadow_paste(c, sc, (20, H - sc.height - 300), blur=22, off=(12, 18))
+    band_text(c, ['3D SCAN A CAR', 'IN ___ MIN?'], band, width=1640)
+    return c
+
+
 def concept_F3():
     band = 420
     c = Image.new('RGB', (W, H), (0, 0, 0))
@@ -373,4 +386,5 @@ if __name__ == '__main__':
          'F': lambda: save(concept_F(), 'thumb_F'),
          'F1': lambda: save(concept_F1(), 'thumb_F1'),
          'F2': lambda: save(concept_F2(), 'thumb_F2'),
+         'F2b': lambda: save(concept_F2b(), 'thumb_F2b'),
          'F3': lambda: save(concept_F3(), 'thumb_F3')}[w]()

@@ -1,0 +1,691 @@
+{
+ "note": "v2 caption source (SOURCE clip seconds). v1 entries + v2 additions (take 2-4 questions, Yeah/Three two one go, Oh no, show the watch tail, checkpoint lines, Got you, full walk around, FX30551 can-found lines). See transcript notes for uncertain lines. v4 (editor): the host's whole closing statement restored (555 11.6-27.3), verbatim from the word-level transcript; starts/ends checked on speech-band energy.",
+ "captions": [
+  {
+   "clip": "FX30541",
+   "event_v1": "E01",
+   "src_start": 0.875,
+   "src_end": 2.252,
+   "lines": [
+    "How long do you think it's gonna take?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E01",
+   "src_start": 2.502,
+   "src_end": 2.962,
+   "lines": [
+    "Two hours."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E02",
+   "src_start": 380.88,
+   "src_end": 382.674,
+   "lines": [
+    "It's never crashed on me before."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E05",
+   "src_start": 12.179,
+   "src_end": 14.014,
+   "lines": [
+    "How long do you think it'll take",
+    "to scan this car?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E06",
+   "src_start": 22.064,
+   "src_end": 22.773,
+   "lines": [
+    "Maybe 30 minutes."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E07",
+   "src_start": 26.235,
+   "src_end": 30.029,
+   "lines": [
+    "I think I can do it in less than the",
+    "length of a YouTube video. 15 minutes."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E10",
+   "src_start": 77.369,
+   "src_end": 79.746,
+   "lines": [
+    "I'm so confident in my ability,",
+    "I'm not gonna rush."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E10",
+   "src_start": 80.413,
+   "src_end": 81.05,
+   "lines": [
+    "I gotta take my time."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E13",
+   "src_start": 106.774,
+   "src_end": 109.067,
+   "lines": [
+    "Then when I'm done spraying the car,",
+    "show the watch."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E21",
+   "src_start": 347.764,
+   "src_end": 349.39,
+   "lines": [
+    "The corner of the left headlight."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E21",
+   "src_start": 351.2,
+   "src_end": 352.81,
+   "lines": [
+    "You see how it's like",
+    "not fully covered?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E22",
+   "src_start": 369.244,
+   "src_end": 369.995,
+   "lines": [
+    "Time check."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E22",
+   "src_start": 371.454,
+   "src_end": 372.831,
+   "lines": [
+    "What? Oh, it's switched."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E22",
+   "src_start": 373.582,
+   "src_end": 375.458,
+   "lines": [
+    "Five minutes on the dot."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E22",
+   "src_start": 377.002,
+   "src_end": 379.212,
+   "lines": [
+    "How you feeling halfway through it?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E22",
+   "src_start": 379.296,
+   "src_end": 380.255,
+   "lines": [
+    "It just crashed."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E24",
+   "src_start": 400.775,
+   "src_end": 401.86,
+   "lines": [
+    "Timer's still rolling."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": "E26",
+   "src_start": 411.411,
+   "src_end": 413.914,
+   "lines": [
+    "Yeah, once this is sorted out,",
+    "I'm just gonna start a new scan."
+   ]
+  },
+  {
+   "clip": "FX30542",
+   "event_v1": "E28",
+   "src_start": 0.084,
+   "src_end": 0.751,
+   "lines": [
+    "So what happened?"
+   ]
+  },
+  {
+   "clip": "FX30542",
+   "event_v1": "E28",
+   "src_start": 1.085,
+   "src_end": 2.461,
+   "lines": [
+    "So the scanner crashed."
+   ]
+  },
+  {
+   "clip": "FX30542",
+   "event_v1": "E29",
+   "src_start": 4.796,
+   "src_end": 6.589,
+   "lines": [
+    "After like a five minute delay,"
+   ]
+  },
+  {
+   "clip": "FX30542",
+   "event_v1": "E29",
+   "src_start": 8.091,
+   "src_end": 10.635,
+   "lines": [
+    "We're rebooting it, and now",
+    "we're gonna try again."
+   ]
+  },
+  {
+   "clip": "FX30542",
+   "event_v1": "E29",
+   "src_start": 10.844,
+   "src_end": 12.137,
+   "lines": [
+    "All right, let's start there."
+   ]
+  },
+  {
+   "clip": "FX30542",
+   "event_v1": "E29",
+   "src_start": 12.304,
+   "src_end": 14.097,
+   "lines": [
+    "Start a secondary timer. Now."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E38",
+   "src_start": 53.34,
+   "src_end": 55.013,
+   "lines": [
+    "So, are you still recording?"
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E38",
+   "src_start": 55.305,
+   "src_end": 57.265,
+   "lines": [
+    "Yep. So that's the exterior."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E38",
+   "src_start": 57.766,
+   "src_end": 59.517,
+   "lines": [
+    "That's done. Check mark.",
+    "What's the time?"
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E38",
+   "src_start": 60.226,
+   "src_end": 62.937,
+   "lines": [
+    "The cheating time is",
+    "8 minutes and 32 seconds."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E39",
+   "src_start": 100.65,
+   "src_end": 103.603,
+   "lines": [
+    "Front, hood, roof, right side."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E39",
+   "src_start": 104.354,
+   "src_end": 106.898,
+   "lines": [
+    "Rear quarter panel's a little messed up.",
+    "Roof's messed up."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E39",
+   "src_start": 107.441,
+   "src_end": 108.692,
+   "lines": [
+    "So I came back here, did"
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E39",
+   "src_start": 110.61,
+   "src_end": 112.779,
+   "lines": [
+    "the whole roof, did the right",
+    "quarter panel,"
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E39",
+   "src_start": 112.904,
+   "src_end": 113.864,
+   "lines": [
+    "fixed the trunk."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E40",
+   "src_start": 115.241,
+   "src_end": 116.158,
+   "lines": [
+    "That's the full interior."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E42",
+   "src_start": 116.45,
+   "src_end": 118.577,
+   "lines": [
+    "So now, if you wanna make a lip kit,"
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E42",
+   "src_start": 118.702,
+   "src_end": 122.581,
+   "lines": [
+    "let's jack the car up, do the fronts",
+    "and sides, wheel wells inside."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": "E42",
+   "src_start": 122.748,
+   "src_end": 123.457,
+   "lines": [
+    "So let's also time that."
+   ]
+  },
+  {
+   "clip": "FX30547",
+   "event_v1": "E45",
+   "src_start": 0.042,
+   "src_end": 3.2,
+   "lines": [
+    "For harder-to-reach areas,",
+    "I'll use the can."
+   ]
+  },
+  {
+   "clip": "FX30547",
+   "event_v1": "E50",
+   "src_start": 120.49,
+   "src_end": 121.5,
+   "lines": [
+    "...a crazy position."
+   ]
+  },
+  {
+   "clip": "FX30547",
+   "event_v1": "E50",
+   "src_start": 122.706,
+   "src_end": 124.917,
+   "lines": [
+    "Is this the most optimal",
+    "scanning position?"
+   ]
+  },
+  {
+   "clip": "FX30547",
+   "event_v1": "E50",
+   "src_start": 125.292,
+   "src_end": 125.667,
+   "lines": [
+    "Yeah."
+   ]
+  },
+  {
+   "clip": "FX30551",
+   "event_v1": "E54",
+   "src_start": 0.041,
+   "src_end": 2.335,
+   "lines": [
+    "Oh, under the car! It disappeared!"
+   ]
+  },
+  {
+   "clip": "FX30552",
+   "event_v1": "E58",
+   "src_start": 21.23,
+   "src_end": 21.814,
+   "lines": [
+    "Done?"
+   ]
+  },
+  {
+   "clip": "FX30552",
+   "event_v1": "E58",
+   "src_start": 22.064,
+   "src_end": 23.148,
+   "lines": [
+    "Nope. Oh yeah, almost done."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E61",
+   "src_start": 7.424,
+   "src_end": 8.216,
+   "lines": [
+    "Time."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E61",
+   "src_start": 9.56,
+   "src_end": 10.76,
+   "lines": [
+    "20 minutes."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E61",
+   "src_start": 11.761,
+   "src_end": 12.554,
+   "lines": [
+    "Done."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E62",
+   "src_start": 13.722,
+   "src_end": 17.183,
+   "lines": [
+    "And the other one, 32 minutes."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E62",
+   "src_start": 17.559,
+   "src_end": 18.059,
+   "lines": [
+    "Yep."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E64",
+   "src_start": 19.311,
+   "src_end": 22.398,
+   "lines": [
+    "So one thing to note is also cleanup time."
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E65",
+   "src_start": 26.109,
+   "src_end": 28.111,
+   "lines": [
+    "in that 20 minute span right here,"
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E65",
+   "src_start": 28.278,
+   "src_end": 31.323,
+   "lines": [
+    "most of the spray is already",
+    "off the hood, and"
+   ]
+  },
+  {
+   "clip": "FX30553",
+   "event_v1": "E65",
+   "src_start": 32.324,
+   "src_end": 33.074,
+   "lines": [
+    "it's already starting to..."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 15.05,
+   "src_end": 17.3,
+   "lines": [
+    "How long do you think it'll take",
+    "to scan this car?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 17.42,
+   "src_end": 18.12,
+   "lines": [
+    "I'll say two hours."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 19.7,
+   "src_end": 21.95,
+   "lines": [
+    "How long do you think it'll take",
+    "to scan this car?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 23.92,
+   "src_end": 26.0,
+   "lines": [
+    "How long do you think it'll take",
+    "to scan this car?"
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 71.12,
+   "src_end": 74.55,
+   "lines": [
+    "Yeah. Three, two, one, go."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 81.24,
+   "src_end": 83.05,
+   "lines": [
+    "Oh no, oh no, that's not the..."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 110.78,
+   "src_end": 112.55,
+   "lines": [
+    "I'm gonna show the watch periodically."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 113.2,
+   "src_end": 113.9,
+   "lines": [
+    "Yeah, for checkpoint."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 200.98,
+   "src_end": 202.2,
+   "lines": [
+    "Checkpoint. ... two minutes."
+   ]
+  },
+  {
+   "clip": "FX30541",
+   "event_v1": null,
+   "src_start": 353.0,
+   "src_end": 353.5,
+   "lines": [
+    "Got you."
+   ]
+  },
+  {
+   "clip": "FX30545",
+   "event_v1": null,
+   "src_start": 94.88,
+   "src_end": 99.55,
+   "lines": [
+    "This is the full walk around of the car."
+   ]
+  },
+  {
+   "clip": "FX30551",
+   "event_v1": null,
+   "src_start": 13.85,
+   "src_end": 15.35,
+   "lines": [
+    "Oh, it's right here. Right?"
+   ]
+  },
+  {
+   "clip": "FX30551",
+   "event_v1": null,
+   "src_start": 15.72,
+   "src_end": 18.0,
+   "lines": [
+    "Yeah. Oh yeah, it is. It blended in."
+   ]
+  },
+  {
+   "clip": "FX30551",
+   "event_v1": null,
+   "src_start": 18.1,
+   "src_end": 19.85,
+   "lines": [
+    "I do the same thing all the time."
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 11.636,
+   "src_end": 13.763,
+   "lines": [
+    "If we ignore the scanner crashing on me..."
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 13.763,
+   "src_end": 15.95,
+   "lines": [
+    "20 minutes. 20 minutes",
+    "for the whole car,"
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 16.44,
+   "src_end": 17.7,
+   "lines": [
+    "10 minutes if I just did the exterior,"
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 17.82,
+   "src_end": 19.56,
+   "lines": [
+    "with the power of a spray gun,"
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 19.76,
+   "src_end": 21.25,
+   "lines": [
+    "AESUB Violet, and the Artec Leo."
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 22.05,
+   "src_end": 25.25,
+   "lines": [
+    "I don't know if there's any other scanner",
+    "out there that can do it faster, but..."
+   ]
+  },
+  {
+   "clip": "FX30555",
+   "event_v1": "CON_01",
+   "src_start": 26.2,
+   "src_end": 27.3,
+   "lines": [
+    "Yeah, this thing's fast."
+   ]
+  }
+ ]
+}

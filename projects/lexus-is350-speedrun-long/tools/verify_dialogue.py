@@ -20,8 +20,11 @@ from scipy.signal import butter, sosfiltfilt
 sys.path.insert(0, str(Path(__file__).parent))
 import assemble_long as al  # noqa: E402
 
-STEM = Path(sys.argv[1]) if len(sys.argv) > 1 else al.OUT / "stems_v2/is350_long_v2_stem_dialogue.wav"
-Q = al.OUT / "qa_v2"
+import os
+VER = os.environ.get("IS350_VER", "v2")
+ONLY = [x for x in os.environ.get("IS350_ONLY", "").split(",") if x]
+STEM = Path(sys.argv[1]) if len(sys.argv) > 1 else al.OUT / f"stems_{VER}/is350_long_{VER}_stem_dialogue.wav"
+Q = al.OUT / f"qa_{VER}"
 
 
 def norm(s):
@@ -34,7 +37,7 @@ def norm(s):
 
 def main():
     Q.mkdir(parents=True, exist_ok=True)
-    tl = json.load(open(al.P / "timeline_v2.json"))
+    tl = json.load(open(al.P / f"timeline_{VER}.json"))
     edl = {e["id"]: e for e in json.load(open(al.P / "edl_v2.json"))["events"]}
     sr, x = wavfile.read(STEM)
     x = x.astype(np.float32)
@@ -44,7 +47,7 @@ def main():
     sos = butter(4, [300, 3400], btype="band", fs=sr, output="sos")
     res = []
     for e in tl["events"]:
-        if not e["sync_speech"]:
+        if not e["sync_speech"] or (ONLY and e["id"] not in ONLY):
             continue
         a, b = e["tl_in"], e["tl_out"]
         seg = x[max(0, int((a - 0.3) * sr)):int((b + 0.3) * sr)]
@@ -54,7 +57,7 @@ def main():
         heard = " ".join(s.text for s in segs)
         hear = edl[e["id"]]["audio"]["hear"] or ""
         if e["id"] == "CON_01":
-            hear = hear.split(" 10 minutes")[0]
+            hear = os.environ.get("IS350_CON01_TEXT", hear)
         want, got = norm(hear), norm(heard)
         sm = difflib.SequenceMatcher(a=want, b=got, autojunk=False)
         blocks = [m for m in sm.get_matching_blocks() if m.size]
@@ -76,7 +79,7 @@ def main():
         r["verdict"] = "OK" if (first_ok and last_ok and not r["edge_suspect"]) else "CHECK"
         res.append(r)
         print(f"{e['id']:7s} {r['verdict']:5s} ratio {r['ratio']:.2f} edges {r['edge_db_vs_p90']} | {r['heard'][:110]}", flush=True)
-    al.atomic_json(Q / "dialogue_check.json", res)
+    al.atomic_json(Q / ("dialogue_check.json" if not ONLY else "dialogue_check_" + "_".join(ONLY) + ".json"), res)
 
 
 if __name__ == "__main__":
