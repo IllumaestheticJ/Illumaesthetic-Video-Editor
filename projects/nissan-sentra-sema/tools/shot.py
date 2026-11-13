@@ -201,10 +201,10 @@ def main():
             if group == "wheel": c[:] = (0.045, 0.045, 0.05)                   # Ron's wheel/tyre/brake model: dark gunmetal
             wheel = (np.abs(x) > 0.55) & (((y - 1.41) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2) | ((y + 1.30) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2))
             if group not in ("kit", "wheel"): c[wheel] = DARK
-            # v6 stripes: corners of the real stripes raycast through the solved SEMA-photo camera (match/cam_reveal.json):
-            # slope dy/dz 0.67, top at z 0.665, front stripe u 0.51-0.715, rear stripe u 0.28-0.46 (u = y - 0.67 (z - 0.30))
-            c2 = c.copy(); u = y - 0.67 * (z - 0.30)
-            st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.665) & (((u > 0.51) & (u < 0.715)) | ((u > 0.28) & (u < 0.46))) & ~wheel
+            # v7 stripes: corners of the real stripes raycast through the reveal camera solved with the photo's EXIF focal
+            # (24 mm-eq main lens = 27.0 mm on the 20.25 sensor): slope dy/dz 0.835, z 0.29-0.67, front u 0.39-0.615, rear u 0.145-0.35
+            c2 = c.copy(); u = y - 0.835 * (z - 0.30)
+            st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.67) & (((u > 0.39) & (u < 0.615)) | ((u > 0.145) & (u < 0.35))) & ~wheel
             if group not in ("black", "wheel"): c2[st] = REDC
             for name, arr in (("paint", c), ("paint2", c2)):
                 a = me.color_attributes.new(name, "FLOAT_COLOR", "POINT")

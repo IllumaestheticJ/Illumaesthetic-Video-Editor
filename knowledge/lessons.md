@@ -718,3 +718,9 @@ Playbook for this kind of reel: `knowledge/short-form.md`. Tools: `projects/niss
   check the count before assembling.
 - **[audio]** A user-supplied commercial track is fine to cut to, but say once that the platform may mute/claim it. Map the track first
   (2 s energy rows -> find intro/break/drop), then put the reveal on the measured drop and count bars back for every cut.
+- **[match-cut]** (sentra v7) For a 1:1 onto a PHOTO, read the lens from EXIF and FIX the focal (iPhone 16 Pro main = 24 mm-eq = 27.0 mm
+  on the 20.25 mm sensor) before solving, and include at least one far-side landmark (mirror a near-side 3D point, x -> -x). A free-focal
+  solve on near-side points gave 16.7 mm at 2.7 px RMSE and still left the far front corner 65 px short; the user saw it. Check the
+  onion at BOTH ends of the car, and check the last frame of the delivered video against the photo, not only a still render.
+- **[text]** (sentra v7) End card for this reel = Illumaesthetic logo only; the user had "Customize everything" removed after the
+  official lockup could not be sourced. Don't type a slogan under the logo.

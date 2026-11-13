@@ -7,7 +7,7 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 1. The **hook**: which post/article/controversy opens the video.
 2. The **music** and where the reveal should land (default: the first hard drop).
 3. Credits: who the client is and which brands may be shown.
-4. The **official "Customize everything" logo file** for the end card.
+4. Which logo file closes the video (default: the website wordmark alone; never type a slogan under it).
 5. Screen recordings of social posts (Instagram cannot be captured from here) and any in-progress photos.
 
 ## Structure (bars counted back from the drop)
@@ -22,7 +22,7 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 | Final render 360 | 4 bars | full lap, then ease into the solved camera of the reveal photo and hold through the riser | `match/cam_reveal.json` |
 | **Reveal** | 4 bars | **1:1 cut to the real car on the drop**; cropped real headlines land around it, one per beat from beat 2 | car stays clear in the middle |
 | Other people's clips | 4 bars | 4 clips, whole car in frame, ~2 s each | no paused reels |
-| End card | ~3 s | official logo lockup | fade music |
+| End card | ~3 s | Illumaesthetic logo only (no typed slogan) | fade music |
 
 ## How (tools in `projects/nissan-sentra-sema/tools/`)
 - `kicks.py` - kick onsets of a track window; map the track with 2 s energy rows first to find the drop.
@@ -34,7 +34,8 @@ Approved example: `projects/nissan-sentra-sema` v6 (47.5 s, 1080x1920, 30 fps). 
 - `grid.py` - gridded crops for landmark picking.
 
 ## Checks before sending
-- Onion overlay for BOTH 1:1 cuts (scan-day frame -> scan, final render -> reveal photo).
+- Onion overlay for BOTH 1:1 cuts (scan-day frame -> scan, final render -> reveal photo). For the photo: focal fixed from EXIF,
+  a far-side landmark, and the last delivered video frame compared with the photo.
 - Livery measured through the reveal camera; side/front/rear check renders next to photos.
 - Every render folder: frame count and per-frame luma.
 - Every borrowed clip: 6 frames across its window - whole car visible, no play button.

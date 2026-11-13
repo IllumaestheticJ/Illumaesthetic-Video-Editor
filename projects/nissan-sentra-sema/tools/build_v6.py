@@ -65,7 +65,7 @@ def seg_concepts():
 
 
 def seg_livery():
-    n = CUT['turn'] - CUT['livery']; frs = render_seq('s6b_livery', n)
+    n = CUT['turn'] - CUT['livery']; frs = render_seq('s6c_livery', n)
     def gen():
         for f in range(n):
             im = Image.fromarray(frs[min(f, len(frs) - 1)]); d = ImageDraw.Draw(im)
@@ -76,7 +76,7 @@ def seg_livery():
 
 
 def seg_turn():
-    n = CUT['reveal'] - CUT['turn']; frs = render_seq('s8_turn', n)
+    n = CUT['reveal'] - CUT['turn']; frs = render_seq('s9_turn', n)
     def gen():
         for f in range(n):
             im = Image.fromarray(frs[min(f, len(frs) - 1)]); d = ImageDraw.Draw(im)
@@ -115,13 +115,12 @@ def seg_reveal():
 
 
 def seg_end():
-    logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS); n = END - CUT['end']
+    logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 760; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS); n = END - CUT['end']
     def gen():
         for f in range(n):
             al = min(1.0, f / 8); im = Image.new('RGB', (WD, HT), (0, 0, 0)); d = ImageDraw.Draw(im)
-            l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al))); im.paste(l, ((WD - lw) // 2, 860), l)
-            a2 = max(0.0, min(1.0, (f - 10) / 8)); fnt = F('InterDisplay-Medium', 54); t = 'Customize everything'
-            d.text(((WD - d.textlength(t, font=fnt)) // 2, 860 + logo.height + 70), t, font=fnt, fill=tuple(int(v * a2) for v in OFF))
+            l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al))); im.paste(l, ((WD - lw) // 2, (HT - logo.height) // 2), l)
+            # v7: slogan removed by the user - logo only
             yield im
     pipe('v6_z_end', gen())
 
@@ -151,7 +150,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v6.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v7.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)
