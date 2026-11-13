@@ -37,3 +37,14 @@ Honest gaps:
 - **1080p-proxy sourcing**: all IRL except FX30545 comes from 1080p 10-bit proxies of the 4K originals; the 1440p deliverable is an upscale.
 - Faint second-speaker replies ("Yeah, I know", "I do the same thing all the time") are present but quiet; per-line loudness spread is 0.2 LU at line level, not per speaker.
 - Music licence (owner-supplied third-party mix) is not cleared for YouTube; it sits alone on the music stem.
+
+---
+
+# FINAL v4 (owner: conclusion was cut off) - 2026-11-13
+
+- CON_01 now plays FX30555 11.553-27.778 (16.2 s): "If we ignore the scanner crashing on me... 20 minutes. 20 minutes for the whole car, 10 minutes if I just did the exterior, with the power of a spray gun, AESUB Violet, and the Artec Leo. I don't know if there's any other scanner out there that can do it faster, but yeah, this thing's fast." Speech ends 27.25 (energy), 0.53 s tail; the cut to SC_CON_HERO sits on a measured P8 kick (+0.08 s snap). Whisper on the delivered dialogue stem hears the full statement (ratio 0.95; "AESUB"/"Artec" mis-heard as "a sub"/"Arctic" - captions spelled per the brief).
+- P8 outro extended by its 8-bar block (onsets 5.209-15.388) so the final hit still lands on the END card (0 ms); closing scan 12.1 s at 1.0x.
+- CON_G1 capped at 5.2 s (host to camera); 5 restored caption lines added verbatim.
+- Runtime 5:15.023, -14.1 LUFS / -1.5 dBTP; cut-to-beat median 0.59 f (31/40 within 1 f); montage match 38.9-40.7 dB; no placeholders.
+- Scores unchanged from v3 except Story 4 -> 4 (complete ending) and Ending 4: the ring decays into ~3.9 s of digital silence over the logo (by the music agent's built tail).
+- Faint "but" from the other speaker's line is audible at the in-point (11.553; 'but' ends 11.52 by energy, whisper still hears it).
