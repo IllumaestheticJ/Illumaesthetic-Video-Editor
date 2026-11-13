@@ -57,6 +57,42 @@ SHOTS = {
 }
 
 
+
+# ---------------- v6: FINAL RENDER 360 (Sentra v6 structure) ----------------
+# Finished car = scan without stock wheels (tools/nowheels.py) + kit + Ecky's preview.blend wheels (Volk CE28 + R888R),
+# revised grille and T-spec lights. Wrap sweeps rear -> front from blue kit / silver scan; ~277 deg lap (rear-left -> rear ->
+# right -> front -> front-left), easing into the solved camera of photo 1702 (match/cam1702_lookat.json, silhouette grid IoU
+# 0.870, onion checked) at t 6.0 and holding through the riser to the drop.
+def _final_parts():
+    paint = {g: KIT[g][2] for g in KIT}
+    parts = [{"blend": f"{B}/k_{g}.blend", "mat": "kit", "paint": paint[g]} for g in KIT]
+    parts += [{"blend": f"{B}/k_wheels.blend", "mat": "silver", "paint": "wheel"},
+              {"blend": f"{B}/k_grille_v4.blend", "mat": "silver", "paint": "black"},
+              {"blend": f"{B}/k_tspec_lights.blend", "mat": "silver", "paint": "black"}]
+    return parts
+
+
+def _final_cam(secs=7.75, t_land=6.0):
+    C = json.load(open(M + "/match/cam1702_lookat.json")); L, T, F = C["loc"], C["target"], C["focal"]
+    az_end = math.degrees(math.atan2(L[0], L[1])) % 360            # 322.8: front-left
+    r_end = math.hypot(L[0], L[1]); az0 = 240.0; az1 = az_end - 360  # decreasing: 240 -> -37
+    keys = []; n = 24
+    for i in range(n + 1):
+        u = i / n; k = u * u * (3 - 2 * u); t = t_land * u
+        az = math.radians(az0 + (az1 - az0) * k)
+        z = 1.55 + (L[2] - 1.55) * (k ** 3)
+        tgt = [a + (b - a) * (k ** 3) for a, b in zip((0, 0, 0.8), T)]
+        keys.append({"t": t, "loc": [r_end * math.sin(az), r_end * math.cos(az), z], "target": tgt, "focal": F, "ease": "lin"})
+    keys[-1].update({"loc": L, "target": T})
+    keys.append({"t": secs, "loc": L, "target": T, "focal": F, "ease": "lin"})
+    return {"keys": keys, "sensor": 20.25}
+
+
+SHOTS["G_final360"] = dict(base=[B + "/car4_nowheels.blend"], parts=_final_parts(), seconds=7.75, fps=15,
+                           paint={"t0": 0.25, "t1": 2.4, "y0": -3.0, "y1": 3.0, "soft": 0.12}, camera=_final_cam())
+
+
+
 def write(name, check=False, frames=None):
     s = dict(SHOTS[name]); s.setdefault("res", "1080x1920")
     s["res_pct"] = 30 if check else 75; s["samples"] = 8 if check else 12

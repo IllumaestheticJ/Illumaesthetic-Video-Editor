@@ -101,7 +101,10 @@ def mat_kit():
 
 def mat_black():
     m, nt, out = sr.new_mat("qx_black")
-    p = sr.principled(nt, (0.012, 0.012, 0.014, 1), 0.42, 0.1)
+    p = sr.principled(nt, (0.010, 0.010, 0.012, 1), 0.55, 0.0)
+    for k, v in (("Specular IOR Level", 0.12), ("Coat Weight", 0.0)):   # Sentra lesson: dark paint renders mid-grey under the rig
+        try: p.inputs[k].default_value = v
+        except KeyError: pass
     nt.links.new(p.outputs[0], out.inputs[0])
     return m
 
@@ -145,6 +148,31 @@ def mat_purple():
     black = op("MAXIMUM", op("MAXIMUM", wheels, glass), grille)
     mix = nt.nodes.new("ShaderNodeMixShader")
     nt.links.new(black, mix.inputs[0]); nt.links.new(p.outputs[0], mix.inputs[1]); nt.links.new(blk.outputs[0], mix.inputs[2])
+    nt.links.new(mix.outputs[0], out.inputs[0])
+    return m
+
+
+def mat_bronze_wheel():
+    """Ecky's Volk CE28 + R888R in one mesh: bronze satin metal inside radius 0.31 m of the axle, black rubber outside
+    (axles measured on the scan: y +1.66 / -1.43, z 0.42)."""
+    m, nt, out = sr.new_mat("qx_wheel")
+    rim = sr.principled(nt, (0.36, 0.20, 0.07, 1), 0.32, 1.0)
+    rub = sr.principled(nt, (0.012, 0.012, 0.012, 1), 0.75, 0.0)
+    geo = nt.nodes.new("ShaderNodeNewGeometry"); sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+    nt.links.new(geo.outputs["Position"], sep.inputs[0])
+    def op(o, a, b=None):
+        n = nt.nodes.new("ShaderNodeMath"); n.operation = o
+        for i, v in enumerate((a, b)):
+            if v is None: continue
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: nt.links.new(v, n.inputs[i])
+        return n.outputs[0]
+    Y, Z = sep.outputs[1], sep.outputs[2]
+    yc = op("ADD", op("MULTIPLY", op("GREATER_THAN", Y, 0.1), 1.66 + 1.43), -1.43)   # nearest axle
+    dy = op("SUBTRACT", Y, yc); dz = op("SUBTRACT", Z, 0.42)
+    tyre = op("GREATER_THAN", op("ADD", op("MULTIPLY", dy, dy), op("MULTIPLY", dz, dz)), 0.31 * 0.31)
+    mix = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(tyre, mix.inputs[0]); nt.links.new(rim.outputs[0], mix.inputs[1]); nt.links.new(rub.outputs[0], mix.inputs[2])
     nt.links.new(mix.outputs[0], out.inputs[0])
     return m
 
@@ -222,7 +250,7 @@ def main():
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
-    MATS = {"silver": silver, "kit": mat_kit(), "black": mat_black(), "purple": mat_purple(), "grey": grey}
+    MATS = {"silver": silver, "kit": mat_kit(), "black": mat_black(), "purple": mat_purple(), "grey": grey, "wheel": mat_bronze_wheel()}
     paint = spec.get("paint")
     if paint:
         EDGE["soft"] = paint.get("soft", 0.15)
