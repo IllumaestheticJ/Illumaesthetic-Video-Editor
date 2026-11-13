@@ -1,46 +1,8 @@
 {
- "width": 1080,
- "height": 1920,
- "fps": 30,
- "durationInFrames": 722,
- "accent": "#e8ecf2",
+ "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 738, "accent": "#e8ecf2",
  "items": [
-  {
-   "kind": "brackets",
-   "from": 99,
-   "duration": 91
-  },
-  {
-   "kind": "label",
-   "from": 102,
-   "duration": 86,
-   "title": "FULL CAR SCAN",
-   "sub": "14,999,997 TRIANGLES",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
-   "kind": "brackets",
-   "from": 421,
-   "duration": 122
-  },
-  {
-   "kind": "label",
-   "from": 424,
-   "duration": 56,
-   "title": "REAR END SCAN",
-   "sub": "7,000,064 TRIANGLES",
-   "x": 0.08,
-   "y": 0.1
-  },
-  {
-   "kind": "label",
-   "from": 484,
-   "duration": 59,
-   "title": "ENGINE LID",
-   "sub": "INSIDE + OUTSIDE SCANNED",
-   "x": 0.08,
-   "y": 0.1
-  }
+  {"kind": "label", "from": 134, "duration": 112, "title": "PRINTED HARDTOP", "sub": "REVISION 1 TEST-FIT SCAN", "x": 0.08, "y": 0.10},
+  {"kind": "label", "from": 389, "duration": 56, "title": "HARDTOP OFF", "sub": "ROLL HOOP + REAR DECK", "x": 0.08, "y": 0.84},
+  {"kind": "label", "from": 582, "duration": 44, "title": "HARDTOP ON", "sub": "FULL CAR SCAN", "x": 0.08, "y": 0.10}
  ]
 }
