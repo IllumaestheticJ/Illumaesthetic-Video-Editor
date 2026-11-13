@@ -1,10 +1,10 @@
-# Suzuki Cappuccino scan reel v4 (older recipes: project_v1/v2/v3.yaml). v4 = re-cut to the reviewer-supplied track
-# + nested parts (corner markers stay in the front bumper until it is off). Plan: direction.md + director.md; shots: shots.py.
+# Suzuki Cappuccino scan reel v5 (older: project_v1..v4.yaml). v5 = smooth hood nose edge + corner markers out through the
+# bumper front (v4: re-cut to the reviewer-supplied track + nested parts). Plan: direction.md + director.md; shots: shots.py.
 # Cuts on measured low-band hits of the new track (onsets.json): 113 426 599 638 881 991 1132. First clip = cut frame; later
 # clips = gap+1 frame because each 1-frame fade transition overlaps the previous clip by one frame.
 project: suzuki-cappuccino
 format: reel-9x16
-output: {path: /home/user/media/work/out/suzuki_cappuccino_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/suzuki_cappuccino_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/suzuki-cappuccino_track2.m4a   # reviewer-supplied track (upload, not committed)
@@ -23,7 +23,7 @@ timeline:
   - id: s2_frontbumper   # FRONT section: bumper off with markers in it -> inner face/mounting tabs -> markers lift out of the bumper -> hold on structure behind (Front Bumper Off scan)
     section: front
     focus: bumper inner face + structure behind
-    src: /home/user/media/work/renders/cappuccino_v4/s2_frontbumper
+    src: /home/user/media/work/renders/cappuccino_v5/s2_frontbumper
     src_fps: 15
     interpolate: true
     dur: 10.4667
@@ -31,7 +31,7 @@ timeline:
   - id: s3_engine   # FRONT section cont.: hood swings on the drop (beat 32) using the captured Hood Open state, push into the bay
     section: front
     focus: engine bay under the opened hood
-    src: /home/user/media/work/renders/cappuccino_v4/s3_engine
+    src: /home/user/media/work/renders/cappuccino_v5/s3_engine
     src_fps: 15
     interpolate: true
     dur: 5.8000
@@ -55,7 +55,7 @@ timeline:
   - id: x1_layers   # FINALE a: progressive explode into layers, rear first then front
     section: finale
     focus: parts separating into layers
-    src: /home/user/media/work/renders/cappuccino_v4/x1_layers
+    src: /home/user/media/work/renders/cappuccino_v5/x1_layers
     src_fps: 15
     interpolate: true
     dur: 3.7000
@@ -63,7 +63,7 @@ timeline:
   - id: x2_reassemble   # FINALE b: reassembly, clean car swaps in on beat 74, fade out
     section: finale
     focus: parts returning, clean car
-    src: /home/user/media/work/renders/cappuccino_v4/x2_reassemble
+    src: /home/user/media/work/renders/cappuccino_v5/x2_reassemble
     src_fps: 15
     interpolate: true
     dur: 4.7333
@@ -74,4 +74,4 @@ timeline:
     dur: 2.6667
 
 overlays:   # factual section labels over scan shots only (addendum C); no numbers
-  - {src: /home/user/media/work/cappuccino/hud_v4.mov, start: 0}
+  - {src: /home/user/media/work/cappuccino/hud_v5.mov, start: 0}

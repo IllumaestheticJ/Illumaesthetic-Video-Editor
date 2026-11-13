@@ -1,5 +1,5 @@
 {
- "_note": "Cappuccino v4 section labels (same five as v2/v3, re-timed to the new track's cut frames): scan shots only, factual, no numbers; placed in black space.",
+ "_note": "Cappuccino v5 labels: v4's five + FRONT BUMPER LIGHTS (file name Front_Bumper_Lights) on the marker beat; scan shots only, no numbers.",
  "width": 1080,
  "height": 1920,
  "fps": 30,
@@ -8,8 +8,8 @@
  "items": [
   {
    "kind": "label",
-   "from": 248,
-   "duration": 72,
+   "from": 238,
+   "duration": 38,
    "title": "MOUNTING POINTS",
    "sub": "FRONT BUMPER \u00b7 INNER FACE",
    "x": 0.08,
@@ -18,8 +18,18 @@
   },
   {
    "kind": "label",
-   "from": 376,
-   "duration": 41,
+   "from": 330,
+   "duration": 34,
+   "title": "FRONT BUMPER LIGHTS",
+   "sub": "CORNER MARKERS",
+   "x": 0.08,
+   "y": 0.76,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 390,
+   "duration": 35,
    "title": "FRONT BUMPER REMOVED",
    "sub": "RADIATOR",
    "x": 0.08,
