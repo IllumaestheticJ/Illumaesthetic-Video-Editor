@@ -1,3 +1,33 @@
+# Toyota GR86 / Subaru BRZ (gen 2) - v6 self-review (training/rubric.md)
+
+Output: `/home/user/media/work/gr86/out/toyota_gr86_v6.mp4` (not in git). Same timeline, music, cuts and labels as v5
+(1195 frames / 39.833 s, h264 yuv420p + AAC). Only the trunk changed.
+
+v5 user note: "Rear trunk area is not cut correctly based on real trunk opening".
+
+v5 problem: lid_v4 was a smoothed top/rear silhouette, not the scan's opening. Once the lid was off, the base showed:
+- a saw-tooth deck edge at the glass,
+- a ragged strip over the lamp tops,
+- a stray panel in the cargo, from the bumper-off capture filling the lid zone.
+
+v6 fix:
+- lid_v6 (tools/lid_v6.py) is exactly the car4 triangles that the Trunk Open captures lack (> 8 mm).
+  - The label is smoothed on the surface (20 mm majority).
+  - The right half is mirrored from the clean left half, because the right C-pillar coverage hole had read as lid.
+  - In top and rear projections it now matches the Trunk Open opening: a rear-face trapezoid plus wings over the lamps.
+- Base comp_explode6 (tools/build_v6.py): Trunk Open, the bumper-on capture, fills the opening as captured, minus its bumper skin. The bumper-off capture is limited to the rear bumper zone.
+- The 9 shots that show the lid or the opening were re-rendered (tools/respec_v6.py).
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 4 | Scan quality | 5 | The trunk opening is the Trunk Open capture itself, and the lid edge is the opening edge, with no saw-tooth, strips or stray panel. Luma is clean on all 9 re-renders. |
+| other | - | as v5 | Unchanged: hook 4, beat sync 4, story 5, text 4, ending 4, technical 5. |
+
+## Remaining weak spots for the next agent
+- The Trunk Open capture is sparse in the cargo floor (33k new tris). The cargo reads but is not dense.
+- The rest is as in v5: small exploded views, a thin side marker, and the e4 bumper fragment.
+
+---
 # Toyota GR86 / Subaru BRZ (gen 2) - v5 self-review (training/rubric.md)
 
 Output: `/home/user/media/work/gr86/out/toyota_gr86_v5.mp4` (not in git). 1080x1920, 30 fps, 1195 frames / 39.833 s,

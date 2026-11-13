@@ -1062,3 +1062,11 @@ lands here automatically. Agents must read this whole file before editing.
 - **[workflow]** Container restarts and 2 h waiter limits are normal on 4-5 h render queues: keep the queue resumable, delete
   zero-byte placeholder frames on restart, and check the queue (not the waiter) on every wake. A KD-tree job on 8 M triangles
   next to a Cycles render gets OOM-killed - restrict trees to the region that matters.
+
+## toyota-gr86 v6 (user feedback on v5)
+- [scan] (user: "Rear trunk area is not cut correctly based on real trunk opening") Cut an opening panel as the EXACT complement
+  of the open-state capture (car tris it lacks), smoothed on the surface (20 mm majority). A smoothed silhouette leaves car-skin
+  strips and saw-tooth edges between the panel outline and the capture. Let the bumper-ON open capture fill the opening as
+  captured, and keep other states (e.g. "Trunk Open Bumper Off") out of that zone. A one-sided coverage hole reads as panel:
+  mirror the clean half (the panel is symmetric) rather than requiring both halves (that AND shrank the lid to 60 %).
+  Check the outline against the capture in top + rear projections before rendering (projects/toyota-gr86/tools/lid_v6.py).

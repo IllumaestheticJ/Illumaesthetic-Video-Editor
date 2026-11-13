@@ -9,3 +9,4 @@
 {"ts": "2026-11-12T00:10:56Z", "project": "toyota-gr86", "at": "17.2", "category": "scan", "note": "the rear trunk needs to be cut correctly and done the same way (hinge open, then off) - we have a trunk open scan", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:08:39Z", "project": "toyota-gr86", "at": null, "category": "audio", "note": "use this music instead (user-supplied track: Gran Turismo 2 East City theme)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:08:39Z", "project": "toyota-gr86", "at": null, "category": "story", "note": "make sure all parts are highlighted", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T19:20:41Z", "project": "toyota-gr86", "at": "15.7", "category": "scan", "note": "Rear trunk area is not cut correctly based on real trunk opening", "by": "reviewer", "promoted": false}
