@@ -37,3 +37,10 @@ comp_fronthood is also the exploded-view base from v5; parts bonly / hood. (comp
 
 ## Shots (tools/shots.py → tools/shot.py, renders in `/home/user/media/work/s2k/renders/final/`)
 v5: s1_front, s2_rear, s3_lamp, s4_tail, s4b_flank, s5_front_open, s6_structure, s7_top, explode e1 (s8) / e2_side / e3_low / e4_hood / e5_fronthigh / e6 (s8) / e8_locked, logo card.
+
+## IRL footage (v7 opening)
+Dropbox `/2. Illumaesthetic Videos/1. Video dumps/*Unsorted Video Dump/S2000/How to_ Scan A Car for Engineering! (Design Parts).mp4`
+(id:ihAynaYnO_4AAAAAAACfDA; the posted YouTube video youtu.be/03-tWfXkqno), 1280x720 23.976 fps SDR, 8:20. Local:
+`/home/user/media/honda-s2000/irl/scan_video.mp4`. Car is the yellow S2000 being powder-scanned, wheels on.
+- 5:58.7-5:59.6 (src frames 8601-8622): low straight-on front, car unobstructed -> used; frame 8622 = solved cut frame.
+- Avoid: 5:25-5:52 (burned-in "Pros of the LEO" captions), most other moments (people in front of the car), 6:50+ (Blender screen captures).
