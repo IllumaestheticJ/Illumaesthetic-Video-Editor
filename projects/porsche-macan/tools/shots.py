@@ -269,19 +269,24 @@ SHOTS["X3"] = {"base": [XBI], "parts": [
 # S2: the right side gets its own beat (in v3 the right doors, passenger seat and dash were only seen in X3).
 # Base without the dash (build_dash.py); the dash scan is the part. Left side stays off (continuity from S1v3).
 XBD = f"{P}/comp_explode_int_nd.blend"
-DASH_UP = ((0, 0.15, 1.25), (0, 0, 0))
+DASH = {"pivot": [-0.012, -0.788, 0.961]}  # bbox centre (prepped m)
+# dash lifts clear of the screen header, then turns its face to the lens (seen end-on from the side it reads as a blob)
+DASH_KEYS = [k(0), k(0.55, (0, 0.15, 1.15), ease="out"), k(1.0, (-0.55, 0.15, 1.15), (0, 0, 90))]
+FR4 = ((-0.75, -0.05, 0.55), (0, 0, 180)); RR4 = ((-0.75, 0.12, 0.55), (0, 0, 180))  # lower: the floating dash stays clear
+# left doors parked low behind the body (from -X they sat above the roof as clutter)
 LEFT_OFF = [part("hood", [k(0, rot=OPEN_H)], hood), part("fbumper", [k(0, (0, -0.5, 6.0), FB_END[1])]),
-            part("fender", [k(0, *FENDER_END)]), part("door_fl", [k(0, *FL3)]), part("door_rl", [k(0, *RL3)]),
+            part("fender", [k(0, *FENDER_END)]), part("door_fl", [k(0, (1.4, -0.05, 0.0), (0, 0, 180))]),
+            part("door_rl", [k(0, (1.4, 0.12, 0.0), (0, 0, 180))]),
             part("seat_driver", [k(0, *DS_END)], SEAT_D), *[part(b, [k(0, *BN_END)], BENCH) for b in BENCH_PARTS]]
 SHOTS["S2v4"] = {"base": [XBD], "parts": LEFT_OFF + [
-    part("dash", [k(0), k(0.95, *DASH_UP, "out")]),                                   # on the drop
-    part("door_fr", [k(0), k(1.021), k(1.45, (-0.75, -0.05, 0.10), ease="out"), k(1.95, *FR3)]),
+    part("dash", DASH_KEYS, DASH),                                                     # on the drop
+    part("door_fr", [k(0), k(1.021), k(1.45, (-0.75, -0.05, 0.10), ease="out"), k(1.95, *FR4)]),
     part("seat_pass", seat_keys(2.042, PS_END), SEAT_P),
-    part("door_rr", [k(0), k(3.064), k(3.45, (-0.75, 0.12, 0.10), ease="out"), k(3.95, *RR3)]),
+    part("door_rr", [k(0), k(3.064), k(3.45, (-0.75, 0.12, 0.10), ease="out"), k(3.95, *RR4)]),
     part("hatch", REST, hatch), part("rbumper", REST)],
-    "cam": [cam(0, (-4.5, -1.3, 1.6), (-0.9, -1.0, 1.05), 28), cam(1.021, (-4.4, -1.15, 1.4), (-1.0, -1.05, 0.85), 28, "lin"),
+    "cam": [cam(0, (-4.6, -1.2, 1.9), (-0.8, -0.85, 1.35), 28), cam(1.021, (-4.5, -1.1, 1.6), (-0.9, -0.95, 1.05), 28, "lin"),
             cam(2.042, (-4.25, -0.5, 1.25), (-0.8, -0.4, 0.72), 28, "lin"), cam(4.2, (-4.6, 0.45, 1.3), (-0.6, 0.45, 0.66), 28)]}
-SHOTS["X4"] = {"base": [XBD], "parts": SHOTS["X3"]["parts"] + [part("dash", xk(((0, 0.2, 1.3), (0, 0, 0))))],
+SHOTS["X4"] = {"base": [XBD], "parts": SHOTS["X3"]["parts"] + [part("dash", xk(((0, 0.1, 1.6), (0, 0, 0))), DASH)],
                "cam": SHOTS["X3"]["cam"]}
 
 
