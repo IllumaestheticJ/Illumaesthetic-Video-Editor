@@ -21,25 +21,37 @@
  ],
  "objects": [
   {
-   "blend": "/home/user/media/work/a90/blend3/body.blend"
+   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_fender.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_fender.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_dtrim.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_dtrim.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_uskirt.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_uskirt.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_lskirt.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_lskirt.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_rbump.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_fender.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_dtrim.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_FL_all.blend"

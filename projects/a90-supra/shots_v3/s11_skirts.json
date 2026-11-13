@@ -21,10 +21,10 @@
  ],
  "objects": [
   {
-   "blend": "/home/user/media/work/a90/blend3/body.blend"
+   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_rbump.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
@@ -37,6 +37,9 @@
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"
@@ -116,6 +119,15 @@
    ]
   },
   {
+   "blend": "/home/user/media/work/a90/blend3/skin_uskirt.blend",
+   "vis": [
+    [
+     0.0,
+     0.14808815625
+    ]
+   ]
+  },
+  {
    "blend": "/home/user/media/work/a90/blend3/part_uskirt.blend",
    "keys": [
     {
@@ -145,8 +157,17 @@
    ],
    "vis": [
     [
-     0.0,
+     0.15059812499999997,
      0.38904515624999997
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_dtrim.blend",
+   "vis": [
+    [
+     0.0,
+     0.29868628124999996
     ]
    ]
   },
@@ -180,7 +201,7 @@
    ],
    "vis": [
     [
-     0.0,
+     0.30119624999999994,
      0.5396432812499998
     ]
    ]

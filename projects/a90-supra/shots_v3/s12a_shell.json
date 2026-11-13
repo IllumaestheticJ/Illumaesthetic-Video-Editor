@@ -21,10 +21,10 @@
  ],
  "objects": [
   {
-   "blend": "/home/user/media/work/a90/blend3/body.blend"
+   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/L_part_rbump.blend"
+   "blend": "/home/user/media/work/a90/blend3/skin_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
@@ -37,6 +37,9 @@
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_skirts.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"

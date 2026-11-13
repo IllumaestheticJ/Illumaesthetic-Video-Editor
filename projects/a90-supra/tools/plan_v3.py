@@ -66,16 +66,15 @@ PARTS = ["fbump", "fender", "dtrim", "uskirt", "lskirt", "rbump"]
 
 
 def home(s, off=(), hero=()):
-    """body + every panel still on the car (lite unless hero) + state fill for every panel that is off"""
-    s.obj("body")
+    """body + every panel still on the car (1.5 mm copy unless hero) + ALL state fills: under a fitted panel the fill backs
+    the seams with real geometry (without it the kept-skin islands dropped as scrap left dark gaps along the panel edges)"""
+    s.obj("body_s")      # cut edges smoothed (tools/smooth_body_v3.py)
     for p in PARTS:
         if p in off:
             continue
-        s.obj(("part_" if p in hero else "L_part_") + p)
-    fills = {"fbump": "fill_fbump", "fender": "fill_fender", "dtrim": "fill_dtrim", "uskirt": "fill_skirts", "rbump": "fill_rbump"}
-    for p, f in fills.items():
-        if p in off:
-            s.obj(f)
+        s.obj("skin_" + p)   # fitted panel = the car scan's own skin (seamless); the panel scan takes over when it moves
+    for f in ("fill_fbump", "fill_fender", "fill_dtrim", "fill_skirts", "fill_rbump"):
+        s.obj(f)
 
 
 def corners(s, skip=(), fr_off=None, rr_off=None):
@@ -213,13 +212,15 @@ s.cam((0, dict(az=-90, dist=1.6, z=0.75, look=[0.55, -0.90, 0.55])), (8.1, dict(
 s = Shot("s11_skirts", 11, 30)
 home(s, off=("fbump", "fender", "dtrim", "uskirt", "lskirt")); corners(s, fr_off=FR_OFF)
 for part, h0 in (("part_lskirt", 0), ("part_uskirt", 1.2), ("part_dtrim", 2.4)):
+    if h0:
+        s.obj(part.replace("part_", "skin_"), vis=[(0, h0 - 0.02)])
     s.obj(part, keys=[(0, dict()), (h0, dict()), (h0 + 0.4, dict(loc=[0, -0.10, 0], ease="ease_out")),
-                      (h0 + 1.9, dict(loc=[0, -0.55, -0.95], ease="ease_in"))], vis=[(0, h0 + 1.9)])
+                      (h0 + 1.9, dict(loc=[0, -0.55, -0.95], ease="ease_in"))], vis=[(h0, h0 + 1.9)])
 s.cam((0, dict(az=-104, dist=2.5, z=0.50, look=[-0.10, -0.90, 0.28])), (4.3, dict(az=-98, dist=2.1, z=0.45, look=[-0.10, -0.90, 0.26])),
       (8.1, dict(az=-94, dist=1.75, z=0.42, look=[-0.20, -0.90, 0.25])))
 s = Shot("s11b_sill", 12, 15)            # stay on the section: travel along the exposed sill and door-trim structure
 home(s, off=("fbump", "fender", "dtrim", "uskirt", "lskirt")); corners(s, fr_off=FR_OFF)
-s.cam((0, dict(pos=[-1.15, -1.55, 0.50], look=[-0.70, -0.85, 0.38])), (8.6, dict(pos=[0.55, -1.40, 0.32], look=[0.45, -0.85, 0.16])))
+s.cam((0, dict(pos=[-1.25, -1.95, 0.42], look=[-0.80, -0.85, 0.30])), (8.6, dict(pos=[0.45, -1.80, 0.26], look=[0.35, -0.85, 0.12])))
 OFF_SIDE = ("fbump", "fender", "dtrim", "uskirt", "lskirt")
 
 # ---------------------------------------------------------------- s12 interior x-ray (two layers, one camera) / s13 console
@@ -291,7 +292,9 @@ for n, (piv, loc, rot) in LINE.items():
     kw = dict(pivot=piv) if piv else {}
     h = SEAT[n]
     s.obj(n, keys=[(0, dict(loc=loc, rot=rot)), (max(0, h - 2.2), dict(loc=loc, rot=rot)), (h, dict(loc=[0, 0, 0], rot=[0, 0, 0], ease="ease_in")),
-                   (8.1, dict(loc=[0, 0, 0], rot=[0, 0, 0]))], **kw)
+                   (8.1, dict(loc=[0, 0, 0], rot=[0, 0, 0]))], vis=[(0, h - 0.02)] if n.startswith("part_") and h < 8 else None, **kw)
+    if n.startswith("part_") and h < 8:
+        s.obj(n.replace("part_", "skin_"), vis=[(h, 8.2)])     # seated: back to the car's own seamless skin
 s.cam((0, dict(az=-55, dist=6.6, z=3.0, look=[0.2, -0.3, 0.40])), (8.1, dict(az=-55, dist=5.2, z=2.3, look=[0.2, 0, 0.45])))
 s = Shot("s19_clean", 20, 15)
 home(s); corners(s)
