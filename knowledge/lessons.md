@@ -730,3 +730,5 @@ Playbook for this kind of reel: `knowledge/short-form.md`. Tools: `projects/niss
 - **[scan-look]** (sentra v9) "Panels going on" must show the OLD part coming off first where it was physically replaced: stock bumper part scan
   slides off -> bumper-removed state scan shows -> new part slides on (`tools/bumper_off.py`; render real 30 fps, parts move). Parts parked ahead
   of the nose get painted by a position-based wipe unless the wipe threshold starts beyond them.
+- **[story]** (sentra v9, user-confirmed) On the Sentra only the front bumper is truly replaced; all other kit panels are add-ons over the stock
+  body. Ask which stock parts actually came off before animating any removal - a photo of a printed panel on the car is not proof.
