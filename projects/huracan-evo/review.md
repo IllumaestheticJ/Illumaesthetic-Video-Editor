@@ -1,25 +1,29 @@
-# Huracan Evo scan reel v7 - self-review (training/rubric.md)  (older: review_v6 ... review_v1.md)
+# Huracan Evo scan reel v8 - self-review (training/rubric.md)  (older: review_v7 ... review_v1.md)
 
-Output: `/home/user/media/work/out/huracan_evo_v7.mp4` - 1080x1920, 30 fps, AAC, 29.97 s.
-Changes from the user's notes on v6: the full coupe rear-end disassembly, the exhaust and the wheel wells (2023 coupe scan set),
-a 720 px logo (was 380), and a narration conclusion ("Named after a fighting bull, and built like one. This is the Huracan EVO."
-landing on the logo).
+Output: `/home/user/media/work/out/huracan_evo_v8.mp4` - 1080x1920, 30 fps, AAC, 29.97 s.
+Changes from the user's notes on v7: narration re-flowed (the ending felt patched on), rear bumper rebuilt (it came off as one giant
+piece with too much attached), triangle counts removed from the labels.
 
 | # | Criterion | Score | Evidence / gap |
 |---|---|---|---|
-| 1 | Hook | 4 | Reference engine start-up and lights-up reveal; speech from 3.0 s. |
-| 2 | Beat sync | 5 | Hard cuts vs kicks on the delivered file: +22 -11 -11 -12 -12 -12 ms. The drop is at 10.28 s and the logo is on the music stop at 27.08 s. |
-| 4 | Scan quality | 3 | New parts are registered (regcheck 2.3-7.6 mm median). The exhaust (scanned standalone) was fitted by ICP at 4.7 mm median. Jack stands were cut from the rear-end and wheel-well scans. The derived bumper has ragged edges where the full car and the no-bumper scan meet, and the rear-end scan ends at mid-car (framing keeps the cut edge small). |
-| 5 | Story | 4 | Coupe select -> wheel -> side -> drop -> Spyder front bumper -> coupe rear bumper off (hold) -> grille/beam/decklid off -> exhaust out -> rear wheel well (no liner) -> reassembly to the whole coupe -> logo. One Spyder shot remains at the front of the teardown. |
-| 7 | Text | 4 | Labels: REAR END, NO BUMPER / 9,500,000 TRIANGLES and EVO EXHAUST / 17,309,868 TRIANGLES (STL header counts, size-checked), both on black. |
-| 8 | Ending | 5 | Reassembly -> whole-coupe pull-back -> fade -> 720 px logo while the narration says "This is the Huracan EVO." |
-| 9 | Technical | 4 | Every new frame is lit (luma scan). Speech is -13.1 LUFS, engine -10 LUFS, peaks <= -0.4 dBFS. |
-Unchanged rows (3, 6) as in v5.
+| 2 | Beat sync | 5 | Hard cuts vs kicks on the delivered file: +22 -11 -11 -12 -12 -12 ms. |
+| 4 | Scan quality | 4 | The rear bumper is now the skin inside the scanned 'Rear Bumper B side' envelope plus that scan as its inner face (1.44M tris). The wheels stay on the car as a static object. The skin's outline is still cut from the full-car scan, so its edge is slightly ragged. |
+| 5 | Story | 4 | Same order as v7. |
+| 7 | Text | 5 | Two title-only labels on black: REAR END, NO BUMPER and EVO EXHAUST. No numbers. |
+| 8 | Ending | 5 | The speech ends at 26.6 s on its concluding sentence, the music stops at 27.08 s, and the 720 px logo follows. |
+| 9 | Technical | 4 | Re-rendered frames all lit. Speech -13.0 LUFS, peaks <= -0.4 dBFS. |
+Rows 1, 3, 6 unchanged from v7.
+
+## Narration (one take, untrimmed, no tempo/pitch change)
+"Lamborghini Huracan EVO. Its naturally aspirated V10 makes six hundred thirty-one horsepower. Four-wheel drive and rear-wheel
+steering are run by LDVI, a brain that predicts your next move. It makes more than five times the downforce of the original
+Huracan, reaches sixty-two in two-point-nine seconds, and runs on to two hundred and two miles per hour. It was named after a
+fighting bull, and the EVO has more than earned it."
 
 ## Not verified
-- I can't listen here, so the conclusion line's delivery is unheard.
+- I can't listen here, so the take's delivery is unheard.
 
 ## What the next agent should know
-- Standalone part scans (e.g. 'EVO exhaust', scanned upright on a stand) are NOT in the car frame. Fit them to a state scan that shows the part installed: PCA axes x sign-flip search + trimmed ICP, then keep the clear winner (here 4.7 mm vs 17 mm for the next orientation).
-- State scans taken with the car on jack stands carry the stands. Cut low triangles outside the tyre contact zones before prep.
-- `shots.py` has several `__main__` blocks. Write a single section's JSONs with `runpy.run_path(..., run_name='v7')` so older sections don't overwrite rendered shots' JSONs.
+- "Feels patched on" came from three things: clipped fragment sentences added after a spec list, pause-trimming, and the voice running past the music stop. Write the conclusion as the speech's last sentence, generate one take that fits untrimmed, and end it before the music stops.
+- Don't derive a removable panel as "everything the panel-off state scan lacks": state scans are often shot wheels-off and on stands, so wheels and underbody come along. Bound the panel by its own part scan (here the B-side scan's envelope).
+- No triangle counts in labels (reviewer rule).
