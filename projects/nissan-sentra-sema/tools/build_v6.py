@@ -157,10 +157,10 @@ def seg_reveal():
         for k, (tag, im) in enumerate(lst):
             h = int(im.height * CW / im.width); cards.append([tag, im.resize((CW, h), Image.LANCZOS), xs[k % 2], y + 34]); y += h + 34 + 14
         return y
-    print('top stack ends y', lay(top, 44, (50, 410))); print('bottom stack ends y', lay(bot, 1330, (410, 50)))
+    print('top stack ends y', lay(top, 44, (50, 50))); print('bottom stack ends y', lay(bot, 1330, (50, 50)))   # v15: one column each, cards stack on top of each other
     order = [0, 5, 1, 6, 2, 7, 3, 4]                      # alternate top / bottom so the car stays clear in the middle
-    hits = [29.873, 30.476, 30.748, 30.917, 31.211, 31.439, 31.643, 31.810]     # kick attacks from kicks.py (strong hits after the drop)
-    appear = {c: int(round((t - DROP) * FPS)) for c, t in zip(order, hits)}   # v12b: each headline lands on a measured kick
+    beat_s = BAR / 4                                                          # base beat grid (0.4615 s), from the drop
+    appear = {c: int(round((k * beat_s) * FPS)) for k, c in enumerate(order)}   # v14: one headline per base beat, starting on the drop
     base = Image.open(f'{W}/match/reveal.png').convert('RGB'); n = CUT['sema'] - CUT['reveal']
     def gen():
         for f in range(n):
@@ -178,8 +178,8 @@ def seg_reveal():
 def seg_end():
     """v12b: Illumaesthetic logo, with the partner marks under it (MotoIQ mark, Bomex badge). Partners fade in after the wordmark."""
     logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 700; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
-    mq = Image.open(f'{D}/logo/motoiq_mark.png').convert('RGB'); mq = mq.resize((int(mq.width * 300 / mq.height), 300), Image.LANCZOS)
-    bx = Image.open(f'{D}/logo/bomex_plate.png').convert('RGB'); bx = bx.resize((520, int(bx.height * 520 / bx.width)), Image.LANCZOS)
+    mq = Image.open(f'{D}/logo/motoiq_white.png').convert('RGBA'); mq = mq.resize((int(mq.width * 300 / mq.height), 300), Image.LANCZOS)
+    bx = Image.open(f'{D}/logo/bomex_white.png').convert('RGBA'); bx = bx.resize((520, int(bx.height * 520 / bx.width)), Image.LANCZOS)
     row_w = mq.width + 44 + bx.width; row_x = (WD - row_w) // 2
     n = END - CUT['end']; y_main = 520; y_part = 1080
     def gen():
@@ -190,8 +190,8 @@ def seg_end():
             pa = max(0.0, min(1.0, (f - 14) / 8))
             if pa > 0:
                 d.line([(row_x, y_part - 60), (row_x + row_w, y_part - 60)], fill=mul(WHITE, 0.25 * pa), width=2)
-                im.paste(Image.blend(Image.new('RGB', mq.size, (0, 0, 0)), mq, pa), (row_x, y_part))
-                im.paste(Image.blend(Image.new('RGB', bx.size, (0, 0, 0)), bx, pa), (row_x + mq.width + 44, y_part + (mq.height - bx.height) // 2))
+                for lg, xx, yy in ((mq, row_x, y_part), (bx, row_x + mq.width + 44, y_part + (mq.height - bx.height) // 2)):
+                    al_ = lg.getchannel('A').point(lambda v: int(v * pa)); lg2 = lg.copy(); lg2.putalpha(al_); im.paste(lg2, (xx, yy), lg2)
             yield im
     pipe('v6_z_end', gen())
 
@@ -221,7 +221,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v12.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v14.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)
