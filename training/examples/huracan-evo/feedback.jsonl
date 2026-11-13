@@ -29,3 +29,4 @@
 {"ts": "2026-11-13T09:41:39Z", "project": "huracan-evo", "at": "12", "category": "pacing", "note": "Pacing a little too fast now; the video may run longer than 30 s if it helps pacing", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T09:41:39Z", "project": "huracan-evo", "at": "25", "category": "scan", "note": "The rear section is missing a chunk when it goes back to the full car scan", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T09:41:39Z", "project": "huracan-evo", "at": "12", "category": "text", "note": "More of the disassembly needs to be labeled - label each teardown step (titles, no counts)", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-13T11:53:20Z", "project": "huracan-evo", "at": "3", "category": "text", "note": "Narration must name the car 'LP640-4 Evo, representing the 640 metric horsepower it produces, mated to a 4-wheel drive system' instead of 'Huracan Evo'", "by": "reviewer", "promoted": false}

@@ -4,11 +4,13 @@ Newest first. Read the top two before starting a new edit.
 
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
+- [huracan-evo](huracan-evo/) - archived 2026-11-13
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
+- [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
