@@ -1,16 +1,188 @@
-{"note": "v8 (user: 'instead of a what-we-scanned video, make it a how-we-modified-this-truck video'; scanned grille + fender lights). Same extended track and beat onsets as v7; scan-section shots s5/s6/s7/s8 dropped, the build takes their place. Cut frames: 146 290 434 541 725 833 1015 1126 1197 1378 (1:1 CUT to IMG_3223 @2.4 s) 1414 1488; end 1608 (53.6 s). 725->833->1015 and 1015->1126->1197 are hidden cuts (same camera path continues).",
- "frames": {"v2_s1_wide": 146, "v2_s2_grille": 144, "v4_s3_bumper": 144, "v3_s4_removed": 107, "m1_grille": 184, "m2_flares": 108, "m3_fenders": 182, "m4_wheels": 111, "m5_lift": 71, "m6_livery": 181, "irl_3223": 36, "irl_3239": 74, "card": 120},
+{
+ "note": "v8 (user: 'how we modified this truck', then 'take what we learned from finished sentra videos, and apply it here' -> knowledge/short-form.md on claude/upbeat-goldberg-gy0s84): HOOK (real Motor Illustrated article) -> answer card -> build in order -> livery + full 360 of the finished render easing into the solved camera -> 1:1 CUT to the real truck ON THE CRASH (frame 1270, 42.348 s) -> real clips ~2.4 s each -> photo + logo card. Cut frames (all beat onsets of the extended track): 146 217 290 361 434 614 689 868 977 1051 1270 1341 1414 1488; end 1608. 'render' = frames each CGI shot was rendered for (camera keys depend on it); 'frames' = frames used in the cut. New shots are true 30 fps (no interpolation).",
+ "frames": {
+  "hook": 146,
+  "answer": 71,
+  "v2_s1_wide": 73,
+  "v2_s2_grille": 71,
+  "v4_s3_bumper": 73,
+  "m1_grille": 180,
+  "m2_flares": 75,
+  "m3_fenders": 179,
+  "m4_wheels": 109,
+  "m5_lift": 74,
+  "m6_final": 219,
+  "irl_3223": 71,
+  "irl_3239": 73,
+  "irl_3226": 74,
+  "card": 120
+ },
  "labels": {
-  "v2_s1_wide": [{"id": "x", "xy": [0.5, 0.5], "title": "STOCK PRO-4X", "sub": "STEP 01 · 3D SCAN THE WHOLE TRUCK", "t": [1.2, 4.5], "side": "top", "y": 0.1}],
-  "v2_s2_grille": [{"id": "grille", "title": "STOCK GRILLE", "sub": "STEP 02 · GETS REPLACED", "t": [2.373, 4.45], "y": 0.06}],
-  "v4_s3_bumper": [{"id": "bumper", "title": "FRONT BUMPER", "sub": "STEP 03 · COMES OFF TO BE TRIMMED", "t": [1.19, 4.45], "side": "bottom", "y": 0.66}],
-  "v3_s4_removed": [{"id": "fbrhc", "title": "MOUNTING POINTS", "sub": "STEP 04 · SCANNED WITH THE BUMPER OFF", "t": [1.19, 3.3]}],
-  "m1_grille": [{"id": "rgrille", "title": "RONIN GRILLE", "sub": "MOD 01 · ON THE TRIMMED BUMPER", "t": [1.81, 2.9], "side": "top", "y": 0.08},
-                {"id": "glight", "title": "GRILLE LIGHTS", "sub": "MOD 02 · 3D-SCANNED PARTS", "t": [4.22, 5.9], "side": "top", "y": 0.08}],
-  "m2_flares": [{"id": "sflare", "title": "STOCK FLARES", "sub": "COME OFF", "t": [0.6, 1.75], "side": "bottom", "y": 0.74}],
-  "m3_fenders": [{"id": "rfender", "title": "WIDE FENDERS", "sub": "MOD 03", "t": [1.21, 2.5], "side": "bottom", "y": 0.74},
-                 {"id": "flight", "title": "FENDER LIGHTS", "sub": "MOD 04 · 3D-SCANNED PARTS", "t": [3.62, 5.8], "side": "top", "y": 0.12}],
-  "m4_wheels": [{"id": "wheel", "title": "35-INCH WHEELS", "sub": "MOD 05 · NISSAN OFF-ROAD", "t": [1.21, 3.4], "side": "bottom", "y": 0.76}],
-  "m5_lift": [{"id": "body", "title": "LIFT KIT", "sub": "MOD 06", "t": [1.0, 2.2], "side": "top", "y": 0.14}],
-  "m6_livery": [{"id": "body", "title": "GT-R TWIN TURBOS", "sub": "MOD 07 · UNDER THE TRUCK", "t": [0.5, 2.2], "side": "bottom", "y": 0.78, "offset": [0.0, 0.04]},
-                {"id": "body", "title": "RONIN LIVERY", "sub": "MOD 08", "t": [3.7, 5.3], "side": "top", "y": 0.1}]}}
+  "v2_s1_wide": [
+   {
+    "id": "x",
+    "xy": [
+     0.5,
+     0.47
+    ],
+    "title": "STOCK PRO-4X",
+    "sub": "STEP 01 \u00b7 3D SCAN THE WHOLE TRUCK",
+    "t": [
+     0.5,
+     2.3
+    ],
+    "side": "top",
+    "y": 0.1
+   }
+  ],
+  "v2_s2_grille": [
+   {
+    "id": "grille",
+    "title": "STOCK GRILLE",
+    "sub": "STEP 02 \u00b7 GETS REPLACED",
+    "t": [
+     0.1,
+     2.2
+    ],
+    "y": 0.06,
+    "src_offset": 2.4
+   }
+  ],
+  "v4_s3_bumper": [
+   {
+    "id": "bumper",
+    "title": "FRONT BUMPER",
+    "sub": "STEP 03 \u00b7 COMES OFF TO BE TRIMMED",
+    "t": [
+     1.0,
+     2.35
+    ],
+    "side": "bottom",
+    "y": 0.66
+   }
+  ],
+  "m1_grille": [
+   {
+    "id": "rgrille",
+    "title": "RONIN GRILLE",
+    "sub": "MOD 01 \u00b7 ON THE TRIMMED BUMPER",
+    "t": [
+     1.81,
+     2.9
+    ],
+    "side": "top",
+    "y": 0.08
+   },
+   {
+    "id": "glight",
+    "title": "GRILLE LIGHTS",
+    "sub": "MOD 02 \u00b7 3D-SCANNED PARTS",
+    "t": [
+     4.22,
+     5.9
+    ],
+    "side": "top",
+    "y": 0.08
+   }
+  ],
+  "m2_flares": [
+   {
+    "id": "sflare",
+    "title": "STOCK FLARES",
+    "sub": "COME OFF",
+    "t": [
+     0.6,
+     1.75
+    ],
+    "side": "bottom",
+    "y": 0.74
+   }
+  ],
+  "m3_fenders": [
+   {
+    "id": "rfender",
+    "title": "WIDE FENDERS",
+    "sub": "MOD 03",
+    "t": [
+     1.21,
+     2.5
+    ],
+    "side": "bottom",
+    "y": 0.74
+   },
+   {
+    "id": "flight",
+    "title": "FENDER LIGHTS",
+    "sub": "MOD 04 \u00b7 3D-SCANNED PARTS",
+    "t": [
+     3.62,
+     5.8
+    ],
+    "side": "top",
+    "y": 0.12
+   }
+  ],
+  "m4_wheels": [
+   {
+    "id": "wheel",
+    "title": "35-INCH WHEELS",
+    "sub": "MOD 05 \u00b7 NISSAN OFF-ROAD",
+    "t": [
+     1.21,
+     3.4
+    ],
+    "side": "bottom",
+    "y": 0.76
+   }
+  ],
+  "m5_lift": [
+   {
+    "id": "body",
+    "title": "LIFT KIT",
+    "sub": "MOD 06",
+    "t": [
+     1.0,
+     2.3
+    ],
+    "side": "top",
+    "y": 0.14
+   }
+  ],
+  "m6_final": [
+   {
+    "id": "body",
+    "title": "RONIN LIVERY",
+    "sub": "MOD 07",
+    "t": [
+     1.2,
+     2.9
+    ],
+    "side": "top",
+    "y": 0.1
+   },
+   {
+    "id": "body",
+    "title": "GT-R TWIN TURBOS",
+    "sub": "MOD 08 \u00b7 UNDER THE TRUCK",
+    "t": [
+     3.4,
+     5.2
+    ],
+    "side": "bottom",
+    "y": 0.78,
+    "offset": [
+     0.0,
+     0.04
+    ]
+   }
+  ]
+ },
+ "render": {
+  "m1_grille": 184,
+  "m2_flares": 75,
+  "m3_fenders": 182,
+  "m4_wheels": 111,
+  "m5_lift": 71,
+  "m6_final": 219
+ }
+}

@@ -17,7 +17,7 @@ from shots_v4 import P, OUT, SPECS, cam, k, still, keyed_orbit
 
 HERE = os.path.dirname(__file__)
 T = json.load(open(os.path.join(HERE, "..", "timing_v8.json")))
-SECS = {n: f / 30 for n, f in T["frames"].items()}
+SECS = {n: f / 30 for n, f in T["render"].items()}   # render lengths (camera keys depend on them); the cut uses T["frames"]
 MC = json.load(open(os.path.join(HERE, "..", "match", "cam_3223_lookat.json")))
 WX_R, WX_L, WZ0, LIFT = -1.022, 0.938, 0.09, 0.06
 WY = (-1.782, 1.433)
@@ -87,7 +87,7 @@ def shots():
     offR = [k(0, (0, 0, 0)), k(2 * B, (0, 0, 0)), k(3 * B, (-0.7, 0, -0.3)), k(4 * B, (-0.7, 0, -14.0), ease="in2")]
     offL = [k(0, (0, 0, 0)), k(2 * B, (0, 0, 0)), k(3 * B, (0.7, 0, -0.3)), k(4 * B, (0.7, 0, -14.0), ease="in2")]
     sh[n] = {"base": body, "parts": ronin_front() + [part("flare_rf", offR, "sflare", hl=hlf), part("flare_rr", offR, hl=hlf), part("flare_lf", offL, hl=hlf), part("flare_lr", offL, hl=hlf)],
-             "cam": cam((0, c_a, t_a, 26, "lin"), (S[n], c_b, t_b, 26, "lin"), (S[n] + 0.3, c_b, t_b, 26, "lin"))}
+             "cam": cam((0, c_a, t_a, 26, "lin"), (S[n], c_b, t_b, 26, "lin"), (S[n] + 0.3, c_b, t_b, 26, "lin"))}   # v8b: 75 f; flares gone by 4 beats = 2.41 s
     n = "m3_fenders"
     inR = [k(0, (-1.6, 0, 0.5)), k(1 * B, (-1.6, 0, 0.5)), k(2 * B, (0, 0, 0), ease="out2")]
     inL = [k(0, (1.6, 0, 0.5)), k(1 * B, (1.6, 0, 0.5)), k(2 * B, (0, 0, 0), ease="out2")]
@@ -121,32 +121,34 @@ def shots():
         q["loc"][2] -= LIFT * u; q["target"][2] -= LIFT * u
     sh[n] = {"base": [{"blend": f"{P}/c7_body_w.blend", "name": "body"}, body[1]], "parts": done() + wheels(wl), "cam": c5}
     sh["m4_wheels"]["cam"] = [q for q in full if q["t"] < Tw] + [dict(at(Tw), t=Tw)] + [dict(at(Tw + 0.25), t=Tw + 0.25)]
-    # M6 livery: silver truck holds for the turbo label, livery sweeps on the crash (4 beats in), camera lands on the solve
-    n = "m6_livery"
+    # M6 FINAL RENDER (short-form.md): livery sweeps nose -> tail in the first 2.5 s while a full lap starts where M5 ended (az -78),
+    # goes round the right side, tail and left side and eases into the camera solved against IMG_3223 @2.4 s; holds it for the
+    # last 0.4 s so the 1:1 cut on the crash is exact.
+    n = "m6_final"
     ws = lambda x, y, s: still((x, y, WZ0 - LIFT))
-    Tend = S[n] - 1 / 30; T0 = 3 * B
-    c0 = (-4.9, -5.4, 0.95); t0 = (-0.2, -1.2, 0.3)
-    pre = (-5.5, -4.6, 0.95)
-    ks = [{"t": 0, "loc": list(pre), "target": list(t0), "focal": 26, "roll": 0, "ease": "lin"}]
-    for i in range(11):
-        u = i / 10; s_ = u * u * (3 - 2 * u)
-        tg = [t0[j] + (MC["target"][j] - t0[j]) * s_ for j in range(3)]
-        a0 = math.atan2(c0[0] - t0[0], -(c0[1] - t0[1])); a1 = math.atan2(MC["loc"][0] - MC["target"][0], -(MC["loc"][1] - MC["target"][1]))
-        r0 = math.hypot(c0[0] - t0[0], c0[1] - t0[1]); r1 = math.hypot(MC["loc"][0] - MC["target"][0], MC["loc"][1] - MC["target"][1])
-        a = a0 + (a1 - a0) * s_; r = r0 + (r1 - r0) * s_
-        ks.append({"t": T0 + (Tend - T0) * u, "loc": [tg[0] + r * math.sin(a), tg[1] - r * math.cos(a), c0[2] + (MC["loc"][2] - c0[2]) * s_],
-                   "target": tg, "focal": 26 + (MC["focal"] - 26) * s_, "roll": MC["roll"] * s_, "ease": "lin"})
+    Tm = S[n] - 0.4
+    a1 = math.degrees(math.atan2(MC["loc"][0] - MC["target"][0], -(MC["loc"][1] - MC["target"][1]))) - 360   # +32 deg, reached the long way
+    r1 = math.hypot(MC["loc"][0] - MC["target"][0], MC["loc"][1] - MC["target"][1])
+    c0 = (-0.3, -0.2, 0.3 - LIFT); a0, r0, h0 = -78.0, 7.0, 1.1 - LIFT
+    ks = []
+    for i in range(33):
+        u = i / 32; su = u * u * (3 - 2 * u); su = 0.35 * u + 0.65 * su      # keeps moving from frame 1, eases into the hold
+        v = min(1.0, max(0.0, (u - 0.62) / 0.38)); sv = v * v * (3 - 2 * v)     # close-in / roll only over the last part
+        tg = [c0[j] + (MC["target"][j] - c0[j]) * sv for j in range(3)]
+        a = math.radians(a0 + (a1 - a0) * su); r = r0 + (r1 - r0) * sv
+        ks.append({"t": Tm * u, "loc": [tg[0] + r * math.sin(a), tg[1] - r * math.cos(a), h0 + (MC["loc"][2] - h0) * sv],
+                   "target": tg, "focal": 26 + (MC["focal"] - 26) * sv, "roll": MC["roll"] * sv, "ease": "lin"})
+    ks[-1].update(loc=list(MC["loc"]), target=list(MC["target"]), focal=MC["focal"], roll=MC["roll"])
     ks.append(dict(ks[-1], t=S[n] + 0.3))
-    sw0 = 73 / 30                                # the crash (frame 1270) is 73 frames into the shot
     sh[n] = {"base": [{"blend": f"{P}/c7_body_w.blend", "name": "body", "mat": "livery"}, body[1]], "parts": done("livery") + wheels(ws),
-             "livery": {"sweep": [[0, -3.2], [sw0, -3.2], [sw0 + 1.45, 3.4]]}, "cam": ks}
+             "livery": {"sweep": [[0, -3.2], [0.3, -3.2], [2.3, 3.4]]}, "cam": ks}
     return sh
 
 
 def spec(name, mode, frames=None):
     s = shots()[name]; final = mode == "final"
     sp = {"base": s["base"], "parts": s["parts"], "camera": {"sensor": 20.25, "keys": s["cam"]},
-          "anchors_out": f"{SPECS}/{name}_{mode}_anchors.json", "seconds": SECS[name] + 0.2, "fps": 15, "res": "1080x1920",
+          "anchors_out": f"{SPECS}/{name}_{mode}_anchors.json", "seconds": SECS[name] + 0.2, "fps": 30 if final else 15, "res": "1080x1920",
           "res_pct": 75 if final else 30, "samples": 12 if final else 6, "exposure": -0.5, "persistent": False,
           "out": f"{OUT}/{'final' if final else 'preview'}/{name}"}
     for f in ("livery", "led", "led2"):

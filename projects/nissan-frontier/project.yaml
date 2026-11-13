@@ -1,6 +1,7 @@
-# v8: 'how we modified this truck' (user on v7) - stock scan -> grille -> bumper -> mounts -> Ronin grille + SCANNED grille lights ->
-# flares off -> wide fenders + SCANNED fender lights -> wheels -> lift -> turbos/livery -> 1:1 cut to the real truck. Shots: tools/shots_v8.py,
-# lights: tools/lights.py. v7 = project_v7.yaml.
+# v8: 'how we modified this truck' built on the Sentra short-form playbook (knowledge/short-form.md on claude/upbeat-goldberg-gy0s84):
+# real-article HOOK -> answer card -> build in order (scanned grille + fender lights) -> livery + 360 of the final render -> 1:1 CUT to the
+# real truck ON THE CRASH (frame 1270) -> real clips -> photo + logo. Shots: tools/shots_v8.py (30 fps, tools/render30.sh), lights: tools/lights.py,
+# cards: tools/build_v8_cards.py, press: tools/capture.js. v7 = project_v7.yaml.
 # Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
 project: nissan-frontier
 format: reel-9x16
@@ -11,114 +12,120 @@ music:
   start: 0
   fade_out: 1.2
 
-beats: [4.882, 9.657, 14.459, 18.038, 24.177, 27.781, 33.826, 37.529, 39.909, 42.348, 45.922, 47.130, 49.597]
-
 timeline:
+  - id: hook
+    section: hook
+    focus: "real article (Motor Illustrated, 2 Nov 2026), full frame, 3 % push"
+    src: /home/user/media/work/frontier/out/hook.mp4
+    frames: 146
+    dur: 4.8667
+  - transition: {type: cut}
+  - id: answer
+    section: hook
+    focus: "answer card: HERE'S HOW."
+    src: /home/user/media/work/frontier/out/answer.mp4
+    frames: 71
+    dur: 2.3667
+  - transition: {type: cut}
   - id: v2_s1_wide
-    section: whole
+    section: build
     focus: "STEP 01: the stock Pro-4X, 3D scanned whole"
     src: /home/user/media/work/frontier/renders/final/v2_s1_wide
     src_fps: 15
     interpolate: true
-    frames: 146
-    dur: 4.8667
+    trim_start: 1.0
+    frames: 73
+    dur: 2.4333
   - transition: {type: cut}
   - id: v2_s2_grille
-    section: front
+    section: build
     focus: "STEP 02: stock grille that gets replaced"
     src: /home/user/media/work/frontier/renders/final/v2_s2_grille
     src_fps: 15
     interpolate: true
-    frames: 144
-    dur: 4.8000
+    trim_start: 2.4
+    frames: 71
+    dur: 2.3667
   - transition: {type: cut}
   - id: v4_s3_bumper
-    section: front
-    focus: "STEP 03: front bumper comes off to be trimmed (inside scanned)"
+    section: build
+    focus: "STEP 03: front bumper comes off to be trimmed"
     src: /home/user/media/work/frontier/renders/final/v4_s3_bumper
     src_fps: 15
     interpolate: true
-    frames: 144
-    dur: 4.8000
-  - transition: {type: cut}
-  - id: v3_s4_removed
-    section: front
-    focus: "STEP 04: mounting points scanned with the bumper off"
-    src: /home/user/media/work/frontier/renders/final/v3_s4_removed
-    src_fps: 15
-    interpolate: true
-    frames: 107
-    dur: 3.5667
+    frames: 73
+    dur: 2.4333
   - transition: {type: cut}
   - id: m1_grille
     section: build
     focus: "trimmed bumper back on; RONIN GRILLE parks in front; three SCANNED grille lights drop into its pockets; seats; lights on"
-    src: /home/user/media/work/frontier/renders/final/m1_grille
-    src_fps: 15
-    interpolate: true
-    frames: 184
-    dur: 6.1333
+    src: /home/user/media/work/frontier/renders/final/m1_grille_30
+    src_fps: 30
+    frames: 180
+    dur: 6.0000
   - transition: {type: cut}
   - id: m2_flares
     section: build
     focus: "stock flares highlighted, come off"
-    src: /home/user/media/work/frontier/renders/final/m2_flares
-    src_fps: 15
-    interpolate: true
-    frames: 108
-    dur: 3.6000
+    src: /home/user/media/work/frontier/renders/final/m2_flares_30
+    src_fps: 30
+    frames: 75
+    dur: 2.5000
   - transition: {type: cut}
   - id: m3_fenders
     section: build
     focus: "WIDE FENDERS on; push in on the front-right arch; SCANNED fender lights seat in the slots; lights on"
-    src: /home/user/media/work/frontier/renders/final/m3_fenders
-    src_fps: 15
-    interpolate: true
-    frames: 182
-    dur: 6.0667
+    src: /home/user/media/work/frontier/renders/final/m3_fenders_30
+    src_fps: 30
+    frames: 179
+    dur: 5.9667
   - transition: {type: cut}
   - id: m4_wheels
     section: build
     focus: "35-INCH WHEELS roll in at lifted height on the wider track"
-    src: /home/user/media/work/frontier/renders/final/m4_wheels
-    src_fps: 15
-    interpolate: true
-    frames: 111
-    dur: 3.7000
+    src: /home/user/media/work/frontier/renders/final/m4_wheels_30
+    src_fps: 30
+    frames: 109
+    dur: 3.6333
   - transition: {type: cut}
   - id: m5_lift
     section: build
     focus: "the LIFT (same orbit continues)"
-    src: /home/user/media/work/frontier/renders/final/m5_lift
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/frontier/renders/final/m5_lift_30
+    src_fps: 30
+    frames: 74
+    dur: 2.4667
+  - transition: {type: cut}
+  - id: m6_final
+    section: final render
+    focus: "RONIN LIVERY sweeps on; full 360 of the finished render easing into the solved IMG_3223 camera, held 0.4 s"
+    src: /home/user/media/work/frontier/renders/final/m6_final_30
+    src_fps: 30
+    frames: 219
+    dur: 7.3000
+  - transition: {type: cut}
+  - id: irl_3223
+    section: reveal
+    focus: "1:1 CUT on the crash: the real Ronin Frontier at SEMA 2026, same camera as the last render frame (0.62x so it holds 2.4 s)"
+    src: /home/user/media/work/frontier/out/irl_3223_slow.mp4
     frames: 71
     dur: 2.3667
   - transition: {type: cut}
-  - id: m6_livery
-    section: build
-    focus: "GT-R twin turbo label beat on the silver truck; RONIN LIVERY sweeps on the crash; camera lands on the solved IMG_3223 camera"
-    src: /home/user/media/work/frontier/renders/final/m6_livery
-    src_fps: 15
-    interpolate: true
-    frames: 181
-    dur: 6.0333
-  - transition: {type: cut, note: "1:1 scan -> real (cam_3223, RMSE 2.8 px) on b52' 45.922"}
-  - id: irl_3223
-    section: real
-    focus: "the real Ronin Frontier at SEMA 2026, same camera as the scan frame"
-    src: /home/user/media/nissan-frontier/sema/IMG_3223.mov
-    in: 2.4
-    out: 3.6
-    frames: 36
-    dur: 1.2000
-  - transition: {type: cut}
   - id: irl_3239
     section: real
-    focus: "real truck side pass: RONIN livery, wheels, lift"
+    focus: "real truck side pass: livery, wheels, lift"
     src: /home/user/media/nissan-frontier/sema/IMG_3239.mov
     in: 1.6
-    out: 4.0667
+    out: 4.0333
+    frames: 73
+    dur: 2.4333
+  - transition: {type: cut}
+  - id: irl_3226
+    section: real
+    focus: "real truck front: grille and grille lights"
+    src: /home/user/media/nissan-frontier/sema/IMG_3226.mov
+    in: 5.5
+    out: 7.9667
     frames: 74
     dur: 2.4667
   - transition: {type: cut}
@@ -131,22 +138,20 @@ timeline:
 
 overlays:
   - src: /home/user/media/work/frontier/out/labels_v2_s1_wide.mov
-    start: 0.0000
+    start: 7.2333
   - src: /home/user/media/work/frontier/out/labels_v2_s2_grille.mov
-    start: 4.8667
-  - src: /home/user/media/work/frontier/out/labels_v4_s3_bumper.mov
     start: 9.6667
-  - src: /home/user/media/work/frontier/out/labels_v3_s4_removed.mov
-    start: 14.4667
+  - src: /home/user/media/work/frontier/out/labels_v4_s3_bumper.mov
+    start: 12.0333
   - src: /home/user/media/work/frontier/out/labels_m1_grille.mov
-    start: 18.0333
+    start: 14.4667
   - src: /home/user/media/work/frontier/out/labels_m2_flares.mov
-    start: 24.1667
+    start: 20.4667
   - src: /home/user/media/work/frontier/out/labels_m3_fenders.mov
-    start: 27.7667
+    start: 22.9667
   - src: /home/user/media/work/frontier/out/labels_m4_wheels.mov
-    start: 33.8333
+    start: 28.9333
   - src: /home/user/media/work/frontier/out/labels_m5_lift.mov
-    start: 37.5333
-  - src: /home/user/media/work/frontier/out/labels_m6_livery.mov
-    start: 39.9000
+    start: 32.5667
+  - src: /home/user/media/work/frontier/out/labels_m6_final.mov
+    start: 35.0333
