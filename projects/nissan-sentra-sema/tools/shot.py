@@ -201,8 +201,10 @@ def main():
             if group == "wheel": c[:] = (0.045, 0.045, 0.05)                   # Ron's wheel/tyre/brake model: dark gunmetal
             wheel = (np.abs(x) > 0.55) & (((y - 1.41) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2) | ((y + 1.30) ** 2 + (z - 0.33) ** 2 < 0.37 ** 2))
             if group not in ("kit", "wheel"): c[wheel] = DARK
-            c2 = c.copy(); u = y - 1.16 * (z - 0.30)      # stripes lean FORWARD at the top (about 49 deg), sill to mid-door
-            st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.76) & (((u > 0.16) & (u < 0.42)) | ((u > -0.12) & (u < 0.11))) & ~wheel
+            # v6 stripes: corners of the real stripes raycast through the solved SEMA-photo camera (match/cam_reveal.json):
+            # slope dy/dz 0.67, top at z 0.665, front stripe u 0.51-0.715, rear stripe u 0.28-0.46 (u = y - 0.67 (z - 0.30))
+            c2 = c.copy(); u = y - 0.67 * (z - 0.30)
+            st = (np.abs(x) > 0.78) & (z > 0.29) & (z < 0.665) & (((u > 0.51) & (u < 0.715)) | ((u > 0.28) & (u < 0.46))) & ~wheel
             if group not in ("black", "wheel"): c2[st] = REDC
             for name, arr in (("paint", c), ("paint2", c2)):
                 a = me.color_attributes.new(name, "FLOAT_COLOR", "POINT")
@@ -287,6 +289,17 @@ def main():
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGB"
     out = os.path.abspath(spec["out"])
+    if spec.get("raycast"):   # {"name": [px, py]} in full-res pixels of frame 1 -> 3D hit on any object (car, kit, wheels)
+        sc.frame_set(1); dg = bpy.context.evaluated_depsgraph_get()
+        tr, br, bl, tl = [Vector(v) for v in cd.view_frame(scene=sc)]
+        hits = {}
+        for name, (px, py) in spec["raycast"].items():
+            u, v = px / w, py / h
+            pc = tl + (tr - tl) * u + (bl - tl) * v
+            d = (cam.matrix_world.to_3x3() @ pc).normalized()
+            ok, loc, nrm, idx, obj, mat = sc.ray_cast(dg, cam.matrix_world.translation, d)
+            hits[name] = [round(c, 4) for c in loc] if ok else None
+        print("IVE_RAYCAST", json.dumps(hits))
     if spec.get("frames"):  # framing check: only these frames ("first", "mid", "last" or numbers)
         os.makedirs(out, exist_ok=True)
         named = {"first": 1, "mid": (nframes + 1) // 2, "last": nframes}
