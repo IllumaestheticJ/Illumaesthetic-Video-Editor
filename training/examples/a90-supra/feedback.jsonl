@@ -9,3 +9,5 @@
 {"ts": "2026-11-13T22:05:34Z", "project": "a90-supra", "at": null, "category": "scan-quality", "note": "v3: the fender cut isn't cut correctly", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T22:05:34Z", "project": "a90-supra", "at": null, "category": "scan-quality", "note": "v3: the rear bumper isn't cut correctly either", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T22:05:34Z", "project": "a90-supra", "at": null, "category": "overall", "note": "v3: the rest is good", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T02:03:19Z", "project": "a90-supra", "at": null, "category": "framing", "note": "v3.1: during the suspension movement, move the brake/removed parts completely out of the way (they block the mechanism)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T02:03:19Z", "project": "a90-supra", "at": null, "category": "framing", "note": "v3.1: the lifted centre console blocks what is underneath it - move it completely out of the way", "by": "reviewer", "promoted": false}

@@ -2,7 +2,7 @@
 # Music: user-supplied track, 21 bars from the song's beginning (0.517 s) (bar 2.6773 s); every cut on a bar line; front bumper off on the A->B entry.
 project: a90-supra
 format: reel-9x16
-output: {path: /home/user/media/work/out/a90_supra_scan_v3_1.mp4, width: 1080, height: 1920, fps: 30, crf: 15, preset: slow}
+output: {path: /home/user/media/work/out/a90_supra_scan_v3_2.mp4, width: 1080, height: 1920, fps: 30, crf: 15, preset: slow}
 music:
   path: /home/user/media/a90-supra/music_v3/excerpt_v3.wav
   start: 0

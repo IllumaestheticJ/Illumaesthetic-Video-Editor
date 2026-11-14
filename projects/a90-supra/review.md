@@ -90,3 +90,14 @@ Output: `/home/user/media/work/out/a90_supra_scan_v3_1.mp4` (same 56.2 s edit, m
 - Re-rendered: s10, s11, s11b, s14, s15, s16, s17, s18 (531 frames). Other 13 shots unchanged.
 - Scan quality (criterion 4): 4 -> 4.5. Still open: a thin panel-gap line shows along the fender's top seam for the first
   frames of s10 (fender scan seated on the cut body), and the fender scan carries a mottled patch from the scan itself.
+
+## v3.2 (2026-11-14) - parts out of the way during the suspension movement, console clears the tunnel
+User on v3.1: "when [we] do the suspension movement areas, can you move the brake/parts completely out of the way? same with the
+interior console section - it's blocking what's underneath it."
+Output: `/home/user/media/work/out/a90_supra_scan_v3_2.mp4` (same 56.2 s edit; -14.3 LUFS, peak -4.9 dBFS; cuts unchanged).
+- s09: the front dust shield comes off and leaves the frame first; bump/droop travel runs on the bare knuckle, strut and arms;
+  hub bearing slides off at the end.
+- s14: wheel, caliper, rotor and dust shield all leave the frame before the five-link travel.
+- s13: the console unclips, lifts and leaves the frame; the camera holds on the tunnel and wiring, then glides to the rear deck.
+- Known inconsistency: the rear dust shield is removed only inside s14 (it is back on the hub in s15-s18, seen from behind).
+- s08 (steering sweep with the wheel on, then wheel/caliper/rotor off and parked) left as it was.

@@ -1136,3 +1136,7 @@ lands here automatically. Agents must read this whole file before editing.
   and put every cut on drop + k beats (100 BPM -> 18 frames). Verify the drop on the DELIVERED file (0 ms here).
 - **[text]** Logos the user owns as .ai in their own Drive are not readable by the service account; a 3D logo STL on the engineering drive can be
   flattened to a clean PNG (tools/logo_from_stl.py).
+## From the A90 Supra v3.2 (2026-11-14, user: "move the brake/parts completely out of the way", "the console is blocking what's underneath")
+- **[framing]** A removed part parked in frame is fine for a removal beat, but not when the NEXT thing to watch is behind or under it:
+  before a mechanism moves (suspension travel) or a camera holds on what a part covered (console -> tunnel), the part leaves the
+  frame completely (exit key + `vis` window), it does not park. Take off anything that hides the mechanism first (dust shields).
