@@ -42,3 +42,8 @@ line is also shown as a caption.
 - Name the model year in the hook line.
 - Only scans of this exact car. Drop scans of other cars of the same model (Sentra: the 2022-23 headlights).
 - The default CTA is "get it on illumaesthetic.com".
+
+## Caption track
+- Remotion composition `PromoCaption` (remotion/src/PromoCaption.tsx): `python -m ive hud <captions.json> caps.mov --comp PromoCaption`
+  gives transparent ProRes 4444. Bar measured on the reference: 906x72 px, centre y 1546, radius 18, Montserrat 500 ~31 px.
+- Captions swap hard (no fade), as in the reference. Re-time captions from the voice take's pause map, not the script.

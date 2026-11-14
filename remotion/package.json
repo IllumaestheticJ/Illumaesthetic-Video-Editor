@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@fontsource/montserrat": "^5.2.8",
     "@remotion/cli": "4.0.542",
     "react": "19.3.1",
     "react-dom": "19.3.1",

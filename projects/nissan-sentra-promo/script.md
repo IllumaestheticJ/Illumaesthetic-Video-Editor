@@ -1,4 +1,4 @@
-# Nissan Sentra SR — scan-data promo, script v2 (awaiting final approval)
+# Nissan Sentra SR — scan-data promo, script v2 (APPROVED 2026-11-14)
 
 Template: `knowledge/promo-script-template.md`. Reference: `3_square_meter_home_design` (54 s).
 Target 48 s, 9:16. Captions are the narration word for word, one line per pill.
@@ -18,7 +18,7 @@ Target 48 s, 9:16. Captions are the narration word for word, one line per pill.
 
 | # | Time | On screen (scan, silver on black) | Narration = caption |
 |---|---|---|---|
-| 1 | 0.0 | *(optional)* real Sentra SR at SEMA (Dropbox `SEMA Reels/Nissan Sentra`), **no caption** | "let's build a [YEAR] nissan sentra SR" |
+| 1 | 0.0 | *(optional)* real Sentra SR at SEMA (Dropbox `SEMA Reels/Nissan Sentra`), **no caption** | "let's build a 2026 nissan sentra SR" |
 | 2 | 1.8 | **hard 1:1 cut** to an empty black floor in the same perspective. One silver panel drops in | "using nothing but scan data" |
 | 3 | 4.5 | the panel spins slowly with nothing around it | "but to make parts that actually fit" |
 | 4 | 7.0 | a scan line sweeps the void | "you need the real car, in 3D" |
@@ -44,7 +44,7 @@ About 70 words in about 48 s, roughly the reference's pace. The headlight lines 
 headlight scans are not from this car (owner).
 
 ## Owner answers (2026-11-14)
-1. Name the model year in the narration. **Which year: still needed** ([YEAR] above).
+1. Name the model year in the narration. 2026.
 2. The headlight scans are not from this car, so lines cut.
 3. The CTA is illumaesthetic.com.
 4. "Wider fenders" is correct.

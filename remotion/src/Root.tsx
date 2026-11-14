@@ -2,6 +2,7 @@ import { Composition } from "remotion";
 import { calculateScanHudMetadata, ScanHUD, scanHudDefaults } from "./ScanHUD";
 import { calculateWebZoomMetadata, WebZoom, webZoomDefaults } from "./WebZoom";
 import { calculateWebZoomSplitMetadata, WebZoomSplit, webZoomSplitDefaults } from "./WebZoomSplit";
+import { calculatePromoCaptionMetadata, PromoCaption, promoCaptionDefaults } from "./PromoCaption";
 import { calculateMobileCtaMetadata, MobileCTA, mobileCtaDefaults } from "./MobileCTA";
 
 export const RemotionRoot: React.FC = () => {
@@ -46,6 +47,16 @@ export const RemotionRoot: React.FC = () => {
         height={mobileCtaDefaults.height}
         defaultProps={mobileCtaDefaults}
         calculateMetadata={calculateMobileCtaMetadata}
+      />
+      <Composition
+        id="PromoCaption"
+        component={PromoCaption}
+        durationInFrames={promoCaptionDefaults.durationInFrames}
+        fps={promoCaptionDefaults.fps}
+        width={promoCaptionDefaults.width}
+        height={promoCaptionDefaults.height}
+        defaultProps={promoCaptionDefaults}
+        calculateMetadata={calculatePromoCaptionMetadata}
       />
     </>
   );
