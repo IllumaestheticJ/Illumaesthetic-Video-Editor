@@ -27,6 +27,10 @@ def arg(name, default):
 
 
 OUT = arg("--out", "/home/user/media/work/scan-tedium/stills")
+ENGINE = arg("--engine", "EEVEE").upper()   # EEVEE = cel-shaded look (owner, stage 3); CYCLES = stage 1-2 look
+TOON = ENGINE == "EEVEE"
+TOON_T = (float(arg("--t0", "0.60")), float(arg("--t1", "1.08")))   # lit range ~0.45 (ambient) .. 1.15 (facing the sun)   # lit-luminance band edges: shadow|base, base|highlight
+OL_BG = 0.45          # background/prop outline scale (characters keep theirs: thicker lines on characters)
 ANIMATE = "--animate" in argv   # stage 3: per-frame animation driven by partA_timeline.json (tools/partA_anim.py)
 SHOTS = arg("--shots", "S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12").split(",")
 SCALE = float(arg("--scale", "1.0"))
@@ -76,8 +80,9 @@ def hexcol(h, a=1.0):
 PAL = dict(
     black="#0b0c0b", sage="#619f73", sage_l="#77ac87", white="#ecefec",
     car="#2a4fb5", glass="#1b2333", tyre="#1c1d1c", hub="#c3c7c3", trim="#3a3d3a",
-    floor="#978a7a", wall="#dccbb3", base="#b49f83", door="#d6d8d2", rib="#bcc0b9", peg="#c2ad8f", hole="#6e5f4c",
-    wood="#a57b55", wood_d="#7d5a3d",
+    floor="#8e908d", wall="#abadaa", base="#7f817e", door="#c6c8c5", rib="#b0b2af", peg="#a1a3a0", hole="#5e605d",
+    wood="#9b8a76", wood_d="#77695b",
+    vinyl="#d2d0cf", foot="#4c4d4c", vest="#3c3e3d", capg="#545655", gog="#3d3e3d", string="#f2f3f2",
     skin="#e2ad83", pip_top="#77ac87", pip_pants="#2b2e2b", shoe="#ecefec",
     gus_suit="#2d312e", gus_cap="#619f73", patch="#ecefec",
     red="#d43c2c", scan="#d3d7d3", ui_piece="#aeb3ae", ui_piece2="#8c918c", pin_blue="#6f93ee",
@@ -99,8 +104,67 @@ def _new_mat(name):
     return m, nt, out
 
 
-def mat(key, alpha=1.0):
-    """Flat diffuse material from the palette (optionally see-through)."""
+def _hexmul(h, f, mix_white=0.0):
+    h = h.lstrip("#")
+    c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    c = [min(1.0, v * f) * (1 - mix_white) + mix_white for v in c]
+    return "#" + "".join(f"{int(round(v * 255)):02x}" for v in c)
+
+
+def _set_blend(m):
+    for attr, val in (("surface_render_method", "BLENDED"), ("blend_method", "BLEND")):
+        try:
+            setattr(m, attr, val)
+            return
+        except Exception:
+            pass
+
+
+def toon(key, alpha=1.0, hl=False):
+    """Cel shading: lit diffuse -> Shader to RGB -> luminance -> constant ramp (shadow / base / highlight) -> emission."""
+    name = f"t_{key}_{alpha:.2f}_{int(hl)}"
+    if name in _MATS:
+        return _MATS[name]
+    base = PAL.get(key, key)
+    m, nt, out = _new_mat(name)
+    d = nt.nodes.new("ShaderNodeBsdfDiffuse")
+    d.inputs["Color"].default_value = (1, 1, 1, 1)
+    s2r = nt.nodes.new("ShaderNodeShaderToRGB")
+    nt.links.new(d.outputs[0], s2r.inputs[0])
+    bw = nt.nodes.new("ShaderNodeRGBToBW")
+    nt.links.new(s2r.outputs["Color"], bw.inputs[0])
+    ramp = nt.nodes.new("ShaderNodeValToRGB")
+    cr = ramp.color_ramp
+    cr.interpolation = "CONSTANT"
+    cr.elements[0].position = 0.0
+    cr.elements[0].color = hexcol(_hexmul(base, 0.70))
+    cr.elements[1].position = TOON_T[0]
+    cr.elements[1].color = hexcol(base)
+    if hl:
+        e3 = cr.elements.new(TOON_T[1])
+        e3.color = hexcol(_hexmul(base, 1.0, 0.35))
+    nt.links.new(bw.outputs[0], ramp.inputs[0])
+    em = nt.nodes.new("ShaderNodeEmission")
+    nt.links.new(ramp.outputs[0], em.inputs["Color"])
+    sh = em.outputs[0]
+    if alpha < 1.0:
+        t = nt.nodes.new("ShaderNodeBsdfTransparent")
+        mx = nt.nodes.new("ShaderNodeMixShader")
+        mx.inputs[0].default_value = alpha
+        nt.links.new(t.outputs[0], mx.inputs[1])
+        nt.links.new(sh, mx.inputs[2])
+        sh = mx.outputs[0]
+        _set_blend(m)
+    nt.links.new(sh, out.inputs["Surface"])
+    m.diffuse_color = hexcol(base)
+    _MATS[name] = m
+    return m
+
+
+def mat(key, alpha=1.0, hl=False):
+    """Flat diffuse material from the palette (optionally see-through); cel-shaded when TOON."""
+    if TOON:
+        return toon(key, alpha, hl)
     name = f"m_{key}_{alpha:.2f}"
     if name in _MATS:
         return _MATS[name]
@@ -137,8 +201,32 @@ def emit(key, strength=1.0, alpha=1.0):
         nt.links.new(t.outputs[0], mx.inputs[1])
         nt.links.new(sh, mx.inputs[2])
         sh = mx.outputs[0]
+        _set_blend(m)
     nt.links.new(sh, out.inputs["Surface"])
     _MATS[name] = m
+    return m
+
+
+def outline_mat_toon():
+    """EEVEE inverted hull: black emission with back-face culling (the shell's near side faces away and is culled); the
+    shell is transparent to shadow rays so it never shades the object inside it."""
+    m, nt, out = _new_mat("outline_toon")
+    lp = nt.nodes.new("ShaderNodeLightPath")
+    t = nt.nodes.new("ShaderNodeBsdfTransparent")
+    e = nt.nodes.new("ShaderNodeEmission")
+    e.inputs["Color"].default_value = hexcol(PAL["black"])
+    mx = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(lp.outputs["Is Shadow Ray"], mx.inputs[0])
+    nt.links.new(e.outputs[0], mx.inputs[1])
+    nt.links.new(t.outputs[0], mx.inputs[2])
+    nt.links.new(mx.outputs[0], out.inputs["Surface"])
+    m.use_backface_culling = True
+    for attr, val in (("use_backface_culling_shadow", True), ("use_transparent_shadow", True)):
+        try:
+            setattr(m, attr, val)
+        except Exception:
+            pass
+    _MATS["outline"] = m
     return m
 
 
@@ -172,7 +260,7 @@ def outline_mat():
     return m
 
 
-OUTLINE = outline_mat()
+OUTLINE = outline_mat_toon() if TOON else outline_mat()
 
 
 def empty(name, parent=None, loc=(0, 0, 0), rot=(0, 0, 0)):
@@ -198,7 +286,7 @@ def new_obj(name, bm, mats, parent=None, loc=(0, 0, 0), rot=(0, 0, 0)):
     return ob
 
 
-def add_mods(ob, bevel=0.0, ol=0.0, seg=3):
+def add_mods(ob, bevel=0.0, ol=0.0, seg=3, char=False):
     if bevel:
         b = ob.modifiers.new("bev", "BEVEL")
         b.width = bevel
@@ -206,7 +294,7 @@ def add_mods(ob, bevel=0.0, ol=0.0, seg=3):
         b.limit_method = "ANGLE"
     if ol:
         s = ob.modifiers.new("ol", "SOLIDIFY")
-        s.thickness = ol
+        s.thickness = ol if (char or not TOON) else ol * OL_BG
         s.offset = 1.0
         s.use_flip_normals = True
         s.use_rim = False
@@ -485,78 +573,196 @@ class Char:
     pass
 
 
+def _smooth(bm):
+    for f in bm.faces:
+        f.smooth = True
+
+
+def blob(name, radii, loc, m, parent, taper=0.0, ol=0.0, seg=40, rings=24, half=False):
+    """Ellipsoid (egg when taper > 0: narrower toward +z). half=True keeps the upper half (cap dome)."""
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=seg, v_segments=rings, radius=1.0)
+    if half:
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if v.co.z < -0.02], context="VERTS")
+    for v in bm.verts:
+        k = 1 - taper * v.co.z
+        v.co = Vector((v.co.x * radii[0] * k, v.co.y * radii[1] * k, v.co.z * radii[2]))
+    _smooth(bm)
+    ob = new_obj(name, bm, [m, OUTLINE] if ol else [m], parent, loc)
+    return add_mods(ob, 0, ol, char=True)
+
+
+def capsule(name, r, z0, z1, m, parent, ol=0.0):
+    bm = bmesh.new()
+    bmesh.ops.create_uvsphere(bm, u_segments=40, v_segments=24, radius=r)
+    L = z1 - z0 - 2 * r
+    for v in bm.verts:
+        v.co.z += (L / 2 if v.co.z > 0 else -L / 2) + (z0 + z1) / 2
+    _smooth(bm)
+    ob = new_obj(name, bm, [m, OUTLINE] if ol else [m], parent)
+    return add_mods(ob, 0, ol, char=True)
+
+
+def tube(name, r, z0, z1, m, parent, ol=0.0, bevel=0.02, r_top=None):
+    """Straight clothing tube (closed, so it reads solid from above): no sleeves, no shoulder bulges."""
+    bm = bmesh.new()
+    bmesh.ops.create_cone(bm, cap_ends=True, cap_tris=False, segments=48, radius1=r, radius2=r_top or r, depth=z1 - z0)
+    bmesh.ops.translate(bm, verts=bm.verts, vec=(0, 0, (z0 + z1) / 2))
+    _smooth(bm)
+    ob = new_obj(name, bm, [m, OUTLINE] if ol else [m], parent)
+    if bevel:
+        b = ob.modifiers.new("bev", "BEVEL")
+        b.width = bevel
+        b.segments = 4
+        b.limit_method = "ANGLE"
+        b.harden_normals = False
+    return add_mods(ob, 0, ol, char=True)
+
+
+def torus(name, R, r, loc, m, parent, rot=(0, 0, 0), ol=0.0, scale=(1, 1, 1)):
+    bm = bmesh.new()
+    segs, rs = 48, 12
+    rings = []
+    for i in range(segs):
+        a = 2 * math.pi * i / segs
+        ring = []
+        for k in range(rs):
+            b = 2 * math.pi * k / rs
+            p = Vector(((R + r * math.cos(b)) * math.cos(a), (R + r * math.cos(b)) * math.sin(a), r * math.sin(b)))
+            ring.append(bm.verts.new(Vector((p.x * scale[0], p.y * scale[1], p.z * scale[2]))))
+        rings.append(ring)
+    for i in range(segs):
+        for k in range(rs):
+            a, b = rings[i], rings[(i + 1) % segs]
+            bm.faces.new((a[k], b[k], b[(k + 1) % rs], a[(k + 1) % rs]))
+    _smooth(bm)
+    ob = new_obj(name, bm, [m, OUTLINE] if ol else [m], parent, loc, rot)
+    return add_mods(ob, 0, ol, char=True)
+
+
+def head_surface_y(S, x, z):
+    """Front surface y of the egg head (local to the head centre) at (x, z)."""
+    rx, ry, rz = S["head"][0] / 2, S["head"][1] / 2, S["head"][2] / 2
+    k = 1 - S["taper"] * (z / rz)
+    q = 1 - (x / (rx * k)) ** 2 - (z / rz) ** 2
+    return -ry * k * math.sqrt(max(0.0, q))
+
+
 def build_char(name, S):
+    """Locked 2026-11-14 design (characters/design.md + turnarounds): light-grey egg head on a light-grey pill body, two
+    black dot eyes and nothing else on the face, NO arms or shoulders - mitten hands float detached about a hand-width
+    from the body - two dark-grey stubby feet, clothes as straight tubes. Rig keeps the old names (arms/elbows/hands are
+    invisible pivots that place the floating hands), so the stage-3 animation drives it unchanged."""
     ch = Char()
     ch.S = S
+    ol = S["ol"]
+    V = mat("vinyl", hl=True)
     ch.root = empty(name)
-    ch.hips = empty(f"{name}_hips", ch.root, (0, 0, S["leg"][2]))
-    bev, ol = S["bevel"], S["ol"]
-    lw, ld, lh = S["leg"]
-    bw, bd, bh = S["body"]
-    hw, hd, hh = S["head"]
+    ch.hips = empty(f"{name}_hips", ch.root, (0, 0, S["hip_z"]))
+    ch.torso = empty(f"{name}_torso", ch.hips)
     ch.legs, ch.arms, ch.elbows, ch.hands = {}, {}, {}, {}
+    fr = S["foot"]
     for side, sx in (("L", 1), ("R", -1)):
-        lp = empty(f"{name}_leg{side}", ch.hips, (sx * S["leg_x"], 0, 0))
-        box(f"{name}_legm{side}", (lw, ld, lh), (0, 0, -lh / 2), mat(S["pants"]), lp, bev, ol)
-        box(f"{name}_shoe{side}", (lw * 1.08, ld * 1.35, 0.08), (0, -ld * 0.18, -lh + 0.04), mat(S["shoe"]), lp, bev, ol)
+        lp = empty(f"{name}_leg{side}", ch.hips, (sx * S["foot_x"], 0, 0))
+        blob(f"{name}_foot{side}", fr, (0, -fr[1] * 0.25, -S["hip_z"] + fr[2] * 0.75), mat("foot"), lp, ol=ol)
         ch.legs[side] = lp
-        aw, ad, au = S["arm_up"]
-        al = S["arm_lo"]
-        sh = empty(f"{name}_arm{side}", ch.hips, (sx * (bw / 2 + aw / 2 + 0.01), 0, bh - aw * 0.55))
-        box(f"{name}_up{side}", (aw, ad, au), (0, 0, -au / 2 + aw * 0.3), mat(S["top"]), sh, bev, ol)
-        el = empty(f"{name}_elbow{side}", sh, (0, 0, -au + aw * 0.3))
-        box(f"{name}_lo{side}", (aw * 0.94, ad * 0.94, al), (0, 0, -al / 2), mat(S["sleeve"]), el, bev, ol)
-        hd_ = empty(f"{name}_hand{side}", el, (0, 0, -al))
-        hs = S["hand"]
-        box(f"{name}_handm{side}", (hs, hs, hs * 0.85), (0, 0, -hs * 0.4), mat("skin"), hd_, bev, ol)
+        sh = empty(f"{name}_arm{side}", ch.hips, (sx * S["hand_x"], 0, S["shoulder_z"]))
+        el = empty(f"{name}_elbow{side}", sh, (0, 0, -S["reach"] / 2))
+        hd_ = empty(f"{name}_hand{side}", el, (0, 0, -S["reach"] / 2))
+        hr = S["hand"]
+        blob(f"{name}_mitt{side}", hr, (0, 0, 0), mat("vinyl", hl=True), hd_, ol=ol * 0.8)
+        blob(f"{name}_thumb{side}", (hr[0] * 0.42, hr[0] * 0.42, hr[0] * 0.5), (-sx * hr[0] * 0.55, -hr[1] * 0.55, hr[2] * 0.35),
+             mat("vinyl", hl=True), hd_, ol=ol * 0.6)
         ch.arms[side], ch.elbows[side], ch.hands[side] = sh, el, hd_
-    box(f"{name}_body", (bw, bd, bh), (0, 0, bh / 2), mat(S["top"]), ch.hips, bev * 1.4, ol)
-    if S.get("patch"):
-        box(f"{name}_patch", (0.17, 0.01, 0.1), (bw * 0.22, -bd / 2 - 0.004, bh * 0.72), mat("patch"), ch.hips, 0.004)
-    if S.get("belt"):
-        box(f"{name}_belt", (bw * 1.01, bd * 1.01, 0.06), (0, 0, 0.08), mat("dark"), ch.hips, 0.01)
-    if S.get("pocket"):
-        box(f"{name}_pocket", (bw * 0.5, 0.012, bh * 0.22), (0, -bd / 2 - 0.004, bh * 0.28), mat(S["pocket"]), ch.hips, 0.01)
-    ch.neck = empty(f"{name}_head", ch.hips, (0, 0, bh + 0.005))
-    box(f"{name}_headm", (hw, hd, hh), (0, 0, hh / 2), mat("skin"), ch.neck, bev * 1.6, ol)
-    fy = -hd / 2
-    ew, eh = S["eye"]
-    ch.eyes, ch.pupils, ch.lids, ch.brows = [], [], [], []
+    capsule(f"{name}_body", S["body_r"], 0.0, S["body_h"], V, ch.torso, ol=ol)
+    S["dress"](name, ch, S)
+    ch.neck = empty(f"{name}_head", ch.hips, (0, 0, S["neck_z"]))
+    hw, hd, hh = S["head"]
+    hz = hh / 2 - S["head_sink"]
+    ch.head_c = hz
+    blob(f"{name}_headm", (hw / 2, hd / 2, hh / 2), (0, 0, hz), V, ch.neck, taper=S["taper"], ol=ol)
+    ch.eyes_g = empty(f"{name}_eyes", ch.neck, (0, 0, hz))
+    ch.eyes = []
+    er, ex, ez = S["eye_r"], S["eye_x"], S["eye_z"]
     for sx in (1, -1):
-        # round disc eyes on block heads (our own face design): white disc, round pupil, a skin-coloured block lid
-        e = cyl(f"{name}_eye{sx}", ew / 2, 0.03, (sx * S["eye_x"], fy - 0.012, S["eye_z"]), mat("white"), ch.neck, axis="Y",
-                seg=32, ol=S["ol"] * 0.6)
-        e.scale = (1, 1, eh / ew)
-        pw = ew * S["pupil"]
-        p = cyl(f"{name}_pupil{sx}", pw / 2, 0.02, (0, -0.018, 0), mat("black"), e, axis="Y", seg=24)
-        cyl(f"{name}_glint{sx}", pw * 0.14, 0.004, (pw * 0.18, -0.011, pw * 0.2), emit("white", 1.0), p, axis="Y", seg=12)
-        lid_piv = empty(f"{name}_lidp{sx}", e, (0, -0.022, ew / 2 + 0.002))
-        lid = box(f"{name}_lid{sx}", (ew * 1.08, 0.03, ew * 1.04), (0, 0, -ew * 0.52), mat(S["lid"]), lid_piv, 0.004)
-        br = box(f"{name}_brow{sx}", (ew * 1.15, 0.03, S["brow_h"]), (sx * S["eye_x"], fy - 0.02, S["eye_z"] + eh / 2 + 0.035),
-                 mat(S["brow"]), ch.neck, 0.006)
+        y = head_surface_y(S, sx * ex, ez) + er * 0.45
+        e = blob(f"{name}_eye{sx}", (er, er * 0.8, er * 1.15), (sx * ex, y, ez), mat("black"), ch.eyes_g)
         ch.eyes.append(e)
-        ch.pupils.append(p)
-        ch.lids.append(lid_piv)
-        ch.brows.append(br)
-    mw, mh = S["mouth"]
-    ch.mouth = box(f"{name}_mouth", (mw, 0.03, mh), (0, fy - 0.01, S["mouth_z"]), mat("black"), ch.neck, 0.006)
-    ch.mouth_in = box(f"{name}_tongue", (mw * 0.6, 0.02, mh * 0.35), (0, -0.003, -mh * 0.22), mat("#b2534a"), ch.mouth, 0.004)
-    if S.get("hair"):
-        box(f"{name}_hair", (hw * 1.03, hd * 1.03, 0.06), (0, 0.0, hh + 0.005), mat("dark"), ch.neck, 0.02, ol)
-        box(f"{name}_fringe", (hw * 0.55, 0.06, 0.1), (-hw * 0.2, -hd / 2 - 0.0, hh - 0.03), mat("dark"), ch.neck, 0.02, ol,
-            rot=(0, -12, 0))
-        box(f"{name}_tuft", (0.07, 0.11, 0.15), (0.06, 0.0, hh + 0.09), mat("dark"), ch.neck, 0.02, ol, rot=(0, 30, 0))
-    if S.get("cap"):
-        box(f"{name}_cap", (hw * 1.08, hd * 1.08, 0.11), (0, 0.0, hh + 0.04), mat(S["cap"]), ch.neck, 0.025, ol)
-        box(f"{name}_brim", (hw * 1.0, hd * 0.55, 0.03), (0, -hd * 0.7, hh + 0.005), mat(S["cap"]), ch.neck, 0.01, ol)
+    S["hat"](name, ch, S)
+    # compatibility stubs for the old face API
+    ch.pupils, ch.lids, ch.brows = [], [], []
     pose(ch)
     return ch
 
 
-def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 8), armR=(0, 0, -8), elbowL=-10, elbowR=-10,
+def dress_gus(name, ch, S):
+    """Sleeveless charcoal work vest: a straight tube hugging the pill, collar, two snap pockets, zip. No shoulders."""
+    r = S["body_r"]
+    vm = mat("vest", hl=False)
+    tube(f"{name}_vest", r + 0.018, S["body_h"] * 0.38, S["body_h"] * 0.86, vm, ch.torso, ol=S["ol"], bevel=0.03)
+    torus(f"{name}_collar", r * 0.72, 0.045, (0, 0, S["body_h"] * 0.86 + 0.012), vm, ch.torso, ol=S["ol"] * 0.7,
+          scale=(1, 1, 0.8))
+    fy = -(r + 0.018)
+    for sx in (1, -1):
+        box(f"{name}_pocket{sx}", (0.12, 0.025, 0.11), (sx * 0.1, fy + 0.002, S["body_h"] * 0.70), vm, ch.torso, 0.012,
+            S["ol"] * 0.5)
+        box(f"{name}_flap{sx}", (0.13, 0.03, 0.035), (sx * 0.1, fy - 0.004, S["body_h"] * 0.70 + 0.06), vm, ch.torso, 0.01,
+            S["ol"] * 0.5)
+        blob(f"{name}_snap{sx}", (0.011, 0.008, 0.011), (sx * 0.1, fy - 0.02, S["body_h"] * 0.70 + 0.06), mat("#b9bbb8"), ch.torso)
+        box(f"{name}_lpocket{sx}", (0.13, 0.025, 0.1), (sx * 0.11, fy + 0.004, S["body_h"] * 0.48), vm, ch.torso, 0.012,
+            S["ol"] * 0.5)
+    box(f"{name}_zip", (0.014, 0.012, S["body_h"] * 0.47), (0, fy - 0.004, S["body_h"] * 0.62), mat("#c8cac7"), ch.torso)
+
+
+def hat_gus(name, ch, S):
+    """Welding goggles with sage lenses pushed up on his head: strap round the head, two lens cups on top-front."""
+    hz = ch.head_c
+    hw, hd, hh = S["head"]
+    g = mat("gog")
+    torus(f"{name}_strap", hw / 2 * 0.9, 0.022, (0, 0.01, hz + hh * 0.2), g, ch.neck, rot=(-24, 0, 0), ol=S["ol"] * 0.6,
+          scale=(1, 0.97, 1.25))
+    for sx in (1, -1):
+        cup = empty(f"{name}_cupp{sx}", ch.neck, (sx * 0.1, -hd * 0.26, hz + hh * 0.4), (55, 0, -sx * 10))   # lenses face forward-up
+        cyl(f"{name}_cup{sx}", 0.078, 0.075, (0, 0, 0), g, cup, seg=32, bevel=0.012, ol=S["ol"] * 0.7)
+        cyl(f"{name}_rim{sx}", 0.082, 0.02, (0, 0, 0.038), mat("#6b6d6a"), cup, seg=32, bevel=0.006)
+        cyl(f"{name}_lens{sx}", 0.06, 0.012, (0, 0, 0.045), mat("sage", hl=True), cup, seg=32)
+    box(f"{name}_bridge", (0.05, 0.03, 0.03), (0, -hd * 0.26, hz + hh * 0.42), g, ch.neck, 0.008)
+
+
+def dress_pip(name, ch, S):
+    """Sleeveless oversized sage hoodie as a straight tube: hood collar ring, white drawstrings, kangaroo pocket."""
+    r = S["body_r"]
+    sm = mat("sage")
+    bh = S["body_h"]
+    tube(f"{name}_hoodie", r + 0.02, bh * 0.2, bh * 0.9, sm, ch.torso, ol=S["ol"], bevel=0.035)
+    torus(f"{name}_hood", r * 0.8, 0.05, (0, 0.015, bh * 0.9 + 0.01), sm, ch.torso, ol=S["ol"] * 0.8, scale=(1, 1, 0.9))
+    fy = -(r + 0.02)
+    for sx in (1, -1):
+        cyl(f"{name}_string{sx}", 0.008, 0.13, (sx * 0.04, fy - 0.006, bh * 0.84 - 0.065), mat("string"), ch.torso, seg=10)
+        blob(f"{name}_tip{sx}", (0.014, 0.014, 0.018), (sx * 0.04, fy - 0.008, bh * 0.84 - 0.135), mat("string"), ch.torso)
+    box(f"{name}_pouch", (0.2, 0.022, 0.085), (0, fy + 0.002, bh * 0.36), sm, ch.torso, 0.02, S["ol"] * 0.5)
+
+
+def hat_pip(name, ch, S):
+    """Backwards dark-grey cap: dome over the top of the head, brim to the back, button on top."""
+    hz = ch.head_c
+    hw, hd, hh = S["head"]
+    cm = mat("capg")
+    cap = empty(f"{name}_capp", ch.neck, (0, 0.012, hz + hh * 0.12), (8, 0, 0))
+    blob(f"{name}_cap", (hw / 2 * 1.02, hd / 2 * 1.03, hh * 0.42), (0, 0, 0), cm, cap, half=True, ol=S["ol"])
+    brim = empty(f"{name}_brimp", cap, (0, hd / 2 * 0.9, 0.01), (-12, 0, 0))
+    cyl(f"{name}_brim", 0.12, 0.018, (0, 0.06, 0), cm, brim, seg=32, ol=S["ol"] * 0.7, rot=(0, 0, 0))
+    ch_brim = bpy.data.objects[f"{name}_brim"]
+    ch_brim.scale = (1.15, 1.0, 1.0)
+    blob(f"{name}_button", (0.018, 0.018, 0.012), (0, 0, hh * 0.42), cm, cap)
+    box(f"{name}_strapband", (0.09, 0.012, 0.03), (0, -hd / 2 * 0.86, -0.005), mat("#3f403f"), cap, 0.006)
+
+
+def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), armR=(0, 0, -4), elbowL=-10, elbowR=-10,
          legL=(0, 0, 0), legR=(0, 0, 0), mouth=0.0, lid=0.0, look=(0, 0), brow=(0, 0)):
-    """Angles in degrees. x>0 leans/nods forward; armX<0 swings an arm forward/up; mouth 0 closed..1 open;
-    lid 0 open..1 shut; look = pupil offset (-1..1 screen x, -1..1 up); brow = (raise in m, tilt deg, inner up > 0)."""
+    """Angles in degrees. x>0 leans/nods forward; armX<0 swings a (floating) hand forward/up.
+    No mouths: `mouth` (0..1 talk energy from the word times) squashes and stretches the body and lifts the hands a little;
+    `lid` 0 open..1 shut squashes the dot eyes (blink / squint); `look` shifts the dot eyes; `brow` is ignored."""
     S = ch.S
     if loc is not None:
         ch.root.location = loc
@@ -566,37 +772,33 @@ def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 8), a
     ch.neck.rotation_euler = R(head)
     ch.arms["L"].rotation_euler = R(armL)
     ch.arms["R"].rotation_euler = R(armR)
-    ch.elbows["L"].rotation_euler = R((elbowL, 0, 0))
-    ch.elbows["R"].rotation_euler = R((elbowR, 0, 0))
+    ch.elbows["L"].rotation_euler = R((elbowL - 40 * mouth, 0, 0))
+    ch.elbows["R"].rotation_euler = R((elbowR - 22 * mouth, 0, 0))
     ch.legs["L"].rotation_euler = R(legL)
     ch.legs["R"].rotation_euler = R(legR)
-    mw, mh = S["mouth"]
-    ch.mouth.scale = (1.0 - 0.25 * mouth, 1, 0.22 + 0.78 * mouth)
-    ch.mouth_in.hide_render = mouth < 0.4
-    ew, eh = S["eye"]
-    pw = ew * S["pupil"]
-    for i, p in enumerate(ch.pupils):
-        p.location = (look[0] * (ew - pw) * 0.45, -0.018, look[1] * (ew - pw) * 0.45)
-    base_lid = S.get("base_lid", 0.0)
-    for lp in ch.lids:
-        f = max(base_lid, lid)
-        lp.scale = (1, 1, max(0.001, f))
-        lp.children[0].hide_render = f < 0.02
-    for i, br in enumerate(ch.brows):
-        sx = 1 if i == 0 else -1
-        br.location.z = S["eye_z"] + eh / 2 + 0.035 + brow[0]
-        br.rotation_euler = (0, math.radians(-sx * brow[1]), 0)
+    talk_squash(ch, mouth)
+    f = max(S.get("base_lid", 0.0), lid)
+    for e in ch.eyes:
+        e.scale = (1, 1, max(0.08, 1 - 0.92 * f))
+    ch.eyes_g.location = (look[0] * S["eye_look"], 0, ch.head_c + look[1] * S["eye_look"])
 
 
-PIP_SPEC = dict(leg=(0.13, 0.15, 0.26), leg_x=0.095, body=(0.44, 0.3, 0.36), head=(0.54, 0.46, 0.48),
-                arm_up=(0.11, 0.13, 0.2), arm_lo=0.17, hand=0.11, eye=(0.15, 0.17), eye_x=0.13, eye_z=0.27, pupil=0.5,
-                mouth=(0.15, 0.1), mouth_z=0.1, brow_h=0.03, top="pip_top", sleeve="pip_top", pants="pip_pants",
-                shoe="shoe", lid="skin", brow="dark", hair=True, pocket="#69997a", bevel=0.025, ol=0.014)
-GUS_SPEC = dict(leg=(0.24, 0.26, 0.84), leg_x=0.17, body=(0.78, 0.44, 0.82), head=(0.36, 0.34, 0.36),
-                arm_up=(0.17, 0.19, 0.4), arm_lo=0.36, hand=0.17, eye=(0.085, 0.09), eye_x=0.08, eye_z=0.19, pupil=0.55,
-                mouth=(0.12, 0.07), mouth_z=0.07, brow_h=0.025, top="gus_suit", sleeve="gus_suit", pants="gus_suit",
-                shoe="dark", lid="skin", brow="dark", cap="gus_cap", patch=True, belt=True, base_lid=0.45,
-                bevel=0.03, ol=0.018)
+def talk_squash(ch, m):
+    S = ch.S
+    sz = 1 + 0.07 * m
+    sxy = 1 - 0.035 * m
+    ch.torso.scale = (sxy, sxy, sz)
+    ch.neck.location.z = S["neck_z"] + S["body_h"] * (sz - 1)
+
+
+GUS_SPEC = dict(hip_z=0.06, foot=(0.12, 0.16, 0.075), foot_x=0.12, body_r=0.22, body_h=1.2, neck_z=1.12,
+                head=(0.6, 0.56, 0.72), taper=0.1, head_sink=0.06, eye_r=0.024, eye_x=0.085, eye_z=0.05, eye_look=0.03,
+                hand=(0.085, 0.075, 0.09), hand_x=0.47, shoulder_z=1.0, reach=0.36, ol=0.024,
+                dress=dress_gus, hat=hat_gus)
+PIP_SPEC = dict(hip_z=0.045, foot=(0.085, 0.115, 0.055), foot_x=0.08, body_r=0.16, body_h=0.66, neck_z=0.6,
+                head=(0.48, 0.44, 0.54), taper=0.1, head_sink=0.04, eye_r=0.02, eye_x=0.072, eye_z=0.03, eye_look=0.025,
+                hand=(0.06, 0.055, 0.065), hand_x=0.36, shoulder_z=0.55, reach=0.24, ol=0.019,
+                dress=dress_pip, hat=hat_pip)
 
 
 # ----------------------------------------------------------------------------------------------------------------- props
@@ -877,6 +1079,8 @@ def dot_pile(name, center, n=170, radius=0.3, height=0.16, seed=5, s=1.0):
 
 # ----------------------------------------------------------------------------------------------------------------- render setup
 def setup_render():
+    if TOON:
+        return setup_render_eevee()
     scn.render.engine = "CYCLES"
     cy = scn.cycles
     cy.device = "CPU"
@@ -940,6 +1144,58 @@ def setup_render():
     return cam, sun
 
 
+def setup_render_eevee():
+    """Cel-shaded look: EEVEE (software GL here: Mesa llvmpipe via EGL, no GPU), toon emission materials, hard sun shadow."""
+    scn.render.engine = "BLENDER_EEVEE"
+    ee = scn.eevee
+    ee.taa_render_samples = SPP
+    for attr, val in (("use_shadows", True), ("use_raytracing", False), ("use_gtao", False), ("use_bloom", False),
+                      ("shadow_ray_count", 1), ("shadow_step_count", 4)):
+        try:
+            setattr(ee, attr, val)
+        except Exception:
+            pass
+    scn.render.resolution_x = 1080
+    scn.render.resolution_y = 1920
+    scn.render.resolution_percentage = int(round(SCALE * 100))
+    scn.render.film_transparent = False
+    scn.render.use_motion_blur = False
+    scn.view_settings.view_transform = "Standard"
+    scn.view_settings.look = "None"
+    scn.render.image_settings.file_format = "PNG"
+    scn.render.image_settings.color_mode = "RGB"
+    scn.render.image_settings.compression = 15
+    w = bpy.data.worlds.new("W")
+    scn.world = w
+    try:
+        w.use_nodes = True
+    except Exception:
+        pass
+    bg = w.node_tree.nodes.get("Background") or w.node_tree.nodes.new("ShaderNodeBackground")
+    bg.inputs["Color"].default_value = hexcol("#c9cbc8")
+    bg.inputs["Strength"].default_value = 0.45
+    out = [n for n in w.node_tree.nodes if n.type == "OUTPUT_WORLD"]
+    out = out[0] if out else w.node_tree.nodes.new("ShaderNodeOutputWorld")
+    w.node_tree.links.new(bg.outputs[0], out.inputs["Surface"])
+    sun_d = bpy.data.lights.new("sun", "SUN")
+    sun_d.energy = 2.2
+    sun_d.angle = math.radians(1.5)
+    sun = bpy.data.objects.new("sun", sun_d)
+    COLL.objects.link(sun)
+    # key light from front-left-above (camera side, like the cel reference): faces read mostly lit with a narrow shadow side
+    d_from = Vector((-0.55, -1.0, 1.1)).normalized()
+    sun.rotation_euler = (-d_from).to_track_quat("-Z", "Y").to_euler()
+    cam_d = bpy.data.cameras.new("cam")
+    cam = bpy.data.objects.new("cam", cam_d)
+    COLL.objects.link(cam)
+    scn.camera = cam
+    cam_d.sensor_fit = "VERTICAL"
+    cam_d.sensor_height = 36.0
+    cam_d.clip_start = 0.02
+    cam_d.clip_end = 100
+    return cam, sun
+
+
 def look(cam, loc, target, lens, up=(0, 0, 1)):
     loc, target, up = Vector(loc), Vector(target), Vector(up)
     f = (target - loc).normalized()
@@ -964,6 +1220,12 @@ LAPTOP, UI = build_laptop(SHOP)
 build_screen_ui(UI)
 STOOL = build_stool((-3.7, 2.7, 0))
 PHONE, SCREEN = build_phone()
+# Pip's own small handheld 3D scanner (character design): dark-grey head with three green lights on a sage grip, in his free hand
+PIPSCAN = empty("PIPSCAN", PIP.hands["R"], (0, -0.01, 0.02))
+box("ps_grip", (0.04, 0.045, 0.1), (0, 0.0, 0.0), mat("sage"), PIPSCAN, 0.012, 0.006)
+box("ps_head", (0.075, 0.06, 0.05), (0, -0.01, 0.07), mat("gog"), PIPSCAN, 0.014, 0.006)
+for _k in (-1, 0, 1):
+    cyl(f"ps_led{_k}", 0.008, 0.004, (_k * 0.021, -0.041, 0.07), emit("sage_l", 1.8), PIPSCAN, axis="Y", seg=12)
 ALL_DOTS = gen_car_dots()
 print(f"[partA] {len(ALL_DOTS)} marker dots on the car", flush=True)
 
@@ -1189,7 +1451,7 @@ def shot_S8():
     HANDS["second"].rotation_euler = (0, math.radians(260), 0)
     for o in clock_blur(CLOCK, HANDS):
         temp(o)
-    pose(PIP, loc=(-3.7, 2.68, 0.61), rz=-6, hips=(24, 0, 0), head=(10, 0, -8), armL=(-38, 0, 14), elbowL=-50,
+    pose(PIP, loc=(-3.7, 2.68, 0.565), rz=-6, hips=(24, 0, 0), head=(10, 0, -8), armL=(-38, 0, 14), elbowL=-50,
          armR=(-38, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=0.55, lid=0.5, look=(0.3, 1),
          brow=(-0.005, -8))
     temp(make_dots("dots", []))
@@ -1208,7 +1470,7 @@ def shot_S9():
     temp(make_dots("peeled", [dict(p=hp + Vector((0.04, -0.1, -0.06)), n=Vector((0.3, -1, 0.2)), s=1.3)]))
     set_vis(STOOL, True)
     STOOL.location = (2.05, -2.6, 0)
-    pose(PIP, loc=(2.05, -2.58, 0.61), rz=-25, hips=(22, 0, 0), head=(10, 0, 18), armL=(-40, 0, 14), elbowL=-50,
+    pose(PIP, loc=(2.05, -2.58, 0.565), rz=-25, hips=(22, 0, 0), head=(10, 0, 18), armL=(-40, 0, 14), elbowL=-50,
          armR=(-40, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=0.0, lid=0.55, look=(-1, 0.2),
          brow=(-0.005, -8))
     look(cam, (2.4, -5.9, 1.55), (0.95, -1.25, 0.95), 28)

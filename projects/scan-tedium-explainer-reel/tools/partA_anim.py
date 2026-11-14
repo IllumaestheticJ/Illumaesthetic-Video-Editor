@@ -22,6 +22,7 @@ SF = {s["id"]: (s["f0"], s["f1"]) for s in TL["shots"]}
 LN = {L["n"]: L for L in TL["lines"]}
 EVERY = int(arg("--every", "1"))
 RANGE = arg("--range", "")
+ONLY = {int(x) for x in arg("--frames", "").split(",") if x}   # explicit frame list (lookdev stills)
 
 
 # ----------------------------------------------------------------------------------------------------------------- easing
@@ -121,27 +122,19 @@ def blink(spk, t):
 
 
 def set_face(ch, mouth=0.0, lid=0.0, look=(0, 0), brow=(0, 0)):
-    """Face only (mouth, lids, pupils, brows) without touching the body - same maths as pose()."""
+    """Face and talk without touching hips/hands (S11/S12: the phone hand must not move): body squash from the talk
+    energy, dot-eye blink/squint, eye look."""
     S = ch.S
-    ch.mouth.scale = (1.0 - 0.25 * mouth, 1, 0.22 + 0.78 * mouth)
-    ch.mouth_in.hide_render = mouth < 0.4
-    ew, eh = S["eye"]
-    pw = ew * S["pupil"]
-    for p in ch.pupils:
-        p.location = (look[0] * (ew - pw) * 0.45, -0.018, look[1] * (ew - pw) * 0.45)
+    talk_squash(ch, mouth)
     f = max(S.get("base_lid", 0.0), lid)
-    for lp in ch.lids:
-        lp.scale = (1, 1, max(0.001, f))
-        lp.children[0].hide_render = f < 0.02
-    for i, br in enumerate(ch.brows):
-        sx = 1 if i == 0 else -1
-        br.location.z = S["eye_z"] + eh / 2 + 0.035 + brow[0]
-        br.rotation_euler = (0, math.radians(-sx * brow[1]), 0)
+    for e in ch.eyes:
+        e.scale = (1, 1, max(0.08, 1 - 0.92 * f))
+    ch.eyes_g.location = (look[0] * S["eye_look"], 0, ch.head_c + look[1] * S["eye_look"])
 
 
 def talk(spk, t, base_lid=0.0):
-    """mouth, lid for a character at time t (blink folded into the lid)."""
-    return mouth_at(spk, t), max(base_lid, blink(spk, t))
+    """talk energy (drives the body squash and hand lift - no mouths) and lid (blink, plus a squint on the stressed word)."""
+    return mouth_at(spk, t), max(base_lid, blink(spk, t), 0.5 * accent(spk, t))
 
 
 def words_of(n):
@@ -275,10 +268,12 @@ def anim_S3(fr):
         p = (t - T[k]) / 0.4
         h = tgt[k] + Vector((0.35, -0.12, 0.08)) * ease(p)
     set_vis(GUS.root, False)
-    temp(box("s3_arm", (0.55, 0.2, 0.2), (h.x + 0.38, h.y - 0.08, h.z + 0.04), mat("gus_suit"), None, 0.03, 0.018, rot=(0, -14, 20)))
-    temp(box("s3_cuff", (0.06, 0.21, 0.21), (h.x + 0.11, h.y - 0.05, h.z - 0.03), mat("dark"), None, 0.02, 0.016, rot=(0, -14, 20)))
-    temp(box("s3_hand", (0.17, 0.1, 0.18), (h.x, h.y, h.z - 0.06), mat("skin"), None, 0.035, 0.016, rot=(0, -14, 8)))
-    temp(box("s3_thumb", (0.08, 0.06, 0.05), (h.x - 0.06, h.y + 0.005, h.z + 0.015), mat("skin"), None, 0.015, 0.012, rot=(0, 30, 8)))
+    # GUS's floating mitten (no arm) pressing each dot on
+    hr = GUS_SPEC["hand"]
+    temp(blob("s3_mitt", (hr[0] * 1.05, hr[1] * 0.8, hr[2] * 1.05), (h.x - 0.02, h.y + 0.01, h.z - 0.06), mat("vinyl", hl=True), None,
+              ol=GUS_SPEC["ol"] * 0.8))
+    temp(blob("s3_thumb", (hr[0] * 0.42, hr[0] * 0.42, hr[0] * 0.5), (h.x - 0.09, h.y - 0.01, h.z - 0.02), mat("vinyl", hl=True), None,
+              ol=GUS_SPEC["ol"] * 0.6))
     shake = Vector((0, 0, 0))
     if k >= 0 and 0 <= t - T[k] < 0.1:
         pd = new[k]["p"]
@@ -480,7 +475,7 @@ def anim_S8(fr):
     L9 = LN[9]
     m, lid = talk("PIP", t, lerp(0.4, 0.6, ease((t - L9["t1"]) / 0.3)))
     side = ease((t - L9["t0"] + 0.05) / 0.15) * (1 - ease((t - L9["t1"] - 0.15) / 0.3))   # glance toward GUS's "No."
-    pose(PIP, loc=(-3.7, 2.68, 0.61), rz=-6, hips=(lerp(14, 28, ease(u)), 0, 0), head=(lerp(4, 14, ease(u)), 0, -8 + 14 * side),
+    pose(PIP, loc=(-3.7, 2.68, 0.565), rz=-6, hips=(lerp(14, 28, ease(u)), 0, 0), head=(lerp(4, 14, ease(u)), 0, -8 + 14 * side),
          armL=(-38, 0, 14), elbowL=-50, armR=(-38, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=m, lid=lid,
          look=lerpv((0.3, 1), (1, 0.2), side), brow=(-0.005, -8))
     temp(make_dots("dots", []))
@@ -512,7 +507,7 @@ def anim_S9(fr):
     set_vis(STOOL, True)
     STOOL.location = (2.05, -2.6, 0)
     pm, plid = talk("PIP", t, 0.55)
-    pose(PIP, loc=(2.05, -2.58, 0.61), rz=-25, hips=(22, 0, 0), head=(10, 0, 18), armL=(-40, 0, 14), elbowL=-50,
+    pose(PIP, loc=(2.05, -2.58, 0.565), rz=-25, hips=(22, 0, 0), head=(10, 0, 18), armL=(-40, 0, 14), elbowL=-50,
          armR=(-40, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=pm, lid=plid, look=(-1, 0.2), brow=(-0.005, -8))
     look(cam, (2.4, -5.9, 1.55), (0.95, -1.25, 0.95), 28)
 
@@ -606,7 +601,7 @@ for sh in SHOTS:
     for fr in range(f0, f1):
         final = os.path.join(d, f"{fr:04d}.png")
         need_c = sh in ("S11", "S12")
-        todo = (fr - f0) % EVERY == 0 and lo <= fr < hi and not os.path.exists(final)
+        todo = (fr - f0) % EVERY == 0 and lo <= fr < hi and not os.path.exists(final) and (not ONLY or fr in ONLY)
         if not (todo or need_c):
             continue
         reset_anim()
