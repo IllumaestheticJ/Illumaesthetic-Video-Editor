@@ -1,12 +1,13 @@
 # Toyota Sera scan reel - self-review (training/rubric.md)
 
-Deliverable: `/home/user/media/work/sera/out/toyota_sera_v5.mp4`: 1080x1920, 30 fps, 39.27 s. Scan only, with 4 factual labels.
+Deliverable: `/home/user/media/work/sera/out/toyota_sera_v6.mp4`: 1080x1920, 30 fps, 39.27 s. Scan only, with 4 factual labels.
 Order (front -> side -> rear, each section once):
 - whole car, pushing in
-- front wheel
 - FRONT: hood opens; front bumper comes off and shows its inner face (label); camera in on the structure behind it (label)
+- FRONT BUMPER alone: both fog light / corner marker units pull out (label)
 - SIDE: both butterfly doors
-- REAR: same pattern as the front (2 labels)
+- REAR WING: lifts off, camera in on the deck it sat on (label)
+- REAR: bumper off, inner face, structure behind it (2 labels)
 - progressive explode -> reassembly orbiting to the listing's view -> 1:1 into the mobile listing CTA
 
 Previous cut (v2, turntables and an all-at-once explode) is in `project_v2.yaml` / `training/examples/toyota-sera/`.
@@ -22,6 +23,12 @@ Previous cut (v2, turntables and an all-at-once explode) is in `project_v2.yaml`
 | 7 | Text | 4 | 4 labels, over scan only, clear of the car and above the bottom 20 %. Each label pairs its part name with a triangle count read from the STL headers; no specs. The sub-line is small mono text, readable but not large on a phone |
 | 8 | Ending | 5 | v4: the reassembly locks on b56 while orbiting to the mobile listing's camera (solved, IoU 0.972); on b60 that exact frame shrinks 1:1 onto the car in the phone (handoff diff 0.01, ~1 px landing), then logo, SCAN DATA AVAILABLE NOW and ILLUMAESTHETIC.COM settle with a slow push-in |
 | 9 | Technical | 4 | h264 yuv420p, 1080x1920, 30 fps, AAC, no black frames, no reused shot. 1178 frames, one fewer than planned (the music ends at 38.435 s, so the end hold is unaffected) |
+
+## Changes in v6 vs v5 (user: "include the rear wing and front fog light/corner marker data too")
+- Fog light / corner marker: the 'light' scan's two units as front-bumper sub-parts, own shot b24-28 (bumper alone, units pull out).
+- Rear wing: cut from the full car by shape (no wing file; 'Spoiler removed' is patchy), own shot b34-38; off for the rear bumper; in the explode and the reassembly.
+- Room: front-wheel close-up dropped (format rule), front moved to b8-24, rear bumper re-timed to 6 beats (its inner-face label lost the triangle count to stay readable).
+- Reassembly orbit starts 0.4 m wider (parked rear bumper was 9 px from the edge); end pose and CTA unchanged.
 
 ## Changes in v5 vs v4 (user: "there are artifacts of the hood that aren't cleanly cut out")
 - tools/hood_clean.py: hood = region (outline from the landed skin, rear edge from the open hood's skin swung closed), skin within 25 mm of the local top; inner frame inside the outline only.

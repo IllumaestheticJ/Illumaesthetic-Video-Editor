@@ -1261,3 +1261,12 @@ lands here automatically. Agents must read this whole file before editing.
   A full disk writes truncated PNGs that render_v3 counts as done: after any disk-full event, PIL-load every frame and delete
   the broken ones before resuming. Clear superseded render folders and old-version intermediates first.
 - verify_v3.py now reads the shot count from the timeline (it was hard-coded to 21 bars and reported NaN past them).
+
+## From the Toyota Sera v6 (rear wing + fog light / corner marker, 2026-11-14)
+- A part with no file of its own (Sera wing: only a patchy 'Spoiler removed' state) can be cut from the full car by shape:
+  fit the surface it sits on just ahead of it, take tris > 4 mm above it, clean as a top-view region grown FORWARD only
+  (isotropic growth swallowed a tail-panel corner), and check every station on side sections. projects/toyota-sera/tools/wing_cut.py.
+- Small sub-parts (two 16 cm light units in a 1.6 m bumper) read best from high above and behind the parent, pulling straight
+  back into empty black; a low inner-face view hid them against the bumper.
+- `edge_margins.py` catches parked parts a 3-frame sheet misses (reassembly frame 1, 9 px); widen the orbit's start radius -
+  the clean-car shot that continues the camera must be re-rendered with it or the lock swap jumps.

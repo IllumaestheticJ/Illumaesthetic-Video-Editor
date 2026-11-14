@@ -105,10 +105,10 @@ timeline:
     interpolate: true
     dur: 2.4
   - transition: {type: cut, note: "33.635 b56 lock - swap to the clean full-car scan, same camera"}
-  - id: v4_g3b_clean      # b56-60: clean car, camera eases to a stop on the listing camera exactly at b60
+  - id: v5_g3b_clean      # b56-60 (orbit r0 7.0, same end pose): clean car, camera eases to a stop on the listing camera exactly at b60
     section: reassembly
     focus: the reassembled car
-    src: /home/user/media/work/sera/renders/final/v4_g3b_clean
+    src: /home/user/media/work/sera/renders/final/v5_g3b_clean
     src_fps: 15
     interpolate: true
     dur: 2.4

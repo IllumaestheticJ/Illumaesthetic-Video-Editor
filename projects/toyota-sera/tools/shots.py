@@ -289,8 +289,8 @@ _lr = math.hypot(_LC["loc"][0], _LC["loc"][1])
 _la = math.degrees(math.atan2(_LC["loc"][0], -_LC["loc"][1])) % 360  # 234.6 = rear, -X side
 
 
-def _g4cam():
-    ks = arc2(0, 4.8, 6.6, _lr, 135, _la, 3.0, _LC["loc"][2], (0, 0.10, 0.70), (0, 0, 0.6), 0.9, _LC["target"][2],
+def _g4cam(r0=6.6):
+    ks = arc2(0, 4.8, r0, _lr, 135, _la, 3.0, _LC["loc"][2], (0, 0.10, 0.70), (0, 0, 0.6), 0.9, _LC["target"][2],
               n=10, ease="out2")
     for i, k in enumerate(ks):  # lens 30 -> the listing's solved focal, on the same ease
         w = 1 - (1 - i / 10) ** 2
@@ -358,7 +358,10 @@ def explode_parts3(shift):
 SECS["v5_explode"] = 5.0
 SHOTS["v5_explode"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts3(0.0), "cam": SHOTS["v3_e1_explode"]["cam"]}
 SECS["v5_g3a_home"] = 2.6
-SHOTS["v5_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts3(4.8), "cam": _g4cam()}
+# r0 7.0 (was 6.6): the parked rear bumper sat 9 px from the right edge on the first frames (edge_margins.py)
+SHOTS["v5_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts3(4.8), "cam": _g4cam(7.0)}
+SECS["v5_g3b_clean"] = 2.6
+SHOTS["v5_g3b_clean"] = {"base": [CAR], "cam": [dict(k, t=round(k["t"] - 2.4, 4)) for k in _g4cam(7.0)]}
 
 
 def spec(name, mode, frames=None):
