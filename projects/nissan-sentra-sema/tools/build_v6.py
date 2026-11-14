@@ -108,8 +108,13 @@ def seg_scan():
 
 
 def seg_concepts():
-    nums = [3054, 3092, 3120, 3127, 3135, 3144, 3156, 3192, 3197, 3206, 3219, 3475, 3504, 3527, 3536, 3543, 3572, 3591, 3606, 3956, 3960, 3964, 4067, 4506]
-    n = CUT['livery'] - CUT['concepts']; edges = np.round(np.linspace(0, n, len(nums) + 1)).astype(int)
+    # v18: 32 concept renders in chronological order (grey CAD -> red renders -> white livery studies), one per 16th note
+    # (BAR/16 = 0.115 s) over the 2 bars, so the flipbook runs twice as fast and every change lands on the grid (user)
+    nums = [3053, 3054, 3092, 3099, 3123, 3122, 3127, 3135, 3143, 3144, 3156, 3192, 3197, 3206, 3219, 3245,
+            3283, 3285, 3475, 3504, 3527, 3536, 3543, 3572, 3591, 3606, 3956, 3964, 4067, 4143, 4184, 4506]
+    n = CUT['livery'] - CUT['concepts']
+    edges = np.array([int(round((DROP - 9 * BAR + k * BAR / 16) * FPS)) - CUT['concepts'] for k in range(len(nums))] + [n])
+    edges[0] = 0
     def gen():
         for j, num in enumerate(nums):
             src = Image.open(wa(num)).convert('RGB'); a = src.width / src.height
@@ -177,21 +182,24 @@ def seg_reveal():
 
 
 def seg_end():
-    """v15: Illumaesthetic wordmark on top, MotoIQ mark between it and the Bomex badge (stacked). Partners fade in after the wordmark."""
+    """v18: Illumaesthetic / motoiq lockup / Bomex stacked, centred, with equal gaps, the stack centred on the frame (user)."""
     logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 700; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
-    mq = Image.open(f'{D}/logo/motoiq_lockup_white.png').convert('RGBA'); mq = mq.resize((560, int(mq.height * 560 / mq.width)), Image.LANCZOS)   # v16: full motoiq lockup (white moto, red iq box)
-    bx = Image.open(f'{D}/logo/bomex_white.png').convert('RGBA'); bx = bx.resize((520, int(bx.height * 520 / bx.width)), Image.LANCZOS)
-    n = END - CUT['end']; y_main = 420; y_mq = 800; y_bx = y_mq + mq.height + 140
+    mq = Image.open(f'{D}/logo/motoiq_lockup_white.png').convert('RGBA'); mq = mq.resize((560, int(mq.height * 560 / mq.width)), Image.LANCZOS)
+    bx = Image.open(f'{D}/logo/bomex_white.png').convert('RGBA'); bx = bx.resize((560, int(bx.height * 560 / bx.width)), Image.LANCZOS)
+    def ink(im):                                     # visible box (alpha bbox), so spacing is between the marks, not the canvases
+        return im.crop(im.getchannel('A').getbbox())
+    logo, mq, bx = ink(logo), ink(mq), ink(bx)
+    gap = 170; total = logo.height + mq.height + bx.height + 2 * gap; y0 = (HT - total) // 2
+    ys = [y0, y0 + logo.height + gap, y0 + logo.height + gap + mq.height + gap]
+    n = END - CUT['end']
     def gen():
         for f in range(n):
             im = Image.new('RGB', (WD, HT), (0, 0, 0))
-            al = min(1.0, f / 8); l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al)))
-            im.paste(l, ((WD - lw) // 2, y_main), l)
-            pa = max(0.0, min(1.0, (f - 14) / 8))
-            if pa > 0:
-                for lg, yy in ((mq, y_mq), (bx, y_bx)):
-                    lg2 = lg.copy(); lg2.putalpha(lg.getchannel('A').point(lambda v: int(v * pa)))
-                    im.paste(lg2, ((WD - lg.width) // 2, yy), lg2)
+            for k, (lg, yy) in enumerate(zip((logo, mq, bx), ys)):
+                al = min(1.0, f / 8) if k == 0 else max(0.0, min(1.0, (f - 14) / 8))
+                if al <= 0: continue
+                lg2 = lg.copy(); lg2.putalpha(lg.getchannel('A').point(lambda v: int(v * al)))
+                im.paste(lg2, ((WD - lg.width) // 2, yy), lg2)
             yield im
     pipe('v6_z_end', gen())
 
