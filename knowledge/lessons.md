@@ -912,3 +912,8 @@ lands here automatically. Agents must read this whole file before editing.
 - (v10) A joke insert should be about 4 s, not 6.
 - (Miata v10 close-out) Standing credits for video descriptions: Illumaesthetic contact sales@illumaesthetic.com, Instagram @illumaesthetic; Grimace is @epsilon_motorsports. The owner does not want exact product links for parts.
 - (Miata promo reels) Cutting 9:16 promos from a 16:9 talking-head: a fixed crop loses the host. Track the face (skin tone in the top half, 4 Hz, light smoothing) and move the crop window; check a frame every 0.7 s. Check scene cuts before picking in/out points from a contact sheet: two "shots" were 1 s long and the pick ran into the next shot.
+
+## Music licensing (Miata long-form, 2026-11-14)
+- Before using tracks from a dump folder, ask which licence covers them and whether the publishing channel is linked to it. "ES_" files are Epidemic Sound: an unlinked channel gets Content ID claims (no strike, but no earnings). Never write "licensed" in a description from file names alone.
+- A rough cut's baked-in music can be removed without the editor: match the mixed audio against the raw clips' audio (normalised cross-correlation, 2 s windows) and rebuild the dialogue from the raw clips on the same timeline (tools/matchraw.py, cleanfront.py). Raw clips for this project: Dropbox "NA MIATA GRIMACE/Fuji Dump (Thered)".
+- YouTube rips of game or film soundtracks are not "music we can use": say so plainly and let the owner decide; record the decision.

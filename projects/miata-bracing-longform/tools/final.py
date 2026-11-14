@@ -99,8 +99,12 @@ for i, (tt, d, (k, a, c, sec, pic, nar)) in enumerate(rows):
 open(f'{SEG}/list.txt', 'w').write(''.join(f"file '{x}'\n" for x in lst)); b.run(['-f', 'concat', '-safe', '0', '-i', f'{SEG}/list.txt', '-c', 'copy', f'{SEG}/picture.mp4'])
 print('picture frames', done_fr, '= %.3f s; schedule %.3f s' % (done_fr/FPS, total))
 # ---- sound: rough-cut audio up to 3:04, then bed + narration
-w = wave.open(f'{M}/work/audio48.wav')   # the cut is 1:1 with the rough cut up to 3:04
-o = np.frombuffer(w.readframes(int(200*SR)), np.int16).reshape(-1, 2).astype(np.float32)/32768        # FIRST 200 s only (v6 bug: a second read replaced this with 200 s onward)
+# v11: the front section's sound is rebuilt from the raw camera clips and the original voice-over recording (cleanfront.py),
+# so none of the rough cut's Epidemic Sound music is left; it lives on the rough cut's timeline exactly like the old track did
+if not os.path.exists(f'{M}/work/front_clean48.wav'): subprocess.run([sys.executable, f'{HERE}/cleanfront.py', M], check=True)
+w = wave.open(f'{M}/work/front_clean48.wav'); o = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768
+k9 = int(9.0*SR); o[k9:k9 + int(.3*SR)] *= np.linspace(1, 0, int(.3*SR)); o[k9 + int(.3*SR):int(10.75*SR)] = 0      # the raw clip keeps talking under the title card; the rough cut did not
+o = np.repeat(o[:, None], 2, 1)
 N = int(total*SR) + SR; mix = np.zeros((N, 2), np.float32); n0 = int(t_new*SR); xf = int(.25*SR)
 for tt, d, (k, a, c, sec, pic, nar) in rows:                              # before 3:04 the rough cut's own sound follows its picture, row by row
     if tt >= t_new - 1e-6: break
@@ -117,49 +121,20 @@ def outt(u): return next(tt + u - a for tt, d, (k, a, c, *_) in rows if k in ('s
 # music after 3:04 from the real tracks (Dropbox "Media for Miata Brace Vid"), following the rough cut's own choices, found by
 # fingerprint matching: 2AM under the control section, Time Stand Still under fender / both-braces shop footage, Cosmic
 # Countdown under the strut-brace footage, Dark Summer Night under the data cards. One level, crossfades, no gaps.
-MUS = f'{M}/music'; XF = 4.0          # v9: long crossfades and a lower bed, a new track must not 'cut in' (owner note)
-def track(name):
-    w = wave.open(f'{MUS}/{name}_48.wav'); x = np.frombuffer(w.readframes(w.getnframes()), np.int16).reshape(-1, 2).astype(np.float32)/32768
-    hop = SR//2; n = len(x)//hop; e = 10*np.log10((x[:n*hop].reshape(n, hop, 2)**2).mean((1, 2)) + 1e-12)
-    env = np.convolve(np.pad(e, 8, mode='edge'), np.ones(17)/17, 'valid'); g = np.clip(-20.0 - env, -12, 9)            # slow levelling to -20 dB RMS
-    return x*(10**(np.interp(np.arange(len(x)), (np.arange(n)+.5)*hop, g)/20))[:, None]
-TR = {k: track(k) for k in ('2am', 'time_stand_still', 'cosmic_countdown', 'dark_summer_night')}; LEN = {k: len(v)/SR for k, v in TR.items()}
-def want(k, a, sec):
-    if sec.startswith('1.'): return '2am', 92.3 + (184.27 - 180.0)          # carries the whole control section, as in the rough cut
-    if k == 'card' and a.startswith('title'): return 'dark_summer_night', None      # v9: the card bed carries through the title; the section track eases in under the footage
-    if k == 'card' and a.startswith('title'): return {'title_fender': ('time_stand_still', 135.6 - 2.8), 'title_strut': ('cosmic_countdown', 95.9 - 2.8), 'title_both': ('time_stand_still', 157.3 - 2.8)}[a]
-    if k != 'src': return 'dark_summer_night', None
-    if 240 <= a < 275: return 'cosmic_countdown', 87.9 + (a - 240.0)
-    return 'time_stand_still', 137.0 + (a - 300.0) if a < 335 else 137.0
-blocks = []                                                               # merged (start, end, track, anchor)
+# v11 music: ONE bed for the whole video from the file the owner supplied (Dropbox /Moosic, "Relaxing Music from the Gran
+# Turismo Series", a YouTube rip - the owner was told it is unlicensed game music and chose to use it). A 9-minute window
+# that has no silent track change in it, slow-levelled, low under all speech, lifted where nobody talks at the top.
+GT0 = 860.0; w = wave.open(f'{M}/music/gt_48.wav'); w.setpos(int(GT0*SR)); bed = np.frombuffer(w.readframes(int((total + 1)*SR)), np.int16).reshape(-1, 2).astype(np.float32)/32768
+_h = SR//2; _n = len(bed)//_h; _e = 10*np.log10((bed[:_n*_h].reshape(_n, _h, 2)**2).mean((1, 2)) + 1e-12); _e = np.convolve(np.pad(_e, 8, mode='edge'), np.ones(17)/17, 'valid')
+bed *= (10**(np.interp(np.arange(len(bed)), (np.arange(_n) + .5)*_h, np.clip(-20.0 - _e, -12, 12))/20))[:, None]
+gdb = np.full(len(bed), BED_DB, np.float32)
+def lift(a, c, db, r=0.6):            # no speech here: bring the music up, with ramps
+    i, j, k = int(a*SR), int(c*SR), int(r*SR); gdb[i:i + k] = np.maximum(gdb[i:i + k], np.linspace(BED_DB, db, k)); gdb[i + k:j - k] = np.maximum(gdb[i + k:j - k], db); gdb[j - k:j] = np.maximum(gdb[j - k:j], np.linspace(db, BED_DB, k))
+lift(8.9, 12.6, -4.0)                 # title card
+g = 10**(gdb/20); r = int(1.0*SR); g[:r] *= np.linspace(0, 1, r); r2 = int(3*SR); g[-r2:] *= np.linspace(1, 0, r2)
 for tt, d, (k, a, c, sec, pic, nar) in rows:
-    if tt < t_new - 1e-6: continue
-    name, pos = want(k, a, sec)
-    if blocks and blocks[-1][2] == name: blocks[-1][1] = tt + d
-    else: blocks.append([tt, tt + d, name, pos])
-plan = []; DSN0 = 20.0; dsn = DSN0; END = lambda n: LEN[n] - XF - 6.0     # (cut time, track, track position)
-def card_bed(t0, t1):
-    global dsn
-    while t0 < t1 - 0.01:
-        if END('dark_summer_night') - dsn < 25: dsn = DSN0
-        run = min(t1 - t0, END('dark_summer_night') - dsn); plan.append((t0, 'dark_summer_night', dsn)); dsn += run; t0 += run
-for t0, t1, name, pos in blocks:
-    if name == 'dark_summer_night': card_bed(t0, t1); continue
-    run = min(t1 - t0, max(END(name) - pos, 0))
-    if run > 3: plan.append((t0, name, pos))
-    else: run = 0
-    card_bed(t0 + run, t1)                                                # track ran out before the section did
-bed = np.zeros((int((total - t_new + 1)*SR), 2), np.float32); xf = int(XF*SR)
-for i, (t0, name, pos) in enumerate(plan):
-    t1 = plan[i+1][0] if i+1 < len(plan) else total; n = int((t1 - t0)*SR) + xf; x = TR[name][int(pos*SR):int(pos*SR)+n].copy()
-    if i > 0: x[:xf] *= np.sin(np.linspace(0, np.pi/2, xf))[:, None]
-    if len(x) > xf: x[-xf:] *= np.cos(np.linspace(0, np.pi/2, xf))[:, None]
-    p = int((t0 - t_new)*SR); x = x[:len(bed)-p]; bed[p:p+len(x)] += x
-    print('  music %s  %-18s from %5.1f s' % (b.tc(t0), name, pos))
-_h = SR//2; _n = len(bed)//_h; _e = 10*np.log10((bed[:_n*_h].reshape(_n, _h, 2)**2).mean((1, 2)) + 1e-12); _e = np.convolve(np.pad(_e, 2, mode='edge'), np.ones(5)/5, 'valid')
-_fill = np.clip(-21.0 - _e, 0, 12); bed *= (10**(np.interp(np.arange(len(bed)), (np.arange(_n) + .5)*_h, _fill)/20))[:, None]      # v9: lift the quiet breaks inside a track so the bed never drops out and comes back
-g = np.full(len(bed), 10**(BED_DB/20), np.float32); r = int(1.5*SR); g[:r] = 10**(np.linspace(0, BED_DB, r)/20); r2 = int(3*SR); g[-r2:] *= np.linspace(1, 0, r2)       # ease down from the rough cut's level
-m = min(len(bed), N - n0); mix[n0:n0+m] += bed[:m]*g[:m, None]
+    if k == 'gag': i, j, q = int(tt*SR), int((tt + d)*SR), int(.25*SR); g[i:i + q] *= np.linspace(1, 0, q); g[i + q:j - q] = 0; g[j - q:j] *= np.linspace(0, 1, q)      # the joke plays on its own sound
+m = min(len(bed), N); mix[:m] += bed[:m]*g[:m, None]; print('  music: Gran Turismo compilation from %s, one bed' % b.tc(GT0))
 for s, x, nar, i in vo: p = int(s*SR); mix[p:p+len(x)] += x[:, None]
 mix = np.tanh(mix*1.0); ww = wave.open(f'{SEG}/mix.wav', 'w'); ww.setnchannels(2); ww.setsampwidth(2); ww.setframerate(SR); ww.writeframes((mix[:int(total*SR)]*32767).astype(np.int16).tobytes())
 # ---- subtitles in the rough cut's style (white) for the new narration + the labels build.ass() already makes

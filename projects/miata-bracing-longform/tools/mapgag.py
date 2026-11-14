@@ -1,7 +1,7 @@
 """The "epic journey" gag before the Miata Chop Shop visit (owner request, v9): a globe and a route build up as if the
 trip is long, then a hard cut to the real map where a little car drives next door.
 usage: python mapgag.py <media_dir> <frames> <out.mp4>      also writes <media_dir>/work/gag.wav (riser, swoosh, chime)
-Needs <media_dir>/map/map_clean.png (owner's screenshot) and <media_dir>/sfx/riser.wav + swoosh.mp3 (Dropbox dump folder).
+Needs <media_dir>/map/map_clean.png (owner's screenshot). The riser, whoosh and chime are synthesised.
 No distances or times on screen: nothing here is measured."""
 import sys, os, math, subprocess, wave
 import numpy as np, cv2
@@ -111,9 +111,13 @@ def sfx():
         raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', p, '-f', 'f32le', '-ac', '1', '-ar', str(SR), '-'], capture_output=True).stdout; return np.frombuffer(raw, np.float32).copy()
     def put(x, t0, peak):
         x = x*peak/(np.abs(x).max() + 1e-9); p = int(t0*SR); x = x[:n - p]; out[p:p + len(x)] += x
-    r = load(f'{M}/sfx/riser.wav'); pk = int(np.argmax(np.convolve(np.abs(r), np.ones(2400)/2400, 'same'))); end = min(pk + int(.10*SR), len(r)); r = r[max(end - int(TA*SR), 0):end]
-    r[:int(.15*SR)] *= np.linspace(0, 1, int(.15*SR)); r[-int(.04*SR):] *= np.linspace(1, 0, int(.04*SR)); put(r, TA - len(r)/SR, 0.42)              # the peak lands on the cut, then nothing
-    s = load(f'{M}/sfx/swoosh.mp3'); k = np.nonzero(np.abs(s) > 0.02*np.abs(s).max())[0]; s = s[k[0]:k[-1]]; put(s, TA + T_GO, 0.30)
+    # v11: both effects are synthesised here, so the joke carries no library sound at all
+    rng = np.random.default_rng(7); n_r = int(TA*SR); u = np.arange(n_r)/n_r; ns = rng.standard_normal(n_r).astype(np.float32)
+    sw = np.sin(2*np.pi*np.cumsum(120*(2**(u*3.2)))/SR) + .5*np.sin(2*np.pi*np.cumsum(181*(2**(u*3.2)))/SR)                  # rising tone, 120 Hz up about three octaves
+    hs = np.cumsum(ns - np.concatenate([[0], ns[:-1]])*0.0); hiss = ns - np.convolve(ns, np.ones(24)/24, 'same')                # high-passed noise
+    r = (sw*.6 + hiss*.5*u)*(u**2.2); r[-int(.04*SR):] *= np.linspace(1, 0, int(.04*SR)); put(r.astype(np.float32), 0.0, 0.40)   # swells into the cut, then nothing
+    n_s = int(.55*SR); v = np.arange(n_s)/n_s; ns = rng.standard_normal(n_s); k = (8 + 60*(1 - v)).astype(int); cs = np.cumsum(np.concatenate([[0], ns]))
+    lp = np.array([(cs[min(i + k[i], n_s)] - cs[max(i - k[i], 0)])/(2*k[i]) for i in range(n_s)]); s = (ns*.25 + lp*3)*np.sin(np.pi*v)**2; put(s.astype(np.float32), TA + T_GO, 0.26)   # whoosh as the car sets off
     tt = np.arange(int(.9*SR))/SR; ch = sum(a*np.sin(2*np.pi*f*np.maximum(tt - dl, 0))*np.exp(-np.maximum(tt - dl, 0)*6)*(tt >= dl) for f, a, dl in ((880, 1, 0), (1318.5, .8, .13)))
     put(ch.astype(np.float32), TA + T_ARR + 0.02, 0.22)                    # two-note "arrived" chime (synthesised)
     w = wave.open(f'{M}/work/gag.wav', 'w'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.repeat(out[:, None], 2, 1)*32767).astype(np.int16).tobytes())
