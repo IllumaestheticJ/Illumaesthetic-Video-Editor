@@ -36,6 +36,71 @@ def chrome_mat():
     return m
 
 
+def tyre_mat(cx, cy):
+    """Rubber with tread blocks: a bump from the angle about the wheel axis (object space = model units)."""
+    m = bpy.data.materials.new("lm_tyre_v9"); m.use_nodes = True; nt = m.node_tree; N = nt.nodes; Lk = nt.links.new
+    b = N["Principled BSDF"]; b.inputs["Base Color"].default_value = (0.008, 0.008, 0.009, 1); b.inputs["Roughness"].default_value = 0.62
+    if "Specular IOR Level" in b.inputs: b.inputs["Specular IOR Level"].default_value = 0.06  # black rubber, not grey
+    tc = N.new("ShaderNodeTexCoord"); sp = N.new("ShaderNodeSeparateXYZ"); Lk(tc.outputs["Object"], sp.inputs[0])
+    def mth(op, a, bb=None):
+        n = N.new("ShaderNodeMath"); n.operation = op
+        for i, v in enumerate((a, bb)):
+            if v is None: continue
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: Lk(v, n.inputs[i])
+        return n.outputs[0]
+    ang = mth("ARCTAN2", mth("SUBTRACT", sp.outputs[1], cy), mth("SUBTRACT", sp.outputs[0], cx))
+    r = mth("LENGTH", 0) if False else None
+    dx = mth("SUBTRACT", sp.outputs[0], cx); dy = mth("SUBTRACT", sp.outputs[1], cy)
+    rad = mth("SQRT", mth("ADD", mth("MULTIPLY", dx, dx), mth("MULTIPLY", dy, dy)))
+    # lateral grooves every 3 deg on the tread (r > 0.965 R), staggered half a pitch across the centre groove
+    zz = sp.outputs[2]
+    stag = mth("MULTIPLY", mth("GREATER_THAN", zz, TYRE["zmid"]), 0.5)
+    ph = mth("FRACT", mth("ADD", mth("DIVIDE", ang, math.radians(3.0)), stag))
+    groove = mth("LESS_THAN", mth("ABSOLUTE", mth("SUBTRACT", ph, 0.5)), 0.08)
+    on_tread = mth("GREATER_THAN", rad, TYRE["R"] * 0.965)
+    h = mth("MULTIPLY", mth("SUBTRACT", 1.0, mth("MULTIPLY", groove, on_tread)), 1.0)
+    bump = N.new("ShaderNodeBump"); bump.inputs["Strength"].default_value = 0.6; bump.inputs["Distance"].default_value = 4.0
+    Lk(h, bump.inputs["Height"]); Lk(bump.outputs["Normal"], b.inputs["Normal"])
+    return m
+
+
+TYRE = {}
+
+
+def tyre(cx, cy, R, rb, z_out, z_in):
+    """Revolved tyre in model units about (cx, cy), axis Z: bead rb, OD radius R, sidewalls at z_out (outboard, larger z)
+    and z_in. Rounded shoulders, sidewall bulge, rim-protector rib, 4 circumferential grooves."""
+    wdt = z_out - z_in; zm = (z_out + z_in) / 2; TYRE.update(R=R, zmid=zm)
+    sw = R - rb
+    side = [(rb, 0.000), (rb + 0.10 * sw, 0.020), (rb + 0.16 * sw, 0.034), (rb + 0.20 * sw, 0.030),  # bead, protector rib
+            (rb + 0.45 * sw, 0.036), (rb + 0.70 * sw, 0.030), (rb + 0.86 * sw, 0.012), (R - 0.05 * sw, -0.020),
+            (R - 0.012 * sw, -0.055)]  # (r, bulge outward as a fraction of width)
+    prof = [(r, z_out + b * wdt) for r, b in side]
+    # tread across the width with 4 grooves (depth 2.5 % of R)
+    gz = [0.20, 0.40, 0.60, 0.80]; gw = 0.035; gd = 0.022 * sw
+    t = 0.07
+    tread = [(R, z_out - t * wdt)]
+    for g in gz:
+        a, b2 = 1 - g - gw / 2, 1 - g + gw / 2
+        tread += [(R, z_in + b2 * wdt), (R - gd, z_in + b2 * wdt - 0.004 * wdt), (R - gd, z_in + a * wdt + 0.004 * wdt), (R, z_in + a * wdt)]
+    tread.append((R, z_in + t * wdt))
+    prof += tread + [(r, z_in - b * wdt) for r, b in reversed(side)]
+    n = 240; bm = bmesh.new(); rings = []
+    for i in range(n):
+        th = 2 * math.pi * i / n; c, s_ = math.cos(th), math.sin(th)
+        rings.append([bm.verts.new((cx + r * c, cy + r * s_, z)) for r, z in prof])
+    for i in range(n):
+        A, B = rings[i], rings[(i + 1) % n]
+        for j in range(len(prof) - 1):
+            bm.faces.new((A[j], A[j + 1], B[j + 1], B[j]))
+    me = bpy.data.meshes.new("tyre"); bm.to_mesh(me); bm.free()
+    for pl in me.polygons: pl.use_smooth = True
+    ob = bpy.data.objects.new("tyre", me); bpy.context.scene.collection.objects.link(ob)
+    me.materials.append(tyre_mat(cx, cy))
+    return ob
+
+
 def build():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.wm.obj_import(filepath=OBJ, forward_axis="Y", up_axis="Z")
@@ -56,7 +121,8 @@ def build():
     for i, s in enumerate(ob.material_slots):
         s.material = M.get(names[i], chrome)
     bm = bmesh.new(); bm.from_mesh(me)
-    bmesh.ops.delete(bm, geom=[f for f in bm.faces if names[f.material_index] == "caliper_logo"], context="FACES")
+    drop = {"caliper_logo", "generic_tyre1", "generic_tread1"}  # v9: the file's tyre is a thin stretched shell -> tyre()
+    bmesh.ops.delete(bm, geom=[f for f in bm.faces if names[f.material_index] in drop], context="FACES")
     bm.to_mesh(me); bm.free()
     # decal: PCA of the lettering patch in the wheel plane (XY), on its outboard (+Z) face
     L = V[logo_vs]; c = L.mean(0); e = np.linalg.eigh(np.cov((L[:, :2] - c[:2]).T))[1][:, ::-1]
@@ -75,19 +141,28 @@ def build():
     dmat = mat("lm_bomex_decal", (0.02, 0.02, 0.02), 0.4, 0.0, LOGO); dm.materials.append(dmat)
     # wheel frame: tread bbox -> centre + OD; axis +Z (outboard)
     tread = V[[v for p in me.polygons for v in p.vertices if names[p.material_index] in ("generic_tread1", "generic_tyre1")]] if False else None
+    T = V[[v for p in me.polygons for v in p.vertices]] if False else None
     return ob, dob, c
 
 
+TV = None
 ob, dob, cal = build()
 Vw = np.array([v.co[:] for v in ob.data.vertices]); lo, hi = Vw.min(0), Vw.max(0)
-ctr = np.array([(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, 0.0]); OD = max(hi[0] - lo[0], hi[1] - lo[1]); s = 2 * WJ["r"] / OD
+# the file's tyre is gone: wheel frame from its known tread (centre 450.98, 389.13; OD 937 units = 0.684 m rim scale)
+ctr = np.array([450.9801745, 389.1266395, 0.0]); OD = 936.972251; s = 2 * WJ["r"] / OD
+TR = WJ.get("tyre", {}).get("r", WJ["r"])  # v9 tyre radius (m): fuller sidewall like the photo, rim scale unchanged
+tob = tyre(ctr[0], ctr[1], TR / s, 386.0, -287.0, -664.0)
+hi = np.array([v.co[:] for v in ob.data.vertices]).max(0)
 zout = hi[2]
 print("OD units", OD, "scale", s, "outer z", zout, "width m", (hi[2] - lo[2]) * s)
 cal_ang = math.atan2(cal[1] - ctr[1], cal[0] - ctr[0])
-for o in (ob, dob):
+WOBJ = (ob, dob, tob)
+for o in WOBJ:
     o.parent = None
 base = {}
-for o in (ob, dob): base[o.name] = o.matrix_world.copy()
+for o in WOBJ: base[o.name] = o.matrix_world.copy()
+SQ = WJ.get("tyre", {}).get("squish", 0.006)
+STEER = WJ.get("steer_deg", 0.0)
 xc, ho = WJ["xc"], WJ["bbs"]["half_outer"]
 os.makedirs(OUT, exist_ok=True)
 for k, w in WJ["stock"].items():
@@ -103,11 +178,17 @@ for k, w in WJ["stock"].items():
     if not left:
         to_car = Matrix(((0, 0, -1, 0), (-1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 0, 1)))  # outboard = -X, keep caliper trailing
     xo = xc + (ho - 0.005) * (1 if left else -1)
-    T1 = Matrix.Translation(Vector((xo, w["y"], WJ["r"] + 0.002)))
-    M = T1 @ to_car @ S @ Rz @ T0
-    for o in (ob, dob):
-        o.matrix_world = M @ base[o.name]
-    bpy.context.view_layer.update()
-    bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, f"lm_{k}.blend"), copy=True)
+    T1 = Matrix.Translation(Vector((xo, w["y"], TR - SQ)))
+    hw = 0.5 * (zout - (-664.0)) * s  # half the tyre width (m): steer about the tyre's centre plane, not the face
+    for tag, deg in (("", 0.0), ("_steer", STEER)):
+        if tag and not k.startswith("f"):
+            continue
+        piv = Vector((xo - hw * (1 if left else -1), w["y"], TR - SQ))
+        St = Matrix.Translation(piv) @ Matrix.Rotation(math.radians(deg), 4, "Z") @ Matrix.Translation(-piv)
+        M = St @ T1 @ to_car @ S @ Rz @ T0
+        for o in WOBJ:
+            o.matrix_world = M @ base[o.name]
+        bpy.context.view_layer.update()
+        bpy.ops.wm.save_as_mainfile(filepath=os.path.join(OUT, f"lm_{k}{tag}.blend"), copy=True)
     bb = [o.matrix_world @ Vector(cc) for cc in ob.bound_box]
     print("wrote", k, [round(min(v[i] for v in bb), 3) for i in range(3)], [round(max(v[i] for v in bb), 3) for i in range(3)])

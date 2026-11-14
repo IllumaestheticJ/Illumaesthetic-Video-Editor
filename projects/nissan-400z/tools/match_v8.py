@@ -14,7 +14,8 @@ key = {"t": 0, "loc": c["loc"], "target": c["target"], "focal": c["focal"], "rol
 sp = {"base": h["base"], "parts": [], "camera": {"sensor": 36, "keys": [key], "shift": c.get("shift", [0, 0])},
       "seconds": 1 / 15, "fps": 15, "res": f"{W}x{H}", "res_pct": 100, "samples": 16, "persist": False,
       "livery": h["livery"], "body_drop": h["body_drop"]}
-if mode == "render":
+if mode in ("render", "idrender"):
+    if mode == "idrender": sp["idcolors"] = True; sp["samples"] = 4
     sp["out"] = sys.argv[3]; sp["res_pct"] = int(sys.argv[4]) if len(sys.argv) > 4 else 100
 elif mode == "export":
     sp["out"] = "/tmp/unused.png"; sp["export"] = {"frame": 1, "out": sys.argv[3]}

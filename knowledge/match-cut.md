@@ -92,3 +92,11 @@ converge; pick frames where the car fills ≤70 % of the frame with roofline + o
      against a render from that near camera, raycast, `ive solve` free focal -> 4.5 px; overlay blend confirmed
      badge, grille, headlights and both wheels. Points beat outlines once the guess is close.
 - `tools/solve2cam.py` converts the solve's rotation matrix into shot.py {loc, target, roll, focal}.
+
+## Use the 1:1 camera to check stance, wheels and decals (400Z v9)
+- Once the camera is solved on BODY landmarks, the wheels are an independent check: compare rim top/bottom and arch-to-rim
+  gaps at the solved view. v8's 80 mm "drop" (judged from arch gap with a stand-in wheel) was 8-9 cm too low.
+- When you change the ride height after solving, move the camera by the same dz (`SOLVE_DROP`): it was solved on the body.
+- Steered front wheels in the photo show as a wider rim ellipse; steer only the shot that ends on the photo.
+- Projected windscreen decals: projecting along Y onto a ~30 deg rake stretches letters 2x along the glass. Size the
+  decal by its z-extent = letter height x sin(rake), then fit position/width/shear against the photo at the match camera.

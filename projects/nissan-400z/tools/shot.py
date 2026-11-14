@@ -98,7 +98,12 @@ def grille_recess(objs, g, ground, body_roots):
     import numpy as np
     if "m" not in _DARK:
         m, nt, out = sr.new_mat("ive_grille_dark")
-        nt.links.new(sr.principled(nt, (0.018, 0.018, 0.02, 1), 0.42).outputs[0], out.inputs[0]); _DARK["m"] = m
+        # mostly diffuse: a principled dark plastic still caught the big studio top light as white glints on up-facing
+        # grille faces; keep a faint rough sheen so the slots read
+        d = nt.nodes.new("ShaderNodeBsdfDiffuse"); d.inputs["Color"].default_value = (0.022, 0.022, 0.024, 1)
+        gl = nt.nodes.new("ShaderNodeBsdfGlossy"); gl.inputs["Roughness"].default_value = 0.5; gl.inputs["Color"].default_value = (0.05, 0.05, 0.05, 1)
+        ad = nt.nodes.new("ShaderNodeAddShader"); nt.links.new(d.outputs[0], ad.inputs[0]); nt.links.new(gl.outputs[0], ad.inputs[1])
+        nt.links.new(ad.outputs[0], out.inputs[0]); _DARK["m"] = m
     dk = _DARK["m"]; x0, x1, y0, y1, z0, z1 = g["box"]
     for o in list(objs):
         me = o.data; n = len(me.polygons)
@@ -398,6 +403,14 @@ def main():
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGB"
+    if spec.get("idcolors"):  # debug: flat colour per object (which scan/kit piece shows where)
+        import colorsys, zlib
+        for ob in sc.objects:
+            if ob.type != "MESH": continue
+            h = (zlib.crc32(ob.name.split(".")[0].encode()) % 997) / 997.0
+            m, nt, out = sr.new_mat("id_" + ob.name); e = sr.emission(nt, colorsys.hsv_to_rgb(h, 0.8, 0.9) + (1,), 1.0)
+            nt.links.new(e.outputs[0], out.inputs[0]); ob.data.materials.clear(); ob.data.materials.append(m)
+            print("IDCOL", ob.name, [round(c, 2) for c in colorsys.hsv_to_rgb(h, 0.8, 0.9)])
     ex = spec.get("export")  # {"frame": n, "out": npz}: world-space vertices of every visible mesh (camera fitting)
     if ex:
         import numpy as np
@@ -431,6 +444,11 @@ def main():
             hit, loc, nrm, idx, ob, mx = sc.ray_cast(dg, o, (pt - o).normalized())
             res[name] = {"px": [px, py], "xyz": [round(c, 5) for c in loc] if hit else None, "obj": ob.name if hit else None,
                          "dist": round((loc - o).length, 4) if hit else None}
+            if hit and ob.type == "MESH":
+                try:
+                    pm = ob.data.polygons[idx].material_index; res[name]["mat"] = ob.material_slots[pm].material.name
+                    res[name]["normal"] = [round(c, 3) for c in nrm]
+                except Exception: pass
         json.dump(res, open(rc["out"], "w"), indent=1); print("IVE_RAYCAST", rc["out"]); return
     out = os.path.abspath(spec["out"])
     if spec.get("frames"):  # framing check: only these frames ("first", "mid", "last" or numbers)

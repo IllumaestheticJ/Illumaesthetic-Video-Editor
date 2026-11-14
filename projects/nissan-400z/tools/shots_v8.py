@@ -18,9 +18,13 @@ OUT = "/home/user/media/work/z400/renders"
 SPECS = "/home/user/media/work/z400/specs"
 LIVMAP = json.load(open(os.path.join(HERE, "..", "livery_map.json")))
 LIV = {"tex": "/home/user/media/nissan-400z/livery/tex", "map": LIVMAP, "hood": [-0.07, -0.85, 0.75, 0.37],
-       "paint": [0.10, 0.10, 0.105], "belt": 0.97, "banner": [-0.07, 1.05, 1.135, 0.125, -0.75, 0.05], "glass_nz": 0.95, "xc": -0.07,
+       "paint": [0.10, 0.10, 0.105], "belt": 0.97, "banner": [-0.068, 0.945, 1.140, 0.100, -0.75, 0.05], "glass_nz": 0.95, "xc": -0.07,
        "cabin": [-0.75, 1.05, 0.80, 1.19, 0.66], "side_min": 0.84}
 DROP = -0.08  # m: kit arch lips sat 87-102 mm over the tyres; the built car tucks to ~10-20 mm
+SOLVE_DROP = DROP  # the match camera (match/cam_match.json) was solved with the body at this drop
+# v9 (user: "match the stance of the picture"): at the solved camera the rims sat 29 px (front) / 22 px (rear) too high in
+# the arches, i.e. the body was ~8-9 cm too low over the wheels; with the fuller v9 tyre the body goes back up
+DROP = 0.01
 LIV7 = {**LIV, "map": {**LIVMAP, "Z0": LIVMAP["Z0"] + DROP}, "belt": LIV["belt"] + DROP,
         "banner": LIV["banner"][:2] + [LIV["banner"][2] + DROP] + LIV["banner"][3:],
         "cabin": LIV["cabin"][:2] + [LIV["cabin"][2] + DROP, LIV["cabin"][3] + DROP] + LIV["cabin"][4:]}  # world-space wrap follows the body
@@ -30,7 +34,7 @@ KIT = ["front_bumper", "canard_driver", "canard_pass", "front_fender_driver", "f
        "gas_cap_x", "ducktail", "diffuser"]
 # v8: inside the Bomex grille surround (opening dx -0.51..+0.49 about xc -0.075, z 0.25-0.55 before the drop) the real
 # car shows only the black factory grille in a black recess; the trimmed stock scan read as silver scraps with holes
-GRILLE = {"box": [-0.605, 0.435, -2.25, -1.55, 0.10, 0.548], "backing": [-0.605, 0.435, -1.62, 0.10, 0.56]}
+GRILLE = {"box": [-0.605, 0.435, -2.25, -1.55, 0.10, 0.548], "backing": [-0.75, 0.62, -1.62, 0.06, 0.60]}  # v9: wider/taller - the far wheel showed through at the right edge
 FPS30 = {"STRUCT", "BUMPER", "MIRRORS", "KIT_FRONT", "KIT_SIDE", "REAR", "HERO"}  # HERO: exact 1:1 last frame; part motion -> native 30 fps (no minterpolate)
 
 # measured cut frames @30: see direction_v5 / onset check
@@ -72,6 +76,8 @@ def arc(secs, a0, a1, el0, el1, r0, r1, c0, c1, focal, n=8):
 
 SHOTS = {}
 BBS = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl", "fr", "rl", "rr")]  # v8: user's BBS LM file, chrome on chrome, white Bomex calipers (tools/make_lm.py)  # stand-in wheels (tools/make_bbs.py)
+# HERO ends on the SEMA photo, where the fronts are steered a few degrees (rim ellipse 85 vs 70 px wide at the solve)
+BBS_STEER = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl_steer", "fr_steer", "rl", "rr")]
 STOCKW = {"blend": f"{B}/stock_wheels.blend"}
 
 # 4. STRUCT: ducting off, swap to crash-foam-removed state
@@ -123,7 +129,7 @@ SHOTS["KIT_FRONT"] = {
     # v6: stock bumper + grilles stay on (kb6 = full car minus stock mirrors and wheels); the Bomex front is a surround over it
     "base": [{"blend": f"{B}/kb6_wing.blend", "hide_at": rel(29.968) + 0.6},
              {"blend": f"{B}/kb7F_wing.blend", "show_at": rel(29.968) + 0.6, "hide_at": rel(30.906) + 0.6},  # fenders seated
-             {"blend": f"{B}/kb7B_wing.blend", "show_at": rel(30.906) + 0.6, "grille": GRILLE},                                 # bumper seated
+             {"blend": f"{B}/kb9B_wing.blend", "show_at": rel(30.906) + 0.6, "grille": GRILLE},                                 # bumper seated
              held(f"{B}/p_wing.blend"), STOCKW],
     "parts": [
         kit(f"{B}/k_front_fender_driver.blend", (0.15, 0, 0.45), rel(29.968), (0.08, 0, 0)),
@@ -144,8 +150,8 @@ FRONT_HELD = [held(f"{B}/k_{n}.blend") for n in ("front_fender_driver", "front_f
 # 8. KIT_SIDE: passenger side, skirts/rear fenders/slats/gas cap install
 d = dur("KIT_SIDE")
 SHOTS["KIT_SIDE"] = {
-    "base": [{"blend": f"{B}/kb7B_wing.blend", "hide_at": 34.187 + 0.6 - 32.781, "grille": GRILLE},
-             {"blend": f"{B}/kb7_wing.blend", "show_at": 34.187 + 0.6 - 32.781, "grille": GRILLE},  # skirts seated: side/rear trim
+    "base": [{"blend": f"{B}/kb9B_wing.blend", "hide_at": 34.187 + 0.6 - 32.781, "grille": GRILLE},
+             {"blend": f"{B}/kb9_wing.blend", "show_at": 34.187 + 0.6 - 32.781, "grille": GRILLE},  # skirts seated: side/rear trim
              held(f"{B}/p_wing.blend")] + FRONT_HELD +
             [{**STOCKW, "hide_at": 34.656 - 32.781}] + [{**w, "show_at": 34.656 - 32.781} for w in BBS],  # 1:1 wheel swap on the kick
     "parts": [
@@ -156,7 +162,7 @@ SHOTS["KIT_SIDE"] = {
         kit(f"{B}/k_rear_fender_slats_pass.blend", (-0.75, 0, 0.35), 34.42 - 32.781, (-0.08, 0, 0)),
         kit(f"{B}/k_rear_fender_slats_driver.blend", (0.75, 0, 0.35), 34.42 - 32.781, (0.08, 0, 0)),
         kit(f"{B}/k_gas_cap_x.blend", (-0.35, 0, 0.15), 35.125 - 32.781)],
-    "body_drop": [[0, 0.0], [34.656 - 32.781 + 0.12, 0.0], [34.656 - 32.781 + 0.55, DROP]],  # drops onto the new wheels
+    "body_drop": [[0, DROP]],  # v9: photo ride height (DROP ~0) - no settle onto the new wheels any more
     "cam": cam(arc(d, -62, -120, 8, 9, 6.6, 5.9, [-0.25, 0.25, 0.55], [-0.2, 0.5, 0.6], 36, n=6))}
 
 SIDE_HELD = FRONT_HELD + [held(f"{B}/k_{n}.blend") for n in ("rear_fender_driver", "rear_fender_pass",
@@ -165,7 +171,7 @@ SIDE_HELD = FRONT_HELD + [held(f"{B}/k_{n}.blend") for n in ("rear_fender_driver
 # 9. REAR: stock wing off, ducktail + diffuser on
 d = dur("REAR")
 SHOTS["REAR"] = {
-    "base": [{"blend": f"{B}/kb7_wing.blend", "grille": GRILLE}] + SIDE_HELD,
+    "base": [{"blend": f"{B}/kb9_wing.blend", "grille": GRILLE}] + SIDE_HELD,
     "body_drop": [[0, DROP]],
     "parts": [
         {"blend": f"{B}/p_wing.blend", "keys": [k(0, (0, 0, 0)), k(0.3, (0, 0, 0)), k(0.75, (0, 0, 0.15), ease="out"), k(1.4, (0, 0.2, 0.6), ease="in"), k(d, (0, 0.2, 0.6))]},
@@ -176,17 +182,19 @@ SHOTS["REAR"] = {
 # 10. LIVERY: full kitted car, livery sweep (camera + material only)
 d = dur("LIVERY")
 SHOTS["LIVERY"] = {
-    "base": [{"blend": f"{B}/kb7_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS,
+    "base": [{"blend": f"{B}/kb9_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS,
     "body_drop": [[0, DROP]],
     "livery": {**LIV7, "sweep": [[0, 2.6], [42.156 - 40.281, -2.4]]},
     "cam": cam(arc(d, 140, 78, 9, 9, 5.6, 5.8, [0, 0.4, 0.6], [0, 0.1, 0.6], 40, n=6))}
 
 # 11. HERO: whole kitted liveried car
 _m = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "match", "cam_match.json")))
-MATCH = {"loc": _m["loc"], "target": _m["target"], "focal": _m["focal"], "roll": _m["roll"]}
+_dz = DROP - SOLVE_DROP  # the camera rides with the body it was solved on
+MATCH = {"loc": [_m["loc"][0], _m["loc"][1], _m["loc"][2] + _dz], "target": [_m["target"][0], _m["target"][1], _m["target"][2] + _dz],
+         "focal": _m["focal"], "roll": _m["roll"]}
 d = dur("HERO")
 SHOTS["HERO"] = {
-    "base": [{"blend": f"{B}/kb7_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS,
+    "base": [{"blend": f"{B}/kb9_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS_STEER,
     "body_drop": [[0, DROP]],
     "livery": {**LIV7, "sweep": [[0, -9.0]]},
     # ends exactly on the solved SEMA-photo camera (match/cam_match.json) 2 frames before the 45.867 cut, then holds,

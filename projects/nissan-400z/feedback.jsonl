@@ -13,3 +13,8 @@
 {"ts": "2026-11-14T10:48:19Z", "project": "nissan-400z", "at": "31", "category": "scan", "note": "The front bumper fitment / grille cutting (area around the factory grilles) is still a little odd", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-14T10:48:19Z", "project": "nissan-400z", "at": "34.7", "category": "scan-look", "note": "Here is the wheel file (bbs-lm.zip) - the wheels need to be chrome on chrome", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-14T10:48:19Z", "project": "nissan-400z", "at": "34.7", "category": "scan-look", "note": "The Brembo caliper text needs to be replaced: caliper white with a black Bomex logo", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T19:29:01Z", "project": "nissan-400z", "at": "45.9", "category": "scan-look", "note": "Match the stance of the picture", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T19:29:01Z", "project": "nissan-400z", "at": "44", "category": "text", "note": "Properly resize and use the correct logo for the KAIDO HOUSE livery", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T19:29:01Z", "project": "nissan-400z", "at": "42", "category": "scan-look", "note": "Move the BOMEX logo on the sides backwards a little bit", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T19:29:01Z", "project": "nissan-400z", "at": "34.7", "category": "scan-look", "note": "Use a better tire model for the wheels", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T19:29:01Z", "project": "nissan-400z", "at": "31", "category": "scan", "note": "The front end still has some weird artifacting and clipping that needs to be fixed", "by": "reviewer", "promoted": false}

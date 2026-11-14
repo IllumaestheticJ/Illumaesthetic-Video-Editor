@@ -63,3 +63,12 @@ at <6 m crop the car. Check at 30 % res first.
 - **Kit surround over a trimmed stock bumper**: the trimmed scan leaves silver scraps and see-through holes inside the
   new opening. Give stock faces inside the opening a dark satin material and close it with a dark backing plane
   (`shot.py grille_recess`, base-entry key `grille`). Find the opening from the kit vertices (inner edge per height).
+
+## Finding front-end artifacts (400Z v9)
+- Render an object-ID pass (shot.py `idcolors`, match_v8.py `idrender`) next to the beauty pass, then raycast the odd
+  pixels (raycast now reports the material and normal). Black "notches" were holes into the car interior, not shadows.
+- A trim that removes stock faces under a kit can open holes where the kit does not actually cover. Restore source
+  faces only if a ray to the front misses the kit AND a short ray backwards misses it (else they are flaps proud of the
+  kit) - tools/fix_front.py.
+- Dark plastic with a principled specular still throws white glints under the studio top light; use diffuse + faint
+  rough glossy for black trim.
