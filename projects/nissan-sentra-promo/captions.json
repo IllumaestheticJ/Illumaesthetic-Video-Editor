@@ -2,108 +2,113 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1455,
+ "durationInFrames": 1410,
  "captions": [
   {
    "text": "using nothing but scan data",
-   "start": 1.8,
-   "end": 4.5
+   "start": 4.3333,
+   "end": 6.99
   },
   {
    "text": "but to make parts that actually fit",
-   "start": 4.5,
-   "end": 7.0
+   "start": 6.99,
+   "end": 9.38
   },
   {
    "text": "you need the real car, in 3D",
-   "start": 7.0,
-   "end": 9.5
+   "start": 9.38,
+   "end": 12.12
   },
   {
    "text": "so first, we scan the whole car",
-   "start": 9.5,
-   "end": 13.0
+   "start": 12.12,
+   "end": 15.34
   },
   {
    "text": "every body line",
-   "start": 13.0,
-   "end": 15.0
+   "start": 15.34,
+   "end": 16.92
   },
   {
    "text": "every panel gap",
-   "start": 15.0,
-   "end": 17.0
+   "start": 16.92,
+   "end": 18.61
   },
   {
    "text": "then the engine bay, on its own",
-   "start": 17.0,
-   "end": 21.0
+   "start": 18.61,
+   "end": 21.68
   },
   {
    "text": "and the fog lights",
-   "start": 21.0,
-   "end": 23.5
+   "start": 21.68,
+   "end": 23.36
   },
   {
    "text": "now we design on top of it",
-   "start": 23.5,
-   "end": 26.0
+   "start": 23.36,
+   "end": 25.43
   },
   {
    "text": "a new front bumper",
-   "start": 26.0,
-   "end": 28.0
+   "start": 25.43,
+   "end": 27.03
   },
   {
    "text": "with its own fog ducts",
-   "start": 28.0,
-   "end": 30.0
+   "start": 27.03,
+   "end": 28.89
   },
   {
    "text": "wider fenders and a new hood",
-   "start": 30.0,
-   "end": 32.5
+   "start": 28.89,
+   "end": 31.33
   },
   {
    "text": "side skirts",
-   "start": 32.5,
-   "end": 34.0
+   "start": 31.33,
+   "end": 32.77
   },
   {
    "text": "rear quarter panels",
-   "start": 34.0,
-   "end": 36.0
+   "start": 32.77,
+   "end": 34.41
   },
   {
    "text": "a diffuser",
-   "start": 36.0,
-   "end": 37.5
+   "start": 34.41,
+   "end": 35.66
   },
   {
    "text": "and a wing",
-   "start": 37.5,
-   "end": 39.5
+   "start": 35.66,
+   "end": 37.1
   },
   {
    "text": "even the brake adapters",
-   "start": 39.5,
-   "end": 41.5
+   "start": 37.1,
+   "end": 38.95
   },
   {
    "text": "revised until they fit",
-   "start": 41.5,
-   "end": 43.5
+   "start": 38.95,
+   "end": 41.23
   },
   {
    "text": "this is the sentra scan data",
-   "start": 43.5,
-   "end": 46.0
+   "start": 41.23,
+   "end": 43.63
   },
   {
    "text": "get it on illumaesthetic.com",
-   "start": 46.0,
-   "end": 48.5
+   "start": 43.63,
+   "end": 46.6
   }
  ],
- "_note": "line 1 is on IRL (voice only, no caption); times are placeholders until the voice take is cut, then re-time from its pause map"
+ "barY": 1546,
+ "barW": 906,
+ "barH": 72,
+ "fontSize": 31,
+ "fadeFrames": 0,
+ "_note": "re-timed from timing.json (voice take); caption = narration line word for word, shown from its first word to the next line; line 1 (IRL) has no caption"
 }

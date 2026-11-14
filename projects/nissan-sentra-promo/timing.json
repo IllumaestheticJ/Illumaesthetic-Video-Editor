@@ -1,0 +1,173 @@
+{
+ "voice_end": 45.58,
+ "lines": [
+  {
+   "text": "let's build a 2026 nissan sentra SR",
+   "start": 0.25,
+   "end": 4.13,
+   "src": "hook2",
+   "in": 1.32,
+   "out": 5.2
+  },
+  {
+   "text": "using nothing but scan data",
+   "start": 4.53,
+   "end": 6.49,
+   "src": "take",
+   "in": 3.94,
+   "out": 5.9
+  },
+  {
+   "text": "but to make parts that actually fit",
+   "start": 6.99,
+   "end": 8.98,
+   "src": "take",
+   "in": 6.45,
+   "out": 8.44
+  },
+  {
+   "text": "you need the real car, in 3D",
+   "start": 9.38,
+   "end": 11.52,
+   "src": "take",
+   "in": 9.02,
+   "out": 11.16
+  },
+  {
+   "text": "so first, we scan the whole car",
+   "start": 12.12,
+   "end": 14.44,
+   "src": "take",
+   "in": 11.65,
+   "out": 13.97
+  },
+  {
+   "text": "every body line",
+   "start": 15.34,
+   "end": 16.42,
+   "src": "take",
+   "in": 14.48,
+   "out": 15.56
+  },
+  {
+   "text": "every panel gap",
+   "start": 16.92,
+   "end": 18.01,
+   "src": "take",
+   "in": 16.09,
+   "out": 17.18
+  },
+  {
+   "text": "then the engine bay, on its own",
+   "start": 18.61,
+   "end": 20.78,
+   "src": "take",
+   "in": 17.64,
+   "out": 19.81
+  },
+  {
+   "text": "and the fog lights",
+   "start": 21.68,
+   "end": 22.66,
+   "src": "take",
+   "in": 20.43,
+   "out": 21.41
+  },
+  {
+   "text": "now we design on top of it",
+   "start": 23.36,
+   "end": 24.83,
+   "src": "take",
+   "in": 21.77,
+   "out": 23.24
+  },
+  {
+   "text": "a new front bumper",
+   "start": 25.43,
+   "end": 26.53,
+   "src": "take",
+   "in": 23.76,
+   "out": 24.86
+  },
+  {
+   "text": "with its own fog ducts",
+   "start": 27.03,
+   "end": 28.29,
+   "src": "take",
+   "in": 25.35,
+   "out": 26.61
+  },
+  {
+   "text": "wider fenders and a new hood",
+   "start": 28.89,
+   "end": 30.73,
+   "src": "take",
+   "in": 27.06,
+   "out": 28.9
+  },
+  {
+   "text": "side skirts",
+   "start": 31.33,
+   "end": 32.27,
+   "src": "take",
+   "in": 29.6,
+   "out": 30.54
+  },
+  {
+   "text": "rear quarter panels",
+   "start": 32.77,
+   "end": 33.91,
+   "src": "take",
+   "in": 31.31,
+   "out": 32.45
+  },
+  {
+   "text": "a diffuser",
+   "start": 34.41,
+   "end": 35.16,
+   "src": "take",
+   "in": 32.93,
+   "out": 33.68
+  },
+  {
+   "text": "and a wing",
+   "start": 35.66,
+   "end": 36.3,
+   "src": "take",
+   "in": 34.48,
+   "out": 35.12
+  },
+  {
+   "text": "even the brake adapters",
+   "start": 37.1,
+   "end": 38.6,
+   "src": "brake2",
+   "in": 1.7,
+   "out": 3.2
+  },
+  {
+   "text": "revised until they fit",
+   "start": 38.95,
+   "end": 40.33,
+   "src": "take",
+   "in": 36.92,
+   "out": 38.3
+  },
+  {
+   "text": "this is the sentra scan data",
+   "start": 41.23,
+   "end": 43.03,
+   "src": "take",
+   "in": 38.92,
+   "out": 40.72
+  },
+  {
+   "text": "get it on illumaesthetic.com",
+   "start": 43.63,
+   "end": 45.58,
+   "src": "take",
+   "in": 41.23,
+   "out": 43.18
+  }
+ ]
+}
