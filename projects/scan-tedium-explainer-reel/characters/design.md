@@ -30,3 +30,8 @@ driver (open-face helmet with sage stripe).
 - kid turnaround (FINAL, no arms): 9cbf5fb5-0492-4c75-a771-a67ba61f647c  (3c6d49df... rejected: hoodie shoulders read as arms)
 Use these as image_references for any new shot to keep the characters consistent.
 Note: Higgsfield unlimited is not available from Claude Code; keep to gpt_image_2_6 low/1k (~0.5 cr/image).
+
+## Shading (owner, 2026-11-14): CEL-SHADED world
+Whole cartoon world is cel-shaded (EEVEE toon: 2-3 hard bands, black outlines, thicker on characters).
+Real IS350 footage in the phone stays photographic (cartoon -> real -> scan contrast).
+Reference: cel_ref e749a062-b917-4ba6-b13b-82e02acd7626 (ignore its vest arm-hole circles and hand touching head).
