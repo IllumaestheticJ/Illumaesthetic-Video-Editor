@@ -1,0 +1,114 @@
+{
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1410,
+ "captions": [
+  {
+   "text": "using nothing but scan data",
+   "start": 4.3333,
+   "end": 6.99
+  },
+  {
+   "text": "but to make parts that actually fit",
+   "start": 6.99,
+   "end": 9.38
+  },
+  {
+   "text": "you need the real car, in 3D",
+   "start": 9.38,
+   "end": 12.12
+  },
+  {
+   "text": "so first, we scan the whole car",
+   "start": 12.12,
+   "end": 15.34
+  },
+  {
+   "text": "every body line",
+   "start": 15.34,
+   "end": 16.92
+  },
+  {
+   "text": "every panel gap",
+   "start": 16.92,
+   "end": 18.61
+  },
+  {
+   "text": "then the engine bay, on its own",
+   "start": 18.61,
+   "end": 21.68
+  },
+  {
+   "text": "and the fog lights",
+   "start": 21.68,
+   "end": 23.36
+  },
+  {
+   "text": "now we design on top of it",
+   "start": 23.36,
+   "end": 25.43
+  },
+  {
+   "text": "a new front bumper",
+   "start": 25.43,
+   "end": 27.03
+  },
+  {
+   "text": "with its own fog ducts",
+   "start": 27.03,
+   "end": 28.89
+  },
+  {
+   "text": "wider fenders and a new hood",
+   "start": 28.89,
+   "end": 31.33
+  },
+  {
+   "text": "side skirts",
+   "start": 31.33,
+   "end": 32.77
+  },
+  {
+   "text": "rear quarter panels",
+   "start": 32.77,
+   "end": 34.41
+  },
+  {
+   "text": "a diffuser",
+   "start": 34.41,
+   "end": 35.66
+  },
+  {
+   "text": "and a wing",
+   "start": 35.66,
+   "end": 37.1
+  },
+  {
+   "text": "even the brake adapters",
+   "start": 37.1,
+   "end": 38.95
+  },
+  {
+   "text": "revised until they fit",
+   "start": 38.95,
+   "end": 41.23
+  },
+  {
+   "text": "this is the sentra scan data",
+   "start": 41.23,
+   "end": 43.63
+  },
+  {
+   "text": "get it on illumaesthetic.com",
+   "start": 43.63,
+   "end": 46.6
+  }
+ ],
+ "barY": 1546,
+ "barW": 906,
+ "barH": 72,
+ "fontSize": 31,
+ "fadeFrames": 0,
+ "_note": "re-timed from timing.json (voice take); caption = narration line word for word, shown from its first word to the next line; line 1 (IRL) has no caption"
+}
