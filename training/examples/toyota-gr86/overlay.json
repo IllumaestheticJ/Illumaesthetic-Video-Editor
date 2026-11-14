@@ -34,12 +34,12 @@
   },
   {
    "kind": "label",
-   "from": 305,
-   "duration": 47,
-   "title": "FRONT BUMPER",
-   "sub": "PART SCAN",
-   "x": 0.08,
-   "y": 0.08
+   "from": 325,
+   "duration": 27,
+   "title": "FRONT BUMPERS",
+   "sub": "BRZ + GR86",
+   "x": 0.4,
+   "y": 0.69
   },
   {
    "kind": "label",
@@ -79,12 +79,12 @@
   },
   {
    "kind": "label",
-   "from": 600,
-   "duration": 47,
-   "title": "REAR BUMPER",
-   "sub": "PART SCAN",
+   "from": 619,
+   "duration": 28,
+   "title": "REAR BUMPERS",
+   "sub": "BRZ + GR86",
    "x": 0.08,
-   "y": 0.08
+   "y": 0.58
   },
   {
    "kind": "label",

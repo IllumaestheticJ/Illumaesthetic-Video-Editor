@@ -1,3 +1,30 @@
+# Toyota GR86 / Subaru BRZ (gen 2) - v7 self-review (training/rubric.md)
+
+Output: `/home/user/media/work/gr86/out/toyota_gr86_v7.mp4` (not in git). Same music, cuts and length as v5/v6 (1195 frames / 39.833 s).
+
+v6 user notes:
+1. "The BRZ and GR86 bumper are clipping into each other. Have them come off and then split apart."
+   - In v4-v6 each moving bumper was ONE mesh: the BRZ full car's own bumper skin plus the GR86 Bomex bumper scan's inner face. They are two different bumpers.
+   - Now (tools/split_v7.py, tools/shots_v7.py, shot.py `show` windows): the bumper pulls straight out as one piece. At 0.40 s it swaps to two parts, the BRZ skin and the GR86 scan. The BRZ skin lifts straight up out of frame; the GR86 scan tips and drops, and the rear lights ride it.
+   - Labels: FRONT BUMPERS / REAR BUMPERS, sub BRZ + GR86, after the split.
+   - The explode gives each bumper its own offset. In the reassembly the GR86 scan lands, then the BRZ skin, then the combined part swaps back in, so nothing clips at rest.
+2. "There are still bits of the rear trunk left behind."
+   - Coloured by source scan, the badge panel standing in the opening was Rear Bumper Removed fill: that capture had the lid CLOSED, so its lid skin refilled the opening. States captured with the lid closed may no longer fill within 12 mm of the lid (tools/build_v7.py).
+   - The right gutter/wing strips the open captures lack are dropped (tools/lid_v7.py drop mask).
+   - Uncaptured trunk-zone base tris: 39162 (v6) -> 15364. The rest is the rear-glass base in front of the shut line, hidden from the scanner by the raised lid.
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 4 | Scan quality | 5 | No double bumper. No trunk leftovers in the opening. Luma is clean on all 12 re-renders. Edge margins: x2/x3 >= 42 px, h1 >= 16 px. |
+| 5 | Story | 5 | The bumpers now read as two scans of two cars' bumpers: off together, then apart. |
+| other | - | as v6 | |
+
+## Remaining weak spots for the next agent
+- x1 parts drop in through the frame top in frames 5-9, which is motion rather than a parked pose.
+- The rear-glass base band stays (the scan hides it under the open lid).
+- The exploded views are wide: a car plus two bumper pairs in 9:16.
+
+---
 # Toyota GR86 / Subaru BRZ (gen 2) - v6 self-review (training/rubric.md)
 
 Output: `/home/user/media/work/gr86/out/toyota_gr86_v6.mp4` (not in git). Same timeline, music, cuts and labels as v5

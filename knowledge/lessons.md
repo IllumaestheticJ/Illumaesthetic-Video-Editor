@@ -1108,3 +1108,14 @@ lands here automatically. Agents must read this whole file before editing.
   at the shut line where the open panel occluded the body (mazda-miata-nd/tools/lid_from_state.py + fill_panel_holes.py).
   A top-view polygon misses wrapped faces: the ND trunk lid includes the rear face with the badge between the tail lights
   (user: "the rear trunk is not cut right"). Never subtract state-scan matches inside the panel - it punches holes that stay on the body.
+
+## toyota-gr86 v7 (user feedback on v6)
+- [scan] (user: "the BRZ and GR86 bumper are clipping into each other ... come off and then split apart") Never fuse the
+  full car's own panel skin with a part scan of a DIFFERENT car's part into one mover. Keep them as two parts. Move them
+  together while they leave, then swap the fused part for the pair at one frame and split them (one up, one down). Name both
+  in the label (FRONT BUMPERS / BRZ + GR86). shot.py `show` windows key `hide_render` per frame for the swap.
+- [scan] (user: "bits of the rear trunk left behind") A state captured with a panel CLOSED (Rear Bumper Removed, lid shut)
+  refills that panel's skin into the opening once the panel is carved out. Colour the base by source scan to find it, and
+  bar closed-panel states from filling within ~12 mm of the panel.
+- [technical] Run edge_margins over every frame after any change to offsets. Parts that land late while the camera pushes in
+  cross the frame edge (h1): land the outermost parts first.
