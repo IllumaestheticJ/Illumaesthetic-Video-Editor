@@ -1,6 +1,6 @@
 {
  "fps": 30,
- "durationInFrames": 793,
+ "durationInFrames": 834,
  "items": [
   {
    "kind": "title",
@@ -34,31 +34,19 @@
    ]
   },
   {
-   "kind": "result",
-   "t0": 21.3779,
-   "t1": 24.826,
-   "y": 240,
-   "rows": [
-    {
-     "value": "32 MIN",
-     "label": "FROM GO",
-     "at": 21.3779
-    },
-    {
-     "value": "20 MIN",
-     "label": "WITHOUT THE CRASH",
-     "at": 22.0675
-    }
+   "kind": "tease",
+   "t0": 24.1363,
+   "t1": 26.2052,
+   "lines": [
+    "HOW LONG",
+    "DID IT TAKE?"
    ],
-   "footer": {
-    "text": "THE BET WAS 15",
-    "at": 22.7571
-   }
+   "sub": "FULL VIDEO ON OUR CHANNEL"
   },
   {
    "kind": "logo",
-   "t0": 24.826,
-   "t1": 26.426000000000002,
+   "t0": 26.2052,
+   "t1": 27.805200000000003,
    "cta": "SCANS AVAILABLE AT\nILLUMAESTHETIC.COM"
   },
   {
@@ -128,8 +116,8 @@
   },
   {
    "kind": "cap",
-   "t0": 16.141,
-   "t1": 17.161,
+   "t0": 16.531,
+   "t1": 17.211,
    "lines": [
     "Time."
    ]

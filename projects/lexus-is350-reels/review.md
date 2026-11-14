@@ -1,3 +1,35 @@
+# R3 v2 (2026-11-14, owner notes: no time reveal; music edit sounded wrong)
+
+`out/is350_reel_R3_how_long.mp4` (same name, replaces v1; R1 and R2 untouched). **27.80 s, 834 frames.** Build: `python projects/lexus-is350-reels/tools/build.py R3` then `tools/qa.py R3`.
+
+- **Answer removed.** No result card; no HUD clock (R3 never had one); no readable phone/watch stopwatch in any frame (checked the contact sheet, the
+  frames around every cut, and the "Time." shot frame by frame; its out-point moved off a raised watch); captions are only the question, guesses, the
+  floor line and "Time.". Pills 2 HOURS? / 30 MIN? / 15 MIN kept as guesses.
+- **Ending, frame by frame:** f517-578 front walk-out (ends on solved f264) | f579 hard 1:1 cut to V_MATCH_FRONT on the music accent | f641-723
+  V_RES_FULL, full car, no text | f724-785 black tease card: "HOW LONG" (from f724, fades in over 7 frames), "DID IT TAKE?" (+4 f), red bar (+8 f),
+  "FULL VIDEO ON OUR CHANNEL" (+12 f) | f786-833 logo 780 px + "SCANS AVAILABLE AT / ILLUMAESTHETIC.COM", music fading out to the last frame.
+- **Music:** one continuous unspliced stretch of P6 (mix_full.wav 869.381-897.186 s), only a fade-out. Its gap-then-hit at 888.690 s lands on the 1:1
+  cut: delivered-file onset +9.4 ms after the cut frame (frame rounding 19.300 vs 19.309). Other cuts vs the largest onset within +-80 ms:
+  -43..+77 ms. P6 is a loose swung groove (the agent rated its grid weak), so those numbers are ambiguous; the cuts sit on the 87.0 BPM
+  lattice to the frame.
+- **QA:** -10.2 LUFS, -2.2 dBTP; first frame sharp (Laplacian 282); no overlay outside x 60-960 / y 220-1500 (the two opaque cards were checked
+  by eye); medium.en on the delivered dialogue stem: "How long do you think it'll take to scan this car? I'll say two hours. Maybe 30 minutes.
+  15 minutes. Is this the most optimal scanning position? Yeah. Time!": every kept line complete.
+- **Unverified:** nobody has listened to the new mix. Whether 888.690 reads as an accent by ear (it is the deepest gap-then-hit in the stretch by
+  measurement), and how P6's melody sits under the dialogue, are unheard.
+- Weakness: the "Time." shot still ends on a blurred hand (the camera operator raising the watch); the 2H / 30 MIN shots end on whips (as v1).
+
+| # | rubric (R3 v2) | score |
+|---|---|---|
+| 1 Hook | question on screen over the clean car from frame 0 | 4 |
+| 2 Beat sync | all cuts on the stretch's lattice; 1:1 on its accent | 4 |
+| 3 1:1 match | front onion: grille, headlamps, plate coincide | 5 |
+| 5 Story | question -> guesses -> process -> "Time." -> real car becomes scan -> "how long did it take?" | 4 |
+| 7 Text | no invented or revealed numbers; guesses only | 5 |
+| 8 Ending | tease card + logo on the music's fade | 4 |
+
+---
+
 # IS350 reels R1 / R2 / R3: editor review (v1, 2026-11-13)
 
 Outputs `/home/user/media/work/is350-reels/out/`: `is350_reel_R1_crash.mp4`, `is350_reel_R2_real_to_scan.mp4`, `is350_reel_R3_how_long.mp4`

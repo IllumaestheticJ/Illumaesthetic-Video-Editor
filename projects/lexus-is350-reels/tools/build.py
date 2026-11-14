@@ -105,19 +105,18 @@ def music_R2(r):
 
 
 def music_R3(r):
-    a = r["anchors"]; d = MUS / "R3"
-    st = load(d / "R3_stem_straight_32s.wav", 0, a["logo"] + 0.01)
-    buf = np.zeros((int((r["end"] + 1) * SR), 2), np.float32)
-    i0, i1 = int(round(a["mute0"] * SR)), int(round(a["hit"] * SR))
-    st[i0:i1] = 0
-    st[i0 - 240:i0] *= np.linspace(1, 0, 240)[:, None]
-    st[i1:i1 + 240] *= np.linspace(0, 1, 240)[:, None]
-    end = int(round(a["logo"] * SR)); st = st[:end]; st[-240:] *= np.linspace(1, 0, 240)[:, None]
-    place(buf, st, 0)
-    place(buf, load(d / "R3_stem_hit_boom.wav"), a["hit"] - 0.012)
-    optA = load(d / "R3_music_optA.wav")
-    place(buf, fade(optA[int(round(22.068 * SR)):], 0.005, 0.01), a["logo"])   # built ending: final hit + ring
-    return buf, {}
+    """v2: one continuous, unspliced stretch of P6 from the owner's mix (no mute, no boom, no removed block); only a fade-out at the end.
+    Level: the stretch is brought to -10 LUFS like the other music stems (the master loop sets the final level)."""
+    a = r["anchors"]
+    n = round(r["end"] * FPS) / FPS
+    x = load(MIX_FULL, a["music_src0"], n + 0.05)[: int(round(n * SR))]
+    write_wav(BUILD / "R3" / "music_raw.wav", x)
+    I, _ = lufs(BUILD / "R3" / "music_raw.wav")
+    x = x * 10 ** ((-10.0 - I) / 20)
+    x = fade(x, 0.03, a["fade_s"])
+    buf = np.zeros((int((r["end"] + 1) * SR), 2), np.float32); place(buf, x, 0)
+    return buf, {"src": "mix_full.wav P6", "src_in": round(a["music_src0"], 3), "src_out": round(a["music_src0"] + n, 3),
+                 "accent_on_cut": round(a["music_src0"] + a["hit"], 3), "gain_db": round(-10.0 - I, 2)}
 
 
 # ------------------------------------------------------------------ dialogue / room

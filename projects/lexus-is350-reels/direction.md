@@ -99,3 +99,20 @@ R1 ends on V_RES_FULL, so each reel ends on a different scan.
 - Music from `/home/user/media/work/is350-reels/music/R*/` + `music.md`. Until it exists: a silent bed and an even grid.
 - Graphics: one transparent ProRes 4444 overlay per reel from a new Remotion composition `ReelGfx` (1080x1920, 30 fps) in `remotion/src/gfx/reel/`
   that reuses the long-form's theme, the content-sized plate with equal padding and the red bar, the result-card rows and the caption style.
+
+---
+
+## R3 v2 (owner notes 2026-11-14: "don't give away how long it actually took"; "the music cut in the middle is weird")
+
+**No answer anywhere.** Removed the result card (32 / 20 / 15). R3 never had a HUD clock. No phone or watch stopwatch is readable in any frame
+(the "Time." shot was moved to 553 6.95-8.33 because the old out-point reached a raised watch). Captions are only the question, the guesses and "Time.".
+The pills 2 HOURS? / 30 MIN? / 15 MIN stay (they are guesses; 15 is the host's bet). No number is on screen after the guesses.
+
+**Ending (tease):** front walk-out -> hard 1:1 cut to V_MATCH_FRONT on the music accent (19.30) -> V_RES_FULL, no text (21.37-24.13) ->
+black card "HOW LONG / DID IT TAKE?" + red bar + "FULL VIDEO ON OUR CHANNEL" (24.13-26.20, text inside x 60-960 / y 220-1500) -> logo 780 px +
+"SCANS AVAILABLE AT ILLUMAESTHETIC.COM" (26.20-27.80). Length 27.80 s (834 frames).
+
+**Music:** one continuous stretch of P6 (owner's mix_full.wav 869.381-897.186 s), no mute, no boom, no removed block; +4.4 dB to -10 LUFS, 30 ms
+fade-in, 1.2 s fade-out on the logo. P6 has no section steps (energy flat within 2 dB per 8 beats); its clearest natural accent is a hit after a
+~140 ms gap in the stab section (888.690 s). The stretch is placed so that hit lands on the 1:1 cut (k28 = 19.309 s, cut frame 579). All other
+picture cuts are unchanged and sit on the stretch's beat lattice (0.68961 s/beat, 87.0 BPM). Shots are the same as v1 otherwise.

@@ -31,7 +31,7 @@ CAPS = {
     "R3_30": [("Maybe 30 minutes.", 22.16, 23.30)],
     "R3_15": [("15 minutes.", 29.62, 30.65)],
     "R3_OPT": [("Is this the most optimal", 122.30, 124.11), ("scanning position?", 124.11, 125.45), ("Yeah.", 125.55, 126.05)],
-    "R3_TIME": [("Time.", 7.33, 8.35)],
+    "R3_TIME": [("Time.", 7.62, 8.30)],   # onset from the 20 ms energy (large-v3 says 7.33: early)
 }
 # word spans that must stay audible (dialogue protection + ducking): derived from CAPS
 CLOCK1_541 = 74.57  # CLOCK 1 = FX30541 src - 74.57 (phone 00:00.43 at 75.0; 04:58.86 at 373.4)
@@ -109,30 +109,31 @@ def r2():
 
 
 def r3():
+    """v2 (owner 2026-11-14): no answer anywhere (no result card, no clock, no stopwatch in shot); ends as a tease to the full video.
+    Music: ONE continuous unspliced stretch of P6 (mix_full.wav from 869.381 s), placed so its strongest natural accent in the
+    stretch (888.680 + 0.010 s: a hit after a ~140 ms gap in the stab section) lands on the 1:1 front cut at k28; cuts on its beat grid."""
     p = 0.68961
     k = lambda n: round(n * p, 4)
     shots = [S("R3_QPIC", 0, k(4), audio_span="R3_QAUD"), S("R3_2H", k(4), k(6)), S("R3_30", k(6), k(8), audio="fadein2"), S("R3_15", k(8), k(10))]
     for i, m in enumerate(["R3_M1", "R3_M2", "R3_M3", "R3_M6", "R3_M4", "R3_M7", "R3_M5"]):
         shots.append(S(m, k(10 + i), k(11 + i), gain_db=-18))
-    hit, logo = k(28), k(36)
+    hit, tease, logo = k(28), k(35), k(38)
+    end = logo + 1.6
     shots += [S("R3_OPT", k(17), k(23)), S("R3_TIME", k(23), k(25)), S("R3_FRONT", k(25), hit, end_on_match=True),
-              S(None, hit, k(31), kind="scan", scan="V_MATCH_FRONT"), S(None, k(31), logo, kind="scan", scan="V_RES_FULL"),
-              S(None, logo, logo + 1.6, kind="logo")]
+              S(None, hit, k(31), kind="scan", scan="V_MATCH_FRONT"), S(None, k(31), tease, kind="scan", scan="V_RES_FULL"),
+              S(None, tease, logo, kind="logo"), S(None, logo, end, kind="logo")]
     sh = {s["span"]: s for s in shots if s["span"]}
     rt = lambda span, src: sh[span]["t0"] + (src - SPANS[span]["a"])
-    r = k(31)
     items = [
         {"kind": "title", "t0": 0, "t1": k(10), "lines": ["HOW LONG DOES IT", "TAKE TO 3D-SCAN", "A WHOLE CAR?"]},
         {"kind": "pills", "t0": rt("R3_2H", 17.70), "t1": k(10), "y": 1200, "pills": [
             {"text": "2 HOURS?", "at": rt("R3_2H", 17.70)}, {"text": "30 MIN?", "at": rt("R3_30", 22.24)},
             {"text": "15 MIN", "at": rt("R3_15", 29.62), "hl": True}]},
-        {"kind": "result", "t0": r, "t1": logo, "y": 240, "rows": [
-            {"value": "32 MIN", "label": "FROM GO", "at": r}, {"value": "20 MIN", "label": "WITHOUT THE CRASH", "at": k(32)}],
-         "footer": {"text": "THE BET WAS 15", "at": k(33)}},
-        {"kind": "logo", "t0": logo, "t1": logo + 1.6, "cta": CTA},
+        {"kind": "tease", "t0": tease, "t1": logo, "lines": ["HOW LONG", "DID IT TAKE?"], "sub": "FULL VIDEO ON OUR CHANNEL"},
+        {"kind": "logo", "t0": logo, "t1": end, "cta": CTA},
     ]
-    anchors = dict(hit=hit, mute0=k(27), logo=logo, end=logo + 1.6)
-    return dict(id="R3", shots=shots, items=items, music=dict(kind="R3", anchors=anchors), anchors=anchors, end=logo + 1.6)
+    anchors = dict(hit=hit, tease=tease, logo=logo, end=end, music_src0=888.690 - hit, fade_s=1.2)
+    return dict(id="R3", shots=shots, items=items, music=dict(kind="R3", anchors=anchors), anchors=anchors, end=end)
 
 
 REELS = {"R1": r1, "R2": r2, "R3": r3}

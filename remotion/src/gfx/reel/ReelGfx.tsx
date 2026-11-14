@@ -18,7 +18,8 @@ export type ReelItem =
   | { kind: "tag"; t0: number; t1: number; text: string; y?: number }
   | { kind: "label"; t0: number; t1: number; text: string; sub?: string; y?: number }
   | { kind: "cap"; t0: number; t1: number; lines: string[] }
-  | { kind: "logo"; t0: number; t1: number; cta: string };
+  | { kind: "logo"; t0: number; t1: number; cta: string }
+  | { kind: "tease"; t0: number; t1: number; lines: string[]; sub: string };
 export type ReelGfxProps = { fps: number; durationInFrames: number; items: ReelItem[] };
 export const reelGfxDefaults: ReelGfxProps = { fps: 30, durationInFrames: 60, items: [] };
 export const calculateReelGfxMetadata: CalculateMetadataFunction<ReelGfxProps> = ({ props }) => ({
@@ -152,6 +153,19 @@ const Item: React.FC<{ it: ReelItem; f: number; fps: number }> = ({ it, f, fps }
           </div>
         </div>
       );
+    case "tease":
+      // opaque black card; text block centred in the safe column (x 60-960), vertically at ~45 %
+      return (
+        <AbsoluteFill style={{ background: C.black }}>
+          <div style={{ position: "absolute", left: X0, width: X1 - X0, top: 220, height: 1280, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+            {it.lines.map((l, i) => (
+              <div key={i} style={{ opacity: inA(lf, i * 4, 7), transform: `translateY(${(1 - inA(lf, i * 4, 7)) * 14}px)`, fontFamily: SANS, fontWeight: 700, fontSize: 104, letterSpacing: 5, lineHeight: 1.08, color: C.ink, whiteSpace: "nowrap", textAlign: "center" }}>{l}</div>
+            ))}
+            <div style={{ width: 140 * inA(lf, 8, 10), height: 8, borderRadius: 4, background: C.accent, margin: "44px 0 40px" }} />
+            <div style={{ opacity: inA(lf, 12, 8), fontFamily: MONO, fontWeight: 700, fontSize: 44, letterSpacing: 3, color: "#d5dae2", whiteSpace: "nowrap" }}>{it.sub}</div>
+          </div>
+        </AbsoluteFill>
+      );
     case "logo":
       return (
         <AbsoluteFill style={{ background: C.black }}>
@@ -170,7 +184,8 @@ export const ReelGfx: React.FC<ReelGfxProps> = ({ items, fps }) => {
   const f = useCurrentFrame();
   const live = items.filter((it) => f >= Math.round(it.t0 * fps) && f < Math.round(it.t1 * fps));
   // logo card first (opaque), everything else above it
-  live.sort((p, q) => (p.kind === "logo" ? -1 : 0) - (q.kind === "logo" ? -1 : 0));
+  const opaque = (k: string) => (k === "logo" || k === "tease" ? -1 : 0);
+  live.sort((p, q) => opaque(p.kind) - opaque(q.kind));
   return (
     <AbsoluteFill style={{ background: "transparent" }}>
       {live.map((it, i) => <Item key={i} it={it} f={f} fps={fps} />)}

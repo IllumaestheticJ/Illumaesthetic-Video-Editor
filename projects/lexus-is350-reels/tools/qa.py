@@ -102,7 +102,7 @@ def qa(rid):
     raw = subprocess.Popen(["ffmpeg", "-v", "error", "-i", str(gm), "-vf", "select=not(mod(n\\,5))", "-fps_mode", "passthrough",
                             "-f", "rawvideo", "-pix_fmt", "rgba", "-"], stdout=subprocess.PIPE)
     viol, n = [], 0
-    logo = [(it["t0"], it["t1"]) for it in r["items"] if it["kind"] == "logo"]
+    logo = [(it["t0"], it["t1"]) for it in r["items"] if it["kind"] in ("logo", "tease")]  # opaque cards: checked by eye
     while True:
         buf = raw.stdout.read(1080 * 1920 * 4)
         if len(buf) < 1080 * 1920 * 4:
