@@ -1,6 +1,6 @@
 # Toyota Sera scan reel - self-review (training/rubric.md)
 
-Deliverable: `/home/user/media/work/sera/out/toyota_sera_v4.mp4`: 1080x1920, 30 fps, 39.27 s. Scan only, with 4 factual labels.
+Deliverable: `/home/user/media/work/sera/out/toyota_sera_v5.mp4`: 1080x1920, 30 fps, 39.27 s. Scan only, with 4 factual labels.
 Order (front -> side -> rear, each section once):
 - whole car, pushing in
 - front wheel
@@ -16,12 +16,17 @@ Previous cut (v2, turntables and an all-at-once explode) is in `project_v2.yaml`
 | 1 | Hook | 4 | Whole car on frame 1 and already pushing in (front-right 3/4, 73-75 % of width). There's no transformation in the first 1.5 s; the brief asks to open on the whole car |
 | 2 | Beat sync | 5 | Measured on the decoded audio of the delivered file: all 8 cuts land 3.3-5.6 ms after the kick attack (limit ±16.7 ms). Big moments land on phrase downbeats: front 7.235, side 16.835, explode 26.435, lock 33.635, logo 36.035 |
 | 3 | 1:1 match | n/a | Scan-only reel. IRL footage is listed in clips.md |
-| 4 | Scan quality | 4 | Every state is registered, with one rigid levelling transform and every prep pinned with `--like`. Hood and doors open only because real Hood-open and Door-Open scans exist; there is no trunk shot because there is no hatch-open scan. Weak spots: dark scan holes in the grille, and the hood is the most constructed panel (closed skin + inner side from the open capture) |
+| 4 | Scan quality | 4 | Every state is registered, with one rigid levelling transform and every prep pinned with `--like`. Hood and doors open only because real Hood-open and Door-Open scans exist; there is no trunk shot because there is no hatch-open scan. v5: hood cut as one region along its real shut lines (rear edge from the open-hood scan), fills limited to under their panel - no strips, no A-pillar flap, clean hood in the explode. Weak spots: dark scan holes in the grille |
 | 5 | Story | 5 | One section at a time, front to back. The bumper-removed data is the hero: the part comes off, turns to show its inner face, clears frame, and the camera moves in and holds on what was behind it. The explode is progressive, then the car reassembles |
 | 6 | Grade | 5 | House satin silver on black, AgX, -0.35 EV, consistent across shots. Per-frame luma check: no dropouts. The one step (rear frame 58) is the bumper leaving frame |
 | 7 | Text | 4 | 4 labels, over scan only, clear of the car and above the bottom 20 %. Each label pairs its part name with a triangle count read from the STL headers; no specs. The sub-line is small mono text, readable but not large on a phone |
 | 8 | Ending | 5 | v4: the reassembly locks on b56 while orbiting to the mobile listing's camera (solved, IoU 0.972); on b60 that exact frame shrinks 1:1 onto the car in the phone (handoff diff 0.01, ~1 px landing), then logo, SCAN DATA AVAILABLE NOW and ILLUMAESTHETIC.COM settle with a slow push-in |
 | 9 | Technical | 4 | h264 yuv420p, 1080x1920, 30 fps, AAC, no black frames, no reused shot. 1178 frames, one fewer than planned (the music ends at 38.435 s, so the end hold is unaffected) |
+
+## Changes in v5 vs v4 (user: "there are artifacts of the hood that aren't cleanly cut out")
+- tools/hood_clean.py: hood = region (outline from the landed skin, rear edge from the open hood's skin swung closed), skin within 25 mm of the local top; inner frame inside the outline only.
+- Fills limited: 'Hood open' only under the hood, bumper-removed states only inside their bumper bbox + 80 mm (removed the A-pillar flap and rear strays at tail-lamp height).
+- Re-rendered v3_front, v3_rear, v3_e1_explode, v4_g3a_home; timeline unchanged.
 
 ## Changes in v4 vs v3 (user: "add the scan data call to action to the end, where it aligned to the website mobile listing")
 - Fade + logo card replaced by the mobile listing CTA; reassembly camera re-rendered to end on the listing's view.

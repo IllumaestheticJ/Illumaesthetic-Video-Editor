@@ -1191,3 +1191,12 @@ lands here automatically. Agents must read this whole file before editing.
   background waiter has a 2 h cap, so re-arm it - the render itself keeps going.
 - Pastel under exposure -1.7 + AgX Punchy: lift hues toward white (~0.3-0.98 albedo); too far and neighbours merge
   (hood/fender both beige) - keep one channel clearly lower.
+
+## From the Toyota Sera v5 (hood artifacts, 2026-11-14)
+- Per-triangle hinge landing gives a ragged panel (holes, nose strip left on the car, wiper strips riding up). Cut hinged
+  panels as a REGION: clean the landed mask on a top-view grid (close, fill, open, largest blob), take the cowl-side edge
+  from the OPEN capture swung closed (wipers hide it on the closed car), keep skin within ~25 mm of the local top surface
+  (70 mm reached the bumper top under the nose - check a centreline section). projects/toyota-sera/tools/hood_clean.py.
+- State-scan fills must be limited to their own region (under the hood, inside the bumper bbox + 80 mm): captures carry
+  unrelated changes - a card standing on the fender came along as a white flap. Render the full car at the same camera to
+  tell a fill artifact from real scan data.

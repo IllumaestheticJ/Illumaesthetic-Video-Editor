@@ -2,6 +2,8 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-sera](toyota-sera/) - archived 2026-11-14
+- [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-14
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-14
@@ -16,7 +18,9 @@ Newest first. Read the top two before starting a new edit.
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
-- [toyota-sera](toyota-sera/) - archived 2026-11-13
+- [c5-corvette-scan-process](c5-corvette-scan-process/) - archived 2026-11-13
+- [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
+- [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
@@ -25,7 +29,6 @@ Newest first. Read the top two before starting a new edit.
 - [ferrari-296](ferrari-296/) - archived 2026-11-13
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-13
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
-- [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-14
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
@@ -57,9 +60,9 @@ Newest first. Read the top two before starting a new edit.
 - [lexus-is300](lexus-is300/) - archived 2026-11-11 (v2)
 - [mazda-miata-nc](mazda-miata-nc/) - archived 2026-11-11
 - [toyota-mr2-spyder-scan-process](toyota-mr2-spyder-scan-process/) - archived 2026-11-11
+- [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
-- [toyota-sera](toyota-sera/) - archived 2026-11-11
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11

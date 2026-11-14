@@ -1,4 +1,8 @@
-# Toyota Sera - Temerario-style scan reel, v4. User on v3 (2026-11-13): "add the scan data call to action to the end, where it
+# Toyota Sera - v5. User on v4 (2026-11-13): "there are artifacts of the hood that aren't cleanly cut out" -> hood re-cut as a
+# region (tools/hood_clean.py), fills limited to their region (explode_base.py), front/rear/explode/reassembly re-rendered.
+# Same timeline as v4 (project_v4.yaml).
+#
+# v4. User on v3 (2026-11-13): "add the scan data call to action to the end, where it
 # aligned to the website mobile listing" -> the reassembly orbits round the rear to the solved camera of the listing's 360
 # viewer on the mobile page (tools/solve_listing.py, IoU 0.972) and the CTA (tools/cta_card.py) shrinks that frame 1:1 onto
 # the listing car in the phone; logo + SCAN DATA AVAILABLE NOW + ILLUMAESTHETIC.COM. Replaces the fade + logo card.
@@ -16,7 +20,7 @@
 # Clip durs are whole frames; first clip one frame short (the assembler adds the cut hold frame).
 project: toyota-sera
 format: reel-9x16
-output: {path: /home/user/media/work/sera/out/toyota_sera_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/sera/out/toyota_sera_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/toyota-sera_track.mp3   # not in git
