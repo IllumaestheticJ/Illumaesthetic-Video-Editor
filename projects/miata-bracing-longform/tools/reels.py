@@ -1,7 +1,7 @@
 """Promo reels (1080x1920, 30 fps) cut from the long-form: usage  python reels.py <media_dir> [1|2|3 ...]
 Shop footage is cropped from the 4K rough cut (the burned-in subtitle band and corner titles are cropped out, and no text is
 put over it); text sits only on the scan / graphic shots; every number is a rounded width difference from Strut Spread.xlsx.
-Voice: the owner's on-camera audio from the rough cut, and the approved narration takes (vo10). Ends on a YouTube card."""
+Music: the owner-supplied Gran Turismo compilation (music/gt_48.wav), as in the long-form from v11. Voice: the owner's on-camera audio rebuilt from the raw clips, and the approved narration takes (vo10). Ends on a YouTube card."""
 import sys, os, math, wave, subprocess, importlib.util
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
@@ -100,7 +100,7 @@ def act_rms(x):
 _o = None
 def own(a, d):
     global _o
-    if _o is None: w = wave.open(f'{M}/work/audio48.wav'); _o = np.frombuffer(w.readframes(int(330*SR)), np.int16).reshape(-1, 2).mean(1).astype(np.float32)/32768
+    if _o is None: w = wave.open(f'{M}/work/front_clean48.wav'); _o = np.frombuffer(w.readframes(w.getnframes()), np.int16).astype(np.float32)/32768      # v2: dialogue rebuilt from the raw clips (cleanfront.py), no rough-cut music in it
     x = _o[int(a*SR):int((a + d)*SR)].copy(); e = 480; x[:e] *= np.linspace(0, 1, e); x[-e:] *= np.linspace(1, 0, e); return x
 REF = None
 def vo(i):
@@ -113,20 +113,20 @@ def music(name, pos, n):
 # ---------------------------------------------------------------- the reels: (kind, args..., seconds or None = length of its voice, voice)
 # voice: ('own', a) rough-cut audio from a for the segment | ('vo', i) narration take i | None
 REELS = {
- 1: dict(name='Reel1_1p7mm', music=('time_stand_still', 137.0), seg=[
+ 1: dict(name='Reel1_1p7mm', music=('gt', 600.0), seg=[
     ('irl', 191.6, 0.36, 1.25, None),
     ('irl', 194.1, 0.50, 2.4, ('vo', 3)),
     ('draw', heat_single('jacked', 255, 325, 'ONE CORNER JACKED UP', 1.7, 'wider between the strut towers'), 8.9, None),      # the rest of narration take 3, which starts under the tape-measure shot
     ('draw', heat_pair('jacked', 'fender', 'NO BRACING  +1.7 mm', 'FENDER BRACES  +0.3 mm', 210, 320), None, ('vo', 10)),
     ('draw', endcard(['DOES BRACING', 'ACTUALLY WORK?']), 2.8, None)]),
- 2: dict(name='Reel2_the_surprise', music=('cosmic_countdown', 95.9), seg=[
+ 2: dict(name='Reel2_the_surprise', music=('gt', 1290.0), seg=[
     ('irl', 64.62, 'host', 4.45, ('own', 64.62)),
     ('irl', 257.75, 0.62, 2.0, None),
     ('draw', bars([('Strut tower brace', 0.8, BLUE, .3), ('Fender braces', 0.3, GREEN, 2.3)]), None, ('vo', 16)),
     ('irl', 313.8, 0.55, None, ('vo', 11)),
     ('draw', heat_pair('strut', 'fender', 'STRUT TOWER BRACE  +0.8 mm', 'FENDER BRACES  +0.3 mm', 210, 300, 'BODY MOVEMENT, SAME SCALE'), 3.4, None),
     ('draw', endcard(['WHICH BRACE', 'WOULD YOU PICK?']), 2.8, None)]),
- 3: dict(name='Reel3_the_question', music=('dark_summer_night', 12.0), seg=[
+ 3: dict(name='Reel3_the_question', music=('gt', 860.0), seg=[
     ('irl', 0.0, 'host', 8.25, ('own', 0.0)),
     ('irl', 185.5, 0.55, 1.2, None), ('irl', 191.6, 0.36, 1.2, None), ('irl', 194.2, 0.50, 1.2, None), ('irl', 207.7, 0.50, 1.2, None), ('irl', 209.27, 0.68, 0.9, None),
     ('draw', heat_single('jacked', 255, 315, 'WHERE DOES A MIATA FLEX?', 0, 'one corner jacked, 3D scanned'), 3.0, None),
@@ -150,7 +150,6 @@ def build(k):
     for s, x, kind in voice:
         p = int(s*SR); x = x[:N - p]; mix[p:p + len(x)] += x; duck[max(p - 4800, 0):p + len(x) + 4800] = 1 if kind == 'vo' else 0.75
     kk = int(.35*SR); duck = np.convolve(duck, np.ones(kk)/kk, 'same'); m = music(*R['music'], N); g = 10**((-1.5 - 11.5*duck)/20)          # -21.5 dB RMS open, -33 under the voice
-    if k == 3: g[:int(8.0*SR)] = 0; r = int(.5*SR); p = int(8.0*SR); g[p:p + r] = np.linspace(0, g[p + r], r)                              # the rough cut carries this track itself under the on-camera hook
     m = m*g; r = int(1.2*SR); m[-r:] *= np.linspace(1, 0.25, r); mix = np.tanh((mix + m)*1.15)*0.8          # peaks stay under -1.5 dBFS after AAC
     w = wave.open(f'{WK}/r{k}.wav', 'w'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.repeat(mix[:, None], 2, 1)*32767).astype(np.int16).tobytes())
     out = f"{OUT}/Miata_{R['name']}.mp4"

@@ -153,11 +153,16 @@ for s, x, nar, i in vo:
     for q in cs: e = u + (len(x)/SR)*b.nwords(q)/n; L.append(f'Dialogue: 0,{b.at(u)},{b.at(e - .03)},old,{q}'); u = e
 open(f'{SEG}/final.ass', 'w').write('\n'.join(L) + '\n')
 os.makedirs(b.OUT, exist_ok=True)
+# --youtube: upload master following YouTube's recommended settings (H.264 High, progressive, closed GOP of half the frame rate,
+# 2 B-frames, BT.709 tags, AAC-LC 48 kHz stereo 384 kbps, moov at the front); about 16 Mbit/s, twice YouTube's 1080p minimum
+YT = ['-c:v', 'libx264', '-preset', 'slow', '-crf', '16', '-profile:v', 'high', '-level', '4.2', '-pix_fmt', 'yuv420p', '-g', '12', '-bf', '2', '-flags', '+cgop',
+      '-maxrate', '24M', '-bufsize', '48M', '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv',
+      '-c:a', 'aac', '-profile:a', 'aac_low', '-b:a', '384k', '-ar', '48000', '-ac', '2']
 sys.path.insert(0, HERE); import fx
 G = fx.Fx(rows, vo, t_new, total); FB = 1920*1080*3
 dec = subprocess.Popen(['ffmpeg', '-v', 'error', '-i', f'{SEG}/picture.mp4', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE, bufsize=FB*4)
 enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', '1920x1080', '-r', '24000/1001', '-i', '-', '-i', f'{SEG}/mix.wav', '-map', '0:v', '-map', '1:a',
-                        '-vf', f'ass={SEG}/final.ass', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', '-shortest', f'{b.OUT}/{OUTN}'], stdin=subprocess.PIPE)
+                        '-vf', f'ass={SEG}/final.ass', *(YT if '--youtube' in sys.argv else ['-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '192k']), '-movflags', '+faststart', '-shortest', f'{b.OUT}/{OUTN}'], stdin=subprocess.PIPE)
 only = [float(v) for v in sys.argv[sys.argv.index('--stills')+1].split(',')] if '--stills' in sys.argv else None; i = 0
 while True:
     buf = dec.stdout.read(FB)
