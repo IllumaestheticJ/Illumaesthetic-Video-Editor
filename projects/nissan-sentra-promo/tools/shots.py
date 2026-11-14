@@ -1,4 +1,4 @@
-"""Shot specs for the Sentra promo (v1). All key times are ABSOLUTE video seconds (timing.json); each spec subtracts
+"""Shot specs for the Sentra promo (v2: new wheels, wing, stock diffuser off). All key times are ABSOLUTE video seconds (timing.json); each spec subtracts
 its segment start. Writes <work>/shots/<seg>.json for tools/shot.py.
 
 Segments:  main 4.333-37.1 (one continuous camera, cut 1:1 from IMG_3229 @ 4.3 s)
@@ -126,10 +126,25 @@ for j, nm in enumerate(["Rear_Door", "Rear_Fender", "Rear_Bumper"]):
     k = drop(33.0 + 0.18 * j, 33.55 + 0.18 * j, [0.7, 0.15 * (j - 1), 0.12])
     parts.append({"name": nm + "D", "blend": C + f"Uncut_{nm}.Driver.blend", "show": [32.8, 99], "keys": k})
     parts.append({"name": nm + "P", "blend": C + f"Uncut_{nm}.Passenger.blend", "show": [32.8, 99], "keys": mirror(k)})
-# M: diffuser comes up under the rear
-parts.append({"name": "diffuser", "blend": C + "Uncut_Rear_Diffuser.blend", "show": [34.4, 99], "keys": drop(34.6, 35.2, [0, 0.35, -0.55])})
-# N: wing adapter drops onto the trunk with a small bounce
-parts.append({"name": "wing", "blend": C + "Uncut_Wing_Adapter.blend", "show": [35.7, 99], "keys": drop(35.85, 36.4, [0, 0, 0.8], bounce=0.02)})
+# J2 (v2, reviewer: "the new wheels aren't on"): right after the fenders land, the stock wheels+tyres (cut from the
+# scan, tools/rearcut.py) pull outboard and the new wheels (Ron's Sentra Review 2.blend, 'Wheels & Wing') slide in
+sw = [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 30.2, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+      {"t": 30.6, "loc": [0.8, 0, 0.05], "rot": [0, 0, 0], "ease": "in2"}]
+parts.append({"name": "stock_wheels_L", "blend": W + "/stock_wheels_L.blend", "show": [25.55, 30.62], "keys": sw})
+parts.append({"name": "stock_wheels_R", "blend": W + "/stock_wheels_R.blend", "show": [25.55, 30.62], "keys": mirror(sw)})
+wh = drop(30.5, 30.95, [0.8, 0, 0.05], bounce=0.01)
+for nm, k in (("FL", wh), ("RL", wh), ("FR", mirror(wh)), ("RR", mirror(wh))):
+    parts.append({"name": "wheel_" + nm, "blend": W + f"/{nm}.blend", "show": [30.45, 99], "keys": k})
+# M (v2, reviewer: "old diffuser is not removed"): the stock lower valance (scan tris under the new diffuser) drops
+# away, then the diffuser comes up into its place
+parts.append({"name": "stock_diffuser", "blend": W + "/stock_diffuser.blend", "show": [25.55, 34.85],
+              "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": 34.45, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                       {"t": 34.8, "loc": [0, 0.3, -0.6], "rot": [8, 0, 0], "ease": "in2"}]})
+parts.append({"name": "diffuser", "blend": C + "Uncut_Rear_Diffuser.blend", "show": [34.7, 99], "keys": drop(34.8, 35.3, [0, 0.35, -0.55])})
+# N: wing adapter drops onto the trunk, then (v2, reviewer: "the rear wing isn't actually installed") the wing itself
+# (Ron's review file, 'Wheels & Wing' collection) lands on the adapter
+parts.append({"name": "wing_adapter", "blend": C + "Uncut_Wing_Adapter.blend", "show": [35.6, 99], "keys": drop(35.7, 36.1, [0, 0, 0.8], bounce=0.02)})
+parts.append({"name": "wing", "blend": W + "/wing.blend", "show": [36.05, 99], "keys": drop(36.15, 36.6, [0, 0, 0.9], bounce=0.02)})
 
 reveals = {
     "build": {"axis": "z", "keep": "below", "band": 0.025, "strength": 9,
@@ -145,8 +160,8 @@ lines = [{"size": [2.6, 0.008, 0.008], "color": [0.35, 0.8, 1.0], "strength": 40
          for z in (-0.03, 1.45)]
 base = [{"blend": W + "/car.blend", "show": [12.0, 25.55], "rv": ["build", "sweep_car"]},
         {"blend": W + "/bay_s.blend", "show": [18.6, 24.6], "rv": ["sweep_bay"]},
-        {"blend": W + "/car_nobump.blend", "show": [25.55, 99]},
-        {"blend": W + "/front_fill.blend", "show": [25.55, 99]}]
+        {"blend": W + "/car_v2.blend", "show": [25.55, 99]},      # car_nobump minus stock wheels + stock diffuser
+        {"blend": W + "/fill_v2.blend", "show": [25.55, 99]}]
 
 
 def shift(obj, t0):
@@ -205,7 +220,7 @@ spec("brake", bt0, bt1 + 0.25, brake_base, brake_parts, brake_cam)
 
 # ---------------- finished build orbit ----------------
 ft0, ft1 = 41.23, 43.43
-fin_parts = [{"name": p["name"], "blend": p["blend"]} for p in parts if p["name"] not in ("bumperA", "bumper_stock")]
-fin_base = [{"blend": W + "/car_nobump.blend"}, {"blend": W + "/front_fill.blend"}]
+fin_parts = [{"name": p["name"], "blend": p["blend"]} for p in parts if p["name"] not in ("bumperA", "bumper_stock", "stock_wheels_L", "stock_wheels_R", "stock_diffuser")]
+fin_base = [{"blend": W + "/car_v2.blend"}, {"blend": W + "/fill_v2.blend"}]
 fin_cam = [K(ft0, [3.6, -4.7, 1.35], [0.0, 0.0, 0.62], 28), K(ft1 + 0.3, [4.9, -2.6, 1.25], [0.0, 0.1, 0.62], 28, "lin")]
 spec("final", ft0, ft1 + 0.25, fin_base, fin_parts, fin_cam)
