@@ -26,7 +26,7 @@ locally (95 GB vs 30 GB disk); re-fetch selected clips for the final. Fuji clips
 | Good-Win Racing (Brian) | fender braces; knuckle support (name unclear in audio); sway bar reinforcement bars; silicone grease for the bushings; OEM replacement seals |
 | Whiteline | "basically every polyurethane bushing"; front strut tower brace; sway bars (rear sway bar shown) |
 | MCS | double-adjustable coilovers with Eibach springs (replacing "cheap eBay coilovers") |
-| Fast Brakes / Wilwood | big brake kit ("I believe this is a Superlite"); stainless front brake lines |
+| Fast Brakes (Brian; owner confirmed 2026-11-14 that Fast Brakes is the partner and Wilwood is the brand inside the kit) | big brake kit with Wilwood calipers ("I believe this is a Superlite"); stainless front brake lines |
 | CSG | Halo P1 brake fluid; full pad set front and rear |
 | SPL | inner and outer tie rod set |
 | SuperPro | steering rack bushing kit |

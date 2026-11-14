@@ -1,6 +1,6 @@
-# Grimace parts build: script v2 (for owner approval, not yet recorded)
+# Grimace parts build: script v3 (for owner approval, not yet recorded)
 
-v2 applies the independent review in `agent_review.md` (nine blocking fixes and the wording notes). Structure and
+v3 = v2 (independent review applied, `agent_review.md`) plus the owner's answers of 2026-11-14. Structure and
 picture sources follow `plan.md` section 3.
 
 - **SYNC** = your real on-camera words, kept as spoken. Quotes are from machine transcripts (two speech models); nobody
@@ -19,7 +19,7 @@ picture sources follow `plan.md` section 3.
 | 5 | Cold open | SYNC 5439 9.8-15.5 | "Does this actually fit?" ... "No." **[ASK 12]** (pause trimmed; the picture is the hub adapter on the wheel, not the wheel on the car) |
 | 6 | Cold open | VO | So here's all of it, what it does, and then we go to the track. **[ASK 1]** |
 | 7 | Intro | SYNC 6573 4.1-20 | "Welcome guys to an Epsilon Motorsports build video. We have our pink... sorry, I'm colorblind. We have our purple Miata, colloquially known as Grimace here, with a whole bunch of upgrade parts." |
-| 8 | Intro | SYNC 6573 27.9-43.5 | "...now we have a table full of parts to throw on this car, courtesy of Mike Kojima and MotoIQ. As you may or may not know, his daughter drives with us and it's absolutely essential for this car to be in tip-top shape with some of the best parts available." **[ASK 13]** |
+| 8 | Intro | SYNC 6573 27.9-43.5 | "...now we have a table full of parts to throw on this car, courtesy of Mike Kojima and MotoIQ. As you may or may not know, his daughter drives with us and it's absolutely essential for this car to be in tip-top shape with some of the best parts available." (owner: she may be mentioned) |
 | 9 | Intro | VO | So this is what we started with. Stock brakes, old bushings, and those eBay coilovers. |
 | 10 | Intro | VO | So we're going to go through it one part at a time. What it is, who sent it, and what it does. And at the end, we go drive it. |
 | 11 | 1. Coilovers | SYNC 6662 80.8-105 | "...we have these MCS double adjustable coilovers with Eibach springs. These are going to be a fantastic upgrade to our current car setup and a very, very neat piece of kit." (pauses cut under the close-ups) **[ASK 10]** |
@@ -43,20 +43,20 @@ picture sources follow `plan.md` section 3.
 | 29 | 2. Bushings | SYNC 6662 35-49.5 | "...this really cool trick of silicone grease for the bushings. They also gave us a bunch of OEM replacement seals for the control arms, so thank you, Good-Win, for that." (last words to be confirmed by ear) |
 | 30 | 2. Bushings | VO | Why the grease? Rubber twists. Polyurethane has to rotate. So if you put it in dry, it squeaks, and it binds up. |
 | 31 | 2. Bushings | VO | New bushing in, sleeve pressed in, and it goes back on the car. **[PICKUP: bushing on the car; without it the line ends at "sleeve pressed in."]** |
-| 32 | 3. Brakes | SYNC 6662 112.2-128 | "On the stopping power side of things, we got a big brake kit from Fast Brakes, Wilwood..." **[ASK 3, 4]** (provisional: your next words are "courtesy of Brian, thank you Brian") |
+| 32 | 3. Brakes | SYNC 6662 112.2-135 | "On the stopping power side of things, we got a big brake kit from Fast Brakes, Wilwood... courtesy of Brian, thank you Brian..." ("I believe this is a Superlite ... oh shoot" cut under the caliper close-ups; lower-third: Brian, Fast Brakes) **[ASK 4]** |
 | 33 | 3. Brakes | VO | Here's what was on there before. And here's what's on there now. **[PICKUP: caliper on the car]** |
 | 34 | 3. Brakes | VO | So why a big brake kit on a Miata? It's a light car. And honestly, with good pads and fluid, the stock brakes do okay. |
 | 35 | 3. Brakes | VO | The problem is doing it again and again, lap after lap. Brakes turn speed into heat, and that heat has to go somewhere. |
 | 36 | 3. Brakes | VO | A big brake kit gives you a stiffer caliper and a bigger pad. So it takes a lot longer before things start to fade. **[ASK 4: "and a bigger disc" only if the kit's disc is larger than stock]** |
 | 37 | 3. Brakes | VO | It's about the pedal feeling the same at the end of the session as it did at the start. |
-| 38 | 3. Brakes | SYNC 6662 135-141 | "...with that kit we also have stainless steel front brake lines..." **[ASK 3, 5]** |
+| 38 | 3. Brakes | SYNC 6662 135-141 | "...with that kit we also have stainless steel front brake lines..." **[ASK 5]** |
 | 39 | 3. Brakes | VO | A rubber line swells a little every time you hit the pedal, and it gets worse as it ages. A braided stainless line swells a lot less, so the pedal is firmer. |
 | 40 | 3. Brakes | SYNC 6662 151.9-172 | "CSG sent us this Halo P1 brake fluid as well as their full pad set front and rear. CSG is a well-known domestic... supplier of very, very high end brake pads and I'm excited to use them." (self-correction cut under the bottle close-ups) |
 | 41 | 3. Brakes | VO | Pads and fluid are the part people skip. A track pad is made to work hot. |
 | 42 | 3. Brakes | VO | And the fluid matters because if it boils, the pedal goes long. That's the one you really don't want. |
 | 43 | 4. Bracing and sway bars | SYNC 6662 5-15 | "...we have these fender braces, courtesy of my boys at Good-Win Racing." |
-| 44 | 4. Bracing and sway bars | VO | And the Whiteline front strut tower brace. This one's on Grimace. **[ASK 6]** |
-| 45 | 4. Bracing and sway bars | VO | Now, we already did a whole video on these two. We put them on a stock NB, jacked up one corner, and 3D scanned it. |
+| 44 | 4. Bracing and sway bars | VO | And the Whiteline front strut tower brace. Both of these are on Grimace. |
+| 45 | 4. Bracing and sway bars | VO | Now, these two get their own video. We put them on a stock NB, jacked up one corner, and 3D scanned it. |
 | 46 | 4. Bracing and sway bars | VO | So if you want to see how much the chassis actually moves, link's up here. |
 | 47 | 4. Bracing and sway bars | SYNC 6662 65.4-80 | "We also got sway bars from Whiteline... This is the Whiteline rear sway bar." |
 | 48 | 4. Bracing and sway bars | VO | And Good-Win sent the knuckle support and the sway bar reinforcement bars. **[ASK 7]** |
@@ -79,7 +79,7 @@ picture sources follow `plan.md` section 3.
 | 65 | Sonoma | **yours** | What the car felt like. Not written: this is your conclusion footage, or lines you give us. **[ASK 14]** |
 | 66 | Conclusions | **yours** | Three short takeaways from your conclusions: the biggest change you could feel, what you'd do first on a budget, what's next. **[ASK 14]** |
 | 67 | Sign-off | VO | Thank you to our technology partners at MotoIQ, and to Mike Kojima, for getting us set up with all of this. |
-| 68 | Sign-off | VO | And to Good-Win Racing, Whiteline, MCS, Eibach, Fast Brakes, Wilwood, CSG, SPL and SuperPro. Check them out to get your own. **[ASK 3, 10]** |
+| 68 | Sign-off | VO | And to Good-Win Racing, Whiteline, MCS, Brian at Fast Brakes, CSG, SPL and SuperPro. Check them out to get your own. **[ASK 10]** |
 | 69 | Sign-off | VO | If you need scanning and other engineering consulting work, reach out to us at Illumaesthetic. |
 | 70 | Sign-off | VO | Want more? Tell us what you want to see next. |
 
@@ -87,26 +87,29 @@ Length: 49 VO lines, about 875 words, about 5.6 minutes at 2.6 words/s (47 lines
 speech. With the graphics and the Sonoma section this lands near 13:30 rather than the plan's 12:15; the plan's
 slot times will be re-cut from the recorded audio, as on the bracing video.
 
-## Answers needed before this is recorded
-1. Which of these parts were on the car at Sonoma in June, which were on it on 21 March, and which went on at Sonoma
-   itself? (On 7 June someone says "let me go bed the brakes".) The promise "then we go to the track" depends on it.
+## Answered by the owner (2026-11-14)
+- Brian is from Fast Brakes: the big brake kit is credited to Brian at Fast Brakes (lines 32, 68).
+- Fast Brakes is the partner. Wilwood and Eibach are brands inside the kits: named and shown as the product, not thanked
+  as partners (line 68; lower-thirds say "Wilwood caliper, from Fast Brakes" and "Eibach springs, on the MCS coilovers").
+- The fender braces are on Grimace, and the bracing test is a separate video being released (lines 44-46 point to it).
+- Mike Kojima's daughter may be mentioned (line 8 stays as spoken).
+
+## Still needed before this is recorded
+1. Which of these parts were on the car at Sonoma in June, which on 21 March, and which went on at Sonoma itself? (On
+   7 June someone says "let me go bed the brakes".) The promise "then we go to the track" depends on it.
 2. Is "Steven" right for the person fitting the coilovers, and may we name him?
-3. On camera you say the big brake kit is "courtesy of Brian", and earlier in the same clip Brian is from Good-Win. Did
-   Good-Win supply the Fast Brakes / Wilwood kit and the lines? If so we credit Good-Win for it and name Fast Brakes and
-   Wilwood as the makers.
 4. Is the caliper a Wilwood Superlite (you said "I believe")? Is the kit's disc larger than stock?
 5. What is the item you mention after the brake lines ("as well as the ... underneath", about 141-145 s)?
-6. Are the Good-Win fender braces on Grimace? The only fitting footage is on the silver NB.
 7. Exact names of the Good-Win knuckle support and sway bar reinforcement parts.
 8. Are the SPL tie rod ends bump-steer adjustable?
 9. "Fancy-ass steering wheel": keep, bleep as a joke, or trim? And what brand is the wheel?
-10. Sponsor list: complete and spelled right? Which of Eibach, Wilwood and Fast Brakes are partners and which are brands
-    inside someone else's kit? MCS here is the coilover company, not Miata Chop Shop (@MCS_Parts): full name, logo and
+10. Partner list as it now stands: MotoIQ / Mike Kojima, Good-Win Racing, Whiteline, MCS, Fast Brakes, CSG, SPL, SuperPro.
+    Complete and spelled right? MCS here is the coilover company, not Miata Chop Shop (@MCS_Parts): full name, logo and
     handle. Order for the thank-you, official logos, handles and links. The Halo P1 label reads "halo by Orthene" and
     you credit CSG for sending it: how should that be credited?
 11. Event name and date for the Sonoma title card.
 12. In the steering wheel clip, is "No." a reply to "Does this actually fit?" or the same person? It decides whether the
     gag is real.
-13. May Mike Kojima's daughter be mentioned as the driver, named, or shown?
 14. Your conclusions: the footage you mentioned, or three sentences in your own words.
 15. The wheel hub with gold studs and the wheel bearing in `049A5444-5449`: what are they and who supplied them?
+16. Should line 45 name or link the bracing video by its final title, and will it be out before this one?
