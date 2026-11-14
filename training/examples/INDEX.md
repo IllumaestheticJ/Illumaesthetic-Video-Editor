@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-14
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-14
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-14
 - [toyota-sera](toyota-sera/) - archived 2026-11-14
@@ -26,7 +27,6 @@ Newest first. Read the top two before starting a new edit.
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [ferrari-296](ferrari-296/) - archived 2026-11-13
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-13
-- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-14
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-14
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
@@ -35,7 +35,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-13
 - [epsilon-wing-configurator](epsilon-wing-configurator/) - archived 2026-11-13
 - [honda-civic-11](honda-civic-11/) - archived 2026-11-13
-- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-12
 - [porsche-gt3-vs-gt3rs](porsche-gt3-vs-gt3rs/) - archived 2026-11-12
 - [porsche-gt3rs-scan-process](porsche-gt3rs-scan-process/) - archived 2026-11-12
@@ -57,7 +56,6 @@ Newest first. Read the top two before starting a new edit.
 - [lexus-is350](lexus-is350/) - archived 2026-11-11
 - [mazda-3-gen4](mazda-3-gen4/) - archived 2026-11-11
 - [toyota-mr2-spyder](toyota-mr2-spyder/) - archived 2026-11-11
-- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-11
 - [a90-supra-scan-process](a90-supra-scan-process/) - archived 2026-11-11
 - [na-miata-grimace-scan-process](na-miata-grimace-scan-process/) - archived 2026-11-11
 - [infiniti-g35](infiniti-g35/) - archived 2026-11-11

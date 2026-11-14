@@ -1,3 +1,8 @@
+# Toyota GR Corolla - scan reel v5. User on v4: "the front end scan is missing a huge chunk of the car" (front base now
+# keeps headlights + fender tops: tools/frontcut.py + bumperline.py) and "there is also a rear roof scan set to add"
+# ('GR Corolla Parts roof 2' = rear door open; s1 closed -> s2 1:1 swap). Music 2 bars earlier (104.582 = v4 start - 2 bars) so the side
+# shots sit in the breakdown; cuts 70/140/210/280 BUMPER/.../630(-1)/700, dip 770. v4 = project_v4.yaml.
+# (v4 header follows)
 # Toyota GR Corolla - scan reel v4 (scan only). User on v3: "that's way too intense" (new track: GT2 'Going Up North'),
 # "the scan data underneath the engine bay as the parts come off still need to be there - needs to be properly nested.
 # same with the front", "parts off the bumper shouldn't be coming off until the bumper is off". v3 = project_v3.yaml.
@@ -7,27 +12,31 @@
 # dip 630 into the song's outro, end ~705.
 project: toyota-gr-corolla
 format: reel-9x16
-output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v4.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/music/grc_goingupnorth.m4a   # user-supplied, not in git
-  start: 109.246
+  start: 104.582
   fade_out: 0.8
 
-beats: [2.333, 4.667, 7.0, 9.333, 11.667, 14.0, 16.333, 18.667, 21.0]
+beats: [2.333, 4.667, 7.0, 9.333, 11.667, 14.0, 16.333, 18.667, 21.0, 23.333, 25.667]
 
 timeline:
   - {id: a1_whole, src: /home/user/media/work/grc/renders5/final/a1_whole, src_fps: 15, interpolate: true, dur: 2.3, section: whole, focus: "whole car, front-left 3/4 push"}
+  - transition: {type: cut, note: "106.920 kick (breakdown)"}
+  - {id: s1_side, src: /home/user/media/work/grc/renders6/final/s1_side, src_fps: 15, interpolate: true, dur: 2.3333, section: side, focus: "closed car from the rear-left"}
+  - transition: {type: cut, note: "109.252 same camera, state swap"}
+  - {id: s2_rdoor, src: /home/user/media/work/grc/renders6/final/s2_rdoor, src_fps: 15, interpolate: true, dur: 2.3333, section: side, focus: "rear door open (roof 2 scan set): jamb + rear seats"}
   - transition: {type: cut, note: "111.584 kick (breakdown)"}
   - {id: a2_grille, src: /home/user/media/work/grc/renders5/final/a2_grille, src_fps: 15, interpolate: true, dur: 2.3333, section: front, focus: "lower grille, intercooler behind the mesh"}
   - transition: {type: cut, note: "113.916 first full downbeat after the bass returns"}
-  - {id: b1_fbumper, src: /home/user/media/work/grc/renders5/final/b1_fbumper, src_fps: 30, dur: 2.3333, section: front, focus: "front bumper off - first, before anything behind it"}
+  - {id: b1_fbumper, src: /home/user/media/work/grc/renders6/final/b1_fbumper, src_fps: 30, dur: 2.3333, section: front, focus: "front bumper off - first, before anything behind it"}
   - transition: {type: cut, note: "116.248"}
-  - {id: b2_beams, src: /home/user/media/work/grc/renders5/final/b2_beams, src_fps: 30, dur: 2.3333, section: front, focus: "upper + lower bumper beams"}
+  - {id: b2_beams, src: /home/user/media/work/grc/renders6/final/b2_beams, src_fps: 30, dur: 2.3333, section: front, focus: "upper + lower bumper beams"}
   - transition: {type: cut, note: "118.580"}
-  - {id: b3_ducts, src: /home/user/media/work/grc/renders5/final/b3_ducts, src_fps: 30, dur: 2.3333, section: front, focus: "bumper + radiator ducts"}
+  - {id: b3_ducts, src: /home/user/media/work/grc/renders6/final/b3_ducts, src_fps: 30, dur: 2.3333, section: front, focus: "bumper + radiator ducts"}
   - transition: {type: cut, note: "120.912"}
-  - {id: b4_ic, src: /home/user/media/work/grc/renders5/final/b4_ic, src_fps: 30, dur: 2.3333, section: front, focus: "intercooler; engine-bay scan behind"}
+  - {id: b4_ic, src: /home/user/media/work/grc/renders6/final/b4_ic, src_fps: 30, dur: 2.3333, section: front, focus: "intercooler; engine-bay scan behind"}
   - transition: {type: cut, note: "123.244"}
   - {id: c1_rbumper, src: /home/user/media/work/grc/renders5/final/c1_rbumper, src_fps: 30, dur: 2.3333, section: rear, focus: "rear bumper + diffuser off together"}
   - transition: {type: cut, note: "125.576 same camera, state swap"}
@@ -38,4 +47,4 @@ timeline:
   - {id: logo, src: /home/user/media/work/grc/out/logo_card_720.mp4, dur: 3.0}
 
 overlays:
-  - {src: /home/user/media/work/grc/out/labels_v4.mov, start: 0}   # tools/labels.py labels.json
+  - {src: /home/user/media/work/grc/out/labels_v5.mov, start: 0}   # tools/labels.py labels.json
