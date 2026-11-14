@@ -123,6 +123,6 @@ for i, (n, (cl, tg, f0, f1)) in enumerate(CAMS.items()):
          "seconds": 2.0667, "fps": 30, "res": "1080x1920", "res_pct": 75, "samples": 12}
     write(n, s, (0.30, 0.60) if i == 0 else ())
 s = {"base": [blend("comp_explode7")], "parts": explode7(3 * BAR),
-     "camera": {"keys": [cam(0, [4.40, 1.15, 9.10], [0.12, -0.05, 0.80], 26), cam(BAR, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 26)]},
+     "camera": {"keys": [cam(0, [4.40, 1.15, 9.10], [0.12, -0.05, 0.80], 22), cam(BAR, [2.80, 0.70, 6.20], [0, -0.05, 0.80], 26)]},   # start 22 mm: the split BRZ skins sat on the frame edges at 26
      "seconds": 2.0667, "fps": 30, "res": "1080x1920", "res_pct": 75, "samples": 12}
 write("h1_reassemble7", s, (0.70, 1.30, 1.70))
