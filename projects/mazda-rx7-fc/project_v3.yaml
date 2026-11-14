@@ -102,6 +102,7 @@ timeline:
     src: /home/user/media/work/rx7/renders/k_reveal
     src_fps: 15
     interpolate: true
+    vf: "scale=1016:1806,pad=1080:1920:32:57:color=0x040405"   # 94 %: the wing tip touched the right edge (frames 38-60)
     dur: 5.3333
   - transition: {type: cut, note: "42.667 downbeat - CTA"}
   - id: cta            # the listing's own scan (2025 FC3S full car) at the viewer's camera -> into the phone listing

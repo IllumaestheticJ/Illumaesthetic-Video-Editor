@@ -88,7 +88,7 @@ SHOTS["k_reveal"] = {"base": [EXPDP], "parts": FRONT_KIT + SIDE_KIT + REAR_KIT,
 # CTA: the listing's own scan (2025 'FC3S Full Car', stock, mesh wheels) in silver, a short orbit that ENDS on the
 # listing 360 viewer's solved camera (tools/solve_listing.py, IoU 0.959) so cta_card.py --map shrinks it 1:1 onto the phone
 LC = json.load(open("/home/user/media/work/rx7/cta/listing_cam.json"))
-CTA_F = 32.0
+CTA_F = 24.0   # 32 mm cut the car's rear at the portrait frame edge (overlay vs the listing)
 def lcam(da, t, ease="inout"):
     import math
     a, e, d = math.radians(LC["a"] + da), math.radians(LC["e"]), LC["d"]; c = LC["target"]
