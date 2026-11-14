@@ -1,3 +1,11 @@
+# Mazda Miata ND scan reel - self-review (v9, delivered)
+
+v9 = v8 + the user's note "the rear trunk is not cut right". File `/home/user/media/work/miata/out/miata_nd_v9.mp4` (34.9 s).
+- Scan quality 4 -> 5 on the trunk: lid = what moved in the trunk-open scan, incl. its wrapped rear face with the badge between the
+  tail lights; no interior holes, no slivers left on the deck, tail lights stay on the body. Trunk + explode shots re-rendered.
+- Timing unchanged from v8 (explode on the 45.488 s drop).
+
+## Earlier reviews (v8 and before) kept below
 # Mazda Miata ND scan reel - self-review (v8, delivered)
 
 v8 = the user's note on v7: "the drop is right when the music ends". File `/home/user/media/work/miata/out/miata_nd_v8.mp4`

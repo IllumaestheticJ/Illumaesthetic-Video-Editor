@@ -1102,3 +1102,9 @@ lands here automatically. Agents must read this whole file before editing.
   matching placed print (compare nearest-point distances: translation vs mirror).
 - **[scan]** Brake bench scans (caliper, rotor ring) have no car frame: put the ring axis on the CAD hat axis (PCA thin axis),
   and register a caliper by fitting a circle to its outer bridge profile - its centre is the rotor axis (QX80: 6 mm off).
+## From the Mazda Miata ND v9 revision (2026-11-14, built by an agent)
+- **[scan-look]** Define an opening panel as what MOVED: car triangles near the panel that are ABSENT from the "panel open" state scan
+  (and not another removed part), largest connected blob, then close holes (a triangle mostly surrounded by panel joins it) and trim
+  at the shut line where the open panel occluded the body (mazda-miata-nd/tools/lid_from_state.py + fill_panel_holes.py).
+  A top-view polygon misses wrapped faces: the ND trunk lid includes the rear face with the badge between the tail lights
+  (user: "the rear trunk is not cut right"). Never subtract state-scan matches inside the panel - it punches holes that stay on the body.
