@@ -106,7 +106,7 @@ REF = None
 def vo(i):
     global REF
     if REF is None: REF = act_rms(own(48, 45))
-    x = wav(f'{M}/vo10/{i:02d}.wav'); k = np.nonzero(np.abs(x) > 10**(-45/20))[0]; x = x[max(k[0] - 1440, 0):k[-1] + 5760]; return x*REF/act_rms(x)
+    x = wav(f'{M}/vo10/{i:02d}.wav' if isinstance(i, int) else f'{M}/vo10/reels/{i}.wav'); k = np.nonzero(np.abs(x) > 10**(-45/20))[0]; x = x[max(k[0] - 1440, 0):k[-1] + 5760]; return x*REF/act_rms(x)
 def music(name, pos, n):
     w = wave.open(f'{M}/music/{name}_48.wav'); w.setpos(int(pos*SR)); x = np.frombuffer(w.readframes(n), np.int16).reshape(-1, 2).mean(1).astype(np.float32)/32768
     return x*(10**(-20/20)/np.sqrt((x**2).mean() + 1e-12))
@@ -133,11 +133,74 @@ REELS = {
     ('draw', heat_pair('jacked', 'strut', 'NO BRACING', 'STRUT TOWER BRACE', 215, 305), 3.0, None),
     ('draw', endcard(['DOES BRACING', 'ACTUALLY WORK?']), 2.8, None)]),
 }
+# ---------------------------------------------------------------- reels 4-6 (owner, 2026-11-14): guess / explain / guess
+FLEXBG = (38, 38, 38)
+def flexgfx(t0):
+    """the long-form's 2D flex explainer (work/flex.mp4, 16:9) re-framed for 9:16: scaled to 0.82, centred on its content"""
+    cache = {}
+    def draw(t, D):
+        k = int(round((t0 + t)*24000/1001))
+        if k not in cache:
+            cache.clear(); raw = subprocess.run(['ffmpeg', '-v', 'error', '-ss', f'{(t0 + t):.3f}', '-i', f'{M}/work/flex.mp4', '-frames:v', '1', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
+            cache[k] = Image.fromarray(np.frombuffer(raw, np.uint8).reshape(1080, 1920, 3))
+        g = cache[k]; s = 0.82; g = g.resize((int(1920*s), int(1080*s)), Image.LANCZOS); im = Image.new('RGB', (W, H), FLEXBG)
+        im.paste(g.crop(((g.width - W)//2, 0, (g.width + W)//2, g.height)), (0, (H - g.height)//2 - 40)); return im
+    return draw
+def bigtext(lines, sub=None, col=None):
+    def draw(t, D):
+        im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im); y = H/2 - 60*len(lines)
+        for j, s in enumerate(lines): ctext(d, y + 130*j, s, F(118, 'Black'), (col or [FG]*len(lines))[j], (t - .05 - .1*j)/.2)
+        if sub: ctext(d, y + 130*len(lines) + 40, sub, F(44, 'SemiBold'), (150, 156, 164), (t - .4)/.3)
+        return im
+    return draw
+def poll(q, a, b, ca, cb, foot='COMMENT YOUR GUESS'):
+    """question card with two answer pills that pop in, like a story poll"""
+    def draw(t, D):
+        im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im)
+        for j, s in enumerate(q): ctext(d, 520 + 120*j, s, F(100, 'Black'), FG if j < len(q) - 1 else GOLD, (t - .05 - .12*j)/.25)
+        for j, (s, c) in enumerate(((a, ca), (b, cb))):
+            k = ease((t - .5 - .25*j)/.3)
+            if k <= 0: continue
+            y = 900 + 190*j; w = 820*k
+            d.rounded_rectangle([W/2 - w/2, y, W/2 + w/2, y + 140], 70, fill=c)
+            if k > .8: d.text((W/2, y + 70), s, font=F(60, 'Black'), fill=(16, 16, 16), anchor='mm')
+        pulse = .65 + .35*math.sin(t*5); ctext(d, 1340, foot, F(48, 'Bold'), FG, min((t - 1.1)/.3, 1)*pulse); return im
+    return draw
+def versus(q):
+    def draw(t, D):
+        im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im)
+        for j, (s, c) in enumerate((('STRUT TOWER', BLUE), ('BRACE', BLUE))): ctext(d, 420 + 110*j, s, F(104, 'Black'), c, (t - .05)/.2)
+        ctext(d, 690, 'VS', F(90, 'Black'), GOLD, (t - .3)/.2)
+        for j, (s, c) in enumerate((('FENDER', GREEN), ('BRACES', GREEN))): ctext(d, 840 + 110*j, s, F(104, 'Black'), c, (t - .5)/.2)
+        for j, s in enumerate(q): ctext(d, 1170 + 64*j, s, F(50, 'SemiBold'), FG, (t - .9 - .1*j)/.3)
+        pulse = .65 + .35*math.sin(t*5); ctext(d, 1390, 'COMMENT YOUR PICK', F(48, 'Bold'), GOLD, min((t - 1.4)/.3, 1)*pulse); return im
+    return draw
+def heat_pair_plain(a, b, la, lb, y0, y1):
+    return heat_pair(a, b, la, lb, y0, y1)
+REELS.update({
+ 4: dict(name='Reel4_guess_does_it_work', music=('gt', 455.0), seg=[
+    ('irl', 37.85, 0.50, 5.45, ('own', 37.85)),
+    ('draw', poll(['IS CHASSIS BRACING', 'ACTUALLY USEFUL?'], 'YES, IT WORKS', "NO, IT'S HYPE", GREEN, RED), 3.6, None),
+    ('irl', 191.6, 0.36, 1.1, ('vf', 'r101')), ('irl', 194.2, 0.50, 1.1, None), ('irl', 209.27, 0.68, 1.0, None),
+    ('draw', heat_single('jacked', 250, 300, 'ONE CORNER JACKED UP', 0, 'what the scanner saw'), 2.6, None),
+    ('draw', endcard(['THE ANSWER IS IN', 'THE FULL VIDEO']), 2.8, None)]),
+ 5: dict(name='Reel5_how_bracing_works', music=('gt', 1060.0), seg=[
+    ('draw', bigtext(['ALL CARS', 'FLEX.'], None, [FG, GOLD]), 1.55, ('own', 12.43)),
+    ('draw', flexgfx(0.0), 8.7, ('own', 13.98)),
+    ('draw', heat_single('jacked', 230, 330, 'ONE CORNER JACKED UP', 0, '3D scan vs the car on the ground'), None, ('vf', 'r102')),
+    ('draw', heat_pair('jacked', 'strut', 'NO BRACING', 'STRUT TOWER BRACE', 215, 305), None, ('vf', 'r103')),
+    ('draw', endcard(['HOW MUCH DID', 'EACH BRACE HELP?']), None, ('vf', 'r104'))]),
+ 6: dict(name='Reel6_which_brace', music=('gt', 1180.0), seg=[
+    ('irl', 64.62, 'host', 4.45, ('own', 64.62)),
+    ('irl', 257.75, 0.62, 1.6, None), ('irl', 313.8, 0.55, 1.6, None),
+    ('draw', versus(['Which one kept the strut towers', 'from spreading on the jack?']), None, ('vf', 'r105')),
+    ('draw', endcard(['THE ANSWER MIGHT', 'SURPRISE YOU']), 2.8, None)]),
+})
 def build(k):
     R = REELS[k]; t = 0.0; fr = 0; files = []; voice = []; tl = []
     for i, (kind, *a) in enumerate(R['seg']):
         d, v = a[-2], a[-1]; x = None
-        if v: x = own(v[1], d) if v[0] == 'own' else vo(v[1])
+        if v: x = own(v[1], d if d else 30) if v[0] == 'own' else vo(v[1])
         if d is None: d = len(x)/SR + 0.45
         n = int(round((t + d)*FPS)) - fr; f = f'{WK}/r{k}_s{i}_{n}.mp4'; files.append(f); tl.append((t, d, kind))
         if not os.path.exists(f):
@@ -148,7 +211,7 @@ def build(k):
         t += d; fr += n
     open(f'{WK}/r{k}.txt', 'w').write(''.join(f"file '{f}'\n" for f in files)); N = int(fr/FPS*SR); mix = np.zeros(N, np.float32); duck = np.zeros(N, np.float32)
     for s, x, kind in voice:
-        p = int(s*SR); x = x[:N - p]; mix[p:p + len(x)] += x; duck[max(p - 4800, 0):p + len(x) + 4800] = 1 if kind == 'vo' else 0.75
+        p = int(s*SR); x = x[:N - p]; mix[p:p + len(x)] += x; duck[max(p - 4800, 0):p + len(x) + 4800] = 1 if kind in ('vo', 'vf') else 0.75
     kk = int(.35*SR); duck = np.convolve(duck, np.ones(kk)/kk, 'same'); m = music(*R['music'], N); g = 10**((-1.5 - 11.5*duck)/20)          # -21.5 dB RMS open, -33 under the voice
     m = m*g; r = int(1.2*SR); m[-r:] *= np.linspace(1, 0.25, r); mix = np.tanh((mix + m)*1.15)*0.8          # peaks stay under -1.5 dBFS after AAC
     w = wave.open(f'{WK}/r{k}.wav', 'w'); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((np.repeat(mix[:, None], 2, 1)*32767).astype(np.int16).tobytes())
