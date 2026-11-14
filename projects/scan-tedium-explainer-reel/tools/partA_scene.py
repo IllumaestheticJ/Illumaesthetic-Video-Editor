@@ -766,12 +766,10 @@ def hat_pip(name, ch, S):
     ch_brim = bpy.data.objects[f"{name}_brim"]
     ch_brim.scale = (1.15, 1.0, 1.0)
     blob(f"{name}_button", (0.018, 0.018, 0.012), (0, 0, hh * 0.42), cm, cap)
-    # backwards cap: the adjustment opening faces front - head grey showing through an arch, strap with holes across it
+    # backwards cap: the adjustment opening faces front, as a plain darker band - no holes or arch (they read as a second
+    # pair of eyes above the real ones)
     fy = -hd / 2 * 1.03 * k - 0.004
-    blob(f"{name}_opening", (0.075, 0.012, 0.06), (0, fy, 0.0), mat("vinyl", hl=True), cap, half=True)
-    box(f"{name}_strapband", (0.13, 0.014, 0.026), (0, fy - 0.004, 0.012), mat("#3f403f"), cap, 0.006, S["ol"] * 0.4)
-    for k in range(4):
-        cyl(f"{name}_hole{k}", 0.006, 0.004, ((k - 1.5) * 0.026, fy - 0.012, 0.012), mat("#a9aba8"), cap, axis="Y", seg=10)
+    box(f"{name}_strapband", (0.15, 0.012, 0.03), (0, fy - 0.002, 0.016), mat("#3f403f"), cap, 0.006, S["ol"] * 0.4)
 
 
 def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), armR=(0, 0, -4), elbowL=-10, elbowR=-10,
@@ -830,18 +828,18 @@ def build_clock(parent=None, loc=(-4.0, 3.56, 2.75), r=0.42):
             rot=(0, math.degrees(a), 0))
     hands = {}
     for nm, L, w, m, y in (("hour", 0.22, 0.04, mat("black"), -0.06), ("minute", 0.33, 0.028, mat("black"), -0.068),
-                           ("second", 0.36, 0.012, mat("red"), -0.076)):
+                           ("second", 0.36, 0.012, mat("sage"), -0.076)):
         piv = empty(f"clock_{nm}", g, (0, y, 0))
         box(f"clock_{nm}_m", (w, 0.006, L), (0, 0, L / 2 - 0.04), m, piv, 0.002)
         hands[nm] = piv
-    cyl("clock_pin", 0.03, 0.02, (0, -0.082, 0), mat("red"), g, axis="Y")
+    cyl("clock_pin", 0.03, 0.02, (0, -0.082, 0), mat("sage"), g, axis="Y")
     return g, hands
 
 
 def clock_blur(clock_g, hands, r=0.42):
     """Hands spinning 'like a fan': trailing ghost copies (see-through) + whirr strokes beside the clock."""
     objs = []
-    for nm, L, w, key, y, n, step in (("minute", 0.33, 0.028, "black", -0.07, 9, 14), ("second", 0.36, 0.014, "red", -0.078, 12, 11)):
+    for nm, L, w, key, y, n, step in (("minute", 0.33, 0.028, "black", -0.07, 9, 14), ("second", 0.36, 0.014, "sage", -0.078, 12, 11)):
         for i in range(n):
             a = hands[nm].rotation_euler.y - math.radians(step * (i + 1))
             alpha = 0.55 * (1 - i / n)
@@ -973,7 +971,7 @@ def build_screen_ui(ui, door=(0.085, 0.022, 8.0), snapped=False, pin_scale=1.0):
 
     P("ui_bg", [(-0.205, -0.135), (0.205, -0.135), (0.205, 0.135), (-0.205, 0.135)], "#141614", loc=(0, 0, 0))
     P("ui_bar", [(-0.205, 0.118), (0.205, 0.118), (0.205, 0.135), (-0.205, 0.135)], "#2a2d2a", loc=(0, 0, 0.0005))
-    for i, c in enumerate(("red", "sage_l", "white")):
+    for i, c in enumerate(("#8c918c", "sage_l", "white")):
         objs.append(cyl(f"ui_dot{i}", 0.0045, 0.0005, (-0.19 + i * 0.013, 0.1265, 0.001), emit(c, 1.0), ui, seg=12))
     oy = -0.01   # lift the whole car a little on the screen
     sh = lambda pts: [(x, y + oy) for x, y in pts]

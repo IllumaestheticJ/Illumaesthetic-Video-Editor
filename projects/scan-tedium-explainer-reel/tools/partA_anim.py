@@ -454,7 +454,7 @@ def anim_S8(fr):
     HANDS["hour"].rotation_euler = (0, math.radians(300 + (am - 150) / 12), 0)
     wm = 360 * (0.4 + 4.8 * u) / n                      # degrees per frame
     ws = 360 * (2.0 + 16.0 * u) / n
-    for nm, L_, w_, key, y, cnt, wv in (("minute", 0.33, 0.028, "black", -0.07, 8, wm), ("second", 0.36, 0.014, "red", -0.078, 10, ws)):
+    for nm, L_, w_, key, y, cnt, wv in (("minute", 0.33, 0.028, "black", -0.07, 8, wm), ("second", 0.36, 0.014, "sage", -0.078, 10, ws)):
         if wv < 6:
             continue
         step = min(wv, 300) / cnt
