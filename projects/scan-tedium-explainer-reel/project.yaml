@@ -1,0 +1,42 @@
+# Scan-tedium explainer reel. STATUS: script + storyboard for owner approval; nothing rendered yet.
+# Part A sources are planned renders (do not exist yet); Part B sources exist (IS350 reels intermediates + vertical renders).
+# Frames per storyboard.md (version A split); cuts get snapped to measured kicks once the music piece is chosen.
+project: scan-tedium-explainer-reel
+format: reel-9x16
+output: {path: /home/user/media/work/scan-tedium-reel/out/scan_tedium_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 17}
+music: {path: /home/user/media/work/is350-long/music/mix_full.wav, start: TBD, fade_out: 0.6}   # one piece from the owner's royalty-free mix
+beats: []
+built_by: TBD (frame-exact concat like projects/lexus-is350-reels/tools/build.py)
+timeline:
+# --- Part A: Blender block-character renders (planned) ---
+- {id: S1_hook,     src: /home/user/media/work/scan-tedium-reel/renders/S1,  frames: 57}
+- {id: S2_dots,     src: /home/user/media/work/scan-tedium-reel/renders/S2,  frames: 53}
+- {id: S3_slap,     src: /home/user/media/work/scan-tedium-reel/renders/S3,  frames: 52}
+- {id: S4_timelapse, src: /home/user/media/work/scan-tedium-reel/renders/S4, frames: 38}
+- {id: S5_scanner,  src: /home/user/media/work/scan-tedium-reel/renders/S5,  frames: 37}
+- {id: S6_sections, src: /home/user/media/work/scan-tedium-reel/renders/S6,  frames: 46}
+- {id: S7_laptop,   src: /home/user/media/work/scan-tedium-reel/renders/S7,  frames: 47}
+- {id: S8_clock,    src: /home/user/media/work/scan-tedium-reel/renders/S8,  frames: 45}
+- {id: S9_peel,     src: /home/user/media/work/scan-tedium-reel/renders/S9,  frames: 48}
+- {id: S10_faster,  src: /home/user/media/work/scan-tedium-reel/renders/S10, frames: 42}
+- transition: {type: cut}   # Part A -> B on the drop
+# --- Part B: existing IS350 reel assets ---
+- {id: P1_spray,  span: lexus-is350-reels/spans.json#R3_M1 (extended ~97.9-99.4, check frames), frames: 45}
+- {id: P2_scan,   span: lexus-is350-reels/spans.json#R1_SCAN, frames: 48}
+- {id: P3_irl,    span: lexus-is350-reels/spans.json#R2_P2, ends_on_frame: 5641, frames: 48}
+- transition: {type: cut}   # 1:1
+- {id: P4_scan,   src: /home/user/media/work/is350-reels/renders/V_PAIR_2/V_PAIR_2_preview.mp4, frames: 54}
+- {id: P5_irl,    span: lexus-is350-reels/spans.json#R2_P3, ends_on_frame: 5401, frames: 48}
+- transition: {type: cut}   # 1:1
+- {id: P6_scan,   src: /home/user/media/work/is350-reels/renders/V_PAIR_3/V_PAIR_3_preview.mp4, frames: 54}
+- {id: P7_irl,    span: lexus-is350-reels/spans.json#R2_FRONT, ends_on_frame: 264, frames: 42}
+- transition: {type: cut}   # 1:1
+- {id: P8_scan,   src: /home/user/media/work/is350-reels/renders/V_MATCH_FRONT/V_MATCH_FRONT_preview.mp4, frames: 60}
+- {id: P9_full,   src: /home/user/media/work/is350-reels/renders/V_RES_FULL/V_RES_FULL_preview.mp4, in: 0.0, frames: 90}
+- {id: P10_logo,  src: logo card (as lexus-is350-reels), frames: 66}
+overlays: []   # Remotion ReelGfx: Part A text, VO captions, P9 title, logo CTA
+voices:
+  engine: piper-tts 1.8.0
+  PIP: {model: en_US-kristin-medium, licence: public domain, fx: "rubberband pitch 1.41 tempo 1.08 formant shifted"}
+  GUS: {model: en_US-john-medium, licence: public domain, fx: "piper length 1.1; rubberband pitch 0.79 tempo 0.95 formant shifted; lowpass 5k"}
+  SCANNER: {model: en_US-joe-medium, licence: CC0, fx: "rubberband pitch 1.19 tempo 1.12 + bitcrush"}
