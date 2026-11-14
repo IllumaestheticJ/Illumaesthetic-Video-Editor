@@ -12,3 +12,5 @@
 {"ts": "2026-11-13T19:20:41Z", "project": "toyota-gr86", "at": "15.7", "category": "scan", "note": "Rear trunk area is not cut correctly based on real trunk opening", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T22:13:46Z", "project": "toyota-gr86", "at": "10.5", "category": "scan", "note": "the BRZ and GR86 bumper are clipping into each other. have them come off and then split apart if we're going to do that", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T22:13:46Z", "project": "toyota-gr86", "at": "17.7", "category": "scan", "note": "there are still bits of the rear trunk left behind", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T09:35:23Z", "project": "toyota-gr86", "at": "8.5", "category": "scan", "note": "the two BRZ and GR86 bumpers are still clipping each other on the sidemarker scene", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-14T09:38:42Z", "project": "toyota-gr86", "at": null, "category": "scan", "note": "BRZ and GR86 rear bumpers are the same - don't need to do the splitting thing", "by": "reviewer", "promoted": false}

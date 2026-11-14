@@ -1,0 +1,379 @@
+{
+ "base": [
+  "/home/user/media/work/gr86/blend/comp_explode7.blend"
+ ],
+ "parts": [
+  {
+   "blend": "/home/user/media/work/gr86/blend/front_bumper_v8.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    -0.07,
+    -1.818,
+    0.605
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/side_marker_R.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    },
+    {
+     "t": 0.05,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    },
+    {
+     "t": 0.3,
+     "loc": [
+      0.15,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 0.75,
+     "loc": [
+      0.15,
+      -0.3,
+      0.3
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 2.1,
+     "loc": [
+      0.16,
+      -0.32,
+      0.32
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/side_marker_L.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    },
+    {
+     "t": 0.05,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    },
+    {
+     "t": 0.3,
+     "loc": [
+      -0.15,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 0.75,
+     "loc": [
+      -0.15,
+      -0.3,
+      0.3
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 2.1,
+     "loc": [
+      -0.16,
+      -0.32,
+      0.32
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/hood_t.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      -0.15,
+      3.2
+     ],
+     "rot": [
+      -50,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.0185,
+    -0.7327,
+    1.0441
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/lid_v7.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.0185,
+    1.5423,
+    1.1691
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/mirror_R.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/mirror_L.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/rear_bumper_v8.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.064,
+    1.817,
+    0.638
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/reverse_light.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.064,
+    1.817,
+    0.638
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/gr86/blend/plate_light.blend",
+   "keys": [
+    {
+     "t": 0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "inout"
+    }
+   ],
+   "pivot": [
+    0.064,
+    1.817,
+    0.638
+   ]
+  }
+ ],
+ "camera": {
+  "keys": [
+   {
+    "t": 0,
+    "loc": [
+     2.0,
+     -3.1,
+     0.95
+    ],
+    "target": [
+     0.8,
+     -1.8,
+     0.75
+    ],
+    "focal": 34,
+    "ease": "inout"
+   },
+   {
+    "t": 2.0,
+    "loc": [
+     1.92,
+     -3.0,
+     0.95
+    ],
+    "target": [
+     0.85,
+     -1.88,
+     0.82
+    ],
+    "focal": 42,
+    "ease": "inout"
+   }
+  ]
+ },
+ "seconds": 2.0667,
+ "fps": 30,
+ "res": "1080x1920",
+ "res_pct": 75,
+ "samples": 12,
+ "out": "/home/user/media/work/gr86/shots/m1_side_marker8"
+}
