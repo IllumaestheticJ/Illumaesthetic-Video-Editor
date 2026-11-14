@@ -1,4 +1,4 @@
-"""Shot list v5 (v4: shots_v4.py; v5 = smooth hood nose + corner markers out through the bumper FRONT; re-cut to the reviewer-supplied track, nested parts) for the Suzuki Cappuccino scan reel -> one tools/shot.py JSON per shot (v1 recipe: shots_v1.py).
+"""Shot list v6 (v5: shots_v5.py; v6 = hood opens BEFORE the bumper comes off, hood cut on the real seam, no wheel shot; re-cut to the reviewer-supplied track, nested parts) for the Suzuki Cappuccino scan reel -> one tools/shot.py JSON per shot (v1 recipe: shots_v1.py).
 Plan: direction.md (scene order from the scan inventory) + director.md (one focus per shot). User v2 brief + addendum A-D.
   python projects/suzuki-cappuccino/shots.py      # writes /home/user/media/work/cappuccino/shots_v2/*.json
 Cuts land on the broadband kick onset frames of the source track (onsets.json, beat n -> frame), not the low-band grid.
@@ -10,8 +10,8 @@ import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 B = "/home/user/media/work/cappuccino/blend/"
-OUT = "/home/user/media/work/cappuccino/shots_v5/"
-RENDERS = "/home/user/media/work/renders/cappuccino_v5/"
+OUT = "/home/user/media/work/cappuccino/shots_v6/"
+RENDERS = "/home/user/media/work/renders/cappuccino_v6/"
 HH = json.load(open(os.path.join(HERE, "hinge_hood.json")))
 HT = json.load(open(os.path.join(HERE, "hinge_trunk.json")))
 ONSET_F = {int(k_): v for k_, v in json.load(open(os.path.join(HERE, "onsets.json")))["frames"].items()}  # v3 beat label -> cut frame at 30 fps on the new track
@@ -83,30 +83,33 @@ def shot(name, b0, b1, objects, camera, anims=None, visible=None, light_ref=None
 # 1 whole car, front-right 3/4, fully in frame, moving from frame 1 (v1 openers were cropped at 4.4-5 m)
 shot("s1_whole", 0, 8, CAR, [cam(0, -58, 9, 6.1, [0, -0.05, 0.52], 40), cam(1, -34, 7, 5.5, [0, -0.15, 0.50], 40, lin=True)])  # lin: constant orbit, moving from frame 1
 
-# 2 front (nested): right lamp close -> bumper slides straight forward off the car with the markers in it -> drops and tips
-#   to show the inner face (mounting points) -> rights itself, outer face to the lens -> only then the corner markers push
-#   out through the FRONT of the bumper -> bumper + markers drop away, camera moves in on the exposed structure (hero beat C)
+# 2 front (v6 order, reviewer: "open the hood first, THEN pull the bumper out"): right lamp close -> hood swings up
+#   (lands on the 6.46 s hit) -> bumper slides straight forward off the car with the markers in it -> drops and tips to
+#   show the inner face (mounting points) -> rights itself, outer face to the lens -> corner markers push out through the
+#   FRONT of the bumper -> hold on bumper + markers (moving camera) -> cut
 _FBP = (0, -0.55, -0.45)  # bumper's working pose in front of / below the car
 shot("s2_frontbumper", 8, 28, EXPLODED,
-     [cam(0, -30, 8, 1.6, [-0.42, -1.45, 0.45], 50), cam(0.12, -27, 10, 1.5, [-0.30, -1.50, 0.42], 50),
-      cam(0.26, -22, 22, 3.6, [0, -1.75, 0.25], 40), cam(0.38, -18, 40, 3.2, [0, -1.95, 0.12], 45),
-      cam(0.52, -16, 42, 3.2, [0, -1.95, 0.15], 45), cam(0.62, -14, 12, 3.3, [0, -2.10, -0.02], 45),
-      cam(0.78, -12, 10, 3.1, [0, -2.20, -0.02], 45), cam(0.88, -10, 12, 1.5, [0, -1.45, 0.35], 45),
-      cam(1, -4, 10, 1.3, [0, -1.40, 0.38], 45, lin=True)],
-     {"fb": [k(0, spin=0), k(0.12, spin=0), k(0.22, (0, -0.45, 0), spin=0), k(0.30, _FBP, spin=60), k(0.38, _FBP, spin=95),
-             k(0.52, _FBP, spin=95), k(0.61, _FBP, spin=0), k(0.80, _FBP, spin=0), k(0.88, F_OUT["fb"]["off"], spin=0)],
-      "li": [k(0), k(0.63), k(0.73, LI_OUT)],
-      "hood": HOME["hood"], "rb": HOME["rb"], "trunk": HOME["trunk"]}, light_ref="base")
+     [cam(0, -30, 8, 1.6, [-0.42, -1.45, 0.45], 50), cam(0.06, -28, 10, 1.8, [-0.35, -1.45, 0.50], 50),
+      cam(0.20, -24, 16, 4.0, [0, -1.50, 0.62], 40), cam(0.30, -20, 24, 3.8, [0, -1.80, 0.30], 40),
+      cam(0.38, -18, 40, 3.2, [0, -1.95, 0.12], 45), cam(0.52, -16, 42, 3.2, [0, -1.95, 0.15], 45),
+      cam(0.62, -14, 12, 3.3, [0, -2.10, -0.02], 45), cam(0.80, -12, 10, 3.1, [0, -2.20, -0.02], 45),
+      cam(1, -8, 10, 2.9, [0, -2.20, 0.0], 45, lin=True)],
+     {"hood": [k(0, deg=0), k(0.06, deg=0), k(0.20, deg=HOOD_OPEN)],
+      "fb": [k(0, spin=0), k(0.20, spin=0), k(0.28, (0, -0.45, 0), spin=0), k(0.34, _FBP, spin=60), k(0.40, _FBP, spin=95),
+             k(0.52, _FBP, spin=95), k(0.60, _FBP, spin=0)],
+      "li": [k(0), k(0.62), k(0.74, LI_OUT)],
+      "rb": HOME["rb"], "trunk": HOME["trunk"]}, light_ref="base")
 
-# 3 engine bay: held rise through the break (no cut), hood swings ON the drop (beat 32), push into the bay
-_t32 = (ONSET_F[32] - ONSET_F[28]) / (ONSET_F[40] - ONSET_F[28])
-shot("s3_engine", 28, 40, EXPLODED,
-     [cam(0, -24, 24, 3.2, [0, -0.95, 0.70], 40), cam(_t32, -20, 30, 2.9, [0, -0.95, 0.65], 40),
-      cam(0.55, -12, 44, 2.3, [0, -1.0, 0.48], 40), cam(1, -6, 36, 1.75, [0.05, -1.15, 0.42], 45)],
-     {"hood": [k(0, deg=0), k(_t32, deg=0), k(_t32 + 0.12, deg=HOOD_OPEN)], "rb": HOME["rb"], "trunk": HOME["trunk"]},
+# 3 (v6: wheel shot dropped, its 1.3 s goes here) structure the bumper exposed (radiator), hood already open above ->
+#   crane up on the 16.28 s hit and push into the engine bay
+_t32 = (ONSET_F[32] - ONSET_F[28]) / (ONSET_F[44] - ONSET_F[28])
+shot("s3_engine", 28, 44, EXPLODED,
+     [cam(0, -10, 12, 1.5, [0, -1.45, 0.35], 45), cam(_t32, -7, 11, 1.35, [0, -1.42, 0.38], 45),
+      cam(0.62, -12, 44, 2.3, [0, -1.0, 0.48], 40), cam(1, -6, 36, 1.75, [0.05, -1.15, 0.42], 45)],
+     {"hood": [k(0, deg=HOOD_OPEN)], "rb": HOME["rb"], "trunk": HOME["trunk"]},
      visible={"fb": [0, 0], "li": [0, 0]}, light_ref="base")
 
-# 4 front-right wheel: REUSED v1 render (renders/cappuccino/s04_wheel) - no JSON here
+# 4 front-right wheel: DROPPED in v6 (reviewer: "the slow cut on the wheel at 0:20 is completely unnecessary")
 
 # 5 rear: bumper back/down and tipped (inner face) -> hold on rear panel / wiring / exhaust (Rear End All Removed)
 #   -> trunk lid up to its captured angle (Rear End Trunk Open exists and registers)

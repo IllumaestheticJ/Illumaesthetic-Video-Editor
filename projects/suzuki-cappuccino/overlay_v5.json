@@ -1,0 +1,70 @@
+{
+ "_note": "Cappuccino v5 labels: v4's five + FRONT BUMPER LIGHTS (file name Front_Bumper_Lights) on the marker beat; scan shots only, no numbers.",
+ "width": 1080,
+ "height": 1920,
+ "fps": 30,
+ "durationInFrames": 1212,
+ "accent": "#e8ecf2",
+ "items": [
+  {
+   "kind": "label",
+   "from": 238,
+   "duration": 38,
+   "title": "MOUNTING POINTS",
+   "sub": "FRONT BUMPER \u00b7 INNER FACE",
+   "x": 0.08,
+   "y": 0.74,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 330,
+   "duration": 34,
+   "title": "FRONT BUMPER LIGHTS",
+   "sub": "CORNER MARKERS",
+   "x": 0.08,
+   "y": 0.76,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 390,
+   "duration": 35,
+   "title": "FRONT BUMPER REMOVED",
+   "sub": "RADIATOR",
+   "x": 0.08,
+   "y": 0.76,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 512,
+   "duration": 66,
+   "title": "ENGINE BAY",
+   "sub": "HOOD OPEN \u00b7 BUMPER OFF",
+   "x": 0.08,
+   "y": 0.84,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 772,
+   "duration": 35,
+   "title": "REAR BUMPER REMOVED",
+   "sub": "EXHAUST",
+   "x": 0.08,
+   "y": 0.64,
+   "align": "left"
+  },
+  {
+   "kind": "label",
+   "from": 827,
+   "duration": 45,
+   "title": "TRUNK OPEN",
+   "sub": "REAR END TRUNK OPEN SCAN",
+   "x": 0.08,
+   "y": 0.12,
+   "align": "left"
+  }
+ ]
+}
