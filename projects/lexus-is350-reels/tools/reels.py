@@ -14,6 +14,10 @@ SRC, BUILD, OUT, REND, MUS = W / "src", W / "build", W / "out", W / "renders", W
 FPS = 30
 SRC_FPS = 24000 / 1001
 CTA = "SCANS AVAILABLE AT\nILLUMAESTHETIC.COM"
+# illumaesthetic.com theme (site CSS variables, read by the lead 2026-11-14): --ia-bg #0b0c0b, --ia-accent #619f73 (hover #77ac87),
+# text on accent #0b0c0b, light text #ecefec. Used by R3 v3 only (owner: "change the colors to illumaesthetic colors"); R1/R2 keep theme.ts.
+BRAND = {"accent": "#619f73", "onAccent": "#0b0c0b", "ink": "#ecefec", "bg": "#0b0c0b", "sub": "#d4d9d4", "sub2": "#c8cec8", "label": "#a8b0a8",
+         "dim55": "rgba(236,239,236,0.55)", "dim50": "rgba(236,239,236,0.5)", "plate": "rgba(11,12,11,0.58)", "cap": "rgba(11,12,11,0.55)"}
 NAMES = {"R1": "is350_reel_R1_crash", "R2": "is350_reel_R2_real_to_scan", "R3": "is350_reel_R3_how_long"}
 
 # ---------------------------------------------------------------- captions (source clock; word times from large-v3 / medium.en
@@ -133,7 +137,7 @@ def r3():
         {"kind": "logo", "t0": logo, "t1": end, "cta": CTA},
     ]
     anchors = dict(hit=hit, tease=tease, logo=logo, end=end, music_src0=888.690 - hit, fade_s=1.2)
-    return dict(id="R3", shots=shots, items=items, music=dict(kind="R3", anchors=anchors), anchors=anchors, end=end)
+    return dict(id="R3", shots=shots, items=items, music=dict(kind="R3", anchors=anchors), anchors=anchors, end=end, palette=BRAND)
 
 
 REELS = {"R1": r1, "R2": r2, "R3": r3}

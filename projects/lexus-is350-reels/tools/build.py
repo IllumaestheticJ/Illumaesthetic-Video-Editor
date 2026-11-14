@@ -198,6 +198,8 @@ def gfx(r):
     items = r["items"] + captions(r)
     n = int(round(r["end"] * FPS))
     props = {"fps": FPS, "durationInFrames": n, "items": items}
+    if r.get("palette"):
+        props["palette"] = r["palette"]
     pj = BUILD / rid / "gfx_props.json"; pj.parent.mkdir(parents=True, exist_ok=True)
     js = json.dumps(props, indent=1)
     (PROJ / f"gfx_{rid}_props.json").write_text(js)
