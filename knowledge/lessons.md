@@ -735,3 +735,33 @@ Playbook for this kind of reel: `knowledge/short-form.md`. Tools: `projects/niss
 - **[text]** (sentra v10) One version after asking for the website style the user changed the TYPEFACE to **Helvetica Bold** for all labels/blurbs/tags
   (brand white + green kept) and a **brushstroke font (Permanent Marker)** for the punch-line card only. Helvetica is not on the box: Liberation
   Sans Bold is the stand-in; say so. Treat colour and typeface as separate decisions and show a type sample before re-rendering text.
+
+- **[scan-look]** (sentra v16-v19) EVERY physically replaced part comes off on screen before its replacement goes on - the front bumper
+  AND the rear diffuser ("the old diffuser needs to be deleted for the new one to go on"). Painting the stock surface black is not
+  enough. Cut the stock geometry inside the new part's envelope out of the base scan (`tools/diffuser_off.py`: per-x-column y range
+  and top height of the new part) and key it off like the stock bumper.
+- **[scan-look]** (sentra v16) Mechanical upgrades count as kit too: the user asked for the GT-R brakes and the bumper's fog/duct
+  side pieces in the assembly. Inventory the designer Drive (brakes, adapters, reprints), not only the body-kit folder, and diff
+  each part against the assembled groups (median distance) - the fog/duct sides were 40 mm off `g_front`, i.e. never included.
+- **[scan-look]** (sentra v16) A part file in its own frame (brake set exported from a different .blend, one side only): seat it per
+  corner by the thing it mounts to - rotor centre on the measured wheel centre (y, z from the wheel mesh: top minus radius), hat face
+  10 mm outboard of the wheel centre plane, left side mirrored (flip triangle winding). Check through the spokes in a still.
+- **[scan-look]** (sentra v19) Front livery of the show car: lip black WITH the red trim on its lower edge, trapezoid radiator inlet
+  black, corner-intake fins black, diffuser black. The user first said "black like the concept" (red dropped), then corrected to the
+  real car - when the concepts and the built car differ, match the BUILT car and ask if unsure.
+- **[story]** (sentra v14-v17) Reveal headlines: one per BASE beat (BAR/4) from the drop - measured kick onsets were "too fast". Keep
+  them staggered left/right (a single stacked column was rejected). Cut to other people's SEMA videos ~3 s after the drop (0:33,
+  drop + 7 base beats) so the clips get ~11 s - they are the payoff, the headlines are a beat-long flash.
+- **[pacing]** (sentra v18) The concepts flipbook should feel fast and on the grid: one image per 16th note (BAR/16), 32 images over
+  2 bars, chronological. The WhatsApp export had 706 photos - sheet them with numbers and drop any with app UI chrome.
+- **[text]** (sentra v14-v19) Partner logos on the end card: white versions (no plates/backgrounds) except where the brand's colour
+  is the mark (motoiq: white "moto" + red "iq" box, from page 2 of the Drive .ai). Stack wordmark / partner / partner, centred,
+  equal gaps measured between the visible ink (alpha bbox), stack centred on the frame. Check aspect: the Bomex badge art is
+  squashed - shown +20 % height.
+- **[technical]** (sentra) A shared Drive link is often a FOLDER: `alt=media` returns 403 and the MCP connector says "not found"
+  (wrong account). `python -m ive fetch-drive <id> <dir>` now lists a folder's files with ids (service account
+  claude-gdrive@organic-depth-375523.iam.gserviceaccount.com needs view access); then fetch the files by id.
+- **[workflow]** (sentra) Re-render only what changed: shot.py `frames` list. Paint-only changes affect frames after the wipe starts;
+  a part change affects frames from its visibility window on. Check 2-4 stills before every long queue.
+- **[text]** (sentra v11+) Correction to the v10 note: the user uploaded Helvetica-Bold.ttf, which `build_v6.py` uses when present
+  (`<media>/fonts/`). Fonts are media, not committed - in a new session ask for the file rather than falling back silently.

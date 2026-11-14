@@ -1,24 +1,25 @@
-# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v11 (v6 approved "really good"; v7-v8: logo-only end card, EXIF-fixed reveal camera, hook blurb, brand text style, bumper swap)
+# Nissan Sentra Spec-V (SEMA 2026) build-story reel - v19 (delivered 2026-11-14; v6 structure approved, v12-v19 = user polish rounds)
 # Built by tools/build_v6.py (exact-frame segments + concat). Structure and rules: knowledge/short-form.md.
 project: nissan-sentra-sema
 format: reel-9x16
-output: {path: /home/user/media/work/sentra/out/sentra_sema_v11.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
+output: {path: /home/user/media/work/sentra/out/sentra_sema_v19.mp4, width: 1080, height: 1920, fps: 30, seconds: 47.5}
 music: {title: "Killa", artist: "Way Out West", source: "user-supplied m4a (Juiced soundtrack) - commercial track, not from the CML",
-        path: /home/user/media/work/music/killa.m4a, start: 0, fade_out: 1.2, bpm: 130, bar_s: 1.8462, drop_s: 29.873}
-beats: [4.027, 5.873, 7.719, 9.565, 11.411, 15.104, 18.796, 22.489, 29.873, 37.258, 44.642]
+        path: /home/user/media/work/music/killa.m4a, start: 0, fade_out: 1.2, bpm: 130, bar_s: 1.8462, base_beat_s: 0.4615, drop_s: 29.873}
+beats: [4.027, 5.873, 7.719, 9.565, 11.411, 15.104, 18.796, 22.489, 29.873, 33.104, 44.642]
 timeline:   # frames are [start, end) at 30 fps
-  - {id: a_hook,      frames: [0, 121],     section: hook,      focus: "motor1com post 'Nissan admits it used AI in its Sentra Spec V pictures' (screen recording t=171)"}
-  - {id: b_wasnt,     frames: [121, 176],   section: hook,      focus: "'IT WASN'T.' card"}
-  - {id: c1_spray,    frames: [176, 232],   section: scan day,  focus: stock red car sprayed (may11_1135 frames 10-280)}
+  - {id: a_hook,      frames: [0, 121],     section: hook,      focus: "motor1com post 'Nissan admits it used AI...' (screen recording t=171) + two-row Helvetica Bold blurb 'THE WORLD THOUGHT IT WAS AI' on a soft rounded translucent panel"}
+  - {id: b_wasnt,     frames: [121, 176],   section: hook,      focus: "'IT WASN'T.' card, brush font (Permanent Marker)"}
+  - {id: c1_spray,    frames: [176, 232],   section: scan day,  focus: stock red car sprayed (may11_1135)}
   - {id: c2_scanner,  frames: [232, 287],   section: scan day,  focus: Artec Leo in hand (may11_1145 @7.0)}
   - {id: c3_timelapse, frames: [287, 342],  section: scan day,  focus: front timelapse ending on the solved frame (may11_1140 frame 780)}
   - {transition: cut, note: "1:1 IRL -> scan, match/cam.json"}
   - {id: d1_scan,     frames: [342, 398],   section: 3d,        focus: scan from the solved camera, label 3D SCAN (renders/s7_scan)}
-  - {id: e_concepts,  frames: [398, 508],   section: concepts,  focus: 24 of Ron's iterations, label CONCEPTS}
-  - {id: d2_swap,     frames: [508, 730],   section: 3d,        focus: "stock front bumper off -> scanned structure -> new bumper on, ducts, sides, wheels, diffuser, wing, paint, stripes (renders/s10_swap, 30 fps)"}
-  - {id: d3_turn,     frames: [730, 896],   section: 3d,        focus: "360 of the final render ending on match/cam_reveal.json (renders/s11_turn, played 1.33x)"}
+  - {id: e_concepts,  frames: [398, 508],   section: concepts,  focus: "32 WhatsApp design renders, chronological (grey CAD -> red -> white livery studies), one per 16th note"}
+  - {id: d2_swap,     frames: [508, 730],   section: 3d,        focus: "stock front bumper off -> new bumper, fog/duct corners, hood vents, sides; stock wheels off -> GT-R rotors + calipers -> wheels; stock diffuser off -> new diffuser, wing; paint wipe, stripes (renders/s16_swap)"}
+  - {id: d3_turn,     frames: [730, 896],   section: 3d,        focus: "360 of the final render ending on match/cam_reveal.json (renders/s16_turn, true 30 fps)"}
   - {transition: cut, note: "1:1 final render -> real car on the drop (29.873 s)"}
-  - {id: r_reveal,    frames: [896, 1118],  section: reveal,    focus: "Photo Nov 05 5 25 36 PM + 8 cropped real headlines, one per beat"}
-  - {id: s1_reels,    frames: [1118, 1284], section: coverage,  focus: "motoiq door reveal (151.4), caranddriver track (72), eddiex616 front (88)"}
-  - {id: s3_rear,     frames: [1284, 1339], section: coverage,  focus: IMG_3235 rear wide}
-  - {id: z_end,       frames: [1339, 1425], section: end card,  focus: "website logo only (slogan removed by the user)"}
+  - {id: r_reveal,    frames: [896, 993],   section: reveal,    focus: "Photo Nov 05 + 7 cropped real headlines, staggered left/right, one per base beat from the drop"}
+  - {transition: cut, note: "to other people's SEMA videos at 0:33 (drop + 7 base beats)"}
+  - {id: s1_reels,    frames: [993, 1253],  section: coverage,  focus: "motoiq door reveal (151.4), caranddriver track (72), eddiex616 front (88)"}
+  - {id: s3_rear,     frames: [1253, 1339], section: coverage,  focus: IMG_3235 rear wide}
+  - {id: z_end,       frames: [1339, 1425], section: end card,  focus: "Illumaesthetic wordmark / motoiq lockup / Bomex (white, +20% height), stacked, centred, equal gaps"}

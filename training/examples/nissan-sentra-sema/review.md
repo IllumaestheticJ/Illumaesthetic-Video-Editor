@@ -58,3 +58,14 @@ splitter, badge, headlights, wheel, stripes), brand-text frames (hook, IT WASN'T
 - Departing stock bumper leaves through the left/bottom frame edge.
 - 360 is played 1.33x (interpolated from 15 fps); not checked frame by frame.
 - Green mono kickers are small (27 px) - readable on the sheets at full size, not verified on a phone.
+
+## v19 self-review (2026-11-14) - rubric: training/rubric.md
+- **Story / structure (5/5):** v6 structure kept; reveal shortened so the SEMA videos start at 0:33 (user wanted more time on them).
+- **1:1 cuts (4/5):** both cuts unchanged since v12 (EXIF-fixed reveal camera); not re-measured on this file.
+- **3D accuracy (4/5):** every replaced part now comes OFF first (front bumper, stock diffuser) and the GT-R brakes, fog/duct
+  corners are in. Brakes placed by wheel centre (the brake file has its own frame); hat face offset 10 mm is an estimate.
+- **Livery (4/5):** front now matches the show car (black lip + red trim, black trapezoid inlet, black fins, black diffuser).
+  A thin white line remains on the lip's top edge (the user referred to a "white strip like the scan" - left as is).
+- **Rhythm (4/5):** concepts on 16ths, headlines on the base beat, cut to clips on a beat. Cut-to-beat error not measured.
+- **Text / brand (5/5):** Helvetica Bold + brush punch line, white/green; end card three marks evenly spaced.
+- **Not measured:** audio/cut offset on the delivered file; caliper colour is matched by eye from one booth photo.

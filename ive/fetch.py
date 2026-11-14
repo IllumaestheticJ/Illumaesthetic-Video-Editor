@@ -36,6 +36,28 @@ def drive_meta(file_id: str) -> dict:
     return r.json()
 
 
+def drive_list(folder_id: str, depth: int = 0, max_depth: int = 4) -> list[dict]:
+    """Recursively list a Drive folder (a shared link often points at a FOLDER: downloading it gives 403).
+    Returns [{id, name, mimeType, size, path}] for every file under it."""
+    s = _drive_session(); out = []
+    def walk(fid, prefix, d):
+        token = None
+        while True:
+            r = s.get(DRIVE, params={"q": f"'{fid}' in parents and trashed=false", "fields": "nextPageToken,files(id,name,mimeType,size)",
+                                     "supportsAllDrives": "true", "includeItemsFromAllDrives": "true", "pageSize": 1000,
+                                     **({"pageToken": token} if token else {})})
+            r.raise_for_status(); j = r.json()
+            for f in j.get("files", []):
+                if f["mimeType"] == "application/vnd.google-apps.folder":
+                    if d < max_depth: walk(f["id"], prefix + f["name"] + "/", d + 1)
+                else:
+                    out.append({**f, "path": prefix + f["name"]})
+            token = j.get("nextPageToken")
+            if not token: break
+    walk(folder_id, "", depth)
+    return out
+
+
 def drive_download(file_id: str, out_dir: str, name: str | None = None) -> Path:
     s = _drive_session()
     meta = drive_meta(file_id)

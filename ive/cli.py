@@ -24,7 +24,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(prog="ive")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    s = sub.add_parser("fetch-drive", help="stream a Google Drive file (service account) to disk")
+    s = sub.add_parser("fetch-drive", help="stream a Google Drive file (service account) to disk; a folder id lists its files")
     s.add_argument("file_id")
     s.add_argument("out_dir")
 
@@ -124,8 +124,13 @@ def main(argv=None):
     a = ap.parse_args(argv)
 
     if a.cmd == "fetch-drive":
-        from .fetch import drive_download
-        print(drive_download(a.file_id, a.out_dir))
+        from .fetch import drive_download, drive_meta, drive_list
+        if drive_meta(a.file_id).get("mimeType") == "application/vnd.google-apps.folder":
+            # a folder link: list what is inside (download the files you need by id) instead of a 403
+            for f in drive_list(a.file_id):
+                print(f"{f['id']}  {int(f.get('size') or 0) / 1e6:9.1f} MB  {f['path']}")
+        else:
+            print(drive_download(a.file_id, a.out_dir))
     elif a.cmd == "fetch-url":
         from .fetch import url_download
         print(url_download(a.url, a.out))

@@ -6,23 +6,29 @@ description: Build an Illumaesthetic short-form "build story" reel (9:16, 30-60 
 # Illumaesthetic short-form build reel
 
 Follow `CLAUDE.md` (mandatory reading), then `knowledge/short-form.md` - it holds the approved structure, the questions to ask
-up front, the tool list and the pre-send checks. Worked example: `projects/nissan-sentra-sema/` (v6 approved).
+up front, the tool list and the pre-send checks. Worked example: `projects/nissan-sentra-sema/` (v19 delivered; v6 structure approved).
 
-1. **Ask once, up front** - hook post, music + reveal moment, client/credits, which logo closes the video,
-   social screen recordings. Carry on with everything that does not depend on the answers.
+1. **Ask once, up front** - hook post, music + reveal moment, client/credits + partner logo files, social screen recordings,
+   which parts were REPLACED vs added (and where the brake/duct/reprint files are). Carry on with everything that does not depend on the answers.
 2. **Gather** - Dropbox dump (footage, WhatsApp export, screen recordings, in-progress photos), engineering Drive scans, the
-   designer's folder (.blend with kit, wheels, wing; print STLs). Sheet everything; write `projects/<p>/clips.md`.
+   designer's folder (.blend with kit, wheels, wing; print STLs; brakes; reprints). Drive links are usually folders:
+   `ive fetch-drive <id>` lists them (service account), then fetch by id. Sheet everything; write `projects/<p>/clips.md`.
 3. **Map the music** - find the drop, count bars back, write the cut table (see `tools/build_v6.py` `CUT`).
 4. **Scan + design in one frame** - level/crop/prep the scan; bring the kit, wheels and wing in with `ron2car.py` / `kit2lvl.py`;
    fit-check in red over silver.
 5. **Two camera solves** - scan-day frame -> scan, and a sharp photo of the finished car -> finished 3D car (focal fixed from the
    photo's EXIF, one far-side landmark). Onion-check both, at both ends of the car.
 6. **Livery by measurement** - raycast the photo's livery corners through the reveal camera; never eyeball.
-7. **Render** - scan shot, panels + livery (parts pop on), 360 ending on the reveal camera. One queue script; check counts + luma.
-8. **Coverage** - `capture.js` for articles (allow the hosts), cropped headlines one per beat; reels held ~2 s with the whole car.
+7. **Render** - scan shot; swap where every replaced part comes OFF first (`bumper_off.py`, `diffuser_off.py`), then new
+   panels, brakes (`brakes_place.py`), wheels, livery; 360 ending on the reveal camera. Check stills first; re-render only
+   changed frames (`frames`). One queue; check counts + luma.
+8. **Coverage** - `capture.js` for articles (allow the hosts), cropped headlines one per base beat, staggered; cut to other
+   people's clips ~3 s after the drop and give them ~11 s, whole car in frame.
 9. **Assemble, look, send** - exact-frame segments, contact sheet, both cut frames; list what was not measured.
 10. **Learn** - `ive feedback` every note (`--rule` when general), update `knowledge/short-form.md` when the user changes the
     structure, `ive archive`, commit, push.
 
 Standing preferences from the Sentra reel: photos whole and static; section labels on; no finished-car shots before the reveal;
-keep any controversy angle to the hook unless told otherwise; warn once if the music is a commercial track.
+keep any controversy angle to the hook unless told otherwise; warn once if the music is a commercial track; concepts flipbook
+on 16th notes; livery matches the BUILT car; end card = wordmark + white partner marks stacked and evenly spaced; offer an IG
+caption in a professional tone (see knowledge/short-form.md).
