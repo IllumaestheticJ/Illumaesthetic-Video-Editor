@@ -164,6 +164,7 @@ def cam_push(loc, target, lens, k, up=(0, 0, 1)):
 def anim_S1(fr):
     t, u = fr / FPS, prog(fr, "S1")
     L = LN[1]
+    pip_scanner("hand")   # "how do you scan a whole car?" - gesturing about scanning
     temp(make_dots("dots", []))
     m, lid = talk("PIP", t)
     sp = L["t0"] - 0.05 <= t <= L["t1"] + 0.1
@@ -514,6 +515,7 @@ def anim_S9(fr):
 
 def anim_S10(fr):
     t = fr / FPS
+    set_vis(PIPSCAN, False)   # never in the phone shots
     temp(make_dots("dots", dots_where(lambda d: d["order"] < 0.15)))
     L = LN[11]
     tw = L["words"][0]["t0"]
@@ -528,7 +530,10 @@ def anim_S10(fr):
     pose(GUS, loc=(-0.6, -1.4, 0), rz=30)
     if reach > 0.01:
         bpy.context.view_layer.update()
-        hp = PIP.hands["L"].matrix_world.translation
+        # floating hand brings the phone up in front of his chest, a little to his left (in frame)
+        rest = PIP.hands["L"].matrix_world.translation.copy()
+        chest = PIP.neck.matrix_world.translation + Vector((0.12, -0.3, -0.08))
+        hp = aim_arm(PIP, "L", rest.lerp(chest, reach))
         set_vis(PHONE, True)
         n = Vector(lerpv((0.0, 0.3, -1.0), (0.15, 0.8, 0.55), reach)).normalized()
         orient_phone(PHONE, hp + Vector((0.0, -0.03, lerp(-0.12, 0.13, reach))), n, up=lerpv((0, 1, 0), (0, 0, 1), reach))
@@ -536,6 +541,7 @@ def anim_S10(fr):
 
 
 def pip_holding(t, look_=(0.6, 0.6), lid_base=0.0):
+    set_vis(PIPSCAN, False)
     """S11/S12 base: phone fixed in space (static corners in S11); only PIP's head and face move."""
     c, n, u, r = phone_pose_s11()
     m, lid = talk("PIP", t, lid_base)
@@ -559,18 +565,19 @@ def anim_S12(fr):
     t, k = fr / FPS, prog(fr, "S12")
     temp(make_dots("dots", dots_where(lambda d: d["order"] < 0.15)))
     c, n, u, r = pip_holding(t, look_=(0.9, 0.7))
-    # GUS leans in from the right in profile; head counter-tilted so his face stays upright and reads
+    # GUS leans in from the right, his head beside the phone and just BEHIND the screen plane, so nothing of his can ever
+    # block the screen during the push; profile toward the phone, face upright; he slides out of frame as the camera pushes
     f = -Vector((r.x, r.y, 0)).normalized()
     rz = math.degrees(math.atan2(f.x, -f.y))
-    HX = 55
-    pose(GUS, loc=(0, 0, 0), rz=rz, hips=(HX, 0, 0), head=(-0.9 * HX, 0, 0), armL=(HX, 0, 8), armR=(HX, 0, -8), elbowL=-10, elbowR=-10)
-    place_head_xy(GUS, c + n * 0.22 + r * 0.27)    # head beside the screen cone, near camera: big, face in profile
-    root = (GUS.root.location.x, GUS.root.location.y, -0.22)   # crouched: brings his face into frame (legs are out of frame)
     lean = eout((t - SF["S12"][0] / FPS) / 0.4)
-    m, lid = talk("GUS", t, 0.3)
-    hx = lerp(20, HX, lean)
-    pose(GUS, loc=root, rz=rz, hips=(hx, 0, 0), head=(-0.9 * hx, 0, 0), armL=(hx, 0, 8), armR=(hx, 0, -8), elbowL=-10,
+    hx = lerp(14, 32, lean)
+    m, lid = talk("GUS", t, 0.0)
+    pose(GUS, loc=(0, 0, 0), rz=rz, hips=(hx, 0, 0), head=(-0.85 * hx, 0, 0), armL=(hx, 0, 8), armR=(hx, 0, -8), elbowL=-10,
          elbowR=-10, mouth=m, lid=lid, look=(0, -0.2), brow=(0.025, -4))
+    want = c - n * 0.06 + r * lerp(0.62, 0.47, lean)        # head centre beside the screen (inner edge > 0.14 m off axis)
+    bpy.context.view_layer.update()
+    hc = GUS.neck.matrix_world @ Vector((0, 0, GUS.head_c))
+    GUS.root.location += Vector((want.x - hc.x, want.y - hc.y, min(0.0, (c.z + 0.12) - hc.z)))
     s12_cam(c, n, u, k)
 
 
@@ -579,6 +586,8 @@ ANIM = {k: globals()[f"anim_{k}"] for k in SF}
 
 def reset_anim():
     reset()
+    pip_scanner("pouch")
+    set_vis(PIPSCAN, True)
     set_vis(UI, True)
     STOOL.location = (-3.7, 2.7, 0)
 

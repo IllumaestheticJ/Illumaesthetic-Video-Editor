@@ -29,7 +29,7 @@ def arg(name, default):
 OUT = arg("--out", "/home/user/media/work/scan-tedium/stills")
 ENGINE = arg("--engine", "EEVEE").upper()   # EEVEE = cel-shaded look (owner, stage 3); CYCLES = stage 1-2 look
 TOON = ENGINE == "EEVEE"
-TOON_T = (float(arg("--t0", "0.60")), float(arg("--t1", "1.08")))   # lit range ~0.45 (ambient) .. 1.15 (facing the sun)   # lit-luminance band edges: shadow|base, base|highlight
+TOON_T = (float(arg("--t0", "0.33")), float(arg("--t1", "0.77")))   # measured lit range ~0.27 (ambient) .. ~0.82 (facing the sun), --lumdebug   # lit-luminance band edges: shadow|base, base|highlight
 OL_BG = 0.45          # background/prop outline scale (characters keep theirs: thicker lines on characters)
 ANIMATE = "--animate" in argv   # stage 3: per-frame animation driven by partA_timeline.json (tools/partA_anim.py)
 SHOTS = arg("--shots", "S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12").split(",")
@@ -79,7 +79,7 @@ def hexcol(h, a=1.0):
 
 PAL = dict(
     black="#0b0c0b", sage="#619f73", sage_l="#77ac87", white="#ecefec",
-    car="#2a4fb5", glass="#1b2333", tyre="#1c1d1c", hub="#c3c7c3", trim="#3a3d3a",
+    car="#5d718a", glass="#1b2333", tyre="#1c1d1c", hub="#c3c7c3", trim="#3a3d3a",
     floor="#8e908d", wall="#abadaa", base="#7f817e", door="#c6c8c5", rib="#b0b2af", peg="#a1a3a0", hole="#5e605d",
     wood="#9b8a76", wood_d="#77695b",
     vinyl="#d2d0cf", foot="#4c4d4c", vest="#3c3e3d", capg="#545655", gog="#3d3e3d", string="#f2f3f2",
@@ -137,7 +137,7 @@ def toon(key, alpha=1.0, hl=False):
     cr = ramp.color_ramp
     cr.interpolation = "CONSTANT"
     cr.elements[0].position = 0.0
-    cr.elements[0].color = hexcol(_hexmul(base, 0.70))
+    cr.elements[0].color = hexcol(_hexmul(base, 0.82))   # shadow close to the base value: a thin, light crescent
     cr.elements[1].position = TOON_T[0]
     cr.elements[1].color = hexcol(base)
     if hl:
@@ -145,7 +145,14 @@ def toon(key, alpha=1.0, hl=False):
         e3.color = hexcol(_hexmul(base, 1.0, 0.35))
     nt.links.new(bw.outputs[0], ramp.inputs[0])
     em = nt.nodes.new("ShaderNodeEmission")
-    nt.links.new(ramp.outputs[0], em.inputs["Color"])
+    if "--lumdebug" in argv:   # calibration: emit the raw lit luminance / 3 instead of the bands
+        dv = nt.nodes.new("ShaderNodeMath")
+        dv.operation = "DIVIDE"
+        dv.inputs[1].default_value = 3.0
+        nt.links.new(bw.outputs[0], dv.inputs[0])
+        nt.links.new(dv.outputs[0], em.inputs["Color"])
+    else:
+        nt.links.new(ramp.outputs[0], em.inputs["Color"])
     sh = em.outputs[0]
     if alpha < 1.0:
         t = nt.nodes.new("ShaderNodeBsdfTransparent")
@@ -703,6 +710,9 @@ def dress_gus(name, ch, S):
     torus(f"{name}_collar", r * 0.72, 0.045, (0, 0, S["body_h"] * 0.86 + 0.012), vm, ch.torso, ol=S["ol"] * 0.7,
           scale=(1, 1, 0.8))
     fy = -(r + 0.018)
+    for sx in (1, -1):   # shirt-collar flaps
+        box(f"{name}_cflap{sx}", (0.1, 0.022, 0.075), (sx * 0.06, -r * 0.62, S["body_h"] * 0.86 - 0.01), vm, ch.torso, 0.012,
+            S["ol"] * 0.5, rot=(-35, 0, -sx * 28))
     for sx in (1, -1):
         box(f"{name}_pocket{sx}", (0.12, 0.025, 0.11), (sx * 0.1, fy + 0.002, S["body_h"] * 0.70), vm, ch.torso, 0.012,
             S["ol"] * 0.5)
@@ -748,14 +758,20 @@ def hat_pip(name, ch, S):
     hz = ch.head_c
     hw, hd, hh = S["head"]
     cm = mat("capg")
-    cap = empty(f"{name}_capp", ch.neck, (0, 0.012, hz + hh * 0.12), (8, 0, 0))
-    blob(f"{name}_cap", (hw / 2 * 1.02, hd / 2 * 1.03, hh * 0.42), (0, 0, 0), cm, cap, half=True, ol=S["ol"])
+    cap = empty(f"{name}_capp", ch.neck, (0, 0.015, hz + hh * 0.22), (8, 0, 0))   # sits high: band above the eyes
+    k = 1 - S["taper"] * 0.44                                                       # head width at the cap line (egg)
+    blob(f"{name}_cap", (hw / 2 * 1.02 * k, hd / 2 * 1.03 * k, hh * 0.36), (0, 0, 0), cm, cap, half=True, ol=S["ol"])
     brim = empty(f"{name}_brimp", cap, (0, hd / 2 * 0.9, 0.01), (-12, 0, 0))
     cyl(f"{name}_brim", 0.12, 0.018, (0, 0.06, 0), cm, brim, seg=32, ol=S["ol"] * 0.7, rot=(0, 0, 0))
     ch_brim = bpy.data.objects[f"{name}_brim"]
     ch_brim.scale = (1.15, 1.0, 1.0)
     blob(f"{name}_button", (0.018, 0.018, 0.012), (0, 0, hh * 0.42), cm, cap)
-    box(f"{name}_strapband", (0.09, 0.012, 0.03), (0, -hd / 2 * 0.86, -0.005), mat("#3f403f"), cap, 0.006)
+    # backwards cap: the adjustment opening faces front - head grey showing through an arch, strap with holes across it
+    fy = -hd / 2 * 1.03 * k - 0.004
+    blob(f"{name}_opening", (0.075, 0.012, 0.06), (0, fy, 0.0), mat("vinyl", hl=True), cap, half=True)
+    box(f"{name}_strapband", (0.13, 0.014, 0.026), (0, fy - 0.004, 0.012), mat("#3f403f"), cap, 0.006, S["ol"] * 0.4)
+    for k in range(4):
+        cyl(f"{name}_hole{k}", 0.006, 0.004, ((k - 1.5) * 0.026, fy - 0.012, 0.012), mat("#a9aba8"), cap, axis="Y", seg=10)
 
 
 def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), armR=(0, 0, -4), elbowL=-10, elbowR=-10,
@@ -791,12 +807,12 @@ def talk_squash(ch, m):
     ch.neck.location.z = S["neck_z"] + S["body_h"] * (sz - 1)
 
 
-GUS_SPEC = dict(hip_z=0.06, foot=(0.12, 0.16, 0.075), foot_x=0.12, body_r=0.22, body_h=1.2, neck_z=1.12,
-                head=(0.6, 0.56, 0.72), taper=0.1, head_sink=0.06, eye_r=0.024, eye_x=0.085, eye_z=0.05, eye_look=0.03,
+GUS_SPEC = dict(hip_z=0.06, foot=(0.12, 0.16, 0.075), foot_x=0.12, body_r=0.2, body_h=1.2, neck_z=1.13,
+                head=(0.62, 0.57, 0.72), taper=-0.13, head_sink=0.0, eye_r=0.024, eye_x=0.085, eye_z=0.05, eye_look=0.03,
                 hand=(0.085, 0.075, 0.09), hand_x=0.47, shoulder_z=1.0, reach=0.36, ol=0.024,
                 dress=dress_gus, hat=hat_gus)
-PIP_SPEC = dict(hip_z=0.045, foot=(0.085, 0.115, 0.055), foot_x=0.08, body_r=0.16, body_h=0.66, neck_z=0.6,
-                head=(0.48, 0.44, 0.54), taper=0.1, head_sink=0.04, eye_r=0.02, eye_x=0.072, eye_z=0.03, eye_look=0.025,
+PIP_SPEC = dict(hip_z=0.045, foot=(0.085, 0.115, 0.055), foot_x=0.075, body_r=0.15, body_h=0.66, neck_z=0.61,
+                head=(0.5, 0.46, 0.55), taper=-0.13, head_sink=0.0, eye_r=0.02, eye_x=0.072, eye_z=0.03, eye_look=0.025,
                 hand=(0.06, 0.055, 0.065), hand_x=0.36, shoulder_z=0.55, reach=0.24, ol=0.019,
                 dress=dress_pip, hat=hat_pip)
 
@@ -1222,6 +1238,18 @@ STOOL = build_stool((-3.7, 2.7, 0))
 PHONE, SCREEN = build_phone()
 # Pip's own small handheld 3D scanner (character design): dark-grey head with three green lights on a sage grip, in his free hand
 PIPSCAN = empty("PIPSCAN", PIP.hands["R"], (0, -0.01, 0.02))
+
+
+def pip_scanner(where):
+    """Pip's scanner: in his right hand ('hand') only while he scans or gestures about scanning, else clipped in the hoodie
+    pouch ('pouch'); never in the phone shots."""
+    if where == "hand":
+        PIPSCAN.parent = PIP.hands["R"]
+        PIPSCAN.location, PIPSCAN.rotation_euler = (0, -0.01, 0.02), (0, 0, 0)
+    else:
+        PIPSCAN.parent = PIP.torso
+        r, bh = PIP_SPEC["body_r"], PIP_SPEC["body_h"]
+        PIPSCAN.location, PIPSCAN.rotation_euler = (0.045, -(r + 0.035), bh * 0.36 + 0.02), (math.radians(-8), 0, math.radians(8))
 box("ps_grip", (0.04, 0.045, 0.1), (0, 0.0, 0.0), mat("sage"), PIPSCAN, 0.012, 0.006)
 box("ps_head", (0.075, 0.06, 0.05), (0, -0.01, 0.07), mat("gog"), PIPSCAN, 0.014, 0.006)
 for _k in (-1, 0, 1):
@@ -1371,12 +1399,17 @@ def shot_S5():
 
 
 def scan_patch_mat(alpha, key="scan"):
-    """See-through 'scan data' grey, front faces only (back faces fully transparent so the colour doesn't stack)."""
+    """See-through 'scan data' grey, front faces only (back faces fully transparent so the colour doesn't stack).
+    Cel look: flat colour (emission) with blended transparency (EEVEE's default dithered alpha speckles at low samples)."""
     name = f"scanpatch_{key}_{alpha:.2f}"
     if name in _MATS:
         return _MATS[name]
     m, nt, out = _new_mat(name)
-    d = nt.nodes.new("ShaderNodeBsdfDiffuse")
+    if TOON:
+        d = nt.nodes.new("ShaderNodeEmission")
+        _set_blend(m)
+    else:
+        d = nt.nodes.new("ShaderNodeBsdfDiffuse")
     d.inputs["Color"].default_value = hexcol(PAL.get(key, key))
     t = nt.nodes.new("ShaderNodeBsdfTransparent")
     geo = nt.nodes.new("ShaderNodeNewGeometry")
