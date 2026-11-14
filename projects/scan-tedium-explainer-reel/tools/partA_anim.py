@@ -178,7 +178,7 @@ def anim_S1(fr):
     wave = math.sin(t * 9.0) * (1 if sp else 0.3)
     acc = accent("PIP", t)
     pose(PIP, loc=(0.85, -2.35, hop), rz=-40, hips=(-6, 0, 0), head=(-20 + 6 * acc, 0, 4 * math.sin(t * 5)),
-         armL=(-150 + 22 * wave, 0, -20), armR=(-30 - 15 * wave, 0, -22), elbowL=-20, elbowR=-50,
+         armL=(-135 + 18 * wave, 48, 0), armR=(-30 - 15 * wave, 0, -22), elbowL=-25, elbowR=-50,   # wave out to the side: never over the mouth
          legL=(-15 - 25 * (hop / 0.06), 0, 0), legR=(20 * (hop / 0.06), 0, 0), mouth=m, lid=lid, look=(-0.5, 0.9),
          brow=(0.035, -12))
     turn = ease((t - L["t0"] - 0.6) / 1.1)          # GUS's head turns slowly to PIP (he is slow)
