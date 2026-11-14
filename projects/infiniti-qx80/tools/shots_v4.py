@@ -66,7 +66,10 @@ SHOTS = {
 def _final_parts():
     paint = {g: KIT[g][2] for g in KIT}
     parts = [{"blend": f"{B}/k_{g}.blend", "mat": "kit", "paint": paint[g]} for g in KIT]
-    parts += [{"blend": f"{B}/k_wheels.blend", "mat": "silver", "paint": "wheel"},
+    # v7: wheels without the generic Brembo models + scanned GT-R brakes (brake_assemble.py / brake_on_car.py)
+    parts += [{"blend": f"{B}/k_wheels_nobrake.blend", "mat": "silver", "paint": "wheel"},
+              {"blend": f"{B}/k_brake_iron.blend", "mat": "silver", "paint": "iron"},
+              {"blend": f"{B}/k_brake_caliper.blend", "mat": "silver", "paint": "caliper"},
               {"blend": f"{B}/k_grille_v4.blend", "mat": "silver", "paint": "black"},
               {"blend": f"{B}/k_tspec_lights.blend", "mat": "silver", "paint": "black"}]
     return parts
@@ -91,6 +94,24 @@ def _final_cam(secs=7.75, t_land=6.0):
 SHOTS["G_final360"] = dict(base=[B + "/car4_nowheels.blend"], parts=_final_parts(), seconds=7.75, fps=15,
                            paint={"t0": 0.25, "t1": 2.4, "y0": -3.0, "y1": 3.0, "soft": 0.12}, camera=_final_cam())
 
+
+# ---------------- v7: GT-R BRAKES bench shot (brake_assemble.py hub frame, metres; +X inboard, caliper on -Y) ----------------
+# Scanned GT-R ring (base, silver) + our CAD hat and caliper adapter (site green) + scanned GT-R caliper (silver), exploded
+# along the hub axis at t 0, landing one per beat (hat, adapter, caliper on section beats 1/2/3), then a slow orbit hold.
+BEAT_S = 60 / 128.0
+def _brake_parts(fly=0.30):
+    P = [("hat_cad", "kit", (-0.14, 0, 0.34), 1), ("adapter_cad", "kit", (0.12, -0.02, -0.24), 2), ("caliper_scan", "silver", (0.16, -0.06, -0.44), 3)]   # portrait: stacked hat above / caliper below
+    out = []
+    for n, mat, off, beat in P:
+        tl = beat * BEAT_S
+        out.append({"blend": f"{B}/b_{n}.blend", "mat": mat,
+                    "keys": [{"t": 0, "loc": list(off), "rot": [0, 0, 0]}, {"t": tl - fly, "loc": list(off), "rot": [0, 0, 0]},
+                             {"t": tl, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "out"}]})
+    return out
+
+
+SHOTS["K_brakes"] = dict(base=[B + "/b_ring_scan.blend"], parts=_brake_parts(), seconds=85 / 30, fps=30,
+                         camera={"keys": orbit((1.95, 1.55), 208, 238, 0.45, 0.22, (0.05, -0.03, 0.05), (0.03, -0.05, 0.0), 50, 85 / 30)})
 
 
 def write(name, check=False, frames=None):

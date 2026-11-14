@@ -92,9 +92,9 @@ def mat_check(rgb):
 
 
 def mat_kit():
-    """Kit parts in the blue of Ecky's design viewport screenshots (satin, slightly metallic)."""
+    """Kit parts in the illumaesthetic.com accent green #619f73 (linear 0.12, 0.35, 0.17; satin, slightly metallic). v6 used Ecky's viewport blue."""
     m, nt, out = sr.new_mat("qx_kit")
-    p = sr.principled(nt, (0.02, 0.30, 0.48, 1), 0.38, 0.25)
+    p = sr.principled(nt, (0.12, 0.35, 0.17, 1), 0.38, 0.25)
     nt.links.new(p.outputs[0], out.inputs[0])
     return m
 
@@ -152,12 +152,24 @@ def mat_purple():
     return m
 
 
+def mat_simple(name, rgb, rough, metal, coat=0.0):
+    m, nt, out = sr.new_mat(name)
+    p = sr.principled(nt, (*rgb, 1), rough, metal)
+    try: p.inputs["Coat Weight"].default_value = coat
+    except KeyError: pass
+    nt.links.new(p.outputs[0], out.inputs[0])
+    return m
+
+
 def mat_bronze_wheel():
     """Ecky's Volk CE28 + R888R in one mesh: bronze satin metal inside radius 0.31 m of the axle, black rubber outside
     (axles measured on the scan: y +1.66 / -1.43, z 0.42)."""
     m, nt, out = sr.new_mat("qx_wheel")
     rim = sr.principled(nt, (0.36, 0.20, 0.07, 1), 0.32, 1.0)
     rub = sr.principled(nt, (0.012, 0.012, 0.012, 1), 0.75, 0.0)
+    for k, v in (("Specular IOR Level", 0.10), ("Coat Weight", 0.0)):   # v7: tyres read grey under the rig (same fix as mat_black)
+        try: rub.inputs[k].default_value = v
+        except KeyError: pass
     geo = nt.nodes.new("ShaderNodeNewGeometry"); sep = nt.nodes.new("ShaderNodeSeparateXYZ")
     nt.links.new(geo.outputs["Position"], sep.inputs[0])
     def op(o, a, b=None):
@@ -250,7 +262,10 @@ def main():
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
-    MATS = {"silver": silver, "kit": mat_kit(), "black": mat_black(), "purple": mat_purple(), "grey": grey, "wheel": mat_bronze_wheel()}
+    MATS = {"silver": silver, "kit": mat_kit(), "black": mat_black(), "purple": mat_purple(), "grey": grey, "wheel": mat_bronze_wheel(),
+            # v7 GT-R brakes: caliper gold as seen behind the spokes in photos 1701/1702, rotor iron dark satin
+            "caliper": mat_simple("qx_caliper", (0.50, 0.31, 0.035), 0.30, 0.15, 0.6),
+            "iron": mat_simple("qx_iron", (0.10, 0.10, 0.105), 0.38, 1.0)}
     paint = spec.get("paint")
     if paint:
         EDGE["soft"] = paint.get("soft", 0.15)
