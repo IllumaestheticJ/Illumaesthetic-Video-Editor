@@ -7,7 +7,8 @@ import argparse, subprocess, tempfile
 from PIL import Image, ImageFilter, ImageEnhance
 ap = argparse.ArgumentParser(); ap.add_argument("photo"); ap.add_argument("logo"); ap.add_argument("out")
 ap.add_argument("--frames", type=int, default=120); ap.add_argument("--logo2"); ap.add_argument("--logo2-width", type=int, default=330); ap.add_argument("--logo-width", type=int, default=700)
-a = ap.parse_args(); W, H, fps = 1080, 1920, 30
+import os
+a = ap.parse_args(); W, H, fps = 1080, 1920, int(os.environ.get('FPS', 30))
 ph = Image.open(a.photo).convert("RGB"); lg = Image.open(a.logo).convert("RGBA")
 fill = ph.resize((int(ph.width * H / ph.height), H), Image.LANCZOS)
 fill = fill.crop(((fill.width - W) // 2, 0, (fill.width - W) // 2 + W, H)).filter(ImageFilter.GaussianBlur(40))

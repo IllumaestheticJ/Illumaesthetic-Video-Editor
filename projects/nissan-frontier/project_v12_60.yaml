@@ -1,0 +1,160 @@
+# v12: v11 at 60 fps, raw (CGI rendered at 60; real footage repeated to 60). Timeline frames x2; cut seconds unchanged.
+# v11: badge matched to the real one, flares-removed scan shown when the flares come off, shorter pause at the reveal, Sentra MotoIQ lockup
+# on the end card. v10 = project_v10.yaml.
+# v10: full-car-scan bumper once the trimmed one is on, badge on the CAD ring, grille lights under the brow windows, MotoIQ logo on the
+# end card, music M.O.O.N. 'Paris' from 115.337 s (drop on the first mod, frame 434); every cut on 434 + 18k (100 BPM). v9 = project_v9.yaml.
+# v9: grille-clipping sections removed, scanned badge on the new grille, labels without MOD/STEP numbers (v8 = project_v8.yaml).
+# v8: 'how we modified this truck' built on the Sentra short-form playbook (knowledge/short-form.md on claude/upbeat-goldberg-gy0s84):
+# real-article HOOK -> answer card -> build in order (scanned grille + fender lights) -> livery + 360 of the final render -> 1:1 CUT to the
+# real truck ON THE CRASH (frame 1270) -> real clips -> photo + logo. Shots: tools/shots_v11.py (30 fps, tools/render30.sh), lights: tools/lights.py,
+# cards: tools/build_v8_cards.py, press: tools/capture.js. v7 = project_v7.yaml.
+# Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
+project: nissan-frontier
+format: reel-9x16
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v12_60fps.mp4, width: 1080, height: 1920, fps: 60, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/moon_paris.wav   # M.O.O.N. - Paris (Hotline Miami OST), user upload; not in git
+  start: 115.337                                     # drop (bass, 129.804 s) lands on frame 434 = first mod
+  fade_out: 1.2
+
+timeline:
+  - id: hook
+    section: hook
+    focus: "real article (Motor Illustrated, 2 Nov 2026), full frame, 3 % push"
+    src: /home/user/media/work/frontier/out/hook60.mp4
+    frames: 292
+    dur: 4.8667
+  - transition: {type: cut}
+  - id: answer
+    section: hook
+    focus: "answer card: HERE'S HOW."
+    src: /home/user/media/work/frontier/out/answer60.mp4
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: v2_s1_wide
+    section: build
+    focus: "STEP 01: the stock Pro-4X, 3D scanned whole"
+    src: /home/user/media/work/frontier/renders/final60/v2_s1_wide
+    src_fps: 60
+    trim_start: 1.0
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: v2_s2_grille
+    section: build
+    focus: "STEP 02: stock grille that gets replaced"
+    src: /home/user/media/work/frontier/renders/final60/v2_s2_grille
+    src_fps: 60
+    trim_start: 2.4
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: v4_s3_bumper
+    section: build
+    focus: "STEP 03: front bumper comes off to be trimmed"
+    src: /home/user/media/work/frontier/renders/final60/v4_s3_bumper
+    src_fps: 60
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: m1_grille
+    section: build
+    focus: "trimmed bumper back on; RONIN GRILLE parks in front; three SCANNED grille lights drop into its pockets; seats; lights on"
+    src: /home/user/media/work/frontier/renders/final60/m1_grille
+    src_fps: 60
+    frames: 360
+    dur: 6.0000
+  - transition: {type: cut}
+  - id: m2_flares
+    section: build
+    focus: "stock flares highlighted, come off"
+    src: /home/user/media/work/frontier/renders/final60/m2_flares
+    src_fps: 60
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: m3_fenders
+    section: build
+    focus: "WIDE FENDERS on; push in on the front-right arch; SCANNED fender lights seat in the slots; lights on"
+    src: /home/user/media/work/frontier/renders/final60/m3_fenders
+    src_fps: 60
+    frames: 360
+    dur: 6.0000
+  - transition: {type: cut}
+  - id: m4_wheels
+    section: build
+    focus: "35-INCH WHEELS roll in at lifted height on the wider track"
+    src: /home/user/media/work/frontier/renders/final60/m4_wheels
+    src_fps: 60
+    frames: 216
+    dur: 3.6000
+  - transition: {type: cut}
+  - id: m5_lift
+    section: build
+    focus: "the LIFT (same orbit continues)"
+    src: /home/user/media/work/frontier/renders/final60/m5_lift
+    src_fps: 60
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: m6_final
+    section: final render
+    focus: "RONIN LIVERY sweeps on; full 360 of the finished render easing into the solved IMG_3223 camera, held 0.4 s"
+    src: /home/user/media/work/frontier/renders/final60/m6_final
+    src_fps: 60
+    frames: 432
+    dur: 7.2000
+  - transition: {type: cut}
+  - id: irl_3223
+    section: reveal
+    focus: "1:1 CUT on the crash: the real Ronin Frontier at SEMA 2026, same camera as the last render frame (0.62x so it holds 2.4 s)"
+    src: /home/user/media/work/frontier/out/irl_3223_slow60.mp4
+    frames: 108
+    dur: 1.8000
+  - transition: {type: cut}
+  - id: irl_3239
+    section: real
+    focus: "real truck side pass: livery, wheels, lift"
+    src: /home/user/media/nissan-frontier/sema/IMG_3239.mov
+    in: 1.6
+    out: 4.0000
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: irl_3226
+    section: real
+    focus: "real truck front: grille and grille lights"
+    src: /home/user/media/nissan-frontier/sema/IMG_3226.mov
+    in: 5.5
+    out: 7.9000
+    frames: 144
+    dur: 2.4000
+  - transition: {type: cut}
+  - id: card
+    section: logo
+    focus: "MotoIQ photo of the truck with the ILLUMAESTHETIC logo below it"
+    src: /home/user/media/work/frontier/out/photo_card_v12_60.mp4
+    frames: 252
+    dur: 4.2000
+
+overlays:
+  - src: /home/user/media/work/frontier/out/labels60_v2_s1_wide.mov
+    start: 7.2667
+  - src: /home/user/media/work/frontier/out/labels60_v2_s2_grille.mov
+    start: 9.6667
+  - src: /home/user/media/work/frontier/out/labels60_v4_s3_bumper.mov
+    start: 12.0667
+  - src: /home/user/media/work/frontier/out/labels60_m1_grille.mov
+    start: 14.4667
+  - src: /home/user/media/work/frontier/out/labels60_m2_flares.mov
+    start: 20.4667
+  - src: /home/user/media/work/frontier/out/labels60_m3_fenders.mov
+    start: 22.8667
+  - src: /home/user/media/work/frontier/out/labels60_m4_wheels.mov
+    start: 28.8667
+  - src: /home/user/media/work/frontier/out/labels60_m5_lift.mov
+    start: 32.4667
+  - src: /home/user/media/work/frontier/out/labels60_m6_final.mov
+    start: 34.8667
