@@ -58,7 +58,10 @@ def main():
     ap.add_argument("--crop-h", type=int, default=1760, help="screenshot rows kept (below: a broken widget image)")
     ap.add_argument("--map", help="json {k, ox, oy}: the render frame (1080x1920) scaled by k with its top-left at (ox, oy)"
                     " in screenshot px lands 1:1 on the listing car (tools/solve_listing.py + the reassembly's last frame)")
+    ap.add_argument("--fps", type=int, default=30, help="output frame rate (60 for the true-60 cut)")
     a = ap.parse_args()
+    global FPS
+    FPS = a.fps
 
     car = Image.open(a.last_frame).convert("RGB").resize((W, H), Image.LANCZOS)
     shot = Image.open(a.screenshot).convert("RGB")
