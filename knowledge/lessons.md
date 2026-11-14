@@ -1214,3 +1214,12 @@ lands here automatically. Agents must read this whole file before editing.
   and explode the sub-parts across the screen-horizontal axis, not toward the lens.
 - **A fused multi-part scan** (arch liners plus undertrays in one island) is split by region: arch-centre radius plus
   floor split lines. A part the base car scan lacks can only be shown coming off, in the shot where it is visible.
+## From the Nissan Frontier v11 revision (2026-11-14, built by an agent)
+- **[scan-look]** Size a part from the 1:1 frame against the REAL part, not against the CAD mount: v10 scaled the badge to fill the CAD ring
+  (x1.26) and it hung low ("still too low"); a 5x gridded crop of real vs render showed the tops matched and only the oversize bottom was off.
+- **[pacing]** A 1:1 reveal must not settle: land the render camera on the solved camera ON the cut frame while still moving, and keep the
+  real clip near real speed. A 0.4 s hold + eased stop + 0.6x real clip read as "the pause is a little too long".
+- **[story]** In a build story, when a stock part comes off, light up the state scan underneath (flares-removed scan) with a label until
+  the new part covers it - the user asked to see it.
+- **[text]** Partner logos: reuse the exact lockup from the related approved video; a file uploaded in another session is gone with that
+  session's container, so save supplied logos to Drive/Dropbox or the repo's asset notes when they arrive.

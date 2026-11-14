@@ -1,3 +1,13 @@
+# Nissan Frontier Pro-4X -> RONIN v11 - self-review (training/rubric.md). Earlier: review_v10.md ... review_v1.md
+
+Output: /home/user/media/work/frontier/out/nissan_frontier_v11.mp4 - 1080x1920, 30 fps, 52.87 s, 1586 frames.
+v11 (user on v10): badge centred 14 mm higher and back near its scanned size (1:1 grid comparison: overlaps the real badge);
+flares-removed state scan highlighted + labelled from when the stock flares leave until the wide fenders cover it; the 360 lands on
+the solved camera on the cut frame (no hold) and the real reveal clip is 1.8 s at 0.82x; end card MotoIQ lockup rebuilt to the Sentra
+description (white moto, red iq box) - the Sentra PNG itself was an upload in that session and is not reachable here.
+Measured on the delivered file: bass drop = cut 434 (+0 ms). m4/m5 kept from v10 (badge 14 mm lower there, ~2 px in those wide shots).
+
+--- v10 review follows ---
 # Nissan Frontier Pro-4X -> RONIN v10 - self-review (training/rubric.md). Earlier: review_v9.md ... review_v1.md
 
 Output: /home/user/media/work/frontier/out/nissan_frontier_v10.mp4 - 1080x1920, 30 fps, 53.47 s, 1604 frames.
