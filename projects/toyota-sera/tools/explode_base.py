@@ -1,6 +1,6 @@
 """Exploded-view base for the Sera: full car with every flying panel removed, plus what the state scans saw under them.
 
-    explode_base.py out.stl [--only hood,door,door2,front,rear]   (default: all five panels)
+    explode_base.py out.stl [--only hood,door,door2,front,rear,wing]   (default: all six; wing since v5)
 Per-section bases (e.g. --only front,hood) remove just those panels and add just their states.
 
 Panels (all in the full car's frame, verified in reg/ overlays):
@@ -32,7 +32,7 @@ def load(n):
 
 def main():
     out = sys.argv[1]
-    only = set(sys.argv[sys.argv.index("--only") + 1].split(",")) if "--only" in sys.argv else {"hood", "door", "door2", "front", "rear"}
+    only = set(sys.argv[sys.argv.index("--only") + 1].split(",")) if "--only" in sys.argv else {"hood", "door", "door2", "front", "rear", "wing"}
     car = load("car3.stl"); cc = car["v"].mean(1)
     keep = np.ones(len(car), bool)
     hinged = [n for n in ("hood", "door", "door2") if n in only]
@@ -54,6 +54,10 @@ def main():
         ds, _ = cKDTree(load(st)["v"].mean(1)).query(cc[inb], distance_upper_bound=30)
         idx = np.where(inb)[0][ds > 15]; keep[idx] = False
         print(p, "bumper-mounted extras removed", len(idx))
+    wing_fill = None
+    if "wing" in only:  # v5: rear wing (tools/wing_cut.py) off, its hatch skin from 'Spoiler removed' under it only
+        wm = np.load(C + "wing_masks.npz"); keep &= ~wm["outer"]; panel_pts.append(load("wing_panel.stl")["v"].mean(1))
+        wing_fill = load(str(wm["state"]))[wm["fill"]]
     print("car kept", int(keep.sum()), "of", len(car))
     tpanel = cKDTree(np.concatenate(panel_pts))
     pieces = [car[keep]]; acc = cc[keep]
@@ -71,6 +75,8 @@ def main():
         dp, _ = tpanel.query(c, distance_upper_bound=KEEP_OUT * 2); ok &= dp > KEEP_OUT
         pieces.append(m[ok]); acc = np.concatenate([acc, c[ok]])
         print(f, "adds", int(ok.sum()))
+    if wing_fill is not None:
+        pieces.append(wing_fill); print("spoiler_removed (under the wing) adds", len(wing_fill))
     res = np.concatenate(pieces)
     with open(out, "wb") as fh:
         fh.write(b"toyota-sera explode base".ljust(80)); fh.write(struct.pack("<I", len(res))); res.tofile(fh)
