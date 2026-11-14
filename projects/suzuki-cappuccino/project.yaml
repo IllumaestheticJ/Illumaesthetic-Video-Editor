@@ -1,10 +1,11 @@
+# Suzuki Cappuccino scan reel v6 at 60 fps (15 fps renders interpolated to 60; transitions = 1 frame at 60)
 # Suzuki Cappuccino scan reel v6 (older: project_v1..v5.yaml). v6 = hood opens before the bumper, hood cut on the real seam,
 # wheel shot dropped (v5: smooth hood nose edge + corner markers out through the bumper front (v4: re-cut to the reviewer-supplied track + nested parts). Plan: direction.md + director.md; shots: shots.py.
 # Cuts on measured low-band hits of the new track (onsets.json): 113 426 599 638 881 991 1132. First clip = cut frame; later
 # clips = gap+1 frame because each 1-frame fade transition overlaps the previous clip by one frame.
 project: suzuki-cappuccino
 format: reel-9x16
-output: {path: /home/user/media/work/out/suzuki_cappuccino_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/suzuki_cappuccino_v6_60fps.mp4, width: 1080, height: 1920, fps: 60, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/suzuki-cappuccino_track2.m4a   # reviewer-supplied track (upload, not committed)
@@ -15,55 +16,55 @@ timeline:
   - id: s1_whole   # whole car, front-right 3/4, already moving at frame 1 (v2 brief 4)
     section: whole
     focus: whole car silhouette
-    src: /home/user/media/work/renders/cappuccino_v2/s1_whole
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/renders/cappuccino_v6_60/s1_whole
+    src_fps: 60
+    interpolate: false
     dur: 3.7667
-  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - transition: {type: fade, duration: 0.0167}   # = hard cut on the onset frame
   - id: s2_frontbumper   # FRONT section: hood opens -> bumper off with markers in it -> inner face/mounting tabs -> markers out through its front
     section: front
     focus: bumper inner face + structure behind
-    src: /home/user/media/work/renders/cappuccino_v6/s2_frontbumper
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/renders/cappuccino_v6_60/s2_frontbumper
+    src_fps: 60
+    interpolate: false
     dur: 10.4667
-  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - transition: {type: fade, duration: 0.0167}   # = hard cut on the onset frame
   - id: s3_engine   # FRONT section cont.: radiator behind the bumper, crane up on the 16.28 s hit into the bay (hood already open)
     section: front
     focus: engine bay under the opened hood
-    src: /home/user/media/work/renders/cappuccino_v6/s3_engine
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/renders/cappuccino_v6_60/s3_engine
+    src_fps: 60
+    interpolate: false
     dur: 7.1000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - transition: {type: fade, duration: 0.0167}   # = hard cut on the onset frame
   - id: s5_rear   # REAR section: bumper tips (inner face) -> hold on Rear End All Removed structure -> trunk lid to captured Trunk Open angle
     section: rear
     focus: rear end structure, exhaust, trunk
-    src: /home/user/media/work/renders/cappuccino_v4/s5_rear
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/renders/cappuccino_v6_60/s5_rear
+    src_fps: 60
+    interpolate: false
     dur: 8.1333
-  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - transition: {type: fade, duration: 0.0167}   # = hard cut on the onset frame
   - id: x1_layers   # FINALE a: progressive explode into layers, rear first then front
     section: finale
     focus: parts separating into layers
-    src: /home/user/media/work/renders/cappuccino_v6/x1_layers
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/renders/cappuccino_v6_60/x1_layers
+    src_fps: 60
+    interpolate: false
     dur: 3.7000
-  - transition: {type: fade, duration: 0.0333}   # = hard cut on the onset frame
+  - transition: {type: fade, duration: 0.0167}   # = hard cut on the onset frame
   - id: x2_reassemble   # FINALE b: reassembly, clean car swaps in on beat 74, fade out
     section: finale
     focus: parts returning, clean car
-    src: /home/user/media/work/renders/cappuccino_v6/x2_reassemble
-    src_fps: 15
-    interpolate: true
+    src: /home/user/media/work/renders/cappuccino_v6_60/x2_reassemble
+    src_fps: 60
+    interpolate: false
     dur: 4.7333
     vf: fade=t=out:st=4.20:d=0.5
-  - transition: {type: fade, duration: 0.0333}
+  - transition: {type: fade, duration: 0.0167}
   - id: logo   # ILLUMAESTHETIC logo (width 720 of 1080; reviewer: v2 at 380 was too small) on black, fades with the music tail
     src: /home/user/media/work/cappuccino/logo_card_v3.mp4
     dur: 2.6667
 
 overlays:   # factual section labels over scan shots only (addendum C); no numbers
-  - {src: /home/user/media/work/cappuccino/hud_v6.mov, start: 0}
+  - {src: /home/user/media/work/cappuccino/hud_v6_60.mov, start: 0}
