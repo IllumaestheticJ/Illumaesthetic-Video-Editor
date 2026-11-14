@@ -68,7 +68,8 @@ SHOTS["k_sides"] = {"base": [EXPDP], "parts": [stock("rbumper")] + FRONT_KIT + [
 CAM8_END = C(SECS, (0.30, -5.65, 0.95), (0.05, -2.05, 0.66), 30, "lin")   # v3 final: wider + centred (left rear corner was cut)
 SHOTS["k_rbumper_off"] = {"base": [EXPDP], "parts": FRONT_KIT + SIDE_KIT + [
     stock("rbumper", [K(0), K(0.667, ease="lin"), K(1.333, (0, -0.60, 0), ease="out"), K(2.0, (0.10, -1.30, -3.20)),
-                      K(SECS, (0.10, -1.32, -3.25), ease="lin")   # parks far below: -1.8 still showed at the bottom after the 94 % pad])],
+                      # parks far below: -1.8 still showed at the bottom after the 94 % pad
+                      K(SECS, (0.10, -1.32, -3.25), ease="lin")])],
     "cam": [C(0, (2.60, -4.60, 1.15), (0.10, -1.55, 0.72)), C(1.333, (2.35, -4.55, 1.05), (0.20, -1.75, 0.70)),
             C(3.333, (0.55, -5.30, 0.92), (0.10, -2.05, 0.68)), CAM8_END]}
 # c9: rear kit on - bumper and diffuser slide in from below-behind, tips forward, GT wing drops onto the hatch mounts
