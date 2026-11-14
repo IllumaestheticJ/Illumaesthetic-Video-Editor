@@ -47,13 +47,48 @@ from audio amplitude, so the animation can be built before the voices exist.
   the following lines and let the cut grid move (cuts still snap to measured kicks). Mouth keys are regenerated from the timings, so
   only the affected shots are re-keyed and re-rendered; nothing is hand-animated.
 
+## Part A stage 3 timing (real voices) - authoritative; the frame columns below are the stage-2 plan
+
+Shots are cut to the measured lines (`partA_timeline.json`, built by `tools/partA_timeline.py`): each shot = a short lead
+(0.05-0.17 s) + its line(s) + a short tail, plus a little extra where the shot's beat needs it (S3 slaps, S6 lift, S7 snap, S9
+peel, S12 push). Part A = **669 frames = 22.30 s** (was 17.3 s with the planned lines; the real takes are longer
+even after tightening and speeding up by at most 1.12). No wall-clock inset in S4 (the clock gag is S8's single idea).
+
+| shot | frames | length | reel time |
+|---|---|---|---|
+| S1 | 0-87 | 87 f (2.90 s) | 0.00-2.90 s |
+| S2 | 87-170 | 83 f (2.77 s) | 2.90-5.67 s |
+| S3 | 170-215 | 45 f (1.50 s) | 5.67-7.17 s |
+| S4 | 215-257 | 42 f (1.40 s) | 7.17-8.57 s |
+| S5 | 257-289 | 32 f (1.07 s) | 8.57-9.63 s |
+| S6 | 289-349 | 60 f (2.00 s) | 9.63-11.63 s |
+| S7 | 349-388 | 39 f (1.30 s) | 11.63-12.93 s |
+| S8 | 388-447 | 59 f (1.97 s) | 12.93-14.90 s |
+| S9 | 447-499 | 52 f (1.73 s) | 14.90-16.63 s |
+| S10 | 499-569 | 70 f (2.33 s) | 16.63-18.97 s |
+| S11 | 569-636 | 67 f (2.23 s) | 18.97-21.20 s |
+| S12 | 636-669 | 33 f (1.10 s) | 21.20-22.30 s |
+
+Animation (`tools/partA_anim.py`, every frame posed procedurally from the timeline, rendered as stills, resumable):
+- Mouths from the measured word times: syllables (vowel groups) spread over each word, open fast / close slow, one frame ahead of
+  the sound; stressed word (most syllables) gets a 4-7 deg head accent; listeners blink every 2-3.6 s and look at the speaker.
+- S1 PIP hops on his line while GUS's head turns to him slowly; 5 % push-in. S2 GUS lifts the roll with a small overshoot, the strip
+  unrolls from "Dots." to the line end, PIP's eyes follow it down. S3 one dot pops on per syllable of "One every few inches." (7),
+  the hand travels slap to slap, impact dashes and a 2-frame shake. S4 dots spread in bursts every 2 frames while GUS laps the car
+  with floor streaks. S5 the cone opens and the 4 dots light one after another. S6 each section lights on its word (front, side,
+  roof, back) and all four lift off 0.2 s after "Back". S7 the door is dragged toward its slot and snaps in on "up", the pins pulse;
+  the camera pushes into the screen. S8 the clock spins up to a blur with whirr marks; PIP slumps deeper and glances at GUS's "No."
+  S9 GUS peels front to back (8-frame reach / pull / flick cycle) and the pile grows. S10 PIP deadpan, perks up on "Wait" (eyes,
+  brows, hop) and pulls the phone out. S11 phone fixed (static corners), PIP's head and face animate. S12 GUS crouches and leans in
+  from the right with his face upright in profile while the camera pushes along the screen axis to full frame on its last frame.
+
 ## Part A shot list (version A with the revised ending: 519 frames = 17.3 s)
 
 | shot | frames | dur | framing / camera | action | props | text (A / B differences in script.md) |
 |---|---|---|---|---|---|---|
 | S1 | 0-57 | 57 f (1.9 s) | Wide 3/4 of the shop, car centred, characters in front; slow 5 % push-in | PIP bounces up to GUS and asks; GUS turns his head slowly | car, clock (normal speed), bench | title **HOW DO YOU 3D-SCAN A WHOLE CAR?** from frame 0 (hook) |
 | S2 | 57-110 | 53 f (1.77 s) | Medium on GUS (waist up), PIP's head at frame edge; static | GUS lifts the dot roll; the strip unrolls to the floor with a bounce | dot roll | **THE USUAL WAY** |
-| S3 | 110-162 | 52 f (1.73 s) | Close on the front door, GUS's hand enters; static, tiny shake on each slap | Hand slaps a dot on per syllable; each dot pops (scale 0 -> 1.2 -> 1) at a random spot | dots | **A DOT EVERY ~8 CM** / **RANDOM, NEVER IN ROWS** |
+| S3 | 110-162 | 52 f (1.73 s) | Close on the front door, GUS's hand enters; static, tiny shake on each slap | Hand slaps a dot on per syllable; each dot pops (scale 0 -> 1.2 -> 1) at a random spot | dots | **A DOT EVERY ~8 CM** ("RANDOM, NEVER IN ROWS" dropped by the owner) |
 | S4 | 162-200 | 38 f (1.27 s) | High angle (~29 deg off vertical; 12 deg made GUS an unreadable blob from above), car's length up the frame | Time-lapse: dots appear in random bursts until the car is speckled; GUS zips around as a blur | dots, clock (now turning fast in a wall inset) | - |
 | S5 | 200-237 | 37 f (1.23 s) | GUS in profile at the front fender (stage 1: over-the-shoulder put his back between camera and cone) | GUS holds the scanner close; the cyan cone lights exactly 4 dots (green rings). Version B: scanner screen flashes red, "NEED MORE DOTS" | scanner, dots | **SCANNER NEEDS 4+ DOTS IN VIEW** |
 | S6 | 237-283 | 46 f (1.53 s) | Side-on orthographic-ish view of the car | Car sections light up one at a time as separate grey patches (front, side, roof, rear) with visible overlap bands; GUS crouches/stretches between them | dots, section patches | **OVERLAPPING SECTIONS** |

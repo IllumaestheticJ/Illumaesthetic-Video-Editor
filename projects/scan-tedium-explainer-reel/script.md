@@ -60,6 +60,33 @@ Notes: no time is given (same rule as reel 3). "Way faster" is the owner's own c
 "Illumaesthetic" must be checked in the chosen TTS voice; if mispronounced, use a phonetic spelling in the prompt
 (e.g. "Illuma-esthetic"). Optional tag if wanted later: a 1.5 s cut back to GUS staring at the phone, "...I'm keeping the dots."
 
+### Version A, stage 3 timing (real voices, 2026-11-14) - authoritative; supersedes the time columns above
+
+Built by `tools/partA_timeline.py` from the cast takes (PIP = child voice "Kiki" +4, GUS = father "Bob"), measured with
+`tools/voice_measure.py` (faster-whisper medium.en word times, audio decoded via ffmpeg; energy runs for speech start/end because
+faster-whisper pins every first word to 0.0 s). Each take is trimmed to its speech, pauses inside a line cut to at most 0.18 s
+(0.26-0.28 s for "So...", "Front. Side. Roof. Back." and "Wait."), and sped up with rubberband (pitch and formants kept) by at most
+1.12. Part A = **669 frames = 22.30 s**; the phone screen is full-frame on frame 668, Part B
+starts on frame 669. Line 3 is now just "One every few inches." (owner); "RANDOM, NEVER IN ROWS" is dropped. No "I'm keeping the
+dots" tag. Line 11 uses L11a until the owner confirms the brand name (both takes are heard as "Illumin-aesthetic" / "Aluma
+Aesthetic"); swapping is one edit in `TAKES` plus a re-run.
+
+| # | reel time (s) | shot (frames) | speaker | line | take | tempo | pauses cut (s) |
+|---|---|---|---|---|---|---|---|
+| 1 | 0.17-2.83 | S1 (0-87) | PIP | "So... how do you scan a whole car?" | L01b | x1.12 | 0.74 |
+| 2 | 2.95-5.60 | S2 (87-170) | GUS | "The usual way? Dots. Lots of dots." | L02a | x1.12 | 0.83 |
+| 3 | 5.72-7.01 | S3 (170-215) | GUS | "One every few inches." | L03d | x1.12 | 0.00 |
+| 4 | 7.22-8.43 | S4 (215-257) | PIP | "Then you scan it?" | L04b | x1.12 | 0.00 |
+| 5 | 8.62-9.47 | S5 (257-289) | GUS | "In pieces." | L05a | x1.06 | 0.00 |
+| 6 | 9.68-11.42 | S6 (289-349) | GUS | "Front. Side. Roof. Back." | L06b | x1.12 | 0.32 |
+| 7 | 11.68-12.70 | S7 (349-388) | GUS | "Then I line them all up." | L07b | x1.1 | 0.00 |
+| 8 | 13.00-14.09 | S8 (388-447) | PIP | "Is it done yet?" | L08b | x1.12 | 0.00 |
+| 9 | 14.29-14.79 | S8 (388-447) | GUS | "No." | L09a | x1.0 | 0.00 |
+| 10 | 14.95-16.46 | S9 (447-499) | GUS | "Now we peel the dots off." | L10a | x1.12 | 0.00 |
+| 11 | 16.68-18.90 | S10 (499-569) | PIP | "Wait. I saw an Illumaesthetic video..." | L11a | x1.12 | 0.40 |
+| 12 | 19.02-21.14 | S11 (569-636) | PIP | "They did a whole car way faster!" | L12a | x1.12 | 0.00 |
+| 13 | 21.25-21.96 | S12 (636-669) | GUS | "...Show me." | L13b | x1.0 | 0.00 |
+
 ## Version B - "Silly"
 
 | # | time (s) | shot | speaker | line | on-screen text | visual |

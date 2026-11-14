@@ -10,7 +10,7 @@ import numpy as np
 
 SCRIPT = {  # script A, revised ending (script.md); 12 as the coordinator's brief words it
     1: "So... how do you scan a whole car?", 2: "The usual way? Dots. Lots of dots.",
-    3: "One every few inches. Never in a row.", 4: "Then you scan it?", 5: "In pieces.",
+    3: "One every few inches.", 4: "Then you scan it?", 5: "In pieces.",
     6: "Front. Side. Roof. Back.", 7: "Then I line them all up.", 8: "Is it done yet?", 9: "No.",
     10: "Now we peel the dots off.", 11: "Wait. I saw an Illumaesthetic video...",
     12: "They did a whole car way faster!", 13: "...Show me."}

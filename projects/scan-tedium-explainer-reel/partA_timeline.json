@@ -1,0 +1,654 @@
+{
+ "doc": "Part A timeline (stage 3, real voices). Frames are reel frames at 30 fps; shot f1 is exclusive. Line and word times are reel seconds of the processed clips (trimmed, pauses tightened, tempo applied).",
+ "fps": 30,
+ "total_frames": 669,
+ "duration_s": 22.3,
+ "screen_full_frame": 668,
+ "shots": [
+  {
+   "id": "S1",
+   "f0": 0,
+   "f1": 87
+  },
+  {
+   "id": "S2",
+   "f0": 87,
+   "f1": 170
+  },
+  {
+   "id": "S3",
+   "f0": 170,
+   "f1": 215
+  },
+  {
+   "id": "S4",
+   "f0": 215,
+   "f1": 257
+  },
+  {
+   "id": "S5",
+   "f0": 257,
+   "f1": 289
+  },
+  {
+   "id": "S6",
+   "f0": 289,
+   "f1": 349
+  },
+  {
+   "id": "S7",
+   "f0": 349,
+   "f1": 388
+  },
+  {
+   "id": "S8",
+   "f0": 388,
+   "f1": 447
+  },
+  {
+   "id": "S9",
+   "f0": 447,
+   "f1": 499
+  },
+  {
+   "id": "S10",
+   "f0": 499,
+   "f1": 569
+  },
+  {
+   "id": "S11",
+   "f0": 569,
+   "f1": 636
+  },
+  {
+   "id": "S12",
+   "f0": 636,
+   "f1": 669
+  }
+ ],
+ "lines": [
+  {
+   "n": 1,
+   "take": "L01b",
+   "speaker": "PIP",
+   "shot": "S1",
+   "tempo": 1.12,
+   "src_span": [
+    0.27,
+    3.99
+   ],
+   "pauses_cut": 0.74,
+   "dur": 2.661,
+   "words": [
+    {
+     "w": "So,",
+     "t0": 0.206,
+     "t1": 0.625
+    },
+    {
+     "w": "how",
+     "t0": 0.875,
+     "t1": 1.179
+    },
+    {
+     "w": "do",
+     "t0": 1.179,
+     "t1": 1.304
+    },
+    {
+     "w": "you",
+     "t0": 1.304,
+     "t1": 1.447
+    },
+    {
+     "w": "scan",
+     "t0": 1.447,
+     "t1": 1.857
+    },
+    {
+     "w": "a",
+     "t0": 1.857,
+     "t1": 2.161
+    },
+    {
+     "w": "whole",
+     "t0": 2.161,
+     "t1": 2.322
+    },
+    {
+     "w": "car?",
+     "t0": 2.322,
+     "t1": 2.661
+    }
+   ],
+   "text": "So... how do you scan a whole car?",
+   "heard": "So, how do you scan a whole car?",
+   "wer": 0.0,
+   "t0": 0.17,
+   "t1": 2.831,
+   "file": "L01.wav"
+  },
+  {
+   "n": 2,
+   "take": "L02a",
+   "speaker": "GUS",
+   "shot": "S2",
+   "tempo": 1.12,
+   "src_span": [
+    0.34,
+    4.14
+   ],
+   "pauses_cut": 0.83,
+   "dur": 2.652,
+   "words": [
+    {
+     "w": "The",
+     "t0": 2.986,
+     "t1": 3.111
+    },
+    {
+     "w": "usual",
+     "t0": 3.111,
+     "t1": 3.379
+    },
+    {
+     "w": "way?",
+     "t0": 3.379,
+     "t1": 3.7
+    },
+    {
+     "w": "Dots.",
+     "t0": 3.905,
+     "t1": 4.245
+    },
+    {
+     "w": "Lots",
+     "t0": 4.637,
+     "t1": 4.816
+    },
+    {
+     "w": "of",
+     "t0": 4.816,
+     "t1": 5.03
+    },
+    {
+     "w": "dots.",
+     "t0": 5.03,
+     "t1": 5.298
+    }
+   ],
+   "text": "The usual way? Dots. Lots of dots.",
+   "heard": "The usual way? Dots. Lots of dots.",
+   "wer": 0.0,
+   "t0": 2.95,
+   "t1": 5.602,
+   "file": "L02.wav"
+  },
+  {
+   "n": 3,
+   "take": "L03d",
+   "speaker": "GUS",
+   "shot": "S3",
+   "tempo": 1.12,
+   "src_span": [
+    0.3,
+    1.75
+   ],
+   "pauses_cut": 0.0,
+   "dur": 1.295,
+   "words": [
+    {
+     "w": "One",
+     "t0": 5.753,
+     "t1": 6.056
+    },
+    {
+     "w": "every",
+     "t0": 6.056,
+     "t1": 6.431
+    },
+    {
+     "w": "few",
+     "t0": 6.431,
+     "t1": 6.663
+    },
+    {
+     "w": "inches.",
+     "t0": 6.663,
+     "t1": 6.967
+    }
+   ],
+   "text": "One every few inches.",
+   "heard": "One every few inches.",
+   "wer": 0.0,
+   "t0": 5.717,
+   "t1": 7.012,
+   "file": "L03.wav"
+  },
+  {
+   "n": 4,
+   "take": "L04b",
+   "speaker": "PIP",
+   "shot": "S4",
+   "tempo": 1.12,
+   "src_span": [
+    0.24,
+    1.6
+   ],
+   "pauses_cut": 0.0,
+   "dur": 1.214,
+   "words": [
+    {
+     "w": "Then",
+     "t0": 7.253,
+     "t1": 7.592
+    },
+    {
+     "w": "you",
+     "t0": 7.592,
+     "t1": 7.806
+    },
+    {
+     "w": "scan",
+     "t0": 7.806,
+     "t1": 8.074
+    },
+    {
+     "w": "it.",
+     "t0": 8.074,
+     "t1": 8.431
+    }
+   ],
+   "text": "Then you scan it?",
+   "heard": "Then you scan it.",
+   "wer": 0.0,
+   "t0": 7.217,
+   "t1": 8.431,
+   "file": "L04.wav"
+  },
+  {
+   "n": 5,
+   "take": "L05a",
+   "speaker": "GUS",
+   "shot": "S5",
+   "tempo": 1.06,
+   "src_span": [
+    1.18,
+    2.084
+   ],
+   "pauses_cut": 0.0,
+   "dur": 0.853,
+   "words": [
+    {
+     "w": "in",
+     "t0": 8.655,
+     "t1": 8.806
+    },
+    {
+     "w": "pieces.",
+     "t0": 8.806,
+     "t1": 9.24
+    }
+   ],
+   "text": "In pieces.",
+   "heard": "in pieces.",
+   "wer": 0.0,
+   "t0": 8.617,
+   "t1": 9.47,
+   "file": "L05.wav"
+  },
+  {
+   "n": 6,
+   "take": "L06b",
+   "speaker": "GUS",
+   "shot": "S6",
+   "tempo": 1.12,
+   "src_span": [
+    0.32,
+    2.59
+   ],
+   "pauses_cut": 0.32,
+   "dur": 1.741,
+   "words": [
+    {
+     "w": "Front",
+     "t0": 9.719,
+     "t1": 9.897
+    },
+    {
+     "w": "side,",
+     "t0": 9.897,
+     "t1": 10.237
+    },
+    {
+     "w": "roof,",
+     "t0": 10.469,
+     "t1": 10.754
+    },
+    {
+     "w": "back.",
+     "t0": 11.076,
+     "t1": 11.362
+    }
+   ],
+   "text": "Front. Side. Roof. Back.",
+   "heard": "Front side, roof, back.",
+   "wer": 0.0,
+   "t0": 9.683,
+   "t1": 11.424,
+   "file": "L06.wav"
+  },
+  {
+   "n": 7,
+   "take": "L07b",
+   "speaker": "GUS",
+   "shot": "S7",
+   "tempo": 1.1,
+   "src_span": [
+    0.28,
+    1.4
+   ],
+   "pauses_cut": 0.0,
+   "dur": 1.018,
+   "words": [
+    {
+     "w": "Then",
+     "t0": 11.719,
+     "t1": 11.81
+    },
+    {
+     "w": "I",
+     "t0": 11.81,
+     "t1": 11.938
+    },
+    {
+     "w": "line",
+     "t0": 11.938,
+     "t1": 12.138
+    },
+    {
+     "w": "them",
+     "t0": 12.138,
+     "t1": 12.247
+    },
+    {
+     "w": "all",
+     "t0": 12.247,
+     "t1": 12.374
+    },
+    {
+     "w": "up.",
+     "t0": 12.374,
+     "t1": 12.592
+    }
+   ],
+   "text": "Then I line them all up.",
+   "heard": "Then I line them all up.",
+   "wer": 0.0,
+   "t0": 11.683,
+   "t1": 12.701,
+   "file": "L07.wav"
+  },
+  {
+   "n": 8,
+   "take": "L08b",
+   "speaker": "PIP",
+   "shot": "S8",
+   "tempo": 1.12,
+   "src_span": [
+    0.24,
+    1.46
+   ],
+   "pauses_cut": 0.0,
+   "dur": 1.089,
+   "words": [
+    {
+     "w": "Is",
+     "t0": 13.039,
+     "t1": 13.271
+    },
+    {
+     "w": "it",
+     "t0": 13.271,
+     "t1": 13.449
+    },
+    {
+     "w": "done",
+     "t0": 13.449,
+     "t1": 13.628
+    },
+    {
+     "w": "yet?",
+     "t0": 13.628,
+     "t1": 13.967
+    }
+   ],
+   "text": "Is it done yet?",
+   "heard": "Is it done yet?",
+   "wer": 0.0,
+   "t0": 13.003,
+   "t1": 14.092,
+   "file": "L08.wav"
+  },
+  {
+   "n": 9,
+   "take": "L09a",
+   "speaker": "GUS",
+   "shot": "S8",
+   "tempo": 1.0,
+   "src_span": [
+    0.35,
+    0.85
+   ],
+   "pauses_cut": 0.0,
+   "dur": 0.5,
+   "words": [
+    {
+     "w": "No.",
+     "t0": 14.332,
+     "t1": 14.602
+    }
+   ],
+   "text": "No.",
+   "heard": "No.",
+   "wer": 0.0,
+   "t0": 14.292,
+   "t1": 14.792,
+   "file": "L09.wav"
+  },
+  {
+   "n": 10,
+   "take": "L10a",
+   "speaker": "GUS",
+   "shot": "S9",
+   "tempo": 1.12,
+   "src_span": [
+    0.4,
+    2.09
+   ],
+   "pauses_cut": 0.0,
+   "dur": 1.509,
+   "words": [
+    {
+     "w": "Now",
+     "t0": 14.986,
+     "t1": 15.129
+    },
+    {
+     "w": "we",
+     "t0": 15.129,
+     "t1": 15.271
+    },
+    {
+     "w": "peel",
+     "t0": 15.271,
+     "t1": 15.593
+    },
+    {
+     "w": "the",
+     "t0": 15.593,
+     "t1": 15.789
+    },
+    {
+     "w": "dots",
+     "t0": 15.789,
+     "t1": 16.004
+    },
+    {
+     "w": "off.",
+     "t0": 16.004,
+     "t1": 16.459
+    }
+   ],
+   "text": "Now we peel the dots off.",
+   "heard": "Now we peel the dots off.",
+   "wer": 0.0,
+   "t0": 14.95,
+   "t1": 16.459,
+   "file": "L10.wav"
+  },
+  {
+   "n": 11,
+   "take": "L11a",
+   "speaker": "PIP",
+   "shot": "S10",
+   "tempo": 1.12,
+   "src_span": [
+    0.29,
+    3.17
+   ],
+   "pauses_cut": 0.4,
+   "dur": 2.214,
+   "words": [
+    {
+     "w": "Wait,",
+     "t0": 16.719,
+     "t1": 17.013
+    },
+    {
+     "w": "I",
+     "t0": 17.245,
+     "t1": 17.424
+    },
+    {
+     "w": "saw",
+     "t0": 17.424,
+     "t1": 17.692
+    },
+    {
+     "w": "an",
+     "t0": 17.692,
+     "t1": 17.888
+    },
+    {
+     "w": "IlluminAesthetic",
+     "t0": 17.888,
+     "t1": 18.549
+    },
+    {
+     "w": "video.",
+     "t0": 18.549,
+     "t1": 18.817
+    }
+   ],
+   "text": "Wait. I saw an Illumaesthetic video...",
+   "heard": "Wait, I saw an IlluminAesthetic video.",
+   "wer": 0.167,
+   "t0": 16.683,
+   "t1": 18.897,
+   "file": "L11.wav"
+  },
+  {
+   "n": 12,
+   "take": "L12a",
+   "speaker": "PIP",
+   "shot": "S11",
+   "tempo": 1.12,
+   "src_span": [
+    0.0,
+    2.38
+   ],
+   "pauses_cut": 0.0,
+   "dur": 2.125,
+   "words": [
+    {
+     "w": "They",
+     "t0": 19.017,
+     "t1": 19.321
+    },
+    {
+     "w": "did",
+     "t0": 19.321,
+     "t1": 19.446
+    },
+    {
+     "w": "a",
+     "t0": 19.446,
+     "t1": 19.571
+    },
+    {
+     "w": "whole",
+     "t0": 19.571,
+     "t1": 19.803
+    },
+    {
+     "w": "car",
+     "t0": 19.803,
+     "t1": 20.106
+    },
+    {
+     "w": "way",
+     "t0": 20.106,
+     "t1": 20.446
+    },
+    {
+     "w": "faster.",
+     "t0": 20.446,
+     "t1": 20.963
+    }
+   ],
+   "text": "They did a whole car way faster!",
+   "heard": "They did a whole car way faster.",
+   "wer": 0.0,
+   "t0": 19.017,
+   "t1": 21.142,
+   "file": "L12.wav"
+  },
+  {
+   "n": 13,
+   "take": "L13b",
+   "speaker": "GUS",
+   "shot": "S12",
+   "tempo": 1.0,
+   "src_span": [
+    1.37,
+    2.084
+   ],
+   "pauses_cut": 0.0,
+   "dur": 0.714,
+   "words": [
+    {
+     "w": "Show",
+     "t0": 21.29,
+     "t1": 21.62
+    },
+    {
+     "w": "me.",
+     "t0": 21.62,
+     "t1": 21.88
+    }
+   ],
+   "text": "...Show me.",
+   "heard": "Show me.",
+   "wer": 0.0,
+   "t0": 21.25,
+   "t1": 21.964,
+   "file": "L13.wav"
+  }
+ ],
+ "dialogue": {
+  "file": "partA_dialogue.wav",
+  "integrated_lufs": -16.2,
+  "gain_db": 0.0
+ }
+}

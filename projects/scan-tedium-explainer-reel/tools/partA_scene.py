@@ -27,6 +27,7 @@ def arg(name, default):
 
 
 OUT = arg("--out", "/home/user/media/work/scan-tedium/stills")
+ANIMATE = "--animate" in argv   # stage 3: per-frame animation driven by partA_timeline.json (tools/partA_anim.py)
 SHOTS = arg("--shots", "S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12").split(",")
 SCALE = float(arg("--scale", "1.0"))
 SPP = int(arg("--spp", "8"))
@@ -742,7 +743,7 @@ def jigsaw(w, h, tabs, r=None, n=10):
     return pts
 
 
-def build_screen_ui(ui):
+def build_screen_ui(ui, door=(0.085, 0.022, 8.0), snapped=False, pin_scale=1.0):
     """Laptop screen: a side-view car assembled from scan pieces with recognisable silhouettes (rear quarter, roof, front
     bumper/fender); the DOOR is being dragged into its slot with three colour-coded pin pairs (no numerals) about to snap."""
     objs = []
@@ -772,8 +773,8 @@ def build_screen_ui(ui):
         objs.append(cyl(f"ui_hub{nm}", 0.012, 0.0005, (x, -0.095 + oy, 0.0025), emit("#8c918c", 1.0), ui, seg=24))
     # the door (local coords, seated centre would be (0.0325, -0.04)): outline, window, handle; dragged up-right, tilted
     door_c = Vector((0.0325, -0.04 + oy))
-    loc = Vector((0.085, 0.022 + oy))
-    rot = math.radians(8)
+    loc = Vector((door[0], door[1] + oy))
+    rot = math.radians(door[2])
     outer = [(-0.0675, -0.055), (0.0675, -0.055), (0.0675, 0.025), (0.033, 0.083), (-0.0675, 0.087)]
     win = [(-0.058, 0.03), (0.058, 0.03), (0.031, 0.075), (-0.058, 0.077)]
     handle = [(0.03, 0.004), (0.056, 0.004), (0.056, 0.011), (0.03, 0.011)]
@@ -787,9 +788,12 @@ def build_screen_ui(ui):
         lp = tg - door_c
         lp = Vector((max(-0.06, min(0.06, lp.x)), min(0.078, lp.y)))
         src = loc + Vector((lp.x * math.cos(rot) - lp.y * math.sin(rot), lp.x * math.sin(rot) + lp.y * math.cos(rot)))
-        for nm, pt in (("s", src), ("t", tg)):
-            objs.append(cyl(f"pin_{nm}{i}", 0.0065, 0.0006, (pt.x, pt.y, 0.0045), emit(c, 1.3), ui, axis="Z", seg=16))
-            objs.append(cyl(f"pin_{nm}r{i}", 0.0085, 0.0005, (pt.x, pt.y, 0.004), emit("black", 1.0), ui, axis="Z", seg=16))
+        for nm, pt in ((("t", tg),) if snapped else (("s", src), ("t", tg))):
+            ps = pin_scale
+            objs.append(cyl(f"pin_{nm}{i}", 0.0065 * ps, 0.0006, (pt.x, pt.y, 0.0045), emit(c, 1.3), ui, axis="Z", seg=16))
+            objs.append(cyl(f"pin_{nm}r{i}", 0.0085 * ps, 0.0005, (pt.x, pt.y, 0.004), emit("black", 1.0), ui, axis="Z", seg=16))
+        if snapped:
+            continue
         d = tg - src
         for k in range(0, 6, 2):
             p0, p1 = src + d * (k / 6), src + d * ((k + 1) / 6)
@@ -1332,7 +1336,7 @@ timings = {}
 tpath = os.path.join(OUT, "timings.json")
 if os.path.exists(tpath):
     timings = json.load(open(tpath))
-for sh in SHOTS:
+for sh in ([] if ANIMATE else SHOTS):
     reset()
     SHOT_FUNCS[sh]()
     bpy.context.view_layer.update()
@@ -1366,3 +1370,8 @@ for sh in SHOTS:
     timings[sh] = dict(seconds=round(dt, 1), spp=SPP, scale=SCALE, threads=THREADS)
     print(f"[partA] {sh}: {dt:.1f} s ({SPP} spp, {SCALE:.2f} scale)", flush=True)
     json.dump(timings, open(tpath, "w"), indent=1)
+
+if ANIMATE:
+    _here = os.path.dirname(os.path.abspath(sys.argv[sys.argv.index("-P") + 1])) if "-P" in sys.argv else os.getcwd()
+    _anim = os.path.join(_here, "partA_anim.py")
+    exec(compile(open(_anim).read(), _anim, "exec"), globals())

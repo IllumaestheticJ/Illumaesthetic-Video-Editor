@@ -42,7 +42,7 @@ LINES = [("PIP", 0.2, 1.9, "So... how do you scan a whole car?"),
          ("GUS", 16.6, 17.3, "...Show me.")]
 # planned on-screen text per shot (script.md version A; only the sourced numbers ~8 CM, 4+, 3+)
 TITLES = {"S1": ["HOW DO YOU 3D-SCAN", "A WHOLE CAR?"], "S2": ["THE USUAL WAY"],
-          "S3": ["A DOT EVERY ~8 CM", "RANDOM, NEVER IN ROWS"], "S5": ["SCANNER NEEDS", "4+ DOTS IN VIEW"],
+          "S3": ["A DOT EVERY ~8 CM"], "S5": ["SCANNER NEEDS", "4+ DOTS IN VIEW"],
           "S6": ["OVERLAPPING SECTIONS"], "S7": ["MATCH 3+ POINTS", "PER PIECE"], "S9": ["THEN PEEL", "EVERY ONE OFF"]}
 FONT_T = "/usr/share/fonts/opentype/inter/InterDisplay-ExtraBold.otf"
 FONT_S = "/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"
