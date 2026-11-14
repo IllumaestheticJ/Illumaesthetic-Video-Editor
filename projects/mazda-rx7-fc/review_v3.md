@@ -34,3 +34,10 @@ and shrinks 1:1 into the phone -> ILLUMAESTHETIC 760 px.
 - A kit design file without a car: look for a review/OBJ that stores the kit WITH the scan (here Review/OLD/FC3S_TA_with scan.obj).
 - PCA splats can flip an axis: confirm "upside down" against a real overlay before flipping a scan.
 - After padding a shot (scale < 1) re-check parked parts: they move back into frame.
+
+## Delivered-file checks (final)
+- 1439 frames, 47.97 s, 1080x1920, 30 fps, yuv420p, AAC. Every cut's first new frame = planned frame; no duplicate frame
+  before any cut (1-frame fades, first clip one frame short, last one frame long).
+- Cut vs kick (1 ms RMS half-rise): -11, -4, +3, 0, +10, -45 (weak hit, x2.9), -11, +3, +11, +20, +11 ms.
+- `ive director` repeated views: s6~s9 and k_rbumper_off~k_rear are single camera moves split at a part swap (intended);
+  s1~k_reveal IoU 0.62 is stock low front-right vs widebody rear-left orbit - generic silhouette, different angle and car.

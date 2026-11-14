@@ -1,0 +1,116 @@
+# Mazda RX-7 FC3S (S5) v3 - "every panel replaced": the HertLife printed time-attack widebody goes onto the stock scan,
+# set to the user's track (T-Pain - Hert Baby Got Brap, uploaded), mobile CTA for the FC3S scan listing, logo.
+# Plan: direction_v3.md + director_v3.md (scene-director / director agents). Kit: tools/kitreg.py, kitparts.py (kit_xform.json).
+# Shots: v2 renders (stock opener + real removals) + tools/shots_v3.py (kit). Music: music_v3.json - 90.0 BPM, bar 2.6667 s,
+# drop at file 111.456 = video 5.333; excerpt = file 106.123 + 48 s (18 bars).
+# Cuts on frames: 160 (drop), 240, 320, 400, 480, 640, 800, 960, 1120, 1280, 1380; end 1440 (48.0 s).
+# Durations are whole frames; first clip one frame short (assembler adds the cut hold frame). Measure on the decoded file.
+project: mazda-rx7-fc
+format: reel-9x16
+output: {path: /home/user/media/work/rx7/out/mazda_rx7_fc_v3.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/rx7_hert_baby_got_brap.m4a   # user upload, not in git
+  start: 106.143   # +20 ms: v3a cuts measured 9-31 ms before the decoded kicks
+  fade_out: 1.2
+
+beats: [5.333, 8.0, 10.667, 13.333, 16.0, 21.333, 26.667, 32.0, 37.333, 42.667, 46.0]
+
+overlays:
+  - src: /home/user/media/work/rx7/hud_v3.mov
+    start: 0
+
+timeline:
+  - id: s1_front34     # WHOLE (stock): low front-right turntable over the 2-bar lead-in (v2 window + pad)
+    section: whole
+    focus: whole stock car
+    src: /home/user/media/work/rx7/renders/s1_front34_pad
+    src_fps: 7.36
+    interpolate: true
+    dur: 5.3000   # one frame short: the 1-frame fade shows the incoming shot fully one frame after the summed durs
+  - transition: {type: fade, duration: 0.0333, note: "5.333 DROP - hood starts opening"}
+  - id: s6_hood        # HOOD: opens on its fitted hinge (captured Hood Up angle)
+    section: hood
+    focus: hood opening
+    src: /home/user/media/work/rx7/renders/s6_hood
+    src_fps: 15
+    interpolate: true
+    in: 0.733
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "8.0 downbeat - invisible join at the captured-hood swap"}
+  - id: s9_hoodoff     # HOOD/BAY: captured open hood lifts off; engine bay (Hood Off Bumper Off)
+    section: engine bay
+    focus: engine bay, hood off
+    src: /home/user/media/work/rx7/renders/s9_hoodoff
+    src_fps: 15
+    interpolate: true
+    in: 0.533
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "10.667 downbeat"}
+  - id: s10_fbumper    # FRONT BUMPER REMOVED: Front Face part off its mounts, tips to its scanned inside
+    section: front bumper
+    focus: stock front bumper off
+    src: /home/user/media/work/rx7/renders/s10_fbumper
+    src_fps: 12.65
+    interpolate: true
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "13.333 downbeat"}
+  - id: s11_fsupport   # FRONT BUMPER REMOVED: radiator support + crash beam
+    section: front structure
+    focus: radiator support, crash beam
+    src: /home/user/media/work/rx7/renders/s11_fsupport
+    src_fps: 15
+    interpolate: true
+    vf: "pad=1080:2304:0:384:color=0x040405,crop=1080:1920:0:0"
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "16.0 downbeat - kit goes on"}
+  - id: k_front        # FRONT (kit): bumper + headlights, splitter, canards, vented hood closes on the hinge (20.667)
+    section: front kit
+    focus: kit front end
+    src: /home/user/media/work/rx7/renders/k_front
+    src_fps: 15
+    interpolate: true
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "21.333 downbeat"}
+  - id: k_sides        # SIDES (kit): side splitters, then both overfender skins slide in - the car widens
+    section: sides
+    focus: overfenders
+    src: /home/user/media/work/rx7/renders/k_sides
+    src_fps: 15
+    interpolate: true
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "26.667 downbeat"}
+  - id: k_rbumper_off  # REAR BUMPER REMOVED: stock bumper off, push onto crash beam + mounts
+    section: rear
+    focus: stock rear bumper off, crash beam
+    src: /home/user/media/work/rx7/renders/k_rbumper_off
+    src_fps: 15
+    interpolate: true
+    vf: "scale=1016:1806,pad=1080:1920:32:57:color=0x040405"   # 94 %: the wider overfender / wing tip touched the right edge
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "32.0 downbeat - one move split at the bumper change"}
+  - id: k_rear         # REAR (kit): bumper, diffuser, tips, GT wing lands on 36.667
+    section: rear kit
+    focus: kit rear end + wing
+    src: /home/user/media/work/rx7/renders/k_rear
+    src_fps: 15
+    interpolate: true
+    vf: "scale=1016:1806,pad=1080:1920:32:57:color=0x040405"   # 94 %: the wider overfender / wing tip touched the right edge
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "37.333 downbeat - finished car"}
+  - id: k_reveal       # WHOLE (kit): the finished widebody, rear-left orbit
+    section: whole kit
+    focus: finished widebody
+    src: /home/user/media/work/rx7/renders/k_reveal
+    src_fps: 15
+    interpolate: true
+    vf: "scale=1016:1806,pad=1080:1920:32:57:color=0x040405"   # 94 %: the wing tip touched the right edge (frames 38-60)
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "42.667 downbeat - CTA"}
+  - id: cta            # the listing's own scan (2025 FC3S full car) at the viewer's camera -> into the phone listing
+    src: /home/user/media/work/rx7/cta/cta_v3.mp4
+    dur: 3.3666
+  - transition: {type: fade, duration: 0.0333, note: "46.0 downbeat - logo"}
+  - id: logo           # ILLUMAESTHETIC 760 px on the render black
+    src: /home/user/media/work/rx7/logo_card_v3.mp4
+    dur: 2.0333

@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-14
 - [toyota-sera](toyota-sera/) - archived 2026-11-14
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
@@ -63,7 +64,6 @@ Newest first. Read the top two before starting a new edit.
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-11
 - [a90-supra](a90-supra/) - archived 2026-11-11
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-11
-- [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-11
 - [lexus-is350-scan-process](lexus-is350-scan-process/) - archived 2026-11-11
 - [subaru-wrx-va](subaru-wrx-va/) - archived 2026-11-11
 - [lexus-is350](lexus-is350/) - archived 2026-11-11
