@@ -204,3 +204,65 @@ would push back on, one is the length stated at the bottom of the script.
 5. (B4) May Mike Kojima's daughter be mentioned as the driver?
 6. (B5) MCS full name; which of Eibach, Wilwood and Fast Brakes are partners.
 7. (B1) Which parts went on at Sonoma itself.
+
+---
+
+## Sign-off pass on v2
+
+Checked 2026-11-14: `script.md` v2 against sections A and B above, `coverage.md` and `clips.md`. Line numbers are the
+`#` column of the v2 table. v1 was not available, so "new in v2" means "not in this review's replacement text and not
+supported by the two files". No audio was listened to; every "verify by ear" above is still open.
+
+**Verdict: FAIL, narrowly.** A1-A8 are applied. A9 is only half applied: the footer was rewritten but its counts are
+still wrong. Three small edits clear it (footer, line 39, line 48).
+
+### 1. A1-A9
+| Item | Applied? | v2 line | Note |
+|---|---|---|---|
+| A1 | yes | 28, 29 | Lead-in VO added; SYNC runs 35-49.5 with "for the control arms" and "thank you, Good-Win"; by-ear flag kept. |
+| A2 | yes, one gap | 32, 38, 68; ASK 3, 5 | Line 32 marked provisional with the "courtesy of Brian" note; ASK 3 rewritten as asked; the "underneath" item is ASK 5; line 68 carries ASK 3. Gap: line 38 (brake lines) carries only ASK 5, not ASK 3, and has no note that "lines" vs "line" is unverified. |
+| A3 | yes | 5, 59; ASK 12 | Span extended to 9.8-15.5, "pause trimmed", picture corrected to hub adapter on the wheel. Line 59 has no time span. |
+| A4 | yes | 22, 23 | Replacement text verbatim; "thirty years" gone. |
+| A5 | yes | 14, 15, 16, 17 | Verbatim. Line 17 drops "And the springs are from Eibach", which is the cut A9 suggested. |
+| A6 | yes | 34 | Verbatim. |
+| A7 | yes | 35, 36 | Verbatim; "bigger disc" held behind ASK 4. |
+| A8 | yes | 52, 53, 54 | Verbatim; line 54 is cut unless ASK 8 confirms. |
+| A9 | **partly** | footer | Footer now admits about 13 minutes and the plan re-cut, and the SYNC 58 pause is trimmed. But the stated "45 VO lines, about 800 words" is wrong (see 4), and one VO line is still over 30 words. |
+
+### 2. B1-B7 not applied
+All B1, B2, B3, B5, B6 replacements and all seven B7 asks are in v2. Not applied:
+- B3 "actually": still in VO line 24 (the review kept it only in 13 and the bracing-video line, now 46). Cosmetic.
+- B4 line 42 (now 47): no note to cover the internal cut with 6691 / 6692. Edit note only.
+- B4 line 29 (now 32): no note to cover the cut after "Wilwood..." with 6576. Edit note only.
+- B4 line 11: "a very, very neat" is kept although one model hears no "a"; covered only by the general by-ear rule in the header.
+- B5 "say the MCS full name once": deferred to ASK 10, which is the right place.
+
+None of these matters for owner sign-off. The two cover-shot notes should reach the edit plan so they are not lost.
+
+### 3. New unsupported fact, number or mis-credit
+- **Line 48**, "...the knuckle support and the sway bar reinforcement bars to go with them": this merges two alternative
+  replacements from B1 and B5. "To go with them" now attaches the knuckle support to the Whiteline sway bars, which no
+  file supports (the part's name is not even clear in the audio). Use the B5 wording and stop at "reinforcement bars."
+- **Line 63**, "Bed the brakes, check the wheels, and send it": "bed the brakes" is in the files; "check the wheels" is
+  in neither `coverage.md` nor `clips.md`. Could not tell whether it came from v1. Low risk, but confirm it is on film
+  or drop the middle clause.
+- No new numbers: the VO has none, consistent with the header.
+- No sponsor mis-credit: every credit matches the `clips.md` supplier table. Line 68 still thanks Eibach, Fast Brakes
+  and Wilwood as senders, but is tagged ASK 3 and ASK 10, so it is provisional, not wrong. Line 67 "technology partners
+  at MotoIQ" is the review's own wording; the files only say "courtesy of".
+- Footer "about 3 minutes of your on-camera speech": the SYNC spans as written add up to about 3.9 minutes before the
+  internal trims. Plausible after trimming, but it is an estimate, not a measurement.
+
+### 4. Counts
+Counted from the table: rows whose Type is exactly `VO`, with bracketed `[ASK]` / `[PICKUP]` tags and the stage note in
+line 19 removed. The two "yours" rows (65, 66) are not counted.
+- **49 VO lines, 879 words, about 5.6 minutes** at 2.6 words/s. The footer says 45 lines and about 800 words: both
+  wrong. That is more VO than v1 (850 words), so the overrun against the plan grew slightly.
+- Without the two full PICKUP lines (33, 57) and the PICKUP tail of 31: 47 lines, 854 words. Still not 45 / 800.
+- Over 30 words: **line 39 (32 words)**, the B2 brake-line replacement. Line 10 is exactly 30; lines 16 (29) and 55 (28)
+  are close.
+
+### To clear
+1. Footer: "49 VO lines, about 880 words, about 5.6 minutes".
+2. Split line 39 after "...as it ages."
+3. Line 48: end at "reinforcement bars." Optionally add ASK 3 to line 38 and confirm "check the wheels" in line 63.

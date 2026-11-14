@@ -35,7 +35,7 @@ picture sources follow `plan.md` section 3.
 | 21 | 2. Bushings | VO | All right, bushings. This is the stuff nobody sees. But every suspension arm on this car connects to the chassis through one of these. |
 | 22 | 2. Bushings | VO | From the factory, it's rubber. And on a car this old, that rubber gets soft and it cracks. |
 | 23 | 2. Bushings | VO | So when you load the car up in a corner, it squishes. And the wheel moves around in ways you didn't ask it to. |
-| 24 | 2. Bushings | VO | Polyurethane doesn't squish as much. So the alignment you set in the shop is a lot closer to what you actually get on track. |
+| 24 | 2. Bushings | VO | Polyurethane doesn't squish as much. So the alignment you set in the shop is a lot closer to what you get on track. |
 | 25 | 2. Bushings | VO | But first, the old ones have to come out. And they did not want to come out. |
 | 26 | 2. Bushings | SYNC 6673 0.2-4 | "Is it easier now?" "Yeah." "See what happens when you have the right tools?" |
 | 27 | 2. Bushings | VO | And while the arms are off the car, they get a fresh coat of paint. |
@@ -49,8 +49,8 @@ picture sources follow `plan.md` section 3.
 | 35 | 3. Brakes | VO | The problem is doing it again and again, lap after lap. Brakes turn speed into heat, and that heat has to go somewhere. |
 | 36 | 3. Brakes | VO | A big brake kit gives you a stiffer caliper and a bigger pad. So it takes a lot longer before things start to fade. **[ASK 4: "and a bigger disc" only if the kit's disc is larger than stock]** |
 | 37 | 3. Brakes | VO | It's about the pedal feeling the same at the end of the session as it did at the start. |
-| 38 | 3. Brakes | SYNC 6662 135-141 | "...with that kit we also have stainless steel front brake lines..." **[ASK 5]** |
-| 39 | 3. Brakes | VO | A rubber line swells a little every time you hit the pedal, and it gets worse as it ages. A braided stainless line swells a lot less. So the pedal is firmer. |
+| 38 | 3. Brakes | SYNC 6662 135-141 | "...with that kit we also have stainless steel front brake lines..." **[ASK 3, 5]** |
+| 39 | 3. Brakes | VO | A rubber line swells a little every time you hit the pedal, and it gets worse as it ages. A braided stainless line swells a lot less, so the pedal is firmer. |
 | 40 | 3. Brakes | SYNC 6662 151.9-172 | "CSG sent us this Halo P1 brake fluid as well as their full pad set front and rear. CSG is a well-known domestic... supplier of very, very high end brake pads and I'm excited to use them." (self-correction cut under the bottle close-ups) |
 | 41 | 3. Brakes | VO | Pads and fluid are the part people skip. A track pad is made to work hot. |
 | 42 | 3. Brakes | VO | And the fluid matters because if it boils, the pedal goes long. That's the one you really don't want. |
@@ -59,7 +59,7 @@ picture sources follow `plan.md` section 3.
 | 45 | 4. Bracing and sway bars | VO | Now, we already did a whole video on these two. We put them on a stock NB, jacked up one corner, and 3D scanned it. |
 | 46 | 4. Bracing and sway bars | VO | So if you want to see how much the chassis actually moves, link's up here. |
 | 47 | 4. Bracing and sway bars | SYNC 6662 65.4-80 | "We also got sway bars from Whiteline... This is the Whiteline rear sway bar." |
-| 48 | 4. Bracing and sway bars | VO | And Good-Win sent the knuckle support and the sway bar reinforcement bars to go with them. **[ASK 7]** |
+| 48 | 4. Bracing and sway bars | VO | And Good-Win sent the knuckle support and the sway bar reinforcement bars. **[ASK 7]** |
 | 49 | 4. Bracing and sway bars | VO | A sway bar ties the left side to the right side. When the car leans, the bar twists, and it fights that lean. |
 | 50 | 4. Bracing and sway bars | VO | And how stiff you go in the front versus the rear changes how the car rotates. |
 | 51 | 5. Steering | SYNC 6662 177.5-197 | "SPL sent us their inner and outer tie rod set. This will help tie in the steering, as well as a SuperPro steering rack bushing kit. So this will help make the steering far more responsive and we're gonna love that for the manual steering rack we have on this car." |
@@ -83,8 +83,8 @@ picture sources follow `plan.md` section 3.
 | 69 | Sign-off | VO | If you need scanning and other engineering consulting work, reach out to us at Illumaesthetic. |
 | 70 | Sign-off | VO | Want more? Tell us what you want to see next. |
 
-Length: 45 VO lines, about 800 words, a little over 5 minutes at 2.6 words/s, plus about 3 minutes of your on-camera
-speech. With the graphics and the Sonoma section this lands near 13 minutes rather than the plan's 12:15; the plan's
+Length: 49 VO lines, about 875 words, about 5.6 minutes at 2.6 words/s (47 lines if the two pick-up lines drop), plus about 3 minutes of your on-camera
+speech. With the graphics and the Sonoma section this lands near 13:30 rather than the plan's 12:15; the plan's
 slot times will be re-cut from the recorded audio, as on the bracing video.
 
 ## Answers needed before this is recorded
