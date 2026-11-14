@@ -1,24 +1,25 @@
-# Huracan Evo scan reel v13 - self-review (training/rubric.md)  (older: review_v12 ... review_v1.md)
+# Huracan Evo scan reel v14 - self-review (training/rubric.md)  (older: review_v13 ... review_v1.md)
 
-Output: `/home/user/media/work/out/huracan_evo_v13.mp4` - 1080x1920, 30 fps, AAC, 46.8 s.
-Change from the user's note on v12: "the front feels rushed - the whole thing is not the same pacing. re-pace the whole video -
-make it longer if it needs to be". Narration take unchanged from v12.
+Output: `/home/user/media/work/out/huracan_evo_v14.mp4` - 1080x1920, 30 fps, AAC, 46.8 s.
+Picture and music identical to v13 (video stream copied). Change from the user's note: re-record and slow down
+"the Lamborghini Huracan LP640-4 (dash four) Evo".
 
-| # | Criterion | Score | Evidence / gap |
-|---|---|---|---|
-| 1 | Hook | 4 | Unchanged: engine start-up and lights-up reveal, speech from 3.4 s. |
-| 2 | Beat sync | 5 | 10 scan cuts on the kick grid of the delivered file: +22 (drop, 13.28 s), then -12..-14 ms. Logo on the last kick, 43.88 s. |
-| 3 | 1:1 match | 4 | Coupe -> Spyder stealth cut: IoU 0.887 with the re-rendered 36-frame push; frame difference at the cut 3.2 (other cuts 31-68). |
-| 5 | Story / pacing | 4 | Playback speed per shot: wheel 1.0x, side 1.2x, push 0.8-1.0x, Spyder opener 1.15x, front bumper 1.22x, hood 1.2x, side 1.2x, rear bumper 1.0x, decklid 0.8x, exhaust 1.0x, wheel well 0.8x, explode 1.06x, reassembly 1.0x (v12: 1.5-2.0x in the opening and front, 1.0x in the rear). Opening shots 3.0 s each, every labelled teardown step 3.0 s. No frozen runs. |
-| 7 | Text | 4 | Seven title-only labels, 2.25 s each, on black. |
-| 8 | Ending | 4 | The speech ends at 35.3 s; the last 8.5 s before the logo (wheel well, explode, reassembly) are music and picture only. |
-| 9 | Technical | 4 | Every frame lit. Speech -13.3 LUFS, peak -1.0 dBFS. |
+All rubric rows as v13 (review_v13.md), except row 8: the speech now runs 3.4-38.0 s, so only the last ~6 s before the logo are
+music and picture only (v13: 8.5 s). Speech section -13.6 LUFS, peak -1.0 dBFS.
+
+## Narration (new one-take recording, untrimmed, speech_rate 12, no tempo/pitch change)
+"The Lamborghini Huracan... L P six-forty, dash four, EVO. Representing the six hundred forty metric horsepower it produces, mated
+to a four-wheel drive system. Its V10 fires at uneven intervals, fifty-four and ninety degrees apart, for that jagged, howling
+note. Titanium intake valves carry it to eight thousand RPM, and LDVI predicts your next move. Over the original Huracan it gained
+thirty horsepower, rear-wheel steering, and more than five times the downforce, cutting zero to sixty-two from three-point-two
+seconds to two-point-nine."
+- Name timing measured on the take: 5.7 s for the name (v12/v13 take: 2.6 s), with pauses after "Huracan" (0.8 s),
+  "six-forty" (0.27 s), "dash four" (0.36 s) and "EVO" (0.79 s).
 
 ## Not verified
-- I can't listen here, so the narration against the new picture timing is unheard.
+- I can't listen here: the pauses are measured, but how natural the slowed name sounds is unheard. Two alternates are on disk
+  (narration17_b: name in 3.4 s, no long pauses; narration17_c).
 
 ## What the next agent should know
-- "Not the same pacing" = uneven playback speeds between sections. Tabulate frames-used / duration / 15 fps for every shot and keep
-  them within about 0.8-1.2x; give every equivalent step the same number of beats, and re-render a shot longer rather than slow it
-  below ~0.8x or squeeze it above ~1.2x.
-- Re-pacing moves the drop: rebuild the music from an earlier source bar (`tools/music_v13.py`) so the drop still lands on the cut.
+- To slow one phrase without tempo processing, write the pauses into the script (ellipsis / commas / full stop) and regenerate the
+  whole take; check the result by measuring the pause positions rather than total length.
