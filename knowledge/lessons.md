@@ -1242,3 +1242,18 @@ lands here automatically. Agents must read this whole file before editing.
 - (mr2 v4) "Environment very low detail": a flat road + light bars + plain boxes is not enough. Build lanes, barriers,
   lamp posts with real lights, gantries, overpasses, oncoming traffic, shopfronts and two building rows
   (projects/toyota-mr2-spyder/tools/city_env.py); keep window emission low (~1-1.5) or facades blow out white.
+
+## Toyota GR Corolla v5 (reviewer on v4)
+- **[scan] RULE (user): removing a panel must not take its neighbours with it.** ("the front end scan is missing a huge
+  chunk of the car") Never build a "panel off" base by deleting every car face the stripped-shell scan lacks inside the
+  panel's bbox - a stripped shell has no headlights, fenders or lights, so they vanish too. Remove only faces that are
+  the panel's own skin (near the separate panel scan), then put back everything above the panel's real top edge
+  (per-column 98th percentile of the panel scan, capped at the corners where shards of the neighbouring trim sit) and
+  trim those shards off the moving panel. Tools: projects/toyota-gr-corolla/tools/frontcut.py + bumperline.py.
+  Check with a wide front 3/4 render from BOTH sides next to the intact car before any final.
+- **[scan]** A "roof" scan set for a car can be door-open state scans (roof-rack mounting data at the door jambs). Seat a
+  state with statebase.py: keep only the state's faces in the zone it is about (opening + cabin) so the rest of the
+  body stays intact and no seam shows where the state thins out; keep the car's own wheel when the state's is partial;
+  crop the floor and strays above the roofline. A door that is OFF in the state is shown as captured (1:1 swap), not
+  faked open.
+- **[cli]** argparse reads a value starting with '-' as a flag: pass negative boxes as `--szone=-1300,...`.
