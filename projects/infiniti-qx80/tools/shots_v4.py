@@ -117,13 +117,15 @@ SHOTS["K_brakes"] = dict(base=[B + "/b_ring_scan.blend"], parts=_brake_parts(), 
 # Scan (silver) + kit (green) + the other three corners with wheels + brakes; the front-left corner has no wheel and its GT-R
 # brake assembles on the hub (-0.86, 1.661, 0.412): ring + our hat on beat 1, our adapter on beat 2, the GT-R caliper (gold,
 # as on the real car) on beat 3, then a push-in hold. Outboard = -X.  Meshes: brake_corner.py -> kit2lev -> prep --like car6.
-HUB = (-0.86, 1.661, 0.412)
+HUB = (-0.86, 1.654, 0.318)   # v7c: the SCANNED front-left hub (wheelwell.py / fl_hub.json), not the designer's wheel position
 def _corner_parts(fly=0.30):
     out = [{"blend": f"{B}/k_{g}.blend", "mat": "kit"} for g in KIT]
     out += [{"blend": f"{B}/q_wheels_o3.blend", "mat": "silver"}, {"blend": f"{B}/q_o3_iron.blend", "mat": "iron"},
             {"blend": f"{B}/q_o3_caliper.blend", "mat": "caliper"}]
-    P = [("c_ring", "silver", (-0.55, 0, 0.0), 1), ("c_hat", "kit", (-0.80, 0, 0.0), 1),
-         ("c_adapter", "kit", (-0.40, -0.10, -0.32), 2), ("c_caliper", "caliper", (-0.50, -0.22, 0.34), 3)]
+    # v7c: real wheel well (Left Side Compressed scan, stock rotor/caliper removed) + the brake on its scanned hub
+    out.append({"blend": f"{B}/q_w_well.blend", "mat": "silver"})
+    P = [("w_ring", "silver", (-0.55, 0, 0.0), 1), ("w_hat", "kit", (-0.80, 0, 0.0), 1),
+         ("w_adapter", "kit", (-0.40, -0.10, -0.32), 2), ("w_caliper", "caliper", (-0.50, -0.22, 0.34), 3)]
     for n, mat, off, beat in P:
         tl = beat * BEAT_S
         out.append({"blend": f"{B}/q_{n}.blend", "mat": mat,

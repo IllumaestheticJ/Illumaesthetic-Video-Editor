@@ -298,7 +298,7 @@ SEGS = {
     'i4_after': lambda: hold('i4_after', photo_frame(wa(1693), *CREDIT, max_w=1.0)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7b.mp4'
+OUT = D + '/out/infiniti_qx80_v7c.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']

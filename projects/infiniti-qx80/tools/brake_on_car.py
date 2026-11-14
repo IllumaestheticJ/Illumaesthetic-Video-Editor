@@ -1,7 +1,7 @@
 """Put the assembled GT-R front brake (brake_assemble.py, hub frame) at the 4 wheels of the design frame (mm).
 hubs.json (export_wheels.py) gives each Brembo_GTS_disc_001 centre = rotor midplane on the hub axis (design X).
 Hub frame: +X inboard, ring midplane at X = +25.3, caliper on -Y. Design frame: nose +Y, car centreline x ~ -408.
-Caliper placed at the trailing side, 20 deg above horizontal - where it shows behind the spokes in photos 1701 / 1702.
+Caliper: front corners behind the hub, rear corners ahead of it, ~5 deg up - as in photos 1702 (front) / 1701 (rear).
 Same front brake on all four corners (front scans only; the rear caliper/rotor scans are not used).
 Outputs: <out>/brake_iron.stl (ring scans + CAD hats + CAD adapters), <out>/brake_caliper.stl (caliper scans)."""
 import json, sys, struct, numpy as np
@@ -10,12 +10,13 @@ TRI = np.dtype([("n", "<f4", 3), ("v", "<f4", (3, 3)), ("a", "<u2")])
 L = lambda f: np.fromfile(f, dtype=TRI, offset=84)
 hubs = json.load(open(H)); CL = np.mean([h['centre'][0] for h in hubs.values()])
 groups = {'brake_iron': ['ring_scan', 'hat_cad', 'adapter_cad'], 'brake_caliper': ['caliper_scan']}
-th = np.radians(20)
+th = np.radians(5)
 for g, parts in groups.items():
     acc = []
     for name, h in sorted(hubs.items()):
         c = np.array(h['centre']); inb = np.sign(CL - c[0])
-        X = np.array([inb, 0, 0]); Ym = np.array([0, -np.cos(th), np.sin(th)])     # hub -Y -> rear, 20 deg up
+        X = np.array([inb, 0, 0]); sd = -1 if c[1] > 0 else 1                       # v7c: fronts trail (rear), rears lead (front)
+        Ym = np.array([0, sd * np.cos(th), np.sin(th)])                               # hub -Y -> caliper side, th up (photos 1701/1702)
         Y = -Ym; Z = np.cross(X, Y); R = np.stack([X, Y, Z], 1)                  # columns: hub axes in design frame
         o = c - 25.3 * X
         for p in parts:
