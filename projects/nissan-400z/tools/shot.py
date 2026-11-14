@@ -201,14 +201,17 @@ def mat_livery(spec, fps, nframes):
 
 
 def key_vis(objs, e, fps):
-    """entry keys show_at / hide_at (s): hard visibility switch on that frame (1:1 swaps on a beat)."""
-    for key, first in (("show_at", True), ("hide_at", False)):
-        if e.get(key) is None:
-            continue
-        fcut = max(1, int(round(e[key] * fps)) + 1)
-        for o in objs:
-            o.hide_render = first; o.keyframe_insert("hide_render", frame=1)
-            o.hide_render = not first; o.keyframe_insert("hide_render", frame=fcut)
+    """entry keys show_at / hide_at (s): hard visibility switches on those frames (1:1 swaps on a beat); both may be set."""
+    if e.get("show_at") is None and e.get("hide_at") is None:
+        return
+    f_on = max(1, int(round(e["show_at"] * fps)) + 1) if e.get("show_at") is not None else 1
+    f_off = max(1, int(round(e["hide_at"] * fps)) + 1) if e.get("hide_at") is not None else None
+    for o in objs:
+        o.hide_render = f_on > 1; o.keyframe_insert("hide_render", frame=1)
+        if f_on > 1:
+            o.hide_render = False; o.keyframe_insert("hide_render", frame=f_on)
+        if f_off is not None:
+            o.hide_render = True; o.keyframe_insert("hide_render", frame=f_off)
 
 
 def main():
@@ -216,11 +219,14 @@ def main():
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     base = []
+    body_roots = []  # roots that ride the body (stance drop); entries with "ground": true stay on the ground
     base_objs = []  # (objs, entry) for per-entry material/hide
     for b in spec["base"]:
         objs = load_blend(b)
         base += objs
         base_objs.append((objs, b if isinstance(b, dict) else {}))
+        if not (isinstance(b, dict) and b.get("ground")):
+            body_roots += list({(o.parent or o) for o in objs})
     bpy.context.view_layer.update()  # matrix_world is stale right after linking
     lo, hi = sr.bbox([o for objs, e in base_objs if not e.get("hide") for o in objs] or base)
     fps = spec.get("fps", 15)
@@ -265,6 +271,8 @@ def main():
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}
     for p in spec.get("parts", []):
         objs = load_blend(p["blend"])
+        if not p.get("ground") and not p.get("keys"):
+            body_roots += list({(o.parent or o) for o in objs})
         m = mat_check(colors[p["color"]]) if p.get("color") else (mat_livery(spec, fps, nframes) if liv_all else silver)
         for o in objs:
             if p.get("keep_mats"):
@@ -286,6 +294,8 @@ def main():
             mw = root.matrix_world.copy()
             root.parent = pv
             root.matrix_world = mw
+        if not p.get("ground"):
+            body_roots.append(pv)
         base_loc = pv.location.copy()
         for f in range(1, nframes + 1):
             t = (f - 1) / fps
@@ -293,6 +303,22 @@ def main():
             pv.rotation_euler = Euler([math.radians(v) for v in sample(keys, t, "rot")], "XYZ")
             pv.keyframe_insert("location", frame=f)
             pv.keyframe_insert("rotation_euler", frame=f)
+
+    bd = spec.get("body_drop")  # stance: [[t, dz], ...] (m) for everything but "ground" entries (new wheels)
+    if bd:
+        body = bpy.data.objects.new("body", None); sc.collection.objects.link(body)
+        for r in body_roots:
+            if r.parent is None:
+                mw = r.matrix_world.copy(); r.parent = body; r.matrix_world = mw
+        for f in range(1, nframes + 1):
+            t = (f - 1) / fps
+            if t <= bd[0][0]: dz = bd[0][1]
+            elif t >= bd[-1][0]: dz = bd[-1][1]
+            else:
+                for (t0, z0), (t1, z1) in zip(bd, bd[1:]):
+                    if t <= t1:
+                        u = (t - t0) / max(1e-9, t1 - t0); u = u * u * (3 - 2 * u); dz = z0 + (z1 - z0) * u; break
+            body.location = (0, 0, dz); body.keyframe_insert("location", frame=f)
 
     cd = bpy.data.cameras.new("cam")
     cam = bpy.data.objects.new("cam", cd)
