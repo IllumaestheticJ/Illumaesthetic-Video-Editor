@@ -6,11 +6,11 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-14
 - [nissan-400z](nissan-400z/) - archived 2026-11-14
 - [a90-supra](a90-supra/) - archived 2026-11-14
+- [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-14
 - [huracan-evo](huracan-evo/) - archived 2026-11-14
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-14
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-13
-- [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-14
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
 - [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
@@ -22,6 +22,7 @@ Newest first. Read the top two before starting a new edit.
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13
+- [lamborghini-revuelto](lamborghini-revuelto/) - archived 2026-11-13
 - [toyota-sera-scan-process](toyota-sera-scan-process/) - archived 2026-11-13
 - [mazda-miata-na](mazda-miata-na/) - archived 2026-11-13
 - [honda-civic-11-scan-process](honda-civic-11-scan-process/) - archived 2026-11-13

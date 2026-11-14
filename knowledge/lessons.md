@@ -1140,3 +1140,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[framing]** A removed part parked in frame is fine for a removal beat, but not when the NEXT thing to watch is behind or under it:
   before a mechanism moves (suspension travel) or a camera holds on what a part covered (console -> tunnel), the part leaves the
   frame completely (exit key + `vis` window), it does not park. Take off anything that hides the mechanism first (dust shields).
+## From the Mazda Miata ND v10 revision (2026-11-14, built by an agent)
+- **[pacing]** Two consecutive shots on near-identical angles of the same subject read as a jump cut (user: "weird cut", Miata 28.2 s:
+  ~2 deg / 1.3 m apart). Either change the angle a lot, or start the next shot's camera EXACTLY on the previous shot's last key so
+  the cut disappears into one move. Check frame diffs at every cut: a diff of ~10-20 with the same silhouette is a jump cut.
