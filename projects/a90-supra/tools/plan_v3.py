@@ -193,10 +193,16 @@ s.cam((0, dict(az=-52, dist=1.75, z=1.05, look=[1.22, -0.95, 0.28])), (3.3, dict
 # ---------------------------------------------------------------- s09 bump / droop travel, then dust shield and hub bearing off
 s = Shot("s09_fc_strut", 9, 30)
 home(s, off=OFF_FRONT); corners(s, skip=("FR",))
-mech(s, "FR", lambda v: kin.front(travel=v), [(0, 0), (1.1, 38), (2.7, -76), (3.7, 0)], {
-    "dust_shield": ([(0, dict()), (4.2, dict()), (5.3, dict(loc=out(FAX, 0.30), ease="ease_out")), (8.1, dict(loc=out(FAX, 0.30)))], {}),
-    "bearing": ([(0, dict()), (5.6, dict()), (6.8, dict(loc=out(FAX, 0.15), ease="ease_out")), (8.1, dict(loc=out(FAX, 0.15)))], {})},
+# reviewer (v3.1): removed parts must be completely out of the way while the suspension moves -> the dust shield comes off
+# and leaves the frame FIRST, then the travel runs on the bare knuckle / strut / arms; the hub bearing slides off at the end
+SHX = add(out(FAX, 0.55), [0.95, 0, -0.75])
+mech(s, "FR", lambda v: kin.front(travel=v), [(2.0, 0), (3.2, 38), (5.0, -76), (6.2, 0)], {
+    "dust_shield": ([(0, dict()), (0.9, dict(loc=out(FAX, 0.30), ease="ease_out")), (2.0, dict(loc=SHX, ease="ease_in"))], dict(vis=[(0, 2.0)])),
+    "bearing": ([(0, dict()), (6.6, dict()), (7.7, dict(loc=out(FAX, 0.15), ease="ease_out")), (8.1, dict(loc=out(FAX, 0.15)))], {})},
      hidden=("wheel", "rotor", "caliper"))
+for o in s.spec["objects"]:
+    if o["blend"].endswith("k_FR_dust_shield.blend"):
+        o.pop("mats", None)
 s.cam((0, dict(az=-78, dist=1.05, z=0.50, look=[1.22, -0.80, 0.36])), (8.1, dict(az=-66, dist=0.95, z=0.50, look=[1.22, -0.85, 0.34])))
 
 # ---------------------------------------------------------------- s10 fender section
@@ -233,22 +239,26 @@ s = Shot("s12_int_xray", 13, 15, exposure=INT_EXP)
 s.obj("interior"); s.obj("console"); s.cam(*XCAM)
 s = Shot("s13_int_console", 14, 30, exposure=INT_EXP)
 s.obj("interior")
-CPARK = [0.0, 0, 0.32]
-s.obj("console", keys=[(0, dict()), (1, dict()), (2, dict(loc=[0, 0, 0.08], ease="ease_out")), (3.4, dict(loc=CPARK, ease="ease_out")), (8.1, dict(loc=CPARK))])
+# reviewer (v3.1): the lifted console hid what is under it -> it unclips, lifts and leaves the frame, then the camera holds on the tunnel
+s.obj("console", keys=[(0, dict()), (0.8, dict()), (1.6, dict(loc=[0, 0, 0.10], ease="ease_out")), (3.2, dict(loc=[0.1, 1.5, 0.45], ease="ease_in"))], vis=[(0, 3.2)])
 s.cam((0, dict(pos=[-0.75, 0, 2.45], look=[-0.35, 0, 0.5], up=[1, 0, 0])), (3.6, dict(pos=[-0.45, 0, 1.75], look=[-0.20, 0, 0.5], up=[1, 0, 0])),
       (5.0, dict(pos=[-0.55, 0, 1.75], look=[-0.30, 0, 0.5], up=[1, 0, 0])), (8.1, dict(pos=[-1.55, 0, 1.75], look=[-1.40, 0, 0.5], up=[1, 0, 0])))
 
 # ---------------------------------------------------------------- s14 rear: wheel -> caliper -> rotor off, then the five-link works
 s = Shot("s14_rc", 15, 30, lens=32)
 home(s, off=OFF_SIDE); corners(s, skip=("RR",), fr_off=FR_OFF)
-mech(s, "RR", lambda v: kin.rear(travel=v), [(3.8, 0), (4.8, 45), (6.3, -75), (7.4, 0)], {
-    "wheel": ([(0, dict()), (0.8, dict(loc=out(RAX, 0.30), ease="ease_out")), (1.6, dict(loc=out(RAX, 0.95))), (3.3, dict(loc=out(RAX, 0.95))),
-               (4.5, dict(loc=add(out(RAX, 1.1), [1.5, 0, -0.5]), ease="ease_in"))], dict(vis=[(0, 4.5)])),   # leaves the frame before the push-in
-    "caliper": ([(0, dict()), (1.6, dict()), (2.1, dict(loc=[0.07, 0, 0.05], ease="ease_out")), (2.8, dict(loc=add([0.07, 0, 0.05], out(RAX, 0.55)))),
-                 (8.1, dict(loc=add([0.07, 0, 0.05], out(RAX, 0.55))))], {}),
-    "rotor": ([(0, dict()), (2.6, dict()), (3.7, dict(loc=out(RAX, 0.33))), (8.1, dict(loc=out(RAX, 0.33)))], {})})
+# reviewer (v3.1): wheel, caliper, rotor and dust shield all leave the frame before the five-link travel starts
+RX = [1.5, 0, -0.6]      # exit: forward along the car and down, out of the bottom of the frame
+mech(s, "RR", lambda v: kin.rear(travel=v), [(4.3, 0), (5.2, 45), (6.6, -75), (7.7, 0)], {
+    "wheel": ([(0, dict()), (0.7, dict(loc=out(RAX, 0.30), ease="ease_out")), (1.3, dict(loc=out(RAX, 0.95))),
+               (2.3, dict(loc=add(out(RAX, 1.1), RX), ease="ease_in"))], dict(vis=[(0, 2.3)])),
+    "caliper": ([(0, dict()), (1.2, dict()), (1.6, dict(loc=[0.07, 0, 0.05], ease="ease_out")), (2.2, dict(loc=add([0.07, 0, 0.05], out(RAX, 0.55)))),
+                 (3.1, dict(loc=add(out(RAX, 0.8), RX), ease="ease_in"))], dict(vis=[(0, 3.1)])),
+    "rotor": ([(0, dict()), (2.0, dict()), (2.8, dict(loc=out(RAX, 0.33))), (3.7, dict(loc=add(out(RAX, 0.6), RX), ease="ease_in"))], dict(vis=[(0, 3.7)])),
+    "dust_shield": ([(0, dict()), (2.9, dict()), (3.5, dict(loc=out(RAX, 0.25), ease="ease_out")), (4.2, dict(loc=add(out(RAX, 0.5), RX), ease="ease_in"))],
+                    dict(vis=[(0, 4.2)]))})
 for o in s.spec["objects"]:      # parts already off the hub must not ride the suspension travel
-    if o["blend"].split("/")[-1] in ("k_RR_wheel.blend", "k_RR_caliper.blend", "k_RR_rotor.blend"):
+    if o["blend"].split("/")[-1] in ("k_RR_wheel.blend", "k_RR_caliper.blend", "k_RR_rotor.blend", "k_RR_dust_shield.blend"):
         o.pop("mats", None)
 s.cam((0, dict(az=-128, dist=1.8, z=1.05, look=[-1.24, -0.95, 0.26])), (3.7, dict(az=-126, dist=1.85, z=1.0, look=[-1.24, -1.2, 0.24])),
       (8.1, dict(az=-112, dist=1.35, z=0.62, look=[-1.26, -0.95, 0.24])))
