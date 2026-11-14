@@ -1233,3 +1233,12 @@ lands here automatically. Agents must read this whole file before editing.
   when they are genuinely different parts. Ask, or check the shapes, before staging a split.
 - [technical] Background render waiters count their 2 h limit from launch, including the time spent waiting. Launch each
   batch when the previous one reports, not as a pre-armed waiter.
+- (mr2 v4, 2026-11-14) **Nesting lookbook kit parts into a scan:** the lookbook GLB ships `body_<part>_stock` / `trim_<part>_stock`
+  for every `part_<part>` = the stock panel the part replaces. Cut the scan by those pieces' FOOTPRINT (depth test along the
+  surface normal, +-30 mm, no lateral margin) and also remove scan skin 2-20 mm in front of each part; hide the cut pieces
+  as the part lands (projects/toyota-mr2-spyder/tools/kit_nest2.py). A 3D-radius cut leaves 15-30 mm black seams.
+- (mr2 v4) Keep kit parts in their lookbook materials (split multi-material parts in the export): user wanted the diffuser
+  black; carbon wing / black grilles must match the CGI at the 1:1 cut.
+- (mr2 v4) "Environment very low detail": a flat road + light bars + plain boxes is not enough. Build lanes, barriers,
+  lamp posts with real lights, gantries, overpasses, oncoming traffic, shopfronts and two building rows
+  (projects/toyota-mr2-spyder/tools/city_env.py); keep window emission low (~1-1.5) or facades blow out white.

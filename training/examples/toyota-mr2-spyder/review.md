@@ -1,3 +1,30 @@
+# Toyota MR2 Spyder scan reel v4 - self-review (training/rubric.md)
+
+Output: `/home/user/media/work/mr2/out/mr2_spyder_v4.mp4` - 1080x1920, 30 fps, yuv420p, AAC, 1073 frames, 35.77 s.
+v4 answers the v3 notes: Epsilon logo end card; scan cutting/nesting wrong; diffuser should be black; hood vents not cut
+correctly ("review how that works"); CGI environment very low detail. Shots 1-4 (front, underbody, engine) unchanged from v3.
+
+How the lookbook nests parts (reviewed before fixing): the GLB pairs each `part_<x>` with `body_<x>_stock` / `trim_<x>_stock`,
+the stock body piece the part replaces, and hides it when the part is on. v3 laid parts over the uncut scan. v4
+(tools/kit_nest2.py) splits the scan by the stock pieces' footprint (+-30 mm along the normal, no lateral margin) plus any
+scan skin 2-20 mm in front of a part; those pieces vanish a quarter beat before each part lands.
+
+| # | Criterion | Score | Evidence / gap |
+|---|---|---|---|
+| 1 | Hook | 4 | unchanged from v3 |
+| 2 | Beat sync | 4 | 8 cuts re-measured on the v4 file: -15/+40/+15/0/+10/-5/-10/+40 ms |
+| 3 | 1:1 match | 4 | kit pose vs CGI frame 1 onion-checked; wing now black on both sides of the cut |
+| 4 | Scan quality | 3 | vents sit in clean hood openings; thin dark seams remain round eyelids and the bumper top edge (7 mm model fit); front bumper-off nose is ragged until the Epsilon bumper lands |
+| 5 | Story | 4 | unchanged; director still pairs v1_front with the kitted front 3/4 |
+| 6 | Grade | 3 | unchanged |
+| 7 | Text | 4 | unchanged labels, none over CGI |
+| 8 | Ending | 4 | Epsilon+ wordmark (Drive EPSILON+ Logos), 720 px, on the final hit |
+| 9 | Technical | 5 | specs correct; only static frames are shot starts and the logo |
+
+Environment (tools/city_env.py) is procedural: no HDRI or asset host is reachable from the session (polyhaven blocked).
+
+---
+
 # Toyota MR2 Spyder scan reel v3 - self-review (training/rubric.md)
 
 Output: `/home/user/media/work/mr2/out/mr2_spyder_v3.mp4` - 1080x1920, 30 fps, yuv420p, AAC, 1073 frames, 35.77 s. Music: user-supplied "East City".
