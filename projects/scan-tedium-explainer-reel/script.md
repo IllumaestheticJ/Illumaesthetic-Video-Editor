@@ -41,6 +41,25 @@ Shot ids (S1-S10, P1-P10) are defined in `storyboard.md`. Every number on screen
 | 13 | 17.4-18.6 | P2 | GUS (VO) | "Scan it." | caption + top band **NO MARKERS** (owner to confirm) | Real: handheld scanning |
 | - | 18.6-34.0 | P3-P10 | - | music only | **LEXUS IS350 · FULL SCAN** on P9; logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** on P10 | 1:1 real-to-scan cuts, full scan, logo card |
 
+### Version A, revised ending (owner, 2026-11-14) - replaces lines 11-13 above
+
+Owner: "What if you end with Pip saying he saw an Illumaesthetic video where they did it much faster?" The phone is the
+bridge: the real IS350 footage first appears on Pip's phone screen, then fills the frame. This makes the reel point at the
+IS350 video instead of just following the cartoon.
+
+| # | time (s) | shot | speaker | line | on-screen text | visual |
+|---|---|---|---|---|---|---|
+| 11 | 14.1-15.3 | S10 | PIP | "Wait. I saw an Illumaesthetic video..." | - | PIP perks up, pulls out a phone |
+| 12 | 15.3-16.6 | S11 | PIP | "...they did a whole car way faster." | - | PIP holds the phone up to GUS; the screen plays the real IS350 spraying/scanning (composited) |
+| 13 | 16.6-17.3 | S12 | GUS | "...Show me." | - | GUS leans in; camera pushes into the phone until the screen fills the frame |
+| - | 17.3-30.0 | P2-P8 | - | music only (no VO) | none over the real footage except as the other reels do | Real scanning, then three 1:1 real-to-scan cuts, full scan |
+| - | 30.0-32.0 | card | - | - | **HOW LONG DID IT TAKE?** / **FULL VIDEO ON OUR CHANNEL** (same card as reel 3) | brand near-black card |
+| - | 32.0-34.0 | logo | - | - | logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** | logo card |
+
+Notes: no time is given (same rule as reel 3). "Way faster" is the owner's own comparison and carries no number.
+"Illumaesthetic" must be checked in the chosen TTS voice; if mispronounced, use a phonetic spelling in the prompt
+(e.g. "Illuma-esthetic"). Optional tag if wanted later: a 1.5 s cut back to GUS staring at the phone, "...I'm keeping the dots."
+
 ## Version B - "Silly"
 
 | # | time (s) | shot | speaker | line | on-screen text | visual |
