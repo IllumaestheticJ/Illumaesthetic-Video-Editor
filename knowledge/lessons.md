@@ -1119,3 +1119,8 @@ lands here automatically. Agents must read this whole file before editing.
   bar closed-panel states from filling within ~12 mm of the panel.
 - [technical] Run edge_margins over every frame after any change to offsets. Parts that land late while the camera pushes in
   cross the frame edge (h1): land the outermost parts first.
+### Suzuki Cappuccino v6 (hood-first order, real nose seam, no filler)
+- Front teardown order is hood open FIRST, then the bumper (its top fixings are under the hood). Default to it on every car with a scanned hood.
+- The hood/bumper split is the VISIBLE seam groove in a front-view (x-z, depth = -y) height map, not the top of the bumper part scan: the part's top flange tucks ~20 mm behind the hood lip and reads ~24 mm too high. Check by rendering hood + bumper + body assembled next to the full scan.
+- A short cutaway that shows no removal (a wheel close-up between sections) reads as filler - drop it and give its time to a neighbouring shot instead of splicing the music.
+- When a hinged lid opens in a shot, pull the camera back before the swing starts so the lid never crosses the frame edge.

@@ -96,3 +96,20 @@ and layers upright so the markers stay in front of it; new label FRONT BUMPER LI
 | Technical | 5 | no clipping of removed parts; near-identical frames 305/353 are deliberate rests inside the marker beat |
 
 Known limits: hood/trunk swings in the explode are hinge animations of the closed panels; s5 reused from v4.
+
+## v6 self-review (reviewer: wheel cut at 0:20 unnecessary; open the hood first, then the bumper; hood still cut too far for the split)
+
+Changes: wheel shot dropped (its time goes to the radiator -> engine-bay shot, no music splice); hood swings open first, then
+the bumper comes off (inner face, rights itself, markers out through its front); hood re-cut on the real hood/bumper seam
+(front-view groove at z 469 mm, lamp corner to lamp corner through the middle of the mouth) and the body rebuilt to match.
+
+| Criterion | Score | Notes |
+|---|---|---|
+| Hook | 5 | unchanged |
+| Beat sync | 5 | 6 cuts within 7.6 ms; hood swing lands on the 6.46 s hit, crane on 16.28 s |
+| Scan fidelity | 5 | assembled hood + bumper + body render matches the full-car scan at the nose |
+| Story | 5 | technician order: hood, bumper, markers, exposed structure, engine bay; no filler shot |
+| Grade | 5 | unchanged |
+| Text | 4 | 6 labels in black space |
+| Ending | 5 | unchanged |
+| Technical | 5 | hood stays in frame through its swing; s5 reused from v4 |

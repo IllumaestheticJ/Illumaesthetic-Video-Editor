@@ -1,5 +1,5 @@
 {
- "_note": "Cappuccino v5 labels: v4's five + FRONT BUMPER LIGHTS (file name Front_Bumper_Lights) on the marker beat; scan shots only, no numbers.",
+ "_note": "Cappuccino v6 labels: same six, re-timed for hood-first order and the dropped wheel shot; scan shots only, no numbers.",
  "width": 1080,
  "height": 1920,
  "fps": 30,
@@ -18,8 +18,8 @@
   },
   {
    "kind": "label",
-   "from": 330,
-   "duration": 34,
+   "from": 350,
+   "duration": 66,
    "title": "FRONT BUMPER LIGHTS",
    "sub": "CORNER MARKERS",
    "x": 0.08,
@@ -28,8 +28,8 @@
   },
   {
    "kind": "label",
-   "from": 390,
-   "duration": 35,
+   "from": 432,
+   "duration": 36,
    "title": "FRONT BUMPER REMOVED",
    "sub": "RADIATOR",
    "x": 0.08,
@@ -38,8 +38,8 @@
   },
   {
    "kind": "label",
-   "from": 512,
-   "duration": 66,
+   "from": 548,
+   "duration": 80,
    "title": "ENGINE BAY",
    "sub": "HOOD OPEN \u00b7 BUMPER OFF",
    "x": 0.08,
