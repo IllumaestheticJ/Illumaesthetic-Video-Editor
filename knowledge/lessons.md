@@ -1136,3 +1136,5 @@ lands here automatically. Agents must read this whole file before editing.
   and put every cut on drop + k beats (100 BPM -> 18 frames). Verify the drop on the DELIVERED file (0 ms here).
 - **[text]** Logos the user owns as .ai in their own Drive are not readable by the service account; a 3D logo STL on the engineering drive can be
   flattened to a clean PNG (tools/logo_from_stl.py).
+
+- **[text]** Promo videos are their own format, separate from scan reels: keep the white caption bubble  _(from nissan-sentra-promo, 2026-11-14, reviewer)_
