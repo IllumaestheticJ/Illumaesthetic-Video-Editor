@@ -4,8 +4,8 @@
   80,
   161
  ],
- "fps": 15,
- "seconds": 2.8666666666666667,
+ "fps": 30,
+ "seconds": 2.7,
  "ease": "linear",
  "light_bbox": [
   [
@@ -42,6 +42,12 @@
    "blend": "/home/user/media/work/a90/blend3/skinc_rbump.blend"
   },
   {
+   "blend": "/home/user/media/work/a90/blend3/skin_hood.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_lamp.blend"
+  },
+  {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
   },
   {
@@ -67,6 +73,190 @@
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_tray_rear.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.1255
+    },
+    {
+     "t": 0.18825,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.3765,
+     "loc": [
+      0,
+      1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.3764953125
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_liner_RL.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.251
+    },
+    {
+     "t": 0.31375,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.50199,
+     "loc": [
+      0,
+      1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.5019937499999999
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_liner_RR.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.251
+    },
+    {
+     "t": 0.31375,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.50199,
+     "loc": [
+      0,
+      -1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.5019937499999999
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_tray_floor_L.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.42669
+    },
+    {
+     "t": 0.48944,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.67769,
+     "loc": [
+      0,
+      1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.6776915625
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_tray_floor_R.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.55219
+    },
+    {
+     "t": 0.61494,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.80319,
+     "loc": [
+      0,
+      -1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.8031899999999998
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_tray_front.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_liner_FL.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_liner_FR.blend"
   }
  ],
  "cam": [

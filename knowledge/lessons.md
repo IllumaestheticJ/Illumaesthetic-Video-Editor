@@ -1257,3 +1257,7 @@ lands here automatically. Agents must read this whole file before editing.
   crop the floor and strays above the roofline. A door that is OFF in the state is shown as captured (1:1 swap), not
   faked open.
 - **[cli]** argparse reads a value starting with '-' as a flag: pass negative boxes as `--szone=-1300,...`.
+- **Check free disk before a long render queue** (`df -h /`; the session allowance, not the volume size, is what runs out).
+  A full disk writes truncated PNGs that render_v3 counts as done: after any disk-full event, PIL-load every frame and delete
+  the broken ones before resuming. Clear superseded render folders and old-version intermediates first.
+- verify_v3.py now reads the shot count from the timeline (it was hard-coded to 21 bars and reported NaN past them).

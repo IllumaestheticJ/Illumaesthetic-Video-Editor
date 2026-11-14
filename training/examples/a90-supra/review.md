@@ -101,3 +101,19 @@ Output: `/home/user/media/work/out/a90_supra_scan_v3_2.mp4` (same 56.2 s edit; -
 - s13: the console unclips, lifts and leaves the frame; the camera holds on the tunnel and wiring, then glides to the rear deck.
 - Known inconsistency: the rear dust shield is removed only inside s14 (it is back on the hub in s15-s18, seen from behind).
 - s08 (steering sweep with the wheel on, then wheel/caliper/rotor off and parked) left as it was.
+
+## v4 (2026-11-14) — tail light out + exploded, hood open, underbody plastics, strict fender cut, BD end card
+Delivered `/home/user/media/work/out/a90_supra_scan_v4.mp4`: 1080x1920, 30 fps, 64.23 s, 24 bars of the user's track from the
+song's beginning, -14.3 LUFS / peak -5.0 dBFS.
+
+| Rubric item | Score | Evidence |
+|---|---|---|
+| Reviewer feedback applied | 5 | fender takes only its own skin (s10 frames: strut tower and arch structure stay); lamp removed + exploded; hood opens; plastics drop; BD logo on end card |
+| Cuts on the beat | 5 | verify_v3: every hard cut lands on its bar line (+0 f), kick attacks within ±36 ms; s03 and s19 are continuous camera moves (low jump by design) |
+| Nothing left behind / no clipping | 4 | plastics and lamp exit the frame; s02 end frame matches the bare underbody; the lamp rises in front of the trunk, not through it |
+| Detail / grade | 4 | lone-lamp shot needed exposure -1.8 (blew out at -0.7); hood underside and engine bay hold detail |
+| Labels | 5 | names only, from the scan file names; checked on the delivered file |
+
+Notes: the tail lamp comes off the LEFT side (only side the lens/housing/insert scans register to). The BD logo is
+Dropbox `/Misc. Brand Logos/render_9_transparent (1).png` (no file named "BD Engineering" exists). Mid-queue the session disk
+filled and truncated 58 frames of s11 and blanked s11b/s12a/s17/s18: found by a PIL load check, deleted, re-rendered.
