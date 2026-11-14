@@ -6,6 +6,7 @@ Newest first. Read the top two before starting a new edit.
 - [nissan-400z](nissan-400z/) - archived 2026-11-14
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-14
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-14
+- [nissan-frontier](nissan-frontier/) - archived 2026-11-14
 - [toyota-sera](toyota-sera/) - archived 2026-11-14
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-14
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
