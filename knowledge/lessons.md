@@ -948,3 +948,19 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** A part that comes off and then cuts away immediately is bad practice (user, side skirt): after the part moves, keep the
   camera on that section for several beats and travel along what the part leaves behind (exposed sill/rocker), with its label.
   Budget the shot at ~10 beats: part off ~beat 5-6.5, then 4+ beats on the exposed structure.
+
+## From the Grimace parts-build long-form (2026-11-14, built by an agent, planning stage)
+- **[technical]** A dump bigger than the disk (95 GB vs 30 GB): ingest in batches to 960x540 proxies + contact sheets + 16 kHz
+  wavs and delete each original (projects/grimace-build-longform/tools/ingest.py, go.sh). 4K 10-bit HEVC proxies at about
+  0.7x realtime on 4 cores; plan about 2 h for 60 min of footage. Re-fetch originals only for the selected spans.
+- **[technical]** Never retype single-use Dropbox URLs: tools/links.py pulls the newest `download_link` result out of the
+  session transcript (main or subagent) into a batch tsv.
+- **[technical]** A container restart kills subagents and their background waits silently. Keep ingest resumable (skip names
+  already in ingest.jsonl) and check the count after any restart instead of waiting for a report.
+- **[story]** One dump can hold several videos: 120 of 204 clips in the 1 March Grimace dump were the bracing test on the
+  silver NB and 24 were another car. Log every clip (one agent per about 35 clips, contact sheet + transcript + proxy
+  frames) before promising what a video can show; the table walkthrough named ten suppliers but only three parts were
+  filmed going onto the car.
+- **[text]** Have the script reviewed for sponsor-sensitive wording: do not turn the host's opinion of one part ("cheap eBay
+  coilovers") into a category claim, do not describe a kit's contents beyond what is on camera (a caliper seen is not a
+  bigger disc), and check who a spoken "courtesy of <first name>" actually credits.
