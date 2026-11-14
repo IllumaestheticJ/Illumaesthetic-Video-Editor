@@ -1,3 +1,11 @@
+# Infiniti QX80 v7b - self-review (training/rubric.md)
+
+v7b = v7 + two reviewer notes (2026-11-14): "the brakes section needs to be shown on the actual car scan" -> K_brakes_car
+(front-left wheel off on the scan, GT-R brake assembles on the hub: ring + our hat, our adapter, gold GT-R caliper, one per
+beat); "reuse one of the songs in moosic folder" -> KMFDM Megalomaniac (Dropbox /Moosic), kick entry 15.52 s, drop 45.515 s
+= 64 beats at 128.05 BPM -> drop on 30.000 s (the 1:1 cut). Music -4 dB: raw track muxed at -10.2 LUFS / +0.7 dBFS peak,
+now -14.1 LUFS / -3.0 dBFS. Output infiniti_qx80_v7b.mp4, 1462 frames. v7 notes below.
+
 # Infiniti QX80 v7 - self-review (training/rubric.md)
 
 Output: /home/user/media/infiniti-qx80/out/infiniti_qx80_v7.mp4 (not in git), tools/build_v7.py. 1080x1920, 30 fps, yuv420p,

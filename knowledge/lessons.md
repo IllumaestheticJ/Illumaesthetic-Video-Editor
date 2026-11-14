@@ -1144,3 +1144,9 @@ lands here automatically. Agents must read this whole file before editing.
 - **[pacing]** Two consecutive shots on near-identical angles of the same subject read as a jump cut (user: "weird cut", Miata 28.2 s:
   ~2 deg / 1.3 m apart). Either change the angle a lot, or start the next shot's camera EXACTLY on the previous shot's last key so
   the cut disappears into one move. Check frame diffs at every cut: a diff of ~10-20 with the same silhouette is a jump cut.
+- **[story]** (QX80 v7b) Reviewer rejected a bench (parts-only) brake shot: "needs to be shown on the actual car scan". Show
+  running-gear parts ON the car: wheel off on the scan, the part assembles on its hub (outboard explode), camera aimed above
+  the hub so the title band stays clear.
+- **[audio]** Megalomaniac (Dropbox /Moosic) muxes at -10.2 LUFS / +0.7 dBFS raw - always measure ebur128 after the mux;
+  -4 dB -> -14 LUFS. Its kick entry (15.52 s) and drop (45.515 s) are exactly 64 beats apart at 128.05 BPM: start there and the
+  drop lands on video 30.000 s.

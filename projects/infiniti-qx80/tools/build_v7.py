@@ -307,7 +307,7 @@ if __name__ == '__main__':
         lst = SEG + '/list.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in SEGS))
         T = sum(CUTS.values()) / FPS
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-ss', str(MUSIC_START), '-i', MUSIC,
-                        '-filter_complex', f'[1:a]afade=t=in:d=0.02,afade=t=out:st={T - 2.2:.3f}:d=2.2[a]', '-map', '0:v', '-map', '[a]',
+                        '-filter_complex', f'[1:a]volume=-4dB,afade=t=in:d=0.02,afade=t=out:st={T - 2.2:.3f}:d=2.2[a]', '-map', '0:v', '-map', '[a]',
                         '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k',
                         '-t', f'{T:.3f}', '-movflags', '+faststart', OUT], check=True)
         print(OUT, T)
