@@ -1,3 +1,4 @@
+# v8 (user 2026-11-14): end on a 1:1 cut to a finished-car photo, Bomex logo end card, grille area cleaned, user's BBS LM wheels.
 # Nissan 400Z - scan reel v5 (user 2026-11-13: show every removed part incl. grilles, add the Bomex x Kaido House kit from Ron's folder and the livery).
 # Order from projects/nissan-400z/direction.md (scene director, by scan features) + director.md (one focus per shot):
 # whole car -> engine bay (Hood Open scan) -> front bumper off (hero, on the drop) -> structure behind it (2 mm
@@ -6,7 +7,7 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v8.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
@@ -69,7 +70,7 @@ timeline:
     dur: 3.8
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "32.789 kick"}
-  - id: KIT_SIDE     # rear fenders, skirts, slats, gas cap; stand-in deep-dish wheels swap on 34.656 (112 f)
+  - id: KIT_SIDE     # rear fenders, skirts, slats, gas cap; user's BBS LM (chrome, Bomex calipers) swap on 34.656 (112 f)
     src: /home/user/media/work/z400/renders/final/KIT_SIDE
     src_fps: 30
     interpolate: false
@@ -90,17 +91,21 @@ timeline:
     dur: 3.7333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
   - transition: {type: cut, note: "44.049 phrase - hero"}
-  - id: HERO     # kitted liveried car (55 f)
+  - id: HERO     # kitted liveried car; native 30 fps, swings in and settles on the solved SEMA-photo camera (55 f shown)
     src: /home/user/media/work/z400/renders/final/HERO
-    src_fps: 14.48
-    interpolate: true
+    src_fps: 30
+    interpolate: false
     dur: 1.8333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "45.867 kick - logo"}
-  - id: logo           # 720 px card (logo_card.py --width 720 --lead 0.3 --secs 2.95 --fade-out 0.9)
-    src: /home/user/media/work/z400/logo_card_v5.mp4
-    dur: 2.8333        # 85 f -> ends 48.67 s
+  - transition: {type: cut, note: "45.867 kick - hard 1:1 cut scan -> SEMA photo (b096156c, match/cam_match.json)"}
+  - id: photo          # photo_card.py: frame 1 = solved framing, slow 5 % push, 12 f dip to black; no text over the photo
+    src: /home/user/media/work/z400/photo_card_v8.mp4
+    dur: 2.8           # 84 f -> 48.667 s
+  - transition: {type: cut, note: "end card from black"}
+  - id: endcard        # endcard.py: Illumaesthetic logo + white Bomex mark (Sentra-video style)
+    src: /home/user/media/work/z400/endcard_v8.mp4
+    dur: 3.7667        # 113 f -> ends 52.43 s
 
 overlays:   # one factual label per removed/installed part, text from scan file / Drive folder names
-  - src: /home/user/media/work/out/hud_z400_v6.mov
+  - src: /home/user/media/work/out/hud_z400_v8.mov
     start: 0

@@ -50,3 +50,16 @@ See `knowledge/style-guide.md` for when to use which.
 ## Vertical framing
 Portrait frames are narrow: a whole car needs ~7 m camera distance at 26–30 mm. Side profiles
 at <6 m crop the car. Check at 30 % res first.
+
+## 400Z v8 additions
+- **ASCII FBX** (user wheel files): Blender 5.3 refuses ASCII FBX. `projects/nissan-400z/tools/fbx_ascii.py` parses
+  geometry/UV/material-per-polygon/Lcl+PreRotation to OBJ; `make_lm.py` turns it into per-corner wheel blends.
+- **Chrome on the black studio renders black** (it mirrors nothing). Fake an environment: reflection-vector Z ->
+  ColorRamp -> emission added to a 0.04-roughness glossy (`make_lm.py chrome_mat`).
+- **Replacing a brand mark on a part** (Brembo -> Bomex): delete the logo material's faces, add a CLIP-alpha decal quad
+  oriented by PCA of the deleted patch, ~0.6 model units proud of the surface.
+- **Livery side projection bleeds through wheel spokes** (inner arch liners face sideways too): limit the side
+  projection to |x - xc| > 0.84 m (`side_min`).
+- **Kit surround over a trimmed stock bumper**: the trimmed scan leaves silver scraps and see-through holes inside the
+  new opening. Give stock faces inside the opening a dark satin material and close it with a dark backing plane
+  (`shot.py grille_recess`, base-entry key `grille`). Find the opening from the kit vertices (inner edge per height).

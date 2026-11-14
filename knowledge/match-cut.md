@@ -72,3 +72,23 @@ converge; pick frames where the car fills ≤70 % of the frame with roofline + o
   driver's-eye reference render (head ~0.36 m off centre, in FRONT of the seat back, z ~1.1 m).
 - Solve the focal free per clip: glasses clips of different pixel sizes (1376 vs 1488 wide) gave 1336 vs 1094 px.
 - Dense interior scans render ~110 s/frame at 75 %/12 spp; render slow pushes at 10 fps and interpolate.
+
+## Scan -> still photo ending (400Z v8: HERO ends 1:1 on a SEMA phone photo)
+- The cut goes the other way (scan -> photo): the scan shot must END on the solved camera. Key the pose 2 frames
+  before the cut and hold it (`{"t": d - 2/30, ...cam, "ease": "out"}, {"t": d, ...cam}`), render that shot at
+  native 30 fps (no minterpolate), then a photo card whose frame 1 is the untouched photo (`tools/photo_card.py`:
+  then a slow push about the car and a dip to black). No text over the photo.
+- EXIF 24 mm-eq on a 9:16 crop did NOT give the focal: the photo solved at ~48 mm/36 sensor (fx ~1600 px at 1206 wide).
+  Solve focal free.
+- Picking landmarks on a far-off guess render was unreliable (8-14 px RMSE): livery points depend on your own decal
+  placement, soft body corners are ambiguous. What worked, in order:
+  1. `cv2.grabCut` of the car from a rectangle -> largest component, holes filled, cut van/shadow by hand polygons.
+  2. `tools/fit_cam.py --mask` - Nelder-Mead on loc/yaw/pitch/roll/focal minimising the symmetric chamfer between the
+     projected scan outline (exported world vertices: `match_v8.py export`; sparse CAD gets surface samples) and the
+     mask outline; `--drop` the steered front wheel, `--ignore` boxes where background touches the car.
+     Multiple fixed-focal starts (27-44 mm) - the outline cost has local minima; it got close but stayed biased by
+     kit pieces (lip/canards) that differ from the real install.
+  3. Re-pick 7 hard body landmarks (badge, headlight tip, grille corner, A-pillar base, vent corner, screen corner)
+     against a render from that near camera, raycast, `ive solve` free focal -> 4.5 px; overlay blend confirmed
+     badge, grille, headlights and both wheels. Points beat outlines once the guess is close.
+- `tools/solve2cam.py` converts the solve's rotation matrix into shot.py {loc, target, roll, focal}.

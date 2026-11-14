@@ -88,6 +88,38 @@ def mat_check(rgb):
     return m
 
 
+_DARK = {}
+
+
+def grille_recess(objs, g, ground, body_roots):
+    """Factory grille seen through the Bomex surround: the real one is black plastic in a black recess. Faces of the
+    stock scan inside g["box"] = [x0, x1, y0, y1, z0, z1] (world, before the stance drop) get a dark satin material, and
+    a dark backing plane g["backing"] = [x0, x1, y, z0, z1] closes the holes the trim left (the far wheel showed through)."""
+    import numpy as np
+    if "m" not in _DARK:
+        m, nt, out = sr.new_mat("ive_grille_dark")
+        nt.links.new(sr.principled(nt, (0.018, 0.018, 0.02, 1), 0.42).outputs[0], out.inputs[0]); _DARK["m"] = m
+    dk = _DARK["m"]; x0, x1, y0, y1, z0, z1 = g["box"]
+    for o in list(objs):
+        me = o.data; n = len(me.polygons)
+        c = np.empty(n * 3, np.float32); me.polygons.foreach_get("center", c); c = c.reshape(-1, 3)
+        M = np.array(o.matrix_world, np.float32); c = c @ M[:3, :3].T + M[:3, 3]
+        sel = (c[:, 0] > x0) & (c[:, 0] < x1) & (c[:, 1] > y0) & (c[:, 1] < y1) & (c[:, 2] > z0) & (c[:, 2] < z1)
+        if not sel.any():
+            continue
+        me.materials.append(dk); mi = np.zeros(n, np.int32); me.polygons.foreach_get("material_index", mi)
+        mi[sel] = len(me.materials) - 1; me.polygons.foreach_set("material_index", mi); me.update()
+    b = g.get("backing")
+    if b:
+        bx0, bx1, by, bz0, bz1 = b
+        me = bpy.data.meshes.new("grille_backing")
+        me.from_pydata([(bx0, by, bz0), (bx1, by, bz0), (bx1, by, bz1), (bx0, by, bz1)], [], [(0, 1, 2, 3)])
+        me.materials.append(dk); ob = bpy.data.objects.new("grille_backing", me); bpy.context.scene.collection.objects.link(ob)
+        objs.append(ob)
+        if not ground:
+            body_roots.append(ob)
+
+
 _LIV = {}
 
 
@@ -140,6 +172,8 @@ def mat_livery(spec, fps, nframes):
     side = mix(is_r, il.outputs["Color"], ir.outputs["Color"])
     side_a = math("ADD", math("MULTIPLY", il.outputs["Alpha"], math("SUBTRACT", 1.0, is_r)), math("MULTIPLY", ir.outputs["Alpha"], is_r))
     side_w = math("GREATER_THAN", nx, 0.45)
+    if L.get("side_min"):  # outer skin only (inner arch liners face sideways too and would show the flame through the wheels)
+        side_w = math("MULTIPLY", side_w, math("GREATER_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), L["side_min"]))
     paint = tuple(L.get("paint", (0.20, 0.21, 0.22))) + (1,)
     dark = tuple(L.get("dark", (0.010, 0.010, 0.012))) + (1,)
     col = mix(math("MULTIPLY", side_w, side_a), paint, side)
@@ -248,6 +282,8 @@ def main():
                 o.data.materials.clear(); o.data.materials.append(base_mat())
             if e.get("hide"):
                 o.hide_render = True
+        if e.get("grille"):
+            grille_recess(objs, e["grille"], e.get("ground"), body_roots)
         key_vis(objs, e, fps)
     for sh in spec.get("show", []):  # extra static silver meshes (e.g. the bumper shell alone)
         for o in load_blend(sh):
@@ -333,7 +369,12 @@ def main():
         loc = Vector(sample(ck, t, "loc"))
         tgt = Vector(sample(ck, t, "target"))
         cam.location = loc
-        cam.rotation_euler = (tgt - loc).to_track_quat("-Z", "Y").to_euler()
+        q = (tgt - loc).to_track_quat("-Z", "Y")
+        roll = sample(ck, t, "roll") if all("roll" in k for k in ck) else 0.0  # degrees about the view axis (solved cameras)
+        if roll:
+            from mathutils import Quaternion
+            q = q @ Quaternion((0, 0, 1), math.radians(roll))
+        cam.rotation_euler = q.to_euler()
         cd.lens = sample(ck, t, "focal")
         cam.keyframe_insert("location", frame=f)
         cam.keyframe_insert("rotation_euler", frame=f)
@@ -342,6 +383,8 @@ def main():
         for kp in fc.keyframe_points:
             kp.interpolation = "LINEAR"
 
+    if spec["camera"].get("shift"):
+        cd.shift_x, cd.shift_y = spec["camera"]["shift"]
     w, h = (int(v) for v in spec.get("res", "1080x1920").split("x"))
     sc.render.resolution_x, sc.render.resolution_y = w, h
     sc.render.resolution_percentage = spec.get("res_pct", 75)
@@ -355,6 +398,40 @@ def main():
     sc.view_settings.look = "None"
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGB"
+    ex = spec.get("export")  # {"frame": n, "out": npz}: world-space vertices of every visible mesh (camera fitting)
+    if ex:
+        import numpy as np
+        sc.frame_set(int(ex.get("frame", 1))); dg = bpy.context.evaluated_depsgraph_get(); chunks = {}
+        for ob in sc.objects:
+            if ob.type != "MESH" or ob.hide_render or ob.name == "floor":
+                continue
+            ev = ob.evaluated_get(dg); me = ev.to_mesh()
+            co = np.empty(len(me.vertices) * 3, np.float32); me.vertices.foreach_get("co", co)
+            M = np.array(ev.matrix_world, np.float32); co = co.reshape(-1, 3) @ M[:3, :3].T + M[:3, 3]
+            if len(co) < 200000:  # sparse CAD (wheels, decals): add area-weighted surface samples so the outline closes
+                me.calc_loop_triangles(); tri = np.empty(len(me.loop_triangles) * 3, np.int32)
+                me.loop_triangles.foreach_get("vertices", tri); T = co[tri.reshape(-1, 3)]
+                ar = 0.5 * np.linalg.norm(np.cross(T[:, 1] - T[:, 0], T[:, 2] - T[:, 0]), axis=1)
+                n = int(min(1.5e6, ar.sum() / 1.6e-5))
+                if n > 0 and ar.sum() > 0:
+                    rng = np.random.default_rng(0); i = rng.choice(len(T), n, p=ar / ar.sum()); a, b = rng.random((2, n, 1))
+                    fl = a + b > 1; a[fl], b[fl] = 1 - a[fl], 1 - b[fl]
+                    co = np.concatenate([co, T[i, 0] + a * (T[i, 1] - T[i, 0]) + b * (T[i, 2] - T[i, 0])]).astype(np.float32)
+            chunks[ob.name] = co; ev.to_mesh_clear()
+        np.savez_compressed(ex["out"], **chunks); print("IVE_EXPORT", ex["out"], sum(len(v) for v in chunks.values())); return
+    rc = spec.get("raycast")  # {"frame": n, "points": {name: [px, py]}, "out": json}: pixel -> first hit on the scene
+    if rc:
+        sc.render.resolution_percentage = 100
+        sc.frame_set(int(rc.get("frame", 1))); dg = bpy.context.evaluated_depsgraph_get()
+        fr = [cam.matrix_world @ v for v in cd.view_frame(scene=sc)]  # tr, br, bl, tl
+        tr, br, bl, tl = fr; o = cam.matrix_world.translation; res = {}
+        for name, (px, py) in rc["points"].items():
+            u, v = (px + 0.5) / w, (py + 0.5) / h
+            top = tl + (tr - tl) * u; bot = bl + (br - bl) * u; pt = top + (bot - top) * v
+            hit, loc, nrm, idx, ob, mx = sc.ray_cast(dg, o, (pt - o).normalized())
+            res[name] = {"px": [px, py], "xyz": [round(c, 5) for c in loc] if hit else None, "obj": ob.name if hit else None,
+                         "dist": round((loc - o).length, 4) if hit else None}
+        json.dump(res, open(rc["out"], "w"), indent=1); print("IVE_RAYCAST", rc["out"]); return
     out = os.path.abspath(spec["out"])
     if spec.get("frames"):  # framing check: only these frames ("first", "mid", "last" or numbers)
         os.makedirs(out, exist_ok=True)
