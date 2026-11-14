@@ -116,3 +116,9 @@ black card "HOW LONG / DID IT TAKE?" + red bar + "FULL VIDEO ON OUR CHANNEL" (24
 fade-in, 1.2 s fade-out on the logo. P6 has no section steps (energy flat within 2 dB per 8 beats); its clearest natural accent is a hit after a
 ~140 ms gap in the stab section (888.690 s). The stretch is placed so that hit lands on the 1:1 cut (k28 = 19.309 s, cut frame 579). All other
 picture cuts are unchanged and sit on the stretch's beat lattice (0.68961 s/beat, 87.0 BPM). Shots are the same as v1 otherwise.
+
+## R3 v3 (owner 2026-11-14: "change the colors to illumaesthetic colors and its done")
+Colours only; cut, timing, text and music are v2's. Palette from illumaesthetic.com's CSS variables: accent #619f73 (was red #ff0100) on the title-plate
+bar, the highlighted "15 MIN" pill (text #0b0c0b on the green) and the tease-card bar; opaque cards (tease, logo) #0b0c0b (was #000000); light text
+#ecefec (was #e8ecf2), secondary text in neutral tints of it; plates and caption backings rgba(11,12,11,0.58/0.55). The logo artwork is untouched
+(its red bar is the only red left). `ReelGfx` takes a `palette` prop; R1/R2 use the default (theme.ts) and were not rebuilt. `reels.BRAND` holds the values.

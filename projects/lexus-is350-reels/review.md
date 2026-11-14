@@ -1,3 +1,17 @@
+# R3 v3 (2026-11-14): brand colours
+
+Same cut, timing, text and music as v2 (27.80 s, 834 frames); only the overlay was re-rendered and re-composited.
+- Changed: title-plate bar, highlighted "15 MIN" pill and tease-card bar red #ff0100 -> sage #619f73; pill text on green #0b0c0b; tease and logo
+  cards #000000 -> #0b0c0b; light text #e8ecf2 -> #ecefec (secondary greys -> neutral tints of it); plate/caption backings black -> #0b0c0b at the same alpha.
+- Checked: every overlay state looked at (title on the blue car, each pill state on the faces and on the bright whip, captions on bright and dark
+  footage, tease card, logo card), full-res crops of the title bar, pills and tease bar. A pixel scan of the overlay (R > 150, G and B < 90) finds red
+  only in frames 788-833 at y 849-861, which is the logo artwork's own bar. Green reads on the dark plates and the dark card; the green bar sits
+  on a plate everywhere, never directly on footage.
+- Weakest spot: the unhighlighted pills (grey plates) over the bright door-whip at the end of the 30 MIN shot look washed grey; the text stays readable.
+- QA unchanged: -10.2 LUFS, -2.2 dBTP, no overlay outside the safe area, dialogue complete. Audio still unheard; colours not checked on a phone screen.
+
+---
+
 # R3 v2 (2026-11-14, owner notes: no time reveal; music edit sounded wrong)
 
 `out/is350_reel_R3_how_long.mp4` (same name, replaces v1; R1 and R2 untouched). **27.80 s, 834 frames.** Build: `python projects/lexus-is350-reels/tools/build.py R3` then `tools/qa.py R3`.
