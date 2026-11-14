@@ -199,7 +199,10 @@ def main():
             c[side & (z < 0.29)] = BLACK                                           # side skirts
             c[z < 0.185] = BLACK                                                   # splitter / underside
             if group == "kit":
-                c[(z < 0.245) & (y > 1.9)] = BLACK                                 # v16: front lip black like the concepts (user), no red edge
+                c[(z < 0.245) & (y > 1.9)] = BLACK                                 # v16: front lip black like the concepts (user)
+                c[(z < 0.172) & (y > 1.0)] = REDC                                  # v19: red trim on the lip's lower edge (user)
+                hw = 0.60 - (z - 0.245) * (0.18 / 0.14)                            # v19: trapezoid radiator inlet (measured on g_front:
+                c[(z >= 0.245) & (z <= 0.385) & (y > 2.15) & (np.abs(x - 0.01) < hw)] = BLACK   # hole z .27-.35, recessed face to .385)
                 c[side & (z < 0.185)] = REDC                                       # red line under the skirts
             if group == "car" and DU is not None:                                  # v16: stock scan inside the diffuser's envelope -> black
                 ix = np.floor((x - DU["x0"]) / DU["cell"]).astype(int); ok = (ix >= 0) & (ix < len(DU["zmax"]))

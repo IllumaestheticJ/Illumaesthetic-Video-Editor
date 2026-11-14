@@ -185,7 +185,7 @@ def seg_end():
     """v18: Illumaesthetic / motoiq lockup / Bomex stacked, centred, with equal gaps, the stack centred on the frame (user)."""
     logo = Image.open(f'{D}/logo/v2complete.png').convert('RGBA'); lw = 700; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS)
     mq = Image.open(f'{D}/logo/motoiq_lockup_white.png').convert('RGBA'); mq = mq.resize((560, int(mq.height * 560 / mq.width)), Image.LANCZOS)
-    bx = Image.open(f'{D}/logo/bomex_white.png').convert('RGBA'); bx = bx.resize((560, int(bx.height * 560 / bx.width)), Image.LANCZOS)
+    bx = Image.open(f'{D}/logo/bomex_white.png').convert('RGBA'); bx = bx.resize((560, int(bx.height * 560 / bx.width * 1.2)), Image.LANCZOS)   # v19: source badge art is squashed; +20% height (user)
     def ink(im):                                     # visible box (alpha bbox), so spacing is between the marks, not the canvases
         return im.crop(im.getchannel('A').getbbox())
     logo, mq, bx = ink(logo), ink(mq), ink(bx)
@@ -229,7 +229,7 @@ if __name__ == '__main__':
     print('cut frames', CUT, 'end', END)
     for k in [a for a in sys.argv[1:] if a != 'mux']: SEGS[k]()
     if 'mux' in sys.argv:
-        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v18.mp4'
+        lst = SEG + '/list_v6.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in ORDER)); out = W + '/out/sentra_sema_v19.mp4'
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-i', MUSIC, '-filter_complex', f'[1:a]afade=t=out:st={END / FPS - 1.2}:d=1.2[a]',
                         '-map', '0:v', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k', '-t', str(END / FPS), '-movflags', '+faststart', out], check=True)
         print(out)
