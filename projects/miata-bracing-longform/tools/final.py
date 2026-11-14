@@ -166,6 +166,6 @@ while True:
     if only is not None:
         if any(abs(tcur - v) < .5/FPS for v in only): Image.fromarray(G.apply(np.frombuffer(buf, np.uint8).reshape(1080, 1920, 3), tcur)).save(f'{M}/work/fr/still_{tcur:07.2f}.jpg', quality=88)
         continue
-    enc.stdin.write(G.apply(np.frombuffer(buf, np.uint8).reshape(1080, 1920, 3), tcur).tobytes() if (tcur >= t_new or 50.8 < tcur < 52.8) else buf)
+    enc.stdin.write(G.apply(np.frombuffer(buf, np.uint8).reshape(1080, 1920, 3), tcur).tobytes())
 enc.stdin.close(); enc.wait(); dec.wait()
 print('done', f'{b.OUT}/{OUTN}')

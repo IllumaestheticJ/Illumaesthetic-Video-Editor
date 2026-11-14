@@ -56,23 +56,61 @@ LOGO = {}
 class Fx:
     def __init__(self, rows, vo, t_new, total):
         self.rows, self.t_new, self.total = rows, t_new, total
+        import subprocess, sys; self.src = sys.argv[1] + '/dl/MiataScan_RoughCut_1.mp4'
+        self._capfont = ImageFont.truetype(subprocess.run(['fc-match', '-f', '%{file}', 'Liberation Sans:style=Bold'], capture_output=True, text=True).stdout, 62*4)
         self.line = {nar: (s, len(x)/48000) for s, x, nar, i in vo}
         self.i = 0
     def row(self, t):
         while self.i + 1 < len(self.rows) and t >= self.rows[self.i + 1][0] - 1e-6: self.i += 1
         while self.i > 0 and t < self.rows[self.i][0] - 1e-6: self.i -= 1
         return self.rows[self.i]
-    # ---------- 0:51 caption: "Thank you. Good one." -> "Thank you, Goodwin."
-    def caption(self, f, t):
-        if not 50.9 < t < 52.7: return f
-        band = f[940:1060]; m = band.min(2) > 235; cols = np.where(m.sum(0) > 2)[0]
-        if len(cols) == 0 or not 595 < cols[-1] - cols[0] < 630: return f
+    # ---------- burned-in captions of the rough cut's front section that are wrong: paint the old line out, draw the right one
+    # (rough-cut seconds from, to, what the caption says, what was actually said - checked against the raw clips' audio)
+    CAPFIX = [(46.2, 47.1, 'part of all we got', 'Part of what we got'), (48.9, 49.9, 'kind of races', 'fender braces'),
+              (51.1, 52.4, 'Thank you. Good one.', 'Thank you, Goodwin.'), (55.6, 57.35, 'from White Line performance.', 'from Whiteline Performance.'),
+              (57.15, 58.6, 'these are both Na and', 'These are both NA and NB'), (64.6, 65.35, 'strut tower', 'Strut tower'),
+              (83.8, 85.6, "we can't use the grimace.", "We can't use Grimace,"), (85.3, 86.5, 'Unfortunately, grimace', 'unfortunately. Grimace'),
+              (97.4, 100.1, 'This is, Miata chop shop.', 'This is Miata Chop Shop.'),
+              (120.1, 121.6, 'at Miata Chop shop.', 'at Miata Chop Shop.'), (143.1, 144.35, 'going to scan this MV', 'going to scan this NB'),
+              (148.4, 150.6, 'At the core of this test.', 'At the core of this test'), (150.4, 152.1, 'Is our handy dandy,', 'is our handy-dandy'),
+              (151.9, 153.6, 'our tech little scanner.', 'Artec Leo scanner.'), (156.6, 158.6, 'set is going to be the car', 'First set is going to be the car'),
+              (158.4, 159.6, 'scan boom stock on', 'scanned bone stock on'), (160.6, 161.85, 'track up a corner', 'jack up a corner'),
+              (165.6, 167.1, 'the strut tower bridge', 'the strut tower brace'), (174.6, 175.9, 'raise together.', 'brace together.')]
+    @staticmethod
+    def _capmask(f):
+        """the caption's pixels in the bottom band: white letters that have their black outline next to them"""
         import cv2
-        x0, x1 = cols[0] - 16, cols[-1] + 16; reg = np.ascontiguousarray(f[956:1056, x0:x1]); txt = (reg.min(2) > 200) | (reg.max(2) < 45)
-        mask = cv2.dilate(txt.astype(np.uint8)*255, np.ones((9, 9), np.uint8)); fixed = cv2.inpaint(reg, mask, 6, cv2.INPAINT_TELEA)
-        out = f.copy(); out[956:1056, x0:x1] = cv2.GaussianBlur(fixed, (0, 0), 1.2)
-        im = Image.fromarray(out); d = ImageDraw.Draw(im)
-        d.text((W/2, 1037), 'Thank you, Goodwin.', font=F(66, 'Bold'), fill='white', anchor='ms', stroke_width=5, stroke_fill='black')
+        band = f[930:1070]; wh = (band.min(2) > 244).astype(np.uint8); dk = (band.max(2) < 75).astype(np.uint8)
+        m = wh & cv2.dilate(dk, np.ones((9, 9), np.uint8)); m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((2, 2), np.uint8))
+        cols = np.where(m.sum(0) > 2)[0]; rows = np.where(m.sum(1) > 6)[0]
+        if len(cols) < 20 or len(rows) < 8: return None
+        return m, dk, cols[0], cols[-1], rows[0] + 930, rows[-1] + 930
+    def _capref(self, k):
+        """expected width of the wrong caption: the rough cut's captions are Arial-like bold at 62 px, 0.972 of Liberation Sans Bold's width"""
+        bb = self._capfont.getbbox(self.CAPFIX[k][2]); return 0.972*(bb[2] - bb[0])/4
+    def caption(self, f, t):
+        if t >= self.t_new: return f
+        tt, d, (kind, a, c, *_) = self.row(t)
+        if kind not in ('src', 'fx'): return f
+        rt = a + (t - tt); hit = [k for k, q in enumerate(self.CAPFIX) if q[0] <= rt <= q[1]]
+        if not hit: return f
+        r = self._capmask(f)
+        if r is None: return f
+        import cv2
+        m, dk, x0, x1, y0, y1 = r; w = x1 - x0
+        for k in hit:
+            ref = self._capref(k)
+            if abs(w - ref) <= max(12, 0.035*ref): break
+        else: return f
+        old, new = self.CAPFIX[k][2], self.CAPFIX[k][3]
+        X0, X1, Y0, Y1 = max(x0 - 18, 0), min(x1 + 18, W), max(y0 - 16, 0), min(y1 + 22, H); reg = np.ascontiguousarray(f[Y0:Y1, X0:X1]); mm = m[Y0 - 930:Y1 - 930, X0:X1]
+        mask = cv2.dilate(mm | (dk[Y0 - 930:Y1 - 930, X0:X1] & cv2.dilate(mm, np.ones((11, 11), np.uint8))), np.ones((7, 7), np.uint8))*255
+        out = f.copy(); out[Y0:Y1, X0:X1] = np.where(cv2.GaussianBlur(mask, (0, 0), 2)[..., None] > 20, cv2.GaussianBlur(cv2.inpaint(reg, mask, 6, cv2.INPAINT_TELEA), (0, 0), 1.0), reg)
+        # redraw in the rough cut's own caption style (white bold grotesque, black outline), same size and baseline as the old line
+        fnt = self._capfont; S = 4; K = 0.972; tw = int(fnt.getlength(new)) + 80; tile = Image.new('RGBA', (tw, 110*S), (0, 0, 0, 0)); td = ImageDraw.Draw(tile)
+        td.text((40, 80*S), new, font=fnt, fill='black', anchor='ls', stroke_width=int(3.6*S), stroke_fill='black'); td.text((40, 80*S), new, font=fnt, fill='white', anchor='ls', stroke_width=int(0.55*S), stroke_fill='white')
+        VS = 1.16; tile = tile.resize((int(tw/S*K), int(110*VS)), Image.LANCZOS); im = Image.fromarray(out)      # the original face has a taller x-height than Liberation Sans
+        base = y1 - (int(0.20*62*VS) if any(ch in old for ch in 'gjpqy,') else 0); im.paste(tile, (int(960 - tile.width/2), int(base - 80*VS) + 1), tile)
         return np.asarray(im)
     # ---------- helpers
     def chip(self, d, x, y, small, big, sub, p):
