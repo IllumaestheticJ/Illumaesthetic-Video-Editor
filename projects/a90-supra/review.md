@@ -78,3 +78,15 @@ cut out and no parts left behind; underbody and interior highlighted; "the longe
 - No trunk-open / hood / door states exist; the cabin is entered by a same-camera crossfade, nothing "opens".
 - The A->B entry of the track falls on the front-suspension travel shot (bar 9) because the reel starts at the song's beginning.
 - Length 56.2 s (user: "try the longer version"); a 16-bar cut is described in direction_v3.md.
+
+## v3.1 (2026-11-14) - fender and rear bumper re-cut
+User on v3: "fender cut isn't cut correctly, and rear bumper isn't cut correctly either - the rest is good."
+Output: `/home/user/media/work/out/a90_supra_scan_v3_1.mp4` (same 56.2 s edit, music, labels and timing; -14.3 LUFS, peak -4.9 dBFS).
+- Cause: build_v3 also removed car skin the removed-state scan lacked, which ran past the real shut lines (above the fender's
+  top seam; into the trunk-lid edge and around the tail lamps) and left ragged openings and a dark slot under the lid.
+- Fix (tools/recut_v3.py): the loose panel scan's own outline is the cut (car triangles within 5 mm of it, 12 mm vote); the
+  bumper's flanks, where the loose scan spreads off the car, are decided by the bumper-off scan; islands wholly under a
+  panel (number plate) leave with it. Checked on final-quality stills and on the re-rendered shots.
+- Re-rendered: s10, s11, s11b, s14, s15, s16, s17, s18 (531 frames). Other 13 shots unchanged.
+- Scan quality (criterion 4): 4 -> 4.5. Still open: a thin panel-gap line shows along the fender's top seam for the first
+  frames of s10 (fender scan seated on the cut body), and the fender scan carries a mottled patch from the scan itself.

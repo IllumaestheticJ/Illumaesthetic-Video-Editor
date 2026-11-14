@@ -1081,3 +1081,13 @@ lands here automatically. Agents must read this whole file before editing.
 ### Suzuki Cappuccino v5 (hood nose, marker direction)
 - A panel edge that is derived bin-by-bin from a neighbouring part's outline (hood nose from the bumper top) comes out ragged and shows the moment the neighbour leaves. Fit a smooth curve to the edge's upper envelope and drop the tris below it from both the panel and the body (`projects/suzuki-cappuccino/tools/panels.py` NOSE_EDGE).
 - Sub-parts leave their parent the way they are removed on the car: Cappuccino corner markers come out through the bumper's FRONT face. Turn the parent so that face is to the lens before the sub-parts move, and park/layer the parent so they stay in view.
+
+## From the A90 Supra v3.1 (2026-11-14, user: "fender cut isn't cut correctly, and rear bumper isn't cut correctly either")
+- **[scan-look]** When a panel was scanned LOOSE with a clean, complete outline, that outline is the cut: remove only car triangles
+  lying on the panel scan (<= 5 mm, majority vote to close pin-holes). "Also remove skin the removed-state scan lacks" overshoots
+  the shut lines wherever the state scan simply did not capture a neighbour (trunk-lid edge, skin above a fender seam, lamp surrounds)
+  and leaves ragged openings and dark slots (a90-supra/tools/recut_v3.py). Use the state scan only where the loose part cannot
+  decide: a flexible bumper spreads at its flanks (5-15 mm off the car), so on side-facing skin near the panel the bumper-OFF scan
+  decides - and islands wholly under a panel (number plate) leave with it.
+- **[workflow]** Before cutting, put three stills side by side from one camera: the full car (shut lines visible), the removed-state
+  scan, the loose part. The right cut is obvious there; it was not obvious from distance numbers.

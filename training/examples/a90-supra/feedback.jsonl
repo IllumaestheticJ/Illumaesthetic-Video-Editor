@@ -6,3 +6,6 @@
 {"ts": "2026-11-13T08:05:45Z", "project": "a90-supra", "at": null, "category": "scan-quality", "note": "v2: scan artifacts must be cut out, and no parts may be left behind on the car when a part comes off", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:06:43Z", "project": "a90-supra", "at": null, "category": "story", "note": "v2: underbody and interior must be in the reel too - every section highlighted", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T11:42:13Z", "project": "a90-supra", "at": null, "category": "workflow", "note": "Standing rules adopted for v3 from the other reels: use the beginning of the song; never cut away right after a part leaves (stay on what it exposed); label each teardown step; logo ~720 px; -14 LUFS / TP < -1 dBFS", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T22:05:34Z", "project": "a90-supra", "at": null, "category": "scan-quality", "note": "v3: the fender cut isn't cut correctly", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T22:05:34Z", "project": "a90-supra", "at": null, "category": "scan-quality", "note": "v3: the rear bumper isn't cut correctly either", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T22:05:34Z", "project": "a90-supra", "at": null, "category": "overall", "note": "v3: the rest is good", "by": "reviewer", "promoted": false}

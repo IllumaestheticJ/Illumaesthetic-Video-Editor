@@ -21,13 +21,13 @@
  ],
  "objects": [
   {
-   "blend": "/home/user/media/work/a90/blend3/body_s.blend"
+   "blend": "/home/user/media/work/a90/blend3/body_c.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/fill2_fender.blend"
+   "blend": "/home/user/media/work/a90/blend3/fillc_fender.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill2_dtrim.blend"
@@ -36,7 +36,7 @@
    "blend": "/home/user/media/work/a90/blend3/fill2_skirts.blend"
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/fill_rbump.blend"
+   "blend": "/home/user/media/work/a90/blend3/fillc_rbump.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_FR_knuckle.blend"
@@ -204,7 +204,7 @@
    ]
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/part_rbump.blend",
+   "blend": "/home/user/media/work/a90/blend3/partc_rbump.blend",
    "pivot": [
     -1.8009,
     -0.0089,
@@ -273,7 +273,7 @@
    ]
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/skin_rbump.blend",
+   "blend": "/home/user/media/work/a90/blend3/skinc_rbump.blend",
    "vis": [
     [
      0.8896091772151898,
@@ -282,7 +282,7 @@
    ]
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/part_fender.blend",
+   "blend": "/home/user/media/work/a90/blend3/partc_fender.blend",
    "keys": [
     {
      "t": 0.0,
@@ -346,7 +346,7 @@
    ]
   },
   {
-   "blend": "/home/user/media/work/a90/blend3/skin_fender.blend",
+   "blend": "/home/user/media/work/a90/blend3/skinc_fender.blend",
    "vis": [
     [
      0.7625221518987342,
