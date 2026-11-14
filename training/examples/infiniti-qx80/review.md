@@ -1,3 +1,12 @@
+# Infiniti QX80 v7e - self-review (training/rubric.md)
+
+v7e = v7d + reviewer notes (2026-11-14): "needs an MotoIQ logo" -> end card ILLUMAESTHETIC x motoiq (wordmark rasterised
+from Ecky's Print__Nismo_QX80_motoiq_logo.stl; motoiq.com blocked); "add the bright yellow" -> calipers in the yellow of
+press photo 804, re-rendered (brakes section + final 360); "title card 'Nissan broke the internet for a week in 2025' over
+the article text" -> user copy in the site hero style on an opaque panel over the article body, one line per kick.
+Checks: caliper reads yellow (207,189,113 rendered vs 223,183,1 in the photo), 899/900 blend aligned, -14.1 LUFS /
+-3.0 dBFS, 1462 frames. Output infiniti_qx80_v7e.mp4.
+
 # Infiniti QX80 v7d - self-review (training/rubric.md)
 
 v7d = v7c + reviewer notes (2026-11-14): "0:36 shot feels held a little too long" -> the reveal (1:1 cut, photo 1702 +

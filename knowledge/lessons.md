@@ -1172,3 +1172,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** When the user asks for 60 FPS, deliver true 60 FPS: render the scan/Blender shots at 60 fps natively (or at a stated
   reduced quality if render time forces it, agreed with the user first). Do NOT deliver a 30 fps edit or a 15 fps render with
   minterpolate to 60 and call it 60 fps - motion-interpolated frames are not what the user asked for. Say explicitly which it is.
+- **[grade]** (QX80 v7e) Saturated paint under the house rig + AgX: a bright albedo with coat renders cream (yellow 0.80/0.52
+  -> 227,201,145). Use a darker fully saturated albedo, no coat, low specular (0.30, 0.215, 0, spec 0.12 -> 207,189,113) and
+  measure the rendered pixels against the reference photo.
+- **[ending]** Partner logos: if the partner's site is blocked, look for the logo in the build files - a printed badge STL
+  rasterises (fill every triangle projected on its plane, 6 px/mm) into a clean wordmark; check the read direction (flip/rotate).
