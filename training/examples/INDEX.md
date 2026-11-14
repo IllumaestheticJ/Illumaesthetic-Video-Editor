@@ -3,13 +3,13 @@
 Newest first. Read the top two before starting a new edit.
 
 - [toyota-sera](toyota-sera/) - archived 2026-11-14
+- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-14
 - [nissan-400z](nissan-400z/) - archived 2026-11-14
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-14
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-14
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-14
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-14
-- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
 - [a90-supra](a90-supra/) - archived 2026-11-14
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-14

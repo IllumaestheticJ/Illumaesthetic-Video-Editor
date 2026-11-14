@@ -1,3 +1,12 @@
+# Infiniti QX80 v7f - self-review (training/rubric.md)
+
+v7f = v7e + reviewer notes (2026-11-14): "motoIQ needs to have the red square around it" -> white wordmark in a red square;
+"the SUV needs the stock side skirts removed before the new ones go on" -> stock skirts split out of the scan
+(stockskirt.py), they slide off on beat 4 of the panels shot and the kit skirts land on beat 5; skirt-less car in the brakes
+section and final render. Found and fixed: Ecky's LEFT kit skirt (+ mounts) was parked under the middle of the car, hidden -
+moved onto the mirror of the right skirt (2.3 mm median). Checks: swap frames looked at in the delivered reel (17.3-18.5 s),
+899/900 blend aligned, -14.1 LUFS / -3.0 dBFS, 1462 frames. Output infiniti_qx80_v7f.mp4.
+
 # Infiniti QX80 v7e - self-review (training/rubric.md)
 
 v7e = v7d + reviewer notes (2026-11-14): "needs an MotoIQ logo" -> end card ILLUMAESTHETIC x motoiq (wordmark rasterised

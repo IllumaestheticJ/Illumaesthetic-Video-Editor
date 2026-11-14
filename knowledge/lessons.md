@@ -1270,3 +1270,9 @@ lands here automatically. Agents must read this whole file before editing.
   back into empty black; a low inner-face view hid them against the bumper.
 - `edge_margins.py` catches parked parts a 3-frame sheet misses (reassembly frame 1, 9 px); widen the orbit's start radius -
   the clean-car shot that continues the camera must be re-rendered with it or the lock swap jumps.
+- **[story]** (QX80 v7f) Replacement parts: take the STOCK part off the scan before the new one lands ("stock side skirts removed
+  before the new ones go on"). Split it out of the car scan by a measured region (slice the scan where the kit part sits),
+  animate it off a beat before the landing, and use the stock-less car in every later shot.
+- **[scan]** Check EVERY kit group's bbox against the car and its mirror partner: QX80 had two parked parts (motoIQ vent 0.5 m
+  outside the car, left skirt under the floor - invisible, so the stock skirt showed). Left/right pairs: mirror the right one
+  about the car centreline and compare.
