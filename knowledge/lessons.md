@@ -1167,3 +1167,8 @@ lands here automatically. Agents must read this whole file before editing.
   known camera), ray-cast them onto the scan and solvePnP (`projects/toyota-mr2-spyder-scan-process/tools/pnp_landmarks.py`).
 - cutcheck.py's half-rise onset can latch onto a neighbouring hit when two hits are < 150 ms apart; confirm a doubtful
   cut with the envelope rise rate around the cut before moving it.
+
+## Standing rule: "60 FPS" means true 60 FPS (user, 2026-11-14)
+- **[technical]** When the user asks for 60 FPS, deliver true 60 FPS: render the scan/Blender shots at 60 fps natively (or at a stated
+  reduced quality if render time forces it, agreed with the user first). Do NOT deliver a 30 fps edit or a 15 fps render with
+  minterpolate to 60 and call it 60 fps - motion-interpolated frames are not what the user asked for. Say explicitly which it is.
