@@ -1,3 +1,32 @@
+# Nissan 400Z scan reel — v7 self-review (2026-11-14)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v7.mp4`: 1080x1920, 30 fps, 48.67 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v6 -> v7
+- **"The stance needs to be dropped like the real car"**: the kit arch lips sat 87-102 mm over the tyres (photos: ~10-20 mm).
+  The body (everything except the new wheels) now drops 80 mm onto the deep-dish wheels just after the 1:1 wheel swap
+  (34.656 kick) and stays down through REAR, LIVERY and HERO (shot.py `body_drop`; the world-space livery is shifted with
+  it). Checked at the arches: tyres tuck, no clipping into the liners.
+- **"The bumper needs to be trimmed to not clip with the new pieces"**: stock triangles near the kit are removed when a
+  45 mm ray into the car hits a kit shell (tools/trim_cand.py + trim_stock.py; the Bomex grille duct is left out of the
+  test so the stock grille stays). Trim is staged so nothing disappears before its piece arrives: fenders seated ->
+  kb7F, bumper seated -> kb7B, skirts seated -> kb7 (all side/rear pieces). Compared untrimmed vs trimmed: the stock
+  bumper face no longer pokes through the Bomex surround.
+- Re-rendered KIT_FRONT, KIT_SIDE, REAR (resumed from f65 after a container restart, seam checked), LIVERY, HERO.
+
+## Checks
+Luma clean; nothing touches the frame edge; cuts unchanged (all within half a frame of the kick); labels unchanged.
+
+## Scores (1-5)
+Hook 3 · Beat sync 5 · Scan quality 4 · Story 5 · Text 5 · Ending 4 · Technical 5.
+
+## For the next agent
+- Kit-over-stock clipping: nearest-normal sign tests fail on thin CAD shells (the inner face looks "outside"); use a short
+  ray into the car against the kit, and exclude kit internals (ducts) that sit behind visible stock parts.
+- Match ride height to photos once aftermarket wheels go on; world-space projections must move with the body.
+
+---
+
 # Nissan 400Z scan reel — v6 self-review (2026-11-14)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v6.mp4`: 1080x1920, 30 fps, 48.67 s, -14.4 LUFS, true peak -3.4 dBTP.
