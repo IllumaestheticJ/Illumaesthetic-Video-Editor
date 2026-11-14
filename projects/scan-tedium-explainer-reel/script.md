@@ -28,7 +28,7 @@ Shot ids (S1-S10, P1-P10) are defined in `storyboard.md`. Every number on screen
 |---|---|---|---|---|---|---|
 | 1 | 0.2-1.9 | S1 | PIP | "So... how do you scan a whole car?" | **HOW DO YOU 3D-SCAN A WHOLE CAR?** (top, from frame 0) | Wide cartoon shop; blocky blue sedan; PIP looks up at GUS |
 | 2 | 1.9-3.6 | S2 | GUS | "The usual way? Dots. Lots of dots." | **THE USUAL WAY** | GUS holds up a roll of marker dots; it unrolls to the floor |
-| 3 | 3.7-5.3 | S3 | GUS | "One every few inches. Never in a row." | **A DOT EVERY ~8 CM** / **RANDOM, NEVER IN ROWS** | Close on the door: GUS's block hand slaps dots on, one pops per syllable |
+| 3 | 3.7-5.3 | S3 | GUS | "One every few inches." (owner cut "Never in a row.") | **A DOT EVERY ~8 CM** | Close on the door: GUS's block hand slaps dots on, one pops per syllable |
 | 4 | 5.5-6.6 | S4 | PIP | "Then you scan it?" | - | Top-down time-lapse: dots spread over the whole car; wall clock starts to turn |
 | 5 | 6.7-7.9 | S5 | GUS | "In pieces." | **SCANNER NEEDS 4+ DOTS IN VIEW** | GUS scans the fender; a cone from the scanner shows 4 dots lit |
 | 6 | 7.9-9.4 | S6 | GUS | "Front. Side. Roof. Back." | **OVERLAPPING SECTIONS** | Car outline tiles light up one by one, each a separate grey patch |
