@@ -1,0 +1,3 @@
+{"objects": {"car": "/home/user/media/work/mr2/scan/topdown.blend", "ht": "/home/user/media/work/mr2/scan/ht_full.blend"}, "out_frames": 144, "out": "/home/user/media/work/mr2/renders3/sH", "pivot": [-0.124,0.091,0.489],
+ "camera": [{"f": 0, "loc": [1.339,-5.367,3.494], "look": [-0.124,0.091,0.489], "lens36": 70.78}, {"f": 114, "cam": "/home/user/Illumaesthetic-Video-Editor/projects/toyota-mr2-spyder-scan-process/match/cam_listing_v.json", "ease": "out"}],
+ "parts": {"ht": [{"f": 0, "off": [0,0,0.60]}, {"f": 64, "off": [0,0,0], "ease": "inout"}]}}

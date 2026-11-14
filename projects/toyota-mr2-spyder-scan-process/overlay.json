@@ -2,7 +2,7 @@
  "width": 1080, "height": 1920, "fps": 30, "durationInFrames": 738, "accent": "#e8ecf2",
  "items": [
   {"kind": "label", "from": 134, "duration": 112, "title": "PRINTED HARDTOP", "sub": "REVISION 1 TEST-FIT SCAN", "x": 0.08, "y": 0.10},
-  {"kind": "label", "from": 389, "duration": 56, "title": "HARDTOP OFF", "sub": "ROLL HOOP + REAR DECK", "x": 0.08, "y": 0.84},
+  {"kind": "label", "from": 389, "duration": 56, "title": "HARDTOP OFF", "sub": "ROLL HOOP + REAR DECK", "x": 0.08, "y": 0.10},
   {"kind": "label", "from": 582, "duration": 44, "title": "HARDTOP ON", "sub": "FULL CAR SCAN", "x": 0.08, "y": 0.10}
  ]
 }

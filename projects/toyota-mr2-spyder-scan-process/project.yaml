@@ -9,43 +9,70 @@ output: {path: /home/user/media/work/out/mr2_scan_process_v3.mp4, width: 1080, h
 
 music:
   path: /home/user/media/mr2/music/mr2_track.mp3   # https://d8j0ntlcm91z4.cloudfront.net/... (original MR2 track, not in git)
-  start: 11.757
+  start: 11.837   # +80 ms: decoded-audio check on the first v3 build had 7 of 8 cuts ~80 ms ahead of the onsets
   fade_out: 0.8
 
 timeline:
   - id: irl_wide     # section: hardtop piece | DJI_0030 28.5 s: crew carry the scanner to the car, whole car in frame
     src: /home/user/media/work/mr2/irl/irlW_0030_28.5.mp4
     frames: 32
+    dur: 1.0667
+    section: hardtop piece
+    focus: crew bringing the scanner to the car
   - id: irl_screen   # section: hardtop piece | DJI_0030 44.5 s: live scan on the scanner screen, swings onto the printed piece
     src: /home/user/media/work/mr2/irl/irlS_0030_44.5.mp4
     frames: 32
+    dur: 1.0667
+    section: hardtop piece
+    focus: live scan on the scanner screen
   - id: irl_rear     # section: hardtop piece | DJI_0030 frames 1293-1343: scanner on the piece, pull back to full rear; ends ON the solved frame
     src: /home/user/media/work/mr2/irl/irlB_0030_1293-1343.mp4
     frames: 64
+    dur: 2.1333
+    section: hardtop piece
+    focus: scanner on the printed piece, pull back to the 1:1 frame
   - transition: {type: cut, note: "1:1 IRL -> scan on the drop (camB): Top Down + registered 'hardtop revision 1' piece"}
   - id: scan_piece   # section: hardtop piece | sP: 1:1 on camB, crane up and in onto the printed piece seated on hoop + deck
     src: /home/user/media/work/mr2/renders3/sP
     src_fps: 15.227   # (68-1)/(4.3+0.1)
     interpolate: true
     frames: 129
+    dur: 4.3000
+    section: hardtop piece
+    focus: printed piece seated on hoop + deck (scan)
   - id: irl_over     # section: hardtop piece | DJI_0030 47.5 s: scanner sweeping over the piece (same subject, real)
     src: /home/user/media/work/mr2/irl/irlO_0030_47.5.mp4
     frames: 64
+    dur: 2.1333
+    section: hardtop piece
+    focus: scanner sweeping over the piece
   - id: irl_lift     # section: hardtop piece | FX30636 20.9 s (LUT, 3:4 on blurred fill): two crew lift the piece off
     src: /home/user/media/work/mr2/irl/irlH_FX30636_20.9_wide.mp4
     frames: 64
+    dur: 2.1333
+    section: hardtop piece
+    focus: crew lifting the piece off
   - transition: {type: cut, note: "real lift continues in the scan: piece translates up off the Top Down scan (the hardtop-off state)"}
   - id: scan_off     # section: hardtop piece | sL: piece rises clear (translate only), hoop + deck it sat on
     src: /home/user/media/work/mr2/renders3/sL
     src_fps: 15.441   # (36-1)/(2.1667+0.1)
     interpolate: true
     frames: 65
+    dur: 2.1667
+    section: hardtop piece
+    focus: piece clear of the car, hoop + deck it sat on
   - id: irl_down     # section: hardtop piece | FX30636 27.5 s: piece set on the floor, printed underside
     src: /home/user/media/work/mr2/irl/irlD_FX30636_27.5.mp4
     frames: 64
+    dur: 2.1333
+    section: hardtop piece
+    focus: printed underside on the floor
   - id: scan_on_web  # section: whole car + end | sH: Full Car hardtop lands, orbit to the listing pose, grey morph, dissolve (frames 129-144 of the clip) into the listing WebZoom
     src: /home/user/media/work/mr2/renders3/tail_v3.mp4
     frames: 224
+    dur: 7.4667
+    section: whole car
+    focus: full hardtop lands, whole car, listing
 
 overlays:
   - src: /home/user/media/work/out/hud_mr2_v3.mov

@@ -1160,3 +1160,10 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story]** (QX80 v7d) After the 1:1 reveal, hold the matched phone photo ~8 beats, not 16 ("held a little too long"), then
   move to professional photos: article pages carry the OEM press gallery (motorillustrated.com wp-content/uploads, full-size
   1920x1080) - grep the article HTML for the gallery JPGs. Credit the source under each photo.
+## toyota-mr2-spyder-scan-process v3 (2026-11-14, agent finding)
+- A silhouette-only camera solve on a car cropped by the frame edge can match the outline yet be ~12 deg rolled with the
+  interior (lamps, lid lines, glass opening) 60-110 px off. Before any 1:1 render, onion the FULL-RES frame with the
+  render's interior edges, not just the outline. Fix: pick 8-10 corresponding points (footage px vs render px from the
+  known camera), ray-cast them onto the scan and solvePnP (`projects/toyota-mr2-spyder-scan-process/tools/pnp_landmarks.py`).
+- cutcheck.py's half-rise onset can latch onto a neighbouring hit when two hits are < 150 ms apart; confirm a doubtful
+  cut with the envelope rise rate around the cut before moving it.
