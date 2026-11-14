@@ -18,6 +18,7 @@ LIVMAP = json.load(open(os.path.join(HERE, "..", "livery_map.json")))
 LIV = {"tex": "/home/user/media/nissan-400z/livery/tex", "map": LIVMAP, "hood": [-0.07, -0.85, 0.75, 0.37],
        "paint": [0.10, 0.10, 0.105], "belt": 0.97, "banner": [-0.07, 1.05, 1.135, 0.125, -0.75, 0.05], "glass_nz": 0.95, "xc": -0.07,
        "cabin": [-0.75, 1.05, 0.80, 1.19, 0.66]}
+DROP = -0.08  # m: kit arch lips sat 87-102 mm over the tyres; the built car tucks to ~10-20 mm
 LIV7 = {**LIV, "map": {**LIVMAP, "Z0": LIVMAP["Z0"] + DROP}, "belt": LIV["belt"] + DROP,
         "banner": LIV["banner"][:2] + [LIV["banner"][2] + DROP] + LIV["banner"][3:],
         "cabin": LIV["cabin"][:2] + [LIV["cabin"][2] + DROP, LIV["cabin"][3] + DROP] + LIV["cabin"][4:]}  # world-space wrap follows the body
@@ -65,7 +66,6 @@ def arc(secs, a0, a1, el0, el1, r0, r1, c0, c1, focal, n=8):
 
 
 SHOTS = {}
-DROP = -0.08  # m: kit arch lips sat 87-102 mm over the tyres; the built car tucks to ~10-20 mm
 BBS = [{"blend": f"{B}/bbs_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl", "fr", "rl", "rr")]  # stand-in wheels (tools/make_bbs.py)
 STOCKW = {"blend": f"{B}/stock_wheels.blend"}
 

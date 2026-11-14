@@ -6,7 +6,7 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v7.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
