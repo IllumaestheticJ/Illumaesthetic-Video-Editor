@@ -1,3 +1,41 @@
+# Nissan 400Z scan reel — v9 self-review (2026-11-14)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v9.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v8 -> v9
+- **"Match the stance of the picture"**: at the solved photo camera the rims sat 29/22 px (front/rear) too high in the
+  arches - the v7 80 mm drop was too much. Body back to +0.01 m; the match camera moves with the body; HERO fronts
+  steered 6.3 deg like the photo. Edge overlay at the solved view: rims, arches and skirts trace the photo.
+- **"Properly resize and use the correct logo for the KAIDO HOUSE livery"**: real decal rectified from the user's own
+  mock-up render; sized, placed and sheared against the photo letter by letter.
+- **"Move the BOMEX logo on the sides backwards a little"**: ~11 cm rearward on both sides.
+- **"Better tire model"**: procedural tyre with ~7 cm sidewall (photo), rounded shoulders, grooves, black rubber.
+- **"Front end artifacting and clipping"**: object-ID + raycast found holes into the car at the grille's top corners,
+  the stock grille frame poking through the kit lip, the far wheel visible past the grille backing and white glints on
+  the grille trim; all fixed (tools/fix_front.py, wider backing, diffuse trim). Checked from front, both 3/4s and the
+  photo view.
+
+## Checks
+- Cut 45.867 scan -> photo: -0.8 ms; frames 1375/1376 blend shows body, wheels and banner overlaying.
+- Other cuts unchanged from v8. Loudness unchanged.
+
+## Scores (1–5)
+| # | Criterion | Score | Note |
+|---|---|---|---|
+| 1 | Hook | 4 | Unchanged. |
+| 2 | Beat sync | 5 | Unchanged; photo cut -0.8 ms. |
+| 3 | 1:1 match | 5 | Body, stance, wheels and windscreen banner now overlay the photo. |
+| 4 | Scan quality | 4 | Front holes/clipping fixed; grille side walls show a few dark speckles at full res. |
+| 5 | Story | 5 | Unchanged. |
+| 6 | Grade | 4 | Unchanged. |
+| 7 | Text | 5 | Unchanged. |
+| 8 | Ending | 5 | Scan -> real car -> brands. |
+| 9 | Technical | 4 | 1572 frames (assembler drops one, known). |
+
+## For the next agent
+- Banner is pre-sheared for the photo angle; from dead-ahead it reads slightly italic.
+- Side-skirt sponsor (BBS vs YOKOHAMA under the rear fender) differs from the photo - not raised by the user.
+
 # Nissan 400Z scan reel — v8 self-review (2026-11-14)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v8.mp4`: 1080x1920, 30 fps, 52.40 s (1572 f), -14.4 LUFS, true peak -3.4 dBTP.
