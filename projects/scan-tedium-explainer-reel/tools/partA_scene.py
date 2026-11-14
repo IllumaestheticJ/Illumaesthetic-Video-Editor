@@ -27,7 +27,7 @@ def arg(name, default):
 
 
 OUT = arg("--out", "/home/user/media/work/scan-tedium/stills")
-SHOTS = arg("--shots", "S1,S2,S3,S4,S5,S6,S7,S8,S9,S10").split(",")
+SHOTS = arg("--shots", "S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12").split(",")
 SCALE = float(arg("--scale", "1.0"))
 SPP = int(arg("--spp", "8"))
 THREADS = int(arg("--threads", "4"))
@@ -46,11 +46,15 @@ LINES_A = [
     ("PIP", 11.1, 12.1, "Is it done yet?"),
     ("GUS", 12.1, 12.5, "No."),
     ("GUS", 12.6, 14.1, "Now we peel the dots off."),
-    ("PIP", 14.1, 15.4, "There's got to be a faster way."),
+    # revised ending (owner, 2026-11-14): PIP points at the Illumaesthetic video, the phone hands over to the real footage
+    ("PIP", 14.1, 15.3, "Wait. I saw an Illumaesthetic video..."),
+    ("PIP", 15.3, 16.6, "...they did a whole car way faster."),
+    ("GUS", 16.6, 17.3, "...Show me."),
 ]
 # Storyboard shot grid (reel frames at 30 fps, version A). Cuts get snapped to measured kicks later.
 SHOT_FRAMES = {"S1": (0, 57), "S2": (57, 110), "S3": (110, 162), "S4": (162, 200), "S5": (200, 237),
-               "S6": (237, 283), "S7": (283, 330), "S8": (330, 375), "S9": (375, 423), "S10": (423, 465)}
+               "S6": (237, 283), "S7": (283, 330), "S8": (330, 375), "S9": (375, 423), "S10": (423, 459),
+               "S11": (459, 498), "S12": (498, 519)}   # Part A ends at 17.3 s (frame 519), P2 follows
 
 # ----------------------------------------------------------------------------------------------------------------- scene
 scn = bpy.context.scene
@@ -456,7 +460,7 @@ def gen_car_dots(seed=7):
     return dots
 
 
-def make_dots(name, dots, lit=(), pop=None, parent=None, seg=14):
+def make_dots(name, dots, lit=(), pop=None, parent=None, seg=14, r_in=R_IN):
     """One mesh for many marker dots: black ring disc + white centre (material 2 = lit sage ring)."""
     bm = bmesh.new()
     for i, d in enumerate(dots):
@@ -465,7 +469,7 @@ def make_dots(name, dots, lit=(), pop=None, parent=None, seg=14):
         t = n.orthogonal().normalized()
         t2 = n.cross(t)
         rot = d.get("spin", 0.0)
-        for layer, (r, off, mi) in enumerate(((R_OUT, 0.003, 2 if i in lit else 0), (R_IN, 0.0055, 1))):
+        for layer, (r, off, mi) in enumerate(((R_OUT, 0.003, 2 if i in lit else 0), (r_in, 0.0055, 1))):
             vs = []
             for k in range(seg):
                 a = 2 * math.pi * k / seg + rot
@@ -739,54 +743,61 @@ def jigsaw(w, h, tabs, r=None, n=10):
 
 
 def build_screen_ui(ui):
-    """Laptop screen: car-section mesh pieces as jigsaw pieces; the roof piece is being dragged in; 3 colour-coded pin pairs."""
+    """Laptop screen: a side-view car assembled from scan pieces with recognisable silhouettes (rear quarter, roof, front
+    bumper/fender); the DOOR is being dragged into its slot with three colour-coded pin pairs (no numerals) about to snap."""
     objs = []
-    bg = poly("ui_bg", [(-0.205, -0.135), (0.205, -0.135), (0.205, 0.135), (-0.205, 0.135)], emit("#141614", 1.0), ui, z=0.0)
-    objs.append(bg)
-    # window chrome strip (no text)
-    objs.append(poly("ui_bar", [(-0.205, 0.118), (0.205, 0.118), (0.205, 0.135), (-0.205, 0.135)], emit("#2a2d2a", 1.0), ui, z=0.0005))
+
+    def P(name, pts, col, loc=(0, 0, 0.001), rot=0.0, z=0.0):
+        o = poly(name, pts, emit(col, 1.0), ui, loc=loc, rot=(0, 0, rot), z=z)
+        objs.append(o)
+        return o
+
+    P("ui_bg", [(-0.205, -0.135), (0.205, -0.135), (0.205, 0.135), (-0.205, 0.135)], "#141614", loc=(0, 0, 0))
+    P("ui_bar", [(-0.205, 0.118), (0.205, 0.118), (0.205, 0.135), (-0.205, 0.135)], "#2a2d2a", loc=(0, 0, 0.0005))
     for i, c in enumerate(("red", "sage_l", "white")):
         objs.append(cyl(f"ui_dot{i}", 0.0045, 0.0005, (-0.19 + i * 0.013, 0.1265, 0.001), emit(c, 1.0), ui, seg=12))
-    W, H = 0.105, 0.07
-    base_y = -0.06
-    pieces = [("rear", -0.105, base_y, {"right": 1}, "ui_piece2"),
-              ("mid", 0.0, base_y, {"left": -1, "right": 1, "top": -1}, "ui_piece"),
-              ("front", 0.105, base_y, {"left": -1}, "ui_piece2")]
-    for nm, x, y, tabs, col in pieces:
-        objs.append(poly(f"ui_{nm}", jigsaw(W * 0.97, H * 0.97, tabs), emit(col, 1.0), ui, loc=(x, y, 0.001)))
-    # the dragged roof piece: offset up-right, slightly rotated
-    roof_loc = (0.045, 0.045, 0.002)
-    roof = poly("ui_roof", jigsaw(W * 1.25, H * 0.8, {"bottom": 1}), emit("#c9cec9", 1.0), ui, loc=roof_loc, rot=(0, 0, 9))
-    objs.append(roof)
-    # pins: three on the roof piece, three targets on the middle piece; joined by lines
+    oy = -0.01   # lift the whole car a little on the screen
+    sh = lambda pts: [(x, y + oy) for x, y in pts]
+    # empty slot where the door goes (dark ghost of the car's side)
+    P("ui_ghost", sh([(-0.04, -0.097), (0.105, -0.097), (0.105, 0.05), (-0.04, 0.05)]), "#2e322e", loc=(0, 0, 0.0008))
+    P("ui_rear", sh([(-0.182, -0.095), (-0.035, -0.095), (-0.035, 0.047), (-0.078, 0.05), (-0.118, -0.012), (-0.176, -0.024),
+                     (-0.188, -0.06)]), "ui_piece2")
+    P("ui_roof", sh([(-0.08, 0.046), (0.07, 0.046), (0.062, 0.06), (0.035, 0.07), (-0.042, 0.072), (-0.072, 0.064)]), "ui_piece")
+    P("ui_front", sh([(0.10, -0.095), (0.178, -0.095), (0.188, -0.07), (0.186, -0.03), (0.17, -0.02), (0.10, -0.012)]), "ui_piece2")
+    P("ui_headl", sh([(0.17, -0.042), (0.185, -0.042), (0.184, -0.03), (0.17, -0.03)]), "white", loc=(0, 0, 0.0015))
+    P("ui_lip", sh([(0.10, -0.078), (0.186, -0.078), (0.186, -0.074), (0.10, -0.074)]), "#6b706b", loc=(0, 0, 0.0015))
+    P("ui_taill", sh([(-0.186, -0.045), (-0.176, -0.045), (-0.176, -0.033), (-0.184, -0.033)]), "#6b706b", loc=(0, 0, 0.0015))
+    for nm, x in (("r", -0.118), ("f", 0.135)):
+        objs.append(cyl(f"ui_wheel{nm}", 0.029, 0.0005, (x, -0.095 + oy, 0.002), emit("black", 1.0), ui, seg=32))
+        objs.append(cyl(f"ui_hub{nm}", 0.012, 0.0005, (x, -0.095 + oy, 0.0025), emit("#8c918c", 1.0), ui, seg=24))
+    # the door (local coords, seated centre would be (0.0325, -0.04)): outline, window, handle; dragged up-right, tilted
+    door_c = Vector((0.0325, -0.04 + oy))
+    loc = Vector((0.085, 0.022 + oy))
+    rot = math.radians(8)
+    outer = [(-0.0675, -0.055), (0.0675, -0.055), (0.0675, 0.025), (0.033, 0.083), (-0.0675, 0.087)]
+    win = [(-0.058, 0.03), (0.058, 0.03), (0.031, 0.075), (-0.058, 0.077)]
+    handle = [(0.03, 0.004), (0.056, 0.004), (0.056, 0.011), (0.03, 0.011)]
+    P("ui_door", outer, "#d4d8d4", loc=(loc.x, loc.y, 0.003), rot=rot)
+    P("ui_door_win", win, "#141614", loc=(loc.x, loc.y, 0.0034), rot=rot)
+    P("ui_door_handle", handle, "#6b706b", loc=(loc.x, loc.y, 0.0034), rot=rot)
+    # pins: where the door meets the rear piece, the front fender and the roof
+    tgt = [Vector((-0.03, -0.035 + oy)), Vector((0.098, -0.06 + oy)), Vector((0.005, 0.047 + oy))]
     pin_cols = ["sage_l", "white", "pin_blue"]
-    src_local = [(-0.045, -0.012), (0.0, 0.018), (0.045, -0.01)]
-    ang = math.radians(9)
-    tgt = [(-0.04, base_y + 0.032), (0.005, base_y + 0.05), (0.048, base_y + 0.034)]
-    for i, (sl, tg, c) in enumerate(zip(src_local, tgt, pin_cols)):
-        sx = roof_loc[0] + sl[0] * math.cos(ang) - sl[1] * math.sin(ang)
-        sy = roof_loc[1] + sl[0] * math.sin(ang) + sl[1] * math.cos(ang)
-        objs.append(cyl(f"pin_s{i}", 0.0065, 0.0006, (sx, sy, 0.004), emit(c, 1.3), ui, axis="Z", seg=16))
-        objs.append(cyl(f"pin_sr{i}", 0.0085, 0.0005, (sx, sy, 0.0035), emit("black", 1.0), ui, axis="Z", seg=16))
-        objs.append(cyl(f"pin_t{i}", 0.0065, 0.0006, (tg[0], tg[1], 0.004), emit(c, 1.3), ui, axis="Z", seg=16))
-        objs.append(cyl(f"pin_tr{i}", 0.0085, 0.0005, (tg[0], tg[1], 0.0035), emit("black", 1.0), ui, axis="Z", seg=16))
-        # dashed line source -> target
-        a, b = Vector((sx, sy)), Vector(tg)
-        d = b - a
-        nseg = 6
-        for k in range(nseg):
-            if k % 2:
-                continue
-            p0 = a + d * (k / nseg)
-            p1 = a + d * ((k + 1) / nseg)
+    for i, (tg, c) in enumerate(zip(tgt, pin_cols)):
+        lp = tg - door_c
+        lp = Vector((max(-0.06, min(0.06, lp.x)), min(0.078, lp.y)))
+        src = loc + Vector((lp.x * math.cos(rot) - lp.y * math.sin(rot), lp.x * math.sin(rot) + lp.y * math.cos(rot)))
+        for nm, pt in (("s", src), ("t", tg)):
+            objs.append(cyl(f"pin_{nm}{i}", 0.0065, 0.0006, (pt.x, pt.y, 0.0045), emit(c, 1.3), ui, axis="Z", seg=16))
+            objs.append(cyl(f"pin_{nm}r{i}", 0.0085, 0.0005, (pt.x, pt.y, 0.004), emit("black", 1.0), ui, axis="Z", seg=16))
+        d = tg - src
+        for k in range(0, 6, 2):
+            p0, p1 = src + d * (k / 6), src + d * ((k + 1) / 6)
             nrm = Vector((-d.y, d.x)).normalized() * 0.0012
-            objs.append(poly(f"pin_l{i}{k}", [tuple(p0 - nrm), tuple(p1 - nrm), tuple(p1 + nrm), tuple(p0 + nrm)], emit(c, 1.2), ui,
-                             z=0.003))
-    # cursor arrow (generic) grabbing the roof piece
+            P(f"pin_l{i}{k}", [tuple(p0 - nrm), tuple(p1 - nrm), tuple(p1 + nrm), tuple(p0 + nrm)], c, loc=(0, 0, 0.0042))
     cur = [(0, 0), (0, -0.03), (0.008, -0.022), (0.014, -0.034), (0.019, -0.031), (0.013, -0.02), (0.024, -0.02)]
-    objs.append(poly("ui_cursor", cur, emit("white", 1.2), ui, loc=(0.085, 0.06, 0.006)))
-    curo = [(x * 1.25 - 0.002, y * 1.18 + 0.002) for x, y in cur]
-    objs.append(poly("ui_cursor_o", curo, emit("black", 1.0), ui, loc=(0.085, 0.06, 0.0055)))
+    P("ui_cursor", cur, "white", loc=(loc.x + 0.03, loc.y + 0.02, 0.006))
+    P("ui_cursor_o", [(x * 1.25 - 0.002, y * 1.18 + 0.002) for x, y in cur], "black", loc=(loc.x + 0.03, loc.y + 0.02, 0.0055))
     return objs
 
 
@@ -800,6 +811,40 @@ def build_stool(loc):
     return g
 
 
+# ----------------------------------------------------------------------------------------------------------------- phone
+PHONE_W, PHONE_H = 0.153, 0.272   # screen 9:16 (cartoon-sized), so vertical footage drops in with no crop change
+KEY = "#ff00ff"                   # screen key colour: appears nowhere else in the scene
+SCREEN_LOCAL = [(-PHONE_W / 2, -0.0076, PHONE_H / 2), (PHONE_W / 2, -0.0076, PHONE_H / 2),
+                (PHONE_W / 2, -0.0076, -PHONE_H / 2), (-PHONE_W / 2, -0.0076, -PHONE_H / 2)]   # tl, tr, br, bl (upright)
+
+
+def build_phone():
+    """Generic phone: rounded near-black slab, no brand, no logo. The screen is a flat emissive key-colour quad that only
+    the camera sees (no light spill, no shadow), to be replaced by the real IS350 footage by corner-pin + key."""
+    g = empty("PHONE")
+    box("phone_body", (PHONE_W + 0.022, 0.014, PHONE_H + 0.042), (0, 0, 0), mat("#202320"), g, bevel=0.012, ol=0.008)
+    bm = bmesh.new()
+    vs = [bm.verts.new(c) for c in SCREEN_LOCAL]
+    bm.faces.new(vs)
+    scr = new_obj("phone_screen", bm, [emit(KEY, 1.0)], g)
+    for attr in ("visible_diffuse", "visible_glossy", "visible_shadow", "visible_transmission", "visible_volume_scatter"):
+        if hasattr(scr, attr):
+            setattr(scr, attr, False)
+    return g, scr
+
+
+def orient_phone(phone, centre, n, up=(0, 0, 1)):
+    """Place the phone so its screen centre is at `centre`, facing direction n, with the screen's up as close to `up` as possible."""
+    n = Vector(n).normalized()
+    u = Vector(up) - Vector(up).dot(n) * n
+    u.normalize()
+    ycol = -n
+    xcol = ycol.cross(u)
+    M = Matrix(((xcol.x, ycol.x, u.x), (xcol.y, ycol.y, u.y), (xcol.z, ycol.z, u.z)))
+    phone.matrix_world = Matrix.Translation(Vector(centre) - n * 0.0076) @ M.to_4x4()
+    return n, u, xcol
+
+
 def dot_pile(name, center, n=170, radius=0.3, height=0.16, seed=5, s=1.0):
     rng = random.Random(seed)
     dl = []
@@ -810,7 +855,20 @@ def dot_pile(name, center, n=170, radius=0.3, height=0.16, seed=5, s=1.0):
         nrm = Vector((rng.uniform(-0.5, 0.5), rng.uniform(-0.5, 0.5), rng.uniform(0.6, 1))).normalized()
         dl.append(dict(p=Vector(center) + Vector((rr * math.cos(a), rr * math.sin(a), h + 0.006)), n=nrm, s=s,
                        spin=rng.uniform(0, 6.3)))
-    return make_dots(name, dl)
+    # peeled markers read as white stickers: thin black ring, big white face; a third lie face-down (plain white backing)
+    face_up = [d for k, d in enumerate(dl) if k % 3]
+    backs = [d for k, d in enumerate(dl) if not k % 3]
+    g = make_dots(name, face_up, r_in=R_OUT * 0.8)
+    bm = bmesh.new()
+    for d in backs:
+        p, n = Vector(d["p"]), Vector(d["n"]).normalized()
+        t = n.orthogonal().normalized()
+        t2 = n.cross(t)
+        vs = [bm.verts.new(p + n * 0.003 + (t * math.cos(2 * math.pi * k / 14) + t2 * math.sin(2 * math.pi * k / 14)) * R_OUT * d["s"] * 1.05)
+              for k in range(14)]
+        bm.faces.new(vs)
+    new_obj(name + "_backs", bm, [mat("white")], g)
+    return g
 
 
 # ----------------------------------------------------------------------------------------------------------------- render setup
@@ -901,6 +959,7 @@ ROLL = build_roll()
 LAPTOP, UI = build_laptop(SHOP)
 build_screen_ui(UI)
 STOOL = build_stool((-3.7, 2.7, 0))
+PHONE, SCREEN = build_phone()
 ALL_DOTS = gen_car_dots()
 print(f"[partA] {len(ALL_DOTS)} marker dots on the car", flush=True)
 
@@ -923,7 +982,7 @@ def reset():
             except ReferenceError:
                 pass
     _temp.clear()
-    for ob in (SCANNER, ROLL, STOOL):
+    for ob in (SCANNER, ROLL, STOOL, PHONE):
         set_vis(ob, False)
     set_vis(PIP.root, True)
     set_vis(GUS.root, True)
@@ -1152,16 +1211,123 @@ def shot_S9():
 
 
 def shot_S10():
-    """Close on PIP, deadpan to camera: 'There's got to be a faster way.'"""
+    """Close on PIP: 'Wait. I saw an Illumaesthetic video...' - he perks up and pulls out a phone (back to camera)."""
     temp(make_dots("dots", dots_where(lambda d: d["order"] < 0.15)))
-    pose(PIP, loc=(1.2, -2.6, 0), rz=-4, head=(2, 0, 0), armL=(4, 0, 6), armR=(4, 0, -6), mouth=0.55, lid=0.5,
-         look=(0, 0), brow=(-0.01, 0))
+    pose(PIP, loc=(1.2, -2.6, 0), rz=-4, hips=(-4, 0, 0), head=(-6, 0, 6), armL=(-62, 0, -8), elbowL=-80, armR=(4, 0, -6),
+         mouth=0.8, lid=0.0, look=(0.5, 0.7), brow=(0.045, -14))
     pose(GUS, loc=(-0.6, -1.4, 0), rz=30)
-    look(cam, (1.25, -4.2, 0.98), (1.2, -2.6, 0.84), 42)
+    bpy.context.view_layer.update()
+    hp = PIP.hands["L"].matrix_world.translation
+    set_vis(PHONE, True)
+    orient_phone(PHONE, hp + Vector((0.0, -0.03, 0.13)), (0.15, 0.8, 0.55))   # screen toward PIP's face, back to camera
+    look(cam, (1.25, -4.2, 0.98), (1.2, -2.6, 0.86), 42)
+
+
+# S11 and S12 share the phone pose: PIP holds it up to GUS, screen facing GUS and the camera along PHONE_N.
+PHONE_N = (0.28, -1.0, 0.12)
+S12_LENS, S12_D0 = 35.0, 1.6
+S12_DEND = (PHONE_H / 2) * S12_LENS / 18.0   # sensor 36 mm vertical: screen height == frame height at the last frame
+
+
+def aim_arm(ch, side, target):
+    """Point an arm (elbow straight) from its shoulder toward a world target; returns the hand's world position."""
+    sh = ch.arms[side]
+    ch.elbows[side].rotation_euler = (0, 0, 0)
+    bpy.context.view_layer.update()
+    tl = sh.parent.matrix_world.inverted() @ Vector(target)
+    d = tl - sh.location
+    sh.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
+    bpy.context.view_layer.update()
+    return ch.hands[side].matrix_world.translation.copy()
+
+
+def place_head_xy(ch, want):
+    """Shift a character on the floor so its head pivot lands over `want` (x, y)."""
+    bpy.context.view_layer.update()
+    h = ch.neck.matrix_world.translation
+    ch.root.location.x += want[0] - h.x
+    ch.root.location.y += want[1] - h.y
+    bpy.context.view_layer.update()
+
+
+def phone_pose_s11():
+    """PIP holds the phone out in front of his face, off to GUS's side, screen along PHONE_N; the hand stays behind the
+    phone plane so nothing ever crosses the screen."""
+    pose(PIP, loc=(1.2, -2.6, 0), rz=14, hips=(-6, 0, 0), head=(-12, 0, -16), armR=(-10, 0, -10), mouth=0.75, lid=0.0,
+         look=(0.6, 0.6), brow=(0.04, -12))
+    bpy.context.view_layer.update()
+    n = Vector(PHONE_N).normalized()
+    u = Vector((0, 0, 1)) - n.z * n
+    u.normalize()
+    r = (-n).cross(u)
+    head = PIP.neck.matrix_world @ Vector((0, 0, PIP.S["head"][2] / 2))
+    hand = aim_arm(PIP, "L", head + r * 0.24 + n * 0.4 - u * 0.14)
+    set_vis(PHONE, True)
+    c = hand + u * (PHONE_H / 2 + 0.06) + n * 0.14
+    n, u, r = orient_phone(PHONE, c, n)
+    bpy.context.view_layer.update()
+    c = SCREEN.matrix_world @ Vector((0, -0.0076, 0))
+    return c, n, u, r
+
+
+def screen_corners_px():
+    from bpy_extras.object_utils import world_to_camera_view
+    bpy.context.view_layer.update()
+    out = []
+    for lc in SCREEN_LOCAL:
+        v = world_to_camera_view(scn, cam, SCREEN.matrix_world @ Vector(lc))
+        out.append([round(v.x * 1080, 2), round((1 - v.y) * 1920, 2)])
+    return out
+
+
+def s12_cam(c, n, u, k):
+    """Push along the screen normal; k = 0..1 over S12. Distance is eased exponentially (constant zoom rate, accelerating
+    slightly into the cut) and lands exactly on S12_DEND at the last frame."""
+    ke = k ** 1.4
+    d = S12_D0 * (S12_DEND / S12_D0) ** ke
+    look(cam, c + n * d, c, S12_LENS, up=u)
+
+
+def shot_S11():
+    """PIP holds the phone up to GUS, screen to camera: '...they did a whole car way faster.' GUS's shoulder in the foreground."""
+    temp(make_dots("dots", dots_where(lambda d: d["order"] < 0.15)))
+    c, n, u, r = phone_pose_s11()
+    f = -Vector((n.x, n.y, 0)).normalized()
+    pose(GUS, loc=(0, 0, 0), rz=math.degrees(math.atan2(f.x, -f.y)) + 25, hips=(6, 0, 0), head=(14, 0, 0), look=(0, -0.6))
+    place_head_xy(GUS, c + n * 0.75 + r * 0.62)   # shoulder in the right edge of frame, clear of the screen
+    # camera parallel to the screen normal, shifted so PIP's face sits below-left of the phone: screen stays a true rectangle
+    look(cam, c + n * 1.2 - r * 0.16 - u * 0.2, c - r * 0.16 - u * 0.2, 38, up=u)
+
+
+def shot_S12():
+    """GUS leans in ('...Show me.'); the camera pushes along the screen normal until the screen fills the frame (start frame)."""
+    temp(make_dots("dots", dots_where(lambda d: d["order"] < 0.15)))
+    c, n, u, r = phone_pose_s11()
+    # GUS peeks in from the right in profile: faces the phone sideways (-r), head beside the screen just in front of its
+    # plane, body behind it - nothing of his can enter the cone between camera and screen during the push
+    f = -Vector((r.x, r.y, 0)).normalized()
+    pose(GUS, loc=(0, 0, 0), rz=math.degrees(math.atan2(f.x, -f.y)), hips=(42, 0, 0), head=(-8, 0, 0),
+         armL=(42, 0, 8), armR=(42, 0, -8), elbowL=-10, elbowR=-10, look=(0, 0), mouth=0.5, brow=(0.02, 0))
+    place_head_xy(GUS, c + n * 0.1 + r * 0.33)
+    s12_cam(c, n, u, 0.0)
+    return c, n, u
+
+
+def shot_S12end():
+    """Check render: the last frame of the S12 push must be all screen (key colour edge to edge)."""
+    c, n, u = shot_S12()
+    s12_cam(c, n, u, 1.0)
 
 
 # ----------------------------------------------------------------------------------------------------------------- run
-SHOT_FUNCS = {k: globals()[f"shot_{k}"] for k in SHOT_FRAMES}
+SHOT_FUNCS = {k: globals()[f"shot_{k}"] for k in list(SHOT_FRAMES) + ["S12end"]}
+CORNERS_PATH = os.path.join(OUT, "screen_corners.json")
+corners = json.load(open(CORNERS_PATH)) if os.path.exists(CORNERS_PATH) else dict(
+    doc="Phone-screen corners for compositing the real IS350 footage (corner-pin). Pixels in the 1080x1920 frame, origin at the "
+        "top-left corner of the image, x right, y down, floats. Corner order tl, tr, br, bl = the footage's own upright corners. "
+        "Frames are reel frames at 30 fps (Part A version A, revised ending). The screen renders as flat key colour; use the key "
+        "as the matte where a hand or head overlaps it.",
+    width=1080, height=1920, fps=30, screen_aspect="9:16", key_colour=KEY, corner_order=["tl", "tr", "br", "bl"], shots={})
 timings = {}
 tpath = os.path.join(OUT, "timings.json")
 if os.path.exists(tpath):
@@ -1177,6 +1343,22 @@ for sh in SHOTS:
         p1 = world_to_camera_view(scn, cam, c + Vector((0.6, 0, 0)))
         cx, cy = p0.x * 1080, (1 - p0.y) * 1920
         json.dump(dict(cx=round(cx), cy=round(cy), r=round(abs(p1.x - p0.x) * 1080)), open(os.path.join(OUT, "clock_px.json"), "w"))
+    if sh == "S11":
+        a0, b0 = SHOT_FRAMES["S11"]
+        corners["shots"]["S11"] = dict(frames=[a0, b0], static=True, corners=screen_corners_px())
+    if sh == "S12":
+        a0, b0 = SHOT_FRAMES["S12"]
+        c, n, u, r = phone_pose_s11()
+        per = {}
+        for f in range(a0, b0):
+            s12_cam(c, n, u, (f - a0) / (b0 - 1 - a0))
+            per[str(f)] = screen_corners_px()
+        corners["shots"]["S12"] = dict(frames=[a0, b0], static=False, per_frame=per,
+                                       note=f"push along the screen normal, lens {S12_LENS} mm, {S12_D0} m -> {S12_DEND:.4f} m; "
+                                            f"last frame {b0 - 1} = full frame")
+        s12_cam(c, n, u, 0.0)
+    if sh in ("S11", "S12"):
+        json.dump(corners, open(CORNERS_PATH, "w"), indent=1)
     scn.render.filepath = os.path.join(OUT, f"{sh}.png")
     t0 = time.time()
     bpy.ops.render.render(write_still=True)

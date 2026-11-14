@@ -47,7 +47,7 @@ from audio amplitude, so the animation can be built before the voices exist.
   the following lines and let the cut grid move (cuts still snap to measured kicks). Mouth keys are regenerated from the timings, so
   only the affected shots are re-keyed and re-rendered; nothing is hand-animated.
 
-## Part A shot list (465 frames = 15.5 s)
+## Part A shot list (version A with the revised ending: 519 frames = 17.3 s)
 
 | shot | frames | dur | framing / camera | action | props | text (A / B differences in script.md) |
 |---|---|---|---|---|---|---|
@@ -60,11 +60,15 @@ from audio amplitude, so the animation can be built before the voices exist.
 | S7 | A 283-330 / B 283-360 | A 47 f / B 77 f | Over GUS's shoulder onto the laptop, then push into the screen | Cursor drags a puzzle-piece mesh; three numbered pins (1-2-3) on each piece connect with lines and snap. Version B: a door piece sits on the roof first, then gets nudged | laptop, mesh pieces, cursor | **MATCH 3+ POINTS PER PIECE** |
 | S8 | A 330-375 / B 360-390 | A 45 f / B 30 f | Medium wide on the wall clock, PIP on a stool below it | Hands spin up to a blur; PIP slumps (B: block beard pops on) | clock, stool | - |
 | S9 | A 375-423 / B 390-426 | A 48 f / B 36 f | Medium wide: GUS at the car, PIP slumped on a stool (version B: block beard) | GUS peels dots one by one, a pile grows on the floor | dots, pile, stool | **THEN PEEL EVERY ONE OFF** |
-| S10 | A 423-465 / B 426-465 | A 42 f / B 39 f | Close on PIP, to camera; a 2-frame camera shake on the last word | PIP says the faster-way line; HARD CUT on the beat | - | - |
+| S10 | A 423-459 (revised ending) | 36 f (1.2 s) | Close on PIP, to camera (same camera as before) | "Wait. I saw an Illumaesthetic video...": PIP perks up (eyes wide, brows up) and pulls out a phone, back of the phone to camera | phone | - |
+| S11 | A 459-498 | 39 f (1.3 s) | PIP waist-up; camera parallel to the screen normal (lens 38), shifted so PIP's face sits left of the phone: the screen is a true upright 9:16 rectangle, 282x502 px | PIP holds the phone out toward GUS (off right), screen to camera; the screen plays the real IS350 scanning (composited) | phone (key-colour screen) | - |
+| S12 | A 498-519 | 21 f (0.7 s) | On the screen axis (lens 35); push from 1.6 m to 0.2644 m, exponential distance with ease-in (k^1.4), so the screen fills exactly 1080x1920 on frame 518 | "...Show me.": GUS leans in from the top-right in profile, head beside the screen and body behind its plane (never in the cone between camera and screen); hard cut at 519 to P2 with no crop change | phone | - |
 
-Frames are for version A; where version B's dialogue needs a different split (S7-S10) both are given. The editor moves each cut to the nearest measured kick.
+Phone screen: flat key colour #ff00ff (seen only by the camera: no light spill, no shadow), replaced in compositing by the real
+footage via corner-pin from `screen_corners.json` (written by `tools/partA_scene.py` next to the stills; layout in its `doc` field) and
+keyed by the magenta wherever a hand or head overlaps. Frames are for version A; where version B's dialogue needs a different split (S7-S10) both are given. The editor moves each cut to the nearest measured kick.
 
-Total Part A = 465 frames. Ten shots; each covers a different step, so nothing repeats (redundancy rule).
+Total Part A = 519 frames (revised ending; was 465). Twelve shots; each covers a different step, so nothing repeats (redundancy rule).
 
 ## Part B: reuse of the IS350 reel assets (no new renders)
 
