@@ -26,12 +26,19 @@ files = sorted(glob.glob(L + "/*.stl"))
 # car's RIGHT side (x +1.49..+1.54 m) - it rendered as a floating badge piece in v6. A pure translation onto the K2 left
 # vent (min-corner to min-corner) fits at 2.0 mm median / 6.7 mm p99, the same as the right with-logo vent vs the K2 right.
 FIX = {"Fender_Vent_With_Logo_Left.stl": "Print_printed_K2__Nismo_QX80_Fender_Vent_Left.stl"}
+# v7f: the LEFT side skirt + its mountings are parked under the middle of the car (x -18..195 mm vs the right skirt at
+# 782..982). Translation onto the mirror of the right skirt: (-1085.4, -8, +6) mm -> 2.3 mm median vs mirrored right,
+# and it then sits on the car scan like the right one (7.8 / 30 mm p10/p50 vs 6.1 / 25).
+FIXV = {"Side_Skirt_Left.stl": (-1085.4, -8.0, 6.0), "Side_Skirt_Mounting_Left_": (-1085.4, -8.0, 6.0)}
 def load(f):
     a = np.fromfile(f, dtype=TRI, offset=84)
     for k, ref in FIX.items():
         if os.path.basename(f).endswith(k):
             r = np.fromfile(os.path.join(L, ref), dtype=TRI, offset=84)["v"].reshape(-1, 3)
             a["v"] += (r.min(0) - a["v"].reshape(-1, 3).min(0)).astype(np.float32)
+    for k, d in FIXV.items():
+        if k in os.path.basename(f):
+            a["v"] += np.array(d, np.float32)
     return a
 ONLY = sys.argv[3:]   # optional: rebuild only these groups
 used = set()

@@ -289,14 +289,19 @@ def seg_reveal():
     pipe('h_reveal', gen())
 
 
-MOTOIQ = D + '/logo/motoiq/motoiq_white.png'   # v7e: wordmark rasterised from Ecky's Print__Nismo_QX80_motoiq_logo.stl
+MOTOIQ = D + '/logo/motoiq/motoiq_white.png'
+MOTOIQ_RED = (226, 30, 37)   # v7e: wordmark rasterised from Ecky's Print__Nismo_QX80_motoiq_logo.stl
 
 
 def seg_logo():
     """ILLUMAESTHETIC wordmark, a thin green x, the motoiq wordmark (user v7e: "needs a MotoIQ logo")."""
     logo = Image.open(LOGO).convert('RGBA'); logo = logo.crop(logo.getbbox())
     lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS); n = CUTS['j_logo']
-    mq = Image.open(MOTOIQ).convert('RGBA'); mw = 470; mq = mq.resize((mw, int(mw * mq.height / mq.width)), Image.LANCZOS)
+    # v7f (user: "motoIQ needs to have the red square around it"): white wordmark centred in a red square, as MotoIQ's own mark
+    wm = Image.open(MOTOIQ).convert('RGBA'); sq = 380; ww = int(sq * 0.80)
+    wm = wm.resize((ww, int(ww * wm.height / wm.width)), Image.LANCZOS)
+    mq = Image.new('RGBA', (sq, sq), (*MOTOIQ_RED, 255)); mq.alpha_composite(wm, ((sq - ww) // 2, (sq - wm.height) // 2 + int(wm.height * 0.06)))
+    mw = sq
     gap = 70; xs = 46; total = logo.height + gap + xs + gap + mq.height; y0 = (HT - total) // 2
     def gen():
         for f in range(n):
@@ -341,7 +346,7 @@ SEGS = {
     'p6_press': lambda: hold('p6_press', press(809)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7e.mp4'
+OUT = D + '/out/infiniti_qx80_v7f.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']
