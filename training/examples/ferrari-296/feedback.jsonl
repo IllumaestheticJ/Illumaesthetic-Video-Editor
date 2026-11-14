@@ -17,3 +17,5 @@
 {"ts": "2026-11-13T08:29:25Z", "project": "ferrari-296", "at": null, "category": "story", "note": "im pretty certain there were underhood plastics that weren't included in the video (check)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:46:20Z", "project": "ferrari-296", "at": null, "category": "scan-look", "note": "also, start with the car being red (cause ferrari)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:46:20Z", "project": "ferrari-296", "at": null, "category": "story", "note": "im also certain there were more parts removed than this", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T22:06:10Z", "project": "ferrari-296", "at": "13.8", "category": "scan-look", "note": "the fender off the fact should show the chassis-side body under the car", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-13T22:18:13Z", "project": "ferrari-296", "at": null, "category": "scan-look", "note": "re-render this in true 60 FPS as well please, make the car colors less saturated, more pastel colors (except the ferrari red)", "by": "reviewer", "promoted": false}

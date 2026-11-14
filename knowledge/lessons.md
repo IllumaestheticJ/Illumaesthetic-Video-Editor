@@ -1177,3 +1177,17 @@ lands here automatically. Agents must read this whole file before editing.
   measure the rendered pixels against the reference photo.
 - **[ending]** Partner logos: if the partner's site is blocked, look for the logo in the build files - a printed badge STL
   rasterises (fill every triangle projected on its plane, 6 px/mm) into a clean wordmark; check the read direction (flip/rotate).
+
+## Ferrari 296 v9 (fender reveal, pastel, true 60 fps)
+- Check every moving part for a COPY left in the base: measure base triangles within ~5 mm of the part scan (here 61k for
+  the fender - it had been lifting off an identical fender since v1). Cut, then fill from the part-off state scan with only
+  triangles > 7 mm from what's left (tools/fender_off.py).
+- "True 60 fps": render natively at 60 (4x the 15 fps frames: ~10 h for a 38 s reel at 75 %/12 spp on 4 cores). A shot
+  that was retimed via src_fps must have the retime baked into the render (spec fps = 60 x factor) and play at exactly 60;
+  resampling drops frames.
+- Remotion comps: keep props on the 30 fps grid and divide useCurrentFrame() by fps/30 (MobileCTA, ScanHUD) - a 60 fps
+  render then has the same timing without rewriting every frame constant.
+- Long renders + container restarts: make the chunk script resume from the first missing frame (renders/v9/v9.sh); a
+  background waiter has a 2 h cap, so re-arm it - the render itself keeps going.
+- Pastel under exposure -1.7 + AgX Punchy: lift hues toward white (~0.3-0.98 albedo); too far and neighbours merge
+  (hood/fender both beige) - keep one channel clearly lower.

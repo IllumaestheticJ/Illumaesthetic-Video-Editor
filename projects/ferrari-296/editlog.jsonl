@@ -57,3 +57,4 @@
 {"ts": "2026-11-13T22:18:13Z", "decision": "pastel palette (same hues lifted toward white, a little chroma back after the first test); body red unchanged", "why": "user: less saturated, more pastel, except the ferrari red; first pastel test made hood/fender both beige and the wheel grey"}
 {"ts": "2026-11-13T22:18:13Z", "decision": "native 60 fps renders (no minterpolate); f5_front sampled at 63.162 steps/s and played at 60", "why": "user: true 60 FPS; resampling a retimed 60 fps sequence drops 1 frame in 19 (judder)"}
 {"ts": "2026-11-13T22:18:13Z", "decision": "CTA and HUD at 60 fps by scaling the clock in MobileCTA/ScanHUD (props stay on the 30 fps grid)", "why": "all label/swipe/kick frames were authored at 30 fps; doubling every constant by hand would drift"}
+{"ts": "2026-11-14T10:54:19Z", "decision": "v9 assembled at 60 fps; kept 8 near-still frames", "why": "lock hold + ease-out settle before the 1:1 cut, not cloned frames"}

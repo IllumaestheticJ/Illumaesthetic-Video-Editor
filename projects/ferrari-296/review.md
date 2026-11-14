@@ -1,3 +1,26 @@
+# Ferrari 296 GTB scan reel v9 - self-review (v8: review_v8.md)
+
+User on v8: "the fender off the car should show the chassis-side body under the car" / "re-render this in true 60 FPS as
+well please, make the car colors less saturated, more pastel colors (except the ferrari red)".
+
+v9 = v8 edit (same cuts, now 248, 596, 694, 892, 1042, 1464, 1912 at 60 fps) with:
+- Fender: through v8 the composite still had the car's fender skin (65k triangles within 9 mm of the Fender 2 scan), so an
+  identical fender stayed on the car as the fender lifted. Cut out; the chassis side (inner arch top, A-pillar mount, inner
+  panels, suspension) filled from the fender-off "Front Fully Removed_2" scan (tools/fender_off.py, comp_v9).
+- Pastel part colours (same hues lifted toward white, a little chroma added back after the first test); body red unchanged.
+- Native 60 fps: every shot rendered at 60 fps (2,280 frames, no minterpolate). f5_front's x1.0527 retime baked into the
+  render (scene time sampled at 63.162 steps/s, played at 60) instead of resampling (1 dropped frame in 19). CTA + HUD at
+  60 fps by scaling the clock in MobileCTA/ScanHUD (props stay on the 30 fps grid).
+
+Output: `/home/user/media/work/f296/out/ferrari_296_v9.mp4` - 1080x1920, 60 fps, 38.00 s, h264 + AAC.
+Checked: fender area before/after cut vs the fender-off scan; 2 pastel tests; every render (counts, 0 dark); frames of the
+fender lift; per-frame scan of the mp4 (0 dark; 8 near-still frames = the lock hold and the ease-out settle before the 1:1
+cut, not clones); frames at labels, the 1:1 cut (1910-1912) and the CTA end; probe 60/1.
+
+Scores as v8 except: Technical 5 (true 60 fps, no interpolation artifacts). Scan quality 3: the chassis side under the
+fender is scan data with small holes where neither state scan saw.
+
+---
 # Ferrari 296 GTB scan reel v8 - self-review (v7: review_v7.md)
 
 User on v7: "available now is too low on the scan" / "im pretty certain there were underhood plastics that weren't
