@@ -1,3 +1,13 @@
+# Infiniti QX80 v7c - self-review (training/rubric.md)
+
+v7c = v7b + reviewer notes (2026-11-14): "the GTR brakes are backwards" -> the GT-R caliper scan was mounted inside-out
+(+z is its smooth outboard logo face; -z has the brake-line fitting and bosses); now rotated 180 deg about the radial axis,
+and the corners follow the photos: fronts trail the hub, rears lead it (v7/v7b had all four trailing). "use the actual
+wheelwell scan data" -> the brakes section's front-left arch is the Left Side Compressed scan (Scans/Suspension (MCS), raw
+frame, 5.05 mm on the body overlap) with the stock rotor/caliper and jack stand removed; the GT-R brake sits on the hub
+measured in that scan (94 mm lower than the designer wheel: compressed suspension). Checks: hi-res frame of the caliper
+(smooth face out, trailing), 899/900 blend aligned, -14.1 LUFS / -3.0 dBFS, 1462 frames. Output infiniti_qx80_v7c.mp4.
+
 # Infiniti QX80 v7b - self-review (training/rubric.md)
 
 v7b = v7 + two reviewer notes (2026-11-14): "the brakes section needs to be shown on the actual car scan" -> K_brakes_car

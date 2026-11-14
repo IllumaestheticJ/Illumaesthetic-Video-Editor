@@ -1150,3 +1150,10 @@ lands here automatically. Agents must read this whole file before editing.
 - **[audio]** Megalomaniac (Dropbox /Moosic) muxes at -10.2 LUFS / +0.7 dBFS raw - always measure ebur128 after the mux;
   -4 dB -> -14 LUFS. Its kick entry (15.52 s) and drop (45.515 s) are exactly 64 beats apart at 128.05 BPM: start there and the
   drop lands on video 30.000 s.
+- **[scan]** (QX80 v7c) "The brakes are backwards": a caliper bench scan has no inside/outside label - render shaded views of
+  BOTH axial faces before placing it. Outboard = smooth logo face; inboard = brake-line fitting, bleeders, mount bosses. Flip
+  with a 180 deg rotation about the radial axis (det +1), never a mirror. Caliper clock position per corner from the real
+  photos (QX80: fronts behind the hub, rears ahead of it).
+- **[scan]** Wheel-well detail lives in the suspension scans (QX80: Scans/Suspension (MCS)/Left Side Compressed.stl, same raw
+  frame as the car). Reviewer wants the real well, not the car scan's cut-out arch: crop it, delete the stock rotor/caliper
+  (annulus around the hub axis outboard of the knuckle) and stands, and seat the new brake on the hub measured in that scan.
