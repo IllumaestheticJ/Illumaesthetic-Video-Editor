@@ -1,3 +1,15 @@
+# Nissan Frontier Pro-4X -> RONIN v10 - self-review (training/rubric.md). Earlier: review_v9.md ... review_v1.md
+
+Output: /home/user/media/work/frontier/out/nissan_frontier_v10.mp4 - 1080x1920, 30 fps, 53.47 s, 1604 frames.
+v10 (user on v9): full-car-scan bumper once the trimmed bumper lands (tools/fullbumper.py); badge centred on the CAD ring and scaled
+1.26 to fill it like the real one; grille lights 2 mm under the measured brow windows (tools/lights_v2.py); MotoIQ wordmark under the
+Illumaesthetic logo; music M.O.O.N. 'Paris' from 115.337 s, drop on the first mod (frame 434), every cut on 434 + 18k (100 BPM).
+Looked at: front check renders (v10_chk.png), zoomed 1:1 comparison of lights and badge against IMG_3223, m1 frames around the
+bumper swap, 20-frame sheet of the delivered file, onion match/check_3223_v10.jpg, luma of all six shots (clean).
+Measured on the delivered file: bass drop at 14.467 s = cut 434 (0 ms). Other cuts are on the drop's beat grid by arithmetic only.
+Open: badge scaled 1.26 from the stock-badge scan (the Ronin's lit badge was not scanned); MotoIQ logo is white, made from the 3D logo STL.
+
+--- v9 review follows ---
 # Nissan Frontier Pro-4X -> RONIN "how we modified this truck" v9 - self-review (training/rubric.md). Earlier: review_v8.md ... review_v1.md
 
 Output: /home/user/media/work/frontier/out/nissan_frontier_v9.mp4 - 1080x1920, 30 fps, 53.6 s, 1608 frames. Same cut as v8.

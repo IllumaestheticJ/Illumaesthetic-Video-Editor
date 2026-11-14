@@ -1124,3 +1124,15 @@ lands here automatically. Agents must read this whole file before editing.
 - The hood/bumper split is the VISIBLE seam groove in a front-view (x-z, depth = -y) height map, not the top of the bumper part scan: the part's top flange tucks ~20 mm behind the hood lip and reads ~24 mm too high. Check by rendering hood + bumper + body assembled next to the full scan.
 - A short cutaway that shows no removal (a wheel close-up between sections) reads as filler - drop it and give its time to a neighbouring shot instead of splicing the music.
 - When a hinged lid opens in a shot, pull the camera back before the swing starts so the lid never crosses the frame edge.
+## From the Nissan Frontier v10 revision (2026-11-14, built by an agent)
+- **[scan-look]** A separately scanned part (bumper) is warped at its edges compared with the full-car scan: show it OFF the car from its own
+  scan, but once it is mounted swap to the full-car scan's version of it (full-car tris near the part, not body/hood; tools/fullbumper.py).
+- **[scan-look]** Lights behind a CAD trim piece: measure the trim's through-windows (depth raster along the skin normal) and put the lens a few
+  mm UNDER them, dropping housing triangles that show outside the skin. A lens laid on the surface reads as a big pad, not the real thin strip.
+  Judge placement on the 1:1 frame against the real footage (zoomed onion), not on a grey close-up.
+- **[scan-look]** A stock accessory scan (badge) can be smaller than the part on the build: centre it on the CAD mount ring and match the real
+  size from the 1:1 frame; say so.
+- **[audio]** New track: measure the drop on the bass band (50 ms rows, then 1 ms half-rise), set music start so the drop lands on a chosen cut,
+  and put every cut on drop + k beats (100 BPM -> 18 frames). Verify the drop on the DELIVERED file (0 ms here).
+- **[text]** Logos the user owns as .ai in their own Drive are not readable by the service account; a 3D logo STL on the engineering drive can be
+  flattened to a clean PNG (tools/logo_from_stl.py).
