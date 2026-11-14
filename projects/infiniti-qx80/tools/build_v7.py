@@ -17,7 +17,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 D = '/home/user/media/infiniti-qx80'; SEG = D + '/seg_v7'; os.makedirs(SEG, exist_ok=True)
 WA = D + '/whatsapp/x'; EK = D + '/ecky'; PRESS = D + '/press'; R = D + '/renders/final'
-MUSIC = '/home/user/media/work/music/ghosts_n_stuff.mp3'; MUSIC_START = 15.019
+# v7b (user: "reuse one of the songs in moosic folder, i dont like this song"): KMFDM - Megalomaniac from Dropbox /Moosic
+# (also used on the Mazda Miata ND reel). Measured here (30-150 Hz attack): kick entry 15.52 s, riser ~42 s, drop 45.515 s
+# = 64 beats of the 128.05 BPM kick grid -> video t0 = 15.52, drop on video 30.000 (the 1:1 cut), same structure as before.
+MUSIC = '/home/user/media/work/music/megalomaniac.wav'; MUSIC_START = 15.52
 LOGO = '/home/user/Illumaesthetic-Video-Editor/remotion/public/illumaesthetic_logo.png'
 FPS, WD, HT = 30, 1080, 1920
 ENC = ['-c:v', 'libx264', '-crf', '12', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-an']
@@ -49,7 +52,7 @@ def lift(fr):
     return np.clip(f + (np.array(BG, np.float32) - f) * w, 0, 255).astype(np.uint8)
 
 # cut frames = round(video t * 30) on the beat grid (direction.md v4 scene list)
-BEAT = 60 / 128.0   # 0.46875 s; cut frames = round(beat * BEAT * 30) on the track's kick grid
+BEAT = 60 / 128.05   # Megalomaniac kick grid; cut frames = round(beat * BEAT * 30)
 _B = [0, 8, 12, 16, 20, 28, 34, 42, 48, 64, 80, 84, 88, 92, 96, 104]
 _N = ['a_hook', 'b_answer', 'c1_scanday', 'c2_scanday', 'd_scan', 'e_concepts', 'f_panels', 'k_brakes', 'g_final360',
       'h_reveal', 'i1_after', 'i2_after', 'i3_after', 'i4_after', 'j_logo']
@@ -285,7 +288,7 @@ SEGS = {
     'd_scan': lambda: labelled('d_scan', 'N0_open', CUTS['d_scan'], [(4, CUTS['d_scan'] - 4, '3D SCAN', 'the stock car, scanned in-house')]),
     'e_concepts': seg_concepts6,
     'f_panels': lambda: labelled('f_panels', 'D_kit', CUTS['f_panels'], [(4, CUTS['f_panels'] - 4, 'NEW BODY PANELS', 'designed on our scan')], fps_in=30 * 0.65 / BEAT),
-    'k_brakes': lambda: labelled('k_brakes', 'K_brakes', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
+    'k_brakes': lambda: labelled('k_brakes', 'K_brakes_car', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
     'g_final360': lambda: labelled('g_final360', 'G_final360', CUTS['g_final360'],
                                    [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')]),
     'h_reveal': seg_reveal,
@@ -295,7 +298,7 @@ SEGS = {
     'i4_after': lambda: hold('i4_after', photo_frame(wa(1693), *CREDIT, max_w=1.0)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7.mp4'
+OUT = D + '/out/infiniti_qx80_v7b.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']

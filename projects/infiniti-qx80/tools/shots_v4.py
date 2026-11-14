@@ -113,6 +113,35 @@ def _brake_parts(fly=0.30):
 SHOTS["K_brakes"] = dict(base=[B + "/b_ring_scan.blend"], parts=_brake_parts(), seconds=85 / 30, fps=30,
                          camera={"keys": orbit((1.95, 1.55), 208, 238, 0.45, 0.22, (0.05, -0.03, 0.05), (0.03, -0.05, 0.0), 50, 85 / 30)})
 
+# ---------------- v7b: GT-R BRAKES on the car scan (reviewer: "the brakes section needs to be shown on the actual car scan") --------
+# Scan (silver) + kit (green) + the other three corners with wheels + brakes; the front-left corner has no wheel and its GT-R
+# brake assembles on the hub (-0.86, 1.661, 0.412): ring + our hat on beat 1, our adapter on beat 2, the GT-R caliper (gold,
+# as on the real car) on beat 3, then a push-in hold. Outboard = -X.  Meshes: brake_corner.py -> kit2lev -> prep --like car6.
+HUB = (-0.86, 1.661, 0.412)
+def _corner_parts(fly=0.30):
+    out = [{"blend": f"{B}/k_{g}.blend", "mat": "kit"} for g in KIT]
+    out += [{"blend": f"{B}/q_wheels_o3.blend", "mat": "silver"}, {"blend": f"{B}/q_o3_iron.blend", "mat": "iron"},
+            {"blend": f"{B}/q_o3_caliper.blend", "mat": "caliper"}]
+    P = [("c_ring", "silver", (-0.55, 0, 0.0), 1), ("c_hat", "kit", (-0.80, 0, 0.0), 1),
+         ("c_adapter", "kit", (-0.40, -0.10, -0.32), 2), ("c_caliper", "caliper", (-0.50, -0.22, 0.34), 3)]
+    for n, mat, off, beat in P:
+        tl = beat * BEAT_S
+        out.append({"blend": f"{B}/q_{n}.blend", "mat": mat,
+                    "keys": [{"t": 0, "loc": list(off), "rot": [0, 0, 0]}, {"t": tl - fly, "loc": list(off), "rot": [0, 0, 0]},
+                             {"t": tl, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "out"}]})
+    return out
+
+
+def _corner_cam(secs=85 / 30):
+    # aim above the hub so the wheel sits in the lower-middle of the portrait frame, title band clear above the car
+    h = HUB; tg0 = [h[0] - 0.25, h[1] - 0.10, h[2] + 0.62]; tg1 = [h[0] - 0.05, h[1] - 0.05, h[2] + 0.36]
+    return {"keys": [{"t": 0, "loc": [h[0] - 3.30, h[1] + 2.05, h[2] + 0.30], "target": tg0, "focal": 32, "ease": "lin"},
+                     {"t": secs, "loc": [h[0] - 2.00, h[1] + 1.02, h[2] + 0.06], "target": tg1, "focal": 32, "ease": "out"}],
+            "sensor": 20.25}
+
+
+SHOTS["K_brakes_car"] = dict(base=[B + "/car4_nowheels.blend"], parts=_corner_parts(), seconds=85 / 30, fps=30, camera=_corner_cam())
+
 
 def write(name, check=False, frames=None):
     s = dict(SHOTS[name]); s.setdefault("res", "1080x1920")
