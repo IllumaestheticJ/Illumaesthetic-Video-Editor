@@ -1200,3 +1200,17 @@ lands here automatically. Agents must read this whole file before editing.
 - State-scan fills must be limited to their own region (under the hood, inside the bumper bbox + 80 mm): captures carry
   unrelated changes - a card standing on the fender came along as a white flap. Render the full car at the same camera to
   tell a fill artifact from real scan data.
+
+## A90 Supra v4 (2026-11-14) — tail lamp explode, hood open, underbody plastics, fender cut
+- **A removed panel takes only its own skin.** Reviewer: "the fender removed scan took too much of the chassis off with it".
+  Scrap islands near the panel stay on the body (strut tower, arch structure, door front); only specks under 300 tris that lie on
+  the panel go with it (recut_v3.py `STRICT`). Check the opening on a Workbench still with the panel offset before rendering.
+- **Every new removable part is cut out of the body the same way:** car triangles within 4 mm of the part scan, 12 mm majority
+  vote (cut_v4.py). The car's own skin shows while the part is fitted; the part scan takes over (`vis`) only while it moves.
+- **A part opened and shut within one bar (a hood on its hinges) keeps every other shot valid:** no re-render downstream.
+- **A lone small part under the full car light rig blows out.** The lamp needed exposure -1.8, the same as the cabin (-1.9).
+  Render one Cycles frame before queueing the shot.
+- **Long thin parts (tail lamps, skirts) in 9:16:** roll the camera (`pos`/`look`/`up`) so the long axis runs up the frame,
+  and explode the sub-parts across the screen-horizontal axis, not toward the lens.
+- **A fused multi-part scan** (arch liners plus undertrays in one island) is split by region: arch-centre radius plus
+  floor split lines. A part the base car scan lacks can only be shown coming off, in the shot where it is visible.

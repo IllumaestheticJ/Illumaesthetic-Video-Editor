@@ -317,7 +317,7 @@ for n in LAMP:       # straight out of the pocket (rearward), then up and out of
                    (3.8, dict(loc=[-0.40, 0.10, 1.0], ease="ease_in"))], vis=[(1.2, 3.8)])
 s.cam((0, dict(az=155, dist=1.0, z=1.0, look=LC)), (3.4, dict(az=155, dist=1.0, z=1.1, look=[-1.98, 0.55, 0.72])),
       (8.1, dict(az=168, dist=0.72, z=0.85, look=[-1.97, 0.50, 0.60])))
-s = Shot("s16c_lamp_ex", 20, 30)
+s = Shot("s16c_lamp_ex", 20, 30, exposure=-1.8)       # a lone part under the full rig blows out (as the cabin did)
 # the lamp is a long thin strip (long axis = car Y): roll the camera so that axis runs up the 9:16 frame, look from rear-above
 unit = lambda v: (np.array(v, float) / np.linalg.norm(v))
 DC0, DC1 = unit([-0.75, 0.15, 0.65]), unit([-0.55, 0.05, 0.83])        # camera direction from the lamp, start / end
@@ -331,7 +331,7 @@ s.obj("lamp_lens", keys=[(0, dict()), (1.0, dict()), (1.4, dict(loc=spread(0.0, 
                          (2.6, dict(loc=spread(0.20, 0.10), rot=[0, -12, 0], ease="ease_out")),
                          (8.1, dict(loc=spread(0.24, 0.12), rot=[0, -18, 0]))])
 cp = lambda dc, d, lk: dict(pos=[round(float(lk[i] + d * dc[i]), 4) for i in range(3)], look=lk, up=[0, 1, 0])
-s.cam((0, cp(DC0, 0.75, LC)), (3.6, cp(unit(DC0 + DC1), 0.80, add(LC, spread(0.03, 0)))), (8.1, cp(DC1, 0.78, add(LC, spread(0.03, 0)))))
+s.cam((0, cp(DC0, 0.80, LC)), (3.6, cp(unit(DC0 + DC1), 0.95, add(LC, spread(0.02, 0)))), (8.1, cp(DC1, 0.95, add(LC, spread(0.02, 0)))))
 
 # ---------------------------------------------------------------- s17 line-up / s18 reassembly / s19 clean car
 TILT = [-70, 0, 0]   # thin side panels: outer face up toward the overhead lens
