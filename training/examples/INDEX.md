@@ -3,6 +3,7 @@
 Newest first. Read the top two before starting a new edit.
 
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
+- [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-14
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-13
 - [nissan-400z](nissan-400z/) - archived 2026-11-13
 - [ferrari-296](ferrari-296/) - archived 2026-11-13
@@ -13,7 +14,6 @@ Newest first. Read the top two before starting a new edit.
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
-- [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-13
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [huracan-evo](huracan-evo/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13

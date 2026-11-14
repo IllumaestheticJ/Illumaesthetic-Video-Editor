@@ -1077,3 +1077,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan-look]** Accessory scans made with the part mounted are already in the car frame ('Frontier Accessories Front Badge', 'Front Grille'):
   level them with the car's level.json and they sit on the CAD - no fitting. Voxel-cluster to drop scan noise first.
 - **[text]** User: "do not count the mod #s or list" - label subs must not number the steps/mods (no MOD 01 / STEP 01).
+
+### Suzuki Cappuccino v5 (hood nose, marker direction)
+- A panel edge that is derived bin-by-bin from a neighbouring part's outline (hood nose from the bumper top) comes out ragged and shows the moment the neighbour leaves. Fit a smooth curve to the edge's upper envelope and drop the tris below it from both the panel and the body (`projects/suzuki-cappuccino/tools/panels.py` NOSE_EDGE).
+- Sub-parts leave their parent the way they are removed on the car: Cappuccino corner markers come out through the bumper's FRONT face. Turn the parent so that face is to the lens before the sub-parts move, and park/layer the parent so they stay in view.

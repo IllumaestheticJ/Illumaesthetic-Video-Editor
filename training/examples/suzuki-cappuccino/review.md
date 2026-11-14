@@ -77,3 +77,22 @@ and on reassembly go back in before the bumper returns; s2/s3/s5/x1/x2 re-render
 | Technical | 5 | no held frames before cuts any more (last key at render end); black frames 1129-1131 are the fade to logo |
 
 Known limits: hood/trunk swings in the explode are hinge animations of the closed panels; the wheel shot is the v1 render trimmed.
+
+## v5 self-review (reviewer: hood cut a little funny when the front bumper comes off; corner markers come out from the front)
+
+Changes: hood nose edge between the lamps re-cut to a smooth arc (panels.py NOSE_EDGE); corner markers now leave through the
+bumper's outer face after it is off (bumper off -> inner face -> rights itself -> markers push out forward); bumper parks
+and layers upright so the markers stay in front of it; new label FRONT BUMPER LIGHTS / CORNER MARKERS; s2/s3/x1/x2 re-rendered.
+
+| Criterion | Score | Notes |
+|---|---|---|
+| Hook | 5 | unchanged |
+| Beat sync | 5 | 7 cuts within 7.7 ms of the decoded hits |
+| Scan fidelity | 5 | smooth hood nose; marker removal direction matches the car |
+| Story | 5 | every front part now has its own beat and name |
+| Grade | 5 | unchanged |
+| Text | 4 | 6 labels, all in black space; sub "CORNER MARKERS" is the reviewer's term, not a file name |
+| Ending | 5 | unchanged |
+| Technical | 5 | no clipping of removed parts; near-identical frames 305/353 are deliberate rests inside the marker beat |
+
+Known limits: hood/trunk swings in the explode are hinge animations of the closed panels; s5 reused from v4.
