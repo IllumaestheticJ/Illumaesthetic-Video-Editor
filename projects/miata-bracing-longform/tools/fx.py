@@ -92,7 +92,7 @@ class Fx:
         if t >= self.t_new: return f
         tt, d, (kind, a, c, *_) = self.row(t)
         if kind not in ('src', 'fx'): return f
-        rt = a + (t - tt); hit = [k for k, q in enumerate(self.CAPFIX) if q[0] <= rt <= q[1]]
+        rt = a + (t - tt); hit = [k for k, q in enumerate(self.CAPFIX) if q[0] - 0.3 <= rt <= q[1] + 0.3]      # generous: the width test below decides whether this frame really shows the old line
         if not hit: return f
         r = self._capmask(f)
         if r is None: return f
