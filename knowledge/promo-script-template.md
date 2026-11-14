@@ -1,6 +1,6 @@
 # Scan-data promo script template ("build it from scan data")
 
-Status: structure approved in principle (2026-11-14); the Sentra script is the first use. Once approved, every scan-data promo uses this
+Status: structure approved in principle (2026-11-14); the Sentra script is the first use. Every scan-data promo uses this
 structure. Reference: `3_square_meter_home_design` (54 s, 1080x1920, 60 fps). A narrated build-up:
 an empty room gets filled one object at a time, and every object arrives on its own spoken line. Each
 line is also shown as a caption.
