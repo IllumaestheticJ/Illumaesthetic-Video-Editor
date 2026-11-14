@@ -201,13 +201,32 @@ def seg_end():
     pipe('h_end', gen())
 
 
+HOOK_LINES = [("NISSAN BROKE", OFF), ("THE INTERNET", OFF), ("FOR A WEEK", GREEN), ("IN 2025.", GREEN)]   # user copy (v7e)
+
+
 def seg_hook():
-    """One real article, full frame, slow 3 % push (Sentra v6 hook)."""
+    """One real article, full frame, slow 3 % push (Sentra v6 hook). v7e (user): title card "Nissan broke the internet for a
+    week in 2025" over the article text - site hero style on a dark panel over the body copy, one line per kick (beats 0-3)."""
     src = Image.open(f'{PRESS}/carscoops_page.png').convert('RGB').resize((WD, HT), Image.LANCZOS); n = CUTS['a_hook']
+    f0 = HEAD(10); size = 150
+    probe = ImageDraw.Draw(src)
+    while max(tracked_w(probe, t, HEAD(size), 0.04) for t, _ in HOOK_LINES) > WD - 140: size -= 4
+    f0 = HEAD(size); lh = int(size * 1.06); y0 = HT - 140 - lh * len(HOOK_LINES); top = y0 - 70
+    land = [round(b * BEAT * 30) for b in range(len(HOOK_LINES))]
     def gen():
         for f in range(n):
             z = 1.0 + 0.03 * f / (n - 1); cw, ch = int(WD / z), int(HT / z)
-            yield src.crop(((WD - cw) // 2, (HT - ch) // 2, (WD + cw) // 2, (HT + ch) // 2)).resize((WD, HT), Image.BICUBIC)
+            im = src.crop(((WD - cw) // 2, (HT - ch) // 2, (WD + cw) // 2, (HT + ch) // 2)).resize((WD, HT), Image.BICUBIC)
+            ov = Image.new('RGBA', (WD, HT), (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
+            for yy in range(top - 160, HT):                               # dark panel over the article body, soft top edge
+                al = int(255 * min(1.0, max(0.0, (yy - (top - 160)) / 160)))
+                od.line([(0, yy), (WD, yy)], fill=(*BG, al))
+            im = Image.alpha_composite(im.convert('RGBA'), ov).convert('RGB'); d = ImageDraw.Draw(im)
+            for k, (t, c) in enumerate(HOOK_LINES):
+                if f < land[k]: continue
+                u = min(1.0, (f - land[k] + 1) / 4); dy = int((1 - u) * 40)
+                tracked(d, (70, y0 + k * lh + dy), t, f0, c, em=0.04)
+            yield im
     pipe('a_hook', gen())
 
 
@@ -270,14 +289,25 @@ def seg_reveal():
     pipe('h_reveal', gen())
 
 
+MOTOIQ = D + '/logo/motoiq/motoiq_white.png'   # v7e: wordmark rasterised from Ecky's Print__Nismo_QX80_motoiq_logo.stl
+
+
 def seg_logo():
+    """ILLUMAESTHETIC wordmark, a thin green x, the motoiq wordmark (user v7e: "needs a MotoIQ logo")."""
     logo = Image.open(LOGO).convert('RGBA'); logo = logo.crop(logo.getbbox())
     lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS); n = CUTS['j_logo']
+    mq = Image.open(MOTOIQ).convert('RGBA'); mw = 470; mq = mq.resize((mw, int(mw * mq.height / mq.width)), Image.LANCZOS)
+    gap = 70; xs = 46; total = logo.height + gap + xs + gap + mq.height; y0 = (HT - total) // 2
     def gen():
         for f in range(n):
-            al = min(1.0, f / 8, (n - 1 - f) / 20 + 0.05)
-            im = Image.new('RGB', (WD, HT), BG); l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al)))
-            im.paste(l, ((WD - lw) // 2, (HT - logo.height) // 2), l); yield im
+            al = min(1.0, f / 8, (n - 1 - f) / 20 + 0.05); a2 = max(0.0, min(1.0, (f - 6) / 8)) * min(1.0, (n - 1 - f) / 20 + 0.05)
+            im = Image.new('RGB', (WD, HT), BG)
+            for img, y, a in ((logo, y0, al), (mq, y0 + logo.height + 2 * gap + xs, a2)):
+                l = img.copy(); l.putalpha(l.getchannel('A').point(lambda v, a=a: int(v * a))); im.paste(l, ((WD - img.width) // 2, y), l)
+            d = ImageDraw.Draw(im); cx, cy = WD // 2, y0 + logo.height + gap + xs // 2; h = xs // 2
+            col = tuple(int(BG[i] + (GREEN[i] - BG[i]) * a2) for i in range(3))
+            d.line([(cx - h, cy - h), (cx + h, cy + h)], fill=col, width=5); d.line([(cx - h, cy + h), (cx + h, cy - h)], fill=col, width=5)
+            yield im
     pipe('j_logo', gen())
 
 
@@ -311,7 +341,7 @@ SEGS = {
     'p6_press': lambda: hold('p6_press', press(809)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7d.mp4'
+OUT = D + '/out/infiniti_qx80_v7e.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']
