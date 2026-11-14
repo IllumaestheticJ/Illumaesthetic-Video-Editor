@@ -1223,3 +1223,13 @@ lands here automatically. Agents must read this whole file before editing.
   the new part covers it - the user asked to see it.
 - **[text]** Partner logos: reuse the exact lockup from the related approved video; a file uploaded in another session is gone with that
   session's container, so save supplied logos to Drive/Dropbox or the repo's asset notes when they arrive.
+
+## toyota-gr86 v8 (user feedback on v7)
+- [scan] (user: "BRZ and GR86 bumpers still clipping on the sidemarker scene") When an at-rest panel combines the car's own skin
+  with a part scan's inner face, keep only part-scan surface clearly BEHIND the skin: signed distance along the skin's outward
+  normal < -8 mm (projects/toyota-gr86/tools/fuse_v8.py). A plain "> N mm from the skin" test keeps surface lying in front of
+  the skin and z-fights. Check a full-res close-up, because 30 % previews hide the speckle.
+- [story] (user: "BRZ and GR86 rear bumpers are the same - don't need to do the splitting thing") Only split two scans of a part
+  when they are genuinely different parts. Ask, or check the shapes, before staging a split.
+- [technical] Background render waiters count their 2 h limit from launch, including the time spent waiting. Launch each
+  batch when the previous one reports, not as a pre-armed waiter.
