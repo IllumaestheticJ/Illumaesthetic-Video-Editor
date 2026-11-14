@@ -54,8 +54,8 @@ cam = [
     K(18.55, [1.42, -2.40, 1.14], [0.60, -1.55, 0.78], 46, "lin"),
     K(19.2, [1.05, -3.05, 2.45], [0.0, -1.35, 0.55], 28),            # look down into the bay as the scan line passes
     K(21.4, [0.85, -2.95, 2.50], [0.0, -1.35, 0.55], 28, "lin"),
-    K(22.0, [0.85, -4.45, 1.20], [0.05, -2.35, 0.85], 35),           # fog lamps arrive in front of the nose
-    K(23.2, [0.75, -4.35, 1.18], [0.05, -2.35, 0.85], 35, "lin"),
+    K(22.0, [0.0, -4.15, 1.10], [0.0, -2.45, 0.88], 40),             # fog lamps park side by side, dead ahead of the nose
+    K(23.2, [0.05, -4.05, 1.08], [0.0, -2.45, 0.88], 40, "lin"),
     K(25.0, [4.3, -5.6, 1.75], [0.0, 0.10, 0.55], 28),               # pull back: "now we design on top of it"
     K(25.6, [3.1, -4.9, 1.30], [0.15, -1.25, 0.55], 28),             # front 3/4 for the bumper
     K(26.95, [2.7, -4.6, 1.20], [0.25, -1.45, 0.50], 28, "lin"),
@@ -93,14 +93,14 @@ parts.append({"name": "bumper_stock", "blend": W + "/bumper_stock.blend", "show"
 parts.append({"name": "bumper", "blend": C + "Uncut_Front_Bumper.blend", "show": [25.95, 99],
               "keys": drop(26.0, 26.55, [0, -1.25, -0.08])})
 # F/I: fog lamps fly in, park in front of the nose (above the bumper path), then seat behind the insert frames
-fog_park1 = [-0.40, -0.85, 0.62]   # offset from home (home ~ x 0.84, y -1.73, z 0.35)
+fog_park1 = [-0.64, -0.85, 0.62]   # offset from home (home ~ x 0.80, y -1.68, z 0.35) -> parks at x +0.16 (v1 +-0.44 overflowed the 9:16 frame)
 parts.append({"name": "fog1", "blend": W + "/fog1_home.blend", "show": [21.6, 99],
               "keys": [{"t": 0, "loc": [1.6, -1.6, 1.6], "rot": [0, 0, 0]}, {"t": 21.75, "loc": [1.6, -1.6, 1.6], "rot": [0, 0, 0]},
                        {"t": 22.35, "loc": fog_park1, "rot": [0, 0, 0], "ease": "out2"},
                        {"t": 27.05, "loc": fog_park1, "rot": [0, 0, 0]},
                        {"t": 27.35, "loc": [0, -0.35, 0], "rot": [0, 0, 0], "ease": "inout"},
                        {"t": 27.6, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "out"}]})
-fog_park2 = [0.40, -0.85, 0.62]
+fog_park2 = [0.65, -0.85, 0.62]    # -> parks at x -0.16
 parts.append({"name": "fog2", "blend": W + "/fog2_home.blend", "show": [21.6, 99],
               "keys": [{"t": 0, "loc": [1.0, -1.9, 1.9], "rot": [0, 0, 0]}, {"t": 21.95, "loc": [1.0, -1.9, 1.9], "rot": [0, 0, 0]},
                        {"t": 22.6, "loc": fog_park2, "rot": [0, 0, 0], "ease": "out2"},
