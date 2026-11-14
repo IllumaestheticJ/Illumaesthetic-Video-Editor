@@ -53,9 +53,11 @@ def lift(fr):
 
 # cut frames = round(video t * 30) on the beat grid (direction.md v4 scene list)
 BEAT = 60 / 128.05   # Megalomaniac kick grid; cut frames = round(beat * BEAT * 30)
-_B = [0, 8, 12, 16, 20, 28, 34, 42, 48, 64, 80, 84, 88, 92, 96, 104]
+# v7d (user: "0:36 shot feels held a little too long ... use online photos for more professional shots"): reveal 16 -> 8 beats;
+# the shop phone photos after it -> the SEMA 2025 press gallery from Motor Illustrated (1920x1080), one per 4 beats.
+_B = [0, 8, 12, 16, 20, 28, 34, 42, 48, 64, 72, 76, 80, 84, 88, 92, 96, 104]
 _N = ['a_hook', 'b_answer', 'c1_scanday', 'c2_scanday', 'd_scan', 'e_concepts', 'f_panels', 'k_brakes', 'g_final360',
-      'h_reveal', 'i1_after', 'i2_after', 'i3_after', 'i4_after', 'j_logo']
+      'h_reveal', 'p1_press', 'p2_press', 'p3_press', 'p4_press', 'p5_press', 'p6_press', 'j_logo']
 _F = [round(b * BEAT * 30) for b in _B]
 CUTS = {n: _F[i + 1] - _F[i] for i, n in enumerate(_N)}
 PHOTO_TOP = (HT - 810) // 2   # 1702 (4032x3024) shown full width 1080x810, centred; the final render ends on its solved camera
@@ -280,6 +282,15 @@ def seg_logo():
 
 
 CREDIT = ('INFINITI QX80 R-SPEC', 'for Nissan / Nismo  ·  SEMA 2025')
+WEB = D + '/web'   # motorillustrated.com/wp-content/uploads/2025/10/2025-SEMA-INFINITI-QX80-R-Spec-8xx.jpg (not in git)
+
+
+def press(n, title='INFINITI QX80 R-SPEC'):
+    """Press photo whole and static (full width), site-style label above, small muted source credit under the photo."""
+    im = photo_frame(f'{WEB}/2025-SEMA-INFINITI-QX80-R-Spec-{n}.jpg', title, CREDIT[1], max_w=1.0)
+    d = ImageDraw.Draw(im); top = min(max(520, (HT - 608) // 2 + 120), HT - 608 - 40)
+    tracked(d, (74, top + 608 + 22), 'PHOTO VIA MOTORILLUSTRATED.COM', MONO(22), MUTED, em=0.16)
+    return im
 SEGS = {
     'a_hook': seg_hook,
     'b_answer': seg_answer,
@@ -292,13 +303,15 @@ SEGS = {
     'g_final360': lambda: labelled('g_final360', 'G_final360', CUTS['g_final360'],
                                    [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')]),
     'h_reveal': seg_reveal,
-    'i1_after': lambda: hold('i1_after', photo_frame(wa(1701), *CREDIT, max_w=1.0)),
-    'i2_after': lambda: hold('i2_after', photo_frame(wa(1690), *CREDIT, max_w=1.0)),
-    'i3_after': lambda: hold('i3_after', photo_frame(wa(1629), *CREDIT, max_w=1.0)),
-    'i4_after': lambda: hold('i4_after', photo_frame(wa(1693), *CREDIT, max_w=1.0)),
+    'p1_press': lambda: hold('p1_press', press(801)),
+    'p2_press': lambda: hold('p2_press', press(802)),
+    'p3_press': lambda: hold('p3_press', press(804, 'GT-R BRAKES')),
+    'p4_press': lambda: hold('p4_press', press(810, 'GT-R ENGINE')),
+    'p5_press': lambda: hold('p5_press', press(806)),
+    'p6_press': lambda: hold('p6_press', press(809)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7c.mp4'
+OUT = D + '/out/infiniti_qx80_v7d.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']

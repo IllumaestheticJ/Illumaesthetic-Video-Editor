@@ -1,3 +1,12 @@
+# Infiniti QX80 v7d - self-review (training/rubric.md)
+
+v7d = v7c + reviewer notes (2026-11-14): "0:36 shot feels held a little too long" -> the reveal (1:1 cut, photo 1702 +
+headlines) is 8 beats (3.75 s) instead of 16; "use online photos for more professional shots" -> six SEMA 2025 press photos
+from Motor Illustrated's gallery (front 3/4, nose, GT-R brakes, GT-R engine, exhausts, rear 3/4) replace the shop phone
+photos, 4 beats each, credited "photo via motorillustrated.com". Same 48.73 s, so the music did not need to move.
+Checks: all cut frames on the 128.05 BPM beat frames, -14.1 LUFS. Note: the press photo shows the calipers yellow; the
+render's caliper is a deeper gold.
+
 # Infiniti QX80 v7c - self-review (training/rubric.md)
 
 v7c = v7b + reviewer notes (2026-11-14): "the GTR brakes are backwards" -> the GT-R caliper scan was mounted inside-out

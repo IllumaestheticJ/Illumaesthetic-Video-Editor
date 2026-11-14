@@ -1157,3 +1157,6 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan]** Wheel-well detail lives in the suspension scans (QX80: Scans/Suspension (MCS)/Left Side Compressed.stl, same raw
   frame as the car). Reviewer wants the real well, not the car scan's cut-out arch: crop it, delete the stock rotor/caliper
   (annulus around the hub axis outboard of the knuckle) and stands, and seat the new brake on the hub measured in that scan.
+- **[story]** (QX80 v7d) After the 1:1 reveal, hold the matched phone photo ~8 beats, not 16 ("held a little too long"), then
+  move to professional photos: article pages carry the OEM press gallery (motorillustrated.com wp-content/uploads, full-size
+  1920x1080) - grep the article HTML for the gallery JPGs. Credit the source under each photo.
