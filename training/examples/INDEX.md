@@ -3,6 +3,7 @@
 Newest first. Read the top two before starting a new edit.
 
 - [huracan-evo](huracan-evo/) - archived 2026-11-14
+- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-14
 - [nissan-frontier](nissan-frontier/) - archived 2026-11-13
 - [suzuki-cappuccino](suzuki-cappuccino/) - archived 2026-11-14
 - [a90-supra](a90-supra/) - archived 2026-11-14
@@ -12,7 +13,6 @@ Newest first. Read the top two before starting a new edit.
 - [toyota-sera](toyota-sera/) - archived 2026-11-13
 - [lola-scan-process](lola-scan-process/) - archived 2026-11-13
 - [toyota-mr2-sw20-scan-process](toyota-mr2-sw20-scan-process/) - archived 2026-11-13
-- [infiniti-qx80](infiniti-qx80/) - archived 2026-11-13
 - [subaru-wrx-vb](subaru-wrx-vb/) - archived 2026-11-13
 - [porsche-macan](porsche-macan/) - archived 2026-11-13
 - [mazda-miata-nd](mazda-miata-nd/) - archived 2026-11-13

@@ -88,7 +88,10 @@ def blur_bg(src):
 def section_label(im, title, sub=None, y=300):
     """Site pattern: green monospace eyebrow (caps, tracked) above a Fjalla One title (caps, 0.15 em), left aligned."""
     d = ImageDraw.Draw(im)
-    if sub: tracked(d, (74, y - 50), sub.upper(), MONO(33), GREEN, em=0.16, shadow=True)
+    if sub:
+        sz = 33
+        while tracked_w(d, sub.upper(), MONO(sz), 0.16) > WD - 74 - 60: sz -= 1   # never clip at the frame edge
+        tracked(d, (74, y - 50), sub.upper(), MONO(sz), GREEN, em=0.16, shadow=True)
     tracked(d, (72, y), title.upper(), HEAD(92), OFF, em=0.06, shadow=True)
 
 
@@ -282,7 +285,7 @@ SEGS = {
     'd_scan': lambda: labelled('d_scan', 'N0_open', CUTS['d_scan'], [(4, CUTS['d_scan'] - 4, '3D SCAN', 'the stock car, scanned in-house')]),
     'e_concepts': seg_concepts6,
     'f_panels': lambda: labelled('f_panels', 'D_kit', CUTS['f_panels'], [(4, CUTS['f_panels'] - 4, 'NEW BODY PANELS', 'designed on our scan')], fps_in=30 * 0.65 / BEAT),
-    'k_brakes': lambda: labelled('k_brakes', 'K_brakes', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'scanned calipers + rotors, our hats + adapters')], fps_in=30),
+    'k_brakes': lambda: labelled('k_brakes', 'K_brakes', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
     'g_final360': lambda: labelled('g_final360', 'G_final360', CUTS['g_final360'],
                                    [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')]),
     'h_reveal': seg_reveal,

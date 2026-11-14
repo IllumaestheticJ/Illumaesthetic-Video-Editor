@@ -1091,3 +1091,14 @@ lands here automatically. Agents must read this whole file before editing.
   decides - and islands wholly under a panel (number plate) leave with it.
 - **[workflow]** Before cutting, put three stills side by side from one camera: the full car (shut lines visible), the removed-state
   scan, the loose part. The right cut is obvious there; it was not obvious from distance numbers.
+
+## Infiniti QX80 v7 (2026-11-14)
+- **[text]** House theme = illumaesthetic.com's own CSS variables (read them with Playwright, `getComputedStyle` / `:root`
+  rules): bg #0b0c0b, accent green #619f73 (hover #74b386, dark #2f6b42), text #f2f3f1, muted #a7aca6; headings Fjalla One
+  caps with 0.15em tracking, body Barlow, eyebrows green monospace caps above the title. Fonts: fonts.googleapis.com css2
+  with a non-browser User-Agent returns .ttf links (PIL can't read woff2). Auto-fit long eyebrows - one clipped at the edge.
+- **[scan]** Designer print folders can hold a part parked off the car (QX80: the motoIQ "With_Logo" left vent sat 0.5 m
+  outside the right side). Check every kit group's bbox against the car before rendering; fix with a translation onto the
+  matching placed print (compare nearest-point distances: translation vs mirror).
+- **[scan]** Brake bench scans (caliper, rotor ring) have no car frame: put the ring axis on the CAD hat axis (PCA thin axis),
+  and register a caliper by fitting a circle to its outer bridge profile - its centre is the rotor axis (QX80: 6 mm off).
