@@ -1,14 +1,16 @@
+# v11: badge matched to the real one, flares-removed scan shown when the flares come off, shorter pause at the reveal, Sentra MotoIQ lockup
+# on the end card. v10 = project_v10.yaml.
 # v10: full-car-scan bumper once the trimmed one is on, badge on the CAD ring, grille lights under the brow windows, MotoIQ logo on the
 # end card, music M.O.O.N. 'Paris' from 115.337 s (drop on the first mod, frame 434); every cut on 434 + 18k (100 BPM). v9 = project_v9.yaml.
 # v9: grille-clipping sections removed, scanned badge on the new grille, labels without MOD/STEP numbers (v8 = project_v8.yaml).
 # v8: 'how we modified this truck' built on the Sentra short-form playbook (knowledge/short-form.md on claude/upbeat-goldberg-gy0s84):
 # real-article HOOK -> answer card -> build in order (scanned grille + fender lights) -> livery + 360 of the final render -> 1:1 CUT to the
-# real truck ON THE CRASH (frame 1270) -> real clips -> photo + logo. Shots: tools/shots_v10.py (30 fps, tools/render30.sh), lights: tools/lights.py,
+# real truck ON THE CRASH (frame 1270) -> real clips -> photo + logo. Shots: tools/shots_v11.py (30 fps, tools/render30.sh), lights: tools/lights.py,
 # cards: tools/build_v8_cards.py, press: tools/capture.js. v7 = project_v7.yaml.
 # Assemble: python projects/ferrari-296/tools/assemble_cuts.py projects/nissan-frontier/project.yaml
 project: nissan-frontier
 format: reel-9x16
-output: {path: /home/user/media/work/frontier/out/nissan_frontier_v10.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/frontier/out/nissan_frontier_v11.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/moon_paris.wav   # M.O.O.N. - Paris (Hotline Miami OST), user upload; not in git
@@ -62,7 +64,7 @@ timeline:
   - id: m1_grille
     section: build
     focus: "trimmed bumper back on; RONIN GRILLE parks in front; three SCANNED grille lights drop into its pockets; seats; lights on"
-    src: /home/user/media/work/frontier/renders/final/m1_grille_v10
+    src: /home/user/media/work/frontier/renders/final/m1_grille_v11
     src_fps: 30
     frames: 180
     dur: 6.0000
@@ -70,7 +72,7 @@ timeline:
   - id: m2_flares
     section: build
     focus: "stock flares highlighted, come off"
-    src: /home/user/media/work/frontier/renders/final/m2_flares_v10
+    src: /home/user/media/work/frontier/renders/final/m2_flares_v11
     src_fps: 30
     frames: 72
     dur: 2.4000
@@ -78,7 +80,7 @@ timeline:
   - id: m3_fenders
     section: build
     focus: "WIDE FENDERS on; push in on the front-right arch; SCANNED fender lights seat in the slots; lights on"
-    src: /home/user/media/work/frontier/renders/final/m3_fenders_v10
+    src: /home/user/media/work/frontier/renders/final/m3_fenders_v11
     src_fps: 30
     frames: 180
     dur: 6.0000
@@ -102,7 +104,7 @@ timeline:
   - id: m6_final
     section: final render
     focus: "RONIN LIVERY sweeps on; full 360 of the finished render easing into the solved IMG_3223 camera, held 0.4 s"
-    src: /home/user/media/work/frontier/renders/final/m6_final_v10
+    src: /home/user/media/work/frontier/renders/final/m6_final_v11
     src_fps: 30
     frames: 216
     dur: 7.2000
@@ -111,8 +113,8 @@ timeline:
     section: reveal
     focus: "1:1 CUT on the crash: the real Ronin Frontier at SEMA 2026, same camera as the last render frame (0.62x so it holds 2.4 s)"
     src: /home/user/media/work/frontier/out/irl_3223_slow.mp4
-    frames: 72
-    dur: 2.4000
+    frames: 54
+    dur: 1.8000
   - transition: {type: cut}
   - id: irl_3239
     section: real
@@ -135,7 +137,7 @@ timeline:
   - id: card
     section: logo
     focus: "MotoIQ photo of the truck with the ILLUMAESTHETIC logo below it"
-    src: /home/user/media/work/frontier/out/photo_card_v10.mp4
+    src: /home/user/media/work/frontier/out/photo_card_v11.mp4
     frames: 126
     dur: 4.2000
 

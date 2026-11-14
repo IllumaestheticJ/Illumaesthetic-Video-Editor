@@ -39,5 +39,5 @@ def answer(n=72):
 pipe(f"{O}/hook.mp4", hook()); pipe(f"{O}/answer.mp4", answer())
 TM = "zscale=t=linear:npl=100,tonemap=hable,zscale=t=bt709:m=bt709:p=bt709:r=tv,format=yuv420p"
 subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", "2.4", "-i", f"{M}/sema/IMG_3223.mov", "-an", "-vf",
-                f"{TM},setpts=PTS/0.615,minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1:scd=none,scale={W}:{H}",
-                "-frames:v", "72", "-r", "30", "-c:v", "libx264", "-crf", "12", "-pix_fmt", "yuv420p", f"{O}/irl_3223_slow.mp4"], check=True)
+                f"{TM},setpts=PTS/0.82,minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1:scd=none,scale={W}:{H}",
+                "-frames:v", "54", "-r", "30", "-c:v", "libx264", "-crf", "12", "-pix_fmt", "yuv420p", f"{O}/irl_3223_slow.mp4"], check=True)
