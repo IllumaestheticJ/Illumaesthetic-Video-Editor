@@ -65,15 +65,15 @@ SHOTS["k_sides"] = {"base": [EXPDP], "parts": [stock("rbumper")] + FRONT_KIT + [
     kp("k_side_l", RED, [K(0, (-1.90, 0, 0)), K(2.0, (-1.90, 0, 0), ease="lin"), K(3.333), K(SECS, ease="lin")])],
     "cam": [C(0, (0.0, 6.40, 5.40), (0.0, -0.30, 0.50), 50), C(SECS, (0.45, 5.90, 5.00), (0.0, -0.35, 0.50), 50)]}
 # c8: stock rear bumper off (outer skin -> translate), push onto the rear crash beam + mounts (Rear Bumper Removed)
-CAM8_END = C(SECS, (0.60, -4.75, 0.85), (0.42, -2.05, 0.66), 30, "lin")
+CAM8_END = C(SECS, (0.30, -5.65, 0.95), (0.05, -2.05, 0.66), 30, "lin")   # v3 final: wider + centred (left rear corner was cut)
 SHOTS["k_rbumper_off"] = {"base": [EXPDP], "parts": FRONT_KIT + SIDE_KIT + [
-    stock("rbumper", [K(0), K(0.667, ease="lin"), K(1.333, (0, -0.60, 0), ease="out"), K(2.0, (0.10, -1.00, -1.20)),
-                      K(SECS, (0.10, -1.02, -1.25), ease="lin")])],
+    stock("rbumper", [K(0), K(0.667, ease="lin"), K(1.333, (0, -0.60, 0), ease="out"), K(2.0, (0.10, -1.30, -1.80)),
+                      K(SECS, (0.10, -1.32, -1.85), ease="lin")])],
     "cam": [C(0, (2.60, -4.60, 1.15), (0.10, -1.55, 0.72)), C(1.333, (2.35, -4.55, 1.05), (0.20, -1.75, 0.70)),
-            C(3.333, (0.75, -4.85, 0.88), (0.40, -2.05, 0.68)), CAM8_END]}
+            C(3.333, (0.55, -5.30, 0.92), (0.10, -2.05, 0.68)), CAM8_END]}
 # c9: rear kit on - bumper and diffuser slide in from below-behind, tips forward, GT wing drops onto the hatch mounts
 SHOTS["k_rear"] = {"base": [EXPDP], "parts": FRONT_KIT + SIDE_KIT + [
-    kp("k_rbumper", RED, [K(0, (0.10, -1.00, -1.20)), K(1.333, (0, -0.60, 0), ease="out"), K(2.0)]),
+    kp("k_rbumper", RED, [K(0, (0.10, -1.30, -1.80)), K(1.333, (0, -0.60, 0), ease="out"), K(2.0)]),
     kp("k_diffuser", GUN, [K(0, (0, -1.00, -1.30)), K(2.0, (0, -1.00, -1.30), ease="lin"), K(2.667, (0, 0, -0.35), ease="out"), K(3.333)]),
     kp("k_exhaust", GUN, [K(0, (0, -1.00, -1.30)), K(2.667, (0, -1.00, -1.30), ease="lin"), K(3.333, (0, -0.45, 0), ease="out"), K(4.0)]),
     kp("k_wing", GUN, [K(0, (0, 0, 3.40)), K(3.333, (0, 0, 3.40), ease="lin"), K(4.667), K(SECS, ease="lin")])],
