@@ -157,7 +157,7 @@ def poll(q, a, b, ca, cb, foot='COMMENT YOUR GUESS'):
     """question card with two answer pills that pop in, like a story poll"""
     def draw(t, D):
         im = Image.new('RGB', (W, H), BG); d = ImageDraw.Draw(im)
-        for j, s in enumerate(q): ctext(d, 520 + 120*j, s, F(100, 'Black'), FG if j < len(q) - 1 else GOLD, (t - .05 - .12*j)/.25)
+        for j, s in enumerate(q): ctext(d, 520 + 110*j, s, F(84, 'Black'), FG if j < len(q) - 1 else GOLD, (t - .05 - .12*j)/.25)
         for j, (s, c) in enumerate(((a, ca), (b, cb))):
             k = ease((t - .5 - .25*j)/.3)
             if k <= 0: continue
