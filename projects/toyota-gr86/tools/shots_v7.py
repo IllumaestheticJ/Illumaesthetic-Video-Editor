@@ -84,7 +84,9 @@ exec(_v5[_v5.index("# 14-17  explode"):_v5.index('spec("x1_explode_fr"')])      
 # BRZ skins: front above the GR86 bumper (preview: hidden behind it at +0.60), rear behind + above the GR86 bumper; the plate lamp
 # drops below the rear BRZ skin (its v5 pose (0.50,1.05,0.20) lies inside the skin at this offset)
 EX.update({"fbB": [0, -1.40, 0.75], "rbB": [0, 1.55, 0.45], "pl": [0.50, 0.95, -0.35]})
-HOME.update({"fbB": (7.05, 7.55), "rbB": (6.20, 6.75)})
+# h1 pushes in: the outermost parts (the split bumper pairs, the front markers) land early so they never cross the frame edge
+# (edge_margins on the first v7 h1: front BRZ skin on the left edge frames 25-45, rear one on the right edge frames 13-17)
+HOME.update({"rb": (5.95, 6.40), "rbB": (6.00, 6.50), "fb": (6.40, 6.85), "fbB": (6.45, 6.95), "kR": (6.40, 6.85), "kL": (6.40, 6.85)})
 
 
 def explode7(shift):
