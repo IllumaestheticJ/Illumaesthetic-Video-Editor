@@ -1,25 +1,23 @@
 # Director report - projects/toyota-gr-corolla/project.yaml
 
-Total 23.97 s. Sections (s): whole 3.97, front 12.0, rear 5.0, untagged 3.0
+Total 23.97 s. Sections (s): whole 4.67, front 11.65, rear 4.63, untagged 3.0
 
 | clip | start | dur | section | focus | motion | dead s | cover % | flags |
 |---|---|---|---|---|---|---|---|---|
-| a1_whole | 0.0 | 1.97 | whole | whole car, front-right 3/4 push | 1.83 | 0.0 | 9.5->14.4 |  |
-| a3_wheel | 1.97 | 2.0 | front | front-right wheel + arch | 9.62 | 0.0 | 39.9->38.5 |  |
-| a2_grille | 3.97 | 2.0 | front | lower grille, intercooler behind the mesh | 6.35 | 0.0 | 25.2->27.7 |  |
-| b1_fbumper | 5.97 | 2.0 | front | front bumper off, inner face | 11.32 | 0.0 | 16.1->18.2 |  |
-| b2_beams | 7.97 | 2.0 | front | upper + lower bumper beams | 11.84 | 0.0 | 19.9->24.4 |  |
-| b3_ducts | 9.97 | 2.0 | front | bumper + radiator ducts | 6.08 | 0.0 | 16.8->18.8 |  |
-| b4_ic | 11.97 | 2.0 | front | intercooler | 2.65 | 0.0 | 17.3->19.2 |  |
-| c1_diffuser | 13.97 | 2.0 | rear | diffuser removed | 4.29 | 0.0 | 9.7->12.6 |  |
-| c2_rbumper | 15.97 | 2.0 | rear | rear bumper off -> crash beam | 13.62 | 0.0 | 12.4->20.2 |  |
-| c3_mounts | 17.97 | 1.0 | rear | crash beam removed, mounting points | 2.86 | 0.0 | 28.2->29.4 |  |
-| d1_clean | 18.97 | 2.0 | whole | clean car, rear-left 3/4 | 0.47 | 0.8 | 15.7->16.4 |  |
+| a1_whole | 0.0 | 2.3 | whole | whole car, front-left 3/4 push | 1.73 | 0.0 | 9.5->14.6 |  |
+| a2_grille | 2.3 | 2.33 | front | lower grille, intercooler behind the mesh | 5.87 | 0.0 | 25.2->27.9 |  |
+| b1_fbumper | 4.63 | 2.33 | front | front bumper off - first, before anything behind it | 8.99 | 0.0 | 16.4->18.2 |  |
+| b2_beams | 6.97 | 2.33 | front | upper + lower bumper beams | 12.18 | 0.0 | 22.2->27.5 |  |
+| b3_ducts | 9.3 | 2.33 | front | bumper + radiator ducts | 6.0 | 0.0 | 20.3->23.3 |  |
+| b4_ic | 11.63 | 2.33 | front | intercooler; engine-bay scan behind | 2.86 | 0.0 | 23.1->25.4 |  |
+| c1_rbumper | 13.97 | 2.33 | rear | rear bumper + diffuser off together | 13.29 | 0.0 | 12.7->20.5 |  |
+| c2_crash | 16.3 | 2.3 | rear | crash beam removed, mounting points | 2.03 | 0.0 | 28.2->30.2 |  |
+| d1_clean | 18.6 | 2.37 | whole | clean car, rear-right 3/4 | 0.44 | 1.07 | 15.7->16.5 |  |
 | logo | 20.97 | 3.0 |  |  | 0.61 | 2.0 | 0.8->3.3 |  |
 
 ## Repeated views
-- a1_whole ~ c1_diffuser (IoU 0.62, corr 0.79): same view shown twice
-- a1_whole ~ c2_rbumper (IoU 0.68, corr 0.78): same view shown twice
-- a1_whole ~ d1_clean (IoU 0.77, corr 0.82): same view shown twice in the same section - merge or cut one
-- a2_grille ~ b4_ic (IoU 0.62, corr 0.78): same view shown twice in the same section - merge or cut one
-- c2_rbumper ~ c3_mounts (IoU 0.92, corr 0.93): same view shown twice in the same section - merge or cut one
+- a1_whole ~ c1_rbumper (IoU 0.69, corr 0.79): same view shown twice
+- a1_whole ~ d1_clean (IoU 0.77, corr 0.83): same view shown twice in the same section - merge or cut one
+- a2_grille ~ b4_ic (IoU 0.71, corr 0.75): same view shown twice in the same section - merge or cut one
+- b1_fbumper ~ c1_rbumper (IoU 0.69, corr 0.79): same view shown twice
+- c1_rbumper ~ c2_crash (IoU 0.92, corr 0.94): same view shown twice in the same section - merge or cut one

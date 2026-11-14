@@ -31,9 +31,9 @@ timeline:
   - transition: {type: cut, note: "123.244"}
   - {id: c1_rbumper, src: /home/user/media/work/grc/renders5/final/c1_rbumper, src_fps: 30, dur: 2.3333, section: rear, focus: "rear bumper + diffuser off together"}
   - transition: {type: cut, note: "125.576 same camera, state swap"}
-  - {id: c2_crash, src: /home/user/media/work/grc/renders5/final/c2_crash, src_fps: 15, interpolate: true, dur: 2.3333, section: rear, focus: "crash beam removed, mounting points"}
-  - transition: {type: cut, note: "127.908"}
-  - {id: d1_clean, src: /home/user/media/work/grc/renders5/final/d1_clean, src_fps: 15, interpolate: true, dur: 2.3333, section: whole, focus: "clean car, rear-right 3/4", hold: true}
+  - {id: c2_crash, src: /home/user/media/work/grc/renders5/final/c2_crash, src_fps: 15, interpolate: true, dur: 2.3, section: rear, focus: "crash beam removed, mounting points"}
+  - transition: {type: cut, note: "127.908 (live kick lands 127.88 - cut one frame early)"}
+  - {id: d1_clean, src: /home/user/media/work/grc/renders5/final/d1_clean, src_fps: 15, interpolate: true, dur: 2.3667, section: whole, focus: "clean car, rear-right 3/4", hold: true}
   - transition: {type: dip, duration: 0.5, note: "130.240 fade to black -> 720 px logo over the outro"}
   - {id: logo, src: /home/user/media/work/grc/out/logo_card_720.mp4, dur: 3.0}
 
