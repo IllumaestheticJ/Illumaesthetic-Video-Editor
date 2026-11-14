@@ -115,8 +115,9 @@ def explode7(shift):
     return ps
 
 
-CAMS = {"x1_explode_fr7": ([2.30, -6.40, 4.60], [-0.38, -0.45, 0.59], 30, 31.7), "x2_explode_rr7": ([2.50, 6.60, 4.40], [0.02, 0.45, 0.34], 34, 35.8),
-        "x3_explode_high7": ([1.70, 5.60, 7.00], [0.11, 0.33, 0.17], 40, 42.8)}
+# x2/x3 wider than v5 (final v7: the rear BRZ skin at +1.55 m was cut by the bottom-right frame edge)
+CAMS = {"x1_explode_fr7": ([2.30, -6.40, 4.60], [-0.38, -0.45, 0.59], 30, 31.7), "x2_explode_rr7": ([2.50, 6.60, 4.40], [0.02, 0.60, 0.34], 29, 30.5),
+        "x3_explode_high7": ([1.70, 5.60, 7.00], [0.11, 0.50, 0.17], 35, 37.0)}
 for i, (n, (cl, tg, f0, f1)) in enumerate(CAMS.items()):
     s = {"base": [blend("comp_explode7")], "parts": explode7(i * BAR), "camera": {"keys": [cam(0, cl, tg, f0), cam(BAR, cl, tg, f1)]},
          "seconds": 2.0667, "fps": 30, "res": "1080x1920", "res_pct": 75, "samples": 12}

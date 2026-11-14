@@ -151,7 +151,6 @@ timeline:
     src_fps: 30
     interpolate: false
     dur: 1.9667
-    vf: "crop=1080:1152:0:0,pad=1080:1920:0:384:color=0x070709"   # render left the set in the top 30 %: re-centre vertically (no scaling)
   - transition: {type: cut, note: "bar 16"}
   - id: x3_explode_high
     src: /home/user/media/work/gr86/shots/x3_explode_high7
