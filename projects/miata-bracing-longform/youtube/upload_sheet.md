@@ -1,6 +1,6 @@
 # YouTube upload sheet: Miata chassis bracing (v10, 9:16)
 
-Files: `MiataBracing_v10.mp4`, `MiataBracing_thumbnail_1280.jpg` (thumbnail), `captions.srt` (this folder).
+Files: `MiataBracing_v11.mp4` (same timing as v10; music replaced), `MiataBracing_thumbnail_1280.jpg` (thumbnail), `captions.srt` (this folder).
 Every number below is from `Strut Spread.xlsx` rounded to 0.1 mm, the same as on screen.
 
 ## Title (pick one, all under 70 characters)
@@ -48,8 +48,6 @@ Miata Chop Shop for lending us the stock car: Instagram @MCS_Parts
 Email: sales@illumaesthetic.com
 Instagram: @illumaesthetic
 Grimace, our race car: Instagram @epsilon_motorsports
-
-Music licensed through Epidemic Sound.
 
 #miata #chassisbracing #3dscanning
 
