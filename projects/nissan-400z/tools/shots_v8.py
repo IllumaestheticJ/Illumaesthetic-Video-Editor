@@ -20,7 +20,7 @@ LIVMAP = json.load(open(os.path.join(HERE, "..", "livery_map.json")))
 LIV = {"tex": "/home/user/media/nissan-400z/livery/tex", "map": LIVMAP, "hood": [-0.07, -0.85, 0.75, 0.37],
        "paint": [0.10, 0.10, 0.105], "belt": 0.97, "banner": [-0.068, 0.945, 1.140, 0.100, -0.75, 0.05], "glass_nz": 0.95, "xc": -0.07,
        "cabin": [-0.75, 1.05, 0.80, 1.15, 0.62], "side_min": 0.84,
-       "glass_y": [[-0.70, 0.03], [0.82, 1.62]], "glass_hw": 0.60}  # v11: roof rails stay body colour
+       "glass_y": [[-0.70, 0.03], [0.82, 1.62]], "glass_hw": 0.60, "glass_attr": True}  # v11: roof rails stay body colour
 DROP = -0.08  # m: kit arch lips sat 87-102 mm over the tyres; the built car tucks to ~10-20 mm
 SOLVE_DROP = DROP  # the match camera (match/cam_match.json) was solved with the body at this drop
 # v9 (user: "match the stance of the picture"): at the solved camera the rims sat 29 px (front) / 22 px (rear) too high in
@@ -126,8 +126,9 @@ def kit(blend, stage, t0, via=None):
 # 7. KIT_FRONT: front kit installs onto the stripped front
 d = dur("KIT_FRONT"); base0 = 29.031
 def rel(t): return t - base0
-T_OLD = rel(30.906) - 0.45
+T_OLD = rel(29.968) + 0.6 + 0.02  # v12: after the fender-seat base swap (v11 hid kb7F before showing it -> bumper stayed)
 T_SEAT = rel(30.906) + 0.62
+OLDB = [k(0, (0, 0, 0)), k(T_OLD, (0, 0, 0)), k(T_OLD + 0.15, (0, -0.28, -0.02), ease="out"), k(T_OLD + 0.45, (3.6, -0.6, 0), ease="in")]
 NEWB = [k(0, (-3.6, -0.7, 0)), k(rel(30.906), (-3.6, -0.7, 0)), k(rel(30.906) + 0.38, (0, -0.2, 0), ease="out"), k(T_SEAT, (0, 0, 0), ease="in")]
 SHOTS["KIT_FRONT"] = {
     # v6: stock bumper + grilles stay on (kb6 = full car minus stock mirrors and wheels); the Bomex front is a surround over it
@@ -135,8 +136,7 @@ SHOTS["KIT_FRONT"] = {
              {"blend": f"{B}/kb7F_wing.blend", "show_at": rel(29.968) + 0.6, "hide_at": T_OLD},  # fenders seated
              # v11 (user: "old bumper off, new bumper on"): at T_OLD the stock bumper skin the kit hides comes off as one
              # piece (tools/old_bumper.py); what stays (factory grille, anything still visible) is kb10B
-             {"blend": f"{B}/kb10B_wing.blend", "show_at": T_OLD, "hide_at": T_SEAT, "grille": GRILLE},
-             {"blend": f"{B}/kb9B_wing.blend", "show_at": T_SEAT, "grille": GRILLE},  # finished front once the kit seats
+             {"blend": f"{B}/kb10B_wing.blend", "show_at": T_OLD, "grille": GRILLE},  # v12: stays; kept_stock stays seated
              held(f"{B}/p_wing.blend"), STOCKW],
     "parts": [
         kit(f"{B}/k_front_fender_driver.blend", (0.15, 0, 0.45), rel(29.968), (0.08, 0, 0)),
@@ -144,12 +144,11 @@ SHOTS["KIT_FRONT"] = {
         kit(f"{B}/k_front_fender_slats_driver.blend", (0.15, 0, 0.85), rel(30.437), (0.08, 0, 0)),
         kit(f"{B}/k_front_fender_slats_pass.blend", (-0.15, 0, 0.85), rel(30.437), (-0.08, 0, 0)),
         # old stock bumper: pulled off forward, then slides out of frame to the right
-        {"blend": f"{B}/bumper_shell_v5.blend", "show_at": T_OLD, "hide_at": T_OLD + 0.58,
-         "keys": [k(0, (0, 0, 0)), k(T_OLD, (0, 0, 0)), k(T_OLD + 0.2, (0, -0.28, -0.02), ease="out"),
-                  k(T_OLD + 0.58, (3.6, -0.6, 0), ease="in")]},
+        {"blend": f"{B}/bumper_shell_v5.blend", "show_at": T_OLD, "hide_at": T_OLD + 0.45, "keys": OLDB, "pivot": [0, -1.9, 0.35]},
+        {"blend": f"{B}/kb10B_wing_lip.blend", "show_at": T_OLD, "hide_at": T_OLD + 0.45, "keys": OLDB, "pivot": [0, -1.9, 0.35]},  # its lower lip
         # new Bomex bumper: enters from the left on the 30.906 beat, lines up in front, pushes home
-        {"blend": f"{B}/k_front_bumper.blend", "show_at": rel(30.906) - 0.03, "keys": NEWB},
-        {"blend": f"{B}/kept_stock.blend", "show_at": rel(30.906) - 0.03, "hide_at": T_SEAT, "keys": NEWB},  # reused stock nose/surround
+        {"blend": f"{B}/k_front_bumper.blend", "show_at": rel(30.906) - 0.03, "keys": NEWB, "pivot": [0, -1.9, 0.35]},
+        {"blend": f"{B}/kept_stock.blend", "show_at": rel(30.906) - 0.03, "keys": NEWB, "pivot": [0, -1.9, 0.35], "grille": GRILLE},  # reused stock nose/surround
         kit(f"{B}/k_canard_driver.blend", (0.25, -0.5, 0), rel(31.375)),
         kit(f"{B}/k_canard_pass.blend", (-0.25, -0.5, 0), rel(31.375)),
         kit(f"{B}/k_mirror_driver.blend", (0.30, 0, 0.12), rel(31.843), (0.08, 0, 0)),   # Bomex mirrors onto the bare mounts
@@ -213,7 +212,7 @@ SHOTS["REAR"] = {
 # 10. LIVERY: full kitted car, livery sweep (camera + material only)
 d = dur("LIVERY")
 SHOTS["LIVERY"] = {
-    "base": [{"blend": f"{B}/kb9_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS,
+    "base": [{"blend": f"{B}/kb12_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS,
     "body_drop": [[0, DROP]],
     "livery": {**LIV7, "sweep": [[0, 2.6], [42.156 - 40.281, -2.4]]},
     "cam": cam(arc(d, 140, 78, 9, 9, 5.6, 5.8, [0, 0.4, 0.6], [0, 0.1, 0.6], 40, n=6))}
@@ -225,7 +224,7 @@ MATCH = {"loc": [_m["loc"][0], _m["loc"][1], _m["loc"][2] + _dz], "target": [_m[
          "focal": _m["focal"], "roll": _m["roll"]}
 d = dur("HERO")
 SHOTS["HERO"] = {
-    "base": [{"blend": f"{B}/kb9_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS_STEER,
+    "base": [{"blend": f"{B}/kb12_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS_STEER,
     "body_drop": [[0, DROP]],
     "livery": {**LIV7, "sweep": [[0, -9.0]]},
     # ends exactly on the solved SEMA-photo camera (match/cam_match.json) 2 frames before the 45.867 cut, then holds,

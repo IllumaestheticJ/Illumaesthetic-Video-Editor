@@ -24,3 +24,5 @@
 {"ts": "2026-11-15T05:46:24Z", "project": "nissan-400z", "at": "42", "category": "scan-look", "note": "The livery has a weird black spot on the top - only the window frame area is black, the roof and the rest are body colour", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T05:46:24Z", "project": "nissan-400z", "at": "34.7", "category": "story", "note": "Wheels should animate on and off the car like they are being installed/removed", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T05:46:24Z", "project": "nissan-400z", "at": "30.9", "category": "story", "note": "Re-animate the front bumper as an old bumper off, new bumper on", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T06:59:17Z", "project": "nissan-400z", "at": "30.5", "category": "scan", "note": "The old bumper comes off but there's still a bumper on the car", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T06:59:17Z", "project": "nissan-400z", "at": "44", "category": "scan-look", "note": "Trace and colour the windows black a little more accurately", "by": "reviewer", "promoted": false}

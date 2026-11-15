@@ -183,7 +183,9 @@ def mat_livery(spec, fps, nframes):
     paint = tuple(L.get("paint", (0.20, 0.21, 0.22))) + (1,)
     dark = tuple(L.get("dark", (0.010, 0.010, 0.012))) + (1,)
     col = mix(math("MULTIPLY", side_w, side_a), paint, side)
-    col = mix(math("MULTIPLY", side_w, math("GREATER_THAN", ig.outputs["Alpha"], 0.5)), col, dark)
+    side_glass = math("MULTIPLY", side_w, math("GREATER_THAN", ig.outputs["Alpha"], 0.5))
+    if L.get("glass_attr"): side_glass = math("MULTIPLY", side_glass, 0.0)  # traced per face instead (glass_mask.py)
+    col = mix(side_glass, col, dark)
     H = L["hood"]  # x centre, y top (rear edge), width, height (m); text reads from the front, top toward the screen
     hu = math("ADD", math("DIVIDE", math("SUBTRACT", X, H[0]), H[2]), 0.5)
     hv = math("DIVIDE", math("SUBTRACT", Y, H[1] - H[3]), H[3])
@@ -203,7 +205,16 @@ def mat_livery(spec, fps, nframes):
     cab = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Y, C[0]), math("LESS_THAN", Y, C[1])),
                math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Z, C[2]), math("LESS_THAN", Z, C[3])),
                     math("LESS_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), C[4])))
-    glass = math("MAXIMUM", glass, cab)
+    if L.get("glass_attr"):  # v12: windows traced on the SEMA photo -> face attribute "glass"; rear glass keeps the band
+        an = N.new("ShaderNodeAttribute"); an.attribute_name = "glass"
+        # rear hatch glass (not in the photo): upward-facing surface in the rear band, inside the glass half-width
+        RB = L.get("rear_glass", [0.86, 1.60, 0.50, 1.0])  # y0, y1, half-width, z min (world, undropped + drop applied via belt)
+        rear = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Y, RB[0]), math("LESS_THAN", Y, RB[1])),
+                    math("MULTIPLY", math("LESS_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), RB[2]),
+                         math("MULTIPLY", math("GREATER_THAN", Z, L.get("belt", 1.0) + 0.06), math("GREATER_THAN", nz, 0.3))))
+        glass = math("MAXIMUM", math("GREATER_THAN", an.outputs["Fac"], 0.5), rear)
+    else:
+        glass = math("MAXIMUM", glass, cab)
     col = mix(glass, col, dark)
     # windscreen banner (KAIDO*HOUSE), projected along Y onto the top band of the windscreen
     BN = L.get("banner")  # [x centre, width, z bottom, z height, y min, y max]
@@ -222,7 +233,7 @@ def mat_livery(spec, fps, nframes):
         wrap.inputs["Coat Weight"].default_value = 0.3
     # glass: low-specular dark (a glossy dark windscreen mirrors the studio top light and reads white)
     gb = N.new("ShaderNodeBsdfDiffuse"); gb.inputs["Color"].default_value = dark  # no Fresnel sheen
-    gsel = math("MAXIMUM", glass, math("MULTIPLY", side_w, math("GREATER_THAN", ig.outputs["Alpha"], 0.5)))
+    gsel = math("MAXIMUM", glass, side_glass)
     if ban_w is not None:
         gsel = math("MULTIPLY", gsel, math("SUBTRACT", 1.0, ban_w))
     wm = N.new("ShaderNodeMixShader"); Lk(gsel, wm.inputs[0]); Lk(wrap.outputs[0], wm.inputs[1]); Lk(gb.outputs[0], wm.inputs[2])
@@ -327,6 +338,8 @@ def main():
                 continue
             o.data.materials.clear()
             o.data.materials.append(m)
+        if p.get("grille"):  # dark factory-grille recess on a part (no backing plane)
+            grille_recess(objs, {"box": p["grille"]["box"]}, True, [])
         key_vis(objs, p, fps)
         keys = p.get("keys")
         if not keys:
