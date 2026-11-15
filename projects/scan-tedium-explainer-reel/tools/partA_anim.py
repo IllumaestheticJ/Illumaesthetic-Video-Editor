@@ -83,8 +83,8 @@ for L in TL["lines"]:
 
 
 def mouth_at(spk, t):
-    if spk == "GUS":   # v4: weary Gus - slower, heavier talk motion (energy smoothed over ~0.2 s, a little lower)
-        return 0.85 * sum(_mouth_raw(spk, t + d) for d in (-0.13, -0.09, -0.05, -0.01, 0.03)) / 5
+    if spk == "GUS":   # v5 (owner): normal talk energy, slightly low-key (v4's slow, heavy talk removed)
+        return 0.9 * _mouth_raw(spk, t)
     return _mouth_raw(spk, t)
 
 
@@ -158,6 +158,7 @@ def syl_onsets(n):
 
 # ----------------------------------------------------------------------------------------------------------------- expressions (v4)
 CUR_T = 0.0
+SIGH_DEFLATE = False     # v4 had heavy whole-body sigh deflates; v5 (owner): removed
 FORCE_EXPR = {}          # expression sheet: {"PIP": "curious", ...}
 
 
@@ -221,28 +222,31 @@ def expr_state(ch, t):
             st["shape"] = tgt["shape"]
 
     if nm == "GUS":
-        blend("weary", 0.55)                                      # weary by default
+        # v5 (owner, dry take): mostly neutral eyes; a subtle annoyed brow tilt while he explains; half-lid on "Then I line
+        # them all up"; flat "No."; one small sigh droop before "Now we peel" (no deflate); skeptical "Show me"
         for L in TL["lines"]:
             if L["speaker"] == "GUS":
-                blend("weary", win(t, L["t0"] - 0.2, L["t1"], 0.2, 0.4))
-        s_ = sigh_env(t)
-        if s_ > 0:                                                 # sigh: lids droop, close, reopen half-lidded
-            st["fL"] = st["fR"] = max(st["fL"], 0.55 + 0.45 * s_)
-            st["tL"] = st["tR"] = lerp(st["tL"], -10, s_)
-        for n in (5, 7):                                           # groan / "In pieces": eyes squeezed
-            L = L_(n)
-            if L:
-                w = L["words"]
-                end = w[0]["t1"] + 0.15 if n == 7 else L["t1"]
-                k = win(t, (L["sighs"][0][0] if L.get("sighs") else w[0]["t0"]), end, 0.08, 0.15)
-                if k > 0.5:
-                    blend("exasperated", 1.0)
-        if L_(9):
-            L = L_(9)
-            k = win(t, L["t0"], L["t1"], 0.06, 0.3)                # flat annoyed "No."
-            st["fL"] = st["fR"] = lerp(st["fL"], 0.6, k)
-            st["tL"] = st["tR"] = lerp(st["tL"], 26, k)
+                k = win(t, L["t0"] - 0.15, L["t1"], 0.2, 0.4)
+                st["fL"] = st["fR"] = max(st["fL"], 0.12 * k)
+                st["on"] = max(st["on"], 0.65 * k)
+                st["tL"] = st["tR"] = max(st["tL"], 9 * k)
+        L = L_(7)
+        if L:
+            k = win(t, L["t0"], L["t1"], 0.12, 0.3)
+            st["fL"] = st["fR"] = lerp(st["fL"], 0.5, k)
+            st["tL"] = st["tR"] = lerp(st["tL"], 13, k)
             st["on"] = max(st["on"], k)
+        L = L_(9)
+        if L:
+            k = win(t, L["t0"], L["t1"], 0.06, 0.3)                # flat "No."
+            st["fL"] = st["fR"] = lerp(st["fL"], 0.55, k)
+            st["tL"] = st["tR"] = lerp(st["tL"], 16, k)
+            st["on"] = max(st["on"], k)
+        L = L_(10)
+        if L:                                                      # small sigh droop just before/at "Now we peel"
+            k = win(t, L["t0"] - 0.1, L["words"][0]["t1"] + 0.15, 0.15, 0.35)
+            st["fL"] = st["fR"] = max(st["fL"], 0.62 * k)
+            st["tL"] = st["tR"] = lerp(st["tL"], -4, k)
         if L_(13):
             L = L_(13)
             blend("skeptical", win(t, L["t0"] - 0.1, L["t1"] + 1.0, 0.12, 0.2))
@@ -302,7 +306,7 @@ def apply_expr(ch, lid_call=0.0, look_call=(0, 0)):
     set_brows(ch, st["on"], min(st["hL"], hmax), min(st["hR"], hmax), st["tL"], st["tR"])
     if st["roll"] is not None:
         ch.eyes_g.location = (st["roll"][0] * ch.S["eye_look"] * 1.3, 0, ch.head_c + st["roll"][1] * ch.S["eye_look"] * 1.3)
-    if ch is GUS:                                                  # sighs deflate his whole body
+    if ch is GUS and SIGH_DEFLATE:                                 # v4 only: sighs deflate his whole body
         e = sigh_env(CUR_T)
         if e > 0:
             ch.torso.scale = (ch.torso.scale[0] * (1 + 0.05 * e), ch.torso.scale[1] * (1 + 0.05 * e), ch.torso.scale[2] * (1 - 0.09 * e))
@@ -409,14 +413,14 @@ S3_STATE = {}
 def anim_S3(fr):
     t = fr / FPS
     near = dots_where(lambda d: d["region"] == "side_n" and -0.5 < d["p"].x < 1.15)
-    base = [d for d in near if d["order"] < 0.35]
+    base = [d for d in near if d["order"] < 0.2]   # v5 half density: fewer pre-placed so every syllable still gets a slap
     T = syl_onsets(3)
-    rest = sorted([d for d in near if d["order"] >= 0.35 and 0.02 < d["p"].x < 0.5 and 0.5 < d["p"].z < 0.9],   # in frame
+    rest = sorted([d for d in near if d["order"] >= 0.2 and 0.0 < d["p"].x < 0.56 and 0.46 < d["p"].z < 0.92],   # in frame
                   key=lambda d: d["order"])
     # spread the slaps across the door (never two neighbours in a row)
     new = []
     for d in rest:
-        if all((d["p"] - e["p"]).length > 0.16 for e in new[-2:]):
+        if all((d["p"] - e["p"]).length > 0.13 for e in new[-2:]):
             new.append(d)
         if len(new) == len(T):
             break
@@ -666,7 +670,7 @@ def anim_S9(fr):
     n_peeled = int(lerp(n_end * 0.55, n_end, u))
     gone = set(id(d) for d in order[:n_peeled])
     temp(make_dots("dots", [d for d in ALL_DOTS if id(d) not in gone]))
-    temp(dot_pile("pile", (1.0, -2.0, 0.0), n=int(lerp(330, 520, u)), radius=lerp(0.36, 0.42, u), height=lerp(0.24, 0.3, u), s=1.5))
+    temp(dot_pile("pile", (1.0, -2.0, 0.0), n=int(lerp(165, 260, u)), radius=lerp(0.29, 0.34, u), height=lerp(0.2, 0.25, u), s=1.5))   # v5: half
     m, lid = talk("GUS", t, 0.45)
     pose(GUS, loc=(0.3, -1.55, 0), rz=-60, hips=(8, 0, 0), head=(12 + 5 * accent("GUS", t), 0, 0), armL=(-78, 0, -15), elbowL=-30,
          armR=(-20, 0, -12), elbowR=-25, mouth=m, lid=lid, look=(0.3, 0))

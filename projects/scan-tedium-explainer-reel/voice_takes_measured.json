@@ -2451,5 +2451,1232 @@
    36.18,
    37.486
   ]
+ },
+ "L01d.wav": {
+  "line": 1,
+  "script": "So... how do you scan a whole car?",
+  "dur": 3.09,
+  "heard": "So, how do you scan a whole car?",
+  "wer": null,
+  "words": [
+   {
+    "w": "So,",
+    "t0": 0.0,
+    "t1": 0.38,
+    "p": 0.72
+   },
+   {
+    "w": "how",
+    "t0": 0.88,
+    "t1": 1.2,
+    "p": 0.98
+   },
+   {
+    "w": "do",
+    "t0": 1.2,
+    "t1": 1.34,
+    "p": 1.0
+   },
+   {
+    "w": "you",
+    "t0": 1.34,
+    "t1": 1.54,
+    "p": 1.0
+   },
+   {
+    "w": "scan",
+    "t0": 1.54,
+    "t1": 1.78,
+    "p": 1.0
+   },
+   {
+    "w": "a",
+    "t0": 1.78,
+    "t1": 2.06,
+    "p": 1.0
+   },
+   {
+    "w": "whole",
+    "t0": 2.06,
+    "t1": 2.28,
+    "p": 1.0
+   },
+   {
+    "w": "car?",
+    "t0": 2.28,
+    "t1": 2.74,
+    "p": 1.0
+   }
+  ],
+  "sighs": [
+   [
+    0.44,
+    0.75
+   ]
+  ],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   0.0,
+   3.09
+  ]
+ },
+ "L02d.wav": {
+  "line": 2,
+  "script": "The usual way? Dots. Lots of dots.",
+  "dur": 3.96,
+  "heard": "The usual way? Dots. Lots of dots.",
+  "wer": null,
+  "words": [
+   {
+    "w": "The",
+    "t0": 0.21,
+    "t1": 0.29,
+    "p": 0.89
+   },
+   {
+    "w": "usual",
+    "t0": 0.29,
+    "t1": 0.65,
+    "p": 1.0
+   },
+   {
+    "w": "way?",
+    "t0": 0.65,
+    "t1": 1.05,
+    "p": 1.0
+   },
+   {
+    "w": "Dots.",
+    "t0": 1.63,
+    "t1": 1.95,
+    "p": 0.77
+   },
+   {
+    "w": "Lots",
+    "t0": 2.67,
+    "t1": 2.85,
+    "p": 0.97
+   },
+   {
+    "w": "of",
+    "t0": 2.85,
+    "t1": 3.13,
+    "p": 1.0
+   },
+   {
+    "w": "dots.",
+    "t0": 3.13,
+    "t1": 3.43,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   3.09,
+   7.05
+  ]
+ },
+ "L04d.wav": {
+  "line": 4,
+  "script": "Then you scan it?",
+  "dur": 1.48,
+  "heard": "Then you scan it?",
+  "wer": null,
+  "words": [
+   {
+    "w": "Then",
+    "t0": 0.13,
+    "t1": 0.29,
+    "p": 0.98
+   },
+   {
+    "w": "you",
+    "t0": 0.29,
+    "t1": 0.49,
+    "p": 0.97
+   },
+   {
+    "w": "scan",
+    "t0": 0.49,
+    "t1": 0.81,
+    "p": 1.0
+   },
+   {
+    "w": "it?",
+    "t0": 0.81,
+    "t1": 1.25,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   9.25,
+   10.73
+  ]
+ },
+ "L05d.wav": {
+  "line": 5,
+  "script": "In pieces.",
+  "dur": 1.49,
+  "heard": "In pieces.",
+  "wer": null,
+  "words": [
+   {
+    "w": "In",
+    "t0": 0.17,
+    "t1": 0.35,
+    "p": 0.99
+   },
+   {
+    "w": "pieces.",
+    "t0": 0.35,
+    "t1": 0.87,
+    "p": 1.0
+   }
+  ],
+  "sighs": [
+   [
+    0.93,
+    1.2
+   ]
+  ],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   10.73,
+   12.22
+  ]
+ },
+ "L06d.wav": {
+  "line": 6,
+  "script": "Front. Side. Roof. Back.",
+  "dur": 3.71,
+  "heard": "Front, side, roof, back.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Front,",
+    "t0": 0.34,
+    "t1": 0.56,
+    "p": 0.97
+   },
+   {
+    "w": "side,",
+    "t0": 1.28,
+    "t1": 1.64,
+    "p": 0.96
+   },
+   {
+    "w": "roof,",
+    "t0": 2.3,
+    "t1": 2.52,
+    "p": 0.99
+   },
+   {
+    "w": "back.",
+    "t0": 3.1,
+    "t1": 3.42,
+    "p": 1.0
+   }
+  ],
+  "sighs": [
+   [
+    0.62,
+    0.87
+   ]
+  ],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   12.22,
+   15.93
+  ]
+ },
+ "L07d.wav": {
+  "line": 7,
+  "script": "Then I line them all up.",
+  "dur": 2.13,
+  "heard": "Then I line them all up.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Then",
+    "t0": 0.05,
+    "t1": 0.35,
+    "p": 0.98
+   },
+   {
+    "w": "I",
+    "t0": 0.35,
+    "t1": 0.63,
+    "p": 0.95
+   },
+   {
+    "w": "line",
+    "t0": 0.63,
+    "t1": 0.79,
+    "p": 0.99
+   },
+   {
+    "w": "them",
+    "t0": 0.79,
+    "t1": 0.95,
+    "p": 1.0
+   },
+   {
+    "w": "all",
+    "t0": 0.95,
+    "t1": 1.29,
+    "p": 0.99
+   },
+   {
+    "w": "up.",
+    "t0": 1.29,
+    "t1": 1.77,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   15.93,
+   18.06
+  ]
+ },
+ "L08d.wav": {
+  "line": 8,
+  "script": "Is it done yet?",
+  "dur": 1.4,
+  "heard": "Is it done yet?",
+  "wer": null,
+  "words": [
+   {
+    "w": "Is",
+    "t0": 0.06,
+    "t1": 0.16,
+    "p": 0.99
+   },
+   {
+    "w": "it",
+    "t0": 0.16,
+    "t1": 0.36,
+    "p": 1.0
+   },
+   {
+    "w": "done",
+    "t0": 0.36,
+    "t1": 0.64,
+    "p": 1.0
+   },
+   {
+    "w": "yet?",
+    "t0": 0.64,
+    "t1": 1.02,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   18.06,
+   19.46
+  ]
+ },
+ "L09d.wav": {
+  "line": 9,
+  "script": "No.",
+  "dur": 1.07,
+  "heard": "No.",
+  "wer": null,
+  "words": [
+   {
+    "w": "No.",
+    "t0": 0.08,
+    "t1": 0.46,
+    "p": 0.99
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   19.46,
+   20.53
+  ]
+ },
+ "L10d.wav": {
+  "line": 10,
+  "script": "Now we peel the dots off.",
+  "dur": 2.76,
+  "heard": "Now we peel the dots off.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Now",
+    "t0": 0.33,
+    "t1": 0.99,
+    "p": 0.94
+   },
+   {
+    "w": "we",
+    "t0": 0.99,
+    "t1": 1.19,
+    "p": 0.93
+   },
+   {
+    "w": "peel",
+    "t0": 1.19,
+    "t1": 1.45,
+    "p": 0.99
+   },
+   {
+    "w": "the",
+    "t0": 1.45,
+    "t1": 1.73,
+    "p": 1.0
+   },
+   {
+    "w": "dots",
+    "t0": 1.73,
+    "t1": 1.93,
+    "p": 1.0
+   },
+   {
+    "w": "off.",
+    "t0": 1.93,
+    "t1": 2.35,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   20.53,
+   23.29
+  ]
+ },
+ "L10Bd.wav": {
+  "line": 14,
+  "script": "There has to be a better way.",
+  "dur": 2.3,
+  "heard": "There has to be a better way!",
+  "wer": null,
+  "words": [
+   {
+    "w": "There",
+    "t0": 0.11,
+    "t1": 0.27,
+    "p": 0.98
+   },
+   {
+    "w": "has",
+    "t0": 0.27,
+    "t1": 0.63,
+    "p": 0.98
+   },
+   {
+    "w": "to",
+    "t0": 0.63,
+    "t1": 0.87,
+    "p": 1.0
+   },
+   {
+    "w": "be",
+    "t0": 0.87,
+    "t1": 1.01,
+    "p": 1.0
+   },
+   {
+    "w": "a",
+    "t0": 1.01,
+    "t1": 1.19,
+    "p": 1.0
+   },
+   {
+    "w": "better",
+    "t0": 1.19,
+    "t1": 1.39,
+    "p": 1.0
+   },
+   {
+    "w": "way!",
+    "t0": 1.39,
+    "t1": 1.83,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   23.29,
+   25.59
+  ]
+ },
+ "L11d.wav": {
+  "line": 11,
+  "script": "Wait. I saw an Illumaesthetic video...",
+  "dur": 3.06,
+  "heard": "Wait! I saw an Illumaesthetic video!",
+  "wer": null,
+  "words": [
+   {
+    "w": "Wait!",
+    "t0": 0.0,
+    "t1": 0.43,
+    "p": 0.59
+   },
+   {
+    "w": "I",
+    "t0": 0.99,
+    "t1": 1.11,
+    "p": 0.98
+   },
+   {
+    "w": "saw",
+    "t0": 1.11,
+    "t1": 1.39,
+    "p": 1.0
+   },
+   {
+    "w": "an",
+    "t0": 1.39,
+    "t1": 1.53,
+    "p": 0.97
+   },
+   {
+    "w": "Illumaesthetic",
+    "t0": 1.53,
+    "t1": 2.21,
+    "p": 0.43
+   },
+   {
+    "w": "video!",
+    "t0": 2.21,
+    "t1": 2.65,
+    "p": 0.98
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   25.59,
+   28.65
+  ]
+ },
+ "L12d.wav": {
+  "line": 12,
+  "script": "They did a whole car way faster!",
+  "dur": 2.93,
+  "heard": "They did a whole car way faster.",
+  "wer": null,
+  "words": [
+   {
+    "w": "They",
+    "t0": 0.11,
+    "t1": 0.27,
+    "p": 0.98
+   },
+   {
+    "w": "did",
+    "t0": 0.27,
+    "t1": 0.43,
+    "p": 0.99
+   },
+   {
+    "w": "a",
+    "t0": 0.43,
+    "t1": 0.61,
+    "p": 0.99
+   },
+   {
+    "w": "whole",
+    "t0": 0.61,
+    "t1": 0.99,
+    "p": 0.99
+   },
+   {
+    "w": "car",
+    "t0": 0.99,
+    "t1": 1.45,
+    "p": 1.0
+   },
+   {
+    "w": "way",
+    "t0": 1.45,
+    "t1": 1.89,
+    "p": 0.85
+   },
+   {
+    "w": "faster.",
+    "t0": 1.89,
+    "t1": 2.59,
+    "p": 0.99
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   28.65,
+   31.58
+  ]
+ },
+ "L13d.wav": {
+  "line": 13,
+  "script": "...Show me.",
+  "dur": 1.413,
+  "heard": "Show me.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Show",
+    "t0": 0.32,
+    "t1": 0.52,
+    "p": 0.96
+   },
+   {
+    "w": "me.",
+    "t0": 0.52,
+    "t1": 0.82,
+    "p": 0.99
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   31.58,
+   32.993
+  ]
+ },
+ "L01y.wav": {
+  "line": 1,
+  "script": "So... how do you scan a whole car?",
+  "dur": 3.09,
+  "heard": "So, how do you scan a whole car?",
+  "wer": null,
+  "words": [
+   {
+    "w": "So,",
+    "t0": 0.0,
+    "t1": 0.38,
+    "p": 0.72
+   },
+   {
+    "w": "how",
+    "t0": 0.88,
+    "t1": 1.2,
+    "p": 0.98
+   },
+   {
+    "w": "do",
+    "t0": 1.2,
+    "t1": 1.34,
+    "p": 1.0
+   },
+   {
+    "w": "you",
+    "t0": 1.34,
+    "t1": 1.54,
+    "p": 1.0
+   },
+   {
+    "w": "scan",
+    "t0": 1.54,
+    "t1": 1.78,
+    "p": 1.0
+   },
+   {
+    "w": "a",
+    "t0": 1.78,
+    "t1": 2.06,
+    "p": 1.0
+   },
+   {
+    "w": "whole",
+    "t0": 2.06,
+    "t1": 2.28,
+    "p": 1.0
+   },
+   {
+    "w": "car?",
+    "t0": 2.28,
+    "t1": 2.74,
+    "p": 1.0
+   }
+  ],
+  "sighs": [
+   [
+    0.44,
+    0.75
+   ]
+  ],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   0.0,
+   3.09
+  ]
+ },
+ "L02y.wav": {
+  "line": 2,
+  "script": "The usual way? Dots. Lots of dots.",
+  "dur": 3.96,
+  "heard": "The usual way? Dots. Lots of dots.",
+  "wer": null,
+  "words": [
+   {
+    "w": "The",
+    "t0": 0.21,
+    "t1": 0.29,
+    "p": 0.89
+   },
+   {
+    "w": "usual",
+    "t0": 0.29,
+    "t1": 0.65,
+    "p": 1.0
+   },
+   {
+    "w": "way?",
+    "t0": 0.65,
+    "t1": 1.05,
+    "p": 1.0
+   },
+   {
+    "w": "Dots.",
+    "t0": 1.63,
+    "t1": 1.95,
+    "p": 0.77
+   },
+   {
+    "w": "Lots",
+    "t0": 2.67,
+    "t1": 2.85,
+    "p": 0.97
+   },
+   {
+    "w": "of",
+    "t0": 2.85,
+    "t1": 3.13,
+    "p": 1.0
+   },
+   {
+    "w": "dots.",
+    "t0": 3.13,
+    "t1": 3.43,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   3.09,
+   7.05
+  ]
+ },
+ "L03y.wav": {
+  "line": 3,
+  "script": "One every few inches.",
+  "dur": 2.2,
+  "heard": "One every few inches.",
+  "wer": null,
+  "words": [
+   {
+    "w": "One",
+    "t0": 0.29,
+    "t1": 0.47,
+    "p": 0.98
+   },
+   {
+    "w": "every",
+    "t0": 0.47,
+    "t1": 0.87,
+    "p": 0.99
+   },
+   {
+    "w": "few",
+    "t0": 0.87,
+    "t1": 1.21,
+    "p": 1.0
+   },
+   {
+    "w": "inches.",
+    "t0": 1.21,
+    "t1": 1.63,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   7.05,
+   9.25
+  ]
+ },
+ "L04y.wav": {
+  "line": 4,
+  "script": "Then you scan it?",
+  "dur": 1.48,
+  "heard": "Then you scan it?",
+  "wer": null,
+  "words": [
+   {
+    "w": "Then",
+    "t0": 0.13,
+    "t1": 0.29,
+    "p": 0.98
+   },
+   {
+    "w": "you",
+    "t0": 0.29,
+    "t1": 0.49,
+    "p": 0.97
+   },
+   {
+    "w": "scan",
+    "t0": 0.49,
+    "t1": 0.81,
+    "p": 1.0
+   },
+   {
+    "w": "it?",
+    "t0": 0.81,
+    "t1": 1.25,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   9.25,
+   10.73
+  ]
+ },
+ "L05y.wav": {
+  "line": 5,
+  "script": "In pieces.",
+  "dur": 1.49,
+  "heard": "In pieces.",
+  "wer": null,
+  "words": [
+   {
+    "w": "In",
+    "t0": 0.17,
+    "t1": 0.35,
+    "p": 0.99
+   },
+   {
+    "w": "pieces.",
+    "t0": 0.35,
+    "t1": 0.87,
+    "p": 1.0
+   }
+  ],
+  "sighs": [
+   [
+    0.93,
+    1.2
+   ]
+  ],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   10.73,
+   12.22
+  ]
+ },
+ "L06y.wav": {
+  "line": 6,
+  "script": "Front. Side. Roof. Back.",
+  "dur": 3.71,
+  "heard": "Front, side, roof, back.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Front,",
+    "t0": 0.34,
+    "t1": 0.56,
+    "p": 0.97
+   },
+   {
+    "w": "side,",
+    "t0": 1.28,
+    "t1": 1.64,
+    "p": 0.96
+   },
+   {
+    "w": "roof,",
+    "t0": 2.3,
+    "t1": 2.52,
+    "p": 0.99
+   },
+   {
+    "w": "back.",
+    "t0": 3.1,
+    "t1": 3.42,
+    "p": 1.0
+   }
+  ],
+  "sighs": [
+   [
+    0.62,
+    0.87
+   ]
+  ],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   12.22,
+   15.93
+  ]
+ },
+ "L07y.wav": {
+  "line": 7,
+  "script": "Then I line them all up.",
+  "dur": 2.13,
+  "heard": "Then I line them all up.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Then",
+    "t0": 0.05,
+    "t1": 0.35,
+    "p": 0.98
+   },
+   {
+    "w": "I",
+    "t0": 0.35,
+    "t1": 0.63,
+    "p": 0.95
+   },
+   {
+    "w": "line",
+    "t0": 0.63,
+    "t1": 0.79,
+    "p": 0.99
+   },
+   {
+    "w": "them",
+    "t0": 0.79,
+    "t1": 0.95,
+    "p": 1.0
+   },
+   {
+    "w": "all",
+    "t0": 0.95,
+    "t1": 1.29,
+    "p": 0.99
+   },
+   {
+    "w": "up.",
+    "t0": 1.29,
+    "t1": 1.77,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   15.93,
+   18.06
+  ]
+ },
+ "L08y.wav": {
+  "line": 8,
+  "script": "Is it done yet?",
+  "dur": 1.4,
+  "heard": "Is it done yet?",
+  "wer": null,
+  "words": [
+   {
+    "w": "Is",
+    "t0": 0.06,
+    "t1": 0.16,
+    "p": 0.99
+   },
+   {
+    "w": "it",
+    "t0": 0.16,
+    "t1": 0.36,
+    "p": 1.0
+   },
+   {
+    "w": "done",
+    "t0": 0.36,
+    "t1": 0.64,
+    "p": 1.0
+   },
+   {
+    "w": "yet?",
+    "t0": 0.64,
+    "t1": 1.02,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   18.06,
+   19.46
+  ]
+ },
+ "L09y.wav": {
+  "line": 9,
+  "script": "No.",
+  "dur": 1.07,
+  "heard": "No.",
+  "wer": null,
+  "words": [
+   {
+    "w": "No.",
+    "t0": 0.08,
+    "t1": 0.46,
+    "p": 0.99
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   19.46,
+   20.53
+  ]
+ },
+ "L10y.wav": {
+  "line": 10,
+  "script": "Now we peel the dots off.",
+  "dur": 2.76,
+  "heard": "Now we peel the dots off.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Now",
+    "t0": 0.33,
+    "t1": 0.99,
+    "p": 0.94
+   },
+   {
+    "w": "we",
+    "t0": 0.99,
+    "t1": 1.19,
+    "p": 0.93
+   },
+   {
+    "w": "peel",
+    "t0": 1.19,
+    "t1": 1.45,
+    "p": 0.99
+   },
+   {
+    "w": "the",
+    "t0": 1.45,
+    "t1": 1.73,
+    "p": 1.0
+   },
+   {
+    "w": "dots",
+    "t0": 1.73,
+    "t1": 1.93,
+    "p": 1.0
+   },
+   {
+    "w": "off.",
+    "t0": 1.93,
+    "t1": 2.35,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   20.53,
+   23.29
+  ]
+ },
+ "L10By.wav": {
+  "line": 14,
+  "script": "There has to be a better way.",
+  "dur": 2.3,
+  "heard": "There has to be a better way!",
+  "wer": null,
+  "words": [
+   {
+    "w": "There",
+    "t0": 0.11,
+    "t1": 0.27,
+    "p": 0.98
+   },
+   {
+    "w": "has",
+    "t0": 0.27,
+    "t1": 0.63,
+    "p": 0.98
+   },
+   {
+    "w": "to",
+    "t0": 0.63,
+    "t1": 0.87,
+    "p": 1.0
+   },
+   {
+    "w": "be",
+    "t0": 0.87,
+    "t1": 1.01,
+    "p": 1.0
+   },
+   {
+    "w": "a",
+    "t0": 1.01,
+    "t1": 1.19,
+    "p": 1.0
+   },
+   {
+    "w": "better",
+    "t0": 1.19,
+    "t1": 1.39,
+    "p": 1.0
+   },
+   {
+    "w": "way!",
+    "t0": 1.39,
+    "t1": 1.83,
+    "p": 1.0
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   23.29,
+   25.59
+  ]
+ },
+ "L11y.wav": {
+  "line": 11,
+  "script": "Wait. I saw an Illumaesthetic video...",
+  "dur": 3.06,
+  "heard": "Wait! I saw an Illumaesthetic video!",
+  "wer": null,
+  "words": [
+   {
+    "w": "Wait!",
+    "t0": 0.0,
+    "t1": 0.43,
+    "p": 0.59
+   },
+   {
+    "w": "I",
+    "t0": 0.99,
+    "t1": 1.11,
+    "p": 0.98
+   },
+   {
+    "w": "saw",
+    "t0": 1.11,
+    "t1": 1.39,
+    "p": 1.0
+   },
+   {
+    "w": "an",
+    "t0": 1.39,
+    "t1": 1.53,
+    "p": 0.97
+   },
+   {
+    "w": "Illumaesthetic",
+    "t0": 1.53,
+    "t1": 2.21,
+    "p": 0.43
+   },
+   {
+    "w": "video!",
+    "t0": 2.21,
+    "t1": 2.65,
+    "p": 0.98
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   25.59,
+   28.65
+  ]
+ },
+ "L12y.wav": {
+  "line": 12,
+  "script": "They did a whole car way faster!",
+  "dur": 2.93,
+  "heard": "They did a whole car way faster.",
+  "wer": null,
+  "words": [
+   {
+    "w": "They",
+    "t0": 0.11,
+    "t1": 0.27,
+    "p": 0.98
+   },
+   {
+    "w": "did",
+    "t0": 0.27,
+    "t1": 0.43,
+    "p": 0.99
+   },
+   {
+    "w": "a",
+    "t0": 0.43,
+    "t1": 0.61,
+    "p": 0.99
+   },
+   {
+    "w": "whole",
+    "t0": 0.61,
+    "t1": 0.99,
+    "p": 0.99
+   },
+   {
+    "w": "car",
+    "t0": 0.99,
+    "t1": 1.45,
+    "p": 1.0
+   },
+   {
+    "w": "way",
+    "t0": 1.45,
+    "t1": 1.89,
+    "p": 0.85
+   },
+   {
+    "w": "faster.",
+    "t0": 1.89,
+    "t1": 2.59,
+    "p": 0.99
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   28.65,
+   31.58
+  ]
+ },
+ "L13y.wav": {
+  "line": 13,
+  "script": "...Show me.",
+  "dur": 1.413,
+  "heard": "Show me.",
+  "wer": null,
+  "words": [
+   {
+    "w": "Show",
+    "t0": 0.32,
+    "t1": 0.52,
+    "p": 0.96
+   },
+   {
+    "w": "me.",
+    "t0": 0.52,
+    "t1": 0.82,
+    "p": 0.99
+   }
+  ],
+  "sighs": [],
+  "src": "/home/user/media/work/scan-tedium/voice/el_b/partA_full_B_dry.mp3",
+  "src_span": [
+   31.58,
+   32.993
+  ]
  }
 }

@@ -487,7 +487,7 @@ def build_car():
 
 # ----------------------------------------------------------------------------------------------------------------- dots
 R_OUT, R_IN = 0.022, 0.012
-DOT_SPACING = 0.07   # min centre distance -> typical nearest neighbour ~8 cm, matching the on-screen "~8 CM"
+DOT_SPACING = 0.07 * math.sqrt(2)   # v5 (owner): half the dot density -> min distance x sqrt(2) (v1-v4: 0.07, typical ~8 cm)
 
 
 def poisson(w, h, r, rng, mask=lambda u, v: True):
@@ -964,7 +964,7 @@ def build_roll(parent=None):
     return g
 
 
-def strip_path(name, pts, width, dots_every=0.07, rng=None):
+def strip_path(name, pts, width, dots_every=0.14, rng=None):   # v5: half density on the dot roll too
     """A ribbon (the unrolled dot strip) through 3D points, with marker dots printed on it."""
     rng = rng or random.Random(3)
     bm = bmesh.new()
@@ -1330,6 +1330,8 @@ for _k in (-1, 0, 1):
     cyl(f"ps_led{_k}", 0.008, 0.004, (_k * 0.021, -0.041, 0.07), emit("sage_l", 1.8), PIPSCAN, axis="Y", seg=12)
 ALL_DOTS = gen_car_dots()
 print(f"[partA] {len(ALL_DOTS)} marker dots on the car", flush=True)
+if "--dotstat" in argv:
+    exec(open(arg("--dotstat", "")).read())
 
 _temp = []
 

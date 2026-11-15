@@ -35,6 +35,8 @@ Still two black dots and nothing else; expressions come from eye shapes plus sma
 - Eye shapes: round dot; flat-topped half dot (lid level); squeezed line; upward ^ arc; dot pop 1.15 (curious) / 1.3 with overshoot
   (surprised). Brows: #2a2a2a rounded dashes (~1.5x the dot), tilt (inner down = annoyed, inner up = worried), raise, fade out when
   neutral; Pip's sit low and barely raise (cap edge just above).
+- v5 Gus (dry take): mostly neutral eyes, subtle annoyed brow tilt while explaining, half-lid on "Then I line them all up", flat
+  "No.", one small droop before "Now we peel", skeptical "Show me"; no body deflates, normal low-key talk. v4 Gus (below):
 - Gus: weary half-lids + annoyed brows through his lines; sighs (detected in the take) droop -> close -> reopen half-lidded with a
   whole-body deflate; squeezed eyes on the groan before "Then I line them all up" and through "In pieces"; flat annoyed "No.";
   skeptical one brow on "Show me"; eye-roll during "Is it done yet?" (off screen in S8); slower, heavier talk motion.
@@ -63,23 +65,23 @@ from audio amplitude, so the animation can be built before the voices exist.
 
 Shots are cut to the measured lines (`partA_timeline.json`, built by `tools/partA_timeline.py`): each shot = a short lead
 (0.05-0.17 s) + its line(s) + a short tail, plus a little extra where the shot's beat needs it (S3 slaps, S6 lift, S7 snap, S9
-peel, S12 push). Part A = **1135 frames = 37.83 s** (v4: annoyed take, natural pace; v3 958 frames: ElevenLabs voices at natural pace, no speed-ups; v2 730 frames: + PIP's "better way" line in S10; v1 669 frames; was 17.3 s with the planned lines; the real takes are longer
+peel, S12 push). Part A = **989 frames = 32.97 s** (v5: dry take, half dot density; v4 1135 frames: annoyed take, natural pace; v3 958 frames: ElevenLabs voices at natural pace, no speed-ups; v2 730 frames: + PIP's "better way" line in S10; v1 669 frames; was 17.3 s with the planned lines; the real takes are longer
 even after tightening and speeding up by at most 1.12). No wall-clock inset in S4 (the clock gag is S8's single idea).
 
 | shot | frames | length | reel time |
 |---|---|---|---|
-| S1 | 0-105 | 105 f (3.50 s) | 0.00-3.50 s |
-| S2 | 105-246 | 141 f (4.70 s) | 3.50-8.20 s |
-| S3 | 246-320 | 74 f (2.47 s) | 8.20-10.67 s |
-| S4 | 320-365 | 45 f (1.50 s) | 10.67-12.17 s |
-| S5 | 365-420 | 55 f (1.83 s) | 12.17-14.00 s |
-| S6 | 420-573 | 153 f (5.10 s) | 14.00-19.10 s |
-| S7 | 573-661 | 88 f (2.93 s) | 19.10-22.03 s |
-| S8 | 661-737 | 76 f (2.53 s) | 22.03-24.57 s |
-| S9 | 737-829 | 92 f (3.07 s) | 24.57-27.63 s |
-| S10 | 829-1007 | 178 f (5.93 s) | 27.63-33.57 s |
-| S11 | 1007-1090 | 83 f (2.77 s) | 33.57-36.33 s |
-| S12 | 1090-1135 | 45 f (1.50 s) | 36.33-37.83 s |
+| S1 | 0-97 | 97 f (3.23 s) | 0.00-3.23 s |
+| S2 | 97-210 | 113 f (3.77 s) | 3.23-7.00 s |
+| S3 | 210-275 | 65 f (2.17 s) | 7.00-9.17 s |
+| S4 | 275-317 | 42 f (1.40 s) | 9.17-10.57 s |
+| S5 | 317-360 | 43 f (1.43 s) | 10.57-12.00 s |
+| S6 | 360-474 | 114 f (3.80 s) | 12.00-15.80 s |
+| S7 | 474-539 | 65 f (2.17 s) | 15.80-17.97 s |
+| S8 | 539-609 | 70 f (2.33 s) | 17.97-20.30 s |
+| S9 | 609-690 | 81 f (2.70 s) | 20.30-23.00 s |
+| S10 | 690-855 | 165 f (5.50 s) | 23.00-28.50 s |
+| S11 | 855-942 | 87 f (2.90 s) | 28.50-31.40 s |
+| S12 | 942-989 | 47 f (1.57 s) | 31.40-32.97 s |
 
 Animation (`tools/partA_anim.py`, every frame posed procedurally from the timeline, rendered as stills, resumable):
 - Mouths from the measured word times: syllables (vowel groups) spread over each word, open fast / close slow, one frame ahead of
