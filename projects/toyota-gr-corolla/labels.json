@@ -1,43 +1,11 @@
-{
- "note": "v5 labels = v4 + 140 frames (two side shots added before the drop); no label on the door state (its file name 'Parts roof 2' names no part). v4 labels; frames are reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Each window starts after any moving part has left its band (checked on frames).",
- "frames": 845,
- "fps": 30,
+{"note": "v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
+ "frames": 790, "fps": 30,
  "items": [
-  {
-   "text": "FRONT BUMPER REMOVED",
-   "in": 308,
-   "out": 348,
-   "y": 1380
-  },
-  {
-   "text": "BUMPER BEAMS",
-   "in": 395,
-   "out": 418,
-   "y": 220
-  },
-  {
-   "text": "RADIATOR DUCTS",
-   "in": 462,
-   "out": 488,
-   "y": 1380
-  },
-  {
-   "text": "INTERCOOLER",
-   "in": 502,
-   "out": 558,
-   "y": 1380
-  },
-  {
-   "text": "REAR BUMPER REMOVED",
-   "in": 598,
-   "out": 626,
-   "y": 1380
-  },
-  {
-   "text": "CRASH BEAM REMOVED",
-   "in": 634,
-   "out": 698,
-   "y": 220
-  }
- ]
-}
+  {"text": "FRONT BUMPER REMOVED", "in": 98, "out": 138, "y": 1380},
+  {"text": "BUMPER BEAMS", "in": 185, "out": 208, "y": 220},
+  {"text": "RADIATOR DUCTS", "in": 252, "out": 278, "y": 1380},
+  {"text": "INTERCOOLER", "in": 292, "out": 348, "y": 1380},
+  {"text": "TRUNK OPEN", "in": 385, "out": 418, "y": 1380},
+  {"text": "REAR BUMPER REMOVED", "in": 528, "out": 556, "y": 1380},
+  {"text": "CRASH BEAM REMOVED", "in": 564, "out": 628, "y": 220}
+ ]}
