@@ -22,3 +22,4 @@
 {"ts": "2026-11-15T20:18:32Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "visual", "note": "Use half the marker-dot density in the animation", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T23:01:28Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "text", "note": "Drop the 'A DOT EVERY ~8 CM' label", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T23:01:28Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "structure", "note": "Real footage/scan section must be no longer than 4-5 s, then end on the 'full video' tease card", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-15T23:06:36Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "structure", "note": "Part B 4-5 s is a target; use longer than 5 s if it genuinely needs it", "by": "reviewer", "promoted": false}

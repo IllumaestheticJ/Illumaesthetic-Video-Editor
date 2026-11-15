@@ -711,4 +711,4 @@ lands here automatically. Agents must read this whole file before editing.
 - [technical] Cut-offset measurement: the dip window must straddle the cut (g-30..g+5 ms). A window ending 40 ms
   before the cut finds a pre-kick wiggle and reports every cut ~45 ms late.
 
-- **[structure]** Real footage/scan section must be no longer than 4-5 s, then end on the 'full video' tease card  _(from scan-tedium-explainer-reel, 2026-11-15, reviewer)_
+- **[structure]** Real footage/scan section of explainer reels: aim for 4-5 s (longer only if it genuinely needs it), then end on the 'full video' tease card  _(from scan-tedium-explainer-reel, 2026-11-15, reviewer)_
