@@ -51,7 +51,7 @@ from audio amplitude, so the animation can be built before the voices exist.
 
 Shots are cut to the measured lines (`partA_timeline.json`, built by `tools/partA_timeline.py`): each shot = a short lead
 (0.05-0.17 s) + its line(s) + a short tail, plus a little extra where the shot's beat needs it (S3 slaps, S6 lift, S7 snap, S9
-peel, S12 push). Part A = **669 frames = 22.30 s** (was 17.3 s with the planned lines; the real takes are longer
+peel, S12 push). Part A = **730 frames = 24.33 s** (v2: + PIP's "better way" line in S10; v1 669 frames; was 17.3 s with the planned lines; the real takes are longer
 even after tightening and speeding up by at most 1.12). No wall-clock inset in S4 (the clock gag is S8's single idea).
 
 | shot | frames | length | reel time |
@@ -65,9 +65,9 @@ even after tightening and speeding up by at most 1.12). No wall-clock inset in S
 | S7 | 349-388 | 39 f (1.30 s) | 11.63-12.93 s |
 | S8 | 388-447 | 59 f (1.97 s) | 12.93-14.90 s |
 | S9 | 447-499 | 52 f (1.73 s) | 14.90-16.63 s |
-| S10 | 499-569 | 70 f (2.33 s) | 16.63-18.97 s |
-| S11 | 569-636 | 67 f (2.23 s) | 18.97-21.20 s |
-| S12 | 636-669 | 33 f (1.10 s) | 21.20-22.30 s |
+| S10 | 499-630 | 131 f (4.37 s) | 16.63-21.00 s |
+| S11 | 630-697 | 67 f (2.23 s) | 21.00-23.23 s |
+| S12 | 697-730 | 33 f (1.10 s) | 23.23-24.33 s |
 
 Animation (`tools/partA_anim.py`, every frame posed procedurally from the timeline, rendered as stills, resumable):
 - Mouths from the measured word times: syllables (vowel groups) spread over each word, open fast / close slow, one frame ahead of

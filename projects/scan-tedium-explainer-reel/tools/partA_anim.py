@@ -93,7 +93,8 @@ def mouth_at(spk, t):
 
 
 def accent(spk, t):
-    return max([math.exp(-((t - ta - 0.04) / 0.12) ** 2) for ta in STRESS[spk]] + [0.0])
+    """Stressed-word accent, 0..1.8 (v2: x1.8 so the head accents read in motion without a mouth)."""
+    return 1.8 * max([math.exp(-((t - ta - 0.04) / 0.12) ** 2) for ta in STRESS[spk]] + [0.0])
 
 
 def speaking(spk, t, pad=0.1):
@@ -134,7 +135,7 @@ def set_face(ch, mouth=0.0, lid=0.0, look=(0, 0), brow=(0, 0)):
 
 def talk(spk, t, base_lid=0.0):
     """talk energy (drives the body squash and hand lift - no mouths) and lid (blink, plus a squint on the stressed word)."""
-    return mouth_at(spk, t), max(base_lid, blink(spk, t), 0.5 * accent(spk, t))
+    return mouth_at(spk, t), max(base_lid, blink(spk, t), 0.28 * accent(spk, t))
 
 
 def words_of(n):
@@ -522,9 +523,10 @@ def anim_S10(fr):
     perk = eback((t - tw + 0.04) / 0.16)
     hop = 0.05 * math.sin(math.pi * cl((t - tw) / 0.25))
     reach = ease((t - tw - 0.3) / 0.4)                         # pulls the phone out after "Wait."
-    m, lid = talk("PIP", t, lerp(0.5, 0.0, cl(perk)))
+    m, lid = talk("PIP", t, lerp(0.55, 0.0, cl(perk)))
     acc = accent("PIP", t)
-    pose(PIP, loc=(1.2, -2.6, hop), rz=-4, hips=(lerp(6, -4, perk), 0, 0), head=(lerp(6, -6, perk) + 5 * acc, 0, lerp(0, 6, perk)),
+    # deflated on "There has to be a better way." (slumped, head down, half lids), a beat, then perks up on "Wait."
+    pose(PIP, loc=(1.2, -2.6, hop), rz=-4, hips=(lerp(12, -4, perk), 0, 0), head=(lerp(14, -6, perk) + 5 * acc, 0, lerp(-4, 6, perk)),
          armL=lerpv((4, 0, 6), (-62, 0, -8), reach), elbowL=lerp(-10, -80, reach), armR=(4, 0, -6), mouth=m, lid=lid,
          look=lerpv((0, 0), (0.5, 0.7), cl(perk)), brow=lerpv((-0.01, 0), (0.045, -14), cl(perk)))
     pose(GUS, loc=(-0.6, -1.4, 0), rz=30)

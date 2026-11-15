@@ -9,7 +9,7 @@ fills the frame); earlier ones from the 1080p proxy graded with the same LUT (ch
 levels against the intermediate). Footage is corner-pinned with screen_corners.json and keyed by the magenta (with despill);
 on the last frame (screen full-frame) the footage frame is used as is.
 
-Writes OUT/partA_v1.mp4 (1080x1920, 30 fps, H.264 CRF 16, dialogue AAC) and OUT/partA_cuts.json.
+Writes OUT/<--name> (default partA_v2.mp4) (1080x1920, 30 fps, H.264 CRF 16, dialogue AAC) and OUT/partA_cuts.json.
 """
 import argparse, json, subprocess
 from pathlib import Path
@@ -24,6 +24,7 @@ ap.add_argument("--shots", default=str(W_ / "shots"))
 ap.add_argument("--frames", default=str(W_ / "frames"))
 ap.add_argument("--phone", default=str(W_ / "phone_src"))
 ap.add_argument("--out", default=str(W_ / "out"))
+ap.add_argument("--name", default="partA_v2.mp4")
 a = ap.parse_args()
 W, H, FPS = 1080, 1920, 30
 SRC_FPS = 24000 / 1001
@@ -62,7 +63,7 @@ def composite(frame, fr, corners):
 enc = subprocess.Popen(["nice", "-n", "5", "ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS),
                         "-i", "-", "-i", str(out / "partA_dialogue.wav"), "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-crf", "16",
                         "-preset", "slow", "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709",
-                        "-c:a", "aac", "-b:a", "256k", "-frames:v", str(F), "-movflags", "+faststart", str(out / "partA_v1.mp4")],
+                        "-c:a", "aac", "-b:a", "256k", "-frames:v", str(F), "-movflags", "+faststart", str(out / a.name)],
                        stdin=subprocess.PIPE)
 phone_map = {}
 n = 0
@@ -97,4 +98,4 @@ cuts = dict(
     phone_source="FX30541 frames (23.976 fps): >= 7708 from is350-reels/src/R1_SCAN.mov, earlier from the 1080p proxy, same LUT",
     dialogue=dict(file="partA_dialogue.wav", lufs=tl["dialogue"]["integrated_lufs"]))
 (out / "partA_cuts.json").write_text(json.dumps(cuts, indent=1))
-print(f"[final] {n} frames -> {out / 'partA_v1.mp4'}")
+print(f"[final] {n} frames -> {out / a.name}")

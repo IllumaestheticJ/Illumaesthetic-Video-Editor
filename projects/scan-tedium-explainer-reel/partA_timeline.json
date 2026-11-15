@@ -1,9 +1,9 @@
 {
  "doc": "Part A timeline (stage 3, real voices). Frames are reel frames at 30 fps; shot f1 is exclusive. Line and word times are reel seconds of the processed clips (trimmed, pauses tightened, tempo applied).",
  "fps": 30,
- "total_frames": 669,
- "duration_s": 22.3,
- "screen_full_frame": 668,
+ "total_frames": 730,
+ "duration_s": 24.333,
+ "screen_full_frame": 729,
  "shots": [
   {
    "id": "S1",
@@ -53,17 +53,17 @@
   {
    "id": "S10",
    "f0": 499,
-   "f1": 569
+   "f1": 630
   },
   {
    "id": "S11",
-   "f0": 569,
-   "f1": 636
+   "f0": 630,
+   "f1": 697
   },
   {
    "id": "S12",
-   "f0": 636,
-   "f1": 669
+   "f0": 697,
+   "f1": 730
   }
  ],
  "lines": [
@@ -508,6 +508,62 @@
    "file": "L10.wav"
   },
   {
+   "n": 14,
+   "take": "L10Ba",
+   "speaker": "PIP",
+   "shot": "S10",
+   "tempo": 1.12,
+   "src_span": [
+    0.02,
+    1.89
+   ],
+   "pauses_cut": 0.0,
+   "dur": 1.67,
+   "words": [
+    {
+     "w": "There",
+     "t0": 16.719,
+     "t1": 17.129
+    },
+    {
+     "w": "has",
+     "t0": 17.129,
+     "t1": 17.362
+    },
+    {
+     "w": "to",
+     "t0": 17.362,
+     "t1": 17.54
+    },
+    {
+     "w": "be",
+     "t0": 17.54,
+     "t1": 17.665
+    },
+    {
+     "w": "a",
+     "t0": 17.665,
+     "t1": 17.79
+    },
+    {
+     "w": "better",
+     "t0": 17.79,
+     "t1": 17.951
+    },
+    {
+     "w": "way.",
+     "t0": 17.951,
+     "t1": 18.201
+    }
+   ],
+   "text": "There has to be a better way.",
+   "heard": "There has to be a better way.",
+   "wer": 0.0,
+   "t0": 16.683,
+   "t1": 18.353,
+   "file": "L14.wav"
+  },
+  {
    "n": 11,
    "take": "L11a",
    "speaker": "PIP",
@@ -522,40 +578,40 @@
    "words": [
     {
      "w": "Wait,",
-     "t0": 16.719,
-     "t1": 17.013
+     "t0": 18.739,
+     "t1": 19.033
     },
     {
      "w": "I",
-     "t0": 17.245,
-     "t1": 17.424
+     "t0": 19.265,
+     "t1": 19.444
     },
     {
      "w": "saw",
-     "t0": 17.424,
-     "t1": 17.692
+     "t0": 19.444,
+     "t1": 19.712
     },
     {
      "w": "an",
-     "t0": 17.692,
-     "t1": 17.888
+     "t0": 19.712,
+     "t1": 19.908
     },
     {
      "w": "IlluminAesthetic",
-     "t0": 17.888,
-     "t1": 18.549
+     "t0": 19.908,
+     "t1": 20.569
     },
     {
      "w": "video.",
-     "t0": 18.549,
-     "t1": 18.817
+     "t0": 20.569,
+     "t1": 20.837
     }
    ],
    "text": "Wait. I saw an Illumaesthetic video...",
    "heard": "Wait, I saw an IlluminAesthetic video.",
    "wer": 0.167,
-   "t0": 16.683,
-   "t1": 18.897,
+   "t0": 18.703,
+   "t1": 20.917,
    "file": "L11.wav"
   },
   {
@@ -573,45 +629,45 @@
    "words": [
     {
      "w": "They",
-     "t0": 19.017,
-     "t1": 19.321
+     "t0": 21.05,
+     "t1": 21.354
     },
     {
      "w": "did",
-     "t0": 19.321,
-     "t1": 19.446
+     "t0": 21.354,
+     "t1": 21.479
     },
     {
      "w": "a",
-     "t0": 19.446,
-     "t1": 19.571
+     "t0": 21.479,
+     "t1": 21.604
     },
     {
      "w": "whole",
-     "t0": 19.571,
-     "t1": 19.803
+     "t0": 21.604,
+     "t1": 21.836
     },
     {
      "w": "car",
-     "t0": 19.803,
-     "t1": 20.106
+     "t0": 21.836,
+     "t1": 22.139
     },
     {
      "w": "way",
-     "t0": 20.106,
-     "t1": 20.446
+     "t0": 22.139,
+     "t1": 22.479
     },
     {
      "w": "faster.",
-     "t0": 20.446,
-     "t1": 20.963
+     "t0": 22.479,
+     "t1": 22.996
     }
    ],
    "text": "They did a whole car way faster!",
    "heard": "They did a whole car way faster.",
    "wer": 0.0,
-   "t0": 19.017,
-   "t1": 21.142,
+   "t0": 21.05,
+   "t1": 23.175,
    "file": "L12.wav"
   },
   {
@@ -629,26 +685,26 @@
    "words": [
     {
      "w": "Show",
-     "t0": 21.29,
-     "t1": 21.62
+     "t0": 23.323,
+     "t1": 23.653
     },
     {
      "w": "me.",
-     "t0": 21.62,
-     "t1": 21.88
+     "t0": 23.653,
+     "t1": 23.913
     }
    ],
    "text": "...Show me.",
    "heard": "Show me.",
    "wer": 0.0,
-   "t0": 21.25,
-   "t1": 21.964,
+   "t0": 23.283,
+   "t1": 23.997,
    "file": "L13.wav"
   }
  ],
  "dialogue": {
   "file": "partA_dialogue.wav",
-  "integrated_lufs": -16.2,
+  "integrated_lufs": -14.2,
   "gain_db": 0.0
  }
 }

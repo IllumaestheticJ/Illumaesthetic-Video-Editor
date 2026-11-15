@@ -60,16 +60,17 @@ Notes: no time is given (same rule as reel 3). "Way faster" is the owner's own c
 "Illumaesthetic" must be checked in the chosen TTS voice; if mispronounced, use a phonetic spelling in the prompt
 (e.g. "Illuma-esthetic"). Optional tag if wanted later: a 1.5 s cut back to GUS staring at the phone, "...I'm keeping the dots."
 
-### Version A, stage 3 timing (real voices, 2026-11-14) - authoritative; supersedes the time columns above
+### Version A, stage 3 timing (real voices; v2 2026-11-15) - authoritative; supersedes the time columns above
 
 Built by `tools/partA_timeline.py` from the cast takes (PIP = child voice "Kiki" +4, GUS = father "Bob"), measured with
-`tools/voice_measure.py` (faster-whisper medium.en word times, audio decoded via ffmpeg; energy runs for speech start/end because
-faster-whisper pins every first word to 0.0 s). Each take is trimmed to its speech, pauses inside a line cut to at most 0.18 s
-(0.26-0.28 s for "So...", "Front. Side. Roof. Back." and "Wait."), and sped up with rubberband (pitch and formants kept) by at most
-1.12. Part A = **669 frames = 22.30 s**; the phone screen is full-frame on frame 668, Part B
-starts on frame 669. Line 3 is now just "One every few inches." (owner); "RANDOM, NEVER IN ROWS" is dropped. No "I'm keeping the
-dots" tag. Line 11 uses L11a until the owner confirms the brand name (both takes are heard as "Illumin-aesthetic" / "Aluma
-Aesthetic"); swapping is one edit in `TAKES` plus a re-run.
+`tools/voice_measure.py` (faster-whisper word times; energy runs for speech start/end). Each take is trimmed to its speech, pauses
+inside a line cut to at most 0.18 s (0.26-0.28 s for "So...", "Front. Side. Roof. Back." and "Wait."), sped up with rubberband
+(pitch and formants kept) by at most 1.12, then polished (v2, owner: voices too muted and dull): high-pass 90 Hz, +3 dB presence at
+3.5 kHz, +2 dB air shelf at 9 kHz, 3:1 compression; the stem is normalised to -14 LUFS integrated, true peak <= -1 dBTP
+(measured: -14.2 LUFS, -4.0 dBTP, LRA 3.2 LU). Part A = **730 frames = 24.33 s**; phone screen full-frame on frame
+729, Part B (P2) starts on frame 730. v2 re-adds PIP's "There has to be a better way." (line 10b, take L10Ba; L10Bb starts
+"Ugh..." and is 1.4 s longer) after GUS's peel line, in S10: deflated, a 0.35 s beat, then he perks up on "Wait." Line 3 is just
+"One every few inches."; no "RANDOM, NEVER IN ROWS"; no "I'm keeping the dots" tag; L11a until the owner confirms the brand name.
 
 | # | reel time (s) | shot (frames) | speaker | line | take | tempo | pauses cut (s) |
 |---|---|---|---|---|---|---|---|
@@ -83,9 +84,10 @@ Aesthetic"); swapping is one edit in `TAKES` plus a re-run.
 | 8 | 13.00-14.09 | S8 (388-447) | PIP | "Is it done yet?" | L08b | x1.12 | 0.00 |
 | 9 | 14.29-14.79 | S8 (388-447) | GUS | "No." | L09a | x1.0 | 0.00 |
 | 10 | 14.95-16.46 | S9 (447-499) | GUS | "Now we peel the dots off." | L10a | x1.12 | 0.00 |
-| 11 | 16.68-18.90 | S10 (499-569) | PIP | "Wait. I saw an Illumaesthetic video..." | L11a | x1.12 | 0.40 |
-| 12 | 19.02-21.14 | S11 (569-636) | PIP | "They did a whole car way faster!" | L12a | x1.12 | 0.00 |
-| 13 | 21.25-21.96 | S12 (636-669) | GUS | "...Show me." | L13b | x1.0 | 0.00 |
+| 10b | 16.68-18.35 | S10 (499-630) | PIP | "There has to be a better way." | L10Ba | x1.12 | 0.00 |
+| 11 | 18.70-20.92 | S10 (499-630) | PIP | "Wait. I saw an Illumaesthetic video..." | L11a | x1.12 | 0.40 |
+| 12 | 21.05-23.18 | S11 (630-697) | PIP | "They did a whole car way faster!" | L12a | x1.12 | 0.00 |
+| 13 | 23.28-24.00 | S12 (697-730) | GUS | "...Show me." | L13b | x1.0 | 0.00 |
 
 ## Version B - "Silly"
 

@@ -681,7 +681,8 @@ def build_char(name, S):
         blob(f"{name}_thumb{side}", (hr[0] * 0.42, hr[0] * 0.42, hr[0] * 0.5), (-sx * hr[0] * 0.55, -hr[1] * 0.55, hr[2] * 0.35),
              mat("vinyl", hl=True), hd_, ol=ol * 0.6)
         ch.arms[side], ch.elbows[side], ch.hands[side] = sh, el, hd_
-    capsule(f"{name}_body", S["body_r"], 0.0, S["body_h"], V, ch.torso, ol=ol)
+    # pill ends just under the head (the egg is narrow at the bottom): no grey body band can show between collar and head
+    capsule(f"{name}_body", S["body_r"], 0.0, min(S["body_h"], S["neck_z"] + 0.03), V, ch.torso, ol=ol)
     S["dress"](name, ch, S)
     ch.neck = empty(f"{name}_head", ch.hips, (0, 0, S["neck_z"]))
     hw, hd, hh = S["head"]
@@ -706,12 +707,13 @@ def dress_gus(name, ch, S):
     """Sleeveless charcoal work vest: a straight tube hugging the pill, collar, two snap pockets, zip. No shoulders."""
     r = S["body_r"]
     vm = mat("vest", hl=False)
-    tube(f"{name}_vest", r + 0.018, S["body_h"] * 0.38, S["body_h"] * 0.86, vm, ch.torso, ol=S["ol"], bevel=0.03)
-    torus(f"{name}_collar", r * 0.72, 0.045, (0, 0, S["body_h"] * 0.86 + 0.012), vm, ch.torso, ol=S["ol"] * 0.7,
-          scale=(1, 1, 0.8))
+    # v2 (owner): the vest reaches the neck - straight tube up to just under the head, a thick collar ring meeting the head
+    top = S["neck_z"] - 0.06
+    tube(f"{name}_vest", r + 0.018, S["body_h"] * 0.38, top, vm, ch.torso, ol=S["ol"], bevel=0.03)
+    torus(f"{name}_collar", r * 0.66, 0.06, (0, 0, top + 0.035), vm, ch.torso, ol=S["ol"] * 0.7, scale=(1, 1, 0.95))
     fy = -(r + 0.018)
     for sx in (1, -1):   # shirt-collar flaps
-        box(f"{name}_cflap{sx}", (0.1, 0.022, 0.075), (sx * 0.06, -r * 0.62, S["body_h"] * 0.86 - 0.01), vm, ch.torso, 0.012,
+        box(f"{name}_cflap{sx}", (0.1, 0.022, 0.075), (sx * 0.06, -r * 0.72, top + 0.0), vm, ch.torso, 0.012,
             S["ol"] * 0.5, rot=(-35, 0, -sx * 28))
     for sx in (1, -1):
         box(f"{name}_pocket{sx}", (0.12, 0.025, 0.11), (sx * 0.1, fy + 0.002, S["body_h"] * 0.70), vm, ch.torso, 0.012,
@@ -786,8 +788,9 @@ def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), a
     ch.neck.rotation_euler = R(head)
     ch.arms["L"].rotation_euler = R(armL)
     ch.arms["R"].rotation_euler = R(armR)
-    ch.elbows["L"].rotation_euler = R((elbowL - 40 * mouth, 0, 0))
-    ch.elbows["R"].rotation_euler = R((elbowR - 22 * mouth, 0, 0))
+    ch.elbows["L"].rotation_euler = R((elbowL - 75 * mouth, 0, 0))   # v2: hand lifts read in motion
+    ch.elbows["R"].rotation_euler = R((elbowR - 45 * mouth, 0, 0))
+    ch.neck.rotation_euler = R((head[0] + 7 * mouth, head[1], head[2] + 3 * mouth))   # head bobs with the talk energy
     ch.legs["L"].rotation_euler = R(legL)
     ch.legs["R"].rotation_euler = R(legR)
     talk_squash(ch, mouth)
@@ -799,8 +802,8 @@ def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), a
 
 def talk_squash(ch, m):
     S = ch.S
-    sz = 1 + 0.07 * m
-    sxy = 1 - 0.035 * m
+    sz = 1 + 0.12 * m      # v2: squash/stretch up to 12 % (owner: 7 % barely read in motion)
+    sxy = 1 - 0.06 * m
     ch.torso.scale = (sxy, sxy, sz)
     ch.neck.location.z = S["neck_z"] + S["body_h"] * (sz - 1)
 
