@@ -1,3 +1,4 @@
+# v13 (user 2026-11-15): final 1:1 now to the night photo in front of the garage.
 # v12 (user 2026-11-15): stock bumper fully comes off (lip included), windows traced from the SEMA photo.
 # v11 (user 2026-11-15): roof rails body colour (only glass dark), wheels animate off/on, old bumper off / Bomex bumper on.
 # v10 (user 2026-11-15): drift fitment (front -8/rear -3 camber, +20-25 mm track, body -5 cm), rear vents install with the quarter panels.
@@ -11,7 +12,7 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v12.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v13.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
@@ -101,9 +102,9 @@ timeline:
     interpolate: false
     dur: 1.8333
     vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
-  - transition: {type: cut, note: "45.867 kick - hard 1:1 cut scan -> SEMA photo (b096156c, match/cam_match.json)"}
+  - transition: {type: cut, note: "45.867 kick - hard 1:1 cut scan -> night garage photo (391c063b 9:16 crop, match/cam_match_night.json)"}
   - id: photo          # photo_card.py: frame 1 = solved framing, slow 5 % push, 12 f dip to black; no text over the photo
-    src: /home/user/media/work/z400/photo_card_v8.mp4
+    src: /home/user/media/work/z400/photo_card_v13.mp4
     dur: 2.8           # 84 f -> 48.667 s
   - transition: {type: cut, note: "end card from black"}
   - id: endcard        # endcard.py: Illumaesthetic logo + white Bomex mark (Sentra-video style)

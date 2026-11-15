@@ -1,3 +1,13 @@
+# Nissan 400Z scan reel — v13 self-review (2026-11-15)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v13.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v12 -> v13
+- **"Change the final shot of the car to the shot at night in front of the garage"**: HERO now ends on the camera
+  solved for 391c063b (9:16 crop on the car), front wheels steered 15 deg like the photo; hard cut on 45.867 (-0.8 ms)
+  to the untouched night photo, push + dip to black, then the end card. Blend of frames 1375/1376: body, headlight,
+  grille, windscreen, mirror, both wheels overlay.
+
 # Nissan 400Z scan reel — v12 self-review (2026-11-15)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v12.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
