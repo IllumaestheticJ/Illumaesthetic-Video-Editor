@@ -3,3 +3,5 @@
 {"ts": "2026-11-13T08:18:58Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "the scan data underneath the engine bay must still be there as the parts come off - parts need to be properly nested in the scan; same with the front", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-13T08:18:58Z", "project": "toyota-gr-corolla", "at": null, "category": "story", "note": "parts on the bumper must not come off until the bumper itself is off", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-14T18:58:16Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "the front end scan is missing a huge chunk of the car", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T04:22:08Z", "project": "toyota-gr-corolla", "at": null, "category": "story", "note": "wtf did you do to the door - the door-off state scan should not have been added", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T04:22:08Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "I said the front BUMPER was missing a chunk from it (the moving bumper part itself, not the car behind it)", "by": "reviewer", "promoted": false}

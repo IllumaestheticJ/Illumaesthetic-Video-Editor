@@ -12,6 +12,7 @@ music:
   path: /home/user/media/music/grc_goingupnorth.m4a   # user-supplied, not in git
   start: 0.485
   fade_out: 1.0
+  gain: 0.88   # true peak was -0.6 dBFS at unity; skill: below -1 dBFS, turn down never up
 
 beats: [2.333, 4.667, 7.0, 9.333, 11.667, 14.0, 16.333, 18.667, 21.0, 23.333]
 

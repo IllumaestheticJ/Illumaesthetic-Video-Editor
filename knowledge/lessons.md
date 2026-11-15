@@ -1281,3 +1281,19 @@ lands here automatically. Agents must read this whole file before editing.
 - **[pacing]** (QX80 v7h) A camera landing into the 1:1 match should settle ~0.5 s before the drop, not 1.5-2 s ("holds too long
   waiting for the drop"). Fix without re-rendering: retime the source (fps_in = src_fps x t_land / t_target into minterpolate);
   measure the motion stop on the decoded video (frame-diff < 0.15) - an ease-out reads still ~0.3 s before the key.
+
+## Toyota GR Corolla v6 - short-form Temerario restart (reviewer on v5)
+- **[scan] RULE (user): a removed part must come off WHOLE.** ("the front bumper was missing a chunk from it") A separate
+  part scan can be torn where it met its neighbours. Build the moving part as the part scan PLUS every car face the
+  removal cut off that the part scan does not cover (tools/bumperfill.py): the part is complete and nothing of it stays
+  on the car. Never trim a part's ragged edge "for tidiness" - in v5 that removed even more of the bumper.
+- **[story] RULE (user): add only what was asked.** ("wtf did you do to the door") When a request names scans ambiguously
+  ("rear roof scan set"), list the candidate files and ask before adding a new section; never fill the gap with the
+  nearest-looking state scan.
+- **[process]** "graphify" = the graphify skill + graphify-out/ knowledge graph (+ knowledge/feedback/ digests) from
+  branch kind-keller, now on this branch. Query it (`graphify query "..."` from the repo root) before planning; the
+  per-project feedback digests are the fastest read.
+- **[scan]** Hinged panel with no part scan: cut its shell from the closed car, but drop interior faces the seam cut picked
+  up (tools/hatchclean.py - per height/width bin keep faces near the outermost surface, only below the spoiler line).
+  Measure the hinge angle from the open-state scan's lid fragments (plane fit) and the hinge line from the panel's top edge.
+- **[audio]** 'Going Up North' at unity gain: -15.4 LUFS but true peak -0.6 dBFS. The ceiling wins: gain 0.88 -> -16.5 / -1.6.
