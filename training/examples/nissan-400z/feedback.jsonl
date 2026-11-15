@@ -21,3 +21,6 @@
 {"ts": "2026-11-15T04:22:51Z", "project": "nissan-400z", "at": "34.7", "category": "scan-look", "note": "Wheels need more camber in the front, lower, and wider out - more drift car slammed fitment", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T04:22:51Z", "project": "nissan-400z", "at": "34", "category": "scan", "note": "Combine the rear quarter panel vents and the quarter panels, otherwise it looks weird when it clips", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T04:22:51Z", "project": "nissan-400z", "at": "0", "category": "story", "note": "The rest looks good (v9)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T05:46:24Z", "project": "nissan-400z", "at": "42", "category": "scan-look", "note": "The livery has a weird black spot on the top - only the window frame area is black, the roof and the rest are body colour", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T05:46:24Z", "project": "nissan-400z", "at": "34.7", "category": "story", "note": "Wheels should animate on and off the car like they are being installed/removed", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T05:46:24Z", "project": "nissan-400z", "at": "30.9", "category": "story", "note": "Re-animate the front bumper as an old bumper off, new bumper on", "by": "reviewer", "promoted": false}

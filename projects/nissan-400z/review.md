@@ -1,3 +1,15 @@
+# Nissan 400Z scan reel — v11 self-review (2026-11-15)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v11.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v10 -> v11
+- **Black spot on top (only the window frame area should be black)**: roof rails/pillars were caught by the generic
+  glass rule; glass now limited to windscreen/rear-glass bands + side windows. Checked top, high 3/4 and LIVERY frame.
+- **Wheels animate on/off**: stock wheels slide off their hubs, BBS LMs slide on and seat on 34.656; body settles after.
+- **Old bumper off / new bumper on**: real stock bumper scan pulls off and exits right; Bomex front enters left on
+  30.906 with the kept stock nose/surround and seats; finished front hands over on the seat frame.
+- Cuts unchanged (photo cut -0.8 ms); loudness unchanged.
+
 # Nissan 400Z scan reel — v10 self-review (2026-11-15)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v10.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
