@@ -16,11 +16,11 @@ def _browser() -> list[str]:
 
 
 def render_hud(overlay_json: str, out: str, comp: str = "ScanHUD") -> str:
-    """ScanHUD -> transparent ProRes 4444 overlay; any other composition (e.g. WebZoom) -> opaque H.264 clip."""
+    """ScanHUD / PromoCaption -> transparent ProRes 4444 overlay; any other composition (e.g. WebZoom) -> opaque H.264 clip."""
     if not (REMOTION / "node_modules").exists():
         subprocess.run(["npm", "ci"], cwd=REMOTION, check=True)
     Path(out).parent.mkdir(parents=True, exist_ok=True)
-    if comp == "ScanHUD":
+    if comp in ("ScanHUD", "PromoCaption"):
         fmt = ["--codec=prores", "--prores-profile=4444", "--pixel-format=yuva444p10le", "--image-format=png"]
     else:
         fmt = ["--codec=h264", "--crf=12", "--image-format=jpeg", "--jpeg-quality=95"]

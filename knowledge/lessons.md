@@ -1136,6 +1136,11 @@ lands here automatically. Agents must read this whole file before editing.
   and put every cut on drop + k beats (100 BPM -> 18 frames). Verify the drop on the DELIVERED file (0 ms here).
 - **[text]** Logos the user owns as .ai in their own Drive are not readable by the service account; a 3D logo STL on the engineering drive can be
   flattened to a clean PNG (tools/logo_from_stl.py).
+
+- **[text]** Promo videos are their own format, separate from scan reels: keep the white caption bubble  _(from nissan-sentra-promo, 2026-11-14, reviewer)_
+
+- **[story]** Inventory the designer's review .blend files (not just the STL export folder) for parts like wheels and wings, and remove the stock part a new part replaces before showing the new one  _(from nissan-sentra-promo, 2026-11-15, reviewer)_
+
 ## From the A90 Supra v3.2 (2026-11-14, user: "move the brake/parts completely out of the way", "the console is blocking what's underneath")
 - **[framing]** A removed part parked in frame is fine for a removal beat, but not when the NEXT thing to watch is behind or under it:
   before a mechanism moves (suspension travel) or a camera holds on what a part covered (console -> tunnel), the part leaves the
