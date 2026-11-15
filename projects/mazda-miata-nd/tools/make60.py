@@ -53,6 +53,18 @@ def spec_json(cid, src):
 
 
 def run_blender(sp):
+    # resume: skip frames already on disk (a worker restart kills the job mid-shot). The last frame written before a kill
+    # may be partial, so the newest frame is always re-rendered.
+    folder = sp["out"]
+    have = sorted(int(os.path.basename(f)[2:6]) for f in glob.glob(folder + "/f_*.png"))
+    last = have[-1] if have else 0
+    have = set(f for f in have if f < last)
+    want = sp.get("frames") or list(range(1, round(sp["seconds"] * 60) + 1))
+    todo = [f for f in want if f not in have]
+    if not todo:
+        log(f"  skip {os.path.basename(folder)} (complete)")
+        return
+    sp["frames"] = todo
     path = f"{W}/specs/t60_{os.path.basename(sp['out'])}_{len(sp.get('frames') or [])}_{int(time.time()*1000)%100000}.json"
     json.dump(sp, open(path, "w"), indent=1)
     t0 = time.time()
