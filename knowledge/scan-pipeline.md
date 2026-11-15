@@ -79,3 +79,14 @@ at <6 m crop the car. Check at 30 % res first.
 - Drift/stance fitment in make_lm.py: per-axle camber about the tyre centre (re-seat on the outer shoulder:
   lift = r cos a + w/2 sin a - r), outward offset `out_m`, steer applied after camber. 400Z: front -8, rear -3 deg,
   +25/+20 mm, body 5 cm under the photo stance. Check front-low, 3/4 and side views for tyre/arch clipping.
+
+## Part swaps the user can read (400Z v11)
+- "Old part off, new part on" needs the REAL removed-part scan as the outgoing piece (Bumper_Only); a piece cut from
+  the trimmed car scan is only the scraps the trim removed. Base while it is off = car minus faces within 10 mm of that
+  scan (grille kept); stock faces the finished car still shows ride in with the new part, then hand over to the
+  finished base on the seat frame (tools/old_bumper.py). Exit one side, enter from the other so they never cross.
+- Wheels: split the stock-wheel scan per corner (split_wheels.py) and slide each off along its axle, then the new wheel
+  on; keep the body at stock height until the new wheels are on, then settle. Don't let the outgoing and incoming
+  wheel share the staging position on the same frame.
+- Livery glass: restrict the dark-glass rule to explicit glass bands (glass_y, glass_hw); a "not flat, above the belt"
+  rule also catches roof rails and pillars.

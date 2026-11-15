@@ -178,7 +178,8 @@ def mat_livery(spec, fps, nframes):
     side_a = math("ADD", math("MULTIPLY", il.outputs["Alpha"], math("SUBTRACT", 1.0, is_r)), math("MULTIPLY", ir.outputs["Alpha"], is_r))
     side_w = math("GREATER_THAN", nx, 0.45)
     if L.get("side_min"):  # outer skin only (inner arch liners face sideways too and would show the flame through the wheels)
-        side_w = math("MULTIPLY", side_w, math("GREATER_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), L["side_min"]))
+        side_w = math("MULTIPLY", side_w, math("MAXIMUM", math("GREATER_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), L["side_min"]),
+                                                 math("GREATER_THAN", Z, L.get("belt", 1.0))))  # side glass (above the belt) sits further in
     paint = tuple(L.get("paint", (0.20, 0.21, 0.22))) + (1,)
     dark = tuple(L.get("dark", (0.010, 0.010, 0.012))) + (1,)
     col = mix(math("MULTIPLY", side_w, side_a), paint, side)
@@ -191,6 +192,12 @@ def mat_livery(spec, fps, nframes):
     col = mix(math("MULTIPLY", top_w, ih.outputs["Alpha"]), col, ih.outputs["Color"])
     glass = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Z, L.get("belt", 1.0)), math("SUBTRACT", 1.0, side_w)),
                  math("LESS_THAN", nz, L.get("glass_nz", 0.95)))
+    if L.get("glass_y"):  # v11: only the windscreen / rear-glass bands, inside the glass half-width (roof rails stay paint)
+        gy = None
+        for y0, y1 in L["glass_y"]:
+            b = math("MULTIPLY", math("GREATER_THAN", Y, y0), math("LESS_THAN", Y, y1))
+            gy = b if gy is None else math("MAXIMUM", gy, b)
+        glass = math("MULTIPLY", glass, math("MULTIPLY", gy, math("LESS_THAN", math("ABSOLUTE", math("SUBTRACT", X, L.get("xc", -0.07))), L.get("glass_hw", 0.56))))
     # cabin seen through the (unscanned) glass: dash/seats inside the body sides, below the roof skin
     C = L.get("cabin", [-0.75, 1.0, 0.80, 1.18, 0.65])  # y0, y1, z0, z1, half-width about xc
     cab = math("MULTIPLY", math("MULTIPLY", math("GREATER_THAN", Y, C[0]), math("LESS_THAN", Y, C[1])),

@@ -19,7 +19,8 @@ SPECS = "/home/user/media/work/z400/specs"
 LIVMAP = json.load(open(os.path.join(HERE, "..", "livery_map.json")))
 LIV = {"tex": "/home/user/media/nissan-400z/livery/tex", "map": LIVMAP, "hood": [-0.07, -0.85, 0.75, 0.37],
        "paint": [0.10, 0.10, 0.105], "belt": 0.97, "banner": [-0.068, 0.945, 1.140, 0.100, -0.75, 0.05], "glass_nz": 0.95, "xc": -0.07,
-       "cabin": [-0.75, 1.05, 0.80, 1.19, 0.66], "side_min": 0.84}
+       "cabin": [-0.75, 1.05, 0.80, 1.15, 0.62], "side_min": 0.84,
+       "glass_y": [[-0.70, 0.03], [0.82, 1.62]], "glass_hw": 0.60}  # v11: roof rails stay body colour
 DROP = -0.08  # m: kit arch lips sat 87-102 mm over the tyres; the built car tucks to ~10-20 mm
 SOLVE_DROP = DROP  # the match camera (match/cam_match.json) was solved with the body at this drop
 # v9 (user: "match the stance of the picture"): at the solved camera the rims sat 29 px (front) / 22 px (rear) too high in
@@ -125,18 +126,30 @@ def kit(blend, stage, t0, via=None):
 # 7. KIT_FRONT: front kit installs onto the stripped front
 d = dur("KIT_FRONT"); base0 = 29.031
 def rel(t): return t - base0
+T_OLD = rel(30.906) - 0.45
+T_SEAT = rel(30.906) + 0.62
+NEWB = [k(0, (-3.6, -0.7, 0)), k(rel(30.906), (-3.6, -0.7, 0)), k(rel(30.906) + 0.38, (0, -0.2, 0), ease="out"), k(T_SEAT, (0, 0, 0), ease="in")]
 SHOTS["KIT_FRONT"] = {
     # v6: stock bumper + grilles stay on (kb6 = full car minus stock mirrors and wheels); the Bomex front is a surround over it
     "base": [{"blend": f"{B}/kb6_wing.blend", "hide_at": rel(29.968) + 0.6},
-             {"blend": f"{B}/kb7F_wing.blend", "show_at": rel(29.968) + 0.6, "hide_at": rel(30.906) + 0.6},  # fenders seated
-             {"blend": f"{B}/kb9B_wing.blend", "show_at": rel(30.906) + 0.6, "grille": GRILLE},                                 # bumper seated
+             {"blend": f"{B}/kb7F_wing.blend", "show_at": rel(29.968) + 0.6, "hide_at": T_OLD},  # fenders seated
+             # v11 (user: "old bumper off, new bumper on"): at T_OLD the stock bumper skin the kit hides comes off as one
+             # piece (tools/old_bumper.py); what stays (factory grille, anything still visible) is kb10B
+             {"blend": f"{B}/kb10B_wing.blend", "show_at": T_OLD, "hide_at": T_SEAT, "grille": GRILLE},
+             {"blend": f"{B}/kb9B_wing.blend", "show_at": T_SEAT, "grille": GRILLE},  # finished front once the kit seats
              held(f"{B}/p_wing.blend"), STOCKW],
     "parts": [
         kit(f"{B}/k_front_fender_driver.blend", (0.15, 0, 0.45), rel(29.968), (0.08, 0, 0)),
         kit(f"{B}/k_front_fender_pass.blend", (-0.15, 0, 0.45), rel(29.968), (-0.08, 0, 0)),
         kit(f"{B}/k_front_fender_slats_driver.blend", (0.15, 0, 0.85), rel(30.437), (0.08, 0, 0)),
         kit(f"{B}/k_front_fender_slats_pass.blend", (-0.15, 0, 0.85), rel(30.437), (-0.08, 0, 0)),
-        kit(f"{B}/k_front_bumper.blend", (0, -0.7, 0), rel(30.906), (0, -0.15, 0)),
+        # old stock bumper: pulled off forward, then slides out of frame to the right
+        {"blend": f"{B}/bumper_shell_v5.blend", "show_at": T_OLD, "hide_at": T_OLD + 0.58,
+         "keys": [k(0, (0, 0, 0)), k(T_OLD, (0, 0, 0)), k(T_OLD + 0.2, (0, -0.28, -0.02), ease="out"),
+                  k(T_OLD + 0.58, (3.6, -0.6, 0), ease="in")]},
+        # new Bomex bumper: enters from the left on the 30.906 beat, lines up in front, pushes home
+        {"blend": f"{B}/k_front_bumper.blend", "show_at": rel(30.906) - 0.03, "keys": NEWB},
+        {"blend": f"{B}/kept_stock.blend", "show_at": rel(30.906) - 0.03, "hide_at": T_SEAT, "keys": NEWB},  # reused stock nose/surround
         kit(f"{B}/k_canard_driver.blend", (0.25, -0.5, 0), rel(31.375)),
         kit(f"{B}/k_canard_pass.blend", (-0.25, -0.5, 0), rel(31.375)),
         kit(f"{B}/k_mirror_driver.blend", (0.30, 0, 0.12), rel(31.843), (0.08, 0, 0)),   # Bomex mirrors onto the bare mounts
@@ -147,13 +160,29 @@ SHOTS["KIT_FRONT"] = {
 FRONT_HELD = [held(f"{B}/k_{n}.blend") for n in ("front_fender_driver", "front_fender_pass", "front_fender_slats_driver",
               "front_fender_slats_pass", "front_bumper", "canard_driver", "canard_pass", "mirror_driver", "mirror_pass")]
 
+# v11 (user: "have the wheels animate on and off the car like its being installed/removed"): each stock wheel slides
+# off its hub outward, then the BBS LM slides on along the axle, seating on the 34.656 kick
+W_ON = 34.656 - 32.781; W_OFF = W_ON - 0.42
+def _wheels():
+    out = []
+    for c in ("fl", "fr", "rl", "rr"):
+        sx = 1 if c.endswith("l") else -1
+        out.append({"blend": f"{B}/stock_w_{c}.blend", "hide_at": W_OFF + 0.36,
+                    "keys": [k(0, (0, 0, 0)), k(W_OFF, (0, 0, 0)), k(W_OFF + 0.12, (0.06 * sx, 0, 0), ease="out"),
+                             k(W_OFF + 0.36, (0.8 * sx, 0, 0), ease="in")]})
+        out.append({"blend": f"{B}/lm_{c}.blend", "keep_mats": True, "ground": True, "show_at": W_ON - 0.05,
+                    "keys": [k(0, (0.8 * sx, 0, 0)), k(W_ON - 0.05, (0.8 * sx, 0, 0)), k(W_ON + 0.22, (0.06 * sx, 0, 0), ease="out"),
+                             k(W_ON + 0.4, (0, 0, 0), ease="in")]})
+    return out
+WHEELS_OFF_ON = _wheels()
+
 # 8. KIT_SIDE: passenger side, skirts/rear fenders/slats/gas cap install
 d = dur("KIT_SIDE")
 SHOTS["KIT_SIDE"] = {
     "base": [{"blend": f"{B}/kb9B_wing.blend", "hide_at": 34.187 + 0.6 - 32.781, "grille": GRILLE},
              {"blend": f"{B}/kb9_wing.blend", "show_at": 34.187 + 0.6 - 32.781, "grille": GRILLE},  # skirts seated: side/rear trim
              held(f"{B}/p_wing.blend")] + FRONT_HELD +
-            [{**STOCKW, "hide_at": 34.656 - 32.781}] + [{**w, "show_at": 34.656 - 32.781} for w in BBS],  # 1:1 wheel swap on the kick
+            [],  # v11: wheels animate off/on as parts (see WHEELS_OFF_ON)
     "parts": [
         kit(f"{B}/k_rear_fender_pass.blend", (-0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (-0.08, 0, 0)),
         kit(f"{B}/k_rear_fender_driver.blend", (0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (0.08, 0, 0)),
@@ -163,8 +192,8 @@ SHOTS["KIT_SIDE"] = {
         # the slats ride in with their quarter panel as one piece (same stage, timing and clearance key)
         kit(f"{B}/k_rear_fender_slats_pass.blend", (-0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (-0.08, 0, 0)),
         kit(f"{B}/k_rear_fender_slats_driver.blend", (0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (0.08, 0, 0)),
-        kit(f"{B}/k_gas_cap_x.blend", (-0.35, 0, 0.15), 35.125 - 32.781)],
-    "body_drop": [[0, DROP]],  # v9: photo ride height (DROP ~0) - no settle onto the new wheels any more
+        kit(f"{B}/k_gas_cap_x.blend", (-0.35, 0, 0.15), 35.125 - 32.781)] + WHEELS_OFF_ON,
+    "body_drop": [[0, 0.0], [W_ON + 0.5, 0.0], [W_ON + 0.85, DROP]],  # v11: settles onto the new wheels once they are on
     "cam": cam(arc(d, -62, -120, 8, 9, 6.6, 5.9, [-0.25, 0.25, 0.55], [-0.2, 0.5, 0.6], 36, n=6))}
 
 SIDE_HELD = FRONT_HELD + [held(f"{B}/k_{n}.blend") for n in ("rear_fender_driver", "rear_fender_pass",
