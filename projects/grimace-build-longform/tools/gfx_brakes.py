@@ -159,7 +159,7 @@ def hose(c, x0, x1, y, hh, bulge, a, braided):
 
 def L39(c, u, t):   # rubber line swells with every press; braided stainless barely moves
     c.header('HOW IT WORKS', 'Brake lines', G, u)
-    press = 0.5 - 0.5 * math.cos(t * 2.3); age = seg(u, 0.25, 0.5); px, L, REST, FIRM = 170, 104, -28, 4
+    press = 0.5 - 0.5 * math.cos(t * 2.3); age = seg(u, 0.25, 0.5); px, L, REST, FIRM = 182, 104, -28, 4
     stopx = px + L * math.sin(math.radians(FIRM)) + 9
     rows = ((262, 'RUBBER LINE', 'SWELLS EVERY PRESS', False, 0.04, 11 + 8 * age, 17 + 9 * age, 'LONGER PEDAL', BAD),
             (462, 'BRAIDED STAINLESS', 'BARELY MOVES', True, 0.46, 1.5, 0, 'FIRMER PEDAL', GOOD))
@@ -167,7 +167,7 @@ def L39(c, u, t):   # rubber line swells with every press; braided stainless bar
         a = ease(seg(u, a0, a0 + 0.12)); py = yc - 78
         dashed(c, stopx, py + 8, stopx, yc + 46, fade(DIM, a), 2)
         ex, ey = pedal(c, px, py, L, lerp(REST, FIRM + extra, press), a)
-        c.arrow(ex - 76, ey, ex - 26, ey, fade(C, a * (0.3 + 0.7 * press)), 5, 13)
+        c.arrow(ex - 68, ey, ex - 26, ey, fade(C, a * (0.3 + 0.7 * press)), 5, 13)
         mx = px + L * 0.75 * math.sin(math.radians(lerp(REST, FIRM + extra, press))); rodx = 300 + (mx - px) * 0.5
         c.rect(292, yc - 17, 372, yc + 17, fill=fade(PANEL, a), outline=fade(DIM, a), width=2.5, r=5)        # master cylinder
         c.line([(mx, yc), (rodx + 22, yc)], fade(WHITE, a), 4); c.rect(rodx + 20, yc - 12, rodx + 30, yc + 12, fill=fade(C, a), r=2)
@@ -191,11 +191,11 @@ BUB = [(744, -5, 12, 0.0), (712, 6, 10, 1.3), (680, -6, 11, 2.1), (646, 5, 9, 0.
 def L42(c, u, t):   # fluid boils -> bubbles compress -> long pedal
     c.header('HOW IT WORKS', 'Why the fluid matters', G, u)
     a = ease(seg(u, 0.03, 0.15)); heat = ease(seg(u, 0.2, 0.6)); bub = ease(seg(u, 0.36, 0.72))
-    press = 0.5 - 0.5 * math.cos(t * 2.6); px, py, L, REST, FIRM, yc = 170, 232, 150, -24, 3, 340
+    press = 0.5 - 0.5 * math.cos(t * 2.6); px, py, L, REST, FIRM, yc = 200, 240, 130, -24, 3, 340
     ang = lerp(REST, FIRM + 30 * bub, press); stopx = px + L * math.sin(math.radians(FIRM)) + 9
     dashed(c, stopx, py + 10, stopx, py + L + 34, fade(DIM, a), 2)
     ex, ey = pedal(c, px, py, L, ang, a)
-    c.arrow(ex - 84, ey, ex - 28, ey, fade(C, a * (0.3 + 0.7 * press)), 5, 14)
+    c.arrow(ex - 80, ey, ex - 28, ey, fade(C, a * (0.3 + 0.7 * press)), 5, 14)
     fluid = mix(PANEL, C, 0.62); mx = px + L * 0.72 * math.sin(math.radians(ang)); rod = 306 + (mx - (px - 44)) * 0.4
     c.rect(300, yc - 24, 420, yc + 24, fill=fade(PANEL, a), outline=fade(WHITE, a), width=2.5, r=5)          # master cylinder
     c.rect(rod + 8, yc - 19, 416, yc + 19, fill=fade(fluid, a))
