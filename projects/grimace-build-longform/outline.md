@@ -14,7 +14,7 @@ Full detail: `plan.md` (shots and spans), `script.md` (lines), `coverage.md` (wh
 | 5 | Bracing + sway bars (Good-Win fender braces, Whiteline strut brace + sway bars) | 1:20 | braces in hand, strut brace going onto Grimace with logo, sway bars unwrapped | "watch the bracing video" card, sway bar explainer | pick-up: fender braces + sway bars on the car; bracing video title + link; Good-Win part names |
 | 6 | Steering (SPL tie rods, SuperPro rack bushings, wheel from Mike Kojima) | 1:45 | table line, steering wheel story and install, wheel in use at Sonoma | bump steer explainer, rack bushing explainer, product stills | pick-up: tie rods + rack mounts on the car; SPL + SuperPro logos; wheel brand |
 | 7 | Recap | 0:20 | - | finished-car model orbit, every partner logo on its part | all logos |
-| 8 | Track: 21 March + Sonoma | 1:10 | March pre-grid and chequered flag, Sonoma paddock and on-track passes (all parts were on the car both days) | event title card | **your on-track / on-board upload**; event names + dates |
+| 8 | Track: 21 March + Sonoma + Thunderhill (14-15 Nov) | 1:10+ | March pre-grid and chequered flag, Sonoma paddock and on-track passes (all parts were on the car both days) | event title card | **your on-track / on-board upload, incl. Thunderhill 14-15 Nov**; event names + dates |
 | 9 | Conclusions | 0:35 | - | three-line takeaways card | **your conclusions upload** (placeholder card until then) |
 | 10 | Sign-off | 0:30 | Grimace on track under the card | thank-you roll, Illumaesthetic card, end screen with the bracing video | logos, handles, links, thank-you order |
 
@@ -22,6 +22,15 @@ Full detail: `plan.md` (shots and spans), `script.md` (lines), `coverage.md` (wh
 **You upload**
 1. On-track / on-board footage (section 8).
 2. Conclusions (section 9).
+
+**Worth getting at Thunderhill this weekend (phone held sideways is fine)**
+- On-board with the steering wheel in frame, one clean lap.
+- Grimace on track from trackside, side-on and three-quarter, 16:9, several passes.
+- Wheel off in the paddock: front brake (caliper, disc, line), coilover with adjusters, tie rod. This covers most of the pick-up list below.
+- Someone adjusting a damper knob, and bedding or checking the brakes.
+- You and the driver to camera right after a session: what the car feels like, one thing per part (coilovers, brakes, steering).
+- Your conclusions to camera: biggest change you felt, what to do first on a budget, what is next.
+- A thank-you to camera naming each partner.
 
 **You film (about one hour, car on the lift, wheels off, shop music off)**
 3. Coilover on the car: MCS logo, both adjusters, Eibach marking.
