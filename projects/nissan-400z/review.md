@@ -1,3 +1,17 @@
+# Nissan 400Z scan reel — v12 self-review (2026-11-15)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v12.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v11 -> v12
+- **"The old bumper comes off but there's still a bumper on the car"**: v11 hid the pre-bumper base before it was
+  shown (T_OLD < fender-seat time), so the full stock car stayed. Fixed order; the stock lower lip (not in the
+  Bumper_Only scan) now leaves with the bumper; only stock faces visible on the finished car ride back in with the kit.
+  Checked frames 916-944: bare front with the factory grille between old-off and new-on.
+- **"Trace and colour the windows black more accurately"**: windscreen + side glass traced on the SEMA photo at the
+  match camera into a per-face attribute; driver side by mirrored projection; rear glass by band. Checked from both
+  sides, front 3/4, rear and the photo view.
+- Cut 45.867 -0.8 ms; loudness unchanged.
+
 # Nissan 400Z scan reel — v11 self-review (2026-11-15)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v11.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.

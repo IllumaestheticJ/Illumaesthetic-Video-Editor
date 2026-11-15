@@ -1,3 +1,4 @@
+# v12 (user 2026-11-15): stock bumper fully comes off (lip included), windows traced from the SEMA photo.
 # v11 (user 2026-11-15): roof rails body colour (only glass dark), wheels animate off/on, old bumper off / Bomex bumper on.
 # v10 (user 2026-11-15): drift fitment (front -8/rear -3 camber, +20-25 mm track, body -5 cm), rear vents install with the quarter panels.
 # v9 (user 2026-11-14): photo stance (body +9 cm vs v8), real KAIDO*HOUSE decal, side BOMEX moved back, new tyres, front-end holes/clipping fixed.
@@ -10,7 +11,7 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v11.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v12.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
