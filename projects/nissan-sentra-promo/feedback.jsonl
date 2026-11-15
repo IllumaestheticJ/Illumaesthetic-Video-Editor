@@ -7,3 +7,4 @@
 {"ts": "2026-11-14T18:38:09Z", "project": "nissan-sentra-promo", "at": null, "category": "story", "note": "the new wheels aren't on", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-14T18:38:09Z", "project": "nissan-sentra-promo", "at": "36.5", "category": "story", "note": "the rear wing isn't actually installed", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-14T18:38:09Z", "project": "nissan-sentra-promo", "at": "35.0", "category": "story", "note": "old diffuser is not removed", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T05:54:29Z", "project": "nissan-sentra-promo", "at": null, "category": "story", "note": "Inventory the designer's review .blend files (not just the STL export folder) for parts like wheels and wings, and remove the stock part a new part replaces before showing the new one", "by": "reviewer", "promoted": true}

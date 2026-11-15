@@ -27,3 +27,18 @@ Voice only (owner: no music), -14.9 LUFS integrated, -1.5 dBTP. White PromoCapti
   brake beat is its own close-up rather than placed in the car.
 - Final orbit frames the whole car small in 9:16 (whole car + wheels in frame).
 - Render cost: ~10-60 s/frame at 75 % / 12 spp on 4 CPUs (engine-bay frames slowest); ~5.5 h total for 598 frames.
+
+## v2 (reviewer feedback 2026-11-14) - `nissan_sentra_promo_v2.mp4`, same spec, -14.9 LUFS / -1.5 dBTP
+| Note | Fix |
+|---|---|
+| the new wheels aren't on | Wheels FL/FR/RL/RR from Ron's `Sentra Review 2.blend` (collection *Wheels & Wing*, already in the design frame). Stock wheels+tyres cut out of the scan (`tools/rearcut.py`, centred on the new wheel, liner kept above the axle); they pull outboard and the new wheels slide in under "wider fenders and a new hood" (30.2-30.95 s). In the finished-car orbit. |
+| the rear wing isn't actually installed | The wing (`nissan_gtr_nismo.001`, same collection) lands on the adapter under "and a wing" (36.15-36.6 s) and stays for the orbit. `Plane.002` in that collection lies on the scanned trunk lid (median 3 mm) - a mounting reference, not used. |
+| old diffuser is not removed | Stock lower valance (scan tris within 45 mm of the CAD diffuser, below its top edge) drops away 34.45-34.8 s, then the diffuser comes up into its place. |
+
+Re-rendered main frames 386-495 and the final orbit; seam at 385/386 measured at the median frame difference (invisible).
+Scores changed: Story 5 (unchanged, now true to the finished build), Scan quality 4.
+
+## Gap to learn from
+v1 used only the SEMA `STL/` folder. The wheels and wing lived in Ron's review .blend (`Sentra Review 2.zip`), and the
+stock parts the kit *replaces* (valance, wheels) must come off the scan, not just have the new part laid over them.
+Inventory the review files and list replaced stock parts before planning shots.
