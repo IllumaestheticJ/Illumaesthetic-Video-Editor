@@ -1,3 +1,9 @@
+# Infiniti QX80 v7g
+
+v7g = v7f + "the red square should be around the IQ portion": end card motoiq mark rebuilt as white "moto" + "iq" in a red
+square (from the vent-badge wordmark). The official file could not be downloaded (motoiq.com, shopmotoiq.com, tomeiusa.com
+are outside the session's network allowlist) - swap in the official logo when available. Output infiniti_qx80_v7g.mp4.
+
 # Infiniti QX80 v7f - self-review (training/rubric.md)
 
 v7f = v7e + reviewer notes (2026-11-14): "motoIQ needs to have the red square around it" -> white wordmark in a red square;

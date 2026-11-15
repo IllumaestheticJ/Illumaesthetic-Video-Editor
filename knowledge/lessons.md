@@ -1276,3 +1276,5 @@ lands here automatically. Agents must read this whole file before editing.
 - **[scan]** Check EVERY kit group's bbox against the car and its mirror partner: QX80 had two parked parts (motoIQ vent 0.5 m
   outside the car, left skirt under the floor - invisible, so the stock skirt showed). Left/right pairs: mirror the right one
   about the car centreline and compare.
+- **[ending]** (QX80 v7g) MotoIQ's mark has the red square around the "IQ" only (white "moto" + red box "iq"), not around the
+  whole word. motoiq.com / shopmotoiq.com are not reachable from cloud sessions by default - ask for the official file early.
