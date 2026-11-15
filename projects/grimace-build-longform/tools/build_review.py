@@ -1,5 +1,5 @@
 """Rough review cut from the 960x540 proxies: captions, placeholder cards, burned-in timecode. No voice, no music.
-usage: build_review.py <media_dir> <out.mp4> [--voice]   (--voice lays the recorded narration takes from vo/ under the VO captions)
+usage: build_review.py <media_dir> <out.mp4> [--voice] [--gfx]   (--gfx uses finished graphics from gfx/ in place of blue cards; --voice lays the recorded narration takes from vo/ under the VO captions)
 Timeline = list of beats (below). SYNC beats keep the clip's own audio; everything else is silent.
 VO beats show the narration line as a caption and run for max(picture, words / 2.6 + 0.6 s); the last picture is held.
 Cards: TITLE (black), GFX (blue: a graphic we will build), FILL (red: placeholder the owner fills in).
@@ -8,6 +8,9 @@ import sys, os, json, subprocess, textwrap
 
 M, OUT = sys.argv[1], sys.argv[2]
 VOICE = '--voice' in sys.argv
+GFX = '--gfx' in sys.argv
+TCARD = {'FROM EBAY COILOVERS TO A REAL RACE SETUP': 'T_title', '1. COILOVERS': 'T_ch1', '2. BUSHINGS': 'T_ch2', '3. BRAKES': 'T_ch3',
+         '4. BRACING AND SWAY BARS': 'T_ch4', '5. STEERING': 'T_ch5', 'ON TRACK': 'T_track'}
 import re
 W = f'{M}/review'; os.makedirs(W, exist_ok=True)
 FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
@@ -203,8 +206,16 @@ for section, beats in TL:
             d = max(b['dur'], need); n += 1; uid = f'u{n:03d}'; o = f'{W}/{uid}.mp4'
             body = f"drawtext=fontfile={FONT}:textfile={tf(uid + '_b', b['body'], 46)}:fontsize=30:fontcolor=white:line_spacing=10:x=(w-text_w)/2:y=(h-text_h)/2-30"
             head = f"drawtext=fontfile={FONT}:text='{HEAD[b['tag']]}':fontsize=18:fontcolor=white@0.7:x=(w-text_w)/2:y=70," if HEAD[b['tag']] else ''
-            run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', f"color=c={COL[b['tag']]}:s=960x540:r={FPS}:d={d:.3f}", ] + (['-i', vf_, '-af', 'adelay=250,apad'] if vf_ else ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono']) + [
-                 '-vf', head + body + ',' + overlays(uid, section, 'card', b['text']), '-t', f'{d:.3f}'] + ENC + [o])
+            k_ = LINE.get(_n(b['text'])) if b['text'] else None
+            g = f"{M}/gfx/L{k_:02d}.mp4" if k_ else f"{M}/gfx/{TCARD.get(b['body'].split(chr(10))[0], '-')}.mp4"
+            aud = (['-i', vf_, '-af', 'adelay=250,apad'] if vf_ else ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono'])
+            if GFX and os.path.exists(g):      # a finished graphic replaces the card; last frame held if the line runs longer
+                run(['ffmpeg', '-v', 'error', '-y', '-i', g] + aud + ['-map', '0:v', '-map', '1:a', '-vf', f'scale=960:540,setsar=1,tpad=stop_mode=clone:stop_duration=30,'
+                     + overlays(uid, section, 'card', b['text']), '-t', f'{d:.3f}'] + ENC + [o])
+                b = dict(b, tag='GRAPHIC')
+            else:
+                run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', f"color=c={COL[b['tag']]}:s=960x540:r={FPS}:d={d:.3f}", ] + aud + [
+                     '-vf', head + body + ',' + overlays(uid, section, 'card', b['text']), '-t', f'{d:.3f}'] + ENC + [o])
             units.append(o); rows.append((t, d, section, b['tag'], b['body'].replace('\n', ' / '), b['text'])); t += d
             continue
         pics = [(s, a, min(e, DUR[s] - 0.05)) for s, a, e in b['pics']]
