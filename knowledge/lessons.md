@@ -1300,3 +1300,18 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** (QX80 v7i) "True 60 fps" with 15 fps renders means interpolation (minterpolate mci) unless the shot is re-rendered
   at 60 fps. Keep cut times on the old 30 fps grid (x2 frames) so existing cut frames and measured sync stay exact. Measure
   the output: frame count, the frame jump at each cut, and exact-duplicate steps during motion (QX80: 14 of 410).
+
+## Toyota GR Corolla v7 (reviewer on v6)
+- **[scan] RULE (user): when the full-car scan is weak in an area, take that area from another FULL-CAR scan of the
+  same car - check its parts are the same version.** ("use the other full car scan"; "that's the facelift bumper, i
+  don't want this one") List every full-car STL on Drive (re-list - folders change), render each one's front next to
+  the car, and read folder names: 'Facelift Front Bumper/Complete Car_*' is the facelift bumper. FARO 'Corolla SEMA'
+  had the stock bumper: ICP to the car (0.3 deg / 22 mm), transplant only the panel zone (tools/farobumper.py), keep the
+  car's own data where the donor has holes (headlights).
+- **[scan] RULE (user): cut hinged panels on their real shut lines.** ("rear trunk isn't cut out correctly") A seam cut
+  from guessed positions sliced the taillights. Trace the shut line on a near-orthographic render along the panel's
+  view axis (focal 220 mm from 26 m; gaps read clearly), then take faces inside that outline on the visible surface
+  plus the old cut's hidden faces (tools/hatchtrace.py). A state difference only works where the state covers the body.
+- **[story] (user)** Show the hood opening when the bay has a scan: hinge open on the rear edge, then off; later shots
+  keep it off (build the later bases from the stripped front).
+- **[technical]** Preps of 5M-face scans run out of memory in parallel; run one at a time while a render queue runs.

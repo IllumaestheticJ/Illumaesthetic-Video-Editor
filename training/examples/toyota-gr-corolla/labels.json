@@ -1,6 +1,6 @@
 {
- "note": "v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
- "frames": 790,
+ "note": "v7: v6 + 70 frames after the hood shot. v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
+ "frames": 860,
  "fps": 30,
  "items": [
   {
@@ -29,20 +29,20 @@
   },
   {
    "text": "TRUNK OPEN",
-   "in": 385,
-   "out": 418,
+   "in": 455,
+   "out": 488,
    "y": 1380
   },
   {
    "text": "REAR BUMPER + DIFFUSER",
-   "in": 505,
-   "out": 546,
+   "in": 575,
+   "out": 616,
    "y": 1380
   },
   {
    "text": "CRASH BEAM REMOVED",
-   "in": 564,
-   "out": 628,
+   "in": 634,
+   "out": 698,
    "y": 220
   }
  ]

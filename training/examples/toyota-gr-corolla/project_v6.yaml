@@ -1,0 +1,43 @@
+# Toyota GR Corolla - SHORT-FORM TEMERARIO RESTART (v6). User on v5: "wtf did you do to the door. I said the front
+# bumper was missing a chunk from it" + "completely start this over, using the short form temerario skill, and graphify".
+# Plan from the graphify feedback graph (graphify-out/, knowledge/feedback/) + temerario-scan-reel skill; shots
+# tools/shots_v7.py; direction.md. Music: GT2 'Going Up North' FROM ITS BEGINNING, 102.95 BPM, bar 2.3312 s, downbeats
+# 0.50 + 2.3312k; start 0.485 puts downbeat k on frame 70k (within 0.45 fr). One bar per shot; dip into the logo on the
+# 10th downbeat, where the drums thin out. v5 = project_v5.yaml.
+project: toyota-gr-corolla
+format: reel-9x16
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v6.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/music/grc_goingupnorth.m4a   # user-supplied, not in git
+  start: 0.485
+  fade_out: 1.0
+  gain: 0.88   # true peak was -0.6 dBFS at unity; skill: below -1 dBFS, turn down never up
+
+beats: [2.333, 4.667, 7.0, 9.333, 11.667, 14.0, 16.333, 18.667, 21.0, 23.333]
+
+timeline:
+  - {id: a1_whole, src: /home/user/media/work/grc/renders5/final/a1_whole, src_fps: 15, interpolate: true, dur: 2.3, section: whole, focus: "whole car push, song opening"}
+  - transition: {type: cut, note: "downbeat 1"}
+  - {id: b1_fbumper, src: /home/user/media/work/grc/renders7/final/b1_fbumper, src_fps: 30, dur: 2.3333, section: front, focus: "front bumper off FIRST, whole (fbumper6)"}
+  - transition: {type: cut, note: "downbeat 2"}
+  - {id: b2_beams, src: /home/user/media/work/grc/renders6/final/b2_beams, src_fps: 30, dur: 2.3333, section: front, focus: "upper + lower bumper beams"}
+  - transition: {type: cut, note: "downbeat 3"}
+  - {id: b3_ducts, src: /home/user/media/work/grc/renders6/final/b3_ducts, src_fps: 30, dur: 2.3333, section: front, focus: "bumper + radiator ducts"}
+  - transition: {type: cut, note: "downbeat 4"}
+  - {id: b4_ic, src: /home/user/media/work/grc/renders6/final/b4_ic, src_fps: 30, dur: 2.3333, section: front, focus: "intercooler in front of the radiator"}
+  - transition: {type: cut, note: "downbeat 5"}
+  - {id: h1_hatch, src: /home/user/media/work/grc/renders7/final/h1_hatch, src_fps: 30, dur: 2.3333, section: rear, focus: "hatch hinges open over the scanned cargo area"}
+  - transition: {type: cut, note: "downbeat 6, same camera"}
+  - {id: h2_hatchoff, src: /home/user/media/work/grc/renders7/final/h2_hatchoff, src_fps: 30, dur: 2.3333, section: rear, focus: "open hatch lifts off"}
+  - transition: {type: cut, note: "downbeat 7"}
+  - {id: c1_rbumper, src: /home/user/media/work/grc/renders7/final/c1_rbumper, src_fps: 30, dur: 2.3333, section: rear, focus: "rear bumper + diffuser off together"}
+  - transition: {type: cut, note: "downbeat 8, same camera, state swap"}
+  - {id: c2_crash, src: /home/user/media/work/grc/renders7/final/c2_crash, src_fps: 15, interpolate: true, dur: 2.3333, section: rear, focus: "crash beam removed"}
+  - transition: {type: cut, note: "downbeat 9"}
+  - {id: d1_clean, src: /home/user/media/work/grc/renders5/final/d1_clean, src_fps: 15, interpolate: true, dur: 2.3333, section: whole, focus: "clean car", hold: true}
+  - transition: {type: dip, duration: 0.5, note: "downbeat 10 (drums thin out) -> 720 px logo"}
+  - {id: logo, src: /home/user/media/work/grc/out/logo_card_720.mp4, dur: 3.0}
+
+overlays:
+  - {src: /home/user/media/work/grc/out/labels_v6.mov, start: 0}   # tools/labels.py labels.json
