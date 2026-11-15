@@ -1138,3 +1138,5 @@ lands here automatically. Agents must read this whole file before editing.
   flattened to a clean PNG (tools/logo_from_stl.py).
 
 - **[text]** Promo videos are their own format, separate from scan reels: keep the white caption bubble  _(from nissan-sentra-promo, 2026-11-14, reviewer)_
+
+- **[story]** Inventory the designer's review .blend files (not just the STL export folder) for parts like wheels and wings, and remove the stock part a new part replaces before showing the new one  _(from nissan-sentra-promo, 2026-11-15, reviewer)_
