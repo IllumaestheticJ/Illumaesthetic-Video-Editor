@@ -1,4 +1,4 @@
-# Scan-tedium explainer reel. STATUS: owner picked script A; Part A look dev + animatic (stills) for owner approval; no animation rendered yet.
+# Scan-tedium explainer reel. STATUS (2026-11-15): full reel v1 delivered (explainer_full_v1.mp4). The authoritative timeline is tools/full_build.py (CUTS, PAGES, MUSIC); the plan below is the old pre-animation draft.
 # Part A sources are planned renders (do not exist yet); Part B sources exist (IS350 reels intermediates + vertical renders).
 # Frames per storyboard.md (version A split); cuts get snapped to measured kicks once the music piece is chosen.
 project: scan-tedium-explainer-reel
