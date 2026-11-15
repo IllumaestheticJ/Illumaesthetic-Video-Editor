@@ -1,3 +1,13 @@
+# Nissan 400Z scan reel — v14 self-review (2026-11-15)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v14.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v13 -> v14
+- **"Add a Kaido House logo at the end"**: end card is now Illumaesthetic / Bomex / KAIDO*HOUSE, stacked, each fading
+  in 14 f after the previous, whole card fades out. The KAIDO*HOUSE mark is the decal rectified from the user's livery
+  mock-up (no vector logo supplied) - edges are slightly soft at full size; swap in a vector file if one exists.
+- Everything before 48.67 s unchanged.
+
 # Nissan 400Z scan reel — v13 self-review (2026-11-15)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v13.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.

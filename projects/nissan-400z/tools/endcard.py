@@ -11,15 +11,21 @@ logo = Image.open("remotion/public/illumaesthetic_logo.png").convert("RGBA"); lo
 logo = logo.resize((720, int(720 * logo.height / logo.width)), Image.LANCZOS)
 bx = ink(Image.open("/home/user/media/nissan-400z/logo/bomex_white.png").convert("RGBA"))
 bx = bx.resize((560, int(bx.height * 560 / bx.width * 1.2)), Image.LANCZOS)
-gap = 170; total = logo.height + gap + bx.height; y0 = (HT - total) // 2; ys = [y0, y0 + logo.height + gap]
+# v14 (user: "add a Kaido House logo at the end"): the KAIDO*HOUSE decal (rectified from the user's livery mock-up,
+# livery_tex.py -> logo/kaidohouse_white.png) under the Bomex mark, same width, fading in 14 frames after it
+kh = ink(Image.open("/home/user/media/nissan-400z/logo/kaidohouse_white.png").convert("RGBA"))
+kh = kh.resize((560, int(kh.height * 560 / kh.width)), Image.LANCZOS)
+items = [logo, bx, kh]; gap = 130
+total = sum(i.height for i in items) + gap * (len(items) - 1); y0 = (HT - total) // 2; ys = []
+for it in items: ys.append(y0); y0 += it.height + gap
 p = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{WD}x{HT}", "-r", "30", "-i", "-",
                       "-c:v", "libx264", "-crf", "14", "-pix_fmt", "yuv420p", out], stdin=subprocess.PIPE)
 fo = 24
 for f in range(n):
     im = Image.new("RGB", (WD, HT), (0, 0, 0)); tail = min(1.0, max(0.0, (n - 1 - f) / fo))
-    for k, (lg, yy) in enumerate(zip((logo, bx), ys)):
-        al = (min(1.0, f / 8) if k == 0 else max(0.0, min(1.0, (f - 14) / 8))) * tail
+    for k, (lg, yy) in enumerate(zip(items, ys)):
+        al = max(0.0, min(1.0, (f - 14 * k) / 8)) * tail
         if al <= 0: continue
         l2 = lg.copy(); l2.putalpha(lg.getchannel("A").point(lambda v: int(v * al))); im.paste(l2, ((WD - lg.width) // 2, yy), l2)
     p.stdin.write(im.tobytes())
-p.stdin.close(); p.wait(); print(out, n, "frames; logo", logo.size, "bomex", bx.size, "gap", gap)
+p.stdin.close(); p.wait(); print(out, n, "frames; logo", logo.size, "bomex", bx.size, "kaido", kh.size, "gap", gap)
