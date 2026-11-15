@@ -37,6 +37,7 @@ TAKES = {
     8: ("L08b", "PIP", "S8", 1.12, None),   # a trails "Is it..."
     9: ("L09a", "GUS", "S8", 1.0, None),    # b is a clipped 0.23 s "No" (p 0.65 vs 0.80)
     10: ("L10a", "GUS", "S9", 1.12, None),  # a/b equal words, a 0.12 s shorter
+    14: ("L10Ba", "PIP", "S10", 1.12, None),  # v2 (owner): "There has to be a better way." - B is "Ugh. ..." and 1.4 s longer
     11: ("L11a", "PIP", "S10", 1.12, 0.26),  # brand name unconfirmed in both takes; owner deciding. Swap here.
     12: ("L12a", "PIP", "S11", 1.12, None),  # b is 1.2 s longer
     13: ("L13b", "GUS", "S12", 1.0, None),   # a starts clipped ("to show me")
@@ -46,6 +47,11 @@ SHOTS = [("S1", 0.17, 0.07, 0.0), ("S2", 0.05, 0.07, 0.0), ("S3", 0.05, 0.07, 0.
          ("S5", 0.05, 0.07, 0.10), ("S6", 0.05, 0.07, 0.15), ("S7", 0.05, 0.07, 0.15), ("S8", 0.07, 0.10, 0.0),
          ("S9", 0.05, 0.07, 0.10), ("S10", 0.05, 0.07, 0.0), ("S11", 0.05, 0.07, 0.0), ("S12", 0.05, 0.10, 0.25)]
 GAP_8_9 = 0.20           # PIP "Is it done yet?" ... beat ... GUS "No."
+GAPS = {"S8": GAP_8_9, "S10": 0.35}   # S10: deflated "better way" ... a beat ... perks up on "Wait."
+# v2 voice polish (owner: too muted and dull): high-pass, presence, air, gentle 3:1 compression; stem to -14 LUFS / -1 dBTP
+VOICE_FX = ("highpass=f=90:poles=2,equalizer=f=3500:t=q:w=1.1:g=3,treble=g=2:f=9000:t=s:w=0.7,"
+            "acompressor=threshold=-22dB:ratio=3:attack=4:release=90:knee=4:makeup=3")
+STEM_I, STEM_TP = -14.0, -1.0
 
 
 def decode(p):
@@ -122,7 +128,7 @@ def process(line, meas):
     with wave.open(str(raw), "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((np.clip(y, -1, 1) * 32767).astype(np.int16).tobytes())
-    af = f"rubberband=tempo={tempo}:pitch=1:transients=crisp:formant=preserved" if tempo != 1.0 else "anull"
+    af = (f"rubberband=tempo={tempo}:pitch=1:transients=crisp:formant=preserved," if tempo != 1.0 else "") + VOICE_FX
     subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(raw), "-af", af, "-ar", str(SR), "-ac", "1",
                     "-c:a", "pcm_s16le", str(out)], check=True)
     raw.unlink()
@@ -154,12 +160,12 @@ def main():
     t = 0.0
     shots, placed = [], []
     for sid, lead, tail, extra in SHOTS:
-        ls = [lines[n] for n in sorted(lines) if lines[n]["shot"] == sid]
+        ls = [lines[n] for n in TAKES if lines[n]["shot"] == sid]   # TAKES order = spoken order
         s0 = t
         tt = s0 + lead
         for i, L in enumerate(ls):
             if i:
-                tt += GAP_8_9
+                tt += GAPS.get(sid, GAP_8_9)
             L["t0"] = round(tt, 3)
             L["t1"] = round(tt + L["dur"], 3)
             tt = L["t1"]
@@ -175,7 +181,7 @@ def main():
     mix = np.zeros(int(total / FPS * SR) + SR // 2, np.float32)
     for L in placed:
         y = decode(L["file"])
-        g = 10 ** ((-16.0 - loudness(L["file"])) / 20)   # level-match each line to -16 LUFS first
+        g = 10 ** ((STEM_I - loudness(L["file"])) / 20)   # level-match each line first
         i0 = int(round(L["t0"] * SR))
         mix[i0:i0 + len(y)] += y * g
     mix = mix[: int(total / FPS * SR)]
@@ -188,10 +194,10 @@ def main():
     peak = float(20 * np.log10(np.abs(mix).max() + 1e-9))
     gain = 0.0
     # two-pass loudnorm to -16 LUFS integrated, -1.5 dBTP (dialogue level, no music)
-    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(tmp), "-af", "loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json",
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(tmp), "-af", f"loudnorm=I={STEM_I}:TP={STEM_TP}:LRA=11:print_format=json",
                         "-f", "null", "-"], capture_output=True, text=True)
     js = json.loads(r.stderr[r.stderr.rindex("{"):r.stderr.rindex("}") + 1])
-    ln = (f"loudnorm=I=-16:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
+    ln = (f"loudnorm=I={STEM_I}:TP={STEM_TP}:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
           f"measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(tmp), "-af", ln, "-ar", str(SR), "-ac", "2", "-c:a", "pcm_s24le",
                     str(OUT / "partA_dialogue.wav")], check=True)
