@@ -1278,3 +1278,6 @@ lands here automatically. Agents must read this whole file before editing.
   about the car centreline and compare.
 - **[ending]** (QX80 v7g) MotoIQ's mark has the red square around the "IQ" only (white "moto" + red box "iq"), not around the
   whole word. motoiq.com / shopmotoiq.com are not reachable from cloud sessions by default - ask for the official file early.
+- **[pacing]** (QX80 v7h) A camera landing into the 1:1 match should settle ~0.5 s before the drop, not 1.5-2 s ("holds too long
+  waiting for the drop"). Fix without re-rendering: retime the source (fps_in = src_fps x t_land / t_target into minterpolate);
+  measure the motion stop on the decoded video (frame-diff < 0.15) - an ease-out reads still ~0.3 s before the key.

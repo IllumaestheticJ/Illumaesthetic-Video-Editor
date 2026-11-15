@@ -336,7 +336,11 @@ SEGS = {
     'f_panels': lambda: labelled('f_panels', 'D_kit', CUTS['f_panels'], [(4, CUTS['f_panels'] - 4, 'NEW BODY PANELS', 'designed on our scan')], fps_in=30 * 0.65 / BEAT),
     'k_brakes': lambda: labelled('k_brakes', 'K_brakes_car', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
     'g_final360': lambda: labelled('g_final360', 'G_final360', CUTS['g_final360'],
-                                   [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')]),
+                                   [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')],
+                                   # v7h (user: the rotation hold at :29 waits too long for the drop): the camera lands on the
+                                   # solved 1702 camera at render t 6.0 -> play the 15 fps render at 12.68 fps (x1.18) so it lands
+                                   # at shot t 7.10 = video 29.59 s, a 0.41 s settle before the drop instead of 1.5 s
+                                   fps_in=15 * 6.0 / 7.10),
     'h_reveal': seg_reveal,
     'p1_press': lambda: hold('p1_press', press(801)),
     'p2_press': lambda: hold('p2_press', press(802)),
@@ -346,7 +350,7 @@ SEGS = {
     'p6_press': lambda: hold('p6_press', press(809)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7g.mp4'
+OUT = D + '/out/infiniti_qx80_v7h.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']
