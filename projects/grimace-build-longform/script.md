@@ -14,9 +14,9 @@ picture sources follow `plan.md` section 3.
 |---|---|---|---|
 | 1 | Cold open | VO | This is Grimace. |
 | 2 | Cold open | SYNC 6662 105.7-112 | "...this is what we had before. These are some just cheap eBay coilovers." |
-| 3 | Cold open | SYNC 6573 27.9-32.3 | "...now we have a table full of parts to throw on this car." (MotoIQ chip on screen) |
-| 4 | Cold open | VO | Coilovers, brakes, every bushing on the car, bracing, sway bars, and steering. |
-| 5 | Cold open | SYNC 5439 9.8-15.5 | "Does this actually fit?" ... "No." **[ASK 12]** (pause trimmed; the picture is the hub adapter on the wheel, not the wheel on the car) |
+| 3 | Cold open | SYNC 6573 27.9-32.3 | ~~"...now we have a table full of parts to throw on this car." (MotoIQ chip on screen)~~ (cut in v5: owner found the cold open too long and jumbled) |
+| 4 | Cold open | VO | ~~Coilovers, brakes, every bushing on the car, bracing, sway bars, and steering.~~ (cut in v5: owner found the cold open too long and jumbled) |
+| 5 | Cold open | SYNC 5439 9.8-15.5 | ~~"Does this actually fit?" ... "No." **[ASK 12]** (pause trimmed; the picture is the hub adapter on the wheel, not the wheel on the car)~~ (cut in v5: owner found the cold open too long and jumbled) |
 | 6 | Cold open | VO | So here's all of it, what it does, and then we go to the track. **[ASK 1]** |
 | 7 | Intro | SYNC 6573 4.1-20 | "Welcome guys to an Epsilon Motorsports build video. We have our pink... sorry, I'm colorblind. We have our purple Miata, colloquially known as Grimace here, with a whole bunch of upgrade parts." |
 | 8 | Intro | SYNC 6573 27.9-43.5 | "...now we have a table full of parts to throw on this car, courtesy of Mike Kojima and MotoIQ. As you may or may not know, his daughter drives with us and it's absolutely essential for this car to be in tip-top shape with some of the best parts available." (owner: she may be mentioned) |

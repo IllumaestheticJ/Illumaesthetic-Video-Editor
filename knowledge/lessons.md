@@ -969,3 +969,5 @@ lands here automatically. Agents must read this whole file before editing.
   time: batches of 8 hit 429s and left jobs "in_progress" for 15 min before failing. tools/voget.py downloads finished takes
   from the jobs_wait results in the session transcript; tools/vocheck.py flags pace and wrong words; confirm flagged takes
   with medium.en before re-rolling (homophones like brakes/breaks are not errors). 46 lines + 17 re-rolls cost about 1 credit each.
+
+- **[audio]** Use a single Gran Turismo song for the whole video: several tracks jump around and are massively confusing  _(from grimace-build-longform, 2026-11-15, reviewer)_

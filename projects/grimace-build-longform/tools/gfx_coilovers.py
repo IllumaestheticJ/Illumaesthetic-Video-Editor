@@ -36,32 +36,59 @@ def L13(c, u, t):   # spring holds the car up; the damper controls how fast it m
     c.chip('MCS double-adjustable coilovers', G, u=u)
 
 
-def L14(c, u, t):   # compression / rebound
-    c.header('HOW IT WORKS', 'Compression and rebound', G, u)
-    ph = (t * 0.55) % 2; comp = ph < 1; tr = ease(ph) if comp else 1 - ease(ph - 1)
-    coilover(c, 640, 150, 560, tr, ease(seg(u, 0, 0.1)))
-    a1, a2 = (1.0, 0.25) if comp else (0.25, 1.0)
-    c.arrow(430, 450, 430, 290, fade(C, a1), 6, 18); c.label(430, 480, 'COMPRESSION', 24, WHITE, a1); c.label(430, 508, 'wheel pushed up', 16, DIM, a1)
-    c.arrow(850, 290, 850, 450, fade(COL['steering'], a2), 6, 18); c.label(850, 480, 'REBOUND', 24, WHITE, a2); c.label(850, 508, 'wheel comes back down', 16, DIM, a2)
-    c.chip('MCS double-adjustable coilovers', G, u=u)
+def dyno(c, u, t, mode):
+    """Shock dyno: the damper is stroked by a crank on the left; the right plots damping force against shaft speed.
+    Rebound is drawn above the axis, compression below (the usual dyno layout). mode: 'both' = one live trace,
+    'one' = one adjuster (rebound curve sweeps, compression stays), 'two' = both adjusters sweep on their own.
+    Illustrative curves only: no scales, no values, not a dyno of these dampers."""
+    title = {'both': 'On a shock dyno', 'one': 'One knob', 'two': 'Two knobs: one for each'}[mode]
+    c.header('HOW IT WORKS', title, G, u); a = ease(seg(u, 0.02, 0.14)); RB, CP = COL['steering'], C
+    # --- rig: frame, load cell on top, crank underneath ---
+    w = t * 3.2; x0 = 250; tr = 0.5 - 0.5 * math.cos(w)             # 0 extended .. 1 compressed
+    vel = math.sin(w)                                                # + = compressing
+    c.rect(x0 - 120, 150, x0 - 104, 600, fill=fade(GRID, a)); c.rect(x0 + 104, 150, x0 + 120, 600, fill=fade(GRID, a))
+    c.rect(x0 - 120, 150, x0 + 120, 166, fill=fade(GRID, a)); c.rect(x0 - 26, 166, x0 + 26, 186, fill=fade(DIM, a), r=3)
+    c.label(x0 + 60, 176, 'LOAD CELL', 15, DIM, a, 'lm')
+    lift = 46 * tr; coilover(c, x0, 190, 500 - lift, tr * 0.9, a)
+    cx, cy = x0, 560; c.circle(cx, cy, 30, outline=fade(DIM, a), width=4)
+    px, py = cx + 22 * math.sin(w), cy + 22 * math.cos(w); c.line([(px, py), (x0, 516 - lift)], fade(WHITE, a), 5); c.circle(px, py, 6, fill=fade(WHITE, a))
+    c.label(x0, 628, 'SHOCK DYNO', 17, DIM, a)
+    # --- plot ---
+    X0, X1, Y0, Y1 = 520, 1180, 170, 590; ym = (Y0 + Y1) / 2
+    c.rect(X0, Y0, X1, Y1, fill=fade(PANEL, a), outline=fade(GRID, a), width=1.5, r=8)
+    for k in range(1, 6): c.line([(X0 + (X1 - X0) * k / 6, Y0 + 8), (X0 + (X1 - X0) * k / 6, Y1 - 8)], fade(GRID, a), 1)
+    c.line([(X0 + 14, ym), (X1 - 14, ym)], fade(DIM, a), 2); c.line([(X0 + 40, Y0 + 12), (X0 + 40, Y1 - 12)], fade(DIM, a), 2)
+    c.label(X1 - 16, ym + 16, 'SHAFT SPEED', 15, DIM, a, 'rm'); c.label(X0 + 52, Y0 + 22, 'FORCE', 15, DIM, a, 'lm')
+    c.label(X1 - 20, Y0 + 26, 'REBOUND', 20, RB, a, 'rm'); c.label(X1 - 20, Y1 - 26, 'COMPRESSION', 20, CP, a, 'rm')
 
-
-def knobs(c, u, t, double):
-    c.header('HOW IT WORKS', 'Two knobs: one for each' if double else 'One knob', G, u)
-    a = ease(seg(u, 0.02, 0.14)); coilover(c, 300, 170, 560, 0.35 + 0.25 * math.sin(t * 2.2), a)
-    k1 = 0.5 + 0.4 * math.sin(t * 1.3); k2 = 0.5 + 0.4 * math.sin(t * 0.9 + 1.7)
-    if double:
-        c.knob(620, 300, 44, k1 * 270 - 135, COL['steering'], a, 'REBOUND'); c.knob(620, 480, 44, k2 * 270 - 135, C, a, 'COMPRESSION')
-        c.bar(760, 290, 380, 22, k1, COL['steering'], 'REBOUND  (set on its own)', a); c.bar(760, 470, 380, 22, k2, C, 'COMPRESSION  (set on its own)', a)
+    def curve(gain, sign, col, wd=4, al=1.0):          # digressive damper curve: steep at low speed, flatter after the knee
+        pts = []
+        for i in range(41):
+            v = i / 40; f = gain * (1 - math.exp(-4.2 * v)) * (0.72 + 0.28 * v)
+            pts.append((X0 + 40 + v * (X1 - X0 - 70), ym - sign * f * (ym - Y0 - 30)))
+        c.line(pts, fade(col, a * al, PANEL), wd); return pts
+    if mode == 'both':
+        r, k = curve(0.78, 1, RB), curve(0.5, -1, CP)
+        v = abs(vel); i = int(v * 40); p = (k if vel > 0 else r)[i]; c.circle(p[0], p[1], 8, fill=fade(WHITE, a))
+        c.label(X0, Y0 - 18, 'wheel pushed up = compression      wheel comes back down = rebound', 15, DIM, ease(seg(u, 0.2, 0.4)), 'lm')
     else:
-        c.knob(620, 390, 50, k1 * 270 - 135, COL['steering'], a, 'ONE KNOB')
-        c.bar(760, 320, 380, 22, k1, COL['steering'], 'REBOUND  (mostly what the knob changes)', a)
-        c.bar(760, 450, 380, 22, 0.5, DIM, 'COMPRESSION  (whatever you get)', a)
+        s1 = 0.5 + 0.5 * math.sin(t * 1.5); s2 = 0.5 + 0.5 * math.sin(t * 1.1 + 2.0)
+        for g in (0.5, 0.64, 0.78, 0.92): curve(g, 1, RB, 1.5, 0.3)
+        curve(lerp(0.5, 0.92, s1), 1, RB)
+        if mode == 'two':
+            for g in (0.3, 0.42, 0.54, 0.66): curve(g, -1, CP, 1.5, 0.3)
+            curve(lerp(0.3, 0.66, s2), -1, CP)
+            c.knob(430, 300, 34, s1 * 270 - 135, RB, a, 'REBOUND'); c.knob(430, 470, 34, s2 * 270 - 135, CP, a, 'COMPRESSION')
+        else:
+            curve(0.48, -1, DIM); c.knob(430, 385, 38, s1 * 270 - 135, RB, a, 'ONE KNOB')
+            c.label(X1 - 20, Y1 - 52, 'whatever you get', 15, DIM, a, 'rm')
+    c.label(X1, Y1 + 22, 'illustration, not a dyno of these dampers', 15, DIM, a, 'rm')
     c.chip('MCS double-adjustable coilovers', G, u=u)
 
 
-def L15(c, u, t): knobs(c, u, t, False)
-def L16(c, u, t): knobs(c, u, t, True)
+def L14(c, u, t): dyno(c, u, t, 'both')
+def L15(c, u, t): dyno(c, u, t, 'one')
+def L16(c, u, t): dyno(c, u, t, 'two')
 
 
 def L17(c, u, t):   # springs (with the sway bars) decide how much it leans; dampers control how fast

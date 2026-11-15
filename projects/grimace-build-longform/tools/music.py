@@ -1,4 +1,6 @@
-"""Continuous music bed for a review cut. usage: music.py <media_dir> <in.mp4> <timeline.md> <out.mp4>
+"""Continuous music bed for a review cut. usage: music.py <media_dir> <in.mp4> <timeline.md> <out.mp4> [single <track file>]
+With `single`, one track carries the whole video (owner, v4: several tracks "jumps around and is massively confusing"):
+it starts at SINGLE_OFF, and loops with a 4 s crossfade before its fade-out tail.
 One track per section (plan below), 4 s crossfades centred on the section change, every track levelled to the same
 loudness, bed about 14 dB under the voice, lifted 8 dB with 3 s ramps where the picture runs without any voice
 (the track montage). Prints the bed level second by second around each change and the quietest second overall."""
@@ -14,6 +16,7 @@ def load(path, extra=()):
     return np.frombuffer(raw, dtype=np.float32).copy()
 
 
+SINGLE = sys.argv[6] if len(sys.argv) > 6 and sys.argv[5] == 'single' else None
 rows = []
 for l in open(TLM):
     c = [x.strip() for x in l.split('|')]
@@ -24,6 +27,16 @@ starts = []
 for pre, trk, off in PLAN:
     t0 = next(r[0] for r in rows if r[2].startswith(pre)); starts.append((0.0 if pre == '0.' else t0, trk, off))
 bed = np.zeros(N, np.float32)
+if SINGLE:
+    x = load(SINGLE, ['-af', 'loudnorm=I=-18:TP=-2:LRA=7']); k = int(XF * SR)
+    body = x[int(1.0 * SR):len(x) - int(9 * SR)]                      # drop the fade-out tail
+    pos = 0
+    while pos < N:
+        seg = body[:N - pos + k].copy(); n = len(seg)
+        if pos > 0: seg[:k] *= np.sin(np.linspace(0, np.pi / 2, k)) ** 2
+        if pos + n < N + k and n == len(body): seg[-k:] *= np.cos(np.linspace(0, np.pi / 2, k)) ** 2
+        m_ = min(n, N - pos); bed[pos:pos + m_] += seg[:m_]; pos += len(body) - k
+    starts = []
 for i, (t0, trk, off) in enumerate(starts):
     t1 = starts[i + 1][0] if i + 1 < len(starts) else total
     a, b = max(0, t0 - XF / 2), min(total, t1 + XF / 2); n = int((b - a) * SR)

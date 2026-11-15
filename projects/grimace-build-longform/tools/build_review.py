@@ -58,14 +58,10 @@ GX_RACK = 'Rack bushing explainer: rack shifting on soft mounts before the wheel
 GX_THX = 'Thank-you roll over Grimace on track: MotoIQ / Mike Kojima, Good-Win Racing, Whiteline, MCS, Brian at Fast Brakes, CSG, SPL, SuperPro (official logos to come)'
 
 TL = [
- ('0. COLD OPEN', [
+ ('0. COLD OPEN', [      # v5: short and linear (owner: v4 open was too long and jumbled): car, the before, the promise
   V('This is Grimace.', (J + '2_04_58_PM', 2.5, 5.5)),
   S(D(6662), 105.7, 112, '"...this is what we had before. These are some just cheap eBay coilovers."'),
-  S(D(6573), 27.9, 32.3, '"...now we have a table full of parts to throw on this car."'),
-  V('Coilovers, brakes, every bushing on the car, bracing, sway bars, and steering.',
-    (D(6730), 0, 1.2), (D(6577), 0, 1.2), (D(6676), 12, 13.2), (D(6821), 0.2, 1.4), (D(6692), 8, 9.2), (CN(5438), 14, 15.2)),
-  S(CN(5439), 9.8, 15.5, '"Does this actually fit?" ... "No."'),
-  V("So here's all of it, what it does, and then we go to the track.", (J + '11_37_26_AM', 5.5, 8.5)),
+  V("So here's all of it, what it does, and then we go to the track.", (D(6579), 0, 4.5)),
  ]),
  ('1. TITLE + INTRO', [
   C('TITLE', 'FROM EBAY COILOVERS TO A REAL RACE SETUP\nRebuilding Our Miata', 4),
