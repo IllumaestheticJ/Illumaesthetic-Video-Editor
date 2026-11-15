@@ -60,3 +60,4 @@
 {"ts": "2026-11-15T02:55:42Z", "decision": "Gus's vest reaches the head: vest tube to 6 cm under the neck, thick collar ring meeting the head, body pill ends under the head", "why": "Owner: grey band between collar and head"}
 {"ts": "2026-11-15T02:55:42Z", "decision": "Mouthless talk stronger: body squash 12 %, hand lifts 75/45 deg x energy, head bob 7 deg x energy, accents x1.8", "why": "Coordinator: 7 % barely read in a 1 s strip; phone hand stays fixed (aimed after the pose; squash is torso-only)"}
 {"ts": "2026-11-15T02:55:42Z", "decision": "S3 reused from v1; all other shots re-rendered", "why": "S3 shows no vest and no talking; S10-S12 shift by 61 frames, corners recomputed"}
+{"ts": "2026-11-15T04:42:20Z", "decision": "partA_v2.mp4 delivered: 730 frames (24.33 s), dialogue -14.2 LUFS / -3.9 dBTP muxed, phone full-frame on 729, P2 at 730", "why": "Owner v1 notes applied in one pass; S3 reused, S1-S2 and S4-S12 re-rendered"}
