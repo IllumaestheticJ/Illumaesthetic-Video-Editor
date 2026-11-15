@@ -100,7 +100,7 @@ def endscreen(c, u, t):
 
 
 JOBS = [('T_title', title, 4.0), ('T_track', track, 3.0)] + [(f'T_ch{k + 1}', chapter(k), 3.0) for k in range(5)]
-LINES = {10: L10, 45: watch, 46: watch, 61: L61, 67: thanks, 69: illum, 70: endscreen}
+LINES = {10: L10, 45: watch, 46: watch, 61: L61, 67: thanks, 68: thanks, 69: illum, 70: endscreen}
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'still':
         os.makedirs(f'{M}/gfx/chk', exist_ok=True)

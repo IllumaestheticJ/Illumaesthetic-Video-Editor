@@ -211,7 +211,7 @@ for section, beats in TL:
             aud = (['-i', vf_, '-af', 'adelay=250,apad'] if vf_ else ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono'])
             if GFX and os.path.exists(g):      # a finished graphic replaces the card; last frame held if the line runs longer
                 run(['ffmpeg', '-v', 'error', '-y', '-i', g] + aud + ['-map', '0:v', '-map', '1:a', '-vf', f'scale=960:540,setsar=1,tpad=stop_mode=clone:stop_duration=30,'
-                     + overlays(uid, section, 'card', b['text']), '-t', f'{d:.3f}'] + ENC + [o])
+                     + overlays(uid, section, 'card', '' if vf_ else b['text']), '-t', f'{d:.3f}'] + ENC + [o])   # no caption over a voiced graphic
                 b = dict(b, tag='GRAPHIC')
             else:
                 run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', f"color=c={COL[b['tag']]}:s=960x540:r={FPS}:d={d:.3f}", ] + aud + [
