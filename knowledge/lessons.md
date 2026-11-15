@@ -964,3 +964,8 @@ lands here automatically. Agents must read this whole file before editing.
 - **[text]** Have the script reviewed for sponsor-sensitive wording: do not turn the host's opinion of one part ("cheap eBay
   coilovers") into a category claim, do not describe a kit's contents beyond what is on camera (a caliper seen is not a
   bigger disc), and check who a spoken "courtesy of <first name>" actually credits.
+- **[audio]** Higgsfield seed_audio `speech_rate`: 0 is neutral, positive is FASTER (range -50..100). The bracing video's
+  "speech_rate 10" is why takes ran 4.5-5.9 words/s; use 0, and -10 to -15 for lines that still rush. Submit 5 lines at a
+  time: batches of 8 hit 429s and left jobs "in_progress" for 15 min before failing. tools/voget.py downloads finished takes
+  from the jobs_wait results in the session transcript; tools/vocheck.py flags pace and wrong words; confirm flagged takes
+  with medium.en before re-rolling (homophones like brakes/breaks are not errors). 46 lines + 17 re-rolls cost about 1 credit each.

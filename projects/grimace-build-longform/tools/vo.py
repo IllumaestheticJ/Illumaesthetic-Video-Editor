@@ -5,7 +5,7 @@ import re, json, os
 H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKIP = {54, 62, 68}
 SAY = [('MotoIQ', 'Moto I Q'), ('Good-Win', 'Goodwin'), ('MCS', 'M C S'), ('CSG', 'C S G'), ('SPL', 'S P L'), ('SuperPro', 'Super Pro'),
-       ('3D', 'three D'), ('stock NB', 'stock N B')]
+       ('3D', 'three-D'), ('NB Miata', 'N-B Miata')]
 out = {}
 for l in open(f'{H}/script.md'):
     c = [x.strip() for x in l.split('|')]

@@ -1,0 +1,419 @@
+{
+ "1": {
+  "file": "L01.wav",
+  "dur": 2.54,
+  "speech": 2.14,
+  "wps": 1.4,
+  "diff": [],
+  "heard": "This is Grimace."
+ },
+ "4": {
+  "file": "L04.wav",
+  "dur": 5.93,
+  "speech": 5.92,
+  "wps": 2.03,
+  "diff": [],
+  "heard": "coilovers, brakes, every bushing on the car, bracing, sway bars, and steering."
+ },
+ "6": {
+  "file": "L06.wav",
+  "dur": 3.43,
+  "speech": 3.21,
+  "wps": 4.68,
+  "diff": [],
+  "heard": "So here's all of it, what it does, and then we go to the track."
+ },
+ "9": {
+  "file": "L09.wav",
+  "dur": 5.86,
+  "speech": 5.65,
+  "wps": 2.65,
+  "diff": [
+   [
+    "brakes",
+    "breaks"
+   ]
+  ],
+  "heard": "So this is what we started with stock breaks old bushings and those eBay coilovers"
+ },
+ "10": {
+  "file": "L10.wav",
+  "dur": 8.16,
+  "speech": 7.81,
+  "wps": 3.84,
+  "diff": [],
+  "heard": "So we're going to go through it one part at a time, what it is, who sent it, and what it does, and at the end, we go drive it."
+ },
+ "13": {
+  "file": "L13.wav",
+  "dur": 6.44,
+  "speech": 5.47,
+  "wps": 3.65,
+  "diff": [],
+  "heard": "So what does double adjustable actually mean? The spring holds the car up, the damper controls how fast it moves."
+ },
+ "14": {
+  "file": "L14.wav",
+  "dur": 4.44,
+  "speech": 4.21,
+  "wps": 4.51,
+  "diff": [],
+  "heard": "When the wheel hits a bump and gets pushed up that's compression when it comes back down, that's rebound"
+ },
+ "15": {
+  "file": "L15.wav",
+  "dur": 6.4,
+  "speech": 5.04,
+  "wps": 4.56,
+  "diff": [],
+  "heard": "On a lot of coilovers, you get one knob, and on most of them, that's mostly rebound, so compression is whatever you get."
+ },
+ "16": {
+  "file": "L16.wav",
+  "dur": 8.33,
+  "speech": 7.92,
+  "wps": 3.66,
+  "diff": [],
+  "heard": "On these there's a knob for each, so if it's crashing over curbs or floating after a bump, you can fix that one thing and leave the other alone."
+ },
+ "17": {
+  "file": "L17.wav",
+  "dur": 5.55,
+  "speech": 5.33,
+  "wps": 4.31,
+  "diff": [],
+  "heard": "The springs along with the sway bars decide how much the car leans and dives. The dampers control how fast it gets there."
+ },
+ "18": {
+  "file": "L18.wav",
+  "dur": 1.62,
+  "speech": 1.43,
+  "wps": 4.9,
+  "diff": [],
+  "heard": "Here's Steven getting them on the car."
+ },
+ "19": {
+  "file": "L19.wav",
+  "dur": 2.76,
+  "speech": 2.48,
+  "wps": 4.84,
+  "diff": [
+   [
+    "track",
+    "truck"
+   ]
+  ],
+  "heard": "And there it is. We'll see how they feel at the truck"
+ },
+ "21": {
+  "file": "L21.wav",
+  "dur": 10.78,
+  "speech": 10.69,
+  "wps": 2.24,
+  "diff": [],
+  "heard": "All right bushings. This is the stuff nobody sees but every suspension arm on this car connects to the chassis through one of these."
+ },
+ "22": {
+  "file": "L22.wav",
+  "dur": 5.26,
+  "speech": 5.03,
+  "wps": 3.58,
+  "diff": [],
+  "heard": "From the factory, it's rubber, and on a car this old, that rubber gets soft and it cracks."
+ },
+ "23": {
+  "file": "L23.wav",
+  "dur": 5.89,
+  "speech": 5.67,
+  "wps": 4.24,
+  "diff": [],
+  "heard": "So when you load the car up in a corner, it squishes and the wheel moves around in ways you didn't ask it to."
+ },
+ "24": {
+  "file": "L24.wav",
+  "dur": 5.58,
+  "speech": 5.34,
+  "wps": 4.3,
+  "diff": [],
+  "heard": "Polyurethane doesn't squish as much so the alignment you set in the shop is a lot closer to what you get on track"
+ },
+ "25": {
+  "file": "L25.wav",
+  "dur": 3.99,
+  "speech": 3.77,
+  "wps": 4.51,
+  "diff": [],
+  "heard": "But first, the old ones have to come out, and they did not want to come out."
+ },
+ "27": {
+  "file": "L27.wav",
+  "dur": 3.6,
+  "speech": 3.33,
+  "wps": 4.5,
+  "diff": [],
+  "heard": "And while the arms are off the car, they get a fresh coat of paint."
+ },
+ "28": {
+  "file": "L28.wav",
+  "dur": 2.17,
+  "speech": 1.95,
+  "wps": 4.63,
+  "diff": [],
+  "heard": "And Goodwin sent us something for this job too."
+ },
+ "30": {
+  "file": "L30.wav",
+  "dur": 6.59,
+  "speech": 6.18,
+  "wps": 3.56,
+  "diff": [],
+  "heard": "Why the grease rubber twists polyurethane has to rotate so if you put it in dry it squeaks and it binds up"
+ },
+ "31": {
+  "file": "L31.wav",
+  "dur": 6.25,
+  "speech": 6.15,
+  "wps": 2.11,
+  "diff": [],
+  "heard": "New bushing in, sleeve pressed in, and it goes back on the car."
+ },
+ "33": {
+  "file": "L33.wav",
+  "dur": 3.59,
+  "speech": 3.22,
+  "wps": 3.73,
+  "diff": [],
+  "heard": "Here's what was on there before, and here's what's on there now."
+ },
+ "34": {
+  "file": "L34.wav",
+  "dur": 7.33,
+  "speech": 7.11,
+  "wps": 3.52,
+  "diff": [],
+  "heard": "So why a big brake kit on a Miata? It's a light car and honestly with good pads and fluid the stock brakes do okay"
+ },
+ "35": {
+  "file": "L35.wav",
+  "dur": 10.07,
+  "speech": 7.99,
+  "wps": 2.88,
+  "diff": [
+   [
+    "brakes",
+    "breaks"
+   ]
+  ],
+  "heard": "The problem is doing it again and again, lap after lap. Breaks turn speed into heat, and that heat has to go somewhere."
+ },
+ "36": {
+  "file": "L36.wav",
+  "dur": 7.3,
+  "speech": 7.09,
+  "wps": 3.39,
+  "diff": [
+   [
+    "brake",
+    "break"
+   ]
+  ],
+  "heard": "A big break kit gives you a stiffer caliper and a bigger pad, so it takes a lot longer before things start to fade."
+ },
+ "37": {
+  "file": "L37.wav",
+  "dur": 5.44,
+  "speech": 5.19,
+  "wps": 3.66,
+  "diff": [],
+  "heard": "It's about the pedal feeling the same at the end of the session as it did at the start."
+ },
+ "39": {
+  "file": "L39.wav",
+  "dur": 7.9,
+  "speech": 7.66,
+  "wps": 4.18,
+  "diff": [],
+  "heard": "A rubber line swells a little every time you hit the pedal, and it gets worse as it ages. A braided stainless line swells a lot less, so the pedal is firmer."
+ },
+ "41": {
+  "file": "L41.wav",
+  "dur": 4.23,
+  "speech": 4.02,
+  "wps": 3.98,
+  "diff": [
+   [
+    "hot",
+    "hard"
+   ]
+  ],
+  "heard": "Pads and fluid are the part people skip. A track pad is made to work hard."
+ },
+ "42": {
+  "file": "L42.wav",
+  "dur": 4.67,
+  "speech": 4.36,
+  "wps": 4.36,
+  "diff": [],
+  "heard": "And the fluid matters, because if it boils, the pedal goes long. That's the one you really don't want."
+ },
+ "44": {
+  "file": "L44.wav",
+  "dur": 3.5,
+  "speech": 3.27,
+  "wps": 3.98,
+  "diff": [
+   [
+    "whiteline",
+    "white line"
+   ]
+  ],
+  "heard": "And the white line front strut tower brace. Both of these are on grimace."
+ },
+ "45": {
+  "file": "L45.wav",
+  "dur": 6.01,
+  "speech": 5.6,
+  "wps": 4.47,
+  "diff": [
+   [
+    "n b",
+    "nd"
+   ],
+   [
+    "three d",
+    "3d"
+   ]
+  ],
+  "heard": "Now, these two get their own video. We put them on a stock ND Miata, jacked up one corner, and 3D scanned it."
+ },
+ "46": {
+  "file": "L46.wav",
+  "dur": 3.92,
+  "speech": 3.5,
+  "wps": 4.29,
+  "diff": [],
+  "heard": "So if you want to see how much the chassis actually moves, link's up here."
+ },
+ "48": {
+  "file": "L48.wav",
+  "dur": 6.28,
+  "speech": 6.24,
+  "wps": 1.92,
+  "diff": [],
+  "heard": "And Goodwin sent the knuckle support and the sway bar reinforcement bars."
+ },
+ "49": {
+  "file": "L49.wav",
+  "dur": 6.6,
+  "speech": 6.37,
+  "wps": 3.61,
+  "diff": [],
+  "heard": "A sway bar ties the left side to the right side. When the car leans, the bar twists and it fights that lean."
+ },
+ "50": {
+  "file": "L50.wav",
+  "dur": 4.81,
+  "speech": 4.61,
+  "wps": 3.47,
+  "diff": [],
+  "heard": "And how stiff you go in the front versus the rear changes how the car rotates."
+ },
+ "52": {
+  "file": "L52.wav",
+  "dur": 7.1,
+  "speech": 6.83,
+  "wps": 3.81,
+  "diff": [],
+  "heard": "The tie rod connects the steering rack to the front wheel. It swings in an arc when the suspension moves, and so do the control arms."
+ },
+ "53": {
+  "file": "L53.wav",
+  "dur": 8.41,
+  "speech": 8.22,
+  "wps": 3.04,
+  "diff": [],
+  "heard": "If those arcs don't match, the wheel steers itself a little over every bump. That's bump steer. And lowering a car usually makes it worse."
+ },
+ "55": {
+  "file": "L55.wav",
+  "dur": 9.91,
+  "speech": 9.65,
+  "wps": 2.9,
+  "diff": [],
+  "heard": "And the rack bushings. The steering rack sits on rubber mounts, so when you turn the wheel, the rack shifts sideways a little before the tires do anything."
+ },
+ "56": {
+  "file": "L56.wav",
+  "dur": 5.87,
+  "speech": 5.57,
+  "wps": 3.23,
+  "diff": [],
+  "heard": "Stiffer bushings take most of that out and with a manual steering rack you feel all of it."
+ },
+ "57": {
+  "file": "L57.wav",
+  "dur": 1.58,
+  "speech": 1.11,
+  "wps": 5.41,
+  "diff": [],
+  "heard": "Here they are on the car"
+ },
+ "60": {
+  "file": "L60.wav",
+  "dur": 4.36,
+  "speech": 2.6,
+  "wps": 2.31,
+  "diff": [],
+  "heard": "And that's where it ended up."
+ },
+ "61": {
+  "file": "L61.wav",
+  "dur": 3.25,
+  "speech": 2.87,
+  "wps": 4.53,
+  "diff": [],
+  "heard": "So that's everything on the car now, let's go see what it does"
+ },
+ "63": {
+  "file": "L63.wav",
+  "dur": 2.72,
+  "speech": 2.53,
+  "wps": 3.56,
+  "diff": [],
+  "heard": "Bed the brakes, check the wheels, and send it."
+ },
+ "67": {
+  "file": "L67.wav",
+  "dur": 5.84,
+  "speech": 5.58,
+  "wps": 4.12,
+  "diff": [
+   [
+    "i q",
+    "iq"
+   ]
+  ],
+  "heard": "Thank you to our technology partners at Moto IQ and to Mike Kojima for getting us set up with all of this."
+ },
+ "69": {
+  "file": "L69.wav",
+  "dur": 4.26,
+  "speech": 3.99,
+  "wps": 3.76,
+  "diff": [
+   [
+    "illumaesthetic",
+    "illum aesthetic"
+   ]
+  ],
+  "heard": "If you need scanning and other engineering consulting work, reach out to us at Illum Aesthetic."
+ },
+ "70": {
+  "file": "L70.wav",
+  "dur": 5.54,
+  "speech": 4.58,
+  "wps": 2.18,
+  "diff": [],
+  "heard": "Want more? Tell us what you want to see next."
+ }
+}

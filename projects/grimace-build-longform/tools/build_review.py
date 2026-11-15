@@ -1,5 +1,5 @@
 """Rough review cut from the 960x540 proxies: captions, placeholder cards, burned-in timecode. No voice, no music.
-usage: build_review.py <media_dir> <out.mp4>
+usage: build_review.py <media_dir> <out.mp4> [--voice]   (--voice lays the recorded narration takes from vo/ under the VO captions)
 Timeline = list of beats (below). SYNC beats keep the clip's own audio; everything else is silent.
 VO beats show the narration line as a caption and run for max(picture, words / 2.6 + 0.6 s); the last picture is held.
 Cards: TITLE (black), GFX (blue: a graphic we will build), FILL (red: placeholder the owner fills in).
@@ -7,11 +7,35 @@ Fuji clips (DSCF) are flat log footage and get a quick contrast/saturation lift 
 import sys, os, json, subprocess, textwrap
 
 M, OUT = sys.argv[1], sys.argv[2]
+VOICE = '--voice' in sys.argv
+import re
 W = f'{M}/review'; os.makedirs(W, exist_ok=True)
 FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 FPS = '24000/1001'
 DUR = {json.loads(l)['stem']: json.loads(l)['dur'] for l in open(f'{M}/ingest.jsonl')}
 J, MR = 'Video_Jun_07_2026_', 'Video_Mar_21_2026_'
+H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_n = lambda t: re.sub(r'[^a-z]', '', t.lower())
+LINE = {}
+for _l in open(f'{H}/script.md'):
+    _c = [x.strip() for x in _l.split('|')]
+    if len(_c) > 5 and _c[1].isdigit() and _c[3] == 'VO':
+        LINE[_n(re.sub(r'\*\*\[.*?\]\*\*|\(.*?\)', '', _c[4]))] = int(_c[1])
+CHK = json.load(open(f'{M}/vo/check.json')) if VOICE and os.path.exists(f'{M}/vo/check.json') else {}
+
+
+def voice(text):
+    """(path, seconds) of the processed take for a narration line, or (None, 0). Silence trimmed, takes faster than
+    4.4 words/s slowed 10 % (never more), cut-only top shelf, levelled."""
+    k = LINE.get(_n(text))
+    src = f'{M}/vo/L{k:02d}.wav' if k else ''
+    if not VOICE or not k or not os.path.exists(src): return None, 0
+    os.makedirs(f'{M}/vo/p', exist_ok=True); o = f'{M}/vo/p/L{k:02d}.wav'
+    trim = 'silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse'
+    slow = ',atempo=0.9' if CHK.get(str(k), {}).get('wps', 0) > 4.4 else ''
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', trim + slow + ',highshelf=f=4500:g=-3,loudnorm=I=-19:TP=-2', '-ar', '48000', '-ac', '1', o], check=True)
+    d = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', o], capture_output=True, text=True).stdout)
+    return o, d
 
 
 def S(stem, a, b, text): return dict(kind='sync', pics=[(stem, a, b)], text=text)
@@ -97,7 +121,7 @@ TL = [
   C('TITLE', '4. BRACING AND SWAY BARS', 3),
   S(D(6662), 5, 15.5, '"...we have these fender braces, courtesy of my boys at Good-Win Racing."'),
   V("And the Whiteline front strut tower brace. Both of these are on Grimace.", (D(6819), 0, 3), (D(6817), 0, 3), (D(6820), 0.3, 3), (D(6821), 0.2, 2.5)),
-  C('GFX', 'Watch-next card: the bracing video  (title + link to fill in)', 0, 'Now, these two get their own video. We put them on a stock NB, jacked up one corner, and 3D scanned it.'),
+  C('GFX', 'Watch-next card: the bracing video  (title + link to fill in)', 0, 'Now, these two get their own video. We put them on a stock NB Miata, jacked up one corner, and 3D scanned it.'),
   C('GFX', 'Watch-next card: the bracing video  (title + link to fill in)', 0, "So if you want to see how much the chassis actually moves, link's up here."),
   S(D(6662), 65.4, 80, '"We also got sway bars from Whiteline... This is the Whiteline rear sway bar."'),
   V('And Good-Win sent the knuckle support and the sway bar reinforcement bars.', (D(6691), 0, 4), (D(6692), 8, 12)),
@@ -111,7 +135,7 @@ TL = [
   C('GFX', GX_TIE, 0, 'The tie rod connects the steering rack to the front wheel. It swings in an arc when the suspension moves, and so do the control arms.'),
   C('GFX', GX_TIE, 0, "If those arcs don't match, the wheel steers itself a little over every bump. That's bump steer. And lowering a car usually makes it worse."),
   C('GFX', GX_RACK, 0, 'And the rack bushings. The steering rack sits on rubber mounts. So when you turn the wheel, the rack shifts sideways a little before the tires do anything.'),
-  C('GFX', GX_RACK, 0, 'Stiffer bushings take most of that out. And with a manual rack, you feel all of it.'),
+  C('GFX', GX_RACK, 0, 'Stiffer bushings take most of that out. And with a manual steering rack, you feel all of it.'),
   C('FILL', 'PICK-UP SHOT\nTie rods (inner + outer) and steering rack mounts on the car', 5, 'Here they are on the car.'),
   S(CN(5438), 12.7, 39, '"Okay, Mike Kojima bought us this fancy-ass steering wheel, just so we can ruin it when we go racing. But it matches the theme of the car, so we gots to do it, you know? ... The race car is themed."'),
   P((CN(5438), 66, 74)),
@@ -173,12 +197,13 @@ ENC = ['-r', FPS, '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '20', '-pix_
 units, rows, t, n = [], [], 0.0, 0
 for section, beats in TL:
     for b in beats:
-        need = (len(b['text'].split()) / 2.6 + 0.6) if b['kind'] in ('vo', 'card') and b['text'] else 0
+        vf_, vd_ = voice(b['text']) if b['kind'] in ('vo', 'card') and b['text'] else (None, 0)
+        need = (vd_ + 0.6 if vf_ else len(b['text'].split()) / 2.6 + 0.6) if b['kind'] in ('vo', 'card') and b['text'] else 0
         if b['kind'] == 'card':
             d = max(b['dur'], need); n += 1; uid = f'u{n:03d}'; o = f'{W}/{uid}.mp4'
             body = f"drawtext=fontfile={FONT}:textfile={tf(uid + '_b', b['body'], 46)}:fontsize=30:fontcolor=white:line_spacing=10:x=(w-text_w)/2:y=(h-text_h)/2-30"
             head = f"drawtext=fontfile={FONT}:text='{HEAD[b['tag']]}':fontsize=18:fontcolor=white@0.7:x=(w-text_w)/2:y=70," if HEAD[b['tag']] else ''
-            run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', f"color=c={COL[b['tag']]}:s=960x540:r={FPS}:d={d:.3f}", '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono',
+            run(['ffmpeg', '-v', 'error', '-y', '-f', 'lavfi', '-i', f"color=c={COL[b['tag']]}:s=960x540:r={FPS}:d={d:.3f}", ] + (['-i', vf_, '-af', 'adelay=250,apad'] if vf_ else ['-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono']) + [
                  '-vf', head + body + ',' + overlays(uid, section, 'card', b['text']), '-t', f'{d:.3f}'] + ENC + [o])
             units.append(o); rows.append((t, d, section, b['tag'], b['body'].replace('\n', ' / '), b['text'])); t += d
             continue
@@ -195,11 +220,17 @@ for section, beats in TL:
             run(c + amap + ['-vf', vf, '-t', f'{d + hold:.3f}'] + ENC + [o])
             units.append(o)
             rows.append((t, d + hold, section, {'sync': 'ON CAMERA', 'vo': 'VO', 'pic': 'PICTURE'}[b['kind']], f'{s} {a:g}-{e:g}', b['text'] if i == 0 else '')); t += d + hold
+        if vf_ and b['kind'] == 'vo':   # lay the take under this beat's pictures
+            k = len(pics); grp = units[-k:]; del units[-k:]; n += 1; o = f'{W}/u{n:03d}v.mp4'
+            open(f'{W}/grp.txt', 'w').write(''.join(f"file '{u}'\n" for u in grp))
+            run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{W}/grp.txt', '-i', vf_, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
+                 '-af', 'adelay=250,apad', '-c:a', 'aac', '-ar', '48000', '-ac', '1', '-b:a', '96k', '-shortest', o])
+            units.append(o)
         print(section, b['kind'], f'{t:.1f}', flush=True)
 
 open(f'{W}/list.txt', 'w').write(''.join(f"file '{u}'\n" for u in units))
 tc = (f"drawtext=fontfile={FONT}:text='%{{pts\\:hms}}':fontsize=20:fontcolor=white:x=w-text_w-14:y=12:box=1:boxcolor=black@0.6:boxborderw=6,"
-      f"drawtext=fontfile={FONT}:text='ROUGH REVIEW CUT v1 - no voice, no music, proxy quality':fontsize=13:fontcolor=white@0.6:x=w-text_w-14:y=44")
+      f"drawtext=fontfile={FONT}:text='ROUGH REVIEW CUT - no music, proxy quality':fontsize=13:fontcolor=white@0.6:x=w-text_w-14:y=44")
 run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{W}/list.txt', '-vf', tc, '-c:v', 'libx264', '-preset', 'medium', '-crf', '24',
      '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', OUT])
 with open(os.path.splitext(OUT)[0] + '_timeline.md', 'w') as f:

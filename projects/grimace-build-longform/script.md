@@ -56,7 +56,7 @@ picture sources follow `plan.md` section 3.
 | 42 | 3. Brakes | VO | And the fluid matters because if it boils, the pedal goes long. That's the one you really don't want. |
 | 43 | 4. Bracing and sway bars | SYNC 6662 5-15 | "...we have these fender braces, courtesy of my boys at Good-Win Racing." |
 | 44 | 4. Bracing and sway bars | VO | And the Whiteline front strut tower brace. Both of these are on Grimace. |
-| 45 | 4. Bracing and sway bars | VO | Now, these two get their own video. We put them on a stock NB, jacked up one corner, and 3D scanned it. |
+| 45 | 4. Bracing and sway bars | VO | Now, these two get their own video. We put them on a stock NB Miata, jacked up one corner, and 3D scanned it. |
 | 46 | 4. Bracing and sway bars | VO | So if you want to see how much the chassis actually moves, link's up here. |
 | 47 | 4. Bracing and sway bars | SYNC 6662 65.4-80 | "We also got sway bars from Whiteline... This is the Whiteline rear sway bar." |
 | 48 | 4. Bracing and sway bars | VO | And Good-Win sent the knuckle support and the sway bar reinforcement bars. **[ASK 7]** |
@@ -67,7 +67,7 @@ picture sources follow `plan.md` section 3.
 | 53 | 5. Steering | VO | If those arcs don't match, the wheel steers itself a little over every bump. That's bump steer. And lowering a car usually makes it worse. |
 | 54 | 5. Steering | VO | With a tie rod end like this, you can move that outer pivot up or down, and get it back where it should be. **[ASK 8: cut unless the SPL ends are bump-steer adjustable]** |
 | 55 | 5. Steering | VO | And the rack bushings. The steering rack sits on rubber mounts. So when you turn the wheel, the rack shifts sideways a little before the tires do anything. |
-| 56 | 5. Steering | VO | Stiffer bushings take most of that out. And with a manual rack, you feel all of it. |
+| 56 | 5. Steering | VO | Stiffer bushings take most of that out. And with a manual steering rack, you feel all of it. |
 | 57 | 5. Steering | VO | Here they are on the car. **[PICKUP: tie rod and rack mount]** |
 | 58 | 5. Steering | SYNC 5438 12.7-39 | "Okay, Mike Kojima bought us this fancy-ass steering wheel, just so we can ruin it when we go racing. But it matches the theme of the car, so we gots to do it, you know? ... The race car is themed." (pause at 20-26 s trimmed) **[ASK 9]** |
 | 59 | 5. Steering | SYNC 5439-5441 | "Does this actually fit?" ... "No." ... "All right, I'm just going to use a steering wheel puller." **[ASK 12]** |
