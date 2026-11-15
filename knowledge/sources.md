@@ -40,3 +40,17 @@
 - `download_link` URLs must be hand-copied by the agent; a sub-agent handles ~8 batches of 25 before its context
   fills. The proxy can transiently 403 `*.dl.dropboxusercontent.com` hosts and the connector can lose its
   credential mid-run - retry later rather than routing around it.
+
+## Footage Library (Dropbox `/Footage Library`, sorted 2026-11-15)
+The 6,322 kept Camera Uploads files (~77 GB) were moved here. Look here first for phone footage.
+- `Videos/Shoot Sessions/<YYYY-MM-DD> <name>/` - 66 folders, one per shoot (clips grouped by 4 h gaps, named by
+  eye). Car-named: Lola scanning, Subaru WRX VB, NA Miata Grimace, MR2 SW20 scanning, Revuelto scan session,
+  Pink NC Miata, Red Civic, Lexus IS, White Corolla. Others are named by activity (Track day, Shop work - black car).
+- `Videos/<Category>/<YYYY-MM>/` and `Photos/<Category>/<YYYY-MM>/` for everything else. Categories (CLIP):
+  CAD & Scan Screens, Shop & Builds (incl. scanning sessions), Car Shots, Track & Driving, Events & Meets,
+  Docs & Screenshots. Car identity of CAD screenshots was NOT determined - CLIP can't tell cars apart in CAD.
+- New phone uploads still land in `/Camera Uploads`; a backfill of ~4,575 older photos (Oct 2025-Apr 2026)
+  arrived 2026-11-13..15 and is not sorted yet.
+- Dropbox `move` quirks: batches over ~150 hit `too_many_write_operations`; send <=100 with ~2 min gaps.
+  `duplicated_or_nested_paths` on a move means the file is already at its destination (an earlier
+  "failed" batch actually succeeded) - check with get_file_metadata before retrying.
