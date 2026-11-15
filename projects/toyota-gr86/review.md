@@ -1,3 +1,26 @@
+# Toyota GR86 / Subaru BRZ (gen 2) - v8 self-review (training/rubric.md)
+
+Output: `/home/user/media/work/gr86/out/toyota_gr86_v8.mp4` (not in git). Same music, cuts and length as v5-v7 (1195 frames / 39.833 s).
+
+v7 user notes:
+1. "The two BRZ and GR86 bumpers are still clipping each other on the sidemarker scene."
+   - Cause: the at-rest bumper was the BRZ skin + every GR86 tri more than 6 mm from it. That kept GR86 surface lying ON or IN FRONT OF the skin, which showed as z-fight speckle and GR86 shape coming through (side-marker corner, rear corners).
+   - Fix: fused v8 (tools/fuse_v8.py) keeps only GR86 surface more than 8 mm BEHIND the skin, i.e. the real inner face. A full-res side-marker frame is clean.
+2. "BRZ and GR86 rear bumpers are the same - don't need to do the splitting thing."
+   - The rear is one part again, at rest, coming off, in the explode and in the reassembly. Label: REAR BUMPER / PART SCAN.
+   - The front still splits.
+- 11 shots were re-rendered (tools/shots_v8.py).
+
+| # | Criterion | Score | Evidence |
+|---|---|---|---|
+| 4 | Scan quality | 5 | No bumper show-through at rest (front and rear), the front pair separates, there is one rear bumper, and the v7 trunk is kept. Luma is clean; edge margins x2/x3 >= 114 px, h1 >= 16 px. |
+| other | - | as v7 | |
+
+## Remaining weak spots for the next agent
+- For one or two frames, while the two front scans start to separate, they still overlap. This is motion.
+- The rear-glass base band is still there, as in v7.
+
+---
 # Toyota GR86 / Subaru BRZ (gen 2) - v7 self-review (training/rubric.md)
 
 Output: `/home/user/media/work/gr86/out/toyota_gr86_v7.mp4` (not in git). Same music, cuts and length as v5/v6 (1195 frames / 39.833 s).

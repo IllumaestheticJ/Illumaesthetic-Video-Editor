@@ -30,7 +30,7 @@ save(f"{M}/parts/fullbumper.stl", full[keep]); print("full-scan bumper tris", in
 # badge onto the ring
 b = load(f"{M}/lights/badge_clean.stl"); v = b["v"].astype(np.float64)
 circ = np.array([(v[..., 0].min() + v[..., 0].max()) / 2, 0, (v[..., 2].min() + v[..., 2].max()) / 2])
-RING_X, RING_Z, SC, FRONT_Y = 18.0, 951.0, 1.26, -3486.0
+RING_X, RING_Z, SC, FRONT_Y = 18.0, 965.0, 1.06, -3482.0   # v11: user "badge still too low" - 1:1 frame: real badge top matched, bottom 14 px lower = render too big; real badge about 148 mm
 v = (v - circ) * SC; v[..., 0] += RING_X; v[..., 2] += RING_Z; v[..., 1] += FRONT_Y - v[..., 1].min()
 b["v"] = v.astype(np.float32); save(f"{M}/lights/badge_ring.stl", b)
 print("badge now", v.reshape(-1, 3).min(0).round(1), v.reshape(-1, 3).max(0).round(1))

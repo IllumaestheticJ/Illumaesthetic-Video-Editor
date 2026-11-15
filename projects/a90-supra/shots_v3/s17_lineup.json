@@ -1,8 +1,8 @@
 {
- "_bar": 18,
+ "_bar": 21,
  "_reel_frames": [
-  1365,
-  1446
+  1606,
+  1687
  ],
  "fps": 15,
  "seconds": 2.8666666666666667,
@@ -22,6 +22,9 @@
  "objects": [
   {
    "blend": "/home/user/media/work/a90/blend3/body_c.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_hood.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
@@ -575,6 +578,99 @@
       -0.0007,
       -0.3799,
       0.0097
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/lamp_lens.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.1,
+      -1.76,
+      -0.47
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.1,
+      -1.76,
+      -0.47
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/lamp_housing.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.1,
+      -1.76,
+      -0.47
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.1,
+      -1.76,
+      -0.47
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/lamp_insert.blend",
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      -0.1,
+      -1.76,
+      -0.47
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.0,
+     "loc": [
+      -0.1,
+      -1.76,
+      -0.47
      ],
      "rot": [
       0,

@@ -1,3 +1,8 @@
+# Mazda Miata ND scan reel - self-review (v10, delivered)
+
+v10 = v9 + no jump cut at 28.2 s (user: "27/28 has a weird cut in it"): the reassembly camera starts exactly on the rear-explode
+end camera, so the two shots read as one move (frame diff at the old cut 0.46 vs 15.1). File `/home/user/media/work/miata/out/miata_nd_v10.mp4`.
+
 # Mazda Miata ND scan reel - self-review (v9, delivered)
 
 v9 = v8 + the user's note "the rear trunk is not cut right". File `/home/user/media/work/miata/out/miata_nd_v9.mp4` (34.9 s).

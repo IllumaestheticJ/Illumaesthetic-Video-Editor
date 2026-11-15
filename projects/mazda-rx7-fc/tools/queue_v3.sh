@@ -4,7 +4,7 @@
 cd /home/user/Illumaesthetic-Video-Editor
 SHOTS=${@:-k_front k_sides k_rbumper_off k_rear k_reveal}
 for s in $SHOTS; do
-  python projects/mazda-rx7-fc/tools/shots_v3.py final $s >/dev/null
+  python projects/mazda-rx7-fc/tools/shots_v3.py final $s >/dev/null || { echo "SPEC GENERATION FAILED for $s - stopping"; exit 1; }
   python - "$s" <<'PY'
 import json, os, sys
 s = sys.argv[1]; p = f"/home/user/media/work/rx7/specs/final_{s}.json"; d = json.load(open(p))

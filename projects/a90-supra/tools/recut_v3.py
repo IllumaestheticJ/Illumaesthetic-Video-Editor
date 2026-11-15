@@ -11,6 +11,7 @@ from scipy.spatial import cKDTree
 sys.path.insert(0, os.path.dirname(__file__))
 from build_v3 import TRI, OUT, ZONES, FLOOR_Z, islands
 ON = 5.0
+STRICT = {"fender"}
 
 def save(m, p):
     with open(p, "wb") as f:
@@ -53,6 +54,8 @@ for z in sys.argv[1:]:
     far = np.bincount(lab, weights=~(dk <= 45.0), minlength=len(size))        # tris of each island NOT under the panel
     enclosed = (far[lab] == 0) & (size[lab] < 60000)                          # e.g. the number plate: wholly under the panel
     scrap = ((size[lab] < 4000) & np.isfinite(dk)) | enclosed
+    if z in STRICT:   # v3.2 (user: "the fender removed scan took too much of the chassis off with it"): only the panel's own skin
+        scrap = (size[lab] < 300) & (dk <= 20.0)             # leaves; chassis pieces near / behind it stay; only specks on the panel go
     print(z, "islands wholly under the panel:", int(enclosed.sum()), "tris", flush=True)
     skin = np.concatenate([allm[off], kept[scrap]]); body = kept[~scrap]
     save(skin, OUT + f"skin_{z}.stl"); save(part, OUT + f"part_{z}.stl")

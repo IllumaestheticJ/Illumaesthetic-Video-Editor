@@ -16,18 +16,23 @@ for l in ident:
     if m: off[int(m[1])] = (int(m[4]), int(m[5]))
 W, H = 1920, 1080
 WHITE = (6, 7)  # BOMEX + slogan are white in the PSD composite (layer colour effect, not in the raw layer pixels)
-def lay(i, flip=False):
+# v9 (user: "move the bomex logo on the sides backwards a little bit"): BOMEX + slogan shifted toward the rear (+x, nose is
+# at image left), ~40 px = ~11 cm on the car
+SHIFT = {6: (40, 0), 7: (40, 0)}
+def lay(i, flip=False, side=False):
     im = Image.open(f"{D}/layers/L{i}.png").convert("RGBA")
     if i in WHITE:
         a = np.asarray(im).copy(); a[..., :3] = 245; im = Image.fromarray(a)
     if flip: im = ImageOps.mirror(im)
-    c = Image.new("RGBA", (W, H), (0, 0, 0, 0)); c.alpha_composite(im, off[i]); return c
+    o = off[i]
+    if side and i in SHIFT: o = (o[0] + SHIFT[i][0], o[1] + SHIFT[i][1])
+    c = Image.new("RGBA", (W, H), (0, 0, 0, 0)); c.alpha_composite(im, o); return c
 GRAPHIC = [4, 8]; TEXT = [6, 7, 23, 25, 26, 27, 28, 29]
 mask = lay(2); bb = mask.getbbox(); print("silhouette bbox px", bb)
 for nm, fl in (("side_left", False), ("side_right", True)):
     c = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     for i in GRAPHIC: c.alpha_composite(lay(i))
-    for i in TEXT: c.alpha_composite(lay(i, fl))
+    for i in TEXT: c.alpha_composite(lay(i, fl, side=True))
     c.crop(bb).save(f"{O}/{nm}.png")
 mask.crop(bb).save(f"{O}/mask.png")
 print("wrote", O, Image.open(f"{O}/side_left.png").size)
@@ -46,20 +51,23 @@ Image.fromarray(w).crop(bb).save(f"{O}/glass.png"); print("glass px", int(keep.s
 hd = Image.new("RGBA", (W, H), (0, 0, 0, 0)); hd.alpha_composite(lay(7)); hd.alpha_composite(lay(6))
 hb = hd.getbbox(); hd = hd.crop(hb); hd.save(f"{O}/hood.png"); print("hood decal px", hd.size)
 
-# windscreen banner (user's photos of the built car: white "KAIDO★HOUSE" across the top of the windscreen). No vector file
-# was supplied, so it is set in Inter Display Black (condensed) with a drawn star - a stand-in for the real decal font.
-from PIL import ImageDraw, ImageFont
-import math, subprocess as _sp
-fp = _sp.run(["fc-list", ":family=Inter Display:style=Black", "file"], capture_output=True, text=True).stdout.split(":")[0]
-fnt = ImageFont.truetype(fp, 220)
-def word(t):
-    bb = fnt.getbbox(t); im = Image.new("RGBA", (bb[2] - bb[0] + 20, bb[3] - bb[1] + 20), (0, 0, 0, 0))
-    ImageDraw.Draw(im).text((10 - bb[0], 10 - bb[1]), t, font=fnt, fill=(250, 250, 250, 255))
-    return im.resize((int(im.width * 0.78), im.height))
-a, b = word("KAIDO"), word("HOUSE"); h = max(a.height, b.height); s = int(h * 0.9)
-star = Image.new("RGBA", (s, s), (0, 0, 0, 0)); r1, r2 = s * 0.48, s * 0.19
-pts = [(s / 2 + (r1 if i % 2 == 0 else r2) * math.sin(i * math.pi / 5), s / 2 - (r1 if i % 2 == 0 else r2) * math.cos(i * math.pi / 5)) for i in range(10)]
-ImageDraw.Draw(star).polygon(pts, fill=(250, 250, 250, 255))
-ban = Image.new("RGBA", (a.width + s + b.width + 20, h), (0, 0, 0, 0))
-ban.alpha_composite(a, (0, 0)); ban.alpha_composite(star, (a.width + 10, (h - s) // 2)); ban.alpha_composite(b, (a.width + s + 20, 0))
+# windscreen banner: the real KAIDO*HOUSE decal, taken from the user's own livery mock-up render (render/windshield.png:
+# 4-point perspective rectify + 0.094 shear to upright, x3 cubic, soft threshold 125-175 -> logo/kaidohouse_white.png).
+# v8 used a stand-in font; user v8 note: "properly resize and use the correct logo for the kaido house livery".
+# Pre-sheared -0.2 so the strokes lean like the photo once projected along Y onto the raked, wrapped windscreen.
+import cv2
+im = cv2.imread(f"{D}/render/windshield.png")
+src = np.float32([[770, 357.5], [1144, 509], [1115, 577.5], [727.5, 425]]); Hh, Ww, m, sh = 160, 825, 40, 0.094
+M = cv2.getPerspectiveTransform(src, np.float32([[m, m], [Ww + m, m], [Ww + m, Hh + m], [m, Hh + m]]))
+Sh = np.array([[1, sh, -sh * (Hh / 2 + m)], [0, 1, 0], [0, 0, 1]])
+out = cv2.warpPerspective(im, np.diag([3, 3, 1.0]) @ Sh @ M, (3 * (Ww + 2 * m + 40), 3 * (Hh + 2 * m)), flags=cv2.INTER_CUBIC)
+g = cv2.GaussianBlur(cv2.cvtColor(out, cv2.COLOR_BGR2GRAY), (5, 5), 0)
+a = np.clip((g.astype(np.float32) - 125) * 255 / 50, 0, 255).astype(np.uint8)
+n, lab, st, _ = cv2.connectedComponentsWithStats((a > 128).astype(np.uint8))
+keep = np.isin(lab, [i for i in range(1, n) if st[i, 4] > 60]).astype(np.uint8)
+a = a * cv2.dilate(keep, np.ones((5, 5), np.uint8)); ys, xs = np.where(a > 128)
+a = a[ys.min() - 6:ys.max() + 7, xs.min() - 6:xs.max() + 7]
+logo = Image.fromarray(np.dstack([np.full_like(a, 255)] * 3 + [a])); logo.save("/home/user/media/nissan-400z/logo/kaidohouse_white.png")
+w, h = logo.size; s2 = -0.2; pad = int(abs(s2) * h) + 4
+ban = logo.transform((w + pad, h), Image.AFFINE, (1, -s2, s2 * h / 2 - pad / 2, 0, 1, 0), resample=Image.BICUBIC)
 ban.save(f"{O}/banner.png"); print("banner px", ban.size)

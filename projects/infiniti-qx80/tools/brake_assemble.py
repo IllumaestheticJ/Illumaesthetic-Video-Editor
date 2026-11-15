@@ -11,8 +11,8 @@ Frame out: mm, hub centre = origin, hub axis = +X (inboard), CAD adapter on -Y.
 - Ring: axis by PCA (thin axis), in-plane centre by bbox; scanned with its flat hat on one face: hat plate axial 17.5..26.8,
   ring -21.9..16.4 -> ring midplane 25.3 mm from the hat midplane, on the side away from the hat. Placed at X = +25.3
   (inboard, the side the CAD adapter is on: adapter X +49..+78).
-- Caliper (bench frame: x radial with +x toward the hub - its ends curve to +x; y tangential; z axial with the mounting ears
-  at +z): x -> +Y radial (outer bridge at r = R_out 210 + 28 mm clearance), y -> Z (tangential, centred on the adapter),
+- Caliper (bench frame: x radial with +x toward the hub - its ends curve to +x; y tangential; z axial, +z = smooth outboard
+  face): x -> +Y radial (outer bridge at r = R_out 210 + 28 mm clearance), y -> Z (tangential, centred on the adapter),
   z -> +X (ears inboard), axial centre on the ring midplane.
 Placement of ring and caliper is by geometry, not a measured assembly: it is a bench exploded/assembled view.
 """
@@ -53,9 +53,12 @@ cal = L(f'{B}/d/front_caliper.stl'); cv = cal['v'].reshape(-1, 3)
 lo, hi = cv.min(0), cv.max(0); cc = (lo + hi) / 2
 R_BRIDGE = r_out + 28.0
 def cal_fn(v):
-    X = (v[:, 2] - cc[2]) + 25.3                      # axial: ears (+z) inboard
+    # v7c fix (reviewer: "the GTR brakes are backwards"): the caliper's +z face is the smooth outboard (logo) face and -z
+    # carries the brake-line fitting / mounting bosses (inboard) - checked on shaded views of both faces. v7/v7b had it
+    # inside-out. Now +z -> outboard (-X); tangential flipped too so it is a rotation (180 deg about the radial axis), not a mirror.
+    X = -(v[:, 2] - cc[2]) + 25.3                     # axial: smooth face outboard
     Y = -R_BRIDGE + (v[:, 0] - lo[0])                 # radial: outer bridge (x min) at -R_BRIDGE on -Y
-    Z = (v[:, 1] - cc[1])                             # tangential, centred on the adapter (Z 0)
-    return np.stack([X, Y, Z], 1)                     # [[0,0,1],[1,0,0],[0,1,0]]: det +1
+    Z = -(v[:, 1] - cc[1])                            # tangential
+    return np.stack([X, Y, Z], 1)                     # [[0,0,-1],[1,0,0],[0,-1,0]]: det +1
 save(f'{B}/hub/caliper_scan.stl', xf(cal, cal_fn))
 print('r_out', round(float(r_out), 1), 'ring mid', round(float(mid), 1), 'hub C', C.round(1))

@@ -1,0 +1,12 @@
+{
+ "track": "/home/user/media/work/music/rx7_hert_baby_got_brap.m4a (user upload, T-Pain - Hert Baby Got Brap)",
+ "bpm": 90.0,
+ "beat": 0.6666666666666666,
+ "bar": 2.6666666666666665,
+ "drop": 111.456,
+ "downbeat": "111.456 + k*2.6667 (k=0 is the drop)",
+ "excerpt_start": 106.123,
+ "excerpt_bars": 18,
+ "excerpt_end": 154.123,
+ "how": "period from flux autocorrelation peaks up to 21 s (eighth 0.33333 s); phase from snare (1.5-6 kHz) and kick (35-110 Hz) offsets; drop = +10 dB step at 111.46 (40 ms RMS)"
+}

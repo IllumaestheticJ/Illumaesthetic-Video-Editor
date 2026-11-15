@@ -33,6 +33,17 @@ def orbit(r, az0, az1, z0, z1, tgt0, tgt1, f, secs, n=8, t0=0.0):
     return keys
 
 
+def _stock_skirts_off(beat=4):
+    """v7f (reviewer: "the SUV needs the stock side skirts removed before the new ones go on"): the stock skirts (split out of
+    the scan by stockskirt.py) slide out and away on the beat before the kit skirts land (beat 5), then disappear."""
+    t1 = beat * BEAT; t0 = t1 - FLY; out = []
+    for side, sx in (("l", -1), ("r", 1)):
+        out.append({"blend": f"{B}/stock_skirt_{side}.blend", "mat": "silver", "show": [0, t1 + 0.02],
+                    "keys": [{"t": 0, "loc": [0, 0, 0], "rot": [0, 0, 0]}, {"t": t0, "loc": [0, 0, 0], "rot": [0, 0, 0]},
+                             {"t": t1, "loc": [0.9 * sx, 0, -0.25], "rot": [0, 0, 0], "ease": "in"}]})
+    return out
+
+
 def kit_parts(mode):
     parts = []
     for g, (beat, off, paint) in KIT.items():
@@ -49,7 +60,7 @@ def kit_parts(mode):
 
 
 SHOTS = {
-    "D_kit": dict(base=CAR, base_paint=None, parts=kit_parts("land"), seconds=5.6, fps=30,
+    "D_kit": dict(base=[B + "/car4_noskirt.blend"], base_paint=None, parts=kit_parts("land") + _stock_skirts_off(), seconds=5.6, fps=30,
                   camera={"keys": orbit((9.6, 9.4), 38, 148, 2.7, 2.5, (0, 0.2, 0.85), (0, -0.2, 0.85), 32, 5.6)}),
     "E_paint": dict(base=CAR, parts=kit_parts("paint"), seconds=5.6, fps=15,
                     paint={"t0": 0.25, "t1": 3.2, "y0": -3.0, "y1": 3.0, "soft": 0.12},
@@ -91,7 +102,7 @@ def _final_cam(secs=7.75, t_land=6.0):
     return {"keys": keys, "sensor": 20.25}
 
 
-SHOTS["G_final360"] = dict(base=[B + "/car4_nowheels.blend"], parts=_final_parts(), seconds=7.75, fps=15,
+SHOTS["G_final360"] = dict(base=[B + "/car4_nowheels_noskirt.blend"], parts=_final_parts(), seconds=7.75, fps=15,
                            paint={"t0": 0.25, "t1": 2.4, "y0": -3.0, "y1": 3.0, "soft": 0.12}, camera=_final_cam())
 
 
@@ -112,6 +123,37 @@ def _brake_parts(fly=0.30):
 
 SHOTS["K_brakes"] = dict(base=[B + "/b_ring_scan.blend"], parts=_brake_parts(), seconds=85 / 30, fps=30,
                          camera={"keys": orbit((1.95, 1.55), 208, 238, 0.45, 0.22, (0.05, -0.03, 0.05), (0.03, -0.05, 0.0), 50, 85 / 30)})
+
+# ---------------- v7b: GT-R BRAKES on the car scan (reviewer: "the brakes section needs to be shown on the actual car scan") --------
+# Scan (silver) + kit (green) + the other three corners with wheels + brakes; the front-left corner has no wheel and its GT-R
+# brake assembles on the hub (-0.86, 1.661, 0.412): ring + our hat on beat 1, our adapter on beat 2, the GT-R caliper (gold,
+# as on the real car) on beat 3, then a push-in hold. Outboard = -X.  Meshes: brake_corner.py -> kit2lev -> prep --like car6.
+HUB = (-0.86, 1.654, 0.318)   # v7c: the SCANNED front-left hub (wheelwell.py / fl_hub.json), not the designer's wheel position
+def _corner_parts(fly=0.30):
+    out = [{"blend": f"{B}/k_{g}.blend", "mat": "kit"} for g in KIT]
+    out += [{"blend": f"{B}/q_wheels_o3.blend", "mat": "silver"}, {"blend": f"{B}/q_o3_iron.blend", "mat": "iron"},
+            {"blend": f"{B}/q_o3_caliper.blend", "mat": "caliper"}]
+    # v7c: real wheel well (Left Side Compressed scan, stock rotor/caliper removed) + the brake on its scanned hub
+    out.append({"blend": f"{B}/q_w_well.blend", "mat": "silver"})
+    P = [("w_ring", "silver", (-0.55, 0, 0.0), 1), ("w_hat", "kit", (-0.80, 0, 0.0), 1),
+         ("w_adapter", "kit", (-0.40, -0.10, -0.32), 2), ("w_caliper", "caliper", (-0.50, -0.22, 0.34), 3)]
+    for n, mat, off, beat in P:
+        tl = beat * BEAT_S
+        out.append({"blend": f"{B}/q_{n}.blend", "mat": mat,
+                    "keys": [{"t": 0, "loc": list(off), "rot": [0, 0, 0]}, {"t": tl - fly, "loc": list(off), "rot": [0, 0, 0]},
+                             {"t": tl, "loc": [0, 0, 0], "rot": [0, 0, 0], "ease": "out"}]})
+    return out
+
+
+def _corner_cam(secs=85 / 30):
+    # aim above the hub so the wheel sits in the lower-middle of the portrait frame, title band clear above the car
+    h = HUB; tg0 = [h[0] - 0.25, h[1] - 0.10, h[2] + 0.62]; tg1 = [h[0] - 0.05, h[1] - 0.05, h[2] + 0.36]
+    return {"keys": [{"t": 0, "loc": [h[0] - 3.30, h[1] + 2.05, h[2] + 0.30], "target": tg0, "focal": 32, "ease": "lin"},
+                     {"t": secs, "loc": [h[0] - 2.00, h[1] + 1.02, h[2] + 0.06], "target": tg1, "focal": 32, "ease": "out"}],
+            "sensor": 20.25}
+
+
+SHOTS["K_brakes_car"] = dict(base=[B + "/car4_nowheels_noskirt.blend"], parts=_corner_parts(), seconds=85 / 30, fps=30, camera=_corner_cam())
 
 
 def write(name, check=False, frames=None):

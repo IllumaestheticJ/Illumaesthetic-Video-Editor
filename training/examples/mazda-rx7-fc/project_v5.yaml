@@ -1,0 +1,87 @@
+# Mazda RX-7 FC3S (S5) v5 - user on v4: 'the two shots at 17 seconds are pointless' -> wheel + mirror cut. v4 header: user on v3: "just do the car, no kit". Stock car only, same track/excerpt and CTA as v3.
+# All shots are existing stock renders (v2); order: whole car -> ON the drop hood opens -> hood off over the bay ->
+# front bumper off -> radiator support/crash beam -> wheel -> mirror -> rear bumper off/crash beam -> reassembly -> CTA -> logo.
+# Music: 90 BPM, bar 2.6667 s, drop at video 5.333. Cuts: 160, 240, 320, 400, 480, 640, 800, 900; end 1040 (34.667 s = 13 bars).
+project: mazda-rx7-fc
+format: reel-9x16
+output: {path: /home/user/media/work/rx7/out/mazda_rx7_fc_v5.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/rx7_hert_baby_got_brap.m4a   # user upload, not in git
+  start: 106.143
+  fade_out: 1.2
+
+beats: [5.333, 8.0, 10.667, 13.333, 16.0, 21.333, 26.667, 30.0]
+
+overlays:
+  - src: /home/user/media/work/rx7/hud_v5.mov
+    start: 0
+
+timeline:
+  - id: s1_front34
+    section: whole
+    focus: whole stock car
+    src: /home/user/media/work/rx7/renders/s1_front34_pad
+    src_fps: 7.36
+    interpolate: true
+    dur: 5.3000
+  - transition: {type: fade, duration: 0.0333, note: "5.333 DROP - hood starts opening"}
+  - id: s6_hood
+    section: hood
+    focus: hood opens on its fitted hinge (Hood Up angle)
+    src: /home/user/media/work/rx7/renders/s6_hood
+    src_fps: 15
+    interpolate: true
+    in: 0.733
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "8.0 downbeat - invisible join at the captured-hood swap"}
+  - id: s9_hoodoff
+    section: engine bay
+    focus: captured open hood lifts off; engine bay
+    src: /home/user/media/work/rx7/renders/s9_hoodoff
+    src_fps: 15
+    interpolate: true
+    in: 0.533
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "10.667 downbeat"}
+  - id: s10_fbumper
+    section: front bumper
+    focus: stock front bumper off, scanned inner face
+    src: /home/user/media/work/rx7/renders/s10_fbumper
+    src_fps: 12.65
+    interpolate: true
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "13.333 downbeat"}
+  - id: s11_fsupport
+    section: front structure
+    focus: radiator support, crash beam
+    src: /home/user/media/work/rx7/renders/s11_fsupport
+    src_fps: 15
+    interpolate: true
+    vf: "pad=1080:2304:0:384:color=0x040405,crop=1080:1920:0:0"
+    dur: 2.7000
+  - transition: {type: fade, duration: 0.0333, note: "16.0 downbeat - rear bumper off"}
+  - id: s12_rbumper
+    section: rear
+    focus: stock rear bumper off, crash beam + mounting points
+    src: /home/user/media/work/rx7/renders/s12_rbumper
+    src_fps: 12.7
+    interpolate: true
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "21.333 downbeat - reassembly"}
+  - id: s13_reassemble
+    section: whole
+    focus: rear bumper, front bumper, hood fly home; clean stock car
+    src: /home/user/media/work/rx7/renders/s13_reassemble
+    src_fps: 9.94
+    interpolate: true
+    in: 1.71
+    dur: 5.3666
+  - transition: {type: fade, duration: 0.0333, note: "26.667 downbeat - CTA"}
+  - id: cta
+    src: /home/user/media/work/rx7/cta/cta_v3.mp4
+    dur: 3.3666   # the card ends fading toward the logo: holding it longer showed a dim logo
+  - transition: {type: fade, duration: 0.0333, note: "30.0 snare - logo"}
+  - id: logo
+    src: /home/user/media/work/rx7/logo_card_v5.mp4
+    dur: 4.7000

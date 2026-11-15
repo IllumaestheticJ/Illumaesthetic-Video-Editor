@@ -14,11 +14,11 @@ All Artec exports from 2025-02-15/19, one shared coordinate frame. Local copies:
 | Toyota Sera Rear Bumper Removed.stl | 75 MB | 1GVQvKB2ljyRpRsf7oLrf-2Im64pIeVE7 | exploded base, rear (candidate) |
 | Toyota Sera rear bumper removed 2.stl | 75 MB | 1Nw_p7CqhHg03k65yZkLbR9jhBnmJc1Mj | exploded base, rear (candidate) |
 | Toyota Sera Rear Bumper Removed No Tail Lights.stl | 75 MB | 1wkbzvI25Yziz9X_LyGcPQ4pA_1kqPwi7 | candidate (tail lamps out) |
-| Toyota Sera spoiler removed.stl | 50 MB | 1VqXc_0x_biwiMJe1UKF5ZohohBRU7ZLu | spoiler = full car minus this state |
+| Toyota Sera spoiler removed.stl | 50 MB | 1VqXc_0x_biwiMJe1UKF5ZohohBRU7ZLu | v6: hatch skin under the wing only (patchy capture; the wing itself is cut from the full car, tools/wing_cut.py) |
 | Toyota Sera Hood open.stl | 250 MB | 1Rbk7FeVVoMI90NATapX_DNokvuXB5BxB | hood-open beat |
 | Toyota Sera Hood Open, Bumper in.stl | 75 MB | 1pm-vMO8xFHsn6_Gq3obAOvQP4nrp9pVo | hood-open beat (candidate) |
 | Toyota Sera Door Open.stl | 525 MB | 10lEHtSgCsUk3m8V7LDp6SeUN1LC9YDz1 | butterfly-door beat |
-| Toyota Sera light.stl | 55 MB | 1g8hIqGJpf-9QtDF0qFrnHaQXL1VN5P3V | (headlight / lamp part - checked, see editlog) |
+| Toyota Sera light.stl | 55 MB | 1g8hIqGJpf-9QtDF0qFrnHaQXL1VN5P3V | v6: the two fog light / corner marker units, front bumper sub-parts (tools/light_parts.py) |
 | Toyota Sera steered right.stl | 100 MB | 1ptBcwIOW5wgaC63G4wBUB7vTB62l61BR | (wheels steered - not used) |
 | Toyota Sera Low Definition.stl | 224 MB | 1v6kdNc7Iu0Vc0QleAU1NiWPb2NpmHo3d | not fetched (low-res duplicate) |
 | Toyota Sera underbody left/right side.stl | 175/225 MB | 1XV0eioJJO7EoxYRmQwhxovU2nLGM930m / 1-rgq4h_So-wn9TzMDumzII6-WyVdE94X | not fetched (underside never shown) |

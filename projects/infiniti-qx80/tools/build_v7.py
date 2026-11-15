@@ -17,7 +17,10 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 D = '/home/user/media/infiniti-qx80'; SEG = D + '/seg_v7'; os.makedirs(SEG, exist_ok=True)
 WA = D + '/whatsapp/x'; EK = D + '/ecky'; PRESS = D + '/press'; R = D + '/renders/final'
-MUSIC = '/home/user/media/work/music/ghosts_n_stuff.mp3'; MUSIC_START = 15.019
+# v7b (user: "reuse one of the songs in moosic folder, i dont like this song"): KMFDM - Megalomaniac from Dropbox /Moosic
+# (also used on the Mazda Miata ND reel). Measured here (30-150 Hz attack): kick entry 15.52 s, riser ~42 s, drop 45.515 s
+# = 64 beats of the 128.05 BPM kick grid -> video t0 = 15.52, drop on video 30.000 (the 1:1 cut), same structure as before.
+MUSIC = '/home/user/media/work/music/megalomaniac.wav'; MUSIC_START = 15.52
 LOGO = '/home/user/Illumaesthetic-Video-Editor/remotion/public/illumaesthetic_logo.png'
 FPS, WD, HT = 30, 1080, 1920
 ENC = ['-c:v', 'libx264', '-crf', '12', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-an']
@@ -49,10 +52,12 @@ def lift(fr):
     return np.clip(f + (np.array(BG, np.float32) - f) * w, 0, 255).astype(np.uint8)
 
 # cut frames = round(video t * 30) on the beat grid (direction.md v4 scene list)
-BEAT = 60 / 128.0   # 0.46875 s; cut frames = round(beat * BEAT * 30) on the track's kick grid
-_B = [0, 8, 12, 16, 20, 28, 34, 42, 48, 64, 80, 84, 88, 92, 96, 104]
+BEAT = 60 / 128.05   # Megalomaniac kick grid; cut frames = round(beat * BEAT * 30)
+# v7d (user: "0:36 shot feels held a little too long ... use online photos for more professional shots"): reveal 16 -> 8 beats;
+# the shop phone photos after it -> the SEMA 2025 press gallery from Motor Illustrated (1920x1080), one per 4 beats.
+_B = [0, 8, 12, 16, 20, 28, 34, 42, 48, 64, 72, 76, 80, 84, 88, 92, 96, 104]
 _N = ['a_hook', 'b_answer', 'c1_scanday', 'c2_scanday', 'd_scan', 'e_concepts', 'f_panels', 'k_brakes', 'g_final360',
-      'h_reveal', 'i1_after', 'i2_after', 'i3_after', 'i4_after', 'j_logo']
+      'h_reveal', 'p1_press', 'p2_press', 'p3_press', 'p4_press', 'p5_press', 'p6_press', 'j_logo']
 _F = [round(b * BEAT * 30) for b in _B]
 CUTS = {n: _F[i + 1] - _F[i] for i, n in enumerate(_N)}
 PHOTO_TOP = (HT - 810) // 2   # 1702 (4032x3024) shown full width 1080x810, centred; the final render ends on its solved camera
@@ -196,13 +201,32 @@ def seg_end():
     pipe('h_end', gen())
 
 
+HOOK_LINES = [("NISSAN BROKE", OFF), ("THE INTERNET", OFF), ("FOR A WEEK", GREEN), ("IN 2025.", GREEN)]   # user copy (v7e)
+
+
 def seg_hook():
-    """One real article, full frame, slow 3 % push (Sentra v6 hook)."""
+    """One real article, full frame, slow 3 % push (Sentra v6 hook). v7e (user): title card "Nissan broke the internet for a
+    week in 2025" over the article text - site hero style on a dark panel over the body copy, one line per kick (beats 0-3)."""
     src = Image.open(f'{PRESS}/carscoops_page.png').convert('RGB').resize((WD, HT), Image.LANCZOS); n = CUTS['a_hook']
+    f0 = HEAD(10); size = 150
+    probe = ImageDraw.Draw(src)
+    while max(tracked_w(probe, t, HEAD(size), 0.04) for t, _ in HOOK_LINES) > WD - 140: size -= 4
+    f0 = HEAD(size); lh = int(size * 1.06); y0 = HT - 140 - lh * len(HOOK_LINES); top = y0 - 70
+    land = [round(b * BEAT * 30) for b in range(len(HOOK_LINES))]
     def gen():
         for f in range(n):
             z = 1.0 + 0.03 * f / (n - 1); cw, ch = int(WD / z), int(HT / z)
-            yield src.crop(((WD - cw) // 2, (HT - ch) // 2, (WD + cw) // 2, (HT + ch) // 2)).resize((WD, HT), Image.BICUBIC)
+            im = src.crop(((WD - cw) // 2, (HT - ch) // 2, (WD + cw) // 2, (HT + ch) // 2)).resize((WD, HT), Image.BICUBIC)
+            ov = Image.new('RGBA', (WD, HT), (0, 0, 0, 0)); od = ImageDraw.Draw(ov)
+            for yy in range(top - 160, HT):                               # dark panel over the article body, soft top edge
+                al = int(255 * min(1.0, max(0.0, (yy - (top - 160)) / 160)))
+                od.line([(0, yy), (WD, yy)], fill=(*BG, al))
+            im = Image.alpha_composite(im.convert('RGBA'), ov).convert('RGB'); d = ImageDraw.Draw(im)
+            for k, (t, c) in enumerate(HOOK_LINES):
+                if f < land[k]: continue
+                u = min(1.0, (f - land[k] + 1) / 4); dy = int((1 - u) * 40)
+                tracked(d, (70, y0 + k * lh + dy), t, f0, c, em=0.04)
+            yield im
     pipe('a_hook', gen())
 
 
@@ -265,18 +289,43 @@ def seg_reveal():
     pipe('h_reveal', gen())
 
 
+MOTOIQ = D + '/logo/motoiq/motoiq_white.png'
+MOTOIQ_RED = (226, 30, 37)
+MOTOIQ_SQ = D + '/logo/motoiq/motoiq_redsq.png'   # v7e: wordmark rasterised from Ecky's Print__Nismo_QX80_motoiq_logo.stl
+
+
 def seg_logo():
+    """ILLUMAESTHETIC wordmark, a thin green x, the motoiq wordmark (user v7e: "needs a MotoIQ logo")."""
     logo = Image.open(LOGO).convert('RGBA'); logo = logo.crop(logo.getbbox())
     lw = 720; logo = logo.resize((lw, int(lw * logo.height / logo.width)), Image.LANCZOS); n = CUTS['j_logo']
+    # v7g (user: "the red square should be around the IQ portion"): white "moto" + "iq" inside a red square (motoiq_redsq.png,
+    # split from the vent-badge wordmark at its letter gap). The official file could not be fetched: motoiq.com,
+    # shopmotoiq.com and tomeiusa.com are outside this session's network allowlist.
+    mq = Image.open(MOTOIQ_SQ).convert('RGBA'); mw = 560; mq = mq.resize((mw, int(mw * mq.height / mq.width)), Image.LANCZOS)
+    gap = 70; xs = 46; total = logo.height + gap + xs + gap + mq.height; y0 = (HT - total) // 2
     def gen():
         for f in range(n):
-            al = min(1.0, f / 8, (n - 1 - f) / 20 + 0.05)
-            im = Image.new('RGB', (WD, HT), BG); l = logo.copy(); l.putalpha(l.getchannel('A').point(lambda v: int(v * al)))
-            im.paste(l, ((WD - lw) // 2, (HT - logo.height) // 2), l); yield im
+            al = min(1.0, f / 8, (n - 1 - f) / 20 + 0.05); a2 = max(0.0, min(1.0, (f - 6) / 8)) * min(1.0, (n - 1 - f) / 20 + 0.05)
+            im = Image.new('RGB', (WD, HT), BG)
+            for img, y, a in ((logo, y0, al), (mq, y0 + logo.height + 2 * gap + xs, a2)):
+                l = img.copy(); l.putalpha(l.getchannel('A').point(lambda v, a=a: int(v * a))); im.paste(l, ((WD - img.width) // 2, y), l)
+            d = ImageDraw.Draw(im); cx, cy = WD // 2, y0 + logo.height + gap + xs // 2; h = xs // 2
+            col = tuple(int(BG[i] + (GREEN[i] - BG[i]) * a2) for i in range(3))
+            d.line([(cx - h, cy - h), (cx + h, cy + h)], fill=col, width=5); d.line([(cx - h, cy + h), (cx + h, cy - h)], fill=col, width=5)
+            yield im
     pipe('j_logo', gen())
 
 
 CREDIT = ('INFINITI QX80 R-SPEC', 'for Nissan / Nismo  ·  SEMA 2025')
+WEB = D + '/web'   # motorillustrated.com/wp-content/uploads/2025/10/2025-SEMA-INFINITI-QX80-R-Spec-8xx.jpg (not in git)
+
+
+def press(n, title='INFINITI QX80 R-SPEC'):
+    """Press photo whole and static (full width), site-style label above, small muted source credit under the photo."""
+    im = photo_frame(f'{WEB}/2025-SEMA-INFINITI-QX80-R-Spec-{n}.jpg', title, CREDIT[1], max_w=1.0)
+    d = ImageDraw.Draw(im); top = min(max(520, (HT - 608) // 2 + 120), HT - 608 - 40)
+    tracked(d, (74, top + 608 + 22), 'PHOTO VIA MOTORILLUSTRATED.COM', MONO(22), MUTED, em=0.16)
+    return im
 SEGS = {
     'a_hook': seg_hook,
     'b_answer': seg_answer,
@@ -285,17 +334,23 @@ SEGS = {
     'd_scan': lambda: labelled('d_scan', 'N0_open', CUTS['d_scan'], [(4, CUTS['d_scan'] - 4, '3D SCAN', 'the stock car, scanned in-house')]),
     'e_concepts': seg_concepts6,
     'f_panels': lambda: labelled('f_panels', 'D_kit', CUTS['f_panels'], [(4, CUTS['f_panels'] - 4, 'NEW BODY PANELS', 'designed on our scan')], fps_in=30 * 0.65 / BEAT),
-    'k_brakes': lambda: labelled('k_brakes', 'K_brakes', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
+    'k_brakes': lambda: labelled('k_brakes', 'K_brakes_car', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
     'g_final360': lambda: labelled('g_final360', 'G_final360', CUTS['g_final360'],
-                                   [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')]),
+                                   [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')],
+                                   # v7h (user: the rotation hold at :29 waits too long for the drop): the camera lands on the
+                                   # solved 1702 camera at render t 6.0 -> play the 15 fps render at 12.68 fps (x1.18) so it lands
+                                   # at shot t 7.10 = video 29.59 s, a 0.41 s settle before the drop instead of 1.5 s
+                                   fps_in=15 * 6.0 / 7.10),
     'h_reveal': seg_reveal,
-    'i1_after': lambda: hold('i1_after', photo_frame(wa(1701), *CREDIT, max_w=1.0)),
-    'i2_after': lambda: hold('i2_after', photo_frame(wa(1690), *CREDIT, max_w=1.0)),
-    'i3_after': lambda: hold('i3_after', photo_frame(wa(1629), *CREDIT, max_w=1.0)),
-    'i4_after': lambda: hold('i4_after', photo_frame(wa(1693), *CREDIT, max_w=1.0)),
+    'p1_press': lambda: hold('p1_press', press(801)),
+    'p2_press': lambda: hold('p2_press', press(802)),
+    'p3_press': lambda: hold('p3_press', press(804, 'GT-R BRAKES')),
+    'p4_press': lambda: hold('p4_press', press(810, 'GT-R ENGINE')),
+    'p5_press': lambda: hold('p5_press', press(806)),
+    'p6_press': lambda: hold('p6_press', press(809)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7.mp4'
+OUT = D + '/out/infiniti_qx80_v7h.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']
@@ -304,7 +359,7 @@ if __name__ == '__main__':
         lst = SEG + '/list.txt'; open(lst, 'w').write(''.join(f"file '{SEG}/{k}.mp4'\n" for k in SEGS))
         T = sum(CUTS.values()) / FPS
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', lst, '-ss', str(MUSIC_START), '-i', MUSIC,
-                        '-filter_complex', f'[1:a]afade=t=in:d=0.02,afade=t=out:st={T - 2.2:.3f}:d=2.2[a]', '-map', '0:v', '-map', '[a]',
+                        '-filter_complex', f'[1:a]volume=-4dB,afade=t=in:d=0.02,afade=t=out:st={T - 2.2:.3f}:d=2.2[a]', '-map', '0:v', '-map', '[a]',
                         '-c:v', 'libx264', '-crf', '16', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '256k',
                         '-t', f'{T:.3f}', '-movflags', '+faststart', OUT], check=True)
         print(OUT, T)

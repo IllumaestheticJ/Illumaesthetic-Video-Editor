@@ -152,11 +152,14 @@ def mat_purple():
     return m
 
 
-def mat_simple(name, rgb, rough, metal, coat=0.0):
+def mat_simple(name, rgb, rough, metal, coat=0.0, spec=None):
     m, nt, out = sr.new_mat(name)
     p = sr.principled(nt, (*rgb, 1), rough, metal)
     try: p.inputs["Coat Weight"].default_value = coat
     except KeyError: pass
+    if spec is not None:
+        try: p.inputs["Specular IOR Level"].default_value = spec
+        except KeyError: pass
     nt.links.new(p.outputs[0], out.inputs[0])
     return m
 
@@ -263,8 +266,9 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     MATS = {"silver": silver, "kit": mat_kit(), "black": mat_black(), "purple": mat_purple(), "grey": grey, "wheel": mat_bronze_wheel(),
-            # v7 GT-R brakes: caliper gold as seen behind the spokes in photos 1701/1702, rotor iron dark satin
-            "caliper": mat_simple("qx_caliper", (0.50, 0.31, 0.035), 0.30, 0.15, 0.6),
+            # GT-R brakes: v7d caliper = the bright yellow of the SEMA press photo 804 (sRGB 223,183,1 lit -> linear albedo
+            # ~0.80, 0.52, 0.004; user: "add the bright yellow"); rotor iron dark satin
+            "caliper": mat_simple("qx_caliper", (0.30, 0.215, 0.0), 0.50, 0.0, 0.0, 0.12),   # bright highlights go white under the view transform: darker saturated albedo + low spec keeps the photo yellow
             "iron": mat_simple("qx_iron", (0.10, 0.10, 0.105), 0.38, 1.0)}
     paint = spec.get("paint")
     if paint:

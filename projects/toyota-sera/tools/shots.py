@@ -289,8 +289,8 @@ _lr = math.hypot(_LC["loc"][0], _LC["loc"][1])
 _la = math.degrees(math.atan2(_LC["loc"][0], -_LC["loc"][1])) % 360  # 234.6 = rear, -X side
 
 
-def _g4cam():
-    ks = arc2(0, 4.8, 6.6, _lr, 135, _la, 3.0, _LC["loc"][2], (0, 0.10, 0.70), (0, 0, 0.6), 0.9, _LC["target"][2],
+def _g4cam(r0=6.6):
+    ks = arc2(0, 4.8, r0, _lr, 135, _la, 3.0, _LC["loc"][2], (0, 0.10, 0.70), (0, 0, 0.6), 0.9, _LC["target"][2],
               n=10, ease="out2")
     for i, k in enumerate(ks):  # lens 30 -> the listing's solved focal, on the same ease
         w = 1 - (1 - i / 10) ** 2
@@ -302,6 +302,66 @@ def _g4cam():
 SECS.update({"v4_g3a_home": 2.6, "v4_g3b_clean": 2.6})
 SHOTS["v4_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts2(4.8), "cam": _g4cam()}
 SHOTS["v4_g3b_clean"] = {"base": [CAR], "cam": [dict(k, t=round(k["t"] - 2.4, 4)) for k in _g4cam()]}
+
+
+# ===================================================================================== v5 (user 2026-11-14)
+# "include the rear wing and front fog light/corner marker data too". New timeline (project.yaml): whole b0-8, front
+# b8-24 (wheel close-up dropped - format rule), LIGHTS b24-28, doors b28-34, WING b34-38, rear bumper b38-44 (re-timed,
+# wing already off), explode b44-52 (+ wing), reassembly b52-60 (+ wing), CTA.
+def lpart(name, keys_):
+    return {"blend": f"{P}/{name}.blend", "keys": keys_}
+
+
+# LIGHTS b24-28: the front bumper alone (light openings cut where the units sit, tools/light_parts.py), seen from high
+# above and behind it; both fog light / corner marker units pull straight back out of their corners (their mounting
+# direction) and a little outward, then hold under the label. The bumper itself is the base (no car).
+SECS["v5_lights"] = 2.6
+_lk = lambda sx: [lk(0), lk(0.5 * BEAT), lk(2.2 * BEAT, (0.07 * sx, 0.50, 0.06), ease="out"), lk(20, (0.07 * sx, 0.50, 0.06))]
+SHOTS["v5_lights"] = {"base": [f"{P}/front_bumper_nolights.blend"],
+    "parts": [lpart("light_left", _lk(1)), lpart("light_right", _lk(-1))],
+    "cam": keys((0, (-0.46, 0.0, 3.45), (0.0, -1.30, 0.32)), (2.6, (-0.38, -0.18, 3.25), (0.0, -1.30, 0.32)))}
+
+# WING b34-38: wide, high rear-right 3/4; the wing lifts straight up off the hatch (b34.5-36), then clears frame up and
+# to the far side while the camera moves in on the deck it sat on ('Spoiler removed' skin under it, tools/wing_cut.py)
+# and holds b37-38 under the label. Base = car minus wing (rear bumper still on).
+SECS["v5_wing"] = 2.6
+SHOTS["v5_wing"] = {"base": [f"{P}/wing_base.blend"],
+    "parts": [lpart("wing_panel", [lk(0), lk(0.5 * BEAT), lk(1.8 * BEAT, (0, 0, 0.32), ease="out"),
+                                   lk(2.0 * BEAT, (0, 0, 0.32)), lk(3.0 * BEAT, (2.4, 0.2, 1.4), ease="in"),
+                                   lk(20, (2.4, 0.2, 1.4))])],
+    "cam": keys((0, (-3.1, 5.6, 2.8), (0, 0.9, 0.8)), (1.2, (-2.9, 5.4, 2.7), (0, 1.0, 0.82)),
+                (2.1, (-0.95, 3.05, 1.55), (0, 1.75, 0.9), "inout"), (2.6, (-0.85, 2.95, 1.5), (0, 1.75, 0.9)))}
+
+# REAR b38-44 (6 beats; v3_rear was 10): wing already off (rear_base = --only rear,wing); bumper straight back b38.2-39.6,
+# tips its inner face up by b40.8, holds to b41.2, clears frame b41.2-42; camera in on the structure, holds b42.6-44.
+SECS["v5_rear"] = 3.8
+SHOTS["v5_rear"] = {"base": [f"{P}/rear_base.blend"],
+    "parts": [part("rear_bumper_only_3mm", [lk(0), lk(0.2 * BEAT), lk(1.6 * BEAT, (0, 1.20, -0.10), ease="out"),
+                                            lk(2.8 * BEAT, (0, 1.20, -0.10), (-90, 0, 0)), lk(3.2 * BEAT, (0, 1.20, -0.10), (-90, 0, 0)),
+                                            lk(4.0 * BEAT, (-2.6, 1.40, -0.10), (-90, 0, 0), ease="in"), lk(20, (-2.6, 1.40, -0.10), (-90, 0, 0))])],
+    "cam": keys((0, (-2.5, 4.1, 1.1), (0, 1.5, 0.6)), (1.0, (-2.3, 5.0, 2.3), (0, 2.2, 0.5)),
+                (1.7, (-1.3, 5.3, 2.7), (0, 2.5, 0.4), "inout"), (2.6, (0.0, 3.95, 1.15), (0, 1.75, 0.5), "inout"),
+                (3.8, (0.45, 3.55, 0.95), (0, 1.75, 0.48)))}
+
+
+# Explode / reassembly with the wing: it lifts after the rear bumper (T 3.6-4.6), parks up and slightly forward over the
+# hatch (clear of the rear bumper's parked pose), and is the second part home (T 5.1-6.3).
+def explode_parts3(shift):
+    out = explode_parts2(shift)
+    ks = xkeys(3.6, 4.6, (0, -0.10, 0.70), 4.8, 5.1, 6.3)
+    for k in ks:
+        k["t"] = round(k["t"] - shift, 4)
+    out.append(lpart("wing_panel", ks))
+    return out
+
+
+SECS["v5_explode"] = 5.0
+SHOTS["v5_explode"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts3(0.0), "cam": SHOTS["v3_e1_explode"]["cam"]}
+SECS["v5_g3a_home"] = 2.6
+# r0 7.0 (was 6.6): the parked rear bumper sat 9 px from the right edge on the first frames (edge_margins.py)
+SHOTS["v5_g3a_home"] = {"base": [f"{P}/explode_base.blend"], "parts": explode_parts3(4.8), "cam": _g4cam(7.0)}
+SECS["v5_g3b_clean"] = 2.6
+SHOTS["v5_g3b_clean"] = {"base": [CAR], "cam": [dict(k, t=round(k["t"] - 2.4, 4)) for k in _g4cam(7.0)]}
 
 
 def spec(name, mode, frames=None):

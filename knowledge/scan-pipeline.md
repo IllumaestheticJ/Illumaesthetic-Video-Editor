@@ -50,3 +50,43 @@ See `knowledge/style-guide.md` for when to use which.
 ## Vertical framing
 Portrait frames are narrow: a whole car needs ~7 m camera distance at 26–30 mm. Side profiles
 at <6 m crop the car. Check at 30 % res first.
+
+## 400Z v8 additions
+- **ASCII FBX** (user wheel files): Blender 5.3 refuses ASCII FBX. `projects/nissan-400z/tools/fbx_ascii.py` parses
+  geometry/UV/material-per-polygon/Lcl+PreRotation to OBJ; `make_lm.py` turns it into per-corner wheel blends.
+- **Chrome on the black studio renders black** (it mirrors nothing). Fake an environment: reflection-vector Z ->
+  ColorRamp -> emission added to a 0.04-roughness glossy (`make_lm.py chrome_mat`).
+- **Replacing a brand mark on a part** (Brembo -> Bomex): delete the logo material's faces, add a CLIP-alpha decal quad
+  oriented by PCA of the deleted patch, ~0.6 model units proud of the surface.
+- **Livery side projection bleeds through wheel spokes** (inner arch liners face sideways too): limit the side
+  projection to |x - xc| > 0.84 m (`side_min`).
+- **Kit surround over a trimmed stock bumper**: the trimmed scan leaves silver scraps and see-through holes inside the
+  new opening. Give stock faces inside the opening a dark satin material and close it with a dark backing plane
+  (`shot.py grille_recess`, base-entry key `grille`). Find the opening from the kit vertices (inner edge per height).
+
+## Finding front-end artifacts (400Z v9)
+- Render an object-ID pass (shot.py `idcolors`, match_v8.py `idrender`) next to the beauty pass, then raycast the odd
+  pixels (raycast now reports the material and normal). Black "notches" were holes into the car interior, not shadows.
+- A trim that removes stock faces under a kit can open holes where the kit does not actually cover. Restore source
+  faces only if a ray to the front misses the kit AND a short ray backwards misses it (else they are flaps proud of the
+  kit) - tools/fix_front.py.
+- Dark plastic with a principled specular still throws white glints under the studio top light; use diffuse + faint
+  rough glossy for black trim.
+
+## Kit install and wheel fitment (400Z v10)
+- Nested kit pieces (vents/slats that sit inside a panel) must install WITH their panel - same stage, timing and
+  clearance key. Flying them in separately makes them clip through the panel mid-move (user caught it).
+- Drift/stance fitment in make_lm.py: per-axle camber about the tyre centre (re-seat on the outer shoulder:
+  lift = r cos a + w/2 sin a - r), outward offset `out_m`, steer applied after camber. 400Z: front -8, rear -3 deg,
+  +25/+20 mm, body 5 cm under the photo stance. Check front-low, 3/4 and side views for tyre/arch clipping.
+
+## Part swaps the user can read (400Z v11)
+- "Old part off, new part on" needs the REAL removed-part scan as the outgoing piece (Bumper_Only); a piece cut from
+  the trimmed car scan is only the scraps the trim removed. Base while it is off = car minus faces within 10 mm of that
+  scan (grille kept); stock faces the finished car still shows ride in with the new part, then hand over to the
+  finished base on the seat frame (tools/old_bumper.py). Exit one side, enter from the other so they never cross.
+- Wheels: split the stock-wheel scan per corner (split_wheels.py) and slide each off along its axle, then the new wheel
+  on; keep the body at stock height until the new wheels are on, then settle. Don't let the outgoing and incoming
+  wheel share the staging position on the same frame.
+- Livery glass: restrict the dark-glass rule to explicit glass bands (glass_y, glass_hw); a "not flat, above the belt"
+  rule also catches roof rails and pillars.

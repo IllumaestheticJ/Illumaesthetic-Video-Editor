@@ -1140,3 +1140,149 @@ lands here automatically. Agents must read this whole file before editing.
 - **[text]** Promo videos are their own format, separate from scan reels: keep the white caption bubble  _(from nissan-sentra-promo, 2026-11-14, reviewer)_
 
 - **[story]** Inventory the designer's review .blend files (not just the STL export folder) for parts like wheels and wings, and remove the stock part a new part replaces before showing the new one  _(from nissan-sentra-promo, 2026-11-15, reviewer)_
+
+## From the A90 Supra v3.2 (2026-11-14, user: "move the brake/parts completely out of the way", "the console is blocking what's underneath")
+- **[framing]** A removed part parked in frame is fine for a removal beat, but not when the NEXT thing to watch is behind or under it:
+  before a mechanism moves (suspension travel) or a camera holds on what a part covered (console -> tunnel), the part leaves the
+  frame completely (exit key + `vis` window), it does not park. Take off anything that hides the mechanism first (dust shields).
+## From the Mazda Miata ND v10 revision (2026-11-14, built by an agent)
+- **[pacing]** Two consecutive shots on near-identical angles of the same subject read as a jump cut (user: "weird cut", Miata 28.2 s:
+  ~2 deg / 1.3 m apart). Either change the angle a lot, or start the next shot's camera EXACTLY on the previous shot's last key so
+  the cut disappears into one move. Check frame diffs at every cut: a diff of ~10-20 with the same silhouette is a jump cut.
+- **[story]** (QX80 v7b) Reviewer rejected a bench (parts-only) brake shot: "needs to be shown on the actual car scan". Show
+  running-gear parts ON the car: wheel off on the scan, the part assembles on its hub (outboard explode), camera aimed above
+  the hub so the title band stays clear.
+- **[audio]** Megalomaniac (Dropbox /Moosic) muxes at -10.2 LUFS / +0.7 dBFS raw - always measure ebur128 after the mux;
+  -4 dB -> -14 LUFS. Its kick entry (15.52 s) and drop (45.515 s) are exactly 64 beats apart at 128.05 BPM: start there and the
+  drop lands on video 30.000 s.
+- **[scan]** (QX80 v7c) "The brakes are backwards": a caliper bench scan has no inside/outside label - render shaded views of
+  BOTH axial faces before placing it. Outboard = smooth logo face; inboard = brake-line fitting, bleeders, mount bosses. Flip
+  with a 180 deg rotation about the radial axis (det +1), never a mirror. Caliper clock position per corner from the real
+  photos (QX80: fronts behind the hub, rears ahead of it).
+- **[scan]** Wheel-well detail lives in the suspension scans (QX80: Scans/Suspension (MCS)/Left Side Compressed.stl, same raw
+  frame as the car). Reviewer wants the real well, not the car scan's cut-out arch: crop it, delete the stock rotor/caliper
+  (annulus around the hub axis outboard of the knuckle) and stands, and seat the new brake on the hub measured in that scan.
+- **[story]** (QX80 v7d) After the 1:1 reveal, hold the matched phone photo ~8 beats, not 16 ("held a little too long"), then
+  move to professional photos: article pages carry the OEM press gallery (motorillustrated.com wp-content/uploads, full-size
+  1920x1080) - grep the article HTML for the gallery JPGs. Credit the source under each photo.
+## toyota-mr2-spyder-scan-process v3 (2026-11-14, agent finding)
+- A silhouette-only camera solve on a car cropped by the frame edge can match the outline yet be ~12 deg rolled with the
+  interior (lamps, lid lines, glass opening) 60-110 px off. Before any 1:1 render, onion the FULL-RES frame with the
+  render's interior edges, not just the outline. Fix: pick 8-10 corresponding points (footage px vs render px from the
+  known camera), ray-cast them onto the scan and solvePnP (`projects/toyota-mr2-spyder-scan-process/tools/pnp_landmarks.py`).
+- cutcheck.py's half-rise onset can latch onto a neighbouring hit when two hits are < 150 ms apart; confirm a doubtful
+  cut with the envelope rise rate around the cut before moving it.
+
+## Standing rule: "60 FPS" means true 60 FPS (user, 2026-11-14)
+- **[technical]** When the user asks for 60 FPS, deliver true 60 FPS: render the scan/Blender shots at 60 fps natively (or at a stated
+  reduced quality if render time forces it, agreed with the user first). Do NOT deliver a 30 fps edit or a 15 fps render with
+  minterpolate to 60 and call it 60 fps - motion-interpolated frames are not what the user asked for. Say explicitly which it is.
+- **[grade]** (QX80 v7e) Saturated paint under the house rig + AgX: a bright albedo with coat renders cream (yellow 0.80/0.52
+  -> 227,201,145). Use a darker fully saturated albedo, no coat, low specular (0.30, 0.215, 0, spec 0.12 -> 207,189,113) and
+  measure the rendered pixels against the reference photo.
+- **[ending]** Partner logos: if the partner's site is blocked, look for the logo in the build files - a printed badge STL
+  rasterises (fill every triangle projected on its plane, 6 px/mm) into a clean wordmark; check the read direction (flip/rotate).
+
+## Ferrari 296 v9 (fender reveal, pastel, true 60 fps)
+- Check every moving part for a COPY left in the base: measure base triangles within ~5 mm of the part scan (here 61k for
+  the fender - it had been lifting off an identical fender since v1). Cut, then fill from the part-off state scan with only
+  triangles > 7 mm from what's left (tools/fender_off.py).
+- "True 60 fps": render natively at 60 (4x the 15 fps frames: ~10 h for a 38 s reel at 75 %/12 spp on 4 cores). A shot
+  that was retimed via src_fps must have the retime baked into the render (spec fps = 60 x factor) and play at exactly 60;
+  resampling drops frames.
+- Remotion comps: keep props on the 30 fps grid and divide useCurrentFrame() by fps/30 (MobileCTA, ScanHUD) - a 60 fps
+  render then has the same timing without rewriting every frame constant.
+- Long renders + container restarts: make the chunk script resume from the first missing frame (renders/v9/v9.sh); a
+  background waiter has a 2 h cap, so re-arm it - the render itself keeps going.
+- Pastel under exposure -1.7 + AgX Punchy: lift hues toward white (~0.3-0.98 albedo); too far and neighbours merge
+  (hood/fender both beige) - keep one channel clearly lower.
+
+## From the Toyota Sera v5 (hood artifacts, 2026-11-14)
+- Per-triangle hinge landing gives a ragged panel (holes, nose strip left on the car, wiper strips riding up). Cut hinged
+  panels as a REGION: clean the landed mask on a top-view grid (close, fill, open, largest blob), take the cowl-side edge
+  from the OPEN capture swung closed (wipers hide it on the closed car), keep skin within ~25 mm of the local top surface
+  (70 mm reached the bumper top under the nose - check a centreline section). projects/toyota-sera/tools/hood_clean.py.
+- State-scan fills must be limited to their own region (under the hood, inside the bumper bbox + 80 mm): captures carry
+  unrelated changes - a card standing on the fender came along as a white flap. Render the full car at the same camera to
+  tell a fill artifact from real scan data.
+
+## A90 Supra v4 (2026-11-14) — tail lamp explode, hood open, underbody plastics, fender cut
+- **A removed panel takes only its own skin.** Reviewer: "the fender removed scan took too much of the chassis off with it".
+  Scrap islands near the panel stay on the body (strut tower, arch structure, door front); only specks under 300 tris that lie on
+  the panel go with it (recut_v3.py `STRICT`). Check the opening on a Workbench still with the panel offset before rendering.
+- **Every new removable part is cut out of the body the same way:** car triangles within 4 mm of the part scan, 12 mm majority
+  vote (cut_v4.py). The car's own skin shows while the part is fitted; the part scan takes over (`vis`) only while it moves.
+- **A part opened and shut within one bar (a hood on its hinges) keeps every other shot valid:** no re-render downstream.
+- **A lone small part under the full car light rig blows out.** The lamp needed exposure -1.8, the same as the cabin (-1.9).
+  Render one Cycles frame before queueing the shot.
+- **Long thin parts (tail lamps, skirts) in 9:16:** roll the camera (`pos`/`look`/`up`) so the long axis runs up the frame,
+  and explode the sub-parts across the screen-horizontal axis, not toward the lens.
+- **A fused multi-part scan** (arch liners plus undertrays in one island) is split by region: arch-centre radius plus
+  floor split lines. A part the base car scan lacks can only be shown coming off, in the shot where it is visible.
+## From the Nissan Frontier v11 revision (2026-11-14, built by an agent)
+- **[scan-look]** Size a part from the 1:1 frame against the REAL part, not against the CAD mount: v10 scaled the badge to fill the CAD ring
+  (x1.26) and it hung low ("still too low"); a 5x gridded crop of real vs render showed the tops matched and only the oversize bottom was off.
+- **[pacing]** A 1:1 reveal must not settle: land the render camera on the solved camera ON the cut frame while still moving, and keep the
+  real clip near real speed. A 0.4 s hold + eased stop + 0.6x real clip read as "the pause is a little too long".
+- **[story]** In a build story, when a stock part comes off, light up the state scan underneath (flares-removed scan) with a label until
+  the new part covers it - the user asked to see it.
+- **[text]** Partner logos: reuse the exact lockup from the related approved video; a file uploaded in another session is gone with that
+  session's container, so save supplied logos to Drive/Dropbox or the repo's asset notes when they arrive.
+
+## toyota-gr86 v8 (user feedback on v7)
+- [scan] (user: "BRZ and GR86 bumpers still clipping on the sidemarker scene") When an at-rest panel combines the car's own skin
+  with a part scan's inner face, keep only part-scan surface clearly BEHIND the skin: signed distance along the skin's outward
+  normal < -8 mm (projects/toyota-gr86/tools/fuse_v8.py). A plain "> N mm from the skin" test keeps surface lying in front of
+  the skin and z-fights. Check a full-res close-up, because 30 % previews hide the speckle.
+- [story] (user: "BRZ and GR86 rear bumpers are the same - don't need to do the splitting thing") Only split two scans of a part
+  when they are genuinely different parts. Ask, or check the shapes, before staging a split.
+- [technical] Background render waiters count their 2 h limit from launch, including the time spent waiting. Launch each
+  batch when the previous one reports, not as a pre-armed waiter.
+- (mr2 v4, 2026-11-14) **Nesting lookbook kit parts into a scan:** the lookbook GLB ships `body_<part>_stock` / `trim_<part>_stock`
+  for every `part_<part>` = the stock panel the part replaces. Cut the scan by those pieces' FOOTPRINT (depth test along the
+  surface normal, +-30 mm, no lateral margin) and also remove scan skin 2-20 mm in front of each part; hide the cut pieces
+  as the part lands (projects/toyota-mr2-spyder/tools/kit_nest2.py). A 3D-radius cut leaves 15-30 mm black seams.
+- (mr2 v4) Keep kit parts in their lookbook materials (split multi-material parts in the export): user wanted the diffuser
+  black; carbon wing / black grilles must match the CGI at the 1:1 cut.
+- (mr2 v4) "Environment very low detail": a flat road + light bars + plain boxes is not enough. Build lanes, barriers,
+  lamp posts with real lights, gantries, overpasses, oncoming traffic, shopfronts and two building rows
+  (projects/toyota-mr2-spyder/tools/city_env.py); keep window emission low (~1-1.5) or facades blow out white.
+
+## Toyota GR Corolla v5 (reviewer on v4)
+- **[scan] RULE (user): removing a panel must not take its neighbours with it.** ("the front end scan is missing a huge
+  chunk of the car") Never build a "panel off" base by deleting every car face the stripped-shell scan lacks inside the
+  panel's bbox - a stripped shell has no headlights, fenders or lights, so they vanish too. Remove only faces that are
+  the panel's own skin (near the separate panel scan), then put back everything above the panel's real top edge
+  (per-column 98th percentile of the panel scan, capped at the corners where shards of the neighbouring trim sit) and
+  trim those shards off the moving panel. Tools: projects/toyota-gr-corolla/tools/frontcut.py + bumperline.py.
+  Check with a wide front 3/4 render from BOTH sides next to the intact car before any final.
+- **[scan]** A "roof" scan set for a car can be door-open state scans (roof-rack mounting data at the door jambs). Seat a
+  state with statebase.py: keep only the state's faces in the zone it is about (opening + cabin) so the rest of the
+  body stays intact and no seam shows where the state thins out; keep the car's own wheel when the state's is partial;
+  crop the floor and strays above the roofline. A door that is OFF in the state is shown as captured (1:1 swap), not
+  faked open.
+- **[cli]** argparse reads a value starting with '-' as a flag: pass negative boxes as `--szone=-1300,...`.
+- **Check free disk before a long render queue** (`df -h /`; the session allowance, not the volume size, is what runs out).
+  A full disk writes truncated PNGs that render_v3 counts as done: after any disk-full event, PIL-load every frame and delete
+  the broken ones before resuming. Clear superseded render folders and old-version intermediates first.
+- verify_v3.py now reads the shot count from the timeline (it was hard-coded to 21 bars and reported NaN past them).
+
+## From the Toyota Sera v6 (rear wing + fog light / corner marker, 2026-11-14)
+- A part with no file of its own (Sera wing: only a patchy 'Spoiler removed' state) can be cut from the full car by shape:
+  fit the surface it sits on just ahead of it, take tris > 4 mm above it, clean as a top-view region grown FORWARD only
+  (isotropic growth swallowed a tail-panel corner), and check every station on side sections. projects/toyota-sera/tools/wing_cut.py.
+- Small sub-parts (two 16 cm light units in a 1.6 m bumper) read best from high above and behind the parent, pulling straight
+  back into empty black; a low inner-face view hid them against the bumper.
+- `edge_margins.py` catches parked parts a 3-frame sheet misses (reassembly frame 1, 9 px); widen the orbit's start radius -
+  the clean-car shot that continues the camera must be re-rendered with it or the lock swap jumps.
+- **[story]** (QX80 v7f) Replacement parts: take the STOCK part off the scan before the new one lands ("stock side skirts removed
+  before the new ones go on"). Split it out of the car scan by a measured region (slice the scan where the kit part sits),
+  animate it off a beat before the landing, and use the stock-less car in every later shot.
+- **[scan]** Check EVERY kit group's bbox against the car and its mirror partner: QX80 had two parked parts (motoIQ vent 0.5 m
+  outside the car, left skirt under the floor - invisible, so the stock skirt showed). Left/right pairs: mirror the right one
+  about the car centreline and compare.
+- **[ending]** (QX80 v7g) MotoIQ's mark has the red square around the "IQ" only (white "moto" + red box "iq"), not around the
+  whole word. motoiq.com / shopmotoiq.com are not reachable from cloud sessions by default - ask for the official file early.
+- **[pacing]** (QX80 v7h) A camera landing into the 1:1 match should settle ~0.5 s before the drop, not 1.5-2 s ("holds too long
+  waiting for the drop"). Fix without re-rendering: retime the source (fps_in = src_fps x t_land / t_target into minterpolate);
+  measure the motion stop on the decoded video (frame-diff < 0.15) - an ease-out reads still ~0.3 s before the key.

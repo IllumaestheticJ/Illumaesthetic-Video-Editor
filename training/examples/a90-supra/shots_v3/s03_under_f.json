@@ -42,6 +42,12 @@
    "blend": "/home/user/media/work/a90/blend3/skinc_rbump.blend"
   },
   {
+   "blend": "/home/user/media/work/a90/blend3/skin_hood.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_lamp.blend"
+  },
+  {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
   },
   {
@@ -67,6 +73,111 @@
   },
   {
    "blend": "/home/user/media/work/a90/blend3/k_RL_all.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_tray_front.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.40638
+    },
+    {
+     "t": 0.46614,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.64542,
+     "loc": [
+      0,
+      -1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.6454205357142856
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_liner_FL.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.5498
+    },
+    {
+     "t": 0.60956,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.78885,
+     "loc": [
+      0,
+      1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.7888473214285713
+    ]
+   ]
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/pl_liner_FR.blend",
+   "keys": [
+    {
+     "t": 0.0
+    },
+    {
+     "t": 0.5498
+    },
+    {
+     "t": 0.60956,
+     "loc": [
+      0,
+      0,
+      -0.04
+     ],
+     "ease": "ease_out"
+    },
+    {
+     "t": 0.78885,
+     "loc": [
+      0,
+      -1.7,
+      -0.3
+     ],
+     "ease": "ease_in"
+    }
+   ],
+   "vis": [
+    [
+     0.0,
+     0.7888473214285713
+    ]
+   ]
   }
  ],
  "cam": [

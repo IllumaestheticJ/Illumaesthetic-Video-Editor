@@ -1,11 +1,11 @@
 {
- "_bar": 10,
+ "_bar": 11,
  "_reel_frames": [
-  723,
-  803
+  803,
+  884
  ],
  "fps": 30,
- "seconds": 2.6666666666666665,
+ "seconds": 2.7,
  "ease": "linear",
  "light_bbox": [
   [
@@ -34,6 +34,12 @@
   },
   {
    "blend": "/home/user/media/work/a90/blend3/skinc_rbump.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_hood.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_lamp.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"
@@ -99,7 +105,7 @@
      "t": 0.0
     },
     {
-     "t": 0.12709,
+     "t": 0.1255,
      "loc": [
       0,
       -0.12,
@@ -108,7 +114,7 @@
      "ease": "ease_out"
     },
     {
-     "t": 0.25417,
+     "t": 0.251,
      "loc": [
       0,
       -0.35,
@@ -117,7 +123,7 @@
      "ease": "linear"
     },
     {
-     "t": 0.40668,
+     "t": 0.40159,
      "loc": [
       0,
       -0.45,
@@ -129,7 +135,7 @@
    "vis": [
     [
      0.0,
-     0.40667848101265813
+     0.4015949999999999
     ]
    ]
   }

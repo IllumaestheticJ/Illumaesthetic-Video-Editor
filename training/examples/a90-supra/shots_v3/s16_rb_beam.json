@@ -1,8 +1,8 @@
 {
- "_bar": 17,
+ "_bar": 18,
  "_reel_frames": [
-  1285,
-  1365
+  1365,
+  1446
  ],
  "fps": 15,
  "seconds": 2.8666666666666667,
@@ -22,6 +22,12 @@
  "objects": [
   {
    "blend": "/home/user/media/work/a90/blend3/body_c.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_hood.blend"
+  },
+  {
+   "blend": "/home/user/media/work/a90/blend3/skin_lamp.blend"
   },
   {
    "blend": "/home/user/media/work/a90/blend3/fill_fbump.blend"

@@ -1,3 +1,54 @@
+# Infiniti QX80 v7g
+
+v7g = v7f + "the red square should be around the IQ portion": end card motoiq mark rebuilt as white "moto" + "iq" in a red
+square (from the vent-badge wordmark). The official file could not be downloaded (motoiq.com, shopmotoiq.com, tomeiusa.com
+are outside the session's network allowlist) - swap in the official logo when available. Output infiniti_qx80_v7g.mp4.
+
+# Infiniti QX80 v7f - self-review (training/rubric.md)
+
+v7f = v7e + reviewer notes (2026-11-14): "motoIQ needs to have the red square around it" -> white wordmark in a red square;
+"the SUV needs the stock side skirts removed before the new ones go on" -> stock skirts split out of the scan
+(stockskirt.py), they slide off on beat 4 of the panels shot and the kit skirts land on beat 5; skirt-less car in the brakes
+section and final render. Found and fixed: Ecky's LEFT kit skirt (+ mounts) was parked under the middle of the car, hidden -
+moved onto the mirror of the right skirt (2.3 mm median). Checks: swap frames looked at in the delivered reel (17.3-18.5 s),
+899/900 blend aligned, -14.1 LUFS / -3.0 dBFS, 1462 frames. Output infiniti_qx80_v7f.mp4.
+
+# Infiniti QX80 v7e - self-review (training/rubric.md)
+
+v7e = v7d + reviewer notes (2026-11-14): "needs an MotoIQ logo" -> end card ILLUMAESTHETIC x motoiq (wordmark rasterised
+from Ecky's Print__Nismo_QX80_motoiq_logo.stl; motoiq.com blocked); "add the bright yellow" -> calipers in the yellow of
+press photo 804, re-rendered (brakes section + final 360); "title card 'Nissan broke the internet for a week in 2025' over
+the article text" -> user copy in the site hero style on an opaque panel over the article body, one line per kick.
+Checks: caliper reads yellow (207,189,113 rendered vs 223,183,1 in the photo), 899/900 blend aligned, -14.1 LUFS /
+-3.0 dBFS, 1462 frames. Output infiniti_qx80_v7e.mp4.
+
+# Infiniti QX80 v7d - self-review (training/rubric.md)
+
+v7d = v7c + reviewer notes (2026-11-14): "0:36 shot feels held a little too long" -> the reveal (1:1 cut, photo 1702 +
+headlines) is 8 beats (3.75 s) instead of 16; "use online photos for more professional shots" -> six SEMA 2025 press photos
+from Motor Illustrated's gallery (front 3/4, nose, GT-R brakes, GT-R engine, exhausts, rear 3/4) replace the shop phone
+photos, 4 beats each, credited "photo via motorillustrated.com". Same 48.73 s, so the music did not need to move.
+Checks: all cut frames on the 128.05 BPM beat frames, -14.1 LUFS. Note: the press photo shows the calipers yellow; the
+render's caliper is a deeper gold.
+
+# Infiniti QX80 v7c - self-review (training/rubric.md)
+
+v7c = v7b + reviewer notes (2026-11-14): "the GTR brakes are backwards" -> the GT-R caliper scan was mounted inside-out
+(+z is its smooth outboard logo face; -z has the brake-line fitting and bosses); now rotated 180 deg about the radial axis,
+and the corners follow the photos: fronts trail the hub, rears lead it (v7/v7b had all four trailing). "use the actual
+wheelwell scan data" -> the brakes section's front-left arch is the Left Side Compressed scan (Scans/Suspension (MCS), raw
+frame, 5.05 mm on the body overlap) with the stock rotor/caliper and jack stand removed; the GT-R brake sits on the hub
+measured in that scan (94 mm lower than the designer wheel: compressed suspension). Checks: hi-res frame of the caliper
+(smooth face out, trailing), 899/900 blend aligned, -14.1 LUFS / -3.0 dBFS, 1462 frames. Output infiniti_qx80_v7c.mp4.
+
+# Infiniti QX80 v7b - self-review (training/rubric.md)
+
+v7b = v7 + two reviewer notes (2026-11-14): "the brakes section needs to be shown on the actual car scan" -> K_brakes_car
+(front-left wheel off on the scan, GT-R brake assembles on the hub: ring + our hat, our adapter, gold GT-R caliper, one per
+beat); "reuse one of the songs in moosic folder" -> KMFDM Megalomaniac (Dropbox /Moosic), kick entry 15.52 s, drop 45.515 s
+= 64 beats at 128.05 BPM -> drop on 30.000 s (the 1:1 cut). Music -4 dB: raw track muxed at -10.2 LUFS / +0.7 dBFS peak,
+now -14.1 LUFS / -3.0 dBFS. Output infiniti_qx80_v7b.mp4, 1462 frames. v7 notes below.
+
 # Infiniti QX80 v7 - self-review (training/rubric.md)
 
 Output: /home/user/media/infiniti-qx80/out/infiniti_qx80_v7.mp4 (not in git), tools/build_v7.py. 1080x1920, 30 fps, yuv420p,

@@ -1,3 +1,96 @@
+# Nissan 400Z scan reel — v10 self-review (2026-11-15)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v10.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v9 -> v10
+- **"Wheels need more camber in the front, lower, wider out - drift car slammed fitment"**: front -8 / rear -3 deg
+  camber, wheels +25/+20 mm outward, body 5 cm below the photo stance. Checked front-low, 3/4, side and rear: tyres tuck
+  under the lips, no visible clipping.
+- **"Combine the rear quarter panel vents and the quarter panels"**: slats now share the quarter panel's install keys.
+- Scan -> photo cut still -0.8 ms; the body overlays the photo; wheels intentionally sit lower/more cambered than the
+  photo (user asked for more than the real car).
+
+## Scores: as v9; 3 (1:1 match) 4 - wheels now deliberately differ from the photo.
+
+# Nissan 400Z scan reel — v9 self-review (2026-11-14)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v9.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v8 -> v9
+- **"Match the stance of the picture"**: at the solved photo camera the rims sat 29/22 px (front/rear) too high in the
+  arches - the v7 80 mm drop was too much. Body back to +0.01 m; the match camera moves with the body; HERO fronts
+  steered 6.3 deg like the photo. Edge overlay at the solved view: rims, arches and skirts trace the photo.
+- **"Properly resize and use the correct logo for the KAIDO HOUSE livery"**: real decal rectified from the user's own
+  mock-up render; sized, placed and sheared against the photo letter by letter.
+- **"Move the BOMEX logo on the sides backwards a little"**: ~11 cm rearward on both sides.
+- **"Better tire model"**: procedural tyre with ~7 cm sidewall (photo), rounded shoulders, grooves, black rubber.
+- **"Front end artifacting and clipping"**: object-ID + raycast found holes into the car at the grille's top corners,
+  the stock grille frame poking through the kit lip, the far wheel visible past the grille backing and white glints on
+  the grille trim; all fixed (tools/fix_front.py, wider backing, diffuse trim). Checked from front, both 3/4s and the
+  photo view.
+
+## Checks
+- Cut 45.867 scan -> photo: -0.8 ms; frames 1375/1376 blend shows body, wheels and banner overlaying.
+- Other cuts unchanged from v8. Loudness unchanged.
+
+## Scores (1–5)
+| # | Criterion | Score | Note |
+|---|---|---|---|
+| 1 | Hook | 4 | Unchanged. |
+| 2 | Beat sync | 5 | Unchanged; photo cut -0.8 ms. |
+| 3 | 1:1 match | 5 | Body, stance, wheels and windscreen banner now overlay the photo. |
+| 4 | Scan quality | 4 | Front holes/clipping fixed; grille side walls show a few dark speckles at full res. |
+| 5 | Story | 5 | Unchanged. |
+| 6 | Grade | 4 | Unchanged. |
+| 7 | Text | 5 | Unchanged. |
+| 8 | Ending | 5 | Scan -> real car -> brands. |
+| 9 | Technical | 4 | 1572 frames (assembler drops one, known). |
+
+## For the next agent
+- Banner is pre-sheared for the photo angle; from dead-ahead it reads slightly italic.
+- Side-skirt sponsor (BBS vs YOKOHAMA under the rear fender) differs from the photo - not raised by the user.
+
+# Nissan 400Z scan reel — v8 self-review (2026-11-14)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v8.mp4`: 1080x1920, 30 fps, 52.40 s (1572 f), -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v7 -> v8
+- **"Final scene needs to end with a 1:1 transition to one of the finished car photos"**: HERO now swings in on the
+  passenger side and settles exactly on the camera solved for SEMA photo b096156c, two frames before the 45.867 kick;
+  hard cut to the photo (no dissolve, no text over it), slow 5 % push, 12 f dip to black. Verified on the assembled file
+  by blending frames 1375/1376: badge, grille, headlights, both wheels, roofline and wing overlay. Residual: the
+  KAIDO*HOUSE banner and hood decal sit a few px off (they are my livery placement, not the camera) and the front lip
+  edge differs slightly (kit CAD vs the real install).
+- **"Add the Bomex logo at the end (from the Sentra video)"**: end card 48.667-52.4 s, Illumaesthetic logo then the
+  white Bomex mark (from GR86_Bomex_Badge_34.8x9.8_RevE.ai), Sentra-style stacked, fades.
+- **"The front bumper fitment / grille cutting is still a little odd"**: inside the Bomex surround the trimmed stock
+  scan showed silver scraps and holes (the far wheel was visible through one). Stock faces inside the opening are now
+  dark satin and a dark backing plane closes the holes, so it reads like the real black grille in a black recess.
+- **"Wheels need to be chrome on chrome" + "Brembo text replaced, white, with a black Bomex logo"**: the user's BBS LM
+  file replaces the stand-in on all four corners; chrome face, lip, barrel and hardware; white calipers with a black
+  Bomex decal where the Brembo lettering was. HUD sub changed from "STAND-IN MODEL" to "CHROME - BOMEX CALIPERS".
+
+## Cut timing
+cutcheck: the new photo cut lands at -0.8 ms on the 45.867 onset; other cuts are unchanged from v7 (the 466-472 run is
+fast part motion inside N1a, not cuts; 219 is the open's fade-in pulse, as in earlier versions).
+
+## Scores (1–5)
+| # | Criterion | Score | Note |
+|---|---|---|---|
+| 1 | Hook | 4 | Unchanged open. |
+| 2 | Beat sync | 5 | Photo cut -0.8 ms; end card on the 6th beat after (48.667). |
+| 3 | 1:1 match | 4 | Body matches the photo in the cut blend; banner/hood decal and lip edge a few px off. |
+| 4 | Scan quality | 4 | Real wheels and a clean grille recess; small dark notch at the driver-side hood corner remains. |
+| 5 | Story | 5 | Teardown -> kit -> livery -> the real car at SEMA -> brands. |
+| 6 | Grade | 4 | Scan x0.955; the photo is untouched. |
+| 7 | Text | 5 | Labels only over scan; nothing over the photo. |
+| 8 | Ending | 5 | Scan becomes the real car, then the logo card. |
+| 9 | Technical | 4 | 1572 frames (assembler drops one, known). Loudness unchanged. |
+
+## For the next agent
+- Match camera: `match/cam_match.json` (tools/fit_cam.py + landmarks, see knowledge/match-cut.md "Scan -> still photo").
+- If the user wants the banner exact, move `LIV["banner"]` to the photo using the 1375/1376 blend.
+
 # Nissan 400Z scan reel — v7 self-review (2026-11-14)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v7.mp4`: 1080x1920, 30 fps, 48.67 s, -14.4 LUFS, true peak -3.4 dBTP.

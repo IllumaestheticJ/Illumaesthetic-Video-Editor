@@ -27,5 +27,20 @@
   "width": 0.29,
   "half_outer": 1.03,
   "note": "stand-in deep-dish mesh wheel, outer sidewall 20 mm inside the kit arch lip (half-width 1.05 m about xc)"
- }
+ },
+ "tyre": {
+  "r": 0.357,
+  "squish": 0.006,
+  "note": "v9: fuller sidewall measured on the SEMA photo (rim lip to tread ~7 cm); rim scale still r 0.342"
+ },
+ "steer_deg": 6.3,
+ "camber_deg": {
+  "f": -8.0,
+  "r": -3.0
+ },
+ "out_m": {
+  "f": 0.025,
+  "r": 0.02
+ },
+ "fitment_note": "v10 drift fitment: front -8 deg / rear -3 deg camber, +25/+20 mm outward, body lowered (shots_v8 DROP)"
 }
