@@ -140,7 +140,7 @@ def L52(c, u, t):   # tie rod: rack to wheel; it swings in an arc, and so does t
     A, Rk, B0, B, S, lt, dx = corner(c, ox, oy, z, 0, a, at, aa)
     swing(c, Rk, lt, B0[1] - HH, 92 * ease(seg(u, 0.4, 0.62)), fade(CT, 0.9))
     swing(c, A, LA, B0[1], 92 * ease(seg(u, 0.7, 0.9)), fade(WHITE, 0.9))
-    c.label(Rk[0] + 85, 300, 'TIE ROD', 22, CT, at)
+    c.label(Rk[0] + 66, 286, 'TIE ROD', 22, CT, at)
     c.label(ox + 150, 546, 'CONTROL ARM', 22, WHITE, aa)
     c.label(B0[0] + 150, 425, 'WHEEL', 22, WHITE, a, 'lm')
     m = ease(seg(u, 0.36, 0.48)); x = B0[0] + 170
@@ -153,7 +153,7 @@ def L53(c, u, t):   # arcs don't match -> toe changes over bumps (bump steer); l
     a = ease(seg(u, 0.0, 0.08)); ox, oy = 230, 480
     low = ease(seg(u, 0.62, 0.82)); D = 48 * low; z = 55 * math.sin(t * 1.5)
     A, Rk, B0, B, S, lt, dx = corner(c, ox, oy, z, D, a, labels=False)
-    g = ease(seg(u, 0.05, 0.2)); wc = mix(CT, COL['bad'], low)
+    g = ease(seg(u, 0.05, 0.2)); wc = mix(CT, COL['bad'], ease(seg(u, 0.66, 0.78)))
     swing(c, (A[0], A[1] - HH), LA, B0[1] - HH, 96 * g, fade(WHITE, 0.85))                                 # where the wheel carries the joint
     swing(c, Rk, lt, B0[1] - HH, 96 * g, fade(CT, 0.95))                                                   # where the tie rod wants it
     c.line([(S[0], S[1]), (S[0] + dx, S[1])], fade(wc, g), 6); c.circle(S[0] + dx, S[1], 5, fill=fade(wc, g))
@@ -221,7 +221,8 @@ def L56(c, u, t):   # stiffer mounts: the wheels follow almost at once; a manual
             s = (t * 0.45 + k / 3) % 1.0; d = s * tot; i = 0
             while i < 2 and d > ln[i]: d -= ln[i]; i += 1
             q = d / ln[i]; x, y = lerp(pts[i][0], pts[i + 1][0], q), lerp(pts[i][1], pts[i + 1][1], q)
-            c.circle(x, y, 6, fill=fade(CT, f * ease(seg(s, 0, 0.12)) * (1 - ease(seg(s, 0.88, 1)))))
+            rr = 6 * f * ease(seg(s, 0, 0.12)) * (1 - ease(seg(s, 0.88, 1)))
+            if rr > 0.5: c.circle(x, y, rr, fill=CT)
     c.label(505, 362, 'STEERING RACK', 16, DIM, a)
     c.label(640, 530, 'STIFFER MOUNTS', 22, G, ease(seg(u, 0.08, 0.2)))
     c.label(640, 580, 'WHEELS FOLLOW AT ONCE', 28, WHITE, ease(seg(u, 0.24, 0.38)))
