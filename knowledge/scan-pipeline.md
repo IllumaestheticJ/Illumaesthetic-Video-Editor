@@ -72,3 +72,10 @@ at <6 m crop the car. Check at 30 % res first.
   kit) - tools/fix_front.py.
 - Dark plastic with a principled specular still throws white glints under the studio top light; use diffuse + faint
   rough glossy for black trim.
+
+## Kit install and wheel fitment (400Z v10)
+- Nested kit pieces (vents/slats that sit inside a panel) must install WITH their panel - same stage, timing and
+  clearance key. Flying them in separately makes them clip through the panel mid-move (user caught it).
+- Drift/stance fitment in make_lm.py: per-axle camber about the tyre centre (re-seat on the outer shoulder:
+  lift = r cos a + w/2 sin a - r), outward offset `out_m`, steer applied after camber. 400Z: front -8, rear -3 deg,
+  +25/+20 mm, body 5 cm under the photo stance. Check front-low, 3/4 and side views for tyre/arch clipping.

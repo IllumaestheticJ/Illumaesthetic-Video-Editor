@@ -24,7 +24,7 @@ DROP = -0.08  # m: kit arch lips sat 87-102 mm over the tyres; the built car tuc
 SOLVE_DROP = DROP  # the match camera (match/cam_match.json) was solved with the body at this drop
 # v9 (user: "match the stance of the picture"): at the solved camera the rims sat 29 px (front) / 22 px (rear) too high in
 # the arches, i.e. the body was ~8-9 cm too low over the wheels; with the fuller v9 tyre the body goes back up
-DROP = 0.01
+DROP = -0.04  # v10: "drift car slammed fitment" - 5 cm below the photo stance, tyres tucked under the lips
 LIV7 = {**LIV, "map": {**LIVMAP, "Z0": LIVMAP["Z0"] + DROP}, "belt": LIV["belt"] + DROP,
         "banner": LIV["banner"][:2] + [LIV["banner"][2] + DROP] + LIV["banner"][3:],
         "cabin": LIV["cabin"][:2] + [LIV["cabin"][2] + DROP, LIV["cabin"][3] + DROP] + LIV["cabin"][4:]}  # world-space wrap follows the body
@@ -159,8 +159,10 @@ SHOTS["KIT_SIDE"] = {
         kit(f"{B}/k_rear_fender_driver.blend", (0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (0.08, 0, 0)),
         kit(f"{B}/k_side_skirts_pass.blend", (-0.45, 0, -0.05), 34.187 - 32.781, (-0.08, 0, 0)),
         kit(f"{B}/k_side_skirts_driver.blend", (0.45, 0, -0.05), 34.187 - 32.781, (0.08, 0, 0)),
-        kit(f"{B}/k_rear_fender_slats_pass.blend", (-0.75, 0, 0.35), 34.42 - 32.781, (-0.08, 0, 0)),
-        kit(f"{B}/k_rear_fender_slats_driver.blend", (0.75, 0, 0.35), 34.42 - 32.781, (0.08, 0, 0)),
+        # v10 (user: "combine the rear quarterpanel vents and the quarterpanels, otherwise it looks weird when it clips"):
+        # the slats ride in with their quarter panel as one piece (same stage, timing and clearance key)
+        kit(f"{B}/k_rear_fender_slats_pass.blend", (-0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (-0.08, 0, 0)),
+        kit(f"{B}/k_rear_fender_slats_driver.blend", (0.45, 0, 0.25), rel(33.718) + base0 - 32.781, (0.08, 0, 0)),
         kit(f"{B}/k_gas_cap_x.blend", (-0.35, 0, 0.15), 35.125 - 32.781)],
     "body_drop": [[0, DROP]],  # v9: photo ride height (DROP ~0) - no settle onto the new wheels any more
     "cam": cam(arc(d, -62, -120, 8, 9, 6.6, 5.9, [-0.25, 0.25, 0.55], [-0.2, 0.5, 0.6], 36, n=6))}

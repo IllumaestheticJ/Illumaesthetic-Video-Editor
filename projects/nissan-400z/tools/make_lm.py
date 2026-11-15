@@ -163,6 +163,7 @@ base = {}
 for o in WOBJ: base[o.name] = o.matrix_world.copy()
 SQ = WJ.get("tyre", {}).get("squish", 0.006)
 STEER = WJ.get("steer_deg", 0.0)
+CAMBER = WJ.get("camber_deg", {}); OUTM = WJ.get("out_m", {})
 xc, ho = WJ["xc"], WJ["bbs"]["half_outer"]
 os.makedirs(OUT, exist_ok=True)
 for k, w in WJ["stock"].items():
@@ -177,15 +178,23 @@ for k, w in WJ["stock"].items():
     to_car = Matrix(((0, 0, 1, 0), (1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 0, 1)))  # model (x,y,z) -> car (y,z,x)
     if not left:
         to_car = Matrix(((0, 0, -1, 0), (-1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 0, 1)))  # outboard = -X, keep caliper trailing
-    xo = xc + (ho - 0.005) * (1 if left else -1)
+    side = 1 if left else -1; ax = k[0]  # "f" / "r"
+    # v10 drift fitment (user: more camber in the front, lower, wider out - "drift car slammed fitment"):
+    # wheel pushed out by OUTM[ax], negative camber CAMBER[ax] about the tyre centre (top in, bottom out), re-seated on
+    # the ground (the cambered tyre's lowest point is its outer shoulder)
+    xo = xc + (ho - 0.005 + OUTM.get(ax, 0.0)) * side
     T1 = Matrix.Translation(Vector((xo, w["y"], TR - SQ)))
     hw = 0.5 * (zout - (-664.0)) * s  # half the tyre width (m): steer about the tyre's centre plane, not the face
+    ca = math.radians(CAMBER.get(ax, 0.0))
+    lift = TR * math.cos(ca) + hw * abs(math.sin(ca)) - TR
+    pc = Vector((xo - hw * side, w["y"], TR - SQ))
+    Cb = Matrix.Translation(Vector((0, 0, lift))) @ Matrix.Translation(pc) @ Matrix.Rotation(ca * side, 4, "Y") @ Matrix.Translation(-pc)
     for tag, deg in (("", 0.0), ("_steer", STEER)):
         if tag and not k.startswith("f"):
             continue
-        piv = Vector((xo - hw * (1 if left else -1), w["y"], TR - SQ))
+        piv = pc + Vector((0, 0, lift))
         St = Matrix.Translation(piv) @ Matrix.Rotation(math.radians(deg), 4, "Z") @ Matrix.Translation(-piv)
-        M = St @ T1 @ to_car @ S @ Rz @ T0
+        M = St @ Cb @ T1 @ to_car @ S @ Rz @ T0
         for o in WOBJ:
             o.matrix_world = M @ base[o.name]
         bpy.context.view_layer.update()
