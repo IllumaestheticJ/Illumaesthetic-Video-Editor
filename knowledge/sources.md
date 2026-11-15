@@ -49,8 +49,12 @@ The 6,322 kept Camera Uploads files (~77 GB) were moved here. Look here first fo
 - `Videos/<Category>/<YYYY-MM>/` and `Photos/<Category>/<YYYY-MM>/` for everything else. Categories (CLIP):
   CAD & Scan Screens, Shop & Builds (incl. scanning sessions), Car Shots, Track & Driving, Events & Meets,
   Docs & Screenshots. Car identity of CAD screenshots was NOT determined - CLIP can't tell cars apart in CAD.
-- New phone uploads still land in `/Camera Uploads`; a backfill of ~4,575 older photos (Oct 2025-Apr 2026)
-  arrived 2026-11-13..15 and is not sorted yet.
+- New phone uploads still land in `/Camera Uploads`. A backfill of 4,575 older files (Oct 2025-Apr 2026) was
+  sorted the same way on 2026-11-15 (session folders added: Track weekend - yellow car, Teal Bronco drive,
+  Mountain drive, Town drive, Off-road truck build, Sim racing screens). The phone was still backfilling
+  Aug-Oct 2025 files after that - those are not sorted yet.
+- Review rule used: personal travel/food/golf/arcade -> `_Cleanup Review`; business screenshots (invoices,
+  payments, shipping, scan listings) stay in `Photos/Docs & Screenshots` because the user bulk-deletes review.
 - Dropbox `move` quirks: batches over ~150 hit `too_many_write_operations`; send <=100 with ~2 min gaps.
   `duplicated_or_nested_paths` on a move means the file is already at its destination (an earlier
   "failed" batch actually succeeded) - check with get_file_metadata before retrying.
