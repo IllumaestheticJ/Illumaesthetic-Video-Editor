@@ -66,3 +66,4 @@
 {"ts": "2026-11-15T06:53:15Z", "decision": "Part A v3 = 958 frames (31.93 s); every shot re-timed and re-rendered", "why": "Every line's length changed, so every shot's frame range (and S3's slap timing) changed"}
 {"ts": "2026-11-15T06:53:15Z", "decision": "Phone footage now FX30541 318.0-322.0 s (source frames 7624-7719): 16 more proxy frames graded with the same LUT", "why": "S11+S12 grew to 4.0 s; the screen still ends full-frame on the last frame and P2 starts at 322.0 s"}
 {"ts": "2026-11-15T06:53:15Z", "decision": "Brand name: faster-whisper hears 'Alumesthetic' in the ElevenLabs L11", "why": "Reported to the owner; all other lines transcribe exactly"}
+{"ts": "2026-11-15T09:33:41Z", "decision": "partA_v3.mp4 delivered: 958 frames (31.93 s), ElevenLabs dialogue at natural pace, -14.0 LUFS / -3.9 dBTP muxed, phone full-frame on 957, P2 at 958", "why": "Owner v3 voices; every shot re-timed and re-rendered (all frame ranges changed); no dark frames"}
