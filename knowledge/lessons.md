@@ -1297,3 +1297,6 @@ lands here automatically. Agents must read this whole file before editing.
   up (tools/hatchclean.py - per height/width bin keep faces near the outermost surface, only below the spoiler line).
   Measure the hinge angle from the open-state scan's lid fragments (plane fit) and the hinge line from the panel's top edge.
 - **[audio]** 'Going Up North' at unity gain: -15.4 LUFS but true peak -0.6 dBFS. The ceiling wins: gain 0.88 -> -16.5 / -1.6.
+- **[technical]** (QX80 v7i) "True 60 fps" with 15 fps renders means interpolation (minterpolate mci) unless the shot is re-rendered
+  at 60 fps. Keep cut times on the old 30 fps grid (x2 frames) so existing cut frames and measured sync stay exact. Measure
+  the output: frame count, the frame jump at each cut, and exact-duplicate steps during motion (QX80: 14 of 410).
