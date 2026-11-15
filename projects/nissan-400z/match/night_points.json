@@ -1,0 +1,47 @@
+{
+ "image": "/home/user/media/nissan-400z/photos_work/night_916.jpg",
+ "image_size": [
+  1206,
+  2144
+ ],
+ "sensor_width_mm": 36.0,
+ "focal_mm": null,
+ "points": [
+  {
+   "name": "badge",
+   "px": [
+    1010,
+    1273
+   ],
+   "xyz": [
+    -0.12003,
+    -2.07367,
+    0.6199
+   ]
+  },
+  {
+   "name": "ws_TL",
+   "px": [
+    408,
+    1069
+   ],
+   "xyz": [
+    -0.62254,
+    0.09707,
+    1.22991
+   ]
+  },
+  {
+   "name": "hl_in",
+   "px": [
+    860,
+    1292
+   ],
+   "xyz": [
+    -0.70974,
+    -1.89754,
+    0.59033
+   ]
+  }
+ ]
+}

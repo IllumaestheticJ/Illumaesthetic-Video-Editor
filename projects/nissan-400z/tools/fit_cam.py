@@ -19,7 +19,7 @@ def project(P, loc, target, roll, focal, W, H, pp=(0.0, 0.0)):
 def to_params(c):
     loc = np.array(c["loc"], float); d = np.array(c["target"], float) - loc
     return np.array([*loc, math.degrees(math.atan2(d[1], d[0])), math.degrees(math.atan2(d[2], math.hypot(d[0], d[1]))),
-                     c.get("roll", 0.0), c["focal"], *c.get("pp", [0.0, 0.0])]), np.linalg.norm(d)
+                     c.get("roll", 0.0), c["focal"], *c.get("pp", [])]), np.linalg.norm(d)  # pp only when given (render has no pp)
 
 def from_params(p, dist):
     yaw, pit = math.radians(p[3]), math.radians(p[4])

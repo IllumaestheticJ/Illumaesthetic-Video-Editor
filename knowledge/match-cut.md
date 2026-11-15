@@ -110,3 +110,12 @@ converge; pick frames where the car fills ≤70 % of the frame with roofline + o
   mirrored point lies within 5 cm of a traced near-side face.
 - `bpy.ops.wm.read_factory_settings(use_empty=True)` before appending into a script that saves a .blend - otherwise the
   default startup cube is saved with it (it showed up as a giant box in the render).
+
+## Night photo as the 1:1 target (400Z v13)
+- GrabCut fails on a night car against a lit wall: trace the outline polygon by hand on a 50 px grid (~30 points) and
+  fit to that mask; add 3+ body landmarks (badge, A-pillar top, headlight tip) - outline alone left the near arch off.
+- fit_cam.py bug fixed: to_params always added a principal-point offset that renders ignore; pp is now only fitted
+  with --free-pp.
+- A turned front wheel in the photo: build steer variants (wheels json `steer_sets`) and pick by blend; sign depends on
+  which side faces the camera (passenger-side photo here wanted -15 deg).
+- Landscape-free 3:4 photos: centre-crop to 9:16 on the car before solving; the photo card shows that crop untouched.

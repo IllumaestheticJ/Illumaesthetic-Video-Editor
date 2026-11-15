@@ -189,7 +189,7 @@ for k, w in WJ["stock"].items():
     lift = TR * math.cos(ca) + hw * abs(math.sin(ca)) - TR
     pc = Vector((xo - hw * side, w["y"], TR - SQ))
     Cb = Matrix.Translation(Vector((0, 0, lift))) @ Matrix.Translation(pc) @ Matrix.Rotation(ca * side, 4, "Y") @ Matrix.Translation(-pc)
-    for tag, deg in (("", 0.0), ("_steer", STEER)):
+    for tag, deg in [("", 0.0), ("_steer", STEER)] + [(t, v) for t, v in WJ.get("steer_sets", {}).items()]:
         if tag and not k.startswith("f"):
             continue
         piv = pc + Vector((0, 0, lift))

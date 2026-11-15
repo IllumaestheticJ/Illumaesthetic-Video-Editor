@@ -78,7 +78,7 @@ def arc(secs, a0, a1, el0, el1, r0, r1, c0, c1, focal, n=8):
 SHOTS = {}
 BBS = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl", "fr", "rl", "rr")]  # v8: user's BBS LM file, chrome on chrome, white Bomex calipers (tools/make_lm.py)  # stand-in wheels (tools/make_bbs.py)
 # HERO ends on the SEMA photo, where the fronts are steered a few degrees (rim ellipse 85 vs 70 px wide at the solve)
-BBS_STEER = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl_steer", "fr_steer", "rl", "rr")]
+BBS_STEER = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl_sR15", "fr_sR15", "rl", "rr")]
 STOCKW = {"blend": f"{B}/stock_wheels.blend"}
 
 # 4. STRUCT: ducting off, swap to crash-foam-removed state
@@ -218,7 +218,10 @@ SHOTS["LIVERY"] = {
     "cam": cam(arc(d, 140, 78, 9, 9, 5.6, 5.8, [0, 0.4, 0.6], [0, 0.1, 0.6], 40, n=6))}
 
 # 11. HERO: whole kitted liveried car
-_m = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "match", "cam_match.json")))
+# v13 (user: "change the final shot of the car to the shot at night in front of the garage"): photo 391c063b, 9:16 crop
+# (photos_work/night_916.jpg); camera fitted with the body at the current DROP (outline + landmarks, match/cam_match_night.json)
+_m = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "match", "cam_match_night.json")))
+SOLVE_DROP = DROP
 _dz = DROP - SOLVE_DROP  # the camera rides with the body it was solved on
 MATCH = {"loc": [_m["loc"][0], _m["loc"][1], _m["loc"][2] + _dz], "target": [_m["target"][0], _m["target"][1], _m["target"][2] + _dz],
          "focal": _m["focal"], "roll": _m["roll"]}
@@ -227,9 +230,9 @@ SHOTS["HERO"] = {
     "base": [{"blend": f"{B}/kb12_nowing.blend", "grille": GRILLE}] + [{"blend": f"{B}/k_{n}.blend"} for n in KIT + ["mirror_driver", "mirror_pass"]] + BBS_STEER,
     "body_drop": [[0, DROP]],
     "livery": {**LIV7, "sweep": [[0, -9.0]]},
-    # ends exactly on the solved SEMA-photo camera (match/cam_match.json) 2 frames before the 45.867 cut, then holds,
+    # ends exactly on the solved night-garage-photo camera (match/cam_match_night.json; v8-v12: SEMA cam_match.json) 2 frames before the 45.867 cut, then holds,
     # so the last frame shown is the 1:1 frame; swings in from a wider, more side-on passenger-side view
-    "cam": cam([{"t": 0, "loc": [-4.223, -4.562, 1.567], "target": [-0.988, -1.514, 0.864], "focal": 44.0, "roll": 0.0},
+    "cam": cam([{"t": 0, "loc": [-6.013, -3.112, 1.41], "target": [-0.008, -0.345, 1.214], "focal": 44.0, "roll": 0.0},
                 {"t": d - 2 / 30, **MATCH, "ease": "out"},
                 {"t": d, **MATCH, "ease": "lin"}])}
 
