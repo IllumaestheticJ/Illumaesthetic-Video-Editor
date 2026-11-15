@@ -60,34 +60,33 @@ Notes: no time is given (same rule as reel 3). "Way faster" is the owner's own c
 "Illumaesthetic" must be checked in the chosen TTS voice; if mispronounced, use a phonetic spelling in the prompt
 (e.g. "Illuma-esthetic"). Optional tag if wanted later: a 1.5 s cut back to GUS staring at the phone, "...I'm keeping the dots."
 
-### Version A, stage 3 timing (real voices; v2 2026-11-15) - authoritative; supersedes the time columns above
+### Version A, stage 3 timing (v3, ElevenLabs, 2026-11-15) - authoritative; supersedes the time columns above
 
-Built by `tools/partA_timeline.py` from the cast takes (PIP = child voice "Kiki" +4, GUS = father "Bob"), measured with
-`tools/voice_measure.py` (faster-whisper word times; energy runs for speech start/end). Each take is trimmed to its speech, pauses
-inside a line cut to at most 0.18 s (0.26-0.28 s for "So...", "Front. Side. Roof. Back." and "Wait."), sped up with rubberband
-(pitch and formants kept) by at most 1.12, then polished (v2, owner: voices too muted and dull): high-pass 90 Hz, +3 dB presence at
-3.5 kHz, +2 dB air shelf at 9 kHz, 3:1 compression; the stem is normalised to -14 LUFS integrated, true peak <= -1 dBTP
-(measured: -14.2 LUFS, -4.0 dBTP, LRA 3.2 LU). Part A = **730 frames = 24.33 s**; phone screen full-frame on frame
-729, Part B (P2) starts on frame 730. v2 re-adds PIP's "There has to be a better way." (line 10b, take L10Ba; L10Bb starts
-"Ugh..." and is 1.4 s longer) after GUS's peel line, in S10: deflated, a 0.35 s beat, then he perks up on "Wait." Line 3 is just
-"One every few inches."; no "RANDOM, NEVER IN ROWS"; no "I'm keeping the dots" tag; L11a until the owner confirms the brand name.
+v3 (owner): all voices from one ElevenLabs v4 dialogue job (18e5f0b0-cbcd-4241-bc46-a90ca8b7635e; Pip = Kiki at natural pitch,
+Gus = Harrison), `voice/el_b/partA_full_B.mp3` (31.16 s, the 14 lines in script order). Split per line by `tools/el_split.py`
+(faster-whisper word alignment, cuts in the quietest point between lines), measured by `tools/voice_measure.py`, laid out by
+`tools/partA_timeline.py`. **No speed-ups and no tightening inside a line** (natural pacing); only the gaps between lines are set by
+the shot layout. Same polish chain (HP 90 Hz, +3 dB at 3.5 kHz, +2 dB shelf at 9 kHz, 3:1 compression); stem -14 LUFS / TP <= -1
+dBTP, measured -14.0 LUFS, -4.0 dBTP, LRA 2.1 LU. Part A = **958 frames = 31.93 s**; phone full-frame on frame
+957, Part B (P2) starts on frame 958. Every line transcribes exactly except the brand name, which faster-whisper
+hears as "Alumesthetic" in "Wait, I saw an Alumesthetic video." (owner to judge by ear).
 
-| # | reel time (s) | shot (frames) | speaker | line | take | tempo | pauses cut (s) |
-|---|---|---|---|---|---|---|---|
-| 1 | 0.17-2.83 | S1 (0-87) | PIP | "So... how do you scan a whole car?" | L01b | x1.12 | 0.74 |
-| 2 | 2.95-5.60 | S2 (87-170) | GUS | "The usual way? Dots. Lots of dots." | L02a | x1.12 | 0.83 |
-| 3 | 5.72-7.01 | S3 (170-215) | GUS | "One every few inches." | L03d | x1.12 | 0.00 |
-| 4 | 7.22-8.43 | S4 (215-257) | PIP | "Then you scan it?" | L04b | x1.12 | 0.00 |
-| 5 | 8.62-9.47 | S5 (257-289) | GUS | "In pieces." | L05a | x1.06 | 0.00 |
-| 6 | 9.68-11.42 | S6 (289-349) | GUS | "Front. Side. Roof. Back." | L06b | x1.12 | 0.32 |
-| 7 | 11.68-12.70 | S7 (349-388) | GUS | "Then I line them all up." | L07b | x1.1 | 0.00 |
-| 8 | 13.00-14.09 | S8 (388-447) | PIP | "Is it done yet?" | L08b | x1.12 | 0.00 |
-| 9 | 14.29-14.79 | S8 (388-447) | GUS | "No." | L09a | x1.0 | 0.00 |
-| 10 | 14.95-16.46 | S9 (447-499) | GUS | "Now we peel the dots off." | L10a | x1.12 | 0.00 |
-| 10b | 16.68-18.35 | S10 (499-630) | PIP | "There has to be a better way." | L10Ba | x1.12 | 0.00 |
-| 11 | 18.70-20.92 | S10 (499-630) | PIP | "Wait. I saw an Illumaesthetic video..." | L11a | x1.12 | 0.40 |
-| 12 | 21.05-23.18 | S11 (630-697) | PIP | "They did a whole car way faster!" | L12a | x1.12 | 0.00 |
-| 13 | 23.28-24.00 | S12 (697-730) | GUS | "...Show me." | L13b | x1.0 | 0.00 |
+| # | reel time (s) | shot (frames) | speaker | line | take | heard (faster-whisper) |
+|---|---|---|---|---|---|---|
+| 1 | 0.17-3.24 | S1 (0-99) | PIP | "So... how do you scan a whole car?" | L01e | So, how do you scan a whole car? |
+| 2 | 3.35-6.86 | S2 (99-208) | GUS | "The usual way? Dots. Lots of dots." | L02e | The usual way? Dots. Lots of dots. |
+| 3 | 6.98-8.85 | S3 (208-271) | GUS | "One every few inches." | L03e | One every few inches. |
+| 4 | 9.08-10.30 | S4 (271-313) | PIP | "Then you scan it?" | L04e | Then you scan it. |
+| 5 | 10.48-11.55 | S5 (313-352) | GUS | "In pieces." | L05e | in pieces. |
+| 6 | 11.78-15.50 | S6 (352-472) | GUS | "Front. Side. Roof. Back." | L06e | front, side, roof, back. |
+| 7 | 15.78-17.89 | S7 (472-543) | GUS | "Then I line them all up." | L07e | Then, I line them all up. |
+| 8 | 18.17-19.32 | S8 (543-609) | PIP | "Is it done yet?" | L08e | Is it done yet? |
+| 9 | 19.52-20.19 | S8 (543-609) | GUS | "No." | L09e | No. |
+| 10 | 20.35-22.24 | S9 (609-672) | GUS | "Now we peel the dots off." | L10e | Now we peel the dots off. |
+| 10b | 22.45-24.49 | S10 (672-838) | PIP | "There has to be a better way." | L10Be | There has to be a better way. |
+| 11 | 24.84-27.86 | S10 (672-838) | PIP | "Wait. I saw an Illumaesthetic video..." | L11e | Wait, I saw an Alumesthetic video. |
+| 12 | 27.98-30.81 | S11 (838-926) | PIP | "They did a whole car way faster!" | L12e | They did a whole car way faster. |
+| 13 | 30.92-31.59 | S12 (926-958) | GUS | "...Show me." | L13e | Show me. |
 
 ## Version B - "Silly"
 

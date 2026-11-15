@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 PROJ = HERE.parent
-TAKES_DIR = Path("/home/user/media/work/scan-tedium/voice/takes")
+TAKES_DIR = Path("/home/user/media/work/scan-tedium/voice/el_b/lines")   # v3; v1/v2 takes: voice/takes
 PROC = Path("/home/user/media/work/scan-tedium/voice/proc")
 OUT = Path(sys.argv[sys.argv.index("--out") + 1]) if "--out" in sys.argv else Path("/home/user/media/work/scan-tedium/out")
 SR = 48000
@@ -26,22 +26,21 @@ MAX_GAP = 0.18          # longest pause kept inside a line
 TEMPO_MAX = 1.12
 
 # line: (take, speaker, shot, tempo, max internal gap override)
+# v3 (owner): ElevenLabs dialogue job 18e5f0b0 (Pip = Kiki natural pitch, Gus = Harrison), one file split per line by
+# tools/el_split.py. NO speed-ups (natural pacing) and no tightening inside lines; only the gaps between lines are set here.
+TAKES_V2 = {
+    1: ("L01b", "PIP", "S1", 1.12, 0.28), 2: ("L02a", "GUS", "S2", 1.12, None), 3: ("L03d", "GUS", "S3", 1.12, None),
+    4: ("L04b", "PIP", "S4", 1.12, None), 5: ("L05a", "GUS", "S5", 1.06, None), 6: ("L06b", "GUS", "S6", 1.12, 0.26),
+    7: ("L07b", "GUS", "S7", 1.10, None), 8: ("L08b", "PIP", "S8", 1.12, None), 9: ("L09a", "GUS", "S8", 1.0, None),
+    10: ("L10a", "GUS", "S9", 1.12, None), 14: ("L10Ba", "PIP", "S10", 1.12, None), 11: ("L11a", "PIP", "S10", 1.12, 0.26),
+    12: ("L12a", "PIP", "S11", 1.12, None), 13: ("L13b", "GUS", "S12", 1.0, None)}
+NO_TIGHTEN = 99.0
 TAKES = {
-    1: ("L01b", "PIP", "S1", 1.12, 0.28),   # a: 4.9 s, b: 3.6 s; both exact. "So..." keeps a short beat
-    2: ("L02a", "GUS", "S2", 1.12, None),   # b has 1.3 s and 1.8 s pauses
-    3: ("L03d", "GUS", "S3", 1.12, None),   # c has a 0.45 s hole after "One"; d heard exactly
-    4: ("L04b", "PIP", "S4", 1.12, None),   # a heard as "Can you scan it?" (coordinator)
-    5: ("L05a", "GUS", "S5", 1.06, None),    # shorter, exact
-    6: ("L06b", "GUS", "S6", 1.12, 0.26),   # a: 3.9 s with long gaps; keep a beat between the four words
-    7: ("L07b", "GUS", "S7", 1.10, None),    # shorter, exact
-    8: ("L08b", "PIP", "S8", 1.12, None),   # a trails "Is it..."
-    9: ("L09a", "GUS", "S8", 1.0, None),    # b is a clipped 0.23 s "No" (p 0.65 vs 0.80)
-    10: ("L10a", "GUS", "S9", 1.12, None),  # a/b equal words, a 0.12 s shorter
-    14: ("L10Ba", "PIP", "S10", 1.12, None),  # v2 (owner): "There has to be a better way." - B is "Ugh. ..." and 1.4 s longer
-    11: ("L11a", "PIP", "S10", 1.12, 0.26),  # brand name unconfirmed in both takes; owner deciding. Swap here.
-    12: ("L12a", "PIP", "S11", 1.12, None),  # b is 1.2 s longer
-    13: ("L13b", "GUS", "S12", 1.0, None),   # a starts clipped ("to show me")
-}
+    1: ("L01e", "PIP", "S1", 1.0, NO_TIGHTEN), 2: ("L02e", "GUS", "S2", 1.0, NO_TIGHTEN), 3: ("L03e", "GUS", "S3", 1.0, NO_TIGHTEN),
+    4: ("L04e", "PIP", "S4", 1.0, NO_TIGHTEN), 5: ("L05e", "GUS", "S5", 1.0, NO_TIGHTEN), 6: ("L06e", "GUS", "S6", 1.0, NO_TIGHTEN),
+    7: ("L07e", "GUS", "S7", 1.0, NO_TIGHTEN), 8: ("L08e", "PIP", "S8", 1.0, NO_TIGHTEN), 9: ("L09e", "GUS", "S8", 1.0, NO_TIGHTEN),
+    10: ("L10e", "GUS", "S9", 1.0, NO_TIGHTEN), 14: ("L10Be", "PIP", "S10", 1.0, NO_TIGHTEN),
+    11: ("L11e", "PIP", "S10", 1.0, NO_TIGHTEN), 12: ("L12e", "PIP", "S11", 1.0, NO_TIGHTEN), 13: ("L13e", "GUS", "S12", 1.0, NO_TIGHTEN)}
 # per shot: (lead s before its first line, tail s after its last line, extra s for the shot's visual beat)
 SHOTS = [("S1", 0.17, 0.07, 0.0), ("S2", 0.05, 0.07, 0.0), ("S3", 0.05, 0.07, 0.10), ("S4", 0.05, 0.07, 0.05),
          ("S5", 0.05, 0.07, 0.10), ("S6", 0.05, 0.07, 0.15), ("S7", 0.05, 0.07, 0.15), ("S8", 0.07, 0.10, 0.0),

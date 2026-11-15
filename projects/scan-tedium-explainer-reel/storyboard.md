@@ -51,23 +51,23 @@ from audio amplitude, so the animation can be built before the voices exist.
 
 Shots are cut to the measured lines (`partA_timeline.json`, built by `tools/partA_timeline.py`): each shot = a short lead
 (0.05-0.17 s) + its line(s) + a short tail, plus a little extra where the shot's beat needs it (S3 slaps, S6 lift, S7 snap, S9
-peel, S12 push). Part A = **730 frames = 24.33 s** (v2: + PIP's "better way" line in S10; v1 669 frames; was 17.3 s with the planned lines; the real takes are longer
+peel, S12 push). Part A = **958 frames = 31.93 s** (v3: ElevenLabs voices at natural pace, no speed-ups; v2 730 frames: + PIP's "better way" line in S10; v1 669 frames; was 17.3 s with the planned lines; the real takes are longer
 even after tightening and speeding up by at most 1.12). No wall-clock inset in S4 (the clock gag is S8's single idea).
 
 | shot | frames | length | reel time |
 |---|---|---|---|
-| S1 | 0-87 | 87 f (2.90 s) | 0.00-2.90 s |
-| S2 | 87-170 | 83 f (2.77 s) | 2.90-5.67 s |
-| S3 | 170-215 | 45 f (1.50 s) | 5.67-7.17 s |
-| S4 | 215-257 | 42 f (1.40 s) | 7.17-8.57 s |
-| S5 | 257-289 | 32 f (1.07 s) | 8.57-9.63 s |
-| S6 | 289-349 | 60 f (2.00 s) | 9.63-11.63 s |
-| S7 | 349-388 | 39 f (1.30 s) | 11.63-12.93 s |
-| S8 | 388-447 | 59 f (1.97 s) | 12.93-14.90 s |
-| S9 | 447-499 | 52 f (1.73 s) | 14.90-16.63 s |
-| S10 | 499-630 | 131 f (4.37 s) | 16.63-21.00 s |
-| S11 | 630-697 | 67 f (2.23 s) | 21.00-23.23 s |
-| S12 | 697-730 | 33 f (1.10 s) | 23.23-24.33 s |
+| S1 | 0-99 | 99 f (3.30 s) | 0.00-3.30 s |
+| S2 | 99-208 | 109 f (3.63 s) | 3.30-6.93 s |
+| S3 | 208-271 | 63 f (2.10 s) | 6.93-9.03 s |
+| S4 | 271-313 | 42 f (1.40 s) | 9.03-10.43 s |
+| S5 | 313-352 | 39 f (1.30 s) | 10.43-11.73 s |
+| S6 | 352-472 | 120 f (4.00 s) | 11.73-15.73 s |
+| S7 | 472-543 | 71 f (2.37 s) | 15.73-18.10 s |
+| S8 | 543-609 | 66 f (2.20 s) | 18.10-20.30 s |
+| S9 | 609-672 | 63 f (2.10 s) | 20.30-22.40 s |
+| S10 | 672-838 | 166 f (5.53 s) | 22.40-27.93 s |
+| S11 | 838-926 | 88 f (2.93 s) | 27.93-30.87 s |
+| S12 | 926-958 | 32 f (1.07 s) | 30.87-31.93 s |
 
 Animation (`tools/partA_anim.py`, every frame posed procedurally from the timeline, rendered as stills, resumable):
 - Mouths from the measured word times: syllables (vowel groups) spread over each word, open fast / close slow, one frame ahead of
