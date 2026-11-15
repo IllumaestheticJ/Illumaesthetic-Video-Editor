@@ -12,7 +12,7 @@ SCRIPT = {  # script A, revised ending (script.md); 12 as the coordinator's brie
     1: "So... how do you scan a whole car?", 2: "The usual way? Dots. Lots of dots.",
     3: "One every few inches.", 4: "Then you scan it?", 5: "In pieces.",
     6: "Front. Side. Roof. Back.", 7: "Then I line them all up.", 8: "Is it done yet?", 9: "No.",
-    10: "Now we peel the dots off.", 11: "Wait. I saw an Illumaesthetic video...",
+    10: "Now we peel the dots off.", 11: "Wait. I saw an Illumaesthetic video...", 14: "There has to be a better way.",
     12: "They did a whole car way faster!", 13: "...Show me."}
 
 
@@ -59,9 +59,12 @@ def main():
     takes, out = Path(sys.argv[1]), Path(sys.argv[2])
     from faster_whisper import WhisperModel
     m = WhisperModel("medium.en", device="cpu", compute_type="int8", cpu_threads=4)
-    res = {}
+    only = sys.argv[3].split(",") if len(sys.argv) > 3 else None
+    res = json.loads(out.read_text()) if (only and out.exists()) else {}
     for f in sorted(takes.glob("L*.wav")):
-        line = int(f.stem[1:3])
+        if only and f.stem not in only:
+            continue
+        line = 14 if f.stem.startswith("L10B") else int(f.stem[1:3])   # L10B* = PIP "There has to be a better way." (v2)
         x48 = decode(f, 48000)
         x16 = decode(f, 16000)
         span = speech_span(x48, 48000)
