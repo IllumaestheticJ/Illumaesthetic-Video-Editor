@@ -71,7 +71,14 @@ def seen(P, idx, tol):
 direct = seen(cs, np.where(cand_of(cs) & (c[:, 0] < XC + 0.25))[0], 0.012)
 csm = cs.copy(); csm[:, 0] = 2 * XC - csm[:, 0]
 drv = c[:, 0] > XC
-mirr = seen(csm, np.where(cand_of(csm) & drv)[0], 0.035)
+# a driver-side face is glass if its mirror image projects into a traced window AND lands within 5 cm of a traced
+# passenger-side glass face (the two sides of the scan are not exactly symmetric, so a strict ray test missed them)
+kdg = KDTree(int(direct.sum()))
+for j, i in enumerate(np.where(direct)[0]): kdg.insert(Vector(cs[i]), j)
+kdg.balance()
+mirr = np.zeros(n, bool)
+for i in np.where(cand_of(csm) & drv)[0]:
+    mirr[i] = kdg.find(Vector(csm[i]))[2] < 0.05
 g = (direct | mirr).astype(np.float32)
 print("GLASS direct", int(direct.sum()), "mirrored", int(mirr.sum()))
 # close pinholes: a face whose 6 nearest neighbours are mostly glass becomes glass (and vice versa)

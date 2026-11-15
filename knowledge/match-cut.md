@@ -100,3 +100,13 @@ converge; pick frames where the car fills ≤70 % of the frame with roofline + o
 - Steered front wheels in the photo show as a wider rim ellipse; steer only the shot that ends on the photo.
 - Projected windscreen decals: projecting along Y onto a ~30 deg rake stretches letters 2x along the glass. Size the
   decal by its z-extent = letter height x sin(rake), then fit position/width/shear against the photo at the match camera.
+
+## Trace livery areas from the matched photo (400Z v12)
+- Once a photo is solved, it is the most accurate source for where paint/glass/trim boundaries are: draw pixel
+  polygons on the photo, project every scan face with the match camera, keep faces inside a polygon whose ray from
+  the camera reaches them first (body mesh only, so mirrors don't occlude), and store a per-face attribute
+  (`tools/glass_mask.py` -> "glass"). The material reads it with an Attribute node.
+- The far side: project each face's mirror image; strict ray tests fail on an asymmetric scan, so accept when the
+  mirrored point lies within 5 cm of a traced near-side face.
+- `bpy.ops.wm.read_factory_settings(use_empty=True)` before appending into a script that saves a .blend - otherwise the
+  default startup cube is saved with it (it showed up as a giant box in the render).
