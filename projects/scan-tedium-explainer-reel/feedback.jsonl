@@ -20,3 +20,5 @@
 {"ts": "2026-11-15T20:02:36Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "audio", "note": "Gus too angry on 'lots of dots' and too sad after; explanation should be neutral, only slightly annoyed because he knows it's tedious", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T20:18:32Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "audio", "note": "Approved dry/matter-of-fact Gus take (e308f9ae)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T20:18:32Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "visual", "note": "Use half the marker-dot density in the animation", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T23:01:28Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "text", "note": "Drop the 'A DOT EVERY ~8 CM' label", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-15T23:01:28Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "structure", "note": "Real footage/scan section must be no longer than 4-5 s, then end on the 'full video' tease card", "by": "reviewer", "promoted": true}
