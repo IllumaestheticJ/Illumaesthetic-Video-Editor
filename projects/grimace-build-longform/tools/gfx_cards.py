@@ -19,7 +19,11 @@ def bg(c, path, dim=1.0, zoom=1.0, shift=0):
     """Paste a parts-map render as the background (optionally zoomed about the centre and dimmed)."""
     if path not in _img: _img[path] = Image.open(path).convert('RGB')
     im = _img[path]; w, h = im.size; cw, chh = w / zoom, h / zoom
-    im = im.crop((int((w - cw) / 2), int((h - chh) / 2), int((w + cw) / 2), int((h + chh) / 2))).resize((W * SS, H * SS), Image.BILINEAR)
+    if zoom >= 1:
+        im = im.crop((int((w - cw) / 2), int((h - chh) / 2), int((w + cw) / 2), int((h + chh) / 2))).resize((W * SS, H * SS), Image.BILINEAR)
+    else:       # shrink and pad with the render's own background colour
+        sm = im.resize((int(W * SS * zoom), int(H * SS * zoom)), Image.BILINEAR); im = Image.new('RGB', (W * SS, H * SS), im.getpixel((4, 4)))
+        im.paste(sm, ((W * SS - sm.size[0]) // 2, (H * SS - sm.size[1]) // 2))
     if dim < 1: im = Image.blend(Image.new('RGB', im.size, BG), im, dim)
     if shift:
         full = Image.new('RGB', im.size, im.getpixel((4, 4))); full.paste(im, (int(shift * SS), 0)); im = full
@@ -51,20 +55,23 @@ def track(c, u, t):
     c.text(640, 416, 'event names and dates to fill in', 20, fade(DIM, a), 'mm', False)
 
 
+RB = (28, 30, 40)      # background colour of the parts-map renders (text fades in from it)
+
+
 def legend(c, u, start=0.1, step=0.11, names=True):
     for i, (grp, part, who) in enumerate(PARTNERS):
         a = ease(seg(u, start + step * i, start + step * i + 0.1)); y = 150 + i * 72; col = COL[grp]
-        c.rect(60, y, 64, y + 50, fill=fade(col, a)); c.text(78, y - 2, part, 22, fade(WHITE, a))
-        if names: c.text(78, y + 28, who, 17, fade(DIM, a), bold=False)
+        c.rect(60, y, 64, y + 50, fill=fade(col, a, RB)); c.text(78, y - 2, part, 22, fade(WHITE, a, RB))
+        if names: c.text(78, y + 28, who, 17, fade(DIM, a, RB), bold=False)
 
 
 def L10(c, u, t):       # parts map, first run
-    f = seq('intro'); bg(c, f[min(len(f) - 1, int(u * (len(f) - 1)))], shift=190)
+    f = seq('intro'); bg(c, f[min(len(f) - 1, int(u * (len(f) - 1)))], zoom=0.86, shift=150)
     c.header('THE PLAN', 'One part at a time', 'coilovers', u); legend(c, u, 0.12, 0.1, names=False)
 
 
 def L61(c, u, t):       # recap orbit: every partner on its part
-    f = seq('recap'); bg(c, f[min(len(f) - 1, int(u * (len(f) - 1)))], shift=190)
+    f = seq('recap'); bg(c, f[min(len(f) - 1, int(u * (len(f) - 1)))], zoom=0.86, shift=150)
     c.header('ALL OF IT', 'Everything on the car', 'bracing', u); legend(c, u, 0.05, 0.08)
 
 

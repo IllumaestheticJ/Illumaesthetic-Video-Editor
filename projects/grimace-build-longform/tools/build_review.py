@@ -241,7 +241,7 @@ for section, beats in TL:
 
 open(f'{W}/list.txt', 'w').write(''.join(f"file '{u}'\n" for u in units))
 tc = (f"drawtext=fontfile={FONT}:text='%{{pts\\:hms}}':fontsize=20:fontcolor=white:x=w-text_w-14:y=12:box=1:boxcolor=black@0.6:boxborderw=6,"
-      f"drawtext=fontfile={FONT}:text='ROUGH REVIEW CUT - no music, proxy quality':fontsize=13:fontcolor=white@0.6:x=w-text_w-14:y=44")
+      f"drawtext=fontfile={FONT}:text='ROUGH REVIEW CUT - proxy quality':fontsize=13:fontcolor=white@0.6:x=w-text_w-14:y=44")
 run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{W}/list.txt', '-vf', tc, '-c:v', 'libx264', '-preset', 'medium', '-crf', '24',
      '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', OUT])
 with open(os.path.splitext(OUT)[0] + '_timeline.md', 'w') as f:
