@@ -22,7 +22,8 @@ WA = D + '/whatsapp/x'; EK = D + '/ecky'; PRESS = D + '/press'; R = D + '/render
 # = 64 beats of the 128.05 BPM kick grid -> video t0 = 15.52, drop on video 30.000 (the 1:1 cut), same structure as before.
 MUSIC = '/home/user/media/work/music/megalomaniac.wav'; MUSIC_START = 15.52
 LOGO = '/home/user/Illumaesthetic-Video-Editor/remotion/public/illumaesthetic_logo.png'
-FPS, WD, HT = 30, 1080, 1920
+FPS, WD, HT = 60, 1080, 1920
+SC = FPS / 30   # v7i: the 30 fps timings below are scaled by SC (frames)
 ENC = ['-c:v', 'libx264', '-crf', '12', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-an']
 F = lambda name, size: ImageFont.truetype(f'/usr/share/fonts/opentype/inter/{name}.otf', size)
 FONTS = '/home/user/media/work/fonts'   # Google Fonts TTFs (not in git): Fjalla One, Barlow - the site's --typeHeaderPrimary/--typeBasePrimary
@@ -58,7 +59,7 @@ BEAT = 60 / 128.05   # Megalomaniac kick grid; cut frames = round(beat * BEAT * 
 _B = [0, 8, 12, 16, 20, 28, 34, 42, 48, 64, 72, 76, 80, 84, 88, 92, 96, 104]
 _N = ['a_hook', 'b_answer', 'c1_scanday', 'c2_scanday', 'd_scan', 'e_concepts', 'f_panels', 'k_brakes', 'g_final360',
       'h_reveal', 'p1_press', 'p2_press', 'p3_press', 'p4_press', 'p5_press', 'p6_press', 'j_logo']
-_F = [round(b * BEAT * 30) for b in _B]
+_F = [round(b * BEAT * 30) * (FPS // 30) for b in _B]   # same cut TIMES as v7 (30 fps grid x2): drop = exactly 30.000 s
 CUTS = {n: _F[i + 1] - _F[i] for i, n in enumerate(_N)}
 PHOTO_TOP = (HT - 810) // 2   # 1702 (4032x3024) shown full width 1080x810, centred; the final render ends on its solved camera
 
@@ -135,7 +136,7 @@ def seg_hook():
             im = base.copy(); d = ImageDraw.Draw(im)
             for k, (tag, c, cy) in enumerate(cards):
                 if f < appear[k]: continue
-                u = min(1.0, (f - appear[k] + 1) / 4); dy = int((1 - u) * 50)
+                u = min(1.0, (f - appear[k] + 1) / (4 * SC)); dy = int((1 - u) * 50)
                 d.rectangle([x0, y0 + cy + dy - 30, x0 + 40, y0 + cy + dy - 25], fill=RED)
                 d.text((x0 + 52, y0 + cy + dy - 44), tag, font=tagf, fill=OFF)
                 im.paste(c, (x0, y0 + cy + dy))
@@ -146,7 +147,7 @@ def seg_hook():
 # ---------------- scan / kit renders ----------------
 def render_seq(name, n_out, fps_in=15, start=1):
     tmp = f'{SEG}/_{name}_raw.mp4'
-    vf = f'scale={WD}:{HT}:flags=lanczos' + (',minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:vsbmc=1' if fps_in < 20 else ',fps=30')
+    vf = f'scale={WD}:{HT}:flags=lanczos' + (f',minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:vsbmc=1' if fps_in < 20 else f',fps={FPS}')
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', str(fps_in), '-start_number', str(start), '-i', f'{R}/{name}/f_%04d.png', '-vf', vf,
                     '-frames:v', str(n_out)] + ENC + [tmp], check=True)
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', tmp, '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], capture_output=True).stdout
@@ -212,7 +213,7 @@ def seg_hook():
     probe = ImageDraw.Draw(src)
     while max(tracked_w(probe, t, HEAD(size), 0.04) for t, _ in HOOK_LINES) > WD - 140: size -= 4
     f0 = HEAD(size); lh = int(size * 1.06); y0 = HT - 140 - lh * len(HOOK_LINES); top = y0 - 70
-    land = [round(b * BEAT * 30) for b in range(len(HOOK_LINES))]
+    land = [round(b * BEAT * FPS) for b in range(len(HOOK_LINES))]
     def gen():
         for f in range(n):
             z = 1.0 + 0.03 * f / (n - 1); cw, ch = int(WD / z), int(HT / z)
@@ -224,7 +225,7 @@ def seg_hook():
             im = Image.alpha_composite(im.convert('RGBA'), ov).convert('RGB'); d = ImageDraw.Draw(im)
             for k, (t, c) in enumerate(HOOK_LINES):
                 if f < land[k]: continue
-                u = min(1.0, (f - land[k] + 1) / 4); dy = int((1 - u) * 40)
+                u = min(1.0, (f - land[k] + 1) / (4 * SC)); dy = int((1 - u) * 40)
                 tracked(d, (70, y0 + k * lh + dy), t, f0, c, em=0.04)
             yield im
     pipe('a_hook', gen())
@@ -276,13 +277,13 @@ def seg_reveal():
         if band == 'top': y = y_top; y_top += h + 58
         else: y = PHOTO_TOP + ph + 70
         placed.append((tag, c, y))
-    beat = BEAT * 30; appear = [round(b * beat) for b in (2, 3, 4)]
+    beat = BEAT * FPS; appear = [round(b * beat) for b in (2, 3, 4)]
     def gen():
         for f in range(CUTS['h_reveal']):
             im = im0.copy(); d = ImageDraw.Draw(im)
             for k, (tag, c, y) in enumerate(placed):
                 if f < appear[k]: continue
-                u = min(1.0, (f - appear[k] + 1) / 4); dy = int((1 - u) * 50)
+                u = min(1.0, (f - appear[k] + 1) / (4 * SC)); dy = int((1 - u) * 50)
                 tracked(d, (x0, y + dy - 46), tag, tagf, GREEN, em=0.18)
                 im.paste(c, (x0, y + dy))
             yield im
@@ -305,7 +306,7 @@ def seg_logo():
     gap = 70; xs = 46; total = logo.height + gap + xs + gap + mq.height; y0 = (HT - total) // 2
     def gen():
         for f in range(n):
-            al = min(1.0, f / 8, (n - 1 - f) / 20 + 0.05); a2 = max(0.0, min(1.0, (f - 6) / 8)) * min(1.0, (n - 1 - f) / 20 + 0.05)
+            al = min(1.0, f / (8 * SC), (n - 1 - f) / (20 * SC) + 0.05); a2 = max(0.0, min(1.0, (f - 6 * SC) / (8 * SC))) * min(1.0, (n - 1 - f) / (20 * SC) + 0.05)
             im = Image.new('RGB', (WD, HT), BG)
             for img, y, a in ((logo, y0, al), (mq, y0 + logo.height + 2 * gap + xs, a2)):
                 l = img.copy(); l.putalpha(l.getchannel('A').point(lambda v, a=a: int(v * a))); im.paste(l, ((WD - img.width) // 2, y), l)
@@ -336,7 +337,7 @@ SEGS = {
     'f_panels': lambda: labelled('f_panels', 'D_kit', CUTS['f_panels'], [(4, CUTS['f_panels'] - 4, 'NEW BODY PANELS', 'designed on our scan')], fps_in=30 * 0.65 / BEAT),
     'k_brakes': lambda: labelled('k_brakes', 'K_brakes_car', CUTS['k_brakes'], [(3, CUTS['k_brakes'], 'GT-R BRAKES', 'GT-R scans + our adapters')], fps_in=30),
     'g_final360': lambda: labelled('g_final360', 'G_final360', CUTS['g_final360'],
-                                   [(6, 64, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72, 165, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')],
+                                   [(6 * SC, 64 * SC, 'MIDNIGHT PURPLE', 'colour-shift wrap'), (72 * SC, 165 * SC, 'FINAL RENDER', 'kit, wheels, brakes and wrap in 3D')],
                                    # v7h (user: the rotation hold at :29 waits too long for the drop): the camera lands on the
                                    # solved 1702 camera at render t 6.0 -> play the 15 fps render at 12.68 fps (x1.18) so it lands
                                    # at shot t 7.10 = video 29.59 s, a 0.41 s settle before the drop instead of 1.5 s
@@ -350,7 +351,7 @@ SEGS = {
     'p6_press': lambda: hold('p6_press', press(809)),
     'j_logo': seg_logo,
 }
-OUT = D + '/out/infiniti_qx80_v7h.mp4'
+OUT = D + '/out/infiniti_qx80_v7i.mp4'
 
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if a != 'mux']
