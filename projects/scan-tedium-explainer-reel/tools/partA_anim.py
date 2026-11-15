@@ -83,7 +83,13 @@ for L in TL["lines"]:
 
 
 def mouth_at(spk, t):
-    t += 1.0 / FPS   # mouth shapes lead the sound by a frame
+    if spk == "GUS":   # v4: weary Gus - slower, heavier talk motion (energy smoothed over ~0.2 s, a little lower)
+        return 0.85 * sum(_mouth_raw(spk, t + d) for d in (-0.13, -0.09, -0.05, -0.01, 0.03)) / 5
+    return _mouth_raw(spk, t)
+
+
+def _mouth_raw(spk, t):
+    t += 1.0 / FPS   # talk energy leads the sound by a frame
     m = 0.0
     for s0, d, a in SYL[spk]:
         u = (t - s0) / d
@@ -123,14 +129,13 @@ def blink(spk, t):
 
 
 def set_face(ch, mouth=0.0, lid=0.0, look=(0, 0), brow=(0, 0)):
-    """Face and talk without touching hips/hands (S11/S12: the phone hand must not move): body squash from the talk
-    energy, dot-eye blink/squint, eye look."""
+    """Face and talk without touching hips/hands (S11/S12: the phone hand must not move): body squash, eyes, look."""
     S = ch.S
     talk_squash(ch, mouth)
     f = max(S.get("base_lid", 0.0), lid)
-    for e in ch.eyes:
-        e.scale = (1, 1, max(0.08, 1 - 0.92 * f))
+    set_eyes(ch, f, f)
     ch.eyes_g.location = (look[0] * S["eye_look"], 0, ch.head_c + look[1] * S["eye_look"])
+    apply_expr(ch, f, look)
 
 
 def talk(spk, t, base_lid=0.0):
@@ -149,6 +154,174 @@ def syl_onsets(n):
         d = max(0.05, w["t1"] - w["t0"]) / len(g)
         out += [w["t0"] + k * d for k in range(len(g))]
     return out
+
+
+# ----------------------------------------------------------------------------------------------------------------- expressions (v4)
+CUR_T = 0.0
+FORCE_EXPR = {}          # expression sheet: {"PIP": "curious", ...}
+
+
+def win(t, a, b, rin=0.12, rout=0.2):
+    """0..1 envelope: ramps in at a, holds, ramps out after b."""
+    if t < a - rin or t > b + rout:
+        return 0.0
+    if t < a:
+        return ease((t - (a - rin)) / rin)
+    if t <= b:
+        return 1.0
+    return 1 - ease((t - b) / rout)
+
+
+def L_(n):
+    return LN.get(n)
+
+
+def sigh_env(t):
+    """Gus's sighs/groans (detected in the take: voiced, outside words): droop builds over the sigh, eases out after."""
+    v = 0.0
+    for L in TL["lines"]:
+        if L["speaker"] != "GUS":
+            continue
+        for a, b in L.get("sighs", []):
+            if a - 0.05 <= t <= b:
+                v = max(v, ease((t - a) / max(0.1, b - a)))
+            elif b < t < b + 0.45:
+                v = max(v, 1 - ease((t - b) / 0.45))
+    return v
+
+
+STATES = {   # name: (fL, fR, shape, scale, brow_on, hL, hR, tL, tR)
+    "neutral": (0.0, 0.0, None, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+    "weary": (0.55, 0.55, None, 1.0, 1.0, -0.004, -0.004, 18, 18),
+    "exasperated": (1.0, 1.0, "line", 1.0, 1.0, -0.008, -0.008, 22, 22),
+    "sigh": (0.8, 0.8, None, 1.0, 1.0, -0.006, -0.006, -10, -10),
+    "skeptical": (0.55, 0.0, None, 1.0, 1.0, -0.006, 0.022, 18, -8),
+    "curious": (0.0, 0.0, None, 1.15, 0.8, 0.012, 0.012, -4, -4),
+    "impatient": (0.4, 0.4, None, 1.0, 1.0, -0.004, -0.004, 16, 16),
+    "surprised": (0.0, 0.0, None, 1.3, 1.0, 0.03, 0.03, -6, -6),
+    "excited": (0.0, 0.0, "arc", 1.0, 1.0, 0.02, 0.02, -6, -6),
+}
+
+
+def expr_state(ch, t):
+    """Per-character expression at time t, keyed from the line/word/sigh times (owner's v4 list)."""
+    nm = "GUS" if ch is GUS else "PIP"
+    if nm in FORCE_EXPR:
+        st = list(STATES[FORCE_EXPR[nm]])
+        return dict(zip(("fL", "fR", "shape", "scale", "on", "hL", "hR", "tL", "tR"), st), roll=None)
+    st = dict(fL=0.0, fR=0.0, shape=None, scale=1.0, on=0.0, hL=0.0, hR=0.0, tL=0.0, tR=0.0, roll=None)
+
+    def blend(name, k):
+        if k <= 0:
+            return
+        tgt = dict(zip(("fL", "fR", "shape", "scale", "on", "hL", "hR", "tL", "tR"), STATES[name]))
+        for key in ("fL", "fR", "scale", "on", "hL", "hR", "tL", "tR"):
+            st[key] = lerp(st[key], tgt[key], k)
+        if tgt["shape"] and k > 0.5:
+            st["shape"] = tgt["shape"]
+
+    if nm == "GUS":
+        blend("weary", 0.55)                                      # weary by default
+        for L in TL["lines"]:
+            if L["speaker"] == "GUS":
+                blend("weary", win(t, L["t0"] - 0.2, L["t1"], 0.2, 0.4))
+        s_ = sigh_env(t)
+        if s_ > 0:                                                 # sigh: lids droop, close, reopen half-lidded
+            st["fL"] = st["fR"] = max(st["fL"], 0.55 + 0.45 * s_)
+            st["tL"] = st["tR"] = lerp(st["tL"], -10, s_)
+        for n in (5, 7):                                           # groan / "In pieces": eyes squeezed
+            L = L_(n)
+            if L:
+                w = L["words"]
+                end = w[0]["t1"] + 0.15 if n == 7 else L["t1"]
+                k = win(t, (L["sighs"][0][0] if L.get("sighs") else w[0]["t0"]), end, 0.08, 0.15)
+                if k > 0.5:
+                    blend("exasperated", 1.0)
+        if L_(9):
+            L = L_(9)
+            k = win(t, L["t0"], L["t1"], 0.06, 0.3)                # flat annoyed "No."
+            st["fL"] = st["fR"] = lerp(st["fL"], 0.6, k)
+            st["tL"] = st["tR"] = lerp(st["tL"], 26, k)
+            st["on"] = max(st["on"], k)
+        if L_(13):
+            L = L_(13)
+            blend("skeptical", win(t, L["t0"] - 0.1, L["t1"] + 1.0, 0.12, 0.2))
+        if L_(8):                                                  # eye-roll while Pip asks "Is it done yet?"
+            L = L_(8)
+            u = (t - L["t0"]) / max(0.3, L["t1"] - L["t0"])
+            if 0 <= u <= 1:
+                st["roll"] = (math.cos(math.pi * (1 - u)) * 0.9, math.sin(math.pi * u) * 1.0)
+    else:
+        L = L_(1)
+        if L:
+            blend("curious", win(t, L["t0"], L["t1"], 0.15, 0.3))
+        L = L_(6)
+        if L:                                                      # glazes over during "Front. Side. Roof. Back."
+            u = cl((t - L["t0"]) / max(0.5, L["t1"] - L["t0"]))
+            k = win(t, L["t0"], L["t1"], 0.1, 0.4)
+            st["fL"] = st["fR"] = max(st["fL"], 0.55 * u * k)
+        L = L_(8)
+        if L:                                                      # impatient: quick double blink, then narrowed
+            k = win(t, L["t0"], L["t1"], 0.05, 0.3)
+            blend("impatient", k)
+            for b0 in (L["t0"], L["t0"] + 0.24):
+                bu = (t - b0) / 0.12
+                if 0 <= bu < 1:
+                    st["fL"] = st["fR"] = max(st["fL"], 1 - abs(2 * bu - 1))
+        L = L_(14)
+        if L:                                                      # frustrated: worried brows, droop
+            k = win(t, L["t0"] - 0.1, L["t1"], 0.15, 0.25)
+            st["fL"] = st["fR"] = lerp(st["fL"], lerp(0.45, 0.6, cl((t - L["t0"]) / 2.5)), k)
+            st["tL"] = st["tR"] = lerp(st["tL"], -18, k)
+            st["hL"] = st["hR"] = lerp(st["hL"], 0.006, k)
+            st["on"] = max(st["on"], k)
+        L = L_(11)
+        if L:                                                      # pop to surprised on "Wait."
+            tw = L["words"][0]["t0"]
+            if t >= tw - 0.03:
+                pop = eback((t - tw + 0.03) / 0.2, 2.2)
+                k = win(t, tw, L["t1"], 0.03, 0.3)
+                st["scale"] = lerp(1.0, lerp(1.3, 1.12, cl((t - tw - 0.3) / 0.6)), k) * (0.92 + 0.08 * pop)
+                st["fL"] = st["fR"] = st["fL"] * (1 - k)
+                st["on"] = max(st["on"], k)
+                st["hL"] = st["hR"] = lerp(st["hL"], 0.03, k)
+                st["tL"] = st["tR"] = lerp(st["tL"], -6, k)
+        L = L_(12)
+        if L:                                                      # excited arcs on "way faster!"
+            blend("excited", win(t, L["words"][0]["t0"], L["t1"], 0.08, 0.25))
+    return st
+
+
+def apply_expr(ch, lid_call=0.0, look_call=(0, 0)):
+    st = expr_state(ch, CUR_T)
+    if st["shape"]:
+        set_eyes(ch, 0, 0, shape=st["shape"], scale=st["scale"])
+    else:
+        set_eyes(ch, max(lid_call, st["fL"]), max(lid_call, st["fR"]), scale=st["scale"])
+    hmax = 0.008 if ch is PIP else 0.04      # Pip's cap edge sits just above his brows: keep raised brows in view
+    set_brows(ch, st["on"], min(st["hL"], hmax), min(st["hR"], hmax), st["tL"], st["tR"])
+    if st["roll"] is not None:
+        ch.eyes_g.location = (st["roll"][0] * ch.S["eye_look"] * 1.3, 0, ch.head_c + st["roll"][1] * ch.S["eye_look"] * 1.3)
+    if ch is GUS:                                                  # sighs deflate his whole body
+        e = sigh_env(CUR_T)
+        if e > 0:
+            ch.torso.scale = (ch.torso.scale[0] * (1 + 0.05 * e), ch.torso.scale[1] * (1 + 0.05 * e), ch.torso.scale[2] * (1 - 0.09 * e))
+            ch.neck.location.z -= ch.S["body_h"] * 0.09 * e
+            rx, ry, rz_ = ch.neck.rotation_euler
+            ch.neck.rotation_euler = (rx + math.radians(14 * e), ry, rz_)
+            hx, hy, hz_ = ch.hips.rotation_euler
+            ch.hips.rotation_euler = (hx + math.radians(5 * e), hy, hz_)
+            for sd in ("L", "R"):
+                ex_, ey_, ez_ = ch.elbows[sd].rotation_euler
+                ch.elbows[sd].rotation_euler = (ex_ + math.radians(22 * e), ey_, ez_)
+
+
+_pose_base = pose
+
+
+def pose(ch, *a, **kw):
+    _pose_base(ch, *a, **kw)
+    apply_expr(ch, max(ch.S.get("base_lid", 0.0), kw.get("lid", 0.0)), kw.get("look", (0, 0)))
 
 
 # ----------------------------------------------------------------------------------------------------------------- shots
@@ -602,6 +775,26 @@ corners = json.load(open(CORN)) if os.path.exists(CORN) else dict(
         "= the footage's own upright corners. Frames are reel frames at 30 fps. The screen renders as flat key colour #ff00ff "
         "(camera rays only); use it as the matte where anything overlaps the screen.",
     width=1080, height=1920, fps=FPS, screen_aspect="9:16", key_colour=KEY, corner_order=["tl", "tr", "br", "bl"], shots={})
+if "--exprsheet" in argv:   # v4 proof: the 9 eye states x 2 characters, with brows, head-and-shoulders front-on
+    os.makedirs(os.path.join(OUT, "expr"), exist_ok=True)
+    for who, ch, loc in (("GUS", GUS, (0.0, -1.8, 0)), ("PIP", PIP, (1.6, -1.8, 0))):
+        for name in STATES:
+            reset_anim()
+            set_vis(PIPSCAN, False)
+            FORCE_EXPR.clear()
+            FORCE_EXPR[who] = name
+            CUR_T = -5.0
+            other = PIP if ch is GUS else GUS
+            pose(other, loc=(30, 30, 0))
+            pose(ch, loc=loc, rz=0, look=(0, 0))
+            bpy.context.view_layer.update()
+            hc = ch.neck.matrix_world @ Vector((0, 0, ch.head_c))
+            d = 1.25 if ch is GUS else 1.0
+            look(cam, hc + Vector((0.0, -d * 2.0, -0.08)), hc + Vector((0, 0, -0.12)), 62)
+            scn.render.filepath = os.path.join(OUT, "expr", f"{who}_{name}")
+            bpy.ops.render.render(write_still=True)
+            print(f"[expr] {who} {name}", flush=True)
+    SHOTS = []
 lo, hi = (int(x) for x in RANGE.split(":")) if RANGE else (0, 10 ** 9)
 for sh in SHOTS:
     f0, f1 = SF[sh]
@@ -615,6 +808,7 @@ for sh in SHOTS:
         todo = (fr - f0) % EVERY == 0 and lo <= fr < hi and not os.path.exists(final) and (not ONLY or fr in ONLY)
         if not (todo or need_c):
             continue
+        CUR_T = fr / FPS
         reset_anim()
         ANIM[sh](fr)
         bpy.context.view_layer.update()

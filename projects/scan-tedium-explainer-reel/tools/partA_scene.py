@@ -647,6 +647,65 @@ def torus(name, R, r, loc, m, parent, rot=(0, 0, 0), ol=0.0, scale=(1, 1, 1)):
     return add_mods(ob, 0, ol, char=True)
 
 
+def arc_tube(name, R, rt, m, parent, loc, a0=25.0, a1=155.0, n=14, rs=8):
+    """Upward arc (^-style closed happy eye): a tube along a circular arc in the XZ plane."""
+    bm = bmesh.new()
+    rings = []
+    for i in range(n + 1):
+        a = math.radians(a0 + (a1 - a0) * i / n)
+        c = Vector((R * math.cos(a), 0, R * math.sin(a)))
+        t = Vector((-math.sin(a), 0, math.cos(a)))
+        nrm = c.normalized()
+        b2 = Vector((0, 1, 0))
+        ring = []
+        for k in range(rs):
+            q = 2 * math.pi * k / rs
+            ring.append(bm.verts.new(c + (nrm * math.cos(q) + b2 * math.sin(q)) * rt))
+        rings.append(ring)
+    for i in range(n):
+        for k in range(rs):
+            a_, b_ = rings[i], rings[i + 1]
+            bm.faces.new((a_[k], b_[k], b_[(k + 1) % rs], a_[(k + 1) % rs]))
+    for ring in (rings[0], rings[-1]):
+        bm.faces.new(ring)
+    _smooth(bm)
+    return new_obj(name, bm, [m], parent, loc)
+
+
+def set_eyes(ch, fL, fR=None, shape=None, scale=1.0):
+    """Dot-eye expression: f 0 round .. 1 shut (flat-topped half dot in between, a short line when shut); shape 'line' / 'arc'
+    overrides both eyes; scale pops the dots (curious 1.15, surprised 1.3)."""
+    fR = fL if fR is None else fR
+    for e, f in zip(ch.eyeset, (fL, fR)):
+        for k in ("round", "half", "line", "arc"):
+            e[k].hide_render = True
+        e["piv"].scale = (scale, scale, scale)
+        if shape in ("line", "arc"):
+            e[shape].hide_render = False
+        elif f < 0.08:
+            e["round"].hide_render = False
+        elif f > 0.9:
+            e["line"].hide_render = False
+        else:
+            h = e["half"]
+            h.hide_render = False
+            h.scale = (1, 1, 2 * (1 - f))
+            h.location = (0, 0, e["rz"] * (1 - 2 * f))
+
+
+def set_brows(ch, on=0.0, hL=0.0, hR=None, tL=0.0, tR=None):
+    """Brows: on 0 hidden .. 1 full length; h raise (m); t tilt deg, > 0 = inner end down (annoyed), < 0 = inner up (worried)."""
+    hR = hL if hR is None else hR
+    tR = tL if tR is None else tR
+    for b, h, tl in zip(ch.browset, (hL, hR), (tL, tR)):
+        b["piv"].hide_render = on < 0.05
+        for c in b["piv"].children:
+            c.hide_render = on < 0.05
+        b["piv"].scale = (max(0.05, on), 1, 1)
+        b["piv"].location.z = b["z"] + h
+        b["piv"].rotation_euler = (0, math.radians(-b["sx"] * tl), 0)
+
+
 def head_surface_y(S, x, z):
     """Front surface y of the egg head (local to the head centre) at (x, z)."""
     rx, ry, rz = S["head"][0] / 2, S["head"][1] / 2, S["head"][2] / 2
@@ -690,12 +749,26 @@ def build_char(name, S):
     ch.head_c = hz
     blob(f"{name}_headm", (hw / 2, hd / 2, hh / 2), (0, 0, hz), V, ch.neck, taper=S["taper"], ol=ol)
     ch.eyes_g = empty(f"{name}_eyes", ch.neck, (0, 0, hz))
-    ch.eyes = []
+    ch.eyes, ch.eyeset, ch.browset = [], [], []
     er, ex, ez = S["eye_r"], S["eye_x"], S["eye_z"]
+    blk = mat("black")
     for sx in (1, -1):
+        # v4 expressions: each dot eye has four shapes - round dot, flat-topped half dot (lid level), squeezed line, ^ arc
         y = head_surface_y(S, sx * ex, ez) + er * 0.45
-        e = blob(f"{name}_eye{sx}", (er, er * 0.8, er * 1.15), (sx * ex, y, ez), mat("black"), ch.eyes_g)
-        ch.eyes.append(e)
+        piv = empty(f"{name}_eyep{sx}", ch.eyes_g, (sx * ex, y, ez))
+        rnd = blob(f"{name}_eye{sx}", (er, er * 0.8, er * 1.15), (0, 0, 0), blk, piv)
+        half = blob(f"{name}_eyeh{sx}", (er, er * 0.8, er * 1.15), (0, 0, 0), blk, piv, half=True)
+        half.rotation_euler = (math.pi, 0, 0)      # lower half: flat top
+        line = blob(f"{name}_eyel{sx}", (er * 1.55, er * 0.7, er * 0.45), (0, 0, -er * 0.15), blk, piv)
+        arc = arc_tube(f"{name}_eyea{sx}", er * 1.3, er * 0.45, blk, piv, (0, 0, -er * 0.75), a0=15.0, a1=165.0)
+        ch.eyes.append(rnd)
+        ch.eyeset.append(dict(piv=piv, round=rnd, half=half, line=line, arc=arc, rz=er * 1.15))
+        # floating brow: small dark rounded dash above the eye, tilts for emotion, fades out when neutral
+        bz = ez + er * 1.15 + S.get("brow_gap", 0.04)
+        by = head_surface_y(S, sx * ex, bz) - 0.008
+        bp = empty(f"{name}_browp{sx}", ch.neck, (sx * ex, by, hz + bz))
+        blob(f"{name}_brow{sx}", (S["brow_len"] / 2, 0.012, S.get("brow_t", 0.012)), (0, 0, 0), mat("#2a2a2a"), bp)
+        ch.browset.append(dict(piv=bp, z=hz + bz, sx=sx))
     S["hat"](name, ch, S)
     # compatibility stubs for the old face API
     ch.pupils, ch.lids, ch.brows = [], [], []
@@ -795,8 +868,8 @@ def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), a
     ch.legs["R"].rotation_euler = R(legR)
     talk_squash(ch, mouth)
     f = max(S.get("base_lid", 0.0), lid)
-    for e in ch.eyes:
-        e.scale = (1, 1, max(0.08, 1 - 0.92 * f))
+    set_eyes(ch, f, f)
+    set_brows(ch, 0.0)
     ch.eyes_g.location = (look[0] * S["eye_look"], 0, ch.head_c + look[1] * S["eye_look"])
 
 
@@ -811,11 +884,11 @@ def talk_squash(ch, m):
 GUS_SPEC = dict(hip_z=0.06, foot=(0.12, 0.16, 0.075), foot_x=0.12, body_r=0.2, body_h=1.2, neck_z=1.13,
                 head=(0.62, 0.57, 0.72), taper=-0.13, head_sink=0.0, eye_r=0.024, eye_x=0.085, eye_z=0.05, eye_look=0.03,
                 hand=(0.085, 0.075, 0.09), hand_x=0.47, shoulder_z=1.0, reach=0.36, ol=0.024,
-                dress=dress_gus, hat=hat_gus)
+                brow_len=0.075, brow_t=0.013, brow_gap=0.045, dress=dress_gus, hat=hat_gus)
 PIP_SPEC = dict(hip_z=0.045, foot=(0.085, 0.115, 0.055), foot_x=0.075, body_r=0.15, body_h=0.66, neck_z=0.61,
                 head=(0.5, 0.46, 0.55), taper=-0.13, head_sink=0.0, eye_r=0.02, eye_x=0.072, eye_z=0.03, eye_look=0.025,
                 hand=(0.06, 0.055, 0.065), hand_x=0.36, shoulder_z=0.55, reach=0.24, ol=0.019,
-                dress=dress_pip, hat=hat_pip)
+                brow_len=0.065, brow_t=0.012, brow_gap=0.016, dress=dress_pip, hat=hat_pip)
 
 
 # ----------------------------------------------------------------------------------------------------------------- props

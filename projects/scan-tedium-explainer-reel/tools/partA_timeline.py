@@ -17,7 +17,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 PROJ = HERE.parent
-TAKES_DIR = Path("/home/user/media/work/scan-tedium/voice/el_b/lines")   # v3; v1/v2 takes: voice/takes
+TAKES_DIR = Path("/home/user/media/work/scan-tedium/voice/el_b/lines_annoyed")   # v4; v3: el_b/lines; v1/v2: voice/takes
 PROC = Path("/home/user/media/work/scan-tedium/voice/proc")
 OUT = Path(sys.argv[sys.argv.index("--out") + 1]) if "--out" in sys.argv else Path("/home/user/media/work/scan-tedium/out")
 SR = 48000
@@ -35,12 +35,14 @@ TAKES_V2 = {
     10: ("L10a", "GUS", "S9", 1.12, None), 14: ("L10Ba", "PIP", "S10", 1.12, None), 11: ("L11a", "PIP", "S10", 1.12, 0.26),
     12: ("L12a", "PIP", "S11", 1.12, None), 13: ("L13b", "GUS", "S12", 1.0, None)}
 NO_TIGHTEN = 99.0
-TAKES = {
+TAKES_V3 = {
     1: ("L01e", "PIP", "S1", 1.0, NO_TIGHTEN), 2: ("L02e", "GUS", "S2", 1.0, NO_TIGHTEN), 3: ("L03e", "GUS", "S3", 1.0, NO_TIGHTEN),
     4: ("L04e", "PIP", "S4", 1.0, NO_TIGHTEN), 5: ("L05e", "GUS", "S5", 1.0, NO_TIGHTEN), 6: ("L06e", "GUS", "S6", 1.0, NO_TIGHTEN),
     7: ("L07e", "GUS", "S7", 1.0, NO_TIGHTEN), 8: ("L08e", "PIP", "S8", 1.0, NO_TIGHTEN), 9: ("L09e", "GUS", "S8", 1.0, NO_TIGHTEN),
     10: ("L10e", "GUS", "S9", 1.0, NO_TIGHTEN), 14: ("L10Be", "PIP", "S10", 1.0, NO_TIGHTEN),
     11: ("L11e", "PIP", "S10", 1.0, NO_TIGHTEN), 12: ("L12e", "PIP", "S11", 1.0, NO_TIGHTEN), 13: ("L13e", "GUS", "S12", 1.0, NO_TIGHTEN)}
+# v4 (owner): the annoyed ElevenLabs take (job 1e219ae5): Gus sighs and groans, Pip impatient/frustrated. Same rules as v3.
+TAKES = {n: (t[:-1] + "n", spk, sh, tp, gp) for n, (t, spk, sh, tp, gp) in TAKES_V3.items()}
 # per shot: (lead s before its first line, tail s after its last line, extra s for the shot's visual beat)
 SHOTS = [("S1", 0.17, 0.07, 0.0), ("S2", 0.05, 0.07, 0.0), ("S3", 0.05, 0.07, 0.10), ("S4", 0.05, 0.07, 0.05),
          ("S5", 0.05, 0.07, 0.10), ("S6", 0.05, 0.07, 0.15), ("S7", 0.05, 0.07, 0.15), ("S8", 0.07, 0.10, 0.0),
@@ -140,7 +142,8 @@ def process(line, meas):
             a = max(a, rs[0][0])
         b = max(b, a + 0.06)
         words.append(dict(w=wd["w"], t0=round(mapt(a) / tempo, 3), t1=round(min(mapt(b), mapt(t1)) / tempo, 3)))
-    return dict(n=line, take=take, speaker=spk, shot=shot, tempo=tempo, src_span=[round(t0, 3), round(t1, 3)],
+    sighs = [[round(mapt(a) / tempo, 3), round(mapt(b) / tempo, 3)] for a, b in meas.get("sighs", [])]
+    return dict(n=line, take=take, speaker=spk, shot=shot, tempo=tempo, src_span=[round(t0, 3), round(t1, 3)], sighs=sighs,
                 pauses_cut=round((t1 - t0) - sum(b - a for a, b in keep), 3), dur=round(dur, 3), words=words,
                 text=meas["script"], heard=meas["heard"], wer=meas["wer"], file=str(out))
 
@@ -176,6 +179,7 @@ def main():
     total = shots[-1]["f1"]
     for L in placed:
         L["words"] = [dict(w=w["w"], t0=round(L["t0"] + w["t0"], 3), t1=round(L["t0"] + w["t1"], 3)) for w in L["words"]]
+        L["sighs"] = [[round(L["t0"] + a, 3), round(L["t0"] + b, 3)] for a, b in L.get("sighs", [])]
     # dialogue stem
     mix = np.zeros(int(total / FPS * SR) + SR // 2, np.float32)
     for L in placed:
