@@ -1,3 +1,17 @@
+# Nissan 400Z scan reel — v10 self-review (2026-11-15)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v10.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v9 -> v10
+- **"Wheels need more camber in the front, lower, wider out - drift car slammed fitment"**: front -8 / rear -3 deg
+  camber, wheels +25/+20 mm outward, body 5 cm below the photo stance. Checked front-low, 3/4, side and rear: tyres tuck
+  under the lips, no visible clipping.
+- **"Combine the rear quarter panel vents and the quarter panels"**: slats now share the quarter panel's install keys.
+- Scan -> photo cut still -0.8 ms; the body overlays the photo; wheels intentionally sit lower/more cambered than the
+  photo (user asked for more than the real car).
+
+## Scores: as v9; 3 (1:1 match) 4 - wheels now deliberately differ from the photo.
+
 # Nissan 400Z scan reel — v9 self-review (2026-11-14)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v9.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
