@@ -10,3 +10,4 @@
 {"ts": "2026-11-16T10:03:26Z", "decision": "Deviation map colour only, no legend", "why": "Owner answer Q3"}
 {"ts": "2026-11-16T10:03:26Z", "decision": "Kept Pip line 'Illumaesthetic does that. Look!'", "why": "Owner confirmed resurfacing service"}
 {"ts": "2026-11-16T10:11:52Z", "decision": "Real shot: TAS 21.19.48 0.8-3.4s (Ioniq 5 N rear quarter), then hard cut (not 1:1) on beat to mirror-housing scan", "why": "Owner: only Ioniq footage is TAS; sheeted all 15 clips, no mirror in frame, so 1:1 to the mirror isn't possible; liftgate/roof STLs (~137 KB) look like CAD exports, not scans"}
+{"ts": "2026-11-16T18:09:34Z", "decision": "Checked script against new character proportions (option 3: shorter torso, bigger feet, hands closer to body): no gag depends on tall bodies or far-reaching hands; no script change", "why": "Series design update relayed 2026-11-16"}
