@@ -838,7 +838,8 @@ def dress_gus(name, ch, S):
             S["ol"] * 0.5)
     box(f"{name}_zip", (0.014, 0.012, S["body_h"] * 0.47), (0, fy - 0.004, S["body_h"] * 0.62), mat("#c8cac7"), ch.torso)
     # owner: small Illumaesthetic name badge, wearer's left chest between the pocket flap and the collar
-    nametag(name, ch, S, "GUS", 0.106, S["body_h"] * 0.806, 0.11, r + 0.018 + 0.002)
+    k = r / 0.2   # badge scales with the torso (proportion variants)
+    nametag(name, ch, S, "GUS", 0.106 * k, S["body_h"] * 0.806, 0.11 * k, r + 0.018 + 0.002)
 
 
 def hat_gus(name, ch, S):
@@ -868,7 +869,8 @@ def dress_pip(name, ch, S):
         cyl(f"{name}_string{sx}", 0.008, 0.13, (sx * 0.04, fy - 0.006, bh * 0.84 - 0.065), mat("string"), ch.torso, seg=10)
         blob(f"{name}_tip{sx}", (0.014, 0.014, 0.018), (sx * 0.04, fy - 0.008, bh * 0.84 - 0.135), mat("string"), ch.torso)
     box(f"{name}_pouch", (0.2, 0.022, 0.085), (0, fy + 0.002, bh * 0.36), sm, ch.torso, 0.02, S["ol"] * 0.5)
-    nametag(name, ch, S, "PIP", 0.1, bh * 0.71, 0.085, r + 0.02 + 0.002, tilt=4.0)   # beside the drawstrings, slight tilt
+    k = r / 0.15
+    nametag(name, ch, S, "PIP", 0.1 * k, bh * 0.71, 0.085 * k, r + 0.02 + 0.002, tilt=4.0)   # beside the drawstrings, slight tilt
 
 
 def hat_pip(name, ch, S):
