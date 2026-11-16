@@ -1,3 +1,5 @@
+> **Owner note (2026-11-16): videos do NOT need to link to a YouTube video.** The teaser card is optional; end on the logo card when there's no matching full video.
+
 # Pip & Gus: explainer series, draft scripts (v0.2, 2026-11-16)
 
 These are drafts for owner review; nothing is produced yet. Each episode answers one common question about car 3D scanning or 3D printing.
@@ -131,7 +133,7 @@ These are drafts for owner review; nothing is produced yet. Each episode answers
 
 ---
 
-## Ep 3. "Why not just print the whole bumper?" (approved; owner: explain why it isn't cheap or worth it)
+## Ep 3. "Why can't I just print the bumper I want?" (owner 2026-11-16: make people realise that designing and printing a custom bumper still costs more than just buying one)
 **Question:** if you can print parts, why not print a whole bumper or body kit and skip buying one?
 
 The argument is built as a running tally of hidden costs. Each line adds an icon to a "bill" that keeps growing on the cartoon wall. The bill is pictures only: no prices or hours on it.
