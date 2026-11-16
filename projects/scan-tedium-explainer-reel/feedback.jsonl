@@ -23,3 +23,5 @@
 {"ts": "2026-11-15T23:01:28Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "text", "note": "Drop the 'A DOT EVERY ~8 CM' label", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T23:01:28Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "structure", "note": "Real footage/scan section must be no longer than 4-5 s, then end on the 'full video' tease card", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-15T23:06:36Z", "project": "scan-tedium-explainer-reel", "at": null, "category": "structure", "note": "Part B 4-5 s is a target; use longer than 5 s if it genuinely needs it", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T02:41:12Z", "project": "scan-tedium-explainer-reel", "at": "0", "category": "music", "note": "Music sounds like pokemon battle music; use something more inquisitive", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T02:41:12Z", "project": "scan-tedium-explainer-reel", "at": "38", "category": "structure", "note": "When it cuts to the YouTube card, show a teaser of the full video (scanning on the ground) instead of a plain card", "by": "reviewer", "promoted": false}
