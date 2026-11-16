@@ -3,3 +3,4 @@
 {"ts": "2026-11-16T09:08:59Z", "decision": "Dropped PETG 'dull look over time' visual; merged nylon + CF into one 'carbon-fiber nylon' line", "why": "The dulling implies an unsourced claim; merging saves ~1.5 s; owner confirms the exact blend"}
 {"ts": "2026-11-16T09:08:59Z", "decision": "Phone hand-off varied: Pip 'Like these?!' / Gus '...Yeah. Like those.'", "why": "Series rule: vary the hand-off line per episode (pilot used '...Show me.')"}
 {"ts": "2026-11-16T09:45:32Z", "decision": "Ending changed to the logo card only; teaser card dropped unless a matching full video exists", "why": "Owner note relayed 2026-11-16: videos do not need to link to a YouTube video (lessons.md + SESSION_BRIEF.md on base branch)"}
+{"ts": "2026-11-16T09:51:26Z", "decision": "Ending = logo card alone, no CTA", "why": "Owner note relayed 2026-11-16: CTA only when relevant (e.g. a scan we sell); materials episode has no product to point at"}

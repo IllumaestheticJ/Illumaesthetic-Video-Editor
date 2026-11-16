@@ -12,10 +12,11 @@
 |---|---|---|
 | Cartoon | 0-29 s | 13 lines, about 70 words, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
 | Real footage | 29-34 s | 4-5 s of printed parts on a real car. Photographic, no text. A hard 1:1 real-to-scan cut on a beat only if a scan of that car/part exists |
-| Logo card | 34-36 s | Illumaesthetic logo (~700 px wide), with a call to action only if the owner picks one (Q5) |
+| Logo card | 34-36 s | Illumaesthetic logo alone (~700 px wide), no call to action |
 
 No "FULL VIDEO ON OUR CHANNEL" teaser card by default (owner note 2026-11-16: videos do not need to link to a YouTube video).
 It is added (+~2 s, before the logo) only if a matching full video exists.
+No call to action either (owner note 2026-11-16: CTAs only when relevant; this episode is not about a scan we sell).
 
 ## Script
 | # | Who | Line (emotion tag) | Picture |
@@ -57,4 +58,4 @@ Lines 12-13 are this episode's phone hand-off (varied from the pilot's "...Show 
 2. Keep the TPU line (line 9), or cut it to make the episode ~3 s shorter?
 3. Line 11, "They warp. They need an enclosure. ...They're worth it." OK as stated?
 4. Real footage: which printed parts on a real car may be shown (Dropbox path)? Epsilon Plus parts OK? Is there a scan of that car/part for a 1:1 cut?
-5. Ending: plain logo card, or the logo with a call to action (e.g. **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**, or another one you prefer)? If a full video about materials exists, say which one and I'll add the teaser card before the logo.
+5. Ending: the plan is the logo card alone. Only if a full video about materials exists, say which one and I'll add the teaser card before the logo.
