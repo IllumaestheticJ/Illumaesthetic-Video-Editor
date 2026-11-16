@@ -42,19 +42,20 @@ The script carries only these four trade-offs, plus "run a few at once", which f
 
 About 62 words; the cartoon runs about 26 s.
 
-## Real footage (about 5 s, no text): "we run both"
-1. **Big printer** (about 2.5 s): `Footage Library/Videos/Shoot Sessions/2025-05-30 3D printer setup/2025-05-30 15.50.05.mov`, 2.3-7.6 s, the nozzle laying down a white part.
+## Real footage (about 5 s, no text): "we run both" (v3)
+1. **Big printer** (about 2.5 s): `Footage Library/Videos/Shoot Sessions/2025-05-30 3D printer setup/2025-05-30 15.50.05.mov`, 2.3-7.6 s, the nozzle laying down a white part through the enclosure glass.
    - Avoid `15.50.09` around 5 s (brand logo).
    - Avoid any touchscreen shot (model name, temperatures).
-2. **Many-piece part** (about 2.5 s): `2. Illumaesthetic Videos/1. Video dumps/*Posted Raw Videos/2024 Finished Video/Jackie/Posted/2024/3d printed fender.mov`, 16.5-22 s, the assembled fender with its glued seams visible.
-   - Skip 0-1 s (burned-in title).
-3. **Owner reviews the cut** (owner: "show me when you put it together").
+2. **Small printer** (about 2.5 s): `2. Illumaesthetic Videos/1. Video dumps/MR2 HARDTOP/*REEL/actual mr2 print video_2025-07-08_21-25-48.avi`, the printer's own timelapse of a dark MR2 part building up in fine layers.
+   - The file is 1280x720 landscape, so it needs a 9:16 crop. Crop low and tight on the part: the toolhead carries a brand logo (clear from about 3.9 s), and there is text on the bed edge.
+   - Back-up: `actual mr2 latch print video_2025-07-08_17-53-39.avi`, the same treatment.
+3. **Spare shots:**
+   - `3d printed fender.mov` 16.5-22 s: a multi-piece fender with glued seams. Use it only if the footage section runs long.
+   - `MRS Video (Long Form Video)/[USED] Front Bumper/bumper printed.MOV` around 15 s: the big printer in the background with printed bumper sections. 1920x1080 landscape. A licence plate is visible around 45-68 s, so don't use that stretch.
 
 ## End cards
-- **Teaser card:** a framed clip of the big printer. The owner says it doesn't need to point at a YouTube video. Card text (owner to pick):
-  - "WE RUN BOTH"
-  - "BIG OR SMALL? / TELL US IN THE COMMENTS"
-  - or no teaser card at all: go straight from the footage to the logo card. Series rule (2026-11-16): the teaser card is optional and doesn't need to point at a YouTube video.
+- **Teaser card:** **WHICH DO YOU PREFER RUNNING?** (owner, 2026-11-16) over a framed clip of the big printer: the `15.50.09.mov` gantry move at 7.5-14 s, cropped to keep the logo out.
+  - The card doesn't point at a YouTube video.
 - **Logo card:** the logo stands alone, with no call to action. Ep 6 isn't about a scan we sell, so "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" is left off. Series rule, 2026-11-16: a call to action is used only when it's relevant.
 
 ## Voices / music
