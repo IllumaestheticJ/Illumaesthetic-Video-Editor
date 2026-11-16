@@ -60,3 +60,9 @@
 - Use the brand's own logo file (their site header asset, press kit or the user's files). A logo traced off a mock-up
   or photo read as skewed to the user. Shopify sites: the header `<img class="header__heading-logo">` points at
   `/cdn/shop/files/<name>.png` - fetch it without the `width=` parameter for full resolution.
+
+## Tightening an opening without re-rendering (400Z v16)
+- Start the music later on a strong hit (`music.start`) and speed the opening shots (raise `src_fps`, drop
+  `interpolate`), choosing new cut points on beats of the music; everything after the drop keeps its timing, shifted by
+  the same frame count (HUD `from` too). The assembler gives the FIRST clip one extra frame: set its dur 1 f short and
+  check every cut with cutcheck.

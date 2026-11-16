@@ -1,3 +1,13 @@
+# Nissan 400Z scan reel — v16 self-review (2026-11-16)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v16.mp4`: 1080x1920, 30 fps, 45.10 s (1353 f), -14.2 LUFS, true peak -3.5 dBTP.
+
+## User feedback on v15 -> v16
+- **"Make this whole thing play out faster in the beginning"**: the first 14 s (orbit + engine bay) is now 6.7 s: both
+  shots play at ~2x, the music starts on its 7.31 s intro hit (0.25 s video fade-in), the first cut is on the next
+  beat (3.40 s, -11 ms) and the drop at 6.70 s (-4 ms). Everything after the drop is identical, 219 f earlier; all
+  cuts within half a frame (cutcheck); HUD labels shifted with it (ENGINE BAY re-timed into the shorter shot).
+
 # Nissan 400Z scan reel — v15 self-review (2026-11-16)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v15.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.

@@ -4,6 +4,7 @@ Newest first. Read the top two before starting a new edit.
 
 - [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-16
 - [nissan-400z](nissan-400z/) - archived 2026-11-15
+- [toyota-gr-corolla](toyota-gr-corolla/) - archived 2026-11-15
 - [infiniti-qx80](infiniti-qx80/) - archived 2026-11-15
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-14
 - [mazda-rx7-fc](mazda-rx7-fc/) - archived 2026-11-14

@@ -2,13 +2,13 @@
  "width": 1080,
  "height": 1920,
  "fps": 30,
- "durationInFrames": 1573,
+ "durationInFrames": 1354,
  "accent": "#e8ecf2",
  "items": [
   {
    "kind": "label",
-   "from": 270,
-   "duration": 105,
+   "from": 118,
+   "duration": 76,
    "title": "ENGINE BAY",
    "sub": "SCAN: HOOD OPEN",
    "x": 0.08,
@@ -16,7 +16,7 @@
   },
   {
    "kind": "label",
-   "from": 507,
+   "from": 288,
    "duration": 51,
    "title": "FRONT BUMPER",
    "sub": "REMOVED",
@@ -25,7 +25,7 @@
   },
   {
    "kind": "label",
-   "from": 570,
+   "from": 351,
    "duration": 57,
    "title": "AIR DUCTING",
    "sub": "REMOVED",
@@ -34,7 +34,7 @@
   },
   {
    "kind": "label",
-   "from": 648,
+   "from": 429,
    "duration": 51,
    "title": "CRASH FOAM",
    "sub": "FRONT END - REMOVED",
@@ -43,7 +43,7 @@
   },
   {
    "kind": "label",
-   "from": 732,
+   "from": 513,
    "duration": 50,
    "title": "GRILLES",
    "sub": "UPPER - LOWER",
@@ -52,7 +52,7 @@
   },
   {
    "kind": "label",
-   "from": 818,
+   "from": 599,
    "duration": 50,
    "title": "SIDE MIRRORS",
    "sub": "REMOVED",
@@ -61,7 +61,7 @@
   },
   {
    "kind": "label",
-   "from": 873,
+   "from": 654,
    "duration": 51,
    "title": "BOMEX x KAIDOHOUSE",
    "sub": "BODY KIT",
@@ -70,7 +70,7 @@
   },
   {
    "kind": "label",
-   "from": 930,
+   "from": 711,
    "duration": 51,
    "title": "FRONT BUMPER",
    "sub": "CANARDS - FENDERS - MIRRORS",
@@ -79,7 +79,7 @@
   },
   {
    "kind": "label",
-   "from": 986,
+   "from": 767,
    "duration": 50,
    "title": "SIDE SKIRTS",
    "sub": "REAR FENDERS - SLATS - GAS CAP",
@@ -88,7 +88,7 @@
   },
   {
    "kind": "label",
-   "from": 1042,
+   "from": 823,
    "duration": 52,
    "title": "BBS LM WHEELS",
    "sub": "CHROME - BOMEX CALIPERS",
@@ -97,7 +97,7 @@
   },
   {
    "kind": "label",
-   "from": 1098,
+   "from": 879,
    "duration": 39,
    "title": "REAR WING",
    "sub": "REMOVED",
@@ -106,7 +106,7 @@
   },
   {
    "kind": "label",
-   "from": 1155,
+   "from": 936,
    "duration": 51,
    "title": "DUCKTAIL",
    "sub": "DIFFUSER",
