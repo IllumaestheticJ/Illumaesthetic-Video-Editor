@@ -18,3 +18,4 @@
 {"ts": "2026-11-16T06:47:21Z", "project": "toyota-gr-corolla", "at": null, "category": "scan-look", "note": "the intercooler is installed rotated 180 degrees - flip top to bottom", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-16T06:47:21Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "check if there's a GR Corolla intercooler, not the Yaris one", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-16T07:29:01Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "this is the intercooler (uploaded core_7.6.23.stp - the Jackson Racing intercooler CAD)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T07:31:15Z", "project": "toyota-gr-corolla", "at": null, "category": "text", "note": "Supplied the Jackson Racing logo image (for the JR intercooler shot)", "by": "reviewer", "promoted": false}
