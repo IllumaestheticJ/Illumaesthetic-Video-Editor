@@ -10,9 +10,9 @@
 |---|---|
 | Cartoon | about 28-30 s |
 | Real footage | about 5 s |
-| Teaser card | 3 s |
+| Teaser card (optional, see End cards) | 0 or 3 s |
 | Logo card | 3 s |
-| **Total** | **about 40 s** |
+| **Total** | **about 37-40 s** |
 
 ## What changed from the series draft
 - Opens on a callback to Ep 1's last line ("That depends on the spray.").
@@ -81,11 +81,13 @@ Proposed shots, all IS350 speedrun footage already in Dropbox ([VERIFY] Q6):
 **Order:** spray, then scan, then it vanishes. This is the episode in three shots.
 
 ## End cards
-- **Teaser card:** the pilot's card style, with a framed clip from the IS350 speedrun long-form. The text is adapted for this episode ([VERIFY] Q7). Options:
+Owner rule (2026-11-16): videos do not need to link to a YouTube video. The teaser card is optional and is used only when a matching full video exists and it fits.
+
+- **Default ending:** real footage, then the Illumaesthetic logo card.
+- **Optional teaser card:** a matching full video does exist. The IS350 speedrun long-form shows this exact spray (AESUB Violet, sprayed with a gun) and the coat vanishing, so a teaser card fits if the owner wants one ([VERIFY] Q7). It would use the pilot's card style, with a framed clip from that video and wording adapted for this episode:
   - a) "SCAN IT BEFORE IT VANISHES? / FULL VIDEO ON OUR CHANNEL"
   - b) "HOW FAST CAN WE SCAN A WHOLE CAR? / FULL VIDEO ON OUR CHANNEL"
   - c) the owner's own wording.
-- **Logo card:** the Illumaesthetic logo card.
 
 ## Music
 - A new curious, inquisitive generated bed (ElevenLabs Music v2.5 via Higgsfield), with a lift on the hand-off at line 12.
@@ -111,5 +113,5 @@ Proposed shots, all IS350 speedrun footage already in Dropbox ([VERIFY] Q6):
 6. **Real footage:**
    - Is the R1-R3 plan OK?
    - Do you have a shot of the car fully clean afterwards (no wiping)? If so, it could replace R3.
-7. **Teaser text:** a, b or your own?
+7. **Ending:** the logo card only (default), or add a teaser card for the IS350 speedrun long-form first? If you want the teaser card, which wording: a, b or your own?
 8. **"It costs more":** is it fine as a relative statement with no prices?
