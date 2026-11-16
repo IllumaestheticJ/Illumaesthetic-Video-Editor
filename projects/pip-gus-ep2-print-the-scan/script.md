@@ -46,7 +46,8 @@ Changes from the series draft (and why):
 
 ## Part C: logo card (the ending)
 Illumaesthetic logo (about 720 px wide on 1080) + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**. Pip's line 11 sets this up, so the
-CTA is the episode's payoff.
+CTA is the episode's payoff. Owner rule (2026-11-16): a CTA is optional and used only when relevant. It is relevant here because the
+episode is about buying and using a scan. If the owner prefers, the logo card stands alone and line 11 still works without it.
 
 No "FULL VIDEO ON OUR CHANNEL" teaser card. Owner rule (2026-11-16, lessons.md): videos don't need to link to a YouTube video, so
 the card is optional and used only when a matching full video exists. Ep 2's natural CTA is buying a scan. If the owner names a
@@ -63,5 +64,5 @@ matching full video, the pilot's card can go back in before the logo (+3 s).
    customer's? (Default if there's no part to show: the IS350 1:1 real-to-scan cut that's already rendered, without the part step.)
 2. **Line 8:** is "you design the part on it" the right message? That means customers design their own parts from the scan
    they buy. Or should it say Illumaesthetic designs parts too?
-3. **Ending:** the default is the logo card with SCANS AVAILABLE AT ILLUMAESTHETIC.COM and no teaser card. Is there a full
-   video that matches this episode and is worth a teaser card?
+3. **Ending:** the default is the logo card with SCANS AVAILABLE AT ILLUMAESTHETIC.COM (relevant, since the episode is about
+   scans) and no teaser card. Keep the line, or use the plain logo card? And is there a matching full video worth a teaser card?
