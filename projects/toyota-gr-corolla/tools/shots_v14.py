@@ -121,8 +121,8 @@ SHOTS = {
                  "cam": [cam(0, [2.3, 5.1, 2.15], [0, 1.35, 1.0], 28), cam(E, [2.55, 5.5, 2.3], [0, 1.3, 1.0], 28)]},
     # factory side covers come off (Epsilon guide step 2), WRC wing comes down and seats on its registered pose
     "r4_wing": {"base": [CAR9], "parts": [
-        part(COVL, [k(0), k(0.1), k(0.5, [0.25, 0.2, 0.15], ease="out"), k(1.0, [0.9, 0.7, 1.8], ease="in2")]),
-        part(COVR, [k(0), k(0.1), k(0.5, [-0.25, 0.2, 0.15], ease="out"), k(1.0, [-0.9, 0.7, 1.8], ease="in2")]),
+        part(COVL, [k(0), k(0.1), k(0.5, [0.25, 0.2, 0.15], ease="out"), k(1.25, [0.6, 1.3, 4.8], ease="in2")]),
+        part(COVR, [k(0), k(0.1), k(0.5, [-0.25, 0.2, 0.15], ease="out"), k(1.25, [-0.6, 1.3, 4.8], ease="in2")]),
         part(WING, [k(0, [0, 0.35, 1.4]), k(0.7, [0, 0.35, 1.4]), k(1.45, Z3, ease="out")])],
         "cam": [cam(0, [2.15, 4.4, 2.05], [0, 1.55, 1.15], 30), cam(E, [1.95, 4.15, 1.95], [0, 1.55, 1.15], 30)]},
     # finale: full 360 of the assembled car (2 bars, constant speed); each V2 part rises into place as the camera passes
