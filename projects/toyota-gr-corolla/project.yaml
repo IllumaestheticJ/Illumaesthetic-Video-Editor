@@ -1,3 +1,6 @@
+# Toyota GR Corolla v12 = teardown, then the car reassembles (user): front (hood, ducts, beams, bumper), rear bumper +
+# diffuser, hatch, factory side covers off + Epsilon Aero WRC wing on (re-registered to the CMM endplate scans), then a full
+# 360 of the assembled car while the Epsilon Aero V2 kit (lip, side skirts, rear spats) installs; end card. 18 bars.
 # Toyota GR Corolla v11 = v10 + the Epsilon Aero WRC wing installing on the clean car (w1, one bar; scan WRC V3 registered
 # to the engineering CMM STEP), clean car keeps it; end card with a contact line (user). 14 bars, logo on downbeat 14.
 # Toyota GR Corolla v10 = v9 + a quick 360 of the Jackson Racing intercooler before it installs, part flipped top-to-bottom
@@ -13,7 +16,7 @@
 # 10th downbeat, where the drums thin out. v5 = project_v5.yaml.
 project: toyota-gr-corolla
 format: reel-9x16
-output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v11.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v12.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/music/grc_goingupnorth.m4a   # user-supplied, not in git
@@ -21,7 +24,7 @@ music:
   fade_out: 1.0
   gain: 0.88   # true peak was -0.6 dBFS at unity; skill: below -1 dBFS, turn down never up
 
-beats: [2.333, 4.667, 7.0, 9.333, 11.667, 14.0, 16.333, 18.667, 21.0, 23.333, 25.667, 28.0, 30.333, 32.667]
+beats: [2.333, 4.667, 7.000, 9.333, 11.666, 14.000, 16.333, 18.666, 21.000, 23.333, 25.666, 28.000, 30.333, 32.666, 34.999, 37.333, 39.666, 41.999]
 
 timeline:
   - {id: a1_whole, src: /home/user/media/work/grc/renders8/final/a1_whole, src_fps: 15, interpolate: true, dur: 2.3, section: whole, focus: "whole car push, song opening"}
@@ -48,11 +51,17 @@ timeline:
   - transition: {type: cut, note: "downbeat 11, same camera, state swap"}
   - {id: c2_crash, src: /home/user/media/work/grc/renders8/final/c2_crash, src_fps: 15, interpolate: true, dur: 2.3333, section: rear, focus: "crash beam removed"}
   - transition: {type: cut, note: "downbeat 12"}
-  - {id: w1_wing, src: /home/user/media/work/grc/renders13/final/w1_wing, src_fps: 30, dur: 2.3333, section: rear, focus: "Epsilon Aero WRC wing comes down onto the hatch and seats"}
+  - {id: r1_front, src: /home/user/media/work/grc/renders14/final/r1_front, src_fps: 30, dur: 2.3333, section: reassembly, focus: "front back together: hood, ducts, beams, bumper"}
   - transition: {type: cut, note: "downbeat 13"}
-  - {id: d1_clean, src: /home/user/media/work/grc/renders13/final/d1_clean, src_fps: 15, interpolate: true, dur: 2.3333, section: whole, focus: "clean car with the WRC wing", hold: true}
-  - transition: {type: dip, duration: 0.5, note: "downbeat 14 -> end card"}
+  - {id: r2_rear, src: /home/user/media/work/grc/renders14/final/r2_rear, src_fps: 30, dur: 2.3333, section: reassembly, focus: "crash beam back, rear bumper + diffuser home"}
+  - transition: {type: cut, note: "downbeat 14"}
+  - {id: r3_hatch, src: /home/user/media/work/grc/renders14/final/r3_hatch, src_fps: 30, dur: 2.3333, section: reassembly, focus: "hatch back on and closed"}
+  - transition: {type: cut, note: "downbeat 15"}
+  - {id: r4_wing, src: /home/user/media/work/grc/renders14/final/r4_wing, src_fps: 30, dur: 2.3333, section: reassembly, focus: "factory side covers off, Epsilon Aero WRC wing on"}
+  - transition: {type: cut, note: "downbeat 16"}
+  - {id: f1_360, src: /home/user/media/work/grc/renders14/final/f1_360, src_fps: 30, dur: 4.6667, section: finale, focus: "full 360 of the assembled car while the V2 lip, skirts and spats install", hold: true}
+  - transition: {type: dip, duration: 0.5, note: "downbeat 18 -> end card"}
   - {id: logo, src: /home/user/media/work/grc/out/endcard_contact.mp4, dur: 3.0}   # tools/endcard.py: logo + contact line
 
 overlays:
-  - {src: /home/user/media/work/grc/out/labels_v11.mov, start: 0}   # tools/labels.py labels.json
+  - {src: /home/user/media/work/grc/out/labels_v12.mov, start: 0}   # tools/labels.py labels.json

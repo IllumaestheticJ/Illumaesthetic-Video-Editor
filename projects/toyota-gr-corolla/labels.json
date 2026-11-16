@@ -1,6 +1,6 @@
 {
- "note": "v11: EPSILON AERO WRC WING (user's product name) on w1 after it seats (840-910, top band). v10b: user's Jackson Racing logo (unaltered, transparent) above the JR label on the 360 shot. v10: JR label on the 360 shot (350-420); +70 after. v9: v8 + 70 frames after the intercooler swap. v7: v6 + 70 frames after the hood shot. v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
- "frames": 1070,
+ "note": "v12: reassembly 840-1120, WRC wing label after it seats (r4), V2 lip kit label on the 360 after the lip seats. v11: EPSILON AERO WRC WING (user's product name) on w1 after it seats (840-910, top band). v10b: user's Jackson Racing logo (unaltered, transparent) above the JR label on the 360 shot. v10: JR label on the 360 shot (350-420); +70 after. v9: v8 + 70 frames after the intercooler swap. v7: v6 + 70 frames after the hood shot. v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
+ "frames": 1350,
  "fps": 30,
  "items": [
   {
@@ -60,8 +60,14 @@
   },
   {
    "text": "EPSILON AERO WRC WING",
-   "in": 882,
-   "out": 908,
+   "in": 1095,
+   "out": 1118,
+   "y": 220
+  },
+  {
+   "text": "EPSILON AERO V2 LIP KIT",
+   "in": 1153,
+   "out": 1252,
    "y": 220
   }
  ]
