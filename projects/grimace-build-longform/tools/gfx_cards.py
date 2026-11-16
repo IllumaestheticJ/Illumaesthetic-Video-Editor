@@ -31,7 +31,7 @@ def bg(c, path, dim=1.0, zoom=1.0, shift=0):
 
 
 def seq(name):
-    f = sorted(glob.glob(f'{PM}/{name}/*.png')); return f if len(f) > 8 else [f'{PM}/still_all.png']
+    f = sorted(glob.glob(f'{PM}/{name}/*.png')); return f if len(f) >= 96 else [f'{PM}/still_all.png']      # only use an orbit once it has fully rendered
 
 
 def title(c, u, t):
