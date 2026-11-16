@@ -37,7 +37,8 @@ Captions: word by word, Fjalla One, Pip sage #619f73, Gus #ecefec, dark plate. C
 
 ## End card
 - Logo card only (owner note 2026-11-16: the "FULL VIDEO ON OUR CHANNEL" teaser is optional; this episode has no full video
-  about spraying, and its open question points at Ep 9 instead). **[owner question 5]** call-to-action line under the logo.
+  about spraying, and its open question points at Ep 9 instead). No call to action: the logo stands alone (owner note 2026-11-16:
+  a CTA such as "SCANS AVAILABLE" only goes in when relevant; Ep 1 isn't about a scan for sale).
 
 ## Changes from the v0.2 draft (and why)
 - Line 1 asks while the spraying is happening, so the hook is visual in frame one.
@@ -51,4 +52,3 @@ Captions: word by word, Fjalla One, Pip sage #619f73, Gus #ecefec, dark plate. C
 2. Spray: what do you use on cars (vanishing spray, or a powder/developer you wipe off)? Is "Depends on the spray" OK as the ending?
 3. Do you coat the whole car, or only glass, chrome and black areas?
 4. Real footage: is the IS350 powder spray + 1:1 cut fine, or do you have a black car / window spray clip?
-5. End card: logo only, or logo + a line (e.g. "SCANS AVAILABLE AT ILLUMAESTHETIC.COM")? No teaser card unless you want one.
