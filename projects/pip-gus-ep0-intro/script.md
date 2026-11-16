@@ -21,7 +21,7 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 | 10 | GUS | [dry, slightly amused] "…There's a lot to cover."  | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
 | 11 | PIP | [curious, to camera] "What questions do you have?" | Pip leans into the lens, 1.15x curious eyes, still a bit white; Gus waits beside. Cut on the downbeat to the logo card. |
 
-**Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). Add it only if the owner wants one (Q2).
+**Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). The spoken "What questions do you have?" is the ending; open: repeat it as card text or not.
 
 ## What changed from the series draft (v0.2)
 - Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two CTAs; both removed by default (owner: no CTA required). Line 10 is a dry Gus beat. Owner 2026-11-16: the video ends with Pip asking "What questions do you have?" (line 11).
