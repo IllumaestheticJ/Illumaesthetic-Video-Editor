@@ -776,6 +776,46 @@ def build_char(name, S):
     return ch
 
 
+TAG_DIR = arg("--tagdir", "/home/user/media/work/scan-tedium/tex")   # nametag_GUS.png / nametag_PIP.png (tools/nametag_tex.py)
+
+
+def tex_emit(path):
+    """Flat (unlit) image material: the badge print stays exactly as authored in the cel look."""
+    key = f"img_{path}"
+    if key in _MATS:
+        return _MATS[key]
+    m, nt, out = _new_mat(f"img_{os.path.basename(path)}")
+    tx = nt.nodes.new("ShaderNodeTexImage")
+    tx.image = bpy.data.images.load(path)
+    tx.interpolation = "Cubic"
+    em = nt.nodes.new("ShaderNodeEmission")
+    nt.links.new(tx.outputs["Color"], em.inputs["Color"])
+    nt.links.new(em.outputs[0], out.inputs["Surface"])
+    _MATS[key] = m
+    return m
+
+
+def nametag(name, ch, S, label, x, z, w, R, tilt=0.0):
+    """Small Illumaesthetic name badge pinned on the chest (wearer's left = local +x), flat on the clothing tube of radius R,
+    a child of the torso so it squashes with the body. Card: near-white with outline; face: the printed texture."""
+    h = w / 1.6
+    ang = math.degrees(math.asin(x / R))
+    y = -math.sqrt(R * R - x * x)
+    piv = empty(f"{name}_tagp", ch.torso, (x, y - 0.002, z), (0, tilt, ang))
+    box(f"{name}_tagcard", (w, 0.007, h), (0, -0.0035, 0), mat("white"), piv, 0.003, S["ol"] * 0.7)
+    path = os.path.join(TAG_DIR, f"nametag_{label}.png")
+    if os.path.exists(path):
+        bm = bmesh.new()
+        fw, fh, fy = w * 0.94, h * 0.92, -0.0075
+        vs = [bm.verts.new(c) for c in ((-fw / 2, fy, -fh / 2), (fw / 2, fy, -fh / 2), (fw / 2, fy, fh / 2), (-fw / 2, fy, fh / 2))]
+        f = bm.faces.new(vs)
+        uv = bm.loops.layers.uv.new("UVMap")
+        for lp, co in zip(f.loops, ((0, 0), (1, 0), (1, 1), (0, 1))):
+            lp[uv].uv = co
+        new_obj(f"{name}_tagface", bm, [tex_emit(path)], piv)
+    return piv
+
+
 def dress_gus(name, ch, S):
     """Sleeveless charcoal work vest: a straight tube hugging the pill, collar, two snap pockets, zip. No shoulders."""
     r = S["body_r"]
@@ -797,6 +837,8 @@ def dress_gus(name, ch, S):
         box(f"{name}_lpocket{sx}", (0.13, 0.025, 0.1), (sx * 0.11, fy + 0.004, S["body_h"] * 0.48), vm, ch.torso, 0.012,
             S["ol"] * 0.5)
     box(f"{name}_zip", (0.014, 0.012, S["body_h"] * 0.47), (0, fy - 0.004, S["body_h"] * 0.62), mat("#c8cac7"), ch.torso)
+    # owner: small Illumaesthetic name badge, wearer's left chest between the pocket flap and the collar
+    nametag(name, ch, S, "GUS", 0.106, S["body_h"] * 0.806, 0.11, r + 0.018 + 0.002)
 
 
 def hat_gus(name, ch, S):
@@ -826,6 +868,7 @@ def dress_pip(name, ch, S):
         cyl(f"{name}_string{sx}", 0.008, 0.13, (sx * 0.04, fy - 0.006, bh * 0.84 - 0.065), mat("string"), ch.torso, seg=10)
         blob(f"{name}_tip{sx}", (0.014, 0.014, 0.018), (sx * 0.04, fy - 0.008, bh * 0.84 - 0.135), mat("string"), ch.torso)
     box(f"{name}_pouch", (0.2, 0.022, 0.085), (0, fy + 0.002, bh * 0.36), sm, ch.torso, 0.02, S["ol"] * 0.5)
+    nametag(name, ch, S, "PIP", 0.1, bh * 0.71, 0.085, r + 0.02 + 0.002, tilt=4.0)   # beside the drawstrings, slight tilt
 
 
 def hat_pip(name, ch, S):
