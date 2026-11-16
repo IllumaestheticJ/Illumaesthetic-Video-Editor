@@ -1325,3 +1325,9 @@ lands here automatically. Agents must read this whole file before editing.
   reading three silhouettes, seat it on the stock part's envelope, red fit-check in the bay. CAD cores are smooth slabs:
   model tubes + corrugated fins on the core faces (tools/icfins.py). Swap = same camera as the removal's end, old part
   drops out, new one slides in and seats, label after it seats. When the user names a brand for a part, label it.
+- (GR Corolla v10, user: "do a quick 360 of the entire part then install it" / "installed 180 degrees rotated wrong
+  (flip top to bottom)") A hero aftermarket part gets one bar alone: a linear 360 orbit centred on its bbox (radius
+  ~1.5x its length, slightly above), then the install on the next downbeat. Before seating CAD, check which way up it
+  goes against the stock part's inlet/outlet positions, not just its envelope; fix by 180 deg about the fore-aft axis
+  through its centre. Check the Drive for the exact car's part before reusing a sister car's (GR Corolla: none; only
+  a CSF oil cooler).
