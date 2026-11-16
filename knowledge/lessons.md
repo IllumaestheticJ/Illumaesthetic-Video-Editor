@@ -1331,3 +1331,8 @@ lands here automatically. Agents must read this whole file before editing.
   goes against the stock part's inlet/outlet positions, not just its envelope; fix by 180 deg about the fore-aft axis
   through its centre. Check the Drive for the exact car's part before reusing a sister car's (GR Corolla: none; only
   a CSF oil cooler).
+- (GR Corolla v10) A part CAD the user supplies may already be in the scan's frame (engineering designs on the scan):
+  print each solid's bbox first; if it lands on the stock part, use it untransformed - that is the designed fit and
+  orientation. Tessellate STEP with OpenCascade (`pip install cadquery-ocp`, tools/step2stl.py) - gmsh can hang for
+  10+ min on a single BSpline surface. CAD cores can be yawed/rolled slightly: fit each core face plane before
+  modelling fins (tools/icfins2.py).

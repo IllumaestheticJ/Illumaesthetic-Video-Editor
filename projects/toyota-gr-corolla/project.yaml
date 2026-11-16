@@ -32,11 +32,11 @@ timeline:
   - transition: {type: cut, note: "downbeat 4"}
   - {id: b4_ic, src: /home/user/media/work/grc/renders6/final/b4_ic, src_fps: 30, dur: 2.3333, section: front, focus: "intercooler in front of the radiator"}
   - transition: {type: cut, note: "downbeat 5"}
-  - {id: j1_jr360, src: /home/user/media/work/grc/renders11/final/j1_jr360, src_fps: 30, dur: 2.3333, section: front, focus: "Jackson Racing intercooler alone, quick 360"}
+  - {id: j1_jr360, src: /home/user/media/work/grc/renders12/final/j1_jr360, src_fps: 30, dur: 2.3333, section: front, focus: "Jackson Racing intercooler alone, quick 360"}
   - transition: {type: cut, note: "downbeat 6"}
-  - {id: b5_jric, src: /home/user/media/work/grc/renders11/final/b5_jric, src_fps: 30, dur: 2.3333, section: front, focus: "stock intercooler out, CSF (GR Yaris/Corolla G16E) intercooler in"}
+  - {id: b5_jric, src: /home/user/media/work/grc/renders12/final/b5_jric, src_fps: 30, dur: 2.3333, section: front, focus: "stock intercooler out, CSF (GR Yaris/Corolla G16E) intercooler in"}
   - transition: {type: cut, note: "downbeat 7"}
-  - {id: k1_hood, src: /home/user/media/work/grc/renders11/final/k1_hood, src_fps: 30, dur: 2.3333, section: front, focus: "hood hinges open over the engine bay, then lifts off"}
+  - {id: k1_hood, src: /home/user/media/work/grc/renders12/final/k1_hood, src_fps: 30, dur: 2.3333, section: front, focus: "hood hinges open over the engine bay, then lifts off"}
   - transition: {type: cut, note: "downbeat 8"}
   - {id: h1_hatch, src: /home/user/media/work/grc/renders9/final/h1_hatch, src_fps: 30, dur: 2.3333, section: rear, focus: "hatch hinges open over the scanned cargo area"}
   - transition: {type: cut, note: "downbeat 9, same camera"}
