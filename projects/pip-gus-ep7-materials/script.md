@@ -59,7 +59,7 @@ Owner (2026-11-16): "we also use different materials depending on what it's for 
 - No text over the real footage; captions are on the cartoon only.
 
 ## Owner questions
-Answered 2026-11-16: Q1 (PETG inside - not black; ASA outside; carbon-fiber nylon brackets), Q2 (no TPU), Q3 (enclosure line OK), Q5 (logo card alone).
+Answered 2026-11-16: Q4a (Epsilon Plus parts may be shown), no full video exists (no teaser card), Q1 (PETG inside - not black; ASA outside; carbon-fiber nylon brackets), Q2 (no TPU), Q3 (enclosure line OK), Q5 (logo card alone).
 Still open:
 6. Line 12b: keep it general ("A mold? Different plastic."), or name what you print molds in? Any other use besides parts and molds worth naming?
-4. Real footage: which printed parts on a real car may be shown (Dropbox path)? Epsilon Plus parts OK? Is there a scan of that car/part for a 1:1 cut?
+4. Real footage: Epsilon Plus parts are OK. Which clip/part (candidates in Dropbox `/1. Epsilon Plus Videos/1. Video dumps/`), and which of those parts are 3D printed?
