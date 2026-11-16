@@ -5,7 +5,7 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 
 **Target:** about 32-35 s at 9:16 (cartoon about 29-31 s + logo card about 3 s). 11 lines, about 72 spoken words.
 **Ends on:** the logo card. No teaser card (this episode introduces the series).
-**No voices, music or renders until the owner approves this script and answers Q1/Q2.**
+**No voices, music or renders until the owner approves this script and answers Q1.**
 
 | # | Who | Line (tag) | Picture |
 |---|---|---|---|
@@ -18,13 +18,13 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 | 7 | PIP | [excited] "And we'll answer all the questions you keep asking us!" | Music lift; a pile of cartoon "?" bubbles drops in around them. |
 | 8 | GUS | [dry, one word per beat] "Scanning. Printing. Materials. Glue." | One cartoon flash per word, cut on the beat: triangle mesh, sliced bumper, sun-drooping part, glue bottle. |
 | 9 | PIP | [giddy] "And why we spray everything white!" | Gus's powder puff: Pip is puffed white, blinks (lines → round). Teases Ep 1. |
-| 10 | GUS | [dry, slightly amused] "…There's a lot to cover." (**Q2**: optional CTA, default none) | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
-| 11 | PIP | [excited] "See you next time!" | ^ ^ eyes, still a bit white. Cut on the downbeat to the logo card. |
+| 10 | GUS | [dry, slightly amused] "…There's a lot to cover."  | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
+| 11 | PIP | [curious, to camera] "What questions do you have?" | Pip leans into the lens, 1.15x curious eyes, still a bit white; Gus waits beside. Cut on the downbeat to the logo card. |
 
 **Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). Add it only if the owner wants one (Q2).
 
 ## What changed from the series draft (v0.2)
-- Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two CTAs; both removed by default (owner: no CTA required). Line 10 is a dry Gus beat, line 11 a sign-off.
+- Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two CTAs; both removed by default (owner: no CTA required). Line 10 is a dry Gus beat. Owner 2026-11-16: the video ends with Pip asking "What questions do you have?" (line 11).
 - Line 5 now carries real 1:1 IRL → scan cuts inside the phone (series signature, hard cuts, no dissolve; no captions over the phone screen). Owner 2026-11-16: no IS350 (stop reusing it), so three other cars from approved reels.
 - Line 7 now says they'll answer the common questions Illumaesthetic gets (owner 2026-11-16); line 8 lists them.
 - Montage reduced to four flashes, one per spoken word, so picture and words land together (powder-puff flash dropped: line 9 covers spraying).
@@ -38,4 +38,4 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 
 ## Open owner questions
 - **Q1** - the line describing what Illumaesthetic does (line 6).
-- **Q2** - optional: any CTA at all? Default is none (logo card alone). Options if wanted: "Follow" spoken in line 10, or SCANS AVAILABLE AT ILLUMAESTHETIC.COM on the card.
+- **Q2** - resolved: ending is "What questions do you have?" (spoken by Pip). Open detail: also show it as text on the logo card, or logo alone?
