@@ -51,8 +51,10 @@ The 6,322 kept Camera Uploads files (~77 GB) were moved here. Look here first fo
   Docs & Screenshots. Car identity of CAD screenshots was NOT determined - CLIP can't tell cars apart in CAD.
 - New phone uploads still land in `/Camera Uploads`. A backfill of 4,575 older files (Oct 2025-Apr 2026) was
   sorted the same way on 2026-11-15 (session folders added: Track weekend - yellow car, Teal Bronco drive,
-  Mountain drive, Town drive, Off-road truck build, Sim racing screens). The phone was still backfilling
-  Aug-Oct 2025 files after that - those are not sorted yet.
+  Mountain drive, Town drive, Off-road truck build, Sim racing screens). A second backfill of 5,962 files
+  (May-Oct 2025) was sorted 2026-11-16 (new sessions: Printer maintenance, Carbon wing parts, Desert film
+  shoot - red car, Small parts fitting, Night shoot, Security cam - parked car, Track day - yellow car).
+  The phone was still backfilling Feb-Apr 2025 after that - not sorted yet. Same-name clashes get " (2)".
 - Review rule used: personal travel/food/golf/arcade -> `_Cleanup Review`; business screenshots (invoices,
   payments, shipping, scan listings) stay in `Photos/Docs & Screenshots` because the user bulk-deletes review.
 - Dropbox `move` quirks: batches over ~150 hit `too_many_write_operations`; send <=100 with ~2 min gaps.
