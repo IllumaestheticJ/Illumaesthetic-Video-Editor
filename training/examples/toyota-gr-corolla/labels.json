@@ -1,6 +1,6 @@
 {
- "note": "v7: v6 + 70 frames after the hood shot. v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
- "frames": 860,
+ "note": "v9: v8 + 70 frames after the intercooler swap. v7: v6 + 70 frames after the hood shot. v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
+ "frames": 930,
  "fps": 30,
  "items": [
   {
@@ -28,21 +28,27 @@
    "y": 1380
   },
   {
+   "text": "JACKSON RACING INTERCOOLER",
+   "in": 384,
+   "out": 418,
+   "y": 1380
+  },
+  {
    "text": "TRUNK OPEN",
-   "in": 455,
-   "out": 488,
+   "in": 525,
+   "out": 558,
    "y": 1380
   },
   {
    "text": "REAR BUMPER + DIFFUSER",
-   "in": 575,
-   "out": 616,
+   "in": 645,
+   "out": 686,
    "y": 1380
   },
   {
    "text": "CRASH BEAM REMOVED",
-   "in": 634,
-   "out": 698,
+   "in": 704,
+   "out": 768,
    "y": 220
   }
  ]

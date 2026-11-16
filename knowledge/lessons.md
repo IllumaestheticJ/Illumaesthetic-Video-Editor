@@ -1319,3 +1319,9 @@ lands here automatically. Agents must read this whole file before editing.
   near-orthographic render along the panel's normal (camera = panel centre + 26 m * normal, focal 200 mm; tools/hoodtrace.py
   saves the camera basis so pixels map back to faces). The v1 seam cut was a box: it took the cowl/wipers and left the
   hood's nose on the car. Re-hinge at the traced rear edge.
+- (GR Corolla v9, user: "add in the jackson racing intercooler when the stock intercooler comes off" / "add fins in" /
+  "include the brand name") Aftermarket parts may exist only as CAD in the engineering Drive's Consulting Files (here
+  CSF/GR Yaris Intercooler STEP - same G16E as the GR Corolla). STEP -> mesh with gmsh (needs libglu1-mesa); map axes by
+  reading three silhouettes, seat it on the stock part's envelope, red fit-check in the bay. CAD cores are smooth slabs:
+  model tubes + corrugated fins on the core faces (tools/icfins.py). Swap = same camera as the removal's end, old part
+  drops out, new one slides in and seats, label after it seats. When the user names a brand for a part, label it.

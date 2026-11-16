@@ -1,0 +1,49 @@
+{
+ "note": "v7: v6 + 70 frames after the hood shot. v6 short-form labels; reel frames at 30 fps; y = text top px (top band 150-330, low band 1300-1500). Text from scan file names only. Windows start after moving parts leave the band (v4/v5 checks, shifted to the new cut table).",
+ "frames": 860,
+ "fps": 30,
+ "items": [
+  {
+   "text": "FRONT BUMPER",
+   "in": 88,
+   "out": 138,
+   "y": 1380
+  },
+  {
+   "text": "BUMPER BEAMS",
+   "in": 185,
+   "out": 208,
+   "y": 220
+  },
+  {
+   "text": "RADIATOR DUCTS",
+   "in": 252,
+   "out": 278,
+   "y": 1380
+  },
+  {
+   "text": "INTERCOOLER",
+   "in": 292,
+   "out": 348,
+   "y": 1380
+  },
+  {
+   "text": "TRUNK OPEN",
+   "in": 455,
+   "out": 488,
+   "y": 1380
+  },
+  {
+   "text": "REAR BUMPER + DIFFUSER",
+   "in": 575,
+   "out": 616,
+   "y": 1380
+  },
+  {
+   "text": "CRASH BEAM REMOVED",
+   "in": 634,
+   "out": 698,
+   "y": 220
+  }
+ ]
+}

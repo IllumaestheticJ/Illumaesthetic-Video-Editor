@@ -10,3 +10,7 @@
 {"ts": "2026-11-15T11:19:24Z", "project": "toyota-gr-corolla", "at": null, "category": "story", "note": "we don't show the hood opening - add it", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-15T22:07:46Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "Complete Car 1/2 is the facelift bumper - don't use it", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-16T02:44:02Z", "project": "toyota-gr-corolla", "at": null, "category": "scan", "note": "the hood is cut wrong", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T03:57:32Z", "project": "toyota-gr-corolla", "at": null, "category": "story", "note": "add in the jackson racing intercooler when the stock intercooler comes off", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T05:14:52Z", "project": "toyota-gr-corolla", "at": null, "category": "story", "note": "the JR intercooler STEP file is under CSF racing or Jackson racing on the engineering drive", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T05:31:08Z", "project": "toyota-gr-corolla", "at": null, "category": "text", "note": "include the brand name on the new intercooler", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-16T05:33:55Z", "project": "toyota-gr-corolla", "at": null, "category": "scan-look", "note": "add fins to the intercooler (CAD core is smooth)", "by": "reviewer", "promoted": false}
