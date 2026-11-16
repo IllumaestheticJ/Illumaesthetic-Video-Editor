@@ -1,6 +1,6 @@
 # Pip & Gus Ep 2: "Can't you just 3D print the scan?" (script v1, for owner approval)
 
-9:16, 1080x1920, 30 fps, **about 36-38 s**. Concept approved by the owner. This version is tightened from
+9:16, 1080x1920, 30 fps, **about 34-35 s**. Concept approved by the owner. This version is tightened from
 `projects/pip-gus-series/scripts.md` (Ep 2). Nothing gets voiced or rendered until the owner approves it.
 
 **Question the episode answers:** "I bought the scan, so why can't I just print a part from it?"
@@ -12,8 +12,7 @@ the part on it, and the scan is what makes the part fit.
 |---|---|---|
 | A. Cartoon | about 0-26 s | 12 lines, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
 | B. Real footage | about 26-31 s | phone hand-off, then real car, then a **hard 1:1 cut on a beat** to its scan, then the designed part on the scan. No text. |
-| C. Teaser card | about 31-34 s | framed clip + episode-specific text (see Q3) |
-| D. Logo card | about 34-37 s | Illumaesthetic logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** |
+| C. Logo card | about 31-34 s | Illumaesthetic logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** (no teaser card; see below) |
 
 ## Part A: cartoon
 | # | Who (delivery tag) | Line | Picture |
@@ -45,13 +44,13 @@ Changes from the series draft (and why):
 2. **Hard 1:1 cut on a beat** to the same car's scan (house silver look). Never a dissolve.
 3. The designed part appears on the scan (a fade-in or slide-on of the CAD part over the scan, in the scan look). [VERIFY Q1]
 
-## Part C: teaser card (see Q3)
-Same card as the pilot (Inter Display, #0b0c0b card, sage #619f73 bar, framed clip with a 5 px sage border), with text adapted
-to the episode. Proposed: **HOW DOES A PART FIT A CAR THIS WELL? / FULL VIDEO ON OUR CHANNEL** over a clip from the matching
-long-form video.
+## Part C: logo card (the ending)
+Illumaesthetic logo (about 720 px wide on 1080) + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**. Pip's line 11 sets this up, so the
+CTA is the episode's payoff.
 
-## Part D: logo card
-Illumaesthetic logo (about 720 px wide on 1080) + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**.
+No "FULL VIDEO ON OUR CHANNEL" teaser card. Owner rule (2026-11-16, lessons.md): videos don't need to link to a YouTube video, so
+the card is optional and used only when a matching full video exists. Ep 2's natural CTA is buying a scan. If the owner names a
+matching full video, the pilot's card can go back in before the logo (+3 s).
 
 ## Voices, music
 - Voices: one Higgsfield `elevenlabs_v4` dialogue call. Pip = Kiki (`2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7`), Gus = Harrison
@@ -64,5 +63,5 @@ Illumaesthetic logo (about 720 px wide on 1080) + **SCANS AVAILABLE AT ILLUMAEST
    customer's? (Default if there's no part to show: the IS350 1:1 real-to-scan cut that's already rendered, without the part step.)
 2. **Line 8:** is "you design the part on it" the right message? That means customers design their own parts from the scan
    they buy. Or should it say Illumaesthetic designs parts too?
-3. **Teaser card:** which full video should the card point to, and is the text "HOW DOES A PART FIT A CAR THIS WELL? / FULL
-   VIDEO ON OUR CHANNEL" OK? Or skip the teaser card and go straight to the logo card with the scan CTA?
+3. **Ending:** the default is the logo card with SCANS AVAILABLE AT ILLUMAESTHETIC.COM and no teaser card. Is there a full
+   video that matches this episode and is worth a teaser card?
