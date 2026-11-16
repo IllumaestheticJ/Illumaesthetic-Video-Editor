@@ -29,7 +29,7 @@ The visual device is the "glue tier list." Gus tests each method on the same two
 |---|---|---|---|
 | 1 | PIP | "It printed in pieces. Now how do we stick them?" | Pip holds up two printed halves of a part. |
 | 2 | GUS | "Superglue. Fast. Perfect for mold masters." | One dab, and it grabs instantly. The joined master drops into a cartoon mold box. Pip: ^ ^. |
-| 3 | PIP | "Strong enough to hang on?" | Pip hops onto a second glued part… |
+| 3 | PIP | "Strong enough to hang on?" | Pip hops up onto a second glued part… |
 | 4 | GUS | "…Not that." | …and it snaps. The pieces go onto the failed-print shelf. Board: squint. |
 | 5 | GUS | "Epoxy. Fills gaps." | Gus mixes two blobs and fills a gappy seam. |
 | 6 | PIP | "Is it done yet?" | The wall clock hands spin. Pip is slumped on a stool. |
@@ -42,6 +42,8 @@ The visual device is the "glue tier list." Gus tests each method on the same two
 | 13 | PIP | "So which one's best?" | |
 | 14 | GUS | "Depends what it's for." | Gus nods at the board. Each method sits next to its use icon. |
 | 15 | PIP | "Wait. Show me you guys doing it!" | Pip whips out his phone, and the real timelapse plays on its screen. The camera pushes in until the screen fills the frame. Hard cut on the beat. |
+
+**Character proportions (owner pick, option 3):** no gag depends on tall bodies or reaching hands. Wherever Pip "hangs off" a joint, he hops up and sits or stands on the part.
 
 **Timing estimate:** about 30-32 s of dialogue at the pilot's pace. Lines 3-4 or 9 can be cut to bring it under 30 s. [VERIFY B]
 
