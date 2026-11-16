@@ -162,28 +162,43 @@ The argument is built as a running tally of hidden costs. Each line adds an icon
 
 ---
 
-## Ep 4. "What does Seamforged do?" [NEEDS OWNER BRIEF]
-**Question:** what is Seamforged, and why would I use it?
+## Ep 4. "What does SeamForge do?" (brief from the SeamForge repo README, v1.46.0)
+**Question:** my part is too big for my printer. Now what?
 
-**What I know:** the only material is the owner's screen recordings in Dropbox: `/2. Illumaesthetic Videos/1. Video dumps/Seamforged/Seamforged V1/` (2026-08-23, 3 clips).
-- They show large car parts (a bumper and body panels) being cut by hand into many printable pieces in a slicer, then laid out across many build plates.
-- I couldn't find the app online, so I have no feature list.
-- **[VERIFY] I need the owner's one-paragraph description:** what Seamforged does, its 2-3 key features, who it's for, where to get it, and whether it's free or paid. The draft below assumes it automates splitting a big part into printable pieces with seams or joints that line up. If that's wrong, the beats change.
+**What SeamForge is** (from `IllumaestheticJ/SeamForge` README; nothing invented):
+- A standalone desktop app for Windows, macOS and Linux. It runs fully locally; nothing is uploaded.
+- It cuts oversized STL and STEP models into pieces that fit your printer.
+- **Auto-Slice:** one press plans the cuts, choosing the orientation that needs the fewest pieces and spacing them evenly. It has 30 built-in printer presets plus a custom size.
+- **Paint the side that shows:** brush over the visible surfaces. *Optimise seams* slides the cuts away from them, and part numbers avoid them.
+- **Numbers on the inside:** each piece's number is cut into a mating face, as a real engraving rather than a decal, so it's hidden once assembled and you always know what goes where.
+- **Join pieces back:** click a part to see what it mates with. *Join small pieces* folds thin wafers into a neighbour.
+- **Exports:** one STL per piece, each sitting on its largest cut face. Optionally it groups pieces onto build plates in number order.
+- **STEP support:** it reads CAD files and sews loose faces into a closed shell first.
+- **Not in the UI right now:** the Print Layout and costing. Don't promise it on screen.
+
+[VERIFY with the owner:]
+- **Availability:** public, paid or free, and where to get it. The README describes GitHub Releases builds only; there's no store or website.
+- **Name:** the owner wrote "Seamforged" but the app and repo are "SeamForge". Which goes on screen?
+- **Screen capture:** a clean recording of SeamForge itself. The Dropbox "Seamforged V1" clips show the manual slicer way, which makes a good "before".
 
 | # | Who | Line | Picture |
 |---|---|---|---|
-| 1 | PIP | "The bumper's too big for the printer." | Pip pushes the bumper at the printer; it doesn't fit. |
-| 2 | GUS | "So we cut it. By hand." | Gus with a cartoon saw cutting a virtual bumper on a laptop; pieces scatter. |
-| 3 | GUS | "Every cut. Every piece. Every plate." | The laptop screen fills with dozens of pieces on dozens of plates (re-drawn from the real recordings). The clock spins. |
-| 4 | PIP | "And they line up after?" | Two printed pieces meet with an offset step and a gap. Pip's eyes go flat (annoyed D-cut). |
-| 5 | GUS | "…Mostly." | One piece goes onto the failed-print shelf. |
+| 1 | PIP | "The bumper's too big for the printer." | Pip pushes the bumper at the toaster-sized printer; it doesn't fit. |
+| 2 | GUS | "So we cut it. By hand." | Gus on a laptop, with a cartoon saw cutting the bumper; pieces scatter. The clock spins. |
+| 3 | GUS | "Then figure out which piece goes where." | Dozens of identical-looking grey pieces on the floor; Pip holds two and tilts his head. |
+| 4 | PIP | "And the cut runs right across the front?" | The seam line runs across the visible face; Pip's eyes go flat (annoyed D-cut). |
+| 5 | GUS | "…Yep." | |
 | 6 | PIP | "There has to be a better way." | |
-| 7 | GUS | (deadpan, beat) "…There's an app for that." | Gus pulls out the phone himself for once; a reversal of the running gag. |
+| 7 | GUS | (beat) "…We made one." | Gus pulls out the phone himself for once, reversing the gag. Hard cut on the beat. |
 
-**Real footage:** Seamforged in use. [VERIFY] Screen capture of the app doing the split, then printed parts joining up.
-**Call to action:** a Seamforged card. [VERIFY: name and logo, URL or store, availability]
+**Real footage** (about 6-8 s; the owner allows longer if needed):
+1. "Before": the Dropbox Seamforged V1 slicer clip of a bumper hacked into many pieces across plates. It shows on a cartoon laptop screen in Part A, never with text over it.
+2. SeamForge: Auto-Slice on the same bumper.
+3. Painting the visible face, with the seams sliding away from it.
+4. Exploded view with numbered pieces.
+5. A real printed piece showing its engraved number. [VERIFY: whether this footage exists]
 
----
+**End card:** the SeamForge name and where to get it [VERIFY], then the Illumaesthetic logo card.
 
 ## Ep 5. "How do you glue prints together?"
 **Question:** what's the best way to join printed pieces?
@@ -331,13 +346,13 @@ The structure is two "languages": Gus explains with a cartoon translator gag.
 3. **Ep 3 (whole bumper):** the real slicer recordings already exist; needs the owner's process confirmed.
 4. **Ep 8 (STL vs STEP):** needs a real resurfacing project to show.
 5. **Ep 7 (materials), Ep 5 (glue) and Ep 6 (printers):** need the owner's recommendations and some printing footage.
-6. **Ep 4 (Seamforged):** blocked until the owner describes the app.
+6. **Ep 4 (SeamForge):** brief done from the repo; needs availability, the on-screen name and a screen capture.
 
 ## Owner questions (one list)
 1. **Ep 1:** spray type and removal.
 2. **Ep 2:** which part designs we may show on a scan.
 3. **Ep 3:** what you print vs make another way, and your honest "when is printing worth it".
-4. **Ep 4:** what Seamforged does, its features, audience, where to get it, and price.
+4. **Ep 4:** SeamForge availability, price and where to get it; "SeamForge" vs "Seamforged" on screen; a clean screen capture.
 5. **Ep 5:** which joining methods you use and recommend.
 6. **Ep 6:** your printer setup and advice.
 7. **Ep 7:** your go-to materials (exterior vs interior vs brackets).
