@@ -1336,3 +1336,13 @@ lands here automatically. Agents must read this whole file before editing.
   orientation. Tessellate STEP with OpenCascade (`pip install cadquery-ocp`, tools/step2stl.py) - gmsh can hang for
   10+ min on a single BSpline surface. CAD cores can be yawed/rolled slightly: fit each core face plane before
   modelling fins (tools/icfins2.py).
+- (GR Corolla v11, user: "add the install of an Epsilon Aero WRC wing to the back of the car") Look for the product's
+  folder inside the car's own Drive folder first (E210/GR Corolla/WRC Rear Wing): it held both a clean scan of the part
+  (Scan Analysis/WRC V3.stl) and an engineering CMM STEP already in the car frame. Register the part scan to the CMM
+  surfaces (source = CMM, target = part, point-to-plane ICP, multi-start over yaw/pitch/offset; keep the pose most
+  starts converge to), then invert. An install on the finished car = one bar on the clean car, part comes down and
+  seats, the clean car after it keeps the part.
+- [technical] The session disk allowance fills up: when it does, renders "finish" with truncated PNGs. Delete render
+  folders the timeline no longer references, then open every frame (PIL load) before assembling.
+- (user) End the reel with a contact line under the logo ("contact us for your engineering/scanning needs" + the
+  website) - tools/endcard.py.
