@@ -40,7 +40,7 @@ HOODBASE, HOOD = f"{B}/fbase5_nh2.blend", f"{B}/hood2f.blend"   # hood traced on
 HOOD_PIVOT = [0, -1.112, 0.924]   # traced hood's rear edge (raw y -2104, z 346)
 FB = f"{B}/fbumper8.blend"
 RB, RBI, DF, HATCH = f"{B}/rbumper.blend", f"{B}/rbinner.blend", f"{B}/diffuser_p.blend", f"{B}/hatch3.blend"
-JRIC = f"{B}/csf_ic.blend"
+JRIC = f"{B}/csf_ic_fins.blend"   # + modelled tubes/fins on the core faces (icfins.py; user: "add fins in")
 UB, LB, FD, RD, RDV, IC = (f"{B}/{n}.blend" for n in ("ubeam", "lbeam", "fbducts", "raddu", "raddiv", "ic"))
 RB_PIVOT = [0, 1.91, 0.52]
 HATCH_PIVOT = [0, 1.33, 1.41]   # top edge of the hatch (raw y 330-342, z 828), 75 deg = closed 47.6 deg down -> open 27.4 deg up
