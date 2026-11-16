@@ -1,25 +1,22 @@
-# Self-review - Toyota GR Corolla v9 (`toyota_gr_corolla_v9.mp4`, 30.5 s, 1080x1920)
+# Self-review - Toyota GR Corolla v10 (`toyota_gr_corolla_v10.mp4`, 32.8 s, 1080x1920)
 
-v9 = v8 + the Jackson Racing intercooler (CSF 'GR Yaris Intercooler' STEP, G16E) swapped in on the bar after the stock one,
-modelled fins on its smooth CAD core, brand label (user). Swap is a same-camera continuation of b4. v8 review: review_v8.md.
-
-v8 = v7 + the hood re-cut on its traced shut lines (user: "the hood is cut wrong"); hood + hatch shots re-rendered. v7 review kept as review_v7.md.
-
-User on v6: front bumper from the other full car scan (the one in use misses a huge chunk) - not the facelift one;
-rear trunk not cut out correctly; the hood opening is missing. v6 review kept as review_v6.md.
+v10 = v9 + the user's Jackson Racing intercooler CAD (core_7.6.23.stp) replacing the CSF GR Yaris stand-in: one bar of a
+linear 360 orbit of the part alone (user: "do a quick 360 of the entire part then install it") with the user's JR logo
+and label, then the install on the next downbeat. The STEP is already in the scan's frame, so it sits where engineering
+designed it - which also fixes "installed 180 degrees rotated wrong". Modelled tubes/fins on its 4 core faces. No GR
+Corolla intercooler existed on the Drive (only a CSF oil cooler) before the user supplied this file. 13 bars, logo
+on downbeat 13. v9 review: review_v9.md.
 
 | # | Criterion | Score | Evidence |
 |---|---|---|---|
-| 1 | Hook | 4 | Whole car with the complete stock bumper from the first hit; bumper moves at 2.4 s. |
-| 2 | Beat sync | 5 | Cuts on every 70-frame downbeat (350 and 560 same-camera continuations) + dip 825; nearest 40-200 Hz hit within 0.54 fr of every cut. |
-| 3 | 1:1 match | n/a | No IRL; same-camera continuations h1->h2, c1->c2. |
-| 4 | Scan quality | 4 | Bumper from FARO (stock, complete grille/fogs/corners; registered 0.3 deg/22 mm, 86 % within 3 mm), our headlights kept. Hatch cut on its traced shut line - taillights split on the real seam, clean opening. Hood traced on its shut lines (cowl seam, fender lines, front crease) on a render along the hood normal - whole hood incl. nose lifts, cowl/wipers/fenders stay; engine bay scan under it. |
-| 5 | Story | 5 | Whole -> front bumper -> beams -> ducts -> intercooler -> hood open then off -> hatch open -> hatch off -> rear bumper + diffuser -> crash beam -> clean car -> logo. Removed panels stay off. |
-| 6 | Grade | 5 | One silver look; luma min 22-44 on new renders, max jump 4.1. |
-| 7 | Text | 5 | Eight labels (incl. JACKSON RACING INTERCOOLER on the swap, user-requested brand) from scan names, clear black, checked at three frames each. |
-| 8 | Ending | 5 | Clean car, dip on downbeat 11, 720 px logo. |
-| 9 | Technical | 5 | 1080x1920, 30 fps, yuv420p, AAC, faststart, 914 frames; -16.5 LUFS, true peak -1.6 dBFS. |
+| 1 | Hook | 4 | Unchanged from v9: whole car with the complete stock bumper; bumper moves at 2.4 s. |
+| 2 | Beat sync | 4 | Cuts on every 70-frame downbeat (630/770 same-camera continuations) + dip on downbeat 13. Same music grid as v9 (identical 40-200 Hz onset offsets); that detector puts the strongest hit 2.2-2.9 frames after the grid on bars 6, 11-13. |
+| 3 | 1:1 match | n/a | No IRL. |
+| 4 | Scan quality | 4 | Real JR CAD in its engineering position; fins modelled on fitted core planes (yaw 0.7 deg/roll 0.4 deg). Checked at 0/90/180/270 deg at final res. |
+| 5 | Story | 5 | ... -> stock intercooler out -> JR intercooler alone, 360 -> installs -> hood open/off -> hatch -> rear -> clean car -> logo. |
+| 6 | Grade | 5 | One silver look on scan and CAD. |
+| 7 | Text | 5 | Labels from scan/part names only; user's JR logo unaltered (transparent, reads on black), clear of the part through the orbit. |
+| 8 | Ending | 5 | Clean car, dip on downbeat 13, 720 px logo. |
+| 9 | Technical | 5 | 1080x1920, 30 fps, h264 + AAC, 984 frames; -16.5 LUFS, true peak -1.6 dBFS. |
 
-Risk: the new intercooler is CAD (not a scan) with modelled fins - reads slightly cleaner than the scanned parts.
-Not used: Complete Car_1/2 (facelift bumper - user). Risk: the hood shell is the closed car's skin (its underside is the
-back of the skin; the 'Core Hood Underside' scan is in another frame).
+Risk: the JR part is CAD (with modelled fins) among scans - reads cleaner than scanned parts.
