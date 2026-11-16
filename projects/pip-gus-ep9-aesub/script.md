@@ -12,9 +12,8 @@
 |---|---|
 | Cartoon | about 28-30 s |
 | Real footage | about 5 s |
-| Teaser card | optional, 0 or 3 s |
 | Logo card | 3 s |
-| **Total** | **about 37-40 s** |
+| **Total** | **about 37 s** |
 
 ## Owner facts this script rests on
 - **Variants:** the owner uses AESUB Violet in the spray gun and AESUB Orange in spray cans. The cartoon uses an Orange spray can.
@@ -85,10 +84,7 @@ All shots are IS350 speedrun footage already in Dropbox. The owner confirmed the
 **Order:** spray, then scan, then it vanishes.
 
 ## End cards
-Owner rule: the teaser card is optional.
-
-- **Default ending:** real footage, then the Illumaesthetic logo card.
-- **Optional teaser card:** a teaser card for the IS350 speedrun long-form fits if the owner wants one. That video shows the same spray and the coat vanishing. It is still pending the owner's choice.
+Real footage, then the Illumaesthetic logo card. There is no teaser card (owner, 2026-11-16).
 
 ## Music
 - A new curious, inquisitive generated bed (ElevenLabs Music v2.5 via Higgsfield), with a lift on line 12.
