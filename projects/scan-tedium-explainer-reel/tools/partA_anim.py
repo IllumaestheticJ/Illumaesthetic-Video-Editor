@@ -158,6 +158,13 @@ def syl_onsets(n):
 
 # ----------------------------------------------------------------------------------------------------------------- expressions (v4)
 CUR_T = 0.0
+NO_BROWS = True          # v6 (owner, concept B): no brows at all - expressions by eye shape (cut depth + tilt) only
+if NO_BROWS:
+    for _ch in (GUS, PIP):
+        for _b in _ch.browset:
+            for _o in list(_b["piv"].children) + [_b["piv"]]:
+                bpy.data.objects.remove(_o, do_unlink=True)
+        _ch.browset = []
 SIGH_DEFLATE = False     # v4 had heavy whole-body sigh deflates; v5 (owner): removed
 FORCE_EXPR = {}          # expression sheet: {"PIP": "curious", ...}
 
@@ -227,9 +234,9 @@ def expr_state(ch, t):
         for L in TL["lines"]:
             if L["speaker"] == "GUS":
                 k = win(t, L["t0"] - 0.15, L["t1"], 0.2, 0.4)
-                st["fL"] = st["fR"] = max(st["fL"], 0.12 * k)
+                st["fL"] = st["fR"] = max(st["fL"], 0.2 * k)    # v6: subtle D-cut, slight inner-down tilt (no brows)
                 st["on"] = max(st["on"], 0.65 * k)
-                st["tL"] = st["tR"] = max(st["tL"], 9 * k)
+                st["tL"] = st["tR"] = max(st["tL"], 10 * k)
         L = L_(7)
         if L:
             k = win(t, L["t0"], L["t1"], 0.12, 0.3)
@@ -296,12 +303,29 @@ def expr_state(ch, t):
     return st
 
 
+EYE_TILT_GAIN, EYE_TILT_MAX, CUT_MIN = 1.35, 24.0, 0.4   # v6: annoyed/worried must separate at phone size
+
+
 def apply_expr(ch, lid_call=0.0, look_call=(0, 0)):
     st = expr_state(ch, CUR_T)
+    if NO_BROWS:
+        # the brow tilt becomes the tilt of the eye's flat cut: > 0 inner side lower (annoyed), < 0 inner side up (worried);
+        # a tilted state always cuts at least CUT_MIN of the dot so the shape reads; shaped eyes 1.1x
+        for key, fk in (("tL", "fL"), ("tR", "fR")):
+            if abs(st[key]) > 4 and st[fk] > 0.08:
+                st[fk] = max(st[fk], CUT_MIN * min(1.0, abs(st[key]) / 12.0))
+    fl, fr = max(lid_call, st["fL"]), max(lid_call, st["fR"])
+    shaped = bool(st["shape"]) or max(fl, fr) > 0.08
+    sc = st["scale"] * (1.1 if (NO_BROWS and shaped and st["scale"] < 1.05) else 1.0)
     if st["shape"]:
-        set_eyes(ch, 0, 0, shape=st["shape"], scale=st["scale"])
+        set_eyes(ch, 0, 0, shape=st["shape"], scale=sc)
     else:
-        set_eyes(ch, max(lid_call, st["fL"]), max(lid_call, st["fR"]), scale=st["scale"])
+        set_eyes(ch, fl, fr, scale=sc)
+    for e, sx, t, f in zip(ch.eyeset, (1, -1), (st["tL"], st["tR"]), (fl, fr)):
+        ang = 0.0
+        if NO_BROWS and not st["shape"] and 0.08 < f < 0.9:
+            ang = max(-EYE_TILT_MAX, min(EYE_TILT_MAX, EYE_TILT_GAIN * t))
+        e["piv"].rotation_euler = (0, math.radians(-sx * ang), 0)
     hmax = 0.008 if ch is PIP else 0.04      # Pip's cap edge sits just above his brows: keep raised brows in view
     set_brows(ch, st["on"], min(st["hL"], hmax), min(st["hR"], hmax), st["tL"], st["tR"])
     if st["roll"] is not None:
