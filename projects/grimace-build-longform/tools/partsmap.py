@@ -78,29 +78,37 @@ elif a[0] == 'batch':
     def box(loc, size, grp):
         bpy.ops.mesh.primitive_cube_add(size=1, location=loc); o = bpy.context.object; o.scale = size; return add(o, grp)
 
-    fy, ry = L * 0.5 - 0.72, -L * 0.5 + 0.86      # axle lines, from where the wheels sit in the model (illustrative)
-    hw = Wd * 0.5 - 0.16
+    # Wheel centres are read from the model's own wheels (owner, v5: the brakes were not placed accurately), so the
+    # discs sit on the hubs and everything else is placed relative to them. Still an illustration of where parts live.
+    wh = [o for o in meshes if o.name.startswith('TE37')]
+    def ctr(o):
+        a_, b_ = bounds([o]); return (a_ + b_) / 2
+    cs = [ctr(o) for o in wh]
+    fy = sum(c_.y for c_ in cs if c_.y > 0) / 2; ry = sum(c_.y for c_ in cs if c_.y < 0) / 2
+    hz = sum(c_.z for c_ in cs) / 4; hx = sum(abs(c_.x) for c_ in cs) / 4 - 0.06        # hub face is inboard of the wheel centre
+    hw = hx
     for sx in (-1, 1):
         for y, front in ((fy, True), (ry, False)):
-            lo, hi = Vector((sx * (hw - 0.10), y, 0.26)), Vector((sx * (hw - 0.22), y - 0.02, 0.70))
+            lo, hi = Vector((sx * (hx - 0.16), y, hz - 0.10)), Vector((sx * (hx - 0.24), y - 0.02, 0.80))
             cyl(lo, hi, 0.022, 'coilovers')
             for k in range(7):
                 torus(lo.lerp(hi, 0.42 + 0.075 * k), 0.052, 0.011, 'coilovers', hi - lo)
-            cyl((sx * (hw + 0.012), y, 0.30), (sx * (hw - 0.012), y, 0.30), 0.15 if front else 0.12, 'brakes')
-            box((sx * hw, y - 0.11, 0.37), (0.075, 0.10, 0.14) if front else (0.06, 0.07, 0.10), 'brakes')
+            rd = 0.135 if front else 0.115
+            cyl((sx * (hx + 0.010), y, hz), (sx * (hx - 0.010), y, hz), rd, 'brakes')                    # disc, centred on the hub
+            box((sx * hx, y - (rd - 0.03), hz + 0.02), (0.07, 0.07, 0.15) if front else (0.055, 0.05, 0.11), 'brakes')   # caliper over the disc's rear edge
             for dy in (-0.13, 0.13):
-                for z in (0.21, 0.43):
-                    torus((sx * (hw - 0.37), y + dy, z), 0.032, 0.014, 'bushings', (0, 1, 0))
-        cyl((sx * (hw - 0.03), fy - 0.42, 0.66), (sx * (hw - 0.06), fy - 0.80, 0.30), 0.016, 'bracing')       # fender brace
-        cyl((sx * 0.30, fy + 0.16, 0.27), (sx * (hw - 0.07), fy + 0.13, 0.29), 0.012, 'steering')              # tie rod
-        cyl((sx * (hw - 0.26), fy + 0.34, 0.21), (sx * (hw - 0.20), fy + 0.06, 0.24), 0.013, 'swaybars')       # front bar arm
-        cyl((sx * (hw - 0.30), ry - 0.30, 0.25), (sx * (hw - 0.22), ry - 0.05, 0.27), 0.011, 'swaybars')       # rear bar arm
-    cyl((-(hw - 0.22), fy - 0.02, 0.71), (hw - 0.22, fy - 0.02, 0.71), 0.018, 'bracing')                       # strut tower brace
-    cyl((-(hw - 0.26), fy + 0.34, 0.21), (hw - 0.26, fy + 0.34, 0.21), 0.013, 'swaybars')
-    cyl((-(hw - 0.30), ry - 0.30, 0.25), (hw - 0.30, ry - 0.30, 0.25), 0.011, 'swaybars')
-    cyl((-0.30, fy + 0.16, 0.27), (0.30, fy + 0.16, 0.27), 0.024, 'steering')                                   # rack
-    cyl((-0.20, fy + 0.16, 0.27), (-0.36, 0.42, 0.80), 0.010, 'steering')                                       # column
-    torus((-0.36, 0.36, 0.84), 0.17, 0.014, 'steering', (0, 1, -0.45))                                          # steering wheel
+                for z in (hz - 0.13, hz + 0.11):
+                    torus((sx * (hx - 0.36), y + dy, z), 0.032, 0.014, 'bushings', (0, 1, 0))
+        cyl((sx * (hx - 0.02), fy - 0.42, 0.70), (sx * (hx - 0.05), fy - 0.80, 0.34), 0.016, 'bracing')        # fender brace
+        cyl((sx * 0.30, fy + 0.16, hz - 0.08), (sx * (hx - 0.07), fy + 0.13, hz - 0.06), 0.012, 'steering')     # tie rod
+        cyl((sx * (hx - 0.26), fy + 0.34, hz - 0.17), (sx * (hx - 0.20), fy + 0.06, hz - 0.14), 0.013, 'swaybars')
+        cyl((sx * (hx - 0.30), ry - 0.30, hz - 0.14), (sx * (hx - 0.22), ry - 0.05, hz - 0.12), 0.011, 'swaybars')
+    cyl((-(hx - 0.24), fy - 0.02, 0.80), (hx - 0.24, fy - 0.02, 0.80), 0.018, 'bracing')                        # strut tower brace
+    cyl((-(hx - 0.26), fy + 0.34, hz - 0.17), (hx - 0.26, fy + 0.34, hz - 0.17), 0.013, 'swaybars')
+    cyl((-(hx - 0.30), ry - 0.30, hz - 0.14), (hx - 0.30, ry - 0.30, hz - 0.14), 0.011, 'swaybars')
+    cyl((-0.30, fy + 0.16, hz - 0.08), (0.30, fy + 0.16, hz - 0.08), 0.024, 'steering')                          # rack
+    cyl((-0.20, fy + 0.16, hz - 0.08), (-0.36, 0.42, 0.82), 0.010, 'steering')                                   # column
+    torus((-0.36, 0.36, 0.86), 0.17, 0.014, 'steering', (0, 1, -0.45))                                           # steering wheel
 
     tgt = bpy.data.objects.new('tgt', None); sc.collection.objects.link(tgt); tgt.location = (0, 0, Ht * 0.40)
     cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); sc.collection.objects.link(cam); sc.camera = cam; cam.data.lens = 50
@@ -117,7 +125,7 @@ elif a[0] == 'batch':
     shot(f'{OUT}/still_all.png', 35)
     if not TEST:
         for k, (az, d, h) in VIEW.items(): shot(f'{OUT}/still_{k}.png', az, k, d, h)
-        for name, n, a0, a1 in (('intro', 96, 60, 10), ('recap', 144, 35, 395)):
+        for name, n, a0, a1 in (('intro', 96, 60, 10), ('recap', 96, 35, 395)):
             os.makedirs(f'{OUT}/{name}', exist_ok=True)
             for i in range(n): shot(f'{OUT}/{name}/{i:04d}.png', a0 + (a1 - a0) * i / (n - 1))
 else:

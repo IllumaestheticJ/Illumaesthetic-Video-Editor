@@ -971,3 +971,5 @@ lands here automatically. Agents must read this whole file before editing.
   with medium.en before re-rolling (homophones like brakes/breaks are not errors). 46 lines + 17 re-rolls cost about 1 credit each.
 
 - **[audio]** Use a single Gran Turismo song for the whole video: several tracks jump around and are massively confusing  _(from grimace-build-longform, 2026-11-15, reviewer)_
+
+- **[scan-look]** The diagrams of the suspension should include an upright so the A-arms don't attach to the same point on the wheel side (not accurate)  _(from grimace-build-longform, 2026-11-16, reviewer)_

@@ -17,6 +17,10 @@ FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 FPS = '24000/1001'
 DUR = {json.loads(l)['stem']: json.loads(l)['dur'] for l in open(f'{M}/ingest.jsonl')}
 J, MR = 'Video_Jun_07_2026_', 'Video_Mar_21_2026_'
+# Clips whose own sound is clean (checked against the transcripts for profanity): their natural sound plays quietly under
+# voice-over and picture-only beats, so shop and track shots are not silent (owner, v5: "completely devoid of sound").
+NAT = {'DSCF6731', 'DSCF6732', 'DSCF6730', 'DSCF6685', 'DSCF6687', 'DSCF6579', 'DSCF6816', '049A5440', '049A5441',
+       J + '11_37_26_AM', J + '1_59_57_PM', J + '2_04_58_PM', J + '11_31_17_AM', J + '1_48_26_PM', J + '12_01_33_PM', MR + '2_52_28_PM', MR + '2_21_51_PM'}
 H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _n = lambda t: re.sub(r'[^a-z]', '', t.lower())
 LINE = {}
@@ -44,6 +48,7 @@ def voice(text):
 def S(stem, a, b, text): return dict(kind='sync', pics=[(stem, a, b)], text=text)
 def V(text, *pics): return dict(kind='vo', pics=list(pics), text=text)
 def P(*pics): return dict(kind='pic', pics=list(pics), text='')
+def SO(text, audio, *pics): return dict(kind='so', pics=list(pics), text=text, audio=audio)   # on-camera line from one clip over pictures from another
 def C(tag, body, dur=4.0, text=''): return dict(kind='card', tag=tag, body=body, dur=dur, text=text)
 def D(n): return f'DSCF{n}'
 def CN(n): return f'049A{n}'
@@ -58,7 +63,8 @@ GX_RACK = 'Rack bushing explainer: rack shifting on soft mounts before the wheel
 GX_THX = 'Thank-you roll over Grimace on track: MotoIQ / Mike Kojima, Good-Win Racing, Whiteline, MCS, Brian at Fast Brakes, CSG, SPL, SuperPro (official logos to come)'
 
 TL = [
- ('0. COLD OPEN', [      # v5: short and linear (owner: v4 open was too long and jumbled): car, the before, the promise
+ ('0. COLD OPEN', [      # v6 hook (owner): open on him shaking the new steering wheel, under his own line about it
+  SO('"Mike Kojima bought us this fancy-ass steering wheel, just so we can ruin it when we go racing."', (CN(5438), 17.4, 25.4), (CN(5441), 23.5, 31.5)),
   V('This is Grimace.', (J + '2_04_58_PM', 2.5, 5.5)),
   S(D(6662), 105.7, 112, '"...this is what we had before. These are some just cheap eBay coilovers."'),
   V("So here's all of it, what it does, and then we go to the track.", (D(6579), 0, 4.5)),
@@ -136,12 +142,9 @@ TL = [
   C('GFX', GX_RACK, 0, 'And the rack bushings. The steering rack sits on rubber mounts. So when you turn the wheel, the rack shifts sideways a little before the tires do anything.'),
   C('GFX', GX_RACK, 0, 'Stiffer bushings take most of that out. And with a manual steering rack, you feel all of it.'),
   C('FILL', 'PICK-UP SHOT\nTie rods (inner + outer) and steering rack mounts on the car', 5, 'Here they are on the car.'),
-  S(CN(5438), 12.7, 39, '"Okay, Mike Kojima bought us this fancy-ass steering wheel, just so we can ruin it when we go racing. But it matches the theme of the car, so we gots to do it, you know? ... The race car is themed."'),
-  P((CN(5438), 66, 74)),
+  S(CN(5438), 25.6, 33.2, '"But it matches the theme of the car, so we gots to do it, you know?"'),     # v6: his first line now opens the video
   S(CN(5439), 9.8, 15.5, '"Does this actually fit?" ... "No."'),
-  P((CN(5440), 0, 8)),
   S(CN(5441), 6.5, 12, '"Oh, we got it. All right, I\'m just going to use a steering wheel puller."'),
-  P((CN(5441), 22, 33)),
   V("And that's where it ended up.", (J + '12_01_33_PM', 36, 44)),
  ]),
  ('7. RECAP', [
@@ -185,8 +188,8 @@ def run(c):
 def overlays(uid, section, kind, text):
     f = [f"drawtext=fontfile={FONT}:textfile={tf(uid + '_s', section, 80)}:fontsize=17:fontcolor=white@0.85:x=14:y=12:box=1:boxcolor=black@0.55:boxborderw=6"]
     if text:
-        pre = {'sync': 'ON CAMERA', 'vo': 'VOICEOVER', 'card': 'VOICEOVER'}.get(kind, '')
-        col = 'yellow' if kind == 'sync' else 'white'
+        pre = {'sync': 'ON CAMERA', 'so': 'ON CAMERA', 'vo': 'VOICEOVER', 'card': 'VOICEOVER'}.get(kind, '')
+        col = 'yellow' if kind in ('sync', 'so') else 'white'
         f.append(f"drawtext=fontfile={FONT}:text='{pre}':fontsize=14:fontcolor={col}@0.9:x=(w-text_w)/2:y=h-118:box=1:boxcolor=black@0.6:boxborderw=4")
         f.append(f"drawtext=fontfile={FONT}:textfile={tf(uid + '_c', text, 78)}:fontsize=19:fontcolor={col}:line_spacing=4:x=(w-text_w)/2:y=h-96:box=1:boxcolor=black@0.62:boxborderw=8")
     return ','.join(f)
@@ -214,6 +217,7 @@ for section, beats in TL:
                      '-vf', head + body + ',' + overlays(uid, section, 'card', b['text']), '-t', f'{d:.3f}'] + ENC + [o])
             units.append(o); rows.append((t, d, section, b['tag'], b['body'].replace('\n', ' / '), b['text'])); t += d
             continue
+        if b['kind'] == 'so': need = b['audio'][2] - b['audio'][1] + 0.2
         pics = [(s, a, min(e, DUR[s] - 0.05)) for s, a, e in b['pics']]
         tot = sum(e - a for _, a, e in pics)
         for i, (s, a, e) in enumerate(pics):
@@ -223,15 +227,22 @@ for section, beats in TL:
             if hold: vf += f',tpad=stop_mode=clone:stop_duration={hold:.3f}'
             vf += ',' + overlays(uid, section, b['kind'], b['text'])
             c = ['ffmpeg', '-v', 'error', '-y', '-ss', f'{a:.3f}', '-t', f'{d:.3f}', '-i', f'{M}/proxy/{s}.mp4', '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono']
-            amap = ['-map', '0:v', '-map', '0:a', '-af', 'loudnorm=I=-18:TP=-2,apad'] if b['kind'] == 'sync' else ['-map', '0:v', '-map', '1:a']
+            nat = s in NAT and b['kind'] != 'sync'
+            amap = (['-map', '0:v', '-map', '0:a', '-af', 'loudnorm=I=-18:TP=-2,apad'] if b['kind'] == 'sync' else
+                    ['-map', '0:v', '-map', '0:a', '-af', f"loudnorm=I={-25 if b['kind'] == 'pic' else -31}:TP=-4,apad"] if nat else ['-map', '0:v', '-map', '1:a'])
             run(c + amap + ['-vf', vf, '-t', f'{d + hold:.3f}'] + ENC + [o])
             units.append(o)
-            rows.append((t, d + hold, section, {'sync': 'ON CAMERA', 'vo': 'VO', 'pic': 'PICTURE'}[b['kind']], f'{s} {a:g}-{e:g}', b['text'] if i == 0 else '')); t += d + hold
-        if vf_ and b['kind'] == 'vo':   # lay the take under this beat's pictures
+            rows.append((t, d + hold, section, {'sync': 'ON CAMERA', 'so': 'ON CAMERA', 'vo': 'VO', 'pic': 'PICTURE'}[b['kind']], f'{s} {a:g}-{e:g}', b['text'] if i == 0 else '')); t += d + hold
+        if (vf_ and b['kind'] == 'vo') or b['kind'] == 'so':   # lay the take (or the other clip's speech) over this beat's pictures, keeping their natural sound
             k = len(pics); grp = units[-k:]; del units[-k:]; n += 1; o = f'{W}/u{n:03d}v.mp4'
             open(f'{W}/grp.txt', 'w').write(''.join(f"file '{u}'\n" for u in grp))
-            run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{W}/grp.txt', '-i', vf_, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
-                 '-af', 'adelay=250,apad', '-c:a', 'aac', '-ar', '48000', '-ac', '1', '-b:a', '96k', '-shortest', o])
+            if b['kind'] == 'so':
+                st, a0, a1 = b['audio']; src = ['-ss', f'{a0:.3f}', '-t', f'{a1 - a0:.3f}', '-i', f'{M}/proxy/{st}.mp4']; vfx = 'loudnorm=I=-18:TP=-2,adelay=100,apad'
+            else:
+                src = ['-i', vf_]; vfx = 'adelay=250,apad'
+            run(['ffmpeg', '-v', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', f'{W}/grp.txt'] + src + ['-filter_complex',
+                 f'[1:a]{vfx}[v];[0:a][v]amix=inputs=2:duration=first:normalize=0[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy',
+                 '-c:a', 'aac', '-ar', '48000', '-ac', '1', '-b:a', '96k', o])
             units.append(o)
         print(section, b['kind'], f'{t:.1f}', flush=True)
 

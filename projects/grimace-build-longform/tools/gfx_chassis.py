@@ -33,6 +33,9 @@ def swheel(c, x, y, r, ang, a=1.0, col=WHITE):
 
 
 # ---------------------------------------------------------------- sway bars
+SA = 80                             # rear-view arm length (line 49)
+
+
 def L49(c, u, t):   # the bar ties left to right; the body leans, the bar twists and pushes back
     c.header('HOW IT WORKS', 'What a sway bar does', GS, u)
     a = ease(seg(u, 0.02, 0.12)); cx, cy = 400, 420
@@ -40,18 +43,29 @@ def L49(c, u, t):   # the bar ties left to right; the body leans, the bar twists
     r = math.radians(roll); cs, sn = math.cos(r), math.sin(r)
     def rot(x, y): return (cx + x * cs - y * sn, cy + x * sn + y * cs)
     c.line([(cx - 290, 562), (cx + 290, 562)], fade(DIM, a), 4)                                           # ground
+    c.line([rot(-105, -50), rot(-105, 112), rot(105, 112), rot(105, -50)], fade(DIM, a * 0.7), 4)          # subframe under the body
     c.poly([rot(-190, -150), rot(190, -150), rot(190, -50), rot(-190, -50)], fill=fade(PANEL, a))
     c.line([rot(-190, -150), rot(190, -150), rot(190, -50), rot(-190, -50), rot(-190, -150), rot(190, -150)], fade(WHITE, a), 3)
     c.label(*rot(0, -100), 'CAR, FROM BEHIND', 16, DIM, a)
-    for sx in (-1, 1):
-        c.rect(cx + sx * 225 - 25, 440, cx + sx * 225 + 25, 560, fill=fade(PANEL, a), outline=fade(DIM, a), width=4, r=10)   # tyre
-        c.line([(cx + sx * 140, 500), (cx + sx * 200, 500)], fade(DIM, a), 7)                              # suspension stub
-        bx, by = rot(sx * 165, -50); c.spring(bx, by, 497, 5, 14, fade(DIM, a), 4)
+    ends = {}
+    for sx in (-1, 1):   # each side: upper and lower arm from the subframe to the top and bottom of an upright that carries the wheel
+        iu, il = rot(sx * 105, 52), rot(sx * 105, 106); yu, yl = 472, 528                                  # wheels stay on the ground
+        ou = (iu[0] + sx * math.sqrt(SA ** 2 - (yu - iu[1]) ** 2), yu); ol = (il[0] + sx * math.sqrt(SA ** 2 - (yl - il[1]) ** 2), yl)
+        mx, my = (ou[0] + ol[0]) / 2, 500; cam = math.degrees(math.atan2(ou[0] - ol[0], yl - yu))
+        q = math.radians(cam); hx, hy = sx * math.cos(q), sx * math.sin(q)
+        rbox(c, mx + 43 * hx, my + 43 * hy, 50, 120, cam, fade(PANEL, a), fade(DIM, a), 4)                 # tyre
+        c.line([(mx, my), (mx + 18 * hx, my + 18 * hy)], fade(DIM, a), 7)                                  # hub
+        sp = lerp(il[0], ol[0], 0.74), lerp(il[1], ol[1], 0.74); by = rot(sx * 165, -50)[1]
+        c.spring(sp[0], by, sp[1], 5, 12, fade(DIM, a), 4)
+        c.line([iu, ou], fade(DIM, a), 6); c.line([il, ol], fade(DIM, a), 6)                               # upper arm, lower arm
+        c.line([ou, ol], fade(mix(DIM, WHITE, 0.6), a), 8)                                                 # upright
+        for p in (iu, il, ou, ol): c.circle(p[0], p[1], 5, fill=fade(BG, a), outline=fade(mix(DIM, WHITE, 0.6), a), width=2)
+        ends[sx] = (lerp(il[0], ol[0], 0.34), lerp(il[1], ol[1], 0.34))                                    # where the bar picks up the lower arm
     g = ease(seg(u, 0.06, 0.22)); gl = ease(seg(u, 0.16, 0.28))
     for sx in (-1, 1):
         c.line([rot(sx * 70, -50), rot(sx * 70, 10)], fade(DIM, a * g), 4)                                 # hangers on the body
-        c.line([rot(sx * 110, 10), (cx + sx * 140, 500)], fade(CS, gl), 8)                                 # bar arm
-        c.circle(cx + sx * 140, 500, 8, fill=fade(CS, gl))
+        c.line([rot(sx * 110, 10), ends[sx]], fade(CS, gl), 8)                                             # bar arm
+        c.circle(*ends[sx], 8, fill=fade(CS, gl))
     c.line([rot(-110 * g, 10), rot(110 * g, 10)], fade(CS, a), 10)                                         # centre section
     for sx in (-1, 1): c.circle(*rot(sx * 70, 10), 11, fill=fade(PANEL, g), outline=fade(WHITE, g), width=3)
     for k in range(-4, 5):                                                                                 # twist marks
@@ -101,28 +115,54 @@ def L50(c, u, t):   # front versus rear stiffness changes how the car rotates
 
 
 # ---------------------------------------------------------------- tie rods / bump steer
-LA, LT, HH = 340, 170, 110          # control arm length, tie rod length, height of the tie rod above the arm (picture units)
+# Double wishbone, front view, in picture units measured from the lower arm's chassis pivot at ride height.
+LL = 300                            # lower arm length (level at ride height)
+UH = 185                            # upper arm chassis pivot, height above the lower one
+UB0 = (276, -200)                   # upper ball joint at ride height (the upright leans in at the top)
+LUA = math.hypot(UB0[0], UB0[1] + UH)          # upper arm length (shorter than the lower)
+LUP = math.hypot(LL - UB0[0], UB0[1])          # upright: fixed distance between the two ball joints
+PF, PE = 0.5, 38                    # tie-rod pickup: halfway up the upright, on a short steering arm
+RX, RY = 90, 90                     # steering rack end, fixed to the chassis
+E0 = math.atan2(UB0[1], UB0[0] - LL)           # upright direction at ride height
 
 
-def corner(c, ox, oy, z, D, a, at=1.0, aa=1.0, labels=True):
+def linkage(ox, oy, z, D):
+    """Solve the corner with the lower ball joint pushed up by z and the chassis dropped by D. The lower arm swings about
+    its chassis pivot, the upper arm about its own, and the upright is the rigid link between the two ball joints.
+    Returns pivots AL, AU, ball joints LB, UB, the pickup P where the arms alone carry it (no steering), upright direction e."""
+    AL = (ox, oy + D); AU = (ox, oy - UH + D); y = oy - z
+    LB = (ox + math.sqrt(LL ** 2 - (y - AL[1]) ** 2), y)
+    d = math.dist(AU, LB); k = (LUA ** 2 - LUP ** 2 + d * d) / (2 * d); h = math.sqrt(max(0, LUA ** 2 - k * k))
+    ux, uy = (LB[0] - AU[0]) / d, (LB[1] - AU[1]) / d
+    UB = (AU[0] + k * ux + h * uy, AU[1] + k * uy - h * ux)                                               # the crossing above the line
+    e = ((UB[0] - LB[0]) / LUP, (UB[1] - LB[1]) / LUP); n = (e[1], -e[0])
+    P = (LB[0] + e[0] * PF * LUP + n[0] * PE, LB[1] + e[1] * PF * LUP + n[1] * PE)
+    return AL, AU, LB, UB, P, e
+
+
+def corner(c, ox, oy, z, D, a, at=1.0, aa=1.0):
     """Front view of one front corner. Chassis on the left (dropped by D), wheel on the right, pushed up by z.
-    Returns the joints: arm inner A, rack end Rk, ball joint B, tie rod end S, effective tie rod length, tie-rod mismatch dx."""
-    A = (ox, oy + D); Rk = (ox + LA - LT, oy - HH + D)
-    def ball(zz): by = oy - zz; return (ox + math.sqrt(LA ** 2 - (by - A[1]) ** 2), by)
-    B0 = ball(0); lt = math.hypot(B0[0] - Rk[0], B0[1] - HH - Rk[1])                                       # toe is set at ride height
-    B = ball(z); S = (B[0], B[1] - HH); dx = Rk[0] + math.sqrt(lt ** 2 - (S[1] - Rk[1]) ** 2) - S[0]
-    c.rect(ox - 170, oy - 200 + D, ox, oy + 50 + D, fill=fade(PANEL, a), outline=fade(DIM, a), width=3, r=10)
-    c.label(ox - 85, oy - 160 + D, 'CHASSIS', 18, DIM, a)
-    ty = B[1] - HH / 2
-    c.rect(B[0] + 34, ty - 118, B[0] + 122, ty + 118, fill=fade(PANEL, a), outline=fade(WHITE, a), width=3, r=16)   # tyre
-    c.line([(B[0], ty), (B[0] + 34, ty)], fade(DIM, a), 9); c.line([(B[0], B[1]), (B[0], S[1] - 26)], fade(DIM, a), 9)   # hub, upright
-    c.line([A, B], fade(mix(DIM, WHITE, aa), a), 8)                                                       # control arm
+    Returns a dict of joints: AL, AU, LB, UB, Rk (rack end), P (pickup carried by the arms), T (tie rod end, on the tie rod's
+    own arc), their ride-height positions LB0, UB0, P0, the tie rod length lt and the mismatch dx = T - P."""
+    AL, AU, LB0, UB0_, P0, e0 = linkage(ox, oy, 0, D)
+    AL, AU, LB, UB, P, e = linkage(ox, oy, z, D)
+    Rk = (ox + RX, oy - RY + D); lt = math.dist(Rk, P0)                                                   # toe is set at ride height
+    T = (Rk[0] + math.sqrt(lt ** 2 - (P[1] - Rk[1]) ** 2), P[1]); dx = T[0] - P[0]
+    c.rect(ox - 170, oy - 225 + D, ox, oy + 40 + D, fill=fade(PANEL, a), outline=fade(DIM, a), width=3, r=10)
+    c.label(ox - 85, oy - 150 + D, 'CHASSIS', 18, DIM, a)
+    cam = math.atan2(e[1], e[0]) - E0; hx, hy = math.cos(cam), math.sin(cam)                              # wheel leans with the upright
+    W = (LB[0] + e[0] * PF * LUP, LB[1] + e[1] * PF * LUP)
+    rbox(c, W[0] + 92 * hx, W[1] + 92 * hy, 88, 240, math.degrees(cam), fade(PANEL, a), fade(WHITE, a), 3)   # tyre
+    c.line([W, (W[0] + 50 * hx, W[1] + 50 * hy)], fade(DIM, a), 9)                                        # hub
+    arm = fade(mix(DIM, WHITE, aa), a)
+    c.line([AL, LB], arm, 8); c.line([AU, UB], arm, 8)                                                    # lower arm, upper arm
     c.rect(ox - 6, Rk[1] - 10, Rk[0], Rk[1] + 10, fill=fade(PANEL, a), outline=fade(WHITE, a), width=3, r=5)   # rack
-    c.line([Rk, S], fade(mix(DIM, CT, at), a), 6)                                                         # tie rod
-    for p, col in ((A, WHITE), (B, WHITE), (Rk, CT), (S, CT)): c.circle(p[0], p[1], 8, fill=fade(BG, a), outline=fade(col, a), width=3)
-    if labels:
-        c.label(ox + 80, Rk[1] - 32, 'STEERING RACK', 17, DIM, a)
-    return A, Rk, B0, B, S, lt, dx
+    c.line([W, T], fade(mix(DIM, WHITE, 0.55), a), 7)                                                     # steering arm
+    c.line([LB, UB], fade(mix(DIM, WHITE, 0.55), a), 11)                                                  # upright
+    c.line([Rk, T], fade(mix(DIM, CT, at), a), 6)                                                         # tie rod
+    for p, col in ((AL, WHITE), (AU, WHITE), (LB, WHITE), (UB, WHITE), (Rk, CT), (T, CT)):
+        c.circle(p[0], p[1], 8, fill=fade(BG, a), outline=fade(col, a), width=3)
+    return dict(AL=AL, AU=AU, LB=LB, UB=UB, Rk=Rk, P=P, T=T, LB0=LB0, UB0=UB0_, P0=P0, lt=lt, dx=dx)
 
 
 def swing(c, cen, rad, y0, span, col, width=3):
@@ -132,33 +172,44 @@ def swing(c, cen, rad, y0, span, col, width=3):
     dash(c, [(cen[0] + math.sqrt(max(0, rad ** 2 - (y - cen[1]) ** 2)), y) for y in [y0 - span + 2 * span * i / n for i in range(n + 1)]], col, width, 2, 2)
 
 
-def L52(c, u, t):   # tie rod: rack to wheel; it swings in an arc, and so does the control arm
-    c.header('HOW IT WORKS', 'Tie rod and control arm', GT, u)
-    a = ease(seg(u, 0.02, 0.12)); ox, oy = 400, 480
+def L52(c, u, t):   # tie rod: rack to wheel; it swings in an arc, and so do the control arms
+    c.header('HOW IT WORKS', 'Tie rod and control arms', GT, u)
+    a = ease(seg(u, 0.02, 0.12)); ox, oy = 400, 490
     at = ease(seg(u, 0.06, 0.2)); aa = ease(seg(u, 0.68, 0.8))
     z = 55 * ease(seg(u, 0.33, 0.5)) * math.sin(t * 1.5)
-    A, Rk, B0, B, S, lt, dx = corner(c, ox, oy, z, 0, a, at, aa)
-    swing(c, Rk, lt, B0[1] - HH, 92 * ease(seg(u, 0.4, 0.62)), fade(CT, 0.9))
-    swing(c, A, LA, B0[1], 92 * ease(seg(u, 0.7, 0.9)), fade(WHITE, 0.9))
-    c.label(Rk[0] + 66, 286, 'TIE ROD', 22, CT, at)
-    c.label(ox + 150, 546, 'CONTROL ARM', 22, WHITE, aa)
-    c.label(B0[0] + 150, 425, 'WHEEL', 22, WHITE, a, 'lm')
-    m = ease(seg(u, 0.36, 0.48)); x = B0[0] + 170
-    c.arrow(x, 480, x, 520, fade(DIM, m), 4, 12); c.arrow(x, 370, x, 330, fade(DIM, m), 4, 12)
+    j = corner(c, ox, oy, z, 0, a, at, aa)
+    swing(c, j['Rk'], j['lt'], j['P0'][1], 92 * ease(seg(u, 0.4, 0.62)), fade(CT, 0.9))
+    sp = 92 * ease(seg(u, 0.7, 0.9))
+    swing(c, j['AL'], LL, j['LB0'][1], sp, fade(WHITE, 0.9)); swing(c, j['AU'], LUA, j['UB0'][1], sp, fade(WHITE, 0.9))
+    c.label(ox + 12, j['Rk'][1] - 34, 'STEERING RACK', 17, DIM, a, 'lm')
+    c.label(ox + 150, j['Rk'][1] + 36, 'TIE ROD', 22, CT, at)
+    ua = ease(seg(u, 0.2, 0.32)); UB = j['UB']
+    c.label(UB[0] - 6, UB[1] - 44, 'UPRIGHT', 20, WHITE, ua)
+    c.line([(UB[0] - 6, UB[1] - 30), (UB[0] - 2, UB[1] - 13)], fade(DIM, ua), 2)
+    c.label(ox + 105, oy - UH - 52, 'UPPER ARM', 22, WHITE, aa)
+    c.label(ox + 150, oy + 50, 'LOWER ARM', 22, WHITE, aa)
+    c.label(j['LB0'][0] + 150, 435, 'WHEEL', 22, WHITE, a, 'lm')
+    m = ease(seg(u, 0.36, 0.48)); x = j['LB0'][0] + 170
+    c.arrow(x, 490, x, 530, fade(DIM, m), 4, 12); c.arrow(x, 380, x, 340, fade(DIM, m), 4, 12)
     c.chip('SPL tie rods', GT, u=u)
 
 
 def L53(c, u, t):   # arcs don't match -> toe changes over bumps (bump steer); lowering makes it worse
     c.header('HOW IT WORKS', 'Bump steer', GT, u)
-    a = ease(seg(u, 0.0, 0.08)); ox, oy = 230, 480
+    a = ease(seg(u, 0.0, 0.08)); ox, oy = 230, 500
     low = ease(seg(u, 0.62, 0.82)); D = 48 * low; z = 55 * math.sin(t * 1.5)
-    A, Rk, B0, B, S, lt, dx = corner(c, ox, oy, z, D, a, labels=False)
+    j = corner(c, ox, oy, z, D, a)
     g = ease(seg(u, 0.05, 0.2)); wc = mix(CT, COL['bad'], ease(seg(u, 0.66, 0.78)))
-    swing(c, (A[0], A[1] - HH), LA, B0[1] - HH, 96 * g, fade(WHITE, 0.85))                                 # where the wheel carries the joint
-    swing(c, Rk, lt, B0[1] - HH, 96 * g, fade(CT, 0.95))                                                   # where the tie rod wants it
-    c.line([(S[0], S[1]), (S[0] + dx, S[1])], fade(wc, g), 6); c.circle(S[0] + dx, S[1], 5, fill=fade(wc, g))
+    if g > 0.02:
+        n = 48; zs = [96 * g * (2 * i / n - 1) for i in range(n + 1)]
+        dash(c, [linkage(ox, oy, zz, D)[4] for zz in zs], fade(WHITE, 0.85), 3, 2, 2)                     # where the arms carry the pickup
+    swing(c, j['Rk'], j['lt'], j['P0'][1], 96 * g, fade(CT, 0.95))                                         # the only arc the tie rod can swing on
+    P, T = j['P'], j['T']; dx = j['dx']
+    c.line([P, T], fade(wc, g), 6); c.circle(P[0], P[1], 5, fill=fade(wc, g))
+    dash(c, [(70 + 5 * i, 604) for i in range(9)], fade(WHITE, 0.85 * g), 3, 2, 2); c.label(122, 604, 'ARM PATH', 16, WHITE, g, 'lm')
+    dash(c, [(250 + 5 * i, 604) for i in range(9)], fade(CT, 0.95 * g), 3, 2, 2); c.label(302, 604, 'TIE ROD ARC', 16, CT, g, 'lm')
     lo = ease(seg(u, 0.64, 0.76))
-    c.label(ox - 85, 190, 'LOWERED', 20, WHITE, lo); c.arrow(ox - 85, 210, ox - 85, 252, fade(WHITE, lo), 5, 14)
+    c.label(ox - 85, 190, 'LOWERED', 20, WHITE, lo); c.arrow(ox - 85, 210, ox - 85, 256, fade(WHITE, lo), 5, 14)
     # top view of the same wheel: toe follows the mismatch, steering wheel never moves
     b = ease(seg(u, 0.18, 0.3)); tx, ty = 930, 350; toe = dx * 1.05
     dash(c, [(tx, 205 + 6 * i) for i in range(49)], fade(DIM, b), 2, 2, 2)

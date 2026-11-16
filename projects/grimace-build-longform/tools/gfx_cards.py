@@ -6,7 +6,7 @@ Partner names are text until the official logos arrive."""
 import sys, os, glob, math
 from PIL import Image
 from gfx import *
-PM = f'{M}/gfx/partsmap'
+PM = f'{M}/gfx/partsmap2'      # v6: parts placed from the model's real wheel positions
 CH = [('coilovers', '1', 'COILOVERS', 'MCS · Eibach springs'), ('bushings', '2', 'BUSHINGS', 'Whiteline · Good-Win Racing'),
       ('brakes', '3', 'BRAKES', 'Fast Brakes · Wilwood calipers · CSG'), ('bracing', '4', 'BRACING AND SWAY BARS', 'Good-Win Racing · Whiteline'),
       ('steering', '5', 'STEERING', 'SPL · SuperPro · Mike Kojima')]

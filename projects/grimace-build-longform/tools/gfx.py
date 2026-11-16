@@ -86,6 +86,33 @@ class Canvas:
     def out(self): return self.im.resize((W, H), Image.LANCZOS)
 
 
+def car_rear(c, cx, gy, roll=0.0, a=1.0, accent=None, xray=False):
+    """Rear view of a small roadster with a hardtop, sitting on the ground line y = gy. The tyres stay on the ground; the body
+    rolls by `roll` degrees about a point near the ground (positive = leans to the right of the picture).
+    xray=True draws the body as an outline only, so suspension drawn behind/inside it stays visible.
+    Returns rot(x, y): maps a point given in body coordinates (x from the centre line, y up from the ground) to the canvas,
+    so springs, bars and labels can be attached to the rolling body."""
+    r = math.radians(roll); cs, sn = math.cos(r), math.sin(r); pivot = 40
+    def rot(x, y):
+        yy = y - pivot; return (cx + x * cs + yy * sn, gy - pivot - (yy * cs - x * sn))
+    col = fade(WHITE, a); fill = None if xray else fade(PANEL, a)
+    for sx in (-1, 1):                                                   # tyres, seen from behind
+        c.rect(cx + sx * 168 - 30, gy - 112, cx + sx * 168 + 30, gy, fill=fade((34, 38, 56), a), outline=fade(DIM, a), width=2, r=9)
+        for k in (-14, 0, 14): c.line([(cx + sx * 168 + k, gy - 104), (cx + sx * 168 + k, gy - 8)], fade(GRID, a), 1.5)
+    body = [(-196, 78), (-204, 120), (-198, 168), (-170, 196), (170, 196), (198, 168), (204, 120), (196, 78), (150, 64), (-150, 64)]
+    roof = [(-150, 196), (-112, 262), (-84, 276), (84, 276), (112, 262), (150, 196)]
+    glass = [(-118, 202), (-92, 252), (92, 252), (118, 202)]
+    c.poly([rot(*p) for p in roof], fill=fill, outline=col); c.poly([rot(*p) for p in body], fill=fill, outline=col)
+    for pts in (roof, body): c.line([rot(*p) for p in pts + pts[:1]], col, 3)
+    c.line([rot(*p) for p in glass + glass[:1]], fade(DIM, a), 2)
+    for sx in (-1, 1):                                                   # tail lights, exhaust side detail
+        x0, x1 = sorted((sx * 176, sx * 112)); q = [rot(x0, 172), rot(x1, 172), rot(x1, 142), rot(x0, 142)]
+        c.poly(q, fill=fade(accent or COL['bad'], a * 0.85), outline=None)
+    c.line([rot(-196, 112), rot(196, 112)], fade(DIM, a), 2)                                   # bumper line
+    c.poly([rot(-34, 104), rot(34, 104), rot(34, 78), rot(-34, 78)], fill=None, outline=fade(DIM, a))   # plate
+    return rot
+
+
 def line_dur(line):
     """Seconds this script line occupies in the cut: processed take + 0.6 s (same rule as build_review.py)."""
     p = f'{M}/vo/p/L{line:02d}.wav'

@@ -93,18 +93,17 @@ def L16(c, u, t): dyno(c, u, t, 'two')
 
 def L17(c, u, t):   # springs (with the sway bars) decide how much it leans; dampers control how fast
     c.header('HOW IT WORKS', 'How much, and how fast', G, u)
-    a = ease(seg(u, 0.03, 0.15)); roll = 7 * ease(seg(u, 0.2, 0.55)); cx, cy = 400, 360
-    import math as m
-    r = m.radians(roll); cs, sn = m.cos(r), m.sin(r)
-    def rot(x, y): return (cx + (x * cs - y * sn), cy + (x * sn + y * cs))
-    c.poly([rot(-170, -60), rot(170, -60), rot(170, 20), rot(-170, 20)], fill=fade(PANEL, a), outline=fade(WHITE, a))
-    c.label(*rot(0, -20), 'CAR, FROM BEHIND', 16, DIM, a)
-    for sx in (-1, 1):
-        bx, by = rot(sx * 130, 20); c.spring(bx, by, 480, 5, 20, fade(C, a), 5); c.circle(cx + sx * 150, 500, 30, outline=fade(DIM, a), width=8)
-    c.line([(cx - 230, 532), (cx + 230, 532)], fade(DIM, a), 4)
+    a = ease(seg(u, 0.03, 0.15)); roll = 5.5 * ease(seg(u, 0.18, 0.55)); cx, gy = 380, 560
+    c.line([(cx - 280, gy), (cx + 280, gy)], fade(DIM, a), 4)
+    rot = car_rear(c, cx, gy, roll, a, xray=True)
+    for sx in (-1, 1):                                    # a coilover each side, from the wheel up to the rolling body
+        top = rot(sx * 104, 150)
+        c.line([(cx + sx * 138, gy - 56), (cx + sx * 52, gy - 56)], fade(DIM, a), 5)          # lower arm, wheel to chassis
+        c.spring(top[0], top[1], gy - 60, 5, 15, fade(C, a), 4.5); c.circle(top[0], top[1], 5, fill=fade(C, a))
+    c.arrow(cx - 60, gy - 330, cx + 40 + roll * 6, gy - 330, fade(C, ease(seg(u, 0.2, 0.4))), 4, 12)
     b = ease(seg(u, 0.25, 0.45)); d = ease(seg(u, 0.55, 0.75))
-    c.label(900, 270, 'HOW MUCH it leans and dives', 24, WHITE, b); c.label(900, 304, 'springs + sway bars', 20, C, b)
-    c.label(900, 420, 'HOW FAST it gets there', 24, WHITE, d); c.label(900, 454, 'dampers', 20, COL['steering'], d)
+    c.label(930, 290, 'HOW MUCH it leans and dives', 24, WHITE, b); c.label(930, 324, 'springs + sway bars', 20, C, b)
+    c.label(930, 430, 'HOW FAST it gets there', 24, WHITE, d); c.label(930, 464, 'dampers', 20, COL['steering'], d)
     c.chip('Eibach springs on the MCS coilovers', G, u=u)
 
 
