@@ -33,48 +33,42 @@ def swheel(c, x, y, r, ang, a=1.0, col=WHITE):
 
 
 # ---------------------------------------------------------------- sway bars
-SA = 80                             # rear-view arm length (line 49)
+SA = 66                             # rear-view arm length (line 49)
 
 
 def L49(c, u, t):   # the bar ties left to right; the body leans, the bar twists and pushes back
     c.header('HOW IT WORKS', 'What a sway bar does', GS, u)
-    a = ease(seg(u, 0.02, 0.12)); cx, cy = 400, 420
+    a = ease(seg(u, 0.02, 0.12)); cx, gy = 400, 562
     roll = 8 * ease(seg(u, 0.30, 0.56)) - 3 * ease(seg(u, 0.72, 0.97)); tw = clamp(roll / 8)
-    r = math.radians(roll); cs, sn = math.cos(r), math.sin(r)
-    def rot(x, y): return (cx + x * cs - y * sn, cy + x * sn + y * cs)
-    c.line([(cx - 290, 562), (cx + 290, 562)], fade(DIM, a), 4)                                           # ground
-    c.line([rot(-105, -50), rot(-105, 112), rot(105, 112), rot(105, -50)], fade(DIM, a * 0.7), 4)          # subframe under the body
-    c.poly([rot(-190, -150), rot(190, -150), rot(190, -50), rot(-190, -50)], fill=fade(PANEL, a))
-    c.line([rot(-190, -150), rot(190, -150), rot(190, -50), rot(-190, -50), rot(-190, -150), rot(190, -150)], fade(WHITE, a), 3)
-    c.label(*rot(0, -100), 'CAR, FROM BEHIND', 16, DIM, a)
+    c.line([(cx - 290, gy), (cx + 290, gy)], fade(DIM, a), 4)                                             # ground
+    rot = car_rear(c, cx, gy, roll, a, accent=mix(BG, COL['bad'], 0.6), xray=True)                                                         # body coords: x from centre, y up from ground
+    sub = [rot(-62, 74), rot(-62, 30), rot(62, 30), rot(62, 74)]
+    c.line(sub, fade(DIM, a * 0.7), 4)                                                                    # subframe: carries the arm pivots
     ends = {}
     for sx in (-1, 1):   # each side: upper and lower arm from the subframe to the top and bottom of an upright that carries the wheel
-        iu, il = rot(sx * 105, 52), rot(sx * 105, 106); yu, yl = 472, 528                                  # wheels stay on the ground
+        iu, il = rot(sx * 62, 74), rot(sx * 62, 30); yu, yl = gy - 84, gy - 28                             # wheels stay on the ground
         ou = (iu[0] + sx * math.sqrt(SA ** 2 - (yu - iu[1]) ** 2), yu); ol = (il[0] + sx * math.sqrt(SA ** 2 - (yl - il[1]) ** 2), yl)
-        mx, my = (ou[0] + ol[0]) / 2, 500; cam = math.degrees(math.atan2(ou[0] - ol[0], yl - yu))
-        q = math.radians(cam); hx, hy = sx * math.cos(q), sx * math.sin(q)
-        rbox(c, mx + 43 * hx, my + 43 * hy, 50, 120, cam, fade(PANEL, a), fade(DIM, a), 4)                 # tyre
-        c.line([(mx, my), (mx + 18 * hx, my + 18 * hy)], fade(DIM, a), 7)                                  # hub
-        sp = lerp(il[0], ol[0], 0.74), lerp(il[1], ol[1], 0.74); by = rot(sx * 165, -50)[1]
-        c.spring(sp[0], by, sp[1], 5, 12, fade(DIM, a), 4)
+        mx, my = (ou[0] + ol[0]) / 2, gy - 56; jc = fade(mix(DIM, WHITE, 0.6), a)
+        c.line([(mx, my), (cx + sx * 138, my)], fade(DIM, a), 7)                                           # hub into the wheel
+        sp = lerp(il[0], ol[0], 0.76), lerp(il[1], ol[1], 0.76); top = rot(sx * 108, 134)
+        c.spring(sp[0], top[1], sp[1], 5, 10, fade(DIM, a), 3); c.circle(sp[0], top[1], 4, fill=fade(DIM, a))
         c.line([iu, ou], fade(DIM, a), 6); c.line([il, ol], fade(DIM, a), 6)                               # upper arm, lower arm
-        c.line([ou, ol], fade(mix(DIM, WHITE, 0.6), a), 8)                                                 # upright
-        for p in (iu, il, ou, ol): c.circle(p[0], p[1], 5, fill=fade(BG, a), outline=fade(mix(DIM, WHITE, 0.6), a), width=2)
-        ends[sx] = (lerp(il[0], ol[0], 0.34), lerp(il[1], ol[1], 0.34))                                    # where the bar picks up the lower arm
-    g = ease(seg(u, 0.06, 0.22)); gl = ease(seg(u, 0.16, 0.28))
+        c.line([ou, ol], jc, 8)                                                                            # upright
+        for p in (iu, il, ou, ol): c.circle(p[0], p[1], 5, fill=fade(BG, a), outline=jc, width=2)
+        ends[sx] = (lerp(il[0], ol[0], 0.36), lerp(il[1], ol[1], 0.36))                                    # where the bar picks up the lower arm
+    g = ease(seg(u, 0.06, 0.22)); gl = ease(seg(u, 0.16, 0.28)); BW, BY = 86, 128
     for sx in (-1, 1):
-        c.line([rot(sx * 70, -50), rot(sx * 70, 10)], fade(DIM, a * g), 4)                                 # hangers on the body
-        c.line([rot(sx * 110, 10), ends[sx]], fade(CS, gl), 8)                                             # bar arm
+        c.line([rot(sx * BW, BY), ends[sx]], fade(CS, gl), 8)                                              # bar arm
         c.circle(*ends[sx], 8, fill=fade(CS, gl))
-    c.line([rot(-110 * g, 10), rot(110 * g, 10)], fade(CS, a), 10)                                         # centre section
-    for sx in (-1, 1): c.circle(*rot(sx * 70, 10), 11, fill=fade(PANEL, g), outline=fade(WHITE, g), width=3)
+    c.line([rot(-BW * g, BY), rot(BW * g, BY)], fade(CS, a), 10)                                           # centre section
+    for sx in (-1, 1): c.circle(*rot(sx * 54, BY), 11, fill=fade(PANEL, g), outline=fade(WHITE, g), width=3)   # mounts on the body
     for k in range(-4, 5):                                                                                 # twist marks
         if abs(k) == 3 or abs(k) / 4.5 > g - 0.05: continue
-        s = k / 4.5; px, py = rot(s * 110, 10); q = math.radians(roll + 90 + s * tw * 55)
+        s = k / 4.5; px, py = rot(s * BW, BY); q = math.radians(roll + 90 + s * tw * 55)
         c.line([(px - 9 * math.cos(q), py - 9 * math.sin(q)), (px + 9 * math.cos(q), py + 9 * math.sin(q))], fade(WHITE, g), 3)
     c.label(cx, 598, 'SWAY BAR', 20, CS, g)
     p = ease(seg(u, 0.70, 0.84))                                                                           # bar pushes back
-    c.arrow(*rot(140, -164), *rot(140, -224), fade(CS, p), 6, 18); c.arrow(*rot(-140, -224), *rot(-140, -164), fade(CS, p), 6, 18)
+    c.arrow(*rot(156, 216), *rot(156, 276), fade(CS, p), 6, 18); c.arrow(*rot(-156, 276), *rot(-156, 216), fade(CS, p), 6, 18)
     for k, (s, col, w) in enumerate((('LEFT TIED TO RIGHT', WHITE, (0.10, 0.24)), ('BODY LEANS', WHITE, (0.32, 0.46)),
                                      ('BAR TWISTS', CS, (0.50, 0.62)), ('BAR FIGHTS THE LEAN', CS, (0.72, 0.84)))):
         c.label(940, 270 + 78 * k, s, 24, col, ease(seg(u, *w)))
@@ -181,13 +175,14 @@ def L52(c, u, t):   # tie rod: rack to wheel; it swings in an arc, and so do the
     swing(c, j['Rk'], j['lt'], j['P0'][1], 92 * ease(seg(u, 0.4, 0.62)), fade(CT, 0.9))
     sp = 92 * ease(seg(u, 0.7, 0.9))
     swing(c, j['AL'], LL, j['LB0'][1], sp, fade(WHITE, 0.9)); swing(c, j['AU'], LUA, j['UB0'][1], sp, fade(WHITE, 0.9))
-    c.label(ox + 12, j['Rk'][1] - 34, 'STEERING RACK', 17, DIM, a, 'lm')
-    c.label(ox + 150, j['Rk'][1] + 36, 'TIE ROD', 22, CT, at)
+    c.label(ox + 10, j['Rk'][1] - 42, 'STEERING RACK', 17, DIM, a, 'lm')
+    def on(p, q, f, dy): return (lerp(p[0], q[0], f), lerp(p[1], q[1], f) + dy)                         # labels ride with their part
+    c.label(*on(j['Rk'], j['T'], 0.5, 38), 'TIE ROD', 22, CT, at)
     ua = ease(seg(u, 0.2, 0.32)); UB = j['UB']
-    c.label(UB[0] - 6, UB[1] - 44, 'UPRIGHT', 20, WHITE, ua)
-    c.line([(UB[0] - 6, UB[1] - 30), (UB[0] - 2, UB[1] - 13)], fade(DIM, ua), 2)
-    c.label(ox + 105, oy - UH - 52, 'UPPER ARM', 22, WHITE, aa)
-    c.label(ox + 150, oy + 50, 'LOWER ARM', 22, WHITE, aa)
+    c.label(UB[0] + 16, UB[1] - 46, 'UPRIGHT', 18, WHITE, ua, 'lm')
+    c.line([(UB[0] + 18, UB[1] - 34), (UB[0] + 6, UB[1] - 12)], fade(DIM, ua), 2)
+    c.label(*on(j['AU'], UB, 0.42, -36), 'UPPER ARM', 22, WHITE, aa)
+    c.label(*on(j['AL'], j['LB'], 0.5, 38), 'LOWER ARM', 22, WHITE, aa)
     c.label(j['LB0'][0] + 150, 435, 'WHEEL', 22, WHITE, a, 'lm')
     m = ease(seg(u, 0.36, 0.48)); x = j['LB0'][0] + 170
     c.arrow(x, 490, x, 530, fade(DIM, m), 4, 12); c.arrow(x, 380, x, 340, fade(DIM, m), 4, 12)

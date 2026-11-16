@@ -19,28 +19,49 @@ def dash(c, x0, y0, x1, y1, col, width=2, on=11, off=9):
         k += on + off
 
 
-def bush(c, x, y, R, r, ring, a=1.0, sx=0.0, sy=0.0, shell=DIM):
-    """Bushing cross-section: outer shell (R), elastic ring, inner sleeve (r) shifted by sx, sy from the centre."""
-    c.circle(x, y, R, fill=fade(ring, a), outline=fade(shell, a), width=max(2.5, R * 0.1))
-    c.circle(x + sx, y + sy, r, fill=fade(BG, a), outline=fade(WHITE, a), width=max(2, r * 0.22))
-    c.circle(x + sx, y + sy, r * 0.38, fill=fade(DIM, a))
+def joint(c, x, y, R, ring, a=1.0, ex=0.0, ey=0.0, ang=None, twist=0.0, arm=0.0, ear=0.0, wall=False, cross=0.0, kind='rubber'):
+    """One arm pivot seen along its bolt, the same drawing at any size (small on the corner view, big in the cutaway):
+    chassis bracket ear, bolt (hex) with the inner sleeve clamped on it at (x, y), the elastic layer, and the arm's eye
+    (outer shell) centred at (x + ex, y + ey) with the arm tube leaving at ang. The bolt and sleeve never move; the eye does.
+    twist = how far the arm has swung (bonded rubber shears: its inner edge stays with the sleeve)."""
+    r = 0.32 * R; cx, cy = x + ex, y + ey
+    if ear > 0:                                                                             # bracket ear behind the eye
+        c.poly([(x - ear, y - 0.92 * R), (x, y - 0.5 * R), (x, y + 0.5 * R), (x - ear, y + 0.92 * R)], fill=fade(PANEL, a))
+        c.line([(x - ear, y - 0.92 * R), (x, y - 0.5 * R)], fade(DIM, a), max(1.5, R * 0.03))
+        c.line([(x - ear, y + 0.92 * R), (x, y + 0.5 * R)], fade(DIM, a), max(1.5, R * 0.03))
+    if wall: c.rect(x - ear - 0.24 * R, y - 1.3 * R, x - ear, y + 1.3 * R, fill=fade(PANEL, a), outline=fade(DIM, a), width=2.5, r=4)
+    if arm > 0:                                                                             # arm tube, cut off square
+        c.line([(cx, cy), (cx + arm * math.cos(ang), cy + arm * math.sin(ang))], fade(ARM, a), 0.5 * R)
+    c.circle(cx, cy, R, fill=fade(ring, a), outline=fade(ARM, a), width=max(2.5, R * 0.13))
+    if R >= 30:                                                                             # ribs make the squeeze and twist readable
+        for k in range(12):
+            p = k * math.pi / 6 + 0.26; q = p + twist; pi_ = p if kind == 'rubber' else q
+            c.line([(x + (r + 2) * math.cos(pi_), y + (r + 2) * math.sin(pi_)), (cx + 0.85 * R * math.cos(q), cy + 0.85 * R * math.sin(q))],
+                   fade(mix(ring, BG, 0.6), a), max(1.5, R * 0.032))
+    if cross > 0:                                                                           # fixed centre cross + marks on the eye
+        dash(c, x, y - 1.36 * R, x, y + 1.36 * R, fade(WHITE, cross * a), 2, 7, 6)
+        dash(c, x - 0.6 * R, y, x + 0.6 * R, y, fade(WHITE, cross * a), 2, 7, 6)
+        for sg in (-1, 1): c.line([(cx, cy + sg * 0.84 * R), (cx, cy + sg * 1.2 * R)], fade(C, cross * a), max(3, R * 0.05))
+    c.circle(x, y, r, fill=fade(BG, a), outline=fade(WHITE, a), width=max(2, R * 0.075))
+    hx = 0.19 * R
+    c.poly([(x + hx * math.cos(i * math.pi / 3), y + hx * math.sin(i * math.pi / 3)) for i in range(6)], fill=fade(DIM, a))
 
 
 # Front view of one double-wishbone corner, in local units (x outboard, y down, origin on the chassis side).
-PL, PU = (0.0, 85.0), (40.0, -75.0)            # lower / upper arm pivots on the chassis (bushing sleeves, bolted still)
+PL, PU = (0.0, 85.0), (40.0, -75.0)            # lower / upper arm pivots on the chassis (bolts and sleeves: these never move)
 LBJ0, UBJ0 = (290.0, 100.0), (268.0, -80.0)    # lower / upper ball joints on the upright: two different points
-TX0, TX1, TY0, TY1 = 318.0, 408.0, -160.0, 170.0   # tyre section; the ground is at TY1
-WX, HUBY = 363.0, 5.0                          # wheel centre plane, hub height
+TX0, TX1, TY0, TY1 = 318.0, 408.0, -160.0, 170.0   # tyre section; the ground is at TY1 at rest
+WX, HUBY, BR = 363.0, 5.0, 40.0                # wheel centre plane, hub height, bushing radius
 L_LO = math.hypot(LBJ0[0] - PL[0], LBJ0[1] - PL[1]); L_UP = math.hypot(UBJ0[0] - PU[0], UBJ0[1] - PU[1])
 L_KN = math.hypot(UBJ0[0] - LBJ0[0], UBJ0[1] - LBJ0[1])
 PHI0 = math.atan2(LBJ0[1] - PL[1], LBJ0[0] - PL[0]); KN0 = math.atan2(UBJ0[1] - LBJ0[1], UBJ0[0] - LBJ0[0])
 
 
-def solve(d):
-    """Linkage under bushing deflection d (local units). Cornering load at the contact patch pushes the lower arm inboard
-    (compression) and pulls the upper arm outboard (tension), so the lower bushing shell moves in by d and the upper one out by
-    0.55 d. Arms and upright stay rigid; the lower arm swings just enough to keep the tyre on the ground.
-    Returns (lower shell centre, upper shell centre, lower ball joint, upper ball joint, upright rotation)."""
+def solve(d, z=0.0):
+    """Linkage under bushing deflection d and wheel travel z (local units, z up). Cornering load at the contact patch pushes
+    the lower arm inboard (compression) and pulls the upper arm outboard (tension), so the lower eye moves in by d and the upper
+    one out by 0.55 d. Arms and upright stay rigid; the lower arm swings until the tyre sits on the ground (raised by z).
+    Returns (lower eye centre, upper eye centre, lower ball joint, upper ball joint, upright rotation, lower arm angle)."""
     sl = (PL[0] - d, PL[1]); su = (PU[0] + 0.55 * d, PU[1])
     def pose(phi):
         lb = (sl[0] + L_LO * math.cos(phi), sl[1] + L_LO * math.sin(phi))
@@ -52,28 +73,27 @@ def solve(d):
         return lb, ub, math.atan2(ub[1] - lb[1], ub[0] - lb[0]) - KN0
     def patch_y(phi):
         lb, ub, th = pose(phi); y = TY1 - LBJ0[1]                                          # lowest tyre corner sits on the ground
-        return lb[1] + max((x - LBJ0[0]) * math.sin(th) for x in (TX0, TX1)) + y * math.cos(th) - TY1
+        return lb[1] + max((x - LBJ0[0]) * math.sin(th) for x in (TX0, TX1)) + y * math.cos(th) - (TY1 - z)
     phi = PHI0
     for _ in range(8):
         e = patch_y(phi); g = (patch_y(phi + 1e-4) - e) / 1e-4
         if abs(g) < 1e-9: break
         phi -= e / g
     lb, ub, th = pose(phi)
-    return sl, su, lb, ub, th
+    return sl, su, lb, ub, th, phi
 
 
-def assembly(c, ox, oy, s, load, a=1.0, ring=RUB, k=1.0, wheelcol=C, setline=0.0, chassis_label=True):
+def assembly(c, ox, oy, s, load, a=1.0, ring=RUB, k=1.0, wheelcol=C, setline=0.0, chassis_label=True, z=0.0):
     """Front view of one corner: chassis block, upper and lower A-arm each on its own bushing, upright (knuckle) between the two
-    ball joints, hub and tyre on the upright. load 0..1 pushes at the contact patch; k = how much the bushings give.
-    Returns a dict of screen points for labels."""
-    sl, su, lb, ub, th = solve(13.0 * load * k); cs, sn = math.cos(th), math.sin(th)
+    ball joints, hub and tyre on the upright. load 0..1 pushes at the contact patch; k = how much the bushings give; z = wheel
+    travel. Returns a dict of screen points for labels plus the solved linkage ('st')."""
+    st = solve(13.0 * load * k, z); sl, su, lb, ub, th, phi = st; cs, sn = math.cos(th), math.sin(th)
     def F(x, y): return (ox + x * s, oy + y * s)                                            # fixed to the chassis
     def T(x, y):                                                                            # rigid with the upright
         x, y = x - LBJ0[0], y - LBJ0[1]; return F(lb[0] + x * cs - y * sn, lb[1] + x * sn + y * cs)
-    c.rect(*F(-170, -150), *F(-55, 150), fill=fade(PANEL, a), outline=fade(DIM, a), width=2.5, r=10 * s)
+    c.rect(*F(-170, -150), *F(-55, 135), fill=fade(PANEL, a), outline=fade(DIM, a), width=2.5, r=10 * s)
     if chassis_label: c.label(*F(-112, 0), 'CHASSIS', 16, DIM, a)
-    for p in (PL, PU): c.line([F(-57, p[1]), F(*p)], fade(DIM, a), 12 * s)                  # mounting brackets
-    c.line([F(TX0 - 40, TY1 + 2), F(TX1 + 40, TY1 + 2)], fade(DIM, a * 0.8), 2)             # ground
+    c.line([F(TX0 - 40, TY1 - z + 2), F(TX1 + 40, TY1 - z + 2)], fade(DIM, a * 0.8), 2)     # ground
     if setline > 0: dash(c, *F(WX, TY0 - 26), *F(WX, TY1), fade(WHITE, setline * a), 2)
     tyre = [T(TX0, TY0), T(TX1, TY0), T(TX1, TY1), T(TX0, TY1)]
     c.poly(tyre, fill=fade(PANEL, a)); c.line(tyre + tyre[:1], fade(WHITE, a), 2.5)
@@ -86,28 +106,53 @@ def assembly(c, ox, oy, s, load, a=1.0, ring=RUB, k=1.0, wheelcol=C, setline=0.0
     c.line([F(*lb), F(*ub)], fade(WHITE, a), 15 * s)                                        # upright
     c.circle(*T(WX, HUBY), 9 * s, fill=fade(BG, a), outline=fade(WHITE, a), width=3)
     for p in (lb, ub): c.circle(*F(*p), 11 * s, fill=fade(BG, a), outline=fade(ARM, a), width=3)     # ball joints
-    for sh, fx in ((sl, PL), (su, PU)):
-        bx, by = F(*sh); px, py = F(*fx); bush(c, bx, by, 40 * s, 12 * s, ring, a, px - bx, py - by)
+    for sh, fx in ((sl, PL), (su, PU)):                                                     # the pivots: small versions of the cutaway
+        px, py = F(*fx); joint(c, px, py, BR * s, ring, a, (sh[0] - fx[0]) * s, (sh[1] - fx[1]) * s, ear=(fx[0] + 56) * s)
     return dict(lo=F(*sl), up=F(*su), lbj=F(*lb), ubj=F(*ub), hub=hub, wheel=T(WX, HUBY), patch=T(TX1, TY1 - 22),
-                top=T(WX, TY0), out=T(TX1, HUBY))
+                out=T(TX1, HUBY), st=st, F=F)
+
+
+def cutaway(c, x, y, R, st, a=1.0, ring=RUB, cross=0.0, box=None, link=None, kind='rubber'):
+    """Zoomed cutaway of the lower arm's chassis pivot, driven by the same solved linkage as the corner view (a true zoom:
+    same offset in proportion, same arm angle). box = panel (x0, y0, x1, y1); link = F() of the corner view for the leader."""
+    sl, phi = st[0], st[5]
+    if box:
+        c.rect(*box, fill=fade(mix(BG, PANEL, 0.35), a), outline=fade(GRID, a), width=2, r=14)
+        if link:                                                                            # leader: pivot on the car -> its zoom
+            s = (link(1, 0)[0] - link(0, 0)[0]); px, py = link(*PL); ey = link(0, 168)[1]
+            c.circle(px, py, (BR + 9) * s, outline=fade(DIM, a), width=2)
+            lx = px - 22 * s
+            c.line([(lx, py + (BR + 3) * s), (lx, ey), (box[2], ey)], fade(DIM, a), 2); c.circle(box[2], ey, 4, fill=fade(DIM, a))
+    arm = 2.25 * R if not box else min(2.6 * R, (box[2] - 3 - x - (sl[0] - PL[0]) / BR * R) / math.cos(phi))
+    joint(c, x, y, R, ring, a, (sl[0] - PL[0]) / BR * R, (sl[1] - PL[1]) / BR * R, phi, phi - PHI0, arm, 1.7 * R, True, cross, kind)
 
 
 def L21(c, u, t):   # every arm joins the chassis through one of these
     c.header('HOW IT WORKS', 'Where the arms meet the car', G, u)
-    a = ease(seg(u, 0.04, 0.2)); ox, oy = 380, 372
-    p = assembly(c, ox, oy, 1.0, 0.0, a, wheelcol=None)
-    la = ease(seg(u, 0.14, 0.28))
-    c.label(ox + 172, oy - 112, 'UPPER ARM', 18, WHITE, la); c.label(ox + 160, oy + 128, 'LOWER ARM', 18, WHITE, la)
-    ua = ease(seg(u, 0.2, 0.34)); hx, hy = p['hub']
-    c.line([(hx - 62, hy), (hx - 12, hy)], fade(DIM, ua), 2); c.label(hx - 72, hy, 'UPRIGHT', 18, WHITE, ua, 'rm')
-    c.label(p['out'][0] + 22, p['out'][1], 'WHEEL', 18, DIM, ease(seg(u, 0.24, 0.38)), 'lm')
-    for k, ((bx, by), ly) in enumerate(((p['up'], oy - 150), (p['lo'], oy + 162))):
+    a = ease(seg(u, 0.04, 0.2)); ox, oy, s = 770, 368, 0.8
+    z = 25 * ease(seg(u, 0.16, 0.4)) * math.sin(t * 1.7)                                    # wheel rides up and down: the arms hinge
+    ia = ease(seg(u, 0.14, 0.3)); box = (64, 196, 520, 566); ix, iy, R = 262, 392, 90
+    p = assembly(c, ox, oy, s, 0.0, a, wheelcol=None, z=z); F = p['F']
+    cutaway(c, ix, iy, R, p['st'], ia, box=box, link=F)
+    c.label(box[0] + 18, box[1] + 22, 'INSIDE A BUSHING', 15, DIM, ia, 'lm')
+    for k, (name, lx, ly, px, py) in enumerate((('BOLT', ix - 78, iy - R - 38, ix - 4, iy - 5),
+                                                ('SLEEVE', ix + 62, iy - R - 38, ix + 0.3 * R * 0.6, iy - 0.3 * R * 0.8),
+                                                ('RUBBER', ix - 30, iy + R + 40, ix - 0.12 * R, iy + 0.62 * R),
+                                                ('ARM', ix + 1.8 * R, iy + R + 40, ix + 1.7 * R, iy + 0.5 * R))):
+        b = ease(seg(u, 0.24 + 0.06 * k, 0.36 + 0.06 * k)); dy = 13 if ly < iy else -13
+        if b > 0 and name != 'ARM':
+            c.line([(lx, ly + dy), (lerp(lx, px, b), lerp(ly + dy, py, b))], fade(DIM, a), 2); c.circle(lerp(lx, px, b), lerp(ly + dy, py, b), 4 * b, fill=WHITE)
+        c.label(lx, ly, name, 18, WHITE, b)
+    la = ease(seg(u, 0.1, 0.24))
+    c.label(*F(192, -134), 'UPPER ARM', 17, WHITE, la); c.label(*F(226, 152), 'LOWER ARM', 17, WHITE, la)
+    c.label(*F(205, 12), 'UPRIGHT', 17, WHITE, la, 'rm'); c.line([F(215, 12), (p['hub'][0] - 12, p['hub'][1])], fade(DIM, la), 2)
+    c.label(F(TX1, 0)[0] + 16, oy, 'WHEEL', 17, DIM, la, 'lm')
+    for k, ((bx, by), (lx, ly)) in enumerate(((F(*PU), F(PU[0], PU[1] - 72)), (F(*PL), F(62, 150)))):
         h = ease(seg(u, 0.46 + 0.2 * k, 0.62 + 0.2 * k))
         if h > 0:
             q = 0.5 + 0.5 * math.sin(t * 2.0 - k * 1.2)                                     # slow breathing halo
-            c.circle(bx, by, 47 + 7 * q, outline=fade(C, h * (0.9 - 0.4 * q)), width=3)
-            c.circle(bx, by, 40, outline=fade(C, h), width=5)
-            c.label(bx, ly, 'BUSHING', 20, C, h)
+            c.circle(bx, by, (BR + 7) * s + 6 * q, outline=fade(C, h * (0.9 - 0.4 * q)), width=3)
+            c.label(lx, ly, 'BUSHING', 19, C, h)
     c.chip(CHIP, G, u=u)
 
 
@@ -146,32 +191,41 @@ def L22(c, u, t):   # factory rubber: goes soft and cracks with age
 
 def L23(c, u, t):   # load it up in a corner: the rubber squishes and the wheel moves
     c.header('HOW IT WORKS', 'Rubber squishes under load', G, u)
-    a = ease(seg(u, 0.04, 0.18)); ox, oy = 300, 368
+    a = ease(seg(u, 0.04, 0.18)); ox, oy, s = 720, 372, 0.8
     load = ease(seg(u, 0.26, 0.56)) * (0.86 + 0.14 * math.sin(t * 1.5))
-    sl = ease(seg(u, 0.1, 0.24))
-    p = assembly(c, ox, oy, 1.0, load, a, setline=sl)
-    c.label(ox + WX, oy + TY0 - 44, 'WHERE YOU SET IT', 18, WHITE, sl)
-    la = ease(seg(u, 0.2, 0.34)); ax, ay = p['patch'][0] + 10, oy + TY1 - 22                 # the arrow leans on the contact patch
-    c.arrow(ax + 170, ay, ax, ay, fade(C, la), 7, 20)
-    c.label(ax + 24, ay - 30, 'CORNERING LOAD', 19, WHITE, la, 'lm')
-    c.label(ox + 20, 580, 'RUBBER SQUISHES', 20, C, ease(seg(u, 0.42, 0.6)))
-    c.label(ox + WX, 580, 'WHEEL TILTS AND MOVES', 20, C, ease(seg(u, 0.6, 0.78)))
+    sl = ease(seg(u, 0.1, 0.24)); box = (64, 196, 500, 562); ix, iy, R = 258, 388, 90
+    p = assembly(c, ox, oy, s, load, a, setline=sl); F = p['F']
+    cutaway(c, ix, iy, R, p['st'], a, cross=sl, box=box, link=F)
+    c.label(box[0] + 18, box[1] + 22, 'INSIDE THE BUSHING', 15, DIM, a, 'lm')
+    qa = ease(seg(u, 0.4, 0.56)); ex = (p['st'][0][0] - PL[0]) / BR * R
+    for name, lx, px in (('THICKER', ix - 96, ix + ex - 0.56 * R), ('THINNER', ix + 96, ix + 0.32 * R + 0.5 * (ex + 0.55 * R))):
+        c.line([(lx, iy - R - 22), (px, iy - 0.14 * R)], fade(DIM, qa), 2); c.circle(px, iy - 0.14 * R, 4, fill=fade(WHITE, qa))
+        c.label(lx, iy - R - 36, name, 16, WHITE, qa)
+    c.label(F(WX, 0)[0], F(0, TY0 - 46)[1], 'WHERE YOU SET IT', 17, WHITE, sl)
+    la = ease(seg(u, 0.2, 0.34)); ax, ay = p['patch'][0] + 10, F(0, TY1 - 22)[1]            # the arrow leans on the contact patch
+    c.arrow(ax + 150, ay, ax, ay, fade(C, la), 7, 20)
+    c.label(ax + 18, ay - 28, 'CORNERING LOAD', 17, WHITE, la, 'lm')
+    c.label((box[0] + box[2]) / 2, 594, 'RUBBER SQUISHES', 20, C, ease(seg(u, 0.42, 0.6)))
+    c.label(F(150, 0)[0], 594, 'ARMS SHIFT, WHEEL TILTS', 20, C, ease(seg(u, 0.6, 0.78)))
     c.chip(CHIP, G, u=u)
 
 
 def L24(c, u, t):   # same load: rubber gives a lot, polyurethane gives a little
     c.header('HOW IT WORKS', 'Rubber vs polyurethane', G, u)
-    load = ease(seg(u, 0.3, 0.58)) * (0.86 + 0.14 * math.sin(t * 1.5)); s, oy = 0.62, 340
-    for k, (ox, name, sub, col, give) in enumerate(((190, 'RUBBER', 'WHEEL MOVES AROUND', COL['bad'], 1.0),
-                                                    (800, 'POLYURETHANE', 'WHEEL STAYS CLOSE', COL['good'], 0.22))):
-        a = ease(seg(u, 0.05 + 0.1 * k, 0.2 + 0.1 * k)); sl = ease(seg(u, 0.16 + 0.06 * k, 0.3 + 0.06 * k))
-        p = assembly(c, ox, oy, s, load, a, mix(PANEL, col, 0.62), give, col, sl, chassis_label=False)
+    load = ease(seg(u, 0.3, 0.58)) * (0.86 + 0.14 * math.sin(t * 1.5)); s, oy, R = 0.47, 340, 62
+    for k, (hx, name, sub, col, give) in enumerate(((60, 'RUBBER', 'WHEEL MOVES AROUND', COL['bad'], 1.0),
+                                                    (648, 'POLYURETHANE', 'WHEEL STAYS CLOSE', COL['good'], 0.22))):
+        a = ease(seg(u, 0.05 + 0.1 * k, 0.2 + 0.1 * k)); sl = ease(seg(u, 0.16 + 0.06 * k, 0.3 + 0.06 * k)); ring = mix(PANEL, col, 0.62)
+        ox = hx + 282; box = (hx, oy - 104, hx + 190, oy + 104)
+        p = assembly(c, ox, oy, s, load, a, ring, give, col, sl, chassis_label=False)
+        cutaway(c, hx + 106, oy, R * 0.92, p['st'], a, ring, sl, box, p['F'])
         la = ease(seg(u, 0.22, 0.36)); ax, ay = p['patch'][0] + 8, oy + (TY1 - 22) * s
-        c.arrow(ax + 100, ay, ax, ay, fade(WHITE, la), 6, 17)
-        c.label(ax + 16, ay - 24, 'SAME LOAD', 16, DIM, la, 'lm')
-        c.label(ox + WX * s, oy + (TY0 - 44) * s, 'AS SET', 16, DIM, sl)
-        c.label(ox + 80, 520, name, 26, col, a)
-        c.label(ox + 80, 554, sub, 17, WHITE, ease(seg(u, 0.56 + 0.1 * k, 0.72 + 0.1 * k)))
+        c.arrow(ax + 70, ay, ax, ay, fade(WHITE, la), 6, 17)
+        c.label(ax, ay - 22, 'SAME LOAD', 15, DIM, la, 'lm')
+        c.label(ox + WX * s, oy + (TY0 - 48) * s, 'AS SET', 15, DIM, sl)
+        c.label(hx + 270, 502, name, 26, col, a)
+        c.label(hx + 95, 538, 'SLEEVE OFF CENTRE' if k == 0 else 'SLEEVE STAYS PUT', 16, WHITE, ease(seg(u, 0.5 + 0.1 * k, 0.66 + 0.1 * k)))
+        c.label(ox + 150 * s, 538, sub, 16, WHITE, ease(seg(u, 0.56 + 0.1 * k, 0.72 + 0.1 * k)))
     c.chip(CHIP, G, u=u)
 
 
