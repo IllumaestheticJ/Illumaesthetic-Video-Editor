@@ -1,0 +1,18 @@
+# Pip & Gus Ep 7 - "What plastic should I use for car parts?" (9:16 explainer, series format)
+project: pip-gus-ep7-materials
+format: reel-9x16
+status: script-review   # no voices or renders until the owner approves script.md
+output: {path: /home/user/media/work/out/pip-gus-ep7-materials_v1.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+music: {path: TBD, start: 0, fade_out: 0.6}   # curious/inquisitive generated bed (ElevenLabs Music v2.5 via Higgsfield), not game/battle music
+voices:
+  engine: higgsfield elevenlabs_v4 (dialogue mode, one call, emotion tags, no speed-up)
+  pip: {preset: Kiki, voice_id: 2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7}
+  gus: {preset: Harrison, voice_id: 573e5163-59b3-4926-aab1-951ef2985f81}
+reuse:
+  characters: projects/scan-tedium-explainer-reel/characters/design.md
+  scene_and_rig: projects/scan-tedium-explainer-reel/tools/ (partA_scene.py, partA_anim.py, nametag_tex.py)
+  voice_split: projects/scan-tedium-explainer-reel/tools/el_split.py
+  build: projects/scan-tedium-explainer-reel/tools/full_build_v2.py --v3
+beats: []
+timeline: []
+overlays: []
