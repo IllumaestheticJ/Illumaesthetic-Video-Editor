@@ -1,4 +1,4 @@
-# Pip & Gus Ep 6: "Big printer or small printer?" (script v1, for owner approval)
+# Pip & Gus Ep 6: "Big printer or small printer?" (script v2, for owner approval)
 
 9:16, 1080x1920, 30 fps, about 32-36 s in total:
 - cartoon, about 23-26 s (12 lines, about 53 words);
@@ -16,34 +16,44 @@ Built from the series draft (`projects/pip-gus-series/scripts.md`, Ep 6) and cut
 ## Set-up
 Cel-shaded shop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
 
-## Cartoon
+## Cartoon (v2, built on the owner's own pros and cons, 2026-11-16)
+
+**Owner's advice:**
+- We run both.
+- **Big:** fewer seams and separate pieces, but it moves slower and has lower resolution (bigger nozzle).
+- **Small:** higher resolution, but more pieces that need gluing together.
+
+The script carries only these four trade-offs, plus "run a few at once", which follows from owning several small printers. No other claims.
 
 | # | Who | Line | Picture | Score |
 |---|---|---|---|---|
 | 1 | PIP | "Big printer or small printer?" | Pip looks from the giant printer to the small one. The scoreboard drops in. | |
-| 2 | GUS | "Big one? Fewer pieces. Fewer seams." | The big printer prints a whole panel in one go. On the small side, the same panel is a pile of pieces. | BIG +2 (one per phrase) |
-| 3 | GUS | "But it costs more… and eats the shop." | A cartoon wallet empties. The big printer is wedged in the shop door, and Gus pushes it with his head. | SMALL +1 |
-| 4 | GUS | "And when a big print fails…" | A huge spaghetti failure slides onto the failed-print shelf, which bends. Gus doesn't finish the sentence. | SMALL +1 |
-| 5 | PIP | "Small ones are cheap!" | Pip pats the little printer. | |
-| 6 | GUS | "Run a few at once." [VERIFY] | Three small printers side by side, all printing. | SMALL +1 |
-| 7 | PIP | "Is it done yet?" | The wall clock spins (running gag). | |
-| 8 | GUS | "…This piece is." | One small printer dings and hands Gus a tiny piece. Behind him, a mountain of pieces still waits (callback to Ep 5, glue). | BIG +1 |
-| 9 | PIP | "So who wins?" | The scoreboard is tied and flickers. | tie |
-| 10 | GUS | "Depends on the part." [VERIFY] | Gus shrugs: the panel goes on the big printer and a bracket on the small one. | |
-| 11 | PIP | "Wait. Illumaesthetic's printer is HUGE." [VERIFY] | Pip pulls out the phone; the screen plays the real big printer (phone hand-off, line varied per episode). | |
+| 2 | GUS | "Big one? Fewer pieces. Fewer seams." | The big printer prints a whole panel in one go. On the small side, the same panel is a pile of pieces. | BIG +2 |
+| 3 | GUS | "But it's slower…" | The big print head crawls; the wall clock spins. | SMALL +1 |
+| 4 | GUS | "…and the bigger nozzle means less detail." | Close-up: a fat nozzle lays chunky lines; the small printer's thin lines look crisp beside it. | SMALL +1 |
+| 5 | PIP | "So small ones win!" | Pip pats the little printer. | |
+| 6 | GUS | "Sharper, sure. And you can run a few." | Three small printers side by side, all printing. | SMALL +1 |
+| 7 | PIP | "Is it done yet?" | Running gag. | |
+| 8 | GUS | "…This piece is. Now glue them all." | One small printer dings and hands Gus a tiny piece. Behind him, a mountain of pieces and a glue bottle (callback to Ep 5). | BIG +1 |
+| 9 | PIP | "So who wins?" | The scoreboard is tied 3-3 and flickers. | tie |
+| 10 | GUS | "Depends on the part. We run both." | Gus nudges a big panel toward the big printer and a small detailed part toward the small one. | |
+| 11 | PIP | "Wait. Illumaesthetic's big one is HUGE." | Pip pulls out the phone; the screen plays the real big printer (phone hand-off). | |
 | 12 | GUS | "…Show-off." | Gus leans in, deadpan; the camera pushes into the phone until it fills the frame. | |
 
-## Real footage (4-5 s, no text)
-- **Source:** Dropbox `/Footage Library/Videos/Shoot Sessions/2025-05-30 3D printer setup/` (shot by the owner, a large-format printer).
-- **Candidate:** `2025-05-30 15.50.05.mov` from 2.3 to 7.6 s. Through the enclosure window, the nozzle lays down a white part, with the shop and a red car reflected in the glass.
-- **Alternative:** `15.50.09.mov` from 7.5 to 14 s, the gantry crossing the empty bed.
-- **Avoid:**
-  - `15.50.09.mov` around 4.5-5.5 s: the printer brand logo is visible.
-  - `15.39.41.mov` and the start of `15.50.05.mov`: the touchscreen shows the model name and temperatures.
-- No scan cut in this episode (there is no scan subject), so the no-dissolve rule doesn't come into play.
+About 62 words; the cartoon runs about 26 s.
+
+## Real footage (about 5 s, no text): "we run both"
+1. **Big printer** (about 2.5 s): `Footage Library/Videos/Shoot Sessions/2025-05-30 3D printer setup/2025-05-30 15.50.05.mov`, 2.3-7.6 s, the nozzle laying down a white part.
+   - Avoid `15.50.09` around 5 s (brand logo).
+   - Avoid any touchscreen shot (model name, temperatures).
+2. **Many-piece part** (about 2.5 s): `2. Illumaesthetic Videos/1. Video dumps/*Posted Raw Videos/2024 Finished Video/Jackie/Posted/2024/3d printed fender.mov`, 16.5-22 s, the assembled fender with its glued seams visible.
+   - Skip 0-1 s (burned-in title).
+3. **Owner reviews the cut** (owner: "show me when you put it together").
 
 ## End cards
-- **Teaser card:** [VERIFY] the text. The default "FULL VIDEO ON OUR CHANNEL" only works if a full printer video exists. Otherwise use something like "BIG OR SMALL? / TELL US IN THE COMMENTS" with the printing clip in the frame.
+- **Teaser card:** a framed clip of the big printer. The owner says it doesn't need to point at a YouTube video. Card text (owner to pick):
+  - "WE RUN BOTH"
+  - "BIG OR SMALL? / TELL US IN THE COMMENTS"
 - **Logo card:** as in the pilot.
 
 ## Voices / music
