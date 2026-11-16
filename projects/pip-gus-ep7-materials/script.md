@@ -1,7 +1,7 @@
 # Pip & Gus Ep 7 - "What plastic should I use for car parts?" (script v1, for owner approval)
 
 9:16, 1080x1920, 30 fps, about 35 s. Tightened from the series draft (`projects/pip-gus-series/scripts.md`, Ep 7).
-**Status: waiting for owner approval. No voices or renders until approved.**
+**Status: v2 - owner notes applied; waiting for the real-footage answer and a final OK. No voices or renders until approved.**
 
 **Question:** which filament is right for a car part?
 **Shape:** "the car torture test". Pip's PLA vent fails in the sun, then Gus runs each material past the thing a car does to a part
@@ -18,7 +18,7 @@ No "FULL VIDEO ON OUR CHANNEL" teaser card by default (owner note 2026-11-16: vi
 It is added (+~2 s, before the logo) only if a matching full video exists.
 No call to action either (owner note 2026-11-16: CTAs only when relevant; this episode is not about a scan we sell).
 
-## Script
+## Script (v2, owner notes 2026-11-16 applied)
 | # | Who | Line (emotion tag) | Picture |
 |---|---|---|---|
 | 1 | PIP | [proud] "Look! I printed a vent. In PLA!" | Pip clicks a sage vent into the cartoon car's dash. ^ ^ eyes. |
@@ -26,16 +26,19 @@ No call to action either (owner note 2026-11-16: CTAs only when relevant; this e
 | 3 | PIP | [worried] "...It's melting!" | The PLA vent slowly droops. Pip's eyes go wide/worried. |
 | 4 | GUS | [matter-of-fact] "PLA's easy to print. It just hates heat." | Gus drops the droopy vent on the **failed-prints shelf** (series running gag). |
 | 5 | PIP | [impatient] "So what do I use?" | Pip bounces. |
-| 6 | GUS | "Inside the car? PETG. Tougher, handles more heat." [VERIFY Q1] | A PETG vent in the same sun: holds its shape. No "dulling" effect (no claim implied). |
-| 7 | GUS | "Outside? ASA. It's made for sun and rain." [VERIFY Q1] | An ASA lip/vent through sun, then rain: unchanged. Pip: ^ ^. |
-| 8 | GUS | "Brackets? Carbon-fiber nylon. Stiff and strong." [VERIFY Q1] | A bracket under a cartoon weight: holds, doesn't bend. |
-| 9 | GUS | "And TPU for anything that has to bend." [VERIFY Q2] | A TPU strip squashes and springs back. |
-| 10 | PIP | [curious] "Why doesn't everyone just print those?" | Pip looks along the row of parts. |
-| 11 | GUS | [small sigh] "They warp. They need an enclosure. ...They're worth it." [VERIFY Q3] | A part curls up off the bed; the cartoon printer gets a box over it; Gus nods. |
-| 12 | PIP | [excited] "Like these?!" | Pip holds up their phone: it plays the real footage (composited on the screen). |
-| 13 | GUS | [dry, warm] "...Yeah. Like those." | Push into the phone until the screen fills the frame; hard cut on a beat to the real footage. |
+| 6 | GUS | "Inside the car? PETG. Tougher, handles more heat." | A light-coloured PETG vent in the same sun: holds its shape. |
+| 7 | PIP | [excited] "So I'll print it in black!" | Pip swaps in a black PETG vent. |
+| 8 | GUS | [dry] "...Black PETG still melts in the sun." | The black vent droops; it joins the failed-prints shelf. Pip: worried eyes. |
+| 9 | GUS | "Outside? ASA. It's made for sun and rain." | An ASA lip/vent through sun, then rain: unchanged. Pip: ^ ^. |
+| 10 | GUS | "Brackets? Carbon-fiber nylon. Stiff and strong." | A bracket under a cartoon weight: holds, doesn't bend. |
+| 11 | PIP | [curious] "Why doesn't everyone just print those?" | Pip looks along the row of parts. |
+| 12 | GUS | [small sigh] "They warp. They need an enclosure. ...They're worth it." | A part curls up off the bed; the cartoon printer gets a box over it; Gus nods. |
+| 13 | PIP | [excited] "Like these?!" | Pip holds up their phone: it plays the real footage (composited on the screen). |
+| 14 | GUS | [dry, warm] "...Yeah. Like those." | Push into the phone until the screen fills the frame; hard cut on a beat to the real footage. |
 
-Lines 12-13 are this episode's phone hand-off (varied from the pilot's "...Show me.").
+Lines 13-14 are this episode's phone hand-off (varied from the pilot's "...Show me.").
+Owner (2026-11-16): PETG is the better interior choice, but black PETG melts in the sun (lines 7-8, owner's own claim, no numbers);
+ASA, carbon-fiber nylon and the enclosure line approved; TPU cut (the shop doesn't print TPU).
 
 ## Changes from the series draft (and why)
 - Hook rebuilt as a 3-beat gag (vent -> "Park it in the sun" -> "It's melting!") so the problem lands in the first ~5 s.
@@ -49,13 +52,11 @@ Lines 12-13 are this episode's phone hand-off (varied from the pilot's "...Show 
 ## Rules this script follows
 - No temperatures, numbers, prices or print times, on screen or spoken. All material traits are general and qualitative:
   PLA has low heat resistance; PETG is tougher and more heat-tolerant than PLA; ASA is made for UV and weather;
-  ASA (and ABS) tend to warp and are printed in an enclosure; carbon-fiber nylon is stiff and strong; TPU is flexible.
+  black PETG still melts in the sun (owner); ASA tends to warp and are printed in an enclosure; carbon-fiber nylon is stiff and strong.
 - No filament, printer or competitor brand is named or shown.
 - No text over the real footage; captions are on the cartoon only.
 
-## Owner questions ([VERIFY])
-1. Materials you stand behind: PETG for interior parts, ASA for exterior, carbon-fiber nylon for brackets? Different blend (e.g. PETG-CF or ASA-CF), or mention ABS next to ASA?
-2. Keep the TPU line (line 9), or cut it to make the episode ~3 s shorter?
-3. Line 11, "They warp. They need an enclosure. ...They're worth it." OK as stated?
+## Owner questions
+Answered 2026-11-16: Q1 (PETG inside - not black; ASA outside; carbon-fiber nylon brackets), Q2 (no TPU), Q3 (enclosure line OK), Q5 (logo card alone).
+Still open:
 4. Real footage: which printed parts on a real car may be shown (Dropbox path)? Epsilon Plus parts OK? Is there a scan of that car/part for a 1:1 cut?
-5. Ending: the plan is the logo card alone. Only if a full video about materials exists, say which one and I'll add the teaser card before the logo.
