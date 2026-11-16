@@ -1,4 +1,5 @@
 > **Owner note (2026-11-16): videos do NOT need to link to a YouTube video.** The teaser card is optional; end on the logo card when there's no matching full video.
+> **Owner note (2026-11-16): a call to action is not required either.** "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" (or any CTA) is added only when relevant, for example when the video is about a scan we sell. The logo card can stand alone.
 
 # Pip & Gus: explainer series, draft scripts (v0.2, 2026-11-16)
 
