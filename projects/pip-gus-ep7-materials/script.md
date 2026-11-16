@@ -1,6 +1,6 @@
 # Pip & Gus Ep 7 - "What plastic should I use for car parts?" (script v1, for owner approval)
 
-9:16, 1080x1920, 30 fps, about 37 s. Tightened from the series draft (`projects/pip-gus-series/scripts.md`, Ep 7).
+9:16, 1080x1920, 30 fps, about 35 s. Tightened from the series draft (`projects/pip-gus-series/scripts.md`, Ep 7).
 **Status: waiting for owner approval. No voices or renders until approved.**
 
 **Question:** which filament is right for a car part?
@@ -12,8 +12,10 @@
 |---|---|---|
 | Cartoon | 0-29 s | 13 lines, about 70 words, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
 | Real footage | 29-34 s | 4-5 s of printed parts on a real car. Photographic, no text. A hard 1:1 real-to-scan cut on a beat only if a scan of that car/part exists |
-| Teaser card | 34-36 s | framed clip + episode text (owner to choose, see Q5) |
-| Logo card | 36-38 s | Illumaesthetic logo (~700 px wide) |
+| Logo card | 34-36 s | Illumaesthetic logo (~700 px wide), with a call to action only if the owner picks one (Q5) |
+
+No "FULL VIDEO ON OUR CHANNEL" teaser card by default (owner note 2026-11-16: videos do not need to link to a YouTube video).
+It is added (+~2 s, before the logo) only if a matching full video exists.
 
 ## Script
 | # | Who | Line (emotion tag) | Picture |
@@ -55,4 +57,4 @@ Lines 12-13 are this episode's phone hand-off (varied from the pilot's "...Show 
 2. Keep the TPU line (line 9), or cut it to make the episode ~3 s shorter?
 3. Line 11, "They warp. They need an enclosure. ...They're worth it." OK as stated?
 4. Real footage: which printed parts on a real car may be shown (Dropbox path)? Epsilon Plus parts OK? Is there a scan of that car/part for a 1:1 cut?
-5. Teaser card: which full video does it point to, and what text? Proposal: **WHAT DO WE PRINT OUR PARTS IN?** / **FULL VIDEO ON OUR CHANNEL**.
+5. Ending: plain logo card, or the logo with a call to action (e.g. **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**, or another one you prefer)? If a full video about materials exists, say which one and I'll add the teaser card before the logo.
