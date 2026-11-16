@@ -33,14 +33,14 @@ No call to action either (owner note 2026-11-16: CTAs only when relevant; this e
 | 10 | GUS | "Brackets? Carbon-fiber nylon. Stiff and strong." | A bracket under a cartoon weight: holds, doesn't bend. |
 | 11 | PIP | [curious] "Why doesn't everyone just print those?" | Pip looks along the row of parts. |
 | 12 | GUS | [small sigh] "They warp. They need an enclosure. ...They're worth it." | A part curls up off the bed; the cartoon printer gets a box over it; Gus nods. |
-| 12b | GUS | "And it depends what it's for. A part on the car? A mold? Different plastic." [VERIFY: name the mold material?] | Two prints side by side: a finished part on the car, a mold on the bench; each gets its own filament spool colour. |
+| 12b | GUS | "And it depends what it's for. Molds? PETG or ASA. PETG warps less." | A mold on the bench next to its PETG and ASA spools; the PETG mold sits flat, the ASA one lifts a corner slightly. |
 | 13 | PIP | [excited] "Like these?!" | Pip holds up their phone: it plays the real footage (composited on the screen). |
 | 14 | GUS | [dry, warm] "...Yeah. Like those." | Push into the phone until the screen fills the frame; hard cut on a beat to the real footage. |
 
 Lines 13-14 are this episode's phone hand-off (varied from the pilot's "...Show me.").
 Owner (2026-11-16): PETG is the better interior choice, but black PETG melts in the sun (lines 7-8, owner's own claim, no numbers);
 ASA, carbon-fiber nylon and the enclosure line approved; TPU cut (the shop doesn't print TPU).
-Owner (2026-11-16): "we also use different materials depending on what it's for (actual use, molds, etc)" -> line 12b (general, ~3 s; episode now ~37 s).
+Owner (2026-11-16): "we also use different materials depending on what it's for (actual use, molds, etc)" -> line 12b. Owner: molds are printed in PETG or ASA; PETG warps less (~4 s; episode now ~38 s).
 
 ## Changes from the series draft (and why)
 - Hook rebuilt as a 3-beat gag (vent -> "Park it in the sun" -> "It's melting!") so the problem lands in the first ~5 s.
@@ -59,7 +59,6 @@ Owner (2026-11-16): "we also use different materials depending on what it's for 
 - No text over the real footage; captions are on the cartoon only.
 
 ## Owner questions
-Answered 2026-11-16: Q4a (Epsilon Plus parts may be shown), no full video exists (no teaser card), Q1 (PETG inside - not black; ASA outside; carbon-fiber nylon brackets), Q2 (no TPU), Q3 (enclosure line OK), Q5 (logo card alone).
+Answered 2026-11-16: Q4a (Epsilon Plus parts may be shown), no full video exists (no teaser card), Q1 (PETG inside - not black; ASA outside; carbon-fiber nylon brackets), Q2 (no TPU), Q3 (enclosure line OK), Q5 (logo card alone), Q6 (molds: PETG or ASA, PETG warps less).
 Still open:
-6. Line 12b: keep it general ("A mold? Different plastic."), or name what you print molds in? Any other use besides parts and molds worth naming?
-4. Real footage: Epsilon Plus parts are OK. Which clip/part (candidates in Dropbox `/1. Epsilon Plus Videos/1. Video dumps/`), and which of those parts are 3D printed?
+4. Real footage: owner OK'd Epsilon Plus parts and Epsilon print videos. Clip choice pending (agent shortlisting from Dropbox).
