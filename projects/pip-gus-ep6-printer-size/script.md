@@ -55,7 +55,7 @@ About 62 words; the cartoon runs about 26 s.
   - "WE RUN BOTH"
   - "BIG OR SMALL? / TELL US IN THE COMMENTS"
   - or no teaser card at all: go straight from the footage to the logo card. Series rule (2026-11-16): the teaser card is optional and doesn't need to point at a YouTube video.
-- **Logo card:** as in the pilot.
+- **Logo card:** the logo stands alone, with no call to action. Ep 6 isn't about a scan we sell, so "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" is left off. Series rule, 2026-11-16: a call to action is used only when it's relevant.
 
 ## Voices / music
 As in the series brief:
