@@ -1,9 +1,9 @@
 # Pip & Gus Ep 5: "How do you glue prints together?" (script v1, for owner approval)
 
-9:16, 1080x1920, 30 fps, about 34-38 s total.
+9:16, 1080x1920, 30 fps, about 32-36 s total.
 - **Part A, cartoon:** about 26-29 s, with word-by-word captions.
 - **Part B, real footage:** 4-5 s.
-- **End cards:** the teaser card, then the logo card.
+- **End card:** the logo card. No YouTube teaser card unless a matching full video exists (owner rule, 2026-11-16).
 
 Status: **DRAFT. Nothing is generated or rendered until the owner approves.** Lines marked [VERIFY] wait on the owner's answers.
 
@@ -49,9 +49,10 @@ The visual device is a "glue tier list." Gus tests each method on the same two g
 - **Status:** [VERIFY 5] I searched Dropbox for "glue" and "epoxy" and found no footage by name. If none exists, this needs a short shoot (see question 5).
 - **Transitions:** no text over this section. The cartoon-to-real transition is a hard cut on a beat.
 
-## End cards
-1. **Teaser card.** Framed clip with a top line and a bottom line. Suggested text: "WHICH ONE HELD?" / "FULL VIDEO ON OUR CHANNEL". [VERIFY 6]
-2. **Logo card.** About 720 px wide.
+## End card
+- **Owner rule (2026-11-16):** videos do not need to link to a YouTube video. The "FULL VIDEO ON OUR CHANNEL" teaser card is used only when a matching full video exists.
+- **Default ending:** the real footage ends on the finished, joined part, then the logo card, about 720 px wide.
+- **Optional:** a call to action under the logo, only if the owner wants one and gives the wording. [VERIFY 6]
 
 ## Voices and music (after approval)
 - **Voices:** one ElevenLabs v4 dialogue call with emotion tags, about 1 credit.
