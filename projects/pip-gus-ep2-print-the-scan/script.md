@@ -21,9 +21,9 @@ the part on it, and the scan is what makes the part fit.
 | 2 | GUS [flat] | "That's a scan. It's a skin." | Gus pulls the scan off again; push in until the nose becomes a sea of tiny triangles. Pip's eyes go wide. |
 | 3 | GUS [matter-of-fact] | "Tiny triangles. No thickness." | Gus flicks the surface with a floating mitten; it wobbles like cling film. |
 | 4 | PIP [impatient] | "So... print it anyway?" | Pip nudges the printer. |
-| 5 | GUS [dry] | "Sure." | Printer starts. The wall clock begins to spin (series gag). |
-| 6 | PIP [impatient] | "Is it done yet?" | Pip slumped on a stool, clock hands whirring. |
-| 7 | GUS [deadpan] | "...Yep." | Printer opens: a paper-thin ghost of the lip stands up, wobbles, and flops over onto a new, empty shelf: the **failed-print shelf** (gag starts here, used again from Ep 3). Gus's eyes: half-lid. |
+| 5 | GUS [dry] | "Sure." | Gus drops the scan into the cartoon slicer (no brand UI). The preview is an empty build plate: no layers, nothing to slice. The wall clock starts to spin (series gag). |
+| 6 | PIP [impatient] | "Is it done yet?" | Pip slumped on a stool, clock hands whirring, staring at the printer, which hasn't moved. |
+| 7 | GUS [deadpan] | "...There's nothing to print." | Gus slides out the empty build plate and sets it on a new, empty shelf: the **failed-print shelf** (gag starts here with literally nothing on it, filled from Ep 3). Pip's eyes: flat cut. Gus's eyes: half-lid. |
 | 8 | GUS [patient, slightly tired] | "The scan is the reference. You design the part *on* it." | Gus draws a clean, solid lip that hugs the scan's curve; it turns solid and snaps onto the cartoon car: "click". [VERIFY Q2] |
 | 9 | PIP [curious] | "So the scan is what makes it fit?" | Pip peers along the seam: zero gap. |
 | 10 | GUS [matter-of-fact] | "Every curve." | Gus runs a mitten along the bumper line; small sparkle at the seam. |
@@ -32,9 +32,12 @@ the part on it, and the scan is what makes the part fit.
 
 Changes from the series draft (and why):
 - Dropped "No edges." It's vague and easy to argue with; "Tiny triangles. No thickness." is the accurate core claim.
-- Lines 6-7 use the series "Is it done yet?" gag but flip the answer to "...Yep." The punchline is that it *is* done, and it's useless.
-  This keeps the series gag fresh without adding a line.
-- Lines 7 and 8 split the flop from the explanation, so the visual joke gets its own beat.
+- Owner (2026-11-16): "you technically can't even print the scan at all." So nothing gets printed. A surface with no thickness
+  has no volume to slice: the slicer shows an empty plate and the printer never moves. The old "paper-thin ghost lip" gag was wrong
+  and is gone.
+- Lines 6-7 use the series "Is it done yet?" gag, and the answer is "...There's nothing to print." The empty build plate going onto
+  the brand-new failed-print shelf is the visual joke.
+- Lines 7 and 8 split the joke from the explanation, so the empty plate gets its own beat.
 - New hand-off (lines 11-12), varied per the series rule: Pip finds Illumaesthetic's scans on the phone, and Gus's "Of course they do"
   keeps him dry, not angry. The hand-off leads straight into the scan-sales CTA on the logo card.
 - No numbers anywhere in the cartoon (no triangle count, no sizes, no times).
