@@ -33,7 +33,7 @@ The link to the Subaru bumper video goes in the post caption / pinned comment (a
 (owner, 2026-11-16): https://www.youtube.com/watch?v=5_OduBD2FoU - "I didn't like my bumper, so I made a new one." (illumaesthetic
 channel; blue GD Impreza front bumper, 3D-printed vs fiberglass). [NEED: footage for the card frame - raw clips of that build;
 the Dropbox "VB Subaru Bumper test fit" clip is a different car (black VB rear) and is not used.]
-**Logo card:** Illumaesthetic logo.
+**Logo card:** Illumaesthetic logo alone, no CTA line (series rule, owner 2026-11-16: a CTA only when relevant; Ep 3 sells no scan).
 
 Series rule (owner, relayed 2026-11-16): the "full video" teaser is optional and used only when a matching video exists and fits.
 Ep 3 keeps it because the owner asked for this specific ending. If the Subaru video's link/footage can't be confirmed, the fallback
