@@ -16,6 +16,8 @@ Built from the series draft (`projects/pip-gus-series/scripts.md`, Ep 6) and cut
 ## Set-up
 Cel-shaded shop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
 
+Characters use the owner's proportion option 3 (2026-11-16): shorter torso, wider hips, bigger feet, hands close to the body. No gag here needs tall, thin bodies or a long reach. Gus nudges the parts in line 10 and takes the piece in line 8 with his hands kept close to his body.
+
 ## Cartoon (v2, built on the owner's own pros and cons, 2026-11-16)
 
 **Owner's advice:**
