@@ -37,3 +37,8 @@ Left out on purpose: the "A DOT EVERY ~8 CM" label, any time/answer, the logo ca
 - Card legible at 540 px wide; CTA cap ~57 px vs headline ~76 px.
 - Loudness (final AAC): -14.1 LUFS integrated, -2.0 dBTP, LRA 2.3 LU.
 - Not verified: by ear - the splice inaudibility and the dialogue/music balance are measured only (splice spectral scores, v1 ducking curve).
+
+## explainer_full_v3 (2026-11-16): v2 + logo end card + the track's real ending
+- 1313 frames / 43.77 s. Unchanged to frame 1132; teaser card 1133-1222 (3.0 s), R3 v3 logo card 1223-1312 (3.0 s).
+- Music: 4-bar route lift -> bar 9 -> (jump) bars 14-15 -> final chord on 1277 (under the logo), natural ring-out + 0.3 s tail fade.
+- -14.0 LUFS, -2.0 dBTP, LRA 2.2 LU (final AAC). Overlay alpha over IRL = 0 (automated). Not verified by ear.

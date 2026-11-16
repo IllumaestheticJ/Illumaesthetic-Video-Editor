@@ -33,6 +33,8 @@ CUTS = dict(p2=989, p7=1025, p8=1061, card=1133, end=1232)
 BEAT0, BEAT = 0.0203, 0.60001          # measured grid (build_v2/grid_v2.npy)
 LIFT_BEAT = 32                          # bar 8 downbeat = bass entry
 JUMPS = [(10, 2), (14, 6), (30, 22)]    # (from beat, to beat): 2-bar back-jumps in the intro
+POST_JUMPS = []                         # forward jumps after the lift (v3: [(40, 56)] = end of bar 9 -> bar 14, score 6.39)
+TAIL_FADE = None                        # v3: short fade on the ring-out instead of the 1.5 s card fade
 XF = 0.008                              # splice crossfade (s), centred 8 ms before the grid beat
 FADE_S = 1.5
 # teaser: E50 of the long-form (FX30547 120.40-125.80, host lying on the floor scanning under the IS350's front).
@@ -52,7 +54,7 @@ def music_plan():
     played_before = sum(bt(a) - bt(b) for a, b in JUMPS)  # extra time from the back-jumps
     s0 = bt(LIFT_BEAT) + played_before - t_ho
     segs, cur = [], s0
-    for a, b in JUMPS:
+    for a, b in JUMPS + POST_JUMPS:
         segs.append((cur, bt(a) - XF)); cur = bt(b) - XF
     segs.append((cur, None))
     return s0, segs
@@ -81,7 +83,7 @@ def music(n):
 # ------------------------------------------------------------------ teaser footage (graded, cropped, 30 fps)
 def teaser():
     mp4 = BUILD / "teaser.mp4"
-    n = CUTS["end"] - CUTS["card"]
+    n = CUTS.get("logo", CUTS["end"]) - CUTS["card"]
     if mp4.exists() and nframes(mp4) == n:
         return mp4
     x, y, w, h = TEASE["crop"]
@@ -98,16 +100,18 @@ def teaser():
 def props():
     c0, c1 = CUTS["card"] / FPS, CUTS["end"] / FPS
     b = BEAT
-    item = {"kind": "teaser", "t0": c0, "t1": c1 + 1,
+    lg = CUTS.get("logo")
+    item = {"kind": "teaser", "t0": c0, "t1": lg / FPS if lg else c1 + 1,
             "lines": [{"text": "HOW LONG", "at": c0}, {"text": "DID IT TAKE?", "at": c0 + b}],
             "sub": {"lines": ["FULL VIDEO", "ON OUR CHANNEL"], "at": c0 + 2 * b},
             "win": dict(WIN, at=c0)}
-    return {"fps": FPS, "durationInFrames": CUTS["end"], "items": [item], "pages": v1.pages(), "palette": BRAND, "size": 88}
+    items = [item] + ([{"kind": "logo", "t0": lg / FPS, "t1": c1 + 1, "cta": CTA}] if lg else [])
+    return {"fps": FPS, "durationInFrames": CUTS["end"], "items": items, "pages": v1.pages(), "palette": BRAND, "size": 88}
 
 
 def gfx():
     js = json.dumps(props(), indent=1)
-    (PROJ / "gfx_full_v2_props.json").write_text(js)
+    (PROJ / f"gfx_full_{VER}_props.json").write_text(js)
     h = hashlib.sha1((js + (REPO / "remotion/src/gfx/reel/ExplainerGfx.tsx").read_text() + (REPO / "remotion/src/gfx/reel/ReelGfx.tsx").read_text()).encode()).hexdigest()[:10]
     mov = BUILD / f"gfx_{h}.mov"
     if not mov.exists():
@@ -150,7 +154,9 @@ def picture(gmov, tmp4):
             ("P2", irl("R1_SCAN", c["p7"] - c["p2"], t_start=322.0), c["p7"] - c["p2"], "all"),
             ("P7", irl("R2_FRONT", c["p8"] - c["p7"], end_on_match=True), c["p8"] - c["p7"], "all"),
             ("P8", scan("V_MATCH_FRONT", c["card"] - c["p8"]), c["card"] - c["p8"], None),
-            ("card", card(), c["end"] - c["card"], "win")]
+            ("card", card(), c.get("logo", c["end"]) - c["card"], "win")]
+    if "logo" in c:  # opaque logo card (ReelGfx logo item, as R3 v3) over black
+        segs.append(("logo", ((np.zeros((H, W, 3), np.uint8), None) for _ in range(c["end"] - c["logo"])), c["end"] - c["logo"], None))
     rep, f, qa = [], 0, []
     for name, gen, n, irlm in segs:
         k, srcs, amax = 0, [], 0.0
@@ -201,7 +207,7 @@ def audio(name):
     g[ramp0:pa] = np.linspace(g[ramp0], 0.0, pa - ramp0)
     g[pa:] = 0.0
     lin = 10 ** (g / 20)
-    f0 = int((CUTS["end"] / FPS - FADE_S) * SR)
+    f0 = int((CUTS["end"] / FPS - (TAIL_FADE or FADE_S)) * SR)
     lin[f0:] *= np.cos(np.linspace(0, np.pi / 2, n - f0)) ** 1.5
     lin[:int(0.08 * SR)] *= np.linspace(0, 1, int(0.08 * SR))   # track enters 33 ms after a beat: short fade-in
     mus_d = mus * lin[:, None]
@@ -221,7 +227,7 @@ def audio(name):
         gain += -14.0 - I2
     write_wav(BUILD / "stem_music.wav", mus_d * 10 ** (gain / 20))
     write_wav(BUILD / "stem_dialogue.wav", dbuf * 10 ** (gain / 20))
-    info = dict(track_s0=round(s0, 4), jumps_beats=JUMPS, lift_track_s=round(bt(LIFT_BEAT), 4), lift_reel_frame=CUTS["p2"],
+    info = dict(track_s0=round(s0, 4), jumps_beats=JUMPS, post_jumps_beats=POST_JUMPS, cuts=CUTS, lift_track_s=round(bt(LIFT_BEAT), 4), lift_reel_frame=CUTS["p2"],
                 partB_ref_lufs=I_B, master_lufs=I2, master_true_peak=P2, gain_db=gain)
     (BUILD / "audio.json").write_text(json.dumps(info, indent=1))
     print("audio", info, flush=True)
@@ -236,12 +242,33 @@ def mux(name, master):
     return out
 
 
+CTA = "SCANS AVAILABLE AT\nILLUMAESTHETIC.COM"  # = lexus-is350-reels/tools/reels.py CTA (R3 v3 logo card)
+VER = "v2"
+
+
+def configure_v3():
+    """v3 (owner: "add illumaesthetic logo at the end"): music lift (bar 8) -> bar 9 -> jump -> bars 14, 15 -> final chord bar 16 (the
+    seamless 4-bar route). Bar 14 = teaser card downbeat (1133); logo card on beat 2 of bar 15 (1223) so the teaser stays 3.0 s and
+    ends before the plate (src 123.4 s); final chord on 1277 under the logo; ring-out 1.2 s with a 0.3 s tail fade; end 1313."""
+    global CUTS, BUILD, POST_JUMPS, TAIL_FADE, VER
+    CUTS = dict(p2=989, p7=1025, p8=1061, card=1133, logo=1223, end=1313)
+    POST_JUMPS = [(40, 56)]
+    TAIL_FADE = 0.3
+    VER = "v3"
+    BUILD = W_ / "build_v3"
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     for k in ("gfx", "audio", "video", "mux", "all"):
         ap.add_argument(f"--{k}", action="store_true")
     ap.add_argument("--name", default="explainer_full_v2")
+    ap.add_argument("--v3", action="store_true", help="v3: logo card after the teaser + the track's real ending")
     a = ap.parse_args()
+    if a.v3:
+        configure_v3()
+        if a.name == "explainer_full_v2":
+            a.name = "explainer_full_v3"
     BUILD.mkdir(parents=True, exist_ok=True)
     if a.audio or a.all:
         m = audio(a.name)
