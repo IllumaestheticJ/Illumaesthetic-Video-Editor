@@ -44,7 +44,9 @@
  },
  "fitment_note": "v10 drift fitment: front -8 deg / rear -3 deg camber, +25/+20 mm outward, body lowered (shots_v8 DROP)",
  "steer_sets": {
-  "_sR15": -15.0
+  "_sR15": -15.0,
+  "_sR8": -8.0
  },
- "steer_note": "_steer +6.3 for the SEMA photo; _sR15 -15 for the night garage photo (v13 final shot)"
+ "steer_note": "_steer +6.3 for the SEMA photo; _sR15 -15 for the night garage photo (v13 final shot)",
+ "kingpin_in": 0.12
 }

@@ -1,3 +1,4 @@
+# v17 (user 2026-11-16): final shot front wheels straight (turned ones clipped the fender).
 # v16 (user 2026-11-16): faster opening - whole car + engine bay at ~2x, music starts on the 7.311 hit (reel 7.3 s shorter).
 # v15 (user 2026-11-16): official Kaido House logo (kaidohouse.com header) on the end card.
 # v14 (user 2026-11-15): Kaido House logo added to the end card.
@@ -15,7 +16,7 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v16.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v17.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s

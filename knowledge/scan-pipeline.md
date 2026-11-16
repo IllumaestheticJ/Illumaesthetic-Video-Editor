@@ -90,3 +90,8 @@ at <6 m crop the car. Check at 30 % res first.
   wheel share the staging position on the same frame.
 - Livery glass: restrict the dark-glass rule to explicit glass bands (glass_y, glass_hw); a "not flat, above the belt"
   rule also catches roof rails and pillars.
+
+## Steering a cambered, pushed-out wheel (400Z v17)
+- Steering about the tyre centre with -8 deg camber and +25 mm track pokes the tyre through the fender lip. Measure
+  with tools/wheel_clip.py (wheel points outboard of a kit surface). A kingpin pivot 12 cm inboard (`kingpin_in`)
+  removes it, but the user preferred straight wheels in the final shot over matching the photo's steer.

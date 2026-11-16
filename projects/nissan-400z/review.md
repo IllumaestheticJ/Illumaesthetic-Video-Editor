@@ -1,3 +1,12 @@
+# Nissan 400Z scan reel — v17 self-review (2026-11-16)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v17.mp4`: 1080x1920, 30 fps, 45.10 s (1353 f), -14.2 LUFS, true peak -3.5 dBTP.
+
+## User feedback on v16 -> v17
+- **"Wheels are turned and clipping through the fender in the last shot - I just want it straight"**: HERO front wheels
+  straight; tools/wheel_clip.py measures 0 wheel points through the kit (turned: up to 77). Checked frames 1110-1156.
+  At the cut the photo's own wheel is turned, so the wheel angle changes there; the body still matches 1:1.
+
 # Nissan 400Z scan reel — v16 self-review (2026-11-16)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v16.mp4`: 1080x1920, 30 fps, 45.10 s (1353 f), -14.2 LUFS, true peak -3.5 dBTP.

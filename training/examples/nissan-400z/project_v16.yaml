@@ -1,0 +1,119 @@
+# v16 (user 2026-11-16): faster opening - whole car + engine bay at ~2x, music starts on the 7.311 hit (reel 7.3 s shorter).
+# v15 (user 2026-11-16): official Kaido House logo (kaidohouse.com header) on the end card.
+# v14 (user 2026-11-15): Kaido House logo added to the end card.
+# v13 (user 2026-11-15): final 1:1 now to the night photo in front of the garage.
+# v12 (user 2026-11-15): stock bumper fully comes off (lip included), windows traced from the SEMA photo.
+# v11 (user 2026-11-15): roof rails body colour (only glass dark), wheels animate off/on, old bumper off / Bomex bumper on.
+# v10 (user 2026-11-15): drift fitment (front -8/rear -3 camber, +20-25 mm track, body -5 cm), rear vents install with the quarter panels.
+# v9 (user 2026-11-14): photo stance (body +9 cm vs v8), real KAIDO*HOUSE decal, side BOMEX moved back, new tyres, front-end holes/clipping fixed.
+# v8 (user 2026-11-14): end on a 1:1 cut to a finished-car photo, Bomex logo end card, grille area cleaned, user's BBS LM wheels.
+# Nissan 400Z - scan reel v5 (user 2026-11-13: show every removed part incl. grilles, add the Bomex x Kaido House kit from Ron's folder and the livery).
+# Order from projects/nissan-400z/direction.md (scene director, by scan features) + director.md (one focus per shot):
+# whole car -> engine bay (Hood Open scan) -> front bumper off (hero, on the drop) -> structure behind it (2 mm
+# Bumper and hood removed, labelled) -> right mirror off -> tail detail -> wing off -> reassembly (s8b) -> fade -> small logo.
+# Renders 1080x1920 @ 75 %, 12 spp, 15 fps, persistent data OFF, minterpolate to 30 fps; x0.955 gain (Temerario luma).
+# src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
+project: nissan-400z
+format: reel-9x16
+output: {path: /home/user/media/work/out/nissan_400z_scan_v16.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+
+music:
+  path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
+  start: 7.30       # v16 (user: "play out faster in the beginning"): music starts on the 7.311 intro hit; every later cut is 7.30 s (219 f) earlier
+  fade_out: 1.2
+  gain: 0.63         # -4 dB: v3 measured -10.5 LUFS / +0.4 dBTP (user: music too loud) -> ~-14.5 LUFS, < -1 dBTP
+
+# v3 cuts = measured half-rise onsets (frames): 7.311(219) 14.004 drop(420) 17.795(534) 23.363(701) 26.181(785) 28.987 phrase(870)
+# 33.672(1010) 40.289 logo(1209) end 44.03(1321). 128 BPM; drop 14.031; phrases 21.53 29.03 36.53 44.03
+beats: [3.423, 6.704, 9.497, 14.188, 16.063, 18.881, 21.687, 25.489, 29.243, 32.989, 36.749, 38.567]  # v16: music time - 7.30
+
+timeline:
+  - id: N0_open     # whole car (v4 render)
+    src: /home/user/media/work/z400/renders/final/N0_open
+    src_fps: 31.7      # v16: whole orbit at ~2.1x (113 f in 3.43 s), no interpolation needed
+    interpolate: false
+    dur: 3.3667        # assembler adds 1 f to the first clip -> cut at f102 (3.400 s)
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955,fade=t=in:st=0:d=0.25"
+  - transition: {type: cut, note: "10.723 beat (music time) = 3.433 s"}
+  - id: H_hoodopen     # engine bay, Hood Open scan (label ENGINE BAY)
+    src: /home/user/media/work/z400/renders/final/H_hoodopen
+    src_fps: 30.6      # v16: ~2x (104 f in 3.3 s)
+    interpolate: false
+    dur: 3.3           # 99 f -> drop cut at f201 (6.700 s)
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "14.004 THE DROP (music) = 6.700 s"}
+  - id: N1a_bumper_off     # bumper + grilles leave as one unit, moving on the drop (84 f)
+    src: /home/user/media/work/z400/renders/final/N1a_bumper_off
+    src_fps: 30
+    interpolate: false
+    trim_start: 0.9
+    dur: 2.8
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "16.797 kick"}
+  - id: STRUCT     # air ducting off, 1:1 swap to crash-foam-removed on 21.488 (197 f)
+    src: /home/user/media/work/z400/renders/final/STRUCT
+    src_fps: 30
+    interpolate: false
+    dur: 6.5667
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "23.363 kick"}
+  - id: BUMPER     # bumper shell alone, upper + lower grille out (84 f)
+    src: /home/user/media/work/z400/renders/final/BUMPER
+    src_fps: 30
+    interpolate: false
+    dur: 2.8
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "26.181 kick"}
+  - id: MIRRORS     # real Side Mirrors scans off (85 f)
+    src: /home/user/media/work/z400/renders/final/MIRRORS
+    src_fps: 30
+    interpolate: false
+    dur: 2.8333
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "28.987 phrase - Bomex kit"}
+  - id: KIT_FRONT     # Bomex front over the stock bumper, canards, Bomex mirrors (114 f)
+    src: /home/user/media/work/z400/renders/final/KIT_FRONT
+    src_fps: 30
+    interpolate: false
+    dur: 3.8
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "32.789 kick"}
+  - id: KIT_SIDE     # rear fenders, skirts, slats, gas cap; user's BBS LM (chrome, Bomex calipers) swap on 34.656 (112 f)
+    src: /home/user/media/work/z400/renders/final/KIT_SIDE
+    src_fps: 30
+    interpolate: false
+    dur: 3.7333
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "36.543 phrase"}
+  - id: REAR     # stock wing off, ducktail + diffuser on (113 f)
+    src: /home/user/media/work/z400/renders/final/REAR
+    src_fps: 30
+    interpolate: false
+    dur: 3.7667
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "40.289 kick - livery"}
+  - id: LIVERY     # livery wipe, driver side (112 f)
+    src: /home/user/media/work/z400/renders/final/LIVERY
+    src_fps: 14.61
+    interpolate: true
+    dur: 3.7333
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "44.049 phrase - hero"}
+  - id: HERO     # kitted liveried car; native 30 fps, swings in and settles on the solved SEMA-photo camera (55 f shown)
+    src: /home/user/media/work/z400/renders/final/HERO
+    src_fps: 30
+    interpolate: false
+    dur: 1.8333
+    vf: "colorchannelmixer=rr=0.955:gg=0.955:bb=0.955"
+  - transition: {type: cut, note: "45.867 kick - hard 1:1 cut scan -> night garage photo (391c063b 9:16 crop, match/cam_match_night.json)"}
+  - id: photo          # photo_card.py: frame 1 = solved framing, slow 5 % push, 12 f dip to black; no text over the photo
+    src: /home/user/media/work/z400/photo_card_v13.mp4
+    dur: 2.8           # 84 f -> 48.667 s
+  - transition: {type: cut, note: "end card from black"}
+  - id: endcard        # endcard.py: Illumaesthetic logo + white Bomex mark + KAIDO*HOUSE (Sentra-video style)
+    src: /home/user/media/work/z400/endcard_v15.mp4
+    dur: 3.7667        # 113 f -> ends 52.43 s
+
+overlays:   # one factual label per removed/installed part, text from scan file / Drive folder names
+  - src: /home/user/media/work/out/hud_z400_v16.mov
+    start: 0
