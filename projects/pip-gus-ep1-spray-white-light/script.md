@@ -3,7 +3,7 @@
 **Status:** v1 tightened draft for owner approval (2026-11-16). No voices or renders until approved.
 Source draft: `projects/pip-gus-series/scripts.md` "Ep 1" (v0.2). 9:16, 1080x1920, 30 fps.
 
-**Target length about 36 s:** cartoon about 27 s (12 lines, 78 words) + real footage 4-5 s + teaser card about 2.5 s + logo card about 2 s.
+**Target length about 33-34 s:** cartoon about 27 s (12 lines, 78 words) + real footage 4-5 s + logo card about 2 s.
 
 ## The science (qualitative only, no numbers)
 - The scanner projects a pattern of light onto the surface; a camera sees how the pattern bends over the shape.
@@ -35,9 +35,9 @@ Captions: word by word, Fjalla One, Pip sage #619f73, Gus #ecefec, dark plate. C
 - IS350 being powder-sprayed (FX30541 / FX30549 low-angle spray close-up), then a hard 1:1 cut on the beat to the scan
   (reuse the approved IS350 front pair from the pilot). [Owner question 4: a black car or chrome/window spray shot would fit better if one exists.]
 
-## End cards
-- Teaser card: **[owner question 5]** proposed "WHAT SPRAY DO WE USE? / FULL VIDEO ON OUR CHANNEL", with a framed clip of the spray.
-- Logo card.
+## End card
+- Logo card only (owner note 2026-11-16: the "FULL VIDEO ON OUR CHANNEL" teaser is optional; this episode has no full video
+  about spraying, and its open question points at Ep 9 instead). **[owner question 5]** call-to-action line under the logo.
 
 ## Changes from the v0.2 draft (and why)
 - Line 1 asks while the spraying is happening, so the hook is visual in frame one.
@@ -51,4 +51,4 @@ Captions: word by word, Fjalla One, Pip sage #619f73, Gus #ecefec, dark plate. C
 2. Spray: what do you use on cars (vanishing spray, or a powder/developer you wipe off)? Is "Depends on the spray" OK as the ending?
 3. Do you coat the whole car, or only glass, chrome and black areas?
 4. Real footage: is the IS350 powder spray + 1:1 cut fine, or do you have a black car / window spray clip?
-5. Teaser card wording.
+5. End card: logo only, or logo + a line (e.g. "SCANS AVAILABLE AT ILLUMAESTHETIC.COM")? No teaser card unless you want one.
