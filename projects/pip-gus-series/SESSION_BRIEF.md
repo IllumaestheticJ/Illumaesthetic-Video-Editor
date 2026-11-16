@@ -1,6 +1,7 @@
 # Pip & Gus episode sessions: shared brief
 
 > **Owner note (2026-11-16): videos do NOT need to link to a YouTube video.** The "FULL VIDEO ON OUR CHANNEL" teaser card is optional. Use it only when a matching full video exists and it fits; otherwise end on the logo card (or another call to action the owner approves).
+> **Owner note (2026-11-16): a call to action is not required either.** "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" (or any CTA) is added only when relevant, for example when the video is about a scan we sell. The logo card can stand alone.
 
 You are producing ONE episode of the Illumaesthetic "Pip & Gus" explainer series (your episode is named in your session prompt).
 
