@@ -712,3 +712,5 @@ lands here automatically. Agents must read this whole file before editing.
   before the cut finds a pre-kick wiggle and reports every cut ~45 ms late.
 
 - **[structure]** Real footage/scan section of explainer reels: aim for 4-5 s (longer only if it genuinely needs it), then end on the 'full video' tease card  _(from scan-tedium-explainer-reel, 2026-11-15, reviewer)_
+
+- **[structure]** Videos do not need to link to a YouTube video: the 'FULL VIDEO ON OUR CHANNEL' teaser card is optional, use it only when a matching full video exists  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
