@@ -1,11 +1,11 @@
-# Pip & Gus Ep 0: "Meet Pip & Gus" (script v1, 2026-11-16, AWAITING OWNER APPROVAL)
+# Pip & Gus Ep 0: "Meet Pip & Gus" (script v2, 2026-11-16, APPROVED by owner)
 
 Series intro: Pip and Gus introduce themselves as the official Illumaesthetic mascots who will explain
 3D scanning and printing, and what Illumaesthetic does. Source: `projects/pip-gus-series/scripts.md` Ep 0 (v0.2).
 
 **Target:** about 32-35 s at 9:16 (cartoon about 29-31 s + logo card about 3 s). 11 lines, about 72 spoken words.
 **Ends on:** the logo card. No teaser card (this episode introduces the series).
-**No voices, music or renders until the owner approves this script and answers Q1.**
+**Approved 2026-11-16.** Next: one ElevenLabs v4 dialogue take, sent to the owner before animation.
 
 | # | Who | Line (tag) | Picture |
 |---|---|---|---|
@@ -14,14 +14,14 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 | 3 | PIP | [proud] "We're the official Illumaesthetic mascots!" | Sage banner unrolls behind them with the Illumaesthetic logo (cartoon prop; logo asset). Push in on the nametags. |
 | 4 | GUS | [deadpan] "Apparently." | Pip's eyes pop (1.3x); Gus: flat D-cut, floating hands shrug. Beat of silence. |
 | 5 | PIP | [eager] "Illumaesthetic scans whole cars in 3D…" | Pip holds up a phone: three quick hard 1:1 real-to-scan cuts from different cars' approved reels (not the IS350; default 240SX, A90 Supra, Lola), one per beat, all inside the phone screen. |
-| 6 | GUS | [matter-of-fact] **Q1 - owner's wording** (draft: "…so you can design parts that actually fit.") | A cartoon lip snaps onto the cartoon sedan, "click". |
+| 6 | GUS | [matter-of-fact, counting off] "…sells the scans, designs the parts, prints them… and everything in between." | Three quick cartoon beats on the words: scan file handed over, a lip drawn on the scan, a printer finishing it; on "everything in between" the lip snaps onto the cartoon sedan, "click". |
 | 7 | PIP | [excited] "And we'll answer all the questions you keep asking us!" | Music lift; a pile of cartoon "?" bubbles drops in around them. |
 | 8 | GUS | [dry, one word per beat] "Scanning. Printing. Materials. Glue." | One cartoon flash per word, cut on the beat: triangle mesh, sliced bumper, sun-drooping part, glue bottle. |
 | 9 | PIP | [giddy] "And why we spray everything white!" | Gus's powder puff: Pip is puffed white, blinks (lines → round). Teases Ep 1. |
 | 10 | GUS | [dry, slightly amused] "…There's a lot to cover."  | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
 | 11 | PIP | [curious, to camera] "What questions do you have?" | Pip leans into the lens, 1.15x curious eyes, still a bit white; Gus waits beside. Cut on the downbeat to the logo card. |
 
-**Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). The spoken "What questions do you have?" is the ending; open: repeat it as card text or not.
+**Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). Owner 2026-11-16: the logo card ends with the text WHAT QUESTIONS DO YOU HAVE? under the logo.
 
 ## What changed from the series draft (v0.2)
 - Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two CTAs; both removed by default (owner: no CTA required). Line 10 is a dry Gus beat. Owner 2026-11-16: the video ends with Pip asking "What questions do you have?" (line 11).
@@ -37,5 +37,5 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 - Music: curious, inquisitive bed (pilot's inquisitive_A or a variation), lift on line 7.
 
 ## Open owner questions
-- **Q1** - the line describing what Illumaesthetic does (line 6).
-- **Q2** - resolved: ending is "What questions do you have?" (spoken by Pip). Open detail: also show it as text on the logo card, or logo alone?
+- **Q1** - resolved: owner "we do all of the things, and everything in-between" -> line 6.
+- **Q2** - resolved: ending is "What questions do you have?" (spoken by Pip). Also shown as text on the logo card (owner).
