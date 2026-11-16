@@ -53,7 +53,7 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 | 30.6-32.0 | The STL-vs-STEP deviation map (colour on the shell) | Mirror-package deviation output [VERIFY Q3] |
 
 ## End cards
-- **32-34 s, logo card:** the Illumaesthetic logo, with the call to action from Q2.
+- **32-34 s, logo card:** the Illumaesthetic logo on its own. A call to action is not required (owner rule, 2026-11-16).
 - **Optional teaser card** before the logo (+2 s): only if a matching full video exists (Q4).
 
 ## Rules this script follows
@@ -73,7 +73,7 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
    Is there real footage of that part or car in Dropbox for the 1:1 cut?
 2. **Do you offer scan-to-STEP (Class-A resurfacing) as a service?**
-   - If yes, Pip says "Illumaesthetic does that. Look!" and the logo card reads something like "SCAN-TO-CAD AT ILLUMAESTHETIC.COM" (your wording).
+   - If yes, Pip says "Illumaesthetic does that. Look!". You can also add a call to action under the logo if you want one (your wording); otherwise it is the plain logo.
    - If no, Pip says "Look what Illumaesthetic did with a mirror!" and the card is the plain logo.
 3. **Can the deviation map be shown with its real mm legend,** or should it be colour only with no numbers?
 4. **Is there a full scan-to-STEP video on the channel worth pointing to?**
