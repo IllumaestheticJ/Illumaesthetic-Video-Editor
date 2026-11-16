@@ -3,7 +3,7 @@
 Series intro: Pip and Gus introduce themselves as the official Illumaesthetic mascots who will explain
 3D scanning and printing, and what Illumaesthetic does. Source: `projects/pip-gus-series/scripts.md` Ep 0 (v0.2).
 
-**Target:** about 32-35 s at 9:16 (cartoon about 29-31 s + logo card about 3 s). 11 lines, about 70 spoken words.
+**Target:** about 32-35 s at 9:16 (cartoon about 29-31 s + logo card about 3 s). 11 lines, about 72 spoken words.
 **Ends on:** the logo card. No teaser card (this episode introduces the series).
 **No voices, music or renders until the owner approves this script and answers Q1/Q2.**
 
@@ -13,9 +13,9 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 | 2 | GUS | [dry] "…Gus." | Gus leans in from the side, goggles up, round neutral dots. |
 | 3 | PIP | [proud] "We're the official Illumaesthetic mascots!" | Sage banner unrolls behind them with the Illumaesthetic logo (cartoon prop; logo asset). Push in on the nametags. |
 | 4 | GUS | [deadpan] "Apparently." | Pip's eyes pop (1.3x); Gus: flat D-cut, floating hands shrug. Beat of silence. |
-| 5 | PIP | [eager] "Illumaesthetic scans whole cars in 3D…" | Pip holds up a phone: real IS350 footage, hard 1:1 cut on the beat to its scan, all inside the phone screen. |
+| 5 | PIP | [eager] "Illumaesthetic scans whole cars in 3D…" | Pip holds up a phone: three quick hard 1:1 real-to-scan cuts from different cars' approved reels (not the IS350; default 240SX, A90 Supra, Lola), one per beat, all inside the phone screen. |
 | 6 | GUS | [matter-of-fact] **Q1 - owner's wording** (draft: "…so you can design parts that actually fit.") | A cartoon lip snaps onto the cartoon sedan, "click". |
-| 7 | PIP | [excited] "And we'll show you how it all works!" | Music lift. |
+| 7 | PIP | [excited] "And we'll answer all the questions you keep asking us!" | Music lift; a pile of cartoon "?" bubbles drops in around them. |
 | 8 | GUS | [dry, one word per beat] "Scanning. Printing. Materials. Glue." | One cartoon flash per word, cut on the beat: triangle mesh, sliced bumper, sun-drooping part, glue bottle. |
 | 9 | PIP | [giddy] "And why we spray everything white!" | Gus's powder puff: Pip is puffed white, blinks (lines → round). Teases Ep 1. |
 | 10 | GUS | [dry, slightly amused] "…There's a lot to cover." (**Q2**: optional CTA, default none) | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
@@ -25,8 +25,8 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 
 ## What changed from the series draft (v0.2)
 - Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two CTAs; both removed by default (owner: no CTA required). Line 10 is a dry Gus beat, line 11 a sign-off.
-- Line 5 now carries the real 1:1 IRL → scan cut inside the phone (series signature, hard cut, no dissolve; no captions over the phone screen).
-- "And we're going to show you how all of it works!" shortened to "And we'll show you how it all works!".
+- Line 5 now carries real 1:1 IRL → scan cuts inside the phone (series signature, hard cuts, no dissolve; no captions over the phone screen). Owner 2026-11-16: no IS350 (stop reusing it), so three other cars from approved reels.
+- Line 7 now says they'll answer the common questions Illumaesthetic gets (owner 2026-11-16); line 8 lists them.
 - Montage reduced to four flashes, one per spoken word, so picture and words land together (powder-puff flash dropped: line 9 covers spraying).
 - No numbers anywhere, no competitor/scanner/printer brands.
 
