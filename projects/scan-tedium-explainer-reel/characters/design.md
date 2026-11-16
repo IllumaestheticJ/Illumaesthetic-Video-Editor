@@ -35,3 +35,7 @@ Note: Higgsfield unlimited is not available from Claude Code; keep to gpt_image_
 Whole cartoon world is cel-shaded (EEVEE toon: 2-3 hard bands, black outlines, thicker on characters).
 Real IS350 footage in the phone stays photographic (cartoon -> real -> scan contrast).
 Reference: cel_ref e749a062-b917-4ba6-b13b-82e02acd7626 (ignore its vest arm-hole circles and hand touching head).
+
+
+## Expressions (owner pick 2026-11-16: option B)
+No eyebrows. Floating brows read as a second pair of eyes. Expressions come only from the eye shape: round dot (neutral), flat D-cut tilted inner-down (annoyed), half-moon tilted inner-up (worried), lines (squeezed), ^ ^ arcs (excited), 1.3x round pop (surprised).
