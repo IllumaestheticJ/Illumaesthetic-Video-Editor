@@ -29,8 +29,10 @@ coloured pieces packed across many build plates, re-framed to 9:16. Not presente
 
 **Teaser card (owner wording):** framed clip from the Subaru bumper video +
 **IF YOU INSIST... ILLUMAESTHETIC SHOWS YOU HOW TO MAKE A PRODUCTION BUMPER USING 3D PRINTS** / **FULL VIDEO ON OUR CHANNEL**.
-The link to the Subaru bumper video goes in the post caption / pinned comment (a reel can't hold a clickable link). [NEED: the
-video's URL and which footage to frame on the card.]
+The link to the Subaru bumper video goes in the post caption / pinned comment (a reel can't hold a clickable link). Linked video
+(owner, 2026-11-16): https://www.youtube.com/watch?v=5_OduBD2FoU - "I didn't like my bumper, so I made a new one." (illumaesthetic
+channel; blue GD Impreza front bumper, 3D-printed vs fiberglass). [NEED: footage for the card frame - raw clips of that build;
+the Dropbox "VB Subaru Bumper test fit" clip is a different car (black VB rear) and is not used.]
 **Logo card:** Illumaesthetic logo.
 
 Series rule (owner, relayed 2026-11-16): the "full video" teaser is optional and used only when a matching video exists and fits.
