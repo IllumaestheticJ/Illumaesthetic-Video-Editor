@@ -1,24 +1,24 @@
-# Pip & Gus Ep 0: "Meet Pip & Gus" (script v2, 2026-11-16, APPROVED by owner)
+# Pip & Gus Ep 0: "Meet Pip & Gus" (script v3, 2026-11-16: owner rewrote the opening)
 
 Series intro: Pip and Gus introduce themselves as the official Illumaesthetic mascots who will explain
 3D scanning and printing, and what Illumaesthetic does. Source: `projects/pip-gus-series/scripts.md` Ep 0 (v0.2).
 
-**Target:** about 32-35 s at 9:16 (cartoon about 29-31 s + logo card about 3 s). 11 lines, about 72 spoken words.
+**Target:** about 32-35 s at 9:16 (cartoon about 29-31 s + logo card about 3 s). 11 lines, about 90 spoken words; voice take 2 will set the real length.
 **Ends on:** the logo card. No teaser card (this episode introduces the series).
 **Approved 2026-11-16.** Next: one ElevenLabs v4 dialogue take, sent to the owner before animation.
 
 | # | Who | Line (tag) | Picture |
 |---|---|---|---|
-| 1 | PIP | [excited] "Hi! I'm Pip!" | Pip pops up into frame, ^ ^ eyes. Clean cel-shaded shop, the cartoon sedan behind. |
-| 2 | GUS | [dry] "…Gus." | Gus leans in from the side, goggles up, round neutral dots. |
-| 3 | PIP | [proud] "We're the official Illumaesthetic mascots!" | Sage banner unrolls behind them with the Illumaesthetic logo (cartoon prop; logo asset). Push in on the nametags. |
-| 4 | GUS | [deadpan] "Apparently." | Pip's eyes pop (1.3x); Gus: flat D-cut, floating hands shrug. Beat of silence. |
+| 1 | GUS | [warm, friendly] "Hi, I'm Gus." | Gus steps into frame, goggles up, round dots, a small wave of a floating mitten. Clean cel-shaded shop, the cartoon sedan behind. |
+| 2 | PIP | [excited] "And I'm Pip!" | Pip pops up beside him, ^ ^ eyes. |
+| 3 | PIP | [proud] "We are the Illumaesthetic mascots!" | Sage banner unrolls behind them with the Illumaesthetic logo (cartoon prop; logo asset). Push in on the nametags. |
+| 4 | GUS | [warm, a little proud] "Here in the digital world to explain to you the tips and tricks we've learned along the way… from doing this for so long." | The shop "pixelates" in at the edges on "digital world"; Gus taps the scanner on Pip's hip on "tips and tricks"; a slow look across the shop wall of tools on "doing this for so long". |
 | 5 | PIP | [eager] "Illumaesthetic scans whole cars in 3D…" | Pip holds up a phone: three quick hard 1:1 real-to-scan cuts from different cars' approved reels (not the IS350; default 240SX, A90 Supra, Lola), one per beat, all inside the phone screen. |
 | 6 | GUS | [matter-of-fact, counting off] "…sells the scans, designs the parts, prints them… and everything in between." | Three quick cartoon beats on the words: scan file handed over, a lip drawn on the scan, a printer finishing it; on "everything in between" the lip snaps onto the cartoon sedan, "click". |
 | 7 | PIP | [excited] "And we'll answer all the questions you keep asking us!" | Music lift; a pile of cartoon "?" bubbles drops in around them. |
-| 8 | GUS | [dry, one word per beat] "Scanning. Printing. Materials. Glue." | One cartoon flash per word, cut on the beat: triangle mesh, sliced bumper, sun-drooping part, glue bottle. |
+| 8 | GUS | [upbeat, one word per beat] "Scanning. Printing. Materials. Glue." | One cartoon flash per word, cut on the beat: triangle mesh, sliced bumper, sun-drooping part, glue bottle. |
 | 9 | PIP | [giddy] "And why we spray everything white!" | Gus's powder puff: Pip is puffed white, blinks (lines → round). Teases Ep 1. |
-| 10 | GUS | [dry, slightly amused] "…There's a lot to cover."  | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
+| 10 | GUS | [amused, warm] "…There's a lot to cover." | Gus looks at the still-white Pip, 1.15x amused dots, then back to camera. |
 | 11 | PIP | [curious, to camera] "What questions do you have?" | Pip leans into the lens, 1.15x curious eyes, still a bit white; Gus waits beside. Cut on the downbeat to the logo card. |
 
 **Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). Owner 2026-11-16: the logo card ends with the text WHAT QUESTIONS DO YOU HAVE? under the logo.
@@ -39,3 +39,8 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 ## Open owner questions
 - **Q1** - resolved: owner "we do all of the things, and everything in-between" -> line 6.
 - **Q2** - resolved: ending is "What questions do you have?" (spoken by Pip). Also shown as text on the logo card (owner).
+
+## v3 changes (owner, 2026-11-16)
+- Opens with Gus: "Hi, I'm Gus." / "And I'm Pip!". Gus must not sound sad: warm and friendly, matter-of-fact at most.
+- Line 3/4 = owner's line "We are the Illumaesthetic mascots - here in the digital world to explain to you the tips and tricks we've learned along the way from doing this for so long!", split Pip (first half) / Gus (second half). "Apparently." dropped (it no longer follows).
+- All Gus tags moved off "dry/deadpan" to warm/upbeat/amused.

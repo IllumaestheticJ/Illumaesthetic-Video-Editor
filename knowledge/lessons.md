@@ -718,3 +718,5 @@ lands here automatically. Agents must read this whole file before editing.
 - **[structure]** A call to action is not required. 'SCANS AVAILABLE AT ILLUMAESTHETIC.COM' only gets added when relevant (e.g. the video is about a scan we sell); the logo card can stand alone  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
 
 - **[story]** Stop repeatedly using IS350 footage; pick other cars' footage  _(from pip-gus-ep0-intro, 2026-11-16, owner)_
+
+- **[audio]** Don't make Gus sad  _(from pip-gus-ep0-intro, 2026-11-16, owner)_
