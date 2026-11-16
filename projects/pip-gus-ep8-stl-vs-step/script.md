@@ -53,8 +53,8 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
 | t (s) | Shot | Source |
 |---|---|---|
-| 27.6-29.0 | The real part on the car, or in hand at the shop | Footage still open (see below) |
-| 29.0 (beat) | **Hard 1:1 cut** to the STL scan of the same part in the house silver look, from the solved camera | Drive: `Hyundai Ioniq 5 Side View Mirror - Driver Housing.stl` |
+| 27.6-29.0 | Real: the Ioniq 5 N (DK Edition) at Tokyo Auto Salon, rear quarter with wing and tail lamp | Dropbox `Footage Library/Videos/Shoot Sessions/2025-01-09 Tokyo Auto Salon/2025-01-09 21.19.48.mov`, about 0.8-3.4 s |
+| 29.0 (beat) | **Hard cut** (not 1:1: the mirror is never in frame at TAS) to the STL scan of the mirror housing in the house silver look | Drive: `Hyundai Ioniq 5 Side View Mirror - Driver Housing.stl` |
 | 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: `Ioniq 5 Side View Mirror - Driver Housing.stp`, tessellated for Blender |
 | 30.6-32.0 | The STL-vs-STEP deviation map: **colour only, no legend, no numbers** | Computed from the two files |
 
@@ -76,8 +76,10 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 - **Real-to-scan transition:** a hard cut on a beat, with no dissolve.
 - **Voice and look:** Gus stays dry and only slightly annoyed, and Pip goes from frustrated to curious to excited. Characters are the locked spec: dot eyes, no brows, no arms, nametags.
 
-## Open item
-- **Footage for the real shot:** is there real footage of the Ioniq 5 mirror (or another part from that Ioniq folder) for the 1:1 cut?
-- **If there is none,** there are two options:
-  - Use the FG2 mirror. Drive has real clips in "FG2 Mirror", but its STEPs are only the mounts.
-  - Open the real section directly on the scan, with no 1:1 cut.
+## Real-footage decision (pending owner OK)
+- **The only Ioniq 5 footage is Tokyo Auto Salon (owner).** I sheeted all 15 clips:
+  - 21.19.48 is the white Ioniq 5 N DK Edition: rear hatch, wing and tail lamp. 21.30.08 is the teal/black N race car.
+  - No clip shows the side mirror, so a true 1:1 perspective cut to the mirror scan is not possible.
+- **Plan:** use the real TAS shot (rear quarter, 0.8-3.4 s), then a hard cut on the beat to the mirror scan.
+  - This follows the "1:1 where one fits" rule, and it is never a dissolve.
+- **Not used:** the other Ioniq part pairs (liftgate, roof). Their STLs are tiny (about 137 KB), so they look like CAD exports, not scans, and a 1:1 cut to them would not show mesh vs NURBS.
