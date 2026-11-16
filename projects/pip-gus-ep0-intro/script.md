@@ -18,13 +18,13 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 | 7 | PIP | [excited] "And we'll show you how it all works!" | Music lift. |
 | 8 | GUS | [dry, one word per beat] "Scanning. Printing. Materials. Glue." | One cartoon flash per word, cut on the beat: triangle mesh, sliced bumper, sun-drooping part, glue bottle. |
 | 9 | PIP | [giddy] "And why we spray everything white!" | Gus's powder puff: Pip is puffed white, blinks (lines → round). Teases Ep 1. |
-| 10 | GUS | [dry, slightly amused] **Q2 - CTA** (draft: "…Follow. There's a lot to cover.") | Gus points a floating mitten at camera. |
+| 10 | GUS | [dry, slightly amused] "…There's a lot to cover." (**Q2**: optional CTA, default none) | Gus looks at the camera, flat D-cut eyes, then at the still-white Pip. |
 | 11 | PIP | [excited] "See you next time!" | ^ ^ eyes, still a bit white. Cut on the downbeat to the logo card. |
 
-**Logo card:** R3 v3 / pilot v3 card (illumaesthetic_logo.png, BRAND palette), CTA text **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** (series default; Q2 may change it).
+**Logo card:** R3 v3 / pilot v3 logo card standing alone, no CTA text (owner 2026-11-16: a CTA is not required; SCANS AVAILABLE only when relevant). Add it only if the owner wants one (Q2).
 
 ## What changed from the series draft (v0.2)
-- Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two separate CTAs; merged into one (Q2) and line 11 became a short sign-off, so the ending isn't a list of asks.
+- Draft lines 10 "Ask us anything in the comments" and 11 "Follow so you don't miss it!" were two CTAs; both removed by default (owner: no CTA required). Line 10 is a dry Gus beat, line 11 a sign-off.
 - Line 5 now carries the real 1:1 IRL → scan cut inside the phone (series signature, hard cut, no dissolve; no captions over the phone screen).
 - "And we're going to show you how all of it works!" shortened to "And we'll show you how it all works!".
 - Montage reduced to four flashes, one per spoken word, so picture and words land together (powder-puff flash dropped: line 9 covers spraying).
@@ -38,4 +38,4 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 
 ## Open owner questions
 - **Q1** - the line describing what Illumaesthetic does (line 6).
-- **Q2** - the end call-to-action (line 10, and whether the logo card keeps SCANS AVAILABLE AT ILLUMAESTHETIC.COM).
+- **Q2** - optional: any CTA at all? Default is none (logo card alone). Options if wanted: "Follow" spoken in line 10, or SCANS AVAILABLE AT ILLUMAESTHETIC.COM on the card.
