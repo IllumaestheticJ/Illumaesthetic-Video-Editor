@@ -27,3 +27,13 @@ Part B = 152 frames = 5.07 s (owner relaxed the 5.0 s cap to a target; the 2 ext
 
 Not verified: nobody (me included) has listened to the mix; music choice and duck depth are measured, not heard. P8's tonality/mood is from the earlier analysis (G/C major, bright), not by ear.
 Left out on purpose: the "A DOT EVERY ~8 CM" label, any time/answer, the logo card, the spray shot (P1) and the full-scan hero (V_RES_FULL), Part B voice-over, room sound in Part B.
+
+## explainer_full_v2 (2026-11-16, agent self-check)
+- 1232 frames / 41.07 s. Part A 0-988 unchanged; Part B 989-1132 (4.8 s, re-timed to 18-frame beats); teaser card 1133-1231 (3.3 s).
+- Music: inquisitive_A (100.00 BPM). Real lift = bass entry bar 8 (19.22 s), aligned to frame 989 (bass attack measured at 32.985 s in the stem).
+  1:1 cut 1061 and card 1133 on bar downbeats. Intro lengthened with three 2-bar loops; post-lift unedited, 1.5 s fade (track ending not reachable
+  seamlessly in 3 bars - see editlog).
+- No text over IRL: overlay alpha max = 0 over P2/P7 and over the teaser window interior (automated, picture.json) + checked by eye.
+- Card legible at 540 px wide; CTA cap ~57 px vs headline ~76 px.
+- Loudness (final AAC): -14.1 LUFS integrated, -2.0 dBTP, LRA 2.3 LU.
+- Not verified: by ear - the splice inaudibility and the dialogue/music balance are measured only (splice spectral scores, v1 ducking curve).

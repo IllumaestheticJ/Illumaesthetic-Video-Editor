@@ -19,7 +19,8 @@ export type ReelItem =
   | { kind: "label"; t0: number; t1: number; text: string; sub?: string; y?: number }
   | { kind: "cap"; t0: number; t1: number; lines: string[] }
   | { kind: "logo"; t0: number; t1: number; cta: string }
-  | { kind: "tease"; t0: number; t1: number; lines: string[]; sub: string };
+  | { kind: "tease"; t0: number; t1: number; lines: string[]; sub: string }
+  | { kind: "teaser"; t0: number; t1: number; lines: { text: string; at: number }[]; sub: { lines: string[]; at: number }; win: { x: number; y: number; w: number; h: number; r: number; border: number; at: number } };
 export type Palette = { accent: string; onAccent: string; ink: string; bg: string; sub: string; sub2: string; label: string;
   dim55: string; dim50: string; plate: string; cap: string };
 /** Default = the long-form system (theme.ts): R1/R2 render byte-identical with it. R3 v3 passes the illumaesthetic.com palette. */
@@ -171,6 +172,31 @@ const Item: React.FC<{ it: ReelItem; f: number; fps: number }> = ({ it, f, fps }
           </div>
         </AbsoluteFill>
       );
+    case "teaser": {
+      // opaque card with a TRANSPARENT rounded window: the compositor puts the teaser footage underneath, so no text can ever
+      // sit on it (the window is outside every text box). Headline above, CTA below; each line arrives on its own beat (`at`, s).
+      const w = it.win;
+      const lA = (at: number) => inA(f - Math.round(at * fps), 0, 6);
+      const won = f >= Math.round(w.at * fps);
+      return (
+        <AbsoluteFill style={{ background: won ? "transparent" : K.bg }}>
+          {won ? (
+            <div style={{ position: "absolute", left: w.x, top: w.y, width: w.w, height: w.h, borderRadius: w.r, boxSizing: "border-box",
+              border: `${w.border}px solid ${K.accent}`, boxShadow: `0 0 0 3000px ${K.bg}` }} />
+          ) : null}
+          <div style={{ position: "absolute", left: 0, width: 1040, top: 0, height: w.y - 36, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end" }}>
+            {it.lines.map((l, i) => (
+              <div key={i} style={{ opacity: lA(l.at), transform: `translateY(${(1 - lA(l.at)) * 14}px)`, fontFamily: SANS, fontWeight: 700, fontSize: 104, letterSpacing: 5, lineHeight: 1.08, color: K.ink, whiteSpace: "nowrap", textAlign: "center" }}>{l.text}</div>
+            ))}
+          </div>
+          <div style={{ position: "absolute", left: 0, width: 1040, top: w.y + w.h + 40, display: "flex", flexDirection: "column", alignItems: "center", opacity: lA(it.sub.at), transform: `translateY(${(1 - lA(it.sub.at)) * 14}px)` }}>
+            {it.sub.lines.map((l, i) => (
+              <div key={i} style={{ fontFamily: SANS, fontWeight: 800, fontSize: 78, letterSpacing: 3, lineHeight: 1.1, color: i === 0 ? K.accent : K.ink, whiteSpace: "nowrap", textAlign: "center" }}>{l}</div>
+            ))}
+          </div>
+        </AbsoluteFill>
+      );
+    }
     case "logo":
       return (
         <AbsoluteFill style={{ background: K.bg }}>
@@ -190,7 +216,7 @@ export const ReelGfx: React.FC<ReelGfxProps> = ({ items, fps, palette }) => {
   const f = useCurrentFrame();
   const live = items.filter((it) => f >= Math.round(it.t0 * fps) && f < Math.round(it.t1 * fps));
   // logo card first (opaque), everything else above it
-  const opaque = (k: string) => (k === "logo" || k === "tease" ? -1 : 0);
+  const opaque = (k: string) => (k === "logo" || k === "tease" || k === "teaser" ? -1 : 0);
   live.sort((p, q) => opaque(p.kind) - opaque(q.kind));
   return (
     <AbsoluteFill style={{ background: "transparent" }}>
