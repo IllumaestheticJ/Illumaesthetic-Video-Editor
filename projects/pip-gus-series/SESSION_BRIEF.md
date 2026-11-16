@@ -1,5 +1,7 @@
 # Pip & Gus episode sessions: shared brief
 
+> **Owner note (2026-11-16): videos do NOT need to link to a YouTube video.** The "FULL VIDEO ON OUR CHANNEL" teaser card is optional. Use it only when a matching full video exists and it fits; otherwise end on the logo card (or another call to action the owner approves).
+
 You are producing ONE episode of the Illumaesthetic "Pip & Gus" explainer series (your episode is named in your session prompt).
 
 This session belongs to that episode only.

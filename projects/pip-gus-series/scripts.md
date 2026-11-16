@@ -1,3 +1,5 @@
+> **Owner note (2026-11-16): videos do NOT need to link to a YouTube video.** The teaser card is optional; end on the logo card when there's no matching full video.
+
 # Pip & Gus: explainer series, draft scripts (v0.2, 2026-11-16)
 
 These are drafts for owner review; nothing is produced yet. Each episode answers one common question about car 3D scanning or 3D printing.
