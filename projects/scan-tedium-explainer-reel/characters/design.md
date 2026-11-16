@@ -39,3 +39,18 @@ Reference: cel_ref e749a062-b917-4ba6-b13b-82e02acd7626 (ignore its vest arm-hol
 
 ## Expressions (owner pick 2026-11-16: option B)
 No eyebrows. Floating brows read as a second pair of eyes. Expressions come only from the eye shape: round dot (neutral), flat D-cut tilted inner-down (annoyed), half-moon tilted inner-up (worried), lines (squeezed), ^ ^ arcs (excited), 1.3x round pop (surprised).
+
+## Name badges (owner, 2026-11-16)
+Both wear a small Illumaesthetic name badge, pinned (no arms) on the chest at the wearer's left (screen right when facing camera):
+- Flat rounded rectangle, near-white #ecefec with the cel outline, thin sage #619f73 top stripe; the Illumaesthetic logo
+  (remotion/public/illumaesthetic_logo.png, the end-card logo, as is) on top and the name below in black Fjalla One (GUS / PIP).
+- About 1/4 of the torso width: Gus 11 cm, between his chest-pocket flap and the collar; Pip 8.5 cm, beside his drawstrings,
+  tilted ~4 deg. It lies flat on the clothing tube and squashes/stretches with the torso.
+- Readability: the name just reads in medium shots and clearly in close-ups; the logo is a smudge at phone size (accepted).
+- Built by `nametag()` in tools/partA_scene.py from textures made by tools/nametag_tex.py.
+
+## Faces: no brows (owner pick, 2026-11-16)
+Brows were removed (they read as a second pair of eyes). Expressions come from the dot shape alone: round (neutral), flat cut
+tilted inner-down (annoyed / weary), cut tilted inner-up (worried / frustrated), lines (squeezed), ^ ^ arcs (excited), 1.15x
+(curious), 1.3x pop (surprised); one D-cut + one round = skeptical; tilted cuts take at least 40 % of the dot and the shaped
+eyes scale 1.1x so they read at phone size.
