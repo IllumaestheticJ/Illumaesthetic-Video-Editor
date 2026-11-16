@@ -40,12 +40,15 @@ Capture notes:
 - The Dropbox "Seamforged V1" slicer recordings (bumper cut into many pieces across plates) are the real "before". They can play on
   Gus's cartoon laptop in line 2 with the slicer UI cropped so no brand shows. Optional; the cartoon works without it.
 
-## End cards (about 6 s)
+## End cards (about 3-6 s)
 
-1. **Teaser card** (series style: dark plate, framed clip, sage bar). Framed clip: the exploded, numbered pieces from B3.
-   Text [VERIFY, depends on availability]: e.g. **SEAMFORGE** / **[where to get it]**. If there is no public download yet,
-   **COMING SOON** or the series' **FULL VIDEO ON OUR CHANNEL** if a full video exists.
-2. **Logo card** with **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** (series standard).
+Owner rule (2026-11-16): videos do not need to link to a YouTube video; the "FULL VIDEO ON OUR CHANNEL" teaser card is
+optional and only used when a matching full video exists. There is no full SeamForge video, so no teaser card by default.
+
+1. **App card** (only if the owner gives availability) [VERIFY]: dark plate, sage bar, the exploded numbered pieces from B3
+   in a framed window, **SEAMFORGE** / **[where to get it]**. If it is not public yet: drop this card or use **COMING SOON**.
+2. **Logo card**: the series default is **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**; for this episode the CTA could point to the
+   app instead [VERIFY].
 
 ## Music, voices
 - Curious generated bed (series approach), lift on line 8's hand-off.
@@ -54,5 +57,6 @@ Capture notes:
 ## Open questions for the owner [VERIFY]
 1. On-screen name: **SeamForge** (the app and repo) or **Seamforged**?
 2. Availability: is it public, free or paid (price), and where do people get it? The repo has no published GitHub Release yet.
+   This decides the ending: an app card with where to get it, or straight to the logo card.
 3. Screen capture: will you record one, or should the agent record SeamForge itself (built from the repo) on a bumper you name?
 4. Is there footage of a real printed piece with its engraved number (B4)?
