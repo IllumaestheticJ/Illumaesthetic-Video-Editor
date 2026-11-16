@@ -33,6 +33,10 @@ The link to the Subaru bumper video goes in the post caption / pinned comment (a
 video's URL and which footage to frame on the card.]
 **Logo card:** Illumaesthetic logo.
 
+Series rule (owner, relayed 2026-11-16): the "full video" teaser is optional and used only when a matching video exists and fits.
+Ep 3 keeps it because the owner asked for this specific ending. If the Subaru video's link/footage can't be confirmed, the fallback
+is to drop the teaser card and end on the logo card after line 12.
+
 **Voices (after approval only):** one ElevenLabs v4 dialogue call; Pip (Kiki) excited -> hopeful at 5 -> impatient at 9 ->
 deflated at 11; Gus (Harrison) dry and matter-of-fact, small sigh before "...No.", a slight shrug in "...Usually.", never angry.
 
