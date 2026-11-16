@@ -1,10 +1,11 @@
 # Pip & Gus Ep 8: "STL or STEP? Mesh vs NURBS". Script v1 (for owner approval)
 
-9:16, 1080x1920, 30 fps, about 36 s in total.
+9:16, 1080x1920, 30 fps, about 34 s in total.
 - **Cartoon:** about 0-27 s.
 - **Real footage:** about 27-32 s.
-- **Teaser card:** 32-34 s.
-- **Logo card:** 34-36 s.
+- **Logo card:** 32-34 s.
+
+The "FULL VIDEO" teaser card is optional (owner rule, 2026-11-16) and is only added if a matching full video exists (Q4).
 
 Status: **DRAFT. No voices or renders until the owner approves.** Open questions are marked [VERIFY] and listed at the bottom.
 
@@ -52,8 +53,8 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 | 30.6-32.0 | The STL-vs-STEP deviation map (colour on the shell) | Mirror-package deviation output [VERIFY Q3] |
 
 ## End cards
-- **32-34 s, teaser card:** [VERIFY Q4]. The proposal is "SCAN TO STEP: HOW?" / "FULL VIDEO ON OUR CHANNEL", with the deviation map clip in the frame.
-- **34-36 s, logo card:** the Illumaesthetic logo. The end call to action depends on Q2.
+- **32-34 s, logo card:** the Illumaesthetic logo, with the call to action from Q2.
+- **Optional teaser card** before the logo (+2 s): only if a matching full video exists (Q4).
 
 ## Rules this script follows
 - **No numbers:** no number on screen or in dialogue, and no tolerances, hours or prices. The deviation-map legend is only shown if the owner OKs it (Q3); its values come from the file.
@@ -75,4 +76,6 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
    - If yes, Pip says "Illumaesthetic does that. Look!" and the logo card reads something like "SCAN-TO-CAD AT ILLUMAESTHETIC.COM" (your wording).
    - If no, Pip says "Look what Illumaesthetic did with a mirror!" and the card is the plain logo.
 3. **Can the deviation map be shown with its real mm legend,** or should it be colour only with no numbers?
-4. **Teaser card:** which full video does it point to, and is "SCAN TO STEP: HOW?" OK?
+4. **Is there a full scan-to-STEP video on the channel worth pointing to?**
+   - If no, the episode ends on the logo card. This is the default.
+   - If yes, we add a teaser card before the logo, for example "SCAN TO STEP: HOW?" / "FULL VIDEO ON OUR CHANNEL".

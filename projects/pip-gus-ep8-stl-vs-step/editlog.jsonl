@@ -3,3 +3,4 @@
 {"ts": "2026-11-16T09:09:01Z", "decision": "Added 'Is it done yet?' / '...No.' on the scan-to-STEP rebuild", "why": "Running gag conveys resurfacing is slow without stating hours"}
 {"ts": "2026-11-16T09:09:02Z", "decision": "Hole/thickness/fillet edit shown via numberless slider", "why": "No dimensions on screen unless owner supplies them"}
 {"ts": "2026-11-16T09:09:02Z", "decision": "Real footage plan: real mirror -> hard 1:1 cut to STL scan -> STEP patches -> deviation map; project pending owner", "why": "Brief suggests mirror-package workflow; Drive has FG2, Ioniq 5, MR2, Elise mirror STL/STEP candidates"}
+{"ts": "2026-11-16T09:45:32Z", "decision": "Ending: logo card by default (~34 s); teaser card only if a matching full video exists", "why": "Owner rule 2026-11-16 (lessons.md): videos need not link to a YouTube video"}
