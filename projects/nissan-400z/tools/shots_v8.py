@@ -78,7 +78,9 @@ def arc(secs, a0, a1, el0, el1, r0, r1, c0, c1, focal, n=8):
 SHOTS = {}
 BBS = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl", "fr", "rl", "rr")]  # v8: user's BBS LM file, chrome on chrome, white Bomex calipers (tools/make_lm.py)  # stand-in wheels (tools/make_bbs.py)
 # HERO ends on the SEMA photo, where the fronts are steered a few degrees (rim ellipse 85 vs 70 px wide at the solve)
-BBS_STEER = [{"blend": f"{B}/lm_{w}.blend", "keep_mats": True, "ground": True} for w in ("fl_sR15", "fr_sR15", "rl", "rr")]
+# v17 (user: "the wheels are turned and clipping through the fender ... i just want it straight"): HERO keeps the
+# front wheels straight (the photo's are turned; the body still matches it 1:1)
+BBS_STEER = BBS
 STOCKW = {"blend": f"{B}/stock_wheels.blend"}
 
 # 4. STRUCT: ducting off, swap to crash-foam-removed state

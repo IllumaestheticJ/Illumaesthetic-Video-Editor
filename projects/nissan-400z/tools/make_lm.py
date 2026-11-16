@@ -192,7 +192,8 @@ for k, w in WJ["stock"].items():
     for tag, deg in [("", 0.0), ("_steer", STEER)] + [(t, v) for t, v in WJ.get("steer_sets", {}).items()]:
         if tag and not k.startswith("f"):
             continue
-        piv = pc + Vector((0, 0, lift))
+        # steer about the kingpin: KP m inboard of the tyre centre plane (a real upright), not the tyre centre
+        piv = pc + Vector((0, 0, lift)) + Vector((-side * WJ.get("kingpin_in", 0.0), 0, 0))
         St = Matrix.Translation(piv) @ Matrix.Rotation(math.radians(deg), 4, "Z") @ Matrix.Translation(-piv)
         M = St @ Cb @ T1 @ to_car @ S @ Rz @ T0
         for o in WOBJ:
