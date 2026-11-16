@@ -55,3 +55,8 @@
 - **Finding a lyric without speech-to-text (Lola v8):** correlate a log-spectrogram template of the song's first
   vocal phrase against the track; a hook's lead-in recurs at a fixed lag before each downbeat. Start the music on
   one of those occurrences and re-time the cuts.
+
+## Sponsor / partner logos (400Z v15)
+- Use the brand's own logo file (their site header asset, press kit or the user's files). A logo traced off a mock-up
+  or photo read as skewed to the user. Shopify sites: the header `<img class="header__heading-logo">` points at
+  `/cdn/shop/files/<name>.png` - fetch it without the `width=` parameter for full resolution.

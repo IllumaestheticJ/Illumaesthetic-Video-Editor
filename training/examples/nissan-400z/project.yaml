@@ -1,3 +1,4 @@
+# v15 (user 2026-11-16): official Kaido House logo (kaidohouse.com header) on the end card.
 # v14 (user 2026-11-15): Kaido House logo added to the end card.
 # v13 (user 2026-11-15): final 1:1 now to the night photo in front of the garage.
 # v12 (user 2026-11-15): stock bumper fully comes off (lip included), windows traced from the SEMA photo.
@@ -13,7 +14,7 @@
 # src_fps = (N-1)/(dur + 3/30) so no clip runs into the minterpolate tail freeze (STI lesson).
 project: nissan-400z
 format: reel-9x16
-output: {path: /home/user/media/work/out/nissan_400z_scan_v14.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/out/nissan_400z_scan_v15.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/work/music/nissan-400z_v3_track.wav   # user-supplied album audio, cut from 19:50 (1190 s), 60 s
@@ -109,7 +110,7 @@ timeline:
     dur: 2.8           # 84 f -> 48.667 s
   - transition: {type: cut, note: "end card from black"}
   - id: endcard        # endcard.py: Illumaesthetic logo + white Bomex mark + KAIDO*HOUSE (Sentra-video style)
-    src: /home/user/media/work/z400/endcard_v14.mp4
+    src: /home/user/media/work/z400/endcard_v15.mp4
     dur: 3.7667        # 113 f -> ends 52.43 s
 
 overlays:   # one factual label per removed/installed part, text from scan file / Drive folder names

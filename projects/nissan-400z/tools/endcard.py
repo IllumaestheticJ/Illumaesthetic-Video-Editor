@@ -13,7 +13,9 @@ bx = ink(Image.open("/home/user/media/nissan-400z/logo/bomex_white.png").convert
 bx = bx.resize((560, int(bx.height * 560 / bx.width * 1.2)), Image.LANCZOS)
 # v14 (user: "add a Kaido House logo at the end"): the KAIDO*HOUSE decal (rectified from the user's livery mock-up,
 # livery_tex.py -> logo/kaidohouse_white.png) under the Bomex mark, same width, fading in 14 frames after it
-kh = ink(Image.open("/home/user/media/nissan-400z/logo/kaidohouse_white.png").convert("RGBA"))
+# v15 (user: "kaidohouse is skewed - use an online one"): official header logo from kaidohouse.com (HEADER.png, white on
+# transparent, includes the "1:1 & 1:64 TUNING WORKS | LOS ANGELES, CA" line)
+kh = ink(Image.open("/home/user/media/nissan-400z/logo/kaidohouse_official.png").convert("RGBA"))
 kh = kh.resize((560, int(kh.height * 560 / kh.width)), Image.LANCZOS)
 items = [logo, bx, kh]; gap = 130
 total = sum(i.height for i in items) + gap * (len(items) - 1); y0 = (HT - total) // 2; ys = []

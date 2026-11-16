@@ -1,3 +1,12 @@
+# Nissan 400Z scan reel — v15 self-review (2026-11-16)
+
+Output `/home/user/media/work/out/nissan_400z_scan_v15.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
+
+## User feedback on v14 -> v15
+- **"Kaido House is skewed - use an online one"**: end card now uses the official logo from kaidohouse.com (header PNG,
+  2030x531, white on transparent, with "1:1 & 1:64 TUNING WORKS | LOS ANGELES, CA"). Checked at frame 1530.
+- Everything else unchanged.
+
 # Nissan 400Z scan reel — v14 self-review (2026-11-15)
 
 Output `/home/user/media/work/out/nissan_400z_scan_v14.mp4`: 1080x1920, 30 fps, 52.40 s, -14.4 LUFS, true peak -3.4 dBTP.
