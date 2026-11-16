@@ -5,3 +5,7 @@
 {"ts": "2026-11-16T09:09:02Z", "decision": "Real footage plan: real mirror -> hard 1:1 cut to STL scan -> STEP patches -> deviation map; project pending owner", "why": "Brief suggests mirror-package workflow; Drive has FG2, Ioniq 5, MR2, Elise mirror STL/STEP candidates"}
 {"ts": "2026-11-16T09:45:32Z", "decision": "Ending: logo card by default (~34 s); teaser card only if a matching full video exists", "why": "Owner rule 2026-11-16 (lessons.md): videos need not link to a YouTube video"}
 {"ts": "2026-11-16T09:51:27Z", "decision": "Logo card stands alone; CTA only if owner wants one (resurfacing service)", "why": "Owner rule 2026-11-16: CTA not required, only when relevant"}
+{"ts": "2026-11-16T10:03:25Z", "decision": "Project: Ioniq 5 side-mirror housing (scan STL + STEP pair on Drive)", "why": "Owner: ideally a project with both .stl and .stp; matches the cartoon mirror shell; Ioniq folder has many pairs as fallback"}
+{"ts": "2026-11-16T10:03:25Z", "decision": "Closing card: logo + 'DO YOU DESIGN IN CAD OR IN MESH?' as the final frame; no teaser, no other CTA", "why": "Owner: end the video with this question"}
+{"ts": "2026-11-16T10:03:26Z", "decision": "Deviation map colour only, no legend", "why": "Owner answer Q3"}
+{"ts": "2026-11-16T10:03:26Z", "decision": "Kept Pip line 'Illumaesthetic does that. Look!'", "why": "Owner confirmed resurfacing service"}

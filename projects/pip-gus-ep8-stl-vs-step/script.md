@@ -1,11 +1,17 @@
 # Pip & Gus Ep 8: "STL or STEP? Mesh vs NURBS". Script v1 (for owner approval)
 
-9:16, 1080x1920, 30 fps, about 34 s in total.
+9:16, 1080x1920, 30 fps, about 34.5 s in total.
 - **Cartoon:** about 0-27 s.
 - **Real footage:** about 27-32 s.
-- **Logo card:** 32-34 s.
+- **Closing card:** 32-34.5 s. It carries the logo and the question.
 
-The "FULL VIDEO" teaser card is optional (owner rule, 2026-11-16) and is only added if a matching full video exists (Q4).
+There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
+
+**Owner answers (2026-11-16):**
+- Show any project, ideally one with both .stl and .stp versions.
+- Yes, we offer scan-to-STEP resurfacing.
+- The deviation map is colour only.
+- End the video with the question "Do you design in CAD or in mesh?".
 
 Status: **DRAFT. No voices or renders until the owner approves.** Open questions are marked [VERIFY] and listed at the bottom.
 
@@ -33,7 +39,7 @@ Status: **DRAFT. No voices or renders until the owner approves.** Open questions
 | 10 | 22.9-25.0 | GUS | [weary] "You rebuild it. Surface by surface." | Gus lays patches over the scan mesh one at a time. The wall clock starts to spin | yes |
 | 11a | 25.0-25.7 | PIP | [impatient] "Is it done yet?" | | yes |
 | 11b | 25.8-26.2 | GUS | "...No." | | yes |
-| 12 | 26.3-27.6 | PIP | [excited] "Illumaesthetic does that. Look!" [VERIFY Q2] | Pip holds up the phone. Camera pushes into the screen until the real footage fills the frame (hard cut on a beat) | yes |
+| 12 | 26.3-27.6 | PIP | [excited] "Illumaesthetic does that. Look!" (owner confirmed the service) | Pip holds up the phone. Camera pushes into the screen until the real footage fills the frame (hard cut on a beat) | yes |
 
 That is about 80 spoken words, which fits in about 27 s at the pilot's pace with no speed-up.
 
@@ -47,14 +53,21 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
 | t (s) | Shot | Source |
 |---|---|---|
-| 27.6-29.0 | The real part on the car, or in hand at the shop | Dropbox [VERIFY Q1] |
-| 29.0 (beat) | **Hard 1:1 cut** to the STL scan of the same part in the house silver look, from the solved camera | Drive scan [VERIFY Q1] |
-| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive STEP, tessellated for Blender |
-| 30.6-32.0 | The STL-vs-STEP deviation map (colour on the shell) | Mirror-package deviation output [VERIFY Q3] |
+| 27.6-29.0 | The real part on the car, or in hand at the shop | Footage still open (see below) |
+| 29.0 (beat) | **Hard 1:1 cut** to the STL scan of the same part in the house silver look, from the solved camera | Drive: `Hyundai Ioniq 5 Side View Mirror - Driver Housing.stl` |
+| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: `Ioniq 5 Side View Mirror - Driver Housing.stp`, tessellated for Blender |
+| 30.6-32.0 | The STL-vs-STEP deviation map: **colour only, no legend, no numbers** | Computed from the two files |
+
+**Project choice:** the Ioniq 5 side-mirror housing.
+- It has a matching scan STL and STEP pair, and it matches the cartoon's mirror shell.
+- The same Drive folder also has these pairs as fallbacks: front bumper, rear bumper, fender, windshield, rear-liftgate centre section, door area under the mirror, and roof near the antenna.
+- A Dropbox search for "Ioniq" found no footage, so the real shot at the start of this section is still open.
 
 ## End cards
-- **32-34 s, logo card:** the Illumaesthetic logo on its own. A call to action is not required (owner rule, 2026-11-16).
-- **Optional teaser card** before the logo (+2 s): only if a matching full video exists (Q4).
+- **32-34.5 s, closing card (the last frame of the video):**
+  - The Illumaesthetic logo, with **DO YOU DESIGN IN CAD OR IN MESH?** under it.
+  - Fjalla One on the dark plate; this is a card, not text over footage.
+  - No other call to action.
 
 ## Rules this script follows
 - **No numbers:** no number on screen or in dialogue, and no tolerances, hours or prices. The deviation-map legend is only shown if the owner OKs it (Q3); its values come from the file.
@@ -63,19 +76,8 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 - **Real-to-scan transition:** a hard cut on a beat, with no dissolve.
 - **Voice and look:** Gus stays dry and only slightly annoyed, and Pip goes from frustrated to curious to excited. Characters are the locked spec: dot eyes, no brows, no arms, nametags.
 
-## [VERIFY] questions for the owner
-1. **Which project may we show?** The Drive has these candidates:
-   - FG2 Mirror;
-   - Ioniq 5 side mirror (housing and trim STEPs);
-   - MR2 door mirror (it has both an STL and a STEP);
-   - Elise S2 mirror base;
-   - the new "Side Mirror Data" and "Mirror Scans" folders (Oct 2026).
-
-   Is there real footage of that part or car in Dropbox for the 1:1 cut?
-2. **Do you offer scan-to-STEP (Class-A resurfacing) as a service?**
-   - If yes, Pip says "Illumaesthetic does that. Look!". You can also add a call to action under the logo if you want one (your wording); otherwise it is the plain logo.
-   - If no, Pip says "Look what Illumaesthetic did with a mirror!" and the card is the plain logo.
-3. **Can the deviation map be shown with its real mm legend,** or should it be colour only with no numbers?
-4. **Is there a full scan-to-STEP video on the channel worth pointing to?**
-   - If no, the episode ends on the logo card. This is the default.
-   - If yes, we add a teaser card before the logo, for example "SCAN TO STEP: HOW?" / "FULL VIDEO ON OUR CHANNEL".
+## Open item
+- **Footage for the real shot:** is there real footage of the Ioniq 5 mirror (or another part from that Ioniq folder) for the 1:1 cut?
+- **If there is none,** there are two options:
+  - Use the FG2 mirror. Drive has real clips in "FG2 Mirror", but its STEPs are only the mounts.
+  - Open the real section directly on the scan, with no 1:1 cut.
