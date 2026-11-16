@@ -1,6 +1,6 @@
 # Pip & Gus Ep 2: "Can't you just 3D print the scan?" (script v1, for owner approval)
 
-9:16, 1080x1920, 30 fps, **about 34-35 s**. Concept approved by the owner. This version is tightened from
+9:16, 1080x1920, 30 fps, **about 36-37 s**. Concept approved by the owner. This version is tightened from
 `projects/pip-gus-series/scripts.md` (Ep 2). Nothing gets voiced or rendered until the owner approves it.
 
 **Question the episode answers:** "I bought the scan, so why can't I just print a part from it?"
@@ -10,9 +10,9 @@ the part on it, and the scan is what makes the part fit.
 ## Shape and timing (estimates; final timing comes from the voice take, with no speed-ups)
 | Part | Time | What |
 |---|---|---|
-| A. Cartoon | about 0-26 s | 12 lines, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
-| B. Real footage | about 26-31 s | phone hand-off, then real car, then a **hard 1:1 cut on a beat** to its scan, then the designed part on the scan. No text. |
-| C. Logo card | about 31-34 s | Illumaesthetic logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** (no teaser card; see below) |
+| A. Cartoon | about 0-28 s | 13 lines, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
+| B. Real footage | about 28-33 s | phone hand-off, then real car, then a **hard 1:1 cut on a beat** to its scan, then the designed part on the scan. No text. |
+| C. Logo card | about 33-36 s | Illumaesthetic logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** (no teaser card; see below) |
 
 ## Part A: cartoon
 | # | Who (delivery tag) | Line | Picture |
@@ -24,10 +24,11 @@ the part on it, and the scan is what makes the part fit.
 | 5 | GUS [dry] | "Sure." | Gus drops the scan into the cartoon slicer (no brand UI). The preview is an empty build plate: no layers, nothing to slice. The wall clock starts to spin (series gag). |
 | 6 | PIP [impatient] | "Is it done yet?" | Pip slumped on a stool, clock hands whirring, staring at the printer, which hasn't moved. |
 | 7 | GUS [deadpan] | "...There's nothing to print." | Gus slides out the empty build plate and sets it on a new, empty shelf: the **failed-print shelf** (gag starts here with literally nothing on it, filled from Ep 3). Pip's eyes: flat cut. Gus's eyes: half-lid. |
-| 8 | GUS [patient, slightly tired] | "The scan is the reference. You design the part *on* it." | Gus draws a clean, solid lip that hugs the scan's curve; it turns solid and snaps onto the cartoon car: "click". [VERIFY Q2] |
+| 8 | GUS [patient, slightly tired] | "The scan is the reference. You design a part *on* it..." | Gus draws a clean, solid new lip that hugs the scan's curve; it turns solid and snaps onto the cartoon car: "click". |
+| 8b | GUS [matter-of-fact] | "...or reverse-engineer the original from it." | Gus traces the stock bumper trim on the scan; the traced lines turn into a clean solid copy of the original part, which pops out next to the car. |
 | 9 | PIP [curious] | "So the scan is what makes it fit?" | Pip peers along the seam: zero gap. |
 | 10 | GUS [matter-of-fact] | "Every curve." | Gus runs a mitten along the bumper line; small sparkle at the seam. |
-| 11 | PIP [excited] | "Ooh! Illumaesthetic has scans!" | Pip whips out the phone and holds it up to Gus. The screen plays the real car (Part B's first shot). |
+| 11 | PIP [excited] | "Ooh! Illumaesthetic does both!" | Pip whips out the phone and holds it up to Gus. The screen plays the real car (Part B's first shot). |
 | 12 | GUS [dry, slightly impressed] | "...Of course they do." | Gus leans in; the camera pushes into the phone until the screen fills the frame. Hard cut on the beat. |
 
 Changes from the series draft (and why):
@@ -38,8 +39,9 @@ Changes from the series draft (and why):
 - Lines 6-7 use the series "Is it done yet?" gag, and the answer is "...There's nothing to print." The empty build plate going onto
   the brand-new failed-print shelf is the visual joke.
 - Lines 7 and 8 split the joke from the explanation, so the empty plate gets its own beat.
-- New hand-off (lines 11-12), varied per the series rule: Pip finds Illumaesthetic's scans on the phone, and Gus's "Of course they do"
-  keeps him dry, not angry. The hand-off leads straight into the scan-sales CTA on the logo card.
+- New hand-off (lines 11-12), varied per the series rule: Pip finds that Illumaesthetic does both (designing on the scan and reverse
+  engineering), and Gus's "Of course they do" keeps him dry, not angry.
+- Line 8 is split into 8/8b to cover both uses of a scan (owner, 2026-11-16).
 - No numbers anywhere in the cartoon (no triangle count, no sizes, no times).
 
 ## Part B: real footage (aim 4-5 s, no text)
@@ -65,7 +67,8 @@ matching full video, the pilot's card can go back in before the logo (+3 s).
 ## [VERIFY] open questions for the owner
 1. **Real footage:** which car and which part design may we show on its scan? Is it a part Illumaesthetic designed or a
    customer's? (Default if there's no part to show: the IS350 1:1 real-to-scan cut that's already rendered, without the part step.)
-2. **Line 8:** is "you design the part on it" the right message? That means customers design their own parts from the scan
-   they buy. Or should it say Illumaesthetic designs parts too?
-3. **Ending:** the default is the logo card with SCANS AVAILABLE AT ILLUMAESTHETIC.COM (relevant, since the episode is about
-   scans) and no teaser card. Keep the line, or use the plain logo card? And is there a matching full video worth a teaser card?
+2. ~~Line 8~~ answered (owner 2026-11-16): "you design the part on it, or you remake/reverse engineer the part - Illumaesthetic
+   can do both." Line 8 now covers both, and Pip's line 11 is "Ooh! Illumaesthetic does both!"
+3. **Ending:** the default is the logo card with SCANS AVAILABLE AT ILLUMAESTHETIC.COM and no teaser card. Now that line 11 is about
+   design and reverse engineering, should the logo card keep the scans line, use a line about those services (owner's wording), or
+   be the plain logo? And is there a matching full video worth a teaser card?
