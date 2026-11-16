@@ -1346,3 +1346,14 @@ lands here automatically. Agents must read this whole file before editing.
   folders the timeline no longer references, then open every frame (PIL load) before assembling.
 - (user) End the reel with a contact line under the logo ("contact us for your engineering/scanning needs" + the
   website) - tools/endcard.py.
+- (GR Corolla v12, user) Aftermarket parts go on DURING the reassembly, after the parts they replace come off (WRC wing:
+  factory side covers off first - Epsilon install guide step 2). Reassemble front first so the rear install shot shows a
+  consistent car. Finish with a full 360 of the assembled car while the remaining kit installs, each part rising into
+  place as the camera passes it; park waiting parts ~10 m below so they never sit in frame.
+- [scan] Engineering's CMM folders can hold scans of the aftermarket part's own mounting faces in the car frame (GR
+  Corolla: "GR CMM Validation V2 WRC Left/Right.stl" = the wing's endplates on the car). Register the part to BOTH
+  sides together - one side alone left 2 cm of yaw. Do not register to CMM section blades (STEP) - they are sections.
+  Cross-check against any CAD of the part in engineering's reference .blend (same frame).
+- [scan] A full 360 exposes every wheel: check all four; mirror a complete wheel across the centre plane (same axle,
+  no shift) where the capture missed one (tools/wheelmirror.py).
+- [motion] Parts that fly off must leave the frame entirely (end > 4 m away) - parked debris reads as clutter next to labels.

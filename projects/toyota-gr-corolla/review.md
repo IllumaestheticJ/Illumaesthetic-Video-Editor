@@ -1,22 +1,23 @@
-# Self-review - Toyota GR Corolla v11 (`toyota_gr_corolla_v11.mp4`, 35.1 s, 1080x1920)
+# Self-review - Toyota GR Corolla v12 (`toyota_gr_corolla_v12.mp4`, 44.5 s, 1080x1920)
 
-v11 = v10 + the Epsilon Aero WRC wing installing on the clean car (user: "add the install of an Epsilon Aero WRC wing to
-the back of the car") and an end card with a contact line (user: "Illumaesthetic / contact us for your
-engineering/scanning needs"). Wing = scan WRC V3.stl (Drive E210/GR Corolla/WRC Rear Wing/Scan Analysis, 2025-09),
-ICP-registered to engineering's GR CMM Validation V2.stp, which is already in the car frame (1.9 mm RMSE; 40 starts
-converge to one pose). The clean car keeps the wing. 14 bars, end card on downbeat 14. v10 review: review_v10.md.
+v12 = teardown (unchanged through the crash beam) + reassembly + finale (user on v11: "The epsilon aero wing needs to
+go on as the car reassembles... the small side pieces on the trunk need to come off... mounted and aligned properly";
+"After the car is fully assembled, I want a full 360 of the car while the epsilon V2 lip kit and canards also gets
+installed"). Reassembly front first so the car is consistent when the wing goes on: hood + ducts + beams + bumper,
+crash beam + rear bumper/diffuser, hatch, factory side covers off + WRC wing on, then a 2-bar 360 where the V2 lip,
+skirts and spats rise into place as the camera passes each. End card with the contact line. 18 bars. v11: review_v11.md.
 
 | # | Criterion | Score | Evidence |
 |---|---|---|---|
-| 1 | Hook | 4 | Unchanged: whole car with the complete stock bumper; bumper moves at 2.4 s. |
-| 2 | Beat sync | 4 | Cuts on every 70-frame downbeat (630/770 same-camera continuations), dip into the end card on downbeat 14. Same music grid as v9/v10. |
+| 1 | Hook | 4 | Unchanged opening. |
+| 2 | Beat sync | 4 | Every shot cuts on a 70-frame downbeat; 360 holds 2 bars; dip into the end card on downbeat 18. Same music grid as v9-v11. |
 | 3 | 1:1 match | n/a | No IRL. |
-| 4 | Scan quality | 4 | Wing is a real scan placed by engineering's own CMM reference - symmetric on the hatch, endplates on the D-pillars (checked from 3 views). JR intercooler is CAD with modelled fins. |
-| 5 | Story | 5 | ... rear bumper/diffuser -> crash beam -> WRC wing comes down and seats -> clean car with the wing -> end card. |
-| 6 | Grade | 5 | One silver look; end card background matches the reel black (5,5,8). |
-| 7 | Text | 5 | EPSILON AERO WRC WING (user's product name) after the wing seats, top band clear of the part; end card: contact line + illumaesthetic.com (the site the logo came from) - nothing invented. |
-| 8 | Ending | 5 | Clean car with the wing, dip on downbeat 14, logo, then the contact line fades in at 0.5 s. |
-| 9 | Technical | 5 | 1080x1920, 30 fps, h264 + AAC, 1054 frames; -16.5 LUFS, true peak -1.6 dBFS. |
+| 4 | Scan quality | 4 | Wing re-registered to the CMM scans of its own endplates on this car (mirror-symmetric to 2 mm; matches engineering's Wing_V2.2 CAD bbox). Side covers traced on shut lines, recessed backing under them. V2 kit is engineering's car-frame data. Missing front-left/right-rear wheels mirrored from the complete ones so the 360 has four wheels. |
+| 5 | Story | 5 | Teardown -> JR intercooler -> rear teardown -> everything flies home -> covers off, wing on -> 360 with the V2 kit -> end card. |
+| 6 | Grade | 5 | One silver look throughout. |
+| 7 | Text | 5 | EPSILON AERO WRC WING after it seats; EPSILON AERO V2 LIP KIT after the lip seats, gone before the dip; end card contact line. No invented numbers. |
+| 8 | Ending | 5 | Complete car with wing + V2 kit in a full orbit, end card. |
+| 9 | Technical | 5 | 1080x1920, 30 fps, 1334 frames, all frames verified; -16.5 LUFS, true peak -1.6 dBFS. |
 
-Risk: the wing hovers over the stock roof spoiler it covers; the spoiler is not removed first (no scan of the hatch
-without it).
+Missing: canards - no GR Corolla canard model on Drive or Dropbox (the V2 reference blend only has flat guide strips);
+asked the user. Risk: 44.5 s is long for short form; the crash beam returns by state swap, not as a moving part.
