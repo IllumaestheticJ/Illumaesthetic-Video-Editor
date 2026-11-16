@@ -52,7 +52,7 @@ The visual device is a "glue tier list." Gus tests each method on the same two g
 ## End card
 - **Owner rule (2026-11-16):** videos do not need to link to a YouTube video. The "FULL VIDEO ON OUR CHANNEL" teaser card is used only when a matching full video exists.
 - **Default ending:** the real footage ends on the finished, joined part, then the logo card, about 720 px wide.
-- **Optional:** a call to action under the logo, only if the owner wants one and gives the wording. [VERIFY 6]
+- **No call to action.** Owner rule (2026-11-16): a CTA such as "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" goes in only when it's relevant. Ep 5 isn't about a scan we sell, so the logo card stands alone.
 
 ## Voices and music (after approval)
 - **Voices:** one ElevenLabs v4 dialogue call with emotion tags, about 1 credit.
