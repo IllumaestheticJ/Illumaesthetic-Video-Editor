@@ -1707,7 +1707,7 @@ timings = {}
 tpath = os.path.join(OUT, "timings.json")
 if os.path.exists(tpath):
     timings = json.load(open(tpath))
-for sh in ([] if ANIMATE else SHOTS):
+for sh in ([] if (ANIMATE or "--exec" in argv) else SHOTS):
     reset()
     SHOT_FUNCS[sh]()
     bpy.context.view_layer.update()
@@ -1741,6 +1741,10 @@ for sh in ([] if ANIMATE else SHOTS):
     timings[sh] = dict(seconds=round(dt, 1), spp=SPP, scale=SCALE, threads=THREADS)
     print(f"[partA] {sh}: {dt:.1f} s ({SPP} spp, {SCALE:.2f} scale)", flush=True)
     json.dump(timings, open(tpath, "w"), indent=1)
+
+if "--exec" in argv:   # lookdev/concept scripts that run inside the built scene (e.g. tools/brow_concepts.py)
+    _x = arg("--exec", "")
+    exec(compile(open(_x).read(), _x, "exec"), globals())
 
 if ANIMATE:
     _here = os.path.dirname(os.path.abspath(sys.argv[sys.argv.index("-P") + 1])) if "-P" in sys.argv else os.getcwd()
