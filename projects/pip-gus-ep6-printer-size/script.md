@@ -54,6 +54,7 @@ About 62 words; the cartoon runs about 26 s.
 - **Teaser card:** a framed clip of the big printer. The owner says it doesn't need to point at a YouTube video. Card text (owner to pick):
   - "WE RUN BOTH"
   - "BIG OR SMALL? / TELL US IN THE COMMENTS"
+  - or no teaser card at all: go straight from the footage to the logo card. Series rule (2026-11-16): the teaser card is optional and doesn't need to point at a YouTube video.
 - **Logo card:** as in the pilot.
 
 ## Voices / music
