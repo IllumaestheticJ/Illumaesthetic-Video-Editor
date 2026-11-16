@@ -32,7 +32,68 @@ These are drafts for owner review; nothing is produced yet. Each episode answers
 
 ---
 
-## Ep 1. "Why do you spray the car?" (approved)
+## Ep 0. Intro: "Meet Pip & Gus" (owner request 2026-11-16, to be produced first)
+**Purpose:** introduce the two as Illumaesthetic's official mascots, who will explain the ins and outs of 3D scanning and printing, and what Illumaesthetic does.
+**Length and shape:** about 35-40 s, 9:16. Mostly cartoon. Short real-footage flashes play inside a cartoon TV or phone frame, so no text is over IRL.
+
+| # | Who | Line | Picture |
+|---|---|---|---|
+| 1 | PIP | "Hi! I'm Pip." | Pip pops up into frame, ^ ^ eyes. Clean shop, the cartoon sedan behind. |
+| 2 | GUS | "…Gus." | Gus leans in from the side, goggles up, half-lid neutral. |
+| 3 | PIP | "We're the official Illumaesthetic mascots!" | A sage banner unrolls behind them with the Illumaesthetic logo (cartoon card; logo asset). |
+| 4 | GUS | "Apparently." | Pip's eyes pop; Gus shrugs with his floating hands. |
+| 5 | PIP | "Illumaesthetic 3D-scans whole cars…" | Pip's phone shows a framed clip of the real IS350 scan (inside the phone, as in the explainer). |
+| 6 | GUS | "…so you can design parts that actually fit." [VERIFY wording vs what the business offers: scans for sale, parts, design] | A cartoon lip snaps onto the cartoon car, "click". |
+| 7 | PIP | "And we're going to show you how all of it works!" | Quick montage of upcoming episodes as cartoon flashes: powder puff cloud, triangle mesh, sliced bumper, glue tier list, sun-drooping part. |
+| 8 | GUS | "Scanning. Printing. Materials. Glue." | Each word is one flash, cut on the beat. |
+| 9 | PIP | "And why we spray everything white!" | Pip gets puffed white by Gus's powder puff (teases Ep 1). |
+| 10 | GUS | "Ask us anything in the comments." [VERIFY CTA] | Gus points at the camera with a floating mitten. |
+| 11 | PIP | "Follow so you don't miss it!" | ^ ^ eyes; the logo card. |
+
+**End:** the logo card with **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**. No teaser card, because this one introduces the series.
+**Music:** the curious bed from the explainer (or a new variation), with a lift on line 7's montage.
+**Voices:** Kiki and Harrison, ElevenLabs v4 dialogue, emotion tags. Pip is excited; Gus is dry but warm.
+**Footage in hand:** IS350 scan renders. The episode flashes are cartoon-only, so the intro doesn't depend on future footage.
+
+---
+
+## Ep 1. "Why do we spray windows and black cars?": how white-light scanners work (owner request 2026-11-16; supersedes v0.1 Ep 1)
+**Question:** why do you spray windows, chrome and black cars before scanning?
+
+**The science** (general, qualitative, no numbers):
+- A structured (white) light scanner projects a pattern of light onto the surface.
+- One or more cameras see how the pattern bends over the shape.
+- From the known angle between projector and camera, it works out each point's distance (triangulation).
+- It only works if the surface scatters the light back to the camera, the way a matte surface does. The problem surfaces:
+  - **Shiny or chrome:** like a mirror, it bounces the pattern away in one direction, so the camera sees nothing or a reflection.
+  - **Black:** it absorbs the light, so the pattern is too dark to read.
+  - **Glass:** the light goes straight through.
+- A thin matte coat makes every surface scatter the same way.
+
+[VERIFY: the owner's scanner is a structured-light type. Don't name the scanner.]
+
+| # | Who | Line | Picture |
+|---|---|---|---|
+| 1 | PIP | "Why do you spray the windows white?" | The cartoon sedan, windows half-dusted. |
+| 2 | GUS | "The scanner shines a pattern of light on the car." | The scanner projects a sage stripe or grid pattern; it drapes over the door like a net. |
+| 3 | GUS | "A camera watches how the lines bend." | A small camera icon on the scanner; a dotted line runs from projector to surface to camera, forming a triangle. |
+| 4 | GUS | "From that angle, it knows how far away every point is." | The triangle flashes; points pop up on the door and build a mesh patch. Pip: ^ ^. |
+| 5 | PIP | "So what's wrong with windows?" | |
+| 6 | GUS | "Light goes straight through glass." | The pattern passes through the window and lands on the seat inside. A hole appears in the mesh. |
+| 7 | GUS | "Chrome is a mirror. It throws the light away." | The pattern bounces off the chrome trim and hits Pip in the face. Pip squints. |
+| 8 | GUS | "And black paint just eats it." | The pattern on a black bumper fades to nothing; the mesh stays empty. |
+| 9 | PIP | "So you make it… not shiny." | |
+| 10 | GUS | "A thin matte coat. Now everything bounces the light back." | Spray: the pattern now reads crisp everywhere; the mesh fills in, holes and all. |
+| 11 | PIP | "Does it come off?" | |
+| 12 | GUS | "That depends on the spray." | Hard cut on the beat; the tease leads to Ep 9. |
+
+**Real footage:** the IS350 being sprayed (windows and grille), then a 1:1 cut to the scan, the teaser card and the logo card.
+**Footage in hand:** yes (IS350 spray shots in the long-form and the R3 reel).
+**Pairs with:** Ep 9 (AESUB vs alternatives). Line 12 sets it up.
+
+---
+
+## Ep 1-old. "Why do you spray the car?" (v0.1, superseded by the Ep 1 above; kept for reference)
 **Question:** what's the white powder, and is it bad for the paint?
 
 | # | Who | Line | Picture |
@@ -217,7 +278,54 @@ The structure is two "languages": Gus explains with a cartoon translator gag.
 
 ---
 
+## Ep 9. "AESUB vs the alternatives" (owner request 2026-11-16)
+**Question:** why use a vanishing scanning spray like AESUB instead of cheaper sprays and powders?
+**Naming:** the owner asked for this topic by name, so AESUB is named. Alternatives stay generic: "developer spray", "chalk spray", "dry shampoo / foot powder". No other brands are named or mocked.
+
+**Facts** (sourced: AESUB datasheets and retailers, the Aniwaa review, Quality Magazine; see the links in the session notes):
+- AESUB sprays **sublimate**: they vanish on their own, so there's no wiping.
+- The time depends on the variant. Blue is under 4 h per its datasheet, and one review found parts scannable for about 1 h. Orange lasts longer, 12-24 h. Heat and airflow speed it up; a thicker coat slows it down.
+- AESUB also makes a permanent white and a transparent variant.
+- Non-vanishing alternatives (developer, chalk spray, DIY powders) stay until you clean them off.
+
+[VERIFY with the owner:]
+- which AESUB variant(s) they use on cars;
+- whether they've used alternatives, and what happened;
+- any on-screen time. Default: no numbers on screen; say "a few hours".
+
+| # | Who | Line | Picture |
+|---|---|---|---|
+| 1 | PIP | "You said it comes off. How?" | Callback to Ep 1: the car is sprayed matte. |
+| 2 | GUS | "This one doesn't come off. It disappears." | The cartoon AESUB-style can (generic can, sage label "VANISHING"). The coat fades away like morning frost. Pip's eyes pop. |
+| 3 | PIP | "Then why does anyone use anything else?" | |
+| 4 | GUS | "Price." | A vanishing can next to a big cheap can; the cheap one has a coin icon. |
+| 5 | GUS | "The cheap stuff works. Developer spray, chalk, even dry shampoo." | Three generic cans; each coats the car fine and scans fine (✓ icons). |
+| 6 | GUS | "But then you have to clean it." | Gus wipes, and wipes; powder in the panel gaps, badges and grille; the cloth goes grey. The clock spins (running gag). |
+| 7 | PIP | "Is it done yet?" | |
+| 8 | GUS | "…No. There's still some in the grille." | |
+| 9 | GUS | "And a thick coat adds thickness to your scan." | A cartoon side-section: a fat chalk layer puffs the surface out. [VERIFY: keep qualitative] |
+| 10 | PIP | "So vanishing spray wins?" | |
+| 11 | GUS | "Mostly. It costs more…" | |
+| 12 | GUS | "…and on a hot day it vanishes while you're still scanning." | The cartoon sun; the coat fades mid-scan; holes appear; Gus re-sprays one panel. |
+| 13 | GUS | "So you scan fast. Or spray again." | |
+| 14 | PIP | "Scan fast. Got it." | ^ ^ eyes. Hard cut on the beat. |
+
+**Scorecard** (cartoon board, icons only):
+
+| | Vanishing (AESUB) | Developer / chalk / DIY |
+|---|---|---|
+| Clean-up | none | wipe and wash, residue in gaps |
+| Coat | thin | can go on thick |
+| Cost | higher | lower |
+| Time window | limited, shorter in heat | stays until cleaned |
+
+**Real footage:** the IS350 spray, then the sprayed car (and ideally the same car later, clean, with no wiping). [VERIFY] whether there's footage of the coat having vanished. Then the teaser card and the logo card.
+**Pairs with:** Ep 1 (how white-light scanners work), which sets up "does it come off?".
+
+---
+
 ## Suggested production order
+0. **Ep 0 (intro / mascots):** first; all cartoon plus scan renders.
 1. **Ep 1 (spray):** all footage in hand.
 2. **Ep 2 (print the scan):** the strongest scan-sales call to action.
 3. **Ep 3 (whole bumper):** the real slicer recordings already exist; needs the owner's process confirmed.
