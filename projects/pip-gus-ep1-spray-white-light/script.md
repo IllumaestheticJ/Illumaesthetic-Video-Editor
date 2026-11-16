@@ -3,7 +3,7 @@
 **Status:** v1 tightened draft for owner approval (2026-11-16). No voices or renders until approved.
 Source draft: `projects/pip-gus-series/scripts.md` "Ep 1" (v0.2). 9:16, 1080x1920, 30 fps.
 
-**Target length about 36 s:** cartoon about 27 s (12 lines, 76 words) + real footage 4-5 s + teaser card about 2.5 s + logo card about 2 s.
+**Target length about 36 s:** cartoon about 27 s (12 lines, 78 words) + real footage 4-5 s + teaser card about 2.5 s + logo card about 2 s.
 
 ## The science (qualitative only, no numbers)
 - The scanner projects a pattern of light onto the surface; a camera sees how the pattern bends over the shape.
