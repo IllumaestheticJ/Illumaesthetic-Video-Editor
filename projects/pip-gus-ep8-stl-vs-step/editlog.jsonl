@@ -1,0 +1,5 @@
+{"ts": "2026-11-16T09:09:01Z", "decision": "Script v1: tightened Ep 8 to ~80 words / ~27 s cartoon + 4-5 s real + cards (~36 s)", "why": "Series target 30-40 s; real section 4-5 s per standing lesson"}
+{"ts": "2026-11-16T09:09:01Z", "decision": "Replaced 'every curve is a hundred flat bits' with 'Terrible to edit.' (picture explains)", "why": "'a hundred' reads as an invented number; no-numbers rule"}
+{"ts": "2026-11-16T09:09:01Z", "decision": "Added 'Is it done yet?' / '...No.' on the scan-to-STEP rebuild", "why": "Running gag conveys resurfacing is slow without stating hours"}
+{"ts": "2026-11-16T09:09:02Z", "decision": "Hole/thickness/fillet edit shown via numberless slider", "why": "No dimensions on screen unless owner supplies them"}
+{"ts": "2026-11-16T09:09:02Z", "decision": "Real footage plan: real mirror -> hard 1:1 cut to STL scan -> STEP patches -> deviation map; project pending owner", "why": "Brief suggests mirror-package workflow; Drive has FG2, Ioniq 5, MR2, Elise mirror STL/STEP candidates"}
