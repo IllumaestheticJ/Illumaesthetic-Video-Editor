@@ -47,8 +47,9 @@ optional and only used when a matching full video exists. There is no full SeamF
 
 1. **App card** (only if the owner gives availability) [VERIFY]: dark plate, sage bar, the exploded numbered pieces from B3
    in a framed window, **SEAMFORGE** / **[where to get it]**. If it is not public yet: drop this card or use **COMING SOON**.
-2. **Logo card**: the series default is **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**; for this episode the CTA could point to the
-   app instead [VERIFY].
+2. **Logo card, standing alone** (owner, 2026-11-16: no CTA required; "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" only when
+   relevant, and this episode is not about a scan we sell). The only possible text is where to get SeamForge, and only if the
+   owner wants it [VERIFY]; otherwise none.
 
 ## Music, voices
 - Curious generated bed (series approach), lift on line 8's hand-off.

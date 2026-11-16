@@ -3,3 +3,4 @@
 {"ts": "2026-11-16T09:09:05Z", "decision": "Capture with custom printer size or crop the preset panel", "why": "README screenshot shows brand preset names (P1S); series rule: no printer brands on screen"}
 {"ts": "2026-11-16T09:09:05Z", "decision": "Availability left [VERIFY]; no GitHub Release published on IllumaestheticJ/SeamForge", "why": "list_releases returned none; README only describes CI/Release builds; no price anywhere - never invent"}
 {"ts": "2026-11-16T09:45:31Z", "decision": "Ending: no 'FULL VIDEO ON OUR CHANNEL' teaser; optional app card (if availability given), then logo card", "why": "Owner note 2026-11-16 (lessons.md): teaser card only when a matching full video exists; none exists for SeamForge"}
+{"ts": "2026-11-16T09:51:27Z", "decision": "Logo card stands alone; no 'SCANS AVAILABLE' CTA", "why": "Owner note 2026-11-16 (lessons.md): CTA only when relevant; Ep 4 is about the app, not a scan we sell"}
