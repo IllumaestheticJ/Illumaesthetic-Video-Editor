@@ -1315,3 +1315,7 @@ lands here automatically. Agents must read this whole file before editing.
 - **[story] (user)** Show the hood opening when the bay has a scan: hinge open on the rear edge, then off; later shots
   keep it off (build the later bases from the stripped front).
 - **[technical]** Preps of 5M-face scans run out of memory in parallel; run one at a time while a render queue runs.
+- (GR Corolla v8, user: "the hood is cut wrong") Same rule as the hatch for EVERY hinged panel: trace its shut lines on a
+  near-orthographic render along the panel's normal (camera = panel centre + 26 m * normal, focal 200 mm; tools/hoodtrace.py
+  saves the camera basis so pixels map back to faces). The v1 seam cut was a box: it took the cowl/wipers and left the
+  hood's nose on the car. Re-hinge at the traced rear edge.
