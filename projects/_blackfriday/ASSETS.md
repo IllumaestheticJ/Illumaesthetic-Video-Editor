@@ -126,7 +126,7 @@ MR2:
 
 Generic fiberglass: `/Footage Library/.../2026-09-11 Fiberglass parts` (4 short MP4s).
 
-Not found: anything labelled MR2 hood vents or eyelids (the store has no hood-vent product).
+Not found: footage labelled MR2 hood vents or eyelids. (Correction: the store DOES sell MR2 hood vents, fiberglass, $400 / $470 with brackets, backordered; the BF 7 session confirmed it.)
 
 ## 7. Website GLBs
 
@@ -178,7 +178,7 @@ Do not use the `ewc-*.glb` files from the wing configurator: they are decimated 
 | Civic FL | `hatch-fl-v8` / `fl-facelift-v8` | not recorded |
 | GR Corolla | `eps-toyota-gr-corolla-v23` | front_lip / front_lip_v2, side_skirts(_v2), rear_spats(_v2), canards, wing_strakes, wrc_wing |
 | NC Miata | `eps-mazda-mx5-nc-v19` | front_bumper, front_lip, canards, fender_cuts, side_skirts, rear_spats, gt_wing, plus body_*_stock |
-| MR2 Spyder | `eps-toyota-mr2-spyder-v19` (`projects/toyota-mr2-spyder`, kit_nest2.py) | front bumper, hardtop, skirts, rear spats, duckbill, diffuser, eyelids, **hood vents** (in the GLB, but not on the store) |
+| MR2 Spyder | `eps-toyota-mr2-spyder-v19` (`projects/toyota-mr2-spyder`, kit_nest2.py) | front bumper, hardtop, skirts, rear spats, duckbill, diffuser, eyelids, **hood vents** (in the GLB, and on the store at $400 / $470) |
 | FG2 | `eps-honda-civic-fg2-v10` | front_lip, tc_wing_kit |
 
 - **Civic 11 kit placement:** the approved v5 used Ron's files, not the lookbook, because the user said the lookbook-fitted parts sat 7-8 cm off. Ron's files:
