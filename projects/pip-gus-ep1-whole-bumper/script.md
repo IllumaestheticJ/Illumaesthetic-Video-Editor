@@ -13,7 +13,7 @@ material"). By line 11 the bill reaches the floor.
 
 | # | Who | Line | Picture | Bill |
 |---|---|---|---|---|
-| 1 | PIP | "Why can't I just print the bumper I want?" | Pip bursts in holding a crayon drawing of a huge dream bumper (wings, giant lip). | - |
+| 1 | PIP | "Can I 3D print whatever bumper I want?" | Pip bursts in holding a crayon drawing of a huge dream bumper (wings, giant lip). | - |
 | 2 | GUS | "Sure. Scan the car. Design it." | Quick preview flashes: spray puff, scanner beep, the mesh turns into a smooth surface on the laptop, a file icon; the clock starts turning. | spray can, scanner, laptop |
 | 3 | GUS | "It won't fit on a printer. So... pieces." | The bumper is too big for both printers; it is sliced SeamForge-style and the slices fan out onto a grid of build plates. | printers, plates |
 | 4 | GUS | "Six or seven kilos of filament." | Gus stacks spools until the stack is taller than Pip. | spools, tag **6-7 KG** |
