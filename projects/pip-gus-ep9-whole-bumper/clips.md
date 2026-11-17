@@ -1,4 +1,4 @@
-# Ep 3 footage (Dropbox `/2. Illumaesthetic Videos/1. Video dumps/Seamforged/Seamforged V1/`)
+# Ep 9 (was Ep 3) footage (Dropbox `/2. Illumaesthetic Videos/1. Video dumps/Seamforged/Seamforged V1/`)
 Local copies: `/home/user/media/pip-gus-ep3-whole-bumper/dropbox/`. All are 1920x1080 30 fps SDR screen recordings, no audio.
 
 | clip | length | what it shows |
