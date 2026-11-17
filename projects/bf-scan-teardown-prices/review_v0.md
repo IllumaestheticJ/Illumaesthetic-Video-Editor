@@ -83,3 +83,18 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 
   -14.0 LUFS, TP -2.8 dBFS. `safezone_check` OK.
 - The T2 opening drift is stretched slightly (13.435-14.466 played over 12.93-14.466), so T2 can start on b24. The wing card now ends at 12.80 s.
+
+## v0.6 (wheels and tyres in scan silver)
+
+- User: "have the wheels and tires be white like the rest of the scan". Every `wheel_*` material slot now uses the scan's silver material. T1 (202 frames) and T2 (91 frames) were re-rendered at the same draft settings.
+- Cuts and timing are unchanged from v0.5 (frames 388/517/533/597). 22.6 s, -14.0 LUFS, true peak -2.8 dBFS. Safe-zone text boxes are OK.
+- The contact sheet confirms silver wheels in every scan shot. Ron's 1:1 end render still has his gold wheels, so the hard cut reveals the gold wheels, which is the real product finish. If they should stay silver through the cut, Ron's scene can be re-rendered with silver wheels (about 10 min).
+
+## v0.7 (font and layered end text)
+
+- **Font:** Unbounded Black/ExtraBold (Google Fonts, OFL) on all text. Akira Expanded is personal-use only and isn't in the brand Dropbox or Drive. If Epsilon holds a commercial Akira licence, swap the TTF paths in `tools/overlays_v0.py`.
+- **End:** the black end card is gone, and Ron's 1:1 render plays to the end.
+  - On the C3 kick: the Epsilon+ wordmark and "BLACK FRIDAY" appear behind the car. The roof and wing hide the lower part of "FRIDAY".
+  - One beat later: the "30% OFF THE CIVIC FE KIT" pill appears in front of the doors, with "WWW.EPSILON.PLUS" on the floor.
+  - The car matte comes from `tools/ron_mask_v0.py` (same camera, transparent film). It is used above the floor line (y 1088) only, because the floor glow is in the alpha.
+- 22.6 s, -14.0 LUFS, true peak -2.8 dBFS, safe-zone text boxes OK. The cuts are unchanged from v0.6.

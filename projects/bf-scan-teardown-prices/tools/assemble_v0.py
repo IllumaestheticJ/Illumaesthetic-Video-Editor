@@ -15,7 +15,15 @@ C1, C2, C3, END = 388, round(17.765 * 30), round(19.905 * 30), round(22.605 * 30
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
 t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2v02" if VER != "v0" else "r/T2") + "/f*.png"))
 ron = Image.open(M + "r/ron7_portrait.png").convert("RGB").resize((W, H), Image.LANCZOS)
-endc = Image.open(O + "endcard.png").convert("RGB")
+# v0.7: end text over Ron's render with depth; car matte from ron_mask_v0.py (alpha above the floor line only).
+import numpy as np
+eb, ef = Image.open(O + "end_back.png"), Image.open(O + "end_front.png")
+ma = np.array(Image.open(M + "r/ron7_mask.png").getchannel("A").resize((W, H), Image.LANCZOS)).astype(np.float32)
+FLOOR = 1088; ma[FLOOR:] = 0; ma = np.clip((ma - 200) * 255 / 55, 0, 255).astype(np.uint8)   # floor glow out, edges kept
+carm = Image.fromarray(ma)
+def endframe(k):
+    """k 0..1: headline/logo pop on C3, front layer one beat later (handled by caller)."""
+    fr = ron.copy(); fr.paste(eb, (0, 0), eb); fr.paste(ron, (0, 0), carm); return fr
 ovl = {k: Image.open(O + k + ".png") for k in ["bf_tag", "p_lip", "p_skirts", "p_rear", "p_wing"]}
 # (name, t_in, t_out, xy) in video seconds; 0.15 s alpha fades
 # v0.2 (owner safe-zone rule, knowledge/safe-zones.md): every text box inside x 48-920 / y 285-1440 -> tags/cards
@@ -45,9 +53,10 @@ for n in range(END):
         t1c = C1 / FPS; tt = t if t >= 14.466 else T2_T0 + (t - t1c) / (14.466 - t1c) * (14.466 - T2_T0)
         fr = load(t2[max(0, min(len(t2) - 1, round((tt - T2_T0) * 15)))]).copy()
     elif n < C3: fr = ron.copy()
-    else:        fr = endc.copy()
-    if n >= C3:  # end card fades in from black over 4 frames, everything fades out over the last 0.5 s
-        k = min(1, (n - C3 + 1) / 4) * min(1, (END - 1 - n) / 15); fr = Image.blend(Image.new("RGB", (W, H)), fr, k)
+    else:        # v0.7: render stays; back text + car matte on the C3 kick, front layer one beat (16 f) later
+        fr = endframe(1)
+        if n >= C3 + 16: fr.paste(ef, (0, 0), ef)
+        k = min(1, (END - 1 - n) / 15); fr = Image.blend(Image.new("RGB", (W, H)), fr, k)
     for name, a, b, xy in OV:
         if a <= t <= b:
             k = min(1, (t - a) / 0.15, (b - t) / 0.15)
@@ -56,7 +65,7 @@ for n in range(END):
                 im = im.copy(); im.putalpha(im.getchannel("A").point(lambda v: int(v * k)))
             fr.paste(im, xy, im)
     ff.stdin.write(fr.tobytes())
-    if n in (0, C1 - 1, C1, 517, C2 - 1, C2, C3 - 1, C3, END - 1): fr.save(M + f"chk/{VER}_f{n:04d}.jpg", quality=85)
+    if n in (0, C1 - 1, C1, 517, C2 - 1, C2, C3 - 1, C3, C3 + 16, END - 16, END - 1): fr.save(M + f"chk/{VER}_f{n:04d}.jpg", quality=85)
 ff.stdin.close(); ff.wait()
 dur = END / FPS
 af = f"adelay=40:all=1,afade=t=out:st={dur - 0.6:.3f}:d=0.6"   # +40 ms: kick attacks (~45 ms before the low-band peak) land on the cut frames
