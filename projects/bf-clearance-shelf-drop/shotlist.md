@@ -1,4 +1,11 @@
-# BF video 5 of 8: "Clearance Shelf Drop" (shot list v4, awaiting final approval)
+# BF video 5 of 8: "Clearance Shelf Drop" (shot list v5, awaiting final approval)
+
+**v5 (2026-11-17): NO Del & Eps.** The owner, relayed by the parent: "tell all the black friday agents to not use
+del & eps, just typical branding content" (`projects/_blackfriday/MASCOT_AND_PRICES.md` e05c325).
+- Every character shot, cameo and sting is removed, and no Higgsfield credits are spent.
+- Their moments are filled with branding: an Epsilon+ wordmark lightbox in the aisle, the scan-line sweep on each lip,
+  the car shots and the end card.
+- The character sections below are kept only as history and are void.
 
 Status: plan only. Nothing is rendered until the owner approves this version in chat.
 Planned 2026-11-17 on branch `claude/video-editing-scan-data-8o0m8g`.
@@ -15,15 +22,15 @@ Planned 2026-11-17 on branch `claude/video-editing-scan-data-8o0m8g`.
 - Integra car: **DE4** (`eps-acura-integra-de-v29.glb`).
 - Music: my choice. It is "LUXURY" by Baby thug, claimed in `projects/_blackfriday/MUSIC.md`.
 - A CGI warehouse is approved.
-- Del & Eps: the LOCKED look (`knowledge/characters/del-and-eps/README.md` + `del-eps-model-sheet.jpg`, commit 46e523b).
+- ~~Del & Eps~~: removed in v5 (owner: no characters).
 - Defaults where the owner didn't answer:
   - the lips are silver like the scans (the locked "characters are the only colour" rule);
-  - music only, with no Del voice line;
+  - music only, with no voice line;
   - the 10 mm sting is kept as an optional end beat.
 
 ## Concept in one line
-A forklift POV rolls through a dark silver Epsilon+ warehouse. Eps sweeps each pallet with his scanner, and the cyan
-beam flips the price tag to the BF clearance price. Each lip hard-cuts 1:1 onto its car, and the video ends on "ONLY
+A forklift POV rolls through a dark silver Epsilon+ warehouse. A cyan scan line sweeps each pallet, and the
+price tag flips to the BF clearance price. Each lip hard-cuts 1:1 onto its car, and the video ends on "ONLY
 14 LEFT IN CARBON" and the Epsilon+ wordmark.
 
 Owner's concept, verbatim: "Clearance shelf drop. The warehouse POV. A pallet of GR Corolla V1 lips, Integra trunk lips
@@ -61,29 +68,18 @@ like "only X left" to push urgency." (Narrowed to the two most popular lips at t
 - Times below assume 120 BPM and are re-snapped to `ive beats` (kick-anchored).
 - Mix to -14 LUFS with true peak below -1 dBFS, starting at the song's start or 2 kicks before its drop.
 
-## Characters: Del & Eps (LOCKED look)
-- **Del:** short boxed beard, petrol-teal cap with an orange brim, headset, tape roll.
-- **Eps:** violet cap worn backwards, visor with yellow eye marks, handheld scanner with cyan lenses.
-- **Colour:** they are the only colour in frame. The warehouse, pallets, lips and cars are silver/grey on black, and the
-  tags are off-white with black type. The scanner beam is #6fc3d6.
-- **How they're made:** Higgsfield GPT Image 2.6 plates, with short image-to-video where they move, from
-  `del-eps-model-sheet.jpg` as the reference element. Backgrounds removed, then composited over the Blender renders,
-  with contact shadows from Blender.
-  - About 5 plates: Eps scanning x2, Del taping the carbon bay, Eps in micro mode on the lip, and the 10 mm sting.
-  - I'll quote the credits before generating.
-- Music only, with no lip-sync needed.
+## Characters
+None: the owner removed Del & Eps from the BF videos. (The earlier section is superseded.)
 
 ## Shot table
 | # | Time | Dur | Beat | Camera | Subject | Source asset (exact) | Action | On-screen text (source) | Transition out | Render |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.0-2.0 | 2.0 | 1-4 | Forklift POV, 1.6 m, 24 mm, forks in the bottom of frame, slow push | Dark silver warehouse aisle (racking, lamps, Epsilon+ boxes); Del & Eps step in from the side | Warehouse: new `tools/warehouse_env.py`. Characters: Higgsfield plates from `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg` | A light bank snaps on with each beat; Eps raises the scanner on beat 3 | `BLACK FRIDAY` lit sign on the racking (in-world) | cut on beat 4 | Blender Cycles + composite |
-| 2 | 2.0-4.0 | 2.0 | 4-8 | POV; a pallet slides in and stops centre-frame | Integra rear trunk lip on a pallet, with a 2-line tag | `part_duckbill` (= trunk lip) in `eps-acura-integra-de-v29.glb` (sha256 4bc2e068a4c9...), silver | Eps sweeps it with the cyan beam; **the tag flips on beat 6** | `INTEGRA TRUNK LIP` / ABS ~~$100~~ **$40** / CARBON ~~$240~~ **$96** (sheet; no stock line) | **hard 1:1 cut** on beat 8 | Cycles + composite; the tag is a 3D card from `store_snapshot.json` |
+| 1 | 0.0-2.0 | 2.0 | 1-4 | Forklift POV, 1.6 m, 24 mm, forks in the bottom of frame, slow push | Dark silver warehouse aisle (racking, lamps, boxes), an empty pallet, a BLACK FRIDAY sign and an Epsilon+ wordmark lightbox | Warehouse built in `tools/shots_v0.py`; wordmark Drive 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | A light bank snaps on with each snare; the wordmark lights on the 3rd | `BLACK FRIDAY` sign + Epsilon+ wordmark (in-world) | cut on beat 4 | Blender |
+| 2 | 2.0-4.0 | 2.0 | 4-8 | POV; a pallet slides in and stops centre-frame | Integra rear trunk lip on a pallet, with a 2-line tag | `part_duckbill` (= trunk lip) in `eps-acura-integra-de-v29.glb` (sha256 4bc2e068a4c9...), silver | A cyan scan line sweeps across it; **the tag flips on the snare** | `INTEGRA TRUNK LIP` / ABS ~~$100~~ **$40** / CARBON ~~$240~~ **$96** (sheet; no stock line) | **hard 1:1 cut** on beat 8 | Cycles + composite; the tag is a 3D card from `store_snapshot.json` |
 | 3 | 4.0-5.5 | 1.5 | 8-11 | Same lip framing, rear 3/4, 10 deg orbit | DE4 Integra with the trunk lip fitted (stock duckbill hidden), silver | `eps-acura-integra-de-v29.glb` (whole car, silver look; `body_duckbill_stock` hidden) | Orbit, revealing the car | none | cut on beat 11 | Cycles |
-| 4 | 5.5-8.0 | 2.5 | 11-16 | POV brakes; tilt up to a spotlit top-shelf bay | GR Corolla V1 lips: a PU pallet and a short carbon stack | `part_front_lip` (V1 / Zenki; not `_v2` or `_2025`) in `eps-toyota-gr-corolla-v23.glb` (sha256 ee3643bea3d4...), silver | Forks dip; Del slaps a strip of tape across the carbon bay; **both tags flip on beat 13** | `GR COROLLA V1 LIP` / PU ~~$215~~ **$129** / CARBON ~~$600~~ **$330** (sheet) | hard 1:1 cut on beat 16 | Cycles + composite |
-| 5 | 8.0-10.5 | 2.5 | 16-21 | Same lip framing, then a pull back | GR Corolla full scan with the V1 lip, silver; Eps in micro mode (about 1:10) stands on the lip end | `Toyota Corolla Hatchback (E210)/GR Corolla/GR Corolla Full Car.stl` (836 MB) + the V1 lip in the GLB/CAD frame (stock lip zone cut, the kit_nest2 rule) | The lip lands on beat 17; Eps holds up one finger | **`ONLY 14 LEFT IN CARBON`** (Shopify carbon `inventoryQuantity`, re-read on the render and posting days), on black beside the car | cut on beat 21 | Cycles + composite + Remotion text |
-| 6 | 10.5-12.0 | 1.5 | 21-24 | Wide, high, looking down the aisle | Both pallets on the floor; Del & Eps beside them | Same scene | The lights go full on beat 22 | none | cut on beat 24 | Cycles + composite |
-| 7 | 12.0-14.0 | 2.0 | 24-28 | Static | Epsilon+ wordmark (about 720 px wide) | Drive `EPSILON+ Logos/Epsilon+ Logo.png` 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | Wordmark in on beat 24 | `BLACK FRIDAY CLEARANCE` / `EPSILON.PLUS` | end, or the sting | Remotion |
-| 8 (optional) | 14.0-15.5 | 1.5 | 28-31 | Medium two-shot | Del & Eps | Plate with `del-eps-10mm-socket-gag.jpg` as the reference | Eps pats his pockets; Del holds up the 10 mm socket | none | end | composite over Cycles |
+| 4 | 5.5-8.0 | 2.5 | 11-16 | POV brakes; tilt up to a spotlit top-shelf bay | GR Corolla V1 lips: a PU pallet and a short carbon stack | `part_front_lip` (V1 / Zenki; not `_v2` or `_2025`) in `eps-toyota-gr-corolla-v23.glb` (sha256 ee3643bea3d4...), silver | Forks dip; **both tags flip on the snare** | `GR COROLLA V1 LIP` / PU ~~$215~~ **$129** / CARBON ~~$600~~ **$330** (sheet) | hard 1:1 cut on beat 16 | Cycles + composite |
+| 5 | 8.0-10.5 | 2.5 | 16-21 | Same lip framing, then a pull back | GR Corolla with the V1 lip, silver (scan in v1; the lookbook GLB car in the v0 drafts) | `Toyota Corolla Hatchback (E210)/GR Corolla/GR Corolla Full Car.stl` (836 MB) + the V1 lip in the GLB/CAD frame (stock lip zone cut, the kit_nest2 rule) | Pull back to the whole car | **`ONLY 14 LEFT IN CARBON`** (Shopify carbon `inventoryQuantity`, re-read on the render and posting days), on black beside the car | cut on beat 21 | Cycles + composite + Remotion text |
+| 7 | 12.0-14.0 | 2.0 | 24-28 | Static | Epsilon+ wordmark (about 720 px wide) | Drive `EPSILON+ Logos/Epsilon+ Logo.png` 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | Wordmark in on beat 24 | `BLACK FRIDAY CLEARANCE` / `EPSILON.PLUS` | end | Remotion |
 
 Rules this plan keeps:
 - There is no IRL footage, so no text goes over IRL. The tags are in-world CGI props.
@@ -100,7 +96,6 @@ Rules this plan keeps:
 | GR Corolla lookbook GLB (`part_front_lip` V1) | eps-toyota-gr-corolla-v23.glb, downloaded | **found** |
 | GR Corolla full-car scan | `Engineering Design/Toyota Corolla Hatchback (E210)/GR Corolla/GR Corolla Full Car.stl` | **found** (to download) |
 | GR Corolla V1 lip CAD fallback | Drive `Corolla V1 & V2 Lip Kit` 1-wEi9unNtRyXDMQlOsgNZWAE0IIhW685 | found |
-| Del & Eps reference | `knowledge/characters/del-and-eps/` (model sheet, 10mm-socket-gag.jpg) @ 46e523b | **found** |
 | Epsilon+ wordmark | 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | **found** |
 | BF prices | Liquidation Pricing sheet BSCEWTDHHKuC9Yop5xh2X6, `Pricing` rows 22, 23, 45, 46 | **found** |
 | Music | "LUXURY" by Baby thug (TikTok CML) | claimed |
@@ -115,7 +110,7 @@ Rules this plan keeps:
    - shot 3: the DE4 car with the stock duckbill hidden;
    - shot 5: the GR scan with the V1 lip, stock zone cut, and a clip check.
    Renders go in the background, one at a time.
-5. Del & Eps plates (quote the credits first), cut out, matched to the cameras, with contact shadows.
+5. (removed: no characters)
 6. Remotion count text + end card. `ive assemble`; mix to -14 LUFS; verify the cuts against the kicks; contact sheet
    and review.
 7. On posting day, re-read the carbon count; if it has changed, re-render only the Remotion text.
