@@ -36,7 +36,7 @@ STORE FACTS CHECKED BY THE PARENT ON 2026-11-17 (USD, list price):
   - V1 Front Lip $215 PU (stock 69) / $600 CF (stock 14), V1 Side Skirts $275 (stock 27), V1 Rear Spats $125 (stock 20).
   - V2 Front Lip $285 (stock 64), V2 Side Skirts $400 (stock 67), V2 Rear Spats $175 (stock 35).
 - FG2 Civic Front Lip $150 (stock 64). WRX VB front lip already [CLEARANCE] at $99.99 (stock negative).
-- MR2 Spyder (fiberglass, made to order): front bumper $900, side skirt/fender combo $700, rear spats $350, headlight eyelids $100. Rear duckbill $220 (ABS, stock 10). No MR2 hood-vent product was found.
+- MR2 Spyder (fiberglass, made to order): front bumper $900, side skirt/fender combo $700, rear spats $350, headlight eyelids $100. Rear duckbill $220 (ABS, stock 10). Hood vents $400 / $470 with brackets (fiberglass, backordered). The parent's first search missed this listing.
 - NC Miata (fiberglass): front bumper $800-$1,100, fender cuts $300-$350.
 
 KNOWN PROBLEMS WITH THE OWNER'S CONCEPTS (raise the ones that touch your video with the user in this chat; don't silently change the concept):
