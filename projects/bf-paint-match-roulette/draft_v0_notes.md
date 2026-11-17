@@ -37,3 +37,13 @@ Tools: `tools/render_v0.py` (Blender stills), `tools/compose_v0.py` (assembly + 
 - Lighting/paint is a quick studio rig. Pearl/metallic is approximated with Principled metallic + coat.
 - No Remotion: text is drawn with PIL in Inter Display.
 - The scan is the configurator's decimated scan, not the engineering full-car scan.
+
+## Checks run on the delivered file (2026-11-17)
+- Length 23.285 s, 1080x1920, 30 fps, 37 shots.
+- **Cut sync:** all 36 cuts measured against flux onsets of the decoded mp4 audio: mean error -2 ms, max |error| 25 ms (frame
+  rounding is ±16.7 ms). The first pass read about 20 ms early, so the grid was moved +20 ms (B0 0.0903). Every cut shows a clear frame jump.
+- **Loudness:** -14.0 LUFS integrated, peak -3.7 dBFS (ebur128 after the mux).
+- **Framing:** I looked at the first/mid/last contact sheet. Cars are fully in frame. Long headers are auto-shrunk to fit (the first
+  pass clipped "PAINT MATCH AVAILABLE" and "INTEGRA SPORT WING"). On the end card, Del & Eps were scaled down so they no longer cover the car.
+- **Known v0 issues:** the 1:1 scan->CGI cut is approximate (PCA + bbox, not ICP). The Eps placeholder overlaps the scan's rear
+  quarter in shot 1 and does not touch the wing. Renders are at half resolution.

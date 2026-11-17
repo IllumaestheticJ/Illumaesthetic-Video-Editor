@@ -12,7 +12,7 @@ M = '/home/user/media/bf-paint-match-roulette'
 R = f'{M}/renders/v0'
 OUT = '/home/user/media/work/out/bf-paint-match-roulette_v0.mp4'
 W, H, FPS = 1080, 1920, 30
-B0, BP = 0.0703, 60 / 140.0
+B0, BP = 0.0903, 60 / 140.0  # measured flux grid 0.0703 + 20 ms (delivered-file check: cuts read ~20 ms early)
 def bt(b): return B0 + BP * b
 END_T = bt(53) + 0.5
 
@@ -47,9 +47,12 @@ def zoom(im, z, fx=0.5, fy=0.5):
     w, h = W / z, H / z; x0 = (W - w) * fx; y0 = (H - h) * fy
     return im.crop((int(x0), int(y0), int(x0 + w), int(y0 + h))).resize((W, H), Image.BICUBIC)
 
-def ctext(d, y, s, f, fill=OFF, spacing=6):
-    # tracked, centred
-    widths = [d.textlength(c, font=f) for c in s]; tw = sum(widths) + spacing * (len(s) - 1)
+def ctext(d, y, s, f, fill=OFF, spacing=6, maxw=960):
+    # tracked, centred, shrunk to fit maxw
+    while True:
+        widths = [d.textlength(c, font=f) for c in s]; tw = sum(widths) + spacing * (len(s) - 1)
+        if tw <= maxw or f.size <= 30: break
+        f = f.font_variant(size=f.size - 4)
     x = (W - tw) / 2
     for c, cw in zip(s, widths):
         d.text((x, y), c, font=f, fill=fill); x += cw + spacing
@@ -150,7 +153,7 @@ add(17, 19, photo_shot(f'{P}/full_civic-type-r-fl5-sport-wing-red-rear-quarter.j
 def roulette(path, name, code, hexc, head, sub=None, extra=None, z=(1.0, 1.02)):
     def tx(d, im, t, dur):
         shade_top(im); d = ImageDraw.Draw(im)
-        ctext(d, 230, head, F_HEAD if len(head) < 20 else F_SUB)
+        ctext(d, 230, head, F_HEAD)
         if sub: sub(d)
         if name: chip(d, name, code, hexc)
         if extra: extra(d)
@@ -181,8 +184,8 @@ add(42, 45, roulette(f'{R}/de5_{c[1]}.png', c[0], c[1], c[2], 'INTEGRA SPORT WIN
 
 # 37 end: silver scan + Del & Eps placeholders
 def end_text(d, im, t, dur):
-    put_char(im, dele, 820, 40, 1700)
-    put_char(im, eps, 740, 760, 1690, flip=True)
+    put_char(im, dele, 560, 60, 1790)
+    put_char(im, eps, 520, 790, 1780, flip=True)
     shade_top(im); d = ImageDraw.Draw(im)
     ctext(d, 200, 'BASE WING 30% OFF', F_HEAD)
     ctext(d, 320, 'PAINT MATCH AVAILABLE', F_SUB)
