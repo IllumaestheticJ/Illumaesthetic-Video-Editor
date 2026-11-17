@@ -1,4 +1,4 @@
-# Pip & Gus Ep 6: "What does SeamForged do?" (script v3, for owner approval; was Ep 4)
+# Pip & Gus Ep 6: "What does SeamForged do?" (script v4, for owner approval; was Ep 4)
 
 9:16, 1080x1920, 30 fps, about 38 s. Branch `claude/pip-gus-ep4-seamforge` keeps its old number. Status: **owner answered the open questions (2026-11-16); waiting on script approval**. No voices or renders until this script is approved.
 
@@ -7,15 +7,16 @@ hidden in the UI right now, so neither is mentioned or shown. [VERIFY] marks wha
 
 **Question:** my part is too big for my printer. Now what?
 
-**Series position (owner, 2026-11-17: episodes transition into each other):** follows Ep 5 (big vs small printer), which ends
-with Pip: "It doesn't fit on the small one..." This episode opens on that same part and line, and ends with Pip over the logo
-card asking Ep 7's question (glue): "Now I've got a pile of pieces." Still works on its own: line 1 restates the problem.
+**Series position (series order v0.4, owner 2026-11-17: the steps of making a bumper, in order):** step **cutting**, between
+Ep 5 (STL vs STEP, files) and Ep 7 (big vs small printer). Ep 5 ends with Gus: "It's bigger than the printer." This episode opens
+on that bumper file, too big for the bed, and ends with Pip over the logo card asking Ep 7's question: "It's cut! Which printer
+do we use?" Still works on its own: line 1 restates the problem.
 
 ## Part A: cartoon (about 22 s, word-by-word captions)
 
 | # | Who | Line | Eyes | Picture |
 |---|---|---|---|---|
-| 1 | PIP | "It doesn't fit on the small one..." | worried | Callback to Ep 5: the finished bumper design sits on the small unbranded printer's bed and hangs off both sides. Pip pushes it; it still doesn't fit. |
+| 1 | PIP | "It's bigger than the printer..." | worried | Callback to Ep 5: on Gus's laptop the finished bumper file hangs far outside the printer's build-volume box. Beside it, the small unbranded printer. |
 | 2 | GUS | "So we cut it. By hand." | flat, neutral | Gus at a cartoon laptop drawing cut lines; a cartoon saw follows them. Pieces scatter. The wall clock starts to turn. |
 | 3 | GUS | "Then figure out which piece goes where." | annoyed D-cut (slight) | A floor of identical grey pieces. Pip holds two up, eyes one D-cut + one round (skeptical). |
 | 4 | PIP | "And the seam runs right across the front?" | worried | Close on the assembled bumper: a seam line straight through the visible face. |
@@ -24,7 +25,7 @@ card asking Ep 7's question (glue): "Now I've got a pile of pieces." Still works
 | 7 | GUS | "…We made one." | half-lid, a little proud | Running-gag reversal: Gus pulls out the phone this time. The screen shows the SeamForged app. |
 | 8 | PIP | "Show me!" | ^ ^ excited | Push into the phone; hard cut on the beat to Part B. |
 
-Changes from the series draft: line 1 is the Ep 5 callback (v3). 7 lines became 8 with a short "Show me!" so Pip gets the excited beat and the push-in lands on
+Changes from the series draft: line 1 is the Ep 5 callback (v4). 7 lines became 8 with a short "Show me!" so Pip gets the excited beat and the push-in lands on
 a word (as "…Show me." did in the pilot). Nothing else is claimed in the dialogue; the app shows itself in Part B.
 
 ## Part B: the app (about 7 s, no text over it, no VO, music only)
@@ -53,7 +54,7 @@ optional and only used when a matching full video exists. There is no full SeamF
 1. **App card** (about 3 s): dark plate, sage bar, the exploded numbered pieces from B3 in a framed window,
    **SEAMFORGED** / **COMING SOON** (owner: work in progress, will release soon; no price or link).
 2. **Logo card** (owner, 2026-11-16: no CTA required; this episode is not about a scan we sell). No text. Over it, Pip's
-   voice only: **"Now I've got a pile of pieces."** (lead-in to Ep 7, glue; series rule: no new text for it).
+   voice only: **"It's cut! Which printer do we use?"** (lead-in to Ep 7, big vs small printer; series rule: no new text for it).
 
 ## Music, voices
 - Curious generated bed (series approach), lift on line 8's hand-off.
@@ -67,8 +68,11 @@ optional and only used when a matching full video exists. There is no full SeamF
 5. The Seamforged V1 slicer clip is OK on Gus's laptop.
 
 ## Owner notes (2026-11-17)
-- Series reordered: this is now Ep 6; opening and closing lines changed to link Ep 5 and Ep 7.
+- Series reordered (v0.4): this is Ep 6, the cutting step. Opens on Ep 5's "It's bigger than the printer."; ends with Pip:
+  "It's cut! Which printer do we use?" (supersedes the v0.3 links).
 
 ## Still open
-- Script approval (v3).
+- Script approval (v4).
+- Ep 7 opens on "the cut pieces on SeamForge's plates". The README says plate packing (Print Layout) is hidden in the UI right now,
+  so this episode does not show plates; Ep 7 should open on the exported cut pieces unless the owner says plates are back.
 - The model to record: ideally the same bumper as in the slicer clip, so before and after match.
