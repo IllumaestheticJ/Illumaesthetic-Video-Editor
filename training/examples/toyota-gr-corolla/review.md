@@ -1,4 +1,12 @@
-# Self-review - Toyota GR Corolla v13 (`toyota_gr_corolla_v13.mp4`, 53.8 s, 1080x1920)
+# Self-review - Toyota GR Corolla v13b (`toyota_gr_corolla_v13.mp4`, 53.8 s, 1080x1920)
+
+v13b (user: "fix wheel stance, add the window/light texture/etc that the video game model have", "have the livery go
+on like it was getting taped on"): hubs raised 70 mm to the measured centres (tyres now fill the arches at the scanned
+ride height); every scan face takes the website game model's surface class (glass, lights, chrome, grille, plastics,
+mirror) and the wheels its materials (AR1 rubber, white rims, yellow calipers); at the 1:1 cut wheels/glass/lights
+swap, then the Castrol livery is laid on in staggered 10 cm tape strips front->rear (0.25-3.0 s). Labels: MOTEGI at the
+cut, CASTROL LIVERY after the taping.
+
 
 v13 = v12b + (user) new Jackson Racing logo (reversed for black); after the 360, a 1:1 cut on downbeat 18 to the Castrol
 livery (website GLB texture transferred to the scan) on Motegi MF TL6 wheels, the camera continuing the 360 and landing
