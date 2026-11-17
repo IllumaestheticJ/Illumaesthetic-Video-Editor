@@ -13,3 +13,4 @@
 {"ts": "2026-11-17T06:00:39Z", "project": "pip-gus-ep3-aesub", "at": null, "category": "audio", "note": "AESUB said as one word with no pause: 'AEsub' (v2 'A. E. sub' had a pause)", "by": "owner", "promoted": false}
 {"ts": "2026-11-17T06:00:39Z", "project": "pip-gus-ep3-aesub", "at": null, "category": "story", "note": "Avoid using IS350 footage repeatedly - use other cars", "by": "owner", "promoted": false}
 {"ts": "2026-11-17T06:05:19Z", "project": "pip-gus-ep3-aesub", "at": null, "category": "audio", "note": "Pronunciation test A ('A-E-sub') approved: 'its good now'", "by": "owner", "promoted": false}
+{"ts": "2026-11-17T06:44:23Z", "project": "pip-gus-ep3-aesub", "at": "34", "category": "audio", "note": "Voice take v3 has a weird sound artifact at 34 s", "by": "owner", "promoted": false}
