@@ -32,16 +32,21 @@ to cut, number and place every piece on the print bed. "Forever" is carried by t
 Changes in v5: removed "Then figure out which piece goes where" and "And the seam runs right across the front?" / "Yep.";
 added the cut / number / place-on-the-bed beats and the "Is it done yet?" / "...No." gag. Voices regenerated: take v2, Higgsfield job 37e7501f.
 
-## Part B: the app (about 7 s, no text over it, no VO, music only)
+## Part B: the app (about 8-9 s, no text over it; VO proposed, pending owner approval)
 
-Part B now answers Part A beat for beat: cut, number, place on the bed. Painting the visible side is dropped (owner: seams show regardless).
+Owner 2026-11-17: "don't we need voiceover showing off SeamForged's features too?" Proposed: Gus's VO names each feature as it
+happens (claims from the README only), Pip reacts on the real printed piece. Generated as its own short dialogue call so the
+approved Part A take stays as is (the hard cut to the app separates the two).
 
-| # | ~s | Shot | Source |
-|---|---|---|---|
-| B1 | 1.8 | **Auto-Slice** on the GR86 rear bumper: one press, the cut planes appear and it splits into coloured pieces. (cut) | Agent records SeamForged |
-| B2 | 1.8 | **Exploded** slider: pieces pull apart, part numbers engraved on the mating faces. (number) | same |
-| B3 | 1.8 | **Build plates, Plan plates**: every piece stands on a cut face and lands on the beds. (place on the bed) | same |
-| B4 | 1.6 | The real printed GR86 piece turned in hand, showing its engraved number. | Owner's footage (recording) |
+| # | ~s | Shot | VO (proposed) | Source |
+|---|---|---|---|---|
+| B1 | 2.0 | **Auto-Slice** on the GR86 rear bumper: one press, it splits into coloured pieces. | GUS: "One click. Cut to fit." | Agent records SeamForged |
+| B2 | 2.0 | **Exploded** slider: pieces pull apart, part numbers engraved on the mating faces. | GUS: "Every piece numbered on the inside." | same |
+| B3 | 2.2 | **Build plates, Plan plates**: every piece stands on a cut face and lands on the beds. | GUS: "Laid out on the beds, ready to print." | same |
+| B4 | 1.8 | The real printed GR86 piece turned in hand, showing its engraved number. | PIP: "Whoa. There's the number!" | Owner's footage |
+
+Sources: "One press to cut" (Slicing), "Numbers on the inside" (Slicing), "Build plates: Plan plates ... Export plates writes one
+STL per plate with the pieces already sitting where they print" (README).
 
 Capture notes:
 - Model: `Bomex GR86 - Rear Bumper Uncut.stl` (engineering Drive, 282 MB), the same bumper the printed piece comes from. The file name

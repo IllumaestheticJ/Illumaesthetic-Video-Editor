@@ -14,3 +14,5 @@
 {"ts": "2026-11-17T10:44:02Z", "project": "pip-gus-ep6-seamforge", "at": null, "category": "script", "note": "Say that by hand it normally takes forever to cut, number, and place the pieces on the print bed", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T10:46:38Z", "project": "pip-gus-ep6-seamforge", "at": null, "category": "script", "note": "Script v5 approved; go ahead with the voices", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T10:46:38Z", "project": "pip-gus-ep6-seamforge", "at": null, "category": "character", "note": "On Gus's '...No.' it must be clear he's still setting up the print beds", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T10:49:33Z", "project": "pip-gus-ep6-seamforge", "at": null, "category": "audio", "note": "Voice take v2 (job 37e7501f) approved; go ahead with production", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T10:49:33Z", "project": "pip-gus-ep6-seamforge", "at": null, "category": "script", "note": "Owner: don't we need voiceover showing off SeamForged's features too? (Part B)", "by": "reviewer", "promoted": false}
