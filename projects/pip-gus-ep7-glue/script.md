@@ -1,11 +1,13 @@
-# Pip & Gus Ep 5: "How do you glue prints together?" (script v1, for owner approval)
+# Pip & Gus Ep 7: "How do you glue prints together?" (script v3, for owner approval)
+
+This was Ep 5. In the series reorder (owner, 2026-11-17) it became Ep 7: it follows Ep 6, SeamForge, and leads into Ep 8, materials. The branch is still `claude/pip-gus-ep5-glue`.
 
 9:16, 1080x1920, 30 fps, about 32-36 s total.
 - **Part A, cartoon:** about 26-29 s, with word-by-word captions.
 - **Part B, real footage:** 4-5 s.
 - **End card:** the logo card. No YouTube teaser card unless a matching full video exists (owner rule, 2026-11-16).
 
-Status: **DRAFT v2 (owner answers folded in). Nothing is generated or rendered until the owner approves.** Lines marked [VERIFY] wait on the owner's answers.
+Status: **DRAFT v3 (owner answers + series transitions). Nothing is generated or rendered until the owner approves.** Lines marked [VERIFY] wait on the owner's answers.
 
 ## Owner answers (2026-11-16)
 - **Methods used:** superglue, epoxy, welding and staples. Which one depends on the application and what the part is for.
@@ -27,7 +29,7 @@ The visual device is the "glue tier list." Gus tests each method on the same two
 
 | # | Who | Line | Picture |
 |---|---|---|---|
-| 1 | PIP | "It printed in pieces. Now how do we stick them?" | Pip holds up two printed halves of a part. |
+| 1 | PIP | "Now I've got a pile of pieces. How do we stick them together?" | Callback to Ep 6: Pip sits on the pile of numbered printed pieces, holding two halves up. |
 | 2 | GUS | "Superglue. Fast. Perfect for mold masters." | One dab, and it grabs instantly. The joined master drops into a cartoon mold box. Pip: ^ ^. |
 | 3 | PIP | "Strong enough to hang on?" | Pip hops up onto a second glued part… |
 | 4 | GUS | "…Not that." | …and it snaps. The pieces go onto the failed-print shelf. Board: squint. |
@@ -55,6 +57,10 @@ The visual device is the "glue tier list." Gus tests each method on the same two
 ## End card
 - **Owner rule (2026-11-16):** videos do not need to link to a YouTube video. The "FULL VIDEO ON OUR CHANNEL" teaser card is used only when a matching full video exists.
 - **Default ending:** the real footage ends on the finished, joined part, then the logo card, about 720 px wide.
+- **Transition to Ep 8 (materials):** two voice-only lines play over the logo card. There is no new text, and these lines get no captions.
+  - PIP: "Will glue hold when it's sitting in the sun?"
+  - GUS: "Depends what it's made of."
+  - This echoes Gus's earlier "Depends what it's for." Ep 8 opens on the glued part out in the sun.
 - **No call to action.** Owner rule (2026-11-16): a CTA such as "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" goes in only when it's relevant. Ep 5 isn't about a scan we sell, so the logo card stands alone.
 
 ## Voices and music (after approval)
