@@ -1,9 +1,14 @@
-# Pip & Gus Ep 8: "STL or STEP? Mesh vs NURBS". Script v1 (for owner approval)
+# Pip & Gus Ep 4 (was Ep 8): "STL or STEP? Mesh vs NURBS". Script v3 (for owner approval)
 
-9:16, 1080x1920, 30 fps, about 34.5 s in total.
+9:16, 1080x1920, 30 fps, about 35.5 s in total.
 - **Cartoon:** about 0-27 s.
 - **Real footage:** about 27-32 s.
-- **Closing card:** 32-34.5 s. It carries the logo and the question.
+- **Closing card:** 32-35.5 s. It carries the logo and the question text, with the hand-off to Ep 5 as voice only.
+
+**Series position (owner reorder, 2026-11-17; see "Series order and transitions" in `projects/pip-gus-series/scripts.md`):**
+- Ep 3 ("Can't you just 3D print the scan?") ends with Pip asking "If the scan's a mesh, what do you design in?".
+- This episode opens on Ep 3's mesh on the laptop, with Pip repeating that question.
+- It ends over the logo card with the lead-in to Ep 5 (big vs small printers).
 
 There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 
@@ -14,6 +19,11 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 - End the video with the question "Do you design in CAD or in mesh?".
 
 Status: **DRAFT. No voices or renders until the owner approves.** Open questions are marked [VERIFY] and listed at the bottom.
+
+## v3 changes (series reorder, 2026-11-17)
+- **New opening:** the Ep 3 callback replaces the envelope/"manufacturer wants a STEP" gag. Line 2 is now "Not the mesh. STL is just triangles."
+- **Line 8 still lands:** "Print the mesh, send the STEP" now answers the opening question directly.
+- **Ending:** the voice-only hand-off to Ep 5 is added over the closing card.
 
 ## What changed from the series draft (scripts.md v0.2)
 - **Cut "a hundred flat bits".** It reads as a number, so the line is now "terrible to edit" and the picture does the explaining.
@@ -27,8 +37,8 @@ Status: **DRAFT. No voices or renders until the owner approves.** Open questions
 
 | # | t (s) | Who | Line (emotion tag for v4) | Picture | Caption |
 |---|---|---|---|---|---|
-| 1 | 0.2-3.0 | PIP | [frustrated] "The manufacturer wants a STEP file. I sent them the STL." | Pip pushes an envelope marked STL into a mail slot. It shoots straight back out, stamped with a big "?" | yes |
-| 2 | 3.2-6.2 | GUS | [matter-of-fact] "Different language. STL is a mesh. Just triangles." | Gus taps a cel-shaded side-mirror shell. Camera dives in until the surface is all flat triangles | yes |
+| 1 | 0.2-3.0 | PIP | [curious] "If the scan's a mesh, what do you design in?" | Callback to Ep 3: the side-mirror scan mesh on the shop laptop. Pip leans in at the screen | yes |
+| 2 | 3.2-6.2 | GUS | [matter-of-fact] "Not the mesh. STL is just triangles." | Gus taps the screen. Camera dives in until the surface is all flat triangles | yes |
 | 3 | 6.4-8.6 | GUS | "Perfect for scans. Perfect for printing." | Mesh drops into the unbranded cartoon printer, which prints it fine. A small tick pops up | yes |
 | 4 | 8.7-10.0 | GUS | [slightly annoyed] "Terrible to edit." | Gus's floating hand drags one edge, and a ragged clump of triangles tears along with it | yes |
 | 5 | 10.3-13.0 | GUS | "STEP is NURBS. Smooth math surfaces." | The same shell re-forms as a few clean glowing patches with crisp edges | yes |
@@ -64,10 +74,14 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 - A Dropbox search for "Ioniq" found no footage, so the real shot at the start of this section is still open.
 
 ## End cards
-- **32-34.5 s, closing card (the last frame of the video):**
-  - The Illumaesthetic logo, with **DO YOU DESIGN IN CAD OR IN MESH?** under it.
+- **32-35.5 s, closing card (the last frame of the video):**
+  - The Illumaesthetic logo, with **DO YOU DESIGN IN CAD OR IN MESH?** under it (owner request, 2026-11-16).
   - Fjalla One on the dark plate; this is a card, not text over footage.
   - No other call to action.
+  - **Voice only (no captions, no new text), the hand-off to Ep 5:**
+    - PIP [excited] "Design's done. Hit print!"
+    - GUS [matter-of-fact] "...On which printer?"
+  - **Check:** the series rule says the ending is voice only with no new text, and your question text is still on this card. I've kept both, since the question was your request; say if the text should go.
 
 ## Rules this script follows
 - **No numbers:** no number on screen or in dialogue, and no tolerances, hours or prices. The deviation-map legend is only shown if the owner OKs it (Q3); its values come from the file.
