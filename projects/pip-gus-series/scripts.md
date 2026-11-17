@@ -1,7 +1,7 @@
 > **Owner note (2026-11-16): videos do NOT need to link to a YouTube video.** The teaser card is optional; end on the logo card when there's no matching full video.
 > **Owner note (2026-11-16): a call to action is not required either.** "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" (or any CTA) is added only when relevant, for example when the video is about a scan we sell. The logo card can stand alone.
 
-# Pip & Gus: explainer series, draft scripts (v0.3, 2026-11-17: reordered, with transitions)
+# Pip & Gus: explainer series, draft scripts (v0.4, 2026-11-17: bumper episode first, with transitions)
 
 These are drafts for owner review; nothing is produced yet. Each episode answers one common question about car 3D scanning or 3D printing.
 
@@ -11,23 +11,27 @@ These are drafts for owner review; nothing is produced yet. Each episode answers
 - Dropped: under the car, accuracy.
 - Added: the Seamforged app, glueing prints, big vs small printers, materials for car parts, and NURBS vs mesh (STEP vs STL).
 
-## Series order and transitions (v0.3, owner 2026-11-17: "these should transition into each other"; AESUB goes right after the spray episode)
-The series follows one job from start to finish: meet the team, scan the car, get usable data, design, print, assemble, and then the question everyone starts with. Each episode's ending sets up the next one's question. Pip asks the next question over the logo card (voice only, no new text), and the next episode opens on that same prop or state with Pip repeating it. Every episode still works on its own: the opening callback is one line, and the question is restated.
+## Series order and transitions (v0.4, owner 2026-11-17: bumper first, then the steps of creation)
+Owner: the episodes should transition into each other. AESUB goes right after the spray episode. The bumper episode goes first, because the series should basically start from "if you insist".
 
-| New | Was | Episode | Opens on (callback) | Ends with Pip asking the next question |
-|---|---|---|---|---|
-| 0 | 0 | Meet Pip & Gus | shop intro | "So what's the first thing you do with a car?" -> "We scan it." |
-| 1 | 1 | Why we spray windows and black cars (white-light scanners) | Gus wheels the scanner to a black car | "Does that spray stay on forever?" |
-| 2 | 9 | AESUB vs the alternatives | the sprayed car from Ep 1 | "OK, it's scanned. Can we print it now?" |
-| 3 | 2 | "Can't you just 3D print the scan?" | the finished scan on the laptop | "If the scan's a mesh, what do you design in?" |
-| 4 | 8 | STL or STEP? Mesh vs NURBS | the mesh on the laptop from Ep 3 | "Design's done. Hit print!" -> Gus: "On which printer?" |
-| 5 | 6 | Big printer or small printer? | the finished design, two printers | "It doesn't fit on the small one..." |
-| 6 | 4 | SeamForge | the part too big for the bed | "Now I've got a pile of pieces." |
-| 7 | 5 | How do you glue prints together? | the pile of pieces from Ep 6 | "Will glue hold when it's sitting in the sun?" -> "Depends what it's made of." |
-| 8 | 7 | What plastic should I use for car parts? | the glued part out in the sun | "So... can I just print the bumper I want?" |
-| 9 | 3 | "Why can't I just print the bumper I want?" (finale) | Pip with a bumper idea | Recaps every step (scan, design, print, cut, glue, material) on Gus's bill board: why buying is cheaper. No next question; logo card. |
+**Spine.** Ep 1 answers the question everyone starts with: "Why can't I just print the bumper I want?" Gus explains that it usually isn't worth it, then says "...but if you insist, here's how." Eps 2-9 follow the steps of making it, in order (owner 2026-11-17): **scan** (2 spray, 3 AESUB), **design** (4 a scan is a reference), **files** (5 STL vs STEP), **cutting** (6 SeamForge), **printing** (7 printers, 8 materials), **gluing** (9, the finale, with the finished bumper on the car).
 
-Running gags carry over: the dot pile and the failed-print shelf grow across episodes, and the bill board in Ep 9 lists the steps from Eps 1-8.
+**Transitions.** Each episode ends with Pip asking the next episode's question over the logo card (voice only, no new text). The next episode opens on the same prop with a one-line callback and restates the question, so it still works on its own.
+
+| New | v0.2 | Step | Episode | Opens on (callback) | Ends with |
+|---|---|---|---|---|---|
+| 0 | 0 | - | Meet Pip & Gus | shop intro | Pip's first question: "Can I just print the bumper I want?" (fits the owner's "What questions do you have?" ending) |
+| 1 | 3 | why | "Why can't I just print the bumper I want?" | Pip with a bumper idea | Gus: "...but if you insist." Pip: "I insist! Where do we start?" Gus: "We scan the car." |
+| 2 | 1 | scan | Why we spray windows and black cars (white-light scanners) | Gus wheels the scanner to the black car for Pip's bumper | "Does that spray stay on forever?" |
+| 3 | 9 | scan | AESUB vs the alternatives | the sprayed car from Ep 2 | "OK, it's scanned. Can we print it now?" |
+| 4 | 2 | design | "Can't you just 3D print the scan?" | the finished scan on the laptop | "If the scan's a mesh, what do you design in?" |
+| 5 | 8 | files | STL or STEP? Mesh vs NURBS | the mesh on the laptop from Ep 4 | "Design's done. Hit print!" Gus: "It's bigger than the printer." |
+| 6 | 4 | cutting | SeamForge | the bumper file, too big for the bed | "It's cut! Which printer do we use?" |
+| 7 | 6 | printing | Big printer or small printer? | the cut pieces on SeamForge's plates | "Printer's ready. What do we load in it?" |
+| 8 | 7 | printing | What plastic should I use for car parts? | the printer waiting for filament | "They're printed! ...Now I've got a pile of pieces." |
+| 9 | 5 | gluing | How do you glue prints together? (finale) | the pile of printed bumper pieces | The bumper is glued and goes on the car. Pip: "I printed the bumper I wanted." Gus: "You insisted." Logo card. |
+
+Ep 1's bill board shows the steps as a preview of the series (picture-only). Running gags carry over: the dot pile and the failed-print shelf keep growing across the episodes.
 
 ## Series format
 - The template is the IS350 explainer ("The usual way"): about 40 s at 9:16, made of three parts.
@@ -42,7 +46,7 @@ Running gags carry over: the dot pile and the failed-print shelf grow across epi
   - the pile of peeled dots in the corner;
   - the spinning wall clock;
   - "Is it done yet?" / "…No.";
-  - a growing shelf of failed prints (new, used from Ep 3 on, filling up through Ep 9);
+  - a growing shelf of failed prints (new; grows across the series);
   - Pip's phone hand-off before the real footage. Vary the line per episode.
 
 **Rules:**
@@ -78,7 +82,38 @@ Running gags carry over: the dot pile and the failed-print shelf grow across epi
 
 ---
 
-## Ep 1. "Why do we spray windows and black cars?": how white-light scanners work (owner request 2026-11-16; supersedes v0.1 Ep 1)
+## Ep 1. "Why can't I just print the bumper I want?" (owner 2026-11-16: make people realise that designing and printing a custom bumper still costs more than just buying one)
+**Question:** if you can print parts, why not print a whole bumper or body kit and skip buying one?
+
+The argument is built as a running tally of hidden costs. Each line adds an icon to a "bill" that keeps growing on the cartoon wall. The bill is pictures only: no prices or hours on it.
+
+| # | Who | Line | Picture |
+|---|---|---|---|
+| 1 | PIP | "Just print the bumper! Plastic is cheap!" | Pip holds one spool of filament proudly. |
+| 2 | GUS | "One bumper?" | Gus wheels in a stack of spools taller than Pip. Bill icon 1: spools. [VERIFY: the owner's typical filament use for a bumper, or keep it qualitative] |
+| 3 | GUS | "It doesn't fit on a printer. So it's printed in pieces." | The bumper is sliced like bread; the pieces print one by one while the clock spins. Bill icon 2: clock. |
+| 4 | GUS | "One piece fails overnight…" | A piece comes out as spaghetti and goes onto the failed-print shelf. Bill icon 3: the spaghetti. |
+| 5 | GUS | "…then glue, filler, sanding, primer." | Montage: glue, filler, a sanding cloud, primer. Bill icons 4-7. |
+| 6 | PIP | "Is it done yet?" | |
+| 7 | GUS | "…No. Then the sun hits it." | The cartoon sun beats down; a printed bumper in the wrong plastic slowly droops (materials: see Ep 8). |
+| 8 | GUS | "And a curb." | A curb taps the bumper; it cracks along a glue seam. Bill icon 8: a cracked seam. |
+| 9 | PIP | (looking at the bill, which now reaches the floor) "…So when IS it worth printing?" | |
+| 10 | GUS | "Prototypes. Test fits. Small parts. That's where printing wins." [VERIFY: the owner's actual position] | Gus holds up a small printed test piece; it clicks onto the car perfectly. Pip's eyes do ^ ^. |
+
+**The point:**
+- Printing a full bumper costs material, many print hours across many pieces, failed prints, and hours of glueing and finishing.
+- The result can still be weaker and less heat-resistant than a production part.
+- Printing is great for test fits, prototypes and small parts.
+
+[VERIFY] The owner's real process: what is printed and what is made another way. Final lines are written only after the owner confirms.
+
+**Real footage:**
+- The owner's slicer screen recordings in Dropbox, `/2. Illumaesthetic Videos/1. Video dumps/Seamforged/Seamforged V1/`, show a bumper cut into dozens of pieces across many build plates. That's a perfect, real "this is what one bumper turns into" shot.
+- Then a real test-fit part.
+
+---
+
+## Ep 2. "Why do we spray windows and black cars?": how white-light scanners work (owner request 2026-11-16; supersedes v0.1 Ep 1)
 **Question:** why do you spray windows, chrome and black cars before scanning?
 
 **The science** (general, qualitative, no numbers):
@@ -106,15 +141,14 @@ Running gags carry over: the dot pile and the failed-print shelf grow across epi
 | 9 | PIP | "So you make it… not shiny." | |
 | 10 | GUS | "A thin matte coat. Now everything bounces the light back." | Spray: the pattern now reads crisp everywhere; the mesh fills in, holes and all. |
 | 11 | PIP | "Does it come off?" | |
-| 12 | GUS | "That depends on the spray." | Hard cut on the beat; the tease leads to Ep 2 (AESUB). |
+| 12 | GUS | "That depends on the spray." | Hard cut on the beat; the tease leads to Ep 3 (AESUB). |
 
 **Real footage:** the IS350 being sprayed (windows and grille), then a 1:1 cut to the scan, the teaser card and the logo card.
 **Footage in hand:** yes (IS350 spray shots in the long-form and the R3 reel).
-**Leads into:** Ep 2 (AESUB vs alternatives). Line 12 sets it up.
 
 ---
 
-## Ep 1-old. "Why do you spray the car?" (v0.1, superseded by the Ep 1 above; kept for reference)
+## Ep 2-old. "Why do you spray the car?" (v0.1, superseded by the Ep 2 above; kept for reference)
 **Question:** what's the white powder, and is it bad for the paint?
 
 | # | Who | Line | Picture |
@@ -132,7 +166,7 @@ Running gags carry over: the dot pile and the failed-print shelf grow across epi
 
 ---
 
-## Ep 2. "AESUB vs the alternatives" (owner request 2026-11-16) (was Ep 9)
+## Ep 3. "AESUB vs the alternatives" (owner request 2026-11-16)
 **Question:** why use a vanishing scanning spray like AESUB instead of cheaper sprays and powders?
 **Naming:** the owner asked for this topic by name, so AESUB is named. Alternatives stay generic: "developer spray", "chalk spray", "dry shampoo / foot powder". No other brands are named or mocked.
 
@@ -174,11 +208,10 @@ Running gags carry over: the dot pile and the failed-print shelf grow across epi
 | Time window | limited, shorter in heat | stays until cleaned |
 
 **Real footage:** the IS350 spray, then the sprayed car (and ideally the same car later, clean, with no wiping). [VERIFY] whether there's footage of the coat having vanished. Then the teaser card and the logo card.
-**Follows:** Ep 1 (how white-light scanners work), which sets up "does it come off?". **Leads into:** Ep 3 ("OK, it's scanned. Can we print it now?").
 
 ---
 
-## Ep 3. "Can't you just 3D print the scan?" (approved) (was Ep 2)
+## Ep 4. "Can't you just 3D print the scan?" (approved)
 **Question:** I bought the scan, so why can't I just print a part from it?
 
 | # | Who | Line | Picture |
@@ -198,7 +231,7 @@ Running gags carry over: the dot pile and the failed-print shelf grow across epi
 
 ---
 
-## Ep 4. "STL or STEP? Mesh vs NURBS" (was Ep 8)
+## Ep 5. "STL or STEP? Mesh vs NURBS"
 **Question:** what's the difference between STL and STEP files, and when do you use which?
 
 The structure is two "languages": Gus explains with a cartoon translator gag.
@@ -220,33 +253,10 @@ The structure is two "languages": Gus explains with a cartoon translator gag.
 - The mirror-package workflow is the real version: an STL scan, Class-A resurfacing to a STEP solid, and an STL-vs-STEP deviation map (see the mirror-package skill / Drive mirror folders).
 - [VERIFY] which project the owner allows us to show.
 
-**Follows:** Ep 3 ("a scan is a reference"); this is the file-format follow-up. **Leads into:** Ep 5 ("On which printer?").
 
 ---
 
-## Ep 5. "Big printer or small printer?" (was Ep 6)
-**Question:** should I buy a big-format printer or a regular one for car parts?
-
-The structure is a side-by-side duel: Gus runs a big printer and Pip runs a small one. Each line scores a point on a cartoon scoreboard (icons, not numbers).
-
-| # | Who | Line | Picture |
-|---|---|---|---|
-| 1 | PIP | "Bigger printer, bigger parts!" | Pip next to a huge printer, tiny by comparison. |
-| 2 | GUS | "Fewer pieces. Fewer seams. Less glue." | The big printer makes a large panel in one go. Point to BIG. |
-| 3 | GUS | "But it costs more, takes more space…" | A cartoon wallet empties; the printer barely fits through the shop door. Point to SMALL. |
-| 4 | GUS | "…and one failed print wastes a lot more." | A huge spaghetti failure lands on the failed-print shelf; the shelf bends. Point to SMALL. |
-| 5 | PIP | "Small ones are fast and cheap." | |
-| 6 | GUS | "And you can run a few at once." | Three small printers side by side, all printing. Point to SMALL. |
-| 7 | GUS | "But more pieces means more seams." | The pieces pile up and there's more glue (sets up Ep 7, glue). Point to BIG. |
-| 8 | PIP | "So which one wins?" | The scoreboard is tied. |
-| 9 | GUS | "Depends on the part." [VERIFY: the owner's real setup and advice] | |
-
-**Real footage:** the owner's printer(s) running, if available. [VERIFY] what printers the shop uses (brands not named on screen), and whether to say "we use both".
-**Accuracy note:** the trade-offs are qualitative and general. No build volumes, prices or speeds on screen unless the owner supplies them.
-
----
-
-## Ep 6. "What does SeamForge do?" (brief from the SeamForge repo README, v1.46.0) (was Ep 4)
+## Ep 6. "What does SeamForge do?" (brief from the SeamForge repo README, v1.46.0)
 **Question:** my part is too big for my printer. Now what?
 
 **What SeamForge is** (from `IllumaestheticJ/SeamForge` README; nothing invented):
@@ -286,28 +296,29 @@ The structure is a side-by-side duel: Gus runs a big printer and Pip runs a smal
 
 ---
 
-## Ep 7. "How do you glue prints together?" (was Ep 5)
-**Question:** what's the best way to join printed pieces?
+## Ep 7. "Big printer or small printer?"
+**Question:** should I buy a big-format printer or a regular one for car parts?
 
-The structure is a "glue tier list": Gus tries each method on two printed blocks, and Pip rates it with his eyes.
+The structure is a side-by-side duel: Gus runs a big printer and Pip runs a small one. Each line scores a point on a cartoon scoreboard (icons, not numbers).
 
 | # | Who | Line | Picture |
 |---|---|---|---|
-| 1 | PIP | "It printed in pieces. Now what?" | Two printed halves of a part. |
-| 2 | GUS | "Superglue. Fast. But brittle." | Gus glues; it grabs instantly; Pip taps it; it snaps. Pip: squint. |
-| 3 | GUS | "Two-part epoxy. Strong, fills gaps. Slow." | Mixing two blobs; the clock spins; the joint holds when Pip hangs off it. Pip: ^ ^. |
-| 4 | GUS | "Plastic welding. Melt the same plastic into the seam." | A hot tool melts filament into a V-groove along the seam; it fuses into one piece. Pip's eyes pop. |
-| 5 | GUS | "Some plastics you can solvent-weld." [VERIFY: which materials the owner uses this on; ABS/ASA with acetone is the common case, PLA isn't] | A brush wipes the seam; the halves melt together. A "not for every plastic" stamp. |
-| 7 | GUS | "And pins or keys so they line up." | Printed dowels or dovetails click the halves into alignment before glueing. |
-| 8 | PIP | "Which one do you use?" | |
-| 9 | GUS | "Depends on the part." [VERIFY: the owner's actual preference per use] | Cut to real. |
+| 1 | PIP | "Bigger printer, bigger parts!" | Pip next to a huge printer, tiny by comparison. |
+| 2 | GUS | "Fewer pieces. Fewer seams. Less glue." | The big printer makes a large panel in one go. Point to BIG. |
+| 3 | GUS | "But it costs more, takes more space…" | A cartoon wallet empties; the printer barely fits through the shop door. Point to SMALL. |
+| 4 | GUS | "…and one failed print wastes a lot more." | A huge spaghetti failure lands on the failed-print shelf; the shelf bends. Point to SMALL. |
+| 5 | PIP | "Small ones are fast and cheap." | |
+| 6 | GUS | "And you can run a few at once." | Three small printers side by side, all printing. Point to SMALL. |
+| 7 | GUS | "But more pieces means more seams." | The pieces pile up and there's more glue (sets up Ep 9, glue). Point to BIG. |
+| 8 | PIP | "So which one wins?" | The scoreboard is tied. |
+| 9 | GUS | "Depends on the part." [VERIFY: the owner's real setup and advice] | |
 
-**Real footage:** [VERIFY] the owner joining printed parts (epoxy or a welding pen on a seam). If none exists, a short shoot is needed.
-**Accuracy note:** all method claims here are general and widely documented, with no numbers. The owner should confirm which methods they actually use and recommend.
+**Real footage:** the owner's printer(s) running, if available. [VERIFY] what printers the shop uses (brands not named on screen), and whether to say "we use both".
+**Accuracy note:** the trade-offs are qualitative and general. No build volumes, prices or speeds on screen unless the owner supplies them.
 
 ---
 
-## Ep 8. "What plastic should I use for car parts?" (was Ep 7)
+## Ep 8. "What plastic should I use for car parts?"
 **Question:** which filament is right for a car part?
 
 The structure is "the car torture test": each material faces the things a car does to a part (sun, heat, impact, flex).
@@ -331,34 +342,24 @@ The structure is "the car torture test": each material faces the things a car do
 
 ---
 
-## Ep 9. "Why can't I just print the bumper I want?" (owner 2026-11-16: make people realise that designing and printing a custom bumper still costs more than just buying one) (was Ep 3)
-**Question:** if you can print parts, why not print a whole bumper or body kit and skip buying one?
+## Ep 9. "How do you glue prints together?"
+**Question:** what's the best way to join printed pieces?
 
-The argument is built as a running tally of hidden costs. Each line adds an icon to a "bill" that keeps growing on the cartoon wall. The bill is pictures only: no prices or hours on it.
+The structure is a "glue tier list": Gus tries each method on two printed blocks, and Pip rates it with his eyes.
 
 | # | Who | Line | Picture |
 |---|---|---|---|
-| 1 | PIP | "Just print the bumper! Plastic is cheap!" | Pip holds one spool of filament proudly. |
-| 2 | GUS | "One bumper?" | Gus wheels in a stack of spools taller than Pip. Bill icon 1: spools. [VERIFY: the owner's typical filament use for a bumper, or keep it qualitative] |
-| 3 | GUS | "It doesn't fit on a printer. So it's printed in pieces." | The bumper is sliced like bread; the pieces print one by one while the clock spins. Bill icon 2: clock. |
-| 4 | GUS | "One piece fails overnight…" | A piece comes out as spaghetti and goes onto the failed-print shelf. Bill icon 3: the spaghetti. |
-| 5 | GUS | "…then glue, filler, sanding, primer." | Montage: glue, filler, a sanding cloud, primer. Bill icons 4-7. |
-| 6 | PIP | "Is it done yet?" | |
-| 7 | GUS | "…No. Then the sun hits it." | The cartoon sun beats down; a printed bumper in the wrong plastic slowly droops (callback to Ep 8, materials). |
-| 8 | GUS | "And a curb." | A curb taps the bumper; it cracks along a glue seam. Bill icon 8: a cracked seam. |
-| 9 | PIP | (looking at the bill, which now reaches the floor) "…So when IS it worth printing?" | |
-| 10 | GUS | "Prototypes. Test fits. Small parts. That's where printing wins." [VERIFY: the owner's actual position] | Gus holds up a small printed test piece; it clicks onto the car perfectly. Pip's eyes do ^ ^. |
+| 1 | PIP | "It printed in pieces. Now what?" | Two printed halves of a part. |
+| 2 | GUS | "Superglue. Fast. But brittle." | Gus glues; it grabs instantly; Pip taps it; it snaps. Pip: squint. |
+| 3 | GUS | "Two-part epoxy. Strong, fills gaps. Slow." | Mixing two blobs; the clock spins; the joint holds when Pip hangs off it. Pip: ^ ^. |
+| 4 | GUS | "Plastic welding. Melt the same plastic into the seam." | A hot tool melts filament into a V-groove along the seam; it fuses into one piece. Pip's eyes pop. |
+| 5 | GUS | "Some plastics you can solvent-weld." [VERIFY: which materials the owner uses this on; ABS/ASA with acetone is the common case, PLA isn't] | A brush wipes the seam; the halves melt together. A "not for every plastic" stamp. |
+| 7 | GUS | "And pins or keys so they line up." | Printed dowels or dovetails click the halves into alignment before glueing. |
+| 8 | PIP | "Which one do you use?" | |
+| 9 | GUS | "Depends on the part." [VERIFY: the owner's actual preference per use] | Cut to real. |
 
-**The point:**
-- Printing a full bumper costs material, many print hours across many pieces, failed prints, and hours of glueing and finishing.
-- The result can still be weaker and less heat-resistant than a production part.
-- Printing is great for test fits, prototypes and small parts.
-
-[VERIFY] The owner's real process: what is printed and what is made another way. Final lines are written only after the owner confirms.
-
-**Real footage:**
-- The owner's slicer screen recordings in Dropbox, `/2. Illumaesthetic Videos/1. Video dumps/Seamforged/Seamforged V1/`, show a bumper cut into dozens of pieces across many build plates. That's a perfect, real "this is what one bumper turns into" shot.
-- Then a real test-fit part.
+**Real footage:** [VERIFY] the owner joining printed parts (epoxy or a welding pen on a seam). If none exists, a short shoot is needed.
+**Accuracy note:** all method claims here are general and widely documented, with no numbers. The owner should confirm which methods they actually use and recommend.
 
 ---
 
@@ -366,15 +367,15 @@ The argument is built as a running tally of hidden costs. Each line adds an icon
 Produce in release order (0-9) so each episode's callback prop exists before the next one is made. Episodes waiting on owner answers can have their scripts locked in any order, but release follows the table above.
 
 ## Owner questions (one list, new numbering)
-1. **Ep 1 (spray):** spray type and removal.
-2. **Ep 2 (AESUB):** OK to show hours on screen?
-3. **Ep 3 (print the scan):** which part designs we may show on a scan.
-4. **Ep 4 (STL vs STEP):** the project to show for STL to STEP, and whether you offer resurfacing.
-5. **Ep 5 (printers):** your printer setup and advice.
+1. **Ep 1 (bumper):** what you print vs make another way, your honest "when is printing worth it", and whether the "IF YOU INSIST" YouTube card stays now that the series itself is the "how".
+2. **Ep 2 (spray):** spray type and removal.
+3. **Ep 3 (AESUB):** OK to show hours on screen?
+4. **Ep 4 (print the scan):** which part designs we may show on a scan.
+5. **Ep 5 (STL vs STEP):** the project to show for STL to STEP, and whether you offer resurfacing.
 6. **Ep 6 (SeamForge):** availability, price and where to get it; "SeamForge" vs "Seamforged" on screen; a clean screen capture.
-7. **Ep 7 (glue):** which joining methods you use and recommend.
+7. **Ep 7 (printers):** your printer setup and advice.
 8. **Ep 8 (materials):** your go-to materials (exterior vs interior vs brackets).
-9. **Ep 9 (bumper):** what you print vs make another way, and your honest "when is printing worth it".
+9. **Ep 9 (glue):** which joining methods you use and recommend.
 10. **Footage:** do you have printing, glueing or test-fit footage, or do we need a short shoot?
 
 ## Production notes
