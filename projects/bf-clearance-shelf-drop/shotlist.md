@@ -61,8 +61,10 @@ From MASCOT_AND_PRICES.md. Concept sketches only: I searched Drive and Dropbox f
 ## Music candidates (real tracks only: none generated, none reused)
 Tracks already used by other reels are excluded: the John Wick medley, M.O.O.N. "Paris", Sector Shift, the "Going Up
 North", East City, South City and Riders uploads, the GT2 licence track, and the rest of `projects/*/project.yaml`.
-1. A track from Dropbox `/Moosic` (29 tracks: GT2, Juiced, NFSU...) that is not already used: 115-130 BPM, a kick on
-   every beat, and a drop about 2 s in.
+1. **Claimed in `projects/_blackfriday/MUSIC.md`: "LUXURY" - Baby thug** (TikTok Commercial Music Library, cleared for
+   ads, song_clip_id 7496578190397114385, 107 s). Backup: "Diamonds on me" - Capivara Dj (7634619894408087553).
+   Neither is used by any reel. Its BPM and drop are not measured yet (`ive beats` after download). Nearly every
+   `/Moosic` track is already used, or claimed by another BF video.
 2. If the ad will be boosted, a track from the TikTok/IG Commercial Music Library, because paid ads need cleared audio.
 3. Tag flips go on the snare, or on a "ka-ching" accent if the track has one.
 Mix to -14 LUFS with true peak below -1 dBFS. Start from the song's beginning, or 2 kicks before the drop.
@@ -125,7 +127,7 @@ Rules this plan keeps:
 6. **Voice:** music only, or Del's one line ("Fourteen. Then it's gone.")? Should the 10 mm end sting go in (+1.5 s)?
 7. **Warehouse:** is a CGI warehouse OK? If you'd rather film a pass down real racks, price tags over that footage would
    break the no-text-over-IRL rule, so please say explicitly if you want that for this ad.
-8. **Music:** which track?
+8. **Music:** is "LUXURY" (Baby thug, TikTok cleared) OK, or do you want another track?
 
 ## Production steps (after approval)
 1. `ive log` the answers. Snapshot the Shopify prices, compare-at prices and inventory, plus the BF prices, into

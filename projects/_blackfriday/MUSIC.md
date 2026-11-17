@@ -5,7 +5,10 @@ Each video uses a different track. Claim one here before you plan around it: edi
 | Video | Track | Source | Status |
 |---|---|---|---|
 | BF 4 paint-match-roulette | GT2 "Arcade Mode Theme" (140 BPM) | Dropbox /Moosic id:ihAynaYnO_4AAAAAAACRvg | claimed (parent assigned 2026-11-17) |
-| BF 3 integra-385-combo | not "Arcade Mode Theme" (BF 4 has it); its other candidates were "Get Low" (NFSU) and Juiced "Killa" | /Moosic | to pick |
+| BF 3 integra-385-combo | Lil Jon ft. The Eastside Boyz "Get Low" (NFSU OST); backup Juiced OST Way Out West "Killa" (id:ihAynaYnO_4AAAAAAACRvw, not claimed) | Dropbox /Moosic id:ihAynaYnO_4AAAAAAACRvA | claimed 2026-11-17 (user may swap) |
 | BF 1 civic-parts-rain | none yet: waiting for the owner (real vs generated rule, or their own song); then a /Moosic or TikTok CML track not listed above | – | to pick |
 | BF 6 gr-corolla-track | "Electric Youth" - Chris_record (TikTok CML, song_clip_id 7421090393491785729) | Higgsfield tiktok_music_trending, EDM 7-day US #1 (2026-11-17) | claimed 2026-11-17 (user may swap) |
+| BF 5 clearance-shelf-drop | "LUXURY" - Baby thug (TikTok CML, song_clip_id 7496578190397114385, 107 s) | Higgsfield tiktok_music_trending, HIP_HOP/RAP 7-day US #44 (2026-11-17); backup "Diamonds on me" - Capivara Dj (7634619894408087553) | claimed 2026-11-17 (user may swap; BPM not measured yet) |
+| BF 8 scan-teardown-prices | Kim Petras "XXX" | Dropbox /Moosic id:ihAynaYnO_4AAAAAAACmaA | proposed (owner to confirm; lyrics to check) |
+| BF 7 miata-mr2-night-meet | "Tokyo Midnight" - ChilliZone (TikTok CML, song_clip_id 7667576607158323217, 173 s); backup "In the Urban Shadows" - Shiba Beats (7405070490777159697) | Higgsfield tiktok_music_trending, HIP_HOP/RAP 7-day US (2026-11-17) | claimed 2026-11-17 (provisional; user may swap) |
 | BF 2 integra-stock-to-kitted | "140" - Lil Texas (TikTok CML, song_clip_id 7597234501887166481); first hard hit ~6.89 s from the song start = the 1:1 cut | Higgsfield tiktok_music_trending, EDM 7-day US (2026-11-17) | claimed 2026-11-17 (user may swap to NUMMA "BLACK FRIDAY" 7427572790179563521) |

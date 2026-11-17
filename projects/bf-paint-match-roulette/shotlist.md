@@ -2,18 +2,28 @@
 
 Session: Black Friday video 4 of 8, slug `paint-match-roulette`. Planned 2026-11-17. Nothing has been rendered yet.
 
+**v2 of the plan (2026-11-17):** the owner chose the Epsilon mascots **Del & Eps** (projects/_blackfriday/MASCOT_AND_PRICES.md),
+not Pip & Gus. The owner's BF doc confirms the Sport Wings are **30% off the base (gloss black) price only, with the paint-match
+charge at full price**. Shots 1-3, 7-15, 36 and 37 now use the mascots. Q2, Q3 and Q5 are rewritten for these answers.
+
 **Owner's concept, verbatim:** "Paint-match roulette. Rapid cuts across every paint-matched Sport Wing color: Boost Blue,
 Championship White, Sonic Gray and the rest, each on its car. The text reads "Base Wing 30% off, Paint Match Available""
 
-**In one line:** a silver scan turns into the gloss-black base wing, then a roulette spins through every paint-match colour
-that the live store sells for each Sport Wing, always on the car that colour belongs to, and lands on "Paint Match Available".
+**In one line:** Eps scans in beside a silver Civic scan and touches the gloss-black base wing, which washes into the car's paint
+("paint-touch"). Then a roulette spins through every paint-match colour the live store sells for each Sport Wing, always on the
+car that colour belongs to, while a 1:10 Del checks it from the endplate. It lands on "Paint Match Available".
 
-**Target length:** about 22.8 s with FL + FE + Integra (13 bars at 140 BPM). With the FL wing only, about 15.9 s: sections C and D
-are dropped and the end card moves up.
+**Target length:** about 22.8 s with FL + FE + Integra (13 bars at 140 BPM). With the FL wing only, about 15.9 s (shots 16-36
+dropped, end card moves up).
 
 ---
 
 ## 1. Store facts (live Shopify, "Epsilon+ Aerodynamics", re-checked 2026-11-17 by this session)
+
+BF prices from the owner's doc ("Black Friday 2026 Discounts: TL;DR"): Sport Wings 30% off the BASE only, paint charge full price.
+Integra gloss black $500 -> $350, painted $1,000 -> $850; Integra combo gloss black $600 -> $385. The same rule gives FL/FE gloss
+black $450 -> $315. That figure is my arithmetic, not a number from the doc, so the owner must confirm it before it goes on screen.
+The sale window is not set, so no dates appear on screen.
 
 | Wing (product GID) | Base = "Generic Gloss Black" | Paint-matched | Paint options on the store (name - code) |
 |---|---|---|---|
@@ -23,7 +33,8 @@ are dropped and the end card moves up.
 
 Corrections to the shared brief: the FL wing has 12 paints plus gloss black (the brief's "13 Honda colours"), and the Integra has
 10 paints plus gloss black (the brief's "11"). Stock is negative or zero on every wing variant (made to order or backordered), so
-**no stock or scarcity text anywhere**. No prices appear on screen unless the owner gives the Black Friday prices (see Q2).
+**no stock or scarcity text anywhere** (BF doc: backordered items are not on sale anyway; Q2 covers this). By default the on-screen
+text is only the owner's words; prices are optional (Q2).
 
 ## 2. Asset inventory
 
@@ -35,9 +46,9 @@ Corrections to the shared brief: the FL wing has 12 paints plus gloss black (the
 | FL/FE facelift GLBs | `eps-honda-civic-hatch-fl-facelift-v8.glb`, `eps-honda-civic-sedan-fe-facelift-v9.glb` | **to-request** | The CDN returned 404. Pull them from Drive `Website Files/Epsilon-final-GLBs-2026-10-15.zip` (id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7) if needed. Not needed for the plan below. |
 | Paint colours (hex + finish) | Lookbook configs from `lookbook-frames-927fc403.json` / `-a8da60cb.json` -> `lb-honda-civic-hatch-fl-*.json`, `lb-honda-civic-hatch-fl-facelift-*.json`, `lb-honda-civic-sedan-fe(-facelift)-*.json`, `lb-acura-integra-type-s-de5-*.json`, `lb-acura-integra-de-*.json` | **found for every store colour except FL Championship White NH0** | e.g. Boost Blue #0a7ee8 pearl, Sonic Gray #6e7886 pearl, Rallye Red #c8102e gloss, Tiger Eye #c86a1f pearl. The website has no Championship White config, but real photos cover it (row below). The lookbook also lists Morning Mist and Boost Blue for the FE: **not used**, because the FE wing doesn't sell them. |
 | Real photos of painted wings | epsilon.plus listing images (cdn.shopify.com/s/files/1/0036/2250/2435/files/...) | **found** | FL5 Type R: Championship White `civic-type-r-fl5-sport-wing-white-rear-quarter.jpg`; Boost Blue `civic-fl5-sport-wing-blue-rear-quarter.jpg` / `civic-type-r-fl5-sport-wing-blue-garage.jpg`; Rallye Red `civic-type-r-fl5-sport-wing-red-rear-quarter.jpg`. FE: Rallye Red `DILL7196.jpg` / `DILL7458.jpg`. I looked at each one and the wing is painted body colour. **Rejected:** `acura-integra-de4-sport-wing-white-rear-quarter.jpg`, where the wing is black (not paint-matched). The grey Integra photos are on hold until the paint name is confirmed (Q7). |
-| Full-car scans | Engineering Drive `Honda Civic (11th Gen)` (10Ci7sUypOlHypCK7lW2bsSPSAsazcH14): FL2 `Honda Civic Sport (FL2)/FL2 Full Car.stl` (+ `civic Civic Hatch Rear End` = FL2_5); FE1 `civic Facelift FE1 Full Car.stl` (1RIThsxwQgD_KB-58-JiL0y6x1HycU8LZ). Integra `Acura Integra Type S/Integra Type S Full Car.stl` | **found** (FL2 / Integra file ids still to look up) | FL2 caveat from honda-civic-11/clips.md: the rear wheel is broken and the roof has a hole. Shot 2 is framed high on the trunk, on the side whose rear wheel is intact. If no framing hides the damage, use the FE1 scan for the hook. Scan data stays as captured. |
+| Full-car scans | Engineering Drive `Honda Civic (11th Gen)` (10Ci7sUypOlHypCK7lW2bsSPSAsazcH14): FL2 `Honda Civic Sport (FL2)/FL2 Full Car.stl` (+ `civic Civic Hatch Rear End` = FL2_5); FE1 `civic Facelift FE1 Full Car.stl` (1RIThsxwQgD_KB-58-JiL0y6x1HycU8LZ). Integra `Acura Integra Type S/Integra Type S Full Car.stl` | **found** (FL2 / Integra file ids still to look up) | FL2 caveat from honda-civic-11/clips.md: the rear wheel is broken and the roof has a hole. Shot 1 is framed high on the trunk, on the side whose rear wheel is intact. If no framing hides the damage, use the FE1 scan for the hook. Scan data stays as captured. |
 | Sport Wing design/scan files | Drive `Sport Wings` (1U8ifDyr3fc48dLVyIUxwK-hjNws8kviM, install guides), `Sport Wing` (1-atZHtOZCLujn-XCXXhcKk-uh10Oaz8E), `Integra Sport Wing` (1DkLmfcaf9XlzlrTWOXSD-vhOW9Et1o05), FL2 `Trunk Wing Scans/` | **found** (not needed) | The shot plan only uses the lookbook `part_sport_wing`, which is placed by the website. In the scan shot the same mesh is nested into the scan (projects/toyota-mr2-spyder kit_nest2.py method). |
-| Characters | Pip & Gus: `git show origin/claude/pip-gus-ep0-intro:projects/scan-tedium-explainer-reel/characters/design.md`, the rig in that project's `tools/partA_scene.py` / `partA_anim.py` / `nametag_tex.py`, and the series rules in `projects/pip-gus-series/SESSION_BRIEF.md` | **found, but these are Illumaesthetic mascots** | No Epsilon-specific character files were found. Pip and Gus wear Illumaesthetic name badges, and the lineup "painter" extra exists only as a concept image (Higgsfield job 2094da79-...), with no rig. Their rules: no arms (floating mitten hands), dot eyes, no eyebrows, cel-shaded EEVEE, Gus never angry or sad. Q5 asks whether they may appear in an Epsilon+ ad. |
+| Characters | **Del (δ, dad) & Eps (ε, son)**, the Epsilon+ mascots: projects/_blackfriday/MASCOT_AND_PRICES.md; concept pages v0.1 https://claude.ai/artifact/MyfYpve1ho7AhiTSzvRCFf and v0.2 https://claude.ai/artifact/E2AUcUQJsG5a937FCorTQD | **concept sketches only; no model or rig.** I searched Drive (Del / Eps / mascot / turnaround), the repo and every branch on 2026-11-17 and found nothing | The build is part of this plan. Look: Del has a GT-wing flat cap with goggles, a moustache, a vest, tape-yellow masking tape and calipers. Eps has a backwards lip-brim cap, a diffuser-hem hoodie, a dark visor with two light-up eye marks, and a laser-blue handheld scanner. Rules from v0.1: real 1:1 scale in the scan's registered space, they *scan in* with a laser sweep, micro mode at about 1:10 for close-ups, under 15k tris, one shared rig, and a small action set (point, lift, hold up, tape, shrug, high-five). No voice in this ad (music only); Pip & Gus are not used. |
 | Music | Dropbox `/Moosic/YTDown.com_YouTube_Media_LqdZ9inIAR4_Gran-Turismo-2-Arcade-Mode-Theme_005_128k.m4a` (id:ihAynaYnO_4AAAAAAACRvg) | **found, unused by any reel** | Real track (GT2 OST). Kicks start at 0.51 s with no intro. Measured on 40-120 Hz peaks: **140 BPM, beat 0.4286 s, bar 1.714 s, downbeats D_n = 0.512 + 1.714·n**. `ive beats` reports half tempo (69.8). |
 | Logo | Drive `EPSILON+ Logos` (white wordmark, ~720 px wide) | to fetch | Use the Epsilon+ wordmark, not the Illumaesthetic logo. |
 
@@ -58,24 +69,28 @@ paint swap is the only change. Each car's R-cam puts its wing at the same screen
 
 | # | Time (s) | Dur | Beat | Camera | Subject | Source asset | Action | On-screen text (source) | Transition in | Render |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.000-2.226 | 2.23 | song start -> D1 | Cel-shaded medium, slight push | **Pip** (only if Q5 = yes) | Pip rig (scan-tedium tools), new booth set | Pip's floating hands yank a slot/roulette lever. A swatch wheel spins and blurs on the last beat. | none | - | Blender EEVEE (cel) |
-| 2 | 2.226-3.940 | 1.71 | D1 (kick) | FL R-cam, push-in 3 % | FL2 **scan** in house silver, with the lookbook Sport Wing nested in silver | FL2 Full Car.stl + `part_sport_wing` from eps-honda-civic-hatch-fl-v8.glb (nested like kit_nest2.py) | Scan reveal | none | hard cut | Blender Cycles |
-| 3 | 3.940-5.654 | 1.71 | D2 | same camera as 2 (1:1) | FL2 GLB, Platinum White body, **gloss black base wing** | eps-honda-civic-hatch-fl-v8.glb (`part_sport_wing` -> `plastic_gloss`) | Hard 1:1 cut scan -> CGI on the kick, push continues | "BASE WING 30% OFF" (owner text; pending Q2/Q3) | **hard 1:1 cut** | Blender Cycles + Remotion |
+| 1 | 0.000-2.226 | 2.23 | song start -> D1 | FL R-cam, push-in 3 % | FL2 **scan** in house silver with the lookbook Sport Wing nested in silver; **Eps scans in** beside the rear quarter at 1:1 (laser sweep, wireframe -> silver) and lays a hand on the wing | FL2 Full Car.stl + `part_sport_wing` from eps-honda-civic-hatch-fl-v8.glb (nested like kit_nest2.py) + Eps rig | Scan reveal, Eps builds in | none | - | Blender Cycles |
+| 2 | 2.226-3.940 | 1.71 | D1 (kick) | same camera (1:1) | FL2 GLB, **Sonic Gray** body, **gloss black base wing**; Eps (livery look A) with his hand still on the wing | eps-honda-civic-hatch-fl-v8.glb (`part_sport_wing` -> `plastic_gloss`, `paint` = #6e7886 pearl) | Hard 1:1 cut, scan -> CGI, on the kick | "BASE WING 30% OFF" (owner text + BF doc) | **hard 1:1 cut** | Blender Cycles + Remotion |
+| 3 | 3.940-5.654 | 1.71 | D2 | same camera, continuing the push | Same car; **paint-touch**: from Eps' hand, the wing washes from gloss black to Sonic Gray Pearl in about 0.6 s, starting on the D2 kick. Eps then points at it and scans out (reverse sweep) by the end of the bar | FL GLB + Eps rig | The paint-match moment | "PAINT MATCH AVAILABLE" (owner) + chip "SONIC GRAY PEARL · NH877P" (store) | continuous | Blender + Remotion |
 | 4 | 5.654-6.511 | 0.86 | D3, 2 beats | photo, slow 3 % Ken Burns | FL5 Type R, **Boost Blue** wing | civic-fl5-sport-wing-blue-rear-quarter.jpg | Roulette starts: photos of the owner's named colours | none (IRL photo) | hard cut | footage edit |
 | 5 | 6.511-7.368 | 0.86 | 2 beats | photo | FL5 Type R, **Championship White** | civic-type-r-fl5-sport-wing-white-rear-quarter.jpg | - | none | hard cut | footage edit |
 | 6 | 7.368-8.225 | 0.86 | D4, 2 beats | photo | FL5 Type R, **Rallye Red** | civic-type-r-fl5-sport-wing-red-rear-quarter.jpg | - | none | hard cut | footage edit |
-| 7 | 8.225-9.082 | 0.86 | 2 beats | FL R-cam (locked) | FL2 GLB, **Sonic Gray Pearl** body + wing | FL GLB, `paint` = #6e7886 pearl | Locked-camera roulette begins | "PAINT MATCH AVAILABLE" (owner) + chip "SONIC GRAY PEARL · NH877P" (store) | hard cut | Blender + Remotion |
-| 8-15 | 9.082-12.510 | 8 × 0.429 | D5 -> D7, 1 beat each | FL R-cam (locked) | FL2 GLB in: Crystal Black Pearl NH731P, Lunar Silver Metallic NH830M, Platinum White Pearl NH883P, Solar Silver Metallic NH932M, Urban Gray Pearl NH912P, Meteorite Gray Metallic NH904M, Sand Dune Pearl YR662P, Smokey Mauve Pearl RP61P | FL GLB + lookbook hex per colour | Spin speeds up: paint swaps on every kick | same header; chip name + code per shot (store) | hard cuts | Blender + Remotion |
+| 7 | 8.225-9.082 | 0.86 | 2 beats | FL R-cam (locked) | FL2 GLB in **Crystal Black Pearl NH731P**; **Del at 1:10 (micro mode)** scans in standing on the wing's left endplate, with tape and calipers | FL GLB + Del rig | Locked-camera roulette begins; Del inspects | "PAINT MATCH AVAILABLE" + chip name/code (store) | hard cut | Blender + Remotion |
+| 8-13 | 9.082-11.653 | 6 × 0.429 | 1 beat each | FL R-cam (locked) | FL2 GLB in: Lunar Silver Metallic NH830M, Platinum White Pearl NH883P, Solar Silver Metallic NH932M, Urban Gray Pearl NH912P, Meteorite Gray Metallic NH904M, Sand Dune Pearl YR662P; micro-Del on the endplate in one held pose (a small head-turn per cut) | FL GLB + lookbook hex per colour | Spin speeds up: paint swaps on every kick | same header; chip name + code per shot (store) | hard cuts | Blender + Remotion |
+| 14-15 | 11.653-12.510 | 2 × 0.429 | 1 beat each | FL R-cam (locked) | FL2 GLB in **Smokey Mauve Pearl RP61P**, then the same colour with micro-Del giving a nod and a tape-tick on the endplate | FL GLB + Del rig | Last FL colour; Del approves | chip "SMOKEY MAUVE PEARL · RP61P" | hard cut | Blender + Remotion |
 | 16-25 | 12.510-14.653 | 10 × 0.214 | D7, half-beats | FE R-cam (wing at the same screen spot) | FE sedan GLB in: Platinum White, Sonic Gray, Meteorite Gray, Lunar Silver, Solar Silver, Crystal Black, Blazing Orange, Aegean Blue, Blue Lagoon, Urban Gray | eps-honda-civic-sedan-fe-v10.glb (wingless trunk fitment = `part_sport_wing`) | Car swaps 1:1 on the wing, then a fast spin | "CIVIC SEDAN SPORT WING · 11 HONDA COLOURS" (store count), no per-shot names (too fast to read) | hard cut | Blender + Remotion |
 | 26 | 14.653-15.938 | 1.29 | 3 beats | photo, 3 % Ken Burns | FE, **Rallye Red** wing (real) | DILL7196.jpg | The FE spin lands on a real car | none | hard cut | footage edit |
 | 27-34 | 15.938-17.652 | 8 × 0.214 | D9, half-beats | Integra R-cam (wing at the same spot) | Integra GLB in: Majestic Black, Platinum White, Lunar Silver, Urban Gray, Liquid Carbon, Performance Red, Apex Blue, Solar Silver | eps-acura-integra-type-s-de5-v19.glb (or DE4 v29, Q6) | Car swap and fast spin, Acura colours only | "INTEGRA SPORT WING · 10 ACURA COLOURS" (store count) | hard cut | Blender + Remotion |
 | 35 | 17.652-18.081 | 0.43 | D10, 1 beat | Integra R-cam | Integra in **Tiger Eye Pearl YR651P** | Integra GLB | Slowing | chip "TIGER EYE PEARL · YR651P" | hard cut | Blender + Remotion |
-| 36 | 18.081-19.366 | 1.29 | 3 beats | Integra R-cam, 3 % push | Integra in **Double Apex Blue Pearl B649P** | Integra GLB | Landing on the last colour | chip "DOUBLE APEX BLUE PEARL · B649P" | hard cut | Blender + Remotion |
-| 37 | 19.366-21.080 | 1.71 | D11 | FL R-cam, slow 10° orbit | FL2 GLB, Rallye Red, painted wing | FL GLB | Hero end shot | "BASE WING 30% OFF" / "PAINT MATCH AVAILABLE" (owner) | hard cut | Blender + Remotion |
+| 36 | 18.081-19.366 | 1.29 | 3 beats | Integra R-cam, 3 % push | Integra in **Double Apex Blue Pearl B649P**; micro-Eps scans in on the endplate and lifts his scanner | Integra GLB + Eps rig | Landing on the last colour | chip "DOUBLE APEX BLUE PEARL · B649P" | hard cut | Blender + Remotion |
+| 37 | 19.366-21.080 | 1.71 | D11 | FL R-cam, slow 10° orbit | FL2 GLB, Rallye Red, painted wing; Del and Eps at 1:1 either side of the trunk. Optional sting: Eps pats his pockets and Del hands him the 10 mm (Q5) | FL GLB + both rigs | Hero end shot | "BASE WING 30% OFF" / "PAINT MATCH AVAILABLE" (owner) | hard cut | Blender + Remotion |
 | 38 | 21.080-22.794 (+ decay) | 1.71 | D12 | - | Epsilon+ wordmark, ~720 px, on black | Drive EPSILON+ Logos | Fade in, hold, out on the decay | wordmark | hard cut | Remotion |
 
-FL-only version: shots 16-36 are dropped and shot 37 starts at D7 (12.510), so the video ends at about 15.9 s. Without Pip (Q5 = no),
-shot 1 is dropped, everything moves 2.226 s earlier, and the music still starts at 0. The scan shot then opens on the first kick.
+FL-only version: shots 16-36 are dropped and shot 37 starts at D7 (12.510), so the video ends at about 15.9 s.
+Character look: default to v0.2 **A (Team Livery)**: Del in petrol teal #0f5c63 / signal orange #ff7a1a, Eps in electric violet #6b3cff /
+hi-vis yellow #ffd21f. In the silver scan shot (1) both are in house silver, per v0.1. A's "part washes violet/orange" is adapted so the
+wing washes into the real paint colour, because the colour has to be the store's paint. The page recommends A, and the owner hasn't
+picked yet (Q5).
 
 Rules checked against this plan: 9:16; a hard 1:1 cut, never a dissolve; every cut on a measured kick or hat (the half-beat cuts
 in 16-34 need a transient on each 8th note, or they fall back to 1-beat cuts with fewer colours, Q8); no text over the real photos;
@@ -85,10 +100,10 @@ first, middle and last frames of every shot); the wing stays inside the frame ab
 ## 4. Open questions for the owner
 
 1. **Which wings?** FL only (the colours you named are FL colours), or FL + FE sedan + Integra? The table above shows all three. FL only gives about 15.9 s.
-2. **Black Friday price.** "Base Wing 30% off": should prices appear (FL/FE $450 -> $315, Integra $500 -> $350), or the words only? The FL5 gloss-black variant already shows a $550 compare-at on the store. Is the 30% taken off $450 or $550?
-3. **"Base Wing" = the Generic Gloss Black variant** ($450 FL/FE, $500 Integra)? Is the Integra "Sport Wing + Rear Trunk Lip" combo ($600) included in the 30%? Does the discount cover painted wings?
+2. **Prices on screen?** The BF doc gives Sport Wings 30% off the base only, paint at full price. Options: words only ("BASE WING 30% OFF / PAINT MATCH AVAILABLE", the default), or add "FROM $315" (FL/FE $450 -> $315, my arithmetic) / "$500 -> $350" (Integra, from the doc). The FL5 gloss black variant currently shows a $550 compare-at on the store. Which "was" price will the sale use for the FL5?
+3. **Combo:** should the Integra Sport Wing + Trunk Lip combo ($600 -> $385 gloss black) get its own beat here, or stay in the video whose concept quotes it?
 4. **"Each on its car," strictly.** The FL lookbook model is an **FL2** hatch, and the store sells all 12 colours for both FL2 and FL5. My understanding is that Boost Blue and Championship White are Type R (FL5)-only factory colours. Is that right? The plan shows those two only on the real FL5 photos and renders the other colours on the FL2 model. Some colours may also be FL2-only (e.g. Smokey Mauve, Sand Dune). Fine on the FL2 render?
-5. **Characters.** Pip & Gus are *Illumaesthetic* mascots with Illumaesthetic badges; I found no Epsilon-specific characters. May Pip open this Epsilon+ ad (shot 1, no voice), with the badge swapped to Epsilon+ or kept? Or should we skip characters here?
+5. **Del & Eps:** OK to default to look **A (Team Livery)**, with "paint-touch" washing the wing into the real paint colour? Since no model exists, I'll build both (under 15k tris, one rig, procedural Blender, as in the Pip & Gus pipeline) and send you a turnaround still to approve before anything is animated. Should the 10 mm hand-off sting go on the end card? No voices in this ad: OK?
 6. **Integra body:** DE5 Type S model (v19) or the DE4 model (v29)? The wing listing says DE4/DE5.
 7. **Grey Integra listing photos:** which paint is that car (Urban Gray / Liquid Carbon / Solar Silver)? With a name, it can be the Integra landing shot instead of a render.
 8. **Pace:** are half-beat cuts (about 6 frames each) OK for the FE/Integra spins, or should every colour get at least one beat (about 5 s longer)?
@@ -102,7 +117,8 @@ first, middle and last frames of every shot); the wing stays inside the frame ab
 3. Blender scene per car: import the lookbook GLB, use the house studio rig and AgX, make one locked R-cam per car, and match the wing's screen position across the three cameras. Script `paint` colour swaps from the lookbook hex + finish table (pearl/metallic flake via coat + metallic; watch the lesson on saturated reds and blues turning salmon/cream under AgX). Render one 1-beat still sequence per colour (a 2 % push only), one at a time, in the background.
 4. Shot 2/3: render the scan and the GLB from the same camera path, and check that they overlap 1:1 with an onion overlay.
 5. Photos: Ken Burns on an extended canvas (fg2-race-car canvas.py), no text.
-6. Pip shot (if approved): rig from the scan-tedium project, cel EEVEE, owner approval of a still before animating.
+6. Del & Eps: build them procedurally in Blender (under 15k tris each, shared rig, material slots for house silver and the livery A colours) and send the owner a turnaround still. Animate after approval, with only the actions this plan needs: scan-in/out sweep, hand on wing, point, nod, tape-tick, lift scanner, 10 mm hand-off. Place them at real 1:1 scale in the registered car space, plus the 1:10 micro copies on the endplates, and check for contact or clipping in close-up frames.
+6b. Paint-touch: a shader mask driven from Eps' hand contact point that blends `plastic_gloss` -> paint across the wing in about 0.6 s, starting on the D2 kick.
 7. Remotion: header, colour chip, end card, wordmark (720 px). Every string comes from the store table above.
 8. Assemble on the measured grid. Verify cuts on the decoded audio of the delivered file (±½ frame). Mix at -14 LUFS, true peak < -1 dBFS.
 9. First/mid/last contact sheet for every shot, director pass, self-score with the rubric in review.md, then archive, commit and push.
