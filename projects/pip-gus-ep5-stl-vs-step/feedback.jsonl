@@ -12,3 +12,4 @@
 {"ts": "2026-11-17T10:41:39Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Pronounce NURBS clearly with the B ('nurbs', not 'nerves')", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T10:41:39Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "text", "note": "Closing card text: 'WHAT SOFTWARE DO YOU USE TO DESIGN PARTS?' (replaces 'Do you design in CAD or in mesh?')", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T10:44:26Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "script", "note": "Start with 'What's a mesh?', then explain the technical difference between mesh (point cloud) and NURBS (equations)", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T10:44:36Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Illumaesthetic is pronounced wrong in the voice take (comes out 'Illuma Aesthetic')", "by": "reviewer", "promoted": false}
