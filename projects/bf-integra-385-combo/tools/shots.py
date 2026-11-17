@@ -170,24 +170,24 @@ def shot_stage(n):
         bar.location = (0.85, 0, 0.21); key(bar, 70, rot=False)
         hide_until(bar, 38); bar.hide_render = True; bar.keyframe_insert('hide_render', frame=71)
         # camera: box sits low-right, black space above for the title and left for Eps
-        look(co, (-0.25, -4.8, 2.9), (-0.25, 0, 0.95)); key(co, 1)
-        look(co, (-0.25, -4.55, 2.75), (-0.25, 0, 0.95)); key(co, N)
+        look(co, (0.0, -4.8, 2.9), (0.0, 0, 0.95)); key(co, 1)
+        look(co, (0.0, -4.55, 2.75), (0.0, 0, 0.95)); key(co, N)
     elif n == 2:
         flap_anim(flaps, 0, 0, open_at_start=True)
         lip.location = LIP_IN
         wing.location = WING_IN; wing.rotation_euler = (0, 0, 0); key(wing, 1)
         wing.location = WING_HOME; wing.rotation_euler = (math.radians(18), 0, math.radians(18)); key(wing, 40)
         wing.location = WING_HOME + Vector((0, 0, 0.03)); wing.rotation_euler = (math.radians(20), 0, math.radians(24)); key(wing, N)
-        look(co, (-0.25, -5.0, 1.9), (-0.25, 0, 1.0)); key(co, 1)
-        look(co, (-0.25, -4.75, 1.85), (-0.25, 0, 1.0)); key(co, N)
+        look(co, (0.0, -5.0, 1.9), (0.0, 0, 1.0)); key(co, 1)
+        look(co, (0.0, -4.75, 1.85), (0.0, 0, 1.0)); key(co, N)
     elif n == 3:
         flap_anim(flaps, 0, 0, open_at_start=True)
         wing.location = WING_HOME + Vector((0, 0.05, 0.05)); wing.rotation_euler = (math.radians(20), 0, math.radians(24)); key(wing, 1)
         lip.location = LIP_IN; lip.rotation_euler = (0, 0, 0); key(lip, 1)
         lip.location = LIP_HOME; lip.rotation_euler = (math.radians(16), 0, math.radians(-14)); key(lip, 40)
         lip.location = LIP_HOME + Vector((0, 0, 0.02)); lip.rotation_euler = (math.radians(18), 0, math.radians(-18)); key(lip, N)
-        look(co, (-0.25, -5.0, 1.9), (-0.25, 0, 1.0)); key(co, 1)
-        look(co, (-0.25, -4.75, 1.85), (-0.25, 0, 1.0)); key(co, N)
+        look(co, (0.0, -5.0, 1.9), (0.0, 0, 1.0)); key(co, 1)
+        look(co, (0.0, -4.75, 1.85), (0.0, 0, 1.0)); key(co, N)
     elif n == 4:
         flap_anim(flaps, 0, 0, open_at_start=True)
         wing.location = WING_HOME + Vector((0.0, 0.05, 0.08)); wing.rotation_euler = (math.radians(20), 0, math.radians(10)); key(wing, 1)
@@ -195,8 +195,8 @@ def shot_stage(n):
         lip.location = LIP_HOME + Vector((0.0, 0, 0.02)); lip.rotation_euler = (math.radians(18), 0, math.radians(-10)); key(lip, 1)
         lip.rotation_euler = (math.radians(18), 0, math.radians(6)); key(lip, N)
         # parts high-right, Del bottom-right pointing left at the receipt (left)
-        look(co, (0.3, -5.0, 2.2), (0.3, 0, 0.55)); key(co, 1)
-        look(co, (0.1, -4.95, 2.2), (0.3, 0, 0.55)); key(co, N)
+        look(co, (0.15, -5.0, 2.2), (0.0, 0, 0.55)); key(co, 1)
+        look(co, (-0.15, -4.95, 2.2), (0.0, 0, 0.55)); key(co, N)
     return N
 
 

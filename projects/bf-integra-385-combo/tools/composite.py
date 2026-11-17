@@ -1,6 +1,6 @@
 """bf-integra-385-combo v0 compositor.
-Plates (Blender PNGs at 15 fps, 540x960) -> 30 fps 1080x1920, plus PIL overlays: Del & Eps stills (Higgsfield, model-sheet
-reference), receipt, title, end card. C0222 (real gloss-black wing) cropped to 9:16. Music: "Get Low" from 0 s.
+Plates (Blender PNGs at 15 fps, 540x960) -> 30 fps 1080x1920, plus PIL overlays: receipt, title, end card
+(no characters: owner removed Del & Eps from the BF videos). C0222 (real gloss-black wing) cropped to 9:16. Music: "Get Low" from 0 s.
 All prices from projects/_blackfriday/PRICES.md (BF liquidation sheet): wing $500, lip $100, combo $600 -> $385.
 usage: python composite.py OUT.mp4
 """
@@ -36,7 +36,7 @@ def tracked(d, xy, text, f, fill, track=6, anchor_center=False):
     return tw
 
 
-CH = {k: Image.open(f'{M}/chars/{k}.png').convert('RGBA') for k in ('eps_aim', 'eps_cheer', 'del_point')}
+CH = {}  # Del & Eps removed from all BF videos (owner, 2026-11-17)
 
 
 def char_layer(img, name, x, y, scale, t_in, fr, dim=0.88):
@@ -96,25 +96,22 @@ def overlay(shot, fr):
     WING = {'name': 'SPORT WING', 'price': '$500'}
     LIP = {'name': 'TRUNK LIP', 'price': '$100'}
     if shot == 1:
-        char_layer(img, 'eps_aim', 300, 1700, 0.78, 6, fr)
         u = ease((fr - 4) / 10)
         if u > 0:
             ft = font(F_TITLE, 118)
+            tracked(d, (W / 2, 190 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_MONO, 34), (255, 210, 31, int(255 * u)), track=8, anchor_center=True)
             for i, line in enumerate(('WHAT $385', 'GETS YOU')):
                 tracked(d, (W / 2, 250 + i * 135 + 30 * (1 - u)), line, ft, (232, 236, 242, int(255 * u)), track=6, anchor_center=True)
     elif shot == 2:
-        char_layer(img, 'eps_cheer', 280, 1720, 0.72, 0, fr)
-        receipt(img, fr, [(8, 'item', WING)], 500, 200)
+        receipt(img, fr, [(8, 'item', WING)], 280, 200)
     elif shot == 3:
-        char_layer(img, 'eps_aim', 280, 1720, 0.72, 0, fr)
-        receipt(img, fr + 100, [(0, 'item', WING), (108, 'item', LIP)], 500, 200)
+        receipt(img, fr + 100, [(0, 'item', WING), (108, 'item', LIP)], 280, 200)
     elif shot == 4:
-        char_layer(img, 'del_point', 840, 1900, 0.80, 0, fr)
         receipt(img, fr + 200, [(0, 'item', WING), (0, 'item', LIP), (200, 'combo', {'name': 'COMBO', 'price': '$600', 'strike': 218}),
-                                (236, 'bf', {'price': '$385'})], 40, 990, w=560)
+                                (236, 'bf', {'price': '$385'})], 260, 1000, w=560)
         if fr >= 48:
             u = ease((fr - 48) / 8)
-            tracked(d, (320, 1490), 'LESS THAN THE WING ALONE ($500)', font(F_MONO_R, 26), (232, 236, 242, int(230 * u)), track=1, anchor_center=True)
+            tracked(d, (540, 1500), 'LESS THAN THE WING ALONE ($500)', font(F_MONO_R, 26), (232, 236, 242, int(230 * u)), track=1, anchor_center=True)
     elif shot == 8:
         logo = Image.open(f'{M}/logo/Epsilon+ Logo.png').convert('RGBA')
         u = ease(fr / 6)
