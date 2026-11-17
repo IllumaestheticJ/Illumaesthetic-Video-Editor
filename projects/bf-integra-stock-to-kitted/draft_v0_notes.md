@@ -1,0 +1,50 @@
+# bf-integra-stock-to-kitted: draft v0 notes
+
+v0 is a quick, short first draft, made on the owner's instruction (relayed by the parent session 2026-11-17: "have all the agents make a quick short first draft"). The shot list's open questions were NOT answered by the user in this chat, so each one below uses my recommended default. Preview quality throughout.
+
+Output: `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.mp4` (1080x1920, 30 fps, ~17.6 s). Build: `tools/build_v0.py`; renders: `tools/shot.py` with `spec_s1.json` and `spec_s5.json`.
+
+## Timeline (cuts on the kick grid of "140" by Lil Texas: drop 6.991 s, beat 0.43073 s)
+| Frames | Time (s) | Shot | Source |
+|---|---|---|---|
+| 0-209 | 0-6.99 | Stock A-Spec scan, silver on black. The camera approaches from the front 3/4, passes down the side, and settles on the solved camera of the real clip ~0.6 s before the drop. | `Integra A_spec_scan_full_relocated.stl` (Drive 123P7-gaQN2jAWDxyVNjugX3KsWf6D0MV), 3 mm decimation |
+| 210-260 | 6.99-8.70 | **Hard 1:1 cut on the drop** to the real kitted car (DJI 0371 from 2.5 s). The 9:16 window eases from the nose toward the doors. | Dropbox `.../integra roller/DJI_20240324162540_0371_D.MP4` |
+| 261-312 | 8.70-10.43 | Real rear 3/4: Sport Wing, spats, diffuser | `.../integra roller/DJI_20240324162511_0370_D.MP4` from 4.0 s |
+| 313-468 | 10.43-15.63 | The four GLB kit parts drop into their installed positions on beats 9-12, in silver with no car body. Card text on beat 13; Del & Eps placeholders on beat 14. | `eps-acura-integra-de-v29.glb` part_front_lip / side_skirts / rear_spats / sport_wing |
+| 469-527 | 15.63-17.60 | Epsilon+ wordmark, 720 px; the music fades out | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) |
+
+## 1:1 match
+- **Camera.** The clip was shot on a DJI Osmo Pocket 3 (read from the file's metadata). It is solved on frame 2.5 s of 0371 from 8 body landmarks: door handles, mirror, badge and shut lines. A free-focal solve was degenerate (9.6 mm, every landmark on one flat side), so I fixed the focal at 22 mm on a 36 mm sensor (the Pocket 3 is 20 mm-equivalent, plus its stabilisation crop). RMSE 4.8 px on 3840 wide; 2 points were dropped. The onion overlay (`match/onion.jpg`) lines up the glass, handles, shut lines, lamps and wheel positions.
+- **Crop.** The 9:16 window is x 2200-3415, full height, of the 4K frame. The scan camera ends on that window, using lens shift 0.730 on an 11.39 mm sensor. The first S3 frame equals the solved frame (phase correlation 0.4 px).
+
+## Assumptions (defaults for the open questions)
+1. **Card wording:** "FULL KIT / 30%+ OFF", with "LIP · SKIRTS · SPATS · SPORT WING" and "ACURA INTEGRA (DE4)" underneath. No prices, stock counts or dates on screen. 30%+ is true on the liquidation sheet: lip 30 %, skirts 30 %, spats 40 %, wing 30 %; kit $1,360 → $934.50 = 31.3 %.
+2. **Stock pass:** the silver scan of the real car, not CGI or footage.
+3. **Music:** "140" by Lil Texas (TikTok CML 7597234501887166481), from the start of the song. The file is the CML preview, but it is the full 136 s, so no temporary bed was needed. Attach the same sound when posting. Loudness was measured after the mux; see the checks below.
+4. **Kit card finish:** silver parts, so the characters carry the colour.
+5. **Del & Eps: PLACEHOLDERS.** They are cut-outs of the model sheet (`knowledge/characters/del-and-eps/del-eps-model-sheet.jpg`), labelled "PLACEHOLDER" on screen. No Higgsfield stills were generated, so v0 spent no credits. They appear only in the kit shot. Shot 1's roadside appearance needs real generated plates matched to the moving camera, so it is left out of v0.
+6. **Spats:** the GLB's single spats version.
+7. **No per-part prices and no `epsilon.plus` on the end card.**
+
+## Known v0 gaps
+- **Scan wheels.** The scan's wheels are patchy (dark rims weren't captured), and you can see it in the stock pass.
+- **Frame rate.** The scan shots are rendered at 15 fps and each frame is doubled (a slight step in the motion). Preview quality is 50 % res, 8-12 samples.
+- **Composition.** The 9:16 window of the landscape 0371 clip puts the car in the upper third, with road below.
+- **Del & Eps** are placeholders, as described above.
+
+## Checks run on the delivered file
+- **Format:** 528 frames, 17.60 s, 1080x1920, 30 fps, H.264 + AAC 256k.
+- **Loudness:** -13.7 LUFS integrated, true peak -4.3 dBFS (music gain 0.443; the raw track measured -7.1 LUFS / +2.3 dBTP).
+- **Cuts vs kicks** (cuts measured from frame differences, kicks read from the delivered file's own audio):
+
+  | Cut frame | Time (s) | Kick (s) | Error |
+  |---|---|---|---|
+  | 210 (the 1:1 drop) | 7.000 | 6.999 | +1 ms |
+  | 261 | 8.700 | 8.700 | 0 ms |
+  | 313 | 10.433 | 10.426 | +7 ms |
+  | 469 | 15.633 | 15.624 | +9 ms |
+
+  The last cut first measured -24 ms at frame 468 and was moved to 469.
+- **Black frames:** per-frame luma of both renders shows no lighting dropouts (stock pass 32-47, kit 13-23; the kit's first frames are intentionally empty black).
+- **Edges:** at rest, the kit keeps ≥ 68 px left, 230 px top and 110 px bottom at 50 % render size. The minimum right margin over the whole shot is 0 px, from parts falling in on frames 17 and 23. The stock pass crops the car on purpose: it ends on the 1:1 window.
+- **Look:** contact sheet `/home/user/media/bf-integra-stock-to-kitted/review/sheet_v0.jpg`, frames around every cut.
