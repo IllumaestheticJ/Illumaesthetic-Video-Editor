@@ -1394,3 +1394,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[text]** check that there isn't text or elements in the buffer zones (the bottom where comments are, the like button on the right side, the slight crop when going from home page to full screen etc)  _(from bf-civic-parts-rain, 2026-11-17, reviewer)_
 
 - **[story]** if the part is a pair, show both (like 2 side skirts, 2 canards)  _(from bf-gr-corolla-track, 2026-11-17, reviewer)_
+- **Fonts (owner, 2026-11-17):** use the Akira font for headlines and offers where it looks good. Text right next to the logo uses a different, matching font: Unbounded, in `assets/fonts/unbounded/`. See `knowledge/fonts.md`.
