@@ -1,120 +1,130 @@
 ---
 name: temerario-scan-reel
-description: Build an Illumaesthetic / Epsilon "Temerario-style" scan-only reel - a 9:16 video made only from a car's 3D scan data (no shop footage), silver on black, where the car is taken apart section by section (bumpers, lights, wing, skirts, exhaust), removed parts are shown alone with their sub-parts exploded, everything flies home on the music and the logo closes. Use this whenever the user asks for a Temerario-style video, a scan-only reel, a teardown / exploded-view / "parts coming off" video of a scanned car, names a car plus "scan reel", or gives feedback on one of these reels (parts clipping, parts off screen, wheels cut flat, music too loud, wrong part of the song, add a section) - even if they do not say "Temerario".
+description: Build an Illumaesthetic / Epsilon "Temerario-style" scan-only reel - a 9:16 video made only from a car's 3D scan data (no shop footage), silver on black, where the car is taken apart section by section (hood, bumpers, lights, wing, skirts, exhaust, underbody), removed parts are shown alone with their sub-parts exploded, everything flies home on the music and the logo or store CTA closes. Use this whenever the user asks for a Temerario-style video, a scan-only reel, a teardown / exploded-view / "parts coming off" video of a scanned car, an Epsilon kit install on a scan, names a car plus "scan reel", or gives feedback on one of these reels (parts clipping, parts off screen, wrong cut lines, leftover or missing scan, hallucinated parts, wheels cut flat, music too loud, wrong part of the song, logo too small, add a section) - even if they do not say "Temerario".
 ---
 
 # Temerario-style scan reel
 
-The approved reference is `projects/lamborghini-revuelto/` v5 ("this is perfect for the temerario style videos").
-Imitate its files before inventing anything: `project.yaml`, `shots_v4.py` (shot list as code), `overlay.json`,
-`direction.md`, `review.md`, `feedback.jsonl`. How it compares with the A90 Supra and the other reels, and what the
-reviewer has asked for across all of them, is in `references/comparison.md` - read it before planning.
+Updated 2026-11-17 from all 754 reviewer notes across the scan reels, plus `knowledge/lessons.md`.
+`knowledge/lessons.md` and the car's own `feedback.jsonl` override this file. `CLAUDE.md`'s mandatory reading still
+applies. Before planning, query the knowledge graph from the repo root:
+`graphify query "<car> <section> lessons"`. Read the car's digest in `knowledge/feedback/<project>.md`.
 
-This skill adds to `CLAUDE.md` and the `scan-video-edit` skill; it does not replace the mandatory reading list
-(`knowledge/lessons.md` first - reviewer rules there override this file).
+**References in this skill:**
+- `references/reviewer-rules.md`: every rule, with the user's words. Read it once in full.
+- `references/scan-cutting.md`: how to cut, nest and register scans so the cuts pass.
+- `references/music-and-timing.md`: choosing the track, finding the grid, checking the cuts.
+- `references/endings.md`: logo size, the mobile store CTA, Epsilon and partner endings.
+- `references/comparison.md`: Revuelto v5 against the other reels.
 
-## What the format is
+**Approved examples to imitate:**
+- `projects/lamborghini-revuelto/` v5 ("this is perfect for the temerario style videos"): `shots_v4.py`, `project.yaml`, `overlay.json`.
+- For short revisions, `projects/subaru-gd-trio/` v2 and `projects/mazda-miata-na/` v5 (about 20 s).
+- For kit installs, `projects/toyota-gr-corolla/` v12 and `projects/honda-civic-11/` v5.
 
-One car, only its own scan data, rendered in Blender in the house silver on black. The story is the real job, in the
-order a technician would do it:
+## The five things the user rejects most
 
-1. **Whole car** under the song's opening (two bars), slow push.
-2. **Front**: bumper and headlights come off, lid opens -> close shot of the structure they exposed.
-3. **Front bumper alone**: inner face, outer face, then its scanned sub-parts separate (fog lights, radar, trims).
-4. **Side**: skirts, fin, fender.
-5. **Rear wing**: wide shot of it lifting off -> close shot of the wing-removed state scan.
-6. **Rear**: tail lights out sideways, bumper straight back then up.
-7. **Exhaust** (when scanned): tips -> catback -> cats -> bare bay, as 1:1 state swaps, inside the car.
-8. **Rear bumper alone** + its sub-parts.
-9. **Reassembly**: everything flies home and locks on a strong downbeat; hero push; fade.
-10. **Logo** (about 720 px wide) on a downbeat, audio fades with it.
-
-Only show an opening or removal that has scan data behind it. A section with no scan is left out, not faked.
-About 35-45 s; every shot is a whole number of bars.
+1. **Hallucinated or wrongly cut scan.** Parts that weren't scanned are moved anyway, panels are cut along made-up lines,
+   cuts take the neighbours with them, leftovers stay on the car, or a moving part is missing a chunk.
+   Fix: every part comes from a part scan or a state scan, and every cut follows the real shut line (`scan-cutting.md`).
+2. **Wrong order.** Children leave before their parent, or a panel comes off without hinging open first. Hood first,
+   then bumper; doors and lids only open unless they were really removed.
+3. **Bad motion.** Parts clip through each other, go off screen, or park in front of the next subject. The camera cuts
+   away before the exposed data is seen.
+4. **Slow.** Long holds, filler cutaways, turntables, a slow intro. Revised reels settle at about 20-25 s. Length follows
+   content.
+5. **Weak ending and audio.** A small logo, a text-only CTA, generated music, a loud master, a song started mid-way.
 
 ## Workflow
 
-1. **Inventory the scans** (Drive folder for the car): full car, state scans ("Front Bumper Removed", "Rear Wing
-   Removed", "Engine Bay Exhaust On / Cats On / No Exhaust" ...), part scans, sub-part scans. Write `clips.md`.
-   The state and part names in the file names are the only source for label text.
-2. **Register everything to the full car.** Level once, clean, prep every scan with
-   `--like <full car>.json` so parts stay registered. Scans from a second scanning session (typically the exhaust
-   set) share ONE offset: solve it once by ICP of one state against the nearest first-session state and apply the
-   same transform to all (`scripts/xform.py`). Per-part ICP of pipes against a car is unreliable.
-   Tint-check every part over the car before animating it.
-3. **Music first.** Use the track the user supplied, **from its beginning** unless told otherwise. Find the bar
-   grid (kick attacks in the 40-120 Hz band), then lay the sections above onto whole bars. If a splice is needed,
-   cut on a downbeat with a ~20 ms crossfade. Turn the music down, never up: target about **-14 LUFS, true peak
-   below -1 dBFS** (a hot master passed straight through clipped at +2.8 dBFS after the AAC encode and the
-   reviewer heard it as "way too loud and blown out").
-4. **Direct** with the `scene-director` agent, then write the shot list as code (copy `shots_v4.py`): one table of
-   cut frames per shot, one table of parked poses, cameras and keys expressed in bars so a re-time is one edit.
-5. **Preview every shot** at 30 % (`scripts/preview5.sh`), fix, then queue finals one at a time
-   (`scripts/render_queue2.sh`, resumable). 75 % res, 12 spp, 15 fps + minterpolate to 30; shots that contain a
-   state swap render at native 30 fps because interpolation ghosts the swap frame.
-6. **Check the renders** (next section), render the HUD, assemble with exact frame counts
-   (`projects/honda-s2000/tools/concat_assemble.py`), then run `scripts/verify_delivery.py` on the mp4.
-7. Review, feedback, archive, commit, push, send the mp4 - as in `CLAUDE.md`.
+1. **Inventory every scan.**
+   - List the car's whole Drive folder, including sub-folders such as "Underbody" and "Scan Analysis".
+   - Search the engineering drive by name and spelling variants, and check the 3D artist's `Projects_` folder.
+   - Write `clips.md` with one row per file: full car (which version), state scans ("Bumper Removed", "Hood Open",
+     "Trunk Open", "Rear Wing Removed", "No Exhaust"...), part scans and sub-part scans.
+   - Mark duplicates (the same part scanned twice) and wrong versions (facelift vs pre-facelift, V1 vs V2 kit).
+   - Render every state scan alone, and drop the ragged ones.
+   - The file and state names are the only source for label text.
+2. **Register.** Level once, prep with `--like <full car>.json`, and solve one shared offset per second scanning session
+   (`scripts/xform.py`). Tint-check every part over the car.
+3. **Cut.** Cut each removable panel on its traced shut line, with no leftovers and nothing taken from the neighbours.
+   Make each moving part complete, and limit each state fill to its own opening. Check three stills side by side before
+   any render (`scan-cutting.md`).
+4. **Music.** Get the user's track or a real one (`music-and-timing.md`). Find the true grid, and lay sections on whole bars
+   or kicks.
+5. **Direct.** Run the `scene-director` agent (`.claude/agents/scene-director.md`): it sets the scene order from this car's
+   scan features. Then run `python -m ive director` to remove repeated views. Write the shot list as code, copying
+   `projects/lamborghini-revuelto/shots_v4.py`: cut frames per shot, parked poses, keys in bars, and `parents` for nested
+   parts.
+6. **Preview** every shot at 30 % (`scripts/preview5.sh`). Render one final-quality still per new lighting setup; small
+   lone parts and cabins need exposure around -1.8. Then queue the finals one at a time (`scripts/render_queue2.sh`,
+   resumable, at most about 2 h per job).
+   - Render at 75 % resolution, 12 spp, 15 fps, then minterpolate to 30.
+   - Shots with a state swap or a fast part move render at native 30 fps.
+   - "60 fps" means true 60 fps renders.
+   - Check free disk before queueing. After any disk-full event, PIL-load every frame.
+7. **Check** (below), then render the HUD. Assemble with exact frame counts (`projects/honda-s2000/tools/concat_assemble.py`)
+   and run `scripts/verify_delivery.py`.
+8. **Deliver.** Self-score into `review.md`, record feedback with `ive feedback` (`--rule` when general), archive, commit,
+   push and send the mp4. The project's knowledge goes in `knowledge/lessons.md`; then run `/graphify --update`.
 
-## Rules that came from reviewer notes
+## Story template (adapt it to what was scanned; never fill gaps with fakes)
 
-Each of these was a correction on a delivered version; the reason matters more than the wording.
+1. **Whole car**, fully in frame and moving from frame 1. About one bar, with the hook early.
+2. **Front:** hood hinges open (and comes off if asked), then the bumper comes off. The camera moves in on what the bumper hid
+   (crash beam, mounts) with a label. Then the bumper alone: inner face, outer face, and its scanned sub-parts separate
+   along their mounting direction.
+3. **Side:** mirrors, skirts, flares and fender, each with a beat, a label, and a hold on the removed-state scan.
+4. **Rear:** trunk hinges open; lights come out sideways; the bumper goes straight back, then up; the exhaust follows as 1:1
+   state swaps with the surround kept; then the wing and diffuser. Finish with the rear bumper alone and its sub-parts.
+5. **Underbody, interior, suspension or wheel houses** when they exist. Shoot the underbody from below with an under-light,
+   and move removed parts fully out of the way first.
+6. **Short exploded view** with everything out at once, from 2-3 angles. This closes the inventory.
+7. **Reassembly,** with kit or aftermarket parts going on here after the parts they replace come off. Everything locks on a
+   strong downbeat.
+8. **Ending** per `references/endings.md`: the store CTA 1:1 on the listing cover photo, or the Epsilon or partner end card.
+   The logo is about 720 px.
 
-- **Parts leave the way they unbolt, and never pass through a neighbour.** ("the bumper clips with the tail lights
-  and rear wing") Give each mover a via key that clears its neighbours first: bumpers slide along the car's axis,
-  then rise; lights go out sideways before the bumper moves. Run `scripts/pathcheck.py <shot.json>`; ignore
-  contact within 10 cm of home (parts touch where they seat).
-- **Every part stays on screen while it comes off.** ("some parts are going off the screen") A removal is a WIDE
-  shot whose parked poses are all inside the frame, then a hard cut to a CLOSE shot of what was exposed, where
-  the removed parts are not loaded at all. Parked parts are fully in frame or fully absent, never half out.
-  Measure with `scripts/edge_margins.py` over all frames - a 6-frame sheet passed a shot that touched the edge.
-- **Never crop a state scan's sides to tidy ragged edges.** ("the exhaust scans need the surround scan to be more
-  present, too much of it is cut off") Keep the scan's full width and seat it inside the car, with the car carved
-  around it: `scripts/carve.py base.stl out.stl --ref state1.stl state2.stl ... --d 15 --box <leftover parts>`.
-  The viewer needs the surrounding body to know where they are looking.
-- **Removed assemblies get their own shot with sub-parts exploded.** ("exploded views of the individual parts
-  removed from the front and rear bumpers") Show the bumper alone, turn it, then separate its scanned pieces along
-  their mounting direction with a label below the pieces.
-- **Wheels must be round.** ("the wheels are oddly cut flat") Ground removal that uses a plane fitted to the
-  lowest geometry can pick the undertray. Cut by footprint + a fixed height below the tyre contact, and look at a
-  tyre close-up before rendering.
-- **State scans are shown as captured, swapped 1:1 on a beat** - no dissolve, no blending two states.
-- **Labels**: short, one at a time, only over scan shots, in clear black away from moving parts, text only from
-  file names and STL headers (triangle counts). Never invent a number.
-- **Hold on what a removal exposed, for every section including the side.** (Miata ND: "the side skirt comes off
-  and then immediately cuts away, its just a bad practice") The Revuelto's side shot is its weakest for this reason.
-- **Every scanned part gets a beat and a name.** (GR86: "make sure all parts are highlighted") Where it helps, say
-  what the scan is used for (Miata NC), not only what it is.
-- **Sub-parts move only after their parent is off; hinged panels open before they come off.** (400Z, GR86)
-- **No leftover skin or scan specks.** (A90: "scan artifacts must be cut out, and no parts may be left behind")
-- **No turntables, no wheel close-ups, nothing shown twice.** (Miata NC, ND)
-- **Length follows content.** 35-45 s was accepted when each second was a requested section; the older guidance is
-  15-30 s and "move faster", so do not stretch holds to fill bars.
-- **Look for underbody and interior scans** in the car's Drive folder; the A90 reviewer wants them in when they exist.
-- **Number plate**: leave the scanned plate alone unless the lessons file names that car.
+## Hard rules (short form; reasons and sources are in `reviewer-rules.md`)
 
-## Checks before sending (do all, on the real files)
+- Only real scan data. Use no carved stand-ins, triangle counts or invented numbers, and add no section the user didn't ask for.
+- Cut on the traced shut lines. A removed part takes only its own skin and all of it; it comes off whole, and what was
+  under it stays.
+- Children wait for their parent. Hinged panels open first. Two files of one part make one part.
+- No clipping, which you check numerically (`pathcheck.py`, `projects/porsche-gt3rs-992/tools/clipcheck.py`). Nothing goes
+  off screen, and parts move into clear background.
+- Hold on every exposed state, side included. Use no filler cutaways and no turntables, except a requested 360.
+- No jump cuts: change the angle a lot, or continue the previous camera key exactly.
+- Every scanned part gets a beat and a short factual label, placed over scan shots only and in clear black (or on a plate).
+- Use real music, started from its beginning, at -14 LUFS with true peak below -1 dBFS. Every cut lands on a measured hit,
+  verified on the decoded mp4.
+- Plates stay, except on the IS300 or when asked in that reel's chat.
+
+## Checks before sending (on the real files)
 
 ```
 python scripts/lumacheck.py <renders>/<shot>*            # dropouts / dark frames
-python scripts/edge_margins.py <renders>/<shot> ...      # nothing reaches the frame edge
+python scripts/edge_margins.py <renders>/<shot> ...      # nothing reaches the frame edge (every frame, parked parts too)
 python scripts/pathcheck.py <shots>/<shot>.json          # parts do not pass through each other
-python scripts/verify_delivery.py out.mp4 --cuts 103,206,... --lock <frame>
+python scripts/verify_delivery.py out.mp4 --cuts 103,206,... --lock <frame>   # cut sync, loudness, frames
 ```
 
-Then look: a contact sheet of the delivered file at every label and every cut, and full-size frames of each
-parked pose. Numbers do not replace looking - and write every re-made check image to a new timestamped
-filename, because the image viewer caches by path and will show you the old one.
+Then look at the delivered file:
+- a contact sheet at every label and every cut;
+- the first, middle and last frame of every shot;
+- full-size frames of each parked pose;
+- a close-up of every cut seam and every tyre;
+- frame diffs at the cuts, to catch jump cuts.
 
-Re-check the whole reel after any re-time: labels that cleared the parts at one length can collide at another.
+Write each new check image to a new timestamped filename, because the image viewer caches by path. After any re-time,
+re-check the whole reel.
 
 ## Working habits that saved time
 
-- Keep every version's `project_vN.yaml`, `overlay_vN.json`, `review_vN.md`; a music swap on the same bar grid
-  re-uses all renders.
-- When the reviewer's note is ambiguous ("exhaust after the bumper"), pick the reading that needs no re-render to
-  reverse, say which reading you took, and offer the swap.
-- A background waiter that greps a log for a completion string must match what the tool really prints; otherwise
-  it waits forever and the queue never starts.
-- `training/examples/INDEX.md` and `knowledge/lessons.md` conflict on almost every rebase: keep both sides, then
-  dedupe the project's INDEX line.
+- Keep `project_vN.yaml`, `overlay_vN.json` and `review_vN.md` for every version. A music swap on the same grid reuses the
+  renders.
+- If a note is ambiguous, take the reading that is cheapest to reverse, say which one you took, and offer the other.
+  If a request names scans ambiguously, list the candidates and ask.
+- Save user-supplied files (logos, tracks) to Drive, Dropbox or the repo's asset notes: another session's container is gone.
+- Background waiters count their time limit from launch. Launch each batch when the previous one reports.
+- `training/examples/INDEX.md` and `knowledge/lessons.md` conflict on almost every rebase: keep both sides, then dedupe.

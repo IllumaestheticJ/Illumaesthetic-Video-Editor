@@ -40,3 +40,28 @@ moved to 640-860 px). Scanned plate kept (blur is IS300-only). No wheel close-up
 - **Label wording.** NC: "label what the scan is used for". Revuelto labels name parts and states plus three
   triangle counts.
 - **No drop under the reassembly** (a consequence of starting at the song's beginning).
+
+## Update 2026-11-17: where the later revisions went
+
+This section comes from the delivery reports, and the videos were not re-watched. It follows the rows above.
+
+| Project | Latest | Length | What the reviewer drove |
+|---|---|---|---|
+| lamborghini-revuelto | v5 (approved) | 44.6 s | rear wing + exhaust after the rear bumper, no clipping, parts in frame, -14 LUFS from the song's start |
+| toyota-gr86 | v8 | 39.8 s | hood/trunk hinge-then-off, traced trunk cut, BRZ + GR86 bumpers off together then split without z-fight, rear bumper one part, side markers labelled |
+| mazda-miata-na | v5 | 20.6 s | old bumper removed from the base, no trunk zoom, crash beam in frame, intro 4x faster, pink grade, music from first note, 1:1 into the listing cover photo + mobile CTA |
+| subaru-gd-trio (replaced sti-blobeye) | v2 | 20.4 s | three registered GD scans, same-camera hard cuts, user track, 720 px logo |
+| honda-civic-11 | v5 | 24.9 s | Epsilon kit from Ron's files (1.4 mm registration), 3 clips / 2 cuts, doors and trunk hinge only, Epsilon wordmark |
+| porsche-gt3rs-992 | v6 | ~40.6 s | one skirt, collision-checked paths, underbody + wheel house, strakes and fender vent off, labels, 640 px logo |
+| porsche-gt3-vs-gt3rs | v3 (v4 pending the real rear bumper-removed scan) | 42.5 s | split screen, 240SX-style double CTA |
+| porsche-macan | v4 | - | every part its own beat, dash + right doors + seat, exploded view includes dash |
+| subaru-sti-blobeye | v4 | 39.2 s | one scan per shot as captured, 1:1 state swaps, no carving or composites |
+| toyota-gr-corolla | v12 | - | short-form restart, complete bumper, traced hood/hatch, JR intercooler 360 + install, WRC wing + lip + canards in the closing 360 |
+
+What carries forward:
+- the cutting rules in `scan-cutting.md`;
+- shorter reels;
+- the 720 px logo;
+- the mobile store CTA;
+- user-supplied or real music;
+- every part labelled.
