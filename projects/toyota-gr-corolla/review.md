@@ -1,4 +1,11 @@
-# Self-review - Toyota GR Corolla v12 (`toyota_gr_corolla_v12.mp4`, 44.5 s, 1080x1920)
+# Self-review - Toyota GR Corolla v12b (`toyota_gr_corolla_v12.mp4`, 44.5 s, 1080x1920)
+
+v12b (user: "missing the canards, and the full lip kit and wing are improperly placed"): engineering's parts are in
+engineering's car frame, offset from ours by 0.79 deg and (4, 59, 30) mm - found by ICP of engineering's own full-car
+scan (V2 reference blend) to our car (99 % within 12 mm, 2.5 mm rmse). Re-placed the V2 lip, skirts, spats and the wing
+(wing now within 7 mm of engineering's Wing_V2.2 CAD). Canards added (user's Drive folder: Projects_/Corolla GR/3d
+Printed Parts/Cannard), rising in with the lip; label EPSILON AERO V2 LIP + CANARDS.
+
 
 v12 = teardown (unchanged through the crash beam) + reassembly + finale (user on v11: "The epsilon aero wing needs to
 go on as the car reassembles... the small side pieces on the trunk need to come off... mounted and aligned properly";
@@ -19,5 +26,4 @@ skirts and spats rise into place as the camera passes each. End card with the co
 | 8 | Ending | 5 | Complete car with wing + V2 kit in a full orbit, end card. |
 | 9 | Technical | 5 | 1080x1920, 30 fps, 1334 frames, all frames verified; -16.5 LUFS, true peak -1.6 dBFS. |
 
-Missing: canards - no GR Corolla canard model on Drive or Dropbox (the V2 reference blend only has flat guide strips);
-asked the user. Risk: 44.5 s is long for short form; the crash beam returns by state swap, not as a moving part.
+Risk: 44.5 s is long for short form; the crash beam returns by state swap, not as a moving part.
