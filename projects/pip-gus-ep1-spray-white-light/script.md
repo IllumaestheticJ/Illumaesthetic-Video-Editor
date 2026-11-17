@@ -28,6 +28,7 @@ With the optional tracking-pattern lines (10a/10b): about 31 s cartoon, about 40
 
 | # | Who | Line | Picture |
 |---|---|---|---|
+| 0 | GUS | "We scan the car." (series callback, owner 2026-11-17) | Gus wheels the scanner over on a cart to the blue sedan; Pip trots behind. |
 | 1 | PIP | "Why are you spraying the windows white?" | Cartoon sedan; Gus dusting a window, the paint around it untouched. Pip squinting at it. |
 | 2 | GUS | "The scanner shines a pattern of light on the car." | Scanner projects a sage stripe pattern; it drapes over the door like a net. |
 | 3 | GUS | "A camera watches the lines bend." | Camera lens on the scanner; the stripes curve over the door's body line. |
@@ -77,3 +78,14 @@ Conflicts to resolve with the owner:
 - The relay says "the black car"; the episode's lesson is that only glass, chrome, black trim and badges get sprayed, and the
   series' cartoon sedan is blue. A black body would change most shots.
 - Any new line needs a short extra voice generation (about 1 credit) in the same voices.
+
+### Owner decisions on the v0.4 transition (2026-11-17)
+- Callback added: line 0, Gus "We scan the car." (ElevenLabs v4 job 7e785fae, Harrison), shot O, 1.5 s before line 1.
+- Ending unchanged: "WHAT DO YOU SPRAY WITH? / TELL US IN THE COMMENTS" card with Pip's voice, then the logo alone.
+- Car stays the series' blue sedan.
+- Music: the pilot's bed (inquisitive_A = Higgsfield job 077bbd23), lift on the cut to real footage, pilot v3 route to its real ending.
+
+## Real footage as built (4.8 s, cuts on the beat)
+SL600 clip from the owner (caption-free 23.8-32 s): headlight glass 24.60 s (18 f) -> tracking stripes on the black door 27.00 s
+(18 f) -> chrome star badge 29.00 s (18 f) -> Civic EK windshield sprayed, ends on the solved frame f150 (36 f) -> hard 1:1 cut ->
+Civic scan, silver, 10 deg orbit (54 f). Total length about 50 s (opening 1.5 + cartoon 37.7 + real 4.8 + card 3.0 + logo 3.0).

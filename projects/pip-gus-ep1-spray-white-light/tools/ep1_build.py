@@ -2,7 +2,7 @@
 pull-back, hard 1:1 cut to the Civic scan) + audience-question card (Pip's voice) + logo card; word-by-word captions on the
 cartoon only; dialogue + music mix.
 
-    python tools/ep1_build.py [--music TRACK --music-in SECONDS] [--name ep1_v1]
+    python tools/ep1_build.py [--name ep2_v1] [--no-music] [--only cartoon|real|gfx|audio]
 
 Resumable: each step caches its output in BUILD. No text ever sits on real footage: captions end before the cartoon ends and
 the cards are opaque (checked per frame against the overlay alpha).
@@ -19,7 +19,9 @@ BUILD = M / "build"
 OUT = M / "out"
 FPS, SR, W, H = 30, 48000, 1080, 1920
 TL = json.loads((PROJ / "ep1_timeline.json").read_text())
-A_N = TL["total_frames"]
+OPEN = TL.get("opening_frames", 0)          # shot O (series callback) runs at negative cartoon frames
+A_N = TL["total_frames"] + OPEN              # cartoon frames in the reel (reel frame = cartoon frame + OPEN)
+T_OFF = OPEN / FPS
 CAP = dict(PIP="#619f73", GUS="#ecefec")
 BRAND = {"accent": "#619f73", "onAccent": "#0b0c0b", "ink": "#ecefec", "bg": "#0b0c0b", "sub": "#d4d9d4", "sub2": "#c8cec8",
          "label": "#a8b0a8", "dim55": "rgba(236,239,236,0.55)", "dim50": "rgba(236,239,236,0.5)", "plate": "rgba(11,12,11,0.58)",
@@ -30,14 +32,14 @@ OWNER1 = M / "owner_clips/owner_1.mp4"   # owner's SL600 AESUB clip; 23.8-32 s c
 CIVIC = Path("/home/user/media/civic11/dropbox/v_1957_24.mov")
 # real section, frames at 30 fps: (name, source, in-seconds, frames, filter)
 REAL = [
-    ("glass", OWNER1, 24.60, 20, "scale=1080:1920:flags=lanczos"),         # spraying the headlight glass
-    ("black", OWNER1, 27.00, 20, "scale=1080:1920:flags=lanczos"),         # tracking stripes on the black door + mirror
-    ("chrome", OWNER1, 29.00, 20, "scale=1080:1920:flags=lanczos"),        # the chrome star badge
-    ("civic", CIVIC, 5.002 - 39 / FPS, 40, HLG + ",scale=1080:1920"),      # windshield sprayed, pull-back; LAST frame = solved f150
+    ("glass", OWNER1, 24.60, 18, "scale=1080:1920:flags=lanczos"),         # spraying the headlight glass (1 beat)
+    ("black", OWNER1, 27.00, 18, "scale=1080:1920:flags=lanczos"),         # tracking stripes on the black door + mirror
+    ("chrome", OWNER1, 29.00, 18, "scale=1080:1920:flags=lanczos"),        # the chrome star badge
+    ("civic", CIVIC, 5.002 - 35 / FPS, 36, HLG + ",scale=1080:1920"),      # windshield sprayed; LAST frame = solved f150 (2 beats)
 ]
 SCAN_DIR = M / "scan_civic"   # cam_A render, 15 fps, 2.0 s orbit 10 deg ease-in-out
-SCAN_N = 45
-CARD_N, LOGO_N = 78, 48
+SCAN_N = 54                   # 3 beats -> the card lands on bar 14's downbeat (pilot v3 music route)
+CARD_N, LOGO_N = 90, 90       # card 5 beats; logo from bar 15 beat 2, final chord +54 frames, ring-out
 REAL_N = sum(r[3] for r in REAL) + SCAN_N
 CUTS = dict(real=A_N, scan=A_N + REAL_N - SCAN_N, card=A_N + REAL_N, logo=A_N + REAL_N + CARD_N)
 CUTS["end"] = CUTS["logo"] + LOGO_N
@@ -64,6 +66,7 @@ def cartoon():
     miss = []
     for s in TL["shots"]:
         for f in range(s["f0"], s["f1"]):
+            r = f + OPEN
             src = None
             for g in (f, f - 1):
                 p = M / "frames" / s["id"] / f"{g:04d}.png"
@@ -73,7 +76,7 @@ def cartoon():
             if src is None:
                 miss.append((s["id"], f))
                 continue
-            dst = seq / f"{f:05d}.png"
+            dst = seq / f"{r:05d}.png"
             if dst.is_symlink() or dst.exists():
                 dst.unlink()
             dst.symlink_to(src)
@@ -124,13 +127,13 @@ def pages():
         if len(ws) == 5:
             rows = [ws[:3], ws[3:]]
         pg = [rows[k:k + 2] for k in range(0, len(rows), 2)]
-        nxt = lines[i + 1]["t0"] if i + 1 < len(lines) else A_N / FPS - 0.1
+        nxt = lines[i + 1]["t0"] if i + 1 < len(lines) else A_N / FPS - T_OFF - 0.1
         shot = L["shot"]
         for j, p in enumerate(pg):
             t0 = p[0][0]["t0"]
             t1 = pg[j + 1][0][0]["t0"] if j + 1 < len(pg) else min(p[-1][-1]["t1"] + 0.35, nxt)
-            out.append(dict(t0=round(t0, 3), t1=round(min(t1, A_N / FPS - 0.05), 3), color=CAP[L["speaker"]], y=CAP_Y.get(shot, 1330),
-                            cx=540, lines=[[dict(w=w["w"], t0=w["t0"]) for w in r] for r in p]))
+            out.append(dict(t0=round(t0 + T_OFF, 3), t1=round(min(t1 + T_OFF, A_N / FPS - 0.05), 3), color=CAP[L["speaker"]],
+                            y=CAP_Y.get(shot, 1330), cx=540, lines=[[dict(w=w["w"], t0=round(w["t0"] + T_OFF, 3)) for w in r] for r in p]))
     return out
 
 
@@ -237,36 +240,83 @@ def smooth(env, tau):
     return lfilter([1 - k], [1, -k], s[::-1])[::-1]
 
 
-def audio(name, music, music_in):
+BEAT0, BEAT = 0.0203, 0.60001     # inquisitive_A measured grid (pilot full_build_v2.py), 100 BPM, bar = 4 beats
+LIFT_BEAT = 32                   # bar 8 downbeat = bass entry (measured 19.245 s here) -> on the cut to real footage
+JUMPS = [(10, 2), (14, 6), (30, 22), (30, 22)]   # 2-bar back-jumps in the intro (pilot-scored splices; the last one played twice)
+POST_JUMPS = [(40, 56)]          # end of bar 9 -> bar 14 (pilot v3 route to the real ending, splice score 6.39)
+XF = 0.008
+TRACK = M / "music/inquisitive_A.mp3"   # Higgsfield ElevenLabs Music v2.5 job 077bbd23 (the pilot's bed, owner 2026-11-17)
+
+
+def bt(k):
+    return BEAT0 + k * BEAT
+
+
+def music(n):
+    t_lift = CUTS["real"] / FPS
+    s0 = bt(LIFT_BEAT) + sum(bt(a) - bt(b) for a, b in JUMPS) - t_lift
+    x = load(TRACK)
+    segs, cur = [], s0
+    for a, b in JUMPS + POST_JUMPS:
+        segs.append((cur, bt(a) - XF))
+        cur = bt(b) - XF
+    segs.append((cur, None))
+    xf = int(XF * SR)
+    pad = max(0, int(round(-s0 * SR)))
+    out = []
+    for i, (a, b) in enumerate(segs):
+        ia = max(0, int(round(a * SR)))
+        ib = len(x) if b is None else int(round(b * SR))
+        out.append(x[max(0, ia - (xf if i else 0)): ib + (xf if b is not None else 0)].copy())
+    y = np.vstack([np.zeros((pad, 2), np.float32), out[0]])
+    for seg in out[1:]:
+        k = 2 * xf
+        ramp = np.linspace(0, np.pi / 2, k)[:, None]
+        y = np.vstack([y[:-k], y[-k:] * np.cos(ramp) + seg[:k] * np.sin(ramp), seg[k:]])
+    y = y[:n]
+    if len(y) < n:
+        y = np.vstack([y, np.zeros((n - len(y), 2), np.float32)])
+    return y.astype(np.float32), s0
+
+
+def audio(name, use_music=True):
     master = OUT / f"{name}_mix.wav"
     n = int(round(CUTS["end"] / FPS * SR))
     dia = np.zeros((n, 2), np.float32)
-    d = load(M / "voice/split/dialogue_cartoon.wav")[:int(A_N / FPS * SR)]
-    dia[:len(d)] += d
+    cb = TL["lines"][0] if TL["lines"][0]["n"] == 0 else None
+    if cb:
+        c = load(M / "voice/callback.mp3")
+        a = int((cb["clip_start"] + T_OFF) * SR)
+        dia[a:a + len(c)] += c
+    d = load(M / "voice/split/dialogue_cartoon.wav")[:int((A_N / FPS - T_OFF) * SR)]
+    a = int(T_OFF * SR)
+    dia[a:a + len(d)] += d
     q = load(M / "voice/split/L15_card.wav")
-    a = int((CUTS["card"] / FPS + 0.25) * SR)
+    a = int((CUTS["card"] / FPS + 0.3) * SR)
     dia[a:a + len(q)] += q[:n - a]
-    lines = [(L["t0"], L["t1"]) for L in TL["lines"] if "t0" in L] + [(CUTS["card"] / FPS + 0.25, CUTS["card"] / FPS + 0.25 + len(q) / SR)]
-    if music:
-        mus = load(music)
-        i0 = int(music_in * SR)
-        mus = mus[i0:i0 + n]
-        mus = np.vstack([mus, np.zeros((n - len(mus), 2), np.float32)])
-        write_wav(BUILD / "music_seg.wav", mus)
-        Im, _ = lufs(BUILD / "music_seg.wav")
-        mus *= 10 ** ((-16.0 - Im) / 20)
+    lines = [(L["t0"] + T_OFF, L["t1"] + T_OFF) for L in TL["lines"] if "t0" in L]
+    lines.append((CUTS["card"] / FPS + 0.3, CUTS["card"] / FPS + 0.3 + len(q) / SR))
+    if use_music:
+        mus, s0 = music(n)
+        r1 = int(CUTS["real"] / FPS * SR)
+        write_wav(BUILD / "music_B.wav", mus[r1:int(CUTS["card"] / FPS * SR)])
+        Ib, _ = lufs(BUILD / "music_B.wav")
+        mus *= 10 ** ((-14.0 - Ib) / 20)     # real-footage stretch sits at the master level, as in the pilot
         g = np.full(n, -8.0)
         for t0, t1 in lines:
             g[max(0, int((t0 - 0.15) * SR)):int((t1 + 0.1) * SR)] = -13.0
-        r0, r1 = int((CUTS["real"] / FPS - 0.25) * SR), int(CUTS["real"] / FPS * SR)
         g = smooth(g, 0.08)
+        r0 = int((CUTS["real"] / FPS - 0.25) * SR)
         g[r0:r1] = np.linspace(g[r0], 0.0, r1 - r0)
-        g[r1:int(CUTS["card"] / FPS * SR)] = 0.0
+        c0, c1 = int(CUTS["card"] / FPS * SR), int(CUTS["logo"] / FPS * SR)
+        g[r1:] = 0.0
+        g[c0:c1] = np.minimum(g[c0:c1], smooth(np.where(np.arange(c0, c1) < lines[-1][1] * SR + 0.1 * SR, -6.0, 0.0), 0.05))
         lin = 10 ** (g / 20)
-        f0 = int((CUTS["end"] / FPS - 1.2) * SR)
+        f0 = int((CUTS["end"] / FPS - 0.3) * SR)
         lin[f0:] *= np.cos(np.linspace(0, np.pi / 2, n - f0)) ** 1.5
         mix = dia + mus * lin[:, None]
     else:
+        s0 = None
         mix = dia
     write_wav(BUILD / "pre.wav", mix)
     I, _ = lufs(BUILD / "pre.wav")
@@ -279,7 +329,8 @@ def audio(name, music, music_in):
         if abs(I2 + 14.0) <= 0.2:
             break
         gain += -14.0 - I2
-    (BUILD / "audio.json").write_text(json.dumps(dict(master_lufs=I2, true_peak=P2, gain_db=gain, music=str(music), music_in=music_in), indent=1))
+    (BUILD / "audio.json").write_text(json.dumps(dict(master_lufs=I2, true_peak=P2, gain_db=gain, track=str(TRACK), track_s0=s0,
+                                                      jumps=JUMPS, post_jumps=POST_JUMPS, cuts=CUTS), indent=1))
     print("audio", I2, P2, flush=True)
     return master
 
@@ -295,8 +346,7 @@ def mux(name, master):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--name", default="ep1_v1")
-    ap.add_argument("--music", default=None)
-    ap.add_argument("--music-in", type=float, default=0.0)
+    ap.add_argument("--no-music", action="store_true")
     ap.add_argument("--only", default="", help="cartoon|real|gfx|audio (debug)")
     a = ap.parse_args()
     BUILD.mkdir(parents=True, exist_ok=True)
@@ -308,7 +358,7 @@ if __name__ == "__main__":
         real(); sys.exit()
     if a.only == "gfx":
         gfx(); sys.exit()
-    m = audio(a.name, a.music, a.music_in)
+    m = audio(a.name, not a.no_music)
     if a.only == "audio":
         sys.exit()
     picture(gfx())

@@ -696,7 +696,7 @@ REAR_WIN = bpy.data.objects["win_-1_-0.98"]
 def coat_state(t):
     """What has been sprayed by time t (0..1 each)."""
     s = {}
-    s["front_win"] = lerp(0.35, 0.6, ease((t - 0.2) / 2.2)) if t < wt(10, "glass") else 1.0
+    s["front_win"] = (lerp(0.35, 0.6, ease((t - 0.2) / 2.2)) if t < wt(10, "glass") else 1.0) if t >= 0 else 0.0
     s["rear_win"] = ease((t - wt(10, "glass")) / 0.45)
     s["trim"] = ease((t - wt(10, "chrome")) / 0.4)
     s["grille"] = ease((t - wt(10, "black")) / 0.4)
@@ -1079,6 +1079,40 @@ def anim_M(fr):
     cam_push(hc + Vector((0.6, -1.9, 0.0)), hc + Vector((0.0, 0, -0.18)), 48, 0.04 * ease(u))
 
 
+def build_cart():
+    g = empty("CART")
+    box("cart_top", (0.7, 0.45, 0.05), (0, 0, 0.82), mat("metal"), g, 0.01, 0.01)
+    box("cart_shelf", (0.66, 0.42, 0.03), (0, 0, 0.3), mat("dark"), g, 0.01, 0.01)
+    for x in (-0.31, 0.31):
+        for y in (-0.19, 0.19):
+            box(f"cart_leg{x}{y}", (0.03, 0.03, 0.72), (x, y, 0.47), mat("dark"), g, ol=0.006)
+            cyl(f"cart_wh{x}{y}", 0.05, 0.03, (x, y, 0.05), mat("tyre"), g, axis="Y", seg=16, ol=0.006)
+    box("cart_handle", (0.04, 0.5, 0.04), (-0.4, 0, 1.0), mat("sage"), g, 0.01, 0.008)
+    for y in (-0.22, 0.22):
+        box(f"cart_hpost{y}", (0.03, 0.03, 0.2), (-0.36, y, 0.9), mat("dark"), g)
+    return g
+
+
+CART = build_cart()
+set_vis(CART, False)
+
+
+def anim_O(fr):
+    """Series callback (v0.4): 'We scan the car.' Gus wheels the scanner over on a cart, Pip trots behind; the car waits."""
+    t, u = fr / FPS, prog(fr, "O")
+    k = eout(u * 1.15)
+    cx = lerp(-3.1, -1.25, k)
+    CART.location = (cx, -1.75, 0)
+    set_vis(CART, True)
+    bob = 0.015 * abs(math.sin(t * 9)) * (1 - k)
+    char_pose(GUS, t, (cx - 0.75, -1.75, bob), (cx + 2, -1.75), look=(0.3, 0.1), hips=(-8 * (1 - k), 0, 0))
+    aim_arm(GUS, "L", (cx - 0.4, -1.55, 1.0))
+    aim_arm(GUS, "R", (cx - 0.4, -1.95, 1.0))
+    place_scanner((cx + 0.05, -1.75, 0.92), (cx + 0.05, -0.8, 0.9))
+    char_pose(PIP, t, (cx - 1.35, -2.05, 0.04 * abs(math.sin(t * 11))), (cx, -1.6), head=(-12, 0, 0), look=(0.4, 0.4))
+    cam_push((1.3, -4.0, 1.0), (-1.6, -1.6, 0.62), 28, 0.03 * ease(u))
+
+
 ANIM = {k: globals()[f"anim_{k}"] for k in SF}
 
 
@@ -1089,12 +1123,13 @@ def reset_ep():
     set_vis(UI, True)
     set_vis(EPSCAN, False)
     set_vis(CAN, False)
+    set_vis(CART, False)
     open_cabin(False)
     STOOL.location = (-3.7, 2.7, 0)
 
 
 # ----------------------------------------------------------------------------------------------------------------- run
-lo, hi = (int(x) for x in RANGE.split(":")) if RANGE else (0, 10 ** 9)
+lo, hi = (int(x) for x in RANGE.split(":")) if RANGE else (-10 ** 9, 10 ** 9)
 for sh in EP_SHOTS:
     f0, f1 = SF[sh]
     d = os.path.join(OUT, sh)
