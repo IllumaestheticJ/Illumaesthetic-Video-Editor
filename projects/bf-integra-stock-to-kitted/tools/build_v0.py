@@ -51,7 +51,11 @@ HIT0, BEAT = 0.215, 0.43073   # intro hits of "140" (hi-band onsets, measured), 
 WHITE = (255, 255, 255)
 
 
-FONT_BF = os.path.join(M, "fonts/Anton.ttf")   # v0.7: Anton (Google Fonts, OFL), condensed poster face for the BF wall
+# v0.9 owner font rule (knowledge/fonts.md): Akira for headlines/offers, Unbounded beside the logo. The Akira file is not
+# available yet, so Unbounded 900 (OFL, Google Fonts) stands in for it - swap FONT_HEAD when the owner supplies Akira.
+FONT_HEAD = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-900.ttf"  # repo copy (e15b34b)
+UNB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-{}.ttf"
+FONT_BF = FONT_HEAD
 TILT, PULSE, DECAY = 12, 0.13, 0.22   # degrees CCW; peak extra scale on a hit; seconds back to rest
 SAFE = (48, 285, 920, 1440)           # owner safe zone; the pulse PEAK must fit inside it
 _BF = {}
@@ -83,7 +87,7 @@ def _bf_block():
     return blk
 
 
-ROW_SIZE, ROW_GAP, SCROLL = 300, 10, 150   # Anton px; px between rows; scroll speed px/s (rows alternate direction)
+ROW_SIZE, ROW_GAP, SCROLL = 210, 26, 150   # Anton px; px between rows; scroll speed px/s (rows alternate direction)
 _ROWS = {}
 
 
@@ -289,15 +293,22 @@ def card(im, k):
         return im
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
-    text_center(d, 300, "FULL KIT", ImageFont.truetype(FONT_B, 104))
-    f = ImageFont.truetype(FONT_B, 150)
+    def fit(font_path, txt, size, maxw):
+        f = ImageFont.truetype(font_path, size)
+        while d.textlength(txt, font=f) > maxw:
+            size -= 2; f = ImageFont.truetype(font_path, size)
+        return f
+    text_center(d, 300, "FULL KIT", fit(FONT_HEAD, "FULL KIT", 92, 760))  # Akira stand-in
     t = "30%+ OFF"
+    f = fit(FONT_HEAD, t, 120, 700)
     tw = d.textlength(t, font=f)
-    x0, y0 = (W - tw) / 2 - 40, 410
-    d.rounded_rectangle((x0, y0, x0 + tw + 80, y0 + 180), radius=26, fill=SALE_RED + (255,))
-    d.text(((W - tw) / 2, y0 + 4), t, font=f, fill=(255, 255, 255))
-    text_center(d, 610, "LIP  ·  SKIRTS  ·  SPATS  ·  SPORT WING", ImageFont.truetype(FONT_B, 44), (255, 255, 255))
-    text_center(d, 664, "ACURA INTEGRA (DE4)", ImageFont.truetype(FONT_R, 40), GREY)
+    x0, y0 = (W - tw) / 2 - 40, 420
+    d.rounded_rectangle((x0, y0, x0 + tw + 80, y0 + 170), radius=26, fill=SALE_RED + (255,))
+    bb = d.textbbox((0, 0), t, font=f)
+    d.text(((W - tw) / 2, y0 + 85 - (bb[1] + bb[3]) / 2), t, font=f, fill=(255, 255, 255))
+    lab = "LIP · SKIRTS · SPATS · SPORT WING"
+    text_center(d, 622, lab, fit(UNB.format(500), lab, 34, 840), (255, 255, 255))          # Unbounded 500 labels
+    text_center(d, 672, "ACURA INTEGRA (DE4)", ImageFont.truetype(UNB.format(400), 30), GREY)
     layer.putalpha(Image.fromarray((np.array(layer.split()[3]) * a).astype(np.uint8)))
     base = im.convert("RGBA")
     base.alpha_composite(layer)
@@ -317,7 +328,7 @@ def logo_frame(k, n):
     im.alpha_composite(l2, ((W - lw) // 2, (H - lg.height) // 2))
     # v0.6 (owner, via parent): the only on-screen web address is WWW.EPSILON.PLUS, under the wordmark, in the safe zone
     tl = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    text_center(ImageDraw.Draw(tl), (H + lg.height) // 2 + 70, "WWW.EPSILON.PLUS", ImageFont.truetype(FONT_B, 60), GREY)
+    text_center(ImageDraw.Draw(tl), (H + lg.height) // 2 + 70, "WWW.EPSILON.PLUS", ImageFont.truetype(UNB.format(400), 44), GREY)  # Unbounded beside the logo
     tl.putalpha(Image.fromarray((np.array(tl.split()[3]) * a).astype(np.uint8)))
     im.alpha_composite(tl)
     return im.convert("RGB")

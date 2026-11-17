@@ -88,11 +88,12 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - The swap completes on the drop (f139, 4.62 s). The car is off the text by then and exits right.
 - `tools/compose_drive.py`: the render for f0-207, then the same end card on the 6.92 s hit.
 - Audio, cuts and loudness are the same as v0.3.
+- The drift render was stopped by the task time limit at frame 190, so frames 191-207 hold frame 190 for 0.57 s after the drop. This is a preview only.
 - Render: 720x1280 at 12 samples, upscaled. Measured at about 13.5 s/frame, about 47 min per mode.
 - Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.4_drive.mp4` and `_v0.4_drift.mp4`.
 - **Known issues in v0.4, fixed in v0.5:**
   - The floor type is Inter Display Black. It should be Unbounded per the new font rule.
-  - Smooth-shaded n-gon caps show triangle facets on the letters.
+  - Triangle streaks on the letters. The cause was the old and new text caps lying in the same plane, which made them z-fight. The fix is to lift the new text 3 mm (v0.5).
   - The text centre is at x 511 instead of 484.
 
 ## Font rule (owner, 2026-11-17, `knowledge/fonts.md`)
