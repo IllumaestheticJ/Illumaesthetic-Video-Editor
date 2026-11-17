@@ -75,8 +75,8 @@ CAM = {
         (CUT1 + 0.2, dict(loc=(3.0, 6.3, 2.55), tgt=(0, 2.0, 1.2), f=26), "inout"),
     ],
     "T2": [  # near-top exploded view (nose up), then down to the render-7 (Camera.006) direction for the 1:1 cut
-        (CUT1, dict(loc=(2.0, 0.2, 9.4), tgt=(0, 0.25, 0.3), f=35, up=(0, -1, 0)), "lin"),
-        (HOME0, dict(loc=(1.8, 0.3, 9.0), tgt=(0, 0.25, 0.3), f=35, up=(0, -1, 0)), "inout"),
+        (CUT1, dict(loc=(1.9, 1.0, 9.4), tgt=(0, 1.0, 0.3), f=28, up=(0, -1, 0)), "lin"),   # v0.2: wider + content shifted up into the safe band (knowledge/safe-zones.md)
+        (HOME0, dict(loc=(1.7, 1.0, 9.0), tgt=(0, 1.0, 0.3), f=28, up=(0, -1, 0)), "inout"),
         (HOME0 + 1.3, dict(loc=(5.2, 8.6, 5.0), tgt=(0, 0.4, 0.5), f=40, up=(0, 0.5, 1)), "inout"),
         (LOCK, "END", "inout"),
         (CUT2 + 0.1, "END", "lin"),
