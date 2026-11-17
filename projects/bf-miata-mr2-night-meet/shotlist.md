@@ -47,14 +47,14 @@ as part of the kit (Q2).
 | 1 | 0.0-1.5 | 1.5 | b0-3 | low side-front 3/4 at wheel height, 35 mm, slow push-in 8 % | MR2 front fender + skirt under a sodium lamp, wet asphalt | `eps-toyota-mr2-spyder-v19.glb` (red paint) in the `lot_env.py` night lot (from `tools/city_env.py`). **If** sheeting finds the MR2 in the 2025-07-24 night-meet footage, this shot becomes that IRL clip | headlights flick on; the lamp reflection rolls along the skirt | none | **hard 1:1 cut on b3** (CGI -> scan, same camera) | Blender Cycles |
 | 2 | 1.5-3.5 | 2.0 | b3-7 | same camera, the push-in continues | MR2 silver scan; Eps scans in beside the front wheel | Drive `MR2 Spyder Scan Data/Full Car Top Down.stl` (1F1JS1meWgjj3xeYpM8Su-FV6bZC07H1X) + GLB `part_side_skirts` over `body_fender_cut_stock` + `trim_fender_liner_stock`; Eps composite (Higgsfield, ref = model sheet) | Eps walks into frame and sweeps his scanner across the fender; the stock fender/skirt zone comes off **whole** and leaves frame; the Epsilon skirt/fender combo drops in and seats on b5 | "SIDE SKIRT / FENDER COMBO" (Shopify title) | hard cut | Blender |
 | 3 | 3.5-4.5 | 1.0 | b7-9 | macro, headlight height, lateral slide | MR2 headlight eyelids | GLB `part_eyelids` (CGI) | a lamp flare slides across the eyelid edge | none | hard cut | Blender |
-| 4 | 4.5-5.5 | 1.0 | b9-11 | high 3/4 over the hood, 50 mm (never straight overhead, lesson L416) | MR2 hood vents | GLB `part_hood_vents` replacing `body_hood_vent_stock` (cut the way the lookbook does it, per the MR2 v4 reviewer fix) | rain beads, heat shimmer from the vents | none | hard cut | Blender (**pending Q3**; if dropped, shot 3 runs 2 s) |
+| 4 | 4.5-5.5 | 1.0 | b9-11 | high 3/4 over the hood, 50 mm (never straight overhead, lesson L416) | MR2 hood vents | GLB `part_hood_vents` replacing `body_hood_vent_stock` (cut the way the lookbook does it, per the MR2 v4 reviewer fix) | rain beads, heat shimmer from the vents | none | hard cut | Blender (on sale: $400 -> $320) |
 | 5 | 5.5-7.0 | 1.5 | b11-14 | rear-3/4 low, slow rise | MR2 rear: spats + duckbill, taillight glow | GLB `part_rear_spats`, `part_duckbill` | the taillights glow; the camera rises over the duckbill | none | hard cut on the downbeat (car change) | Blender |
-| 6 | 7.0-8.5 | 1.5 | b14-17 | low front-3/4, mirroring shot 1's composition | NC Miata nose under the next lamp | `eps-mazda-mx5-nc-v19.glb` (Rubystar #a61f59) or `Miata NC Complete Kit.glb` (Drive 1ZGgplW790QltSuHm_8xqWqGl8h_eucyn), whichever matches the store parts; kit config Q6 | the headlight glow comes up, camera eases in | none | **hard 1:1 cut on b17** (CGI -> scan) | Blender |
+| 6 | 7.0-8.5 | 1.5 | b14-17 | low front-3/4, mirroring shot 1's composition | NC Miata nose under the next lamp | `eps-mazda-mx5-nc-v19.glb` (Rubystar #a61f59) or `Miata NC Complete Kit.glb` (Drive 1ZGgplW790QltSuHm_8xqWqGl8h_eucyn), whichever matches the store parts; kit config Q5 | the headlight glow comes up, camera eases in | none | **hard 1:1 cut on b17** (CGI -> scan) | Blender |
 | 7 | 8.5-10.5 | 2.0 | b17-21 | same camera, framed on the front (NC reviewer: frame the front while the bumper comes off) | NC silver scan | Drive `Mazda Miata NC` (117x9LQvHdB1J88dcs8H8bagCL9DTstfK): Full Car 1KnzXa391W0DCdSqmQe3i2IZEjGv17CLe, Front Bumper Off (Hood Closed) 1LGmOpWaPGVPgkBQeO-CQVBrkv7Qb9vTA as the part-off state, Bumper only 1LAwZsiIJwyL_-aGAqISgfvIO92hZRjek as the moving part; GLB `part_front_bumper` (+ `part_canards` if on sale and in the kit) | the stock bumper comes off **whole** and leaves frame; the Epsilon bumper slides in and seats | "FRONT BUMPER" (Shopify title) | hard cut | Blender |
 | 8 | 10.5-12.5 | 2.0 | b21-25 | front-wheel close-up, slow 15 deg orbit (one move, nothing "wasted") | NC fender cuts on the scan; micro-mode Eps (~1:10) stands on the fender edge | same NC scan + GLB `part_fender_cuts`; Eps composite in micro mode (his colours, on the silver scan) | the stock fender zone lifts off whole; the Epsilon fender cut drops on; Eps points at the cut line | "FENDER CUTS" (Shopify title) | hard cut | Blender |
 | 9 | 12.5-14.0 | 1.5 | b25-28 | low side track along the NC | NC side skirt + rear spat at night | GLB `part_side_skirts`, `part_rear_spats` (CGI) | the lamp reflection travels from the skirt to the spat | none | hard cut | Blender |
-| 10 | 14.0-16.5 | 2.5 | b28-33 | wide, high 3/4, slow crane-down (silver world) | both silver scans parked nose-to-nose on black, each with its Epsilon parts nested; Del & Eps between them | MR2 Full Car Top Down.stl + NC Full Car (ids above) with the GLB parts; Del & Eps composite (Higgsfield, ref = model sheet; the composition follows `del-eps-10mm-socket-gag.jpg`) | end sting: Eps pats his pockets ("Where's my 10 mm?"), Del pulls the 10 mm socket from his pocket and hands it over. Silent (Q4) | none | hard cut | Blender scan render + Higgsfield character plate, composited |
-| 11 | 16.5-19.5 | 3.0 | b33-39 | static card | sale card | Remotion card over a darkened, blurred still of shot 10 (CGI, not IRL) | title on b33, part list on b35, in two columns: **MR2 Spyder** side skirt/fender combo, rear spats, headlight eyelids, duckbill, [hood vents]; **NC Miata** front bumper, fender cuts, side skirts, rear spats, canards | title wording Q1; tier and parts from the owner's BF doc (20 %: "MR2 parts, NC Miata bumper/fenders/skirts/spats/canards"), part names from Shopify; prices only if approved (Q5); **no dates** (the sale window isn't set) | hard cut | Remotion |
+| 10 | 14.0-16.5 | 2.5 | b28-33 | wide, high 3/4, slow crane-down (silver world) | both silver scans parked nose-to-nose on black, each with its Epsilon parts nested; Del & Eps between them | MR2 Full Car Top Down.stl + NC Full Car (ids above) with the GLB parts; Del & Eps composite (Higgsfield, ref = model sheet; the composition follows `del-eps-10mm-socket-gag.jpg`) | end sting: Eps pats his pockets ("Where's my 10 mm?"), Del pulls the 10 mm socket from his pocket and hands it over. Silent (Q3) | none | hard cut | Blender scan render + Higgsfield character plate, composited |
+| 11 | 16.5-19.5 | 3.0 | b33-39 | static card | sale card | Remotion card over a darkened, blurred still of shot 10 (CGI, not IRL) | title on b33, part list on b35, in two columns: **MR2 Spyder** side skirt/fender combo, rear spats, headlight eyelids, duckbill, hood vents; **NC Miata** front bumper, fender cuts, side skirts, rear spats, canards | title wording Q1; tier and parts from the owner's BF doc (20 %: "MR2 parts, NC Miata bumper/fenders/skirts/spats/canards"), part names from Shopify; prices from the BF liquidation sheet, format per Q4; **no dates** (the sale window isn't set) | hard cut | Remotion |
 | 12 | 19.5-22.0 | 2.5 | b39-44 | static | Epsilon+ wordmark ~720 px + "epsilon.plus" | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) | lands on the last downbeat and rides the decay. Optional motto line "For every ε, there's a δ." | "epsilon.plus" | end | Remotion |
 
 The scan shots (2, 7, 8) keep the plates as scanned (plates are flattened only on the IS300) and use the scan only as
@@ -79,7 +79,7 @@ The characters never sit inside a part's path, and their hands touch real surfac
 | Epsilon characters **Del & Eps** | found: locked reference sheet + 3 frames | `knowledge/characters/del-and-eps/` (on this branch since 46e523b): del-eps-model-sheet.jpg (THE reference), del-eps-10mm-socket-gag.jpg, del-eps-install-drill-template.jpg; Higgsfield GPT Image 2.6 jobs bdb1a2e8, 069f42d6, e3315b11, 85f40a22 |
 | Epsilon+ wordmark | found | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) |
 | Music | **to request** | see candidates |
-| BF tiers | found | owner's doc via `MASCOT_AND_PRICES.md` (artifact 29kGfJ2WPdSAg5QpezXfva): 20 % = MR2 parts + NC bumper/fenders/skirts/spats/canards; MR2 front bumper NOT on sale; sale dates not set |
+| BF prices | found (the owner's source of truth) | `projects/_blackfriday/PRICES.md` + `bf_liquidation_pricing.csv` (Claude Sheet "Black Friday 2026 Liquidation Pricing", Pricing tab); every MR2/NC FRP part and the duckbill are at 20 %; the MR2 front bumper is "No deal"; sale dates not set |
 
 ## Live store facts (Shopify "Epsilon+ Aerodynamics", checked 2026-11-17; list prices, USD)
 - MR2 Spyder ZZW30, fiberglass, made to order: Front Bumper $900, Side Skirt Fender Combo $700, Rear Bumper Spats $350,
@@ -91,24 +91,30 @@ The characters never sit inside a part's path, and their hands touch real surfac
 - Every fiberglass line shows 0 or negative inventory (made to order / backordered), so no "only X left".
 
 ## Open questions for the user
-1. **Card wording.** The 20 % tier is "MR2 parts + NC bumper/fenders/skirts/spats/canards". It includes the ABS duckbill and
-   leaves out the fiberglass MR2 front bumper, so "Fiberglass 20% off" isn't accurate. Use **"20% OFF - MR2 SPYDER + NC
-   MIATA AERO"** (my suggestion), keep "Fiberglass 20% off" and drop the duckbill from the card, or something else?
-2. **MR2 front bumper (not on sale).** It is part of the lookbook kit. Keep it on the CGI car but never feature or label it
+Settled by the owner on 2026-11-17 (via the parent session):
+- Prices come from the "Black Friday 2026 Liquidation Pricing" sheet (`projects/_blackfriday/PRICES.md`,
+  `bf_liquidation_pricing.csv`). Every item the sheet prices is on sale, including made-to-order and backordered parts.
+- MR2 hood vents are on sale ($400 -> $320, or $470 -> $376 with brackets).
+- The MR2 front bumper is "No deal".
+- No stock counts on screen.
+
+Still open:
+1. **Card wording.** The 20 % tier includes the ABS duckbill, and the fiberglass MR2 front bumper has no deal, so
+   "Fiberglass 20% off" isn't accurate. Use **"20% OFF - MR2 SPYDER + NC MIATA AERO"** (my suggestion), keep "Fiberglass
+   20% off" and drop the duckbill from the card, or something else?
+2. **MR2 front bumper ("No deal").** It is part of the lookbook kit. Keep it on the CGI car but never feature or label it
    (current plan), or swap it for the GLB's stock bumper (`body_front_bumper_stock`) so the ad shows no non-sale part?
-3. **Hood vents.** The store lists them (ACTIVE, $400 / $470, fiberglass, published 2023-07-24) but the owner's doc doesn't
-   confirm them. Are they in the 20 % ("MR2 parts") and OK for shot 4?
-4. **Del & Eps.** The locked look is used, and they appear only in the silver scan shots (2, 8, 10). Should the 10 mm
-   end sting stay silent, or get one voiced line? Higgsfield characters and voice cost credits; I will quote the cost first.
-5. **Prices on the card.** At 20 % off the live list prices: skirt/fender combo $700 -> $560, rear spats $350 -> $280,
-   eyelids $100 -> $80, duckbill $220 -> $176, [hood vents $400 -> $320]; NC bumper $1,100 -> $880 (top only $800 -> $640),
-   fender cuts $300 -> $240, side skirts $500 -> $400, NC1 rear spats $250 -> $200, canards $200 -> $160. Show these
-   struck-through prices, a single "from" price per car, or just "20% OFF"?
-6. **Backorder conflict.** The doc says "anything on preorder or backorder" is not on sale, but every MR2/NC fiberglass part
-   is made to order and shows 0 or negative stock. Do the 20 % parts still count as on sale?
-7. **NC kit configuration.** Show bumper, fender cuts, skirts, spats and canards only (no GT wing; GT wings are not on sale)?
-8. **Footage.** Shall I download and sheet the 2025-07-24 "Night meet" and 2025-08-10 "Night shoot" clips for the real cars?
-9. **Music.** Pick a candidate or upload a file (real music only).
+3. **Del & Eps.** The locked look is used, and they appear only in the silver scan shots (2, 8, 10). Should the 10 mm end
+   sting stay silent, or get one voiced line? Higgsfield characters and voice cost credits; I will quote the cost first.
+4. **Price format on the card.** Using the sheet (Current -> BF 2026):
+   - MR2: skirt/fender combo $700 -> $560, rear spats $350 -> $280, eyelids $100 -> $80, hood vents $400 -> $320
+     ($470 -> $376 with brackets), duckbill $220 -> $176.
+   - NC: front bumper + lip $1,100 -> $880 (top only $800 -> $640, lip only $350 -> $280), fender cuts $300 -> $240
+     (+ fin $350 -> $280), side skirts $500 -> $400, NC1 rear spats $250 -> $200, canards $200 -> $160.
+   Show the full struck-through list, one headline price per car, or just "20% OFF"?
+5. **NC kit configuration.** Show bumper, fender cuts, skirts, spats and canards only (no GT wing; GT wings are not on sale)?
+6. **Footage.** Shall I download and sheet the 2025-07-24 "Night meet" and 2025-08-10 "Night shoot" clips for the real cars?
+7. **Music.** Is "Tokyo Midnight" (ChilliZone, CML) OK, or would you rather upload your own track?
 
 ## Production steps (after approval)
 1. Download both GLBs (Drive zip) and the MR2/NC scans to `/home/user/media/bf-miata-mr2-night-meet/`; decimate out-of-core
