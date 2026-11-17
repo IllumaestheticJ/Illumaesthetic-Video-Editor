@@ -33,7 +33,7 @@ your chat if you need to watch it. What the parent measured:
   existing game or video).
 
 ## Series format (parent decisions; the owner can override)
-- 9:16, 1080x1920, 30 fps, about 20-26 s, 3-4 locations, a hard cut between scenes, no dissolves.
+- 9:16, 1080x1920, 30 fps, **up to 55 s** (owner, 2026-11-17), as many locations as the story needs with tight pacing, a hard cut between scenes, no dissolves.
 - Top title bar for the whole video, lowercase white on black: **`day in the life: average <car> owner`** (the
   owner's wording is "DITL of average WRX owner"; confirm the exact title text with the owner).
 - First person: the viewer IS the owner. Their arms and hands are always in frame and act erratically.
@@ -45,6 +45,11 @@ your chat if you need to watch it. What the parent measured:
   to end on the Epsilon wordmark card (house rule for product reels: Epsilon wordmark, about 720 px wide), since the
   reference has no end card.
 - Abrupt ending on a gag (hard cut), like the reference.
+
+## Owner answers (2026-11-17)
+- Real brand names are OK (Affirm, Honda Odyssey, BMW, Cobb...): not posted on an LLC account, not monetized.
+- Max length 55 s.
+- WRX: use "DAM" (Accessport Dynamic Advance Multiplier).
 
 ## House rules that apply (from CLAUDE.md and knowledge/lessons.md: read them)
 - **Never invent numbers on screen or in narration:** no downforce figures, lap times, prices or specs unless they
