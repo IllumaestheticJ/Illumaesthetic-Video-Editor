@@ -6,7 +6,12 @@ R = "/home/user/Illumaesthetic-Video-Editor/"; O = "/home/user/media/bf-scan-tea
 # v0.7 (user): Akira-style wide display face. Akira Expanded is personal-use only, so Unbounded (Google Fonts, OFL,
 # commercial use OK) Black/ExtraBold is used; TTFs fetched from fonts.googleapis.com into media/.../fonts/.
 F = "/home/user/media/bf-scan-teardown-prices/fonts/"
-def font(w, s): return ImageFont.truetype(F + {"b": "Unbounded-900.ttf", "m": "Unbounded-800.ttf"}[w], s)
+# knowledge/fonts.md (owner rule): Akira for headlines/offers/prices -> Unbounded 900 stand-in until the owner supplies the
+# Akira file; text beside the logo (URL) = Unbounded 400; part labels / was-prices = Unbounded 500 (repo assets/fonts/unbounded).
+FR = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
+def font(w, s):
+    return ImageFont.truetype({"b": F + "Unbounded-900.ttf", "m": F + "Unbounded-800.ttf",
+                               "l": FR + "Unbounded-500.ttf", "u": FR + "Unbounded-400.ttf"}[w], s)
 OFF, SAGE, GREY = (242, 243, 241), (97, 159, 115), (140, 142, 140)
 
 # --- price cards (top third, 80 px inside the edges)
@@ -14,7 +19,7 @@ def card(name, was, bf, pct, fn):
     """name / struck was-price + BF price (whole dollars, owner 2026-11-17) / '% OFF' pill.
     BF prices with cents are rounded UP to the dollar ($199.50 -> $200) so the video never shows less than checkout."""
     c = Image.new("RGBA", (1080, 520), (0, 0, 0, 0)); d = ImageDraw.Draw(c)
-    fN, fW, fB, fP = font("b", 54), font("m", 46), font("b", 92), font("b", 38)
+    fN, fW, fB, fP = font("l", 54), font("l", 46), font("b", 92), font("b", 38)
     d.text((540, 150), name, font=fN, fill=OFF, anchor="ms")
     ww = d.textlength(was, font=fW); bw = d.textlength(bf, font=fB); gap = 36
     x0 = 540 - (ww + gap + bw) / 2
@@ -61,7 +66,7 @@ while dfr.textlength(t, font=fP) > 780: fP = font("b", fP.size - 2)
 tw = dfr.textlength(t, font=fP); y = 1046
 dfr.rounded_rectangle((484 - tw / 2 - 28, y - fP.size - 18, 484 + tw / 2 + 28, y + 22), radius=14, fill=SAGE + (255,))
 put(dfr, t, (484, y), fP, (11, 12, 11), "end: offer")
-put(dfr, "WWW.EPSILON.PLUS", (484, 1250), font("m", 40), OFF, "end: url")
+put(dfr, "WWW.EPSILON.PLUS", (484, 1250), font("u", 42), OFF, "end: url")
 back.save(O + "end_back.png"); front.save(O + "end_front.png")
 json.dump(EB, open(O + "endcard_boxes.json", "w"))
 print("ok", fH.size, fP.size)
