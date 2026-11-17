@@ -8,13 +8,15 @@ from PIL import Image, ImageDraw, ImageFont
 
 P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
-R = f"{M}/renders_v03"
+R = f"{M}/renders_v05"
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.4.mp4"
+OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.5.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
-FB = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
-FM = "/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf"
+UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
+FB = UB + "Unbounded-700.ttf"   # Akira stand-in for headlines (knowledge/fonts.md)
+FM = UB + "Unbounded-400.ttf"   # lines beside the logo
+FL = UB + "Unbounded-300.ttf"   # URL beside the logo
 OFF = (232, 236, 242)
 
 SHOTS = [("s1", 77), ("s2", 73), ("s3", 73), ("s4", 73), ("s5", 74)]
@@ -51,13 +53,13 @@ def endcard(path):
     logo = logo.resize((w, h), Image.LANCZOS)
     im.paste(logo, ((1080 - w) // 2, 820 - h // 2), logo)
     d = ImageDraw.Draw(im)
-    d.text((540, 960), "BLACK FRIDAY CLEARANCE", font=ImageFont.truetype(FB, 54), fill=OFF, anchor="mt")
-    d.text((540, 1040), "WWW.EPSILON.PLUS", font=ImageFont.truetype(FM, 46), fill=OFF, anchor="mt")
+    d.text((540, 960), "BLACK FRIDAY CLEARANCE", font=ImageFont.truetype(FM, 44), fill=OFF, anchor="mt")
+    d.text((540, 1040), "WWW.EPSILON.PLUS", font=ImageFont.truetype(FL, 38), fill=OFF, anchor="mt")
     im.save(path)
 
 
 count = snap["tags"]["grv1"]["stock_line"]
-text_png(f"{W}/count.png", [(count, 66, FB)], 330)   # safe zones: text inside y 285-1440
+text_png(f"{W}/count.png", [(count, 54, FB)], 330)   # safe zones: text inside y 285-1440
 placeholder_png(f"{W}/placeholder.png")
 endcard(f"{W}/endcard.png")
 
