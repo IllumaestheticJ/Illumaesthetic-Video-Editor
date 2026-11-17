@@ -24,7 +24,7 @@
 
 ## Owner facts this script rests on
 - **Variants:** the owner uses AESUB Violet in the spray gun and AESUB Orange in spray cans. The cartoon uses an Orange spray can.
-- **Pronunciation:** "AESUB" is said "AY-EEE-Sub". The TTS text gets a respelling; the captions keep "AESUB".
+- **Pronunciation:** "AESUB" is said "A-E-sub" (letters A, E, then "sub"). The TTS text is "A. E. sub"; the captions keep "AESUB".
 - **Alternatives:**
   - The owner's alternatives are dry shampoo and talc foot powder.
   - They work, but have to be wiped off, and the owner calls them "crummy".
@@ -66,7 +66,7 @@
   - a small weary sigh before "...No.";
   - dry on line 10;
   - never angry or sad.
-- **TTS text for line 2:** "AY-ee-sub" (or the closest spelling that reads as AY-EEE-Sub). Check the take by ear.
+- **TTS text for line 2:** "A. E. sub" (take v2).
 
 ### Pros and cons board (lines 8-10, cartoon, icons only, no numbers)
 
