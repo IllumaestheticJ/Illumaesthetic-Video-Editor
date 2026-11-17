@@ -19,10 +19,13 @@ END = round(kicks[50] * FPS) + 30          # logo holds 6 kicks (to kick 50), th
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 40)
+# owner font rule (knowledge/fonts.md): Akira for headlines/offers - not supplied yet, so Unbounded 700 stands in;
+# Unbounded 500 for part labels, 300-400 for the URL next to the logo
+UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-'
+f_bf = ImageFont.truetype(UB + '700.ttf', 40)
 f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 58) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 58)
 f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 50)
-f_url = ImageFont.truetype(FONT + 'InterDisplay-Medium.otf', 44)
+f_url = ImageFont.truetype(UB + '300.ttf', 40)
 TXT = (232, 236, 242)
 CYAN = (111, 195, 214)
 logo = Image.open(f'{M}/logo/Epsilon+ Logo.png').convert('RGBA'); logo = logo.crop(logo.getbbox())
@@ -47,10 +50,10 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 RED = (226, 38, 43)
-f_ver = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 250)
-f_kit = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 96)
-f_pct = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 168)
-f_upto = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 64)
+f_ver = ImageFont.truetype(UB + '700.ttf', 200)
+f_kit = ImageFont.truetype(UB + '700.ttf', 72)
+f_pct = ImageFont.truetype(UB + '700.ttf', 134)
+f_upto = ImageFont.truetype(UB + '700.ttf', 52)
 
 
 def card_overlay(img, shot, i, n):
@@ -73,7 +76,7 @@ def card_overlay(img, shot, i, n):
         # 2) the slash: a thick red bar drawn lower-left -> upper-right across the version (frames 9-15)
         k = ease((i - 10) / 6)
         if k > 0:
-            xa, ya, xb, yb = x0 - 30, y0 + 270, x0 + wv + gap + wk + 30, y0 + 40
+            xa, ya, xb, yb = x0 - 30, y0 + 225, x0 + wv + gap + wk + 30, y0 + 40
             xe, ye = xa + (xb - xa) * k, ya + (yb - ya) * k
             d.line((xa, ya, xe, ye), fill=RED + (round(255 * min(1, a_v * 1.4)),), width=26)
     # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20
@@ -91,8 +94,8 @@ def card_overlay(img, shot, i, n):
     img.alpha_composite(ov)
 
 
-f_lab = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 58)
-f_eye = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 34)
+f_lab = ImageFont.truetype(UB + '500.ttf', 52)
+f_eye = ImageFont.truetype(UB + '400.ttf', 30)
 
 
 def label(img, i, n, lines, y, start=6, stop=None):
