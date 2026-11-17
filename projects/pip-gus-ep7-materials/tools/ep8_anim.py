@@ -509,6 +509,7 @@ def anim_A9(fr):
             for v in bmesh.ops.create_cube(bm, size=1.0)["verts"]:
                 v.co = Vector((x + v.co.x * 0.008, y + v.co.y * 0.008, z + v.co.z * 0.16))
         temp(new_obj("rain", bm, [emit("rain", 1.0)], OD_STAND))
+    bpy.context.view_layer.update()                             # matrix_world is stale on a process's first frame
     st = OD_STAND.matrix_world.translation
     cam_look((st.x - 0.25, st.y - 1.9, 1.05), (st.x - 0.1, st.y + 0.5, 1.25), 28, (0, 0.3, 0.0), ease(k))
 
