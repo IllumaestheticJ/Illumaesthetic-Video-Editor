@@ -47,6 +47,12 @@ like "only X left" to push urgency." (Narrowed to the two most popular lips at t
 - I said in v2/v3 that the store had no carbon trunk-lip variant. That was wrong: my first query only read 10
   variants, and the store does list "Carbon Fiber / Unpainted" at $240.
 - The sale isn't live and has no dates yet, so no dates go on screen.
+- Checked against `projects/_blackfriday/PRICES.md` + `bf_liquidation_pricing.csv` (commit 7ec3adf, the owner's source
+  of truth). All four figures match.
+- PRICES.md says: no stock counts on screen unless the owner asks. This video's concept is the owner's own ask ("Use
+  real low counts like 'only X left'"), and in chat the owner limited it only for backordered parts. So the carbon GR V1
+  line stays, as the one real positive count. If the owner says no, shot 5 runs with no text, and that is a
+  Remotion-only change.
 - The carbon count is re-read on the render day and on posting day.
 
 ## Music
