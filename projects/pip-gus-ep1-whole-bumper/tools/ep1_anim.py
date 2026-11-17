@@ -275,31 +275,79 @@ def text3d(name, body, size, key, parent=None, loc=(0, 0, 0), rot=(90, 0, 0), ex
     return ob
 
 
-def bumper_mesh(name, key, parent=None, loc=(0, 0, 0), s=1.0, seams=True, rz=0.0):
-    """Cartoon front bumper: a curved plate (wraps back at both ends) with a grille slot; faces -y. Width ~1.5 s."""
+# v2 (owner): every bumper is OUR 350Z bumper (part_front_bumper of the epsilon.plus lookbook eps-nissan-350z-z33-v24.glb,
+# decimated to 28k faces: /home/user/media/work/ep1/z350/bumper350.obj). Normalised: width 1.48, front at y=0 (wraps +y), z>=0.
+from mathutils import Quaternion
+from mathutils.bvhtree import BVHTree
+BUMP_OBJ = "/home/user/media/work/ep1/z350/bumper350.obj"
+
+
+def _load_bumper():
+    before = set(bpy.data.objects)
+    bpy.ops.wm.obj_import(filepath=BUMP_OBJ, forward_axis="Y", up_axis="Z")
+    ob = [o for o in bpy.data.objects if o not in before][0]
+    me = ob.data
+    bpy.data.objects.remove(ob, do_unlink=True)
+    xs, ys, zs = ([v.co[i] for v in me.vertices] for i in range(3))
+    k = 1.48 / (max(xs) - min(xs))
+    cx, y0, z0 = (max(xs) + min(xs)) / 2, min(ys), min(zs)
+    for v in me.vertices:
+        v.co = Vector(((v.co.x - cx) * k, (v.co.y - y0) * k, (v.co.z - z0) * k))
+    bm = bmesh.new()   # drop slivers: they spike the outline shell
+    bm.from_mesh(me)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.0008)
+    bmesh.ops.dissolve_degenerate(bm, edges=bm.edges, dist=0.0008)
+    bm.to_mesh(me)
+    bm.free()
+    me.materials.clear()
+    for pg in me.polygons:
+        pg.material_index = 0
+        pg.use_smooth = True
+    try:
+        me.set_sharp_from_angle(angle=math.radians(35))
+    except Exception:
+        pass
+    bvh = BVHTree.FromPolygons([v.co.copy() for v in me.vertices], [list(pg.vertices) for pg in me.polygons])
+    return me, (max(zs) - z0) * k, bvh
+
+
+BUMP_ME, BUMP_H, BUMP_BVH = _load_bumper()
+
+
+def bump_front(x, z):
+    """Front-surface point of the (unit) 350Z bumper at (x, z), or None (grille opening / off the part)."""
+    hit = BUMP_BVH.ray_cast(Vector((x, -1.0, z)), Vector((0, 1, 0)))
+    return hit[0] if hit[0] is not None and hit[0].y < 0.3 else None
+
+
+def bumper_mesh(name, key, parent=None, loc=(0, 0, 0), s=1.0, seams=True, rz=0.0, flat=False):
+    """Our 350Z front bumper (faces -y, width 1.48 s, bottom at z=0). seams: printed-in-sections glue lines."""
     g = empty(name, parent, loc, (0, 0, rz))
-    bm = bmesh.new()
-    n, H = 24, 0.34 * s
-    rows = []
-    for i in range(n + 1):
-        a = -1.25 + 2.5 * i / n
-        x = 0.62 * s * math.sin(a) + 0.12 * s * math.sin(a) ** 3
-        y = 0.32 * s * (1 - math.cos(a)) ** 1.4
-        rows.append([bm.verts.new((x, y, 0)), bm.verts.new((x, y - 0.05 * s, H * 0.55)), bm.verts.new((x, y, H))])
-    for i in range(n):
-        for k in range(2):
-            bm.faces.new((rows[i][k], rows[i + 1][k], rows[i + 1][k + 1], rows[i][k + 1]))
-    ob = new_obj(name + "_m", bm, [mat(key, hl=True), OUTLINE], g)
-    sol = ob.modifiers.new("sol", "SOLIDIFY")
-    sol.thickness = 0.05 * s
-    sol.offset = 1.0
-    add_mods(ob, 0, 0.018 * s)
-    box(name + "_slot", (0.56 * s, 0.02, 0.08 * s), (0, -0.07 * s, H * 0.42), mat("dark"), g, bevel=0.01, ol=0.01 * s)
-    if seams:   # printed in parts: glue seams
-        for x in (-0.42 * s, 0.0, 0.42 * s):
-            a = math.asin(max(-0.99, min(0.99, x / (0.62 * s))))
-            y = 0.32 * s * (1 - math.cos(a)) ** 1.4
-            box(f"{name}_seam{x:.2f}", (0.012 * s, 0.01, H * 1.0), (x, y - 0.06 * s, H / 2), mat("#5e625e"), g)
+    ob = bpy.data.objects.new(name + "_m", BUMP_ME.copy())
+    COLL.objects.link(ob)
+    ob.parent = g
+    ob.scale = (s, s * (0.1 if flat else 1.0), s)   # flat: a printed picture (catalog page, box art) in relief
+    if flat:
+        ob.location = (0, -0.07 * s, 0)
+    ob.data.materials.append(mat(key, hl=True))
+    ob.data.materials.append(OUTLINE)
+    add_mods(ob, 0, 0.012)
+    ob.modifiers["ol"].use_even_offset = False
+    if seams:
+        for x in (-0.5, -0.17, 0.17, 0.5):
+            seg = []
+            for j in range(18):
+                z = 0.02 + (BUMP_H - 0.04) * j / 17
+                hp = bump_front(x, z)
+                if hp is None or (seg and (hp - seg[-1]).length > 0.08):
+                    if len(seg) > 2:
+                        path_tube(f"{name}_seam{x:.2f}_{j}", [q * s for q in seg], 0.006 * s, mat("#5e625e"), g, rs=6)
+                    seg = []
+                    if hp is None:
+                        continue
+                seg.append(hp + Vector((0, -0.006, 0)))
+            if len(seg) > 2:
+                path_tube(f"{name}_seam{x:.2f}", [q * s for q in seg], 0.006 * s, mat("#5e625e"), g, rs=6)
     return g
 
 
@@ -312,23 +360,58 @@ def spool(name, key, parent=None, loc=(0, 0, 0)):
     return g
 
 
-def spaghetti(name, parent=None, loc=(0, 0, 0), s=1.0, seed=3, n=46, key="sage_l"):
+def spaghetti(name, parent=None, loc=(0, 0, 0), s=1.0, seed=3, n=46, key="sage_l", frac=1.0, base=True):
+    """v2 (owner: 'doesn't look accurate'): a real failed print = a part that stopped growing a few cm up (a stub of the
+    350Z bumper, sliced flat) under an airy nest of thin, tightly curled filament loops. frac 0..1 grows the nest."""
+    g = empty(name, parent, loc)
     rng = random.Random(seed)
-    p = Vector((0, 0, 0.02))
+    m = mat(key, hl=True)
+    if base:   # the half-printed section: a slice of the bumper's corner, flat top
+        bm = bmesh.new()
+        bm.from_mesh(BUMP_ME)
+        hz = 0.11
+        bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=(0, 0, hz), plane_no=(0, 0, 1),
+                               clear_outer=True)
+        bmesh.ops.bisect_plane(bm, geom=bm.verts[:] + bm.edges[:] + bm.faces[:], plane_co=(0.2, 0, 0), plane_no=(-1, 0, 0),
+                               clear_outer=True)
+        ob = bpy.data.objects.new(name + "_part", bpy.data.meshes.new(name + "_part"))
+        bm.to_mesh(ob.data)
+        bm.free()
+        COLL.objects.link(ob)
+        ob.parent = g
+        ob.data.materials.append(m)
+        ob.data.materials.append(OUTLINE)
+        ob.scale = (0.42 * s,) * 3
+        ob.location = (-0.42 * s * 0.25, -0.05 * s, 0)
+        add_mods(ob, 0, 0.01)
+        ob.modifiers["ol"].use_even_offset = False
+        for k in range(4):   # layer lines on the stub
+            box(f"{name}_ly{k}", (0.24 * s, 0.002, 0.002), (-0.03 * s, -0.052 * s, (0.012 + 0.009 * k) * s), mat("#7c807c"), g)
+    # the nest: a curvature random walk (tight curls 2-4 cm), bounded in an ellipsoid sitting on the stub
+    N = max(2, int(900 * cl(frac)))
+    p = Vector((0.0, -0.02, 0.05)) * s
+    d = Vector((1, 0, 0.2)).normalized()
+    ax = Vector((0, 0, 1))
     pts = [p.copy()]
-    for _ in range(n):
-        p += Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(-0.25, 0.8))) * 0.045 * s
-        p.x = max(-0.16 * s, min(0.16 * s, p.x))
-        p.y = max(-0.12 * s, min(0.12 * s, p.y))
-        p.z = max(0.01, min(0.3 * s, p.z))
+    C = Vector((0, -0.02, 0.1)) * s
+    R = Vector((0.17, 0.13, 0.1)) * s
+    for i in range(N):
+        ax = (ax + Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(-1, 1))) * 0.35).normalized()
+        d = (Quaternion(ax, rng.uniform(0.35, 0.6)) @ d).normalized()
+        q = Vector(((p.x - C.x) / R.x, (p.y - C.y) / R.y, (p.z - C.z) / R.z))
+        if q.length > 1.0:
+            d = (d - q.normalized() * 0.5).normalized()
+        p = p + d * 0.011 * s
+        p.z = max(p.z, 0.006 * s)
         pts.append(p.copy())
-    return path_tube(name, pts, 0.014 * s, mat(key, hl=True), parent, loc, rs=6, ol=0.0)
+    path_tube(name + "_fil", pts, 0.0032 * s, m, g, rs=5)
+    return g
 
 
 # ----------------------------------------------------------------------------------------------------------------- the bill board
 BOARD_XY = (0.12, -1.45)
 TOP_Z = 1.72
-SLOT0, SLOT = 0.16, 0.112
+SLOT0, SLOT = 0.12, 0.105   # v2: 13 rows fit on the whiteboard panel
 BOARD_S = 1.42   # whole board group scale: icons read at 1080 wide
 
 
@@ -347,10 +430,16 @@ def build_board():
 
 
 BOARD = build_board()
-RECEIPT = empty("RECEIPT", BOARD, (0, -0.03, TOP_Z - 0.08))   # scale z = length (m)
-_rc = box("rc_paper", (0.56, 0.006, 1.0), (0, 0, -0.5), mat("white"), RECEIPT, ol=0.006)
-box("rc_head", (0.56, 0.008, 0.06), (0, -0.002, -0.05), mat("sage"), BOARD.children[-1] if False else RECEIPT)
-RC_HEAD = RECEIPT.children[-1]
+# v2 (owner: 'the list comes off the whiteboard'): a fixed whiteboard panel that holds every row; nothing hangs past it.
+RECEIPT = empty("RECEIPT", BOARD, (0, 0, 0))
+WB_TOP, WB_BOT = TOP_Z - 0.09, 0.14
+box("wb_panel", (0.76, 0.012, WB_TOP - WB_BOT), (0, -0.02, (WB_TOP + WB_BOT) / 2), mat("white"), RECEIPT, ol=0.006)
+for _n, _sz, _lc in (("t", (0.79, 0.02, 0.025), (0, -0.022, WB_TOP)), ("b", (0.79, 0.02, 0.025), (0, -0.022, WB_BOT)),
+                     ("l", (0.025, 0.02, WB_TOP - WB_BOT), (-0.39, -0.022, (WB_TOP + WB_BOT) / 2)),
+                     ("r", (0.025, 0.02, WB_TOP - WB_BOT), (0.39, -0.022, (WB_TOP + WB_BOT) / 2))):
+    box(f"wb_rim{_n}", _sz, _lc, mat("metal"), RECEIPT, ol=0.005)
+box("wb_tray", (0.6, 0.07, 0.02), (0, -0.06, WB_BOT - 0.005), mat("metal"), RECEIPT, ol=0.005)
+box("wb_marker", (0.11, 0.022, 0.022), (0.12, -0.07, WB_BOT + 0.015), mat("sage"), RECEIPT, 0.006, 0.004)
 # icon pictures (static meshes on the board, revealed in order). Each: (key, builder, label or None)
 ICONS = []
 
@@ -376,10 +465,46 @@ def ic_spray(g):
     cyl("i_spray_c", 0.018, 0.025, (0, 0, 0.045), mat("sage"), g, ol=0.005)
 
 
+def build_leo(g, s=1.0):
+    """v2 (owner): cartoon Artec Leo - charcoal head with a big black front window (centre lens, two side lenses, a row of
+    white flash LEDs), wide touchscreen on the back showing a green scan, rubber pistol grip underneath. Lens faces -y."""
+    S = lambda *v: tuple(c * s for c in v)
+    box("leo_head", S(0.2, 0.14, 0.13), S(0, 0, 0), mat("#4a4d4a", hl=True), g, 0.03 * s, 0.01 * s)
+    box("leo_side", S(0.206, 0.09, 0.06), S(0, 0.01, -0.02), mat("#8d918d"), g, 0.012 * s)
+    box("leo_face", S(0.17, 0.012, 0.1), S(0, -0.068, 0.005), mat("#151615"), g, 0.012 * s, 0.004 * s)
+    cyl("leo_lens", 0.027 * s, 0.012 * s, S(0, -0.074, 0.01), mat("#2b2e2b"), g, axis="Y", ol=0.003 * s)
+    cyl("leo_lensg", 0.013 * s, 0.006 * s, S(0, -0.081, 0.01), emit("sage_l", 1.6), g, axis="Y")
+    for _x in (-0.055, 0.055):
+        cyl(f"leo_cam{_x}", 0.014 * s, 0.01 * s, S(_x, -0.074, 0.012), mat("#2b2e2b"), g, axis="Y", ol=0.003 * s)
+        cyl(f"leo_camg{_x}", 0.006 * s, 0.006 * s, S(_x, -0.08, 0.012), emit("#9fd8ff", 1.3), g, axis="Y")
+    for _k in range(6):
+        box(f"leo_led{_k}", S(0.012, 0.004, 0.008), S(-0.0625 + 0.025 * _k, -0.076, -0.03), emit("white", 2.0), g)
+    scr = empty("leo_scr", g, S(0, 0.072, 0.012), (-18, 0, 0))
+    box("leo_bezel", S(0.18, 0.012, 0.115), (0, 0, 0), mat("#151615"), scr, 0.008 * s, 0.004 * s)
+    box("leo_disp", S(0.16, 0.004, 0.095), S(0, 0.007, 0), emit("#2e4a36", 1.0), scr)
+    for _k in range(5):   # a little green scan mesh on the display
+        box(f"leo_ui{_k}", S(0.11 - 0.012 * abs(_k - 2), 0.002, 0.006), S(0, 0.0095, -0.03 + 0.015 * _k), emit("sage_l", 1.4), scr)
+    box("leo_grip", S(0.055, 0.07, 0.15), S(0, 0.03, -0.12), mat("#232523"), g, 0.02 * s, 0.008 * s, rot=(-22, 0, 0))
+    box("leo_trig", S(0.03, 0.02, 0.03), S(0, -0.008, -0.075), mat("sage"), g, 0.006 * s, 0.003 * s, rot=(-22, 0, 0))
+    return g
+
+
+# replace the pilot's generic scanner prop with the Leo (same object, same -y lens convention)
+for _c in list(SCANNER.children):
+    for _o in [_c] + list(_c.children_recursive):
+        pass
+    _stack = [_c]
+    while _stack:
+        _o = _stack.pop()
+        _stack.extend(_o.children)
+        bpy.data.objects.remove(_o, do_unlink=True)
+build_leo(SCANNER, 0.85)
+
+
 def ic_scanner(g):
-    box("i_scn_b", (0.09, 0.04, 0.05), (0, 0, 0.015), mat("metal"), g, 0.01, 0.005)
-    box("i_scn_g", (0.03, 0.03, 0.06), (0, 0, -0.03), mat("dark"), g, 0.008, 0.005)
-    box("i_scn_l", (0.07, 0.006, 0.03), (0, -0.022, 0.015), emit("sage_l", 1.5), g)
+    """Bill picture of the Leo, turned three-quarters from the back so its screen and grip read."""
+    sub = empty("i_leo", g, (0, 0, 0.012), (0, 0, 145))
+    build_leo(sub, 0.55)
 
 
 def ic_laptop(g):
@@ -476,23 +601,13 @@ def bill(t, extra=0.0):
             ic["g"].scale = (s * 1.25,) * 3
             if ic["lab"]:
                 ic["lab"].scale = (s, s, s)
-    L = SLOT0 + 0.1 + max(0, n - 1) * SLOT + 0.08 + extra
-    L = min(L, (TOP_Z - 0.08) + 0.0)
-    RECEIPT.scale = (1, 1, L)
-    RC_HEAD.scale = (1, 1, 1 / L)
-    RC_HEAD.location = (0, -0.002, -0.05 / L)
+    L = n
     return L
 
 
 def receipt_curl(k):
-    """Bill past the floor: a curled pile of paper at the board's feet (k 0..1)."""
-    if k <= 0:
-        return
-    g = empty("curl", BOARD, (0, -0.03, 0))
-    temp(g)
-    for i in range(int(2 + 5 * k)):
-        torus(f"curl{i}", 0.09 + 0.012 * i, 0.012, (0.04 * math.sin(i * 1.7), -0.12 - 0.05 * i, 0.09), mat("white"), g,
-              rot=(0, 90, 0), ol=0.004)
+    """v1 gag (bill curling on the floor) removed in v2: the list stays on the whiteboard."""
+    return
 
 
 # clock rides on top of the board
@@ -513,14 +628,37 @@ def clock_on_board(spin=0.0, fall=0.0):
 DRAW = empty("DRAWING")
 DRAW_S = 1.45
 box("dr_paper", (0.42, 0.006, 0.3), (0, 0, 0), mat("white"), DRAW, ol=0.006)
-_d = [(-0.17, -0.01, -0.06), (-0.12, -0.01, -0.1), (0.12, -0.01, -0.1), (0.17, -0.01, -0.06), (0.15, -0.01, 0.0),
-      (-0.15, -0.01, 0.0), (-0.17, -0.01, -0.06)]
-path_tube("dr_bump", _d, 0.006, mat("red"), DRAW, rs=6)
-path_tube("dr_wingL", [(-0.15, -0.01, 0.0), (-0.19, -0.01, 0.1), (-0.1, -0.01, 0.03)], 0.006, mat("red"), DRAW, rs=6)
-path_tube("dr_wingR", [(0.15, -0.01, 0.0), (0.19, -0.01, 0.1), (0.1, -0.01, 0.03)], 0.006, mat("red"), DRAW, rs=6)
-path_tube("dr_lip", [(-0.14, -0.01, -0.11), (0.0, -0.01, -0.13), (0.14, -0.01, -0.11)], 0.006, mat("#5d718a"), DRAW, rs=6)
-for _k, _x in enumerate((-0.08, 0.0, 0.08)):
-    path_tube(f"dr_star{_k}", [(_x - 0.02, -0.01, 0.08), (_x + 0.02, -0.01, 0.12)], 0.005, mat("sage"), DRAW, rs=6)
+
+
+def _drawing_mat():
+    """Crayon sketch of our 350Z bumper (traced from the lookbook model: z350/drawing.png), on the paper's front face."""
+    m = bpy.data.materials.new("m_drawing")
+    m.use_nodes = True
+    nt = m.node_tree
+    nt.nodes.clear()
+    out = nt.nodes.new("ShaderNodeOutputMaterial")
+    tc = nt.nodes.new("ShaderNodeTexCoord")
+    mp = nt.nodes.new("ShaderNodeMapping")
+    mp.inputs["Scale"].default_value = (1 / 0.4, 1, 1 / 0.28)
+    mp.inputs["Location"].default_value = (0.5, 0, 0.5)
+    sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+    com = nt.nodes.new("ShaderNodeCombineXYZ")
+    im = nt.nodes.new("ShaderNodeTexImage")
+    im.image = bpy.data.images.load("/home/user/media/work/ep1/z350/drawing.png")
+    im.extension = "CLIP"
+    em = nt.nodes.new("ShaderNodeEmission")
+    em.inputs["Strength"].default_value = 1.0
+    nt.links.new(tc.outputs["Object"], mp.inputs["Vector"])
+    nt.links.new(mp.outputs["Vector"], sep.inputs[0])
+    nt.links.new(sep.outputs["X"], com.inputs["X"])
+    nt.links.new(sep.outputs["Z"], com.inputs["Y"])
+    nt.links.new(com.outputs[0], im.inputs["Vector"])
+    nt.links.new(im.outputs["Color"], em.inputs["Color"])
+    nt.links.new(em.outputs[0], out.inputs["Surface"])
+    return m
+
+
+box("dr_art", (0.4, 0.002, 0.28), (0, -0.0045, 0), _drawing_mat(), DRAW)
 
 
 def build_printer():
@@ -582,11 +720,11 @@ CRACK = path_tube("CRACK", [(-0.1, 0, 0.2), (-0.05, 0, 0.12), (-0.07, 0, 0.08), 
 STOREBOX = empty("STOREBOX")
 box("sb_box", (0.9, 0.3, 0.45), (0, 0, 0.225), mat("#c49a6c"), STOREBOX, 0.01, 0.012)
 box("sb_tape", (0.9, 0.31, 0.04), (0, 0, 0.3), mat("#a07a52"), STOREBOX)
-bumper_mesh("sb_pic", "sage", STOREBOX, (0, -0.17, 0.08), s=0.36, seams=False)
+bumper_mesh("sb_pic", "sage", STOREBOX, (0, -0.15, 0.06), s=0.36, seams=False, flat=True)
 
 CATALOG = empty("CATALOG", None, (-3.1, 3.5, 1.55))
 box("cat_page", (1.0, 0.01, 1.3), (0, 0, 0), mat("white"), CATALOG, ol=0.008)
-bumper_mesh("cat_bump", "#5d718a", CATALOG, (0, -0.02, 0.12), s=0.7, seams=False)
+bumper_mesh("cat_bump", "#5d718a", CATALOG, (0, 0.0, 0.05), s=0.56, seams=False, flat=True)
 for _k in range(3):
     box(f"cat_line{_k}", (0.6 - 0.12 * _k, 0.004, 0.035), (0, -0.012, -0.32 - 0.08 * _k), mat("#c6c8c5"), CATALOG)
 STAMP = text3d("STAMP", "DISCONTINUED", 0.2, "red", CATALOG, (0, -0.14, -0.08), rot=(90, 0, 12), extrude=0.01, glow=1.0)
@@ -652,7 +790,7 @@ def reset_anim():
         ob.scale = (1, 1, 1)
     DRAW.scale = (DRAW_S,) * 3
     BOARD.location = (BOARD_XY[0], BOARD_XY[1], 0)
-    RECEIPT.location = (0, -0.03, TOP_Z - 0.08)
+    RECEIPT.location = (0, 0, 0)
     RECEIPT.rotation_euler = (0, 0, 0)
 
 
@@ -688,7 +826,7 @@ def hold_drawing(k_up=1.0, side="L"):
     bpy.context.view_layer.update()
     hp = PIP.hands[side].matrix_world.translation
     DRAW.parent = None
-    DRAW.location = hp + Vector((-0.22, -0.12, 0.08 + 0.08 * k_up))
+    DRAW.location = hp + Vector((-0.26, -0.34, -0.2 + 0.04 * k_up))   # v2: held in front of his chest, clear of his head
     DRAW.rotation_euler = (math.radians(-8), math.radians(-6), math.radians(8))
     DRAW.scale = (DRAW_S,) * 3
     set_vis(DRAW, True)
@@ -761,13 +899,12 @@ def anim_E04(fr):
     PR_GANTRY.location = (0, 0, 0.32 + 0.02 * math.sin(t * 2))
     tf = W(4, 2)
     if t >= tf - 0.15:
-        k = eback((t - tf + 0.15) / 0.4, 1.8)
-        sg = spaghetti("spag_a", PRINTER, (0, 0, 0.11), s=1.25 * k + 0.01, seed=5)
-        temp(sg)
+        k = eout((t - tf + 0.15) / 0.5)   # v2: the nest grows out of the stalled part (no scale pop)
+        temp(spaghetti("spag_a", PRINTER, (0, 0, 0.11), s=1.25, seed=5, frac=0.15 + 0.85 * k))
     ta = W(4, 4)
     if t >= ta - 0.1:
-        k = eback((t - ta + 0.1) / 0.3, 1.8)
-        temp(spaghetti("spag_b", PRINTER, (0.1, -0.05, 0.11), s=1.0 * k + 0.01, seed=9, key="white"))
+        k = eout((t - ta + 0.1) / 0.4)
+        temp(spaghetti("spag_b", PRINTER, (0.06, -0.03, 0.2), s=1.0, seed=9, key="white", frac=0.1 + 0.9 * k, base=False))
     cam_push((3.0, 1.15, 1.75), (3.15, 3.15, 1.35), 30, 0.12 * ease(u))
 
 
@@ -849,7 +986,7 @@ def anim_E07(fr):
     pip_pose(t, P_HOME, -20, look_=(-0.4, 0.9), head=(-16, 0, 4))
     # v1.1: after the clock drops, tilt down the bill so ~250 HRS (bottom slot) is on screen when it lands
     kt = ease(cl((t - th) / 0.6))
-    cam_push((0.12, -4.6, lerp(2.2, 1.35, kt)), (0.12, -1.3, lerp(2.05, 0.55, kt)), 34, 0.12 * ease(u))
+    cam_push((0.12, -4.6, lerp(2.2, 1.45, kt)), (0.12, -1.3, lerp(2.05, 0.72, kt)), 34, 0.12 * ease(u))
 
 
 def anim_E08(fr):
@@ -935,7 +1072,7 @@ def anim_E10(fr):
                 continue
             set_vis(b, True)
             kk = eout((t - ta) / 0.35)
-            zr = 0.23 * k
+            zr = 0.27 * k   # v2: 350Z bumper is taller
             b.location = (lerp(-3.6, -2.75, kk), -1.05, zr + 0.6 * (1 - kk) * (kk < 1))
         look(cam, (-3.05, -3.6, 1.15), (-3.1, -0.85, 0.5), 30)
 
@@ -986,21 +1123,22 @@ def anim_E12(fr):
 
 
 def anim_E13(fr):
-    """'Where do we start?' - Pip, thrilled, rips the bill off the board (it flutters away)."""
+    """'Where do we start?' - Pip, thrilled, wipes the whiteboard clean with one sweep."""
     t, u = fr / FPS, prog(fr, "E13")
     set_vis(BOARD, True)
     tr = W(13, 0) + 0.1
     k = eout((t - tr) / 0.5)
-    bill(t, 2.0)
-    RECEIPT.location = (k * 1.4, -0.03 - k * 0.8, TOP_Z - 0.08 + k * 0.6)
-    RECEIPT.rotation_euler = (math.radians(30 * k), math.radians(-70 * k), math.radians(40 * k))
-    for ic in ICONS:   # icons fly with the paper (hidden once it is off)
-        if k > 0.05:
-            set_vis(ic["g"], False)
+    bill(t)
+    for j, ic in enumerate(ICONS):   # v2: his sweep wipes the board clean, top row first
+        kw = cl((k - 0.05 * j) / 0.25)
+        if kw > 0:
+            ic["g"].scale = (1.25 * (1 - kw),) * 3
             if ic["lab"]:
-                set_vis(ic["lab"], False)
-    if k <= 0.05:
-        receipt_curl(1.0)
+                ic["lab"].scale = ((1 - kw),) * 3
+            if kw >= 1:
+                set_vis(ic["g"], False)
+                if ic["lab"]:
+                    set_vis(ic["lab"], False)
     set_vis(CLOCK, False)
     pip_pose(t, (0.42, -1.75, 0), lerp(20, -10, k), look_=(0.3, 0.6), hop=0.1 * abs(math.sin(math.pi * k)),
              armL=(lerp(-150, -60, k), 0, lerp(14, 60, k)), elbowL=-20)
@@ -1013,7 +1151,6 @@ def anim_E14(fr):
     """'We scan the car.' - Gus picks up the scanner and turns to the car; Pip hops after him. Hard cut on the beat."""
     t, u = fr / FPS, prog(fr, "E14")
     set_vis(BOARD, True)
-    RECEIPT.scale = (1, 1, 0.0001)
     for ic in ICONS:
         set_vis(ic["g"], False)
         if ic["lab"]:
@@ -1044,6 +1181,13 @@ for sh in EP_SHOTS:
         reset_anim()
         ANIM[sh](fr)
         bpy.context.view_layer.update()
+        if os.environ.get("EP1_DEBUG"):   # print world bounds of named objects instead of rendering
+            for nm in os.environ["EP1_DEBUG"].split(","):
+                o = bpy.data.objects[nm]
+                ws = [o.matrix_world @ Vector(c) for c in o.bound_box]
+                print(f"[dbg] {fr} {nm} z {min(v.z for v in ws):.2f}..{max(v.z for v in ws):.2f} "
+                      f"x {min(v.x for v in ws):.2f}..{max(v.x for v in ws):.2f} vis {not o.hide_render}", flush=True)
+            continue
         scn.render.filepath = os.path.join(d, f"{fr:04d}_tmp")
         t0 = time.time()
         bpy.ops.render.render(write_still=True)
