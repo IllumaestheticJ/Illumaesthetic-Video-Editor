@@ -19,7 +19,7 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 - The deviation map is colour only.
 - End the video with the question "Do you design in CAD or in mesh?".
 
-Status: **Script APPROVED by owner 2026-11-17.** Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
+Status: **Script v5 APPROVED by owner 2026-11-17** (keep "Is it done yet?"). Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
 
 ## v5 changes (owner accuracy note, 2026-11-17)
 - **Owner:** "if you plan on manufacturing it - it needs to be in STP for a machine tool, but if you're only printing it, .stl is fine".
@@ -88,13 +88,13 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
 ## End cards
 - **32-35.5 s, closing card (the last frame of the video):**
-  - The Illumaesthetic logo, with **DO YOU DESIGN IN CAD OR IN MESH?** under it (owner request, 2026-11-16).
+  - The Illumaesthetic logo, with **WHAT SOFTWARE DO YOU USE TO DESIGN PARTS?** under it (owner, 2026-11-17; replaces "Do you design in CAD or in mesh?").
   - Fjalla One on the dark plate; this is a card, not text over footage.
   - No other call to action.
   - **Voice only (no captions, no new text), the hand-off to Ep 6:**
     - PIP [excited] "Design's done. Hit print!"
     - GUS [matter-of-fact] "It's bigger than the printer."
-  - **Check:** the series rule says the ending is voice only with no new text, and your question text is still on this card. I've kept both, since the question was your request; say if the text should go.
+  - The owner kept the question text on the card alongside the voice-only hand-off.
 
 ## Rules this script follows
 - **No numbers:** no number on screen or in dialogue, and no tolerances, hours or prices. The deviation-map legend is only shown if the owner OKs it (Q3); its values come from the file.

@@ -8,3 +8,6 @@
 {"ts": "2026-11-17T06:51:55Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "story", "note": "Script approved ('accoved')", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T06:55:32Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "story", "note": "Use the NSX bumper (NA1 Bumper.stl + .stp) for the real section", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T07:14:31Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "script", "note": "Not entirely accurate: if you plan on manufacturing it, it needs to be STEP (STP) for a machine tool; if you're only printing it, STL is fine", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T10:41:39Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "script", "note": "Script v5 approved; keep 'Is it done yet?'", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T10:41:39Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Pronounce NURBS clearly with the B ('nurbs', not 'nerves')", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T10:41:39Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "text", "note": "Closing card text: 'WHAT SOFTWARE DO YOU USE TO DESIGN PARTS?' (replaces 'Do you design in CAD or in mesh?')", "by": "reviewer", "promoted": false}
