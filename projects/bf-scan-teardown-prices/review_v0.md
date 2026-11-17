@@ -98,3 +98,9 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
   - One beat later: the "30% OFF THE CIVIC FE KIT" pill appears in front of the doors, with "WWW.EPSILON.PLUS" on the floor.
   - The car matte comes from `tools/ron_mask_v0.py` (same camera, transparent film). It is used above the floor line (y 1088) only, because the floor glow is in the alpha.
 - 22.6 s, -14.0 LUFS, true peak -2.8 dBFS, safe-zone text boxes OK. The cuts are unchanged from v0.6.
+
+## v0.8 (owner font rule, knowledge/fonts.md)
+
+- URL under the logo: Unbounded 400. Part names and struck was-prices: Unbounded 500 (repo `assets/fonts/unbounded/`).
+- BLACK FRIDAY, the offer pill, the BF prices and the % OFF pills use Unbounded 900 as a **stand-in for Akira**. The owner still needs to supply the Akira file, then swap it into `font("b")`.
+- -14.0 LUFS, true peak -2.8 dBFS, safe-zone text boxes OK. Timing is the same as v0.7.
