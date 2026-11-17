@@ -86,3 +86,15 @@ CHANGE COLOR through all 12 store colours ($715, ~~$850~~) -> back to the lineup
 - 37 click / colour-change events vs measured music onsets: mean -4.5 ms, max 25 ms (frame-quantised).
 - Contact sheet (44 frames) looked at: every colour appears with its name, code and price; nothing clipped. The first pass had
   the tabs over the icon row and the offer-screen price off the right edge; both were fixed.
+
+# v0.3 (2026-11-17): safe zones
+
+Owner rule (knowledge/safe-zones.md): no text or elements in the app buffer zones. v0.2 failed `scripts/safezone_check.py`: the
+icon row and tabs were in the top zone; the price, BUY ring and bottom bar were in the bottom 480 px; the colour name and CHANGE
+COLOR button were under the right rail. v0.3 (`tools/compose_v03.py`) re-lays every menu screen inside x 48-920 / y 285-1440,
+which is also inside the 4:5 feed crop. Timeline, colours, prices, music and SFX are unchanged from v0.2.
+Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.3.mp4`.
+- Checker sheet looked at: nothing in red or amber. Measured bounding box of all non-black pixels over the whole video:
+  x 48-924, y 288-1444 at a 4 px sampling grid (i.e. inside the safe box).
+- Loudness -14.0 LUFS, peak -1.5 dBFS.
+- Trade-off: the menu now fills about 80 % of the width and 60 % of the height, with black around it.
