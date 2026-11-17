@@ -19,3 +19,6 @@ remotion/out/
 graphify-out/.graphify_*
 !graphify-out/.graphify_labels.json
 graphify-out/cache/
+
+# Character reference images (Del & Eps) are committed on purpose
+!knowledge/characters/**/*.jpg
