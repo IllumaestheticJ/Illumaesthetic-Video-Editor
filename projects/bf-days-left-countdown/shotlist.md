@@ -20,7 +20,7 @@ wordmark. One template, re-rendered per posting day: only the numeral and the li
 | `sale_end` | ISO datetime, Pacific | `2026-12-01T23:59-08:00` | **Not set yet** (the owner's BF doc says the window is open). Required before any render. |
 | `post_date` | date, Pacific | `2026-11-26` | The day the reel goes up. A reel rendered for one day is never posted on another. |
 | `show_end_line` | bool | `false` | When true, adds "ENDS <Mon> <D>, <h:mm> PT" under the wordmark. Default **off** until the owner confirms the window. |
-| `offer_line` | string or empty | `""` | Optional one-liner under "DAYS LEFT". Only wording built from `MASCOT_AND_PRICES.md` and confirmed by the owner for this reel (see Q4). Empty by default. |
+| `offer_line` | string or empty | `""` | Optional one-liner under "DAYS LEFT". Numbers only from the BF liquidation sheet (`projects/_blackfriday/PRICES.md`; snapshot `bf_liquidation_pricing.csv`, commit 7ec3adf; re-read the live Pricing tab before render), wording confirmed by the owner (Q4). Never a stock count. Empty by default. |
 
 **Countdown calendar (fill in once `sale_end` is known):**
 
@@ -73,7 +73,7 @@ Optional end sting (+1.5 s, off by default to stay short): the 10 mm gag from BF
 - No IRL footage in this reel, so no text-over-IRL conflict.
 - The scans and numeral are silver; Del & Eps are the only colour.
 - The characters never touch the geometry: Eps scans from a distance, and Del taps his own belt.
-- No prices or dates on screen unless confirmed (Q3, Q4).
+- No prices or dates on screen unless confirmed (Q3, Q4). Any number comes from the liquidation sheet (PRICES.md), never from the store's stock.
 
 ---
 
@@ -126,7 +126,9 @@ Each output is named `bf9_days-left_<days_left>_<post_date>.mp4`. Before handing
 4. **Offer line under the number?** Options:
    - none (default);
    - "BLACK FRIDAY SALE";
-   - a tier from your doc, e.g. "30% OFF LIPS, SKIRTS & SPATS". The doc's 60% tier is a single product (the Integra trunk lip), so I wouldn't write "UP TO 60% OFF" unless you want that line.
+   - a tier from the liquidation sheet (the price source of truth per the owner, `projects/_blackfriday/PRICES.md`), e.g. "30% OFF PU LIPS & SKIRTS".
+   - "UP TO 60% OFF" is true, but the sheet's only 60% item is the Integra trunk lip, so it rests on that one product. Your call.
+   - Per the owner, every item the sheet prices is on sale even when backordered; no stock counts on screen.
 5. **Numeral style:** I recommend **A**, a clean silver numeral built by Eps' scan sweep. One rig works for every digit, so re-renders are cheap.
    - **B:** the digit physically **assembled from kit parts**: lips, skirts and spats from the Integra GLB laid out into the shape of a 5, 3 or 1.
    - B looks great, but each digit needs its own hand layout (more work per day), and the parts would be posed off-car, which bends the "parts move the way they unbolt" rule. Your pick.

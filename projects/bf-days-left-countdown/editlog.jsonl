@@ -3,3 +3,4 @@
 {"ts": "2026-11-17T04:22:17Z", "decision": "Numeral is Blender geometry, never in AI prompts/frames", "why": "AI image/video models draw digits unreliably; never invent on-screen numbers"}
 {"ts": "2026-11-17T04:22:17Z", "decision": "Del taps his tape roll instead of a watch", "why": "Locked model sheet has no watch; don't alter the locked look without the owner's OK (asked as Q6)"}
 {"ts": "2026-11-17T04:22:17Z", "decision": "Music: provisional claim DJ EV BLACK FRIDAY (CML 7419416839039518737)", "why": "All /Moosic tracks already used by other reels; this one is unused in repo and MUSIC.md"}
+{"ts": "2026-11-17T04:24:20Z", "decision": "Offer-line numbers sourced from the BF liquidation sheet (PRICES.md)", "why": "Owner decision relayed by parent: the sheet is the price source of truth, backordered items included, no stock counts on screen"}
