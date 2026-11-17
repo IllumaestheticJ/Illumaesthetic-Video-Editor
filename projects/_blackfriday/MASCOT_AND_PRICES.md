@@ -13,7 +13,7 @@ Read `knowledge/characters/del-and-eps/README.md`, now also on this branch. In s
 - **Do NOT use** a big moustache or flat cap, and no bulbous nose. That earlier round looked too much like a famous game character.
 - **The colour question is answered.** Variants A/B/C and the silver v0.1 look below are superseded.
 - **Reference images** are AI renders from Higgsfield GPT Image 2.6, job IDs bdb1a2e8, 069f42d6, e3315b11 and 85f40a22.
-- **The JPGs are not in git yet:** .gitignore blocked them. The parent has asked the authoring session to commit them under knowledge/characters/del-and-eps/. Until they land, plan from the README and say the sheet is pending.
+- **The reference images are on this branch** in knowledge/characters/del-and-eps/: del-eps-model-sheet.jpg is THE reference.
 - **Building them:** for stills and video, use the model sheet as the reference image (Higgsfield reference element) and composite the characters over renders of our real scans. A 3D build must match the sheet.
 
 ---
