@@ -8,9 +8,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
-R = f"{M}/renders_v0"
+R = f"{M}/renders_v01"
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.mp4"
+OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.1.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 FB = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
@@ -81,8 +81,7 @@ run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{W}/li
 s5_start = (77 + 73 * 3) / 30          # 9.867 s
 t_count0, t_count1 = 10.45, 12.20      # count enters on the snare, leaves before the end-card cut
 end_start = sum(n for _, n in SHOTS) / 30
-fc = (f"[0:v][2:v]overlay=0:0:enable='lt(t,{end_start:.3f})'[a];"
-      f"[a][3:v]overlay=0:0:enable='between(t,{t_count0},{t_count1})'[v]")
+fc = (f"[0:v][3:v]overlay=0:0:enable='between(t,{t_count0},{t_count1})'[v]")
 dur = TOTAL / 30
 run(["ffmpeg", "-v", "error", "-y", "-i", f"{W}/cut.mp4", "-i", f"{M}/music/luxury.wav",
      "-loop", "1", "-i", f"{W}/placeholder.png", "-loop", "1", "-i", f"{W}/count.png",
