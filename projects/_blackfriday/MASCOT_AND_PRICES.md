@@ -1,5 +1,23 @@
 # Black Friday: Epsilon mascot + confirmed BF prices (2026-11-17)
 
+## LOCKED LOOK (owner, 2026-11-17): this supersedes the concept pages below
+
+The owner's instruction: "Use the Del & Eps character reference in knowledge/characters/del-and-eps/ (from branch claude/clever-shannon-u8rv5l), with del-eps-model-sheet.jpg as the reference image."
+
+Read `knowledge/characters/del-and-eps/README.md`, now also on this branch. In short, the look is a simplified, matte, arcade-racing-game 3D style: smooth plastic-like surfaces, minimal faces, slightly big heads, mitten gloves, chunky boots and pit radio headsets.
+
+- **Del** has a short salt-and-pepper boxed beard covering his mouth, and a petrol-teal cap with an orange brim under his headset. He wears a teal crew shirt with orange shoulder panels and stripes, dark teal cargo pants, grey knee pads, black and orange boots, and a masking-tape roll on his belt.
+- **Eps** wears a violet cap **backwards** (yellow brim at the back) under his headset, and a dark wraparound visor with two glowing yellow eye marks. He has a violet crew shirt with hi-vis yellow shoulders, white shorts over dark leggings and white sneakers. He carries a handheld scanner (dark pistol grip, two cyan lenses) and a cordless drill.
+- **Colours:** Del #0f5c63 / #ff7a1a; Eps #6b3cff / #ffd21f; scanner light #6fc3d6.
+- **Scans:** stay silver on black, and the characters are the only colour in frame.
+- **Do NOT use** a big moustache or flat cap, and no bulbous nose. That earlier round looked too much like a famous game character.
+- **The colour question is answered.** Variants A/B/C and the silver v0.1 look below are superseded.
+- **Reference images** are AI renders from Higgsfield GPT Image 2.6, job IDs bdb1a2e8, 069f42d6, e3315b11 and 85f40a22.
+- **The JPGs are not in git yet:** .gitignore blocked them. The parent has asked the authoring session to commit them under knowledge/characters/del-and-eps/. Until they land, plan from the README and say the sheet is pending.
+- **Building them:** for stills and video, use the model sheet as the reference image (Higgsfield reference element) and composite the characters over renders of our real scans. A 3D build must match the sheet.
+
+---
+
 ## The owner's decision: use the Epsilon mascot, Del & Eps (not Pip & Gus)
 
 Source: the owner's concept pages, as claude.ai artifacts:
