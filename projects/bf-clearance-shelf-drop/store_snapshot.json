@@ -1,0 +1,15 @@
+{
+  "taken": "2026-11-17",
+  "price_source": "Black Friday 2026 Liquidation Pricing sheet (claude.ai/artifact/BSCEWTDHHKuC9Yop5xh2X6), tab Pricing, rev 25: 'Current Price' (crossed out) and 'BF 2026 Price'; same as projects/_blackfriday/PRICES.md",
+  "stock_source": "Shopify Epsilon+ Aerodynamics, inventoryQuantity read 2026-11-17",
+  "tags": {
+    "integra": {"title": "INTEGRA\nTRUNK LIP", "rows": [45, 46],
+      "lines": [{"label": "ABS GLOSS BLACK", "was": "$100", "bf": "$40"},
+                {"label": "CARBON FIBER", "was": "$240", "bf": "$96"}],
+      "stock": {"abs": -18, "carbon": -2}, "stock_line": null},
+    "grv1": {"title": "GR COROLLA\nV1 FRONT LIP", "rows": [22, 23],
+      "lines": [{"label": "POLYURETHANE", "was": "$215", "bf": "$129"},
+                {"label": "CARBON FIBER", "was": "$600", "bf": "$330"}],
+      "stock": {"pu": 69, "carbon": 14}, "stock_line": "ONLY 14 LEFT IN CARBON"}
+  }
+}
