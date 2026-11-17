@@ -36,8 +36,8 @@ With the optional tracking-pattern lines (10a/10b): about 31 s cartoon, about 40
 | 8 | GUS | "And black just swallows it." | The pattern on the black trim / black grille fades to nothing; the mesh stays empty there. |
 | 9 | PIP | "So you only spray the tricky bits?" | Pip, eyes narrowing as it clicks. |
 | 10 | GUS | "Glass, chrome, black, badges. Now the light comes back." | Four quick puffs, one per word: window, chrome trim, black grille, badge. The pattern reads crisp on each and the holes fill in. The body paint stays its colour. |
-| 10a | PIP | "Why the squiggles?" | Gus sprays a loose dot/squiggle pattern on the big plain door. |
-| 10b | GUS | "Smooth panels all look the same. It needs something to track." | The scanner's view of the bare door: identical everywhere, a "?" pops; with the squiggles, it locks on. |
+| 10a | PIP | "Why the squiggles?" | Gus sprays a loose squiggle pattern on the big plain door; a few strips of tape already sit on the roof (owner: sometimes tape instead). |
+| 10b | GUS | "Smooth panels all look the same. It needs something to track." | The scanner's view of the bare door: identical everywhere, a "?" pops; with the squiggles (and the taped roof), it locks on. |
 | 11 | PIP | "Does it come off?" | Pip pokes a dusted window; a fingertip print. |
 | 12 | GUS | "...Depends on the spray." | Half-lid Gus. Hard cut on the beat to real footage (sets up Ep 9). |
 
