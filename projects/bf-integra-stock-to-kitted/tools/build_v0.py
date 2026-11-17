@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.8.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.9.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -210,10 +210,10 @@ def highlight(path, polys, amt):
         cv2.fillPoly(m, [p.astype(np.int32)], 255)
     m = cv2.dilate(m, np.ones((5, 5), np.uint8))
     mf = cv2.GaussianBlur(m, (0, 0), 3).astype(np.float32) / 255
-    ring = cv2.GaussianBlur(cv2.dilate(m, np.ones((15, 15), np.uint8)), (0, 0), 6).astype(np.float32) / 255
-    ring = np.clip((ring - mf) * 1.5, 0, 1) * 0.8
-    bl = cv2.GaussianBlur(img, (0, 0), 9).astype(np.float32)
-    bl = (0.5 * bl + 0.5 * bl.mean(2, keepdims=True)) * 0.55
+    ring = cv2.GaussianBlur(cv2.dilate(m, np.ones((9, 9), np.uint8)), (0, 0), 4).astype(np.float32) / 255
+    ring = np.clip((ring - mf) * 1.5, 0, 1) * 0.35   # v0.9 (user: "too much, more subtle"): was 0.8
+    bl = cv2.GaussianBlur(img, (0, 0), 3.5).astype(np.float32)  # was sigma 9
+    bl = (0.8 * bl + 0.2 * bl.mean(2, keepdims=True)) * 0.8     # was 50 % desat, 55 % brightness
     out = img.astype(np.float32) * mf[..., None] + bl * (1 - mf[..., None])
     out = out * (1 - ring[..., None]) + np.array(SALE_RED[::-1], np.float32) * ring[..., None]
     out = img.astype(np.float32) * (1 - amt) + out * amt
@@ -249,12 +249,12 @@ def load_kit2(parts_p, body_p):
         lay.alpha_composite(im, (round(dx), round(dy)))
         return lay
     body, parts = place(body_p), place(parts_p)
-    b = np.array(body.filter(ImageFilter.GaussianBlur(9))).astype(np.float32)
-    b[..., :3] *= 0.42
+    b = np.array(body.filter(ImageFilter.GaussianBlur(3.5))).astype(np.float32)  # v0.9: was blur 9 / 42 %
+    b[..., :3] *= 0.7
     bg = Image.new("RGBA", (W, H), CHARCOAL + (255,))
     bg.alpha_composite(Image.fromarray(b.astype(np.uint8)))
     a = parts.split()[3]
-    glow = a.filter(ImageFilter.MaxFilter(7)).filter(ImageFilter.GaussianBlur(6)).point(lambda v: min(255, int(v * 1.5)))
+    glow = a.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(4)).point(lambda v: min(255, int(v * 0.6)))
     g = Image.new("RGBA", (W, H), SALE_RED + (0,)); g.putalpha(glow)
     bg.alpha_composite(g)
     bg.alpha_composite(parts)
@@ -328,7 +328,7 @@ def main():
     for f in glob.glob(os.path.join(FR, "*.png")):
         os.remove(f)
     n = [CUTS[i + 1] - CUTS[i] for i in range(len(CUTS) - 1)]
-    s1 = doubled(os.path.join(M, "render/s1_stockpass_wide/f_*.png"), n[0])
+    s1 = doubled(os.path.join(M, "render/s1_stockpass_wheels/f_*.png"), n[0])
     s3 = video_frames(os.path.join(M, "clips/s3_0371_wide.mp4"), n[1], "s3")
     s4 = video_frames(os.path.join(M, "clips/s4_0370_wide.mp4"), n[2], "s4")
     s5 = doubled(os.path.join(M, "render/s5_parts_held/f_*.png"), n[3])      # v0.8: parts, body held out
