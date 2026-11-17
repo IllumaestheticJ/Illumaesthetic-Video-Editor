@@ -1,6 +1,6 @@
-# Pip & Gus Ep 3: sources
+# Pip & Gus Ep 4: sources
 
-## Owner photos (WhatsApp, sent in chat 2026-11-17). Local only: /home/user/media/pip-gus-ep3-print-the-scan/photos/
+## Owner photos (WhatsApp, sent in chat 2026-11-17). Local only: /home/user/media/pip-gus-ep4-print-the-scan/photos/
 Full set in the owner's WhatsApp; the owner can save the folder if needed.
 - IMG_0763/0764: the crash, front bumper torn off (police vehicles and traffic in the background; owner OK'd showing it, blur readable plates)
 - IMG_0765/0766/0767: the printed bumper fitted on the car (raw print, seams visible); 0767 = whole car, 0765 = close three-quarter
@@ -21,6 +21,6 @@ Car scans: Engineering Design / Ford Mustang Shelby GT350 (S197) (folder 1YHNNMD
 Reverse-engineered bumper + lip: Ron's Folder / GT350 Bumper (1ka5uMxwK4WB3rPcKLEwjYdsDYfLSK1hl)
 - Bumper/GT350Bumper(mirrored-need-manifold-cleanup).stl (12Z8qGXMbQfP24KcUkuSsqsiEzCRa2yNW, 287 MB)
 - Bumper/GT350Bumper.3mf (1SdIkkpp9Gm6rVY0uwZoxLVU75h289E_h)
-- Bumper/Slice Test/: the bumper split into 46 print pieces (part01..part46 .stl). Also good material for Ep 9 (the whole-bumper finale).
+- Bumper/Slice Test/: the bumper split into 46 print pieces (part01..part46 .stl). Held for the Ep 9 finale (gluing, finished bumper on the car).
 - Lip/Lip.004-.008.stl and GT350 Lip.3mf (folder 1A3MTeJpA82dSWOb6dr6IMSSeZU25zvvH)
 Nothing downloaded yet: renders wait for script approval.
