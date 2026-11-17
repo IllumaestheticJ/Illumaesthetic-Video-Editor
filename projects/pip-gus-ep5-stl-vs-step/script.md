@@ -69,16 +69,15 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
 | t (s) | Shot | Source |
 |---|---|---|
-| 27.6-29.0 | Real footage of the bumper or car (still open: no NSX or F100 footage found in Dropbox) | TBD |
-| 29.0 (beat) | **Hard cut** to the bumper STL scan in the house silver look (1:1 if real footage of this bumper exists) | Drive: `NA1 NSX/NA1 Bumper.stl` (about 125 MB, a raw scan) |
-| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: `NA1 NSX/NA1 Bumper.stp` |
+| 27.6-29.0 | Real: the C5 Corvette front end at the shop | Dropbox `/2. Illumaesthetic Videos/1. Video dumps/C5 Corvette` (DJI, Jul 2025; see `projects/c5-corvette/clips.md`) |
+| 29.0 (beat) | **Hard 1:1 cut** to the C5 front-bumper STL scan in the house silver look, from the solved camera | Drive: C5 Scans/Scan Data `front bumper.stl`, already registered in the c5-corvette project; or the anti-boomer STL |
+| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: Ecky's C5 anti-boomer bumper STEP (location still to be confirmed) |
 | 30.6-32.0 | The STL-vs-STEP deviation map: **colour only, no legend, no numbers** | Computed from the two files |
 
-**Project choice (owner, 2026-11-17: "use a bumper - not ioniq"):** the NA1 NSX bumper. It is the best scan + STEP pair on the Drive. Other bumper pairs:
-- **F100 bumper:** `F100 Bumper-Whole.stl` (scan) and `F100 Bumper-Whole_R1.stp`.
-- **NSX lower front end:** `NSX Lower Front End.stl` (500 MB scan) and its `.stp` (2023).
-- **Nissan bumper:** `Nissan Bumper.stl` and `.stp` (2022).
-- **Model 3 front bumper:** scans and a `-3dp.stp`.
+**Project choice (owner, 2026-11-17):** the C5 Corvette anti-boomer bumper (Ecky's), which has both an STL and a STEP.
+- **Footage:** C5 footage exists in Dropbox, and the c5-corvette reel already solved 1:1 cuts on this car. That makes a true 1:1 cut possible here.
+- **Lesson to respect:** the C5 footage can post-date the scans (it shows widebody prototyping). Only use frames where the front bumper matches the scanned state.
+- **Fallback:** the NA1 NSX pair (`NA1 Bumper.stl` / `.stp`).
 
 ## End cards
 - **32-35.5 s, closing card (the last frame of the video):**
