@@ -125,7 +125,7 @@ def car_screen(car, k, colour, flash=0.0, cc_hot=False):
     while d.textlength(c['title'], font=SERIF(fs)) > CAR_W - 20: fs -= 4
     tw = d.textlength(c['title'], font=SERIF(fs)); d.text((CX - tw / 2, 356 + (104 - fs) // 2), c['title'], font=SERIF(fs), fill=WHITE)
     sw = d.textlength(c['sub'], font=f_code); d.text((CX - sw / 2, 482), c['sub'], font=f_code, fill=GREY)
-    ci = car_img(car, k, '#8a8f96' if base else colour[2], base).resize((CAR_W, CAR_H), Image.LANCZOS)
+    ci = car_img(car, k, BLACK[2] if base else colour[2], base)   # owner: gloss black base wing only on a black car.resize((CAR_W, CAR_H), Image.LANCZOS)
     im.paste(ci, (X0, CAR_Y)); d = ImageDraw.Draw(im)
     y = 1034; fb = F('InterDisplay-Bold.otf', 26)
     for t in ('BASE WING 30% OFF', 'PAINT MATCH AVAILABLE', c.get('third', 'FRONT LIP + SKIRTS 30% OFF')):   # sheet: lips/skirts 30 %
