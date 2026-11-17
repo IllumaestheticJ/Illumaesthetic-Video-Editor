@@ -12,7 +12,12 @@ M = '/home/user/media/bf-integra-385-combo'
 R = f'{M}/work/render_v0'
 TMP = f'{M}/work/comp_v0'; os.makedirs(TMP, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
-LEN = [97, 71, 71, 71, 70, 71, 71, 71]   # cuts on measured kick attacks (decoded audio): 97 168 239 310 380 451 522          # shots 1-6 renders, 7 = C0222, 8 = end card
+# v0.2 timeline (user: both parts on the car at the end; scan shows the stock spoiler coming off)
+# (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
+TIMELINE = [('render', 's1', 1, 97), ('render', 's2', 2, 71), ('render', 's3', 3, 71), ('render', 's4', 4, 71),
+            ('render', 's7', 0, 70), ('render', 's8', 0, 71), ('render', 's9', 0, 71),
+            ('irl', 'C0240', 0, 71), ('card', None, 8, 71)]
+LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (255, 122, 26, 255); YELLOW = (255, 210, 31, 255)
 F_TITLE = '/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'
@@ -127,11 +132,9 @@ def overlay(shot, fr):
     return img
 
 
-def plate_frames(shot):
-    """render PNGs (15 fps) -> list of 1080x1920 RGB arrays at 30 fps via ffmpeg minterpolate"""
-    n = LEN[shot - 1]
-    src = f'{R}/s{shot}'
-    cmd = ['ffmpeg', '-v', 'error', '-framerate', '15', '-pattern_type', 'glob', '-i', f'{src}/f*.png',
+def plate_frames(src, n):
+    """render PNGs (15 fps) -> 1080x1920 RGB arrays at 30 fps via ffmpeg minterpolate"""
+    cmd = ['ffmpeg', '-v', 'error', '-framerate', '15', '-pattern_type', 'glob', '-i', f'{R}/{src}/f*.png',
            '-vf', 'minterpolate=fps=30:mi_mode=blend,scale=1080:1920:flags=lanczos,format=rgb24', '-frames:v', str(n),
            '-f', 'rawvideo', '-']
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
@@ -140,10 +143,16 @@ def plate_frames(shot):
     return fr
 
 
-def c0222_frames():
-    n = LEN[6]
-    cmd = ['ffmpeg', '-v', 'error', '-i', f'{M}/footage/C0222.MP4', '-vf',
-           'fps=30,scale=-2:1920:flags=lanczos,crop=1080:1920:iw*0.50-540:0,format=rgb24', '-frames:v', str(n), '-f', 'rawvideo', '-']
+def irl_frames(name, n, start=12.3, cx0=0.50, cx1=0.62):
+    """C0240 (finished car, Sport Wing + trunk lip, flat profile): grade, a 45 %-wide crop that follows the car,
+    on a blurred, darkened fill of itself (no text ever goes on this shot)"""
+    dur = n / FPS
+    fc = (f'[0:v]fps=30,eq=contrast=1.3:saturation=1.2:gamma=0.9,split[a][b];'
+          f"[a]crop=iw*0.45:ih:x='iw*({cx0}+{cx1 - cx0}*t/{dur:.3f})-ow/2':y=0,scale=1080:1350:flags=lanczos[fg];"
+          f'[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.22[bg];'
+          f'[bg][fg]overlay=0:285,format=rgb24')
+    cmd = ['ffmpeg', '-v', 'error', '-ss', str(start), '-i', f'{M}/footage/{name}.MP4', '-filter_complex', fc,
+           '-frames:v', str(n), '-f', 'rawvideo', '-']
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
     fr = np.frombuffer(raw, np.uint8).reshape(-1, H, W, 3)
     if len(fr) < n: fr = np.concatenate([fr, np.repeat(fr[-1:], n - len(fr), 0)])
@@ -154,22 +163,22 @@ def main(out):
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS),
                             '-i', '-', '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', f'{TMP}/video.mp4'],
                            stdin=subprocess.PIPE)
-    for shot in range(1, 9):
-        if shot <= 6: plates = plate_frames(shot)
-        elif shot == 7: plates = c0222_frames()
-        else: plates = np.zeros((LEN[7], H, W, 3), np.uint8) + 3
-        for i in range(LEN[shot - 1]):
+    for kind, src, ov, n in TIMELINE:
+        if kind == 'render': plates = plate_frames(src, n)
+        elif kind == 'irl': plates = irl_frames(src, n)
+        else: plates = np.zeros((n, H, W, 3), np.uint8) + 3
+        for i in range(n):
             base = Image.fromarray(plates[i]).convert('RGBA')
-            if shot != 7:  # never put anything over IRL footage
-                base.alpha_composite(overlay(shot, i))
+            if kind != 'irl' and ov:  # never put anything over IRL footage
+                base.alpha_composite(overlay(ov, i))
             enc.stdin.write(np.asarray(base.convert('RGB')).tobytes())
-        print('shot', shot, 'frames', LEN[shot - 1], flush=True)
+        print(kind, src, 'frames', n, flush=True)
     enc.stdin.close(); enc.wait()
     dur = CUTS[-1] / FPS
     # music from the song's beginning, fade with the end card, -14 LUFS / TP < -1 (gain then limiter)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{TMP}/video.mp4', '-i', f'{M}/music/getlow.wav',
                     '-filter_complex', f'[1:a]atrim=0:{dur:.3f},afade=t=out:st={dur - 0.7:.3f}:d=0.7,'
-                    'loudnorm=I=-13.6:TP=-2:LRA=11,alimiter=limit=0.79:attack=1:release=60:level=disabled[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k',
+                    'loudnorm=I=-14.5:TP=-2:LRA=11,alimiter=limit=0.79:attack=1:release=60:level=disabled[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k',
                     '-ar', '48000', '-shortest', out], check=True)
     print('WROTE', out, dur)
 
