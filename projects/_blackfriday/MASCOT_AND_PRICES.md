@@ -74,7 +74,7 @@ For BF timing, propose the cheapest path that holds the look.
 
 Search before you build. The research found no model or rig file yet, so check Drive and Dropbox for "Del", "Eps" or a turnaround; if none exists, the build is part of the plan. Use the Pip & Gus pipeline (Blender procedural build, Higgsfield voices) as the technical precedent, not their look.
 
-## Confirmed BF prices (owner's doc "Black Friday 2026 Discounts: TL;DR")
+## (Superseded) BF prices from the TL;DR doc. Use PRICES.md and the liquidation sheet instead
 
 Source: https://claude.ai/artifact/29kGfJ2WPdSAg5QpezXfva (2026-11-16). The detailed sheet is the "Black Friday 2026 Liquidation Pricing" artifact.
 
