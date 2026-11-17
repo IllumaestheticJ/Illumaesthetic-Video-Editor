@@ -10,7 +10,7 @@ Limits that apply to the whole inventory:
 ## 1. Honda Integra DE5
 
 Driving footage:
-- `/2. Illumaesthetic Videos/OLD/Completed/Acura Integra DE4 DE5/integra roller/`: 15 DJI MP4s (rolling shots, 2024-03-24). Not confirmed whether the car is a DE4 or DE5, or which parts it has fitted.
+- `/2. Illumaesthetic Videos/OLD/Completed/Acura Integra DE4 DE5/integra roller/`: 15 DJI 4K MP4s (rolling shots, 2024-03-24). The car is a white DE4 A-Spec (plate 9CHB735) with the Epsilon lip, skirts, spats and a white Sport Wing - not a DE5.
 - `.../Need For Speed Install Videos/DJI_001/Integra` and `nfs integra.mp4`.
 
 Finished edits:
@@ -31,6 +31,7 @@ Photos (Drive):
 - Lookbook GLB `eps-acura-integra-type-s-de5-v19`, inside the website zip (section 7).
 - Scan `Engineering Design/Acura Integra Type S/Integra Type S Full Car.stl` (1.24 GB) [repo].
 - Scan-session clips: `.../Acura Integra DE4 DE5/Integra scan/` (about 58 files).
+- DE4 A-Spec (stock-state full scan, captured 2024-01-08 before the kit existed): `Engineering Design/Acura Integra 2021+/Integra ASpec.stl` (1bx1Rrjxnz8jI6mIDFBL_y44dmcYHVufx, 914 MB); kit-design-frame copy `Integra 2023/Spoiler_/Integra A_spec_scan_full_relocated.stl` (123P7-gaQN2jAWDxyVNjugX3KsWf6D0MV). Lookbook GLB `eps-acura-integra-de-v29.glb` (sha 4bc2e068a4c9e42c). IDs and state scans: section on scans below.
 - DE5 GT wing CAD: Drive `GT Wings/DE5` (1o_headQZ4V53zat7fZ7H3zZC4_YE5Yjj).
 
 Not found:
@@ -171,8 +172,8 @@ Do not use the `ewc-*.glb` files from the wing configurator: they are decimated 
 
 | Car | GLB | Parts on record |
 |---|---|---|
-| Integra DE4 A-Spec | `eps-acura-integra-de-v29.glb` (`focused-clarke-0g00lk:projects/nfs-carlot/cars.yaml`) | front_lip, side_skirts, rear_spats, duckbill (= trunk lip), sport_wing, fender_flares |
-| Integra DE5 Type S | `eps-acura-integra-type-s-de5-v19` | not opened yet; confirm whether this or de-v29 is the right one |
+| Integra DE4 A-Spec | `eps-acura-integra-de-v29.glb` (sha 4bc2e068a4c9e42c; `focused-clarke-0g00lk:projects/nfs-carlot/cars.yaml`) | part_front_lip, part_side_skirts, part_rear_spats, part_duckbill (= trunk lip, + body_duckbill_stock), part_sport_wing, part_fender_flares |
+| Integra DE5 Type S | `eps-acura-integra-type-s-de5-v19` | not opened yet; de-v29 is the DE4 model, this one is for the Type S only |
 | Civic FE (pre-facelift) | `eps-honda-civic-sedan-fe-v10` | front_lip, side_skirts, rear_lip, sport_wing / sport_wing_duckbill |
 | Civic FE facelift | `eps-honda-civic-sedan-fe-facelift-v9` (`projects/honda-civic-11/tools/glb_export.py`) | front_lip, side_skirts, rear_lip, sport_wing, duckbill, wheels |
 | Civic FL | `hatch-fl-v8` / `fl-facelift-v8` | not recorded |
@@ -205,6 +206,19 @@ Do not use the `ewc-*.glb` files from the wing configurator: they are decimated 
 The right-rear wheel on the FE1 scan is only a tyre ring.
 
 **Civic FL2:** a full car exists, with a broken rear wheel and a hole in the roof. No IDs are recorded.
+
+**Integra DE4 A-Spec** (verified 2026-11-17 via the engineering Drive service account; `ive fetch-drive` works on these ids): folder `Engineering Design/Acura Integra 2021+/`. The full car was scanned 2024-01-08, before the Epsilon kit existed, so it is the stock state.
+
+| Scan | Drive ID |
+|---|---|
+| Integra ASpec.stl (full car, 913,975,234 bytes) | 1bx1Rrjxnz8jI6mIDFBL_y44dmcYHVufx |
+| Integra 2023/Spoiler_/Integra A_spec_scan_full_relocated.stl (same mesh, kit-design frame) | 123P7-gaQN2jAWDxyVNjugX3KsWf6D0MV |
+| Integra ASpec Trunk Open.stl | 1F5z5BSy771p1J3dESgJ7PfcvJpm5iDe8 |
+| Integra ASpec Side Skirt.stl | 1fJy6xJxfzuPrtKCGUVSomPrGfkjJgN0w |
+| Integra ASpec Rear.stl | 1F3lfr0FnH6_S5VsyZ2uEy5WGXnICcp6e |
+| Integra ASpec Integra Diffuser.stl | 1NxYio4tmc9ghfvHP-CXbNBzMBIs8NZ6d |
+
+The lip, skirts and spats are DE4-only products; do not use the Type S scan for them.
 
 **Integra Type S:** a full car scan, 1.24 GB, at `Engineering Design/Acura Integra Type S/`. No ID is recorded, there are no part or state scans, and no project has used it yet.
 
