@@ -5,10 +5,9 @@ Planned 2026-11-17. Nothing is rendered until the owner approves this plan in ch
 **Owner concept (verbatim):** "Scan teardown reel. If you have a 3D scan of the Integra or the Civic, a silver-on-black scan
 reel where the kit parts come off, float apart with their prices and fly back on. This fits the scan-reel style you've used before."
 
-**One line:** a silver FE1 Civic Si scan on black wears the full Epsilon kit. Eps (the Epsilon+ mascot) sweeps it with his
-scanner. Then on the beat each kit part comes off in turn: lip, skirts, rear lip, then wing. Each one floats clear under its
-crossed-out price and its BF price. The kit hangs exploded around the stock car, with Del and Eps in "micro mode" standing on the
-parts. It flies home and locks on a downbeat. A hard 1:1 cut goes to Ron's finished render, and the reel ends on the Epsilon+
+**One line:** a silver FE1 Civic Si scan on black wears the full Epsilon kit. A cyan scan line sweeps it nose to tail.
+Then on the beat each kit part comes off in turn: lip, skirts, rear lip, then wing. Each one floats clear under its
+crossed-out price and its BF price. The kit hangs exploded around the stock car. It flies home and locks on a downbeat. A hard 1:1 cut goes to Ron's finished render, and the reel ends on the Epsilon+
 wordmark with the Black Friday line.
 
 **Format:** 9:16, 1080x1920, 30 fps, **about 19 s** (9.5 bars). Format is Temerario-style, so it follows
@@ -92,57 +91,23 @@ the approved v5 `L_build`. There are three real cuts in the reel: 5→6 (a big a
 
 | # | Time (s) | Dur | Beat | Camera | Subject | Source asset (path / ID) | Action | On-screen text (source) | Transition out | Render |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.00-2.00 | 2.0 | B1-B4 | Front-left 3/4, slightly high, slow push-in; the whole car is in frame and moving from frame 1 | FE1 + full Epsilon kit (black PU parts, Ron's wheels) | Scan 1RIThsxwQgD_KB-58-JiL0y6x1HycU8LZ, prepped as in honda-civic-11 (`prep/car4.json`, 4 mm); kit `kit/parts2/*.stl` from `tools/kit_parts2.py` (Ron → scan ICP 1.4 mm); scan nested under the kit by the GLB `body_<part>_stock` footprint (sec. 6) | Car glides in. **Eps** (1:1, 1.70 m) stands clear of the front-left corner and raises his scanner. On B2 a cyan (#6fc3d6) laser line sweeps the car nose-to-tail. On B3 the whole kit "unlocks": every part lifts about 2 cm and settles (the hook). Eps steps out of frame at the end of the bar | "BLACK FRIDAY" small caps, top of frame, B1-B4 (owner's campaign; final wording from you) | continuous (T1) | Blender (Cycles, silver look) + Eps Higgsfield plate composited (sec. 4a) |
+| 1 | 0.00-2.00 | 2.0 | B1-B4 | Front-left 3/4, slightly high, slow push-in; the whole car is in frame and moving from frame 1 | FE1 + full Epsilon kit (black PU parts, Ron's wheels) | Scan 1RIThsxwQgD_KB-58-JiL0y6x1HycU8LZ, prepped as in honda-civic-11 (`prep/car4.json`, 4 mm); kit `kit/parts2/*.stl` from `tools/kit_parts2.py` (Ron → scan ICP 1.4 mm); scan nested under the kit by the GLB `body_<part>_stock` footprint (sec. 6) | Car glides in. On B2 a cyan (#6fc3d6) scan line sweeps the car nose-to-tail. On B3 the whole kit "unlocks": every part lifts about 2 cm and settles (the hook) | "BLACK FRIDAY" small caps, top of frame, B1-B4 (owner's campaign; final wording from you) | continuous (T1) | Blender (Cycles, silver look) |
 | 2 | 2.00-4.00 | 2.0 | B5-B8 | T1 continues: drops to bumper height, front-left | Front lip | `EP-HC11KK-FLV1-PU` (1JXqMKjxm_9vHX3nDcxUPjDnarMpSE8LI) | On B5 the lip drops 6 cm, slides forward about 1.0 m into clear black in front of the bumper and parks, fully in frame, with its inner face slightly toward the lens. Stock bumper skin returns a quarter beat after it leaves | "FRONT LIP" + ~~$285~~ **$199.50** (BF liquidation sheet) (store listing, sec. 2), high in frame, B6-B8 | continuous | Blender + Remotion tag |
 | 3 | 4.00-6.00 | 2.0 | B9-B12 | T1 tracks back along the left side at sill height | Side skirts | `EP-HC11-SSV1-PU-LH/RH` (1hsIKloafHdmqjKf40Qy7hqg17gWlpMVM / 1YFnrIOQsMQuHiLwquamkHJ6pyr3ydX68) | On B9 the left skirt slides straight out 0.7 m and drops 0.2 m. The right skirt mirrors it (hidden behind the car here, seen in shot 6). The lip parks out of frame behind the camera move | "SIDE SKIRTS" + ~~$400~~ **$280** (BF liquidation sheet), B10-B12 | continuous | Blender + Remotion |
 | 4 | 6.00-8.00 | 2.0 | B13-B16 | T1 swings to the rear-left 3/4, low | Rear lip | `EP-HC11SD-RLV1-PU` (1yMCICyK4xGrTQzSvaHkzj_JbjAN_T0Y6) | On B13 the rear lip drops 5 cm and slides straight back about 0.9 m into clear black, past the exhaust. It doesn't clip the tips (pathcheck) | "REAR LIP" + ~~$285~~ **$199.50** (BF liquidation sheet), B14-B16 | continuous | Blender + Remotion |
 | 5 | 8.00-10.00 | 2.0 | B17-B20 | T1 rises to rear-left, above the deck lid | Sport Wing | `wing.002` from `Honda Civic Sedan 2022-render.blend` (1Q8maWoJbcdI4tzcS2qZgp_5_BcTovXyQ) | On B17 the wing lifts straight UP about 0.9 m into the black above the car (it stays visible; Civic lesson: up, not toward the lens). The factory duckbill stays on the lid | "SPORT WING" + ~~$450~~ **$315** (BF liquidation sheet), B18-B20 | **hard cut on B21** | Blender + Remotion |
-| 6 | 10.00-12.00 | 2.0 | B21-B24 | New angle: high, near-top view rolled about 20°, the whole stock car centred | Exploded kit: all five pieces at once around the stock car (lip ahead, skirts both sides, rear lip behind, wing above) | same parts, parked at their shot 2-5 end poses, re-framed | Slow drift. Nothing new moves; this is the "whole kit" inventory beat. Both skirts can be seen here. **Micro mode (~1:10):** Eps stands on the floating wing's endplate and points down at the car; Del stands on the floating rear lip with arms folded and nods. No dialogue | "THE FULL EPSILON KIT" (no total unless you give one) | continuous into 7 (same camera key) | Blender + Remotion + Del/Eps Higgsfield plates composited (sec. 4a) |
+| 6 | 10.00-12.00 | 2.0 | B21-B24 | New angle: high, near-top view rolled about 20°, the whole stock car centred | Exploded kit: all five pieces at once around the stock car (lip ahead, skirts both sides, rear lip behind, wing above) | same parts, parked at their shot 2-5 end poses, re-framed | Slow drift. Nothing new moves; this is the "whole kit" inventory beat. Both skirts can be seen here. | "THE FULL EPSILON KIT" (no total unless you give one) | continuous into 7 (same camera key) | Blender + Remotion |
 | 7 | 12.00-14.50 | 2.5 | B25-B29 | Starts on shot 6's last key, then descends to **Ron's render-7 camera** (rear-left 3/4; `Camera.006` moved into scan frame + silhouette refine, solved in honda-civic-11 v5) | Kit flies home | same | On B25 all parts fly home on their reverse paths, staggered by a quarter beat (lip, skirts, rear lip, wing), and **lock on the B29 downbeat**, nested with no seams. Hold 0.5 s | none | **hard 1:1 cut on B30** (no dissolve) | Blender |
 | 8 | 14.50-16.00 | 1.5 | B30-B32 | Ron's render, static | Finished FE kit car | `Render/Final-Sedan-FL/7FinalSedanFL.jpg` (from honda-civic-11 v5) | Hold (the user disliked a push on the final photo in de5-configurator) | none | cut on B33 | Footage edit (still) |
 | 9 | 16.00-19.00 | 3.0 | B33-B38 | Static card | Epsilon+ wordmark on black | `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W), about 720 px wide | Wordmark lands on B33; offer line under it on B34; the audio fades with the card from about 18.5 s | "BLACK FRIDAY" + the offer line exactly as you word it + "EPSILON.PLUS" (site domain). Fjalla One caps / Barlow, site colours #0b0c0b / #619f73 / #f2f3f1 | end | Remotion |
-| 9b (option) | +2.0 | 2.0 | +1 bar | Static, wordmark moves up | Del & Eps 10 mm sting under the wordmark | Del & Eps (sec. 4a) | Eps pats his pockets ("Where's my 10 mm?" eye shape: worried); Del holds the socket up without a word. Silent, so no voice | none | end | Higgsfield clip + Remotion |
 
-Total: 19.0 s (21.0 s with 9b).
+Total: 19.0 s.
 
-### 4a. Del & Eps (the Epsilon+ characters)
+### 4a. No characters
 
-The owner chose Del & Eps for these ads, not Pip & Gus (Pip & Gus are Illumaesthetic mascots). Owner instruction (via the parent):
-use `knowledge/characters/del-and-eps/` from branch `claude/clever-shannon-u8rv5l` (README commit 07c812d), with
-**`del-eps-model-sheet.jpg` as the reference image**. That LOCKED look supersedes the v0.1/v0.2 concept pages and their A/B/C colour variants.
-- Look: matte arcade-racing style. Del: petrol teal #0f5c63 / orange #ff7a1a, short boxed beard. Eps: violet #6b3cff / yellow #ffd21f,
-  backwards cap, visor with glowing eye marks, handheld scanner.
-- Rules: the scans stay silver and the characters are the only colour in frame; they appear at 1:1 or in ~1:10 micro mode; no invented numbers.
-- The reference images are on this branch: `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg` (+ the drill-template,
-  10 mm-gag and pit-garage frames). Full-size
-  PNGs are in the private `IllumaestheticJ/Epsilon-Site` repo (`characters/`). Higgsfield job IDs: bdb1a2e8, 069f42d6, e3315b11, 85f40a22.
-
-**Production (as the owner set it):** Higgsfield generations with the model sheet as the reference image, composited over
-renders of our scans. No 3D build.
-- Screen time is about 4 s, with no lip-sync and no dialogue. Neither character touches a moving part, so a generated plate holds.
-- **Shot 1 (Eps at 1:1):**
-  1. Render the scan shot first, then pull its camera (height, angle, focal) and the key-light direction.
-  2. Generate Eps standing, raising the scanner, on plain black, matching that angle and light. Image first; a short
-     image-to-video for the scanner raise only if the still reads flat.
-  3. Key him out and scale him to 1.70 m against the car's measured height.
-  4. Add a soft contact shadow, rendered in Blender on a shadow-catcher at his feet.
-  5. The cyan laser sweep (#6fc3d6) comes from the Blender scan render, not the AI plate, so it lies on the real surface.
-- **Shot 6 (micro mode, ~1:10):** two stills, Eps on the wing endplate and Del on the rear lip, each generated at the shot-6
-  camera angle. Pin them to the parts' screen positions with a 2D track from the render's known part positions. No moves except
-  a small idle (Eps points, Del nods) from a short image-to-video.
-- **9b (option):** the 10 mm sting as one generated clip under the wordmark (the README's `del-eps-10mm-socket-gag.jpg` is the reference).
-- **Credits:** about 4-6 images plus 2-3 short clips at low/1k where possible. I'll quote the cost before spending more than ~5 credits.
-- **Checks:** colours against the sheet (Del #0f5c63/#ff7a1a, Eps #6b3cff/#ffd21f); Eps's cap backwards; Del's beard short and boxed
-  (not the dropped moustache/flat-cap look); the characters never overlap a price tag; and nothing generated stands in for scan data.
-
-**Price-tag rules (Remotion, `ScanHUD` or an `overlay.json` layer):**
-- Scan shots only.
-- One tag on screen at a time: name + price count as one item, so the style guide's two-item limit holds.
-- The tag enters on the beat after its part is clear of the car, and leaves before the next part moves.
-- Placed in the top third, at least 80 px inside the frame edges and outside the car silhouette.
-- Clear black background (a plate only if a part passes behind it).
-- The old price is greyed and struck through; the BF price is in sage #619f73.
-- No step numbers and no qualifiers.
+Owner, 2026-11-17 (relayed by the parent; recorded at the top of `projects/_blackfriday/MASCOT_AND_PRICES.md`, e05c325): **no Del &
+Eps in the Black Friday videos, just typical branding content.** The reel uses only scan, kit and car shots, price/offer cards and
+the Epsilon+ wordmark. No Higgsfield credits are spent on characters.
 
 ---
 
@@ -161,8 +126,6 @@ renders of our scans. No 3D build.
 | Epsilon+ wordmark | 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | found |
 | Live prices / stock | Shopify, sec. 2 | found; BF prices **found** (liquidation sheet snapshot; re-read live before render) |
 | Music | sec. 3 | candidates found; **choice to-request** |
-| Del & Eps (Epsilon+ characters) | spec: `origin/claude/clever-shannon-u8rv5l:knowledge/characters/del-and-eps/README.md`; model sheet `del-eps-model-sheet.jpg` in IllumaestheticJ/Epsilon-Site `characters/` | spec **found** (07c812d); sheet **found**: `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg` (on this branch now); production = Higgsfield + composite, no rig needed |
-| Pip & Gus | Illumaesthetic mascots (git only) | not used (owner picked Del & Eps) |
 | Integra DE4 A-Spec scan set (option B) | sec. 1 | found; kit design files **missing** (candidates unopened) |
 | Shop footage / photos | not used: the format is scan-only, so no text-over-IRL conflict | n/a |
 
@@ -199,9 +162,7 @@ renders of our scans. No 3D build.
 6. **Stock:** nothing about stock goes on screen (PRICES.md rule).
 7. **Music:** Kim Petras "XXX" (proposed in the BF registry) / a GT-series piece from the /Moosic compilation / a TikTok Commercial Music Library track / your own? If this runs as a paid
    ad it needs a cleared track.
-8. **Del & Eps:** OK with the placement (Eps scans the car in shot 1, both in micro mode on the exploded parts in shot 6, and the optional
-   10 mm sting in 9b)? Production follows your instruction: Higgsfield with the model sheet as reference, composited over the
-   scan renders. That costs about 4-6 images and 2-3 short clips, and I'll quote it before spending more than ~5 credits.
+8. **Characters:** none (owner: typical branding only).
 9. **Kit colour:** real finish (black PU / gloss black wing, rim-lit so it reads on black: my default), or the white of Ron's renders (v4/v5)?
    Note BF 1/8 also uses this car; OK that both exist?
 
@@ -216,8 +177,7 @@ renders of our scans. No 3D build.
 3. Extract `eps-honda-civic-sedan-fe-facelift-v9.glb`, register it to the scan, and run the footprint nesting (a kit_nest2 adaptation).
    Render a seam check per part, on and off.
 4. Music: get the chosen file; run `ive beats` + the kick-peak grid; re-snap every key in this table and log it.
-5. Del & Eps: get `del-eps-model-sheet.jpg`. After the shot 1 and 6 scan renders exist, generate the plates at those camera angles
-   (Higgsfield, the sheet as reference), key and composite them, and send one test frame per shot for approval.
+5. (No character plates: owner decision.)
 6. Run the `scene-director` agent on this plan, then `python -m ive director`. Write `shots.py` (copying
    Revuelto `shots_v4.py`: keys in bars, parked poses) for T1, T2 (shots 6-7) and render 7.
 7. Previews at 30 % (`scripts/preview5.sh`); `pathcheck.py` / `clipcheck.py` / `edge_margins.py`; one final-quality still for the

@@ -100,7 +100,7 @@ cam.rotation_mode = 'XYZ'
 CAMS = {
     's1_hook': ([(0, (2.9, -4.6, 0.42), (0.1, -0.6, 0.55)), (1, (2.3, -3.9, 0.40), (0.1, -0.9, 0.50))], 16),
     's2_push': ([(0, (1.9, -4.0, 0.36), (0.0, -1.6, 0.42)), (1, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34))], 16),
-    's3_scan': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.6, -4.7, 1.05), (0.0, -0.6, 0.62))], 16),
+    's3_scan': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
     's4_lip': ([(0, (0.95, -2.62, 0.10), (0.55, -2.08, 0.15)), (1, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15))], 14),
     's5_lipscan': ([(0, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15)), (1, (0.66, -2.76, 0.085), (0.12, -2.14, 0.15))], 14),
     's7_side': ([(0, (3.3, -1.1, 0.42), (0.9, -0.4, 0.32)), (1, (3.3, 2.0, 0.42), (0.9, 1.4, 0.30))], 18),
@@ -233,7 +233,7 @@ else:
         o.data.materials.clear(); o.data.materials.append(sil)
     w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; nt = w.node_tree; nt.nodes.clear()
     out = nt.nodes.new('ShaderNodeOutputWorld'); lp = nt.nodes.new('ShaderNodeLightPath'); mx = nt.nodes.new('ShaderNodeMixShader')
-    b1 = nt.nodes.new('ShaderNodeBackground'); b1.inputs[0].default_value = (0.35, 0.36, 0.38, 1); b1.inputs[1].default_value = 1.3
+    b1 = nt.nodes.new('ShaderNodeBackground'); b1.inputs[0].default_value = (0.35, 0.36, 0.38, 1); b1.inputs[1].default_value = 0.7
     b2 = nt.nodes.new('ShaderNodeBackground'); b2.inputs[0].default_value = (0.004, 0.004, 0.005, 1)
     nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(b1.outputs[0], mx.inputs[1]); nt.links.new(b2.outputs[0], mx.inputs[2]); nt.links.new(mx.outputs[0], out.inputs[0])
 
@@ -241,8 +241,8 @@ else:
         l = bpy.data.lights.new(name, 'AREA'); l.energy = e; l.size = size; l.color = col
         o = bpy.data.objects.new(name, l); sc.collection.objects.link(o); o.location = loc
         o.rotation_euler = (Vector((0, 0, 0.5)) - Vector(loc)).to_track_quat('-Z', 'Y').to_euler()
-    area('key', (4, -5, 5), 1800, 4); area('rim', (-4, 5, 3.5), 1600, 3, (0.85, 0.92, 1.0)); area('top', (0, 0, 7), 1200, 6)
-    area('front', (2.5, -8.0, 1.2), 1300, 6); area('front2', (-2.5, -7.0, 0.6), 600, 4)
+    area('key', (4, -5, 5), 1100, 4); area('rim', (-4, 5, 3.5), 1600, 3, (0.85, 0.92, 1.0)); area('top', (0, 0, 7), 1200, 6)
+    area('front', (2.5, -8.0, 1.2), 420, 6); area('front2', (-2.5, -7.0, 0.6), 150, 4)
 
     if MODE == 'scan':
         path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)

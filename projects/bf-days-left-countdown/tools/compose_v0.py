@@ -71,8 +71,8 @@ tag = text_layer("Del & Eps: placeholder art (model sheet), not final", 26, BOLD
 days_lay = text_layer(line, 150, tracking=6)
 bf_lay = text_layer("BLACK FRIDAY", 64, BOLD_I, tracking=14, halo=False)
 url_lay = text_layer("EPSILON.PLUS", 46, BOLD_I, (200, 200, 200, 255), tracking=10, halo=False)
-del_big = scaled(dl, 640)
-eps_big = scaled(ep, 600)
+del_big = scaled(dl, 500)
+eps_big = scaled(ep, 500)
 del_s1 = scaled(dl, 560)
 
 for f in range(END):
@@ -81,23 +81,23 @@ for f in range(END):
         pw, ph = round(W * s), round(H * s)
         fr = plate.resize((pw, ph), Image.LANCZOS).crop(((pw - W) // 2, (ph - H) // 2, (pw - W) // 2 + W, (ph - H) // 2 + H)).convert("RGBA")
         bump = max([math.exp(-((f - t) / 2.5) ** 2) for t in TAPS])  # tiny dip on each tap
-        d = scaled(dl, round(560 * (1 - 0.025 * bump)))
-        fr.alpha_composite(d, (W - d.width - 40, H - d.height - 150))
+        d = scaled(dl, round(620 * (1 - 0.025 * bump)))
+        fr.alpha_composite(d, (W - d.width - 50, 1500 - d.height))
         paste_center(fr, tag, W / 2, H - 60)
     elif f < C3:  # ---- shots 2-3: numeral render, Eps scanning, text slam, Del steps in
         fr = Image.open(f"{M}/work/num{args.days}/f_{f - C1:04d}.png").convert("RGBA")
         hop = 1 - ease_out((f - C1) / 5)  # Eps raises the scanner on the cut: small rise
-        fr.alpha_composite(eps_big, (W - eps_big.width - 30, H - eps_big.height - 120 + round(30 * hop)))
+        fr.alpha_composite(eps_big, (W - eps_big.width - 30, H - eps_big.height - 80 + round(30 * hop)))
         if f >= SLAM:
             t = (f - SLAM) / 4
-            paste_center(fr, days_lay, W / 2, 1215, scale=1.0 + 0.3 * (1 - ease_out(t)), alpha=ease_out(t * 1.5))
+            paste_center(fr, days_lay, W / 2, 1245, scale=1.0 + 0.3 * (1 - ease_out(t)), alpha=ease_out(t * 1.5))
         if f >= DEL_IN:
             x = -del_big.width + (40 + del_big.width) * ease_out((f - DEL_IN) / 5)
-            fr.alpha_composite(del_big, (round(x), H - del_big.height - 120))
+            fr.alpha_composite(del_big, (round(x), H - del_big.height - 80))
         paste_center(fr, tag, W / 2, H - 60)
     else:  # ---- shot 4: wordmark card, fades out with the music
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
-        t = (f - C3) / 6
+        t = 0.35 + 0.65 * (f - C3) / 6
         paste_center(fr, bf_lay, W / 2, 790, alpha=ease_out(t))
         paste_center(fr, logo, W / 2, 900, scale=1.06 - 0.06 * ease_out(t), alpha=ease_out(t))
         paste_center(fr, url_lay, W / 2, 1010, alpha=ease_out((f - C3 - 4) / 6))
