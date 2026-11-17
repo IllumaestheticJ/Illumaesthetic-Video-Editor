@@ -15,11 +15,10 @@ material"). By line 11 the bill reaches the floor.
 |---|---|---|---|---|
 | 1 | PIP | "Can I 3D print whatever bumper I want?" | Pip bursts in holding a crayon drawing of a huge dream bumper (wings, giant lip). | - |
 | 2 | GUS | "Sure. Scan the car. Design it." | Quick preview flashes: spray puff, scanner beep, the mesh turns into a smooth surface on the laptop, a file icon; the clock starts turning. | spray can, scanner, laptop |
-| 3 | GUS | "It won't fit on a printer. So... pieces." | The bumper is too big for both printers; it is sliced SeamForge-style and the slices fan out onto a grid of build plates. | printers, plates |
 | 4 | GUS | "Six or seven kilos of filament." | Gus stacks spools until the stack is taller than Pip. | spools, tag **6-7 KG** |
 | 5 | PIP | "That's cheap, right?" | Pip, hopeful ^ ^ eyes. | - |
 | 6 | GUS | "The good stuff? About two hundred bucks." | Gus taps the bill. | tag **~$200** |
-| 7 | GUS | "One fails overnight. Again." | A piece comes out as spaghetti; it goes on the failed-print shelf (new running gag). | spaghetti |
+| 7 | GUS | "A print fails overnight. Again." | A piece comes out as spaghetti; it goes on the failed-print shelf (new running gag). | spaghetti |
 | 8 | GUS | "Then glue. Filler. Sanding. Primer." | One cut per word on the beat: glue bottles, filler knife, a sanding cloud that hides Pip, primer can. | 4 icons |
 | 9 | PIP | "Is it done yet?" | Pip coughing out of the dust, grey. | - |
 | 10 | GUS | "...No. That's easily two hundred fifty hours of work. Scanning, design, printing." | The wall clock spins off its nail; the labor stacks up on the bill. | tag **~250 HRS** |
@@ -32,7 +31,7 @@ material"). By line 11 the bill reaches the floor.
 | 16 | PIP | "Where do we start?" | Pip, ^ ^ eyes, rips the bill off the wall. | - |
 | 17 | GUS | "We scan the car." | Gus wheels the scanner toward the black car (Ep 2 opens here). Hard cut on the beat. | - |
 
-~122 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 49-51 s (total ~60 s with footage and cards; trim options in the owner message).
+~114 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 49-51 s (total ~60 s with footage and cards; trim options in the owner message).
 Lines 12-17 (owner 2026-11-17): printing a rep of a bumper you can buy doesn't make financial sense; for a custom one, we show the audience how; then the series hand-off to Ep 2 (owner, relayed 2026-11-17). Line 12 = owner's exceptions (2026-11-17): printing is worth it when the bumper is discontinued, or when you make bumpers to sell in production.
 
 **Real footage (~4-5 s, no text, no voice) [OWNER Q: placement/clip now that the episode ends on "We scan the car"]:** SeamForge (owner OK, 2026-11-16), `2026-08-23 13-35-22.mp4` ~5:20-5:56: the bumper's
