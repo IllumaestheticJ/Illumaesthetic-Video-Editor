@@ -619,7 +619,7 @@ def anim_S8(fr):
     pm, plid = talk("PIP", t)
     pose(PIP, loc=(0.55, 1.6, 0), rz=-20, head=(-8, 0, -15), armL=(-20, 0, 8), mouth=pm, lid=plid,
          look=(-0.4, 0.9) if t < LN[9]["t1"] + 0.3 else (-0.7, 0.3))
-    look(cam, (-0.25, -3.3, 1.5), (-0.25, 2.2, 1.15), 30)
+    look(cam, (-0.2, -2.2, 1.45), (-0.15, 1.9, 1.0), 28)
 
 
 # phone hand-off (pilot S10-S12 logic, moved to this shop): Pip perks up on "Wait.", pulls out the phone, then holds it
