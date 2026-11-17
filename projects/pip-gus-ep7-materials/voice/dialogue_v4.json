@@ -1,0 +1,87 @@
+[
+ {
+  "text": "[eager] Printer's ready! What do we load in it?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[proud] This one! PLA!",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[dry, matter-of-fact] Sure. Print a vent and leave it in the sun.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[worried] ...It's melting!",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[matter-of-fact] PLA's easy to print. It just hates heat.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[calm, explaining] Inside the car? PET-G. Tougher, handles more heat.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[excited] So I'll print it in black!",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[dry, slightly annoyed] ...Black PET-G still melts in the sun.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[impatient] And my bumper?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[matter-of-fact] Outside? ASA. It's made for sun and rain.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[matter-of-fact] Brackets? Carbon-fiber nylon. Stiff and strong.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[curious] Why doesn't everyone just print those?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[small sigh] They warp. They need an enclosure. ...They're worth it.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[matter-of-fact] And it depends what it's for. Molds? PET-G or ASA. PET-G warps less.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[excited] Like these?!",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[dry, warm] ...Yeah. Like those.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[excited] They're printed! [deflating] ...Now I've got a pile of pieces.",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ }
+]
