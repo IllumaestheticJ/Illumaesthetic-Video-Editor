@@ -3,30 +3,35 @@ import json, sys
 from PIL import Image, ImageDraw, ImageFont
 snap = json.load(open(sys.argv[1])); out = sys.argv[2]
 F = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
+F = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
 FM = "/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf"
-W, H = 600, 760
+W, H = 700, 900
 def card(title, lines, sale):
-    im = Image.new("RGB", (W, H), (236, 238, 242)); d = ImageDraw.Draw(im)
-    d.ellipse((W/2-22, 34, W/2+22, 78), fill=(20, 20, 22))          # string hole
-    d.rectangle((0, 0, W-1, H-1), outline=(20, 20, 22), width=6)
-    y = 120
+    """Readable at phone size: few words, very large prices, high contrast."""
+    im = Image.new("RGB", (W, H), (244, 245, 247)); d = ImageDraw.Draw(im)
+    d.ellipse((W/2-20, 26, W/2+20, 66), fill=(20, 20, 22))
+    d.rectangle((0, 0, W-1, H-1), outline=(10, 10, 12), width=10)
+    y = 92
     for t in title.split("\n"):
-        f = ImageFont.truetype(F, 54); d.text((W/2, y), t, font=f, fill=(15, 15, 18), anchor="mt"); y += 64
+        d.text((W/2, y), t, font=ImageFont.truetype(F, 74), fill=(10, 10, 12), anchor="mt"); y += 80
     if sale:
-        f = ImageFont.truetype(F, 44); d.text((W/2, y + 14), "BLACK FRIDAY", font=f, fill=(15, 15, 18), anchor="mt"); y += 70
-    y += 40
+        d.rectangle((40, y + 10, W - 40, y + 84), fill=(10, 10, 12))
+        d.text((W/2, y + 47), "BLACK FRIDAY", font=ImageFont.truetype(F, 58), fill=(244, 245, 247), anchor="mm")
+        y += 96
+    else:
+        y += 40
     for label, was, now in lines:
-        fl = ImageFont.truetype(FM, 40); d.text((50, y), label, font=fl, fill=(60, 60, 66))
-        base = y + 140
+        d.text((44, y + 10), label, font=ImageFont.truetype(F, 50), fill=(40, 40, 46))
+        base = y + 10 + 50 + 128
         if sale:
-            fw = ImageFont.truetype(FM, 50)
-            d.text((50, base - 12), was, font=fw, fill=(110, 110, 116), anchor="ls")
-            bb = d.textbbox((50, base - 12), was, font=fw, anchor="ls"); my = (bb[1] + bb[3]) // 2
-            d.line((bb[0] - 4, my, bb[2] + 4, my), fill=(15, 15, 18), width=7)
-            fn = ImageFont.truetype(F, 96); d.text((W - 46, base), now, font=fn, fill=(10, 10, 12), anchor="rs")
+            fw = ImageFont.truetype(F, 62)
+            d.text((44, base - 20), was, font=fw, fill=(120, 120, 126), anchor="ls")
+            bb = d.textbbox((44, base - 20), was, font=fw, anchor="ls"); my = (bb[1] + bb[3]) // 2
+            d.line((bb[0] - 4, my, bb[2] + 4, my), fill=(10, 10, 12), width=9)
+            d.text((W - 40, base), now, font=ImageFont.truetype(F, 140), fill=(10, 10, 12), anchor="rs")
         else:
-            fn = ImageFont.truetype(F, 96); d.text((50, base), was, font=fn, fill=(10, 10, 12), anchor="ls")
-        y = base + 40
+            d.text((44, base), was, font=ImageFont.truetype(F, 128), fill=(10, 10, 12), anchor="ls")
+        y = base + 14
     return im
 for key, t in snap["tags"].items():
     lines = [(l["label"], l["was"], l["bf"]) for l in t["lines"]]

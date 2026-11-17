@@ -51,3 +51,15 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - The character billboards are flat with keying fringes. Generated plates with contact shadows replace them.
 - Scan lines on the lip, the Eps sweep and the tag flip are simple. There are no shadows under the billboards.
 - Preview resolution (432x768 upscaled) and EEVEE on a CPU, so expect softness and noise.
+
+## v0.1 checks (2026-11-17)
+- 1080x1920, 30 fps, 450 frames = 15.0 s.
+- Loudness -14.2 LUFS integrated, true peak -2.2 dBFS.
+- The cuts measured from frame differences sit at 2.567 / 5.000 / 7.433 / 9.867 / 12.333 s. The kicks in the decoded
+  audio are at 2.55 / 4.99 / (7.29-7.44 kick fill) / 9.88 / 12.32 s.
+- 1:1 checks (frames 149/150 and 295/296): the lip keeps its place and size across both cuts.
+- For v1:
+  - the tag text is small at phone size;
+  - the Integra car pull-back ends too small;
+  - the shot 2 opening is a long push with a tiny pallet;
+  - the scans should replace the lookbook cars.

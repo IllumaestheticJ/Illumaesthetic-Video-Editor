@@ -1,0 +1,46 @@
+{
+ "mode": "cgi",
+ "cars": [
+  {
+   "car": "mr2"
+  }
+ ],
+ "camera": [
+  {
+   "f": 0,
+   "loc": [
+    1.25,
+    -2.75,
+    0.85
+   ],
+   "target": [
+    0.75,
+    -1.55,
+    0.62
+   ],
+   "lens": 50
+  },
+  {
+   "f": 13,
+   "loc": [
+    0.55,
+    -2.85,
+    0.85
+   ],
+   "target": [
+    0.1,
+    -1.6,
+    0.62
+   ],
+   "lens": 50
+  }
+ ],
+ "samples": 16,
+ "out": "/home/user/media/bf-miata-mr2-night-meet/work/s03",
+ "frames": 14,
+ "fps": 15,
+ "res": [
+  540,
+  960
+ ]
+}

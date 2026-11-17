@@ -28,11 +28,17 @@ D = '/home/user/media/cars/gr-corolla/scan'
 FPS = 30
 SPEED = 33.0  # m/s on the straight (~120 km/h)
 
-# frames per shot from the measured kick onsets (kicks 0,4,6,10,12,14,18,22,26,30 -> frames 0,59,87,144,172,201,258,315,371,428)
-SHOTS = {'s1_hook': 59, 's2_push': 28, 's3_scan': 57, 's4_lip': 28, 's5_lipscan': 29, 's6_cardv2': 57,
-         's7_side': 57, 's8_cardv1': 56, 's9_pass': 57}
-N = SHOTS[SHOT]
-MODE = os.environ.get('FORCE_MODE') or ('scan' if SHOT in ('s3_scan', 's5_lipscan') else 'card' if SHOT.startswith('s6') or SHOT.startswith('s8') else 'cgi')
+# Shot windows on the measured kick onsets of 'Electric Youth' (music/kicks.json); frames = round(kick*30) differences.
+# v0.2 (user): the scan shots are replaced by the lookbook GLB in a black studio with the V2 parts highlighted;
+# carbon canards added (on the car + their own shot).
+import json
+KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
+WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 18),
+       's7_side': (18, 22), 's8_cardv1': (22, 26), 's9_canards': (26, 30), 's10_pass': (30, 34)}
+def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
+N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0])
+STUDIO = SHOT in ('s3_hl', 's5_liphl', 's9_canards')
+MODE = 'card' if SHOT in ('s6_cardv2', 's8_cardv1') else 'cgi'
 
 
 def srgb(h):
@@ -100,17 +106,30 @@ cam.rotation_mode = 'XYZ'
 CAMS = {
     's1_hook': ([(0, (2.9, -4.6, 0.42), (0.1, -0.6, 0.55)), (1, (2.3, -3.9, 0.40), (0.1, -0.9, 0.50))], 16),
     's2_push': ([(0, (1.9, -4.0, 0.36), (0.0, -1.6, 0.42)), (1, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34))], 16),
-    's3_scan': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
+    's3_hl': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
     's4_lip': ([(0, (0.95, -2.62, 0.10), (0.55, -2.08, 0.15)), (1, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15))], 14),
-    's5_lipscan': ([(0, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15)), (1, (0.66, -2.76, 0.085), (0.12, -2.14, 0.15))], 14),
+    's5_liphl': ([(0, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15)), (1, (0.66, -2.76, 0.085), (0.12, -2.14, 0.15))], 14),
+    's9_canards': ([(0, (1.35, -2.85, 0.56), (0.86, -1.82, 0.38)), (1, (1.70, -2.55, 0.52), (0.86, -1.80, 0.38))], 24),
     's7_side': ([(0, (3.3, -1.1, 0.42), (0.9, -0.4, 0.32)), (1, (3.3, 2.0, 0.42), (0.9, 1.4, 0.30))], 18),
 }
 
 if MODE in ('cgi',):
     bpy.ops.import_scene.gltf(filepath=GLB)
     car = bpy.data.objects.new('CAR', None); sc.collection.objects.link(car)
-    keep = {'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'}
+    V2 = {'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'}
+    keep = V2 | {'part_canards'}
     pu = mat('pu_black', srgb('#141414'), 0.55)
+    # carbon fibre (procedural 2x2 twill look) for the canards
+    cf = bpy.data.materials.new('carbon'); cf.use_nodes = True; nt = cf.node_tree; p = nt.nodes['Principled BSDF']
+    ck = nt.nodes.new('ShaderNodeTexChecker'); ck.inputs['Scale'].default_value = 260
+    ck.inputs['Color1'].default_value = (0.012, 0.012, 0.013, 1); ck.inputs['Color2'].default_value = (0.09, 0.09, 0.1, 1)
+    nt.links.new(ck.outputs['Color'], p.inputs['Base Color']); p.inputs['Roughness'].default_value = 0.25
+    p.inputs['Coat Weight'].default_value = 1.0; p.inputs['Coat Roughness'].default_value = 0.02
+    # highlight: the V2 parts light up in the studio shots (bright satin + emission that ramps in after the cut)
+    hl = bpy.data.materials.new('v2_highlight'); hl.use_nodes = True; nt = hl.node_tree; p = nt.nodes['Principled BSDF']
+    p.inputs['Base Color'].default_value = (0.85, 0.87, 0.9, 1); p.inputs['Roughness'].default_value = 0.3; p.inputs['Metallic'].default_value = 0.6
+    p.inputs['Emission Color'].default_value = (0.75, 0.88, 1.0, 1)
+    HL_TARGET = SHOT if STUDIO else None
     paint = srgb('#b21522')
     for o in list(bpy.data.objects):
         if o.type != 'MESH' and o.name != 'CAR':
@@ -121,7 +140,13 @@ if MODE in ('cgi',):
         if base == 'livery_castrol':
             o.hide_render = True; continue
         if base in keep:
-            o.data.materials.clear(); o.data.materials.append(pu)
+            o.data.materials.clear()
+            if base == 'part_canards':
+                o.data.materials.append(cf)
+            elif STUDIO and SHOT != 's9_canards':
+                o.data.materials.append(hl)
+            else:
+                o.data.materials.append(pu)
         if o.parent is None and o is not car:
             o.parent = car
     for m in bpy.data.materials:
@@ -144,73 +169,114 @@ if MODE in ('cgi',):
             for fc in piv.animation_data.action.fcurves if hasattr(piv.animation_data.action, 'fcurves') else []:
                 for k in fc.keyframe_points: k.interpolation = 'LINEAR'
 
+    if STUDIO:
+        # body goes dark graphite, the camera sees black; key + rim + front fill; highlighted parts glow in after the cut
+        for m in bpy.data.materials:
+            if m.name in ('v2_highlight', 'carbon', 'pu_black') or not m.node_tree:
+                continue
+            p = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+            if p:
+                p.inputs['Base Color'].default_value = (0.035, 0.036, 0.04, 1); p.inputs['Metallic'].default_value = 0.3
+                p.inputs['Roughness'].default_value = 0.35
+                if 'Emission Strength' in p.inputs: p.inputs['Emission Strength'].default_value = 0.0
+                for l in list(p.inputs['Base Color'].links): m.node_tree.links.remove(l)
+        p = hl.node_tree.nodes['Principled BSDF']
+        for f, e in ((1, 0.0), (7, 1.6), (N, 1.1)):
+            p.inputs['Emission Strength'].default_value = e; p.inputs['Emission Strength'].keyframe_insert('default_value', frame=f)
+        w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; nt = w.node_tree; nt.nodes.clear()
+        out = nt.nodes.new('ShaderNodeOutputWorld'); lp = nt.nodes.new('ShaderNodeLightPath'); mx = nt.nodes.new('ShaderNodeMixShader')
+        b1 = nt.nodes.new('ShaderNodeBackground'); b1.inputs[0].default_value = (0.35, 0.36, 0.38, 1); b1.inputs[1].default_value = 0.6
+        b2 = nt.nodes.new('ShaderNodeBackground'); b2.inputs[0].default_value = (0.004, 0.004, 0.005, 1)
+        nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(b1.outputs[0], mx.inputs[1]); nt.links.new(b2.outputs[0], mx.inputs[2]); nt.links.new(mx.outputs[0], out.inputs[0])
+        def area(name, loc, e, size, col=(1, 1, 1), tgt=(0, -0.5, 0.4)):
+            l = bpy.data.lights.new(name, 'AREA'); l.energy = e; l.size = size; l.color = col
+            o = bpy.data.objects.new(name, l); sc.collection.objects.link(o); o.location = loc
+            o.rotation_euler = (Vector(tgt) - Vector(loc)).to_track_quat('-Z', 'Y').to_euler()
+        area('key', (4, -5, 5), 900, 4); area('rim', (-4, 5, 3.5), 1400, 3, (0.85, 0.92, 1.0)); area('top', (0, 0, 7), 900, 6)
+        area('front', (2.5, -8.0, 1.2), 500, 6)
+        if SHOT == 's9_canards':
+            # carbon weave glows in (highlight), body darker so the canards carry the frame
+            pc = cf.node_tree.nodes['Principled BSDF']; ckn = next(n for n in cf.node_tree.nodes if n.type == 'TEX_CHECKER')
+            cf.node_tree.links.new(ckn.outputs['Color'], pc.inputs['Emission Color'])
+            for f, e in ((1, 0.0), (8, 9.0), (N, 7.0)):
+                pc.inputs['Emission Strength'].default_value = e; pc.inputs['Emission Strength'].keyframe_insert('default_value', frame=f)
+            for m in bpy.data.materials:
+                if m.name in ('v2_highlight', 'carbon') or not m.node_tree: continue
+                pp = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+                if pp: pp.inputs['Base Color'].default_value = (0.012, 0.012, 0.014, 1)
+            # canard close-up: kill the broad front fill, graze the carbon with a narrow strip from above-front
+            for nm in ('front', 'key'):
+                bpy.data.objects[nm].data.energy *= 0.25
+            area('canard', (1.4, -2.6, 1.3), 8, 0.4, tgt=(0.88, -1.8, 0.4)); area('canard2', (1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(0.9, -1.85, 0.4))
+        path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
     # ---------------------------------------------------------- circuit environment (moves +Y under the static car)
     env = bpy.data.objects.new('ENV', None); sc.collection.objects.link(env)
-    asphalt = bpy.data.materials.new('asphalt'); asphalt.use_nodes = True; nt = asphalt.node_tree; p = nt.nodes['Principled BSDF']
-    nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 180; nz.inputs['Detail'].default_value = 8
-    cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].color = (0.018, 0.018, 0.02, 1); cr.color_ramp.elements[1].color = (0.06, 0.06, 0.065, 1)
-    nt.links.new(nz.outputs['Fac'], cr.inputs[0]); nt.links.new(cr.outputs[0], p.inputs['Base Color']); p.inputs['Roughness'].default_value = 0.75
-    bm = nt.nodes.new('ShaderNodeBump'); bm.inputs['Strength'].default_value = 0.25; nt.links.new(nz.outputs['Fac'], bm.inputs['Height']); nt.links.new(bm.outputs[0], p.inputs['Normal'])
-    grass = mat('grass', srgb('#2f5a24'), 0.9); red = mat('kerb_red', srgb('#c8161d'), 0.5); white = mat('kerb_white', srgb('#e9e9e9'), 0.5)
-    line = mat('line', srgb('#f2f2f2'), 0.5); wall = mat('barrier', srgb('#9aa0a6'), 0.4, 0.6); tyre = mat('tyre', srgb('#151515'), 0.8)
-    blue = mat('board', srgb('#163a7a'), 0.4); tree = mat('tree', srgb('#1d3b1a'), 0.9); stand = mat('stand', srgb('#5b6168'), 0.6)
+    if not STUDIO:
+        asphalt = bpy.data.materials.new('asphalt'); asphalt.use_nodes = True; nt = asphalt.node_tree; p = nt.nodes['Principled BSDF']
+        nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 180; nz.inputs['Detail'].default_value = 8
+        cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].color = (0.018, 0.018, 0.02, 1); cr.color_ramp.elements[1].color = (0.06, 0.06, 0.065, 1)
+        nt.links.new(nz.outputs['Fac'], cr.inputs[0]); nt.links.new(cr.outputs[0], p.inputs['Base Color']); p.inputs['Roughness'].default_value = 0.75
+        bm = nt.nodes.new('ShaderNodeBump'); bm.inputs['Strength'].default_value = 0.25; nt.links.new(nz.outputs['Fac'], bm.inputs['Height']); nt.links.new(bm.outputs[0], p.inputs['Normal'])
+        grass = mat('grass', srgb('#2f5a24'), 0.9); red = mat('kerb_red', srgb('#c8161d'), 0.5); white = mat('kerb_white', srgb('#e9e9e9'), 0.5)
+        line = mat('line', srgb('#f2f2f2'), 0.5); wall = mat('barrier', srgb('#9aa0a6'), 0.4, 0.6); tyre = mat('tyre', srgb('#151515'), 0.8)
+        blue = mat('board', srgb('#163a7a'), 0.4); tree = mat('tree', srgb('#1d3b1a'), 0.9); stand = mat('stand', srgb('#5b6168'), 0.6)
 
-    def box(name, loc, size, m):
-        bpy.ops.mesh.primitive_cube_add(size=1, location=loc); o = bpy.context.object; o.name = name; o.scale = size
-        o.data.materials.append(m); o.parent = env; return o
+        def box(name, loc, size, m):
+            bpy.ops.mesh.primitive_cube_add(size=1, location=loc); o = bpy.context.object; o.name = name; o.scale = size
+            o.data.materials.append(m); o.parent = env; return o
 
-    L0, L1 = -420.0, 140.0; LEN = L1 - L0; Y = (L0 + L1) / 2
-    box('asphalt', (0.5, Y, -0.05), (13, LEN, 0.1), asphalt)
-    box('grassL', (-26.0, Y, -0.06), (40, LEN, 0.1), grass); box('grassR', (27.0, Y, -0.06), (40, LEN, 0.1), grass)
-    box('lineL', (-5.85, Y, 0.002), (0.18, LEN, 0.01), line); box('lineR', (6.85, Y, 0.002), (0.18, LEN, 0.01), line)
-    k = 0; y = L0
-    while y < L1:  # kerbs, 1.5 m blocks alternating
-        for x in (-6.6, 7.6):
-            box(f'kerb{k}_{x}', (x, y + 0.75, 0.02), (1.4, 1.5, 0.06), red if k % 2 else white)
-        y += 1.5; k += 1
-    box('armcoL', (-14.0, Y, 0.45), (0.15, LEN, 0.45), wall); box('armcoR', (16.0, Y, 0.45), (0.15, LEN, 0.45), wall)
-    y = L0; i = 0
-    while y < L1:
-        box(f'tyres{i}', (15.4, y, 0.35), (0.7, 6.0, 0.7), tyre)
-        if i % 3 == 0:
-            box(f'board{i}', (15.9, y + 3, 1.1), (0.1, 5.5, 0.9), blue)
-        y += 9.0; i += 1
-    y = L0; i = 0
-    while y < L1:
-        bpy.ops.mesh.primitive_cone_add(radius1=2.2, depth=7.5, location=(-22 - (i % 3) * 4, y, 3.7)); o = bpy.context.object; o.data.materials.append(tree); o.parent = env
-        y += 7.0 + (i % 4) * 2; i += 1
-    for gy in (-60.0, -180.0, -300.0):  # gantries
-        box(f'gantryA{gy}', (-9.5, gy, 3.5), (0.4, 0.4, 7), stand); box(f'gantryB{gy}', (11.5, gy, 3.5), (0.4, 0.4, 7), stand)
-        box(f'gantryT{gy}', (1.0, gy, 7.2), (21.5, 0.6, 1.2), blue)
-    box('grandstand', (30, -120, 4), (8, 70, 8), stand)
+        L0, L1 = -420.0, 140.0; LEN = L1 - L0; Y = (L0 + L1) / 2
+        box('asphalt', (0.5, Y, -0.05), (13, LEN, 0.1), asphalt)
+        box('grassL', (-26.0, Y, -0.06), (40, LEN, 0.1), grass); box('grassR', (27.0, Y, -0.06), (40, LEN, 0.1), grass)
+        box('lineL', (-5.85, Y, 0.002), (0.18, LEN, 0.01), line); box('lineR', (6.85, Y, 0.002), (0.18, LEN, 0.01), line)
+        k = 0; y = L0
+        while y < L1:  # kerbs, 1.5 m blocks alternating
+            for x in (-6.6, 7.6):
+                box(f'kerb{k}_{x}', (x, y + 0.75, 0.02), (1.4, 1.5, 0.06), red if k % 2 else white)
+            y += 1.5; k += 1
+        box('armcoL', (-14.0, Y, 0.45), (0.15, LEN, 0.45), wall); box('armcoR', (16.0, Y, 0.45), (0.15, LEN, 0.45), wall)
+        y = L0; i = 0
+        while y < L1:
+            box(f'tyres{i}', (15.4, y, 0.35), (0.7, 6.0, 0.7), tyre)
+            if i % 3 == 0:
+                box(f'board{i}', (15.9, y + 3, 1.1), (0.1, 5.5, 0.9), blue)
+            y += 9.0; i += 1
+        y = L0; i = 0
+        while y < L1:
+            bpy.ops.mesh.primitive_cone_add(radius1=2.2, depth=7.5, location=(-22 - (i % 3) * 4, y, 3.7)); o = bpy.context.object; o.data.materials.append(tree); o.parent = env
+            y += 7.0 + (i % 4) * 2; i += 1
+        for gy in (-60.0, -180.0, -300.0):  # gantries
+            box(f'gantryA{gy}', (-9.5, gy, 3.5), (0.4, 0.4, 7), stand); box(f'gantryB{gy}', (11.5, gy, 3.5), (0.4, 0.4, 7), stand)
+            box(f'gantryT{gy}', (1.0, gy, 7.2), (21.5, 0.6, 1.2), blue)
+        box('grandstand', (30, -120, 4), (8, 70, 8), stand)
 
-    # sun + sky
-    sun = bpy.data.lights.new('sun', 'SUN'); sun.energy = 4.5; sun.angle = math.radians(2); so = bpy.data.objects.new('sun', sun); sc.collection.objects.link(so)
-    so.rotation_euler = (math.radians(50), 0, math.radians(-35))
-    w = bpy.data.worlds.new('sky'); sc.world = w; w.use_nodes = True; nt = w.node_tree; bg = nt.nodes['Background']
-    tc = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); rp = nt.nodes.new('ShaderNodeValToRGB')
-    nt.links.new(tc.outputs['Generated'], sp.inputs[0]); nt.links.new(sp.outputs['Z'], rp.inputs[0])
-    rp.color_ramp.elements[0].position = 0.5; rp.color_ramp.elements[0].color = (0.55, 0.62, 0.72, 1)
-    rp.color_ramp.elements[1].position = 0.75; rp.color_ramp.elements[1].color = (0.18, 0.34, 0.68, 1)
-    nt.links.new(rp.outputs[0], bg.inputs['Color']); bg.inputs['Strength'].default_value = 1.0
+        # sun + sky
+        sun = bpy.data.lights.new('sun', 'SUN'); sun.energy = 4.5; sun.angle = math.radians(2); so = bpy.data.objects.new('sun', sun); sc.collection.objects.link(so)
+        so.rotation_euler = (math.radians(50), 0, math.radians(-35))
+        w = bpy.data.worlds.new('sky'); sc.world = w; w.use_nodes = True; nt = w.node_tree; bg = nt.nodes['Background']
+        tc = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); rp = nt.nodes.new('ShaderNodeValToRGB')
+        nt.links.new(tc.outputs['Generated'], sp.inputs[0]); nt.links.new(sp.outputs['Z'], rp.inputs[0])
+        rp.color_ramp.elements[0].position = 0.5; rp.color_ramp.elements[0].color = (0.55, 0.62, 0.72, 1)
+        rp.color_ramp.elements[1].position = 0.75; rp.color_ramp.elements[1].color = (0.18, 0.34, 0.68, 1)
+        nt.links.new(rp.outputs[0], bg.inputs['Color']); bg.inputs['Strength'].default_value = 1.0
 
-    sc.render.use_motion_blur = True; sc.render.motion_blur_shutter = 0.5
+        sc.render.use_motion_blur = True; sc.render.motion_blur_shutter = 0.5
 
-    if SHOT == 's9_pass':
-        # environment static; the car drives past a fixed trackside camera
-        v9 = 13.0; y0, y1 = -0.8, -v9 * (N - 1) / FPS - 0.8   # slower pass so the car stays in frame for the whole shot
-        for f in (1, N):
-            car.location = (0, y0 + (y1 - y0) * (f - 1) / (N - 1), 0); car.keyframe_insert('location', frame=f)
-        look(cam, (2.6, 0.0, 0.5), (0.3, -10.0, 0.75)); cd.lens = 18
-    else:
-        for f in (1, N):
-            env.location = (0, SPEED * (f - 1) / FPS, 0); env.keyframe_insert('location', frame=f)
-        path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
-    for ob in (env, car):
-        ad = ob.animation_data
-        if ad and ad.action:
-            for fc in getattr(ad.action, 'fcurves', []):
-                for kp in fc.keyframe_points: kp.interpolation = 'LINEAR'
+        if SHOT == 's10_pass':
+            # environment static; the car drives past a fixed trackside camera
+            v9 = 13.0; y0, y1 = -0.8, -v9 * (N - 1) / FPS - 0.8   # slower pass so the car stays in frame for the whole shot
+            for f in (1, N):
+                car.location = (0, y0 + (y1 - y0) * (f - 1) / (N - 1), 0); car.keyframe_insert('location', frame=f)
+            look(cam, (2.6, 0.0, 0.5), (0.3, -10.0, 0.75)); cd.lens = 18
+        else:
+            for f in (1, N):
+                env.location = (0, SPEED * (f - 1) / FPS, 0); env.keyframe_insert('location', frame=f)
+            path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
+        for ob in (env, car):
+            ad = ob.animation_data
+            if ad and ad.action:
+                for fc in getattr(ad.action, 'fcurves', []):
+                    for kp in fc.keyframe_points: kp.interpolation = 'LINEAR'
 
 else:
     # ---------------------------------------------------------- scan / card: silver on black, studio lights
