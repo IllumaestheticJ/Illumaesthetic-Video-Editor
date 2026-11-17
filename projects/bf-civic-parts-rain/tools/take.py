@@ -42,33 +42,13 @@ silver = sr.mat_silver(); car.data.materials.append(silver)
 m_part = bpy.data.materials.new("part_white"); m_part.use_nodes = True
 bs = m_part.node_tree.nodes["Principled BSDF"]
 bs.inputs["Base Color"].default_value = (0.82, 0.83, 0.85, 1); bs.inputs["Roughness"].default_value = 0.38
-# hero parts: Ron's production files (already in this frame)
-SEAT = {"front_lip": (T_LIP, Vector((0, -1.6, 2.2))), "skirt_L": (T_SKIRT, Vector((1.4, 0, 2.0))),
-        "skirt_R": (T_SKIRT, Vector((-1.4, 0, 2.0))), "rear_lip": (T_REAR, Vector((0, 1.6, 2.2))),
-        "wing": (T_WING, Vector((0, 0.3, 2.6)))}
+# hero parts: Ron's production files (already in this frame). Animated after the camera exists (falls are checked
+# against the frame and the scan): owner on v0 - no "homing", they must just fall onto the car as if that was the plan.
+SEAT = {"front_lip": (T_LIP, Vector((0, -1, 0))), "skirt_L": (T_SKIRT, Vector((1, 0, 0))), "skirt_R": (T_SKIRT, Vector((-1, 0, 0))),
+        "rear_lip": (T_REAR, Vector((0, 1, 0))), "wing": (T_WING, Vector((0, 0, 0)))}
 heroes = {}
-for n, (t, off) in SEAT.items():
-    o = imp(f"{M}/kit/parts/{n}.stl", n); o.data.materials.append(m_part)
-    # origin at the part's centre so it tumbles about itself
-    bpy.context.view_layer.objects.active = o; o.select_set(True)
-    bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY", center="BOUNDS"); o.select_set(False)
-    home = o.location.copy(); heroes[n] = o
-    rng = random.Random(hash(n) & 0xffff)
-    f_seat = fr(t)
-    # fall: from far above (out of frame) tumbling like the rain, straighten in the last 0.35 s, approach from outside
-    keys = [(f_seat - 75, home + off + Vector((0, 0, 4.5)), (rng.uniform(-2, 2), rng.uniform(-2, 2), rng.uniform(-2, 2))),
-            (f_seat - 30, home + off, (rng.uniform(-.7, .7), rng.uniform(-.7, .7), rng.uniform(-.7, .7))),
-            (f_seat - 10, home + off * 0.25 + Vector((0, 0, 0.05)), (0.05, -0.04, 0.03)),
-            (f_seat, home, (0, 0, 0))]
-    o.location = keys[0][1] + Vector((0, 0, 30)); o.keyframe_insert("location", frame=0)  # parked far above until its fall
-    o.keyframe_insert("location", frame=keys[0][0] - 1)
-    for f, loc, rot in keys:
-        o.location = loc; o.rotation_euler = rot
-        o.keyframe_insert("location", frame=f); o.keyframe_insert("rotation_euler", frame=f)
-    o.rotation_euler = keys[0][2]; o.keyframe_insert("rotation_euler", frame=0)
-    for fc in o.animation_data.action.fcurves if hasattr(o.animation_data.action, "fcurves") else []:
-        for kp in fc.keyframe_points:
-            kp.interpolation = "BEZIER"
+for n in SEAT:
+    o = imp(f"{M}/kit/parts/{n}.stl", n); o.data.materials.append(m_part); heroes[n] = o
 
 # camera: one move, front-left 3/4 -> left side -> Ron's render-7 view
 cam_d = bpy.data.cameras.new("cam"); cam = bpy.data.objects.new("cam", cam_d); sc.collection.objects.link(cam); sc.camera = cam
@@ -85,10 +65,12 @@ def pose(az, el, d, look):
     return look + d * Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
 # (frame, az, elevation, lens, look-at, framing width at the car in m)
 K = [(0, 24, 10, 35, TGT + Vector((0.1, -0.7, 0.7)), 4.3),
-     (fr(T_LIP) - 20, 44, 8, 35, TGT + Vector((0.1, -0.9, 0.45)), 4.0),
-     (fr(T_LIP) + 12, 56, 7, 38, TGT + Vector((0.1, -0.5, 0.35)), 4.9),
-     (fr(T_SKIRT) + 8, 92, 6, 45, TGT + Vector((0.0, 0.15, 0.3)), 5.9),   # v0 check: car clipped at 5.0
-     (fr(T_REAR) + 6, 140, 4, 70, look6, 5.4),
+     (fr(T_LIP) - 20, 16, 9, 35, TGT + Vector((0.0, -0.9, 0.45)), 4.0),   # v0.2: near-frontal so the lip drops in from the top
+     (fr(T_LIP) + 12, 22, 8, 38, TGT + Vector((0.0, -0.6, 0.35)), 4.4),
+     (fr(T_SKIRT) + 8, 92, 6, 45, TGT + Vector((0.0, 0.15, 0.3)), 5.9),
+     (400, 118, 6, 50, TGT + Vector((0.0, 0.3, 0.25)), 6.0),   # in-between keys keep the swing on an arc (a straight
+     (421, 142, 5, 55, TGT + Vector((0.0, 0.45, 0.2)), 5.7),   # chord came close and cut the tail, frames 390-426)
+     (fr(T_REAR) + 6, 165, 5, 60, TGT + Vector((0.0, 0.6, 0.2)), 5.2),   # v0.2: nearly behind so the rear lip drops in from the top
      (F_END - 8, az6, el6, END["lens"], look6, None)]
 for f, az, el, lens, look, width in K:
     d = d6 if width is None else width * lens / 36.0
@@ -111,10 +93,10 @@ for f in (F_END - 8, F_END):
 for f, v in ((fr(T_REAR) + 6, (0.0, 0.0)), (F_END - 8, (END["shift_x"], END["shift_y"]))):
     cam_d.shift_x, cam_d.shift_y = v; cam_d.keyframe_insert("shift_x", frame=f); cam_d.keyframe_insert("shift_y", frame=f)
 
-for f in range(0, F_END + 1, 6):
-    sc.frame_set(f); CAM_PATH.append(cam.matrix_world.to_translation().copy())
-# rain: lookbook GLB parts (eps-honda-civic-sedan-fe-facelift-v9), instanced, white satin
-rain_src = {}
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import rain, falls  # noqa: E402
+# rain: lookbook GLB parts (eps-honda-civic-sedan-fe-facelift-v9), white satin, screen-space falls behind the car
+rain_src = []
 for n in ("front_lip", "rear_lip", "duckbill", "side_skirts"):
     o = imp(f"{M}/glb/fe_parts/{n}.stl", "src_" + n)
     if n == "side_skirts":  # keep one side only (a pair falling together reads as one odd part)
@@ -124,79 +106,15 @@ for n in ("front_lip", "rear_lip", "duckbill", "side_skirts"):
     bpy.context.view_layer.objects.active = o; o.select_set(True)
     bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY", center="BOUNDS"); o.select_set(False)
     o.data.materials.append(m_part); o.hide_render = True; o.hide_viewport = True; o.location = (0, 0, -50)
-    rain_src[n] = o.data
-rng = random.Random(7)
-N_RAIN = int(arg("--rain", "56"))
-names = list(rain_src)
-for i in range(N_RAIN):
-    ob = bpy.data.objects.new(f"rain{i}", rain_src[names[i % len(names)]]); sc.collection.objects.link(ob)
-    # ring around the car, clear of the body by >= 1 m (parts are up to 1.8 m long, they spin)
-    while True:
-        a = rng.uniform(0, 2 * math.pi); r = rng.uniform(3.0, 9.0)
-        x, y = 0.0 + r * math.sin(a), 0.3 - r * math.cos(a)
-        if abs(x) > 2.1 or y < -3.2 or y > 3.7:
-            near_cam = min((Vector((x, y)) - Vector((c.x, c.y))).length for c in CAM_PATH)
-            if near_cam > 3.4 and not (-3.4 < x < -0.6 and -4.3 < y < -1.9):  # clear of the lens and the mascots
-                break
-    period = rng.uniform(3.2, 4.6)          # seconds to fall z 7 -> -3
-    phase = rng.uniform(0, period)
-    spin = Vector((rng.uniform(-1.5, 1.5), rng.uniform(-1.5, 1.5), rng.uniform(-2.5, 2.5)))
-    rock = rng.uniform(0.4, 0.9); sway = rng.uniform(0.2, 0.5)
-    step = 3
-    for f in range(0, F_END + step, step):
-        t = f / FPS
-        density = 0.55 + 0.45 * min(1, t / 6)   # builds through the intro
-        u = ((t + phase) % period) / period
-        z = 7.0 - 10.0 * u
-        if i > N_RAIN * density and u > 0.02:
-            z = 40  # not yet in the rain
-        if t > T_REAR:  # the rain falls away after the rear lip lands; the 1:1 end frame is clean
-            z -= 7.0 * (t - T_REAR) ** 2
-        ob.location = (x + sway * math.sin(2.3 * t + i), y + sway * math.cos(1.9 * t + i), z)
-        ob.rotation_euler = (rock * math.sin(3.1 * t + i) + spin.x * t * 0.3, rock * math.cos(2.7 * t + 2 * i) + spin.y * t * 0.3, spin.z * t)
-        ob.keyframe_insert("location", frame=f); ob.keyframe_insert("rotation_euler", frame=f)
-    ob.animation_data.action  # linear-ish is fine for v0
-# thin out the rain after the drop: shrink everything that starts falling after T_LIP
-for ob in [o for o in sc.objects if o.name.startswith("rain")]:
-    pass
-
-# Del & Eps PLACEHOLDERS: model-sheet cut-outs on cards that face the camera (owner's locked look); 1:1 scale
-def card(png, name, height, loc):
-    img = bpy.data.images.load(png); w = height * img.size[0] / img.size[1]
-    bpy.ops.mesh.primitive_plane_add(size=1); o = bpy.context.object; o.name = name
-    o.scale = (w, 1, height); o.rotation_euler = (math.pi / 2, 0, 0)
-    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
-    for v in o.data.vertices: v.co.z += height / 2
-    o.location = loc
-    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
-    out = nt.nodes.new("ShaderNodeOutputMaterial"); tex = nt.nodes.new("ShaderNodeTexImage"); tex.image = img
-    em = nt.nodes.new("ShaderNodeEmission"); tr = nt.nodes.new("ShaderNodeBsdfTransparent"); mix = nt.nodes.new("ShaderNodeMixShader")
-    # scan-in reveal: visible below an animated height (Generated Z), cyan band at the edge
-    tc = nt.nodes.new("ShaderNodeTexCoord"); sep = nt.nodes.new("ShaderNodeSeparateXYZ"); nt.links.new(tc.outputs["Generated"], sep.inputs[0])
-    gate = nt.nodes.new("ShaderNodeMath"); gate.operation = "LESS_THAN"; nt.links.new(sep.outputs["Z"], gate.inputs[0])
-    alpha = nt.nodes.new("ShaderNodeMath"); alpha.operation = "MULTIPLY"
-    nt.links.new(tex.outputs["Alpha"], alpha.inputs[0]); nt.links.new(gate.outputs[0], alpha.inputs[1])
-    band = nt.nodes.new("ShaderNodeMath"); band.operation = "COMPARE"; band.inputs[2].default_value = 0.03
-    nt.links.new(sep.outputs["Z"], band.inputs[0])
-    col = nt.nodes.new("ShaderNodeMix"); col.data_type = "RGBA"; col.inputs["B"].default_value = (0.43, 0.76, 0.84, 1)  # #6fc3d6
-    nt.links.new(band.outputs[0], col.inputs["Factor"]); nt.links.new(tex.outputs["Color"], col.inputs["A"])
-    nt.links.new(col.outputs["Result"], em.inputs["Color"]); em.inputs["Strength"].default_value = 1.0
-    nt.links.new(alpha.outputs[0], mix.inputs[0]); nt.links.new(tr.outputs[0], mix.inputs[1]); nt.links.new(em.outputs[0], mix.inputs[2])
-    nt.links.new(mix.outputs[0], out.inputs[0])
-    m.blend_method = "BLEND" if hasattr(m, "blend_method") else None
-    o.data.materials.append(m)
-    for node, f, v in ((gate, 0, -0.05), (gate, fr(T_CHARS), -0.05), (gate, fr(T_CHARS) + 15, 1.05)):
-        node.inputs[1].default_value = v; node.inputs[1].keyframe_insert("default_value", frame=f)
-    band.inputs[1].default_value = -1
-    for f, v in ((0, -0.2), (fr(T_CHARS), -0.05), (fr(T_CHARS) + 15, 1.05), (fr(T_CHARS) + 16, 2.0)):
-        band.inputs[1].default_value = v; band.inputs[1].keyframe_insert("default_value", frame=f)
-    return o
-CH = f"{M}/chars"
-NOCH = True  # v0: mascots are 2D composites (see comp.py); the 3D cards stay off
-del_ = card(f"{CH}/del_34_ph.png", "DEL_placeholder", 1.85 * 634 / 588, (-2.15, -2.75, 0.0))
-eps = card(f"{CH}/eps_34_ph.png", "EPS_placeholder", 1.70 * 562 / 516, (-1.45, -3.45, 0.0))
-if NOCH:
-    del_.hide_render = eps.hide_render = True
+    rain_src.append(o.data)
+KEEP = ((-2.1, -3.1, -1.0), (2.1, 3.7, 2.5))   # Ron-frame car bbox + 1 m
+n_rain = rain.build(sc, rain_src, int(arg("--rain", "34")), F_END - 1, depth=(8.0, 14.0), keep_out=KEEP,
+                    t_last_end=T_END - 0.05, seed=7)
+print("RAIN parts", n_rain)
+# hero falls (tools/falls.py): straight line, constant orientation, gravity, steepest line that clears the scan
+for n, (t, side) in SEAT.items():
+    info = falls.animate(sc, heroes[n], car, fr(t), side, F_END - 1, name=n)
+    print("FALL", n, info)
 
 # world + lights (house look: soft top/key, rim, black background)
 sr.studio_world((0.004, 0.004, 0.005, 1), False)

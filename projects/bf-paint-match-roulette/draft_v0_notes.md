@@ -51,3 +51,38 @@ Tools: `tools/render_v0.py` (Blender stills), `tools/compose_v0.py` (assembly + 
   pass clipped "PAINT MATCH AVAILABLE" and "INTEGRA SPORT WING"). On the end card, Del & Eps were scaled down so they no longer cover the car.
 - **Known v0 issues:** the 1:1 scan->CGI cut is approximate (PCA + bbox, not ICP). The Eps placeholder overlaps the scan's rear
   quarter in shot 1 and does not touch the wing. Renders are at half resolution.
+
+# v0.2 (2026-11-17): retro car-dealership menu version
+
+The owner sent two reference clips of a PS1-era racing game's showroom menu and said: "we want it to look like this, with change
+color and the same sound effect ... the same UI, with the cars we have ... the price where the credits should be ... change color,
+and then show all our color options ... keep the paint match and the sale/price in a similar way, show the navigation between cars
+too, and the SFX". Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.2.mp4` (23.3 s, 1080x1920, 30 fps).
+Tools: `tools/render_turntable.py`, `tools/compose_v02.py`.
+
+## What it is
+Lineup grid (3 tiles with sale prices) -> cursor clicks Civic Hatch -> car on a turntable, Gloss Black base wing, $315 (~~$450~~) ->
+CHANGE COLOR through all 12 store colours ($715, ~~$850~~) -> back to the lineup -> Civic Sedan (11 colours) -> Integra (10 colours)
+-> offer screen -> Epsilon+ wordmark. Clicks and colour changes land on the beat (GT2 "Arcade Mode Theme", 140 BPM).
+
+## Assumptions and choices
+1. **UI is our own drawing in the reference's layout**, not a copy of the game's art: own icons, Inter / DejaVu Serif type, no game or
+   manufacturer logos. Layout matches: icon row, tabs, serif car name, turntable, colour name, swatch strip, CHANGE COLOR, the price
+   where the credits sit, BUY ring, bottom bar with a back button.
+2. **SFX are synthesized** (cursor tick, two-tone select, rising colour-change chirp). Both reference clips have music under the menu
+   sounds, so the originals can't be lifted cleanly. If the owner has clean recordings, they can be dropped in.
+3. **All colours on the lookbook models:** the 12 FL colours (including Boost Blue and Championship White) are shown on the FL2 hatch
+   model. Championship White NH0 has no lookbook value; **#f6f5ee is my approximation**.
+4. **Prices** from the BF liquidation sheet: base $450 -> $315 (Civics), $500 -> $350 (Integra); paint-matched $850 -> $715 and $950 -> $800.
+   Platinum White is dearer on the store, so it shows $900 -> $765 (Civic Sedan) and $1,000 -> $850 (Integra): the was-price minus the
+   same base discount. $850 for the Integra is in the owner's TL;DR doc; **$765 is derived, please confirm**.
+5. **Recolouring:** each car has 48 turntable angles in two passes (paint black / paint white) plus a paint-and-wing mask
+   (720x420, Cycles 10 samples). Colours are tinted in compositing, so the paint is a plain gloss (no metallic flake) in this draft.
+6. On the base-wing screen the car body is a neutral grey with the wing in gloss black.
+7. Dropped from this version: the silver scan opener, the real photos and the Remotion text style. No characters.
+
+## Checks on the delivered file
+- Loudness -14.0 LUFS, peak -1.5 dBFS (music -5 dB under the SFX mix, then +4.2 dB overall).
+- 37 click / colour-change events vs measured music onsets: mean -4.5 ms, max 25 ms (frame-quantised).
+- Contact sheet (44 frames) looked at: every colour appears with its name, code and price; nothing clipped. The first pass had
+  the tabs over the icon row and the offer-screen price off the right edge; both were fixed.

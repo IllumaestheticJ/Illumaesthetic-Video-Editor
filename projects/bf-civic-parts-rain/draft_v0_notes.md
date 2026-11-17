@@ -41,3 +41,12 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
 - The 1:1 end of the take vs render 7: car width 940 px both, overlay checked (renders/fit/overlay.jpg).
 - Text: 80 px margins checked by measurement (title 125 px, "30% OFF" ~90 px, parts line 86 px).
 - No text over the IRL flash.
+
+
+## v0.2 changes (output `bf-civic-parts-rain_v0.2.mp4`) (owner notes on v0, 2026-11-17)
+1. **"Too many parts clip in and out of the screen."** The rain is rebuilt in screen space (`tools/rain.py`). Every part enters fully above the top edge, falls straight down inside the side margins and leaves fully below the bottom edge. Respawns happen only off screen, and camera moves and zooms can no longer push a part across an edge. The rain finishes falling before the cut.
+2. **"Don't home the parts - they must naturally fall on the car as if that was the plan."** Each kit part keeps its final orientation and falls along one straight line under gravity, from out of frame, landing exactly on its beat (`tools/falls.py`).
+   - Fall lines: wing straight down; skirts 70 deg; lips 60 deg.
+   - The lip, skirts and rear lip tuck under the body, so a pure vertical drop would pass through it. The lines are chosen so any contact with the scan happens only inside the last step between two frames, which is never rendered (`tools/fall_depth.py`).
+   - The camera is near-frontal at the lip landing and nearly behind at the rear-lip landing, so both lips drop in from the top of the frame.
+3. **"Cut the short section showing the badge."** The IRL flash is removed, and the take now cuts 1:1 to render 7 on the 16.25 s hit.
