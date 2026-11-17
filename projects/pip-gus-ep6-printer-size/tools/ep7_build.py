@@ -31,9 +31,11 @@ TL = json.loads((PROJ / "ep7_timeline.json").read_text())
 A_N = TL["total_frames"]                       # 907
 CUTS = dict(big=A_N, small=A_N + 72, card=A_N + 144, logo=A_N + 252, end=A_N + 343)
 VO13_AT = CUTS["logo"] + 5
-BIG = dict(src=DROP / "15.50.05.mov", t_full=5.0)       # frame 907 shows 5.0 s; phone (S10) plays 3.3-5.0 s before it
+BIG = dict(src=DROP / "15.50.09.mov", t_full=9.3)       # v2 (owner: show the big printer running): the whole machine, gantry
+                                                        # travelling across the bed; phone plays 7.6-9.3 s, full frame 9.3-11.7 s
+                                                        # (the brand name on the front rail shows at 4-7 s: avoided)
 SMALL = dict(src=DROP / "mr2_print.avi", t0=0.45, crop=(405, 720, 430, 0))   # built-in timelapse; logo on the head from ~3.9 s
-TEASE = dict(src=DROP / "15.50.09.mov", t0=7.6, crop=(720, 540, 0, 420))    # gantry move, logo (~5 s) avoided
+TEASE = dict(src=DROP / "15.50.05.mov", t0=3.3, crop=(720, 540, 0, 250))    # v2: nozzle laying a part (touchscreen text < 3.0 s avoided)
 WIN = dict(x=110, y=700, w=860, h=645, r=30, border=5)
 BRAND = dict(accent="#619f73", onAccent="#0b0c0b", ink="#ecefec", bg="#0b0c0b", sub="#c8ccc8", sub2="#aeb3ae", label="#aeb3ae")
 CAP = dict(PIP="#619f73", GUS="#ecefec")
@@ -190,18 +192,65 @@ def pages():
             else:
                 ln = [s]
             out.append(dict(t0=round(t0, 3), t1=round(t1, 3), color=CAP[L["speaker"]], y=1330, cx=540, lines=ln))
-    # keep every page off the phone screen (real footage) in S10: move it below the screen
-    s10 = [s for s in TL["shots"] if s["id"] == "S10"][0]
-    for p in out:
-        f0, f1 = int(round(p["t0"] * FPS)), int(round(p["t1"] * FPS))
-        if f1 > s10["f0"]:
-            p["y"] = 1700
-            for fr in range(max(f0, s10["f0"]), min(f1, A_N)):
-                r = screen_rect(fr)
-                hh = 70 + 60 * (len(p["lines"]) - 1)
-                assert r is None or r[3] < p["y"] - hh or fr == A_N - 1, ("caption over the phone screen", fr, r)
-            assert f1 <= A_N - 1, "caption must end before the screen fills the frame"
+    place(out)
     return out
+
+
+SIZE = 80                      # v2: smaller captions (owner: captions were blocking the action)
+Y_RANGE = (300, 1500)          # reel safe area (no text in the top 220 / bottom 420 px)
+
+
+def box_of(p, y):
+    n = max(len(" ".join(w["w"] for w in ln)) for ln in p["lines"])
+    w = n * SIZE * 0.42 + 2 * SIZE * 0.3 + 52
+    h = len(p["lines"]) * SIZE * 1.12 + 22
+    return int(540 - w / 2), int(y - h / 2), int(540 + w / 2), int(y + h / 2)
+
+
+def place(pages_):
+    """v2 (owner: captions blocked the action): one caption height per shot, chosen where the rendered frames are quietest -
+    the fewest edges (character/prop outlines, the scoreboard; flat wall, floor and the black bed have none)
+    inside the caption plate, over every 3rd frame the shot's captions are on screen; never over the phone screen (S10)."""
+    shots = TL["shots"]
+    cache = {}
+
+    def dark(fr):
+        if fr not in cache:
+            sid = [s["id"] for s in shots if s["f0"] <= fr < s["f1"]][0]
+            im = cv2.imread(str(FRAMES / sid / f"{fr:04d}.png"), cv2.IMREAD_GRAYSCALE)
+            e = cv2.Canny(cv2.GaussianBlur(im, (5, 5), 0), 40, 110)          # outlines and shape edges, not flat fills
+            cache[fr] = cv2.dilate(e, np.ones((9, 9), np.uint8)).astype(np.float32) / 255.0
+        return cache[fr]
+
+    for s in shots:
+        ps = [p for p in pages_ if s["f0"] <= int(round(p["t0"] * FPS)) < s["f1"]]
+        if not ps:
+            continue
+        best = None
+        for y in range(Y_RANGE[0], Y_RANGE[1] + 1, 20):
+            sc, bad = 0.0, False
+            for p in ps:
+                x0, y0, x1, y1 = box_of(p, y)
+                if y0 < Y_RANGE[0] - 80 or y1 > Y_RANGE[1] + 80:
+                    bad = True
+                    break
+                for fr in range(int(round(p["t0"] * FPS)), min(int(round(p["t1"] * FPS)), A_N), 3):
+                    sc += float(dark(fr)[y0:y1, max(0, x0):min(W, x1)].mean())
+                    r = screen_rect(fr) if s["id"] == "S10" else None
+                    if r and not (y0 > r[3] + 12 or y1 < r[1] - 12) and fr != A_N - 1:
+                        bad = True
+            if bad:
+                continue
+            sc += 0.00002 * abs(y - 1330)                       # tie-break toward the usual lower-third height
+            if best is None or sc < best[0]:
+                best = (sc, y)
+        assert best, ("no clear caption height", s["id"])
+        for p in ps:
+            p["y"] = best[1]
+        print(f"[captions] {s['id']}: y {best[1]} (dark {best[0]:.4f})", flush=True)
+    s10 = [s for s in shots if s["id"] == "S10"][0]
+    for p in pages_:
+        assert int(round(p["t1"] * FPS)) <= A_N - 1 or int(round(p["t0"] * FPS)) < s10["f0"], "caption must end before the screen fills the frame"
 
 
 def props():
@@ -210,7 +259,7 @@ def props():
               "lines": [{"text": "WHICH DO YOU", "at": c0}, {"text": "PREFER", "at": c0 + b}, {"text": "RUNNING?", "at": c0 + 2 * b}],
               "sub": {"lines": [], "at": c0}, "win": dict(WIN, at=c0)},
              {"kind": "logo", "t0": CUTS["logo"] / FPS, "t1": CUTS["end"] / FPS + 1, "cta": ""}]
-    return {"fps": FPS, "durationInFrames": CUTS["end"], "items": items, "pages": pages(), "palette": BRAND, "size": 88}
+    return {"fps": FPS, "durationInFrames": CUTS["end"], "items": items, "pages": pages(), "palette": BRAND, "size": SIZE}
 
 
 def gfx():
