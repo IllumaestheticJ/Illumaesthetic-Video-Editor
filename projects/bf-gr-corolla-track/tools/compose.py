@@ -19,9 +19,9 @@ END = round(kicks[36] * FPS) + 30          # logo holds to kick 36, then a 1 s f
 ORDER = ['s1_hook', 's2_push', 's3_scan', 's4_lip', 's5_lipscan', 's6_cardv2', 's7_side', 's8_cardv1', 's9_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 54)
-f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 132) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 132)
-f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 96)
+f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 36)
+f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 76) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 76)
+f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 60)
 f_url = ImageFont.truetype(FONT + 'InterDisplay-Medium.otf', 44)
 TXT = (232, 236, 242)
 CYAN = (111, 195, 214)
@@ -36,13 +36,25 @@ def ease(t):
     t = max(0.0, min(1.0, t)); return t * t * (3 - 2 * t)
 
 
-def text_c(d, y, s, font, alpha, tracking=0):
+CX = 487   # centre of the gap between the skirts in the card plates (measured on s6/s8 renders)
+
+
+def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
     if tracking:
-        widths = [d.textlength(ch, font=font) for ch in s]; tw = sum(widths) + tracking * (len(s) - 1); x = (W - tw) / 2
+        widths = [d.textlength(ch, font=font) for ch in s]; tw = sum(widths) + tracking * (len(s) - 1); x = cx - tw / 2
         for ch, w_ in zip(s, widths):
             d.text((x, y), ch, font=font, fill=TXT + (alpha,)); x += w_ + tracking
     else:
-        tw = d.textlength(s, font=font); d.text(((W - tw) / 2, y), s, font=font, fill=TXT + (alpha,))
+        tw = d.textlength(s, font=font); d.text((cx - tw / 2, y), s, font=font, fill=TXT + (alpha,))
+
+
+def surface_top(img, x, y_from, y_to):
+    """first bright (part) pixel scanning down column x: where a character's boots touch the part in this frame"""
+    g = img.convert('L')
+    for y in range(y_from, y_to):
+        if g.getpixel((x, y)) > 40:
+            return y + 4
+    return y_to
 
 
 def character(img, who, feet_xy, height, i, n):
@@ -71,15 +83,15 @@ def card_overlay(img, shot, i, n):
     d = ImageDraw.Draw(img)
     a_in = ease(i / 6); a_out = 1 - ease((i - (n - 6)) / 5); al = round(255 * min(a_in, a_out))
     if shot == 's6_cardv2':
-        text_c(d, 720, 'BLACK FRIDAY', f_bf, al, tracking=6)
-        text_c(d, 800, 'V2 KIT', f_mid, al)
-        text_c(d, 905, '30% OFF', f_big, al)
-        character(img, 'eps', (370, 520), 330, i, n)      # on the V2 lip's left half
+        text_c(d, 770, 'BLACK FRIDAY', f_bf, al, tracking=6)
+        text_c(d, 838, 'V2 KIT', f_mid, al)
+        text_c(d, 925, '30% OFF', f_big, al)
+        character(img, 'eps', (400, surface_top(img, 400, 250, 700)), 250, i, n)      # boots on the V2 lip's top edge
     else:
-        text_c(d, 720, 'BLACK FRIDAY', f_bf, al, tracking=6)
-        text_c(d, 800, 'V1 UP TO', f_mid, al)
-        text_c(d, 905, '45% OFF', f_big, al)
-        character(img, 'del', (365, 1505), 340, i, n)     # on the V1 left rear spat
+        text_c(d, 770, 'BLACK FRIDAY', f_bf, al, tracking=6)
+        text_c(d, 838, 'V1 UP TO', f_mid, al)
+        text_c(d, 925, '45% OFF', f_big, al)
+        character(img, 'del', (322, surface_top(img, 322, 1400, 1700)), 290, i, n)     # boots on the V1 left rear spat
 
 
 def logo_frame(i, n):
