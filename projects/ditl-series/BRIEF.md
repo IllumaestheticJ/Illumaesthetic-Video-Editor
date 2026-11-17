@@ -207,3 +207,9 @@ anything stock-related goes in the video.
   He shields the wing with both arms. End.
 - Voice note (WRX, 2026-11-17): the preset voice "Cody" fails on Higgsfield `elevenlabs_v4` (refunded); it works only on Seed Audio, which has no emotion tags. Check a voice works on v4 before building a dialogue take around it.
 - **Style study (read it):** `projects/ditl-wrx-vb/style-study.md`. In short: flat-colour blocky bodies; 2D ink-drawn face decals swapped every 0.2-0.5 s; POV hands and props are photographed real cut-outs, not 3D; screens are real screenshots; photo-textured box sets; strong colour banding; scenes end on a slow push-in to a horror face; audio is a fast, constant, improvised-sounding real voice, not clean slow TTS.
+- **Reusable Blender kit (from the WRX session):** `projects/ditl-wrx-vb/tools/`. `ditl_kit.py` helpers (`mat`, `box`,
+  `plane`, `hand` (3D hands), `person` (blocky people with ink face decals), `lowcar`, `world`, `camera`) are generic;
+  `car()` hard-codes the WRX VB GLB and part names, and the `shot_*` functions are WRX-only. `faces.py` (face decals,
+  phone/store screens) is generic except the checkout items; `frame.sh` (1:1 picture + title band + crunch) is generic
+  except the hard-coded title. Copy these into your own `projects/ditl-<slug>/tools/` and parametrise the car/title;
+  don't edit the WRX copies. CPU renders take about 5-12 s per 540 px frame.
