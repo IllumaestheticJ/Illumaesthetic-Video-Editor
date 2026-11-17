@@ -8,7 +8,7 @@ v0 of `shotlist.md`. The plan's open questions are still open; every default tak
   - `tools/prep_v0.py`: builds the scene;
   - `tools/render_v0.py`: shots T1 and T2;
   - `tools/ron_still_v0.py`: Ron's end frame;
-  - `tools/overlays_v0.py`: price cards, tags, end card and character placeholders;
+  - `tools/overlays_v0.py`: price cards, tags and end card;
   - `tools/assemble_v0.py`: final mp4.
 
 ## What changed against the plan, and why
@@ -32,7 +32,7 @@ v0 of `shotlist.md`. The plan's open questions are still open; every default tak
 - **Render quality:** Cycles at 32 % resolution (346x614, upscaled to 1080x1920), 8 spp + OIDN, 15 fps, frames doubled to 30.
   Soft, aliased and noisy by design: it's a timing and story draft.
 - **Kit look:** unpainted PU / gloss black (dark grey, roughness 0.42) on the house silver scan.
-- **Eps's scan line:** a cyan (#6fc3d6) band sweeps the car nose to tail from 0.81 s to 2.16 s, rendered on the scan surface.
+- **Scan line:** a cyan (#6fc3d6) band sweeps the car nose to tail from 0.81 s to 2.16 s, rendered on the scan surface.
 
 ## Music (claimed in MUSIC.md)
 
@@ -76,12 +76,9 @@ Loudness is set at the mux to -14 LUFS, with true peak below -1 dBFS. The measur
 5. **Wheels:** Ron's gold wheels, so the end is a 1:1 cut to his render at the same camera.
 6. **Stock:** nothing on screen.
 7. **Music:** Kim Petras "XXX" (claimed; lyrics not reviewed for ads; a /Moosic rip, not cleared for paid ads).
-8. **Del & Eps: PLACEHOLDERS.** No Higgsfield credits were spent on v0. They are cut-outs from
-   `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg`, keyed off its grey background, each stamped "PLACEHOLDER":
-   - Eps at full size beside the car while his scan line sweeps (0.25-2.6 s);
-   - Eps and Del in micro mode over the exploded top view (13.45-14.4 s).
-
-   They are 2D stickers, not posed or lit to the shot. v1 would generate posed plates with the sheet as the reference.
+8. **No characters (v0.1).** The owner said no Del & Eps in the BF videos, just typical branding content. The model-sheet
+   placeholders from the first v0 cut were removed before delivery, and no Higgsfield credits were spent. The cyan scan line
+   (0.81-2.16 s) stays as a scan-branding beat.
 9. **Kit colour:** real black finish.
 10. **The "1:1" end frame is a portrait re-render of Ron's scene,** not his delivered landscape render 7. It uses his `Camera.006(L5)`
     position and direction, a 72 mm lens and a 20.25 mm sensor, Cycles 48 spp at 50 %. The scan shot ends on exactly the same camera.
@@ -91,5 +88,4 @@ Loudness is set at the mux to -14 LUFS, with true peak below -1 dBFS. The measur
 - Full resolution and samples; real 30 fps renders for the part moves (the v5 merge30 lesson).
 - No `pathcheck` / `clipcheck` run on the flight paths yet. They were checked visually on the contact sheets only.
 - Footprint nesting from the website GLB `eps-honda-civic-sedan-fe-facelift-v9`.
-- Real Del & Eps plates (Higgsfield, the model sheet as the reference), composited with contact shadows.
 - Fjalla One / Barlow (site fonts). v0 uses Inter Display.

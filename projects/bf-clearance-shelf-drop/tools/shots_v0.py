@@ -20,7 +20,9 @@ A.add_argument("--out", required=True)
 A.add_argument("--res", type=float, default=0.5)
 A.add_argument("--frames", default="")
 A.add_argument("--step", type=int, default=1)
+A.add_argument("--chars", action="store_true", help="v0 placeholders (owner removed them; off by default)")
 args = A.parse_args(sys.argv[sys.argv.index("--") + 1:])
+NO_CHARS = not args.chars
 M = "/home/user/media/bf-clearance-shelf-drop"
 GLB = {"integra": f"{M}/glb/eps-acura-integra-de-v29.glb", "grv1": f"{M}/glb/eps-toyota-gr-corolla-v23.glb"}
 PART = {"integra": "part_duckbill", "grv1": "part_front_lip"}
@@ -246,6 +248,8 @@ def tag(key, loc, yaw, flip_f):
 
 
 def billboard(name, png, loc, height, cam, emissive=1.0):
+    if NO_CHARS:                         # owner 2026-11-17: no Del & Eps in the BF videos
+        return None
     img = bpy.data.images.load(png)
     w, h = img.size
     m = bpy.data.materials.new(name); m.use_nodes = True
@@ -385,6 +389,22 @@ def aisle():
     p = em.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
     for f, v in ((1, 0.0), (55, 0.0), (56, 12.0)):
         p.default_value = v; p.keyframe_insert("default_value", frame=f)
+    # Epsilon+ wordmark lightbox under the sign (branding replaces the removed characters)
+    img = bpy.data.images.load(f"{M}/logo/Epsilon+ Logo.png")
+    lm = bpy.data.materials.new("logo"); lm.use_nodes = True
+    nt = lm.node_tree; pb = nt.nodes["Principled BSDF"]
+    tx = nt.nodes.new("ShaderNodeTexImage"); tx.image = img
+    nt.links.new(tx.outputs["Color"], pb.inputs["Emission Color"]); nt.links.new(tx.outputs["Alpha"], pb.inputs["Alpha"])
+    pb.inputs["Base Color"].default_value = (0, 0, 0, 1)
+    try:
+        lm.surface_render_method = "BLENDED"
+    except Exception:
+        pass
+    es = pb.inputs["Emission Strength"]
+    for f, v in ((1, 0.0), (37, 0.0), (38, 3.0)):
+        es.default_value = v; es.keyframe_insert("default_value", frame=f)
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, 3.55), rotation=(math.pi / 2, 0, 0))
+    lo = bpy.context.object; lo.scale = (3.2, 3.2 * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
     light("fill", "AREA", Vector((0, -2, 3)), 150, 3, Vector((0, 2.3, 1)))
     return cam
 
