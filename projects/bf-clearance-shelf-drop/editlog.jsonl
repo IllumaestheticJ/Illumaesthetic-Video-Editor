@@ -20,3 +20,4 @@
 {"ts": "2026-11-17T10:23:07Z", "decision": "v0.2: product parts (duckbill, V1 lip) in gloss 2x2 twill carbon; everything else stays silver", "why": "Owner: make the actual duckbill and the lip carbon to contrast the rest of the scans"}
 {"ts": "2026-11-17T11:54:24Z", "decision": "v0.2 assembled: readable tags + carbon duckbill/V1 lip", "why": "owner: signs hard to read; carbon parts should contrast the silver scans"}
 {"ts": "2026-11-17T16:24:11Z", "decision": "v0.3: tags scaled 0.40->0.34 and lowered; count text y 250->330", "why": "owner safe-zone rule: tag tops sat in the top UI bar and the count line sat outside the 4:5 feed crop"}
+{"ts": "2026-11-17T16:51:40Z", "decision": "v0.3 assembled and safe-zone checked", "why": "owner rule: no text or elements in the social UI buffer zones"}
