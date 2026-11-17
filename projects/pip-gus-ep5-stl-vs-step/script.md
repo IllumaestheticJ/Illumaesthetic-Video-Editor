@@ -19,7 +19,16 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 - The deviation map is colour only.
 - End the video with the question "Do you design in CAD or in mesh?".
 
-Status: **Script v5 APPROVED by owner 2026-11-17** (keep "Is it done yet?"). Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
+Status: **Script v6 DRAFT for owner approval** (v5 was approved, then the owner asked for the "What's a mesh?" opening). Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
+
+## v6 changes (owner, 2026-11-17)
+- **Opening:** "What's a mesh?" (owner).
+- **The technical difference is now explained:**
+  - **Mesh:** the scan is millions of points, joined into triangles and saved as an STL.
+  - **NURBS:** surfaces made of equations, not points. They stay smooth at any zoom and can be edited.
+- **Cut to make room:** "Perfect for scans." and "Smooth math surfaces."
+- **Kept:** the line 8 fork, "Is it done yet?", and the ending.
+- **Status:** script v5 and voice take 2 are superseded.
 
 ## v5 changes (owner accuracy note, 2026-11-17)
 - **Owner:** "if you plan on manufacturing it - it needs to be in STP for a machine tool, but if you're only printing it, .stl is fine".
@@ -51,17 +60,18 @@ Status: **Script v5 APPROVED by owner 2026-11-17** (keep "Is it done yet?"). Rea
 
 | # | t (s) | Who | Line (emotion tag for v4) | Picture | Caption |
 |---|---|---|---|---|---|
-| 1 | 0.2-3.0 | PIP | [curious] "If the scan's a mesh, what do you design in?" | Callback to Ep 4: Pip's bumper scan mesh on the shop laptop. Pip leans in at the screen | yes |
-| 2 | 3.2-6.2 | GUS | [matter-of-fact] "Depends. STL is a mesh. Just triangles." | Gus taps the screen. Camera dives in until the surface is all flat triangles | yes |
-| 3 | 6.4-8.6 | GUS | "Perfect for scans. Perfect for printing." | Mesh drops into the unbranded cartoon printer, which prints it fine. A small tick pops up | yes |
-| 4 | 8.7-10.0 | GUS | [slightly annoyed] "Terrible to edit." | Gus's floating hand drags one edge, and a ragged clump of triangles tears along with it | yes |
-| 5 | 10.3-13.0 | GUS | "STEP is NURBS. Smooth math surfaces." | The same bumper re-forms as a few clean glowing patches with crisp edges | yes |
-| 6 | 13.1-15.6 | GUS | "Change a hole, a thickness... it just updates." | A slider (no numbers) grows a bolt hole, then the wall thickens. Each change updates cleanly | yes |
-| 7 | 15.8-16.8 | PIP | [curious] "So which one?" | Pip looks between the two bumpers | yes |
-| 8 | 16.9-18.9 | GUS | "Just printing it? The STL's fine." | Fork board, left path: the mesh bumper goes into the cartoon printer (tick) | yes |
-| 9 | 19.0-21.4 | GUS | "Making it on a machine? It has to be STEP." | Right path: an unbranded cartoon CNC mill (machine tool). It rejects the mesh with a "?" and takes the STEP bumper | yes |
-| 10 | 21.6-23.2 | PIP | [curious] "And turning a scan into a STEP?" | | yes |
-| 10b | 23.3-25.0 | GUS | [weary] "You rebuild it. Surface by surface." | Gus lays patches over the scan mesh one at a time. The wall clock starts to spin | yes |
+| 1 | 0.2-1.4 | PIP | [curious] "Wait... what's a mesh?" | Callback to Ep 4: Pip's bumper scan on the shop laptop. Pip squints at the screen | yes |
+| 2 | 1.6-3.8 | GUS | [matter-of-fact] "A scan is millions of points." | Camera dives into the screen: the bumper dissolves into a cloud of dots (a point cloud) | yes |
+| 3 | 3.9-7.6 | GUS | "Join them up into tiny triangles. That's a mesh. An STL." | The dots connect into flat triangles, one ripple across the bumper. An "STL" tag appears on the file | yes |
+| 4 | 7.8-10.6 | GUS | [dry] "Perfect for printing. [slightly annoyed] Terrible to edit." | Mesh drops into the cartoon printer (tick). Then Gus drags one edge and a ragged clump of triangles tears along | yes |
+| 5 | 10.8-11.8 | PIP | [curious] "And STEP?" | | yes |
+| 6 | 12.0-15.2 | GUS | "STEP is NURBS. Not points... equations." | The same bumper re-forms as a few glowing smooth patches; one edge shows as a curve pulled by a handful of control points | yes |
+| 7 | 15.4-18.6 | GUS | "Smooth at any zoom. Change a hole... it just updates." | Split zoom: the mesh side goes faceted, the NURBS side stays smooth. Then a slider (no numbers) grows a bolt hole cleanly | yes |
+| 8 | 18.8-19.8 | PIP | [curious] "So which one?" | Pip looks between the two bumpers | yes |
+| 9 | 20.0-22.0 | GUS | "Just printing it? The STL's fine." | Fork board, left path: mesh bumper into the cartoon printer (tick) | yes |
+| 10 | 22.1-24.5 | GUS | "Making it on a machine? It has to be STEP." | Right path: an unbranded cartoon CNC mill rejects the mesh with a "?" and takes the STEP bumper | yes |
+| 10b | 24.7-26.3 | PIP | [curious] "And turning a scan into a STEP?" | | yes |
+| 10c | 26.4-28.4 | GUS | [weary] "You rebuild it. Surface by surface." | Gus lays patches over the scan mesh one at a time. The wall clock starts to spin | yes |
 | 11a | 25.0-25.7 | PIP | [impatient] "Is it done yet?" | | yes |
 | 11b | 25.8-26.2 | GUS | "...No." | | yes |
 | 12 | 26.3-27.6 | PIP | [excited] "Illumaesthetic does that. Look!" (owner confirmed the service) | Pip holds up the phone. Camera pushes into the screen until the real footage fills the frame (hard cut on a beat) | yes |
