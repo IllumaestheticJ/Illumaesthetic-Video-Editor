@@ -1,4 +1,4 @@
-# Pip & Gus Ep 1 (was Ep 3): "Why can't I just print the bumper I want?" (script v6 = approved v4 + series opener ending; ending needs owner OK)
+# Pip & Gus Ep 1 (was Ep 3): "Why can't I just print the bumper I want?" (script v7, ending rewritten per owner 2026-11-17; needs owner OK)
 
 Owner brief (2026-11-16): make people realise a custom bumper they design and print usually still costs more than just buying one.
 9:16, 1080x1920, 30 fps. Estimate: cartoon ~31-33 s, real footage ~4-5 s, teaser card ~3 s, logo card ~2 s = ~45 s.
@@ -23,14 +23,16 @@ material"). By line 11 the bill reaches the floor.
 | 8 | GUS | "Then glue. Filler. Sanding. Primer." | One cut per word on the beat: glue bottles, filler knife, a sanding cloud that hides Pip, primer can. | 4 icons |
 | 9 | PIP | "Is it done yet?" | Pip coughing out of the dust, grey. | - |
 | 10 | GUS | "...No. And it's heavier. And weaker." | The bumper thumps onto a scale that sags; a curb taps it and it cracks along a glue seam. | weight, cracked seam |
-| 11 | PIP | "...So buying one is cheaper?" | Pip stares at the bill, which now reaches the floor. | (floor) |
-| 12 | GUS | "...Usually. Unless it's discontinued... or you're making them to sell." | A cartoon catalog page gets a big DISCONTINUED stamp; then a row of identical bumpers slides off a mold. | - |
-| 13 | GUS | "...but if you insist." | Gus, half-lid, a tiny shrug. | - |
-| 14 | PIP | "I insist! Where do we start?" | Pip's eyes go ^ ^; he rips the bill off the wall. | - |
-| 15 | GUS | "We scan the car." | Gus wheels the scanner toward the black car (Ep 2 opens here). Hard cut on the beat. | - |
+| 11 | PIP | "...So I should just buy one?" | Pip stares at the bill, which now reaches the floor. | (floor) |
+| 12 | GUS | "If you can buy it? Yep. Printing a rep just doesn't make financial sense." | Side by side: a boxed store bumper next to the floor-length bill; the bill wins the weigh-in. | - |
+| 13 | GUS | "Unless it's discontinued... or you're making them to sell." | A DISCONTINUED stamp hits a catalog page; then a row of identical bumpers slides off a mold. | - |
+| 14 | PIP | "But I want a custom one!" | Pip slaps his dream-bumper drawing onto the bill. | - |
+| 15 | GUS | "...If you insist. Then we'll show you how." | Gus turns to the camera (to the audience), tiny shrug. | - |
+| 16 | PIP | "Where do we start?" | Pip, ^ ^ eyes, rips the bill off the wall. | - |
+| 17 | GUS | "We scan the car." | Gus wheels the scanner toward the black car (Ep 2 opens here). Hard cut on the beat. | - |
 
-~92 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 41-42 s (total ~50 s with footage and cards; trim options in the owner message).
-Lines 13-15 = series hand-off to Ep 2 (owner, relayed 2026-11-17). Line 12 = owner's exceptions (2026-11-17): printing is worth it when the bumper is discontinued, or when you make bumpers to sell in production.
+~110 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 45-47 s (total ~55 s with footage and cards; trim options in the owner message).
+Lines 12-17 (owner 2026-11-17): printing a rep of a bumper you can buy doesn't make financial sense; for a custom one, we show the audience how; then the series hand-off to Ep 2 (owner, relayed 2026-11-17). Line 12 = owner's exceptions (2026-11-17): printing is worth it when the bumper is discontinued, or when you make bumpers to sell in production.
 
 **Real footage (~4-5 s, no text, no voice) [OWNER Q: placement/clip now that the episode ends on "We scan the car"]:** SeamForge (owner OK, 2026-11-16), `2026-08-23 13-35-22.mp4` ~5:20-5:56: the bumper's
 coloured pieces packed across many build plates, re-framed to 9:16. Not presented as SeamForge's feature tour (that is Ep 4).
