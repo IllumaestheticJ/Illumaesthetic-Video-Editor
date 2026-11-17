@@ -1,248 +1,100 @@
-# DITL #1: "day in the life: average wrx owner" (VB): script v6, 2026-11-17
+# DITL #1: "Day in the life of an average WRX owner" (VB): script v7, 2026-11-17
 
-Step 1 deliverable for the series brief (`projects/ditl-series/BRIEF.md`). **Nothing has been generated or uploaded,
-and no credits were spent.** I ran free `get_cost` preflights only. Waiting on the owner.
+A full rewrite at the owner's request: fast-paced like the reference clips, minimal voices. Earlier versions
+(v1-v6) are in git history (`git log -- projects/ditl-wrx-vb/script.md`). Style rules are in `style-study.md`.
 
-## Owner decisions (2026-11-17)
-- **Production: all Blender, minimal Higgsfield** (owner in this chat). Every shot is a Blender render (Cycles CPU,
-  posterized and crunched in the edit), and the phone and Accessport screens come from Remotion. Higgsfield is used
-  only for the voice take.
-- **DAM**, not "DAMM".
-- **Real brands are OK:** Affirm, Honda Odyssey, BMW, Cobb Accessport. (The account isn't an LLC account and isn't
-  monetized.)
-- **Runtime up to 55 s.**
-- **Affirm at 30 % APR shows on the checkout** (drawn as a generic store with no Epsilon+ branding, per owner answer 4). The joke is that it's the lowest APR he can get.
-  Store fact on record: the live epsilon.plus product pages run **Shop Pay Installments (0 % and 15 % APR plans), not
-  Affirm.** The parent is putting this to the owner once. **Fallback:** if the owner changes their mind, the Affirm
-  screen moves to his phone (an Affirm app notification over the Accessport in scene 4), and the cart screen loses
-  the payment step.
+**Runtime:** about 33.5 s. **16 shots**, most 1.6 s (4 beats of the song), hard cuts, no dissolves.
+**Frame:** 1080x1920; the game picture is a 1080x1080 square at y = 420-1499; the title in the black band above, on
+two lines: `Day in the life of an` / `average WRX owner`; black below. No Epsilon+ logo, watermark or end card.
+**Voices:** 4 lines, 2 voices. Everything else is hands, faces, screens, SFX and music.
+**Music:** Seven Lions, SLANDER & Dabin, "First Time", from 0:30 in the song (owner upload). 152 BPM, beat 0.395 s.
+The drop is at video 2.18 s. Cuts sit on the 4-beat grid from the drop (2.18 + n x 1.58 s); every cut time below is
+snapped to the nearest measured hit in the edit. **The music cuts dead at about 25.9 s**, when the Odyssey passes.
 
-**Runtime:** about 47 s, 9:16, 1080x1920, 30 fps. Six scenes over seven locations, hard cuts, no dissolves, abrupt
-end.
-**Title bar (whole video):** `Day in the life of an average WRX owner` (owner's wording, white on black, top, the whole video).
-**Premise:** the car is perfect and everything else in his life is not. The Epsilon kit and WRC wing are the one
-genuinely good-looking thing in every frame they're in. The hands are unhinged in every scene, like the reference.
+## Rules for every shot (from the references)
+- The first-person hands are always in frame and never still: slapping, jabbing, flapping, mashing.
+- Other characters are blocky, flat-colour bodies with ink-drawn cartoon faces. A talking or reacting face swaps
+  every 0.2-0.5 s and the head jerks with it. Each character ends on a distorted horror face.
+- Screens (cart, Affirm, Accessport) look like real screen captures.
+- No silence before the music cut: music, SFX and room noise are wall-to-wall and loud.
+- His WR Blue VB on the Epsilon kit and WRC wing is the one clean, good-looking thing in every frame it's in.
 
-## v6: minimal voices (owner 2026-11-17) — this overrides the line table and dialogue column below
-The owner wants minimal voices. Read as: far less dialogue, with picture, SFX and music carrying the jokes (to be
-confirmed). **4 lines, 2 voices:**
+## Shot list
+| # | Time | Dur | Where | What the hands do | Faces / reaction | Voice | SFX |
+|---|---|---|---|---|---|---|---|
+| 1 | 0.00-2.18 | 2.2 s | High school front office | Slam a crumpled **WITHDRAWAL FORM** on the counter and slap it flat, faster and faster, 6 slaps. The last slap lands on the drop. | Office lady: bored → eyebrows up → long-mouthed horror | — | Slaps, the music build |
+| 2 | 2.18-3.76 | 1.6 s | Marine recruiting desk | A form with a box: "DIPLOMA: ☐". The hand scribbles **"GED pending"** across the whole page, then onto the desk. | Recruiter leans in, manic warm grin | — | Pen scratch, drop hits |
+| 3 | 3.76-5.34 | 1.6 s | Same desk | Recruiter salutes. The hand salutes back **with the vape in it** and bonks its own forehead; the camera jolts. | Recruiter: proud, misty eyes → a flinch at the bonk | — | Bugle sting, bonk |
+| 4 | 5.34-6.92 | 1.6 s | Barracks bunk, phone | Thumb flicks a store cart: front bumper w/ fog lights **$2,000.00**, rear bumper **$1,500.00**, side skirts **$800.00**, WRC wing in World Rally Blue Pearl **$1,150.00**. Subtotal **$5,450.00**. | — | — | Flick, flick, flick |
+| 5 | 6.92-8.50 | 1.6 s | Phone, closer | Payment: **Affirm · 30% APR** (the only plan). The thumb **hammers Confirm about 10 times**; the whole phone shakes. | — | — | A cha-ching on every tap |
+| 6 | 8.50-10.08 | 1.6 s | Phone | "Order confirmed", then **"Affirm balance: $115,000.00"**. The other hand comes in and gives the phone a thumbs-up, then pets it. | — | — | Tiny fanfare |
+| 7 | 10.08-11.66 | 1.6 s | Apartment lot, dawn | Both hands **rip boxes open and fling cardboard everywhere**. Whip-pan up: the WR Blue VB on the full kit and WRC wing, spotless. | — | — | Tearing, a choir stab on the car |
+| 8 | 11.66-14.82 | 3.2 s | Front of the car | Ear on the hood, dog tags swinging in frame. One hand **knocks on the hood nonstop** while the other takes a vape hit; the cloud goes into the grille. | — | HIM, whispering: **"Ringlands... semper fi."** | Knock-knock-knock, vape crackle, tags jingle |
+| 9 | 14.82-16.40 | 1.6 s | Rear of the car | Both hands grab the **WRC wing endplate**; the camera lunges in for a long kiss. Close on the wing (exact GLB part). | — | — | "Mwah", a squeak on the paint |
+| 10 | 16.40-17.98 | 1.6 s | Driver's seat | **Karate-chops the dash** three times at the Cobb Accessport. It lights up: **DAM 1.0**. The hand pets the screen. | — | — | Chop chop chop, a chime |
+| 11 | 17.98-21.14 | 3.2 s | Red light, look right | A BMW. Its driver is in the identical pose: arm out, vape. He nods at the car. The hand points at its own hood, then flaps smugly. | Beamer guy: smug squint, then an identical smug grin | HIM: **"Intake and a tune."** BEAMER GUY: **"Same."** | Idle burble, turn-signal tick |
+| 12 | 21.14-22.72 | 1.6 s | Same | Both drivers **rev in perfect sync**, three times, each with one hand conducting the revs. | Both faces warp into the same mirrored horror | — | Revs in stereo |
+| 13 | 22.72-24.30 | 1.6 s | Whip left | A beige **Honda Odyssey**. The hand **slaps its passenger window** twice and points down the road. | Mom: turns, one blink, looks away. Kid: face squished flat on the glass | — | Slap slap, glass squeak |
+| 14 | 24.30-25.88 | 1.6 s | Green light | Both hands **pound the wheel**, grab the shifter, full send. The camera pitches back; the tach flicks up. | — | — | Engine scream, BOV "pssh", gear crunch |
+| 15 | 25.88-28.50 | 2.6 s | Same road | **Music cuts dead.** The Odyssey glides past him and the BMW, effortless. The hands slowly let go of the wheel. | Kid waves out the rear window, a huge distorted grin, shrinking | — | A calm minivan hum fading, wind |
+| 16 | 28.50-33.50 | 5.0 s | Rear-view mirror | A slow push-in on the mirror: **his own face, seen for the first time**, ink-drawn, dog tags at his neck, the WRC wing behind him. The Accessport in the corner drops to **DAM 0.88**. One hand creeps onto the dash and pats it. Hard cut to black on the last word. | His face: blank → twitch → tiny pupils → full horror | HIM, a tiny broken whisper: **"...ringlands?"** | Room tone, one cooling-fan tick |
 
-| Scene | Who | Line |
-|---|---|---|
-| 3 | HIM | "Ringlands... semper fi." |
-| 5 | HIM | "Intake and a tune." |
-| 5 | BEAMER GUY | "Same." |
-| 6 | HIM | "...ringlands?" |
-
-Cut lines and what replaces them:
-- Scene 1 (L1-L3): silent. The recruiter holds up the form with a "Diploma" box; the hand scribbles "GED pending";
-  he beams and salutes anyway.
-- Scene 2 (L4): the "30% APR" and "$115,000.00" are on the phone screen.
-- Scene 4 (L6): "DAM 1.0" on the Accessport; the kiss and pat carry it.
-- Scene 5 (L7, L9b, L10, L11): the Beamer guy just nods at the car before "Intake and a tune." / "Same."; the mom
-  gets the window slap and revs, blinks once and looks away, no words.
-- RECRUITER (Marcus) and MOM (Nadine) are now silent characters. All 4 kept lines exist in voice take 1.
-
-## The character (the owner's story)
-He dropped out of high school and went straight into the Marines. He still says "semper fi", now mostly to his
-pistons. He vapes. He worries about his ringlands constantly and checks DAM on the Accessport like a heart monitor.
-He is $115,000 into Affirm at 30 % APR, and every mod, the Epsilon kit included, went on it. He is sure an intake and
-a tune can gap anything. He is exactly like the BMW guys.
-
-Character design (owner's note): white or Filipino. In first person that comes down to the skin tone of the hands
-and arms: medium brown (owner). **No joke touches ethnicity.** The jokes land on his choices: dropping out, the financing, the
-intake-and-tune confidence. Never on education as such, and never on the Corps, which stays affectionate: the
-recruiter is the one adult who is genuinely happy to see him.
-
-## Script (lines, speaker, delivery tags)
-Voices: Higgsfield `elevenlabs_v4` dialogue mode, preset voices only (no cloning), one call with emotion tags, never
-sped up. HIM: a young male, early 20s, slightly raspy. RECRUITER: a booming, warm Marine. BEAMER GUY: a smug male, 30s.
-MOM: a flat, tired female. The take goes to the owner before animation. Check the first and last 10-50 ms of the
-take.
-
-| # | Scene | Who | Line (tag) |
+## Voice lines (4)
+| Shot | Who | Line | Delivery |
 |---|---|---|---|
-| 1 | 1 | RECRUITER | [booming, friendly] "Diploma?" |
-| 2 | 1 | HIM | [beat, quietly] "...GED pending." |
-| 3 | 1 | RECRUITER | [beat, then delighted] "Welcome to the Corps, son!" |
-| 4 | 2 | HIM | [proud, like he won something] "Thirty percent. Lowest they'd give me." |
-| 5 | 3 | HIM | [whispering, tender, ear on the hood] "Ringlands... semper fi." |
-| 6 | 4 | HIM | [quick, relieved exhale] "DAM's at one. We're good." |
-| 7 | 5 | BEAMER GUY | [suspicious, nodding at the car] "That tuned?" |
-| 8 | 5 | HIM | [smug] "Intake and a tune." |
-| 9 | 5 | BEAMER GUY | [smug, identical] "Same." |
-| 9b | 5 | HIM | [under his breath, disgusted, after the stare] "...Beamer guys." |
-| 10 | 5 | HIM | [smug, slapping her window] "Might wanna sit this one out, ma'am. It's a Honda Odyssey." |
-| 11 | 5 | MOM | [flat, zero interest] "...Okay." |
-| 12 | 6 | HIM | [tiny, broken whisper, after a long silence] "...ringlands?" |
+| 8 | HIM | "Ringlands... semper fi." | A tender whisper, right on the mic |
+| 11 | HIM | "Intake and a tune." | Smug, fast |
+| 11 | BEAMER GUY | "Same." | Smug, identical rhythm, cutting in on the end of his line |
+| 16 | HIM | "...ringlands?" | Tiny, cracked |
 
-That is 12 short lines, about 45 words. Most of the comedy is the hands, the faces and the SFX, like the reference.
+Voice take 1 has all four (Cody and Mark), but it's too slow and clean for this pacing, and Cody measured
+high-pitched with no delivery control. The plan is to redo these four once the owner picks: record HIM on a phone
+(the closest to the references), or a different preset on Eleven v4 (about 0.5 credits for four lines).
+Take 1 record: Cody fails on Eleven v4 (works only on Seed Audio, no emotion tags); files in
+`/home/user/media/ditl-wrx-vb/voice/`; 3.18 credits.
 
-## Reference clips (owner upload 2026-11-17; media only, not committed: `/home/user/media/ditl-wrx-vb/ref/`)
-1. `ref1_inmark.mp4` (24.2 s): the series reference ("noah simulator"); the street, the drive-thru, the counter.
-2. `ref2.mp4` (17.2 s, "bad day simulator"): a barbershop phone photo, a horror face close-up, the salon, a TV
-   remote and "COMING UP", a kitchen floor, the hands with a power tool, a bathroom. Hard cuts measured at 2.0, 5.8,
-   10.3 and 16.8 s, plus fast inserts inside scenes, about **2-4 s per shot**.
-3. `ref3.mp4` (29.2 s, "your friend who loves hypotheticals"): one living room. A friend on the couch talks and
-   gestures, his **mouth moving and his arms flailing**. The POV hand holds a TV remote. It ends on an uncanny face
-   close-up.
+## What changed from v6
+- 6 long scenes became 16 short shots; 47 s became about 33.5 s. Nothing is held longer than 3.2 s until the final
+  push-in.
+- The recruiter, the checkout, the Accessport and the Odyssey mom are silent: the form, the screens and the faces
+  say it.
+- New ending, built like the references' horror-face hold: the first and only look at his own face, in the
+  rear-view mirror, as DAM drops.
+- The $115k alert is merged into the checkout (shot 6). The music now runs through the red light and dies when the
+  Odyssey passes, so the silence lands on the loss.
+- Every trait from the owner's backstory is still in: dropout (1), Marines (2-3, dog tags, "semper fi"), the Affirm
+  debt at 30% (5-6), the Epsilon kit (7-9), the vape (3, 8, 11), ringlands (8, 16), DAM (10, 16), the Beamer guy
+  (11-12), intake and a tune (11), the Odyssey gap (13-15).
 
-**What they show (this changes our layout and look):**
-- **Frame layout (measured, identical in all 3):** on a 720x1280 frame, the game picture is a **720x720 square at
-  rows 280-999**. The title is white text centred in the black band above (one line at rows ~165-215, or two lines
-  when long, like ref 3), and **black below**. At our 1080x1920: **the picture is 1080x1080 at y = 420-1499**, the title
-  in the top band (about 58 px text; our title "Day in the life of an average WRX owner" goes on **two lines**).
-  So the Blender renders are **1:1 squares**, not 9:16. That's cheaper to render; recompose every shot for a square.
-- **Look:** not hard posterization. It's an early-2000s game: low-poly people with **photo-ish skin and clothing
-  textures**, soft baked indoor light, real-ish props (remotes, bottles, a power tool), and mild compression crunch.
-  The POV hands are realistic-textured, not flat-colour. Tone the posterize down to a light crunch.
-- **Faces:** big painted eyes and mouths that **move with the dialogue** (mouth-shape swaps) plus horror swaps.
-  Every talking character (recruiter, Beamer guy, mom) gets mouth flaps on their lines.
-- **Pacing:** 2-4 s per shot. Each of our 6 scenes cuts between 2-3 angles (POV, a reaction close-up, an insert of
-  the phone, the Accessport or the wing) instead of one long take.
-- The watermark ("skullmug"), their titles and their characters are not copied (series rule).
+## Owner decisions on record
+- All Blender, minimal Higgsfield. Real brands OK (Affirm, Honda Odyssey, BMW, Cobb Accessport); "Beamer guys" OK.
+- Affirm at 30% APR on the checkout is the owner's joke. (The live store runs Shop Pay Installments at 0%/15%; the
+  owner: "Shop Pay is technically under Affirm".) The cart is drawn as a generic store with no Epsilon+ branding.
+- Prices from the live Shopify store, checked 2026-11-17. $115,000 and 30% are the owner's character numbers.
+- Medium-brown skin on the hands; dog tags with Marine-like details (fictional name, no official emblem art).
+- DAM, not DAMM. Title wording as above. Hard cut to black, no end card.
+- Music: "First Time" from 0:30. Voices picked: Cody (HIM), Mark (Beamer guy); Marcus and Nadine no longer needed.
+- Minimal voices; fast-paced like the references.
 
-## Shot table
-Times are the target; the voice take sets the final timing. **Music (owner 2026-11-17):** Seven Lions, SLANDER & Dabin, "First Time" (feat. Dylan Matthew), Ophelia Records.
-The owner uploaded it; it's OK for this unmonetized account. File: `/home/user/media/ditl-wrx-vb/music/first_time.mp3`
-(297.4 s, 44.1 kHz, not committed). **It starts at 0:30 in the song.** Measured: 152 BPM (0.395 s beat); quiet
-build (about -20 dB RMS) until **the drop at song 32.18 s → video 2.18 s** (RMS jumps to about -8 dB). Cut plan:
-- **1a → 1b cut on the drop (video 2.18 s):** the last form slap lands on the hit, then a hard cut to the recruiter.
-  Scene 1a shortens to 2.18 s.
-- The drop rides under scenes 1b-4. Measured strong onsets for the other cuts: song 39.17/39.38 (video ~9.2-9.4),
-  44.98 (~15.0), 50.18/50.57 (~20.2-20.6).
-- **The music cuts dead at the red light on the strong onset at song 55.38 s → video 25.38 s.** Scenes 5-6 are
-  dialogue, engine and room tone only.
-- The song has vocals: duck the music about 8-10 dB under every line (L1-L6), and keep the Confirm spree (scene 2)
-  in a vocal gap if possible. Mix -14 LUFS, true peak below -1 dBFS.
-
-Everything is **Blender** unless noted;
-faces are low-poly heads with **flat painted face textures swapped per beat** (the reference's horror-face style,
-original designs). **Unhinged hand action** per scene is marked ⚡.
-
-| # | Time | Dur | Location | POV action (his arms are always in frame) | Others' reaction | Dialogue | SFX | Product, and the asset it comes from | Method |
-|---|---|---|---|---|---|---|---|---|---|
-| 1a | 0.0-2.5 | 2.5 s | High school front office counter | ⚡ The hand **slams a crumpled "WITHDRAWAL FORM" on the counter** and keeps slapping it flat, five slaps, while the other hand already pushes the door open. | The office lady's face goes slowly to horror | (music) | Slap x5, door bang | None | Blender |
-| 1b | 2.5-7.0 | 4.5 s | Marine Corps recruiting office, a desk with a flag | Sits. The recruiter slides a form across. ⚡ He **grabs the pen and signs everywhere**: the signature line, the margin, the desk, his own arm. | Recruiter: big, warm, delighted face. Then he salutes; the hand salutes back too hard and hits its own forehead. | L1, L2, L3 | Pen scribble, a bugle sting under L3, a bonk | None | Blender |
-| 2 | 7.0-14.0 | 7.0 s | His barracks bunk at night, lit by the phone | Phone: a **generic, unbranded store** cart (no Epsilon+ mark or URL): **Front Bumper – Subaru WRX (VB 2022+) · Front Bumper w/ Fog Lights $2,000.00**, **Rear Bumper – Subaru WRX (VB 2022+) $1,500.00**, **Side Skirts – Subaru WRX (VB, 2022+) · ACM $800.00**, **WRC Wing – Subaru WRX/STI (VB, 2022+) · Plastic Composite / World Rally Blue Pearl - K7X $1,150.00**. Subtotal **$5,450.00**. Payment: **Affirm**, one plan, **30% APR**. ⚡ The thumb **hammers "Confirm" over and over**, about 10 taps in 2 s, like the reference's money box. The screen flashes "Order confirmed" and then "Affirm balance: **$115,000.00**". He gives the phone a thumbs-up. | None | L4 (on the APR) | Tap-tap-tap, a cha-ching on every tap, a tiny fanfare | **The checkout** (unbranded); the product thumbnails are Blender renders of each `part_*` node from the GLB | Remotion (cart laid out like the live store) + Blender hands/phone |
-| 3 | 14.0-20.0 | 6.0 s | Cracked apartment lot at dawn; torn-open Epsilon boxes everywhere | His WR Blue VB, now on the full kit, is the only clean thing in the world. He kneels with his ear on the hood. ⚡ He **vapes and knocks on the hood at the same time** and blows the cloud into the grille, "so it can taste it". Then he leans to the back of the car and ⚡ **plants a long kiss on the WRC wing endplate**. | None | L5 (ear on the hood) | Knock knock, vape crackle, exhale, a long "mwah" | **His car:** VB with the Epsilon front bumper, rear bumper, side skirts, WRC wing (duckbill off). `epsilon-site/showroom/models/eps-subaru-wrx-vb-v3.glb` (`part_front_bumper`, `part_rear_bumper`, `part_side_skirts`, `part_wrc_wing`). The endplate close-up is straight from the GLB, so the wing stays exact. | Blender |
-| 4 | 20.0-25.0 | 5.0 s | Driver's seat | The **Cobb Accessport** on the dash boots up slowly. ⚡ He **karate-chops the dash next to it**, three chops, like that's how you refresh it. It shows **DAM 1.0**. He kisses the screen and pats it twice. | None | L6 | Chop chop chop, an Accessport chime, kiss, pat pat. **Music cuts dead at 25.0 s.** | Accessport: a low-poly unit with the Cobb wordmark | Blender + Remotion screen |
-| 5 | 25.0-35.0 | 10.0 s | Red light on a four-lane road. A **BMW** on his right, a beige **Honda Odyssey** on his left (a mom driving, a kid in the back) | He looks right. The BMW guy is in the identical pose: one arm out, a vape. L7-L9. ⚡ Both of them **rev at the same time, in sync**, three times, then a long silent stare as both faces warp into mirrored horror. Then he snaps left and ⚡ **reaches over and slaps the Odyssey's passenger window** twice. L10. | BMW guy mirrors him exactly. Mom turns slowly: a flat face, one blink. The kid presses his face to the glass, grotesquely squished. | L7-L11 | Revs in stereo, window slaps, turn-signal tick (the comedic clock) | The Epsilon side skirt visible below his window line | Blender (low-poly stand-ins: a BMW sedan with the roundel, the Odyssey with the H badge, no exact models) |
-| 6 | 35.0-47.0 | 12.0 s | Same road, the light goes green | ⚡ Both hands **pound the wheel** and he full-sends: the camera pitches back, the tach flicks up, the BOV goes "pssh". The BMW launches too. **The Odyssey glides past both of them**, effortless. The kid waves out the rear window. He lifts. The tail lights shrink to dots. The BMW is beside him again; the two guys don't look at each other. Room tone. He looks down at the Accessport: **DAM 0.88**. Long silence. His hand slowly reaches out and rests on the dash. Hard cut on the last word. | The kid waves; the mom never looks over; the BMW guy stares straight ahead | L12 | Engine scream, BOV, gear crunch, the Odyssey's calm hum fading, one cooling-fan tick | The WRC wing in the rear-view mirror, still perfect | Blender + Remotion (Accessport screen) |
-
-### Face sheets (flat painted textures, swapped on the beat; each ends on a big distorted horror face, like the reference)
-| Character | Scene | Expression 1 | Expression 2 | Expression 3 (horror) |
-|---|---|---|---|---|
-| Office lady (school) | 1a | Bored, half-lidded | Eyebrows climbing at the slaps | Mouth stretched long, eyes huge, as the door bangs |
-| Recruiter | 1b | Big warm grin (L1, L3) | Proud, misty-eyed at the salute | Horror when the pen goes onto his own arm and the salute bonks |
-| BMW guy | 5, 6 | Smug squint (L7, L9) | Synchronized-rev grin | Mirrored warped horror on the stare; blank stare-ahead in 6 |
-| Mom (Odyssey) | 5, 6 | Flat, one blink (L11) | Dead-eyed at the window slap | Never changes: her non-reaction is the joke (the one exception) |
-| Kid (Odyssey) | 5, 6 | Squished on the glass | Gleeful wave out the rear window | Huge distorted grin as the van pulls away |
-
-**End:** a hard cut to black after L12 at about 47 s. No watermark and no end card (owner).
-
-## Change list
-**v6:** minimal voices: 13 lines / 4 voices cut to 4 lines / 2 voices; cut lines replaced by on-screen text and pantomime.
-
-**v5 (reference clips):** square 1080x1080 picture at y = 420-1499 under a two-line title band; a lighter look (game textures, not hard posterization); mouth flaps on talking characters; 2-4 s shots, so 2-3 angles per scene.
-
-**v4.1:** music = the owner's upload, "First Time" from 0:30; cuts on the measured drop (video 2.18 s) and the music cut at video 25.38 s.
-
-**v4 (owner answers):** title wording; the "Beamer guys" and "Honda Odyssey" lines; an unbranded cart; the hard cut with no Epsilon+ branding anywhere; medium-brown skin and USMC-style dog tags; the voice and music options listed for the owner to pick from.
-
-**v3.1 (parent inspection of v2):** its notes 1 (the full kit plus WRC wing as the checkout hero, no "[BACKORDER]"
-on screen) and 2 (an unhinged hand action in every scene) were already in v3. Added a face sheet with 2-3 painted
-expressions per character, each ending on a distorted horror face. The mom stays deadpan on purpose.
-
-**v3 (parent inspection of v1, plus the owner's answers):**
-- **Dropping out of high school is the cold open (1a)**, bridging straight into the Marines (1b): the withdrawal form
-  slapped on the counter, then "Diploma?" / "...GED pending." / "Welcome to the Corps, son!" The joke is his choices,
-  and the recruiter stays warm (the Marines stay affectionate). It replaces the v2 classroom flashback and the "Do
-  I get a WRX?" / "signing bonus" lines.
-- **More erratic:** every scene has an unhinged hand action (⚡): the form slapping, signing his own arm, the salute
-  bonk, hammering Confirm, vaping while knocking, kissing the wing, karate-chopping the dash, synchronized revs with
-  the BMW guy, slapping the Odyssey's window, pounding the wheel.
-- **The checkout is now the full kit + WRC wing**, not the duckbill. The prices were re-checked on the live Shopify
-  store today (the variants that match the GLB: the front bumper *with* fog lights, because the GLB part has the fog
-  lamps; ACM skirts; the paint-matched WR Blue wing). The $115,000 balance and 30 % APR are the owner's character
-  numbers. The checkout now comes **before** the driveway, so the kit arrives in torn-open boxes in scene 3.
-- **The BMW brag happens at the light**, with the Odyssey on the other side, so **the Odyssey gaps both of them.** The
-  gas-station scene is merged into it.
-- **Cut as padding:** the v2 bedroom/alarm scene (the vape moved into the driveway knock) and the separate gas
-  station. That's 6 scenes / 7 locations, about 47 s.
-- **Already settled by the owner and not asked again:** DAM, real brands, the 55 s cap, Affirm on the checkout.
-
-**v2:** 8 scenes, about 47.5 s. Added the dropout/Marines flashback, Affirm on the checkout (the duckbill), the
-gas-pump mirror stare and the DAM drop. All Blender.
-**v1:** 3 scenes, 23.5 s, debt on his phone only, the dropout cut. Superseded.
-
-## Asset inventory
+## Assets
 | Asset | Status | Source / plan |
 |---|---|---|
-| VB with the Epsilon front/rear bumper, side skirts and WRC wing | **found** | `epsilon-site/showroom/models/eps-subaru-wrx-vb-v3.glb` (attached via `add_repo`; nodes in `showroom/models/cars/subaru-wrx-vb.md`) |
-| WR Blue paint | **found** (approx.) | `glb_ref_render.py` colour `wrblue`; check it against the store's "World Rally Blue Pearl - K7X" swatch |
-| Look test (kit, WR Blue, posterized) | **made** (local) | `/home/user/media/ditl-wrx-vb/look_*.png`, `look_sheet.jpg` (media, not committed) |
-| Cart thumbnails (4 parts) | **to make** | Blender renders of `part_front_bumper`, `part_rear_bumper`, `part_side_skirts`, `part_wrc_wing` |
-| Cart + Affirm step, order-confirmed screen | **to make** | Remotion, a generic unbranded store (no Epsilon+ mark or URL, owner answer 4); titles, variants and prices from the live store (2026-11-17) |
-| Cobb Accessport screen (DAM 1.0, DAM 0.88) | **to make** | Remotion |
-| Withdrawal form, recruiting form, flag | **to make** | Blender props with texture text (original, no real school or seal artwork) |
-| FPS arms (form, pen, vape, phone, chop, salute, slaps) | **to make** | Blender: one low-poly rigged arm pair, medium-brown skin, stamped USMC-style dog tags |
-| Sets: school office, recruiting office, bunk, lot, car interior, road | **to make** | Blender low-poly, flat colours, posterized in the edit |
-| Honda Odyssey, BMW sedan | **missing** | Low-poly stand-ins modelled in Blender, with the H badge and the roundel; not exact models |
-| Characters: office lady, recruiter, BMW guy, mom, kid | **to make** | Low-poly bodies + flat painted face sheets (2-3 expressions each), original designs |
-| Voice take | **to make** | `elevenlabs_v4` dialogue, 4 preset voices, one call (after approval) |
-| Music | **found** | Owner upload: "First Time" (Seven Lions, SLANDER & Dabin), from 0:30 |
-| SFX | **to make/find** | Royalty-free or synthesized locally |
+| VB + Epsilon front/rear bumper, side skirts, WRC wing | found | `epsilon-site/showroom/models/eps-subaru-wrx-vb-v3.glb` (`part_front_bumper`, `part_rear_bumper`, `part_side_skirts`, `part_wrc_wing`; duckbill off) |
+| Music | found | `/home/user/media/ditl-wrx-vb/music/first_time.mp3` (not committed) |
+| Reference clips, style study | found | `/home/user/media/ditl-wrx-vb/ref/`, `style-study.md` |
+| First-person hands | **open** | Photographed hands like the references (the owner films theirs, or stock), or 3D hands in Blender |
+| Blocky characters + face sheets (office lady, recruiter, Beamer guy, mom, kid, HIM for the mirror) | to make | Blender bodies; ink-drawn face decals, 6-8 faces each |
+| Sets: school office, recruiting desk, bunk, lot, car interior, road | to make | Blender boxes with photo textures |
+| BMW and Odyssey stand-ins | to make | Low-poly, with the roundel and the H badge |
+| Cart, Affirm, order-confirmed and Accessport screens | to make | Remotion, built to look like real screen captures |
+| 4 voice lines | to redo | See above |
+| SFX | to make/find | Royalty-free or synthesized locally |
 
-## Credit estimate (owner: Blender, minimize Higgsfield)
-Balance 290.46 credits for all six videos (checked today). For reference, from free `get_cost` preflights: Kling 3.0
-costs 8.75 per 5 s and Seedance 2.5 costs 35 per 5 s, so an AI version of 47 s would run about 80-330 credits.
+## Credits
+Spent so far: 3.18 (voice take 1 and tests). Still needed: about 0.5 for the four lines if a preset voice is used,
+0 if the owner records. Everything else is local.
 
-| Item | Credits |
-|---|---|
-| All 6 scenes: Blender + Remotion, local | 0 |
-| Voice take (12 lines, 4 voices, one dialogue call) | ~3-4 |
-| One retake if needed | ~3-4 |
-| **Total** | **~3-8** |
-
-The only thing sent to Higgsfield is the script text for the voice. The cost is build time: 6 low-poly sets, 2
-stand-in cars and 5 face sheets. Build order: 3 → 2 → 4 → 5/6 → 1, so the product shots are locked first.
-
-## Owner answers (2026-11-17, this chat)
-1. Title: **"Day in the life of an average WRX owner"**.
-2. Affirm is fine ("Shop Pay is technically under Affirm").
-3. Saying "Honda Odyssey" and **"Beamer guys"** out loud is fine (not an LLC account, not monetized). Added L9b
-   "...Beamer guys." after the mirror stare, and "It's a Honda Odyssey." to L10.
-4. **Hard cut to black, with no Epsilon+ watermark and no end card.** The products appear without the video clearly
-   coming from Epsilon. So the scene-2 cart is drawn as a **generic store** (no Epsilon+ wordmark, logo or URL),
-   showing the real part names, variants and live prices plus the Affirm step. The parts themselves (the GLB, the WRC
-   wing endplate) stay accurate.
-5. DAM is fine (DAM 1.0 → 0.88 stays).
-6. **Medium-brown skin** on the arms. **Dog tags** with Marine-like details: stamped tags with a fictional name,
-   "USMC" and a blood type. No real person's details and no official emblem artwork.
-7. **Voice:** show the Higgsfield options before anything is generated → `voice-options.md`. Nothing is generated
-   until the owner picks.
-8. **Music: EDM like Illenium** (melodic bass, a big drop) in the background. No Illenium track is in the TikTok
-   Commercial Music Library, so the options are in `voice-options.md` (music section): CML melodic-EDM picks, or the
-   owner uploads the Illenium track they want (OK for this unmonetized account per the owner).
-
-## Look test (local, no credits)
-`/home/user/media/ditl-wrx-vb/look_front34.png`, `look_rear34.png` and the posterized pair `look_sheet.jpg` (media,
-not committed). These are Cycles CPU renders of `eps-subaru-wrx-vb-v3.glb` with the kit (duckbill off, WRC wing on),
-in WR Blue, posterized to about 5 levels per channel. The Epsilon bumpers, skirts and the WRC wing all stay readable
-in the crunchy look. The banding in the grey backdrop is the look-test floor, which the lot will replace.
-
-## Voice take 1 (2026-11-17): waiting on the owner's check
-Owner's picks: **HIM = Cody, RECRUITER = Marcus, BEAMER GUY = Mark, MOM = Nadine.**
-- **Cody fails on Eleven v4.** Two full dialogue calls and a single-line test all failed in seconds (all refunded).
-  Marcus, Mark and Nadine work. Cody works on **Seed Audio 1.0**, which has **no emotion tags** (speed, loudness and
-  pitch only). So HIM's 9 lines are separate Seed Audio calls; the whispers are only quieter and slower, not true
-  whispers. RECRUITER, BEAMER GUY and MOM: one Eleven v4 dialogue call with tags.
-- Jobs: Eleven v4 `7e2e45a2-7bd0-4425-912b-335a990691a8`; Seed Audio `c2ed73b0`, `b97862ed`, `698c9d81`
-  (semper fi, a resubmit after a 429), `25e7b5aa`, `a995c52e`, `7dc05eed`, `0a0ee37d`, `cf35f0d8`.
-- Checks (no speech-to-text: the model download is blocked here): "Intake and a tune" had a click in its last 40 ms
-  (trimmed); "...Beamer guys" starts and ends hot (fades added); "DAM's at one" has a 2.5 s pause before "We're
-  good" (tightened in the edit); "semper fi" may be clipped at the tail (needs listening).
-- Listening file: `/home/user/media/ditl-wrx-vb/voice/ditl_wrx_voice_take1.mp3` (33.8 s, script order, 0.6 s gaps,
-  per-line level). Raw takes are in `voice/take1/`.
-- Spend: **3.18 credits** (incl. 0.89 of voice tests).
+## Open questions for the owner
+1. HIM's voice: record the three lines yourself, or pick a different preset?
+2. Hands: film your own hands (medium-brown skin, plain background), stock footage, or 3D hands in Blender?
+3. Is it OK that we see his face once, in the mirror at the end?
