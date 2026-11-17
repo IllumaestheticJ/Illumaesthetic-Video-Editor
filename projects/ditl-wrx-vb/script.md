@@ -82,7 +82,7 @@ Take 1 record: Cody fails on Eleven v4 (works only on Seed Audio, no emotion tag
 | VB + Epsilon front/rear bumper, side skirts, WRC wing | found | `epsilon-site/showroom/models/eps-subaru-wrx-vb-v3.glb` (`part_front_bumper`, `part_rear_bumper`, `part_side_skirts`, `part_wrc_wing`; duckbill off) |
 | Music | found | `/home/user/media/ditl-wrx-vb/music/first_time.mp3` (not committed) |
 | Reference clips, style study | found | `/home/user/media/ditl-wrx-vb/ref/`, `style-study.md` |
-| First-person hands | **open** | Photographed hands like the references (the owner films theirs, or stock), or 3D hands in Blender |
+| First-person hands | to make | **3D hands in Blender (owner 2026-11-17)**: a rigged arm pair with a realistic medium-brown skin texture so they read like the references' photo hands; poses for slap, pen, vape, thumb, chop, knock, wheel |
 | Blocky characters + face sheets (office lady, recruiter, Beamer guy, mom, kid, HIM for the mirror) | to make | Blender bodies; ink-drawn face decals, 6-8 faces each |
 | Sets: school office, recruiting desk, bunk, lot, car interior, road | to make | Blender boxes with photo textures |
 | BMW and Odyssey stand-ins | to make | Low-poly, with the roundel and the H badge |
@@ -96,5 +96,5 @@ Spent so far: 3.18 (voice take 1 and tests). Still needed: about 0.5 for the fou
 
 ## Open questions for the owner
 1. HIM's voice: record the three lines yourself, or pick a different preset?
-2. Hands: film your own hands (medium-brown skin, plain background), stock footage, or 3D hands in Blender?
-3. Is it OK that we see his face once, in the mirror at the end?
+2. Hands: answered, 3D hands in Blender.
+3. The mirror shot: the owner answered "it is ok to show his hands"; read as OK for the face too, to be confirmed.
