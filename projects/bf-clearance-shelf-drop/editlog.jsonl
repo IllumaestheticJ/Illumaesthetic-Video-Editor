@@ -25,3 +25,4 @@
 {"ts": "2026-11-17T19:15:52Z", "decision": "v0.5 fonts: Unbounded 700 for tags/sign/count (Akira stand-in), Unbounded 400/300 beside the logo", "why": "owner font rule (knowledge/fonts.md); the Akira file isn't available yet"}
 {"ts": "2026-11-17T19:20:36Z", "decision": "Akira stand-in 700 -> Unbounded 800 for tags and count text", "why": "parent: 800-900 weights added (e15b34b); s1's aisle sign was already rendering at 700 and wasn't re-rendered (parent: don't re-render just for this)"}
 {"ts": "2026-11-17T20:14:36Z", "decision": "aisle BLACK FRIDAY sign size 1.0 -> 0.70", "why": "Unbounded is wider than Inter; at 1.0 the sign's ends were cut off by the racks"}
+{"ts": "2026-11-17T20:34:48Z", "decision": "v0.5 assembled with the owner font rule", "why": "owner: Akira for headlines, a different font beside the logo"}
