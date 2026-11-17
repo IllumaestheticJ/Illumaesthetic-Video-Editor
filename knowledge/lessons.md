@@ -1390,3 +1390,5 @@ lands here automatically. Agents must read this whole file before editing.
 
 ## Standing rule: social safe zones (owner, 2026-11-17)
 - **[framing] RULE (owner, all reels):** no text or key elements in the app UI zones: the bottom (caption/comments/CTA), the right action rail (like/comment/share), the top tabs, or outside the 4:5 home-feed crop ("the slight crop when going from home page to full screen"). Text, prices and logos stay inside x 48-920 / y 285-1440 of 1080x1920. Spec: `knowledge/safe-zones.md`. Check every delivery with `python scripts/safezone_check.py out.mp4` and look at the sheet; the old 240SX end card (URL at y≈1700) would fail.
+
+- **[text]** check that there isn't text or elements in the buffer zones (the bottom where comments are, the like button on the right side, the slight crop when going from home page to full screen etc)  _(from bf-civic-parts-rain, 2026-11-17, reviewer)_

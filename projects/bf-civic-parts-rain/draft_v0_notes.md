@@ -57,3 +57,10 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
 - Edge test on the rendered take (anything on the 3 px side columns): 11 of 488 frames, down from 35 on the first v0.2 render. All 11 are kit parts falling into view through the top corners: lip 1 frame, skirts 8 (2 m long, diagonal entry), rear lip 2. No part pops in or out mid-frame; the rain never touches a side edge. The offer shots have 0.
 - Hero falls (tools/falls.py): the frame before each impact is beyond the zone where the part could touch the scan: lip 0.55 vs 0.50 m, skirts 0.35 vs 0.30, rear lip 0.59 vs 0.54, wing 0.29 vs 0.06.
 - Known: in the offer shots, rain sometimes passes behind the offer text.
+
+## v0.3: safe zones (owner rule 2026-11-17, knowledge/safe-zones.md)
+- All text and the wordmark are centred on the safe area (x 484), inside x 48-920 / y 285-1440. `scripts/safezone_check.py --text-boxes text_boxes_v0.3.json` reports "text boxes: OK" (exit 0).
+- Render 7 is now 860 px wide, centred at x 484. The take's last 46 frames are refit to match (lens 132.6, shift 0.124/0.042); frames 420-441 are pixel-identical to v0.2, so the splice is invisible.
+- The CGI cars are shifted left and up (shift_x 0.05, shift_y 0.12) to clear the like/share rail, with the parts line below them.
+- Known: in the side view at the skirt landing (~12 s) the car's tail reaches slightly into the right rail. There is no text there.
+- Sync and loudness are unchanged (±14 ms, -14.0 LUFS, TP -2.4 dBFS).

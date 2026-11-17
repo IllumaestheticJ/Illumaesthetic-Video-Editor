@@ -229,8 +229,8 @@ def shot_stage(n):
 
 
 # ---------------------------------------------------------------- car shots (5-6)
-CAM5_A = ((-4.75, 7.05, 1.5), (0.05, 1.3, 0.72))
-CAM5_B = ((-4.45, 6.6, 1.45), (0.05, 1.3, 0.72))
+CAM5_A = ((-4.75, 7.05, 1.5), (0.05, 1.3, 0.12))
+CAM5_B = ((-4.45, 6.6, 1.45), (0.05, 1.3, 0.12))
 def orbit(p, tgt, deg):
     a = math.radians(deg); x, y = p[0] - tgt[0], p[1] - tgt[1]
     return (tgt[0] + x * math.cos(a) - y * math.sin(a), tgt[1] + x * math.sin(a) + y * math.cos(a), p[2])
@@ -299,8 +299,8 @@ def shot6():
 # the stock wing coming off") and the kitted CGI car. Scan pieces are in the GLB frame (split_spoiler.py).
 REG = '/home/user/media/bf-integra-385-combo/work/reg'
 LEN.update({7: 70, 8: 71, 9: 71})
-CAM7_A = ((-2.9, 5.5, 2.35), (0.0, 1.75, 0.85))
-CAM7_B = ((-2.7, 5.15, 2.25), (0.0, 1.75, 0.85))
+CAM7_A = ((-2.9, 5.5, 2.35), (0.0, 1.75, 0.55))
+CAM7_B = ((-2.7, 5.15, 2.25), (0.0, 1.75, 0.55))
 
 
 def ply(name, m):
