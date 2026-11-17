@@ -1,0 +1,101 @@
+{
+ "base": [
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/ALL.blend",
+   "hide": true
+  },
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/body.blend"
+  }
+ ],
+ "parts": [],
+ "camera": {
+  "sensor": 20.25,
+  "keys": [
+   {
+    "t": 0.0,
+    "loc": [
+     6.022,
+     -6.688,
+     2.4
+    ],
+    "target": [
+     0,
+     -0.2,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "inout"
+   },
+   {
+    "t": 1.3,
+    "loc": [
+     8.345,
+     -3.371,
+     2.4
+    ],
+    "target": [
+     0,
+     -0.1,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "lin"
+   },
+   {
+    "t": 2.6,
+    "loc": [
+     9.0,
+     0.0,
+     2.4
+    ],
+    "target": [
+     0,
+     0.0,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "lin"
+   },
+   {
+    "t": 3.9,
+    "loc": [
+     8.345,
+     3.371,
+     2.4
+    ],
+    "target": [
+     0,
+     0.1,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "lin"
+   },
+   {
+    "t": 5.2,
+    "loc": [
+     6.894,
+     5.785,
+     2.4
+    ],
+    "target": [
+     0,
+     0.15,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "out"
+   }
+  ]
+ },
+ "seconds": 5.2,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 50,
+ "samples": 12,
+ "persistent": false,
+ "out": "/home/user/media/bf-integra-stock-to-kitted/render/s5_body/",
+ "exposure": 0.8,
+ "transparent": true
+}
