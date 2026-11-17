@@ -37,3 +37,13 @@ Output: `/home/user/media/work/out/bf-days-left-countdown_v0.mp4` (media is not 
 - Numeral 1080x1920, Cycles CPU, 16 samples: about 6.5 s/frame, 149 frames, about 16 min per number.
 - Plate still: one frame at 64 samples.
 - Compositing and encoding: about 1-2 min.
+
+## Checks run on the delivered file
+- 1080x1920, 30 fps, 282 frames, 9.40 s, H.264 + AAC.
+- Loudness (ebur128 on the encoded file): -13.5 LUFS integrated (target -14), peak -2.6 dBFS.
+- Cut sync on the decoded output audio:
+  - f59 is +3 ms from its hit, and f208 is +17 ms from its hit.
+  - At f139 the numeral completes on the section start (4.62 s). There is a stronger accent inside the drop at 4.82 s; v1 could move the completion flash there.
+- Contact sheet reviewed. The first pass had Del and Eps overlapping "DAYS LEFT", so I shrank both to 500 px and moved them below the text.
+- Edges: the numeral, text and wordmark are all inside the frame.
+- Wordmark is 720 px wide.
