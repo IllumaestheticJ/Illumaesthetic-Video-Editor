@@ -52,8 +52,14 @@ def womp(): d = 0.5; return fade(bp(tone(np.linspace(150, 70, int(d * SR)), d, "
 def airhorn(d=0.5):
     x = sum(tone(f, d, "saw") for f in (392, 415, 466, 494)); return fade(np.tanh(bp(x, 300, 4000) * 1.5) * 0.6, 0.01, 0.08)
 def engine(d, rpm0, rpm1, g=1.0):
-    f = np.linspace(rpm0, rpm1, int(d * SR)) / 60 * 2; x = sum(tone(f * h, d, "saw") / h for h in (1, 2, 3, 4)); am = 1 + 0.45 * np.sin(2 * np.pi * np.cumsum(f / 2) / SR)
-    return fade(np.tanh(bp(x * am, 40, 2500) * 0.8) * g, 0.03, 0.06)
+    """Subaru boxer four on unequal-length headers: the four exhaust pulses per cycle arrive in two uneven pairs,
+    so the note sits at half the firing frequency with an off-beat burble instead of an even inline-four buzz."""
+    n = int(d * SR); f = np.linspace(rpm0, rpm1, n) / 60 * 2; ph = np.cumsum(f / 4) / SR; x = np.zeros(n)
+    for o, a_ in ((0.0, 1.0), (0.2, 0.55), (0.5, 0.9), (0.72, 0.5)):
+        u = (ph - o) % 1.0; x += a_ * np.exp(-u * 16) * np.sin(2 * np.pi * u * 5.5)
+    x += 0.5 * np.sin(2 * np.pi * np.cumsum(f / 2) / SR) + 0.25 * np.sin(2 * np.pi * np.cumsum(f * 0.75) / SR)
+    x += 0.12 * bp(noise(d)[:n], 300, 2400) * (0.4 + np.exp(-((ph * 2) % 1.0) * 6))
+    return fade(np.tanh(bp(x, 30, 2600) * 1.1) * g, 0.03, 0.06)
 def rev(d=0.45, top=5200): return engine(d * 0.45, 1100, top, 1.0).tolist() and np.concatenate([engine(d * 0.45, 1100, top), engine(d * 0.55, top, 1300, 0.8)])
 def whoosh(d=0.6, lo=300, hi=3000): e = np.sin(np.pi * t_(d) / d) ** 2; return fade(bp(noise(d), lo, hi) * e)
 def bov(): d = 0.45; return fade(bp(noise(d), 2500, 11000) * dec(d, 0.14) * (0.7 + 0.3 * np.sign(np.sin(2 * np.pi * 38 * t_(d)))))
@@ -131,7 +137,7 @@ put(heartbeat(3.0), T(8), 1.2); put(bp(noise(0.9), 3000, 9000) * np.linspace(0.2
 for f in range(4, 95, 16): put(ms(tick(), ding(3200, 0.08) * 0.3), T(8, f), 0.5)
 put(whoosh(0.4, 300, 3000), T(9, 12), 0.8); put(squeak(), T(9, 24), 0.8); put(kiss(), T(9, 28), 1.6); put(squeak(0.4), T(9, 34), 0.5)
 cab0 = T(10); put(traffic(T(15) - cab0), cab0, 0.3); put(engine(T(14) - cab0, 850, 880, 0.22), cab0)
-for f in (6, 14, 22): put(ms(slap(1.2), knock()), T(10, f), 1.2)
+for f in (6, 14, 22, 26): put(ms(slap(1.2), knock()), T(10, f), 1.2)
 put(levelup(), T(10, 27), 0.9)
 for f in range(0, 143, 20): put(tick(), T(11, f), 0.6); put(tick(), T(11, f + 9), 0.4)
 put(engine(T(14) - T(11), 760, 790, 0.14), T(11), 1.0, pan=0.5); put(womp(), T(11, 93), 1.0)

@@ -309,7 +309,7 @@ def s2():
     wood = procmat("wood", "noise", (0.22, 0.12, 0.06), (0.33, 0.19, 0.09), 6); box("desk", (1.8, 0.9, 0.78), wood, (0, 0.1, 0), base="z")
     d = {i: plane(f"form{i}", 0.3, 0.4, imgmat(f"fm{i}", f"{TEX}form_enlist{i}.png"), (0, 0.02, 0.783), rot=(0, 0, R(-4))) for i in (0, 1, 2)}
     swap(d, [(1, 0), (12, 1), (24, 2)])
-    sc = plane("scrib", 0.5, 0.25, imgmat("scm", TEX + "scribble.png"), (0.42, 0.0, 0.784), rot=(0, 0, R(-12))); sc.data.materials[0].node_tree.nodes["Principled BSDF"].inputs["Alpha"].default_value = 1
+    sc = plane("scrib", 0.2, 0.075, imgmat("scm", TEX + "scribble.png"), (0.035, -0.115, 0.7845), rot=(0, 0, R(-4))); sc.data.materials[0].node_tree.nodes["Principled BSDF"].inputs["Alpha"].default_value = 1
     nt = sc.data.materials[0].node_tree; nt.links.new(nt.nodes["Image Texture"].outputs["Alpha"], nt.nodes["Principled BSDF"].inputs["Alpha"]); vis(sc, 1, False); vis(sc, 36, True)
     rs = mat("rskin", (0.21, 0.11, 0.07), 0.7); cam_ = mat("camo", (0.3, 0.33, 0.2))
     p, head, fd = person("rec", "recruiter", (0, 0.92, 0.45), 0, rs, cam_, mat("rhair", (0.03, 0.03, 0.03)), ["grin", "proud"], hair_h=0.05)
@@ -318,7 +318,7 @@ def s2():
     arm("ra", p, 1, rs, cam_, up=-20, fwd=60, bend=40); arm("rb", p, -1, rs, cam_, up=-20, fwd=60, bend=40)
     h = hand("hR", cam, (0.05, -0.1, -0.5), (R(-70), 0, R(10)), curls=FIST, thumb=0.9, hold="pen"); rnd = random.Random(5)
     for f in range(1, 49, 2):
-        x = -0.06 + 0.42 * (f / 48) ** 1.5 + rnd.uniform(-0.05, 0.05); key(h, f, loc=(x, -0.13 + rnd.uniform(-0.05, 0.05), -0.6), rot=(R(-72 + rnd.uniform(-6, 6)), 0, R(10 + rnd.uniform(-12, 12))), interp="LINEAR")
+        x = -0.07 + 0.12 * (f / 48) + rnd.uniform(-0.03, 0.03); key(h, f, loc=(x, -0.15 + rnd.uniform(-0.03, 0.03), -0.6), rot=(R(-72 + rnd.uniform(-6, 6)), 0, R(10 + rnd.uniform(-12, 12))), interp="LINEAR")
     hl = hand("hL", cam, (-0.2, -0.14, -0.58), (R(-80), 0, R(-20)), curls=FLAT, mirror=True); shake(cam, 1, 48, 0.5, seed=2)
     # signing bonus: a brick of cash slides across the desk and he grabs it
     cb = box("cash", (0.5, 0.25, 0.12), mat("cashm", (0.1, 0.33, 0.14)), (-0.3, 0.7, 0.84)); plane("cash_top", 0.5, 0.25, imgmat("cashtm", TEX + "cash_top.png"), (0, 0, 0.061), parent=cb)
@@ -464,12 +464,13 @@ def cabin(lens=19, look=(0.1, -0.8, 1.0), loc=(0.36, 0.14, 1.25), glass=True):
 
 def s10():
     road(); veh, rig, cam = cabin(look=(0.14, -0.6, 1.08)); ap, d = accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["off", "ok"]); swap(d, [(1, "off"), (27, "ok")])
-    h = hand("hR", cam, (0.12, -0.05, -0.36), (R(-60), R(80), R(-10)), curls=FLAT, thumb=0.2)
-    for cf in (6, 14, 22):
-        key(h, cf - 4, loc=(0.1, 0.1, -0.36), rot=(R(-30), R(80), R(-10)), interp="LINEAR"); key(h, cf, loc=(0.06, -0.1, -0.44), rot=(R(-85), R(80), R(-10)), interp="LINEAR")
+    # the hand lives in car space so every smack lands flat on the Accessport itself
+    hit = (0.145, -0.335, 1.2); back = (0.17, -0.27, 1.33); hr0 = (R(55), 0, R(163)); h = hand("hR", veh, back, hr0, curls=FLAT, thumb=0.2)
+    for cf in (6, 14, 22, 26):
+        key(h, cf - 4, loc=back, rot=(R(55), 0, R(163)), interp="LINEAR"); key(h, cf, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
         key(cam, cf - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, cf, rot=(R(-2.5), 0, R(1)), interp="LINEAR"); key(cam, cf + 2, rot=(0, 0, 0), interp="LINEAR")
-    key(h, 27, loc=(0.1, 0.02, -0.36), rot=(R(-40), R(80), R(-10)), interp="LINEAR")
-    for f in range(31, 48, 4): key(h, f, loc=(-0.035, -0.02, -0.4), rot=(R(-70), R(10), R(20)), interp="LINEAR"); key(h, f + 2, loc=(-0.035, -0.075, -0.41), rot=(R(-78), R(10), R(20)), interp="LINEAR")
+    key(h, 31, loc=(0.3, -0.2, 1.02), rot=(R(15), 0, R(163)), interp="LINEAR")
+    for f in range(34, 48, 4): key(h, f, loc=(0.3, -0.2, 1.02), interp="LINEAR"); key(h, f + 2, loc=(0.3, -0.2, 1.05), interp="LINEAR")
     cam.data.lens = 19; cam.data.keyframe_insert("lens", frame=26); cam.data.lens = 24; cam.data.keyframe_insert("lens", frame=30)
 
 def beamer_setup(lens, faces):
@@ -563,10 +564,10 @@ def s16():
     a = (0.36, 0.14, 1.25); b = (0.24, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=veh)
     key(rig, 1, loc=a, rot=lookrot(a, (0.1, -0.75, 1.06)), interp="BEZIER"); key(rig, 40, loc=a, rot=lookrot(a, (0.1, -0.75, 1.07)), interp="BEZIER"); key(rig, 58, loc=a, rot=lookrot(a, tuple(mc)), interp="BEZIER"); key(rig, 150, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
     for f, ln in ((1, 19), (40, 22), (58, 30), (150, 78)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
-    h = hand("hR", cam, (0.2, -0.4, -0.4), (R(-70), 0, R(-10)), curls=FLAT, thumb=0.2)
-    key(h, 20, loc=(0.2, -0.42, -0.4), interp="LINEAR"); key(h, 34, loc=(0.02, -0.16, -0.46), rot=(R(-78), 0, R(10)), interp="LINEAR")
-    for f in range(36, 54, 5): key(h, f, loc=(0.02, -0.14, -0.46), interp="LINEAR"); key(h, f + 2, loc=(0.02, -0.17, -0.47), interp="LINEAR")
-    key(h, 62, loc=(0.2, -0.5, -0.4), interp="LINEAR"); shake(cam, 14, 26, 0.9, seed=17)
+    hit = (0.145, -0.335, 1.2); up = (0.17, -0.28, 1.3); away = (0.45, 0.1, 0.85); h = hand("hR", veh, away, (R(22), 0, R(163)), curls=FLAT, thumb=0.2)
+    key(h, 26, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR"); key(h, 34, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
+    for f in range(36, 54, 5): key(h, f, loc=up, rot=(R(48), 0, R(163)), interp="LINEAR"); key(h, f + 2, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
+    key(h, 62, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR"); shake(cam, 14, 26, 0.9, seed=17)
 
 SHOTS = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16]
 if __name__ == "__main__":
