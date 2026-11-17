@@ -18,3 +18,4 @@ remotion/out/
 # graphify run intermediates (keep only the labels sidecar)
 graphify-out/.graphify_*
 !graphify-out/.graphify_labels.json
+graphify-out/cache/
