@@ -43,7 +43,7 @@ CARD_N, LOGO_N = 90, 90       # card 5 beats; logo from bar 15 beat 2, final cho
 REAL_N = sum(r[3] for r in REAL) + SCAN_N
 CUTS = dict(real=A_N, scan=A_N + REAL_N - SCAN_N, card=A_N + REAL_N, logo=A_N + REAL_N + CARD_N)
 CUTS["end"] = CUTS["logo"] + LOGO_N
-CAP_Y = {}            # per-shot caption centre y (default 1330), set by eye from the contact sheet
+CAP_Y = {"L": 560}          # per-shot caption centre y (default 1330), set by eye from the contact sheet
 
 
 def run(cmd, **kw):
@@ -132,7 +132,8 @@ def pages():
         for j, p in enumerate(pg):
             t0 = p[0][0]["t0"]
             t1 = pg[j + 1][0][0]["t0"] if j + 1 < len(pg) else min(p[-1][-1]["t1"] + 0.35, nxt)
-            out.append(dict(t0=round(t0 + T_OFF, 3), t1=round(min(t1 + T_OFF, A_N / FPS - 0.05), 3), color=CAP[L["speaker"]],
+            shot_end = next(S["f1"] for S in TL["shots"] if S["id"] == shot) + OPEN   # never carry a caption across a cut
+            out.append(dict(t0=round(t0 + T_OFF, 3), t1=round(min(t1 + T_OFF, A_N / FPS - 0.05, shot_end / FPS), 3), color=CAP[L["speaker"]],
                             y=CAP_Y.get(shot, 1330), cx=540, lines=[[dict(w=w["w"], t0=round(w["t0"] + T_OFF, 3)) for w in r] for r in p]))
     return out
 
@@ -173,7 +174,7 @@ def frames(p, w=W, h=H, pix="rgb24", ch=3):
 
 
 def picture(gmov):
-    vid = BUILD / "video.mp4"
+    vid = BUILD / f"video_{gmov.stem}.mp4"   # keyed to the gfx render: a caption change rebuilds the picture
     if vid.exists() and nframes(vid) == CUTS["end"]:
         return vid
     tmp = BUILD / "video_tmp.mp4"
@@ -335,9 +336,9 @@ def audio(name, use_music=True):
     return master
 
 
-def mux(name, master):
+def mux(name, master, vid):
     out = OUT / f"{name}.mp4"
-    run(["ffmpeg", "-v", "error", "-y", "-i", BUILD / "video.mp4", "-i", master, "-map", "0:v", "-map", "1:a", "-c:v", "copy",
+    run(["ffmpeg", "-v", "error", "-y", "-i", vid, "-i", master, "-map", "0:v", "-map", "1:a", "-c:v", "copy",
          "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-t", f"{CUTS['end'] / FPS:.5f}", "-movflags", "+faststart", out])
     print("DONE", out, nframes(out), flush=True)
     return out
@@ -361,5 +362,4 @@ if __name__ == "__main__":
     m = audio(a.name, not a.no_music)
     if a.only == "audio":
         sys.exit()
-    picture(gfx())
-    mux(a.name, m)
+    mux(a.name, m, picture(gfx()))
