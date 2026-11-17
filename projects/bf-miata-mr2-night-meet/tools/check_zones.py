@@ -9,7 +9,7 @@ Z = {"mr2": {"skirts": (["part_side_skirts"], (3.0, -1.6, 0.9), (0.8, 0.0, 0.35)
              "hood": (["part_hood_vents"], (1.2, -3.2, 2.0), (0, -1.45, 0.66)), "spats": (["part_rear_spats"], (2.2, 3.6, 0.6), (0.3, 1.7, 0.3)),
              "duck": (["part_duckbill"], (1.6, 3.6, 1.6), (0, 1.75, 0.75))},
      "nc": {"bumper": (["part_front_bumper", "part_front_lip", "part_canards"], (-2.2, -3.6, 1.1), (0, -1.7, 0.4)),
-            "fender": (["part_fender_cuts"], (-2.8, -2.0, 0.9), (-0.8, -0.9, 0.45)), "skirts": (["part_side_skirts"], (-3.2, -0.2, 0.7), (-0.8, -0.15, 0.25)),
+            "fender": (["part_fender_cuts"], (-2.3, -1.6, 0.75), (-0.8, -0.85, 0.42)), "skirts": (["part_side_skirts"], (-3.2, -0.2, 0.7), (-0.8, -0.15, 0.25)),
             "spats": (["part_rear_spats"], (-2.4, 3.3, 0.7), (-0.5, 1.6, 0.35))}}[car]
 bpy.ops.wm.read_factory_settings(use_empty=True); sc = bpy.context.scene
 sc.render.engine = "CYCLES"; sc.cycles.samples = 12; sc.cycles.use_denoising = True

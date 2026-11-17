@@ -70,3 +70,22 @@ Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14
 - "If there is two text you can put one above and another below": two-part shots put the first label above the car
   (y ~300) and the second below it (y ~1130-1400). Both stay to the end of the shot. Plates on every lot/close shot.
 - Safe-zone sheet (every 0.5 s) looked at: all text and the logo clear of red and amber.
+
+## v1.5: NC fender fit, longer text (user feedback on v1.4)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.5.mp4` (42.5 s, -14.0 LUFS, TP -1.8 dBFS).
+- "The nc fender cuts don't line up well": the scan hole was bigger than the part (the old zone also took scan skin the
+  lookbook body lacks), leaving dark slits at the door edge and under the crease. A local re-fit (`tools/nc_fender_fit.py`)
+  moved the part only 2 mm, so the fix is the zone: it is now the part's own side outline rasterised at 2 mm, closed and
+  filled (`tools/nc_fender_outline.py`), on the outer skin only. Check render: hole = part outline, part flush.
+- "Make sure the text is a bit longer so slow readers can digest info": shots re-timed to more hits (title 3, single-part
+  4, two-part 6, card 6; specs/timeline.json `units`), labels enter at 10-20 % of the shot and stay to the cut. On screen:
+  single-part labels 2.6-3.0 s, two-part labels 3.8-4.6 s (first) and 2.6-3.1 s (second), opening title ~3 s, card 4.9 s.
+  Two-part installs finish by ~60 % of the shot so the second label has time.
+- Bug fixed: text was drawn straight onto opaque frames, so fades were ignored (labels popped on; the URL stayed while the
+  wordmark faded). Text now goes on a transparent layer (`post.py` Layer).
+- Length is now 42.5 s (was 28 s) because of the longer holds.
+
+## Fonts (owner rule, knowledge/fonts.md), wired into tools/post.py for v1.6
+Headlines, offers, prices, part names: Akira if `assets/fonts/akira/` has the file, else Unbounded 800/900 stand-in (Akira
+not supplied yet). Small lines and the price table: Unbounded 500. URL under the wordmark: Unbounded 400. Preview stills only;
+no new export yet (waiting on the length decision).

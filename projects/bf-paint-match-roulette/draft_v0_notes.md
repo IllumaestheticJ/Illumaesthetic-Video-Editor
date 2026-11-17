@@ -105,3 +105,31 @@ Owner rule: every web address reads `www.epsilon.plus`. The menu's bottom bar no
 and "WWW.EPSILON.PLUS" sits under the end wordmark. `tools/compose_v04.py`; output
 `/home/user/media/work/out/bf-paint-match-roulette_v0.4.mp4`. Otherwise identical to v0.3.
 Checks: safe-zone sheet looked at (clean, URL and wordmark inside x 48-920 / y 285-1440); -14.0 LUFS, peak -1.5 dBFS.
+
+# v0.5 (2026-11-17): real SFX, lip kits, widebody, even turntables, fonts
+
+Owner feedback: "have the preview windows orient the cars the same way, and use the same exact sound effects as the video";
+"use the actual epsilon lip kits for the platforms"; "The Integra also has different speeds it goes at"; "add the lip kits and
+the DE4 widebody car into the list of cars". Plus the font rule relayed by the parent (knowledge/fonts.md).
+Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.5.mp4` (27.2 s). Tools: `tools/compose_v05.py`,
+`tools/render_turntable.py`, `tools/extract_sfx.py`.
+
+- **Integra speed/orientation bug (v0.2-v0.4):** its 48 turntable angles were rendered in 3 chunks, and each chunk used its own
+  end index as the full-turn count (16, 32, 48), so the step size changed between chunks. `render_turntable.py` now takes the
+  full-turn count and a separate START/END. All four cars share the same angle per index.
+- **Lineup previews:** every tile uses the same front-3/4 angle (index 16).
+- **Lip kits:** lookbook `part_front_lip`, `part_side_skirts`, `part_rear_lip` (Civics) / `part_rear_spats` (Integra) are shown, in a
+  black finish (the sheet lists them as unpainted PU), with the stock rear diffuser pieces hidden where the rear lip replaces them.
+  The Integra is now the DE4 lookbook model `eps-acura-integra-de-v29.glb` (the Type S model has no lip kit parts).
+- **Fourth car, "Integra Widebody" (DE4):** the same model with `part_fender_flares` in black (sheet: "Fender Flare Widebody – DE4 · PU").
+  Its 10 colours cycle on half-beats. The price slot still shows the Sport Wing price.
+- **New on-screen lines (from the sheet):** "FRONT LIP + SKIRTS 30% OFF" (Civic FE/FL and Integra front lip and side skirts are 30 %;
+  rear spats are 40 % and the FL hatch rear lip has no deal, so the line names only lip + skirts) and "WIDEBODY FLARES 50% OFF" ($800 -> $400).
+- **SFX are the reference clip's own sounds.** `extract_sfx.py` aligns every instance of a menu sound in the owner's 7-minute clip and
+  takes the median, so the music under it cancels. Confirm chime: 161 instances, residual music about -16 dB; the "select car" sound
+  is the same sample (correlation 0.95). Back sound: 16 instances, residual about -8 dB (band-limited to 250-3500 Hz to hide it).
+  No cursor-move sound was found in the reference, so there is none.
+- **Fonts:** Unbounded 800/900 stands in for Akira on prices, offers, BUY, LINEUP and tile titles; Unbounded 300/400 for the URL
+  (next to the logo). Car names stay in the serif, small labels in Inter. Akira file still needed from the owner.
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS (the first mix was -12.1 LUFS / +1.0 dBFS; SFX lowered 5 dB). 51 click/colour events vs music
+  onsets: mean -4.8 ms, max 25 ms. Safe-zone sheet looked at: clean; content bbox x 48-924, y 288-1444 (4 px grid).

@@ -406,7 +406,7 @@ def aisle():
     billboard("eps", f"{M}/chars/eps_front.png", Vector((0.75, 2.4, 0)), 1.70, cam)
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
     bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
-    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 1.0
+    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.70
     try:
         t.data.font = bpy.data.fonts.load("/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-800.ttf")  # Akira stand-in (knowledge/fonts.md)
     except Exception:

@@ -279,6 +279,6 @@ p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt
 for f in range(nfr): p.stdin.write(frame_at(f / FPS).tobytes())
 p.stdin.close(); p.wait()
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', silent, '-i', f'{M}/music/music_v05.wav', '-i', f'{M}/music/sfx_v05.wav',
-                '-filter_complex', '[1:a]volume=-5dB[m];[2:a]aresample=48000,pan=stereo|c0=c0|c1=c0[s];[m][s]amix=inputs=2:normalize=0,volume=4.2dB[a]',
+                '-filter_complex', '[1:a]volume=-5dB[m];[2:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=-5dB[s];[m][s]amix=inputs=2:normalize=0,volume=3.9dB[a]',
                 '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-t', str(END_T), OUT], check=True)
 print('wrote', OUT, nfr)

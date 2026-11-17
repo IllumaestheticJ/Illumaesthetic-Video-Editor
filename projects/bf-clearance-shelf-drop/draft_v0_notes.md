@@ -88,3 +88,12 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - The end-card URL reads WWW.EPSILON.PLUS (it was EPSILON.PLUS), at x 310-770 / y 1040-1090, inside the safe zones.
 - Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.4.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS;
   safezone_check sheet reviewed.
+
+## v0.5 (2026-11-17): owner font rule (`knowledge/fonts.md`)
+- Headlines, prices, tag titles, the aisle BLACK FRIDAY sign and the stock line use **Unbounded 800, standing in for
+  Akira**. The owner hasn't supplied the Akira file yet and has been asked for it.
+- Beside the logo: the end card uses Unbounded 400 for BLACK FRIDAY CLEARANCE and 300 for WWW.EPSILON.PLUS.
+- Labels and was-prices on the tags use Unbounded 500.
+- The aisle sign was resized 1.0 -> 0.70 because the wider face clipped against the racks.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.5.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS.
+  The safezone_check sheet was reviewed: all text is inside x 48-920 / y 285-1440.

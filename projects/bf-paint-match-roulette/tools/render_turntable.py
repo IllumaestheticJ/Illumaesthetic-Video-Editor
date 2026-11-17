@@ -1,7 +1,7 @@
 """Turntable passes for the dealership-menu version (v0.2).
 
 blender -b --factory-startup -P render_turntable.py -- <glb> <outdir> <hide,comma,list> [n_angles]
-Per angle writes: b_XX.png (paint = black gloss), w_XX.png (paint = white gloss), m_XX.png (R = body paint, G = sport wing).
+Per angle writes: b_XX.png (paint = black gloss), w_XX.png (paint = white gloss), m_XX.png (R = body paint, G = sport wing, B = lip kit / flares).
 Compositing tints: out = b + mask * (w - b) * colour, so every store colour comes from two beauty passes.
 Camera and lights orbit together, which looks like the car turning on a fixed stage.
 """
@@ -60,17 +60,20 @@ slots = [(o, i, s.material) for o in meshes + [fl] for i, s in enumerate(o.mater
 def is_paint(m): return m is not None and m.name.split('.')[0] == 'paint'
 def assign(paintmat, wingmat, other=None):
     for o, i, m in slots:
-        if is_paint(m) and o in kit: o.material_slots[i].material = other if other else KITMAT
+        if is_paint(m) and o in kit: o.material_slots[i].material = eB if other else paintmat   # v0.6: kit is paint-matched; mask channel B
         elif is_paint(m): o.material_slots[i].material = wingmat if o in wing else paintmat
         else: o.material_slots[i].material = other if other else m
 B, Wm = gloss('pb', 0.0), gloss('pw', 0.8)
 KITMAT = gloss('kit', 0.012); KITMAT.node_tree.nodes['Principled BSDF'].inputs['Roughness'].default_value = 0.42
 START = int(a[4]) if len(a) > 4 else 0
-eR, eG, eK = emit((1, 0, 0)), emit((0, 1, 0)), emit((0, 0, 0))
+eR, eG, eK, eB = emit((1, 0, 0)), emit((0, 1, 0)), emit((0, 0, 0)), emit((0, 0, 1))
+PASSES = a[7] if len(a) > 7 else 'bwm'
 END = int(a[5]) if len(a) > 5 else N   # N is always the full turn; START/END select a chunk
 for k in range(START, END):
+    if all(os.path.exists(os.path.join(OUT, f'{t}_{k:02d}.png')) for t in PASSES): continue   # resume after a restart
     piv.rotation_euler = (0, 0, math.radians(35) + 2 * math.pi * k / N)
     for tag, args, smp in (('b', (B, B), 10), ('w', (Wm, Wm), 10), ('m', (eR, eG, eK), 1)):
+        if tag not in PASSES: continue
         assign(*args); sc.cycles.samples = smp; sc.cycles.use_denoising = tag != 'm'
         sc.render.filepath = os.path.join(OUT, f'{tag}_{k:02d}.png'); bpy.ops.render.render(write_still=True)
     print('ANGLE', k, flush=True)
