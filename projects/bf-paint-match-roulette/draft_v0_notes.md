@@ -98,3 +98,10 @@ Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.3.mp4`.
   x 48-924, y 288-1444 at a 4 px sampling grid (i.e. inside the safe box).
 - Loudness -14.0 LUFS, peak -1.5 dBFS.
 - Trade-off: the menu now fills about 80 % of the width and 60 % of the height, with black around it.
+
+# v0.4 (2026-11-17): www.epsilon.plus
+
+Owner rule: every web address reads `www.epsilon.plus`. The menu's bottom bar now says "www.epsilon.plus" (was "epsilon.plus"),
+and "WWW.EPSILON.PLUS" sits under the end wordmark. `tools/compose_v04.py`; output
+`/home/user/media/work/out/bf-paint-match-roulette_v0.4.mp4`. Otherwise identical to v0.3.
+Checks: safe-zone sheet looked at (clean, URL and wordmark inside x 48-920 / y 285-1440); -14.0 LUFS, peak -1.5 dBFS.
