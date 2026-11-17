@@ -119,6 +119,8 @@ def _blinks(seed):
 
 
 BLINKS = {"PIP": _blinks(21), "GUS": _blinks(47)}
+# owner rule "never sad": a blink on Gus's "..." pause before "There's a lot to cover" read as weary - keep his eyes open there
+BLINKS["GUS"] = [b for b in BLINKS["GUS"] if not (LN[10]["t0"] - 0.6 <= b <= LN[10]["t1"])]
 
 
 def blink(spk, t):

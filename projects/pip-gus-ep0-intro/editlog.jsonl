@@ -17,3 +17,4 @@
 {"ts": "2026-11-17T00:12:28Z", "decision": "Gus expressions warm: round dots + happy arcs on 'Hi', 'so long', 'a lot to cover' - no D-cut annoyed eyes in Ep 0", "why": "Owner: don't make Gus sad; intro tone"}
 {"ts": "2026-11-17T00:12:29Z", "decision": "Logo card text WHAT QUESTIONS / DO YOU HAVE? (ReelGfx logo item), no SCANS AVAILABLE line", "why": "Owner 2026-11-16"}
 {"ts": "2026-11-17T00:45:56Z", "decision": "Hand raises are forward-up (X) rotations, Gus waves with his inner (left) hand; A and B re-rendered", "why": "Sideways raises pushed the floating hands (wide hand_x) out of frame - checked on A frame 24 (hand at x -1.13, frame edge -0.87)"}
+{"ts": "2026-11-17T02:54:48Z", "decision": "Removed Gus's blinks during line 10 ('…There's a lot to cover'); J to be re-rendered", "why": "Frame review of J: a blink landing on the '…' pause read as a weary half-lidded look; the owner's standing rule is that Gus must never look sad"}
