@@ -126,10 +126,10 @@ def setup():
         o = bpy.data.objects[n]; o.data.materials.clear(); o.data.materials.append(m); o["rest"] = list(o.location)
     gold, gnt, gout = sr.new_mat("rim_gold"); g = sr.principled(gnt, (0.62, 0.42, 0.14, 1), 0.3, 1.0); gnt.links.new(g.outputs[0], gout.inputs[0])
     rub, rnt, rout = sr.new_mat("rubber"); r = sr.principled(rnt, (0.03, 0.03, 0.03, 1), 0.7, 0.0); rnt.links.new(r.outputs[0], rout.inputs[0])
-    for o in bpy.data.objects:
+    for o in bpy.data.objects:   # v0.6 (user): wheels + tyres in the same silver as the scan, not gold/black
         if o.name.startswith("wheel_"):
             for i, sl in enumerate(o.material_slots):
-                sl.material = gold if i == 0 else rub
+                sl.material = silver
     lo = Vector((-1.2, -2.2, 0.0)); hi = Vector((1.2, 2.8, 1.6))
     root = bpy.data.objects.new("SCAN_ROOT", None); sc.collection.objects.link(root); root.location = (lo + hi) / 2
     sr.studio_lights(lo, hi)
