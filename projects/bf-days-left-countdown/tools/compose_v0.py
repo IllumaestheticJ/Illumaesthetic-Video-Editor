@@ -1,4 +1,4 @@
-"""BF 9 v0 compositor: plate + numeral frames + placeholder characters + text -> PNG frames (30 fps, 1080x1920).
+"""BF 9 v0.1 compositor (no characters, owner 2026-11-17): plate + numeral frames + text -> PNG frames (30 fps, 1080x1920).
 
 python compose_v0.py --media /home/user/media/bf-days-left-countdown --days 3 --out frames_dir
 Cut frames come from the measured hits of "BREAKING NEWS" (see editlog): 1.96 s, drop 4.62 s, 6.92 s.
@@ -15,15 +15,12 @@ M = args.media
 W, H, FPS = 1080, 1920, 30
 C1, DROP, C3, END = 59, 139, 208, 282  # frames: shot 2 starts, drop, wordmark, end (9.4 s)
 SLAM = 154      # 5.13 s hit: "DAYS LEFT"
-DEL_IN = 180    # 6.01 s hit: Del steps in
-TAPS = [10, 37]  # 0.34 s, 1.23 s low hits: Del's tape taps in shot 1
+SALE_IN = 180   # 6.01 s hit: "BLACK FRIDAY SALE" line
 BLACK_I = "/usr/share/fonts/opentype/inter/InterDisplay-Black.otf"
 BOLD_I = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
 os.makedirs(args.out, exist_ok=True)
 
 plate = Image.open(f"{M}/work/plate_integra.png").convert("RGB")
-dl = Image.open(f"{M}/work/chars/del_placeholder.png")
-ep = Image.open(f"{M}/work/chars/eps_placeholder.png")
 logo = Image.open(f"{M}/src/Epsilon+ Logo.png").convert("RGBA")
 logo = logo.resize((720, round(logo.height * 720 / logo.width)), Image.LANCZOS)
 
@@ -67,34 +64,25 @@ def paste_center(base, lay, cx, cy, scale=1.0, alpha=1.0):
     base.alpha_composite(lay, (round(cx - lay.width / 2), round(cy - lay.height / 2)))
 
 
-tag = text_layer("Del & Eps: placeholder art (model sheet), not final", 26, BOLD_I, (150, 150, 150, 255), halo=False)
 days_lay = text_layer(line, 150, tracking=6)
 bf_lay = text_layer("BLACK FRIDAY", 64, BOLD_I, tracking=14, halo=False)
 url_lay = text_layer("EPSILON.PLUS", 46, BOLD_I, (200, 200, 200, 255), tracking=10, halo=False)
-del_big = scaled(dl, 500)
-eps_big = scaled(ep, 500)
-del_s1 = scaled(dl, 560)
+sale_lay = text_layer("BLACK FRIDAY SALE", 64, BOLD_I, (215, 215, 215, 255), tracking=12)
 
 for f in range(END):
-    if f < C1:  # ---- shot 1: plate push-in 5 %, Del taps his tape roll on two hits
-        s = 1.0 + 0.05 * f / (C1 - 1)
+    if f < C1:  # ---- shot 1: plate, crop-in + push
+        s = 1.20 + 0.06 * f / (C1 - 1)  # no characters: crop in on the car, slow push
         pw, ph = round(W * s), round(H * s)
         fr = plate.resize((pw, ph), Image.LANCZOS).crop(((pw - W) // 2, (ph - H) // 2, (pw - W) // 2 + W, (ph - H) // 2 + H)).convert("RGBA")
-        bump = max([math.exp(-((f - t) / 2.5) ** 2) for t in TAPS])  # tiny dip on each tap
-        d = scaled(dl, round(620 * (1 - 0.025 * bump)))
-        fr.alpha_composite(d, (W - d.width - 50, 1500 - d.height))
-        paste_center(fr, tag, W / 2, H - 60)
-    elif f < C3:  # ---- shots 2-3: numeral render, Eps scanning, text slam, Del steps in
-        fr = Image.open(f"{M}/work/num{args.days}/f_{f - C1:04d}.png").convert("RGBA")
-        hop = 1 - ease_out((f - C1) / 5)  # Eps raises the scanner on the cut: small rise
-        fr.alpha_composite(eps_big, (W - eps_big.width - 30, H - eps_big.height - 80 + round(30 * hop)))
+    elif f < C3:  # ---- shots 2-3: numeral render, text slam, sale line
+        num = Image.open(f"{M}/work/num{args.days}/f_{f - C1:04d}.png").convert("RGBA")
+        fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
+        fr.alpha_composite(num, (72, -40))  # recentre: the render framed the numeral 72 px left (room for the dropped Eps)
         if f >= SLAM:
             t = (f - SLAM) / 4
-            paste_center(fr, days_lay, W / 2, 1245, scale=1.0 + 0.3 * (1 - ease_out(t)), alpha=ease_out(t * 1.5))
-        if f >= DEL_IN:
-            x = -del_big.width + (40 + del_big.width) * ease_out((f - DEL_IN) / 5)
-            fr.alpha_composite(del_big, (round(x), H - del_big.height - 80))
-        paste_center(fr, tag, W / 2, H - 60)
+            paste_center(fr, days_lay, W / 2, 1300, scale=1.0 + 0.3 * (1 - ease_out(t)), alpha=ease_out(t * 1.5))
+        if f >= SALE_IN:
+            paste_center(fr, sale_lay, W / 2, 1450, alpha=ease_out((f - SALE_IN) / 5))
     else:  # ---- shot 4: wordmark card, fades out with the music
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         t = 0.35 + 0.65 * (f - C3) / 6

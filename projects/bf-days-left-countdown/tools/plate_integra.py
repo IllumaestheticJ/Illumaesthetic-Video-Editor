@@ -91,9 +91,9 @@ light("top", (0, 0, r * 1.5), 70 * r * r, r * 1.5)
 front = Vector((0, -rear_sign, 0))
 az = math.radians(args.az)
 d = Vector((front.x * math.cos(az) - front.y * math.sin(az), front.x * math.sin(az) + front.y * math.cos(az), 0))
-cd = bpy.data.cameras.new("cam"); cd.lens = 28; cd.shift_x = 0.04
+cd = bpy.data.cameras.new("cam"); cd.lens = 28; cd.shift_x = -0.035
 cam = bpy.data.objects.new("cam", cd); sc.collection.objects.link(cam); sc.camera = cam
-cam.location = c + d * 8.2 + Vector((0, 0, -c.z + 0.65))
+cam.location = c + d * 7.4 + Vector((0, 0, -c.z + 0.65))
 k = cam.constraints.new("TRACK_TO"); k.target = tgt
 
 W, H = map(int, args.res.split("x"))
