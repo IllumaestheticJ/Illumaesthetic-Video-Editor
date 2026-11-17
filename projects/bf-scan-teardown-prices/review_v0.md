@@ -32,3 +32,23 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 - No GLB footprint nesting yet. The parts are Ron's add-on pieces on his own scan copy.
 - Inter Display instead of the site fonts (Fjalla One / Barlow).
 - The offer wording is my placeholder.
+
+## v0.2: safe-zone pass (owner rule, knowledge/safe-zones.md)
+- **Before (v0.1):** `scripts/safezone_check.py` found 12 problems. All six text overlays (the BF tag and five cards) sat at
+  y 145-352, in the top UI band and the 4:5 feed crop. In the exploded top view, the rear lip (a part on sale) sat in the bottom
+  caption zone.
+- **Fix:**
+  - The tag and the price cards move down to start at y 300, inside x 48-920 / y 285-1440 and above the car.
+  - The "THE FULL EPSILON KIT" tag is dropped, because the top view fills the band.
+  - The top-view camera is wider (28 mm) and shifted, so every part sits inside y 285-1440. T2 frames 0-35 were re-rendered.
+  - The end card was already inside the safe area.
+- **After (v0.2):** text boxes OK, 0 problems. Sheet: `sz_after_v0.2.jpg`. Loudness and cut frames are unchanged
+  (-14.0 LUFS, the same 402 / 517 / 582 / 629 frames).
+- **Still to do in v1 (subject, not text):**
+  - The car's rear or a wheel crosses the right-rail zone in the side shot (7-8 s) and the rear-left shots, including the
+    1:1 end frame. Re-frame those cameras, and Ron's render with them, at full quality.
+  - The moving rear lip dips under y 1440 for about half a second at the start of the descent (about 15.0 s).
+
+## v0.3: web address (owner rule: "all agents should use www.epsilon.plus")
+- The end card's URL changes from "EPSILON.PLUS" to **"WWW.EPSILON.PLUS"**. It is the only web address in the reel.
+- `safezone_check`: text boxes OK. Loudness and cut frames are unchanged (-14.0 LUFS, TP -3.1 dBFS).

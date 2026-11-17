@@ -52,3 +52,13 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
 - **Canards:** carbon canards are on the car in every CGI shot, plus a new close-up labelled "CARBON CANARDS / BACK IN STOCK".
   - The store still says "[BACKORDER]" with inventory -2; the listing needs updating before the ad runs.
   - No canard price is shown (canards are not in the BF sheet).
+
+## v0.3 safe zones (owner rule, knowledge/safe-zones.md)
+- `scripts/safezone_check.py`, v0.2 -> v0.3:
+  - Labels moved out of the bottom zone (now y 1190-1320).
+  - Card plates scaled to 0.79 so the spats end above y 1440; the card text is smaller and centred in the skirt gap.
+  - Every 3D shot is lens-shifted 8 % left so the car clears the right rail.
+  - The end-card logo and URL are centred at x 484, y 760 / 860.
+- All text and logos now sit inside x 48-920 / y 285-1440.
+- **Remaining:** in the wide CGI and studio frames the car's front corner still reaches the rail's left edge, and the lip macro fills the frame by design. There's no text there.
+- File: `bf-gr-corolla-track_v0.3.mp4`, 19.9 s, -14.0 LUFS / -2.8 dBTP, same cut timing as v0.2.

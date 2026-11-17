@@ -70,7 +70,7 @@ Loudness is set at the mux to -14 LUFS, with true peak below -1 dBFS. The measur
    No stock counts and no dates.
 3. **Wording (my placeholder; replace with yours):**
    - Opening: "BLACK FRIDAY".
-   - End card: Epsilon+ wordmark (720 px), "BLACK FRIDAY", "30% OFF THE CIVIC FE KIT", "EPSILON.PLUS". The 30 % is the sheet's
+   - End card: Epsilon+ wordmark (720 px), "BLACK FRIDAY", "30% OFF THE CIVIC FE KIT", "WWW.EPSILON.PLUS" (v0.3). The 30 % is the sheet's
      tier for all four parts shown.
 4. **Wing:** Ron's `wing.002` is taken as the FE Sport Wing (Si duckbill variant) the price card names. Not yet confirmed.
 5. **Wheels:** Ron's gold wheels, so the end is a 1:1 cut to his render at the same camera.
