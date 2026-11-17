@@ -37,3 +37,10 @@ Status: first cut for owner review, not final. v1 = first assembly; v2 = same pi
 - Pitch: the 1.39% speed-up uses ffmpeg `atempo` (time stretch, pitch preserved), so there is no 24-cent shift; no change needed. Drop still rises at frame 65-65.5.
 - Last line: "...ringlands?" moved 0.17 s (5 frames) earlier so the word's tail ends about 5 frames before the hard cut instead of 3 ms. The picture is unchanged; the horror face (frame 124 of shot 16) now lands during the word instead of at its start.
 - Loudness re-measured on v2.1: see editlog.
+
+## v3 (owner feedback round 1: dropout form, signing bonus, parts thrown at the car, mirror camera)
+- 1080x1920, 30 fps, 1052 frames, 35.07 s. Shots 1, 2, 3, 7, 16 re-rendered (`render3`), the rest reused from `render2`.
+- Loudness -14.3 LUFS, peak -2.7 dBFS.
+- Picture cuts at 65, 113, 160, 208, 255, 302, 397, 492, 539, 586, 681, 729, 776, 823, 902; music cuts within about 1 frame of a beat (tracker reading 0.0 to -1.2); drop on the frame-65 cut. No dark frames (minimum picture mean 54/255).
+- Looked at contact sheets of all five new shots: form and DROPPED OUT stamp readable, cash brick label readable, each of the four parts leaves the box and lands on the car, mirror shot starts in front of the seat.
+- Still unheard by me: the new stamp, cha-ching and throw/land effects.

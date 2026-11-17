@@ -573,7 +573,7 @@ if __name__ == "__main__":
     a = sys.argv[sys.argv.index("--") + 1:]; n = int(a[0]); out = a[1]; mode = a[2] if len(a) > 2 else "anim"; res = int(a[3]) if len(a) > 3 else 540; smp = int(a[4]) if len(a) > 4 else 14
     bpy.ops.wm.read_factory_settings(use_empty=True); SHOTS[n - 1]()
     sc = bpy.context.scene; sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"; sc.cycles.samples = smp; sc.cycles.use_denoising = True; sc.cycles.max_bounces = 3
-    sc.render.resolution_x = sc.render.resolution_y = res; sc.view_settings.view_transform = "Standard"; sc.render.fps = 30; sc.frame_start = 1; sc.frame_end = NF[n - 1]
+    sc.render.resolution_x = sc.render.resolution_y = res; sc.view_settings.view_transform = "Standard"; sc.render.fps = 30; sc.frame_start = int(a[5]) if len(a) > 5 else 1; sc.frame_end = NF[n - 1]
     sc.render.image_settings.file_format = "PNG"
     if mode == "anim":
         sc.render.filepath = f"{out}/s{n:02d}/"; bpy.ops.render.render(animation=True)
