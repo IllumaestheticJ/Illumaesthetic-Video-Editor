@@ -224,8 +224,6 @@ def audio():
     g = np.full(n, -8.0)
     for L in TL["lines"]:
         g[max(0, int((L["t0"] - 0.15) * SR)):int((L["t1"] + 0.1) * SR)] = -13.0
-    c0 = int((CART_END / FPS - 0.3) * SR)
-    g[c0:] = np.linspace(g[c0], -2.0, n - c0).clip(None, -2.0) if False else g[c0:]
     g[int(CART_END / FPS * SR):] = -3.0
     g = smooth(g, 0.08)
     lin = 10 ** (g / 20)
