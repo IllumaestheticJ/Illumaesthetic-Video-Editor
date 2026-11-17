@@ -66,11 +66,14 @@ Media (not committed): `/home/user/media/pip-gus-ep2-print-the-scan/photos/IMG_0
 - Dropped for length: IMG_0773/0772 (raw bumper scan in the scanner app), IMG_0771/0769/0768/0766.
 - Not used: IMG_0781/0780/0779. They show viewer toolbars and on-screen mm labels, and the rule is no software UI or numbers we don't
   own on screen. 0781's measurements are real, but they aren't needed.
-- Scan look: the owner's screenshots are lavender/tan viewer renders, not the house silver. If the scan + CAD files are available
-  (Q4), re-render beats 3/5/6 in the house look, and do a true 1:1 cut from the real bumper photo (beat 4) to the scan from the same
-  camera. Otherwise use the screenshots as-is.
-- Check before use: plates and bystanders in the crash photos, and the people in IMG_0770/0769.
-- Resolution: the photos are 1440x1080 (4:3), which is only about 600 px wide in a 9:16 crop. Needs the originals or another framing (Q5).
+- Scan look: the owner's screenshots are lavender/tan viewer renders, not the house silver. The files are on the Drive (clips.md),
+  so beats 3/5/6 are re-rendered in the house look (car scan silver; bumper and lip as their own parts). Beat 4 -> scan is a true 1:1 cut:
+  solve the camera of the fitted-bumper photo (IMG_0765) and render the scan + reverse-engineered bumper from it.
+- Context (owner 2026-11-17): printing the whole bumper was worth it because that bumper no longer exists. That keeps Ep 2 consistent
+  with Ep 3, where printing a bumper you can still buy isn't worth it.
+- Owner OK'd showing the crash photos and the person scanning (2026-11-17). Still blur any readable plates.
+- Resolution: the photos are 1440x1080 (4:3), only about 600 px wide in a 9:16 crop. Only beats 1, 2 and 4 are photos now. The full set
+  is in the owner's WhatsApp, and the owner can save it if needed.
 
 ## Part C: logo card (the ending)
 Plain Illumaesthetic logo (about 720 px wide on 1080), no line under it. Owner's choice (2026-11-17).
@@ -87,11 +90,9 @@ No "FULL VIDEO ON OUR CHANNEL" teaser card (owner rule 2026-11-16: only when a m
 2. ~~Line 8~~ answered (owner 2026-11-16): "you design the part on it, or you remake/reverse engineer the part - Illumaesthetic
    can do both." Line 8 now covers both, and Pip's line 11 is "Ooh! Illumaesthetic does both!"
 3. ~~Ending~~ answered (owner 2026-11-17): plain logo card, no teaser card.
-4. **GT350 files:** are the car scan, the reverse-engineered bumper and the lip (STL/STEP) on the Drive? With them, shot 4 -> 5 becomes a true
-   1:1 cut from the scan to the printed bumper.
-5. **Video and originals:** is there video of this job in Dropbox, or the full-resolution photos? These are 1440 px wide, which is
-   soft once cropped to 9:16.
-6. **Ep 3 overlap:** Ep 3 argues against printing a whole bumper, and this job is a printed whole bumper. Was it the final part, a
-   test fit, or a one-off because the part can't be bought? The answer decides whether Ep 2 shows it as the result.
-7. **OK to show:** the crash photos (the police scene in the background) and the person scanning?
-8. **The lip, for real:** was the lip printed and fitted? A photo or clip of it on the car would end Part B on the real part.
+4. ~~GT350 files~~ found on the Drive (clips.md): car scans in Engineering Design / Ford Mustang Shelby GT350 (S197); bumper + lip in
+   Ron's Folder / GT350 Bumper.
+5. ~~Video/originals~~: in the owner's WhatsApp; they'll save the folder if needed.
+6. ~~Ep 3 overlap~~ (owner 2026-11-17): printing the whole bumper is worth it when that bumper no longer exists.
+7. ~~OK to show~~: yes (owner 2026-11-17).
+8. ~~The lip, for real~~: yes, on the Drive (owner 2026-11-17).
