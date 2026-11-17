@@ -86,6 +86,29 @@ def mat_check(rgb):
     return m
 
 
+def mat_livery():
+    """Silver house look where the face has no livery (attribute alpha 0); gloss paint in the 'livery' colour elsewhere
+    (Castrol livery transferred from the website model, livery.py / livery_attr.py)."""
+    m, nt, out = sr.new_mat("ive_livery")
+    silver = sr.principled(nt, (0.62, 0.63, 0.66, 1), 0.32, 0.85)
+    ao = nt.nodes.new("ShaderNodeAmbientOcclusion")
+    ao.inputs["Distance"].default_value = 0.08
+    ao.inputs["Color"].default_value = (1, 1, 1, 1)
+    mul = nt.nodes.new("ShaderNodeMix"); mul.data_type = "RGBA"; mul.blend_type = "MULTIPLY"
+    mul.inputs["Factor"].default_value = 0.85; mul.inputs["A"].default_value = (0.62, 0.63, 0.66, 1)
+    nt.links.new(ao.outputs["Color"], mul.inputs["B"]); nt.links.new(mul.outputs["Result"], silver.inputs["Base Color"])
+    att = nt.nodes.new("ShaderNodeAttribute"); att.attribute_name = "livery"
+    paint = sr.principled(nt, (0.8, 0.8, 0.8, 1), 0.28, 0.0)
+    if "Coat Weight" in paint.inputs:
+        paint.inputs["Coat Weight"].default_value = 0.6
+    nt.links.new(att.outputs["Color"], paint.inputs["Base Color"])
+    mix = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(att.outputs["Alpha"], mix.inputs[0])
+    nt.links.new(silver.outputs[0], mix.inputs[1]); nt.links.new(paint.outputs[0], mix.inputs[2])
+    nt.links.new(mix.outputs[0], out.inputs[0])
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -105,9 +128,13 @@ def main():
     sr.studio_lights(lo, hi)
     silver = sr.mat_silver()
     grey = sr.mat_clay()
+    livery = mat_livery()
     for o in base:
         o.data.materials.clear()
-        o.data.materials.append(grey if spec.get("base_color") == "grey" else silver)
+        if "livery" in o.data.attributes:
+            o.data.materials.append(livery)
+        else:
+            o.data.materials.append(grey if spec.get("base_color") == "grey" else silver)
 
     colors = {"red": (0.9, 0.05, 0.03), "cyan": (0.0, 0.7, 1.0), "green": (0.1, 0.9, 0.1),
               "yellow": (1.0, 0.8, 0.0), "magenta": (0.9, 0.0, 0.8)}

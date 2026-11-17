@@ -54,6 +54,7 @@ before the bumper itself.
 | MR2 lookbook GLB `eps-toyota-mr2-spyder-v19.glb` (part_front_bumper, part_eyelids, part_hood_vents, part_side_skirts, part_rear_spats, part_duckbill, + body_*_stock) | found (re-download) | Drive `Website Files/Epsilon-final-GLBs-2026-10-15.zip` id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7, or the epsilon.plus lookbook CDN |
 | NC lookbook GLB `eps-mazda-mx5-nc-v19.glb` (part_front_bumper, part_fender_cuts, part_side_skirts, part_rear_spats, part_canards, part_gt_wing...) | found (re-download); **NC `body_*_stock` names not yet listed** | same zip |
 | MR2 GLB-to-scan fit + nesting | found (code) | `projects/toyota-mr2-spyder/tools/kit_export.py`, `kit_align.py`, `kit_nest2.py`; outputs need regenerating (no media on disk) |
+| NC alternative CGI: `Miata NC Complete Kit.glb` (664 MB) | found (parent ASSETS.md), not yet opened. Compare with the lookbook GLB; use whichever matches the store parts | Drive 1ZGgplW790QltSuHm_8xqWqGl8h_eucyn |
 | NC GLB-to-scan fit + nesting | **missing** (new work) | adapt the MR2 tools to the NC |
 | MR2 scan | found | Drive folder `Toyota MR2 Spyder` 1Apk8IymqNIM5osub5qZzzQxO7airXf8G; Full Car Top Down.stl 1F1JS1meWgjj3xeYpM8Su-FV6bZC07H1X |
 | NC scans (full car, bumper only, bumper-off states) | found | Drive 117x9LQvHdB1J88dcs8H8bagCL9DTstfK (ids in shots 8-9) |
@@ -63,14 +64,14 @@ before the bumper itself.
 | Real NC footage | found, not night | `2026-08-05 Pink NC Miata` (6-7:23 PM); `4. Photoshoots/NC Miata/` stills |
 | Style reference | found | Dropbox `/5. Claude Training/Good Reels (Epsilon)/NFSU2 car lot - 1440p.mp4` (ihAynaYnO_4AAAAAAACHHQ) |
 | Epsilon characters | **none exist** | Pip & Gus (branches `claude/pip-gus-ep0..ep9`) are Illumaesthetic mascots with an Illumaesthetic badge. Spec: `projects/scan-tedium-explainer-reel/characters/design.md`; Higgsfield refs Gus 31001f1d-..., Pip 9cbf5fb5-...; rules: never make Gus sad, sage `#619f73` only |
-| Epsilon+ wordmark | found | Drive `EPSILON+ Logos` |
+| Epsilon+ wordmark | found | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) |
 | Music | **to request** | see candidates |
 | Black Friday sale prices / dates | **to request** | - |
 
 ## Live store facts (Shopify "Epsilon+ Aerodynamics", checked 2026-11-17; list prices, USD)
 - MR2 Spyder ZZW30, fiberglass, made to order: Front Bumper $900, Side Skirt Fender Combo $700, Rear Bumper Spats $350,
   Headlight Eyelids $100, **Hood Vents $400 (vents only) / $470 (vents + relocation brackets)**: the product exists and is
-  ACTIVE, contrary to the brief. Also a fiberglass Hardtop (preorder deposit $50).
+  ACTIVE and published on epsilon.plus since 2023-07-24 (re-checked after the parent's `ASSETS.md` said there was no hood-vent product, which is wrong). Also a fiberglass Hardtop (preorder deposit $50).
 - MR2, not fiberglass: Rear Duckbill $220 (**ABS**, stock 10); Diffuser V1+ $750 (aluminium); TC Wing $1,100.
 - NC Miata, fiberglass, made to order: Front Bumper $1,100 (bumper/lip) / $800 (top only) / $350 (lip only); Fender Cuts
   $300 / $350 (+ fin); also **Side Skirts $500, Rear Spats NC1 $250, Canards $200** (all tagged fiberglass).
