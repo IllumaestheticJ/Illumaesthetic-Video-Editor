@@ -1,7 +1,7 @@
 #!/bin/bash
 # Waits for the cartoon render, then renders the Civic scan shot from the solved cam_A (silver house look, 15 fps,
 # 2.0 s, 10 deg ease-in-out orbit; the cut starts from rest).
-while pgrep -f render_ep1.sh >/dev/null; do sleep 60; done
+while pgrep -f "partA_scene[.]py" >/dev/null; do sleep 60; done
 cd /home/user/Illumaesthetic-Video-Editor
 S=/home/user/media/civic11
 nice python -m ive render -- --scene $S/scan/ek.blend --camera projects/honda-civic-11-scan-process/match/cam_A.json \
