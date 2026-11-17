@@ -14,3 +14,7 @@ remotion/node_modules/
 remotion/out/
 .env
 !projects/**/match/*.jpg
+
+# graphify run intermediates (keep only the labels sidecar)
+graphify-out/.graphify_*
+!graphify-out/.graphify_labels.json
