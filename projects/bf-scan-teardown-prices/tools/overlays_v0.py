@@ -8,20 +8,26 @@ def font(w, s): return ImageFont.truetype(F + {"b": "InterDisplay-Bold.otf", "m"
 OFF, SAGE, GREY = (242, 243, 241), (97, 159, 115), (140, 142, 140)
 
 # --- price cards (top third, 80 px inside the edges)
-def card(name, was, bf, fn):
-    c = Image.new("RGBA", (1080, 420), (0, 0, 0, 0)); d = ImageDraw.Draw(c)
-    fN, fW, fB = font("b", 62), font("m", 54), font("b", 104)
+def card(name, was, bf, pct, fn):
+    """name / struck was-price + BF price (whole dollars, owner 2026-11-17) / '% OFF' pill.
+    BF prices with cents are rounded UP to the dollar ($199.50 -> $200) so the video never shows less than checkout."""
+    c = Image.new("RGBA", (1080, 520), (0, 0, 0, 0)); d = ImageDraw.Draw(c)
+    fN, fW, fB, fP = font("b", 62), font("m", 54), font("b", 104), font("b", 46)
     d.text((540, 150), name, font=fN, fill=OFF, anchor="ms")
     ww = d.textlength(was, font=fW); bw = d.textlength(bf, font=fB); gap = 36
     x0 = 540 - (ww + gap + bw) / 2
     d.text((x0, 300), was, font=fW, fill=GREY, anchor="ls")
     d.line((x0 - 4, 282, x0 + ww + 4, 282), fill=GREY, width=5)
     d.text((x0 + ww + gap, 300), bf, font=fB, fill=SAGE, anchor="ls")
+    t = f"{pct}% OFF"; tw = d.textlength(t, font=fP)
+    d.rounded_rectangle((540 - tw / 2 - 24, 330, 540 + tw / 2 + 24, 398), radius=12, fill=SAGE)
+    d.text((540, 381), t, font=fP, fill=(11, 12, 11), anchor="ms")
     c.save(O + fn)
-card("FRONT LIP", "$285", "$199.50", "p_lip.png")
-card("SIDE SKIRTS", "$400", "$280", "p_skirts.png")
-card("REAR LIP", "$285", "$199.50", "p_rear.png")
-card("SPORT WING", "$450", "$315", "p_wing.png")
+# prices: projects/_blackfriday/PRICES.md (liquidation sheet). % = the sheet's tier for each part (all 30 %).
+card("FRONT LIP", "$285", "$200", 30, "p_lip.png")
+card("SIDE SKIRTS", "$400", "$280", 30, "p_skirts.png")
+card("REAR LIP", "$285", "$200", 30, "p_rear.png")
+card("SPORT WING", "$450", "$315", 30, "p_wing.png")
 def line(text, fn, size=72, col=OFF, y=170):
     c = Image.new("RGBA", (1080, 260), (0, 0, 0, 0)); d = ImageDraw.Draw(c)
     d.text((540, y), text, font=font("b", size), fill=col, anchor="ms"); c.save(O + fn)

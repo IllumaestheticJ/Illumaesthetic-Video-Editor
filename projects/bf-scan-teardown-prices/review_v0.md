@@ -52,3 +52,34 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 ## v0.3: web address (owner rule: "all agents should use www.epsilon.plus")
 - The end card's URL changes from "EPSILON.PLUS" to **"WWW.EPSILON.PLUS"**. It is the only web address in the reel.
 - `safezone_check`: text boxes OK. Loudness and cut frames are unchanged (-14.0 LUFS, TP -3.1 dBFS).
+
+## v0.4: whole-dollar prices + % off (user: "take out the cents for prices, show what that equates to in % off")
+- The cards now read FRONT LIP $285 → **$200**, SIDE SKIRTS $400 → **$280**, REAR LIP $285 → **$200** and SPORT WING $450 → **$315**.
+  Each card has a sage **30% OFF** badge.
+- **$199.50 is rounded up to $200**, so the video never shows less than checkout. The rounding makes $285 → $200 work out
+  to 29.8 %, but the badge shows the sheet's 30 % tier, which is the real discount at checkout ($199.50). Owner option: set
+  the store sale price to $199 or $200 so card and checkout match exactly.
+- `safezone_check`: text boxes OK. Audio and cut frames are unchanged.
+
+## v0.5: pacing (user: "the scene right before Ron's render takes a bit too long. in general have clips match the beat")
+- The hold after the kit locks drops from a full bar (2.15 s) to **one beat (0.54 s)**.
+- Every clip now starts and ends on a measured hit of the song's grid, and each is a whole number of beats:
+
+  | Clip | Beats | Time |
+  |---|---|---|
+  | T1 teardown | b0-24 (24 beats) | 0-12.93 s |
+  | T2 top view and fly-home | b24-33 (9 beats; lock on the kick entry, b32) | 12.93-17.77 s |
+  | Ron's render | b33-37 (4 beats, one bar) | 17.77-19.90 s |
+  | End card | b37-42 (5 beats) | 19.90-22.60 s |
+
+- **Measured on the decoded output:**
+
+  | Cut | Frame | Offset |
+  |---|---|---|
+  | T1 → T2 | 388 | +2 ms |
+  | Kit lock | 517 | +2 ms |
+  | T2 → Ron | 533 | -3 ms |
+  | Ron → card | 597 | +7 ms |
+
+  -14.0 LUFS, TP -2.8 dBFS. `safezone_check` OK.
+- The T2 opening drift is stretched slightly (13.435-14.466 played over 12.93-14.466), so T2 can start on b24. The wing card now ends at 12.80 s.
