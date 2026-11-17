@@ -1,3 +1,7 @@
+# v0.8 (user: undiscounted prices labelled retail)
+- Every undiscounted price carries a small grey RETAIL tag (SPORT WING RETAIL $500, TRUNK LIP RETAIL $100) in the
+  unboxing receipts and the price card; the big $600 reads COMBO RETAIL. Safe zones OK; timing/loudness unchanged.
+
 # v0.7 (user: "take out the 'less than wing alone', show that its retail price and then do a BF price loading")
 - Price shot (frames 239-379, 2 bars): f0 receipt with SPORT WING $500 / TRUNK LIP $100 and big RETAIL $600;
   f27 (2nd kick) BLACK FRIDAY PRICE + loading bar (LOADING... + %) filling to the next downbeat; f71 (bar-2 downbeat,

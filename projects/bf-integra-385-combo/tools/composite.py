@@ -80,6 +80,9 @@ def receipt(img, fr, lines, x0, y0, w=520):
                 pd.text((28, y), name, font=fm, fill=OFFWHITE if u >= 1 else (232, 236, 242, int(255 * u)))
                 pw = pd.textlength(price, font=fm)
                 pd.text((w - 28 - pw, y), price, font=fm, fill=(232, 236, 242, int(255 * u)))
+                if kind == 'item':  # undiscounted price -> RETAIL tag
+                    ft_ = font(F_MONO_R, 22); tl = pd.textlength('RETAIL', font=ft_)
+                    pd.text((w - 28 - pw - 16 - tl, y + 9), 'RETAIL', font=ft_, fill=(150, 156, 166, int(255 * u)))
                 if kind == 'combo' and fr >= pay['strike']:
                     su = ease((fr - pay['strike']) / 5)
                     x1 = w - 28 - pw - 6; x2 = x1 + (pw + 12) * su
@@ -112,9 +115,11 @@ def price_card(img, fr, x0=250, y0=915, w=580):
     for k, (nm, pr) in enumerate((('SPORT WING', '$500'), ('TRUNK LIP', '$100'))):
         y = 92 + 52 * k
         pd.text((28, y), nm, font=fm, fill=(200, 205, 212, 255)); pw = pd.textlength(pr, font=fm); pd.text((w - 28 - pw, y), pr, font=fm, fill=(200, 205, 212, 255))
+        ft_ = font(F_MONO_R, 22); tl = pd.textlength('RETAIL', font=ft_)
+        pd.text((w - 28 - pw - 16 - tl, y + 8), 'RETAIL', font=ft_, fill=(150, 156, 166, 255))
     pd.line((28, 200, w - 28, 200), fill=(232, 236, 242, 60), width=2)
     # retail (combo list price) - big, struck at the reveal
-    pd.text((28, 222), 'RETAIL', font=font(F_MONO, 30), fill=OFFWHITE)
+    pd.text((28, 212), 'COMBO', font=font(F_MONO, 30), fill=OFFWHITE); pd.text((28, 248), 'RETAIL', font=font(F_MONO, 30), fill=OFFWHITE)
     fr_ = font(F_TITLE, 76); rp = '$600'; rw = pd.textlength(rp, font=fr_)
     pd.text((w - 28 - rw, 206), rp, font=fr_, fill=OFFWHITE if fr < P_REVEAL else (150, 155, 165, 255))
     if fr >= P_REVEAL:
