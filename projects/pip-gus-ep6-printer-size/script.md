@@ -1,9 +1,11 @@
-# Pip & Gus Ep 5 (was Ep 6): "Big printer or small printer?" (script v3, for owner approval)
+# Pip & Gus Ep 7: "Big printer or small printer?" (script v4, for owner approval)
 
-**Series order (owner, 2026-11-17):** this is now **Ep 5**, between Ep 4 (STL or STEP) and Ep 6 (SeamForge).
-- It opens on Ep 4's ending: the design is finished, and Gus asks "On which printer?"
-- It ends with Pip, voice only over the logo card: "It doesn't fit on the small one...", which leads into Ep 6.
-- Glue is now Ep 7, so line 8 sets up glue rather than calling back to it.
+**Series order v0.4 (owner, 2026-11-17):** this is **Ep 7, the printing step**. The series follows one bumper from "if you insist" to the glued part on the car.
+- **Opens** on the bumper pieces SeamForge has just cut, laid out on its build plates. Pip restates Ep 6's last line: "It's cut! Which printer do we use?"
+- **Ends** with Pip, voice only over the logo card: "Printer's ready. What do we load in it?" This leads into Ep 8 (materials).
+- **Framing:** the parts are already cut, so the trade-off is fewer, bigger pieces with fewer seams versus more pieces to glue. It is not "it doesn't fit".
+- Glue is the finale (Ep 9), so line 8 sets it up.
+- Source of truth: "Series order and transitions" in `projects/pip-gus-series/scripts.md`.
 - The branch and the folder keep their old `ep6` names.
 
 9:16, 1080x1920, 30 fps, about 32-36 s in total:
@@ -11,7 +13,7 @@
 - real footage, about 4-5 s;
 - teaser card, then the logo card (about 4 s).
 
-Built from the series draft (`projects/pip-gus-series/scripts.md`, Ep 6) and cut down from 9 lines (about 70 words) so it fits the 30-40 s target.
+Built from the series draft (`projects/pip-gus-series/scripts.md`, the old Ep 6, now Ep 7) and cut down from 9 lines (about 70 words) so it fits the 30-40 s target.
 
 **Rules this script follows:**
 - No brands, build volumes, prices or speeds, on screen or spoken.
@@ -20,7 +22,7 @@ Built from the series draft (`projects/pip-gus-series/scripts.md`, Ep 6) and cut
 - Lines marked [VERIFY] wait for the owner.
 
 ## Set-up
-Cel-shaded shop. The first frame continues from Ep 4: the finished part design is on Gus's laptop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
+Cel-shaded shop. The first frame continues from Ep 6: Pip's bumper, already cut into numbered pieces, is laid out on SeamForge's build plates on Gus's laptop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
 
 Characters use the owner's proportion option 3 (2026-11-16): shorter torso, wider hips, bigger feet, hands close to the body. No gag here needs tall, thin bodies or a long reach. Gus nudges the parts in line 10 and takes the piece in line 8 with his hands kept close to his body.
 
@@ -35,20 +37,20 @@ The script carries only these four trade-offs, plus "run a few at once", which f
 
 | # | Who | Line | Picture | Score |
 |---|---|---|---|---|
-| 1 | PIP | "Which printer? Big or small?" | Opens on the finished design on Gus's laptop (callback to Ep 4's "On which printer?"). Pip looks from the giant printer to the small one, and the scoreboard drops in. | |
-| 2 | GUS | "Big one? Fewer pieces. Fewer seams." | The big printer prints a whole panel in one go. On the small side, the same panel is a pile of pieces. | BIG +2 |
+| 1 | PIP | "It's cut! Which printer do we use?" | Opens on the cut bumper pieces on SeamForge's plates (callback to Ep 6). Pip looks from the giant printer to the small one, and the scoreboard drops in. | |
+| 2 | GUS | "Big one? Fewer pieces. Fewer seams." | On the laptop, the plates re-plan: for the big printer, the bumper becomes a few big chunks; for the small printer, it's a crowd of little pieces. | BIG +2 |
 | 3 | GUS | "But it's slower…" | The big print head crawls; the wall clock spins. | SMALL +1 |
 | 4 | GUS | "…and the bigger nozzle means less detail." | Close-up: a fat nozzle lays chunky lines; the small printer's thin lines look crisp beside it. | SMALL +1 |
 | 5 | PIP | "So small ones win!" | Pip pats the little printer. | |
 | 6 | GUS | "Sharper, sure. And you can run a few." | Three small printers side by side, all printing. | SMALL +1 |
 | 7 | PIP | "Is it done yet?" | Running gag. | |
-| 8 | GUS | "…This piece is. Now glue them all." | One small printer dings and hands Gus a tiny piece. Behind him, a mountain of pieces and a glue bottle (sets up Ep 7, glue). | BIG +1 |
+| 8 | GUS | "…This piece is. Now glue them all." | One small printer dings and hands Gus a tiny piece. Behind him, a mountain of pieces and a glue bottle (sets up Ep 9, the glue finale). | BIG +1 |
 | 9 | PIP | "So who wins?" | The scoreboard is tied 3-3 and flickers. | tie |
-| 10 | GUS | "Depends on the part. We run both." | Gus nudges a big panel toward the big printer and a small detailed part toward the small one. | |
+| 10 | GUS | "Depends on the part. We run both." | Gus nudges the big bumper skins toward the big printer and the detailed bits (vent fins, mounting tabs) toward the small one. | |
 | 11 | PIP | "Wait. Illumaesthetic's big one is HUGE." | Pip pulls out the phone; the screen plays the real big printer (phone hand-off). | |
 | 12 | GUS | "…Show-off." | Gus leans in, deadpan; the camera pushes into the phone until it fills the frame. | |
 
-| 13 | PIP (voice only, over the logo card) | "It doesn't fit on the small one…" | No new text on the card. Leads into Ep 6 (SeamForge), which opens on this part too big for the bed. | |
+| 13 | PIP (voice only, over the logo card) | "Printer's ready. What do we load in it?" | No new text on the card. Leads into Ep 8 (materials), which opens on the printer waiting for filament. | |
 
 About 62 words in the cartoon (lines 1-12), which runs about 26 s. Line 13 is recorded in the same dialogue call.
 
