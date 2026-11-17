@@ -66,7 +66,7 @@ About 62 words in the cartoon (lines 1-12), which runs about 26 s. Line 13 is re
 ## End cards
 - **Teaser card:** **WHICH DO YOU PREFER RUNNING?** (owner, 2026-11-16) over a framed clip of the big printer: the `15.50.09.mov` gantry move at 7.5-14 s, cropped to keep the logo out.
   - The card doesn't point at a YouTube video.
-- **Logo card:** carries Pip's line 13 as a voice-over only. The logo stands alone, with no call to action. Ep 6 isn't about a scan we sell, so "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" is left off. Series rule, 2026-11-16: a call to action is used only when it's relevant.
+- **Logo card:** carries Pip's line 13 as a voice-over only. The logo stands alone, with no call to action. This episode isn't about a scan we sell, so "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" is left off. Series rule, 2026-11-16: a call to action is used only when it's relevant.
 
 ## Voices / music
 As in the series brief:
