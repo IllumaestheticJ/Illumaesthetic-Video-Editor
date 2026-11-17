@@ -60,3 +60,18 @@ The owner's instruction, relayed by the parent: "tell all the black friday agent
 - **Shot 4:** unchanged (720 px wordmark, BLACK FRIDAY, EPSILON.PLUS).
 - **Still a placeholder:** the number 3 (no sale end date yet).
 - **Checks:** -13.5 LUFS, peak -2.6 dBFS. Cuts are unchanged (+3 / +17 ms; the drop is on the section start at 4.62 s). The contact sheet was reviewed, and nothing overlaps or leaves the frame.
+
+## v0.2 (2026-11-17): safe zones (owner rule, knowledge/safe-zones.md)
+- Output: `/home/user/media/work/out/bf-days-left-countdown_v0.2.mp4`.
+- **Before (v0.1 sheet):**
+  - the car's nose and front wheel were in the right rail;
+  - the top of the "3" was in the top/feed-crop band, and its right side was in the right rail;
+  - the last "T" of "DAYS LEFT" and "BLACK FRIDAY SALE" were in the right rail.
+- **Fix:** the layout is centred on x 484, the centre of the safe box, everything stays inside x 48-920 / y 285-1440, and the numeral render is clipped to the safe box.
+  - Shot 1: car push 1.04 → 1.09.
+  - Numeral: rendered at 0.72 scale, at y 330-1018.
+  - "DAYS LEFT": 118 px at y 1110. "BLACK FRIDAY SALE": 52 px at y 1235.
+  - Wordmark: 720 px, block at y 790-1010.
+- **Check:** across all 282 frames, the pixel extent is x 47-919 / y 326-1257. The one 1 px touch (the car at frame 58) was fixed; after the fix, frame 58 measures x 51-909.
+- The `safezone_check.py` sheet was reviewed: nothing in red or amber.
+- Loudness is unchanged: -13.5 LUFS, peak -2.6 dBFS.
