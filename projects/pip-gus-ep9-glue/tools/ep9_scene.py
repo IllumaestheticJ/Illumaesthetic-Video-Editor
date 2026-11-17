@@ -615,7 +615,7 @@ if MODE9 == "anim":
         t = f / FPS9
         sid = next(sid for sid, a, b, _ in SHOTS9 if a <= t < b or sid == "E13")
         dst = os.path.join(FR, f"{f:05d}.png")
-        if os.path.exists(dst):
+        if os.path.exists(dst) and not (sid == "E12" and "--corners" in argv):
             continue
         reset9()
         FUNCS9[sid](t)
@@ -624,5 +624,10 @@ if MODE9 == "anim":
         scn.render.filepath = tmp
         bpy.ops.render.render(write_still=True)
         os.replace(tmp, dst)
+        if sid == "E12":   # phone-screen corners (px, tl tr br bl) for corner-pinning Part B's first frames into the phone
+            cp = os.path.join(OUT, "screen_corners.json")
+            cj = _json.load(open(cp)) if os.path.exists(cp) else {}
+            cj[str(f)] = screen_corners_px()
+            _json.dump(cj, open(cp, "w"), indent=0)
         n += 1
         print(f"[ep9] frame {f} {sid} ({(time.time() - t_start) / n:.1f} s/frame avg)", flush=True)
