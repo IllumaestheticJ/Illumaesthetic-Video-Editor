@@ -19,3 +19,4 @@
 {"ts": "2026-11-17T10:23:07Z", "decision": "v0.2: tags redesigned (700x900, 128-140 px prices, BLACK FRIDAY bar) and hung 1.15 m from the final camera; aisle sign 1.0 m", "why": "Owner: make the signs easier to read; v0.1 tags were ~1/3 frame wide with ~25 px text"}
 {"ts": "2026-11-17T10:23:07Z", "decision": "v0.2: product parts (duckbill, V1 lip) in gloss 2x2 twill carbon; everything else stays silver", "why": "Owner: make the actual duckbill and the lip carbon to contrast the rest of the scans"}
 {"ts": "2026-11-17T11:54:24Z", "decision": "v0.2 assembled: readable tags + carbon duckbill/V1 lip", "why": "owner: signs hard to read; carbon parts should contrast the silver scans"}
+{"ts": "2026-11-17T16:24:11Z", "decision": "v0.3: tags scaled 0.40->0.34 and lowered; count text y 250->330", "why": "owner safe-zone rule: tag tops sat in the top UI bar and the count line sat outside the 4:5 feed crop"}
