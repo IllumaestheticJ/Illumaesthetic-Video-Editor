@@ -199,3 +199,4 @@ anything stock-related goes in the video.
   crumpled bill. Then an Epsilon box is delivered. The hands slow down and open it reverently (angel choir). The
   TC wing comes out clean, he installs it, and it's the only straight panel on the car. A friend: "is that... real?"
   He shields the wing with both arms. End.
+- Voice note (WRX, 2026-11-17): the preset voice "Cody" fails on Higgsfield `elevenlabs_v4` (refunded); it works only on Seed Audio, which has no emotion tags. Check a voice works on v4 before building a dialogue take around it.
