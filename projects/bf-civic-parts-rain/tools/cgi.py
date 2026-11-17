@@ -40,8 +40,8 @@ cam_d = bpy.data.cameras.new("cam"); cam = bpy.data.objects.new("cam", cam_d); s
 cam_d.sensor_fit = "HORIZONTAL"; cam_d.sensor_width = 36; cam_d.lens = 40
 side = 1 if CAR == "fe" else -1   # FE seen from the front-left (+X), FL from the front-right
 az0, az1 = (28, 40) if CAR == "fe" else (-28, -40)
-look = cen + Vector((0, -0.2, -0.15))
-def campos(az, d=5.0, el=7):
+look = cen + Vector((0, -0.75, -0.15))   # v0 check: nose touched the frame edge with -0.2
+def campos(az, d=5.6, el=7):
     a, e = math.radians(az), math.radians(el)
     return look + d * Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
 for f, az in ((0, az0), (N - 1, az1)):
@@ -50,7 +50,7 @@ for f, az in ((0, az0), (N - 1, az1)):
 cam_d.shift_y = 0.24   # (+ = image content moves DOWN) car low in frame: the offer text sits in the black above it
 camdir = (cen - campos((az0 + az1) / 2)).normalized(); camdir.z = 0
 rng = random.Random(3)
-for i in range(20):
+for i in range(14):
     src = parts[i % len(parts)]
     ob = src.copy(); ob.data = src.data; sc.collection.objects.link(ob); ob.hide_render = False
     while True:
@@ -60,7 +60,7 @@ for i in range(20):
     per = rng.uniform(2.8, 4.0); ph = rng.uniform(0, per); spin = Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(-2, 2)))
     for f in range(0, N + 3, 3):
         t = f / 30; u = ((t + ph) % per) / per
-        ob.location = (p.x, p.y, 4.6 - 8 * u)
+        ob.location = (p.x, p.y, 3.4 - 7 * u)   # stays under the offer text
         ob.rotation_euler = (0.7 * math.sin(3 * t + i) + spin.x * t * .3, 0.7 * math.cos(2.6 * t + i) + spin.y * t * .3, spin.z * t)
         ob.keyframe_insert("location", frame=f); ob.keyframe_insert("rotation_euler", frame=f)
 sr.studio_world((0.004, 0.004, 0.005, 1), False)

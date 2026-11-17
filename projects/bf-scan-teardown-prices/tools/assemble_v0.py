@@ -1,11 +1,11 @@
 """v0 assembly: exact 30 fps frames composited in PIL -> ffmpeg; music from the song start, -14 LUFS / TP < -1.
-Cuts (song s = video s): T1|T2 13.398 (f402), T2|Ron 19.390 (f582), Ron|card 20.985 (f630); kit locks 17.235 (f517)."""
+Cuts: T1|T2 f402, kit lock f517, T2|Ron f582, Ron|card f629; music from the song start, delayed 40 ms so measured kick attacks hit them."""
 import glob, subprocess, sys
 from PIL import Image
 M = "/home/user/media/bf-scan-teardown-prices/"; O = M + "ov/"
 OUT = "/home/user/media/work/out/bf-scan-teardown-prices_v0.mp4"; TMP = M + "v0_video.mp4"
 FPS, W, H = 30, 1080, 1920
-C1, C2, C3, END = 402, 582, 630, 708          # frame numbers
+C1, C2, C3, END = 402, 582, 629, 708          # frame numbers
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
 t1 = sorted(glob.glob(M + "r/T1/f*.png")); t2 = sorted(glob.glob(M + "r/T2/f*.png"))
 ron = Image.open(M + "r/ron7_portrait.png").convert("RGB").resize((W, H), Image.LANCZOS)
@@ -42,7 +42,7 @@ for n in range(END):
     if n in (0, C1 - 1, C1, 517, C2 - 1, C2, C3, END - 1): fr.save(M + f"chk/f{n:04d}.jpg", quality=85)
 ff.stdin.close(); ff.wait()
 dur = END / FPS
-af = f"afade=t=out:st={dur - 0.6:.3f}:d=0.6"
+af = f"adelay=40:all=1,afade=t=out:st={dur - 0.6:.3f}:d=0.6"   # +40 ms: kick attacks (~45 ms before the low-band peak) land on the cut frames
 meas = subprocess.run(["ffmpeg", "-v", "info", "-t", f"{dur}", "-i", "/home/user/media/work/music/xxx.m4a", "-af", af + ",ebur128=peak=true", "-f", "null", "-"],
                       capture_output=True, text=True).stderr
 I = float([l for l in meas.splitlines() if l.strip().startswith("I:")][-1].split()[1])
