@@ -257,6 +257,8 @@ def qmark(name, s=1.0, key="sage"):
     add_mods(ob, 0, 0.012 * s, char=True)
     ob.data.materials.append(OUTLINE)
     blob(name + "_dot", (0.03 * s, 0.03 * s, 0.03 * s), (0, 0, -0.12 * s), mat(key, hl=True), g, ol=0.012 * s)
+    for o in g.children_recursive:   # falling '?' shadows swept across Gus's face in G - no shadows from them
+        o.visible_shadow = False
     return g
 
 

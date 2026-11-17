@@ -18,3 +18,4 @@
 {"ts": "2026-11-17T00:12:29Z", "decision": "Logo card text WHAT QUESTIONS / DO YOU HAVE? (ReelGfx logo item), no SCANS AVAILABLE line", "why": "Owner 2026-11-16"}
 {"ts": "2026-11-17T00:45:56Z", "decision": "Hand raises are forward-up (X) rotations, Gus waves with his inner (left) hand; A and B re-rendered", "why": "Sideways raises pushed the floating hands (wide hand_x) out of frame - checked on A frame 24 (hand at x -1.13, frame edge -0.87)"}
 {"ts": "2026-11-17T02:54:48Z", "decision": "Removed Gus's blinks during line 10 ('…There's a lot to cover'); J to be re-rendered", "why": "Frame review of J: a blink landing on the '…' pause read as a weary half-lidded look; the owner's standing rule is that Gus must never look sad"}
+{"ts": "2026-11-17T02:55:32Z", "decision": "Question marks in G no longer cast shadows; G to be re-rendered", "why": "Frame review: a falling '?' threw a dark shadow across Gus's face for about 4 frames (690-693), reading as a smudge or frown"}
