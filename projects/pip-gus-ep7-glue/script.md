@@ -61,7 +61,7 @@ The visual device is the "glue tier list." Gus tests each method on the same two
   - PIP: "Will glue hold when it's sitting in the sun?"
   - GUS: "Depends what it's made of."
   - This echoes Gus's earlier "Depends what it's for." Ep 8 opens on the glued part out in the sun.
-- **No call to action.** Owner rule (2026-11-16): a CTA such as "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" goes in only when it's relevant. Ep 5 isn't about a scan we sell, so the logo card stands alone.
+- **No call to action.** Owner rule (2026-11-16): a CTA such as "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" goes in only when it's relevant. This episode isn't about a scan we sell, so the logo card stands alone.
 
 ## Voices and music (after approval)
 - **Voices:** one ElevenLabs v4 dialogue call with emotion tags, about 1 credit.
