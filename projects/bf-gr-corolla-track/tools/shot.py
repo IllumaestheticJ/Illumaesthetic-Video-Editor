@@ -33,8 +33,9 @@ SPEED = 33.0  # m/s on the straight (~120 km/h)
 # carbon canards added (on the car + their own shot).
 import json
 KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
-WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 20),
-       's7_side': (20, 24), 's8_cardv1': (24, 30), 's9_canards': (30, 34), 's10_pass': (34, 36)}
+WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 22),
+       's7_side': (22, 28), 's8_cardv1': (28, 36), 's9_canards': (36, 42), 's10_pass': (42, 44)}
+# v0.6 (user: slow readers): cards 8 kicks, side tracking 6 (one label per half), canards 6
 # v0.5 (user): drive-past cut sooner (2 kicks); offer cards 6 kicks: parts glowing on the dark car -> lift off into a line-up
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
 N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0])
@@ -115,7 +116,7 @@ CAMS = {
     's3_hl': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
     's4_lip': ([(0, (1.10, -3.05, 0.62), (0.50, -2.10, 0.12)), (1, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12))], 16),   # v0.5: higher, looking down (user)
     's5_liphl': ([(0, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12)), (1, (0.74, -3.13, 0.55), (0.12, -2.15, 0.12))], 16),
-    's9_canards': ([(0, (1.35, -2.85, 0.56), (0.86, -1.82, 0.38)), (1, (1.70, -2.55, 0.52), (0.86, -1.80, 0.38))], 24),
+    's9_canards': ([(0, (0.10, -3.65, 0.80), (0.0, -1.85, 0.36)), (1, (0.40, -3.55, 0.78), (0.0, -1.85, 0.36))], 15),   # v0.6: front view, BOTH canards (user)
     's7_side': ([(0, (3.3, -1.1, 0.42), (0.9, -0.4, 0.32)), (1, (3.3, 2.0, 0.42), (0.9, 1.4, 0.30))], 18),
 }
 
@@ -124,7 +125,7 @@ def card_lineup():
     glowing in place -> body and right-hand parts fade, the left skirt/spat and the lip lift into a 3/4 line-up while the
     camera moves in; the parts then turn slowly so their profiles read. Text is composited (compose.py)."""
     import bmesh
-    F0, F1 = round(0.30 * N), round(0.60 * N)
+    F0, F1 = round(0.28 * N), round(0.52 * N)   # v0.6: lift earlier so the percent holds ~2 s (slow readers)
     hlm = bpy.data.materials['v2_highlight']
     ph = hlm.node_tree.nodes['Principled BSDF']   # glow on the car, then mostly off in the line-up so the parts shade (profile reads)
     for f, e in ((F0, 1.3), (F1, 0.12), (N, 0.12)):
@@ -153,22 +154,29 @@ def card_lineup():
         bm.to_mesh(o.data); bm.free()
     kit = [o for o in bpy.data.objects if o.type == 'MESH' and o.name.split('.')[0] in keep]
     az0 = math.radians(35); right = Vector((math.cos(az0), math.sin(az0), 0)); up = Vector((0, 0, 1))
-    place = {'lip': right * -0.05 + up * 1.05, 'skirts': right * -0.20 + up * -0.50,
-             'spats': right * 0.42 + up * -0.86 + Vector((math.sin(az0), -math.cos(az0), 0.45)).normalized() * 1.1}
+    # v0.6 (user: "if the part is a pair, show both"): both skirts stacked, both spats side by side; the right-hand
+    # pieces turn 180 deg more so their OUTER face also faces the lens
+    near = Vector((math.sin(az0), -math.cos(az0), 0.45)).normalized() * 1.1
+    place = {'lip': right * -0.05 + up * 1.05,
+             'skirtsL': right * -0.20 + up * -0.30, 'skirtsR': right * -0.20 + up * -0.66,
+             'spatsL': right * 0.05 + up * -0.84 + near, 'spatsR': right * 0.62 + up * -0.84 + near}
     spin = {'lip': (-8, 6), 'skirts': (-62, -50), 'spats': (-70, -52)}
+    pieces = []
     for o in kit:
         nm = o.name.split('.')[0]; k = 'lip' if 'lip' in nm else 'spats' if 'spats' in nm else 'skirts'
         mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw; bpy.context.view_layer.update()
-        if k != 'lip':
-            r = o.copy(); r.data = o.data.copy(); sc.collection.objects.link(r); r.data.materials.clear(); r.data.materials.append(hr)
+        if k == 'lip':
+            pieces.append((o, 'lip', k, 0))
+        else:
+            r = o.copy(); r.data = o.data.copy(); sc.collection.objects.link(r)
             cut(o, True); cut(r, False)
-            for f, h in ((F0 + 9, False), (F0 + 10, True)):
-                r.hide_render = h; r.keyframe_insert('hide_render', frame=f)
+            pieces += [(o, k + 'L', k, 0), (r, k + 'R', k, 180)]
+    for o, key, k, extra in pieces:
         bpy.context.view_layer.update()
         bb = [o.matrix_world @ Vector(c) for c in o.bound_box]; ctr = sum(bb, Vector()) / 8
-        piv = bpy.data.objects.new('piv_' + k, None); sc.collection.objects.link(piv); piv.location = ctr
+        piv = bpy.data.objects.new('piv_' + key, None); sc.collection.objects.link(piv); piv.location = ctr
         bpy.context.view_layer.update(); o.parent = piv; o.matrix_parent_inverse = piv.matrix_world.inverted()
-        for f, loc, rz in ((1, ctr, 0), (F0, ctr, 0), (F1, place[k], spin[k][0]), (N, place[k], spin[k][1])):
+        for f, loc, rz in ((1, ctr, 0), (F0, ctr, 0), (F1, place[key], spin[k][0] + extra), (N, place[key], spin[k][1] + extra)):
             piv.location = loc; piv.rotation_euler = (0, 0, math.radians(rz))
             piv.keyframe_insert('location', frame=f); piv.keyframe_insert('rotation_euler', frame=f)
     # camera: whole car (D 6.6, el 20) -> line-up (D 3.6, el 28, target origin), then a slow 6 deg drift
@@ -276,7 +284,7 @@ if MODE in ('cgi',):
             # canard close-up: kill the broad front fill, graze the carbon with a narrow strip from above-front
             for nm in ('front', 'key'):
                 bpy.data.objects[nm].data.energy *= 0.25
-            area('canard', (1.4, -2.6, 1.3), 8, 0.4, tgt=(0.88, -1.8, 0.4)); area('canard2', (1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(0.9, -1.85, 0.4))
+            area('canard', (1.4, -2.6, 1.3), 8, 0.4, tgt=(0.88, -1.8, 0.4)); area('canard2', (1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(0.9, -1.85, 0.4)); area('canard3', (-1.4, -2.6, 1.3), 8, 0.4, tgt=(-0.88, -1.8, 0.4)); area('canard4', (-1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(-0.9, -1.85, 0.4))
         if SHOT in CARDS:
             card_lineup()
         else:
