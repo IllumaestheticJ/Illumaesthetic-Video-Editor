@@ -34,12 +34,7 @@ Lines 12-17 (owner 2026-11-17): printing a rep of a bumper you can buy doesn't m
 **Real footage (~4-5 s, no text, no voice) [OWNER Q: placement/clip now that the episode ends on "We scan the car"]:** SeamForge (owner OK, 2026-11-16), `2026-08-23 13-35-22.mp4` ~5:20-5:56: the bumper's
 coloured pieces packed across many build plates, re-framed to 9:16. Not presented as SeamForge's feature tour (that is Ep 4).
 
-**Teaser card [OWNER Q: keep? The series is now the "how" itself, so this may overlap] (owner wording):** framed clip from the Subaru bumper video +
-**IF YOU INSIST... ILLUMAESTHETIC SHOWS YOU HOW TO MAKE A PRODUCTION BUMPER USING 3D PRINTS** / **FULL VIDEO ON OUR CHANNEL**.
-The link to the Subaru bumper video goes in the post caption / pinned comment (a reel can't hold a clickable link). Linked video
-(owner, 2026-11-16): https://www.youtube.com/watch?v=5_OduBD2FoU - "I didn't like my bumper, so I made a new one." (illumaesthetic
-channel; blue GD Impreza front bumper, 3D-printed vs fiberglass). [NEED: footage for the card frame - raw clips of that build;
-the Dropbox "VB Subaru Bumper test fit" clip is a different car (black VB rear) and is not used.]
+**Teaser card:** none. Owner 2026-11-17: end on the logo card (the Subaru-video card is dropped).
 **Logo card:** Illumaesthetic logo alone, no CTA line (series rule, owner 2026-11-16: a CTA only when relevant; Ep 9 sells no scan).
 
 Series rule (owner, relayed 2026-11-16): the "full video" teaser is optional and used only when a matching video exists and fits.
