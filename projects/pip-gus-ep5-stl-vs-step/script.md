@@ -69,15 +69,16 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
 | t (s) | Shot | Source |
 |---|---|---|
-| 27.6-29.0 | Real: the Ioniq 5 N (DK Edition) at Tokyo Auto Salon, rear quarter with wing and tail lamp | Dropbox `Footage Library/Videos/Shoot Sessions/2025-01-09 Tokyo Auto Salon/2025-01-09 21.19.48.mov`, about 0.8-3.4 s |
-| 29.0 (beat) | **Hard cut** (not 1:1: the mirror is never in frame at TAS) to the STL scan of the mirror housing in the house silver look | Drive: `Hyundai Ioniq 5 Side View Mirror - Driver Housing.stl` |
-| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: `Ioniq 5 Side View Mirror - Driver Housing.stp`, tessellated for Blender |
+| 27.6-29.0 | Real footage of the bumper or car (still open: no NSX or F100 footage found in Dropbox) | TBD |
+| 29.0 (beat) | **Hard cut** to the bumper STL scan in the house silver look (1:1 if real footage of this bumper exists) | Drive: `NA1 NSX/NA1 Bumper.stl` (about 125 MB, a raw scan) |
+| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: `NA1 NSX/NA1 Bumper.stp` |
 | 30.6-32.0 | The STL-vs-STEP deviation map: **colour only, no legend, no numbers** | Computed from the two files |
 
-**Project choice:** the Ioniq 5 side-mirror housing.
-- It has a matching scan STL and STEP pair, and it is the cleanest scan + STEP pair available.
-- The same Drive folder also has these pairs as fallbacks: front bumper, rear bumper, fender, windshield, rear-liftgate centre section, door area under the mirror, and roof near the antenna.
-- A Dropbox search for "Ioniq" found no footage, so the real shot at the start of this section is still open.
+**Project choice (owner, 2026-11-17: "use a bumper - not ioniq"):** the NA1 NSX bumper. It is the best scan + STEP pair on the Drive. Other bumper pairs:
+- **F100 bumper:** `F100 Bumper-Whole.stl` (scan) and `F100 Bumper-Whole_R1.stp`.
+- **NSX lower front end:** `NSX Lower Front End.stl` (500 MB scan) and its `.stp` (2023).
+- **Nissan bumper:** `Nissan Bumper.stl` and `.stp` (2022).
+- **Model 3 front bumper:** scans and a `-3dp.stp`.
 
 ## End cards
 - **32-35.5 s, closing card (the last frame of the video):**
@@ -96,15 +97,6 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 - **Real-to-scan transition:** a hard cut on a beat, with no dissolve.
 - **Voice and look:** Gus stays dry and only slightly annoyed, and Pip goes from frustrated to curious to excited. Characters are the locked spec: dot eyes, no brows, no arms, nametags.
 
-## Real-footage decision (pending owner OK)
-- **The only Ioniq 5 footage is Tokyo Auto Salon (owner).** I sheeted all 15 clips:
-  - 21.19.48 is the white Ioniq 5 N DK Edition: rear hatch, wing and tail lamp. 21.30.08 is the teal/black N race car.
-  - No clip shows the side mirror, so a true 1:1 perspective cut to the mirror scan is not possible.
-- **Plan:** use the real TAS shot (rear quarter, 0.8-3.4 s), then a hard cut on the beat to the mirror scan.
-  - This follows the "1:1 where one fits" rule, and it is never a dissolve.
-- **Not used:** the other Ioniq part pairs (liftgate, roof). Their STLs are tiny (about 137 KB), so they look like CAD exports, not scans, and a 1:1 cut to them would not show mesh vs NURBS.
-
-## Prop vs real footage (v4)
-- **Mismatch to check:** the cartoon now uses Pip's bumper, but the real section still shows the Ioniq 5 **mirror** STL/STEP pair.
-- **Why the mirror:** it is the best scan + STEP pair we have. The Ioniq front-bumper pair exists, but its STL is about 2 MB, which looks decimated or exported rather than a raw scan.
-- **Owner to choose:** keep the mirror for the real section, or use the Ioniq front-bumper pair.
+## Superseded
+- **Ioniq 5 mirror and Tokyo Auto Salon footage:** dropped (owner, 2026-11-17: "use a bumper - not ioniq"). The history is in `editlog.jsonl`.
+- **Open item:** real footage of the chosen bumper or car. Dropbox has nothing under "NSX" or "F100".
