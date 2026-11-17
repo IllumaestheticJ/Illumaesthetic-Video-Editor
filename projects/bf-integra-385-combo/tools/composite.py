@@ -16,8 +16,8 @@ W, H, FPS = 1080, 1920, 30
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
 # v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
 TIMELINE = [('render', 'render_v03/s1', 1, 97), ('render', 'render_v03/s2', 2, 71), ('render', 'render_v03/s3', 3, 71),
-            ('render', 'render_v03/s4', 4, 71), ('render', 'render_v03/s7', 0, 70), ('render', 'render_v03/s8', 0, 71),
-            ('render', 'render_v0/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 71)]
+            ('render', 'render_v03/s4', 4, 71), ('render', 'render_v04/s7', 0, 70), ('render', 'render_v04/s8', 0, 71),
+            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 71)]
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222, 226, 255)  # v0.3: Epsilon+ palette (pink strike, cyan price)
@@ -105,19 +105,19 @@ def overlay(shot, fr):
         u = ease((fr - 4) / 10)
         if u > 0:
             ft = font(F_TITLE, 118)
-            tracked(d, (W / 2, 190 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_MONO, 34), (1, 222, 226, int(255 * u)), track=8, anchor_center=True)
+            tracked(d, (W / 2, 330 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_MONO, 34), (1, 222, 226, int(255 * u)), track=8, anchor_center=True)
             for i, line in enumerate(('WHAT $385', 'GETS YOU')):
-                tracked(d, (W / 2, 250 + i * 135 + 30 * (1 - u)), line, ft, (232, 236, 242, int(255 * u)), track=6, anchor_center=True)
+                tracked(d, (W / 2, 390 + i * 135 + 30 * (1 - u)), line, ft, (232, 236, 242, int(255 * u)), track=6, anchor_center=True)
     elif shot == 2:
-        receipt(img, fr, [(8, 'item', WING)], 280, 200)
+        receipt(img, fr, [(8, 'item', WING)], 280, 330)
     elif shot == 3:
-        receipt(img, fr + 100, [(0, 'item', WING), (108, 'item', LIP)], 280, 200)
+        receipt(img, fr + 100, [(0, 'item', WING), (108, 'item', LIP)], 280, 330)
     elif shot == 4:
         receipt(img, fr + 200, [(0, 'item', WING), (0, 'item', LIP), (200, 'combo', {'name': 'COMBO', 'price': '$600', 'strike': 218}),
-                                (236, 'bf', {'price': '$385'})], 260, 1000, w=560)
+                                (236, 'bf', {'price': '$385'})], 260, 880, w=560)
         if fr >= 48:
             u = ease((fr - 48) / 8)
-            tracked(d, (540, 1500), 'LESS THAN THE WING ALONE ($500)', font(F_MONO_R, 26), (232, 236, 242, int(230 * u)), track=1, anchor_center=True)
+            tracked(d, (540, 1385), 'LESS THAN THE WING ALONE ($500)', font(F_MONO_R, 26), (232, 236, 242, int(230 * u)), track=1, anchor_center=True)
     elif shot == 8:
         logo = Image.open(f'{M}/logo/Epsilon+ Logo.png').convert('RGBA')
         u = ease(fr / 6)
@@ -126,7 +126,7 @@ def overlay(shot, fr):
         img.alpha_composite(lg, ((W - lw) // 2, 700))
         if fr >= 6:
             v = ease((fr - 6) / 8)
-            tracked(d, (W / 2, 900), 'SPORT WING + TRUNK LIP', font(F_TITLE, 54), (232, 236, 242, int(255 * v)), track=5, anchor_center=True)
+            tracked(d, (W / 2, 900), 'SPORT WING + TRUNK LIP', font(F_TITLE, 46), (232, 236, 242, int(255 * v)), track=4, anchor_center=True)
             tracked(d, (W / 2, 975), '$385', font(F_TITLE, 150), YELLOW[:3] + (int(255 * v),), track=4, anchor_center=True)
             tracked(d, (W / 2, 1160), 'BLACK FRIDAY', font(F_MONO, 40), (232, 236, 242, int(255 * v)), track=10, anchor_center=True)
             tracked(d, (W / 2, 1240), 'epsilon.plus', font(F_MONO_R, 40), (232, 236, 242, int(220 * v)), track=2, anchor_center=True)
@@ -149,9 +149,9 @@ def irl_frames(name, n, start=0.5, cx0=0.46, cx1=0.60):  # c0240_stab.mp4 = C024
     on a blurred, darkened fill of itself (no text ever goes on this shot)"""
     dur = n / FPS
     fc = (f'[0:v]fps=30,eq=contrast=1.3:saturation=1.2:gamma=0.9,split[a][b];'
-          f"[a]crop=iw*0.52:ih:x='iw*({cx0}+{cx1 - cx0}*t/{dur:.3f})-ow/2':y=0,scale=1080:1170:flags=lanczos[fg];"
+          f"[a]crop=iw*0.52:ih:x='iw*({cx0}+{cx1 - cx0}*t/{dur:.3f})-ow/2':y=0,scale=1080:1150:flags=lanczos[fg];"
           f'[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.22[bg];'
-          f'[bg][fg]overlay=0:375,format=rgb24')
+          f'[bg][fg]overlay=0:285,format=rgb24')
     cmd = ['ffmpeg', '-v', 'error', '-ss', str(start), '-i', f'{M}/footage/{name}.mp4', '-filter_complex', fc,
            '-frames:v', str(n), '-f', 'rawvideo', '-']
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout

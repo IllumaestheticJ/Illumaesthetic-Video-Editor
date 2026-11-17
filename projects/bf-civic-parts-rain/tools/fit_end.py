@@ -6,8 +6,8 @@ Render-7 car bbox on the 1920 square (honda-civic-11 v5, re-checked): x 430-1610
 import json, subprocess, numpy as np
 from PIL import Image
 M = "/home/user/media/bf-civic-parts-rain"; T = "/home/user/Illumaesthetic-Video-Editor/projects/bf-civic-parts-rain/tools/take.py"
-s = 940 / 1180; TW, TCX, TCY = 940, 540, 1000; TH = 459 * s
-end = {"lens": 105.0, "shift_x": 0.0, "shift_y": 0.0, "dist_scale": 1.0}
+s = 860 / 1180; TW, TCX, TCY = 860, 484, 1000; TH = 459 * s   # v0.3 safe zones: car inside x 48-920 (right rail), centre of the safe area
+end = json.load(open(f"{M}/kit/end_cam_v02.json"))   # start from the v0.2 fit
 for it in range(4):
     json.dump(end, open(f"{M}/kit/end_cam.json", "w"))
     subprocess.run(["blender", "-b", "-P", T, "--", "--out", f"{M}/renders/fit", "--engine", "workbench", "--res-pct", "25",

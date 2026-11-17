@@ -1,0 +1,114 @@
+[
+ {
+  "text": "BLACK FRIDAY",
+  "x": 97,
+  "y": 330,
+  "w": 774,
+  "h": 120,
+  "key": true
+ },
+ {
+  "text": "FRONT LIP",
+  "x": 344,
+  "y": 1370,
+  "w": 281,
+  "h": 50,
+  "key": false
+ },
+ {
+  "text": "SIDE SKIRTS",
+  "x": 312,
+  "y": 1370,
+  "w": 345,
+  "h": 50,
+  "key": false
+ },
+ {
+  "text": "REAR LIP",
+  "x": 360,
+  "y": 1370,
+  "w": 249,
+  "h": 50,
+  "key": false
+ },
+ {
+  "text": "SPORT WING",
+  "x": 328,
+  "y": 1370,
+  "w": 313,
+  "h": 50,
+  "key": false
+ },
+ {
+  "text": "BLACK FRIDAY",
+  "x": 198,
+  "y": 300,
+  "w": 571,
+  "h": 75,
+  "key": true
+ },
+ {
+  "text": "30% OFF",
+  "x": 84,
+  "y": 372,
+  "w": 799,
+  "h": 220,
+  "key": true
+ },
+ {
+  "text": "THE FULL KIT",
+  "x": 148,
+  "y": 575,
+  "w": 671,
+  "h": 110,
+  "key": true
+ },
+ {
+  "text": "CIVIC FE \u00b7 LIP \u00b7 SKIRTS \u00b7 REAR LIP \u00b7 WING",
+  "x": 67,
+  "y": 1310,
+  "w": 834,
+  "h": 36,
+  "key": false
+ },
+ {
+  "text": "PAINT-MATCH AT FULL PRICE",
+  "x": 233,
+  "y": 1365,
+  "w": 502,
+  "h": 33,
+  "key": false
+ },
+ {
+  "text": "CIVIC FL \u00b7 LIP \u00b7 SKIRTS \u00b7 WING",
+  "x": 179,
+  "y": 1310,
+  "w": 610,
+  "h": 36,
+  "key": false
+ },
+ {
+  "text": "Epsilon+ wordmark",
+  "x": 124,
+  "y": 840,
+  "w": 720,
+  "h": 97,
+  "key": true
+ },
+ {
+  "text": "SHOP DEALS NOW",
+  "x": 161,
+  "y": 1010,
+  "w": 646,
+  "h": 72,
+  "key": true
+ },
+ {
+  "text": "WWW.EPSILON.PLUS",
+  "x": 165,
+  "y": 1090,
+  "w": 637,
+  "h": 57,
+  "key": true
+ }
+]
