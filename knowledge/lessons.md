@@ -1362,3 +1362,6 @@ lands here automatically. Agents must read this whole file before editing.
   engineering part, export engineering's own car scan from their reference .blend and ICP it to our car on the body
   above the wheels (bumpers may differ); apply that transform to every part from their frame. Check each part in a
   close-up at its mounting edge.
+- [search] Search part names with spelling variants ("cannard"/"canard"/"канард") and in the 3D artist's "Projects_"
+  folder, not only the engineering tree. Thin parts (2 mm canards) can look like guide strips in a reference .blend - check
+  their bbox against the install guide's mounting location before dismissing them.

@@ -49,6 +49,7 @@ RB, RBI, DF, HATCH = f"{B}/rbumper.blend", f"{B}/rbinner.blend", f"{B}/diffuser_
 WING = f"{B}/wrc_wing3.blend"   # WRC V3 scan -> CMM WRC Left+Right endplate scans (engineering frame) -> our car (eng_to_ours: 0.8 deg, 4/59/30 mm)
 CAR9 = f"{B}/car9.blend"   # car8 minus the factory side covers (+12 mm recessed backing) + mirrored right-rear wheel
 COVL, COVR = f"{B}/coverL.blend", f"{B}/coverR.blend"   # factory spoiler side covers, traced (sidecover.py)
+CNL, CNR = f"{B}/canardL.blend", f"{B}/canardR.blend"   # Epsilon GR Corolla canards (Projects_/Corolla GR/3d Printed Parts/Cannard), eng frame -> our car
 LIP, SKL, SKR, SPL, SPR = (f"{B}/{n}.blend" for n in ("v2lip", "v2skirtL", "v2skirtR", "v2spatL", "v2spatR"))   # Epsilon Aero V2 kit, engineering frame -> our car (eng_to_ours)
 JRIC = f"{B}/jr_ic.blend"   # Jackson Racing intercooler CAD from the user (core_7.6.23.stp), already in the car frame
 UB, LB, FD, RD, RDV, IC = (f"{B}/{n}.blend" for n in ("ubeam", "lbeam", "fbducts", "raddu", "raddiv", "ic"))
@@ -128,6 +129,8 @@ SHOTS = {
     # finale: full 360 of the assembled car (2 bars, constant speed); each V2 part rises into place as the camera passes
     "f1_360": {"base": [CAR9, WING], "parts": [
         part(LIP, [k(0, [0, -0.6, -10.0]), k(0.2, [0, -0.6, -10.0]), k(0.95, Z3, ease="out")]),
+        part(CNL, [k(0, [0.2, -0.4, -10.0]), k(0.45, [0.2, -0.4, -10.0]), k(1.2, Z3, ease="out")]),
+        part(CNR, [k(0, [-0.2, -0.4, -10.0]), k(0.45, [-0.2, -0.4, -10.0]), k(1.2, Z3, ease="out")]),
         part(SKL, [k(0, [0.3, 0, -10.0]), k(1.35, [0.3, 0, -10.0]), k(2.05, Z3, ease="out")]),
         part(SPL, [k(0, [0, 0.3, -10.0]), k(2.5, [0, 0.3, -10.0]), k(3.15, Z3, ease="out")]),
         part(SPR, [k(0, [0, 0.3, -10.0]), k(2.5, [0, 0.3, -10.0]), k(3.15, Z3, ease="out")]),
