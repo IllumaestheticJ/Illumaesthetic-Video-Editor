@@ -15,3 +15,4 @@
 {"ts": "2026-11-17T05:04:54Z", "decision": "v0 car shots use lookbook GLB cars in silver instead of the scans", "why": "GR Corolla full-car scan ID not reachable from this session's Drive search; draft favours speed; scans for v1"}
 {"ts": "2026-11-17T05:04:54Z", "decision": "Cuts on the bar kicks 2.56/5.00/7.44/9.88/12.32 s, tag flips on snares 3.11/8.01 s", "why": "LUXURY measured 99.4 BPM; low-band kick groups start every 2.44 s; ive beats strong onsets every 2 beats are the snares"}
 {"ts": "2026-11-17T05:27:56Z", "decision": "v0.1: removed all Del & Eps (aisle gets an Epsilon+ wordmark lightbox; scan-line sweep kept; no placeholder label)", "why": "Owner via parent: no Del & Eps, typical branding content; v0 placeholder render stopped before delivery"}
+{"ts": "2026-11-17T06:56:24Z", "decision": "Delivered v0.1 draft (15.0 s, no characters)", "why": "Owner asked for quick first drafts; checks: -14.2 LUFS, cuts on kicks, 1:1 frames verified"}
