@@ -435,14 +435,14 @@ def anim_A(fr):
     wave = math.sin((t - W(1, 0)) * 11) if LN[1]["t0"] - 0.1 < t < LN[1]["t1"] + 0.3 else 0.0
     wv = win(t, LN[1]["t0"] - 0.1, LN[1]["t1"] + 0.2, 0.15, 0.3)
     gus_talk_pose(t, (lerp(-1.4, -0.45, k_in), -2.0, 0), lerp(20, 8, k_in), look_=(0.1, 0.1),
-                  armR=(lerp(4, -150, wv) + 12 * wave * wv, lerp(0, -35, wv), -6), elbowR=lerp(-12, -20, wv))
+                  armL=(lerp(4, -158, wv), -16 * wave * wv, 6), elbowL=lerp(-12, -6, wv))
     # Pip pops up from below frame on his line: a hop with overshoot
     tp = W(2, 0) - 0.25
     pk = eback((t - tp) / 0.35, 2.0)
     hop = 0.12 * max(0.0, math.sin(math.pi * cl((t - tp - 0.3) / 0.45)))
     ar = win(t, W(2, 0), LN[2]["t1"] + 0.2, 0.1, 0.3)
     pip_talk_pose(t, (0.55, -2.25, lerp(-1.3, 0, pk)), -14, look_=(-0.2, 0.3), hop=hop,
-                  armL=(lerp(4, -120, ar), 30 * ar, 0), armR=(lerp(4, -120, ar), -30 * ar, 0), elbowL=-25, elbowR=-25)
+                  armL=(lerp(4, -155, ar), 0, 10), armR=(lerp(4, -155, ar), 0, -10), elbowL=-8, elbowR=-8)
     look(cam, (0.05, -5.1, 1.12), (0.05, -2.0, 0.92), 34)
 
 
@@ -453,7 +453,7 @@ def anim_B(fr):
     banner_unroll(eback((t - W(3, 3)) / 0.5, 1.2))
     pr = win(t, W(3, 3), LN[3]["t1"] + 0.5, 0.15, 0.3)
     pip_talk_pose(t, (0.55, -2.25, 0), -10, look_=(-0.1, 0.4), hips=(-4 * pr, 0, 0),
-                  armL=(lerp(4, -150, pr), 25 * pr, 0), armR=(-20, 0, -10), elbowL=-15)
+                  armL=(lerp(4, -155, pr), 0, 8), armR=(-20, 0, -10), elbowL=-8)
     gm, glid = talk("GUS", t)
     pose(GUS, loc=(-0.45, -2.0, 0), rz=8 - 10 * ease(u), head=(-6, 0, -12 * ease(u)), armL=(4, 0, 6), armR=(-20, 0, -12),
          elbowR=-70, lid=glid, look=(0.5, 0.2))
@@ -580,8 +580,8 @@ def anim_G(fr):
         g.rotation_euler = (0, math.radians(8 * math.sin(t * 3 + i)), math.radians(-10 + 20 * (i % 2)))
     ex = win(t, W(7, 0), LN[7]["t1"], 0.12, 0.3)
     hop = 0.07 * abs(math.sin(math.pi * (t - W(7, 0)) * 2.2)) * ex
-    pip_talk_pose(t, (0.45, -2.3, 0), -8, look_=(-0.2, 0.5), hop=hop, armL=(lerp(4, -150, ex), 35 * ex, 0),
-                  armR=(lerp(4, -150, ex), -35 * ex, 0), elbowL=-20, elbowR=-20)
+    pip_talk_pose(t, (0.45, -2.3, 0), -8, look_=(-0.2, 0.5), hop=hop, armL=(lerp(4, -155, ex), 0, 10),
+                  armR=(lerp(4, -155, ex), 0, -10), elbowL=-8, elbowR=-8)
     gm, glid = talk("GUS", t)
     pose(GUS, loc=(-0.5, -1.95, 0), rz=14, head=(-8, 0, -14), lid=glid, look=(0.6, 0.6), armL=(4, 0, 6), armR=(4, 0, -6))
     cam_push((0.0, -5.6, 1.15), (0.0, -2.0, 1.05), 30, 0.1 * ease(u))
