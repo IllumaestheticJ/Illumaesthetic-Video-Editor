@@ -81,16 +81,23 @@
 - Fjalla One on a dark plate.
 - Pip in sage #619f73; Gus in #ecefec.
 
-## Real footage (about 5 s, no text)
-All shots are IS350 speedrun footage already in Dropbox. The owner confirmed there are spraying shots there.
+## Real footage (about 5 s, no text) - v4 plan, pending owner OK
+**Rules this plan follows:**
+- No IS350: the owner asked on 2026-11-17 not to reuse it.
+- No shots from the clips the owner uploaded: the SL600 clip has burned-in captions outside 23.8-32 s, and Ep 2 uses that stretch; the Violet promo has timers and prices throughout.
 
-| Shot | Source | Length | Content |
-|---|---|---|---|
-| R1 | FX30541, about 96.8 s | about 1.5 s | The spray gun hits the front bumper and grille. |
-| R2 | FX30554, 9.05-11.05 s | about 2.0 s | The walk-out to the powdered car, then a hard 1:1 cut on the beat to the scan. This reuses the long-form's matched front pair (solved frame 264). |
-| R3 | FX30553, 39.5-42.5 s | about 1.5 s | Close-up of the hood, with the powder already clearing in X-shaped marks. |
+**Source:** the owner's 2023 San Diego AESUB shoot in Dropbox, at `/2. Illumaesthetic Videos/1. Video dumps/*Posted Raw Videos/2023 Finished Videos/San Diego - AESUB/AESUB Videos/`. The clips are 1080x1920 portrait with no burned-in text. The car is the blue-and-silver Ferrari 296, which fits line 9 ("an expensive car you don't want to touch").
 
-**Order:** spray, then scan, then it vanishes.
+| Shot | Clip | Approx. in | Length | Content |
+|---|---|---|---|---|
+| R1 | 20230413_181539.mp4 | about 6-10 s | about 1.5 s | AESUB can sprayed on the 296's headlight; the coat goes on matte. |
+| R2 | 20230413_181812.mp4 or 181953.mp4 | about 2-6 s | about 1.5 s | Scanning the sprayed nose, with the live mesh on the scanner screen. |
+| R3 | 20230413_182006.mp4 | about 6-8 s | about 2 s | High front view of the 296, then a hard 1:1 cut on the beat to the 296 scan. The scan is the engineering Drive "Ferrari 296GTB" set, already prepped in `projects/ferrari-296`; this needs a new camera solve. |
+
+**Open questions:**
+- Is the Drive 296 scan this same car? If not, R3 ends on the real car, with no 1:1 cut.
+- Not decided yet: the pacing within the 5 s window.
+- There's no "coat gone" shot in this set. That payoff stays in the cartoon (line 2).
 
 ## End cards
 Real footage, then the Illumaesthetic logo card. There is no teaser card and no call to action (owner, 2026-11-16).
