@@ -128,3 +128,25 @@ Resolved: the discount scope ("V2 kit 30% off, V1 up to 45% off") is confirmed b
 6. Make the Remotion cards and label, plus the end card. Read the final frame of every text.
 7. Assemble with plain concat at the cut frames. Measure the cuts against the decoded audio, and loudness to -14 LUFS / < -1 dBTP.
 8. Self-review (training/rubric.md), deliver, record feedback, archive, commit and push.
+
+## v0.2 changes (user, 2026-11-17)
+User's notes on v0.1: "include that the carbon canards are back in stock", "highlight the v2 parts", "use the video game GLBs instead of the scan data".
+
+| # | Kicks | Shot | Change |
+|---|---|---|---|
+| 1-2 | 0-6 | CGI hook + push | Carbon canards (GLB `part_canards`, carbon material) now on the car in every CGI shot |
+| 3 | 6-10 | **GLB studio highlight** (was scan) | 1:1 hard cut from the track to a black studio: the body drops to graphite and the V2 lip, skirts and spats light up (bright satin + emission ramp). Label "EPSILON+ / V2 AERO KIT" |
+| 4 | 10-12 | CGI lip macro | unchanged |
+| 5 | 12-14 | **GLB lip highlight** (was scan) | Same macro camera, lip highlighted. Label "V2 / FRONT LIP" |
+| 6 | 14-18 | Card V2 30% OFF | unchanged |
+| 7 | 18-22 | CGI side tracking | Labels "V2 / SIDE SKIRTS", then "V2 / REAR SPATS" |
+| 8 | 22-26 | Card V1 up to 45% OFF | unchanged |
+| 9 | 26-30 | **New: canard close-up** | Front-left corner in the black studio; the carbon weave glows in. Label "CARBON CANARDS / BACK IN STOCK" (no price: canards are not in the BF sheet) |
+| 10 | 30-34 | CGI drive-past | unchanged |
+| 11 | 34-40 + 1 s | Epsilon+ wordmark + EPSILON.PLUS | moved 4 kicks later; total about 20.2 s |
+
+- Labels sit on CGI and black studio shots only. There is no real footage in this ad.
+- **Stock check (live store, 2026-11-17):** "[BACKORDER] Canards / Dive Planes - Toyota GR Corolla (Zenki, E210, 2023-2024)", SKU EP-GRC-CND-CF, $320, inventory -2.
+  - The store does not yet say "back in stock". The on-screen claim comes from the user.
+  - Update the listing title and inventory before this ad runs.
+- No scan data is used in v0.2.
