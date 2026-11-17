@@ -103,6 +103,9 @@ def arm(name, root, side, skin, shirt, up=0.0, fwd=0.0, bend=60):
     box(name + "_hd", (0.1, 0.11, 0.04), skin, loc=(0, 0.28, 0), parent=f, base="y")
     return a, f
 
+def alphamat(name, path):
+    m = imgmat(name, path); nt = m.node_tree; nt.links.new(nt.nodes["Image Texture"].outputs["Alpha"], nt.nodes["Principled BSDF"].inputs["Alpha"]); return m
+
 def glassmat(name="pane", a=0.08):
     m = bpy.data.materials.new(name); m.use_nodes = True; b = m.node_tree.nodes["Principled BSDF"]
     b.inputs["Base Color"].default_value = (0.6, 0.75, 0.85, 1); b.inputs["Alpha"].default_value = a; b.inputs["Roughness"].default_value = 0.05; return m
@@ -167,7 +170,7 @@ def lowbody(name, loc, body, L, Wd, Hlow, Hroof, cab0, cab1, badge=None, badge_s
         box(f"{name}_mir{sx}", (0.16, 0.08, 0.1), body, loc=(sx * (Wd / 2 + 0.06), cab0 + 0.12, Hlow + 0.05), parent=root)
     box(name + "_dash", (Wd * 0.8, 0.4, 0.16), dk, loc=(0, cab0 + 0.25, Hlow - 0.08), parent=root, base="z")
     box(name + "_floor", (Wd * 0.8, cab1 - cab0, 0.05), dk, loc=(0, (cab0 + cab1) / 2, Hlow - 0.25), parent=root)
-    if badge: plane(name + "_badge", 0.22, 0.22, badge, loc=(badge_side * (Wd / 2 * 0.985 + 0.012), -L * 0.37, Hlow - 0.2), rot=(R(90), 0, R(90) * badge_side), parent=root)
+    if badge: plane(name + "_badge", 0.22, 0.22, badge, loc=(badge_side * (Wd / 2 * 0.99 + 0.002), -L * 0.37, Hlow - 0.2), rot=(R(90), 0, R(90) * badge_side), parent=root)
     return root
 
 G80 = "/home/user/epsilon-site/wing-configurator/data/models/bmw-m3-g80.glb"
@@ -196,18 +199,22 @@ def bmw(loc, faces):
         for y in (-1.5, 1.36):
             bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=0.345, depth=0.27); w = bpy.context.object; w.data.materials.append(tr); w.parent = root; w.location = (sx * 0.8, y, 0.345); w.rotation_euler = (0, R(90), 0)
             bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=0.24, depth=0.28); h = bpy.context.object; h.data.materials.append(rim); h.parent = root; h.location = w.location; h.rotation_euler = w.rotation_euler
-        box(f"bmw_bp{sx}", (0.05, 0.1, 0.42), dk, loc=(sx * 0.8, 0.28, 0.97), parent=root, base="z")
-    box("bmw_int", (1.5, 2.3, 0.5), dk, loc=(0, 0.3, 0.45), parent=root, base="z"); box("bmw_dash", (1.5, 0.35, 0.2), dk, loc=(0, -0.72, 0.9), parent=root, base="z")
+        box(f"bmw_bp{sx}", (0.05, 0.1, 0.27), dk, loc=(sx * 0.77, 0.28, 0.97), rot=(0, R(-14) * sx, 0), parent=root, base="z")
+    box("bmw_int", (1.5, 2.3, 0.5), dk, loc=(0, 0.3, 0.45), parent=root, base="z")
     box("bmw_seat", (0.5, 0.14, 0.75), mat("bseat", (0.35, 0.12, 0.08)), loc=(0.4, 0.24, 0.5), parent=root, base="z")
-    plane("bmw_badge", 0.16, 0.16, imgmat("roundel", TEX + "roundel.png"), loc=(0.93, -1.0, 0.82), rot=(R(90), 0, R(90)), parent=root)
+    bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get()
+    ok, hit, nrm, _ = sh.ray_cast(Vector((2.0, -1.02, 0.80)), Vector((-1, 0, 0)), depsgraph=dg)
+    if ok:   # badge sits flush on the fender, facing along the surface normal, with transparent corners
+        bd = plane("bmw_badge", 0.11, 0.11, alphamat("roundel", TEX + "roundel.png"), loc=hit + nrm * 0.003, parent=root)
+        bd.rotation_euler = nrm.to_track_quat("Z", "Y").to_euler(); bd.rotation_euler.rotate_axis("Z", R(90))
     bs = mat("bskin", (0.74, 0.52, 0.38), 0.7); polo = mat("polo", (0.93, 0.93, 0.96))
-    p, head, fd = person("beamer", "beamer", (0.44, -0.12, 0.33), R(72), bs, polo, mat("bhair", (0.5, 0.36, 0.14)), faces, hair_h=0.07); p.parent = root
+    p, head, fd = person("beamer", "beamer", (0.4, -0.12, 0.26), R(72), bs, polo, mat("bhair", (0.5, 0.36, 0.14)), faces, hair_h=0.07); p.parent = root
     a, f = arm("barm", p, -1, bs, polo, up=-10, fwd=-10, bend=75)
     k.box("b_vape", (0.035, 0.035, 0.14), mat("bvape", (0.1, 0.7, 0.8), 0.3), loc=(0, 0.3, 0.05), parent=f)
     return root, p, head, fd, a
 
 def van(loc, mom_faces, kid_faces, kid_back=False):
-    bg = mat("van_beige", (0.66, 0.6, 0.47), 0.35); r = lowbody("van", loc, bg, 5.1, 1.95, 1.05, 1.78, -1.35, 2.3, badge=imgmat("hb", TEX + "hbadge.png"), badge_side=-1)
+    bg = mat("van_beige", (0.66, 0.6, 0.47), 0.35); r = lowbody("van", loc, bg, 5.1, 1.95, 1.05, 1.78, -1.35, 2.3, badge=alphamat("hb", TEX + "hbadge.png"), badge_side=-1)
     ms = mat("mskin", (0.84, 0.66, 0.55), 0.7)
     m, mh, mf = person("mom", "mom", (0.45, -0.75, 0.62), 0, ms, mat("mshirt", (0.5, 0.25, 0.4)), mat("mhair", (0.25, 0.14, 0.08)), mom_faces, hair_h=0.1, bun=True); m.parent = r
     if kid_back: kl, krz = (0.0, 2.05, 0.75), R(180)
@@ -379,7 +386,7 @@ def s10():
     cam.data.lens = 19; cam.data.keyframe_insert("lens", frame=26); cam.data.lens = 24; cam.data.keyframe_insert("lens", frame=30)
 
 def beamer_setup(lens, faces):
-    road(); r, p, head, fd, a = bmw((-3.05, -0.1, 0), faces); loc = (-0.55, 0.3, 1.22); rig, cam = rigcam(loc, (-2.61, -0.2, 1.1), lens=lens, roll=3); sill(cam)
+    road(); r, p, head, fd, a = bmw((-3.05, -0.1, 0), faces); loc = (-0.55, 0.3, 1.22); rig, cam = rigcam(loc, (-2.63, -0.2, 1.06), lens=lens, roll=3); sill(cam)
     return r, p, head, fd, a, rig, cam
 
 def s11():
