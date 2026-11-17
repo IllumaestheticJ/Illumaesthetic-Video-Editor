@@ -96,7 +96,10 @@ def put(x, at, g=1.0, pan=0.0):
     if n > 0: mix[i:i + n] += x[:n] * g
 
 # ---- music: from 0:30, dead at the Odyssey pass ----
-mend = T(15); mus = load(M + "music/first_time.mp3", ss=30.0, to=mend); g = np.ones(len(mus)); g[-int(0.02 * SR):] = np.linspace(1, 0, int(0.02 * SR))
+# song measured at 149.8 BPM (bar 1.602 s), drop at 32.25 s; cut grid is 1.58 s bars with the drop cut at frame 65,
+# so play the song 1.39% fast from 30.05 s: every cut then lands on a bar and the drop on the shot 1->2 cut
+MT = 1.0139; MSS = 32.25 - T(2) * MT
+mend = T(15); mus = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-ss", str(MSS), "-i", M + "music/first_time.mp3", "-af", "atempo=%s" % MT, "-t", str(mend), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout, np.float32).reshape(-1, 2).astype(np.float64); g = np.ones(len(mus)); g[-int(0.02 * SR):] = np.linspace(1, 0, int(0.02 * SR))
 VO = [(M + "voice/take3/1_semperfi.wav", T(8) + 0.55, 2.6), (M + "voice/take3/2_exchange.wav", T(11, 70) - 1.84, 1.5), (M + "voice/take3/3_ringlands.wav", T(16, 122) - 0.25, 2.8)]
 for pth, at, vg in VO:
     v = load(pth); i0, i1 = int((at - 0.15) * SR), int((at + len(v) / SR + 0.15) * SR); r = int(0.12 * SR)
@@ -147,4 +150,4 @@ for f in range(30, 150, 17): put(ms(tick(), ding(2600, 0.06) * 0.2), T(16, f), 0
 put(siren(4.0), T(16, 20)); put(shutdown(), T(16, 66), 0.5)
 out = mix[:int(DUR * SR)]; out[-int(0.01 * SR):] *= np.linspace(1, 0, int(0.01 * SR))[:, None]
 out = np.tanh(out * 0.9)
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-af", "loudnorm=I=-14:TP=-1.2:LRA=11", "-ar", "48000", sys.argv[1]], input=out.astype(np.float32).tobytes())
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-af", "loudnorm=I=-13.4:TP=-1.2:LRA=11", "-ar", "48000", sys.argv[1]], input=out.astype(np.float32).tobytes())

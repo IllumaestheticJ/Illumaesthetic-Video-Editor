@@ -1,0 +1,34 @@
+# ditl-wrx-vb — self review (first cut v2, 2026-11-17)
+
+Status: first cut for owner review, not final. v1 = first assembly; v2 = same picture, soundtrack re-timed.
+
+## Measured checks (delivered mp4 `cut/ditl_wrx_vb_v2.mp4`)
+| Check | Result |
+|---|---|
+| Format | 1080x1920, 30 fps, h264 yuv420p, AAC, faststart, 1005 frames, 33.50 s |
+| Loudness | -14.0 LUFS integrated, peak -2.8 dBFS (target -14, < -1) |
+| Cut timing | v1 FAILED: song is 149.8 BPM (bar 1.602 s) and the drop is at 32.25 s, not 152 BPM / 32.18 s as planned; cuts were 2.5 frames early at the drop and ~12 frames early by shot 14. v2 fix: song played 1.39% fast from 30.05 s (picture untouched). Drop now rises at frame 65-65.5 = the shot 1->2 cut; all 13 music cuts within about 1 frame of a beat (beat-tracker reading -0.0 to -1.7 frames, tracker hop 5 ms) |
+| Picture cuts | frame-difference peaks at every planned cut frame (65, 113, 160, 208, 255, 302, 350, 445, 492, 539, 634, 682, 729, 776, 855) |
+| Voice edges | source clips start/end at -38 dB or lower re peak (semper fi -57/-38, exchange -90/-77, ringlands -46/-53): no clipped phonemes. Music ducked to 0.3 under lines 1 and 2; line 3 is after the music stops. "...ringlands?" ends 3 ms before the end of the file: tight |
+| Layout | picture 1080x1080 at y=420-1499 on all sampled frames (every 15th); bands black (max 12/255 = codec ringing at the edge); title bbox x 272-807, y 196-316 |
+| Product | his car in shots 7, 8, 9, 15, 16 is the GLB with stock bumpers/side trim/duckbill hidden and front bumper, rear bumper, skirts and WRC wing shown; one paint material (0.02, 0.12, 0.55) in every shot |
+| On-screen numbers | cart prices from live Shopify 2026-11-17: $2,000.00, $1,500.00, $800.00, $1,150.00, subtotal $5,450.00. $115,000 and 30% APR are the owner's character numbers |
+| Ending | music stops dead at 25.87 s (Odyssey pass), mirror push-in, last word, file ends on picture = hard cut, no trailing frames, no end card |
+| Not checked | I cannot hear audio: balance, comedy timing of SFX and voice intelligibility in the mix need the owner's ears |
+
+## Rubric (training/rubric.md; scan-reel criteria adapted to this format)
+| # | Criterion | Score | Note |
+|---|---|---|---|
+| 1 | Hook | 4 | form slaps start at frame 7 |
+| 2 | Beat sync | 4 | within about 1 frame after the v2 re-time |
+| 3 | 1:1 match | n/a | no IRL footage in this format |
+| 4 | Scan quality | 3 | no floating objects or poke-through; G80 side-window cutout jagged (shots 11-12), van is a plain box, vape cloud small |
+| 5 | Story | 4 | dropout -> recruiter -> cart -> debt -> kit car -> paranoia -> Beamer guy -> Odyssey -> ringlands |
+| 6 | Grade | 4 | crunch and banding applied to every frame; dusk phone shots are dark by design |
+| 7 | Text | 5 | true store prices, no text over footage, title in the band |
+| 8 | Ending | n/a | owner asked for a hard cut to black with no logo |
+| 9 | Technical | 5 | see table |
+
+## Open
+- Owner: dedicated vape scene? BMW colour? May review JPEG sheets be committed?
+- Polish candidates: G80 window edge, Odyssey shape, vape cloud.
