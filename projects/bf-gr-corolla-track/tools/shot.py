@@ -33,12 +33,15 @@ SPEED = 33.0  # m/s on the straight (~120 km/h)
 # carbon canards added (on the car + their own shot).
 import json
 KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
-WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 18),
-       's7_side': (18, 22), 's8_cardv1': (22, 26), 's9_canards': (26, 30), 's10_pass': (30, 34)}
+WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 22),
+       's7_side': (22, 28), 's8_cardv1': (28, 36), 's9_canards': (36, 42), 's10_pass': (42, 44)}
+# v0.6 (user: slow readers): cards 8 kicks, side tracking 6 (one label per half), canards 6
+# v0.5 (user): drive-past cut sooner (2 kicks); offer cards 6 kicks: parts glowing on the dark car -> lift off into a line-up
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
 N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0])
-STUDIO = SHOT in ('s3_hl', 's5_liphl', 's9_canards')
-MODE = 'card' if SHOT in ('s6_cardv2', 's8_cardv1') else 'cgi'
+CARDS = ('s6_cardv2', 's8_cardv1')
+STUDIO = SHOT in ('s3_hl', 's5_liphl', 's9_canards') + CARDS
+MODE = 'cgi'
 
 
 def srgb(h):
@@ -111,17 +114,87 @@ CAMS = {
     's1_hook': ([(0, (2.9, -4.6, 0.42), (0.1, -0.6, 0.55)), (1, (2.3, -3.9, 0.40), (0.1, -0.9, 0.50))], 16),
     's2_push': ([(0, (1.9, -4.0, 0.36), (0.0, -1.6, 0.42)), (1, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34))], 16),
     's3_hl': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
-    's4_lip': ([(0, (0.95, -2.62, 0.10), (0.55, -2.08, 0.15)), (1, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15))], 14),
-    's5_liphl': ([(0, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15)), (1, (0.66, -2.76, 0.085), (0.12, -2.14, 0.15))], 14),
-    's9_canards': ([(0, (1.35, -2.85, 0.56), (0.86, -1.82, 0.38)), (1, (1.70, -2.55, 0.52), (0.86, -1.80, 0.38))], 24),
+    's4_lip': ([(0, (1.10, -3.05, 0.62), (0.50, -2.10, 0.12)), (1, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12))], 16),   # v0.5: higher, looking down (user)
+    's5_liphl': ([(0, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12)), (1, (0.74, -3.13, 0.55), (0.12, -2.15, 0.12))], 16),
+    's9_canards': ([(0, (0.10, -3.65, 0.80), (0.0, -1.85, 0.36)), (1, (0.40, -3.55, 0.78), (0.0, -1.85, 0.36))], 15),   # v0.6: front view, BOTH canards (user)
     's7_side': ([(0, (3.3, -1.1, 0.42), (0.9, -0.4, 0.32)), (1, (3.3, 2.0, 0.42), (0.9, 1.4, 0.30))], 18),
 }
+
+def card_lineup():
+    """Offer card (v0.5, user: 'parts on the car, then they lift off into the line-up'): graphite car with the kit
+    glowing in place -> body and right-hand parts fade, the left skirt/spat and the lip lift into a 3/4 line-up while the
+    camera moves in; the parts then turn slowly so their profiles read. Text is composited (compose.py)."""
+    import bmesh
+    F0, F1 = round(0.28 * N), round(0.52 * N)   # v0.6: lift earlier so the percent holds ~2 s (slow readers)
+    hlm = bpy.data.materials['v2_highlight']
+    ph = hlm.node_tree.nodes['Principled BSDF']   # glow on the car, then mostly off in the line-up so the parts shade (profile reads)
+    for f, e in ((F0, 1.3), (F1, 0.12), (N, 0.12)):
+        ph.inputs['Emission Strength'].default_value = e; ph.inputs['Emission Strength'].keyframe_insert('default_value', frame=f)
+    def fade(m, f0, f1):
+        p = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if p is None: return
+        for f, a in ((f0, 1.0), (f1, 0.0)):
+            p.inputs['Alpha'].default_value = a; p.inputs['Alpha'].keyframe_insert('default_value', frame=f)
+    for m in list(bpy.data.materials):
+        if m.node_tree and m.name not in ('v2_highlight', 'carbon', 'pu_black'):
+            fade(m, F0, F0 + 10)
+    # some GLB materials ignore the alpha key (linked alpha / non-principled): hide every non-kit mesh once faded
+    for o in bpy.data.objects:
+        if o.type == 'MESH' and o.name.split('.')[0] not in keep:
+            for f, h in ((F0 + 9, False), (F0 + 10, True)):
+                o.hide_render = h; o.keyframe_insert('hide_render', frame=f)
+    # right-hand copies of skirts/spats in their own (fading) highlight material
+    hr = bpy.data.materials.new('hl_right'); hr.use_nodes = True; pr = hr.node_tree.nodes['Principled BSDF']
+    for k in ('Base Color', 'Roughness', 'Metallic', 'Emission Color'):
+        pr.inputs[k].default_value = hlm.node_tree.nodes['Principled BSDF'].inputs[k].default_value
+    pr.inputs['Emission Strength'].default_value = 1.1; fade(hr, F0, F0 + 10)
+    def cut(o, keep_pos):
+        bm = bmesh.new(); bm.from_mesh(o.data); Mw = o.matrix_world
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if ((Mw @ f.calc_center_median()).x > 0) != keep_pos], context='FACES')
+        bm.to_mesh(o.data); bm.free()
+    kit = [o for o in bpy.data.objects if o.type == 'MESH' and o.name.split('.')[0] in keep]
+    az0 = math.radians(35); right = Vector((math.cos(az0), math.sin(az0), 0)); up = Vector((0, 0, 1))
+    # v0.6 (user: "if the part is a pair, show both"): both skirts stacked, both spats side by side; the right-hand
+    # pieces turn 180 deg more so their OUTER face also faces the lens
+    near = Vector((math.sin(az0), -math.cos(az0), 0.45)).normalized() * 1.1
+    place = {'lip': right * -0.05 + up * 1.05,
+             'skirtsL': right * -0.20 + up * -0.30, 'skirtsR': right * -0.20 + up * -0.66,
+             'spatsL': right * 0.05 + up * -0.84 + near, 'spatsR': right * 0.62 + up * -0.84 + near}
+    spin = {'lip': (-8, 6), 'skirts': (-62, -50), 'spats': (-70, -52)}
+    pieces = []
+    for o in kit:
+        nm = o.name.split('.')[0]; k = 'lip' if 'lip' in nm else 'spats' if 'spats' in nm else 'skirts'
+        mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw; bpy.context.view_layer.update()
+        if k == 'lip':
+            pieces.append((o, 'lip', k, 0))
+        else:
+            r = o.copy(); r.data = o.data.copy(); sc.collection.objects.link(r)
+            cut(o, True); cut(r, False)
+            pieces += [(o, k + 'L', k, 0), (r, k + 'R', k, 180)]
+    for o, key, k, extra in pieces:
+        bpy.context.view_layer.update()
+        bb = [o.matrix_world @ Vector(c) for c in o.bound_box]; ctr = sum(bb, Vector()) / 8
+        piv = bpy.data.objects.new('piv_' + key, None); sc.collection.objects.link(piv); piv.location = ctr
+        bpy.context.view_layer.update(); o.parent = piv; o.matrix_parent_inverse = piv.matrix_world.inverted()
+        for f, loc, rz in ((1, ctr, 0), (F0, ctr, 0), (F1, place[key], spin[k][0] + extra), (N, place[key], spin[k][1] + extra)):
+            piv.location = loc; piv.rotation_euler = (0, 0, math.radians(rz))
+            piv.keyframe_insert('location', frame=f); piv.keyframe_insert('rotation_euler', frame=f)
+    # camera: whole car (D 6.6, el 20) -> line-up (D 3.6, el 28, target origin), then a slow 6 deg drift
+    cd.lens = 25; cd.shift_x = 0.05
+    for f in range(1, N + 1):
+        u = ease(min(max((f - F0) / max(F1 - F0, 1), 0), 1)); t = (f - 1) / (N - 1)
+        D = 6.6 + (3.6 - 6.6) * u; el = math.radians(20 + 8 * u); a_ = az0 + math.radians(6 * t)
+        tgt = Vector((0, -0.15, 0.55)).lerp(Vector((0, 0, 0)), u)
+        loc = tgt + Vector((D * math.cos(el) * math.sin(a_), -D * math.cos(el) * math.cos(a_), D * math.sin(el)))
+        look(cam, loc, tgt); cam.keyframe_insert('location', frame=f); cam.keyframe_insert('rotation_euler', frame=f)
+
 
 if MODE in ('cgi',):
     bpy.ops.import_scene.gltf(filepath=GLB)
     car = bpy.data.objects.new('CAR', None); sc.collection.objects.link(car)
     V2 = {'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'}
-    keep = V2 | {'part_canards'}
+    V1 = {'part_front_lip', 'part_side_skirts', 'part_rear_spats'}
+    keep = V1 if SHOT == 's8_cardv1' else V2 if SHOT == 's6_cardv2' else V2 | {'part_canards'}
     pu = mat('pu_black', srgb('#141414'), 0.55)
     # carbon fibre (procedural 2x2 twill look) for the canards
     cf = bpy.data.materials.new('carbon'); cf.use_nodes = True; nt = cf.node_tree; p = nt.nodes['Principled BSDF']
@@ -211,8 +284,11 @@ if MODE in ('cgi',):
             # canard close-up: kill the broad front fill, graze the carbon with a narrow strip from above-front
             for nm in ('front', 'key'):
                 bpy.data.objects[nm].data.energy *= 0.25
-            area('canard', (1.4, -2.6, 1.3), 8, 0.4, tgt=(0.88, -1.8, 0.4)); area('canard2', (1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(0.9, -1.85, 0.4))
-        path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
+            area('canard', (1.4, -2.6, 1.3), 8, 0.4, tgt=(0.88, -1.8, 0.4)); area('canard2', (1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(0.9, -1.85, 0.4)); area('canard3', (-1.4, -2.6, 1.3), 8, 0.4, tgt=(-0.88, -1.8, 0.4)); area('canard4', (-1.9, -1.4, 0.9), 6, 0.4, (0.85, 0.92, 1.0), tgt=(-0.9, -1.85, 0.4))
+        if SHOT in CARDS:
+            card_lineup()
+        else:
+            path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
     # ---------------------------------------------------------- circuit environment (moves +Y under the static car)
     env = bpy.data.objects.new('ENV', None); sc.collection.objects.link(env)
     if not STUDIO:
@@ -295,10 +371,16 @@ else:
     objs = []
     if os.environ.get('WITH_GLB'):
         bpy.ops.import_scene.gltf(filepath=GLB)
-    if MODE == 'scan':
-        objs += append_all(f'{D}/scan.blend'); objs += append_all(f'{D}/v2.blend')
-    else:
-        objs += append_all(f'{D}/{"v2" if SHOT == "s6_cardv2" else "v1"}.blend')
+    # v0.5 cards (user: components more distinguishable): the lookbook's separate part objects, exploded apart
+    bpy.ops.import_scene.gltf(filepath=GLB)
+    want = ({'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'} if SHOT == 's6_cardv2'
+            else {'part_front_lip', 'part_side_skirts', 'part_rear_spats'})
+    for o in list(bpy.data.objects):
+        if o.type == 'MESH' and o.name.split('.')[0] in want:
+            objs.append(o)
+        elif o.type == 'MESH':
+            bpy.data.objects.remove(o, do_unlink=True)
+    bpy.context.view_layer.update()
     for o in objs:
         o.data.materials.clear(); o.data.materials.append(sil)
     w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; nt = w.node_tree; nt.nodes.clear()
@@ -317,22 +399,37 @@ else:
     if MODE == 'scan':
         path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
     else:
-        # card: kit parts at their mounting positions, pulled 0.18 m outward from the car centre and drifting in;
-        # high side camera, car length along the frame height (nose up), slow 12 deg orbit
+        # v0.5 card (user: "components more distinguishable", "can't see the profiles"): a product line-up seen from a
+        # low front-3/4 camera - lip on top, ONE side skirt and ONE rear spat below (left side, x > 0), true scale,
+        # each turning slowly about z to show its profile; the middle band stays empty for the V2/V1 text
+        import bmesh
+        def keep_left(o):
+            bm = bmesh.new(); bm.from_mesh(o.data); Mw = o.matrix_world
+            bmesh.ops.delete(bm, geom=[f for f in bm.faces if (Mw @ f.calc_center_median()).x < 0], context='FACES')
+            bm.to_mesh(o.data); bm.free()
+        az, el, D = math.radians(35), math.radians(28), 3.6
+        right = Vector((math.cos(az), math.sin(az), 0)); up = Vector((0, 0, 1))
+        place = {'lip': right * -0.05 + up * 1.05, 'skirts': right * -0.20 + up * -0.50, 'spats': right * 0.42 + up * -0.86 + Vector((math.sin(az), -math.cos(az), 0.45)).normalized() * 1.1}   # spat nearer the lens so the small part reads
+        spin = {'lip': (-8, 6), 'skirts': (-62, -50), 'spats': (-70, -52)}
         for o in objs:
+            nm = o.name.split('.')[0]; k = 'lip' if 'lip' in nm else 'spats' if 'spats' in nm else 'skirts'
+            mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
+            bpy.context.view_layer.update()
+            if k != 'lip':
+                keep_left(o)
+            bpy.context.view_layer.update()
             bb = [o.matrix_world @ Vector(c) for c in o.bound_box]; ctr = sum(bb, Vector()) / 8
-            d = Vector((ctr.x, ctr.y * 0.35, 0)).normalized() * 0.35 if ctr.length > 0.1 else Vector()
-            for f, s in ((1, 1.0), (N, 0.45)):
-                o.location = d * s; o.keyframe_insert('location', frame=f)
-        cd.lens = 31
+            # pivot = an empty at the part's centre; the part hangs under it so it spins in place
+            piv = bpy.data.objects.new('piv_' + k, None); sc.collection.objects.link(piv); piv.location = ctr
+            bpy.context.view_layer.update(); o.parent = piv; o.matrix_parent_inverse = piv.matrix_world.inverted()
+            for f, r_ in ((1, spin[k][0]), (N, spin[k][1])):
+                piv.location = place[k]; piv.rotation_euler = (0, 0, math.radians(r_)); piv.keyframe_insert('rotation_euler', frame=f)
+            piv.location = place[k]
+        cd.lens = 25; cd.shift_x = 0.05
         for f in range(1, N + 1):
-            t = ease((f - 1) / (N - 1)); ang = math.radians(-16 + 12 * t); r = 5.6
-            loc = Vector((r * math.cos(ang) * 0.55, 0.9 + r * math.sin(ang) * 0.2, 4.9)); tgt = Vector((0, -0.05, 0.15))
-            cam.matrix_world = Matrix.Translation(loc) @ (tgt - loc).to_track_quat('-Z', 'Y').to_matrix().to_4x4()
-            # roll so the nose (-Y) points up in frame
-            fwd = (tgt - loc).normalized(); up = Vector((0, -1, 0)); up = (up - fwd * up.dot(fwd)).normalized()
-            right = fwd.cross(up); M = Matrix((right, up, -fwd)).transposed().to_4x4(); M.translation = loc; cam.matrix_world = M
-            cam.keyframe_insert('location', frame=f); cam.keyframe_insert('rotation_euler', frame=f)
+            t = ease((f - 1) / (N - 1)); a_ = az + math.radians(6 * t)
+            loc = Vector((D * math.cos(el) * math.sin(a_), -D * math.cos(el) * math.cos(a_), D * math.sin(el)))
+            look(cam, loc, (0, 0, 0)); cam.keyframe_insert('location', frame=f); cam.keyframe_insert('rotation_euler', frame=f)
 
 os.makedirs(OUT, exist_ok=True)
 sc.render.filepath = os.path.join(OUT, 'f_')

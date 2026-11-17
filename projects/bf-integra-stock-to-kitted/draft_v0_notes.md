@@ -1,4 +1,31 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.5 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.8 notes
+
+**v0.8 (2026-11-17, user: "have the text take up the whole background, its okay if it gets cut off, have it scrolling and the colors alternating to the beat. Have the actual PU parts on the car highlighted (or the car blurred)"; asked where, the user answered "Both"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.8.mp4`.
+- **Intro text:** a full-bleed wall of "BLACK FRIDAY" rows in Anton, tilted 12 degrees and cut off by the frame edges.
+  - Rows scroll sideways at 150 px/s, alternate rows in opposite directions.
+  - On every beat the row colours swap white ↔ sale red, and the wall punches 6 % bigger and to full brightness.
+  - A soft charcoal halo under the scan car keeps it readable against the white rows.
+  - The wall goes past the safe zone on purpose, because the user said cut-off is fine. All real text (card, URL, logo) stays inside it.
+- **Real footage (0371 and 0370):** the kit parts stay sharp with a sale-red edge glow. Everything else is blurred (σ 9), half-desaturated and dimmed to 55 %.
+  - **How the outlines are made:** each part outline was placed by hand on one key frame, with edges read from brightness profiles and zoomed, gridded crops. `tools/track.py` then carries it through the clip with LK optical flow and a homography fitted around the part. The 0370 wing stands clear of the trunk, so it is carried by a similarity fit to the trunk (emblem, plate, lamps) instead.
+  - **0371 timing:** the clip plays clean for the first beat after the 1:1 cut, so the cut still reads as the same car. The highlight ramps in at 7.42 s.
+  - **Caveats:** the outlines are hand-placed, not solved, so they are a few px loose. The white car carries the *printed* kit, not the PU parts.
+- **Kit shot:** the four parts now land ON the website-model car body (GLB `body`/`trim`/`glass`/wheels, the same coordinates as the parts), which is blurred and dimmed. The parts are sharp with a red glow.
+  - **Occlusion:** the parts pass holds out the body (new `"holdout"` base option in `tools/shot.py`), so faces hidden by the car stay hidden.
+  - **Camera:** orbits from front 3/4 to rear 3/4 over the shot, so each part is in view as it lands.
+  - **Specs:** `spec_s5_parts.json` and `spec_s5_body.json`. The car is fitted into x 60-910 / y 820-1400, under the card.
+- **Unchanged:** cuts, card, end card and loudness (-13.7 LUFS / -4.3 dBTP).
+
+**v0.7 (2026-11-17, user: "use a cooler font, have the black friday tilted and take up the majority of the background, sync on the beats of the song, pulsing bigger. take out the sale chip"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.7.mp4`.
+- **Font:** Anton (Google Fonts, OFL), a condensed poster face. It is saved to `media/.../fonts/Anton.ttf`; Archivo Black and Bebas Neue were downloaded as alternatives.
+- **Layout:** a four-line justified wall, BLACK (white) / FRIDAY (sale red) / BLACK / FRIDAY, tilted 12 degrees counter-clockwise and centred in the safe zone behind the car. With four lines, the words still read above and below the car once it fills the frame.
+- **Pulse:** on each beat of "140" (0.215 s, then every 0.43073 s) the wall scales up 13 % and goes from 55 % to 100 % opacity, then eases back over 0.22 s.
+  - Measured red-area peaks land on the first frame at or after each beat.
+  - At its peak the wall's bbox is x 61-882 / y 288-1436, inside the safe zone.
+- **SALE chip:** removed.
+- **Unchanged:** -13.7 LUFS / -4.3 dBTP.
+
+**v0.6 (2026-11-17, owner via parent: "all agents should use www.epsilon.plus"):** the end card has WWW.EPSILON.PLUS under the Epsilon+ wordmark. It is set in Barlow 700, 60 px, grey #B2B2B2, and fades in and out with the logo. The end card's content spans x 180-899 / y 921-1138, inside the safe zone. This replaces assumption 7 below ("no epsilon.plus on the end card"). Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.6.mp4`; sheet `_v0.6_safezones.jpg`.
 
 **v0.5 (2026-11-17, user: "the beginning needs to convey that we are running a black friday sale, maybe flash a text behind the car to the beat"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.5.mp4`.
 - **Intro (0-6.99 s, CGI only):** the words "BLACK" (white) and "FRIDAY" (sale red), in Barlow 700 at 260 px, alternate *behind* the stock scan car.

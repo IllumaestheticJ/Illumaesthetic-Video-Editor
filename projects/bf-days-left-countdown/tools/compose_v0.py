@@ -71,7 +71,7 @@ def paste_center(base, lay, cx, cy, scale=1.0, alpha=1.0):
 
 days_lay = text_layer(line, 118, tracking=5)
 bf_lay = text_layer("BLACK FRIDAY", 64, BOLD_I, tracking=14, halo=False)
-url_lay = text_layer("EPSILON.PLUS", 46, BOLD_I, (200, 200, 200, 255), tracking=10, halo=False)
+url_lay = text_layer("WWW.EPSILON.PLUS", 42, BOLD_I, (200, 200, 200, 255), tracking=10, halo=False)
 sale_lay = text_layer("BLACK FRIDAY SALE", 52, BOLD_I, (215, 215, 215, 255), tracking=10)
 
 for f in range(END):

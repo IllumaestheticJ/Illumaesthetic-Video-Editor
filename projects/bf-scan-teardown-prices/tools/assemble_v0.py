@@ -7,18 +7,30 @@ import os, json
 VER = os.environ.get("VER", "v0")
 OUT = f"/home/user/media/work/out/bf-scan-teardown-prices_{VER}.mp4"; TMP = M + "v0_video.mp4"
 FPS, W, H = 30, 1080, 1920
-C1, C2, C3, END = 402, 582, 629, 708          # frame numbers
+# v0.5 (user: "the scene right before Ron's render takes a bit too long; have clips match the beat"):
+# every clip starts/ends on a measured hit of the grid 0.024 + 0.5374 k (k = beat):
+#   T1 beats 0-24 (cut on the b24 onset 12.864 + the 40 ms audio delay, measured 12.936 on the output -> f388) | T2 b24-b33 (kit locks on the kick entry b32 = 17.235, ONE beat hold) |
+#   Ron b33-b37 (one bar) | end card b37-b42.   Measured kick attacks: b33 17.765, b37 19.905, b42 22.605.
+C1, C2, C3, END = 388, round(17.765 * 30), round(19.905 * 30), round(22.605 * 30)
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
-t1 = sorted(glob.glob(M + "r/T1/f*.png")); t2 = sorted(glob.glob(M + ("r/T2v02/f*.png" if VER != "v0" else "r/T2/f*.png")))
+t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2v02" if VER != "v0" else "r/T2") + "/f*.png"))
 ron = Image.open(M + "r/ron7_portrait.png").convert("RGB").resize((W, H), Image.LANCZOS)
-endc = Image.open(O + "endcard.png").convert("RGB")
+# v0.7: end text over Ron's render with depth; car matte from ron_mask_v0.py (alpha above the floor line only).
+import numpy as np
+eb, ef = Image.open(O + "end_back.png"), Image.open(O + "end_front.png")
+ma = np.array(Image.open(M + "r/ron7_mask.png").getchannel("A").resize((W, H), Image.LANCZOS)).astype(np.float32)
+FLOOR = 1088; ma[FLOOR:] = 0; ma = np.clip((ma - 200) * 255 / 55, 0, 255).astype(np.uint8)   # floor glow out, edges kept
+carm = Image.fromarray(ma)
+def endframe(k):
+    """k 0..1: headline/logo pop on C3, front layer one beat later (handled by caller)."""
+    fr = ron.copy(); fr.paste(eb, (0, 0), eb); fr.paste(ron, (0, 0), carm); return fr
 ovl = {k: Image.open(O + k + ".png") for k in ["bf_tag", "p_lip", "p_skirts", "p_rear", "p_wing"]}
 # (name, t_in, t_out, xy) in video seconds; 0.15 s alpha fades
 # v0.2 (owner safe-zone rule, knowledge/safe-zones.md): every text box inside x 48-920 / y 285-1440 -> tags/cards
 # start at y 300 (above the car); the "FULL EPSILON KIT" tag is dropped (the top view fills the safe band).
 OV = [("bf_tag", 0.10, 2.10, (0, 300 - 168 + 60)),
       ("p_lip", 4.83, 6.30, (0, 300 - 145 + 40)), ("p_skirts", 6.96, 9.20, (0, 300 - 145 + 40)),
-      ("p_rear", 9.92, 11.15, (0, 300 - 145 + 40)), ("p_wing", 11.80, 13.33, (0, 300 - 145 + 40))]
+      ("p_rear", 9.92, 11.15, (0, 300 - 145 + 40)), ("p_wing", 11.80, 12.80, (0, 300 - 145 + 40))]
 cache = {}
 # text boxes for scripts/safezone_check.py (alpha bbox of each overlay at its position, plus the end card's own text)
 BOX = []
@@ -37,11 +49,14 @@ ff = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fm
 for n in range(END):
     t = n / FPS
     if n < C1:   fr = load(t1[min(len(t1) - 1, n // 2)]).copy()
-    elif n < C2: fr = load(t2[max(0, min(len(t2) - 1, round((t - T2_T0) * 15)))]).copy()
+    elif n < C2:  # T2 now starts earlier (b24): stretch its slow opening drift 13.435-14.466 over 12.867-14.466; lock stays at 17.235
+        t1c = C1 / FPS; tt = t if t >= 14.466 else T2_T0 + (t - t1c) / (14.466 - t1c) * (14.466 - T2_T0)
+        fr = load(t2[max(0, min(len(t2) - 1, round((tt - T2_T0) * 15)))]).copy()
     elif n < C3: fr = ron.copy()
-    else:        fr = endc.copy()
-    if n >= C3:  # end card fades in from black over 4 frames, everything fades out over the last 0.5 s
-        k = min(1, (n - C3 + 1) / 4) * min(1, (END - 1 - n) / 15); fr = Image.blend(Image.new("RGB", (W, H)), fr, k)
+    else:        # v0.7: render stays; back text + car matte on the C3 kick, front layer one beat (16 f) later
+        fr = endframe(1)
+        if n >= C3 + 16: fr.paste(ef, (0, 0), ef)
+        k = min(1, (END - 1 - n) / 15); fr = Image.blend(Image.new("RGB", (W, H)), fr, k)
     for name, a, b, xy in OV:
         if a <= t <= b:
             k = min(1, (t - a) / 0.15, (b - t) / 0.15)
@@ -50,7 +65,7 @@ for n in range(END):
                 im = im.copy(); im.putalpha(im.getchannel("A").point(lambda v: int(v * k)))
             fr.paste(im, xy, im)
     ff.stdin.write(fr.tobytes())
-    if n in (0, C1 - 1, C1, 517, C2 - 1, C2, C3, END - 1): fr.save(M + f"chk/{VER}_f{n:04d}.jpg", quality=85)
+    if n in (0, C1 - 1, C1, 517, C2 - 1, C2, C3 - 1, C3, C3 + 16, END - 16, END - 1): fr.save(M + f"chk/{VER}_f{n:04d}.jpg", quality=85)
 ff.stdin.close(); ff.wait()
 dur = END / FPS
 af = f"adelay=40:all=1,afade=t=out:st={dur - 0.6:.3f}:d=0.6"   # +40 ms: kick attacks (~45 ms before the low-band peak) land on the cut frames

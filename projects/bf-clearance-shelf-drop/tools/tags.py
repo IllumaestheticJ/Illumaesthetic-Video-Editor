@@ -2,9 +2,10 @@
 import json, sys
 from PIL import Image, ImageDraw, ImageFont
 snap = json.load(open(sys.argv[1])); out = sys.argv[2]
-F = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
-F = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
-FM = "/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf"
+# knowledge/fonts.md: Akira for headlines/prices; Unbounded 700 stands in until the owner supplies Akira.
+FD = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
+F = FD + "Unbounded-700.ttf"     # Akira stand-in (title, BLACK FRIDAY, sale price)
+FM = FD + "Unbounded-500.ttf"    # labels / was-price
 W, H = 700, 900
 def card(title, lines, sale):
     """Readable at phone size: few words, very large prices, high contrast."""
@@ -13,24 +14,24 @@ def card(title, lines, sale):
     d.rectangle((0, 0, W-1, H-1), outline=(10, 10, 12), width=10)
     y = 92
     for t in title.split("\n"):
-        d.text((W/2, y), t, font=ImageFont.truetype(F, 74), fill=(10, 10, 12), anchor="mt"); y += 80
+        d.text((W/2, y), t, font=ImageFont.truetype(F, 60), fill=(10, 10, 12), anchor="mt"); y += 72
     if sale:
         d.rectangle((40, y + 10, W - 40, y + 84), fill=(10, 10, 12))
-        d.text((W/2, y + 47), "BLACK FRIDAY", font=ImageFont.truetype(F, 58), fill=(244, 245, 247), anchor="mm")
+        d.text((W/2, y + 47), "BLACK FRIDAY", font=ImageFont.truetype(F, 46), fill=(244, 245, 247), anchor="mm")
         y += 96
     else:
         y += 40
     for label, was, now in lines:
-        d.text((44, y + 10), label, font=ImageFont.truetype(F, 50), fill=(40, 40, 46))
+        d.text((44, y + 10), label, font=ImageFont.truetype(FM, 36), fill=(40, 40, 46))
         base = y + 10 + 50 + 128
         if sale:
-            fw = ImageFont.truetype(F, 62)
+            fw = ImageFont.truetype(FM, 50)
             d.text((44, base - 20), was, font=fw, fill=(120, 120, 126), anchor="ls")
             bb = d.textbbox((44, base - 20), was, font=fw, anchor="ls"); my = (bb[1] + bb[3]) // 2
             d.line((bb[0] - 4, my, bb[2] + 4, my), fill=(10, 10, 12), width=9)
-            d.text((W - 40, base), now, font=ImageFont.truetype(F, 140), fill=(10, 10, 12), anchor="rs")
+            d.text((W - 40, base), now, font=ImageFont.truetype(F, 112), fill=(10, 10, 12), anchor="rs")
         else:
-            d.text((44, base), was, font=ImageFont.truetype(F, 128), fill=(10, 10, 12), anchor="ls")
+            d.text((44, base), was, font=ImageFont.truetype(F, 104), fill=(10, 10, 12), anchor="ls")
         y = base + 14
     return im
 for key, t in snap["tags"].items():

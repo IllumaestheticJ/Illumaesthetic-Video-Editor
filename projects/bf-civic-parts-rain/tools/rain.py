@@ -12,7 +12,7 @@ from mathutils import Vector
 
 
 def build(sc, srcs, n, f_end, depth=(8.0, 14.0), xr=0.58, fall=(3.2, 4.6), gap=(0.2, 1.4), y_edge=1.32,
-          keep_out=None, t_last_end=None, seed=7, prefix="rain", start_mid=True):
+          keep_out=None, t_last_end=None, seed=7, prefix="rain", start_mid=True, scale=1.0):
     """srcs: list of mesh datablocks (origin at their centre). depth: metres at a 35 mm-equivalent lens.
     xr: |screen x| limit as a fraction of the half-width. y_edge: spawn/despawn height in half-heights (>1 = off screen).
     keep_out: (lo, hi) world bbox the parts must never come within (already expanded). t_last_end: no fall may end later
@@ -56,6 +56,7 @@ def build(sc, srcs, n, f_end, depth=(8.0, 14.0), xr=0.58, fall=(3.2, 4.6), gap=(
         if not ok:
             continue
         ob = bpy.data.objects.new(f"{prefix}{i}", srcs[i % len(srcs)]); sc.collection.objects.link(ob); made += 1
+        ob.scale = (scale, scale, scale)   # v0.4: owner 'parts are bigger'
         spin = Vector((rng.uniform(-1.2, 1.2), rng.uniform(-1.2, 1.2), rng.uniform(-2.0, 2.0)))
         rock = rng.uniform(0.35, 0.8); sway = rng.uniform(0.01, 0.03); ph = rng.uniform(0, 6.28)
         for f in range(f_end + 1):
