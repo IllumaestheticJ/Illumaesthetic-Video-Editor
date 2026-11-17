@@ -18,6 +18,8 @@ END_T = bt(62) + 0.5
 ORANGE = (247, 160, 20); RED = (240, 84, 28); GREY = (150, 150, 150); WHITE = (240, 240, 240); DARK = (30, 22, 4)
 FI = '/usr/share/fonts/opentype/inter/'
 def F(name, size): return ImageFont.truetype(FI + name, size)
+UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-%d.ttf'
+def U(wt, size): return ImageFont.truetype(UB % wt, size)   # Unbounded 800-900 = stand-in for Akira Expanded (owner font rule)
 SERIF = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', s)
 f_tab = F('InterDisplay-Bold.otf', 36); f_stat = F('InterDisplay-Bold.otf', 44); f_small = F('InterDisplay-Bold.otf', 34)
 f_price = F('InterDisplay-Black.otf', 104); f_was = F('InterDisplay-Bold.otf', 50); f_btn = F('InterDisplay-Black.otf', 30)
@@ -65,8 +67,8 @@ def car_img(car, k, hexc, base_wing):
 X0, X1, Y0, Y1 = 48, 920, 285, 1440
 CX = (X0 + X1) // 2
 f_tab = F('InterDisplay-Bold.otf', 27); f_small = F('InterDisplay-Bold.otf', 30); f_col = F('InterDisplay-Bold.otf', 42)
-f_code = F('InterDisplay-Medium.otf', 30); f_price = F('InterDisplay-Black.otf', 92); f_was = F('InterDisplay-Bold.otf', 44)
-f_btn = F('InterDisplay-Black.otf', 26); f_buy = F('InterDisplay-Black.otf', 44); f_tile = F('InterDisplay-Black.otf', 66)
+f_code = F('InterDisplay-Medium.otf', 30); f_price = U(900, 74); f_was = U(700, 32)
+f_btn = U(800, 20); f_buy = U(900, 34); f_tile = F('InterDisplay-Black.otf', 66)
 f_tile2 = F('InterDisplay-Black.otf', 38); f_bar = F('InterDisplay-Bold.otf', 30)
 def rr(d, box, r, fill=None, outline=None, width=0): d.rounded_rectangle(box, radius=r, fill=fill, outline=outline, width=width)
 def icon_row(d):
@@ -95,9 +97,9 @@ def bottom_bar(d, back_hot=False):
     rr(d, (X0, BAR_Y, X0 + 130, Y1), 12, fill=(255, 200, 60) if back_hot else ORANGE)
     m = BAR_Y + 28
     d.polygon([(X0 + 24, m), (X0 + 52, m - 16), (X0 + 52, m - 6), (X0 + 104, m - 6), (X0 + 104, m + 6), (X0 + 52, m + 6), (X0 + 52, m + 16)], fill=DARK)
-    d.text((X0 + 150, BAR_Y + 8), 'www.epsilon.plus', font=f_bar, fill=WHITE)
-    rr(d, (X1 - 280, BAR_Y, X1, Y1), 28, fill=ORANGE); t = 'BLACK FRIDAY'; f = F('InterDisplay-Black.otf', 28)
-    d.text((X1 - 140 - d.textlength(t, font=f) / 2, BAR_Y + 10), t, font=f, fill=DARK)
+    d.text((X0 + 148, BAR_Y + 12), 'www.epsilon.plus', font=U(400, 22), fill=WHITE)
+    rr(d, (X1 - 280, BAR_Y, X1, Y1), 28, fill=ORANGE); t = 'BLACK FRIDAY'; f = U(800, 21)
+    d.text((X1 - 140 - d.textlength(t, font=f) / 2, BAR_Y + 14), t, font=f, fill=DARK)
 def cursor(im, x, y):
     d = ImageDraw.Draw(im)
     pts = [(0, 0), (0, 54), (14, 42), (26, 68), (38, 61), (26, 37), (45, 37)]
@@ -107,11 +109,11 @@ def scanlines(im):
     a = np.asarray(im).astype(np.float32); a[1::4] *= 0.86; a[2::4] *= 0.93
     return Image.fromarray(a.clip(0, 255).astype(np.uint8))
 def price_block(d, x, y, was, now):
-    d.ellipse((x, y + 6, x + 92, y + 98), fill=ORANGE); d.text((x + 25, y + 11), '$', font=F('InterDisplay-Black.otf', 68), fill=DARK)
-    t = f'{now:,}'; d.text((x + 116, y - 8), t, font=f_price, fill=WHITE)
-    wx = x + 124 + d.textlength(t, font=f_price) + 16; ws = f'${was:,}'
-    d.text((wx, y + 36), ws, font=f_was, fill=GREY); tw = d.textlength(ws, font=f_was)
-    d.line((wx - 6, y + 64, wx + tw + 6, y + 64), fill=RED, width=6)
+    d.ellipse((x, y + 6, x + 92, y + 98), fill=ORANGE); d.text((x + 23, y + 16), '$', font=U(900, 54), fill=DARK)
+    t = f'{now:,}'; d.text((x + 112, y + 4), t, font=f_price, fill=WHITE)
+    wx = x + 112 + d.textlength(t, font=f_price) + 16; ws = f'${was:,}'
+    d.text((wx, y + 44), ws, font=f_was, fill=GREY); tw = d.textlength(ws, font=f_was)
+    d.line((wx - 6, y + 66, wx + tw + 6, y + 66), fill=RED, width=5)
 
 CAR_Y = 520; CAR_W = X1 - X0; CAR_H = int(CAR_W * 420 / 720)          # 872 x 508
 CC_BOX = (X1 - 290, 1128, X1, 1222)
@@ -137,13 +139,13 @@ def car_screen(car, k, colour, flash=0.0, cc_hot=False):
         x0 = X0 + i * (sw_ + 4); sel = cc[0] == colour[0]
         d.rectangle((x0, 1158 - (8 if sel else 0), x0 + sw_, 1194 + (8 if sel else 0)), fill=cc[2], outline=WHITE if sel else (70, 70, 70), width=3 if sel else 1)
     rr(d, CC_BOX, 46, fill=(255, 200, 60) if (cc_hot or flash > 0) else ORANGE)
-    d.text((CC_BOX[0] + 44, CC_BOX[1] + 14), 'CHANGE', font=f_btn, fill=DARK); d.text((CC_BOX[0] + 56, CC_BOX[1] + 48), 'COLOR', font=f_btn, fill=DARK)
+    d.text((CC_BOX[0] + 40, CC_BOX[1] + 20), 'CHANGE', font=f_btn, fill=DARK); d.text((CC_BOX[0] + 50, CC_BOX[1] + 48), 'COLOR', font=f_btn, fill=DARK)
     d.ellipse((CC_BOX[0] + 200, CC_BOX[1] + 22, CC_BOX[0] + 250, CC_BOX[1] + 72), fill=colour[2], outline=DARK, width=4)
     was, now = c['base'] if base else c['special'].get(colour[1], c['paint'])
     price_block(d, X0, 1246, was, now)
     d.text((X0 + 118, 1340), 'GLOSS BLACK BASE WING' if base else 'PAINT-MATCHED WING', font=F('InterDisplay-Medium.otf', 26), fill=ORANGE)
     d.ellipse((X1 - 136, 1236, X1, 1372), outline=ORANGE, width=13); bw = d.textlength('BUY', font=f_buy)
-    d.text((X1 - 68 - bw / 2, 1278), 'BUY', font=f_buy, fill=WHITE)
+    d.text((X1 - 68 - bw / 2, 1283), 'BUY', font=f_buy, fill=WHITE)
     bottom_bar(d)
     return im
 
@@ -153,8 +155,8 @@ _tile = {}
 def lineup_screen(hot=-1):
     im = Image.new('RGB', (W, H), (0, 0, 0)); d = ImageDraw.Draw(im)
     icon_row(d); tabs(d, ['Epsilon+', 'SPORT WING'], 1)
-    rr(d, (CX - 150, 362, CX + 150, 426), 32, fill=RED); f = F('InterDisplay-Black.otf', 42); lw = d.textlength('LINEUP', font=f)
-    d.text((CX - lw / 2, 370), 'LINEUP', font=f, fill=DARK)
+    rr(d, (CX - 150, 362, CX + 150, 426), 32, fill=RED); f = U(900, 32); lw = d.textlength('LINEUP', font=f)
+    d.text((CX - lw / 2, 376), 'LINEUP', font=f, fill=DARK)
     for i, car in enumerate(ORDER):
         c = CARS[car]; y = TILE_Y[i]
         if car not in _tile:
@@ -165,13 +167,14 @@ def lineup_screen(hot=-1):
         d.rectangle((X0, y, X1, y + TILE_H), fill=(255, 196, 70) if hot == i else ORANGE)
         im.paste(_tile[car], (X1 - 480, y)); d = ImageDraw.Draw(im)
         if hot == i: d.rectangle((X0, y, X1, y + TILE_H), outline=WHITE, width=6)
-        ft = F('InterDisplay-Black.otf', 52); f2 = F('InterDisplay-Black.otf', 32)
-        d.text((X0 + 22, y + 10), c['title'], font=ft, fill=DARK)
-        d.text((X0 + 26, y + 72), c['sub'] + '  ·  SPORT WING', font=f2, fill=DARK)
-        d.ellipse((X0 + 22, y + 140, X0 + 78, y + 196), fill=DARK); d.text((X0 + 37, y + 143), '$', font=F('InterDisplay-Black.otf', 42), fill=ORANGE)
-        d.text((X0 + 94, y + 130), str(c['base'][1]), font=F('InterDisplay-Black.otf', 58), fill=DARK)
-        ws = f"${c['base'][0]}"; wx = X0 + 94 + d.textlength(str(c['base'][1]), font=F('InterDisplay-Black.otf', 58)) + 18
-        d.text((wx, y + 152), ws, font=f2, fill=(110, 70, 0)); d.line((wx - 4, y + 172, wx + d.textlength(ws, font=f2) + 4, y + 172), fill=(160, 30, 0), width=5)
+        ft = U(900, 38); f2 = U(700, 22); fp = U(900, 46)
+        while d.textlength(c['title'].upper(), font=ft) > 440: ft = ft.font_variant(size=ft.size - 2)
+        d.text((X0 + 22, y + 18), c['title'].upper(), font=ft, fill=DARK)
+        d.text((X0 + 24, y + 76), c['sub'] + ' · SPORT WING', font=f2, fill=DARK)
+        d.ellipse((X0 + 22, y + 140, X0 + 78, y + 196), fill=DARK); d.text((X0 + 36, y + 147), '$', font=U(900, 34), fill=ORANGE)
+        d.text((X0 + 94, y + 138), str(c['base'][1]), font=fp, fill=DARK)
+        ws = f"${c['base'][0]}"; wx = X0 + 94 + d.textlength(str(c['base'][1]), font=fp) + 16
+        d.text((wx, y + 160), ws, font=f2, fill=(110, 70, 0)); d.line((wx - 4, y + 175, wx + d.textlength(ws, font=f2) + 4, y + 175), fill=(160, 30, 0), width=4)
     bottom_bar(d)
     return im
 
@@ -183,13 +186,13 @@ def offer_screen():
     im = Image.new('RGB', (W, H), (0, 0, 0)); d = ImageDraw.Draw(im)
     icon_row(d); tabs(d, ['Epsilon+', 'BLACK FRIDAY'], 1)
     t = 'Sport Wing'; tw = d.textlength(t, font=SERIF(124)); d.text((CX - tw / 2, 380), t, font=SERIF(124), fill=WHITE)
-    rr(d, (X0 + 20, 580, X1 - 20, 720), 70, fill=ORANGE); t = 'BASE WING 30% OFF'; f = F('InterDisplay-Black.otf', 62)
-    d.text((CX - d.textlength(t, font=f) / 2, 612), t, font=f, fill=DARK)
-    rr(d, (X0 + 20, 750, X1 - 20, 890), 70, fill=RED); t = 'PAINT MATCH AVAILABLE'; f = F('InterDisplay-Black.otf', 52)
-    d.text((CX - d.textlength(t, font=f) / 2, 788), t, font=f, fill=WHITE)
+    rr(d, (X0 + 20, 580, X1 - 20, 720), 70, fill=ORANGE); t = 'BASE WING 30% OFF'; f = U(900, 44)
+    d.text((CX - d.textlength(t, font=f) / 2, 620), t, font=f, fill=DARK)
+    rr(d, (X0 + 20, 750, X1 - 20, 890), 70, fill=RED); t = 'PAINT MATCH AVAILABLE'; f = U(900, 36)
+    d.text((CX - d.textlength(t, font=f) / 2, 796), t, font=f, fill=WHITE)
     y = 980
     for name, (was, now) in (('Civic Hatch / Sedan', (450, 315)), ('Integra', (500, 350))):
-        d.text((X0 + 20, y + 26), name, font=f_small, fill=WHITE); price_block(d, 400, y - 10, was, now); y += 150
+        d.text((X0 + 20, y + 26), name, font=f_small, fill=WHITE); price_block(d, 430, y - 10, was, now); y += 150
     bottom_bar(d)
     return im
 
@@ -231,7 +234,7 @@ wl = logo_at(720, (255, 255, 255))
 def logo_seg(t, dur):
     im = Image.new('RGB', (W, H), (0, 0, 0)); fade = min(1, t / 0.2, max(0, (dur - t) / 0.5))
     l = wl.copy(); l.putalpha(l.split()[3].point(lambda v: int(v * fade))); im.paste(l, (CX - 360, 860 - l.height // 2), l)
-    d = ImageDraw.Draw(im); t_ = 'WWW.EPSILON.PLUS'; f = F('InterDisplay-Bold.otf', 44); g = int(200 * fade)
+    d = ImageDraw.Draw(im); t_ = 'WWW.EPSILON.PLUS'; f = U(300, 34); g = int(200 * fade)
     d.text((CX - d.textlength(t_, font=f) / 2, 860 + l.height // 2 + 44), t_, font=f, fill=(g, g, g)); return im
 segs.append((59, None, logo_seg))
 print('end beat of car screens', e)
