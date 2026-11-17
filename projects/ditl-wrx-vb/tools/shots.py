@@ -170,14 +170,41 @@ def lowbody(name, loc, body, L, Wd, Hlow, Hroof, cab0, cab1, badge=None, badge_s
     if badge: plane(name + "_badge", 0.22, 0.22, badge, loc=(badge_side * (Wd / 2 * 0.985 + 0.012), -L * 0.37, Hlow - 0.2), rot=(R(90), 0, R(90) * badge_side), parent=root)
     return root
 
+G80 = "/home/user/epsilon-site/wing-configurator/data/models/bmw-m3-g80.glb"
 def bmw(loc, faces):
-    bw = mat("bmw_white", (0.82, 0.83, 0.85), 0.3); r = lowbody("bmw", loc, bw, 4.7, 1.85, 0.92, 1.44, -0.75, 1.35, badge=imgmat("roundel", TEX + "roundel.png"), badge_side=1)
-    box("bmw_seat", (0.5, 0.14, 0.7), mat("bseat", (0.1, 0.1, 0.1)), loc=(0.42, 0.14, 0.7), parent=r, base="z")
+    """Real G80 M3 body shell from the wing configurator: painted, side windows cut open, dark glass, wheels, driver."""
+    import bmesh
+    root = bpy.data.objects.new("bmw", None); bpy.context.scene.collection.objects.link(root); root.location = loc
+    before = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=G80); sh = [o for o in bpy.data.objects if o not in before and o.type == "MESH"][0]
+    for o in [o for o in bpy.data.objects if o not in before and o is not sh]: bpy.data.objects.remove(o)
+    mw = sh.matrix_world.copy(); sh.parent = None; sh.matrix_world = mw
+    me = sh.data; me.transform(sh.matrix_world); sh.matrix_world.identity()
+    xs = [v.co.x for v in me.vertices]; cx = (min(xs) + max(xs)) / 2
+    for v in me.vertices: x, y = v.co.x - cx, v.co.y; v.co.x, v.co.y = y, -x      # nose +X -> nose -Y, centred
+    paint = mat("bmw_paint", (0.015, 0.16, 0.09), 0.22); paint.node_tree.nodes["Principled BSDF"].inputs["Metallic"].default_value = 0.6
+    gl = mat("bmw_glass", (0.02, 0.025, 0.03), 0.08); me.materials.append(paint); me.materials.append(gl)
+    bm = bmesh.new(); bm.from_mesh(me); bm.normal_update(); kill = []
+    for f in bm.faces:
+        c = f.calc_center_median(); n = f.normal
+        if 0.99 < c.z < 1.37 and -0.62 < c.y < 1.05 and abs(c.x) > 0.5 and abs(n.x) > 0.35 and abs(n.z) < 0.75: kill.append(f)
+        elif c.z > 1.0 and abs(n.y) > 0.25 and 0.15 < abs(n.z) < 0.97 and (c.y < -0.35 or c.y > 0.95) and abs(c.x) < 0.72: f.material_index = 1
+    bmesh.ops.delete(bm, geom=kill, context="FACES"); bm.to_mesh(me); bm.free()
+    for pl in me.polygons: pl.use_smooth = True
+    sh.parent = root; sh.location = (0, 0, 0)
+    tr = mat("bmw_tire", (0.02, 0.02, 0.02)); rim = mat("bmw_rim", (0.08, 0.08, 0.09), 0.3); dk = mat("bmw_dk", (0.05, 0.05, 0.055))
+    for sx in (-1, 1):
+        for y in (-1.5, 1.36):
+            bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=0.345, depth=0.27); w = bpy.context.object; w.data.materials.append(tr); w.parent = root; w.location = (sx * 0.8, y, 0.345); w.rotation_euler = (0, R(90), 0)
+            bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=0.24, depth=0.28); h = bpy.context.object; h.data.materials.append(rim); h.parent = root; h.location = w.location; h.rotation_euler = w.rotation_euler
+        box(f"bmw_bp{sx}", (0.05, 0.1, 0.42), dk, loc=(sx * 0.8, 0.28, 0.97), parent=root, base="z")
+    box("bmw_int", (1.5, 2.3, 0.5), dk, loc=(0, 0.3, 0.45), parent=root, base="z"); box("bmw_dash", (1.5, 0.35, 0.2), dk, loc=(0, -0.72, 0.9), parent=root, base="z")
+    box("bmw_seat", (0.5, 0.14, 0.75), mat("bseat", (0.35, 0.12, 0.08)), loc=(0.4, 0.24, 0.5), parent=root, base="z")
+    plane("bmw_badge", 0.16, 0.16, imgmat("roundel", TEX + "roundel.png"), loc=(0.93, -1.0, 0.82), rot=(R(90), 0, R(90)), parent=root)
     bs = mat("bskin", (0.74, 0.52, 0.38), 0.7); polo = mat("polo", (0.93, 0.93, 0.96))
-    p, head, fd = person("beamer", "beamer", (0.42, -0.2, 0.52), R(72), bs, polo, mat("bhair", (0.5, 0.36, 0.14)), faces, hair_h=0.09); p.parent = r
+    p, head, fd = person("beamer", "beamer", (0.44, -0.12, 0.33), R(72), bs, polo, mat("bhair", (0.5, 0.36, 0.14)), faces, hair_h=0.07); p.parent = root
     a, f = arm("barm", p, -1, bs, polo, up=-10, fwd=-10, bend=75)
     k.box("b_vape", (0.035, 0.035, 0.14), mat("bvape", (0.1, 0.7, 0.8), 0.3), loc=(0, 0.3, 0.05), parent=f)
-    return r, p, head, fd, a
+    return root, p, head, fd, a
 
 def van(loc, mom_faces, kid_faces, kid_back=False):
     bg = mat("van_beige", (0.66, 0.6, 0.47), 0.35); r = lowbody("van", loc, bg, 5.1, 1.95, 1.05, 1.78, -1.35, 2.3, badge=imgmat("hb", TEX + "hbadge.png"), badge_side=-1)
@@ -352,7 +379,7 @@ def s10():
     cam.data.lens = 19; cam.data.keyframe_insert("lens", frame=26); cam.data.lens = 24; cam.data.keyframe_insert("lens", frame=30)
 
 def beamer_setup(lens, faces):
-    road(); r, p, head, fd, a = bmw((-3.05, -0.1, 0), faces); loc = (-0.55, 0.3, 1.22); rig, cam = rigcam(loc, (-2.63, -0.28, 1.24), lens=lens, roll=3); sill(cam)
+    road(); r, p, head, fd, a = bmw((-3.05, -0.1, 0), faces); loc = (-0.55, 0.3, 1.22); rig, cam = rigcam(loc, (-2.61, -0.2, 1.1), lens=lens, roll=3); sill(cam)
     return r, p, head, fd, a, rig, cam
 
 def s11():
