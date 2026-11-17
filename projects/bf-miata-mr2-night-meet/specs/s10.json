@@ -9,8 +9,12 @@
     0
    ],
    "yaw": -14,
-   "static": [
-    "/home/user/media/bf-miata-mr2-night-meet/kit_mr2/part_side_skirts.stl"
+   "on": [
+    "skirts",
+    "eyelids",
+    "hood",
+    "spats",
+    "duck"
    ]
   },
   {
@@ -21,11 +25,11 @@
     0
    ],
    "yaw": 14,
-   "static": [
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_front_bumper.stl",
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_front_lip.stl",
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_canards.stl",
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_fender_cuts.stl"
+   "on": [
+    "bumper",
+    "fender",
+    "skirts",
+    "spats"
    ]
   }
  ],
@@ -45,7 +49,7 @@
    "lens": 30
   },
   {
-   "f": 37,
+   "f": 35,
    "loc": [
     0.4,
     -7.2,
@@ -60,7 +64,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s10",
- "frames": 38,
+ "frames": 36,
  "fps": 15,
  "res": [
   540,

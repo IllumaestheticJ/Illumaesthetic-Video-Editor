@@ -2,16 +2,40 @@
  "mode": "scan",
  "cars": [
   {
-   "car": "mr2"
+   "car": "mr2",
+   "swap": [
+    {
+     "zone": "skirts",
+     "off": [
+      4,
+      14
+     ],
+     "on": [
+      13,
+      27
+     ],
+     "dir": [
+      0.9,
+      0,
+      0.5
+     ],
+     "dist": 6,
+     "from": [
+      1.2,
+      0,
+      0.3
+     ]
+    }
+   ]
   }
  ],
  "camera": [
   {
    "f": 0,
    "loc": [
-    2.889705882352941,
-    -3.798529411764706,
-    0.5452941176470588
+    2.9045454545454543,
+    -3.8166666666666664,
+    0.5472727272727272
    ],
    "target": [
     0.35,
@@ -33,34 +57,6 @@
     0.42
    ],
    "lens": 26
-  }
- ],
- "anim": [
-  {
-   "car": 0,
-   "cut": "/home/user/media/bf-miata-mr2-night-meet/dec/mr2_cut_skirts.stl",
-   "off": [
-    3,
-    11
-   ],
-   "dir": [
-    0.6,
-    -0.1,
-    1
-   ],
-   "dist": 7,
-   "part": [
-    "/home/user/media/bf-miata-mr2-night-meet/kit_mr2/part_side_skirts.stl"
-   ],
-   "on": [
-    10,
-    22
-   ],
-   "from": [
-    0,
-    0,
-    1.5
-   ]
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s02",

@@ -3,10 +3,32 @@
  "cars": [
   {
    "car": "nc",
-   "static": [
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_front_bumper.stl",
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_front_lip.stl",
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_canards.stl"
+   "on": [
+    "bumper"
+   ],
+   "swap": [
+    {
+     "zone": "fender",
+     "off": [
+      4,
+      13
+     ],
+     "on": [
+      12,
+      25
+     ],
+     "dir": [
+      -1,
+      -0.2,
+      0.6
+     ],
+     "dist": 6,
+     "from": [
+      -1.2,
+      0,
+      0.4
+     ]
+    }
    ]
   }
  ],
@@ -14,8 +36,8 @@
   {
    "f": 0,
    "loc": [
-    -2.5,
-    -2.6,
+    -2.9,
+    -2.9,
     1.0
    ],
    "target": [
@@ -26,10 +48,10 @@
    "lens": 34
   },
   {
-   "f": 37,
+   "f": 34,
    "loc": [
-    -2.6,
-    -1.9,
+    -3.0,
+    -2.2,
     1.0
    ],
    "target": [
@@ -40,36 +62,8 @@
    "lens": 34
   }
  ],
- "anim": [
-  {
-   "car": 0,
-   "cut": "/home/user/media/bf-miata-mr2-night-meet/dec/nc_cut_fender.stl",
-   "off": [
-    3,
-    11
-   ],
-   "dir": [
-    -1,
-    -0.2,
-    0.8
-   ],
-   "dist": 7,
-   "part": [
-    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_fender_cuts.stl"
-   ],
-   "on": [
-    10,
-    23
-   ],
-   "from": [
-    -1.2,
-    0,
-    0.6
-   ]
-  }
- ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s08",
- "frames": 38,
+ "frames": 35,
  "fps": 15,
  "res": [
   540,
