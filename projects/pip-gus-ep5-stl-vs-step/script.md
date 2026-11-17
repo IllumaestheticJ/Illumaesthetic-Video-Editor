@@ -19,7 +19,7 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 - The deviation map is colour only.
 - End the video with the question "Do you design in CAD or in mesh?".
 
-Status: **DRAFT. No voices or renders until the owner approves.** Open questions are marked [VERIFY] and listed at the bottom.
+Status: **Script APPROVED by owner 2026-11-17.** Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
 
 ## v4 changes (series order v0.4, 2026-11-17)
 - **Renumbered to Ep 5.** The callback now points to Ep 4, and the hand-off to Ep 6.
