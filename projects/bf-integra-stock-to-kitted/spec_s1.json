@@ -112,5 +112,6 @@
  "res_pct": 50,
  "samples": 8,
  "persistent": false,
- "out": "/home/user/media/bf-integra-stock-to-kitted/render/s1_stockpass/"
+ "out": "/home/user/media/bf-integra-stock-to-kitted/render/s1_stockpass_rgba/",
+ "transparent": true
 }

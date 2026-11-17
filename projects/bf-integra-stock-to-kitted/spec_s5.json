@@ -307,6 +307,7 @@
  "res_pct": 50,
  "samples": 12,
  "persistent": false,
- "out": "/home/user/media/bf-integra-stock-to-kitted/render/s5_kit/",
- "exposure": 0.8
+ "out": "/home/user/media/bf-integra-stock-to-kitted/render/s5_kit_rgba/",
+ "exposure": 0.8,
+ "transparent": true
 }
