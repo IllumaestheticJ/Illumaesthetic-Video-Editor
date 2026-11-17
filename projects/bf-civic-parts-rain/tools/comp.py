@@ -139,7 +139,7 @@ if __name__ == "__main__":
     os.makedirs(os.path.dirname(FINAL), exist_ok=True)
     mus = f"{M}/music/freaked_out.wav"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-i", f"{OUTD}/c_%04d.png", "-ss", f"{MUSIC_START}", "-t", f"{N/30:.3f}", "-i", mus,
-                    "-filter_complex", f"[1:a]afade=t=out:st={N/30-0.6:.3f}:d=0.6,volume={sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith('dB') else '0dB'},alimiter=limit=0.82:level=disabled[a]",
+                    "-filter_complex", f"[1:a]afade=t=out:st={N/30-0.6:.3f}:d=0.6,volume={sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith('dB') else '0.7dB'},alimiter=limit=0.82:level=disabled[a]",
                     "-map", "0:v", "-map", "[a]", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-preset", "medium",
                     "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", FINAL], check=True)
     print("WROTE", FINAL)

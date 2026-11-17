@@ -64,3 +64,9 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
 - The CGI cars are shifted left and up (shift_x 0.05, shift_y 0.12) to clear the like/share rail, with the parts line below them.
 - Known: in the side view at the skirt landing (~12 s) the car's tail reaches slightly into the right rail. There is no text there.
 - Sync and loudness are unchanged (±14 ms, -14.0 LUFS, TP -2.4 dBFS).
+
+## v0.4 (owner notes on v0.3: first scene too long, parts snap on the beat, falling parts a bit blurred, parts bigger)
+- Music from song 9.25 s: the first landing is 2.07 s in, and the video is 15.67 s (470 frames). This overrides the "from the beginning" house rule at the owner's request.
+- Landings on four consecutive post-drop grid hits: lip 11.320 (frame 62), skirts 12.365 (93), rear lip 13.436 (126), wing 14.495 (157). The 1:1 cut to render 7 is on 15.534 (189), FE 17.459 (246), FL 19.792 (316), end card 21.554 (369).
+- Rain is 1.6x bigger with faster falls (2.2-3.2 s), rendered as its own layer (car and kit held out on a transparent film) and blurred 5 px in comp (premultiplied). Same for the offer shots.
+- Checks: sync within -17..+10 ms on the decoded audio. Loudness -14.0 LUFS after remixing the audio at +0.7 dB (this part of the song is louder than the first 26 s). safezone_check text boxes OK.
