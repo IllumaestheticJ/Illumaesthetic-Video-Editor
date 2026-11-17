@@ -14,7 +14,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = "/home/user/media/bf-civic-parts-rain"; OUTD = f"{M}/comp"; os.makedirs(OUTD, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.4.mp4"
+FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.5.mp4"
 W, H = 1080, 1920
 # v0.4: music from MUSIC_START (owner: first scene too long); frames = (song time - MUSIC_START) * 30 on measured hits:
 # lip 11.320, skirts 12.365, rear lip 13.436, wing 14.495, render-7 cut 15.534, FE 17.459, FL 19.792, end card 21.554, CTA 21.905, end 24.9
@@ -25,6 +25,10 @@ F_CH_IN, F_CH_OUT = 169, 300
 OFF = (232, 236, 242)
 ID_B = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"; ID_M = "/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf"
 MONO = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
+# v0.5 fonts (owner rule, knowledge/fonts.md): headlines/offers in Akira (file not supplied yet -> Unbounded 700 stand-in);
+# text next to the Epsilon+ wordmark and small labels in Unbounded 300-500
+UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-%d.ttf"
+AKIRA = UB % 900; U300, U400, U500 = UB % 300, UB % 400, UB % 500   # Akira stand-in: Unbounded 900 (in repo since e15b34b); re-check headline widths when the next version is cut
 def font(p, s): return ImageFont.truetype(p, s)
 
 SAFE_CX = 484
@@ -96,10 +100,10 @@ def frame(f):
     if f < F_FLASH:
         img = layered(f"{M}/renders/take_car/f_{f:04d}.png", f"{M}/renders/take_rain/f_{f:04d}.png")
         e = env(f, 3, 56, 6)
-        if e: text(img, "BLACK FRIDAY", 96, 330, ID_B, 8, e)
+        if e: text(img, "BLACK FRIDAY", 80, 330, AKIRA, 4, e)
         for a, b, s in ((F_LIP, F_SKIRT - 3, "FRONT LIP"), (F_SKIRT, F_REAR - 3, "SIDE SKIRTS"), (F_REAR, F_WING - 3, "REAR LIP"), (F_WING, F_R7 - 1, "SPORT WING")):
             e = env(f, a, b, 4)
-            if e: text(img, s, 40, 1370, MONO, 8, e)
+            if e: text(img, s, 38, 1370, U500, 6, e)
     elif f < F_R7:
         img = load(f"{M}/footage/flash/f_{f - F_FLASH + 1:04d}.png")
     elif f < F_4A:
@@ -110,12 +114,12 @@ def frame(f):
         car = "fe" if f < F_4B else "fl"; i = f - (F_4A if car == "fe" else F_4B)
         img = layered(f"{M}/renders/cgi_{car}_car/f_{i:04d}.png", f"{M}/renders/cgi_{car}_rain/f_{i:04d}.png")
         e = env(f, F_4A, F_END - 1, 5)
-        text(img, "BLACK FRIDAY", 60, 300, ID_M, 14, e)
-        text(img, "30% OFF", 176, 372, ID_B, 6, e)
-        text(img, "THE FULL KIT", 88, 575, ID_B, 10, e)
+        text(img, "BLACK FRIDAY", 48, 300, U500, 10, e)
+        text(img, "30% OFF", 136, 372, AKIRA, 4, e)
+        text(img, "THE FULL KIT", 79, 550, AKIRA, 6, e)
         sub = "CIVIC FE · LIP · SKIRTS · REAR LIP · WING" if car == "fe" else "CIVIC FL · LIP · SKIRTS · WING"
-        text(img, sub, 29, 1310, MONO, 3, e)
-        text(img, "PAINT-MATCH AT FULL PRICE", 27, 1365, MONO, 4, e * 0.8)
+        text(img, sub, 30, 1310, U500, 2, e)
+        text(img, "PAINT-MATCH AT FULL PRICE", 26, 1365, U400, 3, e * 0.8)
     else:
         e = env(f, F_END, N + 20, 6)
         lg = LOGO.copy(); lg.putalpha(lg.getchannel("A").point(lambda v: int(v * e)))
@@ -123,8 +127,8 @@ def frame(f):
         BOXES[('logo', 840)] = {"text": "Epsilon+ wordmark", "x": SAFE_CX - LOGO.size[0] // 2, "y": 840, "w": LOGO.size[0], "h": LOGO.size[1], "key": True}
         e2 = env(f, F_CTA, N + 20, 6)
         if e2:
-            text(img, "SHOP DEALS NOW", 58, 1010, ID_B, 10, e2)
-            text(img, "WWW.EPSILON.PLUS", 46, 1090, ID_M, 12, e2)
+            text(img, "SHOP DEALS NOW", 47, 1010, U400, 8, e2)
+            text(img, "WWW.EPSILON.PLUS", 40, 1085, U300, 8, e2)
     if f >= N - 15:  # picture fade to black
         k = max(0.0, 1 - (f - (N - 16)) / 15); blk = Image.new("RGBA", (W, H), (0, 0, 0, int(255 * (1 - k)))); img.alpha_composite(blk)
     return img.convert("RGB")

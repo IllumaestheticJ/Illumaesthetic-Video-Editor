@@ -70,3 +70,9 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
 - Landings on four consecutive post-drop grid hits: lip 11.320 (frame 62), skirts 12.365 (93), rear lip 13.436 (126), wing 14.495 (157). The 1:1 cut to render 7 is on 15.534 (189), FE 17.459 (246), FL 19.792 (316), end card 21.554 (369).
 - Rain is 1.6x bigger with faster falls (2.2-3.2 s), rendered as its own layer (car and kit held out on a transparent film) and blurred 5 px in comp (premultiplied). Same for the offer shots.
 - Checks: sync within -17..+10 ms on the decoded audio. Loudness -14.0 LUFS after remixing the audio at +0.7 dB (this part of the song is louder than the first 26 s). safezone_check text boxes OK.
+
+## v0.5 fonts (owner rule, knowledge/fonts.md)
+- Headlines and offer ("BLACK FRIDAY" title, "30% OFF", "THE FULL KIT") use **Unbounded 700 as a stand-in for Akira**. The Akira file has not been supplied, and the repo only has Unbounded 300-700, so 800-900 was not available.
+- Small header, part labels and parts line: Unbounded 500. Fine print: Unbounded 400.
+- Next to the wordmark: "SHOP DEALS NOW" in Unbounded 400 and "WWW.EPSILON.PLUS" in Unbounded 300.
+- Checks: -14.0 LUFS, sync unchanged, safezone text boxes OK.
