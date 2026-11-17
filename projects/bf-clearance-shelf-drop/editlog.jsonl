@@ -18,3 +18,4 @@
 {"ts": "2026-11-17T06:56:24Z", "decision": "Delivered v0.1 draft (15.0 s, no characters)", "why": "Owner asked for quick first drafts; checks: -14.2 LUFS, cuts on kicks, 1:1 frames verified"}
 {"ts": "2026-11-17T10:23:07Z", "decision": "v0.2: tags redesigned (700x900, 128-140 px prices, BLACK FRIDAY bar) and hung 1.15 m from the final camera; aisle sign 1.0 m", "why": "Owner: make the signs easier to read; v0.1 tags were ~1/3 frame wide with ~25 px text"}
 {"ts": "2026-11-17T10:23:07Z", "decision": "v0.2: product parts (duckbill, V1 lip) in gloss 2x2 twill carbon; everything else stays silver", "why": "Owner: make the actual duckbill and the lip carbon to contrast the rest of the scans"}
+{"ts": "2026-11-17T11:54:24Z", "decision": "v0.2 assembled: readable tags + carbon duckbill/V1 lip", "why": "owner: signs hard to read; carbon parts should contrast the silver scans"}
