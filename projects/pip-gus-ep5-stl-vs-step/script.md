@@ -1,14 +1,15 @@
-# Pip & Gus Ep 4 (was Ep 8): "STL or STEP? Mesh vs NURBS". Script v3 (for owner approval)
+# Pip & Gus Ep 5 (files step; v0.2 Ep 8): "STL or STEP? Mesh vs NURBS". Script v4 (for owner approval)
 
 9:16, 1080x1920, 30 fps, about 35.5 s in total.
 - **Cartoon:** about 0-27 s.
 - **Real footage:** about 27-32 s.
-- **Closing card:** 32-35.5 s. It carries the logo and the question text, with the hand-off to Ep 5 as voice only.
+- **Closing card:** 32-35.5 s. It carries the logo and the question text, with the hand-off to Ep 6 as voice only.
 
-**Series position (owner reorder, 2026-11-17; see "Series order and transitions" in `projects/pip-gus-series/scripts.md`):**
-- Ep 3 ("Can't you just 3D print the scan?") ends with Pip asking "If the scan's a mesh, what do you design in?".
-- This episode opens on Ep 3's mesh on the laptop, with Pip repeating that question.
-- It ends over the logo card with the lead-in to Ep 5 (big vs small printers).
+**Series position (v0.4, owner 2026-11-17; see "Series order and transitions" in `projects/pip-gus-series/scripts.md`):**
+- This is the **files** step of making Pip's bumper.
+- Ep 4 ("Can't you just 3D print the scan?") ends with Pip asking "If the scan's a mesh, what do you design in?".
+- This episode opens on Ep 4's mesh on the laptop, with Pip repeating that question.
+- It ends over the logo card with the lead-in to Ep 6 (SeamForge, the cutting step).
 
 There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 
@@ -20,10 +21,15 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 
 Status: **DRAFT. No voices or renders until the owner approves.** Open questions are marked [VERIFY] and listed at the bottom.
 
+## v4 changes (series order v0.4, 2026-11-17)
+- **Renumbered to Ep 5.** The callback now points to Ep 4, and the hand-off to Ep 6.
+- **New hand-off line:** Gus now says "It's bigger than the printer."
+- **The cartoon prop is now Pip's bumper** (the series through-line), not a mirror shell. "Bigger than the printer" only works for a bumper.
+
 ## v3 changes (series reorder, 2026-11-17)
-- **New opening:** the Ep 3 callback replaces the envelope/"manufacturer wants a STEP" gag. Line 2 is now "Not the mesh. STL is just triangles."
+- **New opening:** the Ep 3 (now Ep 4) callback replaces the envelope/"manufacturer wants a STEP" gag. Line 2 is now "Not the mesh. STL is just triangles."
 - **Line 8 still lands:** "Print the mesh, send the STEP" now answers the opening question directly.
-- **Ending:** the voice-only hand-off to Ep 5 is added over the closing card.
+- **Ending:** the voice-only hand-off to the next episode is added over the closing card.
 
 ## What changed from the series draft (scripts.md v0.2)
 - **Cut "a hundred flat bits".** It reads as a number, so the line is now "terrible to edit" and the picture does the explaining.
@@ -37,13 +43,13 @@ Status: **DRAFT. No voices or renders until the owner approves.** Open questions
 
 | # | t (s) | Who | Line (emotion tag for v4) | Picture | Caption |
 |---|---|---|---|---|---|
-| 1 | 0.2-3.0 | PIP | [curious] "If the scan's a mesh, what do you design in?" | Callback to Ep 3: the side-mirror scan mesh on the shop laptop. Pip leans in at the screen | yes |
+| 1 | 0.2-3.0 | PIP | [curious] "If the scan's a mesh, what do you design in?" | Callback to Ep 4: Pip's bumper scan mesh on the shop laptop. Pip leans in at the screen | yes |
 | 2 | 3.2-6.2 | GUS | [matter-of-fact] "Not the mesh. STL is just triangles." | Gus taps the screen. Camera dives in until the surface is all flat triangles | yes |
 | 3 | 6.4-8.6 | GUS | "Perfect for scans. Perfect for printing." | Mesh drops into the unbranded cartoon printer, which prints it fine. A small tick pops up | yes |
 | 4 | 8.7-10.0 | GUS | [slightly annoyed] "Terrible to edit." | Gus's floating hand drags one edge, and a ragged clump of triangles tears along with it | yes |
-| 5 | 10.3-13.0 | GUS | "STEP is NURBS. Smooth math surfaces." | The same shell re-forms as a few clean glowing patches with crisp edges | yes |
+| 5 | 10.3-13.0 | GUS | "STEP is NURBS. Smooth math surfaces." | The same bumper re-forms as a few clean glowing patches with crisp edges | yes |
 | 6 | 13.1-16.2 | GUS | "Change a hole, a thickness, a fillet... it just updates." | A slider (no numbers) grows a bolt hole, then the wall thickens and an edge rounds. Each change updates cleanly | yes |
-| 7 | 16.4-17.4 | PIP | [curious] "So which one?" | Pip looks between the two shells | yes |
+| 7 | 16.4-17.4 | PIP | [curious] "So which one?" | Pip looks between the two bumpers | yes |
 | 8 | 17.5-21.0 | GUS | "Scan in mesh. Design in NURBS. Print the mesh, send the STEP." | A loop board: SCAN (STL) → CAD (STEP) → PRINT (STL) / MANUFACTURER (STEP) | yes |
 | 9 | 21.2-22.8 | PIP | [curious] "Can you turn a scan into a STEP?" | | yes |
 | 10 | 22.9-25.0 | GUS | [weary] "You rebuild it. Surface by surface." | Gus lays patches over the scan mesh one at a time. The wall clock starts to spin | yes |
@@ -69,7 +75,7 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 | 30.6-32.0 | The STL-vs-STEP deviation map: **colour only, no legend, no numbers** | Computed from the two files |
 
 **Project choice:** the Ioniq 5 side-mirror housing.
-- It has a matching scan STL and STEP pair, and it matches the cartoon's mirror shell.
+- It has a matching scan STL and STEP pair, and it is the cleanest scan + STEP pair available.
 - The same Drive folder also has these pairs as fallbacks: front bumper, rear bumper, fender, windshield, rear-liftgate centre section, door area under the mirror, and roof near the antenna.
 - A Dropbox search for "Ioniq" found no footage, so the real shot at the start of this section is still open.
 
@@ -78,9 +84,9 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
   - The Illumaesthetic logo, with **DO YOU DESIGN IN CAD OR IN MESH?** under it (owner request, 2026-11-16).
   - Fjalla One on the dark plate; this is a card, not text over footage.
   - No other call to action.
-  - **Voice only (no captions, no new text), the hand-off to Ep 5:**
+  - **Voice only (no captions, no new text), the hand-off to Ep 6:**
     - PIP [excited] "Design's done. Hit print!"
-    - GUS [matter-of-fact] "...On which printer?"
+    - GUS [matter-of-fact] "It's bigger than the printer."
   - **Check:** the series rule says the ending is voice only with no new text, and your question text is still on this card. I've kept both, since the question was your request; say if the text should go.
 
 ## Rules this script follows
@@ -97,3 +103,8 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 - **Plan:** use the real TAS shot (rear quarter, 0.8-3.4 s), then a hard cut on the beat to the mirror scan.
   - This follows the "1:1 where one fits" rule, and it is never a dissolve.
 - **Not used:** the other Ioniq part pairs (liftgate, roof). Their STLs are tiny (about 137 KB), so they look like CAD exports, not scans, and a 1:1 cut to them would not show mesh vs NURBS.
+
+## Prop vs real footage (v4)
+- **Mismatch to check:** the cartoon now uses Pip's bumper, but the real section still shows the Ioniq 5 **mirror** STL/STEP pair.
+- **Why the mirror:** it is the best scan + STEP pair we have. The Ioniq front-bumper pair exists, but its STL is about 2 MB, which looks decimated or exported rather than a raw scan.
+- **Owner to choose:** keep the mirror for the real section, or use the Ioniq front-bumper pair.
