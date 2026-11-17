@@ -83,3 +83,8 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
   - the end of the GR V1 lip (s4);
   - the Integra's flank in the s3 close-up.
 - Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.3.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS.
+
+## v0.4 (2026-11-17): owner rule "all agents should use www.epsilon.plus"
+- The end-card URL reads WWW.EPSILON.PLUS (it was EPSILON.PLUS), at x 310-770 / y 1040-1090, inside the safe zones.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.4.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS;
+  safezone_check sheet reviewed.
