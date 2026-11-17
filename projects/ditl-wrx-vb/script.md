@@ -1,4 +1,4 @@
-# DITL #1: "day in the life: average wrx owner" (VB): script v3, 2026-11-17
+# DITL #1: "day in the life: average wrx owner" (VB): script v3.1, 2026-11-17
 
 Step 1 deliverable for the series brief (`projects/ditl-series/BRIEF.md`). **Nothing has been generated or uploaded,
 and no credits were spent.** I ran free `get_cost` preflights only. Waiting on the owner.
@@ -74,10 +74,23 @@ original designs). **Unhinged hand action** per scene is marked ⚡.
 | 5 | 25.0-35.0 | 10.0 s | Red light on a four-lane road. A **BMW** on his right, a beige **Honda Odyssey** on his left (a mom driving, a kid in the back) | He looks right. The BMW guy is in the identical pose: one arm out, a vape. L7-L9. ⚡ Both of them **rev at the same time, in sync**, three times, then a long silent stare as both faces warp into mirrored horror. Then he snaps left and ⚡ **reaches over and slaps the Odyssey's passenger window** twice. L10. | BMW guy mirrors him exactly. Mom turns slowly: a flat face, one blink. The kid presses his face to the glass, grotesquely squished. | L7-L11 | Revs in stereo, window slaps, turn-signal tick (the comedic clock) | The Epsilon side skirt visible below his window line | Blender (low-poly stand-ins: a BMW sedan with the roundel, the Odyssey with the H badge, no exact models) |
 | 6 | 35.0-47.0 | 12.0 s | Same road, the light goes green | ⚡ Both hands **pound the wheel** and he full-sends: the camera pitches back, the tach flicks up, the BOV goes "pssh". The BMW launches too. **The Odyssey glides past both of them**, effortless. The kid waves out the rear window. He lifts. The tail lights shrink to dots. The BMW is beside him again; the two guys don't look at each other. Room tone. He looks down at the Accessport: **DAM 0.88**. Long silence. His hand slowly reaches out and rests on the dash. Hard cut on the last word. | The kid waves; the mom never looks over; the BMW guy stares straight ahead | L12 | Engine scream, BOV, gear crunch, the Odyssey's calm hum fading, one cooling-fan tick | The WRC wing in the rear-view mirror, still perfect | Blender + Remotion (Accessport screen) |
 
+### Face sheets (flat painted textures, swapped on the beat; each ends on a big distorted horror face, like the reference)
+| Character | Scene | Expression 1 | Expression 2 | Expression 3 (horror) |
+|---|---|---|---|---|
+| Office lady (school) | 1a | Bored, half-lidded | Eyebrows climbing at the slaps | Mouth stretched long, eyes huge, as the door bangs |
+| Recruiter | 1b | Big warm grin (L1, L3) | Proud, misty-eyed at the salute | Horror when the pen goes onto his own arm and the salute bonks |
+| BMW guy | 5, 6 | Smug squint (L7, L9) | Synchronized-rev grin | Mirrored warped horror on the stare; blank stare-ahead in 6 |
+| Mom (Odyssey) | 5, 6 | Flat, one blink (L11) | Dead-eyed at the window slap | Never changes: her non-reaction is the joke (the one exception) |
+| Kid (Odyssey) | 5, 6 | Squished on the glass | Gleeful wave out the rear window | Huge distorted grin as the van pulls away |
+
 **End:** a hard cut to black after L12 at about 47 s, like the reference. Q2 asks whether to add an Epsilon wordmark
 card instead.
 
 ## Change list
+**v3.1 (parent inspection of v2):** its notes 1 (the full kit plus WRC wing as the checkout hero, no "[BACKORDER]"
+on screen) and 2 (an unhinged hand action in every scene) were already in v3. Added a face sheet with 2-3 painted
+expressions per character, each ending on a distorted horror face. The mom stays deadpan on purpose.
+
 **v3 (parent inspection of v1, plus the owner's answers):**
 - **Dropping out of high school is the cold open (1a)**, bridging straight into the Marines (1b): the withdrawal form
   slapped on the counter, then "Diploma?" / "...GED pending." / "Welcome to the Corps, son!" The joke is his choices,
