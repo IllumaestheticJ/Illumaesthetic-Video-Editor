@@ -1,0 +1,525 @@
+{
+ "fps": 30,
+ "voice_at": 0.3,
+ "music_at": 2.4,
+ "beat0": 2.4203,
+ "beat": 0.6,
+ "voice_dur": 36.741,
+ "lines": [
+  {
+   "n": 1,
+   "speaker": "GUS",
+   "text": "Hi, I'm Gus.",
+   "t0": 0.3,
+   "t1": 1.42,
+   "words": [
+    {
+     "w": "Hi,",
+     "t0": 0.3,
+     "t1": 0.54
+    },
+    {
+     "w": "I'm",
+     "t0": 0.94,
+     "t1": 1.2
+    },
+    {
+     "w": "Gus.",
+     "t0": 1.2,
+     "t1": 1.42
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "speaker": "PIP",
+   "text": "And I'm Pip!",
+   "t0": 1.96,
+   "t1": 2.88,
+   "words": [
+    {
+     "w": "And",
+     "t0": 1.96,
+     "t1": 2.3
+    },
+    {
+     "w": "I'm",
+     "t0": 2.3,
+     "t1": 2.6
+    },
+    {
+     "w": "Pip!",
+     "t0": 2.6,
+     "t1": 2.88
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "speaker": "PIP",
+   "text": "We are the Illumaesthetic mascots!",
+   "t0": 3.62,
+   "t1": 6.06,
+   "words": [
+    {
+     "w": "We",
+     "t0": 3.62,
+     "t1": 3.82
+    },
+    {
+     "w": "are",
+     "t0": 3.82,
+     "t1": 4.14
+    },
+    {
+     "w": "the",
+     "t0": 4.14,
+     "t1": 4.32
+    },
+    {
+     "w": "Illumaesthetic",
+     "t0": 4.32,
+     "t1": 5.22
+    },
+    {
+     "w": "mascots!",
+     "t0": 5.22,
+     "t1": 6.06
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "speaker": "GUS",
+   "text": "Here in the digital world to explain to you the tips and tricks we've learned along the way... from doing this for so long.",
+   "t0": 6.38,
+   "t1": 12.92,
+   "words": [
+    {
+     "w": "Here",
+     "t0": 6.38,
+     "t1": 6.68
+    },
+    {
+     "w": "in",
+     "t0": 6.68,
+     "t1": 6.88
+    },
+    {
+     "w": "the",
+     "t0": 6.88,
+     "t1": 6.98
+    },
+    {
+     "w": "digital",
+     "t0": 6.98,
+     "t1": 7.3
+    },
+    {
+     "w": "world",
+     "t0": 7.3,
+     "t1": 7.78
+    },
+    {
+     "w": "to",
+     "t0": 7.78,
+     "t1": 7.98
+    },
+    {
+     "w": "explain",
+     "t0": 7.98,
+     "t1": 8.38
+    },
+    {
+     "w": "to",
+     "t0": 8.38,
+     "t1": 8.64
+    },
+    {
+     "w": "you",
+     "t0": 8.64,
+     "t1": 8.76
+    },
+    {
+     "w": "the",
+     "t0": 8.76,
+     "t1": 8.9
+    },
+    {
+     "w": "tips",
+     "t0": 8.9,
+     "t1": 9.2
+    },
+    {
+     "w": "and",
+     "t0": 9.2,
+     "t1": 9.44
+    },
+    {
+     "w": "tricks",
+     "t0": 9.44,
+     "t1": 9.68
+    },
+    {
+     "w": "we've",
+     "t0": 9.68,
+     "t1": 10.02
+    },
+    {
+     "w": "learned",
+     "t0": 10.02,
+     "t1": 10.2
+    },
+    {
+     "w": "along",
+     "t0": 10.2,
+     "t1": 10.4
+    },
+    {
+     "w": "the",
+     "t0": 10.4,
+     "t1": 10.66
+    },
+    {
+     "w": "way",
+     "t0": 10.66,
+     "t1": 10.98
+    },
+    {
+     "w": "from",
+     "t0": 11.22,
+     "t1": 11.42
+    },
+    {
+     "w": "doing",
+     "t0": 11.42,
+     "t1": 11.72
+    },
+    {
+     "w": "this",
+     "t0": 11.72,
+     "t1": 11.94
+    },
+    {
+     "w": "for",
+     "t0": 11.94,
+     "t1": 12.1
+    },
+    {
+     "w": "so",
+     "t0": 12.1,
+     "t1": 12.46
+    },
+    {
+     "w": "long.",
+     "t0": 12.46,
+     "t1": 12.92
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "speaker": "PIP",
+   "text": "Illumaesthetic scans whole cars in 3D...",
+   "t0": 13.28,
+   "t1": 15.9,
+   "words": [
+    {
+     "w": "Illumaesthetic",
+     "t0": 13.28,
+     "t1": 13.88
+    },
+    {
+     "w": "scans",
+     "t0": 13.88,
+     "t1": 14.32
+    },
+    {
+     "w": "whole",
+     "t0": 14.32,
+     "t1": 14.6
+    },
+    {
+     "w": "cars",
+     "t0": 14.6,
+     "t1": 14.98
+    },
+    {
+     "w": "in",
+     "t0": 14.98,
+     "t1": 15.34
+    },
+    {
+     "w": "3D",
+     "t0": 15.34,
+     "t1": 15.9
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "speaker": "GUS",
+   "text": "...sells the scans, designs the parts, prints them... and everything in between.",
+   "t0": 16.48,
+   "t1": 20.98,
+   "words": [
+    {
+     "w": "sells",
+     "t0": 16.48,
+     "t1": 16.66
+    },
+    {
+     "w": "the",
+     "t0": 16.66,
+     "t1": 16.92
+    },
+    {
+     "w": "scans,",
+     "t0": 16.92,
+     "t1": 17.2
+    },
+    {
+     "w": "designs",
+     "t0": 17.72,
+     "t1": 17.9
+    },
+    {
+     "w": "the",
+     "t0": 17.9,
+     "t1": 18.24
+    },
+    {
+     "w": "parts,",
+     "t0": 18.24,
+     "t1": 18.44
+    },
+    {
+     "w": "prints",
+     "t0": 19.0,
+     "t1": 19.06
+    },
+    {
+     "w": "them",
+     "t0": 19.06,
+     "t1": 19.38
+    },
+    {
+     "w": "and",
+     "t0": 19.72,
+     "t1": 20.0
+    },
+    {
+     "w": "everything",
+     "t0": 20.0,
+     "t1": 20.44
+    },
+    {
+     "w": "in",
+     "t0": 20.44,
+     "t1": 20.72
+    },
+    {
+     "w": "between.",
+     "t0": 20.72,
+     "t1": 20.98
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "speaker": "PIP",
+   "text": "And we'll answer all the questions you keep asking us!",
+   "t0": 21.66,
+   "t1": 24.5,
+   "words": [
+    {
+     "w": "And",
+     "t0": 21.66,
+     "t1": 21.8
+    },
+    {
+     "w": "we'll",
+     "t0": 21.8,
+     "t1": 22.04
+    },
+    {
+     "w": "answer",
+     "t0": 22.04,
+     "t1": 22.34
+    },
+    {
+     "w": "all",
+     "t0": 22.34,
+     "t1": 22.74
+    },
+    {
+     "w": "the",
+     "t0": 22.74,
+     "t1": 22.92
+    },
+    {
+     "w": "questions",
+     "t0": 22.92,
+     "t1": 23.32
+    },
+    {
+     "w": "you",
+     "t0": 23.32,
+     "t1": 23.56
+    },
+    {
+     "w": "keep",
+     "t0": 23.56,
+     "t1": 23.68
+    },
+    {
+     "w": "asking",
+     "t0": 23.68,
+     "t1": 24.18
+    },
+    {
+     "w": "us!",
+     "t0": 24.18,
+     "t1": 24.5
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "speaker": "GUS",
+   "text": "Scanning. Printing. Materials. Glue.",
+   "t0": 25.06,
+   "t1": 28.08,
+   "words": [
+    {
+     "w": "Scanning.",
+     "t0": 25.06,
+     "t1": 25.52
+    },
+    {
+     "w": "Printing.",
+     "t0": 25.92,
+     "t1": 26.12
+    },
+    {
+     "w": "Materials.",
+     "t0": 27.14,
+     "t1": 27.14
+    },
+    {
+     "w": "Glue.",
+     "t0": 28.08,
+     "t1": 28.08
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "speaker": "PIP",
+   "text": "And why we spray everything white!",
+   "t0": 28.78,
+   "t1": 32.0,
+   "words": [
+    {
+     "w": "And",
+     "t0": 28.78,
+     "t1": 29.1
+    },
+    {
+     "w": "why",
+     "t0": 29.1,
+     "t1": 30.26
+    },
+    {
+     "w": "we",
+     "t0": 30.26,
+     "t1": 30.52
+    },
+    {
+     "w": "spray",
+     "t0": 30.52,
+     "t1": 30.82
+    },
+    {
+     "w": "everything",
+     "t0": 30.82,
+     "t1": 31.4
+    },
+    {
+     "w": "white!",
+     "t0": 31.4,
+     "t1": 32.0
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "speaker": "GUS",
+   "text": "...There's a lot to cover.",
+   "t0": 32.76,
+   "t1": 34.16,
+   "words": [
+    {
+     "w": "There's",
+     "t0": 32.76,
+     "t1": 33.22
+    },
+    {
+     "w": "a",
+     "t0": 33.22,
+     "t1": 33.32
+    },
+    {
+     "w": "lot",
+     "t0": 33.32,
+     "t1": 33.64
+    },
+    {
+     "w": "to",
+     "t0": 33.64,
+     "t1": 33.86
+    },
+    {
+     "w": "cover.",
+     "t0": 33.86,
+     "t1": 34.16
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "speaker": "PIP",
+   "text": "What questions do you have?",
+   "t0": 34.68,
+   "t1": 36.2,
+   "words": [
+    {
+     "w": "What",
+     "t0": 34.68,
+     "t1": 34.98
+    },
+    {
+     "w": "questions",
+     "t0": 34.98,
+     "t1": 35.52
+    },
+    {
+     "w": "do",
+     "t0": 35.52,
+     "t1": 35.82
+    },
+    {
+     "w": "you",
+     "t0": 35.82,
+     "t1": 35.92
+    },
+    {
+     "w": "have?",
+     "t0": 35.92,
+     "t1": 36.2
+    }
+   ]
+  }
+ ],
+ "heard": "Hi, I'm Gus, and I'm Pip. We are the Alumisthetic mascots. Here in the digital world to explain to you the tips and tricks we've learned along the way, from doing this for so long. Alumisthetic scans whole cars in 3D. Cells the scans, designs the parts, prints them, and everything in between. And we'll answer all the questions you keep asking us. Scanning, printing, materials, glue. And why we spray everything white. There's a lot to cover. What questions do you have?"
+}
