@@ -182,7 +182,7 @@ def offer_screen():
     d.text(((W - d.textlength(s, font=f)) / 2, 892), s, font=f, fill=WHITE)
     y = 1120
     for name, (was, now) in (('Civic Hatch / Sedan', (450, 315)), ('Integra', (500, 350))):
-        d.text((90, y + 20), name, font=f_stat, fill=WHITE); price_block(d, 560, y - 20, was, now); y += 170
+        d.text((90, y + 20), name, font=f_stat, fill=WHITE); price_block(d, 500, y - 20, was, now); y += 170
     bottom_bar(d)
     return im
 
