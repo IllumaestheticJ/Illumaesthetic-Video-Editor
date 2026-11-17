@@ -62,3 +62,15 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
 - All text and logos now sit inside x 48-920 / y 285-1440.
 - **Remaining:** in the wide CGI and studio frames the car's front corner still reaches the rail's left edge, and the lip macro fills the frame by design. There's no text there.
 - File: `bf-gr-corolla-track_v0.3.mp4`, 19.9 s, -14.0 LUFS / -2.8 dBTP, same cut timing as v0.2.
+
+## v0.5 (user notes + owner URL rule)
+- **URL:** WWW.EPSILON.PLUS on the end card (v0.4).
+- **Drive-past:** ends 2 kicks sooner.
+- **Lip macro:** the camera is raised to about 0.6 m, looking down. The highlighted lip shot keeps the 1:1.
+- **Offer cards (6 kicks each):**
+  1. Graphite GLB car with the kit glowing in place, under a big "V2 KIT" / "V1".
+  2. A red slash strikes through it.
+  3. The body fades and the lip, one skirt and one spat lift into a 3/4 line-up as the camera moves in.
+  4. "30% OFF" / "UP TO 45% OFF" punches in at 168 px.
+  - The spat sits nearer the lens than true scale so it reads.
+- **Checks:** 20.9 s, -13.9 LUFS / -2.8 dBTP; 9 cuts within -21..+7 ms of the kicks; the safe-zone sheet passes for all text and logos.
