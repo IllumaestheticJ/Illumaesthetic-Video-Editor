@@ -1373,3 +1373,7 @@ lands here automatically. Agents must read this whole file before editing.
   downbeat with the camera continuing the previous shot's path exactly.
 - [logo] A brand logo with black ink on transparency vanishes on the black reel: reverse it (black -> off-white, keep the
   brand colour) - tools/logo_reverse.py.
+- (GR Corolla v13, user: "End with this" + an IRL clip) Scan -> IRL ending: solve the clip frame with a quick PnP
+  (cv2.solvePnP SQPNP, focal fixed 28 mm on 20.25 sensor) from 4 unambiguous rigid points ray-cast on the scan (plate,
+  emblem, wheel hubs), confirm with `ive check`; make the previous scan shot's camera spline end on it (Hermite: start
+  rate = previous shot's, end rate 0), hold 2 frames, cut on a downbeat. Check the real car's state (wing etc.) first.

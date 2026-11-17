@@ -1,29 +1,21 @@
-# Self-review - Toyota GR Corolla v12b (`toyota_gr_corolla_v12.mp4`, 44.5 s, 1080x1920)
+# Self-review - Toyota GR Corolla v13 (`toyota_gr_corolla_v13.mp4`, 53.8 s, 1080x1920)
 
-v12b (user: "missing the canards, and the full lip kit and wing are improperly placed"): engineering's parts are in
-engineering's car frame, offset from ours by 0.79 deg and (4, 59, 30) mm - found by ICP of engineering's own full-car
-scan (V2 reference blend) to our car (99 % within 12 mm, 2.5 mm rmse). Re-placed the V2 lip, skirts, spats and the wing
-(wing now within 7 mm of engineering's Wing_V2.2 CAD). Canards added (user's Drive folder: Projects_/Corolla GR/3d
-Printed Parts/Cannard), rising in with the lip; label EPSILON AERO V2 LIP + CANARDS.
-
-
-v12 = teardown (unchanged through the crash beam) + reassembly + finale (user on v11: "The epsilon aero wing needs to
-go on as the car reassembles... the small side pieces on the trunk need to come off... mounted and aligned properly";
-"After the car is fully assembled, I want a full 360 of the car while the epsilon V2 lip kit and canards also gets
-installed"). Reassembly front first so the car is consistent when the wing goes on: hood + ducts + beams + bumper,
-crash beam + rear bumper/diffuser, hatch, factory side covers off + WRC wing on, then a 2-bar 360 where the V2 lip,
-skirts and spats rise into place as the camera passes each. End card with the contact line. 18 bars. v11: review_v11.md.
+v13 = v12b + (user) new Jackson Racing logo (reversed for black); after the 360, a 1:1 cut on downbeat 18 to the Castrol
+livery (website GLB texture transferred to the scan) on Motegi MF TL6 wheels, the camera continuing the 360 and landing
+on the camera solved from the user's IMG_2005.mov; 1:1 cut scan -> IRL on downbeat 20 (2 bars of the real Castrol car
+on the highway); end card on downbeat 22. v12b review: review_v12.md.
 
 | # | Criterion | Score | Evidence |
 |---|---|---|---|
 | 1 | Hook | 4 | Unchanged opening. |
-| 2 | Beat sync | 4 | Every shot cuts on a 70-frame downbeat; 360 holds 2 bars; dip into the end card on downbeat 18. Same music grid as v9-v11. |
-| 3 | 1:1 match | n/a | No IRL. |
-| 4 | Scan quality | 4 | Wing re-registered to the CMM scans of its own endplates on this car (mirror-symmetric to 2 mm; matches engineering's Wing_V2.2 CAD bbox). Side covers traced on shut lines, recessed backing under them. V2 kit is engineering's car-frame data. Missing front-left/right-rear wheels mirrored from the complete ones so the 360 has four wheels. |
-| 5 | Story | 5 | Teardown -> JR intercooler -> rear teardown -> everything flies home -> covers off, wing on -> 360 with the V2 kit -> end card. |
-| 6 | Grade | 5 | One silver look throughout. |
-| 7 | Text | 5 | EPSILON AERO WRC WING after it seats; EPSILON AERO V2 LIP KIT after the lip seats, gone before the dip; end card contact line. No invented numbers. |
-| 8 | Ending | 5 | Complete car with wing + V2 kit in a full orbit, end card. |
-| 9 | Technical | 5 | 1080x1920, 30 fps, 1334 frames, all frames verified; -16.5 LUFS, true peak -1.6 dBFS. |
+| 2 | Beat sync | 4 | Every cut on a 70-frame downbeat; 1:1 cuts on 18 (same camera path) and 20 (solved IRL camera). |
+| 3 | 1:1 match | 4 | Scan -> IRL: 4-point PnP (plate, emblem, both left hubs) <= 3.2 px, silhouette overlay matches roof, hatch, side, wheels; scan state matches the real car (WRC wing, livery, Motegi). Night footage: edges weak, overlay judged by eye. |
+| 4 | Scan quality | 4 | Livery from engineering's website texture by nearest-surface transfer (61 % of faces; glass/grille stay silver). Wheels are engineering's Motegi/AR1 model on our scanned hubs. |
+| 5 | Story | 5 | Teardown -> reassembly -> kit -> 360 -> Castrol + Motegi -> the real car -> end card. |
+| 6 | Grade | 4 | Silver house look until the livery reveal; IRL night footage untouched. |
+| 7 | Text | 5 | CASTROL LIVERY, MOTEGI MF TL6 17X9.5 (file names) on the scan shot only; nothing over the IRL clip. |
+| 8 | Ending | 5 | Real car, then the contact end card. |
+| 9 | Technical | 5 | 1080x1920, 30 fps, 1614 frames, all renders verified; -16.4 LUFS, true peak -1.6 dBFS. |
 
-Risk: 44.5 s is long for short form; the crash beam returns by state swap, not as a moving part.
+Risk: 53.8 s is long for short form; the livery texture comes from a simplified website body (fine detail can smear on
+the scan's sharp edges); the IRL clip is 720p upscaled 1.5x.
