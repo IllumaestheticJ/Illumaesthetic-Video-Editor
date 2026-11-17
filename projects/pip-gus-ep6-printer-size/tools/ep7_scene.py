@@ -454,16 +454,18 @@ def anim_S1(fr):
     run_printer(BIG, t, 0.4, active=False)
     m, lid = talk("PIP", t)
     acc = accent("PIP", t)
-    pose(PIP, loc=(1.15, 2.05, 0.04 * math.sin(math.pi * cl((t - wt(1, 1)) / 0.25))), rz=-15, hips=(-4, 0, 0),
-         head=(-10 + 6 * acc, 0, lerp(-30, 10, ease(cl((t - wt(1, 2)) / 0.5)))), armL=(-140, 0, -18), elbowL=-25, armR=(-35, 0, -20),
-         elbowR=-40, mouth=m, lid=lid, look=lerpv((0.6, -0.3), (-0.6, 0.8), ease(cl((t - wt(1, 2)) / 0.5))))
+    pose(PIP, loc=(0.6, 1.55, 0.04 * math.sin(math.pi * cl((t - wt(1, 1)) / 0.25))), rz=-20, hips=(-4, 0, 0),
+         head=(-10 + 6 * acc, 0, lerp(-35, 5, ease(cl((t - wt(1, 2)) / 0.5)))), armL=(-140, 0, -18), elbowL=-25, armR=(-35, 0, -20),
+         elbowR=-40, mouth=m, lid=lid, look=lerpv((0.7, -0.2), (-0.6, 0.6), ease(cl((t - wt(1, 2)) / 0.5))))
     gm, glid = talk("GUS", t)
-    pose(GUS, loc=(0.25, 1.75, 0), rz=15, head=(4, 0, -18), armL=(-30, 0, 6), armR=(-20, 0, -6), mouth=gm, lid=glid,
+    pose(GUS, loc=(-0.3, 1.85, 0), rz=10, head=(4, 0, -18), armL=(-30, 0, 6), armR=(-20, 0, -6), mouth=gm, lid=glid,
          look=(0.7, 0.2))
+    # callback: close on the laptop's exported pieces, then an arc up and back over the characters' heads to the shop
     k = ease(cl(u / 0.85))
     near_loc, near_tgt = Vector((1.72, 2.25, 1.13)), Vector((1.86, 2.98, 1.02))
-    far_loc, far_tgt = Vector((-0.2, -4.0, 1.55)), Vector((-0.2, 2.4, 1.25))
-    look(cam, near_loc.lerp(far_loc, k), near_tgt.lerp(far_tgt, k), lerp(30, 30, k))
+    far_loc, far_tgt = Vector((-0.05, -2.5, 1.5)), Vector((0.0, 2.3, 1.2))
+    loc = near_loc.lerp(far_loc, k) + Vector((0.0, 0.0, 0.95 * math.sin(math.pi * k)))
+    look(cam, loc, near_tgt.lerp(far_tgt, k), 28)
 
 
 BIG_BUMP = (-0.95, 0.75, 0.0)
