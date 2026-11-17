@@ -2,6 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
+- [pip-gus-ep1-whole-bumper](pip-gus-ep1-whole-bumper/) - archived 2026-11-17
 - [lexus-is350-speedrun-long](lexus-is350-speedrun-long/) - archived 2026-11-13
 - [toyota-gr86](toyota-gr86/) - archived 2026-11-12
 - [porsche-gt3rs-992](porsche-gt3rs-992/) - archived 2026-11-12

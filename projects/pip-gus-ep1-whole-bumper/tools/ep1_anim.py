@@ -847,7 +847,9 @@ def anim_E07(fr):
         set_vis(CLOCK, False)
     gus_pose(t, G_HOME, 18, look_=(0.5, 0.7), head=(-10, 0, -4), armR=(-60, 0, -20), elbowR=-40)
     pip_pose(t, P_HOME, -20, look_=(-0.4, 0.9), head=(-16, 0, 4))
-    cam_push((0.12, -4.6, 2.2), (0.12, -1.3, 2.05), 34, 0.12 * ease(u))
+    # v1.1: after the clock drops, tilt down the bill so ~250 HRS (bottom slot) is on screen when it lands
+    kt = ease(cl((t - th) / 0.6))
+    cam_push((0.12, -4.6, lerp(2.2, 1.35, kt)), (0.12, -1.3, lerp(2.05, 0.55, kt)), 34, 0.12 * ease(u))
 
 
 def anim_E08(fr):

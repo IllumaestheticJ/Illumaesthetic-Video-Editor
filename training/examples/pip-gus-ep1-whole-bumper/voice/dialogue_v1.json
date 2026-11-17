@@ -1,0 +1,15 @@
+[
+ {"line": 1, "who": "PIP", "text": "[excited] Why can't I just print the bumper I want?"},
+ {"line": 2, "who": "GUS", "text": "[matter-of-fact] Sure. Scan the car. Design it."},
+ {"line": 3, "who": "GUS", "text": "[dry] It won't fit on a printer. So... pieces."},
+ {"line": 4, "who": "GUS", "text": "[matter-of-fact] Six or seven kilos of filament."},
+ {"line": 5, "who": "PIP", "text": "[hopeful] That's cheap, right?"},
+ {"line": 6, "who": "GUS", "text": "[dry] The good stuff? About two hundred bucks."},
+ {"line": 7, "who": "GUS", "text": "[slightly annoyed] One fails overnight. Again."},
+ {"line": 8, "who": "GUS", "text": "[matter-of-fact] Then glue. Filler. Sanding. Primer."},
+ {"line": 9, "who": "PIP", "text": "[impatient] Is it done yet?"},
+ {"line": 10, "who": "GUS", "text": "[sighs] ...No. [dry] And it's heavier. And weaker."},
+ {"line": 11, "who": "PIP", "text": "[deflated] ...So buying one is cheaper?"},
+ {"line": 12, "who": "GUS", "text": "[thoughtful] ...Usually. Unless it's discontinued... or you're making them to sell."},
+ {"line": 13, "who": "GUS", "text": "[dry] If you insist..."}
+]
