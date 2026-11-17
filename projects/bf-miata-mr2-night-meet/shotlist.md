@@ -1,11 +1,16 @@
-# BF 7/8 - "miata-mr2-night-meet" - shot list (PLAN, awaiting user approval)
+# BF 7/8 - "miata-mr2-night-meet" - shot list
+
+> **2026-11-17 owner decision (MASCOT_AND_PRICES.md e05c325): no Del & Eps in the BF videos; typical Epsilon+ branding instead.**
+> The character beats below are removed: shots 2 and 8 are scan-only, and shot 10 is the two kitted silver scans with the label
+> "MR2 SPYDER + NC MIATA / EPSILON+ · FIBERGLASS AERO". Draft v0.1 follows this.
+ (PLAN, awaiting user approval)
 
 Planned 2026-11-17. Nothing rendered. Production starts only after the user approves this plan in chat.
 
 ## Concept (one line)
 Moody night parking-lot meet: an Epsilon-kitted MR2 Spyder (ZZW30) and NC Miata under sodium lamps. Each sale part gets a beat;
-each car makes one hard 1:1 cut into its silver scan, where Eps walks in and the Epsilon part lands. Del & Eps close on
-the 10 mm gag in the silver scan world, then the 20 % card (sale parts only; the MR2 front bumper is excluded) and the Epsilon+ wordmark.
+each car makes one hard 1:1 cut into its silver scan, where the Epsilon part lands. both kitted scans share
+a silver hero shot, then the 20 % card (sale parts only; the MR2 front bumper is excluded) and the Epsilon+ wordmark.
 
 ## Target
 - 9:16, 1080x1920, 30 fps, **~22-24 s** (short-form; two cars + card + logo need a little more than 20 s).
@@ -28,32 +33,22 @@ mix at -14 LUFS with true peak below -1 dBFS, and fit the beat grid to kick peak
 Legend: CGI = epsilon.plus lookbook GLB in the night-lot environment. SCAN = engineering-Drive scan in the house satin
 silver on black, with the GLB kit part nested by `kit_nest2.py`. Labels (Remotion `ScanHUD`) appear only on SCAN shots or
 cards, never on IRL footage, with at most two items on screen.
-**Del & Eps**: the Epsilon+ mascots, in the owner's **locked look** of 2026-11-17. Spec:
-`knowledge/characters/del-and-eps/README.md` on branch `claude/clever-shannon-u8rv5l`; the reference image is
-`del-eps-model-sheet.jpg`; summary in `projects/_blackfriday/MASCOT_AND_PRICES.md`.
-- **Style:** matte arcade-racing-game 3D.
-- **Del:** short salt-and-pepper boxed beard, headset over a petrol-teal cap with an orange brim, teal and orange crew shirt.
-- **Eps:** violet cap worn backwards, dark visor with yellow eye marks, violet and yellow shirt, handheld scanner with cyan lenses.
-- **No lip-sync** for either character.
-**World rule:** cars stay plain silver scans and the characters are the only colour in frame. So Del & Eps appear **only in
-the silver scan shots (2, 8, 10)**, never in the coloured CGI lot shots. Production: each character beat is generated in
-Higgsfield with the model sheet as the reference image, then composited over our own scan render from the same camera
-(no Blender rig). The cost is stated before any credits are spent.
+**Characters:** none (owner, e05c325). Typical Epsilon+ branding only.
 **MR2 front bumper is NOT on sale** (owner's BF doc), so it is never featured, labelled or listed. It stays on the car only
 as part of the kit (Q2).
 
 | # | time (s) | dur | beat | camera | subject | source asset (exact) | action | on-screen text (source) | transition out | render |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | 0.0-1.5 | 1.5 | b0-3 | low side-front 3/4 at wheel height, 35 mm, slow push-in 8 % | MR2 front fender + skirt under a sodium lamp, wet asphalt | `eps-toyota-mr2-spyder-v19.glb` (red paint) in the `lot_env.py` night lot (from `tools/city_env.py`). **If** sheeting finds the MR2 in the 2025-07-24 night-meet footage, this shot becomes that IRL clip | headlights flick on; the lamp reflection rolls along the skirt | none | **hard 1:1 cut on b3** (CGI -> scan, same camera) | Blender Cycles |
-| 2 | 1.5-3.5 | 2.0 | b3-7 | same camera, the push-in continues | MR2 silver scan; Eps scans in beside the front wheel | Drive `MR2 Spyder Scan Data/Full Car Top Down.stl` (1F1JS1meWgjj3xeYpM8Su-FV6bZC07H1X) + GLB `part_side_skirts` over `body_fender_cut_stock` + `trim_fender_liner_stock`; Eps composite (Higgsfield, ref = model sheet) | Eps walks into frame and sweeps his scanner across the fender; the stock fender/skirt zone comes off **whole** and leaves frame; the Epsilon skirt/fender combo drops in and seats on b5 | "SIDE SKIRT / FENDER COMBO" (Shopify title) | hard cut | Blender |
+| 2 | 1.5-3.5 | 2.0 | b3-7 | same camera, the push-in continues | MR2 silver scan | Drive `MR2 Spyder Scan Data/Full Car Top Down.stl` (1F1JS1meWgjj3xeYpM8Su-FV6bZC07H1X) + GLB `part_side_skirts` over `body_fender_cut_stock` + `trim_fender_liner_stock` | The stock fender/skirt zone comes off **whole** and leaves frame; the Epsilon skirt/fender combo drops in and seats on b5 | "SIDE SKIRT / FENDER COMBO" (Shopify title) | hard cut | Blender |
 | 3 | 3.5-4.5 | 1.0 | b7-9 | macro, headlight height, lateral slide | MR2 headlight eyelids | GLB `part_eyelids` (CGI) | a lamp flare slides across the eyelid edge | none | hard cut | Blender |
 | 4 | 4.5-5.5 | 1.0 | b9-11 | high 3/4 over the hood, 50 mm (never straight overhead, lesson L416) | MR2 hood vents | GLB `part_hood_vents` replacing `body_hood_vent_stock` (cut the way the lookbook does it, per the MR2 v4 reviewer fix) | rain beads, heat shimmer from the vents | none | hard cut | Blender (on sale: $400 -> $320) |
 | 5 | 5.5-7.0 | 1.5 | b11-14 | rear-3/4 low, slow rise | MR2 rear: spats + duckbill, taillight glow | GLB `part_rear_spats`, `part_duckbill` | the taillights glow; the camera rises over the duckbill | none | hard cut on the downbeat (car change) | Blender |
 | 6 | 7.0-8.5 | 1.5 | b14-17 | low front-3/4, mirroring shot 1's composition | NC Miata nose under the next lamp | `eps-mazda-mx5-nc-v19.glb` (Rubystar #a61f59) or `Miata NC Complete Kit.glb` (Drive 1ZGgplW790QltSuHm_8xqWqGl8h_eucyn), whichever matches the store parts; kit config Q5 | the headlight glow comes up, camera eases in | none | **hard 1:1 cut on b17** (CGI -> scan) | Blender |
 | 7 | 8.5-10.5 | 2.0 | b17-21 | same camera, framed on the front (NC reviewer: frame the front while the bumper comes off) | NC silver scan | Drive `Mazda Miata NC` (117x9LQvHdB1J88dcs8H8bagCL9DTstfK): Full Car 1KnzXa391W0DCdSqmQe3i2IZEjGv17CLe, Front Bumper Off (Hood Closed) 1LGmOpWaPGVPgkBQeO-CQVBrkv7Qb9vTA as the part-off state, Bumper only 1LAwZsiIJwyL_-aGAqISgfvIO92hZRjek as the moving part; GLB `part_front_bumper` (+ `part_canards` if on sale and in the kit) | the stock bumper comes off **whole** and leaves frame; the Epsilon bumper slides in and seats | "FRONT BUMPER" (Shopify title) | hard cut | Blender |
-| 8 | 10.5-12.5 | 2.0 | b21-25 | front-wheel close-up, slow 15 deg orbit (one move, nothing "wasted") | NC fender cuts on the scan; micro-mode Eps (~1:10) stands on the fender edge | same NC scan + GLB `part_fender_cuts`; Eps composite in micro mode (his colours, on the silver scan) | the stock fender zone lifts off whole; the Epsilon fender cut drops on; Eps points at the cut line | "FENDER CUTS" (Shopify title) | hard cut | Blender |
+| 8 | 10.5-12.5 | 2.0 | b21-25 | front-wheel close-up, slow 15 deg orbit (one move, nothing "wasted") | NC fender cuts on the scan | same NC scan + GLB `part_fender_cuts` | the stock fender zone lifts off whole; the Epsilon fender cut drops on | "FENDER CUTS" (Shopify title) | hard cut | Blender |
 | 9 | 12.5-14.0 | 1.5 | b25-28 | low side track along the NC | NC side skirt + rear spat at night | GLB `part_side_skirts`, `part_rear_spats` (CGI) | the lamp reflection travels from the skirt to the spat | none | hard cut | Blender |
-| 10 | 14.0-16.5 | 2.5 | b28-33 | wide, high 3/4, slow crane-down (silver world) | both silver scans parked nose-to-nose on black, each with its Epsilon parts nested; Del & Eps between them | MR2 Full Car Top Down.stl + NC Full Car (ids above) with the GLB parts; Del & Eps composite (Higgsfield, ref = model sheet; the composition follows `del-eps-10mm-socket-gag.jpg`) | end sting: Eps pats his pockets ("Where's my 10 mm?"), Del pulls the 10 mm socket from his pocket and hands it over. Silent (Q3) | none | hard cut | Blender scan render + Higgsfield character plate, composited |
+| 10 | 18.33-21.66 (v0 times) | 3.3 | hit | wide, high 3/4, slow crane-down (silver world) | both silver scans side by side on black, each with its Epsilon sale parts nested | MR2 Full Car Top Down.stl + NC Full Car with the GLB parts | slow crane-down hero of both kitted cars | "MR2 SPYDER + NC MIATA" / "EPSILON+ · FIBERGLASS AERO" | hard cut | Blender |
 | 11 | 16.5-19.5 | 3.0 | b33-39 | static card | sale card | Remotion card over a darkened, blurred still of shot 10 (CGI, not IRL) | title on b33, part list on b35, in two columns: **MR2 Spyder** side skirt/fender combo, rear spats, headlight eyelids, duckbill, hood vents; **NC Miata** front bumper, fender cuts, side skirts, rear spats, canards | title wording Q1; tier and parts from the owner's BF doc (20 %: "MR2 parts, NC Miata bumper/fenders/skirts/spats/canards"), part names from Shopify; prices from the BF liquidation sheet, format per Q4; **no dates** (the sale window isn't set) | hard cut | Remotion |
 | 12 | 19.5-22.0 | 2.5 | b39-44 | static | Epsilon+ wordmark ~720 px + "epsilon.plus" | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) | lands on the last downbeat and rides the decay. Optional motto line "For every ε, there's a δ." | "epsilon.plus" | end | Remotion |
 
@@ -76,7 +71,7 @@ The characters never sit inside a part's path, and their hands touch real surfac
 | Real MR2 at night (shop, not a lot) | found | Dropbox `MR2 HARDTOP` dump, DJI_20250715210710_0030 + FX30633-649 (Jul 15 2025, 21:06-21:43) - shop interior with crew, so it does not fit "parking-lot meet" |
 | Real NC footage | found, not night | `2026-08-05 Pink NC Miata` (6-7:23 PM); `4. Photoshoots/NC Miata/` stills |
 | Style reference | found | Dropbox `/5. Claude Training/Good Reels (Epsilon)/NFSU2 car lot - 1440p.mp4` (ihAynaYnO_4AAAAAAACHHQ) |
-| Epsilon characters **Del & Eps** | found: locked reference sheet + 3 frames | `knowledge/characters/del-and-eps/` (on this branch since 46e523b): del-eps-model-sheet.jpg (THE reference), del-eps-10mm-socket-gag.jpg, del-eps-install-drill-template.jpg; Higgsfield GPT Image 2.6 jobs bdb1a2e8, 069f42d6, e3315b11, 85f40a22 |
+| Epsilon characters | **not used** (owner, e05c325: no Del & Eps in BF videos) | - |
 | Epsilon+ wordmark | found | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) |
 | Music | **to request** | see candidates |
 | BF prices | found (the owner's source of truth) | `projects/_blackfriday/PRICES.md` + `bf_liquidation_pricing.csv` (Claude Sheet "Black Friday 2026 Liquidation Pricing", Pricing tab); every MR2/NC FRP part and the duckbill are at 20 %; the MR2 front bumper is "No deal"; sale dates not set |
@@ -104,8 +99,7 @@ Still open:
    20% off" and drop the duckbill from the card, or something else?
 2. **MR2 front bumper ("No deal").** It is part of the lookbook kit. Keep it on the CGI car but never feature or label it
    (current plan), or swap it for the GLB's stock bumper (`body_front_bumper_stock`) so the ad shows no non-sale part?
-3. **Del & Eps.** The locked look is used, and they appear only in the silver scan shots (2, 8, 10). Should the 10 mm end
-   sting stay silent, or get one voiced line? Higgsfield characters and voice cost credits; I will quote the cost first.
+3. ~~Del & Eps~~: removed by the owner (no characters in BF videos).
 4. **Price format on the card.** Using the sheet (Current -> BF 2026):
    - MR2: skirt/fender combo $700 -> $560, rear spats $350 -> $280, eyelids $100 -> $80, hood vents $400 -> $320
      ($470 -> $376 with brackets), duckbill $220 -> $176.
@@ -128,9 +122,6 @@ Still open:
    time in the background (persistent data off), with a per-frame luma scan.
 6. Solve the 1:1 cuts as the same Blender camera across CGI -> scan (exact by construction); for IRL, a landmark PnP solve
    plus an onion check.
-6b. Del & Eps: for each beat (2, 8, 10), render the scan plate first, then generate the character in Higgsfield with
-   `del-eps-model-sheet.jpg` as the reference image, matched to the plate's camera and light, and composite it (matte,
-   contact shadow). One test frame goes to the owner before the rest are made; credit cost stated before generating.
 7. Remotion: labels (ScanHUD), the FIBERGLASS 20% OFF card, the Epsilon+ wordmark card.
 8. `ive assemble`; check every cut against the decoded audio (≤ half a frame), mix -14 LUFS / TP < -1 dBFS; contact sheet +
    frames ±2 around each cut; self-score `review.md`; deliver; record feedback; archive; commit + push.
