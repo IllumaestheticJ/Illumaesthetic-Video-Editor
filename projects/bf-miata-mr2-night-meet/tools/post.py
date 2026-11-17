@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v0.mp4"
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v0.1.mp4"   # v0.1: no Del & Eps (owner, e05c325)
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -20,7 +20,6 @@ FM = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
 if not os.path.exists(FM):
     FM = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf"
 OFF = (232, 236, 242)
-CH = {k: Image.open(f"{M}/chars/eps{k}.png").convert("RGBA") for k in range(3)}
 LOGO = Image.open(f"{M}/logo/Epsilon+ Logo.png").convert("RGBA")
 
 
@@ -47,10 +46,10 @@ def put_char(base, img, h, cx, by, alpha=1.0, shadow=True):
     base.alpha_composite(r, (int(cx - r.width / 2), int(by - h)))
 
 
-def label(base, t, line1, line2):
+def label(base, t, line1, line2, y=300):
     a = int(255 * ease(t * 4)); d = ImageDraw.Draw(base)
-    d.text((90, 300), line1, font=font(FD, 66), fill=(*OFF, a))
-    d.text((92, 392), line2, font=font(FM, 34), fill=(*OFF, int(a * 0.8)))
+    d.text((90, y), line1, font=font(FD, 66), fill=(*OFF, a))
+    d.text((92, y + 92), line2, font=font(FM, 34), fill=(*OFF, int(a * 0.8)))
 
 
 def card(base_img, i, n):
@@ -100,20 +99,18 @@ def main():
                 fr = logo(i, n)
             else:
                 fr = shot_frame(s, i).convert("RGBA"); t = i / n
-                if s == "s02":   # Eps walks in from the right as the skirt lands
-                    x = 1080 + 260 - 470 * ease((i - 10) / 22); put_char(fr, CH[0], 760, x, 1560, alpha=ease((i - 8) / 6))
+                if s == "s02":
                     if i > n * 0.62: label(fr, (i - n * 0.62) / n, "SIDE SKIRT / FENDER", "MR2 SPYDER · FIBERGLASS")
                 if s == "s07" and i > n * 0.62: label(fr, (i - n * 0.62) / n, "FRONT BUMPER", "NC MIATA · FIBERGLASS")
-                if s == "s08":   # micro-mode Eps on the fender line
-                    put_char(fr, CH[1], 330, 300, 1150, alpha=ease((i - 22) / 6))
-                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS")
-                if s == "s10":   # 10 mm sting
-                    put_char(fr, CH[2], 560, 540, 1700, alpha=ease(i / 5))
+                if s == "s08":
+                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS", y=1380)
+                if s == "s10":   # both kitted scans (owner: no characters, typical branding)
+                    if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ · FIBERGLASS AERO")
                     last10 = fr.convert("RGB")
             fr.convert("RGB").save(f"{OUT}/{k:05d}.jpg", quality=92); k += 1
     print("frames", k)
     dur = k / 30
-    vid = f"{M}/work/v0_silent.mp4"
+    vid = f"{M}/work/v01_silent.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-i", f"{OUT}/%05d.jpg", "-c:v", "libx264", "-pix_fmt", "yuv420p",
                     "-crf", "18", vid], check=True)
     seg = f"{M}/work/music_seg.wav"

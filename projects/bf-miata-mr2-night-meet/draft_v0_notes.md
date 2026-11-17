@@ -1,4 +1,11 @@
-# bf-miata-mr2-night-meet: draft v0 notes (2026-11-17)
+# bf-miata-mr2-night-meet: draft v0 / v0.1 notes (2026-11-17)
+
+**v0.1** (`/home/user/media/work/out/bf-miata-mr2-night-meet_v0.1.mp4`) re-cuts v0 with no Del & Eps (owner, e05c325; the
+relayed instruction reached this session only after v0 was rendered).
+- Shots 2 and 8 are scan-only. The shot 8 label moved below the car.
+- Shot 10 is the two kitted silver scans with "MR2 SPYDER + NC MIATA / EPSILON+ · FIBERGLASS AERO".
+- Loudness and cut frames are unchanged: 24.1 s, -14.2 LUFS, TP -1.8 dBFS.
+- The 1.5 Higgsfield credits spent on the v0 stills are not reused. Item 5 below applies to v0 only.
 
 The user said "go" in chat after the owner asked (via the parent session) for a quick, short first draft from every BF agent.
 The draft is preview quality: Cycles CPU at 540x960, 12-16 samples, rendered at 15 fps, each frame doubled to 30 fps and
