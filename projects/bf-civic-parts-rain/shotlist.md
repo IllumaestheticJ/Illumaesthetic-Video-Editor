@@ -18,6 +18,7 @@ Planned 2026-11-17. Nothing is rendered until the owner approves this plan in ch
 
 ## Music candidates (to confirm)
 The track must be real and licensed, never generated, and not used by an earlier reel. Already used: `honda-civic-11_track.mp3` (generated) and Le Castle Vania (see projects/*/project.yaml). It starts from the song's beginning and is mixed at -14 LUFS with true peak below -1 dBFS.
+- Each BF video uses a different track: claim it in `projects/_blackfriday/MUSIC.md` before settling. GT2 "Arcade Mode Theme" is taken by BF 4; BF 3 is considering "Get Low" (NFSU) and Juiced "Killa".
 - **Plan:** pull 3 tracks from the TikTok Commercial Music Library with the Higgsfield `tiktok_music_trending` tool (lesson from gr-corolla). Pick ones with a hard kick from bar 1, at 115-130 BPM, so every cut and landing has a hit. Bouncy, flex-y and "money"-energy, to suit the bills-raining joke.
 - If the owner has a song in mind, it takes priority.
 - Beat labels below (B1 = first downbeat, 4 beats per bar) are placeholders until `ive beats` plus the kick-peak fit are run on the chosen track.
