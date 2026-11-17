@@ -447,7 +447,7 @@ def shot_E1(t):
     P(PIP, "PIP", t, "curious", seed=2, loc=(2.75, 1.85, 0.3), rz=-15, hips=(-8, 0, 0), head=(-10, 0, 0),
       armL=(-120, 0, -15), armR=(-120, 0, 15), elbowL=-20, elbowR=-20, look=(0.3, 0.4))
     P(GUS, "GUS", t, "neutral", seed=5, loc=(TX + 0.2, TY + 0.62, 0), rz=lerp(0, 40, k), head=(4, 0, -10), look=(-0.6, -0.2))
-    look(cam, (3.15, -1.0, 1.1), (3.25, 1.9, 0.7), 30)
+    look(cam, (3.4, -1.15, 1.15), (3.45, 1.9, 0.72), 30)
 
 
 def shot_E2(t):
@@ -574,11 +574,11 @@ def shot_E13(t):
     set_vis(NEWBUMPER, True)
     set_vis(PILE, False)
     # presentation shot, straight at the car's new front: Pip one side (thrilled), Gus the other (dry, to camera)
-    P(PIP, "PIP", t, "excited", seed=2, loc=(2.95, -0.72, 0), rz=-55, head=(-12, 0, 0), armL=(-150, 0, -20),
+    P(PIP, "PIP", t, "excited", seed=2, loc=(3.15, -1.08, 0), rz=70, head=(-12, 0, 0), armL=(-150, 0, -20),
       armR=(-150, 0, 20), look=(-0.3, 0.6))
-    P(GUS, "GUS", t, "annoyed" if t > L[17]["t0"] - 0.2 else "neutral", seed=5, loc=(3.0, 0.78, 0),
-      rz=lerp(60, 90, seg(t, L[17]["t0"] - 0.3, L[17]["t0"] + 0.2)), head=(0, 0, 0), look=(0.0, 0.0))
-    look(cam, (6.3, -0.05, 1.05), (2.4, 0.0, 0.72), 36)
+    P(GUS, "GUS", t, "annoyed" if t > L[17]["t0"] - 0.2 else "neutral", seed=5, loc=(2.8, 0.6, 0),
+      rz=lerp(130, 100, seg(t, L[17]["t0"] - 0.3, L[17]["t0"] + 0.2)), head=(0, 0, 0), look=(0.0, 0.0))
+    look(cam, (5.9, -1.35, 1.55), (2.45, 0.05, 0.55), 30)
 
 
 SHOTS9 = [  # id, t0, t1 (reel/take seconds), still time
