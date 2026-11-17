@@ -20,6 +20,8 @@ CAP = dict(PIP="#619f73", GUS="#ecefec")
 BRAND = {"accent": "#619f73", "onAccent": "#0b0c0b", "ink": "#ecefec", "bg": "#0b0c0b", "sub": "#d4d9d4", "sub2": "#c8cec8",
          "label": "#a8b0a8", "dim55": "rgba(236,239,236,0.55)", "dim50": "rgba(236,239,236,0.5)", "plate": "rgba(11,12,11,0.58)",
          "cap": "rgba(11,12,11,0.55)"}
+PHONE_CORNERS = Path("/home/user/media/pip-gus-ep9-glue/final/screen_corners.json")
+CAP_BOX = (60, 1190, 1020, 1560)   # caption plate area + margin (x0, y0, x1, y1) at y=1330, two rows of size 88
 MAXC = 16            # characters per caption row at size 88 in an 880 px box
 Y = 1330
 
@@ -28,8 +30,23 @@ def script_tokens(text):
     return [w for w in re.sub(r"\s+", " ", text.replace("...", "…")).strip().split(" ")]
 
 
+def phone_clash_t():
+    """First Part A time at which the phone screen (real footage) reaches the caption box - captions must end before it."""
+    if not PHONE_CORNERS.exists():
+        return A_END
+    cj = json.loads(PHONE_CORNERS.read_text())
+    x0, y0, x1, y1 = CAP_BOX
+    for f in sorted(map(int, cj)):
+        xs = [p[0] for p in cj[str(f)]]; ys = [p[1] for p in cj[str(f)]]
+        if min(xs) < x1 and max(xs) > x0 and min(ys) < y1 and max(ys) > y0:
+            return f / FPS
+    return A_END
+
+
 def pages():
     out = []
+    CLASH = phone_clash_t()
+    print(f"phone reaches the caption box at {CLASH:.3f} s (frame {round(CLASH * FPS)})")
     for L in VL["lines"]:
         toks = script_tokens(L["text"])
         toks = [t for t in toks if re.sub(r"[^A-Za-z']", "", t)] if len(toks) != len(L["words"]) else toks
@@ -70,7 +87,7 @@ def pages():
         a["t1"] = round(min(a["t1"], b["t0"]), 3)
     for p in out:
         if p["t0"] < A_END:
-            p["t1"] = round(min(p["t1"], A_END - 1 / FPS), 3)
+            p["t1"] = round(min(p["t1"], CLASH - 1 / FPS), 3)
         else:
             assert p["t0"] >= A_END + B_LEN
             p["t1"] = round(min(p["t1"], LOGO0 - 1 / FPS), 3)
