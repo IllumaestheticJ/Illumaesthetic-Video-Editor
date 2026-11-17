@@ -40,10 +40,8 @@ your chat if you need to watch it. What the parent measured:
 - The other characters react with deadpan or horror. The humour is satire of the owner archetype, never of the
   Epsilon product. **The Epsilon part is always the one thing that looks genuinely good** (the "aspirational
   object").
-- **Stealth insert:** the product is in the shot and accurate (logo on an endplate, a delivery box, a checkout
-  screen). No CTA card and no text overlay advertising it; the link goes in the post caption. Ask the owner whether
-  to end on the Epsilon wordmark card (house rule for product reels: Epsilon wordmark, about 720 px wide), since the
-  reference has no end card.
+- **Stealth insert:** the product is in the shot and accurate (our part geometry, real part names, live prices),
+  but with NO Epsilon logo, wordmark, store UI or end card (owner, see Owner answers). The link goes in the post caption.
 - Abrupt ending on a gag (hard cut), like the reference.
 
 ## Owner answers (2026-11-17)
