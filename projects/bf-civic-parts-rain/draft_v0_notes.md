@@ -31,5 +31,13 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
 - A faint outline of the hood hole-fill patch is visible on the scan.
 - The rain is a keyed tumble with no collision sim; it is placed so it clears the car and the camera path.
 
-## Checks run
-See the end of this file, filled in after assembly.
+## Checks run (on the delivered mp4, 2026-11-17)
+- File: 1080x1920 h264 + AAC, 30 fps, 795 frames = 26.50 s.
+- Cut/seat sync vs onsets measured on the **decoded** audio (tools/check_v0.py). All are within 14 ms (half a frame = 16.7 ms):
+  flash +13, render-7 cut -5, FE +2, FL +7, end card -14, lip +7, skirts -1, rear lip -1, wing -4 ms.
+- Loudness -14.0 LUFS integrated, true peak -2.4 dBFS, LRA 3.1 LU.
+- Take: 488 frames, no black/unlit frames (luma min 28 vs median 34-41). The 309-479 re-render splices seamlessly (diff at 308->309 equals its neighbours; 479->480 0.23).
+- Framing: the first contact checks found the car's tail cut at the skirt/rear-lip seats and the CGI FE nose on the frame edge. Both were re-rendered (take keys widened, CGI camera pulled back). The contact sheet of the first/middle/last frame of every shot now shows the whole car in frame.
+- The 1:1 end of the take vs render 7: car width 940 px both, overlay checked (renders/fit/overlay.jpg).
+- Text: 80 px margins checked by measurement (title 125 px, "30% OFF" ~90 px, parts line 86 px).
+- No text over the IRL flash.

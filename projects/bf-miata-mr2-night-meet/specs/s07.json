@@ -1,0 +1,79 @@
+{
+ "mode": "scan",
+ "cars": [
+  {
+   "car": "nc",
+   "static": [
+    "/home/user/media/bf-miata-mr2-night-meet/dec/nc_cut_fender.stl"
+   ]
+  }
+ ],
+ "camera": [
+  {
+   "f": 0,
+   "loc": [
+    -2.9370967741935483,
+    -3.856451612903226,
+    0.5596774193548387
+   ],
+   "target": [
+    -0.35,
+    -0.75,
+    0.42
+   ],
+   "lens": 26
+  },
+  {
+   "f": 37,
+   "loc": [
+    -2.4,
+    -3.2,
+    0.5
+   ],
+   "target": [
+    -0.35,
+    -0.75,
+    0.42
+   ],
+   "lens": 26
+  }
+ ],
+ "anim": [
+  {
+   "car": 0,
+   "cut": "/home/user/media/bf-miata-mr2-night-meet/dec/nc_cut_bumper.stl",
+   "off": [
+    3,
+    12
+   ],
+   "dir": [
+    -0.2,
+    -1,
+    0.5
+   ],
+   "dist": 7,
+   "part": [
+    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_front_bumper.stl",
+    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_front_lip.stl",
+    "/home/user/media/bf-miata-mr2-night-meet/kit_nc/part_canards.stl"
+   ],
+   "on": [
+    11,
+    26
+   ],
+   "from": [
+    0,
+    -1.4,
+    0.3
+   ]
+  }
+ ],
+ "out": "/home/user/media/bf-miata-mr2-night-meet/work/s07",
+ "frames": 38,
+ "fps": 15,
+ "res": [
+  540,
+  960
+ ],
+ "samples": 12
+}

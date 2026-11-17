@@ -96,6 +96,30 @@ def world(bg=0.004):
     nt.links.new(mix.outputs[0], out.inputs[0])
 
 
+_CARBON = None
+
+
+def carbon():
+    """Gloss 2x2 twill carbon (product finish) so the lip/duckbill reads against the silver scans."""
+    global _CARBON
+    if _CARBON:
+        return _CARBON
+    m = bpy.data.materials.new("carbon"); m.use_nodes = True
+    nt = m.node_tree; p = nt.nodes["Principled BSDF"]
+    tc = nt.nodes.new("ShaderNodeTexCoord"); mp = nt.nodes.new("ShaderNodeMapping")
+    mp.inputs["Scale"].default_value = (70, 70, 70); mp.inputs["Rotation"].default_value = (0, 0, math.radians(45))
+    ck = nt.nodes.new("ShaderNodeTexChecker"); ck.inputs["Scale"].default_value = 1.0
+    ck.inputs["Color1"].default_value = (0.010, 0.010, 0.011, 1); ck.inputs["Color2"].default_value = (0.055, 0.055, 0.06, 1)
+    nt.links.new(tc.outputs["Object"], mp.inputs["Vector"]); nt.links.new(mp.outputs["Vector"], ck.inputs["Vector"])
+    nt.links.new(ck.outputs["Color"], p.inputs["Base Color"])
+    p.inputs["Roughness"].default_value = 0.35
+    for nm, v in (("Coat Weight", 1.0), ("Coat Roughness", 0.03)):
+        if nm in p.inputs:
+            p.inputs[nm].default_value = v
+    _CARBON = m
+    return m
+
+
 def light(name, kind, loc, energy, size=2.0, target=None, color=(1, 1, 1)):
     d = bpy.data.lights.new(name, kind); d.energy = energy; d.color = color
     if kind == "AREA":
@@ -233,14 +257,14 @@ def tag(key, loc, yaw, flip_f):
         nt = m.node_tree; p = nt.nodes["Principled BSDF"]
         t = nt.nodes.new("ShaderNodeTexImage"); t.image = img
         nt.links.new(t.outputs["Color"], p.inputs["Base Color"])
-        nt.links.new(t.outputs["Color"], p.inputs["Emission Color"]); p.inputs["Emission Strength"].default_value = 0.35
+        nt.links.new(t.outputs["Color"], p.inputs["Emission Color"]); p.inputs["Emission Strength"].default_value = 0.9
         p.inputs["Roughness"].default_value = 0.7
         bpy.ops.mesh.primitive_plane_add(size=1)
-        o = bpy.context.object; o.scale = (0.30, 0.38, 1); o.data.materials.append(m)
+        o = bpy.context.object; o.scale = (0.40, 0.40 * 900 / 700, 1); o.data.materials.append(m)
         o.rotation_euler = (math.pi / 2, 0, rz); o.location = (0, 0.002 if side == "back" else -0.002, 0)
         o.parent = piv
     # string
-    box("string", (loc.x, loc.y, loc.z + 0.19 + 0.6), (0.006, 0.006, 1.2), RACK)
+    box("string", (loc.x, loc.y, loc.z + 0.26 + 0.6), (0.006, 0.006, 1.2), RACK)
     if flip_f:
         for f, a in ((1, yaw), (flip_f - 3, yaw), (flip_f + 3, yaw + math.pi), (flip_f + 8, yaw + math.pi + 0.08), (flip_f + 14, yaw + math.pi)):
             piv.rotation_euler = (0, 0, a); piv.keyframe_insert("rotation_euler", frame=f)
@@ -297,6 +321,7 @@ def shelf(key, shot):
     part = parts[PART[key]]
     T, P = lip_T(key, part)
     part.matrix_world = T @ part.matrix_world
+    part.data.materials.clear(); part.data.materials.append(carbon())
     warehouse()
     pallet(CFG[key]["pallet"])
     cam = camera(lens=CFG[key]["lens"])
@@ -309,7 +334,8 @@ def shelf(key, shot):
     ease_all(cam)
     # tag hangs from the pallet's near corner, facing the camera
     side = Vector((d.y, -d.x, 0)).normalized()
-    tloc = P + side * 0.30 + d * -0.10 + Vector((0, 0, 0.78))
+    right = d.cross(Vector((0, 0, 1))).normalized(); up = right.cross(d).normalized()
+    tloc = end + d * 1.15 + up * 0.30 + right * 0.06          # big in frame, above the lip (readable on a phone)
     yaw = math.atan2(-d.x, d.y)
     tag(key, tloc, yaw, FLIP[shot])
     # key light from the camera side + rim, so the silver part reads in the dark aisle
@@ -337,6 +363,7 @@ def car(key, shot):
     for nm in [n for n in objs if n.startswith("glass")]:
         objs[nm].data.materials.clear(); objs[nm].data.materials.append(mat("glass", (0.02, 0.02, 0.025), 0.05, 0.0))
     part = objs[PART[key]]
+    part.data.materials.clear(); part.data.materials.append(carbon())
     T, P = lip_T(key, part)
     for o in objs.values():
         o.matrix_world = T @ o.matrix_world
@@ -379,7 +406,7 @@ def aisle():
     billboard("eps", f"{M}/chars/eps_front.png", Vector((0.75, 2.4, 0)), 1.70, cam)
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
     bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
-    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.75
+    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 1.0
     try:
         t.data.font = bpy.data.fonts.load("/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf")
     except Exception:

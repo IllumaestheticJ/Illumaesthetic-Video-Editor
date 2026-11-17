@@ -1,4 +1,13 @@
-# BF 3/8 - "What $385 gets you" (Integra Sport Wing + Rear Trunk Lip combo) - SHOT LIST (draft v2, awaiting approval)
+# BF 3/8 - "What $385 gets you" (Integra Sport Wing + Rear Trunk Lip combo) - SHOT LIST (v5: no characters)
+
+> **v5 (owner, 2026-11-17, latest): NO Del & Eps in the Black Friday videos** ("not use del & eps, just typical branding
+> content"; projects/_blackfriday/MASCOT_AND_PRICES.md). Shots 1-4 are now product-only: the box opens, the wing and lip
+> rise out, and the receipt strikes $600 -> $385 on its own. Shot 1 carries a small "EPSILON+ BLACK FRIDAY" tag over the
+> title. No Higgsfield spend on characters. The character notes below are history only and are not used.
+>
+> **v0.2 (user feedback):** the last real shot must show **both parts on the car** -> Install Tutorial C0240
+> (12.3-14.7 s). The **scan section shows the stock (factory) trunk spoiler coming off**, then the Epsilon lip and wing
+> go on the scan, then a 1:1 cut to the kitted CGI car. Timeline in draft_v0_notes.md.
 
 Planned 2026-11-17. Nothing is rendered until the user approves this plan in chat.
 v2: the owner's BF doc fixes the prices (gloss-black combo $600 -> $385, no dates on screen), and the owner chose the

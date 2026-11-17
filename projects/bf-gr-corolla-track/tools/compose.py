@@ -1,22 +1,22 @@
-"""compose.py : assemble BF gr-corolla-track v0 at 1080x1920/30 from the shot renders, offer cards (text over the Blender
+"""compose.py : assemble BF gr-corolla-track v0.2 at 1080x1920/30 from the shot renders, offer cards (text over the Blender
 plates; owner 2026-11-17: no Del & Eps, typical branding only), the Epsilon+ end card and the music.
 
-python compose.py [--out /home/user/media/work/out/bf-gr-corolla-track_v0.mp4]
-Cuts are on measured kick onsets of 'Electric Youth' (music/kicks.json): kicks 4,6,10,12,14,18,22,26,30 ->
-frames 59,87,144,172,201,258,315,371,428 (round(t*30)); the first clip is one frame short of kick 4 by construction.
+python compose.py [--out ...]
+Cuts are on measured kick onsets of 'Electric Youth' (music/kicks.json), windows as in shot.py WIN.
+v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + labelled, carbon canards "BACK IN STOCK".
 """
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.1.mp4')
-ap.add_argument('--tag', default='v0.1'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v0'; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.2.mp4')
+ap.add_argument('--tag', default='v0.2'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v02'; RC = f'{M}/renders_v0'; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [4, 6, 10, 12, 14, 18, 22, 26, 30]
+CUTK = [4, 6, 10, 12, 14, 18, 22, 26, 30, 34]
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[36] * FPS) + 30          # logo holds to kick 36, then a 1 s fade
-ORDER = ['s1_hook', 's2_push', 's3_scan', 's4_lip', 's5_lipscan', 's6_cardv2', 's7_side', 's8_cardv1', 's9_pass', 'logo']
+END = round(kicks[40] * FPS) + 30          # logo holds to kick 40, then a 1 s fade
+ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
 f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 36)
@@ -46,7 +46,7 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 def card_overlay(img, shot, i, n):
-    d = ImageDraw.Draw(img)
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)   # text on its own layer so alpha fades work
     a_in = ease(i / 6); a_out = 1 - ease((i - (n - 6)) / 5); al = round(255 * min(a_in, a_out))
     if shot == 's6_cardv2':
         text_c(d, 770, 'BLACK FRIDAY', f_bf, al, tracking=6)
@@ -56,6 +56,34 @@ def card_overlay(img, shot, i, n):
         text_c(d, 770, 'BLACK FRIDAY', f_bf, al, tracking=6)
         text_c(d, 838, 'V1 UP TO', f_mid, al)
         text_c(d, 925, '45% OFF', f_big, al)
+    img.alpha_composite(ov)
+
+
+f_lab = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 58)
+f_eye = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 34)
+
+
+def label(img, i, n, lines, y, start=6, stop=None):
+    """highlight callout on CGI (never on real footage): eyebrow + title, cyan accent bar, fades in/out inside the shot"""
+    stop = n if stop is None else stop
+    a = min(ease((i - start) / 5), 1 - ease((i - (stop - 6)) / 5))
+    if a <= 0:
+        return
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
+    eyebrow, title = lines
+    if eyebrow:
+        text_c(d, y, eyebrow, f_eye, round(230 * a), tracking=5, cx=W // 2)
+    text_c(d, y + 48, title, f_lab, round(255 * a), cx=W // 2)
+    tw = d.textlength(title, font=f_lab); d.rectangle((W / 2 - tw / 2, y + 124, W / 2 - tw / 2 + tw * ease((i - start) / 10), y + 130), fill=CYAN + (round(255 * a),))
+    img.alpha_composite(ov)
+
+
+LABELS = {  # shot -> list of (eyebrow, title, y, start, stop)
+    's3_hl': [('EPSILON+', 'V2 AERO KIT', 1330, 8, None)],
+    's5_liphl': [('V2', 'FRONT LIP', 1330, 5, None)],
+    's7_side': [('V2', 'SIDE SKIRTS', 1330, 4, 30), ('V2', 'REAR SPATS', 1330, 31, None)],
+    's9_canards': [('CARBON CANARDS', 'BACK IN STOCK', 1330, 8, None)],
+}
 
 
 def logo_frame(i, n):
@@ -63,8 +91,9 @@ def logo_frame(i, n):
     a = ease(i / 8) * (1 - ease((i - (n - 30)) / 28))
     lg = logo.copy(); lg.putalpha(lg.split()[-1].point(lambda v: round(v * a)))
     img.alpha_composite(lg, ((W - lg.width) // 2, 880 - lg.height // 2))
-    d = ImageDraw.Draw(img); tw = d.textlength('EPSILON.PLUS', font=f_url)
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov); tw = d.textlength('EPSILON.PLUS', font=f_url)
     d.text(((W - tw) / 2, 1010), 'EPSILON.PLUS', font=f_url, fill=TXT + (round(200 * a),))
+    img.alpha_composite(ov)
     return img
 
 
@@ -75,10 +104,12 @@ for shot, s0, e0 in zip(ORDER, starts, ends):
         if shot == 'logo':
             img = logo_frame(i, n)
         else:
-            src = f'{R}/{shot}/f_{i + 1:04d}.png'
+            src = f'{RC if shot in ("s6_cardv2", "s8_cardv1") else R}/{shot}/f_{i + 1:04d}.png'
             img = Image.open(src).convert('RGBA').resize((W, H), Image.LANCZOS)
             if shot in ('s6_cardv2', 's8_cardv1'):
                 card_overlay(img, shot, i, n)
+            for eb, tt, y, st, sp in LABELS.get(shot, []):
+                label(img, i, n, (eb, tt), y, st, sp)
         img.convert('RGB').save(f'{FR}/o_{fno:04d}.png', compress_level=1); fno += 1
 print('FRAMES', fno, 'cuts', cuts, 'end', END)
 
