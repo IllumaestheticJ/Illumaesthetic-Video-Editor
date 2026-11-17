@@ -8,7 +8,7 @@ No previous-episode callback. The bill board doubles as a picture-only preview o
 design, files (STL/STEP), cutting (SeamForge), printing (printers, materials), gluing. It ends by handing Pip to Ep 2: "We scan the car."
 
 **Spine:** a running "bill" on the cartoon wall. Each step Gus names adds a picture to it. The only numbers on it are the
-owner's: **6-7 KG** of filament and **~$200** (owner, 2026-11-16: "a bumper is usually 6-7 kg of filament, so $200 for a nice
+owner's: **6-7 KG** of filament, **~$200**, and **~250 HRS** of labor (owner 2026-11-17: "the labor is easily ~250 hours between scanning, design, printing") (owner, 2026-11-16: "a bumper is usually 6-7 kg of filament, so $200 for a nice
 material"). By line 11 the bill reaches the floor.
 
 | # | Who | Line | Picture | Bill |
@@ -22,7 +22,8 @@ material"). By line 11 the bill reaches the floor.
 | 7 | GUS | "One fails overnight. Again." | A piece comes out as spaghetti; it goes on the failed-print shelf (new running gag). | spaghetti |
 | 8 | GUS | "Then glue. Filler. Sanding. Primer." | One cut per word on the beat: glue bottles, filler knife, a sanding cloud that hides Pip, primer can. | 4 icons |
 | 9 | PIP | "Is it done yet?" | Pip coughing out of the dust, grey. | - |
-| 10 | GUS | "...No. And it's heavier. And weaker." | The bumper thumps onto a scale that sags; a curb taps it and it cracks along a glue seam. | weight, cracked seam |
+| 10 | GUS | "...No. That's easily two hundred fifty hours of work. Scanning, design, printing." | The wall clock spins off its nail; the labor stacks up on the bill. | tag **~250 HRS** |
+| 10b | GUS | "And it's still heavier. And weaker." | The bumper sags a scale, then cracks along a glue seam on a curb. | weight, cracked seam |
 | 11 | PIP | "...So I should just buy one?" | Pip stares at the bill, which now reaches the floor. | (floor) |
 | 12 | GUS | "If you can buy it? Yep. Printing a rep just doesn't make financial sense." | Side by side: a boxed store bumper next to the floor-length bill; the bill wins the weigh-in. | - |
 | 13 | GUS | "Unless it's discontinued... or you're making them to sell." | A DISCONTINUED stamp hits a catalog page; then a row of identical bumpers slides off a mold. | - |
@@ -31,7 +32,7 @@ material"). By line 11 the bill reaches the floor.
 | 16 | PIP | "Where do we start?" | Pip, ^ ^ eyes, rips the bill off the wall. | - |
 | 17 | GUS | "We scan the car." | Gus wheels the scanner toward the black car (Ep 2 opens here). Hard cut on the beat. | - |
 
-~110 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 45-47 s (total ~55 s with footage and cards; trim options in the owner message).
+~122 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 49-51 s (total ~60 s with footage and cards; trim options in the owner message).
 Lines 12-17 (owner 2026-11-17): printing a rep of a bumper you can buy doesn't make financial sense; for a custom one, we show the audience how; then the series hand-off to Ep 2 (owner, relayed 2026-11-17). Line 12 = owner's exceptions (2026-11-17): printing is worth it when the bumper is discontinued, or when you make bumpers to sell in production.
 
 **Real footage (~4-5 s, no text, no voice) [OWNER Q: placement/clip now that the episode ends on "We scan the car"]:** SeamForge (owner OK, 2026-11-16), `2026-08-23 13-35-22.mp4` ~5:20-5:56: the bumper's
