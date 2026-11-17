@@ -28,6 +28,7 @@ from full_build import PROJ, REPO, OUT, FPS, SR, W, H, A_N, BRAND, irl, scan, sm
 
 W_ = Path("/home/user/media/work/scan-tedium")
 BUILD = W_ / "build_v2"
+PARTA = "partA_v5.mp4"
 TRACK = W_ / "music/inquisitive_A.mp3"
 CUTS = dict(p2=989, p7=1025, p8=1061, card=1133, end=1232)
 BEAT0, BEAT = 0.0203, 0.60001          # measured grid (build_v2/grid_v2.npy)
@@ -150,7 +151,7 @@ def picture(gmov, tmp4):
     cx, cy = np.clip(xx, x0 + rr, x1 - rr), np.clip(yy, y0 + rr, y1 - rr)  # rounded-rect interior (the visible footage)
     win_mask[:] = (xx >= x0) & (xx < x1) & (yy >= y0) & (yy < y1) & ((xx - cx) ** 2 + (yy - cy) ** 2 <= rr ** 2)
     c = CUTS
-    segs = [("partA", frames_of(OUT / "partA_v5.mp4", W, H, 0), A_N, None),
+    segs = [("partA", frames_of(OUT / PARTA, W, H, 0), A_N, None),
             ("P2", irl("R1_SCAN", c["p7"] - c["p2"], t_start=322.0), c["p7"] - c["p2"], "all"),
             ("P7", irl("R2_FRONT", c["p8"] - c["p7"], end_on_match=True), c["p8"] - c["p7"], "all"),
             ("P8", scan("V_MATCH_FRONT", c["card"] - c["p8"]), c["card"] - c["p8"], None),
@@ -264,11 +265,17 @@ if __name__ == "__main__":
         ap.add_argument(f"--{k}", action="store_true")
     ap.add_argument("--name", default="explainer_full_v2")
     ap.add_argument("--v3", action="store_true", help="v3: logo card after the teaser + the track's real ending")
+    ap.add_argument("--parta", default=None, help="Part A video in OUT (default partA_v5.mp4)")
+    ap.add_argument("--build", default=None, help="build dir name under work (default build_v2/build_v3)")
     a = ap.parse_args()
     if a.v3:
         configure_v3()
         if a.name == "explainer_full_v2":
             a.name = "explainer_full_v3"
+    if a.parta:
+        PARTA = a.parta
+    if a.build:
+        BUILD = W_ / a.build
     BUILD.mkdir(parents=True, exist_ok=True)
     if a.audio or a.all:
         m = audio(a.name)

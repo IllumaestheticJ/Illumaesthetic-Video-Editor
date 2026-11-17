@@ -838,7 +838,8 @@ def dress_gus(name, ch, S):
             S["ol"] * 0.5)
     box(f"{name}_zip", (0.014, 0.012, S["body_h"] * 0.47), (0, fy - 0.004, S["body_h"] * 0.62), mat("#c8cac7"), ch.torso)
     # owner: small Illumaesthetic name badge, wearer's left chest between the pocket flap and the collar
-    nametag(name, ch, S, "GUS", 0.106, S["body_h"] * 0.806, 0.11, r + 0.018 + 0.002)
+    k = r / 0.2   # badge scales with the torso (proportion variants)
+    nametag(name, ch, S, "GUS", 0.106 * k, S["body_h"] * 0.806, 0.11 * k, r + 0.018 + 0.002)
 
 
 def hat_gus(name, ch, S):
@@ -868,7 +869,8 @@ def dress_pip(name, ch, S):
         cyl(f"{name}_string{sx}", 0.008, 0.13, (sx * 0.04, fy - 0.006, bh * 0.84 - 0.065), mat("string"), ch.torso, seg=10)
         blob(f"{name}_tip{sx}", (0.014, 0.014, 0.018), (sx * 0.04, fy - 0.008, bh * 0.84 - 0.135), mat("string"), ch.torso)
     box(f"{name}_pouch", (0.2, 0.022, 0.085), (0, fy + 0.002, bh * 0.36), sm, ch.torso, 0.02, S["ol"] * 0.5)
-    nametag(name, ch, S, "PIP", 0.1, bh * 0.71, 0.085, r + 0.02 + 0.002, tilt=4.0)   # beside the drawstrings, slight tilt
+    k = r / 0.15
+    nametag(name, ch, S, "PIP", 0.1 * k, bh * 0.71, 0.085 * k, r + 0.02 + 0.002, tilt=4.0)   # beside the drawstrings, slight tilt
 
 
 def hat_pip(name, ch, S):
@@ -904,9 +906,9 @@ def pose(ch, loc=None, rz=0.0, hips=(0, 0, 0), head=(0, 0, 0), armL=(0, 0, 4), a
     ch.neck.rotation_euler = R(head)
     ch.arms["L"].rotation_euler = R(armL)
     ch.arms["R"].rotation_euler = R(armR)
-    ch.elbows["L"].rotation_euler = R((elbowL - 75 * mouth, 0, 0))   # v2: hand lifts read in motion
-    ch.elbows["R"].rotation_euler = R((elbowR - 45 * mouth, 0, 0))
-    ch.neck.rotation_euler = R((head[0] + 7 * mouth, head[1], head[2] + 3 * mouth))   # head bobs with the talk energy
+    ch.elbows["L"].rotation_euler = R((elbowL - 68 * mouth, 0, 0))   # v2: hand lifts read in motion
+    ch.elbows["R"].rotation_euler = R((elbowR - 40 * mouth, 0, 0))
+    ch.neck.rotation_euler = R((head[0] + 6 * mouth, head[1], head[2] + 3 * mouth))   # head bobs with the talk energy
     ch.legs["L"].rotation_euler = R(legL)
     ch.legs["R"].rotation_euler = R(legR)
     talk_squash(ch, mouth)
@@ -924,13 +926,15 @@ def talk_squash(ch, m):
     ch.neck.location.z = S["neck_z"] + S["body_h"] * (sz - 1)
 
 
-GUS_SPEC = dict(hip_z=0.06, foot=(0.12, 0.16, 0.075), foot_x=0.12, body_r=0.2, body_h=1.2, neck_z=1.13,
-                head=(0.62, 0.57, 0.72), taper=-0.13, head_sink=0.0, eye_r=0.024, eye_x=0.085, eye_z=0.05, eye_look=0.03,
-                hand=(0.085, 0.075, 0.09), hand_x=0.47, shoulder_z=1.0, reach=0.36, ol=0.024,
+# v7 proportions = concept row 3 (owner pick, halfway to the Madness-grunt look): rounder head, torso ~1.1 head-heights,
+# body x1.15 wider, hips x1.5, feet x1.18, hands closer (gap x0.78). v6 values in git history / proportion_concepts.py.
+GUS_SPEC = dict(hip_z=0.09, foot=(0.1416, 0.1888, 0.0885), foot_x=0.138, body_r=0.23, body_h=0.8667, neck_z=0.7967,
+                head=(0.6577, 0.5928, 0.7114), taper=-0.091, head_sink=0.0, eye_r=0.024, eye_x=0.085, eye_z=0.035, eye_look=0.03,
+                hand=(0.085, 0.075, 0.09), hand_x=0.4497, shoulder_z=0.7011, reach=0.3027, ol=0.024,
                 brow_len=0.075, brow_t=0.013, brow_gap=0.045, dress=dress_gus, hat=hat_gus)
-PIP_SPEC = dict(hip_z=0.045, foot=(0.085, 0.115, 0.055), foot_x=0.075, body_r=0.15, body_h=0.66, neck_z=0.61,
-                head=(0.5, 0.46, 0.55), taper=-0.13, head_sink=0.0, eye_r=0.02, eye_x=0.072, eye_z=0.03, eye_look=0.025,
-                hand=(0.06, 0.055, 0.065), hand_x=0.36, shoulder_z=0.55, reach=0.24, ol=0.019,
+PIP_SPEC = dict(hip_z=0.0675, foot=(0.1003, 0.1357, 0.0649), foot_x=0.0862, body_r=0.1725, body_h=0.5717, neck_z=0.5217,
+                head=(0.5304, 0.4784, 0.5434), taper=-0.091, head_sink=0.0, eye_r=0.02, eye_x=0.072, eye_z=0.021, eye_look=0.025,
+                hand=(0.06, 0.055, 0.065), hand_x=0.3349, shoulder_z=0.4591, reach=0.1983, ol=0.019,
                 brow_len=0.065, brow_t=0.012, brow_gap=0.016, dress=dress_pip, hat=hat_pip)
 
 
