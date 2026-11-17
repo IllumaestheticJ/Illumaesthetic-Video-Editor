@@ -3,8 +3,12 @@
 Planned 2026-11-17. Nothing is rendered until the user approves this plan in chat.
 v2: the owner's BF doc fixes the prices (gloss-black combo $600 -> $385, no dates on screen), and the owner chose the
 Epsilon mascots **Del & Eps** (projects/_blackfriday/MASCOT_AND_PRICES.md), not Pip & Gus.
+v3: the characters follow the owner's LOCKED look, `knowledge/characters/del-and-eps/README.md` + `del-eps-model-sheet.jpg`
+(branch claude/clever-shannon-u8rv5l). That look is a matte arcade-racing-game 3D style: Del has a boxed beard, a teal cap
+with an orange brim and a headset; Eps wears a violet cap backwards and a visor with yellow eye marks, and carries the
+scanner. The parts and scans stay silver/black product; the characters are the only colour.
 
-**Concept (one line):** Eps scans in and opens the combo box, and the Sport Wing and Rear Trunk Lip come out. Del strikes the receipt from $600 to
+**Concept (one line):** Eps opens the combo box with his scanner, and the Sport Wing and Rear Trunk Lip rise out on its beam. Del taps the receipt, and $600 is struck to
 $385, so the combo costs less than the wing alone at full price ($500). The parts fly onto the Integra, and a hard 1:1 cut takes us
 from the CGI car to the scan and on to the real car.
 
@@ -37,21 +41,24 @@ Start at the song's beginning. Mix at -14 LUFS with true peak below -1 dBFS. The
 so the parent should confirm no other BF video takes the same track.
 
 ## Shot table (times assume 120 BPM; snapped to measured kicks after `ive beats`)
-Recommended version **A (CGI unboxing on black, done by Eps and Del)**: the concept's "hand" becomes Eps's hand, and every
+Recommended version **A (CGI unboxing on black, with Eps and Del)**: the concept's "hand" becomes Eps's scanner, and every
 text item sits on black or CGI, so the no-text-over-IRL rule holds. The characters appear only in shots 1-4 (and the
-optional sting), never in the car, scan or IRL shots, so they cost one build plus four short animations.
+optional sting), never in the car, scan or IRL shots, so they cost about five short character clips.
+**Character method (owner's locked path):** Higgsfield image/video with `del-eps-model-sheet.jpg` as the reference image.
+The clips go on a flat key background, are keyed, and are composited over our Blender renders of the box, parts and car;
+the products are always our own renders, never AI-drawn. No 3D rig is built for this ad.
 
 | # | Time | Dur | Beat | Camera | Subject | Source asset (exact) | Action | On-screen text (source) | Transition out | Render |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.00-2.00 | 2.0 | bar 1, b1-b4 | high 3/4 over the box, 50 mm, 5 % push-in | **Eps scans in** (laser-blue sweep, wireframe -> character) beside the closed Epsilon+ box on pure black | box modelled in Blender from the real packaging photos on the lip listing (`integra-rear-trunk-lip-carbon-and-painted-packed.heic`, `...-carbon-packaging.heic`, cdn.shopify.com/s/files/1/0036/2250/2435/files/) | Eps builds in on b1-b2, taps the box, flaps pop open on b4 | "WHAT $385 GETS YOU" title on black above (owner's line; owner BF doc) | hard cut on bar 2 b1 | Blender (Cycles) + Remotion title |
-| 2 | 2.00-4.00 | 2.0 | bar 2 | same side, lower, box in lower third | **Eps lifts the Sport Wing out** and holds it up to the camera | `eps-acura-integra-type-s-de5-v19.glb` node `part_sport_wing` (lookbook sha 4eb01375eebf623b), gloss-black material | "lift" + "hold up to camera" actions; wing turns a quarter to show its profile. The part stays true gloss black (no colour wash on the product) | receipt panel slides in on the black space on the right: "SPORT WING ..... $500" (live store, wing alone, gloss) | hard cut, bar 3 b1 | Blender + Remotion `Receipt` (new component) |
-| 3 | 4.00-6.00 | 2.0 | bar 3 | wing parked high, frame out | **Eps pulls the Rear Trunk Lip out** with his other hand | same GLB, node `part_duckbill` (= Rear Trunk Lip) | lip comes out under the wing | receipt adds "REAR TRUNK LIP ..... $100" (live store) | hard cut, bar 4 b1 | Blender + Remotion |
-| 4 | 6.00-8.00 | 2.0 | bar 4 | both parts side by side, front-on; **Del steps in** at frame left | Del with his marker at the receipt, Eps holding both parts | as 2+3 | slow 15 deg orbit | Del's marker strikes "COMBO $600" on b2, then "$385" stamps in on b3 (owner BF doc). Line under it: "less than the wing alone ($500)" (store list price) | hard cut, bar 5 b1 | Blender + Remotion |
+| 1 | 0.00-2.00 | 2.0 | bar 1, b1-b4 | high 3/4 over the box, 50 mm, 5 % push-in | **Eps** (locked look) beside the closed Epsilon+ box on pure black | box modelled in Blender from the real packaging photos on the lip listing (`integra-rear-trunk-lip-carbon-and-painted-packed.heic`, `...-carbon-packaging.heic`, cdn.shopify.com/s/files/1/0036/2250/2435/files/) | Eps walks in from frame right on b1-b2, aims the scanner at the box; a cyan (#6fc3d6) sweep crosses it and the flaps pop open on b4 | "WHAT $385 GETS YOU" title on black above (owner's line; owner BF doc) | hard cut on bar 2 b1 | Blender (Cycles) + Remotion title |
+| 2 | 2.00-4.00 | 2.0 | bar 2 | same side, lower, box in lower third | **The Sport Wing rises out on Eps's scanner beam**; Eps tracks it, then gives a visor ^ ^ | `eps-acura-integra-type-s-de5-v19.glb` node `part_sport_wing` (lookbook sha 4eb01375eebf623b), gloss-black material | wing lifts out (Blender) and turns a quarter to show its profile; Eps is a composited clip. **His hands never touch the part**, because AI video can't hold our real geometry. The part stays true gloss black | receipt panel slides in on the black space on the right: "SPORT WING ..... $500" (live store, wing alone, gloss) | hard cut, bar 3 b1 | Blender + Remotion `Receipt` (new component) |
+| 3 | 4.00-6.00 | 2.0 | bar 3 | wing parked high, frame out | **the Rear Trunk Lip rises** on a second sweep | same GLB, node `part_duckbill` (= Rear Trunk Lip) | lip comes out under the wing; Eps swings the scanner down to follow it | receipt adds "REAR TRUNK LIP ..... $100" (live store) | hard cut, bar 4 b1 | Blender + Remotion |
+| 4 | 6.00-8.00 | 2.0 | bar 4 | both parts floating side by side, front-on; **Del steps in** at frame left | Del next to the receipt, Eps beside the parts | as 2+3 | slow 15 deg orbit | Del taps the receipt (point action); "COMBO $600" is struck through on b2, then "$385" stamps in on b3 (owner BF doc). Line under it: "less than the wing alone ($500)" (store list price) | hard cut, bar 5 b1 | Blender + Remotion |
 | 5 | 8.00-10.00 | 2.0 | bar 5 | rear 3/4 of the car, low, 35 mm | CGI Integra Type S, no kit | `eps-acura-integra-type-s-de5-v19.glb` (body/shell/glass/wheels; paint from the lookbook list, e.g. Platinum White, to match the end photo) | wing drops onto the deck, lip slides onto the trunk edge, both seat on b3 / b4 | none | **hard 1:1 cut on the drop** (same camera) | Blender |
 | 6 | 10.00-12.00 | 2.0 | bar 6 | same camera, orbiting 25 deg toward the solved photo camera | the scan of the car with the kit on | scan `Integra Type S Full Car.stl` Drive 1SzdWjN092P5lqGnmAnTjxNqEBSWbs2d5 (decimated, <=4 mm); wing = `Integra Sport Wing Scan .stl` 1s5ggkKLZPmIdofrnGhpy-upbbcNw6rTq; lip = CAD `Integra Rear Wing + Duckbill Final.stp` 1hpc2giqPqY6-4S23JUBxqXjTzuZ1DAes, placed by ICP from engineering's frame | house silver on black; orbit eases to rest exactly on the photo's solved camera | optional HUD, max 1 item, only if true (Q6), e.g. a triangle count from the STL header | **hard 1:1 cut** scan -> photo on a kick | Blender + Remotion HUD |
 | 7 | 12.00-14.00 | 2.0 | bar 7 | the photo's own framing; shared Ken Burns zoom-out (fg2 kenburns.py) | the real Integra with the wing and lip fitted | Shopify wing listing photo `white-rear-quarter` (or a black-kit photo if one exists, Q4) | slow zoom out | **none (IRL)** | hard cut, bar 8 b1 | footage edit |
 | 8 | 14.00-15.00 | 1.0 | bar 8 b1-b2 | real pan along the wing | finished Sport Wing on the white Integra | Dropbox `/1. Epsilon Plus Videos/1. Video dumps/*Posted Videos (Finished Legacy Raw)/Integra Sport Wing Install Tutorial/C0222` | short real-motion beat | **none (IRL)** | hard cut, bar 8 b3 | footage edit (tonemap if HLG) |
-| 9 | 15.00-17.00 | 2.0 | bar 8 b3 - bar 9 | static, 3 % push-in | end card on black | Epsilon+ wordmark Drive `EPSILON+ Logos/Epsilon+ Logo.png` 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W, 720 px wide | wordmark lands on the downbeat; music fades with it | "SPORT WING + TRUNK LIP  $385" / "BLACK FRIDAY" / "epsilon.plus" (owner BF doc; **no dates**). Optional 0.5 s sting: Eps pats his pockets, Del holds up the 10 mm (the running gag) (Q5) | end | Remotion |
+| 9 | 15.00-17.00 | 2.0 | bar 8 b3 - bar 9 | static, 3 % push-in | end card on black | Epsilon+ wordmark Drive `EPSILON+ Logos/Epsilon+ Logo.png` 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W, 720 px wide | wordmark lands on the downbeat; music fades with it | "SPORT WING + TRUNK LIP  $385" / "BLACK FRIDAY" / "epsilon.plus" (owner BF doc; **no dates**). Optional 0.5 s sting: Eps pats his pockets, Del holds up the 10 mm socket (the running gag; reference `del-eps-10mm-socket-gag.jpg`) (Q5) | end | Remotion |
 
 **Version B (if the owner films a real unboxing, Q2):** shots 1-4 become real hand footage (iPhone, 9:16, top-down on a
 bench, box -> wing -> lip). The receipt can't sit over the footage unless the owner OKs it (Q3). Without the OK, the
@@ -74,7 +81,7 @@ itself. Shot 5 becomes a 1:1 cut from the last unboxing frame (the wing in the h
 | Finished-car photos | found | wing listing: white-rear-quarter, blue-side-profile, champagne, gray-rear, ...; lip listing: rear-three-quarter, rear-on, ... (finish of each to be checked against gloss black, Q4) |
 | IRL wing footage | found | Install Tutorial C0222 (finished wing pan); posted `3. Short form/Posted/integra sport wing.mp4` (not reused as an edit) |
 | Epsilon+ wordmark | found | Drive 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W |
-| Characters: **Del & Eps** (Epsilon+) | **concept only, to build** | Owner's concept pages: v0.1 claude.ai/artifact/MyfYpve1ho7AhiTSzvRCFf, v0.2 colours claude.ai/artifact/E2AUcUQJsG5a937FCorTQD. Spec summary: projects/_blackfriday/MASCOT_AND_PRICES.md. Searched Drive and Dropbox for "mascot", "Del & Eps", "Del and Eps" and "turnaround": **no model, rig or sheet exists**. Build them procedurally in Blender (<15k tris each, one shared rig, actions: lift, hold up to camera, point, shrug); the Pip & Gus builder `projects/scan-tedium-explainer-reel/tools/partA_scene.py` (branch claude/pip-gus-ep0-intro) is the technical precedent only, not the look. Pip & Gus are **not used** |
+| Characters: **Del & Eps** (Epsilon+) | **found (locked look)** | `knowledge/characters/del-and-eps/README.md` and `del-eps-model-sheet.jpg` (the reference; front/3-4/side/back of both), `del-eps-10mm-socket-gag.jpg`, `del-eps-install-drill-template.jpg`. Committed on branch claude/clever-shannon-u8rv5l; the JPGs are not yet on this branch. Original Higgsfield jobs: bdb1a2e8, 069f42d6, e3315b11, 85f40a22. No 3D model or rig, and none is needed for this plan. Pip & Gus are **not used** |
 | Music | found | see candidates above |
 
 ## Open questions for the user
@@ -87,11 +94,10 @@ itself. Shot 5 becomes a 1:1 cut from the last unboxing frame (the wing in the h
 3. **Text over real footage:** only matters in version B. Version A puts all text on black.
 4. **Finish:** should the CGI parts be gloss black (the $385 variant)? And is there a real photo of an Integra with the
    *gloss-black* wing and lip fitted for shot 7? The white car in the listing photos may have painted parts.
-5. **Del & Eps look:** v0.2's look A (Team Livery: Del petrol teal/orange, Eps violet/hi-vis yellow; my default) or
-   v0.1's house silver? The plan has no dialogue, music only, since no voices are cast yet: should one line be added
-   (e.g. Eps: "Customer asks... what does $385 get me?" Del: "Both.")? And keep the 10 mm end sting?
-6. **Character approval gate:** I'll render a turnaround still of both characters for your OK before any animation, the
-   same way Pip & Gus were approved. OK?
+5. **Del & Eps extras:** the locked look is now settled. The plan has no dialogue, music only, since no voices are cast yet:
+   should one line be added (e.g. Eps: "Customer asks... what does $385 get me?" Del: "Both.")? And keep the 10 mm end sting?
+6. **Character approval gate:** before any video, I'll make one Higgsfield still of shot 4 (Del + Eps with our rendered
+   parts) from the model sheet for your OK, keeping credits minimal. OK?
 7. **Claim text** on the scan shot (e.g. "designed on a 3D scan of the Integra")? Default: none.
 8. **Music:** "Get Low" (claimed) is the default; say if you want "Killa" or your own track.
 
@@ -102,9 +108,11 @@ itself. Shot 5 becomes a 1:1 cut from the last unboxing frame (the wing in the h
 3. GLB: import the Type S v19, check part_sport_wing/part_duckbill against the CAD (they must match the real parts), set
    gloss-black parts, and set the car paint to match the end photo.
 4. Box model from the packaging photos (plain, no invented logos or labels), studio-on-black lighting.
-4b. Del & Eps: procedural Blender build from the v0.1/v0.2 sketches (cap brims shaped like a GT wing and a front lip, Eps's
-   visor eyes, Del's moustache: no lip-sync), one shared rig, a turnaround still for the owner's OK (Q6), then the actions
-   lift / hold-up / point / strike-with-marker. Entrance = the laser-sweep scan-in. Hands must really touch the parts.
+4b. Del & Eps: Higgsfield with `del-eps-model-sheet.jpg` as the reference image. First a single still for the owner's OK
+   (Q6), then about five short image-to-video clips (walk-in + scanner aim, track the wing, track the lip, Del's tap, the
+   optional sting) on a flat key background. Key them and composite them over the Blender plates, with scale and light
+   matched to the black stage. Check every clip against the sheet: Del's beard short and boxed, Eps's cap backwards. No
+   AI-drawn products and no on-screen text from the AI.
 5. Music: download, `ive beats`, kick-anchored grid, lay the cuts in frames.
 6. Solve the end-photo camera against the scan (ferrari-296 photo_search), end shot 6's orbit on it, 1:1 cut.
    Align the CGI with the scan (align_game.py) so cut 5->6 is 1:1.
