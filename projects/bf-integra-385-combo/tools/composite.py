@@ -26,7 +26,7 @@ F_MONO = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf'
 F_MONO_R = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf'
 # v0.9 fonts (owner rule knowledge/fonts.md): Akira for headlines/offers/prices - file not supplied yet, so Unbounded 700
 # stands in (800-900 not in the repo); Unbounded (companion) for labels, tables and everything next to the Epsilon+ logo.
-F_AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-700.ttf'   # AKIRA STAND-IN - swap for Akira Expanded when the owner uploads it
+F_AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-800.ttf'   # AKIRA STAND-IN (800 per parent; 700 in v0.9) - swap for Akira Expanded when the owner uploads it
 F_UB3 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-300.ttf'; F_UB4 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-400.ttf'; F_UB5 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-500.ttf'
 
 
