@@ -178,7 +178,7 @@ def main(out):
     # music from the song's beginning, fade with the end card, -14 LUFS / TP < -1 (gain then limiter)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{TMP}/video.mp4', '-i', f'{M}/music/getlow.wav',
                     '-filter_complex', f'[1:a]atrim=0:{dur:.3f},afade=t=out:st={dur - 0.7:.3f}:d=0.7,'
-                    'loudnorm=I=-13.6:TP=-2:LRA=11,alimiter=limit=0.79:attack=1:release=60:level=disabled[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k',
+                    'loudnorm=I=-14.5:TP=-2:LRA=11,alimiter=limit=0.79:attack=1:release=60:level=disabled[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k',
                     '-ar', '48000', '-shortest', out], check=True)
     print('WROTE', out, dur)
 
