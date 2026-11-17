@@ -237,14 +237,17 @@ def cab_side(x, z, s=-1, out=0.008):
 
 
 CHROME = []
+# fender badge: on the front fender between the wheel arch (r 0.45 about x 1.30, z 0.36) and the headlight. It was at
+# (1.48, 0.72), inside the arch circle, and read as sitting on the tyre (owner review of ep2_v1).
+BX, BZ = 1.80, 0.64
 # chrome beltline trim under the near-side windows and a chrome badge on each front fender
 for s in (-1, 1):
     pts = [cab_side(x, z, s, 0.0) + Vector((0, s * dy, 0)) for x in (-1.0, 0.86) for z in (0.985, 1.025) for dy in (0.004, 0.022)]
     CHROME.append(hull(f"ep_trim{s}", pts, mat("chrome", hl=True), CAR, ol=0.006))
-    bd = cyl(f"ep_badge{s}", 0.075, 0.016, (1.48, s * (b_["y"] + 0.008), 0.72), mat("chrome", hl=True), CAR, axis="Y", seg=40,
+    bd = cyl(f"ep_badge{s}", 0.075, 0.016, (BX, s * (b_["y"] + 0.008), BZ), mat("chrome", hl=True), CAR, axis="Y", seg=40,
              bevel=0.004, ol=0.008)
     CHROME.append(bd)
-    CHROME.append(cyl(f"ep_badge_in{s}", 0.045, 0.02, (1.48, s * (b_["y"] + 0.01), 0.72), mat("chrome_d"), CAR, axis="Y", seg=32))
+    CHROME.append(cyl(f"ep_badge_in{s}", 0.045, 0.02, (BX, s * (b_["y"] + 0.01), BZ), mat("chrome_d"), CAR, axis="Y", seg=32))
 BLACK = [bpy.data.objects["grille"]]
 BLACK.append(box("ep_lip", (0.05, 1.62, 0.1), (2.01, 0, 0.37), mat("black"), CAR, bevel=0.015))
 for s in (-1, 1):
@@ -744,7 +747,7 @@ def apply_coats(t, skip=()):
         draw_dust(sp, len(sp) * s["grille"], "dust_grille")
     if s["badge"] > 0:
         bd = [bpy.data.objects["ep_badge-1"], bpy.data.objects["ep_badge_in-1"]]
-        sp = dust_spots("badge", (1.48, -1.5, 0.75), (1.48, -0.85, 0.72), 0.06, 40, bd, seed=7, size=(0.012, 0.022))
+        sp = dust_spots("badge", (BX, -1.5, BZ + 0.03), (BX, -0.85, BZ), 0.06, 40, bd, seed=7, size=(0.012, 0.022))
         draw_dust(sp, len(sp) * s["badge"], "dust_badge")
     if s["squig"] > 0:
         draw_squiggles(s["squig"])
@@ -902,9 +905,9 @@ def anim_F(fr):
     t, u = fr / FPS, prog(fr, "F")
     apply_coats(t)
     open_cabin(False)
-    badge = Vector((1.48, -(b_["y"] + 0.02), 0.72))
+    badge = Vector((BX, -(b_["y"] + 0.02), BZ))
     spos = (1.05, -1.75, 0.86)
-    char_pose(GUS, t, (0.95, -2.3, 0), (1.48, -0.85), look=(0, 0.2))
+    char_pose(GUS, t, (0.95, -2.3, 0), (BX, -0.85), look=(0, 0.2))
     pj, cm = hold_scanner(GUS, spos, badge)
     rows = stripes("badge", pj, badge, n=13, half_w=0.2, half_h=0.2, samples=60)
     draw_stripes(rows)
@@ -964,7 +967,7 @@ def anim_I(fr):
     t, u = fr / FPS, prog(fr, "I")
     apply_coats(t)
     marks = [("glass", (-0.55, -1.85, 0), (-0.55, -0.74, 1.22)), ("chrome", (0.1, -1.8, 0), (0.1, -0.76, 1.0)),
-             ("black", (2.75, -0.95, 0), (2.02, -0.2, 0.55)), ("badges", (1.5, -1.65, 0), (1.48, -0.86, 0.72))]
+             ("black", (2.75, -0.95, 0), (2.02, -0.2, 0.55)), ("badges", (BX + 0.02, -1.65, 0), (BX, -0.86, BZ))]
     times = [wt(10, w) for w, _, _ in marks]
     # Gus position: slides to each mark just before its word
     k = 0
@@ -1129,6 +1132,7 @@ def reset_ep():
 
 
 # ----------------------------------------------------------------------------------------------------------------- run
+PROBE = json.loads(os.environ["EP1_PROBE"]) if os.environ.get("EP1_PROBE") else None
 lo, hi = (int(x) for x in RANGE.split(":")) if RANGE else (-10 ** 9, 10 ** 9)
 for sh in EP_SHOTS:
     f0, f1 = SF[sh]
@@ -1137,12 +1141,26 @@ for sh in EP_SHOTS:
     tsum, nr = 0.0, 0
     for fr in range(f0, f1):
         final = os.path.join(d, f"{fr:04d}.png")
-        if not ((fr - f0) % EVERY == 0 and lo <= fr < hi and not os.path.exists(final) and (not ONLY or fr in ONLY)):
+        if not ((fr - f0) % EVERY == 0 and lo <= fr < hi and (PROBE or not os.path.exists(final)) and (not ONLY or fr in ONLY)):
             continue
         CUR_T = fr / FPS
         reset_ep()
         ANIM[sh](fr)
         bpy.context.view_layer.update()
+        if PROBE:   # list frames where a given point (old/new badge) is in view and unoccluded; no render
+            from bpy_extras.object_utils import world_to_camera_view
+            cam, dg = scn.camera, bpy.context.evaluated_depsgraph_get()
+            for nm, pt in PROBE:
+                pt = Vector(pt)
+                v = world_to_camera_view(scn, cam, pt)
+                if not (-0.05 < v.x < 1.05 and -0.05 < v.y < 1.05 and v.z > 0):
+                    continue
+                o = cam.matrix_world.translation
+                dv = pt - o
+                hit, loc, *_ = scn.ray_cast(dg, o, dv.normalized(), distance=dv.length + 1)
+                if True:   # in frame is enough: the beam sheet and stripe ribbons are translucent ray hits
+                    print(f"[probe] {sh} {fr} {nm}", flush=True)
+            continue
         scn.render.filepath = os.path.join(d, f"{fr:04d}_tmp")
         t0 = time.time()
         bpy.ops.render.render(write_still=True)
