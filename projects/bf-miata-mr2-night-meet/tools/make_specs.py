@@ -41,9 +41,9 @@ S["s09"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender"],
                                     "swap": [sw("skirts", n, 0.06, 0.24, 0.20, 0.46, dir=[-1, 0, 0.3], dist=5, **{"from": [-1.0, 0, 0.2]}),
                                              sw("spats", n, 0.48, 0.64, 0.60, 0.86, dir=[0, 1, 0.2], dist=5, **{"from": [0, 0.9, 0.2]})]}],
             "camera": cam([-3.9, 0.2, 0.75], [-3.7, 1.6, 0.75], n, [-0.6, -0.1, 0.35], [-0.5, 0.7, 0.35], lens=28)}
-mr2s = {"car": "mr2", "offset": [1.1, 0.25, 0], "yaw": -14, "on": ["skirts", "eyelids", "hood", "spats", "duck"]}
-ncs = {"car": "nc", "offset": [-1.1, 0.25, 0], "yaw": 14, "on": ["bumper", "fender", "skirts", "spats"]}
-S["s10"] = {"mode": "scan", "cars": [mr2s, ncs], "camera": cam([0.5, -7.8, 2.8], [0.4, -7.2, 1.7], n15(9), [0, 0.1, 0.45], [0, 0.1, 0.55], lens=30)}
+mr2s = {"car": "mr2", "offset": [0.85, 2.7, 0], "yaw": -8, "on": ["skirts", "eyelids", "hood", "spats", "duck"]}
+ncs = {"car": "nc", "offset": [-0.85, -1.7, 0], "yaw": 8, "on": ["bumper", "fender", "skirts", "spats"]}
+S["s10"] = {"mode": "scan", "cars": [mr2s, ncs], "camera": cam([0.6, -8.9, 4.3], [0.6, -8.4, 3.7], n15(9), [0.25, -0.1, 0.1], [0.25, -0.1, 0.2], lens=30)}   # v1.3: cars staggered front/back, 0.5 m+ apart (they clipped side by side)
 for k, s in S.items():
     i = int(k[1:]) - 1
     s.update({"out": f"{M}/work/{k}", "frames": n15(i), "fps": 15, "res": [540, 960], "samples": 16 if s["mode"] == "cgi" else 12})

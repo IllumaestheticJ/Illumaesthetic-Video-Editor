@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.2.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.3.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -51,6 +51,40 @@ def label(base, t, line1, line2, y=300):
     a = int(255 * ease(t * 4)); d = ImageDraw.Draw(base)
     d.text((90, y), line1, font=font(FD, 66), fill=(*OFF, a))
     d.text((92, y + 92), line2, font=font(FM, 34), fill=(*OFF, int(a * 0.8)))
+
+
+# v1.3 (user: "for each clip of the parts, show the text so people know what part and the pricing/saving").
+# name, car, was, now: Current Price -> BF 2026 Price from projects/_blackfriday/bf_liquidation_pricing.csv
+PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eyelids": ("HEADLIGHT EYELIDS", "MR2 SPYDER", 100, 80),
+         "mr2_hood": ("HOOD VENTS", "MR2 SPYDER", 400, 320), "mr2_spats": ("REAR SPATS", "MR2 SPYDER", 350, 280),
+         "mr2_duck": ("REAR DUCKBILL", "MR2 SPYDER", 220, 176), "nc_bumper": ("FRONT BUMPER + LIP", "NC MIATA", 1100, 880),
+         "nc_canards": ("CANARDS", "NC MIATA", 200, 160), "nc_fender": ("FENDER CUTS", "NC MIATA", 300, 240),
+         "nc_skirts": ("SIDE SKIRTS", "NC MIATA", 500, 400), "nc_spats": ("REAR SPATS (NC1)", "NC MIATA", 250, 200)}
+# shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
+LABELS = {"s02": [("mr2_skirts", 0.34, 1.0)], "s03": [("mr2_eyelids", 0.34, 1.0)], "s04": [("mr2_hood", 0.34, 1.0)],
+          "s05": [("mr2_spats", 0.20, 0.58), ("mr2_duck", 0.60, 1.0)], "s07": [("nc_bumper", 0.40, 0.76), ("nc_canards", 0.76, 1.0)],
+          "s08": [("nc_fender", 0.34, 1.0)], "s09": [("nc_skirts", 0.20, 0.58), ("nc_spats", 0.60, 1.0)]}
+
+
+def money(v): return f"${v:,}"
+
+
+def price_label(base, key, t, plate):
+    """Part name + car, then was (struck) -> now and SAVE. All inside the safe zone (x 48-920, y 285-1440)."""
+    name, car, was, now = PRICE[key]
+    a = ease(t * 5); A = int(255 * a)
+    if plate:      # lot shots: a soft dark plate so the text reads over the car and lamps
+        g = Image.new("L", (W, H), 0); ImageDraw.Draw(g).rounded_rectangle([60, 296, 900, 566], 28, fill=int(150 * a))
+        base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
+    d = ImageDraw.Draw(base)
+    d.text((90, 312), name, font=font(FD, 62), fill=(255, 255, 255, A))
+    d.text((92, 396), f"{car} · 20% OFF", font=font(FM, 30), fill=(*OFF, int(A * 0.85)))
+    fw, fn = font(FM, 44), font(FD, 64)
+    ws = money(was); x = 92; yb = 452
+    d.text((x, yb + 14), ws, font=fw, fill=(170, 174, 180, A)); bb = d.textbbox((x, yb + 14), ws, font=fw)
+    d.line([(bb[0] - 4, (bb[1] + bb[3]) // 2), (bb[2] + 4, (bb[1] + bb[3]) // 2)], fill=(170, 174, 180, A), width=4)
+    x = bb[2] + 28; ns = money(now); d.text((x, yb), ns, font=fn, fill=(255, 255, 255, A)); bb2 = d.textbbox((x, yb), ns, font=fn)
+    d.text((bb2[2] + 28, yb + 18), f"SAVE {money(was - now)}", font=font(FM, 38), fill=(255, 210, 31, A))
 
 
 def card(base_img, i, n):
@@ -100,13 +134,10 @@ def main():
                 fr = logo(i, n)
             else:
                 fr = shot_frame(s, i).convert("RGBA"); t = i / n
-                if s == "s02":
-                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "SIDE SKIRT / FENDER", "MR2 SPYDER · FIBERGLASS")
-                if s == "s07" and i > n * 0.7: label(fr, (i - n * 0.7) / n, "FRONT BUMPER + LIP", "NC MIATA · FIBERGLASS")
-                if s == "s08":
-                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS")
+                for key, f0, f1 in LABELS.get(s, []):
+                    if n * f0 <= i < n * f1: price_label(fr, key, (i - n * f0) / n, plate=s in ("s03", "s04", "s05", "s08", "s09"))
                 if s == "s10":   # both kitted scans (owner: no characters, typical branding)
-                    if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ · FIBERGLASS AERO")
+                    if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ AERO · 20% OFF")
                     last10 = fr.convert("RGB")
             fr.convert("RGB").save(f"{OUT}/{k:05d}.jpg", quality=92); k += 1
     print("frames", k)

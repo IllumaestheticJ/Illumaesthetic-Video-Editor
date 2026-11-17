@@ -48,3 +48,16 @@ are actually trimmed/cropped correctly". Output: `/home/user/media/work/out/bf-m
 ## v1.2: URL (owner rule, MASCOT_AND_PRICES.md 22e387c)
 `/home/user/media/work/out/bf-miata-mr2-night-meet_v1.2.mp4`. The end card URL now reads WWW.EPSILON.PLUS (was epsilon.plus). Nothing else changed.
 Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14.1 LUFS, TP -1.8 dBFS, 28.0 s.
+
+## v1.3: per-part price labels, cars apart in the last scene (user feedback on v1.2)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.3.mp4` (28.0 s, -14.1 LUFS, TP -1.8 dBFS).
+- User: "for each clip of the parts, show the text so people know what part and the pricing/saving". Every part clip,
+  lot shots included (the user asked for it), now shows: part name, car · 20% OFF, was (struck) -> now, SAVE $.
+  Prices from `bf_liquidation_pricing.csv` (`tools/post.py` PRICE / LABELS). Two-part shots show one label per part in
+  turn (MR2 spats then duckbill; NC bumper + lip then canards; NC skirts then spats).
+- Lot close-ups and the NC fender shot put the label on a soft dark plate, because the car fills the frame there.
+- User: "in the last scene the cars are clipping into eachother". They were 2.2 m apart centre to centre with opposite
+  yaw, so the bodies overlapped. Now staggered front/back (NC front-left, MR2 back-right, 4.4 m apart in depth) and
+  framed inside the safe area.
+- Safe-zone sheet looked at: all text and the logo clear of red and amber; both cars in the last scene inside the safe
+  area. Close-up shots' cars still run under the right rail.
