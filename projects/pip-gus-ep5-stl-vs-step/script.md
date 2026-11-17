@@ -69,15 +69,13 @@ That is about 80 spoken words, which fits in about 27 s at the pilot's pace with
 
 | t (s) | Shot | Source |
 |---|---|---|
-| 27.6-29.0 | Real: the C5 Corvette front end at the shop | Dropbox `/2. Illumaesthetic Videos/1. Video dumps/C5 Corvette` (DJI, Jul 2025; see `projects/c5-corvette/clips.md`) |
-| 29.0 (beat) | **Hard 1:1 cut** to the C5 front-bumper STL scan in the house silver look, from the solved camera | Drive: C5 Scans/Scan Data `front bumper.stl`, already registered in the c5-corvette project; or the anti-boomer STL |
-| 29.0-30.6 | Same camera: the mesh's triangles give way to the resurfaced STEP patches | Drive: Ecky's C5 anti-boomer bumper STEP (location still to be confirmed) |
+| 27.6-29.4 | Phone push-in lands (hard cut on the beat) on the NA1 NSX bumper **STL scan**, house silver look, slow orbit; the mesh's triangles are visible | Drive: `NA1 NSX/NA1 Bumper.stl` |
+| 29.4-30.6 | Same camera: the triangles give way to the resurfaced **STEP** patches | Drive: `NA1 NSX/NA1 Bumper.stp` |
 | 30.6-32.0 | The STL-vs-STEP deviation map: **colour only, no legend, no numbers** | Computed from the two files |
 
-**Project choice (owner, 2026-11-17):** the C5 Corvette anti-boomer bumper (Ecky's), which has both an STL and a STEP.
-- **Footage:** C5 footage exists in Dropbox, and the c5-corvette reel already solved 1:1 cuts on this car. That makes a true 1:1 cut possible here.
-- **Lesson to respect:** the C5 footage can post-date the scans (it shows widebody prototyping). Only use frames where the front bumper matches the scanned state.
-- **Fallback:** the NA1 NSX pair (`NA1 Bumper.stl` / `.stp`).
+**Project choice (owner, 2026-11-17: "use the NSX bumper"):** the NA1 NSX bumper scan + STEP pair.
+- **No real footage:** there is no NSX footage, so this section is scan and CAD renders only, with no 1:1 real cut.
+- **Not used:** the C5 anti-boomer bumper. Ecky's folder has STL and .blend files only, with no STEP.
 
 ## End cards
 - **32-35.5 s, closing card (the last frame of the video):**

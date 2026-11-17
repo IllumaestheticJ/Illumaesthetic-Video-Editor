@@ -6,3 +6,4 @@
 {"ts": "2026-11-17T06:43:04Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "story", "note": "Use a bumper for the real STL/STEP section, not the Ioniq", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T06:44:26Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "story", "note": "Use the C5 Corvette anti-boomer bumper (Ecky's, under C5 Corvette) - it has both STL and STEP", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T06:51:55Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "story", "note": "Script approved ('accoved')", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T06:55:32Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "story", "note": "Use the NSX bumper (NA1 Bumper.stl + .stp) for the real section", "by": "reviewer", "promoted": false}
