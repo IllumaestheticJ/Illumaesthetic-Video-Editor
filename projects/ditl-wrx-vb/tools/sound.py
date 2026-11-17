@@ -100,7 +100,7 @@ def put(x, at, g=1.0, pan=0.0):
 # so play the song 1.39% fast from 30.05 s: every cut then lands on a bar and the drop on the shot 1->2 cut
 MT = 1.0139; MSS = 32.25 - T(2) * MT
 mend = T(15); mus = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-ss", str(MSS), "-i", M + "music/first_time.mp3", "-af", "atempo=%s" % MT, "-t", str(mend), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout, np.float32).reshape(-1, 2).astype(np.float64); g = np.ones(len(mus)); g[-int(0.02 * SR):] = np.linspace(1, 0, int(0.02 * SR))
-VO = [(M + "voice/take3/1_semperfi.wav", T(8) + 0.55, 2.6), (M + "voice/take3/2_exchange.wav", T(11, 70) - 1.84, 1.5), (M + "voice/take3/3_ringlands.wav", T(16, 122) - 0.25, 2.8)]
+VO = [(M + "voice/take3/1_semperfi.wav", T(8) + 0.55, 2.6), (M + "voice/take3/2_exchange.wav", T(11, 70) - 1.84, 1.5), (M + "voice/take3/3_ringlands.wav", T(16, 122) - 0.42, 2.8)]
 for pth, at, vg in VO:
     v = load(pth); i0, i1 = int((at - 0.15) * SR), int((at + len(v) / SR + 0.15) * SR); r = int(0.12 * SR)
     for i, j, a, b in ((i0 - r, i0, 1, 0.3), (i0, i1, 0.3, 0.3), (i1, i1 + r, 0.3, 1)):

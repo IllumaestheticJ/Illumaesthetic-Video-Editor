@@ -32,3 +32,8 @@ Status: first cut for owner review, not final. v1 = first assembly; v2 = same pi
 ## Open
 - Owner: dedicated vape scene? BMW colour? May review JPEG sheets be committed?
 - Polish candidates: G80 window edge, Odyssey shape, vape cloud.
+
+## v2.1 (parent follow-ups)
+- Pitch: the 1.39% speed-up uses ffmpeg `atempo` (time stretch, pitch preserved), so there is no 24-cent shift; no change needed. Drop still rises at frame 65-65.5.
+- Last line: "...ringlands?" moved 0.17 s (5 frames) earlier so the word's tail ends about 5 frames before the hard cut instead of 3 ms. The picture is unchanged; the horror face (frame 124 of shot 16) now lands during the word instead of at its start.
+- Loudness re-measured on v2.1: see editlog.
