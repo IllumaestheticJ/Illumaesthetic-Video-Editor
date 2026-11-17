@@ -31,14 +31,20 @@ GLB = {"mr2": f"{M}/glb/eps-toyota-mr2-spyder-v19.glb", "nc": f"{M}/glb/eps-mazd
 SCAN = {"mr2": f"{M}/dec/mr2_keep.stl", "nc": f"{M}/dec/nc_keep.stl"}
 SCAN_FULL = {"mr2": f"{M}/dec/mr2_glbframe.stl", "nc": f"{M}/dec/nc_glbframe.stl"}
 PAINT = {"mr2": (0.55, 0.012, 0.018), "nc": (0.38, 0.012, 0.10)}    # linear; MR2 red, NC Rubystar #a61f59
-# sale kit per car (owner's BF sheet + plan): parts shown; matching stock pieces hidden
-SHOW = {"mr2": ["part_front_bumper", "part_eyelids", "part_hood_vents", "part_side_skirts", "part_rear_spats", "part_duckbill"],
-        "nc": ["part_front_bumper", "part_front_lip", "part_fender_cuts", "part_side_skirts", "part_rear_spats", "part_canards"]}
-HIDE = {"mr2": ["body_front_bumper_stock", "trim_front_bumper_stock", "body_eyelids_stock", "body_hood_vent_stock",
-                "body_fender_cut_stock", "trim_fender_liner_stock", "body_rear_spats_stock", "body_duckbill_stock",
-                "part_diffuser", "part_tc_wing_kit", "body_tc_wing_kit_stock", "part_hardtop", "hardtop_rear_window"],
-        "nc": ["body_front_bumper_stock", "trim_front_bumper_off_stock", "body_fender_cuts_stock", "body_side_skirts_stock",
-               "body_rear_spats_stock", "part_gt_wing", "part_brake_ducts", "part_tire_spats", "body_tire_spats_stock"]}
+# v1 (user: "start with stock cars and then slowly modify them"): every car starts STOCK; zones install one at a time.
+# zone -> (lookbook stock objects that come off, kit parts that go on)
+ZONES = {"mr2": {"skirts": (["body_fender_cut_stock", "trim_fender_liner_stock"], ["part_side_skirts"]),
+                 "eyelids": (["body_eyelids_stock"], ["part_eyelids"]),
+                 "hood": (["body_hood_vent_stock"], ["part_hood_vents"]),
+                 "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),
+                 "duck": (["body_duckbill_stock"], ["part_duckbill"])},
+         "nc": {"bumper": (["body_front_bumper_scan"], ["part_front_bumper", "part_front_lip", "part_canards"]),
+                "fender": (["body_fender_cuts_scan"], ["part_fender_cuts"]),
+                "skirts": (["body_side_skirts_stock"], ["part_side_skirts"]),
+                "spats": (["body_rear_spats_stock"], ["part_rear_spats"])}}
+# never shown (not on sale / not in this ad). The MR2 front bumper is "No deal", so the MR2 keeps its stock bumper.
+NEVER = {"mr2": ["part_front_bumper", "part_diffuser", "part_tc_wing_kit", "part_hardtop", "hardtop_rear_window", "trim_soft_top_stock"],
+         "nc": ["part_gt_wing", "part_brake_ducts", "part_tire_spats", "trim_front_bumper_off_stock", "body_front_bumper_stock", "body_fender_cuts_stock"]}
 
 
 def spec():
@@ -75,30 +81,81 @@ def mat_paint(rgb):
     return m
 
 
-def load_cgi(i, c):
+def base(n): return n.split(".")[0]
+
+
+def key_vis(o, f, hidden):
+    o.hide_render = hidden; o.keyframe_insert("hide_render", frame=f + 1)
+
+
+def slide(o, f0, f1, vec, arriving, nframes):
+    """arriving: starts at +vec and eases to rest by f1. leaving: rest until f0, then accelerates to +vec."""
+    rest = o.location.copy()
+    for f in range(0, nframes + 1):
+        u = ease((f - f0) / max(1, f1 - f0))
+        o.location = rest + Vector(vec) * ((1 - u) if arriving else u ** 1.6)
+        o.keyframe_insert("location", frame=f + 1)
+
+
+def apply_zones(c, objs_of, nframes):
+    """objs_of(names) -> objects. c["on"] = zones already installed; c["swap"] = zones that install during the shot."""
+    car = c["car"]
+    for n in NEVER[car]:
+        for o in objs_of([n]): o.hide_render = True
+    swaps = {w["zone"]: w for w in c.get("swap", [])}
+    for z, (stock, parts) in ZONES[car].items():
+        if z in c.get("on", []):
+            for o in objs_of(stock): o.hide_render = True
+        elif z in swaps:
+            w = swaps[z]; f0, f1 = w["off"]; f2, f3 = w["on"]
+            for o in objs_of(stock):
+                slide(o, f0, f1, Vector(w.get("dir", [0, 0, 1])) * w.get("dist", 6.0), False, nframes)
+                key_vis(o, 0, False); key_vis(o, f1, True)
+            for o in objs_of(parts):
+                slide(o, f2, f3, w.get("from", [0, 0, 1.5]), True, nframes)
+                key_vis(o, 0, True); key_vis(o, f2, False)
+        else:
+            for o in objs_of(parts): o.hide_render = True
+
+
+def load_cgi(i, c, nframes):
     root = car_root(i, c)
     before = set(bpy.data.objects)
     bpy.ops.import_scene.gltf(filepath=GLB[c["car"]])
     new = [o for o in bpy.data.objects if o not in before]
     paint = mat_paint(PAINT[c["car"]])
+    if c["car"] == "nc":      # the lookbook NC has no stock nose: use the real stock bumper from our scan, painted
+        for zn, nm in (("bumper", "body_front_bumper_scan"), ("fender", "body_fender_cuts_scan")):   # GLB fender stock renders black
+            o = import_stl(f"{M}/dec/nc_cut_{zn}.stl", nm); o.data.materials.append(paint)
+            for pl in o.data.polygons: pl.use_smooth = True
+            new.append(o)
     for o in new:
-        if o.name.split(".")[0] in HIDE[c["car"]]:
-            o.hide_render = True
         if o.type == "MESH":
-            for s in o.material_slots:
-                if s.material and s.material.name.startswith("paint"):
-                    s.material = paint
+            for sl in o.material_slots:
+                if sl.material and sl.material.name.startswith("paint"):
+                    sl.material = paint
     parent_to(new, root)
+    apply_zones(c, lambda names: [o for o in new if base(o.name) in names], nframes)
     return root
 
 
-def load_scan(i, c, silver, anim):
-    root = car_root(i, c)
-    base = import_stl(SCAN[c["car"]] if c.get("keep", True) else SCAN_FULL[c["car"]], f"scan{i}")
-    base.data.materials.append(silver)
-    base.parent = root
-    for k, pth in enumerate(c.get("static", [])):
-        o = import_stl(pth, f"static{i}_{k}"); o.data.materials.append(silver); o.parent = root
+def load_scan(i, c, silver, nframes):
+    root = car_root(i, c); car = c["car"]; K = f"{M}/kit_{car}"
+    b0 = import_stl(SCAN[car], f"scan{i}"); b0.data.materials.append(silver); b0.parent = root
+    objs = {}
+    for z, (stock, parts) in ZONES[car].items():
+        o = import_stl(f"{M}/dec/{car}_cut_{z}.stl", f"cut_{z}"); o.data.materials.append(silver); o.parent = root
+        for n in stock: objs.setdefault(n, []).append(o)
+        for n in parts:
+            q = import_stl(f"{K}/{n}.stl", n); q.data.materials.append(silver); q.parent = root; objs.setdefault(n, []).append(q)
+    seen = set()
+    def objs_of(names):
+        out = []
+        for n in names:
+            for o in objs.get(n, []):
+                if o.name not in seen or True: out.append(o)
+        return list({o.name: o for o in out}.values())
+    apply_zones(c, objs_of, nframes)
     return root
 
 
@@ -175,27 +232,6 @@ def ease(t):
     return t * t * (3 - 2 * t)
 
 
-def animate(sp, roots, silver):
-    for a in sp.get("anim", []):
-        root = roots[a.get("car", 0)]
-        d = Vector(a.get("dir", [0, 0, 1]))
-        if a.get("cut"):
-            o = import_stl(a["cut"], "cut"); o.data.materials.append(silver); o.parent = root
-            f0, f1 = a["off"]
-            for f in range(f0, f1 + 1):
-                o.location = d * (ease((f - f0) / max(1, f1 - f0)) ** 1.6) * a.get("dist", 6.0)
-                o.keyframe_insert("location", frame=f + 1)
-        for pth in a.get("part", []):
-            o = import_stl(pth, "part"); o.data.materials.append(silver); o.parent = root
-            f2, f3 = a["on"]
-            for f in range(min(f2, sp["frames"]), sp["frames"] + 1):
-                u = 1 - ease((f - f2) / max(1, f3 - f2))
-                o.location = Vector(a.get("from", [0, 0, 1.6])) * u
-                o.keyframe_insert("location", frame=f + 1)
-            o.hide_render = True; o.keyframe_insert("hide_render", frame=1)
-            o.hide_render = False; o.keyframe_insert("hide_render", frame=f2 + 1)
-
-
 def main():
     sp = spec()
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -211,7 +247,7 @@ def main():
     silver = SR.mat_silver()
     roots = []
     for i, c in enumerate(sp["cars"]):
-        roots.append(load_cgi(i, c) if sp["mode"] == "cgi" else load_scan(i, c, silver, sp.get("anim", [])))
+        roots.append(load_cgi(i, c, sp["frames"]) if sp["mode"] == "cgi" else load_scan(i, c, silver, sp["frames"]))
     if sp["mode"] == "cgi":
         lot_env()
         sc.view_settings.look = "AgX - Medium High Contrast"
@@ -223,7 +259,6 @@ def main():
             d = bpy.data.lights.new(name, "AREA"); d.energy = en; d.size = size; d.color = col
             o = bpy.data.objects.new(name, d); sc.collection.objects.link(o); o.location = loc
             o.rotation_euler = (Vector((0, 0, 0.5)) - Vector(loc)).to_track_quat("-Z", "Y").to_euler()
-        animate(sp, roots, silver)
     camera(sp["camera"])
     frames = sp.get("only")
     if frames:

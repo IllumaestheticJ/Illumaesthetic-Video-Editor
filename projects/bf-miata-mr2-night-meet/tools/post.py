@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v0.1.mp4"   # v0.1: no Del & Eps (owner, e05c325)
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -101,7 +101,7 @@ def main():
                 fr = shot_frame(s, i).convert("RGBA"); t = i / n
                 if s == "s02":
                     if i > n * 0.62: label(fr, (i - n * 0.62) / n, "SIDE SKIRT / FENDER", "MR2 SPYDER · FIBERGLASS")
-                if s == "s07" and i > n * 0.62: label(fr, (i - n * 0.62) / n, "FRONT BUMPER", "NC MIATA · FIBERGLASS")
+                if s == "s07" and i > n * 0.7: label(fr, (i - n * 0.7) / n, "FRONT BUMPER + LIP", "NC MIATA · FIBERGLASS")
                 if s == "s08":
                     if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS", y=1380)
                 if s == "s10":   # both kitted scans (owner: no characters, typical branding)
@@ -110,7 +110,7 @@ def main():
             fr.convert("RGB").save(f"{OUT}/{k:05d}.jpg", quality=92); k += 1
     print("frames", k)
     dur = k / 30
-    vid = f"{M}/work/v01_silent.mp4"
+    vid = f"{M}/work/v1_silent.mp4"
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-i", f"{OUT}/%05d.jpg", "-c:v", "libx264", "-pix_fmt", "yuv420p",
                     "-crf", "18", vid], check=True)
     seg = f"{M}/work/music_seg.wav"

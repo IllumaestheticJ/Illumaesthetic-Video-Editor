@@ -1,5 +1,8 @@
 # BF 7/8 - "miata-mr2-night-meet" - shot list
 
+> **v1 (user feedback on v0.1): both cars start STOCK and the sale parts install one at a time; see `draft_v1_notes.md` for the
+> shot order actually rendered.** The table below is the original plan.
+>
 > **2026-11-17 owner decision (MASCOT_AND_PRICES.md e05c325): no Del & Eps in the BF videos; typical Epsilon+ branding instead.**
 > The character beats below are removed: shots 2 and 8 are scan-only, and shot 10 is the two kitted silver scans with the label
 > "MR2 SPYDER + NC MIATA / EPSILON+ · FIBERGLASS AERO". Draft v0.1 follows this.
