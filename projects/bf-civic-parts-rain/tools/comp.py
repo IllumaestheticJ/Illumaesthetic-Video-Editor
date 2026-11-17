@@ -14,7 +14,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = "/home/user/media/bf-civic-parts-rain"; OUTD = f"{M}/comp"; os.makedirs(OUTD, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.2.mp4"
+FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.3.mp4"
 W, H = 1080, 1920
 F_LIP, F_SKIRT, F_REAR, F_WING, F_FLASH, F_R7, F_4A, F_4B, F_END, F_CTA, N = 329, 371, 435, 466, 488, 488, 594, 647, 694, 711, 795  # v0.2: badge flash cut (owner); 1:1 cut to render 7 at 16.25 s
 F_CH_IN, F_CH_OUT = 169, 300
@@ -23,15 +23,20 @@ ID_B = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"; ID_M = "/usr/sha
 MONO = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
 def font(p, s): return ImageFont.truetype(p, s)
 
+SAFE_CX = 484
+BOXES = {}   # text/logo boxes for scripts/safezone_check.py --text-boxes
 def text(img, s, size, y, fpath=ID_B, track=6, alpha=1.0, fill=OFF, x=None):
     """centred (or left at x) text with letter tracking; alpha 0..1"""
     f = font(fpath, size); d = ImageDraw.Draw(img)
     widths = [d.textlength(c, font=f) for c in s]; tw = sum(widths) + track * (len(s) - 1)
-    cx = (W - tw) / 2 if x is None else x
-    lay = Image.new("RGBA", img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
+    cx = SAFE_CX - tw / 2 if x is None else x   # v0.3: centred on the safe area x 48-920 (knowledge/safe-zones.md)
+    x0 = cx; lay = Image.new("RGBA", img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
     for c, w in zip(s, widths):
         dl.text((cx, y), c, font=f, fill=fill + (int(255 * alpha),)); cx += w + track
     img.alpha_composite(lay)
+    if alpha > 0:
+        BOXES[(s, round(y))] = {"text": s, "x": int(x0), "y": int(y), "w": int(tw + 1), "h": int(size * 1.25),
+                             "key": s in ("30% OFF", "THE FULL KIT", "SHOP DEALS NOW", "WWW.EPSILON.PLUS", "BLACK FRIDAY")}
     return tw
 
 def env(f, a, b, fade=6):
@@ -77,30 +82,31 @@ def frame(f):
     if f < F_FLASH:
         img = load(f"{M}/renders/take/f_{f:04d}.png")
         e = env(f, 40, 297, 8)
-        if e: text(img, "BLACK FRIDAY", 104, 250, ID_B, 8, e)
+        if e: text(img, "BLACK FRIDAY", 96, 330, ID_B, 8, e)
         for a, b, s in ((F_LIP, 366, "FRONT LIP"), (F_SKIRT, 428, "SIDE SKIRTS"), (F_REAR, 462, "REAR LIP"), (F_WING, 487, "SPORT WING")):
             e = env(f, a, b, 4)
-            if e: text(img, s, 44, 1640, MONO, 8, e)
+            if e: text(img, s, 40, 1370, MONO, 8, e)
     elif f < F_R7:
         img = load(f"{M}/footage/flash/f_{f - F_FLASH + 1:04d}.png")
     elif f < F_4A:
         k = 1.0 - 0.03 * (f - F_R7) / (F_4A - F_R7)        # gentle zoom out (owner disliked push-ins on the end photo)
-        s = 940 / 1180 * k; R = R7.resize((round(1920 * s),) * 2, Image.LANCZOS)
-        img.paste(R, (round(540 - 1020 * s), round(1000 - 942.5 * s)))
+        s = 860 / 1180 * k; R = R7.resize((round(1920 * s),) * 2, Image.LANCZOS)   # v0.3: 860 px, inside the right rail
+        img.paste(R, (round(SAFE_CX - 1020 * s), round(1000 - 942.5 * s)))
     elif f < F_END:
         car = "fe" if f < F_4B else "fl"; i = f - (F_4A if car == "fe" else F_4B)
         img = load(f"{M}/renders/cgi_{car}/f_{i:04d}.png")
         e = env(f, F_4A, F_END - 1, 5)
-        text(img, "BLACK FRIDAY", 64, 230, ID_M, 14, e)
-        text(img, "30% OFF", 190, 310, ID_B, 6, e)
-        text(img, "THE FULL KIT", 96, 535, ID_B, 10, e)
+        text(img, "BLACK FRIDAY", 60, 300, ID_M, 14, e)
+        text(img, "30% OFF", 176, 372, ID_B, 6, e)
+        text(img, "THE FULL KIT", 88, 575, ID_B, 10, e)
         sub = "CIVIC FE · LIP · SKIRTS · REAR LIP · WING" if car == "fe" else "CIVIC FL · LIP · SKIRTS · WING"
-        text(img, sub, 32, 1610, MONO, 3, e)
-        text(img, "PAINT-MATCH AT FULL PRICE", 28, 1680, MONO, 4, e * 0.8)
+        text(img, sub, 29, 1310, MONO, 3, e)
+        text(img, "PAINT-MATCH AT FULL PRICE", 27, 1365, MONO, 4, e * 0.8)
     else:
         e = env(f, F_END, N + 20, 6)
         lg = LOGO.copy(); lg.putalpha(lg.getchannel("A").point(lambda v: int(v * e)))
-        img.alpha_composite(lg, ((W - LOGO.size[0]) // 2, 840))
+        img.alpha_composite(lg, (SAFE_CX - LOGO.size[0] // 2, 840))
+        BOXES[('logo', 840)] = {"text": "Epsilon+ wordmark", "x": SAFE_CX - LOGO.size[0] // 2, "y": 840, "w": LOGO.size[0], "h": LOGO.size[1], "key": True}
         e2 = env(f, F_CTA, N + 20, 6)
         if e2:
             text(img, "SHOP DEALS NOW", 58, 1010, ID_B, 10, e2)
@@ -113,6 +119,8 @@ if __name__ == "__main__":
     only = [int(x) for x in sys.argv[2].split(",")] if len(sys.argv) > 2 and sys.argv[1] == "--frames" else None
     for f in (only or range(N)):
         frame(f).save(f"{OUTD}/c_{f:04d}.png" if not only else f"{OUTD}/check_{f:04d}.png")
+    import json
+    json.dump(list(BOXES.values()), open(f"{M}/comp/text_boxes.json", "w"), indent=1)
     if only: sys.exit()
     os.makedirs(os.path.dirname(FINAL), exist_ok=True)
     mus = f"{M}/music/freaked_out.wav"
