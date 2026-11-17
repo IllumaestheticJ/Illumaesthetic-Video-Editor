@@ -129,7 +129,7 @@ def overlay(shot, fr):
             tracked(d, (W / 2, 900), 'SPORT WING + TRUNK LIP', font(F_TITLE, 46), (232, 236, 242, int(255 * v)), track=4, anchor_center=True)
             tracked(d, (W / 2, 975), '$385', font(F_TITLE, 150), YELLOW[:3] + (int(255 * v),), track=4, anchor_center=True)
             tracked(d, (W / 2, 1160), 'BLACK FRIDAY', font(F_MONO, 40), (232, 236, 242, int(255 * v)), track=10, anchor_center=True)
-            tracked(d, (W / 2, 1240), 'epsilon.plus', font(F_MONO_R, 40), (232, 236, 242, int(220 * v)), track=2, anchor_center=True)
+            tracked(d, (W / 2, 1240), 'www.epsilon.plus', font(F_MONO_R, 40), (232, 236, 242, int(220 * v)), track=2, anchor_center=True)
     return img
 
 

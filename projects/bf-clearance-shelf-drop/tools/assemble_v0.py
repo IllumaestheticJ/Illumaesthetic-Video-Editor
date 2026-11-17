@@ -10,7 +10,7 @@ P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
 R = f"{M}/renders_v03"
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.3.mp4"
+OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.4.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 FB = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
@@ -52,7 +52,7 @@ def endcard(path):
     im.paste(logo, ((1080 - w) // 2, 820 - h // 2), logo)
     d = ImageDraw.Draw(im)
     d.text((540, 960), "BLACK FRIDAY CLEARANCE", font=ImageFont.truetype(FB, 54), fill=OFF, anchor="mt")
-    d.text((540, 1040), "EPSILON.PLUS", font=ImageFont.truetype(FM, 46), fill=OFF, anchor="mt")
+    d.text((540, 1040), "WWW.EPSILON.PLUS", font=ImageFont.truetype(FM, 46), fill=OFF, anchor="mt")
     im.save(path)
 
 

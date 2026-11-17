@@ -44,3 +44,7 @@ are actually trimmed/cropped correctly". Output: `/home/user/media/work/out/bf-m
 - Wordmark and URL centred on x 484 (the safe band's centre).
 - `scripts/safezone_check.py` sheets looked at before and after: no text or logo touches red or amber in v1.1.
 - Not fixed: some shots' cars extend under the right rail or outside the 4:5 feed crop (close-ups; NC fender wheel).
+
+## v1.2: URL (owner rule, MASCOT_AND_PRICES.md 22e387c)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.2.mp4`. The end card URL now reads WWW.EPSILON.PLUS (was epsilon.plus). Nothing else changed.
+Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14.1 LUFS, TP -1.8 dBFS, 28.0 s.

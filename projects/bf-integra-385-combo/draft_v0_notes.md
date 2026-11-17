@@ -1,3 +1,5 @@
+# v0.5 (owner, 2026-11-17): end-card URL reads www.epsilon.plus. safezone_check text boxes OK. Output bf-integra-385-combo_v0.5.mp4.
+
 # v0.4 (owner safe-zone rule, 2026-11-17)
 - All text, prices and logos inside x 48-920 / y 285-1440: shot-1 tag/title moved down (y 330-667), receipts in shots
   2-3 moved to y 330, shot-4 receipt to y 880-1415, end-card product line 54 -> 46 px (x 180-899).

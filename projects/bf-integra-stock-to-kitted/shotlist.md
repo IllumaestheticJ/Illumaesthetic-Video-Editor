@@ -51,7 +51,7 @@ Times assume track #1: beat = 0.4286 s, drop at 6.89 s = beat 16. They are re-fi
 | 4 | 10.32-12.03 | 1.71 | 24-28 | Real camera car behind, rear 3/4 | KITTED car from behind: Sport Wing, spats, diffuser | DJI `DJI_20240324162511_0370_D.MP4` (Dropbox id `ihAynaYnO_4AAAAAAAAK4w`), ~4.0-5.7 s (wing closest) | Car rolls toward the camera car | None (IRL) | Hard cut on beat 28 | Footage edit |
 | 5 | 12.03-13.71 | 1.71 | 28-32 | Black studio, 3/4 from above (~30 deg) | The four products from the website model in silver, no car body| `eps-acura-integra-de-v29.glb` nodes `part_front_lip`, `part_side_skirts`, `part_rear_spats`, `part_sport_wing`, parts rendered in the house silver (house scan look).| One part drops into its place in a kit layout on each beat (28, 29, 30, 31). No spins (lesson). | Optional: part name + was/BF price under each part (BF liquidation sheet, below). Only if the user wants per-part prices. | Cut on beat 32 | Blender (GLB, silver) + Remotion text |
 | 6 | 13.71-15.43 | 1.71 | 32-36 | Same as 5, held | The kit layout | Same render | Card text lands on beat 32 | **"Full kit, 30% off"** (owner's wording). The confirmed tiers put the spats at 40-45 %, so the wording needs a decision, see Q1. | Cut on beat 36 | Remotion over the shot 5 render |
-| 7 | 15.43-17.57 | ~2.1 | 36-41 | n/a | Epsilon+ wordmark, ~720 px wide, centred | Drive `EPSILON+ Logos` (exact file to locate; Epsilon wordmark, not Illumaesthetic) | Lands on beat 36 and rides the decay | Optional `epsilon.plus` under the logo, if the user wants a CTA | End | Remotion |
+| 7 | 15.43-17.57 | ~2.1 | 36-41 | n/a | Epsilon+ wordmark, ~720 px wide, centred | Drive `EPSILON+ Logos` (exact file to locate; Epsilon wordmark, not Illumaesthetic) | Lands on beat 36 and rides the decay | `WWW.EPSILON.PLUS` under the logo (owner rule: the only on-screen URL) | End | Remotion |
 
 ### The 1:1 cut, in detail (`knowledge/match-cut.md`)
 1. **Pick the frame.** Choose a calm frame of 0371 (the camera car steady relative to the car) where the body shows rigid landmarks spread in depth:
@@ -119,7 +119,7 @@ So every kit part is at least 30 % off, and the kit overall is more than 30 % of
 2. **The stock pass is the real scan of this car (silver on black), not real driving footage.** No footage of the car driving stock exists; its stock state only exists as the Jan-2024 scan. Is scan → real OK for "it passes again"? The other option is the website GLB with the parts hidden, in a CGI street. That is more work and would match the real street less well.
 3. **Music:** "140" by Lil Texas (drop ~6.9 s, hard), or the on-theme "BLACK FRIDAY" by NUMMA? NUMMA's drop is at ~16.7 s, so it needs a longer stock pass or starting mid-song.
 4. ~~Del & Eps~~ Dropped: the owner said no characters in BF videos, typical branding only.
-7. **Per-part prices on the kit layout (shot 5): yes or no?** Should the end card carry `epsilon.plus`?
+7. **Per-part prices on the kit layout (shot 5): yes or no?** (End-card URL settled: WWW.EPSILON.PLUS, owner rule.)
 
 ## Production steps (after approval)
 1. `ive log` each approved answer. Fetch the full licensed track; build the kick-peak grid; lock the drop frame and every cut to round(t*30).
