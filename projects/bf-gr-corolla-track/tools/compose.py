@@ -8,18 +8,18 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.3.mp4')
-ap.add_argument('--tag', default='v0.3'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v03'; RC = f'{M}/renders_v0'; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.5.mp4')
+ap.add_argument('--tag', default='v0.5'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v05'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [4, 6, 10, 12, 14, 18, 22, 26, 30, 34]
+CUTK = [4, 6, 10, 12, 14, 20, 24, 30, 34, 36]   # v0.5: cards 6 kicks (car -> line-up), drive-past 2 kicks (user)
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[40] * FPS) + 30          # logo holds to kick 40, then a 1 s fade
+END = round(kicks[42] * FPS) + 30          # logo holds 6 kicks (to kick 42), then a 1 s fade
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 30)
+f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 40)
 f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 58) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 58)
 f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 50)
 f_url = ImageFont.truetype(FONT + 'InterDisplay-Medium.otf', 44)
@@ -46,17 +46,48 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
         tw = d.textlength(s, font=font); d.text((cx - tw / 2, y), s, font=font, fill=TXT + (alpha,))
 
 
+RED = (226, 38, 43)
+f_ver = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 250)
+f_kit = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 96)
+f_pct = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 168)
+f_upto = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 64)
+
+
 def card_overlay(img, shot, i, n):
-    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)   # text on its own layer so alpha fades work
-    a_in = ease(i / 6); a_out = 1 - ease((i - (n - 6)) / 5); al = round(255 * min(a_in, a_out))
-    if shot == 's6_cardv2':
-        text_c(d, 800, 'BLACK FRIDAY', f_bf, al, tracking=5, cx=CXT)
-        text_c(d, 856, 'V2 KIT', f_mid, al, cx=CXT)
-        text_c(d, 930, '30% OFF', f_big, al, cx=CXT)
-    else:
-        text_c(d, 800, 'BLACK FRIDAY', f_bf, al, tracking=5, cx=CXT)
-        text_c(d, 856, 'V1 UP TO', f_mid, al, cx=CXT)
-        text_c(d, 930, '45% OFF', f_big, al, cx=CXT)
+    """v0.5 (user): 'V2' / 'V1' big -> a red slash strikes through it -> the percent off punches in bigger.
+    Band between the lip (top) and the skirt (bottom) of the line-up plate; all inside x 48-920, y 285-1440."""
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
+    out = 1 - ease((i - (n - 5)) / 4)
+    ver, word = ('V2', 'KIT') if shot == 's6_cardv2' else ('V1', '')
+    pct, pre = ('30% OFF', '') if shot == 's6_cardv2' else ('45% OFF', 'UP TO')
+    text_c(d, 300, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
+    F0, F1 = round(0.30 * n), round(0.60 * n)   # lift window, same as shot.py card_lineup
+    # 1) version, big, over the car (top band); slashed; gone as the parts lift
+    a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
+    if a_v > 0:
+        wv = d.textlength(ver, font=f_ver); wk = d.textlength(word, font=f_kit) if word else 0; gap = 24 if word else 0
+        x0 = 484 - (wv + gap + wk) / 2; y0 = 360
+        d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
+        if word:
+            d.text((x0 + wv + gap, y0 + 128), word, font=f_kit, fill=TXT + (round(255 * a_v),))
+        # 2) the slash: a thick red bar drawn lower-left -> upper-right across the version (frames 9-15)
+        k = ease((i - 10) / 6)
+        if k > 0:
+            xa, ya, xb, yb = x0 - 30, y0 + 270, x0 + wv + gap + wk + 30, y0 + 40
+            xe, ye = xa + (xb - xa) * k, ya + (yb - ya) * k
+            d.line((xa, ya, xe, ye), fill=RED + (round(255 * min(1, a_v * 1.4)),), width=26)
+    # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20
+    a_p = ease((i - (F1 - 3)) / 4) * out
+    if a_p > 0:
+        sc_ = 1.0 + 0.15 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
+        lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
+        if pre:
+            text_c(dl, 700, pre, f_upto, round(255 * a_p), cx=484)
+        text_c(dl, 770 if pre else 745, pct, f_pct, round(255 * a_p), cx=484)
+        if sc_ > 1.001:
+            cx_, cy_ = 484, 860; big = lay.resize((round(W * sc_), round(H * sc_)), Image.LANCZOS)
+            lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); lay.alpha_composite(big, (round(cx_ - cx_ * sc_), round(cy_ - cy_ * sc_)))
+        ov.alpha_composite(lay)
     img.alpha_composite(ov)
 
 
@@ -92,8 +123,8 @@ def logo_frame(i, n):
     a = ease(i / 8) * (1 - ease((i - (n - 30)) / 28))
     lg = logo.copy(); lg.putalpha(lg.split()[-1].point(lambda v: round(v * a)))
     img.alpha_composite(lg, (484 - lg.width // 2, 760 - lg.height // 2))
-    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov); tw = d.textlength('EPSILON.PLUS', font=f_url)
-    d.text((484 - tw / 2, 860), 'EPSILON.PLUS', font=f_url, fill=TXT + (round(200 * a),))
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov); tw = d.textlength('WWW.EPSILON.PLUS', font=f_url)
+    d.text((484 - tw / 2, 860), 'WWW.EPSILON.PLUS', font=f_url, fill=TXT + (round(200 * a),))
     img.alpha_composite(ov)
     return img
 
@@ -108,9 +139,6 @@ for shot, s0, e0 in zip(ORDER, starts, ends):
             src = f'{RC if shot in ("s6_cardv2", "s8_cardv1") else R}/{shot}/f_{i + 1:04d}.png'
             img = Image.open(src).convert('RGBA').resize((W, H), Image.LANCZOS)
             if shot in ('s6_cardv2', 's8_cardv1'):
-                sc_, ax, ay = 0.79, CX, 650
-                small = img.resize((round(W * sc_), round(H * sc_)), Image.LANCZOS)
-                img = Image.new('RGBA', (W, H), img.getpixel((4, 4))); img.alpha_composite(small, (round(ax - ax * sc_), round(ay - ay * sc_)))   # fill = the plate's own black
                 card_overlay(img, shot, i, n)
             for eb, tt, y, st, sp in LABELS.get(shot, []):
                 label(img, i, n, (eb, tt), y, st, sp)

@@ -16,8 +16,8 @@ W, H, FPS = 1080, 1920, 30
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
 # v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
 TIMELINE = [('render', 'render_v03/s1', 1, 97), ('render', 'render_v03/s2', 2, 71), ('render', 'render_v03/s3', 3, 71),
-            ('render', 'render_v03/s4', 4, 71), ('render', 'render_v04/s7', 0, 70), ('render', 'render_v04/s8', 0, 71),
-            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 71)]
+            ('render', 'render_v06/s4', 4, 141), ('render', 'render_v04/s7', 0, 71), ('render', 'render_v04/s8', 0, 71),
+            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]  # v0.6: price shot and end card one bar longer each (user: deal numbers easier to read)
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222, 226, 255)  # v0.3: Epsilon+ palette (pink strike, cyan price)
@@ -171,7 +171,11 @@ def main(out):
         for i in range(n):
             base = Image.fromarray(plates[i]).convert('RGBA')
             if kind != 'irl' and ov:  # never put anything over IRL footage
-                base.alpha_composite(overlay(ov, i))
+                o = overlay(ov, i)
+                if kind == 'card':  # slow 3 % push-in so the longer end card isn't a dead hold
+                    z = 1 + 0.03 * i / n; o = o.resize((int(W * z), int(H * z)), Image.LANCZOS)
+                    o = o.crop(((o.width - W) // 2, (o.height - H) // 2, (o.width - W) // 2 + W, (o.height - H) // 2 + H))
+                base.alpha_composite(o)
             enc.stdin.write(np.asarray(base.convert('RGB')).tobytes())
         print(kind, src, 'frames', n, flush=True)
     enc.stdin.close(); enc.wait()

@@ -75,3 +75,7 @@ The owner's instruction, relayed by the parent: "tell all the black friday agent
 - **Check:** across all 282 frames, the pixel extent is x 47-919 / y 326-1257. The one 1 px touch (the car at frame 58) was fixed; after the fix, frame 58 measures x 51-909.
 - The `safezone_check.py` sheet was reviewed: nothing in red or amber.
 - Loudness is unchanged: -13.5 LUFS, peak -2.6 dBFS.
+
+## v0.3 (2026-11-17): URL
+- The end card reads **WWW.EPSILON.PLUS** (owner: always with www.). It is 42 px, x 195-771 / y 997-1027, inside the safe box.
+- Output: `/home/user/media/work/out/bf-days-left-countdown_v0.3.mp4`. The safezone sheet is clean; overall extent is x 51-919 / y 326-1257.

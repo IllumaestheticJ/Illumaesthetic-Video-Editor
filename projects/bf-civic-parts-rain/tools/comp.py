@@ -14,9 +14,13 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = "/home/user/media/bf-civic-parts-rain"; OUTD = f"{M}/comp"; os.makedirs(OUTD, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.3.mp4"
+FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.4.mp4"
 W, H = 1080, 1920
-F_LIP, F_SKIRT, F_REAR, F_WING, F_FLASH, F_R7, F_4A, F_4B, F_END, F_CTA, N = 329, 371, 435, 466, 488, 488, 594, 647, 694, 711, 795  # v0.2: badge flash cut (owner); 1:1 cut to render 7 at 16.25 s
+# v0.4: music from MUSIC_START (owner: first scene too long); frames = (song time - MUSIC_START) * 30 on measured hits:
+# lip 11.320, skirts 12.365, rear lip 13.436, wing 14.495, render-7 cut 15.534, FE 17.459, FL 19.792, end card 21.554, CTA 21.905, end 24.9
+MUSIC_START = 9.25
+F_LIP, F_SKIRT, F_REAR, F_WING, F_FLASH, F_R7, F_4A, F_4B, F_END, F_CTA, N = 62, 93, 126, 157, 189, 189, 246, 316, 369, 380, 470
+BLUR = 5.0   # px at 1080 wide on the rain layer (owner: falling parts a bit blurred)
 F_CH_IN, F_CH_OUT = 169, 300
 OFF = (232, 236, 242)
 ID_B = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"; ID_M = "/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf"
@@ -43,6 +47,16 @@ def env(f, a, b, fade=6):
     """0..1 envelope: in at a, out at b"""
     if f < a or f > b: return 0.0
     return min(1.0, (f - a + 1) / fade, (b - f + 1) / fade)
+
+def layered(car_p, rain_p):
+    """car layer + rain layer (transparent film, car held out), rain blurred with premultiplied alpha"""
+    img = load(car_p)
+    r = np.asarray(load(rain_p)).astype(np.float32) / 255.0
+    a = r[..., 3:4]; pm = np.concatenate([r[..., :3] * a, a], 2)
+    pm = np.stack([np.asarray(Image.fromarray((pm[..., k] * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(BLUR))) for k in range(4)], 2).astype(np.float32) / 255.0
+    al = pm[..., 3:4]; rgb = np.where(al > 1e-4, pm[..., :3] / np.maximum(al, 1e-4), 0)
+    img.alpha_composite(Image.fromarray((np.concatenate([np.clip(rgb, 0, 1), al], 2) * 255).astype(np.uint8), "RGBA"))
+    return img
 
 def load(p, size=(W, H)):
     im = Image.open(p).convert("RGBA")
@@ -80,10 +94,10 @@ def socket(img, cx, cy, ang):
 def frame(f):
     img = Image.new("RGBA", (W, H), (0, 0, 0, 255))
     if f < F_FLASH:
-        img = load(f"{M}/renders/take/f_{f:04d}.png")
-        e = env(f, 40, 297, 8)
+        img = layered(f"{M}/renders/take_car/f_{f:04d}.png", f"{M}/renders/take_rain/f_{f:04d}.png")
+        e = env(f, 3, 56, 6)
         if e: text(img, "BLACK FRIDAY", 96, 330, ID_B, 8, e)
-        for a, b, s in ((F_LIP, 366, "FRONT LIP"), (F_SKIRT, 428, "SIDE SKIRTS"), (F_REAR, 462, "REAR LIP"), (F_WING, 487, "SPORT WING")):
+        for a, b, s in ((F_LIP, F_SKIRT - 3, "FRONT LIP"), (F_SKIRT, F_REAR - 3, "SIDE SKIRTS"), (F_REAR, F_WING - 3, "REAR LIP"), (F_WING, F_R7 - 1, "SPORT WING")):
             e = env(f, a, b, 4)
             if e: text(img, s, 40, 1370, MONO, 8, e)
     elif f < F_R7:
@@ -94,7 +108,7 @@ def frame(f):
         img.paste(R, (round(SAFE_CX - 1020 * s), round(1000 - 942.5 * s)))
     elif f < F_END:
         car = "fe" if f < F_4B else "fl"; i = f - (F_4A if car == "fe" else F_4B)
-        img = load(f"{M}/renders/cgi_{car}/f_{i:04d}.png")
+        img = layered(f"{M}/renders/cgi_{car}_car/f_{i:04d}.png", f"{M}/renders/cgi_{car}_rain/f_{i:04d}.png")
         e = env(f, F_4A, F_END - 1, 5)
         text(img, "BLACK FRIDAY", 60, 300, ID_M, 14, e)
         text(img, "30% OFF", 176, 372, ID_B, 6, e)
@@ -111,8 +125,8 @@ def frame(f):
         if e2:
             text(img, "SHOP DEALS NOW", 58, 1010, ID_B, 10, e2)
             text(img, "WWW.EPSILON.PLUS", 46, 1090, ID_M, 12, e2)
-    if f >= 780:  # picture fade to black
-        k = max(0.0, 1 - (f - 779) / 15); blk = Image.new("RGBA", (W, H), (0, 0, 0, int(255 * (1 - k)))); img.alpha_composite(blk)
+    if f >= N - 15:  # picture fade to black
+        k = max(0.0, 1 - (f - (N - 16)) / 15); blk = Image.new("RGBA", (W, H), (0, 0, 0, int(255 * (1 - k)))); img.alpha_composite(blk)
     return img.convert("RGB")
 
 if __name__ == "__main__":
@@ -124,7 +138,7 @@ if __name__ == "__main__":
     if only: sys.exit()
     os.makedirs(os.path.dirname(FINAL), exist_ok=True)
     mus = f"{M}/music/freaked_out.wav"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-i", f"{OUTD}/c_%04d.png", "-ss", "0", "-t", f"{N/30:.3f}", "-i", mus,
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-framerate", "30", "-i", f"{OUTD}/c_%04d.png", "-ss", f"{MUSIC_START}", "-t", f"{N/30:.3f}", "-i", mus,
                     "-filter_complex", f"[1:a]afade=t=out:st={N/30-0.6:.3f}:d=0.6,volume={sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith('dB') else '0dB'},alimiter=limit=0.82:level=disabled[a]",
                     "-map", "0:v", "-map", "[a]", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-preset", "medium",
                     "-c:a", "aac", "-b:a", "256k", "-shortest", "-movflags", "+faststart", FINAL], check=True)

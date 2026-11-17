@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.5.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.7.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -49,32 +49,52 @@ HIT0, BEAT = 0.215, 0.43073   # intro hits of "140" (hi-band onsets, measured), 
 WHITE = (255, 255, 255)
 
 
+FONT_BF = os.path.join(M, "fonts/Anton.ttf")   # v0.7: Anton (Google Fonts, OFL), condensed poster face for the BF wall
+TILT, PULSE, DECAY = 12, 0.13, 0.22   # degrees CCW; peak extra scale on a hit; seconds back to rest
+SAFE = (48, 285, 920, 1440)           # owner safe zone; the pulse PEAK must fit inside it
+_BF = {}
+
+
+def _bf_block():
+    """A wall of BLACK (white) / FRIDAY (sale red) x2, each line set in Anton and scaled to one width (justified
+    block), tilted. Four lines so the words read above AND below the car once it fills the frame."""
+    if "img" in _BF:
+        return _BF["img"]
+    f = ImageFont.truetype(FONT_BF, 400)
+    lines = []
+    for txt, col in (("BLACK", WHITE), ("FRIDAY", SALE_RED)) * 2:
+        x0, y0, x1, y1 = f.getbbox(txt)
+        im = Image.new("RGBA", (x1 - x0, y1 - y0), (0, 0, 0, 0))
+        ImageDraw.Draw(im).text((-x0, -y0), txt, font=f, fill=col + (255,))
+        lines.append(im)
+    bw = 1000
+    lines = [im.resize((bw, round(im.height * bw / im.width)), Image.LANCZOS) for im in lines]
+    gap = 36
+    blk = Image.new("RGBA", (bw, sum(im.height for im in lines) + gap * (len(lines) - 1)), (0, 0, 0, 0))
+    y = 0
+    for im in lines:
+        blk.alpha_composite(im, (0, y)); y += im.height + gap
+    blk = blk.rotate(TILT, resample=Image.BICUBIC, expand=True)
+    sw, sh = SAFE[2] - SAFE[0], SAFE[3] - SAFE[1]
+    _BF["base"] = min(sw / blk.width, sh / blk.height) / (1 + PULSE)  # peak fills the safe zone, rest is ~88 %
+    _BF["img"] = blk
+    return blk
+
+
 def flash_layer(t):
-    """v0.5: BLACK FRIDAY flashes BEHIND the stock scan on each intro hit (CGI only, inside the safe zone x 48-920 /
-    y 285-1440). Words alternate; the last two hits before the drop show the full line + SALE badge."""
+    """v0.7: a tilted BLACK / FRIDAY wall fills the background BEHIND the stock scan (CGI only) and punches bigger and
+    brighter on every beat of "140" (first hit 0.215 s, then every 0.43073 s), easing back between hits. At its peak
+    it fills the owner safe zone x 48-920 / y 285-1440 and never leaves it."""
+    blk = _bf_block()
     k = int((t - HIT0) // BEAT) if t >= HIT0 else -1
-    if k < 0:
-        return None
-    since = t - (HIT0 + k * BEAT)
-    floor = 0.75 if k >= 14 else 0.28  # the full line stays readable into the drop
-    a = floor + (1 - floor) * max(0.0, 1 - since / 0.28)  # pop to full on the hit, settle to a hold
+    e = max(0.0, 1 - (t - (HIT0 + k * BEAT)) / DECAY) ** 2 if k >= 0 else 0.0
+    sc = _BF["base"] * (1 + PULSE * e)
+    im = blk.resize((round(blk.width * sc), round(blk.height * sc)), Image.BILINEAR)
+    a = 0.55 + 0.45 * e
+    im.putalpha(Image.fromarray((np.array(im.split()[3]) * a).astype(np.uint8)))
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d = ImageDraw.Draw(layer)
-    cx = 484  # centre of the safe band x 48-920
-    def word(txt, y, size, col):
-        f = ImageFont.truetype(FONT_B, size)
-        w = d.textlength(txt, font=f)
-        d.text((cx - w / 2, y), txt, font=f, fill=col + (255,))
-    if k >= 14:  # last two hits: the full line
-        word("BLACK", 290, 180, WHITE)
-        word("FRIDAY", 465, 180, SALE_RED)
-        f = ImageFont.truetype(FONT_B, 110); w = d.textlength("SALE", font=f)
-        d.rounded_rectangle((cx - w / 2 - 30, 1210, cx + w / 2 + 30, 1210 + 140), radius=22, fill=SALE_RED + (255,))
-        d.text((cx - w / 2, 1218), "SALE", font=f, fill=WHITE + (255,))
-    else:  # once the car fills the frame (k >= 8) the word rides above its roof, still in the safe zone
-        y = 470 if k < 8 else 300
-        word("BLACK" if k % 2 == 0 else "FRIDAY", y, 260, WHITE if k % 2 == 0 else SALE_RED)
-    layer.putalpha(Image.fromarray((np.array(layer.split()[3]) * a).astype(np.uint8)))
+    cx, cy = (SAFE[0] + SAFE[2]) // 2, (SAFE[1] + SAFE[3]) // 2
+    layer.alpha_composite(im, (cx - im.width // 2, cy - im.height // 2))
     return layer
 
 
@@ -152,6 +172,11 @@ def logo_frame(k, n):
     l2 = lg.copy()
     l2.putalpha(Image.fromarray((np.array(lg.split()[3]) * a).astype(np.uint8)))
     im.alpha_composite(l2, ((W - lw) // 2, (H - lg.height) // 2))
+    # v0.6 (owner, via parent): the only on-screen web address is WWW.EPSILON.PLUS, under the wordmark, in the safe zone
+    tl = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    text_center(ImageDraw.Draw(tl), (H + lg.height) // 2 + 70, "WWW.EPSILON.PLUS", ImageFont.truetype(FONT_B, 60), GREY)
+    tl.putalpha(Image.fromarray((np.array(tl.split()[3]) * a).astype(np.uint8)))
+    im.alpha_composite(tl)
     return im.convert("RGB")
 
 
