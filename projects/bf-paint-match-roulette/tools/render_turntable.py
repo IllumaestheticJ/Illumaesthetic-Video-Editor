@@ -70,6 +70,7 @@ eR, eG, eK, eB = emit((1, 0, 0)), emit((0, 1, 0)), emit((0, 0, 0)), emit((0, 0, 
 PASSES = a[7] if len(a) > 7 else 'bwm'
 END = int(a[5]) if len(a) > 5 else N   # N is always the full turn; START/END select a chunk
 for k in range(START, END):
+    if all(os.path.exists(os.path.join(OUT, f'{t}_{k:02d}.png')) for t in PASSES): continue   # resume after a restart
     piv.rotation_euler = (0, 0, math.radians(35) + 2 * math.pi * k / N)
     for tag, args, smp in (('b', (B, B), 10), ('w', (Wm, Wm), 10), ('m', (eR, eG, eK), 1)):
         if tag not in PASSES: continue

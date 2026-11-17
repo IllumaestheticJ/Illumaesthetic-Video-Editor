@@ -13,7 +13,7 @@ OUT = '/home/user/media/work/out/bf-paint-match-roulette_v0.6.mp4'
 W, H, FPS = 1080, 1920, 30
 B0, BP = 0.0903, 60 / 140.0
 def bt(b): return B0 + BP * b
-END_T = bt(62) + 0.5
+END_T = bt(67) + 0.5
 
 ORANGE = (247, 160, 20); RED = (240, 84, 28); GREY = (150, 150, 150); WHITE = (240, 240, 240); DARK = (30, 22, 4)
 FI = '/usr/share/fonts/opentype/inter/'
@@ -236,23 +236,31 @@ lineup_seg(0, 3, 0, (200, 480))
 e = car_seg('fl', 3)                                   # 3..17
 lineup_seg(e, e + 2, 1, tile_center(0)); e = car_seg('fe', e + 2)    # 19..32
 lineup_seg(e, e + 2, 2, tile_center(1)); e = car_seg('de5', e + 2)   # 34..46
-lineup_seg(e, e + 2, 3, tile_center(2)); e = car_seg('wb', e + 2, 0.5)  # 48..55, colours on half-beats
-segs.append((e, 59, lambda t, dur: offer_screen())); ev.append((bt(e), 'select'))
+lineup_seg(e, e + 2, 3, tile_center(2)); e = car_seg('wb', e + 2)       # 48..60; owner: even colour-change speed -> one colour per beat on every car
+segs.append((e, 64, lambda t, dur: offer_screen())); ev.append((bt(e), 'select'))
 wl = logo_at(720, (255, 255, 255))
 def logo_seg(t, dur):
     im = Image.new('RGB', (W, H), (0, 0, 0)); fade = min(1, t / 0.2, max(0, (dur - t) / 0.5))
-    l = wl.copy(); l.putalpha(l.split()[3].point(lambda v: int(v * fade))); im.paste(l, (CX - 360, 860 - l.height // 2), l)
+    l = wl.copy(); l.putalpha(l.split()[3].point(lambda v: int(v * fade))); im.paste(l, (W // 2 - 360, 880 - l.height // 2), l)
     d = ImageDraw.Draw(im); t_ = 'WWW.EPSILON.PLUS'; f = U(300, 34); g = int(200 * fade)
-    d.text((CX - d.textlength(t_, font=f) / 2, 860 + l.height // 2 + 44), t_, font=f, fill=(g, g, g)); return im
-segs.append((59, None, logo_seg))
+    d.text((W // 2 - d.textlength(t_, font=f) / 2, 880 + l.height // 2 + 44), t_, font=f, fill=(g, g, g)); return im
+segs.append((64, None, logo_seg))
 print('end beat of car screens', e)
 
+# v0.6 (owner: "video needs to be centered"): the menu is drawn in the 872x1155 box, then scaled to 760 wide and centred on
+# x = 540 (x 160-920, clear of the right rail), y 433-1440 (bottom edge on the safe line).
+SCALE = 760 / (X1 - X0); BOX_W, BOX_H = 760, int(round((Y1 - Y0) * 760 / (X1 - X0))); BOX_X, BOX_Y = (W - 760) // 2, Y1 - int(round((Y1 - Y0) * 760 / (X1 - X0)))
+def centre(im):
+    out = Image.new('RGB', (W, H), (0, 0, 0))
+    out.paste(im.crop((X0, Y0, X1, Y1)).resize((BOX_W, BOX_H), Image.LANCZOS), (BOX_X, BOX_Y)); return out
 def frame_at(tsec):
     for b0, b1, fn in segs:
         s = 0.0 if b0 == 0 else bt(b0); en = END_T if b1 is None else bt(b1)
         fs, fe = int(round(s * FPS)), int(round(en * FPS))
         f = int(round(tsec * FPS))
-        if fs <= f < fe: return scanlines(fn((f - fs) / FPS, (fe - fs) / FPS))
+        if fs <= f < fe:
+            im = fn((f - fs) / FPS, (fe - fs) / FPS)
+            return scanlines(im if fn is logo_seg else centre(im))
     return Image.new('RGB', (W, H))
 
 if '--still' in sys.argv:
@@ -286,7 +294,7 @@ p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt
                       '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', silent], stdin=subprocess.PIPE)
 for f in range(nfr): p.stdin.write(frame_at(f / FPS).tobytes())
 p.stdin.close(); p.wait()
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', silent, '-i', f'{M}/music/music_v05.wav', '-i', f'{M}/music/sfx_v06.wav',
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', silent, '-i', f'{M}/music/music_v06.wav', '-i', f'{M}/music/sfx_v06.wav',
                 '-filter_complex', '[1:a]volume=-5dB[m];[2:a]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=-5dB[s];[m][s]amix=inputs=2:normalize=0,volume=3.9dB[a]',
                 '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-t', str(END_T), OUT], check=True)
 print('wrote', OUT, nfr)
