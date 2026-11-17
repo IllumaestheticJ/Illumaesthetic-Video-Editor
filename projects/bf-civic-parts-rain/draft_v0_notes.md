@@ -50,3 +50,10 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
    - The lip, skirts and rear lip tuck under the body, so a pure vertical drop would pass through it. The lines are chosen so any contact with the scan happens only inside the last step between two frames, which is never rendered (`tools/fall_depth.py`).
    - The camera is near-frontal at the lip landing and nearly behind at the rear-lip landing, so both lips drop in from the top of the frame.
 3. **"Cut the short section showing the badge."** The IRL flash is removed, and the take now cuts 1:1 to render 7 on the 16.25 s hit.
+
+### v0.2 checks (delivered file `bf-civic-parts-rain_v0.2.mp4`, 26.5 s)
+- Sync on the decoded audio: render-7 cut +13 ms, FE +2, FL +7, end card -14, lip +7, skirts -1, rear lip -1, wing -4.
+- -14.0 LUFS, true peak -2.4 dBFS. 488 take frames, none dark.
+- Edge test on the rendered take (anything on the 3 px side columns): 11 of 488 frames, down from 35 on the first v0.2 render. All 11 are kit parts falling into view through the top corners: lip 1 frame, skirts 8 (2 m long, diagonal entry), rear lip 2. No part pops in or out mid-frame; the rain never touches a side edge. The offer shots have 0.
+- Hero falls (tools/falls.py): the frame before each impact is beyond the zone where the part could touch the scan: lip 0.55 vs 0.50 m, skirts 0.35 vs 0.30, rear lip 0.59 vs 0.54, wing 0.29 vs 0.06.
+- Known: in the offer shots, rain sometimes passes behind the offer text.
