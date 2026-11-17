@@ -128,7 +128,9 @@ for t, mat in ((t_old, m_old), (t_new, m_new)):
     t.select_set(True)
     bpy.ops.object.transform_apply(scale=True)
     t.data.materials.clear(); t.data.materials.append(mat)
-    t.location = (0, 0, 0.001)  # lying flat on the floor, reading toward the camera (-Y)
+    # lying flat on the floor, reading toward the camera (-Y). The new text sits 3 mm above the old: coplanar caps
+    # (old one transparent) z-fought into triangle streaks in v0.4
+    t.location = (0, 0, 0.001 if t is t_old else 0.004)
 
 # floor: black, a little gloss so the car sits on it
 bpy.ops.mesh.primitive_plane_add(size=80)

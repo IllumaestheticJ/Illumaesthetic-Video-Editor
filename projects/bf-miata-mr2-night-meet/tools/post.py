@@ -11,10 +11,18 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.4.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.5.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
+# Fonts (owner rule, knowledge/fonts.md): Akira for headlines/offers/prices; Unbounded beside the logo and for small text.
+# Akira is not in the repo yet -> Unbounded 800/900 stands in (look for assets/fonts/akira/*.otf|ttf first).
+UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-{}.ttf"
+_ak = [os.path.join(r, f) for r, _, fs in os.walk("/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira") for f in fs if f.lower().endswith((".otf", ".ttf"))] if os.path.isdir("/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira") else []
+FH = _ak[0] if _ak else UB.format(900)       # headline / offer / price (Akira or stand-in)
+FH8 = _ak[0] if _ak else UB.format(800)      # part names
+FS = UB.format(500)                          # small labels, table rows
+FL = UB.format(400)                          # lines beside the logo (URL)
 FD = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
 FM = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
 if not os.path.exists(FM):
@@ -25,6 +33,14 @@ LOGO = Image.open(f"{M}/logo/Epsilon+ Logo.png").convert("RGBA")
 
 
 def font(p, s): return ImageFont.truetype(p, s)
+
+
+class Layer:
+    """Text drawn with alpha must go on a transparent layer and be composited; ImageDraw on an opaque frame replaces
+    pixels and ignores the fill alpha (v1.5 found the URL staying on while the wordmark faded)."""
+    def __init__(self, base): self.base = base; self.im = Image.new("RGBA", base.size, (0, 0, 0, 0)); self.d = ImageDraw.Draw(self.im)
+    def __enter__(self): return self.d
+    def __exit__(self, *a): self.base.alpha_composite(self.im)
 
 
 def ease(t): t = min(max(t, 0), 1); return t * t * (3 - 2 * t)
@@ -48,9 +64,10 @@ def put_char(base, img, h, cx, by, alpha=1.0, shadow=True):
 
 
 def label(base, t, line1, line2, y=300):
-    a = int(255 * ease(t * 4)); d = ImageDraw.Draw(base)
-    d.text((90, y), line1, font=font(FD, 66), fill=(*OFF, a))
-    d.text((92, y + 92), line2, font=font(FM, 34), fill=(*OFF, int(a * 0.8)))
+    a = int(255 * ease(t * 4))
+    with Layer(base) as d:
+        d.text((90, y), line1, font=font(FH8, 54), fill=(*OFF, a))
+        d.text((92, y + 86), line2, font=font(FS, 28), fill=(*OFF, int(a * 0.8)))
 
 
 # v1.3 (user: "for each clip of the parts, show the text so people know what part and the pricing/saving").
@@ -63,9 +80,9 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
 # shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
 # above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
-LABELS = {"s02": [("mr2_skirts", 0.22, 0)], "s03": [("mr2_eyelids", 0.15, 0)], "s04": [("mr2_hood", 0.15, 0)],
-          "s05": [("mr2_spats", 0.15, 0), ("mr2_duck", 0.55, 1)], "s07": [("nc_bumper", 0.30, 0), ("nc_canards", 0.62, 1)],
-          "s08": [("nc_fender", 0.22, 0)], "s09": [("nc_skirts", 0.15, 0), ("nc_spats", 0.55, 1)]}
+LABELS = {"s02": [("mr2_skirts", 0.20, 0)], "s03": [("mr2_eyelids", 0.12, 0)], "s04": [("mr2_hood", 0.12, 0)],
+          "s05": [("mr2_spats", 0.10, 0), ("mr2_duck", 0.40, 1)], "s07": [("nc_bumper", 0.20, 0), ("nc_canards", 0.45, 1)],
+          "s08": [("nc_fender", 0.20, 0)], "s09": [("nc_skirts", 0.10, 0), ("nc_spats", 0.40, 1)]}
 SLOT_DY = 834      # second label goes below the car (block y 1130-1400, inside the safe band y 285-1440)
 
 
@@ -79,15 +96,15 @@ def price_label(base, key, t, plate, slot=0):
     if plate:      # lot shots: a soft dark plate so the text reads over the car and lamps
         g = Image.new("L", (W, H), 0); ImageDraw.Draw(g).rounded_rectangle([60, 296 + dy, 900, 566 + dy], 28, fill=int(150 * a))
         base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
-    d = ImageDraw.Draw(base)
-    d.text((90, 312 + dy), name, font=font(FD, 62), fill=(255, 255, 255, A))
-    d.text((92, 396 + dy), f"{car} · 20% OFF", font=font(FM, 30), fill=(*OFF, int(A * 0.85)))
-    fw, fn = font(FM, 44), font(FD, 64)
-    ws = money(was); x = 92; yb = 452 + dy
-    d.text((x, yb + 14), ws, font=fw, fill=(170, 174, 180, A)); bb = d.textbbox((x, yb + 14), ws, font=fw)
-    d.line([(bb[0] - 4, (bb[1] + bb[3]) // 2), (bb[2] + 4, (bb[1] + bb[3]) // 2)], fill=(170, 174, 180, A), width=4)
-    x = bb[2] + 28; ns = money(now); d.text((x, yb), ns, font=fn, fill=(255, 255, 255, A)); bb2 = d.textbbox((x, yb), ns, font=fn)
-    d.text((bb2[2] + 28, yb + 18), f"SAVE {money(was - now)}", font=font(FM, 38), fill=(255, 210, 31, A))
+    with Layer(base) as d:
+        d.text((90, 312 + dy), name, font=font(FH8, 50), fill=(255, 255, 255, A))
+        d.text((92, 396 + dy), f"{car} · 20% OFF", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        fw, fn = font(FS, 38), font(FH, 56)
+        ws = money(was); x = 92; yb = 452 + dy
+        d.text((x, yb + 14), ws, font=fw, fill=(170, 174, 180, A)); bb = d.textbbox((x, yb + 14), ws, font=fw)
+        d.line([(bb[0] - 4, (bb[1] + bb[3]) // 2), (bb[2] + 4, (bb[1] + bb[3]) // 2)], fill=(170, 174, 180, A), width=4)
+        x = bb[2] + 28; ns = money(now); d.text((x, yb), ns, font=fn, fill=(255, 255, 255, A)); bb2 = d.textbbox((x, yb), ns, font=fn)
+        d.text((bb2[2] + 28, yb + 18), f"SAVE {money(was - now)}", font=font(FS, 32), fill=(255, 210, 31, A))
 
 
 def title(base, i, fade_out=False, n2=0, i2=0):
@@ -95,25 +112,25 @@ def title(base, i, fade_out=False, n2=0, i2=0):
     a = ease(i / 5) * ((1 - ease((i2 - (n2 - 5)) / 5)) if fade_out else 1); A = int(255 * a)
     g = Image.new("L", (W, H), 0); ImageDraw.Draw(g).rounded_rectangle([60, 300, 908, 700], 32, fill=int(165 * a))
     base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(22))]))
-    d = ImageDraw.Draw(base)
-    d.text((CX, 352), "BLACK FRIDAY", font=font(FM, 40), fill=(255, 210, 31, A), anchor="mm")
-    d.text((CX, 455), "20% OFF", font=font(FD, 150), fill=(255, 255, 255, A), anchor="mm")
-    d.text((CX, 565), "MR2 SPYDER  ·  NC MIATA", font=font(FD, 52), fill=(*OFF, A), anchor="mm")
-    d.text((CX, 640), "EPSILON+ FIBERGLASS AERO", font=font(FM, 32), fill=(*OFF, int(A * 0.85)), anchor="mm")
+    with Layer(base) as d:
+        d.text((CX, 352), "BLACK FRIDAY", font=font(FH, 44), fill=(255, 210, 31, A), anchor="mm")
+        d.text((CX, 455), "20% OFF", font=font(FH, 128), fill=(255, 255, 255, A), anchor="mm")
+        d.text((CX, 565), "MR2 SPYDER  ·  NC MIATA", font=font(FH8, 40), fill=(*OFF, A), anchor="mm")
+        d.text((CX, 640), "EPSILON+ FIBERGLASS AERO", font=font(FS, 28), fill=(*OFF, int(A * 0.85)), anchor="mm")
 
 
 def card(base_img, i, n):
     bg = base_img.filter(ImageFilter.GaussianBlur(28)).point(lambda v: int(v * 0.32)).convert("RGBA")
-    d = ImageDraw.Draw(bg)
-    a1 = int(255 * ease(i / 6)); a2 = int(255 * ease((i - 25) / 6))      # list lands on the next hit (+0.82 s)
-    d.text((CX, 330), "BLACK FRIDAY", font=font(FM, 38), fill=(*OFF, a1), anchor="mm")
-    d.text((CX, 445), "20% OFF", font=font(FD, 160), fill=(255, 255, 255, a1), anchor="mm")
-    d.text((CX, 568), "MR2 SPYDER + NC MIATA AERO", font=font(FD, 44), fill=(*OFF, a1), anchor="mm")
+    lay = Image.new("RGBA", bg.size, (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
+    a1 = int(255 * ease(i / 6)); a2 = int(255 * ease((i - 14) / 6))      # list lands on the next hit (+0.82 s)
+    d.text((CX, 330), "BLACK FRIDAY", font=font(FH, 40), fill=(255, 210, 31, a1), anchor="mm")
+    d.text((CX, 445), "20% OFF", font=font(FH, 132), fill=(255, 255, 255, a1), anchor="mm")
+    d.text((CX, 568), "MR2 SPYDER + NC MIATA AERO", font=font(FH8, 34), fill=(*OFF, a1), anchor="mm")
     rows = [("MR2 SPYDER", None, None), ("Side Skirt / Fender Combo", "$700", "$560"), ("Rear Spats", "$350", "$280"),
             ("Headlight Eyelids", "$100", "$80"), ("Hood Vents", "$400", "$320"), ("Rear Duckbill", "$220", "$176"),
             ("NC MIATA", None, None), ("Front Bumper + Lip", "$1,100", "$880"), ("Fender Cuts", "$300", "$240"),
             ("Side Skirts", "$500", "$400"), ("Rear Spats (NC1)", "$250", "$200"), ("Canards", "$200", "$160")]
-    y = 640; fr, fh, fp = font(FD, 36), font(FD, 40), font(FM, 34)   # safe zones: all text inside x 48-920, y 285-1440
+    y = 640; fr, fh, fp = font(FS, 30), font(FH8, 34), font(FS, 30)   # safe zones: all text inside x 48-920, y 285-1440
     for name, was, now in rows:
         if was is None:
             y += 12; d.text((80, y), name, font=fh, fill=(255, 255, 255, a2)); y += 66; continue
@@ -124,6 +141,7 @@ def card(base_img, i, n):
         d.line([(xw - 4, y + 22), (xw + wb[2] - wb[0] + 4, y + 22)], fill=(150, 154, 160, a2), width=3)
         d.text((xn, y + 2), now, font=fp, fill=(255, 255, 255, a2))
         y += 58
+    bg.alpha_composite(lay)
     return bg
 
 
@@ -133,7 +151,8 @@ def logo(i, n):
     lw = 720; lg = LOGO.resize((lw, int(LOGO.height * lw / LOGO.width)), Image.LANCZOS)
     lg.putalpha(lg.getchannel("A").point(lambda v: int(v * a)))
     bg.alpha_composite(lg, (CX - lw // 2, H // 2 - lg.height // 2 - 40))
-    ImageDraw.Draw(bg).text((CX, H / 2 + 90), "WWW.EPSILON.PLUS", font=font(FM, 44), fill=(*OFF, int(255 * a)), anchor="mm")
+    with Layer(bg) as d:
+        d.text((CX, H / 2 + 90), "WWW.EPSILON.PLUS", font=font(FL, 38), fill=(*OFF, int(255 * a)), anchor="mm")
     return bg
 
 

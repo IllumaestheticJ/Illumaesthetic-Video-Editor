@@ -10,12 +10,12 @@
     {
      "zone": "eyelids",
      "off": [
-      3,
-      10
+      5,
+      19
      ],
      "on": [
-      9,
-      19
+      17,
+      37
      ],
      "dir": [
       0,
@@ -48,7 +48,7 @@
    "lens": 50
   },
   {
-   "f": 25,
+   "f": 50,
    "loc": [
     1.25,
     -2.95,
@@ -63,7 +63,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s03",
- "frames": 26,
+ "frames": 51,
  "fps": 15,
  "res": [
   540,
