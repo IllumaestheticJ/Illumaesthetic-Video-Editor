@@ -16,7 +16,7 @@ ap.add_argument('--scan', default='/home/user/media/bf-integra-385-combo/scan/ca
 ap.add_argument('--reg', default='/home/user/media/bf-integra-385-combo/work/reg/scan_to_glb.json')
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:])
 
-LEN = {1: 97, 2: 70, 3: 71, 4: 71, 5: 71, 6: 70}   # frames @30 fps, cut on bar kicks of "Get Low"
+LEN = {1: 97, 2: 70, 3: 71, 4: 142, 5: 71, 6: 70}  # v0.6: shot 4 (price) two bars so the deal reads   # frames @30 fps, cut on bar kicks of "Get Low"
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene

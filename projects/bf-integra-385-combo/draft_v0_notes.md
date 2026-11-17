@@ -1,3 +1,15 @@
+# v0.7 (user: "take out the 'less than wing alone', show that its retail price and then do a BF price loading")
+- Price shot (frames 239-379, 2 bars): f0 receipt with SPORT WING $500 / TRUNK LIP $100 and big RETAIL $600;
+  f27 (2nd kick) BLACK FRIDAY PRICE + loading bar (LOADING... + %) filling to the next downbeat; f71 (bar-2 downbeat,
+  10.32 s) $385 stamps in and $600 is struck (pink); holds to the cut (~2.3 s). "Less than the wing alone" removed.
+- Card x 250-849, y 915-1429 (safe zones OK, clears the trunk lip). Rest unchanged. 26.9 s; -13.4 LUFS; TP -1.8 dBFS.
+
+# v0.6 (user: "have the numbers for deals a little longer so people can read it easier")
+- Price shot (receipt $600 struck -> $385, "less than the wing alone ($500)") is now 2 bars, frames 239-379: $385 holds
+  ~3.5 s (was ~1.2 s). Shot 4 re-rendered at 141 frames (render_v06).
+- End card ($385, www.epsilon.plus) is now 2 bars, frames 664-805 (4.7 s), with a slow 3 % push-in.
+- 26.9 s total. Cuts -6/+8/-13/0/+9/+13 ms vs kicks; -13.4 LUFS; TP -1.8 dBFS; safezone_check text boxes OK.
+
 # v0.5 (owner, 2026-11-17): end-card URL reads www.epsilon.plus. safezone_check text boxes OK. Output bf-integra-385-combo_v0.5.mp4.
 
 # v0.4 (owner safe-zone rule, 2026-11-17)

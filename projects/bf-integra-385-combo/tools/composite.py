@@ -16,8 +16,8 @@ W, H, FPS = 1080, 1920, 30
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
 # v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
 TIMELINE = [('render', 'render_v03/s1', 1, 97), ('render', 'render_v03/s2', 2, 71), ('render', 'render_v03/s3', 3, 71),
-            ('render', 'render_v03/s4', 4, 71), ('render', 'render_v04/s7', 0, 70), ('render', 'render_v04/s8', 0, 71),
-            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 71)]
+            ('render', 'render_v06/s4', 4, 141), ('render', 'render_v04/s7', 0, 71), ('render', 'render_v04/s8', 0, 71),
+            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]  # v0.6: price shot and end card one bar longer each (user: deal numbers easier to read)
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222, 226, 255)  # v0.3: Epsilon+ palette (pink strike, cyan price)
@@ -96,6 +96,52 @@ def receipt(img, fr, lines, x0, y0, w=520):
     img.alpha_composite(panel, (int(x0 + 30 * (1 - slide)), int(y0)))
 
 
+# v0.7 price shot (user: "take out the 'less than wing alone', show that its retail price and then do a BF price
+# loading... to make sure people wait to see the new price"). Frames from the shot start, on the bar's kicks:
+# f0 retail shown | f27 (2nd kick) "BLACK FRIDAY PRICE" + loading bar starts | f71 (next downbeat) $385 stamps, $600 struck
+P_LOAD, P_REVEAL = 27, 71
+
+
+def price_card(img, fr, x0=250, y0=915, w=580):
+    h = 515
+    panel = Image.new('RGBA', (w, h), (0, 0, 0, 0)); pd = ImageDraw.Draw(panel)
+    pd.rounded_rectangle((0, 0, w - 1, h - 1), 18, fill=(14, 15, 17, 230), outline=(232, 236, 242, 70), width=2)
+    pd.text((28, 24), 'INTEGRA DE4 / DE5', font=font(F_MONO_R, 26), fill=(170, 176, 186, 255))
+    pd.line((28, 72, w - 28, 72), fill=(232, 236, 242, 60), width=2)
+    fm = font(F_MONO, 32)
+    for k, (nm, pr) in enumerate((('SPORT WING', '$500'), ('TRUNK LIP', '$100'))):
+        y = 92 + 52 * k
+        pd.text((28, y), nm, font=fm, fill=(200, 205, 212, 255)); pw = pd.textlength(pr, font=fm); pd.text((w - 28 - pw, y), pr, font=fm, fill=(200, 205, 212, 255))
+    pd.line((28, 200, w - 28, 200), fill=(232, 236, 242, 60), width=2)
+    # retail (combo list price) - big, struck at the reveal
+    pd.text((28, 222), 'RETAIL', font=font(F_MONO, 30), fill=OFFWHITE)
+    fr_ = font(F_TITLE, 76); rp = '$600'; rw = pd.textlength(rp, font=fr_)
+    pd.text((w - 28 - rw, 206), rp, font=fr_, fill=OFFWHITE if fr < P_REVEAL else (150, 155, 165, 255))
+    if fr >= P_REVEAL:
+        su = ease((fr - P_REVEAL) / 4); x1 = w - 28 - rw - 8
+        pd.line((x1, 252, x1 + (rw + 16) * su, 252), fill=ORANGE, width=8)
+    if fr >= P_LOAD:
+        u = ease((fr - P_LOAD) / 5)
+        pd.text((28, 318), 'BLACK FRIDAY PRICE', font=font(F_MONO, 30), fill=(1, 222, 226, int(255 * u)))
+        if fr < P_REVEAL:
+            # loading bar fills from the 2nd kick to the next downbeat, with a pulsing dot
+            prog = min(1.0, (fr - P_LOAD) / (P_REVEAL - P_LOAD - 2)); prog = 1 - (1 - prog) ** 1.6
+            bx0, by0, bx1, by1 = 28, 380, w - 28, 420
+            pd.rounded_rectangle((bx0, by0, bx1, by1), 10, outline=(1, 222, 226, int(200 * u)), width=3)
+            pd.rounded_rectangle((bx0 + 6, by0 + 6, bx0 + 6 + (bx1 - bx0 - 12) * prog, by1 - 6), 6, fill=(1, 222, 226, int(255 * u)))
+            dots = '.' * (1 + (fr // 6) % 3)
+            pd.text((28, 440), f'LOADING{dots}', font=font(F_MONO, 30), fill=(232, 236, 242, int(220 * u)))
+            pct = f'{int(prog * 100):d}%'; pw = pd.textlength(pct, font=font(F_MONO, 30))
+            pd.text((w - 28 - pw, 440), pct, font=font(F_MONO, 30), fill=(232, 236, 242, int(220 * u)))
+        else:
+            k = fr - P_REVEAL; pop = 1 + 0.30 * math.exp(-k / 3)
+            fb = font(F_TITLE, int(132 * pop)); txt = '$385'; tw = pd.textlength(txt, font=fb)
+            pd.text(((w - tw) / 2, 352 - (pop - 1) * 60), txt, font=fb, fill=YELLOW)
+    slide = ease(fr / 8)
+    panel.putalpha(panel.split()[3].point(lambda v: int(v * slide)))
+    img.alpha_composite(panel, (int(x0 + 30 * (1 - slide)), int(y0 - 120 * 0)))
+
+
 def overlay(shot, fr):
     """fr = frame within shot (0-based). returns RGBA overlay"""
     img = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
@@ -113,11 +159,7 @@ def overlay(shot, fr):
     elif shot == 3:
         receipt(img, fr + 100, [(0, 'item', WING), (108, 'item', LIP)], 280, 330)
     elif shot == 4:
-        receipt(img, fr + 200, [(0, 'item', WING), (0, 'item', LIP), (200, 'combo', {'name': 'COMBO', 'price': '$600', 'strike': 218}),
-                                (236, 'bf', {'price': '$385'})], 260, 880, w=560)
-        if fr >= 48:
-            u = ease((fr - 48) / 8)
-            tracked(d, (540, 1385), 'LESS THAN THE WING ALONE ($500)', font(F_MONO_R, 26), (232, 236, 242, int(230 * u)), track=1, anchor_center=True)
+        price_card(img, fr)
     elif shot == 8:
         logo = Image.open(f'{M}/logo/Epsilon+ Logo.png').convert('RGBA')
         u = ease(fr / 6)
@@ -171,7 +213,11 @@ def main(out):
         for i in range(n):
             base = Image.fromarray(plates[i]).convert('RGBA')
             if kind != 'irl' and ov:  # never put anything over IRL footage
-                base.alpha_composite(overlay(ov, i))
+                o = overlay(ov, i)
+                if kind == 'card':  # slow 3 % push-in so the longer end card isn't a dead hold
+                    z = 1 + 0.03 * i / n; o = o.resize((int(W * z), int(H * z)), Image.LANCZOS)
+                    o = o.crop(((o.width - W) // 2, (o.height - H) // 2, (o.width - W) // 2 + W, (o.height - H) // 2 + H))
+                base.alpha_composite(o)
             enc.stdin.write(np.asarray(base.convert('RGB')).tobytes())
         print(kind, src, 'frames', n, flush=True)
     enc.stdin.close(); enc.wait()

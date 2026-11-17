@@ -1,1 +1,4 @@
 {"ts": "2026-11-17T17:26:51Z", "project": "bf-scan-teardown-prices", "at": "4.8", "category": "text", "note": "v0.3: take out the cents for prices, show what that equates to in % off", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T17:32:14Z", "project": "bf-scan-teardown-prices", "at": "17.3", "category": "pacing", "note": "v0.4: the scene right before Ron's render takes a bit too long", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T17:32:14Z", "project": "bf-scan-teardown-prices", "at": null, "category": "pacing", "note": "in general have clips match the beat", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-17T17:50:18Z", "project": "bf-scan-teardown-prices", "at": "0", "category": "scan-look", "note": "v0.5: why are the tires gold before the render? have the wheels and tires be white like the rest of the scan", "by": "reviewer", "promoted": false}

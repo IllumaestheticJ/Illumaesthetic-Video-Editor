@@ -24,8 +24,11 @@ END = json.load(open(arg("--end-cam"))) if arg("--end-cam") else {"lens": 105.0,
 FPS = 30
 def fr(t): return round(t * FPS)
 # measured hits (decoded track, librosa onset peaks) - see editlog
-T_LIP, T_SKIRT, T_REAR, T_WING, T_END = 10.957, 12.365, 14.495, 15.534, 16.251
-T_CHARS = 5.622; T_TITLE_OUT = 9.9
+# v0.4 (owner: first scene too long; parts snap on the beat): the song now starts at MUSIC_START s, so these are VIDEO times.
+# Kit parts land on four consecutive measured hits of the post-drop grid (song 11.320, 12.365, 13.436, 14.495; ~1.06 s apart),
+# the 1:1 cut to render 7 is the next hit (song 15.534).
+MUSIC_START = 9.25
+T_LIP, T_SKIRT, T_REAR, T_WING, T_END = (t - MUSIC_START for t in (11.320, 12.365, 13.436, 14.495, 15.534))
 F_END = fr(T_END)  # first frame of the next shot
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -65,12 +68,12 @@ def pose(az, el, d, look):
     return look + d * Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
 # (frame, az, elevation, lens, look-at, framing width at the car in m)
 K = [(0, 24, 10, 35, TGT + Vector((0.1, -0.7, 0.7)), 4.3),
-     (fr(T_LIP) - 20, 16, 9, 35, TGT + Vector((0.0, -0.9, 0.45)), 4.3),   # v0.2: near-frontal so the lip drops in from the top
+     (max(fr(T_LIP) - 20, 30), 16, 9, 35, TGT + Vector((0.0, -0.9, 0.45)), 4.3),   # v0.2: near-frontal so the lip drops in from the top
      (fr(T_LIP) + 12, 22, 8, 38, TGT + Vector((0.0, -0.6, 0.35)), 4.7),
-     (360, 57, 7, 42, TGT + Vector((0.0, -0.2, 0.3)), 5.8),   # v0.2 edge check: the 22->92 deg chord cropped the nose (349-374)
+     ((fr(T_LIP) + 12 + fr(T_SKIRT) + 8) // 2, 57, 7, 42, TGT + Vector((0.0, -0.2, 0.3)), 5.8),   # arc key: a 22->92 deg chord cropped the nose
      (fr(T_SKIRT) + 8, 92, 6, 45, TGT + Vector((0.0, 0.15, 0.3)), 5.9),
-     (400, 118, 6, 50, TGT + Vector((0.0, 0.3, 0.25)), 6.0),   # in-between keys keep the swing on an arc (a straight
-     (421, 142, 5, 55, TGT + Vector((0.0, 0.45, 0.2)), 5.7),   # chord came close and cut the tail, frames 390-426)
+     (fr(T_SKIRT) + 8 + (fr(T_REAR) - fr(T_SKIRT) - 2) // 3, 118, 6, 50, TGT + Vector((0.0, 0.3, 0.25)), 6.0),   # arc keys (a straight
+     (fr(T_SKIRT) + 8 + 2 * (fr(T_REAR) - fr(T_SKIRT) - 2) // 3, 142, 5, 55, TGT + Vector((0.0, 0.45, 0.2)), 5.7),   # chord cut the tail)
      (fr(T_REAR) + 6, 165, 5, 60, TGT + Vector((0.0, 0.6, 0.2)), 5.2),   # v0.2: nearly behind so the rear lip drops in from the top
      (F_END - 8, az6, el6, END["lens"], look6, None)]
 for f, az, el, lens, look, width in K:
@@ -108,17 +111,27 @@ for n in ("front_lip", "rear_lip", "duckbill", "side_skirts"):
     bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY", center="BOUNDS"); o.select_set(False)
     o.data.materials.append(m_part); o.hide_render = True; o.hide_viewport = True; o.location = (0, 0, -50)
     rain_src.append(o.data)
-KEEP = ((-2.1, -3.1, -1.0), (2.1, 3.7, 2.5))   # Ron-frame car bbox + 1 m
-n_rain = rain.build(sc, rain_src, int(arg("--rain", "34")), F_END - 1, depth=(8.0, 14.0), keep_out=KEEP,
-                    t_last_end=T_END - 0.05, seed=7)
+KEEP = ((-2.9, -3.9, -1.8), (2.9, 4.5, 3.3))   # Ron-frame car bbox + 1.8 m (bigger parts)
+n_rain = rain.build(sc, rain_src, int(arg("--rain", "30")), F_END - 1, depth=(8.0, 14.0), xr=0.5, fall=(2.2, 3.2),
+                    gap=(0.1, 0.8), y_edge=1.42, keep_out=KEEP, t_last_end=T_END - 0.05, seed=7, scale=1.6)
 print("RAIN parts", n_rain)
 # hero falls (tools/falls.py): straight line, constant orientation, gravity, steepest line that clears the scan
 for n, (t, side) in SEAT.items():
     info = falls.animate(sc, heroes[n], car, fr(t), side, F_END - 1, name=n)
     print("FALL", n, info)
 
+# v0.4 layers (owner: falling parts a bit blurred): --layer car = no rain; --layer rain = rain only, car + kit as
+# holdout on a transparent film (blurred and laid over the car layer in comp.py)
+LAYER = arg("--layer", "both")
+RAIN_OBS = [o for o in sc.objects if o.name.startswith("rain")]
+if LAYER == "car":
+    for o in RAIN_OBS: o.hide_render = True
+elif LAYER == "rain":
+    for o in [car] + list(heroes.values()): o.is_holdout = True
+    sc.render.film_transparent = True
+
 # world + lights (house look: soft top/key, rim, black background)
-sr.studio_world((0.004, 0.004, 0.005, 1), False)
+sr.studio_world((0.004, 0.004, 0.005, 1), LAYER == "rain")
 root = bpy.data.objects.new("CAR_CENTRE", None); sc.collection.objects.link(root); root.location = TGT
 def light(n, loc, e, size, col=(1, 1, 1)):
     d = bpy.data.lights.new(n, "AREA"); d.energy = e; d.size = size; d.color = col
