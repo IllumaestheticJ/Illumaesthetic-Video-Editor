@@ -73,3 +73,18 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - Checks: 1080x1920, 450 frames = 15.0 s; -14.2 LUFS, true peak -2.2 dBFS; same cut frames as v0.1 (on the kicks).
   Contact sheet: the tags read at phone size, and the lip keeps its place and size across both 1:1 cuts (frames 149/150,
   295/296).
+
+## v0.3 (2026-11-17): owner safe-zone rule (`knowledge/safe-zones.md`)
+- In v0.2 the tag tops sat in the top UI bar (y < 220), and "ONLY 14 LEFT IN CARBON" (y 250) sat outside the 4:5 feed crop.
+- Fix: the tags are scaled 0.40 -> 0.34 m and lowered (up 0.30 -> 0.23, right 0.06 -> 0); only s2 and s4 were
+  re-rendered. The count text is at y 330.
+- `scripts/safezone_check.py`: all text, prices and logos sit inside x 48-920 / y 285-1440.
+- Two non-text elements still cross the right rail, and both are kept because the cameras carry the 1:1 cuts:
+  - the end of the GR V1 lip (s4);
+  - the Integra's flank in the s3 close-up.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.3.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS.
+
+## v0.4 (2026-11-17): owner rule "all agents should use www.epsilon.plus"
+- The end-card URL reads WWW.EPSILON.PLUS (it was EPSILON.PLUS), at x 310-770 / y 1040-1090, inside the safe zones.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.4.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS;
+  safezone_check sheet reviewed.

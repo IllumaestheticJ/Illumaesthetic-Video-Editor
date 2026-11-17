@@ -1,4 +1,15 @@
-# bf-integra-stock-to-kitted: draft v0 / v0.1 / v0.2 / v0.3 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.5 notes
+
+**v0.5 (2026-11-17, user: "the beginning needs to convey that we are running a black friday sale, maybe flash a text behind the car to the beat"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.5.mp4`.
+- **Intro (0-6.99 s, CGI only):** the words "BLACK" (white) and "FRIDAY" (sale red), in Barlow 700 at 260 px, alternate *behind* the stock scan car.
+  - **Timing:** one word per hi-hat/clap hit of "140". The first hit is at 0.215 s, then every 0.43073 s (measured onsets, on the beat grid).
+  - **Flash:** each word pops to full on its hit and settles to 28 % over 0.28 s.
+  - **Placement:** once the car fills the frame (hit 8 onward) the word rides above its roof at y 300.
+  - **Drop lead-in:** the last two hits before the drop show "BLACK / FRIDAY" with a red SALE badge, holding at 75 %.
+- **Safe zone:** all text is inside x 48-920 / y 285-1440 (`_v0.5_safezones.jpg`). No text over IRL footage.
+- **Unchanged:** cuts, music and loudness (-13.7 LUFS / -4.3 dBTP).
+
+**v0.4 (2026-11-17, owner safe-zone rule):** the kit shot is scaled to 60 % and placed in x ~173-907 / y ~700-1436. The card starts at y 300. Before: `_v0.3_safezones.jpg`. After: `_v0.4_safezones.jpg`.
 
 **v0.3 (2026-11-17, user: "zoom out a little ... it's cropped out and too close"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.3.mp4`.
 - **Real clips:** the 9:16 window of the 4K clips is wider: 0371 is 1800 px (was 1215), 0370 is 2050 px (was 1080), so the whole car fits.

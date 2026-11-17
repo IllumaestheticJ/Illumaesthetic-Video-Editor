@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.3.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.5.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -40,6 +40,62 @@ def load(p):
         im = bg
     im = im.convert("RGB")
     return im if im.size == (W, H) else im.resize((W, H), Image.LANCZOS)
+
+
+KIT_SCALE, KIT_DX, KIT_DY = 0.6, 139, 424   # v0.4 safe zones: kit content lands in x ~220-760, y ~700-1440
+
+
+HIT0, BEAT = 0.215, 0.43073   # intro hits of "140" (hi-band onsets, measured), every beat until the drop
+WHITE = (255, 255, 255)
+
+
+def flash_layer(t):
+    """v0.5: BLACK FRIDAY flashes BEHIND the stock scan on each intro hit (CGI only, inside the safe zone x 48-920 /
+    y 285-1440). Words alternate; the last two hits before the drop show the full line + SALE badge."""
+    k = int((t - HIT0) // BEAT) if t >= HIT0 else -1
+    if k < 0:
+        return None
+    since = t - (HIT0 + k * BEAT)
+    floor = 0.75 if k >= 14 else 0.28  # the full line stays readable into the drop
+    a = floor + (1 - floor) * max(0.0, 1 - since / 0.28)  # pop to full on the hit, settle to a hold
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    cx = 484  # centre of the safe band x 48-920
+    def word(txt, y, size, col):
+        f = ImageFont.truetype(FONT_B, size)
+        w = d.textlength(txt, font=f)
+        d.text((cx - w / 2, y), txt, font=f, fill=col + (255,))
+    if k >= 14:  # last two hits: the full line
+        word("BLACK", 290, 180, WHITE)
+        word("FRIDAY", 465, 180, SALE_RED)
+        f = ImageFont.truetype(FONT_B, 110); w = d.textlength("SALE", font=f)
+        d.rounded_rectangle((cx - w / 2 - 30, 1210, cx + w / 2 + 30, 1210 + 140), radius=22, fill=SALE_RED + (255,))
+        d.text((cx - w / 2, 1218), "SALE", font=f, fill=WHITE + (255,))
+    else:  # once the car fills the frame (k >= 8) the word rides above its roof, still in the safe zone
+        y = 470 if k < 8 else 300
+        word("BLACK" if k % 2 == 0 else "FRIDAY", y, 260, WHITE if k % 2 == 0 else SALE_RED)
+    layer.putalpha(Image.fromarray((np.array(layer.split()[3]) * a).astype(np.uint8)))
+    return layer
+
+
+def load_flash(p, i):
+    """Stock pass frame i (30 fps): charcoal, then the flash text, then the RGBA scan car on top."""
+    car = Image.open(p).convert("RGBA").resize((W, H), Image.LANCZOS)
+    bg = Image.new("RGBA", (W, H), CHARCOAL + (255,))
+    fl = flash_layer(i / 30.0)
+    if fl is not None:
+        bg.alpha_composite(fl)
+    bg.alpha_composite(car)
+    return bg.convert("RGB")
+
+
+def load_kit(p):
+    """v0.4: the RGBA kit render scaled to 60 % and placed inside the safe zone (x 48-920, y 285-1440) on charcoal."""
+    im = Image.open(p).convert("RGBA").resize((W, H), Image.LANCZOS)
+    sm = im.resize((int(W * KIT_SCALE), int(H * KIT_SCALE)), Image.LANCZOS)
+    bg = Image.new("RGBA", (W, H), CHARCOAL + (255,))
+    bg.alpha_composite(sm, (KIT_DX, KIT_DY))
+    return bg.convert("RGB")
 
 
 def doubled(pattern, n):
@@ -70,15 +126,15 @@ def card(im, k):
         return im
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
-    text_center(d, 120, "FULL KIT", ImageFont.truetype(FONT_B, 104))
+    text_center(d, 300, "FULL KIT", ImageFont.truetype(FONT_B, 104))
     f = ImageFont.truetype(FONT_B, 150)
     t = "30%+ OFF"
     tw = d.textlength(t, font=f)
-    x0, y0 = (W - tw) / 2 - 40, 250
+    x0, y0 = (W - tw) / 2 - 40, 410
     d.rounded_rectangle((x0, y0, x0 + tw + 80, y0 + 180), radius=26, fill=SALE_RED + (255,))
     d.text(((W - tw) / 2, y0 + 4), t, font=f, fill=(255, 255, 255))
-    text_center(d, 470, "LIP  ·  SKIRTS  ·  SPATS  ·  SPORT WING", ImageFont.truetype(FONT_B, 44), (255, 255, 255))
-    text_center(d, 528, "ACURA INTEGRA (DE4)", ImageFont.truetype(FONT_R, 40), GREY)
+    text_center(d, 610, "LIP  ·  SKIRTS  ·  SPATS  ·  SPORT WING", ImageFont.truetype(FONT_B, 44), (255, 255, 255))
+    text_center(d, 664, "ACURA INTEGRA (DE4)", ImageFont.truetype(FONT_R, 40), GREY)
     layer.putalpha(Image.fromarray((np.array(layer.split()[3]) * a).astype(np.uint8)))
     base = im.convert("RGBA")
     base.alpha_composite(layer)
@@ -109,10 +165,12 @@ def main():
     s4 = video_frames(os.path.join(M, "clips/s4_0370_wide.mp4"), n[2], "s4")
     s5 = doubled(os.path.join(M, "render/s5_kit_rgba/f_*.png"), n[3])
     i = 0
-    for p in s1 + s3 + s4:
+    for p in s1:
+        load_flash(p, i).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
+    for p in s3 + s4:
         load(p).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k, p in enumerate(s5):
-        card(load(p), k).save(  # v0.1: no Del & Eps (owner: typical branding only)
+        card(load_kit(p), k).save(  # v0.1: no Del & Eps (owner: typical branding only)
             os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k in range(n[4]):
         logo_frame(k, n[4]).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1

@@ -1,3 +1,14 @@
+# v0.5 (owner, 2026-11-17): end-card URL reads www.epsilon.plus. safezone_check text boxes OK. Output bf-integra-385-combo_v0.5.mp4.
+
+# v0.4 (owner safe-zone rule, 2026-11-17)
+- All text, prices and logos inside x 48-920 / y 285-1440: shot-1 tag/title moved down (y 330-667), receipts in shots
+  2-3 moved to y 330, shot-4 receipt to y 880-1415, end-card product line 54 -> 46 px (x 180-899).
+- Car shots re-aimed (camera targets 0.3-0.6 m lower) so the car clears the bottom 480 px and reads in the 4:5 crop;
+  shots 7-9 re-rendered (render_v04). C0240 panel moved to y 285-1435.
+- `python scripts/safezone_check.py ... --text-boxes bf-integra-385-combo_v0.4_textboxes.json` -> text boxes OK (exit 0);
+  tools/text_boxes.py exports the boxes from the overlays. Sheets: v0.3 (before) / v0.4 (after).
+- Output /home/user/media/work/out/bf-integra-385-combo_v0.4.mp4; cuts and loudness unchanged (-13.8 LUFS, TP -1.8 dBFS).
+
 # v0.3 (user feedback on v0.2, 2026-11-17)
 User: "fix the camera shake at the end, smoother. If that doesn't work, use another video/roller" / "we should have a
 wingless scan in the DE4 scan section (same trunk)" / "add color to the box and the beginning".
