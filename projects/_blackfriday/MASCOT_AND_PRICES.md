@@ -1,3 +1,10 @@
+# OWNER DECISION 2026-11-17: the URL on screen is WWW.EPSILON.PLUS
+
+The owner's instruction: "all agents should use www.epsilon.plus".
+
+- Every BF video that shows a web address shows exactly `WWW.EPSILON.PLUS`. Upper or lower case to suit the card, but always with the `www.`.
+- Never `epsilon.plus` without `www.`, and never illumaesthetic.com.
+
 # OWNER DECISION 2026-11-17 (latest, overrides everything below): NO Del & Eps in the Black Friday videos
 
 The owner's instruction: "tell all the black friday agents to not use del & eps, just typical branding content".
