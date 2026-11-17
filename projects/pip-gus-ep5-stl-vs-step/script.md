@@ -21,6 +21,14 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 
 Status: **Script APPROVED by owner 2026-11-17.** Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
 
+## v5 changes (owner accuracy note, 2026-11-17)
+- **Owner:** "if you plan on manufacturing it - it needs to be in STP for a machine tool, but if you're only printing it, .stl is fine".
+- **Line 2:** "Not the mesh." is now "Depends.", because the mesh is fine if you only print.
+- **Line 8:** "Scan in mesh. Design in NURBS. Print the mesh, send the STEP." is replaced by a fork:
+  - "Just printing it? The STL's fine."
+  - "Making it on a machine? It has to be STEP."
+- **Line 6 shortened:** "a fillet" is cut.
+
 ## v4 changes (series order v0.4, 2026-11-17)
 - **Renumbered to Ep 5.** The callback now points to Ep 4, and the hand-off to Ep 6.
 - **New hand-off line:** Gus now says "It's bigger than the printer."
@@ -44,15 +52,16 @@ Status: **Script APPROVED by owner 2026-11-17.** Real-section files still being 
 | # | t (s) | Who | Line (emotion tag for v4) | Picture | Caption |
 |---|---|---|---|---|---|
 | 1 | 0.2-3.0 | PIP | [curious] "If the scan's a mesh, what do you design in?" | Callback to Ep 4: Pip's bumper scan mesh on the shop laptop. Pip leans in at the screen | yes |
-| 2 | 3.2-6.2 | GUS | [matter-of-fact] "Not the mesh. STL is just triangles." | Gus taps the screen. Camera dives in until the surface is all flat triangles | yes |
+| 2 | 3.2-6.2 | GUS | [matter-of-fact] "Depends. STL is a mesh. Just triangles." | Gus taps the screen. Camera dives in until the surface is all flat triangles | yes |
 | 3 | 6.4-8.6 | GUS | "Perfect for scans. Perfect for printing." | Mesh drops into the unbranded cartoon printer, which prints it fine. A small tick pops up | yes |
 | 4 | 8.7-10.0 | GUS | [slightly annoyed] "Terrible to edit." | Gus's floating hand drags one edge, and a ragged clump of triangles tears along with it | yes |
 | 5 | 10.3-13.0 | GUS | "STEP is NURBS. Smooth math surfaces." | The same bumper re-forms as a few clean glowing patches with crisp edges | yes |
-| 6 | 13.1-16.2 | GUS | "Change a hole, a thickness, a fillet... it just updates." | A slider (no numbers) grows a bolt hole, then the wall thickens and an edge rounds. Each change updates cleanly | yes |
-| 7 | 16.4-17.4 | PIP | [curious] "So which one?" | Pip looks between the two bumpers | yes |
-| 8 | 17.5-21.0 | GUS | "Scan in mesh. Design in NURBS. Print the mesh, send the STEP." | A loop board: SCAN (STL) → CAD (STEP) → PRINT (STL) / MANUFACTURER (STEP) | yes |
-| 9 | 21.2-22.8 | PIP | [curious] "Can you turn a scan into a STEP?" | | yes |
-| 10 | 22.9-25.0 | GUS | [weary] "You rebuild it. Surface by surface." | Gus lays patches over the scan mesh one at a time. The wall clock starts to spin | yes |
+| 6 | 13.1-15.6 | GUS | "Change a hole, a thickness... it just updates." | A slider (no numbers) grows a bolt hole, then the wall thickens. Each change updates cleanly | yes |
+| 7 | 15.8-16.8 | PIP | [curious] "So which one?" | Pip looks between the two bumpers | yes |
+| 8 | 16.9-18.9 | GUS | "Just printing it? The STL's fine." | Fork board, left path: the mesh bumper goes into the cartoon printer (tick) | yes |
+| 9 | 19.0-21.4 | GUS | "Making it on a machine? It has to be STEP." | Right path: an unbranded cartoon CNC mill (machine tool). It rejects the mesh with a "?" and takes the STEP bumper | yes |
+| 10 | 21.6-23.2 | PIP | [curious] "And turning a scan into a STEP?" | | yes |
+| 10b | 23.3-25.0 | GUS | [weary] "You rebuild it. Surface by surface." | Gus lays patches over the scan mesh one at a time. The wall clock starts to spin | yes |
 | 11a | 25.0-25.7 | PIP | [impatient] "Is it done yet?" | | yes |
 | 11b | 25.8-26.2 | GUS | "...No." | | yes |
 | 12 | 26.3-27.6 | PIP | [excited] "Illumaesthetic does that. Look!" (owner confirmed the service) | Pip holds up the phone. Camera pushes into the screen until the real footage fills the frame (hard cut on a beat) | yes |
