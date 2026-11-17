@@ -1,4 +1,10 @@
-# Pip & Gus Ep 6: "Big printer or small printer?" (script v2, for owner approval)
+# Pip & Gus Ep 5 (was Ep 6): "Big printer or small printer?" (script v3, for owner approval)
+
+**Series order (owner, 2026-11-17):** this is now **Ep 5**, between Ep 4 (STL or STEP) and Ep 6 (SeamForge).
+- It opens on Ep 4's ending: the design is finished, and Gus asks "On which printer?"
+- It ends with Pip, voice only over the logo card: "It doesn't fit on the small one...", which leads into Ep 6.
+- Glue is now Ep 7, so line 8 sets up glue rather than calling back to it.
+- The branch and the folder keep their old `ep6` names.
 
 9:16, 1080x1920, 30 fps, about 32-36 s in total:
 - cartoon, about 23-26 s (12 lines, about 53 words);
@@ -14,7 +20,7 @@ Built from the series draft (`projects/pip-gus-series/scripts.md`, Ep 6) and cut
 - Lines marked [VERIFY] wait for the owner.
 
 ## Set-up
-Cel-shaded shop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
+Cel-shaded shop. The first frame continues from Ep 4: the finished part design is on Gus's laptop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
 
 Characters use the owner's proportion option 3 (2026-11-16): shorter torso, wider hips, bigger feet, hands close to the body. No gag here needs tall, thin bodies or a long reach. Gus nudges the parts in line 10 and takes the piece in line 8 with his hands kept close to his body.
 
@@ -29,20 +35,22 @@ The script carries only these four trade-offs, plus "run a few at once", which f
 
 | # | Who | Line | Picture | Score |
 |---|---|---|---|---|
-| 1 | PIP | "Big printer or small printer?" | Pip looks from the giant printer to the small one. The scoreboard drops in. | |
+| 1 | PIP | "Which printer? Big or small?" | Opens on the finished design on Gus's laptop (callback to Ep 4's "On which printer?"). Pip looks from the giant printer to the small one, and the scoreboard drops in. | |
 | 2 | GUS | "Big one? Fewer pieces. Fewer seams." | The big printer prints a whole panel in one go. On the small side, the same panel is a pile of pieces. | BIG +2 |
 | 3 | GUS | "But it's slower…" | The big print head crawls; the wall clock spins. | SMALL +1 |
 | 4 | GUS | "…and the bigger nozzle means less detail." | Close-up: a fat nozzle lays chunky lines; the small printer's thin lines look crisp beside it. | SMALL +1 |
 | 5 | PIP | "So small ones win!" | Pip pats the little printer. | |
 | 6 | GUS | "Sharper, sure. And you can run a few." | Three small printers side by side, all printing. | SMALL +1 |
 | 7 | PIP | "Is it done yet?" | Running gag. | |
-| 8 | GUS | "…This piece is. Now glue them all." | One small printer dings and hands Gus a tiny piece. Behind him, a mountain of pieces and a glue bottle (callback to Ep 5). | BIG +1 |
+| 8 | GUS | "…This piece is. Now glue them all." | One small printer dings and hands Gus a tiny piece. Behind him, a mountain of pieces and a glue bottle (sets up Ep 7, glue). | BIG +1 |
 | 9 | PIP | "So who wins?" | The scoreboard is tied 3-3 and flickers. | tie |
 | 10 | GUS | "Depends on the part. We run both." | Gus nudges a big panel toward the big printer and a small detailed part toward the small one. | |
 | 11 | PIP | "Wait. Illumaesthetic's big one is HUGE." | Pip pulls out the phone; the screen plays the real big printer (phone hand-off). | |
 | 12 | GUS | "…Show-off." | Gus leans in, deadpan; the camera pushes into the phone until it fills the frame. | |
 
-About 62 words; the cartoon runs about 26 s.
+| 13 | PIP (voice only, over the logo card) | "It doesn't fit on the small one…" | No new text on the card. Leads into Ep 6 (SeamForge), which opens on this part too big for the bed. | |
+
+About 62 words in the cartoon (lines 1-12), which runs about 26 s. Line 13 is recorded in the same dialogue call.
 
 ## Real footage (about 5 s, no text): "we run both" (v3)
 1. **Big printer** (about 2.5 s): `Footage Library/Videos/Shoot Sessions/2025-05-30 3D printer setup/2025-05-30 15.50.05.mov`, 2.3-7.6 s, the nozzle laying down a white part through the enclosure glass.
@@ -58,7 +66,7 @@ About 62 words; the cartoon runs about 26 s.
 ## End cards
 - **Teaser card:** **WHICH DO YOU PREFER RUNNING?** (owner, 2026-11-16) over a framed clip of the big printer: the `15.50.09.mov` gantry move at 7.5-14 s, cropped to keep the logo out.
   - The card doesn't point at a YouTube video.
-- **Logo card:** the logo stands alone, with no call to action. Ep 6 isn't about a scan we sell, so "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" is left off. Series rule, 2026-11-16: a call to action is used only when it's relevant.
+- **Logo card:** carries Pip's line 13 as a voice-over only. The logo stands alone, with no call to action. Ep 6 isn't about a scan we sell, so "SCANS AVAILABLE AT ILLUMAESTHETIC.COM" is left off. Series rule, 2026-11-16: a call to action is used only when it's relevant.
 
 ## Voices / music
 As in the series brief:
