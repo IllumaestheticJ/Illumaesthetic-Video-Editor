@@ -1,0 +1,3 @@
+#!/bin/bash
+# frame.sh in.png out.jpg : game look (crunch + banding) and the 1080x1920 layout with the title band
+ffmpeg -v error -y -i "$1" -vf "scale=1080:1080:flags=bicubic,unsharp=7:7:1.6:7:7:0.0,eq=saturation=1.25:contrast=1.08,format=rgb24,lutrgb=r='round(val/20)*20':g='round(val/20)*20':b='round(val/20)*20',pad=1080:1920:0:420:black,drawtext=fontfile=/usr/share/fonts/opentype/inter/Inter-Regular.otf:text='Day in the life of an':fontcolor=white:fontsize=56:x=(w-text_w)/2:y=196,drawtext=fontfile=/usr/share/fonts/opentype/inter/Inter-Regular.otf:text='average WRX owner':fontcolor=white:fontsize=56:x=(w-text_w)/2:y=264" -frames:v 1 "$2"

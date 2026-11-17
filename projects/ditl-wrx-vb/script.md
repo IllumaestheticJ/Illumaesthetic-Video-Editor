@@ -98,3 +98,30 @@ Spent so far: 3.18 (voice take 1 and tests). Still needed: about 0.5 for the fou
 1. HIM's voice: record the three lines yourself, or pick a different preset?
 2. Hands: answered, 3D hands in Blender.
 3. The mirror shot: the owner answered "it is ok to show his hands"; read as OK for the face too, to be confirmed.
+
+## Sound plan (owner 2026-11-17: lots of scene sound effects, environmental sound, meme sound effects)
+Every shot gets three layers: an environment bed, action effects tied to the hands, and one meme effect on its
+punchline. Nothing is silent until the music cut; after it, the environment bed carries the ending.
+
+| Shot | Environment bed | Action effects | Meme effect on the punchline |
+|---|---|---|---|
+| 1 School office | Fluorescent hum, a school bell, hallway chatter | Paper slaps, a chair scrape | Record scratch on the last slap |
+| 2 Recruiter form | Office fan, a phone ringing far off | Pen scratching on paper, then on wood | A cartoon "boing" as the pen leaves the page |
+| 3 Salute | Same office | Fabric snap on the salute, vape crackle | A bonk + a short bugle sting |
+| 4 Cart | Barracks: distant cadence call, a bunk creak | Scroll flicks | A "ding" per item |
+| 5 Affirm Confirm | Same | Rapid screen taps | A cash-register "cha-ching" on every tap, speeding up |
+| 6 $115,000 balance | Same | A thumbs-up "pop" | A sad trombone, cut short by the next shot |
+| 7 Boxes, car reveal | Dawn birds, distant traffic, a dog barking | Cardboard tearing, tape ripping | An angel choir stab on the car |
+| 8 Hood knock | Same lot | Knocks on sheet metal, dog-tag jingle, vape crackle and exhale | A heartbeat under the whisper |
+| 9 Wing kiss | Same lot | Hands squeaking on paint | A cartoon kiss "mwah" |
+| 10 Accessport | Car interior, door chime | Three dash chops, a boot-up chime | A video-game "level up" on DAM 1.0 |
+| 11 Beamer guy | Idling boxer burble, the BMW's idle, a turn-signal tick, city traffic | Window motor, vape hit | A "bruh" sound after "Same." |
+| 12 Synced revs | Same | Two engines revving in sync, **intake whoosh**, exhaust crackle | An airhorn on the third rev |
+| 13 Odyssey window | Same, plus a kids' song leaking from the van | Two hand slaps on glass, a glass squeak | A cartoon "squish" for the kid's face |
+| 14 Launch | Wind building | Wheel pounding, **tire screech**, engine scream, **intake noise**, turbo spool, **blow-off valve "pssh"**, gear crunch | A rally co-driver style "go go go" is NOT used (no real voices); a slide-whistle up instead |
+| 15 Odyssey passes | **Music cuts dead.** Wind, the minivan's calm hum, the kids' song passing by | A Doppler whoosh, the kid's giggle | A slide-whistle down |
+| 16 Mirror, DAM 0.88 | Cooling-fan ticks, engine pinging as it cools, a distant siren | A warning beep from the Accessport, a pat on the dash | A slow "Windows-shutdown"-style descending chime made from scratch, then black |
+
+Sources: synthesized locally or royalty-free libraries where the network allows; Higgsfield's sound-effect
+generator (`mirelo_text_to_audio`) only if those fall short, with a cost quote first. No clips of copyrighted meme
+audio; the meme effects are sound-alikes of generic effects (record scratch, airhorn, sad trombone, bonk).
