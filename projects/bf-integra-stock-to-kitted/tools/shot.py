@@ -273,6 +273,9 @@ def main():
         if bb.get("hide"):  # bf-integra: invisible base, only sizes the studio lights
             for o in objs:
                 o.hide_render = True
+        if bb.get("holdout"):  # bf-integra v0.8: occludes the parts but renders transparent (parts-only pass)
+            for o in objs:
+                o.is_holdout = True
         base += objs
         groups.append((bb.get("name"), objs, bb.get("hl")))
         base_mats[len(groups) - 1] = bb.get("mat")
