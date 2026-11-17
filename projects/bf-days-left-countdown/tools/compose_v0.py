@@ -16,6 +16,11 @@ W, H, FPS = 1080, 1920, 30
 C1, DROP, C3, END = 59, 139, 208, 282  # frames: shot 2 starts, drop, wordmark, end (9.4 s)
 SLAM = 154      # 5.13 s hit: "DAYS LEFT"
 SALE_IN = 180   # 6.01 s hit: "BLACK FRIDAY SALE" line
+# safe zones (knowledge/safe-zones.md): text/logos/key subject inside x 48-920, y 285-1440
+SAFE = (48, 285, 920, 1440)
+SAFE_CX = (SAFE[0] + SAFE[2]) / 2  # 484
+NUM_S = 0.72  # numeral render scale; content 780x956 px in the render -> 562x688
+NUM_OFF = (round(SAFE_CX - 468 * NUM_S), round(330 - 270 * NUM_S))  # render content centre x 468, top y 270
 BLACK_I = "/usr/share/fonts/opentype/inter/InterDisplay-Black.otf"
 BOLD_I = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
 os.makedirs(args.out, exist_ok=True)
@@ -64,31 +69,35 @@ def paste_center(base, lay, cx, cy, scale=1.0, alpha=1.0):
     base.alpha_composite(lay, (round(cx - lay.width / 2), round(cy - lay.height / 2)))
 
 
-days_lay = text_layer(line, 150, tracking=6)
+days_lay = text_layer(line, 118, tracking=5)
 bf_lay = text_layer("BLACK FRIDAY", 64, BOLD_I, tracking=14, halo=False)
 url_lay = text_layer("EPSILON.PLUS", 46, BOLD_I, (200, 200, 200, 255), tracking=10, halo=False)
-sale_lay = text_layer("BLACK FRIDAY SALE", 64, BOLD_I, (215, 215, 215, 255), tracking=12)
+sale_lay = text_layer("BLACK FRIDAY SALE", 52, BOLD_I, (215, 215, 215, 255), tracking=10)
 
 for f in range(END):
     if f < C1:  # ---- shot 1: plate, crop-in + push
-        s = 1.20 + 0.06 * f / (C1 - 1)  # no characters: crop in on the car, slow push
-        pw, ph = round(W * s), round(H * s)
-        fr = plate.resize((pw, ph), Image.LANCZOS).crop(((pw - W) // 2, (ph - H) // 2, (pw - W) // 2 + W, (ph - H) // 2 + H)).convert("RGBA")
+        s = 1.04 + 0.05 * f / (C1 - 1)  # push; car kept inside the safe box (knowledge/safe-zones.md)
+        pl = plate.resize((round(W * s), round(H * s)), Image.LANCZOS)
+        fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
+        fr.paste(pl, (round(SAFE_CX - 540 * s), round(960 - 960 * s)))
     elif f < C3:  # ---- shots 2-3: numeral render, text slam, sale line
         num = Image.open(f"{M}/work/num{args.days}/f_{f - C1:04d}.png").convert("RGBA")
+        num = num.resize((round(W * NUM_S), round(H * NUM_S)), Image.LANCZOS)
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
-        fr.alpha_composite(num, (72, -40))  # recentre: the render framed the numeral 72 px left (room for the dropped Eps)
+        fr.alpha_composite(num, NUM_OFF)
+        # clip everything from the render (incl. the scan beam) to the safe box
+        clip = Image.new("RGBA", (W, H), (0, 0, 0, 255)); clip.paste(fr.crop(SAFE), SAFE[:2]); fr = clip
         if f >= SLAM:
             t = (f - SLAM) / 4
-            paste_center(fr, days_lay, W / 2, 1300, scale=1.0 + 0.3 * (1 - ease_out(t)), alpha=ease_out(t * 1.5))
+            paste_center(fr, days_lay, SAFE_CX, 1110, scale=1.0 + 0.3 * (1 - ease_out(t)), alpha=ease_out(t * 1.5))
         if f >= SALE_IN:
-            paste_center(fr, sale_lay, W / 2, 1450, alpha=ease_out((f - SALE_IN) / 5))
+            paste_center(fr, sale_lay, SAFE_CX, 1235, alpha=ease_out((f - SALE_IN) / 5))
     else:  # ---- shot 4: wordmark card, fades out with the music
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         t = 0.35 + 0.65 * (f - C3) / 6
-        paste_center(fr, bf_lay, W / 2, 790, alpha=ease_out(t))
-        paste_center(fr, logo, W / 2, 900, scale=1.06 - 0.06 * ease_out(t), alpha=ease_out(t))
-        paste_center(fr, url_lay, W / 2, 1010, alpha=ease_out((f - C3 - 4) / 6))
+        paste_center(fr, bf_lay, SAFE_CX, 790, alpha=ease_out(t))
+        paste_center(fr, logo, SAFE_CX, 900, scale=1.06 - 0.06 * ease_out(t), alpha=ease_out(t))
+        paste_center(fr, url_lay, SAFE_CX, 1010, alpha=ease_out((f - C3 - 4) / 6))
         fade = min(1, (END - 1 - f) / 14)
         if fade < 1:
             blk = Image.new("RGBA", (W, H), (0, 0, 0, round(255 * (1 - fade))))

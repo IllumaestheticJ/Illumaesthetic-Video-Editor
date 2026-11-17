@@ -47,7 +47,8 @@ def campos(az, d=5.6, el=7):
 for f, az in ((0, az0), (N - 1, az1)):
     cam.location = campos(az); cam.rotation_euler = (look - cam.location).to_track_quat("-Z", "Y").to_euler()
     cam.keyframe_insert("location", frame=f); cam.keyframe_insert("rotation_euler", frame=f)
-cam_d.shift_y = 0.24   # (+ = image content moves DOWN) car low in frame: the offer text sits in the black above it
+cam_d.shift_y = 0.12   # v0.3 safe zones: car higher so the parts line fits under it inside y 1440
+cam_d.shift_x = 0.05   # v0.3: car left, clear of the like/share rail (x > 920)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import rain  # noqa: E402  (v0.2 screen-space rain: no part crosses a frame edge or pops in/out on screen)
 srcs = []
