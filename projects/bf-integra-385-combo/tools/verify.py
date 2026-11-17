@@ -7,7 +7,7 @@ raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', out, '-vf', f'scale={W}:{H}
                      capture_output=True, check=True).stdout
 v = np.frombuffer(raw, np.uint8).reshape(-1, H, W).astype(float)
 diff = np.abs(np.diff(v, axis=0)).mean((1, 2))
-cuts = [i + 1 for i in range(1, len(diff) - 1) if diff[i] > 18 and diff[i] > 3 * np.median(diff[max(0, i - 6):i + 6])]
+cuts = [i + 1 for i in range(1, len(diff) - 1) if diff[i] > 4 and diff[i] > 3 * np.median(diff[max(0, i - 6):i + 6])]
 print('frames', len(v), 'duration', len(v) / 30)
 print('cut frames (diff)', cuts)
 a = subprocess.run(['ffmpeg', '-v', 'error', '-i', out, '-ac', '1', '-ar', '48000', '-f', 'f32le', '-'], capture_output=True, check=True).stdout
