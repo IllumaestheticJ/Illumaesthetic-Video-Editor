@@ -65,8 +65,9 @@ def pose(az, el, d, look):
     return look + d * Vector((math.sin(a) * math.cos(e), -math.cos(a) * math.cos(e), math.sin(e)))
 # (frame, az, elevation, lens, look-at, framing width at the car in m)
 K = [(0, 24, 10, 35, TGT + Vector((0.1, -0.7, 0.7)), 4.3),
-     (fr(T_LIP) - 20, 16, 9, 35, TGT + Vector((0.0, -0.9, 0.45)), 4.0),   # v0.2: near-frontal so the lip drops in from the top
-     (fr(T_LIP) + 12, 22, 8, 38, TGT + Vector((0.0, -0.6, 0.35)), 4.4),
+     (fr(T_LIP) - 20, 16, 9, 35, TGT + Vector((0.0, -0.9, 0.45)), 4.3),   # v0.2: near-frontal so the lip drops in from the top
+     (fr(T_LIP) + 12, 22, 8, 38, TGT + Vector((0.0, -0.6, 0.35)), 4.7),
+     (360, 57, 7, 42, TGT + Vector((0.0, -0.2, 0.3)), 5.8),   # v0.2 edge check: the 22->92 deg chord cropped the nose (349-374)
      (fr(T_SKIRT) + 8, 92, 6, 45, TGT + Vector((0.0, 0.15, 0.3)), 5.9),
      (400, 118, 6, 50, TGT + Vector((0.0, 0.3, 0.25)), 6.0),   # in-between keys keep the swing on an arc (a straight
      (421, 142, 5, 55, TGT + Vector((0.0, 0.45, 0.2)), 5.7),   # chord came close and cut the tail, frames 390-426)
