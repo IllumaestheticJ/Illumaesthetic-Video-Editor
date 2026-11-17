@@ -1,3 +1,17 @@
+# v0.3 (user feedback on v0.2, 2026-11-17)
+User: "fix the camera shake at the end, smoother. If that doesn't work, use another video/roller" / "we should have a
+wingless scan in the DE4 scan section (same trunk)" / "add color to the box and the beginning".
+- **End shot:** C0240 11.8-15.2 s stabilised with ffmpeg vidstab (shakiness 10, smoothing 90). Jitter measured on tracked
+  car features: 9.5/8.6 px -> 1.3/0.7 px (x/y at 1920 wide). Alternatives tried: car-locked cubic path (worse, 5.5 px);
+  C0241 drive-out (1.9 px, mostly side-on, trunk lip barely visible). Kept C0240.
+- **Deck fill:** DE4 A-Spec rear scan (`Integra ASpec Rear.stl`, Drive 1F3lfr0FnH6_S5VsyZ2uEy5WGXnICcp6e) - wingless, same
+  trunk lid. Registered with open3d FPFH + RANSAC, then point-to-plane ICP on the trunk lid (3.2 mm RMS); residual
+  per-x offset removed on the overlap ring (1.8 mm median). Its deck replaces the lookbook fill in the spoiler footprint
+  (`tools/reg_aspec_global.py`, `tools/aspec_patch.py`). No lookbook geometry in the scan any more.
+- **Colour:** opening in the Epsilon+ site palette (epsilon.plus theme: primary #5C59E8, secondary #01dee2, accent
+  #E85995): violet box with a cyan band, violet glow backdrop, cyan/pink rim lights; title tag and $385 in cyan, strike in pink.
+- Output /home/user/media/work/out/bf-integra-385-combo_v0.3.mp4, 22.13 s. Cuts -6/+8/+15/-5/0/+9 ms; -13.8 LUFS; TP -1.8 dBFS.
+
 # v0.2 (user feedback on v0.1, 2026-11-17)
 User: "this works, but the final video needs to have both parts on the car, and the scan section needs to show the
 stock wing coming off".

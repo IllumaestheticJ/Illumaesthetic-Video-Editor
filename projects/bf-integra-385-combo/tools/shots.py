@@ -52,7 +52,13 @@ M_SILVER = mat('scan_silver', (0.62, 0.63, 0.65), metal=0.85, rough=0.38)
 M_SILVER_PART = mat('scan_silver_part', (0.42, 0.43, 0.45), metal=0.85, rough=0.30)
 M_BOX = mat('box_charcoal', (0.018, 0.018, 0.02), rough=0.8)
 M_BOXIN = mat('box_inner', (0.09, 0.09, 0.095), rough=0.9)
-M_CYAN = mat('scan_cyan', (0.43, 0.76, 0.84), emit=(0.43, 0.76, 0.84), estr=25.0)
+M_CYAN = mat('scan_cyan', (0.0, 0.73, 0.76), emit=(0.0, 0.73, 0.76), estr=25.0)
+# v0.3 (user: "add color to the box and the beginning") - Epsilon+ site palette
+EPS_VIOLET = (0.107, 0.100, 0.807)   # #5C59E8 in linear
+EPS_CYAN = (0.0, 0.73, 0.76)         # #01dee2
+EPS_PINK = (0.807, 0.100, 0.304)     # #E85995
+M_BOXV = mat('box_violet', (0.040, 0.036, 0.36), rough=0.62)
+M_BAND = mat('box_band', EPS_CYAN, rough=0.4, emit=EPS_CYAN, estr=0.6)
 
 
 def area(name, loc, target, size, energy, color=(1, 1, 1)):
@@ -120,20 +126,42 @@ def build_stage():
         bpy.ops.mesh.primitive_cube_add(size=1, location=loc)
         o = bpy.context.object; o.name = name; o.scale = size
         bpy.ops.object.transform_apply(scale=True); o.data.materials.append(m); return o
-    slab('box_floor', (bw, bd, t), (0, 0, t / 2), M_BOX)
-    slab('box_front', (bw, t, bh), (0, -bd / 2, bh / 2), M_BOX)
-    slab('box_back', (bw, t, bh), (0, bd / 2, bh / 2), M_BOX)
-    slab('box_l', (t, bd, bh), (-bw / 2, 0, bh / 2), M_BOX)
-    slab('box_r', (t, bd, bh), (bw / 2, 0, bh / 2), M_BOX)
+    slab('box_floor', (bw, bd, t), (0, 0, t / 2), M_BOXV)
+    slab('box_front', (bw, t, bh), (0, -bd / 2, bh / 2), M_BOXV)
+    slab('box_back', (bw, t, bh), (0, bd / 2, bh / 2), M_BOXV)
+    slab('box_l', (t, bd, bh), (-bw / 2, 0, bh / 2), M_BOXV)
+    slab('box_r', (t, bd, bh), (bw / 2, 0, bh / 2), M_BOXV)
     slab('box_inner', (bw - 0.03, bd - 0.03, 0.004), (0, 0, t + 0.003), M_BOXIN)
-    lid = slab('lid', (bw + 0.02, bd + 0.02, t), (0, 0, bh + t / 2), M_BOX)
+    # cyan band around the box (brand colour, no logos or labels)
+    slab('band_f', (bw + 0.006, 0.004, 0.05), (0, -bd / 2 - 0.006, bh * 0.45), M_BAND)
+    slab('band_b', (bw + 0.006, 0.004, 0.05), (0, bd / 2 + 0.006, bh * 0.45), M_BAND)
+    slab('band_l', (0.004, bd + 0.006, 0.05), (-bw / 2 - 0.006, 0, bh * 0.45), M_BAND)
+    slab('band_r', (0.004, bd + 0.006, 0.05), (bw / 2 + 0.006, 0, bh * 0.45), M_BAND)
+    lid = slab('lid', (bw + 0.02, bd + 0.02, t), (0, 0, bh + t / 2), M_BOXV)
+    lband = slab('lid_band', (0.06, bd + 0.03, t + 0.004), (0, 0, bh + t / 2), M_BAND)
+    lband.parent = lid; lband.matrix_parent_inverse = lid.matrix_world.inverted() @ Matrix.Identity(4) if False else Matrix.Translation(lid.location).inverted()
+    # violet glow backdrop far behind the stage (radial gradient -> black)
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 6.0, 1.2), rotation=(math.radians(90), 0, 0))
+    bd_ = bpy.context.object; bd_.scale = (40, 40, 1)
+    mb = bpy.data.materials.new('backdrop'); mb.use_nodes = True; nt = mb.node_tree
+    for n_ in list(nt.nodes): nt.nodes.remove(n_)
+    out = nt.nodes.new('ShaderNodeOutputMaterial'); em = nt.nodes.new('ShaderNodeEmission')
+    tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping'); gr = nt.nodes.new('ShaderNodeTexGradient')
+    gr.gradient_type = 'SPHERICAL'; cr = nt.nodes.new('ShaderNodeValToRGB')
+    mp.inputs['Scale'].default_value = (6.5, 7.5, 1.0); mp.inputs['Location'].default_value = (0, 0.25, 0)
+    cr.color_ramp.elements[0].color = (0, 0, 0, 1); cr.color_ramp.elements[1].color = (*EPS_VIOLET, 1)
+    cr.color_ramp.elements[1].position = 0.9; cr.color_ramp.interpolation = 'EASE'
+    nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], gr.inputs['Vector'])
+    nt.links.new(gr.outputs['Fac'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], em.inputs['Color'])
+    em.inputs['Strength'].default_value = 0.42; nt.links.new(em.outputs['Emission'], out.inputs['Surface'])
+    bd_.data.materials.append(mb); bd_.visible_shadow = False
     flaps = lid
     # lights: soft top key + two rims + low fill
-    area('key', (0.5, -1.5, 4.0), (0, 0, 0.6), 3.0, 220)
+    area('key', (0.5, -1.5, 4.0), (0, 0, 0.6), 3.0, 110)
     sky = area('sky', (0, 2.8, 4.2), (0, 0, 1.0), 6.0, 260); sky.data.shape = 'RECTANGLE'; sky.data.size_y = 0.35
     sky2 = area('sky2', (0, 1.2, 4.6), (0, 0, 1.0), 6.0, 160); sky2.data.shape = 'RECTANGLE'; sky2.data.size_y = 0.2
-    area('rimL', (-3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 500)
-    area('rimR', (3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 500)
+    area('rimL', (-3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 650, EPS_CYAN)
+    area('rimR', (3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 650, EPS_PINK)
     area('fill', (0, -4.0, 0.6), (0, 0, 0.6), 4.0, 40)
     return wing, lip, flaps
 
@@ -283,7 +311,7 @@ def ply(name, m):
 
 
 def scan_car(with_spoiler):
-    ply('car_nospoiler', M_SILVER); ply('deck_patch', M_SILVER)
+    ply('car_nospoiler_filled', M_SILVER); ply('deck_patch', M_SILVER)
     sp = ply('stock_spoiler', M_SILVER) if with_spoiler else None
     if sp is not None:  # origin at its bbox centre so it lifts and tilts about itself
         recentre(sp); sp.rotation_mode = 'XYZ'

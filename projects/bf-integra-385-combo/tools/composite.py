@@ -9,17 +9,18 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = '/home/user/media/bf-integra-385-combo'
-R = f'{M}/work/render_v0'
+R = f'{M}/work'
 TMP = f'{M}/work/comp_v0'; os.makedirs(TMP, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 # v0.2 timeline (user: both parts on the car at the end; scan shows the stock spoiler coming off)
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
-TIMELINE = [('render', 's1', 1, 97), ('render', 's2', 2, 71), ('render', 's3', 3, 71), ('render', 's4', 4, 71),
-            ('render', 's7', 0, 70), ('render', 's8', 0, 71), ('render', 's9', 0, 71),
-            ('irl', 'C0240', 0, 71), ('card', None, 8, 71)]
+# v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
+TIMELINE = [('render', 'render_v03/s1', 1, 97), ('render', 'render_v03/s2', 2, 71), ('render', 'render_v03/s3', 3, 71),
+            ('render', 'render_v03/s4', 4, 71), ('render', 'render_v03/s7', 0, 70), ('render', 'render_v03/s8', 0, 71),
+            ('render', 'render_v0/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 71)]
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
-OFFWHITE = (232, 236, 242, 255); ORANGE = (255, 122, 26, 255); YELLOW = (255, 210, 31, 255)
+OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222, 226, 255)  # v0.3: Epsilon+ palette (pink strike, cyan price)
 F_TITLE = '/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'
 F_MONO = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf'
 F_MONO_R = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf'
@@ -104,7 +105,7 @@ def overlay(shot, fr):
         u = ease((fr - 4) / 10)
         if u > 0:
             ft = font(F_TITLE, 118)
-            tracked(d, (W / 2, 190 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_MONO, 34), (255, 210, 31, int(255 * u)), track=8, anchor_center=True)
+            tracked(d, (W / 2, 190 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_MONO, 34), (1, 222, 226, int(255 * u)), track=8, anchor_center=True)
             for i, line in enumerate(('WHAT $385', 'GETS YOU')):
                 tracked(d, (W / 2, 250 + i * 135 + 30 * (1 - u)), line, ft, (232, 236, 242, int(255 * u)), track=6, anchor_center=True)
     elif shot == 2:
@@ -143,15 +144,15 @@ def plate_frames(src, n):
     return fr
 
 
-def irl_frames(name, n, start=12.3, cx0=0.50, cx1=0.62):
+def irl_frames(name, n, start=0.5, cx0=0.46, cx1=0.60):  # c0240_stab.mp4 = C0240 11.8-15.2 s, vidstab shakiness 10, smoothing 90 (car jitter 9.5 -> 1.3 px)
     """C0240 (finished car, Sport Wing + trunk lip, flat profile): grade, a 45 %-wide crop that follows the car,
     on a blurred, darkened fill of itself (no text ever goes on this shot)"""
     dur = n / FPS
     fc = (f'[0:v]fps=30,eq=contrast=1.3:saturation=1.2:gamma=0.9,split[a][b];'
-          f"[a]crop=iw*0.45:ih:x='iw*({cx0}+{cx1 - cx0}*t/{dur:.3f})-ow/2':y=0,scale=1080:1350:flags=lanczos[fg];"
+          f"[a]crop=iw*0.52:ih:x='iw*({cx0}+{cx1 - cx0}*t/{dur:.3f})-ow/2':y=0,scale=1080:1170:flags=lanczos[fg];"
           f'[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.22[bg];'
-          f'[bg][fg]overlay=0:285,format=rgb24')
-    cmd = ['ffmpeg', '-v', 'error', '-ss', str(start), '-i', f'{M}/footage/{name}.MP4', '-filter_complex', fc,
+          f'[bg][fg]overlay=0:375,format=rgb24')
+    cmd = ['ffmpeg', '-v', 'error', '-ss', str(start), '-i', f'{M}/footage/{name}.mp4', '-filter_complex', fc,
            '-frames:v', str(n), '-f', 'rawvideo', '-']
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
     fr = np.frombuffer(raw, np.uint8).reshape(-1, H, W, 3)

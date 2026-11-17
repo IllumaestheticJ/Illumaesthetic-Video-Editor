@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.2.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.3.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -104,9 +104,9 @@ def main():
     for f in glob.glob(os.path.join(FR, "*.png")):
         os.remove(f)
     n = [CUTS[i + 1] - CUTS[i] for i in range(len(CUTS) - 1)]
-    s1 = doubled(os.path.join(M, "render/s1_stockpass_rgba/f_*.png"), n[0])
-    s3 = video_frames(os.path.join(M, "clips/s3_0371.mp4"), n[1], "s3")
-    s4 = video_frames(os.path.join(M, "clips/s4_0370.mp4"), n[2], "s4")
+    s1 = doubled(os.path.join(M, "render/s1_stockpass_wide/f_*.png"), n[0])
+    s3 = video_frames(os.path.join(M, "clips/s3_0371_wide.mp4"), n[1], "s3")
+    s4 = video_frames(os.path.join(M, "clips/s4_0370_wide.mp4"), n[2], "s4")
     s5 = doubled(os.path.join(M, "render/s5_kit_rgba/f_*.png"), n[3])
     i = 0
     for p in s1 + s3 + s4:
