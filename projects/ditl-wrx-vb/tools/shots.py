@@ -5,6 +5,49 @@ import ditl_kit as k
 from ditl_kit import mat, imgmat, procmat, box, plane, R, TEX
 from mathutils import Vector
 
+# ---- video-game textures: low-res tiles, Closest filtering, box-projected ----
+_flat_mat = mat
+def texmat(name, file, scale=1.0, tint=None, rough=0.9):
+    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; b = nt.nodes["Principled BSDF"]; b.inputs["Roughness"].default_value = rough
+    co = nt.nodes.new("ShaderNodeTexCoord"); mp = nt.nodes.new("ShaderNodeMapping"); mp.inputs["Scale"].default_value = (scale,) * 3
+    t = nt.nodes.new("ShaderNodeTexImage"); t.image = bpy.data.images.load(TEX + file, check_existing=True); t.interpolation = "Closest"; t.projection = "BOX"; t.projection_blend = 0.0
+    nt.links.new(co.outputs["Object"], mp.inputs["Vector"]); nt.links.new(mp.outputs["Vector"], t.inputs["Vector"])
+    if tint is None: nt.links.new(t.outputs["Color"], b.inputs["Base Color"])
+    else:
+        mx = nt.nodes.new("ShaderNodeMix"); mx.data_type = "RGBA"; mx.blend_type = "MULTIPLY"; mx.inputs[0].default_value = 1.0; mx.inputs[7].default_value = (*[min(1.0, c * 1.2) for c in tint], 1)
+        nt.links.new(t.outputs["Color"], mx.inputs[6]); nt.links.new(mx.outputs[2], b.inputs["Base Color"])
+    return m
+TEXMAP = {"walk": ("tx_concrete.png", 0.5, True), "grass": ("tx_grass.png", 0.35, False), "sid": ("tx_siding.png", 0.45, True), "roof": ("tx_shingle.png", 0.6, True), "wallm": ("tx_plaster.png", 0.5, True),
+          "wall": ("tx_plaster.png", 0.5, True), "ceil": ("tx_plaster.png", 0.5, True), "blanket": ("tx_plaid.png", 1.2, False), "card": ("tx_cardboard.png", 1.5, False), "camo": ("tx_camo.png", 3.0, False),
+          "dump": ("tx_metal.png", 1.0, True), "door": ("tx_metal.png", 1.0, True), "van_beige": ("tx_metal.png", 0.5, True), "lshirt": ("tx_fabric.png", 6, True), "polo": ("tx_fabric.png", 6, True), "mshirt": ("tx_fabric.png", 6, True),
+          "kshirt": ("tx_fabric.png", 6, True), "htee": ("tx_camo.png", 3.0, False), "cabm": ("tx_metal.png", 1.0, True), "pil": ("tx_fabric.png", 5, True), "flag": ("tx_fabric.png", 5, True), "win": None}
+def mat(name, col, rough=0.9, emit=0.0):
+    if not emit:
+        for kk, v in TEXMAP.items():
+            if v and name.startswith(kk): return texmat(name, v[0], v[1], col if v[2] else None, rough)
+    return _flat_mat(name, col, rough, emit)
+def procmat(name, kind, c1, c2, scale=1.0):
+    f, sc_, tint = {"asphalt": ("tx_asphalt.png", 0.4, None), "road": ("tx_asphalt.png", 0.4, None), "brick": ("tx_brick.png", 0.5, None), "wood": ("tx_wood.png", 1.2, None), "floor": ("tx_tile.png", 0.6, None)}.get(name, ("tx_carpet.png", 1.5, c2))
+    return texmat(name, f, sc_, tint)
+k.mat = mat; k.procmat = procmat
+_world = k.world
+def world(sky=(0.42, 0.62, 0.95), strength=1.0, sun=(3.5, 48, 35), img="sky_day.png"):
+    _world(sky, strength, sun)
+    if sun:
+        nt = bpy.context.scene.world.node_tree; e = nt.nodes.new("ShaderNodeTexEnvironment"); e.image = bpy.data.images.load(TEX + img, check_existing=True); e.interpolation = "Closest"
+        nt.links.new(e.outputs["Color"], nt.nodes["Background"].inputs[0]); nt.nodes["Background"].inputs[1].default_value = 1.0
+k.world = world
+
+WHEELGLB = "/home/user/epsilon-site/showroom/models/eps-toyota-supra-a90-v2.glb"
+def realwheels(root, x, yf, yr, z=0.33, scale=1.0, glb=WHEELGLB):
+    """Real modelled wheels (alloy + tyre) from a showroom model, placed at the given axles."""
+    before = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=glb); new = [o for o in bpy.data.objects if o not in before]
+    for o in new:
+        if o.name.split(".")[0] in ("wheel_FL", "wheel_FR", "wheel_RL", "wheel_RR"):
+            nm = o.name.split(".")[0]; mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw; o.parent = root
+            o.location = ((x if nm[-1] == "L" else -x), (yf if nm[-2] == "F" else yr), z * scale); o.scale = (scale,) * 3; o.name = root.name + "_" + nm
+        else: bpy.data.objects.remove(o)
+
 NF = [65, 48, 47, 48, 47, 47, 48, 95, 47, 47, 95, 48, 47, 47, 79, 150]
 OPEN, FIST, POINT, FLAT = (0.12, 0.06, 0.1, 0.22), (1.3, 1.35, 1.35, 1.4), (0.0, 1.3, 1.35, 1.4), (0.02, 0.0, 0.02, 0.05)
 
@@ -163,9 +206,6 @@ def lowbody(name, loc, body, L, Wd, Hlow, Hroof, cab0, cab1, badge=None, badge_s
         box(f"{name}_pa{sx}", (0.07, 0.08, ph * 1.18), body, loc=(x, cab0, Hlow - 0.02), rot=(R(-32), 0, 0), parent=root, base="z")
         box(f"{name}_pb{sx}", (0.07, 0.1, ph), body, loc=(x, (cab0 + cab1) / 2, Hlow - 0.02), parent=root, base="z")
         box(f"{name}_pc{sx}", (0.07, 0.2, ph * 1.1), body, loc=(x, cab1, Hlow - 0.02), rot=(R(24), 0, 0), parent=root, base="z")
-        for sy in (-1, 1):
-            bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=0.34, depth=0.25); w = bpy.context.object; w.data.materials.append(tr); w.parent = root; w.location = (sx * Wd * 0.46, sy * L * 0.31, 0.34); w.rotation_euler = (0, R(90), 0)
-            bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=0.2, depth=0.26); h = bpy.context.object; h.data.materials.append(mat(f"{name}_rim{sx}{sy}", (0.6, 0.6, 0.62), 0.3)); h.parent = root; h.location = w.location; h.rotation_euler = w.rotation_euler
         box(f"{name}_tl{sx}", (0.3, 0.06, 0.14), lt, loc=(sx * Wd * 0.34, L / 2, Hlow - 0.2), parent=root)
         box(f"{name}_mir{sx}", (0.16, 0.08, 0.1), body, loc=(sx * (Wd / 2 + 0.06), cab0 + 0.12, Hlow + 0.05), parent=root)
     box(name + "_dash", (Wd * 0.8, 0.4, 0.16), dk, loc=(0, cab0 + 0.25, Hlow - 0.08), parent=root, base="z")
@@ -194,12 +234,10 @@ def bmw(loc, faces):
     bmesh.ops.delete(bm, geom=kill, context="FACES"); bm.to_mesh(me); bm.free()
     for pl in me.polygons: pl.use_smooth = True
     sh.parent = root; sh.location = (0, 0, 0)
-    tr = mat("bmw_tire", (0.02, 0.02, 0.02)); rim = mat("bmw_rim", (0.08, 0.08, 0.09), 0.3); dk = mat("bmw_dk", (0.05, 0.05, 0.055))
+    dk = mat("bmw_dk", (0.05, 0.05, 0.055))
     for sx in (-1, 1):
-        for y in (-1.5, 1.36):
-            bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=0.345, depth=0.27); w = bpy.context.object; w.data.materials.append(tr); w.parent = root; w.location = (sx * 0.8, y, 0.345); w.rotation_euler = (0, R(90), 0)
-            bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=0.24, depth=0.28); h = bpy.context.object; h.data.materials.append(rim); h.parent = root; h.location = w.location; h.rotation_euler = w.rotation_euler
         box(f"bmw_bp{sx}", (0.05, 0.1, 0.27), dk, loc=(sx * 0.77, 0.28, 0.97), rot=(0, R(-14) * sx, 0), parent=root, base="z")
+    realwheels(root, 0.8, -1.5, 1.36)
     box("bmw_int", (1.5, 2.3, 0.5), dk, loc=(0, 0.3, 0.45), parent=root, base="z")
     box("bmw_seat", (0.5, 0.14, 0.75), mat("bseat", (0.35, 0.12, 0.08)), loc=(0.4, 0.24, 0.5), parent=root, base="z")
     bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get()
@@ -214,7 +252,8 @@ def bmw(loc, faces):
     return root, p, head, fd, a
 
 def van(loc, mom_faces, kid_faces, kid_back=False):
-    bg = mat("van_beige", (0.66, 0.6, 0.47), 0.35); r = lowbody("van", loc, bg, 5.1, 1.95, 1.05, 1.78, -1.35, 2.3, badge=alphamat("hb", TEX + "hbadge.png"), badge_side=-1)
+    bg = mat("van_beige", (0.5, 0.44, 0.32), 0.35); r = lowbody("van", loc, bg, 5.1, 1.95, 1.05, 1.78, -1.35, 2.3, badge=alphamat("hb", TEX + "hbadge.png"), badge_side=-1)
+    realwheels(r, 0.9, -1.58, 1.58, scale=1.05, glb="/home/user/epsilon-site/showroom/models/eps-subaru-wrx-vb-v3.glb")
     ms = mat("mskin", (0.84, 0.66, 0.55), 0.7)
     m, mh, mf = person("mom", "mom", (0.45, -0.75, 0.62), 0, ms, mat("mshirt", (0.5, 0.25, 0.4)), mat("mhair", (0.25, 0.14, 0.08)), mom_faces, hair_h=0.1, bun=True); m.parent = r
     if kid_back: kl, krz = (0.0, 2.05, 0.75), R(180)
@@ -322,7 +361,7 @@ def s6():
     key(ph, 1, loc=(-0.012, 0.012, -0.135)); shake(cam, 1, 8, 0.8, seed=6)
 
 def lot(n_boxes=7, seed=4):
-    k.world(); k.lot_set(); card = mat("card", (0.55, 0.4, 0.24)); rnd = random.Random(seed); bx = []
+    k.world(img="sky_dawn.png"); k.lot_set(); card = mat("card", (0.55, 0.4, 0.24)); rnd = random.Random(seed); bx = []
     for i in range(n_boxes):
         x, y = rnd.uniform(0.6, 4.4), rnd.uniform(-4.6, -2.4)
         bx.append(box(f"bx{i}", (rnd.uniform(.5, 1.1), rnd.uniform(.4, .9), rnd.uniform(.25, .6)), card, (x, y, 0), rot=(0, 0, rnd.uniform(0, 3)), base="z"))
@@ -372,8 +411,15 @@ def s9():
     key(hr, 26, loc=(0.15, -0.04, -0.3), rot=(R(-80), R(60), R(-5)), interp="LINEAR"); key(hl, 26, loc=(-0.15, -0.04, -0.3), rot=(R(-80), R(-60), R(5)), interp="LINEAR")
     shake(cam, 26, 47, 0.7, seed=8)
 
-def cabin(lens=19, look=(0.1, -0.8, 1.0), loc=(0.36, 0.32, 1.2), glass=True):
-    veh = ourcar(hide_glass=glass); rig, cam = rigcam(loc, look, lens=lens, parent=veh); return veh, rig, cam
+def cablight(veh):
+    l = bpy.data.objects.new("cabl", bpy.data.lights.new("cabl", "POINT")); l.data.energy = 14; l.data.shadow_soft_size = 0.4; l.data.color = (1, 0.97, 0.9)
+    bpy.context.scene.collection.objects.link(l); l.parent = veh; l.location = (0.2, 0.25, 1.28)
+    jn = texmat("jeans", "tx_fabric.png", 8, (0.12, 0.16, 0.3))
+    for sx in (-1, 1): box(f"leg{sx}", (0.17, 0.62, 0.15), jn, (0.36 + sx * 0.12, -0.02, 0.66), rot=(R(8), 0, R(-6) * sx), parent=veh)
+    box("seatpan", (0.56, 0.6, 0.2), _flat_mat("seatpan", (0.04, 0.04, 0.045)), (0.36, 0.25, 0.5), parent=veh); box("floorpan", (1.7, 2.4, 0.05), _flat_mat("floorpan", (0.03, 0.03, 0.035)), (0, 0.2, 0.3), parent=veh)
+
+def cabin(lens=19, look=(0.1, -0.8, 1.0), loc=(0.36, 0.14, 1.25), glass=True):
+    veh = ourcar(hide_glass=glass); rig, cam = rigcam(loc, look, lens=lens, parent=veh); cablight(veh); return veh, rig, cam
 
 def s10():
     road(); veh, rig, cam = cabin(look=(0.14, -0.6, 1.08)); ap, d = accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["off", "ok"]); swap(d, [(1, "off"), (27, "ok")])
@@ -425,7 +471,7 @@ def s13():
 def drive(veh, f0, y0, f1, y1): key(veh, f0, loc=(0, y0, 0), interp="LINEAR"); key(veh, f1, loc=(0, y1, 0), interp="LINEAR")
 
 def s14():
-    road(); veh, rig, cam = cabin(lens=18, look=(0.3, -8, 1.02)); accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["ok"])
+    road(); veh, rig, cam = cabin(lens=18, look=(0.3, -8, 1.1)); accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["ok"])
     r, p, head, fd, a = bmw((-3.05, -0.1, 0), ["grin"]); vn = van((3.3, 0.25, 0), ["flat"], ["squish"])
     box("pole", (0.15, 0.15, 5), mat("pole", (0.2, 0.2, 0.2)), (5.6, -9, 0), base="z"); box("lightbox", (0.4, 0.3, 1.1), mat("lb", (0.08, 0.08, 0.08)), (4.6, -9, 4.3), base="z"); box("green", (0.26, 0.05, 0.26), mat("grn", (0.1, 1, 0.3), emit=6), (4.6, -8.84, 4.42), base="z")
     for f, y in ((1, 0), (17, 0), (24, -1.2), (32, -5), (40, -11.5), (47, -19)): key(veh, f, loc=(0, y, 0), interp="LINEAR")
@@ -440,14 +486,14 @@ def s14():
     cam.data.lens = 18; cam.data.keyframe_insert("lens", frame=17); cam.data.lens = 13.5; cam.data.keyframe_insert("lens", frame=30)
 
 def s15():
-    road(); veh, rig, cam = cabin(lens=15, look=(0.5, -8, 1.05)); accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["ok"])
+    road(); veh, rig, cam = cabin(lens=15, look=(0.5, -8, 1.15)); accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["ok"])
     r, p, head, fd, a = bmw((-3.05, -0.1, 0), ["horror"]); vr, m, mh, mf, kd, kh, kf = van((3.3, 0, 0), ["flat"], ["grin", "squish"], kid_back=True)
     y0 = -19.0; v = 0.9
     key(veh, 1, loc=(0, y0, 0), interp="LINEAR"); key(veh, 79, loc=(0, y0 - 78 * v, 0), interp="LINEAR"); key(r, 1, loc=(-3.05, y0 + 3.2, 0), interp="LINEAR"); key(r, 79, loc=(-3.05, y0 - 78 * v + 1.2, 0), interp="LINEAR")
     key(vr, 1, loc=(3.3, y0 + 7.5, 0), interp="LINEAR"); key(vr, 30, loc=(3.3, y0 - 29 * v - 5.5, 0), interp="LINEAR"); key(vr, 79, loc=(3.3, y0 - 78 * v - 46, 0), interp="LINEAR")
     ka, kf_ = arm("ka", kd, 1, mat("kskin2", (0.84, 0.66, 0.55)), mat("kshirt2", (0.9, 0.75, 0.1)), up=60, fwd=0, bend=20)
     for f in range(1, 80, 4): key(ka, f, rot=(R(60 + 25 * ((f // 4) % 2)), 0, R(90)), interp="LINEAR")
-    loc = (0.36, 0.32, 1.2); key(rig, 1, rot=lookrot(loc, (0.5, -8, 1.05)), interp="LINEAR"); key(rig, 22, rot=lookrot(loc, (2.2, -7, 1.1)), interp="LINEAR"); key(rig, 79, rot=lookrot(loc, (1.0, -9, 1.12)), interp="LINEAR")
+    loc = (0.36, 0.14, 1.25); key(rig, 1, rot=lookrot(loc, (0.5, -8, 1.15)), interp="LINEAR"); key(rig, 22, rot=lookrot(loc, (2.6, -6, 1.2)), interp="LINEAR"); key(rig, 79, rot=lookrot(loc, (1.0, -9, 1.12)), interp="LINEAR")
     hr = hand("hR", cam, (0.24, -0.3, -0.42), (R(-80), 0, R(-30)), curls=FIST, thumb=0.9); hl = hand("hL", cam, (-0.15, -0.17, -0.43), (R(-60), 0, R(15)), curls=FIST, thumb=0.9, mirror=True)
     hr2 = hand("hR2", cam, (0.2, -0.2, -0.42), (R(-60), 0, R(-15)), curls=OPEN); hl2 = hand("hL2", cam, (-0.2, -0.2, -0.42), (R(-60), 0, R(15)), curls=OPEN, mirror=True)
     for o in (hr2, hl2): vis(o, 1, False); vis(o, 34, True)
@@ -457,7 +503,7 @@ def s15():
     cam.data.lens = 13.5; cam.data.keyframe_insert("lens", frame=1); cam.data.lens = 22; cam.data.keyframe_insert("lens", frame=60)
 
 def s16():
-    road(); veh = ourcar(hide_glass=True); ap, d = accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["ok", "bad"]); swap(d, [(1, "ok"), (16, "bad"), (20, "ok"), (24, "bad")])
+    road(); veh = ourcar(hide_glass=True); cablight(veh); ap, d = accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["ok", "bad"]); swap(d, [(1, "ok"), (16, "bad"), (20, "ok"), (24, "bad")])
     mc = Vector((0.03, -0.25, 1.268)); fr = bpy.data.objects.new("mir", None); bpy.context.scene.collection.objects.link(fr); fr.location = mc; fr.rotation_euler = (R(-5), 0, R(20))
     MW, MH = 0.36, 0.125; blk = mat("mirf", (0.02, 0.02, 0.02))
     plane("mir_bg", MW, MH, imgmat("mirbg", TEX + "mirror_bg.png", emit=0.9), (0, 0, 0), rot=(R(90), 0, R(180)), parent=fr)
