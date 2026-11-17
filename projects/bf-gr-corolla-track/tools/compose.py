@@ -10,12 +10,12 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.5.mp4')
 ap.add_argument('--tag', default='v0.5'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v05'; RC = f'{M}/renders_v05'; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v05'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [4, 6, 10, 12, 14, 18, 22, 26, 30, 32]   # v0.5: drive-past cut 2 kicks sooner (user)
+CUTK = [4, 6, 10, 12, 14, 20, 24, 30, 34, 36]   # v0.5: cards 6 kicks (car -> line-up), drive-past 2 kicks (user)
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[38] * FPS) + 30          # logo holds 6 kicks (to kick 38), then a 1 s fade
+END = round(kicks[42] * FPS) + 30          # logo holds 6 kicks (to kick 42), then a 1 s fade
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
@@ -61,30 +61,31 @@ def card_overlay(img, shot, i, n):
     ver, word = ('V2', 'KIT') if shot == 's6_cardv2' else ('V1', '')
     pct, pre = ('30% OFF', '') if shot == 's6_cardv2' else ('45% OFF', 'UP TO')
     text_c(d, 300, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
-    # 1) version, big (frames 0-20), dims after the slash and is gone by frame 24
-    a_v = ease(i / 4) * (1 - ease((i - 19) / 5))
+    F0, F1 = round(0.30 * n), round(0.60 * n)   # lift window, same as shot.py card_lineup
+    # 1) version, big, over the car (top band); slashed; gone as the parts lift
+    a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
     if a_v > 0:
         wv = d.textlength(ver, font=f_ver); wk = d.textlength(word, font=f_kit) if word else 0; gap = 24 if word else 0
-        x0 = 484 - (wv + gap + wk) / 2; y0 = 690
+        x0 = 484 - (wv + gap + wk) / 2; y0 = 360
         d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
         if word:
             d.text((x0 + wv + gap, y0 + 128), word, font=f_kit, fill=TXT + (round(255 * a_v),))
         # 2) the slash: a thick red bar drawn lower-left -> upper-right across the version (frames 9-15)
-        k = ease((i - 9) / 6)
+        k = ease((i - 10) / 6)
         if k > 0:
             xa, ya, xb, yb = x0 - 30, y0 + 270, x0 + wv + gap + wk + 30, y0 + 40
             xe, ye = xa + (xb - xa) * k, ya + (yb - ya) * k
             d.line((xa, ya, xe, ye), fill=RED + (round(255 * min(1, a_v * 1.4)),), width=26)
     # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20
-    a_p = ease((i - 20) / 4) * out
+    a_p = ease((i - (F1 - 3)) / 4) * out
     if a_p > 0:
-        sc_ = 1.0 + 0.15 * (1 - ease((i - 20) / 5))   # small punch so the word never leaves the safe zone
+        sc_ = 1.0 + 0.15 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
         lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
         if pre:
-            text_c(dl, 690, pre, f_upto, round(255 * a_p), cx=484)
-        text_c(dl, 760 if pre else 715, pct, f_pct, round(255 * a_p), cx=484)
+            text_c(dl, 700, pre, f_upto, round(255 * a_p), cx=484)
+        text_c(dl, 770 if pre else 745, pct, f_pct, round(255 * a_p), cx=484)
         if sc_ > 1.001:
-            cx_, cy_ = 484, 840; big = lay.resize((round(W * sc_), round(H * sc_)), Image.LANCZOS)
+            cx_, cy_ = 484, 860; big = lay.resize((round(W * sc_), round(H * sc_)), Image.LANCZOS)
             lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); lay.alpha_composite(big, (round(cx_ - cx_ * sc_), round(cy_ - cy_ * sc_)))
         ov.alpha_composite(lay)
     img.alpha_composite(ov)
