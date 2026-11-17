@@ -8,7 +8,7 @@ This episode was Ep 5. In series order v0.4 (owner, 2026-11-17) it became Ep 9, 
 - **Finale tag (about 3 s):** a short cartoon shot of the finished bumper on the car.
 - **End card:** the logo card. No YouTube teaser card unless a matching full video exists (owner rule, 2026-11-16).
 
-Status: **DRAFT v4 (owner answers + series order v0.4). Nothing is generated or rendered until the owner approves.** Lines marked [VERIFY] wait on the owner's answers.
+Status: **v4 APPROVED (owner, 2026-11-17).** Owner answered every open question. Next step: the voice take, for owner approval before any animation.
 
 ## Owner answers (2026-11-16)
 - **Methods used:** superglue, epoxy, welding and staples. Which one depends on the application and what the part is for.
@@ -39,7 +39,7 @@ The visual device is the "glue tier list." Gus tests each method on pieces from 
 | 7 | GUS | "…No." | Same shot. |
 | 8 | GUS | "Need it strong? Staples." | Gus raises a hot stapler. |
 | 9 | PIP | "Staples?!" | Pip's eyes go wide. He pictures an office stapler (thought bubble). |
-| 10 | GUS | "Hot ones. Melted in across the seam." [VERIFY A] | The staple glows and sinks into the plastic across the crack, and the joint holds when Pip hangs off it. Board: ^ ^. |
+| 10 | GUS | "Hot ones. Melted in across the seam." (owner confirmed: hot stapler) | The staple glows and sinks into the plastic across the crack, and the joint holds when Pip hangs off it. Board: ^ ^. |
 | 11 | GUS | "Or weld it. Melt plastic into the seam." | A hot tool runs filament into a V-groove. The seam fuses into one piece. Pip's eyes pop. |
 | 12 | GUS | "ASA or ABS? Acetone welds those. Only those." | A brush wipes the seam and the halves melt together. A cartoon stamp with an "ASA / ABS" sticker hits the board. (This label is on the cartoon only.) |
 | 13 | PIP | "So which one's best?" | |
@@ -48,11 +48,11 @@ The visual device is the "glue tier list." Gus tests each method on pieces from 
 
 **Character proportions (owner pick, option 3):** no gag depends on tall bodies or reaching hands. Wherever Pip "hangs off" a joint, he hops up and sits or stands on the part.
 
-**Timing estimate:** about 30-32 s of dialogue at the pilot's pace. Lines 3-4 or 9 can be cut to bring it under 30 s. [VERIFY B]
+**Timing estimate:** about 30-32 s of dialogue at the pilot's pace. Lines 3-4 or 9 can be cut to bring it under 30 s. Owner: length is good.
 
 ## Part B: real footage (4-5 s)
-- **What it shows:** the owner's real joining timelapse from the Dropbox phone backup, sped up. It ends on the finished, joined part. Ideally that's a real printed bumper being joined, which matches the series. [VERIFY C]
-- **Finding the clip:** the backup has been sorted into `/Footage Library/Videos/<category>/<YYYY-MM>/` folders, with about 26 months under Shop & Builds alone. Nothing is named or tagged "glue" or "timelapse". [VERIFY C] I need the month or project, or a file name.
+- **What it shows:** the owner's real joining timelapse from the Dropbox phone backup, sped up. It ends on the finished, joined part. Owner: there is a timelapse of gluing a bumper somewhere in Dropbox.
+- **Finding the clip:** the backup has been sorted into `/Footage Library/Videos/<category>/<YYYY-MM>/` folders, with about 26 months under Shop & Builds alone. Nothing is named or tagged "glue" or "timelapse". Owner: a bumper-gluing timelapse exists somewhere in Dropbox; searching for it.
 - **Transitions:** no text over this section. The cartoon-to-real transition is a hard cut on a beat.
 
 ## Finale tag (cartoon, about 3 s)
@@ -65,7 +65,7 @@ This is a hard cut on a beat from the real footage back to the shop. The bumper 
 
 Both lines get word-by-word captions, because this is the cartoon part, not real footage.
 
-**Alternative (owner's choice) [VERIFY D]:** skip the tag and play lines 16-17 voice-only over the logo card, the way the other episodes hand off. The tag is my recommendation, because the owner asked for the episode to end with the bumper on the car.
+**Owner picked the tag (2026-11-17).** The alternative it replaced: skip the tag and play lines 16-17 voice-only over the logo card, the way the other episodes hand off. The tag is my recommendation, because the owner asked for the episode to end with the bumper on the car.
 
 ## End card
 - **Owner rule (2026-11-16):** videos do not need to link to a YouTube video. The "FULL VIDEO ON OUR CHANNEL" teaser card is used only when a matching full video exists.
