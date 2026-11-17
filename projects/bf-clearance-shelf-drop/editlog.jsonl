@@ -22,3 +22,5 @@
 {"ts": "2026-11-17T16:24:11Z", "decision": "v0.3: tags scaled 0.40->0.34 and lowered; count text y 250->330", "why": "owner safe-zone rule: tag tops sat in the top UI bar and the count line sat outside the 4:5 feed crop"}
 {"ts": "2026-11-17T16:51:40Z", "decision": "v0.3 assembled and safe-zone checked", "why": "owner rule: no text or elements in the social UI buffer zones"}
 {"ts": "2026-11-17T17:20:31Z", "decision": "v0.4: end-card URL -> WWW.EPSILON.PLUS", "why": "owner: all agents should use www.epsilon.plus"}
+{"ts": "2026-11-17T19:15:52Z", "decision": "v0.5 fonts: Unbounded 700 for tags/sign/count (Akira stand-in), Unbounded 400/300 beside the logo", "why": "owner font rule (knowledge/fonts.md); the Akira file isn't available yet"}
+{"ts": "2026-11-17T19:20:36Z", "decision": "Akira stand-in 700 -> Unbounded 800 for tags and count text", "why": "parent: 800-900 weights added (e15b34b); s1's aisle sign was already rendering at 700 and wasn't re-rendered (parent: don't re-render just for this)"}

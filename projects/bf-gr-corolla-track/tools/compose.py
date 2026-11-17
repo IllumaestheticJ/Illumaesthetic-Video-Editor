@@ -8,21 +8,24 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.5.mp4')
-ap.add_argument('--tag', default='v0.5'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v05'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.6.mp4')
+ap.add_argument('--tag', default='v0.6'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v06'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [4, 6, 10, 12, 14, 20, 24, 30, 34, 36]   # v0.5: cards 6 kicks (car -> line-up), drive-past 2 kicks (user)
+CUTK = [4, 6, 10, 12, 14, 22, 28, 36, 42, 44]   # v0.6 (user: slow readers): cards 8 kicks, side 6, canards 6
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[42] * FPS) + 30          # logo holds 6 kicks (to kick 42), then a 1 s fade
+END = round(kicks[50] * FPS) + 30          # logo holds 6 kicks (to kick 50), then a 1 s fade
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-f_bf = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 40)
+# owner font rule (knowledge/fonts.md): Akira for headlines/offers - not supplied yet, so Unbounded 800-900 stands in;
+# Unbounded 500 for part labels, 300-400 for the URL next to the logo
+UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-'
+f_bf = ImageFont.truetype(UB + '800.ttf', 40)
 f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 58) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 58)
 f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 50)
-f_url = ImageFont.truetype(FONT + 'InterDisplay-Medium.otf', 44)
+f_url = ImageFont.truetype(UB + '300.ttf', 40)
 TXT = (232, 236, 242)
 CYAN = (111, 195, 214)
 logo = Image.open(f'{M}/logo/Epsilon+ Logo.png').convert('RGBA'); logo = logo.crop(logo.getbbox())
@@ -47,10 +50,10 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 RED = (226, 38, 43)
-f_ver = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 250)
-f_kit = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 96)
-f_pct = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 168)
-f_upto = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 64)
+f_ver = ImageFont.truetype(UB + '900.ttf', 200)
+f_kit = ImageFont.truetype(UB + '900.ttf', 72)
+f_pct = ImageFont.truetype(UB + '900.ttf', 128)
+f_upto = ImageFont.truetype(UB + '800.ttf', 52)
 
 
 def card_overlay(img, shot, i, n):
@@ -60,26 +63,26 @@ def card_overlay(img, shot, i, n):
     out = 1 - ease((i - (n - 5)) / 4)
     ver, word = ('V2', 'KIT') if shot == 's6_cardv2' else ('V1', '')
     pct, pre = ('30% OFF', '') if shot == 's6_cardv2' else ('45% OFF', 'UP TO')
-    text_c(d, 300, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
-    F0, F1 = round(0.30 * n), round(0.60 * n)   # lift window, same as shot.py card_lineup
+    text_c(d, 330, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
+    F0, F1 = round(0.28 * n), round(0.52 * n)   # lift window, same as shot.py card_lineup
     # 1) version, big, over the car (top band); slashed; gone as the parts lift
     a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
     if a_v > 0:
         wv = d.textlength(ver, font=f_ver); wk = d.textlength(word, font=f_kit) if word else 0; gap = 24 if word else 0
-        x0 = 484 - (wv + gap + wk) / 2; y0 = 360
+        x0 = 484 - (wv + gap + wk) / 2; y0 = 385
         d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
         if word:
             d.text((x0 + wv + gap, y0 + 128), word, font=f_kit, fill=TXT + (round(255 * a_v),))
         # 2) the slash: a thick red bar drawn lower-left -> upper-right across the version (frames 9-15)
         k = ease((i - 10) / 6)
         if k > 0:
-            xa, ya, xb, yb = x0 - 30, y0 + 270, x0 + wv + gap + wk + 30, y0 + 40
+            xa, ya, xb, yb = x0 - 30, y0 + 225, x0 + wv + gap + wk + 30, y0 + 40
             xe, ye = xa + (xb - xa) * k, ya + (yb - ya) * k
             d.line((xa, ya, xe, ye), fill=RED + (round(255 * min(1, a_v * 1.4)),), width=26)
     # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20
     a_p = ease((i - (F1 - 3)) / 4) * out
     if a_p > 0:
-        sc_ = 1.0 + 0.15 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
+        sc_ = 1.0 + 0.08 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
         lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
         if pre:
             text_c(dl, 700, pre, f_upto, round(255 * a_p), cx=484)
@@ -91,8 +94,8 @@ def card_overlay(img, shot, i, n):
     img.alpha_composite(ov)
 
 
-f_lab = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 58)
-f_eye = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 34)
+f_lab = ImageFont.truetype(UB + '500.ttf', 52)
+f_eye = ImageFont.truetype(UB + '400.ttf', 30)
 
 
 def label(img, i, n, lines, y, start=6, stop=None):
@@ -112,8 +115,9 @@ def label(img, i, n, lines, y, start=6, stop=None):
 
 LABELS = {  # shot -> list of (eyebrow, title, y, start, stop)
     's3_hl': [('EPSILON+', 'V2 AERO KIT', 1190, 8, None)],
-    's5_liphl': [('V2', 'FRONT LIP', 1190, 5, None)],
-    's7_side': [('V2', 'SIDE SKIRTS', 1190, 4, 30), ('V2', 'REAR SPATS', 1190, 31, None)],
+    's4_lip': [('V2', 'FRONT LIP', 1190, 4, 40)],          # v0.6: one label held across the lip shot and its 1:1 highlight (~1.8 s)
+    's5_liphl': [('V2', 'FRONT LIP', 1190, -12, None)],
+    's7_side': [('V2', 'SIDE SKIRTS', 1190, 3, 44), ('V2', 'REAR SPATS', 1190, 44, None)],
     's9_canards': [('CARBON CANARDS', 'BACK IN STOCK', 1190, 8, None)],
 }
 
