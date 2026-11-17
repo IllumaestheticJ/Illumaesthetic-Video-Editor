@@ -1,4 +1,18 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.8 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.9 notes
+
+**v0.9 (2026-11-17):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.9.mp4`.
+- **Subtler highlight.** User: "the blur and highlight is too much, should be more subtle".
+  - Real footage: blur σ 3.5 (was 9), 80 % brightness with 20 % desaturation (was 55 % / 50 %), and a thinner red edge at 35 % (was 80 %).
+  - Kit shot: body blur 3.5 (was 9), 70 % brightness (was 42 %), and a fainter glow.
+- **Wheels on the stock scan.** User: "the wheel doesn't show up ... change to the other side or add the wheel/tire".
+  - **Why not the other side:** the stock pass has to end on the solved 0371 camera for the 1:1 cut, so I kept that side.
+  - **Fix:** the website GLB's four wheels went into the scan scene (`kit/wheels_on_scan.blend`, spec `spec_s1_wheels.json`). The wheel centres were fitted from the scan's own tyre points: y -1.47 front / +1.25 rear, sitting on the ground, radius ~0.33 m.
+  - **Check at the cut:** an onion of the last frame against real frame 0 puts the added front wheel on the real one. The background text no longer shows through.
+- **Owner font rule** (`knowledge/fonts.md`):
+  - **Headlines and offer** (BF wall, "FULL KIT", "30%+ OFF"): Unbounded 900, standing in for Akira, which hasn't been supplied yet.
+  - **Labels:** Unbounded 500.
+  - **URL beside the logo:** Unbounded 400.
+  - **Swap:** set `FONT_HEAD` once the owner uploads the Akira file.
 
 **v0.8 (2026-11-17, user: "have the text take up the whole background, its okay if it gets cut off, have it scrolling and the colors alternating to the beat. Have the actual PU parts on the car highlighted (or the car blurred)"; asked where, the user answered "Both"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.8.mp4`.
 - **Intro text:** a full-bleed wall of "BLACK FRIDAY" rows in Anton, tilted 12 degrees and cut off by the frame edges.

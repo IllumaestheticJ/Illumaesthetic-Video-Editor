@@ -14,7 +14,7 @@ OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.5.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
-FB = UB + "Unbounded-700.ttf"   # Akira stand-in for headlines (knowledge/fonts.md)
+FB = UB + "Unbounded-800.ttf"   # Akira stand-in for headlines (knowledge/fonts.md)
 FM = UB + "Unbounded-400.ttf"   # lines beside the logo
 FL = UB + "Unbounded-300.ttf"   # URL beside the logo
 OFF = (232, 236, 242)

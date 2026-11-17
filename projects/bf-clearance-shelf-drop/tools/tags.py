@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 snap = json.load(open(sys.argv[1])); out = sys.argv[2]
 # knowledge/fonts.md: Akira for headlines/prices; Unbounded 700 stands in until the owner supplies Akira.
 FD = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
-F = FD + "Unbounded-700.ttf"     # Akira stand-in (title, BLACK FRIDAY, sale price)
+F = FD + "Unbounded-800.ttf"     # Akira stand-in (title, BLACK FRIDAY, sale price)
 FM = FD + "Unbounded-500.ttf"    # labels / was-price
 W, H = 700, 900
 def card(title, lines, sale):
