@@ -24,6 +24,10 @@ OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222,
 F_TITLE = '/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'
 F_MONO = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf'
 F_MONO_R = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf'
+# v0.9 fonts (owner rule knowledge/fonts.md): Akira for headlines/offers/prices - file not supplied yet, so Unbounded 700
+# stands in (800-900 not in the repo); Unbounded (companion) for labels, tables and everything next to the Epsilon+ logo.
+F_AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-700.ttf'   # AKIRA STAND-IN - swap for Akira Expanded when the owner uploads it
+F_UB3 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-300.ttf'; F_UB4 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-400.ttf'; F_UB5 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-500.ttf'
 
 
 def font(p, s): return ImageFont.truetype(p, s)
@@ -67,10 +71,10 @@ def receipt(img, fr, lines, x0, y0, w=520):
     h = 120 + 70 * len([l for l in lines if l[1] in ('item', 'combo')]) + (150 if any(l[1] == 'bf' for l in lines) else 0)
     panel = Image.new('RGBA', (w, h), (0, 0, 0, 0)); pd = ImageDraw.Draw(panel)
     pd.rounded_rectangle((0, 0, w - 1, h - 1), 18, fill=(14, 15, 17, 225), outline=(232, 236, 242, 70), width=2)
-    pd.text((28, 26), 'INTEGRA DE4 / DE5', font=font(F_MONO_R, 26), fill=(170, 176, 186, 255))
+    pd.text((28, 26), 'INTEGRA DE4 / DE5', font=font(F_UB4, 21), fill=(170, 176, 186, 255))
     pd.line((28, 76, w - 28, 76), fill=(232, 236, 242, 60), width=2)
     y = 96
-    fm = font(F_MONO, 34)
+    fm = font(F_UB5, 27)
     for st, kind, pay in lines:
         on = fr >= st; u = ease((fr - st) / 6) if on else 0
         if kind in ('item', 'combo'):
@@ -80,6 +84,9 @@ def receipt(img, fr, lines, x0, y0, w=520):
                 pd.text((28, y), name, font=fm, fill=OFFWHITE if u >= 1 else (232, 236, 242, int(255 * u)))
                 pw = pd.textlength(price, font=fm)
                 pd.text((w - 28 - pw, y), price, font=fm, fill=(232, 236, 242, int(255 * u)))
+                if kind == 'item':  # undiscounted price -> RETAIL tag
+                    ft_ = font(F_UB4, 16); tl = pd.textlength('RETAIL', font=ft_)
+                    pd.text((w - 28 - pw - 16 - tl, y + 9), 'RETAIL', font=ft_, fill=(150, 156, 166, int(255 * u)))
                 if kind == 'combo' and fr >= pay['strike']:
                     su = ease((fr - pay['strike']) / 5)
                     x1 = w - 28 - pw - 6; x2 = x1 + (pw + 12) * su
@@ -87,10 +94,10 @@ def receipt(img, fr, lines, x0, y0, w=520):
             y += 70
         elif kind == 'bf' and on:
             k = fr - st; pop = 1 + 0.25 * math.exp(-k / 3) * (1 if k < 12 else 0)
-            fb = font(F_TITLE, int(110 * pop))
+            fb = font(F_AK, int(92 * pop))
             txt = pay['price']; tw = pd.textlength(txt, font=fb)
             pd.text((w - 28 - tw, y + 8 - (pop - 1) * 40), txt, font=fb, fill=YELLOW)
-            pd.text((28, y + 40), 'BLACK\nFRIDAY', font=font(F_MONO, 30), fill=OFFWHITE, spacing=6)
+            pd.text((28, y + 40), 'BLACK\nFRIDAY', font=font(F_UB5, 24), fill=OFFWHITE, spacing=6)
     slide = ease((fr - vis[0][0]) / 8)
     a = panel.split()[3].point(lambda v: int(v * slide)); panel.putalpha(a)
     img.alpha_composite(panel, (int(x0 + 30 * (1 - slide)), int(y0)))
@@ -106,23 +113,25 @@ def price_card(img, fr, x0=250, y0=915, w=580):
     h = 515
     panel = Image.new('RGBA', (w, h), (0, 0, 0, 0)); pd = ImageDraw.Draw(panel)
     pd.rounded_rectangle((0, 0, w - 1, h - 1), 18, fill=(14, 15, 17, 230), outline=(232, 236, 242, 70), width=2)
-    pd.text((28, 24), 'INTEGRA DE4 / DE5', font=font(F_MONO_R, 26), fill=(170, 176, 186, 255))
+    pd.text((28, 24), 'INTEGRA DE4 / DE5', font=font(F_UB4, 21), fill=(170, 176, 186, 255))
     pd.line((28, 72, w - 28, 72), fill=(232, 236, 242, 60), width=2)
-    fm = font(F_MONO, 32)
+    fm = font(F_UB5, 26)
     for k, (nm, pr) in enumerate((('SPORT WING', '$500'), ('TRUNK LIP', '$100'))):
         y = 92 + 52 * k
         pd.text((28, y), nm, font=fm, fill=(200, 205, 212, 255)); pw = pd.textlength(pr, font=fm); pd.text((w - 28 - pw, y), pr, font=fm, fill=(200, 205, 212, 255))
+        ft_ = font(F_UB4, 16); tl = pd.textlength('RETAIL', font=ft_)
+        pd.text((w - 28 - pw - 16 - tl, y + 8), 'RETAIL', font=ft_, fill=(150, 156, 166, 255))
     pd.line((28, 200, w - 28, 200), fill=(232, 236, 242, 60), width=2)
     # retail (combo list price) - big, struck at the reveal
-    pd.text((28, 222), 'RETAIL', font=font(F_MONO, 30), fill=OFFWHITE)
-    fr_ = font(F_TITLE, 76); rp = '$600'; rw = pd.textlength(rp, font=fr_)
+    pd.text((28, 214), 'COMBO', font=font(F_UB5, 24), fill=OFFWHITE); pd.text((28, 248), 'RETAIL', font=font(F_UB5, 24), fill=OFFWHITE)
+    fr_ = font(F_AK, 62); rp = '$600'; rw = pd.textlength(rp, font=fr_)
     pd.text((w - 28 - rw, 206), rp, font=fr_, fill=OFFWHITE if fr < P_REVEAL else (150, 155, 165, 255))
     if fr >= P_REVEAL:
         su = ease((fr - P_REVEAL) / 4); x1 = w - 28 - rw - 8
         pd.line((x1, 252, x1 + (rw + 16) * su, 252), fill=ORANGE, width=8)
     if fr >= P_LOAD:
         u = ease((fr - P_LOAD) / 5)
-        pd.text((28, 318), 'BLACK FRIDAY PRICE', font=font(F_MONO, 30), fill=(1, 222, 226, int(255 * u)))
+        pd.text((28, 318), 'BLACK FRIDAY PRICE', font=font(F_UB5, 24), fill=(1, 222, 226, int(255 * u)))
         if fr < P_REVEAL:
             # loading bar fills from the 2nd kick to the next downbeat, with a pulsing dot
             prog = min(1.0, (fr - P_LOAD) / (P_REVEAL - P_LOAD - 2)); prog = 1 - (1 - prog) ** 1.6
@@ -130,12 +139,12 @@ def price_card(img, fr, x0=250, y0=915, w=580):
             pd.rounded_rectangle((bx0, by0, bx1, by1), 10, outline=(1, 222, 226, int(200 * u)), width=3)
             pd.rounded_rectangle((bx0 + 6, by0 + 6, bx0 + 6 + (bx1 - bx0 - 12) * prog, by1 - 6), 6, fill=(1, 222, 226, int(255 * u)))
             dots = '.' * (1 + (fr // 6) % 3)
-            pd.text((28, 440), f'LOADING{dots}', font=font(F_MONO, 30), fill=(232, 236, 242, int(220 * u)))
-            pct = f'{int(prog * 100):d}%'; pw = pd.textlength(pct, font=font(F_MONO, 30))
-            pd.text((w - 28 - pw, 440), pct, font=font(F_MONO, 30), fill=(232, 236, 242, int(220 * u)))
+            pd.text((28, 440), f'LOADING{dots}', font=font(F_UB4, 24), fill=(232, 236, 242, int(220 * u)))
+            pct = f'{int(prog * 100):d}%'; pw = pd.textlength(pct, font=font(F_UB4, 24))
+            pd.text((w - 28 - pw, 440), pct, font=font(F_UB4, 24), fill=(232, 236, 242, int(220 * u)))
         else:
             k = fr - P_REVEAL; pop = 1 + 0.30 * math.exp(-k / 3)
-            fb = font(F_TITLE, int(132 * pop)); txt = '$385'; tw = pd.textlength(txt, font=fb)
+            fb = font(F_AK, int(104 * pop)); txt = '$385'; tw = pd.textlength(txt, font=fb)
             pd.text(((w - tw) / 2, 352 - (pop - 1) * 60), txt, font=fb, fill=YELLOW)
     slide = ease(fr / 8)
     panel.putalpha(panel.split()[3].point(lambda v: int(v * slide)))
@@ -150,8 +159,8 @@ def overlay(shot, fr):
     if shot == 1:
         u = ease((fr - 4) / 10)
         if u > 0:
-            ft = font(F_TITLE, 118)
-            tracked(d, (W / 2, 330 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_MONO, 34), (1, 222, 226, int(255 * u)), track=8, anchor_center=True)
+            ft = font(F_AK, 90)
+            tracked(d, (W / 2, 330 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_UB5, 26), (1, 222, 226, int(255 * u)), track=8, anchor_center=True)
             for i, line in enumerate(('WHAT $385', 'GETS YOU')):
                 tracked(d, (W / 2, 390 + i * 135 + 30 * (1 - u)), line, ft, (232, 236, 242, int(255 * u)), track=6, anchor_center=True)
     elif shot == 2:
@@ -168,10 +177,10 @@ def overlay(shot, fr):
         img.alpha_composite(lg, ((W - lw) // 2, 700))
         if fr >= 6:
             v = ease((fr - 6) / 8)
-            tracked(d, (W / 2, 900), 'SPORT WING + TRUNK LIP', font(F_TITLE, 46), (232, 236, 242, int(255 * v)), track=4, anchor_center=True)
-            tracked(d, (W / 2, 975), '$385', font(F_TITLE, 150), YELLOW[:3] + (int(255 * v),), track=4, anchor_center=True)
-            tracked(d, (W / 2, 1160), 'BLACK FRIDAY', font(F_MONO, 40), (232, 236, 242, int(255 * v)), track=10, anchor_center=True)
-            tracked(d, (W / 2, 1240), 'www.epsilon.plus', font(F_MONO_R, 40), (232, 236, 242, int(220 * v)), track=2, anchor_center=True)
+            tracked(d, (W / 2, 900), 'SPORT WING + TRUNK LIP', font(F_UB4, 32), (232, 236, 242, int(255 * v)), track=3, anchor_center=True)
+            tracked(d, (W / 2, 975), '$385', font(F_UB5, 118), YELLOW[:3] + (int(255 * v),), track=2, anchor_center=True)
+            tracked(d, (W / 2, 1160), 'BLACK FRIDAY', font(F_UB4, 30), (232, 236, 242, int(255 * v)), track=8, anchor_center=True)
+            tracked(d, (W / 2, 1240), 'www.epsilon.plus', font(F_UB3, 30), (232, 236, 242, int(220 * v)), track=2, anchor_center=True)
     return img
 
 

@@ -24,6 +24,8 @@ meshes = [o for o in bpy.data.objects if o.type == 'MESH']
 for o in meshes:
     if o.name.split('.')[0] in HIDE: o.hide_render = True
 wing = [o for o in meshes if o.name.split('.')[0] == 'part_sport_wing']
+KIT = a[6].split(',') if len(a) > 6 else []   # lip-kit parts: shown in their standard black finish, not body paint
+kit = [o for o in meshes if o.name.split('.')[0] in KIT]
 # stage floor: grey disc that falls off to black
 bpy.ops.mesh.primitive_circle_add(vertices=96, radius=4.2, fill_type='NGON', location=(0, 0, 0.0))
 fl = bpy.context.object; fm = bpy.data.materials.new('floor'); fm.use_nodes = True
@@ -58,12 +60,15 @@ slots = [(o, i, s.material) for o in meshes + [fl] for i, s in enumerate(o.mater
 def is_paint(m): return m is not None and m.name.split('.')[0] == 'paint'
 def assign(paintmat, wingmat, other=None):
     for o, i, m in slots:
-        if is_paint(m): o.material_slots[i].material = wingmat if o in wing else paintmat
+        if is_paint(m) and o in kit: o.material_slots[i].material = other if other else KITMAT
+        elif is_paint(m): o.material_slots[i].material = wingmat if o in wing else paintmat
         else: o.material_slots[i].material = other if other else m
 B, Wm = gloss('pb', 0.0), gloss('pw', 0.8)
+KITMAT = gloss('kit', 0.012); KITMAT.node_tree.nodes['Principled BSDF'].inputs['Roughness'].default_value = 0.42
 START = int(a[4]) if len(a) > 4 else 0
 eR, eG, eK = emit((1, 0, 0)), emit((0, 1, 0)), emit((0, 0, 0))
-for k in range(START, N):
+END = int(a[5]) if len(a) > 5 else N   # N is always the full turn; START/END select a chunk
+for k in range(START, END):
     piv.rotation_euler = (0, 0, math.radians(35) + 2 * math.pi * k / N)
     for tag, args, smp in (('b', (B, B), 10), ('w', (Wm, Wm), 10), ('m', (eR, eG, eK), 1)):
         assign(*args); sc.cycles.samples = smp; sc.cycles.use_denoising = tag != 'm'

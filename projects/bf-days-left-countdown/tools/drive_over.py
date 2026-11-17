@@ -5,7 +5,7 @@ blender -b -P drive_over.py -- --glb eps-acura-integra-de-v29.glb --mode drive|d
     --new "3 DAYS\\nLEFT" --out frames/ [--frames 208 --drop 139 --res 1080x1920 --samples 16 --still N]
 The new text is geometry built from --new (computed from days_left by the caller), never generated imagery.
 """
-import sys, argparse, math
+import sys, os, argparse, math
 import bpy
 from mathutils import Vector
 
@@ -20,7 +20,7 @@ ap.add_argument("--frames", type=int, default=208)
 ap.add_argument("--drop", type=int, default=139)
 ap.add_argument("--res", default="1080x1920")
 ap.add_argument("--samples", type=int, default=16)
-ap.add_argument("--font", default="/usr/share/fonts/opentype/inter/InterDisplay-Black.otf")
+ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-700.ttf"))  # knowledge/fonts.md: Akira stand-in until the owner supplies the file
 ap.add_argument("--text-width", type=float, default=4.6, help="width of the wider text block on the floor (m)")
 ap.add_argument("--still", type=int, default=-1)
 args = ap.parse_args(a)
@@ -82,6 +82,12 @@ def floor_text(name, body, mat):
         o.select_set(False)
     ob.select_set(True)
     bpy.ops.object.convert(target="MESH")
+    # flat shading + merged verts: smooth-shaded n-gon caps showed triangle facets in v0.4
+    me = ob.data
+    for poly in me.polygons:
+        poly.use_smooth = False
+    import bmesh
+    bm = bmesh.new(); bm.from_mesh(me); bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=1e-5); bm.to_mesh(me); bm.free()
     return ob
 
 
@@ -257,7 +263,7 @@ light("top", (0, 0, 8.0), 900, 6.0)
 for d in bpy.data.lights:
     link(d)
 
-cd = bpy.data.cameras.new("cam"); cd.lens = 32; cd.shift_x = 0.015  # centre the text on the safe box (x 484)
+cd = bpy.data.cameras.new("cam"); cd.lens = 32; cd.shift_x = 0.0285  # centre the text on the safe box (x 484)
 cam = bpy.data.objects.new("cam", cd); sc.collection.objects.link(cam); sc.camera = cam
 c = cam.constraints.new("TRACK_TO"); c.target = tgt
 # high front angle (not straight overhead), slow push over the shot; a small kick on the drop

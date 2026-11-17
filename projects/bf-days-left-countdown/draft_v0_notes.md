@@ -79,3 +79,22 @@ The owner's instruction, relayed by the parent: "tell all the black friday agent
 ## v0.3 (2026-11-17): URL
 - The end card reads **WWW.EPSILON.PLUS** (owner: always with www.). It is 42 px, x 195-771 / y 997-1027, inside the safe box.
 - Output: `/home/user/media/work/out/bf-days-left-countdown_v0.3.mp4`. The safezone sheet is clean; overall extent is x 51-919 / y 326-1257.
+
+## v0.4 (2026-11-17): drive-over and drift-over variants (user request)
+User: "have it be Black friday sale text and then a car driving over it and the text changes to X days left, make another version where a car is drifting over the text to change it to X days".
+- `tools/drive_over.py` (Blender) puts "BLACK FRIDAY / SALE" on a black gloss floor as 3D silver type. The Integra GLB enters from the left, and the text is wiped to "3 DAYS / LEFT" right behind the car: the wipe follows the car's x.
+  - Drive mode: the car rolls straight across.
+  - Drift mode: the car yaws to about 38° with counter-steer, and wheel smoke puffs follow it.
+- The swap completes on the drop (f139, 4.62 s). The car is off the text by then and exits right.
+- `tools/compose_drive.py`: the render for f0-207, then the same end card on the 6.92 s hit.
+- Audio, cuts and loudness are the same as v0.3.
+- Render: 720x1280 at 12 samples, upscaled. Measured at about 13.5 s/frame, about 47 min per mode.
+- Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.4_drive.mp4` and `_v0.4_drift.mp4`.
+- **Known issues in v0.4, fixed in v0.5:**
+  - The floor type is Inter Display Black. It should be Unbounded per the new font rule.
+  - Smooth-shaded n-gon caps show triangle facets on the letters.
+  - The text centre is at x 511 instead of 484.
+
+## Font rule (owner, 2026-11-17, `knowledge/fonts.md`)
+- Headline floor type is Akira. The owner hasn't uploaded the file, so **Unbounded 700 stands in** (the repo has no 800-900 weight).
+- The end card sits next to the logo, so it uses Unbounded: "BLACK FRIDAY" at 500 and WWW.EPSILON.PLUS at 400. This is applied to the end card from v0.4.

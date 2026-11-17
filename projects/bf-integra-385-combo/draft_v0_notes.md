@@ -1,3 +1,14 @@
+# v0.9 (owner font rule, knowledge/fonts.md)
+- Headlines/prices (WHAT $385 GETS YOU, $600, $385 on the price card): Akira -> **Unbounded 700 stand-in** (Akira file
+  not supplied; 800-900 weights not in the repo). Swap `F_AK` in tools/composite.py when the owner uploads Akira.
+- Receipt labels, item lines, LOADING bar text: Unbounded 400/500 (companion font, dense table).
+- End card next to the Epsilon+ wordmark: Unbounded (SPORT WING + TRUNK LIP 400, $385 500, BLACK FRIDAY 400, URL 300).
+- JetBrains Mono / Inter no longer used. Safe zones OK; timing/loudness unchanged.
+
+# v0.8 (user: undiscounted prices labelled retail)
+- Every undiscounted price carries a small grey RETAIL tag (SPORT WING RETAIL $500, TRUNK LIP RETAIL $100) in the
+  unboxing receipts and the price card; the big $600 reads COMBO RETAIL. Safe zones OK; timing/loudness unchanged.
+
 # v0.7 (user: "take out the 'less than wing alone', show that its retail price and then do a BF price loading")
 - Price shot (frames 239-379, 2 bars): f0 receipt with SPORT WING $500 / TRUNK LIP $100 and big RETAIL $600;
   f27 (2nd kick) BLACK FRIDAY PRICE + loading bar (LOADING... + %) filling to the next downbeat; f71 (bar-2 downbeat,
