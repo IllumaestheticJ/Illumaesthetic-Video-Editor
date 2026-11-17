@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.1.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.2.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -84,7 +84,7 @@ def logo(i, n):
     lw = 720; lg = LOGO.resize((lw, int(LOGO.height * lw / LOGO.width)), Image.LANCZOS)
     lg.putalpha(lg.getchannel("A").point(lambda v: int(v * a)))
     bg.alpha_composite(lg, (CX - lw // 2, H // 2 - lg.height // 2 - 40))
-    ImageDraw.Draw(bg).text((CX, H / 2 + 90), "epsilon.plus", font=font(FM, 44), fill=(*OFF, int(255 * a)), anchor="mm")
+    ImageDraw.Draw(bg).text((CX, H / 2 + 90), "WWW.EPSILON.PLUS", font=font(FM, 44), fill=(*OFF, int(255 * a)), anchor="mm")
     return bg
 
 
