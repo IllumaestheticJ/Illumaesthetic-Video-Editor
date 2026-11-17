@@ -61,3 +61,12 @@ Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14
   framed inside the safe area.
 - Safe-zone sheet looked at: all text and the logo clear of red and amber; both cars in the last scene inside the safe
   area. Close-up shots' cars still run under the right rail.
+
+## v1.4: opening title, labels held, two labels above/below the car (user feedback on v1.3)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.4.mp4` (28.0 s, -14.1 LUFS, TP -1.8 dBFS).
+- "The beginning needs a title to show the deal/platforms": shot 1 (and the first ~0.5 s of shot 2) carries
+  BLACK FRIDAY / 20% OFF / MR2 SPYDER · NC MIATA / EPSILON+ FIBERGLASS AERO on a soft plate (`tools/post.py` title()).
+- "Some of the text cuts away too fast": every part label enters earlier (15-30 % into its shot) and stays to the cut.
+- "If there is two text you can put one above and another below": two-part shots put the first label above the car
+  (y ~300) and the second below it (y ~1130-1400). Both stay to the end of the shot. Plates on every lot/close shot.
+- Safe-zone sheet (every 0.5 s) looked at: all text and the logo clear of red and amber.
