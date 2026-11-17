@@ -52,7 +52,13 @@ M_SILVER = mat('scan_silver', (0.62, 0.63, 0.65), metal=0.85, rough=0.38)
 M_SILVER_PART = mat('scan_silver_part', (0.42, 0.43, 0.45), metal=0.85, rough=0.30)
 M_BOX = mat('box_charcoal', (0.018, 0.018, 0.02), rough=0.8)
 M_BOXIN = mat('box_inner', (0.09, 0.09, 0.095), rough=0.9)
-M_CYAN = mat('scan_cyan', (0.43, 0.76, 0.84), emit=(0.43, 0.76, 0.84), estr=25.0)
+M_CYAN = mat('scan_cyan', (0.0, 0.73, 0.76), emit=(0.0, 0.73, 0.76), estr=25.0)
+# v0.3 (user: "add color to the box and the beginning") - Epsilon+ site palette
+EPS_VIOLET = (0.107, 0.100, 0.807)   # #5C59E8 in linear
+EPS_CYAN = (0.0, 0.73, 0.76)         # #01dee2
+EPS_PINK = (0.807, 0.100, 0.304)     # #E85995
+M_BOXV = mat('box_violet', (0.040, 0.036, 0.36), rough=0.62)
+M_BAND = mat('box_band', EPS_CYAN, rough=0.4, emit=EPS_CYAN, estr=0.6)
 
 
 def area(name, loc, target, size, energy, color=(1, 1, 1)):
@@ -120,20 +126,42 @@ def build_stage():
         bpy.ops.mesh.primitive_cube_add(size=1, location=loc)
         o = bpy.context.object; o.name = name; o.scale = size
         bpy.ops.object.transform_apply(scale=True); o.data.materials.append(m); return o
-    slab('box_floor', (bw, bd, t), (0, 0, t / 2), M_BOX)
-    slab('box_front', (bw, t, bh), (0, -bd / 2, bh / 2), M_BOX)
-    slab('box_back', (bw, t, bh), (0, bd / 2, bh / 2), M_BOX)
-    slab('box_l', (t, bd, bh), (-bw / 2, 0, bh / 2), M_BOX)
-    slab('box_r', (t, bd, bh), (bw / 2, 0, bh / 2), M_BOX)
+    slab('box_floor', (bw, bd, t), (0, 0, t / 2), M_BOXV)
+    slab('box_front', (bw, t, bh), (0, -bd / 2, bh / 2), M_BOXV)
+    slab('box_back', (bw, t, bh), (0, bd / 2, bh / 2), M_BOXV)
+    slab('box_l', (t, bd, bh), (-bw / 2, 0, bh / 2), M_BOXV)
+    slab('box_r', (t, bd, bh), (bw / 2, 0, bh / 2), M_BOXV)
     slab('box_inner', (bw - 0.03, bd - 0.03, 0.004), (0, 0, t + 0.003), M_BOXIN)
-    lid = slab('lid', (bw + 0.02, bd + 0.02, t), (0, 0, bh + t / 2), M_BOX)
+    # cyan band around the box (brand colour, no logos or labels)
+    slab('band_f', (bw + 0.006, 0.004, 0.05), (0, -bd / 2 - 0.006, bh * 0.45), M_BAND)
+    slab('band_b', (bw + 0.006, 0.004, 0.05), (0, bd / 2 + 0.006, bh * 0.45), M_BAND)
+    slab('band_l', (0.004, bd + 0.006, 0.05), (-bw / 2 - 0.006, 0, bh * 0.45), M_BAND)
+    slab('band_r', (0.004, bd + 0.006, 0.05), (bw / 2 + 0.006, 0, bh * 0.45), M_BAND)
+    lid = slab('lid', (bw + 0.02, bd + 0.02, t), (0, 0, bh + t / 2), M_BOXV)
+    lband = slab('lid_band', (0.06, bd + 0.03, t + 0.004), (0, 0, bh + t / 2), M_BAND)
+    lband.parent = lid; lband.matrix_parent_inverse = lid.matrix_world.inverted() @ Matrix.Identity(4) if False else Matrix.Translation(lid.location).inverted()
+    # violet glow backdrop far behind the stage (radial gradient -> black)
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 6.0, 1.2), rotation=(math.radians(90), 0, 0))
+    bd_ = bpy.context.object; bd_.scale = (40, 40, 1)
+    mb = bpy.data.materials.new('backdrop'); mb.use_nodes = True; nt = mb.node_tree
+    for n_ in list(nt.nodes): nt.nodes.remove(n_)
+    out = nt.nodes.new('ShaderNodeOutputMaterial'); em = nt.nodes.new('ShaderNodeEmission')
+    tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping'); gr = nt.nodes.new('ShaderNodeTexGradient')
+    gr.gradient_type = 'SPHERICAL'; cr = nt.nodes.new('ShaderNodeValToRGB')
+    mp.inputs['Scale'].default_value = (6.5, 7.5, 1.0); mp.inputs['Location'].default_value = (0, 0.25, 0)
+    cr.color_ramp.elements[0].color = (0, 0, 0, 1); cr.color_ramp.elements[1].color = (*EPS_VIOLET, 1)
+    cr.color_ramp.elements[1].position = 0.9; cr.color_ramp.interpolation = 'EASE'
+    nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], gr.inputs['Vector'])
+    nt.links.new(gr.outputs['Fac'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], em.inputs['Color'])
+    em.inputs['Strength'].default_value = 0.42; nt.links.new(em.outputs['Emission'], out.inputs['Surface'])
+    bd_.data.materials.append(mb); bd_.visible_shadow = False
     flaps = lid
     # lights: soft top key + two rims + low fill
-    area('key', (0.5, -1.5, 4.0), (0, 0, 0.6), 3.0, 220)
+    area('key', (0.5, -1.5, 4.0), (0, 0, 0.6), 3.0, 110)
     sky = area('sky', (0, 2.8, 4.2), (0, 0, 1.0), 6.0, 260); sky.data.shape = 'RECTANGLE'; sky.data.size_y = 0.35
     sky2 = area('sky2', (0, 1.2, 4.6), (0, 0, 1.0), 6.0, 160); sky2.data.shape = 'RECTANGLE'; sky2.data.size_y = 0.2
-    area('rimL', (-3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 500)
-    area('rimR', (3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 500)
+    area('rimL', (-3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 650, EPS_CYAN)
+    area('rimR', (3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 650, EPS_PINK)
     area('fill', (0, -4.0, 0.6), (0, 0, 0.6), 4.0, 40)
     return wing, lip, flaps
 
@@ -267,7 +295,96 @@ def shot6():
     return LEN[6]
 
 
-N = shot_stage(A.shot) if A.shot <= 4 else (shot5() if A.shot == 5 else shot6())
+# ---------------------------------------------------------------- v0.2 scan section (user: "the scan section needs to show
+# the stock wing coming off") and the kitted CGI car. Scan pieces are in the GLB frame (split_spoiler.py).
+REG = '/home/user/media/bf-integra-385-combo/work/reg'
+LEN.update({7: 70, 8: 71, 9: 71})
+CAM7_A = ((-2.9, 5.5, 2.35), (0.0, 1.75, 0.85))
+CAM7_B = ((-2.7, 5.15, 2.25), (0.0, 1.75, 0.85))
+
+
+def ply(name, m):
+    bpy.ops.wm.ply_import(filepath=f'{REG}/{name}.ply', forward_axis='Y', up_axis='Z')
+    o = bpy.context.selected_objects[0]; o.data.materials.clear(); o.data.materials.append(m)
+    bpy.ops.object.shade_flat() if False else None
+    return o
+
+
+def scan_car(with_spoiler):
+    ply('car_nospoiler_filled', M_SILVER); ply('deck_patch', M_SILVER)
+    sp = ply('stock_spoiler', M_SILVER) if with_spoiler else None
+    if sp is not None:  # origin at its bbox centre so it lifts and tilts about itself
+        recentre(sp); sp.rotation_mode = 'XYZ'
+    return sp
+
+
+def shot7():
+    """scan, stock car: the factory trunk spoiler lifts off whole and leaves the frame"""
+    sp = scan_car(True)
+    p0 = sp.location.copy()
+    key(sp, 12)
+    sp.location = p0 + Vector((0, 0.10, 0.32)); sp.rotation_euler = (math.radians(-12), 0, 0); key(sp, 34)
+    sp.location = p0 + Vector((0.2, 1.6, 2.6)); sp.rotation_euler = (math.radians(-40), math.radians(8), 0); key(sp, 60)
+    sp.hide_render = False; sp.keyframe_insert('hide_render', frame=60)
+    sp.hide_render = True; sp.keyframe_insert('hide_render', frame=61)
+    car_lights()
+    co = camera(36); look(co, *CAM7_A); key(co, 1); look(co, *CAM7_B); key(co, LEN[7])
+    return LEN[7]
+
+
+def glb_parts(m):
+    objs = import_glb()
+    for n, o in list(objs.items()):
+        if n not in ('part_sport_wing', 'part_duckbill'): bpy.data.objects.remove(o, do_unlink=True)
+    wing = bpy.data.objects['part_sport_wing']; lip = bpy.data.objects['part_duckbill']
+    for o in (wing, lip):
+        o.parent = None; o.matrix_world = o.matrix_world.copy(); o.data.materials.clear(); o.data.materials.append(m)
+    return wing, lip
+
+
+def install_anim(wing, lip):
+    w0 = wing.location.copy(); l0 = lip.location.copy()
+    lip.location = l0 + Vector((0, 0.9, 0.55)); key(lip, 1, rot=False)
+    lip.location = l0 + Vector((0, 0.06, 0.04)); key(lip, 20, rot=False)
+    lip.location = l0; key(lip, 26, rot=False)
+    wing.location = w0 + Vector((0, 0.25, 1.4)); key(wing, 8, rot=False)
+    wing.location = w0 + Vector((0, 0.02, 0.10)); key(wing, 32, rot=False)
+    wing.location = w0; key(wing, 38, rot=False)
+
+
+def shot8():
+    """scan, spoiler gone: the Epsilon trunk lip then the Sport Wing go on; camera ends on CAM5_B (1:1 into shot 9)"""
+    scan_car(False)
+    wing, lip = glb_parts(M_SILVER_PART); install_anim(wing, lip)
+    car_lights()
+    co = camera(36); look(co, *CAM7_B); key(co, 1)
+    for f in range(1, LEN[8] + 1, 3):
+        u = ease((f - 1) / (LEN[8] - 1))
+        loc = tuple(CAM7_B[0][i] + (CAM5_B[0][i] - CAM7_B[0][i]) * u for i in range(3))
+        tgt = tuple(CAM7_B[1][i] + (CAM5_B[1][i] - CAM7_B[1][i]) * u for i in range(3))
+        look(co, loc, tgt); key(co, f)
+    look(co, *CAM5_B); key(co, LEN[8])
+    return LEN[8]
+
+
+def shot9():
+    """CGI Integra Type S (Platinum White) with BOTH parts on (gloss black), orbit toward rear-on"""
+    objs = import_glb()
+    for n, o in objs.items():
+        if o.type != 'MESH': continue
+        if n == 'body': o.data.materials.clear(); o.data.materials.append(M_WHITE)
+        if n in ('part_sport_wing', 'part_duckbill'): o.data.materials.clear(); o.data.materials.append(M_GLOSS)
+    car_lights()
+    co = camera(36)
+    for f in range(1, LEN[9] + 1, 3):
+        u = ease((f - 1) / (LEN[9] - 1))
+        look(co, orbit(CAM5_B[0], CAM5_B[1], -28 * u), CAM5_B[1]); key(co, f)
+    look(co, orbit(CAM5_B[0], CAM5_B[1], -28), CAM5_B[1]); key(co, LEN[9])
+    return LEN[9]
+
+
+N = {1: shot_stage, 2: shot_stage, 3: shot_stage, 4: shot_stage}.get(A.shot, None)
+N = N(A.shot) if N else {5: shot5, 6: shot6, 7: shot7, 8: shot8, 9: shot9}[A.shot]()
 for o in bpy.data.objects:
     if o.animation_data and o.animation_data.action:
         for fc in o.animation_data.action.fcurves if hasattr(o.animation_data.action, 'fcurves') else []:

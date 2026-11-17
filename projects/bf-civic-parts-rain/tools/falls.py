@@ -1,0 +1,74 @@
+"""Hero-part falls (v0.2). Owner on v0: "I don't want the parts to 'home' onto the car - it needs to naturally fall on the
+car as if that was the entire plan".
+
+A part keeps its final orientation the whole way (no tumble, no straightening) and falls along ONE straight line with
+gravity-like acceleration, from rest outside the frame, landing exactly on its seat on the beat. The line is the steepest
+one (vertical first, then tilted outward in 5 deg steps toward `side`) along which the part never comes within 5 mm of the
+scan - the lip and skirts tuck under the body, so a pure vertical drop can pass through it. Keys on every frame, LINEAR.
+"""
+import math
+import bpy
+import numpy as np
+from mathutils import Vector, kdtree
+from bpy_extras.object_utils import world_to_camera_view
+
+_CAR = {}
+
+
+def _car_tree(car, lo, hi):
+    key = (tuple(np.round(lo, 1)), tuple(np.round(hi, 1)))
+    if key in _CAR:
+        return _CAR[key]
+    n = len(car.data.vertices); co = np.empty(n * 3, np.float32); car.data.vertices.foreach_get("co", co); co = co.reshape(-1, 3)
+    m = np.all((co > lo) & (co < hi), 1); pts = co[m]
+    kd = kdtree.KDTree(len(pts))
+    for i, p in enumerate(pts):
+        kd.insert(p, i)
+    kd.balance(); _CAR[key] = kd
+    return kd
+
+
+def _hits(kd, P, off, tol=0.005):
+    return sum(1 for p in P if kd.find(Vector(p + off))[2] < tol)
+
+
+def animate(sc, ob, car, f_seat, side, f_last, fps=30, name=None):
+    """the fall line comes from kit/fall_dirs.json (tools/fall_dirs.py, scipy - the in-Blender search was too slow)"""
+    import json
+    fd = json.load(open("/home/user/media/bf-civic-parts-rain/kit/fall_dirs.json"))[name or ob.name]
+    e, worst, d = fd["elev_deg"], fd["hits_on_path"], np.array(fd["dir"])
+    n = len(ob.data.vertices); co = np.empty(n * 3, np.float32); ob.data.vertices.foreach_get("co", co); co = co.reshape(-1, 3)
+    # start: from rest, outside the frame at the moment the fall begins
+    cam = sc.camera; corners = [Vector(c) for c in (co.min(0), co.max(0))]
+    bb = [Vector((x, y, z)) for x in (corners[0].x, corners[1].x) for y in (corners[0].y, corners[1].y) for z in (corners[0].z, corners[1].z)]
+    L = 3.0
+    while True:
+        a = 9.81
+        L = max(L, fd.get("v_min", 0) ** 2 / (2 * a))   # fast enough that the last frame before landing clears the body
+        nfr = max(8, round(math.sqrt(2 * L / a) * fps)); f0 = f_seat - nfr
+        sc.frame_set(max(f0, 0)); off = Vector(d * L)
+        vis = False
+        for c in bb:
+            v = world_to_camera_view(sc, cam, c + off)
+            if v.z > 0 and -0.02 < v.x < 1.02 and -0.02 < v.y < 1.02:
+                vis = True; break
+        if not vis or L > 30:
+            break
+        L += 0.5
+    a = 2 * L / (nfr / fps) ** 2
+    pref = bpy.context.preferences.edit; old = pref.keyframe_new_interpolation_type; pref.keyframe_new_interpolation_type = "LINEAR"
+    park = Vector((0, 0, 60))
+    for f in range(0, f_last + 1):
+        if f < f0:
+            ob.location = park
+        elif f < f_seat:
+            t = (f - f0) / fps; rem = L - 0.5 * a * t * t
+            ob.location = Vector(d * rem)
+        else:
+            ob.location = Vector((0, 0, 0))
+        ob.keyframe_insert("location", frame=f)
+    pref.keyframe_new_interpolation_type = old
+    sc.frame_set(0)
+    t1 = (nfr - 1) / fps; prev = L - 0.5 * a * t1 * t1
+    return {"prev_frame_dist_m": round(prev, 3), "contact_extent_m": fd.get("contact_extent_m"), "elev_deg": e, "hits_on_path": worst, "start_dist_m": round(L, 2), "fall_s": round(nfr / fps, 2),
+            "impact_mps": round(a * nfr / fps, 1)}

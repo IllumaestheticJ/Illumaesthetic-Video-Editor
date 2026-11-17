@@ -1,4 +1,17 @@
-# bf-integra-stock-to-kitted: draft v0 / v0.1 notes
+# bf-integra-stock-to-kitted: draft v0 / v0.1 / v0.2 / v0.3 notes
+
+**v0.3 (2026-11-17, user: "zoom out a little ... it's cropped out and too close"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.3.mp4`.
+- **Real clips:** the 9:16 window of the 4K clips is wider: 0371 is 1800 px (was 1215), 0370 is 2050 px (was 1080), so the whole car fits.
+  - The frame is scaled into a band over a blurred, darkened fill of itself (`tools/widen.sh`).
+  - 0371 pans x0 1600 → 700, nose to wing.
+- **Stock pass:** re-rendered on the matching wider crop camera (sensor 16.875 mm, shift 0.322 / 0.156). The 1:1 still lines up (`render/s1_wide_check/sheet.jpg`).
+- **Grey Integra:** the user asked to use footage of the grey car (the white car carries the printed version of the kit). I searched Dropbox: the 'Integra' and 'gray' searches, `Footage Library/Videos/Car Shots` (12 clips), and the Shoot Sessions folders for wing product clips and the 2025-04-17 test drives. I found no grey Integra video. The user has been asked where it is.
+
+**v0.2 (2026-11-17, user: "change the color swatch to better match the epsilon website"):** the palette and type are read from the live epsilon.plus theme. Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.2.mp4`.
+- **Background:** all CGI, card and logo frames use the site charcoal `#1A1A1A` (`--background` / `--button-background-primary`). The renders were redone with a transparent film and composited in post, and measure 24/24/24 after H.264.
+- **Offer:** "30%+ OFF" is white on a sale-red `#F83A3A` rounded badge (the site's `--on-sale-badge-background` and announcement bar).
+- **Type:** headings in the site's own Barlow 700 (`/cdn/fonts/barlow/barlow_n7…woff`), the secondary line in Barlow 400, grey `#B2B2B2`.
+- **Unchanged:** cuts, music and loudness (-13.7 LUFS / -4.3 dBTP).
 
 **v0.1 (2026-11-17):** the same cut with Del & Eps removed, on the owner's instruction relayed by the parent: "not use del & eps, just typical branding content". Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.1.mp4`. Timing, loudness (-13.7 LUFS / -4.3 dBTP) and cuts are unchanged. Everything below about v0's Del & Eps placeholders is superseded.
 
