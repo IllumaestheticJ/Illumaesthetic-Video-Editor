@@ -102,18 +102,29 @@ def put(x, at, g=1.0, pan=0.0):
     if n > 0: mix[i:i + n] += x[:n] * g
 
 # ---- music: from 0:30, dead at the Odyssey pass ----
-# song measured at 149.8 BPM (bar 1.602 s), drop at 32.25 s; cut grid is 1.58 s bars with the drop cut at frame 65,
-# so play the song 1.39% fast from 30.05 s: every cut then lands on a bar and the drop on the shot 1->2 cut
-MT = 1.0139; MSS = 32.25 - T(2) * MT
-mend = T(15); mus = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-ss", str(MSS), "-i", M + "music/first_time.mp3", "-af", "atempo=%s" % MT, "-t", str(mend), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout, np.float32).reshape(-1, 2).astype(np.float64); g = np.ones(len(mus)); g[-int(0.02 * SR):] = np.linspace(1, 0, int(0.02 * SR))
+# music mode: python sound.py out.wav [lilacs|first|none]
+MODE = sys.argv[2] if len(sys.argv) > 2 else "lilacs"
+def stretch(path, ss, tempo, dur):
+    return np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-ss", str(ss), "-i", path, "-af", "atempo=%s" % tempo, "-t", str(dur), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout, np.float32).reshape(-1, 2).astype(np.float64)
+mend = T(15)
+if MODE == "first":
+    # First Time: 149.8 BPM (bar 1.602 s), drop at 32.25 s; played 1.39% fast so 1.58 s bars and the drop on the shot 1->2 cut
+    MT = 1.0139; mus = stretch(M + "music/first_time.mp3", 32.25 - T(2) * MT, MT, mend); MOFF = 0.0
+elif MODE == "lilacs":
+    # lilacs (azrxel): beat 0.51353 s (116.8 BPM), first downbeat at 0.05 s. Three beats per 1.579 s shot when slowed 2.44%
+    # (pitch kept); from the top of the song the bar-2 downbeat then lands on the shot 1->2 cut after a 10 ms delay.
+    MT = 3 * 0.51353 / ((CUT[14] - CUT[1]) / 16 / 30.0); MOFF = T(2) - (0.05 + 4 * 0.51353) / MT; mus = stretch(M + "music/lilacs.mp3", 0, MT, mend - MOFF)
+else:
+    mus = np.zeros((int(mend * SR), 2)); MOFF = 0.0
+g = np.ones(len(mus)); g[-int(0.02 * SR):] = np.linspace(1, 0, int(0.02 * SR))
 VO = [(M + "voice/take3/1_semperfi.wav", T(8) + 0.55, 2.6), (M + "voice/take3/2_exchange.wav", T(11, 70) - 1.84, 1.5), (M + "voice/take3/3_ringlands.wav", T(16, 122) - 0.42, 2.8)]
 for pth, at, vg in VO:
-    v = load(pth); i0, i1 = int((at - 0.15) * SR), int((at + len(v) / SR + 0.15) * SR); r = int(0.12 * SR)
+    v = load(pth); i0, i1 = int((at - MOFF - 0.15) * SR), int((at - MOFF + len(v) / SR + 0.15) * SR); r = int(0.12 * SR)
     for i, j, a, b in ((i0 - r, i0, 1, 0.3), (i0, i1, 0.3, 0.3), (i1, i1 + r, 0.3, 1)):
         i, j = max(0, i), min(len(g), j)
         if j > i: g[i:j] = np.minimum(g[i:j], np.linspace(a, b, j - i))
     put(np.tanh(v * vg * 1.2), at, 1.0)
-put(mus * g[:, None], 0, 0.5)
+put(mus * g[:, None], MOFF, 0.5)
 
 # ---- per-shot beds and effects ----
 put(hum(T(2)), 0, 0.5); put(bell(0.9), 0.05, 0.5)

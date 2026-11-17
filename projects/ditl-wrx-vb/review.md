@@ -50,3 +50,7 @@ Status: first cut for owner review, not final. v1 = first assembly; v2 = same pi
 - 1052 frames, 35.07 s; shots 2, 10, 16 re-rendered (`render4`); -14.4 LUFS, peak -2.7 dBFS; cut frames and music timing unchanged from v3.
 - Contact sheets checked: scribble sits on the form, the arm comes from the driver and ends on the Accessport in shots 10 and 16 (hand largely hidden behind the device at impact, arm briefly covers the screen), mirror shot unchanged otherwise.
 - Engine sound is unheard by me; spectrum shows the strongest partial at 1.5x firing frequency (uneven-pulse boxer pattern).
+
+## v5 (music change) — same picture as v4
+- `ditl_wrx_vb_v5_lilacs.mp4`: lilacs (azrxel) from 0:00, atempo 0.9756 (pitch kept), 10 ms delay. Onset peak vs cut, in frames: 65 +0.1, 113 -0.3, 160 0.0, 208 -0.9, 255 -0.4, 302 +0.1, 397 -0.1, 492 -0.6, 539 -0.1, 586 +0.2, 681 0.0, 729 (nearest strong onset +3.0, beat itself on grid), 776 -0.2. -14.4 LUFS, peak -3.4 dBFS. The song has no drop, so the shot 1->2 cut lands on a bar downbeat instead.
+- `ditl_wrx_vb_v5_nomusic.mp4`: voices, environment and effects only. -14.4 LUFS, peak -2.6 dBFS.
