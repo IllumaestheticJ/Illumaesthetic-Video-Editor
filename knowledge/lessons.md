@@ -1357,3 +1357,8 @@ lands here automatically. Agents must read this whole file before editing.
 - [scan] A full 360 exposes every wheel: check all four; mirror a complete wheel across the centre plane (same axle,
   no shift) where the capture missed one (tools/wheelmirror.py).
 - [motion] Parts that fly off must leave the frame entirely (end > 4 m away) - parked debris reads as clutter next to labels.
+- [scan] (GR Corolla v12, user: "the full lip kit and wing are improperly placed") Engineering's car frame is NOT our
+  prepped frame even when the numbers look alike (here 0.8 deg + 59 mm fore-aft + 30 mm up). Before placing any
+  engineering part, export engineering's own car scan from their reference .blend and ICP it to our car on the body
+  above the wheels (bumpers may differ); apply that transform to every part from their frame. Check each part in a
+  close-up at its mounting edge.
