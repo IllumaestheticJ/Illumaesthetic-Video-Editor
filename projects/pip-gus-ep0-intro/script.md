@@ -45,17 +45,13 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 - Line 3/4 = owner's line "We are the Illumaesthetic mascots - here in the digital world to explain to you the tips and tricks we've learned along the way from doing this for so long!", split Pip (first half) / Gus (second half). "Apparently." dropped (it no longer follows).
 - All Gus tags moved off "dry/deadpan" to warm/upbeat/amused.
 
-## Proposed v4 ending: series transition (pending owner confirmation, 2026-11-17)
-The series plan v0.3 (`projects/pip-gus-series/scripts.md`, branch `claude/laughing-albattani-bav6u7`, owner: "these should transition into each other") says each episode should set up the next one's question over the logo card. It was relayed by the series session and has not yet been confirmed by the owner for this episode. It proposes for Ep 0:
+## Proposed v4 ending: series transition (series plan v0.4, pending owner confirmation, 2026-11-17)
+Series plan v0.4 (`projects/pip-gus-series/scripts.md`, branch `claude/laughing-albattani-bav6u7`). Owner: the episodes should transition into each other, and the bumper episode goes first. Ep 1 is "Why can't I just print the bumper I want?". v0.4 replaces the v0.3 "So what's the first thing you do with a car?" / "We scan it." proposal, which is dropped.
+
+Ep 0 keeps the owner's ending: line 11 "What questions do you have?" and the logo-card text WHAT QUESTIONS / DO YOU HAVE? It then adds one voice-only tag over the logo card:
 
 | # | Who | Line | Picture |
 |---|---|---|---|
-| 12 | PIP | [curious, voice only over the logo card] "So what's the first thing you do with a car?" | Logo card; no new text. |
-| 13 | GUS | [warm, matter-of-fact, never sad] "We scan it." | Logo card holds. This leads into Ep 1 (spray), which opens with Gus wheeling the scanner to a black car. |
+| 12 | PIP | [eager, voice only over the logo card] "Can I just print the bumper I want?" | Logo card holds, with no new text. This sets up Ep 1. |
 
-**Conflict:** the owner said directly "end the video with 'what questions do you have?'", and v1 ends there. Options:
-- **(a)** Keep line 11 and the WHAT QUESTIONS / DO YOU HAVE? logo text, then add lines 12-13 as a voice-only tag (+ about 3 s, about 45 s total).
-- **(b)** Replace the ending with the transition, and drop "What questions do you have?" and the logo text.
-- **(c)** Keep v1 as is. Ep 1's callback could open on "What questions do you have?" → "What's the first thing you do with a car?"
-
-Recommendation: (a). It keeps the owner's own closing question and still hands off to Ep 1. Cost: one short two-line dialogue generation (about 0.5 credit), re-cut audio and logo card length, with no new Blender renders.
+Cost: one single-line Pip generation (Kiki, well under 1 credit). The logo card is extended by about 2 s, roughly 44 s total, and the music tail is re-timed under it. No new Blender renders.
