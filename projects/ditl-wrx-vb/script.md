@@ -59,9 +59,20 @@ take.
 That is 12 short lines, about 45 words. Most of the comedy is the hands, the faces and the SFX, like the reference.
 
 ## Shot table
-Times are the target; the voice take sets the final timing. **Music:** a real licensed track (TikTok CML via
-`tiktok_music_trending`, or one the owner uploads), loud under scenes 1-4 like the reference's bed. It **cuts dead at
-the red light** (25.0 s); scenes 5-6 are dialogue, engine and room tone. Everything is **Blender** unless noted;
+Times are the target; the voice take sets the final timing. **Music (owner 2026-11-17):** Seven Lions, SLANDER & Dabin, "First Time" (feat. Dylan Matthew), Ophelia Records.
+The owner uploaded it; it's OK for this unmonetized account. File: `/home/user/media/ditl-wrx-vb/music/first_time.mp3`
+(297.4 s, 44.1 kHz, not committed). **It starts at 0:30 in the song.** Measured: 152 BPM (0.395 s beat); quiet
+build (about -20 dB RMS) until **the drop at song 32.18 s → video 2.18 s** (RMS jumps to about -8 dB). Cut plan:
+- **1a → 1b cut on the drop (video 2.18 s):** the last form slap lands on the hit, then a hard cut to the recruiter.
+  Scene 1a shortens to 2.18 s.
+- The drop rides under scenes 1b-4. Measured strong onsets for the other cuts: song 39.17/39.38 (video ~9.2-9.4),
+  44.98 (~15.0), 50.18/50.57 (~20.2-20.6).
+- **The music cuts dead at the red light on the strong onset at song 55.38 s → video 25.38 s.** Scenes 5-6 are
+  dialogue, engine and room tone only.
+- The song has vocals: duck the music about 8-10 dB under every line (L1-L6), and keep the Confirm spree (scene 2)
+  in a vocal gap if possible. Mix -14 LUFS, true peak below -1 dBFS.
+
+Everything is **Blender** unless noted;
 faces are low-poly heads with **flat painted face textures swapped per beat** (the reference's horror-face style,
 original designs). **Unhinged hand action** per scene is marked ⚡.
 
@@ -87,6 +98,8 @@ original designs). **Unhinged hand action** per scene is marked ⚡.
 **End:** a hard cut to black after L12 at about 47 s. No watermark and no end card (owner).
 
 ## Change list
+**v4.1:** music = the owner's upload, "First Time" from 0:30; cuts on the measured drop (video 2.18 s) and the music cut at video 25.38 s.
+
 **v4 (owner answers):** title wording; the "Beamer guys" and "Honda Odyssey" lines; an unbranded cart; the hard cut with no Epsilon+ branding anywhere; medium-brown skin and USMC-style dog tags; the voice and music options listed for the owner to pick from.
 
 **v3.1 (parent inspection of v2):** its notes 1 (the full kit plus WRC wing as the checkout hero, no "[BACKORDER]"
@@ -130,7 +143,7 @@ gas-pump mirror stare and the DAM drop. All Blender.
 | Honda Odyssey, BMW sedan | **missing** | Low-poly stand-ins modelled in Blender, with the H badge and the roundel; not exact models |
 | Characters: office lady, recruiter, BMW guy, mom, kid | **to make** | Low-poly bodies + flat painted face sheets (2-3 expressions each), original designs |
 | Voice take | **to make** | `elevenlabs_v4` dialogue, 4 preset voices, one call (after approval) |
-| Music | **to pick** | TikTok CML (check it's not used by another reel) or an owner upload |
+| Music | **found** | Owner upload: "First Time" (Seven Lions, SLANDER & Dabin), from 0:30 |
 | SFX | **to make/find** | Royalty-free or synthesized locally |
 
 ## Credit estimate (owner: Blender, minimize Higgsfield)
