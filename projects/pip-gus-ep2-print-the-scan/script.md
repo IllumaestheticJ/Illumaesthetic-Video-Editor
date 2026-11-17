@@ -12,7 +12,7 @@ the part on it, and the scan is what makes the part fit.
 |---|---|---|
 | A. Cartoon | about 0-28 s | 13 lines, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
 | B. Real footage | about 28-33 s | phone hand-off, then real car, then a **hard 1:1 cut on a beat** to its scan, then the designed part on the scan. No text. |
-| C. Logo card | about 33-36 s | Illumaesthetic logo + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM** (no teaser card; see below) |
+| C. Logo card | about 33-36 s | plain Illumaesthetic logo, no text, no teaser card (owner 2026-11-16/17) |
 
 ## Part A: cartoon
 | # | Who (delivery tag) | Line | Picture |
@@ -50,13 +50,8 @@ Changes from the series draft (and why):
 3. The designed part appears on the scan (a fade-in or slide-on of the CAD part over the scan, in the scan look). [VERIFY Q1]
 
 ## Part C: logo card (the ending)
-Illumaesthetic logo (about 720 px wide on 1080) + **SCANS AVAILABLE AT ILLUMAESTHETIC.COM**. Pip's line 11 sets this up, so the
-CTA is the episode's payoff. Owner rule (2026-11-16): a CTA is optional and used only when relevant. It is relevant here because the
-episode is about buying and using a scan. If the owner prefers, the logo card stands alone and line 11 still works without it.
-
-No "FULL VIDEO ON OUR CHANNEL" teaser card. Owner rule (2026-11-16, lessons.md): videos don't need to link to a YouTube video, so
-the card is optional and used only when a matching full video exists. Ep 2's natural CTA is buying a scan. If the owner names a
-matching full video, the pilot's card can go back in before the logo (+3 s).
+Plain Illumaesthetic logo (about 720 px wide on 1080), no line under it. Owner's choice (2026-11-17).
+No "FULL VIDEO ON OUR CHANNEL" teaser card (owner rule 2026-11-16: only when a matching full video exists).
 
 ## Voices, music
 - Voices: one Higgsfield `elevenlabs_v4` dialogue call. Pip = Kiki (`2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7`), Gus = Harrison
@@ -69,6 +64,4 @@ matching full video, the pilot's card can go back in before the logo (+3 s).
    customer's? (Default if there's no part to show: the IS350 1:1 real-to-scan cut that's already rendered, without the part step.)
 2. ~~Line 8~~ answered (owner 2026-11-16): "you design the part on it, or you remake/reverse engineer the part - Illumaesthetic
    can do both." Line 8 now covers both, and Pip's line 11 is "Ooh! Illumaesthetic does both!"
-3. **Ending:** the default is the logo card with SCANS AVAILABLE AT ILLUMAESTHETIC.COM and no teaser card. Now that line 11 is about
-   design and reverse engineering, should the logo card keep the scans line, use a line about those services (owner's wording), or
-   be the plain logo? And is there a matching full video worth a teaser card?
+3. ~~Ending~~ answered (owner 2026-11-17): plain logo card, no teaser card.
