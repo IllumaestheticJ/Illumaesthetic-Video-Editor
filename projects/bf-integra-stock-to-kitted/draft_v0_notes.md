@@ -1,4 +1,13 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.6 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.7 notes
+
+**v0.7 (2026-11-17, user: "use a cooler font, have the black friday tilted and take up the majority of the background, sync on the beats of the song, pulsing bigger. take out the sale chip"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.7.mp4`.
+- **Font:** Anton (Google Fonts, OFL), a condensed poster face. It is saved to `media/.../fonts/Anton.ttf`; Archivo Black and Bebas Neue were downloaded as alternatives.
+- **Layout:** a four-line justified wall, BLACK (white) / FRIDAY (sale red) / BLACK / FRIDAY, tilted 12 degrees counter-clockwise and centred in the safe zone behind the car. With four lines, the words still read above and below the car once it fills the frame.
+- **Pulse:** on each beat of "140" (0.215 s, then every 0.43073 s) the wall scales up 13 % and goes from 55 % to 100 % opacity, then eases back over 0.22 s.
+  - Measured red-area peaks land on the first frame at or after each beat.
+  - At its peak the wall's bbox is x 61-882 / y 288-1436, inside the safe zone.
+- **SALE chip:** removed.
+- **Unchanged:** -13.7 LUFS / -4.3 dBTP.
 
 **v0.6 (2026-11-17, owner via parent: "all agents should use www.epsilon.plus"):** the end card has WWW.EPSILON.PLUS under the Epsilon+ wordmark. It is set in Barlow 700, 60 px, grey #B2B2B2, and fades in and out with the logo. The end card's content spans x 180-899 / y 921-1138, inside the safe zone. This replaces assumption 7 below ("no epsilon.plus on the end card"). Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.6.mp4`; sheet `_v0.6_safezones.jpg`.
 
