@@ -29,6 +29,9 @@ SHOP = build_shop()
 for _ob in list(SHOP.children):      # Ep 7 shop: no car bay lines (no car in this episode)
     if _ob.name.startswith("bay"):
         bpy.data.objects.remove(_ob, do_unlink=True)
+for _ob in list(SHOP.children):      # the pilot's workbench sits right of the side table (it intersected the laptop)
+    if _ob.name.startswith(("bench", "toolbox")):
+        _ob.location.x += 0.4
 CLOCK, HANDS = build_clock(SHOP, loc=(-2.95, 3.48, 2.6), r=0.32)
 PIP = build_char("PIP", PIP_SPEC)
 GUS = build_char("GUS", GUS_SPEC)
@@ -94,25 +97,28 @@ LAPTOP, UI = build_laptop(None, loc=(1.86, 2.95, TABLE_Z), rz=-12)
 
 
 def piece_shapes():
-    """Exported, cut bumper pieces as flat UI tiles on the laptop screen (no numbers: distinct greys + sage outline)."""
+    """Cut bumper pieces laid out on SeamForge's build plates (Plan plates): two square plates, five pieces each (no
+    numbers: distinct greys + sage outline)."""
     out = []
-    for row in range(2):
+    for px in (-0.1, 0.1):
         for k in range(5):
-            x0 = -0.17 + k * 0.071
-            y0 = 0.035 - row * 0.085
-            bulge = 0.012 * math.sin(math.pi * (k + 0.5) / 5)
-            pts = [(x0, y0 - 0.03), (x0 + 0.056, y0 - 0.03), (x0 + 0.056, y0 + 0.022 + bulge), (x0 + 0.028, y0 + 0.03 + bulge),
-                   (x0, y0 + 0.022 + bulge)]
+            row, col = divmod(k, 3)
+            x0 = px - 0.072 + col * 0.05 + (0.025 if row else 0.0)
+            y0 = 0.035 - row * 0.065
+            pts = [(x0, y0 - 0.022), (x0 + 0.04, y0 - 0.022), (x0 + 0.04, y0 + 0.016), (x0 + 0.02, y0 + 0.024), (x0, y0 + 0.016)]
             out.append(pts)
     return out
 
 
 box("ui_bg", (0.43, 0.28, 0.001), (0, 0, 0.0005), emit("#1d201e", 1.0), UI)
+for _px in (-0.1, 0.1):   # the two build plates
+    box(f"ui_plate{_px}", (0.18, 0.18, 0.001), (_px, -0.012, 0.0009), emit("#3a3f3b", 1.0), UI)
+    box(f"ui_platee{_px}", (0.186, 0.186, 0.001), (_px, -0.012, 0.0007), emit("sage", 1.0), UI)
 for _i, _pts in enumerate(piece_shapes()):
-    poly(f"ui_piece{_i}", [(x * 1.0, y) for x, y in _pts], emit("sage_l", 1.0), UI, z=0.0012)
-    poly(f"ui_piecef{_i}", [((x - sum(p[0] for p in _pts) / 5) * 0.86 + sum(p[0] for p in _pts) / 5,
-                            (y - sum(p[1] for p in _pts) / 5) * 0.86 + sum(p[1] for p in _pts) / 5) for x, y in _pts],
-         emit("ui_piece" if _i % 2 else "ui_piece2", 1.0), UI, z=0.0018)
+    _cx, _cy = sum(p[0] for p in _pts) / 5, sum(p[1] for p in _pts) / 5
+    poly(f"ui_piece{_i}", _pts, emit("sage_l", 1.0), UI, z=0.0014)
+    poly(f"ui_piecef{_i}", [((x - _cx) * 0.84 + _cx, (y - _cy) * 0.84 + _cy) for x, y in _pts],
+         emit("ui_piece" if _i % 2 else "ui_piece2", 1.0), UI, z=0.0019)
 box("ui_bar", (0.4, 0.022, 0.001), (0, 0.115, 0.0015), emit("#2f3431", 1.0), UI)
 cyl("ui_ok", 0.009, 0.001, (0.18, 0.115, 0.0022), emit("sage_l", 1.4), UI, axis="Z", seg=16)
 
@@ -447,7 +453,7 @@ def wt(n, i):
 
 # ----------------------------------------------------------------------------------------------------------------- shots
 def anim_S1(fr):
-    """Callback to Ep 6: open close on the laptop (exported cut pieces), pull back to the wide shop; Pip asks; the
+    """Callback to Ep 6: open close on the laptop (the cut pieces on SeamForge's build plates), pull back to the wide shop; Pip asks; the
     scoreboard drops in at the end."""
     t, u = fr / FPS, prog(fr, "S1")
     set_board(0, 0, drop=cl((u - 0.62) / 0.3))

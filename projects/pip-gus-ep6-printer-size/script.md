@@ -1,7 +1,7 @@
 # Pip & Gus Ep 7: "Big printer or small printer?" (script v4, for owner approval)
 
 **Series order v0.4 (owner, 2026-11-17):** this is **Ep 7, the printing step**. The series follows one bumper from "if you insist" to the glued part on the car.
-- **Opens** on the cut bumper pieces SeamForge has just exported: a row of numbered STL pieces. There are no build plates, because Print Layout is hidden in the app. Pip restates Ep 6's last line: "It's cut! Which printer do we use?"
+- **Opens** on the cut bumper pieces laid out on SeamForge's build plates (Plan plates, shown in Ep 6). Pip restates Ep 6's last line: "It's cut! Which printer do we use?"
 - **Ends** with Pip, voice only over the logo card: "Printer's ready. What do we load in it?" This leads into Ep 8 (materials).
 - **Framing:** the parts are already cut, so the trade-off is fewer, bigger pieces with fewer seams versus more pieces to glue. It is not "it doesn't fit".
 - Glue is the finale (Ep 9), so line 8 sets it up.
@@ -22,7 +22,7 @@ Built from the series draft (`projects/pip-gus-series/scripts.md`, the old Ep 6,
 - Lines marked [VERIFY] wait for the owner.
 
 ## Set-up
-Cel-shaded shop. The first frame continues from Ep 6: Pip's bumper, already cut into numbered pieces, sits on Gus's laptop as a row of exported pieces (no build plates). On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
+Cel-shaded shop. The first frame continues from Ep 6: Pip's bumper, already cut into pieces, sits on SeamForge's build plates on Gus's laptop. On the left is a HUGE unbranded cartoon printer that nearly touches the ceiling; on the right is a small desktop one. Between them hangs a chalk scoreboard with a big-printer icon and a small-printer icon, which collect tick marks. The failed-print shelf (running gag) is in the corner.
 
 Characters use the owner's proportion option 3 (2026-11-16): shorter torso, wider hips, bigger feet, hands close to the body. No gag here needs tall, thin bodies or a long reach. Gus nudges the parts in line 10 and takes the piece in line 8 with his hands kept close to his body.
 
@@ -37,7 +37,7 @@ The script carries only these four trade-offs, plus "run a few at once", which f
 
 | # | Who | Line | Picture | Score |
 |---|---|---|---|---|
-| 1 | PIP | "It's cut! Which printer do we use?" | Opens on the exported, numbered bumper pieces on the laptop (callback to Ep 6). Pip looks from the giant printer to the small one, and the scoreboard drops in. | |
+| 1 | PIP | "It's cut! Which printer do we use?" | Opens on the cut bumper pieces on SeamForge's build plates (callback to Ep 6). Pip looks from the giant printer to the small one, and the scoreboard drops in. | |
 | 2 | GUS | "Big one? Fewer pieces. Fewer seams." | A cartoon split-screen: cut for the big printer, the bumper is a few big chunks; cut for the small printer, it's a crowd of little pieces. | BIG +2 |
 | 3 | GUS | "But it's slower…" | The big print head crawls; the wall clock spins. | SMALL +1 |
 | 4 | GUS | "…and the bigger nozzle means less detail." | Close-up: a fat nozzle lays chunky lines; the small printer's thin lines look crisp beside it. | SMALL +1 |
