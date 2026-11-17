@@ -47,7 +47,7 @@ Times assume track #1: beat = 0.4286 s, drop at 6.89 s = beat 16. They are re-fi
 | 2 | 3.43-6.89 | 3.46 | 8-16 | Side tracking at the camera-car height of DJI 0371, panning tail → nose so the frame lands on the solved pose | STOCK car, side: plain sills, no spats, stock trunk | Same scan | Camera **ends exactly** on `cam_0371.json`, solved from the 0371 cut frame. Key the pose 2 frames early and hold it. | None | **HARD 1:1 CUT ON THE DROP** (6.89 s) | Blender |
 | 3 | 6.89-10.32 | 3.43 | 16-24 (drop) | Real camera car alongside; the 9:16 window slides along the car nose → tail at constant scale | KITTED car, same pose: the lip, skirts, spats and wing appear at the cut | DJI `DJI_20240324162540_0371_D.MP4` (Dropbox id `ihAynaYnO_4AAAAAAAAK5A`), from the solved frame | Window shows the lip first, then the skirt, then the spat and the Sport Wing as the clip rolls | None (IRL) | Hard cut on beat 24 | Footage edit (crop 1215x2160 window from 4K, conform 29.97 → 30) |
 | 4 | 10.32-12.03 | 1.71 | 24-28 | Real camera car behind, rear 3/4 | KITTED car from behind: Sport Wing, spats, diffuser | DJI `DJI_20240324162511_0370_D.MP4` (Dropbox id `ihAynaYnO_4AAAAAAAAK4w`), ~4.0-5.7 s (wing closest) | Car rolls toward the camera car | None (IRL) | Hard cut on beat 28 | Footage edit |
-| 5 | 12.03-13.71 | 1.71 | 28-32 | Black studio, 3/4 from above (~30 deg) | The four products from the website model, with **Del & Eps in micro mode (~1:10)**: Eps rides the Sport Wing endplate, Del stands on a spat strake | `eps-acura-integra-de-v29.glb` nodes `part_front_lip`, `part_side_skirts`, `part_rear_spats`, `part_sport_wing`, parts rendered in the house silver so the characters stay the only colour (Q5). Del & Eps in the locked look: Del teal #0f5c63 / orange #ff7a1a with a boxed beard and headset; Eps violet #6b3cff / yellow #ffd21f, cap backwards, visor. | One part drops into its place in a kit layout on each beat (28, 29, 30, 31). One pose per character: Eps points at the lip; Del sits on the wing holding up the 10 mm socket while Eps pats his empty pockets on beat 31 (the running gag, staged like `del-eps-10mm-socket-gag.jpg`). No spins (lesson). | Optional: part name + BF price under each part (owner's TL;DR, below). Only if the user wants per-part prices. | Cut on beat 32 | Blender (GLB, silver) + Higgsfield character stills composited + Remotion text |
+| 5 | 12.03-13.71 | 1.71 | 28-32 | Black studio, 3/4 from above (~30 deg) | The four products from the website model, with **Del & Eps in micro mode (~1:10)**: Eps rides the Sport Wing endplate, Del stands on a spat strake | `eps-acura-integra-de-v29.glb` nodes `part_front_lip`, `part_side_skirts`, `part_rear_spats`, `part_sport_wing`, parts rendered in the house silver so the characters stay the only colour (Q5). Del & Eps in the locked look: Del teal #0f5c63 / orange #ff7a1a with a boxed beard and headset; Eps violet #6b3cff / yellow #ffd21f, cap backwards, visor. | One part drops into its place in a kit layout on each beat (28, 29, 30, 31). One pose per character: Eps points at the lip; Del sits on the wing holding up the 10 mm socket while Eps pats his empty pockets on beat 31 (the running gag, staged like `del-eps-10mm-socket-gag.jpg`). No spins (lesson). | Optional: part name + was/BF price under each part (BF liquidation sheet, below). Only if the user wants per-part prices. | Cut on beat 32 | Blender (GLB, silver) + Higgsfield character stills composited + Remotion text |
 | 6 | 13.71-15.43 | 1.71 | 32-36 | Same as 5, held | The kit layout | Same render | Card text lands on beat 32 | **"Full kit, 30% off"** (owner's wording). The confirmed tiers put the spats at 40-45 %, so the wording needs a decision, see Q1. | Cut on beat 36 | Remotion over the shot 5 render |
 | 7 | 15.43-17.57 | ~2.1 | 36-41 | n/a | Epsilon+ wordmark, ~720 px wide, centred | Drive `EPSILON+ Logos` (exact file to locate; Epsilon wordmark, not Illumaesthetic) | Lands on beat 36 and rides the decay | Optional `epsilon.plus` under the logo, if the user wants a CTA | End | Remotion |
 
@@ -78,39 +78,42 @@ Times assume track #1: beat = 0.4286 s, drop at 6.89 s = beat 16. They are re-fi
 | Epsilon+ wordmark | Drive folder `EPSILON+ Logos` (per lessons.md) | **to locate** |
 | Music | TikTok CML (Higgsfield `tiktok_music_trending`); previews in `/home/user/media/bf-integra-stock-to-kitted/music/` | **candidates found**; licensed full track to fetch after approval |
 
-## Live store facts (Shopify, 2026-11-17)
+## Live store list prices (Shopify, 2026-11-17; for reference — the sheet below is the source for the card)
 | Product (handle) | Variant on the car | List price | Stock |
 |---|---|---|---|
 | Front Lip – Acura Integra (DE4, 2023+) (`epsilon-front-lip-acura-integra-de-2023`) | Polyurethane | $285 | 26 |
 | Side Skirts – Acura Integra (DE4, 2023+) (`epsilon-side-skirts-acura-integra-de4-2023`) | Polyurethane | $400 | 61 |
 | Rear Spats – Acura Integra (DE4, 2023+) (`epsilon-rear-spats-acura-integra-de4-2023`) | OEM Stock (A) / OEM "Aero" diffuser (B) | $175 | 30 / 38 |
-| Sport Wing – Acura Integra (DE4/DE5, 2023+) (`epsilon-wing-acura-integra-de-2023`) | Gloss black / Platinum White Pearl NH883P (the car) | $500 / $1,000 | backordered (-10 / -2) |
-| Sport Wing + Rear Trunk Lip combo (same listing) | Gloss black / painted | $600 / $1,050-$1,100 | backordered |
+| Sport Wing – Acura Integra (DE4/DE5, 2023+) (`epsilon-wing-acura-integra-de-2023`) | Gloss black / Platinum White Pearl NH883P (the car) | $500 / $1,000 | negative (not shown on screen; sheet prices it, so it is on sale) |
+| Sport Wing + Rear Trunk Lip combo (same listing) | Gloss black / painted | $600 / $1,050-$1,100 | negative (on sale per sheet) |
 
-### Confirmed BF tiers (owner's doc "Black Friday 2026 Discounts: TL;DR", https://claude.ai/artifact/29kGfJ2WPdSAg5QpezXfva, via `projects/_blackfriday/MASCOT_AND_PRICES.md`)
-- **Front lip and side skirts: 30 %.** $285 → $199.50, $400 → $280.
-- **Integra rear spats: 40-45 % clearance**, not 30 %. The exact percentage for the Integra spats is not stated: $175 → $96.25 (45 %) or $105 (40 %).
-- **Sport Wing: 30 % on the base only**; the paint charge stays full. Gloss black $500 → $350; painted $1,000 → $850.
-- **Sport Wing + Trunk Lip combo:** gloss black $600 → $385. Rear trunk lip alone: 60 %.
-- **Nothing on preorder or backorder is on sale.** The live store shows the Sport Wing at negative inventory (gloss black -10). Its listing still says "Available Now, Ready to Ship". See Q1.
-- **The sale window is not set yet.** No dates on screen.
+### BF 2026 prices (owner's decision: use the "Black Friday 2026 Liquidation Pricing" sheet, even where stock is wrong)
+Source: `projects/_blackfriday/PRICES.md` + snapshot `bf_liquidation_pricing.csv` (commit 7ec3adf). It supersedes the TL;DR tiers. The crossed-out price is the sheet's "Current Price"; the sale price is "BF 2026 Price". Every item the sheet prices is on sale whatever its stock. No stock counts on screen; no sale dates (window not set).
 
-My arithmetic, not for screen unless approved:
-
-| Kit | Was | BF | Overall discount |
+| Item | Current | BF 2026 | % |
 |---|---|---|---|
-| Lip + skirts + spats + gloss black wing | $1,360 | $925.75-$934.50 | 31.3-31.9 % |
-| Lip + skirts + spats + wing/trunk-lip combo | $1,460 | $960.75-$969.50 | 33.6-34.2 % |
+| Front Lip, Integra (DE4), PU | $285.00 | $199.50 | 30 |
+| Side Skirts, Integra (DE4), PU | $400.00 | $280.00 | 30 |
+| Rear Spats, Integra (DE4), PU, A & B | $175.00 | $105.00 | 40 |
+| Sport Wing, Integra, gloss black | $500.00 | $350.00 | 30 |
+| Sport Wing + Rear Trunk Lip, gloss black | $600.00 | $385.00 | 36 |
+| Sport Wing, paint matched | $950.00 | $800.00 | 16 (base only, paint full price) |
+| Rear Trunk Lip, ABS gloss black | $100.00 | $40.00 | 60 |
 
-So "Full kit, 30% off" understates the deal slightly. It is true as "at least 30 %", but not as a flat 30 % on every part. Nothing on screen will show a stock count.
+Kit totals (my arithmetic from the sheet, for screen only if approved):
+
+| Kit | Was | BF | Off |
+|---|---|---|---|
+| Lip + skirts + spats + gloss black Sport Wing | $1,360.00 | **$934.50** | 31.3 % |
+| Lip + skirts + spats + wing/trunk-lip combo (gloss) | $1,460.00 | **$969.50** | 33.6 % |
+
+So every kit part is at least 30 % off, and the kit overall is more than 30 % off. "Full kit, 30% off" understates it; "30%+ off" is accurate.
 
 ## Open questions for the user
-1. **Card wording.** Under the confirmed tiers, the lip, skirts and wing base are 30 %, but the Integra spats are 40-45 %. The kit comes out 31-32 % off ($1,360 → ~$930 with the gloss black wing). Which card do you want?
-   - (a) "Full kit, 30% off", as the owner wrote it;
-   - (b) "Full kit, 30%+ off";
-   - (c) "Full kit, 30% off" plus "was $1,360 → $9xx", once you confirm the spats percentage and whether the trunk lip / combo is in the kit.
-
-   Also: the Sport Wing shows negative stock (backordered) on the store, and backordered items are excluded from the sale. Is the wing in the sale?
+1. **Card wording** (sheet prices: kit $1,360 → $934.50 with the gloss black wing, 31 % off; spats are 40 %). Which card?
+   - (a) "Full kit, 30% off", the owner's words (true, but undersells);
+   - (b) "Full kit, 30%+ off" (my recommendation);
+   - (c) (b) plus "$1,360 → $934.50". If the kit should include the trunk lip, the combo version is "$1,460 → $969.50".
 2. **The stock pass is the real scan of this car (silver on black), not real driving footage.** No footage of the car driving stock exists; its stock state only exists as the Jan-2024 scan. Is scan → real OK for "it passes again"? The other option is the website GLB with the parts hidden, in a CGI street. That is more work and would match the real street less well.
 3. **Music:** "140" by Lil Texas (drop ~6.9 s, hard), or the on-theme "BLACK FRIDAY" by NUMMA? NUMMA's drop is at ~16.7 s, so it needs a longer stock pass or starting mid-song.
 4. **Del & Eps (locked look, model sheet).** I plan two appearances, both in the scan world, never over real footage:
@@ -118,7 +121,7 @@ So "Full kit, 30% off" understates the deal slightly. It is true as "at least 30
    - shots 5-6 at 1:10 on the parts (micro mode), Del with the 10 mm socket sting.
 
    Production follows the owner's path: Higgsfield images or short clips with `del-eps-model-sheet.jpg` as the reference image, composited over our scan and GLB renders. No 3D rig, no voices. I'll quote the credits before generating. The shots need the characters lit and placed to match the render cameras, so I'll show stills first. OK?
-5. **Kit card finish:** the locked rule says scans stay silver and the characters carry the colour. I plan to render the GLB parts in silver too. Or would you rather the real finishes: a gloss black wing (the $350 BF base) or Platinum White like the car?
+5. **Kit card finish:** the locked rule says scans stay silver and the characters carry the colour. I plan to render the GLB parts in silver too. Or would you rather the real finishes: a gloss black wing ($500 → $350) or Platinum White like the car?
 6. **Spats:** the GLB has one spat version and the store has two. Which version is on the white car? Should the card show both?
 7. **Per-part prices on the kit layout (shot 5): yes or no?** Should the end card carry `epsilon.plus`?
 
