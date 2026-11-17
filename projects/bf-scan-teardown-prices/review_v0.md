@@ -48,3 +48,7 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
   - The car's rear or a wheel crosses the right-rail zone in the side shot (7-8 s) and the rear-left shots, including the
     1:1 end frame. Re-frame those cameras, and Ron's render with them, at full quality.
   - The moving rear lip dips under y 1440 for about half a second at the start of the descent (about 15.0 s).
+
+## v0.3: web address (owner rule: "all agents should use www.epsilon.plus")
+- The end card's URL changes from "EPSILON.PLUS" to **"WWW.EPSILON.PLUS"**. It is the only web address in the reel.
+- `safezone_check`: text boxes OK. Loudness and cut frames are unchanged (-14.0 LUFS, TP -3.1 dBFS).

@@ -37,7 +37,7 @@ def tb(txt, xy, f, lab):
     b = d.textbbox(xy, txt, font=f, anchor="ms"); EB.append({"label": lab, "x": b[0], "y": b[1], "w": b[2] - b[0], "h": b[3] - b[1], "key": True})
 d.text((540, 990), "BLACK FRIDAY", font=font("b", 76), fill=OFF, anchor="ms"); tb("BLACK FRIDAY", (540, 990), font("b", 76), "end: BLACK FRIDAY")
 d.text((540, 1080), "30% OFF THE CIVIC FE KIT", font=font("b", 50), fill=SAGE, anchor="ms"); tb("30% OFF THE CIVIC FE KIT", (540, 1080), font("b", 50), "end: offer")
-d.text((540, 1170), "EPSILON.PLUS", font=font("m", 44), fill=GREY, anchor="ms"); tb("EPSILON.PLUS", (540, 1170), font("m", 44), "end: site")
+d.text((540, 1170), "WWW.EPSILON.PLUS", font=font("m", 44), fill=GREY, anchor="ms"); tb("WWW.EPSILON.PLUS", (540, 1170), font("m", 44), "end: url")
 json.dump(EB, open(O + "endcard_boxes.json", "w"))
 e.save(O + "endcard.png")
 print("ok")
