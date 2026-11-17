@@ -1,13 +1,20 @@
-# BF video 5 of 8: "Clearance Shelf Drop" (shot list v2, NOT APPROVED)
+# BF video 5 of 8: "Clearance Shelf Drop" (shot list v3, NOT APPROVED)
 
 Status: plan only. Nothing is rendered until the owner approves it in chat.
 Planned 2026-11-17 on branch `claude/video-editing-scan-data-8o0m8g`.
+
+v3 (2026-11-17): Del & Eps now follow the owner's LOCKED look (`knowledge/characters/del-and-eps/README.md`,
+reference image `del-eps-model-sheet.jpg`, commit 4298535 on `claude/clever-shannon-u8rv5l`):
+- arcade-racing-game 3D style;
+- the scans stay silver and the characters are the only colour in frame;
+- they are made as Higgsfield images/clips from the model sheet and composited over Blender renders of our scans.
+This replaces v2's "Team Livery A" and the Blender character build.
 
 v2 changes:
 - Characters are now Del & Eps (the owner's Epsilon+ mascots, per `projects/_blackfriday/MASCOT_AND_PRICES.md`) instead
   of Pip & Gus.
 - The BF prices come from the owner's BF doc.
-- The look is the Del & Eps "same material as the car" silver on black, with Team Livery A colour on the characters.
+- The look was v2's Team Livery A (superseded by the v3 locked look above).
 
 ## Concept in one line
 A forklift POV rolls through a dark Epsilon+ warehouse. Eps sweeps each pallet with his handheld scanner, and the sweep
@@ -42,21 +49,36 @@ Conflicts I need you to settle (from the doc itself):
 - The only real low positive count is 14 carbon GR V1 lips. The doc notes that last year's BF window sold 33 front lips,
   so 14 can sell out. The count is re-read on the render day and the posting day.
 
-## Characters: Del & Eps (Epsilon+)
-From MASCOT_AND_PRICES.md. Concept sketches only: I searched Drive and Dropbox for "Del", "Eps", "mascot" and
-"turnaround" and found no model, rig or turnaround, so building them is part of this plan.
-- **Look rule:** they are built at 1:1, they scan in (a laser sweep builds them from wireframe to silver), and the car
-  stays the brightest thing in frame. They are under 15k tris each and share one rig.
-- **Colour: Team Livery A** (the page's recommended base; the owner hasn't picked, so this is my default, Q5):
-  - Del: petrol teal #0f5c63 with signal orange #ff7a1a.
-  - Eps: electric violet #6b3cff with hi-vis yellow #ffd21f.
-  - A part washes violet while Eps handles it and orange while Del checks it.
-- **Roles here:** Del drives the forklift (calm, dry; he never hypes or quotes numbers). Eps rides the forks with the
-  handheld scanner (laser blue) and does the tag flips. No lip-sync is needed: Del has a moustache, and Eps's visor
-  eye-marks pulse when he talks.
-- **Voice:** music only by default. An optional line can go on the last carbon beat, Del: "Fourteen. Then it's
-  gone." That line quotes a live number, so it is only used if the count is still 14 on posting day (Q6).
-- **End sting (optional, +1.5 s):** Eps pats his pockets ("Where's my 10 mm?"), and Del holds it up.
+## Characters: Del & Eps (Epsilon+), LOCKED look
+Source: `knowledge/characters/del-and-eps/README.md` + `del-eps-model-sheet.jpg` (branch `claude/clever-shannon-u8rv5l`,
+commit 4298535; I viewed the sheet: front, 3/4, side and back of both).
+- **Del (δ, dad):**
+  - Short salt-and-pepper boxed beard (no moustache, no flat cap); headset over a petrol-teal cap with an orange brim.
+  - Teal crew shirt with orange shoulders and stripes, teal cargo pants, grey knee pads, black/orange boots.
+  - A yellow masking-tape roll on his belt. Low, slow, short sentences.
+- **Eps (ε, son):**
+  - Violet cap worn backwards (yellow brim at the back), headset, dark visor with two glowing yellow eye marks.
+  - Violet shirt with yellow shoulders, white shorts over dark leggings, white sneakers.
+  - Handheld scanner (dark grip, two cyan lenses). Bright, fast.
+- **No lip-sync** is needed for either: Del's beard covers his mouth, and Eps's expressions are his eye marks.
+- **Colour rule:** the characters are the ONLY colour in frame. Everything else is silver/grey on black: the warehouse,
+  the racking, the pallets, the lips (silver scan/CAD look) and the cars. The tags are off-white with black type. The
+  scanner light is cyan #6fc3d6.
+  - This overrides my earlier "lookbook materials" choice for the lips. If you want the lips in their real finish (gloss
+    black / carbon), that breaks the character colour rule, so it is Q5.
+- **Roles:**
+  - Eps sweeps each pallet with the scanner (a cyan beam), which flips the tag.
+  - Del walks the aisle with the masking tape and "tags" the last carbon bay.
+  - The forklift POV is the camera; nobody's hands are on the wheel, which avoids a tricky composite.
+- **Production path (owner):** Higgsfield GPT Image 2.6 stills / short image-to-video clips with the model sheet as the
+  reference element. Background removed, then composited over the Blender silver renders, with the same camera angle
+  matched by eye and a contact shadow added in Blender.
+  - About 6 character plates: Eps scanning x3 angles, Del with tape, Eps micro-mode on the lip, and the 10 mm gag.
+  - I'll quote the Higgsfield credits before spending more than about 5.
+- **Voice:** music only by default. An optional single Del line goes on the carbon beat: "Fourteen. Then they're
+  gone." It quotes the live count, so it is used only if it is still 14 on posting day (Q6).
+- **End sting (optional, +1.5 s):** "Where's my 10 mm?" Del holds it up. The README's `del-eps-10mm-socket-gag.jpg`
+  is the reference frame.
 
 ## Music candidates (real tracks only: none generated, none reused)
 Tracks already used by other reels are excluded: the John Wick medley, M.O.O.N. "Paris", Sector Shift, the "Going Up
@@ -74,15 +96,15 @@ Times assume 120 BPM (1 beat = 0.5 s) and will be re-snapped to `ive beats`. Eve
 
 | # | Time | Dur | Beat | Camera | Subject | Source asset (exact) | Action | On-screen text (source) | Transition out | Render |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.0-2.0 | 2.0 | 1-4 | Forklift POV, 1.6 m, 24 mm, forks in the bottom of frame, slow push | Dark warehouse aisle: racking in satin grey, aisle lamps, Epsilon+ boxes. Del's teal glove on the wheel; Eps on the forks | Del & Eps (new build, `tools/mascots.py`, from the concept artifacts MyfYpve1ho7AhiTSzvRCFf / E2AUcUQJsG5a937FCorTQD). Warehouse: new `tools/warehouse_env.py` | The light banks snap on one per beat. Del and Eps scan in (a laser sweep from wireframe to their livery) on beats 2-3 | `BLACK FRIDAY` lit sign on the racking (in-world, no data) | cut on beat 4 | Blender Cycles |
-| 2 | 2.0-3.5 | 1.5 | 4-7 | Same POV; the pallet slides in and stops centre-frame | FG2 front lip on a pallet, with a hanging tag | `part_front_lip` in `eps-honda-civic-fg2-v10.glb` (CDN; sha256 a7094b28c397...; Drive zip 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), lookbook material | Eps sweeps it (blue laser; the lip washes violet). **The tag flips on beat 6** | `FG2 CIVIC FRONT LIP` / ~~$150~~ -> `$79.99` / `IN STOCK` (owner BF doc + Shopify stock > 0) | **hard 1:1 cut** on beat 8 | Blender Cycles; the tag is a 3D card textured from `store_snapshot.json` |
+| 1 | 0.0-2.0 | 2.0 | 1-4 | Forklift POV, 1.6 m, 24 mm, forks in the bottom of frame, slow push | Dark warehouse aisle, all silver/grey: racking, aisle lamps, Epsilon+ boxes. Del and Eps (the only colour) walk in from the side of frame | Del & Eps: Higgsfield plates from `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg`, composited. Warehouse: new `tools/warehouse_env.py` (silver look) | The light banks snap on one per beat. Eps raises the scanner on beat 3 | `BLACK FRIDAY` lit sign on the racking (in-world, no data) | cut on beat 4 | Blender Cycles + composite |
+| 2 | 2.0-3.5 | 1.5 | 4-7 | Same POV; the pallet slides in and stops centre-frame | FG2 front lip on a pallet, with a hanging tag | `part_front_lip` in `eps-honda-civic-fg2-v10.glb` (CDN; sha256 a7094b28c397...; Drive zip 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), silver | Eps (composited) sweeps it with a cyan beam. **The tag flips on beat 6** | `FG2 CIVIC FRONT LIP` / ~~$150~~ -> `$79.99` / `IN STOCK` (owner BF doc + Shopify stock > 0) | **hard 1:1 cut** on beat 8 | Blender Cycles; the tag is a 3D card textured from `store_snapshot.json` |
 | 3 | 3.5-4.5 | 1.0 | 8-9 | Locked to the lip framing, pull back 15 % | FG2 scan with the lip, house silver on black | `Civic FG2 Full Car (LQ).stl` 1-WqSI5VbZkXIp1tzoGuLibSjB0DC97YH + `FG2 Race Lip.stl` 1yJIGKWd53DhUMKKmkBHk1Z7wWz7wraqd (same frame) | Reveal the nose | none | cut on beat 10 | Cycles `--look silver` |
-| 4 | 4.5-6.0 | 1.5 | 10-12 | POV; the pallet enters from the left | Integra rear trunk lip, gloss black | `part_duckbill` (= trunk lip) in `eps-acura-integra-de-v29.glb` (sha256 4bc2e068a4c9...; ships `body_duckbill_stock`) | Del leans out and checks it with calipers (orange wash); the tag flips on beat 11 | `INTEGRA TRUNK LIP` / ~~$100~~ -> `$40` (owner doc) | hard 1:1 cut on beat 13 | Cycles |
-| 5 | 6.0-7.0 | 1.0 | 13-14 | Same lip framing, rear 3/4, 10 deg orbit | Integra lookbook CGI car with the trunk lip | `eps-acura-integra-de-v29.glb` (stock duckbill hidden), or the DE5 `eps-acura-integra-type-s-de5-v19.glb` (Q4) | Orbit | none | cut on beat 15 | Cycles |
+| 4 | 4.5-6.0 | 1.5 | 10-12 | POV; the pallet enters from the left | Integra rear trunk lip, gloss black | `part_duckbill` (= trunk lip) in `eps-acura-integra-de-v29.glb` (sha256 4bc2e068a4c9...; ships `body_duckbill_stock`) | Del runs a strip of masking tape across the lip (his tape roll); the tag flips on beat 11 | `INTEGRA TRUNK LIP` / ~~$100~~ -> `$40` (owner doc) | hard 1:1 cut on beat 13 | Cycles |
+| 5 | 6.0-7.0 | 1.0 | 13-14 | Same lip framing, rear 3/4, 10 deg orbit | Integra car (silver look) with the trunk lip | `eps-acura-integra-de-v29.glb` (stock duckbill hidden), or the DE5 `eps-acura-integra-type-s-de5-v19.glb` (Q4) | Orbit | none | cut on beat 15 | Cycles |
 | 6 | 7.0-8.5 | 1.5 | 15-17 | POV; the forks lift a pallet up into frame | WRX VB front lip | `WRX VB NBR Front Lip Uncut.stl` Drive 1FcMcvYcdXTIcdtiHf9ogIKp8fZKvcx7H (the VB GLB v12 has no lip part) | Eps sweeps it; the tag spins to its red clearance side on beat 16 | `WRX VB FRONT LIP` / ~~$99.99~~ -> `$79.99` (owner doc) | hard 1:1 cut on beat 18 | Cycles |
 | 7 | 8.5-9.5 | 1.0 | 18-19 | Same framing, front 3/4 low, push in 10 % | VB scan with the lip, silver | `Subaru WRX VB (2022+)/Scan Files/Full Car.stl` (1251 MB) + lip STL; clip check | Push in | none | cut on beat 20 | Cycles `--look silver` |
-| 8 | 9.5-11.5 | 2.0 | 20-23 | The POV brakes; tilt up to a top-shelf bay in a spotlight | GR Corolla V1 lips: a PU pallet and a short carbon stack | `part_front_lip` (V1 / Zenki; not `_v2` or `_2025`) in `eps-toyota-gr-corolla-v23.glb` (sha256 ee3643bea3d4...); a carbon material on a copy. Optional: the stack is 14 boxes | Del brakes hard and the forks dip. Both tags flip on beat 22 | `GR COROLLA V1 LIP` / PU ~~$215~~ -> `$129` / CARBON ~~$600~~ -> `$330` (owner doc; carbon pending Q1) | hard 1:1 cut on beat 24 | Cycles |
-| 9 | 11.5-14.0 | 2.5 | 24-28 | Same lip framing, then a pull back | GR Corolla full scan with the V1 lip (silver); Eps (micro mode, about 1:10) stands on the lip end | `Toyota Corolla Hatchback (E210)/GR Corolla/GR Corolla Full Car.stl` (836 MB) + the V1 lip in the GLB/CAD frame (stock lip zone cut, the kit_nest2 rule) | The lip lands on beat 25. Eps holds up 1 finger to camera | `ONLY 14 LEFT IN CARBON` (Shopify Carbon Fiber `inventoryQuantity`, re-read on the render and posting days), on black beside the car, not over it | cut on beat 29 | Cycles + Remotion text |
+| 8 | 9.5-11.5 | 2.0 | 20-23 | The POV brakes; tilt up to a top-shelf bay in a spotlight | GR Corolla V1 lips: a PU pallet and a short carbon stack | `part_front_lip` (V1 / Zenki; not `_v2` or `_2025`) in `eps-toyota-gr-corolla-v23.glb` (sha256 ee3643bea3d4...); a carbon material on a copy. Optional: the stack is 14 boxes | The forklift brakes hard and the forks dip. Del slaps a strip of tape on the carbon bay. Both tags flip on beat 22 | `GR COROLLA V1 LIP` / PU ~~$215~~ -> `$129` / CARBON ~~$600~~ -> `$330` (owner doc; carbon pending Q1) | hard 1:1 cut on beat 24 | Cycles |
+| 9 | 11.5-14.0 | 2.5 | 24-28 | Same lip framing, then a pull back | GR Corolla full scan with the V1 lip (silver); Eps in micro mode (about 1:10, composited) stands on the lip end | `Toyota Corolla Hatchback (E210)/GR Corolla/GR Corolla Full Car.stl` (836 MB) + the V1 lip in the GLB/CAD frame (stock lip zone cut, the kit_nest2 rule) | The lip lands on beat 25. Eps holds up 1 finger to camera | `ONLY 14 LEFT IN CARBON` (Shopify Carbon Fiber `inventoryQuantity`, re-read on the render and posting days), on black beside the car, not over it | cut on beat 29 | Cycles + Remotion text |
 | 10 | 14.0-16.0 | 2.0 | 29-32 | Static | Epsilon+ wordmark (about 720 px wide) + `EPSILON.PLUS` | Drive `EPSILON+ Logos/Epsilon+ Logo.png` 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | Wordmark in on beat 29 | `BLACK FRIDAY CLEARANCE` / `EPSILON.PLUS` (no dates until the window is set) | end, or the sting | Remotion |
 | 11 (optional) | 16.0-17.5 | 1.5 | 33-35 | Medium two-shot | Del & Eps by the forklift | Same build | 10 mm gag: Eps pats his pockets, and Del holds up the socket | none | end | Cycles |
 
@@ -91,7 +113,7 @@ Rules this plan keeps:
 - Every transformation is a hard cut on a beat.
 - No shot is reused.
 - Every price and count is from the owner doc and the live store, saved in a snapshot.
-- Kit parts keep their lookbook materials; scans stay as captured.
+- Scans and parts are silver, and the characters are the only colour (the locked Del & Eps rule). Scans stay as captured.
 - The Epsilon+ wordmark is used, not the Illumaesthetic logo.
 
 ## Asset inventory
@@ -106,7 +128,7 @@ Rules this plan keeps:
 | FG2 lip CAD + LQ scan | 1yJIGKWd53DhUMKKmkBHk1Z7wWz7wraqd / 1-WqSI5VbZkXIp1tzoGuLibSjB0DC97YH | **found** |
 | GR Corolla / VB / Integra Type S full-car scans | knowledge/car-inventory.md | **found** (not downloaded yet) |
 | GR Corolla V1 lip CAD fallback | Drive `Corolla V1 & V2 Lip Kit` 1-wEi9unNtRyXDMQlOsgNZWAE0IIhW685 | found |
-| Del & Eps | concept artifacts MyfYpve1ho7AhiTSzvRCFf (v0.1), E2AUcUQJsG5a937FCorTQD (v0.2 colour) | concept only; **model/rig missing, so it is built in this plan** |
+| Del & Eps | `knowledge/characters/del-and-eps/` (README + del-eps-model-sheet.jpg, 10mm-socket-gag.jpg), branch claude/clever-shannon-u8rv5l @ 4298535; Higgsfield refs bdb1a2e8 / 069f42d6 / e3315b11 / 85f40a22 | **found** (LOCKED look). The plates are generated per shot |
 | Warehouse footage | Dropbox search (warehouse / pallet / inventory / shelf): none. Unlabelled `/Footage Library/Videos/Shop & Builds/` and `*Unsorted Video Dump/China/` (Apr 2026) are not reviewed | **missing**; CGI planned |
 | Warehouse CGI environment | new `tools/warehouse_env.py` (following mr2 `city_env.py`) | to build |
 | Epsilon+ wordmark | 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | **found** |
@@ -122,8 +144,9 @@ Rules this plan keeps:
    also no carbon trunk-lip variant on the store, so I show only ABS $100 -> $40 unless you add it. Is
    `WRX VB NBR Front Lip Uncut.stl` the VB lip you sell?
 4. Show the trunk lip on the **DE4** lookbook car (v29) or the **DE5 Type S** car?
-5. **Del & Eps colour:** I've defaulted to **A, Team Livery**. OK? Building them (two characters under 15k tris, one
-   rig, scan-in effect) is the biggest job in this video. Is a Blender build OK?
+5. **Lip finish:** with the locked rule (the characters are the only colour), the lips render silver like the scans.
+   OK, or do you want them in gloss black / carbon for this sales ad? About 6 Higgsfield character plates are needed;
+   I'll quote the credits before generating.
 6. **Voice:** music only, or Del's one line ("Fourteen. Then it's gone.")? Should the 10 mm end sting go in (+1.5 s)?
 7. **Warehouse:** is a CGI warehouse OK? If you'd rather film a pass down real racks, price tags over that footage would
    break the no-text-over-IRL rule, so please say explicitly if you want that for this ad.
@@ -133,9 +156,10 @@ Rules this plan keeps:
 1. `ive log` the answers. Snapshot the Shopify prices, compare-at prices and inventory, plus the BF prices, into
    `projects/bf-clearance-shelf-drop/store_snapshot.json`. The tag textures are built only from it.
 2. Music: `ive beats` (kick-anchored). Re-snap the shot table.
-3. Build Del & Eps: Blender procedural build, one shared rig, a scan-in shader, Team Livery A, and the actions point /
-   hold / drive / sweep. Use the Pip & Gus pipeline as the technical precedent only. Turntable check before animating.
-4. Build the warehouse env + forklift. Import the lips from the GLBs/CAD with lookbook materials. Make the tag cards and
+3. Del & Eps plates: Higgsfield GPT Image 2.6 (+ short image-to-video where they move), with the model sheet as the
+   reference element. Quote the credits first. Remove the backgrounds, match each plate to its render camera, and
+   add contact shadows in Blender. Check each plate against the sheet: Eps's cap backwards, Del's short boxed beard.
+4. Build the warehouse env + forklift. Import the lips from the GLBs/CAD in the silver look (lookbook materials only if Q5 says so). Make the tag cards and
    the flip animation.
 5. Render the shelf shots (2, 4, 6, 8) and keep each lip's camera. Render the 1:1 car shots (3, 5, 7, 9) from the same
    cameras. Place each lip from its design frame, cut the stock zone, and run a clip check. Renders go in the
