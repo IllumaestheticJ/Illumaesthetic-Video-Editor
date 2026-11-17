@@ -49,7 +49,6 @@ The script carries only these four trade-offs, plus "run a few at once", which f
 | 10 | GUS | "Depends on the part. We run both." | Gus nudges the big bumper skins toward the big printer and the detailed bits (vent fins, mounting tabs) toward the small one. | |
 | 11 | PIP | "Wait. Illumaesthetic's big one is HUGE." | Pip pulls out the phone; the screen plays the real big printer (phone hand-off). | |
 | 12 | GUS | "…Show-off." | Gus leans in, deadpan; the camera pushes into the phone until it fills the frame. | |
-
 | 13 | PIP (voice only, over the logo card) | "Printer's ready. What do we load in it?" | No new text on the card. Leads into Ep 8 (materials), which opens on the printer waiting for filament. | |
 
 About 62 words in the cartoon (lines 1-12), which runs about 26 s. Line 13 is recorded in the same dialogue call.
