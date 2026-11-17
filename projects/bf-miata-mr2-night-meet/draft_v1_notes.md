@@ -84,3 +84,8 @@ Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14
 - Bug fixed: text was drawn straight onto opaque frames, so fades were ignored (labels popped on; the URL stayed while the
   wordmark faded). Text now goes on a transparent layer (`post.py` Layer).
 - Length is now 42.5 s (was 28 s) because of the longer holds.
+
+## Fonts (owner rule, knowledge/fonts.md), wired into tools/post.py for v1.6
+Headlines, offers, prices, part names: Akira if `assets/fonts/akira/` has the file, else Unbounded 800/900 stand-in (Akira
+not supplied yet). Small lines and the price table: Unbounded 500. URL under the wordmark: Unbounded 400. Preview stills only;
+no new export yet (waiting on the length decision).
