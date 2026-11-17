@@ -408,7 +408,7 @@ def aisle():
     bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
     t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 1.0
     try:
-        t.data.font = bpy.data.fonts.load("/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-700.ttf")  # Akira stand-in (knowledge/fonts.md)
+        t.data.font = bpy.data.fonts.load("/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-800.ttf")  # Akira stand-in (knowledge/fonts.md)
     except Exception:
         pass
     em = mat("sign", (1, 1, 1), emit=(1, 1, 1), estr=0.0)
