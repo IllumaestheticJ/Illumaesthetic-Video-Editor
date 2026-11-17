@@ -1,4 +1,6 @@
-# Pip & Gus Ep 1: "Why do we spray the windows white?" (how structured-light scanners work)
+# Pip & Gus Ep 2 (was Ep 1): "Why do we spray the windows white?" (how structured-light scanners work)
+
+> **Series v0.4 (2026-11-17):** this is now **Ep 2** (step "scan"), after Ep 1 "Why can't I just print the bumper I want?" and before Ep 3 (AESUB). Folder and branch keep their ep1 names. Proposed transition changes are under "Series v0.4 transition (pending owner)" below; the approved v2 script and voice take are unchanged until the owner decides.
 
 **Status:** v2 APPROVED by the owner (2026-11-17), with lines 10a/10b and the Civic EK footage.
 Source draft: `projects/pip-gus-series/scripts.md` "Ep 1" (v0.2). 9:16, 1080x1920, 30 fps.
@@ -65,3 +67,13 @@ Proposed: **Honda Civic EK** (Dropbox `Civic 3D Scanning Short`, Oct 2025). It a
 - Optional 10a/10b add the tracking pattern (owner answer 3); it adds about 4 s.
 - Ending: an audience-question card replaces the teaser card (owner answer 5).
 - Footage: Civic EK instead of the IS350 (owner answer 4).
+
+## Series v0.4 transition (pending owner, 2026-11-17)
+Relayed from the series session: open with the callback "We scan the car." (Gus wheels the scanner to the car for Pip's
+bumper); end with Pip over the logo card, voice only: "Does that spray stay on forever?" (leads into Ep 3, AESUB).
+Conflicts to resolve with the owner:
+- The owner asked this episode to end by asking the audience what they use ("WHAT DO YOU SPRAY WITH?" card + Pip's line),
+  and the approved take already ends on "Does it come off?" / "...Depends on the spray." (the AESUB setup).
+- The relay says "the black car"; the episode's lesson is that only glass, chrome, black trim and badges get sprayed, and the
+  series' cartoon sedan is blue. A black body would change most shots.
+- Any new line needs a short extra voice generation (about 1 credit) in the same voices.
