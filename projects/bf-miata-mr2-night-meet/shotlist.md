@@ -76,7 +76,7 @@ The characters never sit inside a part's path, and their hands touch real surfac
 | Real MR2 at night (shop, not a lot) | found | Dropbox `MR2 HARDTOP` dump, DJI_20250715210710_0030 + FX30633-649 (Jul 15 2025, 21:06-21:43) - shop interior with crew, so it does not fit "parking-lot meet" |
 | Real NC footage | found, not night | `2026-08-05 Pink NC Miata` (6-7:23 PM); `4. Photoshoots/NC Miata/` stills |
 | Style reference | found | Dropbox `/5. Claude Training/Good Reels (Epsilon)/NFSU2 car lot - 1440p.mp4` (ihAynaYnO_4AAAAAAACHHQ) |
-| Epsilon characters **Del & Eps** | found: locked reference (the JPG sheet is not committed yet; the parent asked its author to add it) | `knowledge/characters/del-and-eps/` on `claude/clever-shannon-u8rv5l`: del-eps-model-sheet.jpg (the reference), del-eps-10mm-socket-gag.jpg, del-eps-install-drill-template.jpg; Higgsfield GPT Image 2.6 jobs bdb1a2e8, 069f42d6, e3315b11, 85f40a22 |
+| Epsilon characters **Del & Eps** | found: locked reference sheet + 3 frames | `knowledge/characters/del-and-eps/` (on this branch since 46e523b): del-eps-model-sheet.jpg (THE reference), del-eps-10mm-socket-gag.jpg, del-eps-install-drill-template.jpg; Higgsfield GPT Image 2.6 jobs bdb1a2e8, 069f42d6, e3315b11, 85f40a22 |
 | Epsilon+ wordmark | found | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) |
 | Music | **to request** | see candidates |
 | BF tiers | found | owner's doc via `MASCOT_AND_PRICES.md` (artifact 29kGfJ2WPdSAg5QpezXfva): 20 % = MR2 parts + NC bumper/fenders/skirts/spats/canards; MR2 front bumper NOT on sale; sale dates not set |
