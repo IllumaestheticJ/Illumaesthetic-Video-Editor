@@ -5,16 +5,16 @@ family-friendly and in 3D. Own outfits only - no bandage face / red round goggle
 
 ## Shared build (every character)
 - Light-grey egg-shaped head on a light-grey rounded pill/capsule body, matte vinyl-toy material.
-- **NO ARMS, NO SHOULDERS.** Clothing is a straight tube (no sleeves, sleeve stubs or shoulder bulges). Two rounded mitten hands float clearly detached (about one hand-width gap).
+- **NO ARMS, NO SHOULDERS.** Clothing is a straight tube (no sleeves, sleeve stubs or shoulder bulges). Two rounded mitten hands float clearly detached (about 0.8 hand-width gap since v7).
 - Two dark-grey stubby rounded feet, no legs.
 - **Face: two small black dot eyes, nothing else** (no crosshair, no mouth). Owner removed the crosshair.
 - Palette: greyscale + sage green #619f73 only (brand accent). No text/logos on clothes.
 
 ## Gus (dad, voice Bob)
-Tall. Welding goggles with sage lenses pushed up on head; sleeveless charcoal work vest with pockets.
+Tallest of the two (~1.5 m to the top of the head since v7). Welding goggles with sage lenses pushed up on head; sleeveless charcoal work vest with pockets.
 
 ## Pip (kid, voice Kiki)
-About half Gus's height. Backwards dark-grey cap; sleeveless oversized sage hoodie, white drawstrings;
+Noticeably smaller than Gus (~1.1 m, about 70 % of his height since v7). Backwards dark-grey cap; sleeveless oversized sage hoodie, white drawstrings;
 small handheld 3D scanner.
 
 ## Extras (from the lineup, optional)
@@ -54,3 +54,10 @@ Brows were removed (they read as a second pair of eyes). Expressions come from t
 tilted inner-down (annoyed / weary), cut tilted inner-up (worried / frustrated), lines (squeezed), ^ ^ arcs (excited), 1.15x
 (curious), 1.3x pop (surprised); one D-cut + one round = skeptical; tilted cuts take at least 40 % of the dot and the shaped
 eyes scale 1.1x so they read at phone size.
+
+## Proportions (owner pick 2026-11-16: concept row 3, from v7 on)
+Halfway between "a little closer" and the Madness-grunt look (preview/proportion_concepts.jpg, row 3):
+- Rounder head (height -6 %, width +6 % vs v6), egg taper -0.091 (was -0.13); eyes sit a little lower on the face.
+- Short torso: about 1.1 head-heights from hips to neck (Gus neck 0.80 m, was 1.13 m; Pip 0.52 m, was 0.61 m).
+- Body 15 % wider, hips 1.5x higher, feet 18 % bigger, hands slightly closer to the body (gap x0.78).
+- Hands, eyes, clothes, nametags, palette unchanged. Canonical numbers: GUS_SPEC / PIP_SPEC in tools/partA_scene.py.
