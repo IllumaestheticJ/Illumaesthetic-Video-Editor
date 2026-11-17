@@ -1,0 +1,48 @@
+# BF5 clearance-shelf-drop: draft v0 notes
+
+v0 was rendered on 2026-11-17 because the parent session relayed the owner's request "have all the agents make a quick
+short first draft". It is a preview: the plan (shotlist.md v4) still needs the owner's sign-off for the final.
+
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.mp4` (media is not committed).
+- Build:
+  - shots: `tools/shots_v0.py` (EEVEE, 40 % res, every 2nd frame doubled to 30 fps), run through `tools/render_v0.sh`;
+  - edit: `tools/assemble_v0.py`;
+  - price tags: `tools/tags.py`, from `store_snapshot.json`;
+  - placeholder characters: `tools/cutouts.py`.
+
+## Assumptions and defaults (every one is open for the owner to change)
+1. **Lips:** only the two most popular, the GR Corolla V1 front lip (31 sold in 12 months) and the Integra rear trunk
+   lip (16), per the owner's "only focus on the most popular lips". The FG2 and VB lips are left out.
+2. **Prices** come from the liquidation sheet / `projects/_blackfriday/PRICES.md`:
+   - Integra trunk lip: ABS $100 -> $40, carbon $240 -> $96.
+   - GR V1 lip: PU $215 -> $129, carbon $600 -> $330.
+   - There is no "was" from the old compare-at prices, and no dates.
+3. **Stock line:** "ONLY 14 LEFT IN CARBON" on the GR Corolla car shot.
+   - Kept because the owner's concept asks for real "only X left" counts, and the owner only excluded backordered parts.
+   - This is against PRICES.md's default (no counts unless the owner asks), and I've asked the owner. Removing it is a
+     one-line overlay change.
+   - The integra trunk lip (backordered) has no stock line.
+4. **Del & Eps are PLACEHOLDERS:** flat cutouts from `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg`,
+   stood up as billboards, and marked on screen as "v0 DRAFT - placeholder characters".
+   - No Higgsfield credits were spent for v0. Generating real plates waits for the owner's OK on credits.
+5. **Car shots** use the website lookbook GLBs in the house silver, not the engineering scans: `eps-acura-integra-de-v29`
+   (DE4, stock duckbill hidden) and `eps-toyota-gr-corolla-v23` (V1 `part_front_lip`).
+   - The GR Corolla full-car scan wasn't reachable from this session's Drive search, so the scan goes in for v1.
+   - The car meshes are decimated to 500k tris for preview speed.
+6. **Lips are silver**, like everything except the characters (the locked Del & Eps colour rule).
+7. **Warehouse:** a CGI aisle (racking, boxes, pallets, lamp banks), dark and monochrome. The owner OK'd CGI.
+8. **The 1:1 cuts** (shelf -> car) use one rigid transform per lip: the lip on the pallet has the same world matrix as on
+   its car, and the car shot starts from the shelf shot's last camera.
+9. **Music:** "LUXURY" by Baby thug (TikTok Commercial Music Library preview file, 107 s, full length), from 0 s.
+   - 99.4 BPM, so a bar is 2.44 s. Cuts are on the bar kicks (2.56 / 5.00 / 7.44 / 9.88 / 12.32 s), and the tag flips
+     are on the snares (3.11 / 8.01 s).
+   - Claimed in `projects/_blackfriday/MUSIC.md`.
+10. **Text and voice:** music only, with no voice line and no 10 mm sting.
+    - The end card is the Epsilon+ wordmark (720 px) + "BLACK FRIDAY CLEARANCE" / "EPSILON.PLUS".
+    - The overlays are PIL images standing in for the Remotion layer.
+11. **Length:** 15.0 s (5 shots + the end card).
+
+## Known v0 shortcomings (for v1)
+- The character billboards are flat with keying fringes. Generated plates with contact shadows replace them.
+- Scan lines on the lip, the Eps sweep and the tag flip are simple. There are no shadows under the billboards.
+- Preview resolution (432x768 upscaled) and EEVEE on a CPU, so expect softness and noise.
