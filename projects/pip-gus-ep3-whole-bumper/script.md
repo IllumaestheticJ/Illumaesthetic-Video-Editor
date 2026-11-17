@@ -1,7 +1,7 @@
-# Pip & Gus Ep 3: "Why can't I just print the bumper I want?" (script v3, owner answers applied)
+# Pip & Gus Ep 3: "Why can't I just print the bumper I want?" (script v4, APPROVED by owner 2026-11-17)
 
 Owner brief (2026-11-16): make people realise a custom bumper they design and print usually still costs more than just buying one.
-9:16, 1080x1920, 30 fps. Estimate: cartoon ~31-33 s, real footage ~4-5 s, teaser card ~3 s, logo card ~2 s = ~41-43 s.
+9:16, 1080x1920, 30 fps. Estimate: cartoon ~31-33 s, real footage ~4-5 s, teaser card ~3 s, logo card ~2 s = ~45 s.
 
 **Spine:** a running "bill" on the cartoon wall. Each step Gus names adds a picture to it. The only numbers on it are the
 owner's: **6-7 KG** of filament and **~$200** (owner, 2026-11-16: "a bumper is usually 6-7 kg of filament, so $200 for a nice
@@ -20,9 +20,11 @@ material"). By line 11 the bill reaches the floor.
 | 9 | PIP | "Is it done yet?" | Pip coughing out of the dust, grey. | - |
 | 10 | GUS | "...No. And it's heavier. And weaker." | The bumper thumps onto a scale that sags; then a curb taps it and it cracks along a glue seam. | weight, cracked seam |
 | 11 | PIP | "...So buying one is cheaper?" | Pip stares at the bill, which now reaches the floor. | (floor) |
-| 12 | GUS | "...Usually. But if you insist..." | Gus floats his phone up to Pip; the screen plays the real SeamForge clip. Push in until it fills the frame; hard cut on the beat. | - |
+| 12 | GUS | "...Usually. Unless it's discontinued... or you're making them to sell." | A cartoon catalog page gets a big DISCONTINUED stamp; then a row of identical bumpers slides off a mold. | - |
+| 13 | GUS | "If you insist..." | Gus floats his phone up to Pip; the screen plays the real SeamForge clip. Push in until it fills the frame; hard cut on the beat. | - |
 
-~75 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 31-33 s.
+~85 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 35-37 s (total ~45 s).
+Line 12 = owner's exceptions (2026-11-17): printing is worth it when the bumper is discontinued, or when you make bumpers to sell in production.
 
 **Real footage (~4-5 s, no text, no voice):** SeamForge (owner OK, 2026-11-16), `2026-08-23 13-35-22.mp4` ~5:20-5:56: the bumper's
 coloured pieces packed across many build plates, re-framed to 9:16. Not presented as SeamForge's feature tour (that is Ep 4).
