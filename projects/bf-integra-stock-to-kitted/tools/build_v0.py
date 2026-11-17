@@ -53,7 +53,7 @@ WHITE = (255, 255, 255)
 
 # v0.9 owner font rule (knowledge/fonts.md): Akira for headlines/offers, Unbounded beside the logo. The Akira file is not
 # available yet, so Unbounded 900 (OFL, Google Fonts) stands in for it - swap FONT_HEAD when the owner supplies Akira.
-FONT_HEAD = os.path.join(M, "fonts/Unbounded-900.ttf")
+FONT_HEAD = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-900.ttf"  # repo copy (e15b34b)
 UNB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-{}.ttf"
 FONT_BF = FONT_HEAD
 TILT, PULSE, DECAY = 12, 0.13, 0.22   # degrees CCW; peak extra scale on a hit; seconds back to rest
