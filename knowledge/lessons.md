@@ -715,4 +715,5 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[structure]** Videos do not need to link to a YouTube video: the 'FULL VIDEO ON OUR CHANNEL' teaser card is optional, use it only when a matching full video exists  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
 
-- **[audio]** AESUB is pronounced AY-EEE-Sub (respell it for TTS; captions keep AESUB)  _(from pip-gus-ep9-aesub, 2026-11-16, owner)_
+- **[structure]** A call to action is not required. 'SCANS AVAILABLE AT ILLUMAESTHETIC.COM' only gets added when relevant (e.g. the video is about a scan we sell); the logo card can stand alone  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
+- **[audio]** AESUB is pronounced AY-EEE-Sub (respell it for TTS; captions keep AESUB)  _(from pip-gus-ep2-aesub, 2026-11-16, owner)_

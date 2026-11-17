@@ -428,7 +428,7 @@ def anim_S2(fr):
     pm, plid = talk("PIP", t)
     pose(PIP, loc=(0.95, -2.45, 0), rz=-30, head=(-26 + 10 * g, 0, 0), mouth=pm, lid=plid, look=(-0.7, lerp(1, -0.2, g)),
          brow=(0.03, -14), armL=(-20, 0, 10), armR=(-20, 0, -10))
-    look(cam, (0.95, -5.0, 1.55), (0.3, -1.7, 1.55), 34)
+    look(cam, (0.95, -5.0, 1.3), (0.3, -1.7, 1.27), 34)   # v7: Gus 34 cm shorter
 
 
 S3_STATE = {}
@@ -678,7 +678,7 @@ def anim_S8(fr):
     L9 = LN[9]
     m, lid = talk("PIP", t, lerp(0.4, 0.6, ease((t - L9["t1"]) / 0.3)))
     side = ease((t - L9["t0"] + 0.05) / 0.15) * (1 - ease((t - L9["t1"] - 0.15) / 0.3))   # glance toward GUS's "No."
-    pose(PIP, loc=(-3.7, 2.68, 0.565), rz=-6, hips=(lerp(14, 28, ease(u)), 0, 0), head=(lerp(4, 14, ease(u)), 0, -8 + 14 * side),
+    pose(PIP, loc=(-3.7, 2.68, 0.5425), rz=-6, hips=(lerp(14, 28, ease(u)), 0, 0), head=(lerp(4, 14, ease(u)), 0, -8 + 14 * side),
          armL=(-38, 0, 14), elbowL=-50, armR=(-38, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=m, lid=lid,
          look=lerpv((0.3, 1), (1, 0.2), side), brow=(-0.005, -8))
     temp(make_dots("dots", []))
@@ -710,7 +710,7 @@ def anim_S9(fr):
     set_vis(STOOL, True)
     STOOL.location = (2.05, -2.6, 0)
     pm, plid = talk("PIP", t, 0.55)
-    pose(PIP, loc=(2.05, -2.58, 0.565), rz=-25, hips=(22, 0, 0), head=(10, 0, 18), armL=(-40, 0, 14), elbowL=-50,
+    pose(PIP, loc=(2.05, -2.58, 0.5425), rz=-25, hips=(22, 0, 0), head=(10, 0, 18), armL=(-40, 0, 14), elbowL=-50,
          armR=(-40, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=pm, lid=plid, look=(-1, 0.2), brow=(-0.005, -8))
     look(cam, (2.4, -5.9, 1.55), (0.95, -1.25, 0.95), 28)
 
