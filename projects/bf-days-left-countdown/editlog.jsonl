@@ -1,0 +1,5 @@
+{"ts": "2026-11-17T04:22:17Z", "decision": "Template: only the numeral (Blender text) and the line under it change per day; characters, plate, music shared", "why": "Owner wants X days left re-rendered per day; keeping per-day work to one light render keeps it cheap and the number exact"}
+{"ts": "2026-11-17T04:22:17Z", "decision": "days_left computed from sale_end - post_date in America/Los_Angeles; 0 = LAST DAY, 1 = DAY LEFT", "why": "Countdown must be correct for the day posted; typed numbers drift"}
+{"ts": "2026-11-17T04:22:17Z", "decision": "Numeral is Blender geometry, never in AI prompts/frames", "why": "AI image/video models draw digits unreliably; never invent on-screen numbers"}
+{"ts": "2026-11-17T04:22:17Z", "decision": "Del taps his tape roll instead of a watch", "why": "Locked model sheet has no watch; don't alter the locked look without the owner's OK (asked as Q6)"}
+{"ts": "2026-11-17T04:22:17Z", "decision": "Music: provisional claim DJ EV BLACK FRIDAY (CML 7419416839039518737)", "why": "All /Moosic tracks already used by other reels; this one is unused in repo and MUSIC.md"}
