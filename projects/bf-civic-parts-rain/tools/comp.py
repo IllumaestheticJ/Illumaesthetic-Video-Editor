@@ -4,8 +4,8 @@ encode with the music. Text only over scan/CGI/black (never over the IRL flash).
     python comp.py [--check]   -> /home/user/media/work/out/bf-civic-parts-rain_v0.mp4
 Timeline (frames @30, music from the song start; cut times = measured onset peaks of the decoded track, see editlog):
   0-487   take (scan + rain + Ron's parts seating: lip 329, skirts 371, rear lip 435, wing 466)
-  488-497 IRL flash (real installed front lip, clip 'Video Jun 16 2026, 7 54 08 PM.mov' 0.00-0.33 s, HLG->SDR hable)
-  498-593 Ron's render 7, hard 1:1 cut, gentle zoom OUT (no push-in)
+  (v0.2: the IRL badge flash is cut - owner)
+  488-593 Ron's render 7, hard 1:1 cut, gentle zoom OUT (no push-in)
   594-646 4a lookbook FE (Rallye Red), 647-693 4b lookbook FL (Boost Blue); offer text over both
   694-794 Epsilon+ wordmark (720 px) + 'SHOP DEALS NOW · WWW.EPSILON.PLUS' ; fade 780-794 (owner 2026-11-17: no Del & Eps - typical Epsilon+ branding only)
 """
@@ -14,9 +14,9 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = "/home/user/media/bf-civic-parts-rain"; OUTD = f"{M}/comp"; os.makedirs(OUTD, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.mp4"
+FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.2.mp4"
 W, H = 1080, 1920
-F_LIP, F_SKIRT, F_REAR, F_WING, F_FLASH, F_R7, F_4A, F_4B, F_END, F_CTA, N = 329, 371, 435, 466, 488, 498, 594, 647, 694, 711, 795
+F_LIP, F_SKIRT, F_REAR, F_WING, F_FLASH, F_R7, F_4A, F_4B, F_END, F_CTA, N = 329, 371, 435, 466, 488, 488, 594, 647, 694, 711, 795  # v0.2: badge flash cut (owner); 1:1 cut to render 7 at 16.25 s
 F_CH_IN, F_CH_OUT = 169, 300
 OFF = (232, 236, 242)
 ID_B = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"; ID_M = "/usr/share/fonts/opentype/inter/InterDisplay-Medium.otf"

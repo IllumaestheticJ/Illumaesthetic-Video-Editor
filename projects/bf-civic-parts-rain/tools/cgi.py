@@ -48,21 +48,17 @@ for f, az in ((0, az0), (N - 1, az1)):
     cam.location = campos(az); cam.rotation_euler = (look - cam.location).to_track_quat("-Z", "Y").to_euler()
     cam.keyframe_insert("location", frame=f); cam.keyframe_insert("rotation_euler", frame=f)
 cam_d.shift_y = 0.24   # (+ = image content moves DOWN) car low in frame: the offer text sits in the black above it
-camdir = (cen - campos((az0 + az1) / 2)).normalized(); camdir.z = 0
-rng = random.Random(3)
-for i in range(14):
-    src = parts[i % len(parts)]
-    ob = src.copy(); ob.data = src.data; sc.collection.objects.link(ob); ob.hide_render = False
-    while True:
-        p = Vector((rng.uniform(-6, 6), rng.uniform(-6, 6), 0))
-        if p.dot(camdir) > 2.6 and abs(p.cross(camdir).z) < 5.5:   # behind the car only
-            break
-    per = rng.uniform(2.8, 4.0); ph = rng.uniform(0, per); spin = Vector((rng.uniform(-1, 1), rng.uniform(-1, 1), rng.uniform(-2, 2)))
-    for f in range(0, N + 3, 3):
-        t = f / 30; u = ((t + ph) % per) / per
-        ob.location = (p.x, p.y, 3.4 - 7 * u)   # stays under the offer text
-        ob.rotation_euler = (0.7 * math.sin(3 * t + i) + spin.x * t * .3, 0.7 * math.cos(2.6 * t + i) + spin.y * t * .3, spin.z * t)
-        ob.keyframe_insert("location", frame=f); ob.keyframe_insert("rotation_euler", frame=f)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import rain  # noqa: E402  (v0.2 screen-space rain: no part crosses a frame edge or pops in/out on screen)
+srcs = []
+for o in parts:   # the same part meshes; origin moved to their centre on copies of the data
+    me = o.data.copy(); c = sum((v.co for v in me.vertices), Vector()) / len(me.vertices)
+    for v in me.vertices: v.co -= c
+    srcs.append(me)
+sc.render.resolution_x, sc.render.resolution_y = 1080, 1920
+n_rain = rain.build(sc, srcs, int(arg("--rain", "12")), N - 1, depth=(9.0, 15.0), xr=0.6,
+                    keep_out=((-2.1, -3.4, -1.0), (2.1, 3.4, 2.5)), seed=3 if CAR == "fe" else 5, prefix="prain")
+print("RAIN parts", n_rain)
 sr.studio_world((0.004, 0.004, 0.005, 1), False)
 root = bpy.data.objects.new("C", None); sc.collection.objects.link(root); root.location = cen
 def light(n, loc, e, size, col=(1, 1, 1)):
