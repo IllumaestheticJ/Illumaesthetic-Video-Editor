@@ -30,9 +30,9 @@ combo saves only $5 on buying the two separately. The pitch therefore compares a
 as the owner wrote it.
 
 ## Music candidates (real tracks from Dropbox /Moosic, not used by any reel in projects/*)
-1. Lil Jon ft. The Eastside Boyz, "Get Low" (NFSU OST), Dropbox id:ihAynaYnO_4AAAAAAACRvA (mp4; extract the audio). Punchy and recognisable, with a big hit for the drop at the 1:1 cut.
-2. Juiced OST 23, Way Out West, "Killa", id:ihAynaYnO_4AAAAAAACRvw.
-3. Gran Turismo 2, "Arcade Mode Theme", id:ihAynaYnO_4AAAAAAACRvg.
+1. **Claimed in projects/_blackfriday/MUSIC.md:** Lil Jon ft. The Eastside Boyz, "Get Low" (NFSU OST), Dropbox id:ihAynaYnO_4AAAAAAACRvA (mp4; extract the audio). Punchy and recognisable, with a big hit for the drop at the 1:1 cut.
+2. Backup: Juiced OST 23, Way Out West, "Killa", id:ihAynaYnO_4AAAAAAACRvw.
+(GT2 "Arcade Mode Theme" went to BF 4.)
 Start at the song's beginning. Mix at -14 LUFS with true peak below -1 dBFS. The 8 BF sessions draw from the same folder,
 so the parent should confirm no other BF video takes the same track.
 
@@ -93,7 +93,7 @@ itself. Shot 5 becomes a 1:1 cut from the last unboxing frame (the wing in the h
 6. **Character approval gate:** I'll render a turnaround still of both characters for your OK before any animation, the
    same way Pip & Gus were approved. OK?
 7. **Claim text** on the scan shot (e.g. "designed on a 3D scan of the Integra")? Default: none.
-8. **Music:** pick one of the three candidates, or supply a track.
+8. **Music:** "Get Low" (claimed) is the default; say if you want "Killa" or your own track.
 
 ## Production steps (after approval)
 1. `ive log` each approved decision. `ive fetch-drive` the scan, wing scan and CAD into /home/user/media/bf-integra-385-combo/.
