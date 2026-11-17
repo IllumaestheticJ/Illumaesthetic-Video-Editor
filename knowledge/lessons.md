@@ -1387,3 +1387,6 @@ lands here automatically. Agents must read this whole file before editing.
   Logo.png", white on transparent) above the part name. Wheel swaps are shown as an install: old wheel straight out
   along its axle then away, bare hub beat, new wheel in along the axle and seat. A livery goes on base-coat first (soft
   sweep), then graphics (taped strips) - never a hard cut-in.
+
+## Standing rule: social safe zones (owner, 2026-11-17)
+- **[framing] RULE (owner, all reels):** no text or key elements in the app UI zones: the bottom (caption/comments/CTA), the right action rail (like/comment/share), the top tabs, or outside the 4:5 home-feed crop ("the slight crop when going from home page to full screen"). Text, prices and logos stay inside x 48-920 / y 285-1440 of 1080x1920. Spec: `knowledge/safe-zones.md`. Check every delivery with `python scripts/safezone_check.py out.mp4` and look at the sheet; the old 240SX end card (URL at y≈1700) would fail.
