@@ -8,3 +8,4 @@
 {"ts": "2026-11-17T02:47:55Z", "decision": "MR2 1:1 cut now lands the side skirt/fender combo, not the front bumper", "why": "Owner's BF doc: MR2 front bumper is NOT on sale"}
 {"ts": "2026-11-17T02:47:55Z", "decision": "Card lists the 20% tier parts; wording 'Fiberglass 20% off' flagged", "why": "Tier includes ABS duckbill and excludes the FRP MR2 bumper; also doc excludes backorder while all these parts are made to order"}
 {"ts": "2026-11-17T02:49:35Z", "decision": "Claimed CML 'Tokyo Midnight' (ChilliZone) provisionally in MUSIC.md", "why": "Each BF video needs a unique track; every night-mood /Moosic track is already used; CML is licensed for ads"}
+{"ts": "2026-11-17T02:56:28Z", "decision": "Del & Eps moved to silver scan shots only (2, 8, 10); production = Higgsfield with model sheet ref, composited over scan renders", "why": "Owner locked look (knowledge/characters/del-and-eps): characters are the only colour in frame, cars stay silver scans"}
