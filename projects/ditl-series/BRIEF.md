@@ -206,3 +206,4 @@ anything stock-related goes in the video.
   TC wing comes out clean, he installs it, and it's the only straight panel on the car. A friend: "is that... real?"
   He shields the wing with both arms. End.
 - Voice note (WRX, 2026-11-17): the preset voice "Cody" fails on Higgsfield `elevenlabs_v4` (refunded); it works only on Seed Audio, which has no emotion tags. Check a voice works on v4 before building a dialogue take around it.
+- **Style study (read it):** `projects/ditl-wrx-vb/style-study.md`. In short: flat-colour blocky bodies; 2D ink-drawn face decals swapped every 0.2-0.5 s; POV hands and props are photographed real cut-outs, not 3D; screens are real screenshots; photo-textured box sets; strong colour banding; scenes end on a slow push-in to a horror face; audio is a fast, constant, improvised-sounding real voice, not clean slow TTS.
