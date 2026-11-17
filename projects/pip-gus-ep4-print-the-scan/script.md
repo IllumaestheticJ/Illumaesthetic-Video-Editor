@@ -63,16 +63,19 @@ Media (not committed): `/home/user/media/pip-gus-ep4-print-the-scan/photos/IMG_0
 |---|---|---|
 | 1 | IMG_0763 (or 0764), photo | the crash: front bumper torn off |
 | 2 | IMG_0770, photo | scanning the stripped front end (bumper off) |
-| 3 | **hard 1:1 cut on the beat** -> render of `GT350 (DONE) Bumper Off Hood Closed.stl` from IMG_0770's solved camera | the same car, same framing, now the scan |
-| 4 | render, same camera, slow push | the reverse-engineered bumper slides onto the scan (remake the original) |
-| 5 | render, three-quarter low (like IMG_0776) | the lip slides on under it and hugs the curve (design a new part on it) |
+| 3 | **hard 1:1 cut on the beat** -> render of `GT350 (DONE) Bumper Off Hood Closed.stl` from IMG_0770's solved camera, in the owner's Blender look | the same car, same framing, now the scan |
+| 4 | owner's Blender view IMG_0774 (green bumper on the scan) | the reverse-engineered bumper on the scan (remake the original) |
+| 5 | owner's Blender views IMG_0776 -> IMG_0775 (tan lip on the scan) | a new lip designed on the scan, hugging the curve (design a new part on it) |
 
 - One shot per beat (about 1 s each), hard cuts on the beat. No dissolves and no text.
 - The 1:1 cut uses the *bumper-off* scan state, which is what IMG_0770 shows, so car and scan match exactly.
-- **Held back for the Ep 9 finale:** the printed bumper fitted on the car (IMG_0765/0767), and the 46-piece print split on the Drive
-  (`Bumper/Slice Test`). This episode stops at the design, so it doesn't spoil the series ending (Q9).
-- Scan look: re-rendered from the Drive files in the house silver, with the bumper and lip as separate parts. The owner's lavender/tan
-  viewer screenshots (IMG_0774-0781) are only the reference for which views to render.
+- **Not in this episode (owner 2026-11-17: "not the final photos"):** the printed bumper fitted on the car (IMG_0765/0766/0767). Those, and
+  the 46-piece print split on the Drive (`Bumper/Slice Test`), are kept for the Ep 9 finale. This episode stops at the design.
+- Scan look (owner 2026-11-17: "you can use the GT350 Blender photos in here"): the scan beats are the owner's own Blender views
+  (lavender scan, green bumper, tan lip) instead of the house silver. The screenshots are small landscape images (1115-1457 px wide,
+  about 400 px in a 9:16 crop), so each view is re-created at full resolution in the same Blender look from the Drive files, matching
+  the screenshot's angle. The screenshot itself is the fallback. Beat 3's 1:1 render uses the same look so beats 3-5 match.
+- Still excluded: IMG_0779-0781 (viewer toolbars, mm labels).
 - Owner OK'd showing the crash photos and the person scanning (2026-11-17). Still blur any readable plates.
 - Resolution: only beats 1-2 are photos (1440x1080, about 600 px wide in a 9:16 crop). The full set is in the owner's WhatsApp, and the
   owner can save it if needed.
@@ -101,4 +104,4 @@ No "FULL VIDEO ON OUR CHANNEL" teaser card (owner rule 2026-11-16: only when a m
 6. ~~Whole-bumper overlap~~ (owner 2026-11-17): printing the whole bumper is worth it when that bumper no longer exists. This is now Ep 1's "...but if you insist".
 7. ~~OK to show~~: yes (owner 2026-11-17).
 8. ~~The lip, for real~~: yes, on the Drive (owner 2026-11-17).
-9. **Spoiler check:** OK to keep the printed GT350 bumper on the car for the Ep 9 finale and stop this episode at the design? (Default: yes.)
+9. ~~Spoiler check~~ (owner 2026-11-17): use the GT350 Blender views here, not the final photos.
