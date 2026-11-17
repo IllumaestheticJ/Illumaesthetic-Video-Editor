@@ -46,7 +46,7 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 def card_overlay(img, shot, i, n):
-    d = ImageDraw.Draw(img)
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)   # text on its own layer so alpha fades work
     a_in = ease(i / 6); a_out = 1 - ease((i - (n - 6)) / 5); al = round(255 * min(a_in, a_out))
     if shot == 's6_cardv2':
         text_c(d, 770, 'BLACK FRIDAY', f_bf, al, tracking=6)
@@ -56,6 +56,7 @@ def card_overlay(img, shot, i, n):
         text_c(d, 770, 'BLACK FRIDAY', f_bf, al, tracking=6)
         text_c(d, 838, 'V1 UP TO', f_mid, al)
         text_c(d, 925, '45% OFF', f_big, al)
+    img.alpha_composite(ov)
 
 
 def logo_frame(i, n):
@@ -63,8 +64,9 @@ def logo_frame(i, n):
     a = ease(i / 8) * (1 - ease((i - (n - 30)) / 28))
     lg = logo.copy(); lg.putalpha(lg.split()[-1].point(lambda v: round(v * a)))
     img.alpha_composite(lg, ((W - lg.width) // 2, 880 - lg.height // 2))
-    d = ImageDraw.Draw(img); tw = d.textlength('EPSILON.PLUS', font=f_url)
+    ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov); tw = d.textlength('EPSILON.PLUS', font=f_url)
     d.text(((W - tw) / 2, 1010), 'EPSILON.PLUS', font=f_url, fill=TXT + (round(200 * a),))
+    img.alpha_composite(ov)
     return img
 
 
