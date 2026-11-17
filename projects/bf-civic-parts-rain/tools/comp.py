@@ -77,7 +77,7 @@ def frame(f):
     if f < F_FLASH:
         img = load(f"{M}/renders/take/f_{f:04d}.png")
         e = env(f, 40, 297, 8)
-        if e: text(img, "BLACK FRIDAY", 128, 250, ID_B, 10, e)
+        if e: text(img, "BLACK FRIDAY", 104, 250, ID_B, 8, e)
         for a, b, s in ((F_LIP, 366, "FRONT LIP"), (F_SKIRT, 428, "SIDE SKIRTS"), (F_REAR, 462, "REAR LIP"), (F_WING, 487, "SPORT WING")):
             e = env(f, a, b, 4)
             if e: text(img, s, 44, 1640, MONO, 8, e)
@@ -92,7 +92,7 @@ def frame(f):
         img = load(f"{M}/renders/cgi_{car}/f_{i:04d}.png")
         e = env(f, F_4A, F_END - 1, 5)
         text(img, "BLACK FRIDAY", 64, 230, ID_M, 14, e)
-        text(img, "30% OFF", 210, 300, ID_B, 6, e)
+        text(img, "30% OFF", 190, 310, ID_B, 6, e)
         text(img, "THE FULL KIT", 96, 535, ID_B, 10, e)
         sub = "CIVIC FE · LIP · SKIRTS · REAR LIP · WING" if car == "fe" else "CIVIC FL · LIP · SKIRTS · WING"
         text(img, sub, 32, 1610, MONO, 3, e)
