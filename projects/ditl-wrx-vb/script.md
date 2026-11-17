@@ -1,4 +1,4 @@
-# DITL #1: "day in the life: average wrx owner" (VB): script v3.1, 2026-11-17
+# DITL #1: "day in the life: average wrx owner" (VB): script v4, 2026-11-17
 
 Step 1 deliverable for the series brief (`projects/ditl-series/BRIEF.md`). **Nothing has been generated or uploaded,
 and no credits were spent.** I ran free `get_cost` preflights only. Waiting on the owner.
@@ -11,7 +11,7 @@ and no credits were spent.** I ran free `get_cost` preflights only. Waiting on t
 - **Real brands are OK:** Affirm, Honda Odyssey, BMW, Cobb Accessport. (The account isn't an LLC account and isn't
   monetized.)
 - **Runtime up to 55 s.**
-- **Affirm at 30 % APR shows on the Epsilon checkout.** The joke is that it's the lowest APR he can get.
+- **Affirm at 30 % APR shows on the checkout** (drawn as a generic store with no Epsilon+ branding, per owner answer 4). The joke is that it's the lowest APR he can get.
   Store fact on record: the live epsilon.plus product pages run **Shop Pay Installments (0 % and 15 % APR plans), not
   Affirm.** The parent is putting this to the owner once. **Fallback:** if the owner changes their mind, the Affirm
   screen moves to his phone (an Affirm app notification over the Accessport in scene 4), and the cart screen loses
@@ -19,7 +19,7 @@ and no credits were spent.** I ran free `get_cost` preflights only. Waiting on t
 
 **Runtime:** about 47 s, 9:16, 1080x1920, 30 fps. Six scenes over seven locations, hard cuts, no dissolves, abrupt
 end.
-**Title bar (whole video):** `day in the life: average wrx owner` (lowercase, white on black, top). Wording is Q1.
+**Title bar (whole video):** `Day in the life of an average WRX owner` (owner's wording, white on black, top, the whole video).
 **Premise:** the car is perfect and everything else in his life is not. The Epsilon kit and WRC wing are the one
 genuinely good-looking thing in every frame they're in. The hands are unhinged in every scene, like the reference.
 
@@ -30,13 +30,13 @@ He is $115,000 into Affirm at 30 % APR, and every mod, the Epsilon kit included,
 a tune can gap anything. He is exactly like the BMW guys.
 
 Character design (owner's note): white or Filipino. In first person that comes down to the skin tone of the hands
-and arms (Q3). **No joke touches ethnicity.** The jokes land on his choices: dropping out, the financing, the
+and arms: medium brown (owner). **No joke touches ethnicity.** The jokes land on his choices: dropping out, the financing, the
 intake-and-tune confidence. Never on education as such, and never on the Corps, which stays affectionate: the
 recruiter is the one adult who is genuinely happy to see him.
 
 ## Script (lines, speaker, delivery tags)
 Voices: Higgsfield `elevenlabs_v4` dialogue mode, preset voices only (no cloning), one call with emotion tags, never
-sped up. HIM: a young male, early 20s, slightly raspy. RECRUITER: a booming, warm Marine. BMW GUY: a smug male, 30s.
+sped up. HIM: a young male, early 20s, slightly raspy. RECRUITER: a booming, warm Marine. BEAMER GUY: a smug male, 30s.
 MOM: a flat, tired female. The take goes to the owner before animation. Check the first and last 10-50 ms of the
 take.
 
@@ -48,10 +48,11 @@ take.
 | 4 | 2 | HIM | [proud, like he won something] "Thirty percent. Lowest they'd give me." |
 | 5 | 3 | HIM | [whispering, tender, ear on the hood] "Ringlands... semper fi." |
 | 6 | 4 | HIM | [quick, relieved exhale] "DAM's at one. We're good." |
-| 7 | 5 | BMW GUY | [suspicious, nodding at the car] "That tuned?" |
+| 7 | 5 | BEAMER GUY | [suspicious, nodding at the car] "That tuned?" |
 | 8 | 5 | HIM | [smug] "Intake and a tune." |
-| 9 | 5 | BMW GUY | [smug, identical] "Same." |
-| 10 | 5 | HIM | [smug, slapping her window] "Might wanna sit this one out, ma'am." |
+| 9 | 5 | BEAMER GUY | [smug, identical] "Same." |
+| 9b | 5 | HIM | [under his breath, disgusted, after the stare] "...Beamer guys." |
+| 10 | 5 | HIM | [smug, slapping her window] "Might wanna sit this one out, ma'am. It's a Honda Odyssey." |
 | 11 | 5 | MOM | [flat, zero interest] "...Okay." |
 | 12 | 6 | HIM | [tiny, broken whisper, after a long silence] "...ringlands?" |
 
@@ -68,7 +69,7 @@ original designs). **Unhinged hand action** per scene is marked ⚡.
 |---|---|---|---|---|---|---|---|---|---|
 | 1a | 0.0-2.5 | 2.5 s | High school front office counter | ⚡ The hand **slams a crumpled "WITHDRAWAL FORM" on the counter** and keeps slapping it flat, five slaps, while the other hand already pushes the door open. | The office lady's face goes slowly to horror | (music) | Slap x5, door bang | None | Blender |
 | 1b | 2.5-7.0 | 4.5 s | Marine Corps recruiting office, a desk with a flag | Sits. The recruiter slides a form across. ⚡ He **grabs the pen and signs everywhere**: the signature line, the margin, the desk, his own arm. | Recruiter: big, warm, delighted face. Then he salutes; the hand salutes back too hard and hits its own forehead. | L1, L2, L3 | Pen scribble, a bugle sting under L3, a bonk | None | Blender |
-| 2 | 7.0-14.0 | 7.0 s | His barracks bunk at night, lit by the phone | Phone: the **epsilon.plus** cart: **Front Bumper – Subaru WRX (VB 2022+) · Front Bumper w/ Fog Lights $2,000.00**, **Rear Bumper – Subaru WRX (VB 2022+) $1,500.00**, **Side Skirts – Subaru WRX (VB, 2022+) · ACM $800.00**, **WRC Wing – Subaru WRX/STI (VB, 2022+) · Plastic Composite / World Rally Blue Pearl - K7X $1,150.00**. Subtotal **$5,450.00**. Payment: **Affirm**, one plan, **30% APR**. ⚡ The thumb **hammers "Confirm" over and over**, about 10 taps in 2 s, like the reference's money box. The screen flashes "Order confirmed" and then "Affirm balance: **$115,000.00**". He gives the phone a thumbs-up. | None | L4 (on the APR) | Tap-tap-tap, a cha-ching on every tap, a tiny fanfare | **The Epsilon checkout**; the product thumbnails are Blender renders of each `part_*` node from the GLB | Remotion (cart laid out like the live store) + Blender hands/phone |
+| 2 | 7.0-14.0 | 7.0 s | His barracks bunk at night, lit by the phone | Phone: a **generic, unbranded store** cart (no Epsilon+ mark or URL): **Front Bumper – Subaru WRX (VB 2022+) · Front Bumper w/ Fog Lights $2,000.00**, **Rear Bumper – Subaru WRX (VB 2022+) $1,500.00**, **Side Skirts – Subaru WRX (VB, 2022+) · ACM $800.00**, **WRC Wing – Subaru WRX/STI (VB, 2022+) · Plastic Composite / World Rally Blue Pearl - K7X $1,150.00**. Subtotal **$5,450.00**. Payment: **Affirm**, one plan, **30% APR**. ⚡ The thumb **hammers "Confirm" over and over**, about 10 taps in 2 s, like the reference's money box. The screen flashes "Order confirmed" and then "Affirm balance: **$115,000.00**". He gives the phone a thumbs-up. | None | L4 (on the APR) | Tap-tap-tap, a cha-ching on every tap, a tiny fanfare | **The checkout** (unbranded); the product thumbnails are Blender renders of each `part_*` node from the GLB | Remotion (cart laid out like the live store) + Blender hands/phone |
 | 3 | 14.0-20.0 | 6.0 s | Cracked apartment lot at dawn; torn-open Epsilon boxes everywhere | His WR Blue VB, now on the full kit, is the only clean thing in the world. He kneels with his ear on the hood. ⚡ He **vapes and knocks on the hood at the same time** and blows the cloud into the grille, "so it can taste it". Then he leans to the back of the car and ⚡ **plants a long kiss on the WRC wing endplate**. | None | L5 (ear on the hood) | Knock knock, vape crackle, exhale, a long "mwah" | **His car:** VB with the Epsilon front bumper, rear bumper, side skirts, WRC wing (duckbill off). `epsilon-site/showroom/models/eps-subaru-wrx-vb-v3.glb` (`part_front_bumper`, `part_rear_bumper`, `part_side_skirts`, `part_wrc_wing`). The endplate close-up is straight from the GLB, so the wing stays exact. | Blender |
 | 4 | 20.0-25.0 | 5.0 s | Driver's seat | The **Cobb Accessport** on the dash boots up slowly. ⚡ He **karate-chops the dash next to it**, three chops, like that's how you refresh it. It shows **DAM 1.0**. He kisses the screen and pats it twice. | None | L6 | Chop chop chop, an Accessport chime, kiss, pat pat. **Music cuts dead at 25.0 s.** | Accessport: a low-poly unit with the Cobb wordmark | Blender + Remotion screen |
 | 5 | 25.0-35.0 | 10.0 s | Red light on a four-lane road. A **BMW** on his right, a beige **Honda Odyssey** on his left (a mom driving, a kid in the back) | He looks right. The BMW guy is in the identical pose: one arm out, a vape. L7-L9. ⚡ Both of them **rev at the same time, in sync**, three times, then a long silent stare as both faces warp into mirrored horror. Then he snaps left and ⚡ **reaches over and slaps the Odyssey's passenger window** twice. L10. | BMW guy mirrors him exactly. Mom turns slowly: a flat face, one blink. The kid presses his face to the glass, grotesquely squished. | L7-L11 | Revs in stereo, window slaps, turn-signal tick (the comedic clock) | The Epsilon side skirt visible below his window line | Blender (low-poly stand-ins: a BMW sedan with the roundel, the Odyssey with the H badge, no exact models) |
@@ -83,10 +84,11 @@ original designs). **Unhinged hand action** per scene is marked ⚡.
 | Mom (Odyssey) | 5, 6 | Flat, one blink (L11) | Dead-eyed at the window slap | Never changes: her non-reaction is the joke (the one exception) |
 | Kid (Odyssey) | 5, 6 | Squished on the glass | Gleeful wave out the rear window | Huge distorted grin as the van pulls away |
 
-**End:** a hard cut to black after L12 at about 47 s, like the reference. Q2 asks whether to add an Epsilon wordmark
-card instead.
+**End:** a hard cut to black after L12 at about 47 s. No watermark and no end card (owner).
 
 ## Change list
+**v4 (owner answers):** title wording; the "Beamer guys" and "Honda Odyssey" lines; an unbranded cart; the hard cut with no Epsilon+ branding anywhere; medium-brown skin and USMC-style dog tags; the voice and music options listed for the owner to pick from.
+
 **v3.1 (parent inspection of v2):** its notes 1 (the full kit plus WRC wing as the checkout hero, no "[BACKORDER]"
 on screen) and 2 (an unhinged hand action in every scene) were already in v3. Added a face sheet with 2-3 painted
 expressions per character, each ending on a distorted horror face. The mom stays deadpan on purpose.
@@ -120,17 +122,16 @@ gas-pump mirror stare and the DAM drop. All Blender.
 | WR Blue paint | **found** (approx.) | `glb_ref_render.py` colour `wrblue`; check it against the store's "World Rally Blue Pearl - K7X" swatch |
 | Look test (kit, WR Blue, posterized) | **made** (local) | `/home/user/media/ditl-wrx-vb/look_*.png`, `look_sheet.jpg` (media, not committed) |
 | Cart thumbnails (4 parts) | **to make** | Blender renders of `part_front_bumper`, `part_rear_bumper`, `part_side_skirts`, `part_wrc_wing` |
-| Epsilon cart + Affirm step, order-confirmed screen | **to make** | Remotion, laid out like the live epsilon.plus cart; titles, variants and prices from the live store (2026-11-17) |
+| Cart + Affirm step, order-confirmed screen | **to make** | Remotion, a generic unbranded store (no Epsilon+ mark or URL, owner answer 4); titles, variants and prices from the live store (2026-11-17) |
 | Cobb Accessport screen (DAM 1.0, DAM 0.88) | **to make** | Remotion |
 | Withdrawal form, recruiting form, flag | **to make** | Blender props with texture text (original, no real school or seal artwork) |
-| FPS arms (form, pen, vape, phone, chop, salute, slaps) | **to make** | Blender: one low-poly rigged arm pair, skin tone per Q3 |
+| FPS arms (form, pen, vape, phone, chop, salute, slaps) | **to make** | Blender: one low-poly rigged arm pair, medium-brown skin, stamped USMC-style dog tags |
 | Sets: school office, recruiting office, bunk, lot, car interior, road | **to make** | Blender low-poly, flat colours, posterized in the edit |
 | Honda Odyssey, BMW sedan | **missing** | Low-poly stand-ins modelled in Blender, with the H badge and the roundel; not exact models |
 | Characters: office lady, recruiter, BMW guy, mom, kid | **to make** | Low-poly bodies + flat painted face sheets (2-3 expressions each), original designs |
 | Voice take | **to make** | `elevenlabs_v4` dialogue, 4 preset voices, one call (after approval) |
 | Music | **to pick** | TikTok CML (check it's not used by another reel) or an owner upload |
 | SFX | **to make/find** | Royalty-free or synthesized locally |
-| Epsilon+ wordmark (only if Q2 is yes) | **found** | Drive `EPSILON+ Logos` |
 
 ## Credit estimate (owner: Blender, minimize Higgsfield)
 Balance 290.46 credits for all six videos (checked today). For reference, from free `get_cost` preflights: Kling 3.0
@@ -146,14 +147,23 @@ costs 8.75 per 5 s and Seedance 2.5 costs 35 per 5 s, so an AI version of 47 s w
 The only thing sent to Higgsfield is the script text for the voice. The cost is build time: 6 low-poly sets, 2
 stand-in cars and 5 face sheets. Build order: 3 → 2 → 4 → 5/6 → 1, so the product shots are locked first.
 
-## Open questions for the owner
-1. **Title text:** `day in the life: average wrx owner`, or "DITL of average WRX owner"?
-2. **End card:** a hard cut to black on "...ringlands?" like the reference (my pick), or the Epsilon+ wordmark card
-   (about 720 px, about 2 s)?
-3. **Hands:** lighter or medium-brown skin (your note: white or Filipino)? Dog tags OK?
-4. **Voice:** OK to spend about 3-4 credits on the voice take once the lines are approved?
-5. **Music:** do you have a track in mind, or should I pick one from the TikTok Commercial Music Library?
-6. (minor) **DAM 0.88 after the pull** is a prop for the joke, not a claim about the car. Is it OK?
+## Owner answers (2026-11-17, this chat)
+1. Title: **"Day in the life of an average WRX owner"**.
+2. Affirm is fine ("Shop Pay is technically under Affirm").
+3. Saying "Honda Odyssey" and **"Beamer guys"** out loud is fine (not an LLC account, not monetized). Added L9b
+   "...Beamer guys." after the mirror stare, and "It's a Honda Odyssey." to L10.
+4. **Hard cut to black, with no Epsilon+ watermark and no end card.** The products appear without the video clearly
+   coming from Epsilon. So the scene-2 cart is drawn as a **generic store** (no Epsilon+ wordmark, logo or URL),
+   showing the real part names, variants and live prices plus the Affirm step. The parts themselves (the GLB, the WRC
+   wing endplate) stay accurate.
+5. DAM is fine (DAM 1.0 → 0.88 stays).
+6. **Medium-brown skin** on the arms. **Dog tags** with Marine-like details: stamped tags with a fictional name,
+   "USMC" and a blood type. No real person's details and no official emblem artwork.
+7. **Voice:** show the Higgsfield options before anything is generated → `voice-options.md`. Nothing is generated
+   until the owner picks.
+8. **Music: EDM like Illenium** (melodic bass, a big drop) in the background. No Illenium track is in the TikTok
+   Commercial Music Library, so the options are in `voice-options.md` (music section): CML melodic-EDM picks, or the
+   owner uploads the Illenium track they want (OK for this unmonetized account per the owner).
 
 ## Look test (local, no credits)
 `/home/user/media/ditl-wrx-vb/look_front34.png`, `look_rear34.png` and the posterized pair `look_sheet.jpg` (media,
