@@ -60,13 +60,13 @@ def card_overlay(img, shot, i, n):
     out = 1 - ease((i - (n - 5)) / 4)
     ver, word = ('V2', 'KIT') if shot == 's6_cardv2' else ('V1', '')
     pct, pre = ('30% OFF', '') if shot == 's6_cardv2' else ('45% OFF', 'UP TO')
-    text_c(d, 300, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
+    text_c(d, 330, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
     F0, F1 = round(0.30 * n), round(0.60 * n)   # lift window, same as shot.py card_lineup
     # 1) version, big, over the car (top band); slashed; gone as the parts lift
     a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
     if a_v > 0:
         wv = d.textlength(ver, font=f_ver); wk = d.textlength(word, font=f_kit) if word else 0; gap = 24 if word else 0
-        x0 = 484 - (wv + gap + wk) / 2; y0 = 360
+        x0 = 484 - (wv + gap + wk) / 2; y0 = 385
         d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
         if word:
             d.text((x0 + wv + gap, y0 + 128), word, font=f_kit, fill=TXT + (round(255 * a_v),))
