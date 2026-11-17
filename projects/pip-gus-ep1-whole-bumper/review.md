@@ -1,4 +1,4 @@
-# Ep 1 v1 self-review: "Can I 3D print whatever bumper I want?"
+# Ep 1 self-review (v1 and v2): "Can I 3D print whatever bumper I want?"
 
 Output: `/home/user/media/work/ep1/out/pip_gus_ep1_v1.mp4` (54.4 s, 1632 frames)
 
@@ -21,3 +21,16 @@ Output: `/home/user/media/work/ep1/out/pip_gus_ep1_v1.mp4` (54.4 s, 1632 frames)
 ## Known minor items (not fixed)
 - A faint shadow of the "~$200" label falls on the truck's body in the board close-ups.
 - Gus's raised hand partly overlaps the clock icon on the bill at the end of shot 7. The label still reads.
+
+## v2 (owner notes on v1)
+Output: `/home/user/media/work/ep1/out/pip_gus_ep1_v2.mp4` (54.4 s, 1632 frames, same timing and audio as v1)
+
+| Note | Change | Checked |
+|---|---|---|
+| The list comes off the whiteboard | The bill is now a fixed whiteboard panel; rows sit in slots inside it, Pip wipes it in shot 13 | All rows, including ~250 HRS, stay on the board in shots 7–12 |
+| Generic bumper | Our 350Z front bumper (lookbook GLB, decimated) is used for the drawing, bench, scale, mold stack, catalog and box art | Contact sheet |
+| Scanner doesn't look like a scanner | The board icon and Gus's scanner are built from an Artec Leo: head, face plate with lens and LEDs, back screen, pistol grip | The board icon reads clearly; in shot 14 Gus faces away, so the Leo is barely visible |
+| Paper clips through Pip's head | The drawing is held at chest height | Shot 1 frames |
+| Spaghetti not accurate | Failed-print nest: a short layer-lined stub with a random-walk filament tangle that grows during the print shot | Shot 4 frames |
+
+Scores unchanged from v1 except Story 4 → 4 (the board now holds the bill, so the joke is clearer, but the exceptions shot is still quick).
