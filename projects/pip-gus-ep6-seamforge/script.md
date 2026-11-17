@@ -23,14 +23,14 @@ to cut, number and place every piece on the print bed. "Forever" is carried by t
 | 2 | GUS | "So we cut it up. By hand." | flat, neutral | Gus's laptop plays the real slicer clip (cropped to the 3D view): pieces hacked off one by one. The wall clock starts to turn. |
 | 3 | GUS | "Number every piece..." | flat | Gus writes a number on each grey piece with a marker; the pile keeps growing. |
 | 4 | GUS | "...then lay each one flat on the print bed." | slightly weary | Gus places pieces one at a time onto a row of cartoon build plates that runs off-screen. |
-| 5 | PIP | "Is it done yet?" | impatient | Pip slumped on a stool (series running gag). |
-| 6 | GUS | "...No." | flat | Clock spins like a fan. |
+| 5 | PIP | "Is it done yet?" | impatient | Pip slumped on a stool (series running gag); Gus keeps placing pieces in the background. |
+| 6 | GUS | "...No." | flat, eyes on his work | Gus doesn't look up: he is still placing pieces on the build plates (owner: make it clear he is still setting up the beds). Clock spins like a fan behind him. |
 | 7 | PIP | "There has to be a better way." | impatient | Pip to camera. |
 | 8 | GUS | "...We made one." | half-lid, a little proud | Gus pulls out the phone this time; the screen shows the SeamForged app. |
 | 9 | PIP | "Show me!" | ^ ^ excited | Push into the phone; hard cut on the beat to Part B. |
 
 Changes in v5: removed "Then figure out which piece goes where" and "And the seam runs right across the front?" / "Yep.";
-added the cut / number / place-on-the-bed beats and the "Is it done yet?" / "...No." gag. Voices to be regenerated (one call).
+added the cut / number / place-on-the-bed beats and the "Is it done yet?" / "...No." gag. Voices regenerated: take v2, Higgsfield job 37e7501f.
 
 ## Part B: the app (about 7 s, no text over it, no VO, music only)
 
@@ -75,6 +75,6 @@ optional and only used when a matching full video exists. There is no full SeamF
   "It's cut! Which printer do we use?" (supersedes the v0.3 links).
 
 ## Still open
-- Script approval (v5), then regenerate the voices.
+- Owner approval of voice take v2.
 - Plates: the README's Build plates tab (Plan plates / Export plates) is in the UI, so Ep 7 can open on SeamForged's plates.
 - The model to record: ideally the same bumper as in the slicer clip, so before and after match.
