@@ -4,7 +4,7 @@ Status: plan only. Nothing is rendered until the owner approves it in chat.
 Planned 2026-11-17 on branch `claude/video-editing-scan-data-8o0m8g`.
 
 v3 (2026-11-17): Del & Eps now follow the owner's LOCKED look (`knowledge/characters/del-and-eps/README.md`,
-reference image `del-eps-model-sheet.jpg`, commit 4298535 on `claude/clever-shannon-u8rv5l`):
+reference image `del-eps-model-sheet.jpg`, now on this branch at commit 46e523b, originally 4298535 on `claude/clever-shannon-u8rv5l`):
 - arcade-racing-game 3D style;
 - the scans stay silver and the characters are the only colour in frame;
 - they are made as Higgsfield images/clips from the model sheet and composited over Blender renders of our scans.
@@ -51,7 +51,7 @@ Conflicts I need you to settle (from the doc itself):
 
 ## Characters: Del & Eps (Epsilon+), LOCKED look
 Source: `knowledge/characters/del-and-eps/README.md` + `del-eps-model-sheet.jpg` (branch `claude/clever-shannon-u8rv5l`,
-commit 4298535; I viewed the sheet: front, 3/4, side and back of both).
+now also on this branch @ 46e523b; I viewed the sheet: front, 3/4, side and back of both).
 - **Del (δ, dad):**
   - Short salt-and-pepper boxed beard (no moustache, no flat cap); headset over a petrol-teal cap with an orange brim.
   - Teal crew shirt with orange shoulders and stripes, teal cargo pants, grey knee pads, black/orange boots.
@@ -128,7 +128,7 @@ Rules this plan keeps:
 | FG2 lip CAD + LQ scan | 1yJIGKWd53DhUMKKmkBHk1Z7wWz7wraqd / 1-WqSI5VbZkXIp1tzoGuLibSjB0DC97YH | **found** |
 | GR Corolla / VB / Integra Type S full-car scans | knowledge/car-inventory.md | **found** (not downloaded yet) |
 | GR Corolla V1 lip CAD fallback | Drive `Corolla V1 & V2 Lip Kit` 1-wEi9unNtRyXDMQlOsgNZWAE0IIhW685 | found |
-| Del & Eps | `knowledge/characters/del-and-eps/` (README + del-eps-model-sheet.jpg, 10mm-socket-gag.jpg), branch claude/clever-shannon-u8rv5l @ 4298535; Higgsfield refs bdb1a2e8 / 069f42d6 / e3315b11 / 85f40a22 | **found** (LOCKED look). The plates are generated per shot |
+| Del & Eps | `knowledge/characters/del-and-eps/` (README + del-eps-model-sheet.jpg, 10mm-socket-gag.jpg), this branch @ 46e523b (from claude/clever-shannon-u8rv5l @ 4298535); Higgsfield refs bdb1a2e8 / 069f42d6 / e3315b11 / 85f40a22 | **found** (LOCKED look). The plates are generated per shot |
 | Warehouse footage | Dropbox search (warehouse / pallet / inventory / shelf): none. Unlabelled `/Footage Library/Videos/Shop & Builds/` and `*Unsorted Video Dump/China/` (Apr 2026) are not reviewed | **missing**; CGI planned |
 | Warehouse CGI environment | new `tools/warehouse_env.py` (following mr2 `city_env.py`) | to build |
 | Epsilon+ wordmark | 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | **found** |
