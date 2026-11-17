@@ -44,10 +44,25 @@ Changes from the series draft (and why):
 - Line 8 is split into 8/8b to cover both uses of a scan (owner, 2026-11-16).
 - No numbers anywhere in the cartoon (no triangle count, no sizes, no times).
 
-## Part B: real footage (aim 4-5 s, no text)
-1. Phone fills the frame: the real car (photographic, never cel-shaded). About 2 beats.
-2. **Hard 1:1 cut on a beat** to the same car's scan (house silver look). Never a dissolve.
-3. The designed part appears on the scan (a fade-in or slide-on of the CAD part over the scan, in the scan look). [VERIFY Q1]
+## Part B: real footage: the white GT350 bumper job (owner photos, 2026-11-17; aim 5 s, no text)
+The owner's own job is this episode's story told for real. A crashed car's bumper was destroyed. Illumaesthetic scanned the car and the
+broken bumper, reverse-engineered the bumper on the scan, and printed it, and it fits. That is lines 8b-10 of the cartoon, so Part B
+is the proof. Media (not committed): `/home/user/media/pip-gus-ep2-print-the-scan/photos/IMG_0763-0774.jpeg`.
+
+| Beat | Shot (photo) | What it shows |
+|---|---|---|
+| 1 | IMG_0763 (or 0764) | the crash: front bumper torn off |
+| 2 | IMG_0770 | scanning the stripped front end |
+| 3 | IMG_0773 | the broken bumper's scan |
+| 4 | IMG_0774 | the reverse-engineered bumper (green) on the car scan |
+| 5 | IMG_0766 -> IMG_0767 | the printed bumper on the car, fitted (close, then the whole car) |
+
+- One shot per beat (about 1 s each), slow push-ins on the stills, a hard cut on every beat. No dissolves and no text.
+- Shots 4 -> 5 are the scan-to-real moment. A true 1:1 perspective cut needs the scan + CAD rendered from the camera of IMG_0766
+  (`ive solve`), which is only possible if the scan and bumper files are available (Q4). Otherwise it's a plain hard cut on the beat.
+- The photos are 4:3 (1440x1080). A 9:16 crop is only about 600 px wide, so this needs the full-res originals or a different
+  framing (Q5).
+- Check before use: plates and bystanders in the crash photos (police SUVs, passing cars), and the people in IMG_0770/0769.
 
 ## Part C: logo card (the ending)
 Plain Illumaesthetic logo (about 720 px wide on 1080), no line under it. Owner's choice (2026-11-17).
@@ -60,8 +75,14 @@ No "FULL VIDEO ON OUR CHANNEL" teaser card (owner rule 2026-11-16: only when a m
   Not game or battle music, and not the pilot's track (each reel gets its own music).
 
 ## [VERIFY] open questions for the owner
-1. **Real footage:** which car and which part design may we show on its scan? Is it a part Illumaesthetic designed or a
-   customer's? (Default if there's no part to show: the IS350 1:1 real-to-scan cut that's already rendered, without the part step.)
+1. ~~Real footage~~ answered (owner 2026-11-17): the GT350 bumper reverse-engineering job (photos). See Part B and Q4-Q7.
 2. ~~Line 8~~ answered (owner 2026-11-16): "you design the part on it, or you remake/reverse engineer the part - Illumaesthetic
    can do both." Line 8 now covers both, and Pip's line 11 is "Ooh! Illumaesthetic does both!"
 3. ~~Ending~~ answered (owner 2026-11-17): plain logo card, no teaser card.
+4. **GT350 files:** are the car scan and the reverse-engineered bumper (STL/STEP) on the Drive? With them, shot 4 -> 5 becomes a true
+   1:1 cut from the scan to the printed bumper.
+5. **Video and originals:** is there video of this job in Dropbox, or the full-resolution photos? These are 1440 px wide, which is
+   soft once cropped to 9:16.
+6. **Ep 3 overlap:** Ep 3 argues against printing a whole bumper, and this job is a printed whole bumper. Was it the final part, a
+   test fit, or a one-off because the part can't be bought? The answer decides whether Ep 2 shows it as the result.
+7. **OK to show:** the crash photos (the police scene in the background) and the person scanning?
