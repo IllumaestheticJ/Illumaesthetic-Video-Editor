@@ -525,13 +525,17 @@ def anim_A10(fr):
     a = ease((t - (tm - 0.1)) / 0.35)
     if t > tm - 0.1:
         mold("mold_petg", "petg", None, (2.2, 2.95, BENCH_Z + 0.002 + 0.25 * (1 - eback(a, 1.4))), 0.0)
-        lift = 7.0 * ease((t - tw) / 0.5)
+        lift = 12.0 * ease((t - tw) / 0.6)
         mold("mold_asa", "asa", None, (2.58, 2.95, BENCH_Z + 0.002 + 0.25 * (1 - eback(a, 1.4))), lift)
     m, lid = talk("GUS", t)
-    pose(GUS, loc=(1.55, 2.5, 0), rz=-30, hips=(2, 0, 0), head=(4, 0, 22), armL=(-45, 0, 12), elbowL=-40, mouth=m, lid=lid,
+    pose(GUS, loc=(1.75, 2.3, 0), rz=-25, hips=(2, 0, 0), head=(4, 0, 20), armL=(-45, 0, 12), elbowL=-40, mouth=m, lid=lid,
          look=(0.7, -0.3))
-    pose(PIP, loc=(3.3, 2.45, 0), rz=30, head=(-10, 0, 10), look=(-0.7, -0.2))
-    cam_look((2.45, 0.05, 1.6), (2.45, 3.0, 1.0), 24, (0.0, 0.3, -0.05), ease(k))
+    pose(PIP, loc=(3.4, 2.3, 0), rz=28, head=(-12, 0, 10), look=(-0.7, -0.3))
+    # wide two-shot for "it depends what it's for", then push in on the molds as they drop ("Molds?")
+    p = ease((t - (tm - 0.25)) / 0.8)
+    loc = Vector((2.55, 0.15, 1.5)).lerp(Vector((2.39, 1.55, 1.38)), p)
+    tgt = Vector((2.55, 2.6, 1.0)).lerp(Vector((2.39, 2.95, BENCH_Z + 0.02)), p)
+    look(cam, loc, tgt, lerp(24, 30, p))
 
 
 def _pip_holding_ep8(t, look_=(0.6, 0.6)):
