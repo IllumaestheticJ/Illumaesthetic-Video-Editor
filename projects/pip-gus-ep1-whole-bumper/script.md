@@ -1,4 +1,4 @@
-# Pip & Gus Ep 1 (was Ep 3): "Why can't I just print the bumper I want?" (script v7, ending rewritten per owner 2026-11-17; needs owner OK)
+# Pip & Gus Ep 1 (was Ep 3): "Why can't I just print the bumper I want?" (script v8 tightened, APPROVED by owner 2026-11-17)
 
 Owner brief (2026-11-16): make people realise a custom bumper they design and print usually still costs more than just buying one.
 9:16, 1080x1920, 30 fps. Estimate: cartoon ~31-33 s, real footage ~4-5 s, teaser card ~3 s, logo card ~2 s = ~45 s.
@@ -14,22 +14,19 @@ material"). By line 11 the bill reaches the floor.
 | # | Who | Line | Picture | Bill |
 |---|---|---|---|---|
 | 1 | PIP | "Can I 3D print whatever bumper I want?" | Pip bursts in holding a crayon drawing of a huge dream bumper (wings, giant lip). | - |
-| 2 | GUS | "Sure. Scan the car. Design it." | Quick preview flashes: spray puff, scanner beep, the mesh turns into a smooth surface on the laptop, a file icon; the clock starts turning. | spray can, scanner, laptop |
-| 4 | GUS | "Six or seven kilos of filament." | Gus stacks spools until the stack is taller than Pip. | spools, tag **6-7 KG** |
-| 5 | PIP | "That's cheap, right?" | Pip, hopeful ^ ^ eyes. | - |
-| 6 | GUS | "The good stuff? About two hundred bucks." | Gus taps the bill. | tag **~$200** |
-| 7 | GUS | "A print fails overnight. Again." | A piece comes out as spaghetti; it goes on the failed-print shelf (new running gag). | spaghetti |
-| 8 | GUS | "Then glue. Filler. Sanding. Primer." | One cut per word on the beat: glue bottles, filler knife, a sanding cloud that hides Pip, primer can. | 4 icons |
-| 9 | PIP | "Is it done yet?" | Pip coughing out of the dust, grey. | - |
-| 10 | GUS | "...No. That's easily two hundred fifty hours of work. Scanning, design, printing." | The wall clock spins off its nail; the labor stacks up on the bill. | tag **~250 HRS** |
-| 10b | GUS | "And it's still heavier. And weaker." | The bumper sags a scale, then cracks along a glue seam on a curb. | weight, cracked seam |
-| 11 | PIP | "...So I should just buy one?" | Pip stares at the bill, which now reaches the floor. | (floor) |
-| 12 | GUS | "If you can buy it? Yep. Printing a rep just doesn't make financial sense." | Side by side: a boxed store bumper next to the floor-length bill; the bill wins the weigh-in. | - |
-| 13 | GUS | "Unless it's discontinued... or you're making them to sell." | A DISCONTINUED stamp hits a catalog page; then a row of identical bumpers slides off a mold. | - |
-| 14 | PIP | "But I want a custom one!" | Pip slaps his dream-bumper drawing onto the bill. | - |
-| 15 | GUS | "...If you insist. Then we'll show you how." | Gus turns to the camera (to the audience), tiny shrug. | - |
-| 16 | PIP | "Where do we start?" | Pip, ^ ^ eyes, rips the bill off the wall. | - |
-| 17 | GUS | "We scan the car." | Gus wheels the scanner toward the black car (Ep 2 opens here). Hard cut on the beat. | - |
+| 2 | GUS | "Sure. Scan the car. Design it." | Preview flashes: spray puff, scanner beep, the mesh turns into a smooth surface on the laptop; the clock starts turning. | spray can, scanner, laptop |
+| 3 | GUS | "Six or seven kilos of filament. The good stuff's about two hundred bucks." | Gus stacks spools taller than Pip, then taps the bill. | tags **6-7 KG**, **~$200** |
+| 4 | GUS | "A print fails overnight. Again." | Spaghetti goes on the failed-print shelf (running gag). | spaghetti |
+| 5 | GUS | "Then glue. Filler. Sanding. Primer." | One cut per word on the beat; a sanding cloud swallows Pip. | 4 icons |
+| 6 | PIP | "Is it done yet?" | Pip coughs out of the dust, grey. | - |
+| 7 | GUS | "...No. That's easily two hundred fifty hours of work." | The wall clock spins off its nail. | tag **~250 HRS** |
+| 8 | GUS | "And it's still heavier. And weaker." | The bumper sags a scale, then cracks along a glue seam on a curb. | weight, cracked seam |
+| 9 | PIP | "...So I should just buy one?" | The bill now reaches the floor. | (floor) |
+| 10 | GUS | "If you can buy it? Yep. Printing a rep doesn't make financial sense... unless it's discontinued, or you're making them to sell." | A boxed store bumper next to the floor-length bill; a DISCONTINUED stamp; a row of bumpers slides off a mold. | - |
+| 11 | PIP | "But I want a custom one!" | Pip slaps the dream-bumper drawing onto the bill. | - |
+| 12 | GUS | "...If you insist. We'll show you how." | Gus turns to the camera, tiny shrug. | - |
+| 13 | PIP | "Where do we start?" | Pip, ^ ^ eyes, rips the bill off the wall. | - |
+| 14 | GUS | "We scan the car." | Gus wheels the scanner toward the black car. Hard cut on the beat to the real footage. | - |
 
 ~114 spoken words. At the pilot's pace (~33 s for 79 words, no speed-up) the cartoon lands around 49-51 s (total ~60 s with footage and cards; trim options in the owner message).
 Lines 12-17 (owner 2026-11-17): printing a rep of a bumper you can buy doesn't make financial sense; for a custom one, we show the audience how; then the series hand-off to Ep 2 (owner, relayed 2026-11-17). Line 12 = owner's exceptions (2026-11-17): printing is worth it when the bumper is discontinued, or when you make bumpers to sell in production.

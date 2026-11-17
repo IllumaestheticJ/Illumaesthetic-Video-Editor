@@ -16,3 +16,4 @@
 {"ts": "2026-11-17T05:09:32Z", "decision": "Script v7: ending lines 11-17 - reps don't make financial sense (with the discontinued/selling exceptions), custom one -> 'If you insist. Then we'll show you how.' -> 'We scan the car.'", "why": "Owner direction 2026-11-17"}
 {"ts": "2026-11-17T05:16:18Z", "decision": "Added line 10: '...No. That's easily two hundred fifty hours of work. Scanning, design, printing.' + bill tag ~250 HRS", "why": "Owner-supplied labor figure 2026-11-17; the clock gag carries it"}
 {"ts": "2026-11-17T05:24:21Z", "decision": "Removed line 3 (pieces); line 7 now 'A print fails overnight. Again.'", "why": "Owner: the pieces section is irrelevant to this episode (cutting is covered in the SeamForge episode)"}
+{"ts": "2026-11-17T05:25:46Z", "decision": "Script v8 approved (tightened, ~100 words); real footage = real scanning after 'We scan the car.'", "why": "Owner choice 2026-11-17; scanning footage leads into Ep 2 (spray)"}

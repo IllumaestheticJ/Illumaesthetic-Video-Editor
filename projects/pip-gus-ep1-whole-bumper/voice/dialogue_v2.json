@@ -1,0 +1,16 @@
+[
+ {"who":"PIP","text":"[excited] Can I 3D print whatever bumper I want?"},
+ {"who":"GUS","text":"[matter-of-fact] Sure. Scan the car. Design it."},
+ {"who":"GUS","text":"[dry] Six or seven kilos of filament. The good stuff's about two hundred bucks."},
+ {"who":"GUS","text":"[dry] A print fails overnight. Again."},
+ {"who":"GUS","text":"[matter-of-fact] Then glue. Filler. Sanding. Primer."},
+ {"who":"PIP","text":"[impatient] Is it done yet?"},
+ {"who":"GUS","text":"[sighs] ...No. [matter-of-fact] That's easily two hundred fifty hours of work."},
+ {"who":"GUS","text":"[dry] And it's still heavier. And weaker."},
+ {"who":"PIP","text":"[deflated] ...So I should just buy one?"},
+ {"who":"GUS","text":"[matter-of-fact] If you can buy it? Yep. Printing a rep doesn't make financial sense... [thoughtful] unless it's discontinued, or you're making them to sell."},
+ {"who":"PIP","text":"[pleading] But I want a custom one!"},
+ {"who":"GUS","text":"[resigned, slight smile] ...If you insist. We'll show you how."},
+ {"who":"PIP","text":"[excited] Where do we start?"},
+ {"who":"GUS","text":"[matter-of-fact] We scan the car."}
+]
