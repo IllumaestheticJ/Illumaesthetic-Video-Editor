@@ -34,7 +34,7 @@ SPEED = 33.0  # m/s on the straight (~120 km/h)
 import json
 KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
 WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 18),
-       's7_side': (18, 22), 's8_cardv1': (22, 26), 's9_canards': (26, 30), 's10_pass': (30, 34)}
+       's7_side': (18, 22), 's8_cardv1': (22, 26), 's9_canards': (26, 30), 's10_pass': (30, 32)}   # v0.5: cut sooner, before the car slows into the distance (user)
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
 N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0])
 STUDIO = SHOT in ('s3_hl', 's5_liphl', 's9_canards')
@@ -111,8 +111,8 @@ CAMS = {
     's1_hook': ([(0, (2.9, -4.6, 0.42), (0.1, -0.6, 0.55)), (1, (2.3, -3.9, 0.40), (0.1, -0.9, 0.50))], 16),
     's2_push': ([(0, (1.9, -4.0, 0.36), (0.0, -1.6, 0.42)), (1, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34))], 16),
     's3_hl': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
-    's4_lip': ([(0, (0.95, -2.62, 0.10), (0.55, -2.08, 0.15)), (1, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15))], 14),
-    's5_liphl': ([(0, (0.80, -2.70, 0.09), (0.30, -2.12, 0.15)), (1, (0.66, -2.76, 0.085), (0.12, -2.14, 0.15))], 14),
+    's4_lip': ([(0, (1.10, -3.05, 0.62), (0.50, -2.10, 0.12)), (1, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12))], 16),   # v0.5: higher, looking down (user)
+    's5_liphl': ([(0, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12)), (1, (0.74, -3.13, 0.55), (0.12, -2.15, 0.12))], 16),
     's9_canards': ([(0, (1.35, -2.85, 0.56), (0.86, -1.82, 0.38)), (1, (1.70, -2.55, 0.52), (0.86, -1.80, 0.38))], 24),
     's7_side': ([(0, (3.3, -1.1, 0.42), (0.9, -0.4, 0.32)), (1, (3.3, 2.0, 0.42), (0.9, 1.4, 0.30))], 18),
 }
@@ -295,10 +295,16 @@ else:
     objs = []
     if os.environ.get('WITH_GLB'):
         bpy.ops.import_scene.gltf(filepath=GLB)
-    if MODE == 'scan':
-        objs += append_all(f'{D}/scan.blend'); objs += append_all(f'{D}/v2.blend')
-    else:
-        objs += append_all(f'{D}/{"v2" if SHOT == "s6_cardv2" else "v1"}.blend')
+    # v0.5 cards (user: components more distinguishable): the lookbook's separate part objects, exploded apart
+    bpy.ops.import_scene.gltf(filepath=GLB)
+    want = ({'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'} if SHOT == 's6_cardv2'
+            else {'part_front_lip', 'part_side_skirts', 'part_rear_spats'})
+    for o in list(bpy.data.objects):
+        if o.type == 'MESH' and o.name.split('.')[0] in want:
+            objs.append(o)
+        elif o.type == 'MESH':
+            bpy.data.objects.remove(o, do_unlink=True)
+    bpy.context.view_layer.update()
     for o in objs:
         o.data.materials.clear(); o.data.materials.append(sil)
     w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; nt = w.node_tree; nt.nodes.clear()
@@ -317,22 +323,37 @@ else:
     if MODE == 'scan':
         path, lens = CAMS[SHOT]; cd.lens = lens; key_cam(cam, path)
     else:
-        # card: kit parts at their mounting positions, pulled 0.18 m outward from the car centre and drifting in;
-        # high side camera, car length along the frame height (nose up), slow 12 deg orbit
+        # v0.5 card (user: "components more distinguishable", "can't see the profiles"): a product line-up seen from a
+        # low front-3/4 camera - lip on top, ONE side skirt and ONE rear spat below (left side, x > 0), true scale,
+        # each turning slowly about z to show its profile; the middle band stays empty for the V2/V1 text
+        import bmesh
+        def keep_left(o):
+            bm = bmesh.new(); bm.from_mesh(o.data); Mw = o.matrix_world
+            bmesh.ops.delete(bm, geom=[f for f in bm.faces if (Mw @ f.calc_center_median()).x < 0], context='FACES')
+            bm.to_mesh(o.data); bm.free()
+        az, el, D = math.radians(35), math.radians(28), 3.6
+        right = Vector((math.cos(az), math.sin(az), 0)); up = Vector((0, 0, 1))
+        place = {'lip': right * -0.05 + up * 1.05, 'skirts': right * -0.20 + up * -0.50, 'spats': right * 0.42 + up * -0.86 + Vector((math.sin(az), -math.cos(az), 0.45)).normalized() * 1.1}   # spat nearer the lens so the small part reads
+        spin = {'lip': (-8, 6), 'skirts': (-62, -50), 'spats': (-70, -52)}
         for o in objs:
+            nm = o.name.split('.')[0]; k = 'lip' if 'lip' in nm else 'spats' if 'spats' in nm else 'skirts'
+            mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
+            bpy.context.view_layer.update()
+            if k != 'lip':
+                keep_left(o)
+            bpy.context.view_layer.update()
             bb = [o.matrix_world @ Vector(c) for c in o.bound_box]; ctr = sum(bb, Vector()) / 8
-            d = Vector((ctr.x, ctr.y * 0.35, 0)).normalized() * 0.35 if ctr.length > 0.1 else Vector()
-            for f, s in ((1, 1.0), (N, 0.45)):
-                o.location = d * s; o.keyframe_insert('location', frame=f)
-        cd.lens = 31
+            # pivot = an empty at the part's centre; the part hangs under it so it spins in place
+            piv = bpy.data.objects.new('piv_' + k, None); sc.collection.objects.link(piv); piv.location = ctr
+            bpy.context.view_layer.update(); o.parent = piv; o.matrix_parent_inverse = piv.matrix_world.inverted()
+            for f, r_ in ((1, spin[k][0]), (N, spin[k][1])):
+                piv.location = place[k]; piv.rotation_euler = (0, 0, math.radians(r_)); piv.keyframe_insert('rotation_euler', frame=f)
+            piv.location = place[k]
+        cd.lens = 25; cd.shift_x = 0.05
         for f in range(1, N + 1):
-            t = ease((f - 1) / (N - 1)); ang = math.radians(-16 + 12 * t); r = 5.6
-            loc = Vector((r * math.cos(ang) * 0.55, 0.9 + r * math.sin(ang) * 0.2, 4.9)); tgt = Vector((0, -0.05, 0.15))
-            cam.matrix_world = Matrix.Translation(loc) @ (tgt - loc).to_track_quat('-Z', 'Y').to_matrix().to_4x4()
-            # roll so the nose (-Y) points up in frame
-            fwd = (tgt - loc).normalized(); up = Vector((0, -1, 0)); up = (up - fwd * up.dot(fwd)).normalized()
-            right = fwd.cross(up); M = Matrix((right, up, -fwd)).transposed().to_4x4(); M.translation = loc; cam.matrix_world = M
-            cam.keyframe_insert('location', frame=f); cam.keyframe_insert('rotation_euler', frame=f)
+            t = ease((f - 1) / (N - 1)); a_ = az + math.radians(6 * t)
+            loc = Vector((D * math.cos(el) * math.sin(a_), -D * math.cos(el) * math.cos(a_), D * math.sin(el)))
+            look(cam, loc, (0, 0, 0)); cam.keyframe_insert('location', frame=f); cam.keyframe_insert('rotation_euler', frame=f)
 
 os.makedirs(OUT, exist_ok=True)
 sc.render.filepath = os.path.join(OUT, 'f_')
