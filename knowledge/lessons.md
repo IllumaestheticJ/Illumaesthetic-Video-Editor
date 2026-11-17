@@ -1383,3 +1383,5 @@ lands here automatically. Agents must read this whole file before editing.
 - (user) "Game model look": transfer surface classes (glass, lights, chrome, grille, plastics) from the website GLB to
   the scan by nearest surface (tools/livery2.py + class_attr.py -> 'cls_*' material slots; shot.py CLASS_LOOK). A livery
   reveal "like tape" = wipe along the car with per-strip hashed delays and a crisp edge (shot.py mat_paint, spec "tape").
+
+- **[technical]** A floating BMW logo and the character's head going through the roof must not make the final video  _(from ditl-wrx-vb, 2026-11-17, reviewer)_
