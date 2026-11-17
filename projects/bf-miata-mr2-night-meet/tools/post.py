@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.1.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -20,6 +20,7 @@ FM = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
 if not os.path.exists(FM):
     FM = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf"
 OFF = (232, 236, 242)
+CX = 484            # centre of the safe band x 48-920 (knowledge/safe-zones.md)
 LOGO = Image.open(f"{M}/logo/Epsilon+ Logo.png").convert("RGBA")
 
 
@@ -56,24 +57,24 @@ def card(base_img, i, n):
     bg = base_img.filter(ImageFilter.GaussianBlur(28)).point(lambda v: int(v * 0.32)).convert("RGBA")
     d = ImageDraw.Draw(bg)
     a1 = int(255 * ease(i / 6)); a2 = int(255 * ease((i - 25) / 6))      # list lands on the next hit (+0.82 s)
-    d.text((W / 2, 250), "BLACK FRIDAY", font=font(FM, 40), fill=(*OFF, a1), anchor="mm")
-    d.text((W / 2, 380), "20% OFF", font=font(FD, 170), fill=(255, 255, 255, a1), anchor="mm")
-    d.text((W / 2, 510), "MR2 SPYDER + NC MIATA AERO", font=font(FD, 50), fill=(*OFF, a1), anchor="mm")
+    d.text((CX, 330), "BLACK FRIDAY", font=font(FM, 38), fill=(*OFF, a1), anchor="mm")
+    d.text((CX, 445), "20% OFF", font=font(FD, 160), fill=(255, 255, 255, a1), anchor="mm")
+    d.text((CX, 568), "MR2 SPYDER + NC MIATA AERO", font=font(FD, 44), fill=(*OFF, a1), anchor="mm")
     rows = [("MR2 SPYDER", None, None), ("Side Skirt / Fender Combo", "$700", "$560"), ("Rear Spats", "$350", "$280"),
             ("Headlight Eyelids", "$100", "$80"), ("Hood Vents", "$400", "$320"), ("Rear Duckbill", "$220", "$176"),
             ("NC MIATA", None, None), ("Front Bumper + Lip", "$1,100", "$880"), ("Fender Cuts", "$300", "$240"),
             ("Side Skirts", "$500", "$400"), ("Rear Spats (NC1)", "$250", "$200"), ("Canards", "$200", "$160")]
-    y = 650; fr, fh, fp = font(FD, 40), font(FD, 44), font(FM, 38)
+    y = 640; fr, fh, fp = font(FD, 36), font(FD, 40), font(FM, 34)   # safe zones: all text inside x 48-920, y 285-1440
     for name, was, now in rows:
         if was is None:
-            y += 18; d.text((110, y), name, font=fh, fill=(255, 255, 255, a2)); y += 74; continue
-        d.text((130, y), name, font=fr, fill=(*OFF, a2))
+            y += 12; d.text((80, y), name, font=fh, fill=(255, 255, 255, a2)); y += 66; continue
+        d.text((100, y), name, font=fr, fill=(*OFF, a2))
         wb = d.textbbox((0, 0), was, font=fp); nb = d.textbbox((0, 0), now, font=fp)
-        xn = W - 110 - (nb[2] - nb[0]); xw = xn - 30 - (wb[2] - wb[0])
+        xn = 900 - (nb[2] - nb[0]); xw = xn - 30 - (wb[2] - wb[0])
         d.text((xw, y + 2), was, font=fp, fill=(150, 154, 160, a2))
-        d.line([(xw - 4, y + 24), (xw + wb[2] - wb[0] + 4, y + 24)], fill=(150, 154, 160, a2), width=3)
+        d.line([(xw - 4, y + 22), (xw + wb[2] - wb[0] + 4, y + 22)], fill=(150, 154, 160, a2), width=3)
         d.text((xn, y + 2), now, font=fp, fill=(255, 255, 255, a2))
-        y += 66
+        y += 58
     return bg
 
 
@@ -82,8 +83,8 @@ def logo(i, n):
     a = ease(i / 4) * (1 - ease((i - (n - 14)) / 14))
     lw = 720; lg = LOGO.resize((lw, int(LOGO.height * lw / LOGO.width)), Image.LANCZOS)
     lg.putalpha(lg.getchannel("A").point(lambda v: int(v * a)))
-    bg.alpha_composite(lg, ((W - lw) // 2, H // 2 - lg.height // 2 - 40))
-    ImageDraw.Draw(bg).text((W / 2, H / 2 + 90), "epsilon.plus", font=font(FM, 44), fill=(*OFF, int(255 * a)), anchor="mm")
+    bg.alpha_composite(lg, (CX - lw // 2, H // 2 - lg.height // 2 - 40))
+    ImageDraw.Draw(bg).text((CX, H / 2 + 90), "epsilon.plus", font=font(FM, 44), fill=(*OFF, int(255 * a)), anchor="mm")
     return bg
 
 
@@ -103,7 +104,7 @@ def main():
                     if i > n * 0.62: label(fr, (i - n * 0.62) / n, "SIDE SKIRT / FENDER", "MR2 SPYDER · FIBERGLASS")
                 if s == "s07" and i > n * 0.7: label(fr, (i - n * 0.7) / n, "FRONT BUMPER + LIP", "NC MIATA · FIBERGLASS")
                 if s == "s08":
-                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS", y=1380)
+                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS")
                 if s == "s10":   # both kitted scans (owner: no characters, typical branding)
                     if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ · FIBERGLASS AERO")
                     last10 = fr.convert("RGB")
