@@ -27,7 +27,7 @@ Owner: the episodes should transition into each other. AESUB goes right after th
 | 4 | 2 | design | "Can't you just 3D print the scan?" | the finished scan on the laptop | "If the scan's a mesh, what do you design in?" |
 | 5 | 8 | files | STL or STEP? Mesh vs NURBS | the mesh on the laptop from Ep 4 | "Design's done. Hit print!" Gus: "It's bigger than the printer." |
 | 6 | 4 | cutting | SeamForge | the bumper file, too big for the bed | "It's cut! Which printer do we use?" |
-| 7 | 6 | printing | Big printer or small printer? | the cut pieces on SeamForge's plates | "Printer's ready. What do we load in it?" |
+| 7 | 6 | printing | Big printer or small printer? | the exported cut pieces from SeamForge (Print Layout/plates is hidden in the app, so no plates) | "Printer's ready. What do we load in it?" |
 | 8 | 7 | printing | What plastic should I use for car parts? | the printer waiting for filament | "They're printed! ...Now I've got a pile of pieces." |
 | 9 | 5 | gluing | How do you glue prints together? (finale) | the pile of printed bumper pieces | The bumper is glued and goes on the car. Pip: "I printed the bumper I wanted." Gus: "You insisted." Logo card. |
 
