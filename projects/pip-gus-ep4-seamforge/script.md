@@ -17,7 +17,7 @@ hidden in the UI right now, so neither is mentioned or shown. [VERIFY] marks wha
 | 4 | PIP | "And the seam runs right across the front?" | worried | Close on the assembled bumper: a seam line straight through the visible face. |
 | 5 | GUS | "…Yep." | flat | Clock spins like a fan. |
 | 6 | PIP | "There has to be a better way." | impatient | Pip to camera (the pilot line the owner kept). |
-| 7 | GUS | "…We made one." | half-lid, a little proud | Running-gag reversal: Gus pulls out the phone this time. The screen shows SeamForge. |
+| 7 | GUS | "…We made one." | half-lid, a little proud | Running-gag reversal: Gus pulls out the phone this time. The screen shows the SeamForged app. |
 | 8 | PIP | "Show me!" | ^ ^ excited | Push into the phone; hard cut on the beat to Part B. |
 
 Changes from the series draft: 7 lines became 8 with a short "Show me!" so Pip gets the excited beat and the push-in lands on
@@ -56,7 +56,7 @@ optional and only used when a matching full video exists. There is no full SeamF
 - Kiki (Pip) and Harrison (Gus), ElevenLabs v4 dialogue, one call, emotion tags, no speed-up. The take goes to the owner before animation.
 
 ## Owner answers (2026-11-16)
-1. On-screen name: **SeamForged**. (The app's window title still reads "SeamForge"; that stays as-is in the capture.)
+1. On-screen name: **SeamForged**. (The app's top bar still reads "SeamForge"; it is cropped out of the capture so only one name is on screen.)
 2. Work in progress, will release soon: app card says **COMING SOON**, no price or link.
 3. The agent records the screen capture itself.
 4. Footage of a printed piece with its engraved number exists; ask the owner for exactly what is needed.
