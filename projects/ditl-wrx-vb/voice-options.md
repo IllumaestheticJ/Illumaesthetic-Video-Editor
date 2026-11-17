@@ -60,5 +60,28 @@ are two routes:
 | Memories of a Lifetime | DJ Okisho | 3:03 | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/o0vUCqArQr4InAPinX0Zi2jWQ127YWscNBMCU |
 | Morning Energy | Tobu | 3:17 | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/o8psIdhbyDiHTsodWPTnavwIztBFfAQnhADyjM |
 
+
+### Well-known EDM artists in the TikTok Commercial Music Library (checked 2026-11-17)
+From the EDM chart over 7, 30 and 90 days. The tool returns only the top-100 trending chart and has no search, so
+this is what's charting, not the whole library. Every track here is commercially licensed in the library.
+
+| Artist | Track | Length | Illenium-like? | Preview |
+|---|---|---|---|---|
+| **deadmau5** (feat. Rob Swire) | Ghosts 'n' Stuff | 3:11 | No: electro house, but the most famous name on the list | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/oExzsgRFqnB2frktMDgQQdWLeLACfA8YQVa04m |
+| **deadmau5** | Ghosts 'n' Stuff (Original Instrumental Mix) | 6:10 | No: same song with no vocal, cleaner under dialogue | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/ocoZUF0lEgQbfQMQ8KX8DCAOfJytsfIHzFMlad |
+| **David Guetta** (& Akon, Hypaton) | Akon's Beautiful Day (David Guetta & Hypaton Remix) | 2:55 | No: big-room festival | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/osUWfCBkHDuBwiZGnhlDeQQtgIFQBb2MCt6AiT |
+| **NIVIRO** | The Ghost | 3:07 | Close: melodic dubstep, big emotional drop | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/oMCW4i5BwVCAOWJif50sAQBzIncYybMqgRiL9o |
+| **Disfigure** | Blank | 3:28 | Close: melodic dubstep | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/o0MZzQoCeWkpxrnbBBIWP2iXJDQBlgf2i2tOTd |
+| **Tobu & Jim Yosef** | Miracle | 5:18 | Partly: melodic, uplifting | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/51d1217cd2344420975e85a37c6e5512 |
+| **Tobu** | Morning Energy | 3:17 | Partly: melodic progressive house | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/o8psIdhbyDiHTsodWPTnavwIztBFfAQnhADyjM |
+| **Max Brhon** | The Future | 3:35 | Partly: cinematic, heavy | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/oYzHpD75FcVMeQQRfCgLInVuICmeZDPc5AGFaK |
+| **Deaf Kev** | Invincible | 4:39 | Partly. Already used on 2 other reels (bf-gr-corolla-track, na-miata-grimace-scan-process), so skip it | https://sf16-ies-music-sg.tiktokcdn.com/obj/tos-alisg-ve-2774/oggM8gufZoEjOQBPBMD4nsFAokQ3gC7QRfFIYt |
+
+**Not in the chart:** Illenium, Seven Lions, Gryffin, Said the Sky, Slander, Marshmello, Martin Garrix, Zedd, Kygo.
+The tool can't search the full library by artist; if you want one of those, upload the track.
+
+**My pick for "like Illenium": NIVIRO "The Ghost"** (closest sound). Or **deadmau5** if the famous name matters more
+than the sound.
+
 (Deaf Kev's "Invincible" is skipped because two other reels already use it, and Sworra's "THE DEATH" was rejected
 before.)
