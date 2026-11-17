@@ -4,7 +4,9 @@
 Planned 2026-11-17. Prices and stock were re-checked on the live Shopify store "Epsilon+ Aerodynamics" the same day.
 
 ## Concept in one line
-The real stock-state scan of our white Integra (DE4 A-Spec) rolls past Del & Eps on black. On the drop there is a hard 1:1 cut to the same car rolling past for real, now wearing the lip, skirts, spats and Sport Wing. Then the four parts from the website model land as a kit, with Del & Eps at 1:10 scale on them, followed by the price card and the Epsilon+ wordmark.
+The real stock-state scan of our white Integra (DE4 A-Spec) rolls past on black. On the drop there is a hard 1:1 cut to the same car rolling past for real, now wearing the lip, skirts, spats and Sport Wing. Then the four parts from the website model land as a kit, followed by the price card and the Epsilon+ wordmark.
+
+**Owner decision 2026-11-17:** no Del & Eps in any BF video, typical Epsilon+ branding only (`projects/_blackfriday/MASCOT_AND_PRICES.md`, e05c325). All character shots, cameos and placeholders are removed.
 
 ## Owner's concept (verbatim)
 > Stock → kitted. One cut on a beat. A stock Integra drives past the camera, and on the drop it passes again with the lip, skirts, spats and Sport Wing. Then the price card: "Full kit, 30% off."
@@ -43,11 +45,11 @@ Times assume track #1: beat = 0.4286 s, drop at 6.89 s = beat 16. They are re-fi
 
 | # | Time (s) | Dur | Beat | Camera | Subject | Source asset (exact) | Action | On-screen text (source) | Transition out | Render |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 0.00-3.43 | 3.43 | 0-8 (intro) | Low front 3/4, 0.6 m high, slow push as the car rolls toward and past the lens | STOCK car, front end: bare stock bumper and sills. **Del & Eps** stand at the roadside at 1:1 in their locked colours, the only colour in frame. Eps aims his scanner (cyan #6fc3d6 lenses) at the car as it passes; Del watches with his arms folded. | Scan `Integra A_spec_scan_full_relocated.stl` (Drive `123P7-gaQN2jAWDxyVNjugX3KsWf6D0MV`), silver on black; Del & Eps from `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg` (Higgsfield reference image, committed 46e523b) | Car translates past on black; faint floor reflection sells the motion | None | Hard cut on beat 8, only if the track has a hit there (measure); otherwise shots 1+2 become one continuous move | Blender (ive prep/render, silver look) + Higgsfield character plate (model sheet as reference) composited over the render |
+| 1 | 0.00-3.43 | 3.43 | 0-8 (intro) | Low front 3/4, 0.6 m high, slow push as the car rolls toward and past the lens | STOCK car, front end: bare stock bumper and sills. | Scan `Integra A_spec_scan_full_relocated.stl` (Drive `123P7-gaQN2jAWDxyVNjugX3KsWf6D0MV`), silver on black| Car translates past on black; faint floor reflection sells the motion | None | Hard cut on beat 8, only if the track has a hit there (measure); otherwise shots 1+2 become one continuous move | Blender (ive prep/render, silver look) |
 | 2 | 3.43-6.89 | 3.46 | 8-16 | Side tracking at the camera-car height of DJI 0371, panning tail → nose so the frame lands on the solved pose | STOCK car, side: plain sills, no spats, stock trunk | Same scan | Camera **ends exactly** on `cam_0371.json`, solved from the 0371 cut frame. Key the pose 2 frames early and hold it. | None | **HARD 1:1 CUT ON THE DROP** (6.89 s) | Blender |
 | 3 | 6.89-10.32 | 3.43 | 16-24 (drop) | Real camera car alongside; the 9:16 window slides along the car nose → tail at constant scale | KITTED car, same pose: the lip, skirts, spats and wing appear at the cut | DJI `DJI_20240324162540_0371_D.MP4` (Dropbox id `ihAynaYnO_4AAAAAAAAK5A`), from the solved frame | Window shows the lip first, then the skirt, then the spat and the Sport Wing as the clip rolls | None (IRL) | Hard cut on beat 24 | Footage edit (crop 1215x2160 window from 4K, conform 29.97 → 30) |
 | 4 | 10.32-12.03 | 1.71 | 24-28 | Real camera car behind, rear 3/4 | KITTED car from behind: Sport Wing, spats, diffuser | DJI `DJI_20240324162511_0370_D.MP4` (Dropbox id `ihAynaYnO_4AAAAAAAAK4w`), ~4.0-5.7 s (wing closest) | Car rolls toward the camera car | None (IRL) | Hard cut on beat 28 | Footage edit |
-| 5 | 12.03-13.71 | 1.71 | 28-32 | Black studio, 3/4 from above (~30 deg) | The four products from the website model, with **Del & Eps in micro mode (~1:10)**: Eps rides the Sport Wing endplate, Del stands on a spat strake | `eps-acura-integra-de-v29.glb` nodes `part_front_lip`, `part_side_skirts`, `part_rear_spats`, `part_sport_wing`, parts rendered in the house silver so the characters stay the only colour (Q5). Del & Eps in the locked look: Del teal #0f5c63 / orange #ff7a1a with a boxed beard and headset; Eps violet #6b3cff / yellow #ffd21f, cap backwards, visor. | One part drops into its place in a kit layout on each beat (28, 29, 30, 31). One pose per character: Eps points at the lip; Del sits on the wing holding up the 10 mm socket while Eps pats his empty pockets on beat 31 (the running gag, staged like `del-eps-10mm-socket-gag.jpg`). No spins (lesson). | Optional: part name + was/BF price under each part (BF liquidation sheet, below). Only if the user wants per-part prices. | Cut on beat 32 | Blender (GLB, silver) + Higgsfield character stills composited + Remotion text |
+| 5 | 12.03-13.71 | 1.71 | 28-32 | Black studio, 3/4 from above (~30 deg) | The four products from the website model in silver, no car body| `eps-acura-integra-de-v29.glb` nodes `part_front_lip`, `part_side_skirts`, `part_rear_spats`, `part_sport_wing`, parts rendered in the house silver (house scan look).| One part drops into its place in a kit layout on each beat (28, 29, 30, 31). No spins (lesson). | Optional: part name + was/BF price under each part (BF liquidation sheet, below). Only if the user wants per-part prices. | Cut on beat 32 | Blender (GLB, silver) + Remotion text |
 | 6 | 13.71-15.43 | 1.71 | 32-36 | Same as 5, held | The kit layout | Same render | Card text lands on beat 32 | **"Full kit, 30% off"** (owner's wording). The confirmed tiers put the spats at 40-45 %, so the wording needs a decision, see Q1. | Cut on beat 36 | Remotion over the shot 5 render |
 | 7 | 15.43-17.57 | ~2.1 | 36-41 | n/a | Epsilon+ wordmark, ~720 px wide, centred | Drive `EPSILON+ Logos` (exact file to locate; Epsilon wordmark, not Illumaesthetic) | Lands on beat 36 and rides the decay | Optional `epsilon.plus` under the logo, if the user wants a CTA | End | Remotion |
 
@@ -74,8 +76,8 @@ Times assume track #1: beat = 0.4286 s, drop at 6.89 s = beat 16. They are re-fi
 | Kitted driving footage | Dropbox `.../Acura Integra DE4 DE5/integra roller/` 0362-0376 (2024-03-24) | **found**; 0370/0371 checked, the other 13 still to sheet |
 | Kitted footage, vertical (backup) | Dropbox `/2. Illumaesthetic Videos/1. Video dumps/*Posted Raw Videos/2024 Finished Video/Jackie/Posted/integra kit.mov` (`ihAynaYnO_4AAAAAAAAFjQ`), 1080x1920. Front 3/4 roll-by 13.8-16.1 s and side pass 17.2-19.5 s have no burned-in text. It is a posted edit, so it is fallback only. | **found** |
 | Stock driving footage | none found | **missing**; not needed by this plan |
-| Epsilon characters: **Del (δ) & Eps (ε)** | **Locked look:** `knowledge/characters/del-and-eps/README.md` + `del-eps-model-sheet.jpg`. It supersedes the concept pages: earlier sketches, owner's concept pages: v0.1 https://claude.ai/artifact/MyfYpve1ho7AhiTSzvRCFf and v0.2 colours https://claude.ai/artifact/E2AUcUQJsG5a937FCorTQD, summarised in `projects/_blackfriday/MASCOT_AND_PRICES.md`. These are concept sketches only: there is no model, rig or turnaround. Pip & Gus are the Illumaesthetic mascots and are NOT used here (owner's decision). | **found**: README + model sheet + 3 reference frames on this branch. Style frame for shot 5 = `del-eps-10mm-socket-gag.jpg` (Eps on a wing endplate, Del holding the socket), the same micro-mode idea, but on our real GLB/scan render. |
-| Epsilon+ wordmark | Drive folder `EPSILON+ Logos` (per lessons.md) | **to locate** |
+| Epsilon characters (Del & Eps) | Not used in BF videos (owner decision 2026-11-17). Reference stays in `knowledge/characters/del-and-eps/` for later work. | **not used** |
+| Epsilon+ wordmark | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (`1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W`), 3083x417 white on transparent | **found** |
 | Music | TikTok CML (Higgsfield `tiktok_music_trending`); previews in `/home/user/media/bf-integra-stock-to-kitted/music/` | **candidates found**; licensed full track to fetch after approval |
 
 ## Live store list prices (Shopify, 2026-11-17; for reference — the sheet below is the source for the card)
@@ -116,13 +118,7 @@ So every kit part is at least 30 % off, and the kit overall is more than 30 % of
    - (c) (b) plus "$1,360 → $934.50". If the kit should include the trunk lip, the combo version is "$1,460 → $969.50".
 2. **The stock pass is the real scan of this car (silver on black), not real driving footage.** No footage of the car driving stock exists; its stock state only exists as the Jan-2024 scan. Is scan → real OK for "it passes again"? The other option is the website GLB with the parts hidden, in a CGI street. That is more work and would match the real street less well.
 3. **Music:** "140" by Lil Texas (drop ~6.9 s, hard), or the on-theme "BLACK FRIDAY" by NUMMA? NUMMA's drop is at ~16.7 s, so it needs a longer stock pass or starting mid-song.
-4. **Del & Eps (locked look, model sheet).** I plan two appearances, both in the scan world, never over real footage:
-   - shot 1 at 1:1, roadside, in silver, scanning in;
-   - shots 5-6 at 1:10 on the parts (micro mode), Del with the 10 mm socket sting.
-
-   Production follows the owner's path: Higgsfield images or short clips with `del-eps-model-sheet.jpg` as the reference image, composited over our scan and GLB renders. No 3D rig, no voices. I'll quote the credits before generating. The shots need the characters lit and placed to match the render cameras, so I'll show stills first. OK?
-5. **Kit card finish:** the locked rule says scans stay silver and the characters carry the colour. I plan to render the GLB parts in silver too. Or would you rather the real finishes: a gloss black wing ($500 → $350) or Platinum White like the car?
-6. **Spats:** the GLB has one spat version and the store has two. Which version is on the white car? Should the card show both?
+4. ~~Del & Eps~~ Dropped: the owner said no characters in BF videos, typical branding only.
 7. **Per-part prices on the kit layout (shot 5): yes or no?** Should the end card carry `epsilon.plus`?
 
 ## Production steps (after approval)
@@ -135,9 +131,8 @@ So every kit part is at least 30 % off, and the kit overall is more than 30 % of
    - Look at the plate in the scan.
 3. Sheet all 15 roller clips. Pick the 0371 cut frame and the 0370 window. Grade check: DJI Rec.709, no LUT expected.
 4. Solve the camera on the 0371 frame (≥8 body landmarks spread in depth, free focal), build the 9:16 crop camera, and check the onion overlay plus the stance at the arches.
-5. Del & Eps: generate character plates in Higgsfield, with the sheet as the reference element, matched to each render camera's angle and light. Composite them over shots 1 and 5. Show the user the stills before animating, and quote the credits first.
-6. Render shots 1-2 (scan, silver look) ending on the solved camera. Check per-frame luma for black-frame dropouts. Check the first, middle and last frames.
-7. Render shot 5 from the GLB: four parts, lookbook materials, `part_fender_flares` and `part_duckbill` hidden unless Q1 includes the trunk lip.
-8. Build shots 6-7 in Remotion. Text comes only from the owner's wording and live Shopify data, re-checked on the day of render.
-9. Assemble with the concat assembler (exact frames per clip, hard cuts only). Mix at -14 LUFS with true peak below -1 dBFS. Verify cut times against the decoded audio (≤ ½ frame).
-10. Self-score with `training/rubric.md`, then `ive archive`, commit and push.
+5. Render shots 1-2 (scan, silver look) ending on the solved camera. Check per-frame luma for black-frame dropouts. Check the first, middle and last frames.
+6. Render shot 5 from the GLB: four parts, lookbook materials, `part_fender_flares` and `part_duckbill` hidden unless Q1 includes the trunk lip.
+7. Build shots 6-7 in Remotion. Text comes only from the owner's wording and live Shopify data, re-checked on the day of render.
+8. Assemble with the concat assembler (exact frames per clip, hard cuts only). Mix at -14 LUFS with true peak below -1 dBFS. Verify cut times against the decoded audio (≤ ½ frame).
+9. Self-score with `training/rubric.md`, then `ive archive`, commit and push.
