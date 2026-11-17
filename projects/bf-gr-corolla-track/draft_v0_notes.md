@@ -44,3 +44,11 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
   - The card kit layout sits left of centre.
   - The circuit is low detail.
   - s1 -> s2 is a same-car tracking cut and reads as a jump.
+
+## v0.2 (user notes on v0.1: canards back in stock, highlight V2, game GLBs instead of scan)
+- **File:** `/home/user/media/work/out/bf-gr-corolla-track_v0.2.mp4`, 1080x1920, 30 fps, 19.9 s. Loudness -14.0 LUFS, true peak -2.8 dBFS.
+- **Cut sync:** 9 detected cuts within -21..+7 ms of the kicks (8 of 9 within half a frame). No dark frames.
+- **No scan data:** the scan shots are now lookbook-GLB studio shots. The body goes graphite, the V2 parts glow in, and labels name each part.
+- **Canards:** carbon canards are on the car in every CGI shot, plus a new close-up labelled "CARBON CANARDS / BACK IN STOCK".
+  - The store still says "[BACKORDER]" with inventory -2; the listing needs updating before the ad runs.
+  - No canard price is shown (canards are not in the BF sheet).

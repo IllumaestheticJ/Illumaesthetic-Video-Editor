@@ -267,7 +267,96 @@ def shot6():
     return LEN[6]
 
 
-N = shot_stage(A.shot) if A.shot <= 4 else (shot5() if A.shot == 5 else shot6())
+# ---------------------------------------------------------------- v0.2 scan section (user: "the scan section needs to show
+# the stock wing coming off") and the kitted CGI car. Scan pieces are in the GLB frame (split_spoiler.py).
+REG = '/home/user/media/bf-integra-385-combo/work/reg'
+LEN.update({7: 70, 8: 71, 9: 71})
+CAM7_A = ((-2.9, 5.5, 2.35), (0.0, 1.75, 0.85))
+CAM7_B = ((-2.7, 5.15, 2.25), (0.0, 1.75, 0.85))
+
+
+def ply(name, m):
+    bpy.ops.wm.ply_import(filepath=f'{REG}/{name}.ply', forward_axis='Y', up_axis='Z')
+    o = bpy.context.selected_objects[0]; o.data.materials.clear(); o.data.materials.append(m)
+    bpy.ops.object.shade_flat() if False else None
+    return o
+
+
+def scan_car(with_spoiler):
+    ply('car_nospoiler', M_SILVER); ply('deck_patch', M_SILVER)
+    sp = ply('stock_spoiler', M_SILVER) if with_spoiler else None
+    if sp is not None:  # origin at its bbox centre so it lifts and tilts about itself
+        recentre(sp); sp.rotation_mode = 'XYZ'
+    return sp
+
+
+def shot7():
+    """scan, stock car: the factory trunk spoiler lifts off whole and leaves the frame"""
+    sp = scan_car(True)
+    p0 = sp.location.copy()
+    key(sp, 12)
+    sp.location = p0 + Vector((0, 0.10, 0.32)); sp.rotation_euler = (math.radians(-12), 0, 0); key(sp, 34)
+    sp.location = p0 + Vector((0.2, 1.6, 2.6)); sp.rotation_euler = (math.radians(-40), math.radians(8), 0); key(sp, 60)
+    sp.hide_render = False; sp.keyframe_insert('hide_render', frame=60)
+    sp.hide_render = True; sp.keyframe_insert('hide_render', frame=61)
+    car_lights()
+    co = camera(36); look(co, *CAM7_A); key(co, 1); look(co, *CAM7_B); key(co, LEN[7])
+    return LEN[7]
+
+
+def glb_parts(m):
+    objs = import_glb()
+    for n, o in list(objs.items()):
+        if n not in ('part_sport_wing', 'part_duckbill'): bpy.data.objects.remove(o, do_unlink=True)
+    wing = bpy.data.objects['part_sport_wing']; lip = bpy.data.objects['part_duckbill']
+    for o in (wing, lip):
+        o.parent = None; o.matrix_world = o.matrix_world.copy(); o.data.materials.clear(); o.data.materials.append(m)
+    return wing, lip
+
+
+def install_anim(wing, lip):
+    w0 = wing.location.copy(); l0 = lip.location.copy()
+    lip.location = l0 + Vector((0, 0.9, 0.55)); key(lip, 1, rot=False)
+    lip.location = l0 + Vector((0, 0.06, 0.04)); key(lip, 20, rot=False)
+    lip.location = l0; key(lip, 26, rot=False)
+    wing.location = w0 + Vector((0, 0.25, 1.4)); key(wing, 8, rot=False)
+    wing.location = w0 + Vector((0, 0.02, 0.10)); key(wing, 32, rot=False)
+    wing.location = w0; key(wing, 38, rot=False)
+
+
+def shot8():
+    """scan, spoiler gone: the Epsilon trunk lip then the Sport Wing go on; camera ends on CAM5_B (1:1 into shot 9)"""
+    scan_car(False)
+    wing, lip = glb_parts(M_SILVER_PART); install_anim(wing, lip)
+    car_lights()
+    co = camera(36); look(co, *CAM7_B); key(co, 1)
+    for f in range(1, LEN[8] + 1, 3):
+        u = ease((f - 1) / (LEN[8] - 1))
+        loc = tuple(CAM7_B[0][i] + (CAM5_B[0][i] - CAM7_B[0][i]) * u for i in range(3))
+        tgt = tuple(CAM7_B[1][i] + (CAM5_B[1][i] - CAM7_B[1][i]) * u for i in range(3))
+        look(co, loc, tgt); key(co, f)
+    look(co, *CAM5_B); key(co, LEN[8])
+    return LEN[8]
+
+
+def shot9():
+    """CGI Integra Type S (Platinum White) with BOTH parts on (gloss black), orbit toward rear-on"""
+    objs = import_glb()
+    for n, o in objs.items():
+        if o.type != 'MESH': continue
+        if n == 'body': o.data.materials.clear(); o.data.materials.append(M_WHITE)
+        if n in ('part_sport_wing', 'part_duckbill'): o.data.materials.clear(); o.data.materials.append(M_GLOSS)
+    car_lights()
+    co = camera(36)
+    for f in range(1, LEN[9] + 1, 3):
+        u = ease((f - 1) / (LEN[9] - 1))
+        look(co, orbit(CAM5_B[0], CAM5_B[1], -28 * u), CAM5_B[1]); key(co, f)
+    look(co, orbit(CAM5_B[0], CAM5_B[1], -28), CAM5_B[1]); key(co, LEN[9])
+    return LEN[9]
+
+
+N = {1: shot_stage, 2: shot_stage, 3: shot_stage, 4: shot_stage}.get(A.shot, None)
+N = N(A.shot) if N else {5: shot5, 6: shot6, 7: shot7, 8: shot8, 9: shot9}[A.shot]()
 for o in bpy.data.objects:
     if o.animation_data and o.animation_data.action:
         for fc in o.animation_data.action.fcurves if hasattr(o.animation_data.action, 'fcurves') else []:

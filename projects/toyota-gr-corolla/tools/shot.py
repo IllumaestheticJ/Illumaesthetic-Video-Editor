@@ -140,20 +140,21 @@ def mat_class(name):
 
 
 def mat_paint():
-    """Livery paint revealed like vinyl tape going on (user v13): wipe position W (world y, keyed per frame on the shared
-    Value node) sweeps front -> rear; each 10 cm horizontal strip starts with its own delay (hash of the strip index), so
-    strips are laid one by one with a crisp edge. Before the tape: house silver."""
+    """Castrol livery in two stages (user v13c: "have the white base paint sweep on instead of cut in"):
+    1. white base paint sweeps over the silver with a soft, slightly diagonal edge (driver 'sweep_wipe', world y + 0.35 z);
+    2. the livery graphics (attribute 'livery' rgb, alpha = graphics mask) are laid like vinyl tape: 10 cm horizontal
+       strips, each with a hashed delay, crisp edge (driver 'tape_wipe', world y)."""
     m, nt, out = sr.new_mat("ive_paint_tape")
     silver = sr.principled(nt, (0.62, 0.63, 0.66, 1), 0.32, 0.85)
     paint = sr.principled(nt, (0.8, 0.8, 0.8, 1), 0.28, 0.0)
     if "Coat Weight" in paint.inputs:
         paint.inputs["Coat Weight"].default_value = 0.6
     att = nt.nodes.new("ShaderNodeAttribute"); att.attribute_name = "livery"
-    nt.links.new(att.outputs["Color"], paint.inputs["Base Color"])
     tape_node = nt.nodes.new("ShaderNodeValue"); tape_node.name = "tape_wipe"; tape_node.outputs[0].default_value = 10.0
+    sweep_node = nt.nodes.new("ShaderNodeValue"); sweep_node.name = "sweep_wipe"; sweep_node.outputs[0].default_value = 10.0
     geo = nt.nodes.new("ShaderNodeNewGeometry"); sep = nt.nodes.new("ShaderNodeSeparateXYZ")
     nt.links.new(geo.outputs["Position"], sep.inputs[0])
-    def math(op, a, b=None, v=None):
+    def math(op, a, b=None):
         n = nt.nodes.new("ShaderNodeMath"); n.operation = op
         for i, x in enumerate((a, b)):
             if x is None:
@@ -163,13 +164,22 @@ def mat_paint():
             else:
                 nt.links.new(x, n.inputs[i])
         return n.outputs[0]
+    clamp01 = lambda x: math("MINIMUM", math("MAXIMUM", x, 0.0), 1.0)
+    # 1. white base sweep (soft spray edge)
+    s_coord = math("ADD", sep.outputs["Y"], math("MULTIPLY", sep.outputs["Z"], 0.35))
+    sweep = clamp01(math("DIVIDE", math("SUBTRACT", sweep_node.outputs[0], s_coord), 0.18))
+    # 2. graphics taped on in strips
     band = math("FLOOR", math("DIVIDE", sep.outputs["Z"], 0.10))
     h = math("FRACT", math("MULTIPLY", math("SINE", math("MULTIPLY", band, 12.9898)), 43758.5453))
-    delay = math("MULTIPLY", h, 0.9)
-    edge = math("SUBTRACT", math("SUBTRACT", tape_node.outputs[0], sep.outputs["Y"]), delay)
-    reveal = math("MINIMUM", math("MAXIMUM", math("DIVIDE", edge, 0.012), 0.0), 1.0)
+    edge = math("SUBTRACT", math("SUBTRACT", tape_node.outputs[0], sep.outputs["Y"]), math("MULTIPLY", h, 0.9))
+    tape = clamp01(math("DIVIDE", edge, 0.012))
+    gfx = math("MULTIPLY", att.outputs["Alpha"], tape)
+    col = nt.nodes.new("ShaderNodeMix"); col.data_type = "RGBA"; col.blend_type = "MIX"
+    col.inputs["A"].default_value = (0.87, 0.87, 0.87, 1)
+    nt.links.new(gfx, col.inputs["Factor"]); nt.links.new(att.outputs["Color"], col.inputs["B"])
+    nt.links.new(col.outputs["Result"], paint.inputs["Base Color"])
     mix = nt.nodes.new("ShaderNodeMixShader")
-    nt.links.new(reveal, mix.inputs[0]); nt.links.new(silver.outputs[0], mix.inputs[1]); nt.links.new(paint.outputs[0], mix.inputs[2])
+    nt.links.new(sweep, mix.inputs[0]); nt.links.new(silver.outputs[0], mix.inputs[1]); nt.links.new(paint.outputs[0], mix.inputs[2])
     nt.links.new(mix.outputs[0], out.inputs[0])
     return m
 
@@ -262,11 +272,12 @@ def main():
         for kp in fc.keyframe_points:
             kp.interpolation = "LINEAR"
 
-    if spec.get("tape") and "paint" in class_mats:   # livery taped on: wipe position (world y) per frame
-        tn = class_mats["paint"].node_tree.nodes["tape_wipe"]
-        for f in range(1, nframes + 1):
-            tn.outputs[0].default_value = sample(spec["tape"], (f - 1) / fps, "v")
-            tn.outputs[0].keyframe_insert("default_value", frame=f)
+    for key, node in (("tape", "tape_wipe"), ("sweep", "sweep_wipe")):   # livery drivers per frame (world y)
+        if spec.get(key) and "paint" in class_mats:
+            tn = class_mats["paint"].node_tree.nodes[node]
+            for f in range(1, nframes + 1):
+                tn.outputs[0].default_value = sample(spec[key], (f - 1) / fps, "v")
+                tn.outputs[0].keyframe_insert("default_value", frame=f)
 
     w, h = (int(v) for v in spec.get("res", "1080x1920").split("x"))
     sc.render.resolution_x, sc.render.resolution_y = w, h
