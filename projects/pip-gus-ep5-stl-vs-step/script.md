@@ -19,7 +19,7 @@ There is no "FULL VIDEO" teaser card (owner, 2026-11-16).
 - The deviation map is colour only.
 - End the video with the question "Do you design in CAD or in mesh?".
 
-Status: **Script v6 DRAFT for owner approval** (v5 was approved, then the owner asked for the "What's a mesh?" opening). Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
+Status: **Script v6 APPROVED by owner 2026-11-17.** Real-section files still being confirmed. Open questions are marked [VERIFY] and listed at the bottom.
 
 ## v6 changes (owner, 2026-11-17)
 - **Opening:** "What's a mesh?" (owner).
