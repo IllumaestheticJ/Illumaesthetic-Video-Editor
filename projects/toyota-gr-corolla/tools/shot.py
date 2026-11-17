@@ -109,6 +109,71 @@ def mat_livery():
     return m
 
 
+CLASS_LOOK = {  # game-model surfaces (website eps-toyota-gr-corolla-v23.glb + game-model render wheels): rgb, rough, metal, emit
+    "glass": ((0.015, 0.017, 0.02), 0.03, 0.0, 0), "glass_tint": ((0.008, 0.008, 0.01), 0.03, 0.0, 0),
+    "light_inner": ((0.75, 0.76, 0.78), 0.15, 1.0, 0), "plastic_gloss": ((0.01, 0.01, 0.01), 0.15, 0.0, 0),
+    "plastic_black": ((0.03, 0.03, 0.03), 0.55, 0.0, 0), "grille": ((0.02, 0.02, 0.02), 0.4, 0.2, 0),
+    "light_lens": ((0.6, 0.62, 0.66), 0.04, 0.3, 0), "light_red": ((0.45, 0.01, 0.01), 0.1, 0.0, 1.5),
+    "chrome": ((0.9, 0.9, 0.9), 0.08, 1.0, 0), "light_amber": ((0.9, 0.4, 0.02), 0.1, 0.0, 0.8),
+    "underbody": ((0.02, 0.02, 0.02), 0.9, 0.0, 0), "mirror_glass": ((0.8, 0.8, 0.82), 0.02, 1.0, 0),
+    "w_tyre": ((0.025, 0.025, 0.025), 0.6, 0.0, 0), "w_caliper": ((0.64, 0.8, 0.03), 0.12, 0.06, 0),
+    "w_hub": ((0.02, 0.02, 0.02), 0.5, 0.0, 0), "w_metal": ((0.8, 0.8, 0.8), 0.15, 1.0, 0),
+    "w_chrome": ((1.0, 1.0, 1.0), 0.15, 1.0, 0), "w_blue": ((0.0, 0.0, 1.0), 0.15, 0.0, 0),
+    "w_white": ((0.9, 0.9, 0.9), 0.07, 0.0, 0), "w_rimpaint": ((0.88, 0.88, 0.88), 0.25, 0.0, 0),
+    "w_glass": ((0.02, 0.02, 0.02), 0.05, 0.0, 0), "w_titanium": ((0.27, 0.31, 0.37), 0.7, 1.0, 0),
+}
+
+
+def mat_class(name):
+    if name == "silver":
+        return sr.mat_silver()
+    if name == "paint":
+        return mat_paint()
+    rgb, rough, metal, emit = CLASS_LOOK[name]
+    m, nt, out = sr.new_mat("cls_" + name)
+    p = sr.principled(nt, rgb + (1,), rough, metal)
+    if emit:
+        p.inputs["Emission Color"].default_value = rgb + (1,)
+        p.inputs["Emission Strength"].default_value = emit
+    nt.links.new(p.outputs[0], out.inputs[0])
+    return m
+
+
+def mat_paint():
+    """Livery paint revealed like vinyl tape going on (user v13): wipe position W (world y, keyed per frame on the shared
+    Value node) sweeps front -> rear; each 10 cm horizontal strip starts with its own delay (hash of the strip index), so
+    strips are laid one by one with a crisp edge. Before the tape: house silver."""
+    m, nt, out = sr.new_mat("ive_paint_tape")
+    silver = sr.principled(nt, (0.62, 0.63, 0.66, 1), 0.32, 0.85)
+    paint = sr.principled(nt, (0.8, 0.8, 0.8, 1), 0.28, 0.0)
+    if "Coat Weight" in paint.inputs:
+        paint.inputs["Coat Weight"].default_value = 0.6
+    att = nt.nodes.new("ShaderNodeAttribute"); att.attribute_name = "livery"
+    nt.links.new(att.outputs["Color"], paint.inputs["Base Color"])
+    tape_node = nt.nodes.new("ShaderNodeValue"); tape_node.name = "tape_wipe"; tape_node.outputs[0].default_value = 10.0
+    geo = nt.nodes.new("ShaderNodeNewGeometry"); sep = nt.nodes.new("ShaderNodeSeparateXYZ")
+    nt.links.new(geo.outputs["Position"], sep.inputs[0])
+    def math(op, a, b=None, v=None):
+        n = nt.nodes.new("ShaderNodeMath"); n.operation = op
+        for i, x in enumerate((a, b)):
+            if x is None:
+                continue
+            if isinstance(x, (int, float)):
+                n.inputs[i].default_value = x
+            else:
+                nt.links.new(x, n.inputs[i])
+        return n.outputs[0]
+    band = math("FLOOR", math("DIVIDE", sep.outputs["Z"], 0.10))
+    h = math("FRACT", math("MULTIPLY", math("SINE", math("MULTIPLY", band, 12.9898)), 43758.5453))
+    delay = math("MULTIPLY", h, 0.9)
+    edge = math("SUBTRACT", math("SUBTRACT", tape_node.outputs[0], sep.outputs["Y"]), delay)
+    reveal = math("MINIMUM", math("MAXIMUM", math("DIVIDE", edge, 0.012), 0.0), 1.0)
+    mix = nt.nodes.new("ShaderNodeMixShader")
+    nt.links.new(reveal, mix.inputs[0]); nt.links.new(silver.outputs[0], mix.inputs[1]); nt.links.new(paint.outputs[0], mix.inputs[2])
+    nt.links.new(mix.outputs[0], out.inputs[0])
+    return m
+
+
 def main():
     spec = json.load(open(sys.argv[sys.argv.index("--") + 1]))
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -129,7 +194,16 @@ def main():
     silver = sr.mat_silver()
     grey = sr.mat_clay()
     livery = mat_livery()
+    class_mats = {}
     for o in base:
+        names = [mt.name for mt in o.data.materials if mt]
+        if names and all(n.startswith("cls_") for n in names):   # per-face surface classes (class_attr.py)
+            for i, n in enumerate(names):
+                cn = n.split(".")[0][4:]
+                if cn not in class_mats:
+                    class_mats[cn] = mat_class(cn)
+                o.data.materials[i] = class_mats[cn]
+            continue
         o.data.materials.clear()
         if "livery" in o.data.attributes:
             o.data.materials.append(livery)
@@ -187,6 +261,12 @@ def main():
     for fc in (cam.animation_data.action.fcurves if hasattr(cam.animation_data.action, "fcurves") else []):
         for kp in fc.keyframe_points:
             kp.interpolation = "LINEAR"
+
+    if spec.get("tape") and "paint" in class_mats:   # livery taped on: wipe position (world y) per frame
+        tn = class_mats["paint"].node_tree.nodes["tape_wipe"]
+        for f in range(1, nframes + 1):
+            tn.outputs[0].default_value = sample(spec["tape"], (f - 1) / fps, "v")
+            tn.outputs[0].keyframe_insert("default_value", frame=f)
 
     w, h = (int(v) for v in spec.get("res", "1080x1920").split("x"))
     sc.render.resolution_x, sc.render.resolution_y = w, h

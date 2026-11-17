@@ -1,3 +1,6 @@
+# Toyota GR Corolla v13 = ... ends on the user's IMG_2005.mov (1:1 scan -> IRL on downbeat 20, 2 bars), end card on 22.
+# v12 + 1:1 transition on downbeat 18 from the finished silver car to the Castrol livery
+# (website GLB texture) on Motegi MF TL6 wheels, same camera continuing the 360 (user); new Jackson Racing logo. 20 bars.
 # Toyota GR Corolla v12 = teardown, then the car reassembles (user): front (hood, ducts, beams, bumper), rear bumper +
 # diffuser, hatch, factory side covers off + Epsilon Aero WRC wing on (re-registered to the CMM endplate scans), then a full
 # 360 of the assembled car while the Epsilon Aero V2 kit (lip, side skirts, rear spats) installs; end card. 18 bars.
@@ -16,7 +19,7 @@
 # 10th downbeat, where the drums thin out. v5 = project_v5.yaml.
 project: toyota-gr-corolla
 format: reel-9x16
-output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v12.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
+output: {path: /home/user/media/work/grc/out/toyota_gr_corolla_v13.mp4, width: 1080, height: 1920, fps: 30, crf: 16, preset: slow}
 
 music:
   path: /home/user/media/music/grc_goingupnorth.m4a   # user-supplied, not in git
@@ -24,7 +27,7 @@ music:
   fade_out: 1.0
   gain: 0.88   # true peak was -0.6 dBFS at unity; skill: below -1 dBFS, turn down never up
 
-beats: [2.333, 4.667, 7.000, 9.333, 11.666, 14.000, 16.333, 18.666, 21.000, 23.333, 25.666, 28.000, 30.333, 32.666, 34.999, 37.333, 39.666, 41.999]
+beats: [2.333, 4.667, 7.000, 9.333, 11.666, 14.000, 16.333, 18.666, 21.000, 23.333, 25.666, 28.000, 30.333, 32.666, 34.999, 37.333, 39.666, 41.999, 44.333, 46.666, 48.999, 51.333]
 
 timeline:
   - {id: a1_whole, src: /home/user/media/work/grc/renders8/final/a1_whole, src_fps: 15, interpolate: true, dur: 2.3, section: whole, focus: "whole car push, song opening"}
@@ -59,9 +62,13 @@ timeline:
   - transition: {type: cut, note: "downbeat 15"}
   - {id: r4_wing, src: /home/user/media/work/grc/renders14/final/r4_wing, src_fps: 30, dur: 2.3333, section: reassembly, focus: "factory side covers off, Epsilon Aero WRC wing on"}
   - transition: {type: cut, note: "downbeat 16"}
-  - {id: f1_360, src: /home/user/media/work/grc/renders14/final/f1_360, src_fps: 30, dur: 4.6667, section: finale, focus: "full 360 of the assembled car while the V2 lip, skirts and spats install", hold: true}
-  - transition: {type: dip, duration: 0.5, note: "downbeat 18 -> end card"}
+  - {id: f1_360, src: /home/user/media/work/grc/renders14/final/f1_360, src_fps: 30, dur: 4.6667, section: finale, focus: "full 360 of the assembled car while the V2 lip, canards, skirts and spats install"}
+  - transition: {type: cut, note: "downbeat 18, 1:1 - same camera continuing"}
+  - {id: f2_castrol, src: /home/user/media/work/grc/renders15/final/f2_castrol, src_fps: 30, dur: 4.6667, section: finale, focus: "Castrol livery + Motegi MF TL6 wheels; camera lands on the camera solved from the user's clip"}
+  - transition: {type: cut, note: "downbeat 20, 1:1 scan -> IRL (solved camera irl/cam_pnp0.json, frame 6.70 s)"}
+  - {id: irl_end, src: /home/user/media/toyota-gr-corolla/irl/IMG_2005.mov, in: 6.70, dur: 4.6667, section: finale, focus: "the real Castrol GR Corolla on the highway at night (user: end with this)", hold: true}
+  - transition: {type: dip, duration: 0.5, note: "downbeat 22 -> end card"}
   - {id: logo, src: /home/user/media/work/grc/out/endcard_contact.mp4, dur: 3.0}   # tools/endcard.py: logo + contact line
 
 overlays:
-  - {src: /home/user/media/work/grc/out/labels_v12.mov, start: 0}   # tools/labels.py labels.json
+  - {src: /home/user/media/work/grc/out/labels_v13.mov, start: 0}   # tools/labels.py labels.json

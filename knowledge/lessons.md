@@ -1373,3 +1373,13 @@ lands here automatically. Agents must read this whole file before editing.
   downbeat with the camera continuing the previous shot's path exactly.
 - [logo] A brand logo with black ink on transparency vanishes on the black reel: reverse it (black -> off-white, keep the
   brand colour) - tools/logo_reverse.py.
+- (GR Corolla v13, user: "End with this" + an IRL clip) Scan -> IRL ending: solve the clip frame with a quick PnP
+  (cv2.solvePnP SQPNP, focal fixed 28 mm on 20.25 sensor) from 4 unambiguous rigid points ray-cast on the scan (plate,
+  emblem, wheel hubs), confirm with `ive check`; make the previous scan shot's camera spline end on it (Hermite: start
+  rate = previous shot's, end rate 0), hold 2 frames, cut on a downbeat. Check the real car's state (wing etc.) first.
+- [scan] (GR Corolla v13b, user: "fix wheel stance") Never place new wheels from hub centres read by eye off one render:
+  fit circles to the scanned tyres' outer edge (angle-binned max radius), cross-check with the engineering model and
+  with the floor (a scanned tyre bottom sits at z~0), and overlay candidate circles on an orthographic side render.
+- (user) "Game model look": transfer surface classes (glass, lights, chrome, grille, plastics) from the website GLB to
+  the scan by nearest surface (tools/livery2.py + class_attr.py -> 'cls_*' material slots; shot.py CLASS_LOOK). A livery
+  reveal "like tape" = wipe along the car with per-strip hashed delays and a crisp edge (shot.py mat_paint, spec "tape").
