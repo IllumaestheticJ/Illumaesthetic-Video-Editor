@@ -73,7 +73,7 @@ Take 1 record: Cody fails on Eleven v4 (works only on Seed Audio, no emotion tag
 - Prices from the live Shopify store, checked 2026-11-17. $115,000 and 30% are the owner's character numbers.
 - Medium-brown skin on the hands; dog tags with Marine-like details (fictional name, no official emblem art).
 - DAM, not DAMM. Title wording as above. Hard cut to black, no end card.
-- Music: "First Time" from 0:30. Voices picked: Cody (HIM), Mark (Beamer guy); Marcus and Nadine no longer needed.
+- Music: "First Time" from 0:30. Voices: Bram (HIM), Harrison (Beamer guy). Take 3 is the current take (`voice/take3/`); credits spent so far about 5.6.
 - Minimal voices; fast-paced like the references.
 
 ## Assets
