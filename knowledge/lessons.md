@@ -1383,3 +1383,7 @@ lands here automatically. Agents must read this whole file before editing.
 - (user) "Game model look": transfer surface classes (glass, lights, chrome, grille, plastics) from the website GLB to
   the scan by nearest surface (tools/livery2.py + class_attr.py -> 'cls_*' material slots; shot.py CLASS_LOOK). A livery
   reveal "like tape" = wipe along the car with per-strip hashed delays and a crisp edge (shot.py mat_paint, spec "tape").
+- (GR Corolla v13c, user) Brand names in labels use the brand's real logo file (Epsilon: Drive "EPSILON+ Logos/Epsilon+
+  Logo.png", white on transparent) above the part name. Wheel swaps are shown as an install: old wheel straight out
+  along its axle then away, bare hub beat, new wheel in along the axle and seat. A livery goes on base-coat first (soft
+  sweep), then graphics (taped strips) - never a hard cut-in.
