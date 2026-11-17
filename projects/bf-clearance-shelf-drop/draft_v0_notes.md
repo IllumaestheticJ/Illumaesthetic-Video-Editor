@@ -63,3 +63,13 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
   - the Integra car pull-back ends too small;
   - the shot 2 opening is a long push with a tiny pallet;
   - the scans should replace the lookbook cars.
+
+## v0.2 (2026-11-17): owner feedback "make the signs easier to read, make the actual duckbill and the lip carbon"
+- Tags redesigned (`tools/tags.py`): a black BLACK FRIDAY bar, bold 140 px sale prices, a struck-through was-price, fewer
+  words. Each tag hangs close to the camera and fills most of the frame width. The aisle BLACK FRIDAY sign is bigger.
+- The Integra duckbill and GR V1 lip are a gloss carbon twill (`carbon()` in `tools/shots_v0.py`), on the shelf and on
+  the car, so the product contrasts with the silver scans.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.2.mp4`.
+- Checks: 1080x1920, 450 frames = 15.0 s; -14.2 LUFS, true peak -2.2 dBFS; same cut frames as v0.1 (on the kicks).
+  Contact sheet: the tags read at phone size, and the lip keeps its place and size across both 1:1 cuts (frames 149/150,
+  295/296).
