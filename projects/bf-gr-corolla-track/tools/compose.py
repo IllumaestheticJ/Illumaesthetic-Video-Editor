@@ -19,10 +19,10 @@ END = round(kicks[50] * FPS) + 30          # logo holds 6 kicks (to kick 50), th
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-# owner font rule (knowledge/fonts.md): Akira for headlines/offers - not supplied yet, so Unbounded 700 stands in;
+# owner font rule (knowledge/fonts.md): Akira for headlines/offers - not supplied yet, so Unbounded 800-900 stands in;
 # Unbounded 500 for part labels, 300-400 for the URL next to the logo
 UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-'
-f_bf = ImageFont.truetype(UB + '700.ttf', 40)
+f_bf = ImageFont.truetype(UB + '800.ttf', 40)
 f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 58) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 58)
 f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 50)
 f_url = ImageFont.truetype(UB + '300.ttf', 40)
@@ -50,10 +50,10 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 RED = (226, 38, 43)
-f_ver = ImageFont.truetype(UB + '700.ttf', 200)
-f_kit = ImageFont.truetype(UB + '700.ttf', 72)
-f_pct = ImageFont.truetype(UB + '700.ttf', 134)
-f_upto = ImageFont.truetype(UB + '700.ttf', 52)
+f_ver = ImageFont.truetype(UB + '900.ttf', 200)
+f_kit = ImageFont.truetype(UB + '900.ttf', 72)
+f_pct = ImageFont.truetype(UB + '900.ttf', 128)
+f_upto = ImageFont.truetype(UB + '800.ttf', 52)
 
 
 def card_overlay(img, shot, i, n):
@@ -82,7 +82,7 @@ def card_overlay(img, shot, i, n):
     # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20
     a_p = ease((i - (F1 - 3)) / 4) * out
     if a_p > 0:
-        sc_ = 1.0 + 0.15 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
+        sc_ = 1.0 + 0.08 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
         lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
         if pre:
             text_c(dl, 700, pre, f_upto, round(255 * a_p), cx=484)
