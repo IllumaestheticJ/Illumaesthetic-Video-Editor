@@ -33,7 +33,13 @@ your chat if you need to watch it. What the parent measured:
   existing game or video).
 
 ## Series format (parent decisions; the owner can override)
-- 9:16, 1080x1920, 30 fps, **up to 55 s** (owner, 2026-11-17), as many locations as the story needs with tight pacing, a hard cut between scenes, no dissolves.
+- **Frame layout (measured on all 3 owner references, 2026-11-17):** 1080x1920 canvas, black, with the game picture a
+  **1080x1080 square at y=420-1499**. The title sits in the black band above (two lines if long); black below. Render
+  the game shots 1:1, not full-bleed 9:16.
+- **Look:** early-2000s game, photo-ish textures, realistic hands, soft light (NOT hard posterization). Talking
+  characters move their mouths. 2-4 s per shot. Owner reference clips: /home/user/media/ditl-wrx-vb/ref/ in the WRX
+  session (not committed): "noah simulator", "bad day simulator", "your friend who loves hypotheticals".
+- 30 fps, **up to 55 s** (owner, 2026-11-17), as many locations as the story needs with tight pacing, a hard cut between scenes, no dissolves.
 - Top title bar for the whole video, lowercase white on black: **`day in the life: average <car> owner`** (the
   owner's wording is "DITL of average WRX owner"; confirm the exact title text with the owner).
 - First person: the viewer IS the owner. Their arms and hands are always in frame and act erratically.
