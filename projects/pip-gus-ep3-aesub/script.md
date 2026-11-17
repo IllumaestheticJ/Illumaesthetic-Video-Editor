@@ -94,8 +94,11 @@
 | R2 | 20230413_181812.mp4 or 181953.mp4 | about 2-6 s | about 1.5 s | Scanning the sprayed nose, with the live mesh on the scanner screen. |
 | R3 | 20230413_182006.mp4 | about 6-8 s | about 2 s | High front view of the 296, then a hard 1:1 cut on the beat to the 296 scan. The scan is the engineering Drive "Ferrari 296GTB" set, already prepped in `projects/ferrari-296`; this needs a new camera solve. |
 
-**Open questions:**
-- Is the Drive 296 scan this same car? If not, R3 ends on the real car, with no 1:1 cut.
+**Owner answers (2026-11-17):**
+- The plan is approved.
+- The Drive 296 scan is this same car, so R3 gets the 1:1 cut.
+
+**Open:**
 - Not decided yet: the pacing within the 5 s window.
 - There's no "coat gone" shot in this set. That payoff stays in the cartoon (line 2).
 

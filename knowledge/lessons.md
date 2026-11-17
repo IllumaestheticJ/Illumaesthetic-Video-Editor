@@ -717,3 +717,5 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[structure]** A call to action is not required. 'SCANS AVAILABLE AT ILLUMAESTHETIC.COM' only gets added when relevant (e.g. the video is about a scan we sell); the logo card can stand alone  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
 - **[audio]** AESUB is said as one word with no pause, "AEsub" (A-E-sub run together). ElevenLabs v4: "AY-ee-sub" came out "AYE sub", "A. E. sub" paused between letters; "AEsub" or "A-E-sub" read as one word. Captions keep AESUB  _(from pip-gus-ep3-aesub, 2026-11-16, owner)_
+
+- **[audio]** ElevenLabs v4 dialogue can generate a short flat-harmonic beep (~1.3 kHz, ~0.1 s) in the silence before a line (both Ep 3 takes, before Pip's 'OK'); check the gaps in a zoomed spectrogram and mute the beep with sample-accurate fades (ffmpeg volume eval=frame steps per 1024-sample frame and adds clicks)  _(from pip-gus-ep3-aesub, 2026-11-17, agent)_
