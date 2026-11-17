@@ -86,9 +86,9 @@ def pose(az, el, d, look):
 # (frame, az, elevation, lens, look-at, framing width at the car in m)
 K = [(0, 24, 10, 35, TGT + Vector((0.1, -0.7, 0.7)), 4.3),
      (fr(T_LIP) - 20, 44, 8, 35, TGT + Vector((0.1, -0.9, 0.45)), 4.0),
-     (fr(T_LIP) + 12, 56, 7, 38, TGT + Vector((0.1, -0.8, 0.35)), 4.2),
-     (fr(T_SKIRT) + 8, 92, 6, 45, TGT + Vector((0.0, 0.0, 0.3)), 5.0),
-     (fr(T_REAR) + 6, 140, 4, 70, look6, 4.4),
+     (fr(T_LIP) + 12, 56, 7, 38, TGT + Vector((0.1, -0.5, 0.35)), 4.9),
+     (fr(T_SKIRT) + 8, 92, 6, 45, TGT + Vector((0.0, 0.15, 0.3)), 5.9),   # v0 check: car clipped at 5.0
+     (fr(T_REAR) + 6, 140, 4, 70, look6, 5.4),
      (F_END - 8, az6, el6, END["lens"], look6, None)]
 for f, az, el, lens, look, width in K:
     d = d6 if width is None else width * lens / 36.0

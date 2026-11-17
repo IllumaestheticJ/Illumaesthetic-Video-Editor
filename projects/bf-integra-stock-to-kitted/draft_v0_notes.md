@@ -1,4 +1,6 @@
-# bf-integra-stock-to-kitted: draft v0 notes
+# bf-integra-stock-to-kitted: draft v0 / v0.1 notes
+
+**v0.1 (2026-11-17):** the same cut with Del & Eps removed, on the owner's instruction relayed by the parent: "not use del & eps, just typical branding content". Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.1.mp4`. Timing, loudness (-13.7 LUFS / -4.3 dBTP) and cuts are unchanged. Everything below about v0's Del & Eps placeholders is superseded.
 
 v0 is a quick, short first draft, made on the owner's instruction (relayed by the parent session 2026-11-17: "have all the agents make a quick short first draft"). The shot list's open questions were NOT answered by the user in this chat, so each one below uses my recommended default. Preview quality throughout.
 
@@ -10,7 +12,7 @@ Output: `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.mp4` (1080x1920
 | 0-209 | 0-6.99 | Stock A-Spec scan, silver on black. The camera approaches from the front 3/4, passes down the side, and settles on the solved camera of the real clip ~0.6 s before the drop. | `Integra A_spec_scan_full_relocated.stl` (Drive 123P7-gaQN2jAWDxyVNjugX3KsWf6D0MV), 3 mm decimation |
 | 210-260 | 6.99-8.70 | **Hard 1:1 cut on the drop** to the real kitted car (DJI 0371 from 2.5 s). The 9:16 window eases from the nose toward the doors. | Dropbox `.../integra roller/DJI_20240324162540_0371_D.MP4` |
 | 261-312 | 8.70-10.43 | Real rear 3/4: Sport Wing, spats, diffuser | `.../integra roller/DJI_20240324162511_0370_D.MP4` from 4.0 s |
-| 313-468 | 10.43-15.63 | The four GLB kit parts drop into their installed positions on beats 9-12, in silver with no car body. Card text on beat 13; Del & Eps placeholders on beat 14. | `eps-acura-integra-de-v29.glb` part_front_lip / side_skirts / rear_spats / sport_wing |
+| 313-468 | 10.43-15.63 | The four GLB kit parts drop into their installed positions on beats 9-12, in silver with no car body. Card text on beat 13 (v0 also had Del & Eps placeholders on beat 14, removed in v0.1). | `eps-acura-integra-de-v29.glb` part_front_lip / side_skirts / rear_spats / sport_wing |
 | 469-527 | 15.63-17.60 | Epsilon+ wordmark, 720 px; the music fades out | Drive `EPSILON+ Logos/Epsilon+ Logo.png` (1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W) |
 
 ## 1:1 match

@@ -1,5 +1,9 @@
 # bf-paint-match-roulette: draft v0 notes (2026-11-17)
 
+**v0.1 (2026-11-17):** re-cut without Del & Eps (owner: "not use del & eps, just typical branding content"). Shot 1 is the silver
+scan alone; the end card is the silver scan + offer text. Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.1.mp4`
+(same cuts and audio as v0, so the sync and loudness checks below still hold: -14.0 LUFS, peak -3.7 dBFS). Assumption 5 below is void.
+
 The owner said "have all the agents make a quick short first draft" (relayed by the parent session). v0 is a **preview-quality**
 draft of `shotlist.md`. Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.mp4` (1080x1920, 30 fps, about 23.3 s; media is not committed).
 Tools: `tools/render_v0.py` (Blender stills), `tools/compose_v0.py` (assembly + text), `tools/probe.py`.

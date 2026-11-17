@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = '/home/user/media/bf-paint-match-roulette'
 R = f'{M}/renders/v0'
-OUT = '/home/user/media/work/out/bf-paint-match-roulette_v0.mp4'
+OUT = '/home/user/media/work/out/bf-paint-match-roulette_v0.1.mp4'  # v0.1: no Del & Eps (owner, 2026-11-17)
 W, H, FPS = 1080, 1920, 30
 B0, BP = 0.0903, 60 / 140.0  # measured flux grid 0.0703 + 20 ms (delivered-file check: cuts read ~20 ms early)
 def bt(b): return B0 + BP * b
@@ -85,7 +85,6 @@ def shade_top(im, h=560, a=170):
 def tag(d, s):
     d.text((40, 1840), s, font=F_TAG, fill=(255, 200, 60))
 
-eps = Image.open(f'{M}/chars/eps.png'); dele = Image.open(f'{M}/chars/del.png')
 def put_char(im, ch, h, x, yfoot, flip=False):
     c = ch.transpose(Image.FLIP_LEFT_RIGHT) if flip else ch
     s = h / c.height; c = c.resize((int(c.width * s), int(h)), Image.LANCZOS)
@@ -112,11 +111,8 @@ def photo_shot(path, cx=0.5):
         return zoom(img(path, cover=True, cx=cx), 1.0 + 0.03 * t / dur)
     return fn
 
-# 1  silver scan + Eps placeholder
-def s1_text(d, im, t, dur):
-    put_char(im, eps, 760, 700, 1650)
-    d = ImageDraw.Draw(im); tag(d, 'DRAFT v0 - Eps = model-sheet placeholder (no Higgsfield gen yet)')
-add(0, 5, render_shot(f'{R}/fe_scan.png', text=s1_text))
+# 1  silver scan (no characters: owner 2026-11-17)
+add(0, 5, render_shot(f'{R}/fe_scan.png', 1.0, 1.03))
 
 # 2  base wing (gloss black) on Sonic Gray FE
 def s2_text(d, im, t, dur):
@@ -132,7 +128,7 @@ ys, xs = np.nonzero(mask > 0.5); wx0, wx1 = xs.min(), xs.max()
 xx = np.tile(np.arange(W, dtype=np.float32), (H, 1))
 def s3(t, dur):
     p = min(1.0, max(0.0, t / 0.6)); p = p * p * (3 - 2 * p)
-    front = wx1 - (wx1 - wx0 + 80) * p              # wash travels from the right end (where Eps' hand was)
+    front = wx1 - (wx1 - wx0 + 80) * p              # wash travels across the wing from the right end
     w = np.clip((xx - front) / 60, 0, 1) * mask
     a = np.asarray(base).astype(np.float32); b = np.asarray(paint).astype(np.float32)
     im = Image.fromarray((a * (1 - w[..., None]) + b * w[..., None]).astype(np.uint8))
@@ -182,15 +178,12 @@ c = DE[9]
 def de_land(d): price(d, 1520, 'PAINT-MATCHED', '$950', '$800', F_CHIP)
 add(42, 45, roulette(f'{R}/de5_{c[1]}.png', c[0], c[1], c[2], 'INTEGRA SPORT WING', de_sub, de_land, (1.0, 1.04)))
 
-# 37 end: silver scan + Del & Eps placeholders
+# 37 end: silver scan + offer card
 def end_text(d, im, t, dur):
-    put_char(im, dele, 560, 60, 1790)
-    put_char(im, eps, 520, 790, 1780, flip=True)
     shade_top(im); d = ImageDraw.Draw(im)
     ctext(d, 200, 'BASE WING 30% OFF', F_HEAD)
     ctext(d, 320, 'PAINT MATCH AVAILABLE', F_SUB)
     ctext(d, 410, 'FROM $315', F_HEAD, (255, 255, 255))
-    tag(d, 'DRAFT v0 - Del & Eps = model-sheet placeholders')
 add(45, 49, render_shot(f'{R}/fe_scan_end.png', 1.0, 1.03, end_text))
 
 # 38 logo

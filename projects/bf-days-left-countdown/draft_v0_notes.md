@@ -47,3 +47,16 @@ Output: `/home/user/media/work/out/bf-days-left-countdown_v0.mp4` (media is not 
 - Contact sheet reviewed. The first pass had Del and Eps overlapping "DAYS LEFT", so I shrank both to 500 px and moved them below the text.
 - Edges: the numeral, text and wordmark are all inside the frame.
 - Wordmark is 720 px wide.
+
+## v0.1 (2026-11-17): Del & Eps removed (owner)
+The owner's instruction, relayed by the parent: "tell all the black friday agents to not use del & eps, just typical branding content".
+- Output: `/home/user/media/work/out/bf-days-left-countdown_v0.1.mp4` (9.4 s, same cuts and audio).
+- **Removed:** the Del and Eps placeholders, the "placeholder art" label, Del's tape taps and Del's step-in. `tools/char_placeholders.py` is deleted. No Higgsfield credits were spent at any point.
+- **Shot 1:** the plate is re-rendered with the car centred and no Del; the edit crops in 20 % and pushes 6 %.
+- **Shots 2-3:**
+  - the numeral is re-centred (+72 px; the render had framed it left to make room for Eps);
+  - "DAYS LEFT" sits at y 1300;
+  - the "BLACK FRIDAY SALE" line fades in on the 6.01 s hit (replacing Del's entrance).
+- **Shot 4:** unchanged (720 px wordmark, BLACK FRIDAY, EPSILON.PLUS).
+- **Still a placeholder:** the number 3 (no sale end date yet).
+- **Checks:** -13.5 LUFS, peak -2.6 dBFS. Cuts are unchanged (+3 / +17 ms; the drop is on the section start at 4.62 s). The contact sheet was reviewed, and nothing overlaps or leaves the frame.

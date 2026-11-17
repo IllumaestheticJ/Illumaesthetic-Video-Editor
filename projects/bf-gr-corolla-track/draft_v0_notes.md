@@ -32,3 +32,15 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
 - A richer circuit (corners, run-off, crowd, a real sky).
 - Was/now prices if the owner wants them.
 - Engineering-CAD kit on the scan if the owner prefers it to the lookbook parts.
+
+## v0.1 checks (2026-11-17)
+- **File:** 1080x1920, 30 fps, 543 frames, 18.1 s.
+- **Loudness:** -14.0 LUFS, true peak -2.8 dBFS (gain +2.2 dB, limiter at -1.4 dBFS).
+- **Cut sync on the decoded audio:** 8 detected cuts are within -21..+7 ms of the measured kicks; 7 of 8 are within half a frame. The s1->s2 cut is a continuous move, so it isn't detected as a hard change.
+- **Frames:** every render frame was checked for black or unlit frames (min mean luma per shot is fine). A 27-frame contact sheet around every cut was reviewed.
+- **Known issues:**
+  - The lip-macro 1:1 cut is about 5 cm off (global ICP, median 33 mm).
+  - The scan has no captured rear wheels; it shows in the s3 pull-back.
+  - The card kit layout sits left of centre.
+  - The circuit is low detail.
+  - s1 -> s2 is a same-car tracking cut and reads as a jump.

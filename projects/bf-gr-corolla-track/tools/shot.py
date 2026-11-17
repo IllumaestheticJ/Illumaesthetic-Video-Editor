@@ -198,10 +198,10 @@ if MODE in ('cgi',):
 
     if SHOT == 's9_pass':
         # environment static; the car drives past a fixed trackside camera
-        y0, y1 = 7.5, -SPEED * (N - 1) / FPS + 7.5
+        v9 = 13.0; y0, y1 = -0.8, -v9 * (N - 1) / FPS - 0.8   # slower pass so the car stays in frame for the whole shot
         for f in (1, N):
             car.location = (0, y0 + (y1 - y0) * (f - 1) / (N - 1), 0); car.keyframe_insert('location', frame=f)
-        look(cam, (2.9, 0.0, 0.55), (0.4, -14.0, 0.7)); cd.lens = 16
+        look(cam, (2.6, 0.0, 0.5), (0.3, -10.0, 0.75)); cd.lens = 18
     else:
         for f in (1, N):
             env.location = (0, SPEED * (f - 1) / FPS, 0); env.keyframe_insert('location', frame=f)

@@ -6,7 +6,7 @@ Timeline (30 fps, cuts = round(beat_time * 30) on the kick grid of "140" - Lil T
   S1   0-209  stock scan pass (Blender 15 fps, each frame doubled; ends on the solved 0371 crop camera)
   S3 210-260  REAL 0371 from the solved frame (1:1 hard cut on the drop)
   S4 261-312  REAL 0370 rear 3/4
-  S5 313-468  GLB kit parts drop in (beats 9-12) + card text (beat 13) + Del & Eps PLACEHOLDERS (beat 14)
+  S5 313-468  GLB kit parts drop in (beats 9-12) + card text (beat 13). v0.1: Del & Eps removed (owner)
   S7 469-527  Epsilon+ wordmark, music fades out
 No text on S3/S4 (IRL). Card text = sourced wording only (see draft_v0_notes.md).
 """
@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
-OUT = "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.mp4"
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.1.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -118,7 +118,8 @@ def main():
     for p in s1 + s3 + s4:
         load(p).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k, p in enumerate(s5):
-        chars(card(load(p), k), k).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
+        card(load(p), k).save(  # v0.1: no Del & Eps (owner: typical branding only)
+            os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k in range(n[4]):
         logo_frame(k, n[4]).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     assert i == CUTS[-1], i
