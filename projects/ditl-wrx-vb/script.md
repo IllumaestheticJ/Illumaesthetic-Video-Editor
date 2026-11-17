@@ -58,6 +58,30 @@ take.
 
 That is 12 short lines, about 45 words. Most of the comedy is the hands, the faces and the SFX, like the reference.
 
+## Reference clips (owner upload 2026-11-17; media only, not committed: `/home/user/media/ditl-wrx-vb/ref/`)
+1. `ref1_inmark.mp4` (24.2 s): the series reference ("noah simulator"); the street, the drive-thru, the counter.
+2. `ref2.mp4` (17.2 s, "bad day simulator"): a barbershop phone photo, a horror face close-up, the salon, a TV
+   remote and "COMING UP", a kitchen floor, the hands with a power tool, a bathroom. Hard cuts measured at 2.0, 5.8,
+   10.3 and 16.8 s, plus fast inserts inside scenes, about **2-4 s per shot**.
+3. `ref3.mp4` (29.2 s, "your friend who loves hypotheticals"): one living room. A friend on the couch talks and
+   gestures, his **mouth moving and his arms flailing**. The POV hand holds a TV remote. It ends on an uncanny face
+   close-up.
+
+**What they show (this changes our layout and look):**
+- **Frame layout (measured, identical in all 3):** on a 720x1280 frame, the game picture is a **720x720 square at
+  rows 280-999**. The title is white text centred in the black band above (one line at rows ~165-215, or two lines
+  when long, like ref 3), and **black below**. At our 1080x1920: **the picture is 1080x1080 at y = 420-1499**, the title
+  in the top band (about 58 px text; our title "Day in the life of an average WRX owner" goes on **two lines**).
+  So the Blender renders are **1:1 squares**, not 9:16. That's cheaper to render; recompose every shot for a square.
+- **Look:** not hard posterization. It's an early-2000s game: low-poly people with **photo-ish skin and clothing
+  textures**, soft baked indoor light, real-ish props (remotes, bottles, a power tool), and mild compression crunch.
+  The POV hands are realistic-textured, not flat-colour. Tone the posterize down to a light crunch.
+- **Faces:** big painted eyes and mouths that **move with the dialogue** (mouth-shape swaps) plus horror swaps.
+  Every talking character (recruiter, Beamer guy, mom) gets mouth flaps on their lines.
+- **Pacing:** 2-4 s per shot. Each of our 6 scenes cuts between 2-3 angles (POV, a reaction close-up, an insert of
+  the phone, the Accessport or the wing) instead of one long take.
+- The watermark ("skullmug"), their titles and their characters are not copied (series rule).
+
 ## Shot table
 Times are the target; the voice take sets the final timing. **Music (owner 2026-11-17):** Seven Lions, SLANDER & Dabin, "First Time" (feat. Dylan Matthew), Ophelia Records.
 The owner uploaded it; it's OK for this unmonetized account. File: `/home/user/media/ditl-wrx-vb/music/first_time.mp3`
@@ -98,6 +122,8 @@ original designs). **Unhinged hand action** per scene is marked ⚡.
 **End:** a hard cut to black after L12 at about 47 s. No watermark and no end card (owner).
 
 ## Change list
+**v5 (reference clips):** square 1080x1080 picture at y = 420-1499 under a two-line title band; a lighter look (game textures, not hard posterization); mouth flaps on talking characters; 2-4 s shots, so 2-3 angles per scene.
+
 **v4.1:** music = the owner's upload, "First Time" from 0:30; cuts on the measured drop (video 2.18 s) and the music cut at video 25.38 s.
 
 **v4 (owner answers):** title wording; the "Beamer guys" and "Honda Odyssey" lines; an unbranded cart; the hard cut with no Epsilon+ branding anywhere; medium-brown skin and USMC-style dog tags; the voice and music options listed for the owner to pick from.
