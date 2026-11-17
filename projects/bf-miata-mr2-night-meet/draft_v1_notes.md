@@ -35,3 +35,12 @@ are actually trimmed/cropped correctly". Output: `/home/user/media/work/out/bf-m
 - NC side-skirt and rear-spat zones on the scan are footprint cuts with patchy edges; they are only seen fully kitted
   (shot 10), where the parts cover them.
 - Labels appear only on scan shots, so eyelids, hood vents, spats and duckbill are named only on the card.
+
+## v1.1: safe zones (owner rule, knowledge/safe-zones.md)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.1.mp4`. Same picture and audio as v1; only text and logo moved.
+- Sale card: title block moved down (was y 230, in the top/feed-crop zone), rows tightened to end at y ~1390 (were to
+  ~1500, in the bottom zone), prices right-aligned at x 900 (were at 970, under the right rail).
+- "FENDER CUTS" label moved from y 1380-1510 (bottom zone) to the top-left label position (y 300-440).
+- Wordmark and URL centred on x 484 (the safe band's centre).
+- `scripts/safezone_check.py` sheets looked at before and after: no text or logo touches red or amber in v1.1.
+- Not fixed: some shots' cars extend under the right rail or outside the 4:5 feed crop (close-ups; NC fender wheel).
