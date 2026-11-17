@@ -8,3 +8,12 @@ Local copies: `/home/user/media/pip-gus-ep3-whole-bumper/dropbox/`. All are 1920
 | `2026-08-23 13-54-32.mp4` | 33.8 s | Light-grey slicer. One whole red bumper, then cut into halves with a cut-plane dialog. Good "before" frame at 0:00-0:03. |
 
 Not in this folder: any real printed piece or test fit on a car.
+
+## Real scanning footage (owner 2026-11-17: real scanning after "We scan the car.")
+Plan (reuses the approved IS350 assets the pilot used; see projects/scan-tedium-explainer-reel/storyboard.md Part B and
+projects/lexus-is350-reels/spans.json):
+- ~1.6 s handheld scanning, no markers: FX30541 322.0-323.6 (pilot P2 / R1_SCAN).
+- ~1.6 s IRL lead-in ending on the solved frame: FX30541 ending on frame 5641 (pilot P3 / R2_P2).
+- ~1.8 s hard 1:1 cut on a beat to the scan: V_PAIR_2 (rear-right quarter), clean render, no baked text.
+Total ~5 s, no text over the IRL. The SeamForge recordings above are no longer used (the pieces section was cut).
+Media is not in this container yet: re-fetch the IS350 dump ("IS350 scanning Speed run (completed)") and the V_PAIR_2 render inputs.
