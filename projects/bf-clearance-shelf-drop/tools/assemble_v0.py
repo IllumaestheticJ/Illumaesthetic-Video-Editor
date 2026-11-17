@@ -8,9 +8,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
-R = f"{M}/renders_v02"
+R = f"{M}/renders_v03"
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.2.mp4"
+OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.3.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 FB = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
@@ -57,7 +57,7 @@ def endcard(path):
 
 
 count = snap["tags"]["grv1"]["stock_line"]
-text_png(f"{W}/count.png", [(count, 66, FB)], 250)
+text_png(f"{W}/count.png", [(count, 66, FB)], 330)   # safe zones: text inside y 285-1440
 placeholder_png(f"{W}/placeholder.png")
 endcard(f"{W}/endcard.png")
 

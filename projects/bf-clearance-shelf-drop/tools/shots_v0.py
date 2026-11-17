@@ -260,7 +260,7 @@ def tag(key, loc, yaw, flip_f):
         nt.links.new(t.outputs["Color"], p.inputs["Emission Color"]); p.inputs["Emission Strength"].default_value = 0.9
         p.inputs["Roughness"].default_value = 0.7
         bpy.ops.mesh.primitive_plane_add(size=1)
-        o = bpy.context.object; o.scale = (0.40, 0.40 * 900 / 700, 1); o.data.materials.append(m)
+        o = bpy.context.object; o.scale = (0.34, 0.34 * 900 / 700, 1); o.data.materials.append(m)
         o.rotation_euler = (math.pi / 2, 0, rz); o.location = (0, 0.002 if side == "back" else -0.002, 0)
         o.parent = piv
     # string
@@ -335,7 +335,7 @@ def shelf(key, shot):
     # tag hangs from the pallet's near corner, facing the camera
     side = Vector((d.y, -d.x, 0)).normalized()
     right = d.cross(Vector((0, 0, 1))).normalized(); up = right.cross(d).normalized()
-    tloc = end + d * 1.15 + up * 0.30 + right * 0.06          # big in frame, above the lip (readable on a phone)
+    tloc = end + d * 1.15 + up * 0.23 + right * 0.0           # safe zones: tag inside x 48-920 / y 285-1440
     yaw = math.atan2(-d.x, d.y)
     tag(key, tloc, yaw, FLIP[shot])
     # key light from the camera side + rim, so the silver part reads in the dark aisle

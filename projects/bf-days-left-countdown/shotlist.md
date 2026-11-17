@@ -1,5 +1,7 @@
 # BF 9: "days-left-countdown" shot list (TEMPLATE PLAN, waiting for the owner's approval)
 
+**v0.2 (2026-11-17): safe zones** (`knowledge/safe-zones.md`, owner rule). All text, logos, the numeral and the car sit inside x 48-920 / y 285-1440. The layout is centred on x 484, the centre of the safe box, not the frame. Numeral content is 562x688 px at y 330-1018; "DAYS LEFT" (118 px) is centred on y 1110; "BLACK FRIDAY SALE" on y 1235; the wordmark block is at y 790-1010. The render (including the scan beam) is clipped to the safe box. `scripts/safezone_check.py` is part of every delivery.
+
 **v0.1 (2026-11-17): NO Del & Eps.** The owner's instruction is "tell all the black friday agents to not use del & eps, just typical branding content" (MASCOT_AND_PRICES.md, e05c325). All character shots, cameos and placeholders are removed, and no Higgsfield credits are spent. Music changed to "BREAKING NEWS" (see section 2).
 
 Planned 2026-11-17 on branch `claude/video-editing-scan-data-8o0m8g`. **Nothing is rendered until the owner approves this plan in chat.**
