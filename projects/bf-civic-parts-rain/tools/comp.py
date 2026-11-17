@@ -7,7 +7,7 @@ Timeline (frames @30, music from the song start; cut times = measured onset peak
   488-497 IRL flash (real installed front lip, clip 'Video Jun 16 2026, 7 54 08 PM.mov' 0.00-0.33 s, HLG->SDR hable)
   498-593 Ron's render 7, hard 1:1 cut, gentle zoom OUT (no push-in)
   594-646 4a lookbook FE (Rallye Red), 647-693 4b lookbook FL (Boost Blue); offer text over both
-  694-794 Epsilon+ wordmark (720 px) + 'SHOP DEALS NOW · WWW.EPSILON.PLUS' + 10 mm socket gag; fade 780-794
+  694-794 Epsilon+ wordmark (720 px) + 'SHOP DEALS NOW · WWW.EPSILON.PLUS' ; fade 780-794 (owner 2026-11-17: no Del & Eps - typical Epsilon+ branding only)
 """
 import os, subprocess, sys, glob, math
 import numpy as np
@@ -78,9 +78,6 @@ def frame(f):
         img = load(f"{M}/renders/take/f_{f:04d}.png")
         e = env(f, 40, 297, 8)
         if e: text(img, "BLACK FRIDAY", 128, 250, ID_B, 10, e)
-        xe = W - 50 - EPS_SM.size[0]; xd = xe - DEL_L.size[0] + 40   # empty lower right; the car sits left of centre
-        scan_reveal(img, DEL_L, xd, 1860, f, F_CH_IN, F_CH_OUT)
-        scan_reveal(img, EPS_SM, xe, 1840, f, F_CH_IN + 6, F_CH_OUT + 4)
         for a, b, s in ((F_LIP, 366, "FRONT LIP"), (F_SKIRT, 428, "SIDE SKIRTS"), (F_REAR, 462, "REAR LIP"), (F_WING, 487, "SPORT WING")):
             e = env(f, a, b, 4)
             if e: text(img, s, 44, 1640, MONO, 8, e)
@@ -100,8 +97,6 @@ def frame(f):
         sub = "CIVIC FE · LIP · SKIRTS · REAR LIP · WING" if car == "fe" else "CIVIC FL · LIP · SKIRTS · WING"
         text(img, sub, 32, 1610, MONO, 3, e)
         text(img, "PAINT-MATCH AT FULL PRICE", 28, 1680, MONO, 4, e * 0.8)
-        if car == "fe":
-            scan_reveal(img, DEL_S, 80, 1560, f, F_4A, F_4B - 4, 8); scan_reveal(img, EPS_S, 80 + DEL_S.size[0] - 30, 1560, f, F_4A + 3, F_4B - 4, 8)
     else:
         e = env(f, F_END, N + 20, 6)
         lg = LOGO.copy(); lg.putalpha(lg.getchannel("A").point(lambda v: int(v * e)))
@@ -110,11 +105,6 @@ def frame(f):
         if e2:
             text(img, "SHOP DEALS NOW", 58, 1010, ID_B, 10, e2)
             text(img, "WWW.EPSILON.PLUS", 46, 1090, ID_M, 12, e2)
-        if 722 <= f <= 760:  # the 10 mm socket falls past the wordmark
-            u = (f - 722) / 38; socket(img, 860 - 40 * u, -80 + 1900 * u * u, 400 * u)
-        e3 = env(f, 742, 778, 5)
-        if e3:
-            text(img, "EPS: “WHERE'S MY 10 MM?”", 34, 1500, MONO, 2, e3 * 0.9)
     if f >= 780:  # picture fade to black
         k = max(0.0, 1 - (f - 779) / 15); blk = Image.new("RGBA", (W, H), (0, 0, 0, int(255 * (1 - k)))); img.alpha_composite(blk)
     return img.convert("RGB")
