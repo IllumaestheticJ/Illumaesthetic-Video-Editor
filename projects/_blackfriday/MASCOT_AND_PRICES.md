@@ -1,3 +1,12 @@
+# OWNER DECISION 2026-11-17 (latest, overrides everything below): NO Del & Eps in the Black Friday videos
+
+The owner's instruction: "tell all the black friday agents to not use del & eps, just typical branding content".
+
+- Remove every Del & Eps shot, cameo, plate, placeholder and sting from all the BF videos.
+- Spend no Higgsfield credits on characters.
+- Use typical Epsilon+ branding instead: product, scan and car shots, offer cards and the Epsilon+ wordmark.
+- The character notes below are kept only for later, non-BF use.
+
 # Black Friday: Epsilon mascot + confirmed BF prices (2026-11-17)
 
 ## LOCKED LOOK (owner, 2026-11-17): this supersedes the concept pages below
