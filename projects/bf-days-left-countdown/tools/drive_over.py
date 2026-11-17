@@ -20,7 +20,7 @@ ap.add_argument("--frames", type=int, default=208)
 ap.add_argument("--drop", type=int, default=139)
 ap.add_argument("--res", default="1080x1920")
 ap.add_argument("--samples", type=int, default=16)
-ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-700.ttf"))  # knowledge/fonts.md: Akira stand-in until the owner supplies the file
+ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-900.ttf"))  # knowledge/fonts.md: Akira stand-in until the owner supplies the file
 ap.add_argument("--text-width", type=float, default=4.6, help="width of the wider text block on the floor (m)")
 ap.add_argument("--still", type=int, default=-1)
 args = ap.parse_args(a)

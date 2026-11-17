@@ -96,5 +96,5 @@ User: "have it be Black friday sale text and then a car driving over it and the 
   - The text centre is at x 511 instead of 484.
 
 ## Font rule (owner, 2026-11-17, `knowledge/fonts.md`)
-- Headline floor type is Akira. The owner hasn't uploaded the file, so **Unbounded 700 stands in** (the repo has no 800-900 weight).
+- Headline floor type is Akira. The owner hasn't uploaded the file, so **Unbounded 900 stands in**.
 - The end card sits next to the logo, so it uses Unbounded: "BLACK FRIDAY" at 500 and WWW.EPSILON.PLUS at 400. This is applied to the end card from v0.4.
