@@ -1,6 +1,6 @@
 # Pip & Gus Ep 1: "Why do we spray the windows white?" (how structured-light scanners work)
 
-**Status:** v2 draft for owner approval (2026-11-16), after the owner's answers. No voices or renders until approved.
+**Status:** v2 APPROVED by the owner (2026-11-17), with lines 10a/10b and the Civic EK footage.
 Source draft: `projects/pip-gus-series/scripts.md` "Ep 1" (v0.2). 9:16, 1080x1920, 30 fps.
 
 **Target length about 36 s:** cartoon about 27 s (12 lines) + real footage 4-5 s + audience-question card about 2.5 s + logo card about 1.5 s.
@@ -36,8 +36,8 @@ With the optional tracking-pattern lines (10a/10b): about 31 s cartoon, about 40
 | 8 | GUS | "And black just swallows it." | The pattern on the black trim / black grille fades to nothing; the mesh stays empty there. |
 | 9 | PIP | "So you only spray the tricky bits?" | Pip, eyes narrowing as it clicks. |
 | 10 | GUS | "Glass, chrome, black, badges. Now the light comes back." | Four quick puffs, one per word: window, chrome trim, black grille, badge. The pattern reads crisp on each and the holes fill in. The body paint stays its colour. |
-| 10a | PIP | *(optional)* "Why the squiggles?" | Gus sprays a loose dot/squiggle pattern on the big plain door. |
-| 10b | GUS | *(optional)* "Smooth panels all look the same. It needs something to track." | The scanner's view of the bare door: identical everywhere, a "?" pops; with the squiggles, it locks on. |
+| 10a | PIP | "Why the squiggles?" | Gus sprays a loose dot/squiggle pattern on the big plain door. |
+| 10b | GUS | "Smooth panels all look the same. It needs something to track." | The scanner's view of the bare door: identical everywhere, a "?" pops; with the squiggles, it locks on. |
 | 11 | PIP | "Does it come off?" | Pip pokes a dusted window; a fingertip print. |
 | 12 | GUS | "...Depends on the spray." | Half-lid Gus. Hard cut on the beat to real footage (sets up Ep 9). |
 
