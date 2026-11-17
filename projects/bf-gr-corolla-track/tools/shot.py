@@ -101,6 +101,10 @@ def key_cam(cam, path, lens=None):
 cd = bpy.data.cameras.new('cam'); cam = bpy.data.objects.new('cam', cd); sc.collection.objects.link(cam); sc.camera = cam
 cd.sensor_fit = 'HORIZONTAL'; cd.sensor_width = 20.25; cd.lens = 18; cd.clip_start = 0.02; cd.clip_end = 2000
 cam.rotation_mode = 'XYZ'
+# safe zones (knowledge/safe-zones.md): every 3D shot is lens-shifted 8 % of the width so the car sits ~86 px left,
+# clear of the right-rail buttons; the same shift on both sides of every 1:1 cut keeps the matches exact
+if SHOT not in ('s6_cardv2', 's8_cardv1'):
+    cd.shift_x = 0.08
 
 # ---------------------------------------------------------------- cameras (car frame; car is static in cgi/scan modes)
 CAMS = {
