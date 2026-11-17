@@ -88,20 +88,23 @@ The other 7 Black Friday sessions may pick from the same chart. The parent shoul
 
 ## What the text rules mean here
 - No text appears over any real or CGI driving shot. Both offers sit on black scan cards (shots 6 and 8), which is the brief's alternative.
-- No prices, stock counts or specs on screen, only the owner's discount wording. That wording is now confirmed by the owner's BF doc ("Black Friday 2026 Discounts: TL;DR", 2026-11-16): GR Corolla V2 PU lip, skirts and spats 30 %; V1 lip, skirts and spats 40-45 %, with the carbon V1 lip at 45 % (V1 PU lip $215 -> $129). The sale dates aren't set, so no dates go on screen. Prices checked live on 2026-11-17 are kept here for reference only:
+- **Prices: the owner's decision.** Use the BF liquidation spreadsheet even where its stock figures are wrong ("Black Friday 2026 Liquidation Pricing", Pricing tab; snapshot `projects/_blackfriday/bf_liquidation_pricing.csv` at commit 7ec3adf; how to re-read it live is in `projects/_blackfriday/PRICES.md`). It supersedes the TL;DR tier table and the store stock checks above.
+  - The crossed-out price is the sheet's "Current Price"; the sale price is "BF 2026 Price".
+  - Every item the sheet prices is on sale; only the 0% / "No deal" items are not.
+  - No stock counts on screen. No sale dates on screen (the window isn't set).
+- **On-screen text:** the owner's caption only, "V2 KIT 30% OFF" and "V1 UP TO 45% OFF". The sheet confirms both:
 
-| Product (store name) | Price | Stock |
-|---|---|---|
-| Front Lip V2 - GR Corolla (Zenki, E210, 2023-2024) | $285 PU | 64 |
-| Side Skirts V2 - GR Corolla (E210, 2023+) | $400 | 67 |
-| Rear Spats V2 - GR Corolla (E210, 2023+) | $175 | 35 |
-| Front Lip - GR Corolla (Zenki) [= V1] | $215 PU / $600 CF | 69 / 14 |
-| Side Skirts - GR Corolla [= V1] | $275 | 27 |
-| Rear Spats - GR Corolla [= V1] | $125 | 20 |
-| Canards | $320 | backorder (-2) |
+| Product (sheet name) | Current Price | BF % | BF 2026 Price |
+|---|---|---|---|
+| Front Lip V2 - GR Corolla Zenki · PU | $285.00 | 30% | $199.50 |
+| Side Skirts V2 - GR Corolla · PU | $400.00 | 30% | $280.00 |
+| Rear Spats V2 - GR Corolla · PU | $175.00 | 30% | $122.50 |
+| Front Lip - GR Corolla Zenki V1 · PU | $215.00 | 40% | $129.00 |
+| Front Lip - GR Corolla Zenki V1 · Carbon | $600.00 | 45% | $330.00 |
+| Side Skirts - GR Corolla V1 · PU | $275.00 | 40% | $165.00 |
+| Rear Spats - GR Corolla V1 · PU | $125.00 | 40% | $75.00 |
 
-- No compare-at discounts are set in the store yet.
-- The V1 products are not called "V1" on the store. A card that says "V1" won't match the listing names, so see Q3.
+- **Optional (Q5):** a small was/now line under each card ("LIP $285 → $199.50" etc.). The figures come only from the sheet's columns. Price text goes on the black cards only.
 
 ## Asset inventory
 | Asset | Status | Where |
@@ -125,10 +128,10 @@ The other 7 Black Friday sessions may pick from the same chart. The parent shoul
 2. **CGI paint.** Do you want the white Castrol/Motegi #24 livery of the real V2 car (GLB `livery_castrol`; puts Castrol branding in the ad), or a plain paint such as Supersonic Red?
 3. **Del & Eps.** Do micro-mode cameos on the two offer cards work for you (Eps on the V2 lip, Del on a V1 spat, locked model-sheet look)? Do you want the 10 mm end sting?
 4. **Captions.** OK on cards between shots (current plan), or do you explicitly want them over the driving shots?
-5. **End card.** Wordmark alone, or with "EPSILON.PLUS" / "BLACK FRIDAY" under it?
+5. **End card and prices.** Wordmark alone, or with "EPSILON.PLUS" / "BLACK FRIDAY" under it? Do you also want the sheet's was/now prices under each offer card, or the percentages only?
 6. **Music.** I claimed "Electric Youth" (Chris_record, TikTok CML). Keep it, or swap to "Invincible" (Deaf Kev) / "Prisoner" (DIDKER) / your own track?
 
-Resolved: the discount scope ("V2 kit 30% off, V1 up to 45% off") is confirmed by the owner's BF doc, relayed by the parent.
+Resolved: the discount scope ("V2 kit 30% off, V1 up to 45% off") is confirmed by the owner's BF liquidation sheet; prices come from the sheet, not from store stock.
 
 ## Production steps (after approval)
 1. Rebuild the media in `/home/user/media/bf-gr-corolla-track/`:
