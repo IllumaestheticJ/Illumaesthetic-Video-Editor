@@ -12,3 +12,4 @@
 {"ts": "2026-11-17T05:54:29Z", "decision": "v0: real-car shot uses C0222 (gloss-black wing) instead of the listing photo", "why": "The listing white-rear-quarter photo shows a paint-matched kit; the ad sells the gloss-black $385 variant"}
 {"ts": "2026-11-17T05:54:29Z", "decision": "v0: Del & Eps as 3 Higgsfield stills from the model sheet, composited; no AI video", "why": "Parent v0 rules: few stills, no video generations; products stay our renders"}
 {"ts": "2026-11-17T05:55:45Z", "decision": "v0.1: Del & Eps removed; stage shots re-framed centred, small EPSILON+ BLACK FRIDAY tag over the title", "why": "Owner: no Del & Eps in BF videos, typical branding content only"}
+{"ts": "2026-11-17T06:13:58Z", "decision": "v0.1 delivered: cuts moved to measured kick attacks (97/168/239/310/380/451/522), limiter for TP", "why": "First mux measured cuts 17-37 ms early and true peak 0.0 dBFS"}

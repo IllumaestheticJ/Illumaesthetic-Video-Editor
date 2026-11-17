@@ -12,7 +12,7 @@ M = '/home/user/media/bf-integra-385-combo'
 R = f'{M}/work/render_v0'
 TMP = f'{M}/work/comp_v0'; os.makedirs(TMP, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
-LEN = [97, 70, 71, 71, 71, 70, 71, 71]          # shots 1-6 renders, 7 = C0222, 8 = end card
+LEN = [97, 71, 71, 71, 70, 71, 71, 71]   # cuts on measured kick attacks (decoded audio): 97 168 239 310 380 451 522          # shots 1-6 renders, 7 = C0222, 8 = end card
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (255, 122, 26, 255); YELLOW = (255, 210, 31, 255)
 F_TITLE = '/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf'
@@ -169,7 +169,7 @@ def main(out):
     # music from the song's beginning, fade with the end card, -14 LUFS / TP < -1 (gain then limiter)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{TMP}/video.mp4', '-i', f'{M}/music/getlow.wav',
                     '-filter_complex', f'[1:a]atrim=0:{dur:.3f},afade=t=out:st={dur - 0.7:.3f}:d=0.7,'
-                    'loudnorm=I=-14:TP=-1.5:LRA=11[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k',
+                    'loudnorm=I=-13.6:TP=-2:LRA=11,alimiter=limit=0.79:attack=1:release=60:level=disabled[a]', '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k',
                     '-ar', '48000', '-shortest', out], check=True)
     print('WROTE', out, dur)
 
