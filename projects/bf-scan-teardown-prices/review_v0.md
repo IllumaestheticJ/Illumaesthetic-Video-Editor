@@ -83,3 +83,9 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 
   -14.0 LUFS, TP -2.8 dBFS. `safezone_check` OK.
 - The T2 opening drift is stretched slightly (13.435-14.466 played over 12.93-14.466), so T2 can start on b24. The wing card now ends at 12.80 s.
+
+## v0.6 (wheels and tyres in scan silver)
+
+- User: "have the wheels and tires be white like the rest of the scan". Every `wheel_*` material slot now uses the scan's silver material. T1 (202 frames) and T2 (91 frames) were re-rendered at the same draft settings.
+- Cuts and timing are unchanged from v0.5 (frames 388/517/533/597). 22.6 s, -14.0 LUFS, true peak -2.8 dBFS. Safe-zone text boxes are OK.
+- The contact sheet confirms silver wheels in every scan shot. Ron's 1:1 end render still has his gold wheels, so the hard cut reveals the gold wheels, which is the real product finish. If they should stay silver through the cut, Ron's scene can be re-rendered with silver wheels (about 10 min).
