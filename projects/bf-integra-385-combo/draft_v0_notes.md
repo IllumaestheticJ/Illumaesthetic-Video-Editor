@@ -15,6 +15,9 @@ stock wing coming off".
   without the spoiler.
 - Timeline (frames @30): 0-96 box | 97-167 wing | 168-238 lip | 239-309 receipt | 310-379 scan: spoiler off |
   380-450 scan: parts on | 451-521 CGI kitted (1:1 in) | 522-592 C0240 | 593-663 end card. 22.13 s.
+- Output /home/user/media/work/out/bf-integra-385-combo_v0.2.mp4. Checks: cuts -6/+8/+15/-5/0/+9 ms vs kick attacks
+  (168 and 380 not frame-diff detectable; on the grid by construction); -13.8 LUFS, true peak -1.8 dBFS; render luma
+  steady; contact sheet reviewed (spoiler lift shows minterpolate ghosting at preview frame rate).
 
 # bf-integra-385-combo: draft v0.1 (user said "go" in chat, 2026-11-17; characters removed per owner)
 
