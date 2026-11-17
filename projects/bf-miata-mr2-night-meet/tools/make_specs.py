@@ -1,4 +1,5 @@
-"""v1 shot specs: both cars start STOCK and the sale parts install one zone at a time (user feedback on v0.1).
+"""v1.5: shots lengthened (user: text longer for slow readers); two-part shots install both parts by ~60 %.
+v1 shot specs: both cars start STOCK and the sale parts install one zone at a time (user feedback on v0.1).
 15 fps renders, doubled to 30 fps at assembly. Cut times = attacks measured in Tokyo Midnight (specs/timeline.json)."""
 import json, math, os
 M = "/home/user/media/bf-miata-mr2-night-meet"
@@ -24,22 +25,22 @@ S["s04"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["skirts", "eyelids"], 
             "camera": cam([1.5, -3.4, 2.1], [1.1, -3.1, 1.95], n, [0, -1.45, 0.66], lens=42)}
 n = n15(4)
 S["s05"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["skirts", "eyelids", "hood"],
-                                     "swap": [sw("spats", n, 0.06, 0.24, 0.20, 0.44, dir=[0, 1, 0.2], dist=5, **{"from": [0, 1.0, 0.2]}),
-                                              sw("duck", n, 0.46, 0.64, 0.60, 0.86, dir=[0, 0.4, 1], dist=5, **{"from": [0, 0.3, 0.8]})]}],
+                                     "swap": [sw("spats", n, 0.04, 0.16, 0.12, 0.30, dir=[0, 1, 0.2], dist=5, **{"from": [0, 1.0, 0.2]}),
+                                              sw("duck", n, 0.34, 0.46, 0.42, 0.62, dir=[0, 0.4, 1], dist=5, **{"from": [0, 0.3, 0.8]})]}],
             "camera": cam([2.2, 5.0, 0.5], [2.0, 4.6, 1.0], n, [0, 1.5, 0.55], lens=28)}
 # NC ----------------------------------------------------------------------------------------------------------------
 A, B = [-3.5, -4.8, 0.6], [-2.8, -3.9, 0.5]; T = [0.0, -1.0, 0.42]
 n6, n7 = n15(5), n15(6); u = (n6 - 1) / (n6 + n7 - 2)
 S["s06"] = {"mode": "cgi", "cars": [{"car": "nc"}], "camera": cam(A, lerp(A, B, u), n6, T, lens=26)}
-S["s07"] = {"mode": "scan", "cars": [{"car": "nc", "swap": [sw("bumper", n7, 0.08, 0.36, 0.40, 0.78, dir=[-0.3, -1, 0.3], dist=7, **{"from": [0, -1.5, 0.2]})]}],
+S["s07"] = {"mode": "scan", "cars": [{"car": "nc", "swap": [sw("bumper", n7, 0.05, 0.22, 0.20, 0.45, dir=[-0.3, -1, 0.3], dist=7, **{"from": [0, -1.5, 0.2]})]}],
             "camera": cam(lerp(A, B, u), B, n7, T, lens=26)}
 n = n15(7)
 S["s08"] = {"mode": "scan", "cars": [{"car": "nc", "on": ["bumper"], "swap": [sw("fender", n, dir=[-1, -0.2, 0.6], dist=6, **{"from": [-1.2, 0, 0.4]})]}],
             "camera": cam([-2.9, -2.9, 1.0], [-3.0, -2.2, 1.0], n, [-0.75, -0.95, 0.45], lens=34)}
 n = n15(8)
 S["s09"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender"],
-                                    "swap": [sw("skirts", n, 0.06, 0.24, 0.20, 0.46, dir=[-1, 0, 0.3], dist=5, **{"from": [-1.0, 0, 0.2]}),
-                                             sw("spats", n, 0.48, 0.64, 0.60, 0.86, dir=[0, 1, 0.2], dist=5, **{"from": [0, 0.9, 0.2]})]}],
+                                    "swap": [sw("skirts", n, 0.04, 0.16, 0.12, 0.30, dir=[-1, 0, 0.3], dist=5, **{"from": [-1.0, 0, 0.2]}),
+                                             sw("spats", n, 0.34, 0.46, 0.42, 0.62, dir=[0, 1, 0.2], dist=5, **{"from": [0, 0.9, 0.2]})]}],
             "camera": cam([-3.9, 0.2, 0.75], [-3.7, 1.6, 0.75], n, [-0.6, -0.1, 0.35], [-0.5, 0.7, 0.35], lens=28)}
 mr2s = {"car": "mr2", "offset": [0.85, 2.7, 0], "yaw": -8, "on": ["skirts", "eyelids", "hood", "spats", "duck"]}
 ncs = {"car": "nc", "offset": [-0.85, -1.7, 0], "yaw": 8, "on": ["bumper", "fender", "skirts", "spats"]}
