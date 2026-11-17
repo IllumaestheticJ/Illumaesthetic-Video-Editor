@@ -49,7 +49,7 @@ Tracks already used by other reels are excluded: the John Wick medley, M.O.O.N. 
 North", East City, South City and Riders uploads, and the GT2 licence track. I can't license music, so the owner picks:
 1. A commercially cleared track from the TikTok/IG Commercial Music Library at posting time: 115-130 BPM, a hard
    kick on every beat, and a drop about 2 s in. Preferred, because paid/boosted BF ads need cleared audio.
-2. An owner-supplied track (as with the GR Corolla and Cappuccino reels), which must not be one of the tracks above.
+2. A track from Dropbox `/Moosic` (29 tracks) or one the owner supplies, which must not be one of the tracks above.
 3. If the track has a cash-register / "ka-ching" accent, the tag flips go on it. Otherwise they go on the snare.
 Mix to -14 LUFS with true peak below -1 dBFS, starting from the song's beginning (or from 2 kicks before the drop, as
 the FG2 lesson allows).
@@ -63,8 +63,8 @@ measured kick.
 | 1 | 0.0-2.0 | 2.0 | 1-4 | Forklift-driver POV, 1.6 m high, 24 mm, forks in the bottom of frame, slow push down the aisle | CGI warehouse aisle: racking, pallets wrapped in film, Epsilon+ boxes. Gus drives the forklift (only his mitten hands on the wheel and the goggles' sage lenses in the mirror). Pip rides on the pallet | Characters: Pip & Gus rig + design, `projects/scan-tedium-explainer-reel/characters/design.md` and `tools/partA_scene.py` (branch `claude/pip-gus-ep9-aesub`). Warehouse: new Blender build, `tools/warehouse_env.py` | Lights flicker on one bank at a time on beats 1-3. Pip pops up on beat 4 (^ ^ eyes) | `BLACK FRIDAY` sign on the racking (in-world CGI text, no data) | cut on beat 4 | Blender EEVEE cel-shaded (pilot look) |
 | 2 | 2.0-3.5 | 1.5 | 5-7 | Same POV; a pallet slides in from the right and stops centre-frame at 1.1 m | FG2 front lip on a pallet, with a hanging price tag | Lip: `part_front_lip` in `eps-honda-civic-fg2-v10.glb` (CDN, sha256 a7094b28c397...; Drive zip id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7) | Tag swings in, then **flips on beat 6** | `FG2 CIVIC FRONT LIP` / ~~$285~~ -> `$150` / `IN STOCK` (Shopify `epsilon-front-lip-honda-civic-coupe-fg2-2006-2008`: price, compareAtPrice, inventoryQuantity>0) | **hard 1:1 cut** on beat 8 (lip keeps size/position) | Blender EEVEE; the tag is a 3D card textured from store data |
 | 3 | 3.5-4.5 | 1.0 | 8-9 | Locked to the same lip framing | FG2 scan with the lip fitted, house silver on black | Scan `Civic FG2 Full Car (LQ).stl` Drive 1-WqSI5VbZkXIp1tzoGuLibSjB0DC97YH + `FG2 Race Lip.stl` 1yJIGKWd53DhUMKKmkBHk1Z7wWz7wraqd (same frame as the scan, per projects/fg2-race-car/clips.md) | Pull back 15 % to reveal the car's nose. No text | none | cut on beat 10 | Blender Cycles `--look silver` |
-| 4 | 4.5-6.0 | 1.5 | 10-12 | POV continues; the next pallet enters from the left | Integra trunk lip (gloss black) on a pallet | `part_duckbill` in `eps-acura-integra-type-s-de5-v19.glb` (sha256 4eb01375eebf...). **Confirm it is the trunk-lip product** (Q6). Fallback: Drive folder `Integra wing lip kit` 1dSqALujjLoTSTH_fryIi6yPp0qJGOtiC | Tag flips on beat 11 | `INTEGRA TRUNK LIP` / ~~$200~~ -> `$100` / `BACKORDER: RESERVE YOURS` (Shopify `epsilon-rear-trunk-lip-acura-integra-de4-de5-2023`, ABS Generic Gloss Black) | hard 1:1 cut on beat 13 | Blender EEVEE |
-| 5 | 6.0-7.0 | 1.0 | 13-14 | Same lip framing, rear 3/4 | Integra Type S lookbook CGI car with the trunk lip, in lookbook paint | `eps-acura-integra-type-s-de5-v19.glb` (whole car, lookbook materials). Scan alternative: `Acura Integra Type S/Integra Type S Full Car.stl` (1240 MB, Drive engineering) | Slow orbit of 10 deg | none | cut on beat 15 | Blender Cycles |
+| 4 | 4.5-6.0 | 1.5 | 10-12 | POV continues; the next pallet enters from the left | Integra trunk lip (gloss black) on a pallet | `part_duckbill` (= trunk lip, per ASSETS.md) in `eps-acura-integra-de-v29.glb` (DE4 A-Spec lookbook, sha256 4bc2e068a4c9...; it also ships `body_duckbill_stock`). The DE5 `eps-acura-integra-type-s-de5-v19.glb` has the same `part_duckbill` name. Fallback: Drive `Integra wing lip kit` 1dSqALujjLoTSTH_fryIi6yPp0qJGOtiC | Tag flips on beat 11 | `INTEGRA TRUNK LIP` / ~~$200~~ -> `$100` / `BACKORDER: RESERVE YOURS` (Shopify `epsilon-rear-trunk-lip-acura-integra-de4-de5-2023`, ABS Generic Gloss Black) | hard 1:1 cut on beat 13 | Blender EEVEE |
+| 5 | 6.0-7.0 | 1.0 | 13-14 | Same lip framing, rear 3/4 | Integra lookbook CGI car with the trunk lip, in lookbook paint | `eps-acura-integra-de-v29.glb` (DE4 car; the stock duckbill is hidden as the part shows) or the DE5 v19 car (Q4). Scan alternative: `Acura Integra Type S/Integra Type S Full Car.stl` (1240 MB, Drive engineering) | Slow orbit of 10 deg | none | cut on beat 15 | Blender Cycles |
 | 6 | 7.0-8.5 | 1.5 | 15-17 | POV; a pallet rises up from below on the forks | WRX VB front lip | Lip CAD: `WRX VB NBR Front Lip Uncut.stl` Drive 1FcMcvYcdXTIcdtiHf9ogIKp8fZKvcx7H. **The VB lookbook GLB (v12, sha 5ee83049bfca) has no lip part.** Confirm this STL is the [CLEARANCE] product (Q3) | Tag spins on beat 16 to the red CLEARANCE side | `WRX VB FRONT LIP` / `CLEARANCE $99.99` / `BACKORDER` (Shopify `vb-wrx-front-lip`) | hard 1:1 cut on beat 18 | Blender EEVEE |
 | 7 | 8.5-9.5 | 1.0 | 18-19 | Same framing, front 3/4 low | VB scan with the lip, silver on black | `Subaru WRX VB (2022+)/Scan Files/Full Car.stl` (1251 MB) + lip STL. Placement from the design file's frame; check it doesn't clip | Push in 10 % | none | cut on beat 20 | Blender Cycles `--look silver` |
 | 8 | 9.5-11.5 | 2.0 | 20-23 | POV stops; the camera tilts up to a top shelf, one bay in a spotlight | GR Corolla V1 lips: one carbon and one PU on a pallet. The carbon pallet visibly holds a short stack | `part_front_lip` (= V1 / Zenki 2023; v2 and 2025 are separate parts) in `eps-toyota-gr-corolla-v23.glb` (sha ee3643bea3d4...). The carbon material is applied to a copy. Optional: render the stack as 14 boxes to match the live count | Gus brakes hard (forks dip; Pip's eyes pop 1.3x). Both tags flip on beat 22 | `GR COROLLA V1 LIP` / ~~$600~~ -> `$[BF CF]` / ~~$215~~ -> `$[BF PU]` (owner's BF prices, Q1) | hard 1:1 cut on beat 24 | Blender EEVEE |
@@ -85,7 +85,8 @@ Rules this plan keeps:
 |---|---|---|
 | FG2 lookbook GLB (`part_front_lip`) | cdn.shopify.com/.../eps-honda-civic-fg2-v10.glb, local `/home/user/media/bf-clearance-shelf-drop/glb/` | **found** |
 | GR Corolla lookbook GLB (`part_front_lip` V1, `_v2`, `_2025`) | eps-toyota-gr-corolla-v23.glb, downloaded | **found** |
-| Integra DE5 lookbook GLB (`part_duckbill`, `part_sport_wing`) | eps-acura-integra-type-s-de5-v19.glb, downloaded | **found**; that `part_duckbill` is the trunk lip is to be confirmed |
+| Integra DE4 lookbook GLB (`part_duckbill` = trunk lip, `body_duckbill_stock`, front_lip, skirts, spats, sport_wing, flares) | eps-acura-integra-de-v29.glb, downloaded | **found** |
+| Integra DE5 lookbook GLB (`part_duckbill`, `part_sport_wing`) | eps-acura-integra-type-s-de5-v19.glb, downloaded | found (alternative car) |
 | WRX VB lookbook GLB | eps-subaru-wrx-vb-v12.glb, downloaded | found, but **it has no front lip part** |
 | VB lip CAD | `WRX VB NBR Front Lip Uncut.stl` 1FcMcvYcdXTIcdtiHf9ogIKp8fZKvcx7H | found; that it is the sold product is to be confirmed |
 | FG2 lip CAD + LQ scan | 1yJIGKWd53DhUMKKmkBHk1Z7wWz7wraqd / 1-WqSI5VbZkXIp1tzoGuLibSjB0DC97YH | **found** (used in fg2-race-car) |
@@ -94,9 +95,10 @@ Rules this plan keeps:
 | Pip & Gus (design, rig, Higgsfield refs, voices: Pip = Kiki, Gus = Harrison) | branch `claude/pip-gus-ep9-aesub`: `projects/scan-tedium-explainer-reel/`, `projects/pip-gus-series/SESSION_BRIEF.md` | **found**. They are **Illumaesthetic** mascots (Illumaesthetic name badges); **no Epsilon-specific characters were found** |
 | Warehouse footage | Dropbox search ("warehouse", "pallet", "inventory", "shelf"): no warehouse video. Only `Jackie/Graphics/Fulfillment and production warehouse.png` (a graphic) and the `*Unsorted Video Dump/China/` folder (about 30 iPhone clips + photos from Apr 2026; the search tags one photo as a warehouse; **not reviewed**, because the previews are blocked by the proxy) | **missing / to-request** |
 | Warehouse CGI environment | to be built (`tools/warehouse_env.py`, following mr2 `city_env.py`: racking, pallets, film wrap, lights, boxes) | to build |
-| Epsilon+ wordmark | Drive `EPSILON+ Logos` | found (in the lessons); file to fetch |
+| Epsilon+ wordmark | Drive `EPSILON+ Logos/Epsilon+ Logo.png` 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | **found** |
 | BF prices, BF dates | owner | **to-request** |
-| Music | owner / commercial library | **to-request** |
+| Music | Dropbox `/Moosic` (29 tracks: GT2, Juiced, NFSU, John Wick...; exclude any track already used) or an ad-cleared library track | **to-request** (the owner picks) |
+| Unlabelled shop clips that may show racks | Dropbox `/Footage Library/Videos/Shop & Builds/<yyyy-mm>/` (per the parent's ASSETS.md) | not reviewed; only needed if the owner wants a filmed warehouse |
 
 ## Open questions for the owner
 1. **BF prices:** what is the Black Friday price for each lip? The store has no BF discount yet. The FG2 ($285 -> $150)
@@ -109,7 +111,7 @@ Rules this plan keeps:
    nothing true to flip from. Keep it with a `CLEARANCE` tag (no strike-through), give me its old price, or drop it?
    Also confirm `WRX VB NBR Front Lip Uncut.stl` is the product sold.
 4. **Integra trunk lip** is backordered (-18). Is a clearance ad for a backordered part OK? Which variant goes on the
-   tag: gloss black $100, or paint-matched $300? Does the lookbook's `part_duckbill` match the trunk lip?
+   tag: gloss black $100, or paint-matched $300? Show it on the DE4 (lookbook v29) or DE5 Type S car?
 5. **Warehouse:** no warehouse footage exists in Dropbox. Is a CGI warehouse OK (my recommendation)? Or can you film a
    10-s pass down your real racks? If you film it, price tags over real footage break the no-text-over-IRL rule: do you
    explicitly want tags over real footage for this ad? (The CGI plan avoids the conflict.) Is the `China/` Apr 2026
