@@ -81,7 +81,7 @@ itself. Shot 5 becomes a 1:1 cut from the last unboxing frame (the wing in the h
 | Finished-car photos | found | wing listing: white-rear-quarter, blue-side-profile, champagne, gray-rear, ...; lip listing: rear-three-quarter, rear-on, ... (finish of each to be checked against gloss black, Q4) |
 | IRL wing footage | found | Install Tutorial C0222 (finished wing pan); posted `3. Short form/Posted/integra sport wing.mp4` (not reused as an edit) |
 | Epsilon+ wordmark | found | Drive 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W |
-| Characters: **Del & Eps** (Epsilon+) | **found (locked look)** | `knowledge/characters/del-and-eps/README.md` and `del-eps-model-sheet.jpg` (the reference; front/3-4/side/back of both), `del-eps-10mm-socket-gag.jpg`, `del-eps-install-drill-template.jpg`. Committed on branch claude/clever-shannon-u8rv5l; the JPGs are not yet on this branch. Original Higgsfield jobs: bdb1a2e8, 069f42d6, e3315b11, 85f40a22. No 3D model or rig, and none is needed for this plan. Pip & Gus are **not used** |
+| Characters: **Del & Eps** (Epsilon+) | **found (locked look)** | `knowledge/characters/del-and-eps/README.md` and `del-eps-model-sheet.jpg` (the reference; front/3-4/side/back of both), `del-eps-10mm-socket-gag.jpg`, `del-eps-install-drill-template.jpg`. On this branch (commit 46e523b). Original Higgsfield jobs: bdb1a2e8, 069f42d6, e3315b11, 85f40a22. No 3D model or rig, and none is needed for this plan. Pip & Gus are **not used** |
 | Music | found | see candidates above |
 
 ## Open questions for the user
