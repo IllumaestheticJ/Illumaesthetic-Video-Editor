@@ -24,8 +24,8 @@ the part on it, and the scan is what makes the part fit.
 | 5 | GUS [dry] | "Sure." | Gus drops the scan into the cartoon slicer (no brand UI). The preview is an empty build plate: no layers, nothing to slice. The wall clock starts to spin (series gag). |
 | 6 | PIP [impatient] | "Is it done yet?" | Pip slumped on a stool, clock hands whirring, staring at the printer, which hasn't moved. |
 | 7 | GUS [deadpan] | "...There's nothing to print." | Gus slides out the empty build plate and sets it on a new, empty shelf: the **failed-print shelf** (gag starts here with literally nothing on it, filled from Ep 3). Pip's eyes: flat cut. Gus's eyes: half-lid. |
-| 8 | GUS [patient, slightly tired] | "The scan is the reference. You design a part *on* it..." | Gus draws a clean, solid new lip that hugs the scan's curve; it turns solid and snaps onto the cartoon car: "click". |
-| 8b | GUS [matter-of-fact] | "...or reverse-engineer the original from it." | Gus traces the stock bumper trim on the scan; the traced lines turn into a clean solid copy of the original part, which pops out next to the car. |
+| 8 | GUS [patient, slightly tired] | "The scan is the reference. You can remake the original from it..." | Gus traces the stock bumper on the scan; the traced lines turn into a clean solid copy of the original, which clicks into place. |
+| 8b | GUS [matter-of-fact] | "...or design a new part *on* it." | Gus draws a new lip that hugs the bumper's curve; it turns solid and snaps on: "click". This is the lip Pip wanted in line 1. |
 | 9 | PIP [curious] | "So the scan is what makes it fit?" | Pip peers along the seam: zero gap. |
 | 10 | GUS [matter-of-fact] | "Every curve." | Gus runs a mitten along the bumper line; small sparkle at the seam. |
 | 11 | PIP [excited] | "Ooh! Illumaesthetic does both!" | Pip whips out the phone and holds it up to Gus. The screen plays the real car (Part B's first shot). |
@@ -41,28 +41,36 @@ Changes from the series draft (and why):
 - Lines 7 and 8 split the joke from the explanation, so the empty plate gets its own beat.
 - New hand-off (lines 11-12), varied per the series rule: Pip finds that Illumaesthetic does both (designing on the scan and reverse
   engineering), and Gus's "Of course they do" keeps him dry, not angry.
-- Line 8 is split into 8/8b to cover both uses of a scan (owner, 2026-11-16).
+- Line 8 is split into 8/8b to cover both uses of a scan (owner, 2026-11-16). Reverse engineering comes first and the new design
+  second, so the order matches the real GT350 job in Part B (bumper remade, then a lip built off the scan).
 - No numbers anywhere in the cartoon (no triangle count, no sizes, no times).
 
-## Part B: real footage: the white GT350 bumper job (owner photos, 2026-11-17; aim 5 s, no text)
-The owner's own job is this episode's story told for real. A crashed car's bumper was destroyed. Illumaesthetic scanned the car and the
-broken bumper, reverse-engineered the bumper on the scan, and printed it, and it fits. That is lines 8b-10 of the cartoon, so Part B
-is the proof. Media (not committed): `/home/user/media/pip-gus-ep2-print-the-scan/photos/IMG_0763-0774.jpeg`.
+## Part B: real footage: the white GT350 job (owner photos and screenshots, 2026-11-17; aim about 6 s, no text)
+This is the owner's own job, and it tells both halves of line 8 for real:
+- **Remake the original:** the crash destroyed the bumper. Illumaesthetic scanned the car and the broken bumper, reverse-engineered the
+  bumper on the scan, printed it, and it fits.
+- **Build off the scan:** then a new front lip (tan) was designed on the scan of the repaired car. That pays off Pip's "Let's print a lip!"
+Media (not committed): `/home/user/media/pip-gus-ep2-print-the-scan/photos/IMG_0763-0781.jpeg`.
 
-| Beat | Shot (photo) | What it shows |
+| Beat | Shot | What it shows |
 |---|---|---|
 | 1 | IMG_0763 (or 0764) | the crash: front bumper torn off |
 | 2 | IMG_0770 | scanning the stripped front end |
-| 3 | IMG_0773 | the broken bumper's scan |
-| 4 | IMG_0774 | the reverse-engineered bumper (green) on the car scan |
-| 5 | IMG_0766 -> IMG_0767 | the printed bumper on the car, fitted (close, then the whole car) |
+| 3 | IMG_0774 | the reverse-engineered bumper (green) on the car scan |
+| 4 | IMG_0765 (or 0767) | the printed bumper fitted on the car |
+| 5 | IMG_0778 -> IMG_0776 | the new lip (tan) on the scan: front, then three-quarter |
+| 6 | IMG_0775 (or a real photo of the lip fitted, Q8) | the lip hugging the bumper's curve: "every curve" |
 
-- One shot per beat (about 1 s each), slow push-ins on the stills, a hard cut on every beat. No dissolves and no text.
-- Shots 4 -> 5 are the scan-to-real moment. A true 1:1 perspective cut needs the scan + CAD rendered from the camera of IMG_0766
-  (`ive solve`), which is only possible if the scan and bumper files are available (Q4). Otherwise it's a plain hard cut on the beat.
-- The photos are 4:3 (1440x1080). A 9:16 crop is only about 600 px wide, so this needs the full-res originals or a different
-  framing (Q5).
-- Check before use: plates and bystanders in the crash photos (police SUVs, passing cars), and the people in IMG_0770/0769.
+- One shot per beat (about 1 s each), slow push-ins, a hard cut on every beat. No dissolves and no text. About 6 s, because the
+  job has two halves; it's over the 4-5 s aim, which the brief allows when the extra length is genuinely needed.
+- Dropped for length: IMG_0773/0772 (raw bumper scan in the scanner app), IMG_0771/0769/0768/0766.
+- Not used: IMG_0781/0780/0779. They show viewer toolbars and on-screen mm labels, and the rule is no software UI or numbers we don't
+  own on screen. 0781's measurements are real, but they aren't needed.
+- Scan look: the owner's screenshots are lavender/tan viewer renders, not the house silver. If the scan + CAD files are available
+  (Q4), re-render beats 3/5/6 in the house look, and do a true 1:1 cut from the real bumper photo (beat 4) to the scan from the same
+  camera. Otherwise use the screenshots as-is.
+- Check before use: plates and bystanders in the crash photos, and the people in IMG_0770/0769.
+- Resolution: the photos are 1440x1080 (4:3), which is only about 600 px wide in a 9:16 crop. Needs the originals or another framing (Q5).
 
 ## Part C: logo card (the ending)
 Plain Illumaesthetic logo (about 720 px wide on 1080), no line under it. Owner's choice (2026-11-17).
@@ -75,14 +83,15 @@ No "FULL VIDEO ON OUR CHANNEL" teaser card (owner rule 2026-11-16: only when a m
   Not game or battle music, and not the pilot's track (each reel gets its own music).
 
 ## [VERIFY] open questions for the owner
-1. ~~Real footage~~ answered (owner 2026-11-17): the GT350 bumper reverse-engineering job (photos). See Part B and Q4-Q7.
+1. ~~Real footage~~ answered (owner 2026-11-17): the GT350 job, with the bumper reverse-engineered and then a lip built off the scan. See Part B and Q4-Q8.
 2. ~~Line 8~~ answered (owner 2026-11-16): "you design the part on it, or you remake/reverse engineer the part - Illumaesthetic
    can do both." Line 8 now covers both, and Pip's line 11 is "Ooh! Illumaesthetic does both!"
 3. ~~Ending~~ answered (owner 2026-11-17): plain logo card, no teaser card.
-4. **GT350 files:** are the car scan and the reverse-engineered bumper (STL/STEP) on the Drive? With them, shot 4 -> 5 becomes a true
+4. **GT350 files:** are the car scan, the reverse-engineered bumper and the lip (STL/STEP) on the Drive? With them, shot 4 -> 5 becomes a true
    1:1 cut from the scan to the printed bumper.
 5. **Video and originals:** is there video of this job in Dropbox, or the full-resolution photos? These are 1440 px wide, which is
    soft once cropped to 9:16.
 6. **Ep 3 overlap:** Ep 3 argues against printing a whole bumper, and this job is a printed whole bumper. Was it the final part, a
    test fit, or a one-off because the part can't be bought? The answer decides whether Ep 2 shows it as the result.
 7. **OK to show:** the crash photos (the police scene in the background) and the person scanning?
+8. **The lip, for real:** was the lip printed and fitted? A photo or clip of it on the car would end Part B on the real part.
