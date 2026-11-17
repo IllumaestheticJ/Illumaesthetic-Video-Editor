@@ -1,4 +1,9 @@
-# BF5 clearance-shelf-drop: draft v0 notes
+# BF5 clearance-shelf-drop: draft v0 / v0.1 notes
+
+**v0.1:** the owner said no Del & Eps ("just typical branding content").
+- The v0 placeholder render was stopped part-way and never sent.
+- v0.1 has no characters: an Epsilon+ wordmark lightbox in the aisle instead, and no placeholder label.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.1.mp4`.
 
 v0 was rendered on 2026-11-17 because the parent session relayed the owner's request "have all the agents make a quick
 short first draft". It is a preview: the plan (shotlist.md v4) still needs the owner's sign-off for the final.
@@ -22,7 +27,7 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
    - This is against PRICES.md's default (no counts unless the owner asks), and I've asked the owner. Removing it is a
      one-line overlay change.
    - The integra trunk lip (backordered) has no stock line.
-4. **Del & Eps are PLACEHOLDERS:** flat cutouts from `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg`,
+4. ~~**Del & Eps are PLACEHOLDERS:**~~ (void in v0.1: the characters are removed) flat cutouts from `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg`,
    stood up as billboards, and marked on screen as "v0 DRAFT - placeholder characters".
    - No Higgsfield credits were spent for v0. Generating real plates waits for the owner's OK on credits.
 5. **Car shots** use the website lookbook GLBs in the house silver, not the engineering scans: `eps-acura-integra-de-v29`
