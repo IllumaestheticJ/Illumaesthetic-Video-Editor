@@ -57,10 +57,17 @@ for o in parts:   # the same part meshes; origin moved to their centre on copies
     for v in me.vertices: v.co -= c
     srcs.append(me)
 sc.render.resolution_x, sc.render.resolution_y = 1080, 1920
-n_rain = rain.build(sc, srcs, int(arg("--rain", "12")), N - 1, depth=(9.0, 15.0), xr=0.6,
-                    keep_out=((-2.1, -3.4, -1.0), (2.1, 3.4, 2.5)), seed=3 if CAR == "fe" else 5, prefix="prain")
+n_rain = rain.build(sc, srcs, int(arg("--rain", "12")), N - 1, depth=(9.0, 15.0), xr=0.5, scale=1.6, fall=(2.2, 3.2), y_edge=1.42,
+                    keep_out=((-2.9, -4.2, -1.8), (2.9, 4.2, 3.3)), seed=3 if CAR == "fe" else 5, prefix="prain")
 print("RAIN parts", n_rain)
-sr.studio_world((0.004, 0.004, 0.005, 1), False)
+LAYER = arg("--layer", "both")   # v0.4: car / rain layers, rain blurred in comp.py
+RAIN_OBS = [o for o in sc.objects if o.name.startswith("prain")]
+if LAYER == "car":
+    for o in RAIN_OBS: o.hide_render = True
+elif LAYER == "rain":
+    for o in sc.objects:
+        if o.type == "MESH" and not o.name.startswith("prain") and not o.hide_render: o.is_holdout = True
+sr.studio_world((0.004, 0.004, 0.005, 1), LAYER == "rain")
 root = bpy.data.objects.new("C", None); sc.collection.objects.link(root); root.location = cen
 def light(n, loc, e, size, col=(1, 1, 1)):
     d = bpy.data.lights.new(n, "AREA"); d.energy = e; d.size = size; d.color = col

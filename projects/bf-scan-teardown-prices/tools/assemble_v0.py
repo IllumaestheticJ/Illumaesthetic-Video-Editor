@@ -13,7 +13,7 @@ FPS, W, H = 30, 1080, 1920
 #   Ron b33-b37 (one bar) | end card b37-b42.   Measured kick attacks: b33 17.765, b37 19.905, b42 22.605.
 C1, C2, C3, END = 388, round(17.765 * 30), round(19.905 * 30), round(22.605 * 30)
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
-t1 = sorted(glob.glob(M + "r/T1/f*.png")); t2 = sorted(glob.glob(M + ("r/T2v02/f*.png" if VER != "v0" else "r/T2/f*.png")))
+t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2v02" if VER != "v0" else "r/T2") + "/f*.png"))
 ron = Image.open(M + "r/ron7_portrait.png").convert("RGB").resize((W, H), Image.LANCZOS)
 endc = Image.open(O + "endcard.png").convert("RGB")
 ovl = {k: Image.open(O + k + ".png") for k in ["bf_tag", "p_lip", "p_skirts", "p_rear", "p_wing"]}
