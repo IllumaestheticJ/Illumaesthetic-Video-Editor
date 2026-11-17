@@ -1,6 +1,10 @@
-# Pip & Gus Ep 2: "AESUB vs the alternatives": script v3 (2026-11-17, awaiting owner approval)
+# Pip & Gus Ep 3: "AESUB vs the alternatives": script v3 (2026-11-17, awaiting owner approval)
 
-**Series position (v0.3 order):** this is Ep 2 (it was Ep 9). It follows Ep 1, the spray episode, and leads into Ep 3, "Can't you just 3D print the scan?". The folder was renamed from `pip-gus-ep9-aesub`; the branch name stays `claude/pip-gus-ep9-aesub`.
+**Series position (v0.4 order):**
+- This is Ep 3, the second "scan" step.
+- It follows Ep 2, the spray episode (white-light scanners), and leads into Ep 4, "Can't you just 3D print the scan?".
+- The episode was numbered Ep 9 in v0.2 and Ep 2 in v0.3.
+- The folder is now `pip-gus-ep3-aesub`; the branch name stays `claude/pip-gus-ep9-aesub`.
 
 **Question:** Why use a vanishing scanning spray like AESUB instead of dry shampoo or foot powder?
 
@@ -37,7 +41,7 @@
 
 | # | Who | Line (captions) | Picture |
 |---|---|---|---|
-| 1 | PIP | "Does that spray stay on forever?" | Opens on the sprayed car from Ep 1 (same prop and state). Pip repeats Ep 1's last question and looks up at Gus. |
+| 1 | PIP | "Does that spray stay on forever?" | Opens on the sprayed black car from Ep 2, the car for Pip's bumper (same prop and state). Pip repeats Ep 2's last question and looks up at Gus. |
 | 2 | GUS | "Not this one. AESUB just disappears." | Gus holds an orange spray can with a plain "AESUB" text label (no logo copy). The coat fades off the hood like morning frost, in X-shaped patches like the real footage. Pip's eyes pop (O O). |
 | 3 | PIP | "Then why use anything else?" | |
 | 4 | GUS | "Price. Dry shampoo or foot powder works too..." | Two plain, unbranded bottles: DRY SHAMPOO and FOOT POWDER, each with a coin icon. Each coats a door, and the scan comes out fine (sage ✓). |
@@ -49,7 +53,7 @@
 | 10 | GUS | "But on a hot day, it can vanish mid-scan." | A cartoon sun. The coat fades while Gus scans, holes open in the mesh, and Gus re-sprays one panel. |
 | 11 | GUS | "So you scan fast." | Deadpan look to camera. |
 | 12 | PIP | "Scan fast. Like this?" | ^ ^ eyes. Pip holds up the phone (the hand-off gag). Hard cut on the beat to the real footage. |
-| 13 | PIP (voice only, over the logo card) | "OK, it's scanned. Can we print it now?" | The logo card, with no new text and no caption. It leads into Ep 3. |
+| 13 | PIP (voice only, over the logo card) | "OK, it's scanned. Can we print it now?" | The logo card, with no new text and no caption. It leads into Ep 4. |
 
 ### Voice direction (ElevenLabs v4 dialogue, one call, no speed-up)
 - **Pip (Kiki, voice_id 2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7):**
