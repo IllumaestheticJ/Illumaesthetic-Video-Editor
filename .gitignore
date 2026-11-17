@@ -19,3 +19,4 @@ remotion/out/
 graphify-out/.graphify_*
 !graphify-out/.graphify_labels.json
 graphify-out/cache/
+!knowledge/characters/**/*.jpg
