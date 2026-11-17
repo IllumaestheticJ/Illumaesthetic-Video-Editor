@@ -18,7 +18,7 @@ export type ReelItem =
   | { kind: "tag"; t0: number; t1: number; text: string; y?: number }
   | { kind: "label"; t0: number; t1: number; text: string; sub?: string; y?: number }
   | { kind: "cap"; t0: number; t1: number; lines: string[] }
-  | { kind: "logo"; t0: number; t1: number; cta: string }
+  | { kind: "logo"; t0: number; t1: number; cta: string; ctaSize?: number; ctaInk?: boolean }
   | { kind: "tease"; t0: number; t1: number; lines: string[]; sub: string }
   | { kind: "teaser"; t0: number; t1: number; lines: { text: string; at: number }[]; sub: { lines: string[]; at: number }; win: { x: number; y: number; w: number; h: number; r: number; border: number; at: number } };
 export type Palette = { accent: string; onAccent: string; ink: string; bg: string; sub: string; sub2: string; label: string;
@@ -202,7 +202,7 @@ const Item: React.FC<{ it: ReelItem; f: number; fps: number }> = ({ it, f, fps }
         <AbsoluteFill style={{ background: K.bg }}>
           <div style={{ position: "absolute", left: 0, width: 1080, top: 0, height: 1920, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", paddingBottom: 140, boxSizing: "border-box" }}>
             <Img src={staticFile("illumaesthetic_logo.png")} style={{ width: 780, opacity: inA(lf, 0, 6) }} />
-            <div style={{ marginTop: 64, opacity: inA(lf, 6, 8), textAlign: "center", fontFamily: MONO, fontWeight: 600, fontSize: 44, letterSpacing: 3, lineHeight: 1.3, color: K.sub2 }}>
+            <div style={{ marginTop: 64, opacity: inA(lf, 6, 8), textAlign: "center", fontFamily: MONO, fontWeight: 600, fontSize: it.ctaSize ?? 44, letterSpacing: 3, lineHeight: 1.3, color: it.ctaInk ? K.ink : K.sub2 }}>
               {it.cta.split("\n").map((l, i) => (<div key={i}>{l}</div>))}
             </div>
           </div>

@@ -91,10 +91,10 @@ def nframes(p):
 # ------------------------------------------------------------------ gfx (captions + logo card, transparent ProRes)
 def gfx():
     props = {"fps": FPS, "durationInFrames": END, "palette": BRAND, "size": 84, "pages": pages(),
-             "items": [{"kind": "logo", "t0": CART_END / FPS, "t1": END / FPS + 1, "cta": CTA}]}
+             "items": [{"kind": "logo", "t0": CART_END / FPS, "t1": END / FPS + 1, "cta": CTA, "ctaSize": 76, "ctaInk": True}]}
     js = json.dumps(props, indent=1)
     (PROJ / f"gfx_{a.ver}_props.json").write_text(js)
-    h = hashlib.sha1((js + (REPO / "remotion/src/gfx/reel/ExplainerGfx.tsx").read_text()).encode()).hexdigest()[:10]
+    h = hashlib.sha1((js + "".join((REPO / "remotion/src/gfx/reel" / f).read_text() for f in ("ExplainerGfx.tsx", "ReelGfx.tsx"))).encode()).hexdigest()[:10]
     mov = BUILD / f"gfx_{h}.mov"
     if not mov.exists():
         pj = BUILD / "gfx_props.json"
@@ -135,9 +135,13 @@ def composite(img, foot, corners):
 
 def picture(gmov):
     vid = BUILD / "video.mp4"
-    if vid.exists() and nframes(vid) == END:
-        return vid
     fr_dir = Path(a.frames)
+    # cache key: overlay file + newest rendered frame + phone insert (a frame-count check alone reused a stale picture)
+    newest = max(p.stat().st_mtime for s, _, _ in SHOTS for p in (fr_dir / s).glob("*.png"))
+    key = f"{gmov.name}|{newest:.0f}|{(M / 'reels/phone_insert.mp4').stat().st_mtime:.0f}"
+    stamp = BUILD / "video.key"
+    if vid.exists() and nframes(vid) == END and stamp.exists() and stamp.read_text() == key:
+        return vid
     corn = json.loads((fr_dir / "screen_corners.json").read_text())["shots"]["E"]["per_frame"]
     phone = phone_frames()
     assert len(phone) == 108, len(phone)
@@ -174,6 +178,7 @@ def picture(gmov):
     (BUILD / "picture.json").write_text(json.dumps(qa, indent=1))
     assert qa["text_over_footage_alpha_max"] == 0.0, qa
     tmpv.rename(vid)
+    stamp.write_text(key)
     return vid
 
 

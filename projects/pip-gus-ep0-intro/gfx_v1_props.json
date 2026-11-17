@@ -543,7 +543,9 @@
    "kind": "logo",
    "t0": 37.833333333333336,
    "t1": 42.733333333333334,
-   "cta": "WHAT QUESTIONS\nDO YOU HAVE?"
+   "cta": "WHAT QUESTIONS\nDO YOU HAVE?",
+   "ctaSize": 76,
+   "ctaInk": true
   }
  ]
 }
