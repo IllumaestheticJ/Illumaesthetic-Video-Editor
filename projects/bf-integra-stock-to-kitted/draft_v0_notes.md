@@ -1,4 +1,6 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.5 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.6 notes
+
+**v0.6 (2026-11-17, owner via parent: "all agents should use www.epsilon.plus"):** the end card has WWW.EPSILON.PLUS under the Epsilon+ wordmark. It is set in Barlow 700, 60 px, grey #B2B2B2, and fades in and out with the logo. The end card's content spans x 180-899 / y 921-1138, inside the safe zone. This replaces assumption 7 below ("no epsilon.plus on the end card"). Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.6.mp4`; sheet `_v0.6_safezones.jpg`.
 
 **v0.5 (2026-11-17, user: "the beginning needs to convey that we are running a black friday sale, maybe flash a text behind the car to the beat"):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.5.mp4`.
 - **Intro (0-6.99 s, CGI only):** the words "BLACK" (white) and "FRIDAY" (sale red), in Barlow 700 at 260 px, alternate *behind* the stock scan car.

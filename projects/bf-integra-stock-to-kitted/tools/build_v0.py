@@ -18,7 +18,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.5.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.6.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -152,6 +152,11 @@ def logo_frame(k, n):
     l2 = lg.copy()
     l2.putalpha(Image.fromarray((np.array(lg.split()[3]) * a).astype(np.uint8)))
     im.alpha_composite(l2, ((W - lw) // 2, (H - lg.height) // 2))
+    # v0.6 (owner, via parent): the only on-screen web address is WWW.EPSILON.PLUS, under the wordmark, in the safe zone
+    tl = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    text_center(ImageDraw.Draw(tl), (H + lg.height) // 2 + 70, "WWW.EPSILON.PLUS", ImageFont.truetype(FONT_B, 60), GREY)
+    tl.putalpha(Image.fromarray((np.array(tl.split()[3]) * a).astype(np.uint8)))
+    im.alpha_composite(tl)
     return im.convert("RGB")
 
 
