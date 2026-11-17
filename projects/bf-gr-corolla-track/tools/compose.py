@@ -8,14 +8,14 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.5.mp4')
-ap.add_argument('--tag', default='v0.5'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v05'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.6.mp4')
+ap.add_argument('--tag', default='v0.6'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v06'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [4, 6, 10, 12, 14, 20, 24, 30, 34, 36]   # v0.5: cards 6 kicks (car -> line-up), drive-past 2 kicks (user)
+CUTK = [4, 6, 10, 12, 14, 22, 28, 36, 42, 44]   # v0.6 (user: slow readers): cards 8 kicks, side 6, canards 6
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[42] * FPS) + 30          # logo holds 6 kicks (to kick 42), then a 1 s fade
+END = round(kicks[50] * FPS) + 30          # logo holds 6 kicks (to kick 50), then a 1 s fade
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
@@ -61,7 +61,7 @@ def card_overlay(img, shot, i, n):
     ver, word = ('V2', 'KIT') if shot == 's6_cardv2' else ('V1', '')
     pct, pre = ('30% OFF', '') if shot == 's6_cardv2' else ('45% OFF', 'UP TO')
     text_c(d, 330, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
-    F0, F1 = round(0.30 * n), round(0.60 * n)   # lift window, same as shot.py card_lineup
+    F0, F1 = round(0.28 * n), round(0.52 * n)   # lift window, same as shot.py card_lineup
     # 1) version, big, over the car (top band); slashed; gone as the parts lift
     a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
     if a_v > 0:
@@ -112,8 +112,9 @@ def label(img, i, n, lines, y, start=6, stop=None):
 
 LABELS = {  # shot -> list of (eyebrow, title, y, start, stop)
     's3_hl': [('EPSILON+', 'V2 AERO KIT', 1190, 8, None)],
-    's5_liphl': [('V2', 'FRONT LIP', 1190, 5, None)],
-    's7_side': [('V2', 'SIDE SKIRTS', 1190, 4, 30), ('V2', 'REAR SPATS', 1190, 31, None)],
+    's4_lip': [('V2', 'FRONT LIP', 1190, 4, 40)],          # v0.6: one label held across the lip shot and its 1:1 highlight (~1.8 s)
+    's5_liphl': [('V2', 'FRONT LIP', 1190, -12, None)],
+    's7_side': [('V2', 'SIDE SKIRTS', 1190, 3, 44), ('V2', 'REAR SPATS', 1190, 44, None)],
     's9_canards': [('CARBON CANARDS', 'BACK IN STOCK', 1190, 8, None)],
 }
 
