@@ -1,3 +1,11 @@
+# v0.6 (user: "have the numbers for deals a little longer so people can read it easier")
+- Price shot (receipt $600 struck -> $385, "less than the wing alone ($500)") is now 2 bars, frames 239-379: $385 holds
+  ~3.5 s (was ~1.2 s). Shot 4 re-rendered at 141 frames (render_v06).
+- End card ($385, www.epsilon.plus) is now 2 bars, frames 664-805 (4.7 s), with a slow 3 % push-in.
+- 26.9 s total. Cuts -6/+8/-13/0/+9/+13 ms vs kicks; -13.4 LUFS; TP -1.8 dBFS; safezone_check text boxes OK.
+
+# v0.5 (owner, 2026-11-17): end-card URL reads www.epsilon.plus. safezone_check text boxes OK. Output bf-integra-385-combo_v0.5.mp4.
+
 # v0.4 (owner safe-zone rule, 2026-11-17)
 - All text, prices and logos inside x 48-920 / y 285-1440: shot-1 tag/title moved down (y 330-667), receipts in shots
   2-3 moved to y 330, shot-4 receipt to y 880-1415, end-card product line 54 -> 46 px (x 180-899).
