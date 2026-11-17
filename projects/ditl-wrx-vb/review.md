@@ -45,3 +45,8 @@ Status: first cut for owner review, not final. v1 = first assembly; v2 = same pi
 - Looked at contact sheets of all five new shots: form and DROPPED OUT stamp readable, cash brick label readable, each of the four parts leaves the box and lands on the car, mirror shot starts in front of the seat.
 - Still unheard by me: the new stamp, cha-ching and throw/land effects.
 - Shot 7 landings, checked at full res on frames land-1 / land / land+3 for each part (front bumper 27, skirts 46, rear bumper 65, wing 84): the stock piece is visible on land-1 and gone on the landing frame, the kit part is present from the landing frame, so there is never a frame with both or neither. Each thrown part is a copy of the GLB mesh keyed back to its own world matrix (rotation 0, scale 1) by land+3; on the landing frame itself it is deliberately 14% oversize for a 3-frame impact bounce (most visible on the side skirts), then sits flush with no gap or offset.
+
+## v4 (owner feedback round 2: signature on the paper, direct Accessport smack, boxer engine sound)
+- 1052 frames, 35.07 s; shots 2, 10, 16 re-rendered (`render4`); -14.4 LUFS, peak -2.7 dBFS; cut frames and music timing unchanged from v3.
+- Contact sheets checked: scribble sits on the form, the arm comes from the driver and ends on the Accessport in shots 10 and 16 (hand largely hidden behind the device at impact, arm briefly covers the screen), mirror shot unchanged otherwise.
+- Engine sound is unheard by me; spectrum shows the strongest partial at 1.5x firing frequency (uneven-pulse boxer pattern).
