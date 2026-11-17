@@ -1,4 +1,4 @@
-# DITL #1: "day in the life: average wrx owner" (VB): script v4, 2026-11-17
+# DITL #1: "day in the life: average wrx owner" (VB): script v6, 2026-11-17
 
 Step 1 deliverable for the series brief (`projects/ditl-series/BRIEF.md`). **Nothing has been generated or uploaded,
 and no credits were spent.** I ran free `get_cost` preflights only. Waiting on the owner.
@@ -22,6 +22,26 @@ end.
 **Title bar (whole video):** `Day in the life of an average WRX owner` (owner's wording, white on black, top, the whole video).
 **Premise:** the car is perfect and everything else in his life is not. The Epsilon kit and WRC wing are the one
 genuinely good-looking thing in every frame they're in. The hands are unhinged in every scene, like the reference.
+
+## v6: minimal voices (owner 2026-11-17) — this overrides the line table and dialogue column below
+The owner wants minimal voices. Read as: far less dialogue, with picture, SFX and music carrying the jokes (to be
+confirmed). **4 lines, 2 voices:**
+
+| Scene | Who | Line |
+|---|---|---|
+| 3 | HIM | "Ringlands... semper fi." |
+| 5 | HIM | "Intake and a tune." |
+| 5 | BEAMER GUY | "Same." |
+| 6 | HIM | "...ringlands?" |
+
+Cut lines and what replaces them:
+- Scene 1 (L1-L3): silent. The recruiter holds up the form with a "Diploma" box; the hand scribbles "GED pending";
+  he beams and salutes anyway.
+- Scene 2 (L4): the "30% APR" and "$115,000.00" are on the phone screen.
+- Scene 4 (L6): "DAM 1.0" on the Accessport; the kiss and pat carry it.
+- Scene 5 (L7, L9b, L10, L11): the Beamer guy just nods at the car before "Intake and a tune." / "Same."; the mom
+  gets the window slap and revs, blinks once and looks away, no words.
+- RECRUITER (Marcus) and MOM (Nadine) are now silent characters. All 4 kept lines exist in voice take 1.
 
 ## The character (the owner's story)
 He dropped out of high school and went straight into the Marines. He still says "semper fi", now mostly to his
@@ -122,6 +142,8 @@ original designs). **Unhinged hand action** per scene is marked ⚡.
 **End:** a hard cut to black after L12 at about 47 s. No watermark and no end card (owner).
 
 ## Change list
+**v6:** minimal voices: 13 lines / 4 voices cut to 4 lines / 2 voices; cut lines replaced by on-screen text and pantomime.
+
 **v5 (reference clips):** square 1080x1080 picture at y = 420-1499 under a two-line title band; a lighter look (game textures, not hard posterization); mouth flaps on talking characters; 2-4 s shots, so 2-3 angles per scene.
 
 **v4.1:** music = the owner's upload, "First Time" from 0:30; cuts on the measured drop (video 2.18 s) and the music cut at video 25.38 s.
