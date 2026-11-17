@@ -13,7 +13,7 @@ OUT = '/home/user/media/work/out/bf-paint-match-roulette_v0.5.mp4'
 W, H, FPS = 1080, 1920, 30
 B0, BP = 0.0903, 60 / 140.0
 def bt(b): return B0 + BP * b
-END_T = bt(53) + 0.5
+END_T = bt(62) + 0.5
 
 ORANGE = (247, 160, 20); RED = (240, 84, 28); GREY = (150, 150, 150); WHITE = (240, 240, 240); DARK = (30, 22, 4)
 FI = '/usr/share/fonts/opentype/inter/'
@@ -36,9 +36,11 @@ CARS = {
                     [col['FE'][5], ['Rallye Red', 'R513', '#c8102e', 'gloss']] + col['FE'][6:]),
  'de5': dict(make='Acura', title='Integra', sub='DE4 / DE5', base=(500, 350), paint=(950, 800), special={'NH883P': (1000, 850)},
              colours=col['DE']),
+ 'wb': dict(make='Acura', title='Integra Widebody', sub='DE4', base=(500, 350), paint=(950, 800), special={'NH883P': (1000, 850)},
+            colours=col['DE'], third='WIDEBODY FLARES 50% OFF'),     # sheet: Fender Flare Widebody DE4 $800 -> $400
 }
 assert len(CARS['fl']['colours']) == 12 and len(CARS['fe']['colours']) == 11 and len(CARS['de5']['colours']) == 10
-ORDER = ['fl', 'fe', 'de5']
+ORDER = ['fl', 'fe', 'de5', 'wb']
 
 # ---------- turntable frames + tint ----------
 _yy, _xx = np.mgrid[0:420, 0:720].astype(np.float32)
@@ -117,15 +119,17 @@ def car_screen(car, k, colour, flash=0.0, cc_hot=False):
     c = CARS[car]; base = colour[3] == 'base'
     im = Image.new('RGB', (W, H), (0, 0, 0)); d = ImageDraw.Draw(im)
     icon_row(d); tabs(d, [c['make'], 'SPORT WING', 'PAINT MATCH'], 2)
-    tw = d.textlength(c['title'], font=SERIF(104)); d.text((CX - tw / 2, 356), c['title'], font=SERIF(104), fill=WHITE)
+    fs = 104
+    while d.textlength(c['title'], font=SERIF(fs)) > CAR_W - 20: fs -= 4
+    tw = d.textlength(c['title'], font=SERIF(fs)); d.text((CX - tw / 2, 356 + (104 - fs) // 2), c['title'], font=SERIF(fs), fill=WHITE)
     sw = d.textlength(c['sub'], font=f_code); d.text((CX - sw / 2, 482), c['sub'], font=f_code, fill=GREY)
     ci = car_img(car, k, '#8a8f96' if base else colour[2], base).resize((CAR_W, CAR_H), Image.LANCZOS)
     im.paste(ci, (X0, CAR_Y)); d = ImageDraw.Draw(im)
-    y = 1040
-    for t in ('BASE WING 30% OFF', 'PAINT MATCH AVAILABLE'):  # lip kit is visible on the car; no extra claim on screen
-        d.ellipse((X0, y + 6, X0 + 28, y + 34), fill=ORANGE); d.text((X0 + 42, y), t, font=f_small, fill=WHITE); y += 44
+    y = 1034; fb = F('InterDisplay-Bold.otf', 26)
+    for t in ('BASE WING 30% OFF', 'PAINT MATCH AVAILABLE', c.get('third', 'FRONT LIP + SKIRTS 30% OFF')):   # sheet: lips/skirts 30 %
+        d.ellipse((X0, y + 5, X0 + 24, y + 29), fill=ORANGE); d.text((X0 + 36, y), t, font=fb, fill=WHITE); y += 38
     name = colour[0]; f = f_col
-    while d.textlength(name, font=f) > 440: f = f.font_variant(size=f.size - 2)
+    while d.textlength(name, font=f) > 400: f = f.font_variant(size=f.size - 2)
     d.text((X1 - d.textlength(name, font=f), 1034), name, font=f, fill=WHITE)
     if colour[1]: d.text((X1 - d.textlength(colour[1], font=f_code), 1084), colour[1], font=f_code, fill=GREY)
     allc = [BLACK] + c['colours']; n = len(allc); sw_ = 36
@@ -143,8 +147,8 @@ def car_screen(car, k, colour, flash=0.0, cc_hot=False):
     bottom_bar(d)
     return im
 
-TILE_Y = [444, 750, 1056]; TILE_H = 290
-def tile_center(i): return (640, TILE_Y[i] + 170)
+TILE_Y = [440, 674, 908, 1142]; TILE_H = 222
+def tile_center(i): return (640, TILE_Y[i] + 130)
 _tile = {}
 def lineup_screen(hot=-1):
     im = Image.new('RGB', (W, H), (0, 0, 0)); d = ImageDraw.Draw(im)
@@ -154,19 +158,20 @@ def lineup_screen(hot=-1):
     for i, car in enumerate(ORDER):
         c = CARS[car]; y = TILE_Y[i]
         if car not in _tile:
-            g = car_img(car, 16, '#d8d8d8', False)   # same front-3/4 angle for every car.convert('L').resize((650, 379), Image.LANCZOS).crop((60, 50, 590, 340))
+            g = car_img(car, 16, '#d8d8d8', False).convert('L').resize((560, 327), Image.LANCZOS).crop((40, 60, 520, 60 + TILE_H))
             a = np.asarray(g).astype(np.float32) / 255
             t = np.stack([247 * (0.72 + 0.5 * a), 160 * (0.72 + 0.62 * a), 20 + 190 * a], -1).clip(0, 255).astype(np.uint8)
             _tile[car] = Image.fromarray(t)
         d.rectangle((X0, y, X1, y + TILE_H), fill=(255, 196, 70) if hot == i else ORANGE)
-        im.paste(_tile[car], (X1 - 530, y)); d = ImageDraw.Draw(im)
+        im.paste(_tile[car], (X1 - 480, y)); d = ImageDraw.Draw(im)
         if hot == i: d.rectangle((X0, y, X1, y + TILE_H), outline=WHITE, width=6)
-        d.text((X0 + 24, y + 16), c['title'], font=f_tile, fill=DARK)
-        d.text((X0 + 28, y + 96), c['sub'], font=f_tile2, fill=DARK)
-        d.ellipse((X0 + 24, y + 196, X0 + 88, y + 260), fill=DARK); d.text((X0 + 41, y + 199), '$', font=F('InterDisplay-Black.otf', 48), fill=ORANGE)
-        d.text((X0 + 106, y + 186), str(c['base'][1]), font=f_tile, fill=DARK)
-        ws = f"${c['base'][0]}"; wx = X0 + 106 + d.textlength(str(c['base'][1]), font=f_tile) + 20
-        d.text((wx, y + 212), ws, font=f_tile2, fill=(110, 70, 0)); d.line((wx - 4, y + 236, wx + d.textlength(ws, font=f_tile2) + 4, y + 236), fill=(160, 30, 0), width=5)
+        ft = F('InterDisplay-Black.otf', 52); f2 = F('InterDisplay-Black.otf', 32)
+        d.text((X0 + 22, y + 10), c['title'], font=ft, fill=DARK)
+        d.text((X0 + 26, y + 72), c['sub'] + '  ·  SPORT WING', font=f2, fill=DARK)
+        d.ellipse((X0 + 22, y + 140, X0 + 78, y + 196), fill=DARK); d.text((X0 + 37, y + 143), '$', font=F('InterDisplay-Black.otf', 42), fill=ORANGE)
+        d.text((X0 + 94, y + 130), str(c['base'][1]), font=F('InterDisplay-Black.otf', 58), fill=DARK)
+        ws = f"${c['base'][0]}"; wx = X0 + 94 + d.textlength(str(c['base'][1]), font=F('InterDisplay-Black.otf', 58)) + 18
+        d.text((wx, y + 152), ws, font=f2, fill=(110, 70, 0)); d.line((wx - 4, y + 172, wx + d.textlength(ws, font=f2) + 4, y + 172), fill=(160, 30, 0), width=5)
     bottom_bar(d)
     return im
 
@@ -200,11 +205,11 @@ def lineup_seg(b0, b1, target, start_xy):
     segs.append((b0, b1, fn)); ev.append((bt(b1), 'select'))
     if b0 > 0: ev.append((bt(b0), 'back'))
 ROT = 10.0  # turntable angles per second (48 per turn)
-def car_seg(car, b0):
+def car_seg(car, b0, step=1):
     c = CARS[car]; seq = [BLACK] + c['colours']; t0 = bt(b0)
     cx, cy = CC_BOX[0] + 120, CC_BOX[1] + 52
     for i, colr in enumerate(seq):
-        s0 = b0 if i == 0 else b0 + 1 + i; s1 = b0 + 2 if i == 0 else s0 + 1
+        s0 = b0 if i == 0 else b0 + 2 + (i - 1) * step; s1 = b0 + 2 if i == 0 else s0 + step
         def fn(t, dur, colr=colr, i=i, s0=s0):
             tt_ = bt(s0) + t - t0; k = int(tt_ * ROT) % 48
             im = car_screen(car, k, colr, flash=1.0 if (i > 0 and t < 0.1) else 0, cc_hot=(i == 0 and t > dur * 0.7))
@@ -215,19 +220,20 @@ def car_seg(car, b0):
             return im
         segs.append((s0, s1, fn))
         if i > 0: ev.append((bt(s0), 'color'))
-    return b0 + 2 + len(c['colours'])
+    return b0 + 2 + len(c['colours']) * step
 lineup_seg(0, 3, 0, (200, 480))
 e = car_seg('fl', 3)                                   # 3..17
 lineup_seg(e, e + 2, 1, tile_center(0)); e = car_seg('fe', e + 2)    # 19..32
 lineup_seg(e, e + 2, 2, tile_center(1)); e = car_seg('de5', e + 2)   # 34..46
-segs.append((e, 50, lambda t, dur: offer_screen())); ev.append((bt(e), 'select'))
+lineup_seg(e, e + 2, 3, tile_center(2)); e = car_seg('wb', e + 2, 0.5)  # 48..55, colours on half-beats
+segs.append((e, 59, lambda t, dur: offer_screen())); ev.append((bt(e), 'select'))
 wl = logo_at(720, (255, 255, 255))
 def logo_seg(t, dur):
     im = Image.new('RGB', (W, H), (0, 0, 0)); fade = min(1, t / 0.2, max(0, (dur - t) / 0.5))
     l = wl.copy(); l.putalpha(l.split()[3].point(lambda v: int(v * fade))); im.paste(l, (CX - 360, 860 - l.height // 2), l)
     d = ImageDraw.Draw(im); t_ = 'WWW.EPSILON.PLUS'; f = F('InterDisplay-Bold.otf', 44); g = int(200 * fade)
     d.text((CX - d.textlength(t_, font=f) / 2, 860 + l.height // 2 + 44), t_, font=f, fill=(g, g, g)); return im
-segs.append((50, None, logo_seg))
+segs.append((59, None, logo_seg))
 print('end beat of car screens', e)
 
 def frame_at(tsec):
@@ -269,7 +275,7 @@ p = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt
                       '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', silent], stdin=subprocess.PIPE)
 for f in range(nfr): p.stdin.write(frame_at(f / FPS).tobytes())
 p.stdin.close(); p.wait()
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', silent, '-i', f'{M}/music/music_v0.wav', '-i', f'{M}/music/sfx_v05.wav',
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', silent, '-i', f'{M}/music/music_v05.wav', '-i', f'{M}/music/sfx_v05.wav',
                 '-filter_complex', '[1:a]volume=-5dB[m];[2:a]aresample=48000,pan=stereo|c0=c0|c1=c0[s];[m][s]amix=inputs=2:normalize=0,volume=4.2dB[a]',
                 '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-t', str(END_T), OUT], check=True)
 print('wrote', OUT, nfr)
