@@ -1,0 +1,77 @@
+[
+ {
+  "text": "[eager] OK, it's scanned. Can we print it now?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[excited] My bumper! Print my bumper!",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[flat] That's a scan. It's a skin.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[matter-of-fact] A mesh of tiny triangles. No thickness.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[impatient] So... print it anyway?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[dry] Sure.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[impatient] Is it done yet?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[deadpan] ...There's nothing to print.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[patient, slightly tired] The scan is the reference. You can remake the original from it...",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[matter-of-fact] ...or design a new one on it.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[curious] So the scan is what makes it fit?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[matter-of-fact] Every curve.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[excited] Ooh! Illumaesthetic does both!",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ },
+ {
+  "text": "[dry, slightly impressed] ...Of course they do.",
+  "voice_type": "preset",
+  "voice_id": "573e5163-59b3-4926-aab1-951ef2985f81"
+ },
+ {
+  "text": "[curious] If the scan's a mesh, what do you design in?",
+  "voice_type": "preset",
+  "voice_id": "2d51d9d0-b2a4-5e8b-9c63-f310adafd5f7"
+ }
+]
