@@ -12,13 +12,14 @@ the 10 mm gag, then the 20 % card (sale parts only; the MR2 front bumper is excl
 - Ends on the Epsilon+ wordmark (Drive `EPSILON+ Logos`) at about 720 px wide. Not the Illumaesthetic logo.
 
 ## Music candidates (real songs only; not generated; not used by another reel)
-The tracks other reels have already used are excluded: the GT2 East City / South City / license tracks, M.O.O.N. Paris,
-FREAKED OUT, Prisoner, Sector Shift, the NFSU2 track (MR2 SW20 v3), Going Up North, Buckshot, Alkitran, Riders and the
-original city-pop MR2 track.
-1. **Kavinsky - "Nightcall"** (night-drive synthwave). Slow, moody intro with a hard kick entry, which suits a sodium-lamp lot.
-2. **M83 - "Midnight City"**. The famous synth-horn hook gives strong accents to cut on.
-3. **A night/phonk track from the TikTok Commercial Music Library** (Higgsfield `tiktok_music_trending`). This is the
-   licensed route for paid ads. Snare every 2 beats = clean cut grid.
+Already used, so excluded: every unused-looking /Moosic track is taken (Grits "My Life Be Like" = Lola, "Real Motorious
+City" = Civic 11, Megalomaniac = QX80, FILMMAKER = 400Z, John Wick medley / Kim Petras / Kirby = other BF videos, GT2
+themes, Paris, Riders, Get Low, Killa, The Streets, Buckshot, Alkitran, Sector Shift, Blood Code, Thunder, Baby Got Brap).
+**Claimed in `projects/_blackfriday/MUSIC.md` (provisional):**
+1. **"Tokyo Midnight" - ChilliZone** (TikTok Commercial Music Library, song_clip_id 7667576607158323217, 173 s).
+   It is licensed for ads and the title and mood fit a night meet.
+2. Backup: **"In the Urban Shadows" - Shiba Beats** (CML 7405070490777159697, 204 s).
+3. The user's own pick (e.g. Kavinsky "Nightcall" or M83 "Midnight City") as an upload: the file can't be fetched here.
 The user must supply or approve the file. Downloading from YouTube is not possible here. Start from the song's beginning,
 mix at -14 LUFS with true peak below -1 dBFS, and fit the beat grid to kick peaks, not `ive beats` alone (lessons L96, L185, L257).
 **Timings below use a placeholder grid of 120 BPM (1 beat = 0.5 s)** and will be re-snapped to measured hits once the track is chosen.
