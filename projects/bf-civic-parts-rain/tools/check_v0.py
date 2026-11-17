@@ -6,8 +6,8 @@ import json, subprocess, sys
 import numpy as np, librosa
 from PIL import Image
 V = sys.argv[1]; M = "/home/user/media/bf-civic-parts-rain"
-CUTS = {"render7 (1:1)": 488, "FE offer": 594, "FL offer": 647, "end card": 694}
-SEATS = {"lip": 329, "skirts": 371, "rear lip": 435, "wing": 466}
+CUTS = {"render7 (1:1)": 189, "FE offer": 246, "FL offer": 316, "end card": 369}
+SEATS = {"lip": 62, "skirts": 93, "rear lip": 126, "wing": 157}
 a = subprocess.run(["ffmpeg", "-v", "error", "-i", V, "-ac", "1", "-ar", "22050", "-f", "f32le", "-"], capture_output=True).stdout
 y = np.frombuffer(a, np.float32); sr = 22050; hop = 64
 on = librosa.onset.onset_strength(y=y, sr=sr, hop_length=hop); t = librosa.frames_to_time(np.arange(len(on)), sr=sr, hop_length=hop)
@@ -25,7 +25,7 @@ fr = subprocess.run(["ffmpeg", "-v", "error", "-i", V, "-vf", "scale=54:96,forma
 F = np.frombuffer(fr, np.uint8).reshape(-1, 96, 54).astype(float); d = np.abs(np.diff(F, axis=0)).mean((1, 2))
 print("frames", len(F), "| largest frame diffs at:", sorted(np.argsort(d)[-6:] + 1))
 # contact sheet: first/middle/last of each shot
-shots = [(0, 487), (488, 593), (594, 646), (647, 693), (694, 794), (329, 329)]
+shots = [(0, 188), (189, 245), (246, 315), (316, 368), (369, 469), (62, 62)]
 pick = [f for a_, b in shots for f in (a_, (a_ + b) // 2, b)]
 sel = "+".join(f"eq(n\\,{f})" for f in pick)
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", V, "-vf", f"select='{sel}',scale=180:320,tile=9x2", "-frames:v", "1", f"{M}/comp/v0_sheet.jpg"])
