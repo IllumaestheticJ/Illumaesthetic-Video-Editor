@@ -183,3 +183,18 @@ stand-in cars and 5 face sheets. Build order: 3 → 2 → 4 → 5/6 → 1, so th
 not committed). These are Cycles CPU renders of `eps-subaru-wrx-vb-v3.glb` with the kit (duckbill off, WRC wing on),
 in WR Blue, posterized to about 5 levels per channel. The Epsilon bumpers, skirts and the WRC wing all stay readable
 in the crunchy look. The banding in the grey backdrop is the look-test floor, which the lot will replace.
+
+## Voice take 1 (2026-11-17): waiting on the owner's check
+Owner's picks: **HIM = Cody, RECRUITER = Marcus, BEAMER GUY = Mark, MOM = Nadine.**
+- **Cody fails on Eleven v4.** Two full dialogue calls and a single-line test all failed in seconds (all refunded).
+  Marcus, Mark and Nadine work. Cody works on **Seed Audio 1.0**, which has **no emotion tags** (speed, loudness and
+  pitch only). So HIM's 9 lines are separate Seed Audio calls; the whispers are only quieter and slower, not true
+  whispers. RECRUITER, BEAMER GUY and MOM: one Eleven v4 dialogue call with tags.
+- Jobs: Eleven v4 `7e2e45a2-7bd0-4425-912b-335a990691a8`; Seed Audio `c2ed73b0`, `b97862ed`, `698c9d81`
+  (semper fi, a resubmit after a 429), `25e7b5aa`, `a995c52e`, `7dc05eed`, `0a0ee37d`, `cf35f0d8`.
+- Checks (no speech-to-text: the model download is blocked here): "Intake and a tune" had a click in its last 40 ms
+  (trimmed); "...Beamer guys" starts and ends hot (fades added); "DAM's at one" has a 2.5 s pause before "We're
+  good" (tightened in the edit); "semper fi" may be clipped at the tail (needs listening).
+- Listening file: `/home/user/media/ditl-wrx-vb/voice/ditl_wrx_voice_take1.mp3` (33.8 s, script order, 0.6 s gaps,
+  per-line level). Raw takes are in `voice/take1/`.
+- Spend: **3.18 credits** (incl. 0.89 of voice tests).
