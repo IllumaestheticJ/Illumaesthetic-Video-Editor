@@ -1,4 +1,4 @@
-# Pip & Gus Ep 6: "What does SeamForged do?" (script v4, for owner approval; was Ep 4)
+# Pip & Gus Ep 6: "What does SeamForged do?" (script v5, for owner approval; was Ep 4)
 
 9:16, 1080x1920, 30 fps, about 38 s. Branch `claude/pip-gus-ep4-seamforge` keeps its old number. Status: **owner answered the open questions (2026-11-16); waiting on script approval**. No voices or renders until this script is approved.
 
@@ -14,37 +14,40 @@ do we use?" Still works on its own: line 1 restates the problem.
 
 ## Part A: cartoon (about 22 s, word-by-word captions)
 
+Owner 2026-11-17: drop the seam-across-the-front beat (a seam shows there regardless). Say instead that by hand it takes forever
+to cut, number and place every piece on the print bed. "Forever" is carried by the clock gag, with no time figure.
+
 | # | Who | Line | Eyes | Picture |
 |---|---|---|---|---|
-| 1 | PIP | "It's bigger than the printer..." | worried | Callback to Ep 5: on Gus's laptop the finished bumper file hangs far outside the printer's build-volume box. Beside it, the small unbranded printer. |
-| 2 | GUS | "So we cut it. By hand." | flat, neutral | Gus at a cartoon laptop drawing cut lines; a cartoon saw follows them. Pieces scatter. The wall clock starts to turn. |
-| 3 | GUS | "Then figure out which piece goes where." | annoyed D-cut (slight) | A floor of identical grey pieces. Pip holds two up, eyes one D-cut + one round (skeptical). |
-| 4 | PIP | "And the seam runs right across the front?" | worried | Close on the assembled bumper: a seam line straight through the visible face. |
-| 5 | GUS | "…Yep." | flat | Clock spins like a fan. |
-| 6 | PIP | "There has to be a better way." | impatient | Pip to camera (the pilot line the owner kept). |
-| 7 | GUS | "…We made one." | half-lid, a little proud | Running-gag reversal: Gus pulls out the phone this time. The screen shows the SeamForged app. |
-| 8 | PIP | "Show me!" | ^ ^ excited | Push into the phone; hard cut on the beat to Part B. |
+| 1 | PIP | "It's bigger than the printer..." | worried | Callback to Ep 5: on Gus's laptop the bumper file hangs far outside the printer's build-volume box. The small unbranded printer beside it. |
+| 2 | GUS | "So we cut it up. By hand." | flat, neutral | Gus's laptop plays the real slicer clip (cropped to the 3D view): pieces hacked off one by one. The wall clock starts to turn. |
+| 3 | GUS | "Number every piece..." | flat | Gus writes a number on each grey piece with a marker; the pile keeps growing. |
+| 4 | GUS | "...then lay each one flat on the print bed." | slightly weary | Gus places pieces one at a time onto a row of cartoon build plates that runs off-screen. |
+| 5 | PIP | "Is it done yet?" | impatient | Pip slumped on a stool (series running gag). |
+| 6 | GUS | "...No." | flat | Clock spins like a fan. |
+| 7 | PIP | "There has to be a better way." | impatient | Pip to camera. |
+| 8 | GUS | "...We made one." | half-lid, a little proud | Gus pulls out the phone this time; the screen shows the SeamForged app. |
+| 9 | PIP | "Show me!" | ^ ^ excited | Push into the phone; hard cut on the beat to Part B. |
 
-Changes from the series draft: line 1 is the Ep 5 callback (v4). 7 lines became 8 with a short "Show me!" so Pip gets the excited beat and the push-in lands on
-a word (as "…Show me." did in the pilot). Nothing else is claimed in the dialogue; the app shows itself in Part B.
+Changes in v5: removed "Then figure out which piece goes where" and "And the seam runs right across the front?" / "Yep.";
+added the cut / number / place-on-the-bed beats and the "Is it done yet?" / "...No." gag. Voices to be regenerated (one call).
 
 ## Part B: the app (about 7 s, no text over it, no VO, music only)
 
-Owner allows longer than 4-5 s here if it earns it; four features need about 7 s.
+Part B now answers Part A beat for beat: cut, number, place on the bed. Painting the visible side is dropped (owner: seams show regardless).
 
 | # | ~s | Shot | Source |
 |---|---|---|---|
-| B1 | 1.8 | A bumper opens; **Auto-Slice**: the cut planes appear and the bumper splits into coloured pieces in one press. | Agent records SeamForged itself (owner) |
-| B2 | 1.8 | **Brush** over the visible face, **Optimise seams**: the cut planes slide off it. | same |
-| B3 | 1.8 | **Exploded** slider opens the pieces; part numbers visible on the mating faces. | same |
-| B4 | 1.6 | A real printed piece turned in hand, showing its engraved number. | Owner's footage (exists; owner to send) |
+| B1 | 1.8 | **Auto-Slice** on the GR86 rear bumper: one press, the cut planes appear and it splits into coloured pieces. (cut) | Agent records SeamForged |
+| B2 | 1.8 | **Exploded** slider: pieces pull apart, part numbers engraved on the mating faces. (number) | same |
+| B3 | 1.8 | **Build plates, Plan plates**: every piece stands on a cut face and lands on the beds. (place on the bed) | same |
+| B4 | 1.6 | The real printed GR86 piece turned in hand, showing its engraved number. | Owner's footage (recording) |
 
 Capture notes:
-- The printer dropdown shows brand presets ("P1S" etc.). Use **custom size** in the capture, or crop the left panel, so no brand is on screen.
-- Use a part we may show (a bumper scan we sell, or the owner's own model).
-- "Before" (owner OK): Dropbox `Seamforged V1/2026-08-23 13-30-22.mp4` (105.6 s, 1080p) is a third-party slicer with a bumper
-  hand-cut into many pieces across many plates, a cut gizmo being dragged. It plays on Gus's cartoon laptop in line 2, cropped
-  to the 3D viewport so no slicer UI or brand shows. `13-54-32.mp4` (33.8 s) is the single manual cut, a spare.
+- Model: `Bomex GR86 - Rear Bumper Uncut.stl` (engineering Drive, 282 MB), the same bumper the printed piece comes from. The file name
+  and the app's top bar (which reads "SeamForge") are cropped out; no maker or brand on screen.
+- The printer dropdown shows brand presets; use a custom size or crop the left panel.
+- "Before" (owner OK): Dropbox `Seamforged V1/2026-08-23 13-30-22.mp4`, cropped to the 3D viewport, on Gus's laptop in line 2.
 
 ## End cards (about 3-6 s)
 
@@ -72,7 +75,6 @@ optional and only used when a matching full video exists. There is no full SeamF
   "It's cut! Which printer do we use?" (supersedes the v0.3 links).
 
 ## Still open
-- Script approval (v4).
-- Ep 7 opens on "the cut pieces on SeamForge's plates". The README says plate packing (Print Layout) is hidden in the UI right now,
-  so this episode does not show plates; Ep 7 should open on the exported cut pieces unless the owner says plates are back.
+- Script approval (v5), then regenerate the voices.
+- Plates: the README's Build plates tab (Plan plates / Export plates) is in the UI, so Ep 7 can open on SeamForged's plates.
 - The model to record: ideally the same bumper as in the slicer clip, so before and after match.
