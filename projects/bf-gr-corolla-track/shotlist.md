@@ -114,7 +114,7 @@ The other 7 Black Friday sessions may pick from the same chart. The parent shoul
 | Moving V2-car footage (street) | found, finished edit only | `/1. Epsilon Plus Videos/3. Short form/Posted/GR COROLLA ROLLERS.mov` (raws not found) |
 | V2 kit photos (finish reference for paint and lip) | found | `/1. Epsilon Plus Videos/4. Photoshoots/Corolla GR V2 Kit/` (23 JPG + comparison PNGs); `/3. Epsilon Motorsports/Photoshoot/COROLLA/` |
 | Epsilon+ wordmark | found | Drive 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W |
-| Epsilon characters Del & Eps | **found (locked look)** | knowledge/characters/del-and-eps/ (README + del-eps-model-sheet.jpg, on branch claude/clever-shannon-u8rv5l; the JPGs are pending on this branch); produced with Higgsfield using the sheet as reference, then composited |
+| Epsilon characters Del & Eps | **found (locked look)** | knowledge/characters/del-and-eps/ (README + del-eps-model-sheet.jpg, now on this branch, commit 46e523b); produced with Higgsfield using the sheet as reference, then composited |
 | Music | **claimed: "Electric Youth" (Chris_record)** in projects/_blackfriday/MUSIC.md | TikTok CML song_clip_id 7421090393491785729, not yet downloaded |
 
 ## Open questions for the user
