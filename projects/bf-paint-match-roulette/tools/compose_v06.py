@@ -147,7 +147,7 @@ def car_screen(car, k, colour, flash=0.0, cc_hot=False):
             d.ellipse((X0, yy + 4, X0 + 56, yy + 60), fill=ORANGE); d.text((X0 + 15, yy + 11), '$', font=U(900, 32), fill=DARK)
             t = f'{n_:,}'; fpp = U(900, 46); d.text((X0 + 70, yy + 4), t, font=fpp, fill=WHITE)
             wx = X0 + 70 + d.textlength(t, font=fpp) + 12; ws = f'${w_:,}'; fw = U(700, 22)
-            d.text((wx, yy + 30), ws, font=fw, fill=GREY); d.line((wx - 4, yy + 45, wx + d.textlength(ws, font=fw) + 4, yy + 45), fill=RED, width=4)
+            d.text((wx, yy + 33), ws, font=fw, fill=GREY); d.line((wx - 4, yy + 48, wx + d.textlength(ws, font=fw) + 4, yy + 48), fill=RED, width=4)
             d.text((wx, yy + 4), lab, font=U(700, 18), fill=ORANGE)
     else:
         price_block(d, X0, 1246, was, now)

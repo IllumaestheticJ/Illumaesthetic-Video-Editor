@@ -133,3 +133,19 @@ Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.5.mp4` (27.2 s). T
   (next to the logo). Car names stay in the serif, small labels in Inter. Akira file still needed from the owner.
 - **Checks:** -14.0 LUFS, peak -1.4 dBFS (the first mix was -12.1 LUFS / +1.0 dBFS; SFX lowered 5 dB). 51 click/colour events vs music
   onsets: mean -4.8 ms, max 25 ms. Safe-zone sheet looked at: clean; content bbox x 48-924, y 288-1444 (4 px grid).
+
+# v0.6 (2026-11-17): paint-matched kits, both prices, centred, even pace
+
+Owner feedback on v0.5: lip kits/flares "Paint matched like wing"; widebody "Show both prices"; "Video needs to be centered, and the
+changing speed should be evened out"; "The color should only reference the color of the car - so gloss black should be on a black car".
+Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.6.mp4` (29.3 s). Tools: `tools/compose_v06.py`, `tools/render_turntable.py`.
+
+- **Kits and flares paint-matched:** the turntable mask has a third channel (B = lip kit / flares). They take the car colour on every
+  paint screen. Turntables re-rendered to `ttp/` (the render script now skips frames that exist, after two container restarts).
+- **Gloss Black base-wing screen** is now a black car (#0b0b0d) with black wing and kit, so the named colour is always the car's colour.
+- **Widebody shows both prices:** WING ($350 base / $800 paint-matched, $850 Platinum White) and FLARES $400 (~~$800~~).
+  The sheet has only the unpainted-PU flares price; no paint-matched flares or Integra lip price exists, so $400 shows beside painted flares.
+- **Centred:** the menu box is scaled to 760 px wide and centred on x = 540 (x 160-920, y 433-1440). The end wordmark is centred at 720 px.
+- **Even pace:** every colour change is one beat (0.4286 s) on all four cars; the widebody's half-beat cycle is gone.
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS. Content bbox x 160-920, y 436-1440, centre x 540. Colour-change gaps 0.428-0.429 s throughout.
+  Safe-zone sheet looked at: clean.

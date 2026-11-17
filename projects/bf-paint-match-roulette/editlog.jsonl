@@ -15,3 +15,4 @@
 {"ts": "2026-11-17T16:24:16Z", "decision": "v0.3: whole menu UI re-laid inside x 48-920 / y 285-1440", "why": "Owner safe-zone rule; v0.2 had price, BUY, colour name, tabs and bottom bar under app UI"}
 {"ts": "2026-11-17T17:21:17Z", "decision": "v0.4: all URLs read www.epsilon.plus; URL added under the end wordmark", "why": "Owner: 'all agents should use www.epsilon.plus'"}
 {"ts": "2026-11-17T20:14:06Z", "decision": "v0.5: real reference SFX by median-stacking, lip kits on, DE4 widebody added, turntable chunk bug fixed, Unbounded fonts", "why": "Owner feedback on v0.4 (orientation, exact SFX, lip kits, Integra speed, widebody) and the font rule"}
+{"ts": "2026-11-17T22:02:25Z", "decision": "v0.6: kits/flares paint-matched, base wing on a black car, both prices on widebody, menu centred at 760 px, one colour per beat everywhere", "why": "Owner feedback on v0.5 in chat"}
