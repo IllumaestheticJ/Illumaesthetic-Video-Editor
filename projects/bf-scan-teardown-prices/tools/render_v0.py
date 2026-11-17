@@ -103,7 +103,7 @@ def setup():
     sr.studio_world((0.004, 0.004, 0.004, 1), False)
     car = bpy.data.objects["FE1 Fl"]
     silver = sr.mat_silver()
-    # Eps's scan line: cyan emission band sweeping nose -> tail along Y, added on top of the silver
+    # scan line: cyan emission band sweeping nose -> tail along Y, added on top of the silver
     nt = silver.node_tree
     out = [n for n in nt.nodes if n.type == "OUTPUT_MATERIAL"][0]
     surf = out.inputs[0].links[0].from_socket
