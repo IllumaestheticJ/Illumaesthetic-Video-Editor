@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.2.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.4.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -51,6 +51,55 @@ def label(base, t, line1, line2, y=300):
     a = int(255 * ease(t * 4)); d = ImageDraw.Draw(base)
     d.text((90, y), line1, font=font(FD, 66), fill=(*OFF, a))
     d.text((92, y + 92), line2, font=font(FM, 34), fill=(*OFF, int(a * 0.8)))
+
+
+# v1.3 (user: "for each clip of the parts, show the text so people know what part and the pricing/saving").
+# name, car, was, now: Current Price -> BF 2026 Price from projects/_blackfriday/bf_liquidation_pricing.csv
+PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eyelids": ("HEADLIGHT EYELIDS", "MR2 SPYDER", 100, 80),
+         "mr2_hood": ("HOOD VENTS", "MR2 SPYDER", 400, 320), "mr2_spats": ("REAR SPATS", "MR2 SPYDER", 350, 280),
+         "mr2_duck": ("REAR DUCKBILL", "MR2 SPYDER", 220, 176), "nc_bumper": ("FRONT BUMPER + LIP", "NC MIATA", 1100, 880),
+         "nc_canards": ("CANARDS", "NC MIATA", 200, 160), "nc_fender": ("FENDER CUTS", "NC MIATA", 300, 240),
+         "nc_skirts": ("SIDE SKIRTS", "NC MIATA", 500, 400), "nc_spats": ("REAR SPATS (NC1)", "NC MIATA", 250, 200)}
+# shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
+# shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
+# above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
+LABELS = {"s02": [("mr2_skirts", 0.22, 0)], "s03": [("mr2_eyelids", 0.15, 0)], "s04": [("mr2_hood", 0.15, 0)],
+          "s05": [("mr2_spats", 0.15, 0), ("mr2_duck", 0.55, 1)], "s07": [("nc_bumper", 0.30, 0), ("nc_canards", 0.62, 1)],
+          "s08": [("nc_fender", 0.22, 0)], "s09": [("nc_skirts", 0.15, 0), ("nc_spats", 0.55, 1)]}
+SLOT_DY = 834      # second label goes below the car (block y 1130-1400, inside the safe band y 285-1440)
+
+
+def money(v): return f"${v:,}"
+
+
+def price_label(base, key, t, plate, slot=0):
+    """Part name + car, then was (struck) -> now and SAVE. All inside the safe zone (x 48-920, y 285-1440)."""
+    name, car, was, now = PRICE[key]
+    a = ease(t * 5); A = int(255 * a); dy = slot * SLOT_DY
+    if plate:      # lot shots: a soft dark plate so the text reads over the car and lamps
+        g = Image.new("L", (W, H), 0); ImageDraw.Draw(g).rounded_rectangle([60, 296 + dy, 900, 566 + dy], 28, fill=int(150 * a))
+        base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
+    d = ImageDraw.Draw(base)
+    d.text((90, 312 + dy), name, font=font(FD, 62), fill=(255, 255, 255, A))
+    d.text((92, 396 + dy), f"{car} · 20% OFF", font=font(FM, 30), fill=(*OFF, int(A * 0.85)))
+    fw, fn = font(FM, 44), font(FD, 64)
+    ws = money(was); x = 92; yb = 452 + dy
+    d.text((x, yb + 14), ws, font=fw, fill=(170, 174, 180, A)); bb = d.textbbox((x, yb + 14), ws, font=fw)
+    d.line([(bb[0] - 4, (bb[1] + bb[3]) // 2), (bb[2] + 4, (bb[1] + bb[3]) // 2)], fill=(170, 174, 180, A), width=4)
+    x = bb[2] + 28; ns = money(now); d.text((x, yb), ns, font=fn, fill=(255, 255, 255, A)); bb2 = d.textbbox((x, yb), ns, font=fn)
+    d.text((bb2[2] + 28, yb + 18), f"SAVE {money(was - now)}", font=font(FM, 38), fill=(255, 210, 31, A))
+
+
+def title(base, i, fade_out=False, n2=0, i2=0):
+    """v1.4 opening title (user: "the beginning needs a title to show the deal/platforms"). Safe band x 48-920, y 285-1440."""
+    a = ease(i / 5) * ((1 - ease((i2 - (n2 - 5)) / 5)) if fade_out else 1); A = int(255 * a)
+    g = Image.new("L", (W, H), 0); ImageDraw.Draw(g).rounded_rectangle([60, 300, 908, 700], 32, fill=int(165 * a))
+    base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(22))]))
+    d = ImageDraw.Draw(base)
+    d.text((CX, 352), "BLACK FRIDAY", font=font(FM, 40), fill=(255, 210, 31, A), anchor="mm")
+    d.text((CX, 455), "20% OFF", font=font(FD, 150), fill=(255, 255, 255, A), anchor="mm")
+    d.text((CX, 565), "MR2 SPYDER  ·  NC MIATA", font=font(FD, 52), fill=(*OFF, A), anchor="mm")
+    d.text((CX, 640), "EPSILON+ FIBERGLASS AERO", font=font(FM, 32), fill=(*OFF, int(A * 0.85)), anchor="mm")
 
 
 def card(base_img, i, n):
@@ -100,13 +149,12 @@ def main():
                 fr = logo(i, n)
             else:
                 fr = shot_frame(s, i).convert("RGBA"); t = i / n
-                if s == "s02":
-                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "SIDE SKIRT / FENDER", "MR2 SPYDER · FIBERGLASS")
-                if s == "s07" and i > n * 0.7: label(fr, (i - n * 0.7) / n, "FRONT BUMPER + LIP", "NC MIATA · FIBERGLASS")
-                if s == "s08":
-                    if i > n * 0.62: label(fr, (i - n * 0.62) / n, "FENDER CUTS", "NC MIATA · FIBERGLASS")
+                for key, f0, slot in LABELS.get(s, []):
+                    if i >= n * f0: price_label(fr, key, (i - n * f0) / n, plate=s in ("s03", "s04", "s05", "s07", "s08", "s09"), slot=slot)
+                if s == "s01" or (s == "s02" and i < n * 0.22):
+                    title(fr, i if s == "s01" else i + F30[1], fade_out=(s == "s02"), n2=round(n * 0.22), i2=i)
                 if s == "s10":   # both kitted scans (owner: no characters, typical branding)
-                    if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ · FIBERGLASS AERO")
+                    if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ AERO · 20% OFF")
                     last10 = fr.convert("RGB")
             fr.convert("RGB").save(f"{OUT}/{k:05d}.jpg", quality=92); k += 1
     print("frames", k)
