@@ -50,6 +50,13 @@ your chat if you need to watch it. What the parent measured:
 - Real brand names are OK (Affirm, Honda Odyssey, BMW, Cobb...): not posted on an LLC account, not monetized.
 - Max length 55 s.
 - WRX: use "DAM" (Accessport Dynamic Advance Multiplier).
+- **No Epsilon branding (series-wide, owner via the WRX session):** no Epsilon+ watermark, logo, end card or epsilon.plus
+  store UI. The products appear (accurate parts, real part names, live prices) without it being obvious they are
+  from Epsilon. Checkout screens are a generic unbranded store. End on a hard cut to black.
+- Title style: "Day in the life of an average <car> owner".
+- Affirm at checkout is OK ("Shop Pay is technically under Affirm": Shop Pay Installments is powered by Affirm).
+- Music: real tracks; the owner may upload commercial tracks (e.g. Illenium-style EDM) since the account is unmonetized.
+- Voices: show the owner the Higgsfield voice options (previews) before generating.
 
 ## House rules that apply (from CLAUDE.md and knowledge/lessons.md: read them)
 - **Never invent numbers on screen or in narration:** no downforce figures, lap times, prices or specs unless they
