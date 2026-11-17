@@ -15,7 +15,8 @@ args = ap.parse_args()
 W, H = 1080, 1920
 C3, END = 208, 282
 SAFE_CX = (48 + 920) / 2
-BOLD_I = "/usr/share/fonts/opentype/inter/InterDisplay-Bold.otf"
+UNB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-{}.ttf")
+# knowledge/fonts.md: text next to the logo uses Unbounded (not Akira): 500 for the label, 400 for the URL
 os.makedirs(args.out, exist_ok=True)
 
 logo = Image.open(args.logo).convert("RGBA")
@@ -27,8 +28,8 @@ def ease_out(t):
     return 1 - (1 - t) ** 3
 
 
-def text_layer(txt, size, fill=(255, 255, 255, 255), tracking=0):
-    f = ImageFont.truetype(BOLD_I, size)
+def text_layer(txt, size, fill=(255, 255, 255, 255), tracking=0, weight=500):
+    f = ImageFont.truetype(UNB.format(weight), size)
     widths = [f.getlength(c) for c in txt]
     lay = Image.new("RGBA", (int(sum(widths) + tracking * (len(txt) - 1)) + 40, int(size * 1.4)), (0, 0, 0, 0))
     d = ImageDraw.Draw(lay); x = 20
@@ -45,8 +46,8 @@ def paste_center(base, lay, cx, cy, scale=1.0, alpha=1.0):
     base.alpha_composite(lay, (round(cx - lay.width / 2), round(cy - lay.height / 2)))
 
 
-bf_lay = text_layer("BLACK FRIDAY", 64, tracking=14)
-url_lay = text_layer("WWW.EPSILON.PLUS", 42, (200, 200, 200, 255), tracking=10)
+bf_lay = text_layer("BLACK FRIDAY", 54, tracking=10, weight=500)
+url_lay = text_layer("WWW.EPSILON.PLUS", 36, (200, 200, 200, 255), tracking=6, weight=400)
 
 for f in range(END):
     if f < C3:
