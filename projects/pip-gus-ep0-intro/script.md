@@ -45,13 +45,13 @@ Series intro: Pip and Gus introduce themselves as the official Illumaesthetic ma
 - Line 3/4 = owner's line "We are the Illumaesthetic mascots - here in the digital world to explain to you the tips and tricks we've learned along the way from doing this for so long!", split Pip (first half) / Gus (second half). "Apparently." dropped (it no longer follows).
 - All Gus tags moved off "dry/deadpan" to warm/upbeat/amused.
 
-## Proposed v4 ending: series transition (series plan v0.4, pending owner confirmation, 2026-11-17)
+## v4 ending: series transition (series plan v0.4; owner approved 2026-11-17, in v2)
 Series plan v0.4 (`projects/pip-gus-series/scripts.md`, branch `claude/laughing-albattani-bav6u7`). Owner: the episodes should transition into each other, and the bumper episode goes first. Ep 1 is "Why can't I just print the bumper I want?". v0.4 replaces the v0.3 "So what's the first thing you do with a car?" / "We scan it." proposal, which is dropped.
 
 Ep 0 keeps the owner's ending: line 11 "What questions do you have?" and the logo-card text WHAT QUESTIONS / DO YOU HAVE? It then adds one voice-only tag over the logo card:
 
 | # | Who | Line | Picture |
 |---|---|---|---|
-| 12 | PIP | [eager, voice only over the logo card] "Can I just print the bumper I want?" | Logo card holds, with no new text. This sets up Ep 1. |
+| 12 | PIP | [eager, curious, voice only over the logo card] "Can I just print the bumper I want?" | Logo card holds, with no new text. This sets up Ep 1. |
 
-Cost: one single-line Pip generation (Kiki, well under 1 credit). The logo card is extended by about 2 s, roughly 44 s total, and the music tail is re-timed under it. No new Blender renders.
+Produced: elevenlabs_v4 job b7868f70-ffe7-47fc-9d25-090f3d8d55dd (0.46 credit). It sits at 38.42 s (one beat into the logo card) and ends at about 40.2 s, before the final chord at 40.83 s. The length is unchanged at 41.7 s. Music ducks to -13 dB under it, and it is level-matched to line 11 (-14.5 LUFS).

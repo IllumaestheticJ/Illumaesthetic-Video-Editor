@@ -1,4 +1,4 @@
-# Ep 0 "Meet Pip & Gus" — self-review (v1)
+# Ep 0 "Meet Pip & Gus" — self-review (v1, v2)
 
 Output: `pip_gus_ep0_v1.mp4` — 1080×1920, 30 fps, 1252 frames (41.73 s), h264 yuv420p + AAC 48 kHz, faststart.
 Master −14.1 LUFS / −2.0 dBTP (dialogue −14.1, music −21.3).
@@ -25,3 +25,8 @@ Master −14.1 LUFS / −2.0 dBTP (dialogue −14.1, music −21.3).
 ## For the next agent
 - Check expressions frame by frame on every line where Gus pauses. Lid values from accent and blink can read as sad even when no expression is set.
 - The gfx cache hash now covers `ExplainerGfx.tsx`, `ReelGfx.tsx` and the props. If you edit another component, check the overlay actually re-rendered.
+
+## v2 (2026-11-17)
+- Owner approved series v0.4's voice-only tag. Pip says "Can I just print the bumper I want?" over the logo card at 38.42 s, leading into Ep 1 (the bumper episode). The owner's "What questions do you have?" line and the logo text are kept.
+- The tag fits before the final chord, so the length is unchanged (41.73 s). Whisper hears it word for word in the final mix. It was level-matched to line 11 (both -14.5 LUFS); master -14.0 LUFS / -2.0 dBTP.
+- Criterion 8 (Ending) stays 5: the logo card is still on the beat, and the chord rings after the tag.

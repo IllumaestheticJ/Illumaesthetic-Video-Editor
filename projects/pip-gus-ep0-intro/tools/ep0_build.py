@@ -45,7 +45,11 @@ CAP = dict(PIP="#619f73", GUS="#ecefec")
 BRAND = {"accent": "#619f73", "onAccent": "#0b0c0b", "ink": "#ecefec", "bg": "#0b0c0b", "sub": "#d4d9d4", "sub2": "#c8cec8",
          "label": "#a8b0a8", "dim55": "rgba(236,239,236,0.55)", "dim50": "rgba(236,239,236,0.5)", "plate": "rgba(11,12,11,0.58)",
          "cap": "rgba(11,12,11,0.55)"}
-CTA = "WHAT QUESTIONS\nDO YOU HAVE?"   # owner 2026-11-16: the logo card ends with this text
+CTA = "WHAT QUESTIONS\nDO YOU HAVE?"
+# series v0.4 (owner 2026-11-17): voice-only tag over the logo card leading into Ep 1 (the bumper episode). No new text.
+TAG = M / "voice/tag/pip_bumper_tag.mp3"   # elevenlabs_v4 job b7868f70-ffe7-47fc-9d25-090f3d8d55dd, Kiki
+TAG_AT = 0.0203 + 0.6 * 64                 # 38.42 s: one beat into the logo card; speech ends ~40.2 s, before the final chord
+TAG_LEN = 1.76                             # whisper: last word ends 1.76 s into the file   # owner 2026-11-16: the logo card ends with this text
 
 # captions: (line, [[word idx], ...], centre y) - y placed by eye on each page's frames (faces / phone screen clear)
 PAGES = [
@@ -218,6 +222,12 @@ def audio():
     dia = np.zeros((n, 2), np.float32)
     s = int(TL["voice_at"] * SR)
     dia[s:s + len(v)] = v[: n - s]
+    tpol = BUILD / "tag_pol.wav"
+    run(["ffmpeg", "-v", "error", "-y", "-i", str(TAG), "-af", VOICE_FX + ",loudnorm=I=-17.4:TP=-1.5:LRA=11",   # -1.4 dB: match line 11
+         "-ar", str(SR), "-ac", "2", "-c:a", "pcm_f32le", str(tpol)])
+    tv = load_wav(tpol)
+    s = int(TAG_AT * SR)
+    dia[s:s + len(tv)] += tv[: n - s]
     # music: track t=0 at MUSIC_AT, ducked under the lines (-13 dB) / in gaps (-8 dB), full on the logo card
     mu = load_wav(M / "music/077bbd23-cc16-4c61-a5b8-8ca12d30e386.mp3")
     mus = np.zeros((n, 2), np.float32)
@@ -230,6 +240,7 @@ def audio():
     for L in TL["lines"]:
         g[max(0, int((L["t0"] - 0.15) * SR)):int((L["t1"] + 0.1) * SR)] = -13.0
     g[int(CART_END / FPS * SR):] = -3.0
+    g[int((TAG_AT - 0.15) * SR):int((TAG_AT + TAG_LEN + 0.1) * SR)] = -13.0
     g = smooth(g, 0.08)
     lin = 10 ** (g / 20)
     f0 = int((END / FPS - 0.5) * SR)
