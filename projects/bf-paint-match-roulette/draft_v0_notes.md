@@ -149,3 +149,14 @@ Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.6.mp4` (29.3 s). T
 - **Even pace:** every colour change is one beat (0.4286 s) on all four cars; the widebody's half-beat cycle is gone.
 - **Checks:** -14.0 LUFS, peak -1.4 dBFS. Content bbox x 160-920, y 436-1440, centre x 540. Colour-change gaps 0.428-0.429 s throughout.
   Safe-zone sheet looked at: clean.
+
+# v0.7 (2026-11-17): Type S as the 3rd entry, real model logos
+
+Owner: "the DE4/5 (3rd entry) should be the Type S instead of the non-widebody integra"; "also use the real civic/integra logos"
+(the owner pasted both logo images in chat). Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.7.mp4` (29.3 s).
+- **3rd entry = Integra Type S (DE5):** lookbook `eps-acura-integra-type-s-de5-v19.glb`, Sport Wing only (the model has no lip kit
+  parts, so no "FRONT LIP + SKIRTS" line on that screen). The 4th entry stays the DE4 widebody with kit + flares.
+- **Logos:** the owner's Civic and Integra wordmarks (recovered from the chat images to `logo/civic_alpha.png`,
+  `logo/integra_alpha.png` in the media folder; media is not committed) replace the serif car names on the car screens and the lineup
+  tiles. The variant line under each logo is Unbounded 600: "HATCHBACK · FL2 / FL5", "SEDAN · FE", "TYPE S · DE5", "WIDEBODY · DE4".
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440; safe-zone sheet looked at: clean.
