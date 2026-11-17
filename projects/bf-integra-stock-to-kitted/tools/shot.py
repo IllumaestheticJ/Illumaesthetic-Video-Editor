@@ -419,7 +419,8 @@ def main():
     sc.view_settings.look = "None"
     sc.view_settings.exposure = spec.get("exposure", 0.0)
     sc.render.image_settings.file_format = "PNG"
-    sc.render.image_settings.color_mode = "RGB"
+    sc.render.image_settings.color_mode = "RGBA" if spec.get("transparent") else "RGB"
+    sc.render.film_transparent = bool(spec.get("transparent"))  # bf-integra: composite onto the site charcoal in post
     out = os.path.abspath(spec["out"])
     if spec.get("frames"):  # framing check: only these frames ("first", "mid", "last" or numbers)
         os.makedirs(out, exist_ok=True)

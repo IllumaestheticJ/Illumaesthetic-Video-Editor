@@ -1,4 +1,11 @@
-# Self-review - Toyota GR Corolla v13b (`toyota_gr_corolla_v13.mp4`, 53.8 s, 1080x1920)
+# Self-review - Toyota GR Corolla v13c (`toyota_gr_corolla_v13.mp4`, 53.8 s, 1080x1920)
+
+v13c (user: "use the actual epsilon logos - have the old wheels come off and the new wheels go on like its actually
+being installed, and have the white base paint sweep on instead of cut in"): Epsilon labels = real Epsilon+ wordmark +
+part name; after the 1:1 cut the scanned wheels slide off their hubs and drop away, the Motegis rise in and slide on;
+the white base sweeps on (soft diagonal edge), then the Castrol graphics tape on in strips.
+
+# (previous) Self-review - Toyota GR Corolla v13b (`toyota_gr_corolla_v13.mp4`, 53.8 s, 1080x1920)
 
 v13b (user: "fix wheel stance, add the window/light texture/etc that the video game model have", "have the livery go
 on like it was getting taped on"): hubs raised 70 mm to the measured centres (tyres now fill the arches at the scanned

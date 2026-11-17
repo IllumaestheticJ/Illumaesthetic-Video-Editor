@@ -1,3 +1,38 @@
+# v0.3 (user feedback on v0.2, 2026-11-17)
+User: "fix the camera shake at the end, smoother. If that doesn't work, use another video/roller" / "we should have a
+wingless scan in the DE4 scan section (same trunk)" / "add color to the box and the beginning".
+- **End shot:** C0240 11.8-15.2 s stabilised with ffmpeg vidstab (shakiness 10, smoothing 90). Jitter measured on tracked
+  car features: 9.5/8.6 px -> 1.3/0.7 px (x/y at 1920 wide). Alternatives tried: car-locked cubic path (worse, 5.5 px);
+  C0241 drive-out (1.9 px, mostly side-on, trunk lip barely visible). Kept C0240.
+- **Deck fill:** DE4 A-Spec rear scan (`Integra ASpec Rear.stl`, Drive 1F3lfr0FnH6_S5VsyZ2uEy5WGXnICcp6e) - wingless, same
+  trunk lid. Registered with open3d FPFH + RANSAC, then point-to-plane ICP on the trunk lid (3.2 mm RMS); residual
+  per-x offset removed on the overlap ring (1.8 mm median). Its deck replaces the lookbook fill in the spoiler footprint
+  (`tools/reg_aspec_global.py`, `tools/aspec_patch.py`). No lookbook geometry in the scan any more.
+- **Colour:** opening in the Epsilon+ site palette (epsilon.plus theme: primary #5C59E8, secondary #01dee2, accent
+  #E85995): violet box with a cyan band, violet glow backdrop, cyan/pink rim lights; title tag and $385 in cyan, strike in pink.
+- Output /home/user/media/work/out/bf-integra-385-combo_v0.3.mp4, 22.13 s. Cuts -6/+8/+15/-5/0/+9 ms; -13.8 LUFS; TP -1.8 dBFS.
+
+# v0.2 (user feedback on v0.1, 2026-11-17)
+User: "this works, but the final video needs to have both parts on the car, and the scan section needs to show the
+stock wing coming off".
+- **Real-car shot** is now Install Tutorial **C0240** 12.3-14.7 s: the finished white Type S with the gloss-black Sport
+  Wing AND the black trunk lip. (Correction: C0222 in v0.1 showed only a black trunk spoiler, not the Sport Wing.)
+  Flat-profile footage, so graded (contrast 1.3, sat 1.2, gamma 0.9); 45 %-wide crop that follows the car, on a blurred
+  fill of itself. No text on it.
+- **Scan section** (2 shots): the stock Type S scan; the factory trunk spoiler (cut from the scan as one part,
+  `tools/split_spoiler.py`: deck faces off the lookbook body surface, grown over adjacency, 16.3k faces, 1.25 m wide)
+  lifts off and leaves; then the Epsilon trunk lip and Sport Wing seat on the scan. Then a hard 1:1 cut to the CGI
+  car with both parts on (gloss black), orbiting toward rear-on. Then C0240, then the end card.
+- **Known fill:** the deck strip under the factory spoiler was never scanned. It is filled from the lookbook body and
+  the lookbook's low-poly shell (`deck_patch.ply`, sits ~15 mm low), visible for about a second before the lip covers
+  it. For v1, check whether `TypeS Rescan typeS rescan.stl` (Drive 10eR0dVkan3A_2iPDbvO1AzjFXvjK_77I) has the deck
+  without the spoiler.
+- Timeline (frames @30): 0-96 box | 97-167 wing | 168-238 lip | 239-309 receipt | 310-379 scan: spoiler off |
+  380-450 scan: parts on | 451-521 CGI kitted (1:1 in) | 522-592 C0240 | 593-663 end card. 22.13 s.
+- Output /home/user/media/work/out/bf-integra-385-combo_v0.2.mp4. Checks: cuts -6/+8/+15/-5/0/+9 ms vs kick attacks
+  (168 and 380 not frame-diff detectable; on the grid by construction); -13.8 LUFS, true peak -1.8 dBFS; render luma
+  steady; contact sheet reviewed (spoiler lift shows minterpolate ghosting at preview frame rate).
+
 # bf-integra-385-combo: draft v0.1 (user said "go" in chat, 2026-11-17; characters removed per owner)
 
 v0.1 = v0 without Del & Eps (owner: "not use del & eps, just typical branding content"). The 3 stills generated
