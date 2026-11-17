@@ -133,7 +133,10 @@ def blink(spk, t):
 
 
 def talk(spk, t, base_lid=0.0):
-    return mouth_at(spk, t), max(base_lid, blink(spk, t), 0.2 * accent(spk, t))
+    acc = 0.2 * accent(spk, t)
+    if spk == "GUS" and LN[10]["t0"] - 0.6 <= t <= LN[10]["t1"]:
+        acc = 0.0   # the stress squint on "...There's" read as weary - owner rule: Gus is never sad
+    return mouth_at(spk, t), max(base_lid, blink(spk, t), acc)
 
 
 def win(t, a, b, rin=0.12, rout=0.2):
