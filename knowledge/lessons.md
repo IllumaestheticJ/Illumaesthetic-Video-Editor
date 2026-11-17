@@ -1365,3 +1365,11 @@ lands here automatically. Agents must read this whole file before editing.
 - [search] Search part names with spelling variants ("cannard"/"canard"/"канард") and in the 3D artist's "Projects_"
   folder, not only the engineering tree. Thin parts (2 mm canards) can look like guide strips in a reference .blend - check
   their bbox against the install guide's mounting location before dismissing them.
+- (GR Corolla v13, user: "add the castrol livery" / "the website glb has it") Liveries live on the website GLBs (Drive:
+  Website Files/Epsilon-final-GLBs-*.zip, eps-<car>-vN.glb: a 'livery_<name>' texture for the UV-mapped 'body'). Transfer
+  to the scan: ICP the website body onto our car (similarity, body above the wheels), give each scan face the texture
+  colour at its nearest body point within 30 mm, keep silver elsewhere (tools/livery.py + livery_attr.py; FACE-domain
+  attribute -> check `"livery" in mesh.attributes`, not color_attributes). A livery/wheel swap reads best as a 1:1 cut on a
+  downbeat with the camera continuing the previous shot's path exactly.
+- [logo] A brand logo with black ink on transparency vanishes on the black reel: reverse it (black -> off-white, keep the
+  brand colour) - tools/logo_reverse.py.
