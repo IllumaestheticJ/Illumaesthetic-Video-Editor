@@ -1,4 +1,4 @@
-# Ep 7 real-footage candidates (owner OK'd Epsilon parts and Epsilon print videos, 2026-11-16)
+# Ep 8 (was Ep 7) real-footage candidates (owner OK'd Epsilon parts and Epsilon print videos, 2026-11-16)
 
 Looked at (contact sheets, 8 frames each):
 - `/2. Illumaesthetic Videos/1. Video dumps/MR2 HARDTOP/*REEL/actual mr2 print video_2025-07-08_21-25-48.avi`

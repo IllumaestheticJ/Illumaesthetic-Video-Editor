@@ -1,7 +1,10 @@
-# Pip & Gus Ep 7 - "What plastic should I use for car parts?" (script v1, for owner approval)
+# Pip & Gus Ep 8 - "What plastic should I use for car parts?" (script v3, for owner approval)
 
-9:16, 1080x1920, 30 fps, about 35 s. Tightened from the series draft (`projects/pip-gus-series/scripts.md`, Ep 7).
-**Status: v2 - owner notes applied; waiting for the real-footage answer and a final OK. No voices or renders until approved.**
+Series reorder (owner 2026-11-17): this episode is now **Ep 8** (was Ep 7). It follows Ep 7 (glue) and leads into the finale, Ep 9 (bumper).
+The project folder and branch keep the old `ep7` name.
+
+9:16, 1080x1920, 30 fps, about 39 s. Tightened from the series draft (`projects/pip-gus-series/scripts.md`, Ep 8, was Ep 7).
+**Status: v3 - owner notes + series transitions applied; waiting for the footage pick and a final OK. No voices or renders until approved.**
 
 **Question:** which filament is right for a car part?
 **Shape:** "the car torture test". Pip's PLA vent fails in the sun, then Gus runs each material past the thing a car does to a part
@@ -10,22 +13,22 @@
 ## Timing plan
 | Part | Time | Content |
 |---|---|---|
-| Cartoon | 0-29 s | 13 lines, about 70 words, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
-| Real footage | 29-34 s | 4-5 s of printed parts on a real car. Photographic, no text. A hard 1:1 real-to-scan cut on a beat only if a scan of that car/part exists |
-| Logo card | 34-36 s | Illumaesthetic logo alone (~700 px wide), no call to action |
+| Cartoon | 0-32 s | 15 lines, about 85 words, word-by-word captions (Fjalla One; Pip sage #619f73, Gus #ecefec, dark plate) |
+| Real footage | 32-37 s | 4-5 s of printed parts on a real car. Photographic, no text. A hard 1:1 real-to-scan cut on a beat only if a scan of that car/part exists |
+| Logo card | 37-40 s | Illumaesthetic logo alone (~700 px wide), no text CTA. Pip voice-over only: "So... can I just print the bumper I want?" (sets up Ep 9) |
 
 No "FULL VIDEO ON OUR CHANNEL" teaser card by default (owner note 2026-11-16: videos do not need to link to a YouTube video).
 It is added (+~2 s, before the logo) only if a matching full video exists.
 No call to action either (owner note 2026-11-16: CTAs only when relevant; this episode is not about a scan we sell).
 
-## Script (v2, owner notes 2026-11-16 applied)
+## Script (v3: owner notes 2026-11-16 + series transitions 2026-11-17)
 | # | Who | Line (emotion tag) | Picture |
 |---|---|---|---|
-| 1 | PIP | [proud] "Look! I printed a vent. In PLA!" | Pip clicks a sage vent into the cartoon car's dash. ^ ^ eyes. |
-| 2 | GUS | [dry] "Nice. Park it in the sun." | Hard cut: the car outside, a big cartoon sun. |
+| 1 | PIP | [proud] "The glue held! And I printed it in PLA!" | **Callback to Ep 7:** the glued sage vent (seam visible) on the cartoon car, parked outside under a big cartoon sun. ^ ^ eyes. |
+| 2 | GUS | [dry] "Nice. Leave it in the sun." | Gus squints up at the sun. |
 | 3 | PIP | [worried] "...It's melting!" | The PLA vent slowly droops. Pip's eyes go wide/worried. |
 | 4 | GUS | [matter-of-fact] "PLA's easy to print. It just hates heat." | Gus drops the droopy vent on the **failed-prints shelf** (series running gag). |
-| 5 | PIP | [impatient] "So what do I use?" | Pip bounces. |
+| 5 | PIP | [impatient] "So what plastic do I use?" | Pip bounces (restates the episode question). |
 | 6 | GUS | "Inside the car? PETG. Tougher, handles more heat." | A light-coloured PETG vent in the same sun: holds its shape. |
 | 7 | PIP | [excited] "So I'll print it in black!" | Pip swaps in a black PETG vent. |
 | 8 | GUS | [dry] "...Black PETG still melts in the sun." | The black vent droops; it joins the failed-prints shelf. Pip: worried eyes. |
@@ -36,6 +39,8 @@ No call to action either (owner note 2026-11-16: CTAs only when relevant; this e
 | 12b | GUS | "And it depends what it's for. Molds? PETG or ASA. PETG warps less." | A mold on the bench next to its PETG and ASA spools; the PETG mold sits flat, the ASA one lifts a corner slightly. |
 | 13 | PIP | [excited] "Like these?!" | Pip holds up their phone: it plays the real footage (composited on the screen). |
 | 14 | GUS | [dry, warm] "...Yeah. Like those." | Push into the phone until the screen fills the frame; hard cut on a beat to the real footage. |
+
+Logo card (voice only, no on-screen text): **PIP** [curious] "So... can I just print the bumper I want?" - recorded in the same dialogue call; leads into Ep 9.
 
 Lines 13-14 are this episode's phone hand-off (varied from the pilot's "...Show me.").
 Owner (2026-11-16): PETG is the better interior choice, but black PETG melts in the sun (lines 7-8, owner's own claim, no numbers);
