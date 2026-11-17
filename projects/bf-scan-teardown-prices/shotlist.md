@@ -116,7 +116,8 @@ use `knowledge/characters/del-and-eps/` from branch `claude/clever-shannon-u8rv5
 - Look: matte arcade-racing style. Del: petrol teal #0f5c63 / orange #ff7a1a, short boxed beard. Eps: violet #6b3cff / yellow #ffd21f,
   backwards cap, visor with glowing eye marks, handheld scanner.
 - Rules: the scans stay silver and the characters are the only colour in frame; they appear at 1:1 or in ~1:10 micro mode; no invented numbers.
-- `del-eps-model-sheet.jpg` isn't committed yet (it's gitignored; the parent has asked the authoring session to add it). Full-size
+- The reference images are on this branch: `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg` (+ the drill-template,
+  10 mm-gag and pit-garage frames). Full-size
   PNGs are in the private `IllumaestheticJ/Epsilon-Site` repo (`characters/`). Higgsfield job IDs: bdb1a2e8, 069f42d6, e3315b11, 85f40a22.
 
 **Production (as the owner set it):** Higgsfield generations with the model sheet as the reference image, composited over
@@ -163,7 +164,7 @@ renders of our scans. No 3D build.
 | Epsilon+ wordmark | 1ITcVMoXW7Rs580760cSbFBAmn9zkkt0W | found |
 | Live prices / stock | Shopify, sec. 2 | found; **BF prices to-request** |
 | Music | sec. 3 | candidates found; **choice to-request** |
-| Del & Eps (Epsilon+ characters) | spec: `origin/claude/clever-shannon-u8rv5l:knowledge/characters/del-and-eps/README.md`; model sheet `del-eps-model-sheet.jpg` in IllumaestheticJ/Epsilon-Site `characters/` | spec **found** (07c812d); sheet **to-request** (gitignored; parent asked for it to be committed); production = Higgsfield + composite, no rig needed |
+| Del & Eps (Epsilon+ characters) | spec: `origin/claude/clever-shannon-u8rv5l:knowledge/characters/del-and-eps/README.md`; model sheet `del-eps-model-sheet.jpg` in IllumaestheticJ/Epsilon-Site `characters/` | spec **found** (07c812d); sheet **found**: `knowledge/characters/del-and-eps/del-eps-model-sheet.jpg` (on this branch now); production = Higgsfield + composite, no rig needed |
 | Pip & Gus | Illumaesthetic mascots (git only) | not used (owner picked Del & Eps) |
 | Integra DE4 A-Spec scan set (option B) | sec. 1 | found; kit design files **missing** (candidates unopened) |
 | Shop footage / photos | not used: the format is scan-only, so no text-over-IRL conflict | n/a |
