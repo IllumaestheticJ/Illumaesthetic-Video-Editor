@@ -48,7 +48,7 @@ def realwheels(root, x, yf, yr, z=0.33, scale=1.0, glb=WHEELGLB):
             o.location = ((x if nm[-1] == "L" else -x), (yf if nm[-2] == "F" else yr), z * scale); o.scale = (scale,) * 3; o.name = root.name + "_" + nm
         else: bpy.data.objects.remove(o)
 
-NF = [65, 48, 47, 48, 47, 47, 48, 95, 47, 47, 95, 48, 47, 47, 79, 150]
+NF = [65, 48, 47, 48, 47, 47, 95, 95, 47, 47, 95, 48, 47, 47, 79, 150]
 OPEN, FIST, POINT, FLAT = (0.12, 0.06, 0.1, 0.22), (1.3, 1.35, 1.35, 1.4), (0.0, 1.3, 1.35, 1.4), (0.02, 0.0, 0.02, 0.05)
 
 def key(o, f, loc=None, rot=None, scale=None, interp="BEZIER"):
@@ -282,18 +282,26 @@ def wheel(parent, loc):
 def s1():
     room((0.78, 0.74, 0.6), (0.35, 0.3, 0.22)); rig, cam = rigcam((0, -0.7, 1.52), (0.04, 0.5, 1.2), lens=21)
     wood = procmat("wood", "noise", (0.3, 0.16, 0.07), (0.42, 0.24, 0.11), 6); box("counter", (3.2, 0.7, 1.05), wood, (0, 0.05, 0), base="z")
-    plane("sign", 1.5, 0.37, imgmat("signm", TEX + "sign_office.png"), (0, 2.94, 2.35), rot=(R(90), 0, 0))
-    box("clock", (0.4, 0.05, 0.4), mat("clk", (0.95, 0.95, 0.9)), (-1.6, 2.92, 2.2)); box("cab", (1.0, 0.5, 1.4), mat("cabm", (0.4, 0.42, 0.45)), (1.9, 2.6, 0), base="z")
+    plane("sign", 2.4, 0.36, imgmat("signm", TEX + "sign_office.png"), (-1.45, 2.94, 2.3), rot=(R(90), 0, 0))
+    box("clock", (0.4, 0.05, 0.4), mat("clk", (0.95, 0.95, 0.9)), (1.5, 2.92, 2.3)); box("cab", (1.0, 0.5, 1.4), mat("cabm", (0.4, 0.42, 0.45)), (1.9, 2.6, 0), base="z")
     ls = mat("lskin", (0.8, 0.6, 0.48), 0.7); p, head, fd = person("lady", "lady", (0.14, 0.72, 0.78), 0, ls, mat("lshirt", (0.2, 0.4, 0.3)), mat("lhair", (0.3, 0.12, 0.06)), ["flat", "blank", "twitch", "horror"], bun=True)
     swap(fd, [(1, "flat"), (18, "blank"), (36, "twitch"), (50, "horror")])
     for f, rz in ((1, 0), (18, 6), (36, -8), (50, 4), (58, -5), (65, 6)): key(head, f, rot=(R(-4 if f < 50 else -14), 0, R(rz)), interp="CONSTANT")
-    plane("form", 0.24, 0.32, imgmat("formm", TEX + "form_withdraw.png"), (0.03, -0.1, 1.053), rot=(0, 0, R(8)))
+    fm = {i: plane(f"form{i}", 0.24, 0.32, imgmat(f"formm{i}", TEX + n), (0.03, -0.1, 1.053 + i * 0.0005), rot=(0, 0, R(8))) for i, n in enumerate(("form_withdraw.png", "form_withdraw2.png"))}
+    swap(fm, [(1, 0), (10, 1)])
+    # open on the form so the dropout reads, stamp at 10, whip up to the lady
+    L0 = (0, -0.7, 1.52); fl = (0.03, -0.12, 1.053); ll = (0.04, 0.5, 1.2)
+    key(rig, 1, rot=lookrot(L0, fl, -6), interp="LINEAR"); key(rig, 22, rot=lookrot(L0, fl, -3), interp="LINEAR"); key(rig, 27, rot=lookrot(L0, ll), interp="LINEAR")
+    for f, ln in ((1, 74), (9, 80), (10, 70), (22, 74), (27, 21)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    key(cam, 9, rot=(0, 0, 0), interp="LINEAR"); key(cam, 10, rot=(R(-1.5), R(0.8), R(2)), interp="LINEAR"); key(cam, 13, rot=(0, 0, 0), interp="LINEAR")
     h = hand("hR", cam, (0.1, -0.02, -0.5), (R(-62), 0, R(8)), curls=FLAT, thumb=0.1)
-    slaps = [7, 19, 30, 40, 49, 57, 64]; prev = 1
+    key(h, 1, loc=(0.6, -0.7, -0.3), interp="CONSTANT"); key(h, 24, loc=(0.6, -0.7, -0.3), interp="LINEAR")
+    slaps = [30, 40, 49, 57, 64]; prev = 24
     for sf in slaps:
         up = max(prev + 1, sf - max(3, (sf - prev) // 2))
         key(h, up, loc=(0.12, 0.08, -0.46), rot=(R(-40), 0, R(8)), interp="LINEAR"); key(h, sf, loc=(0.03, -0.235, -0.56), rot=(R(-86), 0, R(6)), interp="LINEAR"); prev = sf
-    hand("hL", cam, (-0.3, -0.3, -0.5), (R(-70), 0, R(-25)), curls=OPEN, mirror=True)
+    hl = hand("hL", cam, (-0.3, -0.3, -0.5), (R(-70), 0, R(-25)), curls=OPEN, mirror=True)
+    key(hl, 1, loc=(-0.7, -0.7, -0.3), interp="CONSTANT"); key(hl, 24, loc=(-0.7, -0.7, -0.3), interp="LINEAR"); key(hl, 28, loc=(-0.3, -0.3, -0.5), interp="LINEAR")
     for sf in slaps: key(cam, sf - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, sf, rot=(R(-2.2), R(0.6), 0), interp="LINEAR"); key(cam, sf + 2, rot=(0, 0, 0), interp="LINEAR")
 
 def s2():
@@ -311,13 +319,19 @@ def s2():
     h = hand("hR", cam, (0.05, -0.1, -0.5), (R(-70), 0, R(10)), curls=FIST, thumb=0.9, hold="pen"); rnd = random.Random(5)
     for f in range(1, 49, 2):
         x = -0.06 + 0.42 * (f / 48) ** 1.5 + rnd.uniform(-0.05, 0.05); key(h, f, loc=(x, -0.13 + rnd.uniform(-0.05, 0.05), -0.6), rot=(R(-72 + rnd.uniform(-6, 6)), 0, R(10 + rnd.uniform(-12, 12))), interp="LINEAR")
-    hand("hL", cam, (-0.2, -0.14, -0.58), (R(-80), 0, R(-20)), curls=FLAT, mirror=True); shake(cam, 1, 48, 0.5, seed=2)
+    hl = hand("hL", cam, (-0.2, -0.14, -0.58), (R(-80), 0, R(-20)), curls=FLAT, mirror=True); shake(cam, 1, 48, 0.5, seed=2)
+    # signing bonus: a brick of cash slides across the desk and he grabs it
+    cb = box("cash", (0.5, 0.25, 0.12), mat("cashm", (0.1, 0.33, 0.14)), (-0.3, 0.7, 0.84)); plane("cash_top", 0.5, 0.25, imgmat("cashtm", TEX + "cash_top.png"), (0, 0, 0.061), parent=cb)
+    vis(cb, 1, False); vis(cb, 25, True); key(cb, 25, loc=(-0.3, 0.75, 0.84), rot=(0, 0, R(40)), interp="LINEAR"); key(cb, 32, loc=(-0.52, 0.16, 0.84), rot=(0, 0, R(-10)), interp="LINEAR")
+    key(hl, 32, loc=(-0.2, -0.14, -0.58), interp="LINEAR"); key(hl, 37, loc=(-0.3, 0.0, -0.66), interp="LINEAR")
+    for f in range(39, 48, 4): key(hl, f, loc=(-0.3, 0.03, -0.62), interp="LINEAR"); key(hl, f + 2, loc=(-0.3, 0.0, -0.67), interp="LINEAR")
 
 def s3():
     room((0.42, 0.45, 0.4), (0.25, 0.22, 0.2)); rig, cam = rigcam((0, -0.35, 1.45), (0, 0.9, 1.42), lens=19)
     wood = procmat("wood", "noise", (0.22, 0.12, 0.06), (0.33, 0.19, 0.09), 6); box("desk", (1.8, 0.9, 0.78), wood, (0, 0.1, 0), base="z")
     plane("form", 0.3, 0.4, imgmat("fm", TEX + "form_enlist2.png"), (0, 0.02, 0.783), rot=(0, 0, R(-4)))
     plane("sign", 2.0, 0.5, imgmat("signm", TEX + "sign_recruit.png"), (0, 2.94, 2.5), rot=(R(90), 0, 0))
+    plane("sign_b", 1.6, 0.3, imgmat("signbm", TEX + "sign_bonus.png"), (-2.0, 2.94, 2.5), rot=(R(90), 0, 0))
     box("flagpole", (0.04, 0.04, 2.4), mat("pole", (0.7, 0.6, 0.2), 0.3), (1.5, 2.6, 0), base="z"); box("flag", (0.05, 0.9, 1.3), mat("flag", (0.6, 0.05, 0.07)), (1.5, 2.2, 1.1), base="z")
     rs = mat("rskin", (0.21, 0.11, 0.07), 0.7); cm = mat("camo", (0.3, 0.33, 0.2))
     p, head, fd = person("rec", "recruiter", (0, 1.05, 0.85), 0, rs, cm, mat("rhair", (0.03, 0.03, 0.03)), ["proud", "grin", "twitch"], hair_h=0.05)
@@ -329,6 +343,11 @@ def s3():
     key(h, 6, loc=(0.24, -0.4, -0.42), rot=(R(-50), 0, R(-10)), interp="LINEAR"); key(h, 22, loc=(0.2, -0.02, -0.34), rot=(R(-20), R(-30), R(-40)), interp="LINEAR")
     key(h, 29, loc=(0.1, 0.13, -0.16), rot=(R(-5), R(-50), R(-75)), interp="LINEAR"); key(h, 34, loc=(0.16, 0.05, -0.3), rot=(R(-15), R(-40), R(-60)), interp="LINEAR"); key(h, 47, loc=(0.2, -0.05, -0.36), rot=(R(-20), R(-30), R(-45)), interp="LINEAR")
     key(cam, 28, rot=(0, 0, 0), interp="LINEAR"); key(cam, 30, rot=(R(7), 0, R(3)), interp="LINEAR"); shake(cam, 31, 47, 1.6, seed=3)
+    # the signing bonus, already in his other fist
+    hl = hand("hL", cam, (-0.24, -0.5, -0.42), (R(10), R(20), R(30)), curls=FIST, thumb=0.7, mirror=True)
+    cb = box("cash", (0.2, 0.1, 0.055), mat("cashm", (0.1, 0.33, 0.14)), (0, 0.05, -0.05), rot=(0, 0, R(90)), parent=hl); plane("cash_top", 0.2, 0.1, imgmat("cashtm", TEX + "cash_top.png"), (0, 0, -0.029), rot=(R(180), 0, 0), parent=cb); plane("cash_top2", 0.2, 0.1, imgmat("cashtm2", TEX + "cash_top.png"), (0, 0, 0.029), parent=cb)
+    key(hl, 4, loc=(-0.24, -0.5, -0.42), interp="LINEAR"); key(hl, 12, loc=(-0.2, -0.1, -0.42), interp="LINEAR")
+    for i, f in enumerate(range(15, 47, 4)): key(hl, f, loc=(-0.2 - 0.04 * (i % 2), -0.1 + 0.05 * (i % 2), -0.42), rot=(R(10), R(20), R(30 + 25 * (i % 2))), interp="LINEAR")
 
 def s4():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); bunk(cam)
@@ -368,20 +387,42 @@ def lot(n_boxes=7, seed=4):
     return card
 
 def s7():
-    card = lot(); k.car(); loc = (1.9, -3.9, 1.35); rig, cam = rigcam(loc, (2.0, -3.3, 0.2), lens=20)
-    box("bigbox", (0.7, 0.6, 0.45), card, (2.0, -3.25, 0), base="z")
-    key(rig, 1, rot=lookrot(loc, (2.0, -3.3, 0.2)), interp="LINEAR"); key(rig, 15, rot=lookrot(loc, (2.0, -3.3, 0.25), 3), interp="LINEAR"); key(rig, 21, rot=lookrot(loc, (-0.15, -0.4, 0.7), -5), interp="LINEAR"); key(rig, 48, rot=lookrot(loc, (-0.15, -0.4, 0.74), -3), interp="LINEAR")
-    hr = hand("hR", cam, (0.1, -0.2, -0.45), (R(-70), 0, R(-10)), curls=OPEN, thumb=-0.3); hl = hand("hL", cam, (-0.1, -0.2, -0.45), (R(-70), 0, R(10)), curls=OPEN, thumb=-0.3, mirror=True)
-    for i, f in enumerate(range(1, 16, 3)):
-        o = 0.05 + 0.22 * (i % 2); key(hr, f, loc=(0.05 + o, -0.2 + 0.1 * (i % 2), -0.45), rot=(R(-70 + 25 * (i % 2)), 0, R(-10 - 30 * (i % 2))), interp="LINEAR"); key(hl, f, loc=(-0.05 - o, -0.2 + 0.1 * (i % 2), -0.45), rot=(R(-70 + 25 * (i % 2)), 0, R(10 + 30 * (i % 2))), interp="LINEAR")
-    for f in range(22, 48, 5):
-        u = ((f - 22) // 5) % 2; key(hr, f, loc=(0.24, -0.16 + 0.07 * u, -0.42), rot=(R(-55 + 14 * u), R(8), R(-22)), interp="LINEAR"); key(hl, f, loc=(-0.25, -0.15 + 0.07 * u, -0.44), rot=(R(-52 + 14 * u), R(-10), R(24)), interp="LINEAR")
+    """He rips the box open, pulls each kit part out and chucks it at the stock car; each one lands in place."""
+    card = lot(); objs = k.car(); bpy.context.view_layer.update(); by = {o.name: o for o in objs}
+    cl = (4.0, -3.4, 1.7); look = (0.0, 0.2, 0.6); rig, cam = rigcam(cl, look, lens=21); dv = (Vector(look) - Vector(cl)).normalized()
+    bxl = Vector(cl) + dv * 1.4; bxl.z = 0; box("bigbox", (0.95, 0.75, 0.55), card, tuple(bxl), rot=(0, 0, R(48)), base="z"); box("bigbox_in", (0.85, 0.65, 0.02), mat("boxin", (0.05, 0.035, 0.02)), (bxl.x, bxl.y, 0.56), rot=(0, 0, R(48)))
+    hold = Vector(cl) + dv * 0.8 + Vector((0, 0, -0.28)); wind = hold - dv * 0.2 + Vector((0, 0, 0.12))
+    hr = hand("hR", cam, (0.16, -0.36, -0.5), (R(-70), 0, R(-10)), curls=OPEN, thumb=-0.3); hl = hand("hL", cam, (-0.16, -0.36, -0.5), (R(-70), 0, R(10)), curls=OPEN, thumb=-0.3, mirror=True)
+    for i, f in enumerate(range(1, 13, 3)):
+        o = 0.05 + 0.2 * (i % 2); key(hr, f, loc=(0.05 + o, -0.3 + 0.1 * (i % 2), -0.5), rot=(R(-70 + 25 * (i % 2)), 0, R(-10 - 30 * (i % 2))), interp="LINEAR"); key(hl, f, loc=(-0.05 - o, -0.3 + 0.1 * (i % 2), -0.5), rot=(R(-70 + 25 * (i % 2)), 0, R(10 + 30 * (i % 2))), interp="LINEAR")
     rnd = random.Random(9)
     for i in range(12):
-        p = plane(f"fl{i}", rnd.uniform(.12, .3), rnd.uniform(.1, .25), card, (0, -0.2, -0.6), parent=cam); a = rnd.uniform(0, 6.28); st = rnd.choice([2, 5, 8, 11])
-        vis(p, 1, False); vis(p, st, True); key(p, st, loc=(rnd.uniform(-.1, .1), -0.25, -0.6), rot=(0, 0, 0), interp="LINEAR")
-        key(p, st + 14, loc=(math.cos(a) * 0.9, 0.3 + math.sin(a) * 0.5, -rnd.uniform(0.6, 1.3)), rot=(rnd.uniform(0, 9), rnd.uniform(0, 9), rnd.uniform(0, 9)), interp="LINEAR"); vis(p, st + 15, False)
-    shake(cam, 1, 21, 1.2, seed=4)
+        p = plane(f"fl{i}", rnd.uniform(.12, .3), rnd.uniform(.1, .25), card, (0, -0.3, -0.7), parent=cam); a = rnd.uniform(0, 6.28); st = rnd.choice([2, 4, 6, 8])
+        vis(p, 1, False); vis(p, st, True); key(p, st, loc=(rnd.uniform(-.1, .1), -0.32, -0.7), rot=(0, 0, 0), interp="LINEAR")
+        key(p, st + 12, loc=(math.cos(a) * 0.9, 0.3 + math.sin(a) * 0.5, -rnd.uniform(0.7, 1.4)), rot=(rnd.uniform(0, 9), rnd.uniform(0, 9), rnd.uniform(0, 9)), interp="LINEAR"); vis(p, st + 13, False)
+    PARTS = [("part_front_bumper", ["body_front_bumper_stock", "trim_f1_blank_stock"], 0.42), ("part_side_skirts", ["trim_side_stock"], 0.3), ("part_rear_bumper", ["body_rear_bumper_stock"], 0.42), ("part_wrc_wing", [], 0.55)]
+    for i, (pn, stock, hs) in enumerate(PARTS):
+        s0 = 14 + i * 19; land = s0 + 13; src = by[pn]; ms = [o for o in [src] + list(src.children_recursive) if o.type == "MESH"]
+        pts = [m.matrix_world @ Vector(c) for m in ms for c in m.bound_box]; c = sum(pts, Vector()) / len(pts)
+        hd = bpy.data.objects.new("thrown_" + pn, None); bpy.context.scene.collection.objects.link(hd); hd.location = c; bpy.context.view_layer.update()
+        for m in ms:
+            d = m.copy(); bpy.context.scene.collection.objects.link(d); d.parent = hd; d.matrix_parent_inverse = hd.matrix_world.inverted(); d.matrix_basis = m.matrix_world.copy(); d.hide_render = False
+            m.hide_render = True
+        for sn in stock:
+            if sn in by: vis(by[sn], 1, True); vis(by[sn], land, False)
+        spin = (6.2832 * (1 if i % 2 else -1), 6.2832, 6.2832 * (2 if i < 2 else -1)); inbox = (bxl.x, bxl.y, 0.4)
+        vis(hd, 1, False); vis(hd, s0, True)
+        key(hd, s0, loc=inbox, rot=spin, scale=(hs * 0.5,) * 3, interp="LINEAR"); key(hd, s0 + 5, loc=tuple(hold), rot=spin, scale=(hs,) * 3, interp="LINEAR"); key(hd, s0 + 7, loc=tuple(wind), rot=tuple(v * 0.97 for v in spin), scale=(hs,) * 3, interp="LINEAR")
+        mid = (Vector(wind) + c) / 2 + Vector((0, 0, 0.9)); key(hd, s0 + 10, loc=tuple(mid), rot=tuple(v * 0.5 for v in spin), scale=((hs + 1) / 2,) * 3, interp="LINEAR")
+        key(hd, land, loc=tuple(c), rot=(0, 0, 0), scale=(1.14,) * 3, interp="LINEAR"); key(hd, land + 3, loc=tuple(c), rot=(0, 0, 0), scale=(1, 1, 1), interp="LINEAR")
+        for h, sx in ((hr, 1), (hl, -1)):
+            key(h, s0 - 1, loc=(0.2 * sx, -0.3, -0.5), rot=(R(-60), 0, R(-20 * sx)), interp="LINEAR"); key(h, s0 + 1, loc=(0.14 * sx, -0.46, -0.6), rot=(R(-95), 0, R(-10 * sx)), interp="LINEAR")
+            key(h, s0 + 5, loc=(0.2 * sx, -0.24, -0.5), rot=(R(-50), R(30 * sx), R(-30 * sx)), interp="LINEAR"); key(h, s0 + 7, loc=(0.22 * sx, -0.12, -0.36), rot=(R(-30), R(30 * sx), R(-30 * sx)), interp="LINEAR")
+            key(h, s0 + 10, loc=(0.12 * sx, -0.14, -0.72), rot=(R(-75), 0, R(-8 * sx)), interp="LINEAR"); key(h, s0 + 15, loc=(0.2 * sx, -0.3, -0.5), rot=(R(-60), 0, R(-20 * sx)), interp="LINEAR")
+        key(cam, land - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, land, rot=(R(1.6), R(-1.2), R(1.5)), interp="LINEAR"); key(cam, land + 3, rot=(0, 0, 0), interp="LINEAR")
+    for h, sx in ((hr, 1), (hl, -1)):
+        for j, f in enumerate(range(87, 96, 4)): key(h, f, loc=(0.26 * sx, -0.08 + 0.06 * (j % 2), -0.44), rot=(R(-20), 0, R(-25 * sx)), interp="LINEAR")
+    for f, ln in ((1, 21), (84, 21), (95, 30)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
 
 def s8():
     lot(5, 6); k.car(); loc = (0.9, -1.72, 1.13); rig, cam = rigcam(loc, (-0.5, 0.35, 1.12), lens=18)
@@ -519,7 +560,7 @@ def s16():
     box("him_chain", (0.05, 0.003, 0.004), mat("hch", (0.75, 0.75, 0.78), 0.2, emit=0.3), (0, 0.0065, -MH / 2 + 0.02), parent=fr)
     swap(fd, [(1, "blank"), (66, "twitch"), (72, "blank"), (84, "twitch"), (98, "pinpoint"), (124, "horror")])
     for f, rz in ((1, 0), (66, 5), (72, 0), (84, -6), (98, 3), (124, -4), (136, 5), (144, -5)): key(head, f, rot=(0, R(rz), 0), interp="CONSTANT")
-    a = (0.36, 0.42, 1.2); b = (0.24, 0.18, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=veh)
+    a = (0.36, 0.14, 1.25); b = (0.24, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=veh)
     key(rig, 1, loc=a, rot=lookrot(a, (0.1, -0.75, 1.06)), interp="BEZIER"); key(rig, 40, loc=a, rot=lookrot(a, (0.1, -0.75, 1.07)), interp="BEZIER"); key(rig, 58, loc=a, rot=lookrot(a, tuple(mc)), interp="BEZIER"); key(rig, 150, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
     for f, ln in ((1, 19), (40, 22), (58, 30), (150, 78)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
     h = hand("hR", cam, (0.2, -0.4, -0.4), (R(-70), 0, R(-10)), curls=FLAT, thumb=0.2)

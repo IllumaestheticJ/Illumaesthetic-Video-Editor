@@ -1,7 +1,7 @@
 """Soundtrack for the DITL WRX short: music + voice + synthesized SFX. python sound.py <out.wav>"""
 import sys, subprocess, numpy as np
-SR = 48000; M = "/home/user/media/ditl-wrx-vb/"; DUR = 33.5
-CUT = [0, 65, 113, 160, 208, 255, 302, 350, 445, 492, 539, 634, 682, 729, 776, 855, 1005]
+SR = 48000; M = "/home/user/media/ditl-wrx-vb/"; NF = [65, 48, 47, 48, 47, 47, 95, 95, 47, 47, 95, 48, 47, 47, 79, 150]
+CUT = [sum(NF[:i]) for i in range(len(NF) + 1)]; DUR = CUT[-1] / 30.0
 def T(shot, frame=0): return (CUT[shot - 1] + frame) / 30.0
 rng = np.random.default_rng(7)
 def t_(d): return np.arange(int(d * SR)) / SR
@@ -111,9 +111,10 @@ put(mus * g[:, None], 0, 0.5)
 
 # ---- per-shot beds and effects ----
 put(hum(T(2)), 0, 0.5); put(bell(0.9), 0.05, 0.5)
-for sf in (7, 19, 30, 40, 49, 57, 64): put(slap(), T(1, sf), 1.3)
+put(ms(slap(1.3), bonk() * 0.6), T(1, 10), 1.5); put(whoosh(0.2, 600, 5000), T(1, 22), 0.8)   # DROPPED OUT stamp, whip up to the lady
+for sf in (30, 40, 49, 57, 64): put(slap(), T(1, sf), 1.3)
 put(scratch(), T(1, 58), 0.9)
-put(hum(T(4) - T(2), 100), T(2), 0.4); put(pen(1.5), T(2, 2), 0.9); put(boing(), T(2, 36), 0.9)
+put(hum(T(4) - T(2), 100), T(2), 0.4); put(pen(1.5), T(2, 2), 0.9); put(boing(), T(2, 36), 0.9); put(whoosh(0.25, 400, 3000), T(2, 25), 0.8); put(chaching(), T(2, 32), 1.3)   # signing bonus slides in
 put(whoosh(0.25, 800, 5000), T(3, 3), 0.6); put(brass((392, 523, 659, 784), 0.13), T(3, 6), 0.8); put(bonk(), T(3, 29), 1.6); put(womp(), T(3, 31), 0.6)
 put(hum(T(7) - T(4), 60), T(4), 0.3)
 for i, f in enumerate((11, 21, 31, 41)): put(whoosh(0.15, 1500, 6000), T(4, f - 3), 0.5); put(ding(1320 * 2 ** (i / 6), 0.35), T(4, f), 0.7)
@@ -121,8 +122,10 @@ f = 6.0; gap = 6.0
 while f < 46: put(chaching(), T(5, int(round(f))), 0.9); f += gap; gap = max(2.6, gap * 0.82)
 put(ding(1760, 0.6), T(6, 1), 0.7); put(brass((523, 659, 784, 1047), 0.09), T(6, 9), 0.6); put(trombone(), T(6, 18), 0.9)
 lot0, lot1 = T(7), T(10); put(birds(lot1 - lot0), lot0, 0.5); put(traffic(lot1 - lot0), lot0, 0.25)
-for f in (1, 4, 7, 10, 13): put(rip(0.22), T(7, f), 0.9, pan=(-0.4 if f % 2 else 0.4))
-put(whoosh(0.3, 300, 4000), T(7, 15), 1.0); put(choir(), T(7, 21), 1.3)
+for f in (1, 4, 7, 10): put(rip(0.22), T(7, f), 0.9, pan=(-0.4 if f % 2 else 0.4))
+for i in range(4):   # each part: rummage, throw, lands on the car
+    s0 = 14 + i * 19; put(rip(0.12), T(7, s0), 0.6); put(whoosh(0.28, 300, 4000), T(7, s0 + 7), 1.1); put(ms(crunch(), ding(880 * 1.189 ** i, 0.35) * 0.7), T(7, s0 + 13), 1.3, pan=-0.3)
+put(choir(), T(7, 84), 1.2); put(levelup(), T(7, 73), 0.5)
 for f in range(1, 95, 5): put(knock(), T(8, f + 2), 1.1)
 put(heartbeat(3.0), T(8), 1.2); put(bp(noise(0.9), 3000, 9000) * np.linspace(0.2, 1, int(0.9 * SR)) * 0.25, T(8, 22)); put(whoosh(1.2, 500, 2500), T(8, 44), 0.5)
 for f in range(4, 95, 16): put(ms(tick(), ding(3200, 0.08) * 0.3), T(8, f), 0.5)

@@ -170,10 +170,23 @@ if __name__ == "__main__":
     WHO = {"lady": ((226, 182, 150), True), "recruiter": ((126, 84, 58), False), "beamer": ((222, 172, 130), False), "mom": ((236, 196, 168), True), "kid": ((236, 196, 168), False), "him": ((150, 100, 62), False)}
     for who, (skin, lash) in WHO.items():
         for e in ("smug", "grin", "proud", "talk", "horror", "pinpoint", "flat", "blink", "blank", "twitch", "squish"): face(e, skin, lash).save(f"{out}/face_{who}_{e}.png")
-    paper("WITHDRAWAL FORM", ["Student: ______________", "Reason for leaving:", "   “gonna buy a WRX”", "Parent signature: ______", "", "[ ] I understand this is", "    a bad idea"]).save(f"{out}/form_withdraw.png")
-    for s in (0, 1, 2): paper("ENLISTMENT", ["DIPLOMA:  [   ]", "", "", "", "", "", "Sign here: ___________"], s).save(f"{out}/form_enlist{s}.png")
+    def wform(stamp):
+        im = Image.new("RGBA", (600, 800), (226, 222, 208, 255)); d = ImageDraw.Draw(im); ink = (10, 10, 10, 255)
+        d.text((300, 62), "HIGH SCHOOL", font=font(64, True), fill=ink, anchor="mm"); d.text((300, 136), "WITHDRAWAL FORM", font=font(54, True), fill=ink, anchor="mm"); d.line([30, 184, 570, 184], fill=ink, width=7)
+        for i, ln in enumerate(("Reason for leaving:", "“gonna be a", "  Marine, then", "  buy a WRX”")): d.text((40, 215 + i * 78), ln, font=font(50 if i == 0 else 60, True), fill=ink if i == 0 else (20, 40, 160, 255))
+        d.text((40, 700), "Signature: ___________", font=font(40, True), fill=ink)
+        if stamp:
+            st = Image.new("RGBA", (600, 190), (0, 0, 0, 0)); sd = ImageDraw.Draw(st); red = (205, 15, 15, 255)
+            sd.rectangle([6, 10, 594, 180], outline=red, width=14); sd.text((300, 95), "DROPPED OUT", font=font(78, True), fill=red, anchor="mm")
+            st = st.rotate(12, expand=True, resample=Image.BICUBIC); im.alpha_composite(st, (0, 470))
+        return im.convert("RGB")
+    wform(False).save(f"{out}/form_withdraw.png"); wform(True).save(f"{out}/form_withdraw2.png")
+    for s in (0, 1, 2): paper("ENLISTMENT", ["DIPLOMA:  [   ]", "", "", "", "", "", "SIGNING BONUS:  [ X ] YES", "Sign here: ___________"], s).save(f"{out}/form_enlist{s}.png")
+    cs = Image.new("RGB", (680, 340), (52, 110, 62)); cd = ImageDraw.Draw(cs); cd.rectangle([12, 12, 668, 328], outline=(170, 205, 165), width=10)
+    cd.rectangle([0, 50, 680, 290], fill=(214, 210, 196)); cd.text((340, 112), "SIGNING", font=font(104, True), fill=(10, 10, 10), anchor="mm"); cd.text((340, 226), "BONUS", font=font(104, True), fill=(10, 10, 10), anchor="mm"); cs.save(f"{out}/cash_top.png")
+    sign("SIGNING BONUS!!", (236, 196, 60), (150, 20, 24), size=(1024, 192)).save(f"{out}/sign_bonus.png")
     scribble().save(f"{out}/scribble.png")
-    sign("FRONT OFFICE", (30, 60, 110), (240, 240, 230)).save(f"{out}/sign_office.png"); sign("RECRUITING", (150, 20, 24), (236, 196, 60)).save(f"{out}/sign_recruit.png")
+    sign("HIGH SCHOOL OFFICE", (30, 60, 110), (240, 240, 230), size=(1280, 192)).save(f"{out}/sign_office.png"); sign("RECRUITING", (150, 20, 24), (236, 196, 60)).save(f"{out}/sign_recruit.png")
     for i in range(4): item_card(out, i).save(f"{out}/screen_item{i}.png")
     checkout(out).save(f"{out}/screen_checkout.png"); checkout(out, pressed=True).save(f"{out}/screen_pressed.png"); checkout(out, balance=True).save(f"{out}/screen_balance.png")
     for s in ("off", "ok", "bad"): accessport(s).save(f"{out}/ap_{s}.png")

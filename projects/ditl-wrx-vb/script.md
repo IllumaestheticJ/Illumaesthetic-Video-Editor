@@ -125,3 +125,11 @@ punchline. Nothing is silent until the music cut; after it, the environment bed 
 Sources: synthesized locally or royalty-free libraries where the network allows; Higgsfield's sound-effect
 generator (`mirelo_text_to_audio`) only if those fall short, with a cost quote first. No clips of copyrighted meme
 audio; the meme effects are sound-alikes of generic effects (record scratch, airhorn, sad trombone, bonk).
+
+## v8 changes (owner feedback on first cut v2.1, 2026-11-17) — these override the shot list above
+Runtime is now 35.07 s (1052 frames). Shot 7 is two bars (95 frames), so every shot from 8 on starts 1.57 s later; the music still dies at the Odyssey pass.
+- **Shot 1 (school office)**: opens tight on the form, readable: "HIGH SCHOOL WITHDRAWAL FORM — Reason for leaving: 'gonna be a Marine, then buy a WRX'". A red **DROPPED OUT** stamp slams on at frame 10, then a whip up to the office lady under a "HIGH SCHOOL OFFICE" sign; five slaps, the last on the drop.
+- **Shot 2 (recruiter desk)**: a brick of cash labelled **SIGNING BONUS** slides across the desk at frame 25 (cha-ching) and his free hand lands on it and pats it while the other scribbles "GED pending". The form has a "SIGNING BONUS: [X] YES" line.
+- **Shot 3 (salute)**: he salutes with the vape while waving the cash in his other fist; a "SIGNING BONUS!!" sign hangs beside "RECRUITING". No figure is shown for the bonus (no invented numbers).
+- **Shot 7 (unboxing, now 3.17 s)**: the car starts stock. He rips the box open, pulls out the front bumper, side skirts, rear bumper and WRC wing one after another (each grows comically as it leaves the box) and chucks each at the car; each one tumbles through the air and slams into place with a crunch and a rising ding.
+- **Shot 16 (mirror)**: camera starts at the driver's eye position instead of behind the seat.
