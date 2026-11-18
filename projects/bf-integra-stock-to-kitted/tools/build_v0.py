@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.13.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.14.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 507]
@@ -146,6 +146,52 @@ def flash_layer(t):
     return layer
 
 
+# v0.14 (user: "have the platform integra acura de4 pop up quickly as a context title, and then have the epsilon lip kit
+# in the title as a hook"): context line on the first hit, the hook slams in two hits later, both pop out on hit 8.
+T_CTX, T_HOOK, T_OUT = 6, 32, 106          # frames (hits at 0.215 s + n * 0.43073 s)
+
+
+def _pop(k0, k, n=5):
+    """Scale + alpha for a pop-in starting at frame k0: 0.6 -> 1.08 -> 1.0 over n frames."""
+    u = (k - k0) / float(n)
+    if u < 0:
+        return 0.0, 0.0
+    sc = 0.6 + 0.48 * min(1, u / 0.6) if u < 0.6 else 1.08 - 0.08 * min(1, (u - 0.6) / 0.4)
+    return min(1.0, u / 0.5), sc
+
+
+def title_layer(i):
+    if i < T_CTX or i >= T_OUT + 4:
+        return None
+    out = max(0.0, 1 - (i - T_OUT) / 4.0) if i >= T_OUT else 1.0
+    lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    def stamp(img, cx, cy, a, sc):
+        if a <= 0:
+            return
+        im = img.resize((max(1, int(img.width * sc)), max(1, int(img.height * sc))), Image.LANCZOS)
+        im.putalpha(Image.fromarray((np.array(im.split()[3]) * a * out).astype(np.uint8)))
+        lay.alpha_composite(im, (int(cx - im.width / 2), int(cy - im.height / 2)))
+    # context: ACURA INTEGRA DE4 (Unbounded 600, white, charcoal plate)
+    f = ImageFont.truetype(UNB.format(600), 44)
+    t = "ACURA INTEGRA DE4"
+    tw = int(ImageDraw.Draw(lay).textlength(t, font=f))
+    ctx = Image.new("RGBA", (tw + 56, 84), (0, 0, 0, 0)); d = ImageDraw.Draw(ctx)
+    d.rounded_rectangle((0, 0, ctx.width - 1, ctx.height - 1), radius=18, fill=CHARCOAL + (235,))
+    bb = d.textbbox((0, 0), t, font=f); d.text((28, 42 - (bb[1] + bb[3]) / 2), t, font=f, fill=(255, 255, 255, 255))
+    a, sc = _pop(T_CTX, i); stamp(ctx, 540, 350, a, sc)
+    # hook: EPSILON LIP KIT (Akira, white on the sale-red badge)
+    t = "EPSILON LIP KIT"
+    fh = ImageFont.truetype(FONT_HEAD, 84)
+    while ImageDraw.Draw(lay).textlength(t, font=fh) > 680:
+        fh = ImageFont.truetype(FONT_HEAD, fh.size - 2)
+    tw = int(ImageDraw.Draw(lay).textlength(t, font=fh))
+    hk = Image.new("RGBA", (tw + 64, 140), (0, 0, 0, 0)); d = ImageDraw.Draw(hk)
+    d.rounded_rectangle((0, 0, hk.width - 1, hk.height - 1), radius=24, fill=SALE_RED + (255,))
+    bb = d.textbbox((0, 0), t, font=fh); d.text((32, 70 - (bb[1] + bb[3]) / 2), t, font=fh, fill=(255, 255, 255, 255))
+    a, sc = _pop(T_HOOK, i); stamp(hk, 540, 480, a, sc)
+    return lay
+
+
 def load_flash(p, i):
     """Stock pass frame i (30 fps): charcoal, then the flash text, then the RGBA scan car on top."""
     car = Image.open(p).convert("RGBA").resize((W, H), Image.LANCZOS)
@@ -159,6 +205,9 @@ def load_flash(p, i):
     sh = Image.new("RGBA", (W, H), CHARCOAL + (0,)); sh.putalpha(halo.point(lambda v: min(255, int(v * 1.6))))
     bg.alpha_composite(sh)
     bg.alpha_composite(car)
+    tl = title_layer(i)
+    if tl is not None:
+        bg.alpha_composite(tl)
     return bg.convert("RGB")
 
 
@@ -299,11 +348,54 @@ def fit_kit2(paths, box=(70, 760, 900, 1150)):  # v0.12: leaves room under the c
     KIT2.update(sc=sc, dx=cx - sc * (x0 + x1) / 2, dy=cy - sc * (y0 + y1) / 2)
 
 
+# v0.14 (user: "have the parts change colors to the beat of the music using oem available colors to the integra"):
+# Integra DE paints from the epsilon.plus lookbook index (lookbook-frames-927fc403.json). Platinum White Pearl is left
+# out: white parts vanish on the white car. The kit lands in its standard gloss black, then changes paint on every beat
+# from beat 5 (with the card). Tint = black-parts pass + (white-parts pass - black) * paint, in linear light.
+OEM = [("Performance Red Pearl", "#a3111d"), ("Apex Blue Pearl", "#2142a2"), ("Liquid Carbon Metallic", "#3c3f44"),
+       ("Lunar Silver Metallic", "#a8acb0"), ("Majestic Black Pearl", "#101113"), ("Double Apex Blue Pearl", "#2350b4"),
+       ("Urban Gray Pearl", "#5d6166"), ("Solar Silver Metallic", "#b5b8ba")]
+PAINT_B0 = 5          # first colour on local beat 5 (with the card)
+KIT_BLACK, KIT_WHITE = 0.012, np.array([0.888, 0.871, 0.815])   # albedos of the two render passes (shot.py mat_paint)
+
+
+def _lin(a):
+    a = a / 255.0
+    return np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+
+
+def _srgb(a):
+    a = np.clip(a, 0, 1)
+    return np.where(a <= 0.0031308, a * 12.92, 1.055 * a ** (1 / 2.4) - 0.055) * 255
+
+
+def paint_at(k):
+    """Paint hex for local S5 frame k, or None while the kit is still black."""
+    b = int(k / (BEAT * 30) + 1e-6)
+    if b < PAINT_B0:
+        return None
+    return OEM[(b - PAINT_B0) % len(OEM)][1]
+
+
+def tinted(pb, pw, hexc):
+    """RGBA kit render with the parts recoloured to hexc (pb = black-parts pass, pw = white-parts pass)."""
+    B = np.array(Image.open(pb).convert("RGBA")).astype(np.float64)
+    if hexc is None or pw is None:
+        return Image.fromarray(B.astype(np.uint8))
+    Wt = np.array(Image.open(pw).convert("RGBA")).astype(np.float64)
+    c = _lin(np.array([int(hexc[i:i + 2], 16) for i in (1, 3, 5)], np.float64))
+    lb, lw = _lin(B[..., :3]), _lin(Wt[..., :3])
+    f = (c - KIT_BLACK) / (KIT_WHITE - KIT_BLACK)
+    out = B.copy()
+    out[..., :3] = _srgb(lb + (lw - lb) * f)
+    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8))
+
+
 def load_glb(p):
     """v0.11 kit shot: one GLB render (white car, black kit, native GLB materials; user: no blur/highlight here),
     placed by fit_kit2 on the site charcoal."""
     sc, dx, dy = KIT2["sc"], KIT2["dx"], KIT2["dy"]
-    im = Image.open(p).convert("RGBA").resize((W, H), Image.LANCZOS)
+    im = (p if isinstance(p, Image.Image) else Image.open(p)).convert("RGBA").resize((W, H), Image.LANCZOS)
     im = im.resize((round(W * sc), round(H * sc)), Image.LANCZOS)
     bg = Image.new("RGBA", (W, H), CHARCOAL + (255,))
     bg.alpha_composite(im, (round(dx), round(dy)))
@@ -415,7 +507,9 @@ def main():
         for k, p in enumerate(paths):
             draw_labels(p, clip, k, len(paths), tr).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k, p in enumerate(s5):
-        logo_under(card(load_glb(p), k), k).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
+        pw = p.replace("s5_glb_white", "s5_glb_partswhite")
+        img = tinted(p, pw if os.path.exists(pw) else None, paint_at(k))
+        logo_under(card(load_glb(img), k), k).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     assert i == CUTS[-1], i
     dur = CUTS[-1] / 30
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
