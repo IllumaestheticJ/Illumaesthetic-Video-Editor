@@ -181,3 +181,17 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - The cards were re-rendered at text width 3.7 m: at 4.35 m with the pushed-in camera, card A reached x 976.
 - An "ONLY 5 LEFT" alternative is rendering.
 - "ONLY 5 LEFT" alternatives delivered: `_v0.9_down_only5.mp4` and `_v0.9_drift_only5.mp4`. The safezone sheet is clean. Waiting on the user to pick 2 or 5.
+
+## v1.0 (2026-11-18): road version (user notes)
+**User:** "use a road as the background, currently the only X left is wiggling weird, it should be still. use a glb/gltf rendered car that matches the product, when its ran over have the part fall off ... the car should be a colored car not just white. When the car passes over the black friday sale on the road the car should completely pass over the text ..."
+
+- `tools/drive_road.py`: an overhead drone camera (100 mm lens, 14° tilt) looks down one lane of dark asphalt with white edge lines.
+  - The text is road paint in Akira, stacked so every line is at most 1.7 m wide, narrower than the car. The car therefore covers the whole text as it passes, and the swap edge is always under the car.
+  - The letters are stretched 1.9× along the road, like real road markings.
+- **Scene 1 (f0-153):** a **blue Integra DE** (Epsilon kit) drives down over BLACK FRIDAY SALE, and 3 DAYS LEFT appears behind it. The nose reaches the text on the 2.48 s hit.
+- **Card (f154-228):** UP TO 60% OFF painted on the road, held **still** (no push or resampling, which caused the wiggle).
+- **Scene 3 (f229-377):** a **red Corolla hatch E210** (`eps-toyota-corolla-hatch-e210-v18.glb`, the product's car) drives over COROLLA SKIRTS. It reaches the text on the 9.40 s hit, and ONLY 2 LEFT appears behind it.
+  - Its **side skirts fall off** once it is past the text. They are split left and right, drop, tip flat and slide about 1 m, then lie below the text.
+- **End card:** 12.6-15.2 s. The full reel is 15.2 s, -14.0 LUFS with a -2.7 dBFS peak.
+- **Checks:** the safezone sheet is clean. All text sits inside the box; only the cars and the fallen skirts touch the rails.
+- **Output:** `/home/user/media/work/out/bf-days-left-countdown_v1.0_drive.mp4`. The drift version is rendering.
