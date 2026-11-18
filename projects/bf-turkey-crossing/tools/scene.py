@@ -19,7 +19,8 @@ import bpy, sys, math, os, random
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from turkey import build_turkey, feather_mesh, toon, srgb, TAIL_COLS
+from turkey import build_turkey, build_turkey_osrs, feather_mesh, toon, srgb, TAIL_COLS
+STYLE = os.environ.get("TURKEY_STYLE", "cute")   # "osrs" = retro-MMO low-poly look (owner idea 2026-11-18)
 
 a = sys.argv[sys.argv.index('--') + 1:]
 SHOT, OUT = a[0], a[1]
@@ -162,7 +163,7 @@ for i in range(9):
     bpy.context.active_object.data.polygons.foreach_set('use_smooth', [True] * len(bpy.context.active_object.data.polygons))
 
 # ------------------------------------------------------------------ turkey
-T = build_turkey(C)
+T = build_turkey_osrs(C) if STYLE == "osrs" else build_turkey(C)
 tparts = [o for o in bpy.data.objects if o.name.startswith('TURKEY_')]
 
 

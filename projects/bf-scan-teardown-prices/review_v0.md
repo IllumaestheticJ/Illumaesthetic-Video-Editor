@@ -120,3 +120,10 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
   - T2 then T1 at 1080x1920, 32 spp + OIDN, real 30 fps.
   - The scan was re-prepped at 2.5 mm clustering (`CELL=0.0025 SCENE=scene_full`). At 5 mm the full-res frame showed speckles on the hood and headlight edges; 2.5 mm is clean at the same ~70 s/frame.
 - Assemble with: `VER=v1 RFPS=30 T1DIR=r/T1full T2DIR=r/T2full RON=r/ron7_portrait_full.png MASK=r/ron7_mask_full.png`.
+
+## v0.11 (longer end, garage background)
+
+- The end runs to beat 48 (25.83 s), so the text is on screen ~5.9 s (was 2.7 s). A 4% push-in on Ron's shot starts at 1.0 on the 1:1 cut frame. -14.1 LUFS, true peak -3.9 dBFS, safe zones OK.
+- Ron's end shot is in a procedural plain garage (`tools/garage_v0.py`, `GARAGE=1`): grey walls, a dark lower band, dark low-spec concrete floor (the camera at 0.38 m makes a glossy floor a mirror), LED tube rows. Full res, 128 spp. The matte is now car-only.
+- The scan shots are still silver on black (the full-res queue was already running). Waiting on the user whether the garage should go in the scan shots too.
+- Final assembly: `VER=v1 RFPS=30 T1DIR=r/T1full T2DIR=r/T2full RON=r/ron7_garage_full.png MASK=r/ron7_mask2_full.png END_S=25.825 PUSH=0.04`.

@@ -129,3 +129,48 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - End card: centred on x 540 / y 960, block x 180-900 / y 832-1087.
 - Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.7_drive.mp4` and `_v0.7_drift.mp4`.
 - Checks: -13.5 LUFS with a -2.6 dBFS peak. The safezone sheets are clean; only the moving car crosses the rails.
+
+## v0.8 (2026-11-18, not delivered; superseded by v0.9)
+- Readability rule (owner, via @parent): "3 DAYS LEFT" was held to the 8.16 s hit and the end card ran to 12.6 s. Loudness went to -14 LUFS.
+- The user's next notes arrived before delivery, so the design moved on to v0.9.
+
+## v0.9 (2026-11-18): user notes + readability rule + -14 LUFS
+**User:** "first one have the car drive from the top down. have the first scene a bit faster, currently just black friday text is too long ... Put the percent deals. also pick a low stock product and say only X left! (you can estimate ...)"
+
+| Time | Frame | Section | Readable |
+|---|---|---|---|
+| 0-2.48 s | f0-74 | BLACK FRIDAY SALE on the floor. The car enters about 1.2 s (drive: from the top; drift: from the left) and reaches the text on the 2.48 s hit | 2.5 s |
+| ~3.4-6.02 s | f100-180 | 3 DAYS LEFT, clear of the car | about 2.6 s |
+| 6.02-9.40 s | f181-281 | Card A: **UP TO 60% OFF** (floor still, kick and push) | 3.4 s |
+| 9.40-13.84 s | f282-414 | Card B: **ONLY 2 LEFT** with a COROLLA HATCH SIDE SKIRTS label | 4.4 s (7 words needs 4.1) |
+| 13.84-17.3 s | f415-518 | End card, fade 16.8-17.3 s | about 2.7 s |
+
+**Where the numbers come from:**
+- **60%:** the live Pricing tab (read 2026-11-18). The top tier is 60%, on the Integra rear trunk lip in ABS gloss black and in carbon. Every other priced item is 7-50%.
+- **ONLY 2 LEFT** is an **estimate**, as the user allowed:
+  - The Corolla Hatchback (E210) PU side skirts have **5 in stock** (Shopify and the sheet's In Stock column) and are 30% off ($400 → $280).
+  - Last year's sale (Nov 20 - Dec 2) sold 5 of them, about 0.42 a day.
+  - At "3 days left" the sale is about 9 days in, so about 1-2 are left: shown as 2.
+  - Per-day formula: `stock_left = max(1, round(5 - 0.42 * days_elapsed))`. Re-check Shopify stock on the morning of each post.
+- PRICES.md says "no stock counts unless the owner asks". The user asked for this one in chat.
+
+**Motion:**
+- `drive_over.py --mode down`: the car drives toward the camera (yaw 0), from y 12 to y -3 by the drop, at 0.25 m per frame. The wipe runs on world Y.
+- `--mode drift --lead 40`: a faster slide, 0.35 m per frame.
+- `--mode none` renders the floor text alone (the cards).
+- Audio: 0-17.3 s, fade from 16.8 s, two-pass loudnorm to -14.0 LUFS, peak -3.3 dBFS.
+
+**Re-timed (same day): the owner revised the readability rule** to 1.8 s for 1-3 words, +0.3 s per extra word, 2.2 s for prices. Only the edit changes; no re-render. The total is now **13.6 s** (was 17.3 s).
+
+| Time | Frame | Section | Readable / minimum |
+|---|---|---|---|
+| 0-2.48 s | f0-74 | BLACK FRIDAY SALE | 2.5 s / 1.8 |
+| ~3.33-5.14 s | f100-153 | 3 DAYS LEFT | 1.8 s / 1.8 |
+| 5.14-7.62 s | f154-228 | UP TO 60% OFF | 2.5 s / 2.2 |
+| 7.62-10.82 s | f229-324 | ONLY X LEFT + COROLLA HATCH SIDE SKIRTS | 3.2 s / 3.0 |
+| 10.82-13.6 s | f325-407 | End card (fades 13.1-13.6 s) | about 2.1 s / 1.8 |
+
+- Audio is 0-13.6 s, -14.0 LUFS, peak -3.3 dBFS.
+- The 7.62 s cut is a lighter onset (0.31). The others are strong hits.
+
+**Stock number:** the parent flagged that "2" is a projection; the data says 5. Both cards are prepared (`cardB2` = "ONLY 2", `cardB5` = "ONLY 5"), and the user picks. The stock line is its own one-minute floor still.

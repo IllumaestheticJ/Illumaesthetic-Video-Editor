@@ -11,7 +11,8 @@ FPS, W, H = 30, 1080, 1920
 # every clip starts/ends on a measured hit of the grid 0.024 + 0.5374 k (k = beat):
 #   T1 beats 0-24 (cut on the b24 onset 12.864 + the 40 ms audio delay, measured 12.936 on the output -> f388) | T2 b24-b33 (kit locks on the kick entry b32 = 17.235, ONE beat hold) |
 #   Ron b33-b37 (one bar) | end card b37-b42.   Measured kick attacks: b33 17.765, b37 19.905, b42 22.605.
-C1, C2, C3, END = 388, round(17.765 * 30), round(19.905 * 30), round(22.605 * 30)
+C1, C2, C3 = 388, round(17.765 * 30), round(19.905 * 30)
+END = round(float(os.environ.get("END_S", "22.605")) * 30)   # v0.11 (user: end text longer): END_S=25.825 = beat 48, phrase end
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
 t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2v02" if VER != "v0" else "r/T2") + "/f*.png"))
 RFPS = int(os.environ.get("RFPS", "15"))      # render fps of T1/T2 dirs: 15 = draft (frames doubled), 30 = full-res v1
@@ -23,9 +24,17 @@ eb, ef = Image.open(O + "end_back.png"), Image.open(O + "end_front.png")
 ma = np.array(Image.open(M + MASK).getchannel("A").resize((W, H), Image.LANCZOS)).astype(np.float32)
 FLOOR = 1088; ma[FLOOR:] = 0; ma = np.clip((ma - 200) * 255 / 55, 0, 255).astype(np.uint8)   # floor glow out, edges kept
 carm = Image.fromarray(ma)
-def endframe(k):
-    """k 0..1: headline/logo pop on C3, front layer one beat later (handled by caller)."""
-    fr = ron.copy(); fr.paste(eb, (0, 0), eb); fr.paste(ron, (0, 0), carm); return fr
+PUSH = float(os.environ.get("PUSH", "0"))     # v0.11: slow push-in on Ron's shot, 0 at the 1:1 cut frame -> PUSH at END
+PC = (620, 940)                               # zoom centre ~ the car
+def zoom(im, n):
+    z = 1 + PUSH * max(0, n - C2) / max(1, END - 1 - C2)
+    if z == 1: return im
+    w, h = W / z, H / z; x0, y0 = PC[0] - PC[0] / z, PC[1] - PC[1] / z
+    return im.transform((W, H), Image.EXTENT, (x0, y0, x0 + w, y0 + h), Image.BICUBIC)
+def endframe(n):
+    """back text under the car (matte), front layer one beat later (handled by caller)."""
+    r, m = zoom(ron, n), zoom(carm, n)
+    fr = r.copy(); fr.paste(eb, (0, 0), eb); fr.paste(r, (0, 0), m); return fr
 ovl = {k: Image.open(O + k + ".png") for k in ["bf_tag", "p_lip", "p_skirts", "p_rear", "p_wing"]}
 # (name, t_in, t_out, xy) in video seconds; 0.15 s alpha fades
 # v0.2 (owner safe-zone rule, knowledge/safe-zones.md): every text box inside x 48-920 / y 285-1440 -> tags/cards
@@ -54,9 +63,9 @@ for n in range(END):
     elif n < C2:  # T2 now starts earlier (b24): stretch its slow opening drift 13.435-14.466 over 12.867-14.466; lock stays at 17.235
         t1c = C1 / FPS; tt = t if t >= 14.466 else T2_T0 + (t - t1c) / (14.466 - t1c) * (14.466 - T2_T0)
         fr = load(t2[max(0, min(len(t2) - 1, round((tt - T2_T0) * RFPS)))]).copy()
-    elif n < C3: fr = ron.copy()
+    elif n < C3: fr = zoom(ron, n)
     else:        # v0.7: render stays; back text + car matte on the C3 kick, front layer one beat (16 f) later
-        fr = endframe(1)
+        fr = endframe(n)
         if n >= C3 + 16: fr.paste(ef, (0, 0), ef)
         k = min(1, (END - 1 - n) / 15); fr = Image.blend(Image.new("RGB", (W, H)), fr, k)
     for name, a, b, xy in OV:

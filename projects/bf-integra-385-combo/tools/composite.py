@@ -15,11 +15,9 @@ W, H, FPS = 1080, 1920, 30
 # v0.2 timeline (user: both parts on the car at the end; scan shows the stock spoiler coming off)
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
 # v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
-TIMELINE = [('render', 'render_v12/s1', 1, 168), ('render', 'render_v10/s2', 2, 71), ('render', 'render_v12/s3', 3, 141),
-            ('render', 'render_v12/s4', 4, 284), ('render', 'render_v04/s7', 0, 70), ('render', 'render_v04/s8', 0, 71),
-            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]
-# v1.2 (owner rule "slow down for text"): S1 +1 bar (title 5.1 s), S3 +1 bar (lip line 4.2 s), S4 +2 bars
-# (RETAIL $600 4.5 s, was/now 4.4 s). Cuts 168 239 380 664 734 805 876 947, end 1089: measured kicks within +-14 ms.
+TIMELINE = [('render', 'render_v10/s1', 1, 97), ('render', 'render_v10/s2', 2, 71), ('render', 'render_v10/s3', 3, 71),
+            ('render', 'render_v10/s4', 4, 141), ('render', 'render_v04/s7', 0, 71), ('render', 'render_v04/s8', 0, 71),
+            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]  # v0.6: price shot and end card one bar longer each (user: deal numbers easier to read)
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222, 226, 255)  # v0.3: Epsilon+ palette (pink strike, cyan price)
@@ -108,7 +106,7 @@ def receipt(img, fr, lines, x0, y0, w=520):
 # v0.7 price shot (user: "take out the 'less than wing alone', show that its retail price and then do a BF price
 # loading... to make sure people wait to see the new price"). Frames from the shot start, on the bar's kicks:
 # f0 retail shown | f27 (2nd kick) "BLACK FRIDAY PRICE" + loading bar starts | f71 (next downbeat) $385 stamps, $600 struck
-P_LOAD, P_REVEAL = 98, 142  # v1.2: one more bar of RETAIL before loading (2nd kick of bar 2 -> bar 3 downbeat)
+P_LOAD, P_REVEAL = 27, 71
 
 
 def price_card(img, fr, x0=250, y0=915, w=580):
@@ -250,8 +248,7 @@ def main(out, hq=False):
     print('WROTE', out, dur)
 
 
-HQ_SRC = {f'render_v12/s{k}': f'render_hq12/s{k}' for k in (1, 3, 4)}
-HQ_SRC.update({f'{d}/s{k}': f'render_hq/s{k}' for d in ('render_v10', 'render_v04', 'render_v03', 'render_v06', 'render_v0') for k in range(1, 10)})
+HQ_SRC = {f'{d}/s{k}': f'render_hq/s{k}' for d in ('render_v10', 'render_v04', 'render_v03', 'render_v06', 'render_v0') for k in range(1, 10)}
 
 if __name__ == '__main__':
     main(sys.argv[1], hq='--hq' in sys.argv)
