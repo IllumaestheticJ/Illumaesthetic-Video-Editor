@@ -39,7 +39,8 @@ CARS = {
  'de5': dict(make='Acura', logo='integra', title='Integra Type S', sub='TYPE S · DE5', base=(500, 350), paint=(950, 800),
              special={'NH883P': (1000, 850)}, colours=col['DE'], third=None),   # owner: 3rd entry is the Type S (lookbook DE5 v19; no lip kit parts)
  'wb': dict(make='Acura', logo='integra', title='Integra Widebody', sub='WIDEBODY · DE4', base=(500, 350), paint=(950, 800), special={'NH883P': (1000, 850)},
-            colours=col['DE'], third='WIDEBODY FLARES 50% OFF'),     # sheet: Fender Flare Widebody DE4 $800 -> $400
+            colours=[c for c in col['DE'] if c[1] != 'YR651P'], third='WIDEBODY FLARES 50% OFF'),   # owner: DE4 never came in Tiger Eye Pearl (Type S only)
+           #     # sheet: Fender Flare Widebody DE4 $800 -> $400
 }
 assert len(CARS['fl']['colours']) == 12 and len(CARS['fe']['colours']) == 11 and len(CARS['de5']['colours']) == 10
 ORDER = ['fl', 'fe', 'de5', 'wb']
@@ -115,7 +116,7 @@ def price_block(d, x, y, was, now):
     d.text((wx, y + 44), ws, font=f_was, fill=GREY); tw = d.textlength(ws, font=f_was)
     d.line((wx - 6, y + 66, wx + tw + 6, y + 66), fill=RED, width=5)
 
-CAR_Y = 627; CAR_W = X1 - X0; CAR_H = int(CAR_W * 420 / 720)          # 872 x 508
+CAR_Y = 635; CAR_W = X1 - X0; CAR_H = int(CAR_W * 420 / 720)          # 872 x 508
 CC_BOX = (X1 - 290, 1178, X1, 1258)
 _lg = {}
 def model_logo(name, width, colr):
@@ -133,7 +134,7 @@ def car_screen(car, k, colour, flash=0.0, cc_hot=False):
     lg = model_logo(c['logo'], 640 if c['logo'] == 'civic' else 700, (240, 240, 240))   # v0.8: Integra wordmark without the Acura badge (owner)
     im.paste(lg, (CX - lg.width // 2, 420 - lg.height // 2), lg); d = ImageDraw.Draw(im)
     fsub = U(600, 26); sw = d.textlength(c['sub'], font=fsub); d.text((CX - sw / 2, 488), c['sub'], font=fsub, fill=GREY)
-    ci = car_img(car, k, BLACK[2] if base else colour[2], base)   # owner: gloss black base wing only on a black car.resize((CAR_W, CAR_H), Image.LANCZOS)
+    ci = car_img(car, k, BLACK[2] if base else colour[2], base).resize((CAR_W, CAR_H), Image.LANCZOS)   # owner: gloss black base wing only on a black car
     im.paste(ci, (X0, CAR_Y)); d = ImageDraw.Draw(im)
     y = 1092; fb = F('InterDisplay-Bold.otf', 24)
     for t in [x for x in ('BASE WING 30% OFF', 'PAINT MATCH AVAILABLE', c.get('third', 'FRONT LIP + SKIRTS 30% OFF')) if x]:   # sheet: lips/skirts 30 %

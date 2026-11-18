@@ -175,3 +175,13 @@ Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same lay
 - Checks: 29.30 s, -14.0 LUFS, true peak -1.4 dBFS; safe-zone sheet looked at (nothing in red/amber); car, lineup, widebody two-price and offer screens checked for overlaps - none.
 - Note: the car's silhouette centre still drifts about +/-25 px sideways as it turns (perspective of a turntable); its average is on the centre line.
 - Still open: Akira font file (Unbounded stand-in), paint-matched flare/lip prices, FE Platinum White price is derived, Championship White hex approximate.
+
+### v0.9 re-render (owner: "the car looks like its off the left"; "check all the colors again - DE4 didn't come in tiger eye pearl")
+- Bug since v0.6: the turntable `.resize((CAR_W, CAR_H))` had been swallowed into a trailing comment, so the 720 px render was pasted unscaled at the left edge of the box (car ~66 px left of centre and ~17 % too small). Fixed; `CAR_Y = 635`. Measured car centre now x 516-568 (turntable drift), y ~965-980.
+- Colours re-checked per car against factory palettes:
+  - Civic hatch FL2/FL5 (12): all are hatch or Type R colours - kept.
+  - Civic sedan FE (11): all are sedan / Si colours - kept.
+  - Integra Type S DE5 (10): kept (Tiger Eye Pearl is Type S only).
+  - Integra widebody DE4 (9): Tiger Eye Pearl removed. Car screens now end on beat 59; offer screen is one beat longer; length unchanged (29.30 s).
+- Unverified from the web check: 2025+ colours (Solar Silver, Urban Gray, Double Apex Blue) on the DE4 are taken from Acura's 2026 refresh announcement; year-by-year Civic lists were only partly confirmed.
+- Checks: -14.0 LUFS, -1.4 dBFS; safe-zone sheet (18 frames) looked at - clean.
