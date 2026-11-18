@@ -184,3 +184,16 @@ def build_turkey_osrs(coll, name='TURKEY'):
         lp(f'foot_{k}', _cone('o_foot', 0.05, 0.0, 0.1, 3), leg_c, hp, (0, -0.03, -0.2), (1, 1, 0.3), (math.radians(90), 0, 0))
         legs[k] = hp
     return dict(root=root, body=body, head=head, eye_l=eyes['l'], eye_r=eyes['r'], leg_l=legs['l'], leg_r=legs['r'], tail=tail)
+
+
+def add_chef_kit(coll, T, name='TURKEY'):
+    """Original chef accessories for our turkey (owner idea 2026-11-18): a white chef's toque on the head and a wooden spoon in the
+    right wing. Generic Thanksgiving-chef trope; deliberately keeps our brown turkey (no third-party character's colours/design)."""
+    white = toon('c_white', '#f7f5ef', 0.8); wood = toon('c_wood', '#b07a42', 0.6)
+    head = T['head']
+    band = _obj(f'{name}_hatband', _cone('hatband', 0.1, 0.105, 0.09, 12), coll, white, head, (0, -0.06, 0.42), smooth=True)
+    for i, (x, y, r) in enumerate([(0, -0.06, 0.12), (0.06, -0.03, 0.08), (-0.06, -0.03, 0.08), (0.04, -0.11, 0.08), (-0.04, -0.11, 0.08)]):
+        _obj(f'{name}_hatpuff{i}', _sphere('hatpuff', 12, 8), coll, white, head, (x, y, 0.53), scale=(r, r, r * 0.8), smooth=True)
+    sp = _empty(coll, f'{name}_spoon', T['body'], (-0.3, -0.12, 0.5)); sp.rotation_euler = (math.radians(-25), math.radians(-20), 0)
+    _obj(f'{name}_spoonh', _cone('spoonh', 0.012, 0.012, 0.42, 8), coll, wood, sp, (0, 0, 0.12), smooth=True)
+    _obj(f'{name}_spoonb', _sphere('spoonb', 12, 8), coll, wood, sp, (0, 0, 0.36), scale=(0.045, 0.018, 0.065), smooth=True)
