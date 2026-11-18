@@ -113,3 +113,21 @@ no new export yet (waiting on the length decision).
 - Akira is ASCII-only: "TC WING - SWAN MOUNT" and "MR2 SPYDER + NC MIATA" replace the middle-dot versions; every Akira
   string checked against the font cmap (no missing glyphs). Akira is wider: long lines auto-shrink to the safe band (post.py fit()).
 - Safe-zone sheet looked at: all text and the logo clear of red and amber.
+
+## v1.8: spats visible and seated, 66.5" TC wings, MR2 front bumper (user feedback on v1.7)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.8.mp4`
+- "The rear spats also clip through the body": v1.6 left the stock MR2 corner in place under the spats (I misread "they go
+  over stock" as an instruction). Now the stock corner and duckbill pieces come off before the parts land: the lookbook stock
+  pieces are hidden in CGI, and the scan uses the footprint cut. Check stills: the part seats with no clipping.
+- "The rear spats dont show up in the screen": the NC spat is only a 0.1 m lip under the bumper. Side and high angles
+  showed stock and kit identically (check stills). s05 and s09 now land the spats on a low (z ~0.2 m) close-up of the rear
+  corner. s05 then pulls back for the duckbill.
+- "The TC wing needs to be the bigger 67 inch one": both wings use the 1700 mm element (Drive 'BMS-S420C-1700mm.stp'; the
+  store variant is "66.5""). `tools/wing67.py` moves the endplates out to +/-0.85 m and stretches the element; uprights
+  and bases stay unchanged.
+  - Labels: 'TC WING 66.5"' $1,100.
+  - NC: Shopify TCW-NC-665-SM, $1,100.
+  - MR2: the MR2 listing only has the 47.5" swan variant ($1,100). The 66.5" MR2 price needs owner confirmation.
+- "MR2 spyder doesn't show the front bumper": the Epsilon bumper installs in s02 after the skirts. On the scan, the
+  stock bumper is cut by the lookbook stock-bumper footprint. The sheet lists it as "No deal - out of stock", so the label
+  shows the $900 regular price ("COMPLETE THE KIT") and it is not on the 20% card.

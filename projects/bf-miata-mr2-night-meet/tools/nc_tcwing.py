@@ -27,4 +27,6 @@ G[..., 1] += dy; base[:, 1] += dy
 lid = np.interp(base[:, 1], ys[np.isfinite(top)], top[np.isfinite(top)])
 dz = np.median(lid - base[:, 2]); G[..., 2] += dz
 print(f"lid edge y {edge:.3f}; shift y {dy:+.3f} z {dz:+.3f}; wing span x {G[...,0].min():.3f}..{G[...,0].max():.3f}; top z {G[...,2].max():.3f}; base plate y {base[:,1].min():.3f}..{base[:,1].max():.3f}")
-write_stl(f"{M}/kit_nc/part_tc_wing.stl", G)
+write_stl(f"{M}/kit_nc/part_tc_wing_475.stl", G)
+from wing67 import stretch_x                                             # v1.8: 66.5" element (user: "the bigger 67 inch one")
+G[..., 0] = stretch_x(G[..., 0], np.abs(G[..., 0]).max()); write_stl(f"{M}/kit_nc/part_tc_wing.stl", G)

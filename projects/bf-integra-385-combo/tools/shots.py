@@ -11,6 +11,7 @@ ap.add_argument('--res-pct', type=int, default=50)
 ap.add_argument('--samples', type=int, default=16)
 ap.add_argument('--step', type=int, default=2)
 ap.add_argument('--frames', default='')
+ap.add_argument('--reg-dir', default='/home/user/media/bf-integra-385-combo/work/reg', help='scan pieces (reg = 6 mm preview, reg3 = 3 mm final)')
 ap.add_argument('--fps60', action='store_true', help='true 60 fps: native render, animation time-stretched x2 (same motion, same cut times)')
 ap.add_argument('--glb', default='/home/user/media/bf-integra-385-combo/glb/eps-acura-integra-type-s-de5-v19.glb')
 ap.add_argument('--scan', default='/home/user/media/bf-integra-385-combo/scan/car.blend')
@@ -348,7 +349,7 @@ def shot6():
 
 # ---------------------------------------------------------------- v0.2 scan section (user: "the scan section needs to show
 # the stock wing coming off") and the kitted CGI car. Scan pieces are in the GLB frame (split_spoiler.py).
-REG = '/home/user/media/bf-integra-385-combo/work/reg'
+REG = A.reg_dir
 LEN.update({7: 70, 8: 71, 9: 71})
 CAM7_A = ((-2.9, 5.5, 2.35), (0.0, 1.75, 0.55))
 CAM7_B = ((-2.7, 5.15, 2.25), (0.0, 1.75, 0.55))
@@ -446,6 +447,7 @@ if A.fps60:  # true 60 fps: every 1/60 s rendered natively (no interpolation); k
 sc.frame_step = A.step
 if A.frames:
     a, b = A.frames.split('-'); sc.frame_start, sc.frame_end = int(a), int(b)
+sc.render.use_overwrite = False; sc.render.use_placeholder = True  # resumable long renders
 sc.render.filepath = A.out.rstrip('/') + '/f'
 bpy.ops.render.render(animation=True)
 print('SHOT_DONE', A.shot, N)

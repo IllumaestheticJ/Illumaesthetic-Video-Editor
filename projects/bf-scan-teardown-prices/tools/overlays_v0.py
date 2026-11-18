@@ -66,10 +66,10 @@ put(db, "BLACK", (484, 670), fH, OFF, "end: BLACK")
 put(db, "FRIDAY", (484, 670 + int(fH.size * 0.98)), fH, OFF, "end: FRIDAY")
 fP = font("b", 44); t = "30% OFF THE CIVIC FE KIT"
 while dfr.textlength(t, font=fP) > 780: fP = font("b", fP.size - 2)
-tw = dfr.textlength(t, font=fP); y = 1046
+tw = dfr.textlength(t, font=fP); y = 1196   # v0.10 (user): below the car, not over it
 dfr.rounded_rectangle((484 - tw / 2 - 28, y - fP.size - 18, 484 + tw / 2 + 28, y + 22), radius=14, fill=SAGE + (255,))
 put(dfr, t, (484, y), fP, (11, 12, 11), "end: offer")
-put(dfr, "WWW.EPSILON.PLUS", (484, 1250), font("u", 42), OFF, "end: url")
+put(dfr, "WWW.EPSILON.PLUS", (484, 1310), font("u", 42), OFF, "end: url")
 back.save(O + "end_back.png"); front.save(O + "end_front.png")
 json.dump(EB, open(O + "endcard_boxes.json", "w"))
 print("ok", fH.size, fP.size)
