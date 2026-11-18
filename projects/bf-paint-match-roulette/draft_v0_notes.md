@@ -231,3 +231,6 @@ Limit: this is an unsigned distance, so it shows gaps, not how deep a part clips
 - Music: same track from 0 s, cut to 46.0 s with a 0.6 s fade (`music_v11.wav`, +3 dB like v06); final mix gain 4.2 dB.
 - Colour changes stay one per beat (owner: "changing speed should be evened out"; the roulette is the concept).
 - Checks: 46.03 s, -14.0 LUFS, -1.2 dBFS; safe-zone sheet (12 frames) clean.
+
+### v0.11 withdrawn (owner, 2026-11-18: "undo the changes for this one")
+The slow-reader holds are NOT applied to this video. **v0.10 (29.3 s, `tools/compose_v10.py`) is the current version.** `compose_v11.py` removed (it is in git history).
