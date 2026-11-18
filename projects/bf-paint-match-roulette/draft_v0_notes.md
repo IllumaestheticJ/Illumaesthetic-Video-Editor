@@ -213,3 +213,21 @@ Nearest distance from part vertices to the body surface (mm): min / 5th percenti
 - Integra DE4 widebody: wing 0.0 / 0.1, front lip 0.0 / 1.2, skirts 0.0 / 1.7, rear spats 0.0 / 0.9, flares 0.0 / 0.3
 All parts touch the body (nothing floats like the GR Corolla spats at ~16 mm); no re-seat, no re-render.
 Limit: this is an unsigned distance, so it shows gaps, not how deep a part clips into a panel; no clipping is visible in the turntables at 720 px.
+
+## v0.11 - text held for slow readers (owner rule 2026-11-18, knowledge/lessons.md [timing]; relayed by parent)
+`tools/compose_v11.py` (= v10 with longer text holds; picture content unchanged). 46.0 s (v0.10: 29.3 s). Beat = 0.4286 s.
+
+| Text | v0.10 | v0.11 | Rule minimum |
+|---|---|---|---|
+| Lineup, first time (4 tiles with prices) | 1.29 s | 3.43 s (8 beats) | 3 s (prices) |
+| Lineup, when returning between cars | 0.86 s | 1.71 s (4 beats) | 3 s - **still short**; same text as the first time |
+| Base-wing price screen per car ($315 / $350) | 0.86 s | 3.00 s (7 beats) | 3 s |
+| Paint-matched price per car ($715 / $800) | 3.9-5.1 s | 3.9-5.1 s | 3 s |
+| Colour name + code | 0.43 s each | 0.43 s each | 2.5 s - **not met** (42 names x 2.5 s = 105 s; needs owner call) |
+| Platinum White special price ($765 / $850) | 0.43 s | 0.43 s | 3 s - **not met** (same reason) |
+| Offer screen (2 offer lines + 2 prices) | 2.14 s | 4.29 s (10 beats) | ~4 s |
+| End card (wordmark + URL) | 1.79 s | 3.07 s | 2.5 s |
+
+- Music: same track from 0 s, cut to 46.0 s with a 0.6 s fade (`music_v11.wav`, +3 dB like v06); final mix gain 4.2 dB.
+- Colour changes stay one per beat (owner: "changing speed should be evened out"; the roulette is the concept).
+- Checks: 46.03 s, -14.0 LUFS, -1.2 dBFS; safe-zone sheet (12 frames) clean.
