@@ -9,8 +9,11 @@ F = "/home/user/media/bf-scan-teardown-prices/fonts/"
 # knowledge/fonts.md (owner rule): Akira for headlines/offers/prices -> Unbounded 900 stand-in until the owner supplies the
 # Akira file; text beside the logo (URL) = Unbounded 400; part labels / was-prices = Unbounded 500 (repo assets/fonts/unbounded).
 FR = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
+import os, glob as _g
+# Akira drop-in: the first .otf/.ttf in assets/fonts/akira/ (or $AKIRA) replaces the Unbounded 900 stand-in for headlines/prices.
+AK = os.environ.get("AKIRA") or next(iter(sorted(_g.glob("/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/*.[ot]tf"))), None)
 def font(w, s):
-    return ImageFont.truetype({"b": F + "Unbounded-900.ttf", "m": F + "Unbounded-800.ttf",
+    return ImageFont.truetype({"b": AK or F + "Unbounded-900.ttf", "m": F + "Unbounded-800.ttf",
                                "l": FR + "Unbounded-500.ttf", "u": FR + "Unbounded-400.ttf"}[w], s)
 OFF, SAGE, GREY = (242, 243, 241), (97, 159, 115), (140, 142, 140)
 
