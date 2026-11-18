@@ -18,6 +18,12 @@ KEEP = {"GT350 (DONE) Bumper Off Hood Closed": (0.58, 0.59, 0.84), "GT350 Front 
 for o in bpy.data.objects:
     if o.name.startswith("LipSolid"):
         KEEP[o.name] = (0.80, 0.62, 0.44)
+for o in list(bpy.data.objects):          # free memory: drop everything this shot never shows (the .blend holds 5 x 3M-tri scans)
+    if o.name not in KEEP:
+        me = o.data if o.type == "MESH" else None
+        bpy.data.objects.remove(o, do_unlink=True)
+        if me is not None and me.users == 0:
+            bpy.data.meshes.remove(me)
 for o in bpy.data.objects:
     vis = o.name in KEEP
     o.hide_render = not vis
@@ -77,6 +83,8 @@ L0 = {o.name: o.location.copy() for o in LIPS}
 lo, hi = (int(x) for x in arg("--frames", "0:36").split(":"))
 ONLY = [int(x) for x in arg("--only", "").split(",") if x]
 for fr in (ONLY or range(lo, hi)):
+    if not ONLY and os.path.exists(os.path.join(OUT, SHOT, f"{fr:04d}.png")):
+        continue
     if SHOT == "scan":      # bumper-off scan of the corner, then the reverse-engineered bumper slides on and settles
         k = (fr - 10) / 16.0
         BUMP.hide_render = fr < 10
