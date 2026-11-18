@@ -12,3 +12,4 @@
 {"ts": "2026-11-18T16:16:47Z", "project": "bf-clearance-shelf-drop", "at": null, "category": "text", "note": "the epsilon logo looks blurry", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-18T16:16:47Z", "project": "bf-clearance-shelf-drop", "at": null, "category": "text", "note": "have the first side of the tag stay a little bit longer for slower readers", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-18T16:16:47Z", "project": "bf-clearance-shelf-drop", "at": null, "category": "text", "note": "add Retail Price text to first side", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T16:22:50Z", "project": "bf-clearance-shelf-drop", "at": null, "category": "timing", "note": "yes - retime this video to the slow-reader rule (text readable 2.5 s + 0.4 s/extra word, 3 s for prices)", "by": "reviewer", "promoted": false}

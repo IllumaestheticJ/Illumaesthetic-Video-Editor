@@ -21,8 +21,8 @@ FM = UB + "Unbounded-400.ttf"   # lines beside the logo
 FL = UB + "Unbounded-300.ttf"   # URL beside the logo
 OFF = (232, 236, 242)
 
-SHOTS = [("s1", 77), ("s2", 73), ("s3", 73), ("s4", 73), ("s5", 74)]
-END_FR = 80                     # end card 12.33-15.0 s
+SHOTS = [("s1", 150), ("s2", 220), ("s3", 73), ("s4", 219), ("s5", 147)]   # v0.9 slow-reader timing
+END_FR = 91                     # end card 26.97-30.0 s (3.0 s >= 2.9 s minimum)
 TOTAL = sum(n for _, n in SHOTS) + END_FR
 
 
@@ -88,8 +88,8 @@ with open(f"{W}/list.txt", "w") as f:
 run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", f"{W}/list.txt", "-c", "copy", f"{W}/cut.mp4"])
 
 # ---- overlays + music
-s5_start = (77 + 73 * 3) / 30          # 9.867 s
-t_count0, t_count1 = 10.45, 12.20      # count enters on the snare, leaves before the end-card cut
+s5_start = 662 / 30                    # 22.07 s
+t_count0, t_count1 = 22.69, 26.80      # count in on the next beat, 4.1 s readable (needs 3.3), out before the end-card cut
 end_start = sum(n for _, n in SHOTS) / 30
 fc = (f"[0:v][3:v]overlay=0:0:enable='between(t,{t_count0},{t_count1})'[v]")
 dur = TOTAL / 30
