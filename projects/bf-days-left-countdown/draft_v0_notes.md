@@ -159,3 +159,18 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - `--mode drift --lead 40`: a faster slide, 0.35 m per frame.
 - `--mode none` renders the floor text alone (the cards).
 - Audio: 0-17.3 s, fade from 16.8 s, two-pass loudnorm to -14.0 LUFS, peak -3.3 dBFS.
+
+**Re-timed (same day): the owner revised the readability rule** to 1.8 s for 1-3 words, +0.3 s per extra word, 2.2 s for prices. Only the edit changes; no re-render. The total is now **13.6 s** (was 17.3 s).
+
+| Time | Frame | Section | Readable / minimum |
+|---|---|---|---|
+| 0-2.48 s | f0-74 | BLACK FRIDAY SALE | 2.5 s / 1.8 |
+| ~3.33-5.14 s | f100-153 | 3 DAYS LEFT | 1.8 s / 1.8 |
+| 5.14-7.62 s | f154-228 | UP TO 60% OFF | 2.5 s / 2.2 |
+| 7.62-10.82 s | f229-324 | ONLY X LEFT + COROLLA HATCH SIDE SKIRTS | 3.2 s / 3.0 |
+| 10.82-13.6 s | f325-407 | End card (fades 13.1-13.6 s) | about 2.1 s / 1.8 |
+
+- Audio is 0-13.6 s, -14.0 LUFS, peak -3.3 dBFS.
+- The 7.62 s cut is a lighter onset (0.31). The others are strong hits.
+
+**Stock number:** the parent flagged that "2" is a projection; the data says 5. Both cards are prepared (`cardB2` = "ONLY 2", `cardB5` = "ONLY 5"), and the user picks. The stock line is its own one-minute floor still.

@@ -3,13 +3,14 @@
 python compose_v09.py --render <floor frames dir> --cardA <still png> --cardB <still png> --logo "<Epsilon+ Logo.png>" \
     --label "COROLLA HATCH SIDE SKIRTS" --out <frames dir>
 
-Timing (30 fps), cuts on measured hits of "BREAKING NEWS" (20 ms RMS rises), sized by the readability rule
-(knowledge/lessons.md: >= 2.5 s for 1-3 words + 0.4 s per extra word, >= 3 s for any price/offer):
+Timing (30 fps), cuts on measured hits of "BREAKING NEWS" (20 ms RMS rises), sized by the readability rule as
+revised by the owner on 2026-11-18 (knowledge/lessons.md: >= 1.8 s for 1-3 words + 0.3 s per extra word, >= 2.2 s
+for any price/offer):
   f0    BLACK FRIDAY SALE on the floor (readable until the car reaches it on the 2.48 s hit)
-  ~f100 3 DAYS LEFT clear of the car                                  -> readable ~2.7 s
-  f181  6.02 s hit  card A  "UP TO 60% OFF" (offer, 4 words)          -> 3.4 s
-  f282  9.40 s hit  card B  "ONLY 2 LEFT" + product label (7 words)   -> 4.4 s (>= 4.1 s)
-  f415  13.84 s hit end card BLACK FRIDAY / logo / WWW.EPSILON.PLUS    -> ~2.8 s readable, fade out to f519 (17.3 s)
+  ~f100 3 DAYS LEFT clear of the car                                  -> readable ~1.8 s
+  f154  5.14 s hit  card A  "UP TO 60% OFF" (offer, 4 words)          -> 2.5 s (>= 2.2 s)
+  f229  7.62 s hit  card B  "ONLY X LEFT" + product label (7 words)   -> 3.2 s (>= 3.0 s)
+  f325  10.82 s hit end card BLACK FRIDAY / logo / WWW.EPSILON.PLUS    -> ~2.1 s readable, fade 13.1-13.6 s (f408)
 Each card is a Blender still of the same floor (same camera as the floor render's last frame) with a slow digital push,
 so the look continues across the cuts. Text next to the logo is Unbounded (knowledge/fonts.md).
 """
@@ -26,7 +27,7 @@ ap.add_argument("--out", required=True)
 args = ap.parse_args()
 W, H = 1080, 1920
 LAST_RENDER = 180
-CA, CB, CE, END = 181, 282, 415, 519
+CA, CB, CE, END = 154, 229, 325, 408
 CX, CY = 540, 960
 UNB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-{}.ttf")
 os.makedirs(args.out, exist_ok=True)
@@ -81,7 +82,7 @@ for f in range(END):
     elif f < CE:  # card B: low stock + the product it is about
         fr = push(cardB, 1.0 + 0.03 * (1 - ease_out((f - CB) / 6)) + 0.02 * (f - CB) / (CE - CB))
         fr = fr.convert("RGBA")
-        paste_center(fr, lab_lay, CX, 1125, alpha=ease_out((f - CB - 3) / 6))
+        paste_center(fr, lab_lay, CX, 1125, alpha=ease_out((f - CB + 1) / 3))  # with the card
     else:  # end card (Unbounded beside the logo), fades out with the music
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         t = 0.35 + 0.65 * (f - CE) / 6
