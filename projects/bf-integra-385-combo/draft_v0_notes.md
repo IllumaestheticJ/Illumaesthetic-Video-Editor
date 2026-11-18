@@ -1,3 +1,10 @@
+# v1.1 60 fps final (user: "put an epsilon plate on the back of the car, then do a high quality 60fps render"; Balanced)
+- Epsilon+ plate on the scan and CGI car; all renders 1080x1920, 32 spp + denoise, true native 60 fps (3 mm scan).
+  C0240 IRL is 24p source, so its frames repeat in the 60 fps master (no interpolation).
+- Checks: 60 fps, 1612 frames, 26.87 s; detected cuts -13..+9 ms from kicks (cuts within one scene are frame-exact
+  from the timeline); -13.4 LUFS, TP -1.8 dBFS; safezone text boxes OK; sheet looked at.
+- composite.py: loading dots used a float frame index at 60 fps -> int().
+
 # v1.2 dropped (user, after the owner revised the rule to 1.8 s / +0.3 s per word / 2.2 s prices and asked that
 # approved videos not be changed for it): "v1.1 only". Queued re-render cancelled; shots.py/composite.py back to v1.1.
 # Under the revised rule v1.1 is slightly short on the lip line (1.9 s), RETAIL $600 (2.1 s), was/now (2.0 s) - accepted.
