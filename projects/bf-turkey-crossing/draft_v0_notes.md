@@ -46,3 +46,12 @@ Defaults used, pending the owner (shotlist.md open questions):
 - s6 was extended to f444 (frames 433-444; the camera holds its end pose).
 - Checks: 14.8 s, -14.1 LUFS, peak -4.2 dBFS, safe-zone text OK.
 - Output: `/home/user/media/work/out/bf-turkey-crossing_v0.4.mp4`.
+
+## v0.5 (owner: OSRS assets from the owner's turkey.blend)
+- **Turkey:** the OSRS Big Evil Chicken with its own tail, in turkey browns (TURKEY_STYLE=evil, OSRS_EVIL).
+- **Trees:** 14 OSRS tree crowns on low-poly trunks (OSRS_TREES).
+- **After the hit:** the OSRS feathers burst out and fall, and the OSRS bones lie on the road (OSRS_PROPS).
+- **Assets:** extracted to `/home/user/media/bf-turkey-crossing/userblend/`, never committed.
+- **Unchanged from v0.4:** text, timing and the logo scene.
+- **Checks:** 14.8 s, -14.1 LUFS, peak -4.2 dBFS, safe-zone text boxes OK.
+- **Output:** `/home/user/media/work/out/bf-turkey-crossing_v0.5.mp4`.
