@@ -10,12 +10,12 @@
     {
      "zone": "fender",
      "off": [
-      2,
-      9
+      6,
+      21
      ],
      "on": [
-      8,
-      20
+      19,
+      40
      ],
      "dir": [
       -1,
@@ -48,7 +48,7 @@
    "lens": 34
   },
   {
-   "f": 62,
+   "f": 54,
    "loc": [
     -3.0,
     -2.2,
@@ -63,7 +63,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s08",
- "frames": 63,
+ "frames": 55,
  "fps": 15,
  "res": [
   540,

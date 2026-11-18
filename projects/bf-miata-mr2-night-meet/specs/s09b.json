@@ -13,11 +13,11 @@
     {
      "zone": "wing",
      "off": [
-      2,
+      3,
       9
      ],
      "on": [
-      8,
+      6,
       20
      ],
      "dir": [
@@ -51,7 +51,7 @@
    "lens": 30
   },
   {
-   "f": 62,
+   "f": 50,
    "loc": [
     -2.1,
     4.8,
@@ -66,7 +66,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s09b",
- "frames": 63,
+ "frames": 51,
  "fps": 15,
  "res": [
   540,
