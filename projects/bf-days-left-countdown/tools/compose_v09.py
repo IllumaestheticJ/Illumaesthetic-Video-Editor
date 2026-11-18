@@ -81,7 +81,7 @@ for f in range(END):
     elif f < CE:  # card B: low stock + the product it is about
         fr = push(cardB, 1.0 + 0.03 * (1 - ease_out((f - CB) / 6)) + 0.02 * (f - CB) / (CE - CB))
         fr = fr.convert("RGBA")
-        paste_center(fr, lab_lay, CX, 1090, alpha=ease_out((f - CB - 3) / 6))
+        paste_center(fr, lab_lay, CX, 1125, alpha=ease_out((f - CB - 3) / 6))
     else:  # end card (Unbounded beside the logo), fades out with the music
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         t = 0.35 + 0.65 * (f - CE) / 6
