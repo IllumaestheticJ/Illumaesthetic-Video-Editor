@@ -1,7 +1,7 @@
 #!/bin/bash
 # Background queue: one Blender job at a time, preview quality (40 % res, every 2nd frame).
 T=/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop/tools/shots_v0.py
-O=/home/user/media/bf-clearance-shelf-drop/renders_v06
+O=/home/user/media/bf-clearance-shelf-drop/renders_v07
 for s in ${SHOTS:-s1 s2 s3 s4 s5}; do
   mkdir -p $O/$s
   echo "start $s $(date +%T)"
