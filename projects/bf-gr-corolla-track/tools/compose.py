@@ -13,9 +13,11 @@ ap.add_argument('--tag', default='v1.0'); args = ap.parse_args()
 M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v10'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [6, 14, 17, 21, 36, 44, 60, 68]   # v1.0 owner rule: text sections long enough for slow readers
+# v1.0 timing (owner, revised 2026-11-18 via parent): readable >= 1.8 s for 1-3 words, +0.3 s per extra word, >= 2.2 s for prices.
+# Applied by trimming each text shot's tail to an earlier kick (renders are longer; nothing re-rendered).
+CUTK = [6, 12, 15, 18, 30, 37, 50, 57]   # v1.0: owner revised timing (2026-11-18) - readable >= 1.8 s (1-3 words) +0.3 s/word, prices >= 2.2 s; text shots trimmed to earlier kicks
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[76] * FPS) + 45          # v1.0 (user): one end scene - car drives off, 3D logo rises, URL slides in; no fade to black
+END = round(kicks[65] * FPS) + 45          # v1.0 (user): one end scene - car drives off, 3D logo rises, URL slides in; no fade to black
 ORDER = ['s12_open', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_end']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
