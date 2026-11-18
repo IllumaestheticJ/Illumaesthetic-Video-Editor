@@ -14,7 +14,7 @@ FPS, W, H = 30, 1080, 1920
 C1, C2, C3 = 388, round(17.765 * 30), round(19.905 * 30)
 END = round(float(os.environ.get("END_S", "22.605")) * 30)   # v0.11 (user: end text longer): END_S=25.825 = beat 48, phrase end
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
-t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2v02" if VER != "v0" else "r/T2") + "/f*.png"))
+t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1w") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2w") + "/f*.png"))
 RFPS = int(os.environ.get("RFPS", "15"))      # render fps of T1/T2 dirs: 15 = draft (frames doubled), 30 = full-res v1
 RON = os.environ.get("RON", "r/ron7_portrait.png"); MASK = os.environ.get("MASK", "r/ron7_mask.png")
 ron = Image.open(M + RON).convert("RGB").resize((W, H), Image.LANCZOS)
