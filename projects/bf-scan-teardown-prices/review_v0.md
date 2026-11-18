@@ -111,3 +111,12 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 - Unbounded 400 for the URL beside the logo; Unbounded 500 for part names and struck was-prices.
 - Every glyph is present (no tofu; the strings are ASCII only). The headline auto-fit at 170 px and the offer at 42 px. Safe-zone text boxes OK, -14.0 LUFS, true peak -2.8 dBFS.
 - The owner approved v0.8 apart from the font, so v0.9 is the final of this draft pass. Production quality (full-res renders, nesting) is still the v1 list above.
+
+## v0.10 (end text off the car) and v1 full-res queue
+
+- v0.10: the offer pill and URL sit below the car on the floor; nothing covers the car. The headline stays behind the roof and wing. Safe zones OK.
+- The user approved v0.10 for full resolution. `queue_full.sh` (media dir):
+  - Ron's still at 100 % / 128 spp, plus its matte.
+  - T2 then T1 at 1080x1920, 32 spp + OIDN, real 30 fps.
+  - The scan was re-prepped at 2.5 mm clustering (`CELL=0.0025 SCENE=scene_full`). At 5 mm the full-res frame showed speckles on the hood and headlight edges; 2.5 mm is clean at the same ~70 s/frame.
+- Assemble with: `VER=v1 RFPS=30 T1DIR=r/T1full T2DIR=r/T2full RON=r/ron7_portrait_full.png MASK=r/ron7_mask_full.png`.

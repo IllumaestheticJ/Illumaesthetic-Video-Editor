@@ -14,11 +14,13 @@ FPS, W, H = 30, 1080, 1920
 C1, C2, C3, END = 388, round(17.765 * 30), round(19.905 * 30), round(22.605 * 30)
 T2_T0 = 13.435                                 # song time of T2 frame 0 (15 fps)
 t1 = sorted(glob.glob(M + os.environ.get("T1DIR", "r/T1") + "/f*.png")); t2 = sorted(glob.glob(M + os.environ.get("T2DIR", "r/T2v02" if VER != "v0" else "r/T2") + "/f*.png"))
-ron = Image.open(M + "r/ron7_portrait.png").convert("RGB").resize((W, H), Image.LANCZOS)
+RFPS = int(os.environ.get("RFPS", "15"))      # render fps of T1/T2 dirs: 15 = draft (frames doubled), 30 = full-res v1
+RON = os.environ.get("RON", "r/ron7_portrait.png"); MASK = os.environ.get("MASK", "r/ron7_mask.png")
+ron = Image.open(M + RON).convert("RGB").resize((W, H), Image.LANCZOS)
 # v0.7: end text over Ron's render with depth; car matte from ron_mask_v0.py (alpha above the floor line only).
 import numpy as np
 eb, ef = Image.open(O + "end_back.png"), Image.open(O + "end_front.png")
-ma = np.array(Image.open(M + "r/ron7_mask.png").getchannel("A").resize((W, H), Image.LANCZOS)).astype(np.float32)
+ma = np.array(Image.open(M + MASK).getchannel("A").resize((W, H), Image.LANCZOS)).astype(np.float32)
 FLOOR = 1088; ma[FLOOR:] = 0; ma = np.clip((ma - 200) * 255 / 55, 0, 255).astype(np.uint8)   # floor glow out, edges kept
 carm = Image.fromarray(ma)
 def endframe(k):
@@ -48,10 +50,10 @@ ff = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fm
                        "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-pix_fmt", "yuv420p", TMP], stdin=subprocess.PIPE)
 for n in range(END):
     t = n / FPS
-    if n < C1:   fr = load(t1[min(len(t1) - 1, n // 2)]).copy()
+    if n < C1:   fr = load(t1[min(len(t1) - 1, n * RFPS // FPS)]).copy()
     elif n < C2:  # T2 now starts earlier (b24): stretch its slow opening drift 13.435-14.466 over 12.867-14.466; lock stays at 17.235
         t1c = C1 / FPS; tt = t if t >= 14.466 else T2_T0 + (t - t1c) / (14.466 - t1c) * (14.466 - T2_T0)
-        fr = load(t2[max(0, min(len(t2) - 1, round((tt - T2_T0) * 15)))]).copy()
+        fr = load(t2[max(0, min(len(t2) - 1, round((tt - T2_T0) * RFPS)))]).copy()
     elif n < C3: fr = ron.copy()
     else:        # v0.7: render stays; back text + car matte on the C3 kick, front layer one beat (16 f) later
         fr = endframe(1)
