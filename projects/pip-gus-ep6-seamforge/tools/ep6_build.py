@@ -46,7 +46,7 @@ CUTS["logo"] = _f
 CUTS["end"] = _f + 6 * BEATF + 36            # final chord 6 beats into the logo card, 1.2 s ring-out
 VO_LEAD = 5                                  # frames from a Part B segment start to its voice-over line
 VO10_AT = CUTS["logo"] + 8
-CROP = (1080, 1920, 289, 52)                 # SeamForge viewport inside the 1640x2000 capture
+CROP = (1080, 1904, 289, 80)                 # SeamForge viewport inside the 1640x2040 capture (27 px Xvfb menu bar + 48 px app bar above)
 LAPTOP_CLIP = dict(src=DROP / "laptop_A_manualcut.mp4", t0=0.0)   # S1 bumper over the bed + error toast, S2 manual cut
 B4_SRC = MEDIA / "printed_piece.mp4"         # owner's GR86 printed piece (pending); fallback: exploded close-up
 WIN = dict(x=110, y=700, w=860, h=645, r=30, border=5)
@@ -92,17 +92,24 @@ def ev():
     return {e["name"]: e for e in json.loads((CAP / "events.json").read_text())}
 
 
-def capture_piece(out, pieces, n_total):
+def vf_crop(zoom=1.0, cy=0.5, cx=0.5):
+    """Viewport crop, optional centred zoom (cy = vertical centre as a fraction), to 1080x1920 (1904 -> 1920 by a 0.8 % scale)."""
+    w, h, x, y = CROP
+    zw, zh = int(w / zoom) // 2 * 2, int(h / zoom) // 2 * 2
+    zx, zy = x + int(min(max(w * cx - zw / 2, 0), w - zw)), y + int(min(max(h * cy - zh / 2, 0), h - zh))
+    return f"crop={zw}:{zh}:{zx}:{zy},scale=1090:1920:flags=lanczos,crop=1080:1920:5:0"
+
+
+def capture_piece(out, pieces, n_total, zoom=1.0, cy=0.5, cx=0.5):
     """pieces: [(t_src0, t_src1, n_frames)] from session.mp4, each retimed to n_frames (setpts), concatenated, cropped."""
     if out.exists() and nframes(out) == n_total:
         return out
-    w, h, x, y = CROP
     parts = []
     for i, (a, b, n) in enumerate(pieces):
         pp = BUILD / f"_{out.stem}_{i}.mp4"
         speed = (b - a) / (n / FPS)
         run(["ffmpeg", "-v", "error", "-y", "-ss", f"{a:.3f}", "-t", f"{b - a:.3f}", "-i", str(CAP / "session.mp4"), "-vf",
-             f"crop={w}:{h}:{x}:{y},setpts=PTS/{speed:.5f},fps={FPS}", "-frames:v", str(n)] + ENC + [str(pp)])
+             f"{vf_crop(zoom, cy, cx)},setpts=PTS/{speed:.5f},fps={FPS}", "-frames:v", str(n)] + ENC + [str(pp)])
         parts.append(pp)
     lst = BUILD / f"_{out.stem}.txt"
     lst.write_text("".join(f"file '{p}'\n" for p in parts))
@@ -126,17 +133,20 @@ def clips():
     c = e["autoslice_click"]["t"]
     s = e["sliced"]["t"]
     nb1 = n_phone + n["B1"]
-    tl_n = 26                                 # time-lapse frames for the minutes of slicing
-    pre = nb1 - tl_n - 22
-    out["B1"] = capture_piece(BUILD / "b1.mp4", [(c - pre / FPS, c, pre), (c, s, tl_n), (s, s + 22 / FPS, 22)], nb1)
+    tl_n = 45                                 # time-lapse frames for the minutes of slicing
+    pre = 50
+    post = nb1 - pre - tl_n
+    out["B1"] = capture_piece(BUILD / "b1.mp4", [(c - pre / FPS, c, pre), (c, s, tl_n), (s, s + post / FPS, post)], nb1,
+                              zoom=1.3, cy=0.42, cx=0.42)
     out["phone_frames"] = n_phone
     # B2: numbers: the explode slider pulling the pieces apart (time-lapse of the engraving first)
     x0, x1, xe = e["explode_start"]["t"], e["explode_end"]["t"], e["explode_hold_end"]["t"]
     out["B2"] = capture_piece(BUILD / "b2.mp4", [(e["engrave_click"]["t"], e["engraved"]["t"], 14), (x0, x1, n["B2"] - 14 - 40),
-                                                  (x1, x1 + 40 / FPS, 40)], n["B2"])
+                                                  (x1, x1 + 40 / FPS, 40)], n["B2"], zoom=1.35, cy=0.5)
     # B3: plates: Plan plates (time-lapse of the planning), then the beds orbiting
     p0, p1, pe = e["plan_click"]["t"], e["planned"]["t"], e["plates_hold_end"]["t"]
-    out["B3"] = capture_piece(BUILD / "b3.mp4", [(p0, p1, 16), (p1, min(pe, p1 + (n["B3"] - 16) / FPS), n["B3"] - 16)], n["B3"])
+    out["B3"] = capture_piece(BUILD / "b3.mp4", [(p1 + 22.5, p1 + 22.5 + n["B3"] / FPS, n["B3"])], n["B3"], zoom=1.5, cy=0.53, cx=0.47)
+    # (the plates view renders black for ~22 s after planning on this machine: the clip starts when the beds are drawn)
     # B4: the owner's printed piece when it arrives; until then the exploded pieces, held (numbers on the mating faces)
     if B4_SRC.exists():
         p = BUILD / "b4.mp4"
@@ -145,18 +155,18 @@ def clips():
                  "-frames:v", str(n["B4"])] + ENC + [str(p)])
         out["B4"], out["B4_kind"] = p, "printed piece"
     else:
-        out["B4"] = capture_piece(BUILD / "b4_fallback.mp4", [(xe - n["B4"] / FPS, xe, n["B4"])], n["B4"])
+        out["B4"] = capture_piece(BUILD / "b4_fallback.mp4", [(xe - n["B4"] / FPS, xe, n["B4"])], n["B4"], zoom=2.0, cy=0.5)
         out["B4_kind"] = "fallback: exploded pieces held (owner footage pending)"
     # app card window: exploded pieces
     p = BUILD / "card_win.mp4"
     nc = CUTS["logo"] - CUTS["card"]
     if not (p.exists() and nframes(p) == nc):
         w, h, x, y = CROP
-        cw = int(h * WIN["w"] / WIN["h"]) if h * WIN["w"] / WIN["h"] <= w else w
-        ch = int(cw * WIN["h"] / WIN["w"])
+        cw = 760
+        ch = int(cw * WIN["h"] / WIN["w"]) // 2 * 2
         run(["ffmpeg", "-v", "error", "-y", "-ss", f"{x1:.3f}", "-i", str(CAP / "session.mp4"), "-vf",
-             f"crop={w}:{h}:{x}:{y},crop={cw}:{ch}:{(w - cw) // 2}:{(h - ch) // 2},scale={WIN['w']}:{WIN['h']}:flags=lanczos,fps={FPS}",
-             "-frames:v", str(nc)] + ENC + [str(p)])
+             f"crop={cw}:{ch}:{x + (w - cw) // 2}:{y + (h - ch) // 2},scale={WIN['w']}:{WIN['h']}:flags=lanczos,fps={FPS},format=yuv444p",
+             "-frames:v", str(nc)] + [e if e != "yuv420p" else "yuv444p" for e in ENC] + [str(p)])
     out["card"] = p
     # laptop insert (S1+S2), 1200x800 -> fills the 0.42x0.27 screen (corner-pinned)
     out["laptop"] = LAPTOP_CLIP["src"]
