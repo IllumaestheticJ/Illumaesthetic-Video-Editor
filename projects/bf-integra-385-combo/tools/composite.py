@@ -138,7 +138,7 @@ def price_card(img, fr, x0=250, y0=915, w=580):
             bx0, by0, bx1, by1 = 28, 380, w - 28, 420
             pd.rounded_rectangle((bx0, by0, bx1, by1), 10, outline=(1, 222, 226, int(200 * u)), width=3)
             pd.rounded_rectangle((bx0 + 6, by0 + 6, bx0 + 6 + (bx1 - bx0 - 12) * prog, by1 - 6), 6, fill=(1, 222, 226, int(255 * u)))
-            dots = '.' * (1 + (fr // 6) % 3)
+            dots = '.' * (1 + int(fr // 6) % 3)
             pd.text((28, 440), f'LOADING{dots}', font=font(F_UB4, 24), fill=(232, 236, 242, int(220 * u)))
             pct = f'{int(prog * 100):d}%'; pw = pd.textlength(pct, font=font(F_UB4, 24))
             pd.text((w - 28 - pw, 440), pct, font=font(F_UB4, 24), fill=(232, 236, 242, int(220 * u)))

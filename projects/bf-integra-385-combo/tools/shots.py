@@ -2,6 +2,7 @@
 # usage: blender -b --factory-startup -P shots.py -- --shot 1 --out DIR [--res-pct 50] [--samples 16] [--step 2] [--frames a-b]
 # Frame (GLB): metres, Z up, nose -Y, rear +Y, car's right side = -X.
 import bpy, sys, math, json, argparse, mathutils
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix
 
 ap = argparse.ArgumentParser()
@@ -22,7 +23,7 @@ LEN = {1: 97, 2: 70, 3: 71, 4: 142, 5: 71, 6: 70}  # v0.6: shot 4 (price) two ba
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc)
 sc.cycles.samples = A.samples; sc.cycles.use_denoising = True
 sc.render.use_persistent_data = False
 sc.render.resolution_x, sc.render.resolution_y = 1080, 1920

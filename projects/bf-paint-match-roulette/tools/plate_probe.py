@@ -1,6 +1,7 @@
 """Rear-view probe to place the Epsilon plate: prints the car bbox and writes an orthographic rear render with a grid in metres.
 blender -b --factory-startup -P plate_probe.py -- <glb> <out.png> <hide,list>"""
 import bpy, sys
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 a = sys.argv[sys.argv.index('--') + 1:]
 for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
@@ -11,7 +12,7 @@ for o in ms:
 pts = [o.matrix_world @ Vector(c) for o in ms if not o.hide_render for c in o.bound_box]
 lo = Vector([min(p[i] for p in pts) for i in range(3)]); hi = Vector([max(p[i] for p in pts) for i in range(3)])
 print('BBOX', [round(v, 3) for v in lo], [round(v, 3) for v in hi], flush=True)
-sc = bpy.context.scene; sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 8; sc.cycles.use_denoising = True
+sc = bpy.context.scene; sc.render.engine = 'CYCLES'; ive_gpu.use(sc); sc.cycles.samples = 8; sc.cycles.use_denoising = True
 w = bpy.data.worlds.new('w'); sc.world = w; w.use_nodes = True; w.node_tree.nodes['Background'].inputs[1].default_value = 1.0
 wg = [o for o in ms if 'wing' in o.name and not o.hide_render]
 if wg: print('WING_Y', round((wg[0].matrix_world @ Vector(wg[0].bound_box[0])).y, 2), flush=True)

@@ -55,3 +55,11 @@ Defaults used, pending the owner (shotlist.md open questions):
 - **Unchanged from v0.4:** text, timing and the logo scene.
 - **Checks:** 14.8 s, -14.1 LUFS, peak -4.2 dBFS, safe-zone text boxes OK.
 - **Output:** `/home/user/media/work/out/bf-turkey-crossing_v0.5.mp4`.
+
+## v0.6 (owner notes on v0.5)
+- **Head:** in the last shot before the hit, the turkey looks into the oncoming car.
+- **Bones:** OSRS bones with the bone colour (the export had them pure white).
+- **Cameras:** every shot raised to an OSRS-like 3/4 overhead angle.
+- **Trees:** whole Woodcutting Guild trees from the owner's export (oak, willow, maple, yew, magic), with per-species leaf tints restored. The species picks need the owner's confirmation; see the sheet `guild_trees_sheet.jpg`.
+- **Checks:** 14.8 s, -14.1 LUFS, peak -4.2 dBFS, safe-zone text OK.
+- **Output:** `/home/user/media/work/out/bf-turkey-crossing_v0.6.mp4`.

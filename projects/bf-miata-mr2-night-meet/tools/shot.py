@@ -20,6 +20,7 @@ import os
 import sys
 
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Euler, Matrix, Vector
 
 REPO = "/home/user/Illumaesthetic-Video-Editor"
@@ -274,7 +275,7 @@ def main():
     sp = spec()
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
-    sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"; sc.cycles.samples = sp.get("samples", 12)
+    sc.render.engine = "CYCLES"; ive_gpu.use(sc); sc.cycles.samples = sp.get("samples", 12)
     sc.cycles.use_denoising = True; sc.render.use_persistent_data = False
     sc.render.resolution_x, sc.render.resolution_y = sp.get("res", [540, 960]); sc.render.resolution_percentage = 100
     sc.frame_start, sc.frame_end = 1, sp["frames"]

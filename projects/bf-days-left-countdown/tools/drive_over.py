@@ -7,6 +7,7 @@ The new text is geometry built from --new (computed from days_left by the caller
 """
 import sys, os, argparse, math
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 
 a = sys.argv[sys.argv.index("--") + 1:]
@@ -34,7 +35,7 @@ W, H = map(int, args.res.split("x"))
 sc.render.resolution_x, sc.render.resolution_y = W, H
 sc.render.fps = 30
 sc.frame_start, sc.frame_end = 0, args.frames - 1
-sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"
+sc.render.engine = "CYCLES"; ive_gpu.use(sc)
 sc.cycles.samples = args.samples; sc.cycles.use_denoising = True
 sc.view_settings.view_transform = "AgX"; sc.view_settings.look = "AgX - Medium High Contrast"
 D = args.drop

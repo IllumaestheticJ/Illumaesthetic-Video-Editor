@@ -6,6 +6,7 @@ Times are SONG seconds (the music starts at video 0). Parts carry keyed offsets;
 Quick draft: Cycles CPU, low samples + OIDN, silver house look (blender/scan_render.py)."""
 import math, os, sys
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix
 sys.path.insert(0, "/home/user/Illumaesthetic-Video-Editor/blender")
 import scan_render as sr  # noqa
@@ -60,6 +61,9 @@ for i, n in enumerate(["kit_lip", "kit_skirt_L", "kit_skirt_R", "kit_rear", "kit
     st = HOME0 + [0, 0.27, 0.27, 0.54, 0.81][i]
     OFF[n] += [(st, PARK[n], "lin"), (LOCK, Z, "in")]
 
+GARAGE = bool(os.environ.get("GARAGE"))   # v0.12 (user): "have the same background for the early parts too"
+if GARAGE:   # parks lifted so no part sinks into the garage floor (scan tyres touch z 0.048); x/y unchanged
+    PARK["kit_lip"][2], PARK["kit_skirt_L"][2], PARK["kit_skirt_R"][2], PARK["kit_rear"][2] = 0.10, 0.08, 0.08, 0.10   # in place: OFF keys hold these lists
 C = (0.0, 0.30, 0.55)
 CAM = {
     "T1": [  # one take round the car's LEFT (+X): front-left -> left side -> rear-left -> above the deck
@@ -92,7 +96,7 @@ def cam_end():
 def setup():
     sc = bpy.context.scene
     sc.render.engine = "CYCLES"
-    sc.cycles.device = "CPU"
+    ive_gpu.use(sc)
     sc.cycles.samples = SPP
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True
@@ -134,6 +138,11 @@ def setup():
     root = bpy.data.objects.new("SCAN_ROOT", None); sc.collection.objects.link(root); root.location = (lo + hi) / 2
     sr.studio_lights(lo, hi)
     sr.add_light("kit_rim", "AREA", Vector((0, 0, 4.5)), 400, 4.0, (0.8, 0.9, 1.0))
+    if GARAGE:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import garage_v0
+        gk = float(os.environ.get("GK", "0.08"))   # room albedo scale: the scan studio lights are far stronger than Ron's, so the
+        garage_v0.build(bpy.data.objects["Camera.006(L5)"], floor_z=0.050, scan=True,   # room is darkened to match his frame at the 1:1 cut
+                        floor_base=(0.06 * gk, 0.06 * gk, 0.058 * gk), floor_spec=float(os.environ.get("FSPEC", "0.025")), floor_rough=0.5, wall_base=(0.24 * gk, 0.24 * gk, 0.235 * gk), wall_spec=0.1)
     cam = bpy.data.objects.new("v0cam", bpy.data.cameras.new("v0cam")); sc.collection.objects.link(cam); sc.camera = cam
     cam.data.sensor_fit = "HORIZONTAL"; cam.data.sensor_width = 20.25; cam.data.clip_start = 0.05
     return cam, front
@@ -190,6 +199,9 @@ def main():
         y = -2.3 + (t - SWEEP0) / (SWEEP1 - SWEEP0) * 5.2 if SWEEP0 <= t <= SWEEP1 else 99.0
         front.outputs[0].default_value = y
         l, q, f = cam_at(keys, t)
+        if GARAGE:   # LED tubes hang at 5.6 m: hide them from the lens while it is above them (T2 top view)
+            for o in bpy.data.objects:
+                if "led" in o: o.visible_camera = l.z < 5.2
         cam.location = l; cam.rotation_mode = "QUATERNION"; cam.rotation_quaternion = q; cam.data.lens = f
         name = f"{SHOT}_{t:07.3f}.png" if SHOT == "STILL" else f"f{i + int(os.environ.get('FRAME0', '0')):04d}.png"   # FRAME0: resume chunks
         sc.render.filepath = os.path.join(OUT, name)
