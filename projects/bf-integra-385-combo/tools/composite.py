@@ -15,8 +15,8 @@ W, H, FPS = 1080, 1920, 30
 # v0.2 timeline (user: both parts on the car at the end; scan shows the stock spoiler coming off)
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
 # v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
-TIMELINE = [('render', 'render_v03/s1', 1, 97), ('render', 'render_v03/s2', 2, 71), ('render', 'render_v03/s3', 3, 71),
-            ('render', 'render_v06/s4', 4, 141), ('render', 'render_v04/s7', 0, 71), ('render', 'render_v04/s8', 0, 71),
+TIMELINE = [('render', 'render_v10/s1', 1, 97), ('render', 'render_v10/s2', 2, 71), ('render', 'render_v10/s3', 3, 71),
+            ('render', 'render_v10/s4', 4, 141), ('render', 'render_v04/s7', 0, 71), ('render', 'render_v04/s8', 0, 71),
             ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]  # v0.6: price shot and end card one bar longer each (user: deal numbers easier to read)
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
