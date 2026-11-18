@@ -234,7 +234,7 @@ for f in range(args.frames):
     for n, w in wheels.items():
         w.rotation_euler = (dist / R_WHEEL, 0, math.radians(steer) if n.startswith("wheel_F") else 0)
         w.keyframe_insert("rotation_euler", frame=f)
-    wv = (y if args.mode != "none" else -50.0)
+    wv = (y if args.mode != "none" else 50.0)  # none: the wipe sits above everything, so the --old text shows whole
     wv = max(-50.0, min(50.0, wv))
     for v in (v_old, v_new):
         v.outputs[0].default_value = wv
