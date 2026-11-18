@@ -1415,3 +1415,5 @@ lands here automatically. Agents must read this whole file before editing.
   - **Restart protection:** after every render chunk, or after any download or prep that took more than about 10 minutes, run `python scripts/vdrive.py save <project> <name> <paths>`. Use one archive per shot or chunk: prepped scans, frame folders, licensed fonts. After a container restart, run `restore <project>` first.
   - **Deliveries:** `python scripts/vdrive.py deliver <project> out.mp4 --notes NOTES.md`. It keeps the **3 newest versions** per reel; older ones go to the drive's bin (kept 30 days). Give the owner the printed Drive link.
   - **Clean up old piles:** delete superseded renders and mp4s locally, and in any Drive or Dropbox delivery folders, keeping the newest 3 per reel.
+
+- **[audio] Place sound effects by their measured onset, not their file start (BF4, 2026-11-18):** the owner heard a "desync around halfway". The menu clicks had ~68 ms of silence at the start of the file and were placed by file start, so every click landed ~62 ms late. Measure each sample's onset and align that to the beat or cut.

@@ -11,6 +11,6 @@ import os
 if os.environ.get("GARAGE"):   # v0.11 (user): plain warehouse garage instead of the black studio
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import garage_v0
     for n in ("Circle", "Plane"): bpy.data.objects[n].hide_render = True     # Ron's studio floor discs
-    garage_v0.build(cam)
+    garage_v0.build(cam, floor_z=float(os.environ.get("FLOOR_Z", "0.015")))   # v0.12: tyres (bbox 0.013) sit on the floor
 sc.render.filepath = a[0]; sc.render.image_settings.file_format = "PNG"
 bpy.ops.render.render(write_still=True)

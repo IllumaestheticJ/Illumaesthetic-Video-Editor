@@ -124,3 +124,9 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
   - 32.3 s, -13.7 LUFS / -2.8 dBTP.
   - 7 detected cuts are within 16 ms of their kicks; the dark card -> canard cut isn't detected.
   - Safe-zone sheet: all text and logos are inside the zone.
+
+## v1.1 (user: no cents; SHOP DEALS NOW from the road; canards on the red car)
+- **Prices without cents:** the V2 lip now shows $199 (sheet $199.50) and the V2 spats $122 (sheet $122.50). The store must charge $199 / $122 before the ad runs, or the video should show $200 / $123 instead.
+- **Ending:** a dark Akira "SHOP DEALS NOW" stands on the asphalt in front of the lens and rises up out of the road after the URL lands. It is readable for 2.4 s, and the road reflects it.
+- **Canards:** the shot is now the red car on track with carbon canards (coarser, darker weave so it reads in daylight), not the graphite studio car. A gantry passes overhead.
+- **Checks:** 32.3 s, -13.7 LUFS / -2.8 dBTP. 8 detected cuts are within 16 ms of the kicks. Safe-zone sheet: all text and logos inside.
