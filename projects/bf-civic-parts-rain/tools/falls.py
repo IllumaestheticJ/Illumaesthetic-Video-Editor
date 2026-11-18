@@ -2,7 +2,7 @@
 car as if that was the entire plan".
 
 A part keeps its final orientation the whole way (no tumble, no straightening) and falls along ONE straight line with
-gravity-like acceleration, from rest outside the frame, landing exactly on its seat on the beat. The line is the steepest
+constant speed (v0.6; was gravity from rest), from outside the frame, landing exactly on its seat on the beat. The line is the steepest
 one (vertical first, then tilted outward in 5 deg steps toward `side`) along which the part never comes within 5 mm of the
 scan - the lip and skirts tuck under the body, so a pure vertical drop can pass through it. Keys on every frame, LINEAR.
 """
@@ -13,6 +13,7 @@ from mathutils import Vector, kdtree
 from bpy_extras.object_utils import world_to_camera_view
 
 _CAR = {}
+V_RAIN = 10.0   # m/s, constant fall speed for the hero parts (v0.6)
 
 
 def _car_tree(car, lo, hi):
@@ -41,34 +42,36 @@ def animate(sc, ob, car, f_seat, side, f_last, fps=30, name=None):
     # start: from rest, outside the frame at the moment the fall begins
     cam = sc.camera; corners = [Vector(c) for c in (co.min(0), co.max(0))]
     bb = [Vector((x, y, z)) for x in (corners[0].x, corners[1].x) for y in (corners[0].y, corners[1].y) for z in (corners[0].z, corners[1].z)]
+    # v0.6 (owner: "fall at constant speed so it looks like natural rain"): no acceleration, one constant speed per part,
+    # at least v_min so the last frame before landing still clears the body
+    v = max(fd.get("v_min", 0), V_RAIN)
     L = 3.0
     while True:
-        a = 9.81
-        L = max(L, fd.get("v_min", 0) ** 2 / (2 * a))   # fast enough that the last frame before landing clears the body
-        nfr = max(8, round(math.sqrt(2 * L / a) * fps)); f0 = f_seat - nfr
+        nfr = max(8, math.floor(L / v * fps)); f0 = f_seat - nfr   # floor: actual speed never drops below v_min
         sc.frame_set(max(f0, 0)); off = Vector(d * L)
         vis = False
         for c in bb:
-            v = world_to_camera_view(sc, cam, c + off)
-            if v.z > 0 and -0.02 < v.x < 1.02 and -0.02 < v.y < 1.02:
+            uv = world_to_camera_view(sc, cam, c + off)
+            if uv.z > 0 and -0.02 < uv.x < 1.02 and -0.02 < uv.y < 1.02:
                 vis = True; break
         if not vis or L > 30:
             break
         L += 0.5
-    a = 2 * L / (nfr / fps) ** 2
+    L = max(L, v * nfr / fps)   # the 8-frame minimum must not slow the part below v
+    v = L / (nfr / fps)   # exact speed for the whole-frame count
     pref = bpy.context.preferences.edit; old = pref.keyframe_new_interpolation_type; pref.keyframe_new_interpolation_type = "LINEAR"
     park = Vector((0, 0, 60))
     for f in range(0, f_last + 1):
         if f < f0:
             ob.location = park
         elif f < f_seat:
-            t = (f - f0) / fps; rem = L - 0.5 * a * t * t
+            t = (f - f0) / fps; rem = L - v * t
             ob.location = Vector(d * rem)
         else:
             ob.location = Vector((0, 0, 0))
         ob.keyframe_insert("location", frame=f)
     pref.keyframe_new_interpolation_type = old
     sc.frame_set(0)
-    t1 = (nfr - 1) / fps; prev = L - 0.5 * a * t1 * t1
+    prev = v / fps
     return {"prev_frame_dist_m": round(prev, 3), "contact_extent_m": fd.get("contact_extent_m"), "elev_deg": e, "hits_on_path": worst, "start_dist_m": round(L, 2), "fall_s": round(nfr / fps, 2),
-            "impact_mps": round(a * nfr / fps, 1)}
+            "speed_mps": round(v, 1)}
