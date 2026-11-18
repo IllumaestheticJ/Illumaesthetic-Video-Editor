@@ -1,4 +1,39 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.10 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.11 notes
+
+**v0.11 (2026-11-18):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.11.mp4` (25.9 s, 778 frames).
+
+**Real footage: tracked labels instead of blur/highlight.** The user wrote: "the blurring and highlight doesnt work, have text and do a tracking underline and leader that points to the item".
+- **The labels:** FRONT LIP and SIDE SKIRTS on 0371; SPORT WING and REAR SPATS on 0370, where one label has two leaders.
+- **How each label is drawn:**
+  - Unbounded 600 at 46 px, white.
+  - A wiped-in underline and a leader line from the underline end to a red dot on the part.
+  - A soft dark halo behind it for the white car.
+- **Tracking:** each dot rides that part's hand-placed outline, tracked by `tools/track.py`.
+- **Text over real footage:** this is the user's explicit request and overrides the standing no-text-over-IRL rule for these two shots.
+- **Lengthened shots, to meet the reading rule:**
+  - 0371 is slowed to 0.5x with mci interpolation (`clips/s3_0371_slow.mp4`). Its window pans 1600 → 1900 so the lip stays in frame, and the 1:1 first frame is unchanged.
+  - 0370 runs 3.45 s at normal speed (`clips/s4_0370_long.mp4`).
+- **Readable time:** each label is fully readable for 2.9 s (local frames 10-97).
+
+**Kit shot.** The user wrote: "fine without the blur and highlight, try to use a glb file that has already been rendered so you know how to color the car (white), and parts (black)".
+- **Materials:** the scene uses the GLB's own materials, with only the 'paint' slots swapped. That is the recipe from `projects/bf-paint-match-roulette/tools/render_turntable.py`.
+  - Body: white gloss with clear coat, the lookbook's Platinum White Pearl #f2f0e9.
+  - Kit: the standard black finish, base 0.012, roughness 0.42, coat 1.
+- **Tooling:** `tools/shot.py` gained a `mat: white|black` option on base and parts entries.
+- **Render:** spec `spec_s5_glb.json`. The orbit is stretched to 8.7 s, 130 frames.
+
+**Reading-time rule** (owner, via parent): 2.5 s for 1-3 words, plus 0.4 s per extra word, and at least 3 s for any offer.
+- **Cuts:** on beats 0, 8, 16, 36 and 44 after the drop.
+- **Readable times:**
+
+| Text | Readable | Needs |
+|---|---|---|
+| BF wall | 7.0 s | 2.5 s |
+| Real-footage labels | 2.9 s each | 2.5 s |
+| Offer card | 6.37 s | 6.1 s |
+| End card | 3.0 s | 2.5 s |
+
+**Audio:** music gain 0.348 gives -13.7 LUFS / -6.1 dBTP. The longer cut reaches a louder part of the track, so the gain was lowered.
 
 **v0.10 (2026-11-18, owner via parent: Akira is licensed, so swap it in):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.10.mp4`.
 - **Font file:** `assets/fonts/akira/AkiraExpanded-SuperBold.otf`, from Drive `1nrF80enolDd9HAu5807kv5XIx0cUSDya`, SHA-256 5b152fce... checked. The folder is gitignored and the font is never committed.
