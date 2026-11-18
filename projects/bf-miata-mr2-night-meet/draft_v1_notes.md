@@ -115,7 +115,7 @@ no new export yet (waiting on the length decision).
 - Safe-zone sheet looked at: all text and the logo clear of red and amber.
 
 ## v1.8: spats visible and seated, 66.5" TC wings, MR2 front bumper (user feedback on v1.7)
-`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.8.mp4`
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.8.mp4` (50.7 s, -14.0 LUFS, TP -1.8 dBFS; safe-zone sheet looked at, all text clear). Lookbook seams measured: spats 0.1-0.7 mm, duckbill/skirts <=0.1 mm, diffuser seated on the spats.
 - "The rear spats also clip through the body": v1.6 left the stock MR2 corner in place under the spats (I misread "they go
   over stock" as an instruction). Now the stock corner and duckbill pieces come off before the parts land: the lookbook stock
   pieces are hidden in CGI, and the scan uses the footprint cut. Check stills: the part seats with no clipping.
