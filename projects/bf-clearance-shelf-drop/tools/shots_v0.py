@@ -11,7 +11,7 @@ Shots (local frames start at 1, 30 fps):
 The 1:1 device: each lip sits on its pallet with the SAME world matrix it has on its car after one rigid transform T
 (rotation about Z + translation); the car shot applies T to the whole car and starts from the shelf shot's last camera.
 """
-import bpy, sys, math, json, argparse, random
+import bpy, sys, os, math, json, argparse, random
 from mathutils import Vector, Matrix, Euler
 
 A = argparse.ArgumentParser()
@@ -23,6 +23,7 @@ A.add_argument("--step", type=int, default=1)
 A.add_argument("--chars", action="store_true", help="v0 placeholders (owner removed them; off by default)")
 args = A.parse_args(sys.argv[sys.argv.index("--") + 1:])
 NO_CHARS = not args.chars
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from fonts import HEAD as HEAD_FONT
 M = "/home/user/media/bf-clearance-shelf-drop"
 GLB = {"integra": f"{M}/glb/eps-acura-integra-de-v29.glb", "grv1": f"{M}/glb/eps-toyota-gr-corolla-v23.glb"}
 PART = {"integra": "part_duckbill", "grv1": "part_front_lip"}
@@ -428,7 +429,7 @@ def aisle():
     bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
     t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.70
     try:
-        t.data.font = bpy.data.fonts.load("/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-800.ttf")  # Akira stand-in (knowledge/fonts.md)
+        t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
         pass
     em = mat("sign", (1, 1, 1), emit=(1, 1, 1), estr=0.0)
