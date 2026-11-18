@@ -3,7 +3,7 @@ text (Akira Expanded), the Epsilon+ end card (wordmark 720 px + WWW.EPSILON.PLUS
 
 python compose.py [--tag v0] [--renders DIR]
 Cuts (global frames, measured hits of PhonkFlux 'TRANSFORMATION', video t0 = track 10.812 s):
-  0 | 55 (12.650) | 108 (14.419) | 135 (15.322) | 162 (16.227 DROP, impact) | 216 (18.023) | 270 (19.827 logo) | end 366
+  0 | 55 (12.650) | 108 (14.419) | 135 (15.322) | 162 (16.227 DROP, impact) | 216 (18.023, text over half-speed feathers) | 324 (21.630 logo) | end 420
 Text: v0 default 'BLACK FRIDAY' (18.023) + 'SALE' (18.929, f243); no numbers (owner to choose the offer lines).
 All text/logos inside x 48-920, y 285-1440 (knowledge/safe-zones.md); boxes exported for scripts/safezone_check.py.
 """
@@ -18,8 +18,8 @@ REPO = '/home/user/Illumaesthetic-Video-Editor'
 W, H, FPS = 1080, 1920, 30
 MUSIC = f'{M}/music/transformation.mp3'; T0 = 10.812
 SHOTS = [('s1_cross', 0, 55), ('s2_look', 55, 108), ('s3_car', 108, 135), ('s4_eyes', 135, 162), ('s5_poof', 162, 216),
-         ('s6_feath', 216, 270)]
-LOGO0, END = 270, 366
+         ('s6_feath', 216, 324)]   # half-speed feather fall under the text (owner slow-reader rule)
+LOGO0, END = 324, 420   # logo on the hit at 21.630; URL in at f330, readable >= 2.5 s before the 0.4 s fade
 AK = f'{REPO}/assets/fonts/akira/AkiraExpanded-SuperBold.otf'   # owner licence, gitignored
 UB = f'{REPO}/assets/fonts/unbounded/Unbounded-'
 CX = 484                 # centre of the safe band x 48-920
@@ -111,7 +111,7 @@ for f in range(END):
         ly = 760; img.alpha_composite(lg, (round(CX - lg.width / 2), round(ly - lg.height / 2)))
         if t == 6:
             boxes.append(dict(label='logo', key=True, x=CX - 360, y=ly - logo.height / 2, w=720, h=logo.height))
-        tu = f - 324   # URL on the hit at 21.630 (f324)
+        tu = f - 330   # URL 6 frames after the logo lands
         if tu >= 0:
             d = ImageDraw.Draw(img); s = 'WWW.EPSILON.PLUS'; tw = d.textlength(s, font=f_url)
             d.text((CX - tw / 2, 900), s, font=f_url, fill=(232, 236, 242, round(255 * min(1, tu / 4))))
@@ -124,8 +124,8 @@ for f in range(END):
 # text boxes with their on-screen windows (for scripts/safezone_check.py)
 tb = []
 for b in boxes:
-    t0 = {'BLACK': 216, 'FRIDAY': 218, 'SALE': 243, 'logo': 270, 'url': 324}[b['label']] / FPS
-    t1 = (270 if b['label'] in ('BLACK', 'FRIDAY', 'SALE') else END) / FPS
+    t0 = {'BLACK': 216, 'FRIDAY': 218, 'SALE': 243, 'logo': 324, 'url': 330}[b['label']] / FPS
+    t1 = (324 if b['label'] in ('BLACK', 'FRIDAY', 'SALE') else END) / FPS
     tb.append(dict(t0=round(t0, 3), t1=round(t1, 3), x=round(b['x']), y=round(b['y']), w=round(b['w']), h=round(b['h']), label=b['label'], key=b['key']))
 json.dump(tb, open(f'{M}/text_boxes_{args.tag}.json', 'w'), indent=1)
 
