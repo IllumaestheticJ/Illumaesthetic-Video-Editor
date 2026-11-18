@@ -840,19 +840,58 @@ def coin_stack(pos, n, name):
     return g
 
 
+PAL.update(mf="#3d86cf", mf_d="#2c69a8", mf_edge="#f2c331", mf_dirty="#7f97ad", mf_tag="#f4f4f0")
+
+
 def build_cloth():
+    """A folded microfiber towel (owner note on v1: 'when he wipes it down, show a microfiber'): plush blue pad, contrasting
+    yellow edge band, nap stripes and a sewn-in tag so it reads as a detailing microfiber, not a rag. Local XZ is the pad
+    face, -Y faces the camera / away from the panel. Powder specks (child 'mf_dirt') show once it is dirty."""
     g = empty("CLOTH")
-    box("cloth_m", (0.16, 0.04, 0.12), (0, 0, 0), mat("cloth"), g, bevel=0.02, ol=0.008)
+    box("mf_pad", (0.36, 0.024, 0.26), (0, 0, 0), mat("mf"), g, bevel=0.035, ol=0.008)
+    box("mf_edge", (0.38, 0.012, 0.28), (0, 0.007, 0), mat("mf_edge"), g, bevel=0.03, ol=0.006)
+    for i, dz in enumerate((-0.06, 0.0, 0.06)):
+        box(f"mf_nap{i}", (0.29, 0.004, 0.008), (0, -0.013, dz), mat("mf_d"), g, rot=(0, 28, 0))
+    box("mf_tag", (0.05, 0.004, 0.034), (0.14, -0.014, -0.1), mat("mf_tag"), g)
+    d = empty("mf_dirt", g)
+    rng = random.Random(21)
+    for i in range(16):
+        cyl(f"mf_sp{i}", rng.uniform(0.008, 0.016), 0.003, (rng.uniform(-0.16, 0.16), -0.015, rng.uniform(-0.11, 0.11)),
+            mat("powder"), d, axis="Y", seg=10)
     return g
 
 
 CLOTH = build_cloth()
 
 
-def cloth_at(p, dirt):
-    CLOTH.matrix_world = Matrix.Translation(Vector(p))
-    CLOTH.children[0].data.materials[0] = mat("cloth_dirty") if dirt > 0.5 else mat("cloth")
+def cloth_at(p, dirt, yaw=0.0, hang=False):
+    """Place the microfiber at p. yaw turns the pad face about Z (90 = facing +X, e.g. the grille); hang drapes it below
+    a holding hand instead of pressing it flat."""
+    off = Vector((0, 0, -0.12)) if hang else Vector((0, 0, 0))
+    CLOTH.matrix_world = Matrix.Translation(Vector(p) + off) @ Matrix.Rotation(math.radians(yaw), 4, "Z")
+    dirty = dirt > 0.5
+    for c in CLOTH.children:
+        if c.name.startswith("mf_pad"):
+            c.data.materials[0] = mat("mf_dirty") if dirty else mat("mf")
     set_vis(CLOTH, True)
+    set_vis(bpy.data.objects["mf_dirt"], dirty)
+
+
+def grille_flecks(k):
+    """Small powder bits stuck in the grille (owner note on v1: 'also show small bits on the grille'): pale flecks on the
+    grille face and the lip, first k share of them still there."""
+    bpy.context.view_layer.update()
+    rng = random.Random(9)
+    pts = []
+    for obn, hy, hz, n in (("grille", 0.29, 0.065, 60), ("ep_lip", 0.75, 0.035, 28)):
+        ob = bpy.data.objects[obn]
+        mw = ob.matrix_world
+        hx = ob.dimensions.x / 2 + 0.003
+        nrm = (mw.to_3x3() @ Vector((1, 0, 0))).normalized()
+        for _ in range(n):
+            pts.append((mw @ Vector((hx, rng.uniform(-hy, hy), rng.uniform(-hz, hz))), nrm, rng.uniform(0.009, 0.02)))
+    rng.shuffle(pts)
+    return pts[:max(0, int(len(pts) * cl(k)))]
 
 
 def hold_prop(prop, ch, side, up=Vector((0, 0, 0.04)), face=None):
@@ -1146,11 +1185,12 @@ def anim_G(fr):
     sp = grille_powder()
     k_left = lerp(1.0, 0.45, ease((t - T(7)) / 1.6))
     draw_powder(sp, k_left, name="gpowder")
+    draw_powder(grille_flecks(k_left), 1.0, name="gflecks")
     p = Vector((2.06, -0.35 + 0.18 * math.sin(t * 5), 0.52))
     char_pose(GUS, t, (2.75, 0.55, 0), (2.05, -0.1), look=(0, 0.35), head=(-10, 0, 0))
     aim_arm(GUS, "R", p)
     hand_to(GUS, "R", p + Vector((0.03, 0, 0)))
-    cloth_at(p + Vector((0.02, 0, 0)), 1.0)
+    cloth_at(p + Vector((0.035, 0, 0)), 1.0, yaw=90)
     cam_push((3.75, -2.15, 0.85), (2.0, -0.3, 0.55), 30, 0.05 * ease(u))
 
 
@@ -1165,7 +1205,7 @@ def anim_H(fr):
               armL=(lerp(-25, -150, up), 0, 18), armR=(lerp(-25, -150, up), 0, -18))
     char_pose(GUS, t, (-0.4, -1.65, 0), (0.6, -1.9), armL=(4, 0, 6), armR=(-20, 0, -8), elbowR=-30)
     bpy.context.view_layer.update()
-    cloth_at(GUS.hands["R"].matrix_world.translation + Vector((0, 0, 0.02)), 1.0)
+    cloth_at(GUS.hands["R"].matrix_world.translation + Vector((0, -0.03, 0.02)), 1.0, hang=True)
     cam_push((1.4, -4.2, 1.2), (0.1, -1.7, 0.8), 30, 0.05 * ease(u))
 
 
@@ -1187,7 +1227,7 @@ def anim_I(fr):
     bpy.context.view_layer.update()
     hp = GUS.hands["R"].matrix_world.translation
     if hide < 0.8:
-        cloth_at(hp + Vector((0, 0, 0.02)), 1.0)
+        cloth_at(hp + Vector((0, -0.03, 0.02)), 1.0, hang=True)
     char_pose(PIP, t, (1.35, -2.15, 0), (0.8, -0.9), head=(-8, 0, 0), look=(-0.2, 0.3))
     cam_push((1.6, -4.5, 1.95), (0.3, -0.8, 0.7), 26, 0.04 * ease(u))
 
