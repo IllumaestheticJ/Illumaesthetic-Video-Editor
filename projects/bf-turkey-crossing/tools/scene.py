@@ -130,12 +130,28 @@ for i in range(-30, 70):
 TREE_COLS = ['#d9661f', '#eba12f', '#bf3a1f', '#d1b23a', '#7a9236', '#e07b2a']
 trunk = mat('trunk', '#5b3a24', 0.8)
 tmats = [mat(f'leaf{i}', c, 0.75) for i, c in enumerate(TREE_COLS)]
+# v0.5 (owner 2026-11-18): background trees use the OSRS tree crowns from the owner's turkey.blend (extracted to
+# userblend/osrs_crowns.blend; owner states Jagex allows fan-made/promotional use), each on a simple low-poly brown trunk.
+OSRS_TREES = os.environ.get('OSRS_TREES')
+CROWNS = []
+if OSRS_TREES:
+    _keep = [f'osrs_tree_{k:02d}' for k in (0, 3, 6, 7, 8, 13, 14, 17, 19, 21, 30, 36, 38, 39)]
+    with bpy.data.libraries.load(OSRS_TREES, link=False) as (_src, _dst):
+        _dst.meshes = [n for n in _src.meshes if n in _keep]
+    CROWNS = [m_ for m_ in _dst.meshes if m_ is not None]
+    trunk = mat('osrs_trunk', '#5c3d22', 0.9)
 for i in range(150):
     s = 1 if i % 2 else -1
     x = s * rnd.uniform(6.0, 34.0); y = rnd.uniform(-70, 260)
     if abs(x) < 9 and -8 < y < 8:
         x = s * rnd.uniform(9, 20)
     h = rnd.uniform(1.6, 3.0); r = rnd.uniform(1.3, 2.6)
+    if CROWNS:
+        th = rnd.uniform(0.9, 1.6); k = rnd.uniform(0.9, 1.45)
+        add(lambda: bpy.ops.mesh.primitive_cylinder_add(vertices=6, radius=0.16 * k, depth=th + 0.4), 'trunk', (x, y, (th + 0.4) / 2), m=trunk)
+        cr = bpy.data.objects.new('crown', CROWNS[i % len(CROWNS)]); C.objects.link(cr)
+        cr.location = (x, y, th); cr.scale = (k, k, k); cr.rotation_euler = (0, 0, rnd.random() * 6.28)
+        continue
     add(lambda: bpy.ops.mesh.primitive_cylinder_add(vertices=7, radius=0.18, depth=h), 'trunk', (x, y, h / 2), m=trunk)
     if rnd.random() < 0.65:
         add(lambda: bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=1), 'crown', (x, y, h + r * 0.75),
@@ -297,14 +313,32 @@ if SHOT in ('s5_poof', 's6_feath'):
                 key(pf, 'scale', f, Vector((rr, rr, rr)) * max(g, 0.0001) * (1 + 0.25 * eout(t / 20)))
                 key(pf, 'location', f, HIT + d * (1 + 0.8 * eout(t / 12)) + Vector((0, 0, 0.35 * ease(t / 30))))
     fm = feather_mesh('flyfeather')
+    # v0.5 (owner 2026-11-18): the owner's OSRS feather + bones models (extracted from the owner's turkey.blend into
+    # /home/user/media/.../userblend/osrs_props.blend; owner states Jagex allows fan-made/promotional use). Feathers fly in the burst,
+    # the bones lie on the road where the turkey stood.
+    PROPS = os.environ.get('OSRS_PROPS')
+    OSRS_F = []
+    if PROPS:
+        with bpy.data.libraries.load(PROPS, link=False) as (src, dst):
+            dst.objects = [n for n in src.objects if n in ('Feather', 'Bronze feather', 'Orange feather', 'Golden feather', 'Bones')]
+        for ob in dst.objects:
+            if ob is None:
+                continue
+            if ob.name.startswith('Bones'):
+                C.objects.link(ob); ob.location = (LANE - 0.05, 0.12, 0.004); ob.rotation_euler = (0, 0, math.radians(28))
+                ob.scale = (2.2, 2.2, 2.2)
+            else:
+                OSRS_F.append(ob.data)
     fmats = [toon(f'ff{c}', c, 0.65) for c in TAIL_COLS + ['#7a4a2a', '#f2dcae', '#6b4126']]
     N_BURST, N_RAIN = 70, 26
     feathers = []
     for i in range(N_BURST + N_RAIN):
-        o = bpy.data.objects.new(f'feather{i}', fm); C.objects.link(o); o.data.materials.append(fmats[i % len(fmats)])
-        # all feathers share one mesh, so per-object materials go on the object slot
-        o.material_slots[0].link = 'OBJECT'; o.material_slots[0].material = fmats[i % len(fmats)]
-        o.rotation_mode = 'XYZ'; L = rnd.uniform(0.17, 0.3); o.scale = (L, L, L)
+        if OSRS_F:
+            o = bpy.data.objects.new(f'feather{i}', OSRS_F[i % len(OSRS_F)]); C.objects.link(o)
+        else:
+            o = bpy.data.objects.new(f'feather{i}', fm); C.objects.link(o); o.data.materials.append(fmats[i % len(fmats)])
+            o.material_slots[0].link = 'OBJECT'; o.material_slots[0].material = fmats[i % len(fmats)]
+        o.rotation_mode = 'XYZ'; L = rnd.uniform(0.17, 0.3) / (0.38 if OSRS_F else 1.0); o.scale = (L, L, L)
         if i < N_BURST:
             d = Vector((rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.uniform(0.1, 1.6))).normalized()
             p = HIT.copy(); v = d * rnd.uniform(3.0, 7.5) / FPS; t0 = IMPACT
@@ -331,7 +365,7 @@ if SHOT in ('s5_poof', 's6_feath'):
                 p += v * st + Vector((0.006 * math.sin(sim * 0.21 + ph), 0.004 * math.cos(sim * 0.17 + ph), 0)) * st
                 rot += wv * (0.6 + v.length * 20) * st
                 if p.z <= 0.012:
-                    p.z = 0.012; landed = True; rot = Vector((math.radians(90), 0, rot.z))
+                    p.z = 0.012; landed = True; rot = Vector((0 if OSRS_F else math.radians(90), 0, rot.z))
             sim += st
 
 # ------------------------------------------------------------------ cameras (keyed per frame)
