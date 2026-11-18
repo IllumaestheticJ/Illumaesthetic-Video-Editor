@@ -1,3 +1,26 @@
+# v1.2 (user approved the slow-for-text fix: "yes")
+- shots.py LEN S1 168 (closed box + title holds one more bar; sweep 109-141, lid 141-163), S3 141, S4 284.
+- composite.py: timeline cuts 168 239 380 664 734 805 876 947, end 1089 (36.3 s); kick errors measured -6..+14 ms.
+  Price card: RETAIL $600 f8-142 (4.5 s), loading f98-142, $385 + struck $600 f142-284 (4.4 s).
+- render_hq12.sh: S1/S3/S4 at 1080x1920 32 spp true 60 fps, queued behind the v1.1 render (one Blender job at a time).
+  1186 frames at ~22 s/frame, about 7 h.
+
+# Text-timing audit (owner rule 2026-11-18 "slow down for text"; v1.1 60 fps as rendered, cuts 30 fps 97/168/239/380)
+Readable = fully in -> cut/out. Minimum: 2.5 s for 1-3 words + 0.4 s/extra word; >= 3 s for any price or was/now pair.
+| text | readable | min | result |
+|---|---|---|---|
+| S1 title "EPSILON+ BLACK FRIDAY / WHAT $385 GETS YOU" | 2.77 s (fr 14-97) | 3.0 s (price) | FAIL -0.23 s |
+| S2-3 receipt "SPORT WING RETAIL $500" | 7.4 s (fr 16-239) | 3.0 s | ok |
+| S3 receipt "TRUNK LIP RETAIL $100" | 1.9 s (fr 14-71 of S3) | 3.0 s | FAIL (repeated on the price card, but its own box is short) |
+| S4 "COMBO RETAIL $600" before the strike | 2.1 s (fr 8-71) | 3.0 s | FAIL |
+| S4 was/now "$600 struck -> $385" | 2.0 s (pop settles fr 80-141) | 3.0 s | FAIL |
+| End card logo + SPORT WING + TRUNK LIP / $385 / BLACK FRIDAY / www.epsilon.plus | 4.3 s | 3.4 s | ok |
+Proposed v1.2 fix (needs user approval; the v1.1 render was already in flight):
+- S1: title fully in by fr 6 and the shot holds 1 bar longer (+71 fr) -> ~5.2 s.
+- S3: + 1 bar (+71) with the parts rise slowed -> LIP line ~4.3 s.
+- S4: + 1 bar before the strike and + 1 bar after (4 bars, 283 fr): RETAIL $600 ~4.5 s, was/now ~4.4 s; loading bar spans the extra bar.
+- Cuts stay on measured kicks (bar = 70.7 fr); total grows 26.9 s -> ~36.3 s. Re-render S1/S3/S4 at 60 fps ~2.3 h.
+
 # v1.0 (user: "the colors in the beginning are super unnatural - make it the color of an actual cardboard box" +
 # "with an epsilon logo on it"; owner: Akira supplied)
 - Box: kraft corrugated cardboard (procedural fibre noise + bump), clear tan packing tape along the lid seam, Epsilon+
