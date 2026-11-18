@@ -234,3 +234,21 @@ Limit: this is an unsigned distance, so it shows gaps, not how deep a part clips
 
 ### v0.11 withdrawn (owner, 2026-11-18: "undo the changes for this one")
 The slow-reader holds are NOT applied to this video. **v0.10 (29.3 s, `tools/compose_v10.py`) is the current version.** `compose_v11.py` removed (it is in git history).
+
+### Shared Drive "Claude Videos" (2026-11-18, scripts/vdrive.py)
+- Restart cache `work/bf-paint-match-roulette/`: `ttp_fl`, `ttp_fe`, `ttp_de5`, `ttp_wb` (turntable passes b/w/m/p), `assets` (music, sfx, logo, plate, colours.json), `glb`, `akira_font`. After a container restart: `python scripts/vdrive.py restore bf-paint-match-roulette`.
+- Delivery: v0.10 in `deliveries/bf-paint-match-roulette/`.
+- Local clean-up: kept v0.8, v0.9, v0.10 mp4s; removed older mp4s, the superseded turntables (`tt`, `ttk`, `ttp/de4`) and test stills.
+
+## v0.12 - sound effects put on the beat (owner: "does the beat still match up? looks like it desyncs around halfway")
+Measured (2026-11-18):
+- Music: steady 140 BPM over the 29 s used, no drift (grid within ~15-20 ms of the hits all the way through).
+- Picture: every colour change / navigation cut within one frame (+-15 ms) of the grid, start to end. No drift.
+- **Bug:** the recovered menu sounds have ~68-70 ms of lead-in before their click; the code assumed 6 ms, so every
+  click sounded 62 ms after its cut since v0.3. From about the middle the riff becomes syncopated (strong hits on
+  the "and" / 16ths, tempogram shows 185 BPM = dotted-8th accents), so there is no on-beat hit to mask the late click
+  and it reads as drifting. Fix: `compose_v12.py` measures each sample's attack and places the transient on the cut
+  (measured after: 0 ms error).
+- Other sections of the track were checked for a straighter 29 s: the first 29 s (current) is already the best;
+  the song repeats about every 55 s.
+- Picture identical to v0.10. Checks: 29.30 s, -14.0 LUFS, -1.6 dBFS, safe-zone sheet clean.

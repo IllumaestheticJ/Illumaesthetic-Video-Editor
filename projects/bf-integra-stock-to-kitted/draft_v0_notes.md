@@ -1,4 +1,13 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.13 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.14 notes
+
+**v0.14 (2026-11-18):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.14.mp4` (16.9 s).
+- **Intro titles:**
+  - "ACURA INTEGRA DE4" (Unbounded 600, on a charcoal plate) pops in at 0.2 s as the context line.
+  - "EPSILON LIP KIT" (Akira, white on the sale-red badge) slams in at 1.1 s as the hook.
+  - Both pop out at 3.6 s, and both are in the safe zone.
+- **OEM paint cycle:** in the last scene the kit lands in gloss black, then changes paint on every beat from beat 5. The order is Performance Red Pearl, Apex Blue Pearl, Liquid Carbon Metallic, Lunar Silver Metallic, Majestic Black Pearl, Double Apex Blue Pearl, Urban Gray Pearl and Solar Silver Metallic.
+  - The paints come from the epsilon.plus lookbook paint list for the DE. Platinum White Pearl is skipped because it disappears on the white car.
+  - Method: the black-parts and white-parts GLB passes (`render/s5_glb_partswhite`, `spec_s5_glb_partswhite.json`) are combined as b + (w - b) * paint in linear light.
 
 **v0.13 (2026-11-18):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.13.mp4` (16.9 s).
 - **Stock pass camera:** the user said the whole car was never shown and the orbit was awkward. The new path (`spec_s1_fullcar.json`, render `render/s1_fullcar/`):
