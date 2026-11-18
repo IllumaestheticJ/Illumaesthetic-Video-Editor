@@ -1410,3 +1410,8 @@ lands here automatically. Agents must read this whole file before editing.
   - Check: list every text box with its readable duration (t1 - t0, minus the fades) and fail any below the minimum.
 
 - **[comms] Times in Pacific (owner, 2026-11-18):** give every time and ETA to the owner in **Pacific time** (PT; PST in winter = UTC-8), never UTC. Always follow the PT time with how far away it is: **"ETA ~11:45 AM PT (~1 h 20 min from now)"**. Convert with `TZ=America/Los_Angeles date`.
+
+- **[workflow] Shared Drive "Claude Videos" (owner, 2026-11-18):** use `scripts/vdrive.py`. It needs the GOOGLE_SERVICE_ACCOUNT_JSON env var and `pip install google-api-python-client google-auth`; it works with no approval prompts.
+  - **Restart protection:** after every render chunk, or after any download or prep that took more than about 10 minutes, run `python scripts/vdrive.py save <project> <name> <paths>`. Use one archive per shot or chunk: prepped scans, frame folders, licensed fonts. After a container restart, run `restore <project>` first.
+  - **Deliveries:** `python scripts/vdrive.py deliver <project> out.mp4 --notes NOTES.md`. It keeps the **3 newest versions** per reel; older ones go to the drive's bin (kept 30 days). Give the owner the printed Drive link.
+  - **Clean up old piles:** delete superseded renders and mp4s locally, and in any Drive or Dropbox delivery folders, keeping the newest 3 per reel.
