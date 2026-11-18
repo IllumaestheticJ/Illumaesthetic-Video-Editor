@@ -63,9 +63,16 @@ Media (not committed): `/home/user/media/pip-gus-ep4-print-the-scan/photos/IMG_0
 |---|---|---|
 | 1 | IMG_0763 (or 0764), photo | the crash: front bumper torn off |
 | 2 | IMG_0770, photo | scanning the stripped front end (bumper off) |
-| 3 | **hard 1:1 cut on the beat** -> render of `GT350 (DONE) Bumper Off Hood Closed.stl` from IMG_0770's solved camera, in the owner's Blender look | the same car, same framing, now the scan |
-| 4 | owner's Blender view IMG_0774 (green bumper on the scan) | the reverse-engineered bumper on the scan (remake the original) |
-| 5 | owner's Blender views IMG_0776 -> IMG_0775 (tan lip on the scan) | a new lip designed on the scan, hugging the curve (design a new part on it) |
+| 3 | **hard cut on the beat** -> render of the bumper-off scan (`GT350_Lip.blend`), same front-right corner as IMG_0770, slow push | the same car, now the scan |
+| 4 | same render, continuing | the reverse-engineered bumper (green) slides on and settles (remake the original) |
+| 5 | render, low three-quarter | the designed lip (tan) slides in under the bumper and hugs the curve (design a new part on it) |
+
+Renders use the owner's `GT350_Lip.blend` (Drive, Ron's "GT350 Bumper" folder, uploaded 2026-11-18): the car scans, the
+reverse-engineered bumper and the lip are aligned there. The look matches the owner's screenshots (Workbench studio light,
+lavender scan, green bumper, tan lip, dark grey background). `tools/partB_render.py`.
+The cut from IMG_0770 is a hard cut on the beat, **not a true 1:1**. The photo is a close, steep 1440 px still of a partial
+corner, and the solve didn't hold (raycasts fell through scan gaps, and the features were ambiguous). A true 1:1 needs a video
+frame or a full-res photo with the whole corner in view.
 
 - One shot per beat (about 1 s each), hard cuts on the beat. No dissolves and no text.
 - The 1:1 cut uses the *bumper-off* scan state, which is what IMG_0770 shows, so car and scan match exactly.
