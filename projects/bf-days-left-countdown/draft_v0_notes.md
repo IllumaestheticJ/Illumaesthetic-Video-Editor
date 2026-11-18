@@ -120,3 +120,12 @@ User: "have it be Black friday sale text and then a car driving over it and the 
   - Both run at -13.5 LUFS with a -2.6 dBFS peak.
   - The safezone sheets are clean: text x 80-882, and only the moving car crosses the rails.
 - A container restart interrupted the drift render at f108. `drive_over.py` now skips frames already on disk (`use_overwrite=False`), and the drift render resumed from there.
+
+## v0.7 (2026-11-18): text centred (user: "center the text")
+- The floor text is centred in the frame. Measured centres:
+  - "BLACK FRIDAY SALE": x 537, y 959.
+  - "3 DAYS LEFT": x 540, y 963.
+- Text width went from 4.6 to 4.35, so the frame-centred block stays inside the x 920 rail (x 156-917). Camera: shift_x 0, shift_y -0.0262.
+- End card: centred on x 540 / y 960, block x 180-900 / y 832-1087.
+- Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.7_drive.mp4` and `_v0.7_drift.mp4`.
+- Checks: -13.5 LUFS with a -2.6 dBFS peak. The safezone sheets are clean; only the moving car crosses the rails.

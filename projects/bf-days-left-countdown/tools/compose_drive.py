@@ -55,9 +55,9 @@ for f in range(END):
     else:
         fr = Image.new("RGBA", (W, H), (0, 0, 0, 255))
         t = 0.35 + 0.65 * (f - C3) / 6
-        paste_center(fr, bf_lay, SAFE_CX, 790, alpha=ease_out(t))
-        paste_center(fr, logo, SAFE_CX, 900, scale=1.06 - 0.06 * ease_out(t), alpha=ease_out(t))
-        paste_center(fr, url_lay, SAFE_CX, 1010, alpha=ease_out((f - C3 - 4) / 6))
+        paste_center(fr, bf_lay, SAFE_CX, 850, alpha=ease_out(t))
+        paste_center(fr, logo, SAFE_CX, 960, scale=1.06 - 0.06 * ease_out(t), alpha=ease_out(t))
+        paste_center(fr, url_lay, SAFE_CX, 1070, alpha=ease_out((f - C3 - 4) / 6))
         fade = min(1, (END - 1 - f) / 14)
         if fade < 1:
             fr.alpha_composite(Image.new("RGBA", (W, H), (0, 0, 0, round(255 * (1 - fade)))))
