@@ -27,3 +27,14 @@ Defaults used, pending the owner (shotlist.md open questions):
 - Logo on the 21.630 hit; WWW.EPSILON.PLUS in at f330 and readable 2.6 s before a 0.4 s fade.
 - Total 14.0 s. Loudness -14.1 LUFS, peak -4.2 dBFS. Safe-zone text boxes OK.
 - Output: `/home/user/media/work/out/bf-turkey-crossing_v0.2.mp4`.
+
+## v0.3 (owner: low-poly brown hen with a turkey tail + greeting/sale copy)
+- **Hen:** `build_turkey_hen` (TURKEY_STYLE=hen). It's our own faceted model with an 11-slab turkey fan tail.
+- **Card A:** "WISHING OUR DRIVERS A" (Unbounded 500) + HAPPY / THANKSGIVING (Akira), 18.023-21.181.
+- **Card B:** BLACK / FRIDAY / SALE (Akira) + "UNTIL (END DATE)" placeholder (Unbounded 500, set with env BF_UNTIL), 21.181-25.239.
+- **End card:** logo on 25.239, URL 0.2 s later, ends 27.04 + 0.4 s fade.
+- **Checks:** 16.6 s, -13.9 LUFS, peak -4.1 dBFS, safe-zone text boxes OK.
+- **Output:** `/home/user/media/work/out/bf-turkey-crossing_v0.3.mp4`.
+- **Rebuild:**
+  1. `TURKEY_STYLE=hen RDIR=.../renders_v03 tools/render_v0.sh`
+  2. `BF_UNTIL="UNTIL <date>" python tools/compose.py --tag v0.3x --renders .../renders_v03`
