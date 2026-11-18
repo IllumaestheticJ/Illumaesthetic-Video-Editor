@@ -28,8 +28,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from fonts impor
 M = "/home/user/media/bf-clearance-shelf-drop"
 GLB = {"integra": f"{M}/glb/eps-acura-integra-de-v29.glb", "grv1": f"{M}/glb/eps-toyota-gr-corolla-v23.glb"}
 PART = {"integra": "part_duckbill", "grv1": "part_front_lip"}
-LEN = {"s1": 150, "s2": 220, "s3": 73, "s4": 219, "s5": 147}   # v0.9 slow-reader timing: cuts on bar kicks 5.00/12.32/14.76/22.08/26.96 s (frames 150/370/443/662/809)
-FLIP = {"s2": 110, "s4": 110}   # v0.9: flip 6 beats in (8.66 s / 18.42 s): front readable ~3.1 s, back ~3.4 s before the 1:1 cut
+LEN = {"s1": 95, "s2": 165, "s3": 73, "s4": 165, "s5": 110}   # v0.9b (revised rule): cuts on beats 3.17/8.66/11.10/16.59/20.25 s (frames 95/260/333/498/608)
+FLIP = {"s2": 92, "s4": 92}   # v0.9b: flip 5 beats in (6.22 s / 14.15 s): front readable ~2.5 s, back ~2.3 s (min 2.2)
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
@@ -440,7 +440,7 @@ def aisle():
     em = mat("sign", (1, 1, 1), emit=(1, 1, 1), estr=0.0)
     t.data.materials.append(em)
     p = em.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
-    for f, v in ((1, 0.0), (55, 0.0), (56, 12.0)):
+    for f, v in ((1, 0.0), (36, 0.0), (37, 12.0)):   # v0.9b: sign on with the 2nd lamp bank (1.23 s) -> 1.9 s readable
         p.default_value = v; p.keyframe_insert("default_value", frame=f)
     # Epsilon+ wordmark lightbox under the sign (branding replaces the removed characters)
     img = bpy.data.images.load(f"{M}/logo/Epsilon+ Logo.png")
@@ -454,7 +454,7 @@ def aisle():
     except Exception:
         pass
     es = pb.inputs["Emission Strength"]
-    for f, v in ((1, 0.0), (37, 0.0), (38, 3.0)):
+    for f, v in ((1, 0.0), (19, 0.0), (20, 3.0)):    # v0.9b: wordmark on with the 1st lamp bank (0.67 s) -> 2.5 s readable
         es.default_value = v; es.keyframe_insert("default_value", frame=f)
     LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.45"))
     bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, LOGO_Z), rotation=(math.pi / 2, 0, 0))
