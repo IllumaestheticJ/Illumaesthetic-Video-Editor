@@ -697,8 +697,8 @@ def shot_E13(t):
     set_vis(NEWBUMPER, True)
     set_vis(PILE, False)
     # presentation shot, straight at the car's new front: Pip one side (thrilled), Gus the other (dry, to camera)
-    P(PIP, "PIP", t, "excited", seed=2, loc=(3.15, -1.08, 0), rz=70, head=(-12, 0, 0), armL=(-150, 0, -20),
-      armR=(-150, 0, 20), look=(-0.3, 0.6))
+    # owner note v2: Pip's face must be visible -> Pip inside the frame, 3/4 to camera, glancing at the bumper
+    P(PIP, "PIP", t, "excited", seed=2, loc=(3.75, -0.95, 0), rz=50, head=(-12, 0, 0), armL=(-150, 0, -20), armR=(-150, 0, 20), look=(-0.2, 0.4))
     P(GUS, "GUS", t, "annoyed" if t > L[17]["t0"] - 0.2 else "neutral", seed=5, loc=(2.8, 0.6, 0),
       rz=lerp(130, 100, seg(t, L[17]["t0"] - 0.3, L[17]["t0"] + 0.2)), head=(0, 0, 0), look=(0.0, 0.0))
     look(cam, (5.9, -1.35, 1.55), (2.45, 0.05, 0.55), 30)
