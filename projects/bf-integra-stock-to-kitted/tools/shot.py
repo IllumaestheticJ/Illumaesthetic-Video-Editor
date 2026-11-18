@@ -137,6 +137,37 @@ LIV_Y0, LIV_LEN, LIV_Z0, LIV_H = -2.685, 5.37, 0.067, 1.541
 TILE_W = 2.3
 
 
+PAINTS = {}
+
+
+def mat_paint(kind):
+    """bf-integra v0.11 (user: colour the GLB like an already-rendered one - car white, parts black). Same recipe as
+    projects/bf-paint-match-roulette/tools/render_turntable.py: gloss paint with a clear coat; the kit in its standard
+    black finish (base 0.012, roughness 0.42). White = lookbook 'Platinum White Pearl' #f2f0e9."""
+    if kind in PAINTS:
+        return PAINTS[kind]
+    m = bpy.data.materials.new("paint_" + kind); m.use_nodes = True
+    b = m.node_tree.nodes["Principled BSDF"]
+    if kind == "white":
+        b.inputs["Base Color"].default_value = (0.888, 0.871, 0.815, 1); b.inputs["Roughness"].default_value = 0.3
+    else:
+        b.inputs["Base Color"].default_value = (0.012, 0.012, 0.012, 1); b.inputs["Roughness"].default_value = 0.42
+    try:
+        b.inputs["Coat Weight"].default_value = 1.0; b.inputs["Coat Roughness"].default_value = 0.05
+    except Exception:
+        pass
+    PAINTS[kind] = m
+    return m
+
+
+def repaint(objs, kind):
+    """Keep the GLB's own materials (glass, trim, lamps, tyres); swap only its 'paint' slots."""
+    for o in objs:
+        for sl in o.material_slots:
+            if sl.material is not None and sl.material.name.split(".")[0] == "paint":
+                sl.material = mat_paint(kind)
+
+
 def mat_simple(name, rgb, rough, metal=0.0):
     m, nt, out = sr.new_mat(name)
     p = sr.principled(nt, rgb + (1,), rough, metal)
@@ -301,6 +332,9 @@ def main():
             for o in objs:
                 o.data.materials.clear(); o.data.materials.append(lm)
             continue
+        if base_mats.get(gi) in ("white", "black"):  # bf-integra v0.11: GLB native materials + paint colour
+            repaint(objs, base_mats[gi])
+            continue
         m = grey if spec.get("base_color") == "grey" else (mat_hl(hl, hl_all, fps) if (hl or hl_all) else silver)
         for o in objs:
             o.data.materials.clear()
@@ -313,7 +347,12 @@ def main():
         m = mat_check(colors[p["color"]]) if p.get("color") else (
             mat_hl(p.get("hl"), hl_all, fps) if (p.get("hl") or hl_all) else silver)
         groups.append((p.get("name"), objs, None))
-        for o in objs:
+        if p.get("mat") in ("white", "black"):
+            repaint(objs, p["mat"])
+            objs_done = True
+        else:
+            objs_done = False
+        for o in ([] if objs_done else objs):
             o.data.materials.clear()
             k = o.get("mat") or p.get("mat")
             o.data.materials.append(mat_livery(liv["sweep"], fps) if k == "livery" else (named_mat(k) if k else m))

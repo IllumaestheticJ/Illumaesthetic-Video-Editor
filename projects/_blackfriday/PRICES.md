@@ -46,4 +46,4 @@ Other figures in the sheet:
 - **Rules tab:** paint-match charges stay at full price.
 - **Free gift:** the Epsilon Basic T-shirt is suggested as a free gift on orders over $250, but this is a suggestion only. Ask the owner before showing it.
 
-The sale start and end dates are still not set, so put no dates on screen.
+**Sale end date: NOV 30 (owner, 2026-11-18, via BF10).** Use "UNTIL NOV 30" or "ENDS NOV 30". The start date and the end time of day are still not set, so put no start date or time on screen.

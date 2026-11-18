@@ -32,6 +32,7 @@ SH = {'s1_cross': (0, 55), 's2_look': (55, 108), 's3_car': (108, 135), 's4_eyes'
 # owner rule 2026-11-18 (slow down under text): s6 plays the feather fall at half speed - 54 sim frames over 108 video frames
 SLOW_AT, SLOW = 216, 0.5
 F0, F1 = SH[SHOT]
+S0, S1 = F0, F1          # nominal shot window (camera path); an override range past S1 holds the end pose
 if len(a) > 5:
     F0, F1 = int(a[4]), int(a[5]) + 1
 IMPACT = 162
@@ -351,7 +352,7 @@ def lerp(p, q, u):
 
 HZ = 0.13 if STYLE == 'hen' else 0.0   # the hen's head sits ~13 cm lower than the cute turkey's
 for f in range(F0, F1):
-    u = (f - F0) / max(F1 - F0 - 1, 1)
+    u = min(1.0, (f - S0) / max(S1 - S0 - 1, 1))
     roll = 0
     if SHOT == 's1_cross':
         cd.lens = 32
