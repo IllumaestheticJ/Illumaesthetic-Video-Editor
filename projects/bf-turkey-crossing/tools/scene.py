@@ -214,6 +214,16 @@ for f in range(F0, F1):
 before = set(bpy.data.objects)
 bpy.ops.import_scene.gltf(filepath=GLB)
 imported = [o for o in bpy.data.objects if o not in before]
+# BF6 fitment fix (owner via parent, 2026-11-18): the lookbook V2 spats hang ~16 mm under the bumper; seat them with BF6's fit
+# (2 deg pitch about the part centre, +10 mm rearward, +14 mm up; projects/bf-gr-corolla-track/spat_v2_fit.json)
+import json as _json
+_f = _json.load(open('/home/user/Illumaesthetic-Video-Editor/projects/bf-gr-corolla-track/spat_v2_fit.json'))
+bpy.context.view_layer.update()
+for _o in imported:
+    if _o.name.split('.')[0] == 'part_rear_spats_v2':
+        _piv = Vector(_f['pivot'])
+        _T = Matrix.Translation(_piv + Vector((0, _f['dy'], _f['dz']))) @ Matrix.Rotation(math.radians(_f['pitch']), 4, 'X') @ Matrix.Translation(-_piv)
+        _mw = _o.matrix_world.copy(); _o.parent = None; _o.matrix_world = _T @ _mw
 car = bpy.data.objects.new('CAR', None); C.objects.link(car)
 KEEP = {'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'}
 pu = _metal('pu_black', '#141414', 0.55, 0.0)

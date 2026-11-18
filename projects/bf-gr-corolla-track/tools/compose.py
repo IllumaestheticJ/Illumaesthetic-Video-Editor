@@ -8,14 +8,14 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.8.mp4')
-ap.add_argument('--tag', default='v0.8'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v08'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v1.0.mp4')
+ap.add_argument('--tag', default='v1.0'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v10'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [6, 10, 12, 14, 24, 30, 40, 46, 48]   # v0.8: one continuous opening (no cut at kick 4), cards 10 kicks
+CUTK = [6, 14, 17, 21, 36, 44, 60, 68, 70]   # v1.0 owner rule: text sections long enough for slow readers
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[54] * FPS) + 30          # logo holds 6 kicks (to kick 54), then a 1 s fade
+END = round(kicks[76] * FPS) + 30          # logo holds 6 kicks (to kick 76), then a 1 s fade
 ORDER = ['s12_open', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
@@ -69,30 +69,25 @@ f_new = ImageFont.truetype(AK, 42)
 f_pct2 = ImageFont.truetype(AK, 96)
 
 
+f_kit2 = ImageFont.truetype(AK, 46)
+
+
 def card_overlay(img, shot, i, n):
-    """Phase A (over the dark car): BLACK FRIDAY + 'V2 KIT' / 'V1 KIT' big.  Phase B (after the lift): the offer
-    ('30% OFF' / 'UP TO 45% OFF') and one row per part: name, retail price slashed in red, BF price.
-    Everything inside x 48-920, y 285-1440 (safe zones), between the lip (top) and the skirts (bottom)."""
+    """v1.0 (owner rule: slow readers). BLACK FRIDAY stays up the whole card. Over the dark car the kit glows (no new
+    text). After the lift: 'V2 KIT' / 'V1 KIT UP TO' + the offer, then one row per part - retail price slashed in red,
+    BF price (sheet). Rows are fully in by ~1.2 s into the price phase and then hold >= 3 s.
+    Everything inside x 48-920, y 285-1440, between the lip (top) and the skirts (bottom)."""
     ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
     out = 1 - ease((i - (n - 5)) / 4)
     v2 = shot == 's6_cardv2'
     text_c(d, 330, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
-    F0, F1 = round(0.24 * n), round(0.42 * n)   # lift window, same as shot.py card_lineup
-    a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
-    if a_v > 0:
-        ver = 'V2' if v2 else 'V1'
-        wv = d.textlength(ver, font=f_ver); wk = d.textlength('KIT', font=f_kit); gap = 24
-        x0 = 484 - (wv + gap + wk) / 2; y0 = 385
-        d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
-        d.text((x0 + wv + gap, y0 + 112), 'KIT', font=f_kit, fill=TXT + (round(255 * a_v),))
+    F1 = 65                                   # end of the lift, same as shot.py card_lineup
     t0 = F1 - 4
     a_p = ease((i - t0) / 4) * out
     if a_p > 0:
-        if v2:
-            text_c(d, 690, '30% OFF', f_pct2, round(255 * a_p), cx=484); y_rows = 818
-        else:
-            text_c(d, 662, 'UP TO', f_upto, round(255 * a_p), cx=484)
-            text_c(d, 704, '45% OFF', f_pct2, round(255 * a_p), cx=484); y_rows = 816
+        text_c(d, 668, 'V2 KIT' if v2 else 'V1 KIT  UP TO', f_kit2, round(255 * a_p), cx=484)
+        text_c(d, 724, '30% OFF' if v2 else '45% OFF', f_pct2, round(255 * a_p), cx=484)
+        y_rows = 846
         for r, (name, old, new) in enumerate(PRICES[shot]):
             tr = t0 + 6 + 7 * r                       # rows stagger in
             a_r = ease((i - tr) / 4) * out
@@ -132,10 +127,10 @@ def label(img, i, n, lines, y, start=6, stop=None):
 
 LABELS = {  # shot -> list of (eyebrow, title, y, start, stop)
     's3_hl': [('EPSILON+', 'V2 AERO KIT', 1190, 8, None)],
-    's4_lip': [('V2', 'FRONT LIP', 1190, 4, 40)],          # v0.6: one label held across the lip shot and its 1:1 highlight (~1.8 s)
+    's4_lip': [('V2', 'FRONT LIP', 1190, 4, 60)],          # one label held across the lip shot and its 1:1 highlight (~2.8 s readable)
     's5_liphl': [('V2', 'FRONT LIP', 1190, -12, None)],
-    's7_side': [('V2', 'SIDE SKIRTS', 1190, 3, 44), ('V2', 'REAR SPATS', 1190, 44, None)],
-    's9_canards': [('CARBON CANARDS', 'BACK IN STOCK', 1190, 8, None)],
+    's7_side': [('V2', 'SIDE SKIRTS + REAR SPATS', 1190, 3, None)],   # v1.0: one label, 3.3 s readable (5 words)
+    's9_canards': [('CARBON CANARDS', 'BACK IN STOCK', 1190, 3, None)],
 }
 
 

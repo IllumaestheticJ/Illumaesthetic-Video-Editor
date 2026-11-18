@@ -4,32 +4,39 @@ grown over face adjacency so the part comes off whole. Writes car_nospoiler.ply,
 deck_patch.ply (GLB body faces under the spoiler footprint; the deck under the spoiler was never scanned)."""
 import trimesh, numpy as np, sys
 from scipy.spatial import cKDTree
-M = '/home/user/media/bf-integra-385-combo/work/reg'
+import os
+M = os.environ.get('REG', '/home/user/media/bf-integra-385-combo/work/reg')
 S = trimesh.load(f'{M}/scan_glbframe.ply', process=False); G = trimesh.load(f'{M}/glb_body.ply', process=False)
 tree = cKDTree(G.sample(2500000))
 c = S.triangles_center
 box = (c[:, 1] > 1.95) & (c[:, 1] < 2.36) & (c[:, 2] > 0.90) & (np.abs(c[:, 0]) < 0.66)
-idx = np.where(box)[0]
-d, _ = tree.query(c[idx])
+# work on the deck region only (face adjacency of the whole 3 mm car does not fit in memory)
+reg_idx = np.where((c[:, 1] > 1.85) & (c[:, 2] > 0.80) & (np.abs(c[:, 0]) < 0.75))[0]
+Sr = S.submesh([reg_idx], append=True); cr = Sr.triangles_center
+boxr = (cr[:, 1] > 1.95) & (cr[:, 1] < 2.36) & (cr[:, 2] > 0.90) & (np.abs(cr[:, 0]) < 0.66)
+idx = np.where(boxr)[0]
+d, _ = tree.query(cr[idx])
 seed = set(idx[d > 0.006].tolist()); loose = set(idx[d > 0.0025].tolist())
-# grow over adjacency inside the loose set
-adj = S.face_adjacency
 nb = {}
-for a, b in adj:
-    nb.setdefault(a, []).append(b); nb.setdefault(b, []).append(a)
+for a_, b_ in Sr.face_adjacency:
+    nb.setdefault(a_, []).append(b_); nb.setdefault(b_, []).append(a_)
 part = set(seed); front = list(seed)
 while front:
     f = front.pop()
     for g in nb.get(f, ()):
         if g in loose and g not in part:
             part.add(g); front.append(g)
+S_ = S; S = Sr  # submesh below indexes the region mesh
 part = np.array(sorted(part))
 # keep the largest connected chunks (drop specks)
-sub = S.submesh([part], append=True)
-comps = sub.split(only_watertight=False, repair=False)
-comps = sorted(comps, key=lambda m: -len(m.faces))
-keep = [m for m in comps if len(m.faces) > 200]
-spoiler = trimesh.util.concatenate(keep)
+sub = S.submesh([part], append=True); S = S_
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import connected_components
+fa = sub.face_adjacency
+ncomp, lab = connected_components(coo_matrix((np.ones(len(fa)), (fa[:, 0], fa[:, 1])), shape=(len(sub.faces),) * 2), directed=False)
+sizes = np.bincount(lab); keep_l = np.where(sizes > 200)[0]
+keep = keep_l  # (count only, for the report below)
+spoiler = sub.submesh([np.where(np.isin(lab, keep_l))[0]], append=True)
 print('spoiler faces', len(spoiler.faces), 'components kept', len(keep), 'bbox', spoiler.bounds.round(3).tolist())
 # remove the spoiler faces from the car: drop faces whose centre is within 1 mm of a spoiler face centre
 st = cKDTree(spoiler.triangles_center); dd, _ = st.query(c)

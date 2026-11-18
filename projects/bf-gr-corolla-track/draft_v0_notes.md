@@ -96,3 +96,10 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
   - V1: lip $215 -> $129, carbon lip $600 -> $330, skirts $275 -> $165, spats $125 -> $75.
   - Cards are now 10 kicks, so the price phase holds about 2.7 s.
 - **Checks:** 26.6 s, -13.8 LUFS / -2.8 dBTP; 9 cuts within -21..+22 ms; safe zones pass.
+
+## v0.9 (user: "check fitment of the rear spats - but otherwise good")
+- **The problem:** the lookbook V2 spats sat about 16 mm under the bumper.
+- **The fix:** seated with a 2 deg pitch, +10 mm rearward and +14 mm up (`spat_v2_fit.json`). The closest gap is now 4.7 mm, and the store photos match.
+- **Re-rendered:** s12, s3, s6, s7 and s10.
+- **Checks:** 26.6 s, -13.8 LUFS / -2.8 dBTP, same cut timing as v0.8, safe zones pass.
+- **Close-up before/after:** `out/rear_spat_fit_before_after.jpg` (spat shown in yellow).
