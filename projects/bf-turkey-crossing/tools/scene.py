@@ -19,7 +19,7 @@ import bpy, sys, math, os, random
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from turkey import build_turkey, build_turkey_osrs, feather_mesh, toon, srgb, TAIL_COLS
+from turkey import build_turkey, build_turkey_osrs, build_turkey_hen, feather_mesh, toon, srgb, TAIL_COLS
 STYLE = os.environ.get("TURKEY_STYLE", "cute")   # "osrs" = retro-MMO low-poly look (owner idea 2026-11-18)
 
 a = sys.argv[sys.argv.index('--') + 1:]
@@ -28,7 +28,7 @@ PCT = int(a[2]) if len(a) > 2 else 50
 SPP = int(a[3]) if len(a) > 3 else 16
 GLB = '/home/user/media/cars/eps-toyota-gr-corolla-v23.glb'
 FPS = 30
-SH = {'s1_cross': (0, 55), 's2_look': (55, 108), 's3_car': (108, 135), 's4_eyes': (135, 162), 's5_poof': (162, 216), 's6_feath': (216, 324)}
+SH = {'s1_cross': (0, 55), 's2_look': (55, 108), 's3_car': (108, 135), 's4_eyes': (135, 162), 's5_poof': (162, 216), 's6_feath': (216, 324) if STYLE == 'cute' else (216, 433)}   # v0.3: greeting card + sale card over the half-speed feather fall
 # owner rule 2026-11-18 (slow down under text): s6 plays the feather fall at half speed - 54 sim frames over 108 video frames
 SLOW_AT, SLOW = 216, 0.5
 F0, F1 = SH[SHOT]
@@ -163,7 +163,7 @@ for i in range(9):
     bpy.context.active_object.data.polygons.foreach_set('use_smooth', [True] * len(bpy.context.active_object.data.polygons))
 
 # ------------------------------------------------------------------ turkey
-T = build_turkey_osrs(C) if STYLE == "osrs" else build_turkey(C)
+T = build_turkey_hen(C) if STYLE == "hen" else build_turkey_osrs(C) if STYLE == "osrs" else build_turkey(C)
 tparts = [o for o in bpy.data.objects if o.name.startswith('TURKEY_')]
 
 
@@ -349,6 +349,7 @@ def lerp(p, q, u):
     return Vector(p).lerp(Vector(q), u)
 
 
+HZ = 0.13 if STYLE == 'hen' else 0.0   # the hen's head sits ~13 cm lower than the cute turkey's
 for f in range(F0, F1):
     u = (f - F0) / max(F1 - F0 - 1, 1)
     roll = 0
@@ -358,14 +359,14 @@ for f in range(F0, F1):
     elif SHOT == 's2_look':
         cd.lens = 35
         uu = ease(u)
-        loc = lerp((1.75, -3.3, 0.42), (1.62, -1.75, 0.74), uu); tgt = lerp((1.75, 0, 0.62), (1.62, 0, 0.82), uu)
+        loc = lerp((1.75, -3.3, 0.42), (1.62, -1.75, 0.74 - HZ), uu); tgt = lerp((1.75, 0, 0.62 - HZ), (1.62, 0, 0.82 - HZ), uu)
     elif SHOT == 's3_car':
         cd.lens = 24
         yn = car_y(f) - 2.27; d = 6.2 + (3.0 - 6.2) * u
         loc = (LANE + 0.75, yn - d, 0.3); tgt = (LANE - 0.1, yn + 1.0, 0.62); roll = 0
     elif SHOT == 's4_eyes':
         cd.lens = 38
-        loc = lerp((1.6, 1.25, 0.95), (1.58, 0.95, 0.93), ease(u)); tgt = (1.56, 0.05, 0.86)
+        loc = lerp((1.6, 1.25, 0.95 - HZ), (1.58, 0.95, 0.93 - HZ), ease(u)); tgt = (1.56, 0.05, 0.86 - HZ)
         roll = 1.2 * math.sin(f * 2.3) * ease((f - 140) / 6)
     elif SHOT == 's5_poof':
         cd.lens = 22

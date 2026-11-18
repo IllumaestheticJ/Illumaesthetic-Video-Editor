@@ -18,8 +18,8 @@ REPO = '/home/user/Illumaesthetic-Video-Editor'
 W, H, FPS = 1080, 1920, 30
 MUSIC = f'{M}/music/transformation.mp3'; T0 = 10.812
 SHOTS = [('s1_cross', 0, 55), ('s2_look', 55, 108), ('s3_car', 108, 135), ('s4_eyes', 135, 162), ('s5_poof', 162, 216),
-         ('s6_feath', 216, 324)]   # half-speed feather fall under the text (owner slow-reader rule)
-LOGO0, END = 324, 420   # logo on the hit at 21.630; URL in at f330, readable >= 2.5 s before the 0.4 s fade
+         ('s6_feath', 216, 433)]   # half-speed feather fall under the text (owner slow-reader rule)
+LOGO0, END = 433, 499   # logo on the hit at 21.630; URL in at f330, readable >= 2.5 s before the 0.4 s fade
 AK = f'{REPO}/assets/fonts/akira/AkiraExpanded-SuperBold.otf'   # owner licence, gitignored
 UB = f'{REPO}/assets/fonts/unbounded/Unbounded-'
 CX = 484                 # centre of the safe band x 48-920
@@ -84,6 +84,11 @@ logo = logo.resize((720, round(logo.height * 720 / logo.width)), Image.LANCZOS)
 f_bf = fit('FRIDAY', AK, 840, 200)
 f_sale = fit('SALE', AK, 760, 260)
 f_url = ImageFont.truetype(UB + '300.ttf', 44)
+CARD_B = 311            # 21.181
+UNTIL = os.environ.get('BF_UNTIL', 'UNTIL (END DATE)')   # placeholder until the owner gives the sale end date
+f_wish = ImageFont.truetype(UB + '500.ttf', 50)
+f_tg = fit('THANKSGIVING', AK, 840, 200)
+f_until = fit(UNTIL, UB + '500.ttf', 820, 64)
 # darkening gradient for the text plate (light sky behind white text)
 grad = Image.new('L', (1, H))
 for y in range(H):
@@ -101,9 +106,21 @@ for f in range(END):
         if f >= 216:
             t = f - 216
             sh = shade.copy(); sh.putalpha(grad.point(lambda v: round(v * ease(t / 3)))); img = Image.alpha_composite(img, sh)
-            slam(img, 'BLACK', f_bf, 470, t, label='BLACK')
-            slam(img, 'FRIDAY', f_bf, 650, t - 2, label='FRIDAY')
-            slam(img, 'SALE', f_sale, 900, f - 243, color=RED, label='SALE')
+            if f < CARD_B:      # card A: the owner's greeting (18.023 -> 21.181)
+                ta = min(1.0, t / 4); d = ImageDraw.Draw(img); s0 = 'WISHING OUR DRIVERS A'; tw = d.textlength(s0, font=f_wish)
+                sh0 = Image.new('RGBA', img.size, (0, 0, 0, 0)); ImageDraw.Draw(sh0).text((CX - tw / 2 + 4, 405), s0, font=f_wish, fill=(0, 0, 0, round(200 * ta)))
+                img.alpha_composite(sh0.filter(ImageFilter.GaussianBlur(6))); d = ImageDraw.Draw(img)
+                d.text((CX - tw / 2, 400), s0, font=f_wish, fill=TXT + (round(255 * ta),))
+                if t == 6:
+                    bb = f_wish.getbbox(s0); boxes.append(dict(label='WISHING', key=True, x=CX - tw / 2, y=400 + bb[1], w=tw, h=bb[3] - bb[1]))
+                slam(img, 'HAPPY', f_tg, 560, t - 2, label='HAPPY')
+                slam(img, 'THANKSGIVING', f_tg, 690, t - 4, label='THANKSGIVING')
+            else:               # card B: sale (21.181 -> 25.239); SALE on 21.630, UNTIL on 22.091
+                tb_ = f - CARD_B
+                slam(img, 'BLACK', f_bf, 470, tb_, label='BLACK')
+                slam(img, 'FRIDAY', f_bf, 650, tb_ - 2, label='FRIDAY')
+                slam(img, 'SALE', f_sale, 880, f - 324, color=RED, label='SALE')
+                slam(img, UNTIL, f_until, 1070, f - 338, color=(255, 214, 90), label='UNTIL')
     else:
         img = Image.new('RGBA', (W, H), (0, 0, 0, 255)); t = f - LOGO0
         k = eout(t / 6); lg = logo.resize((round(720 * (0.92 + 0.08 * k)), round(logo.height * (0.92 + 0.08 * k))), Image.LANCZOS)
@@ -111,7 +128,7 @@ for f in range(END):
         ly = 760; img.alpha_composite(lg, (round(CX - lg.width / 2), round(ly - lg.height / 2)))
         if t == 6:
             boxes.append(dict(label='logo', key=True, x=CX - 360, y=ly - logo.height / 2, w=720, h=logo.height))
-        tu = f - 330   # URL 6 frames after the logo lands
+        tu = f - 439   # URL 6 frames after the logo lands
         if tu >= 0:
             d = ImageDraw.Draw(img); s = 'WWW.EPSILON.PLUS'; tw = d.textlength(s, font=f_url)
             d.text((CX - tw / 2, 900), s, font=f_url, fill=(232, 236, 242, round(255 * min(1, tu / 4))))
@@ -124,8 +141,8 @@ for f in range(END):
 # text boxes with their on-screen windows (for scripts/safezone_check.py)
 tb = []
 for b in boxes:
-    t0 = {'BLACK': 216, 'FRIDAY': 218, 'SALE': 243, 'logo': 324, 'url': 330}[b['label']] / FPS
-    t1 = (324 if b['label'] in ('BLACK', 'FRIDAY', 'SALE') else END) / FPS
+    t0 = {'WISHING': 216, 'HAPPY': 218, 'THANKSGIVING': 220, 'BLACK': 311, 'FRIDAY': 313, 'SALE': 324, 'UNTIL': 338, 'logo': 433, 'url': 439}[b['label']] / FPS
+    t1 = (CARD_B if b['label'] in ('WISHING', 'HAPPY', 'THANKSGIVING') else LOGO0 if b['label'] in ('BLACK', 'FRIDAY', 'SALE', 'UNTIL') else END) / FPS
     tb.append(dict(t0=round(t0, 3), t1=round(t1, 3), x=round(b['x']), y=round(b['y']), w=round(b['w']), h=round(b['h']), label=b['label'], key=b['key']))
 json.dump(tb, open(f'{M}/text_boxes_{args.tag}.json', 'w'), indent=1)
 
