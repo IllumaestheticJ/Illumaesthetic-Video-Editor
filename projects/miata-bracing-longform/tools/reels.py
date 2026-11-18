@@ -134,8 +134,7 @@ REELS = {
  3: dict(name='Reel3_the_question', music=('gt', 860.0), seg=[
     ('irl', 0.0, 'host', 8.25, ('own', 0.0)),
     ('irl', 185.5, 0.55, 1.2, None), ('irl', 191.6, 0.36, 1.2, None), ('irl', 194.2, 0.50, 1.2, None), ('irl', 207.7, 0.50, 1.2, None), ('irl', 209.27, 0.68, 0.9, None),
-    ('draw', heat_single('jacked', 255, 315, 'WHERE DOES A MIATA FLEX?', 0, 'one corner jacked, 3D scanned'), 3.0, None),
-    ('draw', heat_pair('jacked', 'strut', 'NO BRACING', 'STRUT TOWER BRACE', 215, 305), 3.0, None),
+    ('draw', heat_single('jacked', 230, 330, 'WHERE DOES A MIATA FLEX?', 0, 'one corner jacked, 3D scanned'), 4.6, None),      # owner: no braced result in a promo (spoiler)
     ('draw', endcard(['DOES BRACING', 'ACTUALLY WORK?']), 2.8, None)]),
 }
 # ---------------------------------------------------------------- reels 4-6 (owner, 2026-11-14): guess / explain / guess

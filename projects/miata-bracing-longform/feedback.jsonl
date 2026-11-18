@@ -42,3 +42,4 @@
 {"ts": "2026-11-18T20:05:08Z", "project": "miata-bracing-longform", "at": null, "category": "text", "note": "the MotoIQ logo on the reels needs its red iq square (white text version of the official logo)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-18T20:05:08Z", "project": "miata-bracing-longform", "at": null, "category": "story", "note": "reel 1 ('1.7 mm') is a spoiler - not using it", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-18T20:05:23Z", "project": "miata-bracing-longform", "at": null, "category": "story", "note": "reel 2 ('the surprise', 0.8 vs 0.3) is a spoiler as well - not using it", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T20:10:12Z", "project": "miata-bracing-longform", "at": null, "category": "story", "note": "reel 'the question' was also a spoiler: it showed the no-bracing vs strut-brace heat maps", "by": "reviewer", "promoted": false}
