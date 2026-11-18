@@ -20,10 +20,13 @@ from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.11.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.12.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
-CUTS = [0, 210, 313, 416, 675, 778]
+CUTS = [0, 210, 261, 313, 507]
+# v0.12 (user: "have it end around 17, thats when the song gets annoying. Show the epsilon logo and site in the last
+# scene with the car. okay to ignore the reading time requirements"): beats 0 / 4 / 8 / 23 after the drop, 16.9 s.
+LOGO_ON = 103   # local frame in S5 (beat 16 = 4 beats after the card); logo + URL join the car + card to the end
 # v0.11 owner rule (text for slow readers: 2.5 s for 1-3 words + 0.4 s per extra word, >= 3 s for any price/offer).
 # Cuts on beats 0 / 8 / 16 / 36 / 44 after the drop:
 #   S3 210-313 (0371 at 0.5x) labels FRONT LIP + SIDE SKIRTS readable local 10..97 = 2.9 s
@@ -283,7 +286,7 @@ def draw_labels(img_path, clip, k, n, tracks):
 KIT2 = {}  # kit shot placement, fitted once from the render's alpha (see fit_kit2)
 
 
-def fit_kit2(paths, box=(60, 820, 910, 1400)):
+def fit_kit2(paths, box=(70, 760, 900, 1150)):  # v0.12: leaves room under the car for the logo + URL
     """Scale + offset so the car (union of the render alpha over the whole orbit) sits inside `box`
     (under the card, inside the owner safe zone x 48-920 / y 285-1440)."""
     acc = None
@@ -361,6 +364,24 @@ def card(im, k):
 LOGO = Image.open(os.path.join(M, "assets/Epsilon+ Logo.png")).convert("RGBA")
 
 
+def logo_under(im, k):
+    """v0.12: Epsilon+ wordmark + WWW.EPSILON.PLUS under the car in the kit shot (inside the safe zone), fading in
+    from LOGO_ON. Unbounded 400 for the URL beside the logo (owner font rule)."""
+    a = min(1.0, max(0.0, (k - LOGO_ON + 1) / 5.0))
+    if a <= 0:
+        return im
+    lw = 520
+    lg = LOGO.resize((lw, int(LOGO.height * lw / LOGO.width)), Image.LANCZOS)
+    lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ly = 1230
+    lay.alpha_composite(lg, ((W - lw) // 2, ly))
+    text_center(ImageDraw.Draw(lay), ly + lg.height + 40, "WWW.EPSILON.PLUS", ImageFont.truetype(UNB.format(400), 38), GREY)
+    lay.putalpha(Image.fromarray((np.array(lay.split()[3]) * a).astype(np.uint8)))
+    base = im.convert("RGBA")
+    base.alpha_composite(lay)
+    return base.convert("RGB")
+
+
 def logo_frame(k, n):
     lw = 720
     lg = LOGO.resize((lw, int(LOGO.height * lw / LOGO.width)), Image.LANCZOS)
@@ -383,7 +404,7 @@ def main():
         os.remove(f)
     n = [CUTS[i + 1] - CUTS[i] for i in range(len(CUTS) - 1)]
     s1 = doubled(os.path.join(M, "render/s1_stockpass_wheels/f_*.png"), n[0])
-    s3 = video_frames(os.path.join(M, "clips/s3_0371_slow.mp4"), n[1], "s3")
+    s3 = video_frames(os.path.join(M, "clips/s3_0371_pan.mp4"), n[1], "s3")
     s4 = video_frames(os.path.join(M, "clips/s4_0370_long.mp4"), n[2], "s4")
     s5 = doubled(os.path.join(M, "render/s5_glb_white/f_*.png"), n[3])  # v0.11: GLB, white car + black kit, no blur/glow
     fit_kit2(sorted(set(s5)))
@@ -395,10 +416,7 @@ def main():
         for k, p in enumerate(paths):
             draw_labels(p, clip, k, len(paths), tr).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k, p in enumerate(s5):
-        card(load_glb(p), k).save(  # v0.1: no Del & Eps (owner: typical branding only)
-            os.path.join(FR, f"f_{i:04d}.png")); i += 1
-    for k in range(n[4]):
-        logo_frame(k, n[4]).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
+        logo_under(card(load_glb(p), k), k).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     assert i == CUTS[-1], i
     dur = CUTS[-1] / 30
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
