@@ -28,7 +28,7 @@ MONO = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
 # v0.5 fonts (owner rule, knowledge/fonts.md): headlines/offers in Akira (file not supplied yet -> Unbounded 700 stand-in);
 # text next to the Epsilon+ wordmark and small labels in Unbounded 300-500
 UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-%d.ttf"
-AKIRA = UB % 900; U300, U400, U500 = UB % 300, UB % 400, UB % 500   # Akira stand-in: Unbounded 900 (in repo since e15b34b); re-check headline widths when the next version is cut
+AKIRA = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf"; U300, U400, U500 = UB % 300, UB % 400, UB % 500   # Akira Expanded Super Bold (owner licence 2026-11-18; gitignored, see knowledge/fonts.md). Widths: 804/847/750 px <= 872
 def font(p, s): return ImageFont.truetype(p, s)
 
 SAFE_CX = 484
