@@ -160,3 +160,10 @@ Owner: "the DE4/5 (3rd entry) should be the Type S instead of the non-widebody i
   `logo/integra_alpha.png` in the media folder; media is not committed) replace the serif car names on the car screens and the lineup
   tiles. The variant line under each logo is Unbounded 600: "HATCHBACK · FL2 / FL5", "SEDAN · FE", "TYPE S · DE5", "WIDEBODY · DE4".
 - **Checks:** -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440; safe-zone sheet looked at: clean.
+
+# v0.8 (2026-11-18): Integra wordmark without the Acura badge
+
+Owner: "remove the acura badge from the integra". The badge is cropped off the owner's logo (`logo/integra_alpha.png`; the original
+is kept as `integra_with_badge_alpha.png`), on the car screens and the lineup tiles. `tools/compose_v08.py`; output
+`/home/user/media/work/out/bf-paint-match-roulette_v0.8.mp4`. Otherwise identical to v0.7.
+Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same layout as v0.7).
