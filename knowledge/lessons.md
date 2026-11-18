@@ -1427,3 +1427,8 @@ lands here automatically. Agents must read this whole file before editing.
   GPU sends OIDN denoising to the CPU (4.8 s of a 5.8 s frame). Cloud machines with no GPU fall back to the CPU unchanged; `IVE_DEVICE=CPU`
   forces the CPU. New render scripts call `ive_gpu.use(sc)` instead of setting `sc.cycles.device = "CPU"`.
 - **[technical]** Still run the dark-frame (luma) scan on GPU renders: the persistent-data dropouts above were never ruled out on the GPU.
+
+- **[workflow] GPU offload to the owner's PC (2026-11-18):** the owner's PC has an RTX 3060 Ti. Cloud chats can't reach it, so long renders go through the "Claude Videos" drive:
+  - **Cloud chat:** packs a self-contained folder (`.blend` files with relative or packed paths, assets, and a `job.json` listing blend/scene/frames/res/samples/fps/output), then runs `vdrive.py save <project> gpujob <folder>`.
+  - **Local worker session on the PC:** renders it with Cycles OptiX, then saves `gpuframes_<shot>` back to the drive.
+  - **Cloud chat:** polls with `vdrive.py list <project>`, assembles and delivers. It keeps its own CPU render running until the GPU frames arrive.
