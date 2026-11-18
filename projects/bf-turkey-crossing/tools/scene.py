@@ -6,20 +6,21 @@ World frame (m): the road runs along Y, centre line x = 0; the car drives in the
 the turkey crosses from the verge (x = +3.4) to the middle of that lane (x = 1.75, y = 0) and stops there.
 All animation is keyed on GLOBAL video frames (30 fps, video t = 0 = track 10.812 s of PhonkFlux 'TRANSFORMATION'), so the
 car, turkey and feathers are one continuous event across shots. Cuts (measured hits):
-  f0 (10.812)  f55 (12.650)  f108 (14.419)  f135 (15.322)  f162 (16.227 DROP = impact)  f216 (18.023)  f270 (19.827)
+  f0 (10.812)  f55 (12.650)  f108 (14.419)  f135 (15.322)  f162 (16.227 DROP = impact)  f216 (18.023, s6 half-speed to f324)  f324 (21.630 logo)
 Shots:
   s1_cross  f0-55    low road-level shot, the turkey waddles in from the right (car a red speck far down the road)
   s2_look   f55-108  push-in; it stops on the lane, snaps its head to camera at f81 (cowbells out), blinks
   s3_car    f108-135 low tracking shot ahead of the charging GR Corolla (V2 kit), headlights on
   s4_eyes   f135-162 turkey close-up from the car's side, headlights flood it, eyes go huge, feathers puff
   s5_poof   f162-216 impact on the drop: POOF cloud + feather burst, the car blasts past the lens; turkey gone
-  s6_feath  f216-270 empty road, feathers drifting down (plate for the sale text)
+  s6_feath  f216-324 empty road, feathers drifting down in half-speed slow-mo (plate for the sale text, slow-reader rule)
 """
 import bpy, sys, math, os, random
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from turkey import build_turkey, feather_mesh, toon, srgb, TAIL_COLS
+from turkey import build_turkey, build_turkey_osrs, build_turkey_hen, feather_mesh, toon, srgb, TAIL_COLS
+STYLE = os.environ.get("TURKEY_STYLE", "cute")   # "osrs" = retro-MMO low-poly look (owner idea 2026-11-18)
 
 a = sys.argv[sys.argv.index('--') + 1:]
 SHOT, OUT = a[0], a[1]
@@ -27,7 +28,9 @@ PCT = int(a[2]) if len(a) > 2 else 50
 SPP = int(a[3]) if len(a) > 3 else 16
 GLB = '/home/user/media/cars/eps-toyota-gr-corolla-v23.glb'
 FPS = 30
-SH = {'s1_cross': (0, 55), 's2_look': (55, 108), 's3_car': (108, 135), 's4_eyes': (135, 162), 's5_poof': (162, 216), 's6_feath': (216, 270)}
+SH = {'s1_cross': (0, 55), 's2_look': (55, 108), 's3_car': (108, 135), 's4_eyes': (135, 162), 's5_poof': (162, 216), 's6_feath': (216, 324) if STYLE == 'cute' else (216, 433)}   # v0.3: greeting card + sale card over the half-speed feather fall
+# owner rule 2026-11-18 (slow down under text): s6 plays the feather fall at half speed - 54 sim frames over 108 video frames
+SLOW_AT, SLOW = 216, 0.5
 F0, F1 = SH[SHOT]
 if len(a) > 5:
     F0, F1 = int(a[4]), int(a[5]) + 1
@@ -160,7 +163,7 @@ for i in range(9):
     bpy.context.active_object.data.polygons.foreach_set('use_smooth', [True] * len(bpy.context.active_object.data.polygons))
 
 # ------------------------------------------------------------------ turkey
-T = build_turkey(C)
+T = build_turkey_hen(C) if STYLE == "hen" else build_turkey_osrs(C) if STYLE == "osrs" else build_turkey(C)
 tparts = [o for o in bpy.data.objects if o.name.startswith('TURKEY_')]
 
 
@@ -311,18 +314,24 @@ if SHOT in ('s5_poof', 's6_feath'):
     G = 1.4 / FPS / FPS; K = 0.88
     for o, p, v, rot, wv, t0, ph in feathers:
         p = p.copy(); v = v.copy(); rot = rot.copy(); landed = False
-        for f in range(IMPACT, F1):
-            if f >= t0 and not landed:
-                v.z -= G
-                v *= K
-                p += v * 1.0 + Vector((0.006 * math.sin(f * 0.21 + ph), 0.004 * math.cos(f * 0.17 + ph), 0))
-                rot += wv * (0.6 + v.length * 20)
-                if p.z <= 0.012:
-                    p.z = 0.012; landed = True; rot = Vector((math.radians(90), 0, rot.z))
-            if f >= F0:
-                vis = f >= t0
+        sim = float(IMPACT)
+        while True:
+            out = sim if sim < SLOW_AT else SLOW_AT + (sim - SLOW_AT) / SLOW   # video frame of this sim time
+            if out >= F1:
+                break
+            st = 1.0 if sim < SLOW_AT else SLOW
+            if out >= F0 and abs(out - round(out)) < 1e-6:
+                f = int(round(out)); vis = sim >= t0
                 o.hide_render = not vis; o.keyframe_insert('hide_render', frame=f)
                 key(o, 'location', f, p.copy()); key(o, 'rotation_euler', f, Euler(tuple(rot)))
+            if sim >= t0 and not landed:
+                v.z -= G * st
+                v *= K ** st
+                p += v * st + Vector((0.006 * math.sin(sim * 0.21 + ph), 0.004 * math.cos(sim * 0.17 + ph), 0)) * st
+                rot += wv * (0.6 + v.length * 20) * st
+                if p.z <= 0.012:
+                    p.z = 0.012; landed = True; rot = Vector((math.radians(90), 0, rot.z))
+            sim += st
 
 # ------------------------------------------------------------------ cameras (keyed per frame)
 cd = bpy.data.cameras.new('cam'); cam = bpy.data.objects.new('cam', cd); C.objects.link(cam); sc.camera = cam
@@ -340,6 +349,7 @@ def lerp(p, q, u):
     return Vector(p).lerp(Vector(q), u)
 
 
+HZ = 0.13 if STYLE == 'hen' else 0.0   # the hen's head sits ~13 cm lower than the cute turkey's
 for f in range(F0, F1):
     u = (f - F0) / max(F1 - F0 - 1, 1)
     roll = 0
@@ -349,14 +359,14 @@ for f in range(F0, F1):
     elif SHOT == 's2_look':
         cd.lens = 35
         uu = ease(u)
-        loc = lerp((1.75, -3.3, 0.42), (1.62, -1.75, 0.74), uu); tgt = lerp((1.75, 0, 0.62), (1.62, 0, 0.82), uu)
+        loc = lerp((1.75, -3.3, 0.42), (1.62, -1.75, 0.74 - HZ), uu); tgt = lerp((1.75, 0, 0.62 - HZ), (1.62, 0, 0.82 - HZ), uu)
     elif SHOT == 's3_car':
         cd.lens = 24
         yn = car_y(f) - 2.27; d = 6.2 + (3.0 - 6.2) * u
         loc = (LANE + 0.75, yn - d, 0.3); tgt = (LANE - 0.1, yn + 1.0, 0.62); roll = 0
     elif SHOT == 's4_eyes':
         cd.lens = 38
-        loc = lerp((1.6, 1.25, 0.95), (1.58, 0.95, 0.93), ease(u)); tgt = (1.56, 0.05, 0.86)
+        loc = lerp((1.6, 1.25, 0.95 - HZ), (1.58, 0.95, 0.93 - HZ), ease(u)); tgt = (1.56, 0.05, 0.86 - HZ)
         roll = 1.2 * math.sin(f * 2.3) * ease((f - 140) / 6)
     elif SHOT == 's5_poof':
         cd.lens = 22

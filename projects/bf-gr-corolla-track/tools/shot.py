@@ -33,14 +33,12 @@ SPEED = 33.0  # m/s on the straight (~120 km/h)
 # carbon canards added (on the car + their own shot).
 import json
 KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
-WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's12_open': (0, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14),
-       's6_cardv2': (14, 24), 's7_side': (24, 30), 's8_cardv1': (30, 40), 's9_canards': (40, 46), 's10_pass': (46, 48)}
-# v0.8 (user): "why is there that weird cut in the beginning" -> s1+s2 become ONE continuous move (s12_open) ending on
-# the s3 1:1 camera; cards 10 kicks for the per-part slashed retail prices
-# v0.6 (user: slow readers): cards 8 kicks, side tracking 6 (one label per half), canards 6
-# v0.5 (user): drive-past cut sooner (2 kicks); offer cards 6 kicks: parts glowing on the dark car -> lift off into a line-up
+WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's12_open': (0, 6), 's3_hl': (6, 14), 's4_lip': (14, 17), 's5_liphl': (17, 21),
+       's6_cardv2': (21, 36), 's7_side': (36, 44), 's8_cardv1': (44, 60), 's9_canards': (60, 68), 's10_pass': (68, 70), 's10_end': (68, 76)}
+# v1.0 owner rule (slow readers): every section with text is long enough for its words (2.5 s + 0.4 s/extra word,
+# prices >= 3 s); the renders under the text run over the longer windows, i.e. the camera moves are slower
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
-N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0])
+N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0]) + (45 if SHOT == 's10_end' else 0)   # end shot holds 1.5 s past kick 76
 CARDS = ('s6_cardv2', 's8_cardv1')
 STUDIO = SHOT in ('s3_hl', 's5_liphl', 's9_canards') + CARDS
 MODE = 'cgi'
@@ -128,7 +126,7 @@ def card_lineup():
     glowing in place -> body and right-hand parts fade, the left skirt/spat and the lip lift into a 3/4 line-up while the
     camera moves in; the parts then turn slowly so their profiles read. Text is composited (compose.py)."""
     import bmesh
-    F0, F1 = round(0.24 * N), round(0.42 * N)   # v0.8: price phase ~2.7 s (slow readers, per-part prices)
+    F0, F1 = 38, 65   # v1.0: car + glowing kit 1.3 s, lift 0.9 s, then the price phase holds >= 3 s readable
     hlm = bpy.data.materials['v2_highlight']
     ph = hlm.node_tree.nodes['Principled BSDF']   # glow on the car, then mostly off in the line-up so the parts shade (profile reads)
     for f, e in ((F0, 1.3), (F1, 0.12), (N, 0.12)):
@@ -355,7 +353,53 @@ if MODE in ('cgi',):
 
         sc.render.use_motion_blur = True; sc.render.motion_blur_shutter = 0.5
 
-        if SHOT == 's10_pass':
+        if SHOT == 's10_end':
+            # v1.0 (user): the car drives all the way down the straight; as it gets small the Epsilon+ wordmark rises from
+            # behind the horizon far down the track (a real 3D plane, so gantries/trees in front occlude it) and
+            # WWW.EPSILON.PLUS slides in from the side; the video ends on this scene (no fade to black)
+            v = 20.0; y0 = -0.8
+            for f in (1, N):
+                car.location = (0, y0 - v * (f - 1) / FPS, 0); car.keyframe_insert('location', frame=f)
+            look(cam, (2.6, 0.0, 0.5), (0.3, -10.0, 0.75)); cd.lens = 18
+            bpy.context.view_layer.update()
+            CM = cam.matrix_world.copy(); R3 = CM.to_3x3(); W_, H_ = 1080, 1920; sw, lens = cd.sensor_width, cd.lens
+            def at(u, v_, D):   # world point that projects to pixel (u, v_) at depth D (sensor_fit HORIZONTAL, lens shift)
+                x = (u / W_ - 0.5 + cd.shift_x) * sw * D / lens; y = ((H_ / 2 - v_) / W_ + cd.shift_y) * sw * D / lens
+                return CM @ Vector((x, y, -D))
+            px = lambda npx, D: npx / W_ * sw * D / lens   # world size of npx pixels at depth D
+            D = 230.0
+            land = kf(72) - kf(68); r0 = land - 26   # slow rise so the gantry/trees passing in front read
+            dark = bpy.data.materials.new('brand_dark'); dark.use_nodes = True; nt = dark.node_tree; pb = nt.nodes['Principled BSDF']
+            pb.inputs['Base Color'].default_value = (0.012, 0.012, 0.014, 1); pb.inputs['Roughness'].default_value = 0.5
+            # wordmark plane: the logo PNG's alpha cuts the plane; dark so it reads on the pale sky
+            img = bpy.data.images.load('/home/user/media/bf-gr-corolla-track/logo/Epsilon+ Logo.png')
+            tx = nt.nodes.new('ShaderNodeTexImage'); tx.image = img
+            lm = dark.copy(); lm.name = 'logo_mat'; lnt = lm.node_tree; lpb = lnt.nodes['Principled BSDF']
+            ltx = lnt.nodes.new('ShaderNodeTexImage'); ltx.image = img; lnt.links.new(ltx.outputs['Alpha'], lpb.inputs['Alpha'])
+            aspect = img.size[1] / img.size[0]
+            wl = px(720, D); hl = wl * aspect
+            bpy.ops.mesh.primitive_plane_add(size=1); lg = bpy.context.object; lg.name = 'EPS_LOGO'
+            lg.data.materials.append(lm); lg.scale = (wl, hl, 1); lg.rotation_mode = 'QUATERNION'; lg.rotation_quaternion = R3.to_quaternion()
+            fin = at(484, 690, D); start = fin - Vector((0, 0, fin.z + hl + 2.0))   # fully below the ground -> rises over the horizon
+            for f, loc in ((1, start), (r0, start), (land - 2, fin + Vector((0, 0, hl * 0.12))), (land + 2, fin), (N, fin)):
+                lg.location = loc; lg.keyframe_insert('location', frame=f)
+            # URL: Unbounded 300 text (next to the logo -> companion font), slides in from the right
+            cu = bpy.data.curves.new('url', 'FONT'); cu.body = 'WWW.EPSILON.PLUS'
+            cu.font = bpy.data.fonts.load('/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-400.ttf')
+            cu.align_x = 'CENTER'; cu.align_y = 'CENTER'
+            ut = bpy.data.objects.new('EPS_URL', cu); sc.collection.objects.link(ut); ut.data.materials.append(dark)
+            bpy.context.view_layer.update(); w0 = ut.dimensions.x
+            DU = 30.0   # URL on a nearer layer: slides in front of the scenery, never hidden by a gantry
+            k = px(540, DU) / max(w0, 1e-6); ut.scale = (k, k, k)
+            ut.rotation_mode = 'QUATERNION'; ut.rotation_quaternion = R3.to_quaternion()
+            fu = at(484, 800, DU); su = at(484 + 900, 800, DU)
+            for f, loc in ((1, su), (land + 3, su), (land + 15, fu), (N, fu)):
+                ut.location = loc; ut.keyframe_insert('location', frame=f)
+            for ob in (lg, ut):
+                for fc in getattr(ob.animation_data.action, 'fcurves', []):
+                    for kp in fc.keyframe_points: kp.interpolation = 'BEZIER'
+            print('ENDSHOT land', land, 'N', N, 'logo final z', round(fin.z, 2), 'w', round(wl, 2))
+        elif SHOT == 's10_pass':
             # environment static; the car drives past a fixed trackside camera
             v9 = 13.0; y0, y1 = -0.8, -v9 * (N - 1) / FPS - 0.8   # slower pass so the car stays in frame for the whole shot
             for f in (1, N):

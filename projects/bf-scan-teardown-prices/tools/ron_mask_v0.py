@@ -9,5 +9,6 @@ cam.data.sensor_fit = "HORIZONTAL"; cam.data.sensor_width = 20.25; cam.data.lens
 sc.render.resolution_x, sc.render.resolution_y, sc.render.resolution_percentage = 1080, 1920, int(a[1])
 sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"; sc.cycles.samples = 4; sc.cycles.use_denoising = False
 sc.render.film_transparent = True
+for n in ("Circle", "Plane"): bpy.data.objects[n].hide_render = True   # v0.11: matte = car only (no floor glow)
 sc.render.filepath = a[0]; sc.render.image_settings.file_format = "PNG"; sc.render.image_settings.color_mode = "RGBA"
 bpy.ops.render.render(write_still=True)

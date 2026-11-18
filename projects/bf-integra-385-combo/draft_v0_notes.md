@@ -1,3 +1,14 @@
+# v1.2 dropped (user, after the owner revised the rule to 1.8 s / +0.3 s per word / 2.2 s prices and asked that
+# approved videos not be changed for it): "v1.1 only". Queued re-render cancelled; shots.py/composite.py back to v1.1.
+# Under the revised rule v1.1 is slightly short on the lip line (1.9 s), RETAIL $600 (2.1 s), was/now (2.0 s) - accepted.
+
+# v1.2 (user approved the slow-for-text fix: "yes")
+- shots.py LEN S1 168 (closed box + title holds one more bar; sweep 109-141, lid 141-163), S3 141, S4 284.
+- composite.py: timeline cuts 168 239 380 664 734 805 876 947, end 1089 (36.3 s); kick errors measured -6..+14 ms.
+  Price card: RETAIL $600 f8-142 (4.5 s), loading f98-142, $385 + struck $600 f142-284 (4.4 s).
+- render_hq12.sh: S1/S3/S4 at 1080x1920 32 spp true 60 fps, queued behind the v1.1 render (one Blender job at a time).
+  1186 frames at ~22 s/frame, about 7 h.
+
 # Text-timing audit (owner rule 2026-11-18 "slow down for text"; v1.1 60 fps as rendered, cuts 30 fps 97/168/239/380)
 Readable = fully in -> cut/out. Minimum: 2.5 s for 1-3 words + 0.4 s/extra word; >= 3 s for any price or was/now pair.
 | text | readable | min | result |

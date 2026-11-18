@@ -142,3 +142,140 @@ def _empty(coll, name, parent=None, loc=(0, 0, 0)):
     e = bpy.data.objects.new(name, None); coll.objects.link(e); e.parent = parent; e.location = loc
     e.rotation_mode = 'XYZ'
     return e
+
+
+def build_turkey_osrs(coll, name='TURKEY'):
+    """Retro-MMO (OSRS-inspired) look: very few polygons, Gouraud-smooth shading across big faces, muted flat colours, tiny dot
+    eyes, a fan of a few triangular tail slabs. Same rig handles as build_turkey, so scene.py can swap it in. No game assets."""
+    E = lambda n, parent=None, loc=(0, 0, 0): _empty(coll, f'{name}_{n}', parent, loc)
+    root = E('root'); body = E('body', root)
+    m = lambda n, h: toon('o_' + n, h, 0.95, spec=0.05)
+    brown, dark, head_c, red, beak_c, leg_c, eye_c = (m('brown', '#5e3b22'), m('dark', '#3f2716'), m('head', '#b9a48c'),
+                                                       m('red', '#a8231c'), m('beak', '#c98d2a'), m('leg', '#b8742a'), m('eye', '#0c0c0c'))
+    def lp(n, me, mat, parent, loc, scale, rot=(0, 0, 0)):
+        o = _obj(f'{name}_{n}', me, coll, mat, parent, loc, rot, scale)
+        for p in o.data.polygons:
+            p.use_smooth = True      # Gouraud gradients over very large faces = the retro-MMO look
+        return o
+    lp('torso', _sphere('o_torso', 6, 4), brown, body, (0, 0.03, 0.45), (0.31, 0.38, 0.29))
+    for s in (1, -1):
+        lp(f'wing{s}', _sphere('o_wing', 5, 3), dark, body, (s * 0.26, 0.06, 0.47), (0.07, 0.25, 0.16))
+    tail = E('tail', body, (0, 0.26, 0.5))
+    tri = bpy.data.meshes.new('o_tailslab'); bm = bmesh.new()
+    v = [bm.verts.new(c) for c in ((-0.11, 0, 0), (0.11, 0, 0), (0.17, 0, 0.55), (0, 0, 0.66), (-0.17, 0, 0.55))]
+    bm.faces.new(v); bmesh.ops.solidify(bm, geom=bm.faces[:], thickness=0.03); bm.to_mesh(tri); bm.free()
+    for i in range(7):
+        a = math.radians(-72 + 144 * i / 6); piv = E(f'tf{i}', tail); piv.rotation_euler = (math.radians(-12), a, 0)
+        lp(f'tailf{i}', tri, m(f'tail{i % 2}', ('#6e3a1c', '#9a6a3a')[i % 2]), piv, (0, 0.012 * (i % 2), 0), (1, 1, 1))
+    head = E('head', body, (0, -0.2, 0.6))
+    lp('neck', _cone('o_neck', 0.07, 0.055, 0.26, 5), head_c, head, (0, -0.03, 0.11), (1, 1, 1), (math.radians(-12), 0, 0))
+    lp('skull', _sphere('o_skull', 5, 4), head_c, head, (0, -0.07, 0.28), (0.11, 0.12, 0.11))
+    lp('beak', _cone('o_beak', 0.035, 0.0, 0.08, 4), beak_c, head, (0, -0.215, 0.27), (1, 1, 1), (math.radians(90), 0, 0))
+    lp('wattle', _sphere('o_wattle', 4, 3), red, head, (0, -0.17, 0.19), (0.03, 0.03, 0.06))
+    eyes = {}
+    for s, k in ((1, 'l'), (-1, 'r')):
+        ep = E(f'eye_{k}', head, (s * 0.07, -0.15, 0.31))
+        lp(f'eye_{k}', _sphere('o_eye', 4, 3), eye_c, ep, (0, 0, 0), (0.016, 0.012, 0.018))
+        eyes[k] = ep
+    legs = {}
+    for s, k in ((1, 'l'), (-1, 'r')):
+        hp = E(f'leg_{k}', body, (s * 0.1, 0, 0.22))
+        lp(f'shin_{k}', _cone('o_shin', 0.025, 0.022, 0.2, 4), leg_c, hp, (0, 0, -0.1), (1, 1, 1))
+        lp(f'foot_{k}', _cone('o_foot', 0.05, 0.0, 0.1, 3), leg_c, hp, (0, -0.03, -0.2), (1, 1, 0.3), (math.radians(90), 0, 0))
+        legs[k] = hp
+    return dict(root=root, body=body, head=head, eye_l=eyes['l'], eye_r=eyes['r'], leg_l=legs['l'], leg_r=legs['r'], tail=tail)
+
+
+def add_chef_kit(coll, T, name='TURKEY'):
+    """Original chef accessories for our turkey (owner idea 2026-11-18): a white chef's toque on the head and a wooden spoon in the
+    right wing. Generic Thanksgiving-chef trope; deliberately keeps our brown turkey (no third-party character's colours/design)."""
+    white = toon('c_white', '#f7f5ef', 0.8); wood = toon('c_wood', '#b07a42', 0.6)
+    head = T['head']
+    band = _obj(f'{name}_hatband', _cone('hatband', 0.1, 0.105, 0.09, 12), coll, white, head, (0, -0.06, 0.42), smooth=True)
+    for i, (x, y, r) in enumerate([(0, -0.06, 0.12), (0.06, -0.03, 0.08), (-0.06, -0.03, 0.08), (0.04, -0.11, 0.08), (-0.04, -0.11, 0.08)]):
+        _obj(f'{name}_hatpuff{i}', _sphere('hatpuff', 12, 8), coll, white, head, (x, y, 0.53), scale=(r, r, r * 0.8), smooth=True)
+    sp = _empty(coll, f'{name}_spoon', T['body'], (-0.3, -0.12, 0.5)); sp.rotation_euler = (math.radians(-25), math.radians(-20), 0)
+    _obj(f'{name}_spoonh', _cone('spoonh', 0.012, 0.012, 0.42, 8), coll, wood, sp, (0, 0, 0.12), smooth=True)
+    _obj(f'{name}_spoonb', _sphere('spoonb', 12, 8), coll, wood, sp, (0, 0, 0.36), scale=(0.045, 0.018, 0.065), smooth=True)
+
+
+def _facet(name, sub=1, jitter=0.12, seed=0):
+    """Faceted low-poly blob: an icosphere with jittered vertices (flat-shaded triangles)."""
+    import random
+    rr = random.Random(seed)
+    me = bpy.data.meshes.new(name); bm = bmesh.new()
+    bmesh.ops.create_icosphere(bm, subdivisions=sub, radius=1.0)
+    for v in bm.verts:
+        v.co *= 1 + rr.uniform(-jitter, jitter)
+    bmesh.ops.triangulate(bm, faces=bm.faces[:])
+    bm.to_mesh(me); bm.free(); return me
+
+
+def _slab(name, w0, w1, length, thick=0.025):
+    """Flat faceted tail feather: a 5-point slab with a raised spine (low-poly)."""
+    me = bpy.data.meshes.new(name); bm = bmesh.new()
+    pts = [(-w0, 0, 0), (w0, 0, 0), (w1, 0, length * 0.8), (0, 0, length), (-w1, 0, length * 0.8)]
+    vf = [bm.verts.new((x, thick, z)) for x, _, z in pts]; vb = [bm.verts.new((x, -thick, z)) for x, _, z in pts]
+    sp = bm.verts.new((0, thick * 2.2, length * 0.5))
+    for i in range(5):
+        j = (i + 1) % 5
+        bm.faces.new((vf[i], vf[j], sp)); bm.faces.new((vb[j], vb[i], vb[(i + 2) % 5]) if False else (vb[i], vb[j], vb[j]) ) if False else None
+    for i in range(5):
+        j = (i + 1) % 5
+        bm.faces.new((vb[j], vb[i], vf[i], vf[j]))
+    bm.faces.new(list(reversed(vb)))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    bm.to_mesh(me); bm.free(); return me
+
+
+def build_turkey_hen(coll, name='TURKEY'):
+    """Owner idea 2026-11-18: a faceted low-poly brown hen (retro-MMO look) with a BIG turkey fan tail. Original model built here
+    (flat-shaded jittered icospheres), not a game asset. Same rig handles as build_turkey."""
+    E = lambda n, parent=None, loc=(0, 0, 0): _empty(coll, f'{name}_{n}', parent, loc)
+    root = E('root'); body = E('body', root)
+    m = lambda n, h, r=0.85: toon('h_' + n, h, r, spec=0.15)
+    brown, brown2, dark, red, yel, eye, cream = (m('brown', '#7b4528'), m('brown2', '#8f5533'), m('dark', '#5a3019'), m('red', '#9e1f2a'),
+                                                 m('yel', '#d9b13b'), m('eye', '#101010', 0.3), m('cream', '#e8cf9a'))
+    def fl(n, me, mat, parent, loc, scale, rot=(0, 0, 0)):
+        return _obj(f'{name}_{n}', me, coll, mat, parent, loc, rot, scale)   # flat shaded facets
+    # hunched, round body leaning forward; breast; wings
+    fl('torso', _facet('h_torso', 1, 0.14, 1), brown, body, (0, 0.0, 0.42), (0.27, 0.33, 0.25), (math.radians(-12), 0, 0))
+    fl('breast', _facet('h_breast', 1, 0.12, 2), brown2, body, (0, -0.2, 0.36), (0.2, 0.17, 0.2))
+    for s in (1, -1):
+        fl(f'wing{s}', _facet('h_wing', 1, 0.15, 3 + s), dark, body, (s * 0.22, 0.04, 0.45), (0.07, 0.24, 0.15), (math.radians(-20), 0, math.radians(s * 6)))
+    # BIG turkey fan tail
+    tail = E('tail', body, (0, 0.27, 0.5))
+    nf = 11
+    cols = [('#5a3019', '#e8cf9a'), ('#7b4528', '#e8cf9a'), ('#9a5a2e', '#e8cf9a')]
+    for i in range(nf):
+        a = math.radians(-80 + 160 * i / (nf - 1))
+        piv = E(f'tf{i}', tail); piv.rotation_euler = (math.radians(-8), a, 0)
+        c0, c1 = cols[i % 3]
+        fl(f'tailf{i}', _slab(f'h_tail{i}', 0.05, 0.12, 0.72), m(f'tail{i % 3}', c0), piv, (0, 0.012 * (i % 2), 0), (1, 1, 1))
+        fl(f'tailtip{i}', _slab(f'h_tip{i}', 0.1, 0.1, 0.12, 0.028), m('tip', c1), piv, (0, 0.012 * (i % 2) + 0.004, 0.62), (1, 1, 1))
+    # head on a short neck, pushed forward (hen posture)
+    head = E('head', body, (0, -0.24, 0.55))
+    fl('neck', _facet('h_neck', 1, 0.1, 7), brown2, head, (0, -0.02, 0.07), (0.1, 0.1, 0.13))
+    fl('skull', _facet('h_skull', 1, 0.1, 8), brown, head, (0, -0.07, 0.2), (0.11, 0.12, 0.1))
+    fl('beak', _cone('h_beak', 0.035, 0.0, 0.09, 4), yel, head, (0, -0.205, 0.19), (1, 1, 1), (math.radians(98), 0, 0))
+    for i, (y, z, r) in enumerate([(-0.12, 0.31, 0.045), (-0.06, 0.33, 0.05), (0.0, 0.31, 0.04)]):
+        fl(f'comb{i}', _facet('h_comb', 0, 0.05, 20 + i), red, head, (0, y, z), (0.02, r, r))
+    fl('wattle', _facet('h_wattle', 1, 0.1, 30), red, head, (0, -0.165, 0.12), (0.03, 0.035, 0.06))
+    eyes = {}
+    for s, k in ((1, 'l'), (-1, 'r')):
+        ep = E(f'eye_{k}', head, (s * 0.085, -0.13, 0.23))
+        fl(f'eye_{k}', _facet('h_eye', 1, 0.0, 40), eye, ep, (0, 0, 0), (0.018, 0.018, 0.022))
+        eyes[k] = ep
+    legs = {}
+    for s, k in ((1, 'l'), (-1, 'r')):
+        hp = E(f'leg_{k}', body, (s * 0.09, -0.02, 0.22))
+        fl(f'shin_{k}', _cone('h_shin', 0.03, 0.022, 0.2, 4), yel, hp, (0, 0, -0.1), (1, 1, 1))
+        for j, a in enumerate((-35, 0, 35, 180)):
+            L = 0.07 if a == 180 else 0.13
+            fl(f'toe_{k}{j}', _cone('h_toe', 0.016, 0.0, L, 3), yel, hp, (0, 0, -0.2), (1, 1, 1), (math.radians(90), 0, math.radians(a)))
+        legs[k] = hp
+    # toes point outward from the ankle along their own length
+    for o in coll.objects:
+        if o.name.startswith(f'{name}_toe_'):
+            d = o.matrix_basis.to_3x3() @ Vector((0, 0, 1)); o.location = o.location + d * (0.065 if not o.name.endswith('3') else 0.035)
+    return dict(root=root, body=body, head=head, eye_l=eyes['l'], eye_r=eyes['r'], leg_l=legs['l'], leg_r=legs['r'], tail=tail)
