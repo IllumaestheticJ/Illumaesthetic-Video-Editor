@@ -6,6 +6,7 @@ Compositing tints: out = b + mask * (w - b) * colour, so every store colour come
 Camera and lights orbit together, which looks like the car turning on a fixed stage.
 """
 import bpy, sys, math, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 a = sys.argv[sys.argv.index('--') + 1:]
 GLB, OUT, HIDE = a[0], a[1], a[2].split(',')
@@ -13,7 +14,7 @@ N = int(a[3]) if len(a) > 3 else 48
 os.makedirs(OUT, exist_ok=True)
 for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
 sc = bpy.context.scene
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 10; sc.cycles.use_denoising = True
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc); sc.cycles.samples = 10; sc.cycles.use_denoising = True
 sc.render.resolution_x, sc.render.resolution_y = 720, 420
 sc.render.use_persistent_data = True
 sc.view_settings.view_transform = 'Standard'

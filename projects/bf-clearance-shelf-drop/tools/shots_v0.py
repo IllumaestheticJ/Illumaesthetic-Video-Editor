@@ -20,6 +20,7 @@ A.add_argument("--out", required=True)
 A.add_argument("--res", type=float, default=0.5)
 A.add_argument("--frames", default="")
 A.add_argument("--step", type=int, default=1)
+A.add_argument("--save-blend", default="", help="build the shot, pack all resources, save a self-contained .blend instead of rendering")
 A.add_argument("--fps60", action="store_true", help="true 60 fps: same 30 fps keyframes, time remapped x2")
 A.add_argument("--chars", action="store_true", help="v0 placeholders (owner removed them; off by default)")
 args = A.parse_args(sys.argv[sys.argv.index("--") + 1:])
@@ -484,4 +485,11 @@ if args.frames:
     a, b = args.frames.split("-"); sc.frame_start, sc.frame_end = int(a), int(b)
 sc.frame_step = args.step
 sc.render.use_motion_blur = False
+if args.save_blend:                      # GPU-worker job: self-contained file, output relative to the .blend
+    sc.render.filepath = f"//frames/{args.shot}/f_"
+    bpy.ops.file.pack_all()
+    bpy.ops.wm.save_as_mainfile(filepath=args.save_blend, compress=True)
+    print("SAVED", args.save_blend, sc.frame_start, sc.frame_end, sc.render.resolution_x, sc.render.resolution_y,
+          sc.eevee.taa_render_samples, sc.render.engine)
+    sys.exit(0)
 bpy.ops.render.render(animation=True)

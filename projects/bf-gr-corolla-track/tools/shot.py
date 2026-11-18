@@ -16,6 +16,7 @@ CGI = lookbook GLB car (paint Supersonic Red, kit in black PU) on a procedural c
 Cycles motion blur. SCAN = engineering full-car scan aligned to the GLB (tools/photo1to1 align) in the house silver look.
 """
 import bpy, sys, math, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix
 
 a = sys.argv[sys.argv.index('--') + 1:]
@@ -72,7 +73,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
 sc.render.fps = FPS; sc.frame_start = 1; sc.frame_end = N
 sc.render.resolution_x, sc.render.resolution_y = 1080, 1920; sc.render.resolution_percentage = PCT
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = SPP; sc.cycles.use_denoising = True
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc); sc.cycles.samples = SPP; sc.cycles.use_denoising = True
 sc.render.use_persistent_data = False
 sc.view_settings.view_transform = 'AgX'
 sc.render.image_settings.file_format = 'PNG'
