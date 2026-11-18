@@ -919,3 +919,6 @@ lands here automatically. Agents must read this whole file before editing.
 - YouTube rips of game or film soundtracks are not "music we can use": say so plainly and let the owner decide; record the decision.
 - (Miata v12) A rough cut's burned-in captions are usually auto-generated: OCR the caption band (tesseract on a white-with-black-outline mask), compare with a transcript of the clean dialogue, and fix every wrong line, not only the one the owner spots. Redraw in the same face, size and baseline (measure the old line), and check each fix on a before/after strip.
 - (Miata close-out) Files sent through the session's file cards are capped (400-500 MiB). A 9-minute 1080p YouTube master at YouTube's recommended bitrate is ~650 MB; plan a two-pass copy at ~5 Mbit/s for delivery, keep the master, and tell the owner the difference. Check a cloned-voice take with two transcription models before using it: one heard "Miata" as "Niana".
+
+- **[story]** reel 1 ('1.7 mm') is a spoiler - not using it  _(from miata-bracing-longform, 2026-11-18, reviewer)_
+- (Miata reels) Promo reels must not give away the result: the owner dropped the reel that showed the measured numbers ("reel is a spoiler"). Tease the question, keep the answer for the long-form.

@@ -77,7 +77,7 @@ def bars(rows):
         return im
     return draw
 _logo = None
-_mq = Image.open(f'{M}/logos/motoiq_white.png').convert('RGBA'); _mq = _mq.crop(_mq.getbbox()); _mq = _mq.resize((460, int(_mq.height*460/_mq.width)), Image.LANCZOS)      # owner: the white-text MotoIQ logo, no label
+_mq = Image.open(f'{M}/logos/motoiq_white_red.png').convert('RGBA'); _mq = _mq.crop(_mq.getbbox()); _mq = _mq.resize((460, int(_mq.height*460/_mq.width)), Image.LANCZOS)      # owner: white-text MotoIQ logo with its red iq square (official logo, black text recoloured white), no label
 def endcard(q):
     def draw(t, D):
         global _logo
