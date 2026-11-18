@@ -280,4 +280,5 @@ if args.still >= 0:
     bpy.ops.render.render(write_still=True)
 else:
     sc.render.filepath = args.out.rstrip("/") + "/f_"
+    sc.render.use_overwrite = False  # resume: skip frames already on disk (container restarts)
     bpy.ops.render.render(animation=True)
