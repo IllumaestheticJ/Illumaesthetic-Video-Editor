@@ -8,8 +8,8 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.6.mp4')
-ap.add_argument('--tag', default='v0.6'); args = ap.parse_args()
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.7.mp4')
+ap.add_argument('--tag', default='v0.7'); args = ap.parse_args()
 M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v06'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
@@ -19,10 +19,11 @@ END = round(kicks[50] * FPS) + 30          # logo holds 6 kicks (to kick 50), th
 ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-# owner font rule (knowledge/fonts.md): Akira for headlines/offers - not supplied yet, so Unbounded 800-900 stands in;
+# owner font rule (knowledge/fonts.md): Akira Expanded Super Bold for headlines/offers (ASCII only - no arrows);
 # Unbounded 500 for part labels, 300-400 for the URL next to the logo
 UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-'
-f_bf = ImageFont.truetype(UB + '800.ttf', 40)
+AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf'   # owner licence (2026-11-18), gitignored
+f_bf = ImageFont.truetype(AK, 38)
 f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 58) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 58)
 f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 50)
 f_url = ImageFont.truetype(UB + '300.ttf', 40)
@@ -50,10 +51,10 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 RED = (226, 38, 43)
-f_ver = ImageFont.truetype(UB + '900.ttf', 200)
-f_kit = ImageFont.truetype(UB + '900.ttf', 72)
-f_pct = ImageFont.truetype(UB + '900.ttf', 128)
-f_upto = ImageFont.truetype(UB + '800.ttf', 52)
+f_ver = ImageFont.truetype(AK, 190)
+f_kit = ImageFont.truetype(AK, 58)
+f_pct = ImageFont.truetype(AK, 122)
+f_upto = ImageFont.truetype(AK, 44)
 
 
 def card_overlay(img, shot, i, n):
@@ -72,11 +73,11 @@ def card_overlay(img, shot, i, n):
         x0 = 484 - (wv + gap + wk) / 2; y0 = 385
         d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
         if word:
-            d.text((x0 + wv + gap, y0 + 128), word, font=f_kit, fill=TXT + (round(255 * a_v),))
+            d.text((x0 + wv + gap, y0 + 112), word, font=f_kit, fill=TXT + (round(255 * a_v),))
         # 2) the slash: a thick red bar drawn lower-left -> upper-right across the version (frames 9-15)
         k = ease((i - 10) / 6)
         if k > 0:
-            xa, ya, xb, yb = x0 - 30, y0 + 225, x0 + wv + gap + wk + 30, y0 + 40
+            xa, ya, xb, yb = x0 - 30, y0 + 200, x0 + wv + gap + wk + 30, y0 + 30
             xe, ye = xa + (xb - xa) * k, ya + (yb - ya) * k
             d.line((xa, ya, xe, ye), fill=RED + (round(255 * min(1, a_v * 1.4)),), width=26)
     # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20

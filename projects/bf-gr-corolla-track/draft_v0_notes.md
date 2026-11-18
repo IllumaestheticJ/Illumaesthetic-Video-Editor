@@ -80,3 +80,10 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
 - **Pairs:** both skirts and both spats in the card line-up; the canards shot from the front so both show.
 - **Fonts:** Unbounded 800-900 stands in for Akira (file not supplied); Unbounded 500 labels, 300 URL.
 - **Checks:** 24.7 s, -13.9 LUFS / -2.8 dBTP, safe zones pass.
+
+## v0.7 (Akira font, owner licence 2026-11-18)
+- **Akira Expanded Super Bold** (Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya, SHA-256 checked, `assets/fonts/akira/` gitignored) is now used for BLACK FRIDAY, V2 KIT / V1, UP TO and 30% / 45% OFF.
+  - Every string is checked against the font's cmap: no missing glyphs, no arrows.
+- Labels stay Unbounded 500 / 400, and the URL beside the logo stays Unbounded 300.
+- Composite-only change; no re-render.
+- **Checks:** 24.7 s, -13.9 LUFS / -2.8 dBTP, safe zones pass, same cut timing as v0.6.

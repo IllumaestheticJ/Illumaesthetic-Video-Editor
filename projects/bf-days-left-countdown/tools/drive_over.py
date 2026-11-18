@@ -20,7 +20,7 @@ ap.add_argument("--frames", type=int, default=208)
 ap.add_argument("--drop", type=int, default=139)
 ap.add_argument("--res", default="1080x1920")
 ap.add_argument("--samples", type=int, default=16)
-ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-900.ttf"))  # knowledge/fonts.md: Akira stand-in until the owner supplies the file
+ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/akira/AkiraExpanded-SuperBold.otf"))  # knowledge/fonts.md: Akira for floor headlines (gitignored, Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya)
 ap.add_argument("--text-width", type=float, default=4.6, help="width of the wider text block on the floor (m)")
 ap.add_argument("--still", type=int, default=-1)
 args = ap.parse_args(a)
@@ -75,7 +75,8 @@ def floor_text(name, body, mat):
     cu.body = body.replace("\\n", "\n")
     cu.font = bpy.data.fonts.load(args.font)
     cu.align_x, cu.align_y = "CENTER", "CENTER"
-    cu.extrude = 0.035; cu.bevel_depth = 0.006; cu.bevel_resolution = 2; cu.space_line = 0.9
+    cu.extrude = 0.035; cu.bevel_depth = 0.006; cu.bevel_resolution = 2
+    cu.space_line = 1.15; cu.space_character = 1.25  # Akira is flat and wide: open the tracking so letters do not fuse at the floor angle
     ob = bpy.data.objects.new(name, cu); sc.collection.objects.link(ob)
     bpy.context.view_layer.objects.active = ob
     for o in bpy.context.selected_objects:
