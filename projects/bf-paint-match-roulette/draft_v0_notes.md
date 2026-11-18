@@ -133,3 +133,45 @@ Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.5.mp4` (27.2 s). T
   (next to the logo). Car names stay in the serif, small labels in Inter. Akira file still needed from the owner.
 - **Checks:** -14.0 LUFS, peak -1.4 dBFS (the first mix was -12.1 LUFS / +1.0 dBFS; SFX lowered 5 dB). 51 click/colour events vs music
   onsets: mean -4.8 ms, max 25 ms. Safe-zone sheet looked at: clean; content bbox x 48-924, y 288-1444 (4 px grid).
+
+# v0.6 (2026-11-17): paint-matched kits, both prices, centred, even pace
+
+Owner feedback on v0.5: lip kits/flares "Paint matched like wing"; widebody "Show both prices"; "Video needs to be centered, and the
+changing speed should be evened out"; "The color should only reference the color of the car - so gloss black should be on a black car".
+Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.6.mp4` (29.3 s). Tools: `tools/compose_v06.py`, `tools/render_turntable.py`.
+
+- **Kits and flares paint-matched:** the turntable mask has a third channel (B = lip kit / flares). They take the car colour on every
+  paint screen. Turntables re-rendered to `ttp/` (the render script now skips frames that exist, after two container restarts).
+- **Gloss Black base-wing screen** is now a black car (#0b0b0d) with black wing and kit, so the named colour is always the car's colour.
+- **Widebody shows both prices:** WING ($350 base / $800 paint-matched, $850 Platinum White) and FLARES $400 (~~$800~~).
+  The sheet has only the unpainted-PU flares price; no paint-matched flares or Integra lip price exists, so $400 shows beside painted flares.
+- **Centred:** the menu box is scaled to 760 px wide and centred on x = 540 (x 160-920, y 433-1440). The end wordmark is centred at 720 px.
+- **Even pace:** every colour change is one beat (0.4286 s) on all four cars; the widebody's half-beat cycle is gone.
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS. Content bbox x 160-920, y 436-1440, centre x 540. Colour-change gaps 0.428-0.429 s throughout.
+  Safe-zone sheet looked at: clean.
+
+# v0.7 (2026-11-17): Type S as the 3rd entry, real model logos
+
+Owner: "the DE4/5 (3rd entry) should be the Type S instead of the non-widebody integra"; "also use the real civic/integra logos"
+(the owner pasted both logo images in chat). Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.7.mp4` (29.3 s).
+- **3rd entry = Integra Type S (DE5):** lookbook `eps-acura-integra-type-s-de5-v19.glb`, Sport Wing only (the model has no lip kit
+  parts, so no "FRONT LIP + SKIRTS" line on that screen). The 4th entry stays the DE4 widebody with kit + flares.
+- **Logos:** the owner's Civic and Integra wordmarks (recovered from the chat images to `logo/civic_alpha.png`,
+  `logo/integra_alpha.png` in the media folder; media is not committed) replace the serif car names on the car screens and the lineup
+  tiles. The variant line under each logo is Unbounded 600: "HATCHBACK · FL2 / FL5", "SEDAN · FE", "TYPE S · DE5", "WIDEBODY · DE4".
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440; safe-zone sheet looked at: clean.
+
+# v0.8 (2026-11-18): Integra wordmark without the Acura badge
+
+Owner: "remove the acura badge from the integra". The badge is cropped off the owner's logo (`logo/integra_alpha.png`; the original
+is kept as `integra_with_badge_alpha.png`), on the car screens and the lineup tiles. `tools/compose_v08.py`; output
+`/home/user/media/work/out/bf-paint-match-roulette_v0.8.mp4`. Otherwise identical to v0.7.
+Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same layout as v0.7).
+
+## v0.9 — car centred on screen (owner: "can you center the car on the screen as well")
+- `tools/compose_v09.py`. Turntable moved down so the car sits on the frame centre (x 540, y ~960); logo/variant stay above it.
+- Info rows tightened below the car to stay inside the safe box (y <= 1440): bullets, colour name/code, swatches, CHANGE COLOR, price (label now above the crossed-out price), BUY, bottom bar.
+- Timeline, colours, prices, music, SFX and mix unchanged from v0.8.
+- Checks: 29.30 s, -14.0 LUFS, true peak -1.4 dBFS; safe-zone sheet looked at (nothing in red/amber); car, lineup, widebody two-price and offer screens checked for overlaps - none.
+- Note: the car's silhouette centre still drifts about +/-25 px sideways as it turns (perspective of a turntable); its average is on the centre line.
+- Still open: Akira font file (Unbounded stand-in), paint-matched flare/lip prices, FE Platinum White price is derived, Championship White hex approximate.
