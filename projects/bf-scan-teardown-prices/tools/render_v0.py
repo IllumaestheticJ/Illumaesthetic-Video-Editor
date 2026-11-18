@@ -191,7 +191,7 @@ def main():
         front.outputs[0].default_value = y
         l, q, f = cam_at(keys, t)
         cam.location = l; cam.rotation_mode = "QUATERNION"; cam.rotation_quaternion = q; cam.data.lens = f
-        name = f"{SHOT}_{t:07.3f}.png" if SHOT == "STILL" else f"f{i:04d}.png"
+        name = f"{SHOT}_{t:07.3f}.png" if SHOT == "STILL" else f"f{i + int(os.environ.get('FRAME0', '0')):04d}.png"   # FRAME0: resume chunks
         sc.render.filepath = os.path.join(OUT, name)
         bpy.ops.render.render(write_still=True)
         print("FRAME", i, round(t, 3), flush=True)
