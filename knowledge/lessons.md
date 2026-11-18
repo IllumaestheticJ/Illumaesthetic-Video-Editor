@@ -1409,4 +1409,4 @@ lands here automatically. Agents must read this whole file before editing.
   - Fast cutting is fine in sections with no text. Keep the beat-sync by placing text sections on longer bars instead of rushing the read.
   - Check: list every text box with its readable duration (t1 - t0, minus the fades) and fail any below the minimum.
 
-- **[comms] Times in Pacific (owner, 2026-11-18):** give every time and ETA to the owner in **Pacific time** (PT; PST in winter = UTC-8), never UTC. Example: "ETA ~11:45 AM PT". Convert with `TZ=America/Los_Angeles date`.
+- **[comms] Times in Pacific (owner, 2026-11-18):** give every time and ETA to the owner in **Pacific time** (PT; PST in winter = UTC-8), never UTC. Always follow the PT time with how far away it is: **"ETA ~11:45 AM PT (~1 h 20 min from now)"**. Convert with `TZ=America/Los_Angeles date`.
