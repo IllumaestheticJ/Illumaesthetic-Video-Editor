@@ -15,3 +15,4 @@
 {"ts": "2026-11-17T10:44:36Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Illumaesthetic is pronounced wrong in the voice take (comes out 'Illuma Aesthetic')", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T10:46:26Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "script", "note": "Script v6 approved", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-17T10:46:26Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Illumaesthetic is pronounced ih-LOOM-es-THET-ic; spell it phonetically in TTS prompts", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-18T00:54:48Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Voice take 3 approved (pronunciation OK); keep every line (~52 s total)", "by": "reviewer", "promoted": false}
