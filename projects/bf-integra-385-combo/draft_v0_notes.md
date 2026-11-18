@@ -1,3 +1,12 @@
+# v1.0 (user: "the colors in the beginning are super unnatural - make it the color of an actual cardboard box" +
+# "with an epsilon logo on it"; owner: Akira supplied)
+- Box: kraft corrugated cardboard (procedural fibre noise + bump), clear tan packing tape along the lid seam, Epsilon+
+  wordmark printed in matte black on the front face and on the lid. Neutral warm-grey studio backdrop, white/warm rims
+  (violet stage, cyan band and coloured rims removed). Shots 1-4 re-rendered (render_v10).
+- Fonts: Akira Expanded Super Bold for WHAT $385 GETS YOU and the $600/$385 card prices (file at
+  assets/fonts/akira/, gitignored; Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya). Unbounded stays for labels and the end card.
+- Price card made opaque (the box print ghosted through). 26.9 s; -13.4 LUFS; TP -1.8 dBFS; safezone_check OK.
+
 # v0.9 (owner font rule, knowledge/fonts.md)
 - Headlines/prices (WHAT $385 GETS YOU, $600, $385 on the price card): Akira -> **Unbounded 700 stand-in** (Akira file
   not supplied; 800-900 weights not in the repo). Swap `F_AK` in tools/composite.py when the owner uploads Akira.

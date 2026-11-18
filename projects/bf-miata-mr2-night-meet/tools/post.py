@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.6.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.7.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -33,6 +33,12 @@ LOGO = Image.open(f"{M}/logo/Epsilon+ Logo.png").convert("RGBA")
 
 
 def font(p, s): return ImageFont.truetype(p, s)
+
+
+def fit(p, s, text, maxw):
+    """Largest size <= s at which `text` is at most maxw px wide (Akira is wider than Unbounded; safe band x 48-920)."""
+    while s > 12 and ImageFont.truetype(p, s).getlength(text) > maxw: s -= 1
+    return ImageFont.truetype(p, s)
 
 
 class Layer:
@@ -66,7 +72,7 @@ def put_char(base, img, h, cx, by, alpha=1.0, shadow=True):
 def label(base, t, line1, line2, y=300):
     a = int(255 * ease(t * 4))
     with Layer(base) as d:
-        d.text((90, y), line1, font=font(FH8, 54), fill=(*OFF, a))
+        d.text((90, y), line1, font=fit(FH8, 54, line1, 820), fill=(*OFF, a))
         d.text((92, y + 86), line2, font=font(FS, 28), fill=(*OFF, int(a * 0.8)))
 
 
@@ -79,7 +85,7 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
          "nc_skirts": ("SIDE SKIRTS", "NC MIATA", 500, 400), "nc_spats": ("REAR SPATS (NC1)", "NC MIATA", 250, 200),
          # not on the BF sheet -> regular store price (Shopify 2026-11-17), no discount claimed
          "mr2_diffuser": ("REAR DIFFUSER V1+", "MR2 SPYDER", None, 750), "mr2_wing": ("TC WING", "MR2 SPYDER", None, 1100),
-         "nc_wing": ("TC WING · SWAN MOUNT", "NC MIATA", None, 1100)}
+         "nc_wing": ("TC WING - SWAN MOUNT", "NC MIATA", None, 1100)}
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
 # shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
 # above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
@@ -101,7 +107,7 @@ def price_label(base, key, t, plate, slot=0):
         g = Image.new("L", (W, H), 0); ImageDraw.Draw(g).rounded_rectangle([60, 296 + dy, 900, 566 + dy], 28, fill=int(150 * a))
         base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
     with Layer(base) as d:
-        d.text((90, 312 + dy), name, font=font(FH8, 50), fill=(255, 255, 255, A))
+        d.text((90, 312 + dy), name, font=fit(FH8, 50, name, 820), fill=(255, 255, 255, A))
         d.text((92, 396 + dy), f"{car} · 20% OFF" if was else f"{car} · COMPLETE THE KIT", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
         if was is None:          # regular price only (not in the sale)
             d.text((92, 452 + dy), money(now), font=font(FH, 56), fill=(255, 255, 255, A)); return
@@ -120,8 +126,8 @@ def title(base, i, fade_out=False, n2=0, i2=0):
     base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(22))]))
     with Layer(base) as d:
         d.text((CX, 352), "BLACK FRIDAY", font=font(FH, 44), fill=(255, 210, 31, A), anchor="mm")
-        d.text((CX, 455), "20% OFF", font=font(FH, 128), fill=(255, 255, 255, A), anchor="mm")
-        d.text((CX, 565), "MR2 SPYDER  ·  NC MIATA", font=font(FH8, 40), fill=(*OFF, A), anchor="mm")
+        d.text((CX, 455), "20% OFF", font=fit(FH, 128, "20% OFF", 820), fill=(255, 255, 255, A), anchor="mm")
+        d.text((CX, 565), "MR2 SPYDER + NC MIATA", font=fit(FH8, 40, "MR2 SPYDER + NC MIATA", 860), fill=(*OFF, A), anchor="mm")
         d.text((CX, 640), "EPSILON+ FIBERGLASS AERO", font=font(FS, 28), fill=(*OFF, int(A * 0.85)), anchor="mm")
 
 
@@ -130,8 +136,8 @@ def card(base_img, i, n):
     lay = Image.new("RGBA", bg.size, (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
     a1 = int(255 * ease(i / 6)); a2 = int(255 * ease((i - 14) / 6))      # list lands on the next hit (+0.82 s)
     d.text((CX, 330), "BLACK FRIDAY", font=font(FH, 40), fill=(255, 210, 31, a1), anchor="mm")
-    d.text((CX, 445), "20% OFF", font=font(FH, 132), fill=(255, 255, 255, a1), anchor="mm")
-    d.text((CX, 568), "MR2 SPYDER + NC MIATA AERO", font=font(FH8, 34), fill=(*OFF, a1), anchor="mm")
+    d.text((CX, 445), "20% OFF", font=fit(FH, 132, "20% OFF", 820), fill=(255, 255, 255, a1), anchor="mm")
+    d.text((CX, 568), "MR2 SPYDER + NC MIATA AERO", font=fit(FH8, 34, "MR2 SPYDER + NC MIATA AERO", 860), fill=(*OFF, a1), anchor="mm")
     rows = [("MR2 SPYDER", None, None), ("Side Skirt / Fender Combo", "$700", "$560"), ("Rear Spats", "$350", "$280"),
             ("Headlight Eyelids", "$100", "$80"), ("Hood Vents", "$400", "$320"), ("Rear Duckbill", "$220", "$176"),
             ("NC MIATA", None, None), ("Front Bumper + Lip", "$1,100", "$880"), ("Fender Cuts", "$300", "$240"),

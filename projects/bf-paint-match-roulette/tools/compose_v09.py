@@ -19,7 +19,18 @@ ORANGE = (247, 160, 20); RED = (240, 84, 28); GREY = (150, 150, 150); WHITE = (2
 FI = '/usr/share/fonts/opentype/inter/'
 def F(name, size): return ImageFont.truetype(FI + name, size)
 UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-%d.ttf'
-def U(wt, size): return ImageFont.truetype(UB % wt, size)   # Unbounded 800-900 = stand-in for Akira Expanded (owner font rule)
+AKIRA = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf'   # licensed, gitignored (knowledge/fonts.md)
+def U(wt, size):
+    """Akira Expanded for headlines / offers / big prices (weight >= 800, size >= 30); Unbounded for small labels and logo-adjacent text."""
+    if wt >= 800 and size >= 30:
+        f = ImageFont.truetype(AKIRA, int(round(size * 0.95))); f._akira_dy = int(round(size * 0.10)); return f   # 0.95: same line width as Unbounded 900
+    return ImageFont.truetype(UB % wt, size)
+_text0 = ImageDraw.ImageDraw.text
+def _text(self, xy, text, *a, **k):
+    f = k.get('font'); dy = getattr(f, '_akira_dy', 0)
+    if dy: assert text.isascii(), text    # Akira has no non-ASCII glyphs
+    return _text0(self, (xy[0], xy[1] + dy), text, *a, **k)
+ImageDraw.ImageDraw.text = _text
 SERIF = lambda s: ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf', s)
 f_tab = F('InterDisplay-Bold.otf', 36); f_stat = F('InterDisplay-Bold.otf', 44); f_small = F('InterDisplay-Bold.otf', 34)
 f_price = F('InterDisplay-Black.otf', 104); f_was = F('InterDisplay-Bold.otf', 50); f_btn = F('InterDisplay-Black.otf', 30)
