@@ -1395,3 +1395,5 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[story]** if the part is a pair, show both (like 2 side skirts, 2 canards)  _(from bf-gr-corolla-track, 2026-11-17, reviewer)_
 - **Fonts (owner, 2026-11-17):** use the Akira font for headlines and offers where it looks good. Text right next to the logo uses a different, matching font: Unbounded, in `assets/fonts/unbounded/`. See `knowledge/fonts.md`.
+
+- **[accuracy]** DE4 never came in Tiger Eye Pearl - only show colours each car was really sold in  _(from bf-paint-match-roulette, 2026-11-18, reviewer)_

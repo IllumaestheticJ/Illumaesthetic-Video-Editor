@@ -20,7 +20,7 @@ ap.add_argument("--frames", type=int, default=208)
 ap.add_argument("--drop", type=int, default=139)
 ap.add_argument("--res", default="1080x1920")
 ap.add_argument("--samples", type=int, default=16)
-ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-700.ttf"))  # knowledge/fonts.md: Akira stand-in until the owner supplies the file
+ap.add_argument("--font", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-900.ttf"))  # knowledge/fonts.md: Akira stand-in until the owner supplies the file
 ap.add_argument("--text-width", type=float, default=4.6, help="width of the wider text block on the floor (m)")
 ap.add_argument("--still", type=int, default=-1)
 args = ap.parse_args(a)
@@ -128,7 +128,9 @@ for t, mat in ((t_old, m_old), (t_new, m_new)):
     t.select_set(True)
     bpy.ops.object.transform_apply(scale=True)
     t.data.materials.clear(); t.data.materials.append(mat)
-    t.location = (0, 0, 0.001)  # lying flat on the floor, reading toward the camera (-Y)
+    # lying flat on the floor, reading toward the camera (-Y). The new text sits 3 mm above the old: coplanar caps
+    # (old one transparent) z-fought into triangle streaks in v0.4
+    t.location = (0, 0, 0.001 if t is t_old else 0.004)
 
 # floor: black, a little gloss so the car sits on it
 bpy.ops.mesh.primitive_plane_add(size=80)

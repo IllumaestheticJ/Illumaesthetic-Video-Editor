@@ -20,3 +20,6 @@ graphify-out/.graphify_*
 !graphify-out/.graphify_labels.json
 graphify-out/cache/
 !knowledge/characters/**/*.jpg
+
+# Akira font: licence-restricted, never commit (see knowledge/fonts.md)
+assets/fonts/akira/

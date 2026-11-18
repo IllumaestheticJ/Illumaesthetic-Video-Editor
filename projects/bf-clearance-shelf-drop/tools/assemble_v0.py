@@ -8,13 +8,13 @@ from PIL import Image, ImageDraw, ImageFont
 
 P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
-R = f"{M}/renders_v05"
+R = f"{M}/renders_v06"
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.5.mp4"
+OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.6.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
-FB = UB + "Unbounded-700.ttf"   # Akira stand-in for headlines (knowledge/fonts.md)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from fonts import HEAD as FB  # Akira or the stand-in
 FM = UB + "Unbounded-400.ttf"   # lines beside the logo
 FL = UB + "Unbounded-300.ttf"   # URL beside the logo
 OFF = (232, 236, 242)

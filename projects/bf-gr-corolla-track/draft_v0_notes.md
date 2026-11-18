@@ -74,3 +74,9 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
   4. "30% OFF" / "UP TO 45% OFF" punches in at 168 px.
   - The spat sits nearer the lens than true scale so it reads.
 - **Checks:** 20.9 s, -13.9 LUFS / -2.8 dBTP; 9 cuts within -21..+7 ms of the kicks; the safe-zone sheet passes for all text and logos.
+
+## v0.6 (user: slow readers, pairs; owner font rule)
+- **Text hold times:** cards 8 kicks (the percent holds ~1.8 s); FRONT LIP held across s4+s5 (~1.8 s); SIDE SKIRTS / REAR SPATS ~1.4 s each; CARBON CANARDS / BACK IN STOCK ~2.5 s.
+- **Pairs:** both skirts and both spats in the card line-up; the canards shot from the front so both show.
+- **Fonts:** Unbounded 800-900 stands in for Akira (file not supplied); Unbounded 500 labels, 300 URL.
+- **Checks:** 24.7 s, -13.9 LUFS / -2.8 dBTP, safe zones pass.

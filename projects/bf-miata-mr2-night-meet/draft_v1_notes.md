@@ -70,3 +70,38 @@ Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14
 - "If there is two text you can put one above and another below": two-part shots put the first label above the car
   (y ~300) and the second below it (y ~1130-1400). Both stay to the end of the shot. Plates on every lot/close shot.
 - Safe-zone sheet (every 0.5 s) looked at: all text and the logo clear of red and amber.
+
+## v1.5: NC fender fit, longer text (user feedback on v1.4)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.5.mp4` (42.5 s, -14.0 LUFS, TP -1.8 dBFS).
+- "The nc fender cuts don't line up well": the scan hole was bigger than the part (the old zone also took scan skin the
+  lookbook body lacks), leaving dark slits at the door edge and under the crease. A local re-fit (`tools/nc_fender_fit.py`)
+  moved the part only 2 mm, so the fix is the zone: it is now the part's own side outline rasterised at 2 mm, closed and
+  filled (`tools/nc_fender_outline.py`), on the outer skin only. Check render: hole = part outline, part flush.
+- "Make sure the text is a bit longer so slow readers can digest info": shots re-timed to more hits (title 3, single-part
+  4, two-part 6, card 6; specs/timeline.json `units`), labels enter at 10-20 % of the shot and stay to the cut. On screen:
+  single-part labels 2.6-3.0 s, two-part labels 3.8-4.6 s (first) and 2.6-3.1 s (second), opening title ~3 s, card 4.9 s.
+  Two-part installs finish by ~60 % of the shot so the second label has time.
+- Bug fixed: text was drawn straight onto opaque frames, so fades were ignored (labels popped on; the URL stayed while the
+  wordmark faded). Text now goes on a transparent layer (`post.py` Layer).
+- Length is now 42.5 s (was 28 s) because of the longer holds.
+
+## Fonts (owner rule, knowledge/fonts.md), wired into tools/post.py for v1.6
+Headlines, offers, prices, part names: Akira if `assets/fonts/akira/` has the file, else Unbounded 800/900 stand-in (Akira
+not supplied yet). Small lines and the price table: Unbounded 500. URL under the wordmark: Unbounded 400. Preview stills only;
+no new export yet (waiting on the length decision).
+
+## v1.6: spats/duckbill over stock, NC spat bumper cut, TC wings + MR2 diffuser, house fonts (user feedback on v1.5)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.6.mp4` (50.7 s, -14.0 LUFS, TP -1.8 dBFS).
+- "The duckbill and spats don't have a section removed, they go over stock": MR2 spats and duckbill land on the stock
+  body; nothing comes off (`tools/shot.py` ZONES).
+- "The NC should also have the rear spats (rear bumper needs to be cut)": the NC rear-bumper cut is the Epsilon spat's
+  own outline (footprint -80/+30 mm, 3 mm lateral), so the hole matches the part.
+- "...and the TC wing included": NC TC wing = engineering Drive 'NC swan short mount assm.stp' (1mrtynCDvxFzutOrOV0R7i7iEHg-r8agt;
+  47.5" element, endplates, one upright mirrored), meshed per solid with OCP and placed per its drawing
+  ('NC swan short mount.pdf': uprights 981 mm apart, base plates at the lid's rear edge) on our scan (`tools/nc_tcwing.py`).
+  New CGI shot s09b. The lookbook NC only has a GT wing; the configurator page (epsilon.plus) is blocked from this session.
+- "Same with the MR2 - include the rear diffuser (black) and the TC wing": lookbook `part_diffuser` (black) and
+  `part_tc_wing_kit` (carbon) in new CGI shot s05b; both also on the final two-car scan shot.
+- Diffuser and TC wings are NOT on the BF sheet: labels show the regular store price ("COMPLETE THE KIT", $750 / $1,100),
+  no discount. They are not on the 20 % card.
+- Fonts per knowledge/fonts.md (Unbounded stand-in for Akira). Length now 50.7 s.

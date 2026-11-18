@@ -23,3 +23,9 @@
 {"ts": "2026-11-17T16:51:40Z", "decision": "v0.3 assembled and safe-zone checked", "why": "owner rule: no text or elements in the social UI buffer zones"}
 {"ts": "2026-11-17T17:20:31Z", "decision": "v0.4: end-card URL -> WWW.EPSILON.PLUS", "why": "owner: all agents should use www.epsilon.plus"}
 {"ts": "2026-11-17T19:15:52Z", "decision": "v0.5 fonts: Unbounded 700 for tags/sign/count (Akira stand-in), Unbounded 400/300 beside the logo", "why": "owner font rule (knowledge/fonts.md); the Akira file isn't available yet"}
+{"ts": "2026-11-17T19:20:36Z", "decision": "Akira stand-in 700 -> Unbounded 800 for tags and count text", "why": "parent: 800-900 weights added (e15b34b); s1's aisle sign was already rendering at 700 and wasn't re-rendered (parent: don't re-render just for this)"}
+{"ts": "2026-11-17T20:14:36Z", "decision": "aisle BLACK FRIDAY sign size 1.0 -> 0.70", "why": "Unbounded is wider than Inter; at 1.0 the sign's ends were cut off by the racks"}
+{"ts": "2026-11-17T20:34:48Z", "decision": "v0.5 assembled with the owner font rule", "why": "owner: Akira for headlines, a different font beside the logo"}
+{"ts": "2026-11-18T00:35:15Z", "decision": "v0.6 carbon: image 2x2 twill (5 mm tows, was 14 mm checker cells), glass clear coat (roughness 0), per-tow roughness, ray-traced reflections; carbon shots at 0.6 res", "why": "owner: carbon pattern tighter and more glossy/realistic; the weave doesn't resolve at 0.4 res"}
+{"ts": "2026-11-18T02:02:45Z", "decision": "v0.6 assembled: realistic gloss twill carbon", "why": "owner: carbon tighter and more glossy/realistic"}
+{"ts": "2026-11-18T02:24:07Z", "decision": "Owner: v0.6 shot is fine, only Akira is missing. Scripts now auto-use assets/fonts/akira/* (tools/fonts.py)", "why": "the Akira file isn't in Drive/Dropbox/repo; once uploaded, only the text shots s1/s2/s4 need re-rendering"}

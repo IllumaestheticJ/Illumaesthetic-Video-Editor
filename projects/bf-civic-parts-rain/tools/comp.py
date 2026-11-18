@@ -14,7 +14,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 M = "/home/user/media/bf-civic-parts-rain"; OUTD = f"{M}/comp"; os.makedirs(OUTD, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.5.mp4"
+FINAL = "/home/user/media/work/out/bf-civic-parts-rain_v0.6.mp4"
 W, H = 1080, 1920
 # v0.4: music from MUSIC_START (owner: first scene too long); frames = (song time - MUSIC_START) * 30 on measured hits:
 # lip 11.320, skirts 12.365, rear lip 13.436, wing 14.495, render-7 cut 15.534, FE 17.459, FL 19.792, end card 21.554, CTA 21.905, end 24.9
@@ -28,7 +28,7 @@ MONO = "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf"
 # v0.5 fonts (owner rule, knowledge/fonts.md): headlines/offers in Akira (file not supplied yet -> Unbounded 700 stand-in);
 # text next to the Epsilon+ wordmark and small labels in Unbounded 300-500
 UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-%d.ttf"
-AKIRA = UB % 700; U300, U400, U500 = UB % 300, UB % 400, UB % 500
+AKIRA = UB % 900; U300, U400, U500 = UB % 300, UB % 400, UB % 500   # Akira stand-in: Unbounded 900 (in repo since e15b34b); re-check headline widths when the next version is cut
 def font(p, s): return ImageFont.truetype(p, s)
 
 SAFE_CX = 484
@@ -119,7 +119,7 @@ def frame(f):
         text(img, "THE FULL KIT", 79, 550, AKIRA, 6, e)
         sub = "CIVIC FE · LIP · SKIRTS · REAR LIP · WING" if car == "fe" else "CIVIC FL · LIP · SKIRTS · WING"
         text(img, sub, 30, 1310, U500, 2, e)
-        text(img, "PAINT-MATCH AT FULL PRICE", 26, 1365, U400, 3, e * 0.8)
+        text(img, "PAINT MATCHING AVAILABLE", 26, 1365, U400, 3, e * 0.8)
     else:
         e = env(f, F_END, N + 20, 6)
         lg = LOGO.copy(); lg.putalpha(lg.getchannel("A").point(lambda v: int(v * e)))

@@ -13,6 +13,9 @@ The owner's words: "use our akira font when it looks nice, if the text is right 
 - Keep the same safe zones as always (`knowledge/safe-zones.md`).
 
 ## Where the Akira file is
-**Not in the repo, Dropbox or Drive yet** (searched 2026-11-17). Akira Expanded is a commercial font, so never download it from a free-font or mirror site.
-Until the owner supplies the file, ask for it in your chat. Save it to `assets/fonts/akira/`, which is gitignored if the licence forbids redistribution: then keep it in Drive and note the ID here.
-Meanwhile, use Unbounded 800-900 as a stand-in for Akira headlines, and say so in your delivery.
+- **Drive:** `EPSILON+ Logos/AkiraExpanded-SuperBold.otf`, file ID **1nrF80enolDd9HAu5807kv5XIx0cUSDya** (uploaded 2026-11-18). SHA-256: `5b152fce677108fbd40a42447fa6ee531164348d1510c0805bc27180f44a5775`.
+- **Licence:** the owner confirmed on 2026-11-18 that Epsilon+ holds a **commercial licence** for Akira Expanded. The file itself is the "Demo" build (its internal name is "Akira Expanded Demo"); the commercial licence covers its use in ads.
+- **Install** it at `assets/fonts/akira/AkiraExpanded-SuperBold.otf`. That folder is **gitignored: never commit the font** (licence). Download it with the Drive tool (download_file_content) and check the SHA-256.
+- **One weight only (Super Bold).** Its glyphs are A-Z, a-z, 0-9 and `$ % & + - . , : ! ? @ # ( ) /`.
+  - **There is no arrow (→) or any other non-ASCII glyph.** For was/now prices, strike through the old price or use two lines. Check every string renders, with no tofu boxes.
+- **Use:** headlines, offers, big prices and the countdown number. **Not** next to the logo: that text stays Unbounded 300-400. Small labels stay Unbounded 500.

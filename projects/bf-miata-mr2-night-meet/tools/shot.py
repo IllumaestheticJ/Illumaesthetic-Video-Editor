@@ -36,15 +36,38 @@ PAINT = {"mr2": (0.55, 0.012, 0.018), "nc": (0.38, 0.012, 0.10)}    # linear; MR
 ZONES = {"mr2": {"skirts": (["body_fender_cut_stock", "trim_fender_liner_stock"], ["part_side_skirts"]),
                  "eyelids": (["body_eyelids_stock"], ["part_eyelids"]),
                  "hood": (["body_hood_vent_stock"], ["part_hood_vents"]),
-                 "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),
-                 "duck": (["body_duckbill_stock"], ["part_duckbill"])},
+                 "spats": ([], ["part_rear_spats"]),          # user: MR2 spats and duckbill go OVER the stock body, nothing is removed
+                 "duck": ([], ["part_duckbill"]),
+                 "diffuser": ([], ["part_diffuser"]),         # user: include the rear diffuser (black) and the TC wing
+                 "wing": (["body_tc_wing_kit_stock"], ["part_tc_wing_kit"])},
          "nc": {"bumper": (["body_front_bumper_scan"], ["part_front_bumper", "part_front_lip", "part_canards"]),
                 "fender": (["body_fender_cuts_scan"], ["part_fender_cuts"]),
                 "skirts": (["body_side_skirts_stock"], ["part_side_skirts"]),
-                "spats": (["body_rear_spats_stock"], ["part_rear_spats"])}}
+                "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),   # user: NC rear spats -> the rear bumper is cut
+                "wing": ([], ["part_tc_wing"])}}              # engineering NC swan short mount (tools/nc_tcwing.py)
+# parts that keep their own finish in every shot (MR2 v4 reviewer: black diffuser, carbon wing)
+DARK = {"part_diffuser": "black", "part_tc_wing_kit": "carbon", "part_tc_wing": "carbon"}
 # never shown (not on sale / not in this ad). The MR2 front bumper is "No deal", so the MR2 keeps its stock bumper.
-NEVER = {"mr2": ["part_front_bumper", "part_diffuser", "part_tc_wing_kit", "part_hardtop", "hardtop_rear_window", "trim_soft_top_stock"],
+NEVER = {"mr2": ["part_front_bumper", "part_hardtop", "hardtop_rear_window", "trim_soft_top_stock"],
          "nc": ["part_gt_wing", "part_brake_ducts", "part_tire_spats", "trim_front_bumper_off_stock", "body_front_bumper_stock", "body_fender_cuts_stock"]}
+
+
+def mat_dark(kind):
+    m, nt, out = SR.new_mat(f"dark_{kind}")
+    p = SR.principled(nt, (0.012, 0.012, 0.013, 1), 0.38 if kind == "black" else 0.22, 0.0)
+    if kind == "carbon":
+        p.inputs["Coat Weight"].default_value = 1.0; p.inputs["Coat Roughness"].default_value = 0.04
+        ch = nt.nodes.new("ShaderNodeTexChecker"); ch.inputs["Scale"].default_value = 900
+        ch.inputs["Color1"].default_value = (0.010, 0.010, 0.011, 1); ch.inputs["Color2"].default_value = (0.030, 0.030, 0.033, 1)
+        nt.links.new(ch.outputs["Color"], p.inputs["Base Color"])
+    nt.links.new(p.outputs[0], out.inputs[0])
+    return m
+
+
+_DM = {}
+def dark(kind):
+    if kind not in _DM: _DM[kind] = mat_dark(kind)
+    return _DM[kind]
 
 
 def spec():
@@ -129,8 +152,11 @@ def load_cgi(i, c, nframes):
             o = import_stl(f"{M}/dec/nc_cut_{zn}.stl", nm); o.data.materials.append(paint)
             for pl in o.data.polygons: pl.use_smooth = True
             new.append(o)
+        o = import_stl(f"{M}/kit_nc/part_tc_wing.stl", "part_tc_wing"); new.append(o)
     for o in new:
         if o.type == "MESH":
+            if base(o.name) in DARK:
+                o.data.materials.clear(); o.data.materials.append(dark(DARK[base(o.name)])); continue
             for sl in o.material_slots:
                 if sl.material and sl.material.name.startswith("paint"):
                     sl.material = paint
@@ -144,10 +170,13 @@ def load_scan(i, c, silver, nframes):
     b0 = import_stl(SCAN[car], f"scan{i}"); b0.data.materials.append(silver); b0.parent = root
     objs = {}
     for z, (stock, parts) in ZONES[car].items():
-        o = import_stl(f"{M}/dec/{car}_cut_{z}.stl", f"cut_{z}"); o.data.materials.append(silver); o.parent = root
-        for n in stock: objs.setdefault(n, []).append(o)
+        cp = f"{M}/dec/{car}_cut_{z}.stl"
+        if not os.path.exists(cp): continue_stock = False
+        else:
+            o = import_stl(cp, f"cut_{z}"); o.data.materials.append(silver); o.parent = root
+            for n in stock: objs.setdefault(n, []).append(o)
         for n in parts:
-            q = import_stl(f"{K}/{n}.stl", n); q.data.materials.append(silver); q.parent = root; objs.setdefault(n, []).append(q)
+            q = import_stl(f"{K}/{n}.stl", n); q.data.materials.append(dark(DARK[n]) if n in DARK else silver); q.parent = root; objs.setdefault(n, []).append(q)
     seen = set()
     def objs_of(names):
         out = []

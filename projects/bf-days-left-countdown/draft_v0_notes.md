@@ -88,13 +88,24 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - The swap completes on the drop (f139, 4.62 s). The car is off the text by then and exits right.
 - `tools/compose_drive.py`: the render for f0-207, then the same end card on the 6.92 s hit.
 - Audio, cuts and loudness are the same as v0.3.
+- The drift render was stopped by the task time limit at frame 190, so frames 191-207 hold frame 190 for 0.57 s after the drop. This is a preview only.
 - Render: 720x1280 at 12 samples, upscaled. Measured at about 13.5 s/frame, about 47 min per mode.
 - Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.4_drive.mp4` and `_v0.4_drift.mp4`.
 - **Known issues in v0.4, fixed in v0.5:**
   - The floor type is Inter Display Black. It should be Unbounded per the new font rule.
-  - Smooth-shaded n-gon caps show triangle facets on the letters.
+  - Triangle streaks on the letters. The cause was the old and new text caps lying in the same plane, which made them z-fight. The fix is to lift the new text 3 mm (v0.5).
   - The text centre is at x 511 instead of 484.
 
 ## Font rule (owner, 2026-11-17, `knowledge/fonts.md`)
-- Headline floor type is Akira. The owner hasn't uploaded the file, so **Unbounded 700 stands in** (the repo has no 800-900 weight).
+- Headline floor type is Akira. The owner hasn't uploaded the file, so **Unbounded 900 stands in**.
 - The end card sits next to the logo, so it uses Unbounded: "BLACK FRIDAY" at 500 and WWW.EPSILON.PLUS at 400. This is applied to the end card from v0.4.
+
+## v0.5 (2026-11-17): drive and drift, with the fixes
+- Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.5_drive.mp4` and `_v0.5_drift.mp4`. Both are 9.4 s and full renders, with no held frames.
+- Floor type is Unbounded 900, standing in for Akira. The new text is lifted 3 mm, so there is no z-fighting. Camera shift_x is 0.0285.
+- Checks:
+  - Both run at -13.5 LUFS with a -2.6 dBFS peak.
+  - The safezone sheets are reviewed. All text and the logo sit inside the box; only the moving car crosses the rails on entry and exit.
+  - The text centre measures at x 483.
+  - "3 DAYS LEFT" is fully revealed by f139, and the car is clear of the text by then.
+- Still open: the Akira file, the real day number (needs the sale end date), and whether the drift smoke should be heavier.
