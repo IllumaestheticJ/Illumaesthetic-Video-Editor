@@ -172,7 +172,7 @@ def bpt(u, v):
     """Cartoon bumper surface: u 0..1 along the bumper, v 0..1 bottom -> top; front faces -Y; ~1.64 m wide, 0.42 m tall."""
     th = (u - 0.5) * 2 * TH
     n = Vector((math.sin(th), -math.cos(th), 0))
-    c = Vector((0.82 * math.sin(th) / math.sin(TH), -0.40 * (math.cos(th) - math.cos(TH)), 0))
+    c = Vector((0.82 * math.sin(th) / math.sin(TH), -0.75 * (math.cos(th) - math.cos(TH)), 0))
     out = 0.055 * math.sin(math.pi * v) - 0.05 * v + (0.03 if v < 0.12 else 0.0) * (1 - v / 0.12)
     return c + n * out + Vector((0, 0, 0.42 * v))
 
@@ -461,8 +461,9 @@ def screen_bumper(kind="mesh", frac=1.0, patches=0):
 
 # ------------------------------------------------------------------------------------------------ staging
 LAP = Vector((3.35, 3.05, 0.955))
-PIP_AT = Vector((2.72, 2.55, 0))
-GUS_AT = Vector((4.02, 2.5, 0))
+PIP_AT = Vector((2.78, 2.62, 0))
+GUS_AT = Vector((3.95, 2.58, 0))
+FACE_PT = Vector((3.35, 1.0, 0))   # characters turn 3/4 toward the room (camera side), heads toward the screen
 SCR_C = None
 
 
@@ -476,11 +477,11 @@ def stage_bench(t, pip_look=(0.4, 0.3), gus_look=(-0.4, 0.3), pip_extra=None, gu
     sc = screen_centre()
     mp, lp = talk("PIP", t)
     mg, lg = talk("GUS", t)
-    kp = dict(loc=tuple(PIP_AT), rz=face_rz(PIP_AT, sc) - 35, hips=(6, 0, 0), head=(4, 0, 18), armL=(-30, 0, 8), elbowL=-30,
+    kp = dict(loc=tuple(PIP_AT), rz=face_rz(PIP_AT, FACE_PT), hips=(6, 0, 0), head=(4, 0, 30), armL=(-30, 0, 8), elbowL=-30,
               armR=(-12, 0, -8), mouth=mp, lid=lp, look=pip_look)
     if pip_extra:
         kp.update(pip_extra)
-    kg = dict(loc=tuple(GUS_AT), rz=face_rz(GUS_AT, sc) + 35, hips=(4, 0, 0), head=(6, 0, -16), armL=(-12, 0, 8),
+    kg = dict(loc=tuple(GUS_AT), rz=face_rz(GUS_AT, FACE_PT), hips=(4, 0, 0), head=(6, 0, -30), armL=(-12, 0, 8),
               armR=(-40, 0, -6), elbowR=-35, mouth=mg, lid=lg, look=gus_look)
     if gus_extra:
         kg.update(gus_extra)
@@ -496,17 +497,18 @@ def anim_E1(fr):
     screen_bumper("mesh")
     sc = stage_bench(t, pip_look=(0.5, 0.2), gus_look=(-0.7, 0.4))
     k = prog(fr, "E1")
-    c0, t0 = Vector((3.35, -0.35, 1.5)), Vector((3.35, 2.7, 1.05))
+    c0, t0 = Vector((3.35, -0.1, 1.35)), Vector((3.35, 2.7, 0.95))
     if k < 0.72:
-        look(cam, c0, t0, 30)
+        look(cam, c0, t0, 28)
     else:
         e = ease((k - 0.72) / 0.28)
         tgt = t0.lerp(sc, e)
         loc = c0.lerp(sc + Vector((0, -0.42, 0.04)), e ** 1.6)
-        look(cam, loc, tgt, lerp(30, 40, e))
+        look(cam, loc, tgt, lerp(28, 40, e))
 
 
 def void_cam(dist, yaw, pitch, target=None, lens=40):
+    pitch = pitch + 10
     tgt = (target if target is not None else B0 + Vector((0, -0.15, 0.2)))
     a, p = math.radians(yaw), math.radians(pitch)
     loc = tgt + Vector((dist * math.sin(a) * math.cos(p), -dist * math.cos(a) * math.cos(p), dist * math.sin(p)))
@@ -551,20 +553,20 @@ def anim_E4(fr):
     L = Ln(4)
     t_edit = L["words"][3]["t0"]                            # "Terrible"
     g = temp(empty("e4g", None, B0))
-    pr = VOID + Vector((1.25, -0.25, 0))
+    pr = VOID + Vector((1.05, -0.55, 0))
     if t < t_edit - 0.1:
         k = cl((t - L["t0"] + 0.2) / max(0.4, t_edit - L["t0"]))
         mesh_bumper("mesh", mat("scan"), g)
         printer("printer", pr, s=1.0, head_x=0.18 * math.sin(t * 9), part_h=cl(k * 1.15))
         tick_badge("tick", pr + Vector((0, -0.25, 0.95)), pop(t, t_edit - 0.55), s=1.2)
-        void_cam(3.4, 10, 15, target=VOID + Vector((0.55, -0.2, 0.55)), lens=36)
+        void_cam(3.6, 8, 12, target=VOID + Vector((0.45, -0.35, 0.5)), lens=34)
     else:
         u = cl((t - t_edit) / 0.9)
         off = Vector((0.0, -0.32, 0.38)) * ease(u)
         mesh_bumper("mesh", mat("scan"), g, drag=(off, 0.36, 1.0, 0.33))
         wire_bumper("wire", emit("#2f3330", 1.0), g)
         hp = B0 + bpt(0.36, 1.0) + off + Vector((0, -0.06, 0.08))
-        cursor_hand("hand", hp, s=2.4)
+        cursor_hand("hand", hp, s=1.4)
         void_cam(2.2, -18, 16, target=B0 + bpt(0.4, 0.75) + Vector((0, 0, 0.05)), lens=38)
 
 
@@ -575,7 +577,10 @@ def anim_E5(fr):
     stage_bench(t, pip_look=(0.8, 0.8), gus_look=(-0.8, 0.2), pip_extra=dict(head=(-14, 0, 30)))
     h = head_pos(PIP)
     k = prog(fr, "E5")
-    look(cam, h + Vector((0.45, -1.25 + 0.08 * k, 0.02)), h + Vector((0.12, 0, -0.08)), 46)
+    rz = PIP.root.rotation_euler.z
+    fwd = Vector((math.sin(rz), -math.cos(rz), 0))
+    side = Vector((math.cos(rz), math.sin(rz), 0))
+    look(cam, h + fwd * (1.35 - 0.1 * k) + side * 0.35 + Vector((0, 0, 0.05)), h + Vector((0, 0, -0.1)), 40)
 
 
 def anim_E6(fr):
@@ -606,24 +611,24 @@ def anim_E7(fr):
     t_hole = wt(7, 4)                                       # "Change"
     if t < t_hole - 0.12:
         k = cl((t - L["t0"] + 0.15) / max(0.5, t_hole - L["t0"]))
-        gl = temp(empty("e7l", None, B0 + Vector((0.95, 0, 0))))
-        gr = temp(empty("e7r", None, B0 + Vector((-0.95, 0, 0))))
+        gl = temp(empty("e7l", None, B0 + Vector((-0.85, 0, 0))))   # mesh: its right end just left of the divider
+        gr = temp(empty("e7r", None, B0 + Vector((0.85, 0, 0))))    # STEP: its left end just right of it
         mesh_bumper("meshL", mat("scan"), gl, u_min=0.62)
         smooth_bumper("stepR", gr, u_max=0.38, tint=0.0)
-        temp(box("divider", (0.012, 0.012, 1.2), (VOID.x, VOID.y - 0.45, BZ + 0.3), emit("white", 1.0)))
-        tgt = Vector((VOID.x, B0.y - 0.36, BZ + 0.36))
-        d = lerp(1.45, 0.38, ease(k) ** 1.3)
+        temp(box("divider", (0.008, 0.008, 1.2), (VOID.x, VOID.y - 0.12, BZ + 0.3), emit("white", 1.0)))
+        tgt = Vector((VOID.x, B0.y - 0.1, BZ + 0.3))
+        d = lerp(1.5, 0.62, ease(k) ** 1.3)
         look(cam, tgt + Vector((0, -d, d * 0.28)), tgt, 40)
     else:
         u = cl((t - t_hole) / max(0.6, L["t1"] - t_hole))
         kk = ease(cl(u * 1.3))
         g = temp(empty("e7g", None, B0))
         smooth_bumper("step", g, tint=0.0)
-        hole("hole", 0.34, 0.52, lerp(0.025, 0.07, kk), loc=B0)
-        sl = B0 + Vector((-0.1, -0.75, 0.62))
-        slider("slider", sl, kk, s=1.0)
-        cursor_hand("hand", sl + Vector((-0.25 + 0.5 * kk, -0.06, 0.07)), s=1.8)
-        void_cam(2.2, -22, 16, target=B0 + Vector((-0.15, -0.35, 0.3)), lens=38)
+        hole("hole", 0.34, 0.5, lerp(0.03, 0.085, kk), loc=B0)
+        sl = B0 + bpt(0.34, 1.0) + Vector((0.0, -0.35, 0.32))
+        slider("slider", sl, kk, s=0.8)
+        cursor_hand("hand", sl + Vector((0.8 * (-0.25 + 0.5 * kk), -0.06, 0.06)), s=1.0)
+        void_cam(1.7, -18, 10, target=B0 + bpt(0.34, 0.6) + Vector((0, 0, 0.12)), lens=40)
 
 
 def anim_E8(fr):
@@ -635,7 +640,7 @@ def anim_E8(fr):
     sw = 0.6 + 0.4 * math.sin(math.pi * 2 * k)              # looks from screen to Gus and back
     stage_bench(t, pip_look=(lerp(0.4, 0.9, sw), lerp(0.2, 0.8, sw)), gus_look=(-0.6, 0.4),
                 pip_extra=dict(head=(-8, 0, lerp(10, 30, sw))))
-    look(cam, Vector((3.35, 0.2, 1.38)), Vector((3.35, 2.65, 1.0)), 38)
+    look(cam, Vector((3.35, 0.0, 1.35)), Vector((3.35, 2.7, 0.95)), 30)
 
 
 def anim_E9(fr):
@@ -687,7 +692,7 @@ def anim_E10(fr):
     sc = stage_bench(t, pip_look=(0.8, 0.6), gus_look=(-0.5, 0.1),
                      gus_extra=dict(armR=(-58, 0, -10), elbowR=-30, head=(14, 0, -22)))
     k = prog(fr, "E10")
-    look(cam, sc + Vector((0.18, -1.35 + 0.15 * k, 0.32)), sc + Vector((0.08, 0, -0.08)), 34)
+    look(cam, sc + Vector((-0.28, -1.3 + 0.15 * k, 0.32)), sc + Vector((-0.02, 0, -0.08)), 34)
 
 
 def anim_E11(fr):
@@ -725,7 +730,22 @@ def anim_E12(fr):
 ANIM5 = {k: globals()[f"anim_{k}"] for k in ("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "E9", "E10", "E11", "E12")}
 
 
+def _purge_temp():
+    """Remove this frame's temp objects (and their children) robustly: nested temps may already be gone with a parent."""
+    for ob in list(_temp):
+        stack = [ob]
+        while stack:
+            o = stack.pop()
+            try:
+                stack.extend(o.children)
+                bpy.data.objects.remove(o, do_unlink=True)
+            except ReferenceError:
+                pass
+    _temp.clear()
+
+
 def reset_ep5():
+    _purge_temp()
     reset()
     set_vis(CAR, False)
     set_vis(UI, False)
