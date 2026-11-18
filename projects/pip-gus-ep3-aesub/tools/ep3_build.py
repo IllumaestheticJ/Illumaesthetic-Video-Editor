@@ -57,7 +57,8 @@ def nframes(p):
 # ------------------------------------------------------------------ cartoon (on twos)
 def cartoon():
     mp4 = BUILD / "cartoon.mp4"
-    if mp4.exists() and nframes(mp4) == A_N:
+    newest = max((q.stat().st_mtime for q in (M / "frames").glob("*/*.png")), default=0)
+    if mp4.exists() and nframes(mp4) == A_N and mp4.stat().st_mtime > newest:  # re-rendered shots invalidate the cache
         return mp4
     seq = BUILD / "seq"
     seq.mkdir(parents=True, exist_ok=True)
@@ -170,7 +171,9 @@ def frames(p, w=W, h=H, pix="rgb24", ch=3):
 
 def picture(gmov):
     vid = BUILD / f"video_{gmov.stem}.mp4"   # keyed to the gfx render: a caption change rebuilds the picture
-    if vid.exists() and nframes(vid) == CUTS["end"]:
+    srcs = [BUILD / "cartoon.mp4", BUILD / "real.mp4"]
+    fresh = all(q.exists() and q.stat().st_mtime < vid.stat().st_mtime for q in srcs) if vid.exists() else False
+    if fresh and nframes(vid) == CUTS["end"]:   # also rebuilt when the cartoon or real segment was re-made
         return vid
     tmp = BUILD / "video_tmp.mp4"
     enc = subprocess.Popen(["nice", "-n", "5", "ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
