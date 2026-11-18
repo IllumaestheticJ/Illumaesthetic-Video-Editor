@@ -103,3 +103,24 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
 - **Re-rendered:** s12, s3, s6, s7 and s10.
 - **Checks:** 26.6 s, -13.8 LUFS / -2.8 dBTP, same cut timing as v0.8, safe zones pass.
 - **Close-up before/after:** `out/rear_spat_fit_before_after.jpg` (spat shown in yellow).
+
+## v1.0 (user: end scene; owner: revised text timing)
+- **End scene (user):** one trackside shot replaces the drive-past plus black logo card. The car drives away down the straight. On kick 61 a dark 3D Epsilon+ wordmark (720 px, ~230 m away) rises from behind the horizon; the trees and the gantry beam pass in front of it. WWW.EPSILON.PLUS (Unbounded 400, on a 30 m layer so no gantry hides it) slides in from the right. The video ends on that scene; only the music fades.
+- **Timing (owner's revised rule, 2026-11-18):** readable time is now at least 1.8 s for 1-3 words, plus 0.3 s per extra word, and at least 2.2 s for prices. Text shots were trimmed to earlier kicks; cuts are on kicks 6, 12, 15, 18, 30, 37, 50 and 57, and the end shot runs to kick 65 plus 1.5 s.
+- **Readable time per text** (fully opaque):
+
+  | Text | Readable |
+  |---|---|
+  | V2 AERO KIT | 2.2 s |
+  | FRONT LIP | 2.4 s |
+  | SIDE SKIRTS + REAR SPATS | 2.9 s |
+  | CARBON CANARDS / BACK IN STOCK | 2.9 s |
+  | V2 offer | 3.3 s |
+  | V2 price rows, after the last row is in | 2.4 s |
+  | V1 offer | 3.8 s |
+  | V1 price rows, after the last row is in | 2.6 s |
+  | URL | 2.9 s, to the end |
+- **Checks:**
+  - 32.3 s, -13.7 LUFS / -2.8 dBTP.
+  - 7 detected cuts are within 16 ms of their kicks; the dark card -> canard cut isn't detected.
+  - Safe-zone sheet: all text and logos are inside the zone.
