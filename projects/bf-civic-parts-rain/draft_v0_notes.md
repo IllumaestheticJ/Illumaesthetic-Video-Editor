@@ -112,3 +112,4 @@ Fully readable time = from end of fade-in to start of fade-out (comp.py env()).
 | SHOP DEALS NOW / WWW.EPSILON.PLUS | 3+1 | 2.5 | 2.33 | FAIL |
 
 Plan for v0.7: title held to ~2.6 s (comp only); part labels build up into a list that stays until the cut, and the take holds 2 more bars after the wing landing so SPORT WING gets >=2.5 s (extra take frames); offer shots lengthened to FE >=4.3 s and FL >=3.5 s (longer, slower CGI pans); end card text >=2.7 s. Cuts move to later onset peaks; video grows from 15.7 s to about 21 s.
+**Update 2026-11-18 (owner via parent):** the timing rule is revised to 1.8 s for 1-3 words, +0.3 s per extra word, 2.2 s for prices. It applies only to new videos or to versions already being changed. The v0.7 re-cut above is DROPPED; v0.6 stays current. Apply the revised minimums only if the owner asks for other changes.

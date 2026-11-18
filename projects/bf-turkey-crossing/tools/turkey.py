@@ -142,3 +142,58 @@ def _empty(coll, name, parent=None, loc=(0, 0, 0)):
     e = bpy.data.objects.new(name, None); coll.objects.link(e); e.parent = parent; e.location = loc
     e.rotation_mode = 'XYZ'
     return e
+
+
+def build_turkey_osrs(coll, name='TURKEY'):
+    """Retro-MMO (OSRS-inspired) look: very few polygons, Gouraud-smooth shading across big faces, muted flat colours, tiny dot
+    eyes, a fan of a few triangular tail slabs. Same rig handles as build_turkey, so scene.py can swap it in. No game assets."""
+    E = lambda n, parent=None, loc=(0, 0, 0): _empty(coll, f'{name}_{n}', parent, loc)
+    root = E('root'); body = E('body', root)
+    m = lambda n, h: toon('o_' + n, h, 0.95, spec=0.05)
+    brown, dark, head_c, red, beak_c, leg_c, eye_c = (m('brown', '#5e3b22'), m('dark', '#3f2716'), m('head', '#b9a48c'),
+                                                       m('red', '#a8231c'), m('beak', '#c98d2a'), m('leg', '#b8742a'), m('eye', '#0c0c0c'))
+    def lp(n, me, mat, parent, loc, scale, rot=(0, 0, 0)):
+        o = _obj(f'{name}_{n}', me, coll, mat, parent, loc, rot, scale)
+        for p in o.data.polygons:
+            p.use_smooth = True      # Gouraud gradients over very large faces = the retro-MMO look
+        return o
+    lp('torso', _sphere('o_torso', 6, 4), brown, body, (0, 0.03, 0.45), (0.31, 0.38, 0.29))
+    for s in (1, -1):
+        lp(f'wing{s}', _sphere('o_wing', 5, 3), dark, body, (s * 0.26, 0.06, 0.47), (0.07, 0.25, 0.16))
+    tail = E('tail', body, (0, 0.26, 0.5))
+    tri = bpy.data.meshes.new('o_tailslab'); bm = bmesh.new()
+    v = [bm.verts.new(c) for c in ((-0.11, 0, 0), (0.11, 0, 0), (0.17, 0, 0.55), (0, 0, 0.66), (-0.17, 0, 0.55))]
+    bm.faces.new(v); bmesh.ops.solidify(bm, geom=bm.faces[:], thickness=0.03); bm.to_mesh(tri); bm.free()
+    for i in range(7):
+        a = math.radians(-72 + 144 * i / 6); piv = E(f'tf{i}', tail); piv.rotation_euler = (math.radians(-12), a, 0)
+        lp(f'tailf{i}', tri, m(f'tail{i % 2}', ('#6e3a1c', '#9a6a3a')[i % 2]), piv, (0, 0.012 * (i % 2), 0), (1, 1, 1))
+    head = E('head', body, (0, -0.2, 0.6))
+    lp('neck', _cone('o_neck', 0.07, 0.055, 0.26, 5), head_c, head, (0, -0.03, 0.11), (1, 1, 1), (math.radians(-12), 0, 0))
+    lp('skull', _sphere('o_skull', 5, 4), head_c, head, (0, -0.07, 0.28), (0.11, 0.12, 0.11))
+    lp('beak', _cone('o_beak', 0.035, 0.0, 0.08, 4), beak_c, head, (0, -0.215, 0.27), (1, 1, 1), (math.radians(90), 0, 0))
+    lp('wattle', _sphere('o_wattle', 4, 3), red, head, (0, -0.17, 0.19), (0.03, 0.03, 0.06))
+    eyes = {}
+    for s, k in ((1, 'l'), (-1, 'r')):
+        ep = E(f'eye_{k}', head, (s * 0.07, -0.15, 0.31))
+        lp(f'eye_{k}', _sphere('o_eye', 4, 3), eye_c, ep, (0, 0, 0), (0.016, 0.012, 0.018))
+        eyes[k] = ep
+    legs = {}
+    for s, k in ((1, 'l'), (-1, 'r')):
+        hp = E(f'leg_{k}', body, (s * 0.1, 0, 0.22))
+        lp(f'shin_{k}', _cone('o_shin', 0.025, 0.022, 0.2, 4), leg_c, hp, (0, 0, -0.1), (1, 1, 1))
+        lp(f'foot_{k}', _cone('o_foot', 0.05, 0.0, 0.1, 3), leg_c, hp, (0, -0.03, -0.2), (1, 1, 0.3), (math.radians(90), 0, 0))
+        legs[k] = hp
+    return dict(root=root, body=body, head=head, eye_l=eyes['l'], eye_r=eyes['r'], leg_l=legs['l'], leg_r=legs['r'], tail=tail)
+
+
+def add_chef_kit(coll, T, name='TURKEY'):
+    """Original chef accessories for our turkey (owner idea 2026-11-18): a white chef's toque on the head and a wooden spoon in the
+    right wing. Generic Thanksgiving-chef trope; deliberately keeps our brown turkey (no third-party character's colours/design)."""
+    white = toon('c_white', '#f7f5ef', 0.8); wood = toon('c_wood', '#b07a42', 0.6)
+    head = T['head']
+    band = _obj(f'{name}_hatband', _cone('hatband', 0.1, 0.105, 0.09, 12), coll, white, head, (0, -0.06, 0.42), smooth=True)
+    for i, (x, y, r) in enumerate([(0, -0.06, 0.12), (0.06, -0.03, 0.08), (-0.06, -0.03, 0.08), (0.04, -0.11, 0.08), (-0.04, -0.11, 0.08)]):
+        _obj(f'{name}_hatpuff{i}', _sphere('hatpuff', 12, 8), coll, white, head, (x, y, 0.53), scale=(r, r, r * 0.8), smooth=True)
+    sp = _empty(coll, f'{name}_spoon', T['body'], (-0.3, -0.12, 0.5)); sp.rotation_euler = (math.radians(-25), math.radians(-20), 0)
+    _obj(f'{name}_spoonh', _cone('spoonh', 0.012, 0.012, 0.42, 8), coll, wood, sp, (0, 0, 0.12), smooth=True)
+    _obj(f'{name}_spoonb', _sphere('spoonb', 12, 8), coll, wood, sp, (0, 0, 0.36), scale=(0.045, 0.018, 0.065), smooth=True)
