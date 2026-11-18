@@ -9,3 +9,6 @@
 {"ts": "2026-11-17T06:48:33Z", "project": "pip-gus-ep7-materials", "at": null, "category": "story", "note": "Script v4 approved ('go ahead')", "by": "owner", "promoted": false}
 {"ts": "2026-11-17T06:52:55Z", "project": "pip-gus-ep7-materials", "at": null, "category": "pacing", "note": "Option 3: cut the brackets line and the warp/enclosure exchange (lines 11-13) from take 1", "by": "owner", "promoted": false}
 {"ts": "2026-11-17T06:52:56Z", "project": "pip-gus-ep7-materials", "at": null, "category": "story", "note": "Use the MR2 print timelapse for the real footage", "by": "owner", "promoted": false}
+{"ts": "2026-11-18T00:48:43Z", "project": "pip-gus-ep7-materials", "at": "23.6", "category": "audio", "note": "bumper? gets cut off", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T00:48:43Z", "project": "pip-gus-ep7-materials", "at": "25.0", "category": "voice", "note": "ASA is pronounced as the letters (A-S-A), not as a word", "by": "reviewer", "promoted": true}
+{"ts": "2026-11-18T00:48:50Z", "project": "pip-gus-ep7-materials", "at": "38.0", "category": "story", "note": "the video shows an ASA print (the MR2 timelapse is ASA)", "by": "reviewer", "promoted": false}
