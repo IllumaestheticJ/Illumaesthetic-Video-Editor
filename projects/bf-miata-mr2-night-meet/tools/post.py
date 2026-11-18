@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.5.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.6.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -76,13 +76,17 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
          "mr2_hood": ("HOOD VENTS", "MR2 SPYDER", 400, 320), "mr2_spats": ("REAR SPATS", "MR2 SPYDER", 350, 280),
          "mr2_duck": ("REAR DUCKBILL", "MR2 SPYDER", 220, 176), "nc_bumper": ("FRONT BUMPER + LIP", "NC MIATA", 1100, 880),
          "nc_canards": ("CANARDS", "NC MIATA", 200, 160), "nc_fender": ("FENDER CUTS", "NC MIATA", 300, 240),
-         "nc_skirts": ("SIDE SKIRTS", "NC MIATA", 500, 400), "nc_spats": ("REAR SPATS (NC1)", "NC MIATA", 250, 200)}
+         "nc_skirts": ("SIDE SKIRTS", "NC MIATA", 500, 400), "nc_spats": ("REAR SPATS (NC1)", "NC MIATA", 250, 200),
+         # not on the BF sheet -> regular store price (Shopify 2026-11-17), no discount claimed
+         "mr2_diffuser": ("REAR DIFFUSER V1+", "MR2 SPYDER", None, 750), "mr2_wing": ("TC WING", "MR2 SPYDER", None, 1100),
+         "nc_wing": ("TC WING · SWAN MOUNT", "NC MIATA", None, 1100)}
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
 # shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
 # above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
 LABELS = {"s02": [("mr2_skirts", 0.20, 0)], "s03": [("mr2_eyelids", 0.12, 0)], "s04": [("mr2_hood", 0.12, 0)],
           "s05": [("mr2_spats", 0.10, 0), ("mr2_duck", 0.40, 1)], "s07": [("nc_bumper", 0.20, 0), ("nc_canards", 0.45, 1)],
-          "s08": [("nc_fender", 0.20, 0)], "s09": [("nc_skirts", 0.10, 0), ("nc_spats", 0.40, 1)]}
+          "s08": [("nc_fender", 0.20, 0)], "s09": [("nc_skirts", 0.10, 0), ("nc_spats", 0.40, 1)],
+          "s05b": [("mr2_diffuser", 0.10, 0), ("mr2_wing", 0.40, 1)], "s09b": [("nc_wing", 0.12, 0)]}
 SLOT_DY = 834      # second label goes below the car (block y 1130-1400, inside the safe band y 285-1440)
 
 
@@ -98,7 +102,9 @@ def price_label(base, key, t, plate, slot=0):
         base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
     with Layer(base) as d:
         d.text((90, 312 + dy), name, font=font(FH8, 50), fill=(255, 255, 255, A))
-        d.text((92, 396 + dy), f"{car} · 20% OFF", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        d.text((92, 396 + dy), f"{car} · 20% OFF" if was else f"{car} · COMPLETE THE KIT", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        if was is None:          # regular price only (not in the sale)
+            d.text((92, 452 + dy), money(now), font=font(FH, 56), fill=(255, 255, 255, A)); return
         fw, fn = font(FS, 38), font(FH, 56)
         ws = money(was); x = 92; yb = 452 + dy
         d.text((x, yb + 14), ws, font=fw, fill=(170, 174, 180, A)); bb = d.textbbox((x, yb + 14), ws, font=fw)
@@ -157,7 +163,7 @@ def logo(i, n):
 
 
 def main():
-    shots = ["s01", "s02", "s03", "s04", "s05", "s06", "s07", "s08", "s09", "s10", "s11", "s12"]
+    shots = TL["order"]
     k = 0; last10 = None
     for si, s in enumerate(shots):
         n = F30[si + 1] - F30[si] - (1 if si == 0 else 0) + (1 if si == 0 else 0)

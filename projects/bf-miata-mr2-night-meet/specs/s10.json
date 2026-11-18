@@ -14,7 +14,9 @@
     "eyelids",
     "hood",
     "spats",
-    "duck"
+    "duck",
+    "diffuser",
+    "wing"
    ]
   },
   {
@@ -29,7 +31,8 @@
     "bumper",
     "fender",
     "skirts",
-    "spats"
+    "spats",
+    "wing"
    ]
   }
  ],
@@ -49,7 +52,7 @@
    "lens": 30
   },
   {
-   "f": 34,
+   "f": 38,
    "loc": [
     0.6,
     -8.4,
@@ -64,7 +67,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s10",
- "frames": 35,
+ "frames": 39,
  "fps": 15,
  "res": [
   540,
