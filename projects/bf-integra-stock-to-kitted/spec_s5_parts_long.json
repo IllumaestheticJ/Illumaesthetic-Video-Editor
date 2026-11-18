@@ -1,0 +1,363 @@
+{
+ "base": [
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/ALL.blend",
+   "hide": true
+  },
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/body.blend",
+   "holdout": true
+  }
+ ],
+ "parts": [
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/part_front_lip.blend",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      0,
+      40
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.17073,
+     "loc": [
+      0,
+      0,
+      1.6
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    },
+    {
+     "t": 0.43073,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 6.0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/part_side_skirts.blend",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      0,
+      40
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 0.60146,
+     "loc": [
+      0,
+      0,
+      1.6
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    },
+    {
+     "t": 0.86146,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 6.0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/part_rear_spats.blend",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      0,
+      40
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.03219,
+     "loc": [
+      0,
+      0,
+      1.6
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    },
+    {
+     "t": 1.29219,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 6.0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    }
+   ]
+  },
+  {
+   "blend": "/home/user/media/bf-integra-stock-to-kitted/kit/part_sport_wing.blend",
+   "pivot": [
+    0,
+    0,
+    0
+   ],
+   "keys": [
+    {
+     "t": 0.0,
+     "loc": [
+      0,
+      0,
+      40
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ]
+    },
+    {
+     "t": 1.46292,
+     "loc": [
+      0,
+      0,
+      1.6
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    },
+    {
+     "t": 1.72292,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "out"
+    },
+    {
+     "t": 6.0,
+     "loc": [
+      0,
+      0,
+      0
+     ],
+     "rot": [
+      0,
+      0,
+      0
+     ],
+     "ease": "lin"
+    }
+   ]
+  }
+ ],
+ "camera": {
+  "sensor": 20.25,
+  "keys": [
+   {
+    "t": 0.0,
+    "loc": [
+     6.022,
+     -6.688,
+     2.4
+    ],
+    "target": [
+     0,
+     -0.2,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "inout"
+   },
+   {
+    "t": 1.3,
+    "loc": [
+     8.345,
+     -3.371,
+     2.4
+    ],
+    "target": [
+     0,
+     -0.1,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "lin"
+   },
+   {
+    "t": 3.7667,
+    "loc": [
+     9.0,
+     0.0,
+     2.4
+    ],
+    "target": [
+     0,
+     0.0,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "lin"
+   },
+   {
+    "t": 6.2333,
+    "loc": [
+     8.345,
+     3.371,
+     2.4
+    ],
+    "target": [
+     0,
+     0.1,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "lin"
+   },
+   {
+    "t": 8.7,
+    "loc": [
+     6.894,
+     5.785,
+     2.4
+    ],
+    "target": [
+     0,
+     0.15,
+     0.55
+    ],
+    "focal": 31,
+    "ease": "out"
+   }
+  ]
+ },
+ "seconds": 8.7,
+ "fps": 15,
+ "res": "1080x1920",
+ "res_pct": 50,
+ "samples": 12,
+ "persistent": false,
+ "out": "/home/user/media/bf-integra-stock-to-kitted/render/s5_parts_held_long/",
+ "exposure": 0.8,
+ "transparent": true
+}

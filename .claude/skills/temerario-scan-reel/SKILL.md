@@ -95,6 +95,7 @@ applies. Before planning, query the knowledge graph from the repo root:
   off screen, and parts move into clear background.
 - Hold on every exposed state, side included. Use no filler cutaways and no turntables, except a requested 360.
 - No jump cuts: change the angle a lot, or continue the previous camera key exactly.
+- **Slow down wherever there is text (owner rule):** slow-mo, speed-ramp or hold the shot under any label so slow readers can finish it. Text stays fully readable for at least 2.5 s (1-3 words), plus 0.4 s per extra word, and 3 s or more for prices. See `knowledge/lessons.md`.
 - Every scanned part gets a beat and a short factual label, placed over scan shots only and in clear black (or on a plate).
 - Use real music, started from its beginning, at -14 LUFS with true peak below -1 dBFS. Every cut lands on a measured hit,
   verified on the decoded mp4.

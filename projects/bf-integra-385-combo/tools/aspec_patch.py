@@ -4,7 +4,8 @@ offset is measured per x-bin on the overlap ring in front of the spoiler footpri
 A-Spec faces where the Type S scan has no surface (> 5 mm) are kept. Writes deck_patch.ply (replaces the lookbook fill)."""
 import trimesh, numpy as np
 from scipy.spatial import cKDTree
-R = '/home/user/media/bf-integra-385-combo/work/reg'
+import os
+R = os.environ.get('REG', '/home/user/media/bf-integra-385-combo/work/reg')
 A = trimesh.load(f'{R}/aspec_rear_glbframe.ply', process=False)
 Ty = trimesh.load(f'{R}/car_nospoiler.ply', process=False)
 tp = Ty.sample(2000000); tree = cKDTree(tp)
@@ -31,9 +32,12 @@ fp = (dxy < 0.012) & (np.abs(c[:, 0]) < 0.60) & (c[:, 2] > 0.90) & (A2.face_norm
 zone2 = (np.abs(c[:, 0]) < 0.60) & (c[:, 1] > 1.95) & (c[:, 1] < 2.42) & (c[:, 2] > 0.84) & (c[:, 2] < 1.08)
 dz2, _ = tree.query(c[zone2]); fp[np.where(zone2)[0][dz2 > 0.006]] = True
 patch = A2.submesh([np.where(fp)[0]], append=True)
-comps = sorted(patch.split(only_watertight=False, repair=False), key=lambda m: -len(m.faces))
-keep_c = [m for m in comps if len(m.faces) > 150]
-patch = trimesh.util.concatenate(keep_c); print('components kept', len(keep_c), 'of', len(comps))
+from scipy.sparse import coo_matrix
+from scipy.sparse.csgraph import connected_components
+patch.merge_vertices(); fa = patch.face_adjacency
+ncomp, lab = connected_components(coo_matrix((np.ones(len(fa)), (fa[:, 0], fa[:, 1])), shape=(len(patch.faces),) * 2), directed=False)
+sizes = np.bincount(lab); keep_l = np.where(sizes > 150)[0]
+patch = patch.submesh([np.where(np.isin(lab, keep_l))[0]], append=True); print('components kept', len(keep_l), 'of', ncomp)
 # Type S faces inside the footprint that sit under the A-Spec deck (inner structure seen through the gap) go
 pt = cKDTree(patch.vertices)
 tc = Ty.triangles_center

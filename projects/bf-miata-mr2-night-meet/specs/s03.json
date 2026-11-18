@@ -4,18 +4,19 @@
   {
    "car": "mr2",
    "on": [
+    "bumper",
     "skirts"
    ],
    "swap": [
     {
      "zone": "eyelids",
      "off": [
-      5,
-      19
+      2,
+      9
      ],
      "on": [
-      17,
-      37
+      8,
+      20
      ],
      "dir": [
       0,
@@ -48,7 +49,7 @@
    "lens": 50
   },
   {
-   "f": 50,
+   "f": 62,
    "loc": [
     1.25,
     -2.95,
@@ -63,7 +64,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s03",
- "frames": 51,
+ "frames": 63,
  "fps": 15,
  "res": [
   540,
