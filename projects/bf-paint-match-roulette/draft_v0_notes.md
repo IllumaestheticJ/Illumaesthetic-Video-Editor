@@ -105,3 +105,83 @@ Owner rule: every web address reads `www.epsilon.plus`. The menu's bottom bar no
 and "WWW.EPSILON.PLUS" sits under the end wordmark. `tools/compose_v04.py`; output
 `/home/user/media/work/out/bf-paint-match-roulette_v0.4.mp4`. Otherwise identical to v0.3.
 Checks: safe-zone sheet looked at (clean, URL and wordmark inside x 48-920 / y 285-1440); -14.0 LUFS, peak -1.5 dBFS.
+
+# v0.5 (2026-11-17): real SFX, lip kits, widebody, even turntables, fonts
+
+Owner feedback: "have the preview windows orient the cars the same way, and use the same exact sound effects as the video";
+"use the actual epsilon lip kits for the platforms"; "The Integra also has different speeds it goes at"; "add the lip kits and
+the DE4 widebody car into the list of cars". Plus the font rule relayed by the parent (knowledge/fonts.md).
+Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.5.mp4` (27.2 s). Tools: `tools/compose_v05.py`,
+`tools/render_turntable.py`, `tools/extract_sfx.py`.
+
+- **Integra speed/orientation bug (v0.2-v0.4):** its 48 turntable angles were rendered in 3 chunks, and each chunk used its own
+  end index as the full-turn count (16, 32, 48), so the step size changed between chunks. `render_turntable.py` now takes the
+  full-turn count and a separate START/END. All four cars share the same angle per index.
+- **Lineup previews:** every tile uses the same front-3/4 angle (index 16).
+- **Lip kits:** lookbook `part_front_lip`, `part_side_skirts`, `part_rear_lip` (Civics) / `part_rear_spats` (Integra) are shown, in a
+  black finish (the sheet lists them as unpainted PU), with the stock rear diffuser pieces hidden where the rear lip replaces them.
+  The Integra is now the DE4 lookbook model `eps-acura-integra-de-v29.glb` (the Type S model has no lip kit parts).
+- **Fourth car, "Integra Widebody" (DE4):** the same model with `part_fender_flares` in black (sheet: "Fender Flare Widebody – DE4 · PU").
+  Its 10 colours cycle on half-beats. The price slot still shows the Sport Wing price.
+- **New on-screen lines (from the sheet):** "FRONT LIP + SKIRTS 30% OFF" (Civic FE/FL and Integra front lip and side skirts are 30 %;
+  rear spats are 40 % and the FL hatch rear lip has no deal, so the line names only lip + skirts) and "WIDEBODY FLARES 50% OFF" ($800 -> $400).
+- **SFX are the reference clip's own sounds.** `extract_sfx.py` aligns every instance of a menu sound in the owner's 7-minute clip and
+  takes the median, so the music under it cancels. Confirm chime: 161 instances, residual music about -16 dB; the "select car" sound
+  is the same sample (correlation 0.95). Back sound: 16 instances, residual about -8 dB (band-limited to 250-3500 Hz to hide it).
+  No cursor-move sound was found in the reference, so there is none.
+- **Fonts:** Unbounded 800/900 stands in for Akira on prices, offers, BUY, LINEUP and tile titles; Unbounded 300/400 for the URL
+  (next to the logo). Car names stay in the serif, small labels in Inter. Akira file still needed from the owner.
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS (the first mix was -12.1 LUFS / +1.0 dBFS; SFX lowered 5 dB). 51 click/colour events vs music
+  onsets: mean -4.8 ms, max 25 ms. Safe-zone sheet looked at: clean; content bbox x 48-924, y 288-1444 (4 px grid).
+
+# v0.6 (2026-11-17): paint-matched kits, both prices, centred, even pace
+
+Owner feedback on v0.5: lip kits/flares "Paint matched like wing"; widebody "Show both prices"; "Video needs to be centered, and the
+changing speed should be evened out"; "The color should only reference the color of the car - so gloss black should be on a black car".
+Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.6.mp4` (29.3 s). Tools: `tools/compose_v06.py`, `tools/render_turntable.py`.
+
+- **Kits and flares paint-matched:** the turntable mask has a third channel (B = lip kit / flares). They take the car colour on every
+  paint screen. Turntables re-rendered to `ttp/` (the render script now skips frames that exist, after two container restarts).
+- **Gloss Black base-wing screen** is now a black car (#0b0b0d) with black wing and kit, so the named colour is always the car's colour.
+- **Widebody shows both prices:** WING ($350 base / $800 paint-matched, $850 Platinum White) and FLARES $400 (~~$800~~).
+  The sheet has only the unpainted-PU flares price; no paint-matched flares or Integra lip price exists, so $400 shows beside painted flares.
+- **Centred:** the menu box is scaled to 760 px wide and centred on x = 540 (x 160-920, y 433-1440). The end wordmark is centred at 720 px.
+- **Even pace:** every colour change is one beat (0.4286 s) on all four cars; the widebody's half-beat cycle is gone.
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS. Content bbox x 160-920, y 436-1440, centre x 540. Colour-change gaps 0.428-0.429 s throughout.
+  Safe-zone sheet looked at: clean.
+
+# v0.7 (2026-11-17): Type S as the 3rd entry, real model logos
+
+Owner: "the DE4/5 (3rd entry) should be the Type S instead of the non-widebody integra"; "also use the real civic/integra logos"
+(the owner pasted both logo images in chat). Output: `/home/user/media/work/out/bf-paint-match-roulette_v0.7.mp4` (29.3 s).
+- **3rd entry = Integra Type S (DE5):** lookbook `eps-acura-integra-type-s-de5-v19.glb`, Sport Wing only (the model has no lip kit
+  parts, so no "FRONT LIP + SKIRTS" line on that screen). The 4th entry stays the DE4 widebody with kit + flares.
+- **Logos:** the owner's Civic and Integra wordmarks (recovered from the chat images to `logo/civic_alpha.png`,
+  `logo/integra_alpha.png` in the media folder; media is not committed) replace the serif car names on the car screens and the lineup
+  tiles. The variant line under each logo is Unbounded 600: "HATCHBACK · FL2 / FL5", "SEDAN · FE", "TYPE S · DE5", "WIDEBODY · DE4".
+- **Checks:** -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440; safe-zone sheet looked at: clean.
+
+# v0.8 (2026-11-18): Integra wordmark without the Acura badge
+
+Owner: "remove the acura badge from the integra". The badge is cropped off the owner's logo (`logo/integra_alpha.png`; the original
+is kept as `integra_with_badge_alpha.png`), on the car screens and the lineup tiles. `tools/compose_v08.py`; output
+`/home/user/media/work/out/bf-paint-match-roulette_v0.8.mp4`. Otherwise identical to v0.7.
+Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same layout as v0.7).
+
+## v0.9 — car centred on screen (owner: "can you center the car on the screen as well")
+- `tools/compose_v09.py`. Turntable moved down so the car sits on the frame centre (x 540, y ~960); logo/variant stay above it.
+- Info rows tightened below the car to stay inside the safe box (y <= 1440): bullets, colour name/code, swatches, CHANGE COLOR, price (label now above the crossed-out price), BUY, bottom bar.
+- Timeline, colours, prices, music, SFX and mix unchanged from v0.8.
+- Checks: 29.30 s, -14.0 LUFS, true peak -1.4 dBFS; safe-zone sheet looked at (nothing in red/amber); car, lineup, widebody two-price and offer screens checked for overlaps - none.
+- Note: the car's silhouette centre still drifts about +/-25 px sideways as it turns (perspective of a turntable); its average is on the centre line.
+- Still open: Akira font file (Unbounded stand-in), paint-matched flare/lip prices, FE Platinum White price is derived, Championship White hex approximate.
+
+### v0.9 re-render (owner: "the car looks like its off the left"; "check all the colors again - DE4 didn't come in tiger eye pearl")
+- Bug since v0.6: the turntable `.resize((CAR_W, CAR_H))` had been swallowed into a trailing comment, so the 720 px render was pasted unscaled at the left edge of the box (car ~66 px left of centre and ~17 % too small). Fixed; `CAR_Y = 635`. Measured car centre now x 516-568 (turntable drift), y ~965-980.
+- Colours re-checked per car against factory palettes:
+  - Civic hatch FL2/FL5 (12): all are hatch or Type R colours - kept.
+  - Civic sedan FE (11): all are sedan / Si colours - kept.
+  - Integra Type S DE5 (10): kept (Tiger Eye Pearl is Type S only).
+  - Integra widebody DE4 (9): Tiger Eye Pearl removed. Car screens now end on beat 59; offer screen is one beat longer; length unchanged (29.30 s).
+- Unverified from the web check: 2025+ colours (Solar Silver, Urban Gray, Double Apex Blue) on the DE4 are taken from Acura's 2026 refresh announcement; year-by-year Civic lists were only partly confirmed.
+- Checks: -14.0 LUFS, -1.4 dBFS; safe-zone sheet (18 frames) looked at - clean.
