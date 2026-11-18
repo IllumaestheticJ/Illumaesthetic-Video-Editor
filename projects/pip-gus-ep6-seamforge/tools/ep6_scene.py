@@ -38,7 +38,7 @@ CLOCK, HANDS = build_clock(SHOP, loc=(-2.25, 3.48, 2.55), r=0.32)
 PIP = build_char("PIP", PIP_SPEC)
 GUS = build_char("GUS", GUS_SPEC)
 PHONE, SCREEN = build_phone()
-STOOL = build_stool((-1.05, 0.55, 0))
+STOOL = build_stool((-0.6, 0.0, 0))
 
 
 def build_printer(name, w, d, h, loc, nozzle=0.006):
@@ -92,7 +92,7 @@ for _attr in ("visible_diffuse", "visible_glossy", "visible_shadow", "visible_tr
         setattr(LAP_SCREEN, _attr, False)
 
 # front work table: where the cut pieces get numbered and laid on the plates; a long row of build plates runs off to the right
-WT = empty("WTABLE", None, (0.9, 1.35, 0))
+WT = empty("WTABLE", None, (0.9, 0.9, 0))
 WT_LEN = 4.6
 box("wt_top", (WT_LEN, 0.7, 0.06), (0, 0, 0.78), mat("wood"), WT, 0.012, 0.018)
 for _sx in (-1, 1):
@@ -102,8 +102,8 @@ WT_Z = 0.81
 PLATE_S = 0.34
 PLATES = []
 for _i in range(10):
-    _x = -0.55 + _i * 0.42
-    _p = empty(f"plate{_i}", WT, (_x, 0.02, WT_Z - 0.002))
+    _x = -1.6 + _i * 0.42
+    _p = empty(f"plate{_i}", WT, (_x, -0.15, WT_Z - 0.002))
     box(f"plate{_i}_b", (PLATE_S, PLATE_S, 0.014), (0, 0, 0.007), mat("#1c1d1c"), _p, 0.003, 0.008)
     box(f"plate{_i}_r", (PLATE_S + 0.016, PLATE_S + 0.016, 0.008), (0, 0, 0.003), mat("sage_l"), _p, 0.002)
     PLATES.append(_p)
@@ -137,6 +137,8 @@ def arc_piece(name, R, th, hgt, a0, a1, m, parent, loc=(0, 0, 0), rot=(0, 0, 0),
     return add_mods(ob, 0.0, 0.008)
 
 
+bpy.context.view_layer.update()     # matrix_world of the props is used below and in the shots
+
 # ----------------------------------------------------------------------------------------------------------------- helpers
 _temp = []
 
@@ -159,7 +161,7 @@ def piece(name, loc, rot=(0, 0, 0), k=1.0, mark=0.0, parent=None, col=None):
     never a numeral)."""
     g = temp(empty(name, parent, loc, rot)) if parent is None else empty(name, parent, loc, rot)
     g.scale = (max(k, 0.01),) * 3
-    arc_piece(f"{name}_s", 0.42, 0.035, 0.12, -11, 11, mat(col or "white"), g, loc=(0, 0.42, 0), rot=(90, 0, 0))
+    arc_piece(f"{name}_s", 0.42, 0.035, 0.12, -11, 11, mat(col or "white"), g, loc=(0, 0.06, 0.42), rot=(90, 0, 0))
     if mark > 0.01:   # squiggle: three short strokes in a zig-zag, drawn left to right
         n = max(1, int(round(3 * cl(mark))))
         for j in range(n):
@@ -298,11 +300,11 @@ def wt1(n, i):
 
 
 # ----------------------------------------------------------------------------------------------------------------- layout
-GUS_LAP = Vector((1.35, 2.35, 0.0))      # Gus at the laptop (back table)
-PIP_LAP = Vector((0.45, 2.25, 0.0))      # Pip beside the small printer
-GUS_WT = Vector((0.55, 0.62, 0.0))       # Gus behind the front table... (front edge faces -y: he stands at the camera side)
-PILE_X = -0.95                           # unnumbered pile at the left end of the front table (table-local x)
-PLATE_PERIOD = 0.55                      # seconds per piece placed (S4/S5 loop)
+GUS_LAP = Vector((1.85, 2.42, 0.0))      # Gus at the laptop (back table), right of it, turned toward the screen
+PIP_LAP = Vector((-0.05, 2.35, 0.0))      # Pip in front-left of the small printer (portrait frame: stacked in depth)
+GUS_BEHIND = 0.55                        # Gus stands this far behind the front table centre line, facing the camera (-y)
+PILE_X = -2.0                           # unnumbered pile at the left end of the front table (table-local x)
+PLATE_PERIOD = 0.75                      # seconds per piece placed (S4/S5 loop)
 
 
 def placed_count(t, t_start):
@@ -310,27 +312,28 @@ def placed_count(t, t_start):
 
 
 def fill_plates(n_done, t, t_start, gus):
-    """Pieces already on plates (one or two per plate), the current one travelling from the numbered pile to its plate in
-    Gus's hand. Returns the world position the hand should reach."""
+    """Pieces already on plates (two per plate); Gus stands at the current plate with a small stack of numbered pieces at
+    his left and carries the next one over. Returns (hand target or None, Gus x)."""
     for i in range(min(n_done, 2 * len(PLATES))):
         p = PLATES[i // 2]
         sx = -0.07 if i % 2 == 0 else 0.07
         piece(f"onp{i}", (0, 0, 0), (0, 0, 15 + 25 * (i % 3)), mark=1.0, parent=temp(empty(f"onpp{i}", p, (sx, 0.0, 0.016))))
+    i = min(n_done, 2 * len(PLATES) - 1)
+    cur = PLATES[i // 2].matrix_world.translation
+    stack = cur + Vector((-0.3, -0.12, 0.0))
+    for j in range(4):
+        piece(f"stk{j}", tuple(stack + Vector((0, 0, 0.022 + 0.026 * j))), (0, 0, 8 * j), mark=1.0, col="white" if j % 2 else "#dfe2df")
     u = ((t - t_start) / PLATE_PERIOD) % 1.0
-    i = n_done
-    if i >= 2 * len(PLATES):
-        return None
-    tgt = PLATES[i // 2].matrix_world.translation + Vector((-0.07 if i % 2 == 0 else 0.07, 0.0, 0.03))
-    src = WT.matrix_world @ Vector((PILE_X + 0.25, -0.05, WT_Z + 0.06))
-    if u < 0.45:              # pick up and carry
-        k = ease(u / 0.45)
-        pos = src.lerp(tgt, k) + Vector((0, 0, 0.16 * math.sin(math.pi * k)))
-    else:                     # set down and go back (empty hand)
-        k = ease((u - 0.45) / 0.55)
-        pos = tgt.lerp(src, k) + Vector((0, 0, 0.12 * math.sin(math.pi * k)))
+    tgt = cur + Vector((-0.07 if i % 2 == 0 else 0.07, 0.0, 0.03))
+    src = stack + Vector((0, 0, 0.13))
     if u < 0.45:
+        k = ease(u / 0.45)
+        pos = src.lerp(tgt, k) + Vector((0, 0, 0.12 * math.sin(math.pi * k)))
         piece("carry", tuple(pos - Vector((0, 0, 0.02))), (0, 0, 20), mark=1.0)
-    return pos
+    else:
+        k = ease((u - 0.45) / 0.55)
+        pos = tgt.lerp(src, k) + Vector((0, 0, 0.1 * math.sin(math.pi * k)))
+    return pos, cur.x - 0.15
 
 
 def numbered_pile(n, k_last=1.0):
@@ -347,23 +350,23 @@ def numbered_pile(n, k_last=1.0):
 # ----------------------------------------------------------------------------------------------------------------- shots
 def anim_S1(fr):
     """'It's bigger than the printer...': open close on the laptop (the bumper file, far bigger than the bed - real slicer
-    clip pinned on the key screen), pull back: the whole bumper skin beside the tiny printer, Pip looks from one to the
-    other, worried; Gus at the laptop."""
+    clip pinned on the key screen), pull back: the whole bumper skin in front of the tiny printer, hanging off both sides;
+    Pip looks from the bumper to the printer, worried; Gus at the laptop."""
     t, u = fr / FPS, prog(fr, "S1")
-    whole_bumper("bump", (0.35, 2.55, TABLE_Z + 0.002), R=0.5, rz=0, scale=1.0)
+    whole_bumper("bump", (0.35, 3.45, TABLE_Z + 0.53), R=0.5, rz=0, scale=1.6)   # on the printer lid, hanging off both sides
     m, lid = talk("PIP", t)
     acc = accent("PIP", t)
     lk = ease(cl((t - wt(1, 2)) / 0.4))
-    pose(PIP, loc=tuple(PIP_LAP + Vector((0.0, -0.25, 0.0))), rz=-20, hips=(-3, 0, 0), head=(-6 + 5 * acc, 0, lerp(-28, 18, lk)),
-         armL=(-35, 0, 10), armR=(-35, 0, -10), mouth=m, lid=lid, look=lerpv((-0.6, 0.3), (0.5, 0.4), lk))
+    pose(PIP, loc=tuple(PIP_LAP), rz=-28, hips=(-3, 0, 0), head=(-4 + 5 * acc, 0, lerp(-10, 25, lk)),
+         armL=(-35, 0, 10), armR=(-35, 0, -10), mouth=m, lid=lid, look=lerpv((0.4, 0.1), (0.7, 0.4), lk))
     gm, glid = talk("GUS", t)
-    pose(GUS, loc=tuple(GUS_LAP), rz=-8, hips=(6, 0, 0), head=(10, 0, 0), armL=(-50, 0, 8), armR=(-50, 0, -8), mouth=gm, lid=glid,
-         look=(0.0, -0.4))
+    pose(GUS, loc=tuple(GUS_LAP), rz=35, hips=(6, 0, 0), head=(10, 0, 0), armL=(-50, 0, 8), armR=(-50, 0, -8), mouth=gm, lid=glid,
+         look=(-0.3, -0.4))
     k = ease(cl(u / 0.8))
-    near_loc, near_tgt = Vector((1.25, 2.33, 1.12)), Vector((1.31, 2.98, 1.02))
-    far_loc, far_tgt = Vector((0.55, -1.3, 1.55)), Vector((0.75, 2.6, 1.05))
-    loc = near_loc.lerp(far_loc, k) + Vector((0.0, 0.0, 0.5 * math.sin(math.pi * k)))
-    look(cam, loc, near_tgt.lerp(far_tgt, k), 28)
+    near_loc, near_tgt = Vector((1.25, 2.45, 1.1)), Vector((1.31, 2.98, 1.02))
+    far_loc, far_tgt = Vector((0.3, 1.3, 1.3)), Vector((0.22, 2.9, 0.95))
+    loc = near_loc.lerp(far_loc, k) + Vector((0.0, 0.0, 0.2 * math.sin(math.pi * k)))
+    look(cam, loc, near_tgt.lerp(far_tgt, k), lerp(32, 18, k))
 
 
 def anim_S2(fr):
@@ -378,12 +381,12 @@ def anim_S2(fr):
     m, lid = talk("GUS", t)
     acc = accent("GUS", t)
     tap = 0.03 * abs(math.sin(t * 13))
-    pose(GUS, loc=tuple(GUS_LAP), rz=-8, hips=(8, 0, 0), head=(12 + 4 * acc, 0, -4), mouth=m, lid=lid, look=(0.0, -0.5))
+    pose(GUS, loc=tuple(GUS_LAP), rz=35, hips=(8, 0, 0), head=(12 + 4 * acc, 0, -4), mouth=m, lid=lid, look=(-0.3, -0.5))
     bpy.context.view_layer.update()
     kb = LAPTOP.matrix_world @ Vector((0.0, -0.05, 0.05))
     aim_arm(GUS, "L", kb + Vector((-0.1, 0.0, tap)))
     aim_arm(GUS, "R", kb + Vector((0.1, 0.0, 0.03 - tap)))
-    look(cam, (0.95 + 0.05 * u, 1.75, 1.62), (1.3, 2.95, 1.05), 32)
+    look(cam, (0.85 + 0.06 * u, 1.55, 1.42), (1.55, 2.85, 1.12), 24)
 
 
 def anim_S3(fr):
@@ -393,7 +396,7 @@ def anim_S3(fr):
     clock_spin(0.25 + u * 0.25)
     numbered_pile(0)
     rng = random.Random(4)
-    row0 = WT.matrix_world @ Vector((-0.5, -0.12, WT_Z + 0.012))
+    row0 = WT.matrix_world @ Vector((-0.5, 0.2, WT_Z + 0.012))
     t_s = LN[3]["t0"] - 0.1
     per = 0.32
     cur = int(max(0, t - t_s) / per)
@@ -405,40 +408,37 @@ def anim_S3(fr):
     tip = row0 + Vector((0.2 * ci - 0.03 + 0.06 * cl((t - t_s - ci * per) / per), 0.06 * (ci % 2) - 0.03, 0.06 + 0.02 * abs(math.sin(t * 20))))
     m, lid = talk("GUS", t)
     acc = accent("GUS", t)
-    pose(GUS, loc=tuple(WT.matrix_world @ Vector((-0.1 + 0.2 * ci * 0.6, 0.62, 0.0))), rz=180, hips=(14, 0, 0),
+    pose(GUS, loc=tuple(WT.matrix_world @ Vector((-0.2 + 0.2 * ci * 0.6, GUS_BEHIND, 0.0))), rz=0, hips=(14, 0, 0),
          head=(20 + 3 * acc, 0, 0), mouth=m, lid=lid, look=(0.0, -0.7))
     hp = aim_arm(GUS, "R", tip + Vector((0.02, 0.05, 0.08)))
     marker("mk", tuple(hp + Vector((0.0, -0.02, -0.03))), (25, 0, 0))
     aim_arm(GUS, "L", row0 + Vector((0.2 * ci - 0.12, 0.08, 0.06)))
-    look(cam, tuple(WT.matrix_world @ Vector((0.15 + 0.25 * u, -1.05, 1.45))), tuple(WT.matrix_world @ Vector((0.2 + 0.25 * u, 0.15, 0.9))), 30)
+    look(cam, tuple(WT.matrix_world @ Vector((0.05 + 0.2 * u, -1.55, 1.4))), tuple(WT.matrix_world @ Vector((0.05 + 0.2 * u, 0.25, 0.95))), 26)
 
 
 def gus_placing(t, t_start, gus_x_follow=True, head_down=True):
     """Gus at the front table laying pieces on the plates one at a time (S4, S5)."""
     n_done = placed_count(t, t_start)
     numbered_pile(0)
-    hand = fill_plates(n_done, t, t_start, GUS)
-    cur_plate = PLATES[min(n_done // 2, len(PLATES) - 1)].matrix_world.translation
-    gx = (cur_plate.x + (WT.matrix_world @ Vector((PILE_X, 0, 0))).x) / 2 if gus_x_follow else 0.6
+    hand, gx = fill_plates(n_done, t, t_start, GUS)
     m, lid = talk("GUS", t)
     acc = accent("GUS", t)
-    pose(GUS, loc=(gx, WT.location.y + 0.62, 0.0), rz=180, hips=(12, 0, 0), head=(18 + 3 * acc, 0, 0) if head_down else (6, 0, 0),
+    pose(GUS, loc=(gx, WT.location.y + GUS_BEHIND, 0.0), rz=0, hips=(12, 0, 0), head=(18 + 3 * acc, 0, 0) if head_down else (6, 0, 0),
          mouth=m, lid=lid, look=(0.0, -0.7) if head_down else (0.0, 0.0))
     if hand is not None:
         aim_arm(GUS, "R", hand + Vector((0, 0.04, 0.05)))
-    return n_done
+    return gx
 
 
 def anim_S4(fr):
     """'...then lay each one flat on the print bed.': Gus lays numbered pieces on the build plates one by one; the camera
     trucks right along the row of plates, which runs out of frame - there are a lot more to go."""
     t, u = fr / FPS, prog(fr, "S4")
+    set_vis(STOOL, False)          # it sits between the camera and the table on this truck
     clock_spin(0.5 + u * 0.3)
-    gus_placing(t, SF["S4"][0] / FPS - 0.6)
-    x0 = (WT.matrix_world @ Vector((-0.4, 0, 0))).x
-    x1 = (WT.matrix_world @ Vector((1.6, 0, 0))).x
-    xc = lerp(x0, x1, ease(u))
-    look(cam, (xc, WT.location.y - 1.35, 1.5), (xc + 0.25, WT.location.y + 0.15, 0.85), 30)
+    gx = gus_placing(t, SF["S4"][0] / FPS - 2.4)
+    xc = gx + 0.1 + 0.1 * u
+    look(cam, (xc, WT.location.y - 1.75, 1.5), (xc + 0.2, WT.location.y + 0.3, 1.0), 24)
 
 
 def anim_S5(fr):
@@ -446,20 +446,20 @@ def anim_S5(fr):
     answers without looking up; the clock spins like a fan."""
     t, u = fr / FPS, prog(fr, "S5")
     clock_spin(0.8 + 2.5 * u, rate=2.0)
-    gus_placing(t, SF["S4"][0] / FPS - 0.6, head_down=True)
+    gus_placing(t, SF["S4"][0] / FPS - 2.4, head_down=True)
     pm, plid = talk("PIP", t)
     acc = accent("PIP", t)
     slump = 1 - 0.6 * win(t, LN[5]["t0"] - 0.1, LN[5]["t1"] + 0.1, 0.1, 0.4)
     pose(PIP, loc=(STOOL.location.x, STOOL.location.y, 0.6), rz=25, hips=(16 * slump, 0, 0), head=(14 * slump - 10 * (1 - slump) + 4 * acc, 0, 22),
          armL=(-20, 0, 15), armR=(-20, 0, -15), legL=(-80, 0, 0), legR=(-80, 0, 0), mouth=pm, lid=plid, look=(0.6, 0.5))
-    look(cam, (-0.6, -2.4, 1.45), (0.1, 1.6, 1.05), 26)
+    look(cam, (-0.5, -1.6, 1.3), (0.15, 1.4, 0.9), 20)
 
 
 def anim_S6(fr):
     """'There has to be a better way.': Pip to camera, close, impatient; Gus out of focus behind, still placing."""
     t, u = fr / FPS, prog(fr, "S6")
     clock_spin(3.3 + 2.0 * u, rate=2.0)
-    gus_placing(t, SF["S4"][0] / FPS - 0.6)
+    gus_placing(t, SF["S4"][0] / FPS - 2.4)
     pm, plid = talk("PIP", t)
     acc = accent("PIP", t)
     pose(PIP, loc=(STOOL.location.x, STOOL.location.y, 0.6), rz=0, hips=(-4, 0, 0), head=(-4 + 6 * acc, 0, 0),
@@ -493,11 +493,11 @@ def anim_S7(fr):
     t, u = fr / FPS, prog(fr, "S7")
     clock_spin(5.3, rate=2.0)
     numbered_pile(0)
-    for i in range(10):
+    for i in range(20):
         p = PLATES[i // 2]
         piece(f"onp{i}", (0, 0, 0), (0, 0, 15 + 25 * (i % 3)), mark=1.0,
               parent=temp(empty(f"onpp{i}", p, (-0.07 if i % 2 == 0 else 0.07, 0.0, 0.016))))
-    G = Vector((0.15, 0.55, 0.0))
+    G = Vector((-0.1, 0.25, 0.0))
     m, lid = talk("GUS", t)
     acc = accent("GUS", t)
     turn = ease(cl((t - SF["S7"][0] / FPS) / 0.35))
@@ -509,7 +509,7 @@ def anim_S7(fr):
     hp = aim_arm(GUS, "R", chest.lerp(up_pt, reach))
     set_vis(PHONE, reach > 0.02)
     n = Vector(lerpv((0.3, 0.2, -1.0), PHONE_N, reach)).normalized()
-    c = hp + Vector((0.0, -0.03, lerp(0.0, PHONE_H / 2 + 0.03, reach)))
+    c = hp + Vector((0.0, -0.06, lerp(0.0, PHONE_H / 2 + 0.09, reach)))
     orient_phone(PHONE, c, n, up=lerpv((0, 1, 0), (0, 0, 1), reach))
     bpy.context.view_layer.update()
     pm, plid = talk("PIP", t)
