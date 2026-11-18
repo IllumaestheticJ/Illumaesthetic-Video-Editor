@@ -28,8 +28,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from fonts impor
 M = "/home/user/media/bf-clearance-shelf-drop"
 GLB = {"integra": f"{M}/glb/eps-acura-integra-de-v29.glb", "grv1": f"{M}/glb/eps-toyota-gr-corolla-v23.glb"}
 PART = {"integra": "part_duckbill", "grv1": "part_front_lip"}
-LEN = {"s1": 77, "s2": 73, "s3": 73, "s4": 73, "s5": 74}   # frames; cuts on the bar kicks 2.56/5.00/7.44/9.88/12.32 s
-FLIP = {"s2": 35, "s4": 36}   # v0.8: flip on beat 3 (3.72 s / 8.62 s), ~0.6 s later than the snare, so the RETAIL side reads
+LEN = {"s1": 150, "s2": 220, "s3": 73, "s4": 219, "s5": 147}   # v0.9 slow-reader timing: cuts on bar kicks 5.00/12.32/14.76/22.08/26.96 s (frames 150/370/443/662/809)
+FLIP = {"s2": 110, "s4": 110}   # v0.9: flip 6 beats in (8.66 s / 18.42 s): front readable ~3.1 s, back ~3.4 s before the 1:1 cut
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
