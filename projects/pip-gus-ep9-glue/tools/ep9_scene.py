@@ -172,10 +172,10 @@ def build_glue_bottle(parent=None):
     return g
 
 
-def build_mold_box(parent=None, loc=(2.9, 3.05, 0.955)):
+def build_mold_box(parent=None, loc=(2.9, 3.05, 0.955), rot=(0, 0, 0)):
     """Open mold box (a master gets dropped in to make a mold)."""
-    g = empty("MOLDBOX", parent, loc)
-    L, W, H, T = 0.5, 0.36, 0.2, 0.03
+    g = empty("MOLDBOX", parent, loc, rot)
+    L, W, H, T = 0.76, 0.34, 0.11, 0.03   # inner 0.70 x 0.28 > the joined master (0.69 x 0.26)    # inner 0.74 x 0.28: the joined master (0.69 x 0.26) drops in without clipping
     box("mb_floor", (L, W, T), (0, 0, T / 2), mat("metal"), g, bevel=0.006, ol=0.01)
     for nm, sz, lc in (("n", (L, T, H), (0, W / 2, H / 2)), ("s", (L, T, H), (0, -W / 2, H / 2)),
                        ("e", (T, W, H), (L / 2, 0, H / 2)), ("w", (T, W, H), (-L / 2, 0, H / 2))):
@@ -413,7 +413,11 @@ def build_table(loc=(TX, TY, 0)):
 GTABLE = build_table()
 PILE, PILE_PIECES = build_pile(loc=(2.75, 1.85, 0))
 BOTTLE = build_glue_bottle()
-MOLDBOX = build_mold_box(SHOP, loc=(TX + 0.55, TY + 0.05, TZ))
+# layout (owner note v2: the parts clipped through the green box): the mold box stands lengthwise on the right end of the
+# table (x TX+0.45..+0.79, y TY-0.38..+0.38), clear of the workpiece (x TX-0.35..+0.35); acetone on the back-left corner.
+# The joined master turns 90 deg as it drops in. Checked every frame with --ep9 clip.
+MOLDBOX_LOC = (TX + 0.62, TY, TZ)
+MOLDBOX = build_mold_box(SHOP, loc=MOLDBOX_LOC, rot=(0, 0, 90))
 EPOXY, EP_BLOBS, EP_STICK = build_epoxy(SHOP, loc=(TX - 0.5, TY - 0.12, TZ))
 HSTAPLER, HS_HELD = build_hot_stapler()
 HSTAPLER.scale = (1.3, 1.3, 1.3)
@@ -422,7 +426,7 @@ WELDPEN, WP_TIP = build_weld_pen()
 WELDPEN.scale = (1.3, 1.3, 1.3)
 FILLER = build_filler_rod()
 BRUSH_SCALE = 1.6
-ACETONE = build_acetone(SHOP, loc=(TX + 0.45, TY + 0.25, TZ))
+ACETONE = build_acetone(SHOP, loc=(TX - 0.74, TY + 0.31, TZ))
 BRUSH = build_brush()
 BRUSH.scale = (1.6, 1.6, 1.6)
 SHELF = build_shelf(SHOP, loc=(6.55, 3.48, 1.5))
@@ -474,6 +478,7 @@ def reset9():
     TEST_R.location, TEST_R.rotation_euler = (0.15, 0, 0.13), (0, 0, 0)
     SEAM_FILL.scale = (1, 1, 1)
     WORK.location = (TX, TY - 0.08, TZ)
+    WORK.rotation_euler = (0, 0, 0)
     pip_scanner("pouch")
 
 
@@ -516,9 +521,11 @@ def shot_E2(t):
     # dab on 'Superglue', joined master lifted and dropped into the mold box on 'mold masters'
     drop = seg(t, 6.9, 7.8)
     gus_at_table(t, tool=BOTTLE if drop < 0.05 else None, tloc=(0, -0.03, -0.05), trot=(180, 0, 0))
-    WORK.location = (lerp(TX, TX + 0.55, drop), lerp(TY - 0.08, TY + 0.05, drop), TZ + 0.35 * math.sin(math.pi * drop) + 0.02 * drop)
+    WORK.location = (lerp(TX, MOLDBOX_LOC[0], drop), lerp(TY - 0.08, MOLDBOX_LOC[1], drop),
+                     TZ + 0.35 * math.sin(math.pi * drop) + 0.03 * drop)
+    WORK.rotation_euler = (0, 0, math.radians(90 * sm(drop)))
     P(PIP, "PIP", t, "curious", seed=2, loc=(TX - 1.05, TY + 0.2, 0), rz=-50, head=(-6, 0, 10), look=(0.6, 0.2))
-    look(cam, (TX + 0.1, TY - 1.55, 1.25), (TX + 0.05, TY + 0.3, 0.85), 30)
+    look(cam, (TX + 0.3, TY - 1.8, 1.3), (TX + 0.27, TY + 0.3, 0.85), 30)   # box at the table end stays in frame
 
 
 def shot_E3(t):
@@ -562,7 +569,7 @@ def shot_E5(t):
 def shot_E6(t):
     """'Need it strong? Staples.' Gus raises the hot stapler, prongs glowing; Pip at the table's end."""
     up = seg(t, L[8]["t0"] - 0.3, L[8]["t0"] + 0.3)
-    P(GUS, "GUS", t, "neutral", seed=5, loc=(TX, TY + 0.62, 0), rz=0, head=(-4, 0, 0), armL=(-40, 0, 10),
+    P(GUS, "GUS", t, "neutral", seed=5, loc=(TX - 0.2, TY + 0.62, 0), rz=0, head=(-4, 0, 0), armL=(-40, 0, 10),
       armR=(lerp(-50, -160, up), 0, -10), elbowR=-15, look=(0.3, 0.3))
     set_vis(HSTAPLER, True)
     attach(HSTAPLER, GUS.hands["R"], (0, 0, 0.05), (90, 0, 0))
@@ -703,6 +710,70 @@ SHOTS9 = [  # id, t0, t1 (reel/take seconds), still time
     ("E9", 23.19, 26.44, 25.4), ("E10", 26.44, 31.55, 31.0), ("E11", 31.55, 35.42, 34.2), ("E12", 35.42, 37.96, 36.4),
     ("E13", 37.96, 41.75, 40.8)]
 FUNCS9 = {s: globals()[f"shot_{s}"] for s, *_ in SHOTS9}
+
+if MODE9 == "vis":
+    # which shots see the table props (old or new layout)? -> the frames that must be re-rendered after a layout change
+    from bpy_extras.object_utils import world_to_camera_view as _w2c
+    OLD = {"MOLDBOX": (TX + 0.55, TY + 0.05, TZ), "ACETONE": (TX + 0.45, TY + 0.25, TZ), "EPOXY": (TX - 0.5, TY - 0.12, TZ)}
+    print("[vis] note: OLD box was unrotated; visibility of the old layout is approximate", flush=True)
+    objs = {"MOLDBOX": MOLDBOX, "ACETONE": ACETONE, "EPOXY": EPOXY}
+    new = {k: tuple(o.location) for k, o in objs.items()}
+    for sid, a, b, ts in SHOTS9:
+        hits = set()
+        for i in range(9):
+            tt = a + (b - a) * (i + 0.5) / 9
+            for lay in ("old", "new"):
+                reset9()
+                for k, o in objs.items():
+                    o.location = OLD[k] if lay == "old" else new[k]
+                FUNCS9[sid](tt)
+                bpy.context.view_layer.update()
+                for k, o in objs.items():
+                    for ch in [o] + list(o.children_recursive):
+                        if ch.type != "MESH":
+                            continue
+                        for v in list(ch.data.vertices)[::7]:
+                            c = _w2c(scn, cam, ch.matrix_world @ v.co)
+                            if 0 <= c.x <= 1 and 0 <= c.y <= 1 and c.z > 0:
+                                hits.add(f"{k}:{lay}")
+                                break
+        print(f"[vis] {sid} {round(a*30)}-{round(b*30)-1} {sorted(hits)}", flush=True)
+    for k, o in objs.items():
+        o.location = new[k]
+
+if MODE9 == "clip":
+    # every frame: is any hand, tool or workpiece vertex inside a mold-box wall or the acetone jar? (owner note v2)
+    def _boxes(o):
+        out = []
+        for ch in o.children_recursive:
+            if ch.type == "MESH":
+                ws = [ch.matrix_world @ v.co for v in ch.data.vertices]
+                out.append((ch.name, Vector([min(w[i] for w in ws) for i in range(3)]), Vector([max(w[i] for w in ws) for i in range(3)])))
+        return out
+    bad = {}
+    for f in range(0, 1253):
+        tt = f / FPS9
+        sid = next(s_ for s_, a_, b_, _ in SHOTS9 if a_ <= tt < b_ or s_ == "E13")
+        reset9()
+        FUNCS9[sid](tt)
+        bpy.context.view_layer.update()
+        walls = [b for b in _boxes(MOLDBOX) if not b[0].startswith("mb_floor")] + _boxes(ACETONE)
+        movers = [GUS.hands["L"], GUS.hands["R"], WORK, HSTAPLER, WELDPEN, BRUSH, BOTTLE, FILLER]
+        for m in movers:
+            if not m.visible_get():
+                continue
+            for ch in [m] + list(m.children_recursive):
+                if ch.type != "MESH" or not ch.visible_get():
+                    continue
+                for v in list(ch.data.vertices)[::3]:
+                    w = ch.matrix_world @ v.co
+                    for nm, lo, hi in walls:
+                        if all(lo[i] + 0.004 < w[i] < hi[i] - 0.004 for i in range(3)):
+                            bad.setdefault((sid, ch.name, nm), []).append(f)
+                            break
+    for k, fs in sorted(bad.items()):
+        print(f"[clip] {k} frames {sorted(set(fs))[:6]}.. n={len(set(fs))}", flush=True)
+    print("[clip] done", len(bad), flush=True)
 
 if MODE9 == "stills":
     want = arg("--ep9shots", ",".join(s for s, *_ in SHOTS9)).split(",")
