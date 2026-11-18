@@ -17,7 +17,7 @@ face.load().then((f) => { document.fonts.add(f); continueRender(fontHandle); }).
 
 type Word = { w: string; t0: number };
 export type CapPage = { t0: number; t1: number; color: string; y: number; cx?: number; lines: Word[][] };
-export type ExplainerGfxProps = { fps: number; durationInFrames: number; items: ReelItem[]; pages: CapPage[]; palette?: Partial<Palette>; size?: number };
+export type ExplainerGfxProps = { fps: number; durationInFrames: number; items: ReelItem[]; pages: CapPage[]; palette?: Partial<Palette>; size?: number; boxAlpha?: number };
 export const explainerGfxDefaults: ExplainerGfxProps = { fps: 30, durationInFrames: 60, items: [], pages: [] };
 export const calculateExplainerGfxMetadata: CalculateMetadataFunction<ExplainerGfxProps> = ({ props }) => ({
   durationInFrames: props.durationInFrames, fps: props.fps, width: 1080, height: 1920,
@@ -34,9 +34,9 @@ const ring = (r: number) => {
 };
 const SHADOW = `${ring(5)}, ${ring(3)}, 0 4px 10px rgba(0,0,0,0.5)`;
 
-const Page: React.FC<{ p: CapPage; f: number; fps: number; size: number }> = ({ p, f, fps, size }) => (
+const Page: React.FC<{ p: CapPage; f: number; fps: number; size: number; boxAlpha: number }> = ({ p, f, fps, size, boxAlpha }) => (
   <div style={{ position: "absolute", left: (p.cx ?? 500) - 440, width: 880, top: p.y - 200, height: 400, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-   <div style={{ background: "rgba(11,12,11,0.5)", borderRadius: 18, padding: "10px 26px 12px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+   <div style={{ background: `rgba(11,12,11,${boxAlpha})`, borderRadius: 18, padding: "10px 26px 12px", display: "flex", flexDirection: "column", alignItems: "center" }}>
     {p.lines.map((ln, i) => (
       <div key={i} style={{ display: "flex", gap: size * 0.26, justifyContent: "center", whiteSpace: "nowrap", lineHeight: 1.12 }}>
         {ln.map((w, j) => {
@@ -56,12 +56,12 @@ const Page: React.FC<{ p: CapPage; f: number; fps: number; size: number }> = ({ 
 
 export const ExplainerGfx: React.FC<ExplainerGfxProps> = (props) => {
   const f = useCurrentFrame();
-  const { fps, pages, size = 88 } = props;
+  const { fps, pages, size = 88, boxAlpha = 0.5 } = props;
   const live = pages.filter((p) => f >= Math.round(p.t0 * fps) && f < Math.round(p.t1 * fps));
   return (
     <AbsoluteFill style={{ background: "transparent" }}>
       <ReelGfx fps={fps} durationInFrames={props.durationInFrames} items={props.items} palette={props.palette} />
-      {live.map((p, i) => <Page key={i} p={p} f={f} fps={fps} size={size} />)}
+      {live.map((p, i) => <Page key={i} p={p} f={f} fps={fps} size={size} boxAlpha={boxAlpha} />)}
     </AbsoluteFill>
   );
 };

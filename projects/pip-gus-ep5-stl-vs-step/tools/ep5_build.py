@@ -80,8 +80,8 @@ Y_OF = {}          # per-line caption centre y overrides (set by eye after the f
 
 def props():
     c0 = SF["CARD"][0] / FPS
-    items = [{"kind": "logo", "t0": c0, "t1": END / FPS + 1, "cta": CTA}]
-    return {"fps": FPS, "durationInFrames": END, "items": items, "pages": pages(), "palette": BRAND, "size": 88}
+    items = [{"kind": "logo", "t0": c0, "t1": END / FPS + 1, "cta": CTA, "ctaSize": 60}]
+    return {"fps": FPS, "durationInFrames": END, "items": items, "pages": pages(), "palette": BRAND, "size": 88, "boxAlpha": 0.78}
 
 
 def gfx():
@@ -121,7 +121,8 @@ def pin_screen(fr, corners, src):
 
 def picture(gmov, frames_dir, real_dir):
     vid = BUILD / "video.mp4"
-    if vid.exists() and nframes(vid) == END:
+    stamp = BUILD / "video.stamp"   # reuse only if built from the same graphics pass
+    if vid.exists() and nframes(vid) == END and stamp.exists() and stamp.read_text() == gmov.name:
         return vid
     corners = json.loads((frames_dir / "screen_corners.json").read_text())["shots"]["E12"]["per_frame"]
     real0 = read_png(real_dir / "f_0000.png")
@@ -154,7 +155,7 @@ def picture(gmov, frames_dir, real_dir):
             print("frame", f, sid, flush=True)
     enc.stdin.close(); enc.wait(); gp.stdout.close(); gp.wait()
     assert real_alpha == 0.0, f"overlay pixels on the real section (alpha max {real_alpha})"
-    tmpv.rename(vid)
+    tmpv.rename(vid); stamp.write_text(gmov.name)
     return vid
 
 
