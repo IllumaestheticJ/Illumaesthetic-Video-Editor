@@ -203,7 +203,7 @@ def cartoon(cl):
             im = cv2.imread(str(FRAMES / s["id"] / f"{fr:04d}.png"), cv2.IMREAD_COLOR)
             assert im is not None, (s["id"], fr)
             img = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-            if s["id"] in ("S1", "S2"):
+            if s["id"] != "S7":   # the laptop sits in the background of every cartoon shot (v1: magenta in S3-S5)
                 lap_last = next(lap, lap_last)
                 q = corn.get(s["id"], {}).get("per_frame", {}).get(str(fr))
                 if q:

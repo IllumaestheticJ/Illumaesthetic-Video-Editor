@@ -542,7 +542,8 @@ corners = json.load(open(CORN)) if os.path.exists(CORN) else dict(
         "Corner order tl, tr, br, bl = the footage's upright corners. Cartoon frames at 30 fps. Screens render as flat key "
         "colour #ff00ff (camera rays only); use it as the matte. 'laptop' = S1/S2 (slicer clip), 'phone' = S7 (SeamForged).",
     width=1080, height=1920, fps=FPS, key_colour=KEY, corner_order=["tl", "tr", "br", "bl"], shots={})
-CORNER_SHOTS = {"S1": ("laptop", LAP_SCREEN, LAP_LOCAL), "S2": ("laptop", LAP_SCREEN, LAP_LOCAL), "S7": ("phone", None, None)}
+CORNER_SHOTS = {**{k: ("laptop", LAP_SCREEN, LAP_LOCAL) for k in ("S1", "S2", "S3", "S4", "S5", "S6")}, "S7": ("phone", None, None)}
+# The laptop is in the background of S3-S6 too (v1 review: its key screen showed magenta there).
 ONLY = {int(x) for x in arg("--frames", "").split(",") if x}
 EVERY = int(arg("--every", "1"))
 for sh in SHOTS:
