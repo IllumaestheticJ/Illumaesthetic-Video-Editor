@@ -109,3 +109,10 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
   stays at 0.4.
 - Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.6.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS.
   The safe zones are unchanged and pass.
+
+## v0.7 — Akira headline font (final)
+- User: "the shot is fine - just needs the akira font". Owner approved v0.6 apart from the font.
+- Akira Expanded SuperBold (licensed, from Drive; file gitignored, never committed) on tag titles, BLACK FRIDAY bars, sale prices, aisle sign and the count line. End-card lines beside the logo stay Unbounded 300/400; small labels Unbounded 500.
+- Tag text auto-fits (`fit()` in tools/tags.py); aisle sign 0.70 -> 0.46; count line split "ONLY 14 LEFT" / "IN CARBON".
+- Only s1, s2, s4 re-rendered; s3/s5 reused from v0.6.
+- Checks: 450 frames / 15.0 s, -14.2 LUFS, TP -2.2 dBFS, safe-zone sheet clean for all text, all glyphs present.
