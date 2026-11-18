@@ -1408,3 +1408,5 @@ lands here automatically. Agents must read this whole file before editing.
   - Never cut, whip or fast-move the camera under a label that is still being read.
   - Fast cutting is fine in sections with no text. Keep the beat-sync by placing text sections on longer bars instead of rushing the read.
   - Check: list every text box with its readable duration (t1 - t0, minus the fades) and fail any below the minimum.
+
+- **[comms] Times in Pacific (owner, 2026-11-18):** give every time and ETA to the owner in **Pacific time** (PT; PST in winter = UTC-8), never UTC. Example: "ETA ~11:45 AM PT". Convert with `TZ=America/Los_Angeles date`.
