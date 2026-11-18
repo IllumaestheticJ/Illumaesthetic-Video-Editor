@@ -32,7 +32,6 @@ A_N = TL["total_frames"]                       # 907
 CUTS = dict(big=A_N, small=A_N + 72, card=A_N + 144, logo=A_N + 252, end=A_N + 343)
 VO13_AT = CUTS["logo"] + 5
 BIG = dict(src=DROP / "bumper printed.MOV", t_full=5.1, hlg=True)
-PHONE_SRC = dict(src=DROP / "15.50.09.mov", t0=7.6)     # the phone (S10) plays the big printer's gantry running (as v2)
 # v3 (owner: "this is the video for the big printer"): the whole bumper printed in ONE piece on the big printer's bed. iPhone
 # HLG 1920x1080 -> Hable tonemap (as ive assemble). Hard cut on the music lift (frame 907) from the phone (gantry running) to
 # 5.1-7.5 s: a tight 9:16 window on the bumper zooming OUT within ~1 s to the whole landscape frame (the bumper whole on the
@@ -83,19 +82,21 @@ ENC = ["-c:v", "libx264", "-crf", "12", "-preset", "medium", "-pix_fmt", "yuv420
 def clips():
     BUILD.mkdir(parents=True, exist_ok=True)
     out = {}
-    # big printer: the phone (S10) plays the gantry clip; the full-frame part is the one-piece bumper (hard cut on the lift)
+    # big printer (v4, owner: the phone preview must match): ONE continuous shot of the bumper clip - the phone (S10) plays
+    # 3.4-5.1 s in the tight 9:16 window that follows the bumper, the full-frame part continues from 5.1 s and zooms out
     s10 = [s for s in TL["shots"] if s["id"] == "S10"][0]
     n_phone = A_N - s10["f0"]
-    p = BUILD / "phone.mp4"
-    if not (p.exists() and nframes(p) == n_phone):
-        run(["ffmpeg", "-v", "error", "-y", "-ss", f"{PHONE_SRC['t0']:.3f}", "-i", str(PHONE_SRC["src"]), "-vf",
-             f"scale={W}:{H}:flags=lanczos,fps={FPS}", "-frames:v", str(n_phone)] + ENC + [str(p)])
-    out["phone"], out["big_phone_frames"] = p, n_phone
-    p = BUILD / "big.mp4"
-    n = CUTS["small"] - CUTS["big"]
-    if not (p.exists() and nframes(p) == n):
-        big_zoomout(BIG["t_full"], n, 0, p, zoom_frames=30)
-    out["big"] = p
+    n_big = CUTS["small"] - CUTS["big"]
+    allp = BUILD / "big_all.mp4"
+    if not (allp.exists() and nframes(allp) == n_phone + n_big):
+        big_zoomout(BIG["t_full"] - n_phone / FPS, n_phone + n_big, n_phone, allp, zoom_frames=30)
+    for name, a, n in (("phone", 0, n_phone), ("big", n_phone, n_big)):
+        p = BUILD / f"{name}.mp4"
+        if not (p.exists() and nframes(p) == n):
+            run(["ffmpeg", "-v", "error", "-y", "-i", str(allp), "-vf", f"select='between(n\\,{a}\\,{a + n - 1})',setpts=N/{FPS}/TB",
+                 "-frames:v", str(n)] + ENC + [str(p)])
+        out[name] = p
+    out["big_phone_frames"] = n_phone
     p = BUILD / "small.mp4"
     n = CUTS["card"] - CUTS["small"]
     if not (p.exists() and nframes(p) == n):
