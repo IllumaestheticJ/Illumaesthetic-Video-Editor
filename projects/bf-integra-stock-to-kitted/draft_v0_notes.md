@@ -1,4 +1,19 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.11 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.13 notes
+
+**v0.13 (2026-11-18):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.13.mp4` (16.9 s).
+- **Stock pass camera:** the user said the whole car was never shown and the orbit was awkward. The new path (`spec_s1_fullcar.json`, render `render/s1_fullcar/`):
+  - From 0 to 4.6 s it makes a slow wide arc from the front 3/4 to the side profile, with the whole car about 80 % of the frame width.
+  - From 4.6 to 6.35 s it pushes into the solved 0371 crop camera, then holds until the drop, so the 1:1 cut is unchanged.
+- **Leaders:** REAR SPATS has a single leader, to the right spat. Leader ends are plain lines with no dot.
+- **Prompt for other agents:** `leader_labels_prompt.md` is a copy-paste prompt for adding these callouts.
+
+**v0.12 (2026-11-18).** The user wrote: "have it end around 17, thats when the song gets annoying. Show the epsilon logo and site in the last scene with the car. okay to ignore the reading time requirements". Output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.12.mp4` (16.9 s, 507 frames).
+- **Cuts:** on beats 0, 4, 8 and 23 after the drop.
+- **0371 (side):** 1.7 s at normal speed (`clips/s3_0371_pan.mp4`, window pans 1600 → 1900). Labels: FRONT LIP and SIDE SKIRTS.
+- **0370 (rear 3/4):** 1.7 s. Labels: SPORT WING and REAR SPATS.
+- **Last scene:** the white GLB car with the black kit (fitted into y 760-1150), plus the card, plus the Epsilon+ wordmark (520 px) and WWW.EPSILON.PLUS (Unbounded 400) under the car from beat 16. The separate logo scene is gone. Everything sits inside x 98-910 / y 318-1378.
+- **Reading time:** the minimums are waived for this video by the user. For reference, the card is readable 4.2 s and the labels ~1.4 s.
+- **Audio:** music gain 0.453 gives -13.7 LUFS.
 
 **v0.11 (2026-11-18):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.11.mp4` (25.9 s, 778 frames).
 

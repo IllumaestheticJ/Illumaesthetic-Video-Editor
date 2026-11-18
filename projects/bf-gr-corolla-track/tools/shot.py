@@ -40,7 +40,7 @@ WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's12_open': (0, 6), 's3_hl': (6, 14
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
 N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0]) + (45 if SHOT == 's10_end' else 0)   # end shot holds 1.5 s past kick 76
 CARDS = ('s6_cardv2', 's8_cardv1')
-STUDIO = SHOT in ('s3_hl', 's5_liphl', 's9_canards') + CARDS
+STUDIO = SHOT in ('s3_hl', 's5_liphl') + CARDS   # v1.1 (user): canard shot on the red car on track, carbon canards
 MODE = 'cgi'
 
 
@@ -213,6 +213,9 @@ if MODE in ('cgi',):
     ck.inputs['Color1'].default_value = (0.012, 0.012, 0.013, 1); ck.inputs['Color2'].default_value = (0.09, 0.09, 0.1, 1)
     nt.links.new(ck.outputs['Color'], p.inputs['Base Color']); p.inputs['Roughness'].default_value = 0.25
     p.inputs['Coat Weight'].default_value = 1.0; p.inputs['Coat Roughness'].default_value = 0.02
+    if SHOT == 's9_canards':   # v1.1 on the red car in daylight: coarser, darker weave + softer coat so it reads as carbon, not grey glass
+        ck.inputs['Scale'].default_value = 90; ck.inputs['Color1'].default_value = (0.006, 0.006, 0.007, 1); ck.inputs['Color2'].default_value = (0.05, 0.05, 0.055, 1)
+        p.inputs['Coat Weight'].default_value = 0.5; p.inputs['Coat Roughness'].default_value = 0.12
     # highlight: the V2 parts light up in the studio shots (bright satin + emission that ramps in after the cut)
     hl = bpy.data.materials.new('v2_highlight'); hl.use_nodes = True; nt = hl.node_tree; p = nt.nodes['Principled BSDF']
     p.inputs['Base Color'].default_value = (0.85, 0.87, 0.9, 1); p.inputs['Roughness'].default_value = 0.3; p.inputs['Metallic'].default_value = 0.6
@@ -398,6 +401,23 @@ if MODE in ('cgi',):
             for ob in (lg, ut):
                 for fc in getattr(ob.animation_data.action, 'fcurves', []):
                     for kp in fc.keyframe_points: kp.interpolation = 'BEZIER'
+            # v1.1 (user): "SHOP DEALS NOW" enters from the road - Akira (headline), dark, standing on the asphalt in
+            # front of the lens and rising up out of the road surface (the road hides it until it rises)
+            O = CM.translation; tip = at(484, 1112, 1.0); dv = (tip - O).normalized(); P = O + dv * (-O.z / dv.z); P.z = 0.0
+            Dt = (R3.transposed() @ (P - O)).z * -1   # depth along the view axis
+            cs = bpy.data.curves.new('shop', 'FONT'); cs.body = 'SHOP DEALS NOW'; cs.align_x = 'CENTER'; cs.align_y = 'BOTTOM'
+            cs.font = bpy.data.fonts.load('/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf')
+            st = bpy.data.objects.new('EPS_SHOP', cs); sc.collection.objects.link(st)
+            st.data.materials.append(dark); st.visible_glossy = False   # dark like the logo/URL (white had no contrast on the asphalt)
+            bpy.context.view_layer.update(); ks = px(800, Dt) / max(st.dimensions.x, 1e-6); st.scale = (ks, ks, ks)
+            bpy.context.view_layer.update(); hs = st.dimensions.y
+            d2 = O - P; st.rotation_euler = (math.pi / 2, 0, math.atan2(d2.x, -d2.y))
+            s0, s1 = land + 16, land + 30
+            for f, z in ((1, -hs * 1.3), (s0, -hs * 1.3), (s1 - 3, hs * 0.08), (s1, 0.0), (N, 0.0)):
+                st.location = (P.x, P.y, z); st.keyframe_insert('location', frame=f)
+            for fc in getattr(st.animation_data.action, 'fcurves', []):
+                for kp in fc.keyframe_points: kp.interpolation = 'BEZIER'
+            print('SHOP depth', round(Dt, 2), 'h', round(hs, 3), 'in', s0, s1)
             print('ENDSHOT land', land, 'N', N, 'logo final z', round(fin.z, 2), 'w', round(wl, 2))
         elif SHOT == 's10_pass':
             # environment static; the car drives past a fixed trackside camera
