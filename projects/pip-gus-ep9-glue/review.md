@@ -25,3 +25,10 @@ Output: `pip-gus-ep9-glue_v1.mp4`, 49.77 s, 1493 frames, 1080x1920, 30 fps, h264
 - Corner-pinned real footage in a phone push-in will collide with the caption box near the end of the push.
   Derive the last caption's end time from `screen_corners.json` instead of hand-trimming it (`tools/ep9_gfx.py: phone_clash_t`).
 - 0.75 scale at 4 spp in EEVEE was about 13 s per frame on 4 cores, with no visible loss after upscaling to 1080x1920.
+
+## v2 (owner feedback on v1)
+- Captions moved to the bottom band (y=1645). They no longer cover the characters, tools or the part in any shot (checked on a frame per shot). Text 4 -> 5.
+- Hot staples: W-wave staples between copper prongs, white-hot with a halo while pressed, melt pool, then they cool orange and then to dark metal.
+- Plastic weld: a soldering iron (spade tip, cord) plus a white filler rod fed into the tip, with light smoke. The white bead is subtle against the white part.
+- Finished 350Z: DSCF6605, a straight-on front view with a slow push-in (was DSCF6634, off-angle).
+- Still open: Pip is half out of frame on the left in the E13 tag.
