@@ -5,7 +5,7 @@ from mathutils import Vector
 sys.path.insert(0, "/home/user/Illumaesthetic-Video-Editor/blender"); import scan_render as SR
 car, out = sys.argv[sys.argv.index("--") + 1:][:2]
 M = "/home/user/media/bf-miata-mr2-night-meet"; D = f"{M}/dec"; K = f"{M}/kit_{car}"
-Z = {"mr2": {"skirts": (["part_side_skirts"], (3.0, -1.6, 0.9), (0.8, 0.0, 0.35)), "eyelids": (["part_eyelids"], (1.6, -3.2, 1.3), (0.4, -1.55, 0.62)),
+Z = {"mr2": {"bumper": (["part_front_bumper"], (2.2, -4.0, 1.0), (0.2, -1.8, 0.4)), "skirts": (["part_side_skirts"], (3.0, -1.6, 0.9), (0.8, 0.0, 0.35)), "eyelids": (["part_eyelids"], (1.6, -3.2, 1.3), (0.4, -1.55, 0.62)),
              "hood": (["part_hood_vents"], (1.2, -3.2, 2.0), (0, -1.45, 0.66)), "spats": (["part_rear_spats"], (2.2, 3.6, 0.6), (0.3, 1.7, 0.3)),
              "duck": (["part_duckbill"], (1.6, 3.6, 1.6), (0, 1.75, 0.75))},
      "nc": {"bumper": (["part_front_bumper", "part_front_lip", "part_canards"], (-2.2, -3.6, 1.1), (0, -1.7, 0.4)),

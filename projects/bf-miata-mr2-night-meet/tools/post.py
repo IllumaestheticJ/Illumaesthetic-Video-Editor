@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.7.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.8.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -84,12 +84,14 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
          "nc_canards": ("CANARDS", "NC MIATA", 200, 160), "nc_fender": ("FENDER CUTS", "NC MIATA", 300, 240),
          "nc_skirts": ("SIDE SKIRTS", "NC MIATA", 500, 400), "nc_spats": ("REAR SPATS (NC1)", "NC MIATA", 250, 200),
          # not on the BF sheet -> regular store price (Shopify 2026-11-17), no discount claimed
-         "mr2_diffuser": ("REAR DIFFUSER V1+", "MR2 SPYDER", None, 750), "mr2_wing": ("TC WING", "MR2 SPYDER", None, 1100),
-         "nc_wing": ("TC WING - SWAN MOUNT", "NC MIATA", None, 1100)}
+         "mr2_diffuser": ("REAR DIFFUSER V1+", "MR2 SPYDER", None, 750), "mr2_wing": ('TC WING 66.5"', "MR2 SPYDER", None, 1100),
+         "nc_wing": ('TC WING 66.5" - SWAN', "NC MIATA", None, 1100),
+         # v1.8 (user: "MR2 spyder doesn't show the front bumper"): sheet says "No deal", so regular price $900, not on the 20% card
+         "mr2_bumper": ("FRONT BUMPER", "MR2 SPYDER", None, 900)}
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
 # shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
 # above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
-LABELS = {"s02": [("mr2_skirts", 0.20, 0)], "s03": [("mr2_eyelids", 0.12, 0)], "s04": [("mr2_hood", 0.12, 0)],
+LABELS = {"s02": [("mr2_skirts", 0.12, 0), ("mr2_bumper", 0.42, 1)], "s03": [("mr2_eyelids", 0.12, 0)], "s04": [("mr2_hood", 0.12, 0)],
           "s05": [("mr2_spats", 0.10, 0), ("mr2_duck", 0.40, 1)], "s07": [("nc_bumper", 0.20, 0), ("nc_canards", 0.45, 1)],
           "s08": [("nc_fender", 0.20, 0)], "s09": [("nc_skirts", 0.10, 0), ("nc_spats", 0.40, 1)],
           "s05b": [("mr2_diffuser", 0.10, 0), ("mr2_wing", 0.40, 1)], "s09b": [("nc_wing", 0.12, 0)]}
