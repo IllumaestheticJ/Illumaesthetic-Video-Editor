@@ -29,7 +29,7 @@ M = "/home/user/media/bf-clearance-shelf-drop"
 GLB = {"integra": f"{M}/glb/eps-acura-integra-de-v29.glb", "grv1": f"{M}/glb/eps-toyota-gr-corolla-v23.glb"}
 PART = {"integra": "part_duckbill", "grv1": "part_front_lip"}
 LEN = {"s1": 77, "s2": 73, "s3": 73, "s4": 73, "s5": 74}   # frames; cuts on the bar kicks 2.56/5.00/7.44/9.88/12.32 s
-FLIP = {"s2": 17, "s4": 18}                                  # local frame of the tag flip (snare 3.11 s / 8.01 s)
+FLIP = {"s2": 35, "s4": 36}   # v0.8: flip on beat 3 (3.72 s / 8.62 s), ~0.6 s later than the snare, so the RETAIL side reads
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
@@ -427,8 +427,12 @@ def aisle():
     billboard("del", f"{M}/chars/del_front.png", Vector((-0.75, 2.2, 0)), 1.85, cam)
     billboard("eps", f"{M}/chars/eps_front.png", Vector((0.75, 2.4, 0)), 1.70, cam)
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
-    bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
-    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.46   # Akira is wider; fits between the racks
+    # v0.8 (user: "make the black friday text and logo bigger"): two lines so each word can be ~2x the size
+    # and still fit the 4.8 m aisle (racks at x +-2.4)
+    SIGN_Z = float(os.environ.get("SIGN_Z", "4.75")); SIGN_S = float(os.environ.get("SIGN_S", "0.80"))
+    bpy.ops.object.text_add(location=(0, 9.5, SIGN_Z), rotation=(math.pi / 2, 0, 0))
+    t = bpy.context.object; t.data.body = "BLACK\nFRIDAY"; t.data.align_x = "CENTER"; t.data.align_y = "CENTER"
+    t.data.size = SIGN_S; t.data.space_line = 1.12
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
@@ -442,7 +446,7 @@ def aisle():
     img = bpy.data.images.load(f"{M}/logo/Epsilon+ Logo.png")
     lm = bpy.data.materials.new("logo"); lm.use_nodes = True
     nt = lm.node_tree; pb = nt.nodes["Principled BSDF"]
-    tx = nt.nodes.new("ShaderNodeTexImage"); tx.image = img
+    tx = nt.nodes.new("ShaderNodeTexImage"); tx.image = img; tx.interpolation = "Cubic"   # sharper wordmark
     nt.links.new(tx.outputs["Color"], pb.inputs["Emission Color"]); nt.links.new(tx.outputs["Alpha"], pb.inputs["Alpha"])
     pb.inputs["Base Color"].default_value = (0, 0, 0, 1)
     try:
@@ -452,8 +456,11 @@ def aisle():
     es = pb.inputs["Emission Strength"]
     for f, v in ((1, 0.0), (37, 0.0), (38, 3.0)):
         es.default_value = v; es.keyframe_insert("default_value", frame=f)
-    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, 3.55), rotation=(math.pi / 2, 0, 0))
-    lo = bpy.context.object; lo.scale = (3.2, 3.2 * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
+    LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.45"))
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, LOGO_Z), rotation=(math.pi / 2, 0, 0))
+    lo = bpy.context.object; lo.scale = (LOGO_W, LOGO_W * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
+    # black backing board so the lamps beyond don't show through the letters (v0.8)
+    box("signboard", (0, 9.62, (LOGO_Z + SIGN_Z) / 2 + 0.25), (LOGO_W + 0.3, 0.04, SIGN_Z - LOGO_Z + 1.9), mat("board", (0.01, 0.01, 0.012), 0.6, 0.0))
     light("fill", "AREA", Vector((0, -2, 3)), 150, 3, Vector((0, 2.3, 1)))
     return cam
 
