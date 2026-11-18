@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.9.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.10.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 469, 528]
@@ -53,7 +53,7 @@ WHITE = (255, 255, 255)
 
 # v0.9 owner font rule (knowledge/fonts.md): Akira for headlines/offers, Unbounded beside the logo. The Akira file is not
 # available yet, so Unbounded 900 (OFL, Google Fonts) stands in for it - swap FONT_HEAD when the owner supplies Akira.
-FONT_HEAD = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-900.ttf"  # repo copy (e15b34b)
+FONT_HEAD = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf"  # v0.10: Akira Expanded (licensed, Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya, gitignored)
 UNB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-{}.ttf"
 FONT_BF = FONT_HEAD
 TILT, PULSE, DECAY = 12, 0.13, 0.22   # degrees CCW; peak extra scale on a hit; seconds back to rest
@@ -87,7 +87,7 @@ def _bf_block():
     return blk
 
 
-ROW_SIZE, ROW_GAP, SCROLL = 210, 26, 150   # Anton px; px between rows; scroll speed px/s (rows alternate direction)
+ROW_SIZE, ROW_GAP, SCROLL = 150, 34, 150   # v0.10: Akira is far wider than Unbounded   # Anton px; px between rows; scroll speed px/s (rows alternate direction)
 _ROWS = {}
 
 
@@ -300,7 +300,7 @@ def card(im, k):
         return f
     text_center(d, 300, "FULL KIT", fit(FONT_HEAD, "FULL KIT", 92, 760))  # Akira stand-in
     t = "30%+ OFF"
-    f = fit(FONT_HEAD, t, 120, 700)
+    f = fit(FONT_HEAD, t, 120, 660)   # badge stays inside x 48-920 with Akira's width
     tw = d.textlength(t, font=f)
     x0, y0 = (W - tw) / 2 - 40, 420
     d.rounded_rectangle((x0, y0, x0 + tw + 80, y0 + 170), radius=26, fill=SALE_RED + (255,))
