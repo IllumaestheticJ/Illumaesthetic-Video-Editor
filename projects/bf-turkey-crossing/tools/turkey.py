@@ -348,3 +348,58 @@ def build_turkey_chicken(coll, chicken_blend, props_blend, name='TURKEY'):
         _obj(f'{name}_tailf{i}', _slab(f'ct_tail{i}', 0.06, 0.14, 0.82), coll, m(f'tail{i % 3}', cols[i % 3]), piv, (0, 0.012 * (i % 2), 0), (0, 0, 0), (1, 1, 1))
         _obj(f'{name}_tailtip{i}', _slab(f'ct_tip{i}', 0.115, 0.115, 0.13, 0.028), coll, m('tip', '#e8cf9a'), piv, (0, 0.012 * (i % 2) + 0.004, 0.71), (0, 0, 0), (1, 1, 1))
     return dict(root=root, body=body, head=head, eye_l=eyes['l'], eye_r=eyes['r'], leg_l=legs['l'], leg_r=legs['r'], tail=tail)
+
+
+def build_turkey_evil(coll, evil_blend, name='TURKEY'):
+    """Owner 2026-11-18: 'the tail looks a bit weird, use the evil chicken model'. The owner's OSRS Big Evil Chicken (from
+    turkey.blend; owner states Jagex allows fan-made/promotional use) with its own big tail, recoloured to turkey browns, turned to
+    face -Y, scaled to ~1 m, split into body / head / eyes / legs / tail pivots for the waddle, head turn, eye pop and tail puff."""
+    with bpy.data.libraries.load(evil_blend, link=False) as (src, dst):
+        dst.objects = [n for n in src.objects if n == 'Big Evil Chicken']
+    ch = dst.objects[0]; me = ch.data
+    S = 0.48
+    RE = {1: '#6e4327', 2: '#7b4a2a', 3: '#5a3420', 4: '#83502c', 6: '#8a5530', 7: '#6a3f24', 8: '#5e3920', 9: '#7b4a2a',
+          11: '#8a5530', 5: '#4a2a17', 10: '#3f2313', 16: '#5a3019', 17: '#6e3a1c', 18: '#2f1a0d'}
+    for i, hx in RE.items():
+        m = me.materials[i].copy(); p = next(n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED')
+        p.inputs['Base Color'].default_value = srgb(hx); me.materials[i] = m
+    Rz = Matrix.Rotation(math.radians(-90), 4, 'Z')          # model front +X -> rig front -Y
+    to_rig = lambda p: (Rz @ Vector(p).to_4d()).to_3d() * S
+    E = lambda n, parent=None, loc=(0, 0, 0): _empty(coll, f'{name}_{n}', parent, loc)
+    root = E('root'); body = E('body', root)
+    piv = {'head': (0.62, 0, 1.28), 'leg_l': (0.3, 0.2, 0.36), 'leg_r': (0.3, -0.2, 0.36), 'tail': (-0.42, 0, 1.0)}
+    pe = {k: E(k, body, to_rig(p)) for k, p in piv.items()}
+    groups = {k: [] for k in ('body', 'head', 'leg_l', 'leg_r', 'tail', 'eye_l', 'eye_r')}
+    for f in me.polygons:
+        c = f.center
+        if f.material_index == 15:
+            groups['eye_l' if c.y > 0 else 'eye_r'].append(f.index)
+        elif c.z < 0.36 and f.material_index == 0:
+            groups['leg_l' if c.y > 0 else 'leg_r'].append(f.index)
+        elif c.x > 0.6 and c.z > 1.25:
+            groups['head'].append(f.index)
+        elif c.x < -0.45 and c.z > 0.95:
+            groups['tail'].append(f.index)
+        else:
+            groups['body'].append(f.index)
+    def part(key, faces, parent, pivot_model):
+        bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table()
+        keep = set(faces); bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.index not in keep], context='FACES')
+        pm = bpy.data.meshes.new(f'{name}_{key}_m'); bm.to_mesh(pm); bm.free()
+        for m in me.materials:
+            pm.materials.append(m)
+        o = bpy.data.objects.new(f'{name}_{key}', pm); coll.objects.link(o); o.parent = parent
+        o.matrix_basis = Matrix.Translation(-to_rig(pivot_model)) @ Rz @ Matrix.Scale(S, 4)
+        return o
+    part('body', groups['body'], body, (0, 0, 0))
+    for k in ('head', 'leg_l', 'leg_r', 'tail'):
+        part(k, groups[k], pe[k], piv[k])
+    eyes = {}
+    for k in ('l', 'r'):
+        fs = groups[f'eye_{k}']
+        c = sum((me.polygons[i].center for i in fs), Vector()) / len(fs) if fs else Vector((0.97, 0.1 if k == 'l' else -0.1, 1.7))
+        ep = E(f'eye_{k}', pe['head'], to_rig(c) - to_rig(piv['head']))
+        if fs:
+            part(f'eyeo_{k}', fs, ep, tuple(c))
+        eyes[k] = ep
+    return dict(root=root, body=body, head=pe['head'], eye_l=eyes['l'], eye_r=eyes['r'], leg_l=pe['leg_l'], leg_r=pe['leg_r'], tail=pe['tail'])
