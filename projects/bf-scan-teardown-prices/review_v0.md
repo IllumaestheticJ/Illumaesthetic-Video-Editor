@@ -104,3 +104,10 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 - URL under the logo: Unbounded 400. Part names and struck was-prices: Unbounded 500 (repo `assets/fonts/unbounded/`).
 - BLACK FRIDAY, the offer pill, the BF prices and the % OFF pills use Unbounded 900 as a **stand-in for Akira**. The owner still needs to supply the Akira file, then swap it into `font("b")`.
 - -14.0 LUFS, true peak -2.8 dBFS, safe-zone text boxes OK. Timing is the same as v0.7.
+
+## v0.9 (Akira)
+
+- Akira Expanded SuperBold is the owner's licensed file: Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya, SHA-256 5b152fce... verified, in the gitignored `assets/fonts/akira/`. It is used for BLACK FRIDAY (opening tag and end headline), the offer pill, BF prices and % OFF pills.
+- Unbounded 400 for the URL beside the logo; Unbounded 500 for part names and struck was-prices.
+- Every glyph is present (no tofu; the strings are ASCII only). The headline auto-fit at 170 px and the offer at 42 px. Safe-zone text boxes OK, -14.0 LUFS, true peak -2.8 dBFS.
+- The owner approved v0.8 apart from the font, so v0.9 is the final of this draft pass. Production quality (full-res renders, nesting) is still the v1 list above.
