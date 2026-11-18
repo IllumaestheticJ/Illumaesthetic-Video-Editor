@@ -62,7 +62,7 @@ The MR2 front bumper has no BF deal. The full table is in `PRICES.md`.
 
 ## Open questions for the owner
 
-1. **BF9:** sale end date and time, and which days get an "X days left" reel.
+1. **BF9:** the sale ends **Nov 30** (owner). Still open: which days get an "X days left" reel, and the end time of day.
 2. **BF7:** it runs 50.7 s against the 10-25 s target. Keep it, or cut it (e.g. one car per reel)?
 3. **BF4:** prices for the paint-matched lip and flares are missing from the sheet. The FE Platinum White wing price was derived and needs confirming.
 4. **BF5:** keep the "ONLY 14 LEFT IN CARBON" line?
