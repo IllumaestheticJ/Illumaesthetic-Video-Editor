@@ -95,3 +95,20 @@ Point-to-surface distance from each shown lookbook part to body/trim/underbody (
 | FL v8 | side skirts | 0.0 | 1.4 mm |
 | FL v8 | sport wing | 1.0 | 4.1 mm |
 All within the ~5 mm rule; close-ups show no floating gap or poke-through. No re-seat or re-render needed.
+
+## Readability audit of v0.6 (owner rule 2026-11-18: slow down text sections; min 2.5 s for 1-3 words +0.4 s/extra word, >=3 s for prices)
+Fully readable time = from end of fade-in to start of fade-out (comp.py env()).
+| Text | Words | Needs | v0.6 has | |
+|---|---|---|---|---|
+| BLACK FRIDAY (intro title) | 2 | 2.5 s | 1.47 s | FAIL |
+| FRONT LIP label | 2 | 2.5 | 0.77 | FAIL |
+| SIDE SKIRTS label | 2 | 2.5 | 0.83 | FAIL |
+| REAR LIP label | 2 | 2.5 | 0.77 | FAIL |
+| SPORT WING label | 2 | 2.5 | 0.87 | FAIL |
+| BLACK FRIDAY / 30% OFF / THE FULL KIT (price) | 6 | 3.0 (price) | 3.83 | ok |
+| CIVIC FE · LIP · SKIRTS · REAR LIP · WING | 7 | 4.1 | 2.2 | FAIL |
+| CIVIC FL · LIP · SKIRTS · WING | 5 | 3.3 | 1.6 | FAIL |
+| PAINT MATCHING AVAILABLE | 3 | 2.5 | 3.83 | ok |
+| SHOP DEALS NOW / WWW.EPSILON.PLUS | 3+1 | 2.5 | 2.33 | FAIL |
+
+Plan for v0.7: title held to ~2.6 s (comp only); part labels build up into a list that stays until the cut, and the take holds 2 more bars after the wing landing so SPORT WING gets >=2.5 s (extra take frames); offer shots lengthened to FE >=4.3 s and FL >=3.5 s (longer, slower CGI pans); end card text >=2.7 s. Cuts move to later onset peaks; video grows from 15.7 s to about 21 s.
