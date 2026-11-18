@@ -41,6 +41,11 @@ try:
     sc.eevee.use_shadows = True
 except Exception:
     pass
+try:                                   # v0.6: ray-traced reflections so the clear-coated carbon mirrors the lamps
+    sc.eevee.use_raytracing = True
+    sc.eevee.ray_tracing_options.resolution_scale = "2"
+except Exception as e:
+    print("raytracing not set:", e)
 sc.view_settings.view_transform = "AgX"
 sc.render.image_settings.file_format = "PNG"
 sc.render.filepath = f"{args.out}/f_"
@@ -99,21 +104,36 @@ def world(bg=0.004):
 _CARBON = None
 
 
-def carbon():
-    """Gloss 2x2 twill carbon (product finish) so the lip/duckbill reads against the silver scans."""
+def carbon(tow_mm=5.0):
+    """Gloss 2x2 twill carbon (product finish) so the lip/duckbill reads against the silver scans.
+    v0.6 (owner: "tighter and more glossy/realistic"): image twill from tools/carbon_tile.py (8 tows per tile,
+    tow_mm per tow), box-projected in object space; the weave bumps only the base layer, under a glass-smooth
+    clear coat, like resin over the fabric."""
     global _CARBON
     if _CARBON:
         return _CARBON
     m = bpy.data.materials.new("carbon"); m.use_nodes = True
     nt = m.node_tree; p = nt.nodes["Principled BSDF"]
     tc = nt.nodes.new("ShaderNodeTexCoord"); mp = nt.nodes.new("ShaderNodeMapping")
-    mp.inputs["Scale"].default_value = (70, 70, 70); mp.inputs["Rotation"].default_value = (0, 0, math.radians(45))
-    ck = nt.nodes.new("ShaderNodeTexChecker"); ck.inputs["Scale"].default_value = 1.0
-    ck.inputs["Color1"].default_value = (0.010, 0.010, 0.011, 1); ck.inputs["Color2"].default_value = (0.055, 0.055, 0.06, 1)
-    nt.links.new(tc.outputs["Object"], mp.inputs["Vector"]); nt.links.new(mp.outputs["Vector"], ck.inputs["Vector"])
-    nt.links.new(ck.outputs["Color"], p.inputs["Base Color"])
-    p.inputs["Roughness"].default_value = 0.35
-    for nm, v in (("Coat Weight", 1.0), ("Coat Roughness", 0.03)):
+    k = 1000.0 / (8 * tow_mm)                      # tiles per metre (object space is metres)
+    mp.inputs["Scale"].default_value = (k, k, k); mp.inputs["Rotation"].default_value = (0, 0, math.radians(45))
+    nt.links.new(tc.outputs["Object"], mp.inputs["Vector"])
+    def img(name, colour):
+        t = nt.nodes.new("ShaderNodeTexImage"); t.image = bpy.data.images.load(f"{M}/tex/{name}")
+        t.projection = "BOX"; t.projection_blend = 0.25; t.interpolation = "Cubic"
+        if not colour:
+            t.image.colorspace_settings.name = "Non-Color"
+        nt.links.new(mp.outputs["Vector"], t.inputs["Vector"]); return t
+    col, hgt = img("carbon_col.png", True), img("carbon_h.png", False)
+    nt.links.new(col.outputs["Color"], p.inputs["Base Color"])
+    bump = nt.nodes.new("ShaderNodeBump"); bump.inputs["Strength"].default_value = 0.35
+    bump.inputs["Distance"].default_value = 0.0004
+    nt.links.new(hgt.outputs["Color"], bump.inputs["Height"]); nt.links.new(bump.outputs["Normal"], p.inputs["Normal"])
+    # per-tow roughness: warp tows glossier than weft, so the weave flickers as the camera moves (real carbon sheen)
+    rr = nt.nodes.new("ShaderNodeMapRange"); rr.inputs["From Min"].default_value = 0.0
+    rr.inputs["From Max"].default_value = 0.2; rr.inputs["To Min"].default_value = 0.55; rr.inputs["To Max"].default_value = 0.18
+    nt.links.new(col.outputs["Color"], rr.inputs["Value"]); nt.links.new(rr.outputs["Result"], p.inputs["Roughness"])
+    for nm, v in (("Coat Weight", 1.0), ("Coat Roughness", 0.0), ("Coat IOR", 1.55), ("Specular IOR Level", 0.6)):
         if nm in p.inputs:
             p.inputs[nm].default_value = v
     _CARBON = m
