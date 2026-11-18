@@ -19,7 +19,7 @@ import bpy, sys, math, os, random
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from turkey import build_turkey, build_turkey_osrs, build_turkey_hen, feather_mesh, toon, srgb, TAIL_COLS
+from turkey import build_turkey, build_turkey_osrs, build_turkey_hen, build_turkey_chicken, feather_mesh, toon, srgb, TAIL_COLS
 STYLE = os.environ.get("TURKEY_STYLE", "cute")   # "osrs" = retro-MMO low-poly look (owner idea 2026-11-18)
 
 a = sys.argv[sys.argv.index('--') + 1:]
@@ -180,7 +180,7 @@ for i in range(9):
     bpy.context.active_object.data.polygons.foreach_set('use_smooth', [True] * len(bpy.context.active_object.data.polygons))
 
 # ------------------------------------------------------------------ turkey
-T = build_turkey_hen(C) if STYLE == "hen" else build_turkey_osrs(C) if STYLE == "osrs" else build_turkey(C)
+T = build_turkey_chicken(C, os.environ["OSRS_CHICKEN"], os.environ["OSRS_PROPS"]) if STYLE == "chicken" else build_turkey_hen(C) if STYLE == "hen" else build_turkey_osrs(C) if STYLE == "osrs" else build_turkey(C)
 tparts = [o for o in bpy.data.objects if o.name.startswith('TURKEY_')]
 
 
@@ -384,7 +384,7 @@ def lerp(p, q, u):
     return Vector(p).lerp(Vector(q), u)
 
 
-HZ = 0.13 if STYLE == 'hen' else 0.0   # the hen's head sits ~13 cm lower than the cute turkey's
+HZ = 0.13 if STYLE == 'hen' else 0.08 if STYLE == 'chicken' else 0.0   # the hen's head sits ~13 cm lower than the cute turkey's
 for f in range(F0, F1):
     u = min(1.0, (f - S0) / max(S1 - S0 - 1, 1))
     roll = 0
@@ -402,6 +402,8 @@ for f in range(F0, F1):
     elif SHOT == 's4_eyes':
         cd.lens = 38
         loc = lerp((1.6, 1.25, 0.95 - HZ), (1.58, 0.95, 0.93 - HZ), ease(u)); tgt = (1.56, 0.05, 0.86 - HZ)
+        if STYLE == 'chicken':   # the OSRS chicken's eyes sit on the sides of its head: 3/4 close-up so the eye pop reads
+            loc = lerp((2.15, 0.95, 1.02), (2.02, 0.78, 1.0), ease(u)); tgt = (1.58, -0.02, 0.9)
         roll = 1.2 * math.sin(f * 2.3) * ease((f - 140) / 6)
     elif SHOT == 's5_poof':
         cd.lens = 22
