@@ -33,6 +33,7 @@ Approved examples:
 
 ## Footage rules
 
+- **Slow down wherever there is text (owner rule):** slow-mo, speed-ramp or hold the shot under any label so slow readers can finish it. Text stays fully readable for at least 2.5 s (1-3 words), plus 0.4 s per extra word, and 3 s or more for prices. See `knowledge/lessons.md`.
 - Never put text over IRL footage.
 - **Widen the IRL crops at the match cuts.** "IRL to CGI 1:1 crops are awfully close" (Sera). Zoom the real shots out so
   they're less cropped.
