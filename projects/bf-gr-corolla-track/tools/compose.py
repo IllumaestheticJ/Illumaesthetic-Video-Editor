@@ -8,9 +8,9 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.8.mp4')
-ap.add_argument('--tag', default='v0.8'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v08'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.9.mp4')
+ap.add_argument('--tag', default='v0.9'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v09'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
 CUTK = [6, 10, 12, 14, 24, 30, 40, 46, 48]   # v0.8: one continuous opening (no cut at kick 4), cards 10 kicks
