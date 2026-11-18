@@ -8,9 +8,9 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v1.0.mp4')
-ap.add_argument('--tag', default='v1.0'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v10'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v1.1.mp4')
+ap.add_argument('--tag', default='v1.1'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v11'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
 # v1.0 timing (owner, revised 2026-11-18 via parent): readable >= 1.8 s for 1-3 words, +0.3 s per extra word, >= 2.2 s for prices.
@@ -62,7 +62,7 @@ f_upto = ImageFont.truetype(AK, 44)
 # v0.8 (user: "why is V2 crossed out and V1? shouldn't you cross out the retail price?"): the kit name stays clean;
 # each part's RETAIL price (sheet "Current Price") is slashed in red and the BF price (sheet "BF 2026 Price") follows.
 PRICES = {  # projects/_blackfriday/bf_liquidation_pricing.csv (owner: use the sheet)
-    's6_cardv2': [('LIP', '$285', '$199.50'), ('SKIRTS', '$400', '$280'), ('SPATS', '$175', '$122.50')],
+    's6_cardv2': [('LIP', '$285', '$199'), ('SKIRTS', '$400', '$280'), ('SPATS', '$175', '$122')],
     's8_cardv1': [('LIP', '$215', '$129'), ('CARBON LIP', '$600', '$330'), ('SKIRTS', '$275', '$165'), ('SPATS', '$125', '$75')],
 }
 f_row = ImageFont.truetype(UB + '500.ttf', 32)
