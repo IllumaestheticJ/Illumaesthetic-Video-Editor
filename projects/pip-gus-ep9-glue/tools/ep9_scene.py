@@ -27,6 +27,9 @@ pip_scanner("pouch")
 
 WHITE_PRINT = "#e9eae6"
 GLOW = "#f2a04a"
+WHITE_HOT = "#fff7e4"      # owner note: hot staples read white-hot, not orange
+HALO = "#ffc463"
+COPPER = "#b8734a"
 
 
 # ----------------------------------------------------------------------------------------------------------------- helpers
@@ -198,10 +201,39 @@ def build_hot_stapler(parent=None):
     box("hs_body", (0.07, 0.22, 0.08), (0, -0.06, 0.0), mat("dark"), g, bevel=0.02, ol=0.008)
     box("hs_grip", (0.05, 0.06, 0.15), (0, 0.04, -0.1), mat("sage"), g, bevel=0.015, ol=0.008, rot=(-15, 0, 0))
     box("hs_neck", (0.04, 0.06, 0.04), (0, -0.19, -0.01), mat("metal"), g, bevel=0.008, ol=0.006)
-    glow = []
     for s in (-1, 1):
-        glow.append(box(f"hs_prong{s}", (0.008, 0.012, 0.04), (s * 0.014, -0.215, -0.035), emit(GLOW, 1.6), g, ol=0.004))
-    return g, glow
+        box(f"hs_prong{s}", (0.01, 0.014, 0.06), (s * 0.045, -0.215, -0.045), mat(COPPER), g, ol=0.004)
+    held = build_staple("hs_held", g, loc=(0, -0.215, -0.08))
+    held_state(held, "white")
+    return g, held
+
+
+def build_staple(name, parent, loc=(0, 0, 0)):
+    """Hot-stapler staple: a wave (W) crown with two legs, plus a soft halo shell used while it is white-hot."""
+    g = empty(name, parent, loc)
+    parts = []
+    xs = (-0.045, -0.015, 0.015, 0.045)
+    zs = (0.0, -0.012, 0.0, -0.012)
+    for i in range(3):          # wave crown, three short bars between the four points
+        x0, x1, z0, z1 = xs[i], xs[i + 1], zs[i], zs[i + 1]
+        L_ = math.hypot(x1 - x0, z1 - z0)
+        ang = math.degrees(math.atan2(z1 - z0, x1 - x0))
+        parts.append(box(f"{name}_c{i}", (L_ + 0.004, 0.008, 0.006), ((x0 + x1) / 2, 0, (z0 + z1) / 2), mat("metal"), g,
+                         ol=0.002, rot=(0, -ang, 0)))
+    for sgn in (-1, 1):
+        parts.append(box(f"{name}_l{sgn}", (0.006, 0.008, 0.03), (sgn * 0.045, 0, -0.015), mat("metal"), g, ol=0.002))
+    halo = blob(f"{name}_halo", (0.085, 0.05, 0.04), (0, 0, -0.008), emit(HALO, 1.8, alpha=0.5), g, seg=16, rings=8)
+    g["parts"] = [o.name for o in parts]
+    g["halo"] = halo.name
+    return g
+
+
+def held_state(st, state):
+    """state: 'white' (white-hot + halo), 'orange' (cooling), 'cold' (bare metal)."""
+    m = {"white": emit(WHITE_HOT, 4.0), "orange": emit(GLOW, 1.6), "cold": mat("#5f6266")}[state]
+    for n in st["parts"]:
+        bpy.data.objects[n].data.materials[0] = m
+    set_vis(bpy.data.objects[st["halo"]], state == "white")
 
 
 def build_office_stapler(parent=None):
@@ -229,12 +261,26 @@ def build_thought(parent=None, loc=(0, 0, 0), r=0.26):
 
 
 def build_weld_pen(parent=None):
+    """Plastic welder = a soldering iron: dark handle with a sage grip and finger guard, long thin steel shaft, flat spade
+    tip (hot, glowing at the very end), cord out of the back. Points along -y; the tip end is at y = -0.30."""
     g = empty("WELDPEN", parent)
-    cyl("wp_body", 0.022, 0.2, (0, 0, 0), mat("dark"), g, axis="Y", bevel=0.006, ol=0.006)
-    cyl("wp_grip", 0.025, 0.07, (0, 0.04, 0), mat("sage"), g, axis="Y", bevel=0.006, ol=0.006)
-    cyl("wp_tip", 0.014, 0.05, (0, -0.125, 0), mat("metal"), g, axis="Y", r2=0.004, ol=0.004)
-    tip = cyl("wp_glow", 0.006, 0.012, (0, -0.155, 0), emit(GLOW, 1.8), g, axis="Y")
+    cyl("wp_handle", 0.02, 0.14, (0, 0.06, 0), mat("dark"), g, axis="Y", bevel=0.006, ol=0.006)
+    cyl("wp_grip", 0.023, 0.06, (0, 0.0, 0), mat("sage"), g, axis="Y", bevel=0.006, ol=0.006)
+    cyl("wp_guard", 0.03, 0.012, (0, -0.035, 0), mat("dark"), g, axis="Y", bevel=0.003, ol=0.005)
+    cyl("wp_collar", 0.011, 0.04, (0, -0.06, 0), mat("metal"), g, axis="Y", ol=0.004)
+    cyl("wp_shaft", 0.0045, 0.19, (0, -0.175, 0), mat("metal"), g, axis="Y", ol=0.003)
+    box("wp_spade", (0.016, 0.03, 0.004), (0, -0.282, 0), mat("metal"), g, ol=0.003)
+    tip = box("wp_hot", (0.014, 0.012, 0.0045), (0, -0.296, 0), emit(GLOW, 2.2), g)
+    cyl("wp_cord", 0.007, 0.16, (0, 0.2, -0.03), mat("dark"), g, axis="Y", ol=0.004, rot=(-20, 0, 0))
     return g, tip
+
+
+def build_filler_rod(parent=None):
+    """Plastic filler rod, a thin white stick (same plastic as the print), along local +z from its base."""
+    g = empty("FILLER", parent)
+    cyl("fr_rod", 0.006, 0.34, (0, 0, 0.17), mat(WHITE_PRINT), g, ol=0.003)
+    cyl("fr_melt", 0.008, 0.014, (0, 0, 0.004), emit(GLOW, 1.6), g)
+    return g
 
 
 def build_acetone(parent=None, loc=(4.25, 3.1, 0.955)):
@@ -369,10 +415,12 @@ PILE, PILE_PIECES = build_pile(loc=(2.75, 1.85, 0))
 BOTTLE = build_glue_bottle()
 MOLDBOX = build_mold_box(SHOP, loc=(TX + 0.55, TY + 0.05, TZ))
 EPOXY, EP_BLOBS, EP_STICK = build_epoxy(SHOP, loc=(TX - 0.5, TY - 0.12, TZ))
-HSTAPLER, HS_GLOW = build_hot_stapler()
+HSTAPLER, HS_HELD = build_hot_stapler()
+HSTAPLER.scale = (1.3, 1.3, 1.3)
 THOUGHT = build_thought()
 WELDPEN, WP_TIP = build_weld_pen()
-WELDPEN.scale = (1.6, 1.6, 1.6)
+WELDPEN.scale = (1.3, 1.3, 1.3)
+FILLER = build_filler_rod()
 BRUSH_SCALE = 1.6
 ACETONE = build_acetone(SHOP, loc=(TX + 0.45, TY + 0.25, TZ))
 BRUSH = build_brush()
@@ -388,8 +436,19 @@ WORK = empty("WORK", SHOP, (TX, TY - 0.08, TZ))
 WORK_L = curved_piece("work_l", 0.34, 0.26, 0.035, 0.3, mat(WHITE_PRINT), WORK, (-0.172, 0, 0.03), (90, 0, 0))
 WORK_R = curved_piece("work_r", 0.34, 0.26, 0.035, 0.3, mat(WHITE_PRINT), WORK, (0.172, 0, 0.03), (90, 0, 0))
 SEAM_FILL = box("work_seamfill", (0.026, 0.26, 0.012), (0, 0, 0.052), mat("#d9b25a"), WORK)   # bead, grows along y
-STAPLES = [box(f"work_staple{i}", (0.07, 0.012, 0.006), (0, -0.08 + i * 0.08, 0.055), emit(GLOW, 1.4), WORK, ol=0.003)
-           for i in range(3)]
+STAPLE_Y = (-0.09, 0.0, 0.09)
+STAPLES = [build_staple(f"work_staple{i}", WORK, (0, y, 0.075)) for i, y in enumerate(STAPLE_Y)]
+for _st in STAPLES:
+    _st.rotation_euler = (0, 0, 0)
+MELT = [blob(f"work_melt{i}", (0.045, 0.012, 0.004), (0, y, 0.049), mat("#f6f1e2"), WORK, seg=16, rings=6)
+        for i, y in enumerate(STAPLE_Y)]
+BEAD_N = 16
+BEAD = [blob(f"weld_bead{i}", (0.022, 0.014, 0.008), (0, 0.13 - 0.26 * (i + 0.5) / BEAD_N, 0.05), mat("#f3eee2"), WORK,
+             ol=0.002, seg=14, rings=6) for i in range(BEAD_N)]
+BEAD_HOT = emit(GLOW, 1.4)
+BEAD_COLD = mat("#f3eee2")
+SMOKE = [blob(f"weld_smoke{i}", (0.016, 0.016, 0.016), (0, 0, 0), mat("#dfe1df", alpha=0.3), None, seg=12, rings=6)
+         for i in range(4)]
 # a glued test part on the floor for Pip to hop on (E3); its two halves split when it snaps
 TEST = empty("TESTPART", SHOP, (5.35, 1.55, 0))
 TEST_L = curved_piece("test_l", 0.3, 0.22, 0.04, 0.2, mat(WHITE_PRINT), TEST, (-0.15, 0, 0.13), (0, 0, 0))
@@ -407,6 +466,8 @@ def reset9():
     set_vis(SEAM_FILL, False)
     for st in STAPLES:
         set_vis(st, False)
+    for ob in MELT + BEAD + SMOKE + [FILLER]:
+        set_vis(ob, False)
     for ob in (BOTTLE, HSTAPLER, WELDPEN, BRUSH, THOUGHT):
         ob.parent = None
     TEST_L.location, TEST_L.rotation_euler = (-0.15, 0, 0.13), (0, 0, 0)
@@ -505,6 +566,7 @@ def shot_E6(t):
       armR=(lerp(-50, -160, up), 0, -10), elbowR=-15, look=(0.3, 0.3))
     set_vis(HSTAPLER, True)
     attach(HSTAPLER, GUS.hands["R"], (0, 0, 0.05), (90, 0, 0))
+    held_state(HS_HELD, "white" if up > 0.3 else "orange")
     P(PIP, "PIP", t, "curious", seed=2, loc=(TX - 1.05, TY + 0.2, 0), rz=-50, head=(-12, 0, 10), look=(0.6, 0.5))
     look(cam, (TX - 0.4, -1.4, 1.45), (TX - 0.4, TY + 0.3, 1.2), 30)
 
@@ -525,21 +587,75 @@ def shot_E7(t):
 
 def shot_E8(t):
     """'Hot ones. Melted in across the seam.' Close: glowing staples sink across the seam one by one."""
-    k = seg(t, L[10]["t0"], L[10]["t1"])
-    yk = -0.08 + 0.08 * min(2, int(k * 3))
-    gus_at_table(t, tool=HSTAPLER, target=SEAM + Vector((0, yk, 0.2)), tloc=(0, 0, -0.02), trot=(-90, 0, 0))
+    # three staples, one per beat of the line: the white-hot staple comes down across the seam, sinks into the plastic
+    # (a melt pool forms), the stapler lifts, the staple stays white-hot a moment, then cools orange, then bare metal.
+    t0, t1 = L[10]["t0"], L[10]["t1"]
+    dur = (t1 - t0) / 3
+    cur = min(2, max(0, int((t - t0) // dur)))
+    ph = cl9((t - t0 - cur * dur) / dur) if t >= t0 else 0.0
+    down = sm(cl9(ph / 0.35)) * (1 - sm(cl9((ph - 0.7) / 0.3)))      # press down, hold, lift
+    # the stapler is placed over the current staple point (prongs down, grip toward Gus); his right hand holds the grip
+    gus_at_table(t)
+    sc = HSTAPLER.scale[0]
+    pt = SEAM + Vector((0, STAPLE_Y[cur], 0.015 + 0.06 * (1 - down)))     # where the held staple sits
+    HSTAPLER.parent = None
+    HSTAPLER.rotation_euler = (0, 0, 0)
+    HSTAPLER.location = pt - Vector((0, -0.215, -0.08)) * sc
+    set_vis(HSTAPLER, True)
+    aim_arm(GUS, "R", HSTAPLER.location + Vector((0, 0.04, -0.1)) * sc)
     for i, st in enumerate(STAPLES):
-        set_vis(st, k > (i + 0.5) / 3)
+        ti = t0 + i * dur                       # this staple's press starts
+        placed = t >= ti + 0.35 * dur
+        set_vis(st, placed)
+        set_vis(MELT[i], placed)
+        if placed:
+            sink = sm(cl9((t - ti - 0.35 * dur) / (0.35 * dur)))
+            st.location = (0, STAPLE_Y[i], 0.075 - 0.01 * sink)
+            age = t - (ti + 0.7 * dur)
+            held_state(st, "white" if age < 0.35 else ("orange" if age < 0.8 else "cold"))
+            MELT[i].scale = (0.4 + 0.6 * sink, 1, 1)
+    # the stapler's own staple: white-hot while it comes down, gone once it is pressed in (a fresh one loads on the lift)
+    set_vis(HS_HELD, not (0.35 <= ph < 0.85) and t < t1 + 0.1)
+    held_state(HS_HELD, "white")
     look(cam, (TX + 0.6, TY - 0.7, 1.12), (TX, TY + 0.05, 0.72), 32)
 
 
 def shot_E9(t):
     """'Or weld it. Melt plastic into the seam.' Welding pen runs filament into the seam; the bead grows."""
-    k = seg(t, L[11]["t0"] + 0.5, L[11]["t1"])
-    gus_at_table(t, tool=WELDPEN, target=SEAM + Vector((0, 0.13 - 0.26 * k, 0.16)), tloc=(0, 0, -0.03), trot=(-60, 0, 0))
-    set_vis(SEAM_FILL, True)
-    SEAM_FILL.scale = (1, max(0.02, k), 1)
-    SEAM_FILL.location = (0, 0.13 * (1 - k), 0.052)
+    # the iron's spade tip drags along the seam melting both edges together while the left hand feeds a filler rod into
+    # the tip; a rippled bead of the same white plastic is left behind (glowing just behind the tip), smoke curls up.
+    k = seg(t, L[11]["t0"] + 0.4, L[11]["t1"])
+    wob = 0.012 * math.sin(t * 26)                                    # little side-to-side stir
+    tipw = SEAM + Vector((wob, 0.13 - 0.26 * k, -0.005))              # world point of the tip on the seam
+    gus_at_table(t, tool=WELDPEN, target=tipw + Vector((0.03, 0.2, 0.2)), tloc=(0, 0, -0.03), trot=(-35, 0, 0))
+    # place the iron so its tip sits on tipw, held like a pencil from the hand
+    WELDPEN.parent = None
+    bpy.context.view_layer.update()
+    hand = GUS.hands["R"].matrix_world.translation.copy()
+    d = (tipw - hand)
+    WELDPEN.rotation_euler = (-d).to_track_quat("Y", "Z").to_euler()
+    WELDPEN.location = tipw - d.normalized() * 0.30 * WELDPEN.scale[1]   # local -y tip lands on tipw
+    set_vis(WELDPEN, True)
+    # filler rod from the left hand into the tip
+    set_vis(FILLER, k > 0.0 and t < L[11]["t1"] + 0.2)
+    rb = tipw + Vector((-0.02, -0.04, 0.012))
+    rtop = rb + Vector((-0.22, -0.1, 0.22))
+    FILLER.location = rb
+    FILLER.rotation_euler = (rtop - rb).to_track_quat("Z", "Y").to_euler()
+    aim_arm(GUS, "L", rtop)
+    n = int(k * BEAD_N + 0.5)
+    for i, b in enumerate(BEAD):
+        set_vis(b, i < n)
+        if i < n:
+            b.data.materials[0] = BEAD_HOT if n - i <= 2 and k < 1 else BEAD_COLD
+            b.rotation_euler = (0, 0, math.radians(18 * (1 if i % 2 else -1)))
+    for j, sm_ in enumerate(SMOKE):
+        if 0 < k < 1.02:
+            ph = (t * 1.6 + j / len(SMOKE)) % 1.0
+            set_vis(sm_, True)
+            sm_.location = tipw + Vector((0.02 * math.sin(6 * ph + j), 0.01, 0.03 + 0.28 * ph))
+            r = 0.5 + 1.0 * ph
+            sm_.scale = (r, r, r)
     look(cam, (TX - 0.6, TY - 0.7, 1.12), (TX, TY + 0.05, 0.72), 32)
 
 

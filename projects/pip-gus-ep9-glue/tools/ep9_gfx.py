@@ -21,9 +21,9 @@ BRAND = {"accent": "#619f73", "onAccent": "#0b0c0b", "ink": "#ecefec", "bg": "#0
          "label": "#a8b0a8", "dim55": "rgba(236,239,236,0.55)", "dim50": "rgba(236,239,236,0.5)", "plate": "rgba(11,12,11,0.58)",
          "cap": "rgba(11,12,11,0.55)"}
 PHONE_CORNERS = Path("/home/user/media/pip-gus-ep9-glue/final/screen_corners.json")
-CAP_BOX = (60, 1190, 1020, 1560)   # caption plate area + margin (x0, y0, x1, y1) at y=1330, two rows of size 88
+CAP_BOX = (60, 1505, 1020, 1785)   # caption plate area + margin (x0, y0, x1, y1) at y=1645, two rows of size 88
 MAXC = 16            # characters per caption row at size 88 in an 880 px box
-Y = 1330
+Y = 1645            # bottom band (lessons: keep captions out of the focus area; action stays above ~1530)
 
 
 def script_tokens(text):

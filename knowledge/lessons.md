@@ -716,3 +716,9 @@ lands here automatically. Agents must read this whole file before editing.
 - **[structure]** Videos do not need to link to a YouTube video: the 'FULL VIDEO ON OUR CHANNEL' teaser card is optional, use it only when a matching full video exists  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
 
 - **[structure]** A call to action is not required. 'SCANS AVAILABLE AT ILLUMAESTHETIC.COM' only gets added when relevant (e.g. the video is about a scan we sell); the logo card can stand alone  _(from scan-tedium-explainer-reel, 2026-11-16, reviewer)_
+
+- **[text]** The subtitles are right in the focus area again - keep captions out of the area where the action/characters are  _(from pip-gus-ep9-glue, 2026-11-18, reviewer)_
+  How: Pip & Gus captions sit in the bottom band (ExplainerGfx page y=1645, plates ~1545-1745 on 1080x1920), not at
+  y~1330, which crosses the characters and the table. Before rendering, overlay the caption band on one frame per shot
+  and keep the action (faces, hands, tools, the part being worked on) above ~1530. Where real footage is pinned into a
+  screen, end the caption before the screen reaches the band (ep9_gfx.py: phone_clash_t).
