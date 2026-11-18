@@ -1,6 +1,6 @@
 # BF10 turkey-crossing v0 - self-review (training/rubric.md)
 
-File: `/home/user/media/work/out/bf-turkey-crossing_v0.mp4`, 1080x1920, 30 fps, 12.2 s, h264 yuv420p, AAC.
+File: `/home/user/media/work/out/bf-turkey-crossing_v0.2.mp4` (latest), 1080x1920, 30 fps, 14.0 s (v0 was 12.2 s), h264 yuv420p, AAC.
 - Loudness: -14.0 LUFS integrated, peak -3.8 dBFS.
 - Preview quality: Blender renders at 540x960, 10 spp, denoised, upscaled.
 

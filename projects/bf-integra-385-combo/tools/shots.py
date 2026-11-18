@@ -18,7 +18,8 @@ ap.add_argument('--scan', default='/home/user/media/bf-integra-385-combo/scan/ca
 ap.add_argument('--reg', default='/home/user/media/bf-integra-385-combo/work/reg/scan_to_glb.json')
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:])
 
-LEN = {1: 97, 2: 70, 3: 71, 4: 142, 5: 71, 6: 70}  # v0.6: shot 4 (price) two bars so the deal reads   # frames @30 fps, cut on bar kicks of "Get Low"
+LEN = {1: 168, 2: 70, 3: 141, 4: 284,  # v1.2: S1/S3 +1 bar, S4 +2 bars (owner: slow down for text)
+        5: 71, 6: 70}  # v0.6: shot 4 (price) two bars so the deal reads   # frames @30 fps, cut on bar kicks of "Get Low"
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
@@ -242,13 +243,13 @@ def shot_stage(n):
     N = LEN[n]
     if n == 1:
         for o in (wing, lip): o.location = WING_IN if o is wing else LIP_IN
-        flap_anim(flaps, 70, 92)
+        flap_anim(flaps, 141, 163)  # v1.2: closed box holds one more bar under the title
         # cyan scanner sweep: thin emissive bar crossing the closed box f38-70
         bpy.ops.mesh.primitive_cube_add(size=1); bar = bpy.context.object; bar.name = 'sweep'
         bar.scale = (0.012, 0.85, 0.42); bar.data.materials.append(M_CYAN)
-        bar.location = (-0.85, 0, 0.21); key(bar, 38, rot=False)
-        bar.location = (0.85, 0, 0.21); key(bar, 70, rot=False)
-        hide_until(bar, 38); bar.hide_render = True; bar.keyframe_insert('hide_render', frame=71)
+        bar.location = (-0.85, 0, 0.21); key(bar, 109, rot=False)
+        bar.location = (0.85, 0, 0.21); key(bar, 141, rot=False)
+        hide_until(bar, 109); bar.hide_render = True; bar.keyframe_insert('hide_render', frame=142)
         # camera: box sits low-right, black space above for the title and left for Eps
         look(co, (0.0, -4.8, 2.9), (0.0, 0, 0.95)); key(co, 1)
         look(co, (0.0, -4.55, 2.75), (0.0, 0, 0.95)); key(co, N)

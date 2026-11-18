@@ -33,12 +33,10 @@ SPEED = 33.0  # m/s on the straight (~120 km/h)
 # carbon canards added (on the car + their own shot).
 import json
 KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
-WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's12_open': (0, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14),
-       's6_cardv2': (14, 24), 's7_side': (24, 30), 's8_cardv1': (30, 40), 's9_canards': (40, 46), 's10_pass': (46, 48)}
-# v0.8 (user): "why is there that weird cut in the beginning" -> s1+s2 become ONE continuous move (s12_open) ending on
-# the s3 1:1 camera; cards 10 kicks for the per-part slashed retail prices
-# v0.6 (user: slow readers): cards 8 kicks, side tracking 6 (one label per half), canards 6
-# v0.5 (user): drive-past cut sooner (2 kicks); offer cards 6 kicks: parts glowing on the dark car -> lift off into a line-up
+WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's12_open': (0, 6), 's3_hl': (6, 14), 's4_lip': (14, 17), 's5_liphl': (17, 21),
+       's6_cardv2': (21, 36), 's7_side': (36, 44), 's8_cardv1': (44, 60), 's9_canards': (60, 68), 's10_pass': (68, 70)}
+# v1.0 owner rule (slow readers): every section with text is long enough for its words (2.5 s + 0.4 s/extra word,
+# prices >= 3 s); the renders under the text run over the longer windows, i.e. the camera moves are slower
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
 N = kf(WIN[SHOT][1]) - kf(WIN[SHOT][0])
 CARDS = ('s6_cardv2', 's8_cardv1')
@@ -128,7 +126,7 @@ def card_lineup():
     glowing in place -> body and right-hand parts fade, the left skirt/spat and the lip lift into a 3/4 line-up while the
     camera moves in; the parts then turn slowly so their profiles read. Text is composited (compose.py)."""
     import bmesh
-    F0, F1 = round(0.24 * N), round(0.42 * N)   # v0.8: price phase ~2.7 s (slow readers, per-part prices)
+    F0, F1 = 38, 65   # v1.0: car + glowing kit 1.3 s, lift 0.9 s, then the price phase holds >= 3 s readable
     hlm = bpy.data.materials['v2_highlight']
     ph = hlm.node_tree.nodes['Principled BSDF']   # glow on the car, then mostly off in the line-up so the parts shade (profile reads)
     for f, e in ((F0, 1.3), (F1, 0.12), (N, 0.12)):
