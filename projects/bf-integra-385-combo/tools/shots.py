@@ -11,6 +11,7 @@ ap.add_argument('--res-pct', type=int, default=50)
 ap.add_argument('--samples', type=int, default=16)
 ap.add_argument('--step', type=int, default=2)
 ap.add_argument('--frames', default='')
+ap.add_argument('--fps60', action='store_true', help='true 60 fps: native render, animation time-stretched x2 (same motion, same cut times)')
 ap.add_argument('--glb', default='/home/user/media/bf-integra-385-combo/glb/eps-acura-integra-type-s-de5-v19.glb')
 ap.add_argument('--scan', default='/home/user/media/bf-integra-385-combo/scan/car.blend')
 ap.add_argument('--reg', default='/home/user/media/bf-integra-385-combo/work/reg/scan_to_glb.json')
@@ -76,20 +77,39 @@ M_BOXIN = kraft('box_inner_kraft', (0.30, 0.17, 0.075), (0.20, 0.11, 0.05))
 LOGO = '/home/user/media/bf-integra-385-combo/logo/Epsilon+ Logo.png'
 
 
-def logo_decal(name, loc, rot, width):
+def logo_decal(name, loc, rot, width, ink=(0.012, 0.010, 0.009)):
     """Epsilon+ wordmark printed on the kraft in dark ink (the PNG's alpha is the ink mask)"""
     img = bpy.data.images.load(LOGO, check_existing=True); asp = img.size[1] / img.size[0]
     bpy.ops.mesh.primitive_plane_add(size=1, location=loc, rotation=rot)
     o = bpy.context.object; o.name = name; o.scale = (width, width * asp, 1)
     m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']
     tx = nt.nodes.new('ShaderNodeTexImage'); tx.image = img; tx.extension = 'CLIP'
-    b.inputs['Base Color'].default_value = (0.012, 0.010, 0.009, 1); b.inputs['Roughness'].default_value = 1.0
+    b.inputs['Base Color'].default_value = (*ink, 1); b.inputs['Roughness'].default_value = 1.0
     b.inputs['Specular IOR Level'].default_value = 0.0; b.inputs['Coat Weight'].default_value = 0.0
     nt.links.new(tx.outputs['Alpha'], b.inputs['Alpha'])
     m.blend_method = 'HASHED' if hasattr(m, 'blend_method') else None
     o.data.materials.append(m)
     return o
 M_BAND = mat('box_tape', (0.48, 0.33, 0.17), rough=0.22, coat=0.6)  # clear packing tape over kraft
+
+
+def add_plate():
+    """Epsilon+ licence plate (user: "put an epsilon plate on the back of the car"): US 12x6 in, satin black, white
+    wordmark, on the rear plate mount (plane fitted on scan + lookbook body: centre (0, 2.349, 0.584), ~8 deg tilt)."""
+    import json as _j
+    pm = _j.load(open('/home/user/media/bf-integra-385-combo/work/reg/plate_mount.json'))['car_nospoiler_filled']
+    n = Vector(pm['normal']).normalized(); c = Vector(pm['centre']) + n * (pm['ymax'] - pm['centre'][1] + 0.006)
+    q = n.to_track_quat('Z', 'Y')                    # plate +Z faces out of the car
+    bpy.ops.mesh.primitive_cube_add(size=1); pl = bpy.context.object; pl.name = 'eps_plate'
+    pl.scale = (0.305, 0.152, 0.004); bpy.ops.object.transform_apply(scale=True)
+    bev = pl.modifiers.new('bev', 'BEVEL'); bev.width = 0.008; bev.segments = 3
+    pm_ = bpy.data.materials.new('plate_black'); pm_.use_nodes = True; bb = pm_.node_tree.nodes['Principled BSDF']
+    bb.inputs['Base Color'].default_value = (0.008, 0.008, 0.009, 1); bb.inputs['Roughness'].default_value = 0.35
+    pl.data.materials.append(pm_)
+    pl.rotation_mode = 'QUATERNION'; pl.rotation_quaternion = q; pl.location = c
+    lg = logo_decal('plate_logo', (0, 0, 0), (0, 0, 0), 0.25, ink=(0.85, 0.85, 0.85))
+    lg.parent = pl; lg.location = (0, 0, 0.0025); lg.rotation_euler = (0, 0, 0)
+    return pl
 
 
 def area(name, loc, target, size, energy, color=(1, 1, 1)):
@@ -292,7 +312,7 @@ def shot5():
     lip.location = l0 + Vector((0, 1.4, 0.35)); key(lip, 1, rot=False)
     lip.location = l0 + Vector((0, 1.1, 0.30)); key(lip, 16, rot=False)
     lip.location = l0; key(lip, 56, rot=False)
-    car_lights()
+    add_plate(); car_lights()
     co = camera(36); look(co, *CAM5_A); key(co, 1); look(co, *CAM5_B); key(co, LEN[5])
     return LEN[5]
 
@@ -358,7 +378,7 @@ def shot7():
     sp.location = p0 + Vector((0.2, 1.6, 2.6)); sp.rotation_euler = (math.radians(-40), math.radians(8), 0); key(sp, 60)
     sp.hide_render = False; sp.keyframe_insert('hide_render', frame=60)
     sp.hide_render = True; sp.keyframe_insert('hide_render', frame=61)
-    car_lights()
+    add_plate(); car_lights()
     co = camera(36); look(co, *CAM7_A); key(co, 1); look(co, *CAM7_B); key(co, LEN[7])
     return LEN[7]
 
@@ -387,7 +407,7 @@ def shot8():
     """scan, spoiler gone: the Epsilon trunk lip then the Sport Wing go on; camera ends on CAM5_B (1:1 into shot 9)"""
     scan_car(False)
     wing, lip = glb_parts(M_SILVER_PART); install_anim(wing, lip)
-    car_lights()
+    add_plate(); car_lights()
     co = camera(36); look(co, *CAM7_B); key(co, 1)
     for f in range(1, LEN[8] + 1, 3):
         u = ease((f - 1) / (LEN[8] - 1))
@@ -405,7 +425,7 @@ def shot9():
         if o.type != 'MESH': continue
         if n == 'body': o.data.materials.clear(); o.data.materials.append(M_WHITE)
         if n in ('part_sport_wing', 'part_duckbill'): o.data.materials.clear(); o.data.materials.append(M_GLOSS)
-    car_lights()
+    add_plate(); car_lights()
     co = camera(36)
     for f in range(1, LEN[9] + 1, 3):
         u = ease((f - 1) / (LEN[9] - 1))
@@ -421,6 +441,8 @@ for o in bpy.data.objects:
         for fc in o.animation_data.action.fcurves if hasattr(o.animation_data.action, 'fcurves') else []:
             for kp in fc.keyframe_points: kp.interpolation = 'BEZIER'
 sc.frame_start, sc.frame_end = 1, N
+if A.fps60:  # true 60 fps: every 1/60 s rendered natively (no interpolation); keys authored at 30 fps -> remap x2
+    sc.render.fps = 60; sc.render.frame_map_old = 1; sc.render.frame_map_new = 2; sc.frame_end = 2 * N
 sc.frame_step = A.step
 if A.frames:
     a, b = A.frames.split('-'); sc.frame_start, sc.frame_end = int(a), int(b)
