@@ -12,3 +12,6 @@
 {"ts": "2026-11-18T04:09:41Z", "project": "bf-gr-corolla-track", "at": null, "category": "text", "note": "why is V2 crossed out and V1? shouldn't you cross out the retail price?", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-18T09:25:06Z", "project": "bf-gr-corolla-track", "at": null, "category": "scan", "note": "check fitment of the rear spats - but otherwise good", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-18T16:39:48Z", "project": "bf-gr-corolla-track", "at": "33", "category": "ending", "note": "Last scene: car drives all the way down the track; as it gets small the Epsilon logo pops up from the horizon with the 3D scenery (trees, overhangs) in front; text moves in from the side; use the same scene instead of fading to black", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T18:41:49Z", "project": "bf-gr-corolla-track", "at": null, "category": "text", "note": "take out the cent from the prices", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T18:41:49Z", "project": "bf-gr-corolla-track", "at": "30", "category": "ending", "note": "end: have SHOP DEALS NOW, enter from the road", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T18:41:49Z", "project": "bf-gr-corolla-track", "at": "27", "category": "shot", "note": "carbon canards: use the red car with carbon fiber canards", "by": "reviewer", "promoted": false}
