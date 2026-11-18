@@ -30,3 +30,4 @@
 {"ts": "2026-11-18T02:02:45Z", "decision": "v0.6 assembled: realistic gloss twill carbon", "why": "owner: carbon tighter and more glossy/realistic"}
 {"ts": "2026-11-18T02:24:07Z", "decision": "Owner: v0.6 shot is fine, only Akira is missing. Scripts now auto-use assets/fonts/akira/* (tools/fonts.py)", "why": "the Akira file isn't in Drive/Dropbox/repo; once uploaded, only the text shots s1/s2/s4 need re-rendering"}
 {"ts": "2026-11-18T02:28:58Z", "decision": "v0.7: Akira Expanded SuperBold for tags/sign/count (sha256 5b152fce...); tag text auto-fit; sign 0.70->0.46; count split onto 2 lines", "why": "owner: v0.6 approved apart from the font; Akira is wider so every text box was refitted to the safe zones"}
+{"ts": "2026-11-18T03:29:51Z", "decision": "v0.7: Akira Expanded on headlines/prices/sign/count, auto-fit tags, count line split in two", "why": "user asked for the Akira font; Akira is wider than Unbounded so text was refit to stay in safe zones"}
