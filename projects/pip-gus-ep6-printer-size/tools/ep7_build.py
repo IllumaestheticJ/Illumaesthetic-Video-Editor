@@ -31,9 +31,14 @@ TL = json.loads((PROJ / "ep7_timeline.json").read_text())
 A_N = TL["total_frames"]                       # 907
 CUTS = dict(big=A_N, small=A_N + 72, card=A_N + 144, logo=A_N + 252, end=A_N + 343)
 VO13_AT = CUTS["logo"] + 5
-BIG = dict(src=DROP / "15.50.09.mov", t_full=9.3)       # v2 (owner: show the big printer running): the whole machine, gantry
-                                                        # travelling across the bed; phone plays 7.6-9.3 s, full frame 9.3-11.7 s
-                                                        # (the brand name on the front rail shows at 4-7 s: avoided)
+BIG = dict(src=DROP / "bumper printed.MOV", t_full=5.1, hlg=True)
+PHONE_SRC = dict(src=DROP / "15.50.09.mov", t0=7.6)     # the phone (S10) plays the big printer's gantry running (as v2)
+# v3 (owner: "this is the video for the big printer"): the whole bumper printed in ONE piece on the big printer's bed. iPhone
+# HLG 1920x1080 -> Hable tonemap (as ive assemble). Hard cut on the music lift (frame 907) from the phone (gantry running) to
+# 5.1-7.5 s: a tight 9:16 window on the bumper zooming OUT within ~1 s to the whole landscape frame (the bumper whole on the
+# big bed) on a blurred, darkened fill of itself (house rule for landscape in 9:16). The brand name on the front rail shows at
+# 3.6-4.8 s and 15-16 s: outside 5.1-7.5 s.
+TONEMAP = ("zscale=t=linear:npl=203,format=gbrpf32le,zscale=p=bt709,tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=rgb24")
 SMALL = dict(src=DROP / "mr2_print.avi", t0=0.45, crop=(405, 720, 430, 0))   # built-in timelapse; logo on the head from ~3.9 s
 TEASE = dict(src=DROP / "15.50.05.mov", t0=3.3, crop=(720, 540, 0, 250))    # v2: nozzle laying a part (touchscreen text < 3.0 s avoided)
 WIN = dict(x=110, y=700, w=860, h=645, r=30, border=5)
@@ -78,16 +83,19 @@ ENC = ["-c:v", "libx264", "-crf", "12", "-preset", "medium", "-pix_fmt", "yuv420
 def clips():
     BUILD.mkdir(parents=True, exist_ok=True)
     out = {}
-    # big printer: phone part (S10) + full-frame part, one continuous clip from the moment S10 starts
+    # big printer: the phone (S10) plays the gantry clip; the full-frame part is the one-piece bumper (hard cut on the lift)
     s10 = [s for s in TL["shots"] if s["id"] == "S10"][0]
     n_phone = A_N - s10["f0"]
-    t0 = BIG["t_full"] - n_phone / FPS
+    p = BUILD / "phone.mp4"
+    if not (p.exists() and nframes(p) == n_phone):
+        run(["ffmpeg", "-v", "error", "-y", "-ss", f"{PHONE_SRC['t0']:.3f}", "-i", str(PHONE_SRC["src"]), "-vf",
+             f"scale={W}:{H}:flags=lanczos,fps={FPS}", "-frames:v", str(n_phone)] + ENC + [str(p)])
+    out["phone"], out["big_phone_frames"] = p, n_phone
     p = BUILD / "big.mp4"
-    n = n_phone + (CUTS["small"] - CUTS["big"])
+    n = CUTS["small"] - CUTS["big"]
     if not (p.exists() and nframes(p) == n):
-        run(["ffmpeg", "-v", "error", "-y", "-ss", f"{t0:.3f}", "-i", str(BIG["src"]), "-vf", f"scale={W}:{H}:flags=lanczos,fps={FPS}",
-             "-frames:v", str(n)] + ENC + [str(p)])
-    out["big"], out["big_phone_frames"], out["big_t0"] = p, n_phone, t0
+        big_zoomout(BIG["t_full"], n, 0, p, zoom_frames=30)
+    out["big"] = p
     p = BUILD / "small.mp4"
     n = CUTS["card"] - CUTS["small"]
     if not (p.exists() and nframes(p) == n):
@@ -106,13 +114,64 @@ def clips():
     return out
 
 
+def big_zoomout(t0, n, n_tight, out_path, zoom_frames=None):
+    """Landscape 1920x1080 -> 9:16: a tight 9:16 window following the bumper for n_tight frames, then an eased, constant-rate
+    zoom out until the whole frame width fits the 1080 px output, over a blurred, darkened fill of the frame itself."""
+    SW, SH = 1920, 1080
+    dec = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{t0:.3f}", "-i", str(BIG["src"]), "-vf", f"{TONEMAP},fps={FPS}",
+                            "-frames:v", str(n), "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
+    frames = []
+    while len(frames) < n:
+        b = dec.stdout.read(SW * SH * 3)
+        if len(b) < SW * SH * 3:
+            break
+        frames.append(np.frombuffer(b, np.uint8).reshape(SH, SW, 3))
+    dec.stdout.close(); dec.wait()
+    assert len(frames) == n, (len(frames), n)
+    cx = []
+    for f in frames:                                    # bumper = bright, unsaturated pixels; x-centroid
+        g = f[::4, ::4].astype(np.int16)
+        m = (g.mean(2) > 190) & ((g.max(2) - g.min(2)) < 35)
+        cols = m.sum(0)
+        cx.append(float((np.arange(len(cols)) * cols).sum() / cols.sum() * 4) if cols.sum() > 50 else np.nan)
+    v = np.array(cx); idx = np.arange(n)
+    v = np.interp(idx, idx[~np.isnan(v)], v[~np.isnan(v)])
+
+    def ema(a, k):
+        o = a.copy()
+        for i in range(1, len(a)):
+            o[i] = o[i - 1] + k * (a[i] - o[i - 1])
+        return o
+    v = ema(ema(v, 0.12)[::-1], 0.12)[::-1]
+    enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-"]
+                           + ENC + [str(out_path)], stdin=subprocess.PIPE)
+    h0, h1 = SH, SW * 16 / 9                             # source px shown over the output height: tight 9:16 -> full width
+    for i, f in enumerate(frames):
+        k = 0.0 if i < n_tight else min(1.0, (i - n_tight) / max(1, (zoom_frames or n - 1 - n_tight)))
+        k = k * k * (3 - 2 * k)
+        h = h0 * (h1 / h0) ** k
+        c = float(np.clip(v[i], h0 * 9 / 32, SW - h0 * 9 / 32)) * (1 - k) + (SW / 2) * k
+        sc = H / h
+        bg = cv2.resize(f, (int(SW * H / SH), H), interpolation=cv2.INTER_AREA)
+        x0 = (bg.shape[1] - W) // 2
+        bg = cv2.GaussianBlur(bg[:, x0:x0 + W], (0, 0), 28) * 0.45
+        fg = cv2.resize(f, (max(1, int(round(SW * sc))), max(1, int(round(SH * sc)))), interpolation=cv2.INTER_AREA if sc < 1 else cv2.INTER_CUBIC)
+        ox, oy = int(round(W / 2 - c * sc)), int(round(H / 2 - (SH / 2) * sc))
+        out = bg.astype(np.uint8)
+        xa, ya = max(0, ox), max(0, oy)
+        xb, yb = min(W, ox + fg.shape[1]), min(H, oy + fg.shape[0])
+        out[ya:yb, xa:xb] = fg[ya - oy:yb - oy, xa - ox:xb - ox]
+        enc.stdin.write(np.ascontiguousarray(out).tobytes())
+    enc.stdin.close(); enc.wait()
+
+
 # ------------------------------------------------------------------ cartoon (rendered frames + phone composite)
 def cartoon(cl):
     p = BUILD / "cartoon.mp4"
     if p.exists() and nframes(p) == A_N:
         return p
     corn = json.loads((FRAMES / "screen_corners.json").read_text())["shots"]["S10"]["per_frame"]
-    big = frames_of(cl["big"], W, H)
+    big = frames_of(cl["phone"], W, H)
     s10f0 = [s for s in TL["shots"] if s["id"] == "S10"][0]["f0"]
     tmp = BUILD / "cartoon_tmp.mp4"
     enc = subprocess.Popen(["nice", "-n", "5", "ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r",
@@ -289,8 +348,6 @@ def picture(cl, cart, gmov):
     gp = subprocess.Popen(["ffmpeg", "-v", "error", "-i", str(gmov), "-f", "rawvideo", "-pix_fmt", "rgba", "-"], stdout=subprocess.PIPE, bufsize=10 ** 8)
     bg = np.array([int(BRAND["bg"][i:i + 2], 16) for i in (1, 3, 5)], np.uint8)
     big = frames_of(cl["big"], W, H)
-    for _ in range(cl["big_phone_frames"]):                 # the phone already played these
-        next(big)
 
     def card():
         for fr in frames_of(cl["teaser"], WIN["w"], WIN["h"]):
