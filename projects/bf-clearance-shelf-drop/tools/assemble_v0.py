@@ -8,9 +8,11 @@ from PIL import Image, ImageDraw, ImageFont
 
 P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
-R = f"{M}/renders_v07"
+FPS = int(os.environ.get("FPS", "30"))
+K = FPS // 30                   # 1 = 30 fps (15 fps renders doubled), 2 = true 60 fps renders
+R = os.environ.get("R", f"{M}/renders_v07")
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.7.mp4"
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-clearance-shelf-drop_v0.7.mp4")
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
@@ -73,13 +75,13 @@ endcard(f"{W}/endcard.png")
 clips = []
 for s, n in SHOTS:
     c = f"{W}/{s}.mp4"
-    run(["ffmpeg", "-v", "error", "-y", "-framerate", "15", "-pattern_type", "glob", "-i", f"{R}/{s}/f_*.png",
-         "-vf", "fps=30,scale=1080:1920:flags=lanczos,format=yuv420p", "-frames:v", str(n),
+    run(["ffmpeg", "-v", "error", "-y", "-framerate", "15" if K == 1 else "60", "-pattern_type", "glob", "-i", f"{R}/{s}/f_*.png",
+         "-vf", f"fps={FPS},scale=1080:1920:flags=lanczos,format=yuv420p", "-frames:v", str(n * K),
          "-c:v", "libx264", "-crf", "16", "-preset", "fast", c])
     clips.append(c)
 c = f"{W}/end.mp4"
-run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-framerate", "30", "-i", f"{W}/endcard.png",
-     "-vf", "format=yuv420p", "-frames:v", str(END_FR), "-c:v", "libx264", "-crf", "16", "-preset", "fast", c])
+run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-framerate", str(FPS), "-i", f"{W}/endcard.png",
+     "-vf", "format=yuv420p", "-frames:v", str(END_FR * K), "-c:v", "libx264", "-crf", "16", "-preset", "fast", c])
 clips.append(c)
 with open(f"{W}/list.txt", "w") as f:
     f.writelines(f"file '{x}'\n" for x in clips)
@@ -96,5 +98,5 @@ run(["ffmpeg", "-v", "error", "-y", "-i", f"{W}/cut.mp4", "-i", f"{M}/music/luxu
      "-filter_complex", fc + f";[1:a]atrim=0:{dur:.3f},afade=t=out:st={dur-0.6:.3f}:d=0.6,"
      "loudnorm=I=-14:TP=-1.5:LRA=11[aud]",
      "-map", "[v]", "-map", "[aud]", "-t", f"{dur:.3f}", "-c:v", "libx264", "-crf", "17", "-preset", "slow",
-     "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", OUT])
-print("OUT", OUT, "frames", TOTAL, "dur", dur)
+     "-r", str(FPS), "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "256k", "-ar", "48000", OUT])
+print("OUT", OUT, "frames", TOTAL * K, "fps", FPS, "dur", dur)

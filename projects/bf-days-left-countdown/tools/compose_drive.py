@@ -14,7 +14,7 @@ ap.add_argument("--out", required=True)
 args = ap.parse_args()
 W, H = 1080, 1920
 C3, END = 208, 282
-SAFE_CX = (48 + 920) / 2
+SAFE_CX = 540  # user 2026-11-18 "center the text": end card centred in the frame (block x 180-900 stays inside the safe box)
 UNB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../../assets/fonts/unbounded/Unbounded-{}.ttf")
 # knowledge/fonts.md: text next to the logo uses Unbounded (not Akira): 500 for the label, 400 for the URL
 os.makedirs(args.out, exist_ok=True)
