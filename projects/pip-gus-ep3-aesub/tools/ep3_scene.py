@@ -704,7 +704,7 @@ T_VANISH = wt(2, "disappears")
 
 def vanish_k(t):
     """AESUB coat (left on the car from Ep 2) sublimating: 0 = full coat, 1 = gone."""
-    return ease((t - (T_VANISH - 0.1)) / 1.7)
+    return ease((t - (T_VANISH - 0.1)) / 0.95)
 
 
 def win_spots(obj, key, n=900):
@@ -1008,7 +1008,7 @@ def anim_A(fr):
     hand_to(PIP, "R", poke + Vector((0.0, -0.06 - 0.25 * (1 - k), 0)))
     char_pose(GUS, t, (-0.45, -1.95, 0), (0.7, -1.4), armL=(4, 0, 6), armR=(-30, 0, -10), elbowR=-40)
     hold_prop(OCAN, GUS, "R")
-    cam_push((1.9, -3.9, 1.45), (0.2, -1.2, 1.0), 28, 0.05 * ease(u))
+    cam_push((1.55, -4.5, 1.5), (0.0, -1.35, 1.0), 26, 0.05 * ease(u))
 
 
 def anim_B(fr):
@@ -1017,9 +1017,12 @@ def anim_B(fr):
     t, u = fr / FPS, prog(fr, "B")
     aesub_coat(t)
     lift = ease((t - T(2)) / 0.4)
-    char_pose(GUS, t, (-0.2, -1.95, 0), (1.2, -3.6), look=(0.2, 0.1), armL=(4, 0, 6), armR=(lerp(-30, -95, lift), 0, -10),
-              elbowR=lerp(-40, -20, lift))
-    hold_prop(OCAN, GUS, "R")
+    char_pose(GUS, t, (-0.2, -1.95, 0), (1.2, -3.6), look=(0.2, 0.1), armL=(4, 0, 6), armR=(4, 0, -6))
+    bpy.context.view_layer.update()
+    hc = GUS.neck.matrix_world @ Vector((0, 0, GUS.head_c))
+    rest = GUS.hands["L"].matrix_world.translation.copy()
+    aim_arm(GUS, "L", rest.lerp(hc + Vector((0.45, -0.45, 0.05)), lift))
+    hold_prop(OCAN, GUS, "L")
     # glint on the can when it is up
     gk = win(t, T(2) + 0.45, T(2) + 0.9, 0.05, 0.25)
     if gk > 0:
