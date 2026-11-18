@@ -1,7 +1,7 @@
 """v0 scene from Ron's files, memory-light: load only 'FE1 Fl' + his kit pieces, vertex-cluster the 20M-face scan
 (5 mm cells) in numpy, drop floor scraps (z < 0.012 m), add wing.002 from his render .blend, save scene_v0.blend.
     blender -b --factory-startup -P prep_v0.py"""
-import bpy, numpy as np, time
+import bpy, numpy as np, time, os
 M = "/home/user/media/bf-scan-teardown-prices"; R = M + "/ron/"
 t0 = time.time()
 for o in list(bpy.data.objects): bpy.data.objects.remove(o)
@@ -21,7 +21,7 @@ mw = np.array(car.matrix_world, np.float64); print("MW", mw.round(4).tolist(), c
 f = np.empty(nf * 3, np.int32); me.polygons.foreach_get("vertices", f) if all(len(p.vertices) == 3 for p in me.polygons[:10]) else None
 f = f.reshape(-1, 3)
 print("tris", nv, nf, time.time() - t0, flush=True)
-CELL = 0.005
+CELL = float(os.environ.get("CELL", "0.005"))   # v1 full-res: CELL=0.0025 (5 mm speckles at 1080 px)
 q = np.floor(v / CELL).astype(np.int64); q -= q.min(0); D = int(q.max()) + 1
 key = (q[:, 0] * D + q[:, 1]) * D + q[:, 2]
 uk, inv = np.unique(key, return_inverse=True); inv = inv.ravel()
@@ -69,5 +69,5 @@ for o in bpy.data.objects:
             o.data.polygons.foreach_set("use_smooth", np.ones(len(o.data.polygons), bool))
         print("OBJ", o.name, len(o.data.polygons), [round(x, 3) for x in o.bound_box[0]], [round(x, 3) for x in o.bound_box[6]], flush=True)
 bpy.ops.outliner.orphans_purge(do_recursive=True)
-bpy.ops.wm.save_as_mainfile(filepath=M + "/scene_v0.blend")
+bpy.ops.wm.save_as_mainfile(filepath=M + "/" + os.environ.get("SCENE", "scene_v0") + ".blend")
 print("saved", time.time() - t0, flush=True)

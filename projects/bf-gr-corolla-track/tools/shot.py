@@ -194,6 +194,16 @@ def card_lineup():
 
 if MODE in ('cgi',):
     bpy.ops.import_scene.gltf(filepath=GLB)
+    # v0.9 (user: "check fitment of the rear spats"): the lookbook's V2 spats hang ~16 mm below the bumper (closest 10 % of
+    # their mounting face 16 mm off; V1 spats / V2 lip touch at 2-5 mm). Seat them: 2 deg pitch about the part centre,
+    # +10 mm rearward, +14 mm up (projects/bf-gr-corolla-track/spat_v2_fit.json) -> closest gap 4.7 mm, matches the photos.
+    _f = json.load(open('/home/user/Illumaesthetic-Video-Editor/projects/bf-gr-corolla-track/spat_v2_fit.json'))
+    bpy.context.view_layer.update()
+    for _o in bpy.data.objects:
+        if _o.name.split('.')[0] == 'part_rear_spats_v2':
+            _piv = Vector(_f['pivot'])
+            _T = Matrix.Translation(_piv + Vector((0, _f['dy'], _f['dz']))) @ Matrix.Rotation(math.radians(_f['pitch']), 4, 'X') @ Matrix.Translation(-_piv)
+            _mw = _o.matrix_world.copy(); _o.parent = None; _o.matrix_world = _T @ _mw
     car = bpy.data.objects.new('CAR', None); sc.collection.objects.link(car)
     V2 = {'part_front_lip_v2', 'part_side_skirts_v2', 'part_rear_spats_v2'}
     V1 = {'part_front_lip', 'part_side_skirts', 'part_rear_spats'}

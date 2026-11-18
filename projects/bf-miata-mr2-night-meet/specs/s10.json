@@ -10,6 +10,7 @@
    ],
    "yaw": -8,
    "on": [
+    "bumper",
     "skirts",
     "eyelids",
     "hood",

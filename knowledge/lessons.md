@@ -1399,3 +1399,4 @@ lands here automatically. Agents must read this whole file before editing.
 - **[accuracy]** DE4 never came in Tiger Eye Pearl - only show colours each car was really sold in  _(from bf-paint-match-roulette, 2026-11-18, reviewer)_
 
 - **[text]** why is V2 crossed out and V1? shouldn't you cross out the retail price?  _(from bf-gr-corolla-track, 2026-11-18, reviewer)_
+- **[scan]** (bf-gr-corolla-track) Lookbook GLB kit parts are not always seated: the GR Corolla `part_rear_spats_v2` hangs ~16 mm under the bumper (user: "check fitment of the rear spats"). Before using a lookbook part, raycast its top (mounting) faces up to the body: the closest 10 % should be within ~5 mm, like the lip/skirts. Fix with a small rigid fit (pitch + fore/aft + up), check close-ups for poke-through, and compare with the store photos. Fit stored in `projects/bf-gr-corolla-track/spat_v2_fit.json`.
