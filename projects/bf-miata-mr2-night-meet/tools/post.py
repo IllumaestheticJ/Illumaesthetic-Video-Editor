@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.9.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v1.8.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -91,13 +91,10 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
 # shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
 # above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
-# v1.9 (owner rule: text sections slowed so slow readers finish; prices readable >= 3 s): label START times in SECONDS,
-# fade-in 10 frames, every label holds to the end of its shot. Parts land by 1.2 s / 2.6 s (make_specs.py A1/A2).
-LABELS = {"s02": [("mr2_skirts", 0.15, 0), ("mr2_bumper", 2.2, 1)], "s03": [("mr2_eyelids", 0.15, 0)], "s04": [("mr2_hood", 0.15, 0)],
-          "s05": [("mr2_spats", 0.15, 0), ("mr2_duck", 2.2, 1)], "s07": [("nc_bumper", 0.3, 0), ("nc_canards", 2.2, 1)],
-          "s08": [("nc_fender", 0.15, 0)], "s09": [("nc_skirts", 0.15, 0), ("nc_spats", 2.2, 1)],
-          "s05b": [("mr2_diffuser", 0.15, 0), ("mr2_wing", 2.2, 1)], "s09b": [("nc_wing", 0.15, 0)]}
-FADE = 10          # frames (0.33 s)
+LABELS = {"s02": [("mr2_skirts", 0.12, 0), ("mr2_bumper", 0.42, 1)], "s03": [("mr2_eyelids", 0.12, 0)], "s04": [("mr2_hood", 0.12, 0)],
+          "s05": [("mr2_spats", 0.10, 0), ("mr2_duck", 0.40, 1)], "s07": [("nc_bumper", 0.20, 0), ("nc_canards", 0.45, 1)],
+          "s08": [("nc_fender", 0.20, 0)], "s09": [("nc_skirts", 0.10, 0), ("nc_spats", 0.40, 1)],
+          "s05b": [("mr2_diffuser", 0.10, 0), ("mr2_wing", 0.40, 1)], "s09b": [("nc_wing", 0.12, 0)]}
 SLOT_DY = 834      # second label goes below the car (block y 1130-1400, inside the safe band y 285-1440)
 
 
@@ -185,13 +182,12 @@ def main():
                 fr = logo(i, n)
             else:
                 fr = shot_frame(s, i).convert("RGBA"); t = i / n
-                for key, t0, slot in LABELS.get(s, []):
-                    f0 = round(t0 * 30)
-                    if i >= f0: price_label(fr, key, (i - f0) / (5 * FADE), plate=s in ("s03", "s04", "s05", "s07", "s08", "s09"), slot=slot)
-                if s == "s01":   # v1.9: the title lives in s01 only (5.4 s) and fades out over its last 5 frames
-                    title(fr, i, fade_out=True, n2=n, i2=i)
+                for key, f0, slot in LABELS.get(s, []):
+                    if i >= n * f0: price_label(fr, key, (i - n * f0) / n, plate=s in ("s03", "s04", "s05", "s07", "s08", "s09"), slot=slot)
+                if s == "s01" or (s == "s02" and i < n * 0.22):
+                    title(fr, i if s == "s01" else i + F30[1], fade_out=(s == "s02"), n2=round(n * 0.22), i2=i)
                 if s == "s10":   # both kitted scans (owner: no characters, typical branding)
-                    if i > 8: label(fr, (i - 8) / (4 * FADE), "MR2 SPYDER + NC MIATA", "EPSILON+ AERO · 20% OFF")
+                    if i > 8: label(fr, (i - 8) / n, "MR2 SPYDER + NC MIATA", "EPSILON+ AERO · 20% OFF")
                     last10 = fr.convert("RGB")
             fr.convert("RGB").save(f"{OUT}/{k:05d}.jpg", quality=92); k += 1
     print("frames", k)

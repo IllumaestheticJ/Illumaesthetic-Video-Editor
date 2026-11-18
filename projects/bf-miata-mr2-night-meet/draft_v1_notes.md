@@ -131,3 +131,16 @@ no new export yet (waiting on the length decision).
 - "MR2 spyder doesn't show the front bumper": the Epsilon bumper installs in s02 after the skirts. On the scan, the
   stock bumper is cut by the lookbook stock-bumper footprint. The sheet lists it as "No deal - out of stock", so the label
   shows the $900 regular price ("COMPLETE THE KIT") and it is not on the 20% card.
+
+## v1.9 (dropped)
+- A 67.9 s re-time with 3.2 s+ label holds was approved and started rendering. The owner then revised the text rule
+  (prices 2.2 s, 1-3 words 1.8 s + 0.3 s per word; "a bit too slow" before), and the user chose to keep v1.8. Reverted.
+- **On the next change:** retime only the labels below 2.2 s in v1.8:
+  - s02 MR2 bumper 1.24 s
+  - s07 canards 1.69 s
+  - s05b MR2 wing 1.88 s
+  - s09 NC spats 1.92 s
+  - s05 duckbill 2.04 s
+  - s08 fender 2.14 s
+- The v1.8 shot renders were deleted when v1.9 started. The v1.8 mp4 is intact. A v1.9-style fixed 10-frame label fade
+  (instead of 20% of the shot) alone lifts most of these.
