@@ -116,3 +116,19 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - Tag text auto-fits (`fit()` in tools/tags.py); aisle sign 0.70 -> 0.46; count line split "ONLY 14 LEFT" / "IN CARBON".
 - Only s1, s2, s4 re-rendered; s3/s5 reused from v0.6.
 - Checks: 450 frames / 15.0 s, -14.2 LUFS, TP -2.2 dBFS, safe-zone sheet clean for all text, all glyphs present.
+
+## v0.8 — 60 fps final + readability (in progress)
+- True 60 fps: `--fps60` remaps time x2, every frame rendered (`tools/render_v60.sh`, chunked by `tools/run_chunk.sh`).
+- Opening sign: BLACK / FRIDAY on two lines at ~2x size, wordmark 4.3 m wide, black backing board, s1 at 0.6 res (was 0.4 = soft wordmark).
+- Tags: front has an outlined RETAIL PRICE bar (mirrors the BLACK FRIDAY bar); flip moved to beat 3 so the front holds ~0.6 s longer.
+
+## v0.9 — slow-reader timing (owner rule) + 60 fps
+- 15 s -> 30.0 s. Cuts on bar kicks: s1 0-5.00 (2 bars), s2 -12.32 (3), s3 -14.76 (1, no text), s4 -22.08 (3), s5 -26.96 (2), end card -30.0.
+- Readable times: sign 3.1 s, wordmark 3.7 s, tag fronts ~3.1 s, tag backs ~3.4 s, count 4.1 s, end card 3.0 s.
+- s3 60 fps frames reused (unchanged); s1, s2, s4, s5 rendered in 15 chunks (~18 h).
+
+## v0.9b — revised rule ("a bit too slow"): 22.67 s
+- Minimums now 1.8 s (1-3 words, +0.3 s/word), 2.2 s prices. Render was ~12 min in, so retimed before losing work.
+- Cuts on beats: 3.17 / 8.66 / 11.10 / 16.59 / 20.25 s; end 22.67 s. 1:1 cuts s2->s3 and s4->s5 stay hard on a beat.
+- Readable: sign 1.9 s, wordmark 2.5 s, tag fronts ~2.5 s, backs ~2.3 s, count 2.85 s, end card 2.4 s.
+- Sign/wordmark light with lamp banks 2/1 (frames 37/20). s3 60 fps frames reused. ~13 h render, 10 chunks.

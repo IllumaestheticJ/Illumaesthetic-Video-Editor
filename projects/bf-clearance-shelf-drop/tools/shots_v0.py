@@ -28,8 +28,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from fonts impor
 M = "/home/user/media/bf-clearance-shelf-drop"
 GLB = {"integra": f"{M}/glb/eps-acura-integra-de-v29.glb", "grv1": f"{M}/glb/eps-toyota-gr-corolla-v23.glb"}
 PART = {"integra": "part_duckbill", "grv1": "part_front_lip"}
-LEN = {"s1": 77, "s2": 73, "s3": 73, "s4": 73, "s5": 74}   # frames; cuts on the bar kicks 2.56/5.00/7.44/9.88/12.32 s
-FLIP = {"s2": 17, "s4": 18}                                  # local frame of the tag flip (snare 3.11 s / 8.01 s)
+LEN = {"s1": 95, "s2": 165, "s3": 73, "s4": 165, "s5": 110}   # v0.9b (revised rule): cuts on beats 3.17/8.66/11.10/16.59/20.25 s (frames 95/260/333/498/608)
+FLIP = {"s2": 92, "s4": 92}   # v0.9b: flip 5 beats in (6.22 s / 14.15 s): front readable ~2.5 s, back ~2.3 s (min 2.2)
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
@@ -427,8 +427,12 @@ def aisle():
     billboard("del", f"{M}/chars/del_front.png", Vector((-0.75, 2.2, 0)), 1.85, cam)
     billboard("eps", f"{M}/chars/eps_front.png", Vector((0.75, 2.4, 0)), 1.70, cam)
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
-    bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
-    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.46   # Akira is wider; fits between the racks
+    # v0.8 (user: "make the black friday text and logo bigger"): two lines so each word can be ~2x the size
+    # and still fit the 4.8 m aisle (racks at x +-2.4)
+    SIGN_Z = float(os.environ.get("SIGN_Z", "4.75")); SIGN_S = float(os.environ.get("SIGN_S", "0.80"))
+    bpy.ops.object.text_add(location=(0, 9.5, SIGN_Z), rotation=(math.pi / 2, 0, 0))
+    t = bpy.context.object; t.data.body = "BLACK\nFRIDAY"; t.data.align_x = "CENTER"; t.data.align_y = "CENTER"
+    t.data.size = SIGN_S; t.data.space_line = 1.12
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
@@ -436,13 +440,13 @@ def aisle():
     em = mat("sign", (1, 1, 1), emit=(1, 1, 1), estr=0.0)
     t.data.materials.append(em)
     p = em.node_tree.nodes["Principled BSDF"].inputs["Emission Strength"]
-    for f, v in ((1, 0.0), (55, 0.0), (56, 12.0)):
+    for f, v in ((1, 0.0), (36, 0.0), (37, 12.0)):   # v0.9b: sign on with the 2nd lamp bank (1.23 s) -> 1.9 s readable
         p.default_value = v; p.keyframe_insert("default_value", frame=f)
     # Epsilon+ wordmark lightbox under the sign (branding replaces the removed characters)
     img = bpy.data.images.load(f"{M}/logo/Epsilon+ Logo.png")
     lm = bpy.data.materials.new("logo"); lm.use_nodes = True
     nt = lm.node_tree; pb = nt.nodes["Principled BSDF"]
-    tx = nt.nodes.new("ShaderNodeTexImage"); tx.image = img
+    tx = nt.nodes.new("ShaderNodeTexImage"); tx.image = img; tx.interpolation = "Cubic"   # sharper wordmark
     nt.links.new(tx.outputs["Color"], pb.inputs["Emission Color"]); nt.links.new(tx.outputs["Alpha"], pb.inputs["Alpha"])
     pb.inputs["Base Color"].default_value = (0, 0, 0, 1)
     try:
@@ -450,10 +454,13 @@ def aisle():
     except Exception:
         pass
     es = pb.inputs["Emission Strength"]
-    for f, v in ((1, 0.0), (37, 0.0), (38, 3.0)):
+    for f, v in ((1, 0.0), (19, 0.0), (20, 3.0)):    # v0.9b: wordmark on with the 1st lamp bank (0.67 s) -> 2.5 s readable
         es.default_value = v; es.keyframe_insert("default_value", frame=f)
-    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, 3.55), rotation=(math.pi / 2, 0, 0))
-    lo = bpy.context.object; lo.scale = (3.2, 3.2 * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
+    LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.45"))
+    bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, LOGO_Z), rotation=(math.pi / 2, 0, 0))
+    lo = bpy.context.object; lo.scale = (LOGO_W, LOGO_W * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
+    # black backing board so the lamps beyond don't show through the letters (v0.8)
+    box("signboard", (0, 9.62, (LOGO_Z + SIGN_Z) / 2 + 0.25), (LOGO_W + 0.3, 0.04, SIGN_Z - LOGO_Z + 1.9), mat("board", (0.01, 0.01, 0.012), 0.6, 0.0))
     light("fill", "AREA", Vector((0, -2, 3)), 150, 3, Vector((0, 2.3, 1)))
     return cam
 

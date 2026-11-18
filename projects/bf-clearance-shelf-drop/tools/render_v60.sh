@@ -4,7 +4,7 @@
 T=/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop/tools/shots_v0.py
 O=/home/user/media/bf-clearance-shelf-drop/renders_v60
 for s in ${SHOTS:-s1 s2 s3 s4 s5}; do
-  r=0.6; [ $s = s1 ] && r=0.4
+  r=0.6   # v0.8: s1 at 0.6 too (wordmark was soft at 0.4)
   mkdir -p $O/$s
   echo "start $s $(date +%T)"
   blender -b --factory-startup -P $T -- --shot $s --out $O/$s --res $r --fps60 ${FRAMES:+--frames $FRAMES} > $O/$s.log 2>&1
