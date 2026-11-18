@@ -184,9 +184,13 @@ def overlay(shot, fr):
     return img
 
 
-def plate_frames(src, n):
-    """render PNGs (15 fps) -> 1080x1920 RGB arrays at 30 fps via ffmpeg minterpolate"""
-    cmd = ['ffmpeg', '-v', 'error', '-framerate', '15', '-pattern_type', 'glob', '-i', f'{R}/{src}/f*.png',
+def plate_frames(src, n, native60=False):
+    """preview: render PNGs (15 fps) -> 30 fps via minterpolate. final (native60): every 1/60 s rendered, read as-is."""
+    if native60:
+        cmd = ['ffmpeg', '-v', 'error', '-framerate', '60', '-pattern_type', 'glob', '-i', f'{R}/{src}/f*.png',
+               '-vf', 'scale=1080:1920:flags=lanczos,format=rgb24', '-frames:v', str(n), '-f', 'rawvideo', '-']
+    else:
+        cmd = ['ffmpeg', '-v', 'error', '-framerate', '15', '-pattern_type', 'glob', '-i', f'{R}/{src}/f*.png',
            '-vf', 'minterpolate=fps=30:mi_mode=blend,scale=1080:1920:flags=lanczos,format=rgb24', '-frames:v', str(n),
            '-f', 'rawvideo', '-']
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
@@ -195,11 +199,11 @@ def plate_frames(src, n):
     return fr
 
 
-def irl_frames(name, n, start=0.5, cx0=0.46, cx1=0.60):  # c0240_stab.mp4 = C0240 11.8-15.2 s, vidstab shakiness 10, smoothing 90 (car jitter 9.5 -> 1.3 px)
+def irl_frames(name, n, start=0.5, cx0=0.46, cx1=0.60, fps=30):  # c0240_stab.mp4 = C0240 11.8-15.2 s, vidstab shakiness 10, smoothing 90 (car jitter 9.5 -> 1.3 px)
     """C0240 (finished car, Sport Wing + trunk lip, flat profile): grade, a 45 %-wide crop that follows the car,
     on a blurred, darkened fill of itself (no text ever goes on this shot)"""
-    dur = n / FPS
-    fc = (f'[0:v]fps=30,eq=contrast=1.3:saturation=1.2:gamma=0.9,split[a][b];'
+    dur = n / fps
+    fc = (f'[0:v]fps={fps},eq=contrast=1.3:saturation=1.2:gamma=0.9,split[a][b];'
           f"[a]crop=iw*0.52:ih:x='iw*({cx0}+{cx1 - cx0}*t/{dur:.3f})-ow/2':y=0,scale=1080:1150:flags=lanczos[fg];"
           f'[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=40:2,eq=brightness=-0.22[bg];'
           f'[bg][fg]overlay=0:285,format=rgb24')
@@ -211,18 +215,23 @@ def irl_frames(name, n, start=0.5, cx0=0.46, cx1=0.60):  # c0240_stab.mp4 = C024
     return fr
 
 
-def main(out):
-    enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(FPS),
-                            '-i', '-', '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p', f'{TMP}/video.mp4'],
-                           stdin=subprocess.PIPE)
-    for kind, src, ov, n in TIMELINE:
-        if kind == 'render': plates = plate_frames(src, n)
-        elif kind == 'irl': plates = irl_frames(src, n)
+def main(out, hq=False):
+    """hq: final master - true 60 fps from render_hq (native 60 fps Blender renders, 1080x1920, 32 spp, 3 mm scan);
+    same timeline (cuts at the same instants), overlays evaluated at 60 fps. C0240 is 24p source: frames repeat."""
+    K = 2 if hq else 1; fps = 30 * K
+    enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-s', f'{W}x{H}', '-r', str(fps),
+                            '-i', '-', '-c:v', 'libx264', '-crf', '14' if hq else '18', '-preset', 'slow' if hq else 'medium',
+                            '-pix_fmt', 'yuv420p', f'{TMP}/video.mp4'], stdin=subprocess.PIPE)
+    for kind, src, ov, n30 in TIMELINE:
+        n = n30 * K
+        if kind == 'render':
+            plates = plate_frames(HQ_SRC.get(src, src) if hq else src, n, native60=hq)
+        elif kind == 'irl': plates = irl_frames(src, n, fps=fps)
         else: plates = np.zeros((n, H, W, 3), np.uint8) + 3
         for i in range(n):
             base = Image.fromarray(plates[i]).convert('RGBA')
             if kind != 'irl' and ov:  # never put anything over IRL footage
-                o = overlay(ov, i)
+                o = overlay(ov, i / K)
                 if kind == 'card':  # slow 3 % push-in so the longer end card isn't a dead hold
                     z = 1 + 0.03 * i / n; o = o.resize((int(W * z), int(H * z)), Image.LANCZOS)
                     o = o.crop(((o.width - W) // 2, (o.height - H) // 2, (o.width - W) // 2 + W, (o.height - H) // 2 + H))
@@ -230,7 +239,7 @@ def main(out):
             enc.stdin.write(np.asarray(base.convert('RGB')).tobytes())
         print(kind, src, 'frames', n, flush=True)
     enc.stdin.close(); enc.wait()
-    dur = CUTS[-1] / FPS
+    dur = CUTS[-1] / 30
     # music from the song's beginning, fade with the end card, -14 LUFS / TP < -1 (gain then limiter)
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', f'{TMP}/video.mp4', '-i', f'{M}/music/getlow.wav',
                     '-filter_complex', f'[1:a]atrim=0:{dur:.3f},afade=t=out:st={dur - 0.7:.3f}:d=0.7,'
@@ -239,5 +248,7 @@ def main(out):
     print('WROTE', out, dur)
 
 
+HQ_SRC = {f'{d}/s{k}': f'render_hq/s{k}' for d in ('render_v10', 'render_v04', 'render_v03', 'render_v06', 'render_v0') for k in range(1, 10)}
+
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1], hq='--hq' in sys.argv)

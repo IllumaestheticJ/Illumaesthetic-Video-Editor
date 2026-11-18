@@ -204,3 +204,12 @@ Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same lay
 - `tools/compose_v10.py` = v09 + plate layer alpha-over after the colour tint. Lineup tiles are front views, so no plate there.
 - Workbench renders do not work in this container (no EGL/Vulkan) - probes use Cycles.
 - Checks: 29.30 s, -14.0 LUFS, -1.4 dBFS; safe-zone sheet clean; rear frames checked on all four cars, plate readable.
+
+### Fitment check of the lookbook parts shown (heads-up from BF6, 2026-11-18) - `tools/seat_check.py`
+Nearest distance from part vertices to the body surface (mm): min / 5th percentile.
+- Civic hatch FL: wing 1.0 / 2.1, front lip 0.0 / 2.0, skirts 0.0 / 0.8, rear lip 0.0 / 2.4
+- Civic sedan FE: wing 0.0 / 1.0, front lip 0.0 / 2.0, skirts 0.0 / 0.7, rear lip 0.0 / 1.4
+- Integra Type S DE5: wing 0.0 / 3.4
+- Integra DE4 widebody: wing 0.0 / 0.1, front lip 0.0 / 1.2, skirts 0.0 / 1.7, rear spats 0.0 / 0.9, flares 0.0 / 0.3
+All parts touch the body (nothing floats like the GR Corolla spats at ~16 mm); no re-seat, no re-render.
+Limit: this is an unsigned distance, so it shows gaps, not how deep a part clips into a panel; no clipping is visible in the turntables at 720 px.

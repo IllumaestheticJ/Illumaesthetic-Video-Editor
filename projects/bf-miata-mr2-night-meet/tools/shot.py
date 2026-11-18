@@ -33,11 +33,13 @@ SCAN_FULL = {"mr2": f"{M}/dec/mr2_glbframe.stl", "nc": f"{M}/dec/nc_glbframe.stl
 PAINT = {"mr2": (0.55, 0.012, 0.018), "nc": (0.38, 0.012, 0.10)}    # linear; MR2 red, NC Rubystar #a61f59
 # v1 (user: "start with stock cars and then slowly modify them"): every car starts STOCK; zones install one at a time.
 # zone -> (lookbook stock objects that come off, kit parts that go on)
-ZONES = {"mr2": {"skirts": (["body_fender_cut_stock", "trim_fender_liner_stock"], ["part_side_skirts"]),
+ZONES = {"mr2": {"bumper": (["body_front_bumper_stock", "trim_front_bumper_stock"], ["part_front_bumper"]),   # v1.8 user: "MR2 spyder doesn't show the front bumper"
+                 "skirts": (["body_fender_cut_stock", "trim_fender_liner_stock"], ["part_side_skirts"]),
                  "eyelids": (["body_eyelids_stock"], ["part_eyelids"]),
                  "hood": (["body_hood_vent_stock"], ["part_hood_vents"]),
-                 "spats": ([], ["part_rear_spats"]),          # user: MR2 spats and duckbill go OVER the stock body, nothing is removed
-                 "duck": ([], ["part_duckbill"]),
+                 # v1.8 user: "the rear spats also clip through the body" -> the stock corner comes off (lookbook stock piece / scan footprint cut)
+                 "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),
+                 "duck": (["body_duckbill_stock"], ["part_duckbill"]),
                  "diffuser": ([], ["part_diffuser"]),         # user: include the rear diffuser (black) and the TC wing
                  "wing": (["body_tc_wing_kit_stock"], ["part_tc_wing_kit"])},
          "nc": {"bumper": (["body_front_bumper_scan"], ["part_front_bumper", "part_front_lip", "part_canards"]),
@@ -47,8 +49,8 @@ ZONES = {"mr2": {"skirts": (["body_fender_cut_stock", "trim_fender_liner_stock"]
                 "wing": ([], ["part_tc_wing"])}}              # engineering NC swan short mount (tools/nc_tcwing.py)
 # parts that keep their own finish in every shot (MR2 v4 reviewer: black diffuser, carbon wing)
 DARK = {"part_diffuser": "black", "part_tc_wing_kit": "carbon", "part_tc_wing": "carbon"}
-# never shown (not on sale / not in this ad). The MR2 front bumper is "No deal", so the MR2 keeps its stock bumper.
-NEVER = {"mr2": ["part_front_bumper", "part_hardtop", "hardtop_rear_window", "trim_soft_top_stock"],
+# never shown (not on sale / not in this ad). v1.8: the MR2 front bumper ("No deal") IS shown now, per the user.
+NEVER = {"mr2": ["part_hardtop", "hardtop_rear_window", "trim_soft_top_stock"],
          "nc": ["part_gt_wing", "part_brake_ducts", "part_tire_spats", "trim_front_bumper_off_stock", "body_front_bumper_stock", "body_fender_cuts_stock"]}
 
 
@@ -153,6 +155,13 @@ def load_cgi(i, c, nframes):
             for pl in o.data.polygons: pl.use_smooth = True
             new.append(o)
         o = import_stl(f"{M}/kit_nc/part_tc_wing.stl", "part_tc_wing"); new.append(o)
+    for o in new:
+        if o.type == "MESH" and base(o.name) == "part_tc_wing_kit":      # v1.8: 66.5" element (tools/wing67.py)
+            import numpy as np
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from wing67 import stretch_x
+            mw = o.matrix_world.copy(); mi = mw.inverted()
+            V = [mw @ v.co for v in o.data.vertices]; X = stretch_x(np.array([v.x for v in V]))
+            for v, w, x in zip(o.data.vertices, V, X): v.co = mi @ Vector((x, w.y, w.z))
     for o in new:
         if o.type == "MESH":
             if base(o.name) in DARK:
