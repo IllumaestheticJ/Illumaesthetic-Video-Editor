@@ -234,3 +234,8 @@ Limit: this is an unsigned distance, so it shows gaps, not how deep a part clips
 
 ### v0.11 withdrawn (owner, 2026-11-18: "undo the changes for this one")
 The slow-reader holds are NOT applied to this video. **v0.10 (29.3 s, `tools/compose_v10.py`) is the current version.** `compose_v11.py` removed (it is in git history).
+
+### Shared Drive "Claude Videos" (2026-11-18, scripts/vdrive.py)
+- Restart cache `work/bf-paint-match-roulette/`: `ttp_fl`, `ttp_fe`, `ttp_de5`, `ttp_wb` (turntable passes b/w/m/p), `assets` (music, sfx, logo, plate, colours.json), `glb`, `akira_font`. After a container restart: `python scripts/vdrive.py restore bf-paint-match-roulette`.
+- Delivery: v0.10 in `deliveries/bf-paint-match-roulette/`.
+- Local clean-up: kept v0.8, v0.9, v0.10 mp4s; removed older mp4s, the superseded turntables (`tt`, `ttk`, `ttp/de4`) and test stills.
