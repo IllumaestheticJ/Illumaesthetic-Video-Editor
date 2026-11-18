@@ -20,7 +20,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.12.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.13.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
 CUTS = [0, 210, 261, 313, 507]
@@ -207,7 +207,7 @@ LABELS = {
     ],
     "s4": [  # 0370 rear 3/4, 3.45 s
         dict(part=0, anchor=(410, 631), text="SPORT WING", x=70, y=330, align="left"),
-        dict(part=(1, 2), anchor=((166, 1114), (690, 1192)), text="REAR SPATS", x=484, y=1330, align="center"),
+        dict(part=2, anchor=(690, 1192), text="REAR SPATS", x=484, y=1330, align="center"),  # v0.13: one leader (user)
     ],
 }
 LBL_IN, LBL_OUT = (3, 7, 5, 9, 6, 10), 5   # leader grows f3-7, underline wipes f5-9, text fades f6-10; out over last 5
@@ -261,8 +261,7 @@ def draw_labels(img_path, clip, k, n, tracks):
             if g_lead > 0:
                 ds.line([(ax, ay), (px, py)], fill=(0, 0, 0, 150), width=9)
                 d.line([(ax, ay), (px, py)], fill=(255, 255, 255, 255), width=4)
-            ds.ellipse((ax - 13, ay - 13, ax + 13, ay + 13), fill=(0, 0, 0, 150))
-            d.ellipse((ax - 9, ay - 9, ax + 9, ay + 9), fill=SALE_RED + (255,), outline=(255, 255, 255, 255), width=3)
+            # v0.13 (user): no dot at the end - the leader is just a line ending on the part
         if g_line > 0:
             if L["align"] == "right":
                 a0, a1 = ux1 - tw * g_line, ux1
@@ -403,7 +402,7 @@ def main():
     for f in glob.glob(os.path.join(FR, "*.png")):
         os.remove(f)
     n = [CUTS[i + 1] - CUTS[i] for i in range(len(CUTS) - 1)]
-    s1 = doubled(os.path.join(M, "render/s1_stockpass_wheels/f_*.png"), n[0])
+    s1 = doubled(os.path.join(M, "render/s1_fullcar/f_*.png"), n[0])
     s3 = video_frames(os.path.join(M, "clips/s3_0371_pan.mp4"), n[1], "s3")
     s4 = video_frames(os.path.join(M, "clips/s4_0370_long.mp4"), n[2], "s4")
     s5 = doubled(os.path.join(M, "render/s5_glb_white/f_*.png"), n[3])  # v0.11: GLB, white car + black kit, no blur/glow
