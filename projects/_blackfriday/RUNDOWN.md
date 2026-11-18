@@ -2,7 +2,7 @@
 
 Nine short 9:16 promo reels for **Epsilon+** (epsilon.plus, Illumaesthetic's aero-parts sister brand). Each reel is built in its own Claude Code cloud session, coordinated by a parent session. All work is on the branch `claude/video-editing-scan-data-8o0m8g` of `IllumaestheticJ/Illumaesthetic-Video-Editor`. There are no PRs. Each project lives in `projects/bf-<slug>/`, and the shared files are in `projects/_blackfriday/`.
 
-## The 9 videos
+## The videos
 
 | # | Slug | Concept | Latest | Status |
 |---|---|---|---|---|
@@ -14,6 +14,7 @@ Nine short 9:16 promo reels for **Epsilon+** (epsilon.plus, Illumaesthetic's aer
 | 6 | gr-corolla-track | GR Corolla on track: "V2 kit 30% off, V1 up to 45% off" | v0.6 | In review |
 | 7 | miata-mr2-night-meet | NC Miata + MR2 Spyder night meet: "Fiberglass 20% off", with TC wings and an MR2 diffuser | v1.6 (50.7 s) | In review; length decision pending |
 | 8 | scan-teardown-prices | Scan teardown with a price on every part; ends 1:1 on Ron's render | v0.8 | **Approved**; final pending the Akira font swap |
+| 10 | turkey-crossing | A cute cartoon turkey crosses the road; a GR Corolla hits it (slapstick feather burst, not gory); then the sale text | planning | New (2026-11-18) |
 | 9 | days-left-countdown | Car drives or drifts over "BLACK FRIDAY SALE" on the floor, which swaps to "X DAYS LEFT" | v0.5 (drive + drift, 9.4 s each) | Waiting on sale dates |
 
 The rendered mp4s are at `/home/user/media/work/out/bf-<slug>_v<N>.mp4` inside each video's own session (media is never committed).
@@ -83,6 +84,7 @@ The MR2 front bumper has no BF deal. The full table is in `PRICES.md`.
 | BF7 | session_01KS3BnkgfkzP1tsykcS3KiF |
 | BF8 | session_01KS3Bnn3GHL1sQkZRAiLmRx |
 | BF9 | session_01KS3BnkWMe1ARdePp9ffKPm |
+| BF10 | session_01KS3BnkNLgae3wZ3MFHUy9H |
 
 ## Files to read first
 

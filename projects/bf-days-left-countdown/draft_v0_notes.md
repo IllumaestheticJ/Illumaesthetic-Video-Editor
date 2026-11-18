@@ -109,3 +109,14 @@ User: "have it be Black friday sale text and then a car driving over it and the 
   - The text centre measures at x 483.
   - "3 DAYS LEFT" is fully revealed by f139, and the car is clear of the text by then.
 - Still open: the Akira file, the real day number (needs the sale end date), and whether the drift smoke should be heavier.
+
+## v0.6 (2026-11-18): Akira
+- The floor headline is now **Akira Expanded SuperBold**. The owner holds the licence; Drive ID 1nrF80enolDd9HAu5807kv5XIx0cUSDya, SHA-256 verified. It lives in `assets/fonts/akira/` and is gitignored.
+- No missing glyphs: every string renders in the font.
+- Tracking is 1.25 and line spacing 1.15. At default tracking the flat, wide glyphs fused at the floor camera angle.
+- The end card stays Unbounded 500/400, because it sits next to the logo.
+- Outputs: `/home/user/media/work/out/bf-days-left-countdown_v0.6_drive.mp4` and `_v0.6_drift.mp4`.
+- Checks:
+  - Both run at -13.5 LUFS with a -2.6 dBFS peak.
+  - The safezone sheets are clean: text x 80-882, and only the moving car crosses the rails.
+- A container restart interrupted the drift render at f108. `drive_over.py` now skips frames already on disk (`use_overwrite=False`), and the drift render resumed from there.

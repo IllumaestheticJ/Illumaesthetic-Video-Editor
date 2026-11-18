@@ -33,8 +33,10 @@ SPEED = 33.0  # m/s on the straight (~120 km/h)
 # carbon canards added (on the car + their own shot).
 import json
 KICKS = json.load(open('/home/user/media/bf-gr-corolla-track/music/kicks.json'))
-WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14), 's6_cardv2': (14, 22),
-       's7_side': (22, 28), 's8_cardv1': (28, 36), 's9_canards': (36, 42), 's10_pass': (42, 44)}
+WIN = {'s1_hook': (0, 4), 's2_push': (4, 6), 's12_open': (0, 6), 's3_hl': (6, 10), 's4_lip': (10, 12), 's5_liphl': (12, 14),
+       's6_cardv2': (14, 24), 's7_side': (24, 30), 's8_cardv1': (30, 40), 's9_canards': (40, 46), 's10_pass': (46, 48)}
+# v0.8 (user): "why is there that weird cut in the beginning" -> s1+s2 become ONE continuous move (s12_open) ending on
+# the s3 1:1 camera; cards 10 kicks for the per-part slashed retail prices
 # v0.6 (user: slow readers): cards 8 kicks, side tracking 6 (one label per half), canards 6
 # v0.5 (user): drive-past cut sooner (2 kicks); offer cards 6 kicks: parts glowing on the dark car -> lift off into a line-up
 def kf(k): return 0 if k == 0 else round(KICKS[k] * 30)
@@ -112,6 +114,7 @@ if SHOT not in ('s6_cardv2', 's8_cardv1'):
 # ---------------------------------------------------------------- cameras (car frame; car is static in cgi/scan modes)
 CAMS = {
     's1_hook': ([(0, (2.9, -4.6, 0.42), (0.1, -0.6, 0.55)), (1, (2.3, -3.9, 0.40), (0.1, -0.9, 0.50))], 16),
+    's12_open': ([(0, (2.9, -4.6, 0.42), (0.1, -0.6, 0.55)), (1, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34))], 16),
     's2_push': ([(0, (1.9, -4.0, 0.36), (0.0, -1.6, 0.42)), (1, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34))], 16),
     's3_hl': ([(0, (1.25, -3.45, 0.30), (0.0, -1.85, 0.34)), (1, (2.05, -4.1, 0.70), (0.0, -1.2, 0.50))], 16),
     's4_lip': ([(0, (1.10, -3.05, 0.62), (0.50, -2.10, 0.12)), (1, (0.90, -3.10, 0.58), (0.30, -2.13, 0.12))], 16),   # v0.5: higher, looking down (user)
@@ -125,7 +128,7 @@ def card_lineup():
     glowing in place -> body and right-hand parts fade, the left skirt/spat and the lip lift into a 3/4 line-up while the
     camera moves in; the parts then turn slowly so their profiles read. Text is composited (compose.py)."""
     import bmesh
-    F0, F1 = round(0.28 * N), round(0.52 * N)   # v0.6: lift earlier so the percent holds ~2 s (slow readers)
+    F0, F1 = round(0.24 * N), round(0.42 * N)   # v0.8: price phase ~2.7 s (slow readers, per-part prices)
     hlm = bpy.data.materials['v2_highlight']
     ph = hlm.node_tree.nodes['Principled BSDF']   # glow on the car, then mostly off in the line-up so the parts shade (profile reads)
     for f, e in ((F0, 1.3), (F1, 0.12), (N, 0.12)):
