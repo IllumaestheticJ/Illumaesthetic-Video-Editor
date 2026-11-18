@@ -97,3 +97,15 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - The aisle sign was resized 1.0 -> 0.70 because the wider face clipped against the racks.
 - Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.5.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS.
   The safezone_check sheet was reviewed: all text is inside x 48-920 / y 285-1440.
+
+## v0.6 (2026-11-18): owner "the carbon pattern needs to be tighter and more glossy/realistic"
+- The old look was a 45° checker with 14 mm cells and a slightly hazy coat.
+- New 2x2 twill image tile (`tools/carbon_tile.py`):
+  - 5 mm tows with a rounded cross-section, fibre striations and dark resin gaps;
+  - warp and weft tows differ in tone and roughness (0.18 vs 0.55), so the weave shimmers as the camera moves;
+  - the bump affects only the base layer, under a glass clear coat (roughness 0, IOR 1.55);
+  - EEVEE ray-traced reflections are on.
+- The weave doesn't resolve at 0.4 res, so s2-s5 now render at **0.6** (about 20-30 min a shot). s1 has no carbon and
+  stays at 0.4.
+- Output: `/home/user/media/work/out/bf-clearance-shelf-drop_v0.6.mp4`, 450 frames, -14.2 LUFS, true peak -2.2 dBFS.
+  The safe zones are unchanged and pass.
