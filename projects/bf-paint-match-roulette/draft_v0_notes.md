@@ -185,3 +185,6 @@ Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same lay
   - Integra widebody DE4 (9): Tiger Eye Pearl removed. Car screens now end on beat 59; offer screen is one beat longer; length unchanged (29.30 s).
 - Unverified from the web check: 2025+ colours (Solar Silver, Urban Gray, Double Apex Blue) on the DE4 are taken from Acura's 2026 refresh announcement; year-by-year Civic lists were only partly confirmed.
 - Checks: -14.0 LUFS, -1.4 dBFS; safe-zone sheet (18 frames) looked at - clean.
+
+### v0.9 re-render 2 (owner: "can you move the cars slightly up in the shot?")
+- `CAR_Y` 635 -> 585 (car ~44 px higher in frame, centre y ~925); nothing else changed.

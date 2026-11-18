@@ -116,7 +116,7 @@ def price_block(d, x, y, was, now):
     d.text((wx, y + 44), ws, font=f_was, fill=GREY); tw = d.textlength(ws, font=f_was)
     d.line((wx - 6, y + 66, wx + tw + 6, y + 66), fill=RED, width=5)
 
-CAR_Y = 635; CAR_W = X1 - X0; CAR_H = int(CAR_W * 420 / 720)          # 872 x 508
+CAR_Y = 585; CAR_W = X1 - X0; CAR_H = int(CAR_W * 420 / 720)          # 872 x 508
 CC_BOX = (X1 - 290, 1178, X1, 1258)
 _lg = {}
 def model_logo(name, width, colr):
