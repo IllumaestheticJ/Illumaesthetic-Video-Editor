@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent
 PROJ = HERE.parent
 FPS, SR = 30, 48000
 REAL_FRAMES = 132
-CARD_LEAD, CARD_GAP, CARD_TAIL = 0.35, 0.25, 0.9      # s: card -> L16, L16 -> L17, L17 -> end
+CARD_LEAD, CARD_GAP, CARD_TAIL = 0.35, 0.25, 1.4      # s: card -> L16, L16 -> L17, L17 -> end
 # shot id -> lines it covers (cartoon), in order
 SHOTS = [("E1", [1]), ("E2", [2]), ("E3", [3]), ("E4", [4]), ("E5", [5]), ("E6", [6]), ("E7", [7]), ("E8", [8]),
          ("E9", [9, 10]), ("E10", [11, 12]), ("E11", [13, 14]), ("E12", [15])]
