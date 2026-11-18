@@ -167,3 +167,11 @@ Owner: "remove the acura badge from the integra". The badge is cropped off the o
 is kept as `integra_with_badge_alpha.png`), on the car screens and the lineup tiles. `tools/compose_v08.py`; output
 `/home/user/media/work/out/bf-paint-match-roulette_v0.8.mp4`. Otherwise identical to v0.7.
 Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same layout as v0.7).
+
+## v0.9 — car centred on screen (owner: "can you center the car on the screen as well")
+- `tools/compose_v09.py`. Turntable moved down so the car sits on the frame centre (x 540, y ~960); logo/variant stay above it.
+- Info rows tightened below the car to stay inside the safe box (y <= 1440): bullets, colour name/code, swatches, CHANGE COLOR, price (label now above the crossed-out price), BUY, bottom bar.
+- Timeline, colours, prices, music, SFX and mix unchanged from v0.8.
+- Checks: 29.30 s, -14.0 LUFS, true peak -1.4 dBFS; safe-zone sheet looked at (nothing in red/amber); car, lineup, widebody two-price and offer screens checked for overlaps - none.
+- Note: the car's silhouette centre still drifts about +/-25 px sideways as it turns (perspective of a turntable); its average is on the centre line.
+- Still open: Akira font file (Unbounded stand-in), paint-matched flare/lip prices, FE Platinum White price is derived, Championship White hex approximate.
