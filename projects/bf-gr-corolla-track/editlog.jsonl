@@ -24,3 +24,4 @@
 {"ts": "2026-11-17T19:16:05Z", "decision": "Fonts per owner rule (knowledge/fonts.md): Unbounded 700 stands in for Akira on headlines/offers (BLACK FRIDAY, V2 KIT/V1, 30%/45% OFF, UP TO); Unbounded 500 labels, 400 eyebrows, 300 URL beside the logo; sizes refit to x 48-920", "why": "owner font rule relayed via lessons.md; Akira file not supplied yet"}
 {"ts": "2026-11-17T19:53:54Z", "decision": "v0.6 delivered (24.7 s, -13.9 LUFS, safe zones pass)", "why": "user: slow readers + pairs; owner font rule"}
 {"ts": "2026-11-17T19:56:53Z", "decision": "Kick 42 onset corrected 19.880 -> 19.823 s (decoded-audio half-rise); cut s9->s10 was +44 ms, now +10 ms", "why": "verify cuts on the delivered file, not the grid"}
+{"ts": "2026-11-18T02:30:32Z", "decision": "v0.7: Akira Expanded Super Bold on headlines/offers (BLACK FRIDAY 38, V2/V1 190, KIT 58, UP TO 44, % OFF 122 px); glyphs checked; labels/URL stay Unbounded", "why": "owner licensed Akira (via parent)"}
