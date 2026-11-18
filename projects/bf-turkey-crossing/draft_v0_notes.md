@@ -38,3 +38,11 @@ Defaults used, pending the owner (shotlist.md open questions):
 - **Rebuild:**
   1. `TURKEY_STYLE=hen RDIR=.../renders_v03 tools/render_v0.sh`
   2. `BF_UNTIL="UNTIL <date>" python tools/compose.py --tag v0.3x --renders .../renders_v03`
+
+## v0.4 (owner: ends Nov 30; logo + site in the same scene)
+- Card B now reads BLACK / FRIDAY / SALE / UNTIL NOV 30.
+- The Epsilon+ wordmark (720 px) and WWW.EPSILON.PLUS join it on the feather road scene at 22.982, over a soft dark band. There's no separate black logo card any more.
+- It fades from the 25.239 hit.
+- s6 was extended to f444 (frames 433-444; the camera holds its end pose).
+- Checks: 14.8 s, -14.1 LUFS, peak -4.2 dBFS, safe-zone text OK.
+- Output: `/home/user/media/work/out/bf-turkey-crossing_v0.4.mp4`.
