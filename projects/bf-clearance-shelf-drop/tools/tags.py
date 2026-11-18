@@ -28,8 +28,10 @@ def card(title, lines, sale):
         d.rectangle((40, y + 10, W - 40, y + 84), fill=(10, 10, 12))
         d.text((W/2, y + 47), "BLACK FRIDAY", font=fit(F, 46, "BLACK FRIDAY", W - 120), fill=(244, 245, 247), anchor="mm")
         y += 96
-    else:
-        y += 40
+    else:                        # v0.8 (user): "add Retail Price text to first side" - outlined bar mirrors the BF bar
+        d.rectangle((40, y + 10, W - 40, y + 84), outline=(10, 10, 12), width=6)
+        d.text((W/2, y + 47), "RETAIL PRICE", font=fit(F, 46, "RETAIL PRICE", W - 120), fill=(10, 10, 12), anchor="mm")
+        y += 96
     for label, was, now in lines:
         d.text((44, y + 10), label, font=ImageFont.truetype(FM, 36), fill=(40, 40, 46))
         base = y + 10 + 50 + 128

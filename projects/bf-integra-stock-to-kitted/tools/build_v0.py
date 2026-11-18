@@ -20,10 +20,14 @@ from PIL import Image, ImageDraw, ImageFont
 
 M = "/home/user/media/bf-integra-stock-to-kitted"
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
-OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.10.mp4")
+OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.11.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
-CUTS = [0, 210, 261, 313, 469, 528]
+CUTS = [0, 210, 261, 313, 572, 675]
+# v0.11 owner rule (text for slow readers: 2.5 s for 1-3 words + 0.4 s per extra word, >= 3 s for any price/offer):
+#   card (12 words incl. 30%+ OFF) needs 6.1 s -> readable 381..572 = 6.37 s (cut moved from beat 20 to beat 28)
+#   end card logo + URL needs 2.5 s -> readable 577..667 = 3.0 s (ends on beat 36, 22.5 s)
+#   BF wall (2 words, background) is on 7.0 s
 CARD_ON = 378 - 313       # beat 13 (12.590 s), local frame in S5
 # v0.2: epsilon.plus site palette + type (theme tokens read from the live homepage 2026-11-17)
 CHARCOAL = (26, 26, 26)   # --background / --button-background-primary / --accent: 26 26 26
@@ -342,8 +346,8 @@ def main():
     s1 = doubled(os.path.join(M, "render/s1_stockpass_wheels/f_*.png"), n[0])
     s3 = video_frames(os.path.join(M, "clips/s3_0371_wide.mp4"), n[1], "s3")
     s4 = video_frames(os.path.join(M, "clips/s4_0370_wide.mp4"), n[2], "s4")
-    s5 = doubled(os.path.join(M, "render/s5_parts_held/f_*.png"), n[3])      # v0.8: parts, body held out
-    s5b = doubled(os.path.join(M, "render/s5_body/f_*.png"), n[3])           # v0.8: car body (blurred in post)
+    s5 = doubled(os.path.join(M, "render/s5_parts_held_long/f_*.png"), n[3])      # v0.8: parts, body held out
+    s5b = doubled(os.path.join(M, "render/s5_body_long/f_*.png"), n[3])           # v0.8: car body (blurred in post)
     fit_kit2(sorted(set(s5b)))
     i = 0
     for p in s1:

@@ -116,3 +116,8 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - Tag text auto-fits (`fit()` in tools/tags.py); aisle sign 0.70 -> 0.46; count line split "ONLY 14 LEFT" / "IN CARBON".
 - Only s1, s2, s4 re-rendered; s3/s5 reused from v0.6.
 - Checks: 450 frames / 15.0 s, -14.2 LUFS, TP -2.2 dBFS, safe-zone sheet clean for all text, all glyphs present.
+
+## v0.8 — 60 fps final + readability (in progress)
+- True 60 fps: `--fps60` remaps time x2, every frame rendered (`tools/render_v60.sh`, chunked by `tools/run_chunk.sh`).
+- Opening sign: BLACK / FRIDAY on two lines at ~2x size, wordmark 4.3 m wide, black backing board, s1 at 0.6 res (was 0.4 = soft wordmark).
+- Tags: front has an outlined RETAIL PRICE bar (mirrors the BLACK FRIDAY bar); flip moved to beat 3 so the front holds ~0.6 s longer.
