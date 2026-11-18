@@ -23,12 +23,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # tools/track.py
 OUT = os.environ.get("OUT", "/home/user/media/work/out/bf-integra-stock-to-kitted_v0.11.mp4")
 FR = os.path.join(M, "v0_frames")
 W, H = 1080, 1920
-CUTS = [0, 210, 261, 313, 572, 675]
-# v0.11 owner rule (text for slow readers: 2.5 s for 1-3 words + 0.4 s per extra word, >= 3 s for any price/offer):
-#   card (12 words incl. 30%+ OFF) needs 6.1 s -> readable 381..572 = 6.37 s (cut moved from beat 20 to beat 28)
-#   end card logo + URL needs 2.5 s -> readable 577..667 = 3.0 s (ends on beat 36, 22.5 s)
-#   BF wall (2 words, background) is on 7.0 s
-CARD_ON = 378 - 313       # beat 13 (12.590 s), local frame in S5
+CUTS = [0, 210, 313, 416, 675, 778]
+# v0.11 owner rule (text for slow readers: 2.5 s for 1-3 words + 0.4 s per extra word, >= 3 s for any price/offer).
+# Cuts on beats 0 / 8 / 16 / 36 / 44 after the drop:
+#   S3 210-313 (0371 at 0.5x) labels FRONT LIP + SIDE SKIRTS readable local 10..97 = 2.9 s
+#   S4 313-416 (0370, 3.45 s) labels SPORT WING + REAR SPATS readable 2.9 s
+#   S5 416-675 card (12 words incl. 30%+ OFF, needs 6.1 s) readable local 68..258 = 6.37 s
+#   logo + URL 675-778 readable 3.0 s; BF wall (2 words) on 7.0 s
+CARD_ON = 65              # local frame in S5: beat 21 (16.05 s) = one beat after the wing lands
 # v0.2: epsilon.plus site palette + type (theme tokens read from the live homepage 2026-11-17)
 CHARCOAL = (26, 26, 26)   # --background / --button-background-primary / --accent: 26 26 26
 SALE_RED = (248, 58, 58)  # --on-sale-badge-background / announcement bar: 248 58 58
@@ -191,51 +193,101 @@ HL_PARTS = {
         (0, [(840, 1072), (900, 1050), (950, 1018), (985, 994), (988, 1006), (950, 1033), (900, 1068), (845, 1090)], "roi"),  # skirt
     ],
 }
-HL_IN = {"s3": 13, "s4": 0}   # s3: the 1:1 cut plays clean for one beat (local frame 13 = 7.42 s), then the parts light up
+# v0.11 (user: "the blurring and highlight doesnt work, have text and do a tracking underline and leader that points to
+# the item"). The user explicitly asked for labels on the real footage, which overrides the standing "no text over IRL"
+# rule for these shots. Each label: fixed text with an underline; a leader runs from the underline end to a dot that is
+# glued to the part (the part's hand-placed outline tracked by tools/track.py; the anchor rides along as its last vertex).
+LABELS = {
+    "s3": [  # 0371 side pass, slowed 0.5x (static-ish window following the nose)
+        dict(part=0, anchor=(1000, 1044), text="FRONT LIP", x=900, y=1300, align="right"),
+        dict(part=1, anchor=(580, 1073), text="SIDE SKIRTS", x=70, y=1210, align="left"),  # anchor right of the text end so the leader never crosses it
+    ],
+    "s4": [  # 0370 rear 3/4, 3.45 s
+        dict(part=0, anchor=(410, 631), text="SPORT WING", x=70, y=330, align="left"),
+        dict(part=(1, 2), anchor=((166, 1114), (690, 1192)), text="REAR SPATS", x=484, y=1330, align="center"),
+    ],
+}
+LBL_IN, LBL_OUT = (3, 7, 5, 9, 6, 10), 5   # leader grows f3-7, underline wipes f5-9, text fades f6-10; out over last 5
 
 
-def part_tracks(paths, clip):
+def label_tracks(paths, clip):
+    """Per label: per-frame anchor point(s), from the part outline tracked with the anchor appended as a vertex."""
     import cv2
     import track
     G = [cv2.imread(p, 0) for p in paths]
-    out = []
-    for key, poly, how in HL_PARTS[clip]:
+    cache = {}
+    def tr(pi, anchor):
+        key, poly, how = HL_PARTS[clip][pi]
+        pts = list(poly) + [anchor]
         if how == "roi":
-            out.append(track.track_poly(G, key, poly))
+            t = track.track_poly(G, key, pts)
         else:
-            out.append(track.track_anchor(G, key, poly, how[1], "sim"))
+            t = track.track_anchor(G, key, pts, how[1], "sim")
+        return [q[-1] for q in t]
+    out = []
+    for L in LABELS[clip]:
+        if isinstance(L["part"], tuple):
+            out.append([tr(pi, an) for pi, an in zip(L["part"], L["anchor"])])
+        else:
+            out.append([tr(L["part"], L["anchor"])])
     return out
 
 
-def highlight(path, polys, amt):
-    """Real frame with the kit parts sharp + red edge glow, everything else blurred, half-desaturated, dimmed."""
-    import cv2
-    img = cv2.imread(path)
-    if amt <= 0:
-        return Image.fromarray(img[..., ::-1])
-    m = np.zeros(img.shape[:2], np.uint8)
-    for p in polys:
-        cv2.fillPoly(m, [p.astype(np.int32)], 255)
-    m = cv2.dilate(m, np.ones((5, 5), np.uint8))
-    mf = cv2.GaussianBlur(m, (0, 0), 3).astype(np.float32) / 255
-    ring = cv2.GaussianBlur(cv2.dilate(m, np.ones((9, 9), np.uint8)), (0, 0), 4).astype(np.float32) / 255
-    ring = np.clip((ring - mf) * 1.5, 0, 1) * 0.35   # v0.9 (user: "too much, more subtle"): was 0.8
-    bl = cv2.GaussianBlur(img, (0, 0), 3.5).astype(np.float32)  # was sigma 9
-    bl = (0.8 * bl + 0.2 * bl.mean(2, keepdims=True)) * 0.8     # was 50 % desat, 55 % brightness
-    out = img.astype(np.float32) * mf[..., None] + bl * (1 - mf[..., None])
-    out = out * (1 - ring[..., None]) + np.array(SALE_RED[::-1], np.float32) * ring[..., None]
-    out = img.astype(np.float32) * (1 - amt) + out * amt
-    return Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)[..., ::-1])
+def draw_labels(img_path, clip, k, n, tracks):
+    """Footage frame k of n with every label for this clip."""
+    im = Image.open(img_path).convert("RGBA")
+    lay = Image.new("RGBA", im.size, (0, 0, 0, 0))
+    sh = Image.new("RGBA", im.size, (0, 0, 0, 0))  # soft dark halo under lines + text for white-car legibility
+    d, ds = ImageDraw.Draw(lay), ImageDraw.Draw(sh)
+    f = ImageFont.truetype(UNB.format(600), 46)
+    def ramp(a, b):
+        return min(1.0, max(0.0, (k - a) / float(b - a)))
+    g_lead, g_line, g_text = ramp(LBL_IN[0], LBL_IN[1]), ramp(LBL_IN[2], LBL_IN[3]), ramp(LBL_IN[4], LBL_IN[5])
+    fade = min(1.0, max(0.0, (n - 1 - k) / float(LBL_OUT)))
+    for L, tr in zip(LABELS[clip], tracks):
+        tw = d.textlength(L["text"], font=f)
+        x0 = {"left": L["x"], "right": L["x"] - tw, "center": L["x"] - tw / 2}[L["align"]]
+        ty, uy = L["y"], L["y"] + 62
+        ux0, ux1 = x0, x0 + tw
+        for t in tr:  # leaders: from the anchor out to the nearer underline end (grows from the part)
+            ax, ay = float(t[k][0]), float(t[k][1])
+            ex = ux1 if abs(ux1 - ax) < abs(ux0 - ax) else ux0
+            if L["align"] == "center":
+                ex = min(max(ax, ux0), ux1)
+            px, py = ax + (ex - ax) * g_lead, ay + (uy - ay) * g_lead
+            if g_lead > 0:
+                ds.line([(ax, ay), (px, py)], fill=(0, 0, 0, 150), width=9)
+                d.line([(ax, ay), (px, py)], fill=(255, 255, 255, 255), width=4)
+            ds.ellipse((ax - 13, ay - 13, ax + 13, ay + 13), fill=(0, 0, 0, 150))
+            d.ellipse((ax - 9, ay - 9, ax + 9, ay + 9), fill=SALE_RED + (255,), outline=(255, 255, 255, 255), width=3)
+        if g_line > 0:
+            if L["align"] == "right":
+                a0, a1 = ux1 - tw * g_line, ux1
+            elif L["align"] == "left":
+                a0, a1 = ux0, ux0 + tw * g_line
+            else:
+                a0, a1 = L["x"] - tw / 2 * g_line, L["x"] + tw / 2 * g_line
+            ds.line([(a0, uy), (a1, uy)], fill=(0, 0, 0, 150), width=10)
+            d.line([(a0, uy), (a1, uy)], fill=(255, 255, 255, 255), width=5)
+        if g_text > 0:
+            ds.text((x0 + 2, ty + 3), L["text"], font=f, fill=(0, 0, 0, int(190 * g_text)))
+            d.text((x0, ty), L["text"], font=f, fill=(255, 255, 255, int(255 * g_text)))
+    from PIL import ImageFilter
+    sh = sh.filter(ImageFilter.GaussianBlur(5))
+    for l in (sh, lay):
+        l.putalpha(Image.fromarray((np.array(l.split()[3]) * fade).astype(np.uint8)))
+        im.alpha_composite(l)
+    return im.convert("RGB")
 
 
-KIT2 = {}  # v0.8 kit shot placement, fitted once from the body pass (see fit_kit2)
+KIT2 = {}  # kit shot placement, fitted once from the render's alpha (see fit_kit2)
 
 
-def fit_kit2(body_paths, box=(60, 820, 910, 1400)):
-    """Scale + offset so the car (union of the body pass alpha over the whole orbit) sits inside `box`
+def fit_kit2(paths, box=(60, 820, 910, 1400)):
+    """Scale + offset so the car (union of the render alpha over the whole orbit) sits inside `box`
     (under the card, inside the owner safe zone x 48-920 / y 285-1440)."""
     acc = None
-    for p in body_paths[::6] + body_paths[-1:]:
+    for p in paths[::6] + paths[-1:]:
         a = np.array(Image.open(p).convert("RGBA").resize((W, H)).split()[3]) > 10
         acc = a if acc is None else (acc | a)
     ys, xs = np.nonzero(acc)
@@ -245,27 +297,14 @@ def fit_kit2(body_paths, box=(60, 820, 910, 1400)):
     KIT2.update(sc=sc, dx=cx - sc * (x0 + x1) / 2, dy=cy - sc * (y0 + y1) / 2)
 
 
-def load_kit2(parts_p, body_p):
-    """v0.8 (user: parts highlighted on the car / car blurred): the website-model car body blurred and dimmed, the
-    four kit parts sharp on top (body held out, so hidden faces stay hidden) with a sale-red edge glow."""
-    from PIL import ImageFilter
+def load_glb(p):
+    """v0.11 kit shot: one GLB render (white car, black kit, native GLB materials; user: no blur/highlight here),
+    placed by fit_kit2 on the site charcoal."""
     sc, dx, dy = KIT2["sc"], KIT2["dx"], KIT2["dy"]
-    def place(p):
-        im = Image.open(p).convert("RGBA").resize((W, H), Image.LANCZOS)
-        im = im.resize((round(W * sc), round(H * sc)), Image.LANCZOS)
-        lay = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-        lay.alpha_composite(im, (round(dx), round(dy)))
-        return lay
-    body, parts = place(body_p), place(parts_p)
-    b = np.array(body.filter(ImageFilter.GaussianBlur(3.5))).astype(np.float32)  # v0.9: was blur 9 / 42 %
-    b[..., :3] *= 0.7
+    im = Image.open(p).convert("RGBA").resize((W, H), Image.LANCZOS)
+    im = im.resize((round(W * sc), round(H * sc)), Image.LANCZOS)
     bg = Image.new("RGBA", (W, H), CHARCOAL + (255,))
-    bg.alpha_composite(Image.fromarray(b.astype(np.uint8)))
-    a = parts.split()[3]
-    glow = a.filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(4)).point(lambda v: min(255, int(v * 0.6)))
-    g = Image.new("RGBA", (W, H), SALE_RED + (0,)); g.putalpha(glow)
-    bg.alpha_composite(g)
-    bg.alpha_composite(parts)
+    bg.alpha_composite(im, (round(dx), round(dy)))
     return bg.convert("RGB")
 
 
@@ -344,21 +383,19 @@ def main():
         os.remove(f)
     n = [CUTS[i + 1] - CUTS[i] for i in range(len(CUTS) - 1)]
     s1 = doubled(os.path.join(M, "render/s1_stockpass_wheels/f_*.png"), n[0])
-    s3 = video_frames(os.path.join(M, "clips/s3_0371_wide.mp4"), n[1], "s3")
-    s4 = video_frames(os.path.join(M, "clips/s4_0370_wide.mp4"), n[2], "s4")
-    s5 = doubled(os.path.join(M, "render/s5_parts_held_long/f_*.png"), n[3])      # v0.8: parts, body held out
-    s5b = doubled(os.path.join(M, "render/s5_body_long/f_*.png"), n[3])           # v0.8: car body (blurred in post)
-    fit_kit2(sorted(set(s5b)))
+    s3 = video_frames(os.path.join(M, "clips/s3_0371_slow.mp4"), n[1], "s3")
+    s4 = video_frames(os.path.join(M, "clips/s4_0370_long.mp4"), n[2], "s4")
+    s5 = doubled(os.path.join(M, "render/s5_glb_white/f_*.png"), n[3])  # v0.11: GLB, white car + black kit, no blur/glow
+    fit_kit2(sorted(set(s5)))
     i = 0
     for p in s1:
         load_flash(p, i).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for clip, paths in (("s3", s3), ("s4", s4)):
-        tr = part_tracks(paths, clip)
+        tr = label_tracks(paths, clip)
         for k, p in enumerate(paths):
-            amt = min(1.0, max(0.0, (k - HL_IN[clip] + 1) / 3.0))
-            highlight(p, [t[k] for t in tr], amt).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
-    for k, (p, pb) in enumerate(zip(s5, s5b)):
-        card(load_kit2(p, pb), k).save(  # v0.1: no Del & Eps (owner: typical branding only)
+            draw_labels(p, clip, k, len(paths), tr).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
+    for k, p in enumerate(s5):
+        card(load_glb(p), k).save(  # v0.1: no Del & Eps (owner: typical branding only)
             os.path.join(FR, f"f_{i:04d}.png")); i += 1
     for k in range(n[4]):
         logo_frame(k, n[4]).save(os.path.join(FR, f"f_{i:04d}.png")); i += 1
