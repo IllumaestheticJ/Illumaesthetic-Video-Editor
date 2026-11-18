@@ -188,3 +188,9 @@ Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same lay
 
 ### v0.9 re-render 2 (owner: "can you move the cars slightly up in the shot?")
 - `CAR_Y` 635 -> 585 (car ~44 px higher in frame, centre y ~925); nothing else changed.
+
+### v0.9 re-render 3 - Akira Expanded swapped in (owner licence confirmed 2026-11-18, knowledge/fonts.md)
+- Font from the owner's Drive (EPSILON+ Logos), SHA-256 verified, installed in gitignored `assets/fonts/akira/` (not committed).
+- Akira now sets the big prices, `$`, BUY, LINEUP and the two offer pills (`U()` returns Akira for weight >= 800 and size >= 30, at 0.95x so line widths match the old stand-in, with a 0.10x baseline shift).
+- Still Unbounded: crossed-out prices, CHANGE COLOR / BLACK FRIDAY buttons and other small labels, www.epsilon.plus and the URL under the wordmark. "Sport Wing" title stays serif (reference look).
+- All Akira strings asserted ASCII; stills checked - no tofu. -14.0 LUFS / -1.4 dBFS; safe-zone sheet clean.
