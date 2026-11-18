@@ -8,9 +8,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 P = "/home/user/Illumaesthetic-Video-Editor/projects/bf-clearance-shelf-drop"
 M = "/home/user/media/bf-clearance-shelf-drop"
-R = f"{M}/renders_v06"
+R = f"{M}/renders_v07"
 W = f"{M}/work_v0"
-OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.6.mp4"
+OUT = "/home/user/media/work/out/bf-clearance-shelf-drop_v0.7.mp4"
 os.makedirs(W, exist_ok=True); os.makedirs(os.path.dirname(OUT), exist_ok=True)
 snap = json.load(open(f"{P}/store_snapshot.json"))
 UB = "/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/"
@@ -59,7 +59,13 @@ def endcard(path):
 
 
 count = snap["tags"]["grv1"]["stock_line"]
-text_png(f"{W}/count.png", [(count, 54, FB)], 330)   # safe zones: text inside y 285-1440
+# Akira is wide: split the count onto two lines when one line won't fit inside the safe width (x 48-920, centred)
+def _w(t, sz): return ImageFont.truetype(FB, sz).getlength(t)
+if _w(count, 60) > 740 and " IN " in count:
+    a, b = count.split(" IN ", 1); count_lines = [(a, 60, FB), ("IN " + b, 60, FB)]
+else:
+    count_lines = [(count, 60, FB)]
+text_png(f"{W}/count.png", count_lines, 330)   # safe zones: text inside y 285-1440
 placeholder_png(f"{W}/placeholder.png")
 endcard(f"{W}/endcard.png")
 

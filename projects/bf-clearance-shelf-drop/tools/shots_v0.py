@@ -427,7 +427,7 @@ def aisle():
     billboard("eps", f"{M}/chars/eps_front.png", Vector((0.75, 2.4, 0)), 1.70, cam)
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
     bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
-    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.70
+    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.46   # Akira is wider; fits between the racks
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
