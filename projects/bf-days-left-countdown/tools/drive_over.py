@@ -12,7 +12,10 @@ from mathutils import Vector
 a = sys.argv[sys.argv.index("--") + 1:]
 ap = argparse.ArgumentParser()
 ap.add_argument("--glb", required=True)
-ap.add_argument("--mode", choices=["drive", "drift"], default="drive")
+ap.add_argument("--mode", choices=["drive", "drift", "down", "none"], default="drive",
+                help="drive: left to right; drift: left to right sliding; down: drives from the top of the frame toward the camera;"
+                     " none: no car, --old text only (offer cards)")
+ap.add_argument("--lead", type=int, default=0, help="frames from the car entering to --drop (0 = mode default)")
 ap.add_argument("--old", default="BLACK FRIDAY\\nSALE")
 ap.add_argument("--new", required=True)
 ap.add_argument("--out", required=True)
@@ -92,8 +95,11 @@ def floor_text(name, body, mat):
     return ob
 
 
+AXIS = "Y" if args.mode == "down" else "X"
+
+
 def wipe_material(name, keep_left):
-    """Silver where (world X < wipe) == keep_left; transparent elsewhere. Wipe value is keyframed with the car."""
+    """Silver where (world AXIS < wipe) == keep_left; transparent elsewhere. Wipe value is keyframed with the car."""
     m = bpy.data.materials.new(name); m.use_nodes = True
     nt = m.node_tree; nt.nodes.clear()
     out = nt.nodes.new("ShaderNodeOutputMaterial")
@@ -105,15 +111,17 @@ def wipe_material(name, keep_left):
     sep = nt.nodes.new("ShaderNodeSeparateXYZ"); nt.links.new(geo.outputs["Position"], sep.inputs[0])
     v = nt.nodes.new("ShaderNodeValue"); v.name = "wipe"
     cmp = nt.nodes.new("ShaderNodeMath"); cmp.operation = "LESS_THAN" if keep_left else "GREATER_THAN"
-    nt.links.new(sep.outputs["X"], cmp.inputs[0]); nt.links.new(v.outputs[0], cmp.inputs[1])
+    nt.links.new(sep.outputs[AXIS], cmp.inputs[0]); nt.links.new(v.outputs[0], cmp.inputs[1])
     mix = nt.nodes.new("ShaderNodeMixShader")
     nt.links.new(cmp.outputs[0], mix.inputs[0]); nt.links.new(tr.outputs[0], mix.inputs[1]); nt.links.new(p.outputs[0], mix.inputs[2])
     nt.links.new(mix.outputs[0], out.inputs[0])
     return m, v
 
 
-m_old, v_old = wipe_material("old_text", keep_left=False)   # old text survives ahead of (right of) the car
-m_new, v_new = wipe_material("new_text", keep_left=True)    # new text appears behind (left of) the car
+DOWN = args.mode == "down"
+# old text survives ahead of the car, new text appears behind it: ahead = +X (left-to-right) or -Y (down, toward camera)
+m_old, v_old = wipe_material("old_text", keep_left=DOWN)
+m_new, v_new = wipe_material("new_text", keep_left=not DOWN)
 t_old = floor_text("t_old", args.old, m_old)
 t_new = floor_text("t_new", args.new, m_new)
 # both blocks share one scale (the wider sets it) so the type size matches
@@ -142,12 +150,18 @@ floor.data.materials.append(fm)
 
 # ---------------------------------------------------------------- car motion (path, heading, wheel spin), keyed per frame
 x_in, x_drop = -9.5, 4.6     # car centre x: enters off-frame left, clears the text by the drop
-f_in = D - 48 if args.mode == "drive" else D - 60
-speed = (x_drop - x_in) / (D - f_in)  # m per frame (constant)
+y_in, y_drop = 12.0, -3.0    # down mode: car centre y: enters at the top of the frame, rear clears the text by the drop
+lead = args.lead or {"drive": 48, "drift": 60, "down": 48, "none": 48}[args.mode]
+f_in = D - lead
+speed = ((y_in - y_drop) if DOWN else (x_drop - x_in)) / (D - f_in)  # m per frame (constant)
 
 
 def pose(f):
     """returns (x, y, yaw_deg, steer_deg) for frame f."""
+    if DOWN:  # nose toward the camera (GLB front is -Y: yaw 0)
+        return 0.0, y_in - speed * (f - f_in), 0.0, 0.0
+    if args.mode == "none":
+        return 0.0, 200.0, 0.0, 0.0
     x = x_in + speed * (f - f_in)
     if args.mode == "drive":
         return x, 0.0, 90.0, 0.0
@@ -173,7 +187,10 @@ for f in range(args.frames):
     for n, w in wheels.items():
         w.rotation_euler = (spin, 0, math.radians(-steer) if n.startswith("wheel_F") else 0)
         w.keyframe_insert("rotation_euler", frame=f)
-    wv = max(-50.0, x - wipe_lag) if f >= f_in else -50.0
+    if DOWN:
+        wv = min(50.0, y) if f >= f_in else 50.0
+    else:
+        wv = max(-50.0, x - wipe_lag) if (f >= f_in and args.mode != "none") else -50.0
     for v in (v_old, v_new):
         v.outputs[0].default_value = wv
         v.outputs[0].keyframe_insert("default_value", frame=f)
