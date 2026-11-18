@@ -19,19 +19,19 @@ Planned 2026-11-17 on branch `claude/video-editing-scan-data-8o0m8g`. **Nothing 
 | Input | Type | Example | Rules |
 |---|---|---|---|
 | `days_left` | integer >= 0 | `5` | **Computed, not typed:** `days_left = sale_end_date - post_date` in calendar days, both in **America/Los_Angeles**. `0` renders the "LAST DAY" variant. `1` renders "DAY LEFT" (singular). The build script refuses to render if the reel's `post_date` isn't set. |
-| `sale_end` | ISO datetime, Pacific | `2026-12-01T23:59-08:00` | **Not set yet** (the owner's BF doc says the window is open). Required before any render. |
+| `sale_end` | ISO datetime, Pacific | `2026-11-30T??:??-08:00` | **Date set: Nov 30** (owner, 2026-11-18, PRICES.md / RUNDOWN.md). The end time of day is still open. |
 | `post_date` | date, Pacific | `2026-11-26` | The day the reel goes up. A reel rendered for one day is never posted on another. |
 | `show_end_line` | bool | `false` | When true, adds "ENDS <Mon> <D>, <h:mm> PT" under the wordmark. Default **off** until the owner confirms the window. |
 | `offer_line` | string or empty | `""` | Optional one-liner under "DAYS LEFT". Numbers only from the BF liquidation sheet (`projects/_blackfriday/PRICES.md`; snapshot `bf_liquidation_pricing.csv`, commit 7ec3adf; re-read the live Pricing tab before render), wording confirmed by the owner (Q4). Never a stock count. Empty by default. |
 
-**Countdown calendar (fill in once `sale_end` is known):**
+**Countdown calendar (sale ends Nov 30; the owner still picks which days get a reel):**
 
 | post_date (PT) | days_left | Numeral | Line under it |
 |---|---|---|---|
-| end − 5 | 5 | `5` | DAYS LEFT |
-| end − 3 | 3 | `3` | DAYS LEFT |
-| end − 1 | 1 | `1` | DAY LEFT |
-| end date | 0 | (none) | **LAST DAY** variant (see shot 2b) |
+| Nov 25 | 5 | `5` | DAYS LEFT |
+| Nov 27 (Thanksgiving) | 3 | `3` | DAYS LEFT |
+| Nov 29 | 1 | `1` | DAY LEFT |
+| Nov 30 | 0 | (none) | **LAST DAY** variant (see shot 2b) |
 
 (Example set from the brief: 5 / 3 / 1 / last day. The owner picks the actual days, Q2.)
 

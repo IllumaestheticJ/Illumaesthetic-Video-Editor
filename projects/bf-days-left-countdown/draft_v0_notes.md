@@ -174,3 +174,10 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - The 7.62 s cut is a lighter onset (0.31). The others are strong hits.
 
 **Stock number:** the parent flagged that "2" is a projection; the data says 5. Both cards are prepared (`cardB2` = "ONLY 2", `cardB5` = "ONLY 5"), and the user picks. The stock line is its own one-minute floor still.
+
+**v0.9 delivered (2026-11-18):** `/home/user/media/work/out/bf-days-left-countdown_v0.9_down_only2.mp4` and `_v0.9_drift_only2.mp4`.
+- Both are 13.6 s, at -14.1 LUFS with a -3.1 dBFS peak.
+- The safezone sheets are clean: card text x 166-909, stock label inside the box. Only the moving car crosses the rails.
+- The cards were re-rendered at text width 3.7 m: at 4.35 m with the pushed-in camera, card A reached x 976.
+- An "ONLY 5 LEFT" alternative is rendering.
+- "ONLY 5 LEFT" alternatives delivered: `_v0.9_down_only5.mp4` and `_v0.9_drift_only5.mp4`. The safezone sheet is clean. Waiting on the user to pick 2 or 5.
