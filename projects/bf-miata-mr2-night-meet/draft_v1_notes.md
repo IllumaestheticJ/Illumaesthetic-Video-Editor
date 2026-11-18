@@ -89,3 +89,19 @@ Safe-zone sheet looked at: all text and the logo are clear of red and amber. -14
 Headlines, offers, prices, part names: Akira if `assets/fonts/akira/` has the file, else Unbounded 800/900 stand-in (Akira
 not supplied yet). Small lines and the price table: Unbounded 500. URL under the wordmark: Unbounded 400. Preview stills only;
 no new export yet (waiting on the length decision).
+
+## v1.6: spats/duckbill over stock, NC spat bumper cut, TC wings + MR2 diffuser, house fonts (user feedback on v1.5)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.6.mp4` (50.7 s, -14.0 LUFS, TP -1.8 dBFS).
+- "The duckbill and spats don't have a section removed, they go over stock": MR2 spats and duckbill land on the stock
+  body; nothing comes off (`tools/shot.py` ZONES).
+- "The NC should also have the rear spats (rear bumper needs to be cut)": the NC rear-bumper cut is the Epsilon spat's
+  own outline (footprint -80/+30 mm, 3 mm lateral), so the hole matches the part.
+- "...and the TC wing included": NC TC wing = engineering Drive 'NC swan short mount assm.stp' (1mrtynCDvxFzutOrOV0R7i7iEHg-r8agt;
+  47.5" element, endplates, one upright mirrored), meshed per solid with OCP and placed per its drawing
+  ('NC swan short mount.pdf': uprights 981 mm apart, base plates at the lid's rear edge) on our scan (`tools/nc_tcwing.py`).
+  New CGI shot s09b. The lookbook NC only has a GT wing; the configurator page (epsilon.plus) is blocked from this session.
+- "Same with the MR2 - include the rear diffuser (black) and the TC wing": lookbook `part_diffuser` (black) and
+  `part_tc_wing_kit` (carbon) in new CGI shot s05b; both also on the final two-car scan shot.
+- Diffuser and TC wings are NOT on the BF sheet: labels show the regular store price ("COMPLETE THE KIT", $750 / $1,100),
+  no discount. They are not on the 20 % card.
+- Fonts per knowledge/fonts.md (Unbounded stand-in for Akira). Length now 50.7 s.
