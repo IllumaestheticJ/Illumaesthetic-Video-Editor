@@ -5,7 +5,7 @@ with Pip's voice-over; word-by-word captions on the cartoon only; dialogue + VO 
            [--music FILE --music-in S] [--name ep8_v1] [--sheet]
 
 Timeline (30 fps): cartoon 0-1120 (frame 1120 = phone screen full frame) | IRL 1121-1255 (4.5 s) | logo 1256-END.
-Phone + IRL play the timelapse as one continuous stretch: reel frame 1031+j shows timelapse frame round(j*225/224)
+Phone + IRL play the timelapse as one continuous stretch: reel frame PH0+j (A11 start) shows timelapse frame round(j*225/224)
 (226 frames at 24 fps -> 225 reel frames, 1.25x), so the screen plays straight into the full-frame IRL with no jump.
 Captions are pages of whole words (owner-approved script wording; whisper times per word). A page never overlaps the phone
 screen: the build checks the caption alpha against the key-colour mask on every frame (and the IRL section has no overlay).
@@ -27,7 +27,7 @@ FR, BUILD, OUT = M / "frames", M / "build", M / "out"
 FPS, SR, W, H = 30, 48000, 1080, 1920
 TL = json.loads((PROJ / "ep8_timeline.json").read_text())
 CART = TL["frames"]                      # 1121
-PH0 = 1031                               # first phone frame (A11)
+PH0 = next(x["f0"] for x in TL["shots"] if x["id"] == "A11")   # first phone frame
 IRL_N = 135                              # 4.5 s
 LOGO_N = 150                             # 5.0 s: VO 4.0 s from +0.35 s, then a short hold
 IRL0, LOGO0 = CART, CART + IRL_N
@@ -48,12 +48,14 @@ WORDS = {
     8: [("...Black", 0), ("PETG", 1), ("still", 3), ("melts", 4), ("in", 5), ("the", 6), ("sun.", 7)],
     9: [("And", 0), ("my", 2), ("bumper?", 3)],
     10: [("Outside?", 0), ("ASA.", 1), ("It's", 4), ("made", 5), ("for", 6), ("sun", 7), ("and", 8), ("rain.", 9)],
-    14: [("And", 0), ("it", 1), ("depends", 2), ("what", 3), ("it's", 4), ("for.", 5), ("Molds?", 6), ("PETG", 7), ("or", 9),
-         ("ASA.", 10), ("PETG", 13), ("warps", 15), ("less.", 16)],
+    14: [("And", 0), ("it", 1), ("depends", 2), ("what", 3), ("it's", 4), ("for.", 5), ("Molds", 6), ("and", 7), ("masters?", 8),
+         ("PETG.", 9), ("Things", 10), ("don't", 11), ("stick", 12), ("to", 13), ("it.", 14), ("Or", 15), ("ASA-GF.", 16),
+         ("Warps", 21), ("less,", 22), ("nicer", 23), ("finish.", 24)],
     15: [("Like", 0), ("these?!", 1)],
     16: [("...Yeah.", 0), ("Like", 1), ("those.", 2)],
 }
-CAP_END_MAX = {16: 1114 / FPS}  # last page sits at the bottom edge: the growing phone screen reaches y 1715 on frame 1114
+A12_0 = next(x["f0"] for x in TL["shots"] if x["id"] == "A12")
+CAP_END_MAX = {16: (A12_0 + 54) / FPS}  # last page at the bottom edge: the growing phone screen reaches y 1715 on A12 frame +54 (v1: 1114)
 Y = 1420  # default page centre y (lower third, under the faces)
 PAGES = [  # (line, rows of display-word indices[, centre y])
     (1, [[0, 1]]), (1, [[2, 3, 4], [5, 6, 7]]),
@@ -66,7 +68,8 @@ PAGES = [  # (line, rows of display-word indices[, centre y])
     (8, [[0, 1], [2, 3, 4, 5, 6]]),
     (9, [[0, 1, 2]], 950),
     (10, [[0, 1]]), (10, [[2, 3, 4], [5, 6, 7]]),
-    (14, [[0, 1, 2], [3, 4, 5]]), (14, [[6]]), (14, [[7, 8, 9]]), (14, [[10, 11, 12]]),
+    (14, [[0, 1, 2], [3, 4, 5]]), (14, [[6, 7, 8]]), (14, [[9]]), (14, [[10, 11, 12], [13, 14]]), (14, [[15, 16]]),
+    (14, [[17, 18], [19, 20]]),
     (15, [[0, 1]], 1790),
     (16, [[0, 1, 2]], 1790),
 ]
@@ -79,7 +82,7 @@ def pages():
         l, ws = L[n], WORDS[n]
         t = lambda k: l["words"][ws[k][1]]["t0"]  # noqa: E731
         last = rows[-1][-1]
-        wi = ws[last][1]
+        wi = ws[last + 1][1] - 1 if last + 1 < len(ws) else len(l["words"]) - 1   # a display word can span several whisper tokens (A -S -A G -F.)
         t1 = min(l["words"][wi]["t1"] + 0.35, l["t1"] + 0.2, CAP_END_MAX.get(n, 99))
         if i + 1 < len(PAGES):
             nn, nrows = PAGES[i + 1][:2]

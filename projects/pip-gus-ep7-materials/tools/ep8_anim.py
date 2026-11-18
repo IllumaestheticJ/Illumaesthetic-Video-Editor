@@ -38,7 +38,7 @@ def word_t(n, needle, default=None):
 # ----------------------------------------------------------------------------------------------------------------- palette
 PAL.update(pla="#619f73", petg="#c9cfd1", blk="#262826", asa="#55595a", bed="#2f3230", frame_p="#3a3d3a", head_p="#ecefec",
            sky="#a9d6ea", sky_l="#cfe8f2", sunc="#ffd24a", sunray="#ffe48a", dash="#3b3f3c", dash_l="#4a4f4b",
-           cloud="#eef1f2", cloud_d="#b9c1c6", rain="#6f9fd8", asphalt="#6b6e6c", grass="#86b07c", mold_in="#2a2c2a")
+           cloud="#eef1f2", cloud_d="#b9c1c6", rain="#6f9fd8", cast="#c8a46a", glint="#ffffff", asphalt="#6b6e6c", grass="#86b07c", mold_in="#2a2c2a")
 
 # ----------------------------------------------------------------------------------------------------------------- props
 set_vis(LAPTOP, False)      # the bench now holds the printer
@@ -514,27 +514,45 @@ def anim_A9(fr):
     cam_look((st.x - 0.25, st.y - 1.9, 1.05), (st.x - 0.1, st.y + 0.5, 1.25), 28, (0, 0.3, 0.0), ease(k))
 
 
+def clamp01(x):
+    return max(0.0, min(1.0, x))
+
+
 def anim_A10(fr):
-    """And it depends what it's for. Molds? PETG or ASA. PETG warps less. - two molds on the bench; the ASA one lifts a corner."""
+    """And it depends what it's for. Molds and masters? PETG. Things don't stick to it. Or ASA-GF. Warps less, nicer finish.
+    Wide two-shot, push in on the bench at "Molds": the PETG mold drops on "PETG", its cast pops cleanly out on "stick", the
+    ASA-GF mold drops beside it on "Or", sits dead flat on "Warps less" and a glint runs over it on "nicer finish"."""
     t, k = fr / FPS, kshot(fr, "A10")
     spools_on_bench()
     pla_loaded()
     shelf_vents(2)
-    tm = word_t(14, "Molds", LNO[14]["t0"] + 1.6)
-    tw = word_t(14, "warps", LNO[14]["t1"] - 0.8)
-    a = ease((t - (tm - 0.1)) / 0.35)
-    if t > tm - 0.1:
-        mold("mold_petg", "petg", None, (2.2, 2.95, BENCH_Z + 0.002 + 0.25 * (1 - eback(a, 1.4))), 0.0)
-        lift = 12.0 * ease((t - tw) / 0.6)
-        mold("mold_asa", "asa", None, (2.58, 2.95, BENCH_Z + 0.002 + 0.25 * (1 - eback(a, 1.4))), lift)
+    tm = word_t(14, "Molds", LNO[14]["t0"] + 2.1)
+    tp = word_t(14, "PETG", tm + 1.2)
+    ts = word_t(14, "stick", tp + 1.3)
+    to = next((w["t0"] for w in LNO[14]["words"] if w["w"].strip(".,?!").lower() == "or"), ts + 1.0)  # exact: "for." contains "or"
+    tn = word_t(14, "Nicer", LNO[14]["t1"] - 0.5)
+    drop = lambda t0: BENCH_Z + 0.002 + 0.25 * (1 - eback(ease((t - t0) / 0.35), 1.4))  # noqa: E731
+    if t > tp - 0.15:
+        mold("mold_petg", "petg", None, (2.2, 2.95, drop(tp - 0.15)), 0.0)
+        # the cast (a small part) sits in the cavity, then pops out and lands on the bench in front
+        c = clamp01((t - (ts - 0.05)) / 0.55)
+        x = lerp(2.2, 2.2, c); y = lerp(2.95, 2.74, c)
+        z = lerp(BENCH_Z + 0.075, BENCH_Z + 0.022, c) + 0.16 * math.sin(math.pi * c)
+        rx = lerp(0, 0, c); ry = 360 * ease(c) if c < 1 else 0
+        temp(box("cast", (0.17, 0.09, 0.04), (x, y, z), mat("cast"), None, 0.008, 0.006, (rx, 0, ry * 0.5)))
+    if t > to - 0.1:
+        g = mold("mold_asagf", "asa", None, (2.58, 2.95, drop(to - 0.1)), 0.0)
+        gl = clamp01((t - (tn - 0.05)) / 0.6)
+        if 0 < gl < 1:
+            box("glint", (0.035, 0.32, 0.004), (-0.2 + 0.4 * gl, 0, 0.103), emit("glint", 1.0, 0.85), g, 0, 0, (0, 0, 28))
     m, lid = talk("GUS", t)
     pose(GUS, loc=(1.75, 2.3, 0), rz=-25, hips=(2, 0, 0), head=(4, 0, 20), armL=(-45, 0, 12), elbowL=-40, mouth=m, lid=lid,
          look=(0.7, -0.3))
     pose(PIP, loc=(3.4, 2.3, 0), rz=28, head=(-12, 0, 10), look=(-0.7, -0.3))
-    # wide two-shot for "it depends what it's for", then push in on the molds as they drop ("Molds?")
+    # wide two-shot for "it depends what it's for", then push in on the bench at "Molds and masters?"
     p = ease((t - (tm - 0.25)) / 0.8)
     loc = Vector((2.55, 0.15, 1.5)).lerp(Vector((2.39, 1.55, 1.38)), p)
-    tgt = Vector((2.55, 2.6, 1.0)).lerp(Vector((2.39, 2.95, BENCH_Z + 0.02)), p)
+    tgt = Vector((2.55, 2.6, 1.0)).lerp(Vector((2.39, 2.92, BENCH_Z + 0.02)), p)
     look(cam, loc, tgt, lerp(24, 30, p))
 
 

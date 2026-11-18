@@ -29,7 +29,7 @@ LINES = [  # n, id, speaker, text (script v4, option 3)
     (8, "L08", "GUS", "...Black PETG still melts in the sun."),
     (9, "L09", "PIP", "And my bumper?"),
     (10, "L10", "GUS", "Outside? ASA. It's made for sun and rain."),
-    (14, "L14", "GUS", "And it depends what it's for. Molds? PETG or ASA. PETG warps less."),
+    (14, "L14", "GUS", "And it depends what it's for. Molds and masters? PETG. Things don't stick to it. Or ASA-GF. Warps less, nicer finish."),
     (15, "L15", "PIP", "Like these?!"),
     (16, "L16", "GUS", "...Yeah. Like those."),
 ]
@@ -40,6 +40,26 @@ LEAD_IN = 0.18
 TAIL_A12 = 0.25                   # after "Like those." the push ends; screen full frame on the last A12 frame
 WORDS_TAKE = json.load(open(PROJ / "voice/take1_words.json"))
 SPL = json.load(open(SPLIT / "split.json"))
+# Owner review v1 overrides (no re-split of take 1, nothing sped up):
+#  - L04/L09: split_take ended them at whisper word end + 0.12 s, clipping the ring-out ("bumper? gets cut off"); re-cut from
+#    take 1 to the first window below -45 dB. L04's extra tail sits in its following gap (ABSORB) so A1-A8 keep their timing.
+#  - L10/L14: re-recorded (Gus only, one elevenlabs_v4 dialogue call, job 628b5c63): ASA said as letters, ASA-GF + PETG wording.
+TAKE2 = MEDIA / "gus_asa_take2.mp3"
+W2 = [dict(w=w["w"], s=w["t0"], e=w["t1"]) for w in json.load(open(PROJ / "voice/take2_words.json"))]
+OVR = {"L04": (MEDIA / "ep8_dialogue_take1.mp3", 8.10, 9.40, WORDS_TAKE, True),
+       "L09": (MEDIA / "ep8_dialogue_take1.mp3", 22.545, 23.78, WORDS_TAKE, False),
+       "L10": (TAKE2, 0.10, 4.70, W2, False),     # onset 0.22 s; ring-out under -45 dB by ~4.6 s
+       "L14": (TAKE2, 4.79, 14.50, W2, False)}    # onset 4.91 s; tail under -45 dB at 14.44 s
+_src = {}
+
+
+def clip(path, a, b):
+    if path not in _src:
+        _src[path] = load(path)
+    x = _src[path][int(a * SR):int(b * SR)].copy()
+    fi, fo = int(0.008 * SR), int(0.04 * SR)
+    x[:fi] *= np.linspace(0, 1, fi); x[-fo:] *= np.linspace(1, 0, fo)
+    return x
 
 
 def load(p):
@@ -59,13 +79,19 @@ for n, lid, spk, text in LINES:
         t += GAP + EXTRA.get(lid, 0.0)
     s = SPL[lid]
     a = load(SPLIT / f"{lid}.wav")
-    off = t - s["take_t0"]
-    ws = [dict(w=w["w"].strip(), t0=round(w["s"] + off, 3), t1=round(w["e"] + off, 3)) for w in WORDS_TAKE
-          if s["take_t0"] <= (w["s"] + w["e"]) / 2 <= s["take_t1"]]
+    adv = len(a) / SR
+    src_t0, src_t1, wsrc = s["take_t0"], s["take_t1"], WORDS_TAKE
+    if lid in OVR:
+        path, src_t0, src_t1, wsrc, absorb = OVR[lid]
+        a = clip(path, src_t0, src_t1)
+        adv = adv if absorb else len(a) / SR
+    off = t - src_t0
+    ws = [dict(w=w["w"].strip(), t0=round(w["s"] + off, 3), t1=round(w["e"] + off, 3)) for w in wsrc
+          if src_t0 <= (w["s"] + w["e"]) / 2 <= src_t1]
     lines.append(dict(n=n, id=lid, speaker=spk, text=text, t0=round(ws[0]["t0"], 3), t1=round(ws[-1]["t1"], 3),
                       clip_t0=round(t, 3), words=ws))
     clips.append((t, a))
-    t += len(a) / SR
+    t += adv
 end_dialogue = t
 # shots in frames
 sf = []
