@@ -17,3 +17,4 @@
 {"ts": "2026-11-17T10:46:26Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Illumaesthetic is pronounced ih-LOOM-es-THET-ic; spell it phonetically in TTS prompts", "by": "reviewer", "promoted": true}
 {"ts": "2026-11-18T00:54:48Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Voice take 3 approved (pronunciation OK); keep every line (~52 s total)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-18T01:00:13Z", "project": "pip-gus-ep5-stl-vs-step", "at": null, "category": "audio", "note": "Music: reuse the pilot track", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-18T23:29:56Z", "project": "pip-gus-ep5-stl-vs-step", "at": "19.5", "category": "visual", "note": "Exaggerate the STL vs STEP comparison in 'Smooth at any zoom' - make the facets/angles on the STL much more obvious", "by": "reviewer", "promoted": false}

@@ -255,6 +255,37 @@ def wire_bumper(name, m, parent=None, loc=(0, 0, 0), frac=1.0, scale=1.0, r=0.00
     return temp(ob)
 
 
+def facet_bumper(name, parent=None, u_min=0.0, u_max=1.0, nu=5, nv=3, r=0.006):
+    """Exaggerated STL for 'smooth at any zoom' (owner 2026-11-18: make the angles obvious): the same surface on a very
+    coarse grid, every triangle a hard flat facet in alternating light/dark tones with a dark edge line, so the jagged
+    silhouette and the facets read at a glance next to the smooth STEP."""
+    P = [[bpt(u_min + (u_max - u_min) * i / nu, j / nv) for j in range(nv + 1)] for i in range(nu + 1)]
+    tris = []
+    for i in range(nu):
+        for j in range(nv):
+            a, b, c, d = P[i][j], P[i + 1][j], P[i + 1][j + 1], P[i][j + 1]
+            tris += [(a, b, c), (a, c, d)] if (i + j) % 2 else [(a, b, d), (b, c, d)]
+    for k, tone in enumerate(("#e2e6e2", "#9aa39b")):
+        sub = tris[k::2]
+        verts = [v for t3 in sub for v in t3]
+        mesh_obj(f"{name}_{k}", verts, [(3 * n, 3 * n + 1, 3 * n + 2) for n in range(len(sub))], mat(tone), parent, ol=0.006)
+    seen, bm = set(), bmesh.new()
+    for t3 in tris:
+        for a, b in ((t3[0], t3[1]), (t3[1], t3[2]), (t3[2], t3[0])):
+            key = tuple(sorted((tuple(round(x, 5) for x in a), tuple(round(x, 5) for x in b))))
+            if key in seen:
+                continue
+            seen.add(key)
+            dv = b - a
+            M = Matrix.Translation((a + b) / 2) @ dv.to_track_quat("Z", "Y").to_matrix().to_4x4()
+            bmesh.ops.create_cone(bm, cap_ends=False, segments=6, radius1=r, radius2=r, depth=dv.length, matrix=M)
+    me = bpy.data.meshes.new(name + "_edges"); bm.to_mesh(me); bm.free()
+    ob = bpy.data.objects.new(name + "_edges", me); COLL.objects.link(ob); ob.data.materials.append(emit("#141714", 1.0))
+    if parent:
+        ob.parent = parent
+    return temp(ob)
+
+
 PATCH_U, PATCH_V = 4, 2
 PATCH_TONES = ("#d9ddd9", "#c3cac4")
 
@@ -613,11 +644,11 @@ def anim_E7(fr):
         k = cl((t - L["t0"] + 0.15) / max(0.5, t_hole - L["t0"]))
         gl = temp(empty("e7l", None, B0 + Vector((-0.85, 0, 0))))   # mesh: its right end just left of the divider
         gr = temp(empty("e7r", None, B0 + Vector((0.85, 0, 0))))    # STEP: its left end just right of it
-        mesh_bumper("meshL", mat("scan"), gl, u_min=0.62)
+        facet_bumper("meshL", gl, u_min=0.62)
         smooth_bumper("stepR", gr, u_max=0.38, tint=0.0)
         temp(box("divider", (0.008, 0.008, 1.2), (VOID.x, VOID.y - 0.12, BZ + 0.3), emit("white", 1.0)))
         tgt = Vector((VOID.x, B0.y - 0.1, BZ + 0.3))
-        d = lerp(1.5, 0.62, ease(k) ** 1.3)
+        d = lerp(1.5, 0.48, ease(k) ** 1.3)                # pushes in further: the facets get bigger, STEP stays smooth
         look(cam, tgt + Vector((0, -d, d * 0.28)), tgt, 40)
     else:
         u = cl((t - t_hole) / max(0.6, L["t1"] - t_hole))
