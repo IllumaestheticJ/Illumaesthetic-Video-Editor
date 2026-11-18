@@ -6,6 +6,7 @@ Times are SONG seconds (the music starts at video 0). Parts carry keyed offsets;
 Quick draft: Cycles CPU, low samples + OIDN, silver house look (blender/scan_render.py)."""
 import math, os, sys
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix
 sys.path.insert(0, "/home/user/Illumaesthetic-Video-Editor/blender")
 import scan_render as sr  # noqa
@@ -95,7 +96,7 @@ def cam_end():
 def setup():
     sc = bpy.context.scene
     sc.render.engine = "CYCLES"
-    sc.cycles.device = "CPU"
+    ive_gpu.use(sc)
     sc.cycles.samples = SPP
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True

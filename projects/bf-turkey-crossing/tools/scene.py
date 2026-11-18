@@ -16,6 +16,7 @@ Shots:
   s6_feath  f216-324 empty road, feathers drifting down in half-speed slow-mo (plate for the sale text, slow-reader rule)
 """
 import bpy, sys, math, os, random
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -59,7 +60,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene; C = sc.collection
 sc.render.fps = FPS; sc.frame_start = F0; sc.frame_end = F1 - 1
 sc.render.resolution_x, sc.render.resolution_y = 1080, 1920; sc.render.resolution_percentage = PCT
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = SPP; sc.cycles.use_denoising = True
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc); sc.cycles.samples = SPP; sc.cycles.use_denoising = True
 sc.cycles.max_bounces = 4; sc.cycles.diffuse_bounces = 2; sc.cycles.glossy_bounces = 2; sc.cycles.transmission_bounces = 2
 sc.render.use_persistent_data = False
 sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Punchy' if 'AgX - Punchy' in [i.identifier for i in sc.view_settings.bl_rna.properties['look'].enum_items] else 'None'
