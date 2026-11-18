@@ -77,7 +77,7 @@ def bars(rows):
         return im
     return draw
 _logo = None
-_mq = Image.open(f'{M}/logos/motoiq_official.png').convert('RGBA'); _mq = _mq.resize((420, int(_mq.height*420/_mq.width)), Image.LANCZOS)
+_mq = Image.open(f'{M}/logos/motoiq_white.png').convert('RGBA'); _mq = _mq.crop(_mq.getbbox()); _mq = _mq.resize((460, int(_mq.height*460/_mq.width)), Image.LANCZOS)      # owner: the white-text MotoIQ logo, no label
 def endcard(q):
     def draw(t, D):
         global _logo
@@ -93,8 +93,7 @@ def endcard(q):
         k = ease((t - 1.1)/.4)                                                   # owner (2026-11-18): MotoIQ logo on every reel, as on the long-form's end card
         if k > 0:
             mq = _mq.copy(); mq.putalpha(mq.getchannel('A').point(lambda v: int(v*k))); x = W//2 - mq.width//2; y = 1440
-            ctext(d, y - 50, 'PARTS BY', F(36, 'Bold'), GOLD, k)
-            d.rounded_rectangle([x - 36, y - 26, x + mq.width + 36, y + mq.height + 26], 26, fill=tuple(int(10 + 245*k) for _ in range(3))); im.paste(mq, (x, y), mq)
+            im.paste(mq, (x, y), mq)
         return im
     return draw
 # ---------------------------------------------------------------- sound
