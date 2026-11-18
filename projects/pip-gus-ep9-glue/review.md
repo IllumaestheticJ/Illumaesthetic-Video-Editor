@@ -32,3 +32,9 @@ Output: `pip-gus-ep9-glue_v1.mp4`, 49.77 s, 1493 frames, 1080x1920, 30 fps, h264
 - Plastic weld: a soldering iron (spade tip, cord) plus a white filler rod fed into the tip, with light smoke. The white bead is subtle against the white part.
 - Finished 350Z: DSCF6605, a straight-on front view with a slow push-in (was DSCF6634, off-angle).
 - Still open: Pip is half out of frame on the left in the E13 tag.
+
+## v3 (owner feedback on v2)
+- Table layout: mold box lengthwise on the table end, acetone back-left. The master turns and lands inside the box. `--ep9 clip` finds 0 hand, tool or part vertices inside a box wall or the jar on all 1253 frames. The E2 camera was panned so the whole drop is in frame.
+- Finished 350Z: DSCF6633 (outdoors after the job), front 3/4.
+- E13 ending reframed: Pip is 3/4 to camera with the face visible, and the bumper stays clear.
+- Learned: run a numeric interpenetration check on every frame after any prop/layout change. A contact sheet missed the box overlap in v1/v2.
