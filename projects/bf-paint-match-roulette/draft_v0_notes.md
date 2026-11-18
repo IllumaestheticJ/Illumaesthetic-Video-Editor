@@ -188,3 +188,19 @@ Checks: -14.0 LUFS, peak -1.4 dBFS; content bbox x 160-920, y 436-1440 (same lay
 
 ### v0.9 re-render 2 (owner: "can you move the cars slightly up in the shot?")
 - `CAR_Y` 635 -> 585 (car ~44 px higher in frame, centre y ~925); nothing else changed.
+
+### v0.9 re-render 3 - Akira Expanded swapped in (owner licence confirmed 2026-11-18, knowledge/fonts.md)
+- Font from the owner's Drive (EPSILON+ Logos), SHA-256 verified, installed in gitignored `assets/fonts/akira/` (not committed).
+- Akira now sets the big prices, `$`, BUY, LINEUP and the two offer pills (`U()` returns Akira for weight >= 800 and size >= 30, at 0.95x so line widths match the old stand-in, with a 0.10x baseline shift).
+- Still Unbounded: crossed-out prices, CHANGE COLOR / BLACK FRIDAY buttons and other small labels, www.epsilon.plus and the URL under the wordmark. "Sport Wing" title stays serif (reference look).
+- All Akira strings asserted ASCII; stills checked - no tofu. -14.0 LUFS / -1.4 dBFS; safe-zone sheet clean.
+
+## v0.10 - Epsilon+ plates on the rear of every car (owner: "can you put epsilon plates on all the rear of the cars")
+- `tools/render_plate.py`: extra turntable layer `p_XX.png` (RGBA) per car - a US-size plate (305 x 152 mm, black, white border, the
+  Epsilon+ wordmark from `logo/banner_black.png`) placed on the rear surface by ray casts and rendered with the car as a holdout,
+  so it is hidden correctly as the car turns. ~30-60 s per car; the b/w/m passes were not re-rendered.
+- Plate centre heights (from `tools/plate_probe.py` rear ortho views; rear is +Y): FL hatch z 0.76, FE sedan 0.74, Type S 0.57
+  (bumper), DE4 widebody 0.575 (covers the model's blank plate). A recess whose top edge overhangs (hatch) gets a vertical plate.
+- `tools/compose_v10.py` = v09 + plate layer alpha-over after the colour tint. Lineup tiles are front views, so no plate there.
+- Workbench renders do not work in this container (no EGL/Vulkan) - probes use Cycles.
+- Checks: 29.30 s, -14.0 LUFS, -1.4 dBFS; safe-zone sheet clean; rear frames checked on all four cars, plate readable.

@@ -20,6 +20,7 @@ A.add_argument("--out", required=True)
 A.add_argument("--res", type=float, default=0.5)
 A.add_argument("--frames", default="")
 A.add_argument("--step", type=int, default=1)
+A.add_argument("--fps60", action="store_true", help="true 60 fps: same 30 fps keyframes, time remapped x2")
 A.add_argument("--chars", action="store_true", help="v0 placeholders (owner removed them; off by default)")
 args = A.parse_args(sys.argv[sys.argv.index("--") + 1:])
 NO_CHARS = not args.chars
@@ -427,7 +428,7 @@ def aisle():
     billboard("eps", f"{M}/chars/eps_front.png", Vector((0.75, 2.4, 0)), 1.70, cam)
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
     bpy.ops.object.text_add(location=(0, 9.5, 4.3), rotation=(math.pi / 2, 0, 0))
-    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.70
+    t = bpy.context.object; t.data.body = "BLACK FRIDAY"; t.data.align_x = "CENTER"; t.data.size = 0.46   # Akira is wider; fits between the racks
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
@@ -467,6 +468,11 @@ elif args.shot == "s4":
     shelf("grv1", "s4")
 elif args.shot == "s5":
     car("grv1", "s5")
+if args.fps60:
+    # keyframes stay on the 30 fps grid; scene frame F shows animation frame F/2 -> renders 1, 1.5, 2 ... LEN+0.5
+    sc.render.fps = 60
+    sc.render.frame_map_old, sc.render.frame_map_new = 100, 200
+    sc.frame_start, sc.frame_end = 2, 2 * LEN[args.shot] + 1
 if args.frames:
     a, b = args.frames.split("-"); sc.frame_start, sc.frame_end = int(a), int(b)
 sc.frame_step = args.step

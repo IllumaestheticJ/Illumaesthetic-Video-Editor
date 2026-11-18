@@ -80,3 +80,19 @@ The owner's instruction, relayed by the parent session: "have all the agents mak
 - **Pairs:** both skirts and both spats in the card line-up; the canards shot from the front so both show.
 - **Fonts:** Unbounded 800-900 stands in for Akira (file not supplied); Unbounded 500 labels, 300 URL.
 - **Checks:** 24.7 s, -13.9 LUFS / -2.8 dBTP, safe zones pass.
+
+## v0.7 (Akira font, owner licence 2026-11-18)
+- **Akira Expanded Super Bold** (Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya, SHA-256 checked, `assets/fonts/akira/` gitignored) is now used for BLACK FRIDAY, V2 KIT / V1, UP TO and 30% / 45% OFF.
+  - Every string is checked against the font's cmap: no missing glyphs, no arrows.
+- Labels stay Unbounded 500 / 400, and the URL beside the logo stays Unbounded 300.
+- Composite-only change; no re-render.
+- **Checks:** 24.7 s, -13.9 LUFS / -2.8 dBTP, safe zones pass, same cut timing as v0.6.
+
+## v0.8 (user: weird cut at the start; cross out the retail price)
+- **Opening:** one continuous 6-kick move (s12_open) ends on the s3 1:1 camera. The first cut is now the 1:1 cut into the studio on kick 6 (the largest frame diff before it is 11.9, versus 15+ at a cut).
+- **Cards:** "V2 KIT" / "V1 KIT" are now clean; the slash moved to the prices.
+  - After the lift: the offer, then one row per part with the retail price slashed in red and the BF price, all from the sheet.
+  - V2: lip $285 -> $199.50, skirts $400 -> $280, spats $175 -> $122.50.
+  - V1: lip $215 -> $129, carbon lip $600 -> $330, skirts $275 -> $165, spats $125 -> $75.
+  - Cards are now 10 kicks, so the price phase holds about 2.7 s.
+- **Checks:** 26.6 s, -13.8 LUFS / -2.8 dBTP; 9 cuts within -21..+22 ms; safe zones pass.
