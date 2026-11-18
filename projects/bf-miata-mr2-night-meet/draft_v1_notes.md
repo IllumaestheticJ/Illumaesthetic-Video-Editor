@@ -105,3 +105,11 @@ no new export yet (waiting on the length decision).
 - Diffuser and TC wings are NOT on the BF sheet: labels show the regular store price ("COMPLETE THE KIT", $750 / $1,100),
   no discount. They are not on the 20 % card.
 - Fonts per knowledge/fonts.md (Unbounded stand-in for Akira). Length now 50.7 s.
+
+## v1.7: Akira (owner licence confirmed 2026-11-18)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v1.7.mp4` (50.7 s, -14.0 LUFS, TP -1.8 dBFS). Composite-only change from v1.6.
+- AkiraExpanded-SuperBold.otf (Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya, SHA-256 checked, gitignored, never committed) now
+  sets headlines, offers, prices and part names. Unbounded 400 beside the logo, 500 for small text.
+- Akira is ASCII-only: "TC WING - SWAN MOUNT" and "MR2 SPYDER + NC MIATA" replace the middle-dot versions; every Akira
+  string checked against the font cmap (no missing glyphs). Akira is wider: long lines auto-shrink to the safe band (post.py fit()).
+- Safe-zone sheet looked at: all text and the logo clear of red and amber.

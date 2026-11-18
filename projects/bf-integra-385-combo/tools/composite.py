@@ -26,7 +26,7 @@ F_MONO = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Bold.ttf'
 F_MONO_R = '/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf'
 # v0.9 fonts (owner rule knowledge/fonts.md): Akira for headlines/offers/prices - file not supplied yet, so Unbounded 700
 # stands in (800-900 not in the repo); Unbounded (companion) for labels, tables and everything next to the Epsilon+ logo.
-F_AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-800.ttf'   # AKIRA STAND-IN (800 per parent; 700 in v0.9) - swap for Akira Expanded when the owner uploads it
+F_AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf'   # Akira Expanded Super Bold (Epsilon+ licence; gitignored, Drive 1nrF80enolDd9HAu5807kv5XIx0cUSDya)
 F_UB3 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-300.ttf'; F_UB4 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-400.ttf'; F_UB5 = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-500.ttf'
 
 
@@ -112,7 +112,7 @@ P_LOAD, P_REVEAL = 27, 71
 def price_card(img, fr, x0=250, y0=915, w=580):
     h = 515
     panel = Image.new('RGBA', (w, h), (0, 0, 0, 0)); pd = ImageDraw.Draw(panel)
-    pd.rounded_rectangle((0, 0, w - 1, h - 1), 18, fill=(14, 15, 17, 230), outline=(232, 236, 242, 70), width=2)
+    pd.rounded_rectangle((0, 0, w - 1, h - 1), 18, fill=(14, 15, 17, 250), outline=(232, 236, 242, 70), width=2)
     pd.text((28, 24), 'INTEGRA DE4 / DE5', font=font(F_UB4, 21), fill=(170, 176, 186, 255))
     pd.line((28, 72, w - 28, 72), fill=(232, 236, 242, 60), width=2)
     fm = font(F_UB5, 26)
@@ -159,7 +159,7 @@ def overlay(shot, fr):
     if shot == 1:
         u = ease((fr - 4) / 10)
         if u > 0:
-            ft = font(F_AK, 90)
+            ft = font(F_AK, 80)
             tracked(d, (W / 2, 330 + 30 * (1 - u)), 'EPSILON+  BLACK FRIDAY', font(F_UB5, 26), (1, 222, 226, int(255 * u)), track=8, anchor_center=True)
             for i, line in enumerate(('WHAT $385', 'GETS YOU')):
                 tracked(d, (W / 2, 390 + i * 135 + 30 * (1 - u)), line, ft, (232, 236, 242, int(255 * u)), track=6, anchor_center=True)

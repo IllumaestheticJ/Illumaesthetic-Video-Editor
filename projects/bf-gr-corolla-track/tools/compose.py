@@ -8,21 +8,22 @@ v0.2 (user): game-GLB studio shots instead of scan, V2 parts highlighted + label
 import argparse, json, os, subprocess, math
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
-ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.6.mp4')
-ap.add_argument('--tag', default='v0.6'); args = ap.parse_args()
-M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v06'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
+ap = argparse.ArgumentParser(); ap.add_argument('--out', default='/home/user/media/work/out/bf-gr-corolla-track_v0.8.mp4')
+ap.add_argument('--tag', default='v0.8'); args = ap.parse_args()
+M = '/home/user/media/bf-gr-corolla-track'; R = f'{M}/renders_v08'; RC = R; FR = f'{M}/frames_{args.tag}'; os.makedirs(FR, exist_ok=True)
 W, H, FPS = 1080, 1920, 30
 kicks = json.load(open(f'{M}/music/kicks.json'))
-CUTK = [4, 6, 10, 12, 14, 22, 28, 36, 42, 44]   # v0.6 (user: slow readers): cards 8 kicks, side 6, canards 6
+CUTK = [6, 10, 12, 14, 24, 30, 40, 46, 48]   # v0.8: one continuous opening (no cut at kick 4), cards 10 kicks
 cuts = [round(kicks[k] * FPS) for k in CUTK]
-END = round(kicks[50] * FPS) + 30          # logo holds 6 kicks (to kick 50), then a 1 s fade
-ORDER = ['s1_hook', 's2_push', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
+END = round(kicks[54] * FPS) + 30          # logo holds 6 kicks (to kick 54), then a 1 s fade
+ORDER = ['s12_open', 's3_hl', 's4_lip', 's5_liphl', 's6_cardv2', 's7_side', 's8_cardv1', 's9_canards', 's10_pass', 'logo']
 starts = [0] + cuts; ends = cuts + [END]
 FONT = '/usr/share/fonts/opentype/inter/'
-# owner font rule (knowledge/fonts.md): Akira for headlines/offers - not supplied yet, so Unbounded 800-900 stands in;
+# owner font rule (knowledge/fonts.md): Akira Expanded Super Bold for headlines/offers (ASCII only - no arrows);
 # Unbounded 500 for part labels, 300-400 for the URL next to the logo
 UB = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/unbounded/Unbounded-'
-f_bf = ImageFont.truetype(UB + '800.ttf', 40)
+AK = '/home/user/Illumaesthetic-Video-Editor/assets/fonts/akira/AkiraExpanded-SuperBold.otf'   # owner licence (2026-11-18), gitignored
+f_bf = ImageFont.truetype(AK, 38)
 f_big = ImageFont.truetype(FONT + 'InterDisplay-Black.otf', 58) if os.path.exists(FONT + 'InterDisplay-Black.otf') else ImageFont.truetype(FONT + 'Inter-Black.otf', 58)
 f_mid = ImageFont.truetype(FONT + 'InterDisplay-Bold.otf', 50)
 f_url = ImageFont.truetype(UB + '300.ttf', 40)
@@ -50,47 +51,63 @@ def text_c(d, y, s, font, alpha, tracking=0, cx=CX):
 
 
 RED = (226, 38, 43)
-f_ver = ImageFont.truetype(UB + '900.ttf', 200)
-f_kit = ImageFont.truetype(UB + '900.ttf', 72)
-f_pct = ImageFont.truetype(UB + '900.ttf', 128)
-f_upto = ImageFont.truetype(UB + '800.ttf', 52)
+f_ver = ImageFont.truetype(AK, 190)
+f_kit = ImageFont.truetype(AK, 58)
+f_pct = ImageFont.truetype(AK, 122)
+f_upto = ImageFont.truetype(AK, 44)
+
+
+# v0.8 (user: "why is V2 crossed out and V1? shouldn't you cross out the retail price?"): the kit name stays clean;
+# each part's RETAIL price (sheet "Current Price") is slashed in red and the BF price (sheet "BF 2026 Price") follows.
+PRICES = {  # projects/_blackfriday/bf_liquidation_pricing.csv (owner: use the sheet)
+    's6_cardv2': [('LIP', '$285', '$199.50'), ('SKIRTS', '$400', '$280'), ('SPATS', '$175', '$122.50')],
+    's8_cardv1': [('LIP', '$215', '$129'), ('CARBON LIP', '$600', '$330'), ('SKIRTS', '$275', '$165'), ('SPATS', '$125', '$75')],
+}
+f_row = ImageFont.truetype(UB + '500.ttf', 32)
+f_old = ImageFont.truetype(UB + '400.ttf', 36)
+f_new = ImageFont.truetype(AK, 42)
+f_pct2 = ImageFont.truetype(AK, 96)
 
 
 def card_overlay(img, shot, i, n):
-    """v0.5 (user): 'V2' / 'V1' big -> a red slash strikes through it -> the percent off punches in bigger.
-    Band between the lip (top) and the skirt (bottom) of the line-up plate; all inside x 48-920, y 285-1440."""
+    """Phase A (over the dark car): BLACK FRIDAY + 'V2 KIT' / 'V1 KIT' big.  Phase B (after the lift): the offer
+    ('30% OFF' / 'UP TO 45% OFF') and one row per part: name, retail price slashed in red, BF price.
+    Everything inside x 48-920, y 285-1440 (safe zones), between the lip (top) and the skirts (bottom)."""
     ov = Image.new('RGBA', img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
     out = 1 - ease((i - (n - 5)) / 4)
-    ver, word = ('V2', 'KIT') if shot == 's6_cardv2' else ('V1', '')
-    pct, pre = ('30% OFF', '') if shot == 's6_cardv2' else ('45% OFF', 'UP TO')
+    v2 = shot == 's6_cardv2'
     text_c(d, 330, 'BLACK FRIDAY', f_bf, round(255 * ease(i / 5) * out), tracking=6, cx=484)
-    F0, F1 = round(0.28 * n), round(0.52 * n)   # lift window, same as shot.py card_lineup
-    # 1) version, big, over the car (top band); slashed; gone as the parts lift
+    F0, F1 = round(0.24 * n), round(0.42 * n)   # lift window, same as shot.py card_lineup
     a_v = ease(i / 4) * (1 - ease((i - (F0 - 2)) / 5))
     if a_v > 0:
-        wv = d.textlength(ver, font=f_ver); wk = d.textlength(word, font=f_kit) if word else 0; gap = 24 if word else 0
+        ver = 'V2' if v2 else 'V1'
+        wv = d.textlength(ver, font=f_ver); wk = d.textlength('KIT', font=f_kit); gap = 24
         x0 = 484 - (wv + gap + wk) / 2; y0 = 385
         d.text((x0, y0), ver, font=f_ver, fill=TXT + (round(255 * a_v),))
-        if word:
-            d.text((x0 + wv + gap, y0 + 128), word, font=f_kit, fill=TXT + (round(255 * a_v),))
-        # 2) the slash: a thick red bar drawn lower-left -> upper-right across the version (frames 9-15)
-        k = ease((i - 10) / 6)
-        if k > 0:
-            xa, ya, xb, yb = x0 - 30, y0 + 225, x0 + wv + gap + wk + 30, y0 + 40
-            xe, ye = xa + (xb - xa) * k, ya + (yb - ya) * k
-            d.line((xa, ya, xe, ye), fill=RED + (round(255 * min(1, a_v * 1.4)),), width=26)
-    # 3) percent off punches in (scale 1.35 -> 1.0) from frame 20
-    a_p = ease((i - (F1 - 3)) / 4) * out
+        d.text((x0 + wv + gap, y0 + 112), 'KIT', font=f_kit, fill=TXT + (round(255 * a_v),))
+    t0 = F1 - 4
+    a_p = ease((i - t0) / 4) * out
     if a_p > 0:
-        sc_ = 1.0 + 0.08 * (1 - ease((i - (F1 - 3)) / 5))   # small punch so the word never leaves the safe zone
-        lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); dl = ImageDraw.Draw(lay)
-        if pre:
-            text_c(dl, 700, pre, f_upto, round(255 * a_p), cx=484)
-        text_c(dl, 770 if pre else 745, pct, f_pct, round(255 * a_p), cx=484)
-        if sc_ > 1.001:
-            cx_, cy_ = 484, 860; big = lay.resize((round(W * sc_), round(H * sc_)), Image.LANCZOS)
-            lay = Image.new('RGBA', img.size, (0, 0, 0, 0)); lay.alpha_composite(big, (round(cx_ - cx_ * sc_), round(cy_ - cy_ * sc_)))
-        ov.alpha_composite(lay)
+        if v2:
+            text_c(d, 690, '30% OFF', f_pct2, round(255 * a_p), cx=484); y_rows = 818
+        else:
+            text_c(d, 662, 'UP TO', f_upto, round(255 * a_p), cx=484)
+            text_c(d, 704, '45% OFF', f_pct2, round(255 * a_p), cx=484); y_rows = 816
+        for r, (name, old, new) in enumerate(PRICES[shot]):
+            tr = t0 + 6 + 7 * r                       # rows stagger in
+            a_r = ease((i - tr) / 4) * out
+            if a_r <= 0:
+                continue
+            y = y_rows + 50 * r
+            d.text((112, y + 6), name, font=f_row, fill=TXT + (round(215 * a_r),))
+            d.text((440, y + 3), old, font=f_old, fill=(170, 174, 182, round(255 * a_r)))
+            k = ease((i - (tr + 4)) / 5)              # red strike across the retail price
+            if k > 0:
+                wo = d.textlength(old, font=f_old)
+                d.line((432, y + 26, 432 + (wo + 16) * k, y + 26), fill=RED + (round(255 * a_r),), width=7)
+            a_n = ease((i - (tr + 8)) / 4) * out      # BF price after the strike
+            if a_n > 0:
+                d.text((618, y), new, font=f_new, fill=TXT + (round(255 * a_n),))
     img.alpha_composite(ov)
 
 
