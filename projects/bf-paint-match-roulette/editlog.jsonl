@@ -20,3 +20,4 @@
 {"ts": "2026-11-18T00:32:17Z", "decision": "v0.9: turntable moved to frame centre (y~960), info rows tightened below it", "why": "owner asked to centre the car on screen; rows had to compress to stay inside the 285-1440 safe box"}
 {"ts": "2026-11-18T00:49:43Z", "decision": "v0.9 re-render: fixed unscaled turntable paste; removed Tiger Eye Pearl from DE4 widebody", "why": "owner: car off to the left; DE4 was never sold in Tiger Eye (Type S only)"}
 {"ts": "2026-11-18T02:16:47Z", "decision": "v0.9: cars moved ~44 px up (CAR_Y 585)", "why": "owner asked for the cars slightly higher; sits balanced between logo and info rows"}
+{"ts": "2026-11-18T02:29:30Z", "decision": "v0.9: Akira Expanded replaces the Unbounded stand-in on prices, BUY, LINEUP and offer pills", "why": "owner holds a commercial licence and uploaded the file; fonts.md says Akira for headlines/offers/prices, Unbounded for small labels and logo-adjacent text"}

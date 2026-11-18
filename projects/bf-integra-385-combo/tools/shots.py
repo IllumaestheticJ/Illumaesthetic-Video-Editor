@@ -51,14 +51,45 @@ M_WHITE = mat('platinum_white', (0.80, 0.80, 0.78), rough=0.25, coat=1.0)
 M_SILVER = mat('scan_silver', (0.62, 0.63, 0.65), metal=0.85, rough=0.38)
 M_SILVER_PART = mat('scan_silver_part', (0.42, 0.43, 0.45), metal=0.85, rough=0.30)
 M_BOX = mat('box_charcoal', (0.018, 0.018, 0.02), rough=0.8)
-M_BOXIN = mat('box_inner', (0.09, 0.09, 0.095), rough=0.9)
 M_CYAN = mat('scan_cyan', (0.0, 0.73, 0.76), emit=(0.0, 0.73, 0.76), estr=25.0)
 # v0.3 (user: "add color to the box and the beginning") - Epsilon+ site palette
 EPS_VIOLET = (0.107, 0.100, 0.807)   # #5C59E8 in linear
 EPS_CYAN = (0.0, 0.73, 0.76)         # #01dee2
 EPS_PINK = (0.807, 0.100, 0.304)     # #E85995
-M_BOXV = mat('box_violet', (0.040, 0.036, 0.36), rough=0.62)
-M_BAND = mat('box_band', EPS_CYAN, rough=0.4, emit=EPS_CYAN, estr=0.6)
+# v1.0 (user: "the colors in the beginning are super unnatural - make it the color of an actual cardboard box"):
+# kraft corrugated cardboard with fibre noise, clear tan packing tape, neutral studio backdrop and white rims
+def kraft(name, base, dark):
+    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    nz = nt.nodes.new('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 140.0; nz.inputs['Detail'].default_value = 8.0
+    nz2 = nt.nodes.new('ShaderNodeTexNoise'); nz2.inputs['Scale'].default_value = 9.0; nz2.inputs['Detail'].default_value = 3.0
+    mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'FLOAT'; mx.inputs['Factor'].default_value = 0.5
+    nt.links.new(nz.outputs['Fac'], mx.inputs['A']); nt.links.new(nz2.outputs['Fac'], mx.inputs['B'])
+    cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].color = (*dark, 1); cr.color_ramp.elements[1].color = (*base, 1)
+    cr.color_ramp.elements[0].position = 0.3; cr.color_ramp.elements[1].position = 0.75
+    nt.links.new(mx.outputs['Result'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], b.inputs['Base Color'])
+    bm = nt.nodes.new('ShaderNodeBump'); bm.inputs['Strength'].default_value = 0.08; nt.links.new(nz.outputs['Fac'], bm.inputs['Height'])
+    nt.links.new(bm.outputs['Normal'], b.inputs['Normal'])
+    b.inputs['Roughness'].default_value = 0.88; b.inputs['Specular IOR Level'].default_value = 0.25
+    return m
+M_BOXV = kraft('box_kraft', (0.42, 0.24, 0.105), (0.30, 0.165, 0.07))
+M_BOXIN = kraft('box_inner_kraft', (0.30, 0.17, 0.075), (0.20, 0.11, 0.05))
+LOGO = '/home/user/media/bf-integra-385-combo/logo/Epsilon+ Logo.png'
+
+
+def logo_decal(name, loc, rot, width):
+    """Epsilon+ wordmark printed on the kraft in dark ink (the PNG's alpha is the ink mask)"""
+    img = bpy.data.images.load(LOGO, check_existing=True); asp = img.size[1] / img.size[0]
+    bpy.ops.mesh.primitive_plane_add(size=1, location=loc, rotation=rot)
+    o = bpy.context.object; o.name = name; o.scale = (width, width * asp, 1)
+    m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; b = nt.nodes['Principled BSDF']
+    tx = nt.nodes.new('ShaderNodeTexImage'); tx.image = img; tx.extension = 'CLIP'
+    b.inputs['Base Color'].default_value = (0.012, 0.010, 0.009, 1); b.inputs['Roughness'].default_value = 1.0
+    b.inputs['Specular IOR Level'].default_value = 0.0; b.inputs['Coat Weight'].default_value = 0.0
+    nt.links.new(tx.outputs['Alpha'], b.inputs['Alpha'])
+    m.blend_method = 'HASHED' if hasattr(m, 'blend_method') else None
+    o.data.materials.append(m)
+    return o
+M_BAND = mat('box_tape', (0.48, 0.33, 0.17), rough=0.22, coat=0.6)  # clear packing tape over kraft
 
 
 def area(name, loc, target, size, energy, color=(1, 1, 1)):
@@ -132,14 +163,12 @@ def build_stage():
     slab('box_l', (t, bd, bh), (-bw / 2, 0, bh / 2), M_BOXV)
     slab('box_r', (t, bd, bh), (bw / 2, 0, bh / 2), M_BOXV)
     slab('box_inner', (bw - 0.03, bd - 0.03, 0.004), (0, 0, t + 0.003), M_BOXIN)
-    # cyan band around the box (brand colour, no logos or labels)
-    slab('band_f', (bw + 0.006, 0.004, 0.05), (0, -bd / 2 - 0.006, bh * 0.45), M_BAND)
-    slab('band_b', (bw + 0.006, 0.004, 0.05), (0, bd / 2 + 0.006, bh * 0.45), M_BAND)
-    slab('band_l', (0.004, bd + 0.006, 0.05), (-bw / 2 - 0.006, 0, bh * 0.45), M_BAND)
-    slab('band_r', (0.004, bd + 0.006, 0.05), (bw / 2 + 0.006, 0, bh * 0.45), M_BAND)
+    logo_decal('logo_front', (0, -bd / 2 - t / 2 - 0.002, bh * 0.50), (math.radians(90), 0, 0), 1.15)
     lid = slab('lid', (bw + 0.02, bd + 0.02, t), (0, 0, bh + t / 2), M_BOXV)
-    lband = slab('lid_band', (0.06, bd + 0.03, t + 0.004), (0, 0, bh + t / 2), M_BAND)
-    lband.parent = lid; lband.matrix_parent_inverse = lid.matrix_world.inverted() @ Matrix.Identity(4) if False else Matrix.Translation(lid.location).inverted()
+    lband = slab('lid_tape', (bw + 0.03, 0.075, t + 0.003), (0, 0, bh + t / 2), M_BAND)
+    lband.parent = lid; lband.matrix_parent_inverse = Matrix.Translation(lid.location).inverted()
+    llogo = logo_decal('logo_lid', (0, -0.20, bh + t + 0.0025), (0, 0, 0), 0.95)
+    llogo.parent = lid; llogo.matrix_parent_inverse = Matrix.Translation(lid.location).inverted()
     # violet glow backdrop far behind the stage (radial gradient -> black)
     bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 6.0, 1.2), rotation=(math.radians(90), 0, 0))
     bd_ = bpy.context.object; bd_.scale = (40, 40, 1)
@@ -149,7 +178,7 @@ def build_stage():
     tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping'); gr = nt.nodes.new('ShaderNodeTexGradient')
     gr.gradient_type = 'SPHERICAL'; cr = nt.nodes.new('ShaderNodeValToRGB')
     mp.inputs['Scale'].default_value = (6.5, 7.5, 1.0); mp.inputs['Location'].default_value = (0, 0.25, 0)
-    cr.color_ramp.elements[0].color = (0, 0, 0, 1); cr.color_ramp.elements[1].color = (*EPS_VIOLET, 1)
+    cr.color_ramp.elements[0].color = (0, 0, 0, 1); cr.color_ramp.elements[1].color = (0.060, 0.055, 0.050, 1)  # neutral warm grey studio glow
     cr.color_ramp.elements[1].position = 0.9; cr.color_ramp.interpolation = 'EASE'
     nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], gr.inputs['Vector'])
     nt.links.new(gr.outputs['Fac'], cr.inputs['Fac']); nt.links.new(cr.outputs['Color'], em.inputs['Color'])
@@ -157,11 +186,11 @@ def build_stage():
     bd_.data.materials.append(mb); bd_.visible_shadow = False
     flaps = lid
     # lights: soft top key + two rims + low fill
-    area('key', (0.5, -1.5, 4.0), (0, 0, 0.6), 3.0, 110)
+    area('key', (0.5, -1.5, 4.0), (0, 0, 0.6), 3.0, 160, (1.0, 0.96, 0.9))
     sky = area('sky', (0, 2.8, 4.2), (0, 0, 1.0), 6.0, 260); sky.data.shape = 'RECTANGLE'; sky.data.size_y = 0.35
     sky2 = area('sky2', (0, 1.2, 4.6), (0, 0, 1.0), 6.0, 160); sky2.data.shape = 'RECTANGLE'; sky2.data.size_y = 0.2
-    area('rimL', (-3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 650, EPS_CYAN)
-    area('rimR', (3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 650, EPS_PINK)
+    area('rimL', (-3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 600, (1.0, 0.97, 0.92))
+    area('rimR', (3.0, 2.5, 2.2), (0, 0, 0.8), 1.5, 600, (0.92, 0.95, 1.0))
     area('fill', (0, -4.0, 0.6), (0, 0, 0.6), 4.0, 40)
     return wing, lip, flaps
 
@@ -169,7 +198,9 @@ def build_stage():
 def flap_anim(lid, f0, f1, open_at_start=False):
     lid.rotation_mode = 'XYZ'
     if open_at_start:
-        lid.hide_render = True; return
+        lid.hide_render = True
+        for ch in lid.children: ch.hide_render = True  # tape + printed logo go with the lid
+        return
     key(lid, f0)
     lid.location = lid.location + Vector((0.15, 0.6, 2.6)); lid.rotation_euler = (math.radians(-35), math.radians(10), 0)
     key(lid, f1)
