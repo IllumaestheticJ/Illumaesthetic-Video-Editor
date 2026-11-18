@@ -82,3 +82,16 @@ v0 is a quick, preview-quality first draft. The owner asked "have all the agents
 - Hero parts fall at a constant speed along the same straight lines (no gravity ramp): 10 m/s, or the v_min that keeps the last pre-landing frame clear of the body (front lip 16.5, rear lip 18.8 m/s). Frame before impact vs contact zone: lip 0.55/0.50, skirts 0.36/0.30, rear lip 0.63/0.54, wing 0.33/0.06 m. The rain already fell at constant screen speed. Re-rendered take frames 12-157 only (both layers).
 - Headlines in **Akira Expanded Super Bold** (owner licence; file gitignored): BLACK FRIDAY 804, 30% OFF 847, THE FULL KIT 750 px wide (limit 872). All glyphs present.
 - Checks: sync -17..+12 ms on decoded audio; -14.0 LUFS, peak -3.0 dBFS; safezone text boxes OK; edge test 8 frames (hero parts entering through top corners only, was 11).
+
+### Lookbook fitment check (BF6 lesson, 2026-11-18)
+Point-to-surface distance from each shown lookbook part to body/trim/underbody (Blender BVH), plus seam close-ups (workbench, part in red):
+| GLB | part | min | closest 10 % within |
+|---|---|---|---|
+| FE v9 | front lip | 0.0 | 2.2 mm |
+| FE v9 | side skirts | 0.0 | 1.4 mm |
+| FE v9 | rear lip | 0.0 | 2.4 mm |
+| FE v9 | wing (duckbill) | 0.0 | 3.7 mm |
+| FL v8 | front lip | 0.0 | 2.2 mm |
+| FL v8 | side skirts | 0.0 | 1.4 mm |
+| FL v8 | sport wing | 1.0 | 4.1 mm |
+All within the ~5 mm rule; close-ups show no floating gap or poke-through. No re-seat or re-render needed.
