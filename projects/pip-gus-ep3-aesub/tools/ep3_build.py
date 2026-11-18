@@ -102,7 +102,7 @@ def real():
     lst = BUILD / "scan_list.txt"
     lst.write_text("".join(f"file '{q}'\nduration {1 / 15:.6f}\n" for q in pngs))
     run(["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-vf",
-         f"fps=15,minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:vsbmc=1,scale={W}:{H},setsar=1", "-frames:v", SCAN_N, "-an",
+         f"fps=15,minterpolate=fps={FPS}:mi_mode=mci:mc_mode=aobmc:vsbmc=1,tpad=stop_mode=clone:stop=8,scale={W}:{H},setsar=1", "-frames:v", SCAN_N, "-an",
          "-c:v", "libx264", "-crf", "12", "-preset", "medium", "-pix_fmt", "yuv420p", p])
     assert nframes(p) == SCAN_N, nframes(p)
     parts.append(p)
