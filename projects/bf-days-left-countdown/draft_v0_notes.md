@@ -195,3 +195,4 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - **End card:** 12.6-15.2 s. The full reel is 15.2 s, -14.0 LUFS with a -2.7 dBFS peak.
 - **Checks:** the safezone sheet is clean. All text sits inside the box; only the cars and the fallen skirts touch the rails.
 - **Output:** `/home/user/media/work/out/bf-days-left-countdown_v1.0_drive.mp4`. The drift version is rendering.
+- **Drift version:** `/home/user/media/work/out/bf-days-left-countdown_v1.0_drift.mp4`. The car slides down the lane tail-out with a flick over the text; soft tyre smoke clears within about 1 s; the Corolla drops its skirts mid-slide. -14.0 LUFS, the safezone sheet is clean. The background job hit its 2 h limit, so the last shot resumed from f116 (frames already on disk are skipped).
