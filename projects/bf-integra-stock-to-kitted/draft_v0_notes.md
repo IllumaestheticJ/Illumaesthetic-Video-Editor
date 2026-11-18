@@ -1,4 +1,13 @@
-# bf-integra-stock-to-kitted: draft v0 - v0.9 notes
+# bf-integra-stock-to-kitted: draft v0 - v0.10 notes
+
+**v0.10 (2026-11-18, owner via parent: Akira is licensed, so swap it in):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.10.mp4`.
+- **Font file:** `assets/fonts/akira/AkiraExpanded-SuperBold.otf`, from Drive `1nrF80enolDd9HAu5807kv5XIx0cUSDya`, SHA-256 5b152fce... checked. The folder is gitignored and the font is never committed.
+- **Where Akira is used:** the BF wall rows, "FULL KIT" and "30%+ OFF". Labels stay Unbounded 500, and the URL beside the logo stays Unbounded 400.
+- **Glyphs:** every on-screen string was checked for missing glyphs and none are missing. Akira's "%" draws its lower counter as a small "o", which is the typeface's design.
+- **Fitting Akira's width:**
+  - The wall rows shrank from 210 px to 150 px so "BLACK FRIDAY" reads in full.
+  - The offer text is fitted to 660 px. The card text now measures x 170-911 / y 318-699, inside the safe zone.
+- **Renders:** no Blender re-render was needed, because all text is composited in post.
 
 **v0.9 (2026-11-17):** output `/home/user/media/work/out/bf-integra-stock-to-kitted_v0.9.mp4`.
 - **Subtler highlight.** User: "the blur and highlight is too much, should be more subtle".
