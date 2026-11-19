@@ -20,3 +20,26 @@ Known weak spots for v2 (from my own frame review):
 - E7: Gus's back hides the empty plate until he steps away at the end of the shot.
 - E9: Pip and her sketch sit at the left edge of frame.
 - E3: the scan lands half out of frame on the left.
+
+# v2 (2026-11-19)
+Output: `/home/user/media/pip-gus-ep4-print-the-scan/out/pip_gus_ep4_v2.mp4`, 1309 frames (43.63 s), -14.0 LUFS / -2.0 dBTP.
+QA: text over real footage 0.0; caption pixels over the phone screen 0.
+
+Owner v1 notes applied: Gus explains on a phone showing the real GT350 Blender scenes (E4, E8-E12); "remake the original" is
+now curves traced over the scanned bumper, then the surface growing over them; scan (faceted) vs surface (smooth + clean
+curves) wipe; recap on half-beats from crash to the real finished bumper. Own fixes: E3 wider, E7 from the right.
+
+| # | Criterion | Score | Notes |
+|---|---|---|---|
+| 1 | Hook | 4 | unchanged |
+| 2 | Beat sync | 4 | recap cuts every 9 or 18 frames from the hand-off; lift on the hand-off |
+| 3 | 1:1 match | n/a | no real-to-scan match cut in v2 (recap montage of hard cuts) |
+| 4 | Scan quality | 4 | owner's Blender look; real scan triangles shown |
+| 5 | Story | 4 | retracing is now shown, not implied |
+| 6 | Grade | 3 | photos upscaled from 1440x1080 |
+| 7 | Text | 5 | captions sit under the phone, over the hats; none over the screen |
+| 8 | Ending | 4 | finished bumper photos, then the plain logo with Pip's question |
+| 9 | Technical | 5 | |
+
+Weak spots: the GT350 sits small inside the phone screen (dark margin above and below); the triangle close-up is subtle at
+phone size; the recap's 9-frame shots are quick to read; Gus's mitten doesn't visibly grip the phone.

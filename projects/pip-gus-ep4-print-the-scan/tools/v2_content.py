@@ -140,7 +140,7 @@ for ax, val in [("x", k * 0.11) for k in range(-8, 9)] + [("z", z) for z in (0.2
     ob.select_set(True)
     bpy.ops.object.convert(target="CURVE")
     ob = bpy.context.view_layer.objects.active
-    ob.data.bevel_depth, ob.data.bevel_resolution = 0.0035, 2
+    ob.data.bevel_depth, ob.data.bevel_resolution = 0.007, 2   # thick enough to read on the phone screen
     try:
         ob.data.bevel_factor_mapping_end = "SPLINE"
     except Exception:

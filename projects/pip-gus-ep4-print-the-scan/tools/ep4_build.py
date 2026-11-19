@@ -265,7 +265,7 @@ def picture(gmov):
     shot_of = {fr: s for s, f0, f1 in SHOTS for fr in range(f0, f1)}
     qa = dict(text_over_footage_alpha_max=0.0, text_over_phone_screen_px=0)
     for fr in range(END):
-        foot = False
+        foot, scr = False, None
         if fr < CART_END:
             p = fr_dir / shot_of[fr] / f"{fr:04d}.png"
             im = cv2.imread(str(p), cv2.IMREAD_COLOR)
