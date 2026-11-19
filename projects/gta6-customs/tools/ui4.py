@@ -139,7 +139,18 @@ def build(frameA, frameB):
         return {"img": img, "view": view, "overlay": block_overlay(name, done)}
     fbase, dbase = frameB(14700), frameB(15740)
     st["f1"] = own_cam(fbase, "Front Lip", False, "F", 83, 144); st["f2"] = own_cam(fbase, "Front Lip", True, "F", 83, 144)
-    st["d1"] = own_cam(dbase, "Side Skirts", False, "D", 83, 144); st["d2"] = own_cam(dbase, "Side Skirts", True, "D", 83, 144)
+    # Side Skirts (v8; user: "point the camera down lower, the skirts don't fit in the frame"): on the second capture's low
+    # front-quarter screen (its "Wheel Kits" camera), re-lettered like the other part screens
+    def skirts(done):
+        img = frameB(2100).copy()
+        retitle(img, box(30, 30, 186, 62), "BODYWORK", OSW, None, OSW_SQ * 0.9, thr=14)
+        hx0, hy0, hx1, hy1 = box(815, 1008, 1105, 1052)                       # "Respray the Ganado" hint
+        m = np.zeros(img.shape[:2], np.uint8); m[hy0:hy1, hx0:hx1] = 255; img[:] = cv2.inpaint(img, m, 6, cv2.INPAINT_TELEA)
+        d = part(img, "Side Skirts", 0, done, "D")
+        d["overlay"] = block_overlay("Side Skirts", done)     # the front wheel stands where the block is: block goes on top
+        d["overlay"][:, 570:, 3] = 0                          # nothing of the layer beyond the lettering (floor specks came with it)
+        return d
+    st["d1"] = skirts(False); st["d2"] = skirts(True)
     cash -= p["Front Lip"] + p["Side Skirts"]
     st["e1"] = part(eb, "Rear Lip", cash, False, "E"); cash -= p["Rear Lip"]; st["e2"] = part(eb, "Rear Lip", cash, True, "E")
     ab = frameA(900)
@@ -192,7 +203,7 @@ if __name__ == "__main__":
     def fb(f): cb.set(1, f); return cb.read()[1]
     st = build(fa, fb); (W / "ui4").mkdir(exist_ok=True)
     tiles = []
-    for k in ("m0", "f1", "d2", "e2", "a2", "w2"):
+    for k in ("m0", "f1", "d1", "d2", "a2", "w2"):
         im = st[k]["img"].copy()
         if st[k].get("overlay") is not None:
             o = st[k]["overlay"]; a = o[..., 3:] / 255; im = (im * (1 - a) + o[..., :3] * a).astype(np.uint8)

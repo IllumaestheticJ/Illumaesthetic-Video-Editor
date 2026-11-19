@@ -111,3 +111,14 @@ User: "Remove the 'epsilon' from the primary menu - so it just says 'front lip' 
 Output: `/home/user/media/work/out/gta6-customs_v7.mp4`, 25.6 s. List rows renamed; nothing else changed.
 First splice dropped the 8 whip frames after the list (partial render stopped at the whip); caught by the frame count
 (685 instead of 693) and a look at frame 42, redone before sending.
+
+## v8 (2026-11-19) - after the user's review of v7
+User: "Are you able to point the camera down lower for the side skirt shot? The skirts don't fit in the frame"
+
+Output: `/home/user/media/work/out/gta6-customs_v8.mp4`, 25.6 s.
+- Side-skirt shot re-sited (see edit log): whole skirt in frame, before/after reads. Only frames 114-197 and 439-530 were
+  re-rendered (START/END in compose4.py) and spliced in; alignment checked against v7 at ten frames.
+- Fixed on the way: price block hidden behind the front wheel (now a layer on top), wallet box visible during whips
+  (figure only now), streaky fill right of the tail in both low views (doorway mirrored in instead).
+- Weak: the patch behind the tail is mirrored trees/grass, plausible but invented; the skirt and suspension shots share
+  an angle; the wallet icon is missing for the 8 frames of each whip.

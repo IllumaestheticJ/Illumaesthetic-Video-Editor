@@ -368,3 +368,9 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   hundred points. Do not substitute a studio orbit on black (user: "I wanted the environment"); tell the user it is
   not possible cleanly and offer a walk-round on the game's own cameras instead. Test command: frames at 2 fps, one per
   held view, UI masked, `pycolmap` exhaustive matching, per-image SIMPLE_PINHOLE.
+- **Framing a part (GTA 6 v8; user: "the skirts don't fit in the frame").** Choose each part's camera by what shows the
+  part, then check coverage: project the part's bounding-box corners into candidate cameras and require them inside the
+  frame and clear of the menu blocks; rank by the part's length on screen and by uncovered game-car area. A pure tilt or
+  pan of an existing shot is a homography of its plate, but more than a few degrees exposes frame that has to be
+  invented. Re-render only the changed section (`START`/`END`/`OUTNAME` in compose4.py) and splice; check the frame
+  count and a few frames against the previous composite.

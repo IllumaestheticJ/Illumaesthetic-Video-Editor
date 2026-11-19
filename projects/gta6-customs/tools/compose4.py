@@ -43,13 +43,13 @@ POLY = {
               (600, 480), (350, 370), (180, 370)]),
 }
 R = ui3.R
-PRE = {"F": [R(0, 0, 640, 130)], "D": [R(0, 0, 640, 130)], "M": [R(0, 150, 640, 760)], "A": [R(0, 0, 640, 130), R(0, 840, 640, 1066)], "E": [R(0, 0, 640, 130), R(0, 840, 640, 1066)],
+PRE = {"F": [R(0, 0, 640, 130)], "D": [R(0, 0, 640, 130), R(815, 1008, 1105, 1052)], "M": [R(0, 150, 640, 760)], "A": [R(0, 0, 640, 130), R(0, 840, 640, 1066)], "E": [R(0, 0, 640, 130), R(0, 840, 640, 1066)],
        "P": [R(0, 0, 640, 130), R(0, 790, 1080, 1066)], "S": [R(0, 0, 640, 130), R(0, 795, 470, 1066), R(815, 1008, 1105, 1052)],
        "W": [R(0, 0, 640, 130), R(0, 655, 760, 1066)], "X": []}        # W: the whole block (price, name, thumbnails) from the state
 PANEL, TAG, WALLET = R(1466, 553, 1894, 996), R(1466, 915, 1894, 998), R(1730, 20, 1905, 80)    # panel only: the strip above it is scene
-POST = {"F": [TAG, WALLET], "D": [TAG, WALLET], "M": [TAG, WALLET], "A": [PANEL, WALLET], "E": [PANEL, WALLET], "P": [PANEL, WALLET], "S": [PANEL, WALLET], "W": [TAG], "X": []}
+POST = {"F": [TAG, WALLET], "D": [PANEL, WALLET], "M": [TAG, WALLET], "A": [PANEL, WALLET], "E": [PANEL, WALLET], "P": [PANEL, WALLET], "S": [PANEL, WALLET], "W": [TAG], "X": []}
 # W: the wallet sits over the car's body there, so it is laid on as glyphs (anything in its box that is not the game car's yellow)
-TOAST = {"F": (2270, 1025), "D": (2270, 1025), "M": (2270, 1025), "W": (2270, 1025), "A": (2270, 535), "E": (2270, 535), "P": (2270, 535), "S": (2270, 535)}
+TOAST = {"F": (2270, 1025), "D": (2270, 535), "M": (2270, 1025), "W": (2270, 1025), "A": (2270, 535), "E": (2270, 535), "P": (2270, 535), "S": (2270, 535)}
 LINE = "Need anything else, or is that everything?"
 
 
@@ -98,7 +98,7 @@ def timeline():
     ev.append([g + 34, "select"]); whip("M_F")
     simple("front_lip", "B", pp(14706, 14748, 68), "F", "f1", "f2", "F_stock", "F_lip", 14); spend(P_["Front Lip"])
     ev.append([len(T) - 3, "back"]); whip("F_D")
-    simple("side_skirts", "B", pp(15752, 15810, 68), "D", "d1", "d2", "D_lip", "D_ls", 14); spend(P_["Side Skirts"])
+    simple("side_skirts", "B", pp(2072, 2150, 68), "D", "d1", "d2", "D_lip", "D_ls", 14); spend(P_["Side Skirts"])
     ev.append([len(T) - 3, "back"]); whip("D_E")
     # the capture's camera creeps in over this screen: only the half second around the frame the menu was built on is used
     simple("rear_lip", "B", pp(17946, 17976, 68), "E", "e1", "e2", "E_ls", "E_lsr", 14); spend(P_["Rear Lip"])
@@ -144,6 +144,7 @@ def main():
         ute[k] = cv2.dilate(a, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41))) > 0
     fb = np.zeros((H, Wd), bool); fb[int(655 * 1.6):int(890 * 1.6), 0:int(345 * 1.6)] = True     # front-bumper screen's own swatch block
     ute["F"] = ute["F"] | fb
+    ute["D"] = ute["S"]                               # v8: the side-skirt shot uses the low front-quarter screen's frames
     kit_extra = np.zeros((H, Wd), bool); kit_extra[int(H * 0.70):int(H * 0.84), int(Wd * 0.13):int(Wd * 0.40)] = True
     ute["P"] = ute["M"] | kit_extra; ute["X"] = ute["M"]
     xs = np.arange(Wd, dtype=np.float32) / (620 * S); t = np.clip(xs, 0, 1); grad_M = (0.35 + 0.65 * t * t * (3 - 2 * t))[None, :, None]
@@ -165,10 +166,11 @@ def main():
             p = fill_directional(p, left, (900, 5000))
         else:
             hole = ute[view] & ~covered
-            if view == "D":                           # side view: wall continued down with its own texture, floor from the floor
-                p = fill_wall_floor(ref, hole, ute[view], (616, 600))
-            elif view == "S":
-                p = fill_from_above(ref, hole, ute[view], sigma=11)
+            if view in ("D", "S"):                    # low front-quarter views: the game car's bed sticks out behind our tail,
+                # in front of the open door. Mirror the doorway in from the right and the floor up from below; never sample
+                # the stats panel. (Filling from above streaked the bunting down the frame; blurring it read as a smear.)
+                blockm = ute[view].copy(); blockm[int(H * 0.46):int(H * 0.93), int(Wd * 0.755):] = True
+                p = fill_nearest(ref, hole, [(33000, 500), (1280, 30000)], block=blockm)
             else:
                 p = fill_nearest(ref, hole, [(-30000, 1100), (33000, 900), (1280, 30000)], block=ute[view])
             if view == "W":                    # close-ups: what the game's car hid is far background, out of focus
@@ -245,7 +247,14 @@ def main():
     ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{Wd}x{H}", "-r", str(FPS), "-i", "-",
                            "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-g", "1", "-pix_fmt", "yuv420p", str(W / os.environ.get("OUTNAME", "shop4.mp4"))], stdin=subprocess.PIPE)
     prev = None; nxt_cache = {}
+    START, END = int(os.environ.get("START", 0)), int(os.environ.get("END", len(T)))     # partial render of frames START..END-1
     for n, e in enumerate(T):
+        if n < START - 1 or n >= END:
+            continue
+        if n == START - 1:                            # only needed as the frame a whip leaves from
+            if e["view"] != "whip":
+                prev = static(e); prev_cash = e["cash"]
+            continue
         if e["view"] == "whip":
             key, i = e["key"], e["i"]
             if key not in nxt_cache:
@@ -260,15 +269,19 @@ def main():
             out = over(out, hblur(whips[key][i], 61))
             if PRE[nview]:
                 hm = soft([r for r in PRE[nview] if r[2] < Wd * 0.5]); out = out * (1 - hm) + nxt * hm
-            for x0, y0, x1, y1 in POST[nview]:
+            for rect in POST[nview]:
+                if rect is WALLET:                    # a pasted wallet box shows against a blurred frame: figure only
+                    continue
+                x0, y0, x1, y1 = rect
                 out[y0:y1, x0:x1] = nxt[y0:y1, x0:x1]
+            u8 = np.clip(out, 0, 255).astype(np.uint8); ui3.wallet_text(u8, prev_cash); out = u8.astype(np.float32)
         else:
             out = static(e); prev = out; prev_cash = e["cash"]
         ff.stdin.write(np.clip(out, 0, 255).astype(np.uint8).tobytes())
         if n % 60 == 0:
             print("frame", n, "/", len(T), flush=True)
     ff.stdin.close(); ff.wait()
-    if not os.environ.get("ONLY"):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
+    if not (os.environ.get("ONLY") or os.environ.get("START") or os.environ.get("END")):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
         json.dump({"fps": FPS, "segments": segs, "events": events, "frames": len(T)}, open(W / "shop4_segments.json", "w"), indent=1)
     print("frames", len(T), "seconds", round(len(T) / FPS, 2))
 
