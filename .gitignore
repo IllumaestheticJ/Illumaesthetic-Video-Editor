@@ -20,3 +20,17 @@ graphify-out/cache/
 graphify-out/20*/
 graphify-out/.graphify_build_state.json
 graphify-out/.graphify_labels.pending.json
+# graphify: per-machine paths and the intermediates of a build in progress
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/.graphify_detect.json
+graphify-out/.graphify_ast.json
+graphify-out/.graphify_extract.json
+graphify-out/.graphify_semantic*.json
+graphify-out/.graphify_cached.json
+graphify-out/.graphify_analysis.json
+graphify-out/.graphify_incremental.json
+graphify-out/.graphify_chunk_*.json
+graphify-out/.graphify_uncached.txt
+graphify-out/.graphify_partial.txt
+graphify-out/.chunklist_*.txt
