@@ -231,8 +231,12 @@ def flap_anim(lid, f0, f1, open_at_start=False):
         for ch in lid.children: ch.hide_render = True  # tape + printed logo go with the lid
         return
     key(lid, f0)
-    lid.location = lid.location + Vector((0.15, 0.6, 2.6)); lid.rotation_euler = (math.radians(-35), math.radians(10), 0)
+    # v1.2b: flies higher so it has left the (now lower, craned) frame before the cut to shot 23, then is hidden
+    lid.location = lid.location + Vector((0.2, 1.4, 5.0)); lid.rotation_euler = (math.radians(-35), math.radians(10), 0)
     key(lid, f1)
+    for o in [lid] + list(lid.children):
+        o.hide_render = False; o.keyframe_insert('hide_render', frame=f1)
+        o.hide_render = True; o.keyframe_insert('hide_render', frame=f1 + 1)
 
 
 def hide_until(o, f):
@@ -249,7 +253,8 @@ def box_cutter(bh, t, lid):
     import bmesh
     zt = bh + t / 2 + (t + 0.003) / 2            # top of the lid tape
     root = bpy.data.objects.new('cutter', None); sc.collection.objects.link(root)
-    root.rotation_euler = (0, math.radians(30), 0); root.scale = (3.2, 3.2, 3.2)  # hero prop: the box is 1.5 m wide
+    # v1.2b (user: "box cutting going the wrong way"): pulled like a real cut - handle leads (+X), blade trails
+    root.rotation_euler = (0, math.radians(30), math.radians(180)); root.scale = (3.2, 3.2, 3.2)  # hero prop: the box is 1.5 m wide
     m_body = mat('cutter_yellow', (0.85, 0.55, 0.02), rough=0.45)
     m_grip = mat('cutter_grip', (0.02, 0.02, 0.022), rough=0.7)
     m_steel = mat('cutter_blade', (0.75, 0.76, 0.78), metal=1.0, rough=0.18)
@@ -306,7 +311,10 @@ def shot_stage(n):
         box_cutter(bh=0.32, t=0.012, lid=flaps)
         # camera: box sits low-right, black space above for the title and left for Eps
         look(co, (0.0, -4.8, 2.9), (0.0, 0, 0.95)); key(co, 1)
-        look(co, (0.0, -4.55, 2.75), (0.0, 0, 0.95)); key(co, N)
+        look(co, (0.0, -4.62, 2.8), (0.0, 0, 0.95)); key(co, 66)
+        # v1.2b (user: "get rid of the weird frame cut at 0:03"): crane down while the lid flies so the shot ends
+        # exactly on shot 23's first camera - the s1 -> s23 join plays as one continuous move
+        look(co, (0.0, -5.0, 1.9), (0.0, 0, 1.0)); key(co, N)
     elif n == 2:
         flap_anim(flaps, 0, 0, open_at_start=True)
         lip.location = LIP_IN
