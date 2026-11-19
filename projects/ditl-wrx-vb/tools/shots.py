@@ -57,7 +57,13 @@ def key(o, f, loc=None, rot=None, scale=None, interp="BEZIER"):
     if rot is not None: o.rotation_euler = rot; o.keyframe_insert("rotation_euler", frame=f)
     if scale is not None: o.scale = scale; o.keyframe_insert("scale", frame=f)
 
+_VISKEYED = set()
 def vis(o, f, show):
+    # An object whose FIRST key is "hidden" at f > 1 would be hidden for the whole shot (constant extrapolation
+    # before the first key), so key it visible at frame 1 first.
+    if o.name not in _VISKEYED and f > 1 and not show:
+        for x in [o] + list(o.children_recursive): x.hide_render = False; x.keyframe_insert("hide_render", frame=1)
+    _VISKEYED.add(o.name)
     for x in [o] + list(o.children_recursive):
         x.hide_render = not show; x.keyframe_insert("hide_render", frame=f)
 
@@ -373,8 +379,8 @@ def s6():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=24); bunk(cam); ph, d = phone(cam, ["balance"])
     hand("hL", cam, (-0.035, -0.17, -0.185), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2)
     h = hand("hR", cam, (0.3, -0.2, -0.2), (R(-20), R(-80), R(60)), curls=FIST, thumb=-0.5)
-    key(h, 1, loc=(0.3, -0.25, -0.2), interp="LINEAR"); key(h, 9, loc=(0.085, -0.02, -0.11), interp="LINEAR")
-    for f in range(11, 30, 4): key(h, f, loc=(0.085, -0.02 + 0.012, -0.11), interp="LINEAR"); key(h, f + 2, loc=(0.085, -0.02 - 0.01, -0.11), interp="LINEAR")
+    key(h, 1, loc=(0.3, -0.25, -0.2), interp="LINEAR"); key(h, 9, loc=(0.125, -0.05, -0.17), interp="LINEAR")
+    for f in range(11, 30, 4): key(h, f, loc=(0.125, -0.05 + 0.012, -0.17), interp="LINEAR"); key(h, f + 2, loc=(0.125, -0.05 - 0.01, -0.17), interp="LINEAR")
     h2 = hand("hP", cam, (0.07, -0.05, -0.085), (R(-10), R(5), R(25)), curls=FLAT, thumb=0.2); vis(h2, 1, False); vis(h2, 31, True); vis(h, 31, False)
     for i, f in enumerate(range(31, 48, 4)): key(h2, f, loc=(0.07, 0.01, -0.094), interp="LINEAR"); key(h2, f + 2, loc=(0.07, -0.06, -0.094), interp="LINEAR")
     key(ph, 1, loc=(-0.012, 0.012, -0.135)); shake(cam, 1, 8, 0.8, seed=6)
@@ -465,9 +471,9 @@ def cabin(lens=19, look=(0.1, -0.8, 1.0), loc=(0.36, 0.14, 1.25), glass=True):
 def s10():
     road(); veh, rig, cam = cabin(look=(0.14, -0.6, 1.08)); ap, d = accessport(veh, (0.14, -0.4, 1.13), (R(-10), 0, R(-14)), ["off", "ok"]); swap(d, [(1, "off"), (27, "ok")])
     # the hand lives in car space so every smack lands flat on the Accessport itself
-    hit = (0.145, -0.335, 1.2); back = (0.17, -0.27, 1.33); hr0 = (R(55), 0, R(163)); h = hand("hR", veh, back, hr0, curls=FLAT, thumb=0.2)
+    hit = (0.145, -0.335, 1.2); back = (0.2, -0.2, 1.31); hr0 = (R(24), 0, R(163)); h = hand("hR", veh, back, hr0, curls=FLAT, thumb=0.2)
     for cf in (6, 14, 22, 26):
-        key(h, cf - 4, loc=back, rot=(R(55), 0, R(163)), interp="LINEAR"); key(h, cf, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
+        key(h, cf - 4, loc=back, rot=(R(24), 0, R(163)), interp="LINEAR"); key(h, cf, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
         key(cam, cf - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, cf, rot=(R(-2.5), 0, R(1)), interp="LINEAR"); key(cam, cf + 2, rot=(0, 0, 0), interp="LINEAR")
     key(h, 31, loc=(0.3, -0.2, 1.02), rot=(R(15), 0, R(163)), interp="LINEAR")
     for f in range(34, 48, 4): key(h, f, loc=(0.3, -0.2, 1.02), interp="LINEAR"); key(h, f + 2, loc=(0.3, -0.2, 1.05), interp="LINEAR")
@@ -564,9 +570,9 @@ def s16():
     a = (0.36, 0.14, 1.25); b = (0.24, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=veh)
     key(rig, 1, loc=a, rot=lookrot(a, (0.1, -0.75, 1.06)), interp="BEZIER"); key(rig, 40, loc=a, rot=lookrot(a, (0.1, -0.75, 1.07)), interp="BEZIER"); key(rig, 58, loc=a, rot=lookrot(a, tuple(mc)), interp="BEZIER"); key(rig, 150, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
     for f, ln in ((1, 19), (40, 22), (58, 30), (150, 78)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
-    hit = (0.145, -0.335, 1.2); up = (0.17, -0.28, 1.3); away = (0.6, 0.35, 1.15); h = hand("hR", veh, away, (R(22), 0, R(163)), curls=FLAT, thumb=0.2)
+    hit = (0.145, -0.335, 1.2); up = (0.19, -0.22, 1.29); away = (0.6, 0.35, 1.15); h = hand("hR", veh, away, (R(22), 0, R(163)), curls=FLAT, thumb=0.2)
     key(h, 26, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR"); key(h, 34, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
-    for f in range(36, 54, 5): key(h, f, loc=up, rot=(R(48), 0, R(163)), interp="LINEAR"); key(h, f + 2, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
+    for f in range(36, 54, 5): key(h, f, loc=up, rot=(R(25), 0, R(163)), interp="LINEAR"); key(h, f + 2, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
     key(h, 62, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR"); shake(cam, 14, 26, 0.9, seed=17)
 
 SHOTS = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16]
