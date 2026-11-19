@@ -43,3 +43,19 @@ curves) wipe; recap on half-beats from crash to the real finished bumper. Own fi
 
 Weak spots: the GT350 sits small inside the phone screen (dark margin above and below); the triangle close-up is subtle at
 phone size; the recap's 9-frame shots are quick to read; Gus's mitten doesn't visibly grip the phone.
+
+## v3 self-review (2026-11-19) - 44.8 s
+Owner notes on v2 and what changed:
+- "he says 'print my bumper!' but it shows the entire car" / "use the gt350 bumper as reference": the laptop now shows the real
+  GT350 original-bumper scan front-on, and that bumper scan is what Pip shoves onto the printer (E2) and Gus lifts off (E3).
+  Checked on frames 120-245: reads as a bumper at a glance (grille opening, fog-light holes).
+- "'no thickness' -> 'not necessarily solid'": line 4 re-voiced (Harrison, one line spliced into the approved take, level-matched);
+  the phone shows the triangles close-up, then the scan from behind as a hollow shell. Episode is 35 frames longer.
+
+Weak spots (looked at, not fixed):
+- The triangles close-up on the phone (about 9.5-11 s) is a soft lavender texture; individual triangles are hard to see at phone size.
+- The bumper scan in E2/E3 has no ink outline (the inverted-hull outline spikes on open scan meshes), so it is slightly flatter than the characters.
+- The re-voiced line was not approved by ear before animating; it needs the owner's check.
+- Carried over from v2: 0.3 s recap shots are quick; Gus's mitten does not visibly grip the phone.
+
+Rubric (training/rubric.md), self-score: story 4, clarity 4, sync 4, look 3.5, rules 5 (no text over footage/phone screen - QA assert passed; no invented numbers).
