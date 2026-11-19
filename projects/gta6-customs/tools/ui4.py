@@ -24,7 +24,7 @@ from ui import box, erase, draw, retitle, car_tag, wallet, money, OSW, LEX, OSW_
 VID_B = "/home/user/media/gta6-customs/capture/gta6_customization_B_1440p.mp4"
 # catalogue (Epsilon-Site showroom/catalog/products.json, 2026-10-03), variant "Sonic Gray Pearl - NH877P" = painted to match
 PRICES = {"Front Lip": 485, "Side Skirts": 800, "Rear Lip": 485, "Sport Wing": 850}; GAME = {"Suspension": 750, "Wheels": 560}
-ROWS = ["Epsilon Front Lip", "Epsilon Side Skirts", "Epsilon Rear Lip", "Epsilon Sport Wing"]
+ROWS = ["Front Lip", "Side Skirts", "Rear Lip", "Sport Wing"]      # plain names on the list (user, v6 review); the part screens carry the Epsilon name and badge
 BADGE_BGR, BADGE_INK = (253, 225, 106), (75, 54, 33)        # the game's "EXCLUSIVE" badge colours (second capture, frame 2100)
 TOTAL = sum(PRICES.values()) + sum(GAME.values())
 R = lambda *a: box(*a)

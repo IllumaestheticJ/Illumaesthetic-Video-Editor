@@ -243,7 +243,7 @@ def main():
     if os.environ.get("ONLY"):                       # test: first N frames only
         T = T[:int(os.environ["ONLY"])]
     ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{Wd}x{H}", "-r", str(FPS), "-i", "-",
-                           "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-g", "1", "-pix_fmt", "yuv420p", str(W / "shop4.mp4")], stdin=subprocess.PIPE)
+                           "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-g", "1", "-pix_fmt", "yuv420p", str(W / os.environ.get("OUTNAME", "shop4.mp4"))], stdin=subprocess.PIPE)
     prev = None; nxt_cache = {}
     for n, e in enumerate(T):
         if e["view"] == "whip":
@@ -268,7 +268,8 @@ def main():
         if n % 60 == 0:
             print("frame", n, "/", len(T), flush=True)
     ff.stdin.close(); ff.wait()
-    json.dump({"fps": FPS, "segments": segs, "events": events, "frames": len(T)}, open(W / "shop4_segments.json", "w"), indent=1)
+    if not os.environ.get("ONLY"):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
+        json.dump({"fps": FPS, "segments": segs, "events": events, "frames": len(T)}, open(W / "shop4_segments.json", "w"), indent=1)
     print("frames", len(T), "seconds", round(len(T) / FPS, 2))
 
 

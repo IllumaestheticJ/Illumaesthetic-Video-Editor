@@ -104,3 +104,10 @@ Output: `/home/user/media/work/out/gta6-customs_v6.mp4`, 25.6 s. Orbit removed; 
   front of the shop. See the edit log. `assemble4.py` only uses an orbit render with ORBIT=1.
 - Lesson: I shipped a studio orbit on black when the user asked for a pan round the car "if possible". The context was
   the garage; when a request cannot be met as meant, say so and offer options rather than substitute a different shot.
+
+## v7 (2026-11-19) - after the user's review of v6
+User: "Remove the 'epsilon' from the primary menu - so it just says 'front lip' etc."
+
+Output: `/home/user/media/work/out/gta6-customs_v7.mp4`, 25.6 s. List rows renamed; nothing else changed.
+First splice dropped the 8 whip frames after the list (partial render stopped at the whip); caught by the frame count
+(685 instead of 693) and a look at frame 42, redone before sending.
