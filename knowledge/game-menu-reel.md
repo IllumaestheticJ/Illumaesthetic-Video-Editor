@@ -363,3 +363,8 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   with real texture (wall continued down, floor mirrored), no blur. Shift-map inpainting smeared the car's colour.
 - **Brakes under swapped wheels.** `kit-render --wheels` keeps the car's own disc and caliper and hides the wheel file's
   placeholder brake. Look at a wheel close-up after any wheel swap.
+- **Orbit inside the game's scene (GTA 6 v5/v6).** Not available from menu captures: held views are few and far
+  apart, the whips between them are blurred, and SfM on the longer GTA 6 capture joined only 9 of 20 views with a few
+  hundred points. Do not substitute a studio orbit on black (user: "I wanted the environment"); tell the user it is
+  not possible cleanly and offer a walk-round on the game's own cameras instead. Test command: frames at 2 fps, one per
+  held view, UI masked, `pycolmap` exhaustive matching, per-image SIMPLE_PINHOLE.

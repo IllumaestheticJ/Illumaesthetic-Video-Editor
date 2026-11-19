@@ -94,3 +94,13 @@ Output: `/home/user/media/work/out/gta6-customs_v5.mp4`, 26.5 s.
 - Checked: wheel close-up before/after; the side view at full size; frames through both whips; reel strip with the orbit.
 - Left: a few-pixel fragment of mirrored sign text at the right frame edge behind the tail in the side view; the front
   view still has soft fill beside the mirrors (same cause, not asked about); whips are still blur by nature.
+
+## v6 (2026-11-19) - after the user's review of v5
+User: "If you can't render a 360 without bugging out, then skip it. I wanted the environment. Use the longer reference
+video to build out more of the GTA6 garage environment if needed."
+
+Output: `/home/user/media/work/out/gta6-customs_v6.mp4`, 25.6 s. Orbit removed; ends in the shop, then the wordmark.
+- Environment build tested and not used: SfM on the longer capture connects 9 of 20 views (546 points), none facing the
+  front of the shop. See the edit log. `assemble4.py` only uses an orbit render with ORBIT=1.
+- Lesson: I shipped a studio orbit on black when the user asked for a pan round the car "if possible". The context was
+  the garage; when a request cannot be met as meant, say so and offer options rather than substitute a different shot.

@@ -95,7 +95,8 @@ def closing():
     without an orbit render, the plain wordmark card."""
     logo = cv2.imread(str(LOGO), cv2.IMREAD_UNCHANGED).astype(np.float32)
     wl = 760; hl = round(logo.shape[0] * wl / logo.shape[1]); logo = cv2.resize(logo, (wl, hl), interpolation=cv2.INTER_AREA)
-    frames = sorted(ORBIT.glob("*.png")) if ORBIT.exists() else []
+    import os                                         # ORBIT=1 to use the orbit render; off by default (user, v5 review:
+    frames = sorted(ORBIT.glob("*.png")) if (ORBIT.exists() and os.environ.get("ORBIT") == "1") else []   # a studio orbit on black is not wanted)
     out = W / "closing.mp4"
     n = len(frames) if frames else 75
     ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", "1080x1920", "-r", "30", "-i", "-",
