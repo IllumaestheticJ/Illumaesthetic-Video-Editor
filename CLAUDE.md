@@ -15,10 +15,15 @@ the real car to its scan. Every project you finish teaches the next agent.
    `knowledge/game-modshop-reel.md` and the `game-modshop-reel` skill.
 
 ## Map of this repo (Graphify)
-`graphify-out/GRAPH_REPORT.md` is a generated map of the code and the knowledge documents (`graph.json`, `graph.html`).
-Use it to find where something lives (`graphify explain "<name>"`, `graphify path "A" "B"`, `graphify section "<heading>"`).
+`graphify-out/GRAPH_REPORT.md` is a generated map of the code, the knowledge documents, the project notes and the
+match-check images (`graph.json`, `graph.html`). It holds two layers: the structure read from the files (functions,
+calls, markdown headings) and the concepts read out of the documents (rules, procedures, versions, why-decisions).
+Use it to find where something lives (`graphify explain "<name>"`, `graphify path "A" "B"`, `graphify query "<question>"`).
 After adding or changing tools, knowledge or project notes: `pip install graphifyy && graphify update . && python tools/graphify_labels.py && graphify cluster-only . --no-label`
-(no model needed; `tools/graphify_labels.py` names the communities from their files), and commit the result.
+(no model needed: it refreshes the structure layer, keeps the concept layer, and `tools/graphify_labels.py` keeps the
+hand-written community names). That refresh does not re-read changed documents. After a project that changed knowledge
+or review notes, redo the concept layer the way Graphify's own skill describes (`python -c "import graphify,os;print(os.path.dirname(graphify.__file__)+'/skill.md')"`,
+its `--update` flow: subagents read the changed documents), name any new communities, run `python tools/graphify_labels.py --save`, and commit the result.
 
 ## Tools
 `python -m ive <cmd>` — fetch-drive, fetch-url, probe, sheet, frame, analyze, beats, decimate, crop,
