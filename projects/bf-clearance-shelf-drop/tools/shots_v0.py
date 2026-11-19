@@ -434,6 +434,10 @@ def aisle():
     bpy.ops.object.text_add(location=(0, 9.5, SIGN_Z), rotation=(math.pi / 2, 0, 0))
     t = bpy.context.object; t.data.body = "BLACK\nFRIDAY"; t.data.align_x = "CENTER"; t.data.align_y = "CENTER"
     t.data.size = SIGN_S; t.data.space_line = float(os.environ.get("SIGN_LINE", "1.40")); t.data.space_character = float(os.environ.get("SIGN_CHAR", "1.12"))   # v1.0 (user): lettering too close
+    # v1.1 (user): "the A and Y are awkwardly spaced out" - optical kerning for the diagonal A/Y pair in FRIDAY
+    body = t.data.body
+    iy = body.index("AY") + int(os.environ.get("SIGN_KERN_I", "0"))
+    t.data.body_format[iy].kerning = float(os.environ.get("SIGN_KERN", "-7"))
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:

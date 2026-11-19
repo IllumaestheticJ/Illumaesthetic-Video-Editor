@@ -14,3 +14,4 @@
 {"ts": "2026-11-18T16:16:47Z", "project": "bf-clearance-shelf-drop", "at": null, "category": "text", "note": "add Retail Price text to first side", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-18T16:22:50Z", "project": "bf-clearance-shelf-drop", "at": null, "category": "timing", "note": "yes - retime this video to the slow-reader rule (text readable 2.5 s + 0.4 s/extra word, 3 s for prices)", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-19T03:52:25Z", "project": "bf-clearance-shelf-drop", "at": "2.0", "category": "text", "note": "the black friday lettering too close to each other", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-19T08:17:27Z", "project": "bf-clearance-shelf-drop", "at": "2.0", "category": "text", "note": "the A and Y are awkwardly spaced out", "by": "reviewer", "promoted": false}

@@ -1432,3 +1432,5 @@ lands here automatically. Agents must read this whole file before editing.
   - **Cloud chat:** packs a self-contained folder (`.blend` files with relative or packed paths, assets, and a `job.json` listing blend/scene/frames/res/samples/fps/output), then runs `vdrive.py save <project> gpujob <folder>`.
   - **Local worker session on the PC:** renders it with the engine saved in the .blend (Cycles uses OptiX), then saves `gpuframes_<shot>` back to the drive. Name the frames `fNNNN.png` (`-o <out>/f####`), which is what the assemblers expect.
   - **Cloud chat:** polls with `vdrive.py list <project>`, assembles and delivers. It keeps its own CPU render running until the GPU frames arrive.
+
+- **[scan] Registering a partial state scan (BF7, 2026-11-19):** when plain ICP fails to place a partial state scan (e.g. "hood closed no bumper") on the full car, use a global match first: Open3D FPFH features + RANSAC, then refine with ICP. On the cloud machines Open3D needs a stub libEGL to import. See `projects/bf-miata-mr2-night-meet/tools/mr2_bumper_state.py`.
