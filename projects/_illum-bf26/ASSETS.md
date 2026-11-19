@@ -1,0 +1,8 @@
+# Illumaesthetic BF 2026 assets (coordinator scouting, 2026-11-19; chats add what they find)
+
+- Supra tail light footage: Dropbox `/1. Epsilon Plus Videos/1. Video dumps/Supra Tail Light Footage/` (7 .mov, Jul 7 and Jul 13 2026; Jul 13 ~7:40 PM may be dusk).
+- MR2: `/2. Illumaesthetic Videos/1. Video dumps/MR2 Kalvin footage/`, `/2. Illumaesthetic Videos/1. Video dumps/MR2 HARDTOP/`, `/1. Epsilon Plus Videos/1. Video dumps/MR2 Hardtop/` (not yet checked for clear tails).
+- Footage Library: `/Footage Library/Videos/` -> Timelapse, Shop & Builds, Track & Driving, CAD & Scan Screens, Car Shots, Shoot Sessions, Events & Meets.
+- Scans: `/2. Illumaesthetic Videos/1. Video dumps/992 GT3RS scanning/`; existing projects `porsche-gt3rs-992`, `lamborghini-revuelto`, `toyota-gr-corolla` (scan data per knowledge/sources.md).
+- No footage found by name yet for: Evo 8 bumper, GD/GG brake duct install, blobeye duct print. Chats: search, and report gaps early.
+- Store product images (Shopify CDN) exist for every product - fallback only, ask the owner before using stills.
