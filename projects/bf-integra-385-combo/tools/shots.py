@@ -18,6 +18,7 @@ ap.add_argument('--glb', default='/home/user/media/bf-integra-385-combo/glb/eps-
 ap.add_argument('--scan', default='/home/user/media/bf-integra-385-combo/scan/car.blend')
 ap.add_argument('--reg', default='/home/user/media/bf-integra-385-combo/work/reg/scan_to_glb.json')
 ap.add_argument('--plate-border', action='store_true', help='render only the region around the old + new plate (cropped), to patch into existing frames')
+ap.add_argument('--save-blend', default='', help='save a self-contained .blend (packed, output //frames/sN/f_) for the GPU worker instead of rendering')
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:])
 
 LEN = {1: 97, 2: 70, 3: 71, 4: 142, 5: 71, 6: 70}  # v0.6: shot 4 (price) two bars so the deal reads   # frames @30 fps, cut on bar kicks of "Get Low"
@@ -537,5 +538,12 @@ if A.plate_border:  # v1.2 plate move: re-render only the union of the old and n
     print('PLATE_BORDER', [round(v, 3) for v in b])
 sc.render.use_overwrite = False; sc.render.use_placeholder = True  # resumable long renders
 sc.render.filepath = A.out.rstrip('/') + '/f'
-bpy.ops.render.render(animation=True)
+if A.save_blend:  # GPU offload (knowledge/lessons.md "GPU offload to the owner's PC")
+    sc.render.use_overwrite = True; sc.render.use_placeholder = False
+    sc.render.filepath = f'//frames/s{A.shot}/f_'
+    bpy.ops.file.pack_all()
+    bpy.ops.wm.save_as_mainfile(filepath=A.save_blend, compress=True)
+    print('SAVED_BLEND', A.save_blend, sc.frame_start, sc.frame_end)
+else:
+    bpy.ops.render.render(animation=True)
 print('SHOT_DONE', A.shot, N)
