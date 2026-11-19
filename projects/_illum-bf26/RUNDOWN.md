@@ -37,3 +37,11 @@ shared files here. Coordinator session: session_01M1HYJhErzYBREit1HzUviA.
 
 | Role | Session ID |
 |---|---|
+| Coordinator | session_01M1HYJhErzYBREit1HzUviA |
+| R1 ibf-supra-clear-lens | session_01M1HYJgh5o6FV3s31oXxRsK |
+| R2 ibf-evo8-bumper | session_01M1HYJihSBUZeZSo7SiiDhc |
+| R3 ibf-scan-teardown | session_01M1HYJfGe6PiQCURhBbzeWD |
+| R4 ibf-mr2-clear-tails | session_01M1HYJg2WKLQekYgmb1QyfA |
+| R5 ibf-clearance-shelf | session_01M1HYJgkk4npDSG3BbJ6UXd |
+| R6 ibf-gd-brake-ducts | session_01M1HYJjV9mmncHD3jfb8kYH |
+| R7 ibf-print-your-own | session_01M1HYJf7FY4LpLzcFXaUoCm |
