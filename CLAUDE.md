@@ -11,6 +11,14 @@ the real car to its scan. Every project you finish teaches the next agent.
 4. If the request involves a match cut: `knowledge/match-cut.md`. Scan data: `knowledge/scan-pipeline.md`.
 5. Game-menu reels (a game's car-select screen with Epsilon kit cars from the site GLBs):
    `knowledge/game-menu-reel.md` and the `game-menu-reel` skill.
+6. Game mod-shop reels (a game's customisation shop, parts bought through its menus, e.g. GTA 6):
+   `knowledge/game-modshop-reel.md` and the `game-modshop-reel` skill.
+
+## Map of this repo (Graphify)
+`graphify-out/GRAPH_REPORT.md` is a generated map of the code and the knowledge documents (`graph.json`, `graph.html`).
+Use it to find where something lives (`graphify explain "<name>"`, `graphify path "A" "B"`, `graphify section "<heading>"`).
+After adding or changing tools, knowledge or project notes: `pip install graphifyy && graphify update . && graphify cluster-only . --no-label`
+(no model needed; community names are in `graphify-out/.graphify_labels.json`), and commit the result.
 
 ## Tools
 `python -m ive <cmd>` — fetch-drive, fetch-url, probe, sheet, frame, analyze, beats, decimate, crop,

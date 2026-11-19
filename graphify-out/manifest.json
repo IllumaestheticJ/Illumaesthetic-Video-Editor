@@ -1,0 +1,2378 @@
+{
+  "blender/kit_render.py": {
+    "mtime": 1795110485.450824,
+    "seen": 1795129932.6731422,
+    "ast_hash": "307a5cd928b30bf38f9696ad8d584c6c",
+    "semantic_hash": ""
+  },
+  "blender/scan_prep.py": {
+    "mtime": 1795061550.7895088,
+    "seen": 1795129932.673151,
+    "ast_hash": "8066dfe907a2bd624871b7df6f849d1e",
+    "semantic_hash": ""
+  },
+  "blender/scan_render.py": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6731546,
+    "ast_hash": "ed7750929d028d5dedbd78990c02b9c2",
+    "semantic_hash": ""
+  },
+  "ive/__init__.py": {
+    "mtime": 1795061550.8143241,
+    "seen": 1795129932.6731563,
+    "ast_hash": "cb46dadec0dba8440a08f9c74a16ec47",
+    "semantic_hash": ""
+  },
+  "ive/__main__.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.673158,
+    "ast_hash": "5109ab95441454c3d40c9321c4c146b7",
+    "semantic_hash": ""
+  },
+  "ive/analyze.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.673159,
+    "ast_hash": "5d19a09a8cbf0943eba55b45e8768369",
+    "semantic_hash": ""
+  },
+  "ive/assemble.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731606,
+    "ast_hash": "f74b7c729e169ac78e894deef9d7720a",
+    "semantic_hash": ""
+  },
+  "ive/audio.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731615,
+    "ast_hash": "573ccddf9d1a4150845627e61977aea4",
+    "semantic_hash": ""
+  },
+  "ive/camera.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731627,
+    "ast_hash": "4894dac3101825dccab17341a3ca1a4e",
+    "semantic_hash": ""
+  },
+  "ive/check.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.673164,
+    "ast_hash": "df8ed129e58a213edbc01a76d4363562",
+    "semantic_hash": ""
+  },
+  "ive/cli.py": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673165,
+    "ast_hash": "a286387d2b4852d290eb35b3200150d0",
+    "semantic_hash": ""
+  },
+  "ive/fetch.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731663,
+    "ast_hash": "0ab564e4252d02183f0dc14d7b238f21",
+    "semantic_hash": ""
+  },
+  "ive/hud.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731677,
+    "ast_hash": "4d61ff4511edcb7a2645fed332171f0c",
+    "semantic_hash": ""
+  },
+  "ive/kit.py": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6731687,
+    "ast_hash": "673747d81847c47ec58317ffa7f56dce",
+    "semantic_hash": ""
+  },
+  "ive/media.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731696,
+    "ast_hash": "a1b8e723db760257a50c1876c127386c",
+    "semantic_hash": ""
+  },
+  "ive/mesh.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731708,
+    "ast_hash": "c39dea18f6ece7c5878f0da17a41c8cf",
+    "semantic_hash": ""
+  },
+  "ive/solve.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731718,
+    "ast_hash": "eafff7a3fb1c2507a1b14c49009cb1b2",
+    "semantic_hash": ""
+  },
+  "ive/training.py": {
+    "mtime": 1795061550.8184888,
+    "seen": 1795129932.6731727,
+    "ast_hash": "6de5e302cf7c9072d9ca66bf13834519",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_B.json": {
+    "mtime": 1795061550.8257918,
+    "seen": 1795129932.6731737,
+    "ast_hash": "5f0a389821e72b30e2fb9f0a58f65d4b",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_C.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673175,
+    "ast_hash": "24cbe213765e5c5e6a9163662de0cf5c",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_C62.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673176,
+    "ast_hash": "511a9819ef26a0f9569566dd9c1572ed",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_D.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731768,
+    "ast_hash": "cf38039bea739855ca3c3996a7a10e58",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_D2.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731784,
+    "ast_hash": "c2f91a475b0df4a9a75d9a91c421ceb3",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_end.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731794,
+    "ast_hash": "79bffad2abf7b57040a3b47379513a06",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_end2_final.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731806,
+    "ast_hash": "5eb18ed62b2ddb1c2d0e0324d4a12891",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_end2_start.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731818,
+    "ast_hash": "db7c5c3108bcfb0739882dbd1243826c",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_end3_final.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731827,
+    "ast_hash": "1a8e85f3e63588b0cf5060bf5134a953",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_end3_start.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731837,
+    "ast_hash": "7ea86e639ff87404c97fd28a96dc9ec5",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_front2.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731849,
+    "ast_hash": "132750be44dc2cd5c23d6215e9fca369",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_front34.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731858,
+    "ast_hash": "a83ecebe285f7438435586536a721866",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_hero.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731868,
+    "ast_hash": "879046e01c3d9262d57d08138730b8da",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_hero2.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731877,
+    "ast_hash": "0c282cd76188d12cd48b8c143b635763",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_listing.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673189,
+    "ast_hash": "20d2f68c3302d611804eae39cb73009e",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_side.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.67319,
+    "ast_hash": "2d7e39448f32d07441e2bb6478b18ce4",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/cam_side2.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673191,
+    "ast_hash": "7a69b0a4949ab81885bd1ff9c2093336",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/points_B.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731923,
+    "ast_hash": "d21cda8c7851fd43e394dbd2b37a472a",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/points_C.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731932,
+    "ast_hash": "c188d801c72e6acc9b91c85aeb5ef25e",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/points_D.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731942,
+    "ast_hash": "8e1a027dd0b743ab7c1ae064cf019bcc",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/overlay.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731956,
+    "ast_hash": "4507d73151d87d338b9a9a74b4754856",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/overlay_v1.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731966,
+    "ast_hash": "16ee7de89bad681ff5fd3c23b02ec05a",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/overlay_v2.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731975,
+    "ast_hash": "1f9128f6b1af3449a16a4ddc4118ea09",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/project.yaml": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6731987,
+    "ast_hash": "86d6ceb602d0b5f3b41b637ad8928da8",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/project_v1.yaml": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6731997,
+    "ast_hash": "413665140665b1473de95c1abaed5880",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/project_v2.yaml": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673203,
+    "ast_hash": "5d6a5d2cc7932b60adb5ba464daab5af",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/project_v3.yaml": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6732042,
+    "ast_hash": "8254256a4ee3efb364bfd76e112ea1c8",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/webzoom.json": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6732051,
+    "ast_hash": "5dca4916c0796a13c31229d031ab9dbf",
+    "semantic_hash": ""
+  },
+  "projects/_template/matchpoints.example.json": {
+    "mtime": 1795061550.8272898,
+    "seen": 1795129932.6732068,
+    "ast_hash": "d21cda8c7851fd43e394dbd2b37a472a",
+    "semantic_hash": ""
+  },
+  "projects/_template/project.yaml": {
+    "mtime": 1795061550.827664,
+    "seen": 1795129932.6732078,
+    "ast_hash": "6abdd884a69a8d84a135f715fb61de56",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/cam_D.json": {
+    "mtime": 1795061550.8556151,
+    "seen": 1795129932.6732087,
+    "ast_hash": "99d9bd139d4d2fc6c994e497b7f74203",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/cam_E.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.67321,
+    "ast_hash": "fc85df3a51ccf5d776bf12f62030e33f",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/cam_P1.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6732109,
+    "ast_hash": "d06940bfee5e4a734f24002039910948",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/cam_P2.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6732118,
+    "ast_hash": "1e10a7f17c7ecedde05443b3d24ab3d8",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/points_D.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6732132,
+    "ast_hash": "9b2d643e764cb250ed83c143f0ddc66e",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/points_E.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.673214,
+    "ast_hash": "affed568fcfb5b3fcd8e3a02c4a0db15",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/points_P1.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.673215,
+    "ast_hash": "a232f4fe14a758c0d3792fa92c46fe50",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/points_P2.json": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.673216,
+    "ast_hash": "7064a3081d14fe084512b2ae70e78b61",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/project.yaml": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673217,
+    "ast_hash": "c66985069870eaaca6913c067732a970",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/tools/cgi_render.py": {
+    "mtime": 1795061550.8583815,
+    "seen": 1795129932.673218,
+    "ast_hash": "d2de12968deb9c9a8ad1aa02d4c2cb24",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/tools/coarse.py": {
+    "mtime": 1795061550.8583815,
+    "seen": 1795129932.6732194,
+    "ast_hash": "dc6cf7f4d5d3965951ea6d0504dec704",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/tools/kenburns.py": {
+    "mtime": 1795061550.8583815,
+    "seen": 1795129932.6732204,
+    "ast_hash": "26aa6bbfe935ac9d96758767f9fb4644",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/tools/mesh_np.py": {
+    "mtime": 1795061550.8583815,
+    "seen": 1795129932.6732213,
+    "ast_hash": "9d15cc4431d44d07cd4378baebe8cf24",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/tools/refine.py": {
+    "mtime": 1795061550.8583815,
+    "seen": 1795129932.6732223,
+    "ast_hash": "744b79e6303995634f411d2bf6857422",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/tools/render_angle.sh": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6732235,
+    "ast_hash": "b633dbb4baf6d1cedc12e8fd2292738d",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_A.json": {
+    "mtime": 1795062911.9174893,
+    "seen": 1795129932.6732244,
+    "ast_hash": "de2fa1934ff0a3e349afbedd1cde7f55",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_D.json": {
+    "mtime": 1795123851.897095,
+    "seen": 1795129932.6732254,
+    "ast_hash": "faad092551306c0ea3a40464d293f657",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_Dt.json": {
+    "mtime": 1795123819.5295875,
+    "seen": 1795129932.6732266,
+    "ast_hash": "7f7c6a70ed6c0deced65be229715dcdd",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_E.json": {
+    "mtime": 1795123851.806784,
+    "seen": 1795129932.6732273,
+    "ast_hash": "5453d472f317c27a5bd5c76f19f5c211",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_F.json": {
+    "mtime": 1795123851.7082632,
+    "seen": 1795129932.6732283,
+    "ast_hash": "e4d19fdf730e570628b9ad308e7b439d",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_M.json": {
+    "mtime": 1795062911.8087504,
+    "seen": 1795129932.6732295,
+    "ast_hash": "96b6911641334698a6af5de60757ba9a",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_S.json": {
+    "mtime": 1795123852.0189064,
+    "seen": 1795129932.6732306,
+    "ast_hash": "87cab5f72c93e4b2bbf1a565fed6e6b4",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cam_W.json": {
+    "mtime": 1795076133.9956021,
+    "seen": 1795129932.6732316,
+    "ast_hash": "11368f88f727cb363d5eafabb6e54f86",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/cars.yaml": {
+    "mtime": 1795065259.4429958,
+    "seen": 1795129932.6732326,
+    "ast_hash": "e022ba6a57bf017675863ece39cd3608",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/rig_shop.json": {
+    "mtime": 1795062480.2670832,
+    "seen": 1795129932.6732337,
+    "ast_hash": "ffbf46d79c2c5669e94e982166ccef79",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/assemble.py": {
+    "mtime": 1795072145.5835783,
+    "seen": 1795129932.6732347,
+    "ast_hash": "fb0b9984dab3740ea08e110d561c54c2",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/assemble3.py": {
+    "mtime": 1795076723.8258555,
+    "seen": 1795129932.6732357,
+    "ast_hash": "6c1245ececc432873502823d8014eb08",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/assemble4.py": {
+    "mtime": 1795128529.8392503,
+    "seen": 1795129932.6732364,
+    "ast_hash": "cbcba9773c24b222a836d20fe8748df5",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/camfit.py": {
+    "mtime": 1795062711.8655362,
+    "seen": 1795129932.6732378,
+    "ast_hash": "85dbfdfaa49bc18284abbba698e1ea40",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/compose.py": {
+    "mtime": 1795074248.786467,
+    "seen": 1795129932.6732388,
+    "ast_hash": "858eba60f834ef557018123653fdca03",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/compose3.py": {
+    "mtime": 1795081214.8339107,
+    "seen": 1795129932.67324,
+    "ast_hash": "67f3d7dcb8c4236891c2b65ab1a49349",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/compose4.py": {
+    "mtime": 1795127197.00129,
+    "seen": 1795129932.6732411,
+    "ast_hash": "2b4048e195f65453011fba2e5e756276",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/fetch_fonts.sh": {
+    "mtime": 1795062924.4368823,
+    "seen": 1795129932.673242,
+    "ast_hash": "5ef2b3c3feddb359e2c400ef44c9fed1",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/make_env.py": {
+    "mtime": 1795062467.7606764,
+    "seen": 1795129932.673243,
+    "ast_hash": "6196148c6002819cb44352d302edd479",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/mancam.py": {
+    "mtime": 1795076120.3861492,
+    "seen": 1795129932.673244,
+    "ast_hash": "09ae10ecd93d78dc0f12273dc3769a41",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/plate.py": {
+    "mtime": 1795111490.0722167,
+    "seen": 1795129932.673245,
+    "ast_hash": "d0b534d473db2ecd5b75f6e02b4b336f",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/toast.py": {
+    "mtime": 1795126302.7541049,
+    "seen": 1795129932.673246,
+    "ast_hash": "1aa764bba803ee5f12ce7b29fda1b38c",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/ui.py": {
+    "mtime": 1795123208.8884022,
+    "seen": 1795129932.6732469,
+    "ast_hash": "1c71d33a749624896bfb81ee260316fd",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/ui3.py": {
+    "mtime": 1795076594.445219,
+    "seen": 1795129932.6732488,
+    "ast_hash": "90efcede30b61caeadb20ee37c2cfc8c",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/ui4.py": {
+    "mtime": 1795126303.008397,
+    "seen": 1795129932.67325,
+    "ast_hash": "4b91786db1960c8252ebd0de6cd80d0a",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/vps.py": {
+    "mtime": 1795062094.7618318,
+    "seen": 1795129932.6732512,
+    "ast_hash": "e3a23199a7f3f461388f3248e67ef94b",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/tools/whipcams.py": {
+    "mtime": 1795062911.6862903,
+    "seen": 1795129932.6732523,
+    "ast_hash": "48f658deea97462c6eada7f6ce826e62",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_00.json": {
+    "mtime": 1795076339.20727,
+    "seen": 1795129932.673253,
+    "ast_hash": "9d56b98c59d790606d75cba0ba07729e",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_01.json": {
+    "mtime": 1795076339.2075064,
+    "seen": 1795129932.6732545,
+    "ast_hash": "99849f0b69a7ae06ce97788e87ff68cc",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_02.json": {
+    "mtime": 1795076339.207712,
+    "seen": 1795129932.6732554,
+    "ast_hash": "4f791b052a593fedf3aebae6ab427df0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_03.json": {
+    "mtime": 1795076339.2078912,
+    "seen": 1795129932.67328,
+    "ast_hash": "2e6628376d72567f153e296435be0fd9",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_04.json": {
+    "mtime": 1795076339.2080996,
+    "seen": 1795129932.6732833,
+    "ast_hash": "f217ecd94c904af0b23005d117924a40",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_05.json": {
+    "mtime": 1795076339.2082825,
+    "seen": 1795129932.673286,
+    "ast_hash": "115e5896bc0b19af30327850270e41b9",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_06.json": {
+    "mtime": 1795076339.2084548,
+    "seen": 1795129932.6732879,
+    "ast_hash": "fb6eeae3439bb70e53edfe4560db0af0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_A_M/cam_07.json": {
+    "mtime": 1795076339.2114275,
+    "seen": 1795129932.6732895,
+    "ast_hash": "7da949fd352471e2431cb2fc5d407c42",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_00.json": {
+    "mtime": 1795115036.6335835,
+    "seen": 1795129932.6732912,
+    "ast_hash": "808878011c7907ee90de40522fe0ceac",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_01.json": {
+    "mtime": 1795115036.634027,
+    "seen": 1795129932.673293,
+    "ast_hash": "ea625a4c68ab8bc0ef58288cebf23957",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_02.json": {
+    "mtime": 1795115036.634462,
+    "seen": 1795129932.6732945,
+    "ast_hash": "35bcd09e17a66ee33ef4ab9fb8297fb4",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_03.json": {
+    "mtime": 1795115036.6347857,
+    "seen": 1795129932.6732962,
+    "ast_hash": "c8dfa1b05a2ff94427dc4f0b3859e192",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_04.json": {
+    "mtime": 1795115036.6351383,
+    "seen": 1795129932.6732976,
+    "ast_hash": "a7178f9c780b0de28a5f351c279bf1eb",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_05.json": {
+    "mtime": 1795115036.6354718,
+    "seen": 1795129932.6732998,
+    "ast_hash": "fc9326cc25c30ec016d8942f2544d13b",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_06.json": {
+    "mtime": 1795115036.6358104,
+    "seen": 1795129932.6733007,
+    "ast_hash": "099c11ee116f0da5c76cfd9c3cac9eb9",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_D_E/cam_07.json": {
+    "mtime": 1795115036.636164,
+    "seen": 1795129932.673302,
+    "ast_hash": "e8de2f0bad732aa1e138fb6f5fc3ca4b",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_00.json": {
+    "mtime": 1795078021.4968336,
+    "seen": 1795129932.6733031,
+    "ast_hash": "8c00590a33144889f9668caf375e8d0c",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_01.json": {
+    "mtime": 1795078021.4973297,
+    "seen": 1795129932.673304,
+    "ast_hash": "273079bb795f1a5f8bfb0c54053e7a80",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_02.json": {
+    "mtime": 1795078021.4978235,
+    "seen": 1795129932.6733053,
+    "ast_hash": "b29ae53a35cea9334d7f1053090c350f",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_03.json": {
+    "mtime": 1795078021.4982967,
+    "seen": 1795129932.6733067,
+    "ast_hash": "47af16bbcf3cc0d32992a5542c2abdd8",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_04.json": {
+    "mtime": 1795078021.4986894,
+    "seen": 1795129932.6733077,
+    "ast_hash": "5cf73331b1209f1931165031c70ea3cf",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_05.json": {
+    "mtime": 1795078021.4989986,
+    "seen": 1795129932.6733088,
+    "ast_hash": "7d7319f6015eb0840f35b4e24e593585",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_06.json": {
+    "mtime": 1795078021.499286,
+    "seen": 1795129932.67331,
+    "ast_hash": "0e88b266adc8f88a50769d2afece74b4",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_E_A/cam_07.json": {
+    "mtime": 1795078021.4995666,
+    "seen": 1795129932.6733112,
+    "ast_hash": "cc168802a51a81ce94dd58087a7a00b7",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_00.json": {
+    "mtime": 1795115036.53993,
+    "seen": 1795129932.6733122,
+    "ast_hash": "8a897ff40639c2e3cc77c89fb22f5997",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_01.json": {
+    "mtime": 1795115036.5407004,
+    "seen": 1795129932.6733136,
+    "ast_hash": "7f32284d79dbd4cb21b26a41b4dabfed",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_02.json": {
+    "mtime": 1795115036.5413637,
+    "seen": 1795129932.6733146,
+    "ast_hash": "68ad0d460ce0465796fd4e750131dfd6",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_03.json": {
+    "mtime": 1795115036.541941,
+    "seen": 1795129932.6733158,
+    "ast_hash": "59716d07e3a8e63f2ac7bc64a284d633",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_04.json": {
+    "mtime": 1795115036.5424087,
+    "seen": 1795129932.6733167,
+    "ast_hash": "6c744018dca85628c6bf6243f16c126d",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_05.json": {
+    "mtime": 1795115036.5428522,
+    "seen": 1795129932.6733177,
+    "ast_hash": "659308dce8a2b1f5300b5ae691809c64",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_06.json": {
+    "mtime": 1795115036.5431938,
+    "seen": 1795129932.673319,
+    "ast_hash": "92f054abb66e4495140c5258330986c6",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_F_D/cam_07.json": {
+    "mtime": 1795115036.5435133,
+    "seen": 1795129932.6733203,
+    "ast_hash": "d952ba5fa22f22d266a374f2e9a85747",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_00.json": {
+    "mtime": 1795062912.0130754,
+    "seen": 1795129932.6733215,
+    "ast_hash": "7da949fd352471e2431cb2fc5d407c42",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_01.json": {
+    "mtime": 1795062912.0133514,
+    "seen": 1795129932.6733224,
+    "ast_hash": "fb6eeae3439bb70e53edfe4560db0af0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_02.json": {
+    "mtime": 1795062912.0135553,
+    "seen": 1795129932.6733236,
+    "ast_hash": "115e5896bc0b19af30327850270e41b9",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_03.json": {
+    "mtime": 1795062912.0137608,
+    "seen": 1795129932.6733253,
+    "ast_hash": "f217ecd94c904af0b23005d117924a40",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_04.json": {
+    "mtime": 1795062912.013953,
+    "seen": 1795129932.6733267,
+    "ast_hash": "2e6628376d72567f153e296435be0fd9",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_05.json": {
+    "mtime": 1795062912.014163,
+    "seen": 1795129932.6733282,
+    "ast_hash": "4f791b052a593fedf3aebae6ab427df0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_06.json": {
+    "mtime": 1795062912.014366,
+    "seen": 1795129932.6733305,
+    "ast_hash": "99849f0b69a7ae06ce97788e87ff68cc",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_A/cam_07.json": {
+    "mtime": 1795062912.0145245,
+    "seen": 1795129932.6733315,
+    "ast_hash": "9d56b98c59d790606d75cba0ba07729e",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_00.json": {
+    "mtime": 1795123852.2124507,
+    "seen": 1795129932.6733325,
+    "ast_hash": "410af90f136b4bfaccdff9b5b44d9816",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_01.json": {
+    "mtime": 1795123852.2132175,
+    "seen": 1795129932.6733334,
+    "ast_hash": "7aec0046e183a324b3963a3bcb38aeec",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_02.json": {
+    "mtime": 1795123852.2139637,
+    "seen": 1795129932.6733348,
+    "ast_hash": "7e0b81d79e7aac24458da2d0b3d9fe8f",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_03.json": {
+    "mtime": 1795123852.2144923,
+    "seen": 1795129932.6733358,
+    "ast_hash": "ad9907d30451c16479e60a383055adbd",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_04.json": {
+    "mtime": 1795123852.2149746,
+    "seen": 1795129932.6733367,
+    "ast_hash": "ba01070f0c9b8f683053fa22712cfedf",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_05.json": {
+    "mtime": 1795123852.2153528,
+    "seen": 1795129932.6733382,
+    "ast_hash": "e1d40877c887f0a4bf77e47482e4b14c",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_06.json": {
+    "mtime": 1795123852.215771,
+    "seen": 1795129932.6733391,
+    "ast_hash": "cb7887361e82f034a55d786a06722981",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_D/cam_07.json": {
+    "mtime": 1795123852.2161078,
+    "seen": 1795129932.6733398,
+    "ast_hash": "96ffa80aa774e9c5c7e6d3280932ed48",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_00.json": {
+    "mtime": 1795123852.3129518,
+    "seen": 1795129932.673341,
+    "ast_hash": "e5030b2e73e0ac4e1dd726ab1e0395a0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_01.json": {
+    "mtime": 1795123852.3138218,
+    "seen": 1795129932.673342,
+    "ast_hash": "00061352e09eb77b99fa167bc1d30db5",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_02.json": {
+    "mtime": 1795123852.3143094,
+    "seen": 1795129932.673343,
+    "ast_hash": "048eb17c8d3913858cfef37e3cf70cc1",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_03.json": {
+    "mtime": 1795123852.314827,
+    "seen": 1795129932.673344,
+    "ast_hash": "ee717f110545d43453567d06c2bb1570",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_04.json": {
+    "mtime": 1795123852.3154163,
+    "seen": 1795129932.6733449,
+    "ast_hash": "773c1c5279e577c5d07ecd74d2c79574",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_05.json": {
+    "mtime": 1795123852.31593,
+    "seen": 1795129932.673346,
+    "ast_hash": "78223eae64e68efcf050e47f8c974aca",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_06.json": {
+    "mtime": 1795123852.316355,
+    "seen": 1795129932.673347,
+    "ast_hash": "8b97b3ca1f13c746411b52a7ddb9adbf",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_E/cam_07.json": {
+    "mtime": 1795123852.3168664,
+    "seen": 1795129932.6733482,
+    "ast_hash": "1c28d0d6e77a4b9b619aaa882ea92f35",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_00.json": {
+    "mtime": 1795123852.1162596,
+    "seen": 1795129932.6733491,
+    "ast_hash": "e20d2318f5afff5d80e57166653b2d9c",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_01.json": {
+    "mtime": 1795123852.1168053,
+    "seen": 1795129932.6733503,
+    "ast_hash": "73f76dc2f84fad8fd5ab70151525862e",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_02.json": {
+    "mtime": 1795123852.1171527,
+    "seen": 1795129932.673351,
+    "ast_hash": "b166f79537e3ca24a858da40491f71d0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_03.json": {
+    "mtime": 1795123852.1175196,
+    "seen": 1795129932.6733522,
+    "ast_hash": "5f901c4ddf5a62a02b8ccecf21d1a166",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_04.json": {
+    "mtime": 1795123852.1178937,
+    "seen": 1795129932.6733532,
+    "ast_hash": "214cb51df7b8a6f142eec8e2da43bb3e",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_05.json": {
+    "mtime": 1795123852.1185718,
+    "seen": 1795129932.6733544,
+    "ast_hash": "a4fd99c4509b1f634d3639ab3de1f9ac",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_06.json": {
+    "mtime": 1795123852.1188822,
+    "seen": 1795129932.6733553,
+    "ast_hash": "cae54198063f12a43d5d61687371ad6a",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_F/cam_07.json": {
+    "mtime": 1795123852.119164,
+    "seen": 1795129932.6733563,
+    "ast_hash": "9f86f918246baea994dc1aee115d89f3",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_00.json": {
+    "mtime": 1795123852.4307344,
+    "seen": 1795129932.6733572,
+    "ast_hash": "abd6235ac7b5906f2327c71e5b2cbf24",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_01.json": {
+    "mtime": 1795123852.4315498,
+    "seen": 1795129932.6733584,
+    "ast_hash": "5214d50857834e5e891aad2e931a1144",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_02.json": {
+    "mtime": 1795123852.4321637,
+    "seen": 1795129932.6733594,
+    "ast_hash": "7d98f348df48236f77183f2f13fa2742",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_03.json": {
+    "mtime": 1795123852.432718,
+    "seen": 1795129932.6733603,
+    "ast_hash": "a19cbce0dad5b4cb9b898247f5e8c1d0",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_04.json": {
+    "mtime": 1795123852.4332125,
+    "seen": 1795129932.6733613,
+    "ast_hash": "40eabfb3a63ae8865c1e49616b89d7a4",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_05.json": {
+    "mtime": 1795123852.4338095,
+    "seen": 1795129932.6733625,
+    "ast_hash": "7caaeeab76012ae45817fee514a3c723",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_06.json": {
+    "mtime": 1795123852.4343207,
+    "seen": 1795129932.6733634,
+    "ast_hash": "756d5fde39ca256d61d9c718910e4750",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_M_S/cam_07.json": {
+    "mtime": 1795123852.434884,
+    "seen": 1795129932.6733644,
+    "ast_hash": "3631bbbac658629d8a0c39b8653b12ee",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_00.json": {
+    "mtime": 1795076339.595297,
+    "seen": 1795129932.6733656,
+    "ast_hash": "08a150abfdddfa0c2a5eee65ba175846",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_01.json": {
+    "mtime": 1795076339.5956144,
+    "seen": 1795129932.6733665,
+    "ast_hash": "60a53b8eafa34b373fa286974f05216c",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_02.json": {
+    "mtime": 1795076339.595811,
+    "seen": 1795129932.6733675,
+    "ast_hash": "16cb732e00ac3035e7b15f61b82e30b3",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_03.json": {
+    "mtime": 1795076339.5959818,
+    "seen": 1795129932.6733687,
+    "ast_hash": "18ac7fde0809a65000efbb099695fef6",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_04.json": {
+    "mtime": 1795076339.5962791,
+    "seen": 1795129932.6733696,
+    "ast_hash": "d14da9b416f7a3d575f3039dc13299a3",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_05.json": {
+    "mtime": 1795076339.596538,
+    "seen": 1795129932.6733706,
+    "ast_hash": "c4b30d8b3ba39893df74ffca873ebd3d",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_06.json": {
+    "mtime": 1795076339.5994275,
+    "seen": 1795129932.6733716,
+    "ast_hash": "4dbb3995baec5eb348b5da37070794df",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_S_W/cam_07.json": {
+    "mtime": 1795076339.601137,
+    "seen": 1795129932.6733725,
+    "ast_hash": "0654a1bfae480ad2836e1299fbae150e",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_00.json": {
+    "mtime": 1795076339.7932076,
+    "seen": 1795129932.6733737,
+    "ast_hash": "ad726994a5d13a35a2c1c02952e2dbf5",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_01.json": {
+    "mtime": 1795076339.7934942,
+    "seen": 1795129932.673376,
+    "ast_hash": "5d8338288c81bb3a04e2b5b4b10818b3",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_02.json": {
+    "mtime": 1795076339.7936988,
+    "seen": 1795129932.673377,
+    "ast_hash": "22ef24c72e0ee45aab8a6c2119043c41",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_03.json": {
+    "mtime": 1795076339.793897,
+    "seen": 1795129932.673378,
+    "ast_hash": "0486e06eedc0ebbd7081f6ef73f5e8ab",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_04.json": {
+    "mtime": 1795076339.7942553,
+    "seen": 1795129932.6733792,
+    "ast_hash": "9036c78c26dc480787b28f53d55ab631",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_05.json": {
+    "mtime": 1795076339.7945108,
+    "seen": 1795129932.67338,
+    "ast_hash": "3554b088b78e989660fdcd151be0eff7",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_06.json": {
+    "mtime": 1795076339.7946963,
+    "seen": 1795129932.6733809,
+    "ast_hash": "53db9648fd11dceef1ac44a1affe7aca",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/whip_W_M/cam_07.json": {
+    "mtime": 1795076339.794981,
+    "seen": 1795129932.6733818,
+    "ast_hash": "1d2814377f7c8ec28773b823472fc7e4",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cam_carlot_civic_fe.json": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673383,
+    "ast_hash": "f3263e433e3df581fc165f2a5dfa9747",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cam_carlot_corolla.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.673384,
+    "ast_hash": "cb3778f541b552a05a5b1a07411e29b9",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cam_carlot_ep3.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.673385,
+    "ast_hash": "11c2469acb0b8a4a8734a9a33af1cf5d",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cam_carlot_fit.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6733856,
+    "ast_hash": "9a7f568530de0705fe9ef3dc88b5db71",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cam_carlot_integra.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6733868,
+    "ast_hash": "ee20befe631dfbf81b679f83805c9b49",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cam_carlot_nc.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6733878,
+    "ast_hash": "659630af28712e56332f4c01f4dec089",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/cars.yaml": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6733887,
+    "ast_hash": "7c9bd47d3174a9819d8b875eb1002627",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/rig_showroom.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.67339,
+    "ast_hash": "acb4969ab5a630e2acfddbf42e73fd3e",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/assemble.py": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6733909,
+    "ast_hash": "054aa1f45dac6285ee381c7e4dcf2b9b",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/badge_from_glb.py": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6733918,
+    "ast_hash": "0acedbec8cf27337191a5cdd032c9513",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/camfit.py": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6733925,
+    "ast_hash": "c9715c21b2c4cf8d9b88ae51915a71b6",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/composite.py": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6733937,
+    "ast_hash": "d0b5cf02ac195fe261d1446cd21e3bcd",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/cursor.py": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6733947,
+    "ast_hash": "29efdd8e7074c35b4dc7e6a2edb55256",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/fetch_fonts.sh": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6733956,
+    "ast_hash": "2db470ff027e0e4089ffaa22309a35ff",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/tools/track.py": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6733968,
+    "ast_hash": "0782e97df6c4b64dd30f74f21d0f2d92",
+    "semantic_hash": ""
+  },
+  "remotion/eslint.config.mjs": {
+    "mtime": 1795061550.944847,
+    "seen": 1795129932.6733978,
+    "ast_hash": "e20d59bb6b64567da14d80c3da2c6b15",
+    "semantic_hash": ""
+  },
+  "remotion/package.json": {
+    "mtime": 1795061550.944847,
+    "seen": 1795129932.6733985,
+    "ast_hash": "0e0de2ece70fb7ed4b36299cf30b46d2",
+    "semantic_hash": ""
+  },
+  "remotion/remotion.config.ts": {
+    "mtime": 1795061550.944847,
+    "seen": 1795129932.6734,
+    "ast_hash": "6338a93bfb160c9897d382735436172e",
+    "semantic_hash": ""
+  },
+  "remotion/src/Root.tsx": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6734006,
+    "ast_hash": "b1941190f048f964552b19bbbbf61bce",
+    "semantic_hash": ""
+  },
+  "remotion/src/ScanHUD.tsx": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6734016,
+    "ast_hash": "e643cf4e2f32234c108dc7fde4eac5cb",
+    "semantic_hash": ""
+  },
+  "remotion/src/WebZoom.tsx": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6734028,
+    "ast_hash": "1dd2211b6dafb72446aa1f899435b7f6",
+    "semantic_hash": ""
+  },
+  "remotion/src/index.ts": {
+    "mtime": 1795061550.9456189,
+    "seen": 1795129932.673404,
+    "ast_hash": "d92d9dee1ab16aa44a75ae7fbfb843ca",
+    "semantic_hash": ""
+  },
+  "remotion/tsconfig.json": {
+    "mtime": 1795061550.9456189,
+    "seen": 1795129932.6734052,
+    "ast_hash": "3f9d94814358aa5e8a039f53ae3eee99",
+    "semantic_hash": ""
+  },
+  "scripts/setup.sh": {
+    "mtime": 1795061550.9459035,
+    "seen": 1795129932.6734061,
+    "ast_hash": "e93ee32e0a9e2c6946b4d79f018458d7",
+    "semantic_hash": ""
+  },
+  "tools/game_audio_tap.js": {
+    "mtime": 1795061552.294637,
+    "seen": 1795129932.6734073,
+    "ast_hash": "bbc255f448ea94a31de703d9f8c5167c",
+    "semantic_hash": ""
+  },
+  "tools/game_driver.js": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6734085,
+    "ast_hash": "43c3e4143f814e79bc2295225a07b8e5",
+    "semantic_hash": ""
+  },
+  "tools/gps_autopilot.py": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6734092,
+    "ast_hash": "00b80a2d8f4138445bc87274c549eb21",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_B.json": {
+    "mtime": 1795061550.9464822,
+    "seen": 1795129932.6734104,
+    "ast_hash": "5f0a389821e72b30e2fb9f0a58f65d4b",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_C.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734116,
+    "ast_hash": "24cbe213765e5c5e6a9163662de0cf5c",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_C62.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734126,
+    "ast_hash": "511a9819ef26a0f9569566dd9c1572ed",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_D.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734135,
+    "ast_hash": "cf38039bea739855ca3c3996a7a10e58",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_D2.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734147,
+    "ast_hash": "c2f91a475b0df4a9a75d9a91c421ceb3",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_end.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734157,
+    "ast_hash": "79bffad2abf7b57040a3b47379513a06",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_end2_final.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734164,
+    "ast_hash": "5eb18ed62b2ddb1c2d0e0324d4a12891",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_end2_start.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734176,
+    "ast_hash": "db7c5c3108bcfb0739882dbd1243826c",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_front2.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734183,
+    "ast_hash": "132750be44dc2cd5c23d6215e9fca369",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_front34.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734192,
+    "ast_hash": "a83ecebe285f7438435586536a721866",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_hero.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734202,
+    "ast_hash": "879046e01c3d9262d57d08138730b8da",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_hero2.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734214,
+    "ast_hash": "0c282cd76188d12cd48b8c143b635763",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_side.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734223,
+    "ast_hash": "2d7e39448f32d07441e2bb6478b18ce4",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/cam_side2.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734233,
+    "ast_hash": "7a69b0a4949ab81885bd1ff9c2093336",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/points_B.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734245,
+    "ast_hash": "d21cda8c7851fd43e394dbd2b37a472a",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/points_C.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734254,
+    "ast_hash": "c188d801c72e6acc9b91c85aeb5ef25e",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/match/points_D.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734264,
+    "ast_hash": "8e1a027dd0b743ab7c1ae064cf019bcc",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/overlay.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.673427,
+    "ast_hash": "4507d73151d87d338b9a9a74b4754856",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/overlay_v1.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734285,
+    "ast_hash": "16ee7de89bad681ff5fd3c23b02ec05a",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/overlay_v2.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734293,
+    "ast_hash": "1f9128f6b1af3449a16a4ddc4118ea09",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/project.yaml": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6734302,
+    "ast_hash": "d0bccd325c04e312968e5800c51e8d5b",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/project_v1.yaml": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734314,
+    "ast_hash": "413665140665b1473de95c1abaed5880",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/project_v2.yaml": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734324,
+    "ast_hash": "5d6a5d2cc7932b60adb5ba464daab5af",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/project_v3.yaml": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734333,
+    "ast_hash": "8254256a4ee3efb364bfd76e112ea1c8",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/webzoom.json": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6734347,
+    "ast_hash": "5dca4916c0796a13c31229d031ab9dbf",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/cam_D.json": {
+    "mtime": 1795061550.9553914,
+    "seen": 1795129932.6734357,
+    "ast_hash": "99d9bd139d4d2fc6c994e497b7f74203",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/cam_E.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734369,
+    "ast_hash": "fc85df3a51ccf5d776bf12f62030e33f",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/cam_P1.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734378,
+    "ast_hash": "d06940bfee5e4a734f24002039910948",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/cam_P2.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734393,
+    "ast_hash": "1e10a7f17c7ecedde05443b3d24ab3d8",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/points_D.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734402,
+    "ast_hash": "9b2d643e764cb250ed83c143f0ddc66e",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/points_E.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734416,
+    "ast_hash": "affed568fcfb5b3fcd8e3a02c4a0db15",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/points_P1.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734426,
+    "ast_hash": "a232f4fe14a758c0d3792fa92c46fe50",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/match/points_P2.json": {
+    "mtime": 1795061550.955561,
+    "seen": 1795129932.6734436,
+    "ast_hash": "7064a3081d14fe084512b2ae70e78b61",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/project.yaml": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6734445,
+    "ast_hash": "c66985069870eaaca6913c067732a970",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_A.json": {
+    "mtime": 1795062911.9174893,
+    "seen": 1795129932.6734457,
+    "ast_hash": "de2fa1934ff0a3e349afbedd1cde7f55",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_D.json": {
+    "mtime": 1795123851.897095,
+    "seen": 1795129932.6734464,
+    "ast_hash": "faad092551306c0ea3a40464d293f657",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_Dt.json": {
+    "mtime": 1795123819.5295875,
+    "seen": 1795129932.6734476,
+    "ast_hash": "7f7c6a70ed6c0deced65be229715dcdd",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_E.json": {
+    "mtime": 1795123851.806784,
+    "seen": 1795129932.6734488,
+    "ast_hash": "5453d472f317c27a5bd5c76f19f5c211",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_F.json": {
+    "mtime": 1795123851.7082632,
+    "seen": 1795129932.6734498,
+    "ast_hash": "e4d19fdf730e570628b9ad308e7b439d",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_M.json": {
+    "mtime": 1795062911.8087504,
+    "seen": 1795129932.6734507,
+    "ast_hash": "96b6911641334698a6af5de60757ba9a",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_S.json": {
+    "mtime": 1795123852.0189064,
+    "seen": 1795129932.6734517,
+    "ast_hash": "87cab5f72c93e4b2bbf1a565fed6e6b4",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cam_W.json": {
+    "mtime": 1795076133.9956021,
+    "seen": 1795129932.6734529,
+    "ast_hash": "11368f88f727cb363d5eafabb6e54f86",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/cars.yaml": {
+    "mtime": 1795065259.4429958,
+    "seen": 1795129932.673454,
+    "ast_hash": "e022ba6a57bf017675863ece39cd3608",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/rig_shop.json": {
+    "mtime": 1795062480.2670832,
+    "seen": 1795129932.6734555,
+    "ast_hash": "ffbf46d79c2c5669e94e982166ccef79",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_00.json": {
+    "mtime": 1795076339.20727,
+    "seen": 1795129932.6734564,
+    "ast_hash": "9d56b98c59d790606d75cba0ba07729e",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_01.json": {
+    "mtime": 1795076339.2075064,
+    "seen": 1795129932.6734574,
+    "ast_hash": "99849f0b69a7ae06ce97788e87ff68cc",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_02.json": {
+    "mtime": 1795076339.207712,
+    "seen": 1795129932.6734583,
+    "ast_hash": "4f791b052a593fedf3aebae6ab427df0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_03.json": {
+    "mtime": 1795076339.2078912,
+    "seen": 1795129932.6734593,
+    "ast_hash": "2e6628376d72567f153e296435be0fd9",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_04.json": {
+    "mtime": 1795076339.2080996,
+    "seen": 1795129932.6734605,
+    "ast_hash": "f217ecd94c904af0b23005d117924a40",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_05.json": {
+    "mtime": 1795076339.2082825,
+    "seen": 1795129932.6734614,
+    "ast_hash": "115e5896bc0b19af30327850270e41b9",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_06.json": {
+    "mtime": 1795076339.2084548,
+    "seen": 1795129932.6734626,
+    "ast_hash": "fb6eeae3439bb70e53edfe4560db0af0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_A_M/cam_07.json": {
+    "mtime": 1795076339.2114275,
+    "seen": 1795129932.6734636,
+    "ast_hash": "7da949fd352471e2431cb2fc5d407c42",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_00.json": {
+    "mtime": 1795115036.6335835,
+    "seen": 1795129932.6734645,
+    "ast_hash": "808878011c7907ee90de40522fe0ceac",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_01.json": {
+    "mtime": 1795115036.634027,
+    "seen": 1795129932.6734653,
+    "ast_hash": "ea625a4c68ab8bc0ef58288cebf23957",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_02.json": {
+    "mtime": 1795115036.634462,
+    "seen": 1795129932.6734664,
+    "ast_hash": "35bcd09e17a66ee33ef4ab9fb8297fb4",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_03.json": {
+    "mtime": 1795115036.6347857,
+    "seen": 1795129932.6734674,
+    "ast_hash": "c8dfa1b05a2ff94427dc4f0b3859e192",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_04.json": {
+    "mtime": 1795115036.6351383,
+    "seen": 1795129932.6734684,
+    "ast_hash": "a7178f9c780b0de28a5f351c279bf1eb",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_05.json": {
+    "mtime": 1795115036.6354718,
+    "seen": 1795129932.6734695,
+    "ast_hash": "fc9326cc25c30ec016d8942f2544d13b",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_06.json": {
+    "mtime": 1795115036.6358104,
+    "seen": 1795129932.6734705,
+    "ast_hash": "099c11ee116f0da5c76cfd9c3cac9eb9",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_D_E/cam_07.json": {
+    "mtime": 1795115036.636164,
+    "seen": 1795129932.6734712,
+    "ast_hash": "e8de2f0bad732aa1e138fb6f5fc3ca4b",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_00.json": {
+    "mtime": 1795078021.4968336,
+    "seen": 1795129932.6734722,
+    "ast_hash": "8c00590a33144889f9668caf375e8d0c",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_01.json": {
+    "mtime": 1795078021.4973297,
+    "seen": 1795129932.6734734,
+    "ast_hash": "273079bb795f1a5f8bfb0c54053e7a80",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_02.json": {
+    "mtime": 1795078021.4978235,
+    "seen": 1795129932.6734743,
+    "ast_hash": "b29ae53a35cea9334d7f1053090c350f",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_03.json": {
+    "mtime": 1795078021.4982967,
+    "seen": 1795129932.673475,
+    "ast_hash": "47af16bbcf3cc0d32992a5542c2abdd8",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_04.json": {
+    "mtime": 1795078021.4986894,
+    "seen": 1795129932.673476,
+    "ast_hash": "5cf73331b1209f1931165031c70ea3cf",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_05.json": {
+    "mtime": 1795078021.4989986,
+    "seen": 1795129932.6734772,
+    "ast_hash": "7d7319f6015eb0840f35b4e24e593585",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_06.json": {
+    "mtime": 1795078021.499286,
+    "seen": 1795129932.6734784,
+    "ast_hash": "0e88b266adc8f88a50769d2afece74b4",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_E_A/cam_07.json": {
+    "mtime": 1795078021.4995666,
+    "seen": 1795129932.6734793,
+    "ast_hash": "cc168802a51a81ce94dd58087a7a00b7",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_00.json": {
+    "mtime": 1795115036.53993,
+    "seen": 1795129932.6734805,
+    "ast_hash": "8a897ff40639c2e3cc77c89fb22f5997",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_01.json": {
+    "mtime": 1795115036.5407004,
+    "seen": 1795129932.6734812,
+    "ast_hash": "7f32284d79dbd4cb21b26a41b4dabfed",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_02.json": {
+    "mtime": 1795115036.5413637,
+    "seen": 1795129932.6734822,
+    "ast_hash": "68ad0d460ce0465796fd4e750131dfd6",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_03.json": {
+    "mtime": 1795115036.541941,
+    "seen": 1795129932.6734834,
+    "ast_hash": "59716d07e3a8e63f2ac7bc64a284d633",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_04.json": {
+    "mtime": 1795115036.5424087,
+    "seen": 1795129932.6734843,
+    "ast_hash": "6c744018dca85628c6bf6243f16c126d",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_05.json": {
+    "mtime": 1795115036.5428522,
+    "seen": 1795129932.673485,
+    "ast_hash": "659308dce8a2b1f5300b5ae691809c64",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_06.json": {
+    "mtime": 1795115036.5431938,
+    "seen": 1795129932.673486,
+    "ast_hash": "92f054abb66e4495140c5258330986c6",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_F_D/cam_07.json": {
+    "mtime": 1795115036.5435133,
+    "seen": 1795129932.6734872,
+    "ast_hash": "d952ba5fa22f22d266a374f2e9a85747",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_00.json": {
+    "mtime": 1795062912.0130754,
+    "seen": 1795129932.6734881,
+    "ast_hash": "7da949fd352471e2431cb2fc5d407c42",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_01.json": {
+    "mtime": 1795062912.0133514,
+    "seen": 1795129932.673489,
+    "ast_hash": "fb6eeae3439bb70e53edfe4560db0af0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_02.json": {
+    "mtime": 1795062912.0135553,
+    "seen": 1795129932.6734903,
+    "ast_hash": "115e5896bc0b19af30327850270e41b9",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_03.json": {
+    "mtime": 1795062912.0137608,
+    "seen": 1795129932.6734912,
+    "ast_hash": "f217ecd94c904af0b23005d117924a40",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_04.json": {
+    "mtime": 1795062912.013953,
+    "seen": 1795129932.6734922,
+    "ast_hash": "2e6628376d72567f153e296435be0fd9",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_05.json": {
+    "mtime": 1795062912.014163,
+    "seen": 1795129932.6734931,
+    "ast_hash": "4f791b052a593fedf3aebae6ab427df0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_06.json": {
+    "mtime": 1795062912.014366,
+    "seen": 1795129932.6734943,
+    "ast_hash": "99849f0b69a7ae06ce97788e87ff68cc",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_A/cam_07.json": {
+    "mtime": 1795062912.0145245,
+    "seen": 1795129932.673495,
+    "ast_hash": "9d56b98c59d790606d75cba0ba07729e",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_00.json": {
+    "mtime": 1795123852.2124507,
+    "seen": 1795129932.673496,
+    "ast_hash": "410af90f136b4bfaccdff9b5b44d9816",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_01.json": {
+    "mtime": 1795123852.2132175,
+    "seen": 1795129932.6734972,
+    "ast_hash": "7aec0046e183a324b3963a3bcb38aeec",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_02.json": {
+    "mtime": 1795123852.2139637,
+    "seen": 1795129932.6734982,
+    "ast_hash": "7e0b81d79e7aac24458da2d0b3d9fe8f",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_03.json": {
+    "mtime": 1795123852.2144923,
+    "seen": 1795129932.673499,
+    "ast_hash": "ad9907d30451c16479e60a383055adbd",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_04.json": {
+    "mtime": 1795123852.2149746,
+    "seen": 1795129932.6735,
+    "ast_hash": "ba01070f0c9b8f683053fa22712cfedf",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_05.json": {
+    "mtime": 1795123852.2153528,
+    "seen": 1795129932.6735013,
+    "ast_hash": "e1d40877c887f0a4bf77e47482e4b14c",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_06.json": {
+    "mtime": 1795123852.215771,
+    "seen": 1795129932.673502,
+    "ast_hash": "cb7887361e82f034a55d786a06722981",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_D/cam_07.json": {
+    "mtime": 1795123852.2161078,
+    "seen": 1795129932.673503,
+    "ast_hash": "96ffa80aa774e9c5c7e6d3280932ed48",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_00.json": {
+    "mtime": 1795123852.3129518,
+    "seen": 1795129932.6735036,
+    "ast_hash": "e5030b2e73e0ac4e1dd726ab1e0395a0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_01.json": {
+    "mtime": 1795123852.3138218,
+    "seen": 1795129932.6735048,
+    "ast_hash": "00061352e09eb77b99fa167bc1d30db5",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_02.json": {
+    "mtime": 1795123852.3143094,
+    "seen": 1795129932.6735058,
+    "ast_hash": "048eb17c8d3913858cfef37e3cf70cc1",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_03.json": {
+    "mtime": 1795123852.314827,
+    "seen": 1795129932.6735065,
+    "ast_hash": "ee717f110545d43453567d06c2bb1570",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_04.json": {
+    "mtime": 1795123852.3154163,
+    "seen": 1795129932.6735077,
+    "ast_hash": "773c1c5279e577c5d07ecd74d2c79574",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_05.json": {
+    "mtime": 1795123852.31593,
+    "seen": 1795129932.6735086,
+    "ast_hash": "78223eae64e68efcf050e47f8c974aca",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_06.json": {
+    "mtime": 1795123852.316355,
+    "seen": 1795129932.6735096,
+    "ast_hash": "8b97b3ca1f13c746411b52a7ddb9adbf",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_E/cam_07.json": {
+    "mtime": 1795123852.3168664,
+    "seen": 1795129932.6735106,
+    "ast_hash": "1c28d0d6e77a4b9b619aaa882ea92f35",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_00.json": {
+    "mtime": 1795123852.1162596,
+    "seen": 1795129932.6735117,
+    "ast_hash": "e20d2318f5afff5d80e57166653b2d9c",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_01.json": {
+    "mtime": 1795123852.1168053,
+    "seen": 1795129932.6735127,
+    "ast_hash": "73f76dc2f84fad8fd5ab70151525862e",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_02.json": {
+    "mtime": 1795123852.1171527,
+    "seen": 1795129932.6735134,
+    "ast_hash": "b166f79537e3ca24a858da40491f71d0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_03.json": {
+    "mtime": 1795123852.1175196,
+    "seen": 1795129932.6735146,
+    "ast_hash": "5f901c4ddf5a62a02b8ccecf21d1a166",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_04.json": {
+    "mtime": 1795123852.1178937,
+    "seen": 1795129932.6735156,
+    "ast_hash": "214cb51df7b8a6f142eec8e2da43bb3e",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_05.json": {
+    "mtime": 1795123852.1185718,
+    "seen": 1795129932.6735165,
+    "ast_hash": "a4fd99c4509b1f634d3639ab3de1f9ac",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_06.json": {
+    "mtime": 1795123852.1188822,
+    "seen": 1795129932.6735175,
+    "ast_hash": "cae54198063f12a43d5d61687371ad6a",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_F/cam_07.json": {
+    "mtime": 1795123852.119164,
+    "seen": 1795129932.6735187,
+    "ast_hash": "9f86f918246baea994dc1aee115d89f3",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_00.json": {
+    "mtime": 1795123852.4307344,
+    "seen": 1795129932.6735198,
+    "ast_hash": "abd6235ac7b5906f2327c71e5b2cbf24",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_01.json": {
+    "mtime": 1795123852.4315498,
+    "seen": 1795129932.6735208,
+    "ast_hash": "5214d50857834e5e891aad2e931a1144",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_02.json": {
+    "mtime": 1795123852.4321637,
+    "seen": 1795129932.673522,
+    "ast_hash": "7d98f348df48236f77183f2f13fa2742",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_03.json": {
+    "mtime": 1795123852.432718,
+    "seen": 1795129932.673523,
+    "ast_hash": "a19cbce0dad5b4cb9b898247f5e8c1d0",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_04.json": {
+    "mtime": 1795123852.4332125,
+    "seen": 1795129932.673524,
+    "ast_hash": "40eabfb3a63ae8865c1e49616b89d7a4",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_05.json": {
+    "mtime": 1795123852.4338095,
+    "seen": 1795129932.673525,
+    "ast_hash": "7caaeeab76012ae45817fee514a3c723",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_06.json": {
+    "mtime": 1795123852.4343207,
+    "seen": 1795129932.673526,
+    "ast_hash": "756d5fde39ca256d61d9c718910e4750",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_M_S/cam_07.json": {
+    "mtime": 1795123852.434884,
+    "seen": 1795129932.6735268,
+    "ast_hash": "3631bbbac658629d8a0c39b8653b12ee",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_00.json": {
+    "mtime": 1795076339.595297,
+    "seen": 1795129932.6735277,
+    "ast_hash": "08a150abfdddfa0c2a5eee65ba175846",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_01.json": {
+    "mtime": 1795076339.5956144,
+    "seen": 1795129932.673529,
+    "ast_hash": "60a53b8eafa34b373fa286974f05216c",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_02.json": {
+    "mtime": 1795076339.595811,
+    "seen": 1795129932.6735299,
+    "ast_hash": "16cb732e00ac3035e7b15f61b82e30b3",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_03.json": {
+    "mtime": 1795076339.5959818,
+    "seen": 1795129932.6735308,
+    "ast_hash": "18ac7fde0809a65000efbb099695fef6",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_04.json": {
+    "mtime": 1795076339.5962791,
+    "seen": 1795129932.673532,
+    "ast_hash": "d14da9b416f7a3d575f3039dc13299a3",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_05.json": {
+    "mtime": 1795076339.596538,
+    "seen": 1795129932.6735327,
+    "ast_hash": "c4b30d8b3ba39893df74ffca873ebd3d",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_06.json": {
+    "mtime": 1795076339.5994275,
+    "seen": 1795129932.6735337,
+    "ast_hash": "4dbb3995baec5eb348b5da37070794df",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_S_W/cam_07.json": {
+    "mtime": 1795076339.601137,
+    "seen": 1795129932.6735346,
+    "ast_hash": "0654a1bfae480ad2836e1299fbae150e",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_00.json": {
+    "mtime": 1795076339.7932076,
+    "seen": 1795129932.6735358,
+    "ast_hash": "ad726994a5d13a35a2c1c02952e2dbf5",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_01.json": {
+    "mtime": 1795076339.7934942,
+    "seen": 1795129932.6735368,
+    "ast_hash": "5d8338288c81bb3a04e2b5b4b10818b3",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_02.json": {
+    "mtime": 1795076339.7936988,
+    "seen": 1795129932.6735377,
+    "ast_hash": "22ef24c72e0ee45aab8a6c2119043c41",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_03.json": {
+    "mtime": 1795076339.793897,
+    "seen": 1795129932.673539,
+    "ast_hash": "0486e06eedc0ebbd7081f6ef73f5e8ab",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_04.json": {
+    "mtime": 1795076339.7942553,
+    "seen": 1795129932.6735399,
+    "ast_hash": "9036c78c26dc480787b28f53d55ab631",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_05.json": {
+    "mtime": 1795076339.7945108,
+    "seen": 1795129932.6735408,
+    "ast_hash": "3554b088b78e989660fdcd151be0eff7",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_06.json": {
+    "mtime": 1795076339.7946963,
+    "seen": 1795129932.6735418,
+    "ast_hash": "53db9648fd11dceef1ac44a1affe7aca",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/whip_W_M/cam_07.json": {
+    "mtime": 1795076339.794981,
+    "seen": 1795129932.673543,
+    "ast_hash": "1d2814377f7c8ec28773b823472fc7e4",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cam_carlot_civic_fe.json": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673544,
+    "ast_hash": "f3263e433e3df581fc165f2a5dfa9747",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cam_carlot_corolla.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.673545,
+    "ast_hash": "cb3778f541b552a05a5b1a07411e29b9",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cam_carlot_ep3.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.673546,
+    "ast_hash": "11c2469acb0b8a4a8734a9a33af1cf5d",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cam_carlot_fit.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.673547,
+    "ast_hash": "9a7f568530de0705fe9ef3dc88b5db71",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cam_carlot_integra.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.673548,
+    "ast_hash": "ee20befe631dfbf81b679f83805c9b49",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cam_carlot_nc.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735523,
+    "ast_hash": "659630af28712e56332f4c01f4dec089",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/cars.yaml": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735535,
+    "ast_hash": "7c9bd47d3174a9819d8b875eb1002627",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/rig_showroom.json": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735544,
+    "ast_hash": "acb4969ab5a630e2acfddbf42e73fd3e",
+    "semantic_hash": ""
+  },
+  "training/references/edited_oct31_1330_46.json": {
+    "mtime": 1795061550.9871674,
+    "seen": 1795129932.6735554,
+    "ast_hash": "270241541ef052bf944dd1fa2d18b2c4",
+    "semantic_hash": ""
+  },
+  "training/references/reel_0144_48.json": {
+    "mtime": 1795061550.9871674,
+    "seen": 1795129932.6735566,
+    "ast_hash": "ef8300b417431a2d7bf0bc51e062de8d",
+    "semantic_hash": ""
+  },
+  "training/references/reel_0149_10.json": {
+    "mtime": 1795061550.9871674,
+    "seen": 1795129932.6735575,
+    "ast_hash": "d783cf3a06d5e00d19c2201e8a53c734",
+    "semantic_hash": ""
+  },
+  "training/references/v_jul22_1047_58.json": {
+    "mtime": 1795061550.9871674,
+    "seen": 1795129932.6735585,
+    "ast_hash": "206a3db8e652120f7fdbf22fdc58dafd",
+    "semantic_hash": ""
+  },
+  ".claude/skills/game-menu-reel/SKILL.md": {
+    "mtime": 1795129922.8825347,
+    "seen": 1795129932.6735597,
+    "ast_hash": "3cf4756e17e2c9e1da75b040ea6ddb2f",
+    "semantic_hash": ""
+  },
+  ".claude/skills/game-modshop-reel/SKILL.md": {
+    "mtime": 1795129922.8700879,
+    "seen": 1795129932.6735606,
+    "ast_hash": "c681662ab60a3fd46f4a120b01ad5c5a",
+    "semantic_hash": ""
+  },
+  ".claude/skills/scan-video-edit/SKILL.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6735616,
+    "ast_hash": "23d63e802c57a3f7748b5d0537a6bf96",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1795129972.8106887,
+    "seen": 1795129974.2490733,
+    "ast_hash": "6add658d2bb61992ef0a2277f892d5bb",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673564,
+    "ast_hash": "873780c694d77abfc1149e4b2e02b596",
+    "semantic_hash": ""
+  },
+  "knowledge/game-menu-reel.md": {
+    "mtime": 1795129922.8628511,
+    "seen": 1795129932.673565,
+    "ast_hash": "35811787439587ada180bdf6afdb9053",
+    "semantic_hash": ""
+  },
+  "knowledge/game-modshop-reel.md": {
+    "mtime": 1795129922.8666437,
+    "seen": 1795129932.6735659,
+    "ast_hash": "3513f12d1ed78b13b966c0ceb8ad4c37",
+    "semantic_hash": ""
+  },
+  "knowledge/lessons.md": {
+    "mtime": 1795129922.8854928,
+    "seen": 1795129932.673567,
+    "ast_hash": "eae9c63fbc4c3d94e4bf8b5388403a94",
+    "semantic_hash": ""
+  },
+  "knowledge/match-cut.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673568,
+    "ast_hash": "d9a23e84c3766f1b7c4f378aa542889e",
+    "semantic_hash": ""
+  },
+  "knowledge/scan-pipeline.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6735687,
+    "ast_hash": "98fd955d69e8b0b78115a3fb0952ca0c",
+    "semantic_hash": ""
+  },
+  "knowledge/sources.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6735697,
+    "ast_hash": "991ce1cec1ce0940f0939793d41ce998",
+    "semantic_hash": ""
+  },
+  "knowledge/style-guide.md": {
+    "mtime": 1795061550.822612,
+    "seen": 1795129932.6735709,
+    "ast_hash": "53f29e82f82fc2e8771f39254125f162",
+    "semantic_hash": ""
+  },
+  "knowledge/workflow.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6735718,
+    "ast_hash": "bb07f6717abfe78ea73a0ae0ff6a7070",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/clips.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.6735728,
+    "ast_hash": "9205cedeb1940b96a44cd46cd78ae4c0",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/review.md": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673574,
+    "ast_hash": "799c7b837cce38d3a7baecaf85a31456",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/review_v2.md": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.673575,
+    "ast_hash": "130e866469587b6be4471f1e24c1fa25",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/review_v3.md": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6735759,
+    "ast_hash": "8deb4b1cd5f302487cd2118fa3668a10",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/review_v4.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673577,
+    "ast_hash": "105ab27bbe07ab5e1564dbb5728ba37d",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/clips.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673578,
+    "ast_hash": "f3fa3cc9c8adddc02cb5922cd9ff95e0",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/review.md": {
+    "mtime": 1795061552.2905564,
+    "seen": 1795129932.673579,
+    "ast_hash": "64e8332deb8575fff0b5e660426b5aee",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/clips.md": {
+    "mtime": 1795080609.2670312,
+    "seen": 1795129932.6735797,
+    "ast_hash": "4a435d62aa12102ada97804c72c591e3",
+    "semantic_hash": ""
+  },
+  "projects/gta6-customs/review.md": {
+    "mtime": 1795128569.0952086,
+    "seen": 1795129932.673581,
+    "ast_hash": "9a37bb0a500c51b1f3f1cd1a0875f774",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/clips.md": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735818,
+    "ast_hash": "8252ae33f510970e6bd8d94e67808fe4",
+    "semantic_hash": ""
+  },
+  "projects/nfs-carlot/review.md": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735828,
+    "ast_hash": "ce37c8f158fac490a2d54f5b885671e5",
+    "semantic_hash": ""
+  },
+  "remotion/README.md": {
+    "mtime": 1795061550.944847,
+    "seen": 1795129932.673584,
+    "ast_hash": "fcdfe1e0c3220831519fdbf617e6d7ae",
+    "semantic_hash": ""
+  },
+  "requirements.txt": {
+    "mtime": 1795061550.9456189,
+    "seen": 1795129932.6735847,
+    "ast_hash": "f44b9a0d30a95c78210e024466ac5ad4",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/clips.md": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6735857,
+    "ast_hash": "9205cedeb1940b96a44cd46cd78ae4c0",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/review.md": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6735866,
+    "ast_hash": "799c7b837cce38d3a7baecaf85a31456",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/review_v2.md": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6735878,
+    "ast_hash": "130e866469587b6be4471f1e24c1fa25",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/review_v3.md": {
+    "mtime": 1795061550.9466074,
+    "seen": 1795129932.6735885,
+    "ast_hash": "8deb4b1cd5f302487cd2118fa3668a10",
+    "semantic_hash": ""
+  },
+  "training/examples/240sx-scan/review_v4.md": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6735895,
+    "ast_hash": "105ab27bbe07ab5e1564dbb5728ba37d",
+    "semantic_hash": ""
+  },
+  "training/examples/INDEX.md": {
+    "mtime": 1795129929.104351,
+    "seen": 1795129932.6735902,
+    "ast_hash": "a41d8d220f12bd2042360f5e2fbe2d5e",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/clips.md": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6735914,
+    "ast_hash": "f3fa3cc9c8adddc02cb5922cd9ff95e0",
+    "semantic_hash": ""
+  },
+  "training/examples/fg2-race-car/review.md": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6735923,
+    "ast_hash": "64e8332deb8575fff0b5e660426b5aee",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/clips.md": {
+    "mtime": 1795080609.2670312,
+    "seen": 1795129932.6735933,
+    "ast_hash": "4a435d62aa12102ada97804c72c591e3",
+    "semantic_hash": ""
+  },
+  "training/examples/gta6-customs/review.md": {
+    "mtime": 1795128569.0952086,
+    "seen": 1795129932.6735945,
+    "ast_hash": "9a37bb0a500c51b1f3f1cd1a0875f774",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/clips.md": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735954,
+    "ast_hash": "8252ae33f510970e6bd8d94e67808fe4",
+    "semantic_hash": ""
+  },
+  "training/examples/nfs-carlot/review.md": {
+    "mtime": 1795061552.2939289,
+    "seen": 1795129932.6735964,
+    "ast_hash": "ce37c8f158fac490a2d54f5b885671e5",
+    "semantic_hash": ""
+  },
+  "training/references/README.md": {
+    "mtime": 1795061552.2952476,
+    "seen": 1795129932.6735973,
+    "ast_hash": "3fb7108504db98e19dd81ca9ef072278",
+    "semantic_hash": ""
+  },
+  "training/rubric.md": {
+    "mtime": 1795061550.9871674,
+    "seen": 1795129932.6735985,
+    "ast_hash": "9dcbd5feef439371c5a00261fd331975",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/check_B.jpg": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6735995,
+    "ast_hash": "777c0c98c43a5327b215fac7910a8b73",
+    "semantic_hash": ""
+  },
+  "projects/240sx-scan/match/solve_B_points.jpg": {
+    "mtime": 1795061550.825921,
+    "seen": 1795129932.6736004,
+    "ast_hash": "7536fd8a5d6d3ddd65e14eeaa6720a4b",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/check_D.jpg": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6736014,
+    "ast_hash": "991d0b275376d5f112e9da20287821e7",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/check_E.jpg": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6736023,
+    "ast_hash": "46d9931b3cdf77a14dd567076cf4701c",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/check_P1.jpg": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6736033,
+    "ast_hash": "79b4b45564d66de7cf7633808a1d01d0",
+    "semantic_hash": ""
+  },
+  "projects/fg2-race-car/match/check_P2.jpg": {
+    "mtime": 1795061550.8557603,
+    "seen": 1795129932.6736042,
+    "ast_hash": "327f716db5b4df5e4bd18f6d5e6a8d4a",
+    "semantic_hash": ""
+  },
+  "remotion/package-lock.json": {
+    "mtime": 1795061550.944847,
+    "seen": 1795129932.6736054,
+    "ast_hash": "995ae5dacd4217d8edeeac8b5ce6ed37",
+    "semantic_hash": ""
+  }
+}

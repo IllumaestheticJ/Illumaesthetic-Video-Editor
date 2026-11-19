@@ -1,6 +1,6 @@
 ---
 name: game-menu-reel
-description: Make a reel that plays a real video game's car-select sequence (intro cutscene, menu, scrolling through cars, picking one) with the game's own UI and sound effects, but with Epsilon kit cars rendered from the Epsilon-Site showroom GLBs in place of the game's cars. Use for any "pick your starter car", "car lot", "garage menu", "NFS / Gran Turismo / Forza style car select" reel, or any request to put Epsilon site GLB kit cars into game footage or a game menu.
+description: Make a reel that plays a real video game's car-select sequence (intro cutscene, menu, scrolling through cars, picking one) with the game's own UI and sound effects, but with Epsilon kit cars rendered from the Epsilon-Site showroom GLBs in place of the game's cars. Use for any "pick your starter car", "car lot", "garage menu", "NFS / Gran Turismo / Forza style car select" reel, or any request to put Epsilon site GLB kit cars into a game's car-select menu. For a customisation / parts shop menu use game-modshop-reel.
 ---
 
 # Game-menu reel
@@ -31,5 +31,5 @@ Worked project: `projects/nfs-carlot/`.
 Never invent numbers for on-screen stats, and tell the user once that the game's footage, UI and
 audio are the publisher's.
 
-For a photoreal game whose camera moves between views (GTA 6 mod shop): the knowledge doc's last
-section and `projects/gta6-customs/tools/` (vps, camfit, plate, make_env, ui, whipcams, compose, assemble).
+For a parts shop in a photoreal game (several cameras, parts bought through the menus; GTA 6 mod shop) use the
+`game-modshop-reel` skill and `knowledge/game-modshop-reel.md` instead.

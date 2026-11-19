@@ -1,0 +1,19 @@
+{
+ "fit": {
+  "f": 1300,
+  "az": -42.9,
+  "el": 8.46,
+  "d": 5.33,
+  "up": 3.46,
+  "yaw": 0.38,
+  "o": 0.28
+ },
+ "wheelbase_mid_y": {
+  "corolla": 0.0625,
+  "civic_fe": -0.02,
+  "integra": -0.0075,
+  "nc": -0.1525,
+  "ep3": 0.025
+ },
+ "note": "cam_carlot_<car>.json = the same fitted camera, shifted so each GLB's wheelbase midpoint sits where the game parks it"
+}

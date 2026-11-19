@@ -79,3 +79,17 @@ lands here automatically. Agents must read this whole file before editing.
   overlay with a different material can look mismatched when the geometry is right.
 
 - **[audio]** Never cut or join inside music that is playing, however well timed to the beat; put the join where the music is silent (before it starts, or have it enter on a downbeat that rises from silence), and check for speech and music before choosing any audio cut.  _(from nfs-carlot, 2026-11-11, reviewer)_
+
+## From the GTA 6 mod-shop reel (2026-11-19, built by an agent, 19 review rounds)
+- **[story]** Ask for the story screen by screen, the names shown on screen, and whether a reference picture is the
+  picture or a look, before building. Most rounds were the user supplying one of these.
+- **[story]** A menu is entered and left the way the game does it. No jump from one option screen to the next.
+- **[technical]** Never ping-pong capture frames; never hold a sharp rectangle through a blurred camera move.
+- **[technical]** When a named element is called poor, zoom in on that element first, at delivery size.
+- **[audio]** I cannot hear. Inspect any reused clip for a voice (speech band against highs, left against right)
+  before placing it, and never place the same spoken line twice.
+- **[text]** The game's own titles stay; the client's items use the client's wording; a game label that misleads
+  is moved and declared. Prices are the catalogue's for the variant shown.
+- **[scan-look]** Cover the game's car with ours by moving the camera; do not invent and blur background.
+- **[story]** Do not substitute a different shot for one that cannot be done (studio orbit for an in-scene 360):
+  say it cannot be done cleanly and offer options.

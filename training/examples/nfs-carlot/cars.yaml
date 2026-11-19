@@ -1,0 +1,48 @@
+# Starter-car line-up for the "pick your first car" game-menu reel.
+# One entry per car; menu order in v1: Corolla, Civic Si, Integra, NC Miata, EP3 (see tools/composite.py SEGMENTS).
+# Menu renders use cam_carlot.json + rig_showroom.json, not render_defaults (those are the line-up sheet's).
+# `hide` comes from `python -m ive kit <id> --glb <file>` (never hand-typed).
+# GLBs: Drive "Epsilon-final-GLBs-2026-10-15.zip" (file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), unzipped to glb_dir.
+# Paint colours are render choices (not paint codes) - nothing here is shown as on-screen text.
+glb_dir: /home/user/media/nfs-carlot/glbs_final
+render_defaults: {az: 38, el: 7, rig: carlot, ground: gloss, samples: 32}
+cars:
+  - id: toyota-corolla-hatch-e210          # Zenki face (2019-2022); Kouki = eps-toyota-corolla-hatch-e210-facelift-v20.glb
+    glb: eps-toyota-corolla-hatch-e210-v18.glb
+    kit: "python -m ive kit toyota-corolla-hatch-e210 --glb <glb>"
+    fitted: [front_lip, side_skirts, rear_spats, wrc_wing]
+    hide: [part_mid_wing]
+    paint: "#1d4fa3"
+    finish: metallic
+  - id: honda-civic-sedan-fe               # 11th gen sedan, Zenki (2022-2024); Si = factory-duckbill wing fitment
+    glb: eps-honda-civic-sedan-fe-v10.glb
+    kit: "python -m ive kit honda-civic-sedan-fe --prefer sport_wing_duckbill --glb <glb>"
+    fitted: [front_lip, side_skirts, rear_lip, sport_wing_duckbill]
+    hide: [part_sport_wing, body_rear_diffuser_stock, trim_rear_diffuser_stock]
+    paint: "#d9531e"
+    finish: pearl
+  - id: acura-integra-de                   # DE4 A-Spec, WITHOUT the widebody (user request)
+    glb: eps-acura-integra-de-v29.glb
+    kit: "python -m ive kit acura-integra-de --without fender_flares --glb <glb>"
+    fitted: [front_lip, side_skirts, rear_spats, duckbill, sport_wing]
+    hide: [part_fender_flares, body_duckbill_stock]
+    paint: "#848586"                       # repo manifest showcasePaint (the photographed owner car)
+    finish: metallic
+  - id: honda-civic-ep3                    # only exists in the Drive zip (user pointed to it); not in the repo
+    glb: eps-honda-civic-ep3-v17.glb
+    kit: "python -m ive kit honda-civic-ep3 --glb <glb>"
+    fitted: [front_lip, side_skirts, rear_lip, rear_wing]
+    hide: []
+    paint: "#1c4fa0"                    # Boost Blue Pearl B637P, the lookbook's Honda blue (user, v5 review)
+    finish: pearl
+  - id: mazda-mx5-nc
+    glb: eps-mazda-mx5-nc-v19.glb
+    kit: "python -m ive kit mazda-mx5-nc --glb <glb>"
+    fitted: [front_bumper, front_lip, canards, brake_ducts, fender_cuts, tire_spats, side_skirts, rear_spats, gt_wing]
+    hide: [body_front_bumper_stock, body_tire_spats_stock, body_fender_cuts_stock, body_side_skirts_stock, body_rear_spats_stock, body_gt_wing_stock]
+    paint: "#b3161b"
+    finish: gloss
+
+# v11 (user): the last car shown, the EP3, is the one bought; the prompt reads "Do you want this Epsilon EP3?" (no "stock", user v11).
+bought: honda-civic-ep3
+prompt_name: "Epsilon EP3"
