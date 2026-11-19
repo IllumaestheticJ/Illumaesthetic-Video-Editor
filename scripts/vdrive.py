@@ -17,6 +17,7 @@ Commands:
     drop     <project> <name>                       bin one cache archive
     deliver  <project> <mp4> [--notes FILE] [--keep 3]   upload a version; bin all but the newest KEEP mp4s
     prune    <project> [--keep 3]                   bin all but the newest KEEP mp4s, without uploading
+    worker                                          is the owner's GPU PC online? its state, queue and time saved
 
 Use one archive per render chunk or shot (e.g. `save bf-x frames_s03 /home/user/media/work/bf-x/frames/s03`)
 so each save only uploads what is new. Paths are stored absolute, so `restore` puts them back where they were.
@@ -190,6 +191,38 @@ def cmd_prune(a):
     print("kept:", ", ".join(k["name"] for k in prune(d, par, a.keep)))
 
 
+def cmd_worker(a):
+    """Read the GPU worker heartbeat (work/_gpuworker/status.json, written by scripts/gpu_worker.py)."""
+    import time
+    from datetime import datetime
+    d = svc()
+    par = folder(d, "work", "_gpuworker", create=False)
+    f = par and children(d, par, "status.json")
+    if not f:
+        print("GPU worker: never seen (not installed). Render on the cloud CPU."); sys.exit(1)
+    buf = io.BytesIO()
+    from googleapiclient.http import MediaIoBaseDownload
+    dl = MediaIoBaseDownload(buf, d.files().get_media(fileId=f[0]["id"], **KW)); done = False
+    while not done:
+        _, done = dl.next_chunk()
+    st = json.loads(buf.getvalue())
+    age = time.time() - datetime.fromisoformat(st["heartbeat"]).timestamp()
+    online = age < 600
+    print(f"GPU worker on {st.get('host')}: {'ONLINE' if online else 'OFFLINE'} (heartbeat {age / 60:.0f} min ago), "
+          f"state {st['state']}{' (paused by the owner)' if st.get('settings', {}).get('paused') else ''}")
+    c = st.get("current")
+    if c:
+        spf = f", {c['s_per_frame']:.1f} s/frame" if c.get("s_per_frame") else ""
+        print(f"  rendering {c['project']}/{c['shot']}: {c['done']}/{c['frames']} frames{spf}")
+    for q in st.get("queue", []):
+        print(f"  queued {q['project']}/{q['shot']} ({q['frames']} frames)")
+    t = st.get("totals", {})
+    print(f"  done so far: {t.get('shots', 0)} shots, {t.get('frames', 0)} frames, ~{t.get('saved_s', 0) / 3600:.1f} h saved vs the cloud CPU")
+    if st.get("error"):
+        print(f"  last problem: {st['error']}")
+    sys.exit(0 if online and not st.get("settings", {}).get("paused") else 1)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     s = ap.add_subparsers(dest="cmd", required=True)
@@ -199,6 +232,7 @@ def main():
     p = s.add_parser("drop"); p.add_argument("project"); p.add_argument("name"); p.set_defaults(fn=cmd_drop)
     p = s.add_parser("deliver"); p.add_argument("project"); p.add_argument("mp4"); p.add_argument("--notes"); p.add_argument("--keep", type=int, default=3); p.set_defaults(fn=cmd_deliver)
     p = s.add_parser("prune"); p.add_argument("project"); p.add_argument("--keep", type=int, default=3); p.set_defaults(fn=cmd_prune)
+    p = s.add_parser("worker"); p.set_defaults(fn=cmd_worker)
     a = ap.parse_args(); a.fn(a)
 
 

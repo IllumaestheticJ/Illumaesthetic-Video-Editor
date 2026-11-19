@@ -58,7 +58,8 @@ applies. Before planning, query the knowledge graph from the repo root:
    parts.
 6. **Preview** every shot at 30 % (`scripts/preview5.sh`). Render one final-quality still per new lighting setup; small
    lone parts and cabins need exposure around -1.8. Then queue the finals one at a time (`scripts/render_queue2.sh`,
-   resumable, at most about 2 h per job).
+   resumable, at most about 2 h per job). Run `python scripts/vdrive.py worker` first: if the owner's GPU PC is
+   online, send the finals there as a `gpujob` (`knowledge/gpu-worker.md`) and keep the CPU queue as the fallback.
    - Render at 75 % resolution, 12 spp, 15 fps, then minterpolate to 30.
    - Shots with a state swap or a fast part move render at native 30 fps.
    - "60 fps" means true 60 fps renders.

@@ -105,8 +105,10 @@ Rules from the BF run that now apply to all videos (details in lessons.md):
   - A local session on the PC renders it with the engine saved in the .blend, names frames `f####.png`, and saves
     `gpuframes_<shot>` back.
   - The cloud chat keeps a CPU fallback running, assembles and delivers.
-  - The worker only helps while a session on the PC is running and polling the drive. If jobs sit unclaimed,
-    tell the owner to restart it.
+  - The worker is a background service on the PC (`scripts/gpu_worker.py`, a Windows logon task) with a status page
+    at http://localhost:8765 on the PC. `python scripts/vdrive.py worker` shows whether it's online, what it's
+    rendering and the time saved. If it's OFFLINE or jobs sit unclaimed, ask the owner to log in to the PC or open
+    the status page (see `knowledge/gpu-worker.md`).
 - **Paid GPU rental** (Higgsfield credits) spends the same credits as generation. Never rent without the owner's OK.
 - **Registries:** MUSIC.md (claim before use) and PRICES.md. A per-campaign RUNDOWN.md is the hand-off document; keep
   it current and offer it when the owner wants to brief another Claude.
