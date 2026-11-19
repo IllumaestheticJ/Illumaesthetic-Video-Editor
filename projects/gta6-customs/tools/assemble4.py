@@ -131,64 +131,65 @@ VI_OUTLINE = "#5a1f96"                                         # the logo's purp
 
 
 def vice_card():
-    """End card, 1080x1920 BGR float (user, v16 review, with two GTA VI key-art references): palm silhouettes on the pink
-    Vice City sky, the EPSILON wordmark in white, and its "+" in the logo's other hue (the VI gradient, blue to orange, with
-    its purple edge). Everything is drawn here; nothing is taken from the reference pictures but the palette."""
+    """End card, 1080x1920 BGR float (user, v16/v17 reviews, with two GTA VI key-art references): palm silhouettes on the
+    sunset sky of the second reference (violet down through pink to orange; stops sampled from it), the whole EPSILON+
+    wordmark in white. Sky and palms are drawn here; nothing of the reference pictures is used but their colours."""
     hexbgr = lambda h: np.array([int(h[5:7], 16), int(h[3:5], 16), int(h[1:3], 16)], np.float32)
     Hc, Wc = 1920, 1080
-    t = np.linspace(0, 1, Hc)[:, None]
-    stops = [(0.0, "#b53ab0"), (0.45, "#d43fa6"), (1.0, "#f2569a")]              # sky: magenta-purple down to hot pink
-    sky = np.stack([np.interp(t[:, 0], [p for p, _ in stops], [hexbgr(c)[k] for _, c in stops]) for k in range(3)], 1)[:, None, :].repeat(Wc, 1)
-    # palms: tapered leaning trunks, fronds as drooping arcs with leaflets, drawn 2x and reduced
-    K = 2; m = np.zeros((Hc * K, Wc * K), np.float32); rng = np.random.default_rng(6)
+    t = np.linspace(0, 1, Hc)
+    stops = [(0.0, "#6f62a6"), (0.28, "#8f79b0"), (0.48, "#bd8bae"), (0.62, "#e39aa0"), (0.78, "#fbad8c"), (1.0, "#ffbc80")]
+    sky = np.stack([np.interp(t, [p for p, _ in stops], [hexbgr(c)[k] for _, c in stops]) for k in range(3)], 1)[:, None, :].repeat(Wc, 1)
+    K = 2; m = np.zeros((Hc * K, Wc * K), np.float32); rng = np.random.default_rng(11)
+    P_ = lambda p: (int(p[0] * K), int(p[1] * K))
 
-    def palm(x, top, lean, scale):
-        base = np.array([x, Hc + 40.0]); crown = np.array([x + lean, top])
-        pts = []
-        for u in np.linspace(0, 1, 40):
-            p = base + (crown - base) * u + np.array([np.sin(u * np.pi) * lean * 0.9, 0])
-            pts.append(p)
-        for a, b, u in zip(pts[:-1], pts[1:], np.linspace(0, 1, 39)):
-            cv2.line(m, tuple((a * K).astype(int)), tuple((b * K).astype(int)), 1.0, int((30 - 15 * u) * scale * K), cv2.LINE_AA)
-        c = pts[-1]
-        for ang in np.linspace(-215, 35, 9) + rng.uniform(-6, 6, 9):
-            L = rng.uniform(270, 340) * scale; a0 = np.radians(ang); prev = c.copy(); spine = [c.copy()]
-            for u in np.linspace(0, 1, 46)[1:]:
-                d = np.array([np.cos(a0), np.sin(a0)]) * L * u + np.array([0, (u ** 2) * L * 0.42])     # droop
-                spine.append(c + d)
-            for k_, (a, b) in enumerate(zip(spine[:-1], spine[1:])):
-                cv2.line(m, tuple((a * K).astype(int)), tuple((b * K).astype(int)), 1.0, max(1, int(7 * scale * K * (1 - k_ / 50))), cv2.LINE_AA)
-                tdir = (b - a) / (np.linalg.norm(b - a) + 1e-6); nrm = np.array([-tdir[1], tdir[0]])
-                ll = (30 * scale) * np.sin(np.pi * (k_ + 1) / 47) ** 0.7 + 3 * scale
-                for sgn in (-1, 1):
-                    e = b + (nrm * sgn * 0.7 + tdir * 0.7 + np.array([0, 0.3])) * ll
-                    cv2.line(m, tuple((b * K).astype(int)), tuple((e * K).astype(int)), 1.0, max(1, int(2.6 * scale * K)), cv2.LINE_AA)
+    def palm(base_x, crown, bend, scale):
+        """A coconut palm: slim trunk on a gentle curve, a crown of long fronds that arch out and hang, leaflets hanging
+        from each frond like a comb (v17's palms had stiff straight fronds and read as stars)."""
+        b = np.array([base_x, Hc + 60.0]); c = np.array(crown, np.float32); ctrl = (b + c) / 2 + np.array([bend, 0])
+        us = np.linspace(0, 1, 70)
+        tr = [(1 - u) ** 2 * b + 2 * u * (1 - u) * ctrl + u ** 2 * c for u in us]
+        for a_, b_, u in zip(tr[:-1], tr[1:], us):
+            cv2.line(m, P_(a_), P_(b_), 1.0, max(2, int((30 - 16 * u) * scale * K)), cv2.LINE_AA)
+        cv2.circle(m, P_(c), int(13 * scale * K), 1.0, -1, cv2.LINE_AA)
+        angs = list(np.linspace(-222, 42, 12) + rng.uniform(-8, 8, 12)) + [-78, -108]
+        for q, ang in enumerate(angs):
+            short = q >= 12
+            L = rng.uniform(300, 380) * scale * (0.55 if short else 1.0)
+            a0 = np.radians(ang); flat = abs(np.cos(a0))
+            droop = (0.10 + 0.42 * flat) * (0.4 if short else 1.0)
+            n = 64; uu = np.linspace(0, 1, n)
+            sp = [c + np.array([np.cos(a0), np.sin(a0)]) * L * u + np.array([0, droop * L * u ** 2.1]) for u in uu]
+            for k_ in range(n - 1):
+                a_, b_ = sp[k_], sp[k_ + 1]; u = uu[k_ + 1]
+                cv2.line(m, P_(a_), P_(b_), 1.0, max(1, int(7 * scale * K * (1 - u) + 1)), cv2.LINE_AA)
+                if u < 0.06:
+                    continue
+                td = (b_ - a_) / (np.linalg.norm(b_ - a_) + 1e-6); nr = np.array([-td[1], td[0]])
+                dn = nr if nr[1] > 0 else -nr                                # the side of the frond that faces the ground
+                ll = 0.12 * L * np.sin(np.pi * min(1, u * 1.02)) ** 0.5
+                e1 = dn * 0.55 + np.array([0, 0.75]) + td * 0.35; e1 /= np.linalg.norm(e1)
+                e2 = -dn * 0.8 + td * 0.75 + np.array([0, 0.25]); e2 /= np.linalg.norm(e2)
+                th = max(2, int(4.0 * scale * K))
+                cv2.line(m, P_(b_), P_(b_ + e1 * ll), 1.0, th, cv2.LINE_AA)
+                cv2.line(m, P_(b_), P_(b_ + e2 * ll * 0.6), 1.0, th, cv2.LINE_AA)
 
-    for x, top, lean, sc in ((120, 250, 70, 1.15), (990, 180, -80, 1.25), (330, 760, 40, 0.62), (-10, 900, 50, 0.5), (860, 1020, -30, 0.5), (640, 1260, 20, 0.36)):
-        palm(x, top, lean, sc)
+    #      base x, crown (x, y),  bend, scale        two big ones frame the wordmark, smaller ones stand further off
+    for bx, cr, bend, sc in ((-40, (215, 330), 150, 1.15), (1010, (900, 250), -170, 1.3), (360, (330, 1010), 60, 0.55),
+                             (820, (880, 1180), -40, 0.5), (90, (70, 1260), 30, 0.42), (600, (640, 1420), 20, 0.3)):
+        palm(bx, cr, bend, sc)
     m = cv2.resize(np.clip(m, 0, 1), (Wc, Hc), interpolation=cv2.INTER_AREA)[..., None]
-    card = sky * (1 - 0.55 * m) + hexbgr("#9a2a9a") * (0.55 * m)                 # silhouettes a shade deeper than the sky
-    # wordmark: letters white with a thin purple edge, the plus in the VI gradient
+    pal = np.stack([np.interp(t, [0, 0.5, 1], [hexbgr(c)[k] for c in ("#5c3b66", "#6f5486", "#6a4960")]) for k in range(3)], 1)[:, None, :]
+    card = sky * (1 - 0.82 * m) + pal * (0.82 * m)                              # the reference's palms: mauve, slightly see-through
+    # wordmark, all white, with a thin plum edge and a soft shadow so it holds against the bright lower sky
     logo = cv2.imread(str(LOGO), cv2.IMREAD_UNCHANGED).astype(np.float32)
     wl = 900; hl = round(logo.shape[0] * wl / logo.shape[1]); al = cv2.resize(logo[..., 3], (wl, hl), interpolation=cv2.INTER_AREA) / 255
     pad = 40; A = cv2.copyMakeBorder(al, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
-    n, lab, st, _ = cv2.connectedComponentsWithStats((A > 0.5).astype(np.uint8))
-    plus_id = 1 + int(np.argmax(st[1:, cv2.CC_STAT_LEFT]))                       # rightmost shape = the plus
-    px0 = st[plus_id, cv2.CC_STAT_LEFT] - 6
-    plus = A.copy(); plus[:, :px0] = 0; letters = A.copy(); letters[:, px0:] = 0
-    ys = np.nonzero(plus.max(1) > 0.5)[0]; tt = np.clip((np.arange(A.shape[0]) - ys.min()) / max(1, ys.max() - ys.min()), 0, 1)
-    gs = np.stack([hexbgr(h) for h in VI_GRADIENT]); gp = np.linspace(0, 1, len(gs))
-    grad = np.stack([np.interp(tt, gp, gs[:, c]) for c in range(3)], 1)[:, None, :].repeat(A.shape[1], 1)
-    ell = lambda k: cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k))
-    edge_l = cv2.GaussianBlur(cv2.dilate(letters, ell(9)), (0, 0), 0.8); edge_p = cv2.GaussianBlur(cv2.dilate(plus, ell(15)), (0, 0), 0.8)
-    rim_p = cv2.GaussianBlur(cv2.dilate(plus, ell(7)), (0, 0), 0.6)              # the VI's thin orange inner rim
-    shadow = cv2.GaussianBlur(np.maximum(letters, plus), (0, 0), 14) * 0.35
+    edge = cv2.GaussianBlur(cv2.dilate(A, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))), (0, 0), 0.8)
+    shadow = cv2.GaussianBlur(A, (0, 0), 16) * 0.4
     y0, x0 = 930 - A.shape[0] // 2, (Wc - A.shape[1]) // 2
     reg = card[y0:y0 + A.shape[0], x0:x0 + A.shape[1]]
-    for col, mk in ((hexbgr("#6a1f7e"), shadow), (hexbgr(VI_OUTLINE), edge_l), (np.array([250, 250, 250], np.float32), letters),
-                    (hexbgr(VI_OUTLINE), edge_p), (hexbgr("#fe984a"), rim_p), (None, plus)):
-        c_ = grad if col is None else col
-        reg[:] = reg * (1 - mk[..., None]) + c_ * mk[..., None]
+    for col, mk in ((hexbgr("#4a2a5c"), shadow), (hexbgr("#5a2a78"), edge), (np.array([252, 252, 252], np.float32), A)):
+        reg[:] = reg * (1 - mk[..., None]) + col * mk[..., None]
     return card
 
 

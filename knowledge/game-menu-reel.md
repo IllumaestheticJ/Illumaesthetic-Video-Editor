@@ -404,3 +404,7 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   the blur shows as a tear when the car or scenery is inside it; a bright UI bar in a blurred frame smears into a band. Blur
   frames with the list removed, and hold `|frame - blank frame|` (the lettering itself) or a tight title box. Look at one
   frame of every whip at delivery size.
+- **Drawn silhouettes (palms, GTA 6 v17/v18).** Thin-line fronds read as stars or ferns and moire when reduced; long hanging
+  leaflets merge into mops. What reads as a palm: curved slim trunk, about twelve fronds arching from the crown with little
+  droop for the upright ones, each frond a solid tapered blade (short thick leaflets that merge). Sample sky gradients from
+  the user's reference by rows; never paste the reference art.

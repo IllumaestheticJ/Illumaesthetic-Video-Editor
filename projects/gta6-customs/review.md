@@ -214,3 +214,9 @@ Output: `/home/user/media/work/out/gta6-customs_v17.mp4`, 29.0 s; card `/home/us
 End card redrawn (see edit log); everything before it as v16. Three passes on the palms: hatched and faint, then solid
 clumps, then nine thin fronds per crown, which reads as a palm. Open: pink sky chosen over the sunset reference; the + is
 small because it is the wordmark's own.
+
+## v18 (2026-11-19) - after the user's review of v17
+User: "can you fix the palm trees and revert the + sign back to white? make the background gradient like the second photo"
+
+Output: `/home/user/media/work/out/gta6-customs_v18.mp4`, 29.0 s; card `/home/user/media/work/gta6-customs/end_card.png`.
+End card only (edit log). Looked at the card at 720x1280 after each of three palm passes.
