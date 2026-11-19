@@ -127,30 +127,36 @@ def s1():
     for f in range(44, 66, 6): key(th, f, loc=(0.14, -0.14, -0.5), interp="LINEAR"); key(th, f + 3, loc=(0.14, -0.17, -0.5), interp="LINEAR")
     a1, a2 = arms; key(a1, 34, rot=(R(-60), 0, R(-90)), interp="LINEAR"); key(a1, 40, rot=(R(40), 0, R(-90 - 10)), interp="BEZIER")     # the reflection's thumbs-up arm
 
+def tapper(ph, name="hTap"):
+    """Pointing glove in the phone's own space: wrist below-right, index finger up-left onto the lower screen (buttons at local y ~ -0.05)."""
+    fy = Vector((-0.38, 0.92, -0.1)).normalized(); bz = Vector((0.05, 0.1, 1)).normalized(); fx = fy.cross(bz).normalized(); bz = fx.cross(fy)
+    return ghand(name, ph, (0.09, -0.19, 0.03), Matrix((fx, fy, bz)).transposed().to_euler(), curls=POINT, thumb=0.9)
+
+HOVER, TOUCH = (0.09, -0.19, 0.03), (0.087, -0.195, 0.012)
+
 # ---------------------------------------------------------------- shot 2: track-day sign-up; thumb hovers, trembles, swipes away
 def s2():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); W.bunk(cam)
     ph, d = W.phone(cam, ["signup", "signup_hover", "cart"])
     ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2)
-    h = ghand("hR", cam, (0.06, -0.125, -0.1), (R(-38), R(4), R(32)), curls=POINT, thumb=0.9)
-    rnd = random.Random(7); sched = [(1, "signup")]
-    key(h, 1, loc=(0.09, -0.16, -0.09), interp="LINEAR")
-    for f in range(6, 34, 2):          # hover and tremble just above REGISTER; the button lights when he nearly commits
+    h = tapper(ph); rnd = random.Random(7); sched = [(1, "signup")]
+    key(h, 1, loc=(0.09, -0.25, 0.06), interp="LINEAR")
+    for f in range(6, 34, 2):          # hovers over REGISTER and trembles; the button lights when he nearly commits
         near = (f // 2) % 4 == 0
-        key(h, f, loc=(0.058 + rnd.uniform(-0.003, 0.003), -0.124 + rnd.uniform(-0.003, 0.003), -0.098 + (0.006 if near else 0.0)), interp="LINEAR")
+        key(h, f, loc=(HOVER[0] + rnd.uniform(-0.003, 0.003), HOVER[1] + rnd.uniform(-0.003, 0.003), 0.016 if near else 0.03), interp="LINEAR")
         sched.append((f, "signup_hover" if near else "signup"))
-    key(h, 34, loc=(0.06, -0.12, -0.104), interp="LINEAR"); key(h, 39, loc=(-0.06, -0.11, -0.104), interp="LINEAR"); key(h, 44, loc=(0.0, -0.17, -0.09), interp="LINEAR")
+    key(h, 34, loc=HOVER, interp="LINEAR"); key(h, 39, loc=(HOVER[0] - 0.12, HOVER[1] + 0.02, 0.02), interp="LINEAR"); key(h, 44, loc=(0.09, -0.25, 0.06), interp="LINEAR")   # swipe away
     sched += [(34, "signup"), (38, "cart")]; swap(d, sched)
     for f, ln in ((1, 24), (30, 30), (36, 24)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
 
 # ---------------------------------------------------------------- shot 3: TC wing in the cart; Confirm hammered ~10 times
 def s3():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); W.bunk(cam); ph, d = W.phone(cam, ["cart", "cart_pressed"])
-    ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); h = ghand("hR", cam, (0.06, -0.125, -0.1), (R(-38), R(4), R(32)), curls=POINT, thumb=0.9)
+    ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); h = tapper(ph)
     f = 4.0; gap = 6.0; sched = [(1, "cart")]; rnd = random.Random(2)
     while f < 45:
         fi = int(round(f)); sched += [(fi, "cart_pressed"), (fi + 2, "cart")]
-        key(h, fi - 2, loc=(0.065, -0.135, -0.085), interp="LINEAR"); key(h, fi, loc=(0.045, -0.105, -0.115), interp="LINEAR"); key(h, fi + 1, loc=(0.06, -0.13, -0.09), interp="LINEAR")
+        key(h, fi - 2, loc=HOVER, interp="LINEAR"); key(h, fi, loc=TOUCH, interp="LINEAR"); key(h, fi + 1, loc=HOVER, interp="LINEAR")
         a = 0.004 + 0.012 * f / 46; key(ph, fi, loc=(-0.012 + rnd.uniform(-a, a), 0.012 - a, -0.135 - a), rot=(R(-6 + rnd.uniform(-4, 4)), R(3), R(4 + rnd.uniform(-5, 5))), interp="LINEAR"); key(ph, fi + 2, loc=(-0.012, 0.012, -0.135), rot=(R(-6), R(3), R(4)), interp="LINEAR")
         f += gap; gap = max(2.6, gap * 0.8)
     swap(d, sched); cam.data.lens = 22; cam.data.keyframe_insert("lens", frame=1); cam.data.lens = 27; cam.data.keyframe_insert("lens", frame=46)
