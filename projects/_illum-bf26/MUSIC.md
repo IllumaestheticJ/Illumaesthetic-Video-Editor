@@ -5,7 +5,7 @@ and every `projects/*/project.yaml`. Claim here (edit, commit, push) before plan
 
 | Video | Track | Source | Status |
 |---|---|---|---|
-| R2 ibf-evo8-bumper | "Electric Horizons" - Andre Marteen (TikTok CML, song_clip_id 7420070383351056400, 212 s, 143.6 BPM); start 54.796 s, stop 59.5, re-entry 60.836 = street cut | Higgsfield tiktok_music_trending, EDM 30-day US #68 (2026-11-19) | claimed 2026-11-19 for v0.1 (Blood Code released: already used on toyota-gr-corolla v3) |
+| R2 ibf-evo8-bumper | "Electric Horizons" - Andre Marteen (TikTok CML, song_clip_id 7420070383351056400, 212 s, 143.6 BPM); v0.2 starts 9.752 s = 2 bars before the FIRST drop (13.096 s, bass returns after a 12.0-13.0 dropout) = video 3.344 cut into the test fit | Higgsfield tiktok_music_trending, EDM 30-day US #68 (2026-11-19) | claimed 2026-11-19 (v0.1 started mid-song at 54.8 s; fixed in v0.2) (Blood Code released: already used on toyota-gr-corolla v3) |
 | R6 ibf-gd-brake-ducts | "The Future" - Max Brhon (TikTok CML, song_clip_id 6768802903118317570, 215.8 s); drop ~53 s | Higgsfield tiktok_music_trending, EDM 7-day US #60 (2026-11-19) | claimed 2026-11-19 (owner may swap) |
 | R7 ibf-print-your-own | Roni Size "The Streets" (Juiced OST #17) | Dropbox /Moosic id:ihAynaYnO_4AAAAAAACmZw | claimed 2026-11-19 (owner may swap) |
 | R4 ibf-mr2-clear-tails | "Saturday Night" - Mhobold (TikTok CML, song_clip_id 7397784931860039697, 198 s, 129 BPM); break at ~43.6 s, drop 44.72 s = day->night switch | Higgsfield tiktok_music_trending, EDM 7-day US #76 (2026-11-19) | claimed 2026-11-19 (owner may swap) |
