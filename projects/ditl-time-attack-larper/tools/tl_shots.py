@@ -88,7 +88,7 @@ def racer_body(root_loc, rz):
     box("hel_visor", (0.27, 0.02, 0.07), vz, (0, -0.15, 0.2), rot=(R(-30), 0, 0), parent=head, base="z")       # visor flipped up
     box("collar", (0.3, 0.28, 0.06), red, (0, 0, 0.53), parent=p, base="z"); box("zip", (0.02, 0.005, 0.5), W._flat_mat("zipm", (0.8, 0.8, 0.8), 0.2), (0, -0.131, 0.02), parent=p, base="z")
     for sx in (-1, 1): box(f"patch{sx}", (0.1, 0.005, 0.06), red if sx > 0 else W._flat_mat("patchy", (0.95, 0.8, 0.1), 0.4), (sx * 0.12, -0.131, 0.4), parent=p, base="z")
-    a1, f1 = W.arm("meaR", p, -1, kit()["glove"], kit()["suit"], up=-60, fwd=10, bend=20); a2, f2 = W.arm("meaL", p, 1, kit()["glove"], kit()["suit"], up=-60, fwd=10, bend=20)
+    a1, f1 = W.arm("meaR", p, -1, kit()["glove"], kit()["suit"], up=-75, fwd=180, bend=8); a2, f2 = W.arm("meaL", p, 1, kit()["glove"], kit()["suit"], up=-75, fwd=180, bend=8)   # hang down and slightly out (W.arm: Z=90*side points inward)
     for o in [p] + list(p.children_recursive): o.visible_camera = False
     return p, head, fd, (a1, a2)
 
@@ -122,37 +122,37 @@ def s1():
     for f, dz in ((44, -0.06), (48, 0.02), (52, -0.05), (56, 0.0)): key(rig, f, loc=Ed, rot=lookrot(Ed, (mc[0], mc[1], mc[2] + dz)), interp="BEZIER")
     for f, ln in ((1, 20), (34, 20), (66, 26)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
     follow_lens(20, [vz], ((1, 20), (34, 20), (66, 26)))
-    th = ghand("hT", cam, (0.16, -0.24, -0.5), (R(-20), R(-80), R(10)), curls=FIST, thumb=-0.6); vis(th, 1, False); vis(th, 34, True)
+    th = ghand("hT", cam, (0.16, -0.24, -0.5), (R(-20), R(-80), R(10)), curls=FIST, thumb=1.2); vis(th, 1, False); vis(th, 34, True)
     key(th, 34, loc=(0.3, -0.45, -0.5), interp="LINEAR"); key(th, 40, loc=(0.14, -0.16, -0.5), interp="BEZIER")
     for f in range(44, 66, 6): key(th, f, loc=(0.14, -0.14, -0.5), interp="LINEAR"); key(th, f + 3, loc=(0.14, -0.17, -0.5), interp="LINEAR")
-    a1, a2 = arms; key(a1, 34, rot=(R(-60), 0, R(-90)), interp="LINEAR"); key(a1, 40, rot=(R(40), 0, R(-90 - 10)), interp="BEZIER")     # the reflection's thumbs-up arm
+    # the thumbs-up is the camera-space glove, which the mirror reflects; the body's own arms stay down
 
 def tapper(ph, name="hTap"):
     """Pointing glove in the phone's own space: wrist below-right, index finger up-left onto the lower screen (buttons at local y ~ -0.05)."""
-    fy = Vector((-0.38, 0.92, -0.1)).normalized(); bz = Vector((0.05, 0.1, 1)).normalized(); fx = fy.cross(bz).normalized(); bz = fx.cross(fy)
-    return ghand(name, ph, (0.09, -0.19, 0.03), Matrix((fx, fy, bz)).transposed().to_euler(), curls=POINT, thumb=0.9)
+    fy = Vector((-0.6, 0.8, -0.1)).normalized(); bz = Vector((0.05, 0.1, 1)).normalized(); fx = fy.cross(bz).normalized(); bz = fx.cross(fy)
+    return ghand(name, ph, (0.13, -0.172, 0.048), Matrix((fx, fy, bz)).transposed().to_euler(), curls=POINT, thumb=0.9)
 
-HOVER, TOUCH = (0.09, -0.19, 0.03), (0.087, -0.195, 0.012)
+HOVER, TOUCH = (0.13, -0.172, 0.048), (0.127, -0.177, 0.031)   # touch = fingertip on the glass, not through the phone
 
 # ---------------------------------------------------------------- shot 2: track-day sign-up; thumb hovers, trembles, swipes away
 def s2():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); W.bunk(cam)
     ph, d = W.phone(cam, ["signup", "signup_hover", "cart"])
-    ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2)
+    ghand("hL", cam, (-0.045, -0.17, -0.17), (R(-6), R(180), R(-8)), curls=FLAT, thumb=1.2)
     h = tapper(ph); rnd = random.Random(7); sched = [(1, "signup")]
     key(h, 1, loc=(0.09, -0.25, 0.06), interp="LINEAR")
     for f in range(6, 34, 2):          # hovers over REGISTER and trembles; the button lights when he nearly commits
         near = (f // 2) % 4 == 0
-        key(h, f, loc=(HOVER[0] + rnd.uniform(-0.003, 0.003), HOVER[1] + rnd.uniform(-0.003, 0.003), 0.016 if near else 0.03), interp="LINEAR")
+        key(h, f, loc=(HOVER[0] + rnd.uniform(-0.003, 0.003), HOVER[1] + rnd.uniform(-0.003, 0.003), 0.034 if near else 0.048), interp="LINEAR")
         sched.append((f, "signup_hover" if near else "signup"))
-    key(h, 34, loc=HOVER, interp="LINEAR"); key(h, 39, loc=(HOVER[0] - 0.12, HOVER[1] + 0.02, 0.02), interp="LINEAR"); key(h, 44, loc=(0.09, -0.25, 0.06), interp="LINEAR")   # swipe away
+    key(h, 34, loc=HOVER, interp="LINEAR"); key(h, 39, loc=(HOVER[0] - 0.13, HOVER[1] + 0.06, 0.062), interp="LINEAR"); key(h, 44, loc=(0.16, -0.26, 0.07), interp="LINEAR")   # swipe away up-left, in front of the holding hand
     sched += [(34, "signup"), (38, "cart")]; swap(d, sched)
     for f, ln in ((1, 24), (30, 30), (36, 24)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
 
 # ---------------------------------------------------------------- shot 3: TC wing in the cart; Confirm hammered ~10 times
 def s3():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); W.bunk(cam); ph, d = W.phone(cam, ["cart", "cart_pressed"])
-    ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); h = tapper(ph)
+    ghand("hL", cam, (-0.045, -0.17, -0.17), (R(-6), R(180), R(-8)), curls=FLAT, thumb=1.2); h = tapper(ph)
     f = 4.0; gap = 6.0; sched = [(1, "cart")]; rnd = random.Random(2)
     while f < 45:
         fi = int(round(f)); sched += [(fi, "cart_pressed"), (fi + 2, "cart")]

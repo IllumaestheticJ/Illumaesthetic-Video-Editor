@@ -1385,3 +1385,5 @@ lands here automatically. Agents must read this whole file before editing.
   reveal "like tape" = wipe along the car with per-strip hashed delays and a crisp edge (shot.py mat_paint, spec "tape").
 
 - **[technical]** A floating BMW logo and the character's head going through the roof must not make the final video  _(from ditl-wrx-vb, 2026-11-17, reviewer)_
+
+- **[technical]** Make sure arms don't go into each other or into the person  _(from ditl-time-attack-larper, 2026-11-19, owner)_

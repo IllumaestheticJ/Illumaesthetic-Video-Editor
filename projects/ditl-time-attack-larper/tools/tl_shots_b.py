@@ -228,14 +228,14 @@ def s12():
     g = box("gauge", (0.05, 0.12, 0.05), fm("gaugem", (0.05, 0.05, 0.05), 0.3), (wx + 0.04, wy - 0.18, 0.2), rot=(0, 0, R(30)))
     hr = ghand("hR", g, (0, 0.08, 0.0), (R(-90), 0, 0), curls=FIST, thumb=0.8)
     key(g, 1, loc=(wx + 0.3, wy - 0.4, 0.4), interp="LINEAR"); key(g, 8, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 22, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 27, loc=(wx + 0.25, wy + 0.5, 0.15), interp="LINEAR"); vis(g, 1, True); vis(g, 28, False)
-    hl = ghand("hL", cam, (-0.02, -0.11, -0.22), (0, 0, R(25)), curls=FLAT, thumb=0.2, mirror=True)      # back of the glove facing the camera
+    hl = ghand("hL", cam, (-0.02, -0.11, -0.22), (0, 0, R(25)), curls=FLAT, thumb=1.0, mirror=True)      # back of the glove facing the camera
     inks = {k: plane(f"ink{k}", 0.11, 0.055, alphamat(f"inkm{k}", f"{TEX}glove_ink{k}.png"), (0, 0.05, 0.0175), parent=hl) for k in (1, 2, 3)}
     for o in inks.values(): o.scale = (-o.scale[0], o.scale[1], o.scale[2])   # undo the mirrored hand so the ink reads
     vis(hl, 1, False); vis(hl, 28, True); swap(inks, [(1, 0), (34, 1), (38, 2), (42, 3)])
     for o in inks.values(): vis(o, 1, False)
     vis(inks[1], 34, True); vis(inks[1], 38, False); vis(inks[2], 38, True); vis(inks[2], 42, False); vis(inks[3], 42, True)
-    pen = ghand("hW", cam, (0.07, -0.07, -0.2), (R(-70), 0, R(30)), curls=FIST, thumb=0.9, hold="pen"); vis(pen, 1, False); vis(pen, 30, True)
-    for f in range(30, 47, 2): key(pen, f, loc=(0.045 + 0.009 * ((f - 30) / 2), -0.07 + 0.006 * ((f // 2) % 2), -0.2), interp="LINEAR")
+    pen = ghand("hW", cam, (0.1, -0.06, -0.18), (R(-70), 0, R(30)), curls=FIST, thumb=0.9, hold="pen"); vis(pen, 1, False); vis(pen, 30, True)
+    for f in range(30, 47, 2): key(pen, f, loc=(0.088 + 0.007 * ((f - 30) / 2), -0.06 + 0.006 * ((f // 2) % 2), -0.18), interp="LINEAR")
     key(rig, 1, rot=lookrot((1.75, wy - 0.55, 0.62), (wx, wy, 0.42)), interp="BEZIER"); key(rig, 26, rot=lookrot((1.75, wy - 0.55, 0.62), (wx, wy, 0.42)), interp="BEZIER")
 
 # ---------------------------------------------------------------- 13: weather app shows one cloud; gasp; blanket over the wing
@@ -263,8 +263,8 @@ def s14():
         lc = lowcar(f"tc{i}", (-40, -20 - (i % 2) * 3, 0), R(90), fm(f"tcb{i}", col, 0.3), gl, ti); key(lc, f0, loc=(-40, -20 - (i % 2) * 3, 0), interp="LINEAR"); key(lc, f0 + 14, loc=(40, -20 - (i % 2) * 3, 0), interp="LINEAR")
     p, head, fd = W.person("marshal", "marshal", (-3.6, -11.2, 0), R(-20), skin("msk"), fm("vest2", (0.95, 0.55, 0.05), 0.6), fm("mhair", (0.05, 0.05, 0.05)), ["grin", "flat", "blank"])
     swap(fd, [(1, "grin"), (52, "flat"), (66, "blank")])
-    a, f_ = W.arm("ma", p, 1, skin("msk2"), fm("vest3", (0.95, 0.55, 0.05), 0.6), up=60, fwd=10, bend=30)
-    for f in range(1, 50, 5): key(a, f, rot=(R(60 + 30 * ((f // 5) % 2)), 0, R(90)), interp="LINEAR")
+    a, f_ = W.arm("ma", p, 1, skin("msk2"), fm("vest3", (0.95, 0.55, 0.05), 0.6), up=60, fwd=180, bend=10)
+    for f in range(1, 50, 5): key(a, f, rot=(R(55 + 30 * ((f // 5) % 2)), 0, R(-90)), interp="LINEAR")   # waves out to the side, clear of the head
     key(veh, 1, loc=(1.7, 0, 0), interp="LINEAR"); key(veh, 28, loc=(1.7, -3.0, 0), interp="BEZIER"); key(veh, 46, loc=(1.7, -3.4, 0), interp="BEZIER")
     key(veh, 47, rot=(0, 0, 0), interp="BEZIER"); key(veh, 81, loc=(-1.4, -2.0, 0), rot=(0, 0, R(180)), interp="BEZIER")
     rig, cam = drivecam(veh, look=(0.2, -9, 1.2), lens=17)
