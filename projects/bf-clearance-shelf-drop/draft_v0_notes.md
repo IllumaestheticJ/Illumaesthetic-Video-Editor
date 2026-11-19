@@ -138,3 +138,7 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 ## v1.0 — sign spacing
 - User: "the black friday lettering too close to each other". Line spacing 1.12 -> 1.40, letter spacing 1.12, wordmark 0.25 m lower, board 0.15 m wider. Only s1 re-rendered (cloud CPU; GPU worker did not pick the job up in time).
 - 60 fps, 1360 frames, 22.67 s, -14.1 LUFS, TP -2.2 dBFS, safe-zone sheet clean.
+
+## v1.1 — A-Y kerning
+- User: "the A and Y are awkwardly spaced out". Kerning -7 on the A-Y pair in FRIDAY (Blender per-character kerning on the A). Only s1 re-rendered (cloud CPU; GPU worker did not pick it up).
+- 60 fps, 1360 frames, 22.67 s, -14.1 LUFS, TP -2.2 dBFS, safe-zone sheet clean.
