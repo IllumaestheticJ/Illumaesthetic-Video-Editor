@@ -141,13 +141,15 @@ def s7():
     W.road(); veh, wg = car_in(); c = cabin(veh, tuple(f"timer_{i:03d}" for i in range(3, 7))); timer_swaps(c, 1, 48, 12, 3)
     for y in (-14, -40):
         box(f"post{y}", (0.08, 0.08, 2.2), fm("postm", (0.6, 0.6, 0.6)), (-5.6, y, 0), base="z"); plane(f"ss{y}", 1.4, 0.47, imgmat(f"ssm{y}", TEX + "sign_school.png"), (-5.6, y + 0.05, 2.2), rot=(R(90), 0, 0))
-    p, head, fd = W.person("guard", "guard", (-4.2, -12, 0), 0, skin("gsk"), fm("vest", (0.95, 0.55, 0.05), 0.6), fm("ghair", (0.35, 0.25, 0.15)), ["flat", "blank"], bun=True)
-    p.rotation_euler = (0, 0, R(-60)); swap(fd, [(1, "flat"), (30, "blank"), (34, "flat")])
-    sp = box("stoppole", (0.04, 0.04, 1.3), fm("pole", (0.7, 0.7, 0.7)), (0.3, 0, 0.5), base="z", parent=p); plane("stopsign", 0.45, 0.45, imgmat("stopm", TEX + "sign_stop.png"), (0, -0.03, 0.75), rot=(R(90), 0, 0), parent=sp)
+    p, head, fd = W.person("guard", "guard", (1.4, -5.6, 0.78), 0, skin("gsk"), fm("vest", (0.95, 0.55, 0.05), 0.6), fm("ghair", (0.35, 0.25, 0.15)), ["flat", "blank"], bun=True)
+    p.rotation_euler = (0, 0, R(180)); swap(fd, [(1, "flat"), (30, "blank"), (34, "flat")])   # in the road, facing the car
+    for sx in (-1, 1): box(f"gleg{sx}", (0.15, 0.17, 0.8), fm("gpants", (0.1, 0.12, 0.25), 0.7), (sx * 0.11, 0, -0.8), base="z", parent=p)
+    sp = box("stoppole", (0.04, 0.04, 1.5), fm("pole", (0.7, 0.7, 0.7)), (0.3, 0, -0.4), base="z", parent=p); plane("stopsign", 0.5, 0.5, imgmat("stopm", TEX + "sign_stop.png"), (0, -0.03, 1.4), rot=(R(90), 0, 0), parent=sp)
     key(veh, 1, loc=(1.7, 0, 0), interp="LINEAR"); key(veh, 47, loc=(1.7, -1.6, 0), interp="LINEAR")   # walking pace
     rig, cam = drivecam(veh, look=(-3, -9, 1.2), lens=17)
-    key(rig, 1, rot=lookrot(EYE, (0.2, -8, 1.0)), interp="BEZIER"); key(rig, 14, rot=lookrot(EYE, (0.2, -8, 1.0)), interp="BEZIER"); key(rig, 26, rot=lookrot(EYE, (-6.0, -10.5, 1.4)), interp="BEZIER")
-    for f, ln in ((1, 17), (26, 17), (40, 26)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    key(rig, 1, rot=lookrot(EYE, (0.2, -8, 1.0)), interp="BEZIER"); key(rig, 12, rot=lookrot(EYE, (0.2, -8, 1.0)), interp="BEZIER"); key(rig, 24, rot=lookrot(EYE, (-0.2, -6, 1.15)), interp="BEZIER")
+    key(rig, 47, rot=lookrot(EYE, (-0.2, -4.6, 1.2)), interp="BEZIER")     # keeps staring at her as he creeps past
+    for f, ln in ((1, 17), (20, 17), (44, 30)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
     wheelhands(c["wheel"])
     shake(cam, 1, 47, 0.25, step=4, seed=7)
 
@@ -175,13 +177,15 @@ def s9():
     for f in range(1, 49, 4): key(c["wheel"], f, rot=(R(68), 0, R(70 if (f // 4) % 2 else -70)), interp="LINEAR")
     wheelhands(c["wheel"])
     cy = bpy.data.objects.new("cyc", None); bpy.context.scene.collection.objects.link(cy)
-    p, head, fd = W.person("cyclist", "cyclist", (0, 0, 0.55), 0, skin("csk"), fm("jersey", (0.1, 0.6, 0.3), 0.5), fm("chair", (0.1, 0.08, 0.05)), ["flat"]); p.parent = cy; p.rotation_euler = (R(-20), 0, 0)
+    p, head, fd = W.person("cyclist", "cyclist", (0, 0, 0.42), 0, skin("csk"), fm("jersey", (0.1, 0.6, 0.3), 0.5), fm("chair", (0.1, 0.08, 0.05)), ["flat"]); p.parent = cy; p.rotation_euler = (R(-20), 0, 0)
     for yy in (-0.5, 0.5):
         bpy.ops.mesh.primitive_torus_add(major_radius=0.33, minor_radius=0.025, location=(0, yy, 0.35), rotation=(0, R(90), 0)); w_ = bpy.context.object; w_.parent = cy; w_.data.materials.append(fm("biket", (0.02, 0.02, 0.02)))
     box("frame", (0.04, 1.0, 0.05), fm("bikef", (0.8, 0.1, 0.1)), (0, 0, 0.6), parent=cy)
-    key(cy, 1, loc=(-0.3, 4.0, 0), interp="LINEAR"); key(cy, 48, loc=(-0.2, -7.5, 0), interp="LINEAR")
-    key(rig, 1, rot=lookrot(EYE, (0.3, -8, 1.0)), interp="BEZIER"); key(rig, 22, rot=lookrot(EYE, (-2.5, -3, 1.0)), interp="BEZIER"); key(rig, 40, rot=lookrot(EYE, (-0.6, -9, 1.0)), interp="BEZIER")
+    cy.scale = (1.15,) * 3
+    key(cy, 1, loc=(0.0, 2.5, 0), interp="LINEAR"); key(cy, 20, loc=(0.1, -2.6, 0), interp="LINEAR"); key(cy, 48, loc=(1.4, -8.5, 0), interp="LINEAR")   # overtakes on the right, cuts in ahead
+    key(rig, 1, rot=lookrot(EYE, (0.3, -8, 1.0)), interp="BEZIER"); key(rig, 12, rot=lookrot(EYE, (-1.4, -3.5, 1.05)), interp="BEZIER"); key(rig, 26, rot=lookrot(EYE, (-0.6, -6, 1.05)), interp="BEZIER"); key(rig, 46, rot=lookrot(EYE, (0.2, -8, 1.05)), interp="BEZIER")
     shake(cam, 1, 48, 0.7, step=2, seed=9)
+    for f, ln in ((1, 17), (18, 17), (34, 26)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)   # punch in on the cyclist pulling away
 
 # ---------------------------------------------------------------- 10: office car park; the wing clips the height bar (bonk)
 def s10():
@@ -223,20 +227,23 @@ def s12():
     rig, cam = rigcam((1.75, wy - 0.55, 0.62), (wx, wy, 0.42), lens=20)
     g = box("gauge", (0.05, 0.12, 0.05), fm("gaugem", (0.05, 0.05, 0.05), 0.3), (wx + 0.04, wy - 0.18, 0.2), rot=(0, 0, R(30)))
     hr = ghand("hR", g, (0, 0.08, 0.0), (R(-90), 0, 0), curls=FIST, thumb=0.8)
-    key(g, 1, loc=(wx + 0.3, wy - 0.4, 0.4), interp="LINEAR"); key(g, 8, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 22, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 27, loc=(wx + 0.5, wy - 0.5, 0.6), interp="LINEAR")
-    hl = ghand("hL", cam, (-0.08, -0.12, -0.35), (R(-80), R(180), R(10)), curls=FLAT, thumb=0.2)
-    scr = plane("ink", 0.06, 0.03, alphamat("inkm", TEX + "milk_0.png"), (0, 0.05, 0.017), parent=hl); scr.data.materials[0].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (0.05, 0.05, 0.3, 1)
-    vis(hl, 1, False); vis(hl, 28, True); vis(scr, 1, False); vis(scr, 36, True)
-    pen = ghand("hW", cam, (0.04, -0.06, -0.3), (R(-70), 0, R(10)), curls=FIST, thumb=0.9, hold="pen"); vis(pen, 1, False); vis(pen, 30, True)
-    for f in range(30, 47, 2): key(pen, f, loc=(0.0 + 0.02 * ((f // 2) % 2), -0.07, -0.3), interp="LINEAR")
-    key(rig, 1, rot=lookrot((1.75, wy - 0.55, 0.62), (wx, wy, 0.42)), interp="BEZIER"); key(rig, 26, rot=lookrot((1.75, wy - 0.55, 0.62), (wx, wy, 0.42)), interp="BEZIER"); key(rig, 31, rot=lookrot((1.75, wy - 0.55, 0.62), (1.7, wy - 0.4, 0.1)), interp="BEZIER")
+    key(g, 1, loc=(wx + 0.3, wy - 0.4, 0.4), interp="LINEAR"); key(g, 8, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 22, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 27, loc=(wx + 0.25, wy + 0.5, 0.15), interp="LINEAR"); vis(g, 1, True); vis(g, 28, False)
+    hl = ghand("hL", cam, (-0.02, -0.11, -0.22), (0, 0, R(25)), curls=FLAT, thumb=0.2, mirror=True)      # back of the glove facing the camera
+    inks = {k: plane(f"ink{k}", 0.11, 0.055, alphamat(f"inkm{k}", f"{TEX}glove_ink{k}.png"), (0, 0.05, 0.0175), parent=hl) for k in (1, 2, 3)}
+    for o in inks.values(): o.scale = (-o.scale[0], o.scale[1], o.scale[2])   # undo the mirrored hand so the ink reads
+    vis(hl, 1, False); vis(hl, 28, True); swap(inks, [(1, 0), (34, 1), (38, 2), (42, 3)])
+    for o in inks.values(): vis(o, 1, False)
+    vis(inks[1], 34, True); vis(inks[1], 38, False); vis(inks[2], 38, True); vis(inks[2], 42, False); vis(inks[3], 42, True)
+    pen = ghand("hW", cam, (0.07, -0.07, -0.2), (R(-70), 0, R(30)), curls=FIST, thumb=0.9, hold="pen"); vis(pen, 1, False); vis(pen, 30, True)
+    for f in range(30, 47, 2): key(pen, f, loc=(0.045 + 0.009 * ((f - 30) / 2), -0.07 + 0.006 * ((f // 2) % 2), -0.2), interp="LINEAR")
+    key(rig, 1, rot=lookrot((1.75, wy - 0.55, 0.62), (wx, wy, 0.42)), interp="BEZIER"); key(rig, 26, rot=lookrot((1.75, wy - 0.55, 0.62), (wx, wy, 0.42)), interp="BEZIER")
 
 # ---------------------------------------------------------------- 13: weather app shows one cloud; gasp; blanket over the wing
 def s13():
     T.driveway_set(); veh, wg = T.fk8car(wing=True)
     E = (-0.9, 4.3, 1.62); rig, cam = rigcam(E, (0.0, 2.0, 0.9), lens=20)
     ph, d = W.phone(cam, ["weather"]); key(ph, 1, loc=(-0.012, 0.012, -0.135), interp="LINEAR"); key(ph, 18, loc=(-0.012, 0.012, -0.135), interp="LINEAR"); key(ph, 24, loc=(-0.012, -0.25, -0.135), interp="LINEAR")
-    hp = ghand("hL", cam, (-0.03, -0.1, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); key(hp, 18, loc=(-0.03, -0.1, -0.17), interp="LINEAR"); key(hp, 24, loc=(-0.03, -0.4, -0.17), interp="LINEAR")
+    hp = ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); key(hp, 18, loc=(-0.03, -0.17, -0.17), interp="LINEAR"); key(hp, 24, loc=(-0.03, -0.45, -0.17), interp="LINEAR")
     key(cam, 15, rot=(0, 0, 0), interp="LINEAR"); key(cam, 16, rot=(R(4), 0, R(-2)), interp="LINEAR"); key(cam, 20, rot=(0, 0, 0), interp="LINEAR")     # gasp
     bl = box("blanket", (1.85, 0.5, 0.02), mat("blanket_w", (0.5, 0.15, 0.12)), (0, 2.15, 1.47))
     vis(bl, 1, False); vis(bl, 26, True); key(bl, 26, loc=(-0.6, 3.6, 1.4), rot=(R(40), R(30), R(70)), scale=(0.4, 0.4, 1), interp="LINEAR"); key(bl, 36, loc=(0, 2.15, 1.5), rot=(R(-6), 0, 0), scale=(1.05, 1.1, 1), interp="LINEAR"); key(bl, 40, loc=(0, 2.15, 1.47), rot=(0, 0, 0), scale=(1, 1, 1), interp="LINEAR")

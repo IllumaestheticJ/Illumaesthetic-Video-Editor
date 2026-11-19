@@ -131,7 +131,7 @@ def s1():
 def s2():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); W.bunk(cam)
     ph, d = W.phone(cam, ["signup", "signup_hover", "cart"])
-    ghand("hL", cam, (-0.03, -0.1, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2)
+    ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2)
     h = ghand("hR", cam, (0.06, -0.125, -0.1), (R(-38), R(4), R(32)), curls=POINT, thumb=0.9)
     rnd = random.Random(7); sched = [(1, "signup")]
     key(h, 1, loc=(0.09, -0.16, -0.09), interp="LINEAR")
@@ -146,7 +146,7 @@ def s2():
 # ---------------------------------------------------------------- shot 3: TC wing in the cart; Confirm hammered ~10 times
 def s3():
     rig, cam = rigcam((0, 0, 1.0), (0, 1.0, 0.47), lens=22); W.bunk(cam); ph, d = W.phone(cam, ["cart", "cart_pressed"])
-    ghand("hL", cam, (-0.03, -0.1, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); h = ghand("hR", cam, (0.06, -0.125, -0.1), (R(-38), R(4), R(32)), curls=POINT, thumb=0.9)
+    ghand("hL", cam, (-0.03, -0.17, -0.17), (R(-6), R(180), R(4)), curls=FLAT, thumb=0.2); h = ghand("hR", cam, (0.06, -0.125, -0.1), (R(-38), R(4), R(32)), curls=POINT, thumb=0.9)
     f = 4.0; gap = 6.0; sched = [(1, "cart")]; rnd = random.Random(2)
     while f < 45:
         fi = int(round(f)); sched += [(fi, "cart_pressed"), (fi + 2, "cart")]
