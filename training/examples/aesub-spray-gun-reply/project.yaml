@@ -1,20 +1,21 @@
 # AESUB Violet + spray gun - comment reply reel (built by tools/assemble.py, not ive assemble)
 name: aesub-spray-gun-reply
 format: {w: 1080, h: 1920, fps: 30}
-duration_s: 39.6
+duration_s: 44.0
 build: python projects/aesub-spray-gun-reply/tools/shots.py render && python projects/aesub-spray-gun-reply/tools/assemble.py
-music: {file: IS350_speedrun_stem_music.wav, start: 223.08, hit: 226.58, hit_at_video: 3.5, bpm: 150}
+music: {file: IS350_speedrun_stem_music.wav, start: 223.08, hit: 226.58, hit_at_video: 3.5, bpm: 150}  # hit = cut into the pour
 facts:
   spray_gun_whole_car: "1:55 (stopwatch legible in FX30541: 00:00.00 at 72 s, 01:55.47 at ~190 s)"
   cans_only_whole_car: "~9 min (owner, 2026-11-19)"
   wipe_down: "none (vanishing spray; host: most of the spray already off the hood within the 20 min)"
 sections:
-  - {t: 0.0, section: hook, focus: "countdown + stopwatch 00:00.00"}
-  - {t: 3.5, section: spray, focus: "gun montage x5 at 3x, 2 beats each"}
-  - {t: 7.5, section: result, focus: "stopwatch 01:55"}
-  - {t: 9.3, section: answer, focus: "card SPRAY GUN 1:55 vs CANS ONLY ~9 MIN"}
-  - {t: 12.9, section: can, focus: "host: can for harder-to-reach areas"}
-  - {t: 16.2, section: other-cars, focus: "Civic gun, 296 can, 296 live scan"}
-  - {t: 20.7, section: no-wipe, focus: "cleanup time / spray already off the hood"}
-  - {t: 29.4, section: payoff, focus: "20 min whole car, spray gun + AESUB Violet + Artec Leo"}
-  - {t: 37.1, section: logo}
+  - {t: 0.0, section: hook, focus: "comment question bubble + countdown + stopwatch 00:00.00"}
+  - {t: 3.5, section: pour, focus: "AESUB Violet poured into the gun cup, gun screwed on"}
+  - {t: 7.9, section: spray, focus: "gun montage x5 at 3x, 2 beats each"}
+  - {t: 11.9, section: result, focus: "stopwatch 01:55"}
+  - {t: 13.7, section: answer, focus: "card SPRAY GUN 1:55 vs CANS ONLY ~9 MIN"}
+  - {t: 17.3, section: can, focus: "host: can for harder-to-reach areas"}
+  - {t: 20.6, section: other-cars, focus: "Civic gun, 296 can, 296 live scan"}
+  - {t: 25.1, section: no-wipe, focus: "cleanup time / spray already off the hood"}
+  - {t: 33.8, section: payoff, focus: "20 min whole car, spray gun + AESUB Violet + Artec Leo"}
+  - {t: 41.5, section: logo}

@@ -16,3 +16,8 @@ Open points for the owner:
 - ~9 min for cans is shown as the owner gave it ("about 9 minutes"); no "Nx faster" figure on screen (it works out to roughly 4.5x if wanted).
 - 39.6 s is longer than the 15-30 s default; the host's lines set the length. Shortest cut: drop "So one thing to note is also cleanup time." (-3.3 s).
 - Captions over the host's lines are dialogue captions, so they can't meet the slow-reader minimums for overlays; lines are paired to stay up as long as the speech.
+
+## v2 (2026-11-19, owner notes on v1)
+- Added the pour of AESUB Violet into the gun cup + screwing the gun on (FX30541 77-85 s, inside the timed run).
+- Posted the commenter's question as a comment bubble from frame 0 (4.4 s, top of the safe band; clears the stopwatch digits from 2 s).
+- Length 44.0 s. Re-checked: safe zones OK, -14.6 LUFS / -1.8 dBTP, cuts on plan (music hit on the pour cut, montage every 24 f).

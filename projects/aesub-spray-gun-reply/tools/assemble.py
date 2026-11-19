@@ -27,11 +27,13 @@ TEXT = (242, 243, 241)     # #f2f3f1
 MUTED = (167, 172, 166)    # #a7aca6
 
 MUSIC_HIT = 226.58         # stem time of the re-entry hit
-MONTAGE_START = 105        # frame of the cut into the montage (= end of s01)
+MONTAGE_START = 105        # frame of the music hit = cut from "go" into the pour (montage follows 11 beats later)
 
 # (kind, id/name, frames, extra)
 TIMELINE = [
     ("shot", "s01_go", None, {"duck": True}),
+    ("shot", "s01b_pour", None, {}),
+    ("shot", "s01c_screw", None, {}),
     ("shot", "s02_front", None, {}),
     ("shot", "s03_mirror", None, {}),
     ("shot", "s04_door", None, {}),
@@ -122,6 +124,28 @@ def caption_png(text):
     return im
 
 
+# the commenter's question (owner, 2026-11-19), shown as a comment bubble from frame 0
+QUESTION = ("What's the best way to prep\na car for scanning?", 0.0, 4.4)
+
+
+def question_png(text):
+    f = font("Barlow-700.ttf", 58)
+    fe = font("FjallaOne.ttf", 34)
+    lines = text.split("\n")
+    lh, pad_x, pad_top, pad_bot = 70, 40, 82, 30
+    bw = max(f.getbbox(l)[2] for l in lines) + 2 * pad_x
+    bh = pad_top + len(lines) * lh + pad_bot
+    assert bw <= 860, bw
+    im = Image.new("RGBA", (bw, bh + 26), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, bw - 1, bh - 1], radius=28, fill=(246, 247, 245, 245))
+    d.polygon([(70, bh - 2), (110, bh - 2), (64, bh + 24)], fill=(246, 247, 245, 245))  # speech tail
+    d.text((pad_x, 26), "QUESTION FROM THE COMMENTS", font=fe, fill=GREEN + (255,))
+    for k, l in enumerate(lines):
+        d.text((pad_x, pad_top + k * lh), l, font=f, fill=BG + (255,))
+    return im
+
+
 def frames_of(path):
     out = subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
                           "stream=nb_read_frames", "-of", "csv=p=0", str(path)], capture_output=True, text=True).stdout
@@ -193,6 +217,19 @@ def main():
                      f"[v{k}];")
             last = f"[v{k}]"
             k += 1
+    # comment question bubble, fades in/out over 0.2 s
+    qtxt, q0, q1 = QUESTION
+    qim = question_png(qtxt)
+    qpng = work / "question.png"
+    qim.save(qpng)
+    qx, qy = (48 + 920 - qim.width) // 2, 285
+    inputs += ["-loop", "1", "-t", f"{q1 + 0.1:.2f}", "-i", str(qpng)]
+    filt += (f"[{k + 1}:v]format=rgba,fade=t=out:st={q1 - 0.2:.2f}:d=0.2:alpha=1[q];"
+             f"{last}[q]overlay={qx}:{qy}:eof_action=pass[vq];")
+    last = "[vq]"
+    k += 1
+    boxes.append(dict(t0=q0, t1=q1, x=qx, y=qy, w=qim.width, h=qim.height, text=qtxt, key=True,
+                      readable=round(q1 - q0 - 0.35, 2)))
     # card text boxes for the safe-zone check
     for s in segs:
         if s["kind"] == "card":

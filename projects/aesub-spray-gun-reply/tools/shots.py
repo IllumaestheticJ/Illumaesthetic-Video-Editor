@@ -20,6 +20,10 @@ OUT = M / "shots"
 # id, file, in (s), out (s), speed, x0 (4K px for FX clips; fraction 0-1 of the post-rotation width for phone clips), audio
 SHOTS = [
     dict(id="s01_go", f="FX30541.MP4", i=71.10, o=74.60, sp=1.0, x0=1300, audio=True),
+    dict(id="s01b_pour", f="FX30541.MP4", i=77.20, o=80.40, sp=1.0, x0=1450, audio=False,
+         pan=[(77.2, 1450), (78.2, 1850), (78.7, 1750), (79.2, 1400), (80.0, 1000), (80.4, 1000)]),
+    dict(id="s01c_screw", f="FX30541.MP4", i=82.50, o=84.90, sp=2.0, x0=1050, audio=False,
+         pan=[(82.5, 1050), (84.9, 800)]),
     dict(id="s02_front", f="FX30541.MP4", i=98.0, o=100.4, sp=3.0, x0=1900, audio=False),
     dict(id="s03_mirror", f="FX30541.MP4", i=112.6, o=115.0, sp=3.0, x0=1350, audio=False),
     dict(id="s04_door", f="FX30541.MP4", i=145.6, o=148.0, sp=3.0, x0=400, audio=False),
@@ -42,7 +46,16 @@ def is_fx(s):
 
 def vf(s, scale_w=1080):
     if is_fx(s):
-        crop = f"crop=1215:2160:{s['x0']}:0,lut3d='{LUT}'"
+        x = s["x0"]
+        if s.get("pan"):  # [(t_src, x0), ...] piecewise-linear pan over source time
+            pts = s["pan"]
+            x = f"{pts[-1][1]}"
+            for (t0, x0), (t1, x1) in reversed(list(zip(pts[:-1], pts[1:]))):
+                a0, a1 = t0 - s["i"], t1 - s["i"]
+                x = f"if(lt(t,{a1:.3f}),{x0}+({x1}-{x0})*(t-{a0:.3f})/{a1 - a0:.3f},{x})"
+            x = f"if(lt(t,{pts[0][0] - s['i']:.3f}),{pts[0][1]},{x})"
+            x = f"'{x}'"
+        crop = f"crop=1215:2160:{x}:0,lut3d='{LUT}'"
     else:
         # rotated phone clips: after autorotate they are 1080x1920 portrait already
         crop = "null"
