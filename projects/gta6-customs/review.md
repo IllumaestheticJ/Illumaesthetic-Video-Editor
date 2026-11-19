@@ -205,3 +205,12 @@ Output: `/home/user/media/work/out/gta6-customs_v16.mp4`, 29.0 s.
 - Lessons: (1) in v15 I answered "the purchased sections come out poorly" by fixing backgrounds without zooming in on the
   pop-up itself; look at the named element first. (2) I had checked whips as "blurred, fine" on contact sheets; a held
   rectangle with a hard edge only shows at size. Check transition frames at delivery size.
+
+## v17 (2026-11-19) - after the user's review of v16
+User (with two GTA VI key-art references): "change the final picture of the epsilon so there's the palm tree background,
+epsilon logo in white, and then the + symbol as the other vice city hue".
+
+Output: `/home/user/media/work/out/gta6-customs_v17.mp4`, 29.0 s; card `/home/user/media/work/gta6-customs/end_card.png`.
+End card redrawn (see edit log); everything before it as v16. Three passes on the palms: hatched and faint, then solid
+clumps, then nine thin fronds per crown, which reads as a palm. Open: pink sky chosen over the sunset reference; the + is
+small because it is the wordmark's own.
