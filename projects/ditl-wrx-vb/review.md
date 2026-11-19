@@ -70,3 +70,10 @@ Matched each generate call in this session's transcript to the account's transac
 | 06:18:15 | Eleven v4 | 6 x 0.23 = 1.38 | six Beamer-guy options for "Same." |
 | 06:20:47 | Eleven v4 | 0.46 | take 3 exchange (approved) |
 | **Total** | | **5.71 net** | |
+
+## v6 (arm-overlap rule) — lilacs and no-music versions
+- Rule (lessons.md, owner, 2026-11-19): arms must not go into each other or into a person. `tools/collide.py` (BVH overlap of hand rigs, persons, each person's forearm/hand vs own torso/head, and POV hands vs the driver's legs), every frame.
+- Before: 12 of 16 shots failed (2, 3, 4, 5, 6, 7, 9, 11, 12, 14, 15, 16). After: all 16 report `{}` on every frame (`render5/collide.txt`).
+- Fixes: phone tap finger flattened and stopped on the glass, landing on the buttons (4, 5); pat hand lifted (6); pen/left thumbs separated (2); recruiter salute and resting arm re-posed with sweep.py (3); unboxing and wing-grab hands widened (7, 9); Beamer guy's elbow out of the window (11, 12, 14, 15); kid's wave clear of his head (15); wheel hands and the Accessport hand's rest position clear of the legs (15, 16).
+- Steering wheel: the car uses the GLB's own static wheel, never rotated, so the Euler-order issue found on #2 does not apply.
+- Re-rendered those 12 shots (`render5`), looked at 16-frame strips of each. 1052 frames, 35.07 s; cut frames and both mixes unchanged from v5 (lilacs -14.4 LUFS, no-music -14.4 LUFS).
