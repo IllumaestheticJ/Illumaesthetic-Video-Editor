@@ -133,13 +133,19 @@ def apply_zones(c, objs_of, nframes):
         for o in objs_of([n]): o.hide_render = True
     swaps = {w["zone"]: w for w in c.get("swap", [])}
     for z, (stock, parts) in ZONES[car].items():
+        keep = z in OVER[car] and c.get("mode") != "scan"      # CGI: the go-over part sits on the untouched stock body
         if z in c.get("on", []):
-            for o in objs_of(stock): o.hide_render = True
+            for o in objs_of(stock):
+                o.hide_render = not keep
+                if keep: set_inset(o)
         elif z in swaps:
             w = swaps[z]; f0, f1 = w["off"]; f2, f3 = w["on"]
             for o in objs_of(stock):
                 if z in OVER[car]:
-                    key_vis(o, 0, False); key_vis(o, f3 - 1, True); continue
+                    key_vis(o, 0, False)
+                    if not keep: key_vis(o, f3 - 1, True)
+                    else: set_inset(o, f3 - 1)
+                    continue
                 slide(o, f0, f1, Vector(w.get("dir", [0, 0, 1])) * w.get("dist", 6.0), False, nframes)
                 key_vis(o, 0, False); key_vis(o, f1, True)
             for o in objs_of(parts):
@@ -168,9 +174,43 @@ def load_cgi(i, c, nframes):
             for sl in o.material_slots:
                 if sl.material and sl.material.name.startswith("paint"):
                     sl.material = paint
+    # v2.2 (user: all game models): what the bumper hides comes from the bumper-off scans, in dark metal behind the nose
+    up = f"{M}/dec/{c['car']}_under_bumper.stl"
+    if os.path.exists(up):
+        o = import_stl(up, "under_bumper"); o.data.materials.append(dark("black")); new.append(o)
+    for z in OVER[c["car"]]:
+        inset_under([o for o in new if base(o.name) in ZONES[c["car"]][z][0]], [o for o in new if base(o.name) in ZONES[c["car"]][z][1]])
     parent_to(new, root)
     apply_zones(c, lambda names: [o for o in new if base(o.name) in names], nframes)
     return root
+
+
+INSET = -0.010
+def inset_under(stocks, parts):
+    """user 2026-11-19: "the rear spats still clip through the bumper". The go-over part sits on the untouched stock body, but
+    their surfaces coincide in patches (blotchy poke-through). Stock vertices within 12 mm of the part surface (in front or behind) get a vertex group; a Displace
+    modifier tucks them 10 mm inward once the part is seated (strength keyed in apply_zones). Uncovered stock is untouched."""
+    from mathutils.bvhtree import BVHTree
+    V, P = [], []
+    for q in parts:
+        mw = q.matrix_world; n0 = len(V); V += [mw @ v.co for v in q.data.vertices]; P += [[n0 + i for i in pl.vertices] for pl in q.data.polygons]
+    if not P: return
+    bvh = BVHTree.FromPolygons(V, P)
+    for b in stocks:
+        mw = b.matrix_world; nm = mw.to_3x3().inverted().transposed(); g = b.vertex_groups.new(name="cov"); k = 0
+        for v in b.data.vertices:
+            cc = mw @ v.co; n = (nm @ v.normal).normalized()
+            if bvh.ray_cast(cc + n * 1e-4, n, 0.012)[0] is not None or bvh.ray_cast(cc + n * 1e-4, -n, 0.012)[0] is not None:
+                g.add([v.index], 1.0, "REPLACE"); k += 1
+        m = b.modifiers.new("inset", "DISPLACE"); m.vertex_group = "cov"; m.mid_level = 0.0; m.strength = 0.0; m.direction = "NORMAL"
+        print("inset_under", b.name, k, "of", len(b.data.vertices), "verts covered")
+
+
+def set_inset(o, f=None):
+    m = o.modifiers.get("inset")
+    if m is None: return
+    if f is None: m.strength = INSET; return
+    m.strength = 0.0; m.keyframe_insert("strength", frame=f); m.strength = INSET; m.keyframe_insert("strength", frame=f + 1)
 
 
 def load_scan(i, c, silver, nframes):
@@ -284,7 +324,7 @@ def main():
     silver = SR.mat_silver()
     roots = []
     for i, c in enumerate(sp["cars"]):
-        roots.append(load_cgi(i, c, sp["frames"]) if sp["mode"] == "cgi" else load_scan(i, c, silver, sp["frames"]))
+        roots.append(load_cgi(i, c, sp["frames"]) if sp["mode"] == "cgi" else load_scan(i, dict(c, mode="scan"), silver, sp["frames"]))
     if sp["mode"] == "cgi":
         lot_env()
         sc.view_settings.look = "AgX - Medium High Contrast"

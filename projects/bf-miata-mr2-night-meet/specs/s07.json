@@ -1,5 +1,5 @@
 {
- "mode": "scan",
+ "mode": "cgi",
  "cars": [
   {
    "car": "nc",
@@ -66,5 +66,5 @@
   540,
   960
  ],
- "samples": 12
+ "samples": 16
 }

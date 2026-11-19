@@ -1,4 +1,7 @@
-"""v1.9: re-timed for the owner text rule (every price label readable >= 3 s): longer bars on text shots, installs in seconds.
+"""v2.2 (user: "can this be done entirely on game models? ... cutting back and forth between game/scan feels unnecessary"):
+every shot is the lookbook model in the night lot. Scan data only supplies what the lookbook lacks (NC stock nose/fender,
+what sits behind both bumpers, NC TC wing placement).
+v1.9: re-timed for the owner text rule (every price label readable >= 3 s): longer bars on text shots, installs in seconds.
 v1.5: shots lengthened (user: text longer for slow readers); two-part shots install both parts by ~60 %.
 v1 shot specs: both cars start STOCK and the sale parts install one zone at a time (user feedback on v0.1).
 15 fps renders, doubled to 30 fps at assembly. Cut times = attacks measured in Tokyo Midnight (specs/timeline.json)."""
@@ -30,7 +33,7 @@ S["s01"] = {"mode": "cgi", "cars": [{"car": "mr2"}], "camera": cam(A, lerp(A, B,
 # v1.8 (user: "MR2 spyder doesn't show the front bumper"): the bumper installs after the skirts in the same front-3/4 scan shot
 # v2.0 (user: "focus on the bumper on the Spyder ... when it gets removed/readded - currently doing it off-frame"):
 # skirts first from the match-cut angle, then the camera moves to the nose and holds while the bumper swaps in view.
-S["s02"] = {"mode": "scan", "cars": [{"car": "mr2", "swap": [ss("skirts", *A1, dir=[0.9, 0, 0.5], dist=6, **{"from": [1.2, 0, 0.3]}),
+S["s02"] = {"mode": "cgi", "cars": [{"car": "mr2", "swap": [ss("skirts", *A1, dir=[0.9, 0, 0.5], dist=6, **{"from": [1.2, 0, 0.3]}),
                                                          ss("bumper", 1.9, 2.4, 2.3, 3.1, dir=[-0.5, -0.35, 1], dist=2.6, **{"from": [0, -1.2, 0.2]})]}],
             "camera": camk([(0, lerp(A, B, u), T), (1.2, B, T), (1.9, [1.8, -4.0, 0.85], [0.1, -1.75, 0.45]),
                             (None, [1.65, -4.05, 0.8], [0.1, -1.75, 0.45])], n2, lens=26)}
@@ -51,10 +54,10 @@ S["s05"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "e
 A, B = [-3.5, -4.8, 0.6], [-2.8, -3.9, 0.5]; T = [0.0, -1.0, 0.42]
 n6, n7 = N("s06"), N("s07"); u = (n6 - 1) / (n6 + n7 - 2)
 S["s06"] = {"mode": "cgi", "cars": [{"car": "nc"}], "camera": cam(A, lerp(A, B, u), n6, T, lens=26)}
-S["s07"] = {"mode": "scan", "cars": [{"car": "nc", "swap": [ss("bumper", 0.15, 0.70, 0.60, 1.50, dir=[-0.3, -1, 0.3], dist=7, **{"from": [0, -1.5, 0.2]})]}],
+S["s07"] = {"mode": "cgi", "cars": [{"car": "nc", "swap": [ss("bumper", 0.15, 0.70, 0.60, 1.50, dir=[-0.3, -1, 0.3], dist=7, **{"from": [0, -1.5, 0.2]})]}],
             "camera": cam(lerp(A, B, u), B, n7, T, lens=26)}
 n = N("s08")
-S["s08"] = {"mode": "scan", "cars": [{"car": "nc", "on": ["bumper"], "swap": [ss("fender", *ONE, dir=[-1, -0.2, 0.6], dist=6, **{"from": [-1.2, 0, 0.4]})]}],
+S["s08"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper"], "swap": [ss("fender", *ONE, dir=[-1, -0.2, 0.6], dist=6, **{"from": [-1.2, 0, 0.4]})]}],
             "camera": cam([-2.9, -2.9, 1.0], [-3.0, -2.2, 1.0], n, [-0.75, -0.95, 0.45], lens=34)}
 n = N("s09")
 S["s09"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender"],
@@ -75,7 +78,7 @@ S["s09b"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender", "s
              "camera": cam([-2.6, 5.4, 1.5], [-2.1, 4.8, 1.85], n, [0, 1.6, 0.8], lens=30)}
 mr2s = {"car": "mr2", "offset": [0.85, 2.7, 0], "yaw": -8, "on": ["bumper", "skirts", "eyelids", "hood", "spats", "duck", "diffuser", "wing"]}
 ncs = {"car": "nc", "offset": [-0.85, -1.7, 0], "yaw": 8, "on": ["bumper", "fender", "skirts", "spats", "wing"]}
-S["s10"] = {"mode": "scan", "cars": [mr2s, ncs], "camera": cam([0.6, -8.9, 4.3], [0.6, -8.4, 3.7], N("s10"), [0.25, -0.1, 0.1], [0.25, -0.1, 0.2], lens=30)}   # v1.3: cars staggered front/back, 0.5 m+ apart (they clipped side by side)
+S["s10"] = {"mode": "cgi", "cars": [mr2s, ncs], "camera": cam([4.6, -7.9, 1.5], [4.1, -7.1, 1.2], N("s10"), [-0.5, 0.3, 0.55], lens=26)}   # v1.3: cars staggered front/back, 0.5 m+ apart (they clipped side by side)
 for k, s in S.items():
     s.update({"out": f"{M}/work/{k}", "frames": N(k), "fps": 15, "res": [540, 960], "samples": 16 if s["mode"] == "cgi" else 12})
     json.dump(s, open(f"specs/{k}.json", "w"), indent=1)
