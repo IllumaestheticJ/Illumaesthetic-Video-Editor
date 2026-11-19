@@ -116,7 +116,8 @@ def timeline():
 
     nav("nav_paint", [("n1a", 14), ("n1b", 16)], "M_kit_grey", [(14, "tab"), (28, "select")])
     simple("respray", "A", range(1510, 1680, 2), "P", "p1", "p2", "M_kit_grey", "M_kit_blue", 22)
-    nav("nav_susp", [("n2a", 12), ("n2b", 12), ("n2c", 12)], "M_kit_blue", [(-2, "back"), (12, "tab"), (24, "row"), (34, "select")])
+    # Cosmetics -> Bodywork -> Performance (two presses, as the tab order requires), down to Suspension, select
+    nav("nav_susp", [("n2a", 10), ("n2x", 7), ("n2b", 9), ("n2c", 10)], "M_kit_blue", [(-2, "back"), (10, "tab"), (17, "tab"), (26, "row"), (34, "select")])
     whip("M_S")
     simple("suspension", "B", pp(2072, 2150, 76), "S", "s1", "s2", "S_kit", "S_low", 18); spend(G_["Suspension"])
     ev.append([len(T) - 3, "back"]); whip("S_M")

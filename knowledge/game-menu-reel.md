@@ -376,6 +376,7 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   count and a few frames against the previous composite.
 - **Keep the game's names and its navigation (GTA 6 v9).** Do not rename the game's own screens ("Suspension" for
   "Wheel Kits" was called out). Before lettering a screen, read its real title and its tab's rows off the capture and use
-  them; only the client's own items get new names, and those follow the client's wording ("Rear Wing", not the catalogue's
+  them (exception: a game label that misleads a viewer, such as GTA 6 filing its lowered suspension kit under "Wheel Kits":
+  move the item to the tab where it belongs and tell the user; user on v9: "Wheel Kits is not suspension"); only the client's own items get new names, and those follow the client's wording ("Rear Wing", not the catalogue's
   "Sport Wing"). Never jump between sections: show back, the tab change and the row pick, each with its tick. Build each
   list with `ui.Menu` (rows set per list) and move the tab highlight with `ui4.set_tab`.

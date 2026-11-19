@@ -135,3 +135,11 @@ Output: `/home/user/media/work/out/gta6-customs_v9.mp4`, 29.3 s (803 menu frames
 - Open: whether "titles true to GTA 6" also meant the part screens (the game's own would be Front Bumper, Rear Bumper,
   Spoiler; it has no skirt category for this car) - asked. One tab press from Pro Builds to Wheels where the game needs
   several; Wheels list on the menu camera. Deselected Bodywork tab is redrawn (close, not pixel-identical).
+
+## v10 (2026-11-19) - after the user's review of v9
+User: "Wheels kits is not suspension..."
+
+Output: `/home/user/media/work/out/gta6-customs_v10.mp4`, 29.3 s. Suspension on the Performance tab (see edit log).
+Lesson: "true to the game" does not outrank making sense to the viewer. The game's own filing (lowered kit under Wheel
+Kits) was a detail of this build that a viewer reads as wrong. When a game label would mislead, say so and propose the
+sensible home instead of restoring it silently.

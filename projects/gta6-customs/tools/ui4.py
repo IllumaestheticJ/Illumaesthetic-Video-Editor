@@ -163,10 +163,12 @@ def build(frameA, frameB):
             menus[tuple(rows)] = U.Menu(frameA)
         img = menus[tuple(rows)].render(sel, fitted, 0); wallet_clear(img); set_tab(img, tab)
         st[key] = {"img": img, "view": "M"}; U.ROWS = ROWS
-    COS = ["Respray", "Customizable Liveries", "Curated Liveries", "Plates"]; PRO = ["Full Kits", "Wheel Kits"]; WHL = ["Tire Style", "Rim Style", "Rim Colors"]
+    COS = ["Respray", "Customizable Liveries", "Curated Liveries", "Plates"]; WHL = ["Tire Style", "Rim Style", "Rim Colors"]
+    PERF = ["Full Engine", "Suspension", "Brakes", "Transmission", "Boost"]     # the game's Performance rows plus a Suspension row (mine)
     nav("n1a", "BODYWORK", ROWS, 4, ROWS); nav("n1b", "COSMETICS", COS, 1, [])
-    nav("n2a", "COSMETICS", COS, 1, ["Respray"]); nav("n2b", "PRO BUILDS", PRO, 1, []); nav("n2c", "PRO BUILDS", PRO, 2, [])
-    nav("n3a", "PRO BUILDS", PRO, 2, ["Wheel Kits"]); nav("n3b", "WHEELS", WHL, 1, []); nav("n3c", "WHEELS", WHL, 2, [])
+    nav("n2a", "COSMETICS", COS, 1, ["Respray"]); nav("n2x", "BODYWORK", ROWS, 1, ROWS)
+    nav("n2b", "PERFORMANCE", PERF, 1, []); nav("n2c", "PERFORMANCE", PERF, 2, [])
+    nav("n3a", "PERFORMANCE", PERF, 2, ["Suspension"]); nav("n3b", "WHEELS", WHL, 1, []); nav("n3c", "WHEELS", WHL, 2, [])
 
     def part(base, name, c, done, view):
         img = base.copy()
@@ -239,7 +241,11 @@ def build(frameA, frameB):
 
     def susp(done, c):
         img = frameB(2100).copy()
-        # title left as the game has it: PRO BUILDS / WHEEL KITS (user, v8 review: titles stay true to GTA 6)
+        # PERFORMANCE / SUSPENSION (user, v9 review: "Wheel Kits is not suspension"). The capture files its lowered kit
+        # under Pro Builds / Wheel Kits; the reel puts it on the Performance tab, where a suspension part belongs.
+        erase(img, box(22, 28, 262, 64), thr=16)
+        draw(img, "PERFORMANCE /", (45, 83), OSW, 31, (150, 150, 158), OSW_SQ)
+        retitle(img, box(30, 68, 420, 110), "SUSPENSION", OSW, None, OSW_SQ)
         applied(img) if done else clear_status(img)
         hx0, hy0, hx1, hy1 = box(815, 1008, 1105, 1052)                       # "Respray the Ganado" hint names the game's car
         m = np.zeros(img.shape[:2], np.uint8); m[hy0:hy1, hx0:hx1] = 255; img[:] = cv2.inpaint(img, m, 6, cv2.INPAINT_TELEA)
@@ -265,7 +271,7 @@ if __name__ == "__main__":
     def fb(f): cb.set(1, f); return cb.read()[1]
     st = build(fa, fb); (W / "ui4").mkdir(exist_ok=True)
     tiles = []
-    for k in ("n1a", "n1b", "n2c", "n3c", "a2", "s2"):
+    for k in ("n2x", "n2b", "n2c", "n3a", "s1", "s2"):
         im = st[k]["img"].copy()
         if st[k].get("overlay") is not None:
             o = st[k]["overlay"]; a = o[..., 3:] / 255; im = (im * (1 - a) + o[..., :3] * a).astype(np.uint8)
