@@ -24,3 +24,4 @@ Reverse-engineered bumper + lip: Ron's Folder / GT350 Bumper (1ka5uMxwK4WB3rPcKL
 - Bumper/Slice Test/: the bumper split into 46 print pieces (part01..part46 .stl). Held for the Ep 9 finale (gluing, finished bumper on the car).
 - Lip/Lip.004-.008.stl and GT350 Lip.3mf (folder 1A3MTeJpA82dSWOb6dr6IMSSeZU25zvvH)
 Nothing downloaded yet: renders wait for script approval.
+- IMG_0835/0836/0837 (owner, 2026-11-19): the painted finished car (three-quarter, front) and the painted bumper being fitted in the shop; used for the v5 ending

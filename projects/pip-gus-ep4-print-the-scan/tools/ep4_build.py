@@ -28,7 +28,7 @@ PROJ = HERE.parent
 REPO = PROJ.parent.parent
 M = Path("/home/user/media/pip-gus-ep4-print-the-scan")
 ap = argparse.ArgumentParser()
-ap.add_argument("--ver", default="v4")
+ap.add_argument("--ver", default="v5")
 ap.add_argument("--steps", default="gfx,picture,audio,mux")
 a = ap.parse_args()
 BUILD = M / f"build_{a.ver}"
@@ -46,7 +46,9 @@ H9 = B // 2                                     # half a beat
 # v2 recap (owner: "show everything from start to finish", faster; end on the real finished bumper): (name, start frame)
 SEQ = [("crash", PHONE_F0), ("crash2", CART_END + H9), ("broken", CART_END + 2 * H9), ("scanning", CART_END + 3 * H9),
        ("r_scan", CART_END + 4 * H9), ("r_trace", CART_END + 5 * H9), ("r_car", CART_END + 7 * H9), ("r_lip", CART_END + 8 * H9),
-       ("done_close", CART_END + 10 * H9), ("done_q", CART_END + 12 * H9), ("done_car", CART_END + 16 * H9)]
+       ("done_close", CART_END + 10 * H9), ("done_fit", CART_END + 12 * H9), ("done_front", CART_END + 14 * H9),
+       ("done_car", CART_END + 16 * H9)]
+# v5: owner sent the painted finished car (IMG_0835-0837): raw print close-up -> painted bumper going on -> finished car x2
 # v4 (owner: "there's no finished car pictures at the end" - they were 1.8 s of tight crops): the whole finished car, twice,
 # held; the final chord (beat 8) lands on the last one and the logo follows 3 beats later.
 CUTS = dict(logo=CART_END + 11 * B, **{n: f for n, f in SEQ})
@@ -243,10 +245,12 @@ def real(fr):
     u = (fr - f0) / max(1, f1 - f0)
     if name in PHOTO:
         return photo(PHOTO[name][0], u, PHOTO[name][1])
-    if name == "done_q":
-        return photo_fit("IMG_0766.jpeg", u, _PH_CX("IMG_0766.jpeg", 0.50), 0.92)
+    if name == "done_fit":
+        return photo_fit("IMG_0837.jpeg", u, _PH_CX("IMG_0837.jpeg", 0.52), 0.90)
+    if name == "done_front":
+        return photo_fit("IMG_0836.jpeg", u, _PH_CX("IMG_0836.jpeg", 0.51), 0.84)
     if name == "done_car":
-        return photo_fit("IMG_0765.jpeg", u, _PH_CX("IMG_0765.jpeg", 0.42), 0.86)
+        return photo_fit("IMG_0835.jpeg", u, _PH_CX("IMG_0835.jpeg", 0.49), 0.90)
     return rframe(name, fr - f0)
 
 

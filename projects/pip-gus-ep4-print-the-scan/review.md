@@ -62,3 +62,6 @@ Rubric (training/rubric.md), self-score: story 4, clarity 4, sync 4, look 3.5, r
 
 ## v4 (2026-11-19) - 46.6 s
 Owner on v3: "there's no finished car pictures at the end". Ending re-cut: close-up of the printed bumper, then the whole finished car twice (full width, blurred fill), 3 s in total, final chord on the last photo, then the logo. Checked frames 1177-1290. Weak spot: landscape photos fill only the middle of the 9:16 frame.
+
+## v5 (2026-11-19) - 46.6 s
+Ending now uses the owner's painted finished-car photos (0837 fitting, 0836 front, 0835 three-quarter on the final chord). Checked frames 1185-1290. Weak spot: the photos are 1080 px landscape, so they sit in the middle of the frame slightly upscaled over a blurred fill; 0837 and 0836 get 0.6 s each.
