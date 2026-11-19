@@ -1,3 +1,15 @@
+# v1.2 60 fps (user feedback on v1.1: box cutter instead of the green sweep; plate placed wrong; remove the cut where
+# the trunk lip shows up)
+- s1: yellow/black utility knife (3.2x hero scale) comes in, slices the tape seam left->right (f38-66), lifts away;
+  lid flies at f70. Tape slit hidden at lid lift (parented slit drifted through frame; frames 139-194 re-rendered).
+- s23: wing (f1-40) then lip (f72-111) rise in ONE continuous shot with one camera push; the 5.6 s jump cut is gone.
+  Receipt: wing line f8, lip line f79 (same times as before).
+- Plate: plane fitted to the bumper's plate recess only (1.4 mm rms, faces ~14 deg up), centre z 0.532, ~3 mm clear,
+  covers the two mounting cut-outs like the real car; matte black (rough 0.8, spec 0.05) - the gloss version caught
+  the key light and read grey. s7-9 re-rendered only in the old+new plate region (--plate-border) and pasted with a
+  10 px feather on the same seed; v1.1 vs v1.2 diff shows only the plate changed.
+- Checks: 60 fps 1612 frames 26.87 s; cuts -13..+9 ms; -13.4 LUFS / TP -1.8; text boxes OK; sheet looked at.
+
 # v1.1 60 fps final (user: "put an epsilon plate on the back of the car, then do a high quality 60fps render"; Balanced)
 - Epsilon+ plate on the scan and CGI car; all renders 1080x1920, 32 spp + denoise, true native 60 fps (3 mm scan).
   C0240 IRL is 24p source, so its frames repeat in the 60 fps master (no interpolation).
