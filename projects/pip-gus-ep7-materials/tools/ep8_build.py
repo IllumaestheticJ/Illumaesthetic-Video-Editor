@@ -4,7 +4,7 @@ with Pip's voice-over; word-by-word captions on the cartoon only; dialogue + VO 
     python projects/pip-gus-ep7-materials/tools/ep8_build.py [--gfx] [--video] [--audio] [--mux] [--all]
            [--music FILE --music-in S] [--name ep8_v1] [--sheet]
 
-Timeline (30 fps): cartoon 0-1120 (frame 1120 = phone screen full frame) | IRL 1121-1255 (4.5 s) | logo 1256-END.
+Timeline (30 fps): cartoon 0-1120 (frame 1120 = phone screen full frame) | IRL CART..CART+IRL_N (timelapse at TL_STEP, then a hold) | logo 1256-END.
 Phone + IRL play the timelapse as one continuous stretch: reel frame PH0+j (A11 start) shows timelapse frame round(j*225/224)
 (226 frames at 24 fps -> 225 reel frames, 1.25x), so the screen plays straight into the full-frame IRL with no jump.
 Captions are pages of whole words (owner-approved script wording; whisper times per word). A page never overlaps the phone
@@ -28,7 +28,12 @@ FPS, SR, W, H = 30, 48000, 1080, 1920
 TL = json.loads((PROJ / "ep8_timeline.json").read_text())
 CART = TL["frames"]                      # 1121
 PH0 = next(x["f0"] for x in TL["shots"] if x["id"] == "A11")   # first phone frame
-IRL_N = 135                              # 4.5 s
+# Owner v2 note: "make the timelapse run faster (1.5-2x)". The source is the whole print (226 frames), so it advances
+# TL_STEP source frames per reel frame from the phone shot on; once the print is finished the last frame holds HOLD_N frames.
+TL_SRC_N = 226
+TL_STEP = 1.75                           # was ~1.0 (226 source frames over 225 reel frames)
+HOLD_N = 27                              # 0.9 s on the finished print
+IRL_N = int(TL_SRC_N / TL_STEP) - (CART - PH0) + HOLD_N   # 39 playing + 27 hold = 66 (2.2 s)
 LOGO_N = 150                             # 5.0 s: VO 4.0 s from +0.35 s, then a short hold
 IRL0, LOGO0 = CART, CART + IRL_N
 END = LOGO0 + LOGO_N
@@ -129,8 +134,9 @@ def timelapse():
         if not ok:
             break
         fs.append(cv2.cvtColor(f, cv2.COLOR_BGR2RGB))
+    assert len(fs) == TL_SRC_N, len(fs)
     n = CART + IRL_N - PH0
-    return [fs[min(len(fs) - 1, int(round(j * (len(fs) - 1) / (n - 1))))] for j in range(n)], len(fs)
+    return [fs[min(len(fs) - 1, int(round(j * TL_STEP)))] for j in range(n)], len(fs)
 
 
 def composite(img, foot, corners):
