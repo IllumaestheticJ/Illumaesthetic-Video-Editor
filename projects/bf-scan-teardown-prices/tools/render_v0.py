@@ -194,19 +194,53 @@ def main():
     keys = CAM["T2" if SHOT == "T2" or (SHOT == "STILL" and len(a) > 6 and a[6] == "T2") else "T1"]
     if SHOT == "STILL" and len(a) > 6 and a[6] == "T2": keys = CAM["T2"]
     for i, t in enumerate(times):
-        for n, ks in OFF.items():
-            o = bpy.data.objects[n]; o.location = Vector(o["rest"]) + Vector(path(ks, t))
-        y = -2.3 + (t - SWEEP0) / (SWEEP1 - SWEEP0) * 5.2 if SWEEP0 <= t <= SWEEP1 else 99.0
-        front.outputs[0].default_value = y
-        l, q, f = cam_at(keys, t)
-        if GARAGE:   # LED tubes hang at 5.6 m: hide them from the lens while it is above them (T2 top view)
-            for o in bpy.data.objects:
-                if "led" in o: o.visible_camera = l.z < 5.2
-        cam.location = l; cam.rotation_mode = "QUATERNION"; cam.rotation_quaternion = q; cam.data.lens = f
+        pose(t, keys, cam, front)
         name = f"{SHOT}_{t:07.3f}.png" if SHOT == "STILL" else f"f{i + int(os.environ.get('FRAME0', '0')):04d}.png"   # FRAME0: resume chunks
         sc.render.filepath = os.path.join(OUT, name)
         bpy.ops.render.render(write_still=True)
         print("FRAME", i, round(t, 3), flush=True)
 
 
-main()
+def pose(t, keys, cam, front, key=None):
+    """put parts, scan sweep, LED visibility and camera at song time t; key=frame also keyframes them (BAKE)"""
+    for n, ks in OFF.items():
+        o = bpy.data.objects[n]; o.location = Vector(o["rest"]) + Vector(path(ks, t))
+        if key is not None: o.keyframe_insert("location", frame=key)
+    y = -2.3 + (t - SWEEP0) / (SWEEP1 - SWEEP0) * 5.2 if SWEEP0 <= t <= SWEEP1 else 99.0
+    front.outputs[0].default_value = y
+    if key is not None: front.outputs[0].keyframe_insert("default_value", frame=key)
+    l, q, f = cam_at(keys, t)
+    if GARAGE:   # LED tubes hang at 5.6 m: hide them from the lens while it is above them (T2 top view)
+        for o in bpy.data.objects:
+            if "led" in o:
+                o.visible_camera = l.z < 5.2
+                if key is not None: o.keyframe_insert("visible_camera", frame=key)
+    cam.location = l; cam.rotation_mode = "QUATERNION"; cam.rotation_quaternion = q; cam.data.lens = f
+    if key is not None:
+        cam.keyframe_insert("location", frame=key); cam.keyframe_insert("rotation_quaternion", frame=key)
+        cam.data.keyframe_insert("lens", frame=key)
+
+
+def bake():
+    """GPU job (owner's RTX PC): every frame keyed into one plain .blend, so the worker needs no scripts.
+    Timeline: T1 = frames 0-389 (song 0 + f/30), T2 = frames 1000-1131 (song 13.435 + (f-1000)/30)."""
+    cam, front = setup()
+    sc = bpy.context.scene
+    for shot, base, t0, n in (("T1", 0, 0.0, 390), ("T2", 1000, 13.435, 132)):
+        for i in range(n):
+            pose(t0 + i / 30, CAM[shot], cam, front, key=base + i)
+    for ad in [o.animation_data for o in bpy.data.objects] + [cam.data.animation_data] + [m.node_tree.animation_data for m in bpy.data.materials if m.node_tree]:
+        try:   # every frame is keyed, so this only tidies the gap between the shots (layered actions in 5.x)
+            for fc in (c for l in ad.action.layers for st in l.strips for cb in st.channelbags for c in cb.fcurves):
+                for kp in fc.keyframe_points: kp.interpolation = "CONSTANT"
+        except Exception:
+            pass
+    sc.frame_start, sc.frame_end = 0, 1131
+    sc.render.fps = 30; sc.render.resolution_percentage = 100; sc.cycles.samples = 32
+    sc.render.filepath = "//frames/"
+    bpy.ops.file.make_paths_relative()
+    bpy.ops.wm.save_as_mainfile(filepath=OUT, compress=True)
+    print("BAKED", OUT, flush=True)
+
+
+bake() if SHOT == "BAKE" else main()
