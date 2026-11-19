@@ -220,3 +220,11 @@ User: "can you fix the palm trees and revert the + sign back to white? make the 
 
 Output: `/home/user/media/work/out/gta6-customs_v18.mp4`, 29.0 s; card `/home/user/media/work/gta6-customs/end_card.png`.
 End card only (edit log). Looked at the card at 720x1280 after each of three palm passes.
+
+## v19 (2026-11-19) - after the user's review of v18
+User (with an image): "use exactly this"
+
+Output: `/home/user/media/work/out/gta6-customs_v19.mp4`, 29.0 s; card `/home/user/media/work/gta6-customs/end_card.png`.
+End card background = the supplied image (`/home/user/media/gta6-customs/endcard/bg_user.webp`), wordmark white on top.
+Lesson: three rounds of drawing palms from a description cost more than asking for the exact background once. When a
+user sends references for a look, ask early whether they want that picture or something like it.

@@ -21,6 +21,7 @@ from scipy import signal
 
 W = Path("/home/user/media/work/gta6-customs")
 LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png")
+CARD_BG = Path("/home/user/media/gta6-customs/endcard/bg_user.webp")   # end-card background supplied by the user (not in git)
 ORBIT = W / "orbit"                                            # PNG sequence from kit_render (closing shot), optional
 TONE = (1500 / 60, 1888 / 60)
 TICKS = {"select": ("a", 274 / 60, 283 / 60), "back": ("a", 1158 / 60, 1164 / 60), "row": ("a", 1276 / 60, 1281 / 60),
@@ -180,6 +181,12 @@ def vice_card():
     m = cv2.resize(np.clip(m, 0, 1), (Wc, Hc), interpolation=cv2.INTER_AREA)[..., None]
     pal = np.stack([np.interp(t, [0, 0.5, 1], [hexbgr(c)[k] for c in ("#5c3b66", "#6f5486", "#6a4960")]) for k in range(3)], 1)[:, None, :]
     card = sky * (1 - 0.82 * m) + pal * (0.82 * m)                              # the reference's palms: mauve, slightly see-through
+    if CARD_BG.exists():                                                         # user, v18 review: "use exactly this" (their image)
+        bgim = cv2.imread(str(CARD_BG)).astype(np.float32)
+        k_ = max(Wc / bgim.shape[1], Hc / bgim.shape[0])
+        bgim = cv2.resize(bgim, (round(bgim.shape[1] * k_), round(bgim.shape[0] * k_)), interpolation=cv2.INTER_CUBIC)
+        oy, ox = (bgim.shape[0] - Hc) // 2, (bgim.shape[1] - Wc) // 2
+        card = bgim[oy:oy + Hc, ox:ox + Wc].copy()
     # wordmark, all white, with a thin plum edge and a soft shadow so it holds against the bright lower sky
     logo = cv2.imread(str(LOGO), cv2.IMREAD_UNCHANGED).astype(np.float32)
     wl = 900; hl = round(logo.shape[0] * wl / logo.shape[1]); al = cv2.resize(logo[..., 3], (wl, hl), interpolation=cv2.INTER_AREA) / 255
