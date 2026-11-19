@@ -334,3 +334,13 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   the part and the "Applied" state, then the pop-up. Cut the pop-up out by differencing the frame before.
   Build the list per state instead of patching it, so the cursor, markers and wallet can follow the story;
   measure the highlight bar's transparency from the same row with and without it.
+- **Several screens, several captures (GTA 6 v3).** A brief that walks through many menus (parts, paint,
+  suspension, wheels, exit) needs a view per screen. Take each from whichever capture has it; give every state a
+  full-frame image and paste named rectangles from it: list and option blocks before the car goes in, opaque
+  panels (stats, car tag, wallet) after it, blocks that overlap the car as an alpha overlay (get the alpha by
+  differencing against a frame of the same camera without the block). Check a "held" view really is held: a
+  creeping camera left the game car's taillight outside the mask. Set close-up cameras from the car direction's
+  vanishing point, the wheel's size on screen and its position, and move in until our car covers the game's.
+  Background the game car hid: fill from above (walls and door frames are vertical), not by mirroring.
+  Keep the game's own prices and stat numbers on screens for things the brand does not sell, and say so.
+  A capture's creator watermark stays unless the user decides otherwise.

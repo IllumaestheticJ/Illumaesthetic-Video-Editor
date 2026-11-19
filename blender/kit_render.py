@@ -58,6 +58,10 @@ def parse():
     ap.add_argument("--ease", default="linear", choices=["linear", "ease_in_out"])
     ap.add_argument("--steer", type=float, default=0, help="turn the front wheels (wheel_FL / wheel_FR) this many degrees about "
                     "their own vertical axis; positive = steering left (game menus park cars with the wheels turned)")
+    ap.add_argument("--wheels", help="wheel GLB in the showroom wheel format (nodes rim/tyre/brake, hub-centred, axle on X, face +X): "
+                                     "replaces the car's four wheels, scaled to the car's tyre diameter")
+    ap.add_argument("--wheel-color", default="", help="rim colour for --wheels, sRGB hex (default: the wheel GLB's own)")
+    ap.add_argument("--drop", type=float, default=0, help="lower the body this many metres on its wheels (suspension drop)")
     ap.add_argument("--rig", default="carlot", choices=["carlot", "studio"])
     ap.add_argument("--rig-json", help="override light rig: {world:[r,g,b,strength], lights:[{loc,rot,size,energy,color,glossy_only,only_nodes}], materials:{name:{principled inputs}}}")
     ap.add_argument("--exposure", type=float, default=0.0)
@@ -324,6 +328,32 @@ def cam_orbit(a, cam_obj, lo, hi, aspect):
     return target, dist
 
 
+def swap_wheels(a):
+    """Replace wheel_FL/FR/RL/RR with copies of a showroom wheel GLB, scaled to the car's tyre diameter."""
+    for n in ("wheel_FL", "wheel_FR", "wheel_RL", "wheel_RR"):
+        o = bpy.data.objects.get(n)
+        if not o:
+            print("IVE_WARN wheels: no node " + n); continue
+        old = [x for x in [o] + list(o.children_recursive) if x.type == "MESH"]
+        wl, wh = bbox(old)
+        c = (wl + wh) / 2; r = (wh.z - wl.z) / 2
+        for x in old:
+            x.hide_render = True; x.hide_viewport = True
+        before = set(bpy.data.objects)
+        bpy.ops.import_scene.gltf(filepath=a.wheels)
+        new = [x for x in bpy.data.objects if x not in before]
+        nl, nh = bbox([x for x in new if x.type == "MESH"])
+        k = r / ((nh.z - nl.z) / 2)
+        T = Matrix.Translation(c) @ Matrix.Rotation(math.pi if c.x < 0 else 0.0, 4, "Z") @ Matrix.Scale(k, 4)
+        for x in new:
+            x["ive_swapped"] = 1
+            if x.name.split(".")[0] == "rim":
+                x["ive_swapped_rim"] = 1
+            if x.parent is None:
+                x.matrix_world = T @ x.matrix_world
+    bpy.context.view_layer.update()
+
+
 def ease(t, kind):
     return t if kind == "linear" else t * t * (3 - 2 * t)
 
@@ -336,7 +366,23 @@ def main():
     missing = hide_nodes([n for n in a.hide.split(",") if n])
     if missing:
         print("IVE_WARN hide: no such node(s): " + ",".join(missing))
+    if a.wheels:
+        swap_wheels(a)
     lookdev(a)
+    if a.wheels and a.wheel_color:
+        h = a.wheel_color.lstrip("#"); rgb = [(int(h[i:i + 2], 16) / 255.0) ** 2.2 for i in (0, 2, 4)]
+        for o in bpy.data.objects:
+            if o.get("ive_swapped_rim") and o.type == "MESH":
+                for sl in o.material_slots:
+                    m = sl.material.copy(); sl.material = m
+                    bb = bsdf(m)
+                    if bb:
+                        bb.inputs["Base Color"].default_value = (*rgb, 1); setp(bb, metallic=0.9, roughness=0.32)
+    if a.drop:
+        for o in bpy.data.objects:
+            if o.parent is None and not o.name.startswith("wheel_") and not o.get("ive_swapped"):
+                o.location.z -= a.drop
+        bpy.context.view_layer.update()
 
     if a.steer:
         for n in ("wheel_FL", "wheel_FR"):

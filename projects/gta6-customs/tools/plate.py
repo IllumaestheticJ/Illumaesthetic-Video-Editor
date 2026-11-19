@@ -79,3 +79,19 @@ def fill_nearest(img, hole, vps, margin=6, block=None):
     soft = cv2.GaussianBlur(out, (0, 0), 2.0)                     # take the mirrored grain down a little and hide the seams
     w = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 3)[..., None] * 0.6
     return (out * (1 - w) + soft * w).astype(np.uint8)
+
+
+def fill_from_above(img, hole, block, lift=10, sigma=5):
+    """Each hole pixel takes the nearest clean pixel straight above it (walls, door frames and posts run vertically,
+    so they carry on down behind where the game's car stood). Mirroring there gave a grey blob (v3 suspension view)."""
+    H, W = hole.shape
+    bad = cv2.dilate((block | hole).astype(np.uint8), np.ones((2 * lift + 1, 1), np.uint8)) > 0
+    rows = np.where(~bad, np.arange(H)[:, None], -1)
+    src = np.maximum.accumulate(rows, axis=0)
+    ys, xs = np.nonzero(hole & (src >= 0))
+    out = img.copy(); out[ys, xs] = img[src[ys, xs], xs]
+    rest = hole & (src < 0)
+    if rest.any():
+        out = fill_nearest(out, rest, [(-30000, 1100), (33000, 900), (1280, 30000)], block=block)
+    soft = cv2.GaussianBlur(out, (0, 0), sigma); w = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 3)[..., None]
+    return (out * (1 - w) + soft * w).astype(np.uint8)

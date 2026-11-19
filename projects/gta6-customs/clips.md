@@ -28,3 +28,10 @@ Dropbox same folder, `YTSave.to_YouTube_Media_VCyedol41Do_GTA-6-Vehicle-Customiz
 - **213.6 s (frame 12817): the only purchase** (free kit). Sound 213.84-215.3 s; lower-left block turns to "Applied"
   at frames 12824-12830; "Purchased" pop-up from frame 12836 to 12980, at x 2288-2515, y 549-592.
 - 216-227 s respray previews with spray sounds; 228 s on, menus again.
+
+## Frames used in v3
+First capture: list 10-276; rear view 880-1038; option screen (Full Kits) 1510-1688 for the respray; UI-free exit 4086-4104.
+Second capture: Exhaust 17946-17976 (camera creeps: only this half second matches the menu's reference frame 17960);
+suspension ("Wheel Kits", lowered kit 3/3 with stat preview) 2072-2150, reference 2100; Rim Style 20258-20398, reference
+20040; respray block from 5160 ("Admiral", Blue tab) against plain frame 2300; purchase sound 213.80-215.45 s.
+Cameras: cam_E (exhaust, set by hand closer than the capture's), cam_S, cam_W: `tools/mancam.py`, values in the edit log.

@@ -40,3 +40,24 @@ Output: `/home/user/media/work/out/gta6-customs_v2.mp4`, 14.6 s.
 - Not checked by ear. Still open from v1: render look, small picture in 9:16, no driver. New: the list fits two
   parts directly, which the game does on a part's own screen; the part is called Front Lip (catalogue), the
   user said front bumper; room tone sits at -33 dB after the gain, on the loud side.
+
+## v3 (2026-11-19) - after the user's review of v2
+User: car comes in stock; front lip, side skirts, rear lip (camera to the sample's exhaust angle), rear wing, all paint
+matched; then a colour change that paints everything; then suspension (handling goes up) and wheels (custom);
+after checkout the NPC says "need anything else or is that everything?".
+
+Output: `/home/user/media/work/out/gta6-customs_v3.mp4`, 24.5 s. Tools: `ui3.py`, `compose3.py`, `assemble3.py`.
+- Seven purchases, each with the game's purchase sound, "Applied" and the "Purchased" pop-up: Front Lip, Side
+  Skirts (list screen), Rear Lip (second capture's Exhaust camera, moved 0.6 m closer so the Civic covers the
+  game's car), Sport Wing (rear view), Respray grey > Boost Blue (body and parts), Lowered Suspension Kit (car
+  drops 45 mm; the game's +0.3 asphalt handling), Custom 6-spoke rims (site's TE37-style wheel, bronze).
+- Wallet $2,730 > $0: Epsilon parts at catalogue prices, respray free and suspension/rims at the game's prices.
+- Exit: the capture's UI-free shop frame, wallet $0, the line as a subtitle. No voice (see edit log).
+- Checked by looking: every menu state at 1:1; overlays of the three new cameras; 21 frames across the timeline;
+  the exhaust view after a leftover taillight was found (capture's camera creeps in: frame range cut to 0.5 s,
+  mask widened); the suspension view after its background fill came out as a grey blob (now filled from above).
+- Known weak points: all six camera moves are synthetic blur whips (the capture has real ones for two); the
+  second capture's views carry the uploader's watermark and overcast light next to the first capture's sun;
+  stats panel on the suspension screen keeps the preview arrows after purchase; background behind the car in
+  the suspension and wheel close-ups is invented; rear lip's lower section is black plastic in the model, so it
+  does not read as fully paint matched; sound not checked by ear.

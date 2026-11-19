@@ -203,8 +203,10 @@ class Menu:
 
     def __init__(self, frame):
         a, b = frame(100), frame(1300)                    # row 2 highlighted / row 3 highlighted
-        self.bar_rect = bx0, by0, bx1, by1 = box(28, 217, 524, 288)
+        self.bar_rect = bx0, by0, bx1, by1 = box(28, 219, 524, 282)   # inside one row: the next row's bar starts at 283
         bg = a.copy(); bg[by0:by1, bx0:bx1] = b[by0:by1, bx0:bx1]          # row 2 without its bar
+        pp_ = int(round(PITCH * S))                                         # the bar's bright lower edge: take the separator one row down
+        bg[by1:by1 + 11, bx0:bx1] = bg[by1 + pp_:by1 + pp_ + 11, bx0:bx1]
         for k in range(1, 9):
             yc = ROW0 + PITCH * (k - 1)
             erase(bg, box(44, yc - 26, 480, yc + 26), thr=22)
