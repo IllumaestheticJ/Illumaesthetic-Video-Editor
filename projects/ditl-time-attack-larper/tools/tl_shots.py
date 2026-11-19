@@ -77,42 +77,55 @@ def driveway_set():
     for x in (-6, 6): box(f"win{x}", (1.6, 0.1, 1.3), W._flat_mat(f"winm{x}", (0.1, 0.13, 0.18), 0.2), (x, -2.95, 1.6), base="z")
     box("fence", (0.1, 14, 1.4), mat("wood_f", (0.5, 0.35, 0.2)), (-4.5, 4, 0), base="z")
 
-# ---------------------------------------------------------------- shot 1: alarm, already in the suit, cereal through the visor
+# ---------------------------------------------------------------- shot 1: slaps the alarm off, pans to the mirror: already in the race suit and helmet
+def racer_body(root_loc, rz):
+    """His full upper body (race suit, gloves, helmet) at the camera: hidden from the camera, seen only in the mirror."""
+    p, head, fd = W.person("me", "tg", root_loc, rz, W._flat_mat("me_skin", (0.84, 0.62, 0.48), 0.6), kit()["suit"], W._flat_mat("me_hair", (0.05, 0.04, 0.03)), ["blank", "smug", "proud"], hair_h=0.02)
+    hel = W._flat_mat("helmet", (0.95, 0.95, 0.95), 0.25); red = W._flat_mat("helred", (0.8, 0.05, 0.05), 0.3); vz = W._flat_mat("visorm", (0.05, 0.06, 0.08), 0.1)
+    box("hel_top", (0.29, 0.29, 0.08), hel, (0, 0.0, 0.27), parent=head, base="z"); box("hel_stripe", (0.06, 0.3, 0.085), red, (0, 0.0, 0.272), parent=head, base="z")
+    for sx in (-1, 1): box(f"hel_side{sx}", (0.05, 0.29, 0.34), hel, (sx * 0.135, 0.02, 0.0), parent=head, base="z")
+    box("hel_back", (0.29, 0.05, 0.34), hel, (0, 0.135, 0.0), parent=head, base="z"); box("hel_chin", (0.28, 0.06, 0.08), hel, (0, -0.13, -0.02), parent=head, base="z")
+    box("hel_visor", (0.27, 0.02, 0.07), vz, (0, -0.15, 0.2), rot=(R(-30), 0, 0), parent=head, base="z")       # visor flipped up
+    box("collar", (0.3, 0.28, 0.06), red, (0, 0, 0.53), parent=p, base="z"); box("zip", (0.02, 0.005, 0.5), W._flat_mat("zipm", (0.8, 0.8, 0.8), 0.2), (0, -0.131, 0.02), parent=p, base="z")
+    for sx in (-1, 1): box(f"patch{sx}", (0.1, 0.005, 0.06), red if sx > 0 else W._flat_mat("patchy", (0.95, 0.8, 0.1), 0.4), (sx * 0.12, -0.131, 0.4), parent=p, base="z")
+    a1, f1 = W.arm("meaR", p, -1, kit()["glove"], kit()["suit"], up=-60, fwd=10, bend=20); a2, f2 = W.arm("meaL", p, 1, kit()["glove"], kit()["suit"], up=-60, fwd=10, bend=20)
+    for o in [p] + list(p.children_recursive): o.visible_camera = False
+    return p, head, fd, (a1, a2)
+
 def s1():
     W.room((0.42, 0.5, 0.66), (0.33, 0.22, 0.14), w=5, d=5, h=2.7, lamp=70)
     box("bed", (1.6, 2.1, 0.45), mat("blanket_b", (0.16, 0.2, 0.36)), (0, 0.6, 0), base="z"); box("pillow", (0.7, 0.35, 0.14), mat("pil_p", (0.85, 0.85, 0.8)), (0, 1.45, 0.45), base="z")
     box("stand", (0.5, 0.45, 0.55), mat("wood_s", (0.4, 0.25, 0.12)), (1.15, -0.2, 0), base="z")
     clk = box("clock", (0.24, 0.1, 0.12), W._flat_mat("clkb", (0.03, 0.03, 0.03), 0.4), (1.15, -0.2, 0.61), base="z")
     plane("clkface", 0.18, 0.07, W._flat_mat("clkd", (1.0, 0.1, 0.05), 0.5, emit=4), (0, -0.051, 0.06), rot=(R(90), 0, 0), parent=clk)
-    poster = plane("poster", 1.0, 0.7, imgmat("posterm", TEX + "screen_signup.png"), (-1.2, 2.48, 1.6), rot=(R(90), 0, R(180)))  # an event flyer on the wall
-    E = (0.15, -0.55, 1.22); rig, cam = rigcam(E, (1.15, -0.2, 0.62), lens=20); vz = visor(cam, 20); ovs = [vz]
-    # 1-14: slap the alarm (hand in the clock's space), 15-20: whip down to the bowl
+    plane("poster", 1.0, 0.7, imgmat("posterm", TEX + "screen_signup.png"), (-1.2, 2.48, 1.6), rot=(R(90), 0, R(180)))
+    # dresser mirror on the left wall (a real reflective surface), facing +X
+    box("dresser", (0.5, 1.3, 0.8), mat("wood_d", (0.4, 0.25, 0.12)), (-2.2, -0.45, 0), base="z")
+    box("mframe", (0.04, 0.95, 1.25), W._flat_mat("mfr", (0.15, 0.1, 0.06), 0.5), (-2.43, -0.45, 0.85), base="z")
+    mm = bpy.data.materials.new("mirror"); mm.use_nodes = True; bs = mm.node_tree.nodes["Principled BSDF"]; bs.inputs["Base Color"].default_value = (0.92, 0.94, 0.95, 1); bs.inputs["Metallic"].default_value = 1.0; bs.inputs["Roughness"].default_value = 0.0
+    plane("mirror", 0.85, 1.15, mm, (-2.405, -0.45, 1.475), rot=(R(90), 0, R(-90)))
+    E = (0.15, -0.55, 1.22); rig, cam = rigcam(E, (1.15, -0.2, 0.62), lens=20); vz = visor(cam, 20)
+    me, head, fd, arms = racer_body((0.15, -0.55, 0.47), R(-90)); swap(fd, [(1, "blank"), (40, "smug")])
+    # 1-13: slap the alarm (hand in the clock's space)
     hs = ghand("hS", clk, (0.0, 0.25, 0.32), (R(-60), 0, R(180)), curls=FLAT, thumb=0.2)
     key(hs, 1, loc=(0.05, 0.35, 0.4), interp="LINEAR"); key(hs, 6, loc=(0.0, 0.02, 0.17), rot=(R(-88), 0, R(180)), interp="LINEAR"); key(hs, 9, loc=(0.0, 0.03, 0.2), interp="LINEAR"); key(hs, 13, loc=(0.1, 0.4, 0.5), interp="LINEAR")
     key(clk, 5, loc=(1.15, -0.2, 0.61), interp="LINEAR"); key(clk, 6, loc=(1.15, -0.2, 0.585), interp="LINEAR"); key(clk, 8, loc=(1.15, -0.2, 0.61), interp="LINEAR")
     vis(hs, 14, False); key(cam, 5, rot=(0, 0, 0), interp="LINEAR"); key(cam, 6, rot=(R(-2), R(1), 0), interp="LINEAR"); key(cam, 8, rot=(0, 0, 0), interp="LINEAR")
-    key(rig, 1, rot=lookrot(E, (1.15, -0.2, 0.62)), interp="LINEAR"); key(rig, 13, rot=lookrot(E, (1.15, -0.2, 0.62)), interp="LINEAR"); key(rig, 19, rot=lookrot(E, (0.15, 0.1, 0.75)), interp="LINEAR")
-    # bowl in the left hand, spoon in the right; the spoon keeps hitting the closed visor
-    bowl = bpy.data.objects.new("bowlroot", None); bpy.context.scene.collection.objects.link(bowl); bowl.parent = cam; bowl.location = (-0.03, -0.1, -0.33); bowl.rotation_euler = (R(62), 0, 0)
-    bpy.ops.mesh.primitive_cylinder_add(vertices=20, radius=0.08, depth=0.06); b = bpy.context.object; b.parent = bowl; b.data.materials.append(W._flat_mat("bowlm", (0.92, 0.92, 0.9), 0.3))
-    plane("milk", 0.15, 0.15, W._flat_mat("milkm", (0.97, 0.96, 0.92), 0.2), (0, 0, 0.031), parent=bowl)
-    rnd = random.Random(4); orange = W._flat_mat("loops", (0.95, 0.5, 0.1), 0.6)
-    for i in range(14): box(f"loop{i}", (0.014, 0.014, 0.008), orange, (rnd.uniform(-0.05, 0.05), rnd.uniform(-0.05, 0.05), 0.034), rot=(0, 0, rnd.uniform(0, 3)), parent=bowl)
-    hl = ghand("hL", bowl, (0.0, -0.07, -0.04), (R(-90), 0, 0), curls=(0.9, 0.9, 0.9, 0.9), thumb=0.4); vis(bowl, 1, False); vis(bowl, 16, True)
-    hr = ghand("hR", cam, (0.12, -0.2, -0.36), (R(-50), 0, R(-15)), curls=FIST, thumb=0.9)
-    box("spoon", (0.016, 0.16, 0.006), W._flat_mat("spoonm", (0.8, 0.8, 0.82), 0.15), (0.0, 0.13, -0.02), parent=hr)
-    vis(hr, 1, False); vis(hr, 16, True)
-    down, up = (0.05, -0.12, -0.33), (0.025, -0.02, -0.16)
-    hits = [26, 36, 45, 53, 60]; prev = 16; key(hr, 16, loc=down, rot=(R(-50), 0, R(-15)), interp="LINEAR")
-    milk = {}
-    for i, hf in enumerate(hits):
-        dip = max(prev + 2, hf - 5); key(hr, dip, loc=down, rot=(R(-50), 0, R(-15)), interp="LINEAR"); key(hr, hf, loc=up, rot=(R(-20), 0, R(-8)), interp="LINEAR"); key(hr, hf + 2, loc=(0.035, -0.05, -0.2), interp="LINEAR"); prev = hf + 2
-        key(cam, hf - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, hf, rot=(R(2.5), R(-1), R(1.5)), interp="LINEAR"); key(cam, hf + 3, rot=(0, 0, 0), interp="LINEAR")
-    for k in range(4):
-        m = overlay(cam, f"milk_{k}.png", 20, 0.0295, f"milk{k}"); ovs.append(m); vis(m, 1, False); vis(m, hits[min(k, 4)], True)
-        if k < 3: vis(m, hits[k + 1], False)
-    for f, ln in ((1, 20), (16, 20), (19, 26)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
-    follow_lens(20, ovs, ((1, 20), (16, 20), (19, 26)))
+    # 14-26: whip-pan left to the mirror; 26-66: slow push-in on the reflection, he nods and gives a thumbs up
+    mc = (-2.4, -0.45, 1.3)
+    Ed = (-1.35, -0.45, 1.22)   # walks up to the mirror while turning; his body (seen only in the mirror) walks with the camera
+    key(rig, 1, loc=E, rot=lookrot(E, (1.15, -0.2, 0.62)), interp="LINEAR"); key(rig, 14, loc=E, rot=lookrot(E, (1.15, -0.2, 0.62)), interp="BEZIER"); key(rig, 22, loc=E, rot=lookrot(E, mc), interp="BEZIER")
+    key(rig, 34, loc=Ed, rot=lookrot(Ed, mc), interp="BEZIER")
+    for f in range(22, 34, 4): key(cam, f, rot=(R(1.2), 0, R(0.6)), interp="LINEAR"); key(cam, f + 2, rot=(0, 0, R(-0.6)), interp="LINEAR")
+    key(cam, 35, rot=(0, 0, 0), interp="LINEAR")
+    key(me, 14, loc=(E[0], E[1], 0.47), interp="BEZIER"); key(me, 22, loc=(E[0], E[1], 0.47), interp="BEZIER"); key(me, 34, loc=(Ed[0], Ed[1], 0.47), interp="BEZIER")
+    for f, dz in ((44, -0.06), (48, 0.02), (52, -0.05), (56, 0.0)): key(rig, f, loc=Ed, rot=lookrot(Ed, (mc[0], mc[1], mc[2] + dz)), interp="BEZIER")
+    for f, ln in ((1, 20), (34, 20), (66, 26)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    follow_lens(20, [vz], ((1, 20), (34, 20), (66, 26)))
+    th = ghand("hT", cam, (0.16, -0.24, -0.5), (R(-20), R(-80), R(10)), curls=FIST, thumb=-0.6); vis(th, 1, False); vis(th, 34, True)
+    key(th, 34, loc=(0.3, -0.45, -0.5), interp="LINEAR"); key(th, 40, loc=(0.14, -0.16, -0.5), interp="BEZIER")
+    for f in range(44, 66, 6): key(th, f, loc=(0.14, -0.14, -0.5), interp="LINEAR"); key(th, f + 3, loc=(0.14, -0.17, -0.5), interp="LINEAR")
+    a1, a2 = arms; key(a1, 34, rot=(R(-60), 0, R(-90)), interp="LINEAR"); key(a1, 40, rot=(R(40), 0, R(-90 - 10)), interp="BEZIER")     # the reflection's thumbs-up arm
 
 # ---------------------------------------------------------------- shot 2: track-day sign-up; thumb hovers, trembles, swipes away
 def s2():

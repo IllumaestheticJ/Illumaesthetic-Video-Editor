@@ -21,8 +21,9 @@ aero = solo[:int(1.8 * SR)]                                   # "Aero's working.
 
 # 1 bedroom: alarm, slap, whip, spoon on the visor x5 with milk
 for f in range(1, 7, 2): put(beep(1900, 0.09), T(1, f), 0.8)
-put(slap(1.2), T(1, 6), 1.3); put(whoosh(0.25, 500, 4000), T(1, 14), 0.7); put(hum(T(2), 90), 0, 0.25)
-for hf in (26, 36, 45, 53, 60): put(ms(knock(), splash()), T(1, hf), 1.3); put(squeak(0.1), T(1, hf + 1), 0.3)
+put(slap(1.2), T(1, 6), 1.3); put(whoosh(0.3, 500, 4000), T(1, 14), 0.8); put(hum(T(2), 90), 0, 0.25)
+for f in (22, 26, 30): put(knock() * 0.5, T(1, f), 0.6)                         # footsteps to the mirror
+put(ms(choir(1.3), ding(1760, 0.5) * 0.6), T(1, 33), 1.0); put(levelup(), T(1, 42), 0.4)   # the reveal: already suited up
 # 2 sign-up: heartbeat while the thumb hovers, swipe away
 put(heartbeat(1.6), T(2), 1.1); put(whoosh(0.22, 800, 5000), T(2, 35), 0.9)
 # 3 cart: cha-ching on every Confirm tap (same schedule as tl_shots.s3)
