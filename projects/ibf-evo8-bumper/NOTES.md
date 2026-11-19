@@ -1,4 +1,12 @@
-# ibf-evo8-bumper v0 (draft) - Evo 8 front bumper, Black Friday 2026
+# ibf-evo8-bumper v0.2 (draft)
+
+v0.2: music re-cut to the beginning of the song (owner rule: start about 2 bars before the FIRST drop, the trending side). The track starts at 9.75 s; its first drop (13.10 s) lands at 3.34 s, the hard cut from the unwrap into the test fit. Then: street drive-in 6.69, front 7.52, walk-around 8.36, end card 11.70-16.20 (4.5 s). Price card unchanged (0.2-2.95 s). 16.2 s, -14.0 LUFS, TP -2.4 dBFS. Safe zones and text boxes OK.
+
+# v0.1 (draft, music swap)
+
+v0.1: music changed to "Electric Horizons" - Andre Marteen (TikTok Commercial Music Library, attach the same sound when posting). v0 used Le Castle Vania "Blood Code", which was already used on another reel (one track per video). The new track has a stop just before the street reveal and comes back in on the cut. Picture is unchanged except the end card starts 0.04 s later. 15.56 s, -14.1 LUFS, TP -3.3 dBFS.
+
+# v0 (draft) - Evo 8 front bumper, Black Friday 2026
 
 **PRICES PENDING OWNER.** On screen: OE Replacement $450 (was $750), Nose Chop $480 (was $800) = the owner's numbers in
 PRICES.md. The live store shows OE $600 / Nose Chop $650 with no compare-at price. Not to be posted until confirmed.

@@ -56,7 +56,7 @@ def render(card, out_dir):
             d.line([(CX - tw / 2 - 6, sy), (CX + tw / 2 + 6, sy)], fill=hexrgba(ln.get("strike_color", "#e0161b")), width=max(4, ln["size"] // 9))
         boxes.append({"t0": card["t0"], "t1": card["t1"], "x": int(CX - tw / 2), "y": int(ln["cy"] - th / 2),
                       "w": int(tw), "h": int(th), "label": ln["text"], "key": bool(ln.get("key", True))})
-    if not card.get("bg"):
+    if card.get("halo", not card.get("bg")):
         # soft dark halo behind text so it reads over footage
         a = text_layer.split()[3].filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(14))
         halo = Image.new("RGBA", (W, H), (0, 0, 0, 0))
