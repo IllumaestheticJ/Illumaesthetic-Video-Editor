@@ -17,8 +17,8 @@ the real car to its scan. Every project you finish teaches the next agent.
 ## Map of this repo (Graphify)
 `graphify-out/GRAPH_REPORT.md` is a generated map of the code and the knowledge documents (`graph.json`, `graph.html`).
 Use it to find where something lives (`graphify explain "<name>"`, `graphify path "A" "B"`, `graphify section "<heading>"`).
-After adding or changing tools, knowledge or project notes: `pip install graphifyy && graphify update . && graphify cluster-only . --no-label`
-(no model needed; community names are in `graphify-out/.graphify_labels.json`), and commit the result.
+After adding or changing tools, knowledge or project notes: `pip install graphifyy && graphify update . && python tools/graphify_labels.py && graphify cluster-only . --no-label`
+(no model needed; `tools/graphify_labels.py` names the communities from their files), and commit the result.
 
 ## Tools
 `python -m ive <cmd>` — fetch-drive, fetch-url, probe, sheet, frame, analyze, beats, decimate, crop,
