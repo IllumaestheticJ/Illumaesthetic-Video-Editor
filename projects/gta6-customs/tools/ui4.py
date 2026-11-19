@@ -23,8 +23,9 @@ from ui import box, erase, draw, retitle, car_tag, wallet, money, OSW, LEX, OSW_
 
 VID_B = "/home/user/media/gta6-customs/capture/gta6_customization_B_1440p.mp4"
 # catalogue (Epsilon-Site showroom/catalog/products.json, 2026-10-03), variant "Sonic Gray Pearl - NH877P" = painted to match
-PRICES = {"Front Lip": 485, "Side Skirts": 800, "Rear Lip": 485, "Sport Wing": 850}; GAME = {"Suspension": 750, "Wheels": 560}
-ROWS = ["Front Lip", "Side Skirts", "Rear Lip", "Sport Wing"]      # plain names on the list (user, v6 review); the part screens carry the Epsilon name and badge
+PRICES = {"Front Lip": 485, "Side Skirts": 800, "Rear Lip": 485, "Rear Wing": 850}       # "Rear Wing" = the catalogue's Sport Wing (user, v8 review)
+GAME = {"Suspension": 750, "Wheels": 560}
+ROWS = ["Front Lip", "Side Skirts", "Rear Lip", "Rear Wing"]      # plain names on the list (user, v6 review); the part screens carry the Epsilon name and badge
 BADGE_BGR, BADGE_INK = (253, 225, 106), (75, 54, 33)        # the game's "EXCLUSIVE" badge colours (second capture, frame 2100)
 TOTAL = sum(PRICES.values()) + sum(GAME.values())
 R = lambda *a: box(*a)
@@ -79,6 +80,52 @@ def badge(img, x=43, y=1064):
     draw(img, "EPSILON+", (x + 11, y + 39), OSW, size, BADGE_INK, OSW_SQ)
 
 
+TABS = {"PRO BUILDS": (108, 338), "COSMETICS": (342, 520), "BODYWORK": (523, 742), "PERFORMANCE": (747, 965), "WHEELS": (969, 1103),
+        "INTERIOR": (1108, 1263)}                  # x ranges of the tab boxes on the first capture's menu frame; rows 104-148
+TAB_Y = (104, 148)
+
+
+def set_tab(img, name):
+    """Move the tab bar's highlight from BODYWORK (as captured) to another tab."""
+    if name == "BODYWORK":
+        return
+    y0, y1 = TAB_Y
+    # 1. BODYWORK back to an unselected tab: the box filled across from its neighbours, its lettering and marker set light
+    x0, x1 = TABS["BODYWORK"]
+    hsv = cv2.cvtColor(img[y0:y1, x0:x1], cv2.COLOR_BGR2HSV); dm = (hsv[..., 1] > 110) & (hsv[..., 2] > 150)
+    dys, dxs = np.nonzero(dm)
+    # lettering size and baseline from a neighbour (COSMETICS), gap between marker and lettering from PRO BUILDS
+    cx = TABS["COSMETICS"]; cg = img[y0:y1, cx[0]:cx[1]]; cm = cv2.cvtColor(cg, cv2.COLOR_BGR2GRAY) > 170
+    cys = np.nonzero(cm.any(1))[0]; cap_h, base = cys.max() - cys.min() + 1, cys.max() + 1
+    light = np.percentile(cg[cm].reshape(-1, 3), 80, 0)
+    px = TABS["PRO BUILDS"]; pg = img[y0:y1, px[0]:px[1]]; ph = cv2.cvtColor(pg, cv2.COLOR_BGR2HSV)
+    pmark = (ph[..., 1] > 110) & (ph[..., 2] > 150); ptxt = (cv2.cvtColor(pg, cv2.COLOR_BGR2GRAY) > 170) & ~cv2.dilate(pmark.astype(np.uint8), np.ones((7, 7), np.uint8)).astype(bool)
+    pm_x = np.nonzero(pmark.any(0))[0]; pt_x = np.nonzero(ptxt.any(0))[0]
+    gap = int(pt_x[pt_x > pm_x.max()].min() - pm_x.max()) if len(pm_x) else 16
+    L = img[y0:y1, x0 - 14:x0 - 8].astype(np.float32).mean(1, keepdims=True); Rr = img[y0:y1, x1 + 12:x1 + 18].astype(np.float32).mean(1, keepdims=True)
+    t = np.linspace(0, 1, x1 - x0 + 16)[None, :, None]
+    img[y0:y1, x0 - 8:x1 + 8] = (L * (1 - t) + Rr * t).astype(np.uint8)
+    draw(img, "BODYWORK", (x0 + dxs.max() + gap, y0 + base), OSW, cap_h / CAP[OSW], light, OSW_SQ)
+    U.diamond(img, x0 + (dxs.min() + dxs.max()) / 2, y0 + (dys.min() + dys.max()) / 2, r=(pm_x.max() - pm_x.min()) / 2 + 1)
+    # 2. the new tab: white box, its lettering dark (any marker kept)
+    x0, x1 = TABS[name]
+    reg = img[y0:y1, x0:x1].copy(); gg = cv2.cvtColor(reg, cv2.COLOR_BGR2GRAY)
+    hs = cv2.cvtColor(reg, cv2.COLOR_BGR2HSV); mark = (hs[..., 1] > 110) & (hs[..., 2] > 150)
+    txt = cv2.GaussianBlur(((gg > 150) & ~cv2.dilate(mark.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)).astype(np.float32), (0, 0), 0.6)[..., None]
+    box_ = np.full_like(reg, 246, np.float32)
+    box_ = box_ * (1 - txt) + np.array([34, 30, 30], np.float32) * txt
+    poly = np.array([[x0 + 5, y0], [x1 + 3, y0], [x1 - 5, y1], [x0 - 3, y1]], np.int32)          # the selected tab leans, like the captured one
+    m = np.zeros(img.shape[:2], np.uint8); cv2.fillConvexPoly(m, poly, 255, lineType=cv2.LINE_AA)
+    full = img.astype(np.float32); patch = full.copy(); patch[y0:y1, x0:x1] = box_
+    patch[y0:y1, :x0] = 246; patch[y0:y1, x1:] = 246
+    a = (m / 255.0)[..., None]
+    out = full * (1 - a) + patch * a
+    if mark.any():
+        mk = cv2.dilate(mark.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
+        out[y0:y1, x0:x1][mk] = reg[mk]
+    img[:] = np.clip(out, 0, 255).astype(np.uint8)
+
+
 def clear_status(img):
     x0, y0, x1, y1 = STATUS
     m = np.zeros(img.shape[:2], np.uint8); m[y0 + 4:y1 - 2, x0 + 6:x1] = 255
@@ -105,6 +152,21 @@ def build(frameA, frameB):
     p = PRICES; cash = TOTAL
     U.ROWS = ROWS; M = U.Menu(frameA)
     m0 = M.render(1, [], 0); wallet_clear(m0); st["m0"] = {"img": m0, "view": "M"}
+
+    # navigation between sections, as the game does it (user, v8 review): back to the list, shoulder button to the next tab,
+    # the tab's own rows (read off the second capture), down to the entry, select
+    menus = {}
+
+    def nav(key, tab, rows, sel, fitted):
+        U.ROWS = rows
+        if tuple(rows) not in menus:
+            menus[tuple(rows)] = U.Menu(frameA)
+        img = menus[tuple(rows)].render(sel, fitted, 0); wallet_clear(img); set_tab(img, tab)
+        st[key] = {"img": img, "view": "M"}; U.ROWS = ROWS
+    COS = ["Respray", "Customizable Liveries", "Curated Liveries", "Plates"]; PRO = ["Full Kits", "Wheel Kits"]; WHL = ["Tire Style", "Rim Style", "Rim Colors"]
+    nav("n1a", "BODYWORK", ROWS, 4, ROWS); nav("n1b", "COSMETICS", COS, 1, [])
+    nav("n2a", "COSMETICS", COS, 1, ["Respray"]); nav("n2b", "PRO BUILDS", PRO, 1, []); nav("n2c", "PRO BUILDS", PRO, 2, [])
+    nav("n3a", "PRO BUILDS", PRO, 2, ["Wheel Kits"]); nav("n3b", "WHEELS", WHL, 1, []); nav("n3c", "WHEELS", WHL, 2, [])
 
     def part(base, name, c, done, view):
         img = base.copy()
@@ -154,7 +216,7 @@ def build(frameA, frameB):
     cash -= p["Front Lip"] + p["Side Skirts"]
     st["e1"] = part(eb, "Rear Lip", cash, False, "E"); cash -= p["Rear Lip"]; st["e2"] = part(eb, "Rear Lip", cash, True, "E")
     ab = frameA(900)
-    st["a1"] = part(ab, "Sport Wing", cash, False, "A"); cash -= p["Sport Wing"]; st["a2"] = part(ab, "Sport Wing", cash, True, "A")
+    st["a1"] = part(ab, "Rear Wing", cash, False, "A"); cash -= p["Rear Wing"]; st["a2"] = part(ab, "Rear Wing", cash, True, "A")
 
     # respray: first capture's option screen (camera M) cleared of its own block, second capture's swatch block as an overlay
     def respray(done):
@@ -177,7 +239,7 @@ def build(frameA, frameB):
 
     def susp(done, c):
         img = frameB(2100).copy()
-        retitle(img, box(30, 68, 420, 110), "SUSPENSION", OSW, None, OSW_SQ)
+        # title left as the game has it: PRO BUILDS / WHEEL KITS (user, v8 review: titles stay true to GTA 6)
         applied(img) if done else clear_status(img)
         hx0, hy0, hx1, hy1 = box(815, 1008, 1105, 1052)                       # "Respray the Ganado" hint names the game's car
         m = np.zeros(img.shape[:2], np.uint8); m[hy0:hy1, hx0:hx1] = 255; img[:] = cv2.inpaint(img, m, 6, cv2.INPAINT_TELEA)
@@ -203,7 +265,7 @@ if __name__ == "__main__":
     def fb(f): cb.set(1, f); return cb.read()[1]
     st = build(fa, fb); (W / "ui4").mkdir(exist_ok=True)
     tiles = []
-    for k in ("m0", "f1", "d1", "d2", "a2", "w2"):
+    for k in ("n1a", "n1b", "n2c", "n3c", "a2", "s2"):
         im = st[k]["img"].copy()
         if st[k].get("overlay") is not None:
             o = st[k]["overlay"]; a = o[..., 3:] / 255; im = (im * (1 - a) + o[..., :3] * a).astype(np.uint8)

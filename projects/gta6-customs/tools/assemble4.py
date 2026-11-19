@@ -23,7 +23,8 @@ W = Path("/home/user/media/work/gta6-customs")
 LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png")
 ORBIT = W / "orbit"                                            # PNG sequence from kit_render (closing shot), optional
 TONE = (1500 / 60, 1888 / 60)
-TICKS = {"select": ("a", 274 / 60, 283 / 60), "back": ("a", 1158 / 60, 1164 / 60), "row": ("a", 1276 / 60, 1281 / 60)}
+TICKS = {"select": ("a", 274 / 60, 283 / 60), "back": ("a", 1158 / 60, 1164 / 60), "row": ("a", 1276 / 60, 1281 / 60),
+         "tab": ("a", 618 / 60, 624 / 60)}                       # tab change: the first capture's option-change tick
 TONE_DB, SFX_PEAK = -43.0, 0.45
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/gta6-customs_v4.mp4")
 

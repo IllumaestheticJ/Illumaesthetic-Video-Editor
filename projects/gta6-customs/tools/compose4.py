@@ -43,7 +43,7 @@ POLY = {
               (600, 480), (350, 370), (180, 370)]),
 }
 R = ui3.R
-PRE = {"F": [R(0, 0, 640, 130)], "D": [R(0, 0, 640, 130), R(815, 1008, 1105, 1052)], "M": [R(0, 150, 640, 760)], "A": [R(0, 0, 640, 130), R(0, 840, 640, 1066)], "E": [R(0, 0, 640, 130), R(0, 840, 640, 1066)],
+PRE = {"F": [R(0, 0, 640, 130)], "D": [R(0, 0, 640, 130), R(815, 1008, 1105, 1052)], "M": [R(0, 150, 640, 760), R(0, 70, 955, 120)], "A": [R(0, 0, 640, 130), R(0, 840, 640, 1066)], "E": [R(0, 0, 640, 130), R(0, 840, 640, 1066)],
        "P": [R(0, 0, 640, 130), R(0, 790, 1080, 1066)], "S": [R(0, 0, 640, 130), R(0, 795, 470, 1066), R(815, 1008, 1105, 1052)],
        "W": [R(0, 0, 640, 130), R(0, 655, 760, 1066)], "X": []}        # W: the whole block (price, name, thumbnails) from the state
 PANEL, TAG, WALLET = R(1466, 553, 1894, 996), R(1466, 915, 1894, 998), R(1730, 20, 1905, 80)    # panel only: the strip above it is scene
@@ -103,12 +103,25 @@ def timeline():
     # the capture's camera creeps in over this screen: only the half second around the frame the menu was built on is used
     simple("rear_lip", "B", pp(17946, 17976, 68), "E", "e1", "e2", "E_ls", "E_lsr", 14); spend(P_["Rear Lip"])
     ev.append([len(T) - 3, "back"]); whip("E_A")
-    simple("wing", "A", range(880, 1024, 2), "A", "a1", "a2", "A_lsr", "A_kit", 14); spend(P_["Sport Wing"])
+    simple("wing", "A", range(880, 1024, 2), "A", "a1", "a2", "A_lsr", "A_kit", 14); spend(P_["Rear Wing"])
     ev.append([len(T) - 3, "back"]); whip("A_M")
+
+    # v9 (user, v8 review: "the menu skips the navigation to the paint section entirely"): between sections the reel goes back
+    # to the list, changes tab and picks the entry, as the game does. Lists and tab names are the game's own.
+    def nav(name, steps, car, sounds):
+        """steps: [(state, frames), ...] on the menu camera; sounds: [(frame offset, name), ...]"""
+        keys = [k for k, n_ in steps for _ in range(n_)]
+        g_ = add(name, "A", pp(100, 160, len(keys)), "M", lambda i: (keys[i], (car, car, 1.0)))
+        ev.extend([g_ + o, nm] for o, nm in sounds)
+
+    nav("nav_paint", [("n1a", 14), ("n1b", 16)], "M_kit_grey", [(14, "tab"), (28, "select")])
     simple("respray", "A", range(1510, 1680, 2), "P", "p1", "p2", "M_kit_grey", "M_kit_blue", 22)
-    ev.append([len(T) - 3, "back"]); whip("M_S")
+    nav("nav_susp", [("n2a", 12), ("n2b", 12), ("n2c", 12)], "M_kit_blue", [(-2, "back"), (12, "tab"), (24, "row"), (34, "select")])
+    whip("M_S")
     simple("suspension", "B", pp(2072, 2150, 76), "S", "s1", "s2", "S_kit", "S_low", 18); spend(G_["Suspension"])
-    ev.append([len(T) - 3, "back"]); whip("S_W")
+    ev.append([len(T) - 3, "back"]); whip("S_M")
+    nav("nav_wheels", [("n3a", 12), ("n3b", 12), ("n3c", 12)], "M_low_blue", [(12, "tab"), (24, "row"), (34, "select")])
+    whip("M_W")
     simple("wheels", "B", pp(20258, 20398, 76), "W", "w1", "w2", "W_low", "W_te", 18); spend(G_["Wheels"])
     ev.append([len(T) - 3, "back"]); whip("W_M")
     g = add("exit", "A", pp(4086, 4104, 78), "X", lambda i: (None, ("M_final", "M_final", 1.0)))
@@ -281,7 +294,7 @@ def main():
         if n % 60 == 0:
             print("frame", n, "/", len(T), flush=True)
     ff.stdin.close(); ff.wait()
-    if not (os.environ.get("ONLY") or os.environ.get("START") or os.environ.get("END")):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
+    if os.environ.get("WRITE_JSON") or not (os.environ.get("ONLY") or os.environ.get("START") or os.environ.get("END")):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
         json.dump({"fps": FPS, "segments": segs, "events": events, "frames": len(T)}, open(W / "shop4_segments.json", "w"), indent=1)
     print("frames", len(T), "seconds", round(len(T) / FPS, 2))
 

@@ -122,3 +122,16 @@ Output: `/home/user/media/work/out/gta6-customs_v8.mp4`, 25.6 s.
   (figure only now), streaky fill right of the tail in both low views (doorway mirrored in instead).
 - Weak: the patch behind the tail is mirrored trees/grass, plausible but invented; the skirt and suspension shots share
   an angle; the wallet icon is missing for the 8 frames of each whip.
+
+## v9 (2026-11-19) - after the user's review of v8
+User: "It should say 'rear wing' instead of 'sport wing'. The menu title names should stay true to GTA6. Also, the menu
+skips the navigation to the paint section entirely."
+
+Output: `/home/user/media/work/out/gta6-customs_v9.mp4`, 29.3 s (803 menu frames + card).
+- Rear Wing on the list, its screen and its item line. Suspension screen title restored to PRO BUILDS / WHEEL KITS.
+- Tab navigation before paint, suspension and wheels, with the game's lists and a tab tick, row tick and select each time.
+- Checked: all navigation states at full size (lists, tab bar in four positions), 20 frames across the new timeline,
+  frame count after the splice (803). Sound events printed from the timeline, not listened to.
+- Open: whether "titles true to GTA 6" also meant the part screens (the game's own would be Front Bumper, Rear Bumper,
+  Spoiler; it has no skirt category for this car) - asked. One tab press from Pro Builds to Wheels where the game needs
+  several; Wheels list on the menu camera. Deselected Bodywork tab is redrawn (close, not pixel-identical).
