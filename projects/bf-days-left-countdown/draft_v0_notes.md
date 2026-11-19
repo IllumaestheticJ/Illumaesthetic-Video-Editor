@@ -196,3 +196,10 @@ User: "have it be Black friday sale text and then a car driving over it and the 
 - **Checks:** the safezone sheet is clean. All text sits inside the box; only the cars and the fallen skirts touch the rails.
 - **Output:** `/home/user/media/work/out/bf-days-left-countdown_v1.0_drive.mp4`. The drift version is rendering.
 - **Drift version:** `/home/user/media/work/out/bf-days-left-countdown_v1.0_drift.mp4`. The car slides down the lane tail-out with a flick over the text; soft tyre smoke clears within about 1 s; the Corolla drops its skirts mid-slide. -14.0 LUFS, the safezone sheet is clean. The background job hit its 2 h limit, so the last shot resumed from f116 (frames already on disk are skipped).
+
+## v1.1 drift (2026-11-19): one clean drift
+**User:** "can you make it one clean drift (no direction change) across the screen instead".
+- Both cars now hold one constant 32° tail-out slide with constant counter-steer, from entry to exit down the lane. There is no flick.
+- At that angle the body spans ±1.09 m at its centre row, so it still covers the 1.7 m text.
+- Drift part release is 3 frames later, with a shorter slide (k 0.42). The first render dropped a skirt across the "T" of LEFT. A +6 test cleared it, but one skirt left the frame; +3 keeps both in shot and clear of the text.
+- Output: `/home/user/media/work/out/bf-days-left-countdown_v1.1_drift.mp4`. 15.2 s, -14.0 LUFS with a -2.7 dBFS peak. The safezone sheet is clean.
