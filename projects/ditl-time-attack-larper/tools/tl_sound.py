@@ -38,16 +38,18 @@ put(whoosh(0.3, 300, 2500), T(4, 58), 0.6); put(kiss(), T(4, 68), 1.6); put(kiss
 put(choir(1.6) * 0.35, T(5), 0.8)
 for i in range(5): put(ding(1500 + 120 * i, 0.25), T(5, 2 + i * 9 + 6), 0.5)
 # 6 harness click, timer start
-put(engine(T(8) - T(6), 850, 880, 0.18), T(6))
+put(engine(T(7) - T(6), 850, 880, 0.18), T(6))
 put(whoosh(0.3, 400, 3000), T(6, 8), 0.6); put(ms(knock(), tick(), slap(0.5)), T(6, 22), 1.3); put(beep(2400, 0.1), T(6, 40), 0.9); put(levelup(), T(6, 41), 0.4)
 # 7 school zone: walking-pace timer beeps, kids, whistle
+put(engine(T(8) - T(7), 800, 830, 0.22), T(7))
 put(toy(T(8) - T(7)) * 0.3, T(7), 0.5, pan=0.4)
 for f in range(1, 48, 12): put(beep(2400, 0.06), T(7, f), 0.5)
 put(whistle(True, 0.5), T(7, 30), 0.4, pan=0.5)
 # 8 speed bump: scrape, sparks, satisfied line
 put(engine(T(9) - T(8), 900, 1100, 0.35), T(8)); put(ms(crunch(), screech(0.5) * 0.4), T(8, 12), 1.4); put(crunch(), T(8, 16), 1.0)
-put(np.tanh(aero * 1.3), T(8, 26) - 0.15, 1.0)
+put(np.tanh(aero * 1.3), T(8, 22) - 0.15, 1.0)
 # 9 roundabout: heel-toe blips while sawing the wheel; the cyclist's bell
+put(engine(T(10) - T(9), 1200, 1500, 0.25), T(9))
 for rf in range(2, 46, 8): put(rev(0.35, 5200), T(9, rf), 0.6)
 put(ding(2600, 0.25), T(9, 18), 0.6, pan=0.5); put(ding(2600, 0.25), T(9, 21), 0.5, pan=0.5); put(whoosh(0.5, 400, 2500), T(9, 18), 0.5, pan=0.5)
 # 10 garage bar: bonk
@@ -66,7 +68,6 @@ put(engine(T(15) - T(14), 850, 900, 0.18), T(14))
 for f in range(47, 82, 8): put(tick(), T(14, f), 1.0); put(tick(), T(14, f + 4), 0.7)
 put(trombone(), T(14, 56), 0.9)
 # 15 mirror: mouth-revving and rowing the 6-speed, then the sigh and "...next season."
-put(engine(T(15, 180) - T(15), 800, 820, 0.12), T(15))
 for f in range(8, 90, 14): put(mouthrev(0.42), T(15, f), 0.9)
 g = 8
 for rep in range(2):
