@@ -37,7 +37,7 @@ ZONES = {"mr2": {"bumper": (["body_front_bumper_stock", "trim_front_bumper_stock
                  "skirts": (["body_fender_cut_stock", "trim_fender_liner_stock"], ["part_side_skirts"]),
                  "eyelids": (["body_eyelids_stock"], ["part_eyelids"]),
                  "hood": (["body_hood_vent_stock"], ["part_hood_vents"]),
-                 # v1.8 user: "the rear spats also clip through the body" -> the stock corner comes off (lookbook stock piece / scan footprint cut)
+                 # v2.0 user: "the rear bumper should not be getting cut on the MR2 - same with duckbill": see OVER below
                  "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),
                  "duck": (["body_duckbill_stock"], ["part_duckbill"]),
                  "diffuser": ([], ["part_diffuser"]),         # user: include the rear diffuser (black) and the TC wing
@@ -47,6 +47,9 @@ ZONES = {"mr2": {"bumper": (["body_front_bumper_stock", "trim_front_bumper_stock
                 "skirts": (["body_side_skirts_stock"], ["part_side_skirts"]),
                 "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),   # user: NC rear spats -> the rear bumper is cut
                 "wing": ([], ["part_tc_wing"])}}              # engineering NC swan short mount (tools/nc_tcwing.py)
+# zones whose part goes OVER the stock body: nothing slides off. The stock patch under the part is only hidden on the frame
+# the part seats (it would poke through the part otherwise: user "the rear spats also clip through the body").
+OVER = {"mr2": ["spats", "duck"], "nc": []}
 # parts that keep their own finish in every shot (MR2 v4 reviewer: black diffuser, carbon wing)
 DARK = {"part_diffuser": "black", "part_tc_wing_kit": "carbon", "part_tc_wing": "carbon"}
 # never shown (not on sale / not in this ad). v1.8: the MR2 front bumper ("No deal") IS shown now, per the user.
@@ -134,6 +137,8 @@ def apply_zones(c, objs_of, nframes):
         elif z in swaps:
             w = swaps[z]; f0, f1 = w["off"]; f2, f3 = w["on"]
             for o in objs_of(stock):
+                if z in OVER[car]:
+                    key_vis(o, 0, False); key_vis(o, f3 - 1, True); continue
                 slide(o, f0, f1, Vector(w.get("dir", [0, 0, 1])) * w.get("dist", 6.0), False, nframes)
                 key_vis(o, 0, False); key_vis(o, f1, True)
             for o in objs_of(parts):
@@ -155,13 +160,6 @@ def load_cgi(i, c, nframes):
             for pl in o.data.polygons: pl.use_smooth = True
             new.append(o)
         o = import_stl(f"{M}/kit_nc/part_tc_wing.stl", "part_tc_wing"); new.append(o)
-    for o in new:
-        if o.type == "MESH" and base(o.name) == "part_tc_wing_kit":      # v1.8: 66.5" element (tools/wing67.py)
-            import numpy as np
-            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from wing67 import stretch_x
-            mw = o.matrix_world.copy(); mi = mw.inverted()
-            V = [mw @ v.co for v in o.data.vertices]; X = stretch_x(np.array([v.x for v in V]))
-            for v, w, x in zip(o.data.vertices, V, X): v.co = mi @ Vector((x, w.y, w.z))
     for o in new:
         if o.type == "MESH":
             if base(o.name) in DARK:
