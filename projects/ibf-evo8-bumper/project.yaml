@@ -2,7 +2,7 @@ project: ibf-evo8-bumper
 format: reel-9x16
 # v0 is built by tools/build_v0.py (ffmpeg + PIL cards), not `ive assemble`.
 output: {path: /home/user/media/ibf-evo8-bumper/work/ibf-evo8-bumper_v0.mp4, width: 1080, height: 1920, fps: 30}
-music: {path: /home/user/media/ibf-evo8-bumper/music/horizons.wav, tiktok_cml: "7420070383351056400", title: "Electric Horizons - Andre Marteen", start: 54.796, fade_out: 0.8}
+music: {path: /home/user/media/ibf-evo8-bumper/music/horizons.wav, tiktok_cml: "7420070383351056400", title: "Electric Horizons - Andre Marteen", start: 9.752, first_drop: 13.096, fade_out: 0.8}
 sources:
   notext: {dropbox: "id:ihAynaYnO_4AAAAAAAAFKQ", name: "Evo bumper process without text.mov", local: /home/user/media/ibf-evo8-bumper/dropbox/evo_notext.mov}
   voiceover: {dropbox: "id:ihAynaYnO_4AAAAAAAAFPA", name: "evo bumper voiceover.mov (burned captions y>=1390)", local: /home/user/media/ibf-evo8-bumper/dropbox/evo_voiceover.mov}
@@ -11,3 +11,4 @@ prices: PENDING OWNER (OE $450 was $750, Nose Chop $480 was $800; store $600/$65
 deliveries:
   v0: https://drive.google.com/file/d/1jROTGvzVycYXuhRtESPjkRcL0Cr7CH58/view
   v0.1: https://drive.google.com/file/d/1cegxFXr0lGtaUddm0U5QN2dG0gY3YGzr/view
+  v0.2: https://drive.google.com/file/d/1YzlSufFds-fMlpw9DKrPRWInFzt1Qv09/view

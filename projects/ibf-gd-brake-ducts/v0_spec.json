@@ -1,0 +1,186 @@
+{
+ "fps": 30,
+ "dur": 14.0,
+ "music": {
+  "path": "/home/user/media/ibf-gd-brake-ducts/music/future.mp3",
+  "start": 49.85,
+  "fade_out": 0.6,
+  "gain_db": -0.7
+ },
+ "store": "/home/user/media/ibf-gd-brake-ducts/store",
+ "shots": [
+  {
+   "id": "S0_kit",
+   "t0": 0.0,
+   "t1": 3.01,
+   "src": "full01.jpg",
+   "mode": "white_band",
+   "band_cy": 1150,
+   "z0": 0.84,
+   "z1": 0.88,
+   "cx": 484
+  },
+  {
+   "id": "S1_bare",
+   "t0": 3.01,
+   "t1": 4.11,
+   "src": "full07.jpg",
+   "mode": "crop",
+   "cx": 2365,
+   "cy": 790,
+   "z0": 1.45,
+   "z1": 1.52
+  },
+  {
+   "id": "S2_duct",
+   "t0": 4.11,
+   "t1": 5.21,
+   "src": "full08.jpg",
+   "mode": "crop",
+   "cx": 2000,
+   "cy": 1146,
+   "z0": 1.0,
+   "z1": 1.06
+  },
+  {
+   "id": "S3_hose",
+   "t0": 5.21,
+   "t1": 6.31,
+   "src": "full09.jpg",
+   "mode": "crop",
+   "cx": 1715,
+   "cy": 1146,
+   "z0": 1.0,
+   "z1": 1.06
+  },
+  {
+   "id": "S4_tire",
+   "t0": 6.31,
+   "t1": 7.41,
+   "src": "full10.jpg",
+   "mode": "crop",
+   "cx": 1720,
+   "cy": 1146,
+   "z0": 1.04,
+   "z1": 1.1
+  },
+  {
+   "id": "S5_pair",
+   "t0": 7.41,
+   "t1": 8.51,
+   "src": "full05.png",
+   "mode": "white_band",
+   "band_cy": 860,
+   "z0": 0.84,
+   "z1": 0.88,
+   "cx": 484
+  },
+  {
+   "id": "S6_end",
+   "t0": 8.51,
+   "t1": 14.0,
+   "mode": "black"
+  }
+ ],
+ "cards": [
+  {
+   "name": "c0_price",
+   "t0": 0.15,
+   "t1": 3.01,
+   "fade": 0.0,
+   "bg": null,
+   "halo": false,
+   "lines": [
+    {
+     "text": "BLACK FRIDAY",
+     "font": "akira",
+     "size": 70,
+     "cy": 360,
+     "color": "#111111"
+    },
+    {
+     "text": "$297.50",
+     "font": "akira",
+     "size": 132,
+     "cy": 500,
+     "color": "#e0161b"
+    },
+    {
+     "text": "$425",
+     "font": "unb500",
+     "size": 64,
+     "cy": 625,
+     "color": "#555555",
+     "strike": true,
+     "strike_color": "#111111"
+    },
+    {
+     "text": "GD/GG BRAKE DUCT KIT",
+     "font": "unb700",
+     "size": 46,
+     "cy": 735,
+     "color": "#111111"
+    }
+   ]
+  },
+  {
+   "name": "c5_end",
+   "t0": 8.51,
+   "t1": 14.0,
+   "fade": 0.12,
+   "bg": null,
+   "halo": false,
+   "logo": {
+    "path": "/home/user/media/ibf-gd-brake-ducts/IllumaestheticLogoColor-01.png",
+    "w": 760,
+    "cy": 1180
+   },
+   "lines": [
+    {
+     "text": "GD/GG IMPREZA",
+     "font": "akira",
+     "size": 54,
+     "cy": 400,
+     "color": "#ffffff"
+    },
+    {
+     "text": "BRAKE DUCT KIT",
+     "font": "akira",
+     "size": 54,
+     "cy": 480,
+     "color": "#ffffff"
+    },
+    {
+     "text": "$297.50",
+     "font": "akira",
+     "size": 132,
+     "cy": 650,
+     "color": "#e0161b"
+    },
+    {
+     "text": "$425",
+     "font": "unb500",
+     "size": 64,
+     "cy": 790,
+     "color": "#9a9a9a",
+     "strike": true,
+     "strike_color": "#ffffff"
+    },
+    {
+     "text": "SALE ENDS NOV 30",
+     "font": "unb500",
+     "size": 40,
+     "cy": 920,
+     "color": "#ffffff"
+    },
+    {
+     "text": "WWW.ILLUMAESTHETIC.COM",
+     "font": "unb400",
+     "size": 36,
+     "cy": 1330,
+     "color": "#ffffff"
+    }
+   ]
+  }
+ ]
+}

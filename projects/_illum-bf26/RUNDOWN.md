@@ -9,7 +9,7 @@ shared files here. Coordinator session: session_01M1HYJhErzYBREit1HzUviA.
 | # | Slug | Concept | Latest | Status |
 |---|---|---|---|---|
 | R1 | ibf-supra-clear-lens | Supra MKV clear lens swap, dusk lights-on, $72 (was $200) | v0 (19.3 s) | draft delivered 11/19 2:20 PM PT; needs stock/install/dusk footage |
-| R2 | ibf-evo8-bumper | Evo 8 bumper unbox, test fit, walk-around, OE vs Nose Chop | v0.1 15.6 s | draft delivered (music swapped) (prices pending owner; no Nose Chop/unboxing footage) |
+| R2 | ibf-evo8-bumper | Evo 8 bumper unbox, test fit, walk-around, OE vs Nose Chop | v0.2 16.2 s | draft delivered (music from first drop) (prices pending owner; no Nose Chop/unboxing footage) |
 | R3 | ibf-scan-teardown | Scan spin, bumper mounting points, part designed on top; 5% off every scan | - | started |
 | R4 | ibf-mr2-clear-tails | MR2 Spyder clear tails before/after, day then night, $198 (was $550), only 12 sets | - | started |
 | R5 | ibf-clearance-shelf | One continuous shelf pan, price tags pop | - | started |
