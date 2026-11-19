@@ -1,4 +1,15 @@
-# Review: "Day in the life of an average track guy" (ditl-time-attack-larper), v2 review cut
+# Review: "Day in the life of an average track guy" (ditl-time-attack-larper)
+
+## v3 (current): the owner's arm and steering notes
+- Cut `/home/user/media/ditl-time-attack-larper/cuts/track-guy_v3.mp4`: 1086 frames, 1080x1920, 30 fps, yuv420p, AAC.
+  -14.0 LUFS, -3.9 dBFS true peak.
+- Layout: unchanged and passing. Bands max luma 19, rows 419/1500 means 1.3/1.5, title inside the 80 px margins.
+- Cuts: all 14 land on the planned frames, minimum cut diff 28.0, no identical consecutive frames.
+- Dark frames: one at frame 102 (mean 11.0). It is the dark glove sweeping past the lens on the shot 2 swipe, not a black frame.
+- Arms: `tools/collide.py` reports zero hand/hand, hand/person and arm/body overlaps on every frame of every shot.
+- Steering: the wheel spins on its column and follows the car's path (shots 9 and 14).
+
+## v2 review cut (below)
 
 Cut: `/home/user/media/ditl-time-attack-larper/cuts/track-guy_v2.mp4` (media, not committed). Numbers come from
 `tools/inspect_cut.py`, ffmpeg `ebur128`, and a Blender pass over every car shot. Measured 2026-11-19.
