@@ -210,11 +210,11 @@ def pose(f):
     y = y_hit - SP * (f - HIT)
     if args.mode == "drive":
         return 0.0, y, 0.0, 0.0
-    # drift: the car slides down the lane tail-out, swings through a flick as it crosses the text, counter-steering;
-    # the swept width (~3.8 m at 32 deg) covers the whole text line
-    u = (y_hit - y) / max(0.1, (text_top - text_bot) + 2 * FRONT)    # 0 at the text top, 1 when clear of it
-    ang = 32.0 * math.sin(math.pi * (0.5 + 1.0 * u)) if -1.5 < u < 2.5 else 32.0 * math.copysign(1, math.sin(math.pi * (0.5 + u)))
-    x = 0.35 * math.sin(math.pi * (0.5 + u))
+    # drift: ONE clean, steady slide (user 2026-11-19: "one clean drift (no direction change)"): the car holds a
+    # constant 32 deg tail-out angle with constant counter-steer from entry to exit, centred in the lane;
+    # swept width ~3.9 m covers the whole text line
+    ang = 32.0
+    x = 0.0
     return x, y, ang, -ang * 0.6
 
 
