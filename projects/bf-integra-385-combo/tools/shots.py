@@ -289,7 +289,7 @@ def box_cutter(bh, t, lid):
     sl.keyframe_insert('scale', frame=66)
     sl.hide_render = True; sl.keyframe_insert('hide_render', frame=1)
     sl.hide_render = False; sl.keyframe_insert('hide_render', frame=38)
-    sl.parent = lid; sl.matrix_parent_inverse = Matrix.Translation(lid.location).inverted()
+    sl.hide_render = True; sl.keyframe_insert('hide_render', frame=70)  # gone as the lid lifts (parenting it to the lid let it drift through frame)
     return root
 
 
