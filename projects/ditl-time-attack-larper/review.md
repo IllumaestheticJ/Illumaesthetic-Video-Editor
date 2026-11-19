@@ -1,6 +1,16 @@
 # Review: "Day in the life of an average track guy" (ditl-time-attack-larper)
 
-## v3 (current): the owner's arm and steering notes
+## v4 (current): arms from the person, ATTENDEE push-in, brighter tyre shot
+- Cut `/home/user/media/ditl-time-attack-larper/cuts/track-guy_v4.mp4`: 1086 frames, 1080x1920, 30 fps, yuv420p, AAC.
+  -14.0 LUFS, -3.9 dBFS true peak.
+- All 1086 rendered frames decode. Layout passes (bands max 19, rows 419/1500 means 1.1/1.9, title in margins).
+  14 cuts on the planned frames, min diff 28.0. Dark frame 102 is the glove sweep, as before.
+- Arms: in-car hands aim their forearms at the driver's shoulders (Damped Track), and hands outside the car aim at the
+  viewer's shoulders. collide.py is clean on every shot.
+- Hidden-hand bug fixed: the alarm slap, box rip and wing throw, trophy hand and harness hands now show.
+- Shot 5 ends on the ATTENDEE plaque filling the frame. Shot 12 is relit; the glove ink is white with an outline.
+
+## v3: the owner's arm and steering notes
 - Cut `/home/user/media/ditl-time-attack-larper/cuts/track-guy_v3.mp4`: 1086 frames, 1080x1920, 30 fps, yuv420p, AAC.
   -14.0 LUFS, -3.9 dBFS true peak.
 - Layout: unchanged and passing. Bands max luma 19, rows 419/1500 means 1.3/1.5, title inside the 80 px margins.
