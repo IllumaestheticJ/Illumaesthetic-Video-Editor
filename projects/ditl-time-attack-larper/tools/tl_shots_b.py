@@ -72,6 +72,21 @@ def garage_set(bar=False):
         plane(f"glp{j}", 1.2, 0.2, fm(f"glpm{j}", (1, 1, 0.95), emit=3), (0, j * 5.0, 2.48), rot=(R(180), 0, 0))
         for x in (-6, 6): box(f"beam{j}{x}", (14, 0.3, 0.35), mat("walk_b", (0.55, 0.55, 0.55)), (x, j * 5.0, 2.15), base="z")
 
+def bowling_pin(name, h=0.2):
+    """Lathed bowling pin: wide belly, narrow neck, round head, two red neck stripes."""
+    prof = [(0.0, 0.0), (0.022, 0.0), (0.031, 0.03), (0.034, 0.06), (0.029, 0.09), (0.017, 0.12), (0.0135, 0.135), (0.0165, 0.155), (0.0175, 0.17), (0.012, 0.188), (0.0, 0.195)]
+    seg = 20; verts = []; faces = []
+    for r_, z in prof:
+        for k in range(seg): a = 2 * math.pi * k / seg; verts.append((r_ * math.cos(a) * h / 0.2, r_ * math.sin(a) * h / 0.2, z * h / 0.2))
+    for i in range(len(prof) - 1):
+        for k in range(seg): a0 = i * seg + k; faces.append((a0, i * seg + (k + 1) % seg, (i + 1) * seg + (k + 1) % seg, (i + 1) * seg + k))
+    me = bpy.data.meshes.new(name); me.from_pydata(verts, [], faces); me.update(); o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o)
+    me.materials.append(fm("pinw", (0.95, 0.95, 0.93), 0.3)); me.materials.append(fm("pinr", (0.8, 0.05, 0.05), 0.35))
+    for pl in me.polygons:
+        z = pl.center.z * 0.2 / h; pl.use_smooth = True
+        if 0.122 < z < 0.128 or 0.14 < z < 0.147: pl.material_index = 1
+    return o
+
 # ---------------------------------------------------------------- 5: straightening a shelf of ATTENDEE trophies
 def s5():
     W.room((0.62, 0.62, 0.6), (0.4, 0.4, 0.4), w=6, d=5, h=2.7, lamp=80)
@@ -82,7 +97,9 @@ def s5():
         r = bpy.data.objects.new(f"tro{i}", None); bpy.context.scene.collection.objects.link(r); r.location = (-0.64 + i * 0.32, 2.3, 1.24); r.rotation_euler = (0, 0, R(rnd.choice([-28, 22, -18, 30, -25])))
         box(f"tb{i}", (0.16, 0.12, 0.1), blk, (0, 0, 0), base="z", parent=r); box(f"tc{i}", (0.05, 0.05, 0.16), gold, (0, 0, 0.1), base="z", parent=r)
         if "bowling" in nm:
-            bpy.ops.mesh.primitive_uv_sphere_add(radius=0.05, segments=12, ring_count=8); pin = bpy.context.object; pin.parent = r; pin.location = (0, 0, 0.31); pin.scale = (0.7, 0.7, 1.6); pin.data.materials.append(fm("pinm", (0.95, 0.95, 0.95), 0.3))
+            pin = bowling_pin(f"pin{i}"); pin.parent = r; pin.location = (0, 0, 0.26)
+            bpy.ops.mesh.primitive_uv_sphere_add(radius=0.032, segments=16, ring_count=10); ball = bpy.context.object; ball.parent = r; ball.location = (0.055, -0.02, 0.132)
+            ball.data.materials.append(fm("ballm", (0.05, 0.05, 0.25), 0.15))
         else:
             bpy.ops.mesh.primitive_cone_add(vertices=14, radius1=0.04, radius2=0.09, depth=0.12); cup = bpy.context.object; cup.parent = r; cup.location = (0, 0, 0.32); cup.data.materials.append(gold)
         plane(f"pq{i}", 0.15, 0.056, imgmat(f"pqm{i}", f"{TEX}{nm}.png", emit=0.15), (0, -0.0605, 0.05), rot=(R(90), 0, 0), parent=r); tro.append(r)
