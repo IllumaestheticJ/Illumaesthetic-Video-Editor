@@ -5,3 +5,4 @@ and every `projects/*/project.yaml`. Claim here (edit, commit, push) before plan
 
 | Video | Track | Source | Status |
 |---|---|---|---|
+| R2 ibf-evo8-bumper | Le Castle Vania "Blood Code" (John Wick: Chapter 4) | Dropbox /Moosic id:ihAynaYnO_4AAAAAAACmYQ | claimed 2026-11-19 (owner may swap) |
