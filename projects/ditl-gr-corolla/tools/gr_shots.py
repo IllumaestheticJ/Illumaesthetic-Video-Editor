@@ -7,7 +7,12 @@ from shots import mat, imgmat, procmat, box, plane, R, TEX, key, vis, swap, look
 from mathutils import Vector
 k = W.k
 NF = [65, 48, 47, 95, 47, 48, 47, 47, 95, 48, 47, 48, 95, 213]
-WHITE = (0.85, 0.86, 0.88)
+WHITE = (0.62, 0.02, 0.025)   # his car: red (owner, 2026-11-19); the name is kept from the first build
+_SK = {}
+def _skin():   # light skin on the POV hands (owner: "skin tone doesn't matter maybe white")
+    if "s" not in _SK: _SK["s"] = W.skinmat("skin_him", (0.74, 0.52, 0.4), (0.82, 0.6, 0.47)); _SK["n"] = W._flat_mat("nail", (0.86, 0.7, 0.64), 0.3); _SK["p"] = W._flat_mat("palmskin", (0.85, 0.62, 0.52), 0.55)
+    return _SK
+W.S = _skin
 
 def empty(name, loc=(0, 0, 0), rot=(0, 0, 0), parent=None):
     e = bpy.data.objects.new(name, None); bpy.context.scene.collection.objects.link(e); e.location = loc; e.rotation_euler = rot; e.parent = parent; return e

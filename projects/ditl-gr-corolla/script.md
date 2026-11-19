@@ -97,7 +97,7 @@ balance was 195.71 on 2026-11-19. Everything else is local. Nothing is spent unt
   agent and not yet confirmed by the owner**. They must be confirmed or replaced before any final cut.
 - **Full Epsilon kit:** Front Lip V2, Canards, Side Skirts V2, Rear Spats V2, WRC Wing V3 + strakes (GLB nodes
   `part_front_lip_v2`, `part_canards`, `part_side_skirts_v2`, `part_rear_spats_v2`, `part_wrc_wing`, `part_wing_strakes`), in
-  gloss black on a white car. The WRC wing and the spoiler extension both replace the stock roof spoiler, so the spoiler
+  gloss black on a red car (owner: red). The WRC wing and the spoiler extension both replace the stock roof spoiler, so the spoiler
   extension is not on his car. Canards and the WRC wing are backorder items on the store.
 - **Voices:** Bram (HIM) and Harrison ("Same."), Eleven v4, two calls (the whisper on its own). The second "Same." voice is
   Harrison's take pitched down locally.

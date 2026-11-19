@@ -26,7 +26,7 @@ def _paint(m, col, rough=0.25, metal=0.0):
     for l in list(b.inputs["Base Color"].links): m.node_tree.links.remove(l)
     b.inputs["Base Color"].default_value = (*col, 1); b.inputs["Roughness"].default_value = rough; b.inputs["Metallic"].default_value = metal
 
-def grc(name="grc", color=(0.85, 0.86, 0.88), kit=True, hide_glass=False, kitcol=(0.012, 0.012, 0.014)):
+def grc(name="grc", color=(0.62, 0.02, 0.025), kit=True, hide_glass=False, kitcol=(0.012, 0.012, 0.014)):
     """Returns root, by-name dict. kit=True: full Epsilon kit on (gloss black); kit=False: stock (kit parts present but hidden, for the unboxing)."""
     root, by, mats = _imp(GRC, name); _paint(mats["paint"], color)
     km = mats["paint"].copy(); km.name = name + "_kit"; _paint(km, kitcol, 0.18)
