@@ -213,3 +213,9 @@ anything stock-related goes in the video.
   phone/store screens) is generic except the checkout items; `frame.sh` (1:1 picture + title band + crunch) is generic
   except the hard-coded title. Copy these into your own `projects/ditl-<slug>/tools/` and parametrise the car/title;
   don't edit the WRX copies. CPU renders take about 5-12 s per 540 px frame.
+- **Collision check (owner rule, 2026-11-19):** arms must never pass into each other, into the POV body or into other
+  people. Run `projects/ditl-time-attack-larper/tools/collide.py` (hand/hand, hand/person, arm/body per frame) on every
+  shot before a cut goes to the owner; 0 overlaps required. Gotcha from #2: in `ditl_kit` the `W.arm` Z=90*side
+  rotation points INWARD.
+- **Steering wheels:** rotate with ZXY Euler so the wheel spins on its tilted column (XYZ yaws it about the car's
+  vertical axis), and key the wheel to the car's actual heading.
