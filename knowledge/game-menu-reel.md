@@ -344,3 +344,15 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   Background the game car hid: fill from above (walls and door frames are vertical), not by mirroring.
   Keep the game's own prices and stat numbers on screens for things the brand does not sell, and say so.
   A capture's creator watermark stays unless the user decides otherwise.
+- **Voices hidden in sound effects (GTA 6 v3: the "purchase sound" had the mechanic's line in it and played seven
+  times).** I cannot hear, so before reusing any clip longer than a tick, look at it: speech band (300-3000 Hz) against
+  the 5-12 kHz band, and left against right with their correlation, in 50 ms steps. A game voice is positional (louder
+  in one channel, no highs); UI chimes are centred and bright. Cut effects to the part before a voice starts, keep only
+  the highs after it, and verify the speech band is back at room tone in the output. Tell the user which stretches
+  look like speech and ask what they say rather than placing them blind.
+- **Prices must match what is shown.** Paint-matched parts cost the painted variant's price. Draw the wallet per frame
+  and let it count down at each purchase. Brand the client's parts with a badge in the game's own badge style.
+- **Closing orbit.** A camera move round the car needs a 3D scene; the capture is flat. Do it as a studio orbit of the
+  finished car after the game section (`kit-render --orbit`, shadow ground on black; 540x960 at 12 samples is enough).
+- **Wheels.** The showroom wheel GLBs are game-budget meshes. For a close-up rebuild from the scan with the site's
+  generator and a high budget (`RIM_TRIS=160000 TYRE=scan TYRE_TRIS=160000 blender -b -P te37_wheel.py -- <stl> <out>`).

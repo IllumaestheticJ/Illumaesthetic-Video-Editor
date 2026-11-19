@@ -61,3 +61,24 @@ Output: `/home/user/media/work/out/gta6-customs_v3.mp4`, 24.5 s. Tools: `ui3.py`
   stats panel on the suspension screen keeps the preview arrows after purchase; background behind the car in
   the suspension and wheel close-ups is invented; rear lip's lower section is black plastic in the model, so it
   does not read as fully paint matched; sound not checked by ear.
+
+## v4 (2026-11-19) - after the user's review of v3
+User: "fix the audio, add dynamic money/pricing so its accurate - brand the kit as epsilon"; "the repeating 'need anything
+else' is annoying - should only do it at the end"; camera should snap to the front and sides for front lip and side
+skirts; vary the voice lines if the sample allows, never repeat one; pan round the stationary car at the end if
+possible; improve the mesh of the 6-spoke wheels.
+
+Output: `/home/user/media/work/out/gta6-customs_v4.mp4`, 26.5 s. Tools: `ui4.py`, `compose4.py`, `assemble4.py`.
+- Audio: the v2/v3 "purchase sound" had the mechanic's line in it (right-panned, from 0.25 s in). Purchase sound is now
+  the ticks and the chime up to the voice, then only the chime's highs; the line plays once at the exit. Measured: speech
+  band after each purchase is at room-tone level (-54 dB), the line is 30 dB above it. Not checked by ear.
+- No extra lines: three more right-panned phrases follow in the capture (3:36.1, 3:36.9, 3:38.2) but nothing is
+  subtitled and I cannot hear what they say, so they are not used. Asked the user.
+- Cameras: front (front lip) and side (side skirts) from the second capture, moved in so the Civic covers the game's car.
+- Pricing: painted variants (485 / 800 / 485 / 850), wallet 3,930 counting down to 0; EPSILON+ badge and names.
+- Wheel: rebuilt from the TE37 scan at 160k triangles (rim) with the scanned tyre; old one was 8k and faceted.
+- Ending: 3.4 s orbit (150 degrees) round the stationary car on black with the wordmark. Not in the shop: no 3D shop.
+- Still weak: background behind the car in the side and suspension views is invented and soft; synthetic whips;
+  uploader's watermark on second-capture views; sunny/overcast mix; the orbit car is small in the 9:16 frame.
+- Process note: the first v4 audio build used left-minus-right for the chime, which is where a right-panned voice
+  lives. Caught by measuring the result before sending. Measure the channels before choosing a separation.
