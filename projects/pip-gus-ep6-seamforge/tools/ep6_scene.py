@@ -505,7 +505,8 @@ def anim_S7(fr):
     bpy.context.view_layer.update()
     reach = ease(cl((t - (LN[8]["t0"] - 0.1)) / 0.45))
     chest = GUS.neck.matrix_world.translation + Vector((0.0, -0.12, -0.32))
-    up_pt = GUS.neck.matrix_world.translation + Vector((0.16, -0.42, 0.02))
+    # v1 feedback: the phone clipped through Gus's face; hold it further out in front and a little to his side.
+    up_pt = GUS.neck.matrix_world.translation + Vector(tuple(float(x) for x in os.environ.get('S7_UP', '0.38,-0.92,-0.04').split(',')))
     hp = aim_arm(GUS, "R", chest.lerp(up_pt, reach))
     set_vis(PHONE, reach > 0.02)
     n = Vector(lerpv((0.3, 0.2, -1.0), PHONE_N, reach)).normalized()
