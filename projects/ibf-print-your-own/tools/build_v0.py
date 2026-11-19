@@ -45,7 +45,7 @@ def text_c(d, y, text, font, fill=(255, 255, 255), strike=False, name="", key=Fa
 def card_hook():
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     t = (0.25, 5.8)
-    y = text_c(d, 380, "BLOBEYE DUCTS", fit(AKIRA, "BLOBEYE DUCTS", 840, 74), name="headline", key=True, t=t)
+    y = text_c(d, 380, "BLOBEYE DUCTS", fit(AKIRA, "BLOBEYE DUCTS", 740, 74), name="headline", key=True, t=t)
     y = text_c(d, y + 40, "$140", ImageFont.truetype(AKIRA, 190), fill=(255, 255, 255), name="price", key=True, t=t)
     y = text_c(d, y + 36, "$200", ImageFont.truetype(AKIRA, 84), fill=(170, 170, 170), strike=True, name="was", key=True, t=t)
     im.save(f"{OUT}/txt_hook.png")
@@ -68,10 +68,10 @@ def card_end():
 
 
 def seg_a():
-    n = len(os.listdir(f"{M}/stlframes2")); dur = CUTS[1] - CUTS[0]
+    n = 80; dur = CUTS[1] - CUTS[0]  # first 80 of 120 frames: -70 -> -42 deg, stays face-on
     sh(["ffmpeg", "-v", "error", "-y", "-framerate", f"{n / dur:.4f}", "-i", f"{M}/stlframes2/f%04d.png",
         "-loop", "1", "-i", f"{OUT}/txt_hook.png",
-        "-filter_complex", f"[0]fps={FPS},scale={W}:{H},format=rgba[b];[1]format=rgba,fade=in:st=0.1:d=0.15:alpha=1[t];[b][t]overlay=0:0:shortest=1,format=yuv420p",
+        "-filter_complex", f"[0]trim=end_frame=80,setpts=PTS-STARTPTS,fps={FPS},scale={W}:{H},format=rgba[b];[1]format=rgba,fade=in:st=0.1:d=0.15:alpha=1[t];[b][t]overlay=0:0:shortest=1,format=yuv420p",
         "-t", f"{dur:.3f}", "-r", str(FPS), "-c:v", "libx264", "-crf", "16", f"{OUT}/a.mp4"])
 
 
@@ -107,7 +107,7 @@ def seg_store():
                 pg = base
             else:
                 pg = pages[i]
-            zoom = 1.28 + 0.05 * ((seg_t[i] - seg_t[0]) * FPS + f) / ((seg_t[3] - seg_t[0]) * FPS)
+            zoom = 1.06 + 0.05 * ((seg_t[i] - seg_t[0]) * FPS + f) / ((seg_t[3] - seg_t[0]) * FPS)
             pz = pg.resize((int(W * zoom), int(PH * zoom)), Image.LANCZOS)
             ox = (pz.width - W) // 2
             pz = pz.crop((ox, 0, ox + W, pz.height))
