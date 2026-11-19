@@ -225,6 +225,8 @@ FALL_F = None
 if fallers and args.mode != "none":
     # parts let go once the car's centre is past the bottom of the text (so they land below it, not on it)
     FALL_F = HIT + int(math.ceil((y_hit - text_bot) / SP))
+    if args.mode == "drift":  # sliding at 32 deg, the far-side skirt sits ~1 m higher: let go later so it lands clear of the text
+        FALL_F += 6
 for f in range(args.frames):
     x, y, yaw, steer = pose(f)
     root.location = (x, y, 0); root.rotation_euler = (0, 0, math.radians(yaw))
