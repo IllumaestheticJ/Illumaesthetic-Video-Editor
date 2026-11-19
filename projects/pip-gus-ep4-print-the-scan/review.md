@@ -59,3 +59,6 @@ Weak spots (looked at, not fixed):
 - Carried over from v2: 0.3 s recap shots are quick; Gus's mitten does not visibly grip the phone.
 
 Rubric (training/rubric.md), self-score: story 4, clarity 4, sync 4, look 3.5, rules 5 (no text over footage/phone screen - QA assert passed; no invented numbers).
+
+## v4 (2026-11-19) - 46.6 s
+Owner on v3: "there's no finished car pictures at the end". Ending re-cut: close-up of the printed bumper, then the whole finished car twice (full width, blurred fill), 3 s in total, final chord on the last photo, then the logo. Checked frames 1177-1290. Weak spot: landscape photos fill only the middle of the 9:16 frame.

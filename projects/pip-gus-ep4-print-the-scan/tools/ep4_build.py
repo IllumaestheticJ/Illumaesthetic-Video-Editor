@@ -28,7 +28,7 @@ PROJ = HERE.parent
 REPO = PROJ.parent.parent
 M = Path("/home/user/media/pip-gus-ep4-print-the-scan")
 ap = argparse.ArgumentParser()
-ap.add_argument("--ver", default="v3")
+ap.add_argument("--ver", default="v4")
 ap.add_argument("--steps", default="gfx,picture,audio,mux")
 a = ap.parse_args()
 BUILD = M / f"build_{a.ver}"
@@ -46,8 +46,10 @@ H9 = B // 2                                     # half a beat
 # v2 recap (owner: "show everything from start to finish", faster; end on the real finished bumper): (name, start frame)
 SEQ = [("crash", PHONE_F0), ("crash2", CART_END + H9), ("broken", CART_END + 2 * H9), ("scanning", CART_END + 3 * H9),
        ("r_scan", CART_END + 4 * H9), ("r_trace", CART_END + 5 * H9), ("r_car", CART_END + 7 * H9), ("r_lip", CART_END + 8 * H9),
-       ("done_close", CART_END + 10 * H9), ("done_car", CART_END + 12 * H9)]
-CUTS = dict(logo=CART_END + 8 * B, **{n: f for n, f in SEQ})
+       ("done_close", CART_END + 10 * H9), ("done_q", CART_END + 12 * H9), ("done_car", CART_END + 16 * H9)]
+# v4 (owner: "there's no finished car pictures at the end" - they were 1.8 s of tight crops): the whole finished car, twice,
+# held; the final chord (beat 8) lands on the last one and the logo follows 3 beats later.
+CUTS = dict(logo=CART_END + 11 * B, **{n: f for n, f in SEQ})
 PHONE_SHOTS = ("E4", "E8", "E9", "E10", "E11", "E12")
 BEAT0, BEAT = 0.0203, 0.60001
 JUMPS = [(10, 2), (14, 6), (30, 22)]            # pilot's 2-bar intro back-jumps
@@ -157,6 +159,22 @@ def gfx():
 _PH = {}
 
 
+def photo_fit(name, k, cx, frac, push=0.05):
+    """Whole-car view of a landscape photo in 9:16: a window `frac` of the photo's width fills the frame width, sharp, over a
+    blurred darkened full-height copy of the same photo. Slow push-in."""
+    bg = photo(name, 0.0, cx, push=0.0)
+    bg = (cv2.GaussianBlur(bg, (0, 0), 28).astype(np.float32) * 0.5).astype(np.uint8)
+    im = _PH[name]
+    h, w = im.shape[:2]
+    cw = w * frac / (1.0 + push * k)
+    sc = W / cw
+    x0 = min(max(cx - cw / 2, 0), w - cw)
+    Mx = np.array([[sc, 0, -x0 * sc], [0, sc, H / 2 - h / 2 * sc]], np.float32)
+    fg = cv2.warpAffine(im, Mx, (W, H), flags=cv2.INTER_AREA, borderMode=cv2.BORDER_CONSTANT)
+    m = cv2.warpAffine(np.full((h, w), 255, np.uint8), Mx, (W, H), flags=cv2.INTER_AREA)[:, :, None] / 255.0
+    return (fg * m + bg * (1 - m)).astype(np.uint8)
+
+
 def photo(name, k, cx, push=0.06):
     """9:16 window of a 4:3 photo (full height), slow push-in; k 0..1 over the shot."""
     if name not in _PH:
@@ -211,6 +229,12 @@ PHOTO = dict(crash=("IMG_0763.jpeg", 640), crash2=("IMG_0764.jpeg", 820), broken
              scanning=("IMG_0770.jpeg", 330), done_close=("IMG_0767.jpeg", 900))
 
 
+def _PH_CX(name, f):
+    if name not in _PH:
+        _PH[name] = cv2.cvtColor(cv2.imread(str(M / "photos" / name)), cv2.COLOR_BGR2RGB)
+    return _PH[name].shape[1] * f
+
+
 def real(fr):
     """Recap picture for reel frame fr (on the phone screen during E12, full frame from the hand-off)."""
     k = max(i for i, (n, f) in enumerate(SEQ) if f <= fr)
@@ -219,8 +243,10 @@ def real(fr):
     u = (fr - f0) / max(1, f1 - f0)
     if name in PHOTO:
         return photo(PHOTO[name][0], u, PHOTO[name][1])
+    if name == "done_q":
+        return photo_fit("IMG_0766.jpeg", u, _PH_CX("IMG_0766.jpeg", 0.50), 0.92)
     if name == "done_car":
-        return photo("IMG_0765.jpeg", u, 480, push=0.04)
+        return photo_fit("IMG_0765.jpeg", u, _PH_CX("IMG_0765.jpeg", 0.42), 0.86)
     return rframe(name, fr - f0)
 
 
