@@ -82,3 +82,15 @@ Output: `/home/user/media/work/out/gta6-customs_v4.mp4`, 26.5 s. Tools: `ui4.py`
   uploader's watermark on second-capture views; sunny/overcast mix; the orbit car is small in the 9:16 frame.
 - Process note: the first v4 audio build used left-minus-right for the chime, which is where a right-panned voice
   lives. Caught by measuring the result before sending. Measure the channels before choosing a separation.
+
+## v5 (2026-11-19) - after the user's review of v4
+User: "Fix the brake caliper underneath the 6 spoke wheels, and fix the environment blur so it's not as prominent on the
+side skirt camera change".
+
+Output: `/home/user/media/work/out/gta6-customs_v5.mp4`, 26.5 s.
+- Brakes: the Civic's own drilled disc and caliper are kept behind the swapped wheels (wheel close-up, exit shot, orbit).
+- Side-skirt view: new camera, Civic covers 98 % of the game's car (was 67 %); remaining 3 % of the frame continued from
+  the wall and floor without blur. Whips into and out of the view re-rendered from the new camera.
+- Checked: wheel close-up before/after; the side view at full size; frames through both whips; reel strip with the orbit.
+- Left: a few-pixel fragment of mirrored sign text at the right frame edge behind the tail in the side view; the front
+  view still has soft fill beside the mirrors (same cause, not asked about); whips are still blur by nature.

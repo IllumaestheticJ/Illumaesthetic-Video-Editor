@@ -337,12 +337,30 @@ def swap_wheels(a):
         old = [x for x in [o] + list(o.children_recursive) if x.type == "MESH"]
         wl, wh = bbox(old)
         c = (wl + wh) / 2; r = (wh.z - wl.z) / 2
+        # keep the car's own brake disc and caliper (the wheel GLBs carry only a placeholder block): strip the old
+        # wheel down to its brake materials instead of hiding it
+        own_brakes = False
         for x in old:
-            x.hide_render = True; x.hide_viewport = True
+            keep = [i for i, sl in enumerate(x.material_slots)
+                    if sl.material and sl.material.name.split(".")[0] in ("brake", "caliper", "brake_hat", "brake_dark")]
+            if keep:
+                import bmesh
+                bm = bmesh.new(); bm.from_mesh(x.data)
+                gone = [f for f in bm.faces if f.material_index not in keep]
+                if gone:
+                    bmesh.ops.delete(bm, geom=gone, context="FACES")
+                bm.to_mesh(x.data); bm.free(); x.data.update()
+                own_brakes = own_brakes or len(x.data.polygons) > 0
+            else:
+                x.hide_render = True; x.hide_viewport = True
         before = set(bpy.data.objects)
         bpy.ops.import_scene.gltf(filepath=a.wheels)
         new = [x for x in bpy.data.objects if x not in before]
-        nl, nh = bbox([x for x in new if x.type == "MESH"])
+        if own_brakes:
+            for x in new:
+                if x.name.split(".")[0] == "brake":
+                    x.hide_render = True; x.hide_viewport = True
+        nl, nh = bbox([x for x in new if x.type == "MESH" and not x.hide_render])
         k = r / ((nh.z - nl.z) / 2)
         T = Matrix.Translation(c) @ Matrix.Rotation(math.pi if c.x < 0 else 0.0, 4, "Z") @ Matrix.Scale(k, 4)
         for x in new:

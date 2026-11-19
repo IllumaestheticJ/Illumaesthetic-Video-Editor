@@ -22,7 +22,7 @@ from pathlib import Path
 import cv2, numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
-from plate import fill_directional, fill_nearest, fill_from_above
+from plate import fill_directional, fill_nearest, fill_from_above, fill_wall_floor
 import ui as U, ui4 as ui3
 
 W = Path("/home/user/media/work/gta6-customs"); CARS = W / "cars3"
@@ -165,11 +165,10 @@ def main():
             p = fill_directional(p, left, (900, 5000))
         else:
             hole = ute[view] & ~covered
-            if view in ("S", "D"):
-                p = fill_from_above(ref, hole, ute[view], sigma=11 if view == "S" else 6)
-                if view == "D":                       # take the column streaks out of the wall behind the roof
-                    sm = cv2.blur(p, (61, 5)); wgt = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 5)[..., None]
-                    p = (p * (1 - wgt) + sm * wgt).astype(np.uint8)
+            if view == "D":                           # side view: wall continued down with its own texture, floor from the floor
+                p = fill_wall_floor(ref, hole, ute[view], (616, 600))
+            elif view == "S":
+                p = fill_from_above(ref, hole, ute[view], sigma=11)
             else:
                 p = fill_nearest(ref, hole, [(-30000, 1100), (33000, 900), (1280, 30000)], block=ute[view])
             if view == "W":                    # close-ups: what the game's car hid is far background, out of focus

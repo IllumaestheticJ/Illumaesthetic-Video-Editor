@@ -95,3 +95,38 @@ def fill_from_above(img, hole, block, lift=10, sigma=5):
         out = fill_nearest(out, rest, [(-30000, 1100), (33000, 900), (1280, 30000)], block=block)
     soft = cv2.GaussianBlur(out, (0, 0), sigma); w = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 3)[..., None]
     return (out * (1 - w) + soft * w).astype(np.uint8)
+
+
+def fill_wall_floor(img, hole, block, y_base):
+    """Fill what the game's car hid when part of it is wall and part is floor (side view, v5).
+
+    Above the wall's base line the wall is continued downward with its own pixels: each column takes the rows just above
+    the game car's outline, shifted down by the depth of the gap (smoothed across columns so block courses and locker
+    edges stay straight). Below the base line the floor is mirrored in from the open floor in front. No blur beyond a
+    1.5 px seam: the v4 fill was a blurred streak that read as a smear behind the roof (user, v4 review).
+    y_base: wall/floor line as (y at x = 0, y at x = W - 1), pixels."""
+    H, W = hole.shape
+    yy = np.arange(H)[:, None]; yb = np.linspace(y_base[0], y_base[1], W)[None, :]
+    wall = hole & (yy < yb)
+    out = img.copy()
+    blk = cv2.dilate(block.astype(np.uint8), np.ones((9, 9), np.uint8)) > 0
+    top = np.where(blk.any(0), blk.argmax(0), H).astype(np.float32)               # first blocked row per column
+    bot = np.where(wall.any(0), H - 1 - wall[::-1].argmax(0), 0).astype(np.float32)
+    D = np.where(wall.any(0), bot - top + 8, 0).astype(np.float32)
+    D = cv2.dilate(D[None, :], np.ones((1, 121), np.uint8))                       # running maximum, then smooth
+    D = cv2.blur(D, (161, 1))[0]
+    D = np.maximum(D, np.where(wall.any(0), bot - top + 8, 0))
+    ys, xs = np.nonzero(wall)
+    sy = (ys - np.round(D[xs])).astype(int)
+    ok = (sy >= 0)
+    ok[ok] &= ~blk[sy[ok], xs[ok]]
+    out[ys[ok], xs[ok]] = img[sy[ok], xs[ok]]
+    rest = hole & ~wall
+    left = np.zeros((H, W), bool); left[ys[~ok], xs[~ok]] = True
+    rest = rest | left
+    if rest.any():
+        out = fill_nearest(out, rest, [(W // 2, 30000)], block=block | wall, margin=6)      # floor: from the floor in front only
+    soft = cv2.GaussianBlur(out, (0, 0), 1.5)
+    edge = cv2.dilate(hole.astype(np.uint8), np.ones((5, 5), np.uint8)) - cv2.erode(hole.astype(np.uint8), np.ones((5, 5), np.uint8))
+    out[edge > 0] = soft[edge > 0]
+    return out

@@ -356,3 +356,10 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   finished car after the game section (`kit-render --orbit`, shadow ground on black; 540x960 at 12 samples is enough).
 - **Wheels.** The showroom wheel GLBs are game-budget meshes. For a close-up rebuild from the scan with the site's
   generator and a high budget (`RIM_TRIS=160000 TYRE=scan TYRE_TRIS=160000 blender -b -P te37_wheel.py -- <stl> <out>`).
+- **Cover, don't invent (GTA 6 v5; user: "fix the environment blur").** When the game's car is bigger than ours, do not
+  fill the difference and blur it: move our camera (closer, and along the car) until our car covers the game's. Score
+  candidates by rendering a 20 % silhouette and counting uncovered pixels of the game car's mask; pick the best one that
+  still frames the part being shown. The capture frame is a flat plate, so the camera is free. Fill what little remains
+  with real texture (wall continued down, floor mirrored), no blur. Shift-map inpainting smeared the car's colour.
+- **Brakes under swapped wheels.** `kit-render --wheels` keeps the car's own disc and caliper and hides the wheel file's
+  placeholder brake. Look at a wheel close-up after any wheel swap.
