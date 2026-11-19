@@ -94,37 +94,41 @@ def timeline():
         spends.append((last["g"] + 3, amount))
 
     P_ = ui3.PRICES; G_ = ui3.GAME
-    g = add("menu", "A", range(10, 86, 2), "M", lambda i: ("m0", ("M_stock", "M_stock", 1.0)))
-    ev.append([g + 34, "select"]); whip("M_F")
-    simple("front_lip", "B", pp(14706, 14748, 68), "F", "f1", "f2", "F_stock", "F_lip", 14); spend(P_["Front Lip"])
-    ev.append([len(T) - 3, "back"]); whip("F_D")
-    simple("side_skirts", "B", pp(2072, 2150, 68), "D", "d1", "d2", "D_lip", "D_ls", 14); spend(P_["Side Skirts"])
-    ev.append([len(T) - 3, "back"]); whip("D_E")
-    # the capture's camera creeps in over this screen: only the half second around the frame the menu was built on is used
-    simple("rear_lip", "B", pp(17946, 17976, 68), "E", "e1", "e2", "E_ls", "E_lsr", 14); spend(P_["Rear Lip"])
-    ev.append([len(T) - 3, "back"]); whip("E_A")
-    simple("wing", "A", range(880, 1024, 2), "A", "a1", "a2", "A_lsr", "A_kit", 14); spend(P_["Rear Wing"])
-    ev.append([len(T) - 3, "back"]); whip("A_M")
-
-    # v9 (user, v8 review: "the menu skips the navigation to the paint section entirely"): between sections the reel goes back
-    # to the list, changes tab and picks the entry, as the game does. Lists and tab names are the game's own.
+    # v12 (user, v11 review: the navigation for the aero parts skipped steps): every part is entered from the list and left
+    # back to it: select, camera to the part, buy, back, camera to the list (row now marked), down one, select ...
     def nav(name, steps, car, sounds):
         """steps: [(state, frames), ...] on the menu camera; sounds: [(frame offset, name), ...]"""
         keys = [k for k, n_ in steps for _ in range(n_)]
         g_ = add(name, "A", pp(100, 160, len(keys)), "M", lambda i: (keys[i], (car, car, 1.0)))
         ev.extend([g_ + o, nm] for o, nm in sounds)
 
-    nav("nav_paint", [("n1a", 14), ("n1b", 16)], "M_kit_grey", [(14, "tab"), (28, "select")])
-    simple("respray", "A", range(1510, 1680, 2), "P", "p1", "p2", "M_kit_grey", "M_kit_blue", 22)
+    def back_to(key):
+        ev.append([len(T) - 3, "back"]); whip(key)
+
+    PART = 60; step = [(7, "row"), (14, "select")]
+    g = add("menu", "A", range(10, 70, 2), "M", lambda i: ("m0", ("M_stock", "M_stock", 1.0)))
+    ev.append([g + 27, "select"]); whip("M_F")
+    simple("front_lip", "B", pp(14706, 14748, PART), "F", "f1", "f2", "F_stock", "F_lip", 12); spend(P_["Front Lip"])
+    back_to("F_M"); nav("list_1", [("l1", 7), ("l1b", 9)], "M_lip", step); whip("M_D")
+    simple("side_skirts", "B", pp(2072, 2150, PART), "D", "d1", "d2", "D_lip", "D_ls", 12); spend(P_["Side Skirts"])
+    back_to("D_M"); nav("list_2", [("l2", 7), ("l2b", 9)], "M_ls", step); whip("M_E")
+    # the capture's camera creeps in over this screen: only the half second around the frame the menu was built on is used
+    simple("rear_lip", "B", pp(17946, 17976, PART), "E", "e1", "e2", "E_ls", "E_lsr", 12); spend(P_["Rear Lip"])
+    back_to("E_M"); nav("list_3", [("l3", 7), ("l3b", 9)], "M_lsr", step); whip("M_A")
+    simple("wing", "A", range(880, 880 + 2 * PART, 2), "A", "a1", "a2", "A_lsr", "A_kit", 12); spend(P_["Rear Wing"])
+    back_to("A_M")
+    # between sections: back on the list, shoulder button to the tab, the tab's own rows, select (v9)
+    nav("nav_paint", [("n1a", 10), ("n1b", 14)], "M_kit_grey", [(10, "tab"), (22, "select")])
+    simple("respray", "A", range(1510, 1650, 2), "P", "p1", "p2", "M_kit_grey", "M_kit_blue", 18)
     # Cosmetics -> Bodywork -> Performance (two presses, as the tab order requires), down to Suspension, select
     nav("nav_susp", [("n2a", 10), ("n2x", 7), ("n2b", 9), ("n2c", 10)], "M_kit_blue", [(-2, "back"), (10, "tab"), (17, "tab"), (26, "row"), (34, "select")])
     whip("M_S")
-    simple("suspension", "B", pp(2072, 2150, 76), "S", "s1", "s2", "S_kit", "S_low", 18); spend(G_["Suspension"])
-    ev.append([len(T) - 3, "back"]); whip("S_M")
+    simple("suspension", "B", pp(2072, 2150, 64), "S", "s1", "s2", "S_kit", "S_low", 16); spend(G_["Suspension"])
+    back_to("S_M")
     nav("nav_wheels", [("n3a", 12), ("n3b", 12), ("n3c", 12)], "M_low_blue", [(12, "tab"), (24, "row"), (34, "select")])
     whip("M_W")
-    simple("wheels", "B", pp(20258, 20398, 76), "W", "w1", "w2", "W_low", "W_te", 18); spend(G_["Wheels"])
-    ev.append([len(T) - 3, "back"]); whip("W_M")
+    simple("wheels", "B", pp(20258, 20398, 64), "W", "w1", "w2", "W_low", "W_te", 16); spend(G_["Wheels"])
+    back_to("W_M")
     g = add("exit", "A", pp(4086, 4104, 78), "X", lambda i: (None, ("M_final", "M_final", 1.0)))
     for k in range(12, 74):
         T[g + k]["sub"] = float(min(1, (k - 11) / 3.0, (74 - k) / 4.0))
@@ -203,8 +207,29 @@ def main():
         out = base.astype(np.float32); out[ute[view]] = p[ute[view]]
         return over(out, car(key), grad_M if view == "M" else None)
 
+    # Second capture: the uploader's watermark sits bottom right over the floor and over the game's own button hints
+    # (user, v11 review: "remove the watermark on the bottom right"). The corner is covered with floor from the same frame
+    # (the patch up and to the left of it) and the first capture's clean "BACK" hint is put back.
+    WM = (1950, 1352, 2560, 1436)
+    a340 = frame("A", 340); hx0, hy0, hx1, hy1 = 2370, 1358, 2530, 1416
+    hreg = a340[hy0:hy1, hx0:hx1].astype(np.float32); hmed = cv2.medianBlur(a340[hy0:hy1, hx0:hx1], 31).astype(np.float32)
+    halpha = np.clip((np.abs(hreg - hmed).max(2) - 30) / 30.0, 0, 1)
+    halpha = cv2.GaussianBlur(cv2.dilate(halpha, np.ones((3, 3), np.uint8)), (0, 0), 0.6)[..., None]
+    wy0, wy1 = WM[1], WM[3]; wx0, wx1 = WM[0], WM[2]
+    feather = np.ones((wy1 - wy0, wx1 - wx0), np.float32); feather[:10] = np.linspace(0, 1, 10)[:, None]; feather[:, :14] *= np.linspace(0, 1, 14)[None, :]
+    feather = feather[..., None]
+
+    def dewatermark(F):
+        out = F.astype(np.float32)
+        src = out[wy0 - (wy1 - wy0) - 2:wy0 - 2, wx0 - (wx1 - wx0):wx0][:, ::-1]        # floor beside the corner, mirrored so the seam matches
+        out[wy0:wy1, wx0:wx1] = out[wy0:wy1, wx0:wx1] * (1 - feather) + src * feather
+        out[hy0:hy1, hx0:hx1] = out[hy0:hy1, hx0:hx1] * (1 - halpha) + hreg * halpha
+        return np.clip(out, 0, 255).astype(np.uint8)
+
     def static(e):
         F = frame(e["cap"], e["src"]); view = e["view"]; st = states.get(e["ui"]) if e["ui"] else None
+        if e["cap"] == "B":
+            F = dewatermark(F)
         out = F.copy()
         if view == "X":                               # leaving: the capture still shows its wallet and the "Leave when ready" prompt
             U.erase(out, (1100, 1350, 1460, 1410), thr=25); ui3.wallet_clear(out)
@@ -282,7 +307,10 @@ def main():
             out = hblur(bg, 301)
             out = over(out, hblur(whips[key][i], 61))
             if PRE[nview]:
-                hm = soft([r for r in PRE[nview] if r[2] < Wd * 0.5]); out = out * (1 - hm) + nxt * hm
+                # held through the whip: the lettering's own corner only. For the list screen that is the rows and the tab bar,
+                # not the whole list rectangle (it reaches into the car and showed as a sharp block over the blur)
+                rects = [R(0, 150, 560, 470), R(0, 70, 955, 120)] if nview == "M" else [r for r in PRE[nview] if r[2] < Wd * 0.5]
+                hm = soft(rects); out = out * (1 - hm) + nxt * hm
             for rect in POST[nview]:
                 if rect is WALLET:                    # a pasted wallet box shows against a blurred frame: figure only
                     continue

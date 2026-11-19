@@ -151,3 +151,17 @@ the real game".
 Output: `/home/user/media/work/out/gta6-customs_v11.mp4`, 29.3 s. Radio bed added (see edit log); picture unchanged.
 - Measured: bed -32.6 dB between events, purchases -24.7 dB, line -23.8 dB; starts with a 0.5 s fade, gone 0.4 s before
   the card. Not checked by ear: level, the muffling, and whether the clip's creator is audible are for the user to judge.
+
+## v12 (2026-11-19) - after the user's review of v11
+User: "The menu navigation for all the aero bits is also incorrect. It's skipping steps", then "remove the watermark on the
+bottom right".
+
+Output: `/home/user/media/work/out/gta6-customs_v12.mp4`, 28.7 s (786 menu frames + card).
+- Aero parts: list > select > part > buy > back > list (row marked) > down > select, four times. Holds tightened so the menu
+  (26.2 s) still fits under the 26.8 s radio bed.
+- Watermark covered on all second-capture frames; clean BACK hint restored.
+- Fixed on the way: during whips back to the list the whole list rectangle was held sharp over the blurred car; now only the
+  rows and the tab bar are.
+- Checked: 20 frames across the four part loops; bottom-right corners of five views at full size; a whip frame.
+- Weak: the patched corner is faintly lighter than the floor around it at full size; part screens are now 2.0 s each, tight
+  for reading the price; fourteen camera whips in 26 s is busy.

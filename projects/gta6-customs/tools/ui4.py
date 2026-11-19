@@ -165,6 +165,10 @@ def build(frameA, frameB):
         st[key] = {"img": img, "view": "M"}; U.ROWS = ROWS
     COS = ["Respray", "Customizable Liveries", "Curated Liveries", "Plates"]; WHL = ["Tire Style", "Rim Style", "Rim Colors"]
     PERF = ["Full Engine", "Suspension", "Brakes", "Transmission", "Boost"]     # the game's Performance rows plus a Suspension row (mine)
+    # between the aero parts (user, v11 review: "it's skipping steps"): back on the list the bought row carries its marker,
+    # the cursor moves down one, select
+    for k_ in (1, 2, 3):
+        nav(f"l{k_}", "BODYWORK", ROWS, k_, ROWS[:k_]); nav(f"l{k_}b", "BODYWORK", ROWS, k_ + 1, ROWS[:k_])
     nav("n1a", "BODYWORK", ROWS, 4, ROWS); nav("n1b", "COSMETICS", COS, 1, [])
     nav("n2a", "COSMETICS", COS, 1, ["Respray"]); nav("n2x", "BODYWORK", ROWS, 1, ROWS)
     nav("n2b", "PERFORMANCE", PERF, 1, []); nav("n2c", "PERFORMANCE", PERF, 2, [])

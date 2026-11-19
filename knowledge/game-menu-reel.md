@@ -384,3 +384,7 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   section (`radio_bed` in assemble4.py): start where the music starts, band-limit and narrow it, add a short room tail,
   about 8 dB under the menu's purchase sound and 10 dB over the room tone, dip under any spoken line, fade on its own
   ending. Say what the clip is (licensed song, someone else's recording) and that the level is set by numbers.
+- **Every screen is entered and left the way the game does it (GTA 6 v12; user: "it's skipping steps").** No camera jump
+  from one option screen to the next: back, camera to the list with the bought row marked, cursor move, select, camera to
+  the next screen. Plan the timeline this way from the first cut and budget the extra whips; keep total length inside any
+  music bed that cannot be looped. During a whip hold only the lettering sharp, never a rectangle that reaches into the car.
