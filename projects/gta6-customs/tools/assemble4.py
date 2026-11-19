@@ -26,6 +26,8 @@ TONE = (1500 / 60, 1888 / 60)
 TICKS = {"select": ("a", 274 / 60, 283 / 60), "back": ("a", 1158 / 60, 1164 / 60), "row": ("a", 1276 / 60, 1281 / 60),
          "tab": ("a", 618 / 60, 624 / 60)}                       # tab change: the first capture's option-change tick
 TONE_DB, SFX_PEAK = -43.0, 0.45
+RADIO = Path("/home/user/media/gta6-customs/radio/radio.wav")   # user's clip of the game's Honey FM (v10 review); optional
+RADIO_IN, RADIO_DB, RADIO_DUCK_DB = 2.0, -33.0, -4.0             # start in the clip (music begins there), bed level (RMS), dip under the mechanic's line
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/gta6-customs_v4.mp4")
 
 
@@ -51,6 +53,34 @@ def purchase_sfx(xb, sr):
 def voice_line(xb, sr):
     v = xb[round(214.00 * sr):round(215.55 * sr)].copy()
     return signal.sosfiltfilt(signal.butter(6, 4500, "lowpass", fs=sr, output="sos"), v, axis=0)
+
+
+def radio_bed(sr, n, line_t):
+    """The in-game radio as the shop would have it: one unbroken piece (never cut inside music), from where the song starts
+    in the clip, band-limited like a small speaker, narrowed, with a short room tail, well under the menu sounds."""
+    x, rsr = read(RADIO); assert rsr == sr
+    x = x[round(RADIO_IN * sr):]
+    live = np.nonzero(np.abs(x).max(1) > 0.003)[0]               # the clip ends in silence: fade the music itself, not the silence
+    x = x[:live.max() + 1]
+    x = signal.sosfiltfilt(signal.butter(2, [180, 4200], "bandpass", fs=sr, output="sos"), x, axis=0)
+    mid, side = x.mean(1, keepdims=True), (x[:, :1] - x[:, 1:]) / 2
+    x = np.hstack([mid + 0.3 * side, mid - 0.3 * side])
+    rng = np.random.default_rng(3); L = int(0.28 * sr)
+    ir = rng.standard_normal((L, 2)).astype(np.float32) * np.exp(-np.arange(L) / (0.07 * sr))[:, None]
+    ir /= np.sqrt((ir ** 2).sum(0, keepdims=True))
+    wet = np.stack([signal.fftconvolve(x[:, c], ir[:, c])[:len(x)] for c in (0, 1)], 1)
+    x = x + 0.35 * wet
+    x *= 10 ** (RADIO_DB / 20) / np.sqrt((x ** 2).mean())
+    x = x[:n]; m = len(x)
+    env = np.ones(m, np.float32)
+    fi, fo = int(0.5 * sr), int(1.2 * sr)
+    env[:fi] *= np.linspace(0, 1, fi); env[-fo:] *= np.linspace(1, 0, fo) ** 1.5
+    if line_t is not None:                                         # dip under the mechanic's line
+        t = np.arange(m) / sr; d = 10 ** (RADIO_DUCK_DB / 20)
+        duck = 1 - (1 - d) * np.clip(np.minimum((t - (line_t - 0.25)) / 0.25, (line_t + 1.9 - t) / 0.4), 0, 1)
+        env *= duck
+    out = np.zeros((n, 2), np.float32); out[:m] = x * env[:, None]
+    return out, m / sr
 
 
 def audio(extra_s):
@@ -83,6 +113,10 @@ def audio(extra_s):
     while t < n:
         seg = tone[:n - t]; bed[t:t + len(seg)] += seg; t += len(tone) - xf
     out_y = bed + ev
+    if RADIO.exists():
+        line_t = next((g / fps for g, nm in meta["events"] if nm == "line"), None)
+        rb, rlen = radio_bed(sr, n, line_t); out_y = out_y + rb
+        print(f"radio: {rlen:.1f} s from {RADIO_IN:.1f} s of the clip, bed {RADIO_DB:.0f} dB RMS")
     fo = int(1.5 * sr); out_y[-fo:] *= np.linspace(1, 0, fo)[:, None] ** 1.5
     fi = int(0.05 * sr); out_y[:fi] *= np.linspace(0, 1, fi)[:, None]
     out = W / "reel4_audio.wav"

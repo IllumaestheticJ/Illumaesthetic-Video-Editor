@@ -143,3 +143,11 @@ Output: `/home/user/media/work/out/gta6-customs_v10.mp4`, 29.3 s. Suspension on 
 Lesson: "true to the game" does not outrank making sense to the viewer. The game's own filing (lowered kit under Wheel
 Kits) was a detail of this build that a viewer reads as wrong. When a game label would mislead, say so and propose the
 sensible home instead of restoring it silently.
+
+## v11 (2026-11-19) - after the user's review of v10
+User: uploaded a clip of GTA 6's Honey FM: "put this radio station as in game audio overlay ... background noise like
+the real game".
+
+Output: `/home/user/media/work/out/gta6-customs_v11.mp4`, 29.3 s. Radio bed added (see edit log); picture unchanged.
+- Measured: bed -32.6 dB between events, purchases -24.7 dB, line -23.8 dB; starts with a 0.5 s fade, gone 0.4 s before
+  the card. Not checked by ear: level, the muffling, and whether the clip's creator is audible are for the user to judge.

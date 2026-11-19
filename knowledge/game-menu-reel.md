@@ -380,3 +380,7 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   move the item to the tab where it belongs and tell the user; user on v9: "Wheel Kits is not suspension"); only the client's own items get new names, and those follow the client's wording ("Rear Wing", not the catalogue's
   "Sport Wing"). Never jump between sections: show back, the tab change and the row pick, each with its tick. Build each
   list with `ui.Menu` (rows set per list) and move the tab highlight with `ui4.set_tab`.
+- **In-game radio bed (GTA 6 v11).** A music/radio clip from the user goes in as one unbroken piece under the whole game
+  section (`radio_bed` in assemble4.py): start where the music starts, band-limit and narrow it, add a short room tail,
+  about 8 dB under the menu's purchase sound and 10 dB over the room tone, dip under any spoken line, fade on its own
+  ending. Say what the clip is (licensed song, someone else's recording) and that the level is set by numbers.
