@@ -54,3 +54,19 @@ Status: first cut for owner review, not final. v1 = first assembly; v2 = same pi
 ## v5 (music change) — same picture as v4
 - `ditl_wrx_vb_v5_lilacs.mp4`: lilacs (azrxel) from 0:00, atempo 0.9756 (pitch kept), 10 ms delay. Onset peak vs cut, in frames: 65 +0.1, 113 -0.3, 160 0.0, 208 -0.9, 255 -0.4, 302 +0.1, 397 -0.1, 492 -0.6, 539 -0.1, 586 +0.2, 681 0.0, 729 (nearest strong onset +3.0, beat itself on grid), 776 -0.2. -14.4 LUFS, peak -3.4 dBFS. The song has no drop, so the shot 1->2 cut lands on a bar downbeat instead.
 - `ditl_wrx_vb_v5_nomusic.mp4`: voices, environment and effects only. -14.4 LUFS, peak -2.6 dBFS.
+
+## Higgsfield spend by this project (shared account), reconciled 2026-11-19
+Matched each generate call in this session's transcript to the account's transaction list by time. All on 2026-11-17 (UTC), all voice; no image, video or music generation was paid for by this project (those calls were `get_cost` preflights only).
+| Time | Model | Credits | Why |
+|---|---|---|---|
+| 05:38:09 | Eleven v4 | 2.53, refunded | take 1 dialogue, failed (Cody preset unsupported) |
+| 05:38:38 | Eleven v4 | 1.84, refunded | retry, failed |
+| 05:39:00 | Eleven v4 | 4 x 0.23, one refunded = 0.69 | isolate which preset failed |
+| 05:39:40 | Seed Audio 1.0 | 0.20 | test Cody on Seed Audio |
+| 05:40:34 | Seed Audio 1.0 | 1.40 (7 lines) | take 1, HIM lines |
+| 05:40:36 | Eleven v4 | 0.69 | take 1, recruiter / Beamer guy / mom lines |
+| 05:41:21 | Seed Audio 1.0 | 0.20 | one line resubmitted after a rate limit |
+| 06:15:51 | Eleven v4 | 0.69 | take 2 (Bram) |
+| 06:18:15 | Eleven v4 | 6 x 0.23 = 1.38 | six Beamer-guy options for "Same." |
+| 06:20:47 | Eleven v4 | 0.46 | take 3 exchange (approved) |
+| **Total** | | **5.71 net** | |
