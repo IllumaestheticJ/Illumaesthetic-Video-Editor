@@ -230,6 +230,19 @@ def build_rig(a):
     bg.inputs[0].default_value = tuple(rig["world"][:3]) + (1,)
     bg.inputs[1].default_value = rig["world"][3]
     bpy.context.scene.world = w
+    # image-based light: {"world_image": {"path": "env.hdr", "strength": 1.0, "rot_z_deg": 0}} (equirectangular, Blender mapping).
+    # Lights and reflects the car with one consistent picture of the room; "world" is ignored when this is set.
+    wi = rig.get("world_image")
+    if wi:
+        nt = w.node_tree
+        env = nt.nodes.new("ShaderNodeTexEnvironment")
+        ipath = wi["path"] if os.path.isabs(wi["path"]) else os.path.join(os.path.dirname(os.path.abspath(a.rig_json)), wi["path"])
+        env.image = bpy.data.images.load(ipath)
+        mp = nt.nodes.new("ShaderNodeMapping"); tc = nt.nodes.new("ShaderNodeTexCoord")
+        mp.inputs["Rotation"].default_value = (0, 0, math.radians(wi.get("rot_z_deg", 0.0)))
+        nt.links.new(tc.outputs["Generated"], mp.inputs["Vector"]); nt.links.new(mp.outputs["Vector"], env.inputs["Vector"])
+        nt.links.new(env.outputs["Color"], bg.inputs[0])
+        bg.inputs[1].default_value = wi.get("strength", 1.0)
     for i, l in enumerate(rig["lights"]):
         lo = area(f"L{i}", l["loc"], l["rot"], l["size"], l["energy"], l.get("color", (1, 1, 1)), l.get("glossy_only", False))
         if l.get("only_nodes"):          # light linking: this light reaches only the named GLB nodes (e.g. ["glass"])

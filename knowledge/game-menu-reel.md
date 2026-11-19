@@ -301,3 +301,30 @@ first scroll, then `ive feedback`, `ive archive`.
 House rules that do **not** apply to this format: the 1:1 real-to-scan cut, the silver scan look,
 the logo end card unless the user asks. Rules that still apply: no invented numbers on screen,
 look at your own output.
+
+
+## Photoreal game with a moving camera (GTA 6 mod shop, `projects/gta6-customs/`)
+The NFS method (one static camera, turntable, wheel fit) does not carry over as is. What worked:
+- **Break the capture down first.** Frame differences find the camera moves and cuts (mind doubled frames in
+  a 60 fps upload: compare over a 2-frame window). Here each move is an 8-frame whip between held views.
+- **Camera per held view from the room, not the car.** `tools/vps.py`: LSD segments, RANSAC vanishing points,
+  focal from each orthogonal pair. One field of view for all views; the horizon row gives the pitch. Position
+  and scale from where the game car touches the floor (wheel contacts picked on a gridded zoom) or, from behind,
+  its bumper ends, with dimensions of the real car it is modelled on; check the tyre radius that follows.
+  `tools/camfit.py`. First overlay had the Civic's wheels on the game car's.
+- **Clean plate.** Silhouette of the game car from frames where the same camera shows it in different paint
+  (the kit screen); from behind, a hand polygon. Fill only what our car leaves uncovered, by mirroring along
+  the room's own perspective lines (`tools/plate.py`), sampling only outside the game car. Telea and FSR
+  inpainting smeared the doorway.
+- **Light.** A painted HDR panorama of the room in the car's frame (`tools/make_env.py`, door behind the car,
+  wall colours from the capture) as the world image (`kit_render` rig key `world_image`). Per-view exposure:
+  the rear view needed -1.3 EV.
+- **Menus.** Measure each text, paint it out, set it again in the matching face (`tools/ui.py`; GTA 6: Lexend
+  and a condensed bold, Oswald 600 at 94 % width). Paste the result only where it differs from the source.
+  A state can look the same and differ (a marker icon that disappears): make a reference per state.
+- **Whips.** Capture's frames, game car smeared along the pan, our car from orbit cameras between the two
+  solved views with the same blur (`tools/whipcams.py`); hold the menu's corner still on the way back.
+- **Sound.** Such menus have room tone and one-frame ticks: find them in the high band, keep picture and
+  sound from the same frames, and lay a tick wherever the edit skips one.
+- Things to tell the user: whose footage it is; which on-screen numbers are the game's; that the picture is
+  small in 9:16 if the menu uses the full 16:9 width.

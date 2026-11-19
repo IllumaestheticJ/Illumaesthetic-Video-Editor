@@ -30,3 +30,6 @@ Worked project: `projects/nfs-carlot/`.
 
 Never invent numbers for on-screen stats, and tell the user once that the game's footage, UI and
 audio are the publisher's.
+
+For a photoreal game whose camera moves between views (GTA 6 mod shop): the knowledge doc's last
+section and `projects/gta6-customs/tools/` (vps, camfit, plate, make_env, ui, whipcams, compose, assemble).

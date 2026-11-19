@@ -1,0 +1,17 @@
+# GTA 6 mod-shop reel: one car, shown stock and with Epsilon parts.
+glb_dir: /home/user/media/gta6-customs/glbs        # from Drive "Epsilon-final-GLBs-2026-10-15.zip" (file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7)
+car:
+  id: honda-civic-sedan-fe
+  glb: eps-honda-civic-sedan-fe-v10.glb
+  paint: "#1c4fa0"            # Boost Blue Pearl B637P, the lookbook's paint for this car
+  finish: pearl
+  part_paint: raw             # black: unpainted PU / gloss black, the catalogue's base variants
+states:
+  stock:    {hide: [part_front_lip, part_side_skirts, part_rear_lip, part_sport_wing, part_sport_wing_duckbill]}
+  wing:     {hide: [part_front_lip, part_side_skirts, part_rear_lip, part_sport_wing_duckbill]}
+  full_kit: {hide: [part_sport_wing_duckbill, body_rear_diffuser_stock, trim_rear_diffuser_stock]}   # python -m ive kit honda-civic-sedan-fe
+catalogue:                    # Epsilon-Site showroom/catalog/products.json, generated 2026-10-03, base variants
+  front_lip:   {price: 285, handle: front-lip-honda-civic-sedan-zenki-fe-2022-2024}
+  side_skirts: {price: 400, handle: side-skirts-honda-civic-sedan-fe-2022}
+  rear_lip:    {price: 285, handle: rear-lip-honda-civic-sedan-hatchback-fe-fl-2022}
+  sport_wing:  {price: 450, handle: pre-production-prototype-sport-wing-honda-civic-sedan-fe2-2022, variant: "Wingless / Generic Gloss Black"}
