@@ -12,6 +12,7 @@ the car must pass over the WHOLE text (so every text line is narrower than the c
 """
 import sys, os, argparse, math
 import bpy, bmesh
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix
 
 a = sys.argv[sys.argv.index("--") + 1:]
@@ -42,7 +43,7 @@ W, H = map(int, args.res.split("x"))
 sc.render.resolution_x, sc.render.resolution_y = W, H
 sc.render.fps = 30
 sc.frame_start, sc.frame_end = 0, args.frames - 1
-sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"
+sc.render.engine = "CYCLES"; ive_gpu.use(sc)
 sc.cycles.samples = args.samples; sc.cycles.use_denoising = True
 sc.view_settings.view_transform = "AgX"; sc.view_settings.look = "AgX - Medium High Contrast"
 sc.render.image_settings.file_format = "PNG"

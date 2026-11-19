@@ -16,6 +16,7 @@ Shots:
   s6_feath  f216-324 empty road, feathers drifting down in half-speed slow-mo (plate for the sale text, slow-reader rule)
 """
 import bpy, sys, math, os, random
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -59,7 +60,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene; C = sc.collection
 sc.render.fps = FPS; sc.frame_start = F0; sc.frame_end = F1 - 1
 sc.render.resolution_x, sc.render.resolution_y = 1080, 1920; sc.render.resolution_percentage = PCT
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = SPP; sc.cycles.use_denoising = True
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc); sc.cycles.samples = SPP; sc.cycles.use_denoising = True
 sc.cycles.max_bounces = 4; sc.cycles.diffuse_bounces = 2; sc.cycles.glossy_bounces = 2; sc.cycles.transmission_bounces = 2
 sc.render.use_persistent_data = False
 sc.view_settings.view_transform = 'AgX'; sc.view_settings.look = 'AgX - Punchy' if 'AgX - Punchy' in [i.identifier for i in sc.view_settings.bl_rna.properties['look'].enum_items] else 'None'
@@ -140,12 +141,51 @@ if OSRS_TREES:
         _dst.meshes = [n for n in _src.meshes if n in _keep]
     CROWNS = [m_ for m_ in _dst.meshes if m_ is not None]
     trunk = mat('osrs_trunk', '#5c3d22', 0.9)
+# v0.6 (owner 2026-11-18): the popular OSRS woodcutting trees from the Woodcutting Guild in the owner's export (oak, willow,
+# maple, yew, magic), cut out whole (trunk + leaves) to userblend/guild_all.blend; the export lost each species' leaf tint, so
+# it is restored per species (texture x tint). Species identified by model family and the guild's counts.
+OSRS_GUILD = os.environ.get('OSRS_GUILD')
+GUILD = []
+if OSRS_GUILD:
+    SPECIES = {'oak': ([6, 7, 11, 27], None), 'willow': ([0, 15, 36, 43], (0.95, 1.1, 0.7)),
+               'maple': ([4, 5, 9, 30, 37], (1.35, 0.62, 0.28)), 'yew': ([21, 25, 33], (0.55, 0.72, 0.5)),
+               'magic': ([16, 1], (0.5, 0.95, 1.2))}
+    _want = {f'gt_{k:02d}' for ks, _ in SPECIES.values() for k in ks}
+    with bpy.data.libraries.load(OSRS_GUILD, link=False) as (_src, _dst):
+        _dst.meshes = [n for n in _src.meshes if n in _want]
+    _bym = {m_.name.split('.')[0]: m_ for m_ in _dst.meshes if m_ is not None}
+    def _tinted(mat, tint, tag):
+        m2 = mat.copy(); m2.name = f'{mat.name}_{tag}'; nt_ = m2.node_tree
+        tex = next((n for n in nt_.nodes if n.type == 'TEX_IMAGE'), None); bsdf = next(n for n in nt_.nodes if n.type == 'BSDF_PRINCIPLED')
+        if tex is None:
+            return m2
+        mix = nt_.nodes.new('ShaderNodeMix'); mix.data_type = 'RGBA'; mix.blend_type = 'MULTIPLY'; mix.inputs['Factor'].default_value = 1.0
+        mix.inputs['B'].default_value = tuple(tint) + (1,)
+        nt_.links.new(tex.outputs['Color'], mix.inputs['A']); nt_.links.new(mix.outputs['Result'], bsdf.inputs['Base Color'])
+        return m2
+    for sp, (ks, tint) in SPECIES.items():
+        for k in ks:
+            me_ = _bym.get(f'gt_{k:02d}')
+            if me_ is None:
+                continue
+            if tint:
+                me_ = me_.copy()
+                cache = {}
+                for si, mm in enumerate(me_.materials):
+                    if mm and mm.name.startswith('rs_texture'):
+                        cache.setdefault(mm.name, _tinted(mm, tint, sp)); me_.materials[si] = cache[mm.name]
+            GUILD.append((sp, me_))
 for i in range(150):
     s = 1 if i % 2 else -1
     x = s * rnd.uniform(6.0, 34.0); y = rnd.uniform(-70, 260)
     if abs(x) < 9 and -8 < y < 8:
         x = s * rnd.uniform(9, 20)
     h = rnd.uniform(1.6, 3.0); r = rnd.uniform(1.3, 2.6)
+    if GUILD:
+        sp, gm = GUILD[i % len(GUILD)]; k = rnd.uniform(1.0, 1.35)
+        tr = bpy.data.objects.new(f'osrs_{sp}', gm); C.objects.link(tr)
+        tr.location = (x, y, -0.05); tr.scale = (k, k, k); tr.rotation_euler = (0, 0, rnd.random() * 6.28)
+        continue
     if CROWNS:
         th = rnd.uniform(0.9, 1.6); k = rnd.uniform(0.9, 1.45)
         add(lambda: bpy.ops.mesh.primitive_cylinder_add(vertices=6, radius=0.16 * k, depth=th + 0.4), 'trunk', (x, y, (th + 0.4) / 2), m=trunk)
@@ -216,7 +256,11 @@ for f in range(F0, F1):
         yaw = math.radians(90) * eout((f - 81) / 3)
         roll = math.radians(14) * ease((f - 100) / 4)
     if f >= 135:
-        yaw = math.radians(-90); pitch = math.radians(-6)
+        # v0.6 (owner: 'the turkey turns its head the wrong way'): look straight into the oncoming car's headlights = the s4
+        # camera; front_dir = (sin t, -cos t) for heading t, body heading is -90 deg
+        _cx, _cy = (2.65, 1.47) if STYLE in ('evil', 'chicken') else (1.59, 1.1)
+        _t = math.atan2(_cx - (LANE - 0.3), -(_cy - 0.0))
+        yaw = _t + math.radians(90); pitch = math.radians(-6)
     key(T['head'], 'rotation_euler', f, Euler((pitch, roll, yaw)))
     blink = 1.0
     for b in (88, 97, 120):
@@ -327,6 +371,9 @@ if SHOT in ('s5_poof', 's6_feath'):
             if ob.name.startswith('Bones'):
                 C.objects.link(ob); ob.location = (LANE - 0.05, 0.12, 0.004); ob.rotation_euler = (0, 0, math.radians(28))
                 ob.scale = (2.2, 2.2, 2.2)
+                _bm = bpy.data.materials.new('osrs_bone'); _bm.use_nodes = True; _bp = _bm.node_tree.nodes['Principled BSDF']
+                _bp.inputs['Base Color'].default_value = srgb('#d9cfb4'); _bp.inputs['Roughness'].default_value = 0.8
+                ob.data.materials.clear(); ob.data.materials.append(_bm)
             else:
                 OSRS_F.append(ob.data)
     fmats = [toon(f'ff{c}', c, 0.65) for c in TAIL_COLS + ['#7a4a2a', '#f2dcae', '#6b4126']]
@@ -390,30 +437,30 @@ for f in range(F0, F1):
     roll = 0
     if SHOT == 's1_cross':
         cd.lens = 32
-        loc = lerp((2.15, -3.1, 0.36), (1.95, -2.9, 0.36), u); tgt = lerp((2.25, 0, 0.22), (2.05, 0, 0.22), u)
+        loc = lerp((2.6, -4.3, 2.3), (2.3, -4.0, 2.2), u); tgt = lerp((2.35, 0, 0.3), (2.1, 0, 0.3), u)   # v0.6 higher (owner)
     elif SHOT == 's2_look':
         cd.lens = 35
         uu = ease(u)
-        loc = lerp((1.75, -3.3, 0.42), (1.62, -1.75, 0.74 - HZ), uu); tgt = lerp((1.75, 0, 0.62 - HZ), (1.62, 0, 0.82 - HZ), uu)
+        loc = lerp((1.9, -4.0, 2.4), (1.65, -2.3, 1.55), uu); tgt = lerp((1.75, 0, 0.45), (1.6, 0, 0.72 - HZ), uu)   # v0.6 higher
     elif SHOT == 's3_car':
         cd.lens = 24
         yn = car_y(f) - 2.27; d = 6.2 + (3.0 - 6.2) * u
-        loc = (LANE + 0.75, yn - d, 0.3); tgt = (LANE - 0.1, yn + 1.0, 0.62); roll = 0
+        loc = (LANE + 0.75, yn - d, 1.0); tgt = (LANE - 0.1, yn + 1.0, 0.45); roll = 0   # v0.6 higher
     elif SHOT == 's4_eyes':
         cd.lens = 38
         loc = lerp((1.6, 1.25, 0.95 - HZ), (1.58, 0.95, 0.93 - HZ), ease(u)); tgt = (1.56, 0.05, 0.86 - HZ)
         if STYLE in ('chicken', 'evil'):   # the OSRS chicken's eyes sit on the sides of its head: 3/4 close-up so the eye pop reads
             loc = lerp((2.15, 0.95, 1.02), (2.02, 0.78, 1.0), ease(u)); tgt = (1.58, -0.02, 0.9)
             if STYLE == 'evil':
-                loc = lerp((2.75, 1.6, 1.05), (2.55, 1.35, 1.02), ease(u)); tgt = (1.72, 0.1, 0.78)
+                loc = lerp((2.75, 1.6, 1.45), (2.55, 1.35, 1.38), ease(u)); tgt = (1.72, 0.1, 0.7)   # v0.6 higher
         roll = 1.2 * math.sin(f * 2.3) * ease((f - 140) / 6)
     elif SHOT == 's5_poof':
         cd.lens = 22
         t = f - IMPACT; sh = 0.06 * math.exp(-t / 4) if t < 14 else 0
-        loc = (-1.6 + sh * math.sin(t * 2.9), -4.6 + sh * math.cos(t * 3.7), 0.85 + sh * math.sin(t * 4.1)); tgt = (1.6, 0.4, 0.8)
+        loc = (-2.0 + sh * math.sin(t * 2.9), -5.6 + sh * math.cos(t * 3.7), 3.0 + sh * math.sin(t * 4.1)); tgt = (1.6, 0.4, 0.45)   # v0.6 higher
     elif SHOT == 's6_feath':
         cd.lens = 26
-        loc = lerp((3.0, -3.4, 0.32), (2.9, -3.1, 0.34), u); tgt = (1.6, 0.6, 0.9)
+        loc = lerp((2.9, -4.0, 2.7), (2.8, -3.7, 2.6), u); tgt = (1.7, 0.6, 0.3)   # v0.6 higher, looking down on the bones
     cam.matrix_world = look(loc, tgt, roll)
     cam.keyframe_insert('location', frame=f); cam.keyframe_insert('rotation_euler', frame=f)
     cd.keyframe_insert('lens', frame=f)

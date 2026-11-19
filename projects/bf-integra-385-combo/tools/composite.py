@@ -15,9 +15,11 @@ W, H, FPS = 1080, 1920, 30
 # v0.2 timeline (user: both parts on the car at the end; scan shows the stock spoiler coming off)
 # (kind, source, overlay shot id, frames) - cuts on measured kick attacks: 97 168 239 310 380 451 522 593, end 664
 # v0.3: coloured opening + DE4 wingless deck fill (render_v03), kitted CGI orbit (render_v0/s9), stabilised C0240
-TIMELINE = [('render', 'render_v10/s1', 1, 97), ('render', 'render_v10/s2', 2, 71), ('render', 'render_v10/s3', 3, 71),
-            ('render', 'render_v10/s4', 4, 141), ('render', 'render_v04/s7', 0, 71), ('render', 'render_v04/s8', 0, 71),
-            ('render', 'render_v04/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]  # v0.6: price shot and end card one bar longer each (user: deal numbers easier to read)
+TIMELINE = [('render', 'render_v12/s1', 1, 97), ('render', 'render_v12/s23', 23, 142),
+            ('render', 'render_v10/s4', 4, 141), ('render', 'render_v12/s7', 0, 71), ('render', 'render_v12/s8', 0, 71),
+            ('render', 'render_v12/s9', 0, 71), ('irl', 'c0240_stab', 0, 71), ('card', None, 8, 142)]
+# v1.2: box cutter opens the box (s1); wing + lip rise in one continuous shot (s23, user: remove the cut where the lip
+# shows up); plate moved into the bumper recess (s7-9 patched). Cuts 97 239 380 451 522 593 664, end 806 (unchanged kicks).
 LEN = [t[3] for t in TIMELINE]
 CUTS = np.cumsum([0] + LEN)                       # 0 97 167 238 309 380 450 521 592
 OFFWHITE = (232, 236, 242, 255); ORANGE = (232, 89, 149, 255); YELLOW = (1, 222, 226, 255)  # v0.3: Epsilon+ palette (pink strike, cyan price)
@@ -138,7 +140,7 @@ def price_card(img, fr, x0=250, y0=915, w=580):
             bx0, by0, bx1, by1 = 28, 380, w - 28, 420
             pd.rounded_rectangle((bx0, by0, bx1, by1), 10, outline=(1, 222, 226, int(200 * u)), width=3)
             pd.rounded_rectangle((bx0 + 6, by0 + 6, bx0 + 6 + (bx1 - bx0 - 12) * prog, by1 - 6), 6, fill=(1, 222, 226, int(255 * u)))
-            dots = '.' * (1 + (fr // 6) % 3)
+            dots = '.' * (1 + int(fr // 6) % 3)
             pd.text((28, 440), f'LOADING{dots}', font=font(F_UB4, 24), fill=(232, 236, 242, int(220 * u)))
             pct = f'{int(prog * 100):d}%'; pw = pd.textlength(pct, font=font(F_UB4, 24))
             pd.text((w - 28 - pw, 440), pct, font=font(F_UB4, 24), fill=(232, 236, 242, int(220 * u)))
@@ -167,6 +169,8 @@ def overlay(shot, fr):
         receipt(img, fr, [(8, 'item', WING)], 280, 330)
     elif shot == 3:
         receipt(img, fr + 100, [(0, 'item', WING), (108, 'item', LIP)], 280, 330)
+    elif shot == 23:  # v1.2 continuous wing + lip shot
+        receipt(img, fr, [(8, 'item', WING), (79, 'item', LIP)], 280, 330)
     elif shot == 4:
         price_card(img, fr)
     elif shot == 8:
@@ -248,7 +252,8 @@ def main(out, hq=False):
     print('WROTE', out, dur)
 
 
-HQ_SRC = {f'{d}/s{k}': f'render_hq/s{k}' for d in ('render_v10', 'render_v04', 'render_v03', 'render_v06', 'render_v0') for k in range(1, 10)}
+HQ_SRC = {f'render_v12/s{k}': f'render_hq12/s{k}' for k in (1, 23, 7, 8, 9)}
+HQ_SRC.update({f'{d}/s{k}': f'render_hq/s{k}' for d in ('render_v10', 'render_v04', 'render_v03', 'render_v06', 'render_v0') for k in range(1, 10)})
 
 if __name__ == '__main__':
     main(sys.argv[1], hq='--hq' in sys.argv)

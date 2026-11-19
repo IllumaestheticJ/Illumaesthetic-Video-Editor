@@ -132,3 +132,5 @@ short first draft". It is a preview: the plan (shotlist.md v4) still needs the o
 - Cuts on beats: 3.17 / 8.66 / 11.10 / 16.59 / 20.25 s; end 22.67 s. 1:1 cuts s2->s3 and s4->s5 stay hard on a beat.
 - Readable: sign 1.9 s, wordmark 2.5 s, tag fronts ~2.5 s, backs ~2.3 s, count 2.85 s, end card 2.4 s.
 - Sign/wordmark light with lamp banks 2/1 (frames 37/20). s3 60 fps frames reused. ~13 h render, 10 chunks.
+- Delivered v0.9: 1080x1920, 60 fps, 1360 frames, 22.67 s, -14.1 LUFS, TP -2.2 dBFS, safe-zone sheet clean.
+- s1-s3 frames from the cloud CPU render, s4-s5 from the owner's RTX 3060 Ti GPU worker (whole shots, no mixing inside a shot; GPU vs CPU PSNR 41-44 dB, visually identical).

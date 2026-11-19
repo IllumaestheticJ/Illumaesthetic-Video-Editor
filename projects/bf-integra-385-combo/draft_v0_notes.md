@@ -1,3 +1,22 @@
+# v1.2 60 fps (user feedback on v1.1: box cutter instead of the green sweep; plate placed wrong; remove the cut where
+# the trunk lip shows up)
+- s1: yellow/black utility knife (3.2x hero scale) comes in, slices the tape seam left->right (f38-66), lifts away;
+  lid flies at f70. Tape slit hidden at lid lift (parented slit drifted through frame; frames 139-194 re-rendered).
+- s23: wing (f1-40) then lip (f72-111) rise in ONE continuous shot with one camera push; the 5.6 s jump cut is gone.
+  Receipt: wing line f8, lip line f79 (same times as before).
+- Plate: plane fitted to the bumper's plate recess only (1.4 mm rms, faces ~14 deg up), centre z 0.532, ~3 mm clear,
+  covers the two mounting cut-outs like the real car; matte black (rough 0.8, spec 0.05) - the gloss version caught
+  the key light and read grey. s7-9 re-rendered only in the old+new plate region (--plate-border) and pasted with a
+  10 px feather on the same seed; v1.1 vs v1.2 diff shows only the plate changed.
+- Checks: 60 fps 1612 frames 26.87 s; cuts -13..+9 ms; -13.4 LUFS / TP -1.8; text boxes OK; sheet looked at.
+
+# v1.1 60 fps final (user: "put an epsilon plate on the back of the car, then do a high quality 60fps render"; Balanced)
+- Epsilon+ plate on the scan and CGI car; all renders 1080x1920, 32 spp + denoise, true native 60 fps (3 mm scan).
+  C0240 IRL is 24p source, so its frames repeat in the 60 fps master (no interpolation).
+- Checks: 60 fps, 1612 frames, 26.87 s; detected cuts -13..+9 ms from kicks (cuts within one scene are frame-exact
+  from the timeline); -13.4 LUFS, TP -1.8 dBFS; safezone text boxes OK; sheet looked at.
+- composite.py: loading dots used a float frame index at 60 fps -> int().
+
 # v1.2 dropped (user, after the owner revised the rule to 1.8 s / +0.3 s per word / 2.2 s prices and asked that
 # approved videos not be changed for it): "v1.1 only". Queued re-render cancelled; shots.py/composite.py back to v1.1.
 # Under the revised rule v1.1 is slightly short on the lip line (1.9 s), RETAIL $600 (2.1 s), was/now (2.0 s) - accepted.

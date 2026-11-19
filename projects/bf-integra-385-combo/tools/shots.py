@@ -1,7 +1,8 @@
 # bf-integra-385-combo v0 shot builder (Blender 5.3, Cycles CPU).
 # usage: blender -b --factory-startup -P shots.py -- --shot 1 --out DIR [--res-pct 50] [--samples 16] [--step 2] [--frames a-b]
 # Frame (GLB): metres, Z up, nose -Y, rear +Y, car's right side = -X.
-import bpy, sys, math, json, argparse, mathutils
+import bpy, sys, math, json, argparse, mathutils, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix
 
 ap = argparse.ArgumentParser()
@@ -16,13 +17,15 @@ ap.add_argument('--fps60', action='store_true', help='true 60 fps: native render
 ap.add_argument('--glb', default='/home/user/media/bf-integra-385-combo/glb/eps-acura-integra-type-s-de5-v19.glb')
 ap.add_argument('--scan', default='/home/user/media/bf-integra-385-combo/scan/car.blend')
 ap.add_argument('--reg', default='/home/user/media/bf-integra-385-combo/work/reg/scan_to_glb.json')
+ap.add_argument('--plate-border', action='store_true', help='render only the region around the old + new plate (cropped), to patch into existing frames')
+ap.add_argument('--save-blend', default='', help='save a self-contained .blend (packed, output //frames/sN/f_) for the GPU worker instead of rendering')
 A = ap.parse_args(sys.argv[sys.argv.index('--') + 1:])
 
 LEN = {1: 97, 2: 70, 3: 71, 4: 142, 5: 71, 6: 70}  # v0.6: shot 4 (price) two bars so the deal reads   # frames @30 fps, cut on bar kicks of "Get Low"
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc)
 sc.cycles.samples = A.samples; sc.cycles.use_denoising = True
 sc.render.use_persistent_data = False
 sc.render.resolution_x, sc.render.resolution_y = 1080, 1920
@@ -97,15 +100,20 @@ M_BAND = mat('box_tape', (0.48, 0.33, 0.17), rough=0.22, coat=0.6)  # clear pack
 def add_plate():
     """Epsilon+ licence plate (user: "put an epsilon plate on the back of the car"): US 12x6 in, satin black, white
     wordmark, on the rear plate mount (plane fitted on scan + lookbook body: centre (0, 2.349, 0.584), ~8 deg tilt)."""
+    # v1.2 (user: "epsilon plate placed wrong"): sit IN the bumper's plate recess (plane fitted to the recess only,
+    # 1.4 mm rms, faces ~14 deg up), covering the two mounting cut-outs like the real car; ~3 mm clear of the recess.
     import json as _j
-    pm = _j.load(open('/home/user/media/bf-integra-385-combo/work/reg/plate_mount.json'))['car_nospoiler_filled']
-    n = Vector(pm['normal']).normalized(); c = Vector(pm['centre']) + n * (pm['ymax'] - pm['centre'][1] + 0.006)
-    q = n.to_track_quat('Z', 'Y')                    # plate +Z faces out of the car
+    pm = _j.load(open('/home/user/media/bf-integra-385-combo/work/reg/plate_mount_v2.json'))['car_nospoiler_filled']
+    n = Vector(pm['normal']).normalized()
+    up = Vector((0, 0, 1)); up = (up - n * up.dot(n)).normalized(); rt = up.cross(n)
+    c = Vector(pm['centre']) + up * -0.013 + n * 0.010   # recess outermost ~5 mm + 3 mm gap + half the 4 mm plate
+    q = Matrix((rt, up, n)).transposed().to_quaternion()  # plate X = car's right as seen from behind, +Z out
     bpy.ops.mesh.primitive_cube_add(size=1); pl = bpy.context.object; pl.name = 'eps_plate'
     pl.scale = (0.305, 0.152, 0.004); bpy.ops.object.transform_apply(scale=True)
     bev = pl.modifiers.new('bev', 'BEVEL'); bev.width = 0.008; bev.segments = 3
     pm_ = bpy.data.materials.new('plate_black'); pm_.use_nodes = True; bb = pm_.node_tree.nodes['Principled BSDF']
-    bb.inputs['Base Color'].default_value = (0.008, 0.008, 0.009, 1); bb.inputs['Roughness'].default_value = 0.35
+    bb.inputs['Base Color'].default_value = (0.008, 0.008, 0.009, 1); bb.inputs['Roughness'].default_value = 0.8
+    bb.inputs['Specular IOR Level'].default_value = 0.05  # recess faces up into the key light: keep the plate reading black
     pl.data.materials.append(pm_)
     pl.rotation_mode = 'QUATERNION'; pl.rotation_quaternion = q; pl.location = c
     lg = logo_decal('plate_logo', (0, 0, 0), (0, 0, 0), 0.25, ink=(0.85, 0.85, 0.85))
@@ -223,8 +231,12 @@ def flap_anim(lid, f0, f1, open_at_start=False):
         for ch in lid.children: ch.hide_render = True  # tape + printed logo go with the lid
         return
     key(lid, f0)
-    lid.location = lid.location + Vector((0.15, 0.6, 2.6)); lid.rotation_euler = (math.radians(-35), math.radians(10), 0)
+    # v1.2b: flies higher so it has left the (now lower, craned) frame before the cut to shot 23, then is hidden
+    lid.location = lid.location + Vector((0.2, 1.4, 5.0)); lid.rotation_euler = (math.radians(-35), math.radians(10), 0)
     key(lid, f1)
+    for o in [lid] + list(lid.children):
+        o.hide_render = False; o.keyframe_insert('hide_render', frame=f1)
+        o.hide_render = True; o.keyframe_insert('hide_render', frame=f1 + 1)
 
 
 def hide_until(o, f):
@@ -236,6 +248,57 @@ WING_HOME = Vector((0, 0, 1.25)); LIP_HOME = Vector((0, 0, 0.78))
 WING_IN = Vector((0, 0, 0.16)); LIP_IN = Vector((0, 0, 0.10))
 
 
+def box_cutter(bh, t, lid):
+    """snap-off utility knife: black/yellow body, steel blade; tip at the parent origin, nose down 30 deg."""
+    import bmesh
+    zt = bh + t / 2 + (t + 0.003) / 2            # top of the lid tape
+    root = bpy.data.objects.new('cutter', None); sc.collection.objects.link(root)
+    # v1.2b (user: "box cutting going the wrong way"): pulled like a real cut - handle leads (+X), blade trails
+    root.rotation_euler = (0, math.radians(30), math.radians(180)); root.scale = (3.2, 3.2, 3.2)  # hero prop: the box is 1.5 m wide
+    m_body = mat('cutter_yellow', (0.85, 0.55, 0.02), rough=0.45)
+    m_grip = mat('cutter_grip', (0.02, 0.02, 0.022), rough=0.7)
+    m_steel = mat('cutter_blade', (0.75, 0.76, 0.78), metal=1.0, rough=0.18)
+    def part(name, size, loc, m, bevel=0.004):
+        bpy.ops.mesh.primitive_cube_add(size=1); o = bpy.context.object; o.name = name
+        o.scale = size; bpy.ops.object.transform_apply(scale=True); o.location = loc
+        if bevel: bv = o.modifiers.new('b', 'BEVEL'); bv.width = bevel; bv.segments = 3
+        o.data.materials.append(m); o.parent = root; return o
+    part('cutter_body', (0.15, 0.030, 0.026), (-0.105, 0, 0.016), m_body)
+    part('cutter_grip', (0.085, 0.032, 0.012), (-0.125, 0, 0.026), m_grip, 0.003)
+    part('cutter_slider', (0.018, 0.010, 0.008), (-0.06, 0, 0.032), m_grip, 0.002)
+    # blade: trapezoid in the XZ plane, cutting edge low, slanted nose; tip at (0, 0, 0)
+    me = bpy.data.meshes.new('blade'); bm = bmesh.new()
+    pts = [(-0.045, 0.006), (0.0, 0.0), (-0.012, 0.020), (-0.045, 0.020)]
+    vs = [bm.verts.new((x, -0.0007, z)) for x, z in pts] + [bm.verts.new((x, 0.0007, z)) for x, z in pts]
+    bm.faces.new(vs[:4]); bm.faces.new(vs[4:][::-1])
+    for i in range(4): j = (i + 1) % 4; bm.faces.new((vs[i], vs[j], vs[4 + j], vs[4 + i]))
+    bm.to_mesh(me); bm.free(); bl = bpy.data.objects.new('cutter_blade', me); sc.collection.objects.link(bl)
+    bl.data.materials.append(m_steel); bl.parent = root
+    x0, x1 = -0.70, 0.70; z_cut = zt - 0.006  # tip just into the tape
+    root.location = (x0 - 0.15, -0.02, zt + 0.75); key(root, 18, rot=False)
+    root.location = (x0, 0, zt + 0.10); key(root, 32, rot=False)
+    root.location = (x0, 0, z_cut); key(root, 38, rot=False)
+    root.location = (x1, 0, z_cut); key(root, 66, rot=False)
+    root.location = (x1, 0, zt + 0.12); key(root, 70, rot=False)
+    root.location = (x1 + 0.6, -0.15, zt + 1.2); key(root, 80, rot=False)
+    for o in [root] + list(root.children):
+        o.hide_render = True; o.keyframe_insert('hide_render', frame=1)
+        o.hide_render = False; o.keyframe_insert('hide_render', frame=17)
+        o.hide_render = True; o.keyframe_insert('hide_render', frame=81)
+    # the slit: dark strip on the tape from x0 to the blade, rides away with the lid
+    bpy.ops.mesh.primitive_cube_add(size=1); sl = bpy.context.object; sl.name = 'tape_slit'
+    sl.data.materials.append(mat('slit', (0.0, 0.0, 0.0), rough=1.0))
+    sl.scale = (0.0005, 0.007, 0.0016); sl.location = (x0, 0, zt); key(sl, 38, rot=False)
+    sl.keyframe_insert('scale', frame=38)
+    sl.scale = (x1 - x0, 0.007, 0.0016); sl.location = ((x0 + x1) / 2, 0, zt); key(sl, 66, rot=False)
+    sl.keyframe_insert('scale', frame=66)
+    sl.hide_render = True; sl.keyframe_insert('hide_render', frame=1)
+    sl.hide_render = False; sl.keyframe_insert('hide_render', frame=38)
+    sl.hide_render = True; sl.keyframe_insert('hide_render', frame=70)  # gone as the lid lifts (parenting it to the lid let it drift through frame)
+    return root
+
+
+
 def shot_stage(n):
     wing, lip, flaps = build_stage()
     co = camera(24)
@@ -243,15 +306,15 @@ def shot_stage(n):
     if n == 1:
         for o in (wing, lip): o.location = WING_IN if o is wing else LIP_IN
         flap_anim(flaps, 70, 92)
-        # cyan scanner sweep: thin emissive bar crossing the closed box f38-70
-        bpy.ops.mesh.primitive_cube_add(size=1); bar = bpy.context.object; bar.name = 'sweep'
-        bar.scale = (0.012, 0.85, 0.42); bar.data.materials.append(M_CYAN)
-        bar.location = (-0.85, 0, 0.21); key(bar, 38, rot=False)
-        bar.location = (0.85, 0, 0.21); key(bar, 70, rot=False)
-        hide_until(bar, 38); bar.hide_render = True; bar.keyframe_insert('hide_render', frame=71)
+        # v1.2 (user: "change the green panning effect opening the box into a boxcutter"): a utility knife comes in,
+        # slices the tape seam left->right (f38-66, a dark slit opens behind the blade), lifts away, then the lid flies.
+        box_cutter(bh=0.32, t=0.012, lid=flaps)
         # camera: box sits low-right, black space above for the title and left for Eps
         look(co, (0.0, -4.8, 2.9), (0.0, 0, 0.95)); key(co, 1)
-        look(co, (0.0, -4.55, 2.75), (0.0, 0, 0.95)); key(co, N)
+        look(co, (0.0, -4.62, 2.8), (0.0, 0, 0.95)); key(co, 66)
+        # v1.2b (user: "get rid of the weird frame cut at 0:03"): crane down while the lid flies so the shot ends
+        # exactly on shot 23's first camera - the s1 -> s23 join plays as one continuous move
+        look(co, (0.0, -5.0, 1.9), (0.0, 0, 1.0)); key(co, N)
     elif n == 2:
         flap_anim(flaps, 0, 0, open_at_start=True)
         lip.location = LIP_IN
@@ -268,6 +331,19 @@ def shot_stage(n):
         lip.location = LIP_HOME + Vector((0, 0, 0.02)); lip.rotation_euler = (math.radians(18), 0, math.radians(-18)); key(lip, N)
         look(co, (0.0, -5.0, 1.9), (0.0, 0, 1.0)); key(co, 1)
         look(co, (0.0, -4.75, 1.85), (0.0, 0, 1.0)); key(co, N)
+    elif n == 23:
+        # v1.2 (user: "the cut where the trunk lip shows up needs to be removed"): wing rises, then the lip, one
+        # continuous camera push - no jump cut between them
+        flap_anim(flaps, 0, 0, open_at_start=True)
+        wing.location = WING_IN; wing.rotation_euler = (0, 0, 0); key(wing, 1)
+        wing.location = WING_HOME; wing.rotation_euler = (math.radians(18), 0, math.radians(18)); key(wing, 40)
+        wing.location = WING_HOME + Vector((0, 0.05, 0.05)); wing.rotation_euler = (math.radians(20), 0, math.radians(24)); key(wing, 72)
+        wing.location = WING_HOME + Vector((0, 0.05, 0.07)); wing.rotation_euler = (math.radians(20), 0, math.radians(28)); key(wing, N)
+        lip.location = LIP_IN; lip.rotation_euler = (0, 0, 0); key(lip, 1); key(lip, 72)
+        lip.location = LIP_HOME; lip.rotation_euler = (math.radians(16), 0, math.radians(-14)); key(lip, 111)
+        lip.location = LIP_HOME + Vector((0, 0, 0.02)); lip.rotation_euler = (math.radians(18), 0, math.radians(-18)); key(lip, N)
+        look(co, (0.0, -5.0, 1.9), (0.0, 0, 1.0)); key(co, 1)
+        look(co, (0.0, -4.55, 1.82), (0.0, 0, 1.0)); key(co, N)
     elif n == 4:
         flap_anim(flaps, 0, 0, open_at_start=True)
         wing.location = WING_HOME + Vector((0.0, 0.05, 0.08)); wing.rotation_euler = (math.radians(20), 0, math.radians(10)); key(wing, 1)
@@ -350,7 +426,7 @@ def shot6():
 # ---------------------------------------------------------------- v0.2 scan section (user: "the scan section needs to show
 # the stock wing coming off") and the kitted CGI car. Scan pieces are in the GLB frame (split_spoiler.py).
 REG = A.reg_dir
-LEN.update({7: 70, 8: 71, 9: 71})
+LEN.update({7: 70, 8: 71, 9: 71, 23: 142})  # 23 = shots 2+3 as one continuous shot (v1.2)
 CAM7_A = ((-2.9, 5.5, 2.35), (0.0, 1.75, 0.55))
 CAM7_B = ((-2.7, 5.15, 2.25), (0.0, 1.75, 0.55))
 
@@ -435,7 +511,7 @@ def shot9():
     return LEN[9]
 
 
-N = {1: shot_stage, 2: shot_stage, 3: shot_stage, 4: shot_stage}.get(A.shot, None)
+N = {1: shot_stage, 2: shot_stage, 3: shot_stage, 4: shot_stage, 23: shot_stage}.get(A.shot, None)
 N = N(A.shot) if N else {5: shot5, 6: shot6, 7: shot7, 8: shot8, 9: shot9}[A.shot]()
 for o in bpy.data.objects:
     if o.animation_data and o.animation_data.action:
@@ -447,7 +523,35 @@ if A.fps60:  # true 60 fps: every 1/60 s rendered natively (no interpolation); k
 sc.frame_step = A.step
 if A.frames:
     a, b = A.frames.split('-'); sc.frame_start, sc.frame_end = int(a), int(b)
+if A.plate_border:  # v1.2 plate move: re-render only the union of the old and new plate footprints (+ margin)
+    from bpy_extras.object_utils import world_to_camera_view as w2c
+    import json as _j
+    pl = bpy.data.objects['eps_plate']
+    pts = [pl.matrix_world @ Vector(c) for c in pl.bound_box]
+    pm = _j.load(open('/home/user/media/bf-integra-385-combo/work/reg/plate_mount.json'))['car_nospoiler_filled']
+    n0 = Vector(pm['normal']).normalized(); c0 = Vector(pm['centre']) + n0 * (pm['ymax'] - pm['centre'][1] + 0.006)
+    m0 = n0.to_track_quat('Z', 'Y').to_matrix()
+    pts += [c0 + m0 @ Vector((sx * 0.16, sy * 0.08, sz * 0.004)) for sx in (-1, 1) for sy in (-1, 1) for sz in (-1, 1)]
+    xs, ys = [], []
+    for f in range(sc.frame_start, sc.frame_end + 1, 4):
+        sc.frame_set(f)
+        for q in pts:
+            v = w2c(sc, sc.camera, q); xs.append(v.x); ys.append(v.y)
+    mg = 0.04
+    b = [max(0.0, min(xs) - mg), max(0.0, min(ys) - mg), min(1.0, max(xs) + mg), min(1.0, max(ys) + mg)]
+    sc.render.use_border = True; sc.render.use_crop_to_border = True
+    sc.render.border_min_x, sc.render.border_min_y, sc.render.border_max_x, sc.render.border_max_y = b
+    os.makedirs(A.out, exist_ok=True)
+    _j.dump({'border': b}, open(A.out.rstrip('/') + '/border.json', 'w'))
+    print('PLATE_BORDER', [round(v, 3) for v in b])
 sc.render.use_overwrite = False; sc.render.use_placeholder = True  # resumable long renders
 sc.render.filepath = A.out.rstrip('/') + '/f'
-bpy.ops.render.render(animation=True)
+if A.save_blend:  # GPU offload (knowledge/lessons.md "GPU offload to the owner's PC")
+    sc.render.use_overwrite = True; sc.render.use_placeholder = False
+    sc.render.filepath = f'//frames/s{A.shot}/f_'
+    bpy.ops.file.pack_all()
+    bpy.ops.wm.save_as_mainfile(filepath=A.save_blend, compress=True)
+    print('SAVED_BLEND', A.save_blend, sc.frame_start, sc.frame_end)
+else:
+    bpy.ops.render.render(animation=True)
 print('SHOT_DONE', A.shot, N)

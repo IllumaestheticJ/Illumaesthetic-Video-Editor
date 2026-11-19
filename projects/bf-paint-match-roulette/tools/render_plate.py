@@ -6,6 +6,7 @@ visible part of the plate; the compositor lays it over the tinted car. The plate
 surface found by ray casts at z_centre (rear of these GLBs is +Y), tilted to that surface, 8 mm proud.
 """
 import bpy, sys, math, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 a = sys.argv[sys.argv.index('--') + 1:]
 GLB, OUT, HIDE, TEX, ZC = a[0], a[1], a[2].split(','), a[3], float(a[4])
@@ -13,7 +14,7 @@ N = int(a[5]) if len(a) > 5 else 48; START = int(a[6]) if len(a) > 6 else 0; END
 os.makedirs(OUT, exist_ok=True)
 for o in list(bpy.data.objects): bpy.data.objects.remove(o, do_unlink=True)
 sc = bpy.context.scene
-sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 16; sc.cycles.use_denoising = False
+sc.render.engine = 'CYCLES'; ive_gpu.use(sc); sc.cycles.samples = 16; sc.cycles.use_denoising = False
 sc.render.resolution_x, sc.render.resolution_y = 720, 420
 sc.render.use_persistent_data = True; sc.render.film_transparent = True
 sc.render.image_settings.color_mode = 'RGBA'; sc.view_settings.view_transform = 'Standard'

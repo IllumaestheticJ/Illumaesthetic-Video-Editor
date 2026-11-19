@@ -32,6 +32,7 @@ import os
 import sys
 
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Euler, Matrix, Vector
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "blender"))
@@ -452,7 +453,7 @@ def main():
     sc.render.resolution_x, sc.render.resolution_y = w, h
     sc.render.resolution_percentage = spec.get("res_pct", 75)
     sc.render.engine = "CYCLES"
-    sc.cycles.device = "CPU"
+    ive_gpu.use(sc)
     sc.cycles.samples = spec.get("samples", 12)
     sc.cycles.use_denoising = True
     sc.cycles.use_adaptive_sampling = True

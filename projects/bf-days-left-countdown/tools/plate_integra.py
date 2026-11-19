@@ -5,6 +5,7 @@ blender -b -P plate_integra.py -- --glb eps-acura-integra-de-v29.glb --out plate
 """
 import sys, argparse, math
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 
 a = sys.argv[sys.argv.index("--") + 1:]
@@ -98,7 +99,7 @@ k = cam.constraints.new("TRACK_TO"); k.target = tgt
 
 W, H = map(int, args.res.split("x"))
 sc.render.resolution_x, sc.render.resolution_y = W, H
-sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"; sc.cycles.samples = args.samples; sc.cycles.use_denoising = True
+sc.render.engine = "CYCLES"; ive_gpu.use(sc); sc.cycles.samples = args.samples; sc.cycles.use_denoising = True
 sc.view_settings.view_transform = "AgX"; sc.view_settings.look = "AgX - Medium High Contrast"
 sc.render.filepath = args.out
 bpy.ops.render.render(write_still=True)
