@@ -398,3 +398,9 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   Paint swatches flat with the game's diagonal sheen; force their alpha (a grey swatch over a grey floor has no contrast
   for a difference matte).
 - **Every option screen gets the same furniture** (stats panel, car tag, pop-up position): check each against the others.
+- **Pop-ups and other overlays: draw them, don't cut them out (GTA 6 v16).** A cut-out's mask keeps the capture's background
+  inside and between letters. Measure the original (size, weight, edge) and redraw with clean alpha (`tools/toast.py`).
+- **Whips: only lettering may stay sharp (GTA 6 v16; user: "screen tear").** Holding a rectangle of the next shot sharp over
+  the blur shows as a tear when the car or scenery is inside it; a bright UI bar in a blurred frame smears into a band. Blur
+  frames with the list removed, and hold `|frame - blank frame|` (the lettering itself) or a tight title box. Look at one
+  frame of every whip at delivery size.

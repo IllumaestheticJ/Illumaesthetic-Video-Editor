@@ -302,25 +302,33 @@ def main():
             continue
         if n == START - 1:                            # only needed as the frame a whip leaves from
             if e["view"] != "whip":
-                prev = static(e); prev_cash = e["cash"]
+                prev = static(e); prev_cash = e["cash"]; prev_e = e
             continue
         if e["view"] == "whip":
             key, i = e["key"], e["i"]
             if key not in nxt_cache:
                 ne = next(x for x in T[n:] if x["view"] != "whip"); ne = dict(ne); ne["toast"] = 0.0; ne["sub"] = 0.0; ne["cash"] = prev_cash
-                nxt_cache[key] = (static(ne), ne["view"])
+                # What gets blurred must not carry sharp bright UI (user, v15 review: "screen tear" at 17 s): the list's white
+                # highlight bar smeared into a hard band, and the option block held sharp showed a rectangle of the next
+                # shot's car. So the list is taken out of both blurred frames, and only the lettering corners are held.
+                nb = static(dict(ne, ui="m_blank")) if ne["view"] == "M" else None
+                nxt_cache[key] = (static(ne), ne["view"], nb)
                 whips[key] = [load(f"whip_{key}/w_{k:02d}.png") for k in range(8)]
-                hold_from = prev.copy()
-            nxt, nview = nxt_cache[key]
+                hold_from = static(dict(prev_e, ui="m_blank", toast=0.0, sub=0.0)) if prev_e["view"] == "M" else prev.copy()
+            nxt, nview, nblank = nxt_cache[key]
             t = (i + 1) / 9.0
-            bg = shift(hold_from, -t * Wd * 0.7) * (1 - t) + shift(nxt, (1 - t) * Wd * 0.7) * t
+            bg = shift(hold_from, -t * Wd * 0.7) * (1 - t) + shift(nxt if nblank is None else nblank, (1 - t) * Wd * 0.7) * t
             out = hblur(bg, 301)
             out = over(out, hblur(whips[key][i], 61))
-            if PRE[nview]:
-                # held through the whip: the lettering's own corner only. For the list screen that is the rows and the tab bar,
-                # not the whole list rectangle (it reaches into the car and showed as a sharp block over the blur)
-                rects = [R(0, 150, 560, 470), R(0, 70, 955, 120)] if nview == "M" else [r for r in PRE[nview] if r[2] < Wd * 0.5]
-                hm = soft(rects); out = out * (1 - hm) + nxt * hm
+            if nblank is not None:
+                # list screen: hold exactly what the list adds to the blank screen (rows, highlight bar, tab highlight), nothing
+                # of the scene behind it (a sharp scrap of shelf sat beside the list in v16's first pass)
+                hm = np.clip(np.abs(nxt - nblank).max(2) / 24.0, 0, 1)
+                hm = cv2.GaussianBlur(cv2.dilate(hm, np.ones((5, 5), np.uint8)), (0, 0), 1.2)[..., None]
+                hm = np.maximum(hm, soft([R(0, 74, 760, 116)], 6) * 0.9)          # the tab bar's lettering
+                out = out * (1 - hm) + nxt * hm
+            elif PRE[nview]:
+                hm = soft([R(0, 22, 330, 112)], 8); out = out * (1 - hm) + nxt * hm   # the title's corner only
             for rect in POST[nview]:
                 if rect is WALLET:                    # a pasted wallet box shows against a blurred frame: figure only
                     continue
@@ -328,7 +336,7 @@ def main():
                 out[y0:y1, x0:x1] = nxt[y0:y1, x0:x1]
             u8 = np.clip(out, 0, 255).astype(np.uint8); ui3.wallet_text(u8, prev_cash); out = u8.astype(np.float32)
         else:
-            out = static(e); prev = out; prev_cash = e["cash"]
+            out = static(e); prev = out; prev_cash = e["cash"]; prev_e = e
         ff.stdin.write(np.clip(out, 0, 255).astype(np.uint8).tobytes())
         if n % 60 == 0:
             print("frame", n, "/", len(T), flush=True)

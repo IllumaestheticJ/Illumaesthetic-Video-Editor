@@ -193,3 +193,15 @@ Output: `/home/user/media/work/out/gta6-customs_v15.mp4`, 29.0 s (794 menu frame
 - Weak / not sure: I read "poorly" as the backgrounds; if the user meant the pop-up itself (small, low contrast over the
   bright doorway) that is unchanged. Part screens still loop a short stretch of capture back and forth (static views, the
   game's driver is covered). Colour run is fast (0.1 s per colour). Side-skirt view is closer: front wheel is large.
+
+## v16 (2026-11-19) - after the user's review of v15
+User: "17 seconds there is a screen tear. also the 'purchased' text still isn't masked correctly/awkward"
+
+Output: `/home/user/media/work/out/gta6-customs_v16.mp4`, 29.0 s.
+- Pop-up redrawn (`tools/toast.py`); the capture cut-out had a blob mask with the capture's floor inside the letters.
+- Whips: nothing sharp is held except lettering (list: only what the list adds to a blank list screen; option screens: the
+  title corner); the list is taken out of the frames that get blurred. Checked one frame from each of the first twelve whips
+  and all seven pop-ups at delivery size.
+- Lessons: (1) in v15 I answered "the purchased sections come out poorly" by fixing backgrounds without zooming in on the
+  pop-up itself; look at the named element first. (2) I had checked whips as "blurred, fine" on contact sheets; a held
+  rectangle with a hard edge only shows at size. Check transition frames at delivery size.

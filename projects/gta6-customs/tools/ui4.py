@@ -158,6 +158,7 @@ def build(frameA, frameB):
     p = PRICES; cash = TOTAL
     U.ROWS = ROWS; M = U.Menu(frameA)
     m0 = M.render(1, [], 0); wallet_clear(m0); st["m0"] = {"img": m0, "view": "M"}
+    mb = M.bg.copy(); wallet_clear(mb); st["m_blank"] = {"img": mb, "view": "M"}     # list screen without rows or bar: what gets blurred in a whip
 
     # navigation between sections, as the game does it (user, v8 review): back to the list, shoulder button to the next tab,
     # the tab's own rows (read off the second capture), down to the entry, select
