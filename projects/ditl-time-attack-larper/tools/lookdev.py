@@ -30,7 +30,7 @@ def fk8(paint=(0.85, 0.86, 0.87)):
         if mi == 0 and c.x < 0.3 and c.z < 0.42: mi = 4                                       # rear diffuser
         p.material_index = mi; p.use_smooth = False
     smooth_labels(car, keep=(4,))
-    wheels()
+    (te37() if os.environ.get('WHEEL') == 'te37' else wheels())
     return car
 
 
@@ -70,6 +70,21 @@ def wheels():
         tgt = Vector((WHEELS[1][0] if nm[-2] == "F" else WHEELS[0][0], TRACK if nm[-1] == "L" else -TRACK, WHEELS[0][1]))
         mw = Matrix.Translation(tgt) @ Matrix.Rotation(R(90), 4, "Z") @ Matrix.Scale(k, 4) @ Matrix.Translation(-c) @ o.matrix_world
         o.parent = None; o.matrix_world = mw
+
+
+TE37 = "/home/user/epsilon-site/showroom/models/wheels/eps-wheel-te37-v1.glb"
+
+
+def te37(finish=(0.35, 0.22, 0.08)):
+    """Our scanned TE37-style 6-spoke (showroom wheel: axle on X, face +X, hub-centred) at the four FK8 axles."""
+    from mathutils import Matrix
+    for nm, x, y in (("FL", WHEELS[1][0], TRACK), ("FR", WHEELS[1][0], -TRACK), ("RL", WHEELS[0][0], TRACK), ("RR", WHEELS[0][0], -TRACK)):
+        parts = [o for o in imp(TE37) if o.type == "MESH"]
+        k = WHEELS[0][2] / 0.317; rz = R(90) if y > 0 else R(-90)
+        for o in parts:
+            o.matrix_world = Matrix.Translation((x, y, WHEELS[0][1])) @ Matrix.Rotation(rz, 4, "Z") @ Matrix.Scale(k, 4) @ o.matrix_world
+            o.name = f"te37_{nm}_{o.name.split('.')[0]}"
+            if o.name.endswith("rim"): o.data.materials.clear(); o.data.materials.append(mat("bronze", finish, 0.35))
 
 
 def tc_wing():
