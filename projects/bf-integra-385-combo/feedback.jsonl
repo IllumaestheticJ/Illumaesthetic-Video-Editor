@@ -12,3 +12,5 @@
 {"ts": "2026-11-19T00:09:39Z", "project": "bf-integra-385-combo", "at": null, "category": "motion", "note": "change the green panning effect opening the box into a boxcutter", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-19T00:09:39Z", "project": "bf-integra-385-combo", "at": null, "category": "fitment", "note": "epsilon plate placed wrong", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-19T00:09:39Z", "project": "bf-integra-385-combo", "at": "5.6", "category": "edit", "note": "the cut where the trunk lip shows up needs to be removed", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-19T03:51:56Z", "project": "bf-integra-385-combo", "at": "1.5", "category": "motion", "note": "box cutting going the wrong way", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-19T03:51:56Z", "project": "bf-integra-385-combo", "at": "3.2", "category": "edit", "note": "get rid of the weird frame cut at 0:03", "by": "reviewer", "promoted": false}
