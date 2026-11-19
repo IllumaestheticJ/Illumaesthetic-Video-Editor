@@ -24,7 +24,7 @@ LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.
 ORBIT = W / "orbit"                                            # PNG sequence from kit_render (closing shot), optional
 TONE = (1500 / 60, 1888 / 60)
 TICKS = {"select": ("a", 274 / 60, 283 / 60), "back": ("a", 1158 / 60, 1164 / 60), "row": ("a", 1276 / 60, 1281 / 60),
-         "tab": ("a", 618 / 60, 624 / 60)}                       # tab change: the first capture's option-change tick
+         "tab": ("a", 618 / 60, 624 / 60), "step": ("a", 1276 / 60, 1281 / 60)}                       # tab change: the first capture's option-change tick
 TONE_DB, SFX_PEAK = -43.0, 0.45
 RADIO = Path("/home/user/media/gta6-customs/radio/radio.wav")   # user's clip of the game's Honey FM (v10 review); optional
 RADIO_IN, RADIO_DB, RADIO_DUCK_DB = 2.0, -33.0, -4.0             # start in the clip (music begins there), bed level (RMS), dip under the mechanic's line

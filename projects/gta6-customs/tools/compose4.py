@@ -47,9 +47,9 @@ PRE = {"F": [R(0, 0, 640, 130)], "D": [R(0, 0, 640, 130), R(815, 1008, 1105, 105
        "P": [R(0, 0, 640, 130), R(0, 790, 1080, 1066)], "S": [R(0, 0, 640, 130), R(0, 795, 470, 1066), R(815, 1008, 1105, 1052)],
        "W": [R(0, 0, 640, 130), R(0, 655, 760, 1066)], "X": []}        # W: the whole block (price, name, thumbnails) from the state
 PANEL, TAG, WALLET = R(1466, 553, 1894, 996), R(1466, 915, 1894, 998), R(1730, 20, 1905, 80)    # panel only: the strip above it is scene
-POST = {"F": [TAG, WALLET], "D": [PANEL, WALLET], "M": [TAG, WALLET], "A": [PANEL, WALLET], "E": [PANEL, WALLET], "P": [PANEL, WALLET], "S": [PANEL, WALLET], "W": [TAG], "X": []}
+POST = {"F": [PANEL, WALLET], "D": [PANEL, WALLET], "M": [TAG, WALLET], "A": [PANEL, WALLET], "E": [PANEL, WALLET], "P": [PANEL, WALLET], "S": [PANEL, WALLET], "W": [TAG], "X": []}
 # W: the wallet sits over the car's body there, so it is laid on as glyphs (anything in its box that is not the game car's yellow)
-TOAST = {"F": (2270, 1025), "D": (2270, 535), "M": (2270, 1025), "W": (2270, 1025), "A": (2270, 535), "E": (2270, 535), "P": (2270, 535), "S": (2270, 535)}
+TOAST = {"F": (2270, 535), "D": (2270, 535), "M": (2270, 1025), "W": (2270, 1025), "A": (2270, 535), "E": (2270, 535), "P": (2270, 535), "S": (2270, 535)}
 LINE = "Need anything else, or is that everything?"
 
 
@@ -99,7 +99,8 @@ def timeline():
     def nav(name, steps, car, sounds):
         """steps: [(state, frames), ...] on the menu camera; sounds: [(frame offset, name), ...]"""
         keys = [k for k, n_ in steps for _ in range(n_)]
-        g_ = add(name, "A", pp(100, 160, len(keys)), "M", lambda i: (keys[i], (car, car, 1.0)))
+        # forward frames only: a ping-pong of the capture made whatever moves in the background run back and forth (user, v14 review)
+        g_ = add(name, "A", range(100, 100 + 2 * len(keys), 2), "M", lambda i: (keys[i], (car, car, 1.0)))
         ev.extend([g_ + o, nm] for o, nm in sounds)
 
     def back_to(key):
@@ -119,7 +120,15 @@ def timeline():
     back_to("A_M")
     # between sections: back on the list, shoulder button to the tab, the tab's own rows, select (v9)
     nav("nav_paint", [("n1a", 10), ("n1b", 14)], "M_kit_grey", [(10, "tab"), (22, "select")])
-    simple("respray", "A", range(1510, 1650, 2), "P", "p1", "p2", "M_kit_grey", "M_kit_blue", 18)
+    # respray: Recommended tab with the car's OEM colours; the cursor runs through all eleven (3 frames each, a tick each),
+    # the car previews each colour, and Boost Blue is bought
+    NC = len(ui3.OEM); cbuy = 6 + 3 * (NC - 1) + 6
+    ckey = lambda k: "M_kit_grey" if k == 0 else "M_kit_blue" if k == NC - 1 else f"M_kit_c{k}"
+    def rs(i):
+        k = int(np.clip((i - 6) // 3 + 1, 0, NC - 1)) if i >= 6 else 0
+        return ("cA" if i >= cbuy + 4 else f"c{k}"), (ckey(k), ckey(k), 1.0)
+    g = add("respray", "A", range(1510, 1510 + 2 * (cbuy + 46), 2), "P", rs)
+    ev.extend([g + 6 + 3 * k, "step"] for k in range(NC - 1)); buy(g + cbuy)
     # Cosmetics -> Bodywork -> Performance (two presses, as the tab order requires), down to Suspension, select
     nav("nav_susp", [("n2a", 10), ("n2x", 7), ("n2b", 9), ("n2c", 10)], "M_kit_blue", [(-2, "back"), (10, "tab"), (17, "tab"), (26, "row"), (34, "select")])
     whip("M_S")
@@ -129,9 +138,10 @@ def timeline():
     whip("M_W")
     simple("wheels", "B", pp(20258, 20398, 64), "W", "w1", "w2", "W_low", "W_te", 16); spend(G_["Wheels"])
     back_to("W_M")
-    g = add("exit", "A", pp(4086, 4104, 78), "X", lambda i: (None, ("M_final", "M_final", 1.0)))
-    for k in range(12, 74):
-        T[g + k]["sub"] = float(min(1, (k - 11) / 3.0, (74 - k) / 4.0))
+    # one frozen frame: the UI-free stretch is ten frames long, and looping it made the background run back and forth
+    g = add("exit", "A", [4096] * 68, "X", lambda i: (None, ("M_final", "M_final", 1.0)))
+    for k in range(12, 64):
+        T[g + k]["sub"] = float(min(1, (k - 11) / 3.0, (64 - k) / 4.0))
     ev.append([g + 12, "line"])
     total = sum(a for _, a in spends)
     for n, e in enumerate(T):

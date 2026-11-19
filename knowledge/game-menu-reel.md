@@ -391,3 +391,10 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
 - **End card in the game's colours (GTA 6 v13).** Keep the client's wordmark shape; take the palette from the game's logo as
   it appears in the footage (band medians top to bottom), fill the wordmark with that gradient and add the logo's edge
   colour (`gta_logo` in assemble4.py). Borrow colours only, never the game's logo artwork.
+- **Never ping-pong a short stretch of capture (GTA 6 v15; user: "the car in the background is going back and forth").**
+  Anything moving in the plate reverses. Use forward frames, or freeze one frame when the stretch is too short.
+- **Colour pickers.** Show the game's own tab ("Recommended") with the car's factory colours as swatches, six at a time as
+  the game does, and run the cursor through them with the car previewing each (one quick low-sample render per colour).
+  Paint swatches flat with the game's diagonal sheen; force their alpha (a grey swatch over a grey floor has no contrast
+  for a difference matte).
+- **Every option screen gets the same furniture** (stats panel, car tag, pop-up position): check each against the others.

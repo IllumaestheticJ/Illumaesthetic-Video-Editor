@@ -26,6 +26,12 @@ VID_B = "/home/user/media/gta6-customs/capture/gta6_customization_B_1440p.mp4"
 PRICES = {"Front Lip": 485, "Side Skirts": 800, "Rear Lip": 485, "Rear Wing": 850}       # "Rear Wing" = the catalogue's Sport Wing (user, v8 review)
 GAME = {"Suspension": 750, "Wheels": 560}
 ROWS = ["Front Lip", "Side Skirts", "Rear Lip", "Rear Wing"]      # plain names on the list (user, v6 review); the part screens carry the Epsilon name and badge
+# the car's factory colours, in the order the cursor runs through them (current colour first, the one bought last):
+# (name as lettered, finish, sRGB) from Epsilon-Site lookbook3d/src/data/lookbook-data.json, honda-civic-sedan-fe
+OEM = [("SONIC GRAY", "PEARL", "#7b7f83"), ("LUNAR SILVER", "METALLIC", "#a8acb0"), ("METEORITE GRAY", "METALLIC", "#4d5054"),
+       ("CRYSTAL BLACK", "PEARL", "#111214"), ("PLATINUM WHITE", "PEARL", "#f2f0e9"), ("CHAMPIONSHIP WHITE", "GLOSS", "#f3f2ea"),
+       ("SMOKEY MAUVE", "PEARL", "#6e5b62"), ("MORNING MIST BLUE", "METALLIC", "#5f7c97"), ("RALLYE RED", "GLOSS", "#c8102e"),
+       ("BLAZING ORANGE", "PEARL", "#d8551c"), ("BOOST BLUE", "PEARL", "#1c4fa0")]
 BADGE_BGR, BADGE_INK = (253, 225, 106), (75, 54, 33)        # the game's "EXCLUSIVE" badge colours (second capture, frame 2100)
 TOTAL = sum(PRICES.values()) + sum(GAME.values())
 R = lambda *a: box(*a)
@@ -203,7 +209,7 @@ def build(frameA, frameB):
         erase(img, box(22, 28, 262, 64), thr=16); erase(img, box(22, 66, 430, 112), thr=24)
         draw(img, "BODYWORK /", (45, small_base), OSW, 31, (150, 150, 158), OSW_SQ)
         draw(img, name.upper(), (45, big_base), OSW, 55, (240, 240, 240), OSW_SQ)
-        car_tag(img, 920); wallet_clear(img)
+        panel_from_A(img); car_tag(img, 555); wallet_clear(img)      # stats panel like the other part screens (user, v14 review)
         return {"img": img, "view": view, "overlay": block_overlay(name, done)}
     fbase, dbase = frameB(14700), frameB(15740)
     st["f1"] = own_cam(fbase, "Front Lip", False, "F", 83, 144); st["f2"] = own_cam(fbase, "Front Lip", True, "F", 83, 144)
@@ -225,23 +231,91 @@ def build(frameA, frameB):
     st["a1"] = part(ab, "Rear Wing", cash, False, "A"); cash -= p["Rear Wing"]; st["a2"] = part(ab, "Rear Wing", cash, True, "A")
 
     # respray: first capture's option screen (camera M) cleared of its own block, second capture's swatch block as an overlay
-    def respray(done):
+    # Respray (v15; user: "change the colour swatch to Recommended and display all the OEM colours"): the game's Recommended tab,
+    # with the car's eleven factory colours as swatches (Epsilon-Site lookbook data for this car). The cursor runs through them,
+    # the car previews each, and stops on Boost Blue. Built on the second capture's swatch block (frame 5160, Blue tab):
+    # swatches repainted, selection frame, counter and scroll bar redrawn, tab highlight moved to RECOMMENDED.
+    def respray_base():
         img = frameA(1700).copy(); clean = frameA(100)
         bx0, by0, bx1, by1 = box(20, 790, 1080, 1066); img[by0:by1, bx0:bx1] = clean[by0:by1, bx0:bx1]
         retitle(img, box(30, 30, 172, 62), "COSMETICS", OSW, None, OSW_SQ * 0.9, thr=14)
         retitle(img, box(30, 68, 420, 110), "RESPRAY", OSW, None, OSW_SQ)
         panel_from_A(img); car_tag(img, 555); wallet_clear(img)
-        r = frameB(5160).copy(); plain = frameB(2300)
-        # explicit size and baseline: on the second capture's frames the text mask fills the whole box (measured: cap height 38 px)
-        retitle(r, box(22, 718, 330, 760), "BOOST BLUE", OSW, 45.5, OSW_SQ, baseline=1007)
+        return img
+    rbase = respray_base(); r0 = frameB(5160); plain = frameB(2300)
+    SX = [48, 208, 368, 528, 688, 848]; SY, SS = 1088, 146                     # swatch slots (measured)
+
+    def sprite(x0, y0, x1, y1, ref_rect):
+        """An icon lifted off a swatch: alpha = distance from the swatch's own colour."""
+        reg = r0[y0:y1, x0:x1].astype(np.float32); rx0, ry0, rx1, ry1 = ref_rect
+        med = np.median(r0[ry0:ry1, rx0:rx1].reshape(-1, 3), 0)
+        a = np.clip((np.abs(reg - med).max(2) - 70) / 40.0, 0, 1)        # hard threshold: no fringe of the source swatch's blue
+        a = cv2.morphologyEx(a, cv2.MORPH_CLOSE, np.ones((5, 5), np.uint8))
+        return reg, a[..., None]
+    tag = sprite(SX[1] + 96, SY + 92, SX[1] + 140, SY + 138, (SX[1] + 10, SY + 80, SX[1] + 80, SY + 135))
+    chev = sprite(SX[5] + 8, SY + 96, SX[5] + 44, SY + 142, (SX[5] + 50, SY + 100, SX[5] + 90, SY + 135))
+    hexbgr = lambda h: np.array([int(h[5:7], 16), int(h[3:5], 16), int(h[1:3], 16)], np.float32)
+
+    def swatch(col):
+        yy, xx = np.mgrid[0:SS, 0:SS].astype(np.float32)
+        d = (xx + yy) / (2 * SS)
+        sheen = 0.92 + 0.16 * d + 0.10 * np.exp(-((xx - yy * 0.6 - 60) / 16.0) ** 2)      # the game's diagonal highlight
+        t = np.clip(hexbgr(col)[None, None] * sheen[..., None] + 6, 0, 255)
+        t[:2] = t[:2] * 0.6 + 100; t[-2:] = t[-2:] * 0.6 + 100; t[:, :2] = t[:, :2] * 0.6 + 100; t[:, -2:] = t[:, -2:] * 0.6 + 100
+        return t
+
+    def respray(sel, done):
+        r = r0.copy()
+        r[1076:1270, 20:1030] = plain[1076:1270, 20:1030]                       # swatch row, arrows, scroll bar: start clean
+        r[1024:1070, 840:1010] = plain[1024:1070, 840:1010]                     # counter
+        force = np.zeros(r.shape[:2], np.float32)
+        start = min(max(0, sel - 5), len(OEM) - 6)
+        for k in range(6):
+            x = SX[k]; name, fin, col = OEM[start + k]
+            r[SY:SY + SS, x:x + SS] = swatch(col).astype(np.uint8); force[SY:SY + SS, x:x + SS] = 1
+            reg, a = tag; ty, tx = SY + 92, x + 96
+            r[ty:ty + reg.shape[0], tx:tx + reg.shape[1]] = (r[ty:ty + reg.shape[0], tx:tx + reg.shape[1]] * (1 - a) + reg * a).astype(np.uint8)
+            if start + k == sel:
+                cv2.rectangle(r, (x - 4, SY - 4), (x + SS + 3, SY + SS + 3), (245, 245, 245), 4); force[SY - 6:SY + SS + 6, x - 6:x + SS + 6] = 1
+                reg, a = chev; ty, tx = SY + 96, x + 8
+                r[ty:ty + reg.shape[0], tx:tx + reg.shape[1]] = (r[ty:ty + reg.shape[0], tx:tx + reg.shape[1]] * (1 - a) + reg * a).astype(np.uint8)
+        if start > 0:
+            r[1140:1182, 22:44] = r0[1140:1182, 22:44]
+        if start + 6 < len(OEM):
+            r[1140:1182, 998:1020] = r0[1140:1182, 998:1020]
+        bx0, bx1 = 48, 994; tw = (bx1 - bx0) * 6 / len(OEM); tx = bx0 + (bx1 - bx0) * start / len(OEM)
+        cv2.line(r, (int(tx), 1255), (int(tx + tw), 1255), (205, 205, 210), 6, cv2.LINE_AA); force[1250:1261, int(tx) - 3:int(tx + tw) + 3] = 1
+        from PIL import ImageFont
+        fnt = ImageFont.truetype(LEX, 36 * 4); tot = f"{len(OEM)}"; num = f"{sel + 1}"
+        wt, ws, wn = fnt.getlength(tot) / 4, fnt.getlength(" / ") / 4, fnt.getlength(num) / 4
+        draw(r, tot, (990 - wt, 1062), LEX, 36, (165, 165, 172)); draw(r, " / ", (990 - wt - ws, 1062), LEX, 36, (165, 165, 172))
+        draw(r, num, (990 - wt - ws - wn, 1062), LEX, 36, (240, 240, 240))
+        name, fin, col = OEM[sel]
+        retitle(r, box(22, 718, 330, 760), name, OSW, 45.5, OSW_SQ, baseline=1007)
+        erase(r, (100, 1020, 420, 1066), thr=40); draw(r, fin, (104, 1058), OSW, 36.5, (238, 238, 238), OSW_SQ)
+        # tab row: BLUE back to an unselected tab, RECOMMENDED selected
+        ty0, ty1 = 1282, 1329
+        bx = (788, 894); g = cv2.cvtColor(r[ty0:ty1, bx[0]:bx[1]], cv2.COLOR_BGR2GRAY)
+        dark = (g < 120).astype(np.float32); dark[:6] = 0; dark[-6:] = 0; dark[:, :14] = 0; dark[:, -14:] = 0      # lettering only, not the floor at the leaning corners
+        txt = cv2.GaussianBlur(dark, (0, 0), 0.6)[..., None]
+        ref = r0[ty0:ty1, 700:708].astype(np.float32).mean(1, keepdims=True)                 # inside the RED tab, left of its lettering
+        boxb = np.repeat(ref, bx[1] - bx[0], 1); boxb[:, :2] = r0[ty0:ty1, 694:696]; boxb[:, -2:] = r0[ty0:ty1, 784:786]
+        r[ty0 - 4:ty1 + 4, 776:906] = plain[ty0 - 4:ty1 + 4, 776:906]                         # the white box leans past the tab: clear around it
+        r[ty0:ty1, bx[0] + 2:bx[1] - 2] = (boxb * (1 - txt) + np.array([232, 232, 236], np.float32) * txt).astype(np.uint8)[:, 2:-2]
+        force[ty0:ty1, bx[0] + 2:bx[1] - 2] = 1
+        rx = (106, 334); g = cv2.cvtColor(r[ty0:ty1, rx[0]:rx[1]], cv2.COLOR_BGR2GRAY); txt = cv2.GaussianBlur((g > 160).astype(np.float32), (0, 0), 0.6)[..., None]
+        r[ty0:ty1, rx[0]:rx[1]] = (246 * (1 - txt) + np.array([34, 30, 30], np.float32) * txt).astype(np.uint8); force[ty0:ty1, rx[0]:rx[1]] = 1
         if done:
             applied(r)
         d = cv2.absdiff(r, plain).max(2).astype(np.float32)
         al = cv2.morphologyEx((d > 18).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8)).astype(np.float32)
         al = np.maximum(al, np.clip((d - 8) / 24, 0, 1)); al = cv2.GaussianBlur(al, (0, 0), 0.8)
-        keep = np.zeros_like(al); keep[900:1070, 0:560] = 1; keep[1070:1420, 0:1010] = 1     # the block only: the game's car differs between the two frames too
-        return {"img": img, "view": "P", "overlay": np.dstack([r.astype(np.float32), al * keep * 255])}
-    st["p1"] = respray(False); st["p2"] = respray(True)
+        keep = np.zeros_like(al); keep[900:1070, 0:560] = 1; keep[1020:1070, 840:1010] = 1; keep[1070:1420, 0:1030] = 1
+        al = np.maximum(al * keep, force)
+        return {"img": rbase, "view": "P", "overlay": np.dstack([r, np.clip(al * 255, 0, 255).astype(np.uint8)])}
+    for k_ in range(len(OEM)):
+        st[f"c{k_}"] = respray(k_, False)
+    st["cA"] = respray(len(OEM) - 1, True)
 
     def susp(done, c):
         img = frameB(2100).copy()
@@ -275,7 +349,7 @@ if __name__ == "__main__":
     def fb(f): cb.set(1, f); return cb.read()[1]
     st = build(fa, fb); (W / "ui4").mkdir(exist_ok=True)
     tiles = []
-    for k in ("n2x", "n2b", "n2c", "n3a", "s1", "s2"):
+    for k in ("f2", "c0", "c5", "c8", "c10", "cA"):
         im = st[k]["img"].copy()
         if st[k].get("overlay") is not None:
             o = st[k]["overlay"]; a = o[..., 3:] / 255; im = (im * (1 - a) + o[..., :3] * a).astype(np.uint8)

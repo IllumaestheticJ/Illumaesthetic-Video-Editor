@@ -177,3 +177,19 @@ User: "can you change '22 civic to '22 Blista (in reference to dinka blista)"
 
 Output: `/home/user/media/work/out/gta6-customs_v14.mp4`, 28.7 s. Tag re-lettered on every screen (full recomposite);
 checked on the list, front lip, rear lip and wheel screens. Open: the car model still wears Honda badges.
+
+## v15 (2026-11-19) - after the user's review of v14
+User: "some of the 'purchased' sections comes out really poorly"; "the front bumper is also missing the stats bar"; "change
+the color swatch to 'recommended' and then display all the OEM colors"; "on the 'need anything else' scene the car in the
+background is going back and forth constantly".
+
+Output: `/home/user/media/work/out/gta6-customs_v15.mp4`, 29.0 s (794 menu frames + card).
+- Purchase shots: front lip, side skirts, rear lip and suspension cameras moved so the Civic covers the game's car (0-5 %
+  uncovered); the smeared/mirrored background beside the car at the moment of purchase is gone.
+- Front lip screen: stats panel and pop-up position like the other part screens.
+- Respray: Recommended tab, eleven OEM swatches, cursor runs through all with a colour preview on the car, Boost Blue bought.
+- Exit: one frozen frame. List beats: forward frames only.
+- Checked: all seven purchase moments, three colour-run frames, two exit frames (difference 0.4 = encoding only).
+- Weak / not sure: I read "poorly" as the backgrounds; if the user meant the pop-up itself (small, low contrast over the
+  bright doorway) that is unchanged. Part screens still loop a short stretch of capture back and forth (static views, the
+  game's driver is covered). Colour run is fast (0.1 s per colour). Side-skirt view is closer: front wheel is large.
