@@ -1,0 +1,21 @@
+project: ibf-scan-teardown
+format: reel-9x16
+builder: projects/ibf-scan-teardown/tools/build.py   # ffmpeg concat with exact frame counts (no ive assemble)
+output: {path: /home/user/media/ibf-scan-teardown/out/ibf-scan-teardown_v0.1.mp4, width: 1080, height: 1920, fps: 30}
+music:
+  track: '"Machine Protocol" - Wbsound (TikTok Commercial Music Library, song_clip_id 7671666742675539969, 149.8 s)'
+  path: /home/user/media/ibf-scan-teardown/music/machine.m4a   # not in git
+  start: 14.327        # 2 beats before the drop at 15.250
+  beat: 0.4615         # 130 BPM, grid fitted on onset strength 15-40 s
+  gain: 0.735          # -13.9 LUFS, TP -3.9 dBFS
+sources:  # Dropbox /Footage Library/Videos/CAD & Scan Screens/<yyyy-mm>/
+  s1_spin: {file: 2026-07/2026-07-21 09.42.03.mp4, car: Lamborghini Temerario scan (viewport turntable), in: 5.2, out: 11.0}
+  s2_teardown: {file: 2026-07/2026-07-13 07.40.52.mp4, car: Nissan Z (RZ34) scan + part-state scans exploding (Blender viewport), in: 0.6, out: 4.29}
+  s3_mounts: {file: 2025-07/2025-07-01 02.53.17.mp4, what: front bumper / mounting-bracket scan close-up (car not identified), in: 3.0, out: 8.54}
+  s4_design: {file: 2025-07/2025-07-17 23.04.26.mp4, what: teal CAD part being designed on that scan, in: 2.8, out: 8.34}
+cuts_frames: [0, 111, 166, 249, 332, 471]
+text:
+  - {t: 0.10-3.69, text: "5% OFF / EVERY SCAN", font: Akira}
+  - {t: 5.59-8.31, text: "BUMPER MOUNTS", font: Unbounded 600}
+  - {t: 8.36-11.08, text: "DESIGNED ON THE SCAN", font: Unbounded 600}
+  - {t: 11.11-15.70, text: "5% OFF / EVERY SCAN + logo + WWW.ILLUMAESTHETIC.COM + SALE ENDS NOV 30"}
