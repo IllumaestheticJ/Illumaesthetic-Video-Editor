@@ -1,3 +1,10 @@
+# v1.2b 60 fps (user: "box cutting going the wrong way"; "get rid of the weird frame cut at 0:03")
+- Cutter rotated 180 deg about Z: pulled handle-first along the tape, blade trailing (a real cut), still left->right.
+- s1 camera: push to f66, then cranes down to s23's first camera by f97 while the lid flies (lid now flies higher,
+  out of frame by ~f84, hidden at f93). Render join s1 f194 vs s23 f1: mean diff 0.0 - one continuous move; only the
+  title -> receipt text change remains on that beat. s1 fully re-rendered (camera path changed).
+- Checks: 60 fps 1612 frames; -13.4 LUFS / TP -1.8; text boxes OK; sheet looked at.
+
 # v1.2 60 fps (user feedback on v1.1: box cutter instead of the green sweep; plate placed wrong; remove the cut where
 # the trunk lip shows up)
 - s1: yellow/black utility knife (3.2x hero scale) comes in, slices the tape seam left->right (f38-66), lifts away;
