@@ -328,3 +328,9 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   sound from the same frames, and lay a tick wherever the edit skips one.
 - Things to tell the user: whose footage it is; which on-screen numbers are the game's; that the picture is
   small in 9:16 if the menu uses the full 16:9 width.
+- **Fitting parts (user on v1: the parts "need to actually be combined with a confirmation sound").** A parts
+  menu reel should buy the parts and keep them on, not preview them. Find a real purchase in the capture
+  (ask for one if the capture has none: the first GTA 6 capture never buys) and copy its timing: sound, then
+  the part and the "Applied" state, then the pop-up. Cut the pop-up out by differencing the frame before.
+  Build the list per state instead of patching it, so the cursor, markers and wallet can follow the story;
+  measure the highlight bar's transparency from the same row with and without it.

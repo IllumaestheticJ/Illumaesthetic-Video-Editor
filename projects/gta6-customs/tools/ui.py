@@ -161,10 +161,130 @@ def kits(img, clean):
     car_tag(img, 555)
 
 
-# menu2 / menu2b: row 2 highlighted with and without the yellow marker (it is gone when the capture returns to the menu)
-STATES = {"menu2": (100, lambda im, c: menu(im, 2)), "menu2b": (1200, lambda im, c: menu(im, 2)), "menu3": (1300, lambda im, c: menu(im, 3)),
-          "none": (340, lambda im, c: spoiler(im, False)), "wing": (900, lambda im, c: spoiler(im, True)),
-          "kit": (1700, lambda im, c: kits(im, c))}
+# ---- v2: parts are installed one after another (user, v1 review) -------------------------------------------
+# The list is built, not patched: clean list background from the capture, then rows, the highlight bar (its
+# transparency measured from the capture: the same row with and without the bar), the yellow marker on rows
+# whose part is fitted, the counter, and the wallet, which starts at the four parts' total and pays for each.
+PRICES = {"Front Lip": 285, "Side Skirts": 400, "Rear Lip": 285, "Sport Wing": 450}     # catalogue, base variants
+ROWS = ["Front Lip", "Side Skirts", "Rear Lip", "Sport Wing"]
+
+
+def money(n):
+    return f"${n:,}"
+
+
+def wallet(img, amount):
+    """Top-right wallet figure ("$99" in the capture): painted out, set again right-aligned to the same edge."""
+    x0, y0, x1, y1 = 2376, 36, 2468, 76
+    m = np.zeros(img.shape[:2], np.uint8); m[y0:y1, x0:x1] = 255
+    img[:] = cv2.inpaint(img, m, 5, cv2.INPAINT_TELEA)
+    text = money(amount); size = 34.0
+    f = ImageFont.truetype(OSW, int(size * 4)); wid = f.getlength(text) / 4
+    x = 2462 - wid; base = 70
+    for ox in range(-3, 4):
+        for oy in range(-3, 4):
+            if ox * ox + oy * oy <= 10 and (ox or oy):
+                draw(img, text, (x + ox, base + oy), OSW, size, (24, 26, 24))
+    draw(img, text, (x, base), OSW, size, (250, 250, 250))
+
+
+def diamond(img, cx, cy, r=11.5):
+    K = 4; n = int(r * 2 + 8) * K
+    lay = np.zeros((n, n, 4), np.float32); c = n / 2
+    pts = lambda rr: np.array([[c, c - rr * K], [c + rr * K, c], [c, c + rr * K], [c - rr * K, c]], np.int32)
+    cv2.fillConvexPoly(lay, pts(r), (30, 40, 44, 255)); cv2.fillConvexPoly(lay, pts(r - 2.6), (72, 190, 250, 255))
+    lay = cv2.resize(lay, (n // K, n // K), interpolation=cv2.INTER_AREA)
+    x0, y0 = int(round(cx - n / K / 2)), int(round(cy - n / K / 2)); a = lay[..., 3:] / 255
+    img[y0:y0 + n // K, x0:x0 + n // K] = (img[y0:y0 + n // K, x0:x0 + n // K] * (1 - a) + lay[..., :3] * a).astype(np.uint8)
+
+
+class Menu:
+    """Bodywork list rebuilt on the capture's menu frame."""
+
+    def __init__(self, frame):
+        a, b = frame(100), frame(1300)                    # row 2 highlighted / row 3 highlighted
+        self.bar_rect = bx0, by0, bx1, by1 = box(28, 217, 524, 288)
+        bg = a.copy(); bg[by0:by1, bx0:bx1] = b[by0:by1, bx0:bx1]          # row 2 without its bar
+        for k in range(1, 9):
+            yc = ROW0 + PITCH * (k - 1)
+            erase(bg, box(44, yc - 26, 480, yc + 26), thr=22)
+            if k > len(ROWS):
+                y = int(round((yc + PITCH / 2) * S)); line = np.zeros(bg.shape[:2], np.uint8); line[y - 3:y + 4, int(30 * S):int(600 * S)] = 255
+                bg[:] = cv2.inpaint(bg, line, 4, cv2.INPAINT_TELEA)
+        self.counter_bb, self.counter_col = erase(bg, box(30, 677, 150, 717), thr=18)
+        bar = a.copy()
+        erase(bar, box(44, ROW0 + PITCH - 24, 420, ROW0 + PITCH + 24), dark=True, thr=30)   # text and marker off the bar
+        d = bar[by0:by1, bx0:bx1].astype(np.float32); u = bg[by0:by1, bx0:bx1].astype(np.float32)
+        al = np.clip(((d - u) / np.maximum(250.0 - u, 8)).mean(2), 0, 1)
+        self.bar_alpha = cv2.GaussianBlur(al, (0, 0), 1.0)[..., None]
+        car_tag(bg, 920)
+        self.bg = bg
+
+    def render(self, sel, fitted, cash):
+        img = self.bg.copy(); bx0, by0, bx1, by1 = self.bar_rect
+        dy = int(round((sel - 2) * PITCH * S))
+        reg = img[by0 + dy:by1 + dy, bx0:bx1].astype(np.float32)
+        img[by0 + dy:by1 + dy, bx0:bx1] = (reg * (1 - self.bar_alpha) + 250 * self.bar_alpha).astype(np.uint8)
+        for k, name in enumerate(ROWS, 1):
+            yc = ROW0 + PITCH * (k - 1); mark = name in fitted
+            if mark:
+                diamond(img, 64 * S, yc * S + 1)
+            col = (34, 30, 30) if k == sel else (238, 238, 238)
+            draw(img, name, ((90 if mark else 49) * S, (yc + 11.5) * S), LEX, LEX_ROW, col)
+        y = (ROW0 + PITCH * len(ROWS) + 8 + 9.5) * S; x = self.counter_bb[0]
+        draw(img, f"{sel}", (x, y), LEX, 30, (235, 235, 235)); draw(img, "/", (x + 44, y), LEX, 30, self.counter_col * 0.75)
+        draw(img, f"{len(ROWS)}", (x + 80, y), LEX, 30, self.counter_col * 0.75)
+        wallet(img, cash)
+        return img
+
+
+def rear(frame, part, applied, cash):
+    """Rear-view option screen for one part, built on the capture's priced option ("Custom Wing"): its price, name,
+    1 / 1, and under the rule either nothing or the capture's own "Applied" line (from its "None" option)."""
+    img = frame(900).copy(); none = frame(340)
+    retitle(img, box(30, 68, 420, 110), part.upper(), OSW, None, OSW_SQ)
+    retitle(img, box(30, 902, 420, 940), part.upper(), OSW, None, OSW_SQ)
+    x0, y0, x1, y1 = box(122, 846, 240, 894)
+    g = cv2.cvtColor(img[y0:y1, x0:x1], cv2.COLOR_BGR2GRAY); br = g > np.median(g) + 40
+    ys, xs = np.nonzero(br); col = np.percentile(img[y0:y1, x0:x1][br].reshape(-1, 3), 70, 0)
+    m = np.zeros(img.shape[:2], np.uint8); m[y0:y1, x0:x1] = 255
+    img[:] = cv2.inpaint(img, m, 7, cv2.INPAINT_TELEA)
+    size = (ys.max() - ys.min() + 1) / CAP[OSW]; price = money(PRICES[part])
+    for ox, oy in ((-2, 0), (2, 0), (0, -2), (0, 2), (2, 2), (-2, -2), (2, -2), (-2, 2)):
+        draw(img, price, (x0 + xs.min() + ox, y0 + ys.max() + 1 + oy), OSW, size, (28, 28, 30))
+    draw(img, price, (x0 + xs.min(), y0 + ys.max() + 1), OSW, size, col)
+    retitle(img, box(76, 955, 105, 990), "1", LEX, None, thr=20)
+    retitle(img, box(128, 955, 165, 990), "1", LEX, None, thr=14)
+    sx0, sy0, sx1, sy1 = box(10, 1014, 340, 1060)
+    if applied:
+        img[sy0:sy1, sx0:sx1] = none[sy0:sy1, sx0:sx1]
+    else:
+        m = np.zeros(img.shape[:2], np.uint8); m[sy0 + 4:sy1 - 2, sx0 + 6:sx1] = 255
+        img[:] = cv2.inpaint(img, m, 6, cv2.INPAINT_TELEA)
+    # stats panel as the capture shows it for the plain car (no gains from the game's own wing), our car's name
+    px0, py0, px1, py1 = box(1466, 520, 1894, 996)
+    img[py0:py1, px0:px1] = none[py0:py1, px0:px1]
+    car_tag(img, 555)
+    wallet(img, cash)
+    return img
+
+
+def build(frame):
+    """All menu states of the v2 reel, by name."""
+    M = Menu(frame); total = sum(PRICES.values()); p = PRICES
+    st = {
+        "m0": M.render(1, [], total),
+        "m1": M.render(1, ["Front Lip"], total - p["Front Lip"]),
+        "m2": M.render(2, ["Front Lip"], total - p["Front Lip"]),
+        "m3": M.render(2, ["Front Lip", "Side Skirts"], total - p["Front Lip"] - p["Side Skirts"]),
+        "m4": M.render(3, ["Front Lip", "Side Skirts"], total - p["Front Lip"] - p["Side Skirts"]),
+        "mF": M.render(4, ROWS, 0),
+        "a1": rear(frame, "Rear Lip", False, p["Rear Lip"] + p["Sport Wing"]),
+        "a2": rear(frame, "Rear Lip", True, p["Sport Wing"]),
+        "a3": rear(frame, "Sport Wing", False, p["Sport Wing"]),
+        "a4": rear(frame, "Sport Wing", True, 0),
+    }
+    return st
 
 
 def main():
@@ -173,14 +293,13 @@ def main():
     def frame(f):
         cap.set(cv2.CAP_PROP_POS_FRAMES, f); return cap.read()[1]
 
-    clean = frame(100)
-    tiles = []
-    for name, (f, fn) in STATES.items():
-        src = frame(f); im = src.copy(); fn(im, clean)
-        cv2.imwrite(str(W / "ui" / f"{name}.png"), im); cv2.imwrite(str(W / "ui" / f"{name}_src.png"), src)
-        tiles.append(np.vstack([cv2.resize(src, (1280, 720)), cv2.resize(im, (1280, 720))]))
-    for i in range(0, len(tiles), 2):
-        cv2.imwrite(str(W / "ui" / f"sheet{i // 2}.jpg"), np.hstack(tiles[i:i + 2]), [cv2.IMWRITE_JPEG_QUALITY, 88])
+    st = build(frame)
+    for k, im in st.items():
+        cv2.imwrite(str(W / "ui" / f"{k}.png"), im)
+    t = [cv2.resize(st[k], (1280, 720)) for k in ("m0", "m3", "mF", "a1", "a2", "a4")]
+    cv2.imwrite(str(W / "ui" / "sheet_v2.jpg"), np.vstack([np.hstack(t[:3]), np.hstack(t[3:])]), [cv2.IMWRITE_JPEG_QUALITY, 88])
+    z = np.hstack([st["m3"][150:760, 0:860], st["a2"][1100:1430, 0:860].repeat(1, 0)[:610] if False else cv2.copyMakeBorder(st["a2"][1100:1430, 0:860], 0, 280, 0, 0, cv2.BORDER_CONSTANT)])
+    cv2.imwrite(str(W / "ui" / "detail_v2.jpg"), np.hstack([z, cv2.copyMakeBorder(st["m3"][10:110, 2200:2560], 0, 510, 0, 0, cv2.BORDER_CONSTANT)]), [cv2.IMWRITE_JPEG_QUALITY, 90])
 
 
 if __name__ == "__main__":

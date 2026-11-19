@@ -24,3 +24,19 @@ Weak, known:
 - Whip frames: faint streaks of the game car remain under the blur.
 - No Front Lip / Side Skirts / Rear Lip screens: the capture has no camera move for them.
 - Parts are black on every state; no colour-matched option shown.
+
+## v2 (2026-11-19) - after the user's review of v1
+User: "side skirt, front bumper, rear lip, and rear wing need to actually be combined with a confirmation sound
+effect", then a second capture: "include the audio and sounds".
+
+Output: `/home/user/media/work/out/gta6-customs_v2.mp4`, 14.6 s.
+- Stock car, then four purchases that stay on: Front Lip and Side Skirts on the list screen, select Rear Lip,
+  whip to the rear view, Rear Lip and Sport Wing there, whip back with all four rows marked and the kit on.
+- Each purchase is the second capture's own: its sound (1.65 s), part and "Applied" 0.1 s in, "Purchased" pop-up
+  0.3 s in. Wallet pays the catalogue prices: $1,420 > $1,135 > $735 > $450 > $0. "Not enough cash" is gone.
+- The list is now built per state (highlight bar measured from the capture, yellow marker on fitted rows).
+- Checked: 18 frames across every install and both whips; all ten menu states on their own; the highlight bar
+  against the game's at 1.6x; sound level per frame at each event (purchase 10 dB over room tone, on its frame).
+- Not checked by ear. Still open from v1: render look, small picture in 9:16, no driver. New: the list fits two
+  parts directly, which the game does on a part's own screen; the part is called Front Lip (catalogue), the
+  user said front bumper; room tone sits at -33 dB after the gain, on the loud side.

@@ -18,3 +18,13 @@ Frames (60 fps index):
 Sound: room tone at -41 dB and one-frame menu ticks (high band -39 dB against -60) on every action; no music or
 speech in the menu part. Engine and street sound from 68 s.
 Cameras: f = 1757 px on 2560 in every view. Horizon row 394 (menu, kits), 75 (rear view).
+
+## Second capture (user, 2026-11-19: "include the audio and sounds")
+Dropbox same folder, `YTSave.to_YouTube_Media_VCyedol41Do_GTA-6-Vehicle-Customization-Looks-Amazing_001_1440p.mp4`
+(id:ihAynaYnO_4AAAAAAAEJxg), 376 MB. Local `/home/user/media/gta6-customs/capture/gta6_customization_B_1440p.mp4`,
+2560x1440, 60 fps, 391 s; audio `/home/user/media/work/gta6-customs/b.wav`. Same shop, same menu camera, overcast.
+- 0-6 s title and the car standing in the shop, "Repair for free?" prompt; 8-55 s performance, kits, suspension (loud).
+- 55-210 s menus (room tone and ticks). ~0.2 s bright sounds at 174.7, 237.2, 331.2, 347.8 s are select-into-submenu.
+- **213.6 s (frame 12817): the only purchase** (free kit). Sound 213.84-215.3 s; lower-left block turns to "Applied"
+  at frames 12824-12830; "Purchased" pop-up from frame 12836 to 12980, at x 2288-2515, y 549-592.
+- 216-227 s respray previews with spray sounds; 228 s on, menus again.
