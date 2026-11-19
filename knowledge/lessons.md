@@ -1430,5 +1430,5 @@ lands here automatically. Agents must read this whole file before editing.
 
 - **[workflow] GPU offload to the owner's PC (2026-11-18):** the owner's PC has an RTX 3060 Ti. Cloud chats can't reach it, so long renders go through the "Claude Videos" drive:
   - **Cloud chat:** packs a self-contained folder (`.blend` files with relative or packed paths, assets, and a `job.json` listing blend/scene/frames/res/samples/fps/output), then runs `vdrive.py save <project> gpujob <folder>`.
-  - **Local worker session on the PC:** renders it with Cycles OptiX, then saves `gpuframes_<shot>` back to the drive.
+  - **Local worker session on the PC:** renders it with the engine saved in the .blend (Cycles uses OptiX), then saves `gpuframes_<shot>` back to the drive. Name the frames `fNNNN.png` (`-o <out>/f####`), which is what the assemblers expect.
   - **Cloud chat:** polls with `vdrive.py list <project>`, assembles and delivers. It keeps its own CPU render running until the GPU frames arrive.
