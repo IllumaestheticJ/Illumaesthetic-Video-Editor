@@ -430,10 +430,10 @@ def aisle():
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
     # v0.8 (user: "make the black friday text and logo bigger"): two lines so each word can be ~2x the size
     # and still fit the 4.8 m aisle (racks at x +-2.4)
-    SIGN_Z = float(os.environ.get("SIGN_Z", "4.75")); SIGN_S = float(os.environ.get("SIGN_S", "0.80"))
+    SIGN_Z = float(os.environ.get("SIGN_Z", "4.90")); SIGN_S = float(os.environ.get("SIGN_S", "0.80"))
     bpy.ops.object.text_add(location=(0, 9.5, SIGN_Z), rotation=(math.pi / 2, 0, 0))
     t = bpy.context.object; t.data.body = "BLACK\nFRIDAY"; t.data.align_x = "CENTER"; t.data.align_y = "CENTER"
-    t.data.size = SIGN_S; t.data.space_line = 1.12
+    t.data.size = SIGN_S; t.data.space_line = float(os.environ.get("SIGN_LINE", "1.40")); t.data.space_character = float(os.environ.get("SIGN_CHAR", "1.12"))   # v1.0 (user): lettering too close
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
@@ -457,11 +457,11 @@ def aisle():
     es = pb.inputs["Emission Strength"]
     for f, v in ((1, 0.0), (19, 0.0), (20, 3.0)):    # v0.9b: wordmark on with the 1st lamp bank (0.67 s) -> 2.5 s readable
         es.default_value = v; es.keyframe_insert("default_value", frame=f)
-    LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.45"))
+    LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.20"))
     bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, LOGO_Z), rotation=(math.pi / 2, 0, 0))
     lo = bpy.context.object; lo.scale = (LOGO_W, LOGO_W * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
     # black backing board so the lamps beyond don't show through the letters (v0.8)
-    box("signboard", (0, 9.62, (LOGO_Z + SIGN_Z) / 2 + 0.25), (LOGO_W + 0.3, 0.04, SIGN_Z - LOGO_Z + 1.9), mat("board", (0.01, 0.01, 0.012), 0.6, 0.0))
+    box("signboard", (0, 9.62, (LOGO_Z + SIGN_Z) / 2 + 0.25), (LOGO_W + 0.45, 0.04, SIGN_Z - LOGO_Z + 1.9), mat("board", (0.01, 0.01, 0.012), 0.6, 0.0))
     light("fill", "AREA", Vector((0, -2, 3)), 150, 3, Vector((0, 2.3, 1)))
     return cam
 
