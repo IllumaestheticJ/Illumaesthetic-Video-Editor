@@ -316,11 +316,32 @@ def s15():
     wheelhands(c["wheel"], ("L",))
     shake(cam, 8, 85, 0.5, step=3, seed=15)
 
+def pov_arms(veh_name="veh"):
+    """Every POV hand inside the car aims its forearm (hand local -Y) at the driver's matching shoulder, every frame,
+    whatever it holds (wheel, shifter, stalk, phone, harness). Keeps arms coming out of the person, not the dash."""
+    veh = bpy.data.objects.get(veh_name)
+    if veh is None: return
+    sh = {}
+    for side, x in (("R", EYE[0] - 0.2), ("L", EYE[0] + 0.2)):
+        e = bpy.data.objects.new("shoulder_" + side, None); bpy.context.scene.collection.objects.link(e); e.parent = veh; e.location = (x, EYE[1] + 0.13, EYE[2] - 0.19); sh[side] = e
+    for o in bpy.data.objects:
+        if o.type != "EMPTY" or not any(c.name == o.name + "_palm" for c in o.children): continue
+        q = o.parent; inside = False
+        while q:
+            if q is veh: inside = True
+            q = q.parent
+        if not inside: continue
+        side = "L" if o.name.startswith("hL") or o.name.endswith("L") else "R"
+        c = o.constraints.new("DAMPED_TRACK"); c.target = sh[side]; c.track_axis = "TRACK_NEGATIVE_Y"
+
+POV_CABIN = (6, 7, 9, 11, 14, 15)
+
 SHOTS = {5: s5, 6: s6, 7: s7, 8: s8, 9: s9, 10: s10, 11: s11, 12: s12, 13: s13, 14: s14, 15: s15}
 
 if __name__ == "__main__":
     a = sys.argv[sys.argv.index("--") + 1:]; n = int(a[0]); out = a[1]; mode = a[2] if len(a) > 2 else "anim"; res = int(a[3]) if len(a) > 3 else 540; smp = int(a[4]) if len(a) > 4 else 10
     bpy.ops.wm.read_factory_settings(use_empty=True); SHOTS[n]()
+    if n in POV_CABIN: pov_arms()
     sc = bpy.context.scene; sc.render.engine = "CYCLES"; sc.cycles.device = "CPU"; sc.cycles.samples = smp; sc.cycles.use_denoising = True; sc.cycles.max_bounces = 3
     sc.render.resolution_x = sc.render.resolution_y = res; sc.view_settings.view_transform = "Standard"; sc.render.fps = 30; sc.frame_start = 1; sc.frame_end = NF[n]
     sc.render.image_settings.file_format = "PNG"

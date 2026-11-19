@@ -1387,3 +1387,5 @@ lands here automatically. Agents must read this whole file before editing.
 - **[technical]** A floating BMW logo and the character's head going through the roof must not make the final video  _(from ditl-wrx-vb, 2026-11-17, reviewer)_
 
 - **[technical]** Make sure arms don't go into each other or into the person  _(from ditl-time-attack-larper, 2026-11-19, owner)_
+
+- **[technical]** At 0:30 the arm and hand are coming from the dashboard rather than out of the person/POV  _(from ditl-time-attack-larper @ 30s, 2026-11-19, owner)_

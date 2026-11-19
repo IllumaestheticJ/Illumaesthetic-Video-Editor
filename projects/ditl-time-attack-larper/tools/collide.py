@@ -8,6 +8,7 @@ a = sys.argv[sys.argv.index("--") + 1:]; n = int(a[0]); step = int(a[1]) if len(
 import tl_shots as T, tl_shots_b as B
 bpy.ops.wm.read_factory_settings(use_empty=True)
 (T.SHOTS.get(n) or B.SHOTS[n])()
+if n in B.POV_CABIN: B.pov_arms()
 NF = B.NF[n]
 roots = [o for o in bpy.data.objects if o.type == "EMPTY" and any(c.name == o.name + "_palm" for c in o.children)]
 persons = [o for o in bpy.data.objects if o.type == "EMPTY" and any(c.name == o.name + "_torso" for c in o.children)]
