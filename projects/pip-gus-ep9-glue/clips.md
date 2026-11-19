@@ -3,7 +3,9 @@
 | Clip | Where | What | Use |
 |---|---|---|---|
 | DJI_0655_002.MP4 | Dropbox `/3. Epsilon Motorsports/1. Video Dumps/Timelapse/350z bumper/` | Top-down, portrait (rotation -90), 1920x1080 at 23.976 fps, bt709 SDR, 930.7 s real time. A person joins the printed white 350Z bumper pieces at a grey table. Clean: no text. | **Part B timelapse.** Preview: whole clip at 207x, 4.5 s. |
-| DJI_0655_003.MP4 | same folder | Unreadable: no moov atom (an interrupted recording). It probably holds the end of the session, where the bumper arc is fully joined. | Can't be used unless the owner has a good copy. |
+| DJI_0655_003.MP4 | same folder | No moov atom (interrupted recording). **Recovered** with `tools/recover_nomoov_h264.py` (H.264 NAL walk, AAC chunks skipped, SPS/PPS from 002): 4312 frames, about 180 s. Ends with the joined arc section and a second person bringing the hot stapler. | **Part B timelapse tail (v4).** |
 | Owner upload (00c1c044-…mp4) | chat upload | A finished 12.4 s reel, 720x1280. Burned-in "YOU CANT JUST 3D PRINT A BUMPER!" over the shop and glueing shots, then clean 350Z shots (4.7-9.3 s), then the logo. | Reference only. Its text-over-real-footage shots break the house rule. |
 | DSCF*.MOV / _DSF*.JPG | Dropbox `/1. Epsilon Plus Videos/1. Video dumps/350Z Bumper/` | Fuji clips and photos of the silver 350Z outdoors, with the white printed front bumper fitted. | Optional 1-1.5 s real "bumper on the car" payoff after the timelapse. |
 | YDTL0156, YN020159, YDXJ0151-0161 | Timelapse folder | A 9-frame test, a static shop shot, and a convertible and window-panel job. | Not used. |
+| YN010158 / YN010159.MP4 | Timelapse folder | Window-panel job (checked v4). | Not used. |
+| _DSF6614-6660.JPG | 350Z Bumper folder | Fuji stills. 6614-6632 front 3/4 outdoors, 6642-6654 side, **6656 dead-on front** (6658/6660 farther back). | **6656 = finished-car shot (v4)**, with a slow push-in. |
