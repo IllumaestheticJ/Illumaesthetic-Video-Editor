@@ -125,27 +125,53 @@ def audio(extra_s):
     return out, n / sr
 
 
-def closing():
-    """Closing shot, 1080x1920: the orbit render (camera moves, car stands still) with the EPSILON+ wordmark fading in;
-    without an orbit render, the plain wordmark card."""
+# GTA VI logo gradient, top to bottom: medians of the "VI" in the logo shown in the second capture (frame 110), ten bands
+VI_GRADIENT = ["#445cc3", "#6f4ac2", "#a241c0", "#dc40be", "#f74fa4", "#fd6693", "#fe747e", "#fe8062", "#fd8e4e", "#fe984a"]
+VI_OUTLINE = "#5a1f96"                                         # the logo's purple edge
+
+
+def gta_logo(width=900):
+    """EPSILON+ wordmark in the GTA VI colours (user, v12 review): the wordmark's own shape, filled with the VI's vertical
+    gradient, with the VI's purple edge and a soft glow. BGRA, float."""
+    hexbgr = lambda h: np.array([int(h[5:7], 16), int(h[3:5], 16), int(h[1:3], 16)], np.float32)
     logo = cv2.imread(str(LOGO), cv2.IMREAD_UNCHANGED).astype(np.float32)
-    wl = 760; hl = round(logo.shape[0] * wl / logo.shape[1]); logo = cv2.resize(logo, (wl, hl), interpolation=cv2.INTER_AREA)
-    import os                                         # ORBIT=1 to use the orbit render; off by default (user, v5 review:
-    frames = sorted(ORBIT.glob("*.png")) if (ORBIT.exists() and os.environ.get("ORBIT") == "1") else []   # a studio orbit on black is not wanted)
+    hl = round(logo.shape[0] * width / logo.shape[1]); al = cv2.resize(logo[..., 3], (width, hl), interpolation=cv2.INTER_AREA) / 255
+    pad = 60; A = cv2.copyMakeBorder(al, pad, pad, pad, pad, cv2.BORDER_CONSTANT, value=0)
+    H_, W_ = A.shape
+    ys = np.nonzero(A.max(1) > 0.5)[0]; t = np.clip((np.arange(H_) - ys.min()) / max(1, ys.max() - ys.min()), 0, 1)
+    stops = np.stack([hexbgr(h) for h in VI_GRADIENT]); pos = np.linspace(0, 1, len(stops))
+    grad = np.stack([np.interp(t, pos, stops[:, c]) for c in range(3)], 1)[:, None, :].repeat(W_, 1)
+    edge = cv2.GaussianBlur(cv2.dilate(A, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (13, 13))), (0, 0), 1.0)
+    glow = cv2.GaussianBlur(A, (0, 0), 22) * 0.55
+    rgb = np.zeros((H_, W_, 3), np.float32); a = np.zeros((H_, W_), np.float32)
+    for col, m in ((hexbgr("#dc40be"), glow), (hexbgr(VI_OUTLINE), edge), (None, A)):
+        c = grad if col is None else col
+        rgb = rgb * (1 - m[..., None]) + c * m[..., None]; a = np.maximum(a, m)
+    return np.dstack([rgb, a * 255])
+
+
+def closing():
+    """Closing card, 1080x1920: black, the EPSILON+ wordmark in the GTA VI colours, up from black. (With ORBIT=1 and an orbit
+    render present, the wordmark sits over the orbit instead; not used since v6.)"""
+    import os
+    lg = gta_logo(); hl, wl = lg.shape[:2]
+    frames = sorted(ORBIT.glob("*.png")) if (ORBIT.exists() and os.environ.get("ORBIT") == "1") else []
     out = W / "closing.mp4"
     n = len(frames) if frames else 75
     ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", "1080x1920", "-r", "30", "-i", "-",
                            "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-pix_fmt", "yuv420p", str(out)], stdin=subprocess.PIPE)
-    y0, x0 = 330, (1080 - wl) // 2
+    x0 = (1080 - wl) // 2
     for i in range(n):
         if frames:
             im = cv2.resize(cv2.imread(str(frames[i])), (1080, 1920), interpolation=cv2.INTER_CUBIC).astype(np.float32)
-            op = float(np.clip((i - n * 0.35) / 20.0, 0, 1))
+            op = float(np.clip((i - n * 0.35) / 20.0, 0, 1)); y0 = 330
         else:
-            im = np.zeros((1920, 1080, 3), np.float32); op = 1.0; y0 = 920 - hl // 2
-        im *= float(np.clip(i / 6.0, 0, 1))                       # up from black
-        a = logo[..., 3:] / 255 * op
-        im[y0:y0 + hl, x0:x0 + wl] = im[y0:y0 + hl, x0:x0 + wl] * (1 - a) + logo[..., :3] * a
+            im = np.zeros((1920, 1080, 3), np.float32); op = 1.0; y0 = 930 - hl // 2
+        im *= float(np.clip(i / 6.0, 0, 1))
+        a = lg[..., 3:] / 255 * op * float(np.clip(i / 7.0, 0, 1))
+        im[y0:y0 + hl, x0:x0 + wl] = im[y0:y0 + hl, x0:x0 + wl] * (1 - a) + lg[..., :3] * a
+        if i == n - 1:
+            cv2.imwrite(str(W / "end_card.png"), np.clip(im, 0, 255).astype(np.uint8))
         ff.stdin.write(np.clip(im, 0, 255).astype(np.uint8).tobytes())
     ff.stdin.close(); ff.wait()
     return out, n / 30.0

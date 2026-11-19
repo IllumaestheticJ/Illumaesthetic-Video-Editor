@@ -388,3 +388,6 @@ The NFS method (one static camera, turntable, wheel fit) does not carry over as 
   from one option screen to the next: back, camera to the list with the bought row marked, cursor move, select, camera to
   the next screen. Plan the timeline this way from the first cut and budget the extra whips; keep total length inside any
   music bed that cannot be looped. During a whip hold only the lettering sharp, never a rectangle that reaches into the car.
+- **End card in the game's colours (GTA 6 v13).** Keep the client's wordmark shape; take the palette from the game's logo as
+  it appears in the footage (band medians top to bottom), fill the wordmark with that gradient and add the logo's edge
+  colour (`gta_logo` in assemble4.py). Borrow colours only, never the game's logo artwork.

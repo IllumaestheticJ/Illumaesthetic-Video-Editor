@@ -165,3 +165,9 @@ Output: `/home/user/media/work/out/gta6-customs_v12.mp4`, 28.7 s (786 menu frame
 - Checked: 20 frames across the four part loops; bottom-right corners of five views at full size; a whip frame.
 - Weak: the patched corner is faintly lighter than the floor around it at full size; part screens are now 2.0 s each, tight
   for reading the price; fourteen camera whips in 26 s is busy.
+
+## v13 (2026-11-19) - after the user's review of v12
+User: "Finish off with the epsilon logo at the end redone in gta6 colors"
+
+Output: `/home/user/media/work/out/gta6-customs_v13.mp4`, 28.7 s. End card only; picture and sound before it unchanged.
+Card: `/home/user/media/work/gta6-customs/end_card.png`. Colours sampled from the game's logo in the capture (edit log).
