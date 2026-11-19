@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.1.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.2.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -94,7 +94,7 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
 # v2.0 (owner text minimums: prices readable >= 2.2 s; 1.8 s + 0.3 s/word otherwise): label START times in SECONDS,
 # fade-in 10 frames, every label holds to the end of its shot. Parts land by 1.2 s / 2.6 s (make_specs.py A1/A2).
 LABELS = {"s02": [("mr2_skirts", 0.15, 0), ("mr2_bumper", 2.2, 1)], "s03": [("mr2_eyelids", 0.15, 0)], "s04": [("mr2_hood", 0.15, 0)],
-          "s05": [("mr2_spats", 0.15, 0), ("mr2_duck", 1.7, 1)], "s07": [("nc_bumper", 0.3, 0), ("nc_canards", 1.7, 1)],
+          "s05": [("mr2_spats", 0.15, 1), ("mr2_duck", 1.7, 0)], "s07": [("nc_bumper", 0.3, 0), ("nc_canards", 1.7, 1)],
           "s08": [("nc_fender", 0.15, 0)], "s09": [("nc_skirts", 0.15, 0), ("nc_spats", 2.2, 1)],
           "s05b": [("mr2_diffuser", 0.15, 0), ("mr2_wing", 1.7, 1)], "s09b": [("nc_wing", 0.15, 0)]}
 FADE = 10          # frames (0.33 s)
@@ -187,7 +187,7 @@ def main():
                 fr = shot_frame(s, i).convert("RGBA"); t = i / n
                 for key, t0, slot in LABELS.get(s, []):
                     f0 = round(t0 * 30)
-                    if i >= f0: price_label(fr, key, (i - f0) / (5 * FADE), plate=s in ("s03", "s04", "s05", "s07", "s08", "s09"), slot=slot)
+                    if i >= f0: price_label(fr, key, (i - f0) / (5 * FADE), plate=True, slot=slot)
                 if s == "s01":   # v1.9: the title lives in s01 only (5.4 s) and fades out over its last 5 frames
                     title(fr, i, fade_out=True, n2=n, i2=i)
                 if s == "s10":   # both kitted scans (owner: no characters, typical branding)
