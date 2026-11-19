@@ -278,6 +278,53 @@ def pages():
             ln = [s[:(len(s) + 1) // 2], s[(len(s) + 1) // 2:]] if len(s) > 3 else [s]
             out.append(dict(t0=round(t0, 3), t1=round(t1, 3), color=CAPC[L["speaker"]], y=1330, cx=540, lines=ln))
     place(out)
+    return out + pages_b()
+
+
+NEXT_SEG = {"B1": "B2", "B2": "B3", "B3": "B4", "B4": "card"}
+CLIPS = {}                        # filled by main() from clips()
+CAPTION_B = ("B1", "B2", "B3")   # app screen captures: captioned. B4 is the owner's real footage: never text over it.
+
+
+def pages_b():
+    """Part B voice-over captions (owner v3 note: 'the seamforged scenes still need captions'). Word times come from the
+    whisper pass on the Part B take, shifted to where the build places each line; one caption height per clip, where its
+    frames are quietest."""
+    words = json.loads((PROJ / "ep6_partB_words.json").read_text())
+    out = []
+    for k, B in sorted(TL["vo_b"].items(), key=lambda kv: int(kv[0])):
+        if B["shot"] not in CAPTION_B:
+            continue
+        s0, s1 = B["src_span"]
+        at = (CUTS[B["shot"]] + VO_LEAD) / FPS
+        ws = [w for w in words if s0 - 0.15 <= w["t0"] < s1]
+        script = B["text"].split()          # the approved wording and punctuation; whisper only supplies the timing
+        if len(script) == len(ws):
+            toks = [dict(w=t, t0=round(at + max(0.0, w["t0"] - s0), 3)) for t, w in zip(script, ws)]
+        else:
+            toks = [dict(w=B["text"], t0=round(at, 3))]
+        if not toks:
+            toks = [dict(w=B["text"], t0=round(at, 3))]
+        end = min(at + B["dur"] + 0.3, CUTS[NEXT_SEG[B["shot"]]] / FPS - 0.03)
+        ln = [toks[:(len(toks) + 1) // 2], toks[(len(toks) + 1) // 2:]] if len(toks) > 3 else [toks]
+        out.append(dict(t0=toks[0]["t0"], t1=round(end, 3), color=CAPC[B["speaker"]], y=1500, cx=540, lines=ln, shot=B["shot"]))
+    for p in out:
+        clip = CLIPS[p.pop("shot")]
+        best = None
+        fr0 = int(round(p["t0"] * FPS))
+        ims = []
+        for i, im in enumerate(frames_of(clip, W, H)):
+            if i % 4 == 0:
+                g = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
+                e = cv2.Canny(cv2.GaussianBlur(g, (5, 5), 0), 40, 110)
+                ims.append(cv2.dilate(e, np.ones((9, 9), np.uint8)).astype(np.float32) / 255.0)
+        for y in range(Y_RANGE[0], 1700 + 1, 20):
+            x0, y0, x1, y1 = box_of(p, y)
+            sc = sum(float(m[y0:y1, max(0, x0):min(W, x1)].mean()) for m in ims) / len(ims) + 0.00002 * abs(y - 1500)
+            if best is None or sc < best[0]:
+                best = (sc, y)
+        p["y"] = best[1]
+        print(f"[captions] Part B @ {p['t0']:.2f}s: y {best[1]} (dark {best[0]:.4f})", flush=True)
     return out
 
 
@@ -377,9 +424,9 @@ def picture(cl, cart, gmov):
     win_mask[:] = (xx >= x0) & (xx < x1) & (yy >= y0) & (yy < y1) & ((xx - cx) ** 2 + (yy - cy) ** 2 <= rr ** 2)
     c = CUTS
     segs = [("cartoon", frames_of(cart, W, H), A_N, None),
-            ("B1", b1, c["B2"] - c["B1"], "all"),
-            ("B2", frames_of(cl["B2"], W, H), c["B3"] - c["B2"], "all"),
-            ("B3", frames_of(cl["B3"], W, H), c["B4"] - c["B3"], "all"),
+            ("B1", b1, c["B2"] - c["B1"], None),   # app capture: captions allowed
+            ("B2", frames_of(cl["B2"], W, H), c["B3"] - c["B2"], None),   # app capture: captions allowed
+            ("B3", frames_of(cl["B3"], W, H), c["B4"] - c["B3"], None),   # app capture: captions allowed
             ("B4", frames_of(cl["B4"], W, H), c["card"] - c["B4"], "all"),
             ("card", card(), c["logo"] - c["card"], "win"),
             ("logo", (np.zeros((H, W, 3), np.uint8) for _ in range(c["end"] - c["logo"])), c["end"] - c["logo"], None)]
@@ -516,6 +563,7 @@ def main():
     ap.add_argument("--clips-only", action="store_true")
     a = ap.parse_args()
     cl = clips()
+    CLIPS.update(cl)
     print("clips", {k: str(v) for k, v in cl.items()}, CUTS, flush=True)
     if a.clips_only:
         return
