@@ -184,12 +184,12 @@ const Item: React.FC<{ it: ReelItem; f: number; fps: number }> = ({ it, f, fps }
             <div style={{ position: "absolute", left: w.x, top: w.y, width: w.w, height: w.h, borderRadius: w.r, boxSizing: "border-box",
               border: `${w.border}px solid ${K.accent}`, boxShadow: `0 0 0 3000px ${K.bg}` }} />
           ) : null}
-          <div style={{ position: "absolute", left: 0, width: 1040, top: 0, height: w.y - 36, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end" }}>
+          <div style={{ position: "absolute", left: 0, width: 1080, top: 0, height: w.y - 36, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-end" }}>
             {it.lines.map((l, i) => (
               <div key={i} style={{ opacity: lA(l.at), transform: `translateY(${(1 - lA(l.at)) * 14}px)`, fontFamily: SANS, fontWeight: 700, fontSize: 104, letterSpacing: 5, lineHeight: 1.08, color: K.ink, whiteSpace: "nowrap", textAlign: "center" }}>{l.text}</div>
             ))}
           </div>
-          <div style={{ position: "absolute", left: 0, width: 1040, top: w.y + w.h + 40, display: "flex", flexDirection: "column", alignItems: "center", opacity: lA(it.sub.at), transform: `translateY(${(1 - lA(it.sub.at)) * 14}px)` }}>
+          <div style={{ position: "absolute", left: 0, width: 1080, top: w.y + w.h + 40, display: "flex", flexDirection: "column", alignItems: "center", opacity: lA(it.sub.at), transform: `translateY(${(1 - lA(it.sub.at)) * 14}px)` }}>
             {it.sub.lines.map((l, i) => (
               <div key={i} style={{ fontFamily: SANS, fontWeight: 800, fontSize: 78, letterSpacing: 3, lineHeight: 1.1, color: i === 0 ? K.accent : K.ink, whiteSpace: "nowrap", textAlign: "center" }}>{l}</div>
             ))}
