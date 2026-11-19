@@ -171,3 +171,9 @@ User: "Finish off with the epsilon logo at the end redone in gta6 colors"
 
 Output: `/home/user/media/work/out/gta6-customs_v13.mp4`, 28.7 s. End card only; picture and sound before it unchanged.
 Card: `/home/user/media/work/gta6-customs/end_card.png`. Colours sampled from the game's logo in the capture (edit log).
+
+## v14 (2026-11-19) - after the user's review of v13
+User: "can you change '22 civic to '22 Blista (in reference to dinka blista)"
+
+Output: `/home/user/media/work/out/gta6-customs_v14.mp4`, 28.7 s. Tag re-lettered on every screen (full recomposite);
+checked on the list, front lip, rear lip and wheel screens. Open: the car model still wears Honda badges.

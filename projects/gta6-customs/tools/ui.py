@@ -88,9 +88,9 @@ LEX_ROW = 34.5; OSW_SQ = 0.94
 
 
 def car_tag(img, y_top):
-    """VAPID / JASON'S '70 GANADO  ->  HONDA / JASON'S '22 CIVIC; the maker's badge is painted out."""
-    retitle(img, box(1478, y_top + 10, 1700, y_top + 34), "HONDA", OSW, None, OSW_SQ, thr=22)
-    retitle(img, box(1478, y_top + 36, 1740, y_top + 66), "JASON'S '22 CIVIC", OSW, None, OSW_SQ, thr=30)
+    """VAPID / JASON'S '70 GANADO  ->  DINKA / JASON'S '22 BLISTA (v14, user: GTA's own name for the Civic); the maker's badge is painted out."""
+    retitle(img, box(1478, y_top + 10, 1700, y_top + 34), "DINKA", OSW, None, OSW_SQ, thr=22)
+    retitle(img, box(1478, y_top + 36, 1740, y_top + 66), "JASON'S '22 BLISTA", OSW, None, OSW_SQ, thr=30)
     erase(img, box(1735, y_top + 2, 1886, y_top + 70), thr=9, grow=9)
 
 
