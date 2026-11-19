@@ -1,7 +1,8 @@
 # quick workbench views of a .blend's meshes: top, side, rear-3/4
 import bpy, sys, math, mathutils
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 argv=sys.argv[sys.argv.index('--')+1:]; out=argv[0]
-sc=bpy.context.scene; sc.render.engine='CYCLES'; sc.cycles.samples=4; sc.cycles.use_denoising=False; sc.cycles.device='CPU'; sc.render.resolution_x=800; sc.render.resolution_y=500
+sc=bpy.context.scene; sc.render.engine='CYCLES'; sc.cycles.samples=4; sc.cycles.use_denoising=False; ive_gpu.use(sc); sc.render.resolution_x=800; sc.render.resolution_y=500
 w=bpy.data.worlds.new('w'); w.color=(0.6,0.6,0.6); sc.world=w
 cam=bpy.data.cameras.new('c'); co=bpy.data.objects.new('c',cam); sc.collection.objects.link(co); sc.camera=co
 cam.type='ORTHO'; cam.ortho_scale=6

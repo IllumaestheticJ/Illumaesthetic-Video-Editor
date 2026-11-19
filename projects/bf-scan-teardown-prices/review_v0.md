@@ -127,3 +127,29 @@ No characters: the owner's no-Del-&-Eps instruction came before delivery, so v0 
 - Ron's end shot is in a procedural plain garage (`tools/garage_v0.py`, `GARAGE=1`): grey walls, a dark lower band, dark low-spec concrete floor (the camera at 0.38 m makes a glossy floor a mirror), LED tube rows. Full res, 128 spp. The matte is now car-only.
 - The scan shots are still silver on black (the full-res queue was already running). Waiting on the user whether the garage should go in the scan shots too.
 - Final assembly: `VER=v1 RFPS=30 T1DIR=r/T1full T2DIR=r/T2full RON=r/ron7_garage_full.png MASK=r/ron7_mask2_full.png END_S=25.825 PUSH=0.04`.
+
+## v0.12 (garage throughout, car on the floor)
+
+- User: "the car is floating in the garage end scene… have the same background for the early parts too". The tyres sat 1.3 cm above the floor and the dark wall band lined up with them. Fixes: floor at the tyre contact height, no band, faint floor sheen.
+- The scan shots got the same garage (`GARAGE=1`). The room albedo is scaled to x0.08 with low specular, so its brightness matches Ron's frame at the 1:1 cut. The ceiling is hidden from the camera (the T2 top view starts above it). The parked parts are lifted above the floor.
+
+## v1 (full resolution) — rendered on the owner's GPU worker
+
+- `render_v0.py BAKE` keys every frame into one plain .blend (T1 0-389, T2 1000-1131). Shared Drive `work/bf-scan-teardown-prices/gpujob.tar.gz`; the worker returned `gpuframes_T1/T2` (522 frames, 1080x1920, 32 spp). The frames are named `NNNN.png`, so they were renamed to `fNNNN.png` for the assembler's glob.
+- Assembly: `VER=v1 RFPS=30 T1DIR=r/T1gpu T2DIR=r/T2gpu RON=r/ron7_garage12_full.png MASK=r/ron7_mask2_full.png END_S=25.825 PUSH=0.04`.
+- Checks: 25.83 s, 1080x1920 at 30 fps, -14.1 LUFS, true peak -3.9 dBFS, safe-zone text boxes OK. At the 1:1 cut (f532/533) the car outline and floor line match.
+- **Open:** at full res the scan's real licence plate is readable for about 1 s before the cut (T2 end). Flagged to the owner; not blanked without their say.
+
+### Self-score (training/rubric.md)
+
+| # | Criterion | Score | Note |
+|---|---|---|---|
+| 1 | Hook | 4 | scan-line sweep and BLACK FRIDAY in the first second; the first part comes off at 4.3 s |
+| 2 | Beat sync | 5 | cuts and the part lock land on measured beats (C1 388, lock 517, C2 533, C3 597) |
+| 3 | 1:1 match | 5 | the silhouette and floor line overlap at f532/533 |
+| 4 | Scan quality | 4 | 2.5 mm clean; garage instead of silver-on-black at the owner's request; readable plate (open) |
+| 5 | Story | 4 | scan → parts off with prices → home → finished car; no IRL footage in this BF reel |
+| 6 | Grade | 4 | scan room matched to Ron's render by measurement; Ron's floor pool is a little brighter |
+| 7 | Text | 4 | prices from PRICES.md, % computed; more than 2 items (one card per part, by design) |
+| 8 | Ending | 5 | logo, headline and offer hold 5.9 s to beat 48, then a 0.5 s fade with the audio |
+| 9 | Technical | 5 | 1080x1920 at 30 fps, yuv420p, -14 LUFS, TP -3.9 |

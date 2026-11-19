@@ -144,3 +144,30 @@ no new export yet (waiting on the length decision).
   - s08 fender 2.14 s
 - The v1.8 shot renders were deleted when v1.9 started. The v1.8 mp4 is intact. A v1.9-style fixed 10-frame label fade
   (instead of 20% of the shot) alone lifts most of these.
+
+## v2.0: trimmed MR2 bumper cut, uncut MR2 rear, MR2 47.5" wing, NC tall stands, in-frame swaps (user feedback on v1.8)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v2.0.mp4` (55.6 s, -14.0 LUFS, TP -1.8 dBFS; safe-zone sheet looked at, all text clear).
+- "The front bumper swap removes too much material on the MR2 Spyder": the stock-footprint cut also took a strip above the
+  Epsilon bumper, leaving a black gap. `tools/mr2_bumper_cover.py` keeps on the car every cut triangle the part does not
+  cover (front/side silhouette test). Check render: the part sits flush under the hood.
+- "The rear bumper should not be getting cut on the MR2 - same with duckbill": nothing slides off. The stock patch under
+  each part is hidden only on the frame the part seats, so it cannot poke through (`shot.py` OVER).
+- "The TC wing is too wide on the MR2": back to the lookbook 47.5" wing; label "TC WING" $1,100 (store TCW-MR2-475-SM).
+- "Use the taller wing stands for the NC": Drive 'NC swan tall mount assm.stp' (1rhb9tnkC7M8k-BDyJE3pH7WcxKoX10Nl). It carries
+  the real 1700 mm element and endplates, so `wing67.py` is no longer used.
+- "Focus on the bumper on the Spyder and the side skirt on the NC when it gets removed/readded - currently off-frame":
+  s02 moves to the nose and holds while the bumper lifts off and the new one slides in; s09 holds a low side view on the
+  skirt until it lands, then drops to the spat corner.
+- Labels retimed to the owner minimums (prices 2.2 s): every price is readable 2.4 s or more. Cuts sit on hi-hat attacks.
+- All 12 shots re-rendered (the v1.8 renders were gone). Per-shot frames are on the shared drive (frames_sXX).
+
+## v2.1: MR2 bumper swap from the bumper-removed scan (user feedback on v2.0)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v2.1.mp4` (55.6 s, -14.0 LUFS, TP -1.8 dBFS; safe-zone sheet looked at).
+- "MR2 Spyder needs the front bumper scan to transition to the 'bumper removed scan' for a clean cut - still looks odd":
+  the bumper zone now comes from the engineering scan 'Front Bumper Data/hood closed no bumper.stl'
+  (1Id9y9SVLsgm4Ta4EJRfC4smGDkmshsQU), the same way the NC bumper does (`tools/mr2_bumper_state.py`).
+  - Registration: Open3D FPFH + RANSAC, then point-to-plane ICP onto the full-car scan; 2.6 mm RMSE on the shared surfaces.
+    A hand-rolled ICP grid search did not converge (only ~40 % of that scan overlaps the full car).
+  - Zone = full-car nose triangles the bumper-off scan does not confirm, gated to within 60 mm of the lookbook stock bumper.
+  - With the bumper off, the scan's real crash bar, radiators and supports show. `mr2_bumper_cover.py` is no longer used.
+- Only s02 and s10 were re-rendered. Timing, labels and all other shots are v2.0.

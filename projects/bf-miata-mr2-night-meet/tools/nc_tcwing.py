@@ -9,7 +9,10 @@ import sys, numpy as np
 sys.path.insert(0, __file__.rsplit("/", 1)[0])
 from scan_to_glb import read_stl, write_stl
 M = "/home/user/media/bf-miata-mr2-night-meet"
-T = read_stl(f"{M}/tc/nc_swan.stl")
+# v2.0 (user: "use the taller wing stands for the NC miata TC wing"): Drive 'NC swan tall mount assm.stp'
+# (1rhb9tnkC7M8k-BDyJE3pH7WcxKoX10Nl; meshed with tools/step_solids.py). Uprights 122 mm taller; it carries the real
+# 1700 mm (66.5") element and endplates, so nothing is stretched any more.
+T = read_stl(f"{M}/tc_tall/nc_swan_tall.stl")
 G = np.stack([T[..., 2], T[..., 1], -T[..., 0]], -1) / 1000.0          # det +1, so winding is kept
 c = G.mean(1)
 up = (c[:, 0] > 0.38) & (c[:, 0] < 0.56)                                 # the one upright + base plate
@@ -27,6 +30,4 @@ G[..., 1] += dy; base[:, 1] += dy
 lid = np.interp(base[:, 1], ys[np.isfinite(top)], top[np.isfinite(top)])
 dz = np.median(lid - base[:, 2]); G[..., 2] += dz
 print(f"lid edge y {edge:.3f}; shift y {dy:+.3f} z {dz:+.3f}; wing span x {G[...,0].min():.3f}..{G[...,0].max():.3f}; top z {G[...,2].max():.3f}; base plate y {base[:,1].min():.3f}..{base[:,1].max():.3f}")
-write_stl(f"{M}/kit_nc/part_tc_wing_475.stl", G)
-from wing67 import stretch_x                                             # v1.8: 66.5" element (user: "the bigger 67 inch one")
-G[..., 0] = stretch_x(G[..., 0], np.abs(G[..., 0]).max()); write_stl(f"{M}/kit_nc/part_tc_wing.stl", G)
+write_stl(f"{M}/kit_nc/part_tc_wing.stl", G)

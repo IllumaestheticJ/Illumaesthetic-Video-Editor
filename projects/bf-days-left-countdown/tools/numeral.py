@@ -8,6 +8,7 @@ slow push-in. The number is geometry from --text, never generated imagery.
 """
 import sys, argparse, math
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 
 a = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
@@ -30,7 +31,7 @@ sc.render.resolution_x, sc.render.resolution_y = W, H
 sc.render.fps = 30
 sc.frame_start, sc.frame_end = 0, args.frames - 1
 sc.render.engine = "CYCLES"
-sc.cycles.device = "CPU"
+ive_gpu.use(sc)
 sc.cycles.samples = args.samples
 sc.cycles.use_denoising = True
 sc.view_settings.view_transform = "AgX"

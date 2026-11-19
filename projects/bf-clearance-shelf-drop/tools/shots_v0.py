@@ -20,6 +20,7 @@ A.add_argument("--out", required=True)
 A.add_argument("--res", type=float, default=0.5)
 A.add_argument("--frames", default="")
 A.add_argument("--step", type=int, default=1)
+A.add_argument("--save-blend", default="", help="build the shot, pack all resources, save a self-contained .blend instead of rendering")
 A.add_argument("--fps60", action="store_true", help="true 60 fps: same 30 fps keyframes, time remapped x2")
 A.add_argument("--chars", action="store_true", help="v0 placeholders (owner removed them; off by default)")
 args = A.parse_args(sys.argv[sys.argv.index("--") + 1:])
@@ -429,10 +430,14 @@ def aisle():
     # BLACK FRIDAY sign (in-world, emissive), hung over the aisle
     # v0.8 (user: "make the black friday text and logo bigger"): two lines so each word can be ~2x the size
     # and still fit the 4.8 m aisle (racks at x +-2.4)
-    SIGN_Z = float(os.environ.get("SIGN_Z", "4.75")); SIGN_S = float(os.environ.get("SIGN_S", "0.80"))
+    SIGN_Z = float(os.environ.get("SIGN_Z", "4.90")); SIGN_S = float(os.environ.get("SIGN_S", "0.80"))
     bpy.ops.object.text_add(location=(0, 9.5, SIGN_Z), rotation=(math.pi / 2, 0, 0))
     t = bpy.context.object; t.data.body = "BLACK\nFRIDAY"; t.data.align_x = "CENTER"; t.data.align_y = "CENTER"
-    t.data.size = SIGN_S; t.data.space_line = 1.12
+    t.data.size = SIGN_S; t.data.space_line = float(os.environ.get("SIGN_LINE", "1.40")); t.data.space_character = float(os.environ.get("SIGN_CHAR", "1.12"))   # v1.0 (user): lettering too close
+    # v1.1 (user): "the A and Y are awkwardly spaced out" - optical kerning for the diagonal A/Y pair in FRIDAY
+    body = t.data.body
+    iy = body.index("AY") + int(os.environ.get("SIGN_KERN_I", "0"))
+    t.data.body_format[iy].kerning = float(os.environ.get("SIGN_KERN", "-7"))
     try:
         t.data.font = bpy.data.fonts.load(HEAD_FONT)  # Akira or the Unbounded stand-in (tools/fonts.py)
     except Exception:
@@ -456,11 +461,11 @@ def aisle():
     es = pb.inputs["Emission Strength"]
     for f, v in ((1, 0.0), (19, 0.0), (20, 3.0)):    # v0.9b: wordmark on with the 1st lamp bank (0.67 s) -> 2.5 s readable
         es.default_value = v; es.keyframe_insert("default_value", frame=f)
-    LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.45"))
+    LOGO_W = float(os.environ.get("LOGO_W", "4.3")); LOGO_Z = float(os.environ.get("LOGO_Z", "3.20"))
     bpy.ops.mesh.primitive_plane_add(size=1, location=(0, 9.5, LOGO_Z), rotation=(math.pi / 2, 0, 0))
     lo = bpy.context.object; lo.scale = (LOGO_W, LOGO_W * img.size[1] / img.size[0], 1); lo.data.materials.append(lm)
     # black backing board so the lamps beyond don't show through the letters (v0.8)
-    box("signboard", (0, 9.62, (LOGO_Z + SIGN_Z) / 2 + 0.25), (LOGO_W + 0.3, 0.04, SIGN_Z - LOGO_Z + 1.9), mat("board", (0.01, 0.01, 0.012), 0.6, 0.0))
+    box("signboard", (0, 9.62, (LOGO_Z + SIGN_Z) / 2 + 0.25), (LOGO_W + 0.45, 0.04, SIGN_Z - LOGO_Z + 1.9), mat("board", (0.01, 0.01, 0.012), 0.6, 0.0))
     light("fill", "AREA", Vector((0, -2, 3)), 150, 3, Vector((0, 2.3, 1)))
     return cam
 
@@ -484,4 +489,11 @@ if args.frames:
     a, b = args.frames.split("-"); sc.frame_start, sc.frame_end = int(a), int(b)
 sc.frame_step = args.step
 sc.render.use_motion_blur = False
+if args.save_blend:                      # GPU-worker job: self-contained file, output relative to the .blend
+    sc.render.filepath = f"//frames/{args.shot}/f_"
+    bpy.ops.file.pack_all()
+    bpy.ops.wm.save_as_mainfile(filepath=args.save_blend, compress=True)
+    print("SAVED", args.save_blend, sc.frame_start, sc.frame_end, sc.render.resolution_x, sc.render.resolution_y,
+          sc.eevee.taa_render_samples, sc.render.engine)
+    sys.exit(0)
 bpy.ops.render.render(animation=True)

@@ -1409,7 +1409,7 @@ lands here automatically. Agents must read this whole file before editing.
   - Fast cutting is fine in sections with no text. Keep the beat-sync by placing text sections on longer bars instead of rushing the read.
   - Check: list every text box with its readable duration (t1 - t0, minus the fades) and fail any below the minimum.
 
-- **[comms] Times in Pacific (owner, 2026-11-18):** give every time and ETA to the owner in **Pacific time** (PT; PST in winter = UTC-8), never UTC. Always follow the PT time with how far away it is: **"ETA ~11:45 AM PT (~1 h 20 min from now)"**. Convert with `TZ=America/Los_Angeles date`.
+- **[comms] Times in Pacific (owner, 2026-11-18):** give every time and ETA to the owner in **Pacific time** (PT; PST in winter = UTC-8), never UTC. Always follow the PT time with how far away it is: **"ETA ~11:45 AM PT (~1 h 20 min from now)"**. Convert with `TZ=America/Los_Angeles date` on Linux. **On the Windows GPU worker, Git Bash ignores that TZ and prints UTC labelled as PT** (said 9:14 PM at 1:14 PM PT); use PowerShell `[System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId([DateTime]::UtcNow,'Pacific Standard Time')`.
 
 - **[workflow] Shared Drive "Claude Videos" (owner, 2026-11-18):** use `scripts/vdrive.py`. It needs the GOOGLE_SERVICE_ACCOUNT_JSON env var and `pip install google-api-python-client google-auth`; it works with no approval prompts.
   - **Restart protection:** after every render chunk, or after any download or prep that took more than about 10 minutes, run `python scripts/vdrive.py save <project> <name> <paths>`. Use one archive per shot or chunk: prepped scans, frame folders, licensed fonts. After a container restart, run `restore <project>` first.
@@ -1417,3 +1417,20 @@ lands here automatically. Agents must read this whole file before editing.
   - **Clean up old piles:** delete superseded renders and mp4s locally, and in any Drive or Dropbox delivery folders, keeping the newest 3 per reel.
 
 - **[audio] Place sound effects by their measured onset, not their file start (BF4, 2026-11-18):** the owner heard a "desync around halfway". The menu clicks had ~68 ms of silence at the start of the file and were placed by file start, so every click landed ~62 ms late. Measure each sample's onset and align that to the beat or cut.
+
+## GPU render worker (owner's PC, 2026-11-18)
+- **[technical]** The owner's Windows PC (RTX 3060 Ti 8 GB, i9-9900K) renders Blender 5.3 Cycles with OptiX: `C:\Program Files\Blender Foundation\Blender 5.3\blender.exe`.
+  Test frame (1080x1920, 32 spp, silver look, 3.0M-tri scan): **1.4 s/frame**, vs 60-70 s/frame on the cloud CPU machines.
+  Add about 5 s per Blender process for startup and scene load: render shots as frame ranges in one process, not one frame per process.
+  The first OptiX render after an install takes about 100 s (kernel setup), once.
+- **[technical]** Pick the device with `blender/ive_gpu.py` (`ive_gpu.use(sc)`): GPU only, with GPU denoising. Enabling the CPU next to the
+  GPU sends OIDN denoising to the CPU (4.8 s of a 5.8 s frame). Cloud machines with no GPU fall back to the CPU unchanged; `IVE_DEVICE=CPU`
+  forces the CPU. New render scripts call `ive_gpu.use(sc)` instead of setting `sc.cycles.device = "CPU"`.
+- **[technical]** Still run the dark-frame (luma) scan on GPU renders: the persistent-data dropouts above were never ruled out on the GPU.
+
+- **[workflow] GPU offload to the owner's PC (2026-11-18):** the owner's PC has an RTX 3060 Ti. Cloud chats can't reach it, so long renders go through the "Claude Videos" drive:
+  - **Cloud chat:** packs a self-contained folder (`.blend` files with relative or packed paths, assets, and a `job.json` listing blend/scene/frames/res/samples/fps/output), then runs `vdrive.py save <project> gpujob <folder>`.
+  - **Local worker session on the PC:** renders it with the engine saved in the .blend (Cycles uses OptiX), then saves `gpuframes_<shot>` back to the drive. Name the frames `fNNNN.png` (`-o <out>/f####`), which is what the assemblers expect.
+  - **Cloud chat:** polls with `vdrive.py list <project>`, assembles and delivers. It keeps its own CPU render running until the GPU frames arrive.
+
+- **[scan] Registering a partial state scan (BF7, 2026-11-19):** when plain ICP fails to place a partial state scan (e.g. "hood closed no bumper") on the full car, use a global match first: Open3D FPFH features + RANSAC, then refine with ICP. On the cloud machines Open3D needs a stub libEGL to import. See `projects/bf-miata-mr2-night-meet/tools/mr2_bumper_state.py`.
