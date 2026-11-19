@@ -1,6 +1,6 @@
-# DITL: "Day in the life of an average GR Corolla owner": script v1, 2026-11-19
+# DITL: "Day in the life of an average GR Corolla owner": script v2, 2026-11-19
 
-**Status: waiting for owner approval. Nothing is built, no credits spent.**
+**Status: owner answered questions 1-4 on 2026-11-19 (see "Owner decisions"); first cut being built. Credits spent: 0.92 (three voice lines).**
 
 Owner's request (2026-11-19): "this day in the life should show all the stereotypes of gr corolla owners / feature
 their main competitors the type r and wrx / create a script using these tropes and stereotypes. / show how the
@@ -89,3 +89,29 @@ balance was 195.71 on 2026-11-19. Everything else is local. Nothing is spent unt
 5. Music: which track? Also a no-music version, as on video #1?
 6. Car colour for his GR Corolla (white is the default guess), and skin tone for the POV hands (video #1 used
    medium-brown).
+
+## Owner decisions (2026-11-19) — these override the tables above
+- **Type R: FL5.**
+- **Numbers on the sales sheet:** the owner wants a monthly amount, a high APR and a high markup on screen. The figures in the
+  first cut (`gr_faces.py NUMBERS`: +$20,000 markup, 29.99% APR, $1,499/mo x 84 months) are **placeholders proposed by the
+  agent and not yet confirmed by the owner**. They must be confirmed or replaced before any final cut.
+- **Full Epsilon kit:** Front Lip V2, Canards, Side Skirts V2, Rear Spats V2, WRC Wing V3 + strakes (GLB nodes
+  `part_front_lip_v2`, `part_canards`, `part_side_skirts_v2`, `part_rear_spats_v2`, `part_wrc_wing`, `part_wing_strakes`), in
+  gloss black on a white car. The WRC wing and the spoiler extension both replace the stock roof spoiler, so the spoiler
+  extension is not on his car. Canards and the WRC wing are backorder items on the store.
+- **Voices:** Bram (HIM) and Harrison ("Same."), Eleven v4, two calls (the whisper on its own). The second "Same." voice is
+  Harrison's take pitched down locally.
+
+## Changes made while building (v2)
+- **Shot 4:** five throws (lip, canards, skirts, spats, wing with strakes).
+- **Shot 5:** he taps each of three coil packs instead of counting on his fingers (reads at 540 px), searches for a fourth,
+  shrugs, pats the engine cover.
+- **Shot 7:** no door animation; he whips round and the passenger is already in the back seat with a suitcase.
+- **Shot 8:** no key gag; grandma parks alongside and grins, he slides down and hides behind both hands.
+- **Shots 9-10:** the Type R is on the right (its driver is on our side), the WRX on the left (its driver leans over). The
+  camera whips between them.
+- **Shot 14:** the spoiler extension is not modelled on the Corolla hatch (CAD only), so grandma's hatch wears the **WRC wing**,
+  which is modelled on the hatch scan. The store listing for the WRC wing names the GR Corolla only: owner to confirm this is
+  OK to show, or grandma's car stays stock.
+- **Frame counts (30 fps):** 65, 48, 47, 95, 47, 48, 47, 47, 95, 48, 47, 48, 95, 213 = 990 frames = 33.0 s, on the 1.58 s grid
+  from video #1. The song is fitted to this grid with a small tempo change once the owner supplies it.
