@@ -13,24 +13,72 @@ def imp(path):
     return [o for o in bpy.data.objects if o not in before]
 
 
+SIDE_GLASS = "/home/user/media/ditl-time-attack-larper/tex/fk8_side_glass.png"   # from the scan's own side drawing (x0 -12.3 mm, 4590 px = 4590 mm; z 73.8..1409.8 mm)
+
+
+def body_mat(paint):
+    """Paint and glass in one shader. Side glass = the side drawing's window opening projected across the car (sides only);
+    hatch glass = the centre-line profile box. Edges cut through faces, so they stay clean on the coarse scan mesh."""
+    m = bpy.data.materials.new("body"); m.use_nodes = True; nt = m.node_tree; N = nt.nodes; L = nt.links.new
+    out = N["Material Output"]; pb = N["Principled BSDF"]; pb.inputs["Base Color"].default_value = (*paint, 1); pb.inputs["Roughness"].default_value = 0.28
+    gl = N.new("ShaderNodeBsdfPrincipled"); gl.inputs["Base Color"].default_value = (0.01, 0.012, 0.016, 1); gl.inputs["Roughness"].default_value = 0.4
+    tc = N.new("ShaderNodeTexCoord"); sp = N.new("ShaderNodeSeparateXYZ"); L(tc.outputs["Object"], sp.inputs[0])
+    sn = N.new("ShaderNodeSeparateXYZ"); L(tc.outputs["Normal"], sn.inputs[0])   # object-space normal (car can move)
+    def op(o, a, b=None, clamp=False):
+        n = N.new("ShaderNodeMath"); n.operation = o; n.use_clamp = clamp
+        for i, v in enumerate((a, b)):
+            if v is None: continue
+            if isinstance(v, (int, float)): n.inputs[i].default_value = v
+            else: L(v, n.inputs[i])
+        return n.outputs[0]
+    u = op("DIVIDE", op("ADD", op("MULTIPLY", sp.outputs["X"], 1000.0), 12.3), 4590.0)
+    v = op("DIVIDE", op("SUBTRACT", op("MULTIPLY", sp.outputs["Z"], 1000.0), 73.8), 1336.0)
+    cv = N.new("ShaderNodeCombineXYZ"); L(u, cv.inputs[0]); L(v, cv.inputs[1])
+    tx = N.new("ShaderNodeTexImage"); tx.image = bpy.data.images.load(SIDE_GLASS); tx.extension = "CLIP"; L(cv.outputs[0], tx.inputs[0])
+    side = op("GREATER_THAN", op("ABSOLUTE", sn.outputs["Y"]), 0.35)
+    sideglass = op("MULTIPLY", op("GREATER_THAN", tx.outputs["Color"], 0.5), side)
+    X, Y, Z = sp.outputs["X"], op("ABSOLUTE", sp.outputs["Y"]), sp.outputs["Z"]
+    hatch = op("MULTIPLY", op("MULTIPLY", op("GREATER_THAN", X, 0.46), op("LESS_THAN", X, 1.0)),
+               op("MULTIPLY", op("MULTIPLY", op("GREATER_THAN", Z, 1.15), op("LESS_THAN", Y, 0.56)), op("GREATER_THAN", sn.outputs["Z"], 0.8)))
+    # FK8 black lower aero: the rear diffuser/valance and the bottom band of the skirts and lip, as straight cuts
+    trim = op("MAXIMUM", op("MULTIPLY", op("LESS_THAN", X, 0.33), op("LESS_THAN", Z, 0.40)), op("LESS_THAN", Z, 0.21))
+    fac = op("MAXIMUM", op("MAXIMUM", sideglass, hatch), trim)
+    if os.environ.get("DBG"):
+        em = N.new("ShaderNodeEmission"); dd = {"hatch": hatch, "side": sideglass, "nz": sn.outputs["Z"], "z": Z, "y": Y, "x": X}[os.environ["DBG"]]
+        L(dd, em.inputs["Strength"]); L(em.outputs[0], out.inputs["Surface"]); return m
+    mix = N.new("ShaderNodeMixShader"); L(fac, mix.inputs[0]); L(pb.outputs[0], mix.inputs[1]); L(gl.outputs[0], mix.inputs[2]); L(mix.outputs[0], out.inputs["Surface"])
+    return m
+
+
+def fill_holes(o, sides=400):
+    """The scan has ~3.5k open edges (missed glass, seams); dark holes read as choppy panels. Fill loops up to `sides` edges."""
+    import bmesh
+    bm = bmesh.new(); bm.from_mesh(o.data)
+    bmesh.ops.remove_doubles(bm, verts=bm.verts, dist=0.002)
+    before = sum(1 for e in bm.edges if e.is_boundary)
+    bmesh.ops.holes_fill(bm, edges=[e for e in bm.edges if e.is_boundary], sides=sides)
+    bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    print("fill_holes: boundary edges", before, "->", sum(1 for e in bm.edges if e.is_boundary))
+    bm.to_mesh(o.data); bm.free()
+
+
 def fk8(paint=(0.85, 0.86, 0.87)):
-    """Configurator FK8 (one untextured mesh): faces get paint / glass / tyre / rim / trim by position and normal."""
+    """Configurator FK8 (our scan, one untextured mesh): smooth-shaded; paint/glass in the shader, black only for wheel-well liners and diffuser."""
     car = [o for o in imp(GLB) if o.type == "MESH"][0]; car.name = "fk8"
-    mats = [mat("paint", paint, 0.3), mat("glass", (0.012, 0.015, 0.02), 0.45), mat("tyre", (0.02, 0.02, 0.02), 0.9),
-            mat("rim", (0.06, 0.06, 0.065), 0.4), mat("trim", (0.015, 0.015, 0.015), 0.7)]
-    for m in mats: car.data.materials.append(m)
+    fill_holes(car)
+    car.data.materials.append(body_mat(paint)); car.data.materials.append(mat("trim", (0.015, 0.015, 0.015), 0.7))
     mw = car.matrix_world
     for p in car.data.polygons:
-        c = mw @ p.center; n = (mw.to_3x3() @ p.normal).normalized()
-        mi = 0
+        c = mw @ p.center; mi = 0
         for wx, wy, wr in WHEELS:
-            if math.hypot(c.x - wx, c.z - wy) < wr * 1.08 and abs(c.y) < 0.9: mi = 4   # wheel-well liner
-        if mi == 0 and 1.0 < c.z < 1.33 and abs(n.y) > 0.55 and 0.7 < c.x < 3.2 and abs(c.y) < 0.76: mi = 1   # side glass
-        if mi == 0 and 0.44 < c.x < 1.02 and 1.14 < c.z < 1.33 and n.z > 0.85 and n.x < -0.12 and abs(c.y) < 0.58: mi = 1   # hatch glass (centre-line profile)
-        if mi == 0 and c.x < 0.3 and c.z < 0.42: mi = 4                                       # rear diffuser
-        p.material_index = mi; p.use_smooth = False
-    smooth_labels(car, keep=(4,))
-    (te37() if os.environ.get('WHEEL') == 'te37' else wheels())
+            if math.hypot(c.x - wx, c.z - wy) < wr * 1.08 and abs(c.y) < 0.9: mi = 1   # wheel-well liner
+        p.material_index = mi
+    smooth_labels(car)
+    bpy.context.view_layer.objects.active = car; car.select_set(True)
+    try: bpy.ops.object.shade_auto_smooth(angle=R(32))
+    except Exception: bpy.ops.object.shade_smooth()
+    (te37() if os.environ.get('WHEEL', 'te37') == 'te37' else wheels())
     return car
 
 
