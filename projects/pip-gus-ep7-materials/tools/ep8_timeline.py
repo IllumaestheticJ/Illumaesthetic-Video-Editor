@@ -26,7 +26,7 @@ LINES = [  # n, id, speaker, text (script v4, option 3)
     (5, "L05", "GUS", "PLA's easy to print. It just hates heat."),
     (6, "L06", "GUS", "Inside the car? PETG. Tougher, handles more heat."),
     (7, "L07", "PIP", "So I'll print it in black!"),
-    (8, "L08", "GUS", "...Black PETG still melts in the sun."),
+    (8, "L08", "GUS", "...Black soaks up too much sun. Even PETG melts."),
     (9, "L09", "PIP", "And my bumper?"),
     (10, "L10", "GUS", "Outside? ASA. It's made for sun and rain."),
     (14, "L14", "GUS", "And it depends what it's for. Molds and masters? PETG. Things don't stick to it. Or ASA-GF. Warps less, nicer finish."),
@@ -45,9 +45,12 @@ SPL = json.load(open(SPLIT / "split.json"))
 #    take 1 to the first window below -45 dB. L04's extra tail sits in its following gap (ABSORB) so A1-A8 keep their timing.
 #  - L10/L14: re-recorded (Gus only, one elevenlabs_v4 dialogue call, job 628b5c63): ASA said as letters, ASA-GF + PETG wording.
 TAKE2 = MEDIA / "gus_asa_take2.mp3"
+TAKE3 = MEDIA / "gus_black_take3.mp3"      # owner v3: black absorbs light (job d03fdb6e, 0.46 credits)
+W3 = [dict(w=w["w"], s=w["t0"], e=w["t1"]) for w in json.load(open(PROJ / "voice/take3_words.json"))]
 W2 = [dict(w=w["w"], s=w["t0"], e=w["t1"]) for w in json.load(open(PROJ / "voice/take2_words.json"))]
 OVR = {"L04": (MEDIA / "ep8_dialogue_take1.mp3", 8.10, 9.40, WORDS_TAKE, True),
        "L09": (MEDIA / "ep8_dialogue_take1.mp3", 22.545, 23.78, WORDS_TAKE, False),
+       "L08": (TAKE3, 0.10, 4.40, W3, False),     # onset 0.20 s; under -45 dB by 4.25 s
        "L10": (TAKE2, 0.10, 4.70, W2, False),     # onset 0.22 s; ring-out under -45 dB by ~4.6 s
        "L14": (TAKE2, 4.79, 14.50, W2, False)}    # onset 4.91 s; tail under -45 dB at 14.44 s
 _src = {}

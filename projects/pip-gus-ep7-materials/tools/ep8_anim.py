@@ -447,7 +447,7 @@ def anim_A6(fr):
 
 
 def anim_A7(fr):
-    """So I'll print it in black! (Pip with the black spool) / ...Black PETG still melts in the sun. (dash: it droops)."""
+    """So I'll print it in black! (Pip with the black spool) / ...Black soaks up too much sun. Even PETG melts. (dash: heats, droops)."""
     t, k = fr / FPS, kshot(fr, "A7")
     tc = LNO[8]["t0"] - 0.25
     if t < tc:
@@ -469,8 +469,26 @@ def anim_A7(fr):
         outdoor_light(t)
         pose(PIP, loc=(30, 30, 0)); pose(GUS, loc=(31, 30, 0))
         tm = word_t(8, "melts")
-        d = 0.6 * ease((t - (tc + 0.2)) / max(0.3, tm - tc)) + 0.4 * ease((t - tm) / 1.0)
-        vent("dashvent", "blk", d, None, OD_VENT_LOC, (0, 0, 0), 1.15, seed=9)
+        tsk = word_t(8, "soaks")
+        # owner v3: "black absorbs light too easily" - on "soaks up" the black vent heats (warms toward ember) and heat lines
+        # rise; it starts to sag after "sun." and slumps on "melts" as before.
+        h = ease((t - (tsk - 0.1)) / 0.7)
+        q = round(h * 8) / 8
+        c0, c1 = (0x26, 0x28, 0x26), (0x4c, 0x28, 0x20)   # stays dark: black that is hot, not a red part
+        col = "#" + "".join(f"{round(lerp(a, b, q)):02x}" for a, b in zip(c0, c1))
+        d = 0.6 * ease((t - (tsk + 0.6)) / max(0.3, tm - tsk - 0.6)) + 0.4 * ease((t - tm) / 1.0)
+        vent("dashvent", col, d, None, OD_VENT_LOC, (0, 0, 0), 1.15, seed=9)
+        if h > 0:
+            for j in range(3):
+                ph = ((t - tsk) * 0.9 + j / 3) % 1.0                    # each line rises and fades, staggered
+                a = h * math.sin(math.pi * ph) * 0.8
+                if a > 0.03:
+                    x0, y0, z0 = OD_VENT_LOC
+                    for seg in range(3):                                 # a small zig-zag "heat wave"
+                        temp(box(f"heat{j}_{seg}", (0.012, 0.004, 0.05),
+                                 (x0 + (j - 1) * 0.085 + (0.012 if seg % 2 else -0.012), y0 - 0.03,
+                                  z0 + 0.15 + 0.16 * ph + seg * 0.042),
+                                 emit("#fff3d6", 1.0, a), None, 0, 0, (0, (25 if seg % 2 else -25), 0)))
         dash_cam(t, (t - tc) / max(0.5, SFR("A7")[1] / FPS - tc), 0.4)
 
 
