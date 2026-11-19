@@ -145,6 +145,7 @@ Product names are exact listing titles from Epsilon-Site.
 | 4 | `ditl-gr86-brz` | average GR86 / BRZ owner | ZN8 Front Lip + Side Skirts + Rear Spats (opt. "GT Wing – Subaru BRZ / Toyota GR86 (ZN8, 2022+)") |
 | 5 | `ditl-miata-na` | average Miata owner (NA) | "TC Wing - Mazda Miata NA" |
 | 6 | `ditl-civic-fg2` | average "built not bought" Civic owner (FG2) | "TC Wing - Honda Civic Si Coupe FG2" (or GT Wing FG2) |
+| 7 | `ditl-gr-corolla` | average GR Corolla owner (bought it to be "different"; Type R + WRX as rivals) | GR Corolla kit (V1/V2 front lip, side skirts, rear spats); check the live store |
 
 Stock note: the site shows "TC WINGS ARE ON BACKORDER". Ask the owner whether TC-wing videos go out now. The ZN8
 front lip shows a [BACKORDER] variant. The WRX VB front lip is on [CLEARANCE]. Check the live store before
@@ -219,3 +220,5 @@ anything stock-related goes in the video.
   rotation points INWARD.
 - **Steering wheels:** rotate with ZXY Euler so the wheel spins on its tilted column (XYZ yaws it about the car's
   vertical axis), and key the wheel to the car's actual heading.
+- **Sessions (2026-11-19):** #1 WRX session_01KS3BnmbsoS1QXULbfujY7R; #2 track guy session_01KS3BnkgRsWvRdpXqzUnXTG;
+  #7 GR Corolla session_01KS3BnngHEu4rRWuKrxswxb (opened by #1 at the owner's request). #3-#6 not opened yet.
