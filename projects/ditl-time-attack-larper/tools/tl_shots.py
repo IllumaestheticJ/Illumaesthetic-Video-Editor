@@ -50,7 +50,7 @@ def fk8car(wing=True, glass_clear=False):
 
 def seethrough(m):
     """Make the body shader's glass see-through (for cabin shots)."""
-    nt = m.node_tree; mix = [n for n in nt.nodes if n.type == "MIX_SHADER"][0]
+    nt = m.node_tree; mix = nt.nodes["bodymix"]
     tr = nt.nodes.new("ShaderNodeBsdfTransparent"); gl = nt.nodes.new("ShaderNodeBsdfGlossy"); gl.inputs["Roughness"].default_value = 0.05
     m2 = nt.nodes.new("ShaderNodeMixShader"); m2.inputs[0].default_value = 0.12; nt.links.new(tr.outputs[0], m2.inputs[1]); nt.links.new(gl.outputs[0], m2.inputs[2])
     nt.links.new(m2.outputs[0], mix.inputs[2])
@@ -61,6 +61,12 @@ def overlay(cam, png, lens, dist=0.03, name="ov"):
 
 def visor(cam, lens):
     return overlay(cam, "visor.png", lens, 0.03, "visor")
+
+def follow_lens(base_lens, objs, keys):
+    """Camera-locked overlays sized for base_lens: key their scale with the camera's (frame, lens) keys so they stay frame-filling."""
+    base = {o.name: tuple(o.scale) for o in objs}
+    for f, ln in keys:
+        for o in objs: k_ = base_lens / ln; o.scale = tuple(v * k_ for v in base[o.name]); o.keyframe_insert("scale", frame=f)
 
 def driveway_set():
     W.world(img="sky_day.png")
@@ -79,7 +85,7 @@ def s1():
     clk = box("clock", (0.24, 0.1, 0.12), W._flat_mat("clkb", (0.03, 0.03, 0.03), 0.4), (1.15, -0.2, 0.61), base="z")
     plane("clkface", 0.18, 0.07, W._flat_mat("clkd", (1.0, 0.1, 0.05), 0.5, emit=4), (0, -0.051, 0.06), rot=(R(90), 0, 0), parent=clk)
     poster = plane("poster", 1.0, 0.7, imgmat("posterm", TEX + "screen_signup.png"), (-1.2, 2.48, 1.6), rot=(R(90), 0, R(180)))  # an event flyer on the wall
-    E = (0.15, -0.55, 1.22); rig, cam = rigcam(E, (1.15, -0.2, 0.62), lens=20); visor(cam, 20)
+    E = (0.15, -0.55, 1.22); rig, cam = rigcam(E, (1.15, -0.2, 0.62), lens=20); vz = visor(cam, 20); ovs = [vz]
     # 1-14: slap the alarm (hand in the clock's space), 15-20: whip down to the bowl
     hs = ghand("hS", clk, (0.0, 0.25, 0.32), (R(-60), 0, R(180)), curls=FLAT, thumb=0.2)
     key(hs, 1, loc=(0.05, 0.35, 0.4), interp="LINEAR"); key(hs, 6, loc=(0.0, 0.02, 0.17), rot=(R(-88), 0, R(180)), interp="LINEAR"); key(hs, 9, loc=(0.0, 0.03, 0.2), interp="LINEAR"); key(hs, 13, loc=(0.1, 0.4, 0.5), interp="LINEAR")
@@ -103,9 +109,10 @@ def s1():
         dip = max(prev + 2, hf - 5); key(hr, dip, loc=down, rot=(R(-50), 0, R(-15)), interp="LINEAR"); key(hr, hf, loc=up, rot=(R(-20), 0, R(-8)), interp="LINEAR"); key(hr, hf + 2, loc=(0.035, -0.05, -0.2), interp="LINEAR"); prev = hf + 2
         key(cam, hf - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, hf, rot=(R(2.5), R(-1), R(1.5)), interp="LINEAR"); key(cam, hf + 3, rot=(0, 0, 0), interp="LINEAR")
     for k in range(4):
-        m = overlay(cam, f"milk_{k}.png", 20, 0.0295, f"milk{k}"); vis(m, 1, False); vis(m, hits[min(k, 4)], True)
+        m = overlay(cam, f"milk_{k}.png", 20, 0.0295, f"milk{k}"); ovs.append(m); vis(m, 1, False); vis(m, hits[min(k, 4)], True)
         if k < 3: vis(m, hits[k + 1], False)
     for f, ln in ((1, 20), (16, 20), (19, 26)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    follow_lens(20, ovs, ((1, 20), (16, 20), (19, 26)))
 
 # ---------------------------------------------------------------- shot 2: track-day sign-up; thumb hovers, trembles, swipes away
 def s2():

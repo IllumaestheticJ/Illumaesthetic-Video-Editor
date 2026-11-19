@@ -42,11 +42,13 @@ def body_mat(paint):
                op("MULTIPLY", op("MULTIPLY", op("GREATER_THAN", Z, 1.15), op("LESS_THAN", Y, 0.56)), op("GREATER_THAN", sn.outputs["Z"], 0.8)))
     # FK8 black lower aero: the rear diffuser/valance and the bottom band of the skirts and lip, as straight cuts
     trim = op("MAXIMUM", op("MULTIPLY", op("LESS_THAN", X, 0.33), op("LESS_THAN", Z, 0.40)), op("LESS_THAN", Z, 0.21))
-    fac = op("MAXIMUM", op("MAXIMUM", sideglass, hatch), trim)
+    wind = op("MULTIPLY", op("MULTIPLY", op("GREATER_THAN", X, 2.55), op("LESS_THAN", X, 3.36)),
+              op("MULTIPLY", op("GREATER_THAN", Z, 0.95), op("LESS_THAN", Y, 0.68)))   # windscreen (centre-line profile; the scan's windscreen is a filled hole, so no normal test)
+    fac = op("MAXIMUM", op("MAXIMUM", op("MAXIMUM", sideglass, hatch), wind), trim)
     if os.environ.get("DBG"):
         em = N.new("ShaderNodeEmission"); dd = {"hatch": hatch, "side": sideglass, "nz": sn.outputs["Z"], "z": Z, "y": Y, "x": X}[os.environ["DBG"]]
         L(dd, em.inputs["Strength"]); L(em.outputs[0], out.inputs["Surface"]); return m
-    mix = N.new("ShaderNodeMixShader"); L(fac, mix.inputs[0]); L(pb.outputs[0], mix.inputs[1]); L(gl.outputs[0], mix.inputs[2]); L(mix.outputs[0], out.inputs["Surface"])
+    mix = N.new("ShaderNodeMixShader"); mix.name = "bodymix"; L(fac, mix.inputs[0]); L(pb.outputs[0], mix.inputs[1]); L(gl.outputs[0], mix.inputs[2]); L(mix.outputs[0], out.inputs["Surface"])
     return m
 
 
