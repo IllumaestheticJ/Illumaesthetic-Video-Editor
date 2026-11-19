@@ -222,3 +222,8 @@ anything stock-related goes in the video.
   vertical axis), and key the wheel to the car's actual heading.
 - **Sessions (2026-11-19):** #1 WRX session_01KS3BnmbsoS1QXULbfujY7R; #2 track guy session_01KS3BnkgRsWvRdpXqzUnXTG;
   #7 GR Corolla session_01KS3BnngHEu4rRWuKrxswxb (opened by #1 at the owner's request). #3-#6 not opened yet.
+- **Visibility keys (bug found in #2):** in the kit's `shots.vis`, an object first keyed hidden at frame f>1 stays hidden
+  for the WHOLE shot (constant extrapolation). Key it visible at frame 1 first (`projects/ditl-time-attack-larper/tools/tl_shots.vis`).
+- **In-car hands:** give each forearm a Damped Track to the matching shoulder, or wheel/shifter-parented hands swing
+  into the dashboard (owner caught one at 0:30 in #2).
+- **Readable gag text:** light it, and write white ink with an outline on dark gloves or props (owner: "too dark to read").
