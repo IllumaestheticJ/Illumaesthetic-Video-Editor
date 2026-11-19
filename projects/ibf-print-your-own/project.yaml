@@ -1,18 +1,18 @@
-# R7 ibf-print-your-own (Illumaesthetic Black Friday 2026). v0 is built by tools/build_v0.py (segment script, not ive assemble).
+# R7 ibf-print-your-own (Illumaesthetic Black Friday 2026). v0.1 is built by tools/build_v01.py (v0: build_v0.py) (segment script, not ive assemble).
 project: ibf-print-your-own
 format: reel-9x16
 product: "Subaru WRX STI Blobeye GD (2004-2005) - Front Bumper Ducts - 3D Print STL (3D Design Market)"
 price_on_screen: {now: "$140", was: "$200", source: projects/_illum-bf26/PRICES.md, note: "no 'set' wording until the owner answers one side vs set"}
-output: {path: /home/user/media/ibf-print-your-own/v0/out.mp4, width: 1080, height: 1920, fps: 30}
-music: {track: 'Roni Size "The Streets" (Juiced OST #17)', dropbox: "id:ihAynaYnO_4AAAAAAACmZw", start: 146.950, drop: 152.950, bpm: 117.5, loudness: "-14 LUFS, TP -1.5"}
+output: {path: /home/user/media/ibf-print-your-own/v01/out.mp4, width: 1080, height: 1920, fps: 30}
+music: {track: '"Fusion" - César Falox (TikTok CML 7371802019268691969)', start: 8.140, drop: 12.940, bpm: 100, loudness: "-14 LUFS, TP -1.5"}
 sources:
   stl: {drive: 1JceEazZIbhmRd6-O2vaL1v-8R9_hP7a5, name: "Subaru Blob Eye STI Bumper Oil Cooler Duct/Oil Cooler Duct.stl", tris: 2951531, dims_mm: [257.0, 327.9, 175.7]}
   printer_timelapse: ["/2. Illumaesthetic Videos/1. Video dumps/MR2 HARDTOP/*REEL/actual mr2 latch print video_2025-07-08_17-53-39.avi",
                       "/2. Illumaesthetic Videos/1. Video dumps/MR2 HARDTOP/*REEL/actual mr2 print video_2025-07-08_21-25-48.avi"]
   store_page: https://www.illumaesthetic.com/products/subaru-wrx-sti-blobeye-gd-bumper-ducts-3d-print-2004-2005
-timeline:   # video seconds
-  - {id: stl_hook, t: [0.0, 6.0], what: "real duct STL turntable (Workbench viewer look) + BLOBEYE DUCTS / $140 / $200 struck from 0.25 s"}
-  - {id: print_1, t: [6.0, 8.368], what: "Bambu timelapse (MR2 latch) - cut on the drop (track 152.950)"}
-  - {id: print_2, t: [8.368, 10.55], what: "Bambu timelapse (MR2 part), cut on onset 155.318"}
-  - {id: store_gallery, t: [10.55, 13.988], what: "live store page, gallery swipes: duct close-up -> duct on bumper -> car front"}
-  - {id: end_card, t: [13.988, 17.5], what: "logo 720 px, BLOBEYE DUCTS, $140, $200 struck, WWW.ILLUMAESTHETIC.COM, SALE ENDS NOV 30"}
+timeline:   # v0.1, video seconds (beat 0.600)
+  - {id: stl_hook, t: [0.0, 4.8], what: "real duct STL turntable (viewer look) + BLOBEYE DUCTS / $140 / $200 struck, 0.25-4.5 s"}
+  - {id: print_1, t: [4.8, 7.2], what: "Bambu timelapse, first 3 s only (raft/support layers, no part identifiable) - cut on the first drop"}
+  - {id: print_2, t: [7.2, 9.6], what: "Bambu timelapse, first 3 s only (support columns + first flat layer)"}
+  - {id: store_gallery, t: [9.6, 13.2], what: "live store page gallery: duct close-up -> duct on bumper -> car front (2 beats each)"}
+  - {id: end_card, t: [13.2, 16.8], what: "logo 720 px, BLOBEYE DUCTS, $140, $200 struck, WWW.ILLUMAESTHETIC.COM, SALE ENDS NOV 30"}

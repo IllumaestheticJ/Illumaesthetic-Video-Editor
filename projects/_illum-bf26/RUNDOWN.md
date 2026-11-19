@@ -14,7 +14,7 @@ shared files here. Coordinator session: session_01M1HYJhErzYBREit1HzUviA.
 | R4 | ibf-mr2-clear-tails | MR2 Spyder clear tails before/after, day then night, $198 (was $550), only 12 sets | v0 (13.4 s) | draft; AFTER = store photos; needs clear-tail day + night footage |
 | R5 | ibf-clearance-shelf | One continuous shelf pan, price tags pop | v0 (15.6 s) | draft; simulated pan, 2 placeholder bays; needs real shelf pan |
 | R6 | ibf-gd-brake-ducts | GD/GG brake duct install timelapse, then track; $297.50 (was $425) | v0 (14.0 s) | draft; store stills only; needs install timelapse + track |
-| R7 | ibf-print-your-own | Design Market file, printer timelapse, part on car; blobeye ducts $140 (was $200) | v0 (17.5 s) | draft; music swap + placeholder timelapse fix in v0.1; needs duct print + on-car footage |
+| R7 | ibf-print-your-own | Design Market file, printer timelapse, part on car; blobeye ducts $140 (was $200) | v0.1 (16.8 s) | draft; music swap + placeholder timelapse fix in v0.1; needs duct print + on-car footage |
 
 ## Rules for this campaign
 1. **Price on screen within the first 2 s** (owner). Repeat it on the end card. This is the owner's OK for price text over IRL footage in these reels; keep other text off IRL footage unless the owner OKs it in that chat.
