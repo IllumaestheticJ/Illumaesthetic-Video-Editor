@@ -28,7 +28,7 @@ LINES = [
     (1, "PIP", "E1", "OK, it's scanned. Can we print it now?"),
     (2, "PIP", "E2", "My bumper! Print my bumper!"),
     (3, "GUS", "E3", "That's a scan. It's a skin."),
-    (4, "GUS", "E4", "A mesh of tiny triangles. No thickness."),
+    (4, "GUS", "E4", "A mesh of tiny triangles. Not necessarily solid."),   # v3 (owner): was "No thickness."
     (5, "PIP", "E5", "So... print it anyway?"),
     (6, "GUS", "E5", "Sure."),
     (7, "PIP", "E6", "Is it done yet?"),
@@ -84,6 +84,31 @@ def quiet_cut(a, t_lo, t_hi):
 
 def main():
     a = decode(SRC)
+    # v3 (owner 2026-11-19): line 4 re-voiced ("Not necessarily solid" for "No thickness"), Harrison, ElevenLabs v4 job
+    # cc6bde49. The whole line is swapped at the quiet points around it; later lines shift by a whole number of frames.
+    global WORDS
+    rev = decode(MEDIA / "voice/L04_rev_cc6bde49.mp3")
+    rw = json.load(open(MEDIA / "voice/words_L04rev.json"))
+    i0, i1 = 19, 26                                   # old line 4 = words 19..25
+    cA = quiet_cut(a, WORDS[i0 - 1]["t1"], WORDS[i0]["t0"])
+    cB = quiet_cut(a, WORDS[i1 - 1]["t1"], WORDS[i1]["t0"])
+    pre, tail = WORDS[i0]["t0"] - cA, cB - WORDS[i1 - 1]["t1"]
+    sp_end = rw[-1]["t1"] + 0.08
+    new = rev[:int(sp_end * SR)].copy()
+    old_sp = a[int(WORDS[i0]["t0"] * SR):int(WORDS[i1 - 1]["t1"] * SR)]
+    new *= float(np.sqrt(np.mean(old_sp ** 2)) / np.sqrt(np.mean(new ** 2)))     # level-match to the old line
+    k = int(0.01 * SR)
+    new[-k:] *= np.linspace(1, 0, k)
+    L_new = pre + sp_end + tail
+    delta = L_new - (cB - cA)
+    D = int(np.ceil(delta * FPS - 1e-6))
+    padt = D / FPS - delta
+    seg = np.concatenate([np.zeros(int(round(pre * SR)), np.float32), new, np.zeros(int(round((tail + padt) * SR)), np.float32)])
+    a = np.concatenate([a[:int(cA * SR)], seg, a[int(cB * SR):]])
+    sh = D / FPS
+    WORDS = (WORDS[:i0] + [dict(w=w["w"], t0=round(cA + pre + w["t0"], 3), t1=round(cA + pre + w["t1"], 3)) for w in rw]
+             + [dict(w=w["w"], t0=round(w["t0"] + sh, 3), t1=round(w["t1"] + sh, 3)) for w in WORDS[i1:]])
+    print(f"line 4 swapped: later lines shift by {D} frames")
     dur = len(a) / SR
     # assign heard words to lines by token count
     toks = [t.split() for _, _, _, t in LINES]
@@ -165,7 +190,7 @@ def main():
     TP = [l for l in meas.splitlines() if l.strip().startswith("Peak:")][-1].split()[1]
     tl = dict(doc="Ep 4 Part A timeline (real voices, take 3c709f12, no speed-ups). Frames are reel frames at 30 fps; shot f1 "
                   "is exclusive. Line/word times are reel seconds. Line 16 plays over the logo card (not in Part A).",
-              fps=FPS, total_frames=total, duration_s=round(total / FPS, 3), screen_full_frame=total - 1,
+              fps=FPS, shift_v3=D, total_frames=total, duration_s=round(total / FPS, 3), screen_full_frame=total - 1,
               shots=shots, lines=partA, logo_line=logo,
               dialogue=dict(file="voice/partA_dialogue.wav", integrated_lufs=float(I), true_peak_dbtp=float(TP),
                             gain_db=round(g, 2)))

@@ -575,6 +575,55 @@ def scan_ripple(center, t_since, amp=0.035):
     me.update()
 
 
+# v3 (owner: "he says 'print my bumper!' but it shows the entire car"; "use the gt350 bumper as reference"): the scan that
+# flies to the printer and that Gus holds up is a low-poly copy of the real GT350 original-bumper scan
+# (tools/export_bumper_lowpoly.py -> MEDIA/gt350_bumper_lowpoly.npz), triangles visible, hollow.
+def build_skin():
+    """v3: the owner's real GT350 original-bumper scan (60k-tri copy), smooth cel-shaded so it reads as a bumper at a glance.
+    (7k-tri facets and a ray-resampled grid both read as crumpled foil / blocks - rejected at layout.)"""
+    d = _np.load(arg("--skin", "/home/user/media/pip-gus-ep4-print-the-scan/gt350_bumper_mid.npz"))
+    V = d["v"] - _np.array([0.0, 0.04, 0.44], _np.float32)
+    bm = bmesh.new()
+    vs = [bm.verts.new(v) for v in V.tolist()]
+    for f in d["f"].tolist():
+        try:
+            bm.faces.new([vs[i] for i in f]).smooth = True
+        except ValueError:
+            pass
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    g = empty("SKIN")
+    fill = new_obj("skin_fill", bm, [mat("scan")], g)
+    me = fill.data
+    n = len(me.vertices)
+    base, nrm = _np.zeros(n * 3, _np.float32), _np.zeros(n * 3, _np.float32)
+    me.vertices.foreach_get("co", base)
+    me.vertices.foreach_get("normal", nrm)
+    return g, fill, base.reshape(-1, 3), nrm.reshape(-1, 3)
+
+
+SKIN, SKIN_FILL, SKIN_BASE, SKIN_NRM = build_skin()
+
+
+def skin_ripple(center, t_since, amp=0.03):
+    me = SKIN_FILL.data
+    if t_since is None or t_since < 0:
+        co = SKIN_BASE
+    else:
+        d = _np.linalg.norm(SKIN_BASE - _np.array(center, _np.float32), axis=1)
+        env = _np.exp(-d / 0.6) * math.exp(-t_since / 0.6)
+        wave = _np.sin(d * 22.0 - t_since * 30.0) * (d < t_since * 1.6 + 0.02)
+        co = SKIN_BASE + SKIN_NRM * (amp * env * wave)[:, None]
+    me.vertices.foreach_set("co", co.astype(_np.float32).ravel())
+    me.update()
+
+
+def place_skin(loc, s=1.0, rz=0.0, rx=0.0):
+    set_vis(SKIN, True)
+    SKIN.location = loc
+    SKIN.scale = (s, s, s)
+    SKIN.rotation_euler = (math.radians(rx), 0, math.radians(rz))
+
+
 def place_scan(loc=(0, 0, 0), s=1.0, rz=0.0):
     set_vis(SCAN, True)
     SCAN.location = loc
@@ -635,22 +684,24 @@ def _car_inside(x, z):
 
 
 def build_ui_scan():
-    """Screen 1: the finished scan - a side-view car made of small grey triangles on the dark viewer background."""
+    """Screen 1: the finished scan - the real GT350 bumper scan, front view, as flat grey triangles on the dark viewer."""
     g = empty("UI_SCAN", UI)
     poly("us_bg", [(-SW, -SH), (SW, -SH), (SW, SH), (-SW, SH)], emit("#141614", 1.0), g, loc=(0, 0, 0))
     poly("us_bar", [(-SW, 0.118), (SW, 0.118), (SW, SH), (-SW, SH)], emit("#2a2d2a", 1.0), g, loc=(0, 0, 0.0005))
     bm = bmesh.new()
-    s, oz, st = 0.085, -0.075, 0.11
-    for i in range(-20, 20):
-        for j in range(0, 15):
-            x0, z0 = i * st, j * st
-            for tri, mi in ((((x0, z0), (x0 + st, z0), (x0, z0 + st)), 0), (((x0 + st, z0), (x0 + st, z0 + st), (x0, z0 + st)), 1)):
-                cx = sum(p[0] for p in tri) / 3
-                cz = sum(p[1] for p in tri) / 3
-                if _car_inside(cx, cz):
-                    vs = [bm.verts.new((p[0] * s, p[1] * s + oz, 0.0)) for p in tri]
-                    f = bm.faces.new(vs)
-                    f.material_index = (mi + (i + j) % 2) % 2
+    d = _np.load(arg("--skin", "/home/user/media/pip-gus-ep4-print-the-scan/gt350_bumper_lowpoly.npz"))
+    V, F = d["v"], d["f"]
+    cx, cz = (V[:, 0].min() + V[:, 0].max()) / 2, (V[:, 2].min() + V[:, 2].max()) / 2
+    s = 0.27 / (V[:, 0].max() - V[:, 0].min())
+    P = V[F]
+    order = _np.argsort(-P[:, :, 1].mean(1))                    # far faces first, nearest (front, -y) on top
+    for n, fi in enumerate(order.tolist()):
+        vs = [bm.verts.new(((p[0] - cx) * s, (p[2] - cz) * s - 0.02, n * 2e-7)) for p in P[fi].tolist()]
+        try:
+            f = bm.faces.new(vs)
+        except ValueError:
+            continue
+        f.material_index = int(fi * 7919 % 5 < 2)
     tri_ob = new_obj("us_tris", bm, [emit("scan", 1.0), emit("scan2", 1.0)], g, loc=(0, 0, 0.001))
     # thin dark gaps between triangles: same triangles, slightly shrunk, over a dark base of the full silhouette
     return g
@@ -684,14 +735,14 @@ UI_SLICE = build_ui_slicer()
 
 
 def ui_ghost(k_drop, alpha):
-    """The scan dropped into the slicer: a car outline that falls onto the plate and fades away (nothing to slice)."""
+    """The scan dropped into the slicer: a bumper outline that falls onto the plate and fades away (nothing to slice)."""
     if alpha <= 0.02:
         return
     a = round(alpha * 10) / 10
     m = emit("scan", 1.0, a)
     s = 0.05
     oz = lerp(0.07, -0.06, eout(k_drop))
-    sil = [(-2.0, 0.32), (2.0, 0.32), (2.0, 0.98), (1.0, 0.98), (0.48, 1.5), (-0.72, 1.5), (-1.15, 0.98), (-2.0, 0.98), (-2.0, 0.32)]
+    sil = [(-2.3, 0.55), (-2.0, 0.32), (2.0, 0.32), (2.3, 0.55), (2.3, 1.25), (1.9, 1.5), (-1.9, 1.5), (-2.3, 1.25), (-2.3, 0.55)]
     for i in range(len(sil) - 1):
         (x0, z0), (x1, z1) = sil[i], sil[i + 1]
         dx, dz = x1 - x0, z1 - z0
@@ -792,7 +843,7 @@ def anim_E2(fr):
     screen("scan")
     k, p, s = mini_path_e2(t)
     if t >= W(2, 2)["t0"] - 0.05:
-        place_scan(p, s, rz=-8)
+        place_skin(p + Vector((0, 0, 0.05)), s * 2.3, rz=-8, rx=-10)
     pt = win(t, L0(2), W(2, 1)["t1"] + 0.1, 0.12, 0.25)          # points up at the sketch on "My bumper!"
     pip_on_stool((2.42, 2.55), lerp(28, 10, pt), t, hop=0.03 * pt, hips=(-6, 0, 0), head=(lerp(-8, -30, pt), 0, lerp(0, -10, pt)),
                  armL=(-30, 0, 10), armR=(-30, 0, -10), elbowL=-30, elbowR=-30, look=lerpv((0.6, 0.1), (-0.2, 1.0), pt))
@@ -807,30 +858,27 @@ def anim_E2(fr):
 
 
 def anim_E3(fr):
-    """'That's a scan. It's a skin.' - Gus plucks the scan off the bed and tosses it into the bay, where it grows full size."""
+    """v3: 'That's a scan. It's a skin.' - Gus lifts the bumper scan off the bed; it floats up big between them, hollow and
+    paper-thin, turning slowly; it wobbles like cling film on 'skin'."""
     t, u = fr / FPS, prog(fr, "E3")
     screen("scan")
-    ta = L0(3) - 0.1
-    tb = W(3, 2)["t1"] + 0.6
-    k = cl((t - ta) / (tb - ta))
-    a = BED_W.copy()
-    b = Vector((0, 0, 0))
-    if k < 0.18:
-        p, s = a + Vector((0, -0.15, 0.25)) * ease(k / 0.18), 0.085
-    else:
-        kk = (k - 0.18) / 0.82
-        a2 = a + Vector((0, -0.15, 0.25))
-        p = a2.lerp(b, ease(kk)) + Vector((0, 0, 1.6 * math.sin(math.pi * kk)))
-        s = lerp(0.085, 1.0, eback(kk, 1.2))
-    place_scan(p, s, rz=-8 * (1 - ease(k)))
-    talkpose(GUS, "GUS", t, 0.0, loc=(3.95, 2.35, 0), rz=lerp(170, -60, ease((k - 0.15) / 0.5)), head=(6, 0, 0),
-             armL=(-30, 0, 6), armR=(-30, 0, -6), elbowL=-30, elbowR=-30, look=(-0.6, 0.0))
+    ta = L0(3) - 0.15
+    k = cl((t - ta) / 0.9)
+    a = BED_W + Vector((0, 0, 0.05))
+    hold = Vector((3.45, 1.55, 1.42))
+    p = a.lerp(hold, ease(k)) + Vector((0, 0, 0.25 * math.sin(math.pi * k)))
+    s = lerp(0.085 * 2.3, 0.6, eback(k, 1.3))
+    turn = ease((t - ta - 0.5) / 2.2)
+    place_skin(p + Vector((0, 0, 0.02 * math.sin(t * 2.4))), s, rz=lerp(-8, 38, turn), rx=lerp(-10, -16, turn))
+    skin_ripple((0.3, -0.25, 0.0), t - (W(3, 5)["t0"] - 0.05))
+    talkpose(GUS, "GUS", t, 0.0, loc=(4.72, 2.5, 0), rz=-30, head=(4, 0, 0), armL=(-30, 0, 6), armR=(-30, 0, -6), elbowL=-35,
+             elbowR=-35, look=(-0.8, 0.1))
     bpy.context.view_layer.update()
-    if k < 0.3:
-        aim_arm(GUS, "R", p + Vector((0.0, -0.08, 0.06)))
-    pip_on_stool((2.42, 2.55), lerp(10, -40, ease(k)), t, head=(-10, 0, 0), armL=(-30, 0, 10), armR=(-30, 0, -10),
-                 elbowL=-30, elbowR=-30, look=lerpv((0.8, 0.2), (-0.9, -0.1), ease(k)))
-    look(cam, (1.3, -5.6, 2.1), (1.1, 1.0, 1.4), 17)
+    side = min(("L", "R"), key=lambda sd: (GUS.arms[sd].matrix_world.translation - p).length)
+    aim_arm(GUS, side, p + Vector((0.62 * s / 0.6, 0.12, -0.05)))
+    pip_on_stool((2.42, 2.55), 20, t, head=(-8, 0, 0), armL=(-30, 0, 10), armR=(-30, 0, -10), elbowL=-30, elbowR=-30,
+                 look=(0.8, 0.0))
+    look(cam, (3.45, -0.75, 1.75), (3.45, 3.0, 1.28), 26)
 
 
 def anim_E4(fr):
@@ -1224,6 +1272,8 @@ def reset_anim():
     set_vis(UI, True)
     set_vis(SCAN, False)
     scan_ripple(None, None)
+    set_vis(SKIN, False)
+    skin_ripple(None, None)
     set_vis(STOCKB, False)
     set_vis(PIPB, False)
     STOCKB.location = PIPB.location = (0, 0, 0)

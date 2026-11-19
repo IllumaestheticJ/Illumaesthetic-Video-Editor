@@ -1,4 +1,4 @@
-# Pip & Gus Ep 4: "Can't you just 3D print the scan?" (script v1, for owner approval)
+# Pip & Gus Ep 4: "Can't you just 3D print the scan?" (script, as built in v3)
 
 Was Ep 2 (v0.2), then Ep 3 (v0.3). Series v0.4 (owner 2026-11-17: "bumper first, then the steps of creation"): this is the **design**
 step. Ep 1 is "Why can't I just print the bumper I want?" ("...but if you insist"). Eps 2-3 scan the car. This episode opens on the
@@ -9,7 +9,7 @@ asking Ep 5's question (STL vs STEP) over the logo card, voice only. The branch 
 `projects/pip-gus-series/scripts.md` (Ep 4, was Ep 2). Nothing gets voiced or rendered until the owner approves it.
 
 **Question the episode answers:** "I bought the scan, so why can't I just print a part from it?"
-**Answer in one line:** a scan is a skin (a surface of tiny triangles with no thickness). It's the *reference*: you design
+**Answer in one line:** a scan is a skin (a surface of tiny triangles, not necessarily solid). It's the *reference*: you design
 the part on it, and the scan is what makes the part fit.
 
 ## Shape and timing (estimates; final timing comes from the voice take, with no speed-ups)
@@ -23,9 +23,9 @@ the part on it, and the scan is what makes the part fit.
 | # | Who (delivery tag) | Line | Picture |
 |---|---|---|---|
 | 1 | PIP [eager] | "OK, it's scanned. Can we print it now?" | Opens on the finished scan on Gus's laptop (callback to Ep 3's ending). Pip bounces beside it. |
-| 1b | PIP [excited] | "My bumper! Print my bumper!" | Pip shoves the glowing cartoon car scan off the laptop onto an unbranded cartoon printer. Her bumper sketch from Ep 1 is taped to the wall behind. ^ ^ eyes. |
-| 2 | GUS [flat] | "That's a scan. It's a skin." | Gus pulls the scan off again; push in until the nose becomes a sea of tiny triangles. Pip's eyes go wide. |
-| 3 | GUS [matter-of-fact] | "A mesh of tiny triangles. No thickness." | Gus flicks the surface with a floating mitten; it wobbles like cling film. |
+| 1b | PIP [excited] | "My bumper! Print my bumper!" | v3: the laptop shows the **bumper scan** (the real GT350 original-bumper scan, front view). Pip shoves that bumper scan off the laptop onto an unbranded cartoon printer. The bumper sketch from Ep 1 is taped to the wall behind. ^ ^ eyes. |
+| 2 | GUS [flat] | "That's a scan. It's a skin." | v3: Gus lifts the bumper scan off the bed; it floats up big between them, turning slowly, and wobbles like cling film on "skin". |
+| 3 | GUS [matter-of-fact] | "A mesh of tiny triangles. Not necessarily solid." (v3, owner wording; re-voiced) | Gus holds up his phone: the real scan in Blender, pushing in until the surface is triangles, then the view from behind - a hollow shell. |
 | 4 | PIP [impatient] | "So... print it anyway?" | Pip nudges the printer. |
 | 5 | GUS [dry] | "Sure." | Gus drops the scan into the cartoon slicer (no brand UI). The preview is an empty build plate: no layers, nothing to slice. The wall clock starts to spin (series gag). |
 | 6 | PIP [impatient] | "Is it done yet?" | Pip slumped on a stool, clock hands whirring, staring at the printer, which hasn't moved. |
@@ -36,6 +36,11 @@ the part on it, and the scan is what makes the part fit.
 | 10 | GUS [matter-of-fact] | "Every curve." | Gus runs a mitten along the bumper line; small sparkle at the seam. |
 | 11 | PIP [excited] | "Ooh! Illumaesthetic does both!" | Pip whips out the phone and holds it up to Gus. The screen plays the real car (Part B's first shot). |
 | 12 | GUS [dry, slightly impressed] | "...Of course they do." | Gus leans in; the camera pushes into the phone until the screen fills the frame. Hard cut on the beat. |
+
+v2/v3 (owner notes 2026-11-18/19): Gus's explanation lines (4, 9-11) play the owner's real Blender scenes on Gus's phone; the recap after
+the hand-off runs the whole job start to finish and ends on the real finished bumper photos; lines 2-3 show a bumper (the GT350
+bumper scan), not the whole car; "No thickness" became "Not necessarily solid". The table below keeps the original picture notes for
+lines 5-12; `editlog.jsonl` has what was built.
 
 Changes from the series draft (and why):
 - Dropped "No edges." It's vague and easy to argue with; "Tiny triangles. No thickness." is the accurate core claim.

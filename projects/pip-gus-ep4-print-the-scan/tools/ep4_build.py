@@ -28,7 +28,7 @@ PROJ = HERE.parent
 REPO = PROJ.parent.parent
 M = Path("/home/user/media/pip-gus-ep4-print-the-scan")
 ap = argparse.ArgumentParser()
-ap.add_argument("--ver", default="v2")
+ap.add_argument("--ver", default="v3")
 ap.add_argument("--steps", default="gfx,picture,audio,mux")
 a = ap.parse_args()
 BUILD = M / f"build_{a.ver}"
@@ -68,7 +68,7 @@ PAGES = [   # (line, rows of word indices, centre y)
     (1, [[0, 1, 2], [3, 4, 5, 6, 7]], Y0),
     (2, [[0, 1]], Y0), (2, [[2, 3, 4]], Y0),
     (3, [[0, 1, 2], [3, 4, 5]], Y0),
-    (4, [[0, 1, 2], [3, 4]], YP), (4, [[5, 6]], YP),
+    (4, [[0, 1, 2], [3, 4]], YP), (4, [[5, 6, 7]], YP),
     (5, [[0, 1, 2, 3]], Y0), (6, [[0]], Y0),
     (7, [[0, 1, 2, 3]], Y0),
     (8, [[0, 1, 2, 3]], Y0),

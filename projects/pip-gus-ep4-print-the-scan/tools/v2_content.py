@@ -185,12 +185,12 @@ Q34 = ((1.9, -2.3, 1.0), (0.45, -0.1, 0.42))
 
 def sh_tri(k, fr):
     state(scan_bump=True)
-    a = ease((fr - 250) / 40.0)                         # push in until the triangles show (on "triangles." 286)
-    if fr < 318:
+    a = ease((fr - 252) / 42.0)                         # push in until the triangles show (on "triangles." 291)
+    if fr < 328:
         loc = lerpv((1.5, -1.7, 0.85), (0.71, -0.48, 0.505), a)
         look(loc, lerpv((0.55, -0.15, 0.45), (0.62, -0.2, 0.46), a), lerp(45, 110, a))
-    else:                                               # "No thickness." - the open top edge of the skin, from above/behind
-        u = ease((fr - 318) / 34.0)
+    else:                                               # v3 "Not necessarily solid." (332): the open, hollow shell from behind
+        u = ease((fr - 328) / 56.0)
         look(lerpv((0.95, 0.55, 0.95), (0.8, 0.75, 0.9), u), (0.55, -0.12, 0.6), 60)
 
 
@@ -246,8 +246,9 @@ def sh_rcar(k, fr=None):
     look((0.1 + 3.2 * math.sin(-ang), -3.2 * math.cos(ang), 1.0), (0.1, -0.1, 0.5), 40)
 
 
-PHONE = [("tri", 247, 352, sh_tri), ("retrace", 570, 708, sh_retrace), ("lip", 708, 778, sh_lip), ("fit", 778, 912, sh_fit),
-         ("both", 912, 995, sh_both)]
+SH = 35     # v3: line 4 re-voiced ("Not necessarily solid."), every later shot starts 35 frames later; fn gets v2 frame numbers
+PHONE = [("tri", 247, 385, sh_tri, 0), ("retrace", 570 + SH, 708 + SH, sh_retrace, SH), ("lip", 708 + SH, 778 + SH, sh_lip, SH),
+         ("fit", 778 + SH, 912 + SH, sh_fit, SH), ("both", 912 + SH, 995 + SH, sh_both, SH)]
 RECAP = [("r_scan", 9, sh_rscan), ("r_trace", 18, lambda k, fr=None: sh_retrace(k, fast=True)), ("r_car", 9, sh_rcar),
          ("r_lip", 18, lambda k, fr=None: sh_lip(k, fast=True))]
 
@@ -262,14 +263,14 @@ def render(path):
     os.replace(tmp, path)
 
 
-for name, f0, f1, fn in PHONE:
+for name, f0, f1, fn, shf in PHONE:
     if ONLY and name not in ONLY:
         continue
     scn.render.resolution_percentage = int(SCALE * 100)
     for fr in range(f0, f1):
         if FRAMES and fr not in FRAMES:
             continue
-        fn((fr - f0) / max(1, f1 - 1 - f0), fr)
+        fn((fr - f0) / max(1, f1 - 1 - f0), fr - shf)
         render(os.path.join(OUT, "phone", f"{fr:04d}.png"))
         print("[v2]", name, fr, flush=True)
 for name, nfr, fn in RECAP:
