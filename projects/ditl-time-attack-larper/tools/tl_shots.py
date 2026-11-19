@@ -9,7 +9,13 @@ import hands as HD
 from ditl_kit import box, plane, R, TEX
 from mathutils import Vector, Matrix
 
-mat, imgmat, alphamat, key, vis, swap, shake, rigcam, lookrot = W.mat, W.imgmat, W.alphamat, W.key, W.vis, W.swap, W.shake, W.rigcam, W.lookrot
+mat, imgmat, alphamat, key, swap, shake, rigcam, lookrot = W.mat, W.imgmat, W.alphamat, W.key, W.swap, W.shake, W.rigcam, W.lookrot
+_VIS = set()
+def vis(o, f, show):
+    """W.vis with a fix: an object first keyed hidden at frame f > 1 is keyed visible at frame 1, otherwise constant
+    extrapolation hides it for the whole shot (the alarm-slap and box-ripping hands never showed)."""
+    if o.name not in _VIS and f > 1 and not show: W.vis(o, 1, True)
+    _VIS.add(o.name); W.vis(o, f, show)
 OPEN, FIST, POINT, FLAT = HD.OPEN, HD.FIST, HD.POINT, HD.FLAT
 HALF = 2.28                                   # FK8 length / 2: car frame x (from rear bumper) -> centred
 NF = {1: 66, 2: 48, 3: 47, 4: 95, 5: 48, 6: 48, 7: 47, 8: 48, 9: 48, 10: 48, 11: 162, 12: 48, 13: 48, 14: 81, 15: 180}
@@ -68,6 +74,17 @@ def follow_lens(base_lens, objs, keys):
     for f, ln in keys:
         for o in objs: k_ = base_lens / ln; o.scale = tuple(v * k_ for v in base[o.name]); o.keyframe_insert("scale", frame=f)
 
+def cam_arms(cam, names):
+    """Hands not parented to the camera (on a clock, an endplate, a gauge) still aim their forearm back at the viewer's
+    shoulders, just behind and below the camera, so the arm comes out of the person."""
+    sh = {}
+    for side, x in (("R", 0.2), ("L", -0.2)):
+        e = bpy.data.objects.new("camshoulder_" + side, None); bpy.context.scene.collection.objects.link(e); e.parent = cam; e.location = (x, -0.3, 0.15); sh[side] = e
+    for nm in names:
+        o = bpy.data.objects.get(nm)
+        if o is None: continue
+        c = o.constraints.new("DAMPED_TRACK"); c.target = sh["L" if nm.endswith("L") or nm.startswith("hL") else "R"]; c.track_axis = "TRACK_NEGATIVE_Y"
+
 def driveway_set():
     W.world(img="sky_day.png")
     plane("ground", 60, 60, mat("grass_l", (0.12, 0.35, 0.1)), (0, 0, -0.01))
@@ -125,6 +142,7 @@ def s1():
     th = ghand("hT", cam, (0.16, -0.24, -0.5), (R(-20), R(-80), R(10)), curls=FIST, thumb=1.2); vis(th, 1, False); vis(th, 34, True)
     key(th, 34, loc=(0.3, -0.45, -0.5), interp="LINEAR"); key(th, 40, loc=(0.14, -0.16, -0.5), interp="BEZIER")
     for f in range(44, 66, 6): key(th, f, loc=(0.14, -0.14, -0.5), interp="LINEAR"); key(th, f + 3, loc=(0.14, -0.17, -0.5), interp="LINEAR")
+    cam_arms(cam, ["hS"])
     # the thumbs-up is the camera-space glove, which the mirror reflects; the body's own arms stay down
 
 def tapper(ph, name="hTap"):
@@ -171,7 +189,7 @@ def s4():
     hr = ghand("hR", cam, (0.16, -0.36, -0.5), (R(-70), 0, R(-10)), curls=OPEN, thumb=-0.3); hl = ghand("hL", cam, (-0.16, -0.36, -0.5), (R(-70), 0, R(10)), curls=OPEN, thumb=-0.3, mirror=True)
     for i, f in enumerate(range(1, 13, 3)):   # ripping
         o = 0.05 + 0.2 * (i % 2)
-        key(hr, f, loc=(0.05 + o, -0.3 + 0.1 * (i % 2), -0.5), rot=(R(-70 + 25 * (i % 2)), 0, R(-10 - 30 * (i % 2))), interp="LINEAR"); key(hl, f, loc=(-0.05 - o, -0.3 + 0.1 * (i % 2), -0.5), rot=(R(-70 + 25 * (i % 2)), 0, R(10 + 30 * (i % 2))), interp="LINEAR")
+        key(hr, f, loc=(0.09 + o, -0.3 + 0.1 * (i % 2), -0.5), rot=(R(-70 + 25 * (i % 2)), 0, R(-10 - 30 * (i % 2))), interp="LINEAR"); key(hl, f, loc=(-0.09 - o, -0.3 + 0.1 * (i % 2), -0.5), rot=(R(-70 + 25 * (i % 2)), 0, R(10 + 30 * (i % 2))), interp="LINEAR")
     rnd = random.Random(9)
     for i in range(12):
         p = plane(f"fl{i}", rnd.uniform(.12, .3), rnd.uniform(.1, .25), card, (0, -0.3, -0.7), parent=cam); a = rnd.uniform(0, 6.28); st = rnd.choice([2, 4, 6, 8])
@@ -190,7 +208,7 @@ def s4():
     for h, sx in ((hr, 1), (hl, -1)):
         key(h, s0 - 1, loc=(0.2 * sx, -0.3, -0.5), rot=(R(-60), 0, R(-20 * sx)), interp="LINEAR"); key(h, s0 + 2, loc=(0.14 * sx, -0.46, -0.6), rot=(R(-95), 0, R(-10 * sx)), interp="LINEAR")
         key(h, s0 + 6, loc=(0.25 * sx, -0.22, -0.5), rot=(R(-50), R(30 * sx), R(-30 * sx)), interp="LINEAR"); key(h, s0 + 9, loc=(0.24 * sx, -0.1, -0.36), rot=(R(-30), R(30 * sx), R(-30 * sx)), interp="LINEAR")
-        key(h, s0 + 13, loc=(0.12 * sx, -0.14, -0.72), rot=(R(-75), 0, R(-8 * sx)), interp="LINEAR")
+        key(h, s0 + 13, loc=(0.17 * sx, -0.14, -0.72), rot=(R(-75), 0, R(-8 * sx)), interp="LINEAR")
         for j, f in enumerate(range(land + 2, 56, 4)): key(h, f, loc=(0.27 * sx, -0.05 + 0.07 * (j % 2), -0.44), rot=(R(-15), 0, R(-25 * sx)), interp="LINEAR")   # celebrating
     key(cam, land - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, land, rot=(R(1.6), R(-1.2), R(1.5)), interp="LINEAR"); key(cam, land + 3, rot=(0, 0, 0), interp="LINEAR")
     # 58-72: lunge to the right endplate (outside face at car x = -0.848) and kiss it; both hands land flat on it
@@ -199,11 +217,11 @@ def s4():
     key(rig, 68, loc=tuple(K), rot=lookrot(tuple(K), tuple(epc)), interp="BEZIER")
     for f, ln in ((1, 20), (56, 20), (68, 17)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
     ep = bpy.data.objects.new("ep_space", None); bpy.context.scene.collection.objects.link(ep); ep.location = (-0.875, 2.15, 1.33)
-    for nm, dz, mir in (("eR", -0.11, False), ("eL", 0.11, True)):
+    for nm, dz, mir in (("eR", -0.14, False), ("eL", 0.14, True)):
         fy = Vector((0, 0.35 if not mir else -0.35, 0.94)).normalized(); bz = Vector((-1, 0, 0)); fx = fy.cross(bz) if not mir else bz.cross(fy)
         g = ghand(nm, ep, (0, dz * 0.9, -0.09), Matrix((fx, fy, bz)).transposed().to_euler(), curls=FLAT, thumb=0.2, mirror=mir); vis(g, 1, False); vis(g, 66, True)
     for h in (hr, hl): vis(h, 64, False)
-    shake(cam, 70, 95, 0.6, step=3, seed=4)
+    shake(cam, 70, 95, 0.6, step=3, seed=4); cam_arms(cam, ["eR", "eL", "hR", "hL"])
 
 SHOTS = {1: s1, 2: s2, 3: s3, 4: s4}
 

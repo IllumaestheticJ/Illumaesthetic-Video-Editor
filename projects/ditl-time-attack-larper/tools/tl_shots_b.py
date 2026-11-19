@@ -106,11 +106,13 @@ def s5():
     E = (0.0, 1.35, 1.48); rig, cam = rigcam(E, (-0.6, 2.3, 1.3), lens=24)
     h = ghand("hR", cam, (0.12, -0.15, -0.4), (R(-75), 0, R(-5)), curls=(0.5, 0.5, 0.6, 0.7), thumb=0.5)
     for i, r in enumerate(tro):    # each one turned to face front, reverently; camera pans along and reads the plaques
-        f0 = 2 + i * 9; tgt = (-0.64 + i * 0.32, 2.3, 1.3)
+        f0 = 2 + i * 6; tgt = (-0.64 + i * 0.32, 2.3, 1.3)
         key(rig, f0, rot=lookrot(E, tgt), interp="BEZIER"); key(r, f0 + 2, rot=tuple(r.rotation_euler), interp="LINEAR"); key(r, f0 + 6, rot=(0, 0, 0), interp="BEZIER")
         key(h, f0, loc=(0.1, -0.12, -0.38), interp="LINEAR"); key(h, f0 + 3, loc=(0.06, -0.1, -0.5), interp="LINEAR"); key(h, f0 + 7, loc=(0.1, -0.14, -0.4), interp="LINEAR")
-    key(rig, 47, rot=lookrot(E, (0.0, 2.3, 1.32)), interp="BEZIER"); vis(h, 46, False)
-    for f, ln in ((1, 30), (44, 30), (48, 19)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    # 32-48: pan back and push in on one ATTENDEE plaque (trophy 3) until it fills the frame
+    pq = (0.32, 2.238, 1.29); Ec = (0.27, 1.72, 1.36); vis(h, 33, False)
+    key(rig, 32, loc=E, rot=lookrot(E, (0.0, 2.3, 1.3)), interp="BEZIER"); key(rig, 46, loc=Ec, rot=lookrot(Ec, pq), interp="BEZIER"); key(rig, 48, loc=Ec, rot=lookrot(Ec, pq), interp="LINEAR")
+    for f, ln in ((1, 30), (32, 30), (46, 60), (48, 62)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
 
 # ---------------------------------------------------------------- 6: harness clicks, gloves, lap timer started
 def s6():
@@ -226,11 +228,15 @@ def s12():
     wy = T.HALF - 0.938; wx = 0.797 + 0.15
     plane("sticker", 0.12, 0.18, fm("stk", (0.96, 0.96, 0.92), 0.5), (wx + 0.005, wy, 0.62), rot=(0, R(90), 0))
     rig, cam = rigcam((1.75, wy - 0.55, 0.62), (wx, wy, 0.42), lens=20)
+    for nm, loc, en in (("k12", (1.6, wy - 1.2, 1.6), 60), ("f12", (2.4, wy + 0.6, 1.0), 25)):     # key and fill so the tyre and the glove read
+        l = bpy.data.objects.new(nm, bpy.data.lights.new(nm, "AREA")); l.data.energy = en; l.data.size = 1.2; l.location = loc; bpy.context.scene.collection.objects.link(l)
+        l.rotation_euler = (Vector((wx, wy, 0.4)) - Vector(loc)).to_track_quat("-Z", "Y").to_euler()
+    cl = bpy.data.objects.new("camfill", bpy.data.lights.new("camfill", "POINT")); cl.data.energy = 1.5; cl.data.shadow_soft_size = 0.3; cl.parent = cam; cl.location = (0.05, 0.1, 0.05); bpy.context.scene.collection.objects.link(cl)
     g = box("gauge", (0.05, 0.12, 0.05), fm("gaugem", (0.05, 0.05, 0.05), 0.3), (wx + 0.04, wy - 0.18, 0.2), rot=(0, 0, R(30)))
-    hr = ghand("hR", g, (0, 0.08, 0.0), (R(-90), 0, 0), curls=FIST, thumb=0.8)
+    hr = ghand("hR", g, (0, 0.08, 0.0), (R(-90), 0, 0), curls=FIST, thumb=0.8); T.cam_arms(cam, ["hR"])
     key(g, 1, loc=(wx + 0.3, wy - 0.4, 0.4), interp="LINEAR"); key(g, 8, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 22, loc=(wx + 0.04, wy - 0.18, 0.22), interp="LINEAR"); key(g, 27, loc=(wx + 0.25, wy + 0.5, 0.15), interp="LINEAR"); vis(g, 1, True); vis(g, 28, False)
     hl = ghand("hL", cam, (-0.02, -0.11, -0.22), (0, 0, R(25)), curls=FLAT, thumb=1.0, mirror=True)      # back of the glove facing the camera
-    inks = {k: plane(f"ink{k}", 0.11, 0.055, alphamat(f"inkm{k}", f"{TEX}glove_ink{k}.png"), (0, 0.05, 0.0175), parent=hl) for k in (1, 2, 3)}
+    inks = {k: plane(f"ink{k}", 0.11, 0.055, alphamat(f"inkm{k}", f"{TEX}glove_inkw{k}.png"), (0, 0.05, 0.0175), parent=hl) for k in (1, 2, 3)}
     for o in inks.values(): o.scale = (-o.scale[0], o.scale[1], o.scale[2])   # undo the mirrored hand so the ink reads
     vis(hl, 1, False); vis(hl, 28, True); swap(inks, [(1, 0), (34, 1), (38, 2), (42, 3)])
     for o in inks.values(): vis(o, 1, False)
