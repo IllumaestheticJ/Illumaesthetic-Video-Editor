@@ -830,7 +830,7 @@ def anim_E3(fr):
         aim_arm(GUS, "R", p + Vector((0.0, -0.08, 0.06)))
     pip_on_stool((2.42, 2.55), lerp(10, -40, ease(k)), t, head=(-10, 0, 0), armL=(-30, 0, 10), armR=(-30, 0, -10),
                  elbowL=-30, elbowR=-30, look=lerpv((0.8, 0.2), (-0.9, -0.1), ease(k)))
-    look(cam, (1.6, -4.9, 2.1), (1.7, 1.0, 1.4), 20)
+    look(cam, (1.3, -5.6, 2.1), (1.1, 1.0, 1.4), 17)
 
 
 def anim_E4(fr):
@@ -950,7 +950,7 @@ def anim_E7(fr):
     PLATE.location = p
     PLATE.rotation_euler = [math.radians(a) for a in rot]
     kb = ease((k - 0.8) / 0.2)                                    # steps back and turns to camera: deadpan reveal
-    gx = lerp(lerp(4.15, 4.95, ease((k - 0.3) / 0.45)), 5.55, kb)
+    gx = lerp(lerp(4.15, 4.95, ease((k - 0.3) / 0.45)), 4.55, kb)
     gy = lerp(2.48, 2.0, kb)
     talkpose(GUS, "GUS", t, 0.0, loc=(gx, gy, 0.03 * math.sin(math.pi * cl((k - 0.3) / 0.45))), rz=lerp(160, 15, kb),
              head=(6, 0, 0), armL=(-30, 0, 6), armR=(-30, 0, -6), elbowL=-30, elbowR=-30, look=lerpv((0.0, 0.2), (-0.3, 0.0), kb))
@@ -964,7 +964,7 @@ def anim_E7(fr):
     m, lid = talk("PIP", t, 0.0)
     pose(PIP, loc=(3.55, 1.93, 0.5425), rz=-25, hips=(18, 0, 0), head=(10, 0, -12), armL=(-38, 0, 14), elbowL=-50,
          armR=(-38, 0, -14), elbowR=-50, legL=(-88, 0, 4), legR=(-88, 0, -4), mouth=m, lid=lid, look=(0.8, 0.5))
-    look(cam, (4.95, -0.4, 1.55), (5.05, 3.2, 1.15), 27)
+    look(cam, (6.5, 0.1, 1.6), (5.25, 3.3, 1.25), 30)   # v2: from the right, so Gus never hides the plate
 
 
 S8CAM = ((4.15, -2.85, 1.3), (2.05, -0.3, 0.62), 26)
@@ -1126,6 +1126,93 @@ def anim_E12(fr):
     s12_cam(c, n, u, kk)
 
 
+# ================================================== v2: Gus shows the real Blender scenes on his phone ==================================================
+# Owner v1 notes: "use the actual blender scenes for when gus is explaining - on a phone". The phone (cartoon-big, x2.5) is
+# held up toward the camera, screen parallel to the image plane (stays a true rectangle); Gus and Pip look up at it from
+# below. The screen is flat key colour; tools/ep4_build.py corner-pins the renders of tools/v2_content.py into it.
+PH_S = 2.5
+PH_CAM = Vector((3.4, -1.0, 1.86))
+PH_C = Vector((3.4, 0.3, 2.075))            # screen centre
+PH_LENS = 35.0
+PH_DEND = (PHONE_H * PH_S / 2) * PH_LENS / 18.0
+
+
+def place_big_phone(bob=0.0):
+    set_vis(PHONE, True)
+    c = PH_C + Vector((0, 0, bob))
+    PHONE.matrix_world = Matrix.Translation(c + Vector((0, 0.0076 * PH_S, 0))) @ Matrix.Diagonal((PH_S, PH_S, PH_S, 1.0))
+    return c
+
+
+def phone_scene(fr, pip_hop=0.0, pip_point=0.0):
+    t = fr / FPS
+    set_vis(PIPSCAN, False)
+    screen("slicer")
+    c = place_big_phone(0.006 * math.sin(t * 2.1))
+    gm, glid = talk("GUS", t, 0.0)
+    pose(GUS, loc=(3.86, 1.1, 0), rz=-6, hips=(0, 0, 0), head=(-14 + 5 * accent("GUS", t), 0, 5), armL=(-30, 0, 6),
+         armR=(-30, 0, -6), elbowL=-30, elbowR=-30, mouth=gm, lid=glid, look=(-0.5, 0.9))
+    pm, plid = talk("PIP", t, 0.0)   # Pip stands on a crate below frame (only heads and shoulders are in shot)
+    pose(PIP, loc=(2.96, 1.1, 0.30 + pip_hop), rz=6, hips=(-4, 0, 0), head=(-18 + 5 * accent("PIP", t), 0, -5),
+         armL=(-30, 0, 10), elbowL=-30, armR=(-30, 0, -10), elbowR=-30, mouth=pm, lid=plid,
+         look=(0.5, 0.9))
+    bpy.context.view_layer.update()
+    # Gus's nearer hand holds the phone's lower corner from behind the screen plane
+    corner = c + Vector((PHONE_W * PH_S / 2 + 0.01, 0.06, -PHONE_H * PH_S / 2 + 0.05))
+    side = min(("L", "R"), key=lambda sd: (GUS.arms[sd].matrix_world.translation - corner).length)
+    aim_arm(GUS, side, corner)
+    if pip_point > 0.01:
+        sidep = min(("L", "R"), key=lambda sd: (PIP.arms[sd].matrix_world.translation - c).length)
+        aim_arm(PIP, sidep, PIP.hands[sidep].matrix_world.translation.lerp(c + Vector((-PHONE_W * PH_S / 2 - 0.06, 0.08, -0.25)), pip_point))
+    return c
+
+
+def anim_E4(fr):
+    """v2: 'A mesh of tiny triangles. No thickness.' - on Gus's phone: the real scan, pushed in until its triangles show."""
+    phone_scene(fr)
+    look(cam, PH_CAM, PH_CAM + Vector((0, 1, 0)), PH_LENS)
+
+
+def anim_E8(fr):
+    """v2: 'The scan is the reference. You can remake the original from it...' - phone: curves traced over the real scan."""
+    phone_scene(fr)
+    look(cam, PH_CAM, PH_CAM + Vector((0, 1, 0)), PH_LENS)
+
+
+def anim_E9(fr):
+    """v2: '...or design a new one on it.' - phone: the lip designed on the scan."""
+    phone_scene(fr)
+    look(cam, PH_CAM, PH_CAM + Vector((0, 1, 0)), PH_LENS)
+
+
+def anim_E10(fr):
+    """v2: 'So the scan is what makes it fit?' / 'Every curve.' - phone: scan vs surface wipe, then the lip seam."""
+    phone_scene(fr)
+    look(cam, PH_CAM, PH_CAM + Vector((0, 1, 0)), PH_LENS)
+
+
+def anim_E11(fr):
+    """v2: 'Ooh! Illumaesthetic does both!' - Pip hops on the stool and points at the phone."""
+    t = fr / FPS
+    tw = W(14, 0)["t0"]
+    hop = 0.05 * math.sin(math.pi * cl((t - tw) / 0.25)) + 0.03 * abs(math.sin(math.pi * cl((t - W(14, 1)["t0"]) / 1.2) * 3))
+    phone_scene(fr, pip_hop=hop, pip_point=ease((t - W(14, 1)["t0"]) / 0.3) * (1 - ease((t - L1(14) - 0.1) / 0.3)))
+    look(cam, PH_CAM, PH_CAM + Vector((0, 1, 0)), PH_LENS)
+
+
+def anim_E12(fr):
+    """v2: '...Of course they do.' - push into Gus's phone until the screen fills the frame (lands on the last frame)."""
+    k = prog(fr, "E12")
+    c = phone_scene(fr)
+    kk = cl((k - 0.35) / 0.65) ** 1.4
+    d0 = PH_C.y - PH_CAM.y
+    d = d0 * (PH_DEND / d0) ** kk
+    z = lerp(PH_CAM.z, c.z, ease(kk * 1.6) if kk < 1 else 1.0)
+    look(cam, (c.x, c.y - d, z), (c.x, c.y, z), PH_LENS)
+
+
+PHONE_SHOTS = ("E4", "E8", "E9", "E10", "E11", "E12")
+
 ANIM = {k: globals()[f"anim_{k}"] for k in SF}
 
 
@@ -1148,6 +1235,7 @@ def reset_anim():
     PLATE.location, PLATE.rotation_euler = PLATE_HOME, (0, 0, 0)
     PRINTER.location = (4.05, 3.15, 0.955)
     STOOL.location = (2.42, 2.55, 0)
+    PHONE.matrix_world = Matrix.Identity(4)
 
 
 # ================================================== run ==================================================
@@ -1166,7 +1254,7 @@ for sh in SHOTS:
     tsum, nr = 0.0, 0
     for fr in range(f0, f1):
         final = os.path.join(d, f"{fr:04d}.png")
-        need_c = sh == "E12" and not ONLY
+        need_c = sh in PHONE_SHOTS and not ONLY
         todo = (fr - f0) % EVERY == 0 and lo <= fr < hi and not os.path.exists(final) and (not ONLY or fr in ONLY)
         if not (todo or need_c):
             continue
@@ -1186,8 +1274,7 @@ for sh in SHOTS:
         nr += 1
         print(f"[ep4] {sh} {fr} {time.time() - t0:.1f} s", flush=True)
     if per:
-        corners["shots"][sh] = dict(frames=[f0, f1], static=False, per_frame=per,
-                                    note="push along the screen normal; last frame = full frame")
+        corners["shots"][sh] = dict(frames=[f0, f1], static=sh != "E12", per_frame=per)
         corners["screen_full_frame"] = TL["screen_full_frame"]
         json.dump(corners, open(CORN, "w"), indent=1)
     if nr:

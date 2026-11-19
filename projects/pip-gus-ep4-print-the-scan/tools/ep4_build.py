@@ -28,7 +28,7 @@ PROJ = HERE.parent
 REPO = PROJ.parent.parent
 M = Path("/home/user/media/pip-gus-ep4-print-the-scan")
 ap = argparse.ArgumentParser()
-ap.add_argument("--ver", default="v1")
+ap.add_argument("--ver", default="v2")
 ap.add_argument("--steps", default="gfx,picture,audio,mux")
 a = ap.parse_args()
 BUILD = M / f"build_{a.ver}"
@@ -42,7 +42,13 @@ SHOTS = [(s["id"], s["f0"], s["f1"]) for s in TL["shots"]]
 CART_END = TL["total_frames"]                   # 1052 = hand-off (phone full frame on 1051)
 PHONE_F0 = SF_E12 = [s for s in SHOTS if s[0] == "E12"][0][1]   # real footage starts on the phone screen here
 B = 18                                          # frames per beat (100 BPM)
-CUTS = dict(scanning=CART_END + B, scan=CART_END + 3 * B, lip=CART_END + 6 * B, logo=CART_END + 8 * B)
+H9 = B // 2                                     # half a beat
+# v2 recap (owner: "show everything from start to finish", faster; end on the real finished bumper): (name, start frame)
+SEQ = [("crash", PHONE_F0), ("crash2", CART_END + H9), ("broken", CART_END + 2 * H9), ("scanning", CART_END + 3 * H9),
+       ("r_scan", CART_END + 4 * H9), ("r_trace", CART_END + 5 * H9), ("r_car", CART_END + 7 * H9), ("r_lip", CART_END + 8 * H9),
+       ("done_close", CART_END + 10 * H9), ("done_car", CART_END + 12 * H9)]
+CUTS = dict(logo=CART_END + 8 * B, **{n: f for n, f in SEQ})
+PHONE_SHOTS = ("E4", "E8", "E9", "E10", "E11", "E12")
 BEAT0, BEAT = 0.0203, 0.60001
 JUMPS = [(10, 2), (14, 6), (30, 22)]            # pilot's 2-bar intro back-jumps
 POST = [(36, 60)]                               # end of bar 8 -> bar 15 (Gm -> F)
@@ -57,22 +63,22 @@ CAP = dict(PIP="#619f73", GUS="#ecefec")
 BRAND = {"accent": "#619f73", "onAccent": "#0b0c0b", "ink": "#ecefec", "bg": "#0b0c0b", "sub": "#d4d9d4", "sub2": "#c8cec8",
          "label": "#a8b0a8", "dim55": "rgba(236,239,236,0.55)", "dim50": "rgba(236,239,236,0.5)", "plate": "rgba(11,12,11,0.58)",
          "cap": "rgba(11,12,11,0.55)"}
-Y0 = 1560
+Y0, YP = 1560, 1345        # YP: phone shots - below the phone, over the hats (eyes stay clear)
 PAGES = [   # (line, rows of word indices, centre y)
     (1, [[0, 1, 2], [3, 4, 5, 6, 7]], Y0),
     (2, [[0, 1]], Y0), (2, [[2, 3, 4]], Y0),
     (3, [[0, 1, 2], [3, 4, 5]], Y0),
-    (4, [[0, 1, 2], [3, 4]], Y0), (4, [[5, 6]], Y0),
+    (4, [[0, 1, 2], [3, 4]], YP), (4, [[5, 6]], YP),
     (5, [[0, 1, 2, 3]], Y0), (6, [[0]], Y0),
     (7, [[0, 1, 2, 3]], Y0),
     (8, [[0, 1, 2, 3]], Y0),
-    (9, [[0, 1, 2], [3, 4]], Y0),
-    (10, [[0, 1, 2], [3, 4, 5, 6]], Y0),
-    (11, [[0, 1, 2], [3, 4, 5, 6]], Y0),
-    (12, [[0, 1, 2, 3], [4, 5, 6, 7]], Y0),
-    (13, [[0, 1]], Y0),
-    (14, [[0]], Y0), (14, [[1, 2, 3]], Y0),
-    (15, [[0, 1, 2, 3]], 300),            # top band: the phone screen grows from the middle
+    (9, [[0, 1, 2], [3, 4]], YP),
+    (10, [[0, 1, 2], [3, 4, 5, 6]], YP),
+    (11, [[0, 1, 2], [3, 4, 5, 6]], YP),
+    (12, [[0, 1, 2, 3], [4, 5, 6, 7]], YP),
+    (13, [[0, 1]], YP),
+    (14, [[0]], YP), (14, [[1, 2, 3]], YP),
+    (15, [[0, 1, 2, 3]], YP),
 ]
 
 
@@ -89,9 +95,19 @@ def nframes(p):
 CORN = json.loads((M / "frames/screen_corners.json").read_text()) if (M / "frames/screen_corners.json").exists() else None
 
 
-def screen_top(fr):
-    c = CORN["shots"]["E12"]["per_frame"].get(str(fr)) if CORN else None
-    return min(p[1] for p in c) if c else H
+def corners(fr):
+    if not CORN:
+        return None
+    for sh in CORN["shots"].values():
+        c = sh["per_frame"].get(str(fr))
+        if c:
+            return c
+    return None
+
+
+def screen_bottom(fr):
+    c = corners(fr)
+    return max(p[1] for p in c) if c else 0
 
 
 def pages():
@@ -105,9 +121,9 @@ def pages():
             nn, nrows = PAGES[i + 1][:2]
             t1 = min(t1, LN[nn]["words"][nrows[0][0]]["t0"])
         t1 = min(t1, CART_END / FPS - 1 / FPS)
-        if n == 15:   # rule: no text over real footage - leave before the screen reaches the caption band
+        if n == 15:   # rule: no text over real footage - leave before the growing screen reaches the caption band
             for fr in range(int(ws[0]["t0"] * FPS), CART_END):
-                if screen_top(fr) < y + 110:
+                if screen_bottom(fr) > y - 110:
                     t1 = min(t1, fr / FPS - 1 / FPS)
                     break
         out.append(dict(t0=ws[rows[0][0]]["t0"], t1=round(t1, 3), color=CAP[L["speaker"]], y=y, cx=540,
@@ -166,25 +182,65 @@ def render_frame(shot, i):
     return cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
 
 
+def fitw(name, k):
+    """Whole 4:3 photo fitted to the frame width over a blurred, darkened fill of itself; slow push."""
+    if name not in _PH:
+        _PH[name] = cv2.cvtColor(cv2.imread(str(M / "photos" / name)), cv2.COLOR_BGR2RGB)
+    im = _PH[name]
+    bg = cv2.GaussianBlur(photo(name, 0, im.shape[1] / 2, 0), (0, 0), 40)
+    bg = (bg * 0.45).astype(np.uint8)
+    s_ = (W / im.shape[1]) * (1.0 + 0.05 * k)
+    fg = cv2.resize(im, None, fx=s_, fy=s_, interpolation=cv2.INTER_LANCZOS4)
+    h, w = fg.shape[:2]
+    x0 = (w - W) // 2
+    fg = fg[:, x0:x0 + W]
+    y0 = (H - h) // 2
+    bg[y0:y0 + h] = fg
+    return bg
+
+
+def rframe(name, i):
+    p = M / "v2/recap" / name / f"{i:04d}.png"
+    im = cv2.imread(str(p), cv2.IMREAD_COLOR)
+    if im is None:
+        raise SystemExit(f"missing {p}")
+    return cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+
+
+PHOTO = dict(crash=("IMG_0763.jpeg", 640), crash2=("IMG_0764.jpeg", 820), broken=("IMG_0771.jpeg", 560),
+             scanning=("IMG_0770.jpeg", 330), done_close=("IMG_0767.jpeg", 900))
+
+
 def real(fr):
-    """Real-section picture for reel frame fr (also used on the phone screen from E12's start)."""
-    if fr < CUTS["scanning"]:
-        return photo("IMG_0763.jpeg", (fr - PHONE_F0) / (CUTS["scanning"] - PHONE_F0), 640)
-    if fr < CUTS["scan"]:
-        return photo("IMG_0770.jpeg", (fr - CUTS["scanning"]) / (CUTS["scan"] - CUTS["scanning"]), 330)
-    if fr < CUTS["lip"]:
-        return render_frame("scan", fr - CUTS["scan"])
-    return render_frame("lip", fr - CUTS["lip"])
+    """Recap picture for reel frame fr (on the phone screen during E12, full frame from the hand-off)."""
+    k = max(i for i, (n, f) in enumerate(SEQ) if f <= fr)
+    name, f0 = SEQ[k]
+    f1 = SEQ[k + 1][1] if k + 1 < len(SEQ) else CUTS["logo"]
+    u = (fr - f0) / max(1, f1 - f0)
+    if name in PHOTO:
+        return photo(PHOTO[name][0], u, PHOTO[name][1])
+    if name == "done_car":
+        return photo("IMG_0765.jpeg", u, 480, push=0.04)
+    return rframe(name, fr - f0)
+
+
+def phone_content(fr):
+    if fr >= PHONE_F0:
+        return real(fr)
+    im = cv2.imread(str(M / "v2/phone" / f"{fr:04d}.png"), cv2.IMREAD_COLOR)
+    if im is None:
+        raise SystemExit(f"missing phone frame {fr}")
+    return cv2.resize(cv2.cvtColor(im, cv2.COLOR_BGR2RGB), (W, H), interpolation=cv2.INTER_LANCZOS4)
 
 
 def composite_phone(img, fr):
-    """Corner-pin the real section into the key-coloured phone screen (E12)."""
-    c = CORN["shots"]["E12"]["per_frame"].get(str(fr)) if CORN else None
+    """Corner-pin the Blender scene / recap into the key-coloured phone screen."""
+    c = corners(fr)
     if c is None:
         return img
     src = np.float32([[0, 0], [W - 1, 0], [W - 1, H - 1], [0, H - 1]])
     Hm = cv2.getPerspectiveTransform(src, np.float32(c))
-    warped = cv2.warpPerspective(real(fr), Hm, (W, H), flags=cv2.INTER_LINEAR)
+    warped = cv2.warpPerspective(phone_content(fr), Hm, (W, H), flags=cv2.INTER_AREA)
     f = img.astype(np.int16)
     key = (np.abs(f[:, :, 0] - 255) + np.abs(f[:, :, 1] - 0) + np.abs(f[:, :, 2] - 255)).astype(np.float32)
     al = np.clip(1.0 - (key - 60) / 120.0, 0, 1)[:, :, None]   # soft key edge
@@ -216,10 +272,10 @@ def picture(gmov):
             if im is None:
                 raise SystemExit(f"missing frame {p}")
             img = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
-            if fr >= PHONE_F0:
-                raw = img.copy()
+            scr = None
+            if shot_of[fr] in PHONE_SHOTS:
+                scr = np.all(img == (255, 0, 255), axis=2)
                 img = composite_phone(img, fr)
-                scr = np.all(raw == (255, 0, 255), axis=2)
         elif fr < CUTS["logo"]:
             img = real(fr)
             foot = True
@@ -229,7 +285,7 @@ def picture(gmov):
         al = ga[:, :, 3:4].astype(np.float32) / 255.0
         if foot:   # rule: no text over real footage
             qa["text_over_footage_alpha_max"] = max(qa["text_over_footage_alpha_max"], float(al.max()))
-        elif PHONE_F0 <= fr < CART_END:
+        elif scr is not None:
             qa["text_over_phone_screen_px"] += int(((al[:, :, 0] > 0.05) & scr).sum())
         out = img.astype(np.float32) * (1 - al) + ga[:, :, :3].astype(np.float32) * al
         enc.stdin.write((out + 0.5).astype(np.uint8).tobytes())
