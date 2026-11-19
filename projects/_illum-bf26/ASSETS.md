@@ -6,3 +6,4 @@
 - Scans: `/2. Illumaesthetic Videos/1. Video dumps/992 GT3RS scanning/`; existing projects `porsche-gt3rs-992`, `lamborghini-revuelto`, `toyota-gr-corolla` (scan data per knowledge/sources.md).
 - No footage found by name yet for: Evo 8 bumper, GD/GG brake duct install, blobeye duct print. Chats: search, and report gaps early.
 - Store product images (Shopify CDN) exist for every product - fallback only, ask the owner before using stills.
+- Evo 8 bumper (R2): Dropbox `/2. Illumaesthetic Videos/1. Video dumps/*Posted Raw Videos/2024 Finished Video/Jackie/Posted/2023/` - "Evo bumper process without text.mov" (unwrap, test fit, street walk-around), "evo bumper voiceover.mov" (burned captions), "evo reply video v1.mp4" (bumper twist). No unboxing, no Nose Chop, no side-by-side footage.
