@@ -36,7 +36,7 @@ def cabin(veh, screens=("timer_000",)):
     box("tunnel", (0.26, 1.0, 0.25), dk, (0.0, 0.05, 0.42), base="z", parent=veh); box("floorin", (1.4, 2.2, 0.03), dk, (0, 0.2, 0.33), parent=veh)
     box("seatL", (0.5, 0.15, 0.7), red, (0.37, 0.55, 0.55), base="z", parent=veh); box("seatR", (0.5, 0.15, 0.7), red, (-0.37, 0.55, 0.55), base="z", parent=veh)
     col = box("column", (0.08, 0.32, 0.08), dk, (0.37, -0.42, 0.86), rot=(R(-22), 0, 0), parent=veh)
-    whl = bpy.data.objects.new("wheelpivot", None); bpy.context.scene.collection.objects.link(whl); whl.parent = veh; whl.location = (0.37, -0.28, 0.93); whl.rotation_euler = (R(68), 0, 0)
+    whl = bpy.data.objects.new("wheelpivot", None); bpy.context.scene.collection.objects.link(whl); whl.parent = veh; whl.location = (0.37, -0.28, 0.93); whl.rotation_mode = "ZXY"; whl.rotation_euler = (R(68), 0, 0)   # Z spins the wheel on its own column (applied before the 68 deg tilt); + = right turn as the driver sees it
     bpy.ops.mesh.primitive_torus_add(major_radius=0.185, minor_radius=0.022, major_segments=28, minor_segments=8); tr = bpy.context.object; tr.parent = whl; tr.data.materials.append(dk)
     for a in (0, 120, 240): box(f"spoke{a}", (0.03, 0.17, 0.015), gr, (0, 0, 0), rot=(0, 0, R(a)), base="y", parent=whl)
     box("hubpad", (0.11, 0.08, 0.03), red, (0, 0, 0.005), parent=whl)
@@ -172,9 +172,10 @@ def s8():
 def s9():
     W.road(); bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=4.0, depth=0.25, location=(0, -16, 0.12)); isl = bpy.context.object; isl.data.materials.append(mat("grass_i", (0.12, 0.35, 0.1)))
     veh, wg = car_in(); c = cabin(veh, ("timer_041",))
-    key(veh, 1, loc=(1.7, 0, 0), interp="LINEAR"); key(veh, 48, loc=(1.9, -2.2, 0), rot=(0, 0, R(-6)), interp="LINEAR")
+    # into the roundabout: a right flick in, then left around it; the wheel follows the heading
+    key(veh, 1, loc=(1.7, 0, 0), rot=(0, 0, 0), interp="BEZIER"); key(veh, 16, loc=(1.75, -0.7, 0), rot=(0, 0, R(-5)), interp="BEZIER"); key(veh, 48, loc=(1.9, -2.2, 0), rot=(0, 0, R(6)), interp="BEZIER")
     rig, cam = drivecam(veh, look=(0.3, -8, 1.0), lens=17)
-    for f in range(1, 49, 4): key(c["wheel"], f, rot=(R(68), 0, R(70 if (f // 4) % 2 else -70)), interp="LINEAR")
+    for f, th in ((1, 0), (8, 30), (16, 10), (26, -45), (40, -40), (48, -30)): key(c["wheel"], f, rot=(R(68), 0, R(th)), interp="BEZIER")
     wheelhands(c["wheel"])
     cy = bpy.data.objects.new("cyc", None); bpy.context.scene.collection.objects.link(cy)
     p, head, fd = W.person("cyclist", "cyclist", (0, 0, 0.42), 0, skin("csk"), fm("jersey", (0.1, 0.6, 0.3), 0.5), fm("chair", (0.1, 0.08, 0.05)), ["flat"]); p.parent = cy; p.rotation_euler = (R(-20), 0, 0)
@@ -276,7 +277,7 @@ def s14():
     for f in range(47, 82, 8): sched += [(f, True), (f + 4, False)]
     for f, on in sched: vis(blink, f, on)
     wheelhands(c["wheel"], ("R",))
-    for f in (50, 60, 70, 80): key(c["wheel"], f, rot=(R(68), 0, R(-130 if f < 75 else -40)), interp="BEZIER")
+    for f, th in ((1, 0), (46, 0), (54, -150), (74, -150), (81, -60)): key(c["wheel"], f, rot=(R(68), 0, R(th)), interp="BEZIER")   # full left lock for the U-turn, unwinding at the end
 
 # ---------------------------------------------------------------- 15: the mirror: his face for the first time, helmet on; mouth revs and rows the 6-speed; timer --:--
 def s15():
