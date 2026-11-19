@@ -7,6 +7,7 @@ jobs.json: {"out": dir, "res": [w,h], "samples": n, "cars": {name: {"glb":..., "
 Camera: one shared rear-3/4 high "R-cam" in the lookbook frame (car along Y, rear at +Y, ground z=0).
 """
 import bpy, sys, json, math, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector
 
 cfg = json.load(open(sys.argv[sys.argv.index('--') + 1]))
@@ -29,7 +30,7 @@ def setup_world():
     for o in list(bpy.data.objects):
         bpy.data.objects.remove(o, do_unlink=True)
     sc.render.engine = 'CYCLES'
-    sc.cycles.device = 'CPU'
+    ive_gpu.use(sc)
     sc.cycles.samples = cfg.get('samples', 24)
     sc.cycles.use_denoising = True
     sc.render.resolution_x, sc.render.resolution_y = W, H

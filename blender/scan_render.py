@@ -585,22 +585,9 @@ def main():
         sc.cycles.use_denoising = True
         sc.render.use_persistent_data = True  # keep BVH between frames: 3M-tri scans otherwise re-sync every frame
         sc.cycles.use_adaptive_sampling = True
-        sc.cycles.device = "CPU"
-        try:
-            prefs = bpy.context.preferences.addons["cycles"].preferences
-            for t in ("OPTIX", "CUDA", "HIP", "METAL", "ONEAPI"):
-                try:
-                    prefs.compute_device_type = t
-                    prefs.get_devices()
-                    if any(d.type == t for d in prefs.devices):
-                        for d in prefs.devices:
-                            d.use = True
-                        sc.cycles.device = "GPU"
-                        break
-                except TypeError:
-                    continue
-        except Exception:
-            pass
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import ive_gpu  # GPU only (OptiX first) with GPU denoising; CPU when there is no GPU
+        ive_gpu.use(sc)
     elif args.engine == "eevee":
         sc.render.engine = "BLENDER_EEVEE_NEXT" if "BLENDER_EEVEE_NEXT" in {e.identifier for e in bpy.types.RenderSettings.bl_rna.properties["engine"].enum_items} else "BLENDER_EEVEE"
     else:

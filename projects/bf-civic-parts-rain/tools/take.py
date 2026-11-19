@@ -8,6 +8,7 @@ Frames are 30 fps from the song start (music at 0). Frame (non-zero) Ron frame: 
 """
 import json, math, os, random, sys
 import bpy
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "..", "..", "blender")); import ive_gpu  # noqa: E402  (GPU when present, else CPU)
 from mathutils import Vector, Matrix, Euler
 
 sys.path.insert(0, "/home/user/Illumaesthetic-Video-Editor/blender")
@@ -142,7 +143,7 @@ light("fill_left", (6.0, 3.0, 2.0), 500, 4)
 
 sc.render.engine = "CYCLES" if ENGINE == "cycles" else "BLENDER_WORKBENCH"
 if ENGINE == "cycles":
-    sc.cycles.samples = SPP; sc.cycles.use_denoising = True; sc.cycles.device = "CPU"
+    sc.cycles.samples = SPP; sc.cycles.use_denoising = True; ive_gpu.use(sc)
     sc.render.use_persistent_data = False  # lessons: persistent data drops lights / black frames on animated scenes
     sc.cycles.max_bounces = 4
 sc.render.use_motion_blur = ENGINE == "cycles" and arg("--mblur", "1") == "1"
