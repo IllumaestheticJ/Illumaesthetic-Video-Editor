@@ -156,6 +156,12 @@ def cabin(look=(0.1, -0.8, 1.0), lens=19, loc=EYE, kit=True):
     wh = W.wheel(root, (0.36, -0.3, 1.02)); plane("cab_grb", 0.05, 0.035, imgmat("cab_grm", TEX + "cover.png"), (0, 0, 0.017), parent=wh)
     return root, by, rig, cam
 
+def limb(name, root, side, skin, shirt, rx=-100, bend=-10, rz=12):
+    """Arm from the shoulder by explicit angles: rx -100 hangs down slightly forward, 160 reaches forward; bend folds the forearm."""
+    a = box(name + "_ua", (0.1, 0.3, 0.1), shirt, loc=(side * 0.35, 0, 0.47), rot=(R(rx), 0, R(rz) * side), parent=root, base="y", taper=0.85)
+    f = box(name + "_fa", (0.085, 0.28, 0.085), skin, loc=(0, 0.3, 0), rot=(R(bend), 0, 0), parent=a, base="y", taper=0.9)
+    box(name + "_hd", (0.1, 0.11, 0.04), skin, loc=(0, 0.28, 0), parent=f, base="y"); return a, f
+
 def legs(name, root, col=(0.08, 0.1, 0.2)):
     m = W._flat_mat(name + "_legm", col)
     for sx in (-1, 1): box(f"{name}_leg{sx}", (0.19, 0.2, 0.8), m, (sx * 0.12, 0, -0.8), parent=root, base="z")
@@ -223,8 +229,8 @@ def s8():
     h_, hb = C.hatch(); h_.location = (-2.75, 0.0, 0); hb["glass"].hide_render = True; hb["interior"].hide_render = True
     box("gseat", (0.5, 0.14, 0.8), W._flat_mat("gseatm", (0.45, 0.4, 0.32)), (0.38, 0.42, 0.4), parent=h_, base="z"); box("gfloor", (1.5, 2.2, 0.3), W._flat_mat("gfl", (0.05, 0.05, 0.05)), (0, 0.3, 0.3), parent=h_, base="z")
     p, head, fd, sk = guy("gran", "gran", (0.38, 0.2, 0.4), R(84), ["grin", "proud"], (0.86, 0.72, 0.64), (0.75, 0.55, 0.75), hat=False, hair=(0.75, 0.75, 0.78)); p.parent = h_
-    a, f_ = arm("ga", p, -1, sk, mat("polo_ga", (0.75, 0.55, 0.75)), up=-10, fwd=70, bend=95)
-    for f in range(9, 30, 4): key(f_, f, rot=(R(95), R(-25), 0), interp="LINEAR"); key(f_, f + 2, rot=(R(95), R(25), 0), interp="LINEAR")
+    a, f_ = limb("ga", p, 1, sk, mat("polo_ga", (0.75, 0.55, 0.75)), rx=160, bend=-70, rz=0)
+    for f in range(9, 47, 4): key(f_, f, rot=(R(-70), R(-22), 0), interp="LINEAR"); key(f_, f + 2, rot=(R(-70), R(22), 0), interp="LINEAR")
     swap(fd, [(1, "grin"), (13, "proud"), (20, "grin"), (30, "proud")])
     key(h_, 1, loc=(-2.75, 3.2, 0), interp="LINEAR"); key(h_, 7, loc=(-2.75, 0.06, 0), interp="LINEAR"); key(h_, 9, loc=(-2.75, 0.0, 0), interp="LINEAR")
     for f, ln in ((1, 30), (9, 30), (22, 36)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
@@ -293,6 +299,8 @@ def s11():
     mw = h.matrix_world.copy(); h.parent = nz; h.matrix_parent_inverse = nz.matrix_world.inverted(); h.matrix_basis.identity(); h.matrix_world = mw
     hl = hand("hL", cam, (-0.3, -0.36, -0.42), (R(-60), 0, R(20)), curls=OPEN, mirror=True)
     p, head, fd, sk = guy("pump", "pump", (-3.3, 2.0, 0.84), R(140), ["grin", "talk"], (0.8, 0.6, 0.48), (0.3, 0.35, 0.6), hat=False, hair=(0.6, 0.5, 0.3)); legs("pump", p)
+    psh = mat("polo_pa", (0.3, 0.35, 0.6)); limb("pa", p, 1, sk, psh); pa2, pf2 = limb("pb", p, -1, sk, psh, rx=-130, bend=-60)
+    for f in range(9, 47, 5): key(pa2, f, rot=(R(-130), 0, R(-6)), interp="LINEAR"); key(pa2, f + 2, rot=(R(-142), 0, R(-6)), interp="LINEAR")
     key(p, 1, loc=(-4.6, 2.3, 0.84), interp="LINEAR"); key(p, 6, loc=(-3.0, 1.95, 0.84), rot=(0, 0, R(140)), interp="LINEAR"); key(p, 9, loc=(-2.95, 1.95, 0.84), rot=(R(-10), 0, R(140)), interp="LINEAR")
     swap(fd, [(1, "grin"), (9, "talk"), (12, "grin"), (15, "talk"), (18, "grin"), (21, "talk"), (24, "grin")])
     bb = bubble("bubble_hybrid", None, (-2.75, 1.95, 2.0), lookrot((-2.75, 1.95, 2.0), loc), w=1.25); bb.rotation_euler = lookrot(loc, (-2.75, 1.95, 2.0)); vis(bb, 1, False); vis(bb, 9, True)
@@ -360,7 +368,7 @@ def s13():
 def mirrorbg(thumbs):
     cars, cl, g = meet(4, gran=True, thumbs=thumbs)
     for (p, head, fd) in cl: swap(fd, [(1, "blank")]); p.rotation_euler = (0, 0, 0)
-    gx = g[0].location.x; rig, cam = rigcam((gx + 2.2, -9.0, 1.7), (gx + 2.2, 0, 1.05), lens=40); sc = bpy.context.scene; sc.render.resolution_x = 720; sc.render.resolution_y = 250
+    gx = g[0].location.x; rig, cam = rigcam((gx + 1.55, -8.0, 0.95), (gx + 1.55, 0, 1.2), lens=46); sc = bpy.context.scene; sc.render.resolution_x = 720; sc.render.resolution_y = 250
 
 def s14():
     k.world(img="sky_dawn.png", sun=(2.2, 72, 60)); k.lot_set(); root, by, rig0, cam0 = cabin(); bpy.data.objects.remove(cam0); bpy.data.objects.remove(rig0)
@@ -378,7 +386,7 @@ def s14():
     for f, rz in ((1, 0), (112, 5), (118, 0), (134, -6), (150, 3), (186, -4), (198, 5), (206, -5)): key(head, f, rot=(0, R(rz), 0), interp="CONSTANT")
     a = EYE; b = (0.24, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=root)
     key(rig, 1, loc=a, rot=lookrot(a, (0.1, -0.75, 1.06)), interp="BEZIER"); key(rig, 30, loc=a, rot=lookrot(a, (0.1, -0.75, 1.07)), interp="BEZIER"); key(rig, 52, loc=a, rot=lookrot(a, tuple(mc)), interp="BEZIER"); key(rig, 213, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
-    for f, ln in ((1, 19), (30, 22), (52, 30), (213, 80)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    for f, ln in ((1, 19), (30, 22), (52, 30), (213, 62)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
     hit = (0.2, -0.36, 1.115); up = (0.2, -0.3, 1.22); away = (0.6, 0.35, 1.15); h = hand("hR", root, away, (R(22), 0, R(163)), curls=FLAT, thumb=0.2)
     key(h, 8, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR"); key(h, 16, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
     for f in range(18, 40, 6): key(h, f, loc=up, rot=(R(48), 0, R(163)), interp="LINEAR"); key(h, f + 3, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
