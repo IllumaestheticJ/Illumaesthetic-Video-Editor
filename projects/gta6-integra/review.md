@@ -51,3 +51,17 @@ frames. Shop section identical to v1. Checked: last shop frame, card at +3 frame
 (speech band -26 dB over 26.4-27.9 s), audio fades with the card. Ending score now 4. Still no radio bed (clip not received).
 Open for the owner: the shop section is 28.2 s, the clip has 26.8 s of music: shorten the shop section, or let the bed fade into
 the mechanic's line.
+
+## v3 (2026-11-20) - after the owner's review of v2
+Owner: "can you make the aftermarket wheels something else that we have saved?" and "the car should start with the narrower
+wheels stance, and go wider when the flares are added".
+
+Output: `/home/user/media/work/out/gta6-integra_v3.mp4`, 30.7 s.
+- Bought wheels: the CE28 scan from Drive "Wheel Scans" (10-spoke), bronze, on the tyre scanned with the TE37; screen name
+  CUSTOM 10-SPOKE RIMS. The site repo's wheel set was still unreachable; SE37 is the other saved scan.
+- Stance: wheels 45 mm inboard on the stock and front-lip states (inside the stock fenders), stepping out on the frame the
+  flares are bought. Measured on the model: tyre face 0.949 m, stock fender 0.911 m, flares 0.951 m.
+- Re-rendered 7 stills and 32 whip frames; frames 0-161 and 721-846 recomposited and spliced. Checked: frame count 847, joins
+  against v2 (difference 0.1-0.4 = encoding), fifteen frames across the changed sections at delivery size.
+- Lesson: the model's wheel track is the widebody's. A stock state on a widebody model needs its track checked against the
+  stock fender before rendering (the v1 stock car poked 38 mm and I passed it as "sits right").
