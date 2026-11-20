@@ -4,17 +4,17 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 2108 nodes · 3812 edges · 151 communities (127 shown, 24 thin omitted)
-- Extraction: 92% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 280 edges (avg confidence: 0.88)
+- 2163 nodes · 3863 edges · 151 communities (130 shown, 21 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 280 edges (avg confidence: 0.88)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `18498135`
+- Built from commit: `c73f112b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- NFS Car-Lot Reel Notes
+- NFS Car-Lot Reel Notes (5)
 - gta6-mr2-spyder: toast.py + plate.py
 - GTA Menu Lettering (ui)
 - FG2 Race Car Reel Notes
@@ -33,7 +33,7 @@
 - GTA Car States (archive)
 - Scan-Edit Workflow & Rubric
 - NFS Car-Lot Compositor
-- Game-Menu Reel: Capture & Driver (2)
+- Game-Menu Reel: Capture & Driver
 - Project Template
 - Kit Render (Showroom GLBs)
 - Mod-Shop Skill & Lessons
@@ -55,11 +55,11 @@
 - Reference Edits & Sources
 - Scan Prep in Blender
 - Mod-Shop Reel Procedure
-- Agent Rules & Graphify Upkeep
+- example gta6-integra: cars.yaml
 - GTA Menu Lettering (ui) (2)
 - House Scan Look
 - 240SX Solve Points Overlay
-- GTA Review v6-v11: Orbit, Tabs
+- GTA Review v12-v19: End Card
 - GTA Compositor v1
 - Remotion TypeScript Config
 - 240SX Review v1
@@ -68,13 +68,13 @@
 - NFS Self-Review (archive)
 - gta6-integra: ui4.py + compose4.py
 - Match Cut: Pinned Scan Transform
-- gta6-customs: clips.md + review.md
-- GTA Review v12-v19: End Card
+- GTA Review v1-v2: Prices, Lettering
+- Feedback & Training Loop
 - 240SX Review v2
 - FG2 Match Check E (fail)
 - GTA Timeline Builder (compose4)
 - Remotion Root & WebZoom
-- Repo Layout & Setup
+- Agent Rules & Graphify Upkeep
 - ScanHUD Composition
 - 240SX Review v4 (final)
 - FG2 Match Check D (soft)
@@ -91,52 +91,54 @@
 - 240SX Match Check B (fail)
 - GTA Review v16: Pop-up & Whips
 - Remotion README
-- gta6-customs: whipcams.py
-- Lessons: 240SX & FG2
+- gta6-integra: whipcams.py + camfit.py
+- knowledge: lessons.md + README.md
 - Remotion npm Scripts
 - 240SX Review v1 (archive link)
-- NFS Car-Lot Reel Notes (4)
+- NFS Car-Lot Reel Notes (2)
 - GTA Capture Notes (archive)
 - FG2 Render Angle Script
 - GTA Font Fetch Script
 - gta6-integra: cars.yaml
 - gta6-integra: ui.py
-- gta6-mr2-spyder: ui.py
-- gta6-integra: vps.py + sil.py
-- gta6-integra: assemble4.py + compose3.py
-- Game-Menu Reel: Capture & Driver
+- gta6-mr2-spyder: ui.py + compose4.py
+- gta6-customs: vps.py + sil.py
+- gta6-integra: assemble4.py
+- gta6-integra: make_env.py
+- Game-Menu Reel: Capture & Driver (2)
 - gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: cars.yaml
-- knowledge: audio.py + style-guide.md
+- Repo Layout & Setup
 - gta6-integra: render_all.py + camfit.py
-- gta6-mr2-spyder: assemble4.py
+- gta6-mr2-spyder: assemble4.py + compose3.py
 - Scan Prep & Mesh Decimation (2)
 - gta6-mr2-spyder: silh.py + camsearch.py
-- NFS Car-Lot Reel Notes (2)
 - NFS Car-Lot Reel Notes (3)
+- NFS Car-Lot Reel Notes (4)
 - Reel Assembly & Audio (older) (2)
+- gta6-customs: review.md + clips.md
 - Vanishing Points & Tracking Tools
-- Vanishing Points & Tracking Tools (2)
 - gta6-integra: plate.py
 - gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: cars.yaml
-- NFS Car-Lot Reel Notes (5)
-- Vanishing Points & Tracking Tools (3)
+- NFS Car-Lot Reel Notes
+- Vanishing Points & Tracking Tools (2)
 - gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: cars.yaml
-- Scan-Edit Workflow & Rubric (2)
-- GTA Review v6-v11: Orbit, Tabs (2)
+- gta6-integra: vps.py
+- GTA Review v6-v11: Orbit, Tabs
 - gta6-mr2-spyder: renders.py
+- NFS Car List & Site GLBs (2)
 - NFS Car-Lot Reel Notes (6)
-- Mod-Shop Skill & Lessons (2)
 - gta6-mr2-spyder: cars.yaml
 - gta6-mr2-spyder: cars.yaml
 - gta6-mr2-spyder: clips.md
 - example gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: clips.md
-- NFS Car-Lot Compositor (2)
-- Vanishing Points & Tracking Tools (4)
+- Vanishing Points & Tracking Tools (3)
+- example gta6-integra: clips.md
+- gta6-integra: review.md
 - gta6-integra: clips.md
 - gta6-integra: sil.py
 - gta6-mr2-spyder: cars.yaml
@@ -144,7 +146,7 @@
 - gta6-mr2-spyder: cars.yaml
 - gta6-mr2-spyder: cars.yaml
 - gta6-mr2-spyder: cars.yaml
-- Vanishing Points & Tracking Tools (6)
+- example gta6-integra: review.md
 - example gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: cars.yaml
 - example gta6-mr2-spyder: cars.yaml
@@ -168,16 +170,16 @@
 10. `main()` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `8. Sound (`assemble4.py`)` --references--> `radio_bed()`  [INFERRED]
-  knowledge/game-modshop-reel.md → projects/gta6-customs/tools/assemble4.py
+- `4. Solve` --references--> `overlay()`  [INFERRED]
+  knowledge/match-cut.md → ive/solve.py
 - `Remotion (video framework; npm run dev, npx remotion render)` --conceptually_related_to--> `render_hud()`  [INFERRED]
   remotion/README.md → ive/hud.py
 - `Epsilon-final-GLBs-2026-10-15.zip (newest kit GLB exports on Drive)` --references--> `drive_download()`  [EXTRACTED]
   knowledge/game-menu-reel.md → ive/fetch.py
 - `Dropbox download links are single-use: request right before downloading, in one batch` --conceptually_related_to--> `url_download()`  [INFERRED]
   knowledge/sources.md → ive/fetch.py
-- `4. Solve` --references--> `overlay()`  [INFERRED]
-  knowledge/match-cut.md → ive/solve.py
+- `Solve B point overlay (240sx-scan match QA image)` --references--> `overlay()`  [INFERRED]
+  projects/240sx-scan/match/solve_B_points.jpg → ive/solve.py
 
 ## Import Cycles
 - None detected.
@@ -196,11 +198,11 @@
 - **Match check readout: overlay layers plus silhouette error and SOFT verdict** — projects_fg2_race_car_match_check_p2_contour_overlay, projects_fg2_race_car_match_check_p2_red_tint_layer, projects_fg2_race_car_match_check_p2_silhouette_error_readout, projects_fg2_race_car_match_check_p2_soft_verdict [INFERRED 0.85]
 - **240SX scan reel version progression v1 -> v4 (FINAL)** — projects_240sx_scan_review_240sx_scan_reel_v1_agent_self_review_training_rubric_md, projects_240sx_scan_review_v2_240sx_scan_reel_v2_agent_self_review_training_rubric_md, projects_240sx_scan_review_v3_240sx_scan_reel_v3_agent_self_review_training_rubric_md, projects_240sx_scan_review_v4_240sx_scan_reel_v4_final_agent_self_review [INFERRED 0.95]
 
-## Communities (151 total, 24 thin omitted)
+## Communities (151 total, 21 thin omitted)
 
-### Community 0 - "NFS Car-Lot Reel Notes"
-Cohesion: 0.12
-Nodes (20): 4. Break down the capture, Capture B: NFSU2 car lot - clean audio.mp4 (second, real-time playthrough; 4:3, darker, menu song playing), Capture B around the purchase: Continue click 54.10-54.18, silence to -60 dB, song downbeat 54.25, Cars (Drive `Epsilon-final-GLBs-2026-10-15.zip`, file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), Drive Epsilon-final-GLBs-2026-10-15.zip (site GLB kit cars), Frame ranges and audio B ranges used per version (v1, v5, v7-v11), Game capture (Dropbox `/5. Claude Training/Good Reels (Epsilon)/`, renamed 2026-11-11 at the user's request), Slot 4: Honda Civic Si EP3 (lip, skirts, rear lip, rear wing) (+12 more)
+### Community 0 - "NFS Car-Lot Reel Notes (5)"
+Cohesion: 0.20
+Nodes (8): 4. Break down the capture, Cars (Drive `Epsilon-final-GLBs-2026-10-15.zip`, file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), Earlier dead ends: YouTube download, playing nfsu2.xyz here, Game capture (Dropbox `/5. Claude Training/Good Reels (Epsilon)/`, renamed 2026-11-11 at the user's request), NFS-style car lot reel - source media, Cars (Drive `Epsilon-final-GLBs-2026-10-15.zip`, file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7), Game capture (Dropbox `/5. Claude Training/Good Reels (Epsilon)/`, renamed 2026-11-11 at the user's request), NFS-style car lot reel - source media
 
 ### Community 1 - "gta6-mr2-spyder: toast.py + plate.py"
 Cohesion: 0.09
@@ -267,14 +269,14 @@ Cohesion: 0.07
 Nodes (28): car, finish, glb, id, paint, part_paint, catalogue, front_lip (+20 more)
 
 ### Community 17 - "Scan-Edit Workflow & Rubric"
-Cohesion: 0.27
-Nodes (7): Scan video edit, Optional cut variants: flash and scanline (max once per video), The 1:1 perspective cut (signature transition), Story structure: IRL setup, 1:1 cut to scan, scan beats, IRL payoff, logo card, Workflow: new scan video, start to finish, 240sx-scan (worked project: 240SX scan reel, archived 2026-11-11), Worked examples
+Cohesion: 0.20
+Nodes (8): Scan video edit, analyze(), _hist(), Dropbox /2. Illumaesthetic Videos/1. Video dumps/<project> (raw footage and approved edits), Engineering Google Drive (per-car folder, one STL per car state), Optional cut variants: flash and scanline (max once per video), The 1:1 perspective cut (signature transition), Workflow: new scan video, start to finish
 
 ### Community 18 - "NFS Car-Lot Compositor"
-Cohesion: 0.13
-Nodes (10): build_zone(), integra_plate(), main(), paint(), prompt(), t_map(), rest_offset(), shift_x() (+2 more)
+Cohesion: 0.09
+Nodes (15): Drawn wordmarks: study the game's plates and compare options under real plates, Name plates are per-car artwork: lift real plates from the capture, Purchase prompt compositing (prompt = T * scene + c per region), build_zone(), font(), integra_plate(), main(), paint() (+7 more)
 
-### Community 19 - "Game-Menu Reel: Capture & Driver (2)"
+### Community 19 - "Game-Menu Reel: Capture & Driver"
 Cohesion: 0.14
 Nodes (13): 10. Layout, assemble, review (`projects/nfs-carlot/tools/assemble.py`), 1. Inputs to collect before anything else, 2. Cars: kit state from the site, never by hand, 3. Line-up check (do this while waiting for anything else), 5. Track the slide (`projects/nfs-carlot/tools/track.py`), 6. Match the menu camera and light, 7. Swap the cars (`projects/nfs-carlot/tools/composite.py`), 8. Name plates and stat bars (+5 more)
 
@@ -288,7 +290,7 @@ Nodes (20): area(), argv(), bbox(), bsdf(), build_ground(), build_rig(), cam_fro
 
 ### Community 22 - "Mod-Shop Skill & Lessons"
 Cohesion: 0.14
-Nodes (7): Game mod-shop reel, GTA 6 mod shop (photoreal game, several held cameras), Partial re-render with START / END / OUTNAME, then splice and verify, Purchase timing follows the capture; parts are bought and stay on, Synthetic whips for every view change (orbit cameras under a long horizontal blur), From the GTA 6 mod-shop reel (2026-11-19, built by an agent, 19 review rounds), gta6-customs (worked project: game mod-shop reel, GTA 6, archived 2026-11-19)
+Nodes (8): Game mod-shop reel, GTA 6 mod shop (photoreal game, several held cameras), Capture breakdown: held views, menu lists, screen titles, purchases, sound events, Partial re-render with START / END / OUTNAME, then splice and verify, Purchase timing follows the capture; parts are bought and stay on, Synthetic whips for every view change (orbit cameras under a long horizontal blur), From the GTA 6 mod-shop reel (2026-11-19, built by an agent, 19 review rounds), gta6-customs (worked project: game mod-shop reel, GTA 6, archived 2026-11-19)
 
 ### Community 23 - "Reel Assembly & Audio (older)"
 Cohesion: 0.23
@@ -308,30 +310,30 @@ Nodes (24): beats, format, music, fade_out, path, start, output, crf (+16 more)
 
 ### Community 27 - "GTA Final Assembly: Sound & End Card"
 Cohesion: 0.19
-Nodes (10): Sound bed: looped room tone plus capture ticks for every menu action, audio(), closing(), main(), purchase_sfx(), radio_bed(), read(), vice_card() (+2 more)
+Nodes (10): 8. Sound (`assemble4.py`), Sound bed: looped room tone plus capture ticks for every menu action, audio(), closing(), main(), purchase_sfx(), radio_bed(), read() (+2 more)
 
 ### Community 28 - "Game-Menu Reel Procedure"
 Cohesion: 0.11
-Nodes (11): Game-menu reel, Constant-rate all-intra working copy indexed by frame number, projects/nfs-carlot/cam_carlot.json (fitted NFSU2 car-lot menu camera), Clean plate (menu drawn, turntable empty), Ending on the EPSILON+ wordmark (white on black), music fading under it, Line-up sheet for kit and colour sign-off, projects/nfs-carlot/rig_showroom.json (light rig matching the game), Turntable slide: how the game changes cars (14 frames, conveyor about 2980 px) (+3 more)
+Nodes (10): Game-menu reel, Constant-rate all-intra working copy indexed by frame number, projects/nfs-carlot/cam_carlot.json (fitted NFSU2 car-lot menu camera), Clean plate (menu drawn, turntable empty), Ending on the EPSILON+ wordmark (white on black), music fading under it, Game capture (must be collected first), Line-up sheet for kit and colour sign-off, projects/nfs-carlot/rig_showroom.json (light rig matching the game) (+2 more)
 
 ### Community 29 - "NFS Car List & Site GLBs"
-Cohesion: 0.11
-Nodes (17): bought, cars, finish, fitted, glb, hide, id, kit (+9 more)
+Cohesion: 0.20
+Nodes (9): bought, glb_dir, prompt_name, render_defaults, az, el, ground, rig (+1 more)
 
 ### Community 30 - "Drive & URL Fetching"
 Cohesion: 0.13
-Nodes (12): drive_download(), drive_meta(), _drive_session(), url_download(), Gotchas, illumaesthetic.com is not reachable; the Temerario reel is in the 240SX dump, Where media lives and how agents get it, google-auth (+4 more)
+Nodes (11): drive_download(), drive_meta(), _drive_session(), url_download(), Gotchas, illumaesthetic.com is not reachable; the Temerario reel is in the 240SX dump, Where media lives and how agents get it, google-auth (+3 more)
 
 ### Community 31 - "GTA Self-Review (archive)"
 Cohesion: 0.10
 Nodes (20): gta6-customs: self-review, v10 (2026-11-19) - after the user's review of v9, v11 (2026-11-19) - after the user's review of v10, v12 (2026-11-19) - after the user's review of v11, v13 (2026-11-19) - after the user's review of v12, v14 (2026-11-19) - after the user's review of v13, v15 (2026-11-19) - after the user's review of v14, v16 (2026-11-19) - after the user's review of v15 (+12 more)
 
 ### Community 32 - "Camera Solve & Look-At"
-Cohesion: 0.12
-Nodes (14): lookat(), grade(), _intrinsics(), _matrix_to_euler_xyz(), _pnp(), solve(), cost(), solve_robust() (+6 more)
+Cohesion: 0.10
+Nodes (17): lookat(), save(), grade(), _intrinsics(), _matrix_to_euler_xyz(), overlay(), _pnp(), run() (+9 more)
 
 ### Community 33 - "Timeline Assembly & HUD"
-Cohesion: 0.17
+Cohesion: 0.18
 Nodes (7): assemble(), _clip_inputs(), _needs_tonemap(), _render_clip(), _xfade_expr(), _browser(), render_hud()
 
 ### Community 34 - "ive CLI Commands"
@@ -339,48 +341,48 @@ Cohesion: 0.24
 Nodes (5): glb_nodes(), kit(), manifest(), Epsilon-final-GLBs-2026-10-15.zip (newest kit GLB exports on Drive), Epsilon-Site showroom GLBs (one shared frame, part_* nodes, role-named materials)
 
 ### Community 35 - "Media Probe & Frame Tools"
-Cohesion: 0.11
-Nodes (18): save(), main(), _p(), blender(), blender_cmd(), contact_sheet(), grab_frame(), grab_frame_sdr() (+10 more)
+Cohesion: 0.16
+Nodes (12): beats(), main(), _p(), blender(), blender_cmd(), contact_sheet(), grab_frame(), grab_frame_sdr() (+4 more)
 
 ### Community 36 - "NFS Car List (archive)"
 Cohesion: 0.11
 Nodes (17): bought, cars, finish, fitted, glb, hide, id, kit (+9 more)
 
 ### Community 37 - "GTA Capture Notes"
-Cohesion: 0.18
-Nodes (15): Capture breakdown: held views, menu lists, screen titles, purchases, sound events, cam_E: exhaust camera, set by hand closer than the capture's, cam_S (suspension) and cam_W (wheels) cameras, made with tools/mancam.py, Exhaust view 17946-17976: capture camera creeps, only this half second matches reference frame 17960, Frames used in v3, Full Kits screen 1/4 (same camera as the menu), frames 1500-1890, Respray block from frame 5160 ('Admiral', Blue tab) against plain frame 2300, Second capture (user, 2026-11-19: "include the audio and sounds") (+7 more)
+Cohesion: 0.20
+Nodes (12): Bodywork menu, front 3/4 camera (view M), frames 0-276, cam_E: exhaust camera, set by hand closer than the capture's, cam_S (suspension) and cam_W (wheels) cameras, made with tools/mancam.py, Capture cameras: f = 1757 px on 2560 in every view; horizon row 394 (menu, kits), 75 (rear view), Exhaust view 17946-17976: capture camera creeps, only this half second matches reference frame 17960, Frames used in v3, GTA 6 mod-shop capture, Sound: room tone at -41 dB and one-frame menu ticks on every action; no music or speech in the menu part (+4 more)
 
 ### Community 38 - "Reference Edits & Sources"
-Cohesion: 0.19
-Nodes (13): Media is never committed (work in /home/user/media/<project> and /home/user/media/work), Dropbox /5. Claude Training/ (Good Reels (Epsilon), training references), Dropbox /2. Illumaesthetic Videos/1. Video dumps/<project> (raw footage and approved edits), Engineering Google Drive (per-car folder, one STL per car state), Pacing (measured), `edited_oct31_1330_46` — 240SX scanning, IRL-only reel (approved, Oct 31 2026), `FG2 Lip CGI-Real.mp4` — Ecky's CGI→real cut (FG2 #806), FG2 Race Lip.blend (CGI look: glossy red paint, black lip/wing, black sky) (+5 more)
+Cohesion: 0.27
+Nodes (7): Dropbox /5. Claude Training/ (Good Reels (Epsilon), training references), Pacing (measured), Integra training photos (finished-product angles the team likes), `reel_0144_48` — Corolla "Good Reel" (Epsilon), `reel_0149_10` — Civic "Good Reel" (Epsilon), Reference edits, `v_jul22_1047_58` — Lamborghini Temerario scan reel (website reference)
 
 ### Community 39 - "Scan Prep in Blender"
-Cohesion: 0.29
-Nodes (7): argv(), import_any(), main(), parse(), world_bbox(), Illumaesthetic Video Editor, Layout
+Cohesion: 0.39
+Nodes (5): argv(), import_any(), main(), parse(), world_bbox()
 
 ### Community 40 - "Mod-Shop Reel Procedure"
-Cohesion: 0.15
+Cohesion: 0.14
 Nodes (11): 0. Ask first (each of these cost a review round), 10. Check before every send (all at delivery size, not on contact sheets), 1. Capture breakdown (`clips.md`), 2. Cameras (`vps.py`, `camfit.py`, `mancam.py`), 3. Plates (`plate.py`), 4. Car renders (`ive kit-render`), 6. Timeline (`compose4.py`), 7. Whips (+3 more)
 
-### Community 41 - "Agent Rules & Graphify Upkeep"
-Cohesion: 0.22
-Nodes (8): After delivering, Before touching footage (mandatory), Feedback recording and promotion to a standing rule (ive feedback --rule), Graphify repo map update procedure (graphify update, graphify_labels.py, cluster-only), Illumaesthetic Video Editor — agent instructions, Map of this repo (Graphify), Agent training loop (no fine-tuning: artifacts, rules, archived examples), How the agent "training" works
+### Community 41 - "example gta6-integra: cars.yaml"
+Cohesion: 0.04
+Nodes (44): car, glb, id, paint_in, paint_out, part_paint, catalogue, fender_flares (+36 more)
 
 ### Community 42 - "GTA Menu Lettering (ui) (2)"
 Cohesion: 0.13
 Nodes (21): 5. Menus (`ui.py`, `ui4.py`, `toast.py`), Menu fonts by measurement against the capture (Lexend, Oswald 600), Build menu lists per state (ui.Menu, highlight bar, bought markers, tab highlight), set_tab(), box(), build(), car_tag(), diamond() (+13 more)
 
 ### Community 43 - "House Scan Look"
-Cohesion: 0.20
-Nodes (8): [format] TikTok format = 1080x1920 full-bleed, hero part above the bottom 20 % caption zone, Exploded views are the money shot, Formats, Grade, Illumaesthetic house style — scan videos, Default deliverable: Reel / Short / TikTok 1080x1920 (9:16), 30 fps, 15-30 s, Scan look (Temerario reference), Text / HUD (Remotion `ScanHUD`)
+Cohesion: 0.14
+Nodes (13): [format] TikTok format = 1080x1920 full-bleed, hero part above the bottom 20 % caption zone, Render looks: silver (house), clay, scan, wire, points, xray, color, sweep, Exploded views are the money shot, Formats, Grade, Illumaesthetic house style — scan videos, End on the ILLUMAESTHETIC logo card on the final downbeat, Default deliverable: Reel / Short / TikTok 1080x1920 (9:16), 30 fps, 15-30 s (+5 more)
 
 ### Community 44 - "240SX Solve Points Overlay"
 Cohesion: 0.18
 Nodes (12): Solve B point overlay (240sx-scan match QA image), Point emblem (centre of tail panel), Solved focal length f=28.4 mm (solve B), Footage frame: rear view of dark red coupe at dusk, Point mirror_R (right side mirror), Point with label cut off at right frame edge ('pa...'), Reprojection RMSE 3.01 px (solve B), Point roof_R (right rear roof corner) (+4 more)
 
-### Community 45 - "GTA Review v6-v11: Orbit, Tabs"
-Cohesion: 0.24
-Nodes (11): projects/gta6-customs/editlog.jsonl (edit log), Aero parts loop: list > select > part > buy > back > list (row marked) > down > select, four times, Honey FM radio bed: -32.6 dB between events, 0.5 s fade in, gone 0.4 s before the card, 'Rear Wing' instead of 'Sport Wing'; suspension screen title restored to PRO BUILDS / WHEEL KITS, Suspension moved to the Performance tab (the game files the lowered kit under Wheel Kits), Tab navigation before paint, suspension and wheels (the game's lists; tab tick, row tick and select each time), Second-capture views carry the uploader's watermark and overcast light (watermark covered in v12), v10 (2026-11-19) - after the user's review of v9 (+3 more)
+### Community 45 - "GTA Review v12-v19: End Card"
+Cohesion: 0.21
+Nodes (16): projects/gta6-customs/editlog.jsonl (edit log), End card (end_card.png): Epsilon logo in GTA 6 colours sampled from the game's logo, gta6-customs: self-review, End card redrawn: palm-tree background, white logo, Vice City hue + (three palm passes; gradient and white + in v18), 'Rear Wing' instead of 'Sport Wing'; suspension screen title restored to PRO BUILDS / WHEEL KITS, Suspension moved to the Performance tab (the game files the lowered kit under Wheel Kits), Second-capture views carry the uploader's watermark and overcast light (watermark covered in v12), End card background = the user's supplied image (endcard/bg_user.webp), wordmark white on top (+8 more)
 
 ### Community 46 - "GTA Compositor v1"
 Cohesion: 0.19
@@ -403,24 +405,24 @@ Cohesion: 0.35
 Nodes (9): Pricing and branding: painted variants (485 / 800 / 485 / 850), EPSILON+ badge and names (removed from list rows in v7), Exit: the capture's UI-free shop frame, wallet $0, the line as a subtitle (one frozen frame from v15), NPC line 'need anything else or is that everything?' (subtitle only in v3; plays once at the exit from v4), Sound checked by measurement (levels, events from the timeline), not checked by ear, v2 (2026-11-19) - after the user's review of v1, v3 (2026-11-19) - after the user's review of v2, v4 (2026-11-19) - after the user's review of v3, Problem: the v2/v3 purchase sound had the mechanic's right-panned line in it; now ticks and chime up to the voice (+1 more)
 
 ### Community 51 - "NFS Self-Review (archive)"
-Cohesion: 0.15
-Nodes (12): NFS car lot reel v1 - self-review (2026-11-11), v10 (2026-11-11) - after the user's review of v9, v11 (2026-11-11) - after the user's review of v10, v12 (2026-11-11) - after the user's review of v11, v2 (2026-11-11) - after the user's review of v1, v3 (2026-11-11) - after the user's review of v2, v4 (2026-11-11) - after the user's review of v3, v5 (2026-11-11) - after the user's review of v4 (+4 more)
+Cohesion: 0.11
+Nodes (14): Radio / user music as one unbroken band-limited bed (radio_bed), nfs-carlot (worked project: game car-select reel, NFSU2, archived 2026-11-19), NFS car lot reel v1 - self-review (2026-11-11), v10 (2026-11-11) - after the user's review of v9, v11 (2026-11-11) - after the user's review of v10, v12 (2026-11-11) - after the user's review of v11, v2 (2026-11-11) - after the user's review of v1, v3 (2026-11-11) - after the user's review of v2 (+6 more)
 
 ### Community 52 - "gta6-integra: ui4.py + compose4.py"
-Cohesion: 0.08
+Cohesion: 0.07
 Nodes (35): main(), dewatermark(), frame(), over(), plate(), R920(), static(), with_car() (+27 more)
 
 ### Community 53 - "Match Cut: Pinned Scan Transform"
-Cohesion: 0.12
-Nodes (8): overlay(), 1:1 perspective cut: IRL frame → scan data, 2. Get the frame, 4. Solve, 5. Verify, cam.json (solved camera, in the prepared .blend's coordinates), Never change the scan's normalisation after solving, ive render --explode (part.blend:dx,dy,dz:start:end[:x180:rstart:rend])
+Cohesion: 0.15
+Nodes (7): 1:1 perspective cut: IRL frame → scan data, 2. Get the frame, 4. Solve, 5. Verify, cam.json (solved camera, in the prepared .blend's coordinates), Never change the scan's normalisation after solving, ive render --explode (part.blend:dx,dy,dz:start:end[:x180:rstart:rend])
 
-### Community 54 - "gta6-customs: clips.md + review.md"
-Cohesion: 0.19
-Nodes (13): Camera whips between views (8 distinct frames each), Bodywork menu, front 3/4 camera (view M), frames 0-276, Capture cameras: f = 1757 px on 2560 in every view; horizon row 394 (menu, kits), 75 (rear view), GTA 6 mod-shop capture, Sound: room tone at -41 dB and one-frame menu ticks on every action; no music or speech in the menu part, Spoiler screen, rear camera (view A); Custom Wing 3/3 $790 'Not enough cash', UI-free exit frames 4086-4104 (first capture), Camera positions rest on assumed El Camino dimensions for the game's car (not one solve) (+5 more)
+### Community 54 - "GTA Review v1-v2: Prices, Lettering"
+Cohesion: 0.16
+Nodes (14): Spoiler screen, rear camera (view A); Custom Wing 3/3 $790 'Not enough cash', Camera positions rest on assumed El Camino dimensions for the game's car (not one solve), Car tag re-lettered: '22 Civic -> '22 Blista (Dinka Blista); the model still wears Honda badges, Weak: clean render reads as CG in a photoreal game (no driver, dark opaque glass, no dirt, painted HDR panorama), Holds up: Civic stands on the game car's spot with the room's perspective in both views (wheels on wheels), Stat bars and numbers are the game's, for its own car (+0.1 handling shown with the wing), Lowered Suspension Kit (car drops 45 mm; the game's +0.3 asphalt handling), Problem: 'Not enough cash' and the $99 wallet are the capture's own, under an Epsilon part and price (+6 more)
 
-### Community 55 - "GTA Review v12-v19: End Card"
-Cohesion: 0.22
-Nodes (13): Car tag re-lettered: '22 Civic -> '22 Blista (Dinka Blista); the model still wears Honda badges, End card (end_card.png): Epsilon logo in GTA 6 colours sampled from the game's logo, gta6-customs: self-review, End card redrawn: palm-tree background, white logo, Vice City hue + (three palm passes; gradient and white + in v18), Menus re-lettered: the game's faces, sizes and colours; prices and part names are the catalogue's, Respray: Recommended tab, eleven OEM swatches, cursor runs through all with a colour preview, Boost Blue bought, End card background = the user's supplied image (endcard/bg_user.webp), wordmark white on top, v13 (2026-11-19) - after the user's review of v12 (+5 more)
+### Community 55 - "Feedback & Training Loop"
+Cohesion: 0.29
+Nodes (5): add_feedback(), _append(), archive(), log_decision(), _now()
 
 ### Community 56 - "240SX Review v2"
 Cohesion: 0.20
@@ -438,9 +440,9 @@ Nodes (8): pp(), timeline(), add(), back_to(), buy(), nav(), simple(), whip()
 Cohesion: 0.29
 Nodes (8): remotion, RemotionRoot(), calculateScanHudMetadata(), scanHudDefaults, calculateWebZoomMetadata(), WebZoom(), webZoomDefaults, WebZoomProps
 
-### Community 60 - "Repo Layout & Setup"
-Cohesion: 0.17
-Nodes (8): Blender 5.3 at /usr/local/bin/blender, Cycles CPU only, Tools, While editing, Render quality that is enough at 1080-wide delivery, Render budget, Work box: 4 CPU cores, 15 GB RAM, no GPU (EEVEE aborts), Quick start, setup.sh script
+### Community 60 - "Agent Rules & Graphify Upkeep"
+Cohesion: 0.18
+Nodes (8): After delivering, Before touching footage (mandatory), Graphify repo map update procedure (graphify update, graphify_labels.py, cluster-only), Illumaesthetic Video Editor — agent instructions, Map of this repo (Graphify), While editing, Render quality that is enough at 1080-wide delivery, Render budget
 
 ### Community 61 - "ScanHUD Composition"
 Cohesion: 0.38
@@ -453,6 +455,10 @@ Nodes (8): v_1838_02: handheld scanner on rear quarter, drifts to clean rear 3/4
 ### Community 63 - "FG2 Match Check D (soft)"
 Cohesion: 0.31
 Nodes (9): check_D.jpg - camera-match check overlay (3D scan over real footage frame, shot D), Car features in frame: large rear wing, front splitter, gold mesh wheels, number 806 on hood and door, Flash/scanline transition (used to hide a soft match), Yellow edge-line overlay tracing the footage (fence mesh, asphalt texture, trees, car decals and wheels), Visible outline offsets: cyan scan outline sits off the car at the front bumper/splitter and at the rear quarter, tight along roof and door line, Real footage frame: red coupe race car #806, front three-quarter view from driver side, parked on asphalt in front of a chain-link fence, 3D scan overlay: cyan silhouette outline and tint laid over the car body, wheels, front splitter and rear wing, Silhouette error readout: median 4.3px, p90 33.6px (@1920 long side) (+1 more)
+
+### Community 64 - "On-Screen Text Rules"
+Cohesion: 0.18
+Nodes (3): Never, 6. Render the scan shot, Text / HUD (Remotion `ScanHUD`)
 
 ### Community 65 - "NFS Prologue GPS Autopilot"
 Cohesion: 0.24
@@ -475,7 +481,7 @@ Cohesion: 0.31
 Nodes (8): Weak: background behind the car in close-up views is invented and soft (fills, mirrored patches), Partial re-render (START/END in compose4.py) of frames 114-197 and 439-530, spliced in; alignment checked against v7, Per-part cameras from the second capture (front for front lip, side for side skirts), moved in so the Civic covers the game's car, Purchase shots: cameras moved so the Civic covers the game's car (0-5 % uncovered); smeared/mirrored background gone, Side-skirt view: new camera covers 98 % of the game's car (was 67 %); re-sited lower in v8 so the whole skirt is in frame, Problem: first splice dropped the 8 whip frames after the list (685 frames instead of 693); caught by the frame count, v7 (2026-11-19) - after the user's review of v6, v8 (2026-11-19) - after the user's review of v7
 
 ### Community 70 - "gta6-customs: compose3.py + ui3.py"
-Cohesion: 0.11
+Cohesion: 0.10
 Nodes (20): main(), frame(), over(), plate(), static(), with_car(), pp(), timeline() (+12 more)
 
 ### Community 71 - "Remotion Dependencies"
@@ -483,8 +489,8 @@ Cohesion: 0.22
 Nodes (8): react, react-dom, @remotion/cli, dependencies, react@19.3.1, react-dom@19.3.1, remotion@4.0.542, @remotion/cli@4.0.542
 
 ### Community 72 - "gta6-mr2-spyder: ui4.py + compose4.py"
-Cohesion: 0.08
-Nodes (35): fw(), main(), dewatermark(), frame(), over(), plate(), static(), with_car() (+27 more)
+Cohesion: 0.11
+Nodes (27): main(), dewatermark(), frame(), over(), plate(), static(), with_car(), badge() (+19 more)
 
 ### Community 73 - "240SX Footage Notes"
 Cohesion: 0.32
@@ -495,28 +501,28 @@ Cohesion: 0.36
 Nodes (7): check_B.jpg - camera-match check overlay (silver car scan over a dusk footage frame, verdict FAIL), Cyan contour tracing the outer silhouette of the scan render, Verdict: FAIL - re-solve camera (add points spread across the frame and depth), Darkened footage frame: vertical 9:16 dusk exterior, building with lit doorways, parked pickup, red vehicle at right edge, tree, kerb in foreground, Scan render overlay: light silver car body seen from the rear (rear glass with wiper, spoiler, tail-light panel, plate recess), Silhouette error readout: median 6.1px, p90 62.0px (@1920 long side), Yellow edge lines drawn over the whole frame (building, tree, kerb, car body lines, speckle on the ground at left)
 
 ### Community 75 - "GTA Review v16: Pop-up & Whips"
-Cohesion: 0.47
-Nodes (5): The only purchase in the capture (213.6 s, frame 12817): sound 213.84-215.3 s, 'Applied', 'Purchased' pop-up, Purchase event from the second capture: its sound (1.65 s), part and 'Applied' 0.1 s in, 'Purchased' pop-up 0.3 s in, 'Purchased' pop-up redrawn with tools/toast.py (the capture cut-out had a blob mask with the capture's floor inside the letters), Problem: list rectangle held sharp over blurred whip frames (screen tear at 17 s); from v16 nothing sharp is held except lettering, v16 (2026-11-19) - after the user's review of v15
+Cohesion: 0.32
+Nodes (7): Camera whips between views (8 distinct frames each), The only purchase in the capture (213.6 s, frame 12817): sound 213.84-215.3 s, 'Applied', 'Purchased' pop-up, Purchase event from the second capture: its sound (1.65 s), part and 'Applied' 0.1 s in, 'Purchased' pop-up 0.3 s in, 'Purchased' pop-up redrawn with tools/toast.py (the capture cut-out had a blob mask with the capture's floor inside the letters), Problem: list rectangle held sharp over blurred whip frames (screen tear at 17 s); from v16 nothing sharp is held except lettering, Weak: camera moves are synthetic blur whips (the capture has real ones for two), v16 (2026-11-19) - after the user's review of v15
 
 ### Community 76 - "Remotion README"
 Cohesion: 0.25
 Nodes (7): Commands, Docs, Help, Issues, License, Remotion (video framework; npm run dev, npx remotion render), Remotion video
 
-### Community 77 - "gta6-customs: whipcams.py"
-Cohesion: 0.08
-Nodes (10): Camera position and scale from where the game's car meets the floor, compose(), decompose(), main(), compose(), decompose(), main(), compose() (+2 more)
+### Community 77 - "gta6-integra: whipcams.py + camfit.py"
+Cohesion: 0.11
+Nodes (11): fit(), compose(), decompose(), main(), fit(), compose(), decompose(), main() (+3 more)
 
-### Community 78 - "Lessons: 240SX & FG2"
-Cohesion: 0.33
-Nodes (4): From the 240SX scan reel (2026-11-10, built by an agent), From the FG2 #806 photo/CGI/scan reel (2026-11-11, built by an agent), Lessons (standing rules), fg2-race-car (worked project: FG2 #806 photo/CGI/scan reel, archived 2026-11-11)
+### Community 78 - "knowledge: lessons.md + README.md"
+Cohesion: 0.14
+Nodes (12): Feedback recording and promotion to a standing rule (ive feedback --rule), From the 240SX scan reel (2026-11-10, built by an agent), From the FG2 #806 photo/CGI/scan reel (2026-11-11, built by an agent), Lessons (standing rules), Agent training loop (no fine-tuning: artifacts, rules, archived examples), How the agent "training" works, 240sx-scan (worked project: 240SX scan reel, archived 2026-11-11), fg2-race-car (worked project: FG2 #806 photo/CGI/scan reel, archived 2026-11-11) (+4 more)
 
 ### Community 79 - "Remotion npm Scripts"
 Cohesion: 0.40
 Nodes (5): scripts, build, dev, lint, upgrade
 
-### Community 81 - "NFS Car-Lot Reel Notes (4)"
-Cohesion: 0.29
-Nodes (11): Stat bars and numbers are the game's, for its own car (+0.1 handling shown with the wing), Check: output audio correlated against capture B to confirm continuous takes, Fixed loudness gain (+2.7 dB to -15 LUFS) replaces one-pass loudnorm, Weak: the stat bars are the game's, for the game's cars, NFS car lot reel v1 - self-review (2026-11-11), Sync check: picture/sound offsets printed by assemble.py, all within 0.007 s, v10 (2026-11-11) - after the user's review of v9, v11 (2026-11-11) - after the user's review of v10 (+3 more)
+### Community 81 - "NFS Car-Lot Reel Notes (2)"
+Cohesion: 0.21
+Nodes (14): Capture B menu song: first hit 44.84 s, bar 1.1765 s; phrase downbeats rising from silence 44.84 / 47.19 / 51.90 s, not a steady loop, Capture B: NFSU2 car lot - clean audio.mp4 (second, real-time playthrough; 4:3, darker, menu song playing), Capture B around the purchase: Continue click 54.10-54.18, silence to -60 dB, song downbeat 54.25, Capture B voice message 35.1-44.6 s (mono, no music); menu music from 44.8 s, Frame ranges and audio B ranges used per version (v1, v5, v7-v11), Check: output audio correlated against capture B to confirm continuous takes, Fixed loudness gain (+2.7 dB to -15 LUFS) replaces one-pass loudnorm, Fix (v10): no join inside the song; it comes in on a phrase downbeat rising from silence (B 51.90) and runs unbroken (+6 more)
 
 ### Community 82 - "GTA Capture Notes (archive)"
 Cohesion: 0.50
@@ -530,21 +536,21 @@ Nodes (44): car, glb, id, paint_in, paint_out, part_paint, catalogue, fender_fla
 Cohesion: 0.17
 Nodes (17): box(), build(), car_tag(), diamond(), draw(), erase(), kits(), main() (+9 more)
 
-### Community 91 - "gta6-mr2-spyder: ui.py"
-Cohesion: 0.17
-Nodes (17): box(), build(), car_tag(), diamond(), draw(), erase(), kits(), main() (+9 more)
+### Community 91 - "gta6-mr2-spyder: ui.py + compose4.py"
+Cohesion: 0.10
+Nodes (25): fw(), timeline(), add(), back_to(), buy(), nav(), simple(), whip() (+17 more)
 
-### Community 92 - "gta6-integra: vps.py + sil.py"
-Cohesion: 0.17
-Nodes (16): fit(), fit(), cam_from(), cam_json(), angle_to_vp(), line_h(), main(), ransac_vp() (+8 more)
-
-### Community 93 - "gta6-integra: assemble4.py + compose3.py"
+### Community 92 - "gta6-customs: vps.py + sil.py"
 Cohesion: 0.18
-Nodes (11): m(), audio(), closing(), main(), purchase_sfx(), radio_bed(), read(), vice_card() (+3 more)
+Nodes (15): Focal length and pitch from the room's vanishing points (GTA 6 f = 1757 px on 2560), angle_to_vp(), line_h(), main(), ransac_vp(), refine(), segments(), cam_from() (+7 more)
 
-### Community 95 - "Game-Menu Reel: Capture & Driver"
-Cohesion: 0.13
-Nodes (7): Game capture (must be collected first), NFS Underground 2 car lot (car-select menu), nfsu2.xyz (browser port of NFS Underground 2), { chromium }, http, log, [W, H]
+### Community 93 - "gta6-integra: assemble4.py"
+Cohesion: 0.21
+Nodes (9): audio(), closing(), main(), purchase_sfx(), radio_bed(), read(), vice_card(), palm() (+1 more)
+
+### Community 95 - "Game-Menu Reel: Capture & Driver (2)"
+Cohesion: 0.17
+Nodes (6): NFS Underground 2 car lot (car-select menu), nfsu2.xyz (browser port of NFS Underground 2), { chromium }, http, log, [W, H]
 
 ### Community 96 - "gta6-mr2-spyder: cars.yaml"
 Cohesion: 0.13
@@ -554,31 +560,31 @@ Nodes (14): game_items, lowered_suspension_kit, rims, glb_dir, order, replaces, 
 Cohesion: 0.13
 Nodes (14): game_items, lowered_suspension_kit, rims, glb_dir, order, replaces, front_bumper, hardtop (+6 more)
 
-### Community 98 - "knowledge: audio.py + style-guide.md"
-Cohesion: 0.16
-Nodes (6): beats(), Render looks: silver (house), clay, scan, wire, points, xray, color, sweep, End on the ILLUMAESTHETIC logo card on the final downbeat, House scan look: satin metallic silver on pure black (--look silver), Beat grid in project.yaml (beats), Self-review rubric (score 1–5, fix anything < 3 before delivering)
+### Community 98 - "Repo Layout & Setup"
+Cohesion: 0.22
+Nodes (8): Blender 5.3 at /usr/local/bin/blender, Cycles CPU only, Media is never committed (work in /home/user/media/<project> and /home/user/media/work), Tools, Work box: 4 CPU cores, 15 GB RAM, no GPU (EEVEE aborts), Illumaesthetic Video Editor, Layout, Quick start, setup.sh script
 
 ### Community 99 - "gta6-integra: render_all.py + camfit.py"
-Cohesion: 0.22
-Nodes (7): hide(), main(), render(), state(), onion(), write_cam(), font()
+Cohesion: 0.16
+Nodes (6): hide(), main(), render(), state(), onion(), write_cam()
 
-### Community 100 - "gta6-mr2-spyder: assemble4.py"
-Cohesion: 0.23
-Nodes (8): audio(), closing(), main(), purchase_sfx(), radio_bed(), read(), vice_card(), voice_line()
+### Community 100 - "gta6-mr2-spyder: assemble4.py + compose3.py"
+Cohesion: 0.18
+Nodes (11): palm(), m(), audio(), closing(), main(), purchase_sfx(), radio_bed(), read() (+3 more)
 
 ### Community 101 - "Scan Prep & Mesh Decimation (2)"
-Cohesion: 0.23
-Nodes (5): bbox(), cluster_decimate(), crop_to_footprint(), stl_info(), Ground-removal rules that survived (and one that didn't)
+Cohesion: 0.21
+Nodes (6): bbox(), cluster_decimate(), crop_to_footprint(), stl_info(), Ground-removal rules that survived (and one that didn't), numpy
 
 ### Community 102 - "gta6-mr2-spyder: silh.py + camsearch.py"
 Cohesion: 0.31
 Nodes (5): cost(), main(), Geo, mancam(), overlay()
 
-### Community 103 - "NFS Car-Lot Reel Notes (2)"
+### Community 103 - "NFS Car-Lot Reel Notes (3)"
 Cohesion: 0.21
 Nodes (10): Intro cutscene: the 350Z turns in and drives past the camera (f1012-1291), Working copies: a60.mp4 (60 fps, cropped, all-intra) and a.wav, Capture A: NFSU2 car lot - 1440p.mp4 (phone screen recording of a PC longplay; picture and sound), Car select: 15 scrolls of 14-15 frames each (list in track.json), holds 0.3-3.3 s, f3825 = clean plate: menu up, turntable empty at rest, Cursor positions in capture A (top-left of a 46x70 box) per frame range, 'Would you like to enter the Shop?' prompt (f905-1011), Problem: cursor jumps at every cut, a second arrow is baked into the clean plate, and a stretch is skipped in the prompt (+2 more)
 
-### Community 104 - "NFS Car-Lot Reel Notes (3)"
+### Community 104 - "NFS Car-Lot Reel Notes (4)"
 Cohesion: 0.24
 Nodes (12): Slot 3: Acura Integra DE4 (lip, skirts, spats, trunk lip, wing; flares hidden), Purchase prompt: 'Do you want this stock 240SX?' (No is the default, cursor reaches Yes; bare frame 5264 measures transparency), Badge fix: real Acura emblem lifted from the Integra GLB's grille (tools/badge_from_glb.py), Ending: cut to the EPSILON+ card on a scroll sound (later on the Yes click); music runs under it and fades, Wheels fix: front wheels steered 25 deg, checked against the game's cars, Not done: a proper NFSU2 soundtrack bed (no clean track available in this environment; needs a file from the user), Integra plate lettering reset to match the game's plates (Roboto Condensed + stroked Michroma), Prompt panel: first pass blotchy and too bright with per-pixel transparency; fixed with per-region values (+4 more)
 
@@ -586,11 +592,11 @@ Nodes (12): Slot 3: Acura Integra DE4 (lip, skirts, spats, trunk lip, wing; flar
 Cohesion: 0.29
 Nodes (6): 9:16 layout: the menu's 4:3 box at full width on a blurred, darkened copy, audio(), card(), load(), main(), rms_db()
 
-### Community 106 - "Vanishing Points & Tracking Tools"
-Cohesion: 0.33
-Nodes (7): Focal length and pitch from the room's vanishing points (GTA 6 f = 1757 px on 2560), angle_to_vp(), line_h(), main(), ransac_vp(), refine(), segments()
+### Community 106 - "gta6-customs: review.md + clips.md"
+Cohesion: 0.22
+Nodes (9): Full Kits screen 1/4 (same camera as the menu), frames 1500-1890, Respray block from frame 5160 ('Admiral', Blue tab) against plain frame 2300, Aero parts loop: list > select > part > buy > back > list (row marked) > down > select, four times, Custom 6-spoke rims (site's TE37-style wheel, bronze), Honey FM radio bed: -32.6 dB between events, 0.5 s fade in, gone 0.4 s before the card, Respray grey > Boost Blue (body and parts), Seven purchases: Front Lip, Side Skirts, Rear Lip, Sport Wing, Respray, Lowered Suspension Kit, Custom 6-spoke rims, Tab navigation before paint, suspension and wheels (the game's lists; tab tick, row tick and select each time) (+1 more)
 
-### Community 107 - "Vanishing Points & Tracking Tools (2)"
+### Community 107 - "Vanishing Points & Tracking Tools"
 Cohesion: 0.31
 Nodes (3): check(), _edges(), verdict()
 
@@ -606,11 +612,11 @@ Nodes (9): catalogue, diffuser, hood_vents, handle, price, variant, handle, pric
 Cohesion: 0.22
 Nodes (9): catalogue, diffuser, hood_vents, handle, price, variant, handle, price (+1 more)
 
-### Community 111 - "NFS Car-Lot Reel Notes (5)"
-Cohesion: 0.25
-Nodes (8): Weak: the picture is a third of the 9:16 frame's height, Slot 5: Mazda MX-5 NC (bumper, lip, canards, brake ducts, fender cuts, skirts, spats, GT wing), Angle fix: camera refit from wheel centres; the NC overlays the game's Miata outline-for-outline, Weak: the game frame fills the middle 44 % of the screen; above and below is a blurred copy, Lighting fix: rig matched to the game's Miata; colours deeper, windows reflect white, Car match by onion overlay: size, heading and wheel contact agree with the game's cars; lighting close, not identical, Garage at real time (half speed of the capture) with the second capture's audio; scroll sounds verified on all five car changes, v2 (2026-11-11) - after the user's review of v1
+### Community 111 - "NFS Car-Lot Reel Notes"
+Cohesion: 0.21
+Nodes (14): Slot 5: Mazda MX-5 NC (bumper, lip, canards, brake ducts, fender cuts, skirts, spats, GT wing), Angle fix: camera refit from wheel centres; the NC overlays the game's Miata outline-for-outline, EP3 re-rendered in Boost Blue Pearl (B637P, #1c4fa0, pearl), taken as 'the lookbook blue', EP3 is the bought car: 'Do you want this Epsilon EP3?'; Continue click, then the song starts on its downbeat as the prompt comes up, Weak: the game frame fills the middle 44 % of the screen; above and below is a blurred copy, Weak: the stat bars are the game's, for the game's cars, Lighting fix: rig matched to the game's Miata; colours deeper, windows reflect white, NFS car lot reel v1 - self-review (2026-11-11) (+6 more)
 
-### Community 112 - "Vanishing Points & Tracking Tools (3)"
+### Community 112 - "Vanishing Points & Tracking Tools (2)"
 Cohesion: 0.38
 Nodes (3): cost(), sil(), unpack()
 
@@ -622,7 +628,11 @@ Nodes (7): car, glb, id, paint, part_paint, stock_paint, tag
 Cohesion: 0.29
 Nodes (7): car, glb, id, paint, part_paint, stock_paint, tag
 
-### Community 116 - "GTA Review v6-v11: Orbit, Tabs (2)"
+### Community 115 - "gta6-integra: vps.py"
+Cohesion: 0.39
+Nodes (6): angle_to_vp(), line_h(), main(), ransac_vp(), refine(), segments()
+
+### Community 116 - "GTA Review v6-v11: Orbit, Tabs"
 Cohesion: 0.47
 Nodes (5): Brakes: the Civic's own drilled disc and caliper are kept behind the swapped wheels, Environment build tested and not used: SfM on the longer capture connects 9 of 20 views (546 points), none facing the shop front, Ending: 3.4 s orbit (150 degrees) round the stationary car on black with the wordmark (v4; removed in v6), v5 (2026-11-19) - after the user's review of v4, v6 (2026-11-19) - after the user's review of v5
 
@@ -630,9 +640,13 @@ Nodes (5): Brakes: the Civic's own drilled disc and caliper are kept behind the 
 Cohesion: 0.47
 Nodes (3): hide(), render(), state()
 
-### Community 118 - "NFS Car-Lot Reel Notes (6)"
-Cohesion: 0.47
-Nodes (5): Capture B menu song: first hit 44.84 s, bar 1.1765 s; phrase downbeats rising from silence 44.84 / 47.19 / 51.90 s, not a steady loop, Capture B voice message 35.1-44.6 s (mono, no music); menu music from 44.8 s, Fix (v10): no join inside the song; it comes in on a phrase downbeat rising from silence (B 51.90) and runs unbroken, Fix: car-lot voice message plays whole in one audio take from the menu opening, then one jump for the purchase, Attempt (v9, failed): join the two audio takes 7 bars of the menu song apart, crossfaded after the song's first hit
+### Community 118 - "NFS Car List & Site GLBs (2)"
+Cohesion: 0.25
+Nodes (8): cars, finish, fitted, glb, hide, id, kit, paint
+
+### Community 119 - "NFS Car-Lot Reel Notes (6)"
+Cohesion: 0.38
+Nodes (7): Drive Epsilon-final-GLBs-2026-10-15.zip (site GLB kit cars), Slot 4: Honda Civic Si EP3 (lip, skirts, rear lip, rear wing), Slot 2: Honda Civic Si sedan FE, 11th gen (lip, skirts, rear lip, sport wing), Line-up check sheet (lineup2, sent to the user); the first line-up used older repo GLBs and had no EP3, Slot 1: Toyota Corolla Hatchback E210 (lip, skirts, spats, WRC wing), List wraps back to the Corolla before the purchase (v5-v10; removed in v11), Weak: two cars share the 'Honda Civic' plate (11th-gen Si and EP3)
 
 ### Community 120 - "gta6-mr2-spyder: cars.yaml"
 Cohesion: 0.40
@@ -658,9 +672,9 @@ Nodes (5): hardtop, handle, note, price, variant
 Cohesion: 0.40
 Nodes (4): Cameras (car frame: Z up, nose -Y; f = 1757 px on 2560), Capture A, Capture B: every camera view (time, 60 fps frame, what it shows), Captures and views (MR2 Spyder mod-shop reel)
 
-### Community 126 - "NFS Car-Lot Compositor (2)"
+### Community 127 - "example gta6-integra: clips.md"
 Cohesion: 0.50
-Nodes (3): Drawn wordmarks: study the game's plates and compare options under real plates, Name plates are per-car artwork: lift real plates from the capture, fetch_fonts.sh script
+Nodes (3): Found in capture B and not used (candidates if a view is asked for), GTA 6 mod-shop captures (Integra reel), Views used here
 
 ### Community 129 - "gta6-integra: clips.md"
 Cohesion: 0.50
@@ -721,23 +735,23 @@ Nodes (4): tc_wing, handle, note, price
   projects/fg2-race-car/match/check_P2.jpg · relation: conceptually_related_to
 
 ## Knowledge Gaps
-- **55 isolated node(s):** `Working copies: a60.mp4 (60 fps, cropped, all-intra) and a.wav`, `Wheels fix: front wheels steered 25 deg, checked against the game's cars`, `9:16 layout: the menu's 4:3 box at full width on a blurred, darkened copy`, `Focal length and pitch from the room's vanishing points (GTA 6 f = 1757 px on 2560)`, `Lighting fix: rig matched to the game's Miata; colours deeper, windows reflect white` (+50 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 922 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **24 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **55 isolated node(s):** `Working copies: a60.mp4 (60 fps, cropped, all-intra) and a.wav`, `Wheels fix: front wheels steered 25 deg, checked against the game's cars`, `9:16 layout: the menu's 4:3 box at full width on a blurred, darkened copy`, `Lighting fix: rig matched to the game's Miata; colours deeper, windows reflect white`, `Optional cut variants: flash and scanline (max once per video)` (+50 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 961 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **21 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `ScanHUD()` connect `ScanHUD Composition` to `Remotion Root & WebZoom`, `House Scan Look`, `Repo Layout & Setup`, `Scan Prep in Blender`?**
-  _High betweenness centrality (0.060) - this node is a cross-community bridge._
+- **Why does `ScanHUD()` connect `ScanHUD Composition` to `On-Screen Text Rules`, `Repo Layout & Setup`, `Remotion Root & WebZoom`?**
+  _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **What connects `Working copies: a60.mp4 (60 fps, cropped, all-intra) and a.wav`, `Wheels fix: front wheels steered 25 deg, checked against the game's cars`, `9:16 layout: the menu's 4:3 box at full width on a blurred, darkened copy` to the rest of the system?**
   _55 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `NFS Car-Lot Reel Notes` be split into smaller, more focused modules?**
-  _Cohesion score 0.12121212121212122 - nodes in this community are weakly interconnected._
-- **Why does `check()` connect `Vanishing Points & Tracking Tools (2)` to `gta6-mr2-spyder: toast.py + plate.py`, `knowledge: audio.py + style-guide.md`, `Media Probe & Frame Tools`, `Match Cut: Pinned Scan Transform`, `gta6-integra: vps.py + sil.py`?**
-  _High betweenness centrality (0.038) - this node is a cross-community bridge._
 - **Should `gta6-mr2-spyder: toast.py + plate.py` be split into smaller, more focused modules?**
   _Cohesion score 0.08901515151515152 - nodes in this community are weakly interconnected._
+- **Why does `FG2 #806 race car reel v1 — self-review (training/rubric.md)` connect `FG2 Race Car Reel Notes` to `House Scan Look`?**
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Should `GTA Menu Lettering (ui)` be split into smaller, more focused modules?**
+  _Cohesion score 0.10510510510510511 - nodes in this community are weakly interconnected._
 
 ### Low-confidence Hints
 _AMBIGUOUS edges — the extractor was unsure. Verify before acting on these._
