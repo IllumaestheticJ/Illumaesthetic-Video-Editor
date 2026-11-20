@@ -25,6 +25,7 @@ EXPO = {"A": -1.3, "E": -0.4}
 RIG = {"R": "rig_shop_soft.json"}
 DROP = 0.045
 BRONZE = "#7a5a36"
+CHROME = "#f4f4f4"     # owner, v3 review: "make the wheels chrome": bright base, fully metallic, near-mirror
 
 
 def hide(n):
@@ -64,7 +65,7 @@ def render(key, cam, out, pct, samples):
     if drop:
         a += ["--drop", str(drop)]
     if wh:
-        a += ["--wheels", WHEEL, "--wheel-color", BRONZE]
+        a += ["--wheels", WHEEL, "--wheel-color", CHROME, "--wheel-metal", "1.0", "--wheel-rough", "0.06"]
     r = subprocess.run(a, cwd=ROOT, capture_output=True, text=True)
     print(key, Path(out).name, "ok" if Path(out).exists() else r.stdout[-600:] + r.stderr[-600:], flush=True)
 

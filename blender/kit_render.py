@@ -61,6 +61,8 @@ def parse():
     ap.add_argument("--wheels", help="wheel GLB in the showroom wheel format (nodes rim/tyre/brake, hub-centred, axle on X, face +X): "
                                      "replaces the car's four wheels, scaled to the car's tyre diameter")
     ap.add_argument("--wheel-color", default="", help="rim colour for --wheels, sRGB hex (default: the wheel GLB's own)")
+    ap.add_argument("--wheel-metal", type=float, default=0.9, help="rim metallic for --wheel-color")
+    ap.add_argument("--wheel-rough", type=float, default=0.32, help="rim roughness for --wheel-color (chrome: about 0.05 with --wheel-metal 1)")
     ap.add_argument("--drop", type=float, default=0, help="lower the body this many metres on its wheels (suspension drop)")
     ap.add_argument("--track-in", type=float, default=0, help="move each wheel this many metres toward the car's centreline "
                     "(narrower track, e.g. a widebody model shown before its flares are fitted)")
@@ -405,7 +407,7 @@ def main():
                     m = sl.material.copy(); sl.material = m
                     bb = bsdf(m)
                     if bb:
-                        bb.inputs["Base Color"].default_value = (*rgb, 1); setp(bb, metallic=0.9, roughness=0.32)
+                        bb.inputs["Base Color"].default_value = (*rgb, 1); setp(bb, metallic=a.wheel_metal, roughness=a.wheel_rough)
     if a.drop:
         for o in bpy.data.objects:
             if o.parent is None and not o.name.startswith("wheel_") and not o.get("ive_swapped"):
