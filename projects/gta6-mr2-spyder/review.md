@@ -41,3 +41,7 @@ Weak, known
 - The model wears Toyota and MR-S badges under a Karin tag. Stock wheels are the model's stand-ins (not the OEM design).
 - Eleven purchases and twenty camera moves in 37 s is busy; part screens are 1.8 s.
 - Parts are fibreglass-only in the catalogue: prices are for unpainted parts, shown paint matched.
+
+Final pass (same day): after the fixes the whole section was composited again twice; all 11 purchase frames and one frame of each of the
+20 whips were looked at again at delivery size. Left in: a few-pixel mirrored copy of the game's "..." icon beside the stats panel on the
+two rear-view screens; the wallet icon is absent on the wheel screen.
