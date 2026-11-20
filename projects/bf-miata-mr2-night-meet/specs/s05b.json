@@ -8,6 +8,7 @@
     "skirts",
     "eyelids",
     "hood",
+    "hardtop",
     "spats",
     "duck"
    ],
@@ -75,7 +76,7 @@
    "lens": 30
   },
   {
-   "f": 68,
+   "f": 74,
    "loc": [
     2.4,
     4.9,
@@ -90,7 +91,7 @@
   }
  ],
  "out": "/home/user/media/bf-miata-mr2-night-meet/work/s05b",
- "frames": 69,
+ "frames": 75,
  "fps": 15,
  "res": [
   540,

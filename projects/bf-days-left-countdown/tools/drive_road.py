@@ -225,6 +225,8 @@ FALL_F = None
 if fallers and args.mode != "none":
     # parts let go once the car's centre is past the bottom of the text (so they land below it, not on it)
     FALL_F = HIT + int(math.ceil((y_hit - text_bot) / SP))
+    if args.mode == "drift":  # sliding at 32 deg, the far-side skirt sits ~1 m higher: let go later so it lands clear of the text
+        FALL_F += 3
 for f in range(args.frames):
     x, y, yaw, steer = pose(f)
     root.location = (x, y, 0); root.rotation_euler = (0, 0, math.radians(yaw))
@@ -258,7 +260,7 @@ for h, c, side in fallers:
         else:
             t = f - FALL_F
             p0, vel, _ = st
-            k = 0.28   # friction decay per frame: ~1 m of slide
+            k = 0.42 if args.mode == "drift" else 0.28   # friction decay per frame: ~0.7 m (drift) / ~1 m of slide
             travel = vel * ((1 - math.exp(-k * t)) / k)
             z = max(0.03, p0.z - 0.5 * G * t * t)
             loc = Vector((p0.x + travel.x, p0.y + travel.y, z))

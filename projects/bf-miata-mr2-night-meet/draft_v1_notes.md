@@ -171,3 +171,32 @@ no new export yet (waiting on the length decision).
   - Zone = full-car nose triangles the bumper-off scan does not confirm, gated to within 60 mm of the lookbook stock bumper.
   - With the bumper off, the scan's real crash bar, radiators and supports show. `mr2_bumper_cover.py` is no longer used.
 - Only s02 and s10 were re-rendered. Timing, labels and all other shots are v2.0.
+
+## v2.2: all game-model shots, spat clipping fix, flipped s05 cards (user feedback on v2.1)
+`/home/user/media/work/out/bf-miata-mr2-night-meet_v2.2.mp4` (55.6 s, -14.0 LUFS, TP -1.8 dBFS; safe-zone sheet looked at).
+- "Can this be done entirely on game models? ... cutting back and forth between game/scan feels unnecessary": every shot
+  is now the lookbook model in the night lot (s02, s07, s08, s10 were scan-look). No silver scan shots and no CGI -> scan cut.
+  Scan data only supplies what the lookbook lacks:
+  - the NC stock nose and fender that come off (scan pieces, painted);
+  - what sits behind both bumpers (`dec/*_under_bumper.stl` from the bumper-off scans, dark metal);
+  - the NC TC wing placement.
+- "There's still too much cut out / bumper gap - line it up cleaner": the Epsilon bumper now seats on the lookbook body it
+  was designed on; test frames show no gap on either car.
+- "The rear spats still clip through the bumper": frames showed blotches where the stock surface coincides with the
+  spat, and a notch at the arch when the stock corner was hidden. Now the stock corner stays, and its vertices within
+  12 mm of the part tuck 10 mm inward once the part seats (`shot.py` inset_under). Same for the duckbill. The small step
+  left at the arch is the part's own shape.
+- "Flip the rear spat and duckbill title cards": in s05 the duckbill card is above the car and the spats card below.
+- s10 is a low front view of both kitted cars in the lot. Re-rendered: s02, s05, s05b, s07, s08, s10.
+
+## v2.3 (58.9 s)
+- New shot s04b (4 units, after the hood vents): the MR2 hardtop lands on the open car, high front 3/4 view. The hardtop stays on in s05, s05b and s10.
+- Hardtop label: "HARDTOP / MR2 SPYDER · PREORDER OPEN", no price. The store lists only a $50 non-refundable preorder deposit (Shopify, 2026-11-20), which would read as the price.
+- MR2 rear spats moved 8 mm outward and 8 mm rearward; the bumper surface under them is inset 10 mm once they seat (body and stock). Checked on full-size s05 frames: no bumper showing through.
+- Re-rendered s04b, s05, s05b, s06, s08, s10. Audio -14.0 LUFS, TP -1.8 dBFS. Safe-zone sheet looked at: all text inside.
+
+## v2.4 (58.9 s)
+- User: "5% off the front bumper". MR2 front bumper label is now $900 struck, $855, SAVE $45, "MR2 SPYDER · 5% OFF". PRICES.md updated.
+- The label's percent line is now computed from the prices (it was a fixed "20% OFF").
+- The bumper is not on the "20% OFF" end card: a 5% row under that headline would mislead.
+- Text only; no re-render. Audio -14.0 LUFS, TP -1.8 dBFS.

@@ -25,6 +25,9 @@ prep, render, lookat, solve, check, hud, assemble, director, feedback, log, arch
 - Look at your own output (contact sheets, frames around each cut, check overlays). Never
   report a match as good from the numeric score alone.
 - Heavy jobs (Blender renders) run in the background, one at a time.
+- **GPU first:** before any final Blender render, run `python scripts/vdrive.py worker`. If the owner's GPU PC is ONLINE,
+  pack a `gpujob` for it (with your measured `cloud_s_per_frame`) and keep a CPU fallback running until its frames
+  arrive. See `knowledge/gpu-worker.md`.
 
 ## After delivering
 - Self-score with `training/rubric.md` into `projects/<p>/review.md`.

@@ -42,7 +42,9 @@ ZONES = {"mr2": {"bumper": (["body_front_bumper_stock", "trim_front_bumper_stock
                  "spats": (["body_rear_spats_stock"], ["part_rear_spats"]),
                  "duck": (["body_duckbill_stock"], ["part_duckbill"]),
                  "diffuser": ([], ["part_diffuser"]),         # user: include the rear diffuser (black) and the TC wing
-                 "wing": (["body_tc_wing_kit_stock"], ["part_tc_wing_kit"])},
+                 "wing": (["body_tc_wing_kit_stock"], ["part_tc_wing_kit"]),
+                 # v2.3 user: "put the fancy hardtop into the mr2"
+                 "hardtop": (["body_hardtop_stock"], ["part_hardtop", "hardtop_rear_window"])},
          "nc": {"bumper": (["body_front_bumper_scan"], ["part_front_bumper", "part_front_lip", "part_canards"]),
                 "fender": (["body_fender_cuts_scan"], ["part_fender_cuts"]),
                 "skirts": (["body_side_skirts_stock"], ["part_side_skirts"]),
@@ -54,7 +56,8 @@ OVER = {"mr2": ["spats", "duck"], "nc": []}
 # parts that keep their own finish in every shot (MR2 v4 reviewer: black diffuser, carbon wing)
 DARK = {"part_diffuser": "black", "part_tc_wing_kit": "carbon", "part_tc_wing": "carbon"}
 # never shown (not on sale / not in this ad). v1.8: the MR2 front bumper ("No deal") IS shown now, per the user.
-NEVER = {"mr2": ["part_hardtop", "hardtop_rear_window", "trim_soft_top_stock"],
+NEVER = {"mr2": ["trim_soft_top_stock"],      # the MR2 stays open-top until the hardtop lands
+        
          "nc": ["part_gt_wing", "part_brake_ducts", "part_tire_spats", "trim_front_bumper_off_stock", "body_front_bumper_stock", "body_fender_cuts_stock"]}
 
 
@@ -138,6 +141,8 @@ def apply_zones(c, objs_of, nframes):
             for o in objs_of(stock):
                 o.hide_render = not keep
                 if keep: set_inset(o)
+            if keep:
+                for o in objs_of(["body"]): set_inset(o, None, f"inset_cov_{z}")
         elif z in swaps:
             w = swaps[z]; f0, f1 = w["off"]; f2, f3 = w["on"]
             for o in objs_of(stock):
@@ -148,6 +153,8 @@ def apply_zones(c, objs_of, nframes):
                     continue
                 slide(o, f0, f1, Vector(w.get("dir", [0, 0, 1])) * w.get("dist", 6.0), False, nframes)
                 key_vis(o, 0, False); key_vis(o, f1, True)
+            if keep:
+                for o in objs_of(["body"]): set_inset(o, f3 - 1, f"inset_cov_{z}")
             for o in objs_of(parts):
                 slide(o, f2, f3, w.get("from", [0, 0, 1.5]), True, nframes)
                 key_vis(o, 0, True); key_vis(o, f2, False)
@@ -178,7 +185,13 @@ def load_cgi(i, c, nframes):
     up = f"{M}/dec/{c['car']}_under_bumper.stl"
     if os.path.exists(up):
         o = import_stl(up, "under_bumper"); o.data.materials.append(dark("black")); new.append(o)
+    for o in new:        # v2.3 user: "move the rear spats on mr2 outwards a little more. You can see the rear bumper clip through"
+        if c["car"] == "mr2" and o.type == "MESH" and base(o.name) == "part_rear_spats":
+            mw = o.matrix_world; mi = mw.inverted()
+            for v in o.data.vertices:
+                w = mw @ v.co; w.x += SPAT_OUT * (1 if w.x > 0 else -1); w.y += SPAT_OUT; v.co = mi @ w
     for z in OVER[c["car"]]:
+        inset_under([o for o in new if base(o.name) == "body"], [o for o in new if base(o.name) in ZONES[c["car"]][z][1]], f"cov_{z}")
         inset_under([o for o in new if base(o.name) in ZONES[c["car"]][z][0]], [o for o in new if base(o.name) in ZONES[c["car"]][z][1]])
     parent_to(new, root)
     apply_zones(c, lambda names: [o for o in new if base(o.name) in names], nframes)
@@ -186,7 +199,8 @@ def load_cgi(i, c, nframes):
 
 
 INSET = -0.010
-def inset_under(stocks, parts):
+SPAT_OUT = 0.008      # m: each MR2 spat moves 8 mm outboard and 8 mm rearward
+def inset_under(stocks, parts, body_group=None):
     """user 2026-11-19: "the rear spats still clip through the bumper". The go-over part sits on the untouched stock body, but
     their surfaces coincide in patches (blotchy poke-through). Stock vertices within 12 mm of the part surface (in front or behind) get a vertex group; a Displace
     modifier tucks them 10 mm inward once the part is seated (strength keyed in apply_zones). Uncovered stock is untouched."""
@@ -197,17 +211,17 @@ def inset_under(stocks, parts):
     if not P: return
     bvh = BVHTree.FromPolygons(V, P)
     for b in stocks:
-        mw = b.matrix_world; nm = mw.to_3x3().inverted().transposed(); g = b.vertex_groups.new(name="cov"); k = 0
+        mw = b.matrix_world; nm = mw.to_3x3().inverted().transposed(); gn = body_group or "cov"; g = b.vertex_groups.new(name=gn); k = 0
         for v in b.data.vertices:
             cc = mw @ v.co; n = (nm @ v.normal).normalized()
-            if bvh.ray_cast(cc + n * 1e-4, n, 0.012)[0] is not None or bvh.ray_cast(cc + n * 1e-4, -n, 0.012)[0] is not None:
+            if bvh.ray_cast(cc + n * 1e-4, n, 0.025)[0] is not None or bvh.ray_cast(cc + n * 1e-4, -n, 0.012)[0] is not None:
                 g.add([v.index], 1.0, "REPLACE"); k += 1
-        m = b.modifiers.new("inset", "DISPLACE"); m.vertex_group = "cov"; m.mid_level = 0.0; m.strength = 0.0; m.direction = "NORMAL"
+        m = b.modifiers.new("inset" if not body_group else "inset_" + body_group, "DISPLACE"); m.vertex_group = gn; m.mid_level = 0.0; m.strength = 0.0; m.direction = "NORMAL"
         print("inset_under", b.name, k, "of", len(b.data.vertices), "verts covered")
 
 
-def set_inset(o, f=None):
-    m = o.modifiers.get("inset")
+def set_inset(o, f=None, name="inset"):
+    m = o.modifiers.get(name)
     if m is None: return
     if f is None: m.strength = INSET; return
     m.strength = 0.0; m.keyframe_insert("strength", frame=f); m.strength = INSET; m.keyframe_insert("strength", frame=f + 1)

@@ -37,7 +37,7 @@ The owner's instruction: **"tell all BF agents to use the BF liquidation spreads
 | WRX VB lip PU | $99.99 | $79.99 |
 | MR2 duckbill | $220 | $176 (20%) |
 | MR2 eyelids / hood vents (vents only, with brackets) / rear spats / side skirt + fender combo | $100 / $400, $470 / $350 / $700 | $80 / $320, $376 / $280 / $560 (20%) |
-| MR2 front bumper | $900 | no deal |
+| MR2 front bumper | $900 | $855 (5%, owner 2026-11-20) |
 | NC Miata bumper + lip / top only / lip only | $1,100 / $800 / $350 | $880 / $640 / $280 (20%) |
 | NC fender cuts / with fin, side skirts, NC1 rear spats, canards | $300 / $350, $500, $250, $200 | $240 / $280, $400, $200, $160 (20%) |
 

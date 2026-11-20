@@ -1434,3 +1434,17 @@ lands here automatically. Agents must read this whole file before editing.
   - **Cloud chat:** polls with `vdrive.py list <project>`, assembles and delivers. It keeps its own CPU render running until the GPU frames arrive.
 
 - **[scan] Registering a partial state scan (BF7, 2026-11-19):** when plain ICP fails to place a partial state scan (e.g. "hood closed no bumper") on the full car, use a global match first: Open3D FPFH features + RANSAC, then refine with ICP. On the cloud machines Open3D needs a stub libEGL to import. See `projects/bf-miata-mr2-night-meet/tools/mr2_bumper_state.py`.
+
+- **[technical] GPU worker measurements (RTX 3060 Ti, 2026-11-19):** use these to size GPU jobs.
+  - EEVEE at 648x1152, 24 samples: about 0.3 s/frame (330 frames in 1 min 38 s).
+  - Cycles OptiX at 1080x1920, 32 spp, light scene (Integra box shots): about 1.05 s/frame.
+  - Cycles OptiX on the heavy scan garage (bf-scan-teardown-prices, LED bars + full scan): about 16.5 s/frame, against about 66 s on the cloud CPU. Half of each frame is the CPU rebuilding the light tree (about 8 s, "Updating Lights | Computing tree"), not GPU sampling.
+- **[technical]** Persistent data on that garage scene saved only about 0.9 s/frame (17.4 vs 18.3 s) because the light tree is still rebuilt every frame. Its frames were within 1/255 of the non-persistent ones but not bit-identical, and so was frame 1000, the first frame of the run, where persistent data has no effect yet. So the GPU itself varies slightly from run to run. It wasn't worth it there; leave it off unless a test shows a real gain (and see the dropout lessons above).
+- **[technical]** `blender -P blender/ive_gpu.py` now calls `use()` when run as a script (before 2026-11-19 it only defined the function, so `-P` left the device unchanged). Worker sessions should still check the log for the `IVE_DEVICE GPU OPTIX` line.
+- **[workflow]** GPU job archives: either keep the cloud's absolute path (`home/user/media/<p>/gpujob/frames/<shot>`, so a default `restore` to `/` puts the frames back) or use the layout job.json asks for (`frames/<shot>/...`, restore with `--to`). Say which one in job.json. `vdrive.py save` on Windows stores `Epsilon/jobs/...` paths, which the cloud chat can't use, so the worker tars with relative paths instead.
+- **[workflow] GPU worker service (owner, 2026-11-19):** the PC now renders gpujobs on its own, without a Claude
+  session: `scripts/gpu_worker.py`, installed as a hidden Windows logon task by `scripts/install_gpu_worker.ps1`, with a
+  status page at http://localhost:8765. Cloud chats check it with `python scripts/vdrive.py worker` **before every final
+  render** and send the job to the PC when it's ONLINE; they keep the CPU fallback. Put the cloud's measured
+  `cloud_s_per_frame` in each job.json shot so the time-saved figure is real, not estimated. Details:
+  `knowledge/gpu-worker.md`.

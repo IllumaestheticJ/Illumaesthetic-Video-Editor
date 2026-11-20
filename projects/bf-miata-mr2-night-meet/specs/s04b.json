@@ -1,0 +1,76 @@
+{
+ "mode": "cgi",
+ "cars": [
+  {
+   "car": "mr2",
+   "on": [
+    "bumper",
+    "skirts",
+    "eyelids",
+    "hood"
+   ],
+   "swap": [
+    {
+     "zone": "hardtop",
+     "off": [
+      2,
+      9
+     ],
+     "on": [
+      8,
+      20
+     ],
+     "dir": [
+      0,
+      0,
+      1
+     ],
+     "dist": 4,
+     "from": [
+      0,
+      0.3,
+      1.3
+     ]
+    }
+   ]
+  }
+ ],
+ "camera": [
+  {
+   "f": 0,
+   "loc": [
+    2.7,
+    -3.5,
+    1.75
+   ],
+   "target": [
+    0.1,
+    0.1,
+    0.85
+   ],
+   "lens": 32
+  },
+  {
+   "f": 49,
+   "loc": [
+    2.35,
+    -3.1,
+    1.6
+   ],
+   "target": [
+    0.1,
+    0.1,
+    0.85
+   ],
+   "lens": 32
+  }
+ ],
+ "out": "/home/user/media/bf-miata-mr2-night-meet/work/s04b",
+ "frames": 50,
+ "fps": 15,
+ "res": [
+  540,
+  960
+ ],
+ "samples": 16
+}

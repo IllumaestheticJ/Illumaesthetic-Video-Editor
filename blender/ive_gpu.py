@@ -45,3 +45,7 @@ def use(sc=None):
         return kind
     print("IVE_DEVICE CPU (no GPU found)")
     return "CPU"
+
+
+if __name__ == "__main__":  # `blender -b x.blend -P blender/ive_gpu.py -a` picks the device for the loaded scene
+    use()
