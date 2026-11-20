@@ -14,7 +14,7 @@ W = Path("/home/user/media/work/gta6-mr2-spyder"); CARS = W / "cars3"
 FPS = 30; H, Wd = 1440, 2560; S = 4 / 3
 R = ui3.R
 TITLE, BLOCK, HINT = R(0, 0, 640, 130), R(0, 760, 640, 1066), R(815, 1008, 1105, 1052)
-PRE = {"F": [TITLE, BLOCK], "H": [TITLE, BLOCK, HINT], "T": [TITLE, BLOCK, HINT], "D": [TITLE, R(0, 600, 640, 1066), HINT], "M": [R(0, 150, 640, 760), R(0, 70, 955, 120)],
+PRE = {"F": [TITLE, BLOCK], "H": [TITLE, BLOCK, HINT], "T": [TITLE, BLOCK, HINT], "D": [TITLE, R(0, 600, 640, 1066), HINT], "M": [R(0, 150, 640, 800), R(0, 70, 955, 120)],
        "A": [TITLE, R(0, 785, 640, 1066)], "E": [TITLE, R(0, 785, 640, 1066)],
        "P": [TITLE, R(0, 790, 1080, 1066)], "S": [TITLE, R(0, 795, 470, 1066), HINT],
        "W": [TITLE, R(0, 655, 760, 1066)], "X": []}        # W: the whole block (price, name, thumbnails) from the state
@@ -42,8 +42,9 @@ def timeline():
         seg.append({"name": name, "out_start": g0, "frames": len(src)})
         return g0
 
-    def whip(key):
-        g0 = len(T)
+    def whip(key, look):
+        """look: which set of whip renders (tools/renders.py LOOK): the car as it is at that moment"""
+        g0 = len(T); key = f"{key}_{look}"
         for i in range(8):
             T.append({"view": "whip", "key": key, "i": i, "uid": g0})
         seg.append({"name": "whip_" + key, "out_start": g0, "frames": 8})
@@ -75,27 +76,28 @@ def timeline():
         g_ = add(name, "A", range(100, 100 + 2 * len(keys), 2), "M", lambda i: (keys[i], (car, car, 1.0)))
         ev.extend([g_ + o, nm] for o, nm in sounds)
 
-    def back_to(key):
-        ev.append([len(T) - 3, "back"]); whip(key)
+    def back_to(key, look):
+        ev.append([len(T) - 3, "back"]); whip(key, look)
 
-    PART = 54; step = [(7, "row"), (14, "select")]
+    PART = 62; step = [(7, "row"), (14, "select")]; BUY = 20        # the part screen shows the car without the part for 0.67 s first
+    LK = {0: "A", 1: "B", 2: "B", 3: "B", 4: "C", 5: "C", 6: "C", 7: "D", 8: "D", 9: "E"}
     SRC = {"F": ("B", lambda n: fw(14706, 14748, n)), "H": ("B", lambda n: fw(11916, 11952, n)), "D": ("B", lambda n: fw(2083, 2151, n)),
            "E": ("B", lambda n: fw(17951, 17970, n)), "T": ("B", lambda n: fw(16582, 16695, n)), "A": ("A", lambda n: list(range(880, 880 + 2 * n, 2)))}
     g = add("menu", "A", range(10, 70, 2), "M", lambda i: ("m0", ("M_s0", "M_s0", 1.0)))
     PL = ui3.PARTS
-    ev.append([g + 27, "select"]); whip("M_" + PL[0][2])
+    ev.append([g + 27, "select"]); whip("M_" + PL[0][2], LK[0])
     for k, (name, pr, view, slot) in enumerate(PL, 1):
         cap, src = SRC[view]
-        simple(slot, cap, src(PART), view, f"p{k}a", f"p{k}b", f"{view}_s{k - 1}", f"{view}_s{k}", 12); spend(pr)
-        back_to(view + "_M")
+        simple(slot, cap, src(PART), view, f"p{k}a", f"p{k}b", f"{view}_s{k - 1}", f"{view}_s{k}", BUY); spend(pr)
+        back_to(view + "_M", LK[k])
         if k < len(PL):
-            nav(f"list_{k}", [(f"l{k}", 7), (f"l{k}b", 9)], f"M_s{k}", step); whip("M_" + PL[k][2])
+            nav(f"list_{k}", [(f"l{k}", 7), (f"l{k}b", 9)], f"M_s{k}", step); whip("M_" + PL[k][2], LK[k])
     # between sections: back on the list, shoulder button to the tab, the tab's own rows, select (v9)
-    nav("nav_paint", [("n1a", 10), ("n1b", 14)], "M_s8", [(10, "tab"), (22, "select")])
+    nav("nav_paint", [("n1a", 10), ("n1b", 14)], f"M_s{len(PL)}", [(10, "tab"), (22, "select")])
     # respray: Recommended tab with the car's OEM colours; the cursor runs through all eleven (3 frames each, a tick each),
     # the car previews each colour, and Boost Blue is bought
     NC = len(ui3.OEM); cbuy = 6 + 3 * (NC - 1) + 6
-    ckey = lambda k: "M_s8" if k == 0 else "M_ky" if k == NC - 1 else f"M_c{k}"
+    ckey = lambda k: f"M_s{len(PL)}" if k == 0 else "M_ky" if k == NC - 1 else f"M_c{k}"
     def rs(i):
         k = int(np.clip((i - 6) // 3 + 1, 0, NC - 1)) if i >= 6 else 0
         return ("cA" if i >= cbuy + 4 else f"c{k}"), (ckey(k), ckey(k), 1.0)
@@ -103,13 +105,13 @@ def timeline():
     ev.extend([g + 6 + 3 * k, "step"] for k in range(NC - 1)); buy(g + cbuy)
     # Cosmetics -> Bodywork -> Performance (two presses, as the tab order requires), down to Suspension, select
     nav("nav_susp", [("n2a", 10), ("n2x", 7), ("n2b", 9), ("n2c", 10)], "M_ky", [(-2, "back"), (10, "tab"), (17, "tab"), (26, "row"), (34, "select")])
-    whip("M_S")
+    whip("M_S", "Y")
     simple("suspension", "B", fw(2083, 2151, 64), "S", "s1", "s2", "S_ky", "S_low", 16); spend(G_["Suspension"])
-    back_to("S_M")
+    back_to("S_M", "Y")
     nav("nav_wheels", [("n3a", 12), ("n3b", 12), ("n3c", 12)], "M_low", [(12, "tab"), (24, "row"), (34, "select")])
-    whip("M_W")
+    whip("M_W", "Y")
     simple("wheels", "B", fw(20258, 20398, 64), "W", "w1", "w2", "W_low", "W_fin", 16); spend(G_["Wheels"])
-    back_to("W_M")
+    back_to("W_M", "Z")
     # one frozen frame: the UI-free stretch is ten frames long, and looping it made the background run back and forth
     g = add("exit", "A", [4096] * 68, "X", lambda i: (None, ("M_fin", "M_fin", 1.0)))
     for k in range(12, 64):
@@ -188,8 +190,11 @@ def main():
                     wgt = cv2.GaussianBlur(cv2.dilate(hole.astype(np.uint8), np.ones((61, 61), np.uint8)).astype(np.float32), (0, 0), 12)[..., None] * 0.8
                     grey = cv2.cvtColor(cv2.cvtColor(p, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR).astype(np.float32)
                     p = (p * (1 - wgt) + grey * wgt).astype(np.uint8)
-            if view == "W":                    # close-ups: what the game's car hid is far background, out of focus
-                soft_ = cv2.GaussianBlur(p, (0, 0), 14); wgt = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 6)[..., None]
+            if view == "W":                    # wheel close-up (owner, v1: "asset blurring needs to be done better"): what the game's
+                # fender hid is the out-of-focus shop behind it. Mirror that real background up from below the hole (it keeps its own
+                # softness and grain) instead of blurring a mixed fill by 14 px, and only feather the seam.
+                p = fill_nearest(ref, hole, [(1280, 30000), (-30000, 700)], block=blockm, extend=True)
+                soft_ = cv2.GaussianBlur(p, (0, 0), 4); wgt = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 5)[..., None] * 0.5
                 p = (p * (1 - wgt) + soft_ * wgt).astype(np.uint8)
         plates[(view, key)] = p
         cv2.imwrite(str(W / f"v3/plate4_{view}_{key}.jpg"), cv2.resize(p, (1280, 720)))
@@ -319,9 +324,9 @@ def main():
                 # shot's car. So the list is taken out of both blurred frames, and only the lettering corners are held.
                 nb = static(dict(ne, ui="m_blank")) if ne["view"] == "M" else None
                 nxt_cache[uid] = (static(ne), ne["view"], nb, ne["ui"])
-                a_, b_ = key.split("_")                # a return whip without frames of its own plays the outward one backwards
+                a_, b_, lk_ = key.split("_")           # a whip without frames of its own plays the opposite one of the same look backwards
                 whips[key] = ([load(f"whip_{key}/w_{k:02d}.png") for k in range(8)] if (CARS / f"whip_{key}").exists()
-                              else [load(f"whip_{b_}_{a_}/w_{7 - k:02d}.png") for k in range(8)])
+                              else [load(f"whip_{b_}_{a_}_{lk_}/w_{7 - k:02d}.png") for k in range(8)])
                 hold_from = static(dict(prev_e, ui="m_blank", toast=0.0, sub=0.0)) if prev_e["view"] == "M" else prev.copy()
             nxt, nview, nblank, nui = nxt_cache[uid]
             t = (i + 1) / 9.0

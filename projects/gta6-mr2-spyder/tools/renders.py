@@ -4,9 +4,12 @@ import subprocess, sys, json, os
 from pathlib import Path
 P = Path(__file__).resolve().parents[1]; ROOT = P.parents[1]
 W = Path("/home/user/media/work/gta6-mr2-spyder"); CARS = W / "cars3"
-M = Path("/home/user/media/gta6-mr2-spyder"); GLB = M / "glbs/eps-toyota-mr2-spyder-v2.glb"; WHEEL = M / "glbs/wheel6_hd_scantyre.glb"
-ORDER = ["front_bumper", "eyelids", "hood_vents", "side_skirts", "rear_spats", "diffuser", "hardtop", "duckbill"]     # lookbook partOrder
-REPL = {"front_bumper": ["body_front_bumper_stock", "trim_front_bumper_stock"], "hardtop": ["trim_soft_top_stock"]}
+M = Path("/home/user/media/gta6-mr2-spyder"); GLB = M / "glbs/mr2-reel.glb"       # tools/reel_model.py: the lookbook GLB with the owner's v1 corrections; WHEEL = M / "glbs/wheel6_hd_scantyre.glb"
+ORDER = ["front_bumper", "eyelids", "hood_vents", "side_skirts", "rear_spats", "diffuser", "hardtop", "duckbill", "tc_wing"]     # lookbook partOrder + the TC wing (v2)
+REPL = {"front_bumper": ["body_front_bumper_stock", "trim_front_bumper_stock"], "hardtop": ["trim_soft_top_stock"], "hood_vents": ["body_hood_cut"],
+        "side_skirts": ["body_fender_cut"], "diffuser": ["exhaust_stock"]}
+ALT = {"diffuser": ["exhaust_diffuser"]}             # nodes that only exist with a part: hidden until it is fitted
+NP = len(ORDER)
 SILVER = ("#a8abaf", "metallic"); YELLOW = ("#f4c400", "gloss")
 OEM = [("#a8abaf", "metallic"), ("#b0b3b6", "metallic"), ("#4f5256", "metallic"), ("#0c0c0d", "gloss"), ("#f2f2ee", "gloss"), ("#c4121c", "gloss"),
        ("#1f4f9a", "pearl"), ("#f4c400", "gloss")]
@@ -16,6 +19,8 @@ BRONZE = "#8c6b3f"; DROP = 0.045
 
 def hide(n):
     h = ["part_" + p for p in ORDER[n:]]
+    for p in ORDER[n:]:
+        h += ALT.get(p, [])
     for p in ORDER[:n]:
         h += REPL.get(p, [])
     return ",".join(h)
@@ -26,13 +31,13 @@ def state(name):
     if name.startswith("s"):
         return hide(int(name[1:])), *SILVER, []
     if name.startswith("c"):
-        return hide(8), *OEM[int(name[1:])], []
+        return hide(NP), *OEM[int(name[1:])], []
     if name == "ky":
-        return hide(8), *YELLOW, []
+        return hide(NP), *YELLOW, []
     if name == "low":
-        return hide(8), *YELLOW, ["--drop", str(DROP)]
+        return hide(NP), *YELLOW, ["--drop", str(DROP)]
     if name == "fin":
-        return hide(8), *YELLOW, ["--drop", str(DROP), "--wheels", str(WHEEL), "--wheel-color", BRONZE]
+        return hide(NP), *YELLOW, ["--drop", str(DROP), "--wheels", str(WHEEL), "--wheel-color", BRONZE]
     raise SystemExit(name)
 
 
@@ -49,12 +54,16 @@ def render(cam, view, st, out, pct, samples):
         print(r.stdout[-1500:], r.stderr[-1500:])
 
 
-STILLS = {"M": [f"s{i}" for i in range(9)] + [f"c{i}" for i in range(1, 7)] + ["ky", "low", "fin"], "F": ["s0", "s1", "s2"], "H": ["s2", "s3"], "D": ["s3", "s4"],
-          "E": ["s4", "s5", "s6"], "T": ["s6", "s7"], "A": ["s7", "s8"], "S": ["ky", "low"], "W": ["low", "fin"]}
-# whip key -> (camera dir, reversed?, state, exposure view). The return whips reuse the outward frames reversed (a 61 px blur hides one part);
-# only the hardtop and the wheels change enough to be rendered again.
-WHIPS = {"M_F": ("M_F", 0, "s1", "F"), "M_H": ("M_H", 0, "s3", "H"), "M_D": ("M_D", 0, "s4", "D"), "M_E": ("M_E", 0, "s5", "E"), "M_T": ("M_T", 0, "s6", "T"),
-         "T_M": ("M_T", 1, "s7", "T"), "M_A": ("M_A", 0, "s8", "A"), "M_S": ("M_S", 0, "low", "S"), "M_W": ("M_W", 0, "low", "W"), "W_M": ("M_W", 1, "fin", "W")}
+STILLS = {"M": [f"s{i}" for i in range(NP + 1)] + [f"c{i}" for i in range(1, 7)] + ["ky", "low", "fin"], "F": ["s0", "s1", "s2"], "H": ["s2", "s3"], "D": ["s3", "s4"],
+          "E": ["s4", "s5", "s6"], "T": ["s6", "s7"], "A": ["s7", "s8", "s9"], "S": ["ky", "low"], "W": ["low", "fin"]}
+# Whips. A whip INTO a part screen shows the car as it is before that purchase, a whip back shows it after (owner, v1: "at the 0:01
+# transition the aftermarket bumper flashes on the car"). Under the whip's blur some steps look alike, so states are grouped in looks:
+LOOK = {0: "A", 1: "B", 2: "B", 3: "B", 4: "C", 5: "C", 6: "C", 7: "D", 8: "D", 9: "E"}     # bumper / skirts / hardtop / wing change the look
+# key "<from>_<to>_<look>" -> (camera dir, reversed?, state, exposure view). A whip not listed plays the opposite one of the same look backwards.
+WHIPS = {"M_F_A": ("M_F", 0, "s0", "F"), "F_M_B": ("M_F", 1, "s1", "F"), "M_H_B": ("M_H", 0, "s2", "H"), "M_D_B": ("M_D", 0, "s3", "D"),
+         "D_M_C": ("M_D", 1, "s4", "D"), "M_E_C": ("M_E", 0, "s5", "E"), "M_T_C": ("M_T", 0, "s6", "T"), "T_M_D": ("M_T", 1, "s7", "T"),
+         "M_A_D": ("M_A", 0, "s8", "A"), "A_M_E": ("M_A", 1, "s9", "A"), "M_S_Y": ("M_S", 0, "low", "S"), "M_W_Y": ("M_W", 0, "low", "W"),
+         "W_M_Z": ("M_W", 1, "fin", "W")}
 
 if __name__ == "__main__":
     what = sys.argv[1] if len(sys.argv) > 1 else "all"; CARS.mkdir(exist_ok=True)

@@ -215,6 +215,10 @@ class Menu:
                 y = int(round((yc + PITCH / 2) * S)); line = np.zeros(bg.shape[:2], np.uint8); line[y - 3:y + 4, int(30 * S):int(600 * S)] = 255
                 bg[:] = cv2.inpaint(bg, line, 4, cv2.INPAINT_TELEA)
         self.counter_bb, self.counter_col = erase(bg, box(30, 677, 150, 717), thr=18)
+        for k in range(9, len(ROWS) + 1):                 # more rows than the capture's list shows: the rule above row k is the one above row 8, copied down
+            ys_ = int(round((ROW0 + PITCH * 6.5) * S)); yd_ = int(round((ROW0 + PITCH * (k - 1.5)) * S)); xa, xb = int(30 * S), int(600 * S)
+            d_ = bg[ys_ - 4:ys_ + 5, xa:xb].astype(np.int16) - bg[ys_ - 14:ys_ - 5, xa:xb].astype(np.int16)
+            bg[yd_ - 4:yd_ + 5, xa:xb] = np.clip(bg[yd_ - 4:yd_ + 5, xa:xb].astype(np.int16) + d_, 0, 255).astype(np.uint8)
         bar = a.copy()
         erase(bar, box(44, ROW0 + PITCH - 24, 420, ROW0 + PITCH + 24), dark=True, thr=30)   # text and marker off the bar
         d = bar[by0:by1, bx0:bx1].astype(np.float32); u = bg[by0:by1, bx0:bx1].astype(np.float32)

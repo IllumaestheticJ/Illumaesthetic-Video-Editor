@@ -85,8 +85,10 @@ def fill_nearest(img, hole, vps, margin=6, block=None, extend=False):
     if left.any():
         out = cv2.inpaint(out, left, 5, cv2.INPAINT_TELEA)
     soft = cv2.GaussianBlur(out, (0, 0), 2.0)                     # take the mirrored grain down a little and hide the seams
-    w = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 3)[..., None] * 0.6
-    return (out * (1 - w) + soft * w).astype(np.uint8)
+    # only the seam is softened (owner, v1: the fills read as blur): inside the hole the mirrored texture keeps its sharpness and grain
+    hm = hole.astype(np.uint8); k = np.ones((9, 9), np.uint8)
+    seam = cv2.GaussianBlur((cv2.dilate(hm, k) - cv2.erode(hm, k)).astype(np.float32), (0, 0), 2)[..., None] * 0.7
+    return (out * (1 - seam) + soft * seam).astype(np.uint8)
 
 
 def fill_from_above(img, hole, block, lift=10, sigma=5):

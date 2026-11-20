@@ -29,10 +29,11 @@ VID_B = "/home/user/media/gta6-mr2-spyder/capture/gta6_customization_B_1440p.mp4
 # the kit page but not in the game model (the car notes: "Not exported"), so it is not in the reel.
 PARTS = [  # row name on the list (catalogue wording, user v6: no "Epsilon" on the list), price, view, GLB slot      -- lookbook partOrder
     ("Front Bumper", 900, "F", "front_bumper"), ("Headlight Eyelids", 100, "F", "eyelids"), ("Hood Vents", 400, "H", "hood_vents"),
-    ("Side Skirt Fender Combo", 700, "D", "side_skirts"), ("Rear Bumper Spats", 350, "E", "rear_spats"), ("Diffuser V1+", 750, "E", "diffuser"),
-    ("Hardtop", 50, "T", "hardtop"), ("Rear Duckbill", 220, "A", "duckbill")]
+    ("Side Skirt Fender Combo", 700, "D", "side_skirts"), ("Rear Bumper Spats", 350, "E", "rear_spats"), ("Rear Diffuser", 750, "E", "diffuser"),      # owner, v1: "relabel Diffuser V1+ to Rear Diffuser"
+    ("Hardtop", 50, "T", "hardtop"), ("Rear Duckbill", 220, "A", "duckbill"),
+    ("TC Wing", 1100, "A", "tc_wing")]               # owner, v1: "the rear TC spoiler needs to be added"; catalogue tc-wing-toyota-mr2-spyder-zzw30, $1,100, backorder
 PRICES = {n: p for n, p, _, _ in PARTS}
-DEPOSIT = {"Hardtop"}
+NOTE = {"Hardtop": "PREORDER DEPOSIT", "TC Wing": "BACKORDER"}      # what the catalogue says about that figure, as a second badge
 GAME = {"Suspension": 750, "Wheels": 560}
 ROWS = [n for n, _, _, _ in PARTS]
 # the car's factory colours (Epsilon-Site lookbook3d/src/data/lookbook-data.json, toyota-mr2-spyder "paints"), in the order the cursor runs
@@ -195,8 +196,8 @@ def build(frameA, frameB):
         retitle(img, box(30, 68, 420, 110), name.upper(), OSW, None, OSW_SQ)
         retitle(img, box(30, 902, 420, 940), "EPSILON " + name.upper(), OSW, None, OSW_SQ)
         price(img, money(PRICES[name])); bx_ = badge(img)
-        if name in DEPOSIT:                          # the catalogue's only figure for this part is a preorder deposit: say so beside the badge
-            badge(img, bx_ + 10, text="PREORDER DEPOSIT", bgr=(238, 238, 238))
+        if name in NOTE:
+            badge(img, bx_ + 10, text=NOTE[name], bgr=(238, 238, 238))
         retitle(img, box(76, 955, 105, 990), "1", LEX, None, thr=20); retitle(img, box(128, 955, 165, 990), "1", LEX, None, thr=14)
         applied(img) if done else clear_status(img)
         panel_from_A(img); car_tag(img, 555); wallet_clear(img)
