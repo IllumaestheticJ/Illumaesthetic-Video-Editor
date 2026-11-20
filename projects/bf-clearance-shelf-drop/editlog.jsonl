@@ -41,3 +41,4 @@
 {"ts": "2026-11-19T06:22:22Z", "decision": "v1.0 delivered (s1 re-rendered with looser sign spacing)", "why": "user feedback on sign lettering; everything else unchanged from v0.9"}
 {"ts": "2026-11-19T08:17:27Z", "decision": "v1.1 sign: optical kerning -7 on the A-Y pair in FRIDAY", "why": "user: A and Y awkwardly spaced; the extra letter spacing from v1.0 left a wedge between the two diagonal letters; compared 0/-4/-7/-10 zoomed, -7 matches the other gaps without crowding"}
 {"ts": "2026-11-19T10:52:11Z", "decision": "v1.1 delivered (s1 re-rendered with A-Y kerning)", "why": "user feedback on the sign's A-Y spacing; rest unchanged from v1.0"}
+{"ts": "2026-11-20T23:30:45Z", "decision": "Price check v1.1 (user asked): all 8 on-screen prices match live Shopify (price / compareAtPrice) and PRICES.md; carbon GR V1 stock still 14", "why": "user: check that the pricing is correct; Shopify is the source customers see at checkout"}
