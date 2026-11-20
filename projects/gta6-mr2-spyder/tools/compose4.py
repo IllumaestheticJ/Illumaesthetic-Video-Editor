@@ -318,12 +318,12 @@ def main():
                 # highlight bar smeared into a hard band, and the option block held sharp showed a rectangle of the next
                 # shot's car. So the list is taken out of both blurred frames, and only the lettering corners are held.
                 nb = static(dict(ne, ui="m_blank")) if ne["view"] == "M" else None
-                nxt_cache[uid] = (static(ne), ne["view"], nb)
+                nxt_cache[uid] = (static(ne), ne["view"], nb, ne["ui"])
                 a_, b_ = key.split("_")                # a return whip without frames of its own plays the outward one backwards
                 whips[key] = ([load(f"whip_{key}/w_{k:02d}.png") for k in range(8)] if (CARS / f"whip_{key}").exists()
                               else [load(f"whip_{b_}_{a_}/w_{7 - k:02d}.png") for k in range(8)])
                 hold_from = static(dict(prev_e, ui="m_blank", toast=0.0, sub=0.0)) if prev_e["view"] == "M" else prev.copy()
-            nxt, nview, nblank = nxt_cache[uid]
+            nxt, nview, nblank, nui = nxt_cache[uid]
             t = (i + 1) / 9.0
             bg = shift(hold_from, -t * Wd * 0.7) * (1 - t) + shift(nxt if nblank is None else nblank, (1 - t) * Wd * 0.7) * t
             out = hblur(bg, 301)
@@ -337,9 +337,11 @@ def main():
                 out = out * (1 - hm) + nxt * hm
             elif PRE[nview]:
                 # the title's lettering only (titles here run to 620 px: a held box that wide would be a sharp rectangle of scenery)
-                x0, y0, x1, y1 = R(0, 22, 640, 112); tg = cv2.cvtColor(np.clip(nxt[y0:y1, x0:x1], 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
-                tm = cv2.GaussianBlur(cv2.dilate((tg > 118).astype(np.float32), np.ones((5, 5), np.uint8)), (0, 0), 1.2)
-                tm[:, 900:] = 0; hm = np.zeros((H, Wd, 1), np.float32); hm[y0:y1, x0:x1, 0] = tm
+                x0, y0, x1, y1 = R(0, 22, 640, 112)
+                tl = states[nui].get("title") if nui in states else None       # the state's own lettering mask (strokes only), made by static()
+                hm = np.zeros((H, Wd, 1), np.float32)
+                if tl is not None:
+                    hm[y0:y1, x0:x1] = np.clip(cv2.GaussianBlur(cv2.dilate(tl[0][..., 0], np.ones((3, 3), np.uint8)), (0, 0), 1.0), 0, 1)[..., None]
                 out = out * (1 - hm) + nxt * hm
             for rect in POST[nview]:
                 if rect is WALLET:                    # a pasted wallet box shows against a blurred frame: figure only
