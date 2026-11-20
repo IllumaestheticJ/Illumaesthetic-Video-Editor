@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.2.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.3.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -87,13 +87,15 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
          "mr2_diffuser": ("REAR DIFFUSER V1+", "MR2 SPYDER", None, 750), "mr2_wing": ("TC WING", "MR2 SPYDER", None, 1100),
          "nc_wing": ('TC WING 66.5" - SWAN', "NC MIATA", None, 1100),
          # v1.8 (user: "MR2 spyder doesn't show the front bumper"): sheet says "No deal", so regular price $900, not on the 20% card
-         "mr2_bumper": ("FRONT BUMPER", "MR2 SPYDER", None, 900)}
+         "mr2_bumper": ("FRONT BUMPER", "MR2 SPYDER", None, 900),
+         # v2.3: store lists the hardtop as a $50 non-refundable preorder only (Shopify 2026-11-20): no price shown
+         "mr2_hardtop": ("HARDTOP", "MR2 SPYDER", None, None)}
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
 # shot -> [(key, start fraction, slot)]; v1.4 (user: "some of the text cuts away too fast, if there is two text you can put one
 # above and another below"): every label stays up to the end of its shot; a second part's label stacks below the first.
 # v2.0 (owner text minimums: prices readable >= 2.2 s; 1.8 s + 0.3 s/word otherwise): label START times in SECONDS,
 # fade-in 10 frames, every label holds to the end of its shot. Parts land by 1.2 s / 2.6 s (make_specs.py A1/A2).
-LABELS = {"s02": [("mr2_skirts", 0.15, 0), ("mr2_bumper", 2.2, 1)], "s03": [("mr2_eyelids", 0.15, 0)], "s04": [("mr2_hood", 0.15, 0)],
+LABELS = {"s02": [("mr2_skirts", 0.15, 0), ("mr2_bumper", 2.2, 1)], "s03": [("mr2_eyelids", 0.15, 0)], "s04": [("mr2_hood", 0.15, 0)], "s04b": [("mr2_hardtop", 0.15, 0)],
           "s05": [("mr2_spats", 0.15, 1), ("mr2_duck", 1.7, 0)], "s07": [("nc_bumper", 0.3, 0), ("nc_canards", 1.7, 1)],
           "s08": [("nc_fender", 0.15, 0)], "s09": [("nc_skirts", 0.15, 0), ("nc_spats", 2.2, 1)],
           "s05b": [("mr2_diffuser", 0.15, 0), ("mr2_wing", 1.7, 1)], "s09b": [("nc_wing", 0.15, 0)]}
@@ -113,7 +115,8 @@ def price_label(base, key, t, plate, slot=0):
         base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
     with Layer(base) as d:
         d.text((90, 312 + dy), name, font=fit(FH8, 50, name, 820), fill=(255, 255, 255, A))
-        d.text((92, 396 + dy), f"{car} · 20% OFF" if was else f"{car} · COMPLETE THE KIT", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        d.text((92, 396 + dy), f"{car} · 20% OFF" if was else f"{car} · COMPLETE THE KIT" if now else f"{car} · PREORDER OPEN", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        if now is None: return   # preorder part: name only
         if was is None:          # regular price only (not in the sale)
             d.text((92, 452 + dy), money(now), font=font(FH, 56), fill=(255, 255, 255, A)); return
         fw, fn = font(FS, 38), font(FH, 56)

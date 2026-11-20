@@ -43,8 +43,12 @@ S["s03"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts"], "
 n = N("s04")
 S["s04"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "eyelids"], "swap": [ss("hood", *ONE, dir=[0, -0.3, 1], dist=5, **{"from": [0, 0, 0.8]})]}],
             "camera": cam([1.5, -3.4, 2.1], [1.1, -3.1, 1.95], n, [0, -1.45, 0.66], lens=42)}
+n = N("s04b")     # v2.3 user: "put the fancy hardtop into the mr2": it lands on the open car from a high front 3/4
+S["s04b"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "eyelids", "hood"],
+                                      "swap": [ss("hardtop", *ONE, dir=[0, 0, 1], dist=4, **{"from": [0, 0.3, 1.3]})]}],
+             "camera": cam([2.7, -3.5, 1.75], [2.35, -3.1, 1.6], n, [0.1, 0.1, 0.85], lens=32)}
 n = N("s05")
-S["s05"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "eyelids", "hood"],
+S["s05"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "eyelids", "hood", "hardtop"],
                                      "swap": [ss("spats", *A1, dir=[0, 1, 0.2], dist=5, **{"from": [0, 1.0, 0.2]}),
                                               ss("duck", *A2, dir=[0, 0.4, 1], dist=5, **{"from": [0, 0.3, 0.8]})]}],
             # v1.8 (user: "the rear spats dont show up in the screen"): low close-up on the corner while they land, then pull back
@@ -52,7 +56,7 @@ S["s05"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "e
                            [2.0, 4.6, 1.0], [0, 1.5, 0.55], n, lens=(32, 28))}
 # NC ----------------------------------------------------------------------------------------------------------------
 A, B = [-3.5, -4.8, 0.6], [-2.8, -3.9, 0.5]; T = [0.0, -1.0, 0.42]
-n6, n7 = N("s06"), N("s07"); u = (n6 - 1) / (n6 + n7 - 2)
+n6, n7 = N("s06"), N("s07"); u = 0.302      # fixed hand-over point so s06 (re-timed in v2.3) still ends where the rendered s07 starts
 S["s06"] = {"mode": "cgi", "cars": [{"car": "nc"}], "camera": cam(A, lerp(A, B, u), n6, T, lens=26)}
 S["s07"] = {"mode": "cgi", "cars": [{"car": "nc", "swap": [ss("bumper", 0.15, 0.70, 0.60, 1.50, dir=[-0.3, -1, 0.3], dist=7, **{"from": [0, -1.5, 0.2]})]}],
             "camera": cam(lerp(A, B, u), B, n7, T, lens=26)}
@@ -68,7 +72,7 @@ S["s09"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender"],
             "camera": camk([(0, [-3.9, -0.15, 0.5], [-0.75, -0.1, 0.28]), (1.3, [-3.8, 0.0, 0.5], [-0.75, -0.1, 0.28]),
                             (2.1, [-1.75, 2.75, 0.2], [-0.75, 1.6, 0.34]), (None, [-1.6, 2.6, 0.22], [-0.75, 1.6, 0.34])], n, lens=28)}
 n = N("s05b")
-S["s05b"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "eyelids", "hood", "spats", "duck"],
+S["s05b"] = {"mode": "cgi", "cars": [{"car": "mr2", "on": ["bumper", "skirts", "eyelids", "hood", "hardtop", "spats", "duck"],
                                       "swap": [ss("diffuser", *A1, dir=[0, 1, -0.2], dist=5, **{"from": [0, 1.2, -0.25]}),
                                                ss("wing", *A2, dir=[0, 0, 1], dist=5, **{"from": [0, 0.2, 1.4]})]}],
              "camera": cam([2.9, 5.4, 0.55], [2.4, 4.9, 0.85], n, [0, 1.65, 0.55], [0, 1.6, 0.68], lens=30)}
@@ -76,7 +80,7 @@ n = N("s09b")
 S["s09b"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender", "skirts", "spats"],
                                       "swap": [ss("wing", *ONE, dir=[0, 0, 1], dist=5, **{"from": [0, 0.2, 1.4]})]}],
              "camera": cam([-2.6, 5.4, 1.5], [-2.1, 4.8, 1.85], n, [0, 1.6, 0.8], lens=30)}
-mr2s = {"car": "mr2", "offset": [0.85, 2.7, 0], "yaw": -8, "on": ["bumper", "skirts", "eyelids", "hood", "spats", "duck", "diffuser", "wing"]}
+mr2s = {"car": "mr2", "offset": [0.85, 2.7, 0], "yaw": -8, "on": ["bumper", "skirts", "eyelids", "hood", "hardtop", "spats", "duck", "diffuser", "wing"]}
 ncs = {"car": "nc", "offset": [-0.85, -1.7, 0], "yaw": 8, "on": ["bumper", "fender", "skirts", "spats", "wing"]}
 S["s10"] = {"mode": "cgi", "cars": [mr2s, ncs], "camera": cam([4.6, -7.9, 1.5], [4.1, -7.1, 1.2], N("s10"), [-0.5, 0.3, 0.55], lens=26)}   # v1.3: cars staggered front/back, 0.5 m+ apart (they clipped side by side)
 for k, s in S.items():
