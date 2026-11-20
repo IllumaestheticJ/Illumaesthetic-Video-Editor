@@ -115,6 +115,7 @@ elif a[0] == 'batch':
     c = cam.constraints.new('TRACK_TO'); c.target = tgt; c.track_axis = 'TRACK_NEGATIVE_Z'; c.up_axis = 'UP_Y'
 
     def shot(path, az, hl='all', dist=6.6, h=2.3):
+        if os.path.exists(path) and os.path.getsize(path) > 10000: return      # resumable after a restart
         for k, (m, e) in MAT.items():
             e.inputs[1].default_value = 1.6 if hl == 'all' else (2.4 if k == hl else 0.12)
         azr = math.radians(az); cam.location = (dist * math.sin(azr), dist * math.cos(azr), h)
