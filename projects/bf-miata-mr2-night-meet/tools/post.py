@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.4.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.5.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -116,7 +116,7 @@ def price_label(base, key, t, plate, slot=0):
         base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
     with Layer(base) as d:
         d.text((90, 312 + dy), name, font=fit(FH8, 50, name, 820), fill=(255, 255, 255, A))
-        d.text((92, 396 + dy), f"{car} · {round(100 * (was - now) / was)}% OFF" if was else f"{car} · COMPLETE THE KIT" if now else f"{car} · PREORDER OPEN", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        d.text((92, 396 + dy), f"{car} · {round(100 * (was - now) / was)}% OFF" if was else f"{car} · COMPLETE THE KIT" if now else f"{car} · RELEASING 2027", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
         if now is None: return   # preorder part: name only
         if was is None:          # regular price only (not in the sale)
             d.text((92, 452 + dy), money(now), font=font(FH, 56), fill=(255, 255, 255, A)); return

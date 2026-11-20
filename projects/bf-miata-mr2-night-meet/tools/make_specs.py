@@ -82,7 +82,7 @@ S["s09b"] = {"mode": "cgi", "cars": [{"car": "nc", "on": ["bumper", "fender", "s
              "camera": cam([-2.6, 5.4, 1.5], [-2.1, 4.8, 1.85], n, [0, 1.6, 0.8], lens=30)}
 mr2s = {"car": "mr2", "offset": [0.85, 2.7, 0], "yaw": -8, "on": ["bumper", "skirts", "eyelids", "hood", "hardtop", "spats", "duck", "diffuser", "wing"]}
 ncs = {"car": "nc", "offset": [-0.85, -1.7, 0], "yaw": 8, "on": ["bumper", "fender", "skirts", "spats", "wing"]}
-S["s10"] = {"mode": "cgi", "cars": [mr2s, ncs], "camera": cam([4.6, -7.9, 1.5], [4.1, -7.1, 1.2], N("s10"), [-0.5, 0.3, 0.55], lens=26)}   # v1.3: cars staggered front/back, 0.5 m+ apart (they clipped side by side)
+S["s10"] = {"mode": "cgi", "cars": [mr2s, ncs], "camera": cam([2.4, -9.0, 3.0], [2.0, -8.2, 2.7], N("s10"), [-0.75, 0.5, 0.6], lens=30)}   # v1.3: cars staggered front/back, 0.5 m+ apart (they clipped side by side)
 for k, s in S.items():
     s.update({"out": f"{M}/work/{k}", "frames": N(k), "fps": 15, "res": [540, 960], "samples": 16 if s["mode"] == "cgi" else 12})
     json.dump(s, open(f"specs/{k}.json", "w"), indent=1)
