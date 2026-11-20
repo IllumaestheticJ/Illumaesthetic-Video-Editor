@@ -138,7 +138,7 @@ def s5():
     for i, f in enumerate((6, 13, 20)):
         aim(h, f - 3, tip(X[i], 0.1), SH); aim(h, f, tip(X[i]), SH); aim(h, f + 2, tip(X[i], 0.08), SH)
         key(cam, f - 1, rot=(0, 0, 0), interp="LINEAR"); key(cam, f, rot=(R(-1.2), 0, 0), interp="LINEAR"); key(cam, f + 2, rot=(0, 0, 0), interp="LINEAR")
-    for f, x in ((25, -0.46), (28, -0.38), (31, -0.5), (33, -0.42)): aim(h, f, tip(x, 0.07), SH)   # looking for a fourth
+    for f, x in ((25, -0.46), (28, -0.38), (31, -0.5), (33, -0.42), (34, -0.46)): aim(h, f, tip(x, 0.07), SH)   # looking for a fourth
     vis(h, 1, True); vis(h, 35, False)
     # shrug: both palms up, then pat the cover
     sr = hand("sR", cam, (0.26, -0.2, -0.5), (R(-60), R(170), R(-30)), curls=OPEN, thumb=-0.2); sl = hand("sL", cam, (-0.26, -0.2, -0.5), (R(-60), R(-170), R(30)), curls=OPEN, thumb=-0.2, mirror=True)
