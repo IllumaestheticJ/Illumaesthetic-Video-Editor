@@ -1,0 +1,25 @@
+# GTA 6 mod-shop reel: Toyota MR2 Spyder (ZZW30), shown stock and with the Epsilon kit bought part by part.
+glb_dir: /home/user/media/gta6-mr2-spyder/glbs      # copied from Epsilon-Site showroom/models (commit b867b28)
+car:
+  id: toyota-mr2-spyder
+  glb: eps-toyota-mr2-spyder-v2.glb                 # notes: Epsilon-Site showroom/models/cars/toyota-mr2-spyder.md
+  tag: "KARIN / JASON'S '01 RUNABOUT"               # Karin = official GTA Toyota; "Runabout" is ours (no official MR2 Spyder counterpart found)
+  stock_paint: ["Silver Streak Metallic", "1E7", "#a8abaf", metallic]
+  paint: ["Solar Yellow", "576", "#f4c400", gloss]  # the lookbook's paint for this car
+  part_paint: body                                  # parts arrive paint matched
+order: [front_bumper, eyelids, hood_vents, side_skirts, rear_spats, diffuser, hardtop, duckbill]     # lookbook partOrder
+replaces: {front_bumper: [body_front_bumper_stock, trim_front_bumper_stock], hardtop: [trim_soft_top_stock]}
+states:                                             # tools/renders.py: s<N> = first N parts fitted (silver); c<k> = full kit in OEM colour k;
+  s0: stock                                         # ky = full kit, Solar Yellow; low = ky dropped 45 mm; fin = low + 6-spoke wheels (bronze)
+catalogue:                                          # Epsilon-Site showroom/catalog/products.json, kit page mr2-spyder-full-aero-kit, read 2026-11-20
+  front_bumper: {price: 900, variant: Fiberglass, handle: epsilon-front-bumper-toyota-mr2-spyder-zzw30-2000-2005}
+  eyelids:      {price: 100, variant: Fiberglass, handle: epsilon-headlight-eyelids-toyota-mr2-spyder-zzw30-2000-2005}
+  hood_vents:   {price: 400, variant: "Fiberglass Vents ONLY", handle: epsilon-hood-vents-toyota-mr2-spyder-zzw30-2000-2005}   # 470 with relocation brackets
+  side_skirts:  {price: 700, variant: Fiberglass, handle: epsilon-side-skirt-fender-combo-toyota-mr2-spyder-zzw30-2000-2005}
+  rear_spats:   {price: 350, variant: Fiberglass, handle: epsilon-rear-bumper-spats-toyota-mr2-spyder-zzw30-2000-2005}
+  diffuser:     {price: 750, variant: Default, handle: epsilon-diffuser-v1-toyota-mr2-spyder-zzw30-2000-2005}
+  hardtop:      {price: 50, variant: "Preorder (NON-REFUNDABLE)", note: "deposit only; shown with a PREORDER DEPOSIT badge", handle: epsilon-hardtop-toyota-mr2-spyder-zzw30-2000-2005}
+  duckbill:     {price: 220, variant: Default, available: false, handle: epsilon-rear-duckbill-toyota-mr2-spyder-zzw30-2000-2005}
+  tc_wing:      {price: 1100, note: "backorder; not in the GLB, not in the reel", handle: tc-wing-toyota-mr2-spyder-zzw30}
+game_items: {lowered_suspension_kit: 750, rims: 560}   # the game's own prices, as in the Civic reel
+wheels: {glb: wheel6_hd_scantyre.glb, color: "#8c6b3f", drop_m: 0.045}
