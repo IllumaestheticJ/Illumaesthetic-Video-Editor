@@ -188,3 +188,9 @@ no new export yet (waiting on the length decision).
   left at the arch is the part's own shape.
 - "Flip the rear spat and duckbill title cards": in s05 the duckbill card is above the car and the spats card below.
 - s10 is a low front view of both kitted cars in the lot. Re-rendered: s02, s05, s05b, s07, s08, s10.
+
+## v2.3 (58.9 s)
+- New shot s04b (4 units, after the hood vents): the MR2 hardtop lands on the open car, high front 3/4 view. The hardtop stays on in s05, s05b and s10.
+- Hardtop label: "HARDTOP / MR2 SPYDER · PREORDER OPEN", no price. The store lists only a $50 non-refundable preorder deposit (Shopify, 2026-11-20), which would read as the price.
+- MR2 rear spats moved 8 mm outward and 8 mm rearward; the bumper surface under them is inset 10 mm once they seat (body and stock). Checked on full-size s05 frames: no bumper showing through.
+- Re-rendered s04b, s05, s05b, s06, s08, s10. Audio -14.0 LUFS, TP -1.8 dBFS. Safe-zone sheet looked at: all text inside.
