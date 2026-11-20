@@ -47,3 +47,13 @@ confirms them.
 - Re-run on v3: 990 frames, no dark frames, cuts unchanged, one duplicate frame left (289), -14.1 LUFS, true peak -2.5 dBFS,
   `collide.py` `{}` on shots 8 and 11 (the two with new arms). The static holds listed above are gone.
 - "Known weak spots" 1-3 above are fixed; the FL5 shell quality and the hard-to-spot trolley in shot 6 remain.
+
+## v4 (2026-11-20), owner feedback on v3
+Cut: `/home/user/media/ditl-gr-corolla/ditl-gr-corolla_firstcut_v4.mp4`.
+- Type R rebuilt on the showroom Civic hatch (FL) model; ending is look up / look down / sigh with hands on the wheel, no dash
+  slap; mirror yawed toward the driver; shot 5 held frame fixed. Shots 1, 5, 9, 10, 14 re-rendered.
+- Re-run on v4: 990 frames, no dark frames, cuts unchanged, -14.1 LUFS, true peak -2.5 dBFS, `collide.py` `{}` on shots 9, 10, 14.
+  Frame 289 is no longer a duplicate. One duplicate remains at frame 779 (shot 14 frame 2: the head holds forward for four frames
+  before he looks up).
+- Sigh take: 2.51 s, sounding 0.17-2.00 s, silent edges; placed from frame 789 (shot 14 frame 12).
+- Honest limit: the Type R is the hatch body with a wing, not the wide-body FL5.
