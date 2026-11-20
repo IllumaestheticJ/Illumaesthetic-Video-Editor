@@ -133,3 +133,26 @@ Everything here was learned from reviewer feedback. Where a line says "user:", t
 Whose footage and music it is; which numbers are the game's; what was invented (background patches, navigation
 shortcuts, a row added to a game list); that sound was set by measurement; anything that reads "true to the game"
 but is not.
+
+## Second car in the same shop (MR2 Spyder, `projects/gta6-mr2-spyder/`, 2026-11-20)
+The Civic reel rebuilt for another kit in one pass. Start from that project's `tools/` (they take the part list from one table,
+`ui4.PARTS`, and the render states from `renders.py`); what changed and why:
+- **Budget the length first.** Each part costs about 2.9 s with full navigation (whip, 1.8 s screen, whip, list beat). Eight parts plus
+  respray, suspension and wheels is 37 s. A music clip shorter than that cannot cover the section unbroken: tell the user before building.
+- **A smaller car needs wider masks, not just closer cameras.** `tools/camsearch.py` moves the camera until our car covers the game's,
+  with a cost for zooming further than needed (without it the search fills the frame). `tools/silh.py` projects the GLB without Blender
+  (geometry from `export_geo.py`), so a search is seconds. What our car still leaves uncovered was 1-9 % of the frame here.
+- **Masks from paint differences miss what does not change** (chrome bumper, wheels, anything under the menu list). Look at every plate
+  (`$W/v3/plate4_*.jpg`) and one frame per purchase before the full composite, not after.
+- Plate fills: never sample UI panels (block them); when the mirror point lands on something blocked, take the pixel just outside
+  (`fill_nearest(..., extend=True)`); a wet floor carries the game car's colour around it, so desaturate the fill there.
+- **Title and option block as layers over the car** on every part screen (a wide tail reaches the title corner; the car's shadow dims
+  a pasted block). The game's badge sits above the block rectangle the Civic reel pasted: check the badge is there.
+- `FRAMES=72,416,...` in `compose4.py` composites only those frames (about 3 minutes instead of 19): use it after every fix.
+- Held ranges per camera are in `clips.md`; play them forward and then hold the last frame (`fw`), never back and forth.
+- Return whips can play the outward renders backwards unless the car changed visibly in between (roof, wheels, colour).
+- **Wheel rebuild**: the generator simplifies the whole scan to its third argument first (default 30,000), so pass a target:
+  `RIM_TRIS=160000 TYRE=scan TYRE_TRIS=160000 blender -b -P .../te37_wheel.py -- <stl> <out.glb> 400000`. Needs `fast_simplification`
+  in Blender's own Python.
+- A price that is only a deposit is shown as such (second badge beside the client's); a part the model lacks is left out and declared.
+- Lore names: the maker's GTA counterpart is usually official; the model often has none. Say which half is official.

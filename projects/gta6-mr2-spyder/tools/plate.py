@@ -44,7 +44,7 @@ def fill_directional(img, hole, vp, margin=6, max_steps=900):
     return res
 
 
-def fill_nearest(img, hole, vps, margin=6, block=None):
+def fill_nearest(img, hole, vps, margin=6, block=None, extend=False):
     """Like fill_directional, but each hole pixel uses whichever of several directions leaves the hole soonest.
     For a car seen from behind: left of it take the floor from the left, right from the right, under its
     bumper from in front of the camera."""
@@ -55,6 +55,7 @@ def fill_nearest(img, hole, vps, margin=6, block=None):
     # only ends, and only samples, outside it. Without it the fill mirrored the game car's own tailgate.
     grown = cv2.dilate((hole if block is None else (block | hole)).astype(np.uint8), np.ones((2 * margin + 1, 2 * margin + 1), np.uint8)) > 0
     best_s = np.full(len(px), 1e9, np.float32); best_src = np.zeros((len(px), 2), np.float32)
+    ext_src = np.zeros((len(px), 2), np.float32); ext_ok = np.zeros(len(px), bool)
     for vp in vps:
         d = np.array(vp, np.float32)[None] - px
         d /= np.linalg.norm(d, axis=1, keepdims=True)
@@ -70,7 +71,14 @@ def fill_nearest(img, hole, vps, margin=6, block=None):
         ok[ok] &= ~grown[np.round(src[ok, 1]).astype(int), np.round(src[ok, 0]).astype(int)]
         better = ok & (s < best_s)
         best_s[better] = s[better]; best_src[better] = src[better]
+        if extend:                                   # the mirror point fell on something blocked: take the pixel just past the hole instead
+            near = px + d * (s[:, None] + 3)
+            okn = done & ~ok & (best_s > 1e8) & (near[:, 0] >= 0) & (near[:, 0] < W - 1) & (near[:, 1] >= 0) & (near[:, 1] < H - 1)
+            okn[okn] &= ~grown[np.round(near[okn, 1]).astype(int), np.round(near[okn, 0]).astype(int)]
+            ext_src[okn & ~ext_ok] = near[okn & ~ext_ok]; ext_ok |= okn
     out = img.copy()
+    if extend:
+        use = ext_ok & (best_s > 1e8); best_src[use] = ext_src[use]; best_s[use] = 1e7
     got = best_s < 1e8
     out[ys[got], xs[got]] = img[np.round(best_src[got, 1]).astype(int), np.round(best_src[got, 0]).astype(int)]
     left = np.zeros((H, W), np.uint8); left[ys[~got], xs[~got]] = 255

@@ -6,7 +6,7 @@ description: Make a reel set in a real video game's car customisation shop (GTA 
 # Game mod-shop reel
 
 Read `CLAUDE.md` (mandatory list), then `knowledge/game-modshop-reel.md` (the procedure, written from 19 review
-rounds), then `projects/gta6-customs/review.md` and `editlog.jsonl`. Tools: `projects/gta6-customs/tools/`.
+rounds), then `projects/gta6-customs/review.md` and `editlog.jsonl`. Tools: `projects/gta6-customs/tools/`; for a second car start from `projects/gta6-mr2-spyder/tools/` (part table, camera search, render queue, check tool) and the knowledge doc's last section.
 
 1. **Ask first** (knowledge doc §0): the story screen by screen, part names, exact reference pictures, voice
    lines, watermark, ending. Search Dropbox ("Claude Training") and Drive for captures while waiting.

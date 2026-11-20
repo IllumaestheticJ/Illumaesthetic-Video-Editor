@@ -15,7 +15,7 @@ FPS = 30; H, Wd = 1440, 2560; S = 4 / 3
 R = ui3.R
 TITLE, BLOCK, HINT = R(0, 0, 640, 130), R(0, 760, 640, 1066), R(815, 1008, 1105, 1052)
 PRE = {"F": [TITLE, BLOCK], "H": [TITLE, BLOCK, HINT], "T": [TITLE, BLOCK, HINT], "D": [TITLE, R(0, 600, 640, 1066), HINT], "M": [R(0, 150, 640, 760), R(0, 70, 955, 120)],
-       "A": [TITLE, R(0, 840, 640, 1066)], "E": [TITLE, R(0, 840, 640, 1066)],
+       "A": [TITLE, R(0, 785, 640, 1066)], "E": [TITLE, R(0, 785, 640, 1066)],
        "P": [TITLE, R(0, 790, 1080, 1066)], "S": [TITLE, R(0, 795, 470, 1066), HINT],
        "W": [TITLE, R(0, 655, 760, 1066)], "X": []}        # W: the whole block (price, name, thumbnails) from the state
 PANEL, TAG, WALLET = R(1466, 553, 1894, 996), R(1466, 915, 1894, 998), R(1730, 20, 1905, 80)    # panel only: the strip above it is scene
@@ -168,8 +168,26 @@ def main():
                 # the stats panel. (Filling from above streaked the bunting down the frame; blurring it read as a smear.)
                 blockm = ute[view].copy(); blockm[int(H * 0.46):int(H * 0.93), int(Wd * 0.755):] = True
                 p = fill_nearest(ref, hole, [(33000, 500), (1280, 30000)], block=blockm)
+                left = hole.copy(); left[:, 1150:] = False; left[900:] = False      # below that line it is floor: stays mirrored from the floor        # above our low nose stood the game car's bonnet, in front of the wall: the wall carries on down
+                if left.any():
+                    p = fill_from_above(p, left, ute[view], sigma=2)
             else:
-                p = fill_nearest(ref, hole, [(-30000, 1100), (33000, 900), (1280, 30000)], block=ute[view])
+                blockm = ute[view].copy()                # never sample the stats panel or the option block (a mirrored panel showed beside the car)
+                blockm[int(H * 0.37):int(H * 0.93), int(Wd * 0.755):] = True; blockm[int(H * 0.52):, :int(Wd * 0.34)] = True
+                # rear view: from the sides only (from below, the floor's yellow bay lines were mirrored up beside the tail light)
+                p = fill_nearest(ref, hole, [(-30000, 1100), (33000, 900)] + ([] if view == "E" else [(1280, 30000)]), block=blockm, extend=True)
+                if view == "E":                # rear view: what stood behind the game car's wide tail is the booth wall: mirror it in sideways
+                    xl, xr = 250, 2228          # about the mask's own left and right edges (same rows, so door edges and the floor line stay level)
+                    ys_, xs_ = np.nonzero(hole)
+                    sx = np.where(xs_ > 1280, np.clip(2 * xr - xs_, xr, Wd - 4), np.clip(2 * xl - xs_, 3, xl))
+                    sy = np.where((ys_ > 606) & (ys_ < 704) & (xs_ > 1280), 604, ys_)      # not the game's little icon row beside the panel
+                    p = ref.copy(); p[ys_, xs_] = ref[sy, sx]
+                    soft_ = cv2.GaussianBlur(p, (0, 0), 2.0); wg_ = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 3)[..., None] * 0.6
+                    p = (p * (1 - wg_) + soft_ * wg_).astype(np.uint8)
+                if view == "T":                # the wet floor mirrors the game car's yellow around it: the mirrored fill must not carry that colour
+                    wgt = cv2.GaussianBlur(cv2.dilate(hole.astype(np.uint8), np.ones((61, 61), np.uint8)).astype(np.float32), (0, 0), 12)[..., None] * 0.8
+                    grey = cv2.cvtColor(cv2.cvtColor(p, cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR).astype(np.float32)
+                    p = (p * (1 - wgt) + grey * wgt).astype(np.uint8)
             if view == "W":                    # close-ups: what the game's car hid is far background, out of focus
                 soft_ = cv2.GaussianBlur(p, (0, 0), 14); wgt = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 6)[..., None]
                 p = (p * (1 - wgt) + soft_ * wgt).astype(np.uint8)
@@ -225,7 +243,22 @@ def main():
                 res[y0:y1, x0:x1] = st["img"][y0:y1, x0:x1]
             if st.get("overlay") is not None:
                 res = over(res, st["overlay"])
-            if view == "W":                           # wallet icon as glyphs: it sits over the car's body here
+            if view not in ("M", "X") and st.get("title") is None:      # title lettering as a layer with a soft dark halo, so it reads over the car too
+                x0, y0, x1, y1 = R(0, 22, 640, 112); tg = cv2.cvtColor(st["img"][y0:y1, x0:x1], cv2.COLOR_BGR2GRAY)
+                tm = U.text_mask(st["img"], (x0, y0, x1, y1), thr=34).astype(np.float32)         # strokes only: scenery highlights stay out
+                cols = np.nonzero(tm.any(0))[0]                # the title is one block of lettering from the left: stop at the first wide gap
+                if len(cols):
+                    gaps = np.nonzero(np.diff(cols) > 70)[0]
+                    if len(gaps):
+                        tm[:, cols[gaps[0]] + 4:] = 0
+                tm = cv2.GaussianBlur(cv2.dilate(tm, np.ones((3, 3), np.uint8)), (0, 0), 0.8)
+                st["title"] = (tm[..., None], np.clip(cv2.GaussianBlur(tm, (0, 0), 9) * 1.6, 0, 0.8)[..., None])
+            if st.get("title") is not None:
+                x0, y0, x1, y1 = R(0, 22, 640, 112); tm, halo = st["title"]
+                covered = car(b_)[y0:y1, x0:x1, 3:] / 255.0
+                reg = res[y0:y1, x0:x1] * (1 - halo * covered) + np.array([40, 30, 34], np.float32) * halo * covered
+                res[y0:y1, x0:x1] = reg * (1 - tm) + st["img"][y0:y1, x0:x1] * tm
+            if False and view == "W":                 # (Civic reel) wallet icon as glyphs; here the cut-out carried the game car's orange: figure only: it sits over the car's body here
                 x0, y0, x1, y1 = WALLET; reg = st["img"][y0:y1, x0:x1].astype(np.float32)
                 med = np.median(reg.reshape(-1, 3), 0)
                 al = np.clip((np.abs(reg - med).max(2) - 28) / 30.0, 0, 1)
@@ -267,7 +300,10 @@ def main():
                            "-c:v", "libx264", "-preset", "veryfast", "-crf", "12", "-g", "1", "-pix_fmt", "yuv420p", str(W / os.environ.get("OUTNAME", "shop4.mp4"))], stdin=subprocess.PIPE)
     prev = None; nxt_cache = {}
     START, END = int(os.environ.get("START", 0)), int(os.environ.get("END", len(T)))     # partial render of frames START..END-1
+    PICK = [int(v) for v in os.environ.get("FRAMES", "").split(",") if v]     # test: only these (non-whip) frames
     for n, e in enumerate(T):
+        if PICK and n not in PICK:
+            continue
         if n < START - 1 or n >= END:
             continue
         if n == START - 1:                            # only needed as the frame a whip leaves from
@@ -302,7 +338,7 @@ def main():
             elif PRE[nview]:
                 # the title's lettering only (titles here run to 620 px: a held box that wide would be a sharp rectangle of scenery)
                 x0, y0, x1, y1 = R(0, 22, 640, 112); tg = cv2.cvtColor(np.clip(nxt[y0:y1, x0:x1], 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
-                tm = cv2.GaussianBlur(cv2.dilate((tg > 150).astype(np.float32), np.ones((5, 5), np.uint8)), (0, 0), 1.2)
+                tm = cv2.GaussianBlur(cv2.dilate((tg > 118).astype(np.float32), np.ones((5, 5), np.uint8)), (0, 0), 1.2)
                 tm[:, 900:] = 0; hm = np.zeros((H, Wd, 1), np.float32); hm[y0:y1, x0:x1, 0] = tm
                 out = out * (1 - hm) + nxt * hm
             for rect in POST[nview]:
@@ -317,7 +353,7 @@ def main():
         if n % 60 == 0:
             print("frame", n, "/", len(T), flush=True)
     ff.stdin.close(); ff.wait()
-    if os.environ.get("WRITE_JSON") or not (os.environ.get("ONLY") or os.environ.get("START") or os.environ.get("END")):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
+    if os.environ.get("WRITE_JSON") or not (os.environ.get("ONLY") or os.environ.get("START") or os.environ.get("END") or PICK):                   # a partial render (ONLY/OUTNAME, to splice a changed opening in) leaves the timeline file alone
         json.dump({"fps": FPS, "segments": segs, "events": events, "frames": len(T)}, open(W / "shop4_segments.json", "w"), indent=1)
     print("frames", len(T), "seconds", round(len(T) / FPS, 2))
 

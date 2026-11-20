@@ -254,10 +254,9 @@ def build(frameA, frameB):
     for k_, (name, pr, view, slot) in enumerate(PARTS, 1):
         for done in (False, True):
             key = f"p{k_}{'b' if done else 'a'}"
-            if view == "E":
-                st[key] = part(eb, name, 0, done, "E")
-            elif view == "A":
-                st[key] = part(ab, name, 0, done, "A")
+            if view in ("E", "A"):
+                st[key] = part(eb if view == "E" else ab, name, 0, done, view)
+                wipe_block(st[key]["img"], 785); st[key]["overlay"] = block_overlay(name, done)
             else:
                 b_, wipe, cut = bases[view]; st[key] = titled(b_, name, done, view, wipe, cut=cut)
         cash -= pr
@@ -343,7 +342,7 @@ def build(frameA, frameB):
         d = cv2.absdiff(r, plain).max(2).astype(np.float32)
         al = cv2.morphologyEx((d > 18).astype(np.uint8), cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8)).astype(np.float32)
         al = np.maximum(al, np.clip((d - 8) / 24, 0, 1)); al = cv2.GaussianBlur(al, (0, 0), 0.8)
-        keep = np.zeros_like(al); keep[900:1070, 0:560] = 1; keep[1020:1070, 840:1010] = 1; keep[1070:1420, 0:1030] = 1
+        keep = np.zeros_like(al); keep[900:1070, 0:430] = 1; keep[1020:1070, 840:1010] = 1; keep[1070:1420, 0:1030] = 1
         al = np.maximum(al * keep, force)
         return {"img": rbase, "view": "P", "overlay": np.dstack([r, np.clip(al * 255, 0, 255).astype(np.uint8)])}
     for k_ in range(len(OEM)):
