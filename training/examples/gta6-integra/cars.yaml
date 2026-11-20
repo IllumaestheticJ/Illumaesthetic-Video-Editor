@@ -1,0 +1,24 @@
+# GTA 6 mod-shop reel, Acura Integra (DE4) with the Epsilon kit including the widebody fender flares.
+glb_dir: /home/user/media/gta6-integra/glbs        # from Drive "Epsilon-final-GLBs-2026-10-15.zip" (file id 12NSEcFeO3aHGYho_bt1VZNd9VHEYkAg7)
+car:
+  id: acura-integra-de
+  glb: eps-acura-integra-de-v29.glb     # the Drive bundle's export. The brief named Epsilon-Site showroom/models/eps-acura-integra-de-v8.glb;
+                                        # that repo could not be attached in this session, so the site file was not compared.
+  paint_in: "#1f4aa5"        # Apex Blue Pearl B621P (entrance; sRGB is my approximation; a colour the catalogue sells painted parts in)
+  paint_out: "#848586"       # the lookbook's photographed grey, gloss; lettered Urban Gray Pearl on the respray screen
+  part_paint: matched
+order: [front_lip, fender_flares, side_skirts, rear_spats, duckbill, sport_wing]     # lookbook part order = purchase order
+states:                       # hide lists; n parts on = hide the rest (tools/render_all.py)
+  stock:    {hide: [part_front_lip, part_fender_flares, part_side_skirts, part_rear_spats, part_duckbill, part_sport_wing]}
+  full_kit: {hide: [body_duckbill_stock]}          # python -m ive kit acura-integra-de --glb <glb>
+catalogue:                    # store list prices (compare-at), read 2026-11-20 via the Shopify connector; sale prices in brackets were live that day
+  front_lip:     {price: 285,  handle: epsilon-front-lip-acura-integra-de-2023, variant: Polyurethane}                       # (199.50)
+  fender_flares: {price: 800,  handle: epsilon-fender-flares-acura-integra-de4-2023, variant: Polyurethane}                  # (400)
+  side_skirts:   {price: 400,  handle: epsilon-side-skirts-acura-integra-de4-2023, variant: Polyurethane}                    # (280)
+  rear_spats:    {price: 175,  handle: epsilon-rear-spats-acura-integra-de4-2023, variant: "Polyurethane / OEM Stock (A)"}   # (105)
+  trunk_lip:     {price: 300,  handle: epsilon-rear-trunk-lip-acura-integra-de4-de5-2023, variant: "ABS / Apex Blue Pearl - B621P"}   # (240)
+  rear_wing:     {price: 950, handle: epsilon-wing-acura-integra-de-2023, variant: "Sport Wing / Apex Blue Pearl - B621P"}            # (800)
+game_items: {suspension: 750, wheels: 560}        # the game's own items and prices (Epsilon sells neither)
+wallet_start: 4220
+wheel: /home/user/media/gta6-integra/wheels/wheel6_hd_scantyre.glb    # rebuilt here from the TE37 scan (Drive STL 1PvGYb5luOlEnScSWFwCiPoSgtfzbYCUu), tools/wheel_build.py
+tag: "DINKA / JASON'S '25 CHAVOS"

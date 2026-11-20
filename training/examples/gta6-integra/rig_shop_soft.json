@@ -1,0 +1,21 @@
+{
+ "world": [
+  0.02,
+  0.02,
+  0.02,
+  1.0
+ ],
+ "world_image": {
+  "path": "env_shop_soft.hdr",
+  "strength": 1.0,
+  "rot_z_deg": 0
+ },
+ "lights": [],
+ "materials": {
+  "paint": {
+   "roughness": 0.32,
+   "coat_weight": 1.0,
+   "coat_roughness": 0.06
+  }
+ }
+}
