@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
-FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.3.mp4"   # v1: stock first, zones install one by one; no characters
+FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.4.mp4"   # v1: stock first, zones install one by one; no characters
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -87,7 +87,8 @@ PRICE = {"mr2_skirts": ("SIDE SKIRT / FENDER", "MR2 SPYDER", 700, 560), "mr2_eye
          "mr2_diffuser": ("REAR DIFFUSER V1+", "MR2 SPYDER", None, 750), "mr2_wing": ("TC WING", "MR2 SPYDER", None, 1100),
          "nc_wing": ('TC WING 66.5" - SWAN', "NC MIATA", None, 1100),
          # v1.8 (user: "MR2 spyder doesn't show the front bumper"): sheet says "No deal", so regular price $900, not on the 20% card
-         "mr2_bumper": ("FRONT BUMPER", "MR2 SPYDER", None, 900),
+         # v2.4 (user 2026-11-20: "5% off the front bumper"): $900 -> $855
+         "mr2_bumper": ("FRONT BUMPER", "MR2 SPYDER", 900, 855),
          # v2.3: store lists the hardtop as a $50 non-refundable preorder only (Shopify 2026-11-20): no price shown
          "mr2_hardtop": ("HARDTOP", "MR2 SPYDER", None, None)}
 # shot -> [(key, start fraction, end fraction)]; a label enters as its part arrives
@@ -115,7 +116,7 @@ def price_label(base, key, t, plate, slot=0):
         base.alpha_composite(Image.merge("RGBA", [Image.new("L", (W, H), 0)] * 3 + [g.filter(ImageFilter.GaussianBlur(18))]))
     with Layer(base) as d:
         d.text((90, 312 + dy), name, font=fit(FH8, 50, name, 820), fill=(255, 255, 255, A))
-        d.text((92, 396 + dy), f"{car} · 20% OFF" if was else f"{car} · COMPLETE THE KIT" if now else f"{car} · PREORDER OPEN", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
+        d.text((92, 396 + dy), f"{car} · {round(100 * (was - now) / was)}% OFF" if was else f"{car} · COMPLETE THE KIT" if now else f"{car} · PREORDER OPEN", font=font(FS, 26), fill=(*OFF, int(A * 0.85)))
         if now is None: return   # preorder part: name only
         if was is None:          # regular price only (not in the sale)
             d.text((92, 452 + dy), money(now), font=font(FH, 56), fill=(255, 255, 255, A)); return

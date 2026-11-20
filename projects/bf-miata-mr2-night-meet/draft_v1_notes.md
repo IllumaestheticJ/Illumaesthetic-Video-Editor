@@ -194,3 +194,9 @@ no new export yet (waiting on the length decision).
 - Hardtop label: "HARDTOP / MR2 SPYDER · PREORDER OPEN", no price. The store lists only a $50 non-refundable preorder deposit (Shopify, 2026-11-20), which would read as the price.
 - MR2 rear spats moved 8 mm outward and 8 mm rearward; the bumper surface under them is inset 10 mm once they seat (body and stock). Checked on full-size s05 frames: no bumper showing through.
 - Re-rendered s04b, s05, s05b, s06, s08, s10. Audio -14.0 LUFS, TP -1.8 dBFS. Safe-zone sheet looked at: all text inside.
+
+## v2.4 (58.9 s)
+- User: "5% off the front bumper". MR2 front bumper label is now $900 struck, $855, SAVE $45, "MR2 SPYDER · 5% OFF". PRICES.md updated.
+- The label's percent line is now computed from the prices (it was a fixed "20% OFF").
+- The bumper is not on the "20% OFF" end card: a 5% row under that headline would mislead.
+- Text only; no re-render. Audio -14.0 LUFS, TP -1.8 dBFS.
