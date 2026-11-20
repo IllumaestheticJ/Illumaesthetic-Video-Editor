@@ -76,7 +76,8 @@ true peak below -1 dBFS. Let the final set's cuts breathe with the music instead
 5. **Match cut.** Follow `knowledge/match-cut.md`: frame, reference render, landmarks, raycast, solve (PnP), check the interior
    onion.
 6. **Shots.** Check framing at 30 % resolution, then queue finals in the background, one at a time (15 fps plus
-   interpolation; native frame rate for swaps; true 60 fps only when asked).
+   interpolation; native frame rate for swaps; true 60 fps only when asked). Run `python scripts/vdrive.py worker`
+   first: if the owner's GPU PC is online, send the finals there as a `gpujob` (`knowledge/gpu-worker.md`).
 7. **HUD.** `projects/<p>/overlay.json`, then `ive hud`. Labels are factual, from file names, with no counts.
 8. **Assemble and review.** Run `ive assemble`. Inspect frames around every cut, and check cut sync and loudness on the
    decoded file. Score with `training/rubric.md`.
