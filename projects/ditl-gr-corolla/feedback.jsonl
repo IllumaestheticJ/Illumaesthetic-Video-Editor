@@ -5,3 +5,6 @@
 {"ts": "2026-11-19T22:02:48Z", "project": "ditl-gr-corolla", "at": null, "category": "audio", "note": "Reusing the voices (Bram, Harrison) is fine", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-19T22:33:53Z", "project": "ditl-gr-corolla", "at": null, "category": "music", "note": "No music is fine for now; it may be added later after the final render", "by": "reviewer", "promoted": false}
 {"ts": "2026-11-19T22:33:53Z", "project": "ditl-gr-corolla", "at": null, "category": "technical", "note": "GR Corolla should be red; skin tone doesn't matter, maybe white", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-20T06:57:23Z", "project": "ditl-gr-corolla", "at": null, "category": "technical", "note": "Fix the FL5 3D model: it is blocky in all scenes/shots", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-20T06:57:23Z", "project": "ditl-gr-corolla", "at": "26", "category": "story", "note": "At the end he slaps nothing; instead make him look up and down and sigh", "by": "reviewer", "promoted": false}
+{"ts": "2026-11-20T06:57:23Z", "project": "ditl-gr-corolla", "at": "27", "category": "technical", "note": "The rear-view mirror at the end is angled the wrong way, away from the driver", "by": "reviewer", "promoted": false}

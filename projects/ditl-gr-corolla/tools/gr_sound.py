@@ -49,7 +49,7 @@ if len(sys.argv) > 2:
 ex = load(M + "voice/exchange.wav"); him = ex[:int(1.9 * SR)]; same = ex[int(2.05 * SR):]
 def pitch(x, k):   # resample: k > 1 is higher and shorter (the second "Same." voice)
     i = np.arange(0, len(x) - 1, k); return np.stack([np.interp(i, np.arange(len(x)), x[:, c]) for c in range(2)], 1)
-VO = [(him, T(9, 6), 2.4, 0.0), (same, T(9, 58), 2.6, 0.45), (pitch(same, 0.9), T(9, 58) + 0.01, 2.4, -0.45), (load(M + "voice/whisper.wav"), T(14, 150), 3.0, 0.0)]
+VO = [(him, T(9, 6), 2.4, 0.0), (same, T(9, 58), 2.6, 0.45), (pitch(same, 0.9), T(9, 58) + 0.01, 2.4, -0.45), (load(M + "voice/whisper.wav"), T(14, 150), 3.0, 0.0), (load(M + "voice/sigh.wav"), T(14, 12), 2.6, 0.0)]
 for v, at, vg, pan in VO:
     if g is not None:
         i0, i1 = int((at - 0.15) * SR), int((at + len(v) / SR + 0.15) * SR); r = int(0.12 * SR)
@@ -104,7 +104,7 @@ for i in range(6): put(bp(noise(0.25), 3000, 9000) * np.linspace(0.2, 1, int(0.2
 put(womp(), T(13, 52), 0.9)
 # ---- 14 mirror ----
 d14 = T(15) - T(14); put(wind(d14, 0.3, 0.2), T(14), 0.2); put(cricket(d14), T(14), 0.4)
-for f in (16, 21, 27, 33, 39): put(knock() * 0.5, T(14, f), 0.7)
+put(whoosh(0.5, 200, 1500), T(14, 6), 0.3); put(squeak(0.2), T(14, 36), 0.3)   # head up, seat creak on the way down
 for f in range(50, 213, 17): put(ms(tick(), ding(2600, 0.06) * 0.2), T(14, f), 0.6)
 put(meep(), T(14, 104), 0.7, pan=-0.4); put(ding(1760, 0.4), T(14, 106), 0.5); put(heartbeat(2.5), T(14, 118), 1.0); put(shutdown(), T(14, 186), 0.4)
 out = mix[:int(DUR * SR)]; out[-int(0.01 * SR):] *= np.linspace(1, 0, int(0.01 * SR))[:, None]

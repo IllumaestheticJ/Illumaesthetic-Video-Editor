@@ -243,8 +243,8 @@ def s8():
 # ---------------- 9-10: red light, Type R on the right, WRX on the left ----------------
 def lights():
     W.road(); root = None
-    tr, sh = C.fl5(); tr.location = (-3.05, -0.1, 0)
-    p1, h1, f1, s1_ = guy("typer", "typer", (0.4, 0.08, 0.26), R(72), ["smug", "talk", "grin", "horror"], (0.74, 0.52, 0.38), (0.93, 0.93, 0.96)); p1.parent = tr
+    tr, trb = C.fl5(); tr.location = (-3.05, -0.1, 0)
+    p1, h1, f1, s1_ = guy("typer", "typer", (0.38, 0.1, 0.3), R(72), ["smug", "talk", "grin", "horror"], (0.74, 0.52, 0.38), (0.93, 0.93, 0.96)); p1.parent = tr
     a1, fa1 = arm("ta", p1, -1, s1_, mat("polo_ta", (0.93, 0.93, 0.96)), up=20, fwd=-50, bend=30); box("t_vape", (0.035, 0.035, 0.14), W._flat_mat("tvape", (0.75, 0.08, 0.5), 0.3), loc=(0, 0.3, 0.05), parent=fa1)
     wx, wb = C.wrx(); wx.location = (3.25, -0.1, 0); wb["glass"].hide_render = True
     p2, h2, f2, s2_ = guy("wrxguy", "wrxguy", (-0.42, -0.05, 0.3), R(-78), ["smug", "talk", "grin", "horror"], (0.33, 0.19, 0.11), (0.25, 0.28, 0.2)); p2.parent = wx; p2.rotation_euler = (0, R(-14), R(-78))
@@ -372,7 +372,8 @@ def mirrorbg(thumbs):
 
 def s14():
     k.world(img="sky_dawn.png", sun=(2.2, 72, 60)); k.lot_set(); root, by, rig0, cam0 = cabin(); bpy.data.objects.remove(cam0); bpy.data.objects.remove(rig0)
-    mc = Vector((0.03, -0.25, 1.268)); fr = empty("mir", mc, (R(-5), 0, R(20))); MW, MH = 0.36, 0.125; blk = W._flat_mat("mirf", (0.02, 0.02, 0.02))
+    # the mirror is yawed toward the driver (owner: it was angled away from him)
+    mc = Vector((0.03, -0.25, 1.268)); fr = empty("mir", mc, (R(-5), 0, R(-20))); MW, MH = 0.36, 0.125; blk = W._flat_mat("mirf", (0.02, 0.02, 0.02))
     bg = {i: plane(f"mir_bg{i}", MW, MH, imgmat(f"mirbg{i}", f"{TEX}mirror_bg{i}.png", emit=0.9), (0, 0, 0), rot=(R(90), 0, R(180)), parent=fr) for i in (0, 1)}; swap(bg, [(1, 0), (104, 1)])
     for nm, sz, lc in (("rt", (MW + 0.02, 0.03, 0.012), (0, 0.004, MH / 2 + 0.004)), ("rb", (MW + 0.02, 0.03, 0.012), (0, 0.004, -MH / 2 - 0.004)), ("rl", (0.012, 0.03, MH + 0.02), (-MW / 2 - 0.004, 0.004, 0)), ("rr", (0.012, 0.03, MH + 0.02), (MW / 2 + 0.004, 0.004, 0))): box("mir_" + nm, sz, blk, lc, parent=fr)
     box("mir_house", (MW + 0.02, 0.03, MH + 0.02), blk, (0, -0.018, 0), parent=fr); box("mir_stalk", (0.03, 0.03, 0.1), blk, (0, -0.03, 0.1), parent=fr)
@@ -384,13 +385,15 @@ def s14():
     box("him_sh", (0.15, 0.004, 0.022), W._flat_mat("htee2", (0.1, 0.1, 0.12), emit=0.2), (-0.085, 0.004, -MH / 2 + 0.011), parent=fr)
     swap(fd, [(1, "blank"), (112, "twitch"), (118, "blank"), (134, "twitch"), (150, "pinpoint"), (186, "horror")])
     for f, rz in ((1, 0), (112, 5), (118, 0), (134, -6), (150, 3), (186, -4), (198, 5), (206, -5)): key(head, f, rot=(0, R(rz), 0), interp="CONSTANT")
-    a = EYE; b = (0.24, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=root)
-    key(rig, 1, loc=a, rot=lookrot(a, (0.1, -0.75, 1.06)), interp="BEZIER"); key(rig, 30, loc=a, rot=lookrot(a, (0.1, -0.75, 1.07)), interp="BEZIER"); key(rig, 52, loc=a, rot=lookrot(a, tuple(mc)), interp="BEZIER"); key(rig, 213, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
-    for f, ln in ((1, 19), (30, 22), (52, 30), (213, 62)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
-    hit = (0.2, -0.36, 1.115); up = (0.2, -0.3, 1.22); away = (0.6, 0.35, 1.15); h = hand("hR", root, away, (R(22), 0, R(163)), curls=FLAT, thumb=0.2)
-    key(h, 8, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR"); key(h, 16, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
-    for f in range(18, 40, 6): key(h, f, loc=up, rot=(R(48), 0, R(163)), interp="LINEAR"); key(h, f + 3, loc=hit, rot=(R(22), 0, R(163)), interp="LINEAR")
-    key(h, 50, loc=away, rot=(R(22), 0, R(163)), interp="LINEAR")
+    a = EYE; b = (0.3, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=root)
+    # he looks up, then down, and sighs (owner: no dash slap), then his eyes go to the mirror
+    FW = (0.2, -0.9, 1.08); UP = (0.2, -0.8, 1.75); DN = (0.34, -0.45, 0.72)
+    for f, tg in ((1, FW), (5, FW), (16, UP), (22, UP), (36, DN), (44, DN), (56, tuple(mc))): key(rig, f, loc=a, rot=lookrot(a, tg), interp="BEZIER")
+    key(rig, 213, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
+    for f, ln in ((1, 19), (44, 20), (56, 30), (213, 62)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
+    hr = hand("hR", root, (0.2, -0.22, 1.1), (R(12), 0, R(188)), curls=FIST, thumb=0.9); hl = hand("hL", root, (0.52, -0.2, 1.1), (R(12), 0, R(172)), curls=FIST, thumb=0.9, mirror=True)
+    for h, x in ((hr, 0.2), (hl, 0.52)):   # the sigh: both hands sag on the wheel and come back
+        key(h, 20, loc=(x, -0.22 if h is hr else -0.2, 1.1), interp="BEZIER"); key(h, 34, loc=(x, -0.2, 1.065), interp="BEZIER"); key(h, 50, loc=(x, -0.22 if h is hr else -0.2, 1.1), interp="BEZIER")
 
 SHOTS = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14]
 if __name__ == "__main__":

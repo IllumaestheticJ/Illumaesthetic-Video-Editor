@@ -51,30 +51,29 @@ def wrx(name="wrx", color=(0.02, 0.12, 0.55)):
         if n in by: by[n].hide_render = True
     return root, by
 
-SIDE = (0.96, 1.36, -0.75, 1.25); SCR = (-0.45, 1.05)
-def fl5(name="fl5", color=(0.93, 0.93, 0.95)):
-    """FL5 Type R shell from the wing configurator (one mesh, nose +X): painted, glass faces dark, side windows cut open, real wheels, red badge."""
-    root = bpy.data.objects.new(name, None); bpy.context.scene.collection.objects.link(root)
-    before = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=FL5); sh = [o for o in bpy.data.objects if o not in before and o.type == "MESH"][0]
-    for o in [o for o in bpy.data.objects if o not in before and o is not sh]: bpy.data.objects.remove(o)
-    mw = sh.matrix_world.copy(); sh.parent = None; me = sh.data; me.transform(mw); sh.matrix_world.identity()
-    xs = [v.co.x for v in me.vertices]; cx = (min(xs) + max(xs)) / 2
-    for v in me.vertices: x, y = v.co.x - cx, v.co.y; v.co.x, v.co.y = y, -x
-    paint = W._flat_mat(name + "_paint", color, 0.22); gl = W._flat_mat(name + "_glass", (0.02, 0.025, 0.03), 0.08); me.materials.append(paint); me.materials.append(gl)
-    bm = bmesh.new(); bm.from_mesh(me); bm.normal_update(); kill = []
-    for f in bm.faces:
-        c = f.calc_center_median(); n = f.normal
-        if 0.97 < c.z < 1.34 and -0.72 < c.y < 1.45 and abs(c.x) > 0.45 and abs(n.x) > 0.3 and abs(n.z) < 0.8: kill.append(f)
-        elif c.z > 0.95 and c.y < -0.3 and 0.45 < abs(n.z) < 0.955 and abs(c.x) < 0.74: f.material_index = 1      # windscreen
-        elif c.z > 1.0 and 1.3 < c.y < 1.92 and abs(n.z) > 0.5 and abs(c.x) < 0.6: f.material_index = 1          # hatch glass
-    bmesh.ops.delete(bm, geom=kill, context="FACES"); bm.to_mesh(me); bm.free()
-    sh.name = name + "_shell"; sh.parent = root
-    for pl in me.polygons: pl.use_smooth = True
-    dk = W._flat_mat(name + "_dk", (0.03, 0.03, 0.035)); red = W._flat_mat(name + "_red", (0.8, 0.02, 0.02), 0.4, emit=0.5)
-    W.realwheels(root, 0.8, -1.345, 1.368, z=0.32, glb=HATCH)
-    box(name + "_int", (1.5, 2.4, 0.5), dk, loc=(0, 0.2, 0.42), parent=root, base="z"); box(name + "_seat", (0.5, 0.14, 0.75), W._flat_mat(name + "_seatm", (0.6, 0.03, 0.03)), loc=(0.4, 0.3, 0.5), parent=root, base="z")
-    # the Type R wing: two uprights and a plane, black
-    for sx in (-1, 1): box(f"{name}_wu{sx}", (0.04, 0.2, 0.2), dk, loc=(sx * 0.48, 2.02, 1.02), rot=(R(-12), 0, 0), parent=root, base="z")
-    box(name + "_wing", (1.5, 0.26, 0.035), dk, loc=(0, 2.06, 1.22), rot=(R(-6), 0, 0), parent=root)
-    for sx in (-1, 1): box(f"{name}_we{sx}", (0.03, 0.3, 0.1), dk, loc=(sx * 0.75, 2.06, 1.2), parent=root)
-    return root, sh
+CIVIC = S + "showroom/models/eps-honda-civic-hatch-fl-v3.glb"
+def fl5(name="fl5", color=(0.93, 0.93, 0.95), hide_glass=True):
+    """The Type R for the red light. The wing-configurator FL5 shell is one rough unpainted mesh (owner: "blocky in all scenes"),
+    so this is the showroom's 11th-gen Civic hatch (FL) game model, the Type R's base body, in Championship White with a
+    Type R style wing, red badge and red seats. It is not the wide-body FL5 shell: fenders and bumpers are the hatch's."""
+    root, by, mats = _imp(CIVIC, name); _paint(mats["paint"], color, 0.22)
+    for n in ("part_front_lip", "part_rear_lip", "part_side_skirts", "part_sport_wing"): by[n].hide_render = True
+    if hide_glass: by["glass"].hide_render = True
+    bpy.context.view_layer.update(); dg = bpy.context.evaluated_depsgraph_get(); body = by["body"]; inv = body.matrix_world.inverted()
+    dk = W._flat_mat(name + "_dk", (0.012, 0.012, 0.014), 0.25); red = W._flat_mat(name + "_red", (0.75, 0.02, 0.03), 0.4)
+    def top(x, y):   # highest surface under a point (body, glass or trim); 1.0 m if nothing is hit
+        zs = []
+        for ob in (body, by["glass"], by["trim"]):
+            iv = ob.matrix_world.inverted(); ok, hit, nrm, _ = ob.ray_cast(iv @ Vector((x, y, 3.0)), iv.to_3x3() @ Vector((0, 0, -1)), depsgraph=dg)
+            if ok: zs.append((ob.matrix_world @ hit).z)
+        return max(zs) if zs else 1.0
+    tops = []
+    for sx in (-1, 1):   # wing uprights stand on the hatch, found by a ray from above
+        z = top(sx * 0.42, 1.98); print("FL5 wing base z", round(z, 3)); box(f"{name}_wu{sx}", (0.03, 0.2, 0.19), dk, loc=(sx * 0.42, 1.98, z - 0.01), rot=(R(-10), 0, 0), parent=root, base="z"); tops.append(z + 0.18)
+    zt = sum(tops) / 2; box(name + "_wing", (1.52, 0.27, 0.03), dk, loc=(0, 2.03, zt), rot=(R(-5), 0, 0), parent=root)
+    for sx in (-1, 1): box(f"{name}_we{sx}", (0.025, 0.31, 0.09), dk, loc=(sx * 0.76, 2.03, zt - 0.01), parent=root)
+    ok, hit, nrm, _ = body.ray_cast(inv @ Vector((0.0, -4.0, 0.72)), inv.to_3x3() @ Vector((0, 1, 0)), depsgraph=dg)
+    if ok:
+        hit = body.matrix_world @ hit; nrm = (body.matrix_world.to_3x3() @ nrm).normalized(); b = box(name + "_badge", (0.1, 0.075, 0.006), red, loc=tuple(hit + nrm * 0.004), parent=root); b.rotation_euler = nrm.to_track_quat("Z", "Y").to_euler()
+    for sx in (-1, 1): box(f"{name}_seat{sx}", (0.5, 0.14, 0.72), red, loc=(sx * 0.38, 0.32, 0.42), parent=root, base="z")
+    return root, by

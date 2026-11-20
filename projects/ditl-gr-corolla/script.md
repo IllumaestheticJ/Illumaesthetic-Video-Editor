@@ -115,3 +115,11 @@ balance was 195.71 on 2026-11-19. Everything else is local. Nothing is spent unt
   OK to show, or grandma's car stays stock.
 - **Frame counts (30 fps):** 65, 48, 47, 95, 47, 48, 47, 47, 95, 48, 47, 48, 95, 213 = 990 frames = 33.0 s, on the 1.58 s grid
   from video #1. The song is fitted to this grid with a small tempo change once the owner supplies it.
+
+## v4 changes (owner feedback on first cut v3, 2026-11-20) — these override the above
+- **Type R (shots 1, 9, 10):** rebuilt on the showroom's 11th-gen Civic hatch model (clean body, lights, glass, wheels) in white
+  with a black wing, red badge and red seats. It is the Type R's base body, not the wide-body FL5 shell, which was too rough.
+- **Shot 14:** no dash slap. He looks up, looks down, sighs, his hands sag on the wheel, then he looks at the mirror. Voice
+  lines are now: "I wanted something different." / "Same." / a sigh / "...different."
+- **Shot 14:** the rear-view mirror is angled toward the driver.
+- **Shot 5:** one held frame removed (pointing hand keyed at frame 34).
