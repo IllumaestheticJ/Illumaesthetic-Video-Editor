@@ -17,3 +17,4 @@
 {"ts": "2026-11-20T07:05:43Z", "decision": "Ending: no dash slap. He looks up, then down, sighs (Bram, Eleven v4, job fa43d003, about 0.46 credits), both hands sag on the wheel, then his eyes go to the mirror", "why": "Owner: 'at the end he slaps nothing instead ... make him look up and down and make him sigh'"}
 {"ts": "2026-11-20T07:05:43Z", "decision": "Rear-view mirror yaw flipped from +20 to -20 degrees so its face points at the driver", "why": "Owner: 'the rear view mirror at the end is angled the wrong way, opposite of the driver'"}
 {"ts": "2026-11-20T07:48:12Z", "decision": "First cut v4 assembled and sent to the owner", "why": "Owner's three changes applied; checks pass (see review.md)"}
+{"ts": "2026-11-20T07:48:41Z", "decision": "Shot 14: the head starts moving on frame 1 (dropped the hold key at frame 5); renders in the next pass", "why": "Master inspection: frame 779 was a four-frame hold at the start of the shot"}

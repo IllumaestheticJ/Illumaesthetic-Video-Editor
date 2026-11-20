@@ -388,7 +388,7 @@ def s14():
     a = EYE; b = (0.3, 0.1, 1.26); rig, cam = rigcam(a, (0.1, -0.75, 1.06), lens=19, parent=root)
     # he looks up, then down, and sighs (owner: no dash slap), then his eyes go to the mirror
     FW = (0.2, -0.9, 1.08); UP = (0.2, -0.8, 1.75); DN = (0.34, -0.45, 0.72)
-    for f, tg in ((1, FW), (5, FW), (16, UP), (22, UP), (36, DN), (44, DN), (56, tuple(mc))): key(rig, f, loc=a, rot=lookrot(a, tg), interp="BEZIER")
+    for f, tg in ((1, FW), (16, UP), (22, UP), (36, DN), (44, DN), (56, tuple(mc))): key(rig, f, loc=a, rot=lookrot(a, tg), interp="BEZIER")
     key(rig, 213, loc=b, rot=lookrot(b, tuple(mc), -2), interp="LINEAR")
     for f, ln in ((1, 19), (44, 20), (56, 30), (213, 62)): cam.data.lens = ln; cam.data.keyframe_insert("lens", frame=f)
     hr = hand("hR", root, (0.2, -0.22, 1.1), (R(12), 0, R(188)), curls=FIST, thumb=0.9); hl = hand("hL", root, (0.52, -0.2, 1.1), (R(12), 0, R(172)), curls=FIST, thumb=0.9, mirror=True)
