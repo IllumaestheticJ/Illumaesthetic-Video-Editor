@@ -350,7 +350,7 @@ def build(frameA, frameB):
 
     def rims(done, c):
         img = frameB(20040).copy()
-        retitle(img, box(30, 768, 420, 812), "CUSTOM 6-SPOKE RIMS", OSW, 51.5, OSW_SQ, dx=5, baseline=1075)
+        retitle(img, box(30, 768, 420, 812), "CUSTOM 10-SPOKE RIMS", OSW, 51.5, OSW_SQ, dx=5, baseline=1075)
         applied(img) if done else clear_status(img)
         car_tag(img, 920); wallet_clear(img)
         return {"img": img, "view": "W"}

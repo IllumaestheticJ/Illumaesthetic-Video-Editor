@@ -11,7 +11,10 @@ from pathlib import Path
 P = Path(__file__).resolve().parents[1]; ROOT = P.parents[1]
 W = Path("/home/user/media/work/gta6-integra"); CARS = W / "cars3"
 GLB = "/home/user/media/gta6-integra/glbs/eps-acura-integra-de-v29.glb"
-WHEEL = "/home/user/media/gta6-integra/wheels/wheel6_hd_scantyre.glb"
+WHEEL = "/home/user/media/gta6-integra/wheels_ce28/wheel_ce28_scantyre.glb"     # owner, v2 review: another saved wheel. CE28 scan (rim) + the TE37 scan's tyre
+# owner, v2 review: narrow stance until the flares are bought. The model's wheels sit flush with the flares (0.949 m) and 38 mm
+# outside the stock fender (0.911 m): before the flares they are moved 45 mm inboard.
+TRACK_IN = 0.045
 ORDER = ["front_lip", "fender_flares", "side_skirts", "rear_spats", "duckbill", "sport_wing"]      # lookbook part order = purchase order
 WHITE, GREY = "#1f4aa5", "#848586"         # entrance colour (Apex Blue Pearl, my sRGB approximation; the name WHITE is historical); the lookbook's photographed grey (final)
 # colour run between them, as swatches and as previews on the car: see ui4.OEM (same order, first and last are WHITE and GREY)
@@ -56,6 +59,8 @@ def render(key, cam, out, pct, samples):
     a = ["python", "-m", "ive", "kit-render", "--", "--glb", GLB, "--hide", hide(n), "--paint", paint, "--finish", "pearl" if paint == WHITE else "gloss" if paint == GREY else "metallic",
          "--camera", str(cam), "--res", "2560x1440", "--res-pct", str(pct), "--rig-json", str(P / RIG.get(view, "rig_shop.json")), "--samples", str(samples),
          "--exposure", str(EXPO.get(view, 0.0)), "--out", str(out)]
+    if n < 2:                    # fender flares not fitted yet
+        a += ["--track-in", str(TRACK_IN)]
     if drop:
         a += ["--drop", str(drop)]
     if wh:

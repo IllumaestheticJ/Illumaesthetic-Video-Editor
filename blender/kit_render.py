@@ -62,6 +62,8 @@ def parse():
                                      "replaces the car's four wheels, scaled to the car's tyre diameter")
     ap.add_argument("--wheel-color", default="", help="rim colour for --wheels, sRGB hex (default: the wheel GLB's own)")
     ap.add_argument("--drop", type=float, default=0, help="lower the body this many metres on its wheels (suspension drop)")
+    ap.add_argument("--track-in", type=float, default=0, help="move each wheel this many metres toward the car's centreline "
+                    "(narrower track, e.g. a widebody model shown before its flares are fitted)")
     ap.add_argument("--rig", default="carlot", choices=["carlot", "studio"])
     ap.add_argument("--rig-json", help="override light rig: {world:[r,g,b,strength], lights:[{loc,rot,size,energy,color,glossy_only,only_nodes}], materials:{name:{principled inputs}}}")
     ap.add_argument("--exposure", type=float, default=0.0)
@@ -384,6 +386,14 @@ def main():
     missing = hide_nodes([n for n in a.hide.split(",") if n])
     if missing:
         print("IVE_WARN hide: no such node(s): " + ",".join(missing))
+    if a.track_in:
+        for n in ("wheel_FL", "wheel_FR", "wheel_RL", "wheel_RR"):
+            o = bpy.data.objects.get(n)
+            if not o:
+                print("IVE_WARN track-in: no node " + n); continue
+            wl, wh = bbox([x for x in [o] + list(o.children_recursive) if x.type == "MESH"])
+            o.matrix_world = Matrix.Translation((-a.track_in if (wl.x + wh.x) > 0 else a.track_in, 0, 0)) @ o.matrix_world
+        bpy.context.view_layer.update()
     if a.wheels:
         swap_wheels(a)
     lookdev(a)
