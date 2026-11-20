@@ -1,6 +1,6 @@
-# DITL GR Corolla: review of first cut v2 (2026-11-20)
+# DITL GR Corolla: review of first cut v3 (2026-11-20)
 
-Cut: `/home/user/media/ditl-gr-corolla/ditl-gr-corolla_firstcut_v2.mp4` (not committed). 990 frames, 33.0 s, no music (owner: "no music is
+Cut: `/home/user/media/ditl-gr-corolla/ditl-gr-corolla_firstcut_v3.mp4` (not committed). 990 frames, 33.0 s, no music (owner: "no music is
 fine for now may be added later after final render"). **Not done:** the sales-sheet numbers are agent placeholders until the owner
 confirms them.
 
@@ -39,3 +39,11 @@ confirms them.
 - Shot 11: the man at the pump has no arms; the hand on the nozzle is small.
 - Shot 6: the trolley overtaking him is hard to spot behind the A-pillar.
 - Audio has not been heard by the agent; the owner judges the takes and the mix.
+
+## v3 (2026-11-20), after the master session's second inspection
+- Shot 11: the man has arms, one gesturing at the car. Shot 8: grandma's wave is inside her window. Shot 14: the mirror view is
+  shot from 0.95 m, so the black spoiler extension sits against the brick wall and stays in frame for the whole hold (frames
+  830-990, over 5 s); the push-in ends at 62 mm. Assembler adds a handheld drift of at most 7 px.
+- Re-run on v3: 990 frames, no dark frames, cuts unchanged, one duplicate frame left (289), -14.1 LUFS, true peak -2.5 dBFS,
+  `collide.py` `{}` on shots 8 and 11 (the two with new arms). The static holds listed above are gone.
+- "Known weak spots" 1-3 above are fixed; the FL5 shell quality and the hard-to-spot trolley in shot 6 remain.
