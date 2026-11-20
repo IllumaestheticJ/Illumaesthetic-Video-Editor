@@ -129,6 +129,30 @@ Everything here was learned from reviewer feedback. Where a line says "user:", t
 5. The named thing in the feedback first. "The purchased sections come out poorly" was the pop-up's mask; I fixed
    backgrounds for a round before zooming in on the pop-up.
 
+## 11. A second car in the same shop (`projects/gta6-integra/`, Integra DE4, 2026-11-20)
+Reusing a finished reel for another car is mostly a data change, but these needed work:
+- **Check inputs first, all of them.** Site repo (GLB, catalogue, wordmark, wheel generator), Dropbox (captures, radio,
+  end-card background). If the site repo cannot be attached: car GLBs are also in the Drive bundle named in `cars.yaml`;
+  catalogue list prices are the store's compare-at prices (Shopify connector; the plain price may be a sale price);
+  the wheel can be rebuilt from the Drive scan with `tools/wheel_build.py`. The wordmark has no second source: no end card.
+- **Cameras carry over only if the cars match in size** (Civic sedan and Integra: within 5 cm). Overlay every view anyway.
+- **Each part still needs a view that shows it.** `tools/sil.py` projects the car's triangles (dumped once with
+  `tools/dump_mesh.py`) without Blender; a random search over camera position, heading and pitch that scores uncovered
+  game-car area, the part's box in frame and clear of the menu, and car size finds a camera in minutes. Constrain the
+  car to stay in frame or the search covers the game's car by moving absurdly close.
+- **A part can hide under the menu.** The Civic's exhaust camera put the Integra's rear spats under the option block.
+- **Glass.** Renders leave glass semi-transparent; through it the plate showed the game's car. Fill enclosed
+  non-opaque regions of the render with a dark neutral before compositing.
+- **The painted panorama mirrors as flat blocks** in glass seen from a new direction. Soften it and desaturate the
+  offending block for that view (`rig_shop_soft.json`).
+- **The fill must never sample the menu** (mirrored lettering beside the car) and its last-resort inpaint pulls in the
+  game car's colour from under our car: block UI rectangles; use `short=True` only where a hole touches the frame edge.
+- **A title that sits on the game's car** gets wiped by the plate: lay its lettering on again after the car.
+- **Respray contrast.** Check the first and last colour side by side in the shop light before rendering everything:
+  white to a mid grey was nearly invisible; the entrance colour was changed after 20 stills.
+- **Length.** Nine purchases with full navigation take 28 s at the shortest readable holds; the radio clip that fitted
+  seven is too short. Ask for a longer clip rather than cutting or looping it.
+
 ## What the user must be told
 Whose footage and music it is; which numbers are the game's; what was invented (background patches, navigation
 shortcuts, a row added to a game list); that sound was set by measurement; anything that reads "true to the game"
