@@ -338,8 +338,9 @@ def meet(n=6, gran=False, thumbs=False):
         a, fa = arm(f"cl{i}a", p, 1, sk, sh, up=30, fwd=60, bend=95); box(f"cl{i}_vape", (0.035, 0.035, 0.14), W._flat_mat(f"cl{i}v", (0.75, 0.08, 0.5), 0.3), loc=(0, 0.3, 0.05), parent=fa); cl.append((p, head, fd))
     g = None
     if gran:
-        h_, hb = C.hatch(wing=True); h_.location = (cars[0].location.x - 2.7, 0, 0)
-        gs = mat("gran_skin", (0.86, 0.72, 0.64), 0.7); gsh = mat("polo_gr", (0.75, 0.55, 0.75)); p, head, fd = person("gran", "gran", (h_.location.x + 1.2, -1.9, 0.84), 0, gs, gsh, mat("gran_hair", (0.75, 0.75, 0.78)), ["grin"], bun=True); legs("gran", p, (0.3, 0.3, 0.4))
+        h_, hb = C.hatch(); h_.location = (cars[0].location.x - 2.7, 0, 0); h_.rotation_euler = (0, 0, R(180))   # backed in, so the spoiler extension faces us
+        se = by["part_spoiler_extension"].copy(); bpy.context.scene.collection.objects.link(se); se.parent = h_; se.hide_render = False; se.location = (0, 0, -0.04)   # Spoiler Extension (listing: Corolla Hatchback / GR Corolla); hatch roof is 40 mm lower
+        gs = mat("gran_skin", (0.86, 0.72, 0.64), 0.7); gsh = mat("polo_gr", (0.75, 0.55, 0.75)); p, head, fd = person("gran", "gran", (h_.location.x + 1.25, -2.6, 0.84), 0, gs, gsh, mat("gran_hair", (0.75, 0.75, 0.78)), ["grin"], bun=True); legs("gran", p, (0.3, 0.3, 0.4))
         if thumbs:
             a, fa = arm("gra", p, -1, gs, gsh, up=40, fwd=70, bend=80); box("gr_thumb", (0.035, 0.035, 0.1), gs, (0, 0.33, 0.07), parent=fa)
         g = (h_, p, head)
@@ -358,8 +359,8 @@ def s13():
 
 def mirrorbg(thumbs):
     cars, cl, g = meet(4, gran=True, thumbs=thumbs)
-    for (p, head, fd) in cl: swap(fd, [(1, "blank")])
-    gx = g[0].location.x; rig, cam = rigcam((gx + 2.6, -9.5, 1.5), (gx + 2.6, 0, 1.05), lens=40); sc = bpy.context.scene; sc.render.resolution_x = 720; sc.render.resolution_y = 250
+    for (p, head, fd) in cl: swap(fd, [(1, "blank")]); p.rotation_euler = (0, 0, 0)
+    gx = g[0].location.x; rig, cam = rigcam((gx + 2.2, -9.0, 1.7), (gx + 2.2, 0, 1.05), lens=40); sc = bpy.context.scene; sc.render.resolution_x = 720; sc.render.resolution_y = 250
 
 def s14():
     k.world(img="sky_dawn.png", sun=(2.2, 72, 60)); k.lot_set(); root, by, rig0, cam0 = cabin(); bpy.data.objects.remove(cam0); bpy.data.objects.remove(rig0)

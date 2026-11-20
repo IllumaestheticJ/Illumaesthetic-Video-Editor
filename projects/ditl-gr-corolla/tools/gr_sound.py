@@ -109,4 +109,4 @@ for f in range(50, 213, 17): put(ms(tick(), ding(2600, 0.06) * 0.2), T(14, f), 0
 put(meep(), T(14, 104), 0.7, pan=-0.4); put(ding(1760, 0.4), T(14, 106), 0.5); put(heartbeat(2.5), T(14, 118), 1.0); put(shutdown(), T(14, 186), 0.4)
 out = mix[:int(DUR * SR)]; out[-int(0.01 * SR):] *= np.linspace(1, 0, int(0.01 * SR))[:, None]
 out = np.tanh(out * 0.9)
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-af", "loudnorm=I=-14:TP=-1.2:LRA=11", "-ar", "48000", sys.argv[1]], input=out.astype(np.float32).tobytes())
+subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-", "-af", "loudnorm=I=-13.0:TP=-1.2:LRA=11", "-ar", "48000", sys.argv[1]], input=out.astype(np.float32).tobytes())
