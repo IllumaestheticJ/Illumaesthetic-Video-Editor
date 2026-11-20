@@ -20,7 +20,7 @@ import numpy as np, cv2
 from scipy import signal
 
 W = Path("/home/user/media/work/gta6-integra")
-LOGO = Path("/home/user/Epsilon-Site/showroom/brand/eps-showroom-wordmark-white.png")
+LOGO = Path("/home/user/media/gta6-integra/brand/eps-showroom-wordmark-white.png")   # copy of Epsilon-Site showroom/brand/eps-showroom-wordmark-white.png (via the owner's Drive folder)
 CARD_BG = Path("/home/user/media/gta6-integra/endcard/bg_user.webp")   # end-card background supplied by the user (not in git)
 ORBIT = W / "orbit"                                            # PNG sequence from kit_render (closing shot), optional
 TONE = (1500 / 60, 1888 / 60)

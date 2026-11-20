@@ -43,3 +43,11 @@ Process notes for the next agent:
 - I rendered twenty stills before comparing the first and last respray colours in the shop light. Compare them first.
 - Two cameras had to be re-fitted for this car although the body sizes match: a part can still land under the menu.
 - A background wait with a short time limit killed a 7-minute composite; give long composites their own long timeout.
+
+## v2 (2026-11-20) - end card
+Output: `/home/user/media/work/out/gta6-integra_v2.mp4`, 30.7 s. The owner's palm-sunset background and the white wordmark arrived
+through the owner's Drive folder (relayed by the Civic reel's session, sha256 checked); card as Civic v19, up from black over 7
+frames. Shop section identical to v1. Checked: last shop frame, card at +3 frames and full; the line still ends before the cut
+(speech band -26 dB over 26.4-27.9 s), audio fades with the card. Ending score now 4. Still no radio bed (clip not received).
+Open for the owner: the shop section is 28.2 s, the clip has 26.8 s of music: shorten the shop section, or let the bed fade into
+the mechanic's line.

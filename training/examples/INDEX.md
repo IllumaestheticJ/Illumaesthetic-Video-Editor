@@ -2,7 +2,7 @@
 
 Newest first. Read the top two before starting a new edit.
 
-- [gta6-integra](gta6-integra/) - archived 2026-11-20 (game mod-shop reel, GTA 6, second car; draft without end card)
+- [gta6-integra](gta6-integra/) - archived 2026-11-20
 - [gta6-mr2-spyder](gta6-mr2-spyder/) - archived 2026-11-20
 - [gta6-customs](gta6-customs/) - archived 2026-11-19 (game mod-shop reel, GTA 6)
 - [nfs-carlot](nfs-carlot/) - archived 2026-11-19 (game car-select reel, NFSU2)
