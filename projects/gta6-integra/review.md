@@ -65,3 +65,14 @@ Output: `/home/user/media/work/out/gta6-integra_v3.mp4`, 30.7 s.
   against v2 (difference 0.1-0.4 = encoding), fifteen frames across the changed sections at delivery size.
 - Lesson: the model's wheel track is the widebody's. A stock state on a widebody model needs its track checked against the
   stock fender before rendering (the v1 stock car poked 38 mm and I passed it as "sits right").
+
+## v4 (2026-11-20) - after the owner's review of v3
+Owner: "Make the wheels chrome, and then add the popFM radio in please".
+
+Output: `/home/user/media/work/out/gta6-integra_v4.mp4`, 30.7 s.
+- Chrome CE28 wheels (metallic 1.0, roughness 0.06); 2 stills and 8 whip frames re-rendered, frames 721-846 recomposited and
+  spliced (847 frames, joins against v3 within encoding noise). Checked the whip in, before/after, whip out and the exit at
+  delivery size. The chrome mirrors the painted room panorama, yellow booth doors included.
+- Radio NOT added: no radio file of any station has reached this session (Dropbox folder, Drive assets folder, uploads all
+  checked; the Civic session holds only the Honey FM clip and was not given a pop FM one). Asked the owner which clip and
+  to attach it. Not substituted.
