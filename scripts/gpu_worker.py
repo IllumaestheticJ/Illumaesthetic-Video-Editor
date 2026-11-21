@@ -77,7 +77,11 @@ class GDrive:
                 raise RuntimeError("GOOGLE_SERVICE_ACCOUNT_JSON is not set")
             c = service_account.Credentials.from_service_account_info(
                 json.loads(key), scopes=["https://www.googleapis.com/auth/drive"])
-            http = google_auth_httplib2.AuthorizedHttp(c, http=httplib2.Http(timeout=120))
+            h = httplib2.Http(timeout=120)
+            # 308 is Drive's "resume incomplete" reply to every chunk of a resumable upload; httplib2 follows it as a
+            # redirect unless told not to ("Redirected but the response is missing a Location: header", 2026-11-21)
+            h.redirect_codes = set(h.redirect_codes) - {308}
+            http = google_auth_httplib2.AuthorizedHttp(c, http=h)
             self.tl.d = build("drive", "v3", http=http, cache_discovery=False)
         return self.tl.d
 
@@ -294,6 +298,18 @@ def cloud_estimate(shot, probe):
     return CLOUD_REF["s_per_frame"] * px / CLOUD_REF["pixels"] * spp / CLOUD_REF["samples"], "estimate"
 
 
+def code_stamp():
+    """Fingerprint of the worker's own code, to notice an update across restarts."""
+    import hashlib
+    h = hashlib.md5()
+    for n in ("gpu_worker.py", "vdrive.py"):
+        try:
+            h.update((REPO / "scripts" / n).read_bytes())
+        except OSError:
+            pass
+    return h.hexdigest()
+
+
 class Worker:
     def __init__(self, a):
         self.a = a
@@ -315,6 +331,16 @@ class Worker:
         self.history = st.get("history", [])
         self.done = st.get("done", {})  # project -> {job_mtime, shots:{sid: "ok"|"failed:<n>"}}
         self.timeline = st.get("timeline", [])
+        # New worker code (a fix arrived by git pull): give every failed shot a fresh start. Without this, shots that
+        # failed twice on an upload bug stayed skipped after the fix, with their rendered frames sitting on disk.
+        self.code = code_stamp()
+        if st.get("code") != self.code:
+            for rec in self.done.values():
+                bad = [k for k, v in rec.get("shots", {}).items() if str(v).startswith("failed")]
+                for k in bad:
+                    del rec["shots"][k]
+                if bad:
+                    rec.pop("complete", None)
         self.sampler = Sampler(self)
         self._last_pub = 0
 
@@ -330,7 +356,8 @@ class Worker:
         with self.lock:
             cut = now() - 86400
             self.timeline = [x for x in self.timeline if x["t"] >= cut]
-            data = dict(settings=self.settings, history=self.history[-HISTORY_KEEP:], done=self.done, timeline=self.timeline)
+            data = dict(settings=self.settings, history=self.history[-HISTORY_KEEP:], done=self.done, timeline=self.timeline,
+                        code=self.code)
         tmp = self.store.with_suffix(".tmp")
         tmp.write_text(json.dumps(data))
         os.replace(tmp, self.store)
