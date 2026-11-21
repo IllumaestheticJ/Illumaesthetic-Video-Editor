@@ -156,15 +156,15 @@ TL = [
   V('And then we took it racing. Thunderhill, in November, in the rain.', ('IMG_1089', 7.5, 12.5)),
   V('Bed the brakes, check the wheels, and send it.', ('IMG_1112', 0, 4), ('Video_Nov_15_2026_9_00_12_AM', 28, 33)),
   P(('Video_Nov_15_2026_9_00_12_AM', 33, 37), ('IMG_8163', 6, 11), ('IMG_8162', 3, 8), ('Video_Nov_14_2026_5_07_17_PM', 0, 5)),
-  S('IMG_1142', 10, 17.5, '[driver, at the track] "...dry yesterday and wet this weekend. I do feel confidence in the car here in the wet."  (wording to verify by ear)'),
-  S('IMG_1143', 20, 30.5, '[at the track] "...our MCS shocks with their adjustability, allowing us to set the car up pretty good for whatever conditions."  (to verify)'),
-  S('IMG_1143', 85, 92.5, '"We took all the compression damping out and made it really soft, but we left the rebound in."  (to verify)'),
+  dict(S('IMG_1142', 10, 17.5, '"...dry yesterday and wet this weekend. I do feel confidence in the car here in the wet."  (wording to verify by ear)'), who='Krista  ·  driver, Mike Kojima\'s daughter'),
+  dict(S('IMG_1143', 20, 30.5, '"...our MCS shocks with their adjustability, allowing us to set the car up pretty good for whatever conditions."  (to verify)'), who='Mike Kojima  ·  MotoIQ'),
+  dict(S('IMG_1143', 85, 92.5, '"We took all the compression damping out and made it really soft, but we left the rebound in."  (to verify)'), who='Mike Kojima  ·  MotoIQ'),
   P(('IMG_8161', 5.5, 8), ('Video_Nov_14_2026_4_57_57_PM', 15, 19)),
-  S('IMG_1143', 138, 155, '"...the brakes are awesome, and we have the bias adjuster now, which is a lot better."  (to verify)'),
-  S('IMG_1142', 31, 38, '[driver] "...everything felt like it did really well, and it worked really well."  (to verify)'),
+  dict(S('IMG_1143', 138, 155, '"...the brakes are awesome, and we have the bias adjuster now, which is a lot better."  (to verify)'), who='Mike Kojima  ·  MotoIQ'),
+  dict(S('IMG_1142', 31, 38, '"...everything felt like it did really well, and it worked really well."  (to verify)'), who='Krista  ·  driver, Mike Kojima\'s daughter'),
  ]),
  ('9. CONCLUSIONS', [
-  S('IMG_1143', 197, 210, '"Just a little bit of prep goes a long way. I think we\'re going to get a top finish, and maybe top 25 or something overall."  (to verify)'),
+  dict(S('IMG_1143', 197, 210, '"Just a little bit of prep goes a long way. I think we\'re going to get a top finish, and maybe top 25 or something overall."  (to verify)'), who='Mike Kojima  ·  MotoIQ'),
   C('FILL', 'YOUR CONCLUSIONS\nThe final result, and your three takeaways\n(biggest change you felt / what to do first on a budget / what is next)', 15),
  ]),
  ('10. SIGN-OFF', [
@@ -191,13 +191,15 @@ def run(c):
         print(r.stderr[-600:]); raise SystemExit(' '.join(c)[:300])
 
 
-def overlays(uid, section, kind, text):
+def overlays(uid, section, kind, text, who=None):
     f = [f"drawtext=fontfile={FONT}:textfile={tf(uid + '_s', section, 80)}:fontsize=17:fontcolor=white@0.85:x=14:y=12:box=1:boxcolor=black@0.55:boxborderw=6"]
     if text:
         pre = {'sync': 'ON CAMERA', 'so': 'ON CAMERA', 'vo': 'VOICEOVER', 'card': 'VOICEOVER'}.get(kind, '')
         col = 'yellow' if kind in ('sync', 'so') else 'white'
         f.append(f"drawtext=fontfile={FONT}:text='{pre}':fontsize=14:fontcolor={col}@0.9:x=(w-text_w)/2:y=h-118:box=1:boxcolor=black@0.6:boxborderw=4")
         f.append(f"drawtext=fontfile={FONT}:textfile={tf(uid + '_c', text, 78)}:fontsize=19:fontcolor={col}:line_spacing=4:x=(w-text_w)/2:y=h-96:box=1:boxcolor=black@0.62:boxborderw=8")
+    if who:      # name lower-third (owner confirmed the names 2026-11-21)
+        f.append(f"drawtext=fontfile={FONT}:textfile={tf(uid + '_w', who, 60)}:fontsize=22:fontcolor=white:x=40:y=h-190:box=1:boxcolor=0x12284a@0.92:boxborderw=10")
     return ','.join(f)
 
 
@@ -231,7 +233,7 @@ for section, beats in TL:
             n += 1; uid = f'u{n:03d}'; o = f'{W}/{uid}.mp4'
             vf = 'scale=960:540,setsar=1' + (',eq=contrast=1.32:saturation=1.55:gamma=0.96' if s.startswith('DSCF') else '')
             if hold: vf += f',tpad=stop_mode=clone:stop_duration={hold:.3f}'
-            vf += ',' + overlays(uid, section, b['kind'], b['text'])
+            vf += ',' + overlays(uid, section, b['kind'], b['text'], b.get('who'))
             c = ['ffmpeg', '-v', 'error', '-y', '-ss', f'{a:.3f}', '-t', f'{d:.3f}', '-i', f'{M}/proxy/{s}.mp4', '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=mono']
             nat = s in NAT and b['kind'] != 'sync'
             amap = (['-map', '0:v', '-map', '0:a', '-af', 'loudnorm=I=-18:TP=-2,apad'] if b['kind'] == 'sync' else
