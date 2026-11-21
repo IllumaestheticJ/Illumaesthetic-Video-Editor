@@ -211,3 +211,9 @@ no new export yet (waiting on the length decision).
 - User: "get rid of the weird glistening from the reflections and render the full quality shot", on the GPU PC.
 - Glistening: the lamp heads and the neon strip reflected in the wet asphalt as noisy speckle. Both are now hidden from glossy rays (the spot lamps still give the highlights); the asphalt has no bump and roughness 0.28-0.42. Checked on s10 and s05 stills.
 - gpujob on the drive: 13 shots, 1,542 frames, 1080x1920, 30 fps (15 fps keys, x2 time remap), 64 spp. Assemble with `HQ=1 python3 tools/post.py`.
+
+### v2.6 delivered (2026-11-21, 5:15 AM PT)
+- Full quality: 1080x1920, 30 fps native frames, 64 samples, rendered on the owner's RTX 3060 Ti (13 shots, 1,542 frames). Same edit, text and prices as v2.5.
+- Ground glistening removed (lamp heads and neon no longer reflect as speckle; asphalt bump off).
+- Checks: 58.9 s, -14.1 LUFS, TP -1.8 dBFS, no dark frames, safe-zone sheet looked at (all text inside), frames inspected at 650/1250/1480.
+- GPU worker lessons: uploads from the PC failed twice (WinError 32 on the temp archive, then httplib2 following Drive's 308 on chunked uploads). Both fixed in scripts/gpu_worker.py and scripts/vdrive.py; failed shots now retry after a worker code update.
