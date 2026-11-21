@@ -107,7 +107,7 @@ class GDrive:
             return out
         return self._retry("list", go)
 
-    def download(self, project, name, dest):
+    def download(self, project, name, dest, progress=None):
         def go():
             from googleapiclient.http import MediaIoBaseDownload
             par = self.v.folder(self.d, "work", project, create=False)
@@ -119,7 +119,9 @@ class GDrive:
                                          chunksize=32 * 1024 * 1024)
                 done = False
                 while not done:
-                    _, done = dl.next_chunk(num_retries=5)
+                    st, done = dl.next_chunk(num_retries=5)
+                    if progress and st:
+                        progress(st.resumable_progress, st.total_size)
             if os.path.getsize(dest) != int(f[0].get("size", 0)):
                 raise IOError(f"short download: {os.path.getsize(dest)} of {f[0].get('size')} bytes")
         return self._retry("download", go)
@@ -141,7 +143,7 @@ class LocalDrive:
                 out[p.name] = {f.name: dict(id=str(f), mtime=f.stat().st_mtime, size=f.stat().st_size) for f in p.iterdir()}
         return out
 
-    def download(self, project, name, dest):
+    def download(self, project, name, dest, progress=None):
         shutil.copy(self.root / "work" / project / name, dest)
 
     def upload(self, project, name, path, mime=None):
@@ -244,6 +246,7 @@ class Sampler(threading.Thread):
                     self.w.add_timeline(dict(t=round(now()), gpu=(g or {}).get("util"), cpu=cpu,
                                              worker=self.w.state in ("rendering", "downloading", "uploading", "checking"),
                                              owner=(idle is not None and idle < 120), others=others[:4]))
+                self.w.publish()  # heartbeat: local every few s, drive at most once a minute
             except Exception:
                 self.w.log("sampler: " + traceback.format_exc(limit=1))
             time.sleep(self.every)
@@ -432,7 +435,10 @@ class Worker:
             dest.mkdir(parents=True)
             fd, tmp = tempfile.mkstemp(suffix=".tar.gz", dir=self.jobs); os.close(fd)
             try:
-                self.drive.download(proj, "gpujob.tar.gz", tmp)
+                def prog(done, total):
+                    with self.lock:
+                        self.detail = f"{proj}: gpujob.tar.gz {done / 1e6:,.0f} / {total / 1e6:,.0f} MB"
+                self.drive.download(proj, "gpujob.tar.gz", tmp, progress=prog)
                 with tarfile.open(tmp) as tf:
                     tf.extractall(dest, filter="data") if sys.version_info >= (3, 12) else tf.extractall(dest)
             finally:
