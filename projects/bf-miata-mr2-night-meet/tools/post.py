@@ -11,7 +11,9 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 M = "/home/user/media/bf-miata-mr2-night-meet"
 OUT = f"{M}/work/frames"; os.makedirs(OUT, exist_ok=True)
+HQ = os.environ.get("HQ") == "1"
 FINAL = "/home/user/media/work/out/bf-miata-mr2-night-meet_v2.5.mp4"   # v1: stock first, zones install one by one; no characters
+if HQ: FINAL = FINAL.replace(".mp4", "_hq.mp4")
 TL = json.load(open(os.path.join(os.path.dirname(__file__), "..", "specs", "timeline.json")))
 F30 = TL["f30"]
 W, H = 1080, 1920
@@ -53,8 +55,9 @@ def ease(t): t = min(max(t, 0), 1); return t * t * (3 - 2 * t)
 
 
 def shot_frame(shot, i):
-    d = f"{M}/work/{shot}"; fs = sorted(os.listdir(d)); fs = [f for f in fs if f.endswith(".png")]
-    im = Image.open(os.path.join(d, fs[min(i // 2, len(fs) - 1)])).convert("RGB")
+    # HQ=1: native 1080x1920 / 30 fps frames from the GPU job (tools/make_gpujob.py), one per output frame
+    d = f"{M}/gpujob/frames/{shot}" if HQ else f"{M}/work/{shot}"; fs = sorted(os.listdir(d)); fs = [f for f in fs if f.endswith(".png")]
+    im = Image.open(os.path.join(d, fs[min(i if HQ else i // 2, len(fs) - 1)])).convert("RGB")
     return im.resize((W, H), Image.LANCZOS)
 
 

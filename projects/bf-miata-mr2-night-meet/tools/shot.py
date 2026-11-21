@@ -351,6 +351,14 @@ def main():
             o = bpy.data.objects.new(name, d); sc.collection.objects.link(o); o.location = loc
             o.rotation_euler = (Vector((0, 0, 0.5)) - Vector(loc)).to_track_quat("-Z", "Y").to_euler()
     camera(sp["camera"])
+    if sp.get("blend"):      # GPU job: save a self-contained .blend instead of rendering (knowledge/gpu-worker.md)
+        # the animation is keyed at 15 fps; time remapping x2 renders it at 30 fps: new frame n shows old frame n/2
+        sc.render.frame_map_old, sc.render.frame_map_new = 1, 2
+        sc.frame_start, sc.frame_end = 2, 1 + sp["frames30"]; sc.render.fps = 30
+        sc.render.filepath = "//frames/" + sp["shot"] + "/f_"; sc.render.use_overwrite = False
+        bpy.ops.file.pack_all()
+        bpy.ops.wm.save_as_mainfile(filepath=sp["blend"], compress=True, relative_remap=True)
+        print("BLEND_SAVED", sp["blend"]); return
     frames = sp.get("only")
     if frames:
         for f in frames:
