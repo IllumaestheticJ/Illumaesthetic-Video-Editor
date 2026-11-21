@@ -107,7 +107,7 @@ Everything here was learned from reviewer feedback. Where a line says "user:", t
   and left against right in 50 ms steps. Use the chime up to the voice, then only its highs; verify the speech
   band is back at room tone after each purchase in the output.
 - A spoken line plays **once**, where the story puts it, with a subtitle. Never the same line twice.
-- **Radio / music from the user** (`radio_bed`; a dense club track needed about -40 dB between events, 8 dB under the Civic's sparse clip: "too loud, needs to be background radio volume"): one unbroken piece under the whole shop section, starting where the
+- **Radio / music from the user** (`radio_bed`): one unbroken piece under the whole shop section, starting where the
   music starts, band-limited (180 Hz - 4.2 kHz), narrowed, short room tail, 8 dB under the purchase sound, dipped
   under the spoken line, faded on its own ending. Keep the shop section shorter than the clip. Say that it is a
   commercial song or someone else's recording when it is.

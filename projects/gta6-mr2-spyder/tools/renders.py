@@ -27,18 +27,23 @@ def hide(n):
     return ",".join(h)
 
 
+SRCWHEEL = M / "glbs/wheel_source.glb"            # tools/source_wheel.py: the wheel of the car's original file
+LOW = ["--drop", str(DROP)]; TE = LOW + ["--wheels", str(WHEEL), "--wheel-color", BRONZE]
+
+
 def state(name):
-    """-> (hide list, paint, finish, extra args)"""
-    if name.startswith("s"):
-        return hide(int(name[1:])), *SILVER, []
+    """-> (hide list, paint, finish, extra args).  v5 order: o0 as it arrives (original wheels), o1 lowered, p<N> lowered + 6-spoke
+    wheels + first N parts (silver), c<k> full kit in OEM colour k, ky full kit in Solar Yellow."""
+    if name == "o0":
+        return hide(0), *SILVER, ["--wheels", str(SRCWHEEL)]
+    if name == "o1":
+        return hide(0), *SILVER, LOW + ["--wheels", str(SRCWHEEL)]
+    if name.startswith("p"):
+        return hide(int(name[1:])), *SILVER, TE
     if name.startswith("c"):
-        return hide(NP), *OEM[int(name[1:])], []
+        return hide(NP), *OEM[int(name[1:])], TE
     if name == "ky":
-        return hide(NP), *YELLOW, []
-    if name == "low":
-        return hide(NP), *YELLOW, ["--drop", str(DROP)]
-    if name == "fin":
-        return hide(NP), *YELLOW, ["--drop", str(DROP), "--wheels", str(WHEEL), "--wheel-color", BRONZE]
+        return hide(NP), *YELLOW, TE
     raise SystemExit(name)
 
 
@@ -55,16 +60,15 @@ def render(cam, view, st, out, pct, samples):
         print(r.stdout[-1500:], r.stderr[-1500:])
 
 
-STILLS = {"M": [f"s{i}" for i in range(NP + 1)] + [f"c{i}" for i in range(1, 7)] + ["ky", "low", "fin"], "F": ["s0", "s1", "s2"], "H": ["s2", "s3"], "D": ["s3", "s4"],
-          "E": ["s4", "s5", "s6"], "T": ["s6", "s7"], "A": ["s7", "s8", "s9"], "S": ["ky", "low"], "W": ["low", "fin"]}
-# Whips. A whip INTO a part screen shows the car as it is before that purchase, a whip back shows it after (owner, v1: "at the 0:01
-# transition the aftermarket bumper flashes on the car"). Under the whip's blur some steps look alike, so states are grouped in looks:
-LOOK = {0: "A", 1: "B", 2: "B", 3: "B", 4: "C", 5: "C", 6: "C", 7: "D", 8: "D", 9: "E"}     # bumper / skirts / hardtop / wing change the look
+STILLS = {"M": ["o0", "o1"] + [f"p{i}" for i in range(NP + 1)] + [f"c{i}" for i in range(1, 7)] + ["ky"], "S": ["o0", "o1"], "W": ["o1", "p0"],
+          "F": ["p0", "p1", "p2"], "H": ["p2", "p3"], "D": ["p3", "p4"], "E": ["p4", "p5", "p6"], "T": ["p6", "p7"], "A": ["p7", "p8", "p9"]}
+# Whips show the car as it is at that moment; under the blur some steps look alike, so states are grouped in looks:
+# O = as it arrives / lowered, then A-E by parts (bumper / skirts / hardtop / wing change the look).
 # key "<from>_<to>_<look>" -> (camera dir, reversed?, state, exposure view). A whip not listed plays the opposite one of the same look backwards.
-WHIPS = {"M_F_A": ("M_F", 0, "s0", "F"), "F_M_B": ("M_F", 1, "s1", "F"), "M_H_B": ("M_H", 0, "s2", "H"), "M_D_B": ("M_D", 0, "s3", "D"),
-         "D_M_C": ("M_D", 1, "s4", "D"), "M_E_C": ("M_E", 0, "s5", "E"), "M_T_C": ("M_T", 0, "s6", "T"), "T_M_D": ("M_T", 1, "s7", "T"),
-         "M_A_D": ("M_A", 0, "s8", "A"), "A_M_E": ("M_A", 1, "s9", "A"), "M_S_Y": ("M_S", 0, "low", "S"), "M_W_Y": ("M_W", 0, "low", "W"),
-         "W_M_Z": ("M_W", 1, "fin", "W")}
+WHIPS = {"M_S_O": ("M_S", 0, "o0", "S"), "M_W_O": ("M_W", 0, "o1", "W"), "W_M_A": ("M_W", 1, "p0", "W"),
+         "M_F_A": ("M_F", 0, "p0", "F"), "F_M_B": ("M_F", 1, "p1", "F"), "M_H_B": ("M_H", 0, "p2", "H"), "M_D_B": ("M_D", 0, "p3", "D"),
+         "D_M_C": ("M_D", 1, "p4", "D"), "M_E_C": ("M_E", 0, "p5", "E"), "M_T_C": ("M_T", 0, "p6", "T"), "T_M_D": ("M_T", 1, "p7", "T"),
+         "M_A_D": ("M_A", 0, "p8", "A"), "A_M_E": ("M_A", 1, "p9", "A")}
 
 if __name__ == "__main__":
     what = sys.argv[1] if len(sys.argv) > 1 else "all"; CARS.mkdir(exist_ok=True)

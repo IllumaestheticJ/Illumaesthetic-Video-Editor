@@ -83,37 +83,38 @@ def timeline():
     LK = {0: "A", 1: "B", 2: "B", 3: "B", 4: "C", 5: "C", 6: "C", 7: "D", 8: "D", 9: "E"}
     SRC = {"F": ("B", lambda n: fw(14706, 14748, n)), "H": ("B", lambda n: fw(11916, 11952, n)), "D": ("B", lambda n: fw(2083, 2151, n)),
            "E": ("B", lambda n: fw(17951, 17970, n)), "T": ("B", lambda n: fw(16582, 16695, n)), "A": ("A", lambda n: list(range(880, 880 + 2 * n, 2)))}
-    g = add("menu", "A", range(10, 70, 2), "M", lambda i: ("m0", ("M_s0", "M_s0", 1.0)))
     PL = ui3.PARTS
-    ev.append([g + 27, "select"]); whip("M_" + PL[0][2], LK[0])
+    # v5 (owner): the car arrives on the wheels of its original file, suspension and wheels are bought first, then the kit, then paint.
+    # Car states (tools/renders.py): o0 as it arrives, o1 lowered, p<k> lowered + 6-spoke wheels + the first k parts, c<k> / ky colours.
+    g = add("menu", "A", range(10, 62, 2), "M", lambda i: ("m0", ("M_o0", "M_o0", 1.0)))
+    # Bodywork -> Performance (one press), down to Suspension, select
+    nav("nav_susp", [("n2b", 9), ("n2c", 10)], "M_o0", [(0, "tab"), (9, "row"), (17, "select")]); whip("M_S", "O")
+    simple("suspension", "B", fw(2083, 2151, 64), "S", "s1", "s2", "S_o0", "S_o1", 18); spend(G_["Suspension"])
+    back_to("S_M", "O")
+    nav("nav_wheels", [("n3a", 10), ("n3b", 10), ("n3c", 10)], "M_o1", [(10, "tab"), (20, "row"), (28, "select")]); whip("M_W", "O")
+    simple("wheels", "B", fw(20258, 20398, 64), "W", "w1", "w2", "W_o1", "W_p0", 18); spend(G_["Wheels"])
+    back_to("W_M", "A")
+    # Wheels -> Performance -> Bodywork (two presses back), first row, select
+    nav("nav_body", [("n4a", 9), ("n4x", 7), ("m0", 12)], "M_p0", [(9, "tab"), (16, "tab"), (26, "select")]); whip("M_" + PL[0][2], LK[0])
     for k, (name, pr, view, slot) in enumerate(PL, 1):
         cap, src = SRC[view]
-        simple(slot, cap, src(PART), view, f"p{k}a", f"p{k}b", f"{view}_s{k - 1}", f"{view}_s{k}", BUY); spend(pr)
+        simple(slot, cap, src(PART), view, f"p{k}a", f"p{k}b", f"{view}_p{k - 1}", f"{view}_p{k}", BUY); spend(pr)
         back_to(view + "_M", LK[k])
         if k < len(PL):
-            nav(f"list_{k}", [(f"l{k}", 7), (f"l{k}b", 9)], f"M_s{k}", step); whip("M_" + PL[k][2], LK[k])
-    # between sections: back on the list, shoulder button to the tab, the tab's own rows, select (v9)
-    nav("nav_paint", [("n1a", 10), ("n1b", 14)], f"M_s{len(PL)}", [(10, "tab"), (22, "select")])
-    # respray: Recommended tab with the car's OEM colours; the cursor runs through all eleven (3 frames each, a tick each),
-    # the car previews each colour, and Boost Blue is bought
+            nav(f"list_{k}", [(f"l{k}", 7), (f"l{k}b", 9)], f"M_p{k}", step); whip("M_" + PL[k][2], LK[k])
+    # back on the list, shoulder button to Cosmetics, its rows, select (v9)
+    nav("nav_paint", [("n1a", 10), ("n1b", 14)], f"M_p{len(PL)}", [(10, "tab"), (22, "select")])
     NC = len(ui3.OEM); cbuy = 6 + 3 * (NC - 1) + 6
-    ckey = lambda k: f"M_s{len(PL)}" if k == 0 else "M_ky" if k == NC - 1 else f"M_c{k}"
+    ckey = lambda k: f"M_p{len(PL)}" if k == 0 else "M_ky" if k == NC - 1 else f"M_c{k}"
     def rs(i):
         k = int(np.clip((i - 6) // 3 + 1, 0, NC - 1)) if i >= 6 else 0
         return ("cA" if i >= cbuy + 4 else f"c{k}"), (ckey(k), ckey(k), 1.0)
     g = add("respray", "A", range(1510, 1510 + 2 * (cbuy + 46), 2), "P", rs)
     ev.extend([g + 6 + 3 * k, "step"] for k in range(NC - 1)); buy(g + cbuy)
-    # Cosmetics -> Bodywork -> Performance (two presses, as the tab order requires), down to Suspension, select
-    nav("nav_susp", [("n2a", 10), ("n2x", 7), ("n2b", 9), ("n2c", 10)], "M_ky", [(-2, "back"), (10, "tab"), (17, "tab"), (26, "row"), (34, "select")])
-    whip("M_S", "Y")
-    simple("suspension", "B", fw(2083, 2151, 64), "S", "s1", "s2", "S_ky", "S_low", 16); spend(G_["Suspension"])
-    back_to("S_M", "Y")
-    nav("nav_wheels", [("n3a", 12), ("n3b", 12), ("n3c", 12)], "M_low", [(12, "tab"), (24, "row"), (34, "select")])
-    whip("M_W", "Y")
-    simple("wheels", "B", fw(20258, 20398, 64), "W", "w1", "w2", "W_low", "W_fin", 16); spend(G_["Wheels"])
-    back_to("W_M", "Z")
+    nav("list_end", [("n2a", 14)], "M_ky", [(-2, "back")])          # back out of the respray screen to the Cosmetics list, then leave
+    ev.append([len(T) - 2, "back"])
     # one frozen frame: the UI-free stretch is ten frames long, and looping it made the background run back and forth
-    g = add("exit", "A", [4096] * 68, "X", lambda i: (None, ("M_fin", "M_fin", 1.0)))
+    g = add("exit", "A", [4096] * 68, "X", lambda i: (None, ("M_ky", "M_ky", 1.0)))
     for k in range(12, 64):
         T[g + k]["sub"] = float(min(1, (k - 11) / 3.0, (64 - k) / 4.0))
     ev.append([g + 12, "line"])

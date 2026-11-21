@@ -190,6 +190,7 @@ def build(frameA, frameB):
     nav("n2a", "COSMETICS", COS, 1, ["Respray"]); nav("n2x", "BODYWORK", ROWS, 1, ROWS)
     nav("n2b", "PERFORMANCE", PERF, 1, []); nav("n2c", "PERFORMANCE", PERF, 2, [])
     nav("n3a", "PERFORMANCE", PERF, 2, ["Suspension"]); nav("n3b", "WHEELS", WHL, 1, []); nav("n3c", "WHEELS", WHL, 2, [])
+    nav("n4a", "WHEELS", WHL, 2, ["Rim Style"]); nav("n4x", "PERFORMANCE", PERF, 2, ["Suspension"])     # v5: on the way back to Bodywork
 
     def part(base, name, c, done, view):
         img = base.copy()

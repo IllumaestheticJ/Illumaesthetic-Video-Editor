@@ -28,7 +28,7 @@ TICKS = {"select": ("a", 274 / 60, 283 / 60), "back": ("a", 1158 / 60, 1164 / 60
          "tab": ("a", 618 / 60, 624 / 60), "step": ("a", 1276 / 60, 1281 / 60)}                       # tab change: the first capture's option-change tick
 TONE_DB, SFX_PEAK = -43.0, 0.45
 RADIO = Path("/home/user/media/gta6-mr2-spyder/radio/radio.wav")   # user's clip of the game's Honey FM (v10 review); optional
-RADIO_IN, RADIO_DB, RADIO_DUCK_DB = 49.65, -44.0, -4.0     # v3: owner's recording (Dropbox /Moosic, 98.5 s). Start chosen so the music's own break (91.75 s) lands on the cut to the card
+RADIO_IN, RADIO_DB, RADIO_DUCK_DB = 49.15, -35.0, -4.0     # v3: owner's recording (Dropbox /Moosic, 98.5 s). Start chosen so the music's own break (91.75 s) lands on the cut to the card
 OUT = Path(sys.argv[1] if len(sys.argv) > 1 else "/home/user/media/work/out/gta6-mr2-spyder_v4.mp4")
 
 
