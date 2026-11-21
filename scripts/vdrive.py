@@ -77,14 +77,33 @@ def folder(d, *parts, create=True):
 
 
 def upload(d, parent, name, path, mime):
+    """Resumable upload in 16 MB chunks. A dropped connection (SSL record failures on the GPU PC, 2026-11-20) retries the
+    chunk instead of failing the whole file, and the file handle is always closed: left open, Windows refuses to delete
+    the temp archive afterwards (WinError 32), which hid the real upload error."""
+    import hashlib, time
     from googleapiclient.http import MediaFileUpload
     media = MediaFileUpload(path, mimetype=mime, resumable=True, chunksize=16 * 1024 * 1024)
-    ex = children(d, parent, name)
-    if ex:  # overwrite in place: same file id, no new copy
-        f = d.files().update(fileId=ex[0]["id"], media_body=media, fields="id,md5Checksum,size", **KW).execute()
-    else:
-        f = d.files().create(body={"name": name, "parents": [parent]}, media_body=media, fields="id,md5Checksum,size", **KW).execute()
-    import hashlib
+    try:
+        ex = children(d, parent, name)
+        if ex:  # overwrite in place: same file id, no new copy
+            req = d.files().update(fileId=ex[0]["id"], media_body=media, fields="id,md5Checksum,size", **KW)
+        else:
+            req = d.files().create(body={"name": name, "parents": [parent]}, media_body=media, fields="id,md5Checksum,size", **KW)
+        f, tries = None, 0
+        while f is None:
+            try:
+                _, f = req.next_chunk(num_retries=3); tries = 0
+            except Exception as e:      # network drop mid-chunk: next_chunk resumes from the last byte the server has
+                if getattr(getattr(e, "resp", None), "status", 500) in (400, 401, 403, 404):
+                    raise
+                tries += 1
+                if tries > 8:
+                    raise
+                print(f"upload {name}: {type(e).__name__}: {e}; retry {tries}/8", file=sys.stderr); time.sleep(min(60, 2 ** tries))
+    finally:
+        fd = getattr(media, "_fd", None)
+        if fd is not None:
+            fd.close()
     h = hashlib.md5()
     with open(path, "rb") as fh:
         for b in iter(lambda: fh.read(1 << 20), b""):

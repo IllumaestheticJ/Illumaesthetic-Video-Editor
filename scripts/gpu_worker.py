@@ -541,7 +541,10 @@ class Worker:
             size = os.path.getsize(tmp)
             self.drive.upload(proj, f"gpuframes_{sid}.tar.gz", tmp)
         finally:
-            os.remove(tmp)
+            try:
+                os.remove(tmp)
+            except OSError as e:      # never let a locked temp file replace the real upload error
+                self.log(f"could not delete {tmp}: {e}")
         rendered = max(1, n - have0)
         gpu_spf = (wall / rendered) if rendered else None
         cloud, src = cloud_estimate(shot, probe_v)
