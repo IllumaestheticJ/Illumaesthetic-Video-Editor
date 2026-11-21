@@ -53,39 +53,79 @@ def parse_iso(s):
 
 # ---------------------------------------------------------------- drive backends
 class GDrive:
-    """The real Shared Drive, through scripts/vdrive.py."""
+    """The real Shared Drive, through scripts/vdrive.py.
+
+    Each thread gets its own Drive client: httplib2 connections are not thread-safe, and sharing one between the
+    heartbeat upload and a job download corrupted the TLS stream ("SSL: RECORD_LAYER_FAILURE") and hung the worker.
+    Every call has a socket timeout and is retried with a fresh client.
+    """
 
     def __init__(self):
         sys.path.insert(0, str(REPO / "scripts"))
         import vdrive
         self.v = vdrive
-        self._d = None
+        self.tl = threading.local()
 
     @property
     def d(self):
-        if self._d is None:
-            self._d = self.v.svc()
-        return self._d
+        if getattr(self.tl, "d", None) is None:
+            import httplib2, google_auth_httplib2
+            from google.oauth2 import service_account
+            from googleapiclient.discovery import build
+            key = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON")
+            if not key:
+                raise RuntimeError("GOOGLE_SERVICE_ACCOUNT_JSON is not set")
+            c = service_account.Credentials.from_service_account_info(
+                json.loads(key), scopes=["https://www.googleapis.com/auth/drive"])
+            http = google_auth_httplib2.AuthorizedHttp(c, http=httplib2.Http(timeout=120))
+            self.tl.d = build("drive", "v3", http=http, cache_discovery=False)
+        return self.tl.d
+
+    def _retry(self, what, fn, tries=5):
+        for i in range(tries):
+            try:
+                return fn()
+            except FileNotFoundError:
+                raise
+            except Exception as e:
+                self.tl.d = None  # drop the (possibly broken) connection
+                if i == tries - 1:
+                    raise
+                wait = min(60, 5 * 2 ** i)
+                print(f"drive {what} failed ({e}); retry {i + 1}/{tries - 1} in {wait} s", flush=True)
+                time.sleep(wait)
 
     def list_work(self):
-        root = self.v.folder(self.d, "work", create=False)
-        out = {}
-        if not root:
+        def go():
+            root = self.v.folder(self.d, "work", create=False)
+            out = {}
+            if not root:
+                return out
+            for p in self.v.children(self.d, root, mime=self.v.FOLDER):
+                out[p["name"]] = {f["name"]: dict(id=f["id"], mtime=parse_iso(f["modifiedTime"]), size=int(f.get("size", 0)))
+                                  for f in self.v.children(self.d, p["id"])}
             return out
-        for p in self.v.children(self.d, root, mime=self.v.FOLDER):
-            out[p["name"]] = {f["name"]: dict(id=f["id"], mtime=parse_iso(f["modifiedTime"]), size=int(f.get("size", 0)))
-                              for f in self.v.children(self.d, p["id"])}
-        return out
+        return self._retry("list", go)
 
     def download(self, project, name, dest):
-        par = self.v.folder(self.d, "work", project, create=False)
-        f = par and self.v.children(self.d, par, name)
-        if not f:
-            raise FileNotFoundError(f"work/{project}/{name}")
-        self.v.download(self.d, f[0]["id"], dest)
+        def go():
+            from googleapiclient.http import MediaIoBaseDownload
+            par = self.v.folder(self.d, "work", project, create=False)
+            f = par and self.v.children(self.d, par, name)
+            if not f:
+                raise FileNotFoundError(f"work/{project}/{name}")
+            with open(dest, "wb") as fh:
+                dl = MediaIoBaseDownload(fh, self.d.files().get_media(fileId=f[0]["id"], **self.v.KW),
+                                         chunksize=32 * 1024 * 1024)
+                done = False
+                while not done:
+                    _, done = dl.next_chunk(num_retries=5)
+            if os.path.getsize(dest) != int(f[0].get("size", 0)):
+                raise IOError(f"short download: {os.path.getsize(dest)} of {f[0].get('size')} bytes")
+        return self._retry("download", go)
 
     def upload(self, project, name, path, mime="application/gzip"):
-        self.v.upload(self.d, self.v.folder(self.d, "work", project), name, path, mime)
+        return self._retry("upload", lambda: self.v.upload(self.d, self.v.folder(self.d, "work", project), name, path, mime))
 
 
 class LocalDrive:
@@ -353,6 +393,10 @@ class Worker:
         slim["history"] = st["history"][:10]
         slim["gpu"] = {k: v for k, v in ((st.get("machine") or {}).get("gpu") or {}).items() if k != "procs"}
 
+        if getattr(self, "_pub_busy", False):
+            return
+        self._pub_busy = True
+
         def up():
             try:
                 tmp = self.jobs / "heartbeat.json"
@@ -360,6 +404,8 @@ class Worker:
                 self.drive.upload(STATUS_DIR, "status.json", str(tmp), "application/json")
             except Exception as e:
                 self.log(f"heartbeat upload failed: {e}")
+            finally:
+                self._pub_busy = False
         threading.Thread(target=up, daemon=True).start()
 
     # ---- job discovery
@@ -404,6 +450,8 @@ class Worker:
         self.set("checking", "listing the drive")
         work = self.drive.list_work()
         self.last_poll = now()
+        if self.state != "error":
+            self.error = None
         todo = self.pending(work)
         queue = []
         for proj, jm, files in todo:
