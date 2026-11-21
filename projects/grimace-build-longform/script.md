@@ -73,7 +73,7 @@ picture sources follow `plan.md` section 3.
 | 59 | 5. Steering | SYNC 5439-5441 | "Does this actually fit?" ... "No." ... "All right, I'm just going to use a steering wheel puller." **[ASK 12]** |
 | 60 | 5. Steering | VO | And that's where it ended up. |
 | 61 | Recap | VO | So that's everything on the car. Now let's go see what it does. |
-| 62 | Sonoma | VO | So in June, we took it to Sonoma. **[ASK 1, 11]** |
+| 62 | Thunderhill | VO | And then we took it racing. Thunderhill, in November, in the rain. |
 | 63 | Sonoma | VO | Bed the brakes, check the wheels, and send it. |
 | 64 | Sonoma | (no voice) | engine sound and music for about ten seconds |
 | 65 | Sonoma | **yours** | What the car felt like. Not written: this is your conclusion footage, or lines you give us. **[ASK 14]** |

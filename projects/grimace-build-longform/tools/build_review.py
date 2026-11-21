@@ -20,6 +20,7 @@ J, MR = 'Video_Jun_07_2026_', 'Video_Mar_21_2026_'
 # Clips whose own sound is clean (checked against the transcripts for profanity): their natural sound plays quietly under
 # voice-over and picture-only beats, so shop and track shots are not silent (owner, v5: "completely devoid of sound").
 NAT = {'DSCF6731', 'DSCF6732', 'DSCF6730', 'DSCF6685', 'DSCF6687', 'DSCF6579', 'DSCF6816', '049A5440', '049A5441',
+       'IMG_1089', 'IMG_1112', 'IMG_8161', 'IMG_8162', 'IMG_8163', 'Video_Nov_15_2026_9_00_12_AM', 'Video_Nov_14_2026_5_07_17_PM', 'Video_Nov_14_2026_4_57_57_PM',
        J + '11_37_26_AM', J + '1_59_57_PM', J + '2_04_58_PM', J + '11_31_17_AM', J + '1_48_26_PM', J + '12_01_33_PM', MR + '2_52_28_PM', MR + '2_21_51_PM'}
 H = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 _n = lambda t: re.sub(r'[^a-z]', '', t.lower())
@@ -150,16 +151,21 @@ TL = [
  ('7. RECAP', [
   C('GFX', 'Finished-car 3D model, full orbit: every part lit, each partner name on its part', 8, "So that's everything on the car. Now let's go see what it does."),
  ]),
- ('8. TRACK  (21 March + Sonoma)', [
-  C('TITLE', 'ON TRACK\n(event names + dates to fill in)', 3),
-  V('So in June, we took it to Sonoma.', (MR + '2_21_51_PM', 0, 6)),
-  V('Bed the brakes, check the wheels, and send it.', (J + '1_48_26_PM', 1, 5), (J + '11_31_17_AM', 3.5, 8)),
-  P((J + '11_37_26_AM', 5.5, 8.5), (J + '1_59_57_PM', 5, 9.5), (J + '2_04_58_PM', 2.5, 6.5), (MR + '2_52_28_PM', 1, 3.3)),
-  C('FILL', 'YOUR UPLOAD\nOn-track and on-board footage', 20),
-  C('FILL', 'YOUR WORDS\nWhat the car felt like on track', 20),
+ ('8. THUNDERHILL  (14-15 November 2026)', [      # v7: the owner's new track footage replaces the placeholders
+  C('TITLE', 'ON TRACK', 3),
+  V('And then we took it racing. Thunderhill, in November, in the rain.', ('IMG_1089', 7.5, 12.5)),
+  V('Bed the brakes, check the wheels, and send it.', ('IMG_1112', 0, 4), ('Video_Nov_15_2026_9_00_12_AM', 28, 33)),
+  P(('Video_Nov_15_2026_9_00_12_AM', 33, 37), ('IMG_8163', 6, 11), ('IMG_8162', 3, 8), ('Video_Nov_14_2026_5_07_17_PM', 0, 5)),
+  S('IMG_1142', 10, 17.5, '[driver, at the track] "...dry yesterday and wet this weekend. I do feel confidence in the car here in the wet."  (wording to verify by ear)'),
+  S('IMG_1143', 20, 30.5, '[at the track] "...our MCS shocks with their adjustability, allowing us to set the car up pretty good for whatever conditions."  (to verify)'),
+  S('IMG_1143', 85, 92.5, '"We took all the compression damping out and made it really soft, but we left the rebound in."  (to verify)'),
+  P(('IMG_8161', 5.5, 8), ('Video_Nov_14_2026_4_57_57_PM', 15, 19)),
+  S('IMG_1143', 138, 155, '"...the brakes are awesome, and we have the bias adjuster now, which is a lot better."  (to verify)'),
+  S('IMG_1142', 31, 38, '[driver] "...everything felt like it did really well, and it worked really well."  (to verify)'),
  ]),
  ('9. CONCLUSIONS', [
-  C('FILL', 'YOUR UPLOAD\nConclusions: three short takeaways\n(biggest change you felt / what to do first on a budget / what is next)', 35),
+  S('IMG_1143', 197, 210, '"Just a little bit of prep goes a long way. I think we\'re going to get a top finish, and maybe top 25 or something overall."  (to verify)'),
+  C('FILL', 'YOUR CONCLUSIONS\nThe final result, and your three takeaways\n(biggest change you felt / what to do first on a budget / what is next)', 15),
  ]),
  ('10. SIGN-OFF', [
   C('GFX', GX_THX, 0, 'Thank you to our technology partners at MotoIQ, and to Mike Kojima, for getting us set up with all of this.'),

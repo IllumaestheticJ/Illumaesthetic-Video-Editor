@@ -52,7 +52,7 @@ def chapter(k):
 
 def track(c, u, t):
     a = ease(seg(u, 0.05, 0.3)); c.text(640, 330, 'ON TRACK', 60, fade(WHITE, a), 'mm'); c.rect(640 - 120 * a, 380, 640 + 120 * a, 384, fill=PURPLE)
-    c.text(640, 416, 'event names and dates to fill in', 20, fade(DIM, a), 'mm', False)
+    c.text(640, 416, 'Thunderhill  ·  14-15 November 2026', 22, fade(DIM, a), 'mm', False)
 
 
 RB = (28, 30, 40)      # background colour of the parts-map renders (text fades in from it)
