@@ -213,6 +213,11 @@ def build(frameA, frameB):
         floor = cv2.medianBlur(reg, 151)
         d = np.abs(reg.astype(np.float32) - floor).max(2)
         al = np.clip((d - 26) / 30.0, 0, 1); al = cv2.GaussianBlur(cv2.morphologyEx(al, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8)), (0, 0), 0.6)
+        # lettering and badges only: the floor's paint specks also "differ from the floor" and were drawn over the car beside the block
+        n_, lab, st_, _ = cv2.connectedComponentsWithStats((al > 0.25).astype(np.uint8), connectivity=8)
+        small = np.isin(lab, [i for i in range(1, n_) if st_[i, cv2.CC_STAT_AREA] < 34 and st_[i, cv2.CC_STAT_HEIGHT] < 15])
+        al[cv2.dilate(small.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0] = 0
+        al[:, 848:] = 0
         lay = np.zeros(full.shape[:2] + (4,), np.float32); lay[y0:y1, x0:x1, :3] = reg; lay[y0:y1, x0:x1, 3] = al * 255
         return lay
 

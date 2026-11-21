@@ -134,9 +134,11 @@ def main():
         caps[cap].set(cv2.CAP_PROP_POS_FRAMES, f); ok, im = caps[cap].read(); assert ok, (cap, f)
         return im
 
-    load = lambda p: cv2.resize(cv2.imread(str(CARS / p), cv2.IMREAD_UNCHANGED), (Wd, H), interpolation=cv2.INTER_CUBIC).astype(np.float32)
+    # kept as 8-bit and converted on use: as float, 38 stills and 18 whips of 8 frames are 11 GB and the nine-part run was killed for memory
+    load8 = lambda p: cv2.resize(cv2.imread(str(CARS / p), cv2.IMREAD_UNCHANGED), (Wd, H), interpolation=cv2.INTER_CUBIC)
+    load = load8
     cars = {}
-    car = lambda n: cars.setdefault(n, load(n + ".png"))
+    car = lambda n: cars.setdefault(n, load8(n + ".png")).astype(np.float32)
     whips = {}
     states = ui3.build(lambda f: frame("A", f), lambda f: frame("B", f))
     toast = cv2.imread(str(W / "sfx/toast.png"), cv2.IMREAD_UNCHANGED).astype(np.float32)
@@ -193,7 +195,8 @@ def main():
             if view == "W":                    # wheel close-up (owner, v1: "asset blurring needs to be done better"): what the game's
                 # fender hid is the out-of-focus shop behind it. Mirror that real background up from below the hole (it keeps its own
                 # softness and grain) instead of blurring a mixed fill by 14 px, and only feather the seam.
-                p = fill_nearest(ref, hole, [(1280, 30000), (-30000, 700)], block=blockm, extend=True)
+                bw = blockm.copy(); bw[:190, :900] = True          # never the title: its lettering was mirrored into the fill
+                p = fill_nearest(ref, hole, [(1280, 30000)], block=bw, extend=True)
                 soft_ = cv2.GaussianBlur(p, (0, 0), 4); wgt = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 5)[..., None] * 0.5
                 p = (p * (1 - wgt) + soft_ * wgt).astype(np.uint8)
         plates[(view, key)] = p
@@ -332,7 +335,7 @@ def main():
             t = (i + 1) / 9.0
             bg = shift(hold_from, -t * Wd * 0.7) * (1 - t) + shift(nxt if nblank is None else nblank, (1 - t) * Wd * 0.7) * t
             out = hblur(bg, 301)
-            out = over(out, hblur(whips[key][i], 61))
+            out = over(out, hblur(whips[key][i].astype(np.float32), 61))
             if nblank is not None:
                 # list screen: hold exactly what the list adds to the blank screen (rows, highlight bar, tab highlight), nothing
                 # of the scene behind it (a sharp scrap of shelf sat beside the list in v16's first pass)

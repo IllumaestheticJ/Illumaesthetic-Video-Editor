@@ -45,3 +45,31 @@ Weak, known
 Final pass (same day): after the fixes the whole section was composited again twice; all 11 purchase frames and one frame of each of the
 20 whips were looked at again at delivery size. Left in: a few-pixel mirrored copy of the game's "..." icon beside the stats panel on the
 two rear-view screens; the wallet icon is absent on the wheel screen.
+
+## v2 (2026-11-20) - after the owner's review of v1
+Owner: "need to start with stock bumper"; "hood needs to be cutout for the hood vents"; "fender needs to be trimmed for new skirts"; "the rear
+TC spoiler needs to be added"; "the rear tail light needs the original OEM textures put back in"; "some of the asset blurring needs to be done
+better / artificially filled"; "the rear diffuser being added needs to change the exhaust position so it clears"; "at the 0:01 transition, the
+aftermarket bumper flashes on the car"; "the polygon quality of the model is also visibly low"; "relabel 'Diffuser V1+' to rear diffuser".
+
+What changed (edit log has each with its reason): a corrected copy of the game model (`tools/reel_model.py`): smooth shading, hood cut under the
+vents, fender trimmed from the owner's scan of the cut piece, right-side skirt, TC wing from the kit file, raised exhaust with the diffuser,
+the rip's lights texture on the tail lamps. TC Wing is a ninth purchase ($1,100, BACKORDER badge; wallet 5,880 > 0). Whips show the car as it is
+before each purchase and the part screen holds that state 0.67 s. "Rear Diffuser". Fills keep their sharpness (seam only softened). End card on
+the owner's palm-sunset image (arrived on their Drive). Every still and whip rendered again.
+
+Lessons
+- I delivered v1 with a whip that showed the next part early, to save renders. A reused render must match the state at that moment; "a blur
+  hides it" was wrong for a bumper.
+- I took the game model as given. Its notes said plainly that the hood cut-outs were "not modelled" and the wing "not exported", and the first
+  renders showed flat shading and plain red lamps. Those were questions to raise before rendering 114 images, not after.
+- A selection made per connected piece judged by its first face skipped most of the tail-lamp faces; list what is in the volume first.
+
+Output: `/home/user/media/work/out/gta6-mr2-spyder_v2.mp4`, 1080x1920, 30 fps, 44.6 s (1,263 shop frames + 2.5 s card).
+Checked by looking (delivery size): all 12 purchase frames; one frame of each of the 22 whips, the first one for the stock bumper; the splice
+at frame 1150 (the compositor was killed for memory 76 frames from the end: caches now 8-bit, tail rendered and joined, frame count 1,263);
+the card on the owner's image; tail lamp, hood openings and exhaust in close studies before the full render.
+Checked by measurement: speech band back at room tone after each of 12 purchases; the line once at 40.23 s. Not checked by ear.
+Still weak: no radio bed (clip not supplied; shop section 42.1 s against 28.8 s of music); the MR2 larger than life against the room; the
+wing's finish (black) and the exhaust placement are mine; the stock car shows a dark gap behind the front wheel arch at the sill (in the
+published model, not asked about); background beside the car invented in every view; a small mirrored game icon beside the panel on the rear view.

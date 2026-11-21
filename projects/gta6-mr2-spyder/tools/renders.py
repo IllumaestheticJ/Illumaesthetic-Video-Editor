@@ -5,6 +5,7 @@ from pathlib import Path
 P = Path(__file__).resolve().parents[1]; ROOT = P.parents[1]
 W = Path("/home/user/media/work/gta6-mr2-spyder"); CARS = W / "cars3"
 M = Path("/home/user/media/gta6-mr2-spyder"); GLB = M / "glbs/mr2-reel.glb"       # tools/reel_model.py: the lookbook GLB with the owner's v1 corrections; WHEEL = M / "glbs/wheel6_hd_scantyre.glb"
+WHEEL = M / "glbs/wheel6_hd_scantyre.glb"
 ORDER = ["front_bumper", "eyelids", "hood_vents", "side_skirts", "rear_spats", "diffuser", "hardtop", "duckbill", "tc_wing"]     # lookbook partOrder + the TC wing (v2)
 REPL = {"front_bumper": ["body_front_bumper_stock", "trim_front_bumper_stock"], "hardtop": ["trim_soft_top_stock"], "hood_vents": ["body_hood_cut"],
         "side_skirts": ["body_fender_cut"], "diffuser": ["exhaust_stock"]}
