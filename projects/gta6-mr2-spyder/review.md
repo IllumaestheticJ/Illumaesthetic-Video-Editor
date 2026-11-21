@@ -79,3 +79,7 @@ Owner: "I added music to Moosic folder for the background GTA6 radio" (a 98.5 s 
 Output: `/home/user/media/work/out/gta6-mr2-spyder_v3.mp4`, 44.6 s. Picture as v2; sound = v2 + the radio as one unbroken bed (edit log).
 Measured: bed about -32 dB between events, purchases and the line 5-7 dB over it, music's break on the cut to the card. Not checked by ear:
 level, how muffled it sounds, and whether the phone recording carries any notification sound are for the owner to judge.
+
+## v4 (2026-11-21)
+Owner: "too loud, needs to be background radio volume". Radio bed 9 dB lower (about -40 dB between events); picture and other sound as v3.
+Output: `/home/user/media/work/out/gta6-mr2-spyder_v4.mp4`. Lesson: a level copied from another reel does not carry over to a denser track.
