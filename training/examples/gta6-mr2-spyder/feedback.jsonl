@@ -12,3 +12,4 @@
 {"ts": "2026-11-20T23:18:19Z", "project": "gta6-mr2-spyder", "at": null, "category": "technical", "note": "v1 (asked): background fill by AI through Higgsfield? Owner: no, local only", "by": "owner", "promoted": false}
 {"ts": "2026-11-21T00:32:44Z", "project": "gta6-mr2-spyder", "at": null, "category": "audio", "note": "v2: owner added the radio music to Dropbox /Moosic ('Video Nov 20 2026, 4 05 38 PM.mp4') for the background GTA 6 radio", "by": "owner", "promoted": false}
 {"ts": "2026-11-21T02:31:07Z", "project": "gta6-mr2-spyder", "at": null, "category": "audio", "note": "v3: radio too loud, needs to be background radio volume", "by": "owner", "promoted": false}
+{"ts": "2026-11-21T02:31:20Z", "project": "gta6-mr2-spyder", "at": null, "category": "audio", "note": "v3: 'too loud, needs to be background radio volume', then withdrawn by the owner ('jk', 'ignore'): v3's radio level stands", "by": "owner", "promoted": false}
