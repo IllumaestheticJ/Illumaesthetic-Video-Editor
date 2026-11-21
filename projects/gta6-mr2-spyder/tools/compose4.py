@@ -200,6 +200,22 @@ def main():
                 p = fill_nearest(ref, hole, [(1280, 30000)], block=bw, extend=True)
                 soft_ = cv2.GaussianBlur(p, (0, 0), 4); wgt = cv2.GaussianBlur(hole.astype(np.float32), (0, 0), 5)[..., None] * 0.5
                 p = (p * (1 - wgt) + soft_ * wgt).astype(np.uint8)
+                # left of the (short, stock) nose the game car's whole front corner is exposed, in front of the far, out-of-focus
+                # shop: there is no texture to mirror there, so each row continues the real background strip at the frame's left edge
+                # (rows under the title take the strip from below it), with the strip's own grain
+                lh = hole.copy(); lh[:, 960:] = False; lh[620:] = False
+                if lh.any():
+                    strip = ref[:, 14:104].astype(np.float32); rowc = cv2.GaussianBlur(strip.mean(1), (1, 0), 9)[:, 0] if False else strip.mean(1)
+                    rowc = cv2.blur(rowc[None], (1, 1))[0]
+                    rowc[:200] = rowc[200:400][::-1]
+                    rowc = cv2.GaussianBlur(rowc[:, None, :], (1, 31), 0)[:, 0]
+                    gs = float((strip[400:600] - cv2.GaussianBlur(strip[400:600], (0, 0), 2)).std())      # the strip's grain, as noise
+                    gt = cv2.GaussianBlur(np.random.default_rng(5).standard_normal((H, 960, 1)).astype(np.float32), (0, 0), 0.7)[..., None] * gs * 1.6
+                    fillv = rowc[:, None, :] + gt
+                    pf = p.astype(np.float32); wl = cv2.GaussianBlur(lh.astype(np.float32), (0, 0), 4)[..., None]
+                    wl = np.where(lh[..., None], np.maximum(wl, 0.85), wl * 0.0)
+                    pf[:, :960] = pf[:, :960] * (1 - wl[:, :960]) + fillv * wl[:, :960]
+                    p = np.clip(pf, 0, 255).astype(np.uint8)
         plates[(view, key)] = p
         cv2.imwrite(str(W / f"v3/plate4_{view}_{key}.jpg"), cv2.resize(p, (1280, 720)))
         print("plate", view, key, "uncovered px", int(hole.sum()), f"{100 * hole.sum() / hole.size:.1f} % of frame", flush=True)
@@ -341,6 +357,10 @@ def main():
                 # list screen: hold exactly what the list adds to the blank screen (rows, highlight bar, tab highlight), nothing
                 # of the scene behind it (a sharp scrap of shelf sat beside the list in v16's first pass)
                 hm = np.clip(np.abs(nxt - nblank).max(2) / 24.0, 0, 1)
+                # only near something the list adds in white (lettering, bar): a shorter list than the blank's also "differs" where the
+                # blank has row rules and it has none, and those dark rules were held sharp across the blurred car
+                pos = ((nxt - nblank).max(2) > 40).astype(np.uint8)
+                hm = hm * cv2.dilate(pos, np.ones((31, 31), np.uint8))
                 hm = cv2.GaussianBlur(cv2.dilate(hm, np.ones((5, 5), np.uint8)), (0, 0), 1.2)[..., None]
                 hm = np.maximum(hm, soft([R(0, 74, 760, 116)], 6) * 0.9)          # the tab bar's lettering
                 out = out * (1 - hm) + nxt * hm

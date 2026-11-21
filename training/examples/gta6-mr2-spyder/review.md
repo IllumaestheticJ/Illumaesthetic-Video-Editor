@@ -80,6 +80,15 @@ Output: `/home/user/media/work/out/gta6-mr2-spyder_v3.mp4`, 44.6 s. Picture as v
 Measured: bed about -32 dB between events, purchases and the line 5-7 dB over it, music's break on the cut to the card. Not checked by ear:
 level, how muffled it sounds, and whether the phone recording carries any notification sound are for the owner to judge.
 
-## v4 (2026-11-21)
-Owner: "too loud, needs to be background radio volume". Radio bed 9 dB lower (about -40 dB between events); picture and other sound as v3.
-Output: `/home/user/media/work/out/gta6-mr2-spyder_v4.mp4`. Lesson: a level copied from another reel does not carry over to a denser track.
+
+## v5 (2026-11-21) - new order, original wheels
+Owner: "jk" / "ignore" on the radio level (v3's level stands), then: "start the car with stock wheels (the original folder in drive should have
+it), and then start with suspension and wheels first? Then do the rest of the kit".
+Output: `/home/user/media/work/out/gta6-mr2-spyder_v5.mp4`, 45.1 s (1,278 shop frames + card).
+Order: arrives stock > Suspension > Rim Style > nine Bodywork parts > Respray > exit. Arrival wheels are the ones in the car's original file
+(a Work CR Kai-style 10-spoke: the Drive folder has no Toyota factory wheel; told the owner). All 38 stills and 104 whip frames rendered again.
+Checked by looking: the new navigation (8 frames), all 12 purchase frames, one frame of each whip, the wheel close-up fill (three passes) and
+two whips with held row rules (fixed, re-rendered, spliced; frame count 1,278). Audio by measurement as before; radio start moved to 49.15 s
+so its break still falls on the card.
+Still weak: the arrival wheel is not OEM; the stock car's dark gap behind the front arch shows on the wheel close-up; a faint beige strip
+at the top of the wheel close-up left of the car; earlier weak points unchanged.
