@@ -206,3 +206,8 @@ no new export yet (waiting on the length decision).
 - s10 reframed: high front view, lens 30, aimed between the cars. Both cars fully in frame (the NC was cut off at the left edge).
 - Only s10 re-rendered. Audio -14.0 LUFS, TP -1.8 dBFS.
 - Still preview quality: 540x960, 15 fps, 16 samples, upscaled. Full-quality render waits on the user's decision (cloud CPU about 30 h by estimate, or the GPU worker once installed).
+
+## v2.6 (full quality, in progress)
+- User: "get rid of the weird glistening from the reflections and render the full quality shot", on the GPU PC.
+- Glistening: the lamp heads and the neon strip reflected in the wet asphalt as noisy speckle. Both are now hidden from glossy rays (the spot lamps still give the highlights); the asphalt has no bump and roughness 0.28-0.42. Checked on s10 and s05 stills.
+- gpujob on the drive: 13 shots, 1,542 frames, 1080x1920, 30 fps (15 fps keys, x2 time remap), 64 spp. Assemble with `HQ=1 python3 tools/post.py`.

@@ -259,11 +259,13 @@ def lot_env():
     g = bpy.context.object; g.name = "asphalt"
     m, nt, out = SR.new_mat("asphalt")
     p = SR.principled(nt, (0.018, 0.018, 0.02, 1), 0.22, 0.0)
-    noise = nt.nodes.new("ShaderNodeTexNoise"); noise.inputs["Scale"].default_value = 3.0
-    ramp = nt.nodes.new("ShaderNodeMapRange"); ramp.inputs["To Min"].default_value = 0.08; ramp.inputs["To Max"].default_value = 0.55
+    noise = nt.nodes.new("ShaderNodeTexNoise"); noise.inputs["Scale"].default_value = 1.2
+    ramp = nt.nodes.new("ShaderNodeMapRange"); ramp.inputs["To Min"].default_value = 0.28; ramp.inputs["To Max"].default_value = 0.42
     nt.links.new(noise.outputs["Fac"], ramp.inputs["Value"]); nt.links.new(ramp.outputs["Result"], p.inputs["Roughness"])
-    bump = nt.nodes.new("ShaderNodeBump"); bump.inputs["Strength"].default_value = 0.08
-    n2 = nt.nodes.new("ShaderNodeTexNoise"); n2.inputs["Scale"].default_value = 140
+    bump = nt.nodes.new("ShaderNodeBump"); bump.inputs["Strength"].default_value = 0.0
+    # v2.6 (user: "weird glistening from the reflections"): the fine bump (scale 140, 0.08) broke the neon and lamp reflections into
+    # sparkles that shimmered frame to frame; a soft, coarse bump keeps the wet look with smooth reflections
+    n2 = nt.nodes.new("ShaderNodeTexNoise"); n2.inputs["Scale"].default_value = 9
     nt.links.new(n2.outputs["Fac"], bump.inputs["Height"]); nt.links.new(bump.outputs["Normal"], p.inputs["Normal"])
     nt.links.new(p.outputs[0], out.inputs[0]); g.data.materials.append(m)
     # parking lines
@@ -280,11 +282,12 @@ def lot_env():
         o = bpy.data.objects.new("sodium", d); bpy.context.scene.collection.objects.link(o); o.location = (x, y, 6.5)
         bpy.ops.mesh.primitive_cylinder_add(radius=0.06, depth=6.5, location=(x, y, 3.25)); bpy.context.object.data.materials.append(pm)
         bpy.ops.mesh.primitive_cube_add(size=1, location=(x, y, 6.55)); h = bpy.context.object; h.scale = (0.5, 0.25, 0.08); h.data.materials.append(em)
+        h.visible_glossy = False   # v2.6: the small bright lamp head reflected in the wet ground as noisy speckle ("glistening"); the spot still gives the highlight
     # cool fill + a distant cyan neon strip and dim building windows for depth
     d = bpy.data.lights.new("fill", "AREA"); d.energy = 600; d.size = 10; d.color = (0.45, 0.6, 1.0)
     o = bpy.data.objects.new("fill", d); bpy.context.scene.collection.objects.link(o); o.location = (0, 0, 12)
     nm, nnt, nout = SR.new_mat("neon"); ne = SR.emission(nnt, (0.25, 0.9, 1.0, 1), 25); nnt.links.new(ne.outputs[0], nout.inputs[0])
-    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 22, 4)); s = bpy.context.object; s.scale = (14, 0.1, 0.12); s.data.materials.append(nm)
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 22, 4)); s = bpy.context.object; s.scale = (14, 0.1, 0.12); s.data.materials.append(nm); s.visible_glossy = False   # v2.6: same speckle, in teal
     wm, wnt, wout = SR.new_mat("windows"); we = SR.emission(wnt, (1.0, 0.75, 0.45, 1), 0.6); wnt.links.new(we.outputs[0], wout.inputs[0])
     bm, bnt, bout = SR.new_mat("bldg"); bb = SR.principled(bnt, (0.01, 0.01, 0.012, 1), 0.8); bnt.links.new(bb.outputs[0], bout.inputs[0])
     import random
