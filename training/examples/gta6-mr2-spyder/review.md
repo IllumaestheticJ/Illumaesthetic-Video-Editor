@@ -73,3 +73,9 @@ Checked by measurement: speech band back at room tone after each of 12 purchases
 Still weak: no radio bed (clip not supplied; shop section 42.1 s against 28.8 s of music); the MR2 larger than life against the room; the
 wing's finish (black) and the exhaust placement are mine; the stock car shows a dark gap behind the front wheel arch at the sill (in the
 published model, not asked about); background beside the car invented in every view; a small mirrored game icon beside the panel on the rear view.
+
+## v3 (2026-11-21) - radio bed
+Owner: "I added music to Moosic folder for the background GTA6 radio" (a 98.5 s phone screen recording of a YouTube "GTA VI Club Radio" mix).
+Output: `/home/user/media/work/out/gta6-mr2-spyder_v3.mp4`, 44.6 s. Picture as v2; sound = v2 + the radio as one unbroken bed (edit log).
+Measured: bed about -32 dB between events, purchases and the line 5-7 dB over it, music's break on the cut to the card. Not checked by ear:
+level, how muffled it sounds, and whether the phone recording carries any notification sound are for the owner to judge.

@@ -10,3 +10,4 @@
 {"ts": "2026-11-20T22:41:04Z", "project": "gta6-mr2-spyder", "at": null, "category": "scan-look", "note": "v1: the polygon quality of the model is also visibly low", "by": "owner", "promoted": false}
 {"ts": "2026-11-20T22:51:59Z", "project": "gta6-mr2-spyder", "at": null, "category": "text", "note": "v1: relabel 'Diffuser V1+' to 'Rear Diffuser'", "by": "owner", "promoted": false}
 {"ts": "2026-11-20T23:18:19Z", "project": "gta6-mr2-spyder", "at": null, "category": "technical", "note": "v1 (asked): background fill by AI through Higgsfield? Owner: no, local only", "by": "owner", "promoted": false}
+{"ts": "2026-11-21T00:32:44Z", "project": "gta6-mr2-spyder", "at": null, "category": "audio", "note": "v2: owner added the radio music to Dropbox /Moosic ('Video Nov 20 2026, 4 05 38 PM.mp4') for the background GTA 6 radio", "by": "owner", "promoted": false}
