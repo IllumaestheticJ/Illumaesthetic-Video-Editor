@@ -200,3 +200,9 @@ no new export yet (waiting on the length decision).
 - The label's percent line is now computed from the prices (it was a fixed "20% OFF").
 - The bumper is not on the "20% OFF" end card: a 5% row under that headline would mislead.
 - Text only; no re-render. Audio -14.0 LUFS, TP -1.8 dBFS.
+
+## v2.5 (58.9 s)
+- Hardtop label now "HARDTOP / MR2 SPYDER · RELEASING 2027" (user's wording; overrides the no-dates rule for this label).
+- s10 reframed: high front view, lens 30, aimed between the cars. Both cars fully in frame (the NC was cut off at the left edge).
+- Only s10 re-rendered. Audio -14.0 LUFS, TP -1.8 dBFS.
+- Still preview quality: 540x960, 15 fps, 16 samples, upscaled. Full-quality render waits on the user's decision (cloud CPU about 30 h by estimate, or the GPU worker once installed).
